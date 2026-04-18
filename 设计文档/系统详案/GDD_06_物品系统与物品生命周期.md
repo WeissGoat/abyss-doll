@@ -80,14 +80,21 @@
 ---
 
 ### 2.3 触发组件（Trigger Component）— 可选
-定义物品在战斗中如何"发作"。
+定义物品在战斗中如何发动，以及它的消耗规则机制。核心采用《背包英雄》式的 AP + 次数限制模型。
 
-#### 主动型（Active）
-物品有充能条，满后自动或手动触发。
+#### 1. 使用次数限制（Usage Limit）
+战斗物品按使用容差必须划分为以下三类之一：
+- **`无限（Unlimited）`**：本身不消耗，一回合内只要有足够的 AP，就可以无限次点击使用（如标准的平砍短剑）。
+- **`单局限次（PerBattle）`**：在一次战斗中只能使用固定次数（例如只能点 3 次），用完后该物品变灰无法点击，下一场战斗开始时恢复次数（如特殊的充能魔杖、厚重装甲板）。
+- **`一次性消耗（Consumable）`**：点完后物品直接从背包中消失，永久销毁（如恢复血药、一次性高额护盾贴片）。
+
+#### 2. 主动型（Active - 攻击类）
+消耗 AP 由玩家手动点击触发连击或伤害。
 ```json
 {
   "TriggerType": "Active",
-  "FillTime": 3.5,        // 充能时间（秒）
+  "CostAP": 1,            // 需要消耗的AP
+  "UsageType": "Unlimited", // 无限次数
   "OnFire": {
     "ActionType": "DamageEnemy",
     "Value": 12,
@@ -96,8 +103,23 @@
 }
 ```
 
-#### 被动型（Passive）
-监听特定事件，满足条件时自动触发。
+#### 3. 主动型（Active - 防具加盾类）
+消耗 AP 手动获取护盾。典型的《背包英雄》防御机制。
+```json
+{
+  "TriggerType": "Active",
+  "CostAP": 1,
+  "UsageType": "PerBattle",
+  "MaxUses": 3,           // 本场战斗只能用3次
+  "OnFire": {
+    "ActionType": "AddBlock",
+    "Value": 8            // 点击获得8点护盾
+  }
+}
+```
+
+#### 4. 被动型（Passive）
+不消耗 AP，无需点击。监听特定事件自动触发。
 ```json
 {
   "TriggerType": "Passive",
@@ -111,11 +133,13 @@
 }
 ```
 
-#### 消耗型（Consumable）
-需要玩家手动拖拽到目标上使用，使用后物品销毁并释放空间。
+#### 5. 消耗型（Consumable）
+纯一次性消耗，用完直接腾出格子。
 ```json
 {
   "TriggerType": "Consumable",
+  "CostAP": 0,            // 有些药水喝了不扣AP以作补偿
+  "UsageType": "Consumable",
   "OnUse_Target": "Self",
   "OnUse": {
     "ActionType": "ModifyHP",
