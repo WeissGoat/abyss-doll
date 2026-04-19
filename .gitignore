@@ -46,3 +46,9 @@ UnityClient/*.app
 # OS generated
 .DS_Store
 Thumbs.db
+
+# --- 项目专属忽略配置 ---
+# 策划数据表源在外部的 `配置表(JSON)` 目录
+# 引擎内 StreamingAssets/Configs 下的文件仅为脚本同步副本，无需进入版本控制，避免冲突。
+UnityClient/Assets/StreamingAssets/Configs/
+UnityClient/Assets/StreamingAssets/Configs.meta
