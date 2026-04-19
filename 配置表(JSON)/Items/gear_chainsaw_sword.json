@@ -5,44 +5,15 @@
   "Rarity": "Rare",
   "BaseValue": 1200,
   "Grid": {
-    "Shape": [
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        1
-      ],
-      [
-        0,
-        2
-      ],
-      [
-        1,
-        0
-      ],
-      [
-        1,
-        1
-      ],
-      [
-        1,
-        2
-      ]
-    ],
+    "Shape": [[0,0], [0,1], [0,2], [1,0], [1,1], [1,2]],
     "GridCost": 6
   },
   "Combat": {
-    "TriggerType": "OnCooldown",
-    "Cooldown": 3,
+    "TriggerType": "Manual",
+    "APCost": 3,
     "DamageType": "Physical",
-    "BaseValue": 270,
-    "AdjacencyBuffs": []
+    "BaseValue": 90,
+    "Effects": []
   },
-  "Tags": [
-    "Melee",
-    "Heavy",
-    "Mechanical"
-  ]
+  "Tags": ["Melee", "Heavy", "Mechanical"]
 }

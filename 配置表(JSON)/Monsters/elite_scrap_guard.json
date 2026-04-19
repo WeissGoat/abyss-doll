@@ -3,21 +3,12 @@
   "Name": "废铁守卫 (守门人)",
   "Layer": 1,
   "HP": 150,
-  "AttackCooldown": 3,
+  "AttacksPerTurn": 1,
   "DamageValue": 45,
   "GridInterference": "None",
   "LootPool": [
-    {
-      "ItemID": "mat_core_tier1",
-      "Weight": 100
-    },
-    {
-      "ItemID": "gear_tactical_blade",
-      "Weight": 50
-    },
-    {
-      "ItemID": "loot_rusty_coil",
-      "Weight": 100
-    }
+    {"ItemID": "mat_core_tier1", "Weight": 100},
+    {"ItemID": "gear_tactical_blade", "Weight": 50},
+    {"ItemID": "loot_rusty_coil", "Weight": 100}
   ]
 }

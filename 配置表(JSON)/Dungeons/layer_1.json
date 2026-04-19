@@ -3,10 +3,21 @@
   "Name": "浅层区域",
   "SANCostPerNode": 1,
   "ExpectedNodeCount": 5,
-  "SpawnPool": [
+  "NodePool": [
     {
-      "MonsterID": "mob_scavenger_bug",
-      "Weight": 100
+      "NodeType": "CombatNode",
+      "MonsterIDs": ["mob_scavenger_bug"],
+      "Weight": 60
+    },
+    {
+      "NodeType": "CombatNode",
+      "MonsterIDs": ["mob_scavenger_bug", "mob_scavenger_bug"],
+      "Weight": 30
+    },
+    {
+      "NodeType": "SafeRoomNode",
+      "MonsterIDs": [],
+      "Weight": 10
     }
   ],
   "BossNode": "elite_scrap_guard"

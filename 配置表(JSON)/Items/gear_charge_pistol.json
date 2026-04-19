@@ -5,36 +5,22 @@
   "Rarity": "Rare",
   "BaseValue": 800,
   "Grid": {
-    "Shape": [
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        1
-      ]
-    ],
+    "Shape": [[0,0], [0,1]],
     "GridCost": 2
   },
   "Combat": {
-    "TriggerType": "OnCooldown",
-    "Cooldown": 2,
+    "TriggerType": "Manual",
+    "APCost": 1,
     "DamageType": "Energy",
-    "BaseValue": 40,
-    "AdjacencyBuffs": [
+    "BaseValue": 20,
+    "Effects": [
       {
-        "TargetDirection": "Right",
-        "TargetTags": [
-          "Weapon"
-        ],
-        "EffectType": "DamageMultiplier",
-        "Value": 0.3
+        "EffectID": "DamageMultiplier",
+        "Level": 1,
+        "Target": "Right",
+        "Params": [0.3]
       }
     ]
   },
-  "Tags": [
-    "Ranged",
-    "Energy"
-  ]
+  "Tags": ["Ranged", "Energy"]
 }

@@ -3,7 +3,7 @@
   "Name": "酸液软体",
   "Layer": 2,
   "HP": 80,
-  "AttackCooldown": 2.5,
+  "AttacksPerTurn": 1,
   "DamageValue": 30,
   "GridInterference": "ReduceDamage",
   "GridInterferenceParams": {
@@ -12,13 +12,7 @@
     "DurationTurns": 1
   },
   "LootPool": [
-    {
-      "ItemID": "loot_rusty_coil",
-      "Weight": 60
-    },
-    {
-      "ItemID": "loot_toxic_filter",
-      "Weight": 40
-    }
+    {"ItemID": "loot_rusty_coil", "Weight": 60},
+    {"ItemID": "loot_toxic_filter", "Weight": 40}
   ]
 }

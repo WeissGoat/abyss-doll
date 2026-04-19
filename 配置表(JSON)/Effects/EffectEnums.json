@@ -1,0 +1,117 @@
+{
+  "effects": [
+    {
+      "EffectID": "DamageMultiplier",
+      "Name": "伤害乘区增幅",
+      "Type": "Buff",
+      "TriggerTiming": "Passive",
+      "Description": "按百分比提升目标武器造成的最终伤害。",
+      "ConfigSchema": {
+        "Level": "int (可选): 效果的等级，用于成长系数。默认填 1。",
+        "Target": "enum (必填): 生效目标方向，如 Right(右侧), Left(左侧), Global(全局/整个背包), Self(自身)。",
+        "Params": [
+          "Params[0] (float): 增伤比例。例如填 0.3 代表提升 30% 伤害。"
+        ]
+      }
+    },
+    {
+      "EffectID": "AddRuntimeShield",
+      "Name": "单次叠加护盾",
+      "Type": "Action",
+      "TriggerTiming": "OnUse",
+      "Description": "为使用者叠加一次性的战斗护盾（通常用于消耗 AP 举盾）。护盾会在本回合结束时清空。",
+      "ConfigSchema": {
+        "Level": "int (可选): 护盾等级。默认填 1。",
+        "Target": "enum (必填): 生效目标方向，通常填 Self(自身)。",
+        "Params": [
+          "Params[0] (float): 护盾值。例如填 10.0 代表叠加 10 点护盾。"
+        ]
+      }
+    },
+    {
+      "EffectID": "AddRuntimeShieldOnTurnStart",
+      "Name": "回合开始叠盾",
+      "Type": "Buff",
+      "TriggerTiming": "OnTurnStart",
+      "Description": "在玩家每个回合开始时，自动为玩家叠加一定的战斗护盾（通常用于被动防具）。",
+      "ConfigSchema": {
+        "Level": "int (可选): 护盾等级。默认填 1。",
+        "Target": "enum (必填): 生效目标方向，通常填 Self(自身)。",
+        "Params": [
+          "Params[0] (float): 每回合自动叠加的护盾值。例如填 15.0 代表每回合初给 15 盾。"
+        ]
+      }
+    },
+    {
+      "EffectID": "Heal",
+      "Name": "恢复生命值",
+      "Type": "Action",
+      "TriggerTiming": "OnUse",
+      "Description": "直接恢复目标的生命值 (HP)，不超过其生命值上限。",
+      "ConfigSchema": {
+        "Level": "int (可选): 恢复等级。默认填 1。",
+        "Target": "enum (必填): 生效目标方向，通常填 Self(自身)。",
+        "Params": [
+          "Params[0] (float): 恢复的生命值点数。例如填 30.0 代表恢复 30 HP。"
+        ]
+      }
+    },
+    {
+      "EffectID": "RestoreSAN",
+      "Name": "恢复理智值",
+      "Type": "Action",
+      "TriggerTiming": "OnUse",
+      "Description": "直接恢复目标的理智值 (SAN)，不超过其理智值上限。",
+      "ConfigSchema": {
+        "Level": "int (可选): 恢复等级。默认填 1。",
+        "Target": "enum (必填): 生效目标方向，通常填 Self(自身)。",
+        "Params": [
+          "Params[0] (float): 恢复的理智值点数。例如填 20.0 代表恢复 20 SAN。"
+        ]
+      }
+    },
+    {
+      "EffectID": "RestoreSANOnCombatEnd",
+      "Name": "战后理智回溯",
+      "Type": "Buff",
+      "TriggerTiming": "OnCombatEnd",
+      "Description": "当一场深渊战斗节点胜利并结束时，自动为魔偶恢复理智值（通常用于义体插件）。",
+      "ConfigSchema": {
+        "Level": "int (可选): 恢复等级。默认填 1。",
+        "Target": "enum (必填): 生效目标方向，义体插件通常填 Global(全局)。",
+        "Params": [
+          "Params[0] (float): 每次战斗结束恢复的理智值点数。例如填 2.0。"
+        ]
+      }
+    },
+    {
+      "EffectID": "ReduceDamage",
+      "Name": "削弱伤害",
+      "Type": "Debuff",
+      "TriggerTiming": "OnUse",
+      "Description": "（怪物干涉技能）强行按比例削弱目标武器的伤害输出。",
+      "ConfigSchema": {
+        "Level": "int (可选): 减益等级。默认填 1。",
+        "Target": "enum (必填): 生效目标方向，怪物通常填 RandomWeapon(随机武器)。",
+        "Params": [
+          "Params[0] (float): 削弱比例。例如 0.5 代表伤害减半。",
+          "Params[1] (float): 持续回合数。例如 1.0 代表持续 1 回合。"
+        ]
+      }
+    },
+    {
+      "EffectID": "AddCursedItem",
+      "Name": "强塞诅咒物品",
+      "Type": "Debuff",
+      "TriggerTiming": "OnUse",
+      "Description": "（怪物干涉技能）在目标背包的空位中强行生成并塞入一个垃圾战利品，通常带有不可丢弃的 Cursed 标签。",
+      "ConfigSchema": {
+        "Level": "int (可选): 减益等级。默认填 1。",
+        "Target": "enum (必填): 生效目标方向，怪物通常填 PlayerGrid(玩家背包)。",
+        "Params": [
+          "Params[0] (string): 强制塞入的 ConfigID。注意，这里虽然是字符串，但在解析时由程序映射对应逻辑。"
+        ]
+      }
+    }
+  ]
+}

@@ -5,22 +5,15 @@
   "Rarity": "Common",
   "BaseValue": 50,
   "Grid": {
-    "Shape": [
-      [
-        0,
-        0
-      ]
-    ],
+    "Shape": [[0,0]],
     "GridCost": 1
   },
   "Combat": {
     "TriggerType": "Manual",
-    "Cooldown": 0,
+    "APCost": 1,
     "DamageType": "Heal",
     "BaseValue": 30,
-    "AdjacencyBuffs": []
+    "Effects": []
   },
-  "Tags": [
-    "Medical"
-  ]
+  "Tags": ["Medical"]
 }

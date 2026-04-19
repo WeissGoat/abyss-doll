@@ -5,27 +5,22 @@
   "Rarity": "Common",
   "BaseValue": 100,
   "Grid": {
-    "Shape": [
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        1
-      ]
-    ],
+    "Shape": [[0,0], [0,1]],
     "GridCost": 2
   },
   "Combat": {
-    "TriggerType": "OnTakeDamage",
-    "Cooldown": 2,
+    "TriggerType": "Manual",
+    "APCost": 1,
     "DamageType": "Shield",
-    "BaseValue": 10,
-    "AdjacencyBuffs": []
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "AddRuntimeShield",
+        "Level": 1,
+        "Target": "Self",
+        "Params": [10.0]
+      }
+    ]
   },
-  "Tags": [
-    "Defense",
-    "Fragile"
-  ]
+  "Tags": ["Defense", "Fragile"]
 }

@@ -11,7 +11,7 @@
 | `Name` | string | 怪物显示名称 | |
 | `Layer` | int | 推荐出没的深渊层数 | 用于标识怪物的数值跨度级别 |
 | `HP` | int | 怪物生命值上限 | 测试 DPS 输出检测的沙袋血量 |
-| `AttackCooldown`| float | 怪物的攻击间隔时间（秒）| 决定了玩家生存端的防御压力 |
+| `AttacksPerTurn`| int | 怪物每回合可执行的攻击次数| 决定了玩家生存端的单回合爆发压力 |
 | `DamageValue` | int | 怪物每次攻击造成的基础伤害 | 扣除玩家防御后的净伤害 |
 | `LootPool` | array | 击败该怪物后触发的掉落池 | 采用权重随机体系（见下表） |
 | `GridInterference`| enum | **网格干涉能力（核心特色）** | 怪物对玩家背包系统直接造成的影响 |

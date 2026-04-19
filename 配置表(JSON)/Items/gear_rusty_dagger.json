@@ -5,26 +5,15 @@
   "Rarity": "Common",
   "BaseValue": 150,
   "Grid": {
-    "Shape": [
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        1
-      ]
-    ],
+    "Shape": [[0,0], [0,1]],
     "GridCost": 2
   },
   "Combat": {
-    "TriggerType": "OnCooldown",
-    "Cooldown": 1,
+    "TriggerType": "Manual",
+    "APCost": 1,
     "DamageType": "Physical",
     "BaseValue": 15,
-    "AdjacencyBuffs": []
+    "Effects": []
   },
-  "Tags": [
-    "Melee"
-  ]
+  "Tags": ["Melee"]
 }

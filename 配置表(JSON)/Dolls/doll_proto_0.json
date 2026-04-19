@@ -4,6 +4,8 @@
   "Stats": {
     "HP_Max": 100,
     "SAN_Max": 50,
+    "MaxAP": 3,
+    "APRegen": 3,
     "Power": 5,
     "Compute": 5,
     "Charm": 2

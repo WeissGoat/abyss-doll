@@ -3,10 +3,21 @@
   "Name": "污染矿带",
   "SANCostPerNode": 2,
   "ExpectedNodeCount": 8,
-  "SpawnPool": [
+  "NodePool": [
     {
-      "MonsterID": "mob_acid_slime",
-      "Weight": 100
+      "NodeType": "CombatNode",
+      "MonsterIDs": ["mob_acid_slime"],
+      "Weight": 70
+    },
+    {
+      "NodeType": "CombatNode",
+      "MonsterIDs": ["mob_acid_slime", "mob_acid_slime"],
+      "Weight": 20
+    },
+    {
+      "NodeType": "SafeRoomNode",
+      "MonsterIDs": [],
+      "Weight": 10
     }
   ],
   "BossNode": "elite_mutant_amalgam"

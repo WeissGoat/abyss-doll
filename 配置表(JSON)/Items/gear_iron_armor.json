@@ -5,35 +5,22 @@
   "Rarity": "Uncommon",
   "BaseValue": 400,
   "Grid": {
-    "Shape": [
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        1
-      ],
-      [
-        1,
-        0
-      ],
-      [
-        1,
-        1
-      ]
-    ],
+    "Shape": [[0,0], [0,1], [1,0], [1,1]],
     "GridCost": 4
   },
   "Combat": {
-    "TriggerType": "OnTakeDamage",
-    "Cooldown": 4,
+    "TriggerType": "Passive",
+    "APCost": 0,
     "DamageType": "Shield",
-    "BaseValue": 40,
-    "AdjacencyBuffs": []
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "AddRuntimeShieldOnTurnStart",
+        "Level": 1,
+        "Target": "Self",
+        "Params": [15.0]
+      }
+    ]
   },
-  "Tags": [
-    "Defense",
-    "Heavy"
-  ]
+  "Tags": ["Defense", "Heavy"]
 }

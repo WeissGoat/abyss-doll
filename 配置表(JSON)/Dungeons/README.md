@@ -11,12 +11,13 @@
 | `Name` | string | 该深渊层级的显示名称 | 如 "污染矿带" |
 | `SANCostPerNode` | int | 移动税（理智流失） | **核心痛点：** 玩家每经过一个非安全区节点强制扣除的SAN值。深层此数值应急剧放大。 |
 | `ExpectedNodeCount`| int | 预期生成的节点总长度 | 决定了从入口走到Boss的平均步数 |
-| `SpawnPool` | array | 沿途小怪/精英怪的刷新池 | 采用权重随机系统 (Weighted Pool) |
+| `NodePool` | array | 沿途节点的刷新池 | 采用权重随机系统 (Weighted Pool)，可生成不同类型的节点(战斗/安全区等) |
 | `BossNode` | string | 关底守门人的怪物ID | 指向 `Monsters` 配置表中的精英或BossID |
 
-## SpawnPool (刷新池对象) 内部字段
+## NodePool (节点刷新池对象) 内部字段
 
 | 字段名 | 数据类型 | 注释说明 | 可选项 / 备注 |
 | :--- | :--- | :--- | :--- |
-| `MonsterID` | string | 欲刷新的怪物全局ID | 指向 `Monsters` 目录中的合法ID |
-| `Weight` | int | 随机抽取的权重值 | 权重越高，该怪物在节点出现的概率越大 |
+| `NodeType` | string | 欲刷新的节点类型 | `CombatNode`, `SafeRoomNode` 等 |
+| `MonsterIDs` | array | (如果是战斗节点)怪物的ID列表 | 支持配置多个ID生成群殴节点 |
+| `Weight` | int | 随机抽取的权重值 | 权重越高，该节点在路径中出现的概率越大 |

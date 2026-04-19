@@ -33,8 +33,8 @@
 
 | 字段名 | 数据类型 | 注释说明 | 可选项 / 备注 |
 | :--- | :--- | :--- | :--- |
-| `TriggerType` | enum | 该物品生效（开火/防御）的触发条件 | `OnCooldown`(冷却到了自动打), `OnTakeDamage`(受击时触发格挡), `Manual`(手动点,需耗局内AP) |
-| `Cooldown` | float | 触发冷却时间（秒/回合） | 结合 `BaseValue` 计算该物品的真实秒伤(DPS) |
+| `TriggerType` | enum | 该物品生效（开火/防御）的触发条件 | `Passive`(被动/自动生效), `Manual`(手动点,需耗局内AP) |
+| `APCost` | int | 触发一次消耗的行动点数(AP) | 结合单次伤害计算该物品的AP收益(DPA) |
 | `DamageType` | enum | 输出的效果类型 | `Physical`(物理伤害), `Energy`(能量伤害), `Shield`(产生临时护盾), `Heal`(回血), `RestoreSAN`(回理智) |
 | `BaseValue` | int | 基础伤害/治疗/护盾的数值 | 计算战斗力的基础项 |
 | `AdjacencyBuffs`| array | 连结/拼图增益机制（高级特性） | 当放置在特定位置时触发（见下表） |

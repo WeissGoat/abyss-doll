@@ -5,23 +5,15 @@
   "Rarity": "Common",
   "BaseValue": 80,
   "Grid": {
-    "Shape": [
-      [
-        0,
-        0
-      ]
-    ],
+    "Shape": [[0,0]],
     "GridCost": 1
   },
   "Combat": {
     "TriggerType": "Manual",
-    "Cooldown": 0,
+    "APCost": 1,
     "DamageType": "RestoreSAN",
     "BaseValue": 20,
-    "AdjacencyBuffs": []
+    "Effects": []
   },
-  "Tags": [
-    "Medical",
-    "Mental"
-  ]
+  "Tags": ["Medical", "Mental"]
 }
