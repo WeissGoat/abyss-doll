@@ -88,33 +88,40 @@
 - **`单局限次（PerBattle）`**：在一次战斗中只能使用固定次数（例如只能点 3 次），用完后该物品变灰无法点击，下一场战斗开始时恢复次数（如特殊的充能魔杖、厚重装甲板）。
 - **`一次性消耗（Consumable）`**：点完后物品直接从背包中消失，永久销毁（如恢复血药、一次性高额护盾贴片）。
 
-#### 2. 主动型（Active - 攻击类）
+#### 2. 主动型（Manual - 手动点击类）
 消耗 AP 由玩家手动点击触发连击或伤害。
 ```json
 {
-  "TriggerType": "Active",
+  "TriggerType": "Manual",
   "CostAP": 1,            // 需要消耗的AP
   "UsageType": "Unlimited", // 无限次数
-  "OnFire": {
-    "ActionType": "DamageEnemy",
-    "Value": 12,
-    "DamageType": "Physical"
-  }
+  "Effects": [
+    {
+      "EffectID": "DamageEnemy",
+      "Level": 1,
+      "Target": "EnemyTarget",
+      "Params": [12.0]
+    }
+  ]
 }
 ```
 
-#### 3. 主动型（Active - 防具加盾类）
+#### 3. 主动型（Manual - 防具加盾类）
 消耗 AP 手动获取护盾。典型的《背包英雄》防御机制。
 ```json
 {
-  "TriggerType": "Active",
+  "TriggerType": "Manual",
   "CostAP": 1,
   "UsageType": "PerBattle",
   "MaxUses": 3,           // 本场战斗只能用3次
-  "OnFire": {
-    "ActionType": "AddBlock",
-    "Value": 8            // 点击获得8点护盾
-  }
+  "Effects": [
+    {
+      "EffectID": "AddRuntimeShield",
+      "Level": 1,
+      "Target": "Self",
+      "Params": [8.0]
+    }
+  ]
 }
 ```
 
@@ -137,14 +144,17 @@
 纯一次性消耗，用完直接腾出格子。
 ```json
 {
-  "TriggerType": "Consumable",
+  "TriggerType": "Manual",
   "CostAP": 0,            // 有些药水喝了不扣AP以作补偿
   "UsageType": "Consumable",
-  "OnUse_Target": "Self",
-  "OnUse": {
-    "ActionType": "ModifyHP",
-    "Value": 30
-  }
+  "Effects": [
+    {
+      "EffectID": "Heal",
+      "Level": 1,
+      "Target": "Self",
+      "Params": [30.0]
+    }
+  ]
 }
 ```
 
@@ -477,4 +487,6 @@
 | 消耗型物品在战斗中因怪物技能被"销毁"（非玩家主动使用） | 触发物品的`OnDestroy`事件。此事件不等同于`OnUse`，不触发使用效果和腾出空间奖励，仅释放格子空间 |
 | 携带委托物（`[委托物]`标签）在战败后被判定为丢失 | 委托物和普通战利品一样遵循"未绑定则丢失"规则。委托失败需玩家重新下潜再次获取，势力订单的截止期限继续倒计时 |
 | 鉴定后发现"未鉴定遗物"是已经拥有的同款遗物 | 若玩家背包/仓库中已存在同`DefinitionID`的遗物实例，系统提示"已持有同款"，但允许继续保留（可拿去研究/出售，不强制销毁） |
+
+"已持有同款"，但允许继续保留（可拿去研究/出售，不强制销毁） |
 
