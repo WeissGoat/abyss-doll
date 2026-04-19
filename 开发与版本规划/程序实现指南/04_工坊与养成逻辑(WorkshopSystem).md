@@ -37,8 +37,34 @@ public class WorkshopSystem {
     }
 }
 ```
+## 2. 升级魔偶底盘 (Upgrade Chassis)
 
-## 2. 制造与装备义体 (Prosthetics System)
+这是玩家追求的最大数值质变（扩充格子）。
+
+```csharp
+public void UpgradeDollChassis(DollEntity doll) {
+    var currentChassisConfig = ConfigManager.GetChassisConfig(doll.Chassis.ChassisID);
+
+    if(currentChassisConfig.UpgradeCost == null) {
+        Debug.Log("已是最高级底盘！"); return;
+    }
+
+    // 包装成 Recipe 来复用扣除逻辑
+    CraftingRecipeConfig tempRecipe = new CraftingRecipeConfig { Cost = currentChassisConfig.UpgradeCost};
+
+    if(CanAfford(tempRecipe, GameManager.Instance.CurrentPlayer)) {
+        DeductCost(tempRecipe, GameManager.Instance.CurrentPlayer);
+
+        // 执行升级
+        string nextID = currentChassisConfig.UpgradeCost.NextChassisID;
+        doll.Chassis = ConfigManager.GetChassisConfig(nextID);
+        // （实际项目中，这里需要将配置表的静态数据深拷贝为玩家专属数据）
+
+        Debug.Log($"底盘升级成功！现在的尺寸是: {doll.Chassis.GridWidth} x {doll.Chassis.GridHeight}");
+    }
+}
+```
+## 3. 制造与装备义体 (Prosthetics System)
 
 **核心机制：义体是脱离网格独立存在的，相当于传统RPG的全身光环。**
 在我们的架构优化中，义体的效果与物品的效果底层是一模一样的！

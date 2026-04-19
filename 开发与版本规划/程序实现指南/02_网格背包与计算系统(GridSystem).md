@@ -41,7 +41,31 @@ public class BackpackGrid {
 当物品发生 90 度旋转时，原本的局部坐标 `(x, y)` 应当转换为 `(-y, x)`。计算后重新将所有点偏移为以 `(0,0)` 为基准的正数坐标。
 
 **能否放置判定 (CanPlaceItem)：**
-(遍历 `currentShape` 校验越界与 `_gridMatrix` 是否为空即可)
+```csharp
+public bool CanPlaceItem(ItemEntity item, int targetX, int targetY) {
+    // 1. 获取物品当前旋转状态下的所有相对坐标
+    Vector2Int[] currentShape = GetRotatedShape(item.GridComp);
+
+    foreach(var point in currentShape) {
+        int checkX = targetX + point.x;
+        int checkY = targetY + point.y;
+
+        // 2. 越界检测
+        if(checkX < 0 || checkX >= Width || checkY < 0 || checkY >= Height) {
+            return false;
+        }
+
+        // 3. 碰撞检测
+        if(!string.IsNullOrEmpty(_gridMatrix[checkX, checkY])) {
+            // 如果检查的格子不是空位，且不是这个物品自己（移动时），则无法放置
+            if(_gridMatrix[checkX, checkY] != item.InstanceID) {
+                return false;
+            }
+        }
+    }
+    return true; // 完美无瑕，可以放置！
+}
+```
 
 ## 3. 效果工厂与网格解算器 (GridSolver & EffectFactory)
 
