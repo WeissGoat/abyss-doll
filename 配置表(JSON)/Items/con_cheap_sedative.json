@@ -1,0 +1,27 @@
+{
+  "ConfigID": "con_cheap_sedative",
+  "Name": "廉价镇静剂",
+  "ItemType": "Consumable",
+  "Rarity": "Common",
+  "BaseValue": 80,
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ]
+    ],
+    "GridCost": 1
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "Cooldown": 0,
+    "DamageType": "RestoreSAN",
+    "BaseValue": 20,
+    "AdjacencyBuffs": []
+  },
+  "Tags": [
+    "Medical",
+    "Mental"
+  ]
+}

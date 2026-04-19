@@ -1,0 +1,31 @@
+{
+  "ConfigID": "gear_wooden_shield",
+  "Name": "木制小盾",
+  "ItemType": "Armor",
+  "Rarity": "Common",
+  "BaseValue": 100,
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "GridCost": 2
+  },
+  "Combat": {
+    "TriggerType": "OnTakeDamage",
+    "Cooldown": 2,
+    "DamageType": "Shield",
+    "BaseValue": 10,
+    "AdjacencyBuffs": []
+  },
+  "Tags": [
+    "Defense",
+    "Fragile"
+  ]
+}

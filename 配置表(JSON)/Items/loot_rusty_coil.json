@@ -1,0 +1,24 @@
+{
+  "ConfigID": "loot_rusty_coil",
+  "Name": "生锈线圈",
+  "ItemType": "Loot",
+  "Rarity": "Uncommon",
+  "BaseValue": 250,
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "GridCost": 2
+  },
+  "Tags": [
+    "Material",
+    "Mechanical"
+  ]
+}

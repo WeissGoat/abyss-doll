@@ -1,0 +1,42 @@
+{
+  "ChassisID": "chassis_lv1_basic",
+  "Level": 1,
+  "GridWidth": 4,
+  "GridHeight": 4,
+  "GridMask": [
+    [
+      true,
+      true,
+      true,
+      true
+    ],
+    [
+      true,
+      true,
+      true,
+      true
+    ],
+    [
+      true,
+      true,
+      true,
+      true
+    ],
+    [
+      true,
+      true,
+      true,
+      true
+    ]
+  ],
+  "UpgradeCost": {
+    "Money": 1000,
+    "RequiredItems": [
+      {
+        "ConfigID": "mat_core_tier1",
+        "Count": 1
+      }
+    ],
+    "NextChassisID": "chassis_lv2_expanded"
+  }
+}

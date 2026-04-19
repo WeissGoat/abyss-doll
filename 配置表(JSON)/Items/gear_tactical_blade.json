@@ -1,0 +1,35 @@
+{
+  "ConfigID": "gear_tactical_blade",
+  "Name": "战术长刀",
+  "ItemType": "Weapon",
+  "Rarity": "Uncommon",
+  "BaseValue": 350,
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "GridCost": 3
+  },
+  "Combat": {
+    "TriggerType": "OnCooldown",
+    "Cooldown": 1.5,
+    "DamageType": "Physical",
+    "BaseValue": 52,
+    "AdjacencyBuffs": []
+  },
+  "Tags": [
+    "Melee",
+    "Sharp"
+  ]
+}

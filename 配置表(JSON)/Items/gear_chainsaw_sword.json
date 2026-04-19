@@ -1,0 +1,48 @@
+{
+  "ConfigID": "gear_chainsaw_sword",
+  "Name": "链锯大剑",
+  "ItemType": "Weapon",
+  "Rarity": "Rare",
+  "BaseValue": 1200,
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ]
+    ],
+    "GridCost": 6
+  },
+  "Combat": {
+    "TriggerType": "OnCooldown",
+    "Cooldown": 3,
+    "DamageType": "Physical",
+    "BaseValue": 270,
+    "AdjacencyBuffs": []
+  },
+  "Tags": [
+    "Melee",
+    "Heavy",
+    "Mechanical"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "MonsterID": "mob_scavenger_bug",
+  "Name": "拾荒虫",
+  "Layer": 1,
+  "HP": 40,
+  "AttackCooldown": 2,
+  "DamageValue": 10,
+  "GridInterference": "None",
+  "LootPool": [
+    {
+      "ItemID": "loot_gear_scrap",
+      "Weight": 70
+    },
+    {
+      "ItemID": "con_repair_kit",
+      "Weight": 30
+    }
+  ]
+}

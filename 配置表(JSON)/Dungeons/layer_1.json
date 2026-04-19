@@ -1,0 +1,13 @@
+{
+  "LayerID": 1,
+  "Name": "浅层区域",
+  "SANCostPerNode": 1,
+  "ExpectedNodeCount": 5,
+  "SpawnPool": [
+    {
+      "MonsterID": "mob_scavenger_bug",
+      "Weight": 100
+    }
+  ],
+  "BossNode": "elite_scrap_guard"
+}

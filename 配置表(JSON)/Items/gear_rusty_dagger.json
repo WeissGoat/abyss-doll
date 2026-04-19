@@ -1,0 +1,30 @@
+{
+  "ConfigID": "gear_rusty_dagger",
+  "Name": "生锈短剑",
+  "ItemType": "Weapon",
+  "Rarity": "Common",
+  "BaseValue": 150,
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "GridCost": 2
+  },
+  "Combat": {
+    "TriggerType": "OnCooldown",
+    "Cooldown": 1,
+    "DamageType": "Physical",
+    "BaseValue": 15,
+    "AdjacencyBuffs": []
+  },
+  "Tags": [
+    "Melee"
+  ]
+}

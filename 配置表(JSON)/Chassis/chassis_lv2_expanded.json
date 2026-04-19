@@ -1,0 +1,44 @@
+{
+  "ChassisID": "chassis_lv2_expanded",
+  "Level": 2,
+  "GridWidth": 5,
+  "GridHeight": 5,
+  "GridMask": [
+    [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    [
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  ],
+  "UpgradeCost": null
+}

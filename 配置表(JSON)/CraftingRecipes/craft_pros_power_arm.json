@@ -1,0 +1,13 @@
+{
+  "RecipeID": "craft_pros_power_arm",
+  "TargetProstheticID": "pros_power_arm",
+  "Cost": {
+    "Money": 800,
+    "RequiredItems": [
+      {
+        "ConfigID": "loot_gear_scrap",
+        "Count": 3
+      }
+    ]
+  }
+}

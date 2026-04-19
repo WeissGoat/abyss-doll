@@ -1,0 +1,13 @@
+{
+  "RecipeID": "craft_pros_cooling_system",
+  "TargetProstheticID": "pros_cooling_system",
+  "Cost": {
+    "Money": 1000,
+    "RequiredItems": [
+      {
+        "ConfigID": "loot_gear_scrap",
+        "Count": 2
+      }
+    ]
+  }
+}

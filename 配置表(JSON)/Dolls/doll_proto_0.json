@@ -1,0 +1,12 @@
+{
+  "DollID": "doll_proto_0",
+  "Name": "原型机·零",
+  "Stats": {
+    "HP_Max": 100,
+    "SAN_Max": 50,
+    "Power": 5,
+    "Compute": 5,
+    "Charm": 2
+  },
+  "DefaultChassisID": "chassis_lv1_basic"
+}

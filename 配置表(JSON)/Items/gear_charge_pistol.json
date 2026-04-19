@@ -1,0 +1,40 @@
+{
+  "ConfigID": "gear_charge_pistol",
+  "Name": "充能手枪",
+  "ItemType": "Weapon",
+  "Rarity": "Rare",
+  "BaseValue": 800,
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "GridCost": 2
+  },
+  "Combat": {
+    "TriggerType": "OnCooldown",
+    "Cooldown": 2,
+    "DamageType": "Energy",
+    "BaseValue": 40,
+    "AdjacencyBuffs": [
+      {
+        "TargetDirection": "Right",
+        "TargetTags": [
+          "Weapon"
+        ],
+        "EffectType": "DamageMultiplier",
+        "Value": 0.3
+      }
+    ]
+  },
+  "Tags": [
+    "Ranged",
+    "Energy"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "ConfigID": "gear_iron_armor",
+  "Name": "铁片装甲",
+  "ItemType": "Armor",
+  "Rarity": "Uncommon",
+  "BaseValue": 400,
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "GridCost": 4
+  },
+  "Combat": {
+    "TriggerType": "OnTakeDamage",
+    "Cooldown": 4,
+    "DamageType": "Shield",
+    "BaseValue": 40,
+    "AdjacencyBuffs": []
+  },
+  "Tags": [
+    "Defense",
+    "Heavy"
+  ]
+}

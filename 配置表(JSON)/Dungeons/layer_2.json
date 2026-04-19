@@ -1,0 +1,13 @@
+{
+  "LayerID": 2,
+  "Name": "污染矿带",
+  "SANCostPerNode": 2,
+  "ExpectedNodeCount": 8,
+  "SpawnPool": [
+    {
+      "MonsterID": "mob_acid_slime",
+      "Weight": 100
+    }
+  ],
+  "BossNode": "elite_mutant_amalgam"
+}

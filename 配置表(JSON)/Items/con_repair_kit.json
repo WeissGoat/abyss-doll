@@ -1,0 +1,26 @@
+{
+  "ConfigID": "con_repair_kit",
+  "Name": "便携修复剂",
+  "ItemType": "Consumable",
+  "Rarity": "Common",
+  "BaseValue": 50,
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ]
+    ],
+    "GridCost": 1
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "Cooldown": 0,
+    "DamageType": "Heal",
+    "BaseValue": 30,
+    "AdjacencyBuffs": []
+  },
+  "Tags": [
+    "Medical"
+  ]
+}

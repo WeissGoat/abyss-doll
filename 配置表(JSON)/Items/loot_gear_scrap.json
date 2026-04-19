@@ -1,0 +1,20 @@
+{
+  "ConfigID": "loot_gear_scrap",
+  "Name": "废旧齿轮",
+  "ItemType": "Loot",
+  "Rarity": "Common",
+  "BaseValue": 100,
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ]
+    ],
+    "GridCost": 1
+  },
+  "Tags": [
+    "Material",
+    "Mechanical"
+  ]
+}
