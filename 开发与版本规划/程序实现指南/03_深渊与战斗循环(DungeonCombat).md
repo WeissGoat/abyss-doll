@@ -4,7 +4,8 @@
 > **重构亮点：** 
 > 1. 深渊地图采用类似《杀戮尖塔》的预生成树状图节点（NodeBase）。
 > 2. 战斗采用 `FighterEntity` 包装层，区分数据存储与战斗运行状态。
-> 3. 战斗循环改为纯正的手动回合制，由玩家控制回合结束。
+> 3. **新增：** 引入 `CombatFaction`（阵营）概念，支持多对多战斗。
+> 4. 战斗循环改为纯正的手动回合制，由玩家控制回合结束。
 
 ## 1. 深渊地图生成与管理 (Dungeon Tree)
 
@@ -22,9 +23,9 @@ public abstract class NodeBase {
 }
 
 public class CombatNode : NodeBase {
-    public string MonsterID;
+    public List<string> MonsterIDs; // 支持多个怪物
     public override void OnEnterNode() {
-        GameManager.Instance.EnterCombatScene(MonsterID);
+        GameManager.Instance.EnterCombatScene(MonsterIDs);
     }
 }
 
@@ -60,13 +61,35 @@ public class DungeonManager : MonoBehaviour {
 }
 ```
 
-## 2. 战斗包装器 (FighterEntity)
+## 2. 战斗包装器与阵营 (Fighter & Faction)
 
 战斗发生时，决不能直接在原生的 `DollEntity` 或 `MonsterEntity` 上写乱七八糟的战斗逻辑。需要一层只存活在战斗场景的 Wrapper。
+同时，引入**阵营 (Faction)** 的概念，以便未来支持“多打多”或者“召唤物”的战局。
 
 ```csharp
+// 战斗阵营包装器
+public class CombatFaction {
+    public enum FactionType { Player, Enemy, Neutral }
+    public FactionType Type;
+    public List<FighterEntity> Fighters = new List<FighterEntity>();
+    
+    public bool IsWipedOut() {
+        // 检查阵营是否全灭
+        return Fighters.TrueForAll(f => f.RuntimeHP <= 0);
+    }
+    
+    public void OnTurnStart() {
+        foreach(var f in Fighters) if(f.RuntimeHP > 0) f.OnTurnStart();
+    }
+    
+    public void OnTurnEnd() {
+        foreach(var f in Fighters) if(f.RuntimeHP > 0) f.OnTurnEnd();
+    }
+}
+
 // 战斗者基类
 public abstract class FighterEntity {
+    public CombatFaction ParentFaction; // 所属阵营
     public int RuntimeHP;
     public int RuntimeMaxHP;
     public int RuntimeShield;
@@ -87,7 +110,8 @@ public abstract class FighterEntity {
 public class DollFighter : FighterEntity {
     public DollEntity DataRef; // 指向源数据
     
-    public DollFighter(DollEntity doll) {
+    public DollFighter(DollEntity doll, CombatFaction faction) {
+        ParentFaction = faction;
         DataRef = doll;
         RuntimeHP = doll.HP_Current;
         RuntimeMaxHP = doll.HP_Max;
@@ -102,7 +126,8 @@ public class DollFighter : FighterEntity {
 public class MonsterFighter : FighterEntity {
     public MonsterEntity DataRef;
     
-    public MonsterFighter(MonsterEntity monster) {
+    public MonsterFighter(MonsterEntity monster, CombatFaction faction) {
+        ParentFaction = faction;
         DataRef = monster;
         RuntimeHP = monster.HP;
         RuntimeMaxHP = monster.HP;
@@ -117,26 +142,36 @@ public class MonsterFighter : FighterEntity {
 
 ## 3. 手动回合制循环机 (Turn-Based Combat System)
 
-废弃了跑条倒计时，改为由玩家主动点击“回合结束”。
+系统按照**阵营**来流转回合。这样即使后期加入“人偶的无人机僚机”或者“3个怪物”，系统依然稳如泰山。
 
 ```csharp
 public class CombatSystem : MonoBehaviour {
-    public DollFighter PlayerFighter;
-    public MonsterFighter EnemyFighter;
+    public CombatFaction PlayerFaction;
+    public CombatFaction EnemyFaction;
     
     public enum CombatState { PlayerTurn, EnemyTurn, End }
     public CombatState CurrentState;
 
-    public void StartCombat(string monsterID) {
-        PlayerFighter = new DollFighter(GameManager.Instance.CurrentPlayer.ActiveDoll);
-        EnemyFighter = new MonsterFighter(ConfigManager.GetMonster(monsterID));
+    public void StartCombat(List<string> monsterIDs) {
+        // 1. 初始化玩家阵营
+        PlayerFaction = new CombatFaction { Type = CombatFaction.FactionType.Player };
+        PlayerFaction.Fighters.Add(new DollFighter(GameManager.Instance.CurrentPlayer.ActiveDoll, PlayerFaction));
+        // 未来可以这里加召唤物：PlayerFaction.Fighters.Add(new DroneFighter(...));
         
+        // 2. 初始化敌人阵营
+        EnemyFaction = new CombatFaction { Type = CombatFaction.FactionType.Enemy };
+        foreach(var id in monsterIDs) {
+            EnemyFaction.Fighters.Add(new MonsterFighter(ConfigManager.GetMonster(id), EnemyFaction));
+        }
+        
+        // 3. 游戏开始
         StartPlayerTurn();
     }
     
     public void StartPlayerTurn() {
         CurrentState = CombatState.PlayerTurn;
-        PlayerFighter.OnTurnStart();
+        PlayerFaction.OnTurnStart();
+        
         // 恢复可用 AP 点数
         // 解锁 UI，等待玩家拖拽物品或手动点击武器
     }
@@ -144,25 +179,45 @@ public class CombatSystem : MonoBehaviour {
     // UI 按钮绑定的事件：玩家操作结束
     public void EndPlayerTurn() {
         if(CurrentState != CombatState.PlayerTurn) return;
-        PlayerFighter.OnTurnEnd();
+        PlayerFaction.OnTurnEnd();
+        
+        // 检测敌人是否已经全灭（如果被反伤打死等）
+        if (EnemyFaction.IsWipedOut()) { HandleVictory(); return; }
         
         StartEnemyTurn();
     }
     
     public void StartEnemyTurn() {
         CurrentState = CombatState.EnemyTurn;
-        EnemyFighter.OnTurnStart();
+        EnemyFaction.OnTurnStart();
         
-        // 怪物执行攻击
-        EnemyFighter.Attack(PlayerFighter);
+        // 怪物依次执行攻击
+        foreach(var enemy in EnemyFaction.Fighters) {
+            if(enemy.RuntimeHP > 0 && !PlayerFaction.IsWipedOut()) {
+                // 简单的AI：打玩家阵营里的第一个活着的目标
+                var target = PlayerFaction.Fighters.Find(f => f.RuntimeHP > 0);
+                enemy.Attack(target);
+            }
+        }
         
-        EnemyFighter.OnTurnEnd();
+        EnemyFaction.OnTurnEnd();
         
-        if(PlayerFighter.RuntimeHP > 0) {
+        if(!PlayerFaction.IsWipedOut()) {
             StartPlayerTurn();
         } else {
             HandleDefeat();
         }
+    }
+    
+    private void HandleVictory() {
+        CurrentState = CombatState.End;
+        // 结算掉落、同步血量
+        ((DollFighter)PlayerFaction.Fighters[0]).SyncDataBack();
+    }
+    
+    private void HandleDefeat() {
+        CurrentState = CombatState.End;
+        // 处理战败惩罚
     }
 }
 ```
