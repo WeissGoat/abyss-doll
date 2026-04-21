@@ -1,15 +1,21 @@
 using System;
+using UnityEngine;
 
 public class CoreBackend {
     public PlayerProfile CurrentPlayer;
-    // public WorkshopSystem Workshop; // To be implemented in later stages
-    // public CombatSystem Combat;     // To be implemented in later stages
-    
+    public WorkshopSystem Workshop; // To be implemented in later stages
+    public CombatSystem Combat;     // To be implemented in later stages
+    public DungeonManager Dungeon;
+
     public void InitAllSystems() {
         // 1. Load all configurations from JSON
         ConfigManager.LoadAllConfigs();
         
-        // 2. Initialize Player Profile
+        // 2. Initialize Factories (Reflection)
+        EffectFactory.Initialize();
+        NodeFactory.Initialize();
+        
+        // 3. Initialize Player Profile
         CurrentPlayer = new PlayerProfile();
         CurrentPlayer.UID = Guid.NewGuid().ToString();
         CurrentPlayer.Money = 0;
@@ -20,9 +26,10 @@ public class CoreBackend {
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(templateDoll);
             CurrentPlayer.ActiveDoll = Newtonsoft.Json.JsonConvert.DeserializeObject<DollEntity>(json);
             CurrentPlayer.ActiveDollID = CurrentPlayer.ActiveDoll.DollID;
+            
+            // 初始化魔偶自身的事件监听
+            CurrentPlayer.ActiveDoll.InitializeRuntime();
         }
-        
-        // Initialize other systems here in the future...
     }
     
     public void Tick(float deltaTime) {

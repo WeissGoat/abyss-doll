@@ -9,10 +9,8 @@ public class AddRuntimeShieldEffect : EffectBase {
         _shieldAmount = baseAmount + (Level * 5.0f);
     }
 
-    public override void Apply(ItemEntity provider, ItemEntity target) {
-        // For MVP, just log it. The CombatSystem or the DollFighter will read this buffer when an action is executed.
-        Debug.Log($"[Effect] Active AddRuntimeShield buffer applied. Amount: {_shieldAmount}");
+    public override void ApplyToFighter(FighterEntity fighter, ItemEntity provider) {
+        fighter.AddShield((int)_shieldAmount);
+        Debug.Log($"[Effect] Active shield used from {provider?.Name}. Added {_shieldAmount} shield to {fighter.Name}.");
     }
-    
-    public override void Remove(ItemEntity provider, ItemEntity target) { }
 }

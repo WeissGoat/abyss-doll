@@ -17,6 +17,23 @@ public class DollEntity {
     
     [NonSerialized]
     public object RuntimeGrid; // Use object or interface here to avoid coupling if BackpackGrid is elsewhere
+    
+    // --- 运行时生命周期管理 ---
+    public void InitializeRuntime() {
+        // 订阅系统事件，主动管理自身状态
+        DungeonEventBus.OnNodeEntered += HandleNodeEntered;
+    }
+    
+    public void CleanupRuntime() {
+        DungeonEventBus.OnNodeEntered -= HandleNodeEntered;
+    }
+    
+    private void HandleNodeEntered(NodeBase node, int sanCost) {
+        Status.SAN_Current -= sanCost;
+        if (Status.SAN_Current < 0) Status.SAN_Current = 0;
+        
+        Debug.Log($"[DollEntity:{Name}] Event received! Self-deducted {sanCost} SAN for moving to node {node.NodeID}. Current SAN: {Status.SAN_Current}");
+    }
 }
 
 [Serializable]

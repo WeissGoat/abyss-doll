@@ -31,6 +31,9 @@ public class GameRoot : MonoBehaviour {
 
         // [测试] 运行阶段二的验收测试
         StageTwoTest.RunAcceptanceTest();
+        
+        // [测试] 运行阶段三的验收测试
+        StageThreeTest.RunAcceptanceTest();
     }
     
     void Update() {

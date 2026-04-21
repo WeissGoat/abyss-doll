@@ -40,3 +40,11 @@ public enum TargetDirection {
     AllAdjacent = 5,
     Global = 6
 }
+
+public enum CombatEventType {
+    None = 0,
+    OnTurnStart = 1,
+    OnTurnEnd = 2,
+    OnAttack = 3,
+    OnTakeDamage = 4
+}
