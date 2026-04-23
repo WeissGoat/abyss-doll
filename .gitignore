@@ -52,3 +52,4 @@ Thumbs.db
 # 引擎内 StreamingAssets/Configs 下的文件仅为脚本同步副本，无需进入版本控制，避免冲突。
 UnityClient/Assets/StreamingAssets/Configs/
 UnityClient/Assets/StreamingAssets/Configs.meta
+.idea
