@@ -4,7 +4,7 @@ using UnityEngine;
 [DefaultExecutionOrder(-100)]
 public class GameRoot : MonoBehaviour {
     // Global static access to the backend core
-    public static CoreBackend Core { get; private set; }
+    public static CoreBackend Core { get; set; }
     
     void Awake() {
         // Ensure there is only one instance
@@ -16,8 +16,9 @@ public class GameRoot : MonoBehaviour {
         // Make this object persist across scene loads
         DontDestroyOnLoad(gameObject);
         
-        // [新增] 启动本地文件日志服务
+        // [新增] 启动本地文件日志服务与表现队列 Runner
         gameObject.AddComponent<FileLogger>();
+        gameObject.AddComponent<VisualQueueRunner>();
         
         Debug.Log("[GameRoot] Bootstrapping CoreBackend...");
         
