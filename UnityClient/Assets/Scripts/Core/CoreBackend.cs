@@ -8,6 +8,13 @@ public class CoreBackend {
     public DungeonManager Dungeon;
 
     public void InitAllSystems() {
+        // 在每次初始化黑盒前清掉静态缓存与事件残留，避免测试和热重载出现串线
+        VisualQueue.Clear();
+        VisualQueue.IsHeadless = true;
+        GameEventBus.ResetAllListeners();
+        CombatEventBus.ResetAllListeners();
+        DungeonEventBus.ResetAllListeners();
+
         // 1. Load all configurations from JSON
         ConfigManager.LoadAllConfigs();
         

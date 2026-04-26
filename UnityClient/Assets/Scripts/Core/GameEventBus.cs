@@ -59,4 +59,16 @@ public static class GameEventBus {
     // 瞬间执行的 UI 事件 (不进战斗队列，比如拖拽物品立刻响应)
     public static void PublishItemPlaced(string itemInstanceID, int x, int y) => OnItemPlaced?.Invoke(itemInstanceID, x, y);
     public static void PublishItemRemoved(string itemInstanceID) => OnItemRemoved?.Invoke(itemInstanceID);
+
+    public static void ResetAllListeners() {
+        OnHPChanged = null;
+        OnAPChanged = null;
+        OnSANChanged = null;
+        OnShieldChanged = null;
+        OnDamageDealt = null;
+        OnAttackAction = null;
+        OnTurnStarted = null;
+        OnItemPlaced = null;
+        OnItemRemoved = null;
+    }
 }

@@ -21,9 +21,11 @@ public static class DungeonEventBus {
     
     // 深渊最终结算：参数为 (是否为胜利撤离)
     public static event Action<bool> OnDungeonSettled;
+    public static event Action<DungeonSettlementResult> OnDungeonSettlementPrepared;
     
+    // 领域事件必须同步发生，不能绑在表现队列上等待动画结束
     public static void PublishLayerLoaded() {
-        VisualQueue.Enqueue(new ActionCommand(() => OnLayerLoaded?.Invoke()));
+        OnLayerLoaded?.Invoke();
     }
     
     public static void PublishNodeEntered(NodeBase node, int sanCost) {
@@ -31,24 +33,37 @@ public static class DungeonEventBus {
     }
     
     public static void PublishSafeRoomEntered(NodeBase node) {
-        VisualQueue.Enqueue(new ActionCommand(() => OnSafeRoomEntered?.Invoke(node)));
+        OnSafeRoomEntered?.Invoke(node);
     }
     
     public static void PublishCombatNodeCleared() {
-        VisualQueue.Enqueue(new ActionCommand(() => OnCombatNodeCleared?.Invoke()));
+        OnCombatNodeCleared?.Invoke();
     }
     
     public static void PublishDungeonEvacuated() {
-        VisualQueue.Enqueue(new LogWaitCommand("🎒 玩家选择了带着战利品撤离深渊...", 1f));
-        VisualQueue.Enqueue(new ActionCommand(() => OnDungeonEvacuated?.Invoke()));
+        OnDungeonEvacuated?.Invoke();
     }
     
     public static void PublishDungeonDefeated() {
-        VisualQueue.Enqueue(new LogWaitCommand("💀 玩家在深渊中阵亡了...", 1f));
-        VisualQueue.Enqueue(new ActionCommand(() => OnDungeonDefeated?.Invoke()));
+        OnDungeonDefeated?.Invoke();
     }
     
     public static void PublishDungeonSettled(bool isVictory) {
-        VisualQueue.Enqueue(new ActionCommand(() => OnDungeonSettled?.Invoke(isVictory)));
+        OnDungeonSettled?.Invoke(isVictory);
+    }
+
+    public static void PublishDungeonSettlementPrepared(DungeonSettlementResult result) {
+        OnDungeonSettlementPrepared?.Invoke(result);
+    }
+
+    public static void ResetAllListeners() {
+        OnLayerLoaded = null;
+        OnNodeEntered = null;
+        OnSafeRoomEntered = null;
+        OnCombatNodeCleared = null;
+        OnDungeonEvacuated = null;
+        OnDungeonDefeated = null;
+        OnDungeonSettled = null;
+        OnDungeonSettlementPrepared = null;
     }
 }

@@ -7,4 +7,8 @@ public static class CombatEventBus {
     public static void Publish(CombatEventType phase, CombatFaction activeFaction) {
         OnCombatPhase?.Invoke(phase, activeFaction);
     }
+
+    public static void ResetAllListeners() {
+        OnCombatPhase = null;
+    }
 }

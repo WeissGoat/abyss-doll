@@ -13,6 +13,8 @@ public static class ConfigManager {
     public static Dictionary<string, CraftingRecipeConfig> CraftingRecipes = new Dictionary<string, CraftingRecipeConfig>();
 
     public static void LoadAllConfigs() {
+        ResetAllCaches();
+
         string basePath = Path.Combine(Application.streamingAssetsPath, "Configs");
 
         if (!Directory.Exists(basePath)) {
@@ -36,6 +38,16 @@ public static class ConfigManager {
         LoadConfigsIntoDict(Path.Combine(basePath, "CraftingRecipes"), CraftingRecipes, c => c.RecipeID);
 
         Debug.Log($"[ConfigManager] Configs loaded successfully! Items: {Items.Count}, Monsters: {Monsters.Count}, Dungeons: {Dungeons.Count}");
+    }
+
+    public static void ResetAllCaches() {
+        Dolls.Clear();
+        Chassis.Clear();
+        Items.Clear();
+        Monsters.Clear();
+        Dungeons.Clear();
+        Prosthetics.Clear();
+        CraftingRecipes.Clear();
     }
 
     private static void LoadConfigsIntoDict<K, T>(string dirPath, Dictionary<K, T> dict, System.Func<T, K> keySelector) {
