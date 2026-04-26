@@ -16,6 +16,9 @@ public class MonsterFighter : FighterEntity {
     }
     
     public override void Attack(FighterEntity target, ItemEntity weaponSource = null) {
+        GameEventBus.PublishAttackAction(Name, target.Name, "普通攻击");
+        GameEventBus.PublishDamageDealt(Name, target.Name, DataRef.DamageValue);
+        
         Debug.Log($"[{Name}] attacks [{target.Name}] for {DataRef.DamageValue} damage!");
         target.TakeDamage(DataRef.DamageValue);
     }

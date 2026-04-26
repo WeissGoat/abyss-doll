@@ -5,4 +5,9 @@ public class SafeRoomNode : NodeBase {
         Debug.Log($"[Dungeon] Entered Safe Room Node {NodeID}. You can rest here.");
         // Trigger UI for Safe Room
     }
+
+    public void Evacuate() {
+        Debug.Log($"[Dungeon] Player chose to evacuate at Safe Room {NodeID}.");
+        DungeonEventBus.PublishDungeonEvacuated();
+    }
 }

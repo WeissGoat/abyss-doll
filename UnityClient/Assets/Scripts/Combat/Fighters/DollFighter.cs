@@ -67,11 +67,13 @@ public class DollFighter : FighterEntity {
         
         if (weaponSource.Combat.DamageType == DamageType.Physical.ToString() || weaponSource.Combat.DamageType == DamageType.Energy.ToString()) {
             int dmg = (int)weaponSource.Combat.RuntimeDamage;
+            GameEventBus.PublishAttackAction(Name, target.Name, weaponSource.Name);
             GameEventBus.PublishDamageDealt(Name, target.Name, dmg);
             Debug.Log($"[{Name}] attacks [{target.Name}] with {weaponSource.Name} for {dmg} damage! (AP Left: {CurrentAP})");
             target.TakeDamage(dmg);
         }
         else if (weaponSource.Combat.DamageType == DamageType.Shield.ToString()) {
+            GameEventBus.PublishAttackAction(Name, Name, weaponSource.Name);
             foreach (var effectData in weaponSource.Combat.Effects) {
                 EffectBase effect = EffectFactory.CreateEffect(effectData);
                 if (effect != null) {

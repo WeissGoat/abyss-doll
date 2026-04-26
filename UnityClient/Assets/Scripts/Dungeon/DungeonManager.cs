@@ -61,6 +61,18 @@ public class DungeonLayer {
 public class DungeonManager {
     public DungeonLayer CurrentLayer;
     
+    public DungeonManager() {
+        DungeonEventBus.OnDungeonEvacuated += HandleEvacuate;
+        DungeonEventBus.OnDungeonDefeated += HandleDefeat;
+        DungeonEventBus.OnCombatNodeCleared += HandleCombatNodeCleared;
+    }
+
+    ~DungeonManager() {
+        DungeonEventBus.OnDungeonEvacuated -= HandleEvacuate;
+        DungeonEventBus.OnDungeonDefeated -= HandleDefeat;
+        DungeonEventBus.OnCombatNodeCleared -= HandleCombatNodeCleared;
+    }
+    
     public void LoadLayer(int layerID) {
         if (!ConfigManager.Dungeons.ContainsKey(layerID)) {
             Debug.LogError($"[DungeonManager] Layer {layerID} not found.");
@@ -87,5 +99,51 @@ public class DungeonManager {
         DungeonEventBus.PublishNodeEntered(targetNode, cost);
         
         targetNode.OnEnterNode();
+    }
+
+    private void HandleCombatNodeCleared() {
+        Debug.Log("[DungeonManager] Combat node cleared.");
+        // MVP简化逻辑：如果当前节点没有下一个节点（例如打败了关底 Boss），则自动触发撤离
+        if (CurrentLayer.CurrentNode.NextNodes == null || CurrentLayer.CurrentNode.NextNodes.Count == 0) {
+            Debug.Log("[DungeonManager] Reached the end of the dungeon. Auto-evacuating.");
+            DungeonEventBus.PublishDungeonEvacuated();
+        } else {
+            // 真实游戏中这里会等待玩家在UI上选择下一个节点
+            Debug.Log("[DungeonManager] Awaiting player to select the next node...");
+            // MVP 自动前往下一个节点（直线路线）
+            MoveToNode(CurrentLayer.CurrentNode.NextNodes[0]);
+        }
+    }
+
+    private void HandleEvacuate() {
+        Debug.Log("<color=green>[DungeonManager] Handling Dungeon Evacuation (Victory/Escape).</color>");
+        
+        var activeDoll = GameRoot.Core.CurrentPlayer.ActiveDoll;
+        if (activeDoll != null) {
+            BackpackGrid grid = activeDoll.RuntimeGrid as BackpackGrid;
+            if (grid != null && grid.ContainedItems.Count > 0) {
+                GameRoot.Core.CurrentPlayer.StashInventory.AddRange(grid.ContainedItems);
+                int count = grid.ContainedItems.Count;
+                grid.ContainedItems.Clear();
+                Debug.Log($"[DungeonManager] {count} items safely transferred from Backpack to StashInventory.");
+            }
+        }
+        
+        DungeonEventBus.PublishDungeonSettled(true);
+    }
+
+    private void HandleDefeat() {
+        Debug.Log("<color=red>[DungeonManager] Handling Dungeon Defeat.</color>");
+        
+        var activeDoll = GameRoot.Core.CurrentPlayer.ActiveDoll;
+        if (activeDoll != null) {
+            BackpackGrid grid = activeDoll.RuntimeGrid as BackpackGrid;
+            if (grid != null) {
+                grid.ContainedItems.Clear();
+                Debug.LogWarning($"[DungeonManager] Player defeated. All items in Backpack have been lost.");
+            }
+        }
+        
+        DungeonEventBus.PublishDungeonSettled(false);
     }
 }

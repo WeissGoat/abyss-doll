@@ -89,14 +89,19 @@ public class CombatSystem {
         }
         PlayerFaction.Cleanup();
         EnemyFaction.Cleanup();
-        // In reality, this would transition back to the DungeonManager or Loot UI
+        
+        // 抛出战斗节点清理完毕的事件，交由深渊管理器判断是进入下一节点还是结算
+        DungeonEventBus.PublishCombatNodeCleared();
     }
     
     private void HandleDefeat() {
         CurrentState = CombatState.End;
         Debug.Log("<color=red>[CombatSystem] Defeat! All player entities wiped out.</color>");
+        
         PlayerFaction.Cleanup();
         EnemyFaction.Cleanup();
-        // Triggers the defeat loop (losing items, sanity penalty)
+        
+        // 抛出战斗失败事件，交由深渊管理器进行严厉的战败惩罚和结算
+        DungeonEventBus.PublishDungeonDefeated();
     }
 }

@@ -64,6 +64,12 @@ public class ChassisComponent {
     public int GridHeight;
     public bool[][] GridMask;
     public List<Vector2Int> LockedCells = new List<Vector2Int>();
+    public ChassisUpgradeCost UpgradeCost;
+}
+
+[Serializable]
+public class ChassisUpgradeCost : CraftingCost {
+    public string NextChassisID;
 }
 
 [Serializable]
