@@ -86,7 +86,8 @@ public class DungeonManager {
         CurrentLayer.LayerID = layerID;
         CurrentLayer.GenerateMapTree(config);
         
-        MoveToNode(CurrentLayer.RootNode);
+        // 不再自动 MoveToNode，而是告诉前端地图准备好了
+        DungeonEventBus.PublishLayerLoaded();
     }
     
     public void MoveToNode(NodeBase targetNode) {
@@ -103,15 +104,13 @@ public class DungeonManager {
 
     private void HandleCombatNodeCleared() {
         Debug.Log("[DungeonManager] Combat node cleared.");
-        // MVP简化逻辑：如果当前节点没有下一个节点（例如打败了关底 Boss），则自动触发撤离
+        // 如果当前节点没有下一个节点（例如打败了关底 Boss），则自动触发撤离
         if (CurrentLayer.CurrentNode.NextNodes == null || CurrentLayer.CurrentNode.NextNodes.Count == 0) {
             Debug.Log("[DungeonManager] Reached the end of the dungeon. Auto-evacuating.");
             DungeonEventBus.PublishDungeonEvacuated();
         } else {
-            // 真实游戏中这里会等待玩家在UI上选择下一个节点
-            Debug.Log("[DungeonManager] Awaiting player to select the next node...");
-            // MVP 自动前往下一个节点（直线路线）
-            MoveToNode(CurrentLayer.CurrentNode.NextNodes[0]);
+            // 不自动前进，等待 UI 选择
+            Debug.Log("[DungeonManager] Awaiting player to select the next node on the map...");
         }
     }
 

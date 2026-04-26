@@ -1,8 +1,14 @@
 using System;
 
 public static class DungeonEventBus {
+    // 深渊层地图加载完毕
+    public static event Action OnLayerLoaded;
+    
     // 派发节点进入事件：参数为 (进入的节点实例, 需要扣除的SAN值过路费)
     public static event Action<NodeBase, int> OnNodeEntered;
+    
+    // 进入安全区节点
+    public static event Action<NodeBase> OnSafeRoomEntered;
     
     // 战斗节点胜利，可继续前进
     public static event Action OnCombatNodeCleared;
@@ -16,8 +22,16 @@ public static class DungeonEventBus {
     // 深渊最终结算：参数为 (是否为胜利撤离)
     public static event Action<bool> OnDungeonSettled;
     
+    public static void PublishLayerLoaded() {
+        VisualQueue.Enqueue(new ActionCommand(() => OnLayerLoaded?.Invoke()));
+    }
+    
     public static void PublishNodeEntered(NodeBase node, int sanCost) {
         OnNodeEntered?.Invoke(node, sanCost);
+    }
+    
+    public static void PublishSafeRoomEntered(NodeBase node) {
+        VisualQueue.Enqueue(new ActionCommand(() => OnSafeRoomEntered?.Invoke(node)));
     }
     
     public static void PublishCombatNodeCleared() {

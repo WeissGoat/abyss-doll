@@ -8,11 +8,10 @@ public class MVPEditorSetup : EditorWindow
     [MenuItem("Tools/魔偶深渊 一键生成 MVP 场景骨架")]
     public static void GenerateMVPScene()
     {
-        // 幂等性处理
         DestroyIfExists("[GameRoot]");
+        DestroyIfExists("GameManager");
         DestroyIfExists("MVP_Tester");
         DestroyIfExists("InventoryCanvas");
-        // 极其重要：必须删掉之前旧版在根目录生成的那个带有 UI Toolkit 的 HUD_Manager 幽灵！
         DestroyIfExists("HUD_Manager"); 
 
         // 1. 创建全局总控 GameRoot
@@ -26,9 +25,9 @@ public class MVPEditorSetup : EditorWindow
             eventSystem.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
         }
 
-        // 2. 创建测试启动器 MVPTester
-        GameObject tester = new GameObject("MVP_Tester");
-        tester.AddComponent<MVPTester>();
+        // 2. 创建状态机控制器 GameManager
+        GameObject gameManager = new GameObject("GameManager");
+        GameFlowController flowCtrl = gameManager.AddComponent<GameFlowController>();
 
         // 3. 创建 UGUI 画布 Canvas
         GameObject canvasGo = new GameObject("InventoryCanvas");
@@ -41,7 +40,7 @@ public class MVPEditorSetup : EditorWindow
         
         canvasGo.AddComponent<GraphicRaycaster>();
 
-        // 4. 创建网格容器 GridContainer
+        // 4. 创建网格容器 GridContainer (始终在中间)
         GameObject gridContainer = new GameObject("GridContainer");
         gridContainer.transform.SetParent(canvasGo.transform, false);
         
@@ -59,7 +58,7 @@ public class MVPEditorSetup : EditorWindow
         GridGenerator generator = canvasGo.AddComponent<GridGenerator>();
         generator.gridParent = gridContainer.transform;
 
-        // 5. 生成并保存占位预制体 (SlotPrefab)
+        // 生成并保存占位预制体 (SlotPrefab)
         GameObject slotPrefab = new GameObject("SlotPrefab");
         Image slotImg = slotPrefab.AddComponent<Image>();
         slotImg.color = new Color(0.2f, 0.2f, 0.2f, 1f);
@@ -71,38 +70,157 @@ public class MVPEditorSetup : EditorWindow
 
         generator.slotPrefab = savedPrefab;
 
-        // ====================================================================
-        // 【核心重构】 6. 彻底废弃 UI Toolkit，改用纯正的 UGUI 生成 HUD 状态栏
-        // 这样所有的 UI 都在同一个物理层级和 EventSystem 调度下，绝对不会互相拦截！
-        // ====================================================================
-        
-        GameObject hudManager = new GameObject("HUD_Manager");
-        hudManager.transform.SetParent(canvasGo.transform, false);
-        
-        RectTransform hudRect = hudManager.AddComponent<RectTransform>();
-        hudRect.anchorMin = Vector2.zero; hudRect.anchorMax = Vector2.one;
-        hudRect.sizeDelta = Vector2.zero;
-        
-        HUDController hudCtrl = hudManager.AddComponent<HUDController>();
-
         Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
 
-        // 6.1 生成 HP 文本
+        // ====================================================================
+        // 5. 局外工坊面板 (WorkshopPanel)
+        // ====================================================================
+        GameObject workshopPanel = new GameObject("WorkshopPanel");
+        workshopPanel.transform.SetParent(canvasGo.transform, false);
+        RectTransform wsRect = workshopPanel.AddComponent<RectTransform>();
+        wsRect.anchorMin = Vector2.zero; wsRect.anchorMax = Vector2.one;
+        wsRect.sizeDelta = Vector2.zero;
+        
+        WorkshopUIController wsCtrl = workshopPanel.AddComponent<WorkshopUIController>();
+
+        GameObject moneyObj = new GameObject("Money_Text");
+        moneyObj.transform.SetParent(workshopPanel.transform, false);
+        Text moneyTxt = moneyObj.AddComponent<Text>();
+        moneyTxt.font = defaultFont; moneyTxt.fontSize = 30; moneyTxt.color = Color.yellow;
+        moneyTxt.raycastTarget = false;
+        RectTransform moneyRect = moneyObj.GetComponent<RectTransform>();
+        moneyRect.anchorMin = new Vector2(0, 1); moneyRect.anchorMax = new Vector2(0, 1);
+        moneyRect.pivot = new Vector2(0, 1); moneyRect.anchoredPosition = new Vector2(20, -20);
+        moneyRect.sizeDelta = new Vector2(400, 100);
+        wsCtrl.moneyText = moneyTxt;
+
+        GameObject chassisObj = new GameObject("Chassis_Text");
+        chassisObj.transform.SetParent(workshopPanel.transform, false);
+        Text chassisTxt = chassisObj.AddComponent<Text>();
+        chassisTxt.font = defaultFont; chassisTxt.fontSize = 30; chassisTxt.color = Color.white;
+        chassisTxt.raycastTarget = false;
+        RectTransform chassisRect = chassisObj.GetComponent<RectTransform>();
+        chassisRect.anchorMin = new Vector2(0, 1); chassisRect.anchorMax = new Vector2(0, 1);
+        chassisRect.pivot = new Vector2(0, 1); chassisRect.anchoredPosition = new Vector2(20, -120);
+        chassisRect.sizeDelta = new Vector2(400, 100);
+        wsCtrl.chassisInfoText = chassisTxt;
+
+        GameObject upgBtnObj = new GameObject("Upgrade_Button");
+        upgBtnObj.transform.SetParent(workshopPanel.transform, false);
+        Image upgImg = upgBtnObj.AddComponent<Image>();
+        upgImg.color = new Color(0.2f, 0.6f, 0.2f);
+        Button upgBtn = upgBtnObj.AddComponent<Button>();
+        RectTransform upgRect = upgBtnObj.GetComponent<RectTransform>();
+        upgRect.anchorMin = new Vector2(0, 0); upgRect.anchorMax = new Vector2(0, 0);
+        upgRect.pivot = new Vector2(0, 0); upgRect.anchoredPosition = new Vector2(150, 150);
+        upgRect.sizeDelta = new Vector2(250, 80);
+        wsCtrl.upgradeBtn = upgBtn;
+
+        GameObject upgTxtObj = new GameObject("Text");
+        upgTxtObj.transform.SetParent(upgBtnObj.transform, false);
+        Text upgTxt = upgTxtObj.AddComponent<Text>();
+        upgTxt.font = defaultFont; upgTxt.fontSize = 30; upgTxt.color = Color.white;
+        upgTxt.text = "升级底盘 (-1000G)";
+        upgTxt.alignment = TextAnchor.MiddleCenter;
+        upgTxt.raycastTarget = false;
+        RectTransform upgTxtRect = upgTxtObj.GetComponent<RectTransform>();
+        upgTxtRect.anchorMin = Vector2.zero; upgTxtRect.anchorMax = Vector2.one;
+        upgTxtRect.sizeDelta = Vector2.zero;
+
+        GameObject depBtnObj = new GameObject("Depart_Button");
+        depBtnObj.transform.SetParent(workshopPanel.transform, false);
+        Image depImg = depBtnObj.AddComponent<Image>();
+        depImg.color = new Color(0.8f, 0.4f, 0.2f);
+        Button depBtn = depBtnObj.AddComponent<Button>();
+        RectTransform depRect = depBtnObj.GetComponent<RectTransform>();
+        depRect.anchorMin = new Vector2(1, 0); depRect.anchorMax = new Vector2(1, 0);
+        depRect.pivot = new Vector2(1, 0); depRect.anchoredPosition = new Vector2(-150, 150);
+        depRect.sizeDelta = new Vector2(250, 80);
+        wsCtrl.departBtn = depBtn;
+
+        GameObject depTxtObj = new GameObject("Text");
+        depTxtObj.transform.SetParent(depBtnObj.transform, false);
+        Text depTxt = depTxtObj.AddComponent<Text>();
+        depTxt.font = defaultFont; depTxt.fontSize = 30; depTxt.color = Color.white;
+        depTxt.text = "出发深渊";
+        depTxt.alignment = TextAnchor.MiddleCenter;
+        depTxt.raycastTarget = false;
+        RectTransform depTxtRect = depTxtObj.GetComponent<RectTransform>();
+        depTxtRect.anchorMin = Vector2.zero; depTxtRect.anchorMax = Vector2.one;
+        depTxtRect.sizeDelta = Vector2.zero;
+
+        // ====================================================================
+        // 6. 路线图面板 (DungeonMapPanel)
+        // ====================================================================
+        GameObject mapPanel = new GameObject("DungeonMapPanel");
+        mapPanel.transform.SetParent(canvasGo.transform, false);
+        RectTransform mapPanelRect = mapPanel.AddComponent<RectTransform>();
+        mapPanelRect.anchorMin = Vector2.zero; mapPanelRect.anchorMax = Vector2.one;
+        mapPanelRect.sizeDelta = Vector2.zero;
+        mapPanel.SetActive(false);
+
+        DungeonMapUIController mapCtrl = mapPanel.AddComponent<DungeonMapUIController>();
+        
+        GameObject mapLayout = new GameObject("MapLayout");
+        mapLayout.transform.SetParent(mapPanel.transform, false);
+        RectTransform mapLayoutRect = mapLayout.AddComponent<RectTransform>();
+        mapLayoutRect.anchorMin = new Vector2(0.5f, 0.5f); mapLayoutRect.anchorMax = new Vector2(0.5f, 0.5f);
+        mapLayoutRect.pivot = new Vector2(0.5f, 0.5f);
+        mapLayoutRect.anchoredPosition = new Vector2(0, 300);
+        HorizontalLayoutGroup mapGroup = mapLayout.AddComponent<HorizontalLayoutGroup>();
+        mapGroup.childControlWidth = true; mapGroup.childControlHeight = true;
+        mapGroup.spacing = 20;
+
+        mapCtrl.contentParent = mapLayout.transform;
+
+        // Node Button Prefab
+        GameObject nodeBtnPrefab = new GameObject("NodeButtonPrefab");
+        Image nbImg = nodeBtnPrefab.AddComponent<Image>();
+        nbImg.color = Color.gray;
+        nodeBtnPrefab.AddComponent<Button>();
+        RectTransform nbRect = nodeBtnPrefab.GetComponent<RectTransform>();
+        nbRect.sizeDelta = new Vector2(120, 80);
+        
+        GameObject nbTxtObj = new GameObject("Text");
+        nbTxtObj.transform.SetParent(nodeBtnPrefab.transform, false);
+        Text nbTxt = nbTxtObj.AddComponent<Text>();
+        nbTxt.font = defaultFont; nbTxt.fontSize = 20; nbTxt.color = Color.white;
+        nbTxt.alignment = TextAnchor.MiddleCenter;
+        nbTxt.raycastTarget = false;
+        RectTransform nbTxtRect = nbTxtObj.GetComponent<RectTransform>();
+        nbTxtRect.anchorMin = Vector2.zero; nbTxtRect.anchorMax = Vector2.one;
+        nbTxtRect.sizeDelta = Vector2.zero;
+
+        string nodePrefabPath = "Assets/NodeButtonPrefab.prefab";
+        mapCtrl.nodeButtonPrefab = PrefabUtility.SaveAsPrefabAsset(nodeBtnPrefab, nodePrefabPath);
+        DestroyImmediate(nodeBtnPrefab);
+
+        // ====================================================================
+        // 7. 战斗面板 (CombatPanel)
+        // ====================================================================
+        GameObject combatPanel = new GameObject("CombatPanel");
+        combatPanel.transform.SetParent(canvasGo.transform, false);
+        RectTransform dpRect = combatPanel.AddComponent<RectTransform>();
+        dpRect.anchorMin = Vector2.zero; dpRect.anchorMax = Vector2.one;
+        dpRect.sizeDelta = Vector2.zero;
+        combatPanel.SetActive(false);
+        
+        HUDController hudCtrl = combatPanel.AddComponent<HUDController>();
+
         GameObject hpObj = new GameObject("HP_Text");
-        hpObj.transform.SetParent(hudManager.transform, false);
+        hpObj.transform.SetParent(combatPanel.transform, false);
         Text hpTxt = hpObj.AddComponent<Text>();
         hpTxt.font = defaultFont; hpTxt.fontSize = 30; hpTxt.color = Color.red;
         hpTxt.text = "HP: 100/100";
-        hpTxt.raycastTarget = false; // 文本不挡射线
+        hpTxt.raycastTarget = false;
         RectTransform hpRect = hpObj.GetComponent<RectTransform>();
         hpRect.anchorMin = new Vector2(0, 1); hpRect.anchorMax = new Vector2(0, 1);
         hpRect.pivot = new Vector2(0, 1); hpRect.anchoredPosition = new Vector2(20, -20);
         hpRect.sizeDelta = new Vector2(300, 50);
         hudCtrl.hpLabel = hpTxt;
 
-        // 6.2 生成 SAN 文本
         GameObject sanObj = new GameObject("SAN_Text");
-        sanObj.transform.SetParent(hudManager.transform, false);
+        sanObj.transform.SetParent(combatPanel.transform, false);
         Text sanTxt = sanObj.AddComponent<Text>();
         sanTxt.font = defaultFont; sanTxt.fontSize = 30; sanTxt.color = new Color(0.6f, 0.2f, 1f);
         sanTxt.text = "SAN: 50/50";
@@ -113,9 +231,8 @@ public class MVPEditorSetup : EditorWindow
         sanRect.sizeDelta = new Vector2(300, 50);
         hudCtrl.sanLabel = sanTxt;
 
-        // 6.3 生成 AP 文本
         GameObject apObj = new GameObject("AP_Text");
-        apObj.transform.SetParent(hudManager.transform, false);
+        apObj.transform.SetParent(combatPanel.transform, false);
         Text apTxt = apObj.AddComponent<Text>();
         apTxt.font = defaultFont; apTxt.fontSize = 40; apTxt.color = Color.cyan;
         apTxt.text = "AP: 3/3";
@@ -126,38 +243,100 @@ public class MVPEditorSetup : EditorWindow
         apRect.sizeDelta = new Vector2(300, 80);
         hudCtrl.apLabel = apTxt;
 
-        // 6.4 生成 结束回合 按钮
-        GameObject btnObj = new GameObject("EndTurn_Button");
-        btnObj.transform.SetParent(hudManager.transform, false);
-        Image btnImg = btnObj.AddComponent<Image>();
-        btnImg.color = new Color(0.8f, 0.2f, 0.2f);
-        Button endBtn = btnObj.AddComponent<Button>();
-        RectTransform btnRect = btnObj.GetComponent<RectTransform>();
-        btnRect.anchorMin = new Vector2(1, 0); btnRect.anchorMax = new Vector2(1, 0);
-        btnRect.pivot = new Vector2(1, 0); btnRect.anchoredPosition = new Vector2(-20, 20);
-        btnRect.sizeDelta = new Vector2(200, 80);
+        GameObject endBtnObj = new GameObject("EndTurn_Button");
+        endBtnObj.transform.SetParent(combatPanel.transform, false);
+        Image endImg = endBtnObj.AddComponent<Image>();
+        endImg.color = new Color(0.8f, 0.2f, 0.2f);
+        Button endBtn = endBtnObj.AddComponent<Button>();
+        RectTransform endRect = endBtnObj.GetComponent<RectTransform>();
+        endRect.anchorMin = new Vector2(1, 0); endRect.anchorMax = new Vector2(1, 0);
+        endRect.pivot = new Vector2(1, 0); endRect.anchoredPosition = new Vector2(-20, 20);
+        endRect.sizeDelta = new Vector2(200, 80);
         hudCtrl.endTurnBtn = endBtn;
 
-        GameObject btnTxtObj = new GameObject("Text");
-        btnTxtObj.transform.SetParent(btnObj.transform, false);
-        Text btnTxt = btnTxtObj.AddComponent<Text>();
-        btnTxt.font = defaultFont; btnTxt.fontSize = 30; btnTxt.color = Color.white;
-        btnTxt.text = "结束回合";
-        btnTxt.alignment = TextAnchor.MiddleCenter;
-        btnTxt.raycastTarget = false;
-        RectTransform btnTxtRect = btnTxtObj.GetComponent<RectTransform>();
-        btnTxtRect.anchorMin = Vector2.zero; btnTxtRect.anchorMax = Vector2.one;
-        btnTxtRect.sizeDelta = Vector2.zero;
+        GameObject endTxtObj = new GameObject("Text");
+        endTxtObj.transform.SetParent(endBtnObj.transform, false);
+        Text endTxt = endTxtObj.AddComponent<Text>();
+        endTxt.font = defaultFont; endTxt.fontSize = 30; endTxt.color = Color.white;
+        endTxt.text = "结束回合";
+        endTxt.alignment = TextAnchor.MiddleCenter;
+        endTxt.raycastTarget = false;
+        RectTransform endTxtRect = endTxtObj.GetComponent<RectTransform>();
+        endTxtRect.anchorMin = Vector2.zero; endTxtRect.anchorMax = Vector2.one;
+        endTxtRect.sizeDelta = Vector2.zero;
 
+        // ====================================================================
+        // 8. 安全区面板 (SafeRoomPanel)
+        // ====================================================================
+        GameObject safeRoomPanel = new GameObject("SafeRoomPanel");
+        safeRoomPanel.transform.SetParent(canvasGo.transform, false);
+        RectTransform srRect = safeRoomPanel.AddComponent<RectTransform>();
+        srRect.anchorMin = Vector2.zero; srRect.anchorMax = Vector2.one;
+        srRect.sizeDelta = Vector2.zero;
+        safeRoomPanel.SetActive(false);
 
-        // 7. 顺便生成一个可拖拽物品的 Prefab 占位
+        SafeRoomUIController srCtrl = safeRoomPanel.AddComponent<SafeRoomUIController>();
+
+        GameObject srTitleObj = new GameObject("Title_Text");
+        srTitleObj.transform.SetParent(safeRoomPanel.transform, false);
+        Text srTitleTxt = srTitleObj.AddComponent<Text>();
+        srTitleTxt.font = defaultFont; srTitleTxt.fontSize = 50; srTitleTxt.color = Color.green;
+        srTitleTxt.text = "安 全 区";
+        srTitleTxt.alignment = TextAnchor.MiddleCenter;
+        RectTransform srTitleRect = srTitleObj.GetComponent<RectTransform>();
+        srTitleRect.anchorMin = new Vector2(0.5f, 1); srTitleRect.anchorMax = new Vector2(0.5f, 1);
+        srTitleRect.pivot = new Vector2(0.5f, 1); srTitleRect.anchoredPosition = new Vector2(0, -50);
+        srTitleRect.sizeDelta = new Vector2(400, 100);
+
+        GameObject restBtnObj = new GameObject("Rest_Button");
+        restBtnObj.transform.SetParent(safeRoomPanel.transform, false);
+        Image restImg = restBtnObj.AddComponent<Image>();
+        restImg.color = new Color(0.2f, 0.8f, 0.2f);
+        Button restBtn = restBtnObj.AddComponent<Button>();
+        RectTransform restRect = restBtnObj.GetComponent<RectTransform>();
+        restRect.anchorMin = new Vector2(0, 0); restRect.anchorMax = new Vector2(0, 0);
+        restRect.pivot = new Vector2(0, 0); restRect.anchoredPosition = new Vector2(150, 150);
+        restRect.sizeDelta = new Vector2(250, 80);
+        srCtrl.restBtn = restBtn;
+
+        GameObject restTxtObj = new GameObject("Text");
+        restTxtObj.transform.SetParent(restBtnObj.transform, false);
+        Text restTxt = restTxtObj.AddComponent<Text>();
+        restTxt.font = defaultFont; restTxt.fontSize = 30; restTxt.color = Color.white;
+        restTxt.text = "休整 (回血满)";
+        restTxt.alignment = TextAnchor.MiddleCenter;
+        RectTransform restTxtRect = restTxtObj.GetComponent<RectTransform>();
+        restTxtRect.anchorMin = Vector2.zero; restTxtRect.anchorMax = Vector2.one;
+        restTxtRect.sizeDelta = Vector2.zero;
+
+        GameObject evacBtnObj = new GameObject("Evacuate_Button");
+        evacBtnObj.transform.SetParent(safeRoomPanel.transform, false);
+        Image evacImg = evacBtnObj.AddComponent<Image>();
+        evacImg.color = new Color(0.8f, 0.8f, 0.2f);
+        Button evacBtn = evacBtnObj.AddComponent<Button>();
+        RectTransform evacRect = evacBtnObj.GetComponent<RectTransform>();
+        evacRect.anchorMin = new Vector2(1, 0); evacRect.anchorMax = new Vector2(1, 0);
+        evacRect.pivot = new Vector2(1, 0); evacRect.anchoredPosition = new Vector2(-150, 150);
+        evacRect.sizeDelta = new Vector2(250, 80);
+        srCtrl.evacuateBtn = evacBtn;
+
+        GameObject evacTxtObj = new GameObject("Text");
+        evacTxtObj.transform.SetParent(evacBtnObj.transform, false);
+        Text evacTxt = evacTxtObj.AddComponent<Text>();
+        evacTxt.font = defaultFont; evacTxt.fontSize = 30; evacTxt.color = Color.black;
+        evacTxt.text = "撤离回城";
+        evacTxt.alignment = TextAnchor.MiddleCenter;
+        RectTransform evacTxtRect = evacTxtObj.GetComponent<RectTransform>();
+        evacTxtRect.anchorMin = Vector2.zero; evacTxtRect.anchorMax = Vector2.one;
+        evacTxtRect.sizeDelta = Vector2.zero;
+
+        // 9. 顺便生成一个可拖拽物品的 Prefab 占位
         GameObject itemPrefab = new GameObject("ItemPrefab_TestSword");
         Image itemImg = itemPrefab.AddComponent<Image>();
-        itemImg.color = Color.red; // 红色代表武器
+        itemImg.color = Color.red; 
         itemPrefab.AddComponent<DraggableItemUI>();
         itemPrefab.AddComponent<CanvasGroup>();
 
-        // 给测试武器加上文字
         GameObject textObj = new GameObject("Text");
         textObj.transform.SetParent(itemPrefab.transform, false);
         Text txt = textObj.AddComponent<Text>();
@@ -165,7 +344,7 @@ public class MVPEditorSetup : EditorWindow
         txt.alignment = TextAnchor.MiddleCenter;
         txt.color = Color.white;
         txt.font = defaultFont;
-        txt.raycastTarget = false; // 极其重要：文字不能阻挡鼠标射线
+        txt.raycastTarget = false; 
 
         RectTransform txtRect = textObj.GetComponent<RectTransform>();
         txtRect.anchorMin = Vector2.zero;
@@ -175,13 +354,20 @@ public class MVPEditorSetup : EditorWindow
         PrefabUtility.SaveAsPrefabAsset(itemPrefab, "Assets/ItemPrefab_TestSword.prefab");
         DestroyImmediate(itemPrefab);
 
-        // 为了测试胶水代码的连通性，自动帮 MVPTester 挂载目标 Prefab
+        // ====================================================================
+        // 10. 关联 Controller 引用
+        // ====================================================================
+        flowCtrl.workshopPanel = workshopPanel;
+        flowCtrl.dungeonMapPanel = mapPanel;
+        flowCtrl.combatPanel = combatPanel;
+        flowCtrl.safeRoomPanel = safeRoomPanel;
+        
         var loadedTestPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/ItemPrefab_TestSword.prefab");
         if (loadedTestPrefab != null) {
-            tester.GetComponent<MVPTester>().testItemPrefab = loadedTestPrefab;
+            flowCtrl.testItemPrefab = loadedTestPrefab;
         }
 
-        Debug.Log("<color=green>[自动化构建] UGUI 版 MVP 场景骨架生成完毕！已彻底移除 UI Toolkit 的事件拦截！</color>");
+        Debug.Log("<color=green>[自动化构建] 局内地图+安全区 MVP 场景骨架生成完毕！点击 Play 开始体验闭环！</color>");
     }
 
     private static void DestroyIfExists(string name)
