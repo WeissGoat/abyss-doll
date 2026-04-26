@@ -1,0 +1,55 @@
+# Gemini CLI Ignore File
+# 屏蔽对 AI 抓取上下文无用或噪音过大的目录和文件，节省 Token 并提高搜索精度
+
+# 早期废弃或发散性的草稿
+草稿/
+
+# Unity 引擎生成的冗余文件与目录
+*.meta
+UnityClient/Packages/
+UnityClient/Library/
+UnityClient/Temp/
+UnityClient/Obj/
+UnityClient/Build/
+UnityClient/Builds/
+UnityClient/UserSettings/
+UnityClient/MemoryCaptures/
+UnityClient/Recordings/
+
+# 日志文件体积庞大，仅在排查 Bug 时精准定向读取，全局搜索时必须排除
+UnityClient/Logs/
+*.log
+
+# C# 编译与工程文件
+*.csproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# 视觉资产 (AI 无法通过文本有效分析的内容)
+*.png
+*.jpg
+*.jpeg
+*.tga
+*.psd
+*.fbx
+*.obj
+*.mat
+*.anim
+*.controller
+*.wav
+*.mp3
+*.ogg
+
+# OS 自动生成文件
+.DS_Store
+Thumbs.db

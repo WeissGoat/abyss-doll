@@ -1,0 +1,91 @@
+/* 极其关键的黑客修复：让 UI Toolkit 的所有元素默认穿透鼠标射线，绝不拦截 UGUI！ */
+* {
+    picking-mode: ignore;
+}
+
+.hud-container {
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.top-left-panel {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.bottom-left-panel {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 50px;
+}
+
+.bottom-right-panel {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.stat-label {
+    color: white;
+    font-size: 18px;
+    -unity-font-style: bold;
+    margin-bottom: 5px;
+}
+
+.stat-bar {
+    height: 20px;
+    margin-bottom: 10px;
+}
+
+.hp-bar .unity-progress-bar__progress {
+    background-color: #ff3333;
+}
+
+.san-bar .unity-progress-bar__progress {
+    background-color: #aa33ff;
+}
+
+.ap-label {
+    color: #00ffff;
+    font-size: 24px;
+    -unity-font-style: bold;
+}
+
+.end-turn-btn {
+    width: 200px;
+    height: 60px;
+    font-size: 24px;
+    -unity-font-style: bold;
+    color: white;
+    background-color: #aa0000;
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: #ff5555;
+    transition-duration: 0.2s;
+    /* 单独为按钮开启射线拦截，保证它能被点击 */
+    picking-mode: position;
+}
+
+.end-turn-btn:hover {
+    background-color: #ff0000;
+    scale: 1.05;
+}
+
+.end-turn-btn:active {
+    background-color: #550000;
+    scale: 0.95;
+}
+
+.end-turn-btn:disabled {
+    background-color: #555555;
+    color: #888888;
+}
