@@ -1,0 +1,178 @@
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+// 挂载在物品预制体（如剑、药水）上
+public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerDownHandler, IPointerEnterHandler {
+    public ItemEntity ItemData { get; private set; }
+    
+    private Vector3 _originalPosition;
+    private Transform _originalParent;
+    private CanvasGroup _canvasGroup;
+    
+    // 记录在后端的合法位置，防止拖拽失败时丢失
+    private int _lastValidX = -1;
+    private int _lastValidY = -1;
+    private bool _wasInGrid = false;
+    private Vector3 _dragOffset;
+
+    // [新增] 用于网格对齐计算：当前抓取的相对单元格坐标偏移
+    public int DragCellOffsetX { get; private set; }
+    public int DragCellOffsetY { get; private set; }
+
+    public void SetupData(ItemEntity itemData) {
+        ItemData = itemData;
+        _wasInGrid = false;
+        
+        _canvasGroup = GetComponent<CanvasGroup>();
+        if (_canvasGroup == null) _canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        
+        // 根据后端 Shape 数据，动态计算 UI 尺寸和中心锚点(Pivot)
+        if (ItemData.Grid != null && ItemData.Grid.Shape != null) {
+            int maxX = 0;
+            int maxY = 0;
+            foreach (var p in ItemData.Grid.Shape) {
+                if (p[0] > maxX) maxX = p[0];
+                if (p[1] > maxY) maxY = p[1];
+            }
+            int cols = maxX + 1;
+            int rows = maxY + 1;
+            
+            RectTransform rect = GetComponent<RectTransform>();
+            rect.sizeDelta = new Vector2(cols * 100, rows * 100);
+            
+            // 将 Pivot 设置为左上角第一个格子的中心点
+            float pivotX = 0.5f / cols;
+            float pivotY = 1.0f - (0.5f / rows);
+            rect.pivot = new Vector2(pivotX, pivotY);
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData) {
+        Debug.Log($"[DraggableItemUI] 鼠标悬停进入: {gameObject.name}");
+    }
+
+    public void OnPointerDown(PointerEventData eventData) {
+        Debug.Log($"[DraggableItemUI] 鼠标按下: {gameObject.name}");
+    }
+
+    public void OnPointerClick(PointerEventData eventData) {
+        Debug.Log($"[UI] 你点击了 {ItemData.Name}");
+
+        if (GameRoot.Core.Combat == null) return;
+        
+        if (GameRoot.Core.Combat.CurrentState != CombatState.PlayerTurn) {
+            Debug.LogWarning($"[UI] 当前不是玩家回合，无法攻击！");
+            return;
+        }
+        
+        BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
+        if (grid == null || !grid.ContainedItems.Contains(ItemData)) {
+            Debug.LogWarning($"[UI] 武器【{ItemData.Name}】还没有被放入背包网格！请先将它拖入网格中才能在战斗里使用！");
+            return;
+        }
+
+        // 执行战斗逻辑：获取玩家和第一个活着的敌人
+        var combat = GameRoot.Core.Combat;
+        DollFighter playerFighter = combat.PlayerFaction.Fighters[0] as DollFighter;
+        FighterEntity enemyTarget = combat.EnemyFaction.Fighters.Find(f => f.RuntimeHP > 0);
+        
+        if (playerFighter != null && enemyTarget != null && ItemData.Combat != null) {
+            if (ItemData.Combat.TriggerType == TriggerType.Manual.ToString()) {
+                playerFighter.Attack(enemyTarget, ItemData);
+            }
+        }
+    }
+public void OnBeginDrag(PointerEventData eventData) {
+    if (ItemData == null) {
+        Debug.LogError("[DraggableItemUI] ItemData is null! SetupData was not called properly.");
+        return;
+    }
+
+    Debug.Log($"[UI] 开始拖拽 {ItemData.Name}");
+    _originalPosition = transform.position;
+    _originalParent = transform.parent;
+
+    // [核心修复] 记录鼠标抓取点与物体真实位置的偏移量，防止抖动瞬移！
+    _dragOffset = transform.position - (Vector3)eventData.position;
+    
+    // 计算网格格数偏移：当前点击的究竟是这个物品的哪一格？
+    RectTransform rect = GetComponent<RectTransform>();
+    RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, eventData.position, eventData.pressEventCamera, out Vector2 localPoint);
+    // 因为 Anchor/Pivot 被我们设定在 (0.5/Cols, 1 - 0.5/Rows)
+    // localPoint 是相对于 Pivot 的像素坐标，比如 100x100 的格子，往右一格是 +100，往下一格是 -100
+    DragCellOffsetX = Mathf.RoundToInt(localPoint.x / 100f);
+    DragCellOffsetY = Mathf.RoundToInt(-localPoint.y / 100f); // UI 坐标系 Y 轴向上，而网格是 Y 轴向下，因此取负
+
+    transform.SetAsLastSibling();
+
+    if (_canvasGroup != null) {
+        _canvasGroup.blocksRaycasts = false;
+    }
+
+    BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
+    if (grid != null && grid.ContainedItems != null && grid.ContainedItems.Contains(ItemData)) {
+        _wasInGrid = true;
+        _lastValidX = ItemData.Grid.CurrentPos[0];
+        _lastValidY = ItemData.Grid.CurrentPos[1];
+
+        // 从后端网格中拿走
+        grid.RemoveItem(ItemData);
+        GridSolver.RecalculateAllEffects(GameRoot.Core.CurrentPlayer.ActiveDoll);
+        GameEventBus.PublishItemRemoved(ItemData.InstanceID);
+    } else {
+        _wasInGrid = false;
+    }
+}
+
+public void OnDrag(PointerEventData eventData) {
+    // 让物品跟着鼠标走，并保持抓取部位的偏移量
+    transform.position = (Vector3)eventData.position + _dragOffset;
+}
+
+    public void OnEndDrag(PointerEventData eventData) {
+        if (_canvasGroup != null) {
+            _canvasGroup.blocksRaycasts = true;
+        }
+
+        // 如果拖拽结束后，物品没有在后端的网格里（说明它被扔在了空地，或者放置失败了）
+        BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
+        if (grid == null || !grid.ContainedItems.Contains(ItemData)) {
+            ReturnToOriginalPosition();
+        }
+    }
+
+    public void SnapToSlot(Transform newParentSlot, int gridX, int gridY) {
+        Canvas canvas = GetComponentInParent<Canvas>();
+        if (canvas != null) {
+            // 极其重要：成为 Canvas 的子物体，保证它渲染在所有的格子之上！
+            transform.SetParent(canvas.transform);
+        } else {
+            transform.SetParent(newParentSlot.parent.parent); 
+        }
+        
+        transform.position = newParentSlot.position;
+        transform.SetAsLastSibling();
+        
+        _wasInGrid = true;
+        _lastValidX = gridX;
+        _lastValidY = gridY;
+        
+        _originalParent = transform.parent;
+        _originalPosition = transform.position;
+    }
+
+    public void ReturnToOriginalPosition() {
+        transform.SetParent(_originalParent);
+        transform.position = _originalPosition;
+        
+        // 【关键修复】如果是从网格拿起来的但放置失败，必须把它重新注册回后端！
+        if (_wasInGrid) {
+            BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
+            if (grid != null && !grid.ContainedItems.Contains(ItemData)) {
+                grid.PlaceItem(ItemData, _lastValidX, _lastValidY);
+                GridSolver.RecalculateAllEffects(GameRoot.Core.CurrentPlayer.ActiveDoll);
+                GameEventBus.PublishItemPlaced(ItemData.InstanceID, _lastValidX, _lastValidY);
+            }
+        }
+    }
+}
