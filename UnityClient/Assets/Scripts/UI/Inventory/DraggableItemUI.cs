@@ -66,13 +66,26 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
         
         BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
+        
+        // 因为深渊结算或者切换地图时，底层的 RuntimeGrid 实例会被 new 重置！
+        // 如果 UI 记录的 _wasInGrid 为真，但底层不包含它，我们需要自动尝试修复或报错
         if (grid == null || !grid.ContainedItems.Contains(ItemData)) {
-            Debug.LogWarning($"[UI] 武器【{ItemData.Name}】还没有被放入背包网格！请先将它拖入网格中才能在战斗里使用！");
-            return;
+            // 如果它在 UI 上仍然显示在格子里，可能需要将其重新放置进去
+            if (_wasInGrid && grid != null) {
+                Debug.LogWarning($"[UI] 自动修复：将失联的武器【{ItemData.Name}】重新注册到网格 ({_lastValidX},{_lastValidY})。");
+                grid.PlaceItem(ItemData, _lastValidX, _lastValidY);
+                GridSolver.RecalculateAllEffects(GameRoot.Core.CurrentPlayer.ActiveDoll);
+            } else {
+                Debug.LogWarning($"[UI] 武器【{ItemData.Name}】还没有被放入背包网格！请先将它拖入网格中才能在战斗里使用！");
+                return;
+            }
         }
 
         // 执行战斗逻辑：获取玩家和第一个活着的敌人
         var combat = GameRoot.Core.Combat;
+        
+        if (combat.PlayerFaction == null || combat.PlayerFaction.Fighters.Count == 0 || combat.EnemyFaction == null) return;
+        
         DollFighter playerFighter = combat.PlayerFaction.Fighters[0] as DollFighter;
         FighterEntity enemyTarget = combat.EnemyFaction.Fighters.Find(f => f.RuntimeHP > 0);
         

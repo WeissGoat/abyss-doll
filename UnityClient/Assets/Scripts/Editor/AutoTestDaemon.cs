@@ -86,32 +86,36 @@ public static class AutoTestDaemon {
         Application.logMessageReceived += logHandler;
 
         try {
-            string[] parts = command.Split('.');
-            if (parts.Length >= 2) {
-                string methodName = parts[parts.Length - 1];
-                string className = command.Substring(0, command.LastIndexOf('.'));
-                
-                System.Type targetType = null;
-                foreach (var assembly in System.AppDomain.CurrentDomain.GetAssemblies()) {
-                    targetType = assembly.GetType(className);
-                    if (targetType != null) break;
-                }
+            if (command.ToUpper() == "RUN_ALL_TESTS") {
+                RunAllTests(report);
+            } else {
+                string[] parts = command.Split('.');
+                if (parts.Length >= 2) {
+                    string methodName = parts[parts.Length - 1];
+                    string className = command.Substring(0, command.LastIndexOf('.'));
+                    
+                    System.Type targetType = null;
+                    foreach (var assembly in System.AppDomain.CurrentDomain.GetAssemblies()) {
+                        targetType = assembly.GetType(className);
+                        if (targetType != null) break;
+                    }
 
-                if (targetType != null) {
-                    MethodInfo method = targetType.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
-                    if (method != null) {
-                        method.Invoke(null, null);
+                    if (targetType != null) {
+                        MethodInfo method = targetType.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+                        if (method != null) {
+                            method.Invoke(null, null);
+                        } else {
+                            report.Logs.Add($"[Error] Method {methodName} not found on {className}");
+                            report.Status = "FAILED";
+                        }
                     } else {
-                        report.Logs.Add($"[Error] Method {methodName} not found on {className}");
+                        report.Logs.Add($"[Error] Type {className} not found");
                         report.Status = "FAILED";
                     }
                 } else {
-                    report.Logs.Add($"[Error] Type {className} not found");
+                    report.Logs.Add("[Error] Invalid command format. Use Namespace.ClassName.MethodName or RUN_ALL_TESTS");
                     report.Status = "FAILED";
                 }
-            } else {
-                report.Logs.Add("[Error] Invalid command format. Use Namespace.ClassName.MethodName");
-                report.Status = "FAILED";
             }
         } catch (System.Exception ex) {
             report.Status = "FAILED";
@@ -122,6 +126,40 @@ public static class AutoTestDaemon {
 
         File.WriteAllText(_reportFile, JsonUtility.ToJson(report, true));
         Debug.Log($"[AutoTestDaemon] Test finished with status {report.Status}. Report saved to {_reportFile}");
+    }
+
+    private static void RunAllTests(TestReport report) {
+        report.Logs.Add("=== Starting Full Regression Test Suite ===");
+        int totalTests = 0;
+        int passedTests = 0;
+
+        foreach (var assembly in System.AppDomain.CurrentDomain.GetAssemblies()) {
+            // 只扫描主要的业务程序集，过滤掉大量引擎和插件DLL提升速度
+            if (!assembly.FullName.StartsWith("Assembly-CSharp") && !assembly.FullName.StartsWith("Assembly-CSharp-Editor")) continue;
+
+            foreach (var type in assembly.GetTypes()) {
+                if (type.IsClass && type.Name.EndsWith("Test") && !type.Name.Contains("<")) {
+                    MethodInfo runMethod = type.GetMethod("Run", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+                    if (runMethod != null) {
+                        totalTests++;
+                        report.Logs.Add($"\n--- Running Test: {type.Name}.Run() ---");
+                        try {
+                            runMethod.Invoke(null, null);
+                            passedTests++;
+                        } catch (System.Exception ex) {
+                            report.Status = "FAILED";
+                            report.Logs.Add($"[Test Execution Failed] {type.Name}.Run() crashed.");
+                            report.Logs.Add($"[Exception] {(ex.InnerException != null ? ex.InnerException.Message : ex.Message)}\n{ex.StackTrace}");
+                        }
+                    }
+                }
+            }
+        }
+        
+        report.Logs.Add($"\n=== Regression Test Suite Completed. Passed: {passedTests}/{totalTests} ===");
+        if (passedTests < totalTests) {
+            report.Status = "FAILED";
+        }
     }
 }
 

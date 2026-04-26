@@ -66,6 +66,16 @@ public class GameFlowController : MonoBehaviour {
         if (combatPanel) combatPanel.SetActive(false);
         if (safeRoomPanel) safeRoomPanel.SetActive(false);
         
+        // 撤离回小镇后，恢复人偶的基本状态 (MVP 简化机制：回满血和SAN)
+        var doll = GameRoot.Core.CurrentPlayer.ActiveDoll;
+        if (doll != null) {
+            doll.Status.HP_Current = doll.Status.HP_Max;
+            doll.Status.SAN_Current = doll.Status.SAN_Max;
+            // 因为现在在局外，不用走 VisualQueue 延时
+            GameEventBus.PublishHPChanged(doll.Name, doll.Status.HP_Current, doll.Status.HP_Max);
+            GameEventBus.PublishSANChanged(doll.Name, doll.Status.SAN_Current, doll.Status.SAN_Max);
+        }
+
         var wsCtrl = workshopPanel?.GetComponent<WorkshopUIController>();
         if (wsCtrl != null) wsCtrl.RefreshUI();
     }

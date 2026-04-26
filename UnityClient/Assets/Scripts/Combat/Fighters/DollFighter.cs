@@ -18,6 +18,9 @@ public class DollFighter : FighterEntity {
             CurrentAP = Mathf.Min(CurrentAP + DataRef.Stats.APRegen, MaxAP);
             Debug.Log($"[{Name}] Turn Started. AP restored to {CurrentAP}/{MaxAP}.");
             GridSolver.RecalculateAllEffects(DataRef); // 重新计算网格连结
+            
+            // 【关键修复】回合开始时，必须主动向 VisualQueue 和 UI 广播 AP 恢复事件
+            GameEventBus.PublishAPChanged(Name, CurrentAP, MaxAP);
         }
 
         if (DataRef.RuntimeGrid == null) return;

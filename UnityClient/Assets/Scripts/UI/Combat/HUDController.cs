@@ -13,6 +13,7 @@ public class HUDController : MonoBehaviour
         // 2. 绑定交互事件：结束回合按钮
         if (endTurnBtn != null)
         {
+            endTurnBtn.onClick.RemoveAllListeners();
             endTurnBtn.onClick.AddListener(() => {
                 if (GameRoot.Core.Combat != null && GameRoot.Core.Combat.CurrentState == CombatState.PlayerTurn) {
                     GameRoot.Core.Combat.EndPlayerTurn();
@@ -29,7 +30,27 @@ public class HUDController : MonoBehaviour
         GameEventBus.OnTurnStarted += HandleTurnStarted;
         CombatEventBus.OnCombatPhase += HandleCombatPhase;
         
+        // 当重新激活 HUD 时，应该主动获取一下底层数据，刷新一下界面状态
+        RefreshStaticData();
+
         Debug.Log("[HUDController] UGUI HUD Initialized and subscribed to EventBus.");
+    }
+
+    private void RefreshStaticData() {
+        if (GameRoot.Core == null || GameRoot.Core.CurrentPlayer == null) return;
+        var doll = GameRoot.Core.CurrentPlayer.ActiveDoll;
+        if (doll == null) return;
+
+        HandleHPChanged(doll.Name, doll.Status.HP_Current, doll.Status.HP_Max);
+        HandleSANChanged(doll.Name, doll.Status.SAN_Current, doll.Status.SAN_Max);
+        
+        // 尝试更新 AP（如果有残留战斗状态）
+        if (GameRoot.Core.Combat != null && GameRoot.Core.Combat.PlayerFaction != null && GameRoot.Core.Combat.PlayerFaction.Fighters.Count > 0) {
+            var fighter = GameRoot.Core.Combat.PlayerFaction.Fighters[0] as DollFighter;
+            if (fighter != null) {
+                HandleAPChanged(doll.Name, fighter.CurrentAP, fighter.DataRef.Stats.MaxAP);
+            }
+        }
     }
 
     private void OnDisable()

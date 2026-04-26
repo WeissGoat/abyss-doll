@@ -28,6 +28,12 @@ public static class CombatQueueTest {
         
         // Player attacks manually
         var weapon = ConfigManager.CreateItem("gear_tactical_blade");
+        
+        // [修正] 必须初始化并放入网格，计算出 RuntimeDamage，否则攻击力为 0
+        core.CurrentPlayer.ActiveDoll.RuntimeGrid = new BackpackGrid(core.CurrentPlayer.ActiveDoll.Chassis);
+        ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).PlaceItem(weapon, 0, 0);
+        GridSolver.RecalculateAllEffects(core.CurrentPlayer.ActiveDoll);
+        
         core.Combat.PlayerFaction.Fighters[0].Attack(enemy, weapon);
         
         Debug.Log($"Enemy HP after attack: {enemy.RuntimeHP}");
