@@ -15,6 +15,11 @@ public class CoreBackend {
         EffectFactory.Initialize();
         NodeFactory.Initialize();
         
+        // [核心修复] 初始化子系统
+        Combat = new CombatSystem();
+        Dungeon = new DungeonManager();
+        Workshop = new WorkshopSystem();
+
         // 3. Initialize Player Profile
         CurrentPlayer = new PlayerProfile();
         CurrentPlayer.UID = Guid.NewGuid().ToString();
@@ -26,6 +31,13 @@ public class CoreBackend {
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(templateDoll);
             CurrentPlayer.ActiveDoll = Newtonsoft.Json.JsonConvert.DeserializeObject<DollEntity>(json);
             CurrentPlayer.ActiveDollID = CurrentPlayer.ActiveDoll.DollID;
+            
+            // Populate Chassis based on DefaultChassisID
+            if (!string.IsNullOrEmpty(CurrentPlayer.ActiveDoll.DefaultChassisID) && 
+                ConfigManager.Chassis.TryGetValue(CurrentPlayer.ActiveDoll.DefaultChassisID, out var chassisTemplate)) {
+                string chassisJson = Newtonsoft.Json.JsonConvert.SerializeObject(chassisTemplate);
+                CurrentPlayer.ActiveDoll.Chassis = Newtonsoft.Json.JsonConvert.DeserializeObject<ChassisComponent>(chassisJson);
+            }
             
             // 初始化魔偶自身的事件监听
             CurrentPlayer.ActiveDoll.InitializeRuntime();

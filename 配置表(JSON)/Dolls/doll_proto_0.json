@@ -1,9 +1,15 @@
 {
   "DollID": "doll_proto_0",
   "Name": "原型机·零",
-  "Stats": {
+  "Status": {
+    "HP_Current": 100,
     "HP_Max": 100,
+    "SAN_Current": 50,
     "SAN_Max": 50,
+    "WearAndTear": 0,
+    "Corruption": 0
+  },
+  "Stats": {
     "MaxAP": 3,
     "APRegen": 3,
     "Power": 5,

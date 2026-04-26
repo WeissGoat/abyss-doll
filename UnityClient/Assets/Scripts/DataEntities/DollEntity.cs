@@ -6,6 +6,7 @@ using UnityEngine;
 public class DollEntity {
     public string DollID;
     public string Name;
+    public string DefaultChassisID;
     
     public DollStatusComponent Status = new DollStatusComponent();
     public DollStatsComponent Stats = new DollStatsComponent();

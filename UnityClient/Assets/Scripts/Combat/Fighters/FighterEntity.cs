@@ -51,6 +51,9 @@ public abstract class FighterEntity {
             RuntimeHP -= damage;
         }
         
+        GameEventBus.PublishShieldChanged(Name, RuntimeShield);
+        GameEventBus.PublishHPChanged(Name, RuntimeHP, RuntimeMaxHP);
+        
         Debug.Log($"[{Name}] Took {originalDamage} damage! Shield absorbed {originalDamage - damage}, HP reduced by {damage}. Current HP: {RuntimeHP}, Shield: {RuntimeShield}");
         
         if (RuntimeHP <= 0) {
@@ -61,6 +64,7 @@ public abstract class FighterEntity {
 
     public virtual void AddShield(int amount) {
         RuntimeShield += amount;
+        GameEventBus.PublishShieldChanged(Name, RuntimeShield);
         Debug.Log($"[{Name}] Gained {amount} shield. Total Shield: {RuntimeShield}");
     }
     
