@@ -266,7 +266,77 @@ public class MVPEditorSetup : EditorWindow
         endTxtRect.sizeDelta = Vector2.zero;
 
         // ====================================================================
-        // 8. 安全区面板 (SafeRoomPanel)
+        // 8. 战利品拾取面板 (CombatLootPanel)
+        // ====================================================================
+        GameObject combatLootPanel = new GameObject("CombatLootPanel");
+        combatLootPanel.transform.SetParent(canvasGo.transform, false);
+        RectTransform clRect = combatLootPanel.AddComponent<RectTransform>();
+        clRect.anchorMin = Vector2.zero; clRect.anchorMax = Vector2.one;
+        clRect.sizeDelta = Vector2.zero;
+        combatLootPanel.SetActive(false);
+
+        Image combatLootBg = combatLootPanel.AddComponent<Image>();
+        combatLootBg.color = new Color(0.08f, 0.08f, 0.08f, 0.82f);
+        combatLootBg.raycastTarget = false;
+
+        CombatLootUIController combatLootCtrl = combatLootPanel.AddComponent<CombatLootUIController>();
+
+        GameObject clTitleObj = new GameObject("Title_Text");
+        clTitleObj.transform.SetParent(combatLootPanel.transform, false);
+        Text clTitleTxt = clTitleObj.AddComponent<Text>();
+        clTitleTxt.font = defaultFont; clTitleTxt.fontSize = 44; clTitleTxt.color = Color.white;
+        clTitleTxt.alignment = TextAnchor.MiddleCenter;
+        clTitleTxt.raycastTarget = false;
+        RectTransform clTitleRect = clTitleObj.GetComponent<RectTransform>();
+        clTitleRect.anchorMin = new Vector2(0.5f, 1); clTitleRect.anchorMax = new Vector2(0.5f, 1);
+        clTitleRect.pivot = new Vector2(0.5f, 1); clTitleRect.anchoredPosition = new Vector2(0, -60);
+        clTitleRect.sizeDelta = new Vector2(600, 80);
+        combatLootCtrl.titleText = clTitleTxt;
+
+        GameObject clSummaryObj = new GameObject("Summary_Text");
+        clSummaryObj.transform.SetParent(combatLootPanel.transform, false);
+        Text clSummaryTxt = clSummaryObj.AddComponent<Text>();
+        clSummaryTxt.font = defaultFont; clSummaryTxt.fontSize = 24; clSummaryTxt.color = new Color(0.95f, 0.95f, 0.95f);
+        clSummaryTxt.alignment = TextAnchor.UpperCenter;
+        clSummaryTxt.raycastTarget = false;
+        RectTransform clSummaryRect = clSummaryObj.GetComponent<RectTransform>();
+        clSummaryRect.anchorMin = new Vector2(0.5f, 1); clSummaryRect.anchorMax = new Vector2(0.5f, 1);
+        clSummaryRect.pivot = new Vector2(0.5f, 1); clSummaryRect.anchoredPosition = new Vector2(0, -140);
+        clSummaryRect.sizeDelta = new Vector2(760, 120);
+        combatLootCtrl.summaryText = clSummaryTxt;
+
+        GameObject clLootArea = new GameObject("LootArea");
+        clLootArea.transform.SetParent(combatLootPanel.transform, false);
+        RectTransform clLootRect = clLootArea.AddComponent<RectTransform>();
+        clLootRect.anchorMin = Vector2.zero; clLootRect.anchorMax = Vector2.one;
+        clLootRect.pivot = new Vector2(0.5f, 0.5f); clLootRect.anchoredPosition = Vector2.zero;
+        clLootRect.sizeDelta = Vector2.zero;
+        combatLootCtrl.lootParent = clLootArea.transform;
+
+        GameObject clContinueObj = new GameObject("Continue_Button");
+        clContinueObj.transform.SetParent(combatLootPanel.transform, false);
+        Image clContinueImg = clContinueObj.AddComponent<Image>();
+        clContinueImg.color = new Color(0.9f, 0.58f, 0.18f);
+        Button clContinueBtn = clContinueObj.AddComponent<Button>();
+        RectTransform clContinueRect = clContinueObj.GetComponent<RectTransform>();
+        clContinueRect.anchorMin = new Vector2(0.5f, 0); clContinueRect.anchorMax = new Vector2(0.5f, 0);
+        clContinueRect.pivot = new Vector2(0.5f, 0); clContinueRect.anchoredPosition = new Vector2(0, 90);
+        clContinueRect.sizeDelta = new Vector2(320, 80);
+        combatLootCtrl.continueBtn = clContinueBtn;
+
+        GameObject clContinueTxtObj = new GameObject("Text");
+        clContinueTxtObj.transform.SetParent(clContinueObj.transform, false);
+        Text clContinueTxt = clContinueTxtObj.AddComponent<Text>();
+        clContinueTxt.font = defaultFont; clContinueTxt.fontSize = 30; clContinueTxt.color = Color.black;
+        clContinueTxt.text = "确认拾取并继续";
+        clContinueTxt.alignment = TextAnchor.MiddleCenter;
+        clContinueTxt.raycastTarget = false;
+        RectTransform clContinueTxtRect = clContinueTxtObj.GetComponent<RectTransform>();
+        clContinueTxtRect.anchorMin = Vector2.zero; clContinueTxtRect.anchorMax = Vector2.one;
+        clContinueTxtRect.sizeDelta = Vector2.zero;
+
+        // ====================================================================
+        // 9. 安全区面板 (SafeRoomPanel)
         // ====================================================================
         GameObject safeRoomPanel = new GameObject("SafeRoomPanel");
         safeRoomPanel.transform.SetParent(canvasGo.transform, false);
@@ -330,7 +400,77 @@ public class MVPEditorSetup : EditorWindow
         evacTxtRect.anchorMin = Vector2.zero; evacTxtRect.anchorMax = Vector2.one;
         evacTxtRect.sizeDelta = Vector2.zero;
 
-        // 9. 顺便生成一个可拖拽物品的 Prefab 占位
+        // ====================================================================
+        // 10. 结算面板 (SettlementPanel)
+        // ====================================================================
+        GameObject settlementPanel = new GameObject("SettlementPanel");
+        settlementPanel.transform.SetParent(canvasGo.transform, false);
+        RectTransform settlementRect = settlementPanel.AddComponent<RectTransform>();
+        settlementRect.anchorMin = Vector2.zero; settlementRect.anchorMax = Vector2.one;
+        settlementRect.sizeDelta = Vector2.zero;
+        settlementPanel.SetActive(false);
+
+        Image settlementBg = settlementPanel.AddComponent<Image>();
+        settlementBg.color = new Color(0.05f, 0.05f, 0.05f, 0.92f);
+
+        SettlementUIController settlementCtrl = settlementPanel.AddComponent<SettlementUIController>();
+
+        GameObject titleObj = new GameObject("Title_Text");
+        titleObj.transform.SetParent(settlementPanel.transform, false);
+        Text titleTxt = titleObj.AddComponent<Text>();
+        titleTxt.font = defaultFont; titleTxt.fontSize = 48; titleTxt.color = Color.white;
+        titleTxt.alignment = TextAnchor.MiddleCenter;
+        RectTransform titleRect = titleObj.GetComponent<RectTransform>();
+        titleRect.anchorMin = new Vector2(0.5f, 1); titleRect.anchorMax = new Vector2(0.5f, 1);
+        titleRect.pivot = new Vector2(0.5f, 1); titleRect.anchoredPosition = new Vector2(0, -80);
+        titleRect.sizeDelta = new Vector2(500, 80);
+        settlementCtrl.titleText = titleTxt;
+
+        GameObject summaryObj = new GameObject("Summary_Text");
+        summaryObj.transform.SetParent(settlementPanel.transform, false);
+        Text summaryTxt = summaryObj.AddComponent<Text>();
+        summaryTxt.font = defaultFont; summaryTxt.fontSize = 28; summaryTxt.color = Color.white;
+        summaryTxt.alignment = TextAnchor.UpperCenter;
+        RectTransform summaryRect = summaryObj.GetComponent<RectTransform>();
+        summaryRect.anchorMin = new Vector2(0.5f, 1); summaryRect.anchorMax = new Vector2(0.5f, 1);
+        summaryRect.pivot = new Vector2(0.5f, 1); summaryRect.anchoredPosition = new Vector2(0, -180);
+        summaryRect.sizeDelta = new Vector2(700, 140);
+        settlementCtrl.summaryText = summaryTxt;
+
+        GameObject lootObj = new GameObject("Loot_Text");
+        lootObj.transform.SetParent(settlementPanel.transform, false);
+        Text lootTxt = lootObj.AddComponent<Text>();
+        lootTxt.font = defaultFont; lootTxt.fontSize = 24; lootTxt.color = new Color(1f, 0.92f, 0.5f);
+        lootTxt.alignment = TextAnchor.UpperLeft;
+        RectTransform lootRect = lootObj.GetComponent<RectTransform>();
+        lootRect.anchorMin = new Vector2(0.5f, 0.5f); lootRect.anchorMax = new Vector2(0.5f, 0.5f);
+        lootRect.pivot = new Vector2(0.5f, 0.5f); lootRect.anchoredPosition = new Vector2(0, -20);
+        lootRect.sizeDelta = new Vector2(700, 260);
+        settlementCtrl.lootText = lootTxt;
+
+        GameObject continueBtnObj = new GameObject("Continue_Button");
+        continueBtnObj.transform.SetParent(settlementPanel.transform, false);
+        Image continueImg = continueBtnObj.AddComponent<Image>();
+        continueImg.color = new Color(0.25f, 0.6f, 0.95f);
+        Button continueBtn = continueBtnObj.AddComponent<Button>();
+        RectTransform continueRect = continueBtnObj.GetComponent<RectTransform>();
+        continueRect.anchorMin = new Vector2(0.5f, 0); continueRect.anchorMax = new Vector2(0.5f, 0);
+        continueRect.pivot = new Vector2(0.5f, 0); continueRect.anchoredPosition = new Vector2(0, 90);
+        continueRect.sizeDelta = new Vector2(280, 80);
+        settlementCtrl.continueBtn = continueBtn;
+
+        GameObject continueTxtObj = new GameObject("Text");
+        continueTxtObj.transform.SetParent(continueBtnObj.transform, false);
+        Text continueTxt = continueTxtObj.AddComponent<Text>();
+        continueTxt.font = defaultFont; continueTxt.fontSize = 30; continueTxt.color = Color.white;
+        continueTxt.text = "返回工坊";
+        continueTxt.alignment = TextAnchor.MiddleCenter;
+        continueTxt.raycastTarget = false;
+        RectTransform continueTxtRect = continueTxtObj.GetComponent<RectTransform>();
+        continueTxtRect.anchorMin = Vector2.zero; continueTxtRect.anchorMax = Vector2.one;
+        continueTxtRect.sizeDelta = Vector2.zero;
+
+        // 11. 顺便生成一个可拖拽物品的 Prefab 占位
         GameObject itemPrefab = new GameObject("ItemPrefab_TestSword");
         Image itemImg = itemPrefab.AddComponent<Image>();
         itemImg.color = Color.red; 
@@ -355,12 +495,14 @@ public class MVPEditorSetup : EditorWindow
         DestroyImmediate(itemPrefab);
 
         // ====================================================================
-        // 10. 关联 Controller 引用
+        // 12. 关联 Controller 引用
         // ====================================================================
         flowCtrl.workshopPanel = workshopPanel;
         flowCtrl.dungeonMapPanel = mapPanel;
         flowCtrl.combatPanel = combatPanel;
+        flowCtrl.combatLootPanel = combatLootPanel;
         flowCtrl.safeRoomPanel = safeRoomPanel;
+        flowCtrl.settlementPanel = settlementPanel;
         
         var loadedTestPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/ItemPrefab_TestSword.prefab");
         if (loadedTestPrefab != null) {

@@ -3,6 +3,7 @@ using UnityEngine;
 public static class DungeonSettlementTest {
     private static bool _eventFired = false;
     private static bool _isVictory = false;
+    private static DungeonSettlementResult _lastSettlementResult = null;
 
     public static void Run() {
         try {
@@ -31,17 +32,13 @@ public static class DungeonSettlementTest {
             
             // Listen to Settlement Event
             _eventFired = false;
+            _lastSettlementResult = null;
             DungeonEventBus.OnDungeonSettled += OnSettled;
+            DungeonEventBus.OnDungeonSettlementPrepared += OnSettlementPrepared;
 
             // Trigger Evacuation (Victory)
             DungeonEventBus.PublishDungeonEvacuated();
-            
-            // Wait, VisualQueue needs to be processed because events are enqueued!
-            VisualQueue.IsHeadless = true;
-            
-            // Actually, PublishDungeonEvacuated enqueues commands. We need to manually process them if IsHeadless was not true at the moment, but it defaults to true.
-            // Let's verify.
-            
+
             Debug.Log($"[After Evacuate] Stash Count: {player.StashInventory.Count}, Backpack Count: {((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count}");
             
             if (player.StashInventory.Count == 1 && ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count == 0) {
@@ -56,8 +53,18 @@ public static class DungeonSettlementTest {
                 Debug.LogError("Evacuation Event Publishing FAILED.");
             }
 
+            if (_lastSettlementResult != null &&
+                _lastSettlementResult.IsVictory &&
+                _lastSettlementResult.LootTransferredCount == 1 &&
+                _lastSettlementResult.StashCountAfterSettlement == 1) {
+                Debug.Log("Evacuation Settlement Summary PASSED.");
+            } else {
+                Debug.LogError("Evacuation Settlement Summary FAILED.");
+            }
+
             // Test Defeat Scenario
             _eventFired = false;
+            _lastSettlementResult = null;
             ((BackpackGrid)doll.RuntimeGrid).PlaceItem(item, 0, 0); // Put it back
             
             DungeonEventBus.PublishDungeonDefeated();
@@ -74,7 +81,23 @@ public static class DungeonSettlementTest {
                 Debug.LogError("Defeat Event Publishing FAILED.");
             }
 
+            if (_lastSettlementResult != null &&
+                !_lastSettlementResult.IsVictory &&
+                _lastSettlementResult.LootTransferredCount == 0 &&
+                _lastSettlementResult.StashCountAfterSettlement == 1) {
+                Debug.Log("Defeat Settlement Summary PASSED.");
+            } else {
+                Debug.LogError("Defeat Settlement Summary FAILED.");
+            }
+
+            if (VisualQueue.Count == 0) {
+                Debug.Log("Dungeon Domain Events Bypass VisualQueue PASSED.");
+            } else {
+                Debug.LogError($"Dungeon Domain Events unexpectedly left {VisualQueue.Count} visual commands queued.");
+            }
+
             DungeonEventBus.OnDungeonSettled -= OnSettled;
+            DungeonEventBus.OnDungeonSettlementPrepared -= OnSettlementPrepared;
             Debug.Log("=== Dungeon Settlement Test Finished ===");
         } catch (System.Exception ex) {
             Debug.LogError($"[Test Crash] {ex.Message}\n{ex.StackTrace}");
@@ -85,5 +108,10 @@ public static class DungeonSettlementTest {
         _eventFired = true;
         _isVictory = isVictory;
         Debug.Log($"Received OnDungeonSettled event with isVictory={isVictory}");
+    }
+
+    private static void OnSettlementPrepared(DungeonSettlementResult result) {
+        _lastSettlementResult = result;
+        Debug.Log($"Received settlement summary. Victory={result.IsVictory}, LootCount={result.LootTransferredCount}");
     }
 }

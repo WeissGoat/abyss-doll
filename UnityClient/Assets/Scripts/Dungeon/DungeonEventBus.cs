@@ -12,6 +12,8 @@ public static class DungeonEventBus {
     
     // 战斗节点胜利，可继续前进
     public static event Action OnCombatNodeCleared;
+    public static event Action OnNodeResolutionFinished;
+    public static event Action<CombatLootPickupResult> OnCombatLootPrepared;
     
     // 玩家主动从安全区撤离 (或打完Boss自动撤离)
     public static event Action OnDungeonEvacuated;
@@ -39,6 +41,14 @@ public static class DungeonEventBus {
     public static void PublishCombatNodeCleared() {
         OnCombatNodeCleared?.Invoke();
     }
+
+    public static void PublishNodeResolutionFinished() {
+        OnNodeResolutionFinished?.Invoke();
+    }
+
+    public static void PublishCombatLootPrepared(CombatLootPickupResult result) {
+        OnCombatLootPrepared?.Invoke(result);
+    }
     
     public static void PublishDungeonEvacuated() {
         OnDungeonEvacuated?.Invoke();
@@ -61,6 +71,8 @@ public static class DungeonEventBus {
         OnNodeEntered = null;
         OnSafeRoomEntered = null;
         OnCombatNodeCleared = null;
+        OnNodeResolutionFinished = null;
+        OnCombatLootPrepared = null;
         OnDungeonEvacuated = null;
         OnDungeonDefeated = null;
         OnDungeonSettled = null;

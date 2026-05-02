@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 // 挂载在物品预制体（如剑、药水）上
 public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerDownHandler, IPointerEnterHandler {
@@ -44,6 +45,45 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             float pivotX = 0.5f / cols;
             float pivotY = 1.0f - (0.5f / rows);
             rect.pivot = new Vector2(pivotX, pivotY);
+        }
+
+        ApplyVisualStyle();
+    }
+
+    private void ApplyVisualStyle() {
+        Image image = GetComponent<Image>();
+        if (image != null && ItemData != null) {
+            switch (ItemData.ItemType) {
+                case nameof(ItemType.Weapon):
+                    image.color = new Color(0.75f, 0.18f, 0.18f, 1f);
+                    break;
+                case nameof(ItemType.Armor):
+                    image.color = new Color(0.35f, 0.45f, 0.7f, 1f);
+                    break;
+                case nameof(ItemType.Consumable):
+                    image.color = new Color(0.22f, 0.65f, 0.3f, 1f);
+                    break;
+                case nameof(ItemType.Loot):
+                    image.color = new Color(0.82f, 0.63f, 0.18f, 1f);
+                    break;
+                default:
+                    image.color = new Color(0.45f, 0.45f, 0.45f, 1f);
+                    break;
+            }
+        }
+
+        Text label = GetComponentInChildren<Text>();
+        if (label != null && ItemData != null) {
+            string secondLine = string.Empty;
+            if (ItemData.Combat != null && ItemData.Combat.APCost > 0) {
+                secondLine = $"{ItemData.Combat.APCost}AP";
+            } else if (ItemData.BaseValue > 0) {
+                secondLine = $"{ItemData.BaseValue}G";
+            }
+
+            label.text = string.IsNullOrEmpty(secondLine)
+                ? ItemData.Name
+                : $"{ItemData.Name}\n{secondLine}";
         }
     }
 
