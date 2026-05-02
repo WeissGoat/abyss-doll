@@ -24,7 +24,7 @@ public class SafeRoomNode : NodeBase {
             Debug.Log($"[Dungeon] Rested at Safe Room. HP and SAN restored.");
         }
         
-        // 休息后可继续前进，相当于清理了节点
-        DungeonEventBus.PublishCombatNodeCleared();
+        // 休息后节点自身结算完成，交由外层决定继续前进还是等待选点
+        DungeonEventBus.PublishNodeSettlementCompleted();
     }
 }

@@ -90,8 +90,13 @@ public class CombatSystem {
         PlayerFaction.Cleanup();
         EnemyFaction.Cleanup();
         
-        // 抛出战斗节点清理完毕的事件，交由深渊管理器判断是进入下一节点还是结算
-        DungeonEventBus.PublishCombatNodeCleared();
+        CombatNode currentCombatNode = GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode as CombatNode;
+        if (currentCombatNode != null) {
+            currentCombatNode.ResolveAfterVictory();
+        } else {
+            Debug.LogWarning("[CombatSystem] Victory reached outside of a CombatNode context. Falling back to generic node settlement completion.");
+            DungeonEventBus.PublishNodeSettlementCompleted();
+        }
     }
     
     private void HandleDefeat() {

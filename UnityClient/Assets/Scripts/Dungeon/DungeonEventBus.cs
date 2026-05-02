@@ -10,8 +10,8 @@ public static class DungeonEventBus {
     // 进入安全区节点
     public static event Action<NodeBase> OnSafeRoomEntered;
     
-    // 战斗节点胜利，可继续前进
-    public static event Action OnCombatNodeCleared;
+    // 当前节点已完成自身结算，可由外界决定下一步推进
+    public static event Action OnNodeSettlementCompleted;
     public static event Action OnNodeResolutionFinished;
     public static event Action<CombatLootPickupResult> OnCombatLootPrepared;
     
@@ -38,8 +38,8 @@ public static class DungeonEventBus {
         OnSafeRoomEntered?.Invoke(node);
     }
     
-    public static void PublishCombatNodeCleared() {
-        OnCombatNodeCleared?.Invoke();
+    public static void PublishNodeSettlementCompleted() {
+        OnNodeSettlementCompleted?.Invoke();
     }
 
     public static void PublishNodeResolutionFinished() {
@@ -70,7 +70,7 @@ public static class DungeonEventBus {
         OnLayerLoaded = null;
         OnNodeEntered = null;
         OnSafeRoomEntered = null;
-        OnCombatNodeCleared = null;
+        OnNodeSettlementCompleted = null;
         OnNodeResolutionFinished = null;
         OnCombatLootPrepared = null;
         OnDungeonEvacuated = null;

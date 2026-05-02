@@ -265,12 +265,23 @@ public class GameFlowController : MonoBehaviour {
         if (lootCtrl != null) {
             lootCtrl.Present(result, testItemPrefab, () => {
                 _pendingCombatLootResult = null;
-                GameRoot.Core.Dungeon.ConfirmPendingCombatLootCollection();
+                CombatNode currentCombatNode = GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode as CombatNode;
+                if (currentCombatNode != null) {
+                    currentCombatNode.ConfirmLootCollection();
+                } else {
+                    Debug.LogWarning("[GameFlow] Missing CombatNode while confirming combat loot. Falling back to generic node settlement completion.");
+                    DungeonEventBus.PublishNodeSettlementCompleted();
+                }
             });
         } else {
             Debug.LogWarning("[GameFlow] CombatLootPanel missing. Falling back to auto-confirm without UI interaction.");
             _pendingCombatLootResult = null;
-            GameRoot.Core.Dungeon.ConfirmPendingCombatLootCollection();
+            CombatNode currentCombatNode = GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode as CombatNode;
+            if (currentCombatNode != null) {
+                currentCombatNode.ConfirmLootCollection();
+            } else {
+                DungeonEventBus.PublishNodeSettlementCompleted();
+            }
         }
     }
 

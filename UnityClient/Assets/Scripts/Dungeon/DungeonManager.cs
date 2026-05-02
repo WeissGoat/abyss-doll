@@ -60,18 +60,17 @@ public class DungeonLayer {
 
 public class DungeonManager {
     public DungeonLayer CurrentLayer;
-    private CombatLootPickupResult _pendingCombatLoot;
     
     public DungeonManager() {
         DungeonEventBus.OnDungeonEvacuated += HandleEvacuate;
         DungeonEventBus.OnDungeonDefeated += HandleDefeat;
-        DungeonEventBus.OnCombatNodeCleared += HandleCombatNodeCleared;
+        DungeonEventBus.OnNodeSettlementCompleted += HandleNodeSettlementCompleted;
     }
 
     ~DungeonManager() {
         DungeonEventBus.OnDungeonEvacuated -= HandleEvacuate;
         DungeonEventBus.OnDungeonDefeated -= HandleDefeat;
-        DungeonEventBus.OnCombatNodeCleared -= HandleCombatNodeCleared;
+        DungeonEventBus.OnNodeSettlementCompleted -= HandleNodeSettlementCompleted;
     }
     
     public void LoadLayer(int layerID) {
@@ -103,41 +102,8 @@ public class DungeonManager {
         targetNode.OnEnterNode();
     }
 
-    private void HandleCombatNodeCleared() {
-        Debug.Log("[DungeonManager] Combat node cleared.");
-        CombatLootPickupResult lootResult = PrepareCombatLootForCurrentNode();
-        if (lootResult != null && lootResult.OfferedItems.Count > 0) {
-            _pendingCombatLoot = lootResult;
-            Debug.Log($"[DungeonManager] Prepared combat loot pickup. OfferedCount={lootResult.OfferedItems.Count}, EstimatedValue={lootResult.TotalEstimatedValue}");
-            DungeonEventBus.PublishCombatLootPrepared(lootResult);
-            return;
-        }
-
-        ContinueAfterCurrentNodeResolved();
-    }
-
-    public void ConfirmPendingCombatLootCollection() {
-        if (_pendingCombatLoot != null) {
-            BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
-            int acceptedCount = 0;
-            int discardedCount = 0;
-
-            foreach (var item in _pendingCombatLoot.OfferedItems) {
-                if (item == null) {
-                    continue;
-                }
-
-                if (grid != null && grid.ContainedItems.Contains(item)) {
-                    acceptedCount++;
-                } else {
-                    discardedCount++;
-                }
-            }
-
-            Debug.Log($"[DungeonManager] Combat loot confirmed. Accepted={acceptedCount}, Discarded={discardedCount}");
-            _pendingCombatLoot = null;
-        }
-
+    private void HandleNodeSettlementCompleted() {
+        Debug.Log($"[DungeonManager] Node settlement completed: {CurrentLayer?.CurrentNode?.NodeID ?? "UnknownNode"}");
         ContinueAfterCurrentNodeResolved();
     }
 
@@ -151,77 +117,6 @@ public class DungeonManager {
             Debug.Log("[DungeonManager] Awaiting player to select the next node on the map...");
             DungeonEventBus.PublishNodeResolutionFinished();
         }
-    }
-
-    private CombatLootPickupResult PrepareCombatLootForCurrentNode() {
-        if (!(CurrentLayer?.CurrentNode is CombatNode combatNode)) {
-            return null;
-        }
-
-        if (combatNode.MonsterIDs == null || combatNode.MonsterIDs.Count == 0) {
-            Debug.Log("[DungeonManager] Combat node had no MonsterIDs. No loot generated.");
-            return null;
-        }
-
-        CombatLootPickupResult result = new CombatLootPickupResult {
-            NodeID = combatNode.NodeID
-        };
-
-        foreach (string monsterID in combatNode.MonsterIDs) {
-            ItemEntity droppedItem = RollLootForMonster(monsterID);
-            if (droppedItem == null) {
-                continue;
-            }
-
-            result.SourceMonsterIDs.Add(monsterID);
-            result.OfferedItems.Add(droppedItem);
-            result.TotalEstimatedValue += droppedItem.BaseValue;
-        }
-
-        return result;
-    }
-
-    private ItemEntity RollLootForMonster(string monsterID) {
-        if (string.IsNullOrEmpty(monsterID) || !ConfigManager.Monsters.TryGetValue(monsterID, out var monster)) {
-            Debug.LogWarning($"[DungeonManager] Cannot roll loot. Monster config missing: {monsterID}");
-            return null;
-        }
-
-        if (monster.LootPool == null || monster.LootPool.Count == 0) {
-            Debug.Log($"[DungeonManager] Monster [{monster.Name}] has no loot pool configured.");
-            return null;
-        }
-
-        int totalWeight = 0;
-        foreach (var entry in monster.LootPool) {
-            if (entry != null && entry.Weight > 0 && !string.IsNullOrEmpty(entry.ItemID)) {
-                totalWeight += entry.Weight;
-            }
-        }
-
-        if (totalWeight <= 0) {
-            Debug.LogWarning($"[DungeonManager] Monster [{monster.Name}] loot pool has no valid weighted entries.");
-            return null;
-        }
-
-        int roll = UnityEngine.Random.Range(0, totalWeight);
-        int cursor = 0;
-        foreach (var entry in monster.LootPool) {
-            if (entry == null || entry.Weight <= 0 || string.IsNullOrEmpty(entry.ItemID)) {
-                continue;
-            }
-
-            cursor += entry.Weight;
-            if (roll < cursor) {
-                ItemEntity item = ConfigManager.CreateItem(entry.ItemID);
-                if (item == null) {
-                    Debug.LogError($"[DungeonManager] Loot config points to missing item: {entry.ItemID}");
-                }
-                return item;
-            }
-        }
-
-        return null;
     }
 
     private void HandleEvacuate() {
