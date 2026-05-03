@@ -46,6 +46,8 @@ public class CoreBackend {
                 CurrentPlayer.ActiveDoll.Chassis = Newtonsoft.Json.JsonConvert.DeserializeObject<ChassisComponent>(chassisJson);
             }
             
+            InitializeDollInventory(CurrentPlayer.ActiveDoll);
+
             // 初始化魔偶自身的事件监听
             CurrentPlayer.ActiveDoll.InitializeRuntime();
         }
@@ -54,5 +56,45 @@ public class CoreBackend {
     public void Tick(float deltaTime) {
         // Dispatch engine tick to systems that need it
         // Combat?.Tick(deltaTime);
+    }
+
+    private void InitializeDollInventory(DollEntity doll) {
+        if (doll == null || doll.Chassis == null) {
+            return;
+        }
+
+        BackpackGrid grid = new BackpackGrid(doll.Chassis);
+        doll.RuntimeGrid = grid;
+
+        if (doll.InitialItems == null || doll.InitialItems.Count == 0) {
+            Debug.Log($"[CoreBackend] Doll [{doll.Name}] has no configured initial items.");
+            return;
+        }
+
+        foreach (var initialItem in doll.InitialItems) {
+            if (initialItem == null || string.IsNullOrEmpty(initialItem.ItemConfigID)) {
+                continue;
+            }
+
+            ItemEntity item = ConfigManager.CreateItem(initialItem.ItemConfigID);
+            if (item == null) {
+                Debug.LogWarning($"[CoreBackend] Failed to create initial item [{initialItem.ItemConfigID}] for doll [{doll.Name}].");
+                continue;
+            }
+
+            if (item.Grid != null) {
+                item.Grid.Rotation = initialItem.Rotation;
+            }
+
+            bool placed = grid.PlaceItem(item, initialItem.X, initialItem.Y);
+            if (!placed) {
+                Debug.LogWarning($"[CoreBackend] Failed to place initial item [{item.Name}] for doll [{doll.Name}] at ({initialItem.X},{initialItem.Y}).");
+                continue;
+            }
+
+            Debug.Log($"[CoreBackend] Placed initial item [{item.Name}] for doll [{doll.Name}] at ({initialItem.X},{initialItem.Y}).");
+        }
+
+        GridSolver.RecalculateAllEffects(doll);
     }
 }

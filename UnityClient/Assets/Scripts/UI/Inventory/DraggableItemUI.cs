@@ -5,6 +5,7 @@ using UnityEngine.UI;
 // 挂载在物品预制体（如剑、药水）上
 public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerDownHandler, IPointerEnterHandler {
     public ItemEntity ItemData { get; private set; }
+    public bool IsPendingDiscard { get; private set; }
     
     private Vector3 _originalPosition;
     private Transform _originalParent;
@@ -23,6 +24,7 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void SetupData(ItemEntity itemData) {
         ItemData = itemData;
         _wasInGrid = false;
+        IsPendingDiscard = false;
         
         _canvasGroup = GetComponent<CanvasGroup>();
         if (_canvasGroup == null) _canvasGroup = gameObject.AddComponent<CanvasGroup>();
@@ -182,31 +184,40 @@ public void OnDrag(PointerEventData eventData) {
     transform.position = (Vector3)eventData.position + _dragOffset;
 }
 
-    public void OnEndDrag(PointerEventData eventData) {
-        if (_canvasGroup != null) {
-            _canvasGroup.blocksRaycasts = true;
-        }
+public void OnEndDrag(PointerEventData eventData) {
+    if (_canvasGroup != null) {
+        _canvasGroup.blocksRaycasts = true;
+    }
 
-        // 如果拖拽结束后，物品没有在后端的网格里（说明它被扔在了空地，或者放置失败了）
-        BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
-        if (grid == null || !grid.ContainedItems.Contains(ItemData)) {
+    // 如果拖拽结束后，物品没有在后端的网格里（说明它被扔在了空地，或者放置失败了）
+    BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
+    if (grid == null || !grid.ContainedItems.Contains(ItemData)) {
+        if (_wasInGrid && GameFlowController.Instance != null && GameFlowController.Instance.CanStageRemovedBackpackItems()) {
+            LeaveDetachedAtCurrentPosition();
+        } else {
             ReturnToOriginalPosition();
         }
     }
+}
 
     public void SnapToSlot(Transform newParentSlot, int gridX, int gridY) {
-        Canvas canvas = GetComponentInParent<Canvas>();
-        if (canvas != null) {
-            // 极其重要：成为 Canvas 的子物体，保证它渲染在所有的格子之上！
-            transform.SetParent(canvas.transform);
+        Transform itemLayer = GameFlowController.Instance != null ? GameFlowController.Instance.GetInventoryItemLayer() : null;
+        if (itemLayer != null) {
+            transform.SetParent(itemLayer);
         } else {
-            transform.SetParent(newParentSlot.parent.parent); 
+            Canvas canvas = GetComponentInParent<Canvas>();
+            if (canvas != null) {
+                transform.SetParent(canvas.transform);
+            } else {
+                transform.SetParent(newParentSlot.parent.parent);
+            }
         }
         
         transform.position = newParentSlot.position;
         transform.SetAsLastSibling();
         
         _wasInGrid = true;
+        IsPendingDiscard = false;
         _lastValidX = gridX;
         _lastValidY = gridY;
         
@@ -217,6 +228,7 @@ public void OnDrag(PointerEventData eventData) {
     public void ReturnToOriginalPosition() {
         transform.SetParent(_originalParent);
         transform.position = _originalPosition;
+        IsPendingDiscard = false;
         
         // 【关键修复】如果是从网格拿起来的但放置失败，必须把它重新注册回后端！
         if (_wasInGrid) {
@@ -227,5 +239,18 @@ public void OnDrag(PointerEventData eventData) {
                 GameEventBus.PublishItemPlaced(ItemData.InstanceID, _lastValidX, _lastValidY);
             }
         }
+    }
+
+    private void LeaveDetachedAtCurrentPosition() {
+        Transform itemLayer = GameFlowController.Instance != null ? GameFlowController.Instance.GetInventoryItemLayer() : null;
+        if (itemLayer != null) {
+            transform.SetParent(itemLayer);
+        }
+
+        transform.SetAsLastSibling();
+        _originalParent = transform.parent;
+        _originalPosition = transform.position;
+        IsPendingDiscard = true;
+        Debug.Log($"[UI] 物品 {ItemData.Name} 已从背包中取出，关闭背包时将被丢弃。");
     }
 }

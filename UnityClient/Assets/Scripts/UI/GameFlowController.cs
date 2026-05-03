@@ -20,10 +20,12 @@ public class GameFlowController : MonoBehaviour {
     public GameObject safeRoomPanel;
     public GameObject settlementPanel;
     public GameObject testItemPrefab;
+    public Transform inventoryItemLayer;
     
     private GameScreenState _currentScreen;
     private CombatLootPickupResult _pendingCombatLootResult;
     private DungeonSettlementResult _pendingSettlementResult;
+    private bool _isDungeonMapInventoryOpen;
 
     void Awake() {
         Instance = this;
@@ -44,20 +46,12 @@ public class GameFlowController : MonoBehaviour {
         }
 
         var myChassis = GameRoot.Core.CurrentPlayer.ActiveDoll.Chassis;
-        GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid = new BackpackGrid(myChassis);
-        FindObjectOfType<GridGenerator>().GenerateGrid(myChassis);
-        EnsureCombatLootPanel();
-
-        if (testItemPrefab != null) {
-            GameObject itemGo = Instantiate(testItemPrefab, FindObjectOfType<Canvas>().transform);
-            ItemEntity swordData = ConfigManager.CreateItem("gear_tactical_blade");
-            
-            RectTransform rect = itemGo.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(100, 300);
-            rect.anchoredPosition = new Vector2(-400, 0);
-
-            itemGo.GetComponent<DraggableItemUI>().SetupData(swordData);
+        if (GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid == null) {
+            GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid = new BackpackGrid(myChassis);
         }
+        FindObjectOfType<GridGenerator>().GenerateGrid(myChassis);
+        EnsureInventoryItemLayer();
+        EnsureCombatLootPanel();
 
         DungeonEventBus.OnLayerLoaded += EnterDungeonMap;
         DungeonEventBus.OnNodeResolutionFinished += EnterDungeonMap;
@@ -96,6 +90,27 @@ public class GameFlowController : MonoBehaviour {
     public void DepartToDungeon() {
         Debug.Log("[GameFlow] 玩家启程，加载深渊...");
         GameRoot.Core.Dungeon.LoadLayer(1);
+    }
+
+    public void OpenDungeonMapInventory() {
+        if (_currentScreen != GameScreenState.DungeonMap) {
+            return;
+        }
+
+        SetDungeonMapInventoryOpen(true, false);
+    }
+
+    public void CloseDungeonMapInventory() {
+        SetDungeonMapInventoryOpen(false, true);
+    }
+
+    public bool CanStageRemovedBackpackItems() {
+        return _currentScreen == GameScreenState.DungeonMap && _isDungeonMapInventoryOpen;
+    }
+
+    public Transform GetInventoryItemLayer() {
+        EnsureInventoryItemLayer();
+        return inventoryItemLayer;
     }
 
     private void HandleDungeonSettled(bool isVictory) {
@@ -181,6 +196,10 @@ public class GameFlowController : MonoBehaviour {
     }
 
     private void TransitionToScreen(GameScreenState nextScreen, object payload = null) {
+        if (_currentScreen == GameScreenState.DungeonMap && nextScreen != GameScreenState.DungeonMap && _isDungeonMapInventoryOpen) {
+            SetDungeonMapInventoryOpen(false, true, false);
+        }
+
         _currentScreen = nextScreen;
         Debug.Log($"[GameFlow] 切换屏幕状态 -> {_currentScreen}");
 
@@ -190,6 +209,7 @@ public class GameFlowController : MonoBehaviour {
         if (combatLootPanel) combatLootPanel.SetActive(nextScreen == GameScreenState.CombatLoot);
         if (safeRoomPanel) safeRoomPanel.SetActive(nextScreen == GameScreenState.SafeRoom);
         if (settlementPanel) settlementPanel.SetActive(nextScreen == GameScreenState.Settlement);
+        ApplyInventoryPresentationForCurrentScreen();
 
         switch (nextScreen) {
             case GameScreenState.Workshop:
@@ -238,6 +258,7 @@ public class GameFlowController : MonoBehaviour {
         var mapCtrl = dungeonMapPanel?.GetComponent<DungeonMapUIController>();
         if (mapCtrl != null) {
             mapCtrl.RefreshMap();
+            mapCtrl.BindBackpackControls(this, _isDungeonMapInventoryOpen);
         }
 
         SyncInventoryItemUI();
@@ -336,9 +357,9 @@ public class GameFlowController : MonoBehaviour {
             return;
         }
 
-        Canvas canvas = FindObjectOfType<Canvas>();
         GridGenerator generator = FindObjectOfType<GridGenerator>();
-        if (canvas == null || generator == null) {
+        Transform itemLayer = GetInventoryItemLayer();
+        if (itemLayer == null || generator == null) {
             return;
         }
 
@@ -347,7 +368,7 @@ public class GameFlowController : MonoBehaviour {
             return;
         }
 
-        GameObject itemGo = Instantiate(testItemPrefab, canvas.transform);
+        GameObject itemGo = Instantiate(testItemPrefab, itemLayer);
         DraggableItemUI itemUI = itemGo.GetComponent<DraggableItemUI>();
         if (itemUI == null) {
             return;
@@ -356,6 +377,69 @@ public class GameFlowController : MonoBehaviour {
         itemUI.SetupData(item);
         itemUI.SnapToSlot(targetSlot, x, y);
         Debug.Log($"[GameFlow] Spawned UI for item {item.Name} at ({x},{y})");
+    }
+
+    private void SetDungeonMapInventoryOpen(bool isOpen, bool discardDetachedItems, bool refreshMapControls = true) {
+        _isDungeonMapInventoryOpen = isOpen;
+
+        if (!isOpen && discardDetachedItems) {
+            DiscardDetachedBackpackItems();
+        }
+
+        ApplyInventoryPresentationForCurrentScreen();
+
+        if (refreshMapControls) {
+            RefreshDungeonMapInventoryControls();
+        }
+
+        Debug.Log(isOpen
+            ? "[GameFlow] 深渊地图背包已展开。"
+            : "[GameFlow] 深渊地图背包已收拢。");
+    }
+
+    private void RefreshDungeonMapInventoryControls() {
+        var mapCtrl = dungeonMapPanel?.GetComponent<DungeonMapUIController>();
+        if (mapCtrl != null) {
+            mapCtrl.BindBackpackControls(this, _isDungeonMapInventoryOpen);
+        }
+    }
+
+    private void ApplyInventoryPresentationForCurrentScreen() {
+        bool shouldShowBackpack = _currentScreen == GameScreenState.Workshop
+            || _currentScreen == GameScreenState.Combat
+            || _currentScreen == GameScreenState.CombatLoot
+            || (_currentScreen == GameScreenState.DungeonMap && _isDungeonMapInventoryOpen);
+
+        GridGenerator generator = FindObjectOfType<GridGenerator>();
+        if (generator?.gridParent != null) {
+            generator.gridParent.gameObject.SetActive(shouldShowBackpack);
+        }
+
+        EnsureInventoryItemLayer();
+        if (inventoryItemLayer != null) {
+            CanvasGroup canvasGroup = inventoryItemLayer.GetComponent<CanvasGroup>();
+            if (canvasGroup == null) {
+                canvasGroup = inventoryItemLayer.gameObject.AddComponent<CanvasGroup>();
+            }
+
+            canvasGroup.alpha = shouldShowBackpack ? 1f : 0f;
+            canvasGroup.interactable = shouldShowBackpack;
+            canvasGroup.blocksRaycasts = shouldShowBackpack;
+        }
+    }
+
+    private void DiscardDetachedBackpackItems() {
+        int discardedCount = 0;
+        foreach (var itemUI in FindObjectsOfType<DraggableItemUI>()) {
+            if (itemUI != null && itemUI.IsPendingDiscard) {
+                discardedCount++;
+                Destroy(itemUI.gameObject);
+            }
+        }
+
+        if (discardedCount > 0) {
+            Debug.Log($"[GameFlow] 丢弃了 {discardedCount} 件从局内背包移除的物品。");
+        }
     }
 
     private bool TryFindItemUI(string itemInstanceID, out DraggableItemUI foundItemUI) {
@@ -372,6 +456,34 @@ public class GameFlowController : MonoBehaviour {
         }
 
         return false;
+    }
+
+    private void EnsureInventoryItemLayer() {
+        if (inventoryItemLayer != null) {
+            return;
+        }
+
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas == null) {
+            return;
+        }
+
+        Transform existingLayer = canvas.transform.Find("InventoryItemLayer");
+        if (existingLayer != null) {
+            inventoryItemLayer = existingLayer;
+        } else {
+            GameObject layer = new GameObject("InventoryItemLayer");
+            layer.transform.SetParent(canvas.transform, false);
+            RectTransform layerRect = layer.AddComponent<RectTransform>();
+            layerRect.anchorMin = Vector2.zero;
+            layerRect.anchorMax = Vector2.one;
+            layerRect.sizeDelta = Vector2.zero;
+            inventoryItemLayer = layer.transform;
+        }
+
+        if (inventoryItemLayer.GetComponent<CanvasGroup>() == null) {
+            inventoryItemLayer.gameObject.AddComponent<CanvasGroup>();
+        }
     }
 
     private void EnsureCombatLootPanel() {

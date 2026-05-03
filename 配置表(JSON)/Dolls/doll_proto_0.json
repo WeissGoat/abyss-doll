@@ -16,5 +16,13 @@
     "Compute": 5,
     "Charm": 2
   },
+  "InitialItems": [
+    {
+      "ItemConfigID": "gear_tactical_blade",
+      "X": 0,
+      "Y": 0,
+      "Rotation": 0
+    }
+  ],
   "DefaultChassisID": "chassis_lv1_basic"
 }

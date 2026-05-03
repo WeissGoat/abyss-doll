@@ -7,6 +7,7 @@ public class DollEntity {
     public string DollID;
     public string Name;
     public string DefaultChassisID;
+    public List<DollInitialItemConfig> InitialItems = new List<DollInitialItemConfig>();
     
     public DollStatusComponent Status = new DollStatusComponent();
     public DollStatsComponent Stats = new DollStatsComponent();
@@ -45,6 +46,14 @@ public class DollStatusComponent {
     public int SAN_Max;
     public float WearAndTear;
     public float Corruption;
+}
+
+[Serializable]
+public class DollInitialItemConfig {
+    public string ItemConfigID;
+    public int X;
+    public int Y;
+    public int Rotation;
 }
 
 [Serializable]

@@ -58,6 +58,14 @@ public class MVPEditorSetup : EditorWindow
         GridGenerator generator = canvasGo.AddComponent<GridGenerator>();
         generator.gridParent = gridContainer.transform;
 
+        GameObject inventoryItemLayer = new GameObject("InventoryItemLayer");
+        inventoryItemLayer.transform.SetParent(canvasGo.transform, false);
+        RectTransform inventoryLayerRect = inventoryItemLayer.AddComponent<RectTransform>();
+        inventoryLayerRect.anchorMin = Vector2.zero;
+        inventoryLayerRect.anchorMax = Vector2.one;
+        inventoryLayerRect.sizeDelta = Vector2.zero;
+        inventoryItemLayer.AddComponent<CanvasGroup>();
+
         // 生成并保存占位预制体 (SlotPrefab)
         GameObject slotPrefab = new GameObject("SlotPrefab");
         Image slotImg = slotPrefab.AddComponent<Image>();
@@ -503,6 +511,7 @@ public class MVPEditorSetup : EditorWindow
         flowCtrl.combatLootPanel = combatLootPanel;
         flowCtrl.safeRoomPanel = safeRoomPanel;
         flowCtrl.settlementPanel = settlementPanel;
+        flowCtrl.inventoryItemLayer = inventoryItemLayer.transform;
         
         var loadedTestPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/ItemPrefab_TestSword.prefab");
         if (loadedTestPrefab != null) {

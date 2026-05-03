@@ -33,6 +33,28 @@ public static class BackendSmokeTest {
         } else {
             Debug.Log("SAN Assertion PASSED.");
         }
+
+        BackpackGrid runtimeGrid = doll.RuntimeGrid as BackpackGrid;
+        if (runtimeGrid == null) {
+            Debug.LogError("RuntimeGrid Assert FAILED: Active doll runtime grid was not initialized.");
+        } else {
+            Debug.Log("RuntimeGrid Initialization PASSED.");
+        }
+
+        if (runtimeGrid != null && doll.InitialItems != null && doll.InitialItems.Count > 0) {
+            bool loadoutMatches = runtimeGrid.ContainedItems.Count == doll.InitialItems.Count;
+            foreach (var initialItem in doll.InitialItems) {
+                ItemEntity placedItem = runtimeGrid.GetItemAt(initialItem.X, initialItem.Y);
+                if (placedItem == null || placedItem.ConfigID != initialItem.ItemConfigID) {
+                    loadoutMatches = false;
+                    Debug.LogError($"Initial Loadout Assert FAILED at ({initialItem.X},{initialItem.Y}). Expected {initialItem.ItemConfigID}, got {placedItem?.ConfigID ?? "null"}");
+                }
+            }
+
+            if (loadoutMatches) {
+                Debug.Log("Initial Loadout Placement PASSED.");
+            }
+        }
         
         Debug.Log("=== Backend Smoke Test Finished ===");
     }
