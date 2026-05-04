@@ -99,13 +99,6 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnPointerClick(PointerEventData eventData) {
         Debug.Log($"[UI] 你点击了 {ItemData.Name}");
-
-        if (GameRoot.Core.Combat == null) return;
-        
-        if (GameRoot.Core.Combat.CurrentState != CombatState.PlayerTurn) {
-            Debug.LogWarning($"[UI] 当前不是玩家回合，无法攻击！");
-            return;
-        }
         
         BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
         
@@ -123,17 +116,9 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             }
         }
 
-        // 执行战斗逻辑：获取玩家和第一个活着的敌人
-        var combat = GameRoot.Core.Combat;
-        
-        if (combat.PlayerFaction == null || combat.PlayerFaction.Fighters.Count == 0 || combat.EnemyFaction == null) return;
-        
-        DollFighter playerFighter = combat.PlayerFaction.Fighters[0] as DollFighter;
-        FighterEntity enemyTarget = combat.EnemyFaction.Fighters.Find(f => f.RuntimeHP > 0);
-        
-        if (playerFighter != null && enemyTarget != null && ItemData.Combat != null) {
-            if (ItemData.Combat.TriggerType == TriggerType.Manual.ToString()) {
-                playerFighter.Attack(enemyTarget, ItemData);
+        if (!ItemUseService.TryUseItem(ItemData, out string failureReason)) {
+            if (!string.IsNullOrEmpty(failureReason)) {
+                Debug.LogWarning($"[UI] {failureReason}");
             }
         }
     }

@@ -56,18 +56,29 @@ public class DollFighter : FighterEntity {
         DataRef.Status.HP_Current = RuntimeHP;
         Debug.Log($"[{Name}] Synced data back to DollEntity. HP: {DataRef.Status.HP_Current}");
     }
+
+    public bool TrySpendAP(int amount, string sourceName) {
+        if (amount <= 0) {
+            return true;
+        }
+
+        if (CurrentAP < amount) {
+            Debug.LogWarning($"[{Name}] Not enough AP to use {sourceName}. Cost: {amount}, Current: {CurrentAP}");
+            return false;
+        }
+
+        CurrentAP -= amount;
+        GameEventBus.PublishAPChanged(Name, CurrentAP, MaxAP);
+        return true;
+    }
     
     public override void Attack(FighterEntity target, ItemEntity weaponSource) {
         if (weaponSource == null || weaponSource.Combat == null) return;
         
-        if (CurrentAP < weaponSource.Combat.APCost) {
-            Debug.LogWarning($"[{Name}] Not enough AP to use {weaponSource.Name}. Cost: {weaponSource.Combat.APCost}, Current: {CurrentAP}");
+        if (!TrySpendAP(weaponSource.Combat.APCost, weaponSource.Name)) {
             return;
         }
-        
-        CurrentAP -= weaponSource.Combat.APCost;
-        GameEventBus.PublishAPChanged(Name, CurrentAP, MaxAP);
-        
+
         if (weaponSource.Combat.DamageType == DamageType.Physical.ToString() || weaponSource.Combat.DamageType == DamageType.Energy.ToString()) {
             int dmg = (int)weaponSource.Combat.RuntimeDamage;
             GameEventBus.PublishAttackAction(Name, target.Name, weaponSource.Name);

@@ -59,3 +59,90 @@ public static class BackendSmokeTest {
         Debug.Log("=== Backend Smoke Test Finished ===");
     }
 }
+
+public static class ItemUseSmokeTest {
+    public static void Run() {
+        Debug.Log("=== Running Item Use Smoke Test ===");
+
+        VisualQueue.IsHeadless = true;
+        VisualQueue.Clear();
+
+        TestCombatConsumableUse();
+        TestSafeRoomConsumableUse();
+
+        Debug.Log("=== Item Use Smoke Test Finished ===");
+    }
+
+    private static void TestCombatConsumableUse() {
+        CoreBackend core = new CoreBackend();
+        core.InitAllSystems();
+        GameRoot.Core = core;
+
+        DollEntity doll = core.CurrentPlayer.ActiveDoll;
+        BackpackGrid grid = doll.RuntimeGrid as BackpackGrid;
+        ItemEntity repairKit = grid?.ContainedItems.Find(item => item.ConfigID == "con_repair_kit");
+
+        if (grid == null || repairKit == null) {
+            Debug.LogError("Combat Consumable Bootstrap FAILED: missing runtime grid or repair kit.");
+            return;
+        }
+
+        doll.Status.HP_Current = 40;
+        core.Combat.StartCombat(new List<string> { "mob_scavenger_bug" });
+
+        DollFighter playerFighter = core.Combat.PlayerFaction.Fighters[0] as DollFighter;
+        int beforeCount = grid.ContainedItems.Count;
+
+        bool used = ItemUseService.TryUseItem(repairKit, out string failureReason);
+        if (!used) {
+            Debug.LogError($"Combat Consumable Use FAILED: {failureReason}");
+            return;
+        }
+
+        if (playerFighter != null &&
+            playerFighter.RuntimeHP == 70 &&
+            doll.Status.HP_Current == 70 &&
+            playerFighter.CurrentAP == 2 &&
+            grid.ContainedItems.Count == beforeCount - 1) {
+            Debug.Log("Combat Consumable Use PASSED.");
+        } else {
+            Debug.LogError($"Combat Consumable Use FAILED. HP={playerFighter?.RuntimeHP}, DollHP={doll.Status.HP_Current}, AP={playerFighter?.CurrentAP}, Backpack={grid.ContainedItems.Count}");
+        }
+    }
+
+    private static void TestSafeRoomConsumableUse() {
+        CoreBackend core = new CoreBackend();
+        core.InitAllSystems();
+        GameRoot.Core = core;
+
+        DollEntity doll = core.CurrentPlayer.ActiveDoll;
+        BackpackGrid grid = doll.RuntimeGrid as BackpackGrid;
+        ItemEntity sedative = grid?.ContainedItems.Find(item => item.ConfigID == "con_cheap_sedative");
+
+        if (grid == null || sedative == null) {
+            Debug.LogError("SafeRoom Consumable Bootstrap FAILED: missing runtime grid or sedative.");
+            return;
+        }
+
+        doll.Status.SAN_Current = 10;
+        SafeRoomNode safeRoomNode = new SafeRoomNode { NodeID = "item_use_safe_room" };
+        core.Dungeon.CurrentLayer = new DungeonLayer {
+            LayerID = 1,
+            RootNode = safeRoomNode,
+            CurrentNode = safeRoomNode
+        };
+
+        int beforeCount = grid.ContainedItems.Count;
+        bool used = ItemUseService.TryUseItem(sedative, out string failureReason);
+        if (!used) {
+            Debug.LogError($"SafeRoom Consumable Use FAILED: {failureReason}");
+            return;
+        }
+
+        if (doll.Status.SAN_Current == 30 && grid.ContainedItems.Count == beforeCount - 1) {
+            Debug.Log("SafeRoom Consumable Use PASSED.");
+        } else {
+            Debug.LogError($"SafeRoom Consumable Use FAILED. SAN={doll.Status.SAN_Current}, Backpack={grid.ContainedItems.Count}");
+        }
+    }
+}

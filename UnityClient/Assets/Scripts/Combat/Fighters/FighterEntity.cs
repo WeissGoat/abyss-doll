@@ -67,6 +67,16 @@ public abstract class FighterEntity {
         GameEventBus.PublishShieldChanged(Name, RuntimeShield);
         Debug.Log($"[{Name}] Gained {amount} shield. Total Shield: {RuntimeShield}");
     }
+
+    public virtual void Heal(int amount) {
+        if (amount <= 0) return;
+
+        int before = RuntimeHP;
+        RuntimeHP = Mathf.Min(RuntimeHP + amount, RuntimeMaxHP);
+        int actualHeal = RuntimeHP - before;
+        GameEventBus.PublishHPChanged(Name, RuntimeHP, RuntimeMaxHP);
+        Debug.Log($"[{Name}] Recovered {actualHeal} HP. Current HP: {RuntimeHP}/{RuntimeMaxHP}");
+    }
     
     public abstract void Attack(FighterEntity target, ItemEntity weaponSource = null);
 }

@@ -324,6 +324,7 @@ public class GameFlowController : MonoBehaviour {
         if (sfCtrl != null) {
             sfCtrl.Setup(node);
         }
+        SyncInventoryItemUI();
     }
 
     private void OnEnterSettlementScreen(DungeonSettlementResult result) {
@@ -426,6 +427,7 @@ public class GameFlowController : MonoBehaviour {
         bool shouldShowBackpack = _currentScreen == GameScreenState.Workshop
             || _currentScreen == GameScreenState.Combat
             || _currentScreen == GameScreenState.CombatLoot
+            || _currentScreen == GameScreenState.SafeRoom
             || (_currentScreen == GameScreenState.DungeonMap && _isDungeonMapInventoryOpen);
 
         GridGenerator generator = FindObjectOfType<GridGenerator>();
