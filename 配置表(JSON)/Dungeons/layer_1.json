@@ -2,16 +2,21 @@
   "LayerID": 1,
   "Name": "浅层区域",
   "SANCostPerNode": 1,
-  "ExpectedNodeCount": 5,
+  "ExpectedNodeCount": 3,
   "NodePool": [
     {
       "NodeType": "CombatNode",
-      "MonsterIDs": ["mob_scavenger_bug"],
+      "MonsterIDs": [
+        "mob_scavenger_bug"
+      ],
       "Weight": 60
     },
     {
       "NodeType": "CombatNode",
-      "MonsterIDs": ["mob_scavenger_bug", "mob_scavenger_bug"],
+      "MonsterIDs": [
+        "mob_scavenger_bug",
+        "mob_scavenger_bug"
+      ],
       "Weight": 30
     },
     {
