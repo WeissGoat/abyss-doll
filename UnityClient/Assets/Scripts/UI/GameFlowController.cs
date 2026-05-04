@@ -487,13 +487,24 @@ public class GameFlowController : MonoBehaviour {
     }
 
     private void EnsureCombatLootPanel() {
-        if (combatLootPanel != null) {
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas == null) {
+            Debug.LogWarning("[GameFlow] Cannot create CombatLootPanel because no Canvas was found.");
             return;
         }
 
-        Canvas canvas = FindObjectOfType<Canvas>();
-        if (canvas == null) {
+        CombatLootUIController existingController = combatLootPanel != null
+            ? combatLootPanel.GetComponent<CombatLootUIController>()
+            : null;
+
+        if (combatLootPanel != null && existingController != null) {
             return;
+        }
+
+        if (combatLootPanel != null && existingController == null) {
+            Debug.LogWarning("[GameFlow] Existing CombatLootPanel reference has no CombatLootUIController. Rebuilding runtime fallback panel.");
+            combatLootPanel.SetActive(false);
+            combatLootPanel = null;
         }
 
         Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
