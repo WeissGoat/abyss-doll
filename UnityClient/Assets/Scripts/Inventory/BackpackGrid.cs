@@ -132,6 +132,21 @@ public class BackpackGrid {
         }
         ContainedItems.Remove(item);
     }
+
+    public List<ItemEntity> ClearAllItems() {
+        List<ItemEntity> removedItems = new List<ItemEntity>(ContainedItems);
+
+        for (int x = 0; x < Width; x++) {
+            for (int y = 0; y < Height; y++) {
+                if (_gridMatrix[x, y] != "LOCKED_CELL") {
+                    _gridMatrix[x, y] = null;
+                }
+            }
+        }
+
+        ContainedItems.Clear();
+        return removedItems;
+    }
     
     public ItemEntity GetItemAt(int x, int y) {
         if (x < 0 || x >= Width || y < 0 || y >= Height) return null;

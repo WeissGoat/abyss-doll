@@ -60,6 +60,7 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnDungeonSettled += HandleDungeonSettled;
         DungeonEventBus.OnDungeonSettlementPrepared += HandleDungeonSettlementPrepared;
         GameEventBus.OnItemPlaced += HandleItemPlaced;
+        GameEventBus.OnItemRemoved += HandleItemRemoved;
 
         // 当进入具体的 Node 时切界面
         DungeonEventBus.OnNodeEntered += HandleNodeEntered;
@@ -167,6 +168,16 @@ public class GameFlowController : MonoBehaviour {
         }
 
         SpawnItemUIForGridItem(placedItem, x, y);
+    }
+
+    private void HandleItemRemoved(string itemInstanceID) {
+        if (string.IsNullOrEmpty(itemInstanceID)) {
+            return;
+        }
+
+        if (TryFindItemUI(itemInstanceID, out var existingUI) && existingUI != null) {
+            Destroy(existingUI.gameObject);
+        }
     }
 
     private void QueueSettlementPresentation(DungeonSettlementResult result) {
@@ -339,6 +350,8 @@ public class GameFlowController : MonoBehaviour {
         if (grid == null || generator == null || testItemPrefab == null) {
             return;
         }
+
+        RemoveStaleInventoryItemUI(grid);
 
         foreach (ItemEntity item in grid.ContainedItems) {
             if (item?.Grid?.CurrentPos == null || item.Grid.CurrentPos.Length < 2) {
@@ -617,6 +630,18 @@ public class GameFlowController : MonoBehaviour {
         }
     }
 
+    private void RemoveStaleInventoryItemUI(BackpackGrid grid) {
+        foreach (var itemUI in FindObjectsOfType<DraggableItemUI>()) {
+            if (itemUI == null || itemUI.ItemData == null || itemUI.IsPendingDiscard) {
+                continue;
+            }
+
+            if (!grid.ContainedItems.Contains(itemUI.ItemData)) {
+                Destroy(itemUI.gameObject);
+            }
+        }
+    }
+
     private void EnsureSettlementPanel() {
         Canvas canvas = FindObjectOfType<Canvas>();
         if (canvas == null) {
@@ -740,5 +765,6 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnNodeEntered -= HandleNodeEntered;
         DungeonEventBus.OnSafeRoomEntered -= HandleSafeRoomEntered;
         GameEventBus.OnItemPlaced -= HandleItemPlaced;
+        GameEventBus.OnItemRemoved -= HandleItemRemoved;
     }
 }

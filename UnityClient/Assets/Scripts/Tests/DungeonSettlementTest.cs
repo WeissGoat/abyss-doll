@@ -24,9 +24,14 @@ public static class DungeonSettlementTest {
             // Give player a backpack grid
             doll.RuntimeGrid = new BackpackGrid(doll.Chassis);
             
-            // Put an item in the backpack
-            var item = ConfigManager.CreateItem("mat_core_tier1");
-            ((BackpackGrid)doll.RuntimeGrid).PlaceItem(item, 0, 0);
+            // 模拟本局拾取了 2 件战利品，其中 1 件最终仍留在背包中，1 件中途丢失
+            var carriedLoot = ConfigManager.CreateItem("mat_core_tier1");
+            var discardedLoot = ConfigManager.CreateItem("loot_gear_scrap");
+            ((BackpackGrid)doll.RuntimeGrid).PlaceItem(carriedLoot, 0, 0);
+            DungeonEventBus.PublishCombatLootCollected(new CombatLootCollectionResult {
+                NodeID = "settlement_test_node",
+                AcceptedItems = new System.Collections.Generic.List<ItemEntity> { carriedLoot, discardedLoot }
+            });
             
             Debug.Log($"[Before] Stash Count: {player.StashInventory.Count}, Backpack Count: {((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count}");
             
@@ -46,6 +51,12 @@ public static class DungeonSettlementTest {
             } else {
                 Debug.LogError("Evacuation Loot Transfer FAILED.");
             }
+
+            if (((BackpackGrid)doll.RuntimeGrid).GetItemAt(0, 0) == null) {
+                Debug.Log("Evacuation Grid Cleanup PASSED.");
+            } else {
+                Debug.LogError("Evacuation Grid Cleanup FAILED.");
+            }
             
             if (_eventFired && _isVictory) {
                 Debug.Log("Evacuation Event Publishing PASSED.");
@@ -56,6 +67,9 @@ public static class DungeonSettlementTest {
             if (_lastSettlementResult != null &&
                 _lastSettlementResult.IsVictory &&
                 _lastSettlementResult.LootTransferredCount == 1 &&
+                _lastSettlementResult.PickedUpCount == 2 &&
+                _lastSettlementResult.BroughtOutCount == 1 &&
+                _lastSettlementResult.LostCount == 1 &&
                 _lastSettlementResult.StashCountAfterSettlement == 1) {
                 Debug.Log("Evacuation Settlement Summary PASSED.");
             } else {
@@ -65,7 +79,13 @@ public static class DungeonSettlementTest {
             // Test Defeat Scenario
             _eventFired = false;
             _lastSettlementResult = null;
-            ((BackpackGrid)doll.RuntimeGrid).PlaceItem(item, 0, 0); // Put it back
+            doll.RuntimeGrid = new BackpackGrid(doll.Chassis);
+            var defeatLoot = ConfigManager.CreateItem("loot_rusty_coil");
+            ((BackpackGrid)doll.RuntimeGrid).PlaceItem(defeatLoot, 0, 0);
+            DungeonEventBus.PublishCombatLootCollected(new CombatLootCollectionResult {
+                NodeID = "settlement_test_defeat",
+                AcceptedItems = new System.Collections.Generic.List<ItemEntity> { defeatLoot }
+            });
             
             DungeonEventBus.PublishDungeonDefeated();
             
@@ -73,6 +93,12 @@ public static class DungeonSettlementTest {
                 Debug.Log("Defeat Loot Penalty PASSED.");
             } else {
                 Debug.LogError("Defeat Loot Penalty FAILED.");
+            }
+
+            if (((BackpackGrid)doll.RuntimeGrid).GetItemAt(0, 0) == null) {
+                Debug.Log("Defeat Grid Cleanup PASSED.");
+            } else {
+                Debug.LogError("Defeat Grid Cleanup FAILED.");
             }
             
             if (_eventFired && !_isVictory) {
@@ -84,6 +110,9 @@ public static class DungeonSettlementTest {
             if (_lastSettlementResult != null &&
                 !_lastSettlementResult.IsVictory &&
                 _lastSettlementResult.LootTransferredCount == 0 &&
+                _lastSettlementResult.PickedUpCount == 1 &&
+                _lastSettlementResult.BroughtOutCount == 0 &&
+                _lastSettlementResult.LostCount == 1 &&
                 _lastSettlementResult.StashCountAfterSettlement == 1) {
                 Debug.Log("Defeat Settlement Summary PASSED.");
             } else {

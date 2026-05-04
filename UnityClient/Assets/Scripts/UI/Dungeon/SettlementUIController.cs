@@ -19,34 +19,58 @@ public class SettlementUIController : MonoBehaviour {
         if (summaryText != null) {
             if (result.IsVictory) {
                 summaryText.text =
-                    $"本次已回收 {result.LootTransferredCount} 件物资\n" +
-                    $"估值合计: {result.LootEstimatedValue}G\n" +
+                    $"最终带出 {result.LootTransferredCount} 件局内物资\n" +
+                    $"带出估值: {result.LootEstimatedValue}G\n" +
+                    $"本次拾取 {result.PickedUpCount} 件 / 带出 {result.BroughtOutCount} 件 / 损失 {result.LostCount} 件\n" +
                     $"当前仓库库存: {result.StashCountAfterSettlement} 件";
             } else {
                 summaryText.text =
                     "本次深入失败，背包内物资已丢失\n" +
+                    $"本次拾取 {result.PickedUpCount} 件 / 带出 {result.BroughtOutCount} 件 / 损失 {result.LostCount} 件\n" +
                     $"当前仓库库存: {result.StashCountAfterSettlement} 件";
             }
         }
 
         if (lootText != null) {
-            if (result.LootNames != null && result.LootNames.Count > 0) {
-                StringBuilder builder = new StringBuilder();
-                builder.AppendLine("回收清单:");
-                for (int i = 0; i < result.LootNames.Count; i++) {
-                    builder.Append("- ");
-                    builder.AppendLine(result.LootNames[i]);
-                }
-                lootText.text = builder.ToString().TrimEnd();
-            } else {
-                lootText.text = result.IsVictory ? "本次未带出任何物资" : "未保住任何局内物资";
-            }
+            lootText.text = BuildSettlementDetails(result);
         }
 
         if (continueBtn != null) {
             continueBtn.onClick.RemoveAllListeners();
             continueBtn.onClick.AddListener(() => onContinue?.Invoke());
         }
+    }
+
+    private string BuildSettlementDetails(DungeonSettlementResult result) {
+        if (result == null) {
+            return string.Empty;
+        }
+
+        StringBuilder builder = new StringBuilder();
+        AppendSection(builder, "本次拾取", result.PickedUpNames, result.PickedUpEstimatedValue, "本次没有成功拾取任何战利品");
+        builder.AppendLine();
+        AppendSection(builder, "最终带出", result.BroughtOutNames, result.BroughtOutEstimatedValue, result.IsVictory ? "本次没有带出任何本局战利品" : "战败时未能带出任何本局战利品");
+        builder.AppendLine();
+        AppendSection(builder, "本次损失", result.LostNames, result.LostEstimatedValue, "本次没有损失任何已拾取战利品");
+        return builder.ToString().TrimEnd();
+    }
+
+    private void AppendSection(StringBuilder builder, string title, System.Collections.Generic.List<string> names, int estimatedValue, string emptyText) {
+        builder.Append(title);
+        builder.Append(" (");
+        builder.Append(estimatedValue);
+        builder.AppendLine("G):");
+
+        if (names != null && names.Count > 0) {
+            for (int i = 0; i < names.Count; i++) {
+                builder.Append("- ");
+                builder.AppendLine(names[i]);
+            }
+            return;
+        }
+
+        builder.Append("- ");
+        builder.AppendLine(emptyText);
     }
 }
 

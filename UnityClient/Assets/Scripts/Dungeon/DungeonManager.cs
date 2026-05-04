@@ -60,17 +60,20 @@ public class DungeonLayer {
 
 public class DungeonManager {
     public DungeonLayer CurrentLayer;
+    private readonly List<ItemEntity> _runAcceptedLoot = new List<ItemEntity>();
     
     public DungeonManager() {
         DungeonEventBus.OnDungeonEvacuated += HandleEvacuate;
         DungeonEventBus.OnDungeonDefeated += HandleDefeat;
         DungeonEventBus.OnNodeSettlementCompleted += HandleNodeSettlementCompleted;
+        DungeonEventBus.OnCombatLootCollected += HandleCombatLootCollected;
     }
 
     ~DungeonManager() {
         DungeonEventBus.OnDungeonEvacuated -= HandleEvacuate;
         DungeonEventBus.OnDungeonDefeated -= HandleDefeat;
         DungeonEventBus.OnNodeSettlementCompleted -= HandleNodeSettlementCompleted;
+        DungeonEventBus.OnCombatLootCollected -= HandleCombatLootCollected;
     }
     
     public void LoadLayer(int layerID) {
@@ -81,6 +84,8 @@ public class DungeonManager {
         
         var config = ConfigManager.Dungeons[layerID];
         Debug.Log($"[DungeonManager] Entering Layer {layerID}: {config.Name}");
+
+        ResetRunLootLedger();
         
         CurrentLayer = new DungeonLayer();
         CurrentLayer.LayerID = layerID;
@@ -107,6 +112,15 @@ public class DungeonManager {
         ContinueAfterCurrentNodeResolved();
     }
 
+    private void HandleCombatLootCollected(CombatLootCollectionResult result) {
+        if (result?.AcceptedItems == null || result.AcceptedItems.Count == 0) {
+            return;
+        }
+
+        _runAcceptedLoot.AddRange(result.AcceptedItems);
+        Debug.Log($"[DungeonManager] Run loot ledger updated. AcceptedThisRun={_runAcceptedLoot.Count}");
+    }
+
     private void ContinueAfterCurrentNodeResolved() {
         // 如果当前节点没有下一个节点（例如打败了关底 Boss），则自动触发撤离
         if (CurrentLayer.CurrentNode.NextNodes == null || CurrentLayer.CurrentNode.NextNodes.Count == 0) {
@@ -129,6 +143,8 @@ public class DungeonManager {
         if (activeDoll != null) {
             BackpackGrid grid = activeDoll.RuntimeGrid as BackpackGrid;
             if (grid != null && grid.ContainedItems.Count > 0) {
+                PopulateRunLootSummary(result, grid.ContainedItems);
+
                 foreach (var item in grid.ContainedItems) {
                     if (item == null) continue;
                     result.LootTransferredCount++;
@@ -136,9 +152,12 @@ public class DungeonManager {
                     result.LootNames.Add(item.Name);
                 }
                 GameRoot.Core.CurrentPlayer.StashInventory.AddRange(grid.ContainedItems);
-                int count = grid.ContainedItems.Count;
-                grid.ContainedItems.Clear();
+                List<ItemEntity> clearedItems = grid.ClearAllItems();
+                PublishInventoryRemovalEvents(clearedItems);
+                int count = clearedItems.Count;
                 Debug.Log($"[DungeonManager] {count} items safely transferred from Backpack to StashInventory.");
+            } else {
+                PopulateRunLootSummary(result, null);
             }
         }
 
@@ -146,6 +165,7 @@ public class DungeonManager {
         Debug.Log($"[DungeonManager] Settlement summary prepared. LootCount={result.LootTransferredCount}, EstimatedValue={result.LootEstimatedValue}, StashCount={result.StashCountAfterSettlement}");
         DungeonEventBus.PublishDungeonSettlementPrepared(result);
         DungeonEventBus.PublishDungeonSettled(true);
+        ResetRunLootLedger();
     }
 
     private void HandleDefeat() {
@@ -158,7 +178,9 @@ public class DungeonManager {
         if (activeDoll != null) {
             BackpackGrid grid = activeDoll.RuntimeGrid as BackpackGrid;
             if (grid != null) {
-                grid.ContainedItems.Clear();
+                PopulateRunLootSummary(result, null);
+                List<ItemEntity> clearedItems = grid.ClearAllItems();
+                PublishInventoryRemovalEvents(clearedItems);
                 Debug.LogWarning($"[DungeonManager] Player defeated. All items in Backpack have been lost.");
             }
         }
@@ -167,5 +189,57 @@ public class DungeonManager {
         Debug.Log($"[DungeonManager] Defeat settlement prepared. StashCount={result.StashCountAfterSettlement}");
         DungeonEventBus.PublishDungeonSettlementPrepared(result);
         DungeonEventBus.PublishDungeonSettled(false);
+        ResetRunLootLedger();
+    }
+
+    private void PopulateRunLootSummary(DungeonSettlementResult result, IEnumerable<ItemEntity> preservedItems) {
+        if (result == null) {
+            return;
+        }
+
+        HashSet<string> preservedIds = new HashSet<string>();
+        if (preservedItems != null) {
+            foreach (var item in preservedItems) {
+                if (item != null && !string.IsNullOrEmpty(item.InstanceID)) {
+                    preservedIds.Add(item.InstanceID);
+                }
+            }
+        }
+
+        foreach (var item in _runAcceptedLoot) {
+            if (item == null) {
+                continue;
+            }
+
+            result.PickedUpCount++;
+            result.PickedUpEstimatedValue += item.BaseValue;
+            result.PickedUpNames.Add(item.Name);
+
+            if (preservedIds.Contains(item.InstanceID)) {
+                result.BroughtOutCount++;
+                result.BroughtOutEstimatedValue += item.BaseValue;
+                result.BroughtOutNames.Add(item.Name);
+            } else {
+                result.LostCount++;
+                result.LostEstimatedValue += item.BaseValue;
+                result.LostNames.Add(item.Name);
+            }
+        }
+    }
+
+    private void ResetRunLootLedger() {
+        _runAcceptedLoot.Clear();
+    }
+
+    private void PublishInventoryRemovalEvents(IEnumerable<ItemEntity> removedItems) {
+        if (removedItems == null) {
+            return;
+        }
+
+        foreach (var item in removedItems) {
+            if (item != null && !string.IsNullOrEmpty(item.InstanceID)) {
+                GameEventBus.PublishItemRemoved(item.InstanceID);
+            }
+        }
     }
 }

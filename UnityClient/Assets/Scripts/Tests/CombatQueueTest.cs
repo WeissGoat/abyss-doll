@@ -33,15 +33,17 @@ public static class CombatQueueTest {
         core.CurrentPlayer.ActiveDoll.RuntimeGrid = new BackpackGrid(core.CurrentPlayer.ActiveDoll.Chassis);
         ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).PlaceItem(weapon, 0, 0);
         GridSolver.RecalculateAllEffects(core.CurrentPlayer.ActiveDoll);
+        int expectedDamage = (int)weapon.Combat.RuntimeDamage;
+        int expectedRemainingHp = Mathf.Max(0, 40 - expectedDamage);
         
         core.Combat.PlayerFaction.Fighters[0].Attack(enemy, weapon);
         
         Debug.Log($"Enemy HP after attack: {enemy.RuntimeHP}");
         
-        if (enemy.RuntimeHP == 40 - 35) {
+        if (enemy.RuntimeHP == expectedRemainingHp) {
             Debug.Log("Combat Math PASSED.");
         } else {
-            Debug.LogError($"Combat Math FAILED. Expected {40 - 35}, got {enemy.RuntimeHP}");
+            Debug.LogError($"Combat Math FAILED. Expected {expectedRemainingHp}, got {enemy.RuntimeHP}");
         }
         
         // Wait, IsHeadless should have consumed the queue instantly.

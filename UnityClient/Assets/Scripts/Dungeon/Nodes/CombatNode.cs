@@ -36,6 +36,9 @@ public class CombatNode : NodeBase {
             BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
             int acceptedCount = 0;
             int discardedCount = 0;
+            CombatLootCollectionResult collectionResult = new CombatLootCollectionResult {
+                NodeID = NodeID
+            };
 
             foreach (var item in _pendingLootResult.OfferedItems) {
                 if (item == null) {
@@ -44,12 +47,15 @@ public class CombatNode : NodeBase {
 
                 if (grid != null && grid.ContainedItems.Contains(item)) {
                     acceptedCount++;
+                    collectionResult.AcceptedItems.Add(item);
                 } else {
                     discardedCount++;
+                    collectionResult.DiscardedItems.Add(item);
                 }
             }
 
             Debug.Log($"[CombatNode] Combat loot confirmed. Accepted={acceptedCount}, Discarded={discardedCount}");
+            DungeonEventBus.PublishCombatLootCollected(collectionResult);
             _pendingLootResult = null;
         }
 
