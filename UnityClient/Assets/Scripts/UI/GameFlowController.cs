@@ -52,6 +52,7 @@ public class GameFlowController : MonoBehaviour {
         FindObjectOfType<GridGenerator>().GenerateGrid(myChassis);
         EnsureInventoryItemLayer();
         EnsureCombatLootPanel();
+        EnsureSettlementPanel();
 
         DungeonEventBus.OnLayerLoaded += EnterDungeonMap;
         DungeonEventBus.OnNodeResolutionFinished += EnterDungeonMap;
@@ -322,9 +323,13 @@ public class GameFlowController : MonoBehaviour {
         }
 
         Debug.Log($"[GameFlow] 展示结算界面, Victory={result.IsVictory}, LootCount={result.LootTransferredCount}");
+        EnsureSettlementPanel();
         var settlementCtrl = settlementPanel?.GetComponent<SettlementUIController>();
         if (settlementCtrl != null) {
             settlementCtrl.Present(result, EnterWorkshop);
+        } else {
+            Debug.LogWarning("[GameFlow] SettlementPanel missing. Falling back to Workshop without UI interaction.");
+            EnterWorkshop();
         }
     }
 
@@ -610,6 +615,120 @@ public class GameFlowController : MonoBehaviour {
                 text.raycastTarget = false;
             }
         }
+    }
+
+    private void EnsureSettlementPanel() {
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas == null) {
+            Debug.LogWarning("[GameFlow] Cannot create SettlementPanel because no Canvas was found.");
+            return;
+        }
+
+        SettlementUIController existingController = settlementPanel != null
+            ? settlementPanel.GetComponent<SettlementUIController>()
+            : null;
+
+        if (settlementPanel != null && existingController != null) {
+            return;
+        }
+
+        if (settlementPanel != null && existingController == null) {
+            Debug.LogWarning("[GameFlow] Existing SettlementPanel reference has no SettlementUIController. Rebuilding runtime fallback panel.");
+            settlementPanel.SetActive(false);
+            settlementPanel = null;
+        }
+
+        Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+
+        settlementPanel = new GameObject("SettlementPanel_Runtime");
+        settlementPanel.transform.SetParent(canvas.transform, false);
+        RectTransform panelRect = settlementPanel.AddComponent<RectTransform>();
+        panelRect.anchorMin = Vector2.zero;
+        panelRect.anchorMax = Vector2.one;
+        panelRect.sizeDelta = Vector2.zero;
+        settlementPanel.SetActive(false);
+
+        Image bg = settlementPanel.AddComponent<Image>();
+        bg.color = new Color(0.05f, 0.07f, 0.1f, 0.92f);
+
+        SettlementUIController settlementCtrl = settlementPanel.AddComponent<SettlementUIController>();
+
+        GameObject titleObj = new GameObject("Title_Text");
+        titleObj.transform.SetParent(settlementPanel.transform, false);
+        Text titleTxt = titleObj.AddComponent<Text>();
+        titleTxt.font = defaultFont;
+        titleTxt.fontSize = 48;
+        titleTxt.color = Color.white;
+        titleTxt.alignment = TextAnchor.MiddleCenter;
+        titleTxt.raycastTarget = false;
+        RectTransform titleRect = titleObj.GetComponent<RectTransform>();
+        titleRect.anchorMin = new Vector2(0.5f, 1f);
+        titleRect.anchorMax = new Vector2(0.5f, 1f);
+        titleRect.pivot = new Vector2(0.5f, 1f);
+        titleRect.anchoredPosition = new Vector2(0, -80);
+        titleRect.sizeDelta = new Vector2(540, 90);
+        settlementCtrl.titleText = titleTxt;
+
+        GameObject summaryObj = new GameObject("Summary_Text");
+        summaryObj.transform.SetParent(settlementPanel.transform, false);
+        Text summaryTxt = summaryObj.AddComponent<Text>();
+        summaryTxt.font = defaultFont;
+        summaryTxt.fontSize = 28;
+        summaryTxt.color = Color.white;
+        summaryTxt.alignment = TextAnchor.UpperCenter;
+        summaryTxt.raycastTarget = false;
+        RectTransform summaryRect = summaryObj.GetComponent<RectTransform>();
+        summaryRect.anchorMin = new Vector2(0.5f, 1f);
+        summaryRect.anchorMax = new Vector2(0.5f, 1f);
+        summaryRect.pivot = new Vector2(0.5f, 1f);
+        summaryRect.anchoredPosition = new Vector2(0, -180);
+        summaryRect.sizeDelta = new Vector2(760, 150);
+        settlementCtrl.summaryText = summaryTxt;
+
+        GameObject lootObj = new GameObject("Loot_Text");
+        lootObj.transform.SetParent(settlementPanel.transform, false);
+        Text lootTxt = lootObj.AddComponent<Text>();
+        lootTxt.font = defaultFont;
+        lootTxt.fontSize = 24;
+        lootTxt.color = new Color(1f, 0.92f, 0.5f);
+        lootTxt.alignment = TextAnchor.UpperLeft;
+        lootTxt.raycastTarget = false;
+        RectTransform lootRect = lootObj.GetComponent<RectTransform>();
+        lootRect.anchorMin = new Vector2(0.5f, 0.5f);
+        lootRect.anchorMax = new Vector2(0.5f, 0.5f);
+        lootRect.pivot = new Vector2(0.5f, 0.5f);
+        lootRect.anchoredPosition = new Vector2(0, -20);
+        lootRect.sizeDelta = new Vector2(760, 280);
+        settlementCtrl.lootText = lootTxt;
+
+        GameObject continueObj = new GameObject("Continue_Button");
+        continueObj.transform.SetParent(settlementPanel.transform, false);
+        Image continueImg = continueObj.AddComponent<Image>();
+        continueImg.color = new Color(0.25f, 0.6f, 0.95f);
+        Button continueBtn = continueObj.AddComponent<Button>();
+        RectTransform continueRect = continueObj.GetComponent<RectTransform>();
+        continueRect.anchorMin = new Vector2(0.5f, 0f);
+        continueRect.anchorMax = new Vector2(0.5f, 0f);
+        continueRect.pivot = new Vector2(0.5f, 0f);
+        continueRect.anchoredPosition = new Vector2(0, 90);
+        continueRect.sizeDelta = new Vector2(280, 80);
+        settlementCtrl.continueBtn = continueBtn;
+
+        GameObject continueTextObj = new GameObject("Text");
+        continueTextObj.transform.SetParent(continueObj.transform, false);
+        Text continueTxt = continueTextObj.AddComponent<Text>();
+        continueTxt.font = defaultFont;
+        continueTxt.fontSize = 30;
+        continueTxt.color = Color.white;
+        continueTxt.text = "返回工坊";
+        continueTxt.alignment = TextAnchor.MiddleCenter;
+        continueTxt.raycastTarget = false;
+        RectTransform continueTextRect = continueTextObj.GetComponent<RectTransform>();
+        continueTextRect.anchorMin = Vector2.zero;
+        continueTextRect.anchorMax = Vector2.one;
+        continueTextRect.sizeDelta = Vector2.zero;
+
+        Debug.Log("[GameFlow] Runtime fallback SettlementPanel created.");
     }
 
     void OnDestroy() {

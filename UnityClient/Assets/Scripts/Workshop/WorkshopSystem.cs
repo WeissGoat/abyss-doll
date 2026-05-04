@@ -84,4 +84,39 @@ public class WorkshopSystem {
             Debug.LogWarning($"[WorkshopSystem] Cannot afford to craft prosthetic: {recipeID}");
         }
     }
+
+    public bool SellItem(ItemEntity item, PlayerProfile player) {
+        if (item == null || player == null) {
+            return false;
+        }
+
+        if (!player.StashInventory.Contains(item)) {
+            Debug.LogWarning($"[WorkshopSystem] Cannot sell item [{item?.Name ?? "null"}] because it is not in the stash.");
+            return false;
+        }
+
+        player.StashInventory.Remove(item);
+        player.Money += item.BaseValue;
+        Debug.Log($"[WorkshopSystem] Sold item [{item.Name}] for {item.BaseValue}G.");
+        return true;
+    }
+
+    public int SellAllStashItems(PlayerProfile player) {
+        if (player == null || player.StashInventory == null || player.StashInventory.Count == 0) {
+            return 0;
+        }
+
+        int totalValue = 0;
+        foreach (var item in player.StashInventory) {
+            if (item != null) {
+                totalValue += item.BaseValue;
+            }
+        }
+
+        int soldCount = player.StashInventory.Count;
+        player.StashInventory.Clear();
+        player.Money += totalValue;
+        Debug.Log($"[WorkshopSystem] Sold all stash items. Count={soldCount}, TotalValue={totalValue}G.");
+        return totalValue;
+    }
 }

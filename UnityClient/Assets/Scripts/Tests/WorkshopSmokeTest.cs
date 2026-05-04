@@ -19,6 +19,28 @@ public static class WorkshopSmokeTest {
             }
             
             Debug.Log($"[Before] Chassis: {doll.Chassis.ChassisID} (Grid: {doll.Chassis.GridWidth}x{doll.Chassis.GridHeight}), Money: {player.Money}");
+
+            int initialLoadoutCount = player.StashInventory.Count;
+            ItemEntity sellTarget = ConfigManager.CreateItem("loot_gear_scrap");
+            if (sellTarget == null) {
+                Debug.LogError("Config 'loot_gear_scrap' not found. Ensure the JSON exists.");
+                return;
+            }
+
+            player.StashInventory.Add(sellTarget);
+            bool sold = core.Workshop.SellItem(sellTarget, player);
+
+            if (sold && player.Money == sellTarget.BaseValue) {
+                Debug.Log("Single Item Sell PASSED.");
+            } else {
+                Debug.LogError($"Single Item Sell FAILED. Expected money {sellTarget.BaseValue}, got {player.Money}, Sold={sold}");
+            }
+
+            if (player.StashInventory.Count == initialLoadoutCount) {
+                Debug.Log("Single Item Stash Removal PASSED.");
+            } else {
+                Debug.LogError($"Single Item Stash Removal FAILED. Expected stash count {initialLoadoutCount}, got {player.StashInventory.Count}");
+            }
             
             player.Money = 1500;
             var coreMaterial = ConfigManager.CreateItem("mat_core_tier1");

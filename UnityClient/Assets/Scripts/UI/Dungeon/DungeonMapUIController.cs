@@ -16,6 +16,7 @@ public class DungeonMapUIController : MonoBehaviour {
 
         // Clear old children
         foreach (Transform child in contentParent) {
+            child.gameObject.SetActive(false);
             Destroy(child.gameObject);
         }
         
@@ -46,6 +47,8 @@ public class DungeonMapUIController : MonoBehaviour {
             } else {
                 txt.text = $"未知节点";
             }
+
+            Debug.Log($"[DungeonMapUI] Render node button: {node.NodeID}, Type={node.GetType().Name}, Label={txt.text.Replace('\n', ' ')}");
 
             if (node.IsVisited) {
                 img.color = new Color(0.3f, 0.3f, 0.3f);
