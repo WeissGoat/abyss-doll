@@ -8,7 +8,8 @@
   "GridInterference": "None",
   "LootPool": [
     {"ItemID": "mat_core_tier1", "Weight": 100},
-    {"ItemID": "gear_tactical_blade", "Weight": 50},
-    {"ItemID": "loot_rusty_coil", "Weight": 100}
+    {"ItemID": "gear_tactical_blade", "Weight": 35},
+    {"ItemID": "loot_rusty_coil", "Weight": 80},
+    {"ItemID": "con_cheap_sedative", "Weight": 20}
   ]
 }

@@ -19,6 +19,7 @@ public static class GameEventBus {
     // --- 背包/物品事件 ---
     public static event Action<string, int, int> OnItemPlaced;
     public static event Action<string> OnItemRemoved;
+    public static event Action<string, bool> OnTargetSelectionChanged;
 
     // 触发器方法 (底层调用，通过 VisualQueue 排队，非阻塞后端计算)
     public static void PublishHPChanged(string id, int current, int max) {
@@ -59,6 +60,7 @@ public static class GameEventBus {
     // 瞬间执行的 UI 事件 (不进战斗队列，比如拖拽物品立刻响应)
     public static void PublishItemPlaced(string itemInstanceID, int x, int y) => OnItemPlaced?.Invoke(itemInstanceID, x, y);
     public static void PublishItemRemoved(string itemInstanceID) => OnItemRemoved?.Invoke(itemInstanceID);
+    public static void PublishTargetSelectionChanged(string message, bool isActive) => OnTargetSelectionChanged?.Invoke(message, isActive);
 
     public static void ResetAllListeners() {
         OnHPChanged = null;
@@ -70,5 +72,6 @@ public static class GameEventBus {
         OnTurnStarted = null;
         OnItemPlaced = null;
         OnItemRemoved = null;
+        OnTargetSelectionChanged = null;
     }
 }

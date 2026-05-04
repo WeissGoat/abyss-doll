@@ -90,33 +90,75 @@ public class WorkshopSystem {
             return false;
         }
 
-        if (!player.StashInventory.Contains(item)) {
-            Debug.LogWarning($"[WorkshopSystem] Cannot sell item [{item?.Name ?? "null"}] because it is not in the stash.");
-            return false;
+        if (TrySellItemFromBackpack(item, player)) {
+            return true;
         }
 
-        player.StashInventory.Remove(item);
-        player.Money += item.BaseValue;
-        Debug.Log($"[WorkshopSystem] Sold item [{item.Name}] for {item.BaseValue}G.");
-        return true;
+        if (player.StashInventory.Contains(item)) {
+            player.StashInventory.Remove(item);
+            player.Money += item.BaseValue;
+            Debug.Log($"[WorkshopSystem] Sold stash item [{item.Name}] for {item.BaseValue}G.");
+            return true;
+        }
+
+        Debug.LogWarning($"[WorkshopSystem] Cannot sell item [{item?.Name ?? "null"}] because it is neither in the backpack nor the stash.");
+        return false;
     }
 
     public int SellAllStashItems(PlayerProfile player) {
-        if (player == null || player.StashInventory == null || player.StashInventory.Count == 0) {
+        if (player == null) {
             return 0;
         }
 
+        BackpackGrid grid = player.ActiveDoll?.RuntimeGrid as BackpackGrid;
         int totalValue = 0;
-        foreach (var item in player.StashInventory) {
-            if (item != null) {
+        int soldCount = 0;
+
+        if (grid != null && grid.ContainedItems.Count > 0) {
+            foreach (var item in grid.ContainedItems.ToList()) {
+                if (item == null) {
+                    continue;
+                }
+
                 totalValue += item.BaseValue;
+                soldCount++;
+                RemoveBackpackItemForSale(item, player);
             }
         }
 
-        int soldCount = player.StashInventory.Count;
+        foreach (var item in player.StashInventory) {
+            if (item != null) {
+                totalValue += item.BaseValue;
+                soldCount++;
+            }
+        }
+
         player.StashInventory.Clear();
         player.Money += totalValue;
-        Debug.Log($"[WorkshopSystem] Sold all stash items. Count={soldCount}, TotalValue={totalValue}G.");
+        Debug.Log($"[WorkshopSystem] Sold all available items. Count={soldCount}, TotalValue={totalValue}G.");
         return totalValue;
+    }
+
+    private bool TrySellItemFromBackpack(ItemEntity item, PlayerProfile player) {
+        BackpackGrid grid = player.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        if (grid == null || !grid.ContainedItems.Contains(item)) {
+            return false;
+        }
+
+        RemoveBackpackItemForSale(item, player);
+        player.Money += item.BaseValue;
+        Debug.Log($"[WorkshopSystem] Sold backpack item [{item.Name}] for {item.BaseValue}G.");
+        return true;
+    }
+
+    private void RemoveBackpackItemForSale(ItemEntity item, PlayerProfile player) {
+        BackpackGrid grid = player.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        if (grid == null || item == null || !grid.ContainedItems.Contains(item)) {
+            return;
+        }
+
+        grid.RemoveItem(item);
+        GridSolver.RecalculateAllEffects(player.ActiveDoll);
+        GameEventBus.PublishItemRemoved(item.InstanceID);
     }
 }

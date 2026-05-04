@@ -7,7 +7,9 @@
   "DamageValue": 10,
   "GridInterference": "None",
   "LootPool": [
-    {"ItemID": "loot_gear_scrap", "Weight": 70},
-    {"ItemID": "con_repair_kit", "Weight": 30}
+    {"ItemID": "loot_gear_scrap", "Weight": 55},
+    {"ItemID": "con_repair_kit", "Weight": 20},
+    {"ItemID": "gear_rusty_dagger", "Weight": 15},
+    {"ItemID": "gear_wooden_shield", "Weight": 10}
   ]
 }

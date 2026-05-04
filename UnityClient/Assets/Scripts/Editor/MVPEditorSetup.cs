@@ -251,6 +251,31 @@ public class MVPEditorSetup : EditorWindow
         apRect.sizeDelta = new Vector2(300, 80);
         hudCtrl.apLabel = apTxt;
 
+        GameObject shieldObj = new GameObject("Shield_Text");
+        shieldObj.transform.SetParent(combatPanel.transform, false);
+        Text shieldTxt = shieldObj.AddComponent<Text>();
+        shieldTxt.font = defaultFont; shieldTxt.fontSize = 28; shieldTxt.color = new Color(0.95f, 0.82f, 0.3f);
+        shieldTxt.text = "Shield: 0";
+        shieldTxt.raycastTarget = false;
+        RectTransform shieldRect = shieldObj.GetComponent<RectTransform>();
+        shieldRect.anchorMin = new Vector2(0, 1); shieldRect.anchorMax = new Vector2(0, 1);
+        shieldRect.pivot = new Vector2(0, 1); shieldRect.anchoredPosition = new Vector2(20, -120);
+        shieldRect.sizeDelta = new Vector2(300, 50);
+        hudCtrl.shieldLabel = shieldTxt;
+
+        GameObject targetHintObj = new GameObject("TargetHint_Text");
+        targetHintObj.transform.SetParent(combatPanel.transform, false);
+        Text targetHintTxt = targetHintObj.AddComponent<Text>();
+        targetHintTxt.font = defaultFont; targetHintTxt.fontSize = 26; targetHintTxt.color = Color.white;
+        targetHintTxt.text = "点击背包里的武器后，再点击右侧敌人进行攻击。";
+        targetHintTxt.alignment = TextAnchor.MiddleCenter;
+        targetHintTxt.raycastTarget = false;
+        RectTransform targetHintRect = targetHintObj.GetComponent<RectTransform>();
+        targetHintRect.anchorMin = new Vector2(0.5f, 1); targetHintRect.anchorMax = new Vector2(0.5f, 1);
+        targetHintRect.pivot = new Vector2(0.5f, 1); targetHintRect.anchoredPosition = new Vector2(0, -36);
+        targetHintRect.sizeDelta = new Vector2(760, 70);
+        hudCtrl.targetHintLabel = targetHintTxt;
+
         GameObject endBtnObj = new GameObject("EndTurn_Button");
         endBtnObj.transform.SetParent(combatPanel.transform, false);
         Image endImg = endBtnObj.AddComponent<Image>();

@@ -12,7 +12,8 @@
     "DurationTurns": 1
   },
   "LootPool": [
-    {"ItemID": "loot_rusty_coil", "Weight": 60},
-    {"ItemID": "loot_toxic_filter", "Weight": 40}
+    {"ItemID": "loot_rusty_coil", "Weight": 45},
+    {"ItemID": "loot_toxic_filter", "Weight": 35},
+    {"ItemID": "con_cheap_sedative", "Weight": 20}
   ]
 }

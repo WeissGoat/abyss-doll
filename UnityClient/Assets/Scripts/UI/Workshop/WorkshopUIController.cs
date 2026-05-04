@@ -20,34 +20,49 @@ public class WorkshopUIController : MonoBehaviour {
         EnsureSellControls();
 
         var player = GameRoot.Core.CurrentPlayer;
+        BackpackGrid grid = player.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        int backpackCount = grid?.ContainedItems.Count ?? 0;
         int stashCount = player.StashInventory.Count;
-        int stashEstimatedValue = 0;
+        int sellableCount = backpackCount + stashCount;
+        int sellableEstimatedValue = 0;
+
+        if (grid != null) {
+            foreach (var item in grid.ContainedItems) {
+                if (item != null) {
+                    sellableEstimatedValue += item.BaseValue;
+                }
+            }
+        }
+
         foreach (var item in player.StashInventory) {
             if (item != null) {
-                stashEstimatedValue += item.BaseValue;
+                sellableEstimatedValue += item.BaseValue;
             }
         }
 
         if (moneyText != null) {
-            moneyText.text = $"金币 (Money): {player.Money}G\n仓库物资: {stashCount}件 / 估值 {stashEstimatedValue}G";
+            moneyText.text =
+                $"Money: {player.Money}G\n" +
+                $"Sellable Items: {sellableCount}  Backpack {backpackCount} / Stash {stashCount}\n" +
+                $"Estimated Value: {sellableEstimatedValue}G";
         }
-        
+
         var chassis = player.ActiveDoll.Chassis;
         if (chassisInfoText != null) {
-            chassisInfoText.text = $"当前底盘: {chassis.ChassisID}\n容量: {chassis.GridWidth}x{chassis.GridHeight}";
+            chassisInfoText.text = $"Current Chassis: {chassis.ChassisID}\nCapacity: {chassis.GridWidth}x{chassis.GridHeight}";
         }
 
         if (stashHeaderText != null) {
-            stashHeaderText.text = stashCount > 0
-                ? "仓库待售物资"
-                : "仓库待售物资\n当前没有可卖出的回收品";
+            stashHeaderText.text = sellableCount > 0
+                ? "Sellable Items (Backpack + Stash)"
+                : "Sellable Items (Backpack + Stash)\nNo items available to sell.";
         }
 
         if (sellAllBtn != null) {
-            sellAllBtn.interactable = stashCount > 0;
+            sellAllBtn.interactable = sellableCount > 0;
         }
 
-        RefreshStashList();
+        RefreshSellList();
     }
 
     private void BindButtons() {
@@ -56,7 +71,7 @@ public class WorkshopUIController : MonoBehaviour {
             upgradeBtn.onClick.AddListener(() => {
                 GameRoot.Core.Workshop.UpgradeDollChassis(GameRoot.Core.CurrentPlayer.ActiveDoll);
                 RefreshUI();
-                
+
                 var chassis = GameRoot.Core.CurrentPlayer.ActiveDoll.Chassis;
                 FindObjectOfType<GridGenerator>().GenerateGrid(chassis);
             });
@@ -78,7 +93,7 @@ public class WorkshopUIController : MonoBehaviour {
         }
     }
 
-    private void RefreshStashList() {
+    private void RefreshSellList() {
         if (stashListParent == null) {
             return;
         }
@@ -88,66 +103,77 @@ public class WorkshopUIController : MonoBehaviour {
         }
 
         var player = GameRoot.Core.CurrentPlayer;
+        BackpackGrid grid = player.ActiveDoll?.RuntimeGrid as BackpackGrid;
         Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
 
-        foreach (var item in player.StashInventory) {
-            if (item == null) {
-                continue;
+        if (grid != null) {
+            foreach (var item in grid.ContainedItems) {
+                CreateSellRow(item, defaultFont, "Backpack");
             }
-
-            GameObject row = new GameObject($"SellRow_{item.InstanceID}");
-            row.transform.SetParent(stashListParent, false);
-            HorizontalLayoutGroup rowLayout = row.AddComponent<HorizontalLayoutGroup>();
-            rowLayout.childAlignment = TextAnchor.MiddleLeft;
-            rowLayout.childControlWidth = false;
-            rowLayout.childControlHeight = false;
-            rowLayout.childForceExpandWidth = false;
-            rowLayout.childForceExpandHeight = false;
-            rowLayout.spacing = 12f;
-            ContentSizeFitter rowFitter = row.AddComponent<ContentSizeFitter>();
-            rowFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
-            rowFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-            GameObject labelObj = new GameObject("ItemLabel_Text");
-            labelObj.transform.SetParent(row.transform, false);
-            Text label = labelObj.AddComponent<Text>();
-            label.font = defaultFont;
-            label.fontSize = 24;
-            label.color = Color.white;
-            label.alignment = TextAnchor.MiddleLeft;
-            label.raycastTarget = false;
-            label.text = $"{item.Name}  [{item.BaseValue}G]";
-            RectTransform labelRect = labelObj.GetComponent<RectTransform>();
-            labelRect.sizeDelta = new Vector2(420f, 44f);
-
-            GameObject sellBtnObj = new GameObject("Sell_Button");
-            sellBtnObj.transform.SetParent(row.transform, false);
-            Image sellBtnImg = sellBtnObj.AddComponent<Image>();
-            sellBtnImg.color = new Color(0.86f, 0.45f, 0.18f);
-            Button sellBtn = sellBtnObj.AddComponent<Button>();
-            RectTransform sellBtnRect = sellBtnObj.GetComponent<RectTransform>();
-            sellBtnRect.sizeDelta = new Vector2(140f, 44f);
-
-            ItemEntity capturedItem = item;
-            sellBtn.onClick.AddListener(() => {
-                GameRoot.Core.Workshop.SellItem(capturedItem, GameRoot.Core.CurrentPlayer);
-                RefreshUI();
-            });
-
-            GameObject sellTextObj = new GameObject("Text");
-            sellTextObj.transform.SetParent(sellBtnObj.transform, false);
-            Text sellText = sellTextObj.AddComponent<Text>();
-            sellText.font = defaultFont;
-            sellText.fontSize = 22;
-            sellText.color = Color.white;
-            sellText.alignment = TextAnchor.MiddleCenter;
-            sellText.raycastTarget = false;
-            sellText.text = "卖出";
-            RectTransform sellTextRect = sellTextObj.GetComponent<RectTransform>();
-            sellTextRect.anchorMin = Vector2.zero;
-            sellTextRect.anchorMax = Vector2.one;
-            sellTextRect.sizeDelta = Vector2.zero;
         }
+
+        foreach (var item in player.StashInventory) {
+            CreateSellRow(item, defaultFont, "Stash");
+        }
+    }
+
+    private void CreateSellRow(ItemEntity item, Font defaultFont, string sourceLabel) {
+        if (stashListParent == null || item == null) {
+            return;
+        }
+
+        GameObject row = new GameObject($"SellRow_{item.InstanceID}");
+        row.transform.SetParent(stashListParent, false);
+        HorizontalLayoutGroup rowLayout = row.AddComponent<HorizontalLayoutGroup>();
+        rowLayout.childAlignment = TextAnchor.MiddleLeft;
+        rowLayout.childControlWidth = false;
+        rowLayout.childControlHeight = false;
+        rowLayout.childForceExpandWidth = false;
+        rowLayout.childForceExpandHeight = false;
+        rowLayout.spacing = 12f;
+        ContentSizeFitter rowFitter = row.AddComponent<ContentSizeFitter>();
+        rowFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+        rowFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+        GameObject labelObj = new GameObject("ItemLabel_Text");
+        labelObj.transform.SetParent(row.transform, false);
+        Text label = labelObj.AddComponent<Text>();
+        label.font = defaultFont;
+        label.fontSize = 24;
+        label.color = Color.white;
+        label.alignment = TextAnchor.MiddleLeft;
+        label.raycastTarget = false;
+        label.text = $"[{sourceLabel}] {item.Name}  [{item.BaseValue}G]";
+        RectTransform labelRect = labelObj.GetComponent<RectTransform>();
+        labelRect.sizeDelta = new Vector2(420f, 44f);
+
+        GameObject sellBtnObj = new GameObject("Sell_Button");
+        sellBtnObj.transform.SetParent(row.transform, false);
+        Image sellBtnImg = sellBtnObj.AddComponent<Image>();
+        sellBtnImg.color = new Color(0.86f, 0.45f, 0.18f);
+        Button sellBtn = sellBtnObj.AddComponent<Button>();
+        RectTransform sellBtnRect = sellBtnObj.GetComponent<RectTransform>();
+        sellBtnRect.sizeDelta = new Vector2(140f, 44f);
+
+        ItemEntity capturedItem = item;
+        sellBtn.onClick.AddListener(() => {
+            GameRoot.Core.Workshop.SellItem(capturedItem, GameRoot.Core.CurrentPlayer);
+            RefreshUI();
+        });
+
+        GameObject sellTextObj = new GameObject("Text");
+        sellTextObj.transform.SetParent(sellBtnObj.transform, false);
+        Text sellText = sellTextObj.AddComponent<Text>();
+        sellText.font = defaultFont;
+        sellText.fontSize = 22;
+        sellText.color = Color.white;
+        sellText.alignment = TextAnchor.MiddleCenter;
+        sellText.raycastTarget = false;
+        sellText.text = "Sell";
+        RectTransform sellTextRect = sellTextObj.GetComponent<RectTransform>();
+        sellTextRect.anchorMin = Vector2.zero;
+        sellTextRect.anchorMax = Vector2.one;
+        sellTextRect.sizeDelta = Vector2.zero;
     }
 
     private void EnsureSellControls() {
@@ -172,7 +198,7 @@ public class WorkshopUIController : MonoBehaviour {
         }
 
         if (sellAllBtn == null) {
-            sellAllBtn = CreateActionButton("SellAll_Button", "全部卖出", new Vector2(-40f, -120f), new Color(0.7f, 0.2f, 0.18f), defaultFont);
+            sellAllBtn = CreateActionButton("SellAll_Button", "Sell All", new Vector2(-40f, -120f), new Color(0.7f, 0.2f, 0.18f), defaultFont);
         }
 
         if (stashListParent == null) {

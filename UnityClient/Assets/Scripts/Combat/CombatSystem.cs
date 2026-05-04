@@ -11,6 +11,7 @@ public class CombatSystem {
 
     public void StartCombat(List<string> monsterIDs) {
         Debug.Log("\n[CombatSystem] Initiating Combat!");
+        ItemUseService.ClearPendingTargetSelection();
 
         PlayerFaction = new CombatFaction { Type = FactionType.Player };
         PlayerFaction.Fighters.Add(new DollFighter(GameRoot.Core.CurrentPlayer.ActiveDoll, PlayerFaction));
@@ -39,6 +40,7 @@ public class CombatSystem {
             return;
         }
 
+        ItemUseService.ClearPendingTargetSelection();
         Debug.Log("[CombatSystem] Player ends turn.");
         CombatEventBus.Publish(CombatEventType.OnTurnEnd, PlayerFaction);
 
@@ -52,6 +54,7 @@ public class CombatSystem {
 
     public void StartEnemyTurn() {
         CurrentState = CombatState.EnemyTurn;
+        ItemUseService.ClearPendingTargetSelection();
         CombatEventBus.Publish(CombatEventType.OnTurnStart, EnemyFaction);
 
         foreach (var fighter in EnemyFaction.Fighters) {
@@ -77,6 +80,7 @@ public class CombatSystem {
 
     private void HandleVictory() {
         CurrentState = CombatState.End;
+        ItemUseService.ClearPendingTargetSelection();
         Debug.Log("<color=green>[CombatSystem] Victory! All enemies defeated.</color>");
 
         foreach (var fighter in PlayerFaction.Fighters) {
@@ -99,6 +103,7 @@ public class CombatSystem {
 
     private void HandleDefeat() {
         CurrentState = CombatState.End;
+        ItemUseService.ClearPendingTargetSelection();
         Debug.Log("<color=red>[CombatSystem] Defeat! All player entities wiped out.</color>");
 
         PlayerFaction.Cleanup();
@@ -109,6 +114,12 @@ public class CombatSystem {
 }
 
 public static class ItemUseService {
+    private static ItemEntity _pendingTargetItem;
+    private static DollFighter _pendingUserFighter;
+
+    public static bool HasPendingEnemyTargetSelection => _pendingTargetItem != null && _pendingUserFighter != null;
+    public static string PendingTargetItemName => _pendingTargetItem?.Name ?? string.Empty;
+
     public static bool TryUseItem(ItemEntity item, out string failureReason) {
         failureReason = string.Empty;
 
@@ -121,6 +132,10 @@ public static class ItemUseService {
         if (grid == null || !grid.ContainedItems.Contains(item)) {
             failureReason = $"物品 [{item.Name}] 不在当前背包中。";
             return false;
+        }
+
+        if (!RequiresEnemyTargetSelection(item) && HasPendingEnemyTargetSelection) {
+            ClearPendingTargetSelection();
         }
 
         if (TryUseItemInCombat(item, out failureReason)) {
@@ -136,6 +151,43 @@ public static class ItemUseService {
         }
 
         return false;
+    }
+
+    public static bool TryConfirmPendingTarget(FighterEntity target, out string failureReason) {
+        failureReason = string.Empty;
+
+        if (!HasPendingEnemyTargetSelection) {
+            failureReason = "当前没有等待选择目标的物品。";
+            return false;
+        }
+
+        if (target == null || target.RuntimeHP <= 0) {
+            failureReason = "目标已失效，请重新选择。";
+            ClearPendingTargetSelection();
+            return false;
+        }
+
+        if (_pendingTargetItem?.Combat == null || _pendingUserFighter == null) {
+            failureReason = "待使用物品或使用者已失效。";
+            ClearPendingTargetSelection();
+            return false;
+        }
+
+        if (_pendingUserFighter.CurrentAP < _pendingTargetItem.Combat.APCost) {
+            failureReason = $"AP 不足，无法使用 [{_pendingTargetItem.Name}]。";
+            ClearPendingTargetSelection();
+            return false;
+        }
+
+        _pendingUserFighter.Attack(target, _pendingTargetItem);
+        ClearPendingTargetSelection();
+        return true;
+    }
+
+    public static void ClearPendingTargetSelection() {
+        _pendingTargetItem = null;
+        _pendingUserFighter = null;
+        GameEventBus.PublishTargetSelectionChanged("点击武器后可选择一个敌方目标。", false);
     }
 
     private static bool TryUseItemInCombat(ItemEntity item, out string failureReason) {
@@ -161,9 +213,8 @@ public static class ItemUseService {
             return false;
         }
 
-        if (item.ItemType == nameof(ItemType.Weapon)) {
-            FighterEntity enemyTarget = combat.EnemyFaction.Fighters.Find(fighter => fighter.RuntimeHP > 0);
-            if (enemyTarget == null) {
+        if (RequiresEnemyTargetSelection(item)) {
+            if (combat.EnemyFaction.Fighters.Find(fighter => fighter.RuntimeHP > 0) == null) {
                 failureReason = "当前没有有效攻击目标。";
                 return false;
             }
@@ -173,7 +224,9 @@ public static class ItemUseService {
                 return false;
             }
 
-            playerFighter.Attack(enemyTarget, item);
+            _pendingTargetItem = item;
+            _pendingUserFighter = playerFighter;
+            GameEventBus.PublishTargetSelectionChanged($"[{item.Name}] 已就绪，请点击一个敌方目标。", true);
             return true;
         }
 
@@ -196,6 +249,7 @@ public static class ItemUseService {
         ApplyDirectItemPayload(item, context);
         ApplyConfiguredEffects(item, context);
         ConsumeItemAfterUse(item);
+        GameEventBus.PublishTargetSelectionChanged($"{item.Name} 已使用。", false);
         return true;
     }
 
@@ -227,7 +281,18 @@ public static class ItemUseService {
         ApplyDirectItemPayload(item, context);
         ApplyConfiguredEffects(item, context);
         ConsumeItemAfterUse(item);
+        GameEventBus.PublishTargetSelectionChanged($"{item.Name} 已使用。", false);
         return true;
+    }
+
+    private static bool RequiresEnemyTargetSelection(ItemEntity item) {
+        if (item?.Combat == null) {
+            return false;
+        }
+
+        return item.Combat.TriggerType == TriggerType.Manual.ToString()
+            && item.ItemType == nameof(ItemType.Weapon)
+            && (item.Combat.DamageType == DamageType.Physical.ToString() || item.Combat.DamageType == DamageType.Energy.ToString());
     }
 
     private static void ApplyDirectItemPayload(ItemEntity item, ItemUseContext context) {

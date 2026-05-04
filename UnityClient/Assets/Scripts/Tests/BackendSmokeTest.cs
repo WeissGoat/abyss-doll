@@ -62,13 +62,15 @@ public static class BackendSmokeTest {
 
 public static class ItemUseSmokeTest {
     public static void Run() {
-        Debug.Log("=== Running Item Use Smoke Test ===");
+        Debug.Log("=== Running Item Use Smoke Test v2 ===");
 
         VisualQueue.IsHeadless = true;
         VisualQueue.Clear();
 
         TestCombatConsumableUse();
         TestSafeRoomConsumableUse();
+        TestConsumableGuardrails();
+        TestWeaponTargetSelection();
 
         Debug.Log("=== Item Use Smoke Test Finished ===");
     }
@@ -143,6 +145,71 @@ public static class ItemUseSmokeTest {
             Debug.Log("SafeRoom Consumable Use PASSED.");
         } else {
             Debug.LogError($"SafeRoom Consumable Use FAILED. SAN={doll.Status.SAN_Current}, Backpack={grid.ContainedItems.Count}");
+        }
+    }
+
+    private static void TestConsumableGuardrails() {
+        CoreBackend core = new CoreBackend();
+        core.InitAllSystems();
+        GameRoot.Core = core;
+
+        DollEntity doll = core.CurrentPlayer.ActiveDoll;
+        BackpackGrid grid = doll.RuntimeGrid as BackpackGrid;
+        ItemEntity repairKit = grid?.ContainedItems.Find(item => item.ConfigID == "con_repair_kit");
+        ItemEntity sedative = grid?.ContainedItems.Find(item => item.ConfigID == "con_cheap_sedative");
+
+        SafeRoomNode safeRoomNode = new SafeRoomNode { NodeID = "item_use_guardrail_safe_room" };
+        core.Dungeon.CurrentLayer = new DungeonLayer {
+            LayerID = 1,
+            RootNode = safeRoomNode,
+            CurrentNode = safeRoomNode
+        };
+
+        string healFailure;
+        bool healRejected = !ItemUseService.TryUseItem(repairKit, out healFailure) && healFailure.Contains("HP");
+
+        string sanFailure;
+        bool sanRejected = !ItemUseService.TryUseItem(sedative, out sanFailure) && sanFailure.Contains("SAN");
+
+        if (healRejected && sanRejected) {
+            Debug.Log("Consumable Guardrail PASSED.");
+        } else {
+            Debug.LogError($"Consumable Guardrail FAILED. HealRejected={healRejected}, SanRejected={sanRejected}, HealFailure={healFailure}, SanFailure={sanFailure}");
+        }
+    }
+
+    private static void TestWeaponTargetSelection() {
+        CoreBackend core = new CoreBackend();
+        core.InitAllSystems();
+        GameRoot.Core = core;
+
+        DollEntity doll = core.CurrentPlayer.ActiveDoll;
+        BackpackGrid grid = doll.RuntimeGrid as BackpackGrid;
+        ItemEntity weapon = grid?.ContainedItems.Find(item => item.ConfigID == "gear_tactical_blade");
+
+        if (grid == null || weapon == null) {
+            Debug.LogError("Weapon Target Selection Bootstrap FAILED: missing runtime grid or weapon.");
+            return;
+        }
+
+        core.Combat.StartCombat(new List<string> { "mob_scavenger_bug", "mob_scavenger_bug" });
+        FighterEntity firstEnemy = core.Combat.EnemyFaction.Fighters[0];
+        FighterEntity secondEnemy = core.Combat.EnemyFaction.Fighters[1];
+
+        bool queued = ItemUseService.TryUseItem(weapon, out string queueFailure);
+        bool confirmed = ItemUseService.TryConfirmPendingTarget(secondEnemy, out string confirmFailure);
+
+        if (!queued || !confirmed) {
+            Debug.LogError($"Weapon Target Selection FAILED. Queued={queued}, Confirmed={confirmed}, QueueFailure={queueFailure}, ConfirmFailure={confirmFailure}");
+            return;
+        }
+
+        if (firstEnemy.RuntimeHP == firstEnemy.RuntimeMaxHP &&
+            secondEnemy.RuntimeHP < secondEnemy.RuntimeMaxHP &&
+            !ItemUseService.HasPendingEnemyTargetSelection) {
+            Debug.Log("Weapon Target Selection PASSED.");
+        } else {
+            Debug.LogError($"Weapon Target Selection FAILED. FirstEnemyHP={firstEnemy.RuntimeHP}, SecondEnemyHP={secondEnemy.RuntimeHP}, Pending={ItemUseService.HasPendingEnemyTargetSelection}");
         }
     }
 }

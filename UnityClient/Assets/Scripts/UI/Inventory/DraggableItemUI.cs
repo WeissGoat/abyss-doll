@@ -76,12 +76,7 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         Text label = GetComponentInChildren<Text>();
         if (label != null && ItemData != null) {
-            string secondLine = string.Empty;
-            if (ItemData.Combat != null && ItemData.Combat.APCost > 0) {
-                secondLine = $"{ItemData.Combat.APCost}AP";
-            } else if (ItemData.BaseValue > 0) {
-                secondLine = $"{ItemData.BaseValue}G";
-            }
+            string secondLine = ItemPresentationRules.BuildCompactSummary(ItemData);
 
             label.text = string.IsNullOrEmpty(secondLine)
                 ? ItemData.Name
@@ -119,6 +114,11 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (!ItemUseService.TryUseItem(ItemData, out string failureReason)) {
             if (!string.IsNullOrEmpty(failureReason)) {
                 Debug.LogWarning($"[UI] {failureReason}");
+            }
+        } else {
+            string usageHint = ItemPresentationRules.BuildUseHint(ItemData);
+            if (!string.IsNullOrEmpty(usageHint)) {
+                Debug.Log($"[UI] {usageHint}");
             }
         }
     }

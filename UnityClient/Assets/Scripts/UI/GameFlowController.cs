@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,7 @@ public class GameFlowController : MonoBehaviour {
     private CombatLootPickupResult _pendingCombatLootResult;
     private DungeonSettlementResult _pendingSettlementResult;
     private bool _isDungeonMapInventoryOpen;
+    private Coroutine _deferredInventorySyncRoutine;
 
     void Awake() {
         Instance = this;
@@ -168,6 +170,7 @@ public class GameFlowController : MonoBehaviour {
         }
 
         SpawnItemUIForGridItem(placedItem, x, y);
+        RefreshSafeRoomItemHintsIfNeeded();
     }
 
     private void HandleItemRemoved(string itemInstanceID) {
@@ -178,6 +181,8 @@ public class GameFlowController : MonoBehaviour {
         if (TryFindItemUI(itemInstanceID, out var existingUI) && existingUI != null) {
             Destroy(existingUI.gameObject);
         }
+
+        RefreshSafeRoomItemHintsIfNeeded();
     }
 
     private void QueueSettlementPresentation(DungeonSettlementResult result) {
@@ -243,6 +248,8 @@ public class GameFlowController : MonoBehaviour {
                 OnEnterSettlementScreen(payload as DungeonSettlementResult);
                 break;
         }
+
+        QueueDeferredInventorySync();
     }
 
     private void OnEnterWorkshopScreen() {
@@ -263,6 +270,7 @@ public class GameFlowController : MonoBehaviour {
         }
 
         SyncInventoryItemUI();
+        QueueDeferredInventorySync();
     }
 
     private void OnEnterDungeonMapScreen() {
@@ -274,6 +282,7 @@ public class GameFlowController : MonoBehaviour {
         }
 
         SyncInventoryItemUI();
+        QueueDeferredInventorySync();
     }
 
     private void OnEnterCombatScreen() {
@@ -325,6 +334,7 @@ public class GameFlowController : MonoBehaviour {
             sfCtrl.Setup(node);
         }
         SyncInventoryItemUI();
+        QueueDeferredInventorySync();
     }
 
     private void OnEnterSettlementScreen(DungeonSettlementResult result) {
@@ -369,6 +379,22 @@ public class GameFlowController : MonoBehaviour {
 
             SpawnItemUIForGridItem(item, item.Grid.CurrentPos[0], item.Grid.CurrentPos[1]);
         }
+    }
+
+    private void QueueDeferredInventorySync() {
+        if (_deferredInventorySyncRoutine != null) {
+            StopCoroutine(_deferredInventorySyncRoutine);
+        }
+
+        _deferredInventorySyncRoutine = StartCoroutine(DeferredInventorySyncRoutine());
+    }
+
+    private IEnumerator DeferredInventorySyncRoutine() {
+        yield return null;
+
+        Canvas.ForceUpdateCanvases();
+        SyncInventoryItemUI();
+        _deferredInventorySyncRoutine = null;
     }
 
     private void SpawnItemUIForGridItem(ItemEntity item, int x, int y) {
@@ -632,9 +658,24 @@ public class GameFlowController : MonoBehaviour {
         }
     }
 
+    private void RefreshSafeRoomItemHintsIfNeeded() {
+        if (_currentScreen != GameScreenState.SafeRoom) {
+            return;
+        }
+
+        var safeRoomCtrl = safeRoomPanel?.GetComponent<SafeRoomUIController>();
+        if (safeRoomCtrl != null) {
+            safeRoomCtrl.RefreshItemHints();
+        }
+    }
+
     private void RemoveStaleInventoryItemUI(BackpackGrid grid) {
         foreach (var itemUI in FindObjectsOfType<DraggableItemUI>()) {
             if (itemUI == null || itemUI.ItemData == null || itemUI.IsPendingDiscard) {
+                continue;
+            }
+
+            if (inventoryItemLayer != null && itemUI.transform.parent != inventoryItemLayer) {
                 continue;
             }
 
@@ -759,6 +800,11 @@ public class GameFlowController : MonoBehaviour {
     }
 
     void OnDestroy() {
+        if (_deferredInventorySyncRoutine != null) {
+            StopCoroutine(_deferredInventorySyncRoutine);
+            _deferredInventorySyncRoutine = null;
+        }
+
         DungeonEventBus.OnDungeonSettled -= HandleDungeonSettled;
         DungeonEventBus.OnDungeonSettlementPrepared -= HandleDungeonSettlementPrepared;
         DungeonEventBus.OnLayerLoaded -= EnterDungeonMap;

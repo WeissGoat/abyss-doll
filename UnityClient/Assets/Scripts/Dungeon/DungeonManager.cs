@@ -142,22 +142,23 @@ public class DungeonManager {
         var activeDoll = GameRoot.Core.CurrentPlayer.ActiveDoll;
         if (activeDoll != null) {
             BackpackGrid grid = activeDoll.RuntimeGrid as BackpackGrid;
-            if (grid != null && grid.ContainedItems.Count > 0) {
-                PopulateRunLootSummary(result, grid.ContainedItems);
+            if (grid != null) {
+                List<ItemEntity> carriedRunLoot = CollectAcceptedLootStillInBackpack(grid);
+                PopulateRunLootSummary(result, carriedRunLoot);
 
-                foreach (var item in grid.ContainedItems) {
-                    if (item == null) continue;
+                foreach (var item in carriedRunLoot) {
+                    if (item == null) {
+                        continue;
+                    }
+
                     result.LootTransferredCount++;
                     result.LootEstimatedValue += item.BaseValue;
                     result.LootNames.Add(item.Name);
                 }
-                GameRoot.Core.CurrentPlayer.StashInventory.AddRange(grid.ContainedItems);
-                List<ItemEntity> clearedItems = grid.ClearAllItems();
-                PublishInventoryRemovalEvents(clearedItems);
-                int count = clearedItems.Count;
-                Debug.Log($"[DungeonManager] {count} items safely transferred from Backpack to StashInventory.");
-            } else {
-                PopulateRunLootSummary(result, null);
+
+                Debug.Log(carriedRunLoot.Count > 0
+                    ? $"[DungeonManager] {carriedRunLoot.Count} run loot items remain in the active backpack after evacuation."
+                    : "[DungeonManager] No carried run loot to preserve after evacuation.");
             }
         }
 
@@ -225,6 +226,31 @@ public class DungeonManager {
                 result.LostNames.Add(item.Name);
             }
         }
+    }
+
+    private List<ItemEntity> CollectAcceptedLootStillInBackpack(BackpackGrid grid) {
+        List<ItemEntity> carriedRunLoot = new List<ItemEntity>();
+        if (grid == null) {
+            return carriedRunLoot;
+        }
+
+        HashSet<string> seenIds = new HashSet<string>();
+        foreach (var item in _runAcceptedLoot) {
+            if (item == null || string.IsNullOrEmpty(item.InstanceID)) {
+                continue;
+            }
+
+            if (seenIds.Contains(item.InstanceID)) {
+                continue;
+            }
+
+            if (grid.ContainedItems.Contains(item)) {
+                carriedRunLoot.Add(item);
+                seenIds.Add(item.InstanceID);
+            }
+        }
+
+        return carriedRunLoot;
     }
 
     private void ResetRunLootLedger() {

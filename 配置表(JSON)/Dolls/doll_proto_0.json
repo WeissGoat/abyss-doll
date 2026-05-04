@@ -34,6 +34,12 @@
       "X": 2,
       "Y": 0,
       "Rotation": 0
+    },
+    {
+      "ItemConfigID": "gear_wooden_shield",
+      "X": 3,
+      "Y": 0,
+      "Rotation": 0
     }
   ],
   "DefaultChassisID": "chassis_lv1_basic"

@@ -28,6 +28,8 @@ public static class DungeonSettlementTest {
             var carriedLoot = ConfigManager.CreateItem("mat_core_tier1");
             var discardedLoot = ConfigManager.CreateItem("loot_gear_scrap");
             ((BackpackGrid)doll.RuntimeGrid).PlaceItem(carriedLoot, 0, 0);
+            var startingShield = ConfigManager.CreateItem("gear_wooden_shield");
+            ((BackpackGrid)doll.RuntimeGrid).PlaceItem(startingShield, 3, 0);
             DungeonEventBus.PublishCombatLootCollected(new CombatLootCollectionResult {
                 NodeID = "settlement_test_node",
                 AcceptedItems = new System.Collections.Generic.List<ItemEntity> { carriedLoot, discardedLoot }
@@ -46,13 +48,17 @@ public static class DungeonSettlementTest {
 
             Debug.Log($"[After Evacuate] Stash Count: {player.StashInventory.Count}, Backpack Count: {((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count}");
             
-            if (player.StashInventory.Count == 1 && ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count == 0) {
+            if (player.StashInventory.Count == 0 &&
+                ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count == 2 &&
+                ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Contains(startingShield) &&
+                ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Contains(carriedLoot)) {
                 Debug.Log("Evacuation Loot Transfer PASSED.");
             } else {
                 Debug.LogError("Evacuation Loot Transfer FAILED.");
             }
 
-            if (((BackpackGrid)doll.RuntimeGrid).GetItemAt(0, 0) == null) {
+            if (((BackpackGrid)doll.RuntimeGrid).GetItemAt(0, 0) == carriedLoot &&
+                ((BackpackGrid)doll.RuntimeGrid).GetItemAt(3, 0) == startingShield) {
                 Debug.Log("Evacuation Grid Cleanup PASSED.");
             } else {
                 Debug.LogError("Evacuation Grid Cleanup FAILED.");
@@ -70,7 +76,7 @@ public static class DungeonSettlementTest {
                 _lastSettlementResult.PickedUpCount == 2 &&
                 _lastSettlementResult.BroughtOutCount == 1 &&
                 _lastSettlementResult.LostCount == 1 &&
-                _lastSettlementResult.StashCountAfterSettlement == 1) {
+                _lastSettlementResult.StashCountAfterSettlement == 0) {
                 Debug.Log("Evacuation Settlement Summary PASSED.");
             } else {
                 Debug.LogError("Evacuation Settlement Summary FAILED.");
@@ -113,7 +119,7 @@ public static class DungeonSettlementTest {
                 _lastSettlementResult.PickedUpCount == 1 &&
                 _lastSettlementResult.BroughtOutCount == 0 &&
                 _lastSettlementResult.LostCount == 1 &&
-                _lastSettlementResult.StashCountAfterSettlement == 1) {
+                _lastSettlementResult.StashCountAfterSettlement == 0) {
                 Debug.Log("Defeat Settlement Summary PASSED.");
             } else {
                 Debug.LogError("Defeat Settlement Summary FAILED.");

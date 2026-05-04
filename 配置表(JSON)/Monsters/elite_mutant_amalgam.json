@@ -12,8 +12,9 @@
     "OverrideValue": 0
   },
   "LootPool": [
-    {"ItemID": "gear_chainsaw_sword", "Weight": 30},
-    {"ItemID": "gear_charge_pistol", "Weight": 30},
-    {"ItemID": "loot_toxic_filter", "Weight": 100}
+    {"ItemID": "gear_chainsaw_sword", "Weight": 25},
+    {"ItemID": "gear_charge_pistol", "Weight": 25},
+    {"ItemID": "gear_iron_armor", "Weight": 20},
+    {"ItemID": "loot_toxic_filter", "Weight": 70}
   ]
 }
