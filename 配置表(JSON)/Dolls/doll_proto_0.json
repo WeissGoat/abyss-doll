@@ -22,6 +22,18 @@
       "X": 0,
       "Y": 0,
       "Rotation": 0
+    },
+    {
+      "ItemConfigID": "con_repair_kit",
+      "X": 1,
+      "Y": 0,
+      "Rotation": 0
+    },
+    {
+      "ItemConfigID": "con_cheap_sedative",
+      "X": 2,
+      "Y": 0,
+      "Rotation": 0
     }
   ],
   "DefaultChassisID": "chassis_lv1_basic"
