@@ -4,6 +4,7 @@
   "ItemType": "Consumable",
   "Rarity": "Common",
   "BaseValue": 50,
+  "IconID": "item_con_repair_kit_icon",
   "Grid": {
     "Shape": [[0,0]],
     "GridCost": 1

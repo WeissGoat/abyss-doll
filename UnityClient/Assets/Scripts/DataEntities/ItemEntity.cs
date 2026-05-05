@@ -10,6 +10,11 @@ public class ItemEntity {
     public string ItemType;
     public string Rarity;
     public int BaseValue;
+    public string IconID;
+    public string WorldVisualID;
+    public string UseVFXID;
+    public string UseSFXID;
+    public string RarityFrameID;
 
     public ItemGridComponent Grid;
     public ItemCombatComponent Combat;

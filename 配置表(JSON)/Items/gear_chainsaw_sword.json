@@ -4,6 +4,7 @@
   "ItemType": "Weapon",
   "Rarity": "Rare",
   "BaseValue": 1200,
+  "IconID": "item_gear_chainsaw_sword_icon",
   "Grid": {
     "Shape": [[0,0], [0,1], [0,2], [1,0], [1,1], [1,2]],
     "GridCost": 6

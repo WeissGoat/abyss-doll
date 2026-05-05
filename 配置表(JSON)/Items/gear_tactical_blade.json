@@ -4,6 +4,7 @@
   "ItemType": "Weapon",
   "Rarity": "Uncommon",
   "BaseValue": 350,
+  "IconID": "item_gear_tactical_blade_icon",
   "Grid": {
     "Shape": [
       [

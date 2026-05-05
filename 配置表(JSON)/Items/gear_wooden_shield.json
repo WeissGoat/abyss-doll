@@ -4,6 +4,7 @@
   "ItemType": "Armor",
   "Rarity": "Common",
   "BaseValue": 100,
+  "IconID": "item_gear_wooden_shield_icon",
   "Grid": {
     "Shape": [[0,0], [0,1]],
     "GridCost": 2

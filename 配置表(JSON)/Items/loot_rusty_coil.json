@@ -4,6 +4,7 @@
   "ItemType": "Loot",
   "Rarity": "Uncommon",
   "BaseValue": 250,
+  "IconID": "item_loot_rusty_coil_icon",
   "Grid": {
     "Shape": [
       [

@@ -135,6 +135,19 @@ public class WorkshopUIController : MonoBehaviour {
         rowFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
         rowFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
+        GameObject iconObj = new GameObject("ItemIcon_Image");
+        iconObj.transform.SetParent(row.transform, false);
+        Image icon = iconObj.AddComponent<Image>();
+        string iconID = VisualAssetService.ResolveItemIconID(item);
+        bool hasRegisteredIcon = VisualAssetService.TryGetSprite(iconID, out Sprite iconSprite);
+        icon.sprite = hasRegisteredIcon ? iconSprite : VisualAssetService.GetSprite(iconID);
+        icon.type = Image.Type.Simple;
+        icon.preserveAspect = true;
+        icon.color = hasRegisteredIcon ? Color.white : ResolveItemTint(item);
+        icon.raycastTarget = false;
+        RectTransform iconRect = iconObj.GetComponent<RectTransform>();
+        iconRect.sizeDelta = new Vector2(44f, 44f);
+
         GameObject labelObj = new GameObject("ItemLabel_Text");
         labelObj.transform.SetParent(row.transform, false);
         Text label = labelObj.AddComponent<Text>();
@@ -174,6 +187,25 @@ public class WorkshopUIController : MonoBehaviour {
         sellTextRect.anchorMin = Vector2.zero;
         sellTextRect.anchorMax = Vector2.one;
         sellTextRect.sizeDelta = Vector2.zero;
+    }
+
+    private Color ResolveItemTint(ItemEntity item) {
+        if (item == null) {
+            return new Color(0.45f, 0.45f, 0.45f, 1f);
+        }
+
+        switch (item.ItemType) {
+            case nameof(ItemType.Weapon):
+                return new Color(0.75f, 0.18f, 0.18f, 1f);
+            case nameof(ItemType.Armor):
+                return new Color(0.35f, 0.45f, 0.7f, 1f);
+            case nameof(ItemType.Consumable):
+                return new Color(0.22f, 0.65f, 0.3f, 1f);
+            case nameof(ItemType.Loot):
+                return new Color(0.82f, 0.63f, 0.18f, 1f);
+            default:
+                return new Color(0.45f, 0.45f, 0.45f, 1f);
+        }
     }
 
     private void EnsureSellControls() {

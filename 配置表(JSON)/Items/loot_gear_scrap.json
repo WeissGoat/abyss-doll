@@ -4,6 +4,7 @@
   "ItemType": "Loot",
   "Rarity": "Common",
   "BaseValue": 100,
+  "IconID": "item_loot_gear_scrap_icon",
   "Grid": {
     "Shape": [
       [

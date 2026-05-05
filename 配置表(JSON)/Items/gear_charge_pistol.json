@@ -4,6 +4,7 @@
   "ItemType": "Weapon",
   "Rarity": "Rare",
   "BaseValue": 800,
+  "IconID": "item_gear_charge_pistol_icon",
   "Grid": {
     "Shape": [[0,0], [0,1]],
     "GridCost": 2

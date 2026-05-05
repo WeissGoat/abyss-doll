@@ -4,6 +4,7 @@
   "ItemType": "Loot",
   "Rarity": "Rare",
   "BaseValue": 800,
+  "IconID": "item_loot_toxic_filter_icon",
   "Grid": {
     "Shape": [
       [

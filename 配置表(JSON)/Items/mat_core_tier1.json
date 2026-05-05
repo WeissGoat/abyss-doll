@@ -4,6 +4,7 @@
   "ItemType": "QuestItem",
   "Rarity": "Epic",
   "BaseValue": 0,
+  "IconID": "item_mat_core_tier1_icon",
   "Grid": {
     "Shape": [
       [

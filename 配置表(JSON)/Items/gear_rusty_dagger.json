@@ -4,6 +4,7 @@
   "ItemType": "Weapon",
   "Rarity": "Common",
   "BaseValue": 150,
+  "IconID": "item_gear_rusty_dagger_icon",
   "Grid": {
     "Shape": [[0,0], [0,1]],
     "GridCost": 2

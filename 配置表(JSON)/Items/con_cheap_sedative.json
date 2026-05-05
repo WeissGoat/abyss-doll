@@ -4,6 +4,7 @@
   "ItemType": "Consumable",
   "Rarity": "Common",
   "BaseValue": 80,
+  "IconID": "item_con_cheap_sedative_icon",
   "Grid": {
     "Shape": [[0,0]],
     "GridCost": 1

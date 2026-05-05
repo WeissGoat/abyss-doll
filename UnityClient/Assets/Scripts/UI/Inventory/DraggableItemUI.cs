@@ -55,21 +55,31 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private void ApplyVisualStyle() {
         Image image = GetComponent<Image>();
         if (image != null && ItemData != null) {
+            string iconID = VisualAssetService.ResolveItemIconID(ItemData);
+            bool hasRegisteredIcon = VisualAssetService.TryGetSprite(iconID, out Sprite iconSprite);
+            if (!hasRegisteredIcon) {
+                iconSprite = VisualAssetService.GetSprite(iconID);
+            }
+
+            image.sprite = iconSprite;
+            image.type = Image.Type.Simple;
+            image.preserveAspect = true;
+
             switch (ItemData.ItemType) {
                 case nameof(ItemType.Weapon):
-                    image.color = new Color(0.75f, 0.18f, 0.18f, 1f);
+                    image.color = hasRegisteredIcon ? Color.white : new Color(0.75f, 0.18f, 0.18f, 1f);
                     break;
                 case nameof(ItemType.Armor):
-                    image.color = new Color(0.35f, 0.45f, 0.7f, 1f);
+                    image.color = hasRegisteredIcon ? Color.white : new Color(0.35f, 0.45f, 0.7f, 1f);
                     break;
                 case nameof(ItemType.Consumable):
-                    image.color = new Color(0.22f, 0.65f, 0.3f, 1f);
+                    image.color = hasRegisteredIcon ? Color.white : new Color(0.22f, 0.65f, 0.3f, 1f);
                     break;
                 case nameof(ItemType.Loot):
-                    image.color = new Color(0.82f, 0.63f, 0.18f, 1f);
+                    image.color = hasRegisteredIcon ? Color.white : new Color(0.82f, 0.63f, 0.18f, 1f);
                     break;
                 default:
-                    image.color = new Color(0.45f, 0.45f, 0.45f, 1f);
+                    image.color = hasRegisteredIcon ? Color.white : new Color(0.45f, 0.45f, 0.45f, 1f);
                     break;
             }
         }

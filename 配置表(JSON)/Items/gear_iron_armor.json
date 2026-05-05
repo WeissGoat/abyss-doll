@@ -4,6 +4,7 @@
   "ItemType": "Armor",
   "Rarity": "Uncommon",
   "BaseValue": 400,
+  "IconID": "item_gear_iron_armor_icon",
   "Grid": {
     "Shape": [[0,0], [0,1], [1,0], [1,1]],
     "GridCost": 4

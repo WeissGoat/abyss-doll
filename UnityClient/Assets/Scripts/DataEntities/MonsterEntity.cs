@@ -9,6 +9,10 @@ public class MonsterEntity {
     public int HP;
     public int AttacksPerTurn;
     public int DamageValue;
+    public string PortraitID;
+    public string CombatVisualID;
+    public string HitVFXID;
+    public string DeathVFXID;
     
     public string GridInterference; // e.g., "None", "ReduceDamage", "AddCursedItem"
     public GridInterferenceParams GridInterferenceParams;
