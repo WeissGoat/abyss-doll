@@ -1,0 +1,3 @@
+[submodule "tools/--force"]
+	path = tools/--force
+	url = git@github.com:WeissGoat/ai-image-gateway.git
