@@ -10,6 +10,7 @@
 3. [02_资源规格与接入规范.md](02_资源规格与接入规范.md)：目录、命名、素材规格和 Unity 接入边界。
 4. [03_AI生成与筛选规范.md](03_AI生成与筛选规范.md)：AI 出图批次、预处理、筛选和状态回填。
 5. [04_美术风格基准.md](04_美术风格基准.md)：地底奇幻冒险 + 蒸汽朋克的视觉基准。
+6. [05_AI图片网关接入方案.md](05_AI图片网关接入方案.md)：将 `tools/ai-image-gateway` 接入 Manifest 批量跑图流程的开发方案。
 
 ## 机器生成文件
 
@@ -20,12 +21,12 @@
 生成命令：
 
 ```powershell
-.\美术工具\Update-ArtManifest.ps1
-.\美术工具\Generate-ArtPrompts.ps1
+.\tools\美术工具\Update-ArtManifest.ps1
+.\tools\美术工具\Generate-ArtPrompts.ps1
 ```
 
 ## 外部契约
 
 * [版本规划/01_MVP美术与UI需求清单.md](../版本规划/01_MVP美术与UI需求清单.md)：MVP UI 和交互表现需求。
 * [开发文档/09_视觉资源系统程序开发规范.md](../开发文档/09_视觉资源系统程序开发规范.md)：程序侧 `VisualID -> VisualAssetRegistry -> Unity Asset` 契约。
-* [美术工具/README.md](../美术工具/README.md)：美术流水线脚本说明。
+* [tools/美术工具/README.md](../tools/美术工具/README.md)：美术流水线脚本说明。

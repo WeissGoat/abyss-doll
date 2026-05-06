@@ -12,7 +12,7 @@
 使用方式：
 
 ```powershell
-.\美术工具\Update-ArtManifest.ps1
+.\tools\美术工具\Update-ArtManifest.ps1
 ```
 
 实现说明：
@@ -40,13 +40,13 @@
 使用方式：
 
 ```powershell
-.\美术工具\Generate-ArtPrompts.ps1
+.\tools\美术工具\Generate-ArtPrompts.ps1
 ```
 
 默认只处理 `todo` 项；需要重写已有提示词时使用：
 
 ```powershell
-.\美术工具\Generate-ArtPrompts.ps1 -Overwrite
+.\tools\美术工具\Generate-ArtPrompts.ps1 -Overwrite
 ```
 
 提示词规范：

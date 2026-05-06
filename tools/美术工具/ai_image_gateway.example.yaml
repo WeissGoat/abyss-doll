@@ -1,0 +1,42 @@
+# Project P3 AI image gateway config template.
+# Copy to ai_image_gateway.local.yaml and fill credentials through environment variables.
+
+default_provider:
+  generate: novelai
+  inpaint: mock
+  upscale: mock
+
+providers:
+  mock:
+    enabled: true
+    settings:
+      bg_color: "#222533"
+      text_color: "#e7d28a"
+
+  novelai:
+    enabled: true
+    auth:
+      # Prefer access token for local runs.
+      access_token: ${NAI_ACCESS_TOKEN}
+      # Alternative auth options supported by the gateway:
+      # access_key: ${NAI_ACCESS_KEY}
+      # username: ${NAI_USERNAME}
+      # password: ${NAI_PASSWORD}
+    settings:
+      model: nai-diffusion-4-5-full
+      sampler: k_euler
+      scheduler: native
+      steps: 28
+      cfg: 5.0
+      cfg_rescale: 0.0
+      uncond_scale: 1.0
+      uc_preset: 3
+      smea: none
+      variety: false
+      decrisper: false
+      limit_opus_free: true
+      timeout: 120
+      retry: 3
+
+logging:
+  level: INFO

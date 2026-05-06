@@ -53,3 +53,6 @@ Thumbs.db
 UnityClient/Assets/StreamingAssets/Configs/
 UnityClient/Assets/StreamingAssets/Configs.meta
 .idea
+
+# Local AI image generation credentials/config
+tools/美术工具/ai_image_gateway.local.yaml

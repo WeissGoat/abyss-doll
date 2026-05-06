@@ -443,7 +443,7 @@ def make_markdown(manifest: Dict[str, Any]) -> str:
     lines = [
         "# 视觉资产 Manifest",
         "",
-        "> **定位：** 由 `美术工具/Update-ArtManifest.ps1` 根据最新配置表、配置推导项和预置美术需求增量生成。第一步只填资产来源与配置事实，中文审阅描述、英文提示词、英文负面词和结构化规格在第二步补全。",
+        "> **定位：** 由 `tools/美术工具/Update-ArtManifest.ps1` 根据最新配置表、配置推导项和预置美术需求增量生成。第一步只填资产来源与配置事实，中文审阅描述、英文提示词、英文负面词和结构化规格在第二步补全。",
         f"> **配置来源：** `{manifest['ConfigRoot']}`",
         "",
         "## 状态流转",
@@ -480,7 +480,7 @@ def make_markdown(manifest: Dict[str, Any]) -> str:
     lines.extend(["", "## 下一步", ""])
     if status_counts.get("todo", 0) > 0:
         lines.append("1. 对 `Status=todo` 的新增项补全 `PromptCN`、`PromptEN`、`NegativePromptEN` 和结构化 `Spec`。")
-        lines.append("2. 完成后运行 `美术工具/Generate-ArtPrompts.ps1` 或人工审阅提示词。")
+        lines.append("2. 完成后运行 `tools/美术工具/Generate-ArtPrompts.ps1` 或人工审阅提示词。")
     elif status_counts.get("prompted", 0) > 0:
         lines.append("1. 对 `Status=prompted` 的条目按批次生成图片。")
         lines.append("2. 生成后填写 `BatchID` 和 `RawPath`，并将状态改为 `generated`。")
