@@ -12,6 +12,156 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a79cc34d76707e41a5e2cb1d7d28f55, type: 3}
   m_Name: VisualAssetRegistry
   m_EditorClassIdentifier: 
-  Entries: []
-  MissingSprite: {fileID: 0}
+  Entries:
+  - VisualID: bg_combat_abyss
+    Sprite: {fileID: 21300000, guid: 9f676444d813871408a98a32295d2790, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: bg_dungeon_layer_1
+    Sprite: {fileID: 21300000, guid: 0d09e86d55bd8ca42a4414af21152533, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: bg_dungeon_layer_2
+    Sprite: {fileID: 21300000, guid: d97572746edbde1459143e9e1e067c2c, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: bg_dungeon_map
+    Sprite: {fileID: 21300000, guid: bf0d02e14b2b5ae4f92f4d0db3b25195, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: bg_workshop_day
+    Sprite: {fileID: 21300000, guid: d4646e83665d97143a2497d88d970f56, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: chassis_chassis_lv1_basic_frame
+    Sprite: {fileID: 21300000, guid: 63f82b81c5d45f64c8dee20f3cb14653, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: chassis_chassis_lv2_expanded_frame
+    Sprite: {fileID: 21300000, guid: 3684932b26b896646bd3ec32fb2c6786, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: doll_proto_0_stand
+    Sprite: {fileID: 21300000, guid: 7c5cb18a26d36fb43aacd951755c2c42, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: item_con_cheap_sedative_icon
+    Sprite: {fileID: 21300000, guid: 29739bdb727b71f4c9bd8e78f555b294, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: item_con_repair_kit_icon
+    Sprite: {fileID: 21300000, guid: 77d890d227ec6fc49a395801cdca5bc7, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: item_gear_chainsaw_sword_icon
+    Sprite: {fileID: 21300000, guid: aa6bbf47d35011b4098fc236b5891da8, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: item_gear_charge_pistol_icon
+    Sprite: {fileID: 21300000, guid: 6db9cd25de115584cb689ea7f2fb0684, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: item_gear_iron_armor_icon
+    Sprite: {fileID: 21300000, guid: 3200e37c951ae3647afa4ec7967f7644, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: item_gear_rusty_dagger_icon
+    Sprite: {fileID: 21300000, guid: 901a42b41e1f9d54389fa08312e02830, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: item_gear_tactical_blade_icon
+    Sprite: {fileID: 21300000, guid: 5cc4668f52eedf64fafd443b0aeb6911, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: item_gear_wooden_shield_icon
+    Sprite: {fileID: 21300000, guid: 28e07fe9a8c3bf24c805ce8c7fb4b964, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: item_loot_gear_scrap_icon
+    Sprite: {fileID: 21300000, guid: f69d79467a341ad4cb2689ef674a9852, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: item_loot_rusty_coil_icon
+    Sprite: {fileID: 21300000, guid: abff543d674d4f54f861e7a87a24ffea, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: item_loot_toxic_filter_icon
+    Sprite: {fileID: 21300000, guid: c60b5c658e441c4498078226c2b26fe0, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: item_mat_core_tier1_icon
+    Sprite: {fileID: 21300000, guid: 621c87232e677394abda236b96c3ba63, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: monster_elite_mutant_amalgam_portrait
+    Sprite: {fileID: 21300000, guid: 6a0a6bfbb10a9ca40bb543889f1b2a7f, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: monster_elite_scrap_guard_portrait
+    Sprite: {fileID: 21300000, guid: 267d2283a122d9d4fa48fc09f4177179, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: monster_mob_acid_slime_portrait
+    Sprite: {fileID: 21300000, guid: d2c515d7c7ab4da4ab1639da5b80dcd2, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: monster_mob_scavenger_bug_portrait
+    Sprite: {fileID: 21300000, guid: 1685f7401745f3a4bb4c6e147883eb02, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: node_boss_icon
+    Sprite: {fileID: 21300000, guid: 973cc1b792a259742983ce66d4256d28, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: node_combat_icon
+    Sprite: {fileID: 21300000, guid: e21cd38e8d91e6c4284c42ff47168ee1, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: node_safe_room_icon
+    Sprite: {fileID: 21300000, guid: c9ef0bac4f5c9924e8d1787825af3959, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: prosthetic_pros_cooling_system_icon
+    Sprite: {fileID: 21300000, guid: 46ab8f20967f6ae4e88f242c89e8dbc3, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: prosthetic_pros_power_arm_icon
+    Sprite: {fileID: 21300000, guid: a83b097faac650c40a737855e9463cbc, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_missing_sprite
+    Sprite: {fileID: 21300000, guid: 9d73e26723da5af45a09e53a93363fba, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  MissingSprite: {fileID: 21300000, guid: 9d73e26723da5af45a09e53a93363fba, type: 3}
   MissingPrefab: {fileID: 0}
