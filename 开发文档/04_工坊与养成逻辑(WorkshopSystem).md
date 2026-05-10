@@ -1,111 +1,62 @@
 # 工坊与养成逻辑 (Workshop & Crafting System)
 
-> **定位：** 本文档指导程序实现局外资源转化为实力的部分，包括升级底盘和制造义体。
-> **原则：** 义体插件的效果实现与物品效果（`EffectBase`）完全同源，保持高度一致。
+> **定位：** 指导局外资源转化为实力，包括升级底盘、制造并装备义体。
+> **原则：** 义体效果与物品效果完全同源，统一使用 `EffectData` + `EffectFactory`。
 
-## 1. 制造配方数据解析 (Crafting Recipe)
+## 1. 成本来源
 
-由于我们定义了 MVP 的配置表，系统需要读取制造成本并进行库存比对。
+MVP 当前不再强依赖仓库。玩家撤离后战利品可能仍在背包里，因此工坊成本统计必须覆盖：
 
-```csharp
-public class WorkshopSystem {
-    // 检查玩家是否有足够的钱和材料
-    public bool CanAfford(CraftingRecipeConfig recipe, PlayerProfile player) {
-        if(player.Money < recipe.Cost.Money) return false;
-        
-        foreach(var reqItem in recipe.Cost.RequiredItems) {
-            // 统计大仓库里这个配置ID的物品总量
-            int countInStash = player.StashInventory.Count(item => item.ConfigID == reqItem.ConfigID);
-            if(countInStash < reqItem.Count) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    // 执行扣除
-    private void DeductCost(CraftingRecipeConfig recipe, PlayerProfile player) {
-        player.Money -= recipe.Cost.Money;
-        
-        foreach(var reqItem in recipe.Cost.RequiredItems) {
-            for(int i=0; i<reqItem.Count; i++) {
-                // 找出并删除所需素材（优先删带负面词条或价值低的）
-                var itemToRemove = player.StashInventory.First(item => item.ConfigID == reqItem.ConfigID);
-                player.StashInventory.Remove(itemToRemove);
-            }
-        }
-    }
-}
-```
-## 2. 升级魔偶底盘 (Upgrade Chassis)
+*   `PlayerProfile.StashInventory`
+*   当前魔偶 `RuntimeGrid` 背包内物品
 
-这是玩家追求的最大数值质变（扩充格子）。
+扣除成本时优先消耗仓库材料；仓库不足时再从背包移除，并发布 `GameEventBus.PublishItemRemoved` 以刷新表现层。
+
+## 2. 升级魔偶底盘
+
+底盘升级仍读取 `Chassis.UpgradeCost`，复用工坊成本扣除逻辑。升级成功后替换 `DollEntity.Chassis`，并重建 `BackpackGrid`。
+
+MVP 简化口径：升级会重建背包网格，不做旧物品自动回填。
+
+## 3. 制造与装备义体
+
+义体通过 `CraftingRecipeConfig.TargetProstheticID` 指向 `ProstheticEntity`：
 
 ```csharp
-public void UpgradeDollChassis(DollEntity doll) {
-    var currentChassisConfig = ConfigManager.GetChassisConfig(doll.Chassis.ChassisID);
-
-    if(currentChassisConfig.UpgradeCost == null) {
-        Debug.Log("已是最高级底盘！"); return;
-    }
-
-    // 包装成 Recipe 来复用扣除逻辑
-    CraftingRecipeConfig tempRecipe = new CraftingRecipeConfig { Cost = currentChassisConfig.UpgradeCost};
-
-    if(CanAfford(tempRecipe, GameManager.Instance.CurrentPlayer)) {
-        DeductCost(tempRecipe, GameManager.Instance.CurrentPlayer);
-
-        // 执行升级
-        string nextID = currentChassisConfig.UpgradeCost.NextChassisID;
-        doll.Chassis = ConfigManager.GetChassisConfig(nextID);
-        // （实际项目中，这里需要将配置表的静态数据深拷贝为玩家专属数据）
-
-        Debug.Log($"底盘升级成功！现在的尺寸是: {doll.Chassis.GridWidth} x {doll.Chassis.GridHeight}");
-    }
-}
-```
-## 3. 制造与装备义体 (Prosthetics System)
-
-**核心机制：义体是脱离网格独立存在的，相当于传统RPG的全身光环。**
-在我们的架构优化中，义体的效果与物品的效果底层是一模一样的！
-
-```csharp
-[System.Serializable]
 public class ProstheticEntity {
     public string ProstheticID;
-    public string SlotType; // Head, Core, Arm...
-    
-    // 义体的被动效果，复用 EffectData！
-    public List<EffectData> PassiveEffects; 
+    public string Name;
+    public string Level;
+    public string SlotType;
+    public List<EffectData> Effects;
 }
 ```
 
-## 3. 义体效果的局内应用 (Apply Passive Effects)
+统一约束：
 
-当玩家进入战斗或进行网格计算时，把义体里的 `EffectData` 也塞进 `EffectFactory` 里执行即可。
+*   只使用 `Effects: EffectData[]`。
+*   不再保留 `PassiveEffect` / `PassiveEffects` 兼容字段。
+*   同一个 `SlotType` 同时只装备一个义体；制造新义体时会替换同槽位旧义体。
+*   制造成功后立即 `GridSolver.RecalculateAllEffects(doll)`。
 
-```csharp
-// 在 GridSolver.RecalculateAllEffects 中统一调用：
-public static void ApplyProstheticPassives(DollEntity doll) {
-    foreach(string prosID in doll.EquippedProsthetics) {
-        var prosConfig = ConfigManager.GetProstheticConfig(prosID);
-        
-        foreach(var effectData in prosConfig.PassiveEffects) {
-            // 使用完全一样的工厂！
-            EffectBase effect = EffectFactory.CreateEffect(effectData);
-            
-            // 全局光环通常作用于整个背包
-            if(effectData.Target == TargetDirection.Global) {
-                foreach(var targetItem in doll.RuntimeGrid.ContainedItems) {
-                    effect.Apply(null, targetItem); // 提供者可为空，表示系统/义体赋予
-                }
-            }
-        }
-    }
-}
-```
+## 4. 义体效果应用
 
----
-**本篇总结：**
-MVP 阶段的局外养成，其终极目的非常明确——消耗玩家从深渊带回来的材料，以此换取更大的空间以及全局乘伤被动。
-通过将**义体特效与网格物品特效统一继承自 `EffectBase`**，极大地降低了程序的维护成本，实现了高度的数据驱动。
+义体效果分两类消费：
+
+*   网格/物品派生值：`GridSolver.RecalculateAllEffects` 遍历 `doll.EquippedProsthetics`，读取每个义体的 `Effects`，通过 `EffectFactory` 实例化并作用于背包物品。
+*   战斗事件：`DollFighter.ProcessEffects` 同样遍历义体 `Effects`，当 `EffectBase.ListenEvent` 匹配当前 `CombatEventType` 时执行。
+
+`Target` 口径：
+
+*   `Global`：作用于全部背包物品。
+*   物品 Tag，如 `Melee`：只作用于拥有该 Tag 的物品。
+*   `Self`：用于战斗事件类效果，例如 `RestoreSANOnCombatEnd`。
+
+## 5. MVP 已接入效果
+
+*   `DamageMultiplier`：`pros_power_arm` 使用，目标 `Melee`，用于提高近战武器实际伤害。
+*   `RestoreSANOnCombatEnd`：`pros_cooling_system` 使用，战斗胜利发布 `OnCombatEnd` 时恢复 SAN。
+
+## 6. UI 入口
+
+`WorkshopUIController` 会根据 `ConfigManager.CraftingRecipes` 自动生成义体制造按钮。按钮状态由 `WorkshopSystem.CanAfford` 和当前是否已装备决定。

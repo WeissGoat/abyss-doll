@@ -1,13 +1,14 @@
 {
   "ProstheticID": "pros_power_arm",
-  "Name": "动力臂增幅插件",
+  "Name": "Power Arm Amplifier",
   "Level": "Primary",
   "SlotType": "Arm",
-  "PassiveEffect": {
-    "TargetTags": [
-      "Melee"
-    ],
-    "EffectType": "DamageMultiplier",
-    "Value": 0.1
-  }
+  "Effects": [
+    {
+      "EffectID": "DamageMultiplier",
+      "Level": 1,
+      "Target": "Melee",
+      "Params": [0.1]
+    }
+  ]
 }

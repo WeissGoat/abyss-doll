@@ -7,7 +7,5 @@ public class ProstheticEntity {
     public string Name;
     public string Level;
     public string SlotType;
-    
-    public EffectData PassiveEffect; // If it's a single effect in some configs
-    public List<EffectData> PassiveEffects = new List<EffectData>(); // If multiple
+    public List<EffectData> Effects = new List<EffectData>();
 }

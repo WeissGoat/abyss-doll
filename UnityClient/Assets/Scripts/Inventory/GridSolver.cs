@@ -37,19 +37,40 @@ public static class GridSolver {
         // 3. Apply Global Effects from Prosthetics
         foreach (string prosID in doll.EquippedProsthetics) {
             if (ConfigManager.Prosthetics.TryGetValue(prosID, out var prosConfig)) {
-                // If the config has a list of effects
-                foreach (var effectData in prosConfig.PassiveEffects) {
+                if (prosConfig.Effects == null) {
+                    continue;
+                }
+
+                foreach (var effectData in prosConfig.Effects) {
                     EffectBase effect = EffectFactory.CreateEffect(effectData);
                     if (effect == null) continue;
 
-                    if (effectData.Target == TargetDirection.Global.ToString()) {
-                        foreach (var targetItem in grid.ContainedItems) {
-                            effect.Apply(null, targetItem);
-                        }
+                    foreach (var targetItem in GetProstheticTargetItems(effectData.Target, grid)) {
+                        effect.Apply(null, targetItem);
                     }
                 }
             }
         }
+    }
+
+    private static List<ItemEntity> GetProstheticTargetItems(string targetSelector, BackpackGrid grid) {
+        List<ItemEntity> targets = new List<ItemEntity>();
+        if (grid == null || grid.ContainedItems == null) {
+            return targets;
+        }
+
+        if (string.IsNullOrEmpty(targetSelector) || targetSelector == TargetDirection.Global.ToString()) {
+            targets.AddRange(grid.ContainedItems);
+            return targets;
+        }
+
+        foreach (var item in grid.ContainedItems) {
+            if (item?.Tags != null && item.Tags.Exists(tag => string.Equals(tag, targetSelector, StringComparison.OrdinalIgnoreCase))) {
+                targets.Add(item);
+            }
+        }
+
+        return targets;
     }
 
     private static List<ItemEntity> GetTargetItems(ItemEntity provider, string targetDirectionStr, BackpackGrid grid) {

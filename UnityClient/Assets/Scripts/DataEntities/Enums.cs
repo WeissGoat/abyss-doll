@@ -46,5 +46,6 @@ public enum CombatEventType {
     OnTurnStart = 1,
     OnTurnEnd = 2,
     OnAttack = 3,
-    OnTakeDamage = 4
+    OnTakeDamage = 4,
+    OnCombatEnd = 5
 }

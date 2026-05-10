@@ -73,7 +73,7 @@ P0 完成后，项目应具备一次完整白盒试玩的最低条件。
 
 实施内容：
 
-*   义体配置统一为 `PassiveEffects`，或加载时兼容 `PassiveEffect` 并转换。
+*   义体配置统一为 `Effects: EffectData[]`，不再保留 `PassiveEffect` / `PassiveEffects` 兼容分支。
 *   确认 `DamageMultiplier` 可由义体对指定标签武器生效。
 *   实现 `RestoreSANOnCombatEnd`。
 *   工坊 UI 增加制造/装备义体入口，调用 `CraftAndEquipProsthetic`。
@@ -162,7 +162,7 @@ P2 不阻断规则试玩，但会显著提高可读性和反馈质量。
 
 1.  `RewardSystem`、`/Rewards` 奖励表与 Boss 保底掉落。
 2.  `CanSell` / 材料保护 / 小镇 UI 提示。
-3.  `PassiveEffects` 兼容与义体工坊 UI。
+3.  义体 `Effects` 生效链路与工坊 UI。
 4.  `RestoreSANOnCombatEnd` 与义体回归测试。
 5.  正式 MVP 初始装与测试初始装拆分。
 6.  `ReduceDamage` 与 `AddCursedItem`。

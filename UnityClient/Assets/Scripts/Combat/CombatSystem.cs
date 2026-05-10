@@ -82,6 +82,7 @@ public class CombatSystem {
         CurrentState = CombatState.End;
         ItemUseService.ClearPendingTargetSelection();
         Debug.Log("<color=green>[CombatSystem] Victory! All enemies defeated.</color>");
+        CombatEventBus.Publish(CombatEventType.OnCombatEnd, PlayerFaction);
 
         foreach (var fighter in PlayerFaction.Fighters) {
             if (fighter is DollFighter dollFighter) {

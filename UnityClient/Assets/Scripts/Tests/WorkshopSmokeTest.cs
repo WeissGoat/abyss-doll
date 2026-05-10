@@ -71,6 +71,7 @@ public static class WorkshopSmokeTest {
                 Debug.LogError($"Chassis Upgrade FAILED. Current Chassis: {doll.Chassis.ChassisID} ({doll.Chassis.GridWidth}x{doll.Chassis.GridHeight})");
             }
 
+            RunProstheticCraftAndEffectTest(core);
             RunWorkshopSellPanelUITest(core);
 
             Debug.Log("=== Workshop Smoke Test Finished ===");
@@ -101,15 +102,67 @@ public static class WorkshopSmokeTest {
         bool panelIsSeparate = controller.sellPanel != null && controller.sellPanel.transform.parent == canvasObj.transform;
         bool panelOpened = controller.sellPanel != null && controller.sellPanel.activeSelf;
         bool listBuilt = controller.stashListParent != null && controller.stashListParent.childCount > 0;
+        bool prostheticListBuilt = controller.prostheticListParent != null && controller.prostheticListParent.childCount > 0;
 
-        if (panelIsSeparate && panelOpened && listBuilt) {
+        if (panelIsSeparate && panelOpened && listBuilt && prostheticListBuilt) {
             Debug.Log("Workshop Sell Panel UI PASSED.");
         } else {
-            Debug.LogError($"Workshop Sell Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, Rows={controller.stashListParent?.childCount ?? 0}");
+            Debug.LogError($"Workshop Sell Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, SellRows={controller.stashListParent?.childCount ?? 0}, ProstheticRows={controller.prostheticListParent?.childCount ?? 0}");
         }
 
         controller.CloseSellPanel();
         Object.DestroyImmediate(canvasObj);
+    }
+
+    private static void RunProstheticCraftAndEffectTest(CoreBackend core) {
+        var player = core.CurrentPlayer;
+        var doll = player.ActiveDoll;
+        doll.RuntimeGrid = new BackpackGrid(doll.Chassis);
+        BackpackGrid grid = doll.RuntimeGrid as BackpackGrid;
+
+        ItemEntity meleeWeapon = ConfigManager.CreateItem("gear_rusty_dagger");
+        grid.PlaceItem(meleeWeapon, 0, 0);
+
+        player.Money = 2000;
+        AddStashItems(player, "loot_gear_scrap", 3);
+
+        bool craftedPowerArm = core.Workshop.CraftAndEquipProsthetic("craft_pros_power_arm", doll);
+        bool hasPowerArm = doll.EquippedProsthetics.Contains("pros_power_arm");
+        bool damageBuffed = meleeWeapon.Combat.RuntimeDamage > meleeWeapon.Combat.BaseValue;
+
+        if (craftedPowerArm && hasPowerArm && damageBuffed) {
+            Debug.Log("Prosthetic Craft Damage Effect PASSED.");
+        } else {
+            Debug.LogError($"Prosthetic Craft Damage Effect FAILED. Crafted={craftedPowerArm}, Equipped={hasPowerArm}, Base={meleeWeapon.Combat.BaseValue}, Runtime={meleeWeapon.Combat.RuntimeDamage}");
+        }
+
+        player.Money = 2000;
+        AddStashItems(player, "loot_gear_scrap", 2);
+        bool craftedCooling = core.Workshop.CraftAndEquipProsthetic("craft_pros_cooling_system", doll);
+        doll.Status.SAN_Current = 10;
+        int beforeSAN = doll.Status.SAN_Current;
+
+        CombatFaction faction = new CombatFaction { Type = FactionType.Player };
+        DollFighter fighter = new DollFighter(doll, faction);
+        faction.Fighters.Add(fighter);
+        CombatEventBus.Publish(CombatEventType.OnCombatEnd, faction);
+        fighter.Cleanup();
+
+        bool restoredSAN = doll.Status.SAN_Current == beforeSAN + 2;
+        if (craftedCooling && doll.EquippedProsthetics.Contains("pros_cooling_system") && restoredSAN) {
+            Debug.Log("Prosthetic Combat End SAN Effect PASSED.");
+        } else {
+            Debug.LogError($"Prosthetic Combat End SAN Effect FAILED. Crafted={craftedCooling}, Equipped={doll.EquippedProsthetics.Contains("pros_cooling_system")}, SAN={doll.Status.SAN_Current}, Expected={beforeSAN + 2}");
+        }
+    }
+
+    private static void AddStashItems(PlayerProfile player, string configID, int count) {
+        for (int i = 0; i < count; i++) {
+            ItemEntity item = ConfigManager.CreateItem(configID);
+            if (item != null) {
+                player.StashInventory.Add(item);
+            }
+        }
     }
 
     private static Text CreateTestText(Transform parent) {

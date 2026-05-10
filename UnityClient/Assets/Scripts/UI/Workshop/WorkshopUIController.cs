@@ -13,6 +13,8 @@ public class WorkshopUIController : MonoBehaviour {
     public Button openSellPanelBtn;
     public Button closeSellPanelBtn;
     public Button sellAllBtn;
+    public Text prostheticHeaderText;
+    public Transform prostheticListParent;
     private bool _sellPanelOpen;
 
     void Start() {
@@ -61,6 +63,8 @@ public class WorkshopUIController : MonoBehaviour {
         if (sellPanel != null && sellPanel.activeSelf) {
             RefreshSellList();
         }
+
+        RefreshProstheticList();
     }
 
     private void BindButtons() {
@@ -136,7 +140,7 @@ public class WorkshopUIController : MonoBehaviour {
         }
 
         for (int i = stashListParent.childCount - 1; i >= 0; i--) {
-            Destroy(stashListParent.GetChild(i).gameObject);
+            DestroyRuntimeObject(stashListParent.GetChild(i).gameObject);
         }
 
         var player = GameRoot.Core.CurrentPlayer;
@@ -268,6 +272,106 @@ public class WorkshopUIController : MonoBehaviour {
         }
     }
 
+    private void RefreshProstheticList() {
+        if (prostheticListParent == null) {
+            return;
+        }
+
+        for (int i = prostheticListParent.childCount - 1; i >= 0; i--) {
+            DestroyRuntimeObject(prostheticListParent.GetChild(i).gameObject);
+        }
+
+        if (prostheticHeaderText != null) {
+            prostheticHeaderText.text = "Prosthetic Workshop";
+        }
+
+        Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        foreach (var kvp in ConfigManager.CraftingRecipes) {
+            CraftingRecipeConfig recipe = kvp.Value;
+            if (recipe == null || string.IsNullOrEmpty(recipe.TargetProstheticID)) {
+                continue;
+            }
+
+            if (!ConfigManager.Prosthetics.TryGetValue(recipe.TargetProstheticID, out var prosthetic)) {
+                continue;
+            }
+
+            CreateProstheticRow(recipe, prosthetic, defaultFont);
+        }
+    }
+
+    private void CreateProstheticRow(CraftingRecipeConfig recipe, ProstheticEntity prosthetic, Font defaultFont) {
+        GameObject row = new GameObject($"ProstheticRow_{prosthetic.ProstheticID}");
+        row.transform.SetParent(prostheticListParent, false);
+        HorizontalLayoutGroup rowLayout = row.AddComponent<HorizontalLayoutGroup>();
+        rowLayout.childAlignment = TextAnchor.MiddleLeft;
+        rowLayout.childControlWidth = false;
+        rowLayout.childControlHeight = false;
+        rowLayout.childForceExpandWidth = false;
+        rowLayout.childForceExpandHeight = false;
+        rowLayout.spacing = 12f;
+        ContentSizeFitter rowFitter = row.AddComponent<ContentSizeFitter>();
+        rowFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+        rowFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+        GameObject labelObj = new GameObject("ProstheticLabel_Text");
+        labelObj.transform.SetParent(row.transform, false);
+        Text label = labelObj.AddComponent<Text>();
+        label.font = defaultFont;
+        label.fontSize = 22;
+        label.color = Color.white;
+        label.alignment = TextAnchor.MiddleLeft;
+        label.raycastTarget = false;
+        bool isEquipped = GameRoot.Core.CurrentPlayer.ActiveDoll.EquippedProsthetics.Contains(prosthetic.ProstheticID);
+        label.text = $"{prosthetic.Name} [{prosthetic.SlotType}]\n{BuildCostText(recipe.Cost)}{(isEquipped ? "  Equipped" : string.Empty)}";
+        RectTransform labelRect = labelObj.GetComponent<RectTransform>();
+        labelRect.sizeDelta = new Vector2(500f, 64f);
+
+        bool canCraft = GameRoot.Core.Workshop.CanAfford(recipe.Cost, GameRoot.Core.CurrentPlayer);
+        Button craftBtn = CreateInlineButton(
+            "Craft_Button",
+            isEquipped ? "Equipped" : "Craft",
+            row.transform,
+            new Vector2(150f, 54f),
+            isEquipped ? new Color(0.25f, 0.35f, 0.28f) : new Color(0.25f, 0.52f, 0.7f),
+            defaultFont,
+            22);
+        craftBtn.interactable = !isEquipped && canCraft;
+        craftBtn.onClick.AddListener(() => {
+            GameRoot.Core.Workshop.CraftAndEquipProsthetic(recipe.RecipeID, GameRoot.Core.CurrentPlayer.ActiveDoll);
+            RefreshUI();
+        });
+    }
+
+    private string BuildCostText(CraftingCost cost) {
+        if (cost == null) {
+            return "No cost";
+        }
+
+        string text = $"{cost.Money}G";
+        if (cost.RequiredItems != null) {
+            foreach (var item in cost.RequiredItems) {
+                if (item != null) {
+                    text += $" + {item.ConfigID} x{item.Count}";
+                }
+            }
+        }
+
+        return text;
+    }
+
+    private void DestroyRuntimeObject(GameObject target) {
+        if (target == null) {
+            return;
+        }
+
+        if (Application.isPlaying) {
+            Destroy(target);
+        } else {
+            DestroyImmediate(target);
+        }
+    }
+
     private void EnsureSellControls() {
         Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
 
@@ -287,6 +391,7 @@ public class WorkshopUIController : MonoBehaviour {
         }
 
         EnsureSellPanel(defaultFont);
+        EnsureProstheticControls(defaultFont);
     }
 
     private void EnsureSellPanel(Font defaultFont) {
@@ -430,6 +535,50 @@ public class WorkshopUIController : MonoBehaviour {
         sellPanel.SetActive(_sellPanelOpen);
     }
 
+    private void EnsureProstheticControls(Font defaultFont) {
+        if (prostheticHeaderText == null) {
+            GameObject headerObj = new GameObject("ProstheticHeader_Text");
+            headerObj.transform.SetParent(transform, false);
+            Text header = headerObj.AddComponent<Text>();
+            header.font = defaultFont;
+            header.fontSize = 28;
+            header.color = new Color(0.72f, 0.9f, 1f);
+            header.alignment = TextAnchor.UpperLeft;
+            header.raycastTarget = false;
+            RectTransform headerRect = headerObj.GetComponent<RectTransform>();
+            headerRect.anchorMin = new Vector2(1f, 1f);
+            headerRect.anchorMax = new Vector2(1f, 1f);
+            headerRect.pivot = new Vector2(1f, 1f);
+            headerRect.anchoredPosition = new Vector2(-40f, -40f);
+            headerRect.sizeDelta = new Vector2(680f, 50f);
+            prostheticHeaderText = header;
+        }
+
+        if (prostheticListParent == null) {
+            GameObject listObj = new GameObject("ProstheticList");
+            listObj.transform.SetParent(transform, false);
+            RectTransform listRect = listObj.AddComponent<RectTransform>();
+            listRect.anchorMin = new Vector2(1f, 1f);
+            listRect.anchorMax = new Vector2(1f, 1f);
+            listRect.pivot = new Vector2(1f, 1f);
+            listRect.anchoredPosition = new Vector2(-40f, -100f);
+            listRect.sizeDelta = new Vector2(680f, 220f);
+
+            VerticalLayoutGroup layout = listObj.AddComponent<VerticalLayoutGroup>();
+            layout.childAlignment = TextAnchor.UpperLeft;
+            layout.childControlWidth = false;
+            layout.childControlHeight = false;
+            layout.childForceExpandWidth = false;
+            layout.childForceExpandHeight = false;
+            layout.spacing = 10f;
+
+            ContentSizeFitter fitter = listObj.AddComponent<ContentSizeFitter>();
+            fitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+            fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            prostheticListParent = listObj.transform;
+        }
+    }
+
     private Button CreateActionButton(string objectName, string label, Vector2 anchoredPosition, Color color, Font font) {
         return CreateAnchoredButton(
             objectName,
@@ -443,6 +592,32 @@ public class WorkshopUIController : MonoBehaviour {
             color,
             font,
             24);
+    }
+
+    private Button CreateInlineButton(string objectName, string label, Transform parent, Vector2 size, Color color, Font font, int fontSize) {
+        GameObject buttonObj = new GameObject(objectName);
+        buttonObj.transform.SetParent(parent, false);
+        Image buttonImage = buttonObj.AddComponent<Image>();
+        buttonImage.color = color;
+        Button button = buttonObj.AddComponent<Button>();
+        RectTransform buttonRect = buttonObj.GetComponent<RectTransform>();
+        buttonRect.sizeDelta = size;
+
+        GameObject textObj = new GameObject("Text");
+        textObj.transform.SetParent(buttonObj.transform, false);
+        Text buttonText = textObj.AddComponent<Text>();
+        buttonText.font = font;
+        buttonText.fontSize = fontSize;
+        buttonText.color = Color.white;
+        buttonText.alignment = TextAnchor.MiddleCenter;
+        buttonText.text = label;
+        buttonText.raycastTarget = false;
+        RectTransform textRect = textObj.GetComponent<RectTransform>();
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.sizeDelta = Vector2.zero;
+
+        return button;
     }
 
     private Button CreateAnchoredButton(

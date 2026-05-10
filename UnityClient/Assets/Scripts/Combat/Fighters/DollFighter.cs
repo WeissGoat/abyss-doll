@@ -42,7 +42,11 @@ public class DollFighter : FighterEntity {
         // 遍历局外义体
         foreach (string prosID in DataRef.EquippedProsthetics) {
             if (ConfigManager.Prosthetics.TryGetValue(prosID, out var prosConfig)) {
-                foreach (var effectData in prosConfig.PassiveEffects) {
+                if (prosConfig.Effects == null) {
+                    continue;
+                }
+
+                foreach (var effectData in prosConfig.Effects) {
                     EffectBase effect = EffectFactory.CreateEffect(effectData);
                     if (effect != null && effect.ListenEvent == phase) {
                         effect.ApplyToFighter(this, null);

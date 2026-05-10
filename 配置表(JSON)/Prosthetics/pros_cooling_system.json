@@ -1,13 +1,14 @@
 {
   "ProstheticID": "pros_cooling_system",
-  "Name": "稳压散热插件",
+  "Name": "Stabilized Cooling System",
   "Level": "Primary",
   "SlotType": "Core",
-  "PassiveEffect": {
-    "TargetTags": [
-      "Global"
-    ],
-    "EffectType": "RestoreSANOnCombatEnd",
-    "Value": 2
-  }
+  "Effects": [
+    {
+      "EffectID": "RestoreSANOnCombatEnd",
+      "Level": 1,
+      "Target": "Self",
+      "Params": [2]
+    }
+  ]
 }

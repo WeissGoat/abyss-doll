@@ -66,12 +66,11 @@
 
 ### 2.3 义体配置生效链路
 
-**问题：** 义体 JSON 使用 `PassiveEffect` 简写结构，而运行时代码主要读取 `PassiveEffects` 的 `EffectData` 列表。结果可能是制造并装备义体后，玩家看不到伤害或 SAN 续航变化。
+**问题：** 义体 JSON 曾使用 `PassiveEffect` 简写结构，而运行时代码应统一消费 `Effects: EffectData[]`。如果继续保留多套字段，制造并装备义体后容易出现效果不生效或维护口径分裂。
 
 **开发目标：**
 
-*   统一义体配置结构，推荐全部改为 `PassiveEffects: EffectData[]`。
-*   或在加载时兼容 `PassiveEffect` 并转成 `PassiveEffects`。
+*   统一义体配置结构为 `Effects: EffectData[]`，不做 `PassiveEffect` / `PassiveEffects` 兼容。
 *   确认 `DamageMultiplier` 能按标签只增幅近战武器。
 *   实现或接入 `RestoreSANOnCombatEnd` 效果。
 *   工坊 UI 增加制造/装备义体入口，调用现有 `CraftAndEquipProsthetic` 链路。
@@ -161,7 +160,7 @@
 
 1.  `RewardSystem`、`/Rewards` 奖励表与 Boss 保底掉落。
 2.  出售规则保护材料与核心物。
-3.  义体 `PassiveEffects` 生效链路与工坊 UI 制造入口。
+3.  义体 `Effects` 生效链路与工坊 UI 制造入口。
 4.  `RestoreSANOnCombatEnd`。
 5.  正式 MVP 初始装与测试初始装拆分。
 6.  怪物 `ReduceDamage` 与 `AddCursedItem`。
