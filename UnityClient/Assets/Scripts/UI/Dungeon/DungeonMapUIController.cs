@@ -12,9 +12,11 @@ public class DungeonMapUIController : MonoBehaviour {
     public Button openBackpackBtn;
     public Button closeBackpackBtn;
     public Text backpackHintText;
+    public Image backgroundImage;
 
     public void RefreshMap() {
         EnsureInventoryControls();
+        ApplyMapBackground();
 
         if (contentParent == null || nodeButtonPrefab == null) {
             return;
@@ -49,6 +51,8 @@ public class DungeonMapUIController : MonoBehaviour {
             if (txt != null) {
                 txt.text = BuildNodeLabel(node);
             }
+
+            ApplyNodeIcon(btnGo.transform, node);
 
             Debug.Log($"[DungeonMapUI] Render node button: {node.NodeID}, Type={node.GetType().Name}, Label={txt?.text?.Replace('\n', ' ')}");
 
@@ -114,6 +118,10 @@ public class DungeonMapUIController : MonoBehaviour {
 
     private string BuildNodeLabel(NodeBase node) {
         if (node is CombatNode) {
+            if (VisualAssetService.ResolveNodeIconID(node) == VisualAssetService.BossNodeIconID) {
+                return "首领节点\n(消耗SAN)";
+            }
+
             return "战斗节点\n(消耗SAN)";
         }
 
@@ -126,6 +134,57 @@ public class DungeonMapUIController : MonoBehaviour {
         }
 
         return "未知节点";
+    }
+
+    private void ApplyNodeIcon(Transform buttonTransform, NodeBase node) {
+        if (buttonTransform == null) {
+            return;
+        }
+
+        Transform existing = buttonTransform.Find("NodeIcon_Image");
+        Image icon = existing != null ? existing.GetComponent<Image>() : null;
+        if (icon == null) {
+            GameObject iconObj = new GameObject("NodeIcon_Image");
+            iconObj.transform.SetParent(buttonTransform, false);
+            icon = iconObj.AddComponent<Image>();
+
+            RectTransform iconRect = iconObj.GetComponent<RectTransform>();
+            iconRect.anchorMin = new Vector2(0.5f, 1f);
+            iconRect.anchorMax = new Vector2(0.5f, 1f);
+            iconRect.pivot = new Vector2(0.5f, 1f);
+            iconRect.anchoredPosition = new Vector2(0f, -8f);
+            iconRect.sizeDelta = new Vector2(42f, 42f);
+        }
+
+        string visualID = VisualAssetService.ResolveNodeIconID(node);
+        VisualUIHelper.ApplySprite(icon, visualID, Color.white, ResolveNodeFallbackTint(node));
+
+        Text label = buttonTransform.GetComponentInChildren<Text>();
+        if (label != null) {
+            RectTransform textRect = label.GetComponent<RectTransform>();
+            textRect.anchorMin = Vector2.zero;
+            textRect.anchorMax = Vector2.one;
+            textRect.offsetMin = new Vector2(6f, 4f);
+            textRect.offsetMax = new Vector2(-6f, -46f);
+            label.alignment = TextAnchor.LowerCenter;
+            label.raycastTarget = false;
+        }
+    }
+
+    private Color ResolveNodeFallbackTint(NodeBase node) {
+        if (node is CombatNode) {
+            return new Color(0.75f, 0.22f, 0.18f, 1f);
+        }
+
+        if (node is SafeRoomNode) {
+            return new Color(0.24f, 0.7f, 0.48f, 1f);
+        }
+
+        if (node is StairsNode) {
+            return new Color(0.78f, 0.7f, 0.42f, 1f);
+        }
+
+        return Color.white;
     }
 
     private void ClearNodeButtons() {
@@ -270,5 +329,11 @@ public class DungeonMapUIController : MonoBehaviour {
         textRect.sizeDelta = Vector2.zero;
 
         return button;
+    }
+
+    private void ApplyMapBackground() {
+        backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "DungeonMapBackground_Image");
+        string visualID = VisualAssetService.ResolveDungeonMapBackgroundID(GameRoot.Core?.Dungeon?.CurrentLayer);
+        VisualUIHelper.ApplySprite(backgroundImage, visualID, Color.white, new Color(0.05f, 0.08f, 0.1f, 0.92f), false);
     }
 }

@@ -524,13 +524,32 @@ public static class ConfigValidator {
 
         foreach (var kvp in ConfigManager.Monsters) {
             MonsterEntity monster = kvp.Value;
-            string portraitID = !string.IsNullOrEmpty(monster.PortraitID)
-                ? monster.PortraitID
-                : $"monster_{monster.MonsterID}_portrait";
+            string portraitID = VisualAssetService.ResolveMonsterPortraitID(monster);
 
             if (!VisualAssetService.TryGetSprite(portraitID, out _)) {
                 report.AddWarning($"Monster [{monster.MonsterID}] portrait VisualID [{portraitID}] is not registered.");
             }
+        }
+
+        ValidateRequiredSprite(report, VisualAssetService.CombatNodeIconID, "Node icon");
+        ValidateRequiredSprite(report, VisualAssetService.BossNodeIconID, "Node icon");
+        ValidateRequiredSprite(report, VisualAssetService.SafeRoomNodeIconID, "Node icon");
+        ValidateRequiredSprite(report, VisualAssetService.StairsNodeIconID, "Node icon");
+        ValidateRequiredSprite(report, VisualAssetService.WorkshopBackgroundID, "Background");
+        ValidateRequiredSprite(report, VisualAssetService.CombatBackgroundID, "Background");
+        ValidateRequiredSprite(report, VisualAssetService.DefaultDungeonMapBackgroundID, "Background");
+
+        foreach (var kvp in ConfigManager.Dungeons) {
+            string layerBackgroundID = $"bg_dungeon_layer_{kvp.Key}";
+            if (!VisualAssetService.TryGetSprite(layerBackgroundID, out _)) {
+                report.AddWarning($"Dungeon layer [{kvp.Key}] background VisualID [{layerBackgroundID}] is not registered. Falling back to [{VisualAssetService.DefaultDungeonMapBackgroundID}].");
+            }
+        }
+    }
+
+    private static void ValidateRequiredSprite(ConfigValidationReport report, string visualID, string label) {
+        if (!VisualAssetService.TryGetSprite(visualID, out _)) {
+            report.AddWarning($"{label} VisualID [{visualID}] is not registered.");
         }
     }
 

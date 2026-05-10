@@ -3,9 +3,11 @@
   "Name": "浅层区域",
   "SANCostPerNode": 1,
   "ExpectedNodeCount": 3,
+  "MapBackgroundID": "bg_dungeon_layer_1",
   "NodePool": [
     {
       "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
       "MonsterIDs": [
         "mob_scavenger_bug"
       ],
@@ -13,6 +15,7 @@
     },
     {
       "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
       "MonsterIDs": [
         "mob_scavenger_bug",
         "mob_scavenger_bug"
@@ -21,12 +24,15 @@
     },
     {
       "NodeType": "SafeRoomNode",
+      "NodeIconID": "node_safe_room_icon",
       "MonsterIDs": [],
       "Weight": 10
     }
   ],
   "BossNode": "elite_scrap_guard",
+  "BossNodeIconID": "node_boss_icon",
   "EndNode": {
-    "NodeType": "StairsNode"
+    "NodeType": "StairsNode",
+    "NodeIconID": "node_stairs_icon"
   }
 }

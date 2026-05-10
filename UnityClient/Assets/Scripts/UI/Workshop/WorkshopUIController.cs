@@ -19,10 +19,12 @@ public class WorkshopUIController : MonoBehaviour {
     public Text prostheticHeaderText;
     public Text prostheticSummaryText;
     public Transform prostheticListParent;
+    public Image backgroundImage;
     private bool _sellPanelOpen;
     private bool _prostheticPanelOpen;
 
     void Start() {
+        ApplyWorkshopBackground();
         EnsureSellControls();
         BindButtons();
         CloseSellPanel(false);
@@ -31,6 +33,7 @@ public class WorkshopUIController : MonoBehaviour {
     }
 
     public void RefreshUI() {
+        ApplyWorkshopBackground();
         EnsureSellControls();
 
         var player = GameRoot.Core.CurrentPlayer;
@@ -845,5 +848,11 @@ public class WorkshopUIController : MonoBehaviour {
         textRect.sizeDelta = Vector2.zero;
 
         return button;
+    }
+
+    private void ApplyWorkshopBackground() {
+        backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "WorkshopBackground_Image");
+        string visualID = VisualAssetService.ResolveWorkshopBackgroundID();
+        VisualUIHelper.ApplySprite(backgroundImage, visualID, Color.white, new Color(0.1f, 0.085f, 0.065f, 0.92f), false);
     }
 }

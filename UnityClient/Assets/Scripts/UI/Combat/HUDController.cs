@@ -9,6 +9,7 @@ public class HUDController : MonoBehaviour {
     public Text targetHintLabel;
     public Button endTurnBtn;
     public Transform enemyListParent;
+    public Image backgroundImage;
 
     private Font _defaultFont;
 
@@ -59,6 +60,8 @@ public class HUDController : MonoBehaviour {
         if (_defaultFont == null) {
             _defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         }
+
+        EnsureCombatBackground();
 
         if (shieldLabel == null) {
             shieldLabel = CreateRuntimeLabel("Shield_Text", new Vector2(20f, -120f), new Vector2(300f, 50f), new Color(0.95f, 0.82f, 0.3f), 28);
@@ -176,23 +179,49 @@ public class HUDController : MonoBehaviour {
         layoutElement.preferredWidth = 360f;
         layoutElement.preferredHeight = 84f;
 
+        CreateEnemyPortrait(buttonObj.transform, fighter, isAlive);
+
         GameObject textObj = new GameObject("Text");
         textObj.transform.SetParent(buttonObj.transform, false);
         Text label = textObj.AddComponent<Text>();
         label.font = _defaultFont;
         label.fontSize = 24;
         label.color = Color.white;
-        label.alignment = TextAnchor.MiddleCenter;
+        label.alignment = TextAnchor.MiddleLeft;
         label.raycastTarget = false;
         label.text = summary;
         RectTransform textRect = textObj.GetComponent<RectTransform>();
-        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMin = new Vector2(0f, 0f);
         textRect.anchorMax = Vector2.one;
-        textRect.sizeDelta = Vector2.zero;
+        textRect.offsetMin = new Vector2(96f, 0f);
+        textRect.offsetMax = new Vector2(-12f, 0f);
 
         if (fighter != null) {
             button.onClick.AddListener(() => OnEnemyTargetClicked(fighter));
         }
+    }
+
+    private void CreateEnemyPortrait(Transform parent, FighterEntity fighter, bool isAlive) {
+        GameObject portraitObj = new GameObject("Portrait_Image");
+        portraitObj.transform.SetParent(parent, false);
+        Image portrait = portraitObj.AddComponent<Image>();
+
+        string portraitID = string.Empty;
+        if (fighter is MonsterFighter monsterFighter) {
+            portraitID = VisualAssetService.ResolveMonsterPortraitID(monsterFighter.DataRef);
+        }
+
+        Color missingTint = isAlive
+            ? new Color(0.75f, 0.42f, 0.36f, 1f)
+            : new Color(0.34f, 0.34f, 0.34f, 1f);
+        VisualUIHelper.ApplySprite(portrait, portraitID, Color.white, missingTint);
+
+        RectTransform portraitRect = portraitObj.GetComponent<RectTransform>();
+        portraitRect.anchorMin = new Vector2(0f, 0.5f);
+        portraitRect.anchorMax = new Vector2(0f, 0.5f);
+        portraitRect.pivot = new Vector2(0f, 0.5f);
+        portraitRect.anchoredPosition = new Vector2(10f, 0f);
+        portraitRect.sizeDelta = new Vector2(72f, 72f);
     }
 
     private Color ResolveEnemyCardColor(bool isAlive) {
@@ -304,5 +333,11 @@ public class HUDController : MonoBehaviour {
 
         targetHintLabel.text = message;
         targetHintLabel.color = isActive ? new Color(1f, 0.86f, 0.36f) : Color.white;
+    }
+
+    private void EnsureCombatBackground() {
+        backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "CombatBackground_Image");
+        string visualID = VisualAssetService.ResolveCombatBackgroundID(GameRoot.Core?.Dungeon?.CurrentLayer);
+        VisualUIHelper.ApplySprite(backgroundImage, visualID, Color.white, new Color(0.16f, 0.08f, 0.08f, 0.92f), false);
     }
 }

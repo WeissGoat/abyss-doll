@@ -185,7 +185,11 @@ public static class ItemUseSmokeTest {
 
         DollEntity doll = core.CurrentPlayer.ActiveDoll;
         BackpackGrid grid = doll.RuntimeGrid as BackpackGrid;
-        ItemEntity weapon = grid?.ContainedItems.Find(item => item.ConfigID == "gear_tactical_blade");
+        ItemEntity weapon = grid?.ContainedItems.Find(item =>
+            item != null
+            && item.ItemType == nameof(ItemType.Weapon)
+            && item.Combat != null
+            && item.Combat.TriggerType == nameof(TriggerType.Manual));
 
         if (grid == null || weapon == null) {
             Debug.LogError("Weapon Target Selection Bootstrap FAILED: missing runtime grid or weapon.");

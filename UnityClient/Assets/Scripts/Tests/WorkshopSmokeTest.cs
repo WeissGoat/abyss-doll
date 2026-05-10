@@ -29,18 +29,23 @@ public static class WorkshopSmokeTest {
             Debug.Log($"[Before] Chassis: {doll.Chassis.ChassisID} (Grid: {doll.Chassis.GridWidth}x{doll.Chassis.GridHeight}), Money: {player.Money}");
 
             int initialBackpackCount = grid.ContainedItems.Count;
+            int initialMoney = player.Money;
+            int[] soldPosition = sellTarget.Grid?.CurrentPos != null && sellTarget.Grid.CurrentPos.Length >= 2
+                ? new[] { sellTarget.Grid.CurrentPos[0], sellTarget.Grid.CurrentPos[1] }
+                : null;
             bool sold = core.Workshop.SellItem(sellTarget, player);
 
-            if (sold && player.Money == sellTarget.BaseValue) {
+            if (sold && player.Money == initialMoney + sellTarget.BaseValue) {
                 Debug.Log("Single Item Sell PASSED.");
             } else {
-                Debug.LogError($"Single Item Sell FAILED. Expected money {sellTarget.BaseValue}, got {player.Money}, Sold={sold}");
+                Debug.LogError($"Single Item Sell FAILED. Expected money {initialMoney + sellTarget.BaseValue}, got {player.Money}, Sold={sold}");
             }
 
-            if (grid.ContainedItems.Count == initialBackpackCount - 1 && grid.GetItemAt(3, 0) == null) {
+            bool soldOriginCleared = soldPosition == null || grid.GetItemAt(soldPosition[0], soldPosition[1]) == null;
+            if (grid.ContainedItems.Count == initialBackpackCount - 1 && soldOriginCleared) {
                 Debug.Log("Single Item Backpack Removal PASSED.");
             } else {
-                Debug.LogError($"Single Item Backpack Removal FAILED. Expected backpack count {initialBackpackCount - 1}, got {grid.ContainedItems.Count}");
+                Debug.LogError($"Single Item Backpack Removal FAILED. Expected backpack count {initialBackpackCount - 1}, got {grid.ContainedItems.Count}, OriginCleared={soldOriginCleared}");
             }
 
             player.Money = 1500;

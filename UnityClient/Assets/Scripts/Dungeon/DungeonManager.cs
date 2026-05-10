@@ -3,10 +3,16 @@ using System.Collections.Generic;
 
 public class DungeonLayer {
     public int LayerID;
+    public string MapBackgroundID;
     public NodeBase RootNode;
     public NodeBase CurrentNode;
 
     public void GenerateMapTree(DungeonConfig config) {
+        if (config != null) {
+            LayerID = config.LayerID;
+            MapBackgroundID = config.MapBackgroundID;
+        }
+
         NodeBase prevNode = null;
 
         // MVP: linear path. ExpectedNodeCount includes the boss; EndNode is configured separately.
@@ -23,6 +29,7 @@ public class DungeonLayer {
         CombatNode bossNode = NodeFactory.CreateNode("CombatNode") as CombatNode;
         if (bossNode != null) {
             bossNode.NodeID = $"layer_{config.LayerID}_boss";
+            bossNode.NodeIconID = config.BossNodeIconID;
             bossNode.MonsterIDs = new List<string> { config.BossNode };
             AppendNode(ref prevNode, bossNode);
         }
@@ -124,7 +131,6 @@ public class DungeonManager {
         }
 
         CurrentLayer = new DungeonLayer();
-        CurrentLayer.LayerID = layerID;
         CurrentLayer.GenerateMapTree(config);
 
         DungeonEventBus.PublishLayerLoaded();

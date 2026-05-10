@@ -48,8 +48,14 @@ public static class VisualAssetSmokeTest {
             string[] representativeVisualIDs = {
                 "item_gear_wooden_shield_icon",
                 "monster_mob_scavenger_bug_portrait",
+                "monster_elite_mutant_amalgam_portrait",
+                "node_combat_icon",
+                "node_boss_icon",
                 "node_safe_room_icon",
                 "bg_dungeon_map",
+                "bg_dungeon_layer_2",
+                "bg_combat_abyss",
+                "bg_workshop_day",
                 "doll_proto_0_stand",
                 "prosthetic_pros_power_arm_icon"
             };
@@ -64,6 +70,32 @@ public static class VisualAssetSmokeTest {
 
             if (allRepresentativeSpritesFound) {
                 Debug.Log("Approved Sprite Registration PASSED.");
+            }
+
+            MonsterEntity monster = ConfigManager.Monsters["mob_scavenger_bug"];
+            string portraitID = VisualAssetService.ResolveMonsterPortraitID(monster);
+            if (portraitID == "monster_mob_scavenger_bug_portrait") {
+                Debug.Log("Monster Portrait Resolver PASSED.");
+            } else {
+                Debug.LogError($"Monster Portrait Resolver FAILED. Got {portraitID}");
+            }
+
+            if (VisualAssetService.ResolveNodeIconID(new CombatNode { NodeID = "layer_1_node_0", NodeIconID = "node_combat_icon" }) == "node_combat_icon"
+                && VisualAssetService.ResolveNodeIconID(new CombatNode { NodeID = "layer_1_boss", NodeIconID = "node_boss_icon" }) == "node_boss_icon"
+                && VisualAssetService.ResolveNodeIconID(new SafeRoomNode { NodeID = "layer_1_safe", NodeIconID = "node_safe_room_icon" }) == "node_safe_room_icon"
+                && VisualAssetService.GetSprite(VisualAssetService.ResolveNodeIconID(new StairsNode { NodeID = "layer_1_end", NodeIconID = "node_stairs_icon" })) != null) {
+                Debug.Log("Node Icon Resolver PASSED.");
+            } else {
+                Debug.LogError("Node Icon Resolver FAILED.");
+            }
+
+            DungeonLayer layer = new DungeonLayer { LayerID = 2, MapBackgroundID = "bg_dungeon_layer_2" };
+            if (VisualAssetService.ResolveDungeonMapBackgroundID(layer) == "bg_dungeon_layer_2"
+                && VisualAssetService.ResolveCombatBackgroundID(layer) == "bg_combat_abyss"
+                && VisualAssetService.ResolveWorkshopBackgroundID() == "bg_workshop_day") {
+                Debug.Log("Background Resolver PASSED.");
+            } else {
+                Debug.LogError("Background Resolver FAILED.");
             }
 
             Debug.Log("=== Visual Asset Smoke Test Finished ===");
