@@ -22,7 +22,7 @@ MVP 白盒试玩前不再优先新增大量物品、怪物或装备。配置侧�
 *   保证关键成长材料稳定出现。
 *   明确物品职责：卖钱、制造、保命、战斗、占格、施压。
 *   拆分测试便利配置与正式试玩配置。
-*   为程序消费规则补齐显式字段，例如 `RewardID`、`CanSell`、`Effects`、`CarryEffects`、`PortraitID`。
+*   为程序消费规则补齐显式字段，例如 `RewardID`、`CanSell`、`Effects`、`PortraitID`。
 
 ---
 
@@ -211,7 +211,7 @@ MVP 白盒试玩前不再优先新增大量物品、怪物或装备。配置侧�
 
 ### 3.4 毒性战利品标注携带代价
 
-**当前问题：** 【污染滤芯】有 `Toxic` 标签，但配置中没有明确毒性数值。后续程序即使消费标签，也需要知道每节点扣多少 SAN。
+**当前问题：** 【污染滤芯】有 `Toxic` 标签，但标签只适合作为分类信息，不适合直接承载运行时扣 SAN 逻辑。毒性数值应通过物品效果配置。
 
 **调整建议：**
 
@@ -219,16 +219,24 @@ MVP 白盒试玩前不再优先新增大量物品、怪物或装备。配置侧�
 {
   "ConfigID": "loot_toxic_filter",
   "Tags": ["Toxic", "Mechanical"],
-  "CarryEffects": [
-    {
-      "EffectID": "SANDrainOnNodeEnter",
-      "Params": [1]
-    }
-  ]
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "ExtraSanCostOnNodeEnter",
+        "Level": 0,
+        "Target": "Self",
+        "Params": [1]
+      }
+    ]
+  }
 }
 ```
 
-**MVP 口径：** 每携带 1 件 Toxic 物品，进入新节点时额外 -1 SAN。
+**MVP 口径：** 每携带 1 件配置了 `ExtraSanCostOnNodeEnter` 的污染物品，进入新节点时额外 -1 SAN。`Toxic` 标签只做分类、展示或未来条件筛选，不直接触发扣 SAN。
 
 ### 3.5 怪物与界面视觉 ID 补齐
 
@@ -295,7 +303,7 @@ MVP 白盒试玩前不再优先新增大量物品、怪物或装备。配置侧�
 
 1.  `gear_tactical_blade`：正式数值回调到 35 伤害。
 2.  新增 `mat_core_tier2`，放入 2 层 Boss 奖励表的 `Guaranteed`。
-3.  `loot_toxic_filter`：补充携带 SAN 代价字段。
+3.  `loot_toxic_filter`：补充 `ExtraSanCostOnNodeEnter` 被动效果。
 4.  2 层怪物干涉相关物品补齐，例如诅咒废件。
 
 ### 批次 C：表现接线前

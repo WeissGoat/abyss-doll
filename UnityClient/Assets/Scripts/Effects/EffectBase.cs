@@ -10,6 +10,14 @@ public class ItemUseContext {
     public bool InSafeRoom;
 }
 
+public class DungeonMoveCostContext {
+    public DollEntity ActiveDoll;
+    public BackpackGrid BackpackGrid;
+    public NodeBase TargetNode;
+    public int BaseSanCost;
+    public int CurrentExtraSanCost;
+}
+
 public abstract class EffectBase {
     public string EffectID { get; protected set; }
     public int Level { get; protected set; }
@@ -33,6 +41,10 @@ public abstract class EffectBase {
         if (context?.UserFighter != null) {
             ApplyToFighter(context.UserFighter, provider);
         }
+    }
+
+    public virtual int GetExtraSanCostOnNodeEnter(DungeonMoveCostContext context, ItemEntity provider) {
+        return 0;
     }
     
     public virtual void Remove(ItemEntity provider, ItemEntity target) {}

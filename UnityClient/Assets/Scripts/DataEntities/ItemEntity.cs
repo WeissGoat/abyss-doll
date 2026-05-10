@@ -148,6 +148,9 @@ public static class ItemPresentationRules {
                 if (firstEffect.EffectID.Contains("Shield")) {
                     return $"+{Mathf.RoundToInt(firstEffect.Params[0])} Shield";
                 }
+                if (firstEffect.EffectID == "ExtraSanCostOnNodeEnter") {
+                    return $"SAN Cost +{Mathf.RoundToInt(firstEffect.Params[0])}/Node";
+                }
             }
         }
 

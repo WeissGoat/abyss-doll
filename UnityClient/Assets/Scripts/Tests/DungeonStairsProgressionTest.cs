@@ -12,6 +12,7 @@ public static class DungeonStairsProgressionTest {
         TestEnterNextLayerKeepsRunLootLedger();
         TestStairsReturnSettlesRunLoot();
         TestLayerTwoMapLayoutKeepsNodeButtonsReadable();
+        TestMovementSanCostIncludesBackpackEffects();
 
         Debug.Log("=== Dungeon Stairs Progression Test Finished ===");
     }
@@ -161,6 +162,36 @@ public static class DungeonStairsProgressionTest {
         }
     }
 
+    private static void TestMovementSanCostIncludesBackpackEffects() {
+        CoreBackend core = CreateCore();
+        DollEntity doll = core.CurrentPlayer.ActiveDoll;
+        BackpackGrid grid = ResetBackpack(doll);
+
+        ItemEntity toxicLoot = ConfigManager.CreateItem("loot_toxic_filter");
+        bool placed = toxicLoot != null && grid.PlaceItem(toxicLoot, 0, 0);
+        SanCostTestNode testNode = new SanCostTestNode {
+            NodeID = "san_cost_effect_test_node"
+        };
+
+        core.Dungeon.CurrentLayer = new DungeonLayer {
+            LayerID = 1,
+            RootNode = testNode,
+            CurrentNode = null
+        };
+
+        int beforeSan = doll.Status.SAN_Current;
+        core.Dungeon.MoveToNode(testNode);
+        int afterSan = doll.Status.SAN_Current;
+
+        int expectedCost = ConfigManager.Dungeons[1].SANCostPerNode + 1;
+        int actualCost = beforeSan - afterSan;
+        if (placed && actualCost == expectedCost) {
+            Debug.Log("Movement SAN Cost Item Effects PASSED.");
+        } else {
+            Debug.LogError($"Movement SAN Cost Item Effects FAILED. Placed={placed}, ExpectedCost={expectedCost}, ActualCost={actualCost}");
+        }
+    }
+
     private static CoreBackend CreateCore() {
         CoreBackend core = new CoreBackend();
         core.InitAllSystems();
@@ -213,5 +244,11 @@ public static class DungeonStairsProgressionTest {
         text.raycastTarget = false;
 
         return prefab;
+    }
+
+    private class SanCostTestNode : NodeBase {
+        public override void OnEnterNode() {
+            Debug.Log($"[Test] Entered {NodeID} without combat side effects.");
+        }
     }
 }

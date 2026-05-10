@@ -26,6 +26,22 @@
     ],
     "GridCost": 4
   },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "ExtraSanCostOnNodeEnter",
+        "Level": 0,
+        "Target": "Self",
+        "Params": [
+          1
+        ]
+      }
+    ]
+  },
   "Tags": [
     "Toxic",
     "Mechanical"

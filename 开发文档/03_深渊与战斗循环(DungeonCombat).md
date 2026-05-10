@@ -96,13 +96,29 @@ public class DungeonManager : MonoBehaviour {
     public void MoveToNode(NodeBase targetNode) {
         // 验证 targetNode 是否属于 CurrentNode.NextNodes
         CurrentLayer.CurrentNode = targetNode;
-        // 结算 SAN 值移动税
-        GameManager.Instance.CurrentPlayer.ActiveDoll.SAN_Current -= 1;
+        // 结算 SAN 值移动税：节点基础消耗 + 背包物品 Effect 额外消耗
+        int sanCost = GetBaseSanCostForNode(targetNode) + GetExtraSanCostFromBackpackEffects(targetNode);
+        DungeonEventBus.PublishNodeEntered(targetNode, sanCost);
         
         targetNode.OnEnterNode();
     }
 }
 ```
+
+### 1.2 节点移动 SAN 消耗与物品效果
+
+`DungeonManager` 负责计算进入节点时的总 SAN 消耗，但不应硬编码某个物品标签的特殊规则。当前规则为：
+
+```text
+TotalSanCost = BaseNodeSanCost + Sum(ItemEffects.GetExtraSanCostOnNodeEnter)
+```
+
+落地约定：
+
+* `SafeRoomNode`、`StairsNode` 的基础消耗仍为 0。
+* 背包内物品如需提高移动 SAN 成本，应在 `Combat.Effects` 中配置 `ExtraSanCostOnNodeEnter`。
+* `Toxic` 标签只作为分类、展示、条件筛选信息，不直接触发扣 SAN。
+* 【污染滤芯】MVP 配置为 `ExtraSanCostOnNodeEnter.Params = [1]`，表示每进入一个节点额外消耗 1 SAN。
 
 ## 2. 战斗包装器与阵营 (Fighter & Faction)
 

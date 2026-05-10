@@ -39,7 +39,6 @@ public static class ConfigValidator {
     private static readonly HashSet<string> MetadataOnlyTags = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
         "Material",
         "CoreMaterial",
-        "Toxic",
         "Cursed"
     };
 
@@ -88,6 +87,7 @@ public static class ConfigValidator {
 
             ValidateCombatConfig(report, item.ConfigID, item.Combat);
             WarnMetadataOnlyTags(report, $"Item [{item.ConfigID}]", item.Tags);
+            WarnToxicTagWithoutSanCostEffect(report, item);
         }
     }
 
@@ -592,5 +592,43 @@ public static class ConfigValidator {
                 report.AddWarning($"{ownerID} uses tag [{tag}], which is currently metadata-only unless referenced directly by a recipe or future rule.");
             }
         }
+    }
+
+    private static void WarnToxicTagWithoutSanCostEffect(ConfigValidationReport report, ItemEntity item) {
+        if (item == null || !HasTag(item.Tags, "Toxic")) {
+            return;
+        }
+
+        if (!HasEffect(item.Combat?.Effects, "ExtraSanCostOnNodeEnter")) {
+            report.AddWarning($"Item [{item.ConfigID}] has tag [Toxic], but no [ExtraSanCostOnNodeEnter] effect. Toxic tag alone does not add SAN cost.");
+        }
+    }
+
+    private static bool HasTag(List<string> tags, string expectedTag) {
+        if (tags == null || string.IsNullOrEmpty(expectedTag)) {
+            return false;
+        }
+
+        foreach (string tag in tags) {
+            if (string.Equals(tag, expectedTag, StringComparison.OrdinalIgnoreCase)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static bool HasEffect(List<EffectData> effects, string expectedEffectID) {
+        if (effects == null || string.IsNullOrEmpty(expectedEffectID)) {
+            return false;
+        }
+
+        foreach (EffectData effect in effects) {
+            if (effect != null && string.Equals(effect.EffectID, expectedEffectID, StringComparison.OrdinalIgnoreCase)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
