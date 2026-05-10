@@ -261,3 +261,26 @@ CombatLootUIController 手动拾取
 ### 4.4 详细文档
 
 奖励表结构、运行时对象、随机测试和配置迁移见 [`10_奖励与掉落系统(RewardSystem).md`](./10_奖励与掉落系统(RewardSystem).md)。
+
+## 5. 怪物 AI 与行动系统
+
+敌方回合不应长期由 `CombatSystem` 写死“逐个怪物普通攻击第一个玩家目标”。酸液腐蚀、强塞诅咒物、召唤、蓄力、偷 AP、污染格子等行为应统一抽象为 `MonsterAction`。
+
+推荐方向：
+
+```text
+CombatSystem.StartEnemyTurn()
+        |
+        v
+MonsterActionRunner.ExecuteTurn(monster, context)
+        |
+        v
+IMonsterActionSelector.SelectAction(context)
+        |
+        v
+MonsterAction.Execute(context)
+```
+
+第一阶段采用轻量的权重行动列表，不直接实现完整行为树；但 `Selector` 需要通过接口隔离，未来可以替换成行为树 Selector。
+
+详细数据结构、运行时类、目标选择、RuntimeModifier、`ReduceWeaponDamage` 与 `AddCursedItem` 迁移方案见 [`11_怪物AI与行动系统(MonsterActionAI).md`](./11_怪物AI与行动系统(MonsterActionAI).md)。
