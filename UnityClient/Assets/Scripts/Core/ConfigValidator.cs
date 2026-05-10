@@ -347,8 +347,15 @@ public static class ConfigValidator {
             report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] uses unknown ActionType [{action.ActionType}].");
         }
 
-        if (!MonsterTargetSelector.IsTargetRegistered(action.Target)) {
+        if (!MonsterActionConfigParser.TryParseTarget(action.Target, MonsterTargetType.FirstAlivePlayer, out MonsterTargetType targetType)) {
             report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] uses unknown Target [{action.Target}].");
+        } else if (MonsterActionConfigParser.TryParseActionType(action.ActionType, out MonsterActionType actionType)) {
+            MonsterTargetType defaultTarget = MonsterActionConfigParser.GetDefaultTarget(actionType);
+            MonsterActionConfigParser.TryParseTarget(action.Target, defaultTarget, out targetType);
+
+            if (!MonsterActionConfigParser.IsTargetCompatible(actionType, targetType)) {
+                report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] Target [{action.Target}] is not compatible with ActionType [{action.ActionType}].");
+            }
         }
 
         if (!MonsterActionConditionEvaluator.IsConditionRegistered(action.Condition)) {
@@ -372,8 +379,12 @@ public static class ConfigValidator {
 
     private static void ValidateMonsterActionParams(ConfigValidationReport report, MonsterEntity monster, MonsterActionConfig action) {
         MonsterActionParamReader reader = new MonsterActionParamReader(action);
-        switch (action.ActionType) {
-            case "DamageTarget":
+        if (!MonsterActionConfigParser.TryParseActionType(action.ActionType, out MonsterActionType actionType)) {
+            return;
+        }
+
+        switch (actionType) {
+            case MonsterActionType.DamageTarget:
                 if (reader.GetInt("Damage", 0) <= 0) {
                     report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] DamageTarget requires positive Params.Damage.");
                 }
@@ -382,7 +393,7 @@ public static class ConfigValidator {
                     report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] DamageTarget has invalid Params.RepeatCount.");
                 }
                 break;
-            case "ReduceWeaponDamage":
+            case MonsterActionType.ReduceWeaponDamage:
                 float multiplier = reader.GetFloat("Multiplier", 0f);
                 if (multiplier <= 0f || multiplier > 1f) {
                     report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] ReduceWeaponDamage requires 0 < Params.Multiplier <= 1.");
@@ -392,7 +403,7 @@ public static class ConfigValidator {
                     report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] ReduceWeaponDamage requires positive Params.DurationPlayerTurns.");
                 }
                 break;
-            case "AddCursedItem":
+            case MonsterActionType.AddCursedItem:
                 string itemID = reader.GetString("ItemID", string.Empty);
                 if (string.IsNullOrEmpty(itemID) || !ConfigManager.Items.ContainsKey(itemID)) {
                     report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] AddCursedItem references missing Params.ItemID [{itemID}].");

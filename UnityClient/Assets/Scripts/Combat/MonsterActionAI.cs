@@ -13,6 +13,79 @@ public class MonsterActionContext {
     public MonsterCombatModifierSystem RuntimeModifiers;
 }
 
+public enum MonsterAISelectorType {
+    WeightedRandom
+}
+
+public enum MonsterActionType {
+    DamageTarget,
+    ReduceWeaponDamage,
+    AddCursedItem
+}
+
+public enum MonsterTargetType {
+    FirstAlivePlayer,
+    RandomPlayer,
+    LowestHpPlayer,
+    RandomPlayerWeapon,
+    PlayerGridFirstFit
+}
+
+public enum MonsterActionConditionType {
+    Always,
+    PlayerHasWeapon,
+    PlayerGridHasSpace
+}
+
+public static class MonsterActionConfigParser {
+    public static bool TryParseSelector(string selectorID, out MonsterAISelectorType selectorType) {
+        string normalized = string.IsNullOrEmpty(selectorID) ? nameof(MonsterAISelectorType.WeightedRandom) : selectorID;
+        return Enum.TryParse(normalized, true, out selectorType);
+    }
+
+    public static bool TryParseActionType(string actionTypeID, out MonsterActionType actionType) {
+        actionType = default;
+        return !string.IsNullOrEmpty(actionTypeID) && Enum.TryParse(actionTypeID, true, out actionType);
+    }
+
+    public static bool TryParseTarget(string targetID, MonsterTargetType defaultType, out MonsterTargetType targetType) {
+        string normalized = string.IsNullOrEmpty(targetID) ? defaultType.ToString() : targetID;
+        return Enum.TryParse(normalized, true, out targetType);
+    }
+
+    public static bool TryParseCondition(string conditionID, out MonsterActionConditionType conditionType) {
+        string normalized = string.IsNullOrEmpty(conditionID) ? nameof(MonsterActionConditionType.Always) : conditionID;
+        return Enum.TryParse(normalized, true, out conditionType);
+    }
+
+    public static MonsterTargetType GetDefaultTarget(MonsterActionType actionType) {
+        switch (actionType) {
+            case MonsterActionType.ReduceWeaponDamage:
+                return MonsterTargetType.RandomPlayerWeapon;
+            case MonsterActionType.AddCursedItem:
+                return MonsterTargetType.PlayerGridFirstFit;
+            case MonsterActionType.DamageTarget:
+            default:
+                return MonsterTargetType.FirstAlivePlayer;
+        }
+    }
+
+    public static bool IsTargetCompatible(MonsterActionType actionType, MonsterTargetType targetType) {
+        switch (actionType) {
+            case MonsterActionType.DamageTarget:
+                return targetType == MonsterTargetType.FirstAlivePlayer
+                    || targetType == MonsterTargetType.RandomPlayer
+                    || targetType == MonsterTargetType.LowestHpPlayer;
+            case MonsterActionType.ReduceWeaponDamage:
+                return targetType == MonsterTargetType.RandomPlayerWeapon;
+            case MonsterActionType.AddCursedItem:
+                return targetType == MonsterTargetType.PlayerGridFirstFit;
+            default:
+                return false;
+        }
+    }
+}
+
 public class MonsterActionRunner {
     public bool ExecuteTurn(MonsterFighter actor, MonsterActionContext context) {
         if (actor == null || actor.RuntimeHP <= 0) {
@@ -203,17 +276,20 @@ public interface IMonsterActionSelector {
 
 public static class MonsterActionSelectorFactory {
     public static IMonsterActionSelector Create(string selectorID) {
-        string normalized = string.IsNullOrEmpty(selectorID) ? "WeightedRandom" : selectorID;
-        if (string.Equals(normalized, "WeightedRandom", StringComparison.OrdinalIgnoreCase)) {
-            return new WeightedRandomMonsterActionSelector();
+        if (!MonsterActionConfigParser.TryParseSelector(selectorID, out MonsterAISelectorType selectorType)) {
+            return null;
         }
 
-        return null;
+        switch (selectorType) {
+            case MonsterAISelectorType.WeightedRandom:
+                return new WeightedRandomMonsterActionSelector();
+            default:
+                return null;
+        }
     }
 
     public static bool IsSelectorRegistered(string selectorID) {
-        string normalized = string.IsNullOrEmpty(selectorID) ? "WeightedRandom" : selectorID;
-        return string.Equals(normalized, "WeightedRandom", StringComparison.OrdinalIgnoreCase);
+        return MonsterActionConfigParser.TryParseSelector(selectorID, out _);
     }
 }
 
@@ -279,16 +355,16 @@ public abstract class MonsterActionBase {
 
 public static class MonsterActionFactory {
     public static MonsterActionBase Create(MonsterActionConfig config) {
-        if (config == null || string.IsNullOrEmpty(config.ActionType)) {
+        if (config == null || !MonsterActionConfigParser.TryParseActionType(config.ActionType, out MonsterActionType actionType)) {
             return null;
         }
 
-        switch (config.ActionType) {
-            case "DamageTarget":
+        switch (actionType) {
+            case MonsterActionType.DamageTarget:
                 return new DamageTargetAction(config);
-            case "ReduceWeaponDamage":
+            case MonsterActionType.ReduceWeaponDamage:
                 return new ReduceWeaponDamageAction(config);
-            case "AddCursedItem":
+            case MonsterActionType.AddCursedItem:
                 return new AddCursedItemAction(config);
             default:
                 return null;
@@ -296,9 +372,7 @@ public static class MonsterActionFactory {
     }
 
     public static bool IsActionRegistered(string actionType) {
-        return actionType == "DamageTarget"
-            || actionType == "ReduceWeaponDamage"
-            || actionType == "AddCursedItem";
+        return MonsterActionConfigParser.TryParseActionType(actionType, out _);
     }
 }
 
@@ -439,25 +513,25 @@ public class AddCursedItemAction : MonsterActionBase {
 
 public static class MonsterActionConditionEvaluator {
     public static bool Evaluate(string condition, MonsterActionContext context, MonsterActionConfig actionConfig) {
-        string normalized = string.IsNullOrEmpty(condition) ? "Always" : condition;
-        switch (normalized) {
-            case "Always":
+        if (!MonsterActionConfigParser.TryParseCondition(condition, out MonsterActionConditionType conditionType)) {
+            Debug.LogWarning($"[MonsterActionAI] Unknown action condition [{condition}].");
+            return false;
+        }
+
+        switch (conditionType) {
+            case MonsterActionConditionType.Always:
                 return true;
-            case "PlayerHasWeapon":
+            case MonsterActionConditionType.PlayerHasWeapon:
                 return MonsterTargetSelector.HasPlayerWeapon(context);
-            case "PlayerGridHasSpace":
+            case MonsterActionConditionType.PlayerGridHasSpace:
                 return HasSpaceForConfiguredItem(context, actionConfig);
             default:
-                Debug.LogWarning($"[MonsterActionAI] Unknown action condition [{condition}].");
                 return false;
         }
     }
 
     public static bool IsConditionRegistered(string condition) {
-        string normalized = string.IsNullOrEmpty(condition) ? "Always" : condition;
-        return normalized == "Always"
-            || normalized == "PlayerHasWeapon"
-            || normalized == "PlayerGridHasSpace";
+        return MonsterActionConfigParser.TryParseCondition(condition, out _);
     }
 
     private static bool HasSpaceForConfiguredItem(MonsterActionContext context, MonsterActionConfig actionConfig) {
@@ -489,22 +563,28 @@ public static class MonsterTargetSelector {
             return null;
         }
 
-        string normalized = string.IsNullOrEmpty(targetSelector) ? "FirstAlivePlayer" : targetSelector;
-        if (normalized == "RandomPlayer") {
-            return aliveTargets[UnityEngine.Random.Range(0, aliveTargets.Count)];
+        if (!MonsterActionConfigParser.TryParseTarget(targetSelector, MonsterTargetType.FirstAlivePlayer, out MonsterTargetType targetType)) {
+            Debug.LogWarning($"[MonsterActionAI] Unknown player target selector [{targetSelector}].");
+            return null;
         }
 
-        if (normalized == "LowestHpPlayer") {
-            FighterEntity lowest = aliveTargets[0];
-            foreach (FighterEntity candidate in aliveTargets) {
-                if (candidate.RuntimeHP < lowest.RuntimeHP) {
-                    lowest = candidate;
+        switch (targetType) {
+            case MonsterTargetType.RandomPlayer:
+                return aliveTargets[UnityEngine.Random.Range(0, aliveTargets.Count)];
+            case MonsterTargetType.LowestHpPlayer:
+                FighterEntity lowest = aliveTargets[0];
+                foreach (FighterEntity candidate in aliveTargets) {
+                    if (candidate.RuntimeHP < lowest.RuntimeHP) {
+                        lowest = candidate;
+                    }
                 }
-            }
-            return lowest;
+                return lowest;
+            case MonsterTargetType.FirstAlivePlayer:
+                return aliveTargets[0];
+            default:
+                Debug.LogWarning($"[MonsterActionAI] Target selector [{targetSelector}] is not a player target selector.");
+                return null;
         }
-
-        return aliveTargets[0];
     }
 
     public static ItemEntity SelectPlayerWeapon(MonsterActionContext context, string targetSelector) {
@@ -524,16 +604,22 @@ public static class MonsterTargetSelector {
             return null;
         }
 
-        string normalized = string.IsNullOrEmpty(targetSelector) ? "RandomPlayerWeapon" : targetSelector;
-        if (normalized == "RandomPlayerWeapon") {
-            return weapons[UnityEngine.Random.Range(0, weapons.Count)];
+        if (!MonsterActionConfigParser.TryParseTarget(targetSelector, MonsterTargetType.RandomPlayerWeapon, out MonsterTargetType targetType)) {
+            Debug.LogWarning($"[MonsterActionAI] Unknown weapon target selector [{targetSelector}].");
+            return null;
         }
 
-        return weapons[0];
+        switch (targetType) {
+            case MonsterTargetType.RandomPlayerWeapon:
+                return weapons[UnityEngine.Random.Range(0, weapons.Count)];
+            default:
+                Debug.LogWarning($"[MonsterActionAI] Target selector [{targetSelector}] is not a weapon target selector.");
+                return null;
+        }
     }
 
     public static bool HasPlayerWeapon(MonsterActionContext context) {
-        return SelectPlayerWeapon(context, "RandomPlayerWeapon") != null;
+        return SelectPlayerWeapon(context, nameof(MonsterTargetType.RandomPlayerWeapon)) != null;
     }
 
     public static bool CanPlaceItemInPlayerGrid(MonsterActionContext context, ItemEntity item) {
@@ -556,12 +642,7 @@ public static class MonsterTargetSelector {
     }
 
     public static bool IsTargetRegistered(string targetSelector) {
-        string normalized = string.IsNullOrEmpty(targetSelector) ? "FirstAlivePlayer" : targetSelector;
-        return normalized == "FirstAlivePlayer"
-            || normalized == "RandomPlayer"
-            || normalized == "LowestHpPlayer"
-            || normalized == "RandomPlayerWeapon"
-            || normalized == "PlayerGridFirstFit";
+        return MonsterActionConfigParser.TryParseTarget(targetSelector, MonsterTargetType.FirstAlivePlayer, out _);
     }
 }
 

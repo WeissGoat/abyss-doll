@@ -53,6 +53,8 @@
 | `Condition` | string | 行动条件。MVP 支持 `Always`、`PlayerHasWeapon`、`PlayerGridHasSpace`。 |
 | `Params` | object | 行动专属参数。 |
 
+配置表保持字符串写法，程序会集中解析为运行时枚举并做校验。新增行为时，不要直接在代码里散落字符串比较；应同步扩展 `MonsterActionType`、`MonsterTargetType`、`MonsterActionConditionType` 与 `ConfigValidator`。
+
 ## RewardID
 
 怪物不应该直接维护复杂掉落逻辑。击败怪物时，战斗节点优先读取怪物的 `RewardID`，再交给 `RewardSystem` 解析。

@@ -201,6 +201,27 @@ public List<string> GetStringList(string key);
 
 这样新增 Action 时不需要改基础数据容器字段。
 
+### 3.5 字符串配置与枚举运行时
+
+JSON 表中继续使用字符串，保证策划、数值 agent 和美术/内容 agent 可读：
+
+```json
+{
+  "ActionType": "ReduceWeaponDamage",
+  "Target": "RandomPlayerWeapon",
+  "Condition": "PlayerHasWeapon"
+}
+```
+
+程序运行时不应在各处散落 `normalized == "RandomPlayerWeapon"` 这类裸字符串判断。当前实现通过 `MonsterActionConfigParser` 将字符串集中解析为：
+
+*   `MonsterAISelectorType`
+*   `MonsterActionType`
+*   `MonsterTargetType`
+*   `MonsterActionConditionType`
+
+`ConfigValidator` 负责在加载后检查未知枚举值，并校验 `ActionType` 与 `Target` 是否兼容。后续新增行为时，优先扩展枚举、解析器、兼容性校验与对应 Action，而不是在业务逻辑里新增零散字符串分支。
+
 ---
 
 ## 4. 运行时核心类
