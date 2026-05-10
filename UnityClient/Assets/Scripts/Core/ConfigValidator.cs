@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 public class ConfigValidationReport {
@@ -300,39 +302,136 @@ public static class ConfigValidator {
                 }
             }
 
-            ValidateGridInterference(report, monster);
+            ValidateMonsterAI(report, monster);
+        }
+
+        ValidateMonsterJsonDoesNotUseOldBehaviorFields(report);
+    }
+
+    private static void ValidateMonsterAI(ConfigValidationReport report, MonsterEntity monster) {
+        if (monster.AI == null) {
+            report.AddError($"Monster [{monster.MonsterID}] is missing AI config.");
+            return;
+        }
+
+        if (!MonsterActionSelectorFactory.IsSelectorRegistered(monster.AI.Selector)) {
+            report.AddError($"Monster [{monster.MonsterID}] uses unknown AI selector [{monster.AI.Selector}].");
+        }
+
+        if (monster.AI.Actions == null || monster.AI.Actions.Count == 0) {
+            report.AddError($"Monster [{monster.MonsterID}] must define at least one AI.Actions entry.");
+            return;
+        }
+
+        int selectableWeight = 0;
+        foreach (MonsterActionConfig action in monster.AI.Actions) {
+            ValidateMonsterAction(report, monster, action, ref selectableWeight);
+        }
+
+        if (selectableWeight <= 0) {
+            report.AddError($"Monster [{monster.MonsterID}] has no positive-weight AI action.");
         }
     }
 
-    private static void ValidateGridInterference(ConfigValidationReport report, MonsterEntity monster) {
-        if (string.IsNullOrEmpty(monster.GridInterference) || monster.GridInterference == "None") {
+    private static void ValidateMonsterAction(ConfigValidationReport report, MonsterEntity monster, MonsterActionConfig action, ref int selectableWeight) {
+        if (action == null) {
+            report.AddError($"Monster [{monster.MonsterID}] has a null AI action.");
             return;
         }
 
-        report.AddWarning($"Monster [{monster.MonsterID}] configures GridInterference [{monster.GridInterference}], but monster interference runtime is not implemented yet.");
+        if (string.IsNullOrEmpty(action.ActionID)) {
+            report.AddError($"Monster [{monster.MonsterID}] has an AI action with empty ActionID.");
+        }
 
-        GridInterferenceParams parameters = monster.GridInterferenceParams;
-        if (monster.GridInterference == "AddCursedItem") {
-            if (parameters == null || string.IsNullOrEmpty(parameters.ItemID) || !ConfigManager.Items.ContainsKey(parameters.ItemID)) {
-                report.AddError($"Monster [{monster.MonsterID}] AddCursedItem references missing ItemID [{parameters?.ItemID}].");
-            }
+        if (!MonsterActionFactory.IsActionRegistered(action.ActionType)) {
+            report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] uses unknown ActionType [{action.ActionType}].");
+        }
 
-            WarnMetadataOnlyTags(report, $"Monster [{monster.MonsterID}] AddCursedItem OverrideTags", parameters?.OverrideTags);
+        if (!MonsterTargetSelector.IsTargetRegistered(action.Target)) {
+            report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] uses unknown Target [{action.Target}].");
+        }
+
+        if (!MonsterActionConditionEvaluator.IsConditionRegistered(action.Condition)) {
+            report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] uses unknown Condition [{action.Condition}].");
+        }
+
+        if (action.Weight > 0) {
+            selectableWeight += action.Weight;
+        }
+
+        if (action.CooldownTurns < 0) {
+            report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] has negative CooldownTurns [{action.CooldownTurns}].");
+        }
+
+        if (action.UsesPerCombat < 0) {
+            report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] has negative UsesPerCombat [{action.UsesPerCombat}].");
+        }
+
+        ValidateMonsterActionParams(report, monster, action);
+    }
+
+    private static void ValidateMonsterActionParams(ConfigValidationReport report, MonsterEntity monster, MonsterActionConfig action) {
+        MonsterActionParamReader reader = new MonsterActionParamReader(action);
+        switch (action.ActionType) {
+            case "DamageTarget":
+                if (reader.GetInt("Damage", 0) <= 0) {
+                    report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] DamageTarget requires positive Params.Damage.");
+                }
+
+                if (reader.Has("RepeatCount") && reader.GetInt("RepeatCount", 0) <= 0) {
+                    report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] DamageTarget has invalid Params.RepeatCount.");
+                }
+                break;
+            case "ReduceWeaponDamage":
+                float multiplier = reader.GetFloat("Multiplier", 0f);
+                if (multiplier <= 0f || multiplier > 1f) {
+                    report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] ReduceWeaponDamage requires 0 < Params.Multiplier <= 1.");
+                }
+
+                if (reader.GetInt("DurationPlayerTurns", 0) <= 0) {
+                    report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] ReduceWeaponDamage requires positive Params.DurationPlayerTurns.");
+                }
+                break;
+            case "AddCursedItem":
+                string itemID = reader.GetString("ItemID", string.Empty);
+                if (string.IsNullOrEmpty(itemID) || !ConfigManager.Items.ContainsKey(itemID)) {
+                    report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] AddCursedItem references missing Params.ItemID [{itemID}].");
+                }
+
+                WarnMetadataOnlyTags(report, $"Monster [{monster.MonsterID}] action [{action.ActionID}] OverrideTags", reader.GetStringList("OverrideTags"));
+                if (reader.Has("OverrideValue") && reader.GetInt("OverrideValue", 0) < 0) {
+                    report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] AddCursedItem has negative Params.OverrideValue.");
+                }
+                break;
+        }
+    }
+
+    private static void ValidateMonsterJsonDoesNotUseOldBehaviorFields(ConfigValidationReport report) {
+        string monstersPath = Path.Combine(Application.streamingAssetsPath, "Configs", "Monsters");
+        if (!Directory.Exists(monstersPath)) {
             return;
         }
 
-        if (monster.GridInterference == "ReduceDamage") {
-            if (parameters == null || string.IsNullOrEmpty(parameters.Target)) {
-                report.AddError($"Monster [{monster.MonsterID}] ReduceDamage has no Target.");
-            }
+        string[] oldFields = {
+            "DamageValue",
+            "AttacksPerTurn",
+            "GridInterference",
+            "GridInterferenceParams"
+        };
 
-            if (parameters != null && parameters.DurationTurns <= 0) {
-                report.AddError($"Monster [{monster.MonsterID}] ReduceDamage has invalid DurationTurns [{parameters.DurationTurns}].");
+        foreach (string file in Directory.GetFiles(monstersPath, "*.json")) {
+            try {
+                JObject root = JObject.Parse(File.ReadAllText(file));
+                string monsterID = root.Value<string>("MonsterID") ?? Path.GetFileNameWithoutExtension(file);
+                foreach (string oldField in oldFields) {
+                    if (root.ContainsKey(oldField)) {
+                        report.AddError($"Monster [{monsterID}] still contains deprecated field [{oldField}]. Use AI.Actions instead.");
+                    }
+                }
+            } catch (Exception ex) {
+                report.AddError($"Monster config [{Path.GetFileName(file)}] could not be scanned for deprecated fields: {ex.Message}");
             }
-            return;
         }
-
-        report.AddError($"Monster [{monster.MonsterID}] uses unknown GridInterference [{monster.GridInterference}].");
     }
 
     private static void ValidateDungeons(ConfigValidationReport report) {

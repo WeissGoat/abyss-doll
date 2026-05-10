@@ -120,6 +120,35 @@ public class BackpackGrid {
         return true;
     }
 
+    public bool TryFindFirstAvailable(ItemEntity item, out int targetX, out int targetY) {
+        targetX = -1;
+        targetY = -1;
+
+        if (item == null) {
+            return false;
+        }
+
+        for (int y = 0; y < Height; y++) {
+            for (int x = 0; x < Width; x++) {
+                if (CanPlaceItem(item, x, y)) {
+                    targetX = x;
+                    targetY = y;
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public bool TryPlaceFirstAvailable(ItemEntity item, out int targetX, out int targetY) {
+        if (!TryFindFirstAvailable(item, out targetX, out targetY)) {
+            return false;
+        }
+
+        return PlaceItem(item, targetX, targetY);
+    }
+
     public void RemoveItem(ItemEntity item) {
         if (!ContainedItems.Contains(item)) return;
         

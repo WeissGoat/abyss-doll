@@ -3,14 +3,37 @@
   "Name": "酸液软体",
   "Layer": 2,
   "HP": 80,
-  "AttacksPerTurn": 1,
-  "DamageValue": 30,
   "RewardID": "reward_monster_mob_acid_slime",
-  "GridInterference": "ReduceDamage",
-  "GridInterferenceParams": {
-    "Target": "RandomWeapon",
-    "Effect": 0.5,
-    "DurationTurns": 1
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "acid_basic_attack",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 70,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 30,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "acid_corrode_weapon",
+        "ActionType": "ReduceWeaponDamage",
+        "Target": "RandomPlayerWeapon",
+        "Weight": 30,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerHasWeapon",
+        "Params": {
+          "Multiplier": 0.5,
+          "DurationPlayerTurns": 1
+        }
+      }
+    ]
   },
   "LootPool": [
     {"ItemID": "loot_rusty_coil", "Weight": 45},

@@ -3,14 +3,38 @@
   "Name": "畸变融合体",
   "Layer": 2,
   "HP": 300,
-  "AttacksPerTurn": 1,
-  "DamageValue": 120,
   "RewardID": "reward_monster_elite_mutant_amalgam",
-  "GridInterference": "AddCursedItem",
-  "GridInterferenceParams": {
-    "ItemID": "loot_gear_scrap",
-    "OverrideTags": ["Cursed", "Toxic"],
-    "OverrideValue": 0
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "mutant_crushing_blow",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 70,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 120,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "mutant_seed_curse",
+        "ActionType": "AddCursedItem",
+        "Target": "PlayerGridFirstFit",
+        "Weight": 30,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerGridHasSpace",
+        "Params": {
+          "ItemID": "loot_gear_scrap",
+          "OverrideTags": ["Cursed", "Toxic"],
+          "OverrideValue": 0
+        }
+      }
+    ]
   },
   "LootPool": [
     {"ItemID": "gear_chainsaw_sword", "Weight": 25},

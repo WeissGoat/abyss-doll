@@ -3,10 +3,25 @@
   "Name": "废铁守卫 (守门人)",
   "Layer": 1,
   "HP": 150,
-  "AttacksPerTurn": 1,
-  "DamageValue": 45,
   "RewardID": "reward_monster_elite_scrap_guard",
-  "GridInterference": "None",
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "scrap_guard_heavy_strike",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 100,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 45,
+          "RepeatCount": 1
+        }
+      }
+    ]
+  },
   "LootPool": [
     {"ItemID": "mat_core_tier1", "Weight": 100},
     {"ItemID": "gear_tactical_blade", "Weight": 35},

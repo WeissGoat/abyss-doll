@@ -3,10 +3,25 @@
   "Name": "拾荒虫",
   "Layer": 1,
   "HP": 40,
-  "AttacksPerTurn": 1,
-  "DamageValue": 10,
   "RewardID": "reward_monster_mob_scavenger_bug",
-  "GridInterference": "None",
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "scavenger_basic_attack",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 100,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 10,
+          "RepeatCount": 1
+        }
+      }
+    ]
+  },
   "LootPool": [
     {"ItemID": "loot_gear_scrap", "Weight": 55},
     {"ItemID": "con_repair_kit", "Weight": 20},

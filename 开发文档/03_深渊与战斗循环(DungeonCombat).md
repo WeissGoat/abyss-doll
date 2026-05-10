@@ -125,6 +125,7 @@ public class DollFighter : FighterEntity {
 
 public class MonsterFighter : FighterEntity {
     public MonsterEntity DataRef;
+    public string RuntimeID;
     
     public MonsterFighter(MonsterEntity monster, CombatFaction faction) {
         ParentFaction = faction;
@@ -133,10 +134,8 @@ public class MonsterFighter : FighterEntity {
         RuntimeMaxHP = monster.HP;
     }
     
-    public override void Attack(FighterEntity target, ItemEntity weaponSource = null) {
-        // 执行怪物的行为树/AI
-        target.TakeDamage(DataRef.DamageValue);
-    }
+    // 怪物行动不再从 Attack() 写死入口进入。
+    // 敌方回合由 MonsterActionRunner 根据 DataRef.AI.Actions 选择并执行 Action。
 }
 ```
 
@@ -191,12 +190,10 @@ public class CombatSystem : MonoBehaviour {
         CurrentState = CombatState.EnemyTurn;
         EnemyFaction.OnTurnStart();
         
-        // 怪物依次执行攻击
+        // 怪物依次执行数据驱动行动
         foreach(var enemy in EnemyFaction.Fighters) {
             if(enemy.RuntimeHP > 0 && !PlayerFaction.IsWipedOut()) {
-                // 简单的AI：打玩家阵营里的第一个活着的目标
-                var target = PlayerFaction.Fighters.Find(f => f.RuntimeHP > 0);
-                enemy.Attack(target);
+                MonsterActionRunner.ExecuteTurn(enemy, context);
             }
         }
         

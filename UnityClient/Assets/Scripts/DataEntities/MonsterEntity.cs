@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 [Serializable]
 public class MonsterEntity {
@@ -7,28 +8,32 @@ public class MonsterEntity {
     public string Name;
     public int Layer;
     public int HP;
-    public int AttacksPerTurn;
-    public int DamageValue;
     public string PortraitID;
     public string CombatVisualID;
     public string HitVFXID;
     public string DeathVFXID;
     public string RewardID;
-    
-    public string GridInterference; // e.g., "None", "ReduceDamage", "AddCursedItem"
-    public GridInterferenceParams GridInterferenceParams;
-    
+    public MonsterAIConfig AI;
+
     public List<LootPoolEntry> LootPool = new List<LootPoolEntry>();
 }
 
 [Serializable]
-public class GridInterferenceParams {
+public class MonsterAIConfig {
+    public string Selector = "WeightedRandom";
+    public List<MonsterActionConfig> Actions = new List<MonsterActionConfig>();
+}
+
+[Serializable]
+public class MonsterActionConfig {
+    public string ActionID;
+    public string ActionType;
     public string Target;
-    public float Effect;
-    public int DurationTurns;
-    public string ItemID;
-    public List<string> OverrideTags;
-    public int OverrideValue;
+    public int Weight = 100;
+    public int CooldownTurns;
+    public int UsesPerCombat;
+    public string Condition = "Always";
+    public Dictionary<string, JToken> Params = new Dictionary<string, JToken>();
 }
 
 [Serializable]

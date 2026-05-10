@@ -51,6 +51,8 @@ public static class GridSolver {
                 }
             }
         }
+
+        GameRoot.Core?.Combat?.MonsterRuntimeModifiers?.ApplyToGrid(grid);
     }
 
     private static List<ItemEntity> GetProstheticTargetItems(string targetSelector, BackpackGrid grid) {

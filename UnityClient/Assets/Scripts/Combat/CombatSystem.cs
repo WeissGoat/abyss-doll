@@ -8,10 +8,17 @@ public class CombatSystem {
     public CombatFaction EnemyFaction;
 
     public CombatState CurrentState;
+    public MonsterCombatModifierSystem MonsterRuntimeModifiers => _monsterRuntimeModifiers;
+
+    private readonly MonsterActionRunner _monsterActionRunner = new MonsterActionRunner();
+    private readonly MonsterActionRuntimeState _monsterActionState = new MonsterActionRuntimeState();
+    private readonly MonsterCombatModifierSystem _monsterRuntimeModifiers = new MonsterCombatModifierSystem();
 
     public void StartCombat(List<string> monsterIDs) {
         Debug.Log("\n[CombatSystem] Initiating Combat!");
         ItemUseService.ClearPendingTargetSelection();
+        _monsterActionState.Reset();
+        _monsterRuntimeModifiers.Clear();
 
         PlayerFaction = new CombatFaction { Type = FactionType.Player };
         PlayerFaction.Fighters.Add(new DollFighter(GameRoot.Core.CurrentPlayer.ActiveDoll, PlayerFaction));
@@ -43,6 +50,7 @@ public class CombatSystem {
         ItemUseService.ClearPendingTargetSelection();
         Debug.Log("[CombatSystem] Player ends turn.");
         CombatEventBus.Publish(CombatEventType.OnTurnEnd, PlayerFaction);
+        _monsterRuntimeModifiers.AdvancePlayerTurnEnd();
 
         if (EnemyFaction.IsWipedOut()) {
             HandleVictory();
@@ -55,17 +63,14 @@ public class CombatSystem {
     public void StartEnemyTurn() {
         CurrentState = CombatState.EnemyTurn;
         ItemUseService.ClearPendingTargetSelection();
+        _monsterActionState.AdvanceCooldownsAtEnemyTurnStart();
         CombatEventBus.Publish(CombatEventType.OnTurnStart, EnemyFaction);
 
         foreach (var fighter in EnemyFaction.Fighters) {
             MonsterFighter enemy = fighter as MonsterFighter;
             if (enemy != null && enemy.RuntimeHP > 0 && !PlayerFaction.IsWipedOut()) {
-                FighterEntity target = PlayerFaction.Fighters.Find(candidate => candidate.RuntimeHP > 0);
-                if (target != null) {
-                    for (int i = 0; i < enemy.DataRef.AttacksPerTurn; i++) {
-                        enemy.Attack(target);
-                    }
-                }
+                MonsterActionContext context = BuildMonsterActionContext(enemy);
+                _monsterActionRunner.ExecuteTurn(enemy, context);
             }
         }
 
@@ -92,6 +97,7 @@ public class CombatSystem {
 
         PlayerFaction.Cleanup();
         EnemyFaction.Cleanup();
+        CleanupMonsterActionRuntime();
 
         CombatNode currentCombatNode = GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode as CombatNode;
         if (currentCombatNode != null) {
@@ -109,8 +115,31 @@ public class CombatSystem {
 
         PlayerFaction.Cleanup();
         EnemyFaction.Cleanup();
+        CleanupMonsterActionRuntime();
 
         DungeonEventBus.PublishDungeonDefeated();
+    }
+
+    private MonsterActionContext BuildMonsterActionContext(MonsterFighter actor) {
+        return new MonsterActionContext {
+            Combat = this,
+            Actor = actor,
+            PlayerFaction = PlayerFaction,
+            EnemyFaction = EnemyFaction,
+            ActiveDoll = GameRoot.Core?.CurrentPlayer?.ActiveDoll,
+            RuntimeState = _monsterActionState,
+            RuntimeModifiers = _monsterRuntimeModifiers
+        };
+    }
+
+    private void CleanupMonsterActionRuntime() {
+        _monsterActionState.Reset();
+        _monsterRuntimeModifiers.Clear();
+
+        DollEntity activeDoll = GameRoot.Core?.CurrentPlayer?.ActiveDoll;
+        if (activeDoll != null) {
+            GridSolver.RecalculateAllEffects(activeDoll);
+        }
     }
 }
 

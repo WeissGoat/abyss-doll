@@ -1,39 +1,61 @@
 # 深渊怪物配置字段说明 (Monsters Config)
 
-> 位于本目录下的 JSON 文件定义了在深渊战斗节点中遭遇的敌对实体。
-> 怪物不仅具备传统 RPG 的打血机制，更具备针对**“背包网格体系”**的破坏能力。
+> 本目录下的 JSON 文件定义深渊战斗节点中遭遇的敌对实体。怪物的攻击、技能、背包干涉统一通过 `AI.Actions` 配置，不再使用旧的 `DamageValue`、`AttacksPerTurn`、`GridInterference` 字段。
 
 ## 字段说明表
 
 | 字段名 (Key) | 数据类型 | 注释说明 | 可选项 / 备注 |
 | :--- | :--- | :--- | :--- |
-| `MonsterID` | string | 怪物的全局唯一ID | 必填项，如 `elite_mutant_amalgam` |
+| `MonsterID` | string | 怪物的全局唯一 ID | 必填项，如 `elite_mutant_amalgam` |
 | `Name` | string | 怪物显示名称 | |
 | `Layer` | int | 推荐出没的深渊层数 | 用于标识怪物的数值跨度级别 |
 | `HP` | int | 怪物生命值上限 | 测试 DPS 输出检测的沙袋血量 |
-| `AttacksPerTurn`| int | 怪物每回合可执行的攻击次数| 决定了玩家生存端的单回合爆发压力 |
-| `DamageValue` | int | 怪物每次攻击造成的基础伤害 | 扣除玩家防御后的净伤害 |
-| `RewardID` | string | 击败该怪物后触发的奖励表 ID | 指向 `/Rewards`，新配置必须使用此字段 |
-| `LootPool` | array | 旧版掉落池 | Deprecated，仅迁移期 fallback 使用 |
-| `GridInterference`| enum | **网格干涉能力（核心特色）** | 怪物对玩家背包系统直接造成的影响 |
-| `GridInterferenceParams`| object | 配合干涉能力生效的具体参数 | 因干涉技能而异（例如强行塞垃圾的具体物品ID）|
+| `RewardID` | string | 击败该怪物后触发的奖励表 ID | 指向 `/Rewards` |
+| `AI` | object | 怪物行动配置 | 必填，详见下方 `AI.Actions` |
+| `LootPool` | array | 旧版掉落池 | Deprecated，仅奖励系统迁移期 fallback 使用 |
 
----
+## AI.Actions
 
-## GridInterference (网格干涉能力) 枚举选项
+怪物每回合默认选择并执行一个 Action。普通攻击也是 Action；如果想表达旧版“每回合多段攻击”，请在 `DamageTarget.Params.RepeatCount` 中配置。
 
-深渊的恐怖之处在于，怪物不仅要你的命，还要搞乱你的包。
+```json
+{
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "acid_corrode_weapon",
+        "ActionType": "ReduceWeaponDamage",
+        "Target": "RandomPlayerWeapon",
+        "Weight": 30,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerHasWeapon",
+        "Params": {
+          "Multiplier": 0.5,
+          "DurationPlayerTurns": 1
+        }
+      }
+    ]
+  }
+}
+```
 
-1. **`None`**: 普通怪，纯粹的拼数值换血。
-2. **`ReduceDamage`**: （软泥怪等）喷吐腐蚀液，短时间内强行降低玩家某把武器的伤害数值。
-3. **`LockCell`**: （蜘蛛等）吐丝/结冰，暂时锁死玩家背包的特定格子，使其上的武器/防具处于宕机瘫痪状态。
-4. **`AddCursedItem`**: （深渊畸变体）**寄生/塞垃圾**。无视玩家意愿，强行往背包空位塞入不可丢弃、持续掉SAN的【毒性战利品】，极大挤压玩家生存空间并造成精神污染。
+| 字段名 | 数据类型 | 说明 |
+| :--- | :--- | :--- |
+| `Selector` | string | 行动选择器。MVP 支持 `WeightedRandom`。 |
+| `ActionID` | string | 行动实例 ID，用于日志、冷却、测试定位。 |
+| `ActionType` | string | 行动类型。MVP 支持 `DamageTarget`、`ReduceWeaponDamage`、`AddCursedItem`。 |
+| `Target` | string | 目标选择器。MVP 支持 `FirstAlivePlayer`、`RandomPlayer`、`LowestHpPlayer`、`RandomPlayerWeapon`、`PlayerGridFirstFit`。 |
+| `Weight` | int | 权重随机选择权重。小于等于 0 不会被选中。 |
+| `CooldownTurns` | int | 行动使用后的敌方回合冷却。 |
+| `UsesPerCombat` | int | 单场战斗最大使用次数，0 表示不限。 |
+| `Condition` | string | 行动条件。MVP 支持 `Always`、`PlayerHasWeapon`、`PlayerGridHasSpace`。 |
+| `Params` | object | 行动专属参数。 |
 
----
+## RewardID
 
-## RewardID (奖励表引用)
-
-怪物不应该直接维护复杂掉落逻辑。击败怪物时，战斗节点只读取怪物的 `RewardID`，再交给 `RewardSystem` 解析。
+怪物不应该直接维护复杂掉落逻辑。击败怪物时，战斗节点优先读取怪物的 `RewardID`，再交给 `RewardSystem` 解析。
 
 ```json
 {
@@ -44,13 +66,6 @@
 
 奖励表负责声明保底奖励、权重奖励、空掉落和奖励组合，详见 [`../Rewards/README.md`](../Rewards/README.md)。
 
----
+## LootPool
 
-## LootPool (旧版战利品掉落池)
-
-`LootPool` 是早期 MVP 直连掉落字段。引入 `RewardSystem` 后，该字段只作为迁移期 fallback 保留。新怪物和新奖励不应继续扩展 `LootPool`。
-
-| 字段名 | 数据类型 | 注释说明 | 可选项 / 备注 |
-| :--- | :--- | :--- | :--- |
-| `ItemID` | string | 可能掉落的物品配置ID | 对应 `Items` 目录下的合法 ConfigID |
-| `Weight` | int | 掉落权重 | 在本次掉落判定中被抽取的相对概率 |
+`LootPool` 是早期 MVP 直连掉落字段。引入 `RewardSystem` 后，该字段只作为奖励系统迁移期 fallback 保留，不再承载怪物 AI 或技能逻辑。
