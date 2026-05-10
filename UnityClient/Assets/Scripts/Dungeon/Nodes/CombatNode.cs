@@ -68,8 +68,8 @@ public class CombatNode : NodeBase {
     }
 
     private CombatLootPickupResult PrepareLootPickupResult() {
-        if (MonsterIDs == null || MonsterIDs.Count == 0) {
-            Debug.Log("[CombatNode] No MonsterIDs configured. No loot generated.");
+        if ((MonsterIDs == null || MonsterIDs.Count == 0) && string.IsNullOrEmpty(RewardID)) {
+            Debug.Log("[CombatNode] No MonsterIDs or node RewardID configured. No loot generated.");
             return null;
         }
 
@@ -77,18 +77,80 @@ public class CombatNode : NodeBase {
             NodeID = NodeID
         };
 
-        foreach (string monsterID in MonsterIDs) {
-            ItemEntity droppedItem = RollLootForMonster(monsterID);
-            if (droppedItem == null) {
-                continue;
-            }
+        RewardSystem rewardSystem = new RewardSystem();
 
-            result.SourceMonsterIDs.Add(monsterID);
-            result.OfferedItems.Add(droppedItem);
-            result.TotalEstimatedValue += droppedItem.BaseValue;
+        if (MonsterIDs != null) {
+            foreach (string monsterID in MonsterIDs) {
+                AppendMonsterReward(result, rewardSystem, monsterID);
+            }
+        }
+
+        if (!string.IsNullOrEmpty(RewardID)) {
+            RewardRollResult nodeReward = rewardSystem.Roll(RewardID, BuildRewardContext("Node", NodeID));
+            AppendRewardResult(result, nodeReward, NodeID, false);
         }
 
         return result;
+    }
+
+    private void AppendMonsterReward(CombatLootPickupResult result, RewardSystem rewardSystem, string monsterID) {
+        if (string.IsNullOrEmpty(monsterID) || !ConfigManager.Monsters.TryGetValue(monsterID, out var monster)) {
+            Debug.LogWarning($"[CombatNode] Cannot roll loot. Monster config missing: {monsterID}");
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(monster.RewardID)) {
+            if (ConfigManager.Rewards.ContainsKey(monster.RewardID)) {
+                RewardRollResult rewardResult = rewardSystem.Roll(monster.RewardID, BuildRewardContext("Monster", monsterID));
+                AppendRewardResult(result, rewardResult, monsterID, true);
+                return;
+            }
+
+            Debug.LogWarning($"[CombatNode] Monster [{monster.MonsterID}] RewardID [{monster.RewardID}] missing. Falling back to legacy LootPool.");
+        }
+
+        ItemEntity droppedItem = RollLootForMonster(monsterID);
+        if (droppedItem == null) {
+            return;
+        }
+
+        result.SourceMonsterIDs.Add(monsterID);
+        result.OfferedItems.Add(droppedItem);
+        result.TotalEstimatedValue += droppedItem.BaseValue;
+    }
+
+    private void AppendRewardResult(CombatLootPickupResult pickupResult, RewardRollResult rewardResult, string sourceID, bool sourceIsMonster) {
+        if (pickupResult == null || rewardResult == null) {
+            return;
+        }
+
+        foreach (ItemEntity item in rewardResult.GeneratedItems) {
+            if (item == null) {
+                continue;
+            }
+
+            if (sourceIsMonster) {
+                pickupResult.SourceMonsterIDs.Add(sourceID);
+            }
+
+            pickupResult.OfferedItems.Add(item);
+            pickupResult.TotalEstimatedValue += item.BaseValue;
+        }
+
+        if (rewardResult.Money > 0) {
+            Debug.LogWarning($"[CombatNode] Reward [{rewardResult.RootRewardID}] generated money={rewardResult.Money}, but combat loot pickup currently only supports item placement.");
+        }
+    }
+
+    private RewardContext BuildRewardContext(string sourceType, string sourceID) {
+        return new RewardContext {
+            SourceType = sourceType,
+            SourceID = sourceID,
+            LayerID = GameRoot.Core?.Dungeon?.CurrentLayer?.LayerID ?? 0,
+            NodeID = NodeID,
+            Player = GameRoot.Core?.CurrentPlayer,
+            ActiveDoll = GameRoot.Core?.CurrentPlayer?.ActiveDoll
+        };
     }
 
     private ItemEntity RollLootForMonster(string monsterID) {

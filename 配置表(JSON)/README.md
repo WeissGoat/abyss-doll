@@ -13,6 +13,7 @@
 | **[`/Chassis`](./Chassis/README.md)** | 底盘 (Chassis) | 决定局内可用**背包网格大小与形状**的核心装备。 | 养成系统 |
 | **[`/Items`](./Items/README.md)** | 局内物品 (Item) | 包含武器、防具、战利品、消耗品等所有**需要放在网格里**的物品。是整个数值验证的核心。 | 物品系统 / 经济系统 |
 | **[`/Monsters`](./Monsters/README.md)** | 怪物 (Monster) | 深渊中的敌对实体，包含血量、伤害，以及特有的“网格干涉技能”（如锁格子、塞垃圾）。 | 战斗系统 |
+| **[`/Rewards`](./Rewards/README.md)** | 奖励表 (Reward) | 统一配置战斗掉落、节点奖励、事件奖励与任务奖励。调用方只引用 `RewardID`。 | 奖励系统 / 掉落系统 |
 | **[`/Dungeons`](./Dungeons/README.md)** | 深渊层数 (Dungeon) | 决定每一层地图的长度（节点数）、走一步掉多少SAN，以及怪物和Boss的刷新池。 | 探索系统 |
 | **[`/Prosthetics`](./Prosthetics/README.md)** | 义体插件 (Prosthetic) | 局外装备的被动词条插件。**不占背包网格**，改变规则或提供全局增幅。 | 养成系统 |
 | **[`/CraftingRecipes`](./CraftingRecipes/README.md)**| 制造配方 (Crafting) | 工坊中制造义体或升级底盘所需的金币与素材清单。 | 经济系统 / 养成系统 |

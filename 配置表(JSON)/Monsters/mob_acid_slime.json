@@ -5,6 +5,7 @@
   "HP": 80,
   "AttacksPerTurn": 1,
   "DamageValue": 30,
+  "RewardID": "reward_monster_mob_acid_slime",
   "GridInterference": "ReduceDamage",
   "GridInterferenceParams": {
     "Target": "RandomWeapon",

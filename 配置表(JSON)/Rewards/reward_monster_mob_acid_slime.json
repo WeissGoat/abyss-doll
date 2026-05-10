@@ -1,0 +1,18 @@
+{
+  "RewardID": "reward_monster_mob_acid_slime",
+  "Name": "Acid Slime Drop",
+  "Tags": ["Monster", "Layer2", "Mob"],
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "main",
+      "RollCount": 1,
+      "AllowDuplicate": true,
+      "Entries": [
+        { "Type": "Item", "ItemID": "loot_rusty_coil", "Weight": 45, "Count": 1 },
+        { "Type": "Item", "ItemID": "loot_toxic_filter", "Weight": 35, "Count": 1 },
+        { "Type": "Item", "ItemID": "con_cheap_sedative", "Weight": 20, "Count": 1 }
+      ]
+    }
+  ]
+}

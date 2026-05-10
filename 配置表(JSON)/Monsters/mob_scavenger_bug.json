@@ -5,6 +5,7 @@
   "HP": 40,
   "AttacksPerTurn": 1,
   "DamageValue": 10,
+  "RewardID": "reward_monster_mob_scavenger_bug",
   "GridInterference": "None",
   "LootPool": [
     {"ItemID": "loot_gear_scrap", "Weight": 55},

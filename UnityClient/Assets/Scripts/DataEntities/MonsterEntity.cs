@@ -13,6 +13,7 @@ public class MonsterEntity {
     public string CombatVisualID;
     public string HitVFXID;
     public string DeathVFXID;
+    public string RewardID;
     
     public string GridInterference; // e.g., "None", "ReduceDamage", "AddCursedItem"
     public GridInterferenceParams GridInterferenceParams;

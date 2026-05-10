@@ -16,5 +16,6 @@ public class DungeonConfig {
 public class NodePoolEntry {
     public string NodeType; // "CombatNode", "SafeRoomNode"
     public List<string> MonsterIDs = new List<string>();
+    public string RewardID;
     public int Weight;
 }

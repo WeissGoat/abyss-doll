@@ -35,17 +35,20 @@ P0 完成后，项目应具备一次完整白盒试玩的最低条件。
 
 实施内容：
 
-*   怪物配置支持 `GuaranteedLoot`。
-*   `CombatNode` 胜利结算先生成保底掉落，再执行随机掉落。
-*   `elite_scrap_guard` 必掉 `mat_core_tier1`。
-*   2 层 Boss 可提前加入 `mat_core_tier2`，作为下一阶段成长钩子。
+*   新增 `RewardSystem`，统一负责奖励表解析。
+*   新增 `/Rewards` 奖励表，支持 `Guaranteed` 保底奖励与 `WeightedPools` 权重奖励。
+*   怪物、节点、事件等调用方只配置 `RewardID`，不再直接维护掉落权重。
+*   `CombatNode` 胜利结算通过怪物 `RewardID` 请求奖励，并合并为同一个拾取结果。
+*   `reward_monster_elite_scrap_guard` 保底生成 `mat_core_tier1`。
+*   2 层 Boss 奖励表可提前加入 `mat_core_tier2`，作为下一阶段成长钩子。
 *   战利品拾取面板仍要求玩家手动塞入背包。
 
 验收：
 
 *   击败 1 层 Boss 后，每次都出现一阶动力核心。
 *   核心塞不下时，玩家必须整理或丢弃其他物品。
-*   自动化测试覆盖保底掉落和随机掉落共存。
+*   自动化测试覆盖奖励表保底掉落和权重掉落共存。
+*   旧 `LootPool` 仅作为迁移期 fallback，新配置使用 `RewardID`。
 
 ### 3.2 出售规则保护
 
@@ -157,7 +160,7 @@ P2 不阻断规则试玩，但会显著提高可读性和反馈质量。
 
 ## 7. 建议推进顺序
 
-1.  `GuaranteedLoot` 与 Boss 保底掉落。
+1.  `RewardSystem`、`/Rewards` 奖励表与 Boss 保底掉落。
 2.  `CanSell` / 材料保护 / 小镇 UI 提示。
 3.  `PassiveEffects` 兼容与义体工坊 UI。
 4.  `RestoreSANOnCombatEnd` 与义体回归测试。

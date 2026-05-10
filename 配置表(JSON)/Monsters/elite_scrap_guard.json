@@ -5,6 +5,7 @@
   "HP": 150,
   "AttacksPerTurn": 1,
   "DamageValue": 45,
+  "RewardID": "reward_monster_elite_scrap_guard",
   "GridInterference": "None",
   "LootPool": [
     {"ItemID": "mat_core_tier1", "Weight": 100},

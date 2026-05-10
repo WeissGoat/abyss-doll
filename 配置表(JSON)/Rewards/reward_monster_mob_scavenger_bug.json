@@ -1,0 +1,19 @@
+{
+  "RewardID": "reward_monster_mob_scavenger_bug",
+  "Name": "Scavenger Bug Drop",
+  "Tags": ["Monster", "Layer1", "Mob"],
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "main",
+      "RollCount": 1,
+      "AllowDuplicate": true,
+      "Entries": [
+        { "Type": "Item", "ItemID": "loot_gear_scrap", "Weight": 55, "Count": 1 },
+        { "Type": "Item", "ItemID": "con_repair_kit", "Weight": 20, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_rusty_dagger", "Weight": 15, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_wooden_shield", "Weight": 10, "Count": 1 }
+      ]
+    }
+  ]
+}

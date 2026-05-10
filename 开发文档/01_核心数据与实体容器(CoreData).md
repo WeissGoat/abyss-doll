@@ -118,3 +118,47 @@ public class ChassisComponent {
 1. 游戏启动时，由一个 `DataManager` 或 `ConfigManager` 读取我们在 `配置表(JSON)` 目录下生成的所有 JSON 文件。
 2. 将解析出的模板数据存入全局 Dictionary 缓存。例如 `Dictionary<string, ItemConfigTemplate> ItemConfigs`。
 3. 当玩家获得一件新物品时，调用工厂方法 `ItemFactory.CreateItem("gear_tactical_blade")`，根据 JSON 模板深拷贝生成一个独立的 `ItemEntity` 放入 `PlayerProfile.StashInventory` 或局内背包中。
+
+## 5. 奖励配置容器 (RewardConfig)
+
+掉落、宝箱、事件、任务等收益不应散落在各个调用方中。配置层新增 `Rewards` 表，运行时由 `RewardSystem` 统一解析。
+
+```csharp
+[System.Serializable]
+public class RewardConfig {
+    public string RewardID;
+    public string Name;
+    public List<string> Tags = new List<string>();
+    public List<RewardEntry> Guaranteed = new List<RewardEntry>();
+    public List<RewardPool> WeightedPools = new List<RewardPool>();
+}
+
+[System.Serializable]
+public class RewardPool {
+    public string PoolID;
+    public int RollCount = 1;
+    public bool AllowDuplicate = true;
+    public List<RewardEntry> Entries = new List<RewardEntry>();
+}
+
+[System.Serializable]
+public class RewardEntry {
+    public string Type;      // Item, Money, RewardRef, Nothing
+    public string ItemID;    // Type=Item
+    public string RewardID;  // Type=RewardRef
+    public int Money;        // Type=Money
+    public int Weight;
+    public int Count = 1;
+    public int MinCount;
+    public int MaxCount;
+    public string Condition;
+}
+```
+
+`ConfigManager` 需要新增：
+
+```csharp
+public static Dictionary<string, RewardConfig> Rewards = new Dictionary<string, RewardConfig>();
+```
+
+具体解析和掉落规则见 [`10_奖励与掉落系统(RewardSystem).md`](./10_奖励与掉落系统(RewardSystem).md)。

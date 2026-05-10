@@ -20,4 +20,15 @@
 | :--- | :--- | :--- | :--- |
 | `NodeType` | string | 欲刷新的节点类型 | `CombatNode`, `SafeRoomNode` 等 |
 | `MonsterIDs` | array | (如果是战斗节点)怪物的ID列表 | 支持配置多个ID生成群殴节点 |
+| `RewardID` | string | 节点自身额外奖励表 ID | 可选，指向 `/Rewards`；与怪物奖励并存 |
 | `Weight` | int | 随机抽取的权重值 | 权重越高，该节点在路径中出现的概率越大 |
+
+## 节点奖励说明
+
+战斗节点的常规战利品应优先来自怪物 `RewardID`。如果节点本身还需要额外奖励，例如宝箱、事件补偿、关卡奖励，可在 `NodePool` 条目上额外配置 `RewardID`。
+
+解析顺序建议：
+
+1.  逐个解析 `MonsterIDs` 对应怪物的 `RewardID`。
+2.  若节点条目自身配置了 `RewardID`，再解析节点奖励。
+3.  合并后进入同一个战利品拾取面板。

@@ -1,0 +1,20 @@
+{
+  "RewardID": "reward_monster_elite_scrap_guard",
+  "Name": "Scrap Guard Drop",
+  "Tags": ["Monster", "Layer1", "Elite", "Boss"],
+  "Guaranteed": [
+    { "Type": "Item", "ItemID": "mat_core_tier1", "Count": 1 }
+  ],
+  "WeightedPools": [
+    {
+      "PoolID": "bonus",
+      "RollCount": 1,
+      "AllowDuplicate": true,
+      "Entries": [
+        { "Type": "Item", "ItemID": "gear_tactical_blade", "Weight": 35, "Count": 1 },
+        { "Type": "Item", "ItemID": "loot_rusty_coil", "Weight": 80, "Count": 1 },
+        { "Type": "Item", "ItemID": "con_cheap_sedative", "Weight": 20, "Count": 1 }
+      ]
+    }
+  ]
+}

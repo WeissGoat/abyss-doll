@@ -1,0 +1,19 @@
+{
+  "RewardID": "reward_monster_elite_mutant_amalgam",
+  "Name": "Mutant Amalgam Drop",
+  "Tags": ["Monster", "Layer2", "Elite", "Boss"],
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "main",
+      "RollCount": 1,
+      "AllowDuplicate": true,
+      "Entries": [
+        { "Type": "Item", "ItemID": "gear_chainsaw_sword", "Weight": 25, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_charge_pistol", "Weight": 25, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_iron_armor", "Weight": 20, "Count": 1 },
+        { "Type": "Item", "ItemID": "loot_toxic_filter", "Weight": 70, "Count": 1 }
+      ]
+    }
+  ]
+}

@@ -5,6 +5,7 @@
   "HP": 300,
   "AttacksPerTurn": 1,
   "DamageValue": 120,
+  "RewardID": "reward_monster_elite_mutant_amalgam",
   "GridInterference": "AddCursedItem",
   "GridInterferenceParams": {
     "ItemID": "loot_gear_scrap",

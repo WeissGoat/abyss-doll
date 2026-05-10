@@ -209,7 +209,7 @@ public class CombatSystem : MonoBehaviour {
         }
     }
     
-    private void HandleVictory() {
+private void HandleVictory() {
         CurrentState = CombatState.End;
         // 结算掉落、同步血量
         ((DollFighter)PlayerFaction.Fighters[0]).SyncDataBack();
@@ -221,3 +221,43 @@ public class CombatSystem : MonoBehaviour {
     }
 }
 ```
+
+## 4. 战斗胜利奖励与 RewardSystem
+
+战斗胜利后的奖励不应由 `CombatNode` 直接维护权重随机。`CombatNode` 的职责是“根据当前战斗来源请求奖励，并把奖励交给拾取界面”，具体保底、权重、空掉落、组合奖励由 `RewardSystem` 负责。
+
+### 4.1 调用关系
+
+```text
+CombatSystem.HandleVictory()
+        |
+        v
+CombatNode.ResolveAfterVictory()
+        |
+        v
+RewardSystem.Roll(monster.RewardID, context)
+        |
+        v
+CombatLootPickupResult.OfferedItems
+        |
+        v
+CombatLootUIController 手动拾取
+```
+
+### 4.2 CombatNode 规则
+
+*   每个怪物通过 `MonsterEntity.RewardID` 指向奖励表。
+*   同一战斗节点有多个怪物时，逐个解析怪物奖励并合并。
+*   节点自身也可以有 `RewardID`，用于宝箱、事件、关底额外奖励等。
+*   MVP 迁移期如果怪物没有 `RewardID`，允许 fallback 到旧 `LootPool`，但新配置不得继续依赖旧字段。
+*   `CombatNode` 不负责判断“保底掉落”或“权重掉落”的细节。
+
+### 4.3 结果归属
+
+战斗胜利奖励仍然先进入战利品拾取面板，不直接塞入背包。玩家手动拖入背包后，`CombatNode.ConfirmLootCollection()` 根据物品是否仍在背包中区分 accepted / discarded。
+
+这保证 RewardSystem 只负责“生成奖励”，不直接决定玩家是否真的带走奖励。
+
+### 4.4 详细文档
+
+奖励表结构、运行时对象、随机测试和配置迁移见 [`10_奖励与掉落系统(RewardSystem).md`](./10_奖励与掉落系统(RewardSystem).md)。

@@ -13,7 +13,8 @@
 | `HP` | int | 怪物生命值上限 | 测试 DPS 输出检测的沙袋血量 |
 | `AttacksPerTurn`| int | 怪物每回合可执行的攻击次数| 决定了玩家生存端的单回合爆发压力 |
 | `DamageValue` | int | 怪物每次攻击造成的基础伤害 | 扣除玩家防御后的净伤害 |
-| `LootPool` | array | 击败该怪物后触发的掉落池 | 采用权重随机体系（见下表） |
+| `RewardID` | string | 击败该怪物后触发的奖励表 ID | 指向 `/Rewards`，新配置必须使用此字段 |
+| `LootPool` | array | 旧版掉落池 | Deprecated，仅迁移期 fallback 使用 |
 | `GridInterference`| enum | **网格干涉能力（核心特色）** | 怪物对玩家背包系统直接造成的影响 |
 | `GridInterferenceParams`| object | 配合干涉能力生效的具体参数 | 因干涉技能而异（例如强行塞垃圾的具体物品ID）|
 
@@ -30,7 +31,24 @@
 
 ---
 
-## LootPool (战利品掉落池) 内部字段
+## RewardID (奖励表引用)
+
+怪物不应该直接维护复杂掉落逻辑。击败怪物时，战斗节点只读取怪物的 `RewardID`，再交给 `RewardSystem` 解析。
+
+```json
+{
+  "MonsterID": "elite_scrap_guard",
+  "RewardID": "reward_monster_elite_scrap_guard"
+}
+```
+
+奖励表负责声明保底奖励、权重奖励、空掉落和奖励组合，详见 [`../Rewards/README.md`](../Rewards/README.md)。
+
+---
+
+## LootPool (旧版战利品掉落池)
+
+`LootPool` 是早期 MVP 直连掉落字段。引入 `RewardSystem` 后，该字段只作为迁移期 fallback 保留。新怪物和新奖励不应继续扩展 `LootPool`。
 
 | 字段名 | 数据类型 | 注释说明 | 可选项 / 备注 |
 | :--- | :--- | :--- | :--- |
