@@ -126,15 +126,18 @@ public class HUDController : MonoBehaviour {
             return;
         }
 
-        HandleHPChanged(doll.Name, doll.Status.HP_Current, doll.Status.HP_Max);
+        DollFighter activeFighter = GetActivePlayerFighter();
+        if (activeFighter != null) {
+            HandleHPChanged(doll.Name, activeFighter.RuntimeHP, activeFighter.RuntimeMaxHP);
+        } else {
+            HandleHPChanged(doll.Name, doll.Status.HP_Current, doll.Status.HP_Max);
+        }
+
         HandleSANChanged(doll.Name, doll.Status.SAN_Current, doll.Status.SAN_Max);
 
-        if (GameRoot.Core?.Combat?.PlayerFaction?.Fighters.Count > 0) {
-            DollFighter fighter = GameRoot.Core.Combat.PlayerFaction.Fighters[0] as DollFighter;
-            if (fighter != null) {
-                HandleAPChanged(doll.Name, fighter.CurrentAP, fighter.MaxAP);
-                HandleShieldChanged(doll.Name, fighter.RuntimeShield);
-            }
+        if (activeFighter != null) {
+            HandleAPChanged(doll.Name, activeFighter.CurrentAP, activeFighter.MaxAP);
+            HandleShieldChanged(doll.Name, activeFighter.RuntimeShield);
         }
     }
 
@@ -339,5 +342,14 @@ public class HUDController : MonoBehaviour {
         backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "CombatBackground_Image");
         string visualID = VisualAssetService.ResolveCombatBackgroundID(GameRoot.Core?.Dungeon?.CurrentLayer);
         VisualUIHelper.ApplySprite(backgroundImage, visualID, Color.white, new Color(0.16f, 0.08f, 0.08f, 0.92f), false);
+    }
+
+    private DollFighter GetActivePlayerFighter() {
+        CombatSystem combat = GameRoot.Core?.Combat;
+        if (combat == null || combat.CurrentState == CombatState.End || combat.PlayerFaction == null || combat.PlayerFaction.Fighters.Count == 0) {
+            return null;
+        }
+
+        return combat.PlayerFaction.Fighters[0] as DollFighter;
     }
 }

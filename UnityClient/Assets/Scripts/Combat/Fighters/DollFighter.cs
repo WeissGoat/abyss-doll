@@ -61,6 +61,16 @@ public class DollFighter : FighterEntity {
         Debug.Log($"[{Name}] Synced data back to DollEntity. HP: {DataRef.Status.HP_Current}");
     }
 
+    public override void TakeDamage(int damage) {
+        base.TakeDamage(damage);
+        SyncRuntimeHPToDoll();
+    }
+
+    public override void Heal(int amount) {
+        base.Heal(amount);
+        SyncRuntimeHPToDoll();
+    }
+
     public bool TrySpendAP(int amount, string sourceName) {
         if (amount <= 0) {
             return true;
@@ -98,6 +108,12 @@ public class DollFighter : FighterEntity {
                     effect.ApplyToFighter(this, weaponSource);
                 }
             }
+        }
+    }
+
+    private void SyncRuntimeHPToDoll() {
+        if (DataRef != null) {
+            DataRef.Status.HP_Current = RuntimeHP;
         }
     }
 }

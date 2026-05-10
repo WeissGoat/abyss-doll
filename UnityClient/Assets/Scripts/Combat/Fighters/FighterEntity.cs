@@ -54,13 +54,16 @@ public abstract class FighterEntity {
             RuntimeHP -= damage;
         }
 
+        if (RuntimeHP < 0) {
+            RuntimeHP = 0;
+        }
+
         GameEventBus.PublishShieldChanged(Name, RuntimeShield);
         GameEventBus.PublishHPChanged(Name, RuntimeHP, RuntimeMaxHP);
 
         Debug.Log($"[{Name}] Took {originalDamage} damage! Shield absorbed {originalDamage - damage}, HP reduced by {damage}. Current HP: {RuntimeHP}, Shield: {RuntimeShield}");
 
         if (RuntimeHP <= 0) {
-            RuntimeHP = 0;
             Debug.Log($"[{Name}] has been defeated!");
         }
     }
