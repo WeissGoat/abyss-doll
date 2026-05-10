@@ -1,0 +1,14 @@
+# Approved art/audio binaries are tracked with Git LFS.
+UnityClient/Assets/Art/Approved/**/*.png filter=lfs diff=lfs merge=lfs -text
+UnityClient/Assets/Art/Approved/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+UnityClient/Assets/Art/Approved/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
+UnityClient/Assets/Art/Approved/**/*.webp filter=lfs diff=lfs merge=lfs -text
+UnityClient/Assets/Art/Approved/**/*.tga filter=lfs diff=lfs merge=lfs -text
+UnityClient/Assets/Art/Approved/**/*.tif filter=lfs diff=lfs merge=lfs -text
+UnityClient/Assets/Art/Approved/**/*.tiff filter=lfs diff=lfs merge=lfs -text
+UnityClient/Assets/Art/Approved/**/*.psd filter=lfs diff=lfs merge=lfs -text
+UnityClient/Assets/Art/Approved/**/*.wav filter=lfs diff=lfs merge=lfs -text
+UnityClient/Assets/Art/Approved/**/*.ogg filter=lfs diff=lfs merge=lfs -text
+UnityClient/Assets/Art/Approved/**/*.mp3 filter=lfs diff=lfs merge=lfs -text
+UnityClient/Assets/Art/Approved/**/*.fbx filter=lfs diff=lfs merge=lfs -text
+UnityClient/Assets/Art/Approved/**/*.blend filter=lfs diff=lfs merge=lfs -text

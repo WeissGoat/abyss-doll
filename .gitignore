@@ -60,3 +60,7 @@ UnityClient/Assets/StreamingAssets/Configs.meta
 
 # Local AI image generation credentials/config
 tools/美术工具/ai_image_gateway.local.yaml
+
+# Art pipeline workspace: keep only final approved assets in Git.
+UnityClient/Assets/Art/_IncomingAI/
+UnityClient/Assets/Art/_IncomingAI.meta
