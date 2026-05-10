@@ -42,4 +42,16 @@ public static class NodeFactory {
         Debug.LogWarning($"[NodeFactory] Unknown NodeType: {nodeTypeStr}. Could not find a matching class.");
         return null;
     }
+
+    public static bool IsNodeTypeRegistered(string nodeTypeStr) {
+        if (string.IsNullOrEmpty(nodeTypeStr)) {
+            return false;
+        }
+
+        if (_nodeTypes == null) {
+            Initialize();
+        }
+
+        return _nodeTypes.ContainsKey(nodeTypeStr);
+    }
 }

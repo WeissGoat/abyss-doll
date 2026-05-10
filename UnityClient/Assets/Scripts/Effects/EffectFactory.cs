@@ -48,4 +48,16 @@ public static class EffectFactory {
         Debug.LogWarning($"[EffectFactory] Unknown EffectID: {data.EffectID}. Could not find a matching class.");
         return null;
     }
+
+    public static bool IsEffectRegistered(string effectID) {
+        if (string.IsNullOrEmpty(effectID)) {
+            return false;
+        }
+
+        if (_effectTypes == null) {
+            Initialize();
+        }
+
+        return _effectTypes.ContainsKey(effectID);
+    }
 }

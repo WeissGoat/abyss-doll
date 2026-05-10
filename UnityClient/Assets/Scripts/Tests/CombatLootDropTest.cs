@@ -102,6 +102,7 @@ public static class CombatLootDropTest {
 
         GameObject flowObj = new GameObject("GameFlowController");
         GameFlowController flow = flowObj.AddComponent<GameFlowController>();
+        SetGameFlowInstance(flow);
         SetGameFlowScreen(flow, "CombatLoot");
 
         var doll = core.CurrentPlayer.ActiveDoll;
@@ -159,6 +160,13 @@ public static class CombatLootDropTest {
         typeof(GameFlowController)
             .GetField("_currentScreen", BindingFlags.Instance | BindingFlags.NonPublic)
             .SetValue(controller, state);
+    }
+
+    private static void SetGameFlowInstance(GameFlowController controller) {
+        typeof(GameFlowController)
+            .GetProperty("Instance", BindingFlags.Static | BindingFlags.Public)
+            .GetSetMethod(true)
+            .Invoke(null, new object[] { controller });
     }
 
     private static void InvokeDiscardDetachedBackpackItems(GameFlowController controller) {
