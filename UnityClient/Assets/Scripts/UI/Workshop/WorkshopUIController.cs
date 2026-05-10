@@ -13,14 +13,20 @@ public class WorkshopUIController : MonoBehaviour {
     public Button openSellPanelBtn;
     public Button closeSellPanelBtn;
     public Button sellAllBtn;
+    public GameObject prostheticPanel;
+    public Button openProstheticPanelBtn;
+    public Button closeProstheticPanelBtn;
     public Text prostheticHeaderText;
+    public Text prostheticSummaryText;
     public Transform prostheticListParent;
     private bool _sellPanelOpen;
+    private bool _prostheticPanelOpen;
 
     void Start() {
         EnsureSellControls();
         BindButtons();
         CloseSellPanel(false);
+        CloseProstheticPanel(false);
         RefreshUI();
     }
 
@@ -60,11 +66,21 @@ public class WorkshopUIController : MonoBehaviour {
             sellAllBtn.interactable = sellableCount > 0;
         }
 
+        if (openProstheticPanelBtn != null) {
+            openProstheticPanelBtn.interactable = HasProstheticRecipes();
+        }
+
+        if (prostheticSummaryText != null) {
+            prostheticSummaryText.text = BuildProstheticSummary();
+        }
+
         if (sellPanel != null && sellPanel.activeSelf) {
             RefreshSellList();
         }
 
-        RefreshProstheticList();
+        if (prostheticPanel != null && prostheticPanel.activeSelf) {
+            RefreshProstheticList();
+        }
     }
 
     private void BindButtons() {
@@ -83,6 +99,7 @@ public class WorkshopUIController : MonoBehaviour {
             departBtn.onClick.RemoveAllListeners();
             departBtn.onClick.AddListener(() => {
                 CloseSellPanel(false);
+                CloseProstheticPanel(false);
                 GameFlowController.Instance.DepartToDungeon();
             });
         }
@@ -104,10 +121,21 @@ public class WorkshopUIController : MonoBehaviour {
                 RefreshUI();
             });
         }
+
+        if (openProstheticPanelBtn != null) {
+            openProstheticPanelBtn.onClick.RemoveAllListeners();
+            openProstheticPanelBtn.onClick.AddListener(OpenProstheticPanel);
+        }
+
+        if (closeProstheticPanelBtn != null) {
+            closeProstheticPanelBtn.onClick.RemoveAllListeners();
+            closeProstheticPanelBtn.onClick.AddListener(CloseProstheticPanel);
+        }
     }
 
     public void OpenSellPanel() {
         EnsureSellControls();
+        CloseProstheticPanel(false);
         _sellPanelOpen = true;
 
         if (sellPanel != null) {
@@ -127,6 +155,35 @@ public class WorkshopUIController : MonoBehaviour {
 
         if (sellPanel != null) {
             sellPanel.SetActive(false);
+        }
+
+        if (refresh) {
+            RefreshUI();
+        }
+    }
+
+    public void OpenProstheticPanel() {
+        EnsureSellControls();
+        CloseSellPanel(false);
+        _prostheticPanelOpen = true;
+
+        if (prostheticPanel != null) {
+            prostheticPanel.SetActive(true);
+            prostheticPanel.transform.SetAsLastSibling();
+        }
+
+        RefreshUI();
+    }
+
+    public void CloseProstheticPanel() {
+        CloseProstheticPanel(true);
+    }
+
+    private void CloseProstheticPanel(bool refresh) {
+        _prostheticPanelOpen = false;
+
+        if (prostheticPanel != null) {
+            prostheticPanel.SetActive(false);
         }
 
         if (refresh) {
@@ -360,6 +417,32 @@ public class WorkshopUIController : MonoBehaviour {
         return text;
     }
 
+    private bool HasProstheticRecipes() {
+        foreach (var kvp in ConfigManager.CraftingRecipes) {
+            CraftingRecipeConfig recipe = kvp.Value;
+            if (recipe != null && !string.IsNullOrEmpty(recipe.TargetProstheticID)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private string BuildProstheticSummary() {
+        int recipeCount = 0;
+        foreach (var kvp in ConfigManager.CraftingRecipes) {
+            CraftingRecipeConfig recipe = kvp.Value;
+            if (recipe != null && !string.IsNullOrEmpty(recipe.TargetProstheticID)) {
+                recipeCount++;
+            }
+        }
+
+        int equippedCount = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.EquippedProsthetics?.Count ?? 0;
+        return recipeCount > 0
+            ? $"Recipes: {recipeCount}   Equipped: {equippedCount}\nCrafted prosthetics are equipped immediately."
+            : "No prosthetic recipes are available.";
+    }
+
     private void DestroyRuntimeObject(GameObject target) {
         if (target == null) {
             return;
@@ -536,47 +619,150 @@ public class WorkshopUIController : MonoBehaviour {
     }
 
     private void EnsureProstheticControls(Font defaultFont) {
-        if (prostheticHeaderText == null) {
-            GameObject headerObj = new GameObject("ProstheticHeader_Text");
-            headerObj.transform.SetParent(transform, false);
-            Text header = headerObj.AddComponent<Text>();
-            header.font = defaultFont;
-            header.fontSize = 28;
-            header.color = new Color(0.72f, 0.9f, 1f);
-            header.alignment = TextAnchor.UpperLeft;
-            header.raycastTarget = false;
-            RectTransform headerRect = headerObj.GetComponent<RectTransform>();
-            headerRect.anchorMin = new Vector2(1f, 1f);
-            headerRect.anchorMax = new Vector2(1f, 1f);
-            headerRect.pivot = new Vector2(1f, 1f);
-            headerRect.anchoredPosition = new Vector2(-40f, -40f);
-            headerRect.sizeDelta = new Vector2(680f, 50f);
-            prostheticHeaderText = header;
+        if (openProstheticPanelBtn == null) {
+            openProstheticPanelBtn = CreateAnchoredButton(
+                "OpenProstheticPanel_Button",
+                "Prosthetics",
+                transform,
+                new Vector2(0f, 0f),
+                new Vector2(0f, 0f),
+                new Vector2(0f, 0f),
+                new Vector2(150f, 170f),
+                new Vector2(250f, 70f),
+                new Color(0.18f, 0.42f, 0.58f),
+                defaultFont,
+                28);
         }
 
-        if (prostheticListParent == null) {
-            GameObject listObj = new GameObject("ProstheticList");
-            listObj.transform.SetParent(transform, false);
-            RectTransform listRect = listObj.AddComponent<RectTransform>();
-            listRect.anchorMin = new Vector2(1f, 1f);
-            listRect.anchorMax = new Vector2(1f, 1f);
-            listRect.pivot = new Vector2(1f, 1f);
-            listRect.anchoredPosition = new Vector2(-40f, -100f);
-            listRect.sizeDelta = new Vector2(680f, 220f);
+        EnsureProstheticPanel(defaultFont);
+    }
 
-            VerticalLayoutGroup layout = listObj.AddComponent<VerticalLayoutGroup>();
-            layout.childAlignment = TextAnchor.UpperLeft;
-            layout.childControlWidth = false;
-            layout.childControlHeight = false;
-            layout.childForceExpandWidth = false;
-            layout.childForceExpandHeight = false;
-            layout.spacing = 10f;
-
-            ContentSizeFitter fitter = listObj.AddComponent<ContentSizeFitter>();
-            fitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
-            fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-            prostheticListParent = listObj.transform;
+    private void EnsureProstheticPanel(Font defaultFont) {
+        if (prostheticPanel != null &&
+            prostheticHeaderText != null &&
+            prostheticSummaryText != null &&
+            prostheticListParent != null &&
+            closeProstheticPanelBtn != null) {
+            prostheticPanel.SetActive(_prostheticPanelOpen);
+            return;
         }
+
+        Canvas canvas = GetComponentInParent<Canvas>();
+        Transform panelParent = canvas != null ? canvas.transform : transform.parent ?? transform;
+
+        prostheticPanel = new GameObject("WorkshopProstheticPanel_Runtime");
+        prostheticPanel.transform.SetParent(panelParent, false);
+        RectTransform panelRect = prostheticPanel.AddComponent<RectTransform>();
+        panelRect.anchorMin = Vector2.zero;
+        panelRect.anchorMax = Vector2.one;
+        panelRect.sizeDelta = Vector2.zero;
+        Image panelBg = prostheticPanel.AddComponent<Image>();
+        panelBg.color = new Color(0.025f, 0.035f, 0.05f, 0.94f);
+
+        GameObject cardObj = new GameObject("ProstheticPanel_Card");
+        cardObj.transform.SetParent(prostheticPanel.transform, false);
+        RectTransform cardRect = cardObj.AddComponent<RectTransform>();
+        cardRect.anchorMin = new Vector2(0.5f, 0.5f);
+        cardRect.anchorMax = new Vector2(0.5f, 0.5f);
+        cardRect.pivot = new Vector2(0.5f, 0.5f);
+        cardRect.anchoredPosition = Vector2.zero;
+        cardRect.sizeDelta = new Vector2(1160f, 780f);
+        Image cardBg = cardObj.AddComponent<Image>();
+        cardBg.color = new Color(0.07f, 0.095f, 0.12f, 0.98f);
+
+        GameObject titleObj = new GameObject("Title_Text");
+        titleObj.transform.SetParent(cardObj.transform, false);
+        Text title = titleObj.AddComponent<Text>();
+        title.font = defaultFont;
+        title.fontSize = 40;
+        title.color = new Color(0.72f, 0.9f, 1f);
+        title.alignment = TextAnchor.MiddleLeft;
+        title.raycastTarget = false;
+        RectTransform titleRect = titleObj.GetComponent<RectTransform>();
+        titleRect.anchorMin = new Vector2(0f, 1f);
+        titleRect.anchorMax = new Vector2(0f, 1f);
+        titleRect.pivot = new Vector2(0f, 1f);
+        titleRect.anchoredPosition = new Vector2(40f, -30f);
+        titleRect.sizeDelta = new Vector2(460f, 64f);
+        prostheticHeaderText = title;
+
+        GameObject summaryObj = new GameObject("Summary_Text");
+        summaryObj.transform.SetParent(cardObj.transform, false);
+        Text summary = summaryObj.AddComponent<Text>();
+        summary.font = defaultFont;
+        summary.fontSize = 24;
+        summary.color = new Color(0.86f, 0.92f, 0.96f);
+        summary.alignment = TextAnchor.UpperLeft;
+        summary.raycastTarget = false;
+        RectTransform summaryRect = summaryObj.GetComponent<RectTransform>();
+        summaryRect.anchorMin = new Vector2(0f, 1f);
+        summaryRect.anchorMax = new Vector2(0f, 1f);
+        summaryRect.pivot = new Vector2(0f, 1f);
+        summaryRect.anchoredPosition = new Vector2(40f, -96f);
+        summaryRect.sizeDelta = new Vector2(700f, 80f);
+        prostheticSummaryText = summary;
+
+        closeProstheticPanelBtn = CreateAnchoredButton(
+            "Close_Button",
+            "Close",
+            cardObj.transform,
+            new Vector2(1f, 1f),
+            new Vector2(1f, 1f),
+            new Vector2(1f, 1f),
+            new Vector2(-40f, -36f),
+            new Vector2(140f, 56f),
+            new Color(0.28f, 0.3f, 0.34f),
+            defaultFont,
+            24);
+
+        GameObject scrollObj = new GameObject("ProstheticList_Scroll");
+        scrollObj.transform.SetParent(cardObj.transform, false);
+        RectTransform scrollRect = scrollObj.AddComponent<RectTransform>();
+        scrollRect.anchorMin = new Vector2(0.5f, 0.5f);
+        scrollRect.anchorMax = new Vector2(0.5f, 0.5f);
+        scrollRect.pivot = new Vector2(0.5f, 0.5f);
+        scrollRect.anchoredPosition = new Vector2(0f, -85f);
+        scrollRect.sizeDelta = new Vector2(1060f, 560f);
+        Image scrollBg = scrollObj.AddComponent<Image>();
+        scrollBg.color = new Color(0.045f, 0.06f, 0.075f, 0.92f);
+        ScrollRect scroll = scrollObj.AddComponent<ScrollRect>();
+        scroll.horizontal = false;
+
+        GameObject viewportObj = new GameObject("Viewport");
+        viewportObj.transform.SetParent(scrollObj.transform, false);
+        RectTransform viewportRect = viewportObj.AddComponent<RectTransform>();
+        viewportRect.anchorMin = Vector2.zero;
+        viewportRect.anchorMax = Vector2.one;
+        viewportRect.sizeDelta = new Vector2(-24f, -24f);
+        viewportRect.anchoredPosition = Vector2.zero;
+        Image viewportImage = viewportObj.AddComponent<Image>();
+        viewportImage.color = new Color(1f, 1f, 1f, 0.02f);
+        Mask viewportMask = viewportObj.AddComponent<Mask>();
+        viewportMask.showMaskGraphic = false;
+        scroll.viewport = viewportRect;
+
+        GameObject contentObj = new GameObject("Content");
+        contentObj.transform.SetParent(viewportObj.transform, false);
+        RectTransform contentRect = contentObj.AddComponent<RectTransform>();
+        contentRect.anchorMin = new Vector2(0f, 1f);
+        contentRect.anchorMax = new Vector2(1f, 1f);
+        contentRect.pivot = new Vector2(0f, 1f);
+        contentRect.anchoredPosition = Vector2.zero;
+        contentRect.sizeDelta = new Vector2(0f, 0f);
+        VerticalLayoutGroup contentLayout = contentObj.AddComponent<VerticalLayoutGroup>();
+        contentLayout.childAlignment = TextAnchor.UpperLeft;
+        contentLayout.childControlWidth = false;
+        contentLayout.childControlHeight = false;
+        contentLayout.childForceExpandWidth = false;
+        contentLayout.childForceExpandHeight = false;
+        contentLayout.spacing = 10f;
+        ContentSizeFitter contentFitter = contentObj.AddComponent<ContentSizeFitter>();
+        contentFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+        contentFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+        scroll.content = contentRect;
+        prostheticListParent = contentObj.transform;
+
+        prostheticPanel.SetActive(_prostheticPanelOpen);
     }
 
     private Button CreateActionButton(string objectName, string label, Vector2 anchoredPosition, Color color, Font font) {

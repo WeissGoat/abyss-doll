@@ -109,7 +109,8 @@ public class GameFlowController : MonoBehaviour {
     }
 
     public bool CanStageRemovedBackpackItems() {
-        return _currentScreen == GameScreenState.DungeonMap && _isDungeonMapInventoryOpen;
+        return (_currentScreen == GameScreenState.DungeonMap && _isDungeonMapInventoryOpen)
+            || _currentScreen == GameScreenState.CombatLoot;
     }
 
     public Transform GetInventoryItemLayer() {
@@ -307,6 +308,7 @@ public class GameFlowController : MonoBehaviour {
         if (lootCtrl != null) {
             lootCtrl.Present(result, testItemPrefab, () => {
                 _pendingCombatLootResult = null;
+                DiscardDetachedBackpackItems();
                 CombatNode currentCombatNode = GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode as CombatNode;
                 if (currentCombatNode != null) {
                     currentCombatNode.ConfirmLootCollection();
@@ -318,6 +320,7 @@ public class GameFlowController : MonoBehaviour {
         } else {
             Debug.LogWarning("[GameFlow] CombatLootPanel missing. Falling back to auto-confirm without UI interaction.");
             _pendingCombatLootResult = null;
+            DiscardDetachedBackpackItems();
             CombatNode currentCombatNode = GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode as CombatNode;
             if (currentCombatNode != null) {
                 currentCombatNode.ConfirmLootCollection();
@@ -479,12 +482,24 @@ public class GameFlowController : MonoBehaviour {
         foreach (var itemUI in FindObjectsOfType<DraggableItemUI>()) {
             if (itemUI != null && itemUI.IsPendingDiscard) {
                 discardedCount++;
-                Destroy(itemUI.gameObject);
+                DestroyRuntimeObject(itemUI.gameObject);
             }
         }
 
         if (discardedCount > 0) {
             Debug.Log($"[GameFlow] 丢弃了 {discardedCount} 件从局内背包移除的物品。");
+        }
+    }
+
+    private void DestroyRuntimeObject(GameObject target) {
+        if (target == null) {
+            return;
+        }
+
+        if (Application.isPlaying) {
+            Destroy(target);
+        } else {
+            DestroyImmediate(target);
         }
     }
 

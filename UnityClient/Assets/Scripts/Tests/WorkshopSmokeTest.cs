@@ -73,6 +73,7 @@ public static class WorkshopSmokeTest {
 
             RunProstheticCraftAndEffectTest(core);
             RunWorkshopSellPanelUITest(core);
+            RunWorkshopProstheticPanelUITest(core);
 
             Debug.Log("=== Workshop Smoke Test Finished ===");
         } catch (System.Exception ex) {
@@ -102,15 +103,45 @@ public static class WorkshopSmokeTest {
         bool panelIsSeparate = controller.sellPanel != null && controller.sellPanel.transform.parent == canvasObj.transform;
         bool panelOpened = controller.sellPanel != null && controller.sellPanel.activeSelf;
         bool listBuilt = controller.stashListParent != null && controller.stashListParent.childCount > 0;
-        bool prostheticListBuilt = controller.prostheticListParent != null && controller.prostheticListParent.childCount > 0;
+        bool prostheticPanelClosed = controller.prostheticPanel != null && !controller.prostheticPanel.activeSelf;
 
-        if (panelIsSeparate && panelOpened && listBuilt && prostheticListBuilt) {
+        if (panelIsSeparate && panelOpened && listBuilt && prostheticPanelClosed) {
             Debug.Log("Workshop Sell Panel UI PASSED.");
         } else {
-            Debug.LogError($"Workshop Sell Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, SellRows={controller.stashListParent?.childCount ?? 0}, ProstheticRows={controller.prostheticListParent?.childCount ?? 0}");
+            Debug.LogError($"Workshop Sell Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, SellRows={controller.stashListParent?.childCount ?? 0}, ProstheticPanelClosed={prostheticPanelClosed}");
         }
 
         controller.CloseSellPanel();
+        Object.DestroyImmediate(canvasObj);
+    }
+
+    private static void RunWorkshopProstheticPanelUITest(CoreBackend core) {
+        GameObject canvasObj = new GameObject("WorkshopProstheticUITestCanvas");
+        canvasObj.AddComponent<Canvas>();
+        canvasObj.AddComponent<GraphicRaycaster>();
+
+        GameObject workshopObj = new GameObject("WorkshopPanel");
+        workshopObj.transform.SetParent(canvasObj.transform, false);
+        workshopObj.AddComponent<RectTransform>();
+        WorkshopUIController controller = workshopObj.AddComponent<WorkshopUIController>();
+        controller.moneyText = CreateTestText(workshopObj.transform);
+        controller.chassisInfoText = CreateTestText(workshopObj.transform);
+
+        controller.RefreshUI();
+        controller.OpenProstheticPanel();
+
+        bool panelIsSeparate = controller.prostheticPanel != null && controller.prostheticPanel.transform.parent == canvasObj.transform;
+        bool panelOpened = controller.prostheticPanel != null && controller.prostheticPanel.activeSelf;
+        bool listBuilt = controller.prostheticListParent != null && controller.prostheticListParent.childCount > 0;
+        bool sellPanelClosed = controller.sellPanel != null && !controller.sellPanel.activeSelf;
+
+        if (panelIsSeparate && panelOpened && listBuilt && sellPanelClosed) {
+            Debug.Log("Workshop Prosthetic Panel UI PASSED.");
+        } else {
+            Debug.LogError($"Workshop Prosthetic Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, ProstheticRows={controller.prostheticListParent?.childCount ?? 0}, SellPanelClosed={sellPanelClosed}");
+        }
+
+        controller.CloseProstheticPanel();
         Object.DestroyImmediate(canvasObj);
     }
 

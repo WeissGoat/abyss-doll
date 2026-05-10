@@ -1,4 +1,8 @@
+using System;
+using System.Reflection;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public static class CombatLootDropTest {
     private static CombatLootPickupResult _preparedLootResult;
@@ -86,7 +90,81 @@ public static class CombatLootDropTest {
         DungeonEventBus.OnCombatLootPrepared -= HandleCombatLootPrepared;
         DungeonEventBus.OnNodeSettlementCompleted -= HandleNodeSettlementCompleted;
 
+        RunCombatLootBackpackDiscardUITest(core);
+
         Debug.Log("=== Combat Loot Drop Test Finished ===");
+    }
+
+    private static void RunCombatLootBackpackDiscardUITest(CoreBackend core) {
+        GameObject canvasObj = new GameObject("CombatLootDiscardUITestCanvas");
+        canvasObj.AddComponent<Canvas>();
+        canvasObj.AddComponent<GraphicRaycaster>();
+
+        GameObject flowObj = new GameObject("GameFlowController");
+        GameFlowController flow = flowObj.AddComponent<GameFlowController>();
+        SetGameFlowScreen(flow, "CombatLoot");
+
+        var doll = core.CurrentPlayer.ActiveDoll;
+        doll.RuntimeGrid = new BackpackGrid(doll.Chassis);
+        BackpackGrid grid = doll.RuntimeGrid as BackpackGrid;
+        ItemEntity backpackItem = ConfigManager.CreateItem("loot_gear_scrap");
+        bool placed = grid != null && backpackItem != null && grid.PlaceItem(backpackItem, 0, 0);
+        if (!placed) {
+            Debug.LogError("Combat Loot Backpack Discard UI FAILED. Could not place test backpack item.");
+            UnityEngine.Object.DestroyImmediate(canvasObj);
+            UnityEngine.Object.DestroyImmediate(flowObj);
+            return;
+        }
+
+        GameObject slotObj = new GameObject("Slot_0_0");
+        slotObj.transform.SetParent(canvasObj.transform, false);
+        slotObj.AddComponent<RectTransform>();
+
+        GameObject itemObj = new GameObject("BackpackItemUI");
+        itemObj.transform.SetParent(canvasObj.transform, false);
+        itemObj.AddComponent<RectTransform>();
+        itemObj.AddComponent<Image>();
+        itemObj.AddComponent<CanvasGroup>();
+        DraggableItemUI itemUI = itemObj.AddComponent<DraggableItemUI>();
+        itemUI.SetupData(backpackItem);
+        itemUI.SnapToSlot(slotObj.transform, 0, 0);
+
+        PointerEventData eventData = new PointerEventData(null) {
+            position = new Vector2(32f, 32f)
+        };
+
+        itemUI.OnBeginDrag(eventData);
+        itemUI.OnEndDrag(eventData);
+
+        bool canStage = flow.CanStageRemovedBackpackItems();
+        bool stagedForDiscard = itemUI != null && itemUI.IsPendingDiscard;
+        bool removedFromGrid = placed && grid != null && !grid.ContainedItems.Contains(backpackItem);
+
+        InvokeDiscardDetachedBackpackItems(flow);
+        bool queuedOrDestroyedAfterDiscard = Application.isPlaying || itemUI == null;
+
+        if (canStage && stagedForDiscard && removedFromGrid && queuedOrDestroyedAfterDiscard) {
+            Debug.Log("Combat Loot Backpack Discard UI PASSED.");
+        } else {
+            Debug.LogError($"Combat Loot Backpack Discard UI FAILED. CanStage={canStage}, Pending={stagedForDiscard}, RemovedFromGrid={removedFromGrid}, QueuedOrDestroyed={queuedOrDestroyedAfterDiscard}");
+        }
+
+        UnityEngine.Object.DestroyImmediate(canvasObj);
+        UnityEngine.Object.DestroyImmediate(flowObj);
+    }
+
+    private static void SetGameFlowScreen(GameFlowController controller, string screenName) {
+        Type screenType = typeof(GameFlowController).GetNestedType("GameScreenState", BindingFlags.NonPublic);
+        object state = Enum.Parse(screenType, screenName);
+        typeof(GameFlowController)
+            .GetField("_currentScreen", BindingFlags.Instance | BindingFlags.NonPublic)
+            .SetValue(controller, state);
+    }
+
+    private static void InvokeDiscardDetachedBackpackItems(GameFlowController controller) {
+        typeof(GameFlowController)
+            .GetMethod("DiscardDetachedBackpackItems", BindingFlags.Instance | BindingFlags.NonPublic)
+            .Invoke(controller, null);
     }
 
     private static bool HasOfferedItem(CombatLootPickupResult result, string configID) {

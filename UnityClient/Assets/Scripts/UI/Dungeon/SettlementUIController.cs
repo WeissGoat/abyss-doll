@@ -203,7 +203,19 @@ public class CombatLootUIController : MonoBehaviour {
         }
 
         for (int i = lootParent.childCount - 1; i >= 0; i--) {
-            Destroy(lootParent.GetChild(i).gameObject);
+            DestroyRuntimeObject(lootParent.GetChild(i).gameObject);
+        }
+    }
+
+    private void DestroyRuntimeObject(GameObject target) {
+        if (target == null) {
+            return;
+        }
+
+        if (Application.isPlaying) {
+            Destroy(target);
+        } else {
+            DestroyImmediate(target);
         }
     }
 }
