@@ -113,11 +113,58 @@ public class DungeonManager {
         DungeonEventBus.OnCombatLootCollected -= HandleCombatLootCollected;
     }
 
-    public void LoadLayer(int layerID) {
-        LoadLayer(layerID, true);
+    public bool LoadLayer(int layerID) {
+        return StartRunAtLayer(layerID);
     }
 
-    public void LoadLayer(int layerID, bool resetRunLootLedger) {
+    public bool CanStartAtLayer(int layerID) {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        return player != null
+            && layerID >= 1
+            && layerID <= player.HighestUnlockedDungeonLayer
+            && ConfigManager.Dungeons.ContainsKey(layerID);
+    }
+
+    public bool StartRunAtLayer(int layerID) {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        if (!CanStartAtLayer(layerID)) {
+            string reason = BuildStartLayerRejectionReason(player, layerID);
+            Debug.LogWarning($"[DungeonManager] Cannot start dungeon at Layer {layerID}. {reason}");
+            DungeonEventBus.PublishDungeonStartLayerRejected(layerID, reason);
+            return false;
+        }
+
+        player.LastSelectedDungeonStartLayer = layerID;
+        Debug.Log($"[DungeonManager] Starting new dungeon run at Layer {layerID}.");
+        ResetRunLootLedger();
+        LoadLayerInternal(layerID, false);
+        DungeonEventBus.PublishDungeonRunStarted(layerID);
+        return true;
+    }
+
+    public bool TryUnlockNextStartLayerFromClearedLayer(int clearedLayerID) {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        if (player == null || clearedLayerID < 1) {
+            return false;
+        }
+
+        int nextLayerID = clearedLayerID + 1;
+        if (!ConfigManager.Dungeons.ContainsKey(nextLayerID)) {
+            Debug.Log($"[DungeonManager] No Layer {nextLayerID} config exists. Start layer unlock skipped.");
+            return false;
+        }
+
+        if (player.HighestUnlockedDungeonLayer >= nextLayerID) {
+            return false;
+        }
+
+        player.HighestUnlockedDungeonLayer = nextLayerID;
+        Debug.Log($"[DungeonManager] Unlocked dungeon start layer {nextLayerID}.");
+        DungeonEventBus.PublishDungeonStartLayerUnlocked(nextLayerID);
+        return true;
+    }
+
+    private void LoadLayerInternal(int layerID, bool resetRunLootLedger) {
         if (!ConfigManager.Dungeons.ContainsKey(layerID)) {
             Debug.LogError($"[DungeonManager] Layer {layerID} not found.");
             return;
@@ -140,21 +187,22 @@ public class DungeonManager {
         return CurrentLayer != null && ConfigManager.Dungeons.ContainsKey(CurrentLayer.LayerID + 1);
     }
 
-    public void EnterNextLayer() {
+    public bool EnterNextLayer() {
         if (CurrentLayer == null) {
             Debug.LogWarning("[DungeonManager] Cannot enter next layer because CurrentLayer is null.");
-            return;
+            return false;
         }
 
         int nextLayerID = CurrentLayer.LayerID + 1;
         if (!ConfigManager.Dungeons.ContainsKey(nextLayerID)) {
             Debug.Log("[DungeonManager] No next layer configured. Evacuating from abyss end.");
             DungeonEventBus.PublishDungeonEvacuated();
-            return;
+            return false;
         }
 
         Debug.Log($"[DungeonManager] Descending from Layer {CurrentLayer.LayerID} to Layer {nextLayerID}.");
-        LoadLayer(nextLayerID, false);
+        LoadLayerInternal(nextLayerID, false);
+        return true;
     }
 
     public void MoveToNode(NodeBase targetNode) {
@@ -356,6 +404,26 @@ public class DungeonManager {
 
     private void ResetRunLootLedger() {
         _runAcceptedLoot.Clear();
+    }
+
+    private string BuildStartLayerRejectionReason(PlayerProfile player, int layerID) {
+        if (player == null) {
+            return "Player profile is missing.";
+        }
+
+        if (layerID < 1) {
+            return "Layer ID must be >= 1.";
+        }
+
+        if (!ConfigManager.Dungeons.ContainsKey(layerID)) {
+            return "Layer config does not exist.";
+        }
+
+        if (layerID > player.HighestUnlockedDungeonLayer) {
+            return $"Layer is locked. HighestUnlocked={player.HighestUnlockedDungeonLayer}.";
+        }
+
+        return "Unknown rejection reason.";
     }
 
     private void PublishInventoryRemovalEvents(IEnumerable<ItemEntity> removedItems) {

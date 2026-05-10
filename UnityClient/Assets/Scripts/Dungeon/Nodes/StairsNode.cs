@@ -5,6 +5,7 @@ public class StairsNode : NodeBase {
 
     public override void OnEnterNode() {
         Debug.Log($"[Dungeon] Entered Stairs Node {NodeID}. Choose to descend or return to town.");
+        GameRoot.Core?.Dungeon?.TryUnlockNextStartLayerFromClearedLayer(LayerID);
         DungeonEventBus.PublishStairsEntered(this);
     }
 

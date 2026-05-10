@@ -4,11 +4,15 @@ using UnityEngine.UI;
 
 public static class DungeonStairsProgressionTest {
     private static DungeonSettlementResult _lastSettlementResult;
+    private static int _lastUnlockedStartLayerID;
 
     public static void Run() {
         Debug.Log("=== Running Dungeon Stairs Progression Test ===");
 
         TestLayerEndsWithStairsAfterBoss();
+        TestDungeonStartLayerDefaultsAndLockedValidation();
+        TestStairsUnlocksNextStartLayer();
+        TestStartRunAtUnlockedLayerResetsRunLootLedger();
         TestEnterNextLayerKeepsRunLootLedger();
         TestStairsReturnSettlesRunLoot();
         TestLayerTwoMapLayoutKeepsNodeButtonsReadable();
@@ -54,7 +58,8 @@ public static class DungeonStairsProgressionTest {
 
     private static void TestLayerTwoMapLayoutKeepsNodeButtonsReadable() {
         CoreBackend core = CreateCore();
-        core.Dungeon.LoadLayer(2);
+        core.Dungeon.TryUnlockNextStartLayerFromClearedLayer(1);
+        core.Dungeon.StartRunAtLayer(2);
 
         GameObject canvasObj = new GameObject("DungeonMapLayoutTestCanvas");
         canvasObj.AddComponent<Canvas>();
@@ -96,6 +101,79 @@ public static class DungeonStairsProgressionTest {
 
         Object.DestroyImmediate(canvasObj);
         Object.DestroyImmediate(nodeButtonPrefab);
+    }
+
+    private static void TestDungeonStartLayerDefaultsAndLockedValidation() {
+        CoreBackend core = CreateCore();
+
+        bool defaultsValid = core.CurrentPlayer.HighestUnlockedDungeonLayer == 1
+            && core.CurrentPlayer.LastSelectedDungeonStartLayer == 1;
+        bool canStartLayerOne = core.Dungeon.CanStartAtLayer(1);
+        bool rejectsLockedLayerTwo = !core.Dungeon.CanStartAtLayer(2) && !core.Dungeon.StartRunAtLayer(2);
+
+        if (defaultsValid && canStartLayerOne && rejectsLockedLayerTwo && core.Dungeon.CurrentLayer == null) {
+            Debug.Log("Dungeon Start Layer Defaults PASSED.");
+        } else {
+            Debug.LogError($"Dungeon Start Layer Defaults FAILED. Highest={core.CurrentPlayer.HighestUnlockedDungeonLayer}, Last={core.CurrentPlayer.LastSelectedDungeonStartLayer}, Can1={canStartLayerOne}, Reject2={rejectsLockedLayerTwo}, CurrentLayer={core.Dungeon.CurrentLayer?.LayerID.ToString() ?? "null"}");
+        }
+    }
+
+    private static void TestStairsUnlocksNextStartLayer() {
+        CoreBackend core = CreateCore();
+        core.Dungeon.LoadLayer(1);
+
+        _lastUnlockedStartLayerID = -1;
+        DungeonEventBus.OnDungeonStartLayerUnlocked += HandleStartLayerUnlocked;
+        StairsNode stairs = FindLastNode(core.Dungeon.CurrentLayer) as StairsNode;
+        core.Dungeon.MoveToNode(stairs);
+        DungeonEventBus.OnDungeonStartLayerUnlocked -= HandleStartLayerUnlocked;
+
+        bool unlockValid = stairs != null
+            && core.CurrentPlayer.HighestUnlockedDungeonLayer == 2
+            && _lastUnlockedStartLayerID == 2
+            && core.Dungeon.CanStartAtLayer(2);
+
+        if (unlockValid) {
+            Debug.Log("Stairs Unlocks Next Start Layer PASSED.");
+        } else {
+            Debug.LogError($"Stairs Unlocks Next Start Layer FAILED. Stairs={stairs != null}, Highest={core.CurrentPlayer.HighestUnlockedDungeonLayer}, EventLayer={_lastUnlockedStartLayerID}, CanStart2={core.Dungeon.CanStartAtLayer(2)}");
+        }
+    }
+
+    private static void TestStartRunAtUnlockedLayerResetsRunLootLedger() {
+        CoreBackend core = CreateCore();
+        DollEntity doll = core.CurrentPlayer.ActiveDoll;
+        BackpackGrid grid = ResetBackpack(doll);
+
+        core.Dungeon.LoadLayer(1);
+        core.Dungeon.TryUnlockNextStartLayerFromClearedLayer(1);
+        ItemEntity previousRunLoot = ConfigManager.CreateItem("loot_gear_scrap");
+        grid.PlaceItem(previousRunLoot, 0, 0);
+        DungeonEventBus.PublishCombatLootCollected(new CombatLootCollectionResult {
+            NodeID = "previous_run",
+            AcceptedItems = new List<ItemEntity> { previousRunLoot }
+        });
+
+        bool startedLayerTwo = core.Dungeon.StartRunAtLayer(2);
+        _lastSettlementResult = null;
+        DungeonEventBus.OnDungeonSettlementPrepared += HandleSettlementPrepared;
+        DungeonEventBus.PublishDungeonEvacuated();
+        DungeonEventBus.OnDungeonSettlementPrepared -= HandleSettlementPrepared;
+
+        bool resetValid = startedLayerTwo
+            && core.Dungeon.CurrentLayer != null
+            && core.Dungeon.CurrentLayer.LayerID == 2
+            && core.CurrentPlayer.LastSelectedDungeonStartLayer == 2
+            && _lastSettlementResult != null
+            && _lastSettlementResult.PickedUpCount == 0
+            && _lastSettlementResult.BroughtOutCount == 0
+            && _lastSettlementResult.LostCount == 0;
+
+        if (resetValid) {
+            Debug.Log("Start Run At Unlocked Layer Resets Loot Ledger PASSED.");
+        } else {
+            Debug.LogError($"Start Run At Unlocked Layer Resets Loot Ledger FAILED. Started={startedLayerTwo}, Layer={core.Dungeon.CurrentLayer?.LayerID ?? -1}, Last={core.CurrentPlayer.LastSelectedDungeonStartLayer}, Picked={_lastSettlementResult?.PickedUpCount ?? -1}, Brought={_lastSettlementResult?.BroughtOutCount ?? -1}, Lost={_lastSettlementResult?.LostCount ?? -1}");
+        }
     }
 
     private static void TestEnterNextLayerKeepsRunLootLedger() {
@@ -224,6 +302,10 @@ public static class DungeonStairsProgressionTest {
 
     private static void HandleSettlementPrepared(DungeonSettlementResult result) {
         _lastSettlementResult = result;
+    }
+
+    private static void HandleStartLayerUnlocked(int layerID) {
+        _lastUnlockedStartLayerID = layerID;
     }
 
     private static GameObject CreateNodeButtonPrefab() {

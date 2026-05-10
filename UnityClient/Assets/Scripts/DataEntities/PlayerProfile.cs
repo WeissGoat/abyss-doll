@@ -8,6 +8,8 @@ public class PlayerProfile {
     public int DebtLevel;
     public int WorkshopLevel;
     public int MemoryFragments;
+    public int HighestUnlockedDungeonLayer = 1;
+    public int LastSelectedDungeonStartLayer = 1;
     
     public string ActiveDollID;
     public DollEntity ActiveDoll;

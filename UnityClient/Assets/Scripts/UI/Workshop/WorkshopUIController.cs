@@ -20,8 +20,12 @@ public class WorkshopUIController : MonoBehaviour {
     public Text prostheticSummaryText;
     public Transform prostheticListParent;
     public Image backgroundImage;
+    public GameObject dungeonStartLayerPanel;
+
     private bool _sellPanelOpen;
     private bool _prostheticPanelOpen;
+    private bool _dungeonStartLayerPanelOpen;
+    private DungeonStartLayerUIController _dungeonStartLayerController;
 
     void Start() {
         ApplyWorkshopBackground();
@@ -29,6 +33,7 @@ public class WorkshopUIController : MonoBehaviour {
         BindButtons();
         CloseSellPanel(false);
         CloseProstheticPanel(false);
+        CloseDungeonStartLayerPanel(false);
         RefreshUI();
     }
 
@@ -84,6 +89,10 @@ public class WorkshopUIController : MonoBehaviour {
         if (prostheticPanel != null && prostheticPanel.activeSelf) {
             RefreshProstheticList();
         }
+
+        if (dungeonStartLayerPanel != null && dungeonStartLayerPanel.activeSelf) {
+            _dungeonStartLayerController?.Present(CloseDungeonStartLayerPanel);
+        }
     }
 
     private void BindButtons() {
@@ -103,7 +112,7 @@ public class WorkshopUIController : MonoBehaviour {
             departBtn.onClick.AddListener(() => {
                 CloseSellPanel(false);
                 CloseProstheticPanel(false);
-                GameFlowController.Instance.DepartToDungeon();
+                OpenDungeonStartLayerPanel();
             });
         }
 
@@ -187,6 +196,36 @@ public class WorkshopUIController : MonoBehaviour {
 
         if (prostheticPanel != null) {
             prostheticPanel.SetActive(false);
+        }
+
+        if (refresh) {
+            RefreshUI();
+        }
+    }
+
+    public void OpenDungeonStartLayerPanel() {
+        EnsureSellControls();
+        CloseSellPanel(false);
+        CloseProstheticPanel(false);
+        _dungeonStartLayerPanelOpen = true;
+
+        if (dungeonStartLayerPanel != null) {
+            dungeonStartLayerPanel.SetActive(true);
+            dungeonStartLayerPanel.transform.SetAsLastSibling();
+        }
+
+        _dungeonStartLayerController?.Present(CloseDungeonStartLayerPanel);
+    }
+
+    public void CloseDungeonStartLayerPanel() {
+        CloseDungeonStartLayerPanel(true);
+    }
+
+    private void CloseDungeonStartLayerPanel(bool refresh) {
+        _dungeonStartLayerPanelOpen = false;
+
+        if (dungeonStartLayerPanel != null) {
+            dungeonStartLayerPanel.SetActive(false);
         }
 
         if (refresh) {
@@ -478,6 +517,7 @@ public class WorkshopUIController : MonoBehaviour {
 
         EnsureSellPanel(defaultFont);
         EnsureProstheticControls(defaultFont);
+        EnsureDungeonStartLayerPanel(defaultFont);
     }
 
     private void EnsureSellPanel(Font defaultFont) {
@@ -766,6 +806,117 @@ public class WorkshopUIController : MonoBehaviour {
         prostheticListParent = contentObj.transform;
 
         prostheticPanel.SetActive(_prostheticPanelOpen);
+    }
+
+    private void EnsureDungeonStartLayerPanel(Font defaultFont) {
+        if (dungeonStartLayerPanel != null && _dungeonStartLayerController != null) {
+            dungeonStartLayerPanel.SetActive(_dungeonStartLayerPanelOpen);
+            return;
+        }
+
+        Canvas canvas = GetComponentInParent<Canvas>();
+        Transform panelParent = canvas != null ? canvas.transform : transform.parent ?? transform;
+
+        dungeonStartLayerPanel = new GameObject("DungeonStartLayerPanel_Runtime");
+        dungeonStartLayerPanel.transform.SetParent(panelParent, false);
+        RectTransform panelRect = dungeonStartLayerPanel.AddComponent<RectTransform>();
+        panelRect.anchorMin = Vector2.zero;
+        panelRect.anchorMax = Vector2.one;
+        panelRect.sizeDelta = Vector2.zero;
+        Image panelBg = dungeonStartLayerPanel.AddComponent<Image>();
+        panelBg.color = new Color(0.025f, 0.035f, 0.04f, 0.94f);
+
+        _dungeonStartLayerController = dungeonStartLayerPanel.AddComponent<DungeonStartLayerUIController>();
+
+        GameObject cardObj = new GameObject("DungeonStartLayer_Card");
+        cardObj.transform.SetParent(dungeonStartLayerPanel.transform, false);
+        RectTransform cardRect = cardObj.AddComponent<RectTransform>();
+        cardRect.anchorMin = new Vector2(0.5f, 0.5f);
+        cardRect.anchorMax = new Vector2(0.5f, 0.5f);
+        cardRect.pivot = new Vector2(0.5f, 0.5f);
+        cardRect.anchoredPosition = Vector2.zero;
+        cardRect.sizeDelta = new Vector2(960f, 720f);
+        Image cardBg = cardObj.AddComponent<Image>();
+        cardBg.color = new Color(0.08f, 0.1f, 0.11f, 0.98f);
+
+        GameObject titleObj = new GameObject("Title_Text");
+        titleObj.transform.SetParent(cardObj.transform, false);
+        Text title = titleObj.AddComponent<Text>();
+        title.font = defaultFont;
+        title.fontSize = 42;
+        title.color = new Color(1f, 0.84f, 0.46f);
+        title.alignment = TextAnchor.MiddleLeft;
+        title.raycastTarget = false;
+        RectTransform titleRect = titleObj.GetComponent<RectTransform>();
+        titleRect.anchorMin = new Vector2(0f, 1f);
+        titleRect.anchorMax = new Vector2(0f, 1f);
+        titleRect.pivot = new Vector2(0f, 1f);
+        titleRect.anchoredPosition = new Vector2(48f, -36f);
+        titleRect.sizeDelta = new Vector2(480f, 70f);
+        _dungeonStartLayerController.titleText = title;
+
+        GameObject summaryObj = new GameObject("Summary_Text");
+        summaryObj.transform.SetParent(cardObj.transform, false);
+        Text summary = summaryObj.AddComponent<Text>();
+        summary.font = defaultFont;
+        summary.fontSize = 24;
+        summary.color = new Color(0.86f, 0.9f, 0.86f);
+        summary.alignment = TextAnchor.UpperLeft;
+        summary.raycastTarget = false;
+        RectTransform summaryRect = summaryObj.GetComponent<RectTransform>();
+        summaryRect.anchorMin = new Vector2(0f, 1f);
+        summaryRect.anchorMax = new Vector2(0f, 1f);
+        summaryRect.pivot = new Vector2(0f, 1f);
+        summaryRect.anchoredPosition = new Vector2(48f, -110f);
+        summaryRect.sizeDelta = new Vector2(760f, 82f);
+        _dungeonStartLayerController.summaryText = summary;
+
+        GameObject listObj = new GameObject("LayerList");
+        listObj.transform.SetParent(cardObj.transform, false);
+        RectTransform listRect = listObj.AddComponent<RectTransform>();
+        listRect.anchorMin = new Vector2(0.5f, 0.5f);
+        listRect.anchorMax = new Vector2(0.5f, 0.5f);
+        listRect.pivot = new Vector2(0.5f, 0.5f);
+        listRect.anchoredPosition = new Vector2(0f, -34f);
+        listRect.sizeDelta = new Vector2(800f, 390f);
+        VerticalLayoutGroup listLayout = listObj.AddComponent<VerticalLayoutGroup>();
+        listLayout.childAlignment = TextAnchor.UpperCenter;
+        listLayout.childControlWidth = false;
+        listLayout.childControlHeight = false;
+        listLayout.childForceExpandWidth = false;
+        listLayout.childForceExpandHeight = false;
+        listLayout.spacing = 14f;
+        _dungeonStartLayerController.listParent = listObj.transform;
+
+        Button confirmBtn = CreateAnchoredButton(
+            "Confirm_Button",
+            "开始下潜",
+            cardObj.transform,
+            new Vector2(1f, 0f),
+            new Vector2(1f, 0f),
+            new Vector2(1f, 0f),
+            new Vector2(-48f, 42f),
+            new Vector2(210f, 64f),
+            new Color(0.82f, 0.48f, 0.18f),
+            defaultFont,
+            26);
+        _dungeonStartLayerController.confirmBtn = confirmBtn;
+
+        Button closeBtn = CreateAnchoredButton(
+            "Close_Button",
+            "返回",
+            cardObj.transform,
+            new Vector2(0f, 0f),
+            new Vector2(0f, 0f),
+            new Vector2(0f, 0f),
+            new Vector2(48f, 42f),
+            new Vector2(170f, 64f),
+            new Color(0.28f, 0.31f, 0.34f),
+            defaultFont,
+            26);
+        _dungeonStartLayerController.closeBtn = closeBtn;
+
+        dungeonStartLayerPanel.SetActive(_dungeonStartLayerPanelOpen);
     }
 
     private Button CreateActionButton(string objectName, string label, Vector2 anchoredPosition, Color color, Font font) {

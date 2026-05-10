@@ -15,6 +15,9 @@ public static class DungeonEventBus {
     public static event Action OnDungeonDefeated;
     public static event Action<bool> OnDungeonSettled;
     public static event Action<DungeonSettlementResult> OnDungeonSettlementPrepared;
+    public static event Action<int> OnDungeonStartLayerUnlocked;
+    public static event Action<int> OnDungeonRunStarted;
+    public static event Action<int, string> OnDungeonStartLayerRejected;
 
     public static void PublishLayerLoaded() {
         OnLayerLoaded?.Invoke();
@@ -64,6 +67,18 @@ public static class DungeonEventBus {
         OnDungeonSettlementPrepared?.Invoke(result);
     }
 
+    public static void PublishDungeonStartLayerUnlocked(int layerID) {
+        OnDungeonStartLayerUnlocked?.Invoke(layerID);
+    }
+
+    public static void PublishDungeonRunStarted(int startLayerID) {
+        OnDungeonRunStarted?.Invoke(startLayerID);
+    }
+
+    public static void PublishDungeonStartLayerRejected(int layerID, string reason) {
+        OnDungeonStartLayerRejected?.Invoke(layerID, reason);
+    }
+
     public static void ResetAllListeners() {
         OnLayerLoaded = null;
         OnNodeEntered = null;
@@ -77,5 +92,8 @@ public static class DungeonEventBus {
         OnDungeonDefeated = null;
         OnDungeonSettled = null;
         OnDungeonSettlementPrepared = null;
+        OnDungeonStartLayerUnlocked = null;
+        OnDungeonRunStarted = null;
+        OnDungeonStartLayerRejected = null;
     }
 }
