@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class WorkshopSmokeTest {
     public static void Run() {
@@ -70,9 +71,50 @@ public static class WorkshopSmokeTest {
                 Debug.LogError($"Chassis Upgrade FAILED. Current Chassis: {doll.Chassis.ChassisID} ({doll.Chassis.GridWidth}x{doll.Chassis.GridHeight})");
             }
 
+            RunWorkshopSellPanelUITest(core);
+
             Debug.Log("=== Workshop Smoke Test Finished ===");
         } catch (System.Exception ex) {
             Debug.LogError($"[WorkshopSmokeTest Crash] {ex.Message}\n{ex.StackTrace}");
         }
+    }
+
+    private static void RunWorkshopSellPanelUITest(CoreBackend core) {
+        GameObject canvasObj = new GameObject("WorkshopSellUITestCanvas");
+        canvasObj.AddComponent<Canvas>();
+        canvasObj.AddComponent<GraphicRaycaster>();
+
+        GameObject workshopObj = new GameObject("WorkshopPanel");
+        workshopObj.transform.SetParent(canvasObj.transform, false);
+        workshopObj.AddComponent<RectTransform>();
+        WorkshopUIController controller = workshopObj.AddComponent<WorkshopUIController>();
+        controller.moneyText = CreateTestText(workshopObj.transform);
+        controller.chassisInfoText = CreateTestText(workshopObj.transform);
+
+        core.CurrentPlayer.ActiveDoll.RuntimeGrid = new BackpackGrid(core.CurrentPlayer.ActiveDoll.Chassis);
+        ItemEntity sellTarget = ConfigManager.CreateItem("loot_gear_scrap");
+        ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).PlaceItem(sellTarget, 0, 0);
+
+        controller.RefreshUI();
+        controller.OpenSellPanel();
+
+        bool panelIsSeparate = controller.sellPanel != null && controller.sellPanel.transform.parent == canvasObj.transform;
+        bool panelOpened = controller.sellPanel != null && controller.sellPanel.activeSelf;
+        bool listBuilt = controller.stashListParent != null && controller.stashListParent.childCount > 0;
+
+        if (panelIsSeparate && panelOpened && listBuilt) {
+            Debug.Log("Workshop Sell Panel UI PASSED.");
+        } else {
+            Debug.LogError($"Workshop Sell Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, Rows={controller.stashListParent?.childCount ?? 0}");
+        }
+
+        controller.CloseSellPanel();
+        Object.DestroyImmediate(canvasObj);
+    }
+
+    private static Text CreateTestText(Transform parent) {
+        GameObject obj = new GameObject("TestText");
+        obj.transform.SetParent(parent, false);
+        return obj.AddComponent<Text>();
     }
 }
