@@ -25,5 +25,8 @@
       "Weight": 10
     }
   ],
-  "BossNode": "elite_scrap_guard"
+  "BossNode": "elite_scrap_guard",
+  "EndNode": {
+    "NodeType": "StairsNode"
+  }
 }

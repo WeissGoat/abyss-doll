@@ -11,6 +11,43 @@
 
 深渊的路线是提前生成的，玩家一目了然。我们需要抽象出 `Layer` 和 `NodeBase`。
 
+### 1.1 层终点：阶梯房
+
+每一层的最后一个可进入节点应配置为 `StairsNode`（显示名：阶梯）。它不是 `NodePool` 随机出来的普通节点，而是由 `DungeonConfig.EndNode` 显式声明，程序只负责按配置在关底 Boss 节点之后实例化该节点。
+
+当前 MVP 的线性结构为：
+
+```text
+沿途随机节点 ... -> Boss CombatNode -> StairsNode
+```
+
+`ExpectedNodeCount` 仍表示“从入口到 Boss 的路径长度，包含 Boss”。当 `EndNode` 配置为 `StairsNode` 时，实际地图按钮数量会是 `ExpectedNodeCount + 1`，多出来的 1 个就是配置声明的阶梯房。
+
+配置示例：
+
+```json
+{
+  "ExpectedNodeCount": 3,
+  "BossNode": "elite_scrap_guard",
+  "EndNode": {
+    "NodeType": "StairsNode"
+  }
+}
+```
+
+阶梯房的职责：
+
+* 进入下一层：调用 `DungeonManager.EnterNextLayer()`，加载 `CurrentLayer.LayerID + 1`。
+* 返回小镇：发布 `DungeonEventBus.PublishDungeonEvacuated()`，走现有撤离结算。
+* 无下一层时：进入下一层按钮不可用，仅允许返回小镇结算。
+
+结算归属调整：
+
+* Boss 战胜利后只完成战斗节点自身结算，并通过 `OnNodeSettlementCompleted` 通知外界。
+* `DungeonManager` 不再因为打完 Boss 自动撤离；如果 Boss 后存在配置出来的 `EndNode`，则发布 `OnNodeResolutionFinished` 回到地图等待玩家选择阶梯。
+* 仅当某个终端节点没有后继节点时，`DungeonManager` 才保留自动撤离 fallback，用于异常配置兜底。
+* 进入下一层不会清空本次探索已拾取战利品账本，玩家跨层后返回小镇仍能正确统计本次带出/遗失战利品。
+
 ```csharp
 // 节点基类，工厂模式产出
 public abstract class NodeBase {
@@ -35,6 +72,12 @@ public class SafeRoomNode : NodeBase {
     }
 }
 
+public class StairsNode : NodeBase {
+    public override void OnEnterNode() {
+        // 打开阶梯 UI：进入下一层 / 返回小镇
+    }
+}
+
 // 楼层控制器
 public class DungeonLayer {
     public int LayerID;
@@ -42,7 +85,7 @@ public class DungeonLayer {
     public NodeBase CurrentNode;
     
     public void GenerateMapTree() {
-        // 根据配置表生成分支树结构
+        // 根据配置表生成分支树结构，并在 Boss 后追加 DungeonConfig.EndNode
     }
 }
 

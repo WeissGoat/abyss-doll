@@ -57,8 +57,8 @@ public static class MUDTestWrapper {
                     break;
                 }
                 
-                // 模拟打赢掉落：如果是关底 Boss，掉落核心
-                if (currNode.NextNodes == null || currNode.NextNodes.Count == 0) {
+                // 模拟打赢掉落：如果下一个节点是阶梯，说明当前是关底 Boss。
+                if (IsBossBeforeStairs(currNode)) {
                     Debug.Log("[MUD] 击杀关底Boss，获得核心！");
                     var coreItem = ConfigManager.CreateItem("mat_core_tier1");
                     // 模拟硬塞入背包
@@ -81,6 +81,10 @@ public static class MUDTestWrapper {
                 } else {
                     currNode = null;
                 }
+            } else if (currNode is StairsNode stairsNode) {
+                Debug.Log("[MUD] 抵达阶梯间，选择返回小镇结算...");
+                stairsNode.ReturnToTown();
+                currNode = null;
             } else {
                 break; 
             }
@@ -94,8 +98,10 @@ public static class MUDTestWrapper {
         
         // 由于是协程列队处理，无头模式下事件虽然是瞬间推入，但我们需要确认事件处理完
         // 3. 断言闭环结果
-        if (player.StashInventory.Count > 0) {
-            Debug.Log("[MUD] 核心成功带回大仓库，MVP 闭环打通！");
+        BackpackGrid finalGrid = doll.RuntimeGrid as BackpackGrid;
+        bool coreStillInBackpack = finalGrid != null && finalGrid.ContainedItems.Exists(item => item != null && item.ConfigID == "mat_core_tier1");
+        if (coreStillInBackpack) {
+            Debug.Log("[MUD] 核心成功带回背包，MVP 闭环打通！");
             
             // 模拟有钱了去升级底盘
             player.Money += 10000;
@@ -108,9 +114,15 @@ public static class MUDTestWrapper {
                 Debug.LogError("[MUD] 底盘升级失败！");
             }
         } else {
-            Debug.LogError($"[MUD] 撤离失败，大仓库里没有带出核心！StashCount: {player.StashInventory.Count}");
+            Debug.LogError($"[MUD] 撤离失败，背包里没有带出核心！BackpackCount: {finalGrid?.ContainedItems.Count ?? 0}");
         }
         
         Debug.Log("=== AI MUD Test Finished ===");
+    }
+
+    private static bool IsBossBeforeStairs(NodeBase node) {
+        return node?.NextNodes != null
+            && node.NextNodes.Count > 0
+            && node.NextNodes[0] is StairsNode;
     }
 }

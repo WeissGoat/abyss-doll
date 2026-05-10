@@ -6,30 +6,59 @@ public class SafeRoomUIController : MonoBehaviour {
     public Button evacuateBtn;
     public Text itemHintText;
 
-    private SafeRoomNode _currentNode;
+    private SafeRoomNode _currentSafeRoomNode;
+    private StairsNode _currentStairsNode;
 
     void Start() {
         EnsureHintText();
 
         if (restBtn != null) {
-            restBtn.onClick.AddListener(() => {
-                if (_currentNode != null) {
-                    _currentNode.Rest();
-                }
-            });
+            restBtn.onClick.AddListener(HandlePrimaryAction);
         }
+
         if (evacuateBtn != null) {
-            evacuateBtn.onClick.AddListener(() => {
-                if (_currentNode != null) {
-                    _currentNode.Evacuate();
-                }
-            });
+            evacuateBtn.onClick.AddListener(HandleEvacuateAction);
         }
     }
 
     public void Setup(SafeRoomNode node) {
-        _currentNode = node;
+        _currentSafeRoomNode = node;
+        _currentStairsNode = null;
+        SetButtonLabel(restBtn, "休整");
+        SetButtonLabel(evacuateBtn, "返回小镇");
+        SetPrimaryInteractable(true);
         RefreshItemHints();
+    }
+
+    public void Setup(StairsNode node) {
+        _currentSafeRoomNode = null;
+        _currentStairsNode = node;
+        SetButtonLabel(restBtn, node != null && node.CanEnterNextLayer() ? "进入下一层" : "深渊尽头");
+        SetButtonLabel(evacuateBtn, "返回小镇");
+        SetPrimaryInteractable(node != null && node.CanEnterNextLayer());
+        RefreshItemHints();
+    }
+
+    private void HandlePrimaryAction() {
+        if (_currentSafeRoomNode != null) {
+            _currentSafeRoomNode.Rest();
+            return;
+        }
+
+        if (_currentStairsNode != null && _currentStairsNode.CanEnterNextLayer()) {
+            _currentStairsNode.EnterNextLayer();
+        }
+    }
+
+    private void HandleEvacuateAction() {
+        if (_currentSafeRoomNode != null) {
+            _currentSafeRoomNode.Evacuate();
+            return;
+        }
+
+        if (_currentStairsNode != null) {
+            _currentStairsNode.ReturnToTown();
+        }
     }
 
     private void EnsureHintText() {
@@ -62,6 +91,14 @@ public class SafeRoomUIController : MonoBehaviour {
             return;
         }
 
+        if (_currentStairsNode != null) {
+            int currentLayer = GameRoot.Core?.Dungeon?.CurrentLayer?.LayerID ?? _currentStairsNode.LayerID;
+            itemHintText.text = _currentStairsNode.CanEnterNextLayer()
+                ? $"阶梯间\n继续深入将进入第 {currentLayer + 1} 层；返回小镇会立刻结算当前带出的战利品。"
+                : "阶梯间\n已经抵达当前最深处；请返回小镇并结算战利品。";
+            return;
+        }
+
         BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
         if (grid == null) {
             itemHintText.text = "安全屋中可整理背包，并点击消耗品立即使用。";
@@ -80,5 +117,18 @@ public class SafeRoomUIController : MonoBehaviour {
         itemHintText.text = lines.Count > 0
             ? "安全屋补给\n" + string.Join("\n", lines)
             : "安全屋补给\n当前背包里没有可用消耗品。";
+    }
+
+    private void SetButtonLabel(Button button, string label) {
+        Text text = button != null ? button.GetComponentInChildren<Text>() : null;
+        if (text != null) {
+            text.text = label;
+        }
+    }
+
+    private void SetPrimaryInteractable(bool interactable) {
+        if (restBtn != null) {
+            restBtn.interactable = interactable;
+        }
     }
 }

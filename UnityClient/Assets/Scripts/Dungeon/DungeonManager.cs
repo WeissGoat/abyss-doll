@@ -5,55 +5,85 @@ public class DungeonLayer {
     public int LayerID;
     public NodeBase RootNode;
     public NodeBase CurrentNode;
-    
+
     public void GenerateMapTree(DungeonConfig config) {
         NodeBase prevNode = null;
-        
-        // MVP阶段：生成一条单线路径
+
+        // MVP: linear path. ExpectedNodeCount includes the boss; EndNode is configured separately.
         for (int i = 0; i < config.ExpectedNodeCount - 1; i++) {
             NodePoolEntry entry = PickRandomNode(config.NodePool);
-            if (entry == null) continue;
-            
-            NodeBase newNode = NodeFactory.CreateNode(entry.NodeType);
-            if (newNode == null) continue;
-            
-            newNode.Init(entry);
-            newNode.NodeID = $"layer_{config.LayerID}_node_{i}";
-            
-            if (prevNode == null) {
-                RootNode = newNode;
-            } else {
-                prevNode.NextNodes.Add(newNode);
+            if (entry == null) {
+                continue;
             }
-            prevNode = newNode;
+
+            NodeBase newNode = CreateConfiguredNode(entry, $"layer_{config.LayerID}_node_{i}", config.LayerID);
+            AppendNode(ref prevNode, newNode);
         }
-        
-        // 在最后生成一层 Boss 节点
-        CombatNode bossNode = (CombatNode)NodeFactory.CreateNode("CombatNode");
+
+        CombatNode bossNode = NodeFactory.CreateNode("CombatNode") as CombatNode;
         if (bossNode != null) {
             bossNode.NodeID = $"layer_{config.LayerID}_boss";
             bossNode.MonsterIDs = new List<string> { config.BossNode };
-            
-            if (prevNode != null) {
-                prevNode.NextNodes.Add(bossNode);
-            } else {
-                RootNode = bossNode;
-            }
+            AppendNode(ref prevNode, bossNode);
         }
+
+        NodeBase endNode = CreateConfiguredNode(config.EndNode, $"layer_{config.LayerID}_end", config.LayerID);
+        AppendNode(ref prevNode, endNode);
     }
-    
-    // 基于权重的随机抽取算法
+
+    private NodeBase CreateConfiguredNode(NodePoolEntry entry, string nodeID, int layerID) {
+        if (entry == null) {
+            return null;
+        }
+
+        NodeBase node = NodeFactory.CreateNode(entry.NodeType);
+        if (node == null) {
+            return null;
+        }
+
+        node.Init(entry);
+        node.NodeID = nodeID;
+
+        if (node is StairsNode stairsNode) {
+            stairsNode.LayerID = layerID;
+        }
+
+        return node;
+    }
+
+    private void AppendNode(ref NodeBase prevNode, NodeBase newNode) {
+        if (newNode == null) {
+            return;
+        }
+
+        if (prevNode == null) {
+            RootNode = newNode;
+        } else {
+            prevNode.NextNodes.Add(newNode);
+        }
+
+        prevNode = newNode;
+    }
+
     private NodePoolEntry PickRandomNode(List<NodePoolEntry> pool) {
-        if (pool == null || pool.Count == 0) return null;
+        if (pool == null || pool.Count == 0) {
+            return null;
+        }
+
         int totalWeight = 0;
-        foreach (var p in pool) totalWeight += p.Weight;
-        
+        foreach (var p in pool) {
+            totalWeight += p.Weight;
+        }
+
         int roll = UnityEngine.Random.Range(0, totalWeight);
         int current = 0;
         foreach (var p in pool) {
             current += p.Weight;
-            if (roll < current) return p;
+            if (roll < current) {
+                return p;
+            }
         }
+
         return pool[pool.Count - 1];
     }
 }
@@ -61,7 +91,7 @@ public class DungeonLayer {
 public class DungeonManager {
     public DungeonLayer CurrentLayer;
     private readonly List<ItemEntity> _runAcceptedLoot = new List<ItemEntity>();
-    
+
     public DungeonManager() {
         DungeonEventBus.OnDungeonEvacuated += HandleEvacuate;
         DungeonEventBus.OnDungeonDefeated += HandleDefeat;
@@ -75,36 +105,72 @@ public class DungeonManager {
         DungeonEventBus.OnNodeSettlementCompleted -= HandleNodeSettlementCompleted;
         DungeonEventBus.OnCombatLootCollected -= HandleCombatLootCollected;
     }
-    
+
     public void LoadLayer(int layerID) {
+        LoadLayer(layerID, true);
+    }
+
+    public void LoadLayer(int layerID, bool resetRunLootLedger) {
         if (!ConfigManager.Dungeons.ContainsKey(layerID)) {
             Debug.LogError($"[DungeonManager] Layer {layerID} not found.");
             return;
         }
-        
+
         var config = ConfigManager.Dungeons[layerID];
         Debug.Log($"[DungeonManager] Entering Layer {layerID}: {config.Name}");
 
-        ResetRunLootLedger();
-        
+        if (resetRunLootLedger) {
+            ResetRunLootLedger();
+        }
+
         CurrentLayer = new DungeonLayer();
         CurrentLayer.LayerID = layerID;
         CurrentLayer.GenerateMapTree(config);
-        
-        // 不再自动 MoveToNode，而是告诉前端地图准备好了
+
         DungeonEventBus.PublishLayerLoaded();
     }
-    
+
+    public bool CanEnterNextLayer() {
+        return CurrentLayer != null && ConfigManager.Dungeons.ContainsKey(CurrentLayer.LayerID + 1);
+    }
+
+    public void EnterNextLayer() {
+        if (CurrentLayer == null) {
+            Debug.LogWarning("[DungeonManager] Cannot enter next layer because CurrentLayer is null.");
+            return;
+        }
+
+        int nextLayerID = CurrentLayer.LayerID + 1;
+        if (!ConfigManager.Dungeons.ContainsKey(nextLayerID)) {
+            Debug.Log("[DungeonManager] No next layer configured. Evacuating from abyss end.");
+            DungeonEventBus.PublishDungeonEvacuated();
+            return;
+        }
+
+        Debug.Log($"[DungeonManager] Descending from Layer {CurrentLayer.LayerID} to Layer {nextLayerID}.");
+        LoadLayer(nextLayerID, false);
+    }
+
     public void MoveToNode(NodeBase targetNode) {
+        if (CurrentLayer == null || targetNode == null) {
+            return;
+        }
+
         CurrentLayer.CurrentNode = targetNode;
         targetNode.IsVisited = true;
-        
-        int cost = ConfigManager.Dungeons[CurrentLayer.LayerID].SANCostPerNode;
-        
-        // 核心解耦点：不再在 Manager 里面去硬调 Doll 的扣血扣SAN，而是广播事件
+
+        int cost = GetSanCostForNode(targetNode);
         DungeonEventBus.PublishNodeEntered(targetNode, cost);
-        
+
         targetNode.OnEnterNode();
+    }
+
+    private int GetSanCostForNode(NodeBase node) {
+        if (node is SafeRoomNode || node is StairsNode) {
+            return 0;
+        }
+
+        return ConfigManager.Dungeons[CurrentLayer.LayerID].SANCostPerNode;
     }
 
     private void HandleNodeSettlementCompleted() {
@@ -122,12 +188,14 @@ public class DungeonManager {
     }
 
     private void ContinueAfterCurrentNodeResolved() {
-        // 如果当前节点没有下一个节点（例如打败了关底 Boss），则自动触发撤离
+        if (CurrentLayer?.CurrentNode == null) {
+            return;
+        }
+
         if (CurrentLayer.CurrentNode.NextNodes == null || CurrentLayer.CurrentNode.NextNodes.Count == 0) {
-            Debug.Log("[DungeonManager] Reached the end of the dungeon. Auto-evacuating.");
+            Debug.Log("[DungeonManager] Reached a terminal node without next choices. Auto-evacuating as fallback.");
             DungeonEventBus.PublishDungeonEvacuated();
         } else {
-            // 不自动前进，等待 UI 选择
             Debug.Log("[DungeonManager] Awaiting player to select the next node on the map...");
             DungeonEventBus.PublishNodeResolutionFinished();
         }

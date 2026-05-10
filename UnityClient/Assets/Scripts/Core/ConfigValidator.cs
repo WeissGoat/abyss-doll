@@ -462,28 +462,57 @@ public static class ConfigValidator {
             }
 
             foreach (NodePoolEntry entry in dungeon.NodePool) {
-                if (entry == null) {
-                    report.AddError($"Dungeon layer [{dungeon.LayerID}] has a null NodePool entry.");
-                    continue;
-                }
+                ValidateDungeonNodeEntry(report, dungeon, entry, "NodePool", true);
 
-                if (!NodeFactory.IsNodeTypeRegistered(entry.NodeType)) {
-                    report.AddError($"Dungeon layer [{dungeon.LayerID}] references unknown NodeType [{entry.NodeType}].");
+                if (entry != null && IsStairsNodeType(entry.NodeType)) {
+                    report.AddWarning($"Dungeon layer [{dungeon.LayerID}] has StairsNode inside NodePool. Stairs are usually intended for EndNode.");
                 }
+            }
 
-                if (!string.IsNullOrEmpty(entry.RewardID) && !ConfigManager.Rewards.ContainsKey(entry.RewardID)) {
-                    report.AddError($"Dungeon layer [{dungeon.LayerID}] node reward references missing RewardID [{entry.RewardID}].");
-                }
+            ValidateDungeonNodeEntry(report, dungeon, dungeon.EndNode, "EndNode", false);
+        }
+    }
 
-                if (entry.NodeType == "CombatNode") {
-                    foreach (string monsterID in entry.MonsterIDs) {
-                        if (!ConfigManager.Monsters.ContainsKey(monsterID)) {
-                            report.AddError($"Dungeon layer [{dungeon.LayerID}] CombatNode references missing MonsterID [{monsterID}].");
-                        }
-                    }
+    private static void ValidateDungeonNodeEntry(ConfigValidationReport report, DungeonConfig dungeon, NodePoolEntry entry, string owner, bool requirePositiveWeight) {
+        if (entry == null) {
+            report.AddError($"Dungeon layer [{dungeon.LayerID}] has a null {owner} entry.");
+            return;
+        }
+
+        if (!NodeFactory.IsNodeTypeRegistered(entry.NodeType)) {
+            report.AddError($"Dungeon layer [{dungeon.LayerID}] {owner} references unknown NodeType [{entry.NodeType}].");
+        }
+
+        if (requirePositiveWeight && entry.Weight <= 0) {
+            report.AddError($"Dungeon layer [{dungeon.LayerID}] {owner} [{entry.NodeType}] must have positive Weight.");
+        }
+
+        if (!string.IsNullOrEmpty(entry.RewardID) && !ConfigManager.Rewards.ContainsKey(entry.RewardID)) {
+            report.AddError($"Dungeon layer [{dungeon.LayerID}] {owner} reward references missing RewardID [{entry.RewardID}].");
+        }
+
+        if (IsCombatNodeType(entry.NodeType)) {
+            if (entry.MonsterIDs == null) {
+                report.AddError($"Dungeon layer [{dungeon.LayerID}] {owner} CombatNode has null MonsterIDs.");
+                return;
+            }
+
+            foreach (string monsterID in entry.MonsterIDs) {
+                if (!ConfigManager.Monsters.ContainsKey(monsterID)) {
+                    report.AddError($"Dungeon layer [{dungeon.LayerID}] {owner} CombatNode references missing MonsterID [{monsterID}].");
                 }
             }
         }
+    }
+
+    private static bool IsCombatNodeType(string nodeType) {
+        return string.Equals(nodeType, "CombatNode", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(nodeType, "Combat", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsStairsNodeType(string nodeType) {
+        return string.Equals(nodeType, "StairsNode", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(nodeType, "Stairs", StringComparison.OrdinalIgnoreCase);
     }
 
     private static void ValidateVisualAssets(ConfigValidationReport report) {

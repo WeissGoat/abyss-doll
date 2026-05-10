@@ -12,21 +12,23 @@ public class DungeonMapUIController : MonoBehaviour {
     public void RefreshMap() {
         EnsureInventoryControls();
 
-        if (contentParent == null || nodeButtonPrefab == null) return;
+        if (contentParent == null || nodeButtonPrefab == null) {
+            return;
+        }
 
-        // Clear old children
         foreach (Transform child in contentParent) {
             child.gameObject.SetActive(false);
             Destroy(child.gameObject);
         }
-        
-        var layer = GameRoot.Core.Dungeon.CurrentLayer;
-        if (layer == null || layer.RootNode == null) return;
-        
-        // Simple linear map UI for MVP
+
+        DungeonLayer layer = GameRoot.Core.Dungeon.CurrentLayer;
+        if (layer == null || layer.RootNode == null) {
+            return;
+        }
+
         List<NodeBase> path = new List<NodeBase>();
         NodeBase curr = layer.RootNode;
-        while(curr != null) {
+        while (curr != null) {
             path.Add(curr);
             curr = curr.NextNodes != null && curr.NextNodes.Count > 0 ? curr.NextNodes[0] : null;
         }
@@ -40,32 +42,34 @@ public class DungeonMapUIController : MonoBehaviour {
             Text txt = btnGo.GetComponentInChildren<Text>();
             Image img = btnGo.GetComponent<Image>();
 
-            if (node is CombatNode) {
-                txt.text = $"战斗节点\n(消耗1SAN)";
-            } else if (node is SafeRoomNode) {
-                txt.text = $"安全区\n(休整)";
-            } else {
-                txt.text = $"未知节点";
+            if (txt != null) {
+                txt.text = BuildNodeLabel(node);
             }
 
-            Debug.Log($"[DungeonMapUI] Render node button: {node.NodeID}, Type={node.GetType().Name}, Label={txt.text.Replace('\n', ' ')}");
+            Debug.Log($"[DungeonMapUI] Render node button: {node.NodeID}, Type={node.GetType().Name}, Label={txt?.text?.Replace('\n', ' ')}");
 
             if (node.IsVisited) {
-                img.color = new Color(0.3f, 0.3f, 0.3f);
-                btn.interactable = false;
-            } else {
-                // If this is the next unvisited node, highlight it
-                if (!foundCurrent) {
-                    img.color = new Color(0.2f, 0.8f, 0.2f);
-                    btn.interactable = true;
-                    btn.onClick.AddListener(() => {
-                        GameRoot.Core.Dungeon.MoveToNode(node);
-                    });
-                    foundCurrent = true;
-                } else {
-                    img.color = Color.black;
-                    btn.interactable = false;
+                if (img != null) {
+                    img.color = new Color(0.3f, 0.3f, 0.3f);
                 }
+                btn.interactable = false;
+                continue;
+            }
+
+            if (!foundCurrent) {
+                if (img != null) {
+                    img.color = new Color(0.2f, 0.8f, 0.2f);
+                }
+                btn.interactable = true;
+                btn.onClick.AddListener(() => {
+                    GameRoot.Core.Dungeon.MoveToNode(node);
+                });
+                foundCurrent = true;
+            } else {
+                if (img != null) {
+                    img.color = Color.black;
+                }
+                btn.interactable = false;
             }
         }
     }
@@ -100,6 +104,22 @@ public class DungeonMapUIController : MonoBehaviour {
                 ? "整理背包中：拖出格子的物品会在关闭背包时丢弃"
                 : "点击右下角打开背包，整理局内物资";
         }
+    }
+
+    private string BuildNodeLabel(NodeBase node) {
+        if (node is CombatNode) {
+            return "战斗节点\n(消耗SAN)";
+        }
+
+        if (node is SafeRoomNode) {
+            return "安全屋\n(休整)";
+        }
+
+        if (node is StairsNode) {
+            return "阶梯\n(深入/返回)";
+        }
+
+        return "未知节点";
     }
 
     private void EnsureInventoryControls() {

@@ -20,5 +20,8 @@
       "Weight": 10
     }
   ],
-  "BossNode": "elite_mutant_amalgam"
+  "BossNode": "elite_mutant_amalgam",
+  "EndNode": {
+    "NodeType": "StairsNode"
+  }
 }

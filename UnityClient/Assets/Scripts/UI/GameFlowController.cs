@@ -9,6 +9,7 @@ public class GameFlowController : MonoBehaviour {
         Combat,
         CombatLoot,
         SafeRoom,
+        Stairs,
         Settlement
     }
 
@@ -67,6 +68,7 @@ public class GameFlowController : MonoBehaviour {
         // 当进入具体的 Node 时切界面
         DungeonEventBus.OnNodeEntered += HandleNodeEntered;
         DungeonEventBus.OnSafeRoomEntered += HandleSafeRoomEntered;
+        DungeonEventBus.OnStairsEntered += HandleStairsEntered;
 
         EnterWorkshop();
     }
@@ -89,6 +91,10 @@ public class GameFlowController : MonoBehaviour {
     
     public void EnterSafeRoom(SafeRoomNode node) {
         TransitionToScreen(GameScreenState.SafeRoom, node);
+    }
+
+    public void EnterStairs(StairsNode node) {
+        TransitionToScreen(GameScreenState.Stairs, node);
     }
 
     public void DepartToDungeon() {
@@ -145,6 +151,10 @@ public class GameFlowController : MonoBehaviour {
 
     private void HandleSafeRoomEntered(NodeBase node) {
         EnterSafeRoom(node as SafeRoomNode);
+    }
+
+    private void HandleStairsEntered(StairsNode node) {
+        EnterStairs(node);
     }
 
     private void HandleItemPlaced(string itemInstanceID, int x, int y) {
@@ -225,7 +235,7 @@ public class GameFlowController : MonoBehaviour {
         if (dungeonMapPanel) dungeonMapPanel.SetActive(nextScreen == GameScreenState.DungeonMap);
         if (combatPanel) combatPanel.SetActive(nextScreen == GameScreenState.Combat);
         if (combatLootPanel) combatLootPanel.SetActive(nextScreen == GameScreenState.CombatLoot);
-        if (safeRoomPanel) safeRoomPanel.SetActive(nextScreen == GameScreenState.SafeRoom);
+        if (safeRoomPanel) safeRoomPanel.SetActive(nextScreen == GameScreenState.SafeRoom || nextScreen == GameScreenState.Stairs);
         if (settlementPanel) settlementPanel.SetActive(nextScreen == GameScreenState.Settlement);
         ApplyInventoryPresentationForCurrentScreen();
 
@@ -244,6 +254,9 @@ public class GameFlowController : MonoBehaviour {
                 break;
             case GameScreenState.SafeRoom:
                 OnEnterSafeRoomScreen(payload as SafeRoomNode);
+                break;
+            case GameScreenState.Stairs:
+                OnEnterStairsScreen(payload as StairsNode);
                 break;
             case GameScreenState.Settlement:
                 OnEnterSettlementScreen(payload as DungeonSettlementResult);
@@ -332,6 +345,16 @@ public class GameFlowController : MonoBehaviour {
 
     private void OnEnterSafeRoomScreen(SafeRoomNode node) {
         Debug.Log("[GameFlow] 进入安全区！");
+        var sfCtrl = safeRoomPanel?.GetComponent<SafeRoomUIController>();
+        if (sfCtrl != null) {
+            sfCtrl.Setup(node);
+        }
+        SyncInventoryItemUI();
+        QueueDeferredInventorySync();
+    }
+
+    private void OnEnterStairsScreen(StairsNode node) {
+        Debug.Log("[GameFlow] Entered stairs room. Waiting for descend/return choice.");
         var sfCtrl = safeRoomPanel?.GetComponent<SafeRoomUIController>();
         if (sfCtrl != null) {
             sfCtrl.Setup(node);
@@ -457,6 +480,7 @@ public class GameFlowController : MonoBehaviour {
             || _currentScreen == GameScreenState.Combat
             || _currentScreen == GameScreenState.CombatLoot
             || _currentScreen == GameScreenState.SafeRoom
+            || _currentScreen == GameScreenState.Stairs
             || (_currentScreen == GameScreenState.DungeonMap && _isDungeonMapInventoryOpen);
 
         GridGenerator generator = FindObjectOfType<GridGenerator>();
@@ -827,6 +851,7 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnCombatLootPrepared -= HandleCombatLootPrepared;
         DungeonEventBus.OnNodeEntered -= HandleNodeEntered;
         DungeonEventBus.OnSafeRoomEntered -= HandleSafeRoomEntered;
+        DungeonEventBus.OnStairsEntered -= HandleStairsEntered;
         GameEventBus.OnItemPlaced -= HandleItemPlaced;
         GameEventBus.OnItemRemoved -= HandleItemRemoved;
     }
