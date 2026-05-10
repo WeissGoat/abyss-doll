@@ -78,8 +78,9 @@ public static class DungeonStairsProgressionTest {
         controller.RefreshMap();
 
         int expectedNodeCount = ConfigManager.Dungeons[2].ExpectedNodeCount + 1;
+        float expectedLayoutWidth = Mathf.Max(140f, expectedNodeCount * 140f + Mathf.Max(0, expectedNodeCount - 1) * 20f);
         bool childCountMatches = contentObj.transform.childCount == expectedNodeCount;
-        bool layoutWidthExpanded = contentRect.sizeDelta.x >= 1200f;
+        bool layoutWidthExpanded = contentRect.sizeDelta.x >= expectedLayoutWidth;
         bool layoutNoLongerCompresses = !layout.childControlWidth && !layout.childForceExpandWidth;
         bool buttonsHavePreferredWidth = true;
         foreach (Transform child in contentObj.transform) {

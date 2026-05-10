@@ -499,6 +499,20 @@ public class GameFlowController : MonoBehaviour {
             canvasGroup.interactable = shouldShowBackpack;
             canvasGroup.blocksRaycasts = shouldShowBackpack;
         }
+
+        if (shouldShowBackpack) {
+            BringInventoryLayersToFront(generator);
+        }
+    }
+
+    private void BringInventoryLayersToFront(GridGenerator generator) {
+        if (generator?.gridParent != null) {
+            generator.gridParent.SetAsLastSibling();
+        }
+
+        if (inventoryItemLayer != null) {
+            inventoryItemLayer.SetAsLastSibling();
+        }
     }
 
     private void DiscardDetachedBackpackItems() {
