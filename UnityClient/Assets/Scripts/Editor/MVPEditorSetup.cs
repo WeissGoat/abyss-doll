@@ -175,8 +175,11 @@ public class MVPEditorSetup : EditorWindow
         mapLayoutRect.anchorMin = new Vector2(0.5f, 0.5f); mapLayoutRect.anchorMax = new Vector2(0.5f, 0.5f);
         mapLayoutRect.pivot = new Vector2(0.5f, 0.5f);
         mapLayoutRect.anchoredPosition = new Vector2(0, 300);
+        mapLayoutRect.sizeDelta = new Vector2(1420, 88);
         HorizontalLayoutGroup mapGroup = mapLayout.AddComponent<HorizontalLayoutGroup>();
-        mapGroup.childControlWidth = true; mapGroup.childControlHeight = true;
+        mapGroup.childControlWidth = false; mapGroup.childControlHeight = false;
+        mapGroup.childForceExpandWidth = false; mapGroup.childForceExpandHeight = false;
+        mapGroup.childAlignment = TextAnchor.MiddleCenter;
         mapGroup.spacing = 20;
 
         mapCtrl.contentParent = mapLayout.transform;

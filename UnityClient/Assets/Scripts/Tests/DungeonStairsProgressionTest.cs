@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class DungeonStairsProgressionTest {
     private static DungeonSettlementResult _lastSettlementResult;
@@ -10,6 +11,7 @@ public static class DungeonStairsProgressionTest {
         TestLayerEndsWithStairsAfterBoss();
         TestEnterNextLayerKeepsRunLootLedger();
         TestStairsReturnSettlesRunLoot();
+        TestLayerTwoMapLayoutKeepsNodeButtonsReadable();
 
         Debug.Log("=== Dungeon Stairs Progression Test Finished ===");
     }
@@ -47,6 +49,51 @@ public static class DungeonStairsProgressionTest {
         } else {
             Debug.LogError($"Stairs SAN Cost FAILED. Before={beforeSan}, After={afterSan}");
         }
+    }
+
+    private static void TestLayerTwoMapLayoutKeepsNodeButtonsReadable() {
+        CoreBackend core = CreateCore();
+        core.Dungeon.LoadLayer(2);
+
+        GameObject canvasObj = new GameObject("DungeonMapLayoutTestCanvas");
+        canvasObj.AddComponent<Canvas>();
+        canvasObj.AddComponent<GraphicRaycaster>();
+
+        GameObject mapObj = new GameObject("DungeonMapPanel");
+        mapObj.transform.SetParent(canvasObj.transform, false);
+        mapObj.AddComponent<RectTransform>();
+        DungeonMapUIController controller = mapObj.AddComponent<DungeonMapUIController>();
+
+        GameObject contentObj = new GameObject("MapLayout");
+        contentObj.transform.SetParent(mapObj.transform, false);
+        RectTransform contentRect = contentObj.AddComponent<RectTransform>();
+        contentRect.sizeDelta = new Vector2(100f, 100f);
+        HorizontalLayoutGroup layout = contentObj.AddComponent<HorizontalLayoutGroup>();
+        layout.childControlWidth = true;
+        controller.contentParent = contentObj.transform;
+        GameObject nodeButtonPrefab = CreateNodeButtonPrefab();
+        controller.nodeButtonPrefab = nodeButtonPrefab;
+
+        controller.RefreshMap();
+
+        int expectedNodeCount = ConfigManager.Dungeons[2].ExpectedNodeCount + 1;
+        bool childCountMatches = contentObj.transform.childCount == expectedNodeCount;
+        bool layoutWidthExpanded = contentRect.sizeDelta.x >= 1200f;
+        bool layoutNoLongerCompresses = !layout.childControlWidth && !layout.childForceExpandWidth;
+        bool buttonsHavePreferredWidth = true;
+        foreach (Transform child in contentObj.transform) {
+            LayoutElement element = child.GetComponent<LayoutElement>();
+            buttonsHavePreferredWidth &= element != null && element.preferredWidth >= 120f;
+        }
+
+        if (childCountMatches && layoutWidthExpanded && layoutNoLongerCompresses && buttonsHavePreferredWidth) {
+            Debug.Log("Dungeon Map Layer 2 Layout PASSED.");
+        } else {
+            Debug.LogError($"Dungeon Map Layer 2 Layout FAILED. ChildCount={contentObj.transform.childCount}/{expectedNodeCount}, Width={contentRect.sizeDelta.x}, Compress={layout.childControlWidth}, ForceExpand={layout.childForceExpandWidth}, PreferredWidth={buttonsHavePreferredWidth}");
+        }
+
+        Object.DestroyImmediate(canvasObj);
+        Object.DestroyImmediate(nodeButtonPrefab);
     }
 
     private static void TestEnterNextLayerKeepsRunLootLedger() {
@@ -145,5 +192,26 @@ public static class DungeonStairsProgressionTest {
 
     private static void HandleSettlementPrepared(DungeonSettlementResult result) {
         _lastSettlementResult = result;
+    }
+
+    private static GameObject CreateNodeButtonPrefab() {
+        Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        GameObject prefab = new GameObject("NodeButtonPrefab_Test");
+        prefab.AddComponent<RectTransform>().sizeDelta = new Vector2(120f, 80f);
+        prefab.AddComponent<Image>();
+        prefab.AddComponent<Button>();
+
+        GameObject textObj = new GameObject("Text");
+        textObj.transform.SetParent(prefab.transform, false);
+        RectTransform textRect = textObj.AddComponent<RectTransform>();
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.sizeDelta = Vector2.zero;
+        Text text = textObj.AddComponent<Text>();
+        text.font = font;
+        text.alignment = TextAnchor.MiddleCenter;
+        text.raycastTarget = false;
+
+        return prefab;
     }
 }

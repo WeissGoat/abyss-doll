@@ -3,6 +3,10 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class DungeonMapUIController : MonoBehaviour {
+    private const float NodeButtonWidth = 140f;
+    private const float NodeButtonHeight = 88f;
+    private const float NodeButtonSpacing = 20f;
+
     public GameObject nodeButtonPrefab;
     public Transform contentParent;
     public Button openBackpackBtn;
@@ -16,10 +20,7 @@ public class DungeonMapUIController : MonoBehaviour {
             return;
         }
 
-        foreach (Transform child in contentParent) {
-            child.gameObject.SetActive(false);
-            Destroy(child.gameObject);
-        }
+        ClearNodeButtons();
 
         DungeonLayer layer = GameRoot.Core.Dungeon.CurrentLayer;
         if (layer == null || layer.RootNode == null) {
@@ -33,11 +34,14 @@ public class DungeonMapUIController : MonoBehaviour {
             curr = curr.NextNodes != null && curr.NextNodes.Count > 0 ? curr.NextNodes[0] : null;
         }
 
+        ConfigureMapLayout(path.Count);
+
         bool foundCurrent = false;
 
         for (int i = 0; i < path.Count; i++) {
             NodeBase node = path[i];
             GameObject btnGo = Instantiate(nodeButtonPrefab, contentParent);
+            ConfigureNodeButtonLayout(btnGo);
             Button btn = btnGo.GetComponent<Button>();
             Text txt = btnGo.GetComponentInChildren<Text>();
             Image img = btnGo.GetComponent<Image>();
@@ -72,6 +76,8 @@ public class DungeonMapUIController : MonoBehaviour {
                 btn.interactable = false;
             }
         }
+
+        RebuildMapLayout();
     }
 
     public void BindBackpackControls(GameFlowController flow, bool isOpen) {
@@ -120,6 +126,86 @@ public class DungeonMapUIController : MonoBehaviour {
         }
 
         return "未知节点";
+    }
+
+    private void ClearNodeButtons() {
+        List<GameObject> children = new List<GameObject>();
+        foreach (Transform child in contentParent) {
+            children.Add(child.gameObject);
+        }
+
+        foreach (GameObject child in children) {
+            child.SetActive(false);
+            DestroyRuntimeObject(child);
+        }
+    }
+
+    private void ConfigureMapLayout(int nodeCount) {
+        RectTransform contentRect = contentParent as RectTransform;
+        if (contentRect != null) {
+            float width = Mathf.Max(NodeButtonWidth, nodeCount * NodeButtonWidth + Mathf.Max(0, nodeCount - 1) * NodeButtonSpacing);
+            contentRect.anchorMin = new Vector2(0.5f, 0.5f);
+            contentRect.anchorMax = new Vector2(0.5f, 0.5f);
+            contentRect.pivot = new Vector2(0.5f, 0.5f);
+            contentRect.sizeDelta = new Vector2(width, NodeButtonHeight);
+        }
+
+        HorizontalLayoutGroup layout = contentParent.GetComponent<HorizontalLayoutGroup>();
+        if (layout == null) {
+            layout = contentParent.gameObject.AddComponent<HorizontalLayoutGroup>();
+        }
+
+        layout.spacing = NodeButtonSpacing;
+        layout.childAlignment = TextAnchor.MiddleCenter;
+        layout.childControlWidth = false;
+        layout.childControlHeight = false;
+        layout.childForceExpandWidth = false;
+        layout.childForceExpandHeight = false;
+    }
+
+    private void ConfigureNodeButtonLayout(GameObject buttonObject) {
+        if (buttonObject == null) {
+            return;
+        }
+
+        RectTransform rect = buttonObject.GetComponent<RectTransform>();
+        if (rect != null) {
+            rect.sizeDelta = new Vector2(NodeButtonWidth, NodeButtonHeight);
+        }
+
+        LayoutElement layoutElement = buttonObject.GetComponent<LayoutElement>();
+        if (layoutElement == null) {
+            layoutElement = buttonObject.AddComponent<LayoutElement>();
+        }
+
+        layoutElement.minWidth = NodeButtonWidth;
+        layoutElement.preferredWidth = NodeButtonWidth;
+        layoutElement.flexibleWidth = 0f;
+        layoutElement.minHeight = NodeButtonHeight;
+        layoutElement.preferredHeight = NodeButtonHeight;
+        layoutElement.flexibleHeight = 0f;
+    }
+
+    private void RebuildMapLayout() {
+        RectTransform contentRect = contentParent as RectTransform;
+        if (contentRect == null) {
+            return;
+        }
+
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
+    }
+
+    private void DestroyRuntimeObject(GameObject target) {
+        if (target == null) {
+            return;
+        }
+
+        if (Application.isPlaying) {
+            Destroy(target);
+        } else {
+            DestroyImmediate(target);
+        }
     }
 
     private void EnsureInventoryControls() {
