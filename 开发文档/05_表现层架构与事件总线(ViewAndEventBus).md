@@ -99,6 +99,40 @@ private void OnGoldChanged(OnGoldChangedEvent e) {
 }
 ```
 
+### D. 深渊出发层级选择 UI
+
+小镇中的“出发深渊”不应再直接写死调用 `LoadLayer(1)`。表现层应拆成两步：
+
+1. 点击“出发深渊”打开 `DungeonStartLayerPanel`。
+2. 玩家在面板中选择一个已解锁且存在配置的层级。
+3. UI 调用 `GameFlowController.DepartToDungeon(selectedLayerID)`，再由后端校验并加载。
+
+推荐最小结构：
+
+* `DungeonStartLayerPanel`：独立弹窗，不嵌在小镇主面板旁边，避免后续层数增加后把小镇 UI 撑长。
+* `DungeonStartLayerEntryUI`：单个层级按钮，显示层名、解锁状态、推荐标签和锁定原因。
+* `Confirm` 按钮：调用 `DepartToDungeon(selectedLayerID)`；也可以点击条目后立即进入，但 MVP 建议保留确认按钮，方便玩家检查。
+* `Close` 按钮：关闭弹窗并回到小镇，不改变任何后端状态。
+
+层级选择面板只读以下信息：
+
+* `ConfigManager.Dungeons`：用于列出存在配置的层级和显示层名。
+* `PlayerProfile.HighestUnlockedDungeonLayer`：用于判断按钮可点击或显示锁定。
+* `PlayerProfile.LastSelectedDungeonStartLayer`：用于默认高亮上次选择。
+
+表现层边界：
+
+* UI 不直接修改 `HighestUnlockedDungeonLayer`。
+* UI 不直接调用 `DungeonManager.LoadLayer()` 绕过权限校验。
+* UI 可以显示锁定原因，例如“通过第 1 层后解锁”。
+* 如果玩家选择非法层，后端返回失败，UI 只负责提示，不自行兜底加载第 1 层。
+
+事件建议：
+
+* `OnDungeonStartLayerUnlockedEvent`：层级入口解锁时广播，用于弹出“已解锁第 N 层入口”提示或刷新小镇按钮状态。
+* `OnDungeonRunStartedEvent`：从小镇正式开始一轮探索时广播，携带 `StartLayerID`，用于关闭小镇界面并打开深渊地图。
+* `OnDungeonStartLayerRejectedEvent`：可选事件；当 UI 请求非法层时，用于显示失败原因。MVP 也可以直接用 `bool` 返回值和日志处理。
+
 ## 3. 解决“时间的流逝”：表现队列 (Visual Queue)
 
 由于后端的战斗结算（比如一刀砍死怪物）在毫秒内瞬间完成，而前端播放动画需要时间。必须引入 **“表现队列 (Command Pattern)”** 来防止数据错乱或动画鬼畜。

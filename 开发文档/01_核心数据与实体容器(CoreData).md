@@ -13,6 +13,8 @@ public class PlayerProfile {
     public string UID;
     public int Money;
     public int WorkshopLevel;
+    public int HighestUnlockedDungeonLayer = 1;
+    public int LastSelectedDungeonStartLayer = 1;
     
     // 当前出战的魔偶数据
     public DollEntity ActiveDoll;
@@ -29,6 +31,34 @@ public class GameManager : MonoBehaviour {
     void Awake() {
         // 单例初始化与存档读取逻辑
     }
+}
+```
+
+### 1.1 深渊层级解锁进度
+
+`HighestUnlockedDungeonLayer` 是局外永久进度，表示玩家当前允许从第几层开始下潜。MVP 初始值为 `1`。
+
+解锁规则：
+
+* 玩家通过第 N 层 Boss，并进入该层配置的 `EndNode/StairsNode` 后，若存在 `N + 1` 层配置，则把 `HighestUnlockedDungeonLayer` 至少提升到 `N + 1`。
+* 解锁是幂等的，只能向更深层推进，不能因为战败或撤离回退。
+* 从第 2 层或更深层直接出发时，本次探索视为一轮新的 run，需要重置本次探索战利品账本；不会自动补发前面层级的奖励。
+* `LastSelectedDungeonStartLayer` 只用于 UI 默认选中上次入口，不参与权限判断。
+
+存档与初始化约定：
+
+* 新建档案时，`HighestUnlockedDungeonLayer` 和 `LastSelectedDungeonStartLayer` 都初始化为 `1`。
+* 读取旧档时，如果字段缺失或反序列化结果小于 `1`，程序应修正为 `1`，避免旧存档无法出发深渊。
+* 读取档案后，`LastSelectedDungeonStartLayer` 需要夹在 `[1, HighestUnlockedDungeonLayer]` 范围内；如果对应层配置不存在，则回退到最深的已解锁且存在配置的层。
+* 解锁成功后应标记档案为 dirty 或立即走项目现有存档入口，确保返回小镇后入口仍然保留。
+
+入口校验建议统一放在后端：
+
+```csharp
+public bool CanStartDungeonAtLayer(int layerID) {
+    return layerID >= 1
+        && layerID <= HighestUnlockedDungeonLayer
+        && ConfigManager.Dungeons.ContainsKey(layerID);
 }
 ```
 

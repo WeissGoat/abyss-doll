@@ -15,6 +15,25 @@
 | `BossNode` | string | 关底守门人的怪物ID | 指向 `Monsters` 配置表中的精英或BossID |
 | `EndNode` | object | 关底 Boss 之后的层终点节点 | 当前配置为 `{ "NodeType": "StairsNode" }` |
 
+## 层级解锁与出发入口
+
+深渊起始层不由 dungeon JSON 单独配置，而由玩家档案中的 `HighestUnlockedDungeonLayer` 控制。
+
+规则：
+
+* 新档默认只能从 `LayerID = 1` 开始。
+* 当玩家到达第 N 层 `EndNode/StairsNode` 时，如果存在 `LayerID = N + 1` 的 dungeon 配置，则解锁从下一层开始。
+* 小镇出发界面只显示或启用 `LayerID <= HighestUnlockedDungeonLayer` 且配置存在的层。
+* 从第 2 层或更深层直接出发不会自动发放前置层奖励。
+* 直接从已解锁层出发属于新一轮探索；通过阶梯进入下一层仍属于同一轮探索。
+
+配置要求：
+
+* MVP 阶段建议保持 `LayerID` 连续，例如 `1, 2`。
+* 如果未来允许跳号层级，需要在程序层补充“下一层映射”配置；当前不支持。
+* UI 展示层级名称时读取 `Name`；锁定文案由程序根据上一层通关条件生成，不额外写入 dungeon JSON。
+* 解锁入口依赖配置出来的终点节点。若未来新增非阶梯终点，只有明确实现“层通关解锁”语义的节点才应触发入口解锁。
+
 ## 层终点与阶梯房
 
 每层地图生成时会在 Boss 节点之后追加 `EndNode` 配置声明的节点。MVP 中该节点配置为 `StairsNode`，显示为“阶梯”。因此实际地图节点数量为：

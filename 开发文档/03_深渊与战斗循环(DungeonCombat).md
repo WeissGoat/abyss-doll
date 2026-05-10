@@ -47,6 +47,7 @@
 * `DungeonManager` 不再因为打完 Boss 自动撤离；如果 Boss 后存在配置出来的 `EndNode`，则发布 `OnNodeResolutionFinished` 回到地图等待玩家选择阶梯。
 * 仅当某个终端节点没有后继节点时，`DungeonManager` 才保留自动撤离 fallback，用于异常配置兜底。
 * 进入下一层不会清空本次探索已拾取战利品账本，玩家跨层后返回小镇仍能正确统计本次带出/遗失战利品。
+* 到达第 N 层阶梯时，如果存在第 `N + 1` 层配置，应解锁“从下一层开始下潜”的局外入口。该解锁属于 `PlayerProfile` 永久进度，不属于当前 run 临时状态。
 
 ```csharp
 // 节点基类，工厂模式产出
@@ -92,6 +93,29 @@ public class DungeonLayer {
 // 深渊总控
 public class DungeonManager : MonoBehaviour {
     public DungeonLayer CurrentLayer;
+    private PlayerProfile _player;
+
+    public bool CanStartAtLayer(int layerID) {
+        return _player != null
+            && layerID >= 1
+            && layerID <= _player.HighestUnlockedDungeonLayer
+            && ConfigManager.Dungeons.ContainsKey(layerID);
+    }
+
+    public bool StartRunAtLayer(int layerID) {
+        if(!CanStartAtLayer(layerID)) return false;
+        _player.LastSelectedDungeonStartLayer = layerID;
+        ResetRunLootLedger();
+        LoadLayer(layerID);
+        return true;
+    }
+
+    public bool EnterNextLayer() {
+        int nextLayerID = CurrentLayer.LayerID + 1;
+        if(!ConfigManager.Dungeons.ContainsKey(nextLayerID)) return false;
+        LoadLayer(nextLayerID, resetRunLootLedger: false);
+        return true;
+    }
     
     public void MoveToNode(NodeBase targetNode) {
         // 验证 targetNode 是否属于 CurrentNode.NextNodes
@@ -105,7 +129,49 @@ public class DungeonManager : MonoBehaviour {
 }
 ```
 
-### 1.2 节点移动 SAN 消耗与物品效果
+### 1.2 层入口解锁与指定层出发
+
+MVP 新增“可选起始层”规则：玩家第一次只能从第 1 层出发；通过第 1 层后，小镇出发界面允许直接选择第 2 层作为新的起点。
+
+领域规则：
+
+* `PlayerProfile.HighestUnlockedDungeonLayer` 初始为 `1`。
+* `DungeonManager` 或更高一层的 `CoreBackend` 提供 `UnlockDungeonStartLayer(int layerID)`，只在 `layerID` 存在配置时生效。
+* 解锁触发点建议放在进入 `StairsNode` 时：这代表玩家已经打完该层 Boss，并抵达层终点。
+* 如果当前层是最后一层，或者 `ConfigManager.Dungeons` 中不存在下一层，则不提升解锁，只在阶梯 UI 中显示“深渊尽头/返回小镇”。
+* 从已解锁层直接出发时调用 `StartRunAtLayer(layerID)`，必须重置本次 run 战利品账本，避免继承上一轮探索统计。
+* 跨层深入仍走 `EnterNextLayer()`，不重置本次 run 战利品账本，保持“同一轮探索”的结算统计。
+* `StartRunAtLayer(layerID)` 应返回 `bool`，UI 只能根据成功/失败展示反馈，不能自行 fallback 到第 1 层。
+* 解锁成功时发布 `OnDungeonStartLayerUnlockedEvent(layerID)`；如果已经解锁过，则不重复发布。
+
+推荐 API：
+
+```csharp
+public bool TryUnlockNextStartLayerFromClearedLayer(int clearedLayerID) {
+    int nextLayerID = clearedLayerID + 1;
+    if (!ConfigManager.Dungeons.ContainsKey(nextLayerID)) {
+        return false;
+    }
+
+    if (_player.HighestUnlockedDungeonLayer < nextLayerID) {
+        _player.HighestUnlockedDungeonLayer = nextLayerID;
+        return true;
+    }
+
+    return false;
+}
+```
+
+验收口径：
+
+* 新档只显示第 1 层可选。
+* 到达 1 层阶梯后，`HighestUnlockedDungeonLayer` 变为 `2`。
+* 返回小镇后再次点击“出发深渊”，层级选择界面显示第 1 层和第 2 层。
+* 选择第 2 层会直接 `LoadLayer(2)`，地图根节点属于 2 层配置。
+* 未解锁层或不存在配置的层不能被 UI 或测试绕过进入。
+* 从小镇直接选择第 2 层时，本轮战利品账本为空；从 1 层阶梯继续进入 2 层时，本轮战利品账本保留。
+
+### 1.3 节点移动 SAN 消耗与物品效果
 
 `DungeonManager` 负责计算进入节点时的总 SAN 消耗，但不应硬编码某个物品标签的特殊规则。当前规则为：
 
