@@ -34,6 +34,9 @@ public class EffectData {
     public string EffectID;
     public int Level;
     public string Target;
+    public string Trigger;
+    public string Resource;
+    public string Operation;
     public float[] Params;
 }
 
@@ -148,12 +151,33 @@ public static class ItemPresentationRules {
                 if (firstEffect.EffectID.Contains("Shield")) {
                     return $"+{Mathf.RoundToInt(firstEffect.Params[0])} Shield";
                 }
-                if (firstEffect.EffectID == "ExtraSanCostOnNodeEnter") {
-                    return $"SAN Cost +{Mathf.RoundToInt(firstEffect.Params[0])}/Node";
+                if (firstEffect.EffectID == "ModifyResourceCost") {
+                    return BuildResourceCostModifierSummary(firstEffect);
                 }
             }
         }
 
         return string.Empty;
+    }
+
+    private static string BuildResourceCostModifierSummary(EffectData effect) {
+        if (effect == null || effect.Params == null || effect.Params.Length == 0) {
+            return string.Empty;
+        }
+
+        string resource = string.IsNullOrEmpty(effect.Resource) ? "Cost" : effect.Resource;
+        float value = effect.Params[0];
+        string sign = value >= 0f ? "+" : string.Empty;
+        string suffix = effect.Trigger == nameof(EffectTriggerType.OnDungeonMoveCost) ? "/Node" : string.Empty;
+
+        switch (effect.Operation) {
+            case nameof(EffectModifierOperation.AddPercent):
+                return $"{resource} {sign}{Mathf.RoundToInt(value * 100f)}%{suffix}";
+            case nameof(EffectModifierOperation.Multiply):
+                return $"{resource} x{value:0.##}{suffix}";
+            case nameof(EffectModifierOperation.AddFlat):
+            default:
+                return $"{resource} {sign}{Mathf.RoundToInt(value)}{suffix}";
+        }
     }
 }

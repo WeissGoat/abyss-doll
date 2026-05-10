@@ -33,9 +33,12 @@
     "BaseValue": 0,
     "Effects": [
       {
-        "EffectID": "ExtraSanCostOnNodeEnter",
+        "EffectID": "ModifyResourceCost",
         "Level": 0,
         "Target": "Self",
+        "Trigger": "OnDungeonMoveCost",
+        "Resource": "SAN",
+        "Operation": "AddFlat",
         "Params": [
           1
         ]

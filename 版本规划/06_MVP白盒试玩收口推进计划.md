@@ -107,7 +107,7 @@ P1 完成后，2 层体验应从“更高数值”变成“规则更恶心”。
 实施内容：
 
 *   进入新节点时计算 `节点基础 SAN 消耗 + 背包物品 Effect 额外消耗`。
-*   `Toxic` 不再由标签硬编码消费；污染滤芯通过 `ExtraSanCostOnNodeEnter` 效果配置每节点额外 -1 SAN。
+*   `Toxic` 不再由标签硬编码消费；污染滤芯通过 `ModifyResourceCost` 配置 `OnDungeonMoveCost / SAN / AddFlat / 1`，实现每节点额外 -1 SAN。
 *   地图 UI 或日志标明额外消耗来源。
 
 验收：

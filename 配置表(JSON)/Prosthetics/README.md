@@ -32,6 +32,9 @@
 | `EffectID` | string | 对应 C# `EffectBase` 派生类，由 `EffectFactory` 实例化 |
 | `Level` | int | 效果等级 |
 | `Target` | string | 对物品类效果可填物品 Tag，如 `Melee`；全局物品效果可填 `Global`；战斗事件效果可填 `Self` |
+| `Trigger` | string | 可选。通用 modifier 的触发点，例如 `OnDungeonMoveCost` |
+| `Resource` | string | 可选。通用 modifier 的资源类型，例如 `SAN`、`HP`、`Money`、`AP` |
+| `Operation` | string | 可选。通用 modifier 的运算方式，例如 `AddFlat`、`AddPercent`、`Multiply` |
 | `Params` | float[] | 效果参数，含义见 `/Effects/EffectEnums.json` |
 
 ## MVP 样例

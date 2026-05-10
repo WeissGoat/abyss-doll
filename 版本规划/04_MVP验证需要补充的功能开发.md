@@ -109,7 +109,7 @@
 **开发目标：**
 
 *   在移动到下一个深渊节点时，计算 `节点基础 SAN 消耗 + 背包物品 Effect 额外消耗`。
-*   污染滤芯通过 `ExtraSanCostOnNodeEnter` 效果配置额外 SAN 消耗，MVP 建议每节点额外 -1 SAN。
+*   污染滤芯通过 `ModifyResourceCost` 配置 `OnDungeonMoveCost / SAN / AddFlat / 1`，MVP 建议每节点额外 -1 SAN。
 *   UI 或结算日志标明毒性物品造成的额外消耗。
 
 **验收标准：**

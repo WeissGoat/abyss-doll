@@ -110,15 +110,20 @@ public class DungeonManager : MonoBehaviour {
 `DungeonManager` 负责计算进入节点时的总 SAN 消耗，但不应硬编码某个物品标签的特殊规则。当前规则为：
 
 ```text
-TotalSanCost = BaseNodeSanCost + Sum(ItemEffects.GetExtraSanCostOnNodeEnter)
+TotalSanCost = EffectModifierResolver.Resolve(
+    Trigger = OnDungeonMoveCost,
+    Resource = SAN,
+    BaseValue = BaseNodeSanCost
+)
 ```
 
 落地约定：
 
 * `SafeRoomNode`、`StairsNode` 的基础消耗仍为 0。
-* 背包内物品如需提高移动 SAN 成本，应在 `Combat.Effects` 中配置 `ExtraSanCostOnNodeEnter`。
+* 背包物品与已装备义体都可以通过 `EffectModifierResolver` 参与成本修正。
+* 需要修改移动 SAN 成本时，配置 `ModifyResourceCost`，并声明 `Trigger = OnDungeonMoveCost`、`Resource = SAN`、`Operation = AddFlat`。
 * `Toxic` 标签只作为分类、展示、条件筛选信息，不直接触发扣 SAN。
-* 【污染滤芯】MVP 配置为 `ExtraSanCostOnNodeEnter.Params = [1]`，表示每进入一个节点额外消耗 1 SAN。
+* 【污染滤芯】MVP 配置为 `ModifyResourceCost.Params = [1]`，表示每进入一个节点额外消耗 1 SAN。
 
 ## 2. 战斗包装器与阵营 (Fighter & Faction)
 

@@ -15,3 +15,17 @@
 | `TriggerTiming` | string | 预期生效时机 | `Passive`(被动/连结光环), `OnUse`(触发时), `OnTurnStart`(回合开始), `OnCombatEnd`(战斗结束) |
 | `Description` | string | 效果机制的文字描述 | |
 | `ConfigSchema`| object | **参数配置规范** | **极其重要！** 明确定义在 `Items` 或 `Prosthetics` 中配置该 Effect 时，`Target` (生效目标), `Level` (等级), 以及 `Params` (浮点数组) 这三个核心字段应该怎么填。 |
+
+## 通用 Modifier 效果
+
+`ModifyResourceCost` 用于“修改某个资源成本”这类规则，不绑定具体系统。配置侧必须声明：
+
+| 字段 | 示例 | 说明 |
+| :--- | :--- | :--- |
+| `EffectID` | `ModifyResourceCost` | 通用资源成本修正效果 |
+| `Trigger` | `OnDungeonMoveCost` | 触发点。当前已接入深渊移动成本 |
+| `Resource` | `SAN` | 被修改的资源 |
+| `Operation` | `AddFlat` | 运算方式，支持 `AddFlat`、`AddPercent`、`Multiply` |
+| `Params[0]` | `1` | 修正数值 |
+
+结算顺序固定为 `AddFlat -> AddPercent -> Multiply`，避免背包物品列表顺序影响最终结果。

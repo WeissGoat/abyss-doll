@@ -37,7 +37,19 @@
 | `APCost` | int | 触发一次消耗的行动点数(AP) | 结合单次伤害计算该物品的AP收益(DPA) |
 | `DamageType` | enum | 输出的效果类型 | `None`(无直接战斗数值), `Physical`(物理伤害), `Energy`(能量伤害), `Shield`(产生临时护盾), `Heal`(回血), `RestoreSAN`(回理智) |
 | `BaseValue` | int | 基础伤害/治疗/护盾的数值 | 计算战斗力的基础项 |
-| `AdjacencyBuffs`| array | 连结/拼图增益机制（高级特性） | 当放置在特定位置时触发（见下表） |
+| `Effects` | array | 统一效果列表 | 元素使用 `EffectData`。通用成本修正可配置 `ModifyResourceCost` |
+
+## EffectData 通用字段
+
+| 字段 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `EffectID` | string | 对应 C# `EffectBase` 派生类，由 `EffectFactory` 实例化 |
+| `Level` | int | 效果等级 |
+| `Target` | string | 目标/方向/分类。含义由具体 Effect 定义 |
+| `Trigger` | string | 可选。通用 modifier 的触发点，例如 `OnDungeonMoveCost` |
+| `Resource` | string | 可选。通用 modifier 的资源类型，例如 `SAN`、`HP`、`Money`、`AP` |
+| `Operation` | string | 可选。通用 modifier 的运算方式，例如 `AddFlat`、`AddPercent`、`Multiply` |
+| `Params` | float[] | 效果参数。`ModifyResourceCost` 使用 `Params[0]` 作为修正值 |
 
 ### AdjacencyBuffs (相邻增益) 详细字段
 用于实现背包拼图游戏的核心爽点：比如“放在右侧的武器增加30%伤害”。

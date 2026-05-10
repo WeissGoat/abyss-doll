@@ -10,14 +10,6 @@ public class ItemUseContext {
     public bool InSafeRoom;
 }
 
-public class DungeonMoveCostContext {
-    public DollEntity ActiveDoll;
-    public BackpackGrid BackpackGrid;
-    public NodeBase TargetNode;
-    public int BaseSanCost;
-    public int CurrentExtraSanCost;
-}
-
 public abstract class EffectBase {
     public string EffectID { get; protected set; }
     public int Level { get; protected set; }
@@ -43,9 +35,9 @@ public abstract class EffectBase {
         }
     }
 
-    public virtual int GetExtraSanCostOnNodeEnter(DungeonMoveCostContext context, ItemEntity provider) {
-        return 0;
-    }
+    public virtual void CollectModifiers(EffectModifierContext context, System.Collections.Generic.List<EffectModifier> output) {}
+
+    public virtual void ValidateConfig(ConfigValidationReport report, string ownerID, EffectData data) {}
     
     public virtual void Remove(ItemEntity provider, ItemEntity target) {}
 }

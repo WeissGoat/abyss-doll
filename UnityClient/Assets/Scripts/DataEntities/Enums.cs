@@ -49,3 +49,22 @@ public enum CombatEventType {
     OnTakeDamage = 4,
     OnCombatEnd = 5
 }
+
+public enum EffectTriggerType {
+    None = 0,
+    OnDungeonMoveCost = 1
+}
+
+public enum EffectResourceType {
+    None = 0,
+    SAN = 1,
+    HP = 2,
+    Money = 3,
+    AP = 4
+}
+
+public enum EffectModifierOperation {
+    AddFlat = 0,
+    AddPercent = 1,
+    Multiply = 2
+}

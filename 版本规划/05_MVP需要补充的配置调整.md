@@ -226,9 +226,12 @@ MVP 白盒试玩前不再优先新增大量物品、怪物或装备。配置侧�
     "BaseValue": 0,
     "Effects": [
       {
-        "EffectID": "ExtraSanCostOnNodeEnter",
+        "EffectID": "ModifyResourceCost",
         "Level": 0,
         "Target": "Self",
+        "Trigger": "OnDungeonMoveCost",
+        "Resource": "SAN",
+        "Operation": "AddFlat",
         "Params": [1]
       }
     ]
@@ -236,7 +239,7 @@ MVP 白盒试玩前不再优先新增大量物品、怪物或装备。配置侧�
 }
 ```
 
-**MVP 口径：** 每携带 1 件配置了 `ExtraSanCostOnNodeEnter` 的污染物品，进入新节点时额外 -1 SAN。`Toxic` 标签只做分类、展示或未来条件筛选，不直接触发扣 SAN。
+**MVP 口径：** 每携带 1 件配置了 `ModifyResourceCost` 且匹配 `OnDungeonMoveCost / SAN` 的污染物品，进入新节点时额外 -1 SAN。`Toxic` 标签只做分类、展示或未来条件筛选，不直接触发扣 SAN。
 
 ### 3.5 怪物与界面视觉 ID 补齐
 
@@ -303,7 +306,7 @@ MVP 白盒试玩前不再优先新增大量物品、怪物或装备。配置侧�
 
 1.  `gear_tactical_blade`：正式数值回调到 35 伤害。
 2.  新增 `mat_core_tier2`，放入 2 层 Boss 奖励表的 `Guaranteed`。
-3.  `loot_toxic_filter`：补充 `ExtraSanCostOnNodeEnter` 被动效果。
+3.  `loot_toxic_filter`：补充 `ModifyResourceCost` 被动效果。
 4.  2 层怪物干涉相关物品补齐，例如诅咒废件。
 
 ### 批次 C：表现接线前

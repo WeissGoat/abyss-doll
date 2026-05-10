@@ -167,11 +167,11 @@ public class DungeonManager {
 
     private int GetSanCostForNode(NodeBase node) {
         int baseCost = GetBaseSanCostForNode(node);
-        int extraCost = GetExtraSanCostFromBackpackEffects(node, baseCost);
-        int totalCost = Mathf.Max(0, baseCost + extraCost);
+        EffectModifierResolution resolution = ResolveMovementSanCost(node, baseCost);
+        int totalCost = Mathf.Max(0, Mathf.RoundToInt(resolution.FinalValue));
 
-        if (extraCost != 0) {
-            Debug.Log($"[DungeonManager] Movement SAN cost resolved. Node={node?.NodeID ?? "UnknownNode"}, Base={baseCost}, Extra={extraCost}, Total={totalCost}");
+        if (resolution.Modifiers.Count > 0) {
+            Debug.Log($"[DungeonManager] Movement SAN cost resolved. Node={node?.NodeID ?? "UnknownNode"}, Base={baseCost}, Final={totalCost}, Modifiers={resolution.Modifiers.Count}");
         }
 
         return totalCost;
@@ -185,45 +185,19 @@ public class DungeonManager {
         return ConfigManager.Dungeons[CurrentLayer.LayerID].SANCostPerNode;
     }
 
-    private int GetExtraSanCostFromBackpackEffects(NodeBase node, int baseCost) {
-        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+    private EffectModifierResolution ResolveMovementSanCost(NodeBase node, int baseCost) {
         DollEntity activeDoll = GameRoot.Core?.CurrentPlayer?.ActiveDoll;
-        if (grid == null || grid.ContainedItems == null || grid.ContainedItems.Count == 0) {
-            return 0;
-        }
-
-        DungeonMoveCostContext context = new DungeonMoveCostContext {
+        EffectModifierContext context = new EffectModifierContext {
+            Trigger = EffectTriggerType.OnDungeonMoveCost,
+            Resource = EffectResourceType.SAN,
             ActiveDoll = activeDoll,
-            BackpackGrid = grid,
+            BackpackGrid = activeDoll?.RuntimeGrid as BackpackGrid,
             TargetNode = node,
-            BaseSanCost = baseCost,
-            CurrentExtraSanCost = 0
+            BaseValue = baseCost,
+            CurrentValue = baseCost
         };
 
-        int extraCost = 0;
-        foreach (ItemEntity item in grid.ContainedItems) {
-            if (item?.Combat?.Effects == null || item.Combat.Effects.Count == 0) {
-                continue;
-            }
-
-            foreach (EffectData effectData in item.Combat.Effects) {
-                EffectBase effect = EffectFactory.CreateEffect(effectData);
-                if (effect == null) {
-                    continue;
-                }
-
-                context.CurrentExtraSanCost = extraCost;
-                int contribution = effect.GetExtraSanCostOnNodeEnter(context, item);
-                if (contribution == 0) {
-                    continue;
-                }
-
-                extraCost += contribution;
-                Debug.Log($"[DungeonManager] SAN extra from item effect. Item={item.Name}, Effect={effectData.EffectID}, Extra={contribution}");
-            }
-        }
-
-        return extraCost;
+        return EffectModifierResolver.Resolve(context);
     }
 
     private void HandleNodeSettlementCompleted() {
