@@ -10,6 +10,7 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private Vector3 _originalPosition;
     private Transform _originalParent;
     private CanvasGroup _canvasGroup;
+    private bool _isDragging;
     
     // 记录在后端的合法位置，防止拖拽失败时丢失
     private int _lastValidX = -1;
@@ -54,6 +55,10 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private void ApplyVisualStyle() {
         Image image = GetComponent<Image>();
+        if (image == null) {
+            image = gameObject.AddComponent<Image>();
+        }
+
         if (image != null && ItemData != null) {
             string iconID = VisualAssetService.ResolveItemIconID(ItemData);
             bool hasRegisteredIcon = VisualAssetService.TryGetSprite(iconID, out Sprite iconSprite);
@@ -61,26 +66,19 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 iconSprite = VisualAssetService.GetSprite(iconID);
             }
 
-            image.sprite = iconSprite;
+            image.sprite = null;
             image.type = Image.Type.Simple;
-            image.preserveAspect = true;
+            image.preserveAspect = false;
+            image.color = ResolveItemTint(ItemData, false);
+            image.raycastTarget = true;
 
-            switch (ItemData.ItemType) {
-                case nameof(ItemType.Weapon):
-                    image.color = hasRegisteredIcon ? Color.white : new Color(0.75f, 0.18f, 0.18f, 1f);
-                    break;
-                case nameof(ItemType.Armor):
-                    image.color = hasRegisteredIcon ? Color.white : new Color(0.35f, 0.45f, 0.7f, 1f);
-                    break;
-                case nameof(ItemType.Consumable):
-                    image.color = hasRegisteredIcon ? Color.white : new Color(0.22f, 0.65f, 0.3f, 1f);
-                    break;
-                case nameof(ItemType.Loot):
-                    image.color = hasRegisteredIcon ? Color.white : new Color(0.82f, 0.63f, 0.18f, 1f);
-                    break;
-                default:
-                    image.color = hasRegisteredIcon ? Color.white : new Color(0.45f, 0.45f, 0.45f, 1f);
-                    break;
+            Image iconImage = EnsureIconImage();
+            if (iconImage != null) {
+                iconImage.sprite = iconSprite;
+                iconImage.type = Image.Type.Simple;
+                iconImage.preserveAspect = true;
+                iconImage.color = hasRegisteredIcon ? Color.white : ResolveItemTint(ItemData, true);
+                iconImage.raycastTarget = false;
             }
         }
 
@@ -91,6 +89,49 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             label.text = string.IsNullOrEmpty(secondLine)
                 ? ItemData.Name
                 : $"{ItemData.Name}\n{secondLine}";
+        }
+    }
+
+    private Image EnsureIconImage() {
+        Transform existing = transform.Find("Icon_Image");
+        GameObject iconObject = existing != null ? existing.gameObject : new GameObject("Icon_Image");
+        if (existing == null) {
+            iconObject.transform.SetParent(transform, false);
+        }
+
+        RectTransform iconRect = iconObject.GetComponent<RectTransform>();
+        if (iconRect == null) {
+            iconRect = iconObject.AddComponent<RectTransform>();
+        }
+
+        iconRect.anchorMin = Vector2.zero;
+        iconRect.anchorMax = Vector2.one;
+        iconRect.offsetMin = new Vector2(8f, 8f);
+        iconRect.offsetMax = new Vector2(-8f, -8f);
+        iconRect.localScale = Vector3.one;
+
+        Image iconImage = iconObject.GetComponent<Image>();
+        if (iconImage == null) {
+            iconImage = iconObject.AddComponent<Image>();
+        }
+
+        iconObject.transform.SetAsFirstSibling();
+        return iconImage;
+    }
+
+    private Color ResolveItemTint(ItemEntity item, bool forIcon) {
+        float alpha = forIcon ? 0.95f : 0.82f;
+        switch (item.ItemType) {
+            case nameof(ItemType.Weapon):
+                return new Color(0.75f, 0.18f, 0.18f, alpha);
+            case nameof(ItemType.Armor):
+                return new Color(0.35f, 0.45f, 0.7f, alpha);
+            case nameof(ItemType.Consumable):
+                return new Color(0.22f, 0.65f, 0.3f, alpha);
+            case nameof(ItemType.Loot):
+                return new Color(0.82f, 0.63f, 0.18f, alpha);
+            default:
+                return new Color(0.45f, 0.45f, 0.45f, alpha);
         }
     }
 
@@ -139,6 +180,7 @@ public void OnBeginDrag(PointerEventData eventData) {
     }
 
     Debug.Log($"[UI] 开始拖拽 {ItemData.Name}");
+    _isDragging = true;
     _originalPosition = transform.position;
     _originalParent = transform.parent;
 
@@ -180,6 +222,8 @@ public void OnDrag(PointerEventData eventData) {
 }
 
 public void OnEndDrag(PointerEventData eventData) {
+    _isDragging = false;
+
     if (_canvasGroup != null) {
         _canvasGroup.blocksRaycasts = true;
     }
@@ -221,6 +265,7 @@ public void OnEndDrag(PointerEventData eventData) {
     }
 
     public void ReturnToOriginalPosition() {
+        _isDragging = false;
         transform.SetParent(_originalParent);
         transform.position = _originalPosition;
         IsPendingDiscard = false;
@@ -236,7 +281,12 @@ public void OnEndDrag(PointerEventData eventData) {
         }
     }
 
+    public bool IsDragging() {
+        return _isDragging;
+    }
+
     private void LeaveDetachedAtCurrentPosition() {
+        _isDragging = false;
         Transform itemLayer = GameFlowController.Instance != null ? GameFlowController.Instance.GetInventoryItemLayer() : null;
         if (itemLayer != null) {
             transform.SetParent(itemLayer);

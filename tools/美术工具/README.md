@@ -56,11 +56,9 @@
 * `Spec` 是结构化对象，供后续预处理脚本读取。
 * `PromptEN` 禁止项目名、作品名、玩法黑话、`Unity`、`UGUI` 等绘图工具无法理解的词。
 
-## 后续脚本约定
+## Run-ArtGeneration.ps1
 
-### Run-ArtGeneration.ps1
-
-计划职责：读取 Manifest 中 `Status=prompted` 的条目，按 `PromptEN`、`NegativePromptEN` 和结构化 `Spec` 批量生成候选图。
+读取 Manifest 中 `Status=prompted` 的条目，按 `PromptEN`、`NegativePromptEN` 和结构化 `Spec` 调用 `tools/ai-image-gateway` 批量生成候选图。
 
 输出目录固定为：
 
@@ -77,9 +75,43 @@ UnityClient/Assets/Art/_IncomingAI/<VisualID>/
 
 `BatchID` 只写入 Manifest 和 `generation.json`，不作为目录层级。
 
-### Sync-ApprovedArt.ps1
+使用方式：
 
-计划职责：把 `_IncomingAI/<VisualID>/selected` 或 fallback 的 `processed` 中当前图片同步到 Manifest 的 `OutputPath`。
+```powershell
+.\tools\美术工具\Run-ArtGeneration.ps1 -Provider mock -Limit 1 -Variants 2
+```
+
+NovelAI 实跑建议使用本地配置。脚本会把 `-Variants` 拆成多次 `count=1` 请求，并默认每张图间隔 1 秒。
+
+```powershell
+Copy-Item .\tools\美术工具\ai_image_gateway.example.yaml .\tools\美术工具\ai_image_gateway.local.yaml
+$env:NAI_ACCESS_TOKEN = "<token>"
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Domain item -Limit 5 -Variants 4 -DelaySeconds 1
+```
+
+常用参数：
+
+* `-DryRun`：只打印计划，不生成图片、不改 Manifest。
+* `-Domain`、`-VisualID`、`-Priority`：过滤资产。
+* `-Limit`：限制本次处理数量。
+* `-Seed`：固定基础 seed，便于复现。
+* `-DelaySeconds`：每张图之间的等待时间，当前默认 1 秒。
+* `-Extra key=value`：透传 provider 参数。
+* `-Overwrite`：允许覆盖同名 raw 输出。
+
+## Optimize-ArtAssets.ps1
+
+读取 `_IncomingAI/<VisualID>/raw`，按 Manifest 的结构化 `Spec` 输出 `processed` 和 `contact_sheet`。
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Optimize-ArtAssets.ps1 -BatchID nai_p0_item_20260508_01 -Overwrite
+```
+
+## Sync-ApprovedArt.ps1
+
+把 `_IncomingAI/<VisualID>/selected` 或 fallback 的 `processed` 中当前图片同步到 Manifest 的 `OutputPath`。
 
 同步规则：
 
@@ -88,3 +120,9 @@ UnityClient/Assets/Art/_IncomingAI/<VisualID>/
 * 如果启用 fallback 且 `selected/` 为空，则取 `processed/` 下按文件名升序第一张图片。
 * 复制到 `Approved` 目标路径后，更新 `SelectedPath`、`ApprovedPath` 和 `Status=approved`。
 * 覆盖已有 PNG 时保留 Unity `.meta` 文件。
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Sync-ApprovedArt.ps1 -BatchID nai_p0_item_20260508_01 -Overwrite
+```

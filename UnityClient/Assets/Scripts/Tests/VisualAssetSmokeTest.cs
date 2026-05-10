@@ -37,6 +37,35 @@ public static class VisualAssetSmokeTest {
                 Debug.LogError("Missing Sprite Fallback FAILED.");
             }
 
+            VisualAssetRegistry registry = Resources.Load<VisualAssetRegistry>("VisualAssetRegistry");
+            if (registry != null && registry.Entries != null && registry.Entries.Count >= 30 && registry.MissingSprite != null) {
+                Debug.Log("Approved Sprite Registry Count PASSED.");
+            } else {
+                int count = registry?.Entries?.Count ?? 0;
+                Debug.LogError($"Approved Sprite Registry Count FAILED. Count={count}, MissingSprite={(registry != null && registry.MissingSprite != null)}");
+            }
+
+            string[] representativeVisualIDs = {
+                "item_gear_wooden_shield_icon",
+                "monster_mob_scavenger_bug_portrait",
+                "node_safe_room_icon",
+                "bg_dungeon_map",
+                "doll_proto_0_stand",
+                "prosthetic_pros_power_arm_icon"
+            };
+
+            bool allRepresentativeSpritesFound = true;
+            foreach (string visualID in representativeVisualIDs) {
+                if (!VisualAssetService.TryGetSprite(visualID, out Sprite sprite) || sprite == null) {
+                    allRepresentativeSpritesFound = false;
+                    Debug.LogError($"Approved Sprite Registration FAILED. Missing VisualID={visualID}");
+                }
+            }
+
+            if (allRepresentativeSpritesFound) {
+                Debug.Log("Approved Sprite Registration PASSED.");
+            }
+
             Debug.Log("=== Visual Asset Smoke Test Finished ===");
         } catch (System.Exception ex) {
             Debug.LogError($"[VisualAssetSmokeTest Crash] {ex.Message}\n{ex.StackTrace}");

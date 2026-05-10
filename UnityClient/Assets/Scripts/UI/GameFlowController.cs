@@ -178,7 +178,7 @@ public class GameFlowController : MonoBehaviour {
             return;
         }
 
-        if (TryFindItemUI(itemInstanceID, out var existingUI) && existingUI != null) {
+        if (TryFindItemUI(itemInstanceID, out var existingUI) && existingUI != null && !existingUI.IsDragging()) {
             Destroy(existingUI.gameObject);
         }
 
