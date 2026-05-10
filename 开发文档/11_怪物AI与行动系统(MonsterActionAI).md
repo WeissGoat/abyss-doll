@@ -91,7 +91,7 @@ BehaviorTreeSelector
 
 ## 3. 配置结构
 
-建议逐步废弃 `MonsterEntity.GridInterference`、`GridInterferenceParams`、`DamageValue`、`AttacksPerTurn` 作为正式 AI 入口，统一迁到 `AI.Actions`。
+`MonsterEntity.GridInterference`、`GridInterferenceParams`、`DamageValue`、`AttacksPerTurn` 不再作为运行时入口。MonsterActionAI 落地时必须一次性迁到 `AI.Actions`，不保留旧字段兜底。若迁移出现问题，用 Git 回退，不在代码中长期维护两套路径。
 
 ### 3.1 MonsterEntity 新结构
 
@@ -246,8 +246,8 @@ public class MonsterActionRunner {
 注意：
 
 *   一个怪物一回合默认执行一个 Action。
-*   如果要保留 `AttacksPerTurn` 风格，可在 `DamageTargetAction.Params.RepeatCount` 中配置。
-*   如果没有 AI 配置，迁移期 fallback 到旧 `DamageValue / AttacksPerTurn`。
+*   如果要表达 `AttacksPerTurn` 风格，必须在 `DamageTargetAction.Params.RepeatCount` 中配置。
+*   如果没有 AI 配置，视为配置错误，由 `ConfigValidator` 阻断；运行时不读取旧 `DamageValue / AttacksPerTurn`。
 
 ### 4.2 MonsterActionContext
 
@@ -296,7 +296,7 @@ MVP 可用 `MonsterFighter.RuntimeID` 或战斗内分配的序号作为 actor ke
 4. 过滤 UsesPerCombat 已用完 Action
 5. 过滤 Condition 不满足 Action
 6. 按 Weight 随机选一个
-7. 如果没有可用 Action，fallback 普通攻击或跳过
+7. 如果没有可用 Action，记录错误并跳过本次行动；正常配置应由 `ConfigValidator` 保证至少存在一个可用行动
 ```
 
 接口：
@@ -443,10 +443,10 @@ RuntimeDamage
 3. 在玩家背包查找第一个可放置位置。
 4. 放入背包，触发 GridSolver.RecalculateAllEffects。
 5. 广播 GameEventBus.PublishItemPlaced。
-6. 如果没有空间，记录失败并执行 fallback。
+6. 如果没有空间，记录失败并执行预设的无空间处理。
 ```
 
-MVP 没空间 fallback：
+MVP 无空间处理：
 
 ```text
 只记录 warning，不造成额外惩罚。
@@ -455,7 +455,7 @@ MVP 没空间 fallback：
 后续可扩展：
 
 ```text
-NoSpaceFallback = LoseSAN / DamagePlayer / DropRandomItem / ReplaceItem
+NoSpaceHandling = LoseSAN / DamagePlayer / DropRandomItem / ReplaceItem
 ```
 
 ---
@@ -545,21 +545,22 @@ foreach (var fighter in EnemyFaction.Fighters) {
 
 ---
 
-## 10. 配置迁移策略
+## 10. 一次性重构策略
 
-### 10.1 兼容期
+### 10.1 原则：不保留兼容期
 
-为了不一次性破坏现有配置，第一版允许：
+MonsterActionAI 落地时不做双轨兼容：
 
-*   如果 `MonsterEntity.AI.Actions` 不为空，使用新系统。
-*   如果没有 AI 配置，fallback 到旧字段：
-    *   `DamageValue`
-    *   `AttacksPerTurn`
-    *   `GridInterference`
+*   `CombatSystem` 敌方回合只调用 `MonsterActionRunner`。
+*   `MonsterFighter` 不再通过 `DamageValue / AttacksPerTurn` 决策攻击。
+*   `GridInterference / GridInterferenceParams` 不再作为运行时入口。
+*   所有怪物配置必须在同一批变更中补齐 `AI.Actions`。
+*   `ConfigValidator` 对缺失 `AI.Actions` 的怪物报错，而不是 warning。
+*   若重构出现大问题，使用 Git revert 回退整批改动，不在代码里维护旧新版并存。
 
-但 fallback 只用于过渡，`ConfigValidator` 应提示 warning。
+这样做会牺牲一点迁移过程的柔性，但能避免战斗系统长期背负两套怪物行为路径。怪物 AI 这类高频扩展系统，一旦保留旧字段兜底，后续定位 bug 会很痛苦。
 
-### 10.2 正式配置
+### 10.2 旧字段删除对照
 
 迁移前：
 
@@ -576,7 +577,7 @@ foreach (var fighter in EnemyFaction.Fighters) {
 }
 ```
 
-迁移后：
+重构后：
 
 ```json
 {
@@ -610,12 +611,36 @@ foreach (var fighter in EnemyFaction.Fighters) {
 }
 ```
 
+### 10.3 必须同批完成的删除项
+
+数据结构层：
+
+*   从 `MonsterEntity` 删除或停止反序列化依赖 `DamageValue`。
+*   从 `MonsterEntity` 删除或停止反序列化依赖 `AttacksPerTurn`。
+*   从 `MonsterEntity` 删除 `GridInterference`。
+*   从 `MonsterEntity` 删除 `GridInterferenceParams`。
+
+配置层：
+
+*   所有 `Monsters/*.json` 必须补齐 `AI.Selector` 与 `AI.Actions`。
+*   普通攻击必须显式配置为 `DamageTargetAction`。
+*   酸液软体腐蚀必须显式配置为 `ReduceWeaponDamageAction`。
+*   畸变融合体强塞物品必须显式配置为 `AddCursedItemAction`。
+
+代码层：
+
+*   `CombatSystem.StartEnemyTurn()` 不再读取怪物旧攻击字段。
+*   `MonsterFighter.Attack()` 可以降级为底层伤害辅助方法，也可以由 `DamageTargetAction` 直接调用 `target.TakeDamage()`。
+*   `ConfigValidator` 不再提示旧字段“未实现 warning”，而是校验新 AI 配置是否完整。
+
 ---
 
 ## 11. ConfigValidator 扩展
 
-现有 `ConfigValidator` 已能发现 `GridInterference` 配了但 runtime 未实现。MonsterActionAI 落地后需要新增：
+MonsterActionAI 落地后，`ConfigValidator` 不再把旧 `GridInterference` 当作可接受的过渡字段。校验规则必须改为“怪物 AI 配置缺失即错误”：
 
+*   每个怪物必须配置 `AI`。
+*   每个怪物必须至少有一个 `AI.Actions`。
 *   `MonsterEntity.AI.Selector` 必须存在于 `MonsterActionSelectorFactory`。
 *   `ActionType` 必须存在于 `MonsterActionFactory`。
 *   `Target` 必须存在于 `MonsterTargetSelector`。
@@ -626,6 +651,7 @@ foreach (var fighter in EnemyFaction.Fighters) {
 *   `ReduceWeaponDamageAction` 必须配置 `0 < Multiplier < 1`、`DurationPlayerTurns > 0`。
 *   `AddCursedItemAction` 必须配置存在的 `ItemID`。
 *   `PlayerGridFirstFit` 类目标如果依赖 `ItemID`，校验该物品是否存在且有 Grid。
+*   配置中出现 `DamageValue`、`AttacksPerTurn`、`GridInterference`、`GridInterferenceParams` 旧字段时应报错，提醒它们已被 `AI.Actions` 取代。
 
 ---
 
@@ -651,7 +677,7 @@ foreach (var fighter in EnemyFaction.Fighters) {
 
 ### 12.3 MonsterDamageActionTest
 
-验证普通攻击从 Action 系统执行，造成与旧 `DamageValue` 一致的伤害。
+验证普通攻击从 Action 系统执行，造成与 `DamageTargetAction.Params.Damage` 一致的伤害。
 
 ### 12.4 ReduceWeaponDamageActionTest
 
@@ -679,22 +705,22 @@ foreach (var fighter in EnemyFaction.Fighters) {
 
 ## 13. MVP 落地顺序
 
-建议按以下顺序推进：
+建议按以下顺序推进。注意：这是一个原子重构任务，完成前不要提交半套兼容实现。
 
 1.  新增 `MonsterAIConfig`、`MonsterActionConfig` 数据结构。
 2.  新增 `MonsterActionBase`、`MonsterActionFactory`、`MonsterActionRunner`。
 3.  新增 `WeightedRandomMonsterActionSelector`。
 4.  新增 `MonsterTargetSelector`，先支持 `FirstAlivePlayer`、`RandomPlayerWeapon`、`PlayerGridFirstFit`。
-5.  实现 `DamageTargetAction`，把普通攻击迁入 Action。
-6.  接入 `CombatSystem.StartEnemyTurn()`，保持现有战斗表现不变。
-7.  新增 `RuntimeModifierSystem`。
-8.  实现 `ReduceWeaponDamageAction`。
-9.  给 `BackpackGrid` 增加 `TryPlaceFirstAvailable(ItemEntity item, out int x, out int y)`。
-10. 实现 `AddCursedItemAction`。
-11. 迁移 `mob_acid_slime` 与 `elite_mutant_amalgam` 配置。
-12. 扩展 `ConfigValidator` 与自动化测试。
+5.  实现 `DamageTargetAction`、`ReduceWeaponDamageAction`、`AddCursedItemAction`。
+6.  新增 `RuntimeModifierSystem`。
+7.  给 `BackpackGrid` 增加 `TryPlaceFirstAvailable(ItemEntity item, out int x, out int y)`。
+8.  一次性迁移所有 `Monsters/*.json` 到 `AI.Actions`，包括普通怪和 Boss。
+9.  删除或停止依赖 `DamageValue`、`AttacksPerTurn`、`GridInterference`、`GridInterferenceParams`。
+10. 接入 `CombatSystem.StartEnemyTurn()`，敌方回合只走 `MonsterActionRunner`。
+11. 扩展 `ConfigValidator`，让缺失 AI 或残留旧字段直接失败。
+12. 补自动化测试并跑全量回归。
 
-第一阶段完成 1-6 后，战斗行为架构就稳定了。第二阶段完成 7-12 后，2 层深渊压力才真正落地。
+第一批提交应包含完整可运行链路：数据结构、Action 执行、配置迁移、校验、测试。不要把“新系统已写好但旧系统仍兜底”作为中间状态长期保留。
 
 ---
 
@@ -749,4 +775,4 @@ foreach (var fighter in EnemyFaction.Fighters) {
 *   `elite_mutant_amalgam.GridInterference=AddCursedItem` 已配置，但运行时未实现。
 *   `Toxic`、`Cursed`、`Material`、`CoreMaterial` 标签目前大多是元数据；其中配方/升级按具体 `ConfigID` 消耗材料，标签本身还未形成通用规则。
 
-MonsterActionAI 的第一轮落地应优先消除上述两个 `GridInterference` warning，并把它们迁移到正式 `AI.Actions` 配置。
+MonsterActionAI 的第一轮落地应一次性消除上述两个 `GridInterference` warning：旧字段从怪物配置中移除，所有怪物统一迁移到正式 `AI.Actions` 配置。完成后 `ConfigValidator` 应将任何残留旧字段视为错误，而不是兼容警告。
