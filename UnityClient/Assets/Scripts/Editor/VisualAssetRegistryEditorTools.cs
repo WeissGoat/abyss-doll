@@ -67,6 +67,76 @@ public static class VisualAssetRegistryEditorTools {
         Debug.Log($"[VisualAssetRegistryEditorTools] Rebuilt approved sprite registry. EntriesUpdated={addedOrUpdated}, TotalEntries={registry.Entries.Count}, MissingSprite={(registry.MissingSprite != null ? registry.MissingSprite.name : "None")}.");
     }
 
+    [MenuItem("Tools/P3 Art/Validate Approved Display Specs")]
+    public static void ValidateApprovedDisplaySpecs() {
+        if (!AssetDatabase.IsValidFolder(ApprovedArtFolder)) {
+            Debug.LogWarning($"[VisualAssetRegistryEditorTools] Approved art folder not found: {ApprovedArtFolder}");
+            return;
+        }
+
+        VisualAssetRegistry registry = AssetDatabase.LoadAssetAtPath<VisualAssetRegistry>(RegistryPath);
+        string[] textureGuids = AssetDatabase.FindAssets("t:Texture2D", new[] { ApprovedArtFolder });
+        int checkedCount = 0;
+        int warningCount = 0;
+
+        foreach (string guid in textureGuids.OrderBy(guid => AssetDatabase.GUIDToAssetPath(guid), StringComparer.Ordinal)) {
+            string assetPath = AssetDatabase.GUIDToAssetPath(guid);
+            ApprovedSpriteSpec spec = ResolveApprovedSpriteSpec(assetPath);
+            if (spec == null) {
+                warningCount += LogValidationWarning(assetPath, "is under Approved but does not match a known art category.");
+                continue;
+            }
+
+            checkedCount++;
+            TextureImporter importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
+            Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(assetPath);
+            string visualID = Path.GetFileNameWithoutExtension(assetPath);
+
+            if (texture != null && (texture.width != spec.SourceWidth || texture.height != spec.SourceHeight)) {
+                warningCount += LogValidationWarning(assetPath, $"source size is {texture.width}x{texture.height}, expected {spec.SourceWidth}x{spec.SourceHeight} for {spec.Category}.");
+            }
+
+            if (importer == null) {
+                warningCount += LogValidationWarning(assetPath, "has no TextureImporter.");
+                continue;
+            }
+
+            if (importer.textureType != TextureImporterType.Sprite) {
+                warningCount += LogValidationWarning(assetPath, "Texture Type should be Sprite (2D and UI).");
+            }
+
+            if (importer.spriteImportMode != SpriteImportMode.Single) {
+                warningCount += LogValidationWarning(assetPath, "Sprite Mode should be Single.");
+            }
+
+            if (importer.alphaIsTransparency != spec.AlphaIsTransparency) {
+                warningCount += LogValidationWarning(assetPath, $"Alpha Is Transparency should be {spec.AlphaIsTransparency}.");
+            }
+
+            if (importer.maxTextureSize != spec.MaxTextureSize) {
+                warningCount += LogValidationWarning(assetPath, $"Max Size should be {spec.MaxTextureSize}.");
+            }
+
+            if (importer.filterMode != FilterMode.Bilinear) {
+                warningCount += LogValidationWarning(assetPath, "Filter Mode should be Bilinear.");
+            }
+
+            if (registry == null || !registry.TryGetEntry(visualID, out VisualAssetEntry entry) || entry == null || entry.Sprite == null) {
+                warningCount += LogValidationWarning(assetPath, $"VisualID [{visualID}] is missing from {RegistryPath}. Run Tools/P3 Art/Rebuild Approved Sprite Registry.");
+            }
+        }
+
+        if (registry == null) {
+            warningCount++;
+            Debug.LogWarning($"[VisualAssetRegistryEditorTools] Registry not found: {RegistryPath}");
+        } else if (registry.MissingSprite == null) {
+            warningCount++;
+            Debug.LogWarning("[VisualAssetRegistryEditorTools] Registry MissingSprite is not assigned.");
+        }
+
+        Debug.Log($"[VisualAssetRegistryEditorTools] Approved display spec validation finished. Checked={checkedCount}, Warnings={warningCount}.");
+    }
+
     private static void EnsureApprovedSprites() {
         if (!AssetDatabase.IsValidFolder(ApprovedArtFolder)) {
             Debug.LogWarning($"[VisualAssetRegistryEditorTools] Approved art folder not found: {ApprovedArtFolder}");
@@ -97,8 +167,21 @@ public static class VisualAssetRegistryEditorTools {
                 changed = true;
             }
 
-            if (!importer.alphaIsTransparency) {
-                importer.alphaIsTransparency = true;
+            ApprovedSpriteSpec spec = ResolveApprovedSpriteSpec(assetPath);
+            bool alphaIsTransparency = spec?.AlphaIsTransparency ?? true;
+            if (importer.alphaIsTransparency != alphaIsTransparency) {
+                importer.alphaIsTransparency = alphaIsTransparency;
+                changed = true;
+            }
+
+            int maxTextureSize = spec?.MaxTextureSize ?? 1024;
+            if (importer.maxTextureSize != maxTextureSize) {
+                importer.maxTextureSize = maxTextureSize;
+                changed = true;
+            }
+
+            if (importer.filterMode != FilterMode.Bilinear) {
+                importer.filterMode = FilterMode.Bilinear;
                 changed = true;
             }
 
@@ -126,6 +209,65 @@ public static class VisualAssetRegistryEditorTools {
                 AssetDatabase.CreateFolder(current, parts[i]);
             }
             current = next;
+        }
+    }
+
+    private static int LogValidationWarning(string assetPath, string message) {
+        Debug.LogWarning($"[VisualAssetRegistryEditorTools] {assetPath}: {message}");
+        return 1;
+    }
+
+    private static ApprovedSpriteSpec ResolveApprovedSpriteSpec(string assetPath) {
+        string normalized = assetPath.Replace('\\', '/');
+
+        if (normalized.Contains("/Backgrounds/")) {
+            return new ApprovedSpriteSpec("background", 1920, 1080, false, 2048);
+        }
+
+        if (normalized.Contains("/Chassis/")) {
+            return new ApprovedSpriteSpec("chassis", 1024, 1024, true, 1024);
+        }
+
+        if (normalized.Contains("/Dolls/")) {
+            return new ApprovedSpriteSpec("doll", 1024, 1536, true, 2048);
+        }
+
+        if (normalized.Contains("/Items/Icons/")) {
+            return new ApprovedSpriteSpec("item icon", 512, 512, true, 512);
+        }
+
+        if (normalized.Contains("/Monsters/Portraits/")) {
+            return new ApprovedSpriteSpec("monster portrait", 1024, 1024, true, 1024);
+        }
+
+        if (normalized.Contains("/Nodes/Icons/")) {
+            return new ApprovedSpriteSpec("node icon", 512, 512, true, 512);
+        }
+
+        if (normalized.Contains("/Prosthetics/Icons/")) {
+            return new ApprovedSpriteSpec("prosthetic icon", 512, 512, true, 512);
+        }
+
+        if (normalized.Contains("/UI/")) {
+            return new ApprovedSpriteSpec("ui", 512, 512, true, 512);
+        }
+
+        return null;
+    }
+
+    private sealed class ApprovedSpriteSpec {
+        public readonly string Category;
+        public readonly int SourceWidth;
+        public readonly int SourceHeight;
+        public readonly bool AlphaIsTransparency;
+        public readonly int MaxTextureSize;
+
+        public ApprovedSpriteSpec(string category, int sourceWidth, int sourceHeight, bool alphaIsTransparency, int maxTextureSize) {
+            Category = category;
+            SourceWidth = sourceWidth;
+            SourceHeight = sourceHeight;
+            AlphaIsTransparency = alphaIsTransparency;
+            MaxTextureSize = maxTextureSize;
         }
     }
 }

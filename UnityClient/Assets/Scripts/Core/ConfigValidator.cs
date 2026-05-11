@@ -531,6 +531,14 @@ public static class ConfigValidator {
             }
         }
 
+        foreach (var kvp in ConfigManager.Prosthetics) {
+            ProstheticEntity prosthetic = kvp.Value;
+            string iconID = VisualAssetService.ResolveProstheticIconID(prosthetic);
+            if (!VisualAssetService.TryGetSprite(iconID, out _)) {
+                report.AddWarning($"Prosthetic [{prosthetic.ProstheticID}] icon VisualID [{iconID}] is not registered.");
+            }
+        }
+
         ValidateRequiredSprite(report, VisualAssetService.CombatNodeIconID, "Node icon");
         ValidateRequiredSprite(report, VisualAssetService.BossNodeIconID, "Node icon");
         ValidateRequiredSprite(report, VisualAssetService.SafeRoomNodeIconID, "Node icon");

@@ -3,8 +3,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class DungeonMapUIController : MonoBehaviour {
-    private const float NodeButtonWidth = 140f;
-    private const float NodeButtonHeight = 88f;
+    private const float NodeButtonWidth = 160f;
+    private const float NodeButtonHeight = 150f;
     private const float NodeButtonSpacing = 20f;
 
     public GameObject nodeButtonPrefab;
@@ -152,20 +152,19 @@ public class DungeonMapUIController : MonoBehaviour {
             iconRect.anchorMin = new Vector2(0.5f, 1f);
             iconRect.anchorMax = new Vector2(0.5f, 1f);
             iconRect.pivot = new Vector2(0.5f, 1f);
-            iconRect.anchoredPosition = new Vector2(0f, -8f);
-            iconRect.sizeDelta = new Vector2(42f, 42f);
+            iconRect.anchoredPosition = new Vector2(0f, -10f);
         }
 
         string visualID = VisualAssetService.ResolveNodeIconID(node);
-        VisualUIHelper.ApplySprite(icon, visualID, Color.white, ResolveNodeFallbackTint(node));
+        VisualUIHelper.ApplyContainSprite(icon, visualID, VisualDisplaySpecs.NodeIcon, Color.white, ResolveNodeFallbackTint(node), false);
 
         Text label = buttonTransform.GetComponentInChildren<Text>();
         if (label != null) {
             RectTransform textRect = label.GetComponent<RectTransform>();
             textRect.anchorMin = Vector2.zero;
             textRect.anchorMax = Vector2.one;
-            textRect.offsetMin = new Vector2(6f, 4f);
-            textRect.offsetMax = new Vector2(-6f, -46f);
+            textRect.offsetMin = new Vector2(6f, 8f);
+            textRect.offsetMax = new Vector2(-6f, -96f);
             label.alignment = TextAnchor.LowerCenter;
             label.raycastTarget = false;
         }
@@ -334,6 +333,6 @@ public class DungeonMapUIController : MonoBehaviour {
     private void ApplyMapBackground() {
         backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "DungeonMapBackground_Image");
         string visualID = VisualAssetService.ResolveDungeonMapBackgroundID(GameRoot.Core?.Dungeon?.CurrentLayer);
-        VisualUIHelper.ApplySprite(backgroundImage, visualID, Color.white, new Color(0.05f, 0.08f, 0.1f, 0.92f), false);
+        VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, Color.white, new Color(0.05f, 0.08f, 0.1f, 0.92f));
     }
 }

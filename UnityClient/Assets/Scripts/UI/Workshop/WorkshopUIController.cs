@@ -279,14 +279,7 @@ public class WorkshopUIController : MonoBehaviour {
         iconObj.transform.SetParent(row.transform, false);
         Image icon = iconObj.AddComponent<Image>();
         string iconID = VisualAssetService.ResolveItemIconID(item);
-        bool hasRegisteredIcon = VisualAssetService.TryGetSprite(iconID, out Sprite iconSprite);
-        icon.sprite = hasRegisteredIcon ? iconSprite : VisualAssetService.GetSprite(iconID);
-        icon.type = Image.Type.Simple;
-        icon.preserveAspect = true;
-        icon.color = hasRegisteredIcon ? Color.white : ResolveItemTint(item);
-        icon.raycastTarget = false;
-        RectTransform iconRect = iconObj.GetComponent<RectTransform>();
-        iconRect.sizeDelta = new Vector2(44f, 44f);
+        VisualUIHelper.ApplyContainSprite(icon, iconID, VisualDisplaySpecs.ItemIcon, Color.white, ResolveItemTint(item));
 
         GameObject labelObj = new GameObject("ItemLabel_Text");
         labelObj.transform.SetParent(row.transform, false);
@@ -298,7 +291,7 @@ public class WorkshopUIController : MonoBehaviour {
         label.raycastTarget = false;
         label.text = $"[{sourceLabel}] {item.Name}  [{item.BaseValue}G]";
         RectTransform labelRect = labelObj.GetComponent<RectTransform>();
-        labelRect.sizeDelta = new Vector2(420f, 44f);
+        labelRect.sizeDelta = new Vector2(420f, 64f);
 
         GameObject sellBtnObj = new GameObject("Sell_Button");
         sellBtnObj.transform.SetParent(row.transform, false);
@@ -306,7 +299,7 @@ public class WorkshopUIController : MonoBehaviour {
         sellBtnImg.color = new Color(0.86f, 0.45f, 0.18f);
         Button sellBtn = sellBtnObj.AddComponent<Button>();
         RectTransform sellBtnRect = sellBtnObj.GetComponent<RectTransform>();
-        sellBtnRect.sizeDelta = new Vector2(140f, 44f);
+        sellBtnRect.sizeDelta = new Vector2(140f, 52f);
 
         ItemEntity capturedItem = item;
         sellBtn.onClick.AddListener(() => {
@@ -413,6 +406,12 @@ public class WorkshopUIController : MonoBehaviour {
         rowFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
         rowFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
+        GameObject iconObj = new GameObject("ProstheticIcon_Image");
+        iconObj.transform.SetParent(row.transform, false);
+        Image icon = iconObj.AddComponent<Image>();
+        string iconID = VisualAssetService.ResolveProstheticIconID(prosthetic);
+        VisualUIHelper.ApplyContainSprite(icon, iconID, VisualDisplaySpecs.ProstheticIcon, Color.white, new Color(0.34f, 0.62f, 0.76f, 1f));
+
         GameObject labelObj = new GameObject("ProstheticLabel_Text");
         labelObj.transform.SetParent(row.transform, false);
         Text label = labelObj.AddComponent<Text>();
@@ -424,7 +423,7 @@ public class WorkshopUIController : MonoBehaviour {
         bool isEquipped = GameRoot.Core.CurrentPlayer.ActiveDoll.EquippedProsthetics.Contains(prosthetic.ProstheticID);
         label.text = $"{prosthetic.Name} [{prosthetic.SlotType}]\n{BuildCostText(recipe.Cost)}{(isEquipped ? "  Equipped" : string.Empty)}";
         RectTransform labelRect = labelObj.GetComponent<RectTransform>();
-        labelRect.sizeDelta = new Vector2(500f, 64f);
+        labelRect.sizeDelta = new Vector2(500f, 80f);
 
         bool canCraft = GameRoot.Core.Workshop.CanAfford(recipe.Cost, GameRoot.Core.CurrentPlayer);
         Button craftBtn = CreateInlineButton(
@@ -1004,6 +1003,6 @@ public class WorkshopUIController : MonoBehaviour {
     private void ApplyWorkshopBackground() {
         backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "WorkshopBackground_Image");
         string visualID = VisualAssetService.ResolveWorkshopBackgroundID();
-        VisualUIHelper.ApplySprite(backgroundImage, visualID, Color.white, new Color(0.1f, 0.085f, 0.065f, 0.92f), false);
+        VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, Color.white, new Color(0.1f, 0.085f, 0.065f, 0.92f));
     }
 }

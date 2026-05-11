@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class VisualAssetSmokeTest {
     public static void Run() {
@@ -98,9 +99,62 @@ public static class VisualAssetSmokeTest {
                 Debug.LogError("Background Resolver FAILED.");
             }
 
+            RunDisplaySpecAssertions();
+
             Debug.Log("=== Visual Asset Smoke Test Finished ===");
         } catch (System.Exception ex) {
             Debug.LogError($"[VisualAssetSmokeTest Crash] {ex.Message}\n{ex.StackTrace}");
+        }
+    }
+
+    private static void RunDisplaySpecAssertions() {
+        GameObject iconObject = new GameObject("DisplaySpec_ItemIcon_Test", typeof(RectTransform));
+        Image icon = iconObject.AddComponent<Image>();
+        VisualUIHelper.ApplyContainSprite(icon, VisualAssetService.MissingSpriteVisualID, VisualDisplaySpecs.ItemIcon, Color.white, Color.red);
+        if (Approximately(icon.rectTransform.sizeDelta, VisualDisplaySpecs.ItemIcon) && icon.preserveAspect && icon.GetComponent<LayoutElement>() != null) {
+            Debug.Log("DisplaySpec Item Icon Container PASSED.");
+        } else {
+            Debug.LogError($"DisplaySpec Item Icon Container FAILED. Size={icon.rectTransform.sizeDelta}, PreserveAspect={icon.preserveAspect}");
+        }
+        DestroyTestObject(iconObject);
+
+        GameObject portraitObject = new GameObject("DisplaySpec_MonsterPortrait_Test", typeof(RectTransform));
+        Image portrait = portraitObject.AddComponent<Image>();
+        VisualUIHelper.ApplyContainSprite(portrait, VisualAssetService.MissingSpriteVisualID, VisualDisplaySpecs.MonsterPortrait, Color.white, Color.red, false);
+        if (Approximately(portrait.rectTransform.sizeDelta, VisualDisplaySpecs.MonsterPortrait) && portrait.preserveAspect) {
+            Debug.Log("DisplaySpec Monster Portrait Container PASSED.");
+        } else {
+            Debug.LogError($"DisplaySpec Monster Portrait Container FAILED. Size={portrait.rectTransform.sizeDelta}, PreserveAspect={portrait.preserveAspect}");
+        }
+        DestroyTestObject(portraitObject);
+
+        GameObject backgroundParent = new GameObject("DisplaySpec_BackgroundParent_Test", typeof(RectTransform));
+        RectTransform parentRect = backgroundParent.GetComponent<RectTransform>();
+        parentRect.sizeDelta = VisualDisplaySpecs.BackgroundReferenceViewport;
+        Image background = VisualUIHelper.EnsurePanelBackground(backgroundParent.transform, null, "Background_Image");
+        VisualUIHelper.ApplyCoverSprite(background, VisualAssetService.DefaultDungeonMapBackgroundID, Color.white, Color.black);
+        AspectRatioFitter fitter = background.GetComponent<AspectRatioFitter>();
+        if (fitter != null && fitter.aspectMode == AspectRatioFitter.AspectMode.EnvelopeParent && !background.raycastTarget) {
+            Debug.Log("DisplaySpec Background Cover Container PASSED.");
+        } else {
+            Debug.LogError("DisplaySpec Background Cover Container FAILED.");
+        }
+        DestroyTestObject(backgroundParent);
+    }
+
+    private static bool Approximately(Vector2 left, Vector2 right) {
+        return Mathf.Abs(left.x - right.x) < 0.01f && Mathf.Abs(left.y - right.y) < 0.01f;
+    }
+
+    private static void DestroyTestObject(GameObject target) {
+        if (target == null) {
+            return;
+        }
+
+        if (Application.isPlaying) {
+            Object.Destroy(target);
+        } else {
+            Object.DestroyImmediate(target);
         }
     }
 }

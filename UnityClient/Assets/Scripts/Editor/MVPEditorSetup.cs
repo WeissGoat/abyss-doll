@@ -36,7 +36,7 @@ public class MVPEditorSetup : EditorWindow
         
         CanvasScaler scaler = canvasGo.AddComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        scaler.referenceResolution = new Vector2(1920, 1080);
+        scaler.referenceResolution = VisualDisplaySpecs.ReferenceResolution;
         
         canvasGo.AddComponent<GraphicRaycaster>();
 

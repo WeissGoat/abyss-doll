@@ -75,11 +75,11 @@ public class HUDController : MonoBehaviour {
             GameObject enemyList = new GameObject("EnemyList");
             enemyList.transform.SetParent(transform, false);
             RectTransform enemyRect = enemyList.AddComponent<RectTransform>();
-            enemyRect.anchorMin = new Vector2(1f, 1f);
-            enemyRect.anchorMax = new Vector2(1f, 1f);
-            enemyRect.pivot = new Vector2(1f, 1f);
-            enemyRect.anchoredPosition = new Vector2(-30f, -40f);
-            enemyRect.sizeDelta = new Vector2(420f, 420f);
+            enemyRect.anchorMin = new Vector2(1f, 0.5f);
+            enemyRect.anchorMax = new Vector2(1f, 0.5f);
+            enemyRect.pivot = new Vector2(1f, 0.5f);
+            enemyRect.anchoredPosition = new Vector2(-30f, 0f);
+            enemyRect.sizeDelta = new Vector2(380f, 920f);
 
             VerticalLayoutGroup layout = enemyList.AddComponent<VerticalLayoutGroup>();
             layout.childAlignment = TextAnchor.UpperRight;
@@ -87,7 +87,7 @@ public class HUDController : MonoBehaviour {
             layout.childControlHeight = false;
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
-            layout.spacing = 12f;
+            layout.spacing = 16f;
 
             enemyListParent = enemyList.transform;
         }
@@ -177,10 +177,10 @@ public class HUDController : MonoBehaviour {
         button.interactable = isAlive && ItemUseService.HasPendingEnemyTargetSelection;
 
         RectTransform rect = buttonObj.GetComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(360f, 84f);
+        rect.sizeDelta = new Vector2(360f, 420f);
         LayoutElement layoutElement = buttonObj.AddComponent<LayoutElement>();
         layoutElement.preferredWidth = 360f;
-        layoutElement.preferredHeight = 84f;
+        layoutElement.preferredHeight = 420f;
 
         CreateEnemyPortrait(buttonObj.transform, fighter, isAlive);
 
@@ -194,10 +194,10 @@ public class HUDController : MonoBehaviour {
         label.raycastTarget = false;
         label.text = summary;
         RectTransform textRect = textObj.GetComponent<RectTransform>();
-        textRect.anchorMin = new Vector2(0f, 0f);
+        textRect.anchorMin = Vector2.zero;
         textRect.anchorMax = Vector2.one;
-        textRect.offsetMin = new Vector2(96f, 0f);
-        textRect.offsetMax = new Vector2(-12f, 0f);
+        textRect.offsetMin = new Vector2(16f, 10f);
+        textRect.offsetMax = new Vector2(-16f, -334f);
 
         if (fighter != null) {
             button.onClick.AddListener(() => OnEnemyTargetClicked(fighter));
@@ -217,14 +217,13 @@ public class HUDController : MonoBehaviour {
         Color missingTint = isAlive
             ? new Color(0.75f, 0.42f, 0.36f, 1f)
             : new Color(0.34f, 0.34f, 0.34f, 1f);
-        VisualUIHelper.ApplySprite(portrait, portraitID, Color.white, missingTint);
+        VisualUIHelper.ApplyContainSprite(portrait, portraitID, VisualDisplaySpecs.MonsterPortrait, Color.white, missingTint, false);
 
         RectTransform portraitRect = portraitObj.GetComponent<RectTransform>();
-        portraitRect.anchorMin = new Vector2(0f, 0.5f);
-        portraitRect.anchorMax = new Vector2(0f, 0.5f);
-        portraitRect.pivot = new Vector2(0f, 0.5f);
-        portraitRect.anchoredPosition = new Vector2(10f, 0f);
-        portraitRect.sizeDelta = new Vector2(72f, 72f);
+        portraitRect.anchorMin = new Vector2(0.5f, 1f);
+        portraitRect.anchorMax = new Vector2(0.5f, 1f);
+        portraitRect.pivot = new Vector2(0.5f, 1f);
+        portraitRect.anchoredPosition = new Vector2(0f, -14f);
     }
 
     private Color ResolveEnemyCardColor(bool isAlive) {
@@ -341,7 +340,7 @@ public class HUDController : MonoBehaviour {
     private void EnsureCombatBackground() {
         backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "CombatBackground_Image");
         string visualID = VisualAssetService.ResolveCombatBackgroundID(GameRoot.Core?.Dungeon?.CurrentLayer);
-        VisualUIHelper.ApplySprite(backgroundImage, visualID, Color.white, new Color(0.16f, 0.08f, 0.08f, 0.92f), false);
+        VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, Color.white, new Color(0.16f, 0.08f, 0.08f, 0.92f));
     }
 
     private DollFighter GetActivePlayerFighter() {

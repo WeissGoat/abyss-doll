@@ -74,6 +74,20 @@ public static class VisualAssetService {
         return string.IsNullOrEmpty(item.ConfigID) ? string.Empty : $"item_{item.ConfigID}_icon";
     }
 
+    public static string ResolveProstheticIconID(ProstheticEntity prosthetic) {
+        if (prosthetic == null) {
+            return MissingSpriteVisualID;
+        }
+
+        if (!string.IsNullOrEmpty(prosthetic.IconID)) {
+            return prosthetic.IconID;
+        }
+
+        return string.IsNullOrEmpty(prosthetic.ProstheticID)
+            ? MissingSpriteVisualID
+            : $"prosthetic_{prosthetic.ProstheticID}_icon";
+    }
+
     public static string ResolveMonsterPortraitID(MonsterEntity monster) {
         if (monster == null) {
             return MissingSpriteVisualID;
@@ -165,6 +179,19 @@ public static class VisualAssetService {
     }
 }
 
+public static class VisualDisplaySpecs {
+    public static readonly Vector2 ReferenceResolution = new Vector2(1920f, 1080f);
+    public static readonly Vector2 ItemIcon = new Vector2(64f, 64f);
+    public static readonly Vector2 NodeIcon = new Vector2(80f, 80f);
+    public static readonly Vector2 ProstheticIcon = new Vector2(80f, 80f);
+    public static readonly Vector2 MissingSprite = new Vector2(64f, 64f);
+    public static readonly Vector2 MonsterPortrait = new Vector2(320f, 320f);
+    public static readonly Vector2 DollStand = new Vector2(420f, 720f);
+    public static readonly Vector2 ChassisFrame = new Vector2(512f, 512f);
+    public static readonly Vector2 BackgroundReferenceViewport = new Vector2(1920f, 1080f);
+    public const float BackgroundReferenceAspect = 16f / 9f;
+}
+
 public static class VisualUIHelper {
     public static Image EnsurePanelBackground(Transform parent, Image currentImage, string objectName) {
         if (parent == null) {
@@ -183,13 +210,14 @@ public static class VisualUIHelper {
             GameObject bgObj = new GameObject(objectName);
             bgObj.transform.SetParent(parent, false);
             image = bgObj.AddComponent<Image>();
-
-            RectTransform rect = bgObj.GetComponent<RectTransform>();
-            rect.anchorMin = Vector2.zero;
-            rect.anchorMax = Vector2.one;
-            rect.offsetMin = Vector2.zero;
-            rect.offsetMax = Vector2.zero;
         }
+
+        RectTransform rect = image.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = Vector2.zero;
+        rect.sizeDelta = VisualDisplaySpecs.BackgroundReferenceViewport;
 
         image.raycastTarget = false;
         image.type = Image.Type.Simple;
@@ -209,5 +237,84 @@ public static class VisualUIHelper {
         image.preserveAspect = preserveAspect;
         image.raycastTarget = false;
         return hasRegisteredSprite;
+    }
+
+    public static bool ApplyContainSprite(Image image, string visualID, Vector2 containerSize, Color registeredColor, Color missingColor, bool bindLayoutElement = true) {
+        if (image == null) {
+            return false;
+        }
+
+        RemoveAspectRatioFitter(image);
+        ApplyFixedContainer(image.rectTransform, containerSize, bindLayoutElement);
+        bool hasRegisteredSprite = ApplySprite(image, visualID, registeredColor, missingColor, true);
+        image.type = Image.Type.Simple;
+        return hasRegisteredSprite;
+    }
+
+    public static bool ApplyCoverSprite(Image image, string visualID, Color registeredColor, Color missingColor) {
+        if (image == null) {
+            return false;
+        }
+
+        bool hasRegisteredSprite = VisualAssetService.TryGetSprite(visualID, out Sprite sprite);
+        image.sprite = hasRegisteredSprite ? sprite : VisualAssetService.GetSprite(visualID);
+        image.color = hasRegisteredSprite ? registeredColor : missingColor;
+        image.type = Image.Type.Simple;
+        image.preserveAspect = false;
+        image.raycastTarget = false;
+
+        AspectRatioFitter fitter = image.GetComponent<AspectRatioFitter>();
+        if (fitter == null) {
+            fitter = image.gameObject.AddComponent<AspectRatioFitter>();
+        }
+
+        fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
+        fitter.aspectRatio = ResolveSpriteAspectRatio(image.sprite);
+        return hasRegisteredSprite;
+    }
+
+    public static void ApplyFixedContainer(RectTransform rect, Vector2 containerSize, bool bindLayoutElement = true) {
+        if (rect == null) {
+            return;
+        }
+
+        rect.sizeDelta = containerSize;
+
+        if (!bindLayoutElement) {
+            return;
+        }
+
+        LayoutElement layoutElement = rect.GetComponent<LayoutElement>();
+        if (layoutElement == null) {
+            layoutElement = rect.gameObject.AddComponent<LayoutElement>();
+        }
+
+        layoutElement.minWidth = containerSize.x;
+        layoutElement.preferredWidth = containerSize.x;
+        layoutElement.flexibleWidth = 0f;
+        layoutElement.minHeight = containerSize.y;
+        layoutElement.preferredHeight = containerSize.y;
+        layoutElement.flexibleHeight = 0f;
+    }
+
+    private static float ResolveSpriteAspectRatio(Sprite sprite) {
+        if (sprite == null || sprite.rect.height <= 0f) {
+            return VisualDisplaySpecs.BackgroundReferenceAspect;
+        }
+
+        return sprite.rect.width / sprite.rect.height;
+    }
+
+    private static void RemoveAspectRatioFitter(Image image) {
+        AspectRatioFitter fitter = image.GetComponent<AspectRatioFitter>();
+        if (fitter == null) {
+            return;
+        }
+
+        if (Application.isPlaying) {
+            Object.Destroy(fitter);
+        } else {
+            Object.DestroyImmediate(fitter);
+        }
     }
 }
