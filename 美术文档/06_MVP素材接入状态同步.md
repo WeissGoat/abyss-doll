@@ -1,7 +1,7 @@
 # MVP 素材接入状态同步
 
 > **定位：** 给美术侧同步当前 Unity 已接入素材、已入库但未展示素材、配置引用但缺失素材，以及下一批需要补齐的资源。
-> **更新时间：** 2026-05-11
+> **更新时间：** 2026-05-13
 
 ---
 
@@ -32,7 +32,7 @@ Approved PNG / Prefab -> VisualAssetRegistry -> 配置 VisualID -> Unity UI Disp
 |---|---|---|---|
 | 物品图标 | 背包、战利品拾取、工坊出售列表 | `item_*_icon` | 物品图标容器为 `64x64`，等比 contain。 |
 | 怪物头像 | 战斗敌人卡片 | `monster_{MonsterID}_portrait` | 怪物头像容器为 `320x320`，等比 contain。 |
-| 节点图标 | 深渊地图节点 | `node_combat_icon`, `node_boss_icon`, `node_safe_room_icon` | 节点图标容器为 `80x80`，等比 contain。 |
+| 节点图标 | 深渊地图节点 | `node_combat_icon`, `node_boss_icon`, `node_safe_room_icon`, `node_stairs_icon` | 节点图标容器为 `80x80`，等比 contain。 |
 | 义体图标 | 工坊义体制造列表 | `prosthetic_{ProstheticID}_icon` | 义体图标容器为 `80x80`，等比 contain。 |
 | 深渊地图背景 | 深渊路线图 | `bg_dungeon_map`, `bg_dungeon_layer_1`, `bg_dungeon_layer_2` | 背景按 `1920x1080` 参考视口 cover 裁切。 |
 | 战斗背景 | 战斗界面 | `bg_combat_abyss` | 背景按 `1920x1080` 参考视口 cover 裁切。 |
@@ -60,20 +60,13 @@ Approved PNG / Prefab -> VisualAssetRegistry -> 配置 VisualID -> Unity UI Disp
 
 ## 4. 配置已引用但 Approved 缺失的素材
 
-这些 VisualID 已被配置或程序引用，但当前 Approved 中没有对应正式图，会显示 missing sprite 或 fallback。
+截至 2026-05-13，配置已引用且属于 MVP 主流程的 P0/P1 视觉资源没有新的 Approved 缺失项。
 
-| 优先级 | VisualID | 当前引用位置 | 需要美术补齐 |
-|---|---|---|---|
-| P0 | `node_stairs_icon` | `Dungeons/layer_1.json` 与 `Dungeons/layer_2.json` 的 `EndNode.NodeIconID` | 阶梯/向下入口节点图标。 |
+已完成补齐：
 
-`node_stairs_icon` 建议规格：
-
-* 路径：`UnityClient/Assets/Art/Approved/Nodes/Icons/node_stairs_icon.png`
-* 源图：`512x512`
-* 背景：透明
-* Unity 显示容器：`80x80`
-* FitMode：`contain`
-* 构图：强轮廓、低细节、能表达“进入下一层/返回小镇的关底入口”
+| VisualID | 当前引用位置 | 状态 |
+|---|---|---|
+| `node_stairs_icon` | `Dungeons/layer_1.json` 与 `Dungeons/layer_2.json` 的 `EndNode.NodeIconID` | 已进入 Approved，并已登记到 `VisualAssetRegistry`。 |
 
 ---
 
@@ -99,7 +92,7 @@ Approved PNG / Prefab -> VisualAssetRegistry -> 配置 VisualID -> Unity UI Disp
 
 P0：立即补齐
 
-* `node_stairs_icon`
+* 暂无配置已引用但 Approved 缺失的 P0 素材。
 
 P1：已有资源落界面前需要版式确认
 
@@ -155,4 +148,3 @@ ui_inventory_slot_locked
 ui_button_primary
 ui_button_danger
 ```
-
