@@ -32,6 +32,10 @@ public class GameFlowController : MonoBehaviour {
     private DungeonSettlementResult _pendingSettlementResult;
     private bool _isDungeonMapInventoryOpen;
     private Coroutine _deferredInventorySyncRoutine;
+    private Image _inventoryChassisPanel;
+
+    private const float InventoryCellSize = 100f;
+    private const float InventoryCellSpacing = 5f;
 
     void Awake() {
         Instance = this;
@@ -491,6 +495,11 @@ public class GameFlowController : MonoBehaviour {
         GridGenerator generator = FindObjectOfType<GridGenerator>();
         if (generator?.gridParent != null) {
             generator.gridParent.gameObject.SetActive(shouldShowBackpack);
+            ApplyInventoryGridLayout(generator);
+        }
+
+        if (!shouldShowBackpack && _inventoryChassisPanel != null) {
+            _inventoryChassisPanel.gameObject.SetActive(false);
         }
 
         EnsureInventoryItemLayer();
@@ -506,11 +515,136 @@ public class GameFlowController : MonoBehaviour {
         }
 
         if (shouldShowBackpack) {
+            PositionInventoryForCurrentScreen(generator);
             BringInventoryLayersToFront(generator);
         }
     }
 
+    private void ApplyInventoryGridLayout(GridGenerator generator) {
+        if (generator?.gridParent == null) {
+            return;
+        }
+
+        GridLayoutGroup layoutGroup = generator.gridParent.GetComponent<GridLayoutGroup>();
+        if (layoutGroup != null) {
+            layoutGroup.cellSize = new Vector2(InventoryCellSize, InventoryCellSize);
+            layoutGroup.spacing = new Vector2(InventoryCellSpacing, InventoryCellSpacing);
+            layoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+        }
+
+        RectTransform gridRect = generator.gridParent as RectTransform;
+        RectTransform layerRect = inventoryItemLayer as RectTransform;
+        if (gridRect != null && layerRect != null) {
+            layerRect.anchorMin = gridRect.anchorMin;
+            layerRect.anchorMax = gridRect.anchorMax;
+            layerRect.pivot = gridRect.pivot;
+            layerRect.anchoredPosition = gridRect.anchoredPosition;
+            layerRect.sizeDelta = gridRect.sizeDelta;
+            layerRect.localScale = gridRect.localScale;
+        }
+    }
+
+    private void PositionInventoryForCurrentScreen(GridGenerator generator) {
+        if (generator?.gridParent == null) {
+            return;
+        }
+
+        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        Vector2 gridSize = ResolveInventoryGridSize(grid);
+        Vector2 position = ResolveInventoryAnchoredPosition();
+
+        RectTransform gridRect = generator.gridParent as RectTransform;
+        if (gridRect != null) {
+            gridRect.anchorMin = new Vector2(0.5f, 0.5f);
+            gridRect.anchorMax = new Vector2(0.5f, 0.5f);
+            gridRect.pivot = new Vector2(0.5f, 0.5f);
+            gridRect.anchoredPosition = position;
+            gridRect.sizeDelta = gridSize;
+            gridRect.localScale = Vector3.one;
+        }
+
+        EnsureInventoryChassisPanel(generator, gridSize, position);
+
+        RectTransform layerRect = inventoryItemLayer as RectTransform;
+        if (layerRect != null && gridRect != null) {
+            layerRect.anchorMin = gridRect.anchorMin;
+            layerRect.anchorMax = gridRect.anchorMax;
+            layerRect.pivot = gridRect.pivot;
+            layerRect.anchoredPosition = gridRect.anchoredPosition;
+            layerRect.sizeDelta = gridRect.sizeDelta;
+            layerRect.localScale = gridRect.localScale;
+        }
+    }
+
+    private Vector2 ResolveInventoryGridSize(BackpackGrid grid) {
+        int width = Mathf.Max(1, grid?.Width ?? 4);
+        int height = Mathf.Max(1, grid?.Height ?? 4);
+        return new Vector2(
+            width * InventoryCellSize + (width - 1) * InventoryCellSpacing,
+            height * InventoryCellSize + (height - 1) * InventoryCellSpacing);
+    }
+
+    private Vector2 ResolveInventoryAnchoredPosition() {
+        switch (_currentScreen) {
+            case GameScreenState.Workshop:
+                return new Vector2(0f, -220f);
+            case GameScreenState.Combat:
+                return new Vector2(540f, -230f);
+            case GameScreenState.CombatLoot:
+                return new Vector2(-460f, -20f);
+            case GameScreenState.SafeRoom:
+            case GameScreenState.Stairs:
+                return new Vector2(0f, -220f);
+            case GameScreenState.DungeonMap:
+                return new Vector2(0f, -250f);
+            default:
+                return Vector2.zero;
+        }
+    }
+
+    private void EnsureInventoryChassisPanel(GridGenerator generator, Vector2 gridSize, Vector2 position) {
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas == null || generator?.gridParent == null) {
+            return;
+        }
+
+        if (_inventoryChassisPanel == null) {
+            Transform existing = canvas.transform.Find("InventoryChassisPanel");
+            if (existing != null) {
+                _inventoryChassisPanel = existing.GetComponent<Image>();
+            }
+        }
+
+        if (_inventoryChassisPanel == null) {
+            GameObject panelObj = new GameObject("InventoryChassisPanel");
+            panelObj.transform.SetParent(canvas.transform, false);
+            _inventoryChassisPanel = panelObj.AddComponent<Image>();
+        }
+
+        RectTransform panelRect = _inventoryChassisPanel.rectTransform;
+        panelRect.anchorMin = new Vector2(0.5f, 0.5f);
+        panelRect.anchorMax = new Vector2(0.5f, 0.5f);
+        panelRect.pivot = new Vector2(0.5f, 0.5f);
+        panelRect.anchoredPosition = position;
+        panelRect.sizeDelta = gridSize + new Vector2(52f, 52f);
+        panelRect.localScale = Vector3.one;
+
+        VisualUIHelper.ApplySlicedSprite(
+            _inventoryChassisPanel,
+            VisualAssetService.UIInventoryChassisPanelID,
+            Color.white,
+            new Color(0.08f, 0.075f, 0.065f, 0.9f),
+            false);
+
+        _inventoryChassisPanel.gameObject.SetActive(generator.gridParent.gameObject.activeSelf);
+        _inventoryChassisPanel.transform.SetSiblingIndex(Mathf.Max(0, generator.gridParent.GetSiblingIndex()));
+    }
+
     private void BringInventoryLayersToFront(GridGenerator generator) {
+        if (_inventoryChassisPanel != null && generator?.gridParent != null) {
+            _inventoryChassisPanel.transform.SetSiblingIndex(Mathf.Max(0, generator.gridParent.GetSiblingIndex()));
+        }
+
         if (generator?.gridParent != null) {
             generator.gridParent.SetAsLastSibling();
         }

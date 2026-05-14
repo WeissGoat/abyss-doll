@@ -12,6 +12,12 @@ public class HUDController : MonoBehaviour {
     public Image backgroundImage;
 
     private Font _defaultFont;
+    private Image _turnBannerImage;
+    private Image _playerStatusPanel;
+    private Image _playerDollImage;
+    private Image _hpBarTrack;
+    private Image _shieldBarTrack;
+    private Transform _apPipParent;
 
     private void OnEnable() {
         _defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
@@ -62,6 +68,7 @@ public class HUDController : MonoBehaviour {
         }
 
         EnsureCombatBackground();
+        EnsureCombatMainSkin();
 
         if (shieldLabel == null) {
             shieldLabel = CreateRuntimeLabel("Shield_Text", new Vector2(20f, -120f), new Vector2(300f, 50f), new Color(0.95f, 0.82f, 0.3f), 28);
@@ -72,16 +79,16 @@ public class HUDController : MonoBehaviour {
         }
 
         if (enemyListParent == null) {
-            GameObject enemyList = new GameObject("EnemyList");
+            GameObject enemyList = new GameObject("EnemyCardsRoot");
             enemyList.transform.SetParent(transform, false);
             RectTransform enemyRect = enemyList.AddComponent<RectTransform>();
-            enemyRect.anchorMin = new Vector2(1f, 0.5f);
-            enemyRect.anchorMax = new Vector2(1f, 0.5f);
-            enemyRect.pivot = new Vector2(1f, 0.5f);
-            enemyRect.anchoredPosition = new Vector2(-30f, 0f);
-            enemyRect.sizeDelta = new Vector2(380f, 920f);
+            enemyRect.anchorMin = new Vector2(1f, 1f);
+            enemyRect.anchorMax = new Vector2(1f, 1f);
+            enemyRect.pivot = new Vector2(1f, 1f);
+            enemyRect.anchoredPosition = new Vector2(-110f, -128f);
+            enemyRect.sizeDelta = new Vector2(780f, 360f);
 
-            VerticalLayoutGroup layout = enemyList.AddComponent<VerticalLayoutGroup>();
+            HorizontalLayoutGroup layout = enemyList.AddComponent<HorizontalLayoutGroup>();
             layout.childAlignment = TextAnchor.UpperRight;
             layout.childControlWidth = false;
             layout.childControlHeight = false;
@@ -91,6 +98,9 @@ public class HUDController : MonoBehaviour {
 
             enemyListParent = enemyList.transform;
         }
+
+        PositionCombatTexts();
+        ApplyCombatButtonSkin();
     }
 
     private Text CreateRuntimeLabel(string name, Vector2 anchoredPosition, Vector2 size, Color color, int fontSize, Vector2? anchor = null, TextAnchor alignment = TextAnchor.MiddleLeft) {
@@ -171,33 +181,38 @@ public class HUDController : MonoBehaviour {
         buttonObj.transform.SetParent(enemyListParent, false);
 
         Image image = buttonObj.AddComponent<Image>();
-        image.color = ResolveEnemyCardColor(isAlive);
+        string cardVisualID = ItemUseService.HasPendingEnemyTargetSelection && isAlive
+            ? VisualAssetService.UICombatEnemyCardSelectedID
+            : VisualAssetService.UICombatEnemyCardID;
+        VisualUIHelper.ApplySimpleSprite(image, cardVisualID, Color.white, ResolveEnemyCardColor(isAlive), true, false);
 
         Button button = buttonObj.AddComponent<Button>();
         button.interactable = isAlive && ItemUseService.HasPendingEnemyTargetSelection;
 
         RectTransform rect = buttonObj.GetComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(360f, 420f);
+        rect.sizeDelta = new Vector2(240f, 320f);
         LayoutElement layoutElement = buttonObj.AddComponent<LayoutElement>();
-        layoutElement.preferredWidth = 360f;
-        layoutElement.preferredHeight = 420f;
+        layoutElement.preferredWidth = 240f;
+        layoutElement.preferredHeight = 320f;
 
         CreateEnemyPortrait(buttonObj.transform, fighter, isAlive);
+        CreateEnemyBars(buttonObj.transform, fighter);
 
         GameObject textObj = new GameObject("Text");
         textObj.transform.SetParent(buttonObj.transform, false);
         Text label = textObj.AddComponent<Text>();
         label.font = _defaultFont;
-        label.fontSize = 24;
+        label.fontSize = 18;
         label.color = Color.white;
-        label.alignment = TextAnchor.MiddleLeft;
+        label.alignment = TextAnchor.UpperLeft;
         label.raycastTarget = false;
         label.text = summary;
         RectTransform textRect = textObj.GetComponent<RectTransform>();
-        textRect.anchorMin = Vector2.zero;
-        textRect.anchorMax = Vector2.one;
-        textRect.offsetMin = new Vector2(16f, 10f);
-        textRect.offsetMax = new Vector2(-16f, -334f);
+        textRect.anchorMin = new Vector2(0f, 0f);
+        textRect.anchorMax = new Vector2(1f, 0f);
+        textRect.pivot = new Vector2(0.5f, 0f);
+        textRect.offsetMin = new Vector2(18f, 26f);
+        textRect.offsetMax = new Vector2(-18f, 112f);
 
         if (fighter != null) {
             button.onClick.AddListener(() => OnEnemyTargetClicked(fighter));
@@ -217,13 +232,34 @@ public class HUDController : MonoBehaviour {
         Color missingTint = isAlive
             ? new Color(0.75f, 0.42f, 0.36f, 1f)
             : new Color(0.34f, 0.34f, 0.34f, 1f);
-        VisualUIHelper.ApplyContainSprite(portrait, portraitID, VisualDisplaySpecs.MonsterPortrait, Color.white, missingTint, false);
+        VisualUIHelper.ApplyContainSprite(portrait, portraitID, new Vector2(176f, 176f), Color.white, missingTint, false);
 
         RectTransform portraitRect = portraitObj.GetComponent<RectTransform>();
         portraitRect.anchorMin = new Vector2(0.5f, 1f);
         portraitRect.anchorMax = new Vector2(0.5f, 1f);
         portraitRect.pivot = new Vector2(0.5f, 1f);
-        portraitRect.anchoredPosition = new Vector2(0f, -14f);
+        portraitRect.anchoredPosition = new Vector2(0f, -26f);
+    }
+
+    private void CreateEnemyBars(Transform parent, FighterEntity fighter) {
+        CreateStatusTrack(parent, "HpBar", VisualAssetService.UICombatStatusBarHpID, new Vector2(0f, -214f), new Vector2(170f, 22f));
+        if (fighter != null && fighter.RuntimeShield > 0) {
+            CreateStatusTrack(parent, "ShieldBar", VisualAssetService.UICombatStatusBarShieldID, new Vector2(0f, -242f), new Vector2(170f, 18f));
+        }
+    }
+
+    private Image CreateStatusTrack(Transform parent, string objectName, string visualID, Vector2 anchoredPosition, Vector2 size) {
+        GameObject trackObj = new GameObject(objectName);
+        trackObj.transform.SetParent(parent, false);
+        Image image = trackObj.AddComponent<Image>();
+        RectTransform rect = image.rectTransform;
+        rect.anchorMin = new Vector2(0.5f, 1f);
+        rect.anchorMax = new Vector2(0.5f, 1f);
+        rect.pivot = new Vector2(0.5f, 1f);
+        rect.anchoredPosition = anchoredPosition;
+        rect.sizeDelta = size;
+        VisualUIHelper.ApplySlicedSprite(image, visualID, Color.white, new Color(0.22f, 0.12f, 0.1f, 0.9f), false);
+        return image;
     }
 
     private Color ResolveEnemyCardColor(bool isAlive) {
@@ -282,6 +318,7 @@ public class HUDController : MonoBehaviour {
             if (apLabel != null) {
                 apLabel.text = $"AP: {current} / {max}";
             }
+            RefreshApPips(current, max);
         }
     }
 
@@ -341,6 +378,237 @@ public class HUDController : MonoBehaviour {
         backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "CombatBackground_Image");
         string visualID = VisualAssetService.ResolveCombatBackgroundID(GameRoot.Core?.Dungeon?.CurrentLayer);
         VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, Color.white, new Color(0.16f, 0.08f, 0.08f, 0.92f));
+    }
+
+    private void EnsureCombatMainSkin() {
+        _turnBannerImage = EnsureSkinImage(
+            _turnBannerImage,
+            "TurnBanner",
+            new Vector2(0.5f, 1f),
+            new Vector2(0f, -36f),
+            new Vector2(600f, 92f),
+            VisualAssetService.UICombatTurnBannerID,
+            false);
+
+        _playerStatusPanel = EnsureSkinImage(
+            _playerStatusPanel,
+            "PlayerStatusPanel",
+            new Vector2(0f, 0f),
+            new Vector2(560f, 190f),
+            new Vector2(520f, 170f),
+            VisualAssetService.UIPanelInfoID,
+            false);
+
+        _hpBarTrack = EnsureChildSkinImage(
+            _playerStatusPanel != null ? _playerStatusPanel.transform : transform,
+            _hpBarTrack,
+            "HpBar",
+            new Vector2(0f, 1f),
+            new Vector2(172f, -28f),
+            new Vector2(250f, 26f),
+            VisualAssetService.UICombatStatusBarHpID);
+
+        _shieldBarTrack = EnsureChildSkinImage(
+            _playerStatusPanel != null ? _playerStatusPanel.transform : transform,
+            _shieldBarTrack,
+            "ShieldBar",
+            new Vector2(0f, 1f),
+            new Vector2(172f, -70f),
+            new Vector2(250f, 22f),
+            VisualAssetService.UICombatStatusBarShieldID);
+
+        EnsurePlayerDoll();
+        EnsureApPipParent();
+    }
+
+    private Image EnsureSkinImage(Image current, string objectName, Vector2 anchor, Vector2 position, Vector2 size, string visualID, bool raycastTarget) {
+        Image image = current;
+        if (image == null) {
+            Transform existing = transform.Find(objectName);
+            image = existing != null ? existing.GetComponent<Image>() : null;
+        }
+
+        if (image == null) {
+            GameObject obj = new GameObject(objectName);
+            obj.transform.SetParent(transform, false);
+            image = obj.AddComponent<Image>();
+        }
+
+        RectTransform rect = image.rectTransform;
+        rect.anchorMin = anchor;
+        rect.anchorMax = anchor;
+        rect.pivot = anchor;
+        rect.anchoredPosition = position;
+        rect.sizeDelta = size;
+        VisualUIHelper.ApplySlicedSprite(image, visualID, Color.white, new Color(0.08f, 0.07f, 0.065f, 0.9f), raycastTarget);
+        image.transform.SetAsLastSibling();
+        return image;
+    }
+
+    private Image EnsureChildSkinImage(Transform parent, Image current, string objectName, Vector2 anchor, Vector2 position, Vector2 size, string visualID) {
+        if (parent == null) {
+            return current;
+        }
+
+        Image image = current;
+        if (image == null) {
+            Transform existing = parent.Find(objectName);
+            image = existing != null ? existing.GetComponent<Image>() : null;
+        }
+
+        if (image == null) {
+            GameObject obj = new GameObject(objectName);
+            obj.transform.SetParent(parent, false);
+            image = obj.AddComponent<Image>();
+        }
+
+        RectTransform rect = image.rectTransform;
+        rect.anchorMin = anchor;
+        rect.anchorMax = anchor;
+        rect.pivot = anchor;
+        rect.anchoredPosition = position;
+        rect.sizeDelta = size;
+        VisualUIHelper.ApplySlicedSprite(image, visualID, Color.white, new Color(0.15f, 0.1f, 0.08f, 0.9f), false);
+        return image;
+    }
+
+    private void EnsurePlayerDoll() {
+        if (_playerDollImage == null) {
+            Transform existing = transform.Find("PlayerDoll/DollImage");
+            _playerDollImage = existing != null ? existing.GetComponent<Image>() : null;
+        }
+
+        if (_playerDollImage == null) {
+            GameObject dollRoot = new GameObject("PlayerDoll");
+            dollRoot.transform.SetParent(transform, false);
+            RectTransform rootRect = dollRoot.AddComponent<RectTransform>();
+            rootRect.anchorMin = new Vector2(0f, 0f);
+            rootRect.anchorMax = new Vector2(0f, 0f);
+            rootRect.pivot = new Vector2(0f, 0f);
+            rootRect.anchoredPosition = new Vector2(120f, 110f);
+            rootRect.sizeDelta = new Vector2(420f, 720f);
+
+            GameObject imageObj = new GameObject("DollImage");
+            imageObj.transform.SetParent(dollRoot.transform, false);
+            _playerDollImage = imageObj.AddComponent<Image>();
+        }
+
+        RectTransform rect = _playerDollImage.rectTransform;
+        rect.anchorMin = new Vector2(0.5f, 0f);
+        rect.anchorMax = new Vector2(0.5f, 0f);
+        rect.pivot = new Vector2(0.5f, 0f);
+        rect.anchoredPosition = Vector2.zero;
+        VisualUIHelper.ApplyContainSprite(
+            _playerDollImage,
+            "doll_proto_0_stand",
+            VisualDisplaySpecs.DollStand,
+            Color.white,
+            new Color(0.42f, 0.32f, 0.24f, 0.92f),
+            false);
+    }
+
+    private void EnsureApPipParent() {
+        if (_apPipParent != null) {
+            return;
+        }
+
+        Transform parent = _playerStatusPanel != null ? _playerStatusPanel.transform : transform;
+        Transform existing = parent.Find("ApPips");
+        if (existing != null) {
+            _apPipParent = existing;
+            return;
+        }
+
+        GameObject pipRoot = new GameObject("ApPips");
+        pipRoot.transform.SetParent(parent, false);
+        RectTransform rect = pipRoot.AddComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(0f, 1f);
+        rect.pivot = new Vector2(0f, 1f);
+        rect.anchoredPosition = new Vector2(172f, -110f);
+        rect.sizeDelta = new Vector2(250f, 36f);
+        HorizontalLayoutGroup layout = pipRoot.AddComponent<HorizontalLayoutGroup>();
+        layout.childAlignment = TextAnchor.MiddleLeft;
+        layout.childControlWidth = false;
+        layout.childControlHeight = false;
+        layout.childForceExpandWidth = false;
+        layout.childForceExpandHeight = false;
+        layout.spacing = 8f;
+        _apPipParent = pipRoot.transform;
+    }
+
+    private void PositionCombatTexts() {
+        MoveTextToPanel(hpLabel, new Vector2(24f, -22f), new Vector2(140f, 34f), 24, new Color(1f, 0.56f, 0.48f));
+        MoveTextToPanel(shieldLabel, new Vector2(24f, -64f), new Vector2(140f, 32f), 22, new Color(0.95f, 0.82f, 0.3f));
+        MoveTextToPanel(sanLabel, new Vector2(24f, -108f), new Vector2(140f, 34f), 22, new Color(0.74f, 0.56f, 1f));
+        MoveTextToPanel(apLabel, new Vector2(24f, -132f), new Vector2(140f, 34f), 22, new Color(0.72f, 0.95f, 1f));
+
+        if (targetHintLabel != null && _turnBannerImage != null) {
+            targetHintLabel.transform.SetParent(_turnBannerImage.transform, false);
+            targetHintLabel.fontSize = 24;
+            targetHintLabel.alignment = TextAnchor.MiddleCenter;
+            RectTransform rect = targetHintLabel.rectTransform;
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = Vector2.zero;
+            rect.sizeDelta = new Vector2(-48f, -18f);
+        }
+
+        if (endTurnBtn != null) {
+            RectTransform rect = endTurnBtn.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0.5f, 0f);
+            rect.anchorMax = new Vector2(0.5f, 0f);
+            rect.pivot = new Vector2(0.5f, 0f);
+            rect.anchoredPosition = new Vector2(160f, 62f);
+            rect.sizeDelta = new Vector2(220f, 64f);
+        }
+    }
+
+    private void MoveTextToPanel(Text text, Vector2 position, Vector2 size, int fontSize, Color color) {
+        if (text == null || _playerStatusPanel == null) {
+            return;
+        }
+
+        text.transform.SetParent(_playerStatusPanel.transform, false);
+        text.fontSize = fontSize;
+        text.color = color;
+        text.raycastTarget = false;
+        RectTransform rect = text.rectTransform;
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(0f, 1f);
+        rect.pivot = new Vector2(0f, 1f);
+        rect.anchoredPosition = position;
+        rect.sizeDelta = size;
+    }
+
+    private void ApplyCombatButtonSkin() {
+        VisualUIHelper.ApplyButtonSkin(endTurnBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.8f, 0.2f, 0.2f));
+    }
+
+    private void RefreshApPips(int current, int max) {
+        if (_apPipParent == null) {
+            return;
+        }
+
+        for (int i = _apPipParent.childCount - 1; i >= 0; i--) {
+            Destroy(_apPipParent.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < Mathf.Max(0, max); i++) {
+            GameObject pipObj = new GameObject($"AP_{i + 1}");
+            pipObj.transform.SetParent(_apPipParent, false);
+            Image pip = pipObj.AddComponent<Image>();
+            RectTransform rect = pip.rectTransform;
+            rect.sizeDelta = new Vector2(28f, 28f);
+            VisualUIHelper.ApplySimpleSprite(
+                pip,
+                VisualAssetService.UICombatApPipID,
+                i < current ? Color.white : new Color(0.38f, 0.38f, 0.38f, 0.82f),
+                i < current ? new Color(0.7f, 0.95f, 1f, 1f) : new Color(0.25f, 0.25f, 0.25f, 0.8f),
+                false,
+                true);
+        }
     }
 
     private DollFighter GetActivePlayerFighter() {

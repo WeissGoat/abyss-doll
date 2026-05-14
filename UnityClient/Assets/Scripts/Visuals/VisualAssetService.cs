@@ -11,6 +11,25 @@ public static class VisualAssetService {
     public const string BossNodeIconID = "node_boss_icon";
     public const string SafeRoomNodeIconID = "node_safe_room_icon";
     public const string StairsNodeIconID = "node_stairs_icon";
+    public const string UIPanelInfoID = "ui_panel_info";
+    public const string UIButtonPrimaryID = "ui_button_primary";
+    public const string UIButtonSecondaryID = "ui_button_secondary";
+    public const string UIButtonDangerID = "ui_button_danger";
+    public const string UIInventoryChassisPanelID = "ui_inventory_chassis_panel";
+    public const string UIInventorySlotAvailableID = "ui_inventory_slot_available";
+    public const string UIInventorySlotLockedID = "ui_inventory_slot_locked";
+    public const string UIInventorySlotHoverID = "ui_inventory_slot_hover";
+    public const string UIInventorySlotValidID = "ui_inventory_slot_valid";
+    public const string UIInventorySlotInvalidID = "ui_inventory_slot_invalid";
+    public const string UILootPickupPanelID = "ui_loot_pickup_panel";
+    public const string UILootDropZoneID = "ui_loot_drop_zone";
+    public const string UICombatEnemyCardID = "ui_combat_enemy_card";
+    public const string UICombatEnemyCardSelectedID = "ui_combat_enemy_card_selected";
+    public const string UICombatStatusBarHpID = "ui_combat_status_bar_hp";
+    public const string UICombatStatusBarShieldID = "ui_combat_status_bar_shield";
+    public const string UICombatApPipID = "ui_combat_ap_pip";
+    public const string UICombatTurnBannerID = "ui_combat_turn_banner";
+    public const string UIIconMoneyID = "ui_icon_money";
 
     private static VisualAssetRegistry _registry;
     private static Sprite _runtimeMissingSprite;
@@ -237,6 +256,57 @@ public static class VisualUIHelper {
         image.preserveAspect = preserveAspect;
         image.raycastTarget = false;
         return hasRegisteredSprite;
+    }
+
+    public static bool ApplySimpleSprite(Image image, string visualID, Color registeredColor, Color missingColor, bool raycastTarget, bool preserveAspect = true) {
+        bool hasRegisteredSprite = ApplySprite(image, visualID, registeredColor, missingColor, preserveAspect);
+        if (image == null) {
+            return false;
+        }
+
+        image.type = Image.Type.Simple;
+        image.raycastTarget = raycastTarget;
+        return hasRegisteredSprite;
+    }
+
+    public static bool ApplySlicedSprite(Image image, string visualID, Color registeredColor, Color missingColor, bool raycastTarget) {
+        bool hasRegisteredSprite = ApplySprite(image, visualID, registeredColor, missingColor, false);
+        if (image == null) {
+            return false;
+        }
+
+        image.type = Image.Type.Sliced;
+        image.raycastTarget = raycastTarget;
+        return hasRegisteredSprite;
+    }
+
+    public static void ApplyButtonSkin(Button button, string visualID, Color missingColor) {
+        if (button == null) {
+            return;
+        }
+
+        Image image = button.GetComponent<Image>();
+        if (image == null) {
+            image = button.gameObject.AddComponent<Image>();
+            button.targetGraphic = image;
+        }
+
+        ApplySlicedSprite(image, visualID, Color.white, missingColor, true);
+        button.targetGraphic = image;
+    }
+
+    public static void ApplyInventorySlotSkin(Image image, bool isLocked, string stateVisualID = null) {
+        string visualID = stateVisualID;
+        if (string.IsNullOrEmpty(visualID)) {
+            visualID = isLocked
+                ? VisualAssetService.UIInventorySlotLockedID
+                : VisualAssetService.UIInventorySlotAvailableID;
+        }
+
+        Color missingColor = isLocked
+            ? new Color(0.18f, 0.18f, 0.18f, 1f)
+            : new Color(1f, 1f, 1f, 0.5f);
+        ApplySimpleSprite(image, visualID, Color.white, missingColor, true, false);
     }
 
     public static bool ApplyContainSprite(Image image, string visualID, Vector2 containerSize, Color registeredColor, Color missingColor, bool bindLayoutElement = true) {

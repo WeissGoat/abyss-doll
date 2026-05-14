@@ -58,7 +58,26 @@ public static class VisualAssetSmokeTest {
                 "bg_combat_abyss",
                 "bg_workshop_day",
                 "doll_proto_0_stand",
-                "prosthetic_pros_power_arm_icon"
+                "prosthetic_pros_power_arm_icon",
+                VisualAssetService.UIPanelInfoID,
+                VisualAssetService.UIButtonPrimaryID,
+                VisualAssetService.UIButtonSecondaryID,
+                VisualAssetService.UIButtonDangerID,
+                VisualAssetService.UIInventoryChassisPanelID,
+                VisualAssetService.UIInventorySlotAvailableID,
+                VisualAssetService.UIInventorySlotLockedID,
+                VisualAssetService.UIInventorySlotHoverID,
+                VisualAssetService.UIInventorySlotValidID,
+                VisualAssetService.UIInventorySlotInvalidID,
+                VisualAssetService.UILootPickupPanelID,
+                VisualAssetService.UILootDropZoneID,
+                VisualAssetService.UICombatEnemyCardID,
+                VisualAssetService.UICombatEnemyCardSelectedID,
+                VisualAssetService.UICombatStatusBarHpID,
+                VisualAssetService.UICombatStatusBarShieldID,
+                VisualAssetService.UICombatApPipID,
+                VisualAssetService.UICombatTurnBannerID,
+                VisualAssetService.UIIconMoneyID
             };
 
             bool allRepresentativeSpritesFound = true;

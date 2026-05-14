@@ -158,8 +158,103 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+  - VisualID: ui_button_danger
+    Sprite: {fileID: 21300000, guid: 8fe002098fb64239bbc70ccefd7d3e82, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_button_primary
+    Sprite: {fileID: 21300000, guid: e6c89ef5feb34ddc833c4c9e1edf7a7c, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_button_secondary
+    Sprite: {fileID: 21300000, guid: 6b65f87286f94a1d92d74703b8144fe6, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_combat_ap_pip
+    Sprite: {fileID: 21300000, guid: 5a8c8ce0ae7546c28cbb5b5d9915acef, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_combat_enemy_card
+    Sprite: {fileID: 21300000, guid: cac4eb9e40894e608498f9d19aad3059, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_combat_enemy_card_selected
+    Sprite: {fileID: 21300000, guid: d4f9f3a82c8c4eddb51fa529b1ce9ee5, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_combat_status_bar_hp
+    Sprite: {fileID: 21300000, guid: 513f6822037848c0812433f7a08a983a, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_combat_status_bar_shield
+    Sprite: {fileID: 21300000, guid: 7a53496ea52542e9a38ca0fda16d4721, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_combat_turn_banner
+    Sprite: {fileID: 21300000, guid: 74df9a558f5f4caead64bb95dc2403bf, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_icon_money
+    Sprite: {fileID: 21300000, guid: 77cce56fc3cc4be6ac2ee73aaff33bcd, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_inventory_chassis_panel
+    Sprite: {fileID: 21300000, guid: ec40613962694e1f804ab09f4d0de05d, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_inventory_slot_available
+    Sprite: {fileID: 21300000, guid: e657c8a21dad46ea83c0fe8adf13516b, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_inventory_slot_hover
+    Sprite: {fileID: 21300000, guid: b5d0d38313824f20a45a24e5c2bdb67d, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_inventory_slot_invalid
+    Sprite: {fileID: 21300000, guid: 0d3f8e43f99042288ea8df0cc1d9263a, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_inventory_slot_locked
+    Sprite: {fileID: 21300000, guid: 49bcbaa2471f485c911b28625f9470a8, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_inventory_slot_valid
+    Sprite: {fileID: 21300000, guid: e73f92ccf86c4d56a1a2b3e4c21f4b4d, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_loot_drop_zone
+    Sprite: {fileID: 21300000, guid: 38a9239b50fd4818bee71433a6c910fd, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_loot_pickup_panel
+    Sprite: {fileID: 21300000, guid: 97cd1482546c4901b1ab767e501c3829, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
   - VisualID: ui_missing_sprite
     Sprite: {fileID: 21300000, guid: 9d73e26723da5af45a09e53a93363fba, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_panel_info
+    Sprite: {fileID: 21300000, guid: 3141004e07fc466e869059f4db310c01, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}

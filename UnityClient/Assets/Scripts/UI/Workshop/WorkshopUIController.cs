@@ -26,6 +26,10 @@ public class WorkshopUIController : MonoBehaviour {
     private bool _prostheticPanelOpen;
     private bool _dungeonStartLayerPanelOpen;
     private DungeonStartLayerUIController _dungeonStartLayerController;
+    private Image _topStatusPanel;
+    private Image _leftActionPanel;
+    private Image _bottomHintPanel;
+    private Image _dollStandImage;
 
     void Start() {
         ApplyWorkshopBackground();
@@ -499,15 +503,18 @@ public class WorkshopUIController : MonoBehaviour {
     private void EnsureSellControls() {
         Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
 
+        EnsureWorkshopMainSkin();
+        ApplyMainButtonSkin();
+
         if (openSellPanelBtn == null) {
             openSellPanelBtn = CreateAnchoredButton(
                 "OpenSellPanel_Button",
                 "Sell Items",
-                transform,
-                new Vector2(0f, 0f),
-                new Vector2(0f, 0f),
-                new Vector2(0f, 0f),
-                new Vector2(150f, 250f),
+                _leftActionPanel != null ? _leftActionPanel.transform : transform,
+                new Vector2(0.5f, 1f),
+                new Vector2(0.5f, 1f),
+                new Vector2(0.5f, 1f),
+                new Vector2(0f, -190f),
                 new Vector2(250f, 70f),
                 new Color(0.72f, 0.36f, 0.16f),
                 defaultFont,
@@ -517,6 +524,7 @@ public class WorkshopUIController : MonoBehaviour {
         EnsureSellPanel(defaultFont);
         EnsureProstheticControls(defaultFont);
         EnsureDungeonStartLayerPanel(defaultFont);
+        ApplyMainButtonSkin();
     }
 
     private void EnsureSellPanel(Font defaultFont) {
@@ -665,11 +673,11 @@ public class WorkshopUIController : MonoBehaviour {
             openProstheticPanelBtn = CreateAnchoredButton(
                 "OpenProstheticPanel_Button",
                 "Prosthetics",
-                transform,
-                new Vector2(0f, 0f),
-                new Vector2(0f, 0f),
-                new Vector2(0f, 0f),
-                new Vector2(150f, 170f),
+                _leftActionPanel != null ? _leftActionPanel.transform : transform,
+                new Vector2(0.5f, 1f),
+                new Vector2(0.5f, 1f),
+                new Vector2(0.5f, 1f),
+                new Vector2(0f, -280f),
                 new Vector2(250f, 70f),
                 new Color(0.18f, 0.42f, 0.58f),
                 defaultFont,
@@ -998,6 +1006,136 @@ public class WorkshopUIController : MonoBehaviour {
         textRect.sizeDelta = Vector2.zero;
 
         return button;
+    }
+
+    private void EnsureWorkshopMainSkin() {
+        _topStatusPanel = EnsureDecorPanel(
+            _topStatusPanel,
+            "TopStatusPanel",
+            new Vector2(0.5f, 1f),
+            new Vector2(0f, -68f),
+            new Vector2(1792f, 72f));
+
+        _leftActionPanel = EnsureDecorPanel(
+            _leftActionPanel,
+            "LeftActionPanel",
+            new Vector2(0f, 0.5f),
+            new Vector2(306f, 0f),
+            new Vector2(420f, 520f));
+
+        _bottomHintPanel = EnsureDecorPanel(
+            _bottomHintPanel,
+            "BottomHintArea",
+            new Vector2(0f, 0f),
+            new Vector2(306f, 180f),
+            new Vector2(420f, 180f));
+
+        EnsureDollStandImage();
+        MoveIntoPanel(moneyText, _topStatusPanel != null ? _topStatusPanel.transform : transform, new Vector2(28f, -10f), new Vector2(820f, 58f), 26);
+        MoveIntoPanel(chassisInfoText, _bottomHintPanel != null ? _bottomHintPanel.transform : transform, new Vector2(24f, -18f), new Vector2(372f, 138f), 24);
+        RepositionButton(upgradeBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -100f), new Vector2(250f, 70f));
+        RepositionButton(departBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -20f), new Vector2(250f, 70f));
+        RepositionButton(openSellPanelBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -190f), new Vector2(250f, 70f));
+        RepositionButton(openProstheticPanelBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -280f), new Vector2(250f, 70f));
+    }
+
+    private Image EnsureDecorPanel(Image current, string objectName, Vector2 anchor, Vector2 position, Vector2 size) {
+        Image image = current;
+        if (image == null) {
+            Transform existing = transform.Find(objectName);
+            image = existing != null ? existing.GetComponent<Image>() : null;
+        }
+
+        if (image == null) {
+            GameObject panelObj = new GameObject(objectName);
+            panelObj.transform.SetParent(transform, false);
+            image = panelObj.AddComponent<Image>();
+        }
+
+        RectTransform rect = image.rectTransform;
+        rect.anchorMin = anchor;
+        rect.anchorMax = anchor;
+        rect.pivot = anchor;
+        rect.anchoredPosition = position;
+        rect.sizeDelta = size;
+        VisualUIHelper.ApplySlicedSprite(image, VisualAssetService.UIPanelInfoID, Color.white, new Color(0.08f, 0.08f, 0.07f, 0.92f), false);
+        image.transform.SetAsLastSibling();
+        return image;
+    }
+
+    private void EnsureDollStandImage() {
+        if (_dollStandImage == null) {
+            Transform existing = transform.Find("DollDisplay/DollImage");
+            _dollStandImage = existing != null ? existing.GetComponent<Image>() : null;
+        }
+
+        if (_dollStandImage == null) {
+            GameObject displayObj = new GameObject("DollDisplay");
+            displayObj.transform.SetParent(transform, false);
+            RectTransform displayRect = displayObj.AddComponent<RectTransform>();
+            displayRect.anchorMin = new Vector2(1f, 0f);
+            displayRect.anchorMax = new Vector2(1f, 0f);
+            displayRect.pivot = new Vector2(1f, 0f);
+            displayRect.anchoredPosition = new Vector2(-220f, 90f);
+            displayRect.sizeDelta = new Vector2(520f, 820f);
+
+            GameObject imageObj = new GameObject("DollImage");
+            imageObj.transform.SetParent(displayObj.transform, false);
+            _dollStandImage = imageObj.AddComponent<Image>();
+        }
+
+        RectTransform rect = _dollStandImage.rectTransform;
+        rect.anchorMin = new Vector2(0.5f, 0f);
+        rect.anchorMax = new Vector2(0.5f, 0f);
+        rect.pivot = new Vector2(0.5f, 0f);
+        rect.anchoredPosition = Vector2.zero;
+        VisualUIHelper.ApplyContainSprite(
+            _dollStandImage,
+            "doll_proto_0_stand",
+            VisualDisplaySpecs.DollStand,
+            Color.white,
+            new Color(0.42f, 0.32f, 0.24f, 0.92f),
+            false);
+        _dollStandImage.transform.parent.SetAsLastSibling();
+    }
+
+    private void ApplyMainButtonSkin() {
+        VisualUIHelper.ApplyButtonSkin(departBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.8f, 0.4f, 0.2f));
+        VisualUIHelper.ApplyButtonSkin(upgradeBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.2f, 0.6f, 0.2f));
+        VisualUIHelper.ApplyButtonSkin(openSellPanelBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.72f, 0.36f, 0.16f));
+        VisualUIHelper.ApplyButtonSkin(openProstheticPanelBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.18f, 0.42f, 0.58f));
+    }
+
+    private void MoveIntoPanel(Text text, Transform parent, Vector2 topLeftOffset, Vector2 size, int fontSize) {
+        if (text == null || parent == null) {
+            return;
+        }
+
+        text.transform.SetParent(parent, false);
+        text.fontSize = fontSize;
+        text.color = new Color(1f, 0.9f, 0.62f, 1f);
+        text.raycastTarget = false;
+
+        RectTransform rect = text.rectTransform;
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(0f, 1f);
+        rect.pivot = new Vector2(0f, 1f);
+        rect.anchoredPosition = topLeftOffset;
+        rect.sizeDelta = size;
+    }
+
+    private void RepositionButton(Button button, Transform parent, Vector2 anchoredPosition, Vector2 size) {
+        if (button == null || parent == null) {
+            return;
+        }
+
+        button.transform.SetParent(parent, false);
+        RectTransform rect = button.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0.5f, 1f);
+        rect.anchorMax = new Vector2(0.5f, 1f);
+        rect.pivot = new Vector2(0.5f, 1f);
+        rect.anchoredPosition = anchoredPosition;
+        rect.sizeDelta = size;
     }
 
     private void ApplyWorkshopBackground() {
