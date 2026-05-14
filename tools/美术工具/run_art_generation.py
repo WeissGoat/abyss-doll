@@ -96,9 +96,19 @@ def parse_scalar(raw: str) -> Any:
         return raw
 
 
+def source_spec(spec: Any) -> dict[str, Any]:
+    if not isinstance(spec, dict):
+        return {}
+    nested = spec.get("SourceSpec")
+    if isinstance(nested, dict):
+        return nested
+    return spec
+
+
 def validate_entry(entry: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     spec = entry.get("Spec")
+    src = source_spec(spec)
     for field in ("VisualID", "PromptEN", "NegativePromptEN"):
         if not entry.get(field):
             errors.append(f"missing {field}")
@@ -106,8 +116,8 @@ def validate_entry(entry: dict[str, Any]) -> list[str]:
         errors.append("missing Spec object")
     else:
         for field in ("Width", "Height", "Format"):
-            if not spec.get(field):
-                errors.append(f"missing Spec.{field}")
+            if not src.get(field):
+                errors.append(f"missing Spec.SourceSpec.{field}")
     return errors
 
 
@@ -191,7 +201,7 @@ def make_request(
     *,
     count: int,
 ) -> GenerateRequest:
-    spec = entry["Spec"]
+    spec = source_spec(entry["Spec"])
     fmt = str(spec.get("Format", "png")).lower()
     try:
         output_format = ImageFormat(fmt)
@@ -279,7 +289,7 @@ async def run_generation(args: argparse.Namespace) -> int:
     for item in skipped:
         print(f"[SKIP] {item}")
     for entry in selected:
-        spec = entry["Spec"]
+        spec = source_spec(entry["Spec"])
         print(
             f"[ITEM] {entry['VisualID']} domain={entry.get('Domain', '')} "
             f"size={spec['Width']}x{spec['Height']} format={spec.get('Format', 'png')}"
@@ -308,7 +318,7 @@ async def run_generation(args: argparse.Namespace) -> int:
             workspace = ensure_workspace(out_root, visual_id)
             write_json(workspace["base"] / "manifest_snapshot.json", entry)
 
-            spec = entry["Spec"]
+            spec = source_spec(entry["Spec"])
             ext = f".{str(spec.get('Format', 'png')).lower()}"
             if ext not in IMAGE_EXTENSIONS:
                 ext = ".png"

@@ -52,6 +52,33 @@ def split_filters(values: list[str]) -> set[str]:
     return result
 
 
+def source_spec(spec: Any) -> dict[str, Any]:
+    if not isinstance(spec, dict):
+        return {}
+    nested = spec.get("SourceSpec")
+    if isinstance(nested, dict):
+        return nested
+    return spec
+
+
+def composition_spec(spec: Any) -> dict[str, Any]:
+    if not isinstance(spec, dict):
+        return {}
+    nested = spec.get("CompositionSpec")
+    if isinstance(nested, dict):
+        return nested
+    return spec
+
+
+def process_spec(spec: Any) -> dict[str, Any]:
+    if not isinstance(spec, dict):
+        return {}
+    nested = spec.get("ProcessSpec")
+    if isinstance(nested, dict):
+        return nested
+    return spec
+
+
 def select_entries(entries: list[dict[str, Any]], args: argparse.Namespace) -> list[dict[str, Any]]:
     domains = split_filters(args.domain)
     visual_ids = split_filters(args.visual_id)
@@ -171,17 +198,20 @@ def remove_solid_background(image: Image.Image, threshold: int) -> Image.Image:
 
 def process_image(raw_path: Path, spec: dict[str, Any], args: argparse.Namespace) -> Image.Image:
     image = Image.open(raw_path)
-    target_width = int(spec.get("Width", image.width))
-    target_height = int(spec.get("Height", image.height))
-    post_process = spec.get("PostProcess", [])
+    src = source_spec(spec)
+    comp = composition_spec(spec)
+    proc = process_spec(spec)
+    target_width = int(src.get("Width", image.width))
+    target_height = int(src.get("Height", image.height))
+    post_process = proc.get("PostProcess", [])
     if not isinstance(post_process, list):
         post_process = []
 
     if "crop_16_9" in post_process:
         image = crop_to_aspect(image, 16 / 9)
 
-    alpha_required = bool(spec.get("AlphaRequired", False))
-    background = str(spec.get("Background", ""))
+    alpha_required = bool(src.get("AlphaRequired", False))
+    background = str(src.get("Background", ""))
     if alpha_required or background == "transparent":
         image = remove_solid_background(image, args.background_threshold)
     elif image.mode not in ("RGB", "RGBA"):
@@ -191,7 +221,7 @@ def process_image(raw_path: Path, spec: dict[str, Any], args: argparse.Namespace
         image = trim_transparent(image)
 
     if "fit_safe_padding" in post_process:
-        return fit_safe_padding(image, target_width, target_height, float(spec.get("SafePaddingPercent", 0)))
+        return fit_safe_padding(image, target_width, target_height, float(comp.get("SafePaddingPercent", 0)))
 
     return image.resize((target_width, target_height), Image.Resampling.LANCZOS)
 
@@ -312,7 +342,8 @@ def main() -> int:
     for entry in selected:
         workspace = in_root / entry["VisualID"]
         raw_count = len(list_raw_images(workspace / "raw"))
-        print(f"[ITEM] {entry['VisualID']} raw={raw_count} spec={entry['Spec'].get('Width')}x{entry['Spec'].get('Height')}")
+        src = source_spec(entry.get("Spec"))
+        print(f"[ITEM] {entry['VisualID']} raw={raw_count} spec={src.get('Width')}x{src.get('Height')}")
 
     if args.dry_run:
         print("[DONE] dry-run only; no files changed.")

@@ -22,6 +22,8 @@
 
 默认会保留已有 Manifest 中的状态、提示词、批次路径、筛选路径、Registry 状态和备注；新增配置项会标记为 `todo`，旧配置项会标记为 `deprecated`。
 
+配置表扫不出的需求由 `美术文档/art_requirements_seed.json` 提供，进入 Manifest 后仍统一标记为 `SourceType=preset`。这类需求包括背景、通用 UI 皮肤、背包格子、战斗 HUD、结算面板和程序侧反馈缺口。
+
 注意：第一步只负责资产需求发现与台账更新，不自动填写 `PromptEN`、`NegativePromptEN` 和 `Spec`。这些字段在第二步由美术 Agent 逐项补全。
 
 ## Generate-ArtPrompts.ps1
@@ -126,3 +128,24 @@ $env:NAI_ACCESS_TOKEN = "<token>"
 ```powershell
 .\tools\美术工具\Sync-ApprovedArt.ps1 -BatchID nai_p0_item_20260508_01 -Overwrite
 ```
+
+## Validate-UIDesign.ps1
+
+校验 UI 设计系统的结构化文件，并生成程序交付摘要：
+
+* `美术文档/ui_design/design_tokens.json`
+* `美术文档/ui_design/component_catalog.json`
+* `美术文档/ui_design/screen_layouts.json`
+* `美术文档/ui_design/_generated/ui_design_handoff.md`
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Validate-UIDesign.ps1
+```
+
+校验内容：
+
+* 组件引用的 `VisualID` 是否存在于 `art_requirements_seed.json` 或 Manifest。
+* 界面引用的 `ComponentID` 是否存在于组件目录。
+* 界面要求的 `VisualID` 是否已被美术流水线纳管。
