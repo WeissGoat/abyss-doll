@@ -1,7 +1,7 @@
 # Manifest 规范
 
 > **定位：** 规定 `art_manifest.json` 的字段结构、字段含义，以及美术流水线每一步应该填充哪些字段。
-> **更新时间：** 2026-05-05
+> **更新时间：** 2026-05-13
 
 ---
 
@@ -19,6 +19,8 @@ Manifest 是美术生产台账，不是玩法配置表，也不是 Unity 运行�
 ---
 
 ## 2. Step 1 来源规则
+
+测试或调试配置不进入正式美术需求。文件名以 `_test.json` 结尾的配置表由自动化测试或临时验证使用，扫描时跳过；如果旧 Manifest 中已有对应条目，后续增量更新会将其标记为 `deprecated`。
 
 ### 2.1 配置表直接扫描
 
@@ -50,14 +52,31 @@ Manifest 是美术生产台账，不是玩法配置表，也不是 Unity 运行�
 | 工坊背景 | 工坊整备界面 | `bg_workshop_day` |
 | 通用战斗背景 | 战斗界面底图 | `bg_combat_abyss` |
 | 深渊路线图背景 | 地图界面底图 | `bg_dungeon_map` |
+| UI 面板皮肤 | 通用弹窗、列表、结算 | `ui_panel_main` |
+| 背包格子状态 | 可用、锁定、悬停、可放置、不可放置 | `ui_inventory_slot_available` |
+| 战斗 HUD 皮肤 | 敌人卡框、状态条、行动点 | `ui_combat_enemy_card` |
+| 程序缺口反馈 | 程序侧临时色块、fallback 或缺图项 | 按实际 `VisualID` 命名 |
 
 对应 `SourceType=preset`。
 
-后续预置需求增多时，迁移到独立种子文件：
+预置需求统一维护在独立种子文件：
 
 ```text
 美术文档/art_requirements_seed.json
 ```
+
+`preset` 仍然属于 Step 1 的来源之一，不新增 `SourceType`。为了方便管理，种子文件内可用 `PresetCategory` 细分：
+
+| `PresetCategory` | 用途 |
+|---|---|
+| `system_fallback` | 缺失占位、全局 fallback。 |
+| `screen_background` | 配置扫不出的界面背景或房间插图。 |
+| `ui_skin` | 通用 UI 皮肤，如面板、按钮、列表行。 |
+| `ui_inventory` | 背包、战利品拾取专项 UI。 |
+| `ui_combat` | 战斗 HUD 专项 UI。 |
+| `ui_dungeon_map` | 深渊地图路线、节点底板等 UI。 |
+| `ui_settlement` | 胜利、战败、撤离结算 UI。 |
+| `program_gap` | 程序侧反馈的临时缺图或临时色块资产。 |
 
 ---
 
@@ -92,6 +111,15 @@ Manifest 是美术生产台账，不是玩法配置表，也不是 Unity 运行�
 | `Priority` | `P0` | 优先级。 |
 | `Status` | `todo` | 新扫出的资产默认 `todo`。 |
 | `SourceFactsCN` | `配置表物品：战术长刀...` | 只记录配置事实或需求事实，不写美术提示词。 |
+
+`SourceType=preset` 可额外包含以下字段：
+
+| 字段 | 示例 | 说明 |
+|---|---|---|
+| `PresetCategory` | `ui_inventory` | 预置需求分类，只用于美术管理和筛选。 |
+| `Screen` | `inventory_loot` | 主要服务的界面或流程。通用项可填 `global`。 |
+| `Usage` | `背包网格可用格子` | 具体用途，便于程序和美术对齐。 |
+| `ProgramReference` | `VisualAssetRegistry` | 可选，记录程序侧反馈来源或引用点。 |
 
 ### Step 2 填充
 
@@ -131,25 +159,50 @@ Step 2 完成后，将 `Status` 改为 `prompted`。
 
 ## 6. Spec 结构
 
-`Spec` 必须是对象，不是自然语言字符串。
+`Spec` 必须是对象，不是自然语言字符串。它用于连接美术生产、AI 生成、预处理脚本和 Unity 显示验证。
+
+从 2026-05-10 起，`Spec` 分为四组：
+
+* `SourceSpec`：最终入库素材的文件、尺寸、透明度和背景要求，供 AI 生成与预处理读取。
+* `DisplaySpec`：在 Unity 参考分辨率下的显示容器，不等于图片源尺寸。
+* `CompositionSpec`：主体占比、留白、锚点、安全区和基线要求，供筛选和预处理参考。
+* `ProcessSpec`：后处理、缩略检查和 contact sheet 参数。
 
 示例：
 
 ```json
 {
-  "Format": "png",
-  "Width": 512,
-  "Height": 512,
-  "Background": "transparent",
-  "AlphaRequired": true,
-  "SafePaddingPercent": 10,
-  "Composition": "centered single object",
-  "PostProcess": ["resize", "trim_transparent_edges", "fit_safe_padding"],
-  "PreviewSize": 64
+  "SourceSpec": {
+    "Format": "png",
+    "Width": 512,
+    "Height": 512,
+    "Background": "transparent",
+    "AlphaRequired": true
+  },
+  "DisplaySpec": {
+    "ReferenceResolution": "1920x1080",
+    "DisplayWidth": 64,
+    "DisplayHeight": 64,
+    "Unit": "ui_px",
+    "FitMode": "contain",
+    "Pivot": "center"
+  },
+  "CompositionSpec": {
+    "SafePaddingPercent": 10,
+    "SubjectOccupancyMin": 0.74,
+    "SubjectOccupancyMax": 0.84,
+    "Anchor": "center"
+  },
+  "ProcessSpec": {
+    "PostProcess": ["resize", "trim_transparent_edges", "fit_safe_padding"],
+    "PreviewSize": 64
+  }
 }
 ```
 
 字段说明：
+
+### 6.1 `SourceSpec`
 
 | 字段 | 说明 |
 |---|---|
@@ -158,7 +211,36 @@ Step 2 完成后，将 `Status` 改为 `prompted`。
 | `Height` | 最终入库高度。 |
 | `Background` | `transparent`、`opaque_environment`、`transparent_or_simple_dark` 等。 |
 | `AlphaRequired` | 是否必须保留透明通道。 |
+
+### 6.2 `DisplaySpec`
+
+| 字段 | 说明 |
+|---|---|
+| `ReferenceResolution` | 显示规格基准分辨率，默认 `1920x1080`。 |
+| `DisplayWidth` | 参考分辨率下的显示容器宽度。 |
+| `DisplayHeight` | 参考分辨率下的显示容器高度。 |
+| `Unit` | `ui_px` 表示 UGUI 参考像素，`world_unit` 表示世界单位。 |
+| `FitMode` | `contain` 保持完整显示，`cover` 填满容器允许裁切，`stretch` 只允许特殊 UI 底图使用。 |
+| `Pivot` | 对齐点：`center`、`bottom_center`、`top_left` 等。 |
+
+### 6.3 `CompositionSpec`
+
+| 字段 | 说明 |
+|---|---|
 | `SafePaddingPercent` | 主体安全边距百分比。 |
-| `Composition` | 构图要求，给预处理和人工检查参考。 |
+| `SubjectOccupancyMin` | 主体占画面比例下限。图标按主体包围盒占比，立绘按高度占比。 |
+| `SubjectOccupancyMax` | 主体占画面比例上限。 |
+| `Anchor` | 主体构图锚点，例如 `center`、`bottom_center`。 |
+| `BaselinePercent` | 立绘、角色、怪物站地基线，按图片高度百分比记录；无基线需求时省略。 |
+| `SafeArea` | 背景或 UI 底图的核心安全区，例如 `center_16_9`、`center_4_3`。 |
+| `Composition` | 可选的简短构图备注，给人工检查参考。 |
+
+### 6.4 `ProcessSpec`
+
+| 字段 | 说明 |
+|---|---|
 | `PostProcess` | 后处理步骤列表。 |
 | `PreviewSize` | 缩略图检查尺寸。 |
+| `NineSlice` | 可选。UI 面板、按钮、列表行等需要九宫格拉伸时填写。 |
+
+旧版单层 `Spec.Width/Height/Format` 仍允许脚本兼容读取，但新生成和新维护的 entry 必须使用四段结构。

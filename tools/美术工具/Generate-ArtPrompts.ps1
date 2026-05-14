@@ -1,7 +1,8 @@
 param(
     [string]$ManifestPath = "",
     [string]$PromptMarkdownPath = "",
-    [switch]$Overwrite
+    [switch]$Overwrite,
+    [switch]$RefreshSpec
 )
 
 $ErrorActionPreference = "Stop"
@@ -21,6 +22,10 @@ if ($PromptMarkdownPath -ne "") {
 
 if ($Overwrite) {
     $argsList += "--overwrite"
+}
+
+if ($RefreshSpec) {
+    $argsList += "--refresh-spec"
 }
 
 python @argsList

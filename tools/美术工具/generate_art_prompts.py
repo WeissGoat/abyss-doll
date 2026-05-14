@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import re
 from pathlib import Path
@@ -65,12 +66,14 @@ NODE_EN: Dict[str, str] = {
     "CombatNode": "combat map node symbol, crossed blade marks or claw scratches, sharp aggressive shape, high contrast",
     "SafeRoomNode": "safe-room map node symbol, small shelter lamp or repair beacon inside a protective circle, calm readable shape",
     "BossNode": "boss map node symbol, heavy warning emblem, sealed gate icon or large cracked eye-shaped mark, ominous high-contrast shape",
+    "StairsNode": "stairs map node symbol, descending stone stairway or metal ladder opening, clear downward gateway shape, high contrast",
 }
 
 NODE_CN: Dict[str, str] = {
     "CombatNode": "战斗节点图标，用交叉刀痕、爪痕或破损武器徽记表达危险。",
     "SafeRoomNode": "安全区节点图标，用庇护灯、维修灯或保护圆环表达休整。",
     "BossNode": "首领节点图标，用重型警告徽记、封闭门禁或裂隙眼形标记表达压迫感。",
+    "StairsNode": "阶梯节点图标，用向下台阶、竖井入口或金属梯口表达进入下一层的通道感。",
 }
 
 PROSTHETIC_EN: Dict[str, str] = {
@@ -98,6 +101,8 @@ BACKGROUND_EN: Dict[str, str] = {
     "dungeon_map": "dark route-map background texture, low visual noise, cracked stone, old brass pipes, faint mine lamps, deep vertical cavern feeling, large negative space",
     "layer_1": "shallow underground industrial passage, old metal walls, broken cables, faint warm lamps, light cavern mist, low danger atmosphere, wide empty floor",
     "layer_2": "polluted mining zone, corroded mine tunnel, purple-green toxic liquid, broken mining machines, acid haze, dim work lights, dangerous atmosphere",
+    "safe_room": "quiet underground refuge room, small repair bench, warm lanterns, blankets, brass pipes, medicine cabinet, calm empty floor area, low visual noise",
+    "stairs_room": "deep stairwell chamber, descending stone stairs and metal ladder rails, round hatch opening, old warning lamps, cavern darkness below, empty foreground floor",
     "workshop": "small mechanical repair workshop, workbench, hanging crane arm, tool wall, parts boxes, old fluorescent lamps, brass pipes, large negative space on both sides",
 }
 
@@ -106,15 +111,75 @@ BACKGROUND_CN: Dict[str, str] = {
     "dungeon_map": "路线图底纹背景，低噪声暗色画面，裂石、旧黄铜管线、微弱矿灯和纵深洞穴感，大量负空间。",
     "layer_1": "浅层区域背景，废弃地下工业通道、旧金属墙、破损电缆、微弱暖灯和薄雾，危险感较低。",
     "layer_2": "污染矿带背景，腐蚀矿道、紫绿色毒液、破损采矿设备、酸雾和昏暗工作灯。",
+    "safe_room": "安全屋背景，安静的地下休整房间、小维修台、暖灯、毯子、黄铜管线和药柜，前景留空。",
+    "stairs_room": "阶梯房间背景，向下延伸的石阶和金属梯栏、圆形舱口、旧警示灯和下方洞穴黑暗，前景留空。",
     "workshop": "工坊整备背景，小型机械维修工坊，工作台、吊臂、工具墙、零件箱、旧灯管和黄铜管线，两侧留负空间。",
 }
 
 UI_EN = {
     "missing_sprite": "missing asset placeholder icon, simple broken-image symbol, dark base shape, red warning corner mark, clean readable silhouette",
+    "panel_main": "large modular interface panel frame, dark worn metal body, brass corner plates, thin rivets, empty center area, subtle inner shadow",
+    "panel_info": "small modular information panel frame, dark metal plate, brass trim, soft inset surface, empty center area, compact shape",
+    "button_primary": "rectangular primary button skin, sturdy brass rim, dark metal center plate, soft amber highlight, empty label area",
+    "button_secondary": "rectangular secondary button skin, subdued dark steel rim, cool blue-gray inset plate, empty label area",
+    "button_danger": "rectangular warning button skin, worn dark metal, muted red enamel accents, brass rivets, empty label area",
+    "list_row_normal": "horizontal list row plate, thin dark metal slab, subtle brass edge, empty center strip, low contrast",
+    "list_row_selected": "horizontal selected list row plate, dark metal slab, brighter brass outline, soft amber edge glow, empty center strip",
+    "title_divider": "thin decorative title divider, brass pipe line, small gear accents, symmetrical horizontal ornament",
+    "icon_money": "small coin-value symbol, stacked brass coins and tiny gear stamp, clean silhouette",
+    "icon_locked": "small lock symbol, brass padlock with worn metal shackle, clean silhouette",
+    "icon_equipped": "small equipped check symbol, brass check mark over compact gear badge, clean silhouette",
+    "inventory_slot_available": "square inventory grid slot, dark metal recessed tile, thin brass rim, empty center, subtle bevel",
+    "inventory_slot_locked": "square locked inventory grid slot, dark sealed metal tile, diagonal brace, tiny lock emblem, empty center",
+    "inventory_slot_hover": "square inventory grid slot hover state, dark recessed tile, brighter brass rim, soft amber outline, empty center",
+    "inventory_slot_valid": "square inventory grid slot valid placement state, dark recessed tile, green-blue edge glow, clean empty center",
+    "inventory_slot_invalid": "square inventory grid slot invalid placement state, dark recessed tile, muted red edge warning, clean empty center",
+    "inventory_chassis_panel": "large backpack grid support panel, mechanical base plate, open central grid area, brass rails, worn screws, low visual clutter",
+    "loot_pickup_panel": "large loot pickup panel frame, dark workshop metal, brass corner clamps, empty list area, subtle industrial texture",
+    "loot_drop_zone": "loot drop zone tray, shallow metal basin, worn brass rim, faint grid texture, empty center area",
+    "combat_enemy_card": "enemy portrait card frame, square dark metal frame, brass clamps, small status sockets, empty portrait window",
+    "combat_enemy_card_selected": "selected enemy portrait card frame, square dark metal frame, brighter brass clamps, amber target glow, empty portrait window",
+    "combat_status_bar_hp": "horizontal health bar skin, dark metal track, muted red fill channel, brass end caps, empty center channel",
+    "combat_status_bar_shield": "horizontal shield bar skin, dark metal track, cool blue fill channel, brass end caps, empty center channel",
+    "combat_ap_pip": "small action point pip, compact brass-and-blue energy bead, circular mechanical token, clean silhouette",
+    "combat_turn_banner": "wide turn banner frame, dark metal ribbon, brass pipe ends, empty center area, subtle amber glow",
+    "dungeon_node_plate": "round map node backing plate, dark metal disk, brass ring, small screw marks, empty center",
+    "dungeon_route_line": "thin map route connector line, brass pipe segment with small rivets, horizontal tileable strip",
+    "settlement_victory_panel": "large evacuation success panel frame, dark metal body, warm brass trim, subtle green-blue signal light, empty center area",
+    "settlement_defeat_panel": "large defeat result panel frame, dark damaged metal body, muted red warning trims, cracked brass corners, empty center area",
 }
 
 UI_CN = {
     "missing_sprite": "缺失资源占位图，破损图片符号、暗色底形和红色警示角标，清楚但不刺眼。",
+    "panel_main": "主弹窗面板皮肤，大型模块化界面面板，暗色旧金属主体、黄铜角片、细铆钉和空的中心区域。",
+    "panel_info": "小信息面板皮肤，暗金属板、黄铜细边、内凹表面和紧凑的空白内容区。",
+    "button_primary": "主按钮皮肤，矩形黄铜边框、暗色金属中心板、柔和琥珀高光，中间不带文字。",
+    "button_secondary": "次按钮皮肤，低调暗钢边框、冷蓝灰内嵌板，中间不带文字。",
+    "button_danger": "危险按钮皮肤，旧暗金属、低饱和红色珐琅警示细节和黄铜铆钉，中间不带文字。",
+    "list_row_normal": "普通列表行底板，横向暗金属薄板、黄铜细边、低对比空白条。",
+    "list_row_selected": "选中列表行底板，横向暗金属板、较亮黄铜外轮廓和柔和琥珀边缘光。",
+    "title_divider": "标题装饰线，黄铜管线、小齿轮点缀和对称横向装饰。",
+    "icon_money": "金币价值图标，叠放黄铜硬币和小齿轮印记，轮廓清楚。",
+    "icon_locked": "锁定图标，黄铜挂锁和磨损金属锁梁，轮廓清楚。",
+    "icon_equipped": "已装备图标，黄铜确认标记叠在小齿轮徽章上，轮廓清楚。",
+    "inventory_slot_available": "背包可用格，方形暗金属内凹格、细黄铜边框、空中心和轻微倒角。",
+    "inventory_slot_locked": "背包锁定格，封闭暗金属格、斜向加固条、小锁符号和空中心。",
+    "inventory_slot_hover": "背包悬停格，较亮黄铜边框和柔和琥珀外轮廓。",
+    "inventory_slot_valid": "背包可放置反馈格，绿蓝色边缘光和干净空中心。",
+    "inventory_slot_invalid": "背包不可放置反馈格，低饱和红色警示边缘和干净空中心。",
+    "inventory_chassis_panel": "背包底盘面板，大型机械底板、开放网格中心区、黄铜导轨、磨损螺丝和低噪声纹理。",
+    "loot_pickup_panel": "战利品拾取面板，暗色工坊金属、黄铜角夹、空列表区和轻微工业纹理。",
+    "loot_drop_zone": "战利品掉落区，浅金属托盘、磨损黄铜边、淡网格纹理和空中心区域。",
+    "combat_enemy_card": "敌人卡片框，方形暗金属框、黄铜夹具、小状态插槽和空头像窗。",
+    "combat_enemy_card_selected": "敌人选中卡片框，较亮黄铜夹具、琥珀目标光和空头像窗。",
+    "combat_status_bar_hp": "生命状态条皮肤，暗金属轨道、低饱和红色填充槽和黄铜端盖。",
+    "combat_status_bar_shield": "护盾状态条皮肤，暗金属轨道、冷蓝填充槽和黄铜端盖。",
+    "combat_ap_pip": "行动点圆点，小型黄铜与蓝色能量珠、圆形机械代币，轮廓清楚。",
+    "combat_turn_banner": "回合提示条，宽暗金属条、黄铜管线端头、空中心和淡琥珀光。",
+    "dungeon_node_plate": "地图节点底板，圆形暗金属盘、黄铜环、小螺丝痕和空中心。",
+    "dungeon_route_line": "地图路线连接线，黄铜管线段、小铆钉和横向可平铺条。",
+    "settlement_victory_panel": "撤离成功结算面板，暗金属主体、暖黄铜边、微弱绿蓝信号灯和空中心。",
+    "settlement_defeat_panel": "战败结算面板，暗色破损金属、低饱和红色警示边、破裂黄铜角和空中心。",
 }
 
 DOLL_EN = {
@@ -136,95 +201,596 @@ NEGATIVE = {
     "ui": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
 }
 
+
+def make_spec(
+    *,
+    width: int,
+    height: int,
+    background: str,
+    alpha_required: bool,
+    display_width: int,
+    display_height: int,
+    safe_padding: int,
+    subject_min: float,
+    subject_max: float,
+    post_process: list[str],
+    preview_size: int,
+    fit_mode: str = "contain",
+    pivot: str = "center",
+    anchor: str = "center",
+    composition: str = "",
+    safe_area: str | None = None,
+    baseline_percent: int | None = None,
+    nine_slice: Dict[str, Any] | None = None,
+) -> Dict[str, Any]:
+    composition_spec: Dict[str, Any] = {
+        "SafePaddingPercent": safe_padding,
+        "SubjectOccupancyMin": subject_min,
+        "SubjectOccupancyMax": subject_max,
+        "Anchor": anchor,
+    }
+    if composition:
+        composition_spec["Composition"] = composition
+    if safe_area:
+        composition_spec["SafeArea"] = safe_area
+    if baseline_percent is not None:
+        composition_spec["BaselinePercent"] = baseline_percent
+
+    process_spec: Dict[str, Any] = {
+        "PostProcess": post_process,
+        "PreviewSize": preview_size,
+    }
+    if nine_slice:
+        process_spec["NineSlice"] = nine_slice
+
+    return {
+        "SourceSpec": {
+            "Format": "png",
+            "Width": width,
+            "Height": height,
+            "Background": background,
+            "AlphaRequired": alpha_required,
+        },
+        "DisplaySpec": {
+            "ReferenceResolution": "1920x1080",
+            "DisplayWidth": display_width,
+            "DisplayHeight": display_height,
+            "Unit": "ui_px",
+            "FitMode": fit_mode,
+            "Pivot": pivot,
+        },
+        "CompositionSpec": composition_spec,
+        "ProcessSpec": process_spec,
+    }
+
+
+def nine_slice(left: int, right: int, top: int, bottom: int) -> Dict[str, Any]:
+    return {
+        "Enabled": True,
+        "Border": {
+            "Left": left,
+            "Right": right,
+            "Top": top,
+            "Bottom": bottom,
+        },
+    }
+
+
 SPEC = {
-    "item": {
-        "Format": "png",
-        "Width": 512,
-        "Height": 512,
-        "Background": "transparent",
-        "AlphaRequired": True,
-        "SafePaddingPercent": 10,
-        "Composition": "centered single object",
-        "PostProcess": ["resize", "trim_transparent_edges", "fit_safe_padding"],
-        "PreviewSize": 64,
-    },
-    "monster": {
-        "Format": "png",
-        "Width": 1024,
-        "Height": 1024,
-        "Background": "transparent_or_simple_dark",
-        "AlphaRequired": False,
-        "SafePaddingPercent": 8,
-        "Composition": "bust portrait, front or three-quarter view",
-        "PostProcess": ["crop_square", "resize"],
-        "PreviewSize": 160,
-    },
-    "node": {
-        "Format": "png",
-        "Width": 512,
-        "Height": 512,
-        "Background": "transparent",
-        "AlphaRequired": True,
-        "SafePaddingPercent": 12,
-        "Composition": "centered high-contrast symbol",
-        "PostProcess": ["resize", "trim_transparent_edges", "fit_safe_padding"],
-        "PreviewSize": 64,
-    },
-    "prosthetic": {
-        "Format": "png",
-        "Width": 512,
-        "Height": 512,
-        "Background": "transparent",
-        "AlphaRequired": True,
-        "SafePaddingPercent": 10,
-        "Composition": "centered single module",
-        "PostProcess": ["resize", "trim_transparent_edges", "fit_safe_padding"],
-        "PreviewSize": 80,
-    },
-    "chassis": {
-        "Format": "png",
-        "Width": 1024,
-        "Height": 1024,
-        "Background": "transparent",
-        "AlphaRequired": True,
-        "SafePaddingPercent": 6,
-        "Composition": "open-center mechanical frame",
-        "PostProcess": ["resize", "trim_transparent_edges"],
-        "PreviewSize": 256,
-    },
-    "doll": {
-        "Format": "png",
-        "Width": 1024,
-        "Height": 1536,
-        "Background": "transparent",
-        "AlphaRequired": True,
-        "SafePaddingPercent": 6,
-        "Composition": "full-body standing pose",
-        "PostProcess": ["crop_portrait", "resize", "fit_safe_padding"],
-        "PreviewSize": 256,
-    },
-    "background": {
-        "Format": "png",
-        "Width": 1920,
-        "Height": 1080,
-        "Background": "opaque_environment",
-        "AlphaRequired": False,
-        "SafePaddingPercent": 0,
-        "Composition": "wide environment with negative space",
-        "PostProcess": ["crop_16_9", "resize"],
-        "PreviewSize": 320,
-    },
-    "ui": {
-        "Format": "png",
-        "Width": 512,
-        "Height": 512,
-        "Background": "transparent",
-        "AlphaRequired": True,
-        "SafePaddingPercent": 12,
-        "Composition": "centered placeholder symbol",
-        "PostProcess": ["resize", "fit_safe_padding"],
-        "PreviewSize": 64,
-    },
+    "item": make_spec(
+        width=512,
+        height=512,
+        background="transparent",
+        alpha_required=True,
+        display_width=64,
+        display_height=64,
+        safe_padding=10,
+        subject_min=0.74,
+        subject_max=0.84,
+        composition="centered single object",
+        post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
+        preview_size=64,
+    ),
+    "monster": make_spec(
+        width=1024,
+        height=1024,
+        background="transparent_or_simple_dark",
+        alpha_required=False,
+        display_width=320,
+        display_height=320,
+        safe_padding=8,
+        subject_min=0.78,
+        subject_max=0.92,
+        composition="bust portrait, front or three-quarter view",
+        post_process=["crop_square", "resize"],
+        preview_size=160,
+    ),
+    "node": make_spec(
+        width=512,
+        height=512,
+        background="transparent",
+        alpha_required=True,
+        display_width=80,
+        display_height=80,
+        safe_padding=12,
+        subject_min=0.68,
+        subject_max=0.80,
+        composition="centered high-contrast symbol",
+        post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
+        preview_size=64,
+    ),
+    "prosthetic": make_spec(
+        width=512,
+        height=512,
+        background="transparent",
+        alpha_required=True,
+        display_width=80,
+        display_height=80,
+        safe_padding=10,
+        subject_min=0.72,
+        subject_max=0.84,
+        composition="centered single module",
+        post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
+        preview_size=80,
+    ),
+    "chassis": make_spec(
+        width=1024,
+        height=1024,
+        background="transparent",
+        alpha_required=True,
+        display_width=512,
+        display_height=512,
+        safe_padding=6,
+        subject_min=0.82,
+        subject_max=0.94,
+        composition="open-center mechanical frame",
+        post_process=["resize", "trim_transparent_edges"],
+        preview_size=256,
+    ),
+    "doll": make_spec(
+        width=1024,
+        height=1536,
+        background="transparent",
+        alpha_required=True,
+        display_width=420,
+        display_height=720,
+        safe_padding=6,
+        subject_min=0.86,
+        subject_max=0.94,
+        pivot="bottom_center",
+        anchor="bottom_center",
+        baseline_percent=94,
+        composition="full-body standing pose",
+        post_process=["crop_portrait", "resize", "fit_safe_padding"],
+        preview_size=256,
+    ),
+    "background": make_spec(
+        width=1920,
+        height=1080,
+        background="opaque_environment",
+        alpha_required=False,
+        display_width=1920,
+        display_height=1080,
+        fit_mode="cover",
+        safe_padding=0,
+        subject_min=0.0,
+        subject_max=1.0,
+        safe_area="center_4_3",
+        composition="wide environment with negative space",
+        post_process=["crop_16_9", "resize"],
+        preview_size=320,
+    ),
+    "ui": make_spec(
+        width=512,
+        height=512,
+        background="transparent",
+        alpha_required=True,
+        display_width=64,
+        display_height=64,
+        safe_padding=12,
+        subject_min=0.68,
+        subject_max=0.80,
+        composition="centered placeholder symbol",
+        post_process=["resize", "fit_safe_padding"],
+        preview_size=64,
+    ),
+}
+
+UI_SPEC_BY_CONFIG: Dict[str, Dict[str, Any]] = {
+    "missing_sprite": SPEC["ui"],
+    "panel_main": make_spec(
+        width=1024,
+        height=768,
+        background="transparent",
+        alpha_required=True,
+        display_width=960,
+        display_height=640,
+        safe_padding=5,
+        subject_min=0.88,
+        subject_max=0.98,
+        fit_mode="stretch",
+        composition="large empty-center nine-slice panel frame",
+        post_process=["resize", "preserve_transparency", "check_nine_slice_edges"],
+        preview_size=320,
+        nine_slice=nine_slice(96, 96, 96, 96),
+    ),
+    "panel_info": make_spec(
+        width=768,
+        height=384,
+        background="transparent",
+        alpha_required=True,
+        display_width=480,
+        display_height=240,
+        safe_padding=5,
+        subject_min=0.88,
+        subject_max=0.98,
+        fit_mode="stretch",
+        composition="compact empty-center nine-slice panel frame",
+        post_process=["resize", "preserve_transparency", "check_nine_slice_edges"],
+        preview_size=240,
+        nine_slice=nine_slice(64, 64, 64, 64),
+    ),
+    "button_primary": make_spec(
+        width=512,
+        height=160,
+        background="transparent",
+        alpha_required=True,
+        display_width=220,
+        display_height=64,
+        safe_padding=4,
+        subject_min=0.88,
+        subject_max=0.98,
+        fit_mode="stretch",
+        composition="rectangular label-free nine-slice button",
+        post_process=["resize", "preserve_transparency", "check_nine_slice_edges"],
+        preview_size=160,
+        nine_slice=nine_slice(72, 72, 48, 48),
+    ),
+    "button_secondary": make_spec(
+        width=512,
+        height=160,
+        background="transparent",
+        alpha_required=True,
+        display_width=220,
+        display_height=64,
+        safe_padding=4,
+        subject_min=0.88,
+        subject_max=0.98,
+        fit_mode="stretch",
+        composition="rectangular label-free nine-slice button",
+        post_process=["resize", "preserve_transparency", "check_nine_slice_edges"],
+        preview_size=160,
+        nine_slice=nine_slice(72, 72, 48, 48),
+    ),
+    "button_danger": make_spec(
+        width=512,
+        height=160,
+        background="transparent",
+        alpha_required=True,
+        display_width=220,
+        display_height=64,
+        safe_padding=4,
+        subject_min=0.88,
+        subject_max=0.98,
+        fit_mode="stretch",
+        composition="rectangular label-free nine-slice warning button",
+        post_process=["resize", "preserve_transparency", "check_nine_slice_edges"],
+        preview_size=160,
+        nine_slice=nine_slice(72, 72, 48, 48),
+    ),
+    "list_row_normal": make_spec(
+        width=1024,
+        height=128,
+        background="transparent",
+        alpha_required=True,
+        display_width=720,
+        display_height=72,
+        safe_padding=4,
+        subject_min=0.88,
+        subject_max=0.98,
+        fit_mode="stretch",
+        composition="horizontal nine-slice list row plate",
+        post_process=["resize", "preserve_transparency", "check_nine_slice_edges"],
+        preview_size=200,
+        nine_slice=nine_slice(80, 80, 36, 36),
+    ),
+    "list_row_selected": make_spec(
+        width=1024,
+        height=128,
+        background="transparent",
+        alpha_required=True,
+        display_width=720,
+        display_height=72,
+        safe_padding=4,
+        subject_min=0.88,
+        subject_max=0.98,
+        fit_mode="stretch",
+        composition="horizontal nine-slice selected list row plate",
+        post_process=["resize", "preserve_transparency", "check_nine_slice_edges"],
+        preview_size=200,
+        nine_slice=nine_slice(80, 80, 36, 36),
+    ),
+    "title_divider": make_spec(
+        width=1024,
+        height=128,
+        background="transparent",
+        alpha_required=True,
+        display_width=720,
+        display_height=48,
+        safe_padding=8,
+        subject_min=0.70,
+        subject_max=0.92,
+        composition="thin horizontal decorative divider",
+        post_process=["resize", "preserve_transparency"],
+        preview_size=200,
+    ),
+    "icon_money": SPEC["ui"],
+    "icon_locked": SPEC["ui"],
+    "icon_equipped": SPEC["ui"],
+    "inventory_slot_available": make_spec(
+        width=256,
+        height=256,
+        background="transparent",
+        alpha_required=True,
+        display_width=100,
+        display_height=100,
+        safe_padding=8,
+        subject_min=0.80,
+        subject_max=0.96,
+        composition="square inventory slot tile",
+        post_process=["resize", "preserve_transparency"],
+        preview_size=100,
+    ),
+    "inventory_slot_locked": make_spec(
+        width=256,
+        height=256,
+        background="transparent",
+        alpha_required=True,
+        display_width=100,
+        display_height=100,
+        safe_padding=8,
+        subject_min=0.80,
+        subject_max=0.96,
+        composition="square locked inventory slot tile",
+        post_process=["resize", "preserve_transparency"],
+        preview_size=100,
+    ),
+    "inventory_slot_hover": make_spec(
+        width=256,
+        height=256,
+        background="transparent",
+        alpha_required=True,
+        display_width=100,
+        display_height=100,
+        safe_padding=8,
+        subject_min=0.80,
+        subject_max=0.96,
+        composition="square highlighted inventory slot tile",
+        post_process=["resize", "preserve_transparency"],
+        preview_size=100,
+    ),
+    "inventory_slot_valid": make_spec(
+        width=256,
+        height=256,
+        background="transparent",
+        alpha_required=True,
+        display_width=100,
+        display_height=100,
+        safe_padding=8,
+        subject_min=0.80,
+        subject_max=0.96,
+        composition="square valid-placement inventory slot tile",
+        post_process=["resize", "preserve_transparency"],
+        preview_size=100,
+    ),
+    "inventory_slot_invalid": make_spec(
+        width=256,
+        height=256,
+        background="transparent",
+        alpha_required=True,
+        display_width=100,
+        display_height=100,
+        safe_padding=8,
+        subject_min=0.80,
+        subject_max=0.96,
+        composition="square invalid-placement inventory slot tile",
+        post_process=["resize", "preserve_transparency"],
+        preview_size=100,
+    ),
+    "inventory_chassis_panel": make_spec(
+        width=1024,
+        height=1024,
+        background="transparent",
+        alpha_required=True,
+        display_width=512,
+        display_height=512,
+        safe_padding=5,
+        subject_min=0.86,
+        subject_max=0.98,
+        composition="large open-center backpack grid support panel",
+        post_process=["resize", "preserve_transparency"],
+        preview_size=256,
+    ),
+    "loot_pickup_panel": make_spec(
+        width=1024,
+        height=768,
+        background="transparent",
+        alpha_required=True,
+        display_width=960,
+        display_height=640,
+        safe_padding=5,
+        subject_min=0.88,
+        subject_max=0.98,
+        fit_mode="stretch",
+        composition="large empty-center nine-slice loot panel frame",
+        post_process=["resize", "preserve_transparency", "check_nine_slice_edges"],
+        preview_size=320,
+        nine_slice=nine_slice(96, 96, 96, 96),
+    ),
+    "loot_drop_zone": make_spec(
+        width=768,
+        height=512,
+        background="transparent",
+        alpha_required=True,
+        display_width=420,
+        display_height=300,
+        safe_padding=6,
+        subject_min=0.82,
+        subject_max=0.96,
+        composition="empty tray-like drop zone panel",
+        post_process=["resize", "preserve_transparency"],
+        preview_size=220,
+    ),
+    "combat_enemy_card": make_spec(
+        width=768,
+        height=768,
+        background="transparent",
+        alpha_required=True,
+        display_width=360,
+        display_height=360,
+        safe_padding=5,
+        subject_min=0.86,
+        subject_max=0.98,
+        composition="square portrait card frame with empty center",
+        post_process=["resize", "preserve_transparency"],
+        preview_size=220,
+    ),
+    "combat_enemy_card_selected": make_spec(
+        width=768,
+        height=768,
+        background="transparent",
+        alpha_required=True,
+        display_width=360,
+        display_height=360,
+        safe_padding=5,
+        subject_min=0.86,
+        subject_max=0.98,
+        composition="square selected portrait card frame with empty center",
+        post_process=["resize", "preserve_transparency"],
+        preview_size=220,
+    ),
+    "combat_status_bar_hp": make_spec(
+        width=512,
+        height=96,
+        background="transparent",
+        alpha_required=True,
+        display_width=220,
+        display_height=28,
+        safe_padding=4,
+        subject_min=0.86,
+        subject_max=0.98,
+        fit_mode="stretch",
+        composition="horizontal status bar track",
+        post_process=["resize", "preserve_transparency", "check_nine_slice_edges"],
+        preview_size=160,
+        nine_slice=nine_slice(48, 48, 28, 28),
+    ),
+    "combat_status_bar_shield": make_spec(
+        width=512,
+        height=96,
+        background="transparent",
+        alpha_required=True,
+        display_width=220,
+        display_height=28,
+        safe_padding=4,
+        subject_min=0.86,
+        subject_max=0.98,
+        fit_mode="stretch",
+        composition="horizontal status bar track",
+        post_process=["resize", "preserve_transparency", "check_nine_slice_edges"],
+        preview_size=160,
+        nine_slice=nine_slice(48, 48, 28, 28),
+    ),
+    "combat_ap_pip": make_spec(
+        width=256,
+        height=256,
+        background="transparent",
+        alpha_required=True,
+        display_width=24,
+        display_height=24,
+        safe_padding=12,
+        subject_min=0.64,
+        subject_max=0.82,
+        composition="small circular action point token",
+        post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
+        preview_size=48,
+    ),
+    "combat_turn_banner": make_spec(
+        width=1024,
+        height=256,
+        background="transparent",
+        alpha_required=True,
+        display_width=520,
+        display_height=96,
+        safe_padding=5,
+        subject_min=0.86,
+        subject_max=0.98,
+        fit_mode="stretch",
+        composition="wide empty-center banner frame",
+        post_process=["resize", "preserve_transparency", "check_nine_slice_edges"],
+        preview_size=240,
+        nine_slice=nine_slice(96, 96, 64, 64),
+    ),
+    "dungeon_node_plate": make_spec(
+        width=512,
+        height=512,
+        background="transparent",
+        alpha_required=True,
+        display_width=96,
+        display_height=96,
+        safe_padding=10,
+        subject_min=0.70,
+        subject_max=0.88,
+        composition="round map node backing plate",
+        post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
+        preview_size=80,
+    ),
+    "dungeon_route_line": make_spec(
+        width=512,
+        height=128,
+        background="transparent",
+        alpha_required=True,
+        display_width=200,
+        display_height=16,
+        safe_padding=6,
+        subject_min=0.70,
+        subject_max=0.96,
+        composition="thin horizontal route connector strip",
+        post_process=["resize", "preserve_transparency"],
+        preview_size=160,
+    ),
+    "settlement_victory_panel": make_spec(
+        width=1024,
+        height=768,
+        background="transparent",
+        alpha_required=True,
+        display_width=900,
+        display_height=600,
+        safe_padding=5,
+        subject_min=0.88,
+        subject_max=0.98,
+        fit_mode="stretch",
+        composition="large empty-center nine-slice success panel frame",
+        post_process=["resize", "preserve_transparency", "check_nine_slice_edges"],
+        preview_size=320,
+        nine_slice=nine_slice(96, 96, 96, 96),
+    ),
+    "settlement_defeat_panel": make_spec(
+        width=1024,
+        height=768,
+        background="transparent",
+        alpha_required=True,
+        display_width=900,
+        display_height=600,
+        safe_padding=5,
+        subject_min=0.88,
+        subject_max=0.98,
+        fit_mode="stretch",
+        composition="large empty-center nine-slice defeat panel frame",
+        post_process=["resize", "preserve_transparency", "check_nine_slice_edges"],
+        preview_size=320,
+        nine_slice=nine_slice(96, 96, 96, 96),
+    ),
 }
 
 FORBIDDEN_PATTERNS = [
@@ -267,6 +833,7 @@ def lookup(domain: str, config_id: str, english: bool) -> str:
 def prompt_for(entry: Dict[str, Any]) -> tuple[str, str, str, Dict[str, Any]]:
     domain = entry["Domain"]
     config_id = entry["ConfigID"]
+    asset_type = str(entry.get("AssetType", "asset"))
     detail_en = lookup(domain, config_id, True)
     detail_cn = lookup(domain, config_id, False)
 
@@ -283,12 +850,26 @@ def prompt_for(entry: Dict[str, Any]) -> tuple[str, str, str, Dict[str, Any]]:
     elif domain == "prosthetic":
         prompt_en = f"{STYLE_EN}, prosthetic machine module icon, {detail_en}, centered single object, clean silhouette, transparent background, no text"
     elif domain == "ui":
-        prompt_en = f"{STYLE_EN}, UI placeholder icon, {detail_en}, centered symbol, high contrast, transparent background, no text"
+        ui_kind = {
+            "panel": "modular 2D interface panel sprite",
+            "button": "modular 2D interface button sprite",
+            "slot": "modular 2D inventory slot sprite",
+            "bar": "modular 2D status bar sprite",
+            "banner": "modular 2D banner sprite",
+            "divider": "modular 2D decorative divider sprite",
+            "frame": "modular 2D interface frame sprite",
+            "icon": "small 2D interface icon sprite",
+        }.get(asset_type, "modular 2D interface sprite")
+        prompt_en = f"{STYLE_EN}, {ui_kind}, {detail_en}, transparent background, clean silhouette, no text, no letters, no numbers"
     else:
         prompt_en = f"{STYLE_EN}, game item icon, {detail_en}, centered single object, clean readable silhouette, transparent background, no text"
 
     prompt_cn = f"{STYLE_CN}{detail_cn}"
-    return prompt_cn, prompt_en, NEGATIVE.get(domain, NEGATIVE["item"]), dict(SPEC.get(domain, SPEC["item"]))
+    if domain == "ui":
+        spec = UI_SPEC_BY_CONFIG.get(config_id, SPEC["ui"])
+    else:
+        spec = SPEC.get(domain, SPEC["item"])
+    return prompt_cn, prompt_en, NEGATIVE.get(domain, NEGATIVE["item"]), copy.deepcopy(spec)
 
 
 def contains_forbidden_text(text: str, allow_cjk: bool = False) -> bool:
@@ -298,8 +879,17 @@ def contains_forbidden_text(text: str, allow_cjk: bool = False) -> bool:
     return any(pattern.lower() in lowered for pattern in FORBIDDEN_PATTERNS)
 
 
+def has_source_spec(spec: Any) -> bool:
+    if not isinstance(spec, dict):
+        return False
+    source = spec.get("SourceSpec")
+    if isinstance(source, dict):
+        return bool(source.get("Width") and source.get("Height") and source.get("Format"))
+    return bool(spec.get("Width") and spec.get("Height") and spec.get("Format"))
+
+
 def spec_is_legacy(spec: Any) -> bool:
-    return not isinstance(spec, dict) or not spec.get("Width") or not spec.get("Height") or not spec.get("Format")
+    return not has_source_spec(spec)
 
 
 def should_fill(entry: Dict[str, Any], overwrite: bool) -> bool:
@@ -351,6 +941,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--manifest-path", default="美术文档/_generated/art_manifest.json")
     parser.add_argument("--prompt-markdown-path", default="美术文档/_generated/AI绘图提示词清单.md")
     parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--refresh-spec", action="store_true", help="Refresh Spec for existing non-deprecated entries without changing their status.")
     return parser.parse_args()
 
 
@@ -369,6 +960,7 @@ def main() -> int:
     }
 
     changed = 0
+    spec_refreshed = 0
     skipped = 0
     violations = []
     for entry in manifest["Entries"]:
@@ -380,6 +972,12 @@ def main() -> int:
             entry["Spec"] = spec
             entry["Status"] = "prompted"
             changed += 1
+        elif args.refresh_spec and entry.get("Status") != "deprecated":
+            _, _, _, spec = prompt_for(entry)
+            if entry.get("Spec") != spec:
+                entry["Spec"] = spec
+                spec_refreshed += 1
+            skipped += 1
         else:
             skipped += 1
 
@@ -396,6 +994,7 @@ def main() -> int:
     prompt_markdown_path.write_text(make_prompt_markdown(manifest), encoding="utf-8")
 
     print(f"Prompt fields updated: {changed}")
+    print(f"Specs refreshed: {spec_refreshed}")
     print(f"Entries skipped: {skipped}")
     print(f"Manifest: {manifest_path.relative_to(root).as_posix()}")
     print(f"Prompt markdown: {prompt_markdown_path.relative_to(root).as_posix()}")

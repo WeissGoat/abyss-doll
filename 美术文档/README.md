@@ -1,7 +1,7 @@
 # 美术文档索引
 
 > **定位：** Project P3 美术生产、AI 素材生成、资源接入与 Manifest 管理的入口。
-> **更新时间：** 2026-05-05
+> **更新时间：** 2026-05-13
 
 ## 推荐阅读顺序
 
@@ -13,18 +13,22 @@
 6. [05_AI图片网关接入方案.md](05_AI图片网关接入方案.md)：将 `tools/ai-image-gateway` 接入 Manifest 批量跑图流程的开发方案。
 7. [06_MVP素材接入状态同步.md](06_MVP素材接入状态同步.md)：当前 Unity 已接入素材、缺失 VisualID 和下一批补图优先级。
 8. [07_MVP_UI重新设计同步.md](07_MVP_UI重新设计同步.md)：当前 MVP UI 重设计目标、重点界面和 UI 皮肤资产需求。
+9. [art_requirements_seed.json](art_requirements_seed.json)：配置表无法扫出的 preset 资产种子，例如 UI 皮肤、背景、程序缺口反馈。
+10. [ui_design/README.md](ui_design/README.md)：UI 设计系统、组件目录、界面布局和程序交付校验。
 
 ## 机器生成文件
 
 * [_generated/art_manifest.json](_generated/art_manifest.json)：机器可读 Manifest。
 * [_generated/视觉资产Manifest.md](_generated/视觉资产Manifest.md)：脚本生成的 Manifest 摘要，方便快速查看。
 * [_generated/AI绘图提示词清单.md](_generated/AI绘图提示词清单.md)：脚本补全后的提示词清单，供出图和审阅。
+* [ui_design/_generated/ui_design_handoff.md](ui_design/_generated/ui_design_handoff.md)：UI 设计校验后生成的程序交付摘要。
 
 生成命令：
 
 ```powershell
 .\tools\美术工具\Update-ArtManifest.ps1
 .\tools\美术工具\Generate-ArtPrompts.ps1
+.\tools\美术工具\Validate-UIDesign.ps1
 ```
 
 ## 外部契约

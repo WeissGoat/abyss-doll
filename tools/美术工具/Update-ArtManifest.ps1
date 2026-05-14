@@ -2,6 +2,7 @@ param(
     [string]$ConfigRoot = "UnityClient/Assets/StreamingAssets/Configs",
     [string]$ManifestPath = "",
     [string]$MarkdownPath = "",
+    [string]$PresetPath = "",
     [switch]$NoSystemAssets
 )
 
@@ -21,6 +22,10 @@ if ($ManifestPath -ne "") {
 
 if ($MarkdownPath -ne "") {
     $argsList += @("--markdown-path", $MarkdownPath)
+}
+
+if ($PresetPath -ne "") {
+    $argsList += @("--preset-path", $PresetPath)
 }
 
 if ($NoSystemAssets) {

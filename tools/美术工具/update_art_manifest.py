@@ -6,7 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-from typing import Any, Dict, Iterable, List
+from typing import Any, Dict, List
 
 
 STATUS_FLOW = [
@@ -64,6 +64,10 @@ def tag_text(tags: Any) -> str:
     return ", ".join(str(tag) for tag in tags)
 
 
+def is_test_config(path: Path) -> bool:
+    return path.stem.endswith("_test")
+
+
 def new_entry(
     *,
     domain: str,
@@ -77,8 +81,9 @@ def new_entry(
     output_path: str,
     priority: str,
     source_facts_cn: str,
+    extra_fields: Dict[str, Any] | None = None,
 ) -> Dict[str, Any]:
-    return {
+    entry = {
         "Domain": domain,
         "SourceType": source_type,
         "DeriveRule": derive_rule,
@@ -102,6 +107,11 @@ def new_entry(
         "RegistryStatus": "unregistered",
         "Notes": "",
     }
+    if extra_fields:
+        for key, value in extra_fields.items():
+            if value not in (None, ""):
+                entry[key] = value
+    return entry
 
 
 def preserve_entry_fields(entry: Dict[str, Any], existing: Dict[str, Any] | None) -> Dict[str, Any]:
@@ -132,6 +142,8 @@ def scan_items(config_root: Path, project_root: Path, existing_map: Dict[str, Di
         return
 
     for path in sorted(item_dir.glob("*.json")):
+        if is_test_config(path):
+            continue
         data = read_json(path)
         visual_id = data.get("IconID") or f"item_{data['ConfigID']}_icon"
         grid_cost = prop(prop(data, "Grid", {}), "GridCost", "")
@@ -164,6 +176,8 @@ def scan_monsters(config_root: Path, project_root: Path, existing_map: Dict[str,
         return
 
     for path in sorted(monster_dir.glob("*.json")):
+        if is_test_config(path):
+            continue
         data = read_json(path)
         visual_id = data.get("PortraitID") or f"monster_{data['MonsterID']}_portrait"
         interference = data.get("GridInterference") or "None"
@@ -198,6 +212,8 @@ def scan_dungeons(config_root: Path, project_root: Path, existing_map: Dict[str,
     node_types: set[str] = set()
 
     for path in sorted(dungeon_dir.glob("*.json")):
+        if is_test_config(path):
+            continue
         data = read_json(path)
         for node in data.get("NodePool", []):
             node_type = node.get("NodeType")
@@ -205,6 +221,9 @@ def scan_dungeons(config_root: Path, project_root: Path, existing_map: Dict[str,
                 node_types.add(node_type)
         if data.get("BossNode"):
             node_types.add("BossNode")
+        end_node = data.get("EndNode")
+        if isinstance(end_node, dict) and end_node.get("NodeType"):
+            node_types.add(str(end_node["NodeType"]))
 
         layer_id = data.get("LayerID")
         visual_id = f"bg_dungeon_layer_{layer_id}"
@@ -246,6 +265,11 @@ def scan_dungeons(config_root: Path, project_root: Path, existing_map: Dict[str,
             "DisplayName": "首领节点",
             "Facts": "由 Dungeon BossNode 字段推导，需要一个首领节点资产。",
         },
+        "StairsNode": {
+            "VisualID": "node_stairs_icon",
+            "DisplayName": "阶梯节点",
+            "Facts": "由 Dungeon EndNode 字段推导，需要一个通往下一层的阶梯节点资产。",
+        },
     }
 
     for node_type in sorted(node_types):
@@ -282,6 +306,8 @@ def scan_prosthetics(config_root: Path, project_root: Path, existing_map: Dict[s
         return
 
     for path in sorted(prosthetic_dir.glob("*.json")):
+        if is_test_config(path):
+            continue
         data = read_json(path)
         visual_id = f"prosthetic_{data['ProstheticID']}_icon"
         effect_type = prop(prop(data, "PassiveEffect", {}), "EffectType", "")
@@ -314,6 +340,8 @@ def scan_chassis(config_root: Path, project_root: Path, existing_map: Dict[str, 
         return
 
     for path in sorted(chassis_dir.glob("*.json")):
+        if is_test_config(path):
+            continue
         data = read_json(path)
         visual_id = f"chassis_{data['ChassisID']}_frame"
         source_facts = (
@@ -345,6 +373,8 @@ def scan_dolls(config_root: Path, project_root: Path, existing_map: Dict[str, Di
         return
 
     for path in sorted(doll_dir.glob("*.json")):
+        if is_test_config(path):
+            continue
         data = read_json(path)
         visual_id = f"{data['DollID']}_stand"
         source_facts = (
@@ -370,66 +400,49 @@ def scan_dolls(config_root: Path, project_root: Path, existing_map: Dict[str, Di
         )
 
 
-def add_system_assets(existing_map: Dict[str, Dict[str, Any]], entries: List[Dict[str, Any]]) -> None:
-    system_entries = [
-        {
-            "domain": "ui",
-            "config_id": "missing_sprite",
-            "display_name": "缺失占位图",
-            "asset_type": "icon",
-            "visual_id": "ui_missing_sprite",
-            "output_path": "UnityClient/Assets/Art/Approved/UI/ui_missing_sprite.png",
-            "priority": "P0",
-            "facts": "预置资产：缺失资源占位图，用于所有未接入素材的 fallback。",
-        },
-        {
-            "domain": "background",
-            "config_id": "workshop",
-            "display_name": "工坊整备背景",
-            "asset_type": "background",
-            "visual_id": "bg_workshop_day",
-            "output_path": "UnityClient/Assets/Art/Approved/Backgrounds/Workshop/bg_workshop_day.png",
-            "priority": "P1",
-            "facts": "预置资产：工坊整备界面需要背景底图，不来自玩法配置表。",
-        },
-        {
-            "domain": "background",
-            "config_id": "combat",
-            "display_name": "通用战斗背景",
-            "asset_type": "background",
-            "visual_id": "bg_combat_abyss",
-            "output_path": "UnityClient/Assets/Art/Approved/Backgrounds/Combat/bg_combat_abyss.png",
-            "priority": "P1",
-            "facts": "预置资产：通用战斗界面需要横版舞台背景，不来自玩法配置表。",
-        },
-        {
-            "domain": "background",
-            "config_id": "dungeon_map",
-            "display_name": "深渊路线图背景",
-            "asset_type": "background",
-            "visual_id": "bg_dungeon_map",
-            "output_path": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_dungeon_map.png",
-            "priority": "P1",
-            "facts": "预置资产：深渊路线图需要底纹背景，不来自玩法配置表。",
-        },
-    ]
+def add_preset_assets(
+    project_root: Path,
+    preset_path: Path,
+    existing_map: Dict[str, Dict[str, Any]],
+    entries: List[Dict[str, Any]],
+) -> None:
+    if not preset_path.exists():
+        return
 
-    for data in system_entries:
+    seed = read_json(preset_path)
+    seed_entries = seed.get("Entries", [])
+    if not isinstance(seed_entries, list):
+        raise ValueError(f"Preset seed Entries must be a list: {preset_path}")
+
+    for index, data in enumerate(seed_entries, start=1):
+        if not isinstance(data, dict):
+            raise ValueError(f"Preset seed entry #{index} must be an object.")
+        visual_id = str(data.get("VisualID", "")).strip()
+        if not visual_id:
+            raise ValueError(f"Preset seed entry #{index} missing VisualID.")
+
+        extra_fields = {
+            "PresetCategory": data.get("PresetCategory"),
+            "Screen": data.get("Screen"),
+            "Usage": data.get("Usage"),
+            "ProgramReference": data.get("ProgramReference"),
+        }
         add_entry(
             entries,
             existing_map,
             new_entry(
-                domain=data["domain"],
+                domain=str(data.get("Domain", "ui")),
                 source_type="preset",
-                derive_rule="art pipeline preset requirement",
-                config_source="美术文档/00_美术流水线总览.md",
-                config_id=data["config_id"],
-                display_name=data["display_name"],
-                asset_type=data["asset_type"],
-                visual_id=data["visual_id"],
-                output_path=data["output_path"],
-                priority=data["priority"],
-                source_facts_cn=data["facts"],
+                derive_rule=str(data.get("DeriveRule", "art requirements seed preset")),
+                config_source=str(data.get("ConfigSource", repo_path(preset_path, project_root))),
+                config_id=str(data.get("ConfigID", visual_id)),
+                display_name=str(data.get("DisplayName", visual_id)),
+                asset_type=str(data.get("AssetType", "icon")),
+                visual_id=visual_id,
+                output_path=str(data.get("OutputPath", join_repo_path("UnityClient/Assets/Art/Approved/UI", f"{visual_id}.png"))),
+                priority=str(data.get("Priority", "P2")),
+                source_facts_cn=str(data.get("SourceFactsCN", f"预置资产：{visual_id}。")),
+                extra_fields=extra_fields,
             ),
         )
 
@@ -501,6 +514,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--config-root", default="UnityClient/Assets/StreamingAssets/Configs")
     parser.add_argument("--manifest-path", default="美术文档/_generated/art_manifest.json")
     parser.add_argument("--markdown-path", default="美术文档/_generated/视觉资产Manifest.md")
+    parser.add_argument("--preset-path", default="美术文档/art_requirements_seed.json")
     parser.add_argument("--no-system-assets", action="store_true")
     return parser.parse_args()
 
@@ -511,6 +525,7 @@ def main() -> int:
     config_root = (project_root / args.config_root).resolve()
     manifest_path = (project_root / args.manifest_path).resolve()
     markdown_path = (project_root / args.markdown_path).resolve()
+    preset_path = (project_root / args.preset_path).resolve()
 
     if not config_root.exists():
         raise FileNotFoundError(f"Config root not found: {config_root}")
@@ -533,7 +548,7 @@ def main() -> int:
     scan_chassis(config_root, project_root, existing_map, entries)
     scan_dolls(config_root, project_root, existing_map, entries)
     if not args.no_system_assets:
-        add_system_assets(existing_map, entries)
+        add_preset_assets(project_root, preset_path, existing_map, entries)
 
     current_ids = {entry["VisualID"] for entry in entries}
     for old_entry in existing_entries:
