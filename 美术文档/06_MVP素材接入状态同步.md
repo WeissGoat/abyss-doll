@@ -1,7 +1,7 @@
 # MVP 素材接入状态同步
 
 > **定位：** 给美术侧同步当前 Unity 已接入素材、已入库但未展示素材、配置引用但缺失素材，以及下一批需要补齐的资源。
-> **更新时间：** 2026-05-13
+> **更新时间：** 2026-05-15
 
 ---
 
@@ -38,6 +38,7 @@ Approved PNG / Prefab -> VisualAssetRegistry -> 配置 VisualID -> Unity UI Disp
 | 战斗背景 | 战斗界面 | `bg_combat_abyss` | 背景按 `1920x1080` 参考视口 cover 裁切。 |
 | 工坊背景 | 小镇/工坊主界面 | `bg_workshop_day` | 背景按 `1920x1080` 参考视口 cover 裁切。 |
 | 缺失占位图 | 缺图 fallback | `ui_missing_sprite` | 资源缺失时用于保证流程不中断。 |
+| P0 UI 皮肤 | 工坊、战斗 HUD、战利品拾取 | 见第 4 节可接入清单 | 已进入 `Approved/UI`，可交给程序按 `VisualID` 接入。 |
 
 ---
 
@@ -58,9 +59,50 @@ Approved PNG / Prefab -> VisualAssetRegistry -> 配置 VisualID -> Unity UI Disp
 
 ---
 
-## 4. 配置已引用但 Approved 缺失的素材
+## 4. 当前可交给程序接入的 UI 皮肤
 
-截至 2026-05-13，配置已引用且属于 MVP 主流程的 P0/P1 视觉资源没有新的 Approved 缺失项。
+截至 2026-05-15，第一批 P0 UI 皮肤已经进入：
+
+```text
+UnityClient/Assets/Art/Approved/UI/
+```
+
+这些资源不再是占位图，可以交给程序侧登记 `VisualAssetRegistry` 并接入到 UGUI。文本、数字、按钮文案仍由 Unity Text 渲染，不烘焙在 Sprite 中。
+
+| VisualID | 用途 | Unity 建议 |
+|---|---|---|
+| `ui_panel_info` | 小信息面板、状态摘要、说明区 | Image Type 使用 `Sliced`，Sprite border `48,48,48,48`。 |
+| `ui_button_primary` | 出发、确认、继续等主操作按钮 | Image Type 使用 `Sliced`，Sprite border `64,64,48,48`。 |
+| `ui_button_secondary` | 返回、取消、关闭等次操作按钮 | Image Type 使用 `Sliced`，Sprite border `64,64,48,48`。 |
+| `ui_button_danger` | 丢弃、放弃等危险操作按钮 | Image Type 使用 `Sliced`，Sprite border `64,64,48,48`。 |
+| `ui_inventory_chassis_panel` | 背包底盘/网格承托面板 | Image Type 使用 `Sliced` 或固定尺寸，Sprite border `64,64,64,64`。 |
+| `ui_inventory_slot_available` | 背包可用格 | 固定显示 `100x100`，Image Type 使用 `Simple`。 |
+| `ui_inventory_slot_locked` | 背包锁定格 | 固定显示 `100x100`，Image Type 使用 `Simple`。 |
+| `ui_inventory_slot_hover` | 背包悬停格 | 固定显示 `100x100`，Image Type 使用 `Simple`。 |
+| `ui_inventory_slot_valid` | 背包可放置反馈格 | 固定显示 `100x100`，Image Type 使用 `Simple`。 |
+| `ui_inventory_slot_invalid` | 背包不可放置反馈格 | 固定显示 `100x100`，Image Type 使用 `Simple`。 |
+| `ui_loot_pickup_panel` | 战利品拾取主面板 | Image Type 使用 `Sliced`，Sprite border `64,64,64,64`。 |
+| `ui_loot_drop_zone` | 战利品掉落/待拾取区域 | Image Type 使用 `Sliced`，Sprite border `48,48,48,48`。 |
+| `ui_combat_enemy_card` | 敌人卡片普通状态 | 可固定显示或 Sliced，Sprite border `64,64,64,64`。 |
+| `ui_combat_enemy_card_selected` | 敌人卡片选中状态 | 可固定显示或 Sliced，Sprite border `64,64,64,64`。 |
+| `ui_combat_status_bar_hp` | HP 状态条轨道 | Image Type 使用 `Sliced`，Sprite border `48,48,32,32`；填充值由程序单独控制。 |
+| `ui_combat_status_bar_shield` | 护盾状态条轨道 | Image Type 使用 `Sliced`，Sprite border `48,48,32,32`；填充值由程序单独控制。 |
+| `ui_combat_ap_pip` | AP 行动点圆点 | 固定小图标，Image Type 使用 `Simple`。 |
+| `ui_combat_turn_banner` | 回合提示条 | Image Type 使用 `Sliced`，Sprite border `64,64,48,48`。 |
+| `ui_icon_money` | 金币/价值图标 | 固定小图标，Image Type 使用 `Simple`。 |
+
+注意：
+
+* 背包玩法格尺寸仍以程序现有 `100x100` 为准，UI 皮肤只作为格子底图或状态覆盖。
+* 背景、面板、状态条轨道等非交互 Image 默认 `raycastTarget=false`。
+* 背包格、物品、按钮、敌人卡片等交互对象保留程序原有射线逻辑。
+* 程序侧可以先接第 4 节清单，不需要接第 5 节仍未完成的 UI 资源。
+
+---
+
+## 5. 配置已引用但 Approved 缺失的素材
+
+截至 2026-05-15，配置已引用且属于 MVP 主流程的 P0/P1 视觉资源没有新的 Approved 缺失项。
 
 已完成补齐：
 
@@ -70,25 +112,25 @@ Approved PNG / Prefab -> VisualAssetRegistry -> 配置 VisualID -> Unity UI Disp
 
 ---
 
-## 5. 当前界面美术缺口
+## 6. 当前界面美术缺口
 
 这些界面已有功能，但 UI 仍主要是程序色块、文字和按钮。后续可以作为 UI 重设计或面板皮肤资源的需求来源。
 
 | 界面 | 当前接入状态 | 缺少的美术资源 |
 |---|---|---|
 | 安全屋/阶梯房间 | 纯文本和按钮，未接背景或插图 | 安全屋背景/插图、阶梯房间背景/插图、房间面板皮肤。 |
-| 战斗战利品拾取 | 物品图标已接，面板仍是纯色遮罩 | 战利品拾取面板、标题装饰、按钮皮肤、掉落区底纹。 |
+| 战斗战利品拾取 | 物品图标已接，第一批面板和按钮皮肤已进入 Approved | 标题装饰、物品详情区细节、最终 Unity 布局微调。 |
 | 撤离/战败结算 | 纯色底和文本 | 胜利/撤离结算背景、战败结算背景、结算清单面板、胜败插图。 |
 | 出发深渊层选择 | 纯色卡片列表 | 层入口卡片皮肤、锁定/可进入状态图标、层缩略图或入口插图。 |
-| 背包网格 | 物品图标已接，格子仍是程序色块 | 可用格、锁定格、悬停格、放置成功/失败反馈、底盘框层级设计。 |
+| 背包网格 | 物品图标已接，第一批格子状态和底盘皮肤已进入 Approved | 程序接入后的拖拽状态切换验证。 |
 | 工坊出售面板 | 物品图标已接，面板仍是程序色块 | 出售面板皮肤、列表行皮肤、按钮皮肤、金币/价值小图标。 |
 | 义体制造面板 | 义体图标已接，面板仍是程序色块 | 制造面板皮肤、材料需求行皮肤、已装备/可制造状态图标。 |
-| 战斗 HUD | 战斗背景和怪物头像已接 | 怪物卡片框、玩家魔偶站位、血条/护盾/AP/SAN UI 皮肤、行动按钮皮肤。 |
+| 战斗 HUD | 战斗背景和怪物头像已接，敌人卡、状态条、AP 和按钮皮肤已进入 Approved | 玩家魔偶站位、SAN 专用表现、行动按钮布局验证。 |
 | 深渊地图 | 背景和节点图标部分接入 | 阶梯节点图标、节点底板、路线连接线、已访问/可访问/锁定状态皮肤。 |
 
 ---
 
-## 6. 建议同步给美术的优先级
+## 7. 建议同步给美术的优先级
 
 P0：立即补齐
 
@@ -101,7 +143,7 @@ P1：已有资源落界面前需要版式确认
 
 P1：MVP 体验明显提升的界面资源
 
-* 战斗战利品拾取面板皮肤。
+* 程序接入后的战斗战利品拾取界面微调。
 * 撤离/战败结算面板皮肤。
 * 安全屋/阶梯房间背景或插图。
 
@@ -115,7 +157,7 @@ P2：整体 UI 皮肤系统
 
 ---
 
-## 7. 程序侧当前可直接接入的命名规则
+## 8. 程序侧当前可直接接入的命名规则
 
 美术补图时优先按以下 VisualID 命名，程序可以更快接入：
 
