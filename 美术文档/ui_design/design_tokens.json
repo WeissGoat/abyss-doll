@@ -1,0 +1,82 @@
+{
+  "Version": 1,
+  "UpdatedAt": "2026-05-13",
+  "ReferenceResolution": {
+    "Width": 1920,
+    "Height": 1080,
+    "CanvasScalerMode": "ScaleWithScreenSize",
+    "MatchWidthOrHeight": 0.5
+  },
+  "AspectPolicy": {
+    "Primary": "16:9",
+    "Supported": ["16:10", "21:9", "4:3"],
+    "BackgroundFitMode": "cover",
+    "IconFitMode": "contain",
+    "NineSliceFitMode": "stretch",
+    "CriticalContentSafeArea": "center_4_3"
+  },
+  "LayoutGrid": {
+    "BaseUnit": 8,
+    "OuterMargin": 64,
+    "PanelGap": 24,
+    "SmallGap": 12,
+    "InventoryCellSize": 100
+  },
+  "SafeAreas": {
+    "FullScreen": {
+      "X": 0,
+      "Y": 0,
+      "Width": 1920,
+      "Height": 1080
+    },
+    "Center4By3": {
+      "X": 240,
+      "Y": 0,
+      "Width": 1440,
+      "Height": 1080
+    },
+    "ActionSafe": {
+      "X": 64,
+      "Y": 64,
+      "Width": 1792,
+      "Height": 952
+    }
+  },
+  "ColorRoles": {
+    "PanelBase": "#1D2028",
+    "PanelInset": "#11141B",
+    "BrassTrim": "#B88945",
+    "CopperAccent": "#A8613D",
+    "AmberActive": "#E1B45A",
+    "BlueEnergy": "#67B7D8",
+    "GreenValid": "#65B88A",
+    "RedDanger": "#B64A45",
+    "TextPrimary": "#ECE3D2",
+    "TextSecondary": "#B9AD98",
+    "Disabled": "#5D6068"
+  },
+  "Typography": {
+    "FontPolicy": "Unity Text renders all labels; UI sprites must not contain baked text.",
+    "TitleSize": 32,
+    "SectionTitleSize": 24,
+    "BodySize": 18,
+    "CaptionSize": 14,
+    "MinimumRuntimeSize": 12
+  },
+  "CornerRadius": {
+    "Panel": 8,
+    "Button": 6,
+    "Slot": 4,
+    "Card": 8
+  },
+  "LayerOrder": [
+    "Background",
+    "EnvironmentOverlay",
+    "CharacterOrMonster",
+    "MainPanel",
+    "InventoryOrCards",
+    "Controls",
+    "Tooltip",
+    "Modal"
+  ]
+}

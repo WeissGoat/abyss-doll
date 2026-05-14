@@ -1,7 +1,7 @@
 # MVP UI 重新设计同步
 
 > **定位：** 给美术侧同步当前 MVP UI 的重设计需求，明确需要输出的界面方案、UI 皮肤资产、交付格式和程序接入边界。
-> **更新时间：** 2026-05-12
+> **更新时间：** 2026-05-13
 
 ---
 
@@ -16,6 +16,32 @@
 * 当前 UI 主要服务功能验证，不应作为最终 MVP 视觉标准。
 
 因此下一步不是零散补几张图，而是需要美术侧提供一套 **MVP UI 视觉方案**。
+
+这些 UI 资产统一作为 `SourceType=preset` 进入 Manifest。具体需求维护在：
+
+```text
+美术文档/art_requirements_seed.json
+```
+
+后续程序反馈的新缺图、临时色块、未接入 UI 皮肤，也先追加到这个种子文件，再由 `Update-ArtManifest.ps1` 增量进入 Manifest。
+
+UI 设计本身不只由本文档管理。正式设计流入口为：
+
+```text
+美术文档/ui_design/
+  design_tokens.json
+  component_catalog.json
+  screen_layouts.json
+  handoff_checklist.md
+```
+
+程序交付前运行：
+
+```powershell
+.\tools\美术工具\Validate-UIDesign.ps1
+```
+
+生成的 `ui_design/_generated/ui_design_handoff.md` 作为程序 agent 的 UI 接入摘要。
 
 ---
 
@@ -115,6 +141,8 @@ MVP UI 重设计需要达成：
 
 如果使用九宫格，请使用透明 PNG，并在交付说明中写明建议 border。
 
+当前这些通用项已经进入 preset 种子文件，会由 Manifest 统一生成提示词、规格和 Approved 目标路径。
+
 ---
 
 ## 7. 背包与战利品专项要求
@@ -125,6 +153,7 @@ MVP UI 重设计需要达成：
 
 * 背包底盘框是否使用 `chassis_*_frame` 作为整体框。
 * 格子是否需要独立贴图：可用格、锁定格、悬停格、可放置预览、不可放置预览。
+* 背包玩法格尺寸以当前 Unity 拖拽逻辑为准，参考容器为 `100x100`；物品图标和格子装饰在格内按需要等比适配。
 * 物品图标仍保持按道具 Shape 占格，不用图标源图尺寸撑布局。
 * 战利品拾取界面中，战利品应明显位于背包外侧，表达“拖入背包进行取舍”。
 * 拖拽状态最好有高亮、阴影或边框反馈。
@@ -213,3 +242,12 @@ ui_<screen_or_component>_<usage>.png
 
 这三张定下来后，程序侧可以开始把 UI 皮肤组件化，再向出售、义体、结算、层选择等弹窗扩展。
 
+## 11. 设计系统化后的执行方式
+
+UI 重设计现在拆成三条并行线：
+
+* `设计系统线`：维护 `design_tokens.json`、`component_catalog.json` 和 `screen_layouts.json`，让界面、组件、程序接入有结构化来源。
+* `界面方案线`：先做工坊主界面、战斗界面、背包与战利品拾取三张 `1920x1080` 方案稿，用来确认版式和整体观感。
+* `资产生产线`：把可复用 UI 切图作为 preset entry 进入 Manifest，按 `ui_panel_main`、`ui_button_primary`、`ui_inventory_slot_available` 等 VisualID 批量生成、预处理、筛选和接入。
+
+第一批可以先跑 P1 的 UI 资产：通用面板、主/次按钮、背包格状态、战利品面板、敌人卡框、HP/护盾状态条。P2 的结算、地图路线、列表行和状态小图标可以在 P1 风格稳定后继续扩展。
