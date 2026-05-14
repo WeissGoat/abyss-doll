@@ -2,7 +2,9 @@
   "RewardID": "reward_monster_elite_mutant_amalgam",
   "Name": "Mutant Amalgam Drop",
   "Tags": ["Monster", "Layer2", "Elite", "Boss"],
-  "Guaranteed": [],
+  "Guaranteed": [
+    { "Type": "Item", "ItemID": "mat_core_tier2", "Count": 1 }
+  ],
   "WeightedPools": [
     {
       "PoolID": "main",

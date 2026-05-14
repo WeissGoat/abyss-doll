@@ -2,7 +2,9 @@
   "MonsterID": "elite_mutant_amalgam",
   "Name": "畸变融合体",
   "Layer": 2,
-  "HP": 300,
+  "HP": 150,
+  "PortraitID": "monster_elite_mutant_amalgam_portrait",
+  "CombatVisualID": "monster_elite_mutant_amalgam_combat",
   "RewardID": "reward_monster_elite_mutant_amalgam",
   "AI": {
     "Selector": "WeightedRandom",
@@ -11,12 +13,12 @@
         "ActionID": "mutant_crushing_blow",
         "ActionType": "DamageTarget",
         "Target": "FirstAlivePlayer",
-        "Weight": 70,
+        "Weight": 55,
         "CooldownTurns": 0,
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 120,
+          "Damage": 45,
           "RepeatCount": 1
         }
       },
@@ -24,7 +26,7 @@
         "ActionID": "mutant_seed_curse",
         "ActionType": "AddCursedItem",
         "Target": "PlayerGridFirstFit",
-        "Weight": 30,
+        "Weight": 45,
         "CooldownTurns": 2,
         "UsesPerCombat": 0,
         "Condition": "PlayerGridHasSpace",

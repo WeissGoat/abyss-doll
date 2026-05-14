@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 
 public class CoreBackend {
+    private const int FormalMVPStartingMoney = 250;
+
     public PlayerProfile CurrentPlayer;
     public WorkshopSystem Workshop; // To be implemented in later stages
     public CombatSystem Combat;     // To be implemented in later stages
@@ -30,7 +32,7 @@ public class CoreBackend {
         // 3. Initialize Player Profile
         CurrentPlayer = new PlayerProfile();
         CurrentPlayer.UID = Guid.NewGuid().ToString();
-        CurrentPlayer.Money = 0;
+        CurrentPlayer.Money = FormalMVPStartingMoney;
         
         // As a test, let's give the player the prototype doll
         if (ConfigManager.Dolls.TryGetValue("doll_proto_0", out var templateDoll)) {

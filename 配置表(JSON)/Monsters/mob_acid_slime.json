@@ -3,6 +3,8 @@
   "Name": "酸液软体",
   "Layer": 2,
   "HP": 80,
+  "PortraitID": "monster_mob_acid_slime_portrait",
+  "CombatVisualID": "monster_mob_acid_slime_combat",
   "RewardID": "reward_monster_mob_acid_slime",
   "AI": {
     "Selector": "WeightedRandom",

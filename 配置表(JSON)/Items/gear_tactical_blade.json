@@ -26,7 +26,7 @@
     "TriggerType": "Manual",
     "APCost": 2,
     "DamageType": "Physical",
-    "BaseValue": 50,
+    "BaseValue": 35,
     "Effects": []
   },
   "Tags": [

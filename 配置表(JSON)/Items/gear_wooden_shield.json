@@ -17,7 +17,7 @@
     "Effects": [
       {
         "EffectID": "AddRuntimeShield",
-        "Level": 1,
+        "Level": 0,
         "Target": "Self",
         "Params": [10.0]
       }

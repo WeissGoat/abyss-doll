@@ -2,7 +2,9 @@
   "MonsterID": "elite_scrap_guard",
   "Name": "废铁守卫 (守门人)",
   "Layer": 1,
-  "HP": 150,
+  "HP": 120,
+  "PortraitID": "monster_elite_scrap_guard_portrait",
+  "CombatVisualID": "monster_elite_scrap_guard_combat",
   "RewardID": "reward_monster_elite_scrap_guard",
   "AI": {
     "Selector": "WeightedRandom",

@@ -17,7 +17,7 @@
     "Effects": [
       {
         "EffectID": "DamageMultiplier",
-        "Level": 1,
+        "Level": 0,
         "Target": "Right",
         "Params": [0.3]
       }

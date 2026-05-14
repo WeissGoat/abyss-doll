@@ -1,0 +1,35 @@
+{
+  "ConfigID": "mat_core_tier2",
+  "Name": "二阶污染核心",
+  "ItemType": "QuestItem",
+  "Rarity": "Epic",
+  "BaseValue": 0,
+  "IconID": "item_mat_core_tier1_icon",
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "GridCost": 4
+  },
+  "Combat": null,
+  "Tags": [
+    "CoreMaterial",
+    "Toxic",
+    "Heavy"
+  ]
+}

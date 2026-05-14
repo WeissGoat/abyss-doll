@@ -3,6 +3,8 @@
   "Name": "拾荒虫",
   "Layer": 1,
   "HP": 40,
+  "PortraitID": "monster_mob_scavenger_bug_portrait",
+  "CombatVisualID": "monster_mob_scavenger_bug_combat",
   "RewardID": "reward_monster_mob_scavenger_bug",
   "AI": {
     "Selector": "WeightedRandom",

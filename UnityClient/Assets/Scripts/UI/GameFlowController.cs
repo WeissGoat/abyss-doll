@@ -23,6 +23,9 @@ public class GameFlowController : MonoBehaviour {
     public GameObject settlementPanel;
     public GameObject testItemPrefab;
     public Transform inventoryItemLayer;
+    [SerializeField] private bool grantDebugStartResources = false;
+    [SerializeField] private int debugStartMoney = 1500;
+    [SerializeField] private string debugStartItemID = "mat_core_tier1";
     
     private GameScreenState _currentScreen;
     private CombatLootPickupResult _pendingCombatLootResult;
@@ -41,11 +44,13 @@ public class GameFlowController : MonoBehaviour {
 
     void InitGame() {
         Debug.Log("[GameFlow] Initializing MVP Game Loop...");
-        
-        GameRoot.Core.CurrentPlayer.Money = 1500;
-        var coreMaterial = ConfigManager.CreateItem("mat_core_tier1");
-        if (coreMaterial != null) {
-            GameRoot.Core.CurrentPlayer.StashInventory.Add(coreMaterial);
+
+        if (grantDebugStartResources) {
+            GameRoot.Core.CurrentPlayer.Money = debugStartMoney;
+            var debugItem = ConfigManager.CreateItem(debugStartItemID);
+            if (debugItem != null) {
+                GameRoot.Core.CurrentPlayer.StashInventory.Add(debugItem);
+            }
         }
 
         var myChassis = GameRoot.Core.CurrentPlayer.ActiveDoll.Chassis;

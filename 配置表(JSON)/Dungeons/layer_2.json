@@ -2,26 +2,26 @@
   "LayerID": 2,
   "Name": "污染矿带",
   "SANCostPerNode": 2,
-  "ExpectedNodeCount": 8,
+  "ExpectedNodeCount": 3,
   "MapBackgroundID": "bg_dungeon_layer_2",
   "NodePool": [
     {
       "NodeType": "CombatNode",
       "NodeIconID": "node_combat_icon",
       "MonsterIDs": ["mob_acid_slime"],
-      "Weight": 70
+      "Weight": 45
     },
     {
       "NodeType": "CombatNode",
       "NodeIconID": "node_combat_icon",
       "MonsterIDs": ["mob_acid_slime", "mob_acid_slime"],
-      "Weight": 20
+      "Weight": 10
     },
     {
       "NodeType": "SafeRoomNode",
       "NodeIconID": "node_safe_room_icon",
       "MonsterIDs": [],
-      "Weight": 10
+      "Weight": 45
     }
   ],
   "BossNode": "elite_mutant_amalgam",

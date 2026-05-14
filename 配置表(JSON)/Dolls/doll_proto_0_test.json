@@ -1,6 +1,6 @@
 {
-  "DollID": "doll_proto_0",
-  "Name": "原型机·零",
+  "DollID": "doll_proto_0_test",
+  "Name": "原型机·零（测试）",
   "Status": {
     "HP_Current": 100,
     "HP_Max": 100,
@@ -18,25 +18,25 @@
   },
   "InitialItems": [
     {
-      "ItemConfigID": "gear_rusty_dagger",
+      "ItemConfigID": "gear_tactical_blade",
       "X": 0,
       "Y": 0,
       "Rotation": 0
     },
     {
-      "ItemConfigID": "gear_wooden_shield",
+      "ItemConfigID": "con_repair_kit",
       "X": 1,
       "Y": 0,
       "Rotation": 0
     },
     {
-      "ItemConfigID": "con_repair_kit",
+      "ItemConfigID": "con_cheap_sedative",
       "X": 2,
       "Y": 0,
       "Rotation": 0
     },
     {
-      "ItemConfigID": "con_cheap_sedative",
+      "ItemConfigID": "gear_wooden_shield",
       "X": 3,
       "Y": 0,
       "Rotation": 0
