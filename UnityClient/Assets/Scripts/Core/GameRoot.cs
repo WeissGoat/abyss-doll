@@ -1,39 +1,54 @@
 using UnityEngine;
 
-// Ensure this script executes before others if necessary
+// Ensure this script executes before other runtime systems.
 [DefaultExecutionOrder(-100)]
 public class GameRoot : MonoBehaviour {
-    // Global static access to the backend core
+    // Global static access to the backend core.
     public static CoreBackend Core { get; set; }
-    
+    public static GameRoot Instance { get; private set; }
+
     void Awake() {
-        // Ensure there is only one instance
-        if (Core != null) {
+        EnsureRuntimeBootstrap();
+    }
+
+    void OnEnable() {
+        EnsureRuntimeBootstrap();
+    }
+
+    public static bool IsCoreReady() {
+        return Core?.CurrentPlayer?.ActiveDoll != null;
+    }
+
+    private void EnsureRuntimeBootstrap() {
+        if (Instance != null && Instance != this) {
             Destroy(gameObject);
             return;
         }
-        
-        // Make this object persist across scene loads
+
+        Instance = this;
         DontDestroyOnLoad(gameObject);
-        
-        // [新增] 启动本地文件日志服务与表现队列 Runner
-        gameObject.AddComponent<FileLogger>();
-        gameObject.AddComponent<VisualQueueRunner>();
-        
+
+        EnsureComponent<FileLogger>();
+        EnsureComponent<VisualQueueRunner>();
+
+        if (Core != null) {
+            return;
+        }
+
         Debug.Log("[GameRoot] Bootstrapping CoreBackend...");
-        
-        // 1. Instantiate the pure C# backend
         Core = new CoreBackend();
-        
-        // 2. Initialize all systems (this will load configs)
         Core.InitAllSystems();
-        
         Debug.Log("[GameRoot] Bootstrap complete!");
     }
-    
+
+    private void EnsureComponent<T>() where T : Component {
+        if (GetComponent<T>() == null) {
+            gameObject.AddComponent<T>();
+        }
+    }
+
     void Update() {
         if (Core != null) {
-            // 3. Provide the time pulse to the backend
             Core.Tick(Time.deltaTime);
         }
     }
