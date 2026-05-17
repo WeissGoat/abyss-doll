@@ -46,7 +46,7 @@ public class DungeonMapUIController : MonoBehaviour {
             ConfigureNodeButtonLayout(btnGo);
             Button btn = btnGo.GetComponent<Button>();
             Text txt = btnGo.GetComponentInChildren<Text>();
-            Image img = btnGo.GetComponent<Image>();
+            ApplyNodeButtonSkin(btn, node, false);
 
             if (txt != null) {
                 txt.text = BuildNodeLabel(node);
@@ -57,26 +57,20 @@ public class DungeonMapUIController : MonoBehaviour {
             Debug.Log($"[DungeonMapUI] Render node button: {node.NodeID}, Type={node.GetType().Name}, Label={txt?.text?.Replace('\n', ' ')}");
 
             if (node.IsVisited) {
-                if (img != null) {
-                    img.color = new Color(0.3f, 0.3f, 0.3f);
-                }
+                ApplyNodeButtonSkin(btn, node, true);
                 btn.interactable = false;
                 continue;
             }
 
             if (!foundCurrent) {
-                if (img != null) {
-                    img.color = new Color(0.2f, 0.8f, 0.2f);
-                }
+                ApplyNodeButtonSkin(btn, node, false);
                 btn.interactable = true;
                 btn.onClick.AddListener(() => {
                     GameRoot.Core.Dungeon.MoveToNode(node);
                 });
                 foundCurrent = true;
             } else {
-                if (img != null) {
-                    img.color = Color.black;
-                }
+                ApplyNodeButtonSkin(btn, node, true);
                 btn.interactable = false;
             }
         }
@@ -298,6 +292,9 @@ public class DungeonMapUIController : MonoBehaviour {
                 buttonImage.color = new Color(0.82f, 0.36f, 0.2f);
             }
         }
+
+        VisualUIHelper.ApplyButtonSkin(openBackpackBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.2f, 0.52f, 0.86f));
+        VisualUIHelper.ApplyButtonSkin(closeBackpackBtn, VisualAssetService.UIButtonDangerID, new Color(0.82f, 0.36f, 0.2f));
     }
 
     private Button CreateActionButton(string objectName, string label, Vector2 anchoredPosition, Font font) {
@@ -328,6 +325,24 @@ public class DungeonMapUIController : MonoBehaviour {
         textRect.sizeDelta = Vector2.zero;
 
         return button;
+    }
+
+    private void ApplyNodeButtonSkin(Button button, NodeBase node, bool dimmed) {
+        if (button == null) {
+            return;
+        }
+
+        Color fallback = ResolveNodeFallbackTint(node);
+        if (dimmed) {
+            fallback = new Color(fallback.r * 0.35f, fallback.g * 0.35f, fallback.b * 0.35f, 0.92f);
+        }
+
+        VisualUIHelper.ApplyButtonSkin(button, VisualAssetService.UIPanelInfoID, fallback);
+
+        Image image = button.GetComponent<Image>();
+        if (image != null && dimmed) {
+            image.color = new Color(0.28f, 0.28f, 0.28f, 0.92f);
+        }
     }
 
     private void ApplyMapBackground() {

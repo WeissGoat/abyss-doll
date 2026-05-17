@@ -184,7 +184,7 @@ public class HUDController : MonoBehaviour {
         string cardVisualID = ItemUseService.HasPendingEnemyTargetSelection && isAlive
             ? VisualAssetService.UICombatEnemyCardSelectedID
             : VisualAssetService.UICombatEnemyCardID;
-        VisualUIHelper.ApplySimpleSprite(image, cardVisualID, Color.white, ResolveEnemyCardColor(isAlive), true, false);
+        VisualUIHelper.ApplySlicedSprite(image, cardVisualID, Color.white, ResolveEnemyCardColor(isAlive), true);
 
         Button button = buttonObj.AddComponent<Button>();
         button.interactable = isAlive && ItemUseService.HasPendingEnemyTargetSelection;

@@ -498,7 +498,7 @@ public class ArtAcceptanceRunner : MonoBehaviour {
             yield break;
         }
 
-        capture.Warnings.Add("Capture uses acceptance-only loot payload. It does not call real reward settlement.");
+        Debug.Log("[ArtAcceptance] inventory_loot uses an acceptance-only loot payload; real reward settlement is not invoked.");
         GameFlowController.Instance.EnterCombatLoot(lootResult);
         yield return WaitForVisualStable();
         yield return CaptureCurrentScreen(capture);

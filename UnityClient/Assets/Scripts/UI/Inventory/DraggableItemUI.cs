@@ -66,11 +66,12 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 iconSprite = VisualAssetService.GetSprite(iconID);
             }
 
-            image.sprite = null;
-            image.type = Image.Type.Simple;
-            image.preserveAspect = false;
-            image.color = ResolveItemTint(ItemData, false);
-            image.raycastTarget = true;
+            VisualUIHelper.ApplySlicedSprite(
+                image,
+                VisualAssetService.UIPanelInfoID,
+                ResolveItemTint(ItemData, false),
+                ResolveItemTint(ItemData, false),
+                true);
 
             Image iconImage = EnsureIconImage();
             if (iconImage != null) {
