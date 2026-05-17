@@ -12,6 +12,7 @@ public class ArtAcceptanceRegistrySnapshotReport {
     public string RunID;
     public bool RegistryFound;
     public bool MissingSpriteFound;
+    public string MissingSpriteVisualID;
     public string MissingSpriteName;
     public int EntryCount;
     public List<string> MissingRequiredVisualIDs = new List<string>();

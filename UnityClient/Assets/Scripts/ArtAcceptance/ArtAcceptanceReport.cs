@@ -43,14 +43,17 @@ public class ArtAcceptanceCanvasScalerInfo {
 public class ArtAcceptanceRegistrySummary {
     public bool RegistryFound;
     public bool MissingSpriteFound;
+    public string MissingSpriteVisualID;
     public int EntryCount;
     public List<string> MissingRequiredVisualIDs = new List<string>();
 }
 
 [Serializable]
 public class ArtAcceptanceCaptureRecord {
+    public int Index;
     public string ScreenTag;
     public string File;
+    public string CapturedAt;
     public string Status;
     public string Resolution;
     public List<string> ActiveControllers = new List<string>();

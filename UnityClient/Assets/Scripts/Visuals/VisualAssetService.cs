@@ -306,7 +306,7 @@ public static class VisualUIHelper {
         Color missingColor = isLocked
             ? new Color(0.18f, 0.18f, 0.18f, 1f)
             : new Color(1f, 1f, 1f, 0.5f);
-        ApplySlicedSprite(image, visualID, Color.white, missingColor, true);
+        ApplySimpleSprite(image, visualID, Color.white, missingColor, true, false);
     }
 
     public static bool ApplyContainSprite(Image image, string visualID, Vector2 containerSize, Color registeredColor, Color missingColor, bool bindLayoutElement = true) {

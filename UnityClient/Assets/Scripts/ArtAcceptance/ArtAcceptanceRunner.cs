@@ -506,8 +506,10 @@ public class ArtAcceptanceRunner : MonoBehaviour {
 
     private ArtAcceptanceCaptureRecord BeginCapture(string screenTag, string relativeFile) {
         ArtAcceptanceCaptureRecord capture = new ArtAcceptanceCaptureRecord {
+            Index = _report.Captures.Count + 1,
             ScreenTag = screenTag,
             File = relativeFile,
+            CapturedAt = DateTime.Now.ToString("o"),
             Status = "running",
             Resolution = $"{ReferenceWidth}x{ReferenceHeight}"
         };
@@ -770,6 +772,7 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         registry.RebuildLookup();
         snapshot.EntryCount = registry.Entries != null ? registry.Entries.Count : 0;
         snapshot.MissingSpriteFound = registry.MissingSprite != null;
+        snapshot.MissingSpriteVisualID = VisualAssetService.MissingSpriteVisualID;
         snapshot.MissingSpriteName = registry.MissingSprite != null ? registry.MissingSprite.name : string.Empty;
 
         foreach (string visualID in GetRequiredP0VisualIDs()) {
@@ -811,6 +814,7 @@ public class ArtAcceptanceRunner : MonoBehaviour {
     private void ApplyRegistryResultToReport(ArtAcceptanceRegistrySnapshotReport snapshot) {
         _report.Registry.RegistryFound = snapshot.RegistryFound;
         _report.Registry.MissingSpriteFound = snapshot.MissingSpriteFound;
+        _report.Registry.MissingSpriteVisualID = snapshot.MissingSpriteVisualID;
         _report.Registry.EntryCount = snapshot.EntryCount;
         _report.Registry.MissingRequiredVisualIDs = snapshot.MissingRequiredVisualIDs;
 
@@ -1052,7 +1056,6 @@ public class ArtAcceptanceRunner : MonoBehaviour {
 
         return spriteName.StartsWith("ui_button_", StringComparison.OrdinalIgnoreCase)
             || spriteName.StartsWith("ui_panel_", StringComparison.OrdinalIgnoreCase)
-            || spriteName.StartsWith("ui_inventory_slot_", StringComparison.OrdinalIgnoreCase)
             || spriteName == VisualAssetService.UIInventoryChassisPanelID
             || spriteName == VisualAssetService.UILootPickupPanelID
             || spriteName == VisualAssetService.UILootDropZoneID

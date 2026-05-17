@@ -37,8 +37,10 @@ public static class ArtAcceptanceSmokeTest {
         report.ActualResolution = new ArtAcceptanceResolution { Width = 1920, Height = 1080 };
 
         ArtAcceptanceCaptureRecord capture = new ArtAcceptanceCaptureRecord {
+            Index = 1,
             ScreenTag = "workshop_main",
             File = "screenshots/workshop_main.png",
+            CapturedAt = DateTime.Now.ToString("o"),
             Status = "captured",
             Resolution = "1920x1080"
         };
@@ -46,7 +48,7 @@ public static class ArtAcceptanceSmokeTest {
         report.Captures.Add(capture);
 
         string json = JsonUtility.ToJson(report, true);
-        if (!string.IsNullOrEmpty(json) && json.Contains("workshop_main") && json.Contains("1920")) {
+        if (!string.IsNullOrEmpty(json) && json.Contains("workshop_main") && json.Contains("1920") && json.Contains("\"Index\"")) {
             Debug.Log("Report Structure Serialization PASSED.");
         } else {
             Debug.LogError("Report Structure Serialization FAILED.");
@@ -67,6 +69,7 @@ public static class ArtAcceptanceSmokeTest {
             RunID = "test_run",
             RegistryFound = true,
             MissingSpriteFound = true,
+            MissingSpriteVisualID = VisualAssetService.MissingSpriteVisualID,
             MissingSpriteName = "ui_missing_sprite",
             EntryCount = 49
         };
@@ -82,7 +85,10 @@ public static class ArtAcceptanceSmokeTest {
         snapshot.Entries.Add(entry);
 
         string json = JsonUtility.ToJson(snapshot, true);
-        if (!string.IsNullOrEmpty(json) && json.Contains("ui_panel_info") && json.Contains("256x256")) {
+        if (!string.IsNullOrEmpty(json) &&
+            json.Contains("ui_panel_info") &&
+            json.Contains("256x256") &&
+            json.Contains(VisualAssetService.MissingSpriteVisualID)) {
             Debug.Log("RegistrySnapshot Structure Serialization PASSED.");
         } else {
             Debug.LogError("RegistrySnapshot Structure Serialization FAILED.");
