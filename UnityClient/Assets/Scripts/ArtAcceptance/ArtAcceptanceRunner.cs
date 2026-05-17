@@ -1089,7 +1089,22 @@ public class ArtAcceptanceRunner : MonoBehaviour {
             VisualAssetService.UICombatStatusBarShieldID,
             VisualAssetService.UICombatApPipID,
             VisualAssetService.UICombatTurnBannerID,
-            VisualAssetService.UIIconMoneyID
+            VisualAssetService.UIIconMoneyID,
+            VisualAssetService.SafeRoomBackgroundID,
+            VisualAssetService.StairsRoomBackgroundID,
+            VisualAssetService.LayerSelectBackgroundID,
+            VisualAssetService.SettlementVictoryBackgroundID,
+            VisualAssetService.SettlementDefeatBackgroundID,
+            VisualAssetService.UIPanelMainID,
+            VisualAssetService.UIListRowNormalID,
+            VisualAssetService.UIListRowSelectedID,
+            VisualAssetService.UISettlementVictoryPanelID,
+            VisualAssetService.UISettlementDefeatPanelID,
+            VisualAssetService.UIDungeonNodePlateID,
+            VisualAssetService.UIDungeonRouteLineID,
+            VisualAssetService.UIIconLockedID,
+            VisualAssetService.UIIconEquippedID,
+            VisualAssetService.UITitleDividerID
         };
     }
 
@@ -1294,9 +1309,12 @@ public class ArtAcceptanceRunner : MonoBehaviour {
 
         return spriteName.StartsWith("ui_button_", StringComparison.OrdinalIgnoreCase)
             || spriteName.StartsWith("ui_panel_", StringComparison.OrdinalIgnoreCase)
-            || spriteName == VisualAssetService.UIInventoryChassisPanelID
+            || spriteName.StartsWith("ui_list_row_", StringComparison.OrdinalIgnoreCase)
+            || spriteName == VisualAssetService.UIPanelMainID
             || spriteName == VisualAssetService.UILootPickupPanelID
             || spriteName == VisualAssetService.UILootDropZoneID
+            || spriteName == VisualAssetService.UISettlementVictoryPanelID
+            || spriteName == VisualAssetService.UISettlementDefeatPanelID
             || spriteName == VisualAssetService.UICombatEnemyCardID
             || spriteName == VisualAssetService.UICombatEnemyCardSelectedID
             || spriteName == VisualAssetService.UICombatStatusBarHpID

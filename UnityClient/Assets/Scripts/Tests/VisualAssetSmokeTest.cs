@@ -77,7 +77,22 @@ public static class VisualAssetSmokeTest {
                 VisualAssetService.UICombatStatusBarShieldID,
                 VisualAssetService.UICombatApPipID,
                 VisualAssetService.UICombatTurnBannerID,
-                VisualAssetService.UIIconMoneyID
+                VisualAssetService.UIIconMoneyID,
+                VisualAssetService.SafeRoomBackgroundID,
+                VisualAssetService.StairsRoomBackgroundID,
+                VisualAssetService.LayerSelectBackgroundID,
+                VisualAssetService.SettlementVictoryBackgroundID,
+                VisualAssetService.SettlementDefeatBackgroundID,
+                VisualAssetService.UIPanelMainID,
+                VisualAssetService.UIListRowNormalID,
+                VisualAssetService.UIListRowSelectedID,
+                VisualAssetService.UISettlementVictoryPanelID,
+                VisualAssetService.UISettlementDefeatPanelID,
+                VisualAssetService.UIDungeonNodePlateID,
+                VisualAssetService.UIDungeonRouteLineID,
+                VisualAssetService.UIIconLockedID,
+                VisualAssetService.UIIconEquippedID,
+                VisualAssetService.UITitleDividerID
             };
 
             bool allRepresentativeSpritesFound = true;
@@ -103,7 +118,7 @@ public static class VisualAssetSmokeTest {
             if (VisualAssetService.ResolveNodeIconID(new CombatNode { NodeID = "layer_1_node_0", NodeIconID = "node_combat_icon" }) == "node_combat_icon"
                 && VisualAssetService.ResolveNodeIconID(new CombatNode { NodeID = "layer_1_boss", NodeIconID = "node_boss_icon" }) == "node_boss_icon"
                 && VisualAssetService.ResolveNodeIconID(new SafeRoomNode { NodeID = "layer_1_safe", NodeIconID = "node_safe_room_icon" }) == "node_safe_room_icon"
-                && VisualAssetService.GetSprite(VisualAssetService.ResolveNodeIconID(new StairsNode { NodeID = "layer_1_end", NodeIconID = "node_stairs_icon" })) != null) {
+                && VisualAssetService.TryGetSprite(VisualAssetService.ResolveNodeIconID(new StairsNode { NodeID = "layer_1_end", NodeIconID = "node_stairs_icon" }), out _)) {
                 Debug.Log("Node Icon Resolver PASSED.");
             } else {
                 Debug.LogError("Node Icon Resolver FAILED.");
@@ -112,10 +127,22 @@ public static class VisualAssetSmokeTest {
             DungeonLayer layer = new DungeonLayer { LayerID = 2, MapBackgroundID = "bg_dungeon_layer_2" };
             if (VisualAssetService.ResolveDungeonMapBackgroundID(layer) == "bg_dungeon_layer_2"
                 && VisualAssetService.ResolveCombatBackgroundID(layer) == "bg_combat_abyss"
-                && VisualAssetService.ResolveWorkshopBackgroundID() == "bg_workshop_day") {
+                && VisualAssetService.ResolveWorkshopBackgroundID() == "bg_workshop_day"
+                && VisualAssetService.ResolveSafeRoomBackgroundID() == VisualAssetService.SafeRoomBackgroundID
+                && VisualAssetService.ResolveStairsRoomBackgroundID() == VisualAssetService.StairsRoomBackgroundID
+                && VisualAssetService.ResolveLayerSelectBackgroundID() == VisualAssetService.LayerSelectBackgroundID
+                && VisualAssetService.ResolveSettlementBackgroundID(true) == VisualAssetService.SettlementVictoryBackgroundID
+                && VisualAssetService.ResolveSettlementBackgroundID(false) == VisualAssetService.SettlementDefeatBackgroundID) {
                 Debug.Log("Background Resolver PASSED.");
             } else {
                 Debug.LogError("Background Resolver FAILED.");
+            }
+
+            if (VisualAssetService.ResolveSettlementPanelID(true) == VisualAssetService.UISettlementVictoryPanelID
+                && VisualAssetService.ResolveSettlementPanelID(false) == VisualAssetService.UISettlementDefeatPanelID) {
+                Debug.Log("Settlement Panel Resolver PASSED.");
+            } else {
+                Debug.LogError("Settlement Panel Resolver FAILED.");
             }
 
             RunDisplaySpecAssertions();

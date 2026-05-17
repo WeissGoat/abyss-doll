@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public class DungeonMapUIController : MonoBehaviour {
     private const float NodeButtonWidth = 160f;
     private const float NodeButtonHeight = 150f;
-    private const float NodeButtonSpacing = 20f;
+    private const float RouteLineWidth = 112f;
+    private const float RouteLineHeight = 28f;
 
     public GameObject nodeButtonPrefab;
     public Transform contentParent;
@@ -42,6 +43,10 @@ public class DungeonMapUIController : MonoBehaviour {
 
         for (int i = 0; i < path.Count; i++) {
             NodeBase node = path[i];
+            if (i > 0) {
+                CreateRouteLine();
+            }
+
             GameObject btnGo = Instantiate(nodeButtonPrefab, contentParent);
             ConfigureNodeButtonLayout(btnGo);
             Button btn = btnGo.GetComponent<Button>();
@@ -195,7 +200,7 @@ public class DungeonMapUIController : MonoBehaviour {
     private void ConfigureMapLayout(int nodeCount) {
         RectTransform contentRect = contentParent as RectTransform;
         if (contentRect != null) {
-            float width = Mathf.Max(NodeButtonWidth, nodeCount * NodeButtonWidth + Mathf.Max(0, nodeCount - 1) * NodeButtonSpacing);
+            float width = Mathf.Max(NodeButtonWidth, nodeCount * NodeButtonWidth + Mathf.Max(0, nodeCount - 1) * RouteLineWidth);
             contentRect.anchorMin = new Vector2(0.5f, 0.5f);
             contentRect.anchorMax = new Vector2(0.5f, 0.5f);
             contentRect.pivot = new Vector2(0.5f, 0.5f);
@@ -207,7 +212,7 @@ public class DungeonMapUIController : MonoBehaviour {
             layout = contentParent.gameObject.AddComponent<HorizontalLayoutGroup>();
         }
 
-        layout.spacing = NodeButtonSpacing;
+        layout.spacing = 0f;
         layout.childAlignment = TextAnchor.MiddleCenter;
         layout.childControlWidth = false;
         layout.childControlHeight = false;
@@ -337,10 +342,21 @@ public class DungeonMapUIController : MonoBehaviour {
             fallback = new Color(fallback.r * 0.35f, fallback.g * 0.35f, fallback.b * 0.35f, 0.92f);
         }
 
-        VisualUIHelper.ApplyButtonSkin(button, VisualAssetService.UIPanelInfoID, fallback);
-
         Image image = button.GetComponent<Image>();
-        if (image != null && dimmed) {
+        if (image == null) {
+            image = button.gameObject.AddComponent<Image>();
+        }
+
+        VisualUIHelper.ApplySimpleSprite(
+            image,
+            VisualAssetService.UIDungeonNodePlateID,
+            Color.white,
+            fallback,
+            true,
+            false);
+        button.targetGraphic = image;
+
+        if (dimmed) {
             image.color = new Color(0.28f, 0.28f, 0.28f, 0.92f);
         }
     }
@@ -349,5 +365,34 @@ public class DungeonMapUIController : MonoBehaviour {
         backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "DungeonMapBackground_Image");
         string visualID = VisualAssetService.ResolveDungeonMapBackgroundID(GameRoot.Core?.Dungeon?.CurrentLayer);
         VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, Color.white, new Color(0.05f, 0.08f, 0.1f, 0.92f));
+    }
+
+    private void CreateRouteLine() {
+        if (contentParent == null) {
+            return;
+        }
+
+        GameObject routeObj = new GameObject("DungeonRouteLine_Image");
+        routeObj.transform.SetParent(contentParent, false);
+        Image routeImage = routeObj.AddComponent<Image>();
+        VisualUIHelper.ApplyContainSprite(
+            routeImage,
+            VisualAssetService.UIDungeonRouteLineID,
+            new Vector2(RouteLineWidth, RouteLineHeight),
+            Color.white,
+            new Color(0.7f, 0.58f, 0.32f, 0.75f),
+            true);
+
+        LayoutElement layoutElement = routeObj.GetComponent<LayoutElement>();
+        if (layoutElement == null) {
+            layoutElement = routeObj.AddComponent<LayoutElement>();
+        }
+
+        layoutElement.minWidth = RouteLineWidth;
+        layoutElement.preferredWidth = RouteLineWidth;
+        layoutElement.flexibleWidth = 0f;
+        layoutElement.minHeight = RouteLineHeight;
+        layoutElement.preferredHeight = RouteLineHeight;
+        layoutElement.flexibleHeight = 0f;
     }
 }

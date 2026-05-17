@@ -8,13 +8,16 @@ public class SettlementUIController : MonoBehaviour {
     public Text summaryText;
     public Text lootText;
     public Button continueBtn;
+    public Image backgroundImage;
+    public Image settlementPanelImage;
+    public Image titleDividerImage;
 
     public void Present(DungeonSettlementResult result, Action onContinue) {
         if (result == null) {
             return;
         }
 
-        ApplySettlementSkin();
+        ApplySettlementSkin(result.IsVictory);
 
         if (titleText != null) {
             titleText.text = result.IsVictory ? "撤离结算" : "战败结算";
@@ -36,18 +39,121 @@ public class SettlementUIController : MonoBehaviour {
         }
     }
 
-    private void ApplySettlementSkin() {
-        Image panelImage = GetComponent<Image>();
-        if (panelImage != null) {
-            VisualUIHelper.ApplySlicedSprite(
-                panelImage,
-                VisualAssetService.UIPanelInfoID,
-                new Color(0.08f, 0.075f, 0.065f, 0.94f),
-                new Color(0.08f, 0.075f, 0.065f, 0.94f),
-                false);
+    private void ApplySettlementSkin(bool isVictory) {
+        Image rootImage = GetComponent<Image>();
+        if (rootImage != null) {
+            rootImage.color = Color.clear;
+            rootImage.raycastTarget = false;
         }
 
+        backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "SettlementBackground_Image");
+        VisualUIHelper.ApplyCoverSprite(
+            backgroundImage,
+            VisualAssetService.ResolveSettlementBackgroundID(isVictory),
+            Color.white,
+            new Color(0.05f, 0.055f, 0.065f, 0.96f));
+
+        settlementPanelImage = EnsureSkinImage(
+            settlementPanelImage,
+            "SettlementCard_Image",
+            transform,
+            Vector2.zero,
+            new Vector2(900f, 700f),
+            VisualAssetService.ResolveSettlementPanelID(isVictory));
+
+        Transform contentParent = settlementPanelImage != null ? settlementPanelImage.transform : transform;
+        titleDividerImage = EnsureTitleDividerImage(
+            titleDividerImage,
+            "TitleDivider_Image",
+            contentParent,
+            new Vector2(0f, 238f),
+            new Vector2(640f, 36f));
+
+        MoveText(titleText, contentParent, new Vector2(0f, 270f), new Vector2(700f, 68f), 44, TextAnchor.MiddleCenter, Color.white);
+        MoveText(summaryText, contentParent, new Vector2(0f, 148f), new Vector2(700f, 132f), 24, TextAnchor.UpperCenter, new Color(0.92f, 0.91f, 0.84f, 1f));
+        MoveText(lootText, contentParent, new Vector2(0f, -78f), new Vector2(700f, 300f), 22, TextAnchor.UpperLeft, new Color(1f, 0.92f, 0.58f, 1f));
+        MoveButton(continueBtn, contentParent, new Vector2(0f, -286f), new Vector2(280f, 72f));
         VisualUIHelper.ApplyButtonSkin(continueBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.85f, 0.48f, 0.18f));
+
+        if (backgroundImage != null) {
+            backgroundImage.transform.SetAsFirstSibling();
+        }
+
+        if (settlementPanelImage != null) {
+            settlementPanelImage.transform.SetSiblingIndex(Mathf.Min(1, settlementPanelImage.transform.parent.childCount - 1));
+        }
+    }
+
+    private Image EnsureSkinImage(Image current, string objectName, Transform parent, Vector2 position, Vector2 size, string visualID) {
+        if (parent == null) {
+            return current;
+        }
+
+        Image image = current;
+        if (image == null) {
+            Transform existing = parent.Find(objectName);
+            image = existing != null ? existing.GetComponent<Image>() : null;
+        }
+
+        if (image == null) {
+            GameObject obj = new GameObject(objectName);
+            obj.transform.SetParent(parent, false);
+            image = obj.AddComponent<Image>();
+        }
+
+        RectTransform rect = image.rectTransform;
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = position;
+        rect.sizeDelta = size;
+        VisualUIHelper.ApplySlicedSprite(image, visualID, Color.white, new Color(0.08f, 0.075f, 0.065f, 0.94f), false);
+        return image;
+    }
+
+    private Image EnsureTitleDividerImage(Image current, string objectName, Transform parent, Vector2 position, Vector2 size) {
+        Image image = EnsureSkinImage(current, objectName, parent, position, size, VisualAssetService.UITitleDividerID);
+        VisualUIHelper.ApplySimpleSprite(
+            image,
+            VisualAssetService.UITitleDividerID,
+            Color.white,
+            new Color(0.72f, 0.58f, 0.32f, 0.9f),
+            false,
+            false);
+        return image;
+    }
+
+    private void MoveText(Text text, Transform parent, Vector2 position, Vector2 size, int fontSize, TextAnchor alignment, Color color) {
+        if (text == null || parent == null) {
+            return;
+        }
+
+        text.transform.SetParent(parent, false);
+        text.fontSize = fontSize;
+        text.color = color;
+        text.alignment = alignment;
+        text.raycastTarget = false;
+
+        RectTransform rect = text.rectTransform;
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = position;
+        rect.sizeDelta = size;
+    }
+
+    private void MoveButton(Button button, Transform parent, Vector2 position, Vector2 size) {
+        if (button == null || parent == null) {
+            return;
+        }
+
+        button.transform.SetParent(parent, false);
+        RectTransform rect = button.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = position;
+        rect.sizeDelta = size;
     }
 
     private string BuildSettlementDetails(DungeonSettlementResult result) {

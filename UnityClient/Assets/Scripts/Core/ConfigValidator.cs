@@ -546,6 +546,21 @@ public static class ConfigValidator {
         ValidateRequiredSprite(report, VisualAssetService.WorkshopBackgroundID, "Background");
         ValidateRequiredSprite(report, VisualAssetService.CombatBackgroundID, "Background");
         ValidateRequiredSprite(report, VisualAssetService.DefaultDungeonMapBackgroundID, "Background");
+        ValidateRequiredSprite(report, VisualAssetService.SafeRoomBackgroundID, "Background");
+        ValidateRequiredSprite(report, VisualAssetService.StairsRoomBackgroundID, "Background");
+        ValidateRequiredSprite(report, VisualAssetService.LayerSelectBackgroundID, "Background");
+        ValidateRequiredSprite(report, VisualAssetService.SettlementVictoryBackgroundID, "Background");
+        ValidateRequiredSprite(report, VisualAssetService.SettlementDefeatBackgroundID, "Background");
+        ValidateRequiredSprite(report, VisualAssetService.UIPanelMainID, "UI skin");
+        ValidateRequiredSprite(report, VisualAssetService.UIListRowNormalID, "UI skin");
+        ValidateRequiredSprite(report, VisualAssetService.UIListRowSelectedID, "UI skin");
+        ValidateRequiredSprite(report, VisualAssetService.UISettlementVictoryPanelID, "UI skin");
+        ValidateRequiredSprite(report, VisualAssetService.UISettlementDefeatPanelID, "UI skin");
+        ValidateRequiredSprite(report, VisualAssetService.UIDungeonNodePlateID, "UI skin");
+        ValidateRequiredSprite(report, VisualAssetService.UIDungeonRouteLineID, "UI skin");
+        ValidateRequiredSprite(report, VisualAssetService.UIIconLockedID, "UI icon");
+        ValidateRequiredSprite(report, VisualAssetService.UIIconEquippedID, "UI icon");
+        ValidateRequiredSprite(report, VisualAssetService.UITitleDividerID, "UI skin");
 
         foreach (var kvp in ConfigManager.Dungeons) {
             string layerBackgroundID = $"bg_dungeon_layer_{kvp.Key}";

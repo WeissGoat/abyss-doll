@@ -9,6 +9,7 @@ public class DungeonStartLayerUIController : MonoBehaviour {
     public Transform listParent;
     public Button confirmBtn;
     public Button closeBtn;
+    public Image titleDividerImage;
 
     private readonly List<GameObject> _rows = new List<GameObject>();
     private int _selectedLayerID = 1;
@@ -91,7 +92,12 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         Color rowTint = selected
             ? new Color(0.92f, 0.64f, 0.22f, 0.95f)
             : canStart ? new Color(0.18f, 0.27f, 0.32f, 0.95f) : new Color(0.12f, 0.12f, 0.13f, 0.75f);
-        VisualUIHelper.ApplySlicedSprite(rowBg, VisualAssetService.UIPanelInfoID, rowTint, rowTint, true);
+        VisualUIHelper.ApplySlicedSprite(
+            rowBg,
+            selected ? VisualAssetService.UIListRowSelectedID : VisualAssetService.UIListRowNormalID,
+            rowTint,
+            rowTint,
+            true);
 
         Button rowButton = row.AddComponent<Button>();
         rowButton.interactable = canStart;
@@ -113,6 +119,16 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         layout.padding = new RectOffset(22, 22, 8, 8);
         layout.spacing = 18f;
 
+        if (!canStart) {
+            Image lockedIcon = CreateImage("LockedIcon_Image", row.transform);
+            VisualUIHelper.ApplyContainSprite(
+                lockedIcon,
+                VisualAssetService.UIIconLockedID,
+                new Vector2(48f, 48f),
+                Color.white,
+                new Color(0.65f, 0.65f, 0.65f, 1f));
+        }
+
         Text layerText = CreateText("Layer_Text", row.transform, font, 26, canStart ? Color.white : new Color(0.68f, 0.68f, 0.68f));
         layerText.text = $"第 {layerID} 层  {config.Name}";
         layerText.rectTransform.sizeDelta = new Vector2(360f, 52f);
@@ -120,7 +136,15 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         Text stateText = CreateText("State_Text", row.transform, font, 22, canStart ? new Color(0.78f, 1f, 0.82f) : new Color(1f, 0.68f, 0.58f));
         stateText.text = canStart ? (selected ? "已选择" : "可出发") : BuildLockedText(layerID);
         stateText.alignment = TextAnchor.MiddleRight;
-        stateText.rectTransform.sizeDelta = new Vector2(310f, 52f);
+        stateText.rectTransform.sizeDelta = new Vector2(canStart ? 310f : 212f, 52f);
+    }
+
+    private Image CreateImage(string objectName, Transform parent) {
+        GameObject obj = new GameObject(objectName);
+        obj.transform.SetParent(parent, false);
+        Image image = obj.AddComponent<Image>();
+        image.raycastTarget = false;
+        return image;
     }
 
     private string BuildLockedText(int layerID) {

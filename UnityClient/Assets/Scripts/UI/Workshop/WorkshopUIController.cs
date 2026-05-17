@@ -268,12 +268,20 @@ public class WorkshopUIController : MonoBehaviour {
 
         GameObject row = new GameObject($"SellRow_{item.InstanceID}");
         row.transform.SetParent(stashListParent, false);
+        Image rowBg = row.AddComponent<Image>();
+        VisualUIHelper.ApplySlicedSprite(
+            rowBg,
+            VisualAssetService.UIListRowNormalID,
+            Color.white,
+            new Color(0.11f, 0.105f, 0.095f, 0.94f),
+            false);
         HorizontalLayoutGroup rowLayout = row.AddComponent<HorizontalLayoutGroup>();
         rowLayout.childAlignment = TextAnchor.MiddleLeft;
         rowLayout.childControlWidth = false;
         rowLayout.childControlHeight = false;
         rowLayout.childForceExpandWidth = false;
         rowLayout.childForceExpandHeight = false;
+        rowLayout.padding = new RectOffset(14, 14, 8, 8);
         rowLayout.spacing = 12f;
         ContentSizeFitter rowFitter = row.AddComponent<ContentSizeFitter>();
         rowFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
@@ -399,12 +407,21 @@ public class WorkshopUIController : MonoBehaviour {
     private void CreateProstheticRow(CraftingRecipeConfig recipe, ProstheticEntity prosthetic, Font defaultFont) {
         GameObject row = new GameObject($"ProstheticRow_{prosthetic.ProstheticID}");
         row.transform.SetParent(prostheticListParent, false);
+        bool isEquipped = GameRoot.Core.CurrentPlayer.ActiveDoll.EquippedProsthetics.Contains(prosthetic.ProstheticID);
+        Image rowBg = row.AddComponent<Image>();
+        VisualUIHelper.ApplySlicedSprite(
+            rowBg,
+            isEquipped ? VisualAssetService.UIListRowSelectedID : VisualAssetService.UIListRowNormalID,
+            Color.white,
+            isEquipped ? new Color(0.14f, 0.18f, 0.13f, 0.96f) : new Color(0.065f, 0.085f, 0.1f, 0.94f),
+            false);
         HorizontalLayoutGroup rowLayout = row.AddComponent<HorizontalLayoutGroup>();
         rowLayout.childAlignment = TextAnchor.MiddleLeft;
         rowLayout.childControlWidth = false;
         rowLayout.childControlHeight = false;
         rowLayout.childForceExpandWidth = false;
         rowLayout.childForceExpandHeight = false;
+        rowLayout.padding = new RectOffset(14, 14, 8, 8);
         rowLayout.spacing = 12f;
         ContentSizeFitter rowFitter = row.AddComponent<ContentSizeFitter>();
         rowFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
@@ -424,10 +441,21 @@ public class WorkshopUIController : MonoBehaviour {
         label.color = Color.white;
         label.alignment = TextAnchor.MiddleLeft;
         label.raycastTarget = false;
-        bool isEquipped = GameRoot.Core.CurrentPlayer.ActiveDoll.EquippedProsthetics.Contains(prosthetic.ProstheticID);
         label.text = $"{prosthetic.Name} [{prosthetic.SlotType}]\n{BuildCostText(recipe.Cost)}{(isEquipped ? "  Equipped" : string.Empty)}";
         RectTransform labelRect = labelObj.GetComponent<RectTransform>();
-        labelRect.sizeDelta = new Vector2(500f, 80f);
+        labelRect.sizeDelta = new Vector2(isEquipped ? 438f : 500f, 80f);
+
+        if (isEquipped) {
+            GameObject equippedObj = new GameObject("EquippedIcon_Image");
+            equippedObj.transform.SetParent(row.transform, false);
+            Image equippedIcon = equippedObj.AddComponent<Image>();
+            VisualUIHelper.ApplyContainSprite(
+                equippedIcon,
+                VisualAssetService.UIIconEquippedID,
+                new Vector2(48f, 48f),
+                Color.white,
+                new Color(0.46f, 0.72f, 0.46f, 1f));
+        }
 
         bool canCraft = GameRoot.Core.Workshop.CanAfford(recipe.Cost, GameRoot.Core.CurrentPlayer);
         Button craftBtn = CreateInlineButton(
@@ -547,7 +575,7 @@ public class WorkshopUIController : MonoBehaviour {
         panelRect.anchorMax = Vector2.one;
         panelRect.sizeDelta = Vector2.zero;
         Image panelBg = sellPanel.AddComponent<Image>();
-        ApplyRuntimePanelSkin(panelBg, new Color(0.03f, 0.035f, 0.04f, 0.92f), false);
+        ApplyRuntimePanelSkin(panelBg, VisualAssetService.UIPanelMainID, new Color(0.03f, 0.035f, 0.04f, 0.92f), false);
 
         GameObject cardObj = new GameObject("SellPanel_Card");
         cardObj.transform.SetParent(sellPanel.transform, false);
@@ -558,7 +586,7 @@ public class WorkshopUIController : MonoBehaviour {
         cardRect.anchoredPosition = Vector2.zero;
         cardRect.sizeDelta = new Vector2(1160f, 780f);
         Image cardBg = cardObj.AddComponent<Image>();
-        ApplyRuntimePanelSkin(cardBg, new Color(0.12f, 0.11f, 0.095f, 0.98f), false);
+        ApplyRuntimePanelSkin(cardBg, VisualAssetService.UIPanelMainID, new Color(0.12f, 0.11f, 0.095f, 0.98f), false);
 
         GameObject titleObj = new GameObject("Title_Text");
         titleObj.transform.SetParent(cardObj.transform, false);
@@ -575,6 +603,8 @@ public class WorkshopUIController : MonoBehaviour {
         titleRect.anchoredPosition = new Vector2(40f, -30f);
         titleRect.sizeDelta = new Vector2(360f, 64f);
         stashHeaderText = title;
+
+        CreateTitleDivider(cardObj.transform, new Vector2(40f, -86f), new Vector2(520f, 32f));
 
         GameObject summaryObj = new GameObject("Summary_Text");
         summaryObj.transform.SetParent(cardObj.transform, false);
@@ -627,7 +657,7 @@ public class WorkshopUIController : MonoBehaviour {
         scrollRect.anchoredPosition = new Vector2(0f, -85f);
         scrollRect.sizeDelta = new Vector2(1060f, 560f);
         Image scrollBg = scrollObj.AddComponent<Image>();
-        ApplyRuntimePanelSkin(scrollBg, new Color(0.055f, 0.055f, 0.055f, 0.92f), false);
+        ApplyRuntimePanelSkin(scrollBg, VisualAssetService.UIPanelMainID, new Color(0.055f, 0.055f, 0.055f, 0.92f), false);
         ScrollRect scroll = scrollObj.AddComponent<ScrollRect>();
         scroll.horizontal = false;
 
@@ -707,7 +737,7 @@ public class WorkshopUIController : MonoBehaviour {
         panelRect.anchorMax = Vector2.one;
         panelRect.sizeDelta = Vector2.zero;
         Image panelBg = prostheticPanel.AddComponent<Image>();
-        ApplyRuntimePanelSkin(panelBg, new Color(0.025f, 0.035f, 0.05f, 0.94f), false);
+        ApplyRuntimePanelSkin(panelBg, VisualAssetService.UIPanelMainID, new Color(0.025f, 0.035f, 0.05f, 0.94f), false);
 
         GameObject cardObj = new GameObject("ProstheticPanel_Card");
         cardObj.transform.SetParent(prostheticPanel.transform, false);
@@ -718,7 +748,7 @@ public class WorkshopUIController : MonoBehaviour {
         cardRect.anchoredPosition = Vector2.zero;
         cardRect.sizeDelta = new Vector2(1160f, 780f);
         Image cardBg = cardObj.AddComponent<Image>();
-        ApplyRuntimePanelSkin(cardBg, new Color(0.07f, 0.095f, 0.12f, 0.98f), false);
+        ApplyRuntimePanelSkin(cardBg, VisualAssetService.UIPanelMainID, new Color(0.07f, 0.095f, 0.12f, 0.98f), false);
 
         GameObject titleObj = new GameObject("Title_Text");
         titleObj.transform.SetParent(cardObj.transform, false);
@@ -735,6 +765,8 @@ public class WorkshopUIController : MonoBehaviour {
         titleRect.anchoredPosition = new Vector2(40f, -30f);
         titleRect.sizeDelta = new Vector2(460f, 64f);
         prostheticHeaderText = title;
+
+        CreateTitleDivider(cardObj.transform, new Vector2(40f, -86f), new Vector2(560f, 32f));
 
         GameObject summaryObj = new GameObject("Summary_Text");
         summaryObj.transform.SetParent(cardObj.transform, false);
@@ -774,7 +806,7 @@ public class WorkshopUIController : MonoBehaviour {
         scrollRect.anchoredPosition = new Vector2(0f, -85f);
         scrollRect.sizeDelta = new Vector2(1060f, 560f);
         Image scrollBg = scrollObj.AddComponent<Image>();
-        ApplyRuntimePanelSkin(scrollBg, new Color(0.045f, 0.06f, 0.075f, 0.92f), false);
+        ApplyRuntimePanelSkin(scrollBg, VisualAssetService.UIPanelMainID, new Color(0.045f, 0.06f, 0.075f, 0.92f), false);
         ScrollRect scroll = scrollObj.AddComponent<ScrollRect>();
         scroll.horizontal = false;
 
@@ -831,7 +863,12 @@ public class WorkshopUIController : MonoBehaviour {
         panelRect.anchorMax = Vector2.one;
         panelRect.sizeDelta = Vector2.zero;
         Image panelBg = dungeonStartLayerPanel.AddComponent<Image>();
-        ApplyRuntimePanelSkin(panelBg, new Color(0.025f, 0.035f, 0.04f, 0.94f), false);
+        VisualUIHelper.ApplyCoverSprite(
+            panelBg,
+            VisualAssetService.ResolveLayerSelectBackgroundID(),
+            Color.white,
+            new Color(0.025f, 0.035f, 0.04f, 0.94f));
+        panelBg.raycastTarget = true;
 
         _dungeonStartLayerController = dungeonStartLayerPanel.AddComponent<DungeonStartLayerUIController>();
 
@@ -844,7 +881,7 @@ public class WorkshopUIController : MonoBehaviour {
         cardRect.anchoredPosition = Vector2.zero;
         cardRect.sizeDelta = new Vector2(960f, 720f);
         Image cardBg = cardObj.AddComponent<Image>();
-        ApplyRuntimePanelSkin(cardBg, new Color(0.08f, 0.1f, 0.11f, 0.98f), false);
+        ApplyRuntimePanelSkin(cardBg, VisualAssetService.UIPanelMainID, new Color(0.08f, 0.1f, 0.11f, 0.98f), false);
 
         GameObject titleObj = new GameObject("Title_Text");
         titleObj.transform.SetParent(cardObj.transform, false);
@@ -861,6 +898,8 @@ public class WorkshopUIController : MonoBehaviour {
         titleRect.anchoredPosition = new Vector2(48f, -36f);
         titleRect.sizeDelta = new Vector2(480f, 70f);
         _dungeonStartLayerController.titleText = title;
+
+        _dungeonStartLayerController.titleDividerImage = CreateTitleDivider(cardObj.transform, new Vector2(48f, -92f), new Vector2(560f, 32f));
 
         GameObject summaryObj = new GameObject("Summary_Text");
         summaryObj.transform.SetParent(cardObj.transform, false);
@@ -1009,7 +1048,11 @@ public class WorkshopUIController : MonoBehaviour {
     }
 
     private void ApplyRuntimePanelSkin(Image image, Color tint, bool raycastTarget) {
-        VisualUIHelper.ApplySlicedSprite(image, VisualAssetService.UIPanelInfoID, tint, tint, raycastTarget);
+        ApplyRuntimePanelSkin(image, VisualAssetService.UIPanelInfoID, tint, raycastTarget);
+    }
+
+    private void ApplyRuntimePanelSkin(Image image, string visualID, Color tint, bool raycastTarget) {
+        VisualUIHelper.ApplySlicedSprite(image, visualID, Color.white, tint, raycastTarget);
     }
 
     private void ApplyViewportMaskSkin(Image image) {
@@ -1069,6 +1112,30 @@ public class WorkshopUIController : MonoBehaviour {
         VisualUIHelper.ApplySlicedSprite(image, VisualAssetService.UIPanelInfoID, Color.white, new Color(0.08f, 0.08f, 0.07f, 0.92f), false);
         image.transform.SetAsLastSibling();
         return image;
+    }
+
+    private Image CreateTitleDivider(Transform parent, Vector2 anchoredPosition, Vector2 size) {
+        if (parent == null) {
+            return null;
+        }
+
+        GameObject dividerObj = new GameObject("TitleDivider_Image");
+        dividerObj.transform.SetParent(parent, false);
+        Image divider = dividerObj.AddComponent<Image>();
+        RectTransform rect = divider.rectTransform;
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(0f, 1f);
+        rect.pivot = new Vector2(0f, 1f);
+        rect.anchoredPosition = anchoredPosition;
+        rect.sizeDelta = size;
+        VisualUIHelper.ApplySimpleSprite(
+            divider,
+            VisualAssetService.UITitleDividerID,
+            Color.white,
+            new Color(0.72f, 0.58f, 0.32f, 0.9f),
+            false,
+            false);
+        return divider;
     }
 
     private void EnsureDollStandImage() {

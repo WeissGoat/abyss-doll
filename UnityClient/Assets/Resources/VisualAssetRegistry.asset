@@ -33,6 +33,31 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+  - VisualID: bg_layer_select
+    Sprite: {fileID: 21300000, guid: e605b2a3009a458496ce9860cdc38637, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: bg_safe_room
+    Sprite: {fileID: 21300000, guid: 10c89f8e180f41ab87a51ba53a9d3b1c, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: bg_settlement_defeat
+    Sprite: {fileID: 21300000, guid: 43164304c37e4012ad171582f85460d6, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: bg_settlement_victory
+    Sprite: {fileID: 21300000, guid: 9e90d1a747354fe29af2ffd7a5a774a2, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: bg_stairs_room
+    Sprite: {fileID: 21300000, guid: 953d9b15c8b046019e6f893caea91589, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
   - VisualID: bg_workshop_day
     Sprite: {fileID: 21300000, guid: d4646e83665d97143a2497d88d970f56, type: 3}
     Prefab: {fileID: 0}
@@ -148,6 +173,11 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+  - VisualID: node_stairs_icon
+    Sprite: {fileID: 21300000, guid: 2bd1baee5e8541f6b29ea40ff9917895, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
   - VisualID: prosthetic_pros_cooling_system_icon
     Sprite: {fileID: 21300000, guid: 46ab8f20967f6ae4e88f242c89e8dbc3, type: 3}
     Prefab: {fileID: 0}
@@ -203,6 +233,26 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+  - VisualID: ui_dungeon_node_plate
+    Sprite: {fileID: 21300000, guid: bb599e4dc86b473882a8e2fe1d7cd83b, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_dungeon_route_line
+    Sprite: {fileID: 21300000, guid: ff42828efd064a839f313ae3e02a0699, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_icon_equipped
+    Sprite: {fileID: 21300000, guid: ed0ff8a2272a4a0b9383a769035321b0, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_icon_locked
+    Sprite: {fileID: 21300000, guid: 1a521e96c5dc4539b89a34bb525dc1f0, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
   - VisualID: ui_icon_money
     Sprite: {fileID: 21300000, guid: 77cce56fc3cc4be6ac2ee73aaff33bcd, type: 3}
     Prefab: {fileID: 0}
@@ -238,6 +288,16 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+  - VisualID: ui_list_row_normal
+    Sprite: {fileID: 21300000, guid: d98b7e3d61824a5d9466db644b646ef6, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_list_row_selected
+    Sprite: {fileID: 21300000, guid: fa4b783eaff54cc3ac606ea13c5f326e, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
   - VisualID: ui_loot_drop_zone
     Sprite: {fileID: 21300000, guid: 38a9239b50fd4818bee71433a6c910fd, type: 3}
     Prefab: {fileID: 0}
@@ -255,6 +315,26 @@ MonoBehaviour:
     Material: {fileID: 0}
   - VisualID: ui_panel_info
     Sprite: {fileID: 21300000, guid: 3141004e07fc466e869059f4db310c01, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_panel_main
+    Sprite: {fileID: 21300000, guid: 32b941de492c4bac9cda8fb28b617c94, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_settlement_defeat_panel
+    Sprite: {fileID: 21300000, guid: 9813ef89c1644c2db2a903f1a4a4c6b9, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_settlement_victory_panel
+    Sprite: {fileID: 21300000, guid: 0c219b9706c6410cb8d634ab327ae968, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: ui_title_divider
+    Sprite: {fileID: 21300000, guid: 35f7cba31e0a433794a50744cf8dfd81, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}

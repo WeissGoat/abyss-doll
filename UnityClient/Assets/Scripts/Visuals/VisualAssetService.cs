@@ -7,14 +7,29 @@ public static class VisualAssetService {
     public const string WorkshopBackgroundID = "bg_workshop_day";
     public const string CombatBackgroundID = "bg_combat_abyss";
     public const string DefaultDungeonMapBackgroundID = "bg_dungeon_map";
+    public const string SafeRoomBackgroundID = "bg_safe_room";
+    public const string StairsRoomBackgroundID = "bg_stairs_room";
+    public const string LayerSelectBackgroundID = "bg_layer_select";
+    public const string SettlementVictoryBackgroundID = "bg_settlement_victory";
+    public const string SettlementDefeatBackgroundID = "bg_settlement_defeat";
     public const string CombatNodeIconID = "node_combat_icon";
     public const string BossNodeIconID = "node_boss_icon";
     public const string SafeRoomNodeIconID = "node_safe_room_icon";
     public const string StairsNodeIconID = "node_stairs_icon";
     public const string UIPanelInfoID = "ui_panel_info";
+    public const string UIPanelMainID = "ui_panel_main";
     public const string UIButtonPrimaryID = "ui_button_primary";
     public const string UIButtonSecondaryID = "ui_button_secondary";
     public const string UIButtonDangerID = "ui_button_danger";
+    public const string UIListRowNormalID = "ui_list_row_normal";
+    public const string UIListRowSelectedID = "ui_list_row_selected";
+    public const string UISettlementVictoryPanelID = "ui_settlement_victory_panel";
+    public const string UISettlementDefeatPanelID = "ui_settlement_defeat_panel";
+    public const string UIDungeonNodePlateID = "ui_dungeon_node_plate";
+    public const string UIDungeonRouteLineID = "ui_dungeon_route_line";
+    public const string UIIconLockedID = "ui_icon_locked";
+    public const string UIIconEquippedID = "ui_icon_equipped";
+    public const string UITitleDividerID = "ui_title_divider";
     public const string UIInventoryChassisPanelID = "ui_inventory_chassis_panel";
     public const string UIInventorySlotAvailableID = "ui_inventory_slot_available";
     public const string UIInventorySlotLockedID = "ui_inventory_slot_locked";
@@ -164,6 +179,26 @@ public static class VisualAssetService {
         return WorkshopBackgroundID;
     }
 
+    public static string ResolveSafeRoomBackgroundID() {
+        return SafeRoomBackgroundID;
+    }
+
+    public static string ResolveStairsRoomBackgroundID() {
+        return StairsRoomBackgroundID;
+    }
+
+    public static string ResolveLayerSelectBackgroundID() {
+        return LayerSelectBackgroundID;
+    }
+
+    public static string ResolveSettlementBackgroundID(bool isVictory) {
+        return isVictory ? SettlementVictoryBackgroundID : SettlementDefeatBackgroundID;
+    }
+
+    public static string ResolveSettlementPanelID(bool isVictory) {
+        return isVictory ? UISettlementVictoryPanelID : UISettlementDefeatPanelID;
+    }
+
     private static VisualAssetRegistry ResolveRegistry() {
         if (_registry != null) {
             return _registry;
@@ -212,6 +247,8 @@ public static class VisualDisplaySpecs {
 }
 
 public static class VisualUIHelper {
+    private static Sprite _runtimeSolidColorSprite;
+
     public static Image EnsurePanelBackground(Transform parent, Image currentImage, string objectName) {
         if (parent == null) {
             return currentImage;
@@ -280,6 +317,18 @@ public static class VisualUIHelper {
         return hasRegisteredSprite;
     }
 
+    public static void ApplySolidColor(Image image, Color color, bool raycastTarget = false) {
+        if (image == null) {
+            return;
+        }
+
+        image.sprite = GetRuntimeSolidColorSprite();
+        image.color = color;
+        image.type = Image.Type.Simple;
+        image.preserveAspect = false;
+        image.raycastTarget = raycastTarget;
+    }
+
     public static void ApplyButtonSkin(Button button, string visualID, Color missingColor) {
         if (button == null) {
             return;
@@ -341,6 +390,24 @@ public static class VisualUIHelper {
         fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
         fitter.aspectRatio = ResolveSpriteAspectRatio(image.sprite);
         return hasRegisteredSprite;
+    }
+
+    private static Sprite GetRuntimeSolidColorSprite() {
+        if (_runtimeSolidColorSprite != null) {
+            return _runtimeSolidColorSprite;
+        }
+
+        Texture2D texture = new Texture2D(1, 1, TextureFormat.RGBA32, false) {
+            name = "RuntimeSolidColorSpriteTexture",
+            filterMode = FilterMode.Point,
+            wrapMode = TextureWrapMode.Clamp
+        };
+        texture.SetPixel(0, 0, Color.white);
+        texture.Apply(false, true);
+
+        _runtimeSolidColorSprite = Sprite.Create(texture, new Rect(0f, 0f, 1f, 1f), new Vector2(0.5f, 0.5f), 1f);
+        _runtimeSolidColorSprite.name = "runtime_solid_color_sprite";
+        return _runtimeSolidColorSprite;
     }
 
     public static void ApplyFixedContainer(RectTransform rect, Vector2 containerSize, bool bindLayoutElement = true) {

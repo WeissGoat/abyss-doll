@@ -249,10 +249,59 @@ public static class VisualAssetRegistryEditorTools {
         }
 
         if (normalized.Contains("/UI/")) {
-            return new ApprovedSpriteSpec("ui", 512, 512, true, 512);
+            string visualID = Path.GetFileNameWithoutExtension(normalized);
+            return ResolveUiSpriteSpec(visualID);
         }
 
         return null;
+    }
+
+    private static ApprovedSpriteSpec ResolveUiSpriteSpec(string visualID) {
+        switch (visualID) {
+            case VisualAssetService.UIButtonPrimaryID:
+            case VisualAssetService.UIButtonSecondaryID:
+            case VisualAssetService.UIButtonDangerID:
+                return new ApprovedSpriteSpec("ui button", 512, 160, true, 512);
+            case VisualAssetService.UICombatApPipID:
+            case VisualAssetService.UIInventorySlotAvailableID:
+            case VisualAssetService.UIInventorySlotLockedID:
+            case VisualAssetService.UIInventorySlotHoverID:
+            case VisualAssetService.UIInventorySlotValidID:
+            case VisualAssetService.UIInventorySlotInvalidID:
+                return new ApprovedSpriteSpec("ui small icon", 256, 256, true, 512);
+            case VisualAssetService.UICombatEnemyCardID:
+            case VisualAssetService.UICombatEnemyCardSelectedID:
+                return new ApprovedSpriteSpec("ui combat card", 768, 768, true, 1024);
+            case VisualAssetService.UICombatStatusBarHpID:
+            case VisualAssetService.UICombatStatusBarShieldID:
+                return new ApprovedSpriteSpec("ui status bar", 512, 96, true, 512);
+            case VisualAssetService.UICombatTurnBannerID:
+                return new ApprovedSpriteSpec("ui banner", 1024, 256, true, 1024);
+            case VisualAssetService.UILootPickupPanelID:
+            case VisualAssetService.UIPanelMainID:
+            case VisualAssetService.UISettlementVictoryPanelID:
+            case VisualAssetService.UISettlementDefeatPanelID:
+                return new ApprovedSpriteSpec("ui large panel", 1024, 768, true, 1024);
+            case VisualAssetService.UILootDropZoneID:
+            case VisualAssetService.UIPanelInfoID:
+                return new ApprovedSpriteSpec("ui panel", visualID == VisualAssetService.UILootDropZoneID ? 768 : 768, visualID == VisualAssetService.UILootDropZoneID ? 512 : 384, true, 1024);
+            case VisualAssetService.UIInventoryChassisPanelID:
+                return new ApprovedSpriteSpec("ui chassis panel", 1024, 1024, true, 1024);
+            case VisualAssetService.UIListRowNormalID:
+            case VisualAssetService.UIListRowSelectedID:
+            case VisualAssetService.UITitleDividerID:
+                return new ApprovedSpriteSpec("ui strip", 1024, 128, true, 1024);
+            case VisualAssetService.UIDungeonRouteLineID:
+                return new ApprovedSpriteSpec("ui route line", 512, 128, true, 512);
+            case VisualAssetService.UIDungeonNodePlateID:
+            case VisualAssetService.UIIconLockedID:
+            case VisualAssetService.UIIconEquippedID:
+            case VisualAssetService.UIIconMoneyID:
+            case VisualAssetService.MissingSpriteVisualID:
+                return new ApprovedSpriteSpec("ui icon", 512, 512, true, 512);
+            default:
+                return new ApprovedSpriteSpec("ui", 512, 512, true, 512);
+        }
     }
 
     private sealed class ApprovedSpriteSpec {

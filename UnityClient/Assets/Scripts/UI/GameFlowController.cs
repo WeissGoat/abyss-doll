@@ -574,6 +574,7 @@ public class GameFlowController : MonoBehaviour {
         BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
         Vector2 gridSize = ResolveInventoryGridSize(grid);
         Vector2 position = ResolveInventoryAnchoredPosition();
+        float inventoryScale = ResolveInventoryScaleForCurrentScreen();
 
         RectTransform gridRect = generator.gridParent as RectTransform;
         if (gridRect != null) {
@@ -582,7 +583,7 @@ public class GameFlowController : MonoBehaviour {
             gridRect.pivot = new Vector2(0.5f, 0.5f);
             gridRect.anchoredPosition = position;
             gridRect.sizeDelta = gridSize;
-            gridRect.localScale = Vector3.one;
+            gridRect.localScale = Vector3.one * inventoryScale;
         }
 
         EnsureInventoryChassisPanel(generator, gridSize, position);
@@ -616,11 +617,21 @@ public class GameFlowController : MonoBehaviour {
                 return new Vector2(-460f, -20f);
             case GameScreenState.SafeRoom:
             case GameScreenState.Stairs:
-                return new Vector2(0f, -220f);
+                return new Vector2(500f, -150f);
             case GameScreenState.DungeonMap:
                 return new Vector2(0f, -250f);
             default:
                 return Vector2.zero;
+        }
+    }
+
+    private float ResolveInventoryScaleForCurrentScreen() {
+        switch (_currentScreen) {
+            case GameScreenState.SafeRoom:
+            case GameScreenState.Stairs:
+                return 0.78f;
+            default:
+                return 1f;
         }
     }
 
@@ -649,11 +660,12 @@ public class GameFlowController : MonoBehaviour {
         panelRect.pivot = new Vector2(0.5f, 0.5f);
         panelRect.anchoredPosition = position;
         panelRect.sizeDelta = gridSize + new Vector2(52f, 52f);
-        panelRect.localScale = Vector3.one;
+        panelRect.localScale = Vector3.one * ResolveInventoryScaleForCurrentScreen();
 
-        VisualUIHelper.ApplySlicedSprite(
+        VisualUIHelper.ApplyContainSprite(
             _inventoryChassisPanel,
             VisualAssetService.UIInventoryChassisPanelID,
+            panelRect.sizeDelta,
             Color.white,
             new Color(0.08f, 0.075f, 0.065f, 0.9f),
             false);
