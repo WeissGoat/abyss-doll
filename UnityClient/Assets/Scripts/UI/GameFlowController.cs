@@ -241,6 +241,8 @@ public class GameFlowController : MonoBehaviour {
             SetDungeonMapInventoryOpen(false, true, false);
         }
 
+        EnsureRuntimePanelForScreen(nextScreen);
+
         _currentScreen = nextScreen;
         Debug.Log($"[GameFlow] 切换屏幕状态 -> {_currentScreen}");
 
@@ -277,6 +279,17 @@ public class GameFlowController : MonoBehaviour {
         }
 
         QueueDeferredInventorySync();
+    }
+
+    private void EnsureRuntimePanelForScreen(GameScreenState nextScreen) {
+        switch (nextScreen) {
+            case GameScreenState.CombatLoot:
+                EnsureCombatLootPanel();
+                break;
+            case GameScreenState.Settlement:
+                EnsureSettlementPanel();
+                break;
+        }
     }
 
     private void OnEnterWorkshopScreen() {
@@ -328,6 +341,9 @@ public class GameFlowController : MonoBehaviour {
         SyncInventoryItemUI();
 
         EnsureCombatLootPanel();
+        if (combatLootPanel != null) {
+            combatLootPanel.SetActive(true);
+        }
         ConfigureCombatLootPanelInteraction();
 
         var lootCtrl = combatLootPanel?.GetComponent<CombatLootUIController>();
@@ -387,6 +403,8 @@ public class GameFlowController : MonoBehaviour {
         EnsureSettlementPanel();
         var settlementCtrl = settlementPanel?.GetComponent<SettlementUIController>();
         if (settlementCtrl != null) {
+            settlementPanel.SetActive(true);
+            settlementPanel.transform.SetAsLastSibling();
             settlementCtrl.Present(result, EnterWorkshop);
         } else {
             Debug.LogWarning("[GameFlow] SettlementPanel missing. Falling back to Workshop without UI interaction.");

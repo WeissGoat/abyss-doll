@@ -673,6 +673,7 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         ArtAcceptanceUiCaptureSnapshot uiCapture = BuildUiCaptureSnapshot(capture.ScreenTag);
         _uiSnapshot.Captures.Add(uiCapture);
         ApplyUiRisksToCapture(uiCapture, capture);
+        ApplyRequiredUiChecksToCapture(uiCapture, capture);
 
         string absolutePath = Path.Combine(_outputRoot, capture.File.Replace('/', Path.DirectorySeparatorChar));
         Directory.CreateDirectory(Path.GetDirectoryName(absolutePath));
@@ -682,7 +683,7 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         Canvas.ForceUpdateCanvases();
         yield return WaitSecondsRealtime(0.05f);
 
-        RenderCameraScreenshot(absolutePath);
+        RenderCameraScreenshot(absolutePath, capture);
 
         capture.Status = File.Exists(absolutePath) ? "captured" : "failed";
         if (capture.Status == "failed") {
@@ -696,7 +697,7 @@ public class ArtAcceptanceRunner : MonoBehaviour {
     /// This approach works at any point in the frame — no WaitForEndOfFrame required.
     /// Temporarily converts Screen Space Overlay canvases to Camera mode so UI is captured.
     /// </summary>
-    private void RenderCameraScreenshot(string absolutePath) {
+    private void RenderCameraScreenshot(string absolutePath, ArtAcceptanceCaptureRecord capture) {
         Camera camera = Camera.main;
         if (camera == null) {
             Camera[] cameras = FindObjectsOfType<Camera>();
@@ -748,6 +749,7 @@ public class ArtAcceptanceRunner : MonoBehaviour {
             screenshot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
             screenshot.Apply();
 
+            ApplyScreenshotContentChecks(screenshot, capture);
             File.WriteAllBytes(absolutePath, screenshot.EncodeToPNG());
             Debug.Log($"[ArtAcceptance] Screenshot written: {absolutePath} ({width}x{height})");
         } catch (Exception ex) {
@@ -1302,6 +1304,133 @@ public class ArtAcceptanceRunner : MonoBehaviour {
             || spriteName == VisualAssetService.UICombatTurnBannerID;
     }
 
+    private void ApplyRequiredUiChecksToCapture(ArtAcceptanceUiCaptureSnapshot uiCapture, ArtAcceptanceCaptureRecord capture) {
+        if (uiCapture == null || capture == null) {
+            return;
+        }
+
+        switch (uiCapture.ScreenTag) {
+            case "inventory_loot":
+                RequireActiveController(capture, nameof(CombatLootUIController));
+                RequireVisibleElement(uiCapture, capture, "CombatLootPanel_Runtime");
+                RequireVisibleElement(uiCapture, capture, "PickupPanel");
+                RequireVisibleElement(uiCapture, capture, "LootDropZone");
+                RequireVisibleElement(uiCapture, capture, "Continue_Button");
+                RequireVisibleTextCount(uiCapture, capture, 2);
+                break;
+            case "settlement":
+                RequireActiveController(capture, nameof(SettlementUIController));
+                RequireVisibleElement(uiCapture, capture, "SettlementPanel_Runtime");
+                RequireVisibleElement(uiCapture, capture, "Title_Text");
+                RequireVisibleElement(uiCapture, capture, "Summary_Text");
+                RequireVisibleElement(uiCapture, capture, "Loot_Text");
+                RequireVisibleElement(uiCapture, capture, "Continue_Button");
+                RequireVisibleTextCount(uiCapture, capture, 4);
+                break;
+        }
+    }
+
+    private void RequireActiveController(ArtAcceptanceCaptureRecord capture, string controllerName) {
+        if (capture == null || string.IsNullOrEmpty(controllerName)) {
+            return;
+        }
+
+        if (capture.ActiveControllers == null || !capture.ActiveControllers.Contains(controllerName)) {
+            AddCaptureError(capture, $"Required active controller missing: {controllerName}.");
+        }
+    }
+
+    private void RequireVisibleElement(ArtAcceptanceUiCaptureSnapshot uiCapture, ArtAcceptanceCaptureRecord capture, string elementName) {
+        if (uiCapture == null || string.IsNullOrEmpty(elementName)) {
+            return;
+        }
+
+        foreach (ArtAcceptanceCanvasSnapshot canvas in uiCapture.Canvases) {
+            foreach (ArtAcceptanceUiElementSnapshot element in canvas.Elements) {
+                if (element.Name == elementName && IsSnapshotElementVisible(element)) {
+                    return;
+                }
+            }
+        }
+
+        AddCaptureError(capture, $"Required visible UI element missing: {elementName}.");
+    }
+
+    private void RequireVisibleTextCount(ArtAcceptanceUiCaptureSnapshot uiCapture, ArtAcceptanceCaptureRecord capture, int minCount) {
+        if (uiCapture == null) {
+            return;
+        }
+
+        int count = 0;
+        foreach (ArtAcceptanceCanvasSnapshot canvas in uiCapture.Canvases) {
+            foreach (ArtAcceptanceUiElementSnapshot element in canvas.Elements) {
+                if (element.Text != null &&
+                    element.Text.Found &&
+                    element.Text.Enabled &&
+                    element.Text.TextLength > 0 &&
+                    IsSnapshotElementVisible(element)) {
+                    count++;
+                }
+            }
+        }
+
+        if (count < minCount) {
+            AddCaptureError(capture, $"Visible text count below requirement: actual={count}, required={minCount}.");
+        }
+    }
+
+    private bool IsSnapshotElementVisible(ArtAcceptanceUiElementSnapshot element) {
+        if (element == null || !element.Active) {
+            return false;
+        }
+
+        return element.CanvasGroup == null || !element.CanvasGroup.Found || element.CanvasGroup.Alpha > VisibleAlphaThreshold;
+    }
+
+    private void ApplyScreenshotContentChecks(Texture2D screenshot, ArtAcceptanceCaptureRecord capture) {
+        if (screenshot == null || capture == null) {
+            return;
+        }
+
+        if (IsScreenshotVisuallyBlank(screenshot)) {
+            AddCaptureError(capture, "Screenshot appears visually blank or near-solid color.");
+        }
+    }
+
+    private bool IsScreenshotVisuallyBlank(Texture2D screenshot) {
+        if (screenshot == null) {
+            return true;
+        }
+
+        int width = screenshot.width;
+        int height = screenshot.height;
+        int stepX = Mathf.Max(1, width / 32);
+        int stepY = Mathf.Max(1, height / 18);
+        Color32 first = screenshot.GetPixel(0, 0);
+        int sampled = 0;
+        int different = 0;
+
+        for (int y = 0; y < height; y += stepY) {
+            for (int x = 0; x < width; x += stepX) {
+                sampled++;
+                Color32 current = screenshot.GetPixel(x, y);
+                int delta =
+                    Mathf.Abs(current.r - first.r) +
+                    Mathf.Abs(current.g - first.g) +
+                    Mathf.Abs(current.b - first.b);
+                if (delta > 8) {
+                    different++;
+                }
+            }
+        }
+
+        if (sampled == 0) {
+            return true;
+        }
+
+        return different < Mathf.Max(4, sampled / 100);
+    }
+
     private void ApplyUiRisksToCapture(ArtAcceptanceUiCaptureSnapshot uiCapture, ArtAcceptanceCaptureRecord capture) {
         foreach (ArtAcceptanceCanvasSnapshot canvas in uiCapture.Canvases) {
             foreach (ArtAcceptanceUiElementSnapshot element in canvas.Elements) {
@@ -1396,6 +1525,16 @@ public class ArtAcceptanceRunner : MonoBehaviour {
     private void AddWarning(string message) {
         if (!string.IsNullOrEmpty(message) && !_report.Warnings.Contains(message)) {
             _report.Warnings.Add(message);
+        }
+    }
+
+    private void AddCaptureError(ArtAcceptanceCaptureRecord capture, string message) {
+        if (capture == null || string.IsNullOrEmpty(message)) {
+            return;
+        }
+
+        if (!capture.Errors.Contains(message)) {
+            capture.Errors.Add(message);
         }
     }
 

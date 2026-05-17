@@ -14,6 +14,8 @@ public class SettlementUIController : MonoBehaviour {
             return;
         }
 
+        ApplySettlementSkin();
+
         if (titleText != null) {
             titleText.text = result.IsVictory ? "撤离结算" : "战败结算";
         }
@@ -32,6 +34,20 @@ public class SettlementUIController : MonoBehaviour {
             continueBtn.onClick.RemoveAllListeners();
             continueBtn.onClick.AddListener(() => onContinue?.Invoke());
         }
+    }
+
+    private void ApplySettlementSkin() {
+        Image panelImage = GetComponent<Image>();
+        if (panelImage != null) {
+            VisualUIHelper.ApplySlicedSprite(
+                panelImage,
+                VisualAssetService.UIPanelInfoID,
+                new Color(0.08f, 0.075f, 0.065f, 0.94f),
+                new Color(0.08f, 0.075f, 0.065f, 0.94f),
+                false);
+        }
+
+        VisualUIHelper.ApplyButtonSkin(continueBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.85f, 0.48f, 0.18f));
     }
 
     private string BuildSettlementDetails(DungeonSettlementResult result) {
@@ -140,6 +156,12 @@ public class CombatLootUIController : MonoBehaviour {
     private void PrepareOverlayForPickup() {
         Image panelImage = GetComponent<Image>();
         if (panelImage != null) {
+            VisualUIHelper.ApplySlicedSprite(
+                panelImage,
+                VisualAssetService.UIPanelInfoID,
+                new Color(1f, 1f, 1f, 0.86f),
+                new Color(0.08f, 0.08f, 0.08f, 0.82f),
+                false);
             panelImage.raycastTarget = false;
         }
 
