@@ -575,7 +575,7 @@ public class WorkshopUIController : MonoBehaviour {
         panelRect.anchorMax = Vector2.one;
         panelRect.sizeDelta = Vector2.zero;
         Image panelBg = sellPanel.AddComponent<Image>();
-        ApplyRuntimePanelSkin(panelBg, VisualAssetService.UIPanelMainID, new Color(0.03f, 0.035f, 0.04f, 0.92f), false);
+        ApplyModalBackdropSkin(panelBg);
 
         GameObject cardObj = new GameObject("SellPanel_Card");
         cardObj.transform.SetParent(sellPanel.transform, false);
@@ -737,7 +737,7 @@ public class WorkshopUIController : MonoBehaviour {
         panelRect.anchorMax = Vector2.one;
         panelRect.sizeDelta = Vector2.zero;
         Image panelBg = prostheticPanel.AddComponent<Image>();
-        ApplyRuntimePanelSkin(panelBg, VisualAssetService.UIPanelMainID, new Color(0.025f, 0.035f, 0.05f, 0.94f), false);
+        ApplyModalBackdropSkin(panelBg);
 
         GameObject cardObj = new GameObject("ProstheticPanel_Card");
         cardObj.transform.SetParent(prostheticPanel.transform, false);
@@ -862,13 +862,24 @@ public class WorkshopUIController : MonoBehaviour {
         panelRect.anchorMin = Vector2.zero;
         panelRect.anchorMax = Vector2.one;
         panelRect.sizeDelta = Vector2.zero;
-        Image panelBg = dungeonStartLayerPanel.AddComponent<Image>();
+
+        Image backdropImage = dungeonStartLayerPanel.AddComponent<Image>();
+        VisualUIHelper.ApplySolidColor(backdropImage, new Color(0.012f, 0.014f, 0.013f, 1f), true);
+
+        GameObject bgObj = new GameObject("LayerSelectBackground_Image");
+        bgObj.transform.SetParent(dungeonStartLayerPanel.transform, false);
+        Image panelBg = bgObj.AddComponent<Image>();
+        RectTransform bgRect = panelBg.rectTransform;
+        bgRect.anchorMin = Vector2.zero;
+        bgRect.anchorMax = Vector2.one;
+        bgRect.offsetMin = Vector2.zero;
+        bgRect.offsetMax = Vector2.zero;
         VisualUIHelper.ApplyCoverSprite(
             panelBg,
             VisualAssetService.ResolveLayerSelectBackgroundID(),
             Color.white,
             new Color(0.025f, 0.035f, 0.04f, 0.94f));
-        panelBg.raycastTarget = true;
+        panelBg.raycastTarget = false;
 
         _dungeonStartLayerController = dungeonStartLayerPanel.AddComponent<DungeonStartLayerUIController>();
 
@@ -1053,6 +1064,10 @@ public class WorkshopUIController : MonoBehaviour {
 
     private void ApplyRuntimePanelSkin(Image image, string visualID, Color tint, bool raycastTarget) {
         VisualUIHelper.ApplySlicedSprite(image, visualID, Color.white, tint, raycastTarget);
+    }
+
+    private void ApplyModalBackdropSkin(Image image) {
+        VisualUIHelper.ApplySolidColor(image, new Color(0.012f, 0.014f, 0.013f, 1f), true);
     }
 
     private void ApplyViewportMaskSkin(Image image) {

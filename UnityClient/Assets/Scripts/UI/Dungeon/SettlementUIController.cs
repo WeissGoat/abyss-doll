@@ -9,6 +9,7 @@ public class SettlementUIController : MonoBehaviour {
     public Text lootText;
     public Button continueBtn;
     public Image backgroundImage;
+    public Image backdropImage;
     public Image settlementPanelImage;
     public Image titleDividerImage;
 
@@ -46,12 +47,18 @@ public class SettlementUIController : MonoBehaviour {
             rootImage.raycastTarget = false;
         }
 
+        backdropImage = EnsureSettlementBackdrop(backdropImage, "SettlementBackdrop_Image");
         backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "SettlementBackground_Image");
         VisualUIHelper.ApplyCoverSprite(
             backgroundImage,
             VisualAssetService.ResolveSettlementBackgroundID(isVictory),
             Color.white,
             new Color(0.05f, 0.055f, 0.065f, 0.96f));
+
+        if (backgroundImage != null) {
+            int backgroundIndex = Mathf.Min(1, backgroundImage.transform.parent.childCount - 1);
+            backgroundImage.transform.SetSiblingIndex(backgroundIndex);
+        }
 
         settlementPanelImage = EnsureSkinImage(
             settlementPanelImage,
@@ -75,13 +82,20 @@ public class SettlementUIController : MonoBehaviour {
         MoveButton(continueBtn, contentParent, new Vector2(0f, -286f), new Vector2(280f, 72f));
         VisualUIHelper.ApplyButtonSkin(continueBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.85f, 0.48f, 0.18f));
 
-        if (backgroundImage != null) {
-            backgroundImage.transform.SetAsFirstSibling();
+        if (settlementPanelImage != null) {
+            settlementPanelImage.transform.SetAsLastSibling();
+        }
+    }
+
+    private Image EnsureSettlementBackdrop(Image current, string objectName) {
+        Image image = VisualUIHelper.EnsurePanelBackground(transform, current, objectName);
+        if (image == null) {
+            return null;
         }
 
-        if (settlementPanelImage != null) {
-            settlementPanelImage.transform.SetSiblingIndex(Mathf.Min(1, settlementPanelImage.transform.parent.childCount - 1));
-        }
+        VisualUIHelper.ApplySolidColor(image, new Color(0.015f, 0.016f, 0.014f, 1f));
+        image.transform.SetAsFirstSibling();
+        return image;
     }
 
     private Image EnsureSkinImage(Image current, string objectName, Transform parent, Vector2 position, Vector2 size, string visualID) {

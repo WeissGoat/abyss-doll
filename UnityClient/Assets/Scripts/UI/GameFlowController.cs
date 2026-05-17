@@ -278,6 +278,7 @@ public class GameFlowController : MonoBehaviour {
                 break;
         }
 
+        ApplyInventoryPresentationForCurrentScreen();
         QueueDeferredInventorySync();
     }
 
@@ -419,6 +420,7 @@ public class GameFlowController : MonoBehaviour {
             return;
         }
 
+        EnsureInventoryGridGenerated(generator);
         RemoveStaleInventoryItemUI(grid);
 
         foreach (ItemEntity item in grid.ContainedItems) {
@@ -516,6 +518,7 @@ public class GameFlowController : MonoBehaviour {
 
         GridGenerator generator = FindObjectOfType<GridGenerator>();
         if (generator?.gridParent != null) {
+            EnsureInventoryGridGenerated(generator);
             generator.gridParent.gameObject.SetActive(shouldShowBackpack);
             ApplyInventoryGridLayout(generator);
         }
@@ -564,6 +567,19 @@ public class GameFlowController : MonoBehaviour {
             layerRect.sizeDelta = gridRect.sizeDelta;
             layerRect.localScale = gridRect.localScale;
         }
+    }
+
+    private void EnsureInventoryGridGenerated(GridGenerator generator) {
+        if (generator?.gridParent == null || generator.gridParent.childCount > 0) {
+            return;
+        }
+
+        ChassisComponent chassis = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.Chassis;
+        if (chassis == null) {
+            return;
+        }
+
+        generator.GenerateGrid(chassis);
     }
 
     private void PositionInventoryForCurrentScreen(GridGenerator generator) {
