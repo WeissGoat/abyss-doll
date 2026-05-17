@@ -24,6 +24,7 @@ public class SafeRoomUIController : MonoBehaviour {
     public void Setup(SafeRoomNode node) {
         _currentSafeRoomNode = node;
         _currentStairsNode = null;
+        ApplyButtonSkins();
         SetButtonLabel(restBtn, "休整");
         SetButtonLabel(evacuateBtn, "返回小镇");
         SetPrimaryInteractable(true);
@@ -33,6 +34,7 @@ public class SafeRoomUIController : MonoBehaviour {
     public void Setup(StairsNode node) {
         _currentSafeRoomNode = null;
         _currentStairsNode = node;
+        ApplyButtonSkins();
         SetButtonLabel(restBtn, node != null && node.CanEnterNextLayer() ? "进入下一层" : "深渊尽头");
         SetButtonLabel(evacuateBtn, "返回小镇");
         SetPrimaryInteractable(node != null && node.CanEnterNextLayer());
@@ -130,5 +132,10 @@ public class SafeRoomUIController : MonoBehaviour {
         if (restBtn != null) {
             restBtn.interactable = interactable;
         }
+    }
+
+    private void ApplyButtonSkins() {
+        VisualUIHelper.ApplyButtonSkin(restBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.75f, 0.48f, 0.18f));
+        VisualUIHelper.ApplyButtonSkin(evacuateBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.28f, 0.34f, 0.38f));
     }
 }

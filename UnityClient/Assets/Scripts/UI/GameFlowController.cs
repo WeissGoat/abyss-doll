@@ -97,6 +97,10 @@ public class GameFlowController : MonoBehaviour {
     public void EnterCombatLoot(CombatLootPickupResult result) {
         TransitionToScreen(GameScreenState.CombatLoot, result);
     }
+
+    public void EnterSettlementPreview(DungeonSettlementResult result) {
+        TransitionToScreen(GameScreenState.Settlement, result);
+    }
     
     public void EnterSafeRoom(SafeRoomNode node) {
         TransitionToScreen(GameScreenState.SafeRoom, node);

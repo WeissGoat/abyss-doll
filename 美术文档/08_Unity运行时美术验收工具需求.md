@@ -30,7 +30,7 @@
 ```text
 写入触发文件
   -> Unity Editor 自动进入 Play Mode
-  -> 运行时自动切换 P0 验收界面
+  -> 运行时自动切换 P0/P1 验收界面
   -> 等待 UI 稳定
   -> 截图
   -> 扫描 UI 和 VisualAssetRegistry
@@ -61,9 +61,15 @@ Set-Content -Path "UnityClient/Logs/.art_acceptance_trigger" -Value "RUN_ART_ACC
 UnityClient/Logs/ArtAcceptance/latest/
   screenshots/
     workshop_main.png
+    sell_panel.png
+    prosthetic_panel.png
+    layer_select.png
     dungeon_map.png
+    safe_room.png
+    stairs_room.png
     combat_hud.png
     inventory_loot.png
+    settlement.png
   report.json
   registry_snapshot.json
   ui_snapshot.json
@@ -77,9 +83,15 @@ UnityClient/Logs/ArtAcceptance/latest/
 | 顺序 | ScreenTag | 文件 | 状态 |
 |---|---|---|---|
 | 1 | `workshop_main` | `screenshots/workshop_main.png` | 已交付 |
-| 2 | `dungeon_map` | `screenshots/dungeon_map.png` | 已交付 |
-| 3 | `combat_hud` | `screenshots/combat_hud.png` | 已交付 |
-| 4 | `inventory_loot` | `screenshots/inventory_loot.png` | 已交付 |
+| 2 | `sell_panel` | `screenshots/sell_panel.png` | 已交付 |
+| 3 | `prosthetic_panel` | `screenshots/prosthetic_panel.png` | 已交付 |
+| 4 | `layer_select` | `screenshots/layer_select.png` | 已交付 |
+| 5 | `dungeon_map` | `screenshots/dungeon_map.png` | 已交付 |
+| 6 | `safe_room` | `screenshots/safe_room.png` | 已交付 |
+| 7 | `stairs_room` | `screenshots/stairs_room.png` | 已交付 |
+| 8 | `combat_hud` | `screenshots/combat_hud.png` | 已交付 |
+| 9 | `inventory_loot` | `screenshots/inventory_loot.png` | 已交付 |
+| 10 | `settlement` | `screenshots/settlement.png` | 已交付 |
 
 ---
 
@@ -120,9 +132,15 @@ RunAcceptanceFlow()
   -> WaitForRuntimeReady()
   -> CaptureGlobalEnvironment()
   -> CaptureWorkshopMain()
+  -> CaptureSellPanel()
+  -> CaptureProstheticPanel()
+  -> CaptureLayerSelect()
   -> CaptureDungeonMap()
+  -> CaptureSafeRoom()
+  -> CaptureStairsRoom()
   -> CaptureCombatHud()
   -> CaptureInventoryLoot()
+  -> CaptureSettlement()
   -> BuildRegistrySnapshot()
   -> FinalizeReport()
   -> WriteOutputs()
@@ -446,9 +464,9 @@ UnityClient/Logs/ArtAcceptance/latest/ui_snapshot.json
 
 ### 8.3 PASSED
 
-当前 P0 判断口径：
+当前判断口径：
 
-* P0 四个截图点全部 `captured`。
+* 当前启用的 10 个截图点全部 `captured`。
 * `report.Errors` 为空。
 * `report.Warnings` 为空。
 * P0 VisualID 无缺失。
@@ -485,6 +503,8 @@ UnityClient/Logs/TestReport.json
 | 自动创建运行时 `ArtAcceptanceRunner` | 已交付 |
 | `latest` 稳定覆盖输出 | 已交付 |
 | P0 四界面截图 | 已交付 |
+| P1 小镇卖出、义体制造、层级选择、结算截图 | 已交付 |
+| 安全屋、阶梯节点界面截图 | 已交付 |
 | `report.json` | 已交付 |
 | `registry_snapshot.json` | 已交付 |
 | `ui_snapshot.json` | 已交付 |
@@ -497,6 +517,7 @@ UnityClient/Logs/TestReport.json
 | Sliced/Simple 规则检查 | 已交付 |
 | `ArtAcceptanceSmokeTest` | 已交付 |
 | `RUN_ALL_TESTS` 回归覆盖 | 已交付 |
+| Play Mode 退出后刷新脚本域再验收 | 已交付 |
 
 ---
 
@@ -507,11 +528,6 @@ UnityClient/Logs/TestReport.json
 | 项目 | 影响 | 建议优先级 |
 |---|---|---|
 | `history/<RunID>/` 历史留档 | 目前只能看最新结果，不能自动追溯旧截图。 | P2 |
-| `sell_panel.png` 小镇卖出界面截图 | P0 当前未覆盖卖出界面视觉验收。 | P1 |
-| `prosthetic_panel.png` 义体制造界面截图 | P0 当前未覆盖义体制造界面视觉验收。 | P1 |
-| `layer_select.png` 层级选择界面截图 | 后续层级入口 UI 需要单独验收。 | P1 |
-| `settlement.png` 深渊结算界面截图 | 结算信息展示还没有纳入自动截图。 | P1 |
-| `stairs_room` / `safe_room` 节点界面截图 | 节点特殊房间后续如有独立 UI/背景，需要纳入。 | P2 |
 | UI 动画完成检测 | 当前只等待布局和短延迟，未等待 Animator/转场队列。 | P2 |
 | 点击命中实测 | 当前只做 raycast 风险静态扫描，未模拟点击按钮/格子。 | P2 |
 | 可配置截图点列表 | 当前截图点写在代码流程中，尚未抽成配置。 | P2 |
@@ -536,9 +552,9 @@ UnityClient/Logs/TestReport.json
 最近一次程序侧验证：
 
 ```text
-RunID=20260517_161548
+RunID=20260517_170409
 Status=PASSED
-Captures=4
+Captures=10
 Errors=0
 Warnings=0
 ActualResolution=1920x1080
@@ -593,4 +609,3 @@ report.json -> Warnings / Errors
 ui_snapshot.json -> Risks
 registry_snapshot.json -> MissingRequiredVisualIDs
 ```
-

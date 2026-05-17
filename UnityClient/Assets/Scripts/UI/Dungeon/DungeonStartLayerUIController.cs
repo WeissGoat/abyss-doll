@@ -88,9 +88,10 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         Image rowBg = row.AddComponent<Image>();
         bool canStart = GameRoot.Core.Dungeon.CanStartAtLayer(layerID);
         bool selected = layerID == _selectedLayerID;
-        rowBg.color = selected
+        Color rowTint = selected
             ? new Color(0.92f, 0.64f, 0.22f, 0.95f)
             : canStart ? new Color(0.18f, 0.27f, 0.32f, 0.95f) : new Color(0.12f, 0.12f, 0.13f, 0.75f);
+        VisualUIHelper.ApplySlicedSprite(rowBg, VisualAssetService.UIPanelInfoID, rowTint, rowTint, true);
 
         Button rowButton = row.AddComponent<Button>();
         rowButton.interactable = canStart;

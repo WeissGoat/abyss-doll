@@ -97,7 +97,8 @@ public static class ArtAcceptanceEditorDaemon {
             return;
         }
 
-        DrivePendingRun();
+        RefreshAssetDatabaseForPendingRun();
+        EditorApplication.delayCall += DrivePendingRun;
     }
 
     private static void EnterPlayModeForPendingRun() {
@@ -117,8 +118,21 @@ public static class ArtAcceptanceEditorDaemon {
         if (change == PlayModeStateChange.EnteredEditMode) {
             _playModeEnteredAt = -1d;
             EditorApplication.delayCall += () => {
+                RefreshAssetDatabaseForPendingRun();
                 DrivePendingRun();
             };
+        }
+    }
+
+    private static void RefreshAssetDatabaseForPendingRun() {
+        if (string.IsNullOrEmpty(EditorPrefs.GetString(PendingCommandKey, string.Empty))) {
+            return;
+        }
+
+        try {
+            AssetDatabase.Refresh();
+        } catch (System.Exception ex) {
+            Debug.LogWarning($"[ArtAcceptanceEditorDaemon] AssetDatabase.Refresh failed before art acceptance run: {ex.Message}");
         }
     }
 

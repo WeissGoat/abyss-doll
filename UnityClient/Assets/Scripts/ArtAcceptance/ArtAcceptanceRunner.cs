@@ -188,12 +188,24 @@ public class ArtAcceptanceRunner : MonoBehaviour {
 
         yield return RunStep("CaptureWorkshopMain", CaptureWorkshopMain);
         LogFlowCheckpoint("CaptureWorkshopMain");
+        yield return RunStep("CaptureSellPanel", CaptureSellPanel);
+        LogFlowCheckpoint("CaptureSellPanel");
+        yield return RunStep("CaptureProstheticPanel", CaptureProstheticPanel);
+        LogFlowCheckpoint("CaptureProstheticPanel");
+        yield return RunStep("CaptureLayerSelect", CaptureLayerSelect);
+        LogFlowCheckpoint("CaptureLayerSelect");
         yield return RunStep("CaptureDungeonMap", CaptureDungeonMap);
         LogFlowCheckpoint("CaptureDungeonMap");
+        yield return RunStep("CaptureSafeRoom", CaptureSafeRoom);
+        LogFlowCheckpoint("CaptureSafeRoom");
+        yield return RunStep("CaptureStairsRoom", CaptureStairsRoom);
+        LogFlowCheckpoint("CaptureStairsRoom");
         yield return RunStep("CaptureCombatHud", CaptureCombatHud);
         LogFlowCheckpoint("CaptureCombatHud");
         yield return RunStep("CaptureInventoryLoot", CaptureInventoryLoot);
         LogFlowCheckpoint("CaptureInventoryLoot");
+        yield return RunStep("CaptureSettlement", CaptureSettlement);
+        LogFlowCheckpoint("CaptureSettlement");
 
         SafeExecute("BuildRegistrySnapshot", () => {
             _registrySnapshot = BuildRegistrySnapshot();
@@ -420,6 +432,85 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         yield return CaptureCurrentScreen(capture);
     }
 
+    private IEnumerator CaptureSellPanel() {
+        Debug.Log("[ArtAcceptance] Capturing sell_panel...");
+        ArtAcceptanceCaptureRecord capture = BeginCapture("sell_panel", "screenshots/sell_panel.png");
+
+        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
+            CompleteSkipped(capture);
+            yield break;
+        }
+
+        GameFlowController.Instance.EnterWorkshop();
+        yield return WaitForVisualStable();
+
+        WorkshopUIController workshopController = FindObjectOfType<WorkshopUIController>();
+        if (workshopController == null) {
+            capture.Warnings.Add("WorkshopUIController not found for sell panel capture.");
+            CompleteSkipped(capture);
+            yield break;
+        }
+
+        workshopController.OpenSellPanel();
+        yield return WaitForVisualStable();
+        yield return CaptureCurrentScreen(capture);
+        CloseWorkshopAcceptanceOverlays(workshopController);
+    }
+
+    private IEnumerator CaptureProstheticPanel() {
+        Debug.Log("[ArtAcceptance] Capturing prosthetic_panel...");
+        ArtAcceptanceCaptureRecord capture = BeginCapture("prosthetic_panel", "screenshots/prosthetic_panel.png");
+
+        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
+            CompleteSkipped(capture);
+            yield break;
+        }
+
+        GameFlowController.Instance.EnterWorkshop();
+        yield return WaitForVisualStable();
+
+        WorkshopUIController workshopController = FindObjectOfType<WorkshopUIController>();
+        if (workshopController == null) {
+            capture.Warnings.Add("WorkshopUIController not found for prosthetic panel capture.");
+            CompleteSkipped(capture);
+            yield break;
+        }
+
+        workshopController.OpenProstheticPanel();
+        yield return WaitForVisualStable();
+        yield return CaptureCurrentScreen(capture);
+        CloseWorkshopAcceptanceOverlays(workshopController);
+    }
+
+    private IEnumerator CaptureLayerSelect() {
+        Debug.Log("[ArtAcceptance] Capturing layer_select...");
+        ArtAcceptanceCaptureRecord capture = BeginCapture("layer_select", "screenshots/layer_select.png");
+
+        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture) || !RequireDungeon(capture)) {
+            CompleteSkipped(capture);
+            yield break;
+        }
+
+        int previousHighestUnlockedLayer = GameRoot.Core.CurrentPlayer.HighestUnlockedDungeonLayer;
+        UnlockConfiguredLayersForAcceptance();
+        GameFlowController.Instance.EnterWorkshop();
+        yield return WaitForVisualStable();
+
+        WorkshopUIController workshopController = FindObjectOfType<WorkshopUIController>();
+        if (workshopController == null) {
+            GameRoot.Core.CurrentPlayer.HighestUnlockedDungeonLayer = previousHighestUnlockedLayer;
+            capture.Warnings.Add("WorkshopUIController not found for layer select capture.");
+            CompleteSkipped(capture);
+            yield break;
+        }
+
+        workshopController.OpenDungeonStartLayerPanel();
+        yield return WaitForVisualStable();
+        yield return CaptureCurrentScreen(capture);
+        CloseWorkshopAcceptanceOverlays(workshopController);
+        GameRoot.Core.CurrentPlayer.HighestUnlockedDungeonLayer = previousHighestUnlockedLayer;
+    }
+
     private IEnumerator CaptureDungeonMap() {
         Debug.Log("[ArtAcceptance] Capturing dungeon_map...");
         ArtAcceptanceCaptureRecord capture = BeginCapture("dungeon_map", "screenshots/dungeon_map.png");
@@ -452,6 +543,45 @@ public class ArtAcceptanceRunner : MonoBehaviour {
             mapController.RefreshMap();
         }
 
+        yield return WaitForVisualStable();
+        yield return CaptureCurrentScreen(capture);
+    }
+
+    private IEnumerator CaptureSafeRoom() {
+        Debug.Log("[ArtAcceptance] Capturing safe_room...");
+        ArtAcceptanceCaptureRecord capture = BeginCapture("safe_room", "screenshots/safe_room.png");
+
+        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
+            CompleteSkipped(capture);
+            yield break;
+        }
+
+        SafeRoomNode node = new SafeRoomNode {
+            NodeID = "art_acceptance_safe_room_preview"
+        };
+
+        GameFlowController.Instance.EnterSafeRoom(node);
+        yield return WaitForVisualStable();
+        yield return CaptureCurrentScreen(capture);
+    }
+
+    private IEnumerator CaptureStairsRoom() {
+        Debug.Log("[ArtAcceptance] Capturing stairs_room...");
+        ArtAcceptanceCaptureRecord capture = BeginCapture("stairs_room", "screenshots/stairs_room.png");
+
+        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture) || !RequireDungeon(capture)) {
+            CompleteSkipped(capture);
+            yield break;
+        }
+
+        EnsureAcceptanceDungeonLayer();
+        int layerID = GameRoot.Core?.Dungeon?.CurrentLayer?.LayerID ?? ResolveAcceptanceLayerID();
+        StairsNode node = new StairsNode {
+            NodeID = "art_acceptance_stairs_room_preview",
+            LayerID = Mathf.Max(1, layerID)
+        };
+
+        GameFlowController.Instance.EnterStairs(node);
         yield return WaitForVisualStable();
         yield return CaptureCurrentScreen(capture);
     }
@@ -500,6 +630,27 @@ public class ArtAcceptanceRunner : MonoBehaviour {
 
         Debug.Log("[ArtAcceptance] inventory_loot uses an acceptance-only loot payload; real reward settlement is not invoked.");
         GameFlowController.Instance.EnterCombatLoot(lootResult);
+        yield return WaitForVisualStable();
+        yield return CaptureCurrentScreen(capture);
+    }
+
+    private IEnumerator CaptureSettlement() {
+        Debug.Log("[ArtAcceptance] Capturing settlement...");
+        ArtAcceptanceCaptureRecord capture = BeginCapture("settlement", "screenshots/settlement.png");
+
+        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
+            CompleteSkipped(capture);
+            yield break;
+        }
+
+        DungeonSettlementResult settlementResult = BuildAcceptanceSettlementResult();
+        if (settlementResult == null) {
+            capture.Warnings.Add("Failed to build settlement preview payload.");
+            CompleteSkipped(capture);
+            yield break;
+        }
+
+        GameFlowController.Instance.EnterSettlementPreview(settlementResult);
         yield return WaitForVisualStable();
         yield return CaptureCurrentScreen(capture);
     }
@@ -699,6 +850,47 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         return selected;
     }
 
+    private void CloseWorkshopAcceptanceOverlays(WorkshopUIController workshopController = null) {
+        WorkshopUIController controller = workshopController != null
+            ? workshopController
+            : FindObjectOfType<WorkshopUIController>();
+        if (controller == null) {
+            return;
+        }
+
+        controller.CloseSellPanel();
+        controller.CloseProstheticPanel();
+        controller.CloseDungeonStartLayerPanel();
+    }
+
+    private void UnlockConfiguredLayersForAcceptance() {
+        if (GameRoot.Core?.CurrentPlayer == null || ConfigManager.Dungeons == null || ConfigManager.Dungeons.Count == 0) {
+            return;
+        }
+
+        int highestConfiguredLayer = 1;
+        foreach (int layerID in ConfigManager.Dungeons.Keys) {
+            if (layerID > highestConfiguredLayer) {
+                highestConfiguredLayer = layerID;
+            }
+        }
+
+        GameRoot.Core.CurrentPlayer.HighestUnlockedDungeonLayer = Mathf.Max(
+            GameRoot.Core.CurrentPlayer.HighestUnlockedDungeonLayer,
+            highestConfiguredLayer);
+    }
+
+    private void EnsureAcceptanceDungeonLayer() {
+        if (GameRoot.Core?.Dungeon == null || GameRoot.Core.Dungeon.CurrentLayer != null) {
+            return;
+        }
+
+        int layerID = ResolveAcceptanceLayerID();
+        if (layerID > 0) {
+            GameRoot.Core.Dungeon.StartRunAtLayer(layerID);
+        }
+    }
+
     private List<string> ResolveAcceptanceMonsterIDs() {
         List<string> monsterIDs = new List<string>();
         DungeonLayer layer = GameRoot.Core?.Dungeon?.CurrentLayer;
@@ -751,6 +943,50 @@ public class ArtAcceptanceRunner : MonoBehaviour {
 
             result.OfferedItems.Add(item);
             result.TotalEstimatedValue += item.BaseValue;
+            count++;
+        }
+
+        return result;
+    }
+
+    private DungeonSettlementResult BuildAcceptanceSettlementResult() {
+        DungeonSettlementResult result = new DungeonSettlementResult {
+            IsVictory = true,
+            StashCountAfterSettlement = GameRoot.Core?.CurrentPlayer?.StashInventory?.Count ?? 0
+        };
+
+        if (ConfigManager.Items == null) {
+            return result;
+        }
+
+        int count = 0;
+        foreach (var kvp in ConfigManager.Items) {
+            if (count >= 3) {
+                break;
+            }
+
+            ItemEntity item = ConfigManager.CreateItem(kvp.Key);
+            if (item == null) {
+                continue;
+            }
+
+            result.PickedUpCount++;
+            result.PickedUpEstimatedValue += item.BaseValue;
+            result.PickedUpNames.Add(item.Name);
+
+            if (count < 2) {
+                result.BroughtOutCount++;
+                result.BroughtOutEstimatedValue += item.BaseValue;
+                result.BroughtOutNames.Add(item.Name);
+                result.LootTransferredCount++;
+                result.LootEstimatedValue += item.BaseValue;
+                result.LootNames.Add(item.Name);
+            } else {
+                result.LostCount++;
+                result.LostEstimatedValue += item.BaseValue;
+                result.LostNames.Add(item.Name);
+            }
+
             count++;
         }
 

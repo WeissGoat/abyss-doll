@@ -299,9 +299,9 @@ public class WorkshopUIController : MonoBehaviour {
 
         GameObject sellBtnObj = new GameObject("Sell_Button");
         sellBtnObj.transform.SetParent(row.transform, false);
-        Image sellBtnImg = sellBtnObj.AddComponent<Image>();
-        sellBtnImg.color = new Color(0.86f, 0.45f, 0.18f);
+        sellBtnObj.AddComponent<Image>();
         Button sellBtn = sellBtnObj.AddComponent<Button>();
+        VisualUIHelper.ApplyButtonSkin(sellBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.86f, 0.45f, 0.18f));
         RectTransform sellBtnRect = sellBtnObj.GetComponent<RectTransform>();
         sellBtnRect.sizeDelta = new Vector2(140f, 52f);
 
@@ -547,7 +547,7 @@ public class WorkshopUIController : MonoBehaviour {
         panelRect.anchorMax = Vector2.one;
         panelRect.sizeDelta = Vector2.zero;
         Image panelBg = sellPanel.AddComponent<Image>();
-        panelBg.color = new Color(0.03f, 0.035f, 0.04f, 0.92f);
+        ApplyRuntimePanelSkin(panelBg, new Color(0.03f, 0.035f, 0.04f, 0.92f), false);
 
         GameObject cardObj = new GameObject("SellPanel_Card");
         cardObj.transform.SetParent(sellPanel.transform, false);
@@ -558,7 +558,7 @@ public class WorkshopUIController : MonoBehaviour {
         cardRect.anchoredPosition = Vector2.zero;
         cardRect.sizeDelta = new Vector2(1160f, 780f);
         Image cardBg = cardObj.AddComponent<Image>();
-        cardBg.color = new Color(0.12f, 0.11f, 0.095f, 0.98f);
+        ApplyRuntimePanelSkin(cardBg, new Color(0.12f, 0.11f, 0.095f, 0.98f), false);
 
         GameObject titleObj = new GameObject("Title_Text");
         titleObj.transform.SetParent(cardObj.transform, false);
@@ -627,7 +627,7 @@ public class WorkshopUIController : MonoBehaviour {
         scrollRect.anchoredPosition = new Vector2(0f, -85f);
         scrollRect.sizeDelta = new Vector2(1060f, 560f);
         Image scrollBg = scrollObj.AddComponent<Image>();
-        scrollBg.color = new Color(0.055f, 0.055f, 0.055f, 0.92f);
+        ApplyRuntimePanelSkin(scrollBg, new Color(0.055f, 0.055f, 0.055f, 0.92f), false);
         ScrollRect scroll = scrollObj.AddComponent<ScrollRect>();
         scroll.horizontal = false;
 
@@ -639,7 +639,7 @@ public class WorkshopUIController : MonoBehaviour {
         viewportRect.sizeDelta = new Vector2(-24f, -24f);
         viewportRect.anchoredPosition = Vector2.zero;
         Image viewportImage = viewportObj.AddComponent<Image>();
-        viewportImage.color = new Color(1f, 1f, 1f, 0.02f);
+        ApplyViewportMaskSkin(viewportImage);
         Mask viewportMask = viewportObj.AddComponent<Mask>();
         viewportMask.showMaskGraphic = false;
         scroll.viewport = viewportRect;
@@ -707,7 +707,7 @@ public class WorkshopUIController : MonoBehaviour {
         panelRect.anchorMax = Vector2.one;
         panelRect.sizeDelta = Vector2.zero;
         Image panelBg = prostheticPanel.AddComponent<Image>();
-        panelBg.color = new Color(0.025f, 0.035f, 0.05f, 0.94f);
+        ApplyRuntimePanelSkin(panelBg, new Color(0.025f, 0.035f, 0.05f, 0.94f), false);
 
         GameObject cardObj = new GameObject("ProstheticPanel_Card");
         cardObj.transform.SetParent(prostheticPanel.transform, false);
@@ -718,7 +718,7 @@ public class WorkshopUIController : MonoBehaviour {
         cardRect.anchoredPosition = Vector2.zero;
         cardRect.sizeDelta = new Vector2(1160f, 780f);
         Image cardBg = cardObj.AddComponent<Image>();
-        cardBg.color = new Color(0.07f, 0.095f, 0.12f, 0.98f);
+        ApplyRuntimePanelSkin(cardBg, new Color(0.07f, 0.095f, 0.12f, 0.98f), false);
 
         GameObject titleObj = new GameObject("Title_Text");
         titleObj.transform.SetParent(cardObj.transform, false);
@@ -774,7 +774,7 @@ public class WorkshopUIController : MonoBehaviour {
         scrollRect.anchoredPosition = new Vector2(0f, -85f);
         scrollRect.sizeDelta = new Vector2(1060f, 560f);
         Image scrollBg = scrollObj.AddComponent<Image>();
-        scrollBg.color = new Color(0.045f, 0.06f, 0.075f, 0.92f);
+        ApplyRuntimePanelSkin(scrollBg, new Color(0.045f, 0.06f, 0.075f, 0.92f), false);
         ScrollRect scroll = scrollObj.AddComponent<ScrollRect>();
         scroll.horizontal = false;
 
@@ -786,7 +786,7 @@ public class WorkshopUIController : MonoBehaviour {
         viewportRect.sizeDelta = new Vector2(-24f, -24f);
         viewportRect.anchoredPosition = Vector2.zero;
         Image viewportImage = viewportObj.AddComponent<Image>();
-        viewportImage.color = new Color(1f, 1f, 1f, 0.02f);
+        ApplyViewportMaskSkin(viewportImage);
         Mask viewportMask = viewportObj.AddComponent<Mask>();
         viewportMask.showMaskGraphic = false;
         scroll.viewport = viewportRect;
@@ -831,7 +831,7 @@ public class WorkshopUIController : MonoBehaviour {
         panelRect.anchorMax = Vector2.one;
         panelRect.sizeDelta = Vector2.zero;
         Image panelBg = dungeonStartLayerPanel.AddComponent<Image>();
-        panelBg.color = new Color(0.025f, 0.035f, 0.04f, 0.94f);
+        ApplyRuntimePanelSkin(panelBg, new Color(0.025f, 0.035f, 0.04f, 0.94f), false);
 
         _dungeonStartLayerController = dungeonStartLayerPanel.AddComponent<DungeonStartLayerUIController>();
 
@@ -844,7 +844,7 @@ public class WorkshopUIController : MonoBehaviour {
         cardRect.anchoredPosition = Vector2.zero;
         cardRect.sizeDelta = new Vector2(960f, 720f);
         Image cardBg = cardObj.AddComponent<Image>();
-        cardBg.color = new Color(0.08f, 0.1f, 0.11f, 0.98f);
+        ApplyRuntimePanelSkin(cardBg, new Color(0.08f, 0.1f, 0.11f, 0.98f), false);
 
         GameObject titleObj = new GameObject("Title_Text");
         titleObj.transform.SetParent(cardObj.transform, false);
@@ -944,9 +944,9 @@ public class WorkshopUIController : MonoBehaviour {
     private Button CreateInlineButton(string objectName, string label, Transform parent, Vector2 size, Color color, Font font, int fontSize) {
         GameObject buttonObj = new GameObject(objectName);
         buttonObj.transform.SetParent(parent, false);
-        Image buttonImage = buttonObj.AddComponent<Image>();
-        buttonImage.color = color;
+        buttonObj.AddComponent<Image>();
         Button button = buttonObj.AddComponent<Button>();
+        VisualUIHelper.ApplyButtonSkin(button, VisualAssetService.UIButtonSecondaryID, color);
         RectTransform buttonRect = buttonObj.GetComponent<RectTransform>();
         buttonRect.sizeDelta = size;
 
@@ -981,9 +981,9 @@ public class WorkshopUIController : MonoBehaviour {
         int fontSize) {
         GameObject buttonObj = new GameObject(objectName);
         buttonObj.transform.SetParent(parent, false);
-        Image buttonImage = buttonObj.AddComponent<Image>();
-        buttonImage.color = color;
+        buttonObj.AddComponent<Image>();
         Button button = buttonObj.AddComponent<Button>();
+        VisualUIHelper.ApplyButtonSkin(button, VisualAssetService.UIButtonSecondaryID, color);
         RectTransform buttonRect = buttonObj.GetComponent<RectTransform>();
         buttonRect.anchorMin = anchorMin;
         buttonRect.anchorMax = anchorMax;
@@ -1006,6 +1006,14 @@ public class WorkshopUIController : MonoBehaviour {
         textRect.sizeDelta = Vector2.zero;
 
         return button;
+    }
+
+    private void ApplyRuntimePanelSkin(Image image, Color tint, bool raycastTarget) {
+        VisualUIHelper.ApplySlicedSprite(image, VisualAssetService.UIPanelInfoID, tint, tint, raycastTarget);
+    }
+
+    private void ApplyViewportMaskSkin(Image image) {
+        VisualUIHelper.ApplySimpleSprite(image, VisualAssetService.UIPanelInfoID, Color.clear, Color.clear, true, false);
     }
 
     private void EnsureWorkshopMainSkin() {
