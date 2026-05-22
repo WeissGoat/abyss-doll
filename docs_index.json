@@ -9,6 +9,20 @@
     "domain",
     "status"
   ],
+  "relationship_summary": {
+    "directed_edges": 576,
+    "relation_edges": 288,
+    "cross_role_edges": 96,
+    "role_pairs": {
+      "全局 <-> 知识库": 3,
+      "全局 <-> 程序": 7,
+      "全局 <-> 策划": 5,
+      "全局 <-> 美术": 5,
+      "程序 <-> 策划": 47,
+      "程序 <-> 美术": 25,
+      "策划 <-> 美术": 4
+    }
+  },
   "documents": [
     {
       "path": "agent_status/art.md",
@@ -20,13 +34,24 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
+        "版本规划/09_正式版核心纵切开发路线.md",
+        "agent_status/README.md",
+        "PROJECT_STATUS.md",
+        "开发文档/00_程序开发大纲.md",
+        "开发文档/14_Unity运行时美术自动验收方案.md",
+        "开发文档/09_视觉资源系统程序开发规范.md",
+        "agent_status/program.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "agent_status/design.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
         "美术文档/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "美术或 UI 视觉流水线任务完成后更新本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 11,
+      "cross_role_relation_count": 9
     },
     {
       "path": "agent_status/design.md",
@@ -38,13 +63,23 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "设计文档/GDD_00_系统关联总图.md"
+        "版本规划/09_正式版核心纵切开发路线.md",
+        "agent_status/README.md",
+        "PROJECT_STATUS.md",
+        "开发文档/00_程序开发大纲.md",
+        "agent_status/program.md",
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/README.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "agent_status/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "策划、数值、GDD 或配置意图任务完成后更新本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 10,
+      "cross_role_relation_count": 7
     },
     {
       "path": "agent_status/program.md",
@@ -56,13 +91,23 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "开发文档/00_程序开发大纲.md"
+        "版本规划/09_正式版核心纵切开发路线.md",
+        "agent_status/README.md",
+        "PROJECT_STATUS.md",
+        "开发文档/00_客户端核心架构规范.md",
+        "开发文档/13_编程规范与架构约定.md",
+        "开发文档/00_程序开发大纲.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "agent_status/design.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "agent_status/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "程序、Unity、验证或工程边界任务完成后更新本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 10,
+      "cross_role_relation_count": 7
     },
     {
       "path": "agent_status/README.md",
@@ -75,12 +120,16 @@
       "source_of_truth": false,
       "related": [
         "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "agent_status/program.md",
+        "agent_status/design.md",
+        "agent_status/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "新增或调整职能状态页时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 4,
+      "cross_role_relation_count": 3
     },
     {
       "path": "AGENTS.md",
@@ -92,13 +141,17 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
+        "GEMINI.md",
+        "agent_status/README.md",
         "PROJECT_STATUS.md",
         "知识库/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改智能体分工、开工流程或完成协议时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 4,
+      "cross_role_relation_count": 1
     },
     {
       "path": "DOCS_INDEX.md",
@@ -115,7 +168,9 @@
       "last_verified": "2026-05-23",
       "update_rule": "由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 1,
+      "cross_role_relation_count": 1
     },
     {
       "path": "GEMINI.md",
@@ -128,13 +183,19 @@
       "source_of_truth": true,
       "related": [
         "AGENTS.md",
+        "版本规划/09_正式版核心纵切开发路线.md",
         "PROJECT_STATUS.md",
-        "版本规划/09_正式版核心纵切开发路线.md"
+        "知识库/README.md",
+        "开发文档/00_程序开发大纲.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "美术文档/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "项目阶段、核心目录、AI 路由或工作准则变化时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 7,
+      "cross_role_relation_count": 4
     },
     {
       "path": "PROJECT_STATUS.md",
@@ -147,12 +208,18 @@
       "source_of_truth": true,
       "related": [
         "AGENTS.md",
-        "版本规划/09_正式版核心纵切开发路线.md"
+        "GEMINI.md",
+        "版本规划/09_正式版核心纵切开发路线.md",
+        "agent_status/program.md",
+        "agent_status/design.md",
+        "agent_status/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 3
     },
     {
       "path": "tools/config/README.md",
@@ -164,13 +231,16 @@
       "status": "active",
       "source_of_truth": false,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/00_程序开发大纲.md",
+        "开发文档/00_自动化测试框架与流程指南.md",
+        "配置表(JSON)/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应工具入口、参数或执行流程时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 1
     },
     {
       "path": "tools/美术工具/README.md",
@@ -182,13 +252,20 @@
       "status": "active",
       "source_of_truth": false,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "美术文档/03_AI生成与筛选规范.md",
+        "美术文档/05_AI图片网关接入方案.md",
+        "美术文档/02_资源规格与接入规范.md",
+        "美术文档/01_Manifest规范.md",
+        "美术文档/00_美术流水线总览.md",
+        "美术文档/README.md",
+        "美术文档/04_美术风格基准.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应工具入口、参数或执行流程时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 7,
+      "cross_role_relation_count": 0
     },
     {
       "path": "开发文档/00_Unity表现层与编辑器构建规范.md",
@@ -200,13 +277,25 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/00_客户端核心架构规范.md",
+        "开发文档/13_编程规范与架构约定.md",
+        "开发文档/01_核心数据与实体容器(CoreData).md",
+        "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
+        "开发文档/00_程序开发大纲.md",
+        "开发文档/09_视觉资源系统程序开发规范.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "美术文档/02_资源规格与接入规范.md",
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/handoff_checklist.md",
+        "美术文档/11_Alpha_P0_UI骨架接入交付.md",
+        "美术文档/12_Alpha_P1_UI骨架接入准备.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 12,
+      "cross_role_relation_count": 6
     },
     {
       "path": "开发文档/00_客户端核心架构规范.md",
@@ -218,13 +307,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/13_编程规范与架构约定.md",
+        "开发文档/01_核心数据与实体容器(CoreData).md",
+        "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
+        "开发文档/00_程序开发大纲.md",
+        "开发文档/00_Unity表现层与编辑器构建规范.md",
+        "agent_status/program.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 0
     },
     {
       "path": "开发文档/00_程序开发大纲.md",
@@ -236,14 +331,28 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
+        "GEMINI.md",
         "版本规划/09_正式版核心纵切开发路线.md",
+        "开发文档/06_架构评估与收口建议.md",
+        "开发文档/00_客户端核心架构规范.md",
         "开发文档/13_编程规范与架构约定.md",
-        "开发文档/12_程序开发优化建议与重构路线.md"
+        "开发文档/01_核心数据与实体容器(CoreData).md",
+        "开发文档/12_程序开发优化建议与重构路线.md",
+        "开发文档/00_自动化测试框架与流程指南.md",
+        "开发文档/00_Unity表现层与编辑器构建规范.md",
+        "agent_status/program.md",
+        "tools/config/README.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "agent_status/design.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "agent_status/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "程序系统分类、开发口径或模块索引变化时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 15,
+      "cross_role_relation_count": 6
     },
     {
       "path": "开发文档/00_自动化测试框架与流程指南.md",
@@ -255,13 +364,22 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "版本规划/07_MVP自动化试玩验收方案.md",
+        "版本规划/08_MVP自动化试玩首轮报告.md",
+        "开发文档/06_架构评估与收口建议.md",
+        "开发文档/13_编程规范与架构约定.md",
+        "开发文档/00_程序开发大纲.md",
+        "开发文档/12_程序开发优化建议与重构路线.md",
+        "开发文档/14_Unity运行时美术自动验收方案.md",
+        "tools/config/README.md",
+        "配置表(JSON)/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 9,
+      "cross_role_relation_count": 3
     },
     {
       "path": "开发文档/01_核心数据与实体容器(CoreData).md",
@@ -273,13 +391,23 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/00_客户端核心架构规范.md",
+        "开发文档/13_编程规范与架构约定.md",
+        "开发文档/数据与实体定义/04_深渊与战斗实体.md",
+        "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
+        "开发文档/00_程序开发大纲.md",
+        "开发文档/数据与实体定义/01_全局与玩家实体.md",
+        "开发文档/数据与实体定义/02_人偶与状态实体.md",
+        "开发文档/数据与实体定义/03_物品与网格实体.md",
+        "开发文档/数据与实体定义/05_经济与社会实体.md",
+        "开发文档/00_Unity表现层与编辑器构建规范.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 10,
+      "cross_role_relation_count": 0
     },
     {
       "path": "开发文档/02_网格背包与计算系统(GridSystem).md",
@@ -291,13 +419,18 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/数据与实体定义/03_物品与网格实体.md",
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/Items/README.md",
+        "设计文档/GDD_01_背包战斗与局内网格机制.md",
+        "设计文档/GDD_06_物品系统与物品生命周期.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 5,
+      "cross_role_relation_count": 4
     },
     {
       "path": "开发文档/03_深渊与战斗循环(DungeonCombat).md",
@@ -309,13 +442,23 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/数据与实体定义/04_深渊与战斗实体.md",
+        "开发文档/11_怪物AI与行动系统(MonsterActionAI).md",
+        "开发文档/10_奖励与掉落系统(RewardSystem).md",
+        "数值模型设计/02_战斗伤害与生存公式.md",
+        "数值模型设计/03_深渊产出与掉落期望.md",
+        "配置表(JSON)/Dungeons/README.md",
+        "配置表(JSON)/Monsters/README.md",
+        "配置表(JSON)/Rewards/README.md",
+        "设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md",
+        "设计文档/GDD_01_背包战斗与局内网格机制.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 10,
+      "cross_role_relation_count": 7
     },
     {
       "path": "开发文档/04_工坊与养成逻辑(WorkshopSystem).md",
@@ -327,13 +470,18 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/数据与实体定义/05_经济与社会实体.md",
+        "数值模型设计/01_经济循环与通缩模型.md",
+        "配置表(JSON)/CraftingRecipes/README.md",
+        "设计文档/GDD_10_势力声望与订单系统.md",
+        "设计文档/GDD_04_小镇循环与经济物价波浪模型.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 5,
+      "cross_role_relation_count": 4
     },
     {
       "path": "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
@@ -345,13 +493,22 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/00_客户端核心架构规范.md",
+        "开发文档/13_编程规范与架构约定.md",
+        "开发文档/01_核心数据与实体容器(CoreData).md",
+        "开发文档/00_Unity表现层与编辑器构建规范.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/handoff_checklist.md",
+        "美术文档/11_Alpha_P0_UI骨架接入交付.md",
+        "美术文档/12_Alpha_P1_UI骨架接入准备.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 9,
+      "cross_role_relation_count": 5
     },
     {
       "path": "开发文档/06_架构评估与收口建议.md",
@@ -363,13 +520,17 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/13_编程规范与架构约定.md",
+        "开发文档/00_程序开发大纲.md",
+        "开发文档/12_程序开发优化建议与重构路线.md",
+        "开发文档/00_自动化测试框架与流程指南.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 4,
+      "cross_role_relation_count": 0
     },
     {
       "path": "开发文档/09_视觉资源系统程序开发规范.md",
@@ -381,13 +542,21 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/14_Unity运行时美术自动验收方案.md",
+        "开发文档/00_Unity表现层与编辑器构建规范.md",
+        "美术文档/02_资源规格与接入规范.md",
+        "美术文档/README.md",
+        "美术文档/ui_design/README.md",
+        "美术文档/08_Unity运行时美术验收工具需求.md",
+        "美术文档/09_运行时美术验收记录.md",
+        "agent_status/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 8,
+      "cross_role_relation_count": 6
     },
     {
       "path": "开发文档/10_奖励与掉落系统(RewardSystem).md",
@@ -399,13 +568,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/03_深渊与战斗循环(DungeonCombat).md",
+        "数值模型设计/03_深渊产出与掉落期望.md",
+        "配置表(JSON)/Dungeons/README.md",
+        "配置表(JSON)/Rewards/README.md",
+        "设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md",
+        "设计文档/GDD_10_势力声望与订单系统.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 5
     },
     {
       "path": "开发文档/11_怪物AI与行动系统(MonsterActionAI).md",
@@ -417,13 +592,16 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/03_深渊与战斗循环(DungeonCombat).md",
+        "数值模型设计/02_战斗伤害与生存公式.md",
+        "配置表(JSON)/Monsters/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 2
     },
     {
       "path": "开发文档/12_程序开发优化建议与重构路线.md",
@@ -435,13 +613,17 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/06_架构评估与收口建议.md",
+        "开发文档/13_编程规范与架构约定.md",
+        "开发文档/00_程序开发大纲.md",
+        "开发文档/00_自动化测试框架与流程指南.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 4,
+      "cross_role_relation_count": 0
     },
     {
       "path": "开发文档/13_编程规范与架构约定.md",
@@ -453,13 +635,23 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/06_架构评估与收口建议.md",
+        "开发文档/00_客户端核心架构规范.md",
+        "开发文档/01_核心数据与实体容器(CoreData).md",
+        "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
+        "开发文档/00_程序开发大纲.md",
+        "开发文档/12_程序开发优化建议与重构路线.md",
+        "开发文档/14_Unity运行时美术自动验收方案.md",
+        "开发文档/00_自动化测试框架与流程指南.md",
+        "开发文档/00_Unity表现层与编辑器构建规范.md",
+        "agent_status/program.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 10,
+      "cross_role_relation_count": 0
     },
     {
       "path": "开发文档/14_Unity运行时美术自动验收方案.md",
@@ -471,13 +663,20 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/13_编程规范与架构约定.md",
+        "开发文档/00_自动化测试框架与流程指南.md",
+        "开发文档/09_视觉资源系统程序开发规范.md",
+        "美术文档/README.md",
+        "美术文档/08_Unity运行时美术验收工具需求.md",
+        "美术文档/09_运行时美术验收记录.md",
+        "agent_status/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 7,
+      "cross_role_relation_count": 4
     },
     {
       "path": "开发文档/数据与实体定义/01_全局与玩家实体.md",
@@ -489,13 +688,14 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/01_核心数据与实体容器(CoreData).md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 1,
+      "cross_role_relation_count": 0
     },
     {
       "path": "开发文档/数据与实体定义/02_人偶与状态实体.md",
@@ -507,13 +707,21 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/01_核心数据与实体容器(CoreData).md",
+        "配置表(JSON)/Dolls/README.md",
+        "配置表(JSON)/Effects/README.md",
+        "设计文档/GDD_08_人偶养成子模块全案.md",
+        "设计文档/GDD_12_人偶交互管理器.md",
+        "设计文档/GDD_03_人偶实体对象与好感双轨机制.md",
+        "设计文档/GDD_11_人偶房间与视觉叙事系统.md",
+        "设计文档/GDD_09_标签与特质系统.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 8,
+      "cross_role_relation_count": 7
     },
     {
       "path": "开发文档/数据与实体定义/03_物品与网格实体.md",
@@ -525,13 +733,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/01_核心数据与实体容器(CoreData).md",
+        "开发文档/02_网格背包与计算系统(GridSystem).md",
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/Items/README.md",
+        "设计文档/GDD_01_背包战斗与局内网格机制.md",
+        "设计文档/GDD_06_物品系统与物品生命周期.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 4
     },
     {
       "path": "开发文档/数据与实体定义/04_深渊与战斗实体.md",
@@ -543,13 +757,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/01_核心数据与实体容器(CoreData).md",
+        "开发文档/03_深渊与战斗循环(DungeonCombat).md",
+        "数值模型设计/02_战斗伤害与生存公式.md",
+        "配置表(JSON)/Dungeons/README.md",
+        "设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md",
+        "设计文档/GDD_01_背包战斗与局内网格机制.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 4
     },
     {
       "path": "开发文档/数据与实体定义/05_经济与社会实体.md",
@@ -561,13 +781,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/01_核心数据与实体容器(CoreData).md",
+        "开发文档/04_工坊与养成逻辑(WorkshopSystem).md",
+        "数值模型设计/01_经济循环与通缩模型.md",
+        "配置表(JSON)/CraftingRecipes/README.md",
+        "设计文档/GDD_10_势力声望与订单系统.md",
+        "设计文档/GDD_04_小镇循环与经济物价波浪模型.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 4
     },
     {
       "path": "数值模型设计/00_基准价值与空间本位模型.md",
@@ -579,13 +805,27 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/02_网格背包与计算系统(GridSystem).md",
+        "开发文档/数据与实体定义/03_物品与网格实体.md",
+        "配置表(JSON)/Chassis/README.md",
+        "配置表(JSON)/CraftingRecipes/README.md",
+        "配置表(JSON)/README.md",
+        "配置表(JSON)/Items/README.md",
+        "配置表(JSON)/Prosthetics/README.md",
+        "设计文档/GDD_08_人偶养成子模块全案.md",
+        "设计文档/GDD_01_背包战斗与局内网格机制.md",
+        "设计文档/GDD_06_物品系统与物品生命周期.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "版本规划/03_mvp数值要求.md",
+        "版本规划/05_MVP需要补充的配置调整.md",
+        "agent_status/design.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改数值假设、公式、产出期望或经济模型时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 14,
+      "cross_role_relation_count": 2
     },
     {
       "path": "数值模型设计/01_经济循环与通缩模型.md",
@@ -597,13 +837,18 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/数据与实体定义/05_经济与社会实体.md",
+        "开发文档/04_工坊与养成逻辑(WorkshopSystem).md",
+        "配置表(JSON)/CraftingRecipes/README.md",
+        "设计文档/GDD_10_势力声望与订单系统.md",
+        "设计文档/GDD_04_小镇循环与经济物价波浪模型.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改数值假设、公式、产出期望或经济模型时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 5,
+      "cross_role_relation_count": 2
     },
     {
       "path": "数值模型设计/02_战斗伤害与生存公式.md",
@@ -615,13 +860,20 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/03_深渊与战斗循环(DungeonCombat).md",
+        "开发文档/数据与实体定义/04_深渊与战斗实体.md",
+        "开发文档/11_怪物AI与行动系统(MonsterActionAI).md",
+        "配置表(JSON)/Dungeons/README.md",
+        "配置表(JSON)/Monsters/README.md",
+        "设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md",
+        "设计文档/GDD_01_背包战斗与局内网格机制.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改数值假设、公式、产出期望或经济模型时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 7,
+      "cross_role_relation_count": 3
     },
     {
       "path": "数值模型设计/03_深渊产出与掉落期望.md",
@@ -633,13 +885,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/03_深渊与战斗循环(DungeonCombat).md",
+        "开发文档/10_奖励与掉落系统(RewardSystem).md",
+        "配置表(JSON)/Dungeons/README.md",
+        "配置表(JSON)/Rewards/README.md",
+        "设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md",
+        "设计文档/GDD_10_势力声望与订单系统.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改数值假设、公式、产出期望或经济模型时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 2
     },
     {
       "path": "版本规划/00_最小MVP体验闭环内容清单.md",
@@ -651,13 +909,16 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "版本规划/02_开发里程碑与节点规划.md",
+        "版本规划/04_MVP验证需要补充的功能开发.md",
+        "版本规划/06_MVP白盒试玩收口推进计划.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
     },
     {
       "path": "版本规划/01_MVP美术与UI需求清单.md",
@@ -669,13 +930,15 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "美术文档/06_MVP素材接入状态同步.md",
+        "美术文档/07_MVP_UI重新设计同步.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 2,
+      "cross_role_relation_count": 0
     },
     {
       "path": "版本规划/02_开发里程碑与节点规划.md",
@@ -687,13 +950,16 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "版本规划/00_最小MVP体验闭环内容清单.md",
+        "版本规划/04_MVP验证需要补充的功能开发.md",
+        "版本规划/06_MVP白盒试玩收口推进计划.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
     },
     {
       "path": "版本规划/03_mvp数值要求.md",
@@ -705,13 +971,16 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/README.md",
+        "版本规划/05_MVP需要补充的配置调整.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
     },
     {
       "path": "版本规划/04_MVP验证需要补充的功能开发.md",
@@ -723,13 +992,16 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "版本规划/00_最小MVP体验闭环内容清单.md",
+        "版本规划/02_开发里程碑与节点规划.md",
+        "版本规划/06_MVP白盒试玩收口推进计划.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
     },
     {
       "path": "版本规划/05_MVP需要补充的配置调整.md",
@@ -741,13 +1013,16 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/README.md",
+        "版本规划/03_mvp数值要求.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
     },
     {
       "path": "版本规划/06_MVP白盒试玩收口推进计划.md",
@@ -759,13 +1034,16 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "版本规划/00_最小MVP体验闭环内容清单.md",
+        "版本规划/02_开发里程碑与节点规划.md",
+        "版本规划/04_MVP验证需要补充的功能开发.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
     },
     {
       "path": "版本规划/07_MVP自动化试玩验收方案.md",
@@ -777,13 +1055,15 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "版本规划/08_MVP自动化试玩首轮报告.md",
+        "开发文档/00_自动化测试框架与流程指南.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 2,
+      "cross_role_relation_count": 1
     },
     {
       "path": "版本规划/08_MVP自动化试玩首轮报告.md",
@@ -795,13 +1075,15 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "版本规划/07_MVP自动化试玩验收方案.md",
+        "开发文档/00_自动化测试框架与流程指南.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 2,
+      "cross_role_relation_count": 1
     },
     {
       "path": "版本规划/09_正式版核心纵切开发路线.md",
@@ -813,14 +1095,21 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
+        "GEMINI.md",
         "PROJECT_STATUS.md",
+        "开发文档/00_程序开发大纲.md",
+        "agent_status/program.md",
         "设计文档/GDD_00_系统关联总图.md",
-        "开发文档/00_程序开发大纲.md"
+        "agent_status/design.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "agent_status/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "正式版 Alpha 阶段目标、优先级或里程碑变化时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 8,
+      "cross_role_relation_count": 6
     },
     {
       "path": "知识库/README.md",
@@ -833,12 +1122,15 @@
       "source_of_truth": true,
       "related": [
         "AGENTS.md",
+        "GEMINI.md",
         "DOCS_INDEX.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "调整元数据字段、索引策略或文档治理规则时更新本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 3
     },
     {
       "path": "美术文档/00_美术流水线总览.md",
@@ -850,13 +1142,20 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "美术文档/03_AI生成与筛选规范.md",
+        "美术文档/05_AI图片网关接入方案.md",
+        "美术文档/02_资源规格与接入规范.md",
+        "美术文档/01_Manifest规范.md",
+        "美术文档/README.md",
+        "美术文档/04_美术风格基准.md",
+        "tools/美术工具/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 7,
+      "cross_role_relation_count": 0
     },
     {
       "path": "美术文档/01_Manifest规范.md",
@@ -868,13 +1167,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "美术文档/03_AI生成与筛选规范.md",
+        "美术文档/05_AI图片网关接入方案.md",
+        "美术文档/02_资源规格与接入规范.md",
+        "美术文档/00_美术流水线总览.md",
+        "美术文档/04_美术风格基准.md",
+        "tools/美术工具/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 0
     },
     {
       "path": "美术文档/02_资源规格与接入规范.md",
@@ -886,13 +1191,22 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/00_Unity表现层与编辑器构建规范.md",
+        "开发文档/09_视觉资源系统程序开发规范.md",
+        "美术文档/03_AI生成与筛选规范.md",
+        "美术文档/05_AI图片网关接入方案.md",
+        "美术文档/01_Manifest规范.md",
+        "美术文档/00_美术流水线总览.md",
+        "美术文档/ui_design/README.md",
+        "美术文档/04_美术风格基准.md",
+        "tools/美术工具/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 9,
+      "cross_role_relation_count": 2
     },
     {
       "path": "美术文档/03_AI生成与筛选规范.md",
@@ -904,13 +1218,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "美术文档/05_AI图片网关接入方案.md",
+        "美术文档/02_资源规格与接入规范.md",
+        "美术文档/01_Manifest规范.md",
+        "美术文档/00_美术流水线总览.md",
+        "美术文档/04_美术风格基准.md",
+        "tools/美术工具/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 0
     },
     {
       "path": "美术文档/04_美术风格基准.md",
@@ -922,13 +1242,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "美术文档/03_AI生成与筛选规范.md",
+        "美术文档/05_AI图片网关接入方案.md",
+        "美术文档/02_资源规格与接入规范.md",
+        "美术文档/01_Manifest规范.md",
+        "美术文档/00_美术流水线总览.md",
+        "tools/美术工具/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 0
     },
     {
       "path": "美术文档/05_AI图片网关接入方案.md",
@@ -940,13 +1266,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "美术文档/03_AI生成与筛选规范.md",
+        "美术文档/02_资源规格与接入规范.md",
+        "美术文档/01_Manifest规范.md",
+        "美术文档/00_美术流水线总览.md",
+        "美术文档/04_美术风格基准.md",
+        "tools/美术工具/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 0
     },
     {
       "path": "美术文档/06_MVP素材接入状态同步.md",
@@ -958,13 +1290,15 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "美术文档/07_MVP_UI重新设计同步.md",
+        "版本规划/01_MVP美术与UI需求清单.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 2,
+      "cross_role_relation_count": 0
     },
     {
       "path": "美术文档/07_MVP_UI重新设计同步.md",
@@ -976,13 +1310,15 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "美术文档/06_MVP素材接入状态同步.md",
+        "版本规划/01_MVP美术与UI需求清单.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 2,
+      "cross_role_relation_count": 0
     },
     {
       "path": "美术文档/08_Unity运行时美术验收工具需求.md",
@@ -994,13 +1330,16 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/14_Unity运行时美术自动验收方案.md",
+        "开发文档/09_视觉资源系统程序开发规范.md",
+        "美术文档/09_运行时美术验收记录.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 2
     },
     {
       "path": "美术文档/09_运行时美术验收记录.md",
@@ -1012,13 +1351,16 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/14_Unity运行时美术自动验收方案.md",
+        "开发文档/09_视觉资源系统程序开发规范.md",
+        "美术文档/08_Unity运行时美术验收工具需求.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 2
     },
     {
       "path": "美术文档/10_正式版核心纵切美术路线.md",
@@ -1030,13 +1372,26 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "版本规划/09_正式版核心纵切开发路线.md",
+        "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
+        "开发文档/00_程序开发大纲.md",
+        "开发文档/00_Unity表现层与编辑器构建规范.md",
+        "agent_status/program.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "agent_status/design.md",
+        "美术文档/README.md",
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/handoff_checklist.md",
+        "美术文档/11_Alpha_P0_UI骨架接入交付.md",
+        "美术文档/12_Alpha_P1_UI骨架接入准备.md",
+        "agent_status/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 13,
+      "cross_role_relation_count": 7
     },
     {
       "path": "美术文档/11_Alpha_P0_UI骨架接入交付.md",
@@ -1048,13 +1403,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
+        "开发文档/00_Unity表现层与编辑器构建规范.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/handoff_checklist.md",
+        "美术文档/12_Alpha_P1_UI骨架接入准备.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 2
     },
     {
       "path": "美术文档/12_Alpha_P1_UI骨架接入准备.md",
@@ -1066,13 +1427,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
+        "开发文档/00_Unity表现层与编辑器构建规范.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/handoff_checklist.md",
+        "美术文档/11_Alpha_P0_UI骨架接入交付.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 2
     },
     {
       "path": "美术文档/README.md",
@@ -1084,14 +1451,21 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "美术文档/00_美术流水线总览.md",
+        "GEMINI.md",
+        "开发文档/14_Unity运行时美术自动验收方案.md",
+        "开发文档/09_视觉资源系统程序开发规范.md",
         "美术文档/10_正式版核心纵切美术路线.md",
-        "开发文档/09_视觉资源系统程序开发规范.md"
+        "美术文档/00_美术流水线总览.md",
+        "美术文档/ui_design/README.md",
+        "agent_status/art.md",
+        "tools/美术工具/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 8,
+      "cross_role_relation_count": 3
     },
     {
       "path": "美术文档/ui_design/handoff_checklist.md",
@@ -1103,13 +1477,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
+        "开发文档/00_Unity表现层与编辑器构建规范.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "美术文档/ui_design/README.md",
+        "美术文档/11_Alpha_P0_UI骨架接入交付.md",
+        "美术文档/12_Alpha_P1_UI骨架接入准备.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 2
     },
     {
       "path": "美术文档/ui_design/README.md",
@@ -1121,13 +1501,22 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
+        "开发文档/00_Unity表现层与编辑器构建规范.md",
+        "开发文档/09_视觉资源系统程序开发规范.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "美术文档/02_资源规格与接入规范.md",
+        "美术文档/README.md",
+        "美术文档/ui_design/handoff_checklist.md",
+        "美术文档/11_Alpha_P0_UI骨架接入交付.md",
+        "美术文档/12_Alpha_P1_UI骨架接入准备.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 9,
+      "cross_role_relation_count": 3
     },
     {
       "path": "设计文档/GDD_00_系统关联总图.md",
@@ -1139,13 +1528,34 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
+        "GEMINI.md",
         "版本规划/09_正式版核心纵切开发路线.md",
-        "开发文档/00_程序开发大纲.md"
+        "开发文档/00_程序开发大纲.md",
+        "agent_status/program.md",
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/README.md",
+        "设计文档/GDD_08_人偶养成子模块全案.md",
+        "设计文档/GDD_12_人偶交互管理器.md",
+        "设计文档/GDD_03_人偶实体对象与好感双轨机制.md",
+        "设计文档/GDD_11_人偶房间与视觉叙事系统.md",
+        "设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md",
+        "设计文档/GDD_10_势力声望与订单系统.md",
+        "设计文档/GDD_01_背包战斗与局内网格机制.md",
+        "设计文档/GDD_06_物品系统与物品生命周期.md",
+        "设计文档/GDD_05_剧本调度引擎与世界观封装逻辑.md",
+        "设计文档/GDD_09_标签与特质系统.md",
+        "设计文档/GDD_07_时间日程系统与AP行动点机制.md",
+        "设计文档/GDD_04_小镇循环与经济物价波浪模型.md",
+        "agent_status/design.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "agent_status/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改系统关系、资源流向、循环健康度或系统优先级时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 21,
+      "cross_role_relation_count": 6
     },
     {
       "path": "设计文档/GDD_01_背包战斗与局内网格机制.md",
@@ -1157,13 +1567,24 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/03_深渊与战斗循环(DungeonCombat).md",
+        "开发文档/数据与实体定义/04_深渊与战斗实体.md",
+        "开发文档/02_网格背包与计算系统(GridSystem).md",
+        "开发文档/数据与实体定义/03_物品与网格实体.md",
+        "数值模型设计/02_战斗伤害与生存公式.md",
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/Dungeons/README.md",
+        "配置表(JSON)/Items/README.md",
+        "设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md",
+        "设计文档/GDD_06_物品系统与物品生命周期.md",
+        "设计文档/GDD_00_系统关联总图.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 11,
+      "cross_role_relation_count": 4
     },
     {
       "path": "设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md",
@@ -1175,13 +1596,22 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/03_深渊与战斗循环(DungeonCombat).md",
+        "开发文档/数据与实体定义/04_深渊与战斗实体.md",
+        "开发文档/10_奖励与掉落系统(RewardSystem).md",
+        "数值模型设计/02_战斗伤害与生存公式.md",
+        "数值模型设计/03_深渊产出与掉落期望.md",
+        "配置表(JSON)/Dungeons/README.md",
+        "配置表(JSON)/Rewards/README.md",
+        "设计文档/GDD_01_背包战斗与局内网格机制.md",
+        "设计文档/GDD_00_系统关联总图.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 9,
+      "cross_role_relation_count": 3
     },
     {
       "path": "设计文档/GDD_03_人偶实体对象与好感双轨机制.md",
@@ -1193,13 +1623,23 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/数据与实体定义/02_人偶与状态实体.md",
+        "配置表(JSON)/Dolls/README.md",
+        "配置表(JSON)/Effects/README.md",
+        "设计文档/GDD_08_人偶养成子模块全案.md",
+        "设计文档/GDD_12_人偶交互管理器.md",
+        "设计文档/GDD_11_人偶房间与视觉叙事系统.md",
+        "设计文档/GDD_05_剧本调度引擎与世界观封装逻辑.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "设计文档/GDD_09_标签与特质系统.md",
+        "设计文档/GDD_07_时间日程系统与AP行动点机制.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 10,
+      "cross_role_relation_count": 1
     },
     {
       "path": "设计文档/GDD_04_小镇循环与经济物价波浪模型.md",
@@ -1211,13 +1651,22 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/数据与实体定义/05_经济与社会实体.md",
+        "开发文档/04_工坊与养成逻辑(WorkshopSystem).md",
+        "数值模型设计/01_经济循环与通缩模型.md",
+        "配置表(JSON)/Chassis/README.md",
+        "配置表(JSON)/CraftingRecipes/README.md",
+        "配置表(JSON)/Prosthetics/README.md",
+        "配置表(JSON)/Rewards/README.md",
+        "设计文档/GDD_10_势力声望与订单系统.md",
+        "设计文档/GDD_00_系统关联总图.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 9,
+      "cross_role_relation_count": 2
     },
     {
       "path": "设计文档/GDD_05_剧本调度引擎与世界观封装逻辑.md",
@@ -1229,13 +1678,17 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "设计文档/GDD_03_人偶实体对象与好感双轨机制.md",
+        "设计文档/GDD_11_人偶房间与视觉叙事系统.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "设计文档/GDD_07_时间日程系统与AP行动点机制.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 4,
+      "cross_role_relation_count": 0
     },
     {
       "path": "设计文档/GDD_06_物品系统与物品生命周期.md",
@@ -1247,13 +1700,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/02_网格背包与计算系统(GridSystem).md",
+        "开发文档/数据与实体定义/03_物品与网格实体.md",
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/Items/README.md",
+        "设计文档/GDD_01_背包战斗与局内网格机制.md",
+        "设计文档/GDD_00_系统关联总图.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 2
     },
     {
       "path": "设计文档/GDD_07_时间日程系统与AP行动点机制.md",
@@ -1265,13 +1724,17 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "设计文档/GDD_03_人偶实体对象与好感双轨机制.md",
+        "设计文档/GDD_11_人偶房间与视觉叙事系统.md",
+        "设计文档/GDD_05_剧本调度引擎与世界观封装逻辑.md",
+        "设计文档/GDD_00_系统关联总图.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 4,
+      "cross_role_relation_count": 0
     },
     {
       "path": "设计文档/GDD_08_人偶养成子模块全案.md",
@@ -1283,13 +1746,25 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/数据与实体定义/02_人偶与状态实体.md",
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/Chassis/README.md",
+        "配置表(JSON)/CraftingRecipes/README.md",
+        "配置表(JSON)/Dolls/README.md",
+        "配置表(JSON)/Effects/README.md",
+        "配置表(JSON)/Prosthetics/README.md",
+        "设计文档/GDD_12_人偶交互管理器.md",
+        "设计文档/GDD_03_人偶实体对象与好感双轨机制.md",
+        "设计文档/GDD_11_人偶房间与视觉叙事系统.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "设计文档/GDD_09_标签与特质系统.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 12,
+      "cross_role_relation_count": 1
     },
     {
       "path": "设计文档/GDD_09_标签与特质系统.md",
@@ -1301,13 +1776,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/数据与实体定义/02_人偶与状态实体.md",
+        "配置表(JSON)/Dolls/README.md",
+        "配置表(JSON)/Effects/README.md",
+        "设计文档/GDD_08_人偶养成子模块全案.md",
+        "设计文档/GDD_03_人偶实体对象与好感双轨机制.md",
+        "设计文档/GDD_00_系统关联总图.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 1
     },
     {
       "path": "设计文档/GDD_10_势力声望与订单系统.md",
@@ -1319,13 +1800,22 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/数据与实体定义/05_经济与社会实体.md",
+        "开发文档/10_奖励与掉落系统(RewardSystem).md",
+        "开发文档/04_工坊与养成逻辑(WorkshopSystem).md",
+        "数值模型设计/01_经济循环与通缩模型.md",
+        "数值模型设计/03_深渊产出与掉落期望.md",
+        "配置表(JSON)/CraftingRecipes/README.md",
+        "配置表(JSON)/Rewards/README.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "设计文档/GDD_04_小镇循环与经济物价波浪模型.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 9,
+      "cross_role_relation_count": 3
     },
     {
       "path": "设计文档/GDD_11_人偶房间与视觉叙事系统.md",
@@ -1337,13 +1827,21 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/数据与实体定义/02_人偶与状态实体.md",
+        "配置表(JSON)/Dolls/README.md",
+        "设计文档/GDD_08_人偶养成子模块全案.md",
+        "设计文档/GDD_12_人偶交互管理器.md",
+        "设计文档/GDD_03_人偶实体对象与好感双轨机制.md",
+        "设计文档/GDD_05_剧本调度引擎与世界观封装逻辑.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "设计文档/GDD_07_时间日程系统与AP行动点机制.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 8,
+      "cross_role_relation_count": 1
     },
     {
       "path": "设计文档/GDD_12_人偶交互管理器.md",
@@ -1355,13 +1853,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/数据与实体定义/02_人偶与状态实体.md",
+        "配置表(JSON)/Dolls/README.md",
+        "设计文档/GDD_08_人偶养成子模块全案.md",
+        "设计文档/GDD_03_人偶实体对象与好感双轨机制.md",
+        "设计文档/GDD_11_人偶房间与视觉叙事系统.md",
+        "设计文档/GDD_00_系统关联总图.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 1
     },
     {
       "path": "配置表(JSON)/Chassis/README.md",
@@ -1373,13 +1877,20 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/CraftingRecipes/README.md",
+        "配置表(JSON)/README.md",
+        "配置表(JSON)/Prosthetics/README.md",
+        "配置表(JSON)/Rewards/README.md",
+        "设计文档/GDD_08_人偶养成子模块全案.md",
+        "设计文档/GDD_04_小镇循环与经济物价波浪模型.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 7,
+      "cross_role_relation_count": 0
     },
     {
       "path": "配置表(JSON)/CraftingRecipes/README.md",
@@ -1391,13 +1902,23 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/数据与实体定义/05_经济与社会实体.md",
+        "开发文档/04_工坊与养成逻辑(WorkshopSystem).md",
+        "数值模型设计/01_经济循环与通缩模型.md",
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/Chassis/README.md",
+        "配置表(JSON)/README.md",
+        "配置表(JSON)/Prosthetics/README.md",
+        "设计文档/GDD_08_人偶养成子模块全案.md",
+        "设计文档/GDD_10_势力声望与订单系统.md",
+        "设计文档/GDD_04_小镇循环与经济物价波浪模型.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 10,
+      "cross_role_relation_count": 2
     },
     {
       "path": "配置表(JSON)/Dolls/README.md",
@@ -1409,13 +1930,21 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/数据与实体定义/02_人偶与状态实体.md",
+        "配置表(JSON)/README.md",
+        "配置表(JSON)/Effects/README.md",
+        "设计文档/GDD_08_人偶养成子模块全案.md",
+        "设计文档/GDD_12_人偶交互管理器.md",
+        "设计文档/GDD_03_人偶实体对象与好感双轨机制.md",
+        "设计文档/GDD_11_人偶房间与视觉叙事系统.md",
+        "设计文档/GDD_09_标签与特质系统.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 8,
+      "cross_role_relation_count": 1
     },
     {
       "path": "配置表(JSON)/Dungeons/README.md",
@@ -1427,13 +1956,22 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/03_深渊与战斗循环(DungeonCombat).md",
+        "开发文档/数据与实体定义/04_深渊与战斗实体.md",
+        "开发文档/10_奖励与掉落系统(RewardSystem).md",
+        "数值模型设计/02_战斗伤害与生存公式.md",
+        "数值模型设计/03_深渊产出与掉落期望.md",
+        "配置表(JSON)/README.md",
+        "配置表(JSON)/Rewards/README.md",
+        "设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md",
+        "设计文档/GDD_01_背包战斗与局内网格机制.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 9,
+      "cross_role_relation_count": 3
     },
     {
       "path": "配置表(JSON)/Effects/README.md",
@@ -1445,13 +1983,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/数据与实体定义/02_人偶与状态实体.md",
+        "配置表(JSON)/README.md",
+        "配置表(JSON)/Dolls/README.md",
+        "设计文档/GDD_08_人偶养成子模块全案.md",
+        "设计文档/GDD_03_人偶实体对象与好感双轨机制.md",
+        "设计文档/GDD_09_标签与特质系统.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 1
     },
     {
       "path": "配置表(JSON)/Items/README.md",
@@ -1463,13 +2007,19 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/02_网格背包与计算系统(GridSystem).md",
+        "开发文档/数据与实体定义/03_物品与网格实体.md",
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/README.md",
+        "设计文档/GDD_01_背包战斗与局内网格机制.md",
+        "设计文档/GDD_06_物品系统与物品生命周期.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 2
     },
     {
       "path": "配置表(JSON)/Monsters/README.md",
@@ -1481,13 +2031,17 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/03_深渊与战斗循环(DungeonCombat).md",
+        "开发文档/11_怪物AI与行动系统(MonsterActionAI).md",
+        "数值模型设计/02_战斗伤害与生存公式.md",
+        "配置表(JSON)/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 4,
+      "cross_role_relation_count": 2
     },
     {
       "path": "配置表(JSON)/Prosthetics/README.md",
@@ -1499,13 +2053,20 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/Chassis/README.md",
+        "配置表(JSON)/CraftingRecipes/README.md",
+        "配置表(JSON)/README.md",
+        "配置表(JSON)/Rewards/README.md",
+        "设计文档/GDD_08_人偶养成子模块全案.md",
+        "设计文档/GDD_04_小镇循环与经济物价波浪模型.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 7,
+      "cross_role_relation_count": 0
     },
     {
       "path": "配置表(JSON)/README.md",
@@ -1517,13 +2078,29 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/00_自动化测试框架与流程指南.md",
+        "tools/config/README.md",
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/Chassis/README.md",
+        "配置表(JSON)/CraftingRecipes/README.md",
+        "配置表(JSON)/Dolls/README.md",
+        "配置表(JSON)/Dungeons/README.md",
+        "配置表(JSON)/Effects/README.md",
+        "配置表(JSON)/Items/README.md",
+        "配置表(JSON)/Monsters/README.md",
+        "配置表(JSON)/Prosthetics/README.md",
+        "配置表(JSON)/Rewards/README.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "版本规划/03_mvp数值要求.md",
+        "版本规划/05_MVP需要补充的配置调整.md",
+        "agent_status/design.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 16,
+      "cross_role_relation_count": 2
     },
     {
       "path": "配置表(JSON)/Rewards/README.md",
@@ -1535,13 +2112,23 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md"
+        "开发文档/03_深渊与战斗循环(DungeonCombat).md",
+        "开发文档/10_奖励与掉落系统(RewardSystem).md",
+        "数值模型设计/03_深渊产出与掉落期望.md",
+        "配置表(JSON)/Chassis/README.md",
+        "配置表(JSON)/README.md",
+        "配置表(JSON)/Dungeons/README.md",
+        "配置表(JSON)/Prosthetics/README.md",
+        "设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md",
+        "设计文档/GDD_10_势力声望与订单系统.md",
+        "设计文档/GDD_04_小镇循环与经济物价波浪模型.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
       "has_metadata": true,
-      "missing_fields": []
+      "missing_fields": [],
+      "relation_count": 10,
+      "cross_role_relation_count": 2
     }
   ]
 }

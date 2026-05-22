@@ -134,11 +134,64 @@ def collect_docs(repo_root: Path):
     return docs
 
 
+def enrich_relationships(docs):
+    by_path = {doc["path"]: doc for doc in docs}
+    for doc in docs:
+        valid_related = []
+        cross_role_related = []
+        for target in doc["related"]:
+            target_doc = by_path.get(target)
+            if target_doc is None or target == doc["path"]:
+                continue
+            valid_related.append(target)
+            if target_doc["role"] != doc["role"]:
+                cross_role_related.append(target)
+        doc["relation_count"] = len(set(valid_related))
+        doc["cross_role_relation_count"] = len(set(cross_role_related))
+    return docs
+
+
+def relationship_summary(docs):
+    by_path = {doc["path"]: doc for doc in docs}
+    directed_edges = set()
+    undirected_edges = set()
+    cross_role_edges = set()
+    role_pairs = defaultdict(int)
+
+    for doc in docs:
+        source = doc["path"]
+        for target in doc["related"]:
+            if target not in by_path or target == source:
+                continue
+            directed_edges.add((source, target))
+            edge = tuple(sorted((source, target)))
+            if edge in undirected_edges:
+                continue
+            undirected_edges.add(edge)
+            source_role = doc["role"]
+            target_role = by_path[target]["role"]
+            if source_role != target_role:
+                cross_role_edges.add(edge)
+                role_pair = tuple(sorted((source_role, target_role)))
+                role_pairs[role_pair] += 1
+
+    return {
+        "directed_edges": len(directed_edges),
+        "relation_edges": len(undirected_edges),
+        "cross_role_edges": len(cross_role_edges),
+        "role_pairs": {
+            " <-> ".join(pair): count
+            for pair, count in sorted(role_pairs.items())
+        },
+    }
+
+
 def write_json(path: Path, docs):
     payload = {
         "version": 1,
         "generated_by": "tools/docs/generate_docs_index.py",
         "required_fields": REQUIRED_FIELDS,
+        "relationship_summary": relationship_summary(docs),
         "documents": docs,
     }
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -148,6 +201,7 @@ def write_markdown(path: Path, docs):
     by_role = defaultdict(list)
     for doc in docs:
         by_role[doc["role"]].append(doc)
+    summary = relationship_summary(docs)
 
     lines = [
         "---",
@@ -174,6 +228,8 @@ def write_markdown(path: Path, docs):
         f"- 已补元数据：{sum(1 for doc in docs if doc['has_metadata'])}",
         f"- 缺少元数据：{sum(1 for doc in docs if not doc['has_metadata'])}",
         f"- 事实来源文档：{sum(1 for doc in docs if doc['source_of_truth'])}",
+        f"- 关联边数：{summary['relation_edges']}",
+        f"- 跨职能关联：{summary['cross_role_edges']}",
         "",
         "## 事实来源",
         "",
@@ -186,13 +242,21 @@ def write_markdown(path: Path, docs):
     else:
         lines.append("- 暂无。")
 
+    lines.extend(["", "## 关联网络", ""])
+    role_pairs = summary["role_pairs"]
+    if role_pairs:
+        for pair, count in role_pairs.items():
+            lines.append(f"- `{pair}`：{count} 条")
+    else:
+        lines.append("- 暂无跨职能关联。")
+
     lines.extend(["", "## 按职能分组", ""])
     for role in sorted(by_role.keys()):
-        lines.extend([f"### {role}", "", "| 文档 | 类型 | 状态 | 领域 | 元数据 |", "|---|---|---|---|---|"])
+        lines.extend([f"### {role}", "", "| 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |", "|---|---|---|---|---|---|"])
         for doc in sorted(by_role[role], key=lambda item: item["path"]):
             metadata_state = "完整" if not doc["missing_fields"] else "缺失：" + ", ".join(doc["missing_fields"])
             lines.append(
-                f"| [{doc['title']}]({doc['path']}) | `{doc['type']}` | `{doc['status']}` | `{doc['domain']}` | {metadata_state} |"
+                f"| [{doc['title']}]({doc['path']}) | `{doc['type']}` | `{doc['status']}` | `{doc['domain']}` | {doc['relation_count']} | {metadata_state} |"
             )
         lines.append("")
 
@@ -215,7 +279,7 @@ def main():
     args = parser.parse_args()
 
     repo_root = Path.cwd()
-    docs = collect_docs(repo_root)
+    docs = enrich_relationships(collect_docs(repo_root))
     write_json(repo_root / args.json, docs)
     write_markdown(repo_root / args.markdown, docs)
     print(f"[docs] indexed {len(docs)} markdown files")

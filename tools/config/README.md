@@ -7,8 +7,9 @@ domain: config_tooling
 status: active
 source_of_truth: false
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/00_程序开发大纲.md
+  - 开发文档/00_自动化测试框架与流程指南.md
+  - 配置表(JSON)/README.md
 last_verified: 2026-05-23
 update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
 ---

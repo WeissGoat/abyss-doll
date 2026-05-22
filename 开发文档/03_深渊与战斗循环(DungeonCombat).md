@@ -7,8 +7,16 @@ domain: dungeon_combat
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/数据与实体定义/04_深渊与战斗实体.md
+  - 开发文档/11_怪物AI与行动系统(MonsterActionAI).md
+  - 开发文档/10_奖励与掉落系统(RewardSystem).md
+  - 数值模型设计/02_战斗伤害与生存公式.md
+  - 数值模型设计/03_深渊产出与掉落期望.md
+  - 配置表(JSON)/Dungeons/README.md
+  - 配置表(JSON)/Monsters/README.md
+  - 配置表(JSON)/Rewards/README.md
+  - 设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md
+  - 设计文档/GDD_01_背包战斗与局内网格机制.md
 last_verified: 2026-05-23
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---

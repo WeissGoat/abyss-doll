@@ -7,8 +7,13 @@ domain: runtime_art_validation
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/13_编程规范与架构约定.md
+  - 开发文档/00_自动化测试框架与流程指南.md
+  - 开发文档/09_视觉资源系统程序开发规范.md
+  - 美术文档/README.md
+  - 美术文档/08_Unity运行时美术验收工具需求.md
+  - 美术文档/09_运行时美术验收记录.md
+  - agent_status/art.md
 last_verified: 2026-05-23
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---

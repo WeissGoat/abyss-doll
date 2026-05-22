@@ -52,13 +52,35 @@ def main():
             errors.append(f"duplicate doc id '{doc_id}': {ids[doc_id]} and {doc['path']}")
         ids[doc_id] = doc["path"]
 
+    for doc in docs:
+        path = doc["path"]
+        related = doc.get("related", [])
+        if len(related) != len(set(related)):
+            errors.append(f"duplicate related entries: {path}")
+        for target in related:
+            if target == path:
+                errors.append(f"doc relates to itself: {path}")
+                continue
+            target_doc = by_path.get(target)
+            if target_doc is None:
+                errors.append(f"related doc is not indexed: {path} -> {target}")
+                continue
+            if path not in target_doc.get("related", []):
+                errors.append(f"related doc is not bidirectional: {path} -> {target}")
+
     if errors:
         for error in errors:
             print(f"[docs] ERROR: {error}", file=sys.stderr)
         return 1
 
     missing = sum(1 for doc in docs if doc.get("missing_fields"))
-    print(f"[docs] validation passed. indexed={len(docs)}, missing_metadata={missing}")
+    relation_edges = payload.get("relationship_summary", {}).get("relation_edges", 0)
+    cross_role_edges = payload.get("relationship_summary", {}).get("cross_role_edges", 0)
+    print(
+        "[docs] validation passed. "
+        f"indexed={len(docs)}, missing_metadata={missing}, "
+        f"relation_edges={relation_edges}, cross_role_edges={cross_role_edges}"
+    )
     return 0
 
 

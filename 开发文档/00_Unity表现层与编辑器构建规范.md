@@ -7,8 +7,18 @@ domain: unity_presentation
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/00_客户端核心架构规范.md
+  - 开发文档/13_编程规范与架构约定.md
+  - 开发文档/01_核心数据与实体容器(CoreData).md
+  - 开发文档/05_表现层架构与事件总线(ViewAndEventBus).md
+  - 开发文档/00_程序开发大纲.md
+  - 开发文档/09_视觉资源系统程序开发规范.md
+  - 美术文档/10_正式版核心纵切美术路线.md
+  - 美术文档/02_资源规格与接入规范.md
+  - 美术文档/ui_design/README.md
+  - 美术文档/ui_design/handoff_checklist.md
+  - 美术文档/11_Alpha_P0_UI骨架接入交付.md
+  - 美术文档/12_Alpha_P1_UI骨架接入准备.md
 last_verified: 2026-05-23
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---

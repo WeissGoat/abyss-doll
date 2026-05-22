@@ -7,8 +7,15 @@ domain: faction_order
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/数据与实体定义/05_经济与社会实体.md
+  - 开发文档/10_奖励与掉落系统(RewardSystem).md
+  - 开发文档/04_工坊与养成逻辑(WorkshopSystem).md
+  - 数值模型设计/01_经济循环与通缩模型.md
+  - 数值模型设计/03_深渊产出与掉落期望.md
+  - 配置表(JSON)/CraftingRecipes/README.md
+  - 配置表(JSON)/Rewards/README.md
+  - 设计文档/GDD_00_系统关联总图.md
+  - 设计文档/GDD_04_小镇循环与经济物价波浪模型.md
 last_verified: 2026-05-23
 update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
 ---

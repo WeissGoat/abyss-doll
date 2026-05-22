@@ -7,8 +7,12 @@ domain: tag_trait
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/数据与实体定义/02_人偶与状态实体.md
+  - 配置表(JSON)/Dolls/README.md
+  - 配置表(JSON)/Effects/README.md
+  - 设计文档/GDD_08_人偶养成子模块全案.md
+  - 设计文档/GDD_03_人偶实体对象与好感双轨机制.md
+  - 设计文档/GDD_00_系统关联总图.md
 last_verified: 2026-05-23
 update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
 ---

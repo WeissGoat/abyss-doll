@@ -7,8 +7,12 @@ domain: ui_handoff
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/05_表现层架构与事件总线(ViewAndEventBus).md
+  - 开发文档/00_Unity表现层与编辑器构建规范.md
+  - 美术文档/10_正式版核心纵切美术路线.md
+  - 美术文档/ui_design/README.md
+  - 美术文档/ui_design/handoff_checklist.md
+  - 美术文档/12_Alpha_P1_UI骨架接入准备.md
 last_verified: 2026-05-23
 update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
 ---

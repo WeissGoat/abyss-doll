@@ -7,8 +7,12 @@ domain: reward_loot
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/03_深渊与战斗循环(DungeonCombat).md
+  - 数值模型设计/03_深渊产出与掉落期望.md
+  - 配置表(JSON)/Dungeons/README.md
+  - 配置表(JSON)/Rewards/README.md
+  - 设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md
+  - 设计文档/GDD_10_势力声望与订单系统.md
 last_verified: 2026-05-23
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---

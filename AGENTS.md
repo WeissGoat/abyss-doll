@@ -7,6 +7,8 @@ domain: agent_workflow
 status: active
 source_of_truth: true
 related:
+  - GEMINI.md
+  - agent_status/README.md
   - PROJECT_STATUS.md
   - 知识库/README.md
 last_verified: 2026-05-23
@@ -160,15 +162,16 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 当前职能：
 
 - 搭建轻量知识库，不迁移现有目录，不引入站点框架。
-- 维护 Markdown 元数据头规范、文档索引生成脚本和校验脚本。
-- 给事实来源文档补齐元数据，并把缺失项暴露到索引里，方便后续治理。
+- 维护 Markdown 元数据头规范、双向文档关系网、文档索引生成脚本和校验脚本。
+- 让美术、程序、策划、配置、数值和版本路线文档通过 `related` 形成可校验互链。
 
 本轮目标：
 
 - 新增 `知识库/README.md` 作为元数据规范。
 - 新增 `tools/docs/Generate-DocsIndex.ps1` 和 `tools/docs/Validate-Docs.ps1`。
 - 生成 `DOCS_INDEX.md` 与 `docs_index.json`。
-- 补齐当前索引内全部 Markdown 元数据头，并确保知识库校验通过。
+- 补齐当前索引内全部 Markdown 元数据头。
+- 把文档 `related` 升级为双向关系网，并确保知识库校验通过。
 
 ## 共享边界
 

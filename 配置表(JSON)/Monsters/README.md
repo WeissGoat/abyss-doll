@@ -7,8 +7,10 @@ domain: config_monsters
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/03_深渊与战斗循环(DungeonCombat).md
+  - 开发文档/11_怪物AI与行动系统(MonsterActionAI).md
+  - 数值模型设计/02_战斗伤害与生存公式.md
+  - 配置表(JSON)/README.md
 last_verified: 2026-05-23
 update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
 ---

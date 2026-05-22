@@ -7,8 +7,22 @@ domain: config_data
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/00_自动化测试框架与流程指南.md
+  - tools/config/README.md
+  - 数值模型设计/00_基准价值与空间本位模型.md
+  - 配置表(JSON)/Chassis/README.md
+  - 配置表(JSON)/CraftingRecipes/README.md
+  - 配置表(JSON)/Dolls/README.md
+  - 配置表(JSON)/Dungeons/README.md
+  - 配置表(JSON)/Effects/README.md
+  - 配置表(JSON)/Items/README.md
+  - 配置表(JSON)/Monsters/README.md
+  - 配置表(JSON)/Prosthetics/README.md
+  - 配置表(JSON)/Rewards/README.md
+  - 设计文档/GDD_00_系统关联总图.md
+  - 版本规划/03_mvp数值要求.md
+  - 版本规划/05_MVP需要补充的配置调整.md
+  - agent_status/design.md
 last_verified: 2026-05-23
 update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
 ---

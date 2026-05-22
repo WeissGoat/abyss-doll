@@ -7,8 +7,18 @@ domain: doll_growth
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/数据与实体定义/02_人偶与状态实体.md
+  - 数值模型设计/00_基准价值与空间本位模型.md
+  - 配置表(JSON)/Chassis/README.md
+  - 配置表(JSON)/CraftingRecipes/README.md
+  - 配置表(JSON)/Dolls/README.md
+  - 配置表(JSON)/Effects/README.md
+  - 配置表(JSON)/Prosthetics/README.md
+  - 设计文档/GDD_12_人偶交互管理器.md
+  - 设计文档/GDD_03_人偶实体对象与好感双轨机制.md
+  - 设计文档/GDD_11_人偶房间与视觉叙事系统.md
+  - 设计文档/GDD_00_系统关联总图.md
+  - 设计文档/GDD_09_标签与特质系统.md
 last_verified: 2026-05-23
 update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
 ---

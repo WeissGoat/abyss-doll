@@ -7,8 +7,13 @@ domain: config_prosthetics
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 数值模型设计/00_基准价值与空间本位模型.md
+  - 配置表(JSON)/Chassis/README.md
+  - 配置表(JSON)/CraftingRecipes/README.md
+  - 配置表(JSON)/README.md
+  - 配置表(JSON)/Rewards/README.md
+  - 设计文档/GDD_08_人偶养成子模块全案.md
+  - 设计文档/GDD_04_小镇循环与经济物价波浪模型.md
 last_verified: 2026-05-23
 update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
 ---

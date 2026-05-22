@@ -7,8 +7,13 @@ domain: art_tooling
 status: active
 source_of_truth: false
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 美术文档/03_AI生成与筛选规范.md
+  - 美术文档/05_AI图片网关接入方案.md
+  - 美术文档/02_资源规格与接入规范.md
+  - 美术文档/01_Manifest规范.md
+  - 美术文档/00_美术流水线总览.md
+  - 美术文档/README.md
+  - 美术文档/04_美术风格基准.md
 last_verified: 2026-05-23
 update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
 ---

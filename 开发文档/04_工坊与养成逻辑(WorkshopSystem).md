@@ -7,8 +7,11 @@ domain: workshop
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/数据与实体定义/05_经济与社会实体.md
+  - 数值模型设计/01_经济循环与通缩模型.md
+  - 配置表(JSON)/CraftingRecipes/README.md
+  - 设计文档/GDD_10_势力声望与订单系统.md
+  - 设计文档/GDD_04_小镇循环与经济物价波浪模型.md
 last_verified: 2026-05-23
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---

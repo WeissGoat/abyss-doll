@@ -7,8 +7,11 @@ domain: grid_inventory
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/数据与实体定义/03_物品与网格实体.md
+  - 数值模型设计/00_基准价值与空间本位模型.md
+  - 配置表(JSON)/Items/README.md
+  - 设计文档/GDD_01_背包战斗与局内网格机制.md
+  - 设计文档/GDD_06_物品系统与物品生命周期.md
 last_verified: 2026-05-23
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---

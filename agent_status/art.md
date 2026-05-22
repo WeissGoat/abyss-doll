@@ -7,7 +7,16 @@ domain: art_pipeline
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
+  - 版本规划/09_正式版核心纵切开发路线.md
+  - agent_status/README.md
+  - PROJECT_STATUS.md
+  - 开发文档/00_程序开发大纲.md
+  - 开发文档/14_Unity运行时美术自动验收方案.md
+  - 开发文档/09_视觉资源系统程序开发规范.md
+  - agent_status/program.md
+  - 设计文档/GDD_00_系统关联总图.md
+  - agent_status/design.md
+  - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/README.md
 last_verified: 2026-05-23
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。

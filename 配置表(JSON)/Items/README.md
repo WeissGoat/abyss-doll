@@ -7,8 +7,12 @@ domain: config_items
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/02_网格背包与计算系统(GridSystem).md
+  - 开发文档/数据与实体定义/03_物品与网格实体.md
+  - 数值模型设计/00_基准价值与空间本位模型.md
+  - 配置表(JSON)/README.md
+  - 设计文档/GDD_01_背包战斗与局内网格机制.md
+  - 设计文档/GDD_06_物品系统与物品生命周期.md
 last_verified: 2026-05-23
 update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
 ---

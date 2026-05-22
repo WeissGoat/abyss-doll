@@ -8,7 +8,9 @@ status: active
 source_of_truth: false
 related:
   - AGENTS.md
-  - PROJECT_STATUS.md
+  - agent_status/program.md
+  - agent_status/design.md
+  - agent_status/art.md
 last_verified: 2026-05-23
 update_rule: 新增或调整职能状态页时同步本文件。
 ---

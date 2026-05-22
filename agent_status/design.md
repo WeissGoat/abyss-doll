@@ -7,8 +7,16 @@ domain: design_balance
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
+  - 版本规划/09_正式版核心纵切开发路线.md
+  - agent_status/README.md
+  - PROJECT_STATUS.md
+  - 开发文档/00_程序开发大纲.md
+  - agent_status/program.md
+  - 数值模型设计/00_基准价值与空间本位模型.md
+  - 配置表(JSON)/README.md
   - 设计文档/GDD_00_系统关联总图.md
+  - 美术文档/10_正式版核心纵切美术路线.md
+  - agent_status/art.md
 last_verified: 2026-05-23
 update_rule: 策划、数值、GDD 或配置意图任务完成后更新本文件。
 ---

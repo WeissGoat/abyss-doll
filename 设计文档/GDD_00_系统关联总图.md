@@ -7,8 +7,27 @@ domain: system_overview
 status: active
 source_of_truth: true
 related:
+  - GEMINI.md
   - 版本规划/09_正式版核心纵切开发路线.md
   - 开发文档/00_程序开发大纲.md
+  - agent_status/program.md
+  - 数值模型设计/00_基准价值与空间本位模型.md
+  - 配置表(JSON)/README.md
+  - 设计文档/GDD_08_人偶养成子模块全案.md
+  - 设计文档/GDD_12_人偶交互管理器.md
+  - 设计文档/GDD_03_人偶实体对象与好感双轨机制.md
+  - 设计文档/GDD_11_人偶房间与视觉叙事系统.md
+  - 设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md
+  - 设计文档/GDD_10_势力声望与订单系统.md
+  - 设计文档/GDD_01_背包战斗与局内网格机制.md
+  - 设计文档/GDD_06_物品系统与物品生命周期.md
+  - 设计文档/GDD_05_剧本调度引擎与世界观封装逻辑.md
+  - 设计文档/GDD_09_标签与特质系统.md
+  - 设计文档/GDD_07_时间日程系统与AP行动点机制.md
+  - 设计文档/GDD_04_小镇循环与经济物价波浪模型.md
+  - agent_status/design.md
+  - 美术文档/10_正式版核心纵切美术路线.md
+  - agent_status/art.md
 last_verified: 2026-05-23
 update_rule: 修改系统关系、资源流向、循环健康度或系统优先级时同步本文件。
 ---

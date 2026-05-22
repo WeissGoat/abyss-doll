@@ -7,8 +7,15 @@ domain: dungeon_exploration
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/03_深渊与战斗循环(DungeonCombat).md
+  - 开发文档/数据与实体定义/04_深渊与战斗实体.md
+  - 开发文档/10_奖励与掉落系统(RewardSystem).md
+  - 数值模型设计/02_战斗伤害与生存公式.md
+  - 数值模型设计/03_深渊产出与掉落期望.md
+  - 配置表(JSON)/Dungeons/README.md
+  - 配置表(JSON)/Rewards/README.md
+  - 设计文档/GDD_01_背包战斗与局内网格机制.md
+  - 设计文档/GDD_00_系统关联总图.md
 last_verified: 2026-05-23
 update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
 ---

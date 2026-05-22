@@ -7,8 +7,8 @@ domain: mvp_art_archive
 status: historical
 source_of_truth: false
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 美术文档/07_MVP_UI重新设计同步.md
+  - 版本规划/01_MVP美术与UI需求清单.md
 last_verified: 2026-05-23
 update_rule: 历史记录仅在追溯或修正归档事实时更新。
 ---

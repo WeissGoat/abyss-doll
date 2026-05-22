@@ -7,8 +7,17 @@ domain: grid_inventory
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/03_深渊与战斗循环(DungeonCombat).md
+  - 开发文档/数据与实体定义/04_深渊与战斗实体.md
+  - 开发文档/02_网格背包与计算系统(GridSystem).md
+  - 开发文档/数据与实体定义/03_物品与网格实体.md
+  - 数值模型设计/02_战斗伤害与生存公式.md
+  - 数值模型设计/00_基准价值与空间本位模型.md
+  - 配置表(JSON)/Dungeons/README.md
+  - 配置表(JSON)/Items/README.md
+  - 设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md
+  - 设计文档/GDD_06_物品系统与物品生命周期.md
+  - 设计文档/GDD_00_系统关联总图.md
 last_verified: 2026-05-23
 update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
 ---

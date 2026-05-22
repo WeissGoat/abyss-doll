@@ -7,8 +7,9 @@ domain: monster_ai
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 开发文档/03_深渊与战斗循环(DungeonCombat).md
+  - 数值模型设计/02_战斗伤害与生存公式.md
+  - 配置表(JSON)/Monsters/README.md
 last_verified: 2026-05-23
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---

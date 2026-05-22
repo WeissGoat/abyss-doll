@@ -8,8 +8,12 @@ status: active
 source_of_truth: true
 related:
   - AGENTS.md
-  - PROJECT_STATUS.md
   - 版本规划/09_正式版核心纵切开发路线.md
+  - PROJECT_STATUS.md
+  - 知识库/README.md
+  - 开发文档/00_程序开发大纲.md
+  - 设计文档/GDD_00_系统关联总图.md
+  - 美术文档/README.md
 last_verified: 2026-05-23
 update_rule: 项目阶段、核心目录、AI 路由或工作准则变化时同步本文件。
 ---

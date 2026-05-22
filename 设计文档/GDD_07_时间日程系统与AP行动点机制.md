@@ -7,8 +7,10 @@ domain: time_schedule
 status: active
 source_of_truth: true
 related:
-  - AGENTS.md
-  - PROJECT_STATUS.md
+  - 设计文档/GDD_03_人偶实体对象与好感双轨机制.md
+  - 设计文档/GDD_11_人偶房间与视觉叙事系统.md
+  - 设计文档/GDD_05_剧本调度引擎与世界观封装逻辑.md
+  - 设计文档/GDD_00_系统关联总图.md
 last_verified: 2026-05-23
 update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
 ---

@@ -7,9 +7,14 @@ domain: art_pipeline
 status: active
 source_of_truth: true
 related:
-  - 美术文档/00_美术流水线总览.md
-  - 美术文档/10_正式版核心纵切美术路线.md
+  - GEMINI.md
+  - 开发文档/14_Unity运行时美术自动验收方案.md
   - 开发文档/09_视觉资源系统程序开发规范.md
+  - 美术文档/10_正式版核心纵切美术路线.md
+  - 美术文档/00_美术流水线总览.md
+  - 美术文档/ui_design/README.md
+  - agent_status/art.md
+  - tools/美术工具/README.md
 last_verified: 2026-05-23
 update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。
 ---
