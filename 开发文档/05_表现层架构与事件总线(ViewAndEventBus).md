@@ -133,6 +133,24 @@ private void OnGoldChanged(OnGoldChangedEvent e) {
 * `OnDungeonRunStartedEvent`：从小镇正式开始一轮探索时广播，携带 `StartLayerID`，用于关闭小镇界面并打开深渊地图。
 * `OnDungeonStartLayerRejectedEvent`：可选事件；当 UI 请求非法层时，用于显示失败原因。MVP 也可以直接用 `bool` 返回值和日志处理。
 
+### E. 背包表现控制器边界
+
+背包网格是高频交互系统，表现层必须有独立边界，不能继续把显示、同步、层级和丢弃表现堆在 `GameFlowController`。
+
+当前统一入口：
+
+* `InventoryInteractionService`：负责拿起、放置、旋转、恢复、暂存丢弃等背包规则请求。
+* `InventoryPresentationController`：负责背包 UI 显示/隐藏、格子布局、物品 UI 同步、`InventoryItemLayer`、底盘面板和暂存丢弃 UI 清理。
+* `DraggableItemUI` / `GridSlotUI`：只采集输入和展示反馈，真实规则必须调用 `InventoryInteractionService`。
+* `GameFlowController`：只传入当前屏幕上下文，例如 Workshop、DungeonMap、Combat、CombatLoot、SafeRoom、Stairs。
+
+协作边界：
+
+* 功能开发 agent 修改背包规则时，优先改 `InventoryInteractionService`、`BackpackGrid`、测试和配置校验。
+* UI/美术接入 agent 修改背包显示时，优先改 `InventoryPresentationController`、Prefab、VisualID 和 UGUI 层级。
+* 不允许 UI/美术接入为了摆放或拖拽效果直接修改 `BackpackGrid` 真实状态。
+* 不允许功能开发为了快速显示结果把物品 UI 生成逻辑塞回 `GameFlowController`。
+
 ## 3. 解决“时间的流逝”：表现队列 (Visual Queue)
 
 由于后端的战斗结算（比如一刀砍死怪物）在毫秒内瞬间完成，而前端播放动画需要时间。必须引入 **“表现队列 (Command Pattern)”** 来防止数据错乱或动画鬼畜。

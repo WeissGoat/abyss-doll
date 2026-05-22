@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,11 +30,7 @@ public class GameFlowController : MonoBehaviour {
     private CombatLootPickupResult _pendingCombatLootResult;
     private DungeonSettlementResult _pendingSettlementResult;
     private bool _isDungeonMapInventoryOpen;
-    private Coroutine _deferredInventorySyncRoutine;
-    private Image _inventoryChassisPanel;
-
-    private const float InventoryCellSize = 100f;
-    private const float InventoryCellSpacing = 5f;
+    private InventoryPresentationController _inventoryPresentation;
 
     void Awake() {
         Instance = this;
@@ -62,7 +57,7 @@ public class GameFlowController : MonoBehaviour {
             GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid = new BackpackGrid(myChassis);
         }
         FindObjectOfType<GridGenerator>().GenerateGrid(myChassis);
-        EnsureInventoryItemLayer();
+        EnsureInventoryPresentation();
         EnsureCombatLootPanel();
         EnsureSettlementPanel();
 
@@ -71,9 +66,6 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnCombatLootPrepared += HandleCombatLootPrepared;
         DungeonEventBus.OnDungeonSettled += HandleDungeonSettled;
         DungeonEventBus.OnDungeonSettlementPrepared += HandleDungeonSettlementPrepared;
-        GameEventBus.OnItemPlaced += HandleItemPlaced;
-        GameEventBus.OnItemRemoved += HandleItemRemoved;
-
         // 当进入具体的 Node 时切界面
         DungeonEventBus.OnNodeEntered += HandleNodeEntered;
         DungeonEventBus.OnSafeRoomEntered += HandleSafeRoomEntered;
@@ -128,13 +120,32 @@ public class GameFlowController : MonoBehaviour {
     }
 
     public bool CanStageRemovedBackpackItems() {
-        return (_currentScreen == GameScreenState.DungeonMap && _isDungeonMapInventoryOpen)
-            || _currentScreen == GameScreenState.CombatLoot;
+        EnsureInventoryPresentation();
+        return _inventoryPresentation != null
+            ? _inventoryPresentation.CanStageDiscard
+            : (_currentScreen == GameScreenState.DungeonMap && _isDungeonMapInventoryOpen)
+                || _currentScreen == GameScreenState.CombatLoot;
     }
 
     public Transform GetInventoryItemLayer() {
-        EnsureInventoryItemLayer();
+        EnsureInventoryPresentation();
+        inventoryItemLayer = _inventoryPresentation != null ? _inventoryPresentation.GetItemLayer() : inventoryItemLayer;
         return inventoryItemLayer;
+    }
+
+    private void EnsureInventoryPresentation() {
+        if (_inventoryPresentation == null) {
+            _inventoryPresentation = FindObjectOfType<InventoryPresentationController>();
+        }
+
+        if (_inventoryPresentation == null) {
+            _inventoryPresentation = gameObject.AddComponent<InventoryPresentationController>();
+        }
+
+        _inventoryPresentation.ItemPresentationChanged -= HandleInventoryPresentationChanged;
+        _inventoryPresentation.ItemPresentationChanged += HandleInventoryPresentationChanged;
+        _inventoryPresentation.Configure(testItemPrefab, inventoryItemLayer);
+        inventoryItemLayer = _inventoryPresentation.GetItemLayer();
     }
 
     private void HandleDungeonSettled(bool isVictory) {
@@ -170,42 +181,7 @@ public class GameFlowController : MonoBehaviour {
         EnterStairs(node);
     }
 
-    private void HandleItemPlaced(string itemInstanceID, int x, int y) {
-        if (string.IsNullOrEmpty(itemInstanceID)) {
-            return;
-        }
-
-        if (TryFindItemUI(itemInstanceID, out _)) {
-            return;
-        }
-
-        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
-        if (grid == null) {
-            return;
-        }
-
-        ItemEntity placedItem = grid.GetItemAt(x, y);
-        if (placedItem == null || placedItem.InstanceID != itemInstanceID) {
-            placedItem = grid.ContainedItems.Find(item => item != null && item.InstanceID == itemInstanceID);
-        }
-
-        if (placedItem == null || testItemPrefab == null) {
-            return;
-        }
-
-        SpawnItemUIForGridItem(placedItem, x, y);
-        RefreshSafeRoomItemHintsIfNeeded();
-    }
-
-    private void HandleItemRemoved(string itemInstanceID) {
-        if (string.IsNullOrEmpty(itemInstanceID)) {
-            return;
-        }
-
-        if (TryFindItemUI(itemInstanceID, out var existingUI) && existingUI != null && !existingUI.IsDragging()) {
-            Destroy(existingUI.gameObject);
-        }
-
+    private void HandleInventoryPresentationChanged() {
         RefreshSafeRoomItemHintsIfNeeded();
     }
 
@@ -414,73 +390,13 @@ public class GameFlowController : MonoBehaviour {
     }
 
     private void SyncInventoryItemUI() {
-        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
-        GridGenerator generator = FindObjectOfType<GridGenerator>();
-        if (grid == null || generator == null || testItemPrefab == null) {
-            return;
-        }
-
-        EnsureInventoryGridGenerated(generator);
-        RemoveStaleInventoryItemUI(grid);
-
-        foreach (ItemEntity item in grid.ContainedItems) {
-            if (item?.Grid?.CurrentPos == null || item.Grid.CurrentPos.Length < 2) {
-                continue;
-            }
-
-            if (TryFindItemUI(item.InstanceID, out var existingUI)) {
-                Transform slot = generator.GetSlot(item.Grid.CurrentPos[0], item.Grid.CurrentPos[1]);
-                if (slot != null) {
-                    existingUI.SnapToSlot(slot, item.Grid.CurrentPos[0], item.Grid.CurrentPos[1]);
-                }
-                continue;
-            }
-
-            SpawnItemUIForGridItem(item, item.Grid.CurrentPos[0], item.Grid.CurrentPos[1]);
-        }
+        EnsureInventoryPresentation();
+        _inventoryPresentation?.SyncNow();
     }
 
     private void QueueDeferredInventorySync() {
-        if (_deferredInventorySyncRoutine != null) {
-            StopCoroutine(_deferredInventorySyncRoutine);
-        }
-
-        _deferredInventorySyncRoutine = StartCoroutine(DeferredInventorySyncRoutine());
-    }
-
-    private IEnumerator DeferredInventorySyncRoutine() {
-        yield return null;
-
-        Canvas.ForceUpdateCanvases();
-        SyncInventoryItemUI();
-        _deferredInventorySyncRoutine = null;
-    }
-
-    private void SpawnItemUIForGridItem(ItemEntity item, int x, int y) {
-        if (item == null || testItemPrefab == null) {
-            return;
-        }
-
-        GridGenerator generator = FindObjectOfType<GridGenerator>();
-        Transform itemLayer = GetInventoryItemLayer();
-        if (itemLayer == null || generator == null) {
-            return;
-        }
-
-        Transform targetSlot = generator.GetSlot(x, y);
-        if (targetSlot == null) {
-            return;
-        }
-
-        GameObject itemGo = Instantiate(testItemPrefab, itemLayer);
-        DraggableItemUI itemUI = itemGo.GetComponent<DraggableItemUI>();
-        if (itemUI == null) {
-            return;
-        }
-
-        itemUI.SetupData(item);
-        itemUI.SnapToSlot(targetSlot, x, y);
-        Debug.Log($"[GameFlow] Spawned UI for item {item.Name} at ({x},{y})");
+        EnsureInventoryPresentation();
+        _inventoryPresentation?.QueueDeferredSync();
     }
 
     private void SetDungeonMapInventoryOpen(bool isOpen, bool discardDetachedItems, bool refreshMapControls = true) {
@@ -509,269 +425,33 @@ public class GameFlowController : MonoBehaviour {
     }
 
     private void ApplyInventoryPresentationForCurrentScreen() {
-        bool shouldShowBackpack = _currentScreen == GameScreenState.Workshop
-            || _currentScreen == GameScreenState.Combat
-            || _currentScreen == GameScreenState.CombatLoot
-            || _currentScreen == GameScreenState.SafeRoom
-            || _currentScreen == GameScreenState.Stairs
-            || (_currentScreen == GameScreenState.DungeonMap && _isDungeonMapInventoryOpen);
-
-        GridGenerator generator = FindObjectOfType<GridGenerator>();
-        if (generator?.gridParent != null) {
-            EnsureInventoryGridGenerated(generator);
-            generator.gridParent.gameObject.SetActive(shouldShowBackpack);
-            ApplyInventoryGridLayout(generator);
-        }
-
-        if (!shouldShowBackpack && _inventoryChassisPanel != null) {
-            _inventoryChassisPanel.gameObject.SetActive(false);
-        }
-
-        EnsureInventoryItemLayer();
-        if (inventoryItemLayer != null) {
-            CanvasGroup canvasGroup = inventoryItemLayer.GetComponent<CanvasGroup>();
-            if (canvasGroup == null) {
-                canvasGroup = inventoryItemLayer.gameObject.AddComponent<CanvasGroup>();
-            }
-
-            canvasGroup.alpha = shouldShowBackpack ? 1f : 0f;
-            canvasGroup.interactable = shouldShowBackpack;
-            canvasGroup.blocksRaycasts = shouldShowBackpack;
-        }
-
-        if (shouldShowBackpack) {
-            PositionInventoryForCurrentScreen(generator);
-            BringInventoryLayersToFront(generator);
-        }
+        EnsureInventoryPresentation();
+        _inventoryPresentation?.SetContext(ResolveInventoryPresentationMode(), _isDungeonMapInventoryOpen);
+        inventoryItemLayer = _inventoryPresentation != null ? _inventoryPresentation.GetItemLayer() : inventoryItemLayer;
     }
 
-    private void ApplyInventoryGridLayout(GridGenerator generator) {
-        if (generator?.gridParent == null) {
-            return;
-        }
-
-        GridLayoutGroup layoutGroup = generator.gridParent.GetComponent<GridLayoutGroup>();
-        if (layoutGroup != null) {
-            layoutGroup.cellSize = new Vector2(InventoryCellSize, InventoryCellSize);
-            layoutGroup.spacing = new Vector2(InventoryCellSpacing, InventoryCellSpacing);
-            layoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-        }
-
-        RectTransform gridRect = generator.gridParent as RectTransform;
-        RectTransform layerRect = inventoryItemLayer as RectTransform;
-        if (gridRect != null && layerRect != null) {
-            layerRect.anchorMin = gridRect.anchorMin;
-            layerRect.anchorMax = gridRect.anchorMax;
-            layerRect.pivot = gridRect.pivot;
-            layerRect.anchoredPosition = gridRect.anchoredPosition;
-            layerRect.sizeDelta = gridRect.sizeDelta;
-            layerRect.localScale = gridRect.localScale;
-        }
-    }
-
-    private void EnsureInventoryGridGenerated(GridGenerator generator) {
-        if (generator?.gridParent == null || generator.gridParent.childCount > 0) {
-            return;
-        }
-
-        ChassisComponent chassis = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.Chassis;
-        if (chassis == null) {
-            return;
-        }
-
-        generator.GenerateGrid(chassis);
-    }
-
-    private void PositionInventoryForCurrentScreen(GridGenerator generator) {
-        if (generator?.gridParent == null) {
-            return;
-        }
-
-        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
-        Vector2 gridSize = ResolveInventoryGridSize(grid);
-        Vector2 position = ResolveInventoryAnchoredPosition();
-        float inventoryScale = ResolveInventoryScaleForCurrentScreen();
-
-        RectTransform gridRect = generator.gridParent as RectTransform;
-        if (gridRect != null) {
-            gridRect.anchorMin = new Vector2(0.5f, 0.5f);
-            gridRect.anchorMax = new Vector2(0.5f, 0.5f);
-            gridRect.pivot = new Vector2(0.5f, 0.5f);
-            gridRect.anchoredPosition = position;
-            gridRect.sizeDelta = gridSize;
-            gridRect.localScale = Vector3.one * inventoryScale;
-        }
-
-        EnsureInventoryChassisPanel(generator, gridSize, position);
-
-        RectTransform layerRect = inventoryItemLayer as RectTransform;
-        if (layerRect != null && gridRect != null) {
-            layerRect.anchorMin = gridRect.anchorMin;
-            layerRect.anchorMax = gridRect.anchorMax;
-            layerRect.pivot = gridRect.pivot;
-            layerRect.anchoredPosition = gridRect.anchoredPosition;
-            layerRect.sizeDelta = gridRect.sizeDelta;
-            layerRect.localScale = gridRect.localScale;
-        }
-    }
-
-    private Vector2 ResolveInventoryGridSize(BackpackGrid grid) {
-        int width = Mathf.Max(1, grid?.Width ?? 4);
-        int height = Mathf.Max(1, grid?.Height ?? 4);
-        return new Vector2(
-            width * InventoryCellSize + (width - 1) * InventoryCellSpacing,
-            height * InventoryCellSize + (height - 1) * InventoryCellSpacing);
-    }
-
-    private Vector2 ResolveInventoryAnchoredPosition() {
+    private InventoryPresentationMode ResolveInventoryPresentationMode() {
         switch (_currentScreen) {
             case GameScreenState.Workshop:
-                return new Vector2(0f, -220f);
-            case GameScreenState.Combat:
-                return new Vector2(540f, -230f);
-            case GameScreenState.CombatLoot:
-                return new Vector2(-460f, -20f);
-            case GameScreenState.SafeRoom:
-            case GameScreenState.Stairs:
-                return new Vector2(500f, -150f);
+                return InventoryPresentationMode.Workshop;
             case GameScreenState.DungeonMap:
-                return new Vector2(0f, -250f);
-            default:
-                return Vector2.zero;
-        }
-    }
-
-    private float ResolveInventoryScaleForCurrentScreen() {
-        switch (_currentScreen) {
+                return InventoryPresentationMode.DungeonMap;
+            case GameScreenState.Combat:
+                return InventoryPresentationMode.Combat;
+            case GameScreenState.CombatLoot:
+                return InventoryPresentationMode.CombatLoot;
             case GameScreenState.SafeRoom:
+                return InventoryPresentationMode.SafeRoom;
             case GameScreenState.Stairs:
-                return 0.78f;
+                return InventoryPresentationMode.Stairs;
             default:
-                return 1f;
-        }
-    }
-
-    private void EnsureInventoryChassisPanel(GridGenerator generator, Vector2 gridSize, Vector2 position) {
-        Canvas canvas = FindObjectOfType<Canvas>();
-        if (canvas == null || generator?.gridParent == null) {
-            return;
-        }
-
-        if (_inventoryChassisPanel == null) {
-            Transform existing = canvas.transform.Find("InventoryChassisPanel");
-            if (existing != null) {
-                _inventoryChassisPanel = existing.GetComponent<Image>();
-            }
-        }
-
-        if (_inventoryChassisPanel == null) {
-            GameObject panelObj = new GameObject("InventoryChassisPanel");
-            panelObj.transform.SetParent(canvas.transform, false);
-            _inventoryChassisPanel = panelObj.AddComponent<Image>();
-        }
-
-        RectTransform panelRect = _inventoryChassisPanel.rectTransform;
-        panelRect.anchorMin = new Vector2(0.5f, 0.5f);
-        panelRect.anchorMax = new Vector2(0.5f, 0.5f);
-        panelRect.pivot = new Vector2(0.5f, 0.5f);
-        panelRect.anchoredPosition = position;
-        panelRect.sizeDelta = gridSize + new Vector2(52f, 52f);
-        panelRect.localScale = Vector3.one * ResolveInventoryScaleForCurrentScreen();
-
-        VisualUIHelper.ApplyContainSprite(
-            _inventoryChassisPanel,
-            VisualAssetService.UIInventoryChassisPanelID,
-            panelRect.sizeDelta,
-            Color.white,
-            new Color(0.08f, 0.075f, 0.065f, 0.9f),
-            false);
-
-        _inventoryChassisPanel.gameObject.SetActive(generator.gridParent.gameObject.activeSelf);
-        _inventoryChassisPanel.transform.SetSiblingIndex(Mathf.Max(0, generator.gridParent.GetSiblingIndex()));
-    }
-
-    private void BringInventoryLayersToFront(GridGenerator generator) {
-        if (_inventoryChassisPanel != null && generator?.gridParent != null) {
-            _inventoryChassisPanel.transform.SetSiblingIndex(Mathf.Max(0, generator.gridParent.GetSiblingIndex()));
-        }
-
-        if (generator?.gridParent != null) {
-            generator.gridParent.SetAsLastSibling();
-        }
-
-        if (inventoryItemLayer != null) {
-            inventoryItemLayer.SetAsLastSibling();
+                return InventoryPresentationMode.Hidden;
         }
     }
 
     private void DiscardDetachedBackpackItems() {
-        int discardedCount = 0;
-        foreach (var itemUI in FindObjectsOfType<DraggableItemUI>()) {
-            if (itemUI != null && itemUI.IsPendingDiscard) {
-                discardedCount++;
-                DestroyRuntimeObject(itemUI.gameObject);
-            }
-        }
-
-        if (discardedCount > 0) {
-            Debug.Log($"[GameFlow] 丢弃了 {discardedCount} 件从局内背包移除的物品。");
-        }
-    }
-
-    private void DestroyRuntimeObject(GameObject target) {
-        if (target == null) {
-            return;
-        }
-
-        if (Application.isPlaying) {
-            Destroy(target);
-        } else {
-            DestroyImmediate(target);
-        }
-    }
-
-    private bool TryFindItemUI(string itemInstanceID, out DraggableItemUI foundItemUI) {
-        foundItemUI = null;
-        if (string.IsNullOrEmpty(itemInstanceID)) {
-            return false;
-        }
-
-        foreach (var itemUI in FindObjectsOfType<DraggableItemUI>()) {
-            if (itemUI != null && itemUI.ItemData != null && itemUI.ItemData.InstanceID == itemInstanceID) {
-                foundItemUI = itemUI;
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private void EnsureInventoryItemLayer() {
-        if (inventoryItemLayer != null) {
-            return;
-        }
-
-        Canvas canvas = FindObjectOfType<Canvas>();
-        if (canvas == null) {
-            return;
-        }
-
-        Transform existingLayer = canvas.transform.Find("InventoryItemLayer");
-        if (existingLayer != null) {
-            inventoryItemLayer = existingLayer;
-        } else {
-            GameObject layer = new GameObject("InventoryItemLayer");
-            layer.transform.SetParent(canvas.transform, false);
-            RectTransform layerRect = layer.AddComponent<RectTransform>();
-            layerRect.anchorMin = Vector2.zero;
-            layerRect.anchorMax = Vector2.one;
-            layerRect.sizeDelta = Vector2.zero;
-            inventoryItemLayer = layer.transform;
-        }
-
-        if (inventoryItemLayer.GetComponent<CanvasGroup>() == null) {
-            inventoryItemLayer.gameObject.AddComponent<CanvasGroup>();
-        }
+        EnsureInventoryPresentation();
+        _inventoryPresentation?.DiscardDetachedItems();
     }
 
     private void EnsureCombatLootPanel() {
@@ -806,7 +486,11 @@ public class GameFlowController : MonoBehaviour {
         combatLootPanel.SetActive(false);
 
         Image bg = combatLootPanel.AddComponent<Image>();
-        bg.color = new Color(0.08f, 0.08f, 0.08f, 0.82f);
+        VisualUIHelper.ApplyCoverSprite(
+            bg,
+            VisualAssetService.CombatBackgroundID,
+            new Color(0.42f, 0.38f, 0.32f, 0.96f),
+            new Color(0.012f, 0.014f, 0.013f, 0.96f));
         bg.raycastTarget = false;
 
         CombatLootUIController lootCtrl = combatLootPanel.AddComponent<CombatLootUIController>();
@@ -855,9 +539,9 @@ public class GameFlowController : MonoBehaviour {
 
         GameObject continueObj = new GameObject("Continue_Button");
         continueObj.transform.SetParent(combatLootPanel.transform, false);
-        Image continueImg = continueObj.AddComponent<Image>();
-        continueImg.color = new Color(0.9f, 0.58f, 0.18f);
+        continueObj.AddComponent<Image>();
         Button continueBtn = continueObj.AddComponent<Button>();
+        VisualUIHelper.ApplyButtonSkin(continueBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.9f, 0.58f, 0.18f));
         RectTransform continueRect = continueObj.GetComponent<RectTransform>();
         continueRect.anchorMin = new Vector2(0.5f, 0f);
         continueRect.anchorMax = new Vector2(0.5f, 0f);
@@ -908,22 +592,6 @@ public class GameFlowController : MonoBehaviour {
         var safeRoomCtrl = safeRoomPanel?.GetComponent<SafeRoomUIController>();
         if (safeRoomCtrl != null) {
             safeRoomCtrl.RefreshItemHints();
-        }
-    }
-
-    private void RemoveStaleInventoryItemUI(BackpackGrid grid) {
-        foreach (var itemUI in FindObjectsOfType<DraggableItemUI>()) {
-            if (itemUI == null || itemUI.ItemData == null || itemUI.IsPendingDiscard) {
-                continue;
-            }
-
-            if (inventoryItemLayer != null && itemUI.transform.parent != inventoryItemLayer) {
-                continue;
-            }
-
-            if (!grid.ContainedItems.Contains(itemUI.ItemData)) {
-                Destroy(itemUI.gameObject);
-            }
         }
     }
 
@@ -1042,9 +710,8 @@ public class GameFlowController : MonoBehaviour {
     }
 
     void OnDestroy() {
-        if (_deferredInventorySyncRoutine != null) {
-            StopCoroutine(_deferredInventorySyncRoutine);
-            _deferredInventorySyncRoutine = null;
+        if (_inventoryPresentation != null) {
+            _inventoryPresentation.ItemPresentationChanged -= HandleInventoryPresentationChanged;
         }
 
         DungeonEventBus.OnDungeonSettled -= HandleDungeonSettled;
@@ -1055,7 +722,5 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnNodeEntered -= HandleNodeEntered;
         DungeonEventBus.OnSafeRoomEntered -= HandleSafeRoomEntered;
         DungeonEventBus.OnStairsEntered -= HandleStairsEntered;
-        GameEventBus.OnItemPlaced -= HandleItemPlaced;
-        GameEventBus.OnItemRemoved -= HandleItemRemoved;
     }
 }

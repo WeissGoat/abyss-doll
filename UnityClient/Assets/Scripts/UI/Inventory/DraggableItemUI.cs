@@ -301,7 +301,7 @@ public void OnEndDrag(PointerEventData eventData) {
     // 如果拖拽结束后，物品没有在后端的网格里（说明它被扔在了空地，或者放置失败了）
     BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
     if (grid == null || !grid.ContainedItems.Contains(ItemData)) {
-        bool allowStageDiscard = GameFlowController.Instance != null && GameFlowController.Instance.CanStageRemovedBackpackItems();
+        bool allowStageDiscard = CanStageDiscard();
         InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("DragEnd", allowStageDiscard);
         if (_wasInGrid && InventoryInteractionService.RequestStageDiscard(ItemData, context, out _)) {
             LeaveDetachedAtCurrentPosition();
@@ -312,7 +312,7 @@ public void OnEndDrag(PointerEventData eventData) {
 }
 
     public void SnapToSlot(Transform newParentSlot, int gridX, int gridY) {
-        Transform itemLayer = GameFlowController.Instance != null ? GameFlowController.Instance.GetInventoryItemLayer() : null;
+        Transform itemLayer = ResolveInventoryItemLayer();
         if (itemLayer != null) {
             transform.SetParent(itemLayer);
         } else {
@@ -370,7 +370,7 @@ public void OnEndDrag(PointerEventData eventData) {
 
     private void LeaveDetachedAtCurrentPosition() {
         _isDragging = false;
-        Transform itemLayer = GameFlowController.Instance != null ? GameFlowController.Instance.GetInventoryItemLayer() : null;
+        Transform itemLayer = ResolveInventoryItemLayer();
         if (itemLayer != null) {
             transform.SetParent(itemLayer);
         }
@@ -380,6 +380,22 @@ public void OnEndDrag(PointerEventData eventData) {
         _originalPosition = transform.position;
         IsPendingDiscard = true;
         Debug.Log($"[UI] 物品 {ItemData.Name} 已从背包中取出，关闭背包时将被丢弃。");
+    }
+
+    private bool CanStageDiscard() {
+        if (InventoryPresentationController.Active != null) {
+            return InventoryPresentationController.Active.CanStageDiscard;
+        }
+
+        return GameFlowController.Instance != null && GameFlowController.Instance.CanStageRemovedBackpackItems();
+    }
+
+    private Transform ResolveInventoryItemLayer() {
+        if (InventoryPresentationController.Active != null) {
+            return InventoryPresentationController.Active.GetItemLayer();
+        }
+
+        return GameFlowController.Instance != null ? GameFlowController.Instance.GetInventoryItemLayer() : null;
     }
 
     private void RestoreDragStartRotationIfNeeded() {
