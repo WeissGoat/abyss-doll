@@ -1,3 +1,18 @@
+---
+id: config_effects_readme
+title: 效果配置字典说明 (EffectEnums Config)
+type: config
+role: 策划
+domain: config_effects
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
+---
+
 # 效果配置字典说明 (EffectEnums Config)
 
 > 位于本目录下的 `EffectEnums.json` 文件是整个游戏“底层行为逻辑”的数据字典大全。

@@ -1,3 +1,18 @@
+---
+id: gdd_04_town_economy_price_wave
+title: 详案_04：小镇循环与经济物价波浪模型 (GDD_04)
+type: gdd
+role: 策划
+domain: town_economy
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
+---
+
 # 详案_04：小镇循环与经济物价波浪模型 (GDD_04)
 
 > **定位说明：** 游戏的外围压迫器与驱动引擎。详细设计金币如何产生、如何消耗，以及资本是如何逼迫手无寸铁的魔偶再次跳下深渊的。

@@ -1,0 +1,204 @@
+---
+id: art_alpha_p0_ui_skeleton_handoff
+title: Alpha P0 UI 骨架接入交付
+type: art
+role: 美术
+domain: ui_handoff
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
+---
+
+# Alpha P0 UI 骨架接入交付
+
+> **更新时间：** 2026-05-22
+> **定位：** 给程序侧接入正式版核心纵切 Alpha 的 P0 UI 骨架。本文只定义本轮可执行交付，完整规格以 `美术文档/ui_design/screen_layouts.json` 和 `美术文档/ui_design/_generated/ui_design_handoff.md` 为准。
+
+---
+
+## 1. 本轮交付范围
+
+本轮只推进三个 P0 界面：
+
+| ScreenID | 状态 | 目标 |
+|---|---|---|
+| `workshop_main` | `handoff` | 局外主界面正式骨架，承载工坊入口、金币/状态、魔偶展示和背包预览。 |
+| `combat_hud` | `handoff` | 战斗正式 HUD 骨架，承载敌人、玩家状态、AP、行动按钮和战斗背包。 |
+| `inventory_loot` | `handoff` | 战利品拾取正式骨架，承载左侧背包、右侧战利品、详情和确认流程。 |
+
+本轮不要求补完所有动画、VFX、最终字体样式和最终高品质美术细节。要求是：UI 结构、组件使用、射线层级、VisualID 接入和运行时截图验收达到正式版骨架标准。
+
+---
+
+## 2. 通用接入规则
+
+1. 背包玩法格仍固定为 `100x100`，格间距为 `5`。不要为了视觉缩放改动 `DraggableItemUI`、`GridSlotUI` 或后端占格逻辑。
+2. 背景、面板底纹、装饰边框、标题分隔、状态条底图默认 `raycastTarget=false`。
+3. 按钮、背包格、物品图标、敌人卡片保留必要 `raycastTarget=true`。
+4. 文字、数值、价格、物品名、按钮文案继续由 Unity Text 渲染，不烘焙进 Sprite。
+5. 九宫格组件使用 `Image.Type=Sliced`；背景使用 `Simple + cover`；图标和固定格子使用 `Simple/contain`。
+6. 接入时优先复用现有 Controller 字段和对象，不新建平行玩法逻辑。
+
+---
+
+## 3. 工坊主界面
+
+规格来源：
+
+```text
+美术文档/ui_design/screen_layouts.json -> workshop_main
+美术文档/ui_design/_generated/ui_design_handoff.md -> 工坊主界面
+```
+
+必须接入的核心 VisualID：
+
+```text
+bg_workshop_day
+doll_proto_0_stand
+ui_panel_info
+ui_button_primary
+ui_button_secondary
+ui_inventory_chassis_panel
+ui_inventory_slot_available
+ui_icon_money
+```
+
+程序侧重点：
+
+* `backgroundImage` 使用 `bg_workshop_day`。
+* `departBtn` 使用 `ui_button_primary`。
+* `upgradeBtn`、`openSellPanelBtn`、`openProstheticPanelBtn` 使用 `ui_button_secondary`。
+* 全局背包对象可锚到 `inventory_preview` 区域展示；不要复制第二套可交互背包数据。
+* 魔偶展示容器使用 `doll_proto_0_stand`，不阻挡按钮和背包射线。
+
+验收标准：
+
+* `left_action_panel`、`doll_display`、`inventory_preview` 互不重叠。
+* 金币、天数、底盘信息可读，且由 Unity Text 渲染。
+* 背景、立绘和装饰面板不拦截按钮、格子或物品拖拽。
+
+---
+
+## 4. 战斗界面
+
+规格来源：
+
+```text
+美术文档/ui_design/screen_layouts.json -> combat_hud
+美术文档/ui_design/_generated/ui_design_handoff.md -> 战斗界面
+```
+
+必须接入的核心 VisualID：
+
+```text
+bg_combat_abyss
+ui_combat_turn_banner
+ui_combat_enemy_card
+ui_combat_enemy_card_selected
+ui_combat_status_bar_hp
+ui_combat_status_bar_shield
+ui_combat_ap_pip
+ui_inventory_chassis_panel
+ui_inventory_slot_available
+ui_button_primary
+ui_button_secondary
+```
+
+程序侧重点：
+
+* `HUDController.backgroundImage` 使用 `bg_combat_abyss`。
+* 敌人卡片容器锚到 `enemy_cards` 区域，卡片框使用 `ui_combat_enemy_card`，选中态切换 `ui_combat_enemy_card_selected`。
+* 玩家状态从纯文字块拆出 HP/护盾状态条和 AP pip 视觉承托；数值仍由程序 Text 或填充层控制。
+* 战斗背包锚到 `combat_inventory`，保持现有拖拽、点击和使用逻辑。
+* `endTurnBtn` 使用 `ui_button_primary`，其他次级行动按钮使用 `ui_button_secondary`。
+
+验收标准：
+
+* `enemy_cards`、`combat_inventory`、`action_bar` 互不重叠。
+* 敌人卡片可点击区域仍覆盖卡框主体，装饰图不拦截点击。
+* HP/护盾变化由程序填充层表现，Sprite 不包含固定数值。
+* AP pip 数量随程序状态变化。
+* 背包交互不因 UI 皮肤改变而失效。
+
+---
+
+## 5. 战利品拾取界面
+
+规格来源：
+
+```text
+美术文档/ui_design/screen_layouts.json -> inventory_loot
+美术文档/ui_design/_generated/ui_design_handoff.md -> 背包与战利品拾取界面
+```
+
+必须接入的核心 VisualID：
+
+```text
+bg_combat_abyss
+ui_loot_pickup_panel
+ui_loot_drop_zone
+ui_inventory_chassis_panel
+ui_inventory_slot_available
+ui_inventory_slot_locked
+ui_inventory_slot_hover
+ui_inventory_slot_valid
+ui_inventory_slot_invalid
+ui_panel_info
+ui_button_primary
+ui_button_secondary
+ui_button_danger
+```
+
+程序侧重点：
+
+* 全屏底层使用 `bg_combat_abyss` 或等价暗化战斗背景，不再拉伸 `ui_panel_info` 作为整屏底。
+* 主容器使用 `ui_loot_pickup_panel`。
+* 战利品区域使用 `ui_loot_drop_zone`。
+* 详情面板使用 `ui_panel_info`。
+* 背包格按拖拽状态切换 `available/locked/hover/valid/invalid` 对应 Sprite。
+* `continueBtn` 使用 `ui_button_primary`；丢弃或放弃类按钮使用 `ui_button_danger`。
+
+验收标准：
+
+* 战利品图标可以从 `loot_drop_zone` 拖入 `inventory_grid`。
+* 合法/非法格状态能正确变化。
+* `PickupPanel`、`LootDropZone`、`ItemDetailPanel` 不阻挡格子、物品和按钮射线。
+* 背包格实际显示尺寸为 `100x100`。
+* 未拾取物品的清理规则不被 UI 皮肤改变。
+
+---
+
+## 6. 接入完成后的美术验收
+
+程序侧接入后，美术侧会触发运行时验收：
+
+```powershell
+Set-Content -LiteralPath UnityClient\Logs\.art_acceptance_trigger -Value RUN_ART_ACCEPTANCE
+```
+
+美术侧检查：
+
+```text
+UnityClient/Logs/ArtAcceptance/latest/report.json
+UnityClient/Logs/ArtAcceptance/latest/ui_snapshot.json
+UnityClient/Logs/ArtAcceptance/latest/registry_snapshot.json
+UnityClient/Logs/ArtAcceptance/latest/screenshots/
+```
+
+通过门槛：
+
+* `report.json.Status = PASSED`。
+* `MissingRequiredVisualIDs = []`。
+* 三个 P0 截图无明显重叠、黑块、蓝底占位、缺失 Sprite。
+* UI 快照中关键 Image 使用本文列出的 VisualID。
+* 背包、按钮、敌人卡片、战利品拖拽仍可交互。
+
+验收结果记录到：
+
+```text
+美术文档/09_运行时美术验收记录.md
+```

@@ -1,3 +1,18 @@
+---
+id: dev_01_core_data
+title: 核心数据容器系统 (Core Data System)
+type: dev
+role: 程序
+domain: core_data
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
+---
+
 # 核心数据容器系统 (Core Data System)
 
 > **定位：** 本文档指导程序如何实现 MVP 闭环所需的基础数据结构。

@@ -1,3 +1,18 @@
+---
+id: dev_11_monster_action_ai
+title: 怪物 AI 与行动系统 (MonsterActionAI)
+type: dev
+role: 程序
+domain: monster_ai
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
+---
+
 # 怪物 AI 与行动系统 (MonsterActionAI)
 
 > **定位：** 本文档定义怪物回合中“怪物决定做什么、对谁做、怎么结算”的程序架构。目标是把普通攻击、技能、背包干涉、状态施加、召唤、蓄力等行为统一为数据驱动的 `MonsterAction`，避免把怪物逻辑继续写死在 `CombatSystem` 或 `MonsterFighter.Attack()` 中。

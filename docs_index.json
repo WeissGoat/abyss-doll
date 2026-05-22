@@ -1,0 +1,1547 @@
+{
+  "version": 1,
+  "generated_by": "tools/docs/generate_docs_index.py",
+  "required_fields": [
+    "id",
+    "title",
+    "type",
+    "role",
+    "domain",
+    "status"
+  ],
+  "documents": [
+    {
+      "path": "agent_status/art.md",
+      "title": "美术 / UI 状态",
+      "id": "agent_status_art",
+      "type": "status",
+      "role": "美术",
+      "domain": "art_pipeline",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "美术文档/README.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "美术或 UI 视觉流水线任务完成后更新本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "agent_status/design.md",
+      "title": "策划 / 数值 状态",
+      "id": "agent_status_design",
+      "type": "status",
+      "role": "策划",
+      "domain": "design_balance",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "设计文档/GDD_00_系统关联总图.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "策划、数值、GDD 或配置意图任务完成后更新本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "agent_status/program.md",
+      "title": "程序 / Unity 状态",
+      "id": "agent_status_program",
+      "type": "status",
+      "role": "程序",
+      "domain": "unity_programming",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "开发文档/00_程序开发大纲.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "程序、Unity、验证或工程边界任务完成后更新本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "agent_status/README.md",
+      "title": "智能体状态页说明",
+      "id": "agent_status_readme",
+      "type": "status",
+      "role": "全局",
+      "domain": "agent_status",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "新增或调整职能状态页时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "AGENTS.md",
+      "title": "Project P3 智能体入口",
+      "id": "agents_entry",
+      "type": "entry",
+      "role": "全局",
+      "domain": "agent_workflow",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "PROJECT_STATUS.md",
+        "知识库/README.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改智能体分工、开工流程或完成协议时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "DOCS_INDEX.md",
+      "title": "文档索引",
+      "id": "docs_index",
+      "type": "index",
+      "role": "全局",
+      "domain": "knowledge_base",
+      "status": "generated",
+      "source_of_truth": false,
+      "related": [
+        "知识库/README.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "GEMINI.md",
+      "title": "魔偶深渊 AI 核心知识库",
+      "id": "gemini_context",
+      "type": "entry",
+      "role": "全局",
+      "domain": "project_context",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md",
+        "版本规划/09_正式版核心纵切开发路线.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "项目阶段、核心目录、AI 路由或工作准则变化时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "PROJECT_STATUS.md",
+      "title": "项目状态",
+      "id": "project_status",
+      "type": "status",
+      "role": "全局",
+      "domain": "project_status",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "版本规划/09_正式版核心纵切开发路线.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "tools/config/README.md",
+      "title": "Config Tools",
+      "id": "tools_config_readme",
+      "type": "tool",
+      "role": "程序",
+      "domain": "config_tooling",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应工具入口、参数或执行流程时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "tools/美术工具/README.md",
+      "title": "美术工具",
+      "id": "tools_art_readme",
+      "type": "tool",
+      "role": "美术",
+      "domain": "art_tooling",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应工具入口、参数或执行流程时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/00_Unity表现层与编辑器构建规范.md",
+      "title": "Unity 表现层与编辑器构建规范 (UI & Editor Construction Guidelines)",
+      "id": "dev_00_unity_ui_editor_guidelines",
+      "type": "dev",
+      "role": "程序",
+      "domain": "unity_presentation",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/00_客户端核心架构规范.md",
+      "title": "客户端核心架构规范 (Client Architecture Guidelines)",
+      "id": "dev_00_client_architecture_guidelines",
+      "type": "dev",
+      "role": "程序",
+      "domain": "client_architecture",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/00_程序开发大纲.md",
+      "title": "程序开发大纲与系统索引",
+      "id": "dev_00_program_outline",
+      "type": "dev",
+      "role": "程序",
+      "domain": "program_architecture",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "版本规划/09_正式版核心纵切开发路线.md",
+        "开发文档/13_编程规范与架构约定.md",
+        "开发文档/12_程序开发优化建议与重构路线.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "程序系统分类、开发口径或模块索引变化时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/00_自动化测试框架与流程指南.md",
+      "title": "幽灵探针：全自动无头测试框架指南 (Ghost Daemon Auto-Test Framework)",
+      "id": "dev_00_auto_test_framework",
+      "type": "dev",
+      "role": "程序",
+      "domain": "test_automation",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/01_核心数据与实体容器(CoreData).md",
+      "title": "核心数据容器系统 (Core Data System)",
+      "id": "dev_01_core_data",
+      "type": "dev",
+      "role": "程序",
+      "domain": "core_data",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/02_网格背包与计算系统(GridSystem).md",
+      "title": "网格背包与计算系统 (Grid System)",
+      "id": "dev_02_grid_system",
+      "type": "dev",
+      "role": "程序",
+      "domain": "grid_inventory",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/03_深渊与战斗循环(DungeonCombat).md",
+      "title": "深渊与战斗循环系统 (Dungeon & Combat System)",
+      "id": "dev_03_dungeon_combat",
+      "type": "dev",
+      "role": "程序",
+      "domain": "dungeon_combat",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/04_工坊与养成逻辑(WorkshopSystem).md",
+      "title": "工坊与养成逻辑 (Workshop & Crafting System)",
+      "id": "dev_04_workshop_system",
+      "type": "dev",
+      "role": "程序",
+      "domain": "workshop",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
+      "title": "表现层架构与事件总线 (View & EventBus System)",
+      "id": "dev_05_view_event_bus",
+      "type": "dev",
+      "role": "程序",
+      "domain": "presentation_layer",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/06_架构评估与收口建议.md",
+      "title": "架构评估与收口建议",
+      "id": "dev_06_architecture_review",
+      "type": "dev",
+      "role": "程序",
+      "domain": "architecture_review",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/09_视觉资源系统程序开发规范.md",
+      "title": "视觉资源系统程序开发规范",
+      "id": "dev_09_visual_asset_system",
+      "type": "dev",
+      "role": "程序",
+      "domain": "visual_asset_system",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/10_奖励与掉落系统(RewardSystem).md",
+      "title": "奖励与掉落系统 (RewardSystem)",
+      "id": "dev_10_reward_system",
+      "type": "dev",
+      "role": "程序",
+      "domain": "reward_loot",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/11_怪物AI与行动系统(MonsterActionAI).md",
+      "title": "怪物 AI 与行动系统 (MonsterActionAI)",
+      "id": "dev_11_monster_action_ai",
+      "type": "dev",
+      "role": "程序",
+      "domain": "monster_ai",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/12_程序开发优化建议与重构路线.md",
+      "title": "程序开发优化建议与重构路线",
+      "id": "dev_12_program_refactor_route",
+      "type": "dev",
+      "role": "程序",
+      "domain": "program_refactor",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/13_编程规范与架构约定.md",
+      "title": "编程规范与架构约定",
+      "id": "dev_13_coding_standard",
+      "type": "dev",
+      "role": "程序",
+      "domain": "coding_standard",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/14_Unity运行时美术自动验收方案.md",
+      "title": "Unity 运行时美术自动验收方案",
+      "id": "dev_14_runtime_art_validation",
+      "type": "dev",
+      "role": "程序",
+      "domain": "runtime_art_validation",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/数据与实体定义/01_全局与玩家实体.md",
+      "title": "全局与玩家实体定义 (Player & Global Entities)",
+      "id": "dev_entity_01_player_global",
+      "type": "dev",
+      "role": "程序",
+      "domain": "program_architecture",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/数据与实体定义/02_人偶与状态实体.md",
+      "title": "人偶与状态实体定义 (Doll & Status Entities)",
+      "id": "dev_entity_02_doll_status",
+      "type": "dev",
+      "role": "程序",
+      "domain": "program_architecture",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/数据与实体定义/03_物品与网格实体.md",
+      "title": "物品与网格实体定义 (Item & Inventory Entities)",
+      "id": "dev_entity_03_item_grid",
+      "type": "dev",
+      "role": "程序",
+      "domain": "program_architecture",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/数据与实体定义/04_深渊与战斗实体.md",
+      "title": "深渊与战斗实体定义 (Dungeon & Combat Entities)",
+      "id": "dev_entity_04_dungeon_combat",
+      "type": "dev",
+      "role": "程序",
+      "domain": "dungeon_combat",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "开发文档/数据与实体定义/05_经济与社会实体.md",
+      "title": "经济与社会实体定义 (Economy & Social Entities)",
+      "id": "dev_entity_05_economy_social",
+      "type": "dev",
+      "role": "程序",
+      "domain": "program_architecture",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "数值模型设计/00_基准价值与空间本位模型.md",
+      "title": "基准价值与空间本位模型 (Space-Value Standard)",
+      "id": "balance_00_space_value_standard",
+      "type": "balance",
+      "role": "策划",
+      "domain": "balance_space_value",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改数值假设、公式、产出期望或经济模型时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "数值模型设计/01_经济循环与通缩模型.md",
+      "title": "经济循环与通缩模型 (Economy & Deflation Model)",
+      "id": "balance_01_economy_deflation",
+      "type": "balance",
+      "role": "策划",
+      "domain": "balance_economy",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改数值假设、公式、产出期望或经济模型时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "数值模型设计/02_战斗伤害与生存公式.md",
+      "title": "战斗伤害与生存公式 (Combat & Survival Formulas)",
+      "id": "balance_02_combat_survival",
+      "type": "balance",
+      "role": "策划",
+      "domain": "balance_combat",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改数值假设、公式、产出期望或经济模型时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "数值模型设计/03_深渊产出与掉落期望.md",
+      "title": "深渊产出与掉落期望 (Loot Generation & Expectation)",
+      "id": "balance_03_dungeon_loot_expectation",
+      "type": "balance",
+      "role": "策划",
+      "domain": "balance_loot",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改数值假设、公式、产出期望或经济模型时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "版本规划/00_最小MVP体验闭环内容清单.md",
+      "title": "最小可玩版本 (MVP) 核心闭环内容清单",
+      "id": "plan_00_mvp_core_loop",
+      "type": "plan",
+      "role": "全局",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "版本规划/01_MVP美术与UI需求清单.md",
+      "title": "MVP 美术与UI表现需求清单 (Art & UI Pipeline)",
+      "id": "plan_01_mvp_art_ui_requirements",
+      "type": "plan",
+      "role": "美术",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "版本规划/02_开发里程碑与节点规划.md",
+      "title": "MVP 客户端开发里程碑与节点规划",
+      "id": "plan_02_mvp_development_milestones",
+      "type": "plan",
+      "role": "全局",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "版本规划/03_mvp数值要求.md",
+      "title": "数值模型沙盘推演方法论 (Numerical Sandboxing)",
+      "id": "plan_03_mvp_balance_requirements",
+      "type": "plan",
+      "role": "策划",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "版本规划/04_MVP验证需要补充的功能开发.md",
+      "title": "MVP 验证需要补充的功能开发",
+      "id": "plan_04_mvp_missing_features",
+      "type": "plan",
+      "role": "全局",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "版本规划/05_MVP需要补充的配置调整.md",
+      "title": "MVP 需要补充的配置调整",
+      "id": "plan_05_mvp_config_adjustments",
+      "type": "plan",
+      "role": "策划",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "版本规划/06_MVP白盒试玩收口推进计划.md",
+      "title": "MVP 白盒试玩收口推进计划",
+      "id": "plan_06_mvp_playtest_closure",
+      "type": "plan",
+      "role": "全局",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "版本规划/07_MVP自动化试玩验收方案.md",
+      "title": "MVP 自动化试玩验收方案",
+      "id": "plan_07_mvp_auto_playtest_acceptance",
+      "type": "plan",
+      "role": "全局",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "版本规划/08_MVP自动化试玩首轮报告.md",
+      "title": "MVP 自动化试玩首轮报告",
+      "id": "plan_08_mvp_auto_playtest_report",
+      "type": "plan",
+      "role": "全局",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "版本规划/09_正式版核心纵切开发路线.md",
+      "title": "正式版核心纵切开发路线",
+      "id": "plan_alpha_vertical_slice",
+      "type": "plan",
+      "role": "全局",
+      "domain": "alpha_vertical_slice",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "PROJECT_STATUS.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "开发文档/00_程序开发大纲.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "正式版 Alpha 阶段目标、优先级或里程碑变化时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "知识库/README.md",
+      "title": "知识库规范",
+      "id": "knowledge_base_readme",
+      "type": "kb",
+      "role": "知识库",
+      "domain": "knowledge_base",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "DOCS_INDEX.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "调整元数据字段、索引策略或文档治理规则时更新本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/00_美术流水线总览.md",
+      "title": "美术流水线总览",
+      "id": "art_pipeline_overview",
+      "type": "art",
+      "role": "美术",
+      "domain": "art_pipeline",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/01_Manifest规范.md",
+      "title": "Manifest 规范",
+      "id": "art_manifest_spec",
+      "type": "art",
+      "role": "美术",
+      "domain": "art_manifest",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/02_资源规格与接入规范.md",
+      "title": "资源规格与接入规范",
+      "id": "art_asset_spec",
+      "type": "art",
+      "role": "美术",
+      "domain": "art_asset_spec",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/03_AI生成与筛选规范.md",
+      "title": "AI 生成与筛选规范",
+      "id": "art_ai_generation_review",
+      "type": "art",
+      "role": "美术",
+      "domain": "ai_art_generation",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/04_美术风格基准.md",
+      "title": "美术风格基准",
+      "id": "art_style_baseline",
+      "type": "art",
+      "role": "美术",
+      "domain": "art_style",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/05_AI图片网关接入方案.md",
+      "title": "AI 图片网关接入方案",
+      "id": "art_ai_image_gateway",
+      "type": "art",
+      "role": "美术",
+      "domain": "ai_image_gateway",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/06_MVP素材接入状态同步.md",
+      "title": "MVP 素材接入状态同步",
+      "id": "art_mvp_asset_intake_status",
+      "type": "art",
+      "role": "美术",
+      "domain": "mvp_art_archive",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/07_MVP_UI重新设计同步.md",
+      "title": "MVP UI 重新设计同步",
+      "id": "art_mvp_ui_redesign_sync",
+      "type": "art",
+      "role": "美术",
+      "domain": "mvp_ui_archive",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/08_Unity运行时美术验收工具需求.md",
+      "title": "Unity 运行时美术验收工具需求与交付状态",
+      "id": "art_runtime_art_validation_requirements",
+      "type": "art",
+      "role": "美术",
+      "domain": "runtime_art_validation",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/09_运行时美术验收记录.md",
+      "title": "运行时美术验收记录",
+      "id": "art_runtime_art_validation_log",
+      "type": "art",
+      "role": "美术",
+      "domain": "runtime_art_validation",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/10_正式版核心纵切美术路线.md",
+      "title": "正式版核心纵切美术路线",
+      "id": "art_alpha_vertical_slice_art_route",
+      "type": "art",
+      "role": "美术",
+      "domain": "alpha_art_route",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/11_Alpha_P0_UI骨架接入交付.md",
+      "title": "Alpha P0 UI 骨架接入交付",
+      "id": "art_alpha_p0_ui_skeleton_handoff",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_handoff",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/12_Alpha_P1_UI骨架接入准备.md",
+      "title": "Alpha P1 UI 骨架接入准备",
+      "id": "art_alpha_p1_ui_skeleton_plan",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_handoff",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/README.md",
+      "title": "美术文档索引",
+      "id": "art_readme",
+      "type": "art",
+      "role": "美术",
+      "domain": "art_pipeline",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "美术文档/00_美术流水线总览.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "开发文档/09_视觉资源系统程序开发规范.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/ui_design/handoff_checklist.md",
+      "title": "UI 交付检查清单",
+      "id": "art_ui_handoff_checklist",
+      "type": "art",
+      "role": "美术",
+      "domain": "art_pipeline",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "美术文档/ui_design/README.md",
+      "title": "UI 设计流水线",
+      "id": "art_ui_design_readme",
+      "type": "art",
+      "role": "美术",
+      "domain": "art_pipeline",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "设计文档/GDD_00_系统关联总图.md",
+      "title": "系统关联总图：全系统内在关联与数据流向",
+      "id": "gdd_00_system_overview",
+      "type": "gdd",
+      "role": "策划",
+      "domain": "system_overview",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "版本规划/09_正式版核心纵切开发路线.md",
+        "开发文档/00_程序开发大纲.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改系统关系、资源流向、循环健康度或系统优先级时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "设计文档/GDD_01_背包战斗与局内网格机制.md",
+      "title": "详案_01：背包战斗与局内网格机制 (GDD_01)",
+      "id": "gdd_01_inventory_combat_grid",
+      "type": "gdd",
+      "role": "策划",
+      "domain": "grid_inventory",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md",
+      "title": "详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)",
+      "id": "gdd_02_dungeon_explore_extract",
+      "type": "gdd",
+      "role": "策划",
+      "domain": "dungeon_exploration",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "设计文档/GDD_03_人偶实体对象与好感双轨机制.md",
+      "title": "详案_03：人偶实体对象与好感双轨机制 (GDD_03)",
+      "id": "gdd_03_doll_entity_affection",
+      "type": "gdd",
+      "role": "策划",
+      "domain": "doll_relationship",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "设计文档/GDD_04_小镇循环与经济物价波浪模型.md",
+      "title": "详案_04：小镇循环与经济物价波浪模型 (GDD_04)",
+      "id": "gdd_04_town_economy_price_wave",
+      "type": "gdd",
+      "role": "策划",
+      "domain": "town_economy",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "设计文档/GDD_05_剧本调度引擎与世界观封装逻辑.md",
+      "title": "详案_05：剧本调度引擎与世界观封装逻辑 (GDD_05)",
+      "id": "gdd_05_scenario_worldview_engine",
+      "type": "gdd",
+      "role": "策划",
+      "domain": "scenario_worldview",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "设计文档/GDD_06_物品系统与物品生命周期.md",
+      "title": "详案_06：物品系统与物品生命周期 (GDD_06)",
+      "id": "gdd_06_item_lifecycle",
+      "type": "gdd",
+      "role": "策划",
+      "domain": "item_lifecycle",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "设计文档/GDD_07_时间日程系统与AP行动点机制.md",
+      "title": "详案_07：时间日程系统与天数轮转机制 (GDD_07)",
+      "id": "gdd_07_time_schedule_ap",
+      "type": "gdd",
+      "role": "策划",
+      "domain": "time_schedule",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "设计文档/GDD_08_人偶养成子模块全案.md",
+      "title": "详案_08：人偶养成子模块全案 (GDD_08)",
+      "id": "gdd_08_doll_growth_module",
+      "type": "gdd",
+      "role": "策划",
+      "domain": "doll_growth",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "设计文档/GDD_09_标签与特质系统.md",
+      "title": "详案_09：标签与特质系统 (GDD_09)",
+      "id": "gdd_09_tag_trait_system",
+      "type": "gdd",
+      "role": "策划",
+      "domain": "tag_trait",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "设计文档/GDD_10_势力声望与订单系统.md",
+      "title": "详案_10：势力声望与订单系统 (GDD_10)",
+      "id": "gdd_10_faction_reputation_order",
+      "type": "gdd",
+      "role": "策划",
+      "domain": "faction_order",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "设计文档/GDD_11_人偶房间与视觉叙事系统.md",
+      "title": "详案_11：人偶房间与视觉叙事系统 (GDD_11)",
+      "id": "gdd_11_doll_room_visual_narrative",
+      "type": "gdd",
+      "role": "策划",
+      "domain": "doll_room",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "设计文档/GDD_12_人偶交互管理器.md",
+      "title": "详案_12：人偶交互管理器 (GDD_12)",
+      "id": "gdd_12_doll_interaction_manager",
+      "type": "gdd",
+      "role": "策划",
+      "domain": "doll_interaction",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "配置表(JSON)/Chassis/README.md",
+      "title": "局外底盘配置字段说明 (Chassis Config)",
+      "id": "config_chassis_readme",
+      "type": "config",
+      "role": "策划",
+      "domain": "config_chassis",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "配置表(JSON)/CraftingRecipes/README.md",
+      "title": "工坊制造配方字段说明 (Crafting Recipes Config)",
+      "id": "config_craftingrecipes_readme",
+      "type": "config",
+      "role": "策划",
+      "domain": "config_crafting",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "配置表(JSON)/Dolls/README.md",
+      "title": "人偶基础档案配置字段说明 (Dolls Config)",
+      "id": "config_dolls_readme",
+      "type": "config",
+      "role": "策划",
+      "domain": "config_dolls",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "配置表(JSON)/Dungeons/README.md",
+      "title": "深渊地图层级配置说明 (Dungeons Config)",
+      "id": "config_dungeons_readme",
+      "type": "config",
+      "role": "策划",
+      "domain": "config_dungeons",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "配置表(JSON)/Effects/README.md",
+      "title": "效果配置字典说明 (EffectEnums Config)",
+      "id": "config_effects_readme",
+      "type": "config",
+      "role": "策划",
+      "domain": "config_effects",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "配置表(JSON)/Items/README.md",
+      "title": "局内物品与网格实体字段说明 (Items Config)",
+      "id": "config_items_readme",
+      "type": "config",
+      "role": "策划",
+      "domain": "config_items",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "配置表(JSON)/Monsters/README.md",
+      "title": "深渊怪物配置字段说明 (Monsters Config)",
+      "id": "config_monsters_readme",
+      "type": "config",
+      "role": "策划",
+      "domain": "config_monsters",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "配置表(JSON)/Prosthetics/README.md",
+      "title": "义体插件配置字段说明 (Prosthetics Config)",
+      "id": "config_prosthetics_readme",
+      "type": "config",
+      "role": "策划",
+      "domain": "config_prosthetics",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "配置表(JSON)/README.md",
+      "title": "配置表数据总览说明 (Configuration Overview)",
+      "id": "config_configuration_overview",
+      "type": "config",
+      "role": "策划",
+      "domain": "config_data",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    },
+    {
+      "path": "配置表(JSON)/Rewards/README.md",
+      "title": "奖励表配置字段说明 (Rewards Config)",
+      "id": "config_rewards_readme",
+      "type": "config",
+      "role": "策划",
+      "domain": "config_rewards",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": []
+    }
+  ]
+}

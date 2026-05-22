@@ -1,3 +1,18 @@
+---
+id: plan_06_mvp_playtest_closure
+title: MVP 白盒试玩收口推进计划
+type: plan
+role: 全局
+domain: mvp_planning
+status: historical
+source_of_truth: false
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 历史记录仅在追溯或修正归档事实时更新。
+---
+
 # MVP 白盒试玩收口推进计划
 
 > **更新时间：** 2026-05-10  

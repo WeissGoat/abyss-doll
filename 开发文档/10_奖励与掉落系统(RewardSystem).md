@@ -1,3 +1,18 @@
+---
+id: dev_10_reward_system
+title: 奖励与掉落系统 (RewardSystem)
+type: dev
+role: 程序
+domain: reward_loot
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
+---
+
 # 奖励与掉落系统 (RewardSystem)
 
 > **定位：** 统一处理战斗掉落、节点奖励、事件奖励、宝箱奖励、任务奖励等所有“从规则源头生成收益”的逻辑。调用方只配置 `RewardID`，不直接写物品权重或保底规则。

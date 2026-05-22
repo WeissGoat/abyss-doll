@@ -1,3 +1,18 @@
+---
+id: config_dungeons_readme
+title: 深渊地图层级配置说明 (Dungeons Config)
+type: config
+role: 策划
+domain: config_dungeons
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
+---
+
 # 深渊地图层级配置说明 (Dungeons Config)
 
 > 位于本目录下的 JSON 文件定义了深渊宏观“环境层”的参数。

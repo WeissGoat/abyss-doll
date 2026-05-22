@@ -1,3 +1,18 @@
+---
+id: config_rewards_readme
+title: 奖励表配置字段说明 (Rewards Config)
+type: config
+role: 策划
+domain: config_rewards
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
+---
+
 # 奖励表配置字段说明 (Rewards Config)
 
 > 本目录用于配置所有掉落、宝箱、事件、任务、节点结算等奖励。调用方只配置 `RewardID`，具体保底、权重、空掉落和奖励组合都由奖励表负责。

@@ -1,3 +1,18 @@
+---
+id: gdd_07_time_schedule_ap
+title: 详案_07：时间日程系统与天数轮转机制 (GDD_07)
+type: gdd
+role: 策划
+domain: time_schedule
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
+---
+
 # 详案_07：时间日程系统与天数轮转机制 (GDD_07)
 
 > **定位说明：** 本系统是驱动整个宏观游戏循环的"节拍器"。它通过"天数（Day）"的不可逆流逝和每天唯一的核心抉择，使经营、养成与深渊探索三个模块形成真实的博弈关系。

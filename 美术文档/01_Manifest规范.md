@@ -1,3 +1,18 @@
+---
+id: art_manifest_spec
+title: Manifest 规范
+type: art
+role: 美术
+domain: art_manifest
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
+---
+
 # Manifest 规范
 
 > **定位：** 规定 `art_manifest.json` 的字段结构、字段含义，以及美术流水线每一步应该填充哪些字段。

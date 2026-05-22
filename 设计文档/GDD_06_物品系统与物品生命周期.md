@@ -1,3 +1,18 @@
+---
+id: gdd_06_item_lifecycle
+title: 详案_06：物品系统与物品生命周期 (GDD_06)
+type: gdd
+role: 策划
+domain: item_lifecycle
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
+---
+
 # 详案_06：物品系统与物品生命周期 (GDD_06)
 
 > **定位说明：** 本文档是全游戏**物品数据模型**的核心标准。背包战斗（GDD_01）、深渊探索（GDD_02）、模拟经营（GDD_04）三个系统的数据流动均以本文档中的定义为基础。程序在搭建物品数据结构时应以此为第一参考。

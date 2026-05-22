@@ -1,3 +1,18 @@
+---
+id: gdd_09_tag_trait_system
+title: 详案_09：标签与特质系统 (GDD_09)
+type: gdd
+role: 策划
+domain: tag_trait
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
+---
+
 # 详案_09：标签与特质系统 (GDD_09)
 
 > **定位说明：** 标签（Tag）和特质（Trait）是穿透全部系统的"调味剂"。标签是物品和实体的身份标识，决定了它们之间如何产生化学反应；特质是魔偶在经历中积淀的性格印记，会主动介入并改写其他系统的规则。本文档统一定义两者的分类、获取、影响与消除。

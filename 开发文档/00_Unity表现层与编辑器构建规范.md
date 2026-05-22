@@ -1,3 +1,18 @@
+---
+id: dev_00_unity_ui_editor_guidelines
+title: Unity 表现层与编辑器构建规范 (UI & Editor Construction Guidelines)
+type: dev
+role: 程序
+domain: unity_presentation
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
+---
+
 # Unity 表现层与编辑器构建规范 (UI & Editor Construction Guidelines)
 
 > **定位说明：** 本文档旨在为客户端工程师确立表现层（UI）搭建与场景构建的工程规范。

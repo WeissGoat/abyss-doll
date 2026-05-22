@@ -1,3 +1,18 @@
+---
+id: gdd_02_dungeon_explore_extract
+title: 详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)
+type: gdd
+role: 策划
+domain: dungeon_exploration
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
+---
+
 # 详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)
 
 > **定位说明：** 本文档定义了深渊探索的完整流程——从下潜前的整备，到节点树地图的推进规则，到安全区的撤离博弈，再到失败后的惩罚机制。这是"搜打撤"三字的完整游戏体验设计。

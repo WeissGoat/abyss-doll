@@ -1,3 +1,18 @@
+---
+id: art_mvp_ui_redesign_sync
+title: MVP UI 重新设计同步
+type: art
+role: 美术
+domain: mvp_ui_archive
+status: historical
+source_of_truth: false
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 历史记录仅在追溯或修正归档事实时更新。
+---
+
 # MVP UI 重新设计同步
 
 > **定位：** 给美术侧同步当前 MVP UI 的重设计需求，明确需要输出的界面方案、UI 皮肤资产、交付格式和程序接入边界。

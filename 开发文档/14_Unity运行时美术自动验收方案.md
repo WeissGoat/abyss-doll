@@ -1,3 +1,18 @@
+---
+id: dev_14_runtime_art_validation
+title: Unity 运行时美术自动验收方案
+type: dev
+role: 程序
+domain: runtime_art_validation
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
+---
+
 # Unity 运行时美术自动验收方案
 
 > **定位：** 本文档定义程序侧如何实现“无人值守”的 Unity 运行时美术验收流水线。它只针对验收功能本身进行设计，不照搬美术侧提出的半自动快捷键方案。

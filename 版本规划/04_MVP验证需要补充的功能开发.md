@@ -1,3 +1,18 @@
+---
+id: plan_04_mvp_missing_features
+title: MVP 验证需要补充的功能开发
+type: plan
+role: 全局
+domain: mvp_planning
+status: historical
+source_of_truth: false
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 历史记录仅在追溯或修正归档事实时更新。
+---
+
 # MVP 验证需要补充的功能开发
 
 > 本文档用于承接 MVP 白盒试玩前的功能缺口整理。目标不是扩展正式版系统，而是补齐验证“深渊产出 -> 工坊养成 -> 战力验证”闭环时必须可感知、可操作、可回归的最小功能。

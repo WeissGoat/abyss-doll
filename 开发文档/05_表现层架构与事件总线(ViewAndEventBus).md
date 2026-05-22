@@ -1,3 +1,18 @@
+---
+id: dev_05_view_event_bus
+title: 表现层架构与事件总线 (View & EventBus System)
+type: dev
+role: 程序
+domain: presentation_layer
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
+---
+
 # 表现层架构与事件总线 (View & EventBus System)
 
 > **定位：** 指导程序如何处理“纯C#业务逻辑”与“Unity画面表现”之间的关系。

@@ -1,3 +1,18 @@
+---
+id: config_prosthetics_readme
+title: 义体插件配置字段说明 (Prosthetics Config)
+type: config
+role: 策划
+domain: config_prosthetics
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
+---
+
 # 义体插件配置字段说明 (Prosthetics Config)
 
 本目录定义局外工坊可制造并装备的义体插件。义体不占用背包网格，通过统一的 `Effects` 字段接入 `EffectFactory`，和物品效果使用同一套 `EffectData` 数据结构。

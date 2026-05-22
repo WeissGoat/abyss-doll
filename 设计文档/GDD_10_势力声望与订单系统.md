@@ -1,3 +1,18 @@
+---
+id: gdd_10_faction_reputation_order
+title: 详案_10：势力声望与订单系统 (GDD_10)
+type: gdd
+role: 策划
+domain: faction_order
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
+---
+
 # 详案_10：势力声望与订单系统 (GDD_10)
 
 > **定位说明：** 势力系统是小镇社会的"骨架"。每个势力代表一种资源流向和游戏风格的偏好，玩家通过与不同势力打交道获取独占资源（图纸、商品、情报），但时间和精力有限，不可能同时讨好所有人。订单系统则是势力施加在玩家身上的"定向任务压力"，以极端的背包空间代价换取丰厚的定向回报。

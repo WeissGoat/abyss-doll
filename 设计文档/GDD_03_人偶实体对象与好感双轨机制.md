@@ -1,3 +1,18 @@
+---
+id: gdd_03_doll_entity_affection
+title: 详案_03：人偶实体对象与好感双轨机制 (GDD_03)
+type: gdd
+role: 策划
+domain: doll_relationship
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
+---
+
 # 详案_03：人偶实体对象与好感双轨机制 (GDD_03)
 
 > **定位说明：** 魔偶不仅仅是一个血条与背包容器的外壳。本文档将详细解构魔偶的“羁绊（长线）”与“理智（短线）”双轨制状态引擎，以及“性格特质 (Traits) 系统”是如何改变物理法则的。

@@ -1,3 +1,19 @@
+---
+id: gemini_context
+title: 魔偶深渊 AI 核心知识库
+type: entry
+role: 全局
+domain: project_context
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+  - 版本规划/09_正式版核心纵切开发路线.md
+last_verified: 2026-05-23
+update_rule: 项目阶段、核心目录、AI 路由或工作准则变化时同步本文件。
+---
+
 # 魔偶深渊 (Project P3) - AI 核心知识库
 
 本目录包含了一款复杂 RPG/模拟游戏的系统设计文档（GDD）和技术蓝图。该游戏的核心循环由三大支柱构成：**深渊探索**（战斗与搜刮）、**小镇经营**（经济与变现）以及**人偶养成**（好感与维修）。整体游戏体验受到严格的时间限制（存活天数），要求玩家在资源管理和风险收益之间进行精确的策略抉择。

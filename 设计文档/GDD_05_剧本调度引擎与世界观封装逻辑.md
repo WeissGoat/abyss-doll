@@ -1,3 +1,18 @@
+---
+id: gdd_05_scenario_worldview_engine
+title: 详案_05：剧本调度引擎与世界观封装逻辑 (GDD_05)
+type: gdd
+role: 策划
+domain: scenario_worldview
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
+---
+
 # 详案_05：剧本调度引擎与世界观封装逻辑 (GDD_05)
 
 > **定位说明：** 不使用传统死板的“第几关播第几段动画”系统。本系统完全基于**“环境与事件钩子”**驱动，把极具魅力的世界观碎片化地撒在背包、地图和账单的每个角落。

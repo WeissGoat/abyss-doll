@@ -1,3 +1,18 @@
+---
+id: gdd_08_doll_growth_module
+title: 详案_08：人偶养成子模块全案 (GDD_08)
+type: gdd
+role: 策划
+domain: doll_growth
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
+---
+
 # 详案_08：人偶养成子模块全案 (GDD_08)
 
 > **定位说明：** GDD_03 定义了魔偶的"灵魂"（好感双轨 + 特质引擎）。本文档定义魔偶的"肉身"——玩家花钱、花材料、花时间去改造和维护她的全部养成子模块。它们共同构成玩家在局外的核心资源消耗出口。

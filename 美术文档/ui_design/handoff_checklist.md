@@ -1,3 +1,18 @@
+---
+id: art_ui_handoff_checklist
+title: UI 交付检查清单
+type: art
+role: 美术
+domain: art_pipeline
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
+---
+
 # UI 交付检查清单
 
 > **定位：** 每次 UI 设计、跑图、切图、程序接入前后的验收门槛。

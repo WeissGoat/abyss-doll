@@ -1,3 +1,18 @@
+---
+id: config_chassis_readme
+title: 局外底盘配置字段说明 (Chassis Config)
+type: config
+role: 策划
+domain: config_chassis
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
+---
+
 # 局外底盘配置字段说明 (Chassis Config)
 
 > 位于本目录下的 JSON 文件定义了人偶的“底盘”数据。

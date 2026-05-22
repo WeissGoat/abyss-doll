@@ -1,3 +1,18 @@
+---
+id: plan_08_mvp_auto_playtest_report
+title: MVP 自动化试玩首轮报告
+type: plan
+role: 全局
+domain: mvp_planning
+status: historical
+source_of_truth: false
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 历史记录仅在追溯或修正归档事实时更新。
+---
+
 # MVP 自动化试玩首轮报告
 
 > **生成时间：** 2026-05-10  

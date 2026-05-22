@@ -1,13 +1,30 @@
+---
+id: art_ui_design_readme
+title: UI 设计流水线
+type: art
+role: 美术
+domain: art_pipeline
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
+---
+
 # UI 设计流水线
 
-> **定位：** 管理 MVP 以及后续版本的 UI 设计系统、界面布局、组件清单和程序交付检查。
-> **更新时间：** 2026-05-13
+> **定位：** 管理正式版核心纵切 Alpha 的 UI 设计系统、界面布局、组件清单和程序交付检查。
+> **更新时间：** 2026-05-21
 
 ---
 
 ## 1. 为什么单独建 UI 设计流
 
 UI 资产不能只按单张图片生产。面板、按钮、背包格、状态条、卡框、列表行必须先形成统一组件系统，再进入 AI 跑图、切图和程序接入。
+
+正式版核心纵切阶段的原则是：UI 骨架要按正式版设计，内容和品质可以逐步迭代。也就是说，允许第一批图片不是最终品质，但不应继续用临时色块、临时布局和后续必定推翻的界面结构作为主路径。
 
 UI 设计流解决四件事：
 
@@ -46,6 +63,14 @@ UI Tokens
   -> In-game Validation
 ```
 
+关键门槛：
+
+* 新界面或重做界面必须先更新 `screen_layouts.json`，不要先跑图。
+* 核心界面的 `ScreenID`、主区域、程序绑定和 `VisualID` 应保持长期稳定。
+* 文字、数字、价格、物品名、按钮文案继续由 Unity Text 渲染，不烘焙进 UI Sprite。
+* 背包玩法格固定为 `100x100`，美术只定义格子皮肤、底盘装饰、状态图和容器摆放。
+* 图片可以后续替换为更高质量同名 `VisualID`，但组件边界和布局契约不应随图片替换而改变。
+
 ### Step A：界面布局
 
 新增或重做界面时，先在 `screen_layouts.json` 新增一条 `Screen`：
@@ -61,7 +86,21 @@ UI Tokens
 * `SpriteAssignments`
 * `AcceptanceCriteria`
 
-不要先跑图。先让界面区域、层级和程序交互点稳定。
+不要先跑图。先让界面区域、层级和程序交互点稳定。进入 Alpha 纵切的界面，布局状态应按以下顺序推进：
+
+```text
+planned -> draft -> handoff -> integrated -> validated
+```
+
+含义：
+
+| 状态 | 含义 |
+|---|---|
+| `planned` | 已列入正式 UI 骨架，但区域和组件还未完全定稿。 |
+| `draft` | 区域、组件、VisualID 和程序交付基本明确，可进入资源生产。 |
+| `handoff` | 已通过 `Validate-UIDesign.ps1`，可交给程序接入。 |
+| `integrated` | Unity 已接入，等待运行时截图验收。 |
+| `validated` | ArtAcceptance 截图和快照已通过美术侧验收。 |
 
 涉及背包的界面还必须填写 `InventoryLayerPolicy`：
 

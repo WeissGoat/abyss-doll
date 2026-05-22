@@ -1,3 +1,18 @@
+---
+id: dev_04_workshop_system
+title: 工坊与养成逻辑 (Workshop & Crafting System)
+type: dev
+role: 程序
+domain: workshop
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
+---
+
 # 工坊与养成逻辑 (Workshop & Crafting System)
 
 > **定位：** 指导局外资源转化为实力，包括升级底盘、制造并装备义体。

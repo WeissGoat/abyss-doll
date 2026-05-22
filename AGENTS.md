@@ -1,1 +1,204 @@
-GEMINI.md
+---
+id: agents_entry
+title: Project P3 智能体入口
+type: entry
+role: 全局
+domain: agent_workflow
+status: active
+source_of_truth: true
+related:
+  - PROJECT_STATUS.md
+  - 知识库/README.md
+last_verified: 2026-05-23
+update_rule: 修改智能体分工、开工流程或完成协议时同步本文件。
+---
+
+# Project P3 智能体入口
+
+> 复制出来的智能体开工前先读这里。不要先改代码、配置、美术流水线或设计文档。
+
+## 当前事实来源
+
+1. 先读 `PROJECT_STATUS.md`，确认项目总目标、当前阶段、跨职能交接和阻塞项。
+2. 再按任务职能读取对应状态页：
+   - 美术 / UI：`agent_status/art.md`
+   - 策划 / 数值：`agent_status/design.md`
+   - 程序 / Unity：`agent_status/program.md`
+3. `GEMINI.md` 是项目知识库和上下文路由。
+4. `版本规划/09_正式版核心纵切开发路线.md` 是当前顶层开发路线。
+
+如果旧 MVP 文档与当前 GDD、`09` 路线或状态页冲突，以当前 GDD、`09` 路线和状态页为准。
+
+## 角色
+
+> 本区提供基础职能边界。对应职能智能体完成任务后，可以继续补充和迭代自己的工作细节。
+
+| 角色 | 工作范围 | 需要关注的文件 | 需要修改的文件 | 完成后回写 |
+|---|---|---|---|---|
+| 美术智能体 | 视觉流水线、Manifest、AI 素材筛选、正式资源入库、UI 视觉交付、运行时美术验收 | `美术文档/README.md`、`美术文档/00_美术流水线总览.md`、`美术文档/10_正式版核心纵切美术路线.md`、`美术文档/ui_design/README.md`、`开发文档/09_视觉资源系统程序开发规范.md` | `美术文档/`、`美术文档/ui_design/`、`UnityClient/Assets/Art/Approved`、必要的美术状态和交接文档 | `agent_status/art.md` |
+| 程序智能体 | Unity 客户端、C# 架构、CoreBackend、UGUI、Validator、测试、编辑器自动化 | `开发文档/00_程序开发大纲.md`、`开发文档/00_客户端核心架构规范.md`、`开发文档/00_Unity表现层与编辑器构建规范.md`、`开发文档/12_程序开发优化建议与重构路线.md`、`开发文档/13_编程规范与架构约定.md` | `UnityClient/Assets/Scripts`、`UnityClient/Assets/Tests`、`UnityClient/Assets/Editor`、`开发文档/`、必要的配置同步和验证脚本 | `agent_status/program.md` |
+| UI 程序智能体 | UGUI 表现层、Prefab、VisualID 绑定、运行时美术验收 | UI 设计交付、视觉资源契约、表现层架构、当前 UI 代码 | `UnityClient/Assets/Scripts/UI`、`UnityClient/Assets/Prefabs`、必要的开发文档 | `agent_status/program.md`，有美术交接时同步 `agent_status/art.md` |
+| 策划智能体 | GDD 规则、经济循环、物品生命周期、深渊节奏、数值假设、配置意图 | `设计文档/GDD_00_系统关联总图.md`、`版本规划/09_正式版核心纵切开发路线.md`、`数值模型设计/00_基准价值与空间本位模型.md`、当前任务涉及的 `设计文档/GDD_*.md` 和配置 README | `设计文档/`、`数值模型设计/`、`配置表(JSON)/`、`版本规划/`、必要的策划状态和交接文档 | `agent_status/design.md` |
+| 知识库智能体 | 文档元数据、索引、校验脚本、知识库规范 | `知识库/README.md`、`DOCS_INDEX.md`、`docs_index.json`、核心入口文档 | `AGENTS.md`、`PROJECT_STATUS.md`、`知识库/`、`tools/docs/`、必要的文档元数据头 | `PROJECT_STATUS.md` |
+
+## 职能路由
+
+### 美术 / UI 智能体
+
+主要关注：
+
+- 视觉流水线、Manifest、AI 素材生成、正式入库资源、UI 设计交付、运行时美术验收。
+
+必读：
+
+- `agent_status/art.md`
+- `美术文档/README.md`
+- `美术文档/10_正式版核心纵切美术路线.md`
+- `美术文档/00_美术流水线总览.md`
+- `美术文档/ui_design/README.md`
+- `开发文档/09_视觉资源系统程序开发规范.md`
+
+常用命令：
+
+```powershell
+.\tools\config\Sync-Configs.ps1 -Clean
+.\tools\美术工具\Update-ArtManifest.ps1
+.\tools\美术工具\Generate-ArtPrompts.ps1
+.\tools\美术工具\Validate-UIDesign.ps1
+```
+
+### 策划 / 数值 智能体
+
+主要关注：
+
+- GDD 规则、经济循环、物品生命周期、深渊节奏、数值假设、配置意图。
+
+必读：
+
+- `agent_status/design.md`
+- `设计文档/GDD_00_系统关联总图.md`
+- `版本规划/09_正式版核心纵切开发路线.md`
+- `数值模型设计/00_基准价值与空间本位模型.md`
+- 当前任务涉及的 `设计文档/GDD_*.md`
+
+配置规则：
+
+- `配置表(JSON)` 是版本源。
+- `UnityClient/Assets/StreamingAssets/Configs` 是运行时生成副本。
+- 运行 Unity 或自动化验证前先同步：
+
+```powershell
+.\tools\config\Sync-Configs.ps1 -Clean
+```
+
+### 程序 / Unity 智能体
+
+主要关注：
+
+- Unity 客户端、C# 架构、CoreBackend、UGUI、Validator、测试、编辑器自动化。
+
+必读：
+
+- `agent_status/program.md`
+- `开发文档/00_程序开发大纲.md`
+- `开发文档/00_客户端核心架构规范.md`
+- `开发文档/00_Unity表现层与编辑器构建规范.md`
+- `开发文档/12_程序开发优化建议与重构路线.md`
+- `开发文档/13_编程规范与架构约定.md`
+
+工程规则：
+
+- 运行时 UI 使用纯 UGUI。不要重新引入 UI Toolkit、UXML、USS 或 `UIDocument` 运行时路径。
+- 游戏规则写在后端或领域服务里，不写进 UI Controller。
+- 配置或系统契约变更要优先补 Validator 和聚焦测试。
+- 移动 Unity 资产时必须一起移动 `.meta` 文件，保留 GUID。
+
+常用测试触发：
+
+```powershell
+Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
+```
+
+### UI 程序智能体
+
+主要关注：
+
+- Unity 运行时 UI 表现层工程：UGUI 面板、Prefab/层级、CanvasScaler、Sprite 绑定、VisualID 接入、交互射线、动效反馈、运行时美术验收截图。
+- 把美术 / UI 设计交付落到 Unity 中，但不接管玩法规则、数值配置或后端状态。
+
+必读：
+
+- `agent_status/program.md`
+- `agent_status/art.md`
+- `开发文档/00_Unity表现层与编辑器构建规范.md`
+- `开发文档/05_表现层架构与事件总线(ViewAndEventBus).md`
+- `开发文档/09_视觉资源系统程序开发规范.md`
+- `开发文档/13_编程规范与架构约定.md`
+- `美术文档/02_资源规格与接入规范.md`
+- `美术文档/ui_design/README.md`
+- `美术文档/ui_design/_generated/ui_design_handoff.md`
+
+工作边界：
+
+- 运行时 UI 只使用纯 UGUI，不引入 UI Toolkit、UXML、USS 或 `UIDocument`。
+- UI Controller 只调用后端 API、监听 EventBus、展示状态和失败原因；不得直接修改 HP、SAN、金币、背包格子、掉落归属、怪物 AI 或结算结果。
+- 背包真实规则统一走 `InventoryInteractionService`；背包显示、物品 UI 同步和层级统一走 `InventoryPresentationController`。
+- `GameFlowController` 只作为流程上下文入口，不要把具体 UI 构建、背包同步、玩法规则继续塞回去。
+- 美术资源通过 `VisualAssetService` / VisualID 接入；不要让运行时代码依赖 `art_manifest.json`。
+- 移动、复制、重命名 Unity 资产时必须同步处理 `.meta`，保留 GUID。
+
+重点检查：
+
+- CanvasScaler 是否按项目规范使用 `1920x1080` 参考分辨率。
+- 图标、头像、立绘、底盘、背景是否按 DisplaySpec 使用固定容器和 `preserveAspect`，避免 `SetNativeSize` 撑坏布局。
+- 背景应使用 cover 逻辑，图标和头像应使用 contain 逻辑。
+- 面板遮罩、`CanvasGroup.blocksRaycasts`、按钮射线、拖拽层级不能阻断核心交互。
+- 新 UI 接入后应跑对应 smoke test 或运行时美术验收脚本；如果 Unity 已有实例导致 batchmode 不能运行，必须记录原因。
+
+### 知识库智能体
+
+当前职能：
+
+- 搭建轻量知识库，不迁移现有目录，不引入站点框架。
+- 维护 Markdown 元数据头规范、文档索引生成脚本和校验脚本。
+- 给事实来源文档补齐元数据，并把缺失项暴露到索引里，方便后续治理。
+
+本轮目标：
+
+- 新增 `知识库/README.md` 作为元数据规范。
+- 新增 `tools/docs/Generate-DocsIndex.ps1` 和 `tools/docs/Validate-Docs.ps1`。
+- 生成 `DOCS_INDEX.md` 与 `docs_index.json`。
+- 补齐当前索引内全部 Markdown 元数据头，并确保知识库校验通过。
+
+## 共享边界
+
+- `配置表(JSON)` 是源数据；`UnityClient/Assets/StreamingAssets/Configs` 是生成副本。
+- `UnityClient/Assets/Art/Approved` 存放正式入库运行时美术资源。
+- `UnityClient/Assets/Art/_IncomingAI` 是 AI 出图工作区，应保持忽略。
+- `美术文档/_generated` 与 `美术文档/ui_design/_generated` 是脚本输出；除非任务明确要求修复生成物，否则应通过对应流水线更新。
+- `tools/ai-image-gateway` 是 submodule。除非任务明确处理该子模块，否则不要在父仓库提交其内部改动。
+
+## 完成协议
+
+每个复制出来的智能体完成一次有实际意义的任务前，必须回写状态。
+
+1. 如果工作影响项目阶段、总目标、跨职能交接或阻塞项，更新 `PROJECT_STATUS.md`。
+2. 更新对应职能状态页：
+   - 美术 / UI 工作 -> `agent_status/art.md`
+   - 策划 / 数值工作 -> `agent_status/design.md`
+   - 程序 / Unity 工作 -> `agent_status/program.md`
+3. 在职能状态页里更新：
+   - `最后更新`
+   - `最近完成`
+   - `当前关注`
+   - `下一步建议`
+   - `问题 / 阻塞`，如有
+4. 如果产生了给其他职能的交接，必须同时写入 `PROJECT_STATUS.md` 和目标职能状态页。
+5. 状态记录要短、事实化、可延续，不要粘贴聊天记录。
+
+## Git 规范
+
+- 工作区可能已有用户或其他智能体的改动。不要回滚无关脏文件。
+- 只暂存与当前任务相关的文件。
+- 移动 Unity 资产时，必须一起移动 `.meta` 文件。
+- 提交前查看 `git status --short`，确认没有误提交生成物或无关文件。

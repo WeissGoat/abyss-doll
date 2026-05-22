@@ -1,3 +1,18 @@
+---
+id: config_monsters_readme
+title: 深渊怪物配置字段说明 (Monsters Config)
+type: config
+role: 策划
+domain: config_monsters
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
+---
+
 # 深渊怪物配置字段说明 (Monsters Config)
 
 > 本目录下的 JSON 文件定义深渊战斗节点中遭遇的敌对实体。怪物的攻击、技能、背包干涉统一通过 `AI.Actions` 配置，不再使用旧的 `DamageValue`、`AttacksPerTurn`、`GridInterference` 字段。

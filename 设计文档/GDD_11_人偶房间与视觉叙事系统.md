@@ -1,3 +1,18 @@
+---
+id: gdd_11_doll_room_visual_narrative
+title: 详案_11：人偶房间与视觉叙事系统 (GDD_11)
+type: gdd
+role: 策划
+domain: doll_room
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
+---
+
 # 详案_11：人偶房间与视觉叙事系统 (GDD_11)
 
 > **定位说明：** 人偶房间是整个游戏中唯一一个"没有任何压力"的空间。深渊有死亡压力，开店有经济压力，日程有时间压力——而房间的存在，是为了让玩家在所有压力之间获得一个情感缓冲区。它同时也是整局游戏的"视觉日记"，忠实记录着玩家与魔偶共同经历的一切。

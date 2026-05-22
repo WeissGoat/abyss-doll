@@ -1,3 +1,18 @@
+---
+id: gdd_12_doll_interaction_manager
+title: 详案_12：人偶交互管理器 (GDD_12)
+type: gdd
+role: 策划
+domain: doll_interaction
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
+---
+
 # 详案_12：人偶交互管理器 (GDD_12)
 
 > **定位说明：** 本文档定义玩家与魔偶之间所有"直接接触"行为的设计规范——包括触摸、对话、赠礼、保养等工坊场景中的互动。这些交互是"好感度"和"人偶状态"两个核心数值的主要操作入口，也是玩家与魔偶之间**情感连接**的最直接体现。

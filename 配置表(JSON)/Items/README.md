@@ -1,3 +1,18 @@
+---
+id: config_items_readme
+title: 局内物品与网格实体字段说明 (Items Config)
+type: config
+role: 策划
+domain: config_items
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
+---
+
 # 局内物品与网格实体字段说明 (Items Config)
 
 > 本目录包含了游戏中数量最多、最复杂的配置表。

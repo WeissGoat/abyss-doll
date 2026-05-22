@@ -1,3 +1,18 @@
+---
+id: art_runtime_art_validation_requirements
+title: Unity 运行时美术验收工具需求与交付状态
+type: art
+role: 美术
+domain: runtime_art_validation
+status: historical
+source_of_truth: false
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 历史记录仅在追溯或修正归档事实时更新。
+---
+
 # Unity 运行时美术验收工具需求与交付状态
 
 > **定位：** 给美术侧、程序侧和 agent 同步 Unity 运行时美术验收工具的需求、最终实现和未交付项。  
@@ -533,17 +548,7 @@ UnityClient/Logs/TestReport.json
 | 可配置截图点列表 | 当前截图点写在代码流程中，尚未抽成配置。 | P2 |
 | 手动 F9 截图模式 | 最新方向不依赖人工，暂未交付。 | P3 |
 
-### 11.2 不再作为默认目标
 
-以下是早期需求中的设想，当前不作为默认交付标准：
-
-* Play Mode 下按 `F9` 截图。
-* `Shift + F9` 导出 UI 层级。
-* `F10` 新建 RunID 目录。
-* 默认输出到 `UnityClient/Logs/ArtAcceptance/<RunID>/`。
-* 复用 `.test_trigger` 触发美术验收。
-
-这些能力不是不能做，而是和当前 agent 自动验收工作流相比收益较低，后续只有在人工验收确实需要时再追加。
 
 ---
 

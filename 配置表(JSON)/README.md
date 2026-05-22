@@ -1,3 +1,18 @@
+---
+id: config_configuration_overview
+title: 配置表数据总览说明 (Configuration Overview)
+type: config
+role: 策划
+domain: config_data
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
+---
+
 # 配置表数据总览说明 (Configuration Overview)
 
 > 本目录存放了游戏最小可玩版本（MVP）所需的全部 JSON 格式实体配置文件。

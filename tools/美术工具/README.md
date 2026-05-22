@@ -1,3 +1,18 @@
+---
+id: tools_art_readme
+title: 美术工具
+type: tool
+role: 美术
+domain: art_tooling
+status: active
+source_of_truth: false
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
+---
+
 # 美术工具
 
 > **定位：** 存放 Project P3 美术流水线脚本。脚本优先服务于“配置表扫描、Manifest 增量更新、批量生成、预处理和验收记录”。

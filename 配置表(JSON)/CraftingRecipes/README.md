@@ -1,3 +1,18 @@
+---
+id: config_craftingrecipes_readme
+title: 工坊制造配方字段说明 (Crafting Recipes Config)
+type: config
+role: 策划
+domain: config_crafting
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
+---
+
 # 工坊制造配方字段说明 (Crafting Recipes Config)
 
 > 位于本目录下的 JSON 文件定义了在小镇工坊中进行制造和加工的成本清单。

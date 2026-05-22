@@ -1,3 +1,18 @@
+---
+id: dev_02_grid_system
+title: 网格背包与计算系统 (Grid System)
+type: dev
+role: 程序
+domain: grid_inventory
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
+---
+
 # 网格背包与计算系统 (Grid System)
 
 > **定位：** 本文档指导程序如何实现“背包俄罗斯方块”逻辑，以及局内 Effect 效果工厂的核心算法。

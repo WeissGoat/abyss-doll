@@ -1,3 +1,18 @@
+---
+id: plan_01_mvp_art_ui_requirements
+title: MVP 美术与UI表现需求清单 (Art & UI Pipeline)
+type: plan
+role: 美术
+domain: mvp_planning
+status: historical
+source_of_truth: false
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 历史记录仅在追溯或修正归档事实时更新。
+---
+
 # MVP 美术与UI表现需求清单 (Art & UI Pipeline)
 
 > **定位说明：** 既然底层的后端数据和算法（网格碰撞、工厂模式、状态机）已经敲定，这篇文档就是写给**前端UI/交互/美术**看的。

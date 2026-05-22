@@ -1,3 +1,18 @@
+---
+id: config_dolls_readme
+title: 人偶基础档案配置字段说明 (Dolls Config)
+type: config
+role: 策划
+domain: config_dolls
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
+---
+
 # 人偶基础档案配置字段说明 (Dolls Config)
 
 > 位于本目录下的 JSON 文件定义了游戏中可操作的人偶的基础档案。

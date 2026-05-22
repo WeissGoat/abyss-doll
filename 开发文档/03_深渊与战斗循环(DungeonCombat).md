@@ -1,3 +1,18 @@
+---
+id: dev_03_dungeon_combat
+title: 深渊与战斗循环系统 (Dungeon & Combat System)
+type: dev
+role: 程序
+domain: dungeon_combat
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
+---
+
 # 深渊与战斗循环系统 (Dungeon & Combat System)
 
 > **定位：** 指导程序实现局内的爬塔结构与手动回合制战斗。

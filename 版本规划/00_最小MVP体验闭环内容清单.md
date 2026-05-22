@@ -1,3 +1,18 @@
+---
+id: plan_00_mvp_core_loop
+title: 最小可玩版本 (MVP) 核心闭环内容清单
+type: plan
+role: 全局
+domain: mvp_planning
+status: historical
+source_of_truth: false
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 历史记录仅在追溯或修正归档事实时更新。
+---
+
 # 最小可玩版本 (MVP) 核心闭环内容清单
 
 > 本文档旨在盘点为了跑通游戏第一个也是最核心的闭环——**“深渊产出 -> 工坊养成 -> 战力验证”**，我们最低限度需要配置哪些实体数据。

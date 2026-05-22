@@ -1,3 +1,18 @@
+---
+id: gdd_01_inventory_combat_grid
+title: 详案_01：背包战斗与局内网格机制 (GDD_01)
+type: gdd
+role: 策划
+domain: grid_inventory
+status: active
+source_of_truth: true
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
+---
+
 # 详案_01：背包战斗与局内网格机制 (GDD_01)
 
 > **定位说明：** 本文档定义了游戏最核心的战斗体验——"背包即战场"。涵盖战斗界面布局、底层战斗架构、探索节奏控制、构筑流派体系以及怪物设计框架。本文档与 GDD_06（物品系统）、GDD_08（人偶养成）紧密关联。

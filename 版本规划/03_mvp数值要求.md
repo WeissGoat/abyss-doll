@@ -1,3 +1,18 @@
+---
+id: plan_03_mvp_balance_requirements
+title: 数值模型沙盘推演方法论 (Numerical Sandboxing)
+type: plan
+role: 策划
+domain: mvp_planning
+status: historical
+source_of_truth: false
+related:
+  - AGENTS.md
+  - PROJECT_STATUS.md
+last_verified: 2026-05-23
+update_rule: 历史记录仅在追溯或修正归档事实时更新。
+---
+
 # 数值模型沙盘推演方法论 (Numerical Sandboxing)
 
 > 在不写一行代码的情况下，数值策划如何验证自己写的配置表（特别是 `1CV = 100G = 10DPS` 模型）到底好不好玩？
