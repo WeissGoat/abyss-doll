@@ -82,6 +82,8 @@ Manifest 是美术生产台账，不是玩法配置表，也不是 Unity 运行�
 
 ## 3. 顶层结构
 
+`ConfigRoot` 指向 Unity 运行时读取的配置副本。版本源仍是仓库根目录的 `配置表(JSON)`；运行美术扫描前先执行 `tools/config/Sync-Configs.ps1 -Clean`，把源配置同步到 `UnityClient/Assets/StreamingAssets/Configs`。
+
 ```json
 {
   "Version": 1,

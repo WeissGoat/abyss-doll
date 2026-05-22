@@ -22,3 +22,8 @@
 ## 全局通用规范
 1. **命名规范：** 所有的 ID (如 `ConfigID`, `MonsterID`) 必须全局唯一，推荐使用小写字母加下划线（如 `gear_rusty_dagger`）。
 2. **热更新友好：** 这些纯数据 JSON 文件可以直接通过服务端的 CDN 下发进行热更新和数值微调，无需重新打包客户端。
+3. **Unity 运行时副本：** 本目录是版本源；`UnityClient/Assets/StreamingAssets/Configs` 是由脚本生成的运行时副本，不直接纳入 Git。进入 Unity、运行配置加载测试或刷新美术 Manifest 前，先执行：
+
+```powershell
+.\tools\config\Sync-Configs.ps1 -Clean
+```

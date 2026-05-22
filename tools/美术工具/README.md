@@ -12,6 +12,7 @@
 使用方式：
 
 ```powershell
+.\tools\config\Sync-Configs.ps1 -Clean
 .\tools\美术工具\Update-ArtManifest.ps1
 ```
 
