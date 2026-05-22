@@ -18,11 +18,13 @@ public struct InventoryItemPlacement {
     public bool WasInGrid;
     public int X;
     public int Y;
+    public int Rotation;
 
     public static InventoryItemPlacement Missing => new InventoryItemPlacement {
         WasInGrid = false,
         X = -1,
-        Y = -1
+        Y = -1,
+        Rotation = 0
     };
 }
 
@@ -61,7 +63,8 @@ public static class InventoryInteractionService {
         previousPlacement = new InventoryItemPlacement {
             WasInGrid = true,
             X = item.Grid?.CurrentPos != null && item.Grid.CurrentPos.Length > 0 ? item.Grid.CurrentPos[0] : -1,
-            Y = item.Grid?.CurrentPos != null && item.Grid.CurrentPos.Length > 1 ? item.Grid.CurrentPos[1] : -1
+            Y = item.Grid?.CurrentPos != null && item.Grid.CurrentPos.Length > 1 ? item.Grid.CurrentPos[1] : -1,
+            Rotation = item.Grid != null ? BackpackGrid.NormalizeRotation(item.Grid.Rotation) : 0
         };
 
         grid.RemoveItem(item);
@@ -76,6 +79,17 @@ public static class InventoryInteractionService {
         int y,
         InventoryInteractionContext context,
         out string reason) {
+        int rotation = item?.Grid != null ? item.Grid.Rotation : 0;
+        return RequestPlace(item, x, y, rotation, context, out reason);
+    }
+
+    public static bool RequestPlace(
+        ItemEntity item,
+        int x,
+        int y,
+        int rotation,
+        InventoryInteractionContext context,
+        out string reason) {
         if (!ValidateItem(item, out reason)) {
             return false;
         }
@@ -84,11 +98,15 @@ public static class InventoryInteractionService {
             return false;
         }
 
-        if (!grid.PlaceItem(item, x, y)) {
-            reason = $"物品 [{item.Name}] 无法放置到 ({x},{y})。";
+        BackpackPlacementResult placement = grid.EvaluatePlacement(item, x, y, rotation);
+        if (!placement.CanPlace) {
+            reason = string.IsNullOrEmpty(placement.Reason)
+                ? $"物品 [{item.Name}] 无法放置到 ({x},{y})。"
+                : placement.Reason;
             return false;
         }
 
+        grid.PlaceItem(item, x, y, placement.Rotation);
         Recalculate(context);
         GameEventBus.PublishItemPlaced(item.InstanceID, x, y);
         return true;
@@ -104,7 +122,7 @@ public static class InventoryInteractionService {
             return false;
         }
 
-        return RequestPlace(item, placement.X, placement.Y, context, out reason);
+        return RequestPlace(item, placement.X, placement.Y, placement.Rotation, context, out reason);
     }
 
     public static bool RequestStageDiscard(
@@ -125,9 +143,75 @@ public static class InventoryInteractionService {
     }
 
     public static bool CanPlaceItem(ItemEntity item, int x, int y, InventoryInteractionContext context) {
-        return ValidateItem(item, out _)
-            && TryGetGrid(context, out BackpackGrid grid, out _)
-            && grid.CanPlaceItem(item, x, y);
+        int rotation = item?.Grid != null ? item.Grid.Rotation : 0;
+        return CanPlaceItem(item, x, y, rotation, context);
+    }
+
+    public static bool CanPlaceItem(ItemEntity item, int x, int y, int rotation, InventoryInteractionContext context) {
+        return PreviewPlacement(item, x, y, rotation, context, out BackpackPlacementResult result, out _)
+            && result.CanPlace;
+    }
+
+    public static bool PreviewPlacement(
+        ItemEntity item,
+        int x,
+        int y,
+        InventoryInteractionContext context,
+        out BackpackPlacementResult result,
+        out string reason) {
+        int rotation = item?.Grid != null ? item.Grid.Rotation : 0;
+        return PreviewPlacement(item, x, y, rotation, context, out result, out reason);
+    }
+
+    public static bool PreviewPlacement(
+        ItemEntity item,
+        int x,
+        int y,
+        int rotation,
+        InventoryInteractionContext context,
+        out BackpackPlacementResult result,
+        out string reason) {
+        result = default;
+
+        if (!ValidateItem(item, out reason)) {
+            return false;
+        }
+
+        if (!TryGetGrid(context, out BackpackGrid grid, out reason)) {
+            return false;
+        }
+
+        result = grid.EvaluatePlacement(item, x, y, rotation);
+        reason = result.Reason;
+        return true;
+    }
+
+    public static bool RequestRotateHeldItem(
+        ItemEntity item,
+        int rotationDelta,
+        InventoryInteractionContext context,
+        out int newRotation,
+        out string reason) {
+        newRotation = 0;
+
+        if (!ValidateItem(item, out reason)) {
+            return false;
+        }
+
+        if (item.Grid == null) {
+            reason = $"物品 [{item.Name}] 缺少背包形状。";
+            return false;
+        }
+
+        if (TryGetGrid(context, out BackpackGrid grid, out _) && grid.ContainedItems.Contains(item)) {
+            reason = $"物品 [{item.Name}] 仍在背包中，需先拿起再旋转。";
+            return false;
+        }
+
+        newRotation = BackpackGrid.NormalizeRotation(item.Grid.Rotation + rotationDelta);
+        item.Grid.Rotation = newRotation;
+        reason = string.Empty;
+        return true;
     }
 
     private static bool ValidateItem(ItemEntity item, out string reason) {

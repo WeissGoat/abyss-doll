@@ -37,35 +37,85 @@ public class BackpackGrid {
 
 ## 2. 形状变换与碰撞检测逻辑
 
-**旋转坐标计算 (Rotate Shape)：**
-当物品发生 90 度旋转时，原本的局部坐标 `(x, y)` 应当转换为 `(-y, x)`。计算后重新将所有点偏移为以 `(0,0)` 为基准的正数坐标。
+### 2.1 旋转坐标计算
 
-**能否放置判定 (CanPlaceItem)：**
+物品旋转只允许使用 `0/90/180/270` 四种角度。任何输入角度都必须先通过 `BackpackGrid.NormalizeRotation()` 归一化。
+
+旋转规则：
+
+```text
+0:   ( x,  y)
+90:  (-y,  x)
+180: (-x, -y)
+270: ( y, -x)
+```
+
+旋转后必须重新将所有局部坐标平移到以左上 `(0,0)` 为基准的正数坐标。否则 L 形、长条形或 180 度旋转后的物品会因为出现负坐标而被误判越界。
+
+当前正式入口：
+
 ```csharp
-public bool CanPlaceItem(ItemEntity item, int targetX, int targetY) {
-    // 1. 获取物品当前旋转状态下的所有相对坐标
-    Vector2Int[] currentShape = GetRotatedShape(item.GridComp);
+BackpackGrid.NormalizeRotation(int rotation);
+BackpackGrid.GetNormalizedShapeCells(ItemEntity item, int rotation);
+BackpackGrid.TryGetRotatedBounds(ItemEntity item, int rotation, out int width, out int height);
+```
 
-    foreach(var point in currentShape) {
-        int checkX = targetX + point.x;
-        int checkY = targetY + point.y;
+### 2.2 放置校验结果
 
-        // 2. 越界检测
-        if(checkX < 0 || checkX >= Width || checkY < 0 || checkY >= Height) {
-            return false;
-        }
+`CanPlaceItem()` 只适合历史兼容和简单 bool 判断。正式交互、拖拽预览、失败提示和自动化测试应使用 `EvaluatePlacement()`。
 
-        // 3. 碰撞检测
-        if(!string.IsNullOrEmpty(_gridMatrix[checkX, checkY])) {
-            // 如果检查的格子不是空位，且不是这个物品自己（移动时），则无法放置
-            if(_gridMatrix[checkX, checkY] != item.InstanceID) {
-                return false;
-            }
-        }
-    }
-    return true; // 完美无瑕，可以放置！
+```csharp
+public enum BackpackPlacementFailure {
+    None,
+    MissingItem,
+    MissingShape,
+    OutOfBounds,
+    LockedCell,
+    OccupiedCell
+}
+
+public struct BackpackPlacementResult {
+    public bool CanPlace;
+    public BackpackPlacementFailure Failure;
+    public string Reason;
+    public int X;
+    public int Y;
+    public int Rotation;
+    public List<int[]> OccupiedCells;
 }
 ```
+
+约定：
+
+* `OccupiedCells` 是旋转后、平移到目标坐标后的真实占格列表。
+* UI 拖拽预览必须消费 `OccupiedCells`，不得自己重新推导占格。
+* `Failure` 用于自动化测试和日志定位，`Reason` 用于 UI 失败提示。
+* `PlaceItem(item, x, y, rotation)` 会在成功后写回 `item.Grid.CurrentPos` 和规范化后的 `item.Grid.Rotation`。
+
+### 2.3 背包交互服务
+
+UI 不直接调用 `BackpackGrid.PlaceItem()` / `RemoveItem()`。玩家交互统一经过 `InventoryInteractionService`：
+
+```csharp
+RequestPickUp(...)
+PreviewPlacement(...)
+RequestRotateHeldItem(...)
+RequestPlace(...)
+RequestRestore(...)
+RequestStageDiscard(...)
+```
+
+旋转只允许发生在“已拿起”的交互态。仍在背包矩阵中的物品不能直接修改 `Rotation`，否则矩阵占格和物品自身状态会不同步。
+
+成功放置后，服务负责：
+
+```text
+BackpackGrid.PlaceItem
+-> GridSolver.RecalculateAllEffects
+-> GameEventBus.PublishItemPlaced
+```
+
+因此相邻、方向、光环、连接链路和被动效果必须在放置后立即刷新。
 
 ## 3. 效果工厂与网格解算器 (GridSolver & EffectFactory)
 

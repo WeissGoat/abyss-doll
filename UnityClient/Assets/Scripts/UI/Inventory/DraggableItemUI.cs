@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 // 挂载在物品预制体（如剑、药水）上
 public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerDownHandler, IPointerEnterHandler {
+    private const float CellSize = 100f;
+    private const KeyCode RotateHeldItemKey = KeyCode.R;
+
     public ItemEntity ItemData { get; private set; }
     public bool IsPendingDiscard { get; private set; }
     
@@ -18,6 +21,8 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private bool _wasInGrid = false;
     private InventoryItemPlacement _lastPlacement = InventoryItemPlacement.Missing;
     private Vector3 _dragOffset;
+    private Camera _dragEventCamera;
+    private int _dragStartRotation;
 
     // [新增] 用于网格对齐计算：当前抓取的相对单元格坐标偏移
     public int DragCellOffsetX { get; private set; }
@@ -32,27 +37,17 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         _canvasGroup = GetComponent<CanvasGroup>();
         if (_canvasGroup == null) _canvasGroup = gameObject.AddComponent<CanvasGroup>();
         
-        // 根据后端 Shape 数据，动态计算 UI 尺寸和中心锚点(Pivot)
-        if (ItemData.Grid != null && ItemData.Grid.Shape != null) {
-            int maxX = 0;
-            int maxY = 0;
-            foreach (var p in ItemData.Grid.Shape) {
-                if (p[0] > maxX) maxX = p[0];
-                if (p[1] > maxY) maxY = p[1];
-            }
-            int cols = maxX + 1;
-            int rows = maxY + 1;
-            
-            RectTransform rect = GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(cols * 100, rows * 100);
-            
-            // 将 Pivot 设置为左上角第一个格子的中心点
-            float pivotX = 0.5f / cols;
-            float pivotY = 1.0f - (0.5f / rows);
-            rect.pivot = new Vector2(pivotX, pivotY);
-        }
+        ApplyGridFootprint();
 
         ApplyVisualStyle();
+    }
+
+    private void Update() {
+        if (!_isDragging || !Input.GetKeyDown(RotateHeldItemKey)) {
+            return;
+        }
+
+        TryRotateHeldItem(Input.mousePosition, _dragEventCamera);
     }
 
     private void ApplyVisualStyle() {
@@ -82,6 +77,7 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 iconImage.preserveAspect = true;
                 iconImage.color = hasRegisteredIcon ? Color.white : ResolveItemTint(ItemData, true);
                 iconImage.raycastTarget = false;
+                ApplyIconRotation(iconImage.rectTransform);
             }
         }
 
@@ -138,6 +134,77 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
     }
 
+    private void ApplyGridFootprint() {
+        if (ItemData?.Grid == null) {
+            return;
+        }
+
+        if (!BackpackGrid.TryGetRotatedBounds(ItemData, ItemData.Grid.Rotation, out int cols, out int rows)) {
+            return;
+        }
+
+        RectTransform rect = GetComponent<RectTransform>();
+        if (rect == null) {
+            return;
+        }
+
+        rect.sizeDelta = new Vector2(cols * CellSize, rows * CellSize);
+        rect.pivot = new Vector2(0.5f / cols, 1.0f - (0.5f / rows));
+
+        Image iconImage = transform.Find("Icon_Image")?.GetComponent<Image>();
+        if (iconImage != null) {
+            ApplyIconRotation(iconImage.rectTransform);
+        }
+    }
+
+    private void ApplyIconRotation(RectTransform iconRect) {
+        if (iconRect == null || ItemData?.Grid == null) {
+            return;
+        }
+
+        int rotation = BackpackGrid.NormalizeRotation(ItemData.Grid.Rotation);
+        iconRect.localRotation = Quaternion.Euler(0f, 0f, -rotation);
+    }
+
+    private void UpdateDragCellOffset(Vector2 screenPosition, Camera eventCamera) {
+        RectTransform rect = GetComponent<RectTransform>();
+        if (rect == null) {
+            DragCellOffsetX = 0;
+            DragCellOffsetY = 0;
+            return;
+        }
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, screenPosition, eventCamera, out Vector2 localPoint);
+        int offsetX = Mathf.RoundToInt(localPoint.x / CellSize);
+        int offsetY = Mathf.RoundToInt(-localPoint.y / CellSize);
+
+        if (ItemData?.Grid != null && BackpackGrid.TryGetRotatedBounds(ItemData, ItemData.Grid.Rotation, out int cols, out int rows)) {
+            offsetX = Mathf.Clamp(offsetX, 0, cols - 1);
+            offsetY = Mathf.Clamp(offsetY, 0, rows - 1);
+        }
+
+        DragCellOffsetX = offsetX;
+        DragCellOffsetY = offsetY;
+    }
+
+    private void TryRotateHeldItem(Vector2 screenPosition, Camera eventCamera) {
+        if (ItemData == null) {
+            return;
+        }
+
+        InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("DragRotate");
+        if (!InventoryInteractionService.RequestRotateHeldItem(ItemData, BackpackGrid.RotationStep, context, out int newRotation, out string reason)) {
+            if (!string.IsNullOrEmpty(reason)) {
+                Debug.LogWarning($"[UI] {reason}");
+            }
+            return;
+        }
+
+        ApplyGridFootprint();
+        UpdateDragCellOffset(screenPosition, eventCamera);
+        Debug.Log($"[UI] 旋转物品 {ItemData.Name} 到 {newRotation} 度。");
+    }
+
     public void OnPointerEnter(PointerEventData eventData) {
         Debug.Log($"[DraggableItemUI] 鼠标悬停进入: {gameObject.name}");
     }
@@ -189,17 +256,14 @@ public void OnBeginDrag(PointerEventData eventData) {
     _isDragging = true;
     _originalPosition = transform.position;
     _originalParent = transform.parent;
+    _dragEventCamera = eventData.pressEventCamera;
+    _dragStartRotation = ItemData.Grid != null ? BackpackGrid.NormalizeRotation(ItemData.Grid.Rotation) : 0;
 
     // [核心修复] 记录鼠标抓取点与物体真实位置的偏移量，防止抖动瞬移！
     _dragOffset = transform.position - (Vector3)eventData.position;
     
     // 计算网格格数偏移：当前点击的究竟是这个物品的哪一格？
-    RectTransform rect = GetComponent<RectTransform>();
-    RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, eventData.position, eventData.pressEventCamera, out Vector2 localPoint);
-    // 因为 Anchor/Pivot 被我们设定在 (0.5/Cols, 1 - 0.5/Rows)
-    // localPoint 是相对于 Pivot 的像素坐标，比如 100x100 的格子，往右一格是 +100，往下一格是 -100
-    DragCellOffsetX = Mathf.RoundToInt(localPoint.x / 100f);
-    DragCellOffsetY = Mathf.RoundToInt(-localPoint.y / 100f); // UI 坐标系 Y 轴向上，而网格是 Y 轴向下，因此取负
+    UpdateDragCellOffset(eventData.position, eventData.pressEventCamera);
 
     transform.SetAsLastSibling();
 
@@ -270,8 +334,10 @@ public void OnEndDrag(PointerEventData eventData) {
         _lastPlacement = new InventoryItemPlacement {
             WasInGrid = true,
             X = gridX,
-            Y = gridY
+            Y = gridY,
+            Rotation = ItemData?.Grid != null ? BackpackGrid.NormalizeRotation(ItemData.Grid.Rotation) : 0
         };
+        ApplyGridFootprint();
         
         _originalParent = transform.parent;
         _originalPosition = transform.position;
@@ -282,6 +348,7 @@ public void OnEndDrag(PointerEventData eventData) {
         transform.SetParent(_originalParent);
         transform.position = _originalPosition;
         IsPendingDiscard = false;
+        RestoreDragStartRotationIfNeeded();
         
         // 【关键修复】如果是从网格拿起来的但放置失败，必须把它重新注册回后端！
         if (_wasInGrid) {
@@ -290,6 +357,8 @@ public void OnEndDrag(PointerEventData eventData) {
                 InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("DragCancel");
                 if (!InventoryInteractionService.RequestRestore(ItemData, _lastPlacement, context, out string restoreReason)) {
                     Debug.LogWarning($"[UI] 无法将 {ItemData.Name} 放回原背包位置：{restoreReason}");
+                } else {
+                    ApplyGridFootprint();
                 }
             }
         }
@@ -311,5 +380,14 @@ public void OnEndDrag(PointerEventData eventData) {
         _originalPosition = transform.position;
         IsPendingDiscard = true;
         Debug.Log($"[UI] 物品 {ItemData.Name} 已从背包中取出，关闭背包时将被丢弃。");
+    }
+
+    private void RestoreDragStartRotationIfNeeded() {
+        if (ItemData?.Grid == null) {
+            return;
+        }
+
+        ItemData.Grid.Rotation = _dragStartRotation;
+        ApplyGridFootprint();
     }
 }
