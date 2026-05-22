@@ -34,13 +34,8 @@ public class GridSlotUI : MonoBehaviour, IDropHandler {
         int originX = X - draggedItem.DragCellOffsetX;
         int originY = Y - draggedItem.DragCellOffsetY;
 
-        BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
-        bool canPlace = grid != null && grid.CanPlaceItem(draggedItem.ItemData, originX, originY);
-        if (canPlace) {
-            grid.PlaceItem(draggedItem.ItemData, originX, originY);
-            GridSolver.RecalculateAllEffects(GameRoot.Core.CurrentPlayer.ActiveDoll);
-            GameEventBus.PublishItemPlaced(draggedItem.ItemData.InstanceID, originX, originY);
-
+        InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("SlotDrop");
+        if (InventoryInteractionService.RequestPlace(draggedItem.ItemData, originX, originY, context, out string placeReason)) {
             GridGenerator generator = GetComponentInParent<GridGenerator>();
             Transform targetSlot = generator != null ? generator.GetSlot(originX, originY) : null;
             draggedItem.SnapToSlot(targetSlot != null ? targetSlot : transform, originX, originY);

@@ -16,6 +16,7 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private int _lastValidX = -1;
     private int _lastValidY = -1;
     private bool _wasInGrid = false;
+    private InventoryItemPlacement _lastPlacement = InventoryItemPlacement.Missing;
     private Vector3 _dragOffset;
 
     // [新增] 用于网格对齐计算：当前抓取的相对单元格坐标偏移
@@ -25,6 +26,7 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void SetupData(ItemEntity itemData) {
         ItemData = itemData;
         _wasInGrid = false;
+        _lastPlacement = InventoryItemPlacement.Missing;
         IsPendingDiscard = false;
         
         _canvasGroup = GetComponent<CanvasGroup>();
@@ -155,8 +157,11 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             // 如果它在 UI 上仍然显示在格子里，可能需要将其重新放置进去
             if (_wasInGrid && grid != null) {
                 Debug.LogWarning($"[UI] 自动修复：将失联的武器【{ItemData.Name}】重新注册到网格 ({_lastValidX},{_lastValidY})。");
-                grid.PlaceItem(ItemData, _lastValidX, _lastValidY);
-                GridSolver.RecalculateAllEffects(GameRoot.Core.CurrentPlayer.ActiveDoll);
+                InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("ItemClickAutoRepair");
+                if (!InventoryInteractionService.RequestPlace(ItemData, _lastValidX, _lastValidY, context, out string repairReason)) {
+                    Debug.LogWarning($"[UI] 自动修复失败：{repairReason}");
+                    return;
+                }
             } else {
                 Debug.LogWarning($"[UI] 武器【{ItemData.Name}】还没有被放入背包网格！请先将它拖入网格中才能在战斗里使用！");
                 return;
@@ -202,18 +207,18 @@ public void OnBeginDrag(PointerEventData eventData) {
         _canvasGroup.blocksRaycasts = false;
     }
 
-    BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
-    if (grid != null && grid.ContainedItems != null && grid.ContainedItems.Contains(ItemData)) {
+    InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("DragBegin");
+    if (InventoryInteractionService.RequestPickUp(ItemData, context, out InventoryItemPlacement placement, out string pickUpReason)) {
         _wasInGrid = true;
-        _lastValidX = ItemData.Grid.CurrentPos[0];
-        _lastValidY = ItemData.Grid.CurrentPos[1];
-
-        // 从后端网格中拿走
-        grid.RemoveItem(ItemData);
-        GridSolver.RecalculateAllEffects(GameRoot.Core.CurrentPlayer.ActiveDoll);
-        GameEventBus.PublishItemRemoved(ItemData.InstanceID);
+        _lastPlacement = placement;
+        _lastValidX = placement.X;
+        _lastValidY = placement.Y;
     } else {
         _wasInGrid = false;
+        _lastPlacement = InventoryItemPlacement.Missing;
+        if (!string.IsNullOrEmpty(pickUpReason)) {
+            Debug.LogWarning($"[UI] {pickUpReason}");
+        }
     }
 }
 
@@ -230,9 +235,11 @@ public void OnEndDrag(PointerEventData eventData) {
     }
 
     // 如果拖拽结束后，物品没有在后端的网格里（说明它被扔在了空地，或者放置失败了）
-    BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
+    BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
     if (grid == null || !grid.ContainedItems.Contains(ItemData)) {
-        if (_wasInGrid && GameFlowController.Instance != null && GameFlowController.Instance.CanStageRemovedBackpackItems()) {
+        bool allowStageDiscard = GameFlowController.Instance != null && GameFlowController.Instance.CanStageRemovedBackpackItems();
+        InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("DragEnd", allowStageDiscard);
+        if (_wasInGrid && InventoryInteractionService.RequestStageDiscard(ItemData, context, out _)) {
             LeaveDetachedAtCurrentPosition();
         } else {
             ReturnToOriginalPosition();
@@ -260,6 +267,11 @@ public void OnEndDrag(PointerEventData eventData) {
         IsPendingDiscard = false;
         _lastValidX = gridX;
         _lastValidY = gridY;
+        _lastPlacement = new InventoryItemPlacement {
+            WasInGrid = true,
+            X = gridX,
+            Y = gridY
+        };
         
         _originalParent = transform.parent;
         _originalPosition = transform.position;
@@ -273,11 +285,12 @@ public void OnEndDrag(PointerEventData eventData) {
         
         // 【关键修复】如果是从网格拿起来的但放置失败，必须把它重新注册回后端！
         if (_wasInGrid) {
-            BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
+            BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
             if (grid != null && !grid.ContainedItems.Contains(ItemData)) {
-                grid.PlaceItem(ItemData, _lastValidX, _lastValidY);
-                GridSolver.RecalculateAllEffects(GameRoot.Core.CurrentPlayer.ActiveDoll);
-                GameEventBus.PublishItemPlaced(ItemData.InstanceID, _lastValidX, _lastValidY);
+                InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("DragCancel");
+                if (!InventoryInteractionService.RequestRestore(ItemData, _lastPlacement, context, out string restoreReason)) {
+                    Debug.LogWarning($"[UI] 无法将 {ItemData.Name} 放回原背包位置：{restoreReason}");
+                }
             }
         }
     }
