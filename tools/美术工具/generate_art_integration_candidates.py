@@ -21,6 +21,7 @@ DEFAULT_REGISTRY = "UnityClient/Assets/Resources/VisualAssetRegistry.asset"
 DEFAULT_INCOMING_ROOT = "UnityClient/Assets/Art/_IncomingAI"
 DEFAULT_OUTPUT_JSON = "美术文档/_generated/可接入素材清单.json"
 DEFAULT_OUTPUT_MARKDOWN = "美术文档/_generated/可接入素材清单.md"
+DEFAULT_SNAPSHOT_DIR = "美术文档/_generated/art_integration_snapshots"
 
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp"}
 APPROVED_STATUSES = {"approved", "registered", "validated"}
@@ -31,9 +32,10 @@ ACTION_ORDER = {
     "acceptance_needed": 1,
     "art_approve": 2,
     "art_select": 3,
-    "generate_needed": 4,
-    "validated": 5,
-    "deprecated": 6,
+    "art_process": 4,
+    "generate_needed": 5,
+    "validated": 6,
+    "deprecated": 7,
 }
 
 
@@ -64,6 +66,16 @@ def write_json(path: Path, payload: Any) -> None:
 
 def timestamp_text() -> str:
     return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
+
+
+def timestamp_filename() -> str:
+    return datetime.now(timezone.utc).astimezone().strftime("%Y%m%d_%H%M%S")
+
+
+def safe_snapshot_tag(value: str) -> str:
+    text = re.sub(r"[^A-Za-z0-9_.-]+", "_", value.strip())
+    text = re.sub(r"_+", "_", text).strip("._-")
+    return text[:80]
 
 
 def as_list(value: Any) -> list[Any]:
@@ -185,6 +197,9 @@ def classify_entry(
     elif processed_image is not None:
         action = "art_select"
         reason = "Incoming processed 已有候选，等待美术筛选 selected。"
+    elif raw_image is not None:
+        action = "art_process"
+        reason = "Incoming raw 已有候选，等待预处理和 contact sheet。"
     elif status in {"todo", "prompted", "generated", "selected"}:
         action = "generate_needed"
         reason = "Manifest 有需求但尚未形成可接入 Approved 素材。"
@@ -320,6 +335,7 @@ def make_markdown(payload: dict[str, Any]) -> str:
         f"* Acceptance needed: `{summary['ActionCounts'].get('acceptance_needed', 0)}`",
         f"* Art approve: `{summary['ActionCounts'].get('art_approve', 0)}`",
         f"* Art select: `{summary['ActionCounts'].get('art_select', 0)}`",
+        f"* Art process: `{summary['ActionCounts'].get('art_process', 0)}`",
         f"* Generate needed: `{summary['ActionCounts'].get('generate_needed', 0)}`",
         "",
         "## Program Integrate",
@@ -364,7 +380,7 @@ def make_markdown(payload: dict[str, Any]) -> str:
             ]
         )
         for item in other_items:
-            candidate = item["SelectedCandidate"] or item["ProcessedCandidate"] or item["ApprovedPath"] or "-"
+            candidate = item["SelectedCandidate"] or item["ProcessedCandidate"] or item["RawCandidate"] or item["ApprovedPath"] or "-"
             lines.append(
                 "| "
                 + " | ".join(
@@ -392,6 +408,7 @@ def make_markdown(payload: dict[str, Any]) -> str:
             "- `acceptance_needed`: Registry 已能找到素材，下一步是运行时截图验收或回填 Manifest 状态。",
             "- `art_approve`: `_IncomingAI/<VisualID>/selected` 已有候选，等待同步到 Approved。",
             "- `art_select`: processed 已有候选，等待美术筛选。",
+            "- `art_process`: raw 已有候选，等待预处理、contact sheet 和筛选。",
             "- `generate_needed`: Manifest 有需求，但尚未生成可接入素材。",
         ]
     )
@@ -421,6 +438,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
     priority_counts = Counter(item["Priority"] for item in candidates)
     return {
         "GeneratedAt": timestamp_text(),
+        "SnapshotTag": str(args.snapshot_tag or ""),
         "Inputs": {
             "ManifestPath": repo_path(manifest_path),
             "ScreensPath": repo_path(screens_path),
@@ -447,8 +465,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--incoming-root", default=DEFAULT_INCOMING_ROOT)
     parser.add_argument("--output-json", default=DEFAULT_OUTPUT_JSON)
     parser.add_argument("--output-markdown", default=DEFAULT_OUTPUT_MARKDOWN)
+    parser.add_argument("--snapshot-dir", default=DEFAULT_SNAPSHOT_DIR)
+    parser.add_argument("--snapshot-tag", default="")
+    parser.add_argument("--snapshot", action="store_true")
     parser.add_argument("--include-done", action="store_true")
     return parser.parse_args()
+
+
+def write_snapshot(args: argparse.Namespace, payload: dict[str, Any], markdown: str) -> tuple[Path, Path]:
+    snapshot_dir = resolve_project_path(args.snapshot_dir)
+    tag = safe_snapshot_tag(args.snapshot_tag)
+    stem = timestamp_filename()
+    if tag:
+        stem = f"{stem}_{tag}"
+    snapshot_json = snapshot_dir / f"{stem}.json"
+    snapshot_markdown = snapshot_dir / f"{stem}.md"
+    write_json(snapshot_json, payload)
+    snapshot_markdown.write_text(markdown, encoding="utf-8")
+    return snapshot_json, snapshot_markdown
 
 
 def main() -> int:
@@ -456,17 +490,25 @@ def main() -> int:
     payload = build_payload(args)
     output_json = resolve_project_path(args.output_json)
     output_markdown = resolve_project_path(args.output_markdown)
+    markdown = make_markdown(payload)
     write_json(output_json, payload)
     output_markdown.parent.mkdir(parents=True, exist_ok=True)
-    output_markdown.write_text(make_markdown(payload), encoding="utf-8")
+    output_markdown.write_text(markdown, encoding="utf-8")
+    snapshot_paths: tuple[Path, Path] | None = None
+    if args.snapshot:
+        snapshot_paths = write_snapshot(args, payload, markdown)
     counts = payload["Summary"]["ActionCounts"]
     print(f"[OK] Art integration candidates: {repo_path(output_markdown)}")
+    if snapshot_paths is not None:
+        _, snapshot_markdown = snapshot_paths
+        print(f"[OK] Art integration snapshot: {repo_path(snapshot_markdown)}")
     print(
         "[OK] "
         f"program_integrate={counts.get('program_integrate', 0)}, "
         f"acceptance_needed={counts.get('acceptance_needed', 0)}, "
         f"art_approve={counts.get('art_approve', 0)}, "
         f"art_select={counts.get('art_select', 0)}, "
+        f"art_process={counts.get('art_process', 0)}, "
         f"generate_needed={counts.get('generate_needed', 0)}"
     )
     return 0

@@ -10,7 +10,8 @@ param(
     [int]$ContactSize = 160,
     [int]$BackgroundThreshold = 34,
     [switch]$DryRun,
-    [switch]$Overwrite
+    [switch]$Overwrite,
+    [switch]$SkipIntegrationCandidates
 )
 
 $ErrorActionPreference = "Stop"
@@ -71,4 +72,16 @@ if ($Overwrite) {
 python @argsList
 if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
+}
+
+if (-not $DryRun -and -not $SkipIntegrationCandidates) {
+    $candidateScript = Join-Path $scriptDir "Generate-ArtIntegrationCandidates.ps1"
+    $snapshotTag = "processed"
+    if ($BatchID -ne "") {
+        $snapshotTag = "processed_$BatchID"
+    }
+    & $candidateScript -Snapshot -SnapshotTag $snapshotTag
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
 }

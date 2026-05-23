@@ -71,7 +71,11 @@ if ($LASTEXITCODE -ne 0) {
 
 if (-not $DryRun -and -not $SkipIntegrationCandidates) {
     $candidateScript = Join-Path $scriptDir "Generate-ArtIntegrationCandidates.ps1"
-    & $candidateScript
+    $snapshotTag = "approved_sync"
+    if ($BatchID -ne "") {
+        $snapshotTag = "approved_sync_$BatchID"
+    }
+    & $candidateScript -Snapshot -SnapshotTag $snapshotTag
     if ($LASTEXITCODE -ne 0) {
         exit $LASTEXITCODE
     }

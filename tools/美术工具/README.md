@@ -121,6 +121,9 @@ $env:NAI_ACCESS_TOKEN = "<token>"
 * `-DelaySeconds`：每张图之间的等待时间，当前默认 1 秒。
 * `-Extra key=value`：透传 provider 参数。
 * `-Overwrite`：允许覆盖同名 raw 输出。
+* `-SkipIntegrationCandidates`：只生成图片，不刷新可接入素材清单。默认不要使用。
+
+非 `-DryRun` 生成完成后，脚本会默认刷新 `美术文档/_generated/可接入素材清单.*`，并在 `美术文档/_generated/art_integration_snapshots/` 写入一份 `generation` 快照。刚生成的 raw 素材会在清单中标为 `art_process`，表示还需要预处理和筛选，不能交给程序接入。
 
 ## Optimize-ArtAssets.ps1
 
@@ -131,6 +134,8 @@ $env:NAI_ACCESS_TOKEN = "<token>"
 ```powershell
 .\tools\美术工具\Optimize-ArtAssets.ps1 -BatchID nai_p0_item_20260508_01 -Overwrite
 ```
+
+非 `-DryRun` 预处理完成后，脚本会默认刷新“可接入素材清单”，并写入一份 `processed` 快照。processed 已有候选但还未 selected 时，清单状态为 `art_select`。需要跳过清单刷新时使用 `-SkipIntegrationCandidates`。
 
 ## Sync-ApprovedArt.ps1
 
@@ -150,7 +155,7 @@ $env:NAI_ACCESS_TOKEN = "<token>"
 .\tools\美术工具\Sync-ApprovedArt.ps1 -BatchID nai_p0_item_20260508_01 -Overwrite
 ```
 
-非 `-DryRun` 同步完成后，脚本会默认刷新“可接入素材清单”，方便程序侧直接查看当前哪些 Approved 素材已经可以接入。需要只做同步、不刷新清单时使用 `-SkipIntegrationCandidates`。
+非 `-DryRun` 同步完成后，脚本会默认刷新“可接入素材清单”，并写入一份 `approved_sync` 快照，方便程序侧直接查看当前哪些 Approved 素材已经可以接入。需要只做同步、不刷新清单时使用 `-SkipIntegrationCandidates`。
 
 ## Generate-ArtIntegrationCandidates.ps1
 
@@ -161,13 +166,21 @@ $env:NAI_ACCESS_TOKEN = "<token>"
 * `美术文档/_generated/可接入素材清单.json`
 * `美术文档/_generated/可接入素材清单.md`
 
+使用 `-Snapshot` 时额外输出：
+
+* `美术文档/_generated/art_integration_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.json`
+* `美术文档/_generated/art_integration_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.md`
+
 使用方式：
 
 ```powershell
 .\tools\美术工具\Generate-ArtIntegrationCandidates.ps1
+.\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag manual_review
 ```
 
 报告按 `VisualID` 聚合。同一素材如果被多个配置或界面引用，只出现一条，并在 `ReferencedBy` 中合并来源。
+
+`可接入素材清单.*` 是 latest，永远覆盖；`art_integration_snapshots/` 是历史快照，用来追溯每次生成、预处理和 Approved 同步后队列变化。
 
 主要状态：
 
@@ -175,6 +188,7 @@ $env:NAI_ACCESS_TOKEN = "<token>"
 * `acceptance_needed`：Registry 已能找到素材，下一步是运行时截图验收或回填 Manifest 状态。
 * `art_approve`：`_IncomingAI/<VisualID>/selected` 已有候选，等待同步到 Approved。
 * `art_select`：`processed` 已有候选，等待美术筛选。
+* `art_process`：`raw` 已有候选，等待预处理和 contact sheet。
 * `generate_needed`：Manifest 有需求，但还没有可接入素材。
 
 ## Validate-UIDesign.ps1

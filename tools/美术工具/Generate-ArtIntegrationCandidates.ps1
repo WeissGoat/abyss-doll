@@ -5,6 +5,9 @@ param(
     [string]$IncomingRoot = "",
     [string]$OutputJson = "",
     [string]$OutputMarkdown = "",
+    [string]$SnapshotDir = "",
+    [string]$SnapshotTag = "",
+    [switch]$Snapshot,
     [switch]$IncludeDone
 )
 
@@ -37,6 +40,18 @@ if ($OutputJson -ne "") {
 
 if ($OutputMarkdown -ne "") {
     $argsList += @("--output-markdown", $OutputMarkdown)
+}
+
+if ($SnapshotDir -ne "") {
+    $argsList += @("--snapshot-dir", $SnapshotDir)
+}
+
+if ($SnapshotTag -ne "") {
+    $argsList += @("--snapshot-tag", $SnapshotTag)
+}
+
+if ($Snapshot) {
+    $argsList += "--snapshot"
 }
 
 if ($IncludeDone) {
