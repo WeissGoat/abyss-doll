@@ -101,7 +101,10 @@ BACKGROUND_EN: Dict[str, str] = {
     "dungeon_map": "dark route-map background texture, low visual noise, cracked stone, old brass pipes, faint mine lamps, deep vertical cavern feeling, large negative space",
     "layer_1": "shallow underground industrial passage, old metal walls, broken cables, faint warm lamps, light cavern mist, low danger atmosphere, wide empty floor",
     "layer_2": "polluted mining zone, corroded mine tunnel, purple-green toxic liquid, broken mining machines, acid haze, dim work lights, dangerous atmosphere",
+    "layer_select": "underground departure gate chamber, arched mine entrance, brass route board, old warning lamps, empty central area for layer list, dark side walls, low visual noise",
     "safe_room": "quiet underground refuge room, small repair bench, warm lanterns, blankets, brass pipes, medicine cabinet, calm empty floor area, low visual noise",
+    "settlement_defeat": "failed expedition result backdrop, dim underground return bay, damaged gear crates, broken lanterns, muted red warning lamps, empty central area, somber mood",
+    "settlement_victory": "successful evacuation result backdrop, underground lift exit, warm town-side lamps, brass cargo scale, recovered supply crates, empty central area, calm relief mood",
     "stairs_room": "deep stairwell chamber, descending stone stairs and metal ladder rails, round hatch opening, old warning lamps, cavern darkness below, empty foreground floor",
     "workshop": "small mechanical repair workshop, workbench, hanging crane arm, tool wall, parts boxes, old fluorescent lamps, brass pipes, large negative space on both sides",
 }
@@ -111,7 +114,10 @@ BACKGROUND_CN: Dict[str, str] = {
     "dungeon_map": "路线图底纹背景，低噪声暗色画面，裂石、旧黄铜管线、微弱矿灯和纵深洞穴感，大量负空间。",
     "layer_1": "浅层区域背景，废弃地下工业通道、旧金属墙、破损电缆、微弱暖灯和薄雾，危险感较低。",
     "layer_2": "污染矿带背景，腐蚀矿道、紫绿色毒液、破损采矿设备、酸雾和昏暗工作灯。",
+    "layer_select": "层选择入口背景，地下出发闸门、拱形矿洞入口、黄铜路线牌、旧警示灯和空的中心列表区域。",
     "safe_room": "安全屋背景，安静的地下休整房间、小维修台、暖灯、毯子、黄铜管线和药柜，前景留空。",
+    "settlement_defeat": "战败结算背景，昏暗地下返回区、损坏装备箱、破裂灯具、低饱和红色警示灯和空的中心区域。",
+    "settlement_victory": "撤离成功结算背景，地下升降出口、温暖小镇侧灯光、黄铜货秤、回收物资箱和空的中心区域。",
     "stairs_room": "阶梯房间背景，向下延伸的石阶和金属梯栏、圆形舱口、旧警示灯和下方洞穴黑暗，前景留空。",
     "workshop": "工坊整备背景，小型机械维修工坊，工作台、吊臂、工具墙、零件箱、旧灯管和黄铜管线，两侧留负空间。",
 }
@@ -143,6 +149,8 @@ UI_EN = {
     "combat_status_bar_shield": "horizontal shield bar skin, dark metal track, cool blue fill channel, brass end caps, empty center channel",
     "combat_ap_pip": "small action point pip, compact brass-and-blue energy bead, circular mechanical token, clean silhouette",
     "combat_turn_banner": "wide turn banner frame, dark metal ribbon, brass pipe ends, empty center area, subtle amber glow",
+    "combat_entity_shadow": "soft transparent elliptical floor shadow, subtle dark edge, centered empty interior, no hard border",
+    "combat_target_ring": "elliptical target selection ring, thin brass mechanical outline, soft amber glow, transparent center",
     "dungeon_node_plate": "round map node backing plate, dark metal disk, brass ring, small screw marks, empty center",
     "dungeon_route_line": "thin map route connector line, brass pipe segment with small rivets, horizontal tileable strip",
     "settlement_victory_panel": "large evacuation success panel frame, dark metal body, warm brass trim, subtle green-blue signal light, empty center area",
@@ -176,6 +184,8 @@ UI_CN = {
     "combat_status_bar_shield": "护盾状态条皮肤，暗金属轨道、冷蓝填充槽和黄铜端盖。",
     "combat_ap_pip": "行动点圆点，小型黄铜与蓝色能量珠、圆形机械代币，轮廓清楚。",
     "combat_turn_banner": "回合提示条，宽暗金属条、黄铜管线端头、空中心和淡琥珀光。",
+    "combat_entity_shadow": "战斗实体脚底阴影，柔和透明椭圆、暗色边缘、中心干净，不做硬边框。",
+    "combat_target_ring": "目标选择光环，椭圆形黄铜机械线框、柔和琥珀光、中心透明。",
     "dungeon_node_plate": "地图节点底板，圆形暗金属盘、黄铜环、小螺丝痕和空中心。",
     "dungeon_route_line": "地图路线连接线，黄铜管线段、小铆钉和横向可平铺条。",
     "settlement_victory_panel": "撤离成功结算面板，暗金属主体、暖黄铜边、微弱绿蓝信号灯和空中心。",
@@ -304,6 +314,23 @@ SPEC = {
         composition="bust portrait, front or three-quarter view",
         post_process=["crop_square", "resize"],
         preview_size=160,
+    ),
+    "monster_combat": make_spec(
+        width=1024,
+        height=1024,
+        background="transparent",
+        alpha_required=True,
+        display_width=360,
+        display_height=420,
+        safe_padding=6,
+        subject_min=0.74,
+        subject_max=0.90,
+        pivot="bottom_center",
+        anchor="bottom_center",
+        baseline_percent=92,
+        composition="full-body battle stance, side or three-quarter side view",
+        post_process=["trim_transparent_edges", "resize", "fit_safe_padding"],
+        preview_size=220,
     ),
     "node": make_spec(
         width=512,
@@ -731,6 +758,34 @@ UI_SPEC_BY_CONFIG: Dict[str, Dict[str, Any]] = {
         preview_size=240,
         nine_slice=nine_slice(96, 96, 64, 64),
     ),
+    "combat_entity_shadow": make_spec(
+        width=512,
+        height=256,
+        background="transparent",
+        alpha_required=True,
+        display_width=300,
+        display_height=90,
+        safe_padding=8,
+        subject_min=0.74,
+        subject_max=0.94,
+        composition="soft elliptical floor shadow",
+        post_process=["resize", "preserve_transparency"],
+        preview_size=160,
+    ),
+    "combat_target_ring": make_spec(
+        width=512,
+        height=256,
+        background="transparent",
+        alpha_required=True,
+        display_width=360,
+        display_height=110,
+        safe_padding=8,
+        subject_min=0.74,
+        subject_max=0.96,
+        composition="elliptical target selection ring with transparent center",
+        post_process=["resize", "preserve_transparency"],
+        preview_size=180,
+    ),
     "dungeon_node_plate": make_spec(
         width=512,
         height=512,
@@ -834,13 +889,20 @@ def prompt_for(entry: Dict[str, Any]) -> tuple[str, str, str, Dict[str, Any]]:
     domain = entry["Domain"]
     config_id = entry["ConfigID"]
     asset_type = str(entry.get("AssetType", "asset"))
+    visual_id = str(entry.get("VisualID", ""))
     detail_en = lookup(domain, config_id, True)
     detail_cn = lookup(domain, config_id, False)
+    is_monster_combat = domain == "monster" and (
+        asset_type in {"combat_sprite", "battle_stand", "stand"} or visual_id.endswith("_combat")
+    )
 
     if domain == "background":
         prompt_en = f"{STYLE_EN}, environment background, {detail_en}, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text"
     elif domain == "monster":
-        prompt_en = f"{STYLE_EN}, creature portrait, {detail_en}, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text"
+        if is_monster_combat:
+            prompt_en = f"{STYLE_EN}, full-body creature illustration, {detail_en}, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text"
+        else:
+            prompt_en = f"{STYLE_EN}, creature portrait, {detail_en}, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text"
     elif domain == "doll":
         prompt_en = f"{STYLE_EN}, full-body character concept art, {detail_en}, neutral standing pose, full figure, clear silhouette, transparent background, no text"
     elif domain == "node":
@@ -859,17 +921,29 @@ def prompt_for(entry: Dict[str, Any]) -> tuple[str, str, str, Dict[str, Any]]:
             "divider": "modular 2D decorative divider sprite",
             "frame": "modular 2D interface frame sprite",
             "icon": "small 2D interface icon sprite",
+            "shadow": "soft 2D interface shadow sprite",
+            "ring": "2D interface target ring sprite",
         }.get(asset_type, "modular 2D interface sprite")
         prompt_en = f"{STYLE_EN}, {ui_kind}, {detail_en}, transparent background, clean silhouette, no text, no letters, no numbers"
     else:
         prompt_en = f"{STYLE_EN}, game item icon, {detail_en}, centered single object, clean readable silhouette, transparent background, no text"
 
+    if is_monster_combat:
+        detail_cn = detail_cn.replace("头像", "战斗实体站姿").replace("立绘", "战斗实体站姿")
     prompt_cn = f"{STYLE_CN}{detail_cn}"
     if domain == "ui":
         spec = UI_SPEC_BY_CONFIG.get(config_id, SPEC["ui"])
+    elif is_monster_combat:
+        spec = SPEC["monster_combat"]
     else:
         spec = SPEC.get(domain, SPEC["item"])
-    return prompt_cn, prompt_en, NEGATIVE.get(domain, NEGATIVE["item"]), copy.deepcopy(spec)
+    negative = NEGATIVE.get(domain, NEGATIVE["item"])
+    if is_monster_combat:
+        negative = (
+            "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, "
+            "excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo"
+        )
+    return prompt_cn, prompt_en, negative, copy.deepcopy(spec)
 
 
 def contains_forbidden_text(text: str, allow_cjk: bool = False) -> bool:

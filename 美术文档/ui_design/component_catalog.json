@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "UpdatedAt": "2026-05-13",
+  "UpdatedAt": "2026-05-24",
   "Components": [
     {
       "ComponentID": "Panel.Main",
@@ -9,8 +9,14 @@
       "Category": "panel",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
-      "States": ["normal"],
-      "RequiredForScreens": ["prosthetic_panel", "sell_panel", "layer_select"],
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "prosthetic_panel",
+        "sell_panel",
+        "layer_select"
+      ],
       "ProgramUse": "用于大弹窗和主内容容器。Unity Image Type 使用 Sliced，不烘焙标题和正文。"
     },
     {
@@ -20,8 +26,15 @@
       "Category": "panel",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
-      "States": ["normal"],
-      "RequiredForScreens": ["workshop_main", "combat_hud", "inventory_loot", "dungeon_map"],
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "workshop_main",
+        "combat_hud",
+        "inventory_loot",
+        "dungeon_map"
+      ],
       "ProgramUse": "用于状态摘要、说明区和小块信息承托。"
     },
     {
@@ -31,8 +44,20 @@
       "Category": "button",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
-      "States": ["normal", "pressed", "disabled_runtime_tint"],
-      "RequiredForScreens": ["workshop_main", "combat_hud", "inventory_loot", "settlement", "sell_panel", "prosthetic_panel", "layer_select"],
+      "States": [
+        "normal",
+        "pressed",
+        "disabled_runtime_tint"
+      ],
+      "RequiredForScreens": [
+        "workshop_main",
+        "combat_hud",
+        "inventory_loot",
+        "settlement",
+        "sell_panel",
+        "prosthetic_panel",
+        "layer_select"
+      ],
       "ProgramUse": "用于出发、确认、继续等正向操作。文字由 Text 组件叠加。"
     },
     {
@@ -42,8 +67,20 @@
       "Category": "button",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
-      "States": ["normal", "pressed", "disabled_runtime_tint"],
-      "RequiredForScreens": ["workshop_main", "combat_hud", "inventory_loot", "dungeon_map", "sell_panel", "prosthetic_panel", "layer_select"],
+      "States": [
+        "normal",
+        "pressed",
+        "disabled_runtime_tint"
+      ],
+      "RequiredForScreens": [
+        "workshop_main",
+        "combat_hud",
+        "inventory_loot",
+        "dungeon_map",
+        "sell_panel",
+        "prosthetic_panel",
+        "layer_select"
+      ],
       "ProgramUse": "用于返回、关闭、取消等次级操作。"
     },
     {
@@ -53,8 +90,16 @@
       "Category": "button",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
-      "States": ["normal", "pressed", "disabled_runtime_tint"],
-      "RequiredForScreens": ["inventory_loot", "dungeon_map", "sell_panel"],
+      "States": [
+        "normal",
+        "pressed",
+        "disabled_runtime_tint"
+      ],
+      "RequiredForScreens": [
+        "inventory_loot",
+        "dungeon_map",
+        "sell_panel"
+      ],
       "ProgramUse": "用于丢弃、卖出、撤离等高风险操作。"
     },
     {
@@ -64,8 +109,15 @@
       "Category": "list",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
-      "States": ["normal"],
-      "RequiredForScreens": ["sell_panel", "prosthetic_panel", "layer_select", "settlement"],
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "sell_panel",
+        "prosthetic_panel",
+        "layer_select",
+        "settlement"
+      ],
       "ProgramUse": "用于可滚动列表项底板。"
     },
     {
@@ -75,8 +127,14 @@
       "Category": "list",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
-      "States": ["selected"],
-      "RequiredForScreens": ["sell_panel", "prosthetic_panel", "layer_select"],
+      "States": [
+        "selected"
+      ],
+      "RequiredForScreens": [
+        "sell_panel",
+        "prosthetic_panel",
+        "layer_select"
+      ],
       "ProgramUse": "用于当前选择项或焦点项底板。"
     },
     {
@@ -93,8 +151,18 @@
       "Category": "inventory",
       "Priority": "P1",
       "ResizeMode": "fixed",
-      "States": ["available", "locked", "hover", "valid", "invalid"],
-      "RequiredForScreens": ["inventory_loot", "workshop_main", "combat_hud"],
+      "States": [
+        "available",
+        "locked",
+        "hover",
+        "valid",
+        "invalid"
+      ],
+      "RequiredForScreens": [
+        "inventory_loot",
+        "workshop_main",
+        "combat_hud"
+      ],
       "ProgramUse": "背包玩法格固定 100x100 参考尺寸，状态由 Sprite 切换或运行时 tint 叠加；格内物品图标按需要 contain。"
     },
     {
@@ -104,8 +172,14 @@
       "Category": "inventory",
       "Priority": "P1",
       "ResizeMode": "fixed",
-      "States": ["normal"],
-      "RequiredForScreens": ["inventory_loot", "workshop_main", "combat_hud"],
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "inventory_loot",
+        "workshop_main",
+        "combat_hud"
+      ],
       "ProgramUse": "承托背包网格，位于格子层下方；chassis frame 可作为额外装饰层。"
     },
     {
@@ -115,8 +189,12 @@
       "Category": "inventory",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
-      "States": ["normal"],
-      "RequiredForScreens": ["inventory_loot"],
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "inventory_loot"
+      ],
       "ProgramUse": "战利品拾取界面主容器，内部区域由布局放置。"
     },
     {
@@ -126,8 +204,13 @@
       "Category": "inventory",
       "Priority": "P1",
       "ResizeMode": "fixed_or_sliced",
-      "States": ["normal", "hover_runtime_tint"],
-      "RequiredForScreens": ["inventory_loot"],
+      "States": [
+        "normal",
+        "hover_runtime_tint"
+      ],
+      "RequiredForScreens": [
+        "inventory_loot"
+      ],
       "ProgramUse": "背包外侧待拾取物品区域，拖拽悬停可用运行时高亮。"
     },
     {
@@ -141,9 +224,43 @@
       "Category": "combat",
       "Priority": "P1",
       "ResizeMode": "fixed",
-      "States": ["normal", "selected"],
-      "RequiredForScreens": ["combat_hud"],
-      "ProgramUse": "怪物头像与状态条外框，选中目标切换 selected Sprite。"
+      "States": [
+        "normal",
+        "selected"
+      ],
+      "RequiredForScreens": [],
+      "ProgramUse": "MVP Baseline 敌人卡片框。Formal V1 combat_hud 不再以卡片为主要敌人表现，仅作为旧版本或临时 fallback 资产保留。"
+    },
+    {
+      "ComponentID": "Combat.EntityShadow",
+      "DisplayName": "战斗实体脚底阴影",
+      "VisualID": "ui_combat_entity_shadow",
+      "Category": "combat",
+      "Priority": "P1",
+      "ResizeMode": "fixed_or_stretch",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "combat_hud"
+      ],
+      "ProgramUse": "玩家和敌人实体脚下的舞台落点阴影，不承载交互，不拦截射线。"
+    },
+    {
+      "ComponentID": "Combat.TargetRing",
+      "DisplayName": "战斗目标选择光环",
+      "VisualID": "ui_combat_target_ring",
+      "Category": "combat",
+      "Priority": "P1",
+      "ResizeMode": "fixed_or_stretch",
+      "States": [
+        "normal",
+        "hidden_runtime"
+      ],
+      "RequiredForScreens": [
+        "combat_hud"
+      ],
+      "ProgramUse": "当前可攻击/已选中敌人的脚下目标光环，由运行时显示隐藏或 tint。"
     },
     {
       "ComponentID": "Combat.HpBar",
@@ -152,9 +269,13 @@
       "Category": "combat",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
-      "States": ["normal"],
-      "RequiredForScreens": ["combat_hud"],
-      "ProgramUse": "只做轨道和外框，填充量由程序控制。"
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "combat_hud"
+      ],
+      "ProgramUse": "只做轨道和外框，填充量由程序控制。Formal V1 中敌人血条贴近实体脚下，玩家血条贴近玩家状态组。"
     },
     {
       "ComponentID": "Combat.ShieldBar",
@@ -163,9 +284,13 @@
       "Category": "combat",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
-      "States": ["normal"],
-      "RequiredForScreens": ["combat_hud"],
-      "ProgramUse": "只做轨道和外框，填充量由程序控制。"
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "combat_hud"
+      ],
+      "ProgramUse": "只做轨道和外框，填充量由程序控制。Formal V1 中敌人护盾条贴近实体脚下，玩家护盾条贴近玩家状态组。"
     },
     {
       "ComponentID": "Combat.ApPip",
@@ -174,8 +299,13 @@
       "Category": "combat",
       "Priority": "P1",
       "ResizeMode": "fixed",
-      "States": ["available", "spent_runtime_tint"],
-      "RequiredForScreens": ["combat_hud"],
+      "States": [
+        "available",
+        "spent_runtime_tint"
+      ],
+      "RequiredForScreens": [
+        "combat_hud"
+      ],
       "ProgramUse": "AP 点阵，已消耗状态可用运行时降亮。"
     },
     {
@@ -185,8 +315,12 @@
       "Category": "combat",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
-      "States": ["normal"],
-      "RequiredForScreens": ["combat_hud"],
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "combat_hud"
+      ],
       "ProgramUse": "回合状态提示容器，文字由程序叠加。"
     },
     {
@@ -196,8 +330,14 @@
       "Category": "map",
       "Priority": "P1",
       "ResizeMode": "fixed",
-      "States": ["normal", "visited_runtime_tint", "locked_runtime_tint"],
-      "RequiredForScreens": ["dungeon_map"],
+      "States": [
+        "normal",
+        "visited_runtime_tint",
+        "locked_runtime_tint"
+      ],
+      "RequiredForScreens": [
+        "dungeon_map"
+      ],
       "ProgramUse": "位于 node_*_icon 下方，表达节点状态。"
     },
     {
@@ -207,8 +347,13 @@
       "Category": "map",
       "Priority": "P1",
       "ResizeMode": "tile_or_stretch",
-      "States": ["normal", "visited_runtime_tint"],
-      "RequiredForScreens": ["dungeon_map"],
+      "States": [
+        "normal",
+        "visited_runtime_tint"
+      ],
+      "RequiredForScreens": [
+        "dungeon_map"
+      ],
       "ProgramUse": "节点之间连接线，可旋转和缩放。"
     },
     {
@@ -218,8 +363,12 @@
       "Category": "settlement",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
-      "States": ["normal"],
-      "RequiredForScreens": ["settlement"],
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "settlement"
+      ],
       "ProgramUse": "撤离成功结算主面板。"
     },
     {
@@ -229,8 +378,12 @@
       "Category": "settlement",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
-      "States": ["normal"],
-      "RequiredForScreens": ["settlement"],
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "settlement"
+      ],
       "ProgramUse": "战败结算主面板。"
     },
     {
@@ -240,8 +393,14 @@
       "Category": "icon",
       "Priority": "P1",
       "ResizeMode": "fixed",
-      "States": ["normal"],
-      "RequiredForScreens": ["sell_panel", "settlement", "workshop_main"],
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "sell_panel",
+        "settlement",
+        "workshop_main"
+      ],
       "ProgramUse": "金币、价格、价值显示的小图标。"
     },
     {
@@ -251,8 +410,13 @@
       "Category": "icon",
       "Priority": "P1",
       "ResizeMode": "fixed",
-      "States": ["normal"],
-      "RequiredForScreens": ["layer_select", "dungeon_map"],
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "layer_select",
+        "dungeon_map"
+      ],
       "ProgramUse": "未解锁或不可进入状态图标。"
     },
     {
@@ -262,8 +426,12 @@
       "Category": "icon",
       "Priority": "P1",
       "ResizeMode": "fixed",
-      "States": ["normal"],
-      "RequiredForScreens": ["prosthetic_panel"],
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "prosthetic_panel"
+      ],
       "ProgramUse": "义体列表已装备状态图标。"
     },
     {
@@ -273,8 +441,15 @@
       "Category": "decor",
       "Priority": "P1",
       "ResizeMode": "fixed_or_stretch",
-      "States": ["normal"],
-      "RequiredForScreens": ["settlement", "sell_panel", "prosthetic_panel", "layer_select"],
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "settlement",
+        "sell_panel",
+        "prosthetic_panel",
+        "layer_select"
+      ],
       "ProgramUse": "标题和正文之间的装饰分隔线，不承载文字，不拦截射线。"
     }
   ]

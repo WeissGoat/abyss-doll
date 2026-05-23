@@ -18,12 +18,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：103
-- 已补元数据：103
+- 文档总数：104
+- 已补元数据：104
 - 缺少元数据：0
-- 事实来源文档：81
-- 关联边数：367
-- 跨职能关联：128
+- 事实来源文档：82
+- 关联边数：373
+- 跨职能关联：131
 
 ## 事实来源
 
@@ -62,6 +62,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [深渊产出与掉落期望 (Loot Generation & Expectation)](数值模型设计/03_深渊产出与掉落期望.md) - `balance` / `balance_loot`
 - [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) - `plan` / `alpha_vertical_slice`
 - [正式版核心纵切版本节点规划](版本规划/10_正式版核心纵切版本节点规划.md) - `plan` / `alpha_version_nodes`
+- [设计文档 Alpha 覆盖矩阵](版本规划/11_设计文档Alpha覆盖矩阵.md) - `plan` / `gdd_alpha_coverage`
 - [知识库规范](知识库/README.md) - `kb` / `knowledge_base`
 - [美术流水线总览](美术文档/00_美术流水线总览.md) - `art` / `art_pipeline`
 - [Manifest 规范](美术文档/01_Manifest规范.md) - `art` / `art_manifest`
@@ -114,11 +115,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - `PM <-> 全局`：10 条
 - `PM <-> 知识库`：1 条
 - `PM <-> 程序`：2 条
-- `PM <-> 策划`：2 条
+- `PM <-> 策划`：3 条
 - `PM <-> 美术`：2 条
 - `全局 <-> 知识库`：4 条
 - `全局 <-> 程序`：9 条
-- `全局 <-> 策划`：8 条
+- `全局 <-> 策划`：10 条
 - `全局 <-> 美术`：7 条
 - `知识库 <-> 程序`：1 条
 - `知识库 <-> 策划`：1 条
@@ -134,14 +135,14 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
 | [PM / 版本规划 状态](agent_status/pm.md) | `status` | `active` | `version_planning` | 6 | 完整 |
-| [正式版核心纵切版本节点规划](版本规划/10_正式版核心纵切版本节点规划.md) | `plan` | `active` | `alpha_version_nodes` | 11 | 完整 |
+| [正式版核心纵切版本节点规划](版本规划/10_正式版核心纵切版本节点规划.md) | `plan` | `active` | `alpha_version_nodes` | 12 | 完整 |
 | [PM 智能体阅读入口](知识库/views/pm.md) | `view` | `active` | `agent_context_view` | 6 | 完整 |
 
 ### 全局
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 11 | 完整 |
+| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 13 | 完整 |
 | [文档索引](DOCS_INDEX.md) | `index` | `generated` | `knowledge_base` | 1 | 完整 |
 | [魔偶深渊 AI 核心知识库](GEMINI.md) | `entry` | `active` | `project_context` | 7 | 完整 |
 | [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 13 | 完整 |
@@ -153,7 +154,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [MVP 白盒试玩收口推进计划](版本规划/06_MVP白盒试玩收口推进计划.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 自动化试玩验收方案](版本规划/07_MVP自动化试玩验收方案.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [MVP 自动化试玩首轮报告](版本规划/08_MVP自动化试玩首轮报告.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
-| [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `alpha_vertical_slice` | 12 | 完整 |
+| [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `alpha_vertical_slice` | 14 | 完整 |
 
 ### 知识库
 
@@ -194,15 +195,16 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [策划 / 数值 状态](agent_status/design.md) | `status` | `active` | `design_balance` | 12 | 完整 |
+| [策划 / 数值 状态](agent_status/design.md) | `status` | `active` | `design_balance` | 13 | 完整 |
 | [基准价值与空间本位模型 (Space-Value Standard)](数值模型设计/00_基准价值与空间本位模型.md) | `balance` | `active` | `balance_space_value` | 15 | 完整 |
 | [经济循环与通缩模型 (Economy & Deflation Model)](数值模型设计/01_经济循环与通缩模型.md) | `balance` | `active` | `balance_economy` | 5 | 完整 |
 | [战斗伤害与生存公式 (Combat & Survival Formulas)](数值模型设计/02_战斗伤害与生存公式.md) | `balance` | `active` | `balance_combat` | 7 | 完整 |
 | [深渊产出与掉落期望 (Loot Generation & Expectation)](数值模型设计/03_深渊产出与掉落期望.md) | `balance` | `active` | `balance_loot` | 6 | 完整 |
 | [数值模型沙盘推演方法论 (Numerical Sandboxing)](版本规划/03_mvp数值要求.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 需要补充的配置调整](版本规划/05_MVP需要补充的配置调整.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
+| [设计文档 Alpha 覆盖矩阵](版本规划/11_设计文档Alpha覆盖矩阵.md) | `plan` | `active` | `gdd_alpha_coverage` | 5 | 完整 |
 | [策划智能体阅读入口](知识库/views/design.md) | `view` | `active` | `agent_context_view` | 9 | 完整 |
-| [系统关联总图：全系统内在关联与数据流向](设计文档/GDD_00_系统关联总图.md) | `gdd` | `active` | `system_overview` | 23 | 完整 |
+| [系统关联总图：全系统内在关联与数据流向](设计文档/GDD_00_系统关联总图.md) | `gdd` | `active` | `system_overview` | 24 | 完整 |
 | [详案_01：背包战斗与局内网格机制 (GDD_01)](设计文档/GDD_01_背包战斗与局内网格机制.md) | `gdd` | `active` | `grid_inventory` | 11 | 完整 |
 | [详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)](设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md) | `gdd` | `active` | `dungeon_exploration` | 9 | 完整 |
 | [详案_03：人偶实体对象与好感双轨机制 (GDD_03)](设计文档/GDD_03_人偶实体对象与好感双轨机制.md) | `gdd` | `active` | `doll_relationship` | 10 | 完整 |
@@ -249,7 +251,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Alpha P1 UI 骨架接入准备](美术文档/12_Alpha_P1_UI骨架接入准备.md) | `art` | `active` | `ui_handoff` | 6 | 完整 |
 | [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 9 | 完整 |
 | [UI 设计流水线](美术文档/ui_design/README.md) | `art` | `active` | `art_pipeline` | 14 | 完整 |
-| [战斗界面 Formal V1](美术文档/ui_design/formal_v1/combat_hud_v1.md) | `art` | `draft` | `ui_design` | 2 | 完整 |
+| [战斗界面 Formal V1](美术文档/ui_design/formal_v1/combat_hud_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
 | [深渊地图界面 Formal V1](美术文档/ui_design/formal_v1/dungeon_map_v1.md) | `art` | `draft` | `ui_design` | 1 | 完整 |
 | [战利品拾取界面 Formal V1](美术文档/ui_design/formal_v1/inventory_loot_v1.md) | `art` | `draft` | `ui_design` | 1 | 完整 |
 | [正式版 UI 结构 V1 总览](美术文档/ui_design/formal_v1/screen_structure_review.md) | `art` | `draft` | `ui_design` | 13 | 完整 |

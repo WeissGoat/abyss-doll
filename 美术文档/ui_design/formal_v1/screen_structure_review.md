@@ -20,7 +20,7 @@ related:
   - 美术文档/ui_design/versions/formal_v1_candidate/README.md
   - 美术文档/09_运行时美术验收记录.md
   - 美术文档/10_正式版核心纵切美术路线.md
-last_verified: 2026-05-23
+last_verified: 2026-05-24
 update_rule: 修改正式版 UI 结构、界面迁移顺序或程序接入口径时同步本文件。
 ---
 
@@ -82,7 +82,7 @@ Formal V1 不应直接删除 MVP 经验。MVP Baseline 作为可运行对照保�
 
 | 优先级 | ScreenID | Formal V1 重点 |
 |---|---|---|
-| P0-A | `combat_hud` | 从敌人卡片结构改为左玩家、右敌方实体的战斗舞台。 |
+| P0-A | `combat_hud` | 已写入 active Formal V1：左玩家、右敌方实体、底部居中背包、敌人脚下血条。 |
 | P0-B | `workshop_main` | 从功能按钮堆叠改为正式工坊工作台、魔偶维护和出发整备结构。 |
 | P0-C | `inventory_loot` | 保留左右取舍，但强化背包/战利品/详情/确认的正式结算结构。 |
 | P1 | `dungeon_map` | 从节点按钮容器改为深渊路线地图、层级推进和背包整理入口。 |
@@ -96,7 +96,7 @@ Formal V1 不应直接删除 MVP 经验。MVP Baseline 作为可运行对照保�
 
 现有 `screen_layouts.json` 的状态仍保留 MVP Baseline 验收结果。Formal V1 在确认前先写在本目录中。待某个界面 Formal V1 方案确认后，再修改当前 active `screen_layouts.json`。
 
-`versions/formal_v1_candidate/` 只作为复杂界面的可选暂存区。例如 `combat_hud` 涉及敌方实体、战斗舞台和背包锚点，可以先在 candidate 中试写结构化 JSON，再合并到 active。普通界面不需要经过 candidate。
+`versions/formal_v1_candidate/` 只作为复杂界面的可选暂存区。`combat_hud` 本轮已在用户确认关键结构后直接写入 active `screen_layouts.json`；后续更复杂界面仍可先在 candidate 中试写结构化 JSON，再合并到 active。
 
 建议新增或使用以下字段：
 
@@ -136,7 +136,7 @@ Formal V1 不应直接删除 MVP 经验。MVP Baseline 作为可运行对照保�
 
 ## 7. 当前结论
 
-1. `combat_hud` 必须先重做正式结构。敌方应是右侧战斗实体，不应继续以大卡片作为主要表现。
+1. `combat_hud` 已进入 active Formal V1 规格，第一批 `monster_*_combat` 战斗实体和脚底阴影/目标光环已入库，下一步交给程序接入并截图验收。
 2. `workshop_main` 和 `inventory_loot` 可以复用较多现有 UI，但主区域关系需要从功能堆叠转为正式工作流。
 3. `dungeon_map` 和 `settlement` 的 P1 设计不应急着 handoff，应先按 Formal V1 审查后再交付。
 4. Formal V1 第一轮不要求重画全部素材，但要求程序接入后的截图从结构上看像正式游戏界面。

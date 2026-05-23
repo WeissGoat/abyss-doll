@@ -10,18 +10,18 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 734,
-    "relation_edges": 367,
-    "cross_role_edges": 128,
+    "directed_edges": 746,
+    "relation_edges": 373,
+    "cross_role_edges": 131,
     "role_pairs": {
       "PM <-> 全局": 10,
       "PM <-> 知识库": 1,
       "PM <-> 程序": 2,
-      "PM <-> 策划": 2,
+      "PM <-> 策划": 3,
       "PM <-> 美术": 2,
       "全局 <-> 知识库": 4,
       "全局 <-> 程序": 9,
-      "全局 <-> 策划": 8,
+      "全局 <-> 策划": 10,
       "全局 <-> 美术": 7,
       "知识库 <-> 程序": 1,
       "知识库 <-> 策划": 1,
@@ -77,6 +77,7 @@
       "related": [
         "版本规划/09_正式版核心纵切开发路线.md",
         "版本规划/10_正式版核心纵切版本节点规划.md",
+        "版本规划/11_设计文档Alpha覆盖矩阵.md",
         "agent_status/README.md",
         "PROJECT_STATUS.md",
         "开发文档/00_程序开发大纲.md",
@@ -92,7 +93,7 @@
       "update_rule": "策划、数值、GDD 或配置意图任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 12,
+      "relation_count": 13,
       "cross_role_relation_count": 8
     },
     {
@@ -192,14 +193,16 @@
         "知识库/views/design.md",
         "知识库/views/program.md",
         "tools/agent/README.md",
-        "版本规划/10_正式版核心纵切版本节点规划.md"
+        "版本规划/09_正式版核心纵切开发路线.md",
+        "版本规划/10_正式版核心纵切版本节点规划.md",
+        "版本规划/11_设计文档Alpha覆盖矩阵.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "修改智能体分工、开工流程或完成协议时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 11,
-      "cross_role_relation_count": 7
+      "relation_count": 13,
+      "cross_role_relation_count": 8
     },
     {
       "path": "DOCS_INDEX.md",
@@ -1181,11 +1184,13 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
+        "AGENTS.md",
         "GEMINI.md",
         "PROJECT_STATUS.md",
         "agent_status/pm.md",
         "知识库/views/pm.md",
         "版本规划/10_正式版核心纵切版本节点规划.md",
+        "版本规划/11_设计文档Alpha覆盖矩阵.md",
         "开发文档/00_程序开发大纲.md",
         "agent_status/program.md",
         "设计文档/GDD_00_系统关联总图.md",
@@ -1198,8 +1203,8 @@
       "update_rule": "正式版 Alpha 阶段目标、优先级或里程碑变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 12,
-      "cross_role_relation_count": 10
+      "relation_count": 14,
+      "cross_role_relation_count": 11
     },
     {
       "path": "版本规划/10_正式版核心纵切版本节点规划.md",
@@ -1215,6 +1220,7 @@
         "PROJECT_STATUS.md",
         "agent_status/pm.md",
         "版本规划/09_正式版核心纵切开发路线.md",
+        "版本规划/11_设计文档Alpha覆盖矩阵.md",
         "agent_status/art.md",
         "agent_status/program.md",
         "agent_status/design.md",
@@ -1227,8 +1233,31 @@
       "update_rule": "调整 Alpha 版本节点、跨职能交付顺序、完成标准或验收口径时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 11,
-      "cross_role_relation_count": 9
+      "relation_count": 12,
+      "cross_role_relation_count": 10
+    },
+    {
+      "path": "版本规划/11_设计文档Alpha覆盖矩阵.md",
+      "title": "设计文档 Alpha 覆盖矩阵",
+      "id": "plan_11_gdd_alpha_coverage",
+      "type": "plan",
+      "role": "策划",
+      "domain": "gdd_alpha_coverage",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "版本规划/09_正式版核心纵切开发路线.md",
+        "版本规划/10_正式版核心纵切版本节点规划.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "agent_status/design.md"
+      ],
+      "last_verified": "2026-05-24",
+      "update_rule": "调整 GDD 功能进入 Alpha 的范围、优先级、阶段归属或暂缓理由时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 5,
+      "cross_role_relation_count": 3
     },
     {
       "path": "知识库/README.md",
@@ -1279,7 +1308,7 @@
         "开发文档/09_视觉资源系统程序开发规范.md",
         "开发文档/14_Unity运行时美术自动验收方案.md"
       ],
-      "last_verified": "2026-05-23",
+      "last_verified": "2026-05-24",
       "update_rule": "美术入口文档、流水线、UI 交付或程序侧视觉契约变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -1715,14 +1744,14 @@
       "type": "art",
       "role": "美术",
       "domain": "ui_design",
-      "status": "draft",
+      "status": "active",
       "source_of_truth": true,
       "related": [
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
         "美术文档/11_Alpha_P0_UI骨架接入交付.md"
       ],
-      "last_verified": "2026-05-23",
-      "update_rule": "修改战斗界面正式结构、敌我站位、背包交互区或程序迁移要求时同步本文件。",
+      "last_verified": "2026-05-24",
+      "update_rule": "修改战斗界面正式结构、敌我站位、背包交互区、战斗实体素材或程序迁移要求时同步本文档。",
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 2,
@@ -1790,7 +1819,7 @@
         "美术文档/09_运行时美术验收记录.md",
         "美术文档/10_正式版核心纵切美术路线.md"
       ],
-      "last_verified": "2026-05-23",
+      "last_verified": "2026-05-24",
       "update_rule": "修改正式版 UI 结构、界面迁移顺序或程序接入口径时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2017,6 +2046,7 @@
         "GEMINI.md",
         "版本规划/09_正式版核心纵切开发路线.md",
         "版本规划/10_正式版核心纵切版本节点规划.md",
+        "版本规划/11_设计文档Alpha覆盖矩阵.md",
         "开发文档/00_程序开发大纲.md",
         "agent_status/program.md",
         "数值模型设计/00_基准价值与空间本位模型.md",
@@ -2042,7 +2072,7 @@
       "update_rule": "修改系统关系、资源流向、循环健康度或系统优先级时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 23,
+      "relation_count": 24,
       "cross_role_relation_count": 7
     },
     {

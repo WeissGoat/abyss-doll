@@ -36,7 +36,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 支撑正式版核心纵切 Alpha。当前重点从 MVP UI 骨架验收转向 Formal V1 正式 UI 结构迭代：先冻结 MVP Baseline，再逐界面确认 Formal V1，更新 active UI 规格，最后进入素材生成、程序接入和运行时验收。
 
-PM 版本节点中，美术线当前落在 A1 前置：先确认 `combat_hud` Formal V1 并更新 active 规格，为 A2 战斗正式纵切提供 UI 验收入口。
+PM 版本节点中，美术线当前已完成 A1 的 `combat_hud` Formal V1 active 规格更新和第一批战斗资源入库，下一步转入程序接入验收，为 A2 战斗正式纵切提供 UI 验收入口。
 
 ## 必读文件
 
@@ -79,13 +79,16 @@ PM 版本节点中，美术线当前落在 A1 前置：先确认 `combat_hud` Fo
 - 已冻结 MVP UI Baseline：`美术文档/ui_design/versions/mvp_baseline_2026-05-22/`。
 - 已建立 UI 设计迭代流程：Formal V1 文档确认后修改 active `screen_layouts.json`，再生成素材和交给程序接入。
 - PM 已将美术线纳入 `版本规划/10_正式版核心纵切版本节点规划.md`：A1 聚焦 `combat_hud` Formal V1，A2/A3 依次承接拾取、战斗、地图、工坊和结算界面。
+- 已把 `combat_hud` active 规格切到 Formal V1：底部居中背包、左玩家/右敌人实体舞台、敌人脚下血条、中央 `vfx_space`。
+- 已扩展 Manifest 扫描与提示词生成：`MonsterEntity.CombatVisualID` 会扫出 `monster_*_combat` 透明战斗实体素材需求，并新增 `ui_combat_entity_shadow` / `ui_combat_target_ring`。
+- 已完成 `combat_hud` Formal V1 第一批战斗资源入库：`monster_mob_scavenger_bug_combat`、`monster_mob_acid_slime_combat`、`monster_elite_scrap_guard_combat`、`monster_elite_mutant_amalgam_combat`、`ui_combat_entity_shadow`、`ui_combat_target_ring`，并补齐 Unity `.meta`。
 
 ## 下一步建议
 
-1. 按 A1 节点先审查并确认 `美术文档/ui_design/formal_v1/combat_hud_v1.md`，重点确认敌人从卡片改为右侧战斗实体舞台。
-2. 用户确认后，更新 active `美术文档/ui_design/screen_layouts.json` 的 `combat_hud`，并运行 `Validate-UIDesign.ps1`。
-3. `combat_hud` active 更新后，再检查新增 VisualID / Manifest / 素材缺口，决定是否先用现有素材或补图。
-4. 后续按 A2/A3 节点承接 `inventory_loot`、`workshop_main`、`dungeon_map`、`settlement` Formal V1。
+1. 将 `combat_hud` Formal V1 active 规格和已入库战斗资源交给 UI 程序侧接入。
+2. 接入完成后，用 ArtAcceptance 截图验收左玩家、右敌方实体、底部居中背包、敌人脚下血条和目标光环。
+3. 验收通过后再推进 `inventory_loot`、`workshop_main`、`dungeon_map`、`settlement` Formal V1。
+4. 后续新增怪物时继续按 `CombatVisualID -> monster_*_combat -> Approved/Monsters/Combat` 流程补图。
 
 ## 问题 / 阻塞
 
@@ -99,3 +102,4 @@ PM 版本节点中，美术线当前落在 A1 前置：先确认 `combat_hud` Fo
 - 在 `最近完成` 记录简短事实。
 - 如有变化，刷新 `当前关注`、`下一步建议` 和阻塞项。
 - 如果需要程序或策划跟进，在 `PROJECT_STATUS.md` 增加跨职能交接。
+- 美术侧每轮实际交付完成后，提交本轮美术相关改动；提交范围必须排除程序、策划、子模块或本地工具无关改动。

@@ -46,7 +46,8 @@ Manifest 是美术生产台账，不是玩法配置表，也不是 Unity 运行�
 | 来源 | 生成资产 | 示例 |
 |---|---|---|
 | `Items/*.json` | 物品图标 | `gear_tactical_blade -> item_gear_tactical_blade_icon` |
-| `Monsters/*.json` | 怪物头像 | `mob_scavenger_bug -> monster_mob_scavenger_bug_portrait` |
+| `Monsters/*.json` 的 `PortraitID` | 怪物头像 | `mob_scavenger_bug -> monster_mob_scavenger_bug_portrait` |
+| `Monsters/*.json` 的 `CombatVisualID` | 怪物战斗实体 | `mob_scavenger_bug -> monster_mob_scavenger_bug_combat` |
 | `Prosthetics/*.json` | 义体图标 | `pros_power_arm -> prosthetic_pros_power_arm_icon` |
 | `Chassis/*.json` | 底盘表现 | `chassis_lv1_basic -> chassis_chassis_lv1_basic_frame` |
 | `Dolls/*.json` | 魔偶立绘 | `doll_proto_0 -> doll_proto_0_stand` |

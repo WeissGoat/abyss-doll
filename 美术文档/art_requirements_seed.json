@@ -81,6 +81,45 @@
       "SourceFactsCN": "预置资产：阶梯房间界面需要入口背景，不来自玩法配置表。"
     },
     {
+      "Domain": "background",
+      "PresetCategory": "screen_background",
+      "ConfigID": "layer_select",
+      "DisplayName": "层选择入口背景",
+      "AssetType": "background",
+      "VisualID": "bg_layer_select",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_layer_select.png",
+      "Priority": "P2",
+      "Screen": "layer_select",
+      "Usage": "出发层选择界面背景或插图",
+      "SourceFactsCN": "预置资产：层选择界面需要深渊入口感背景，不来自玩法配置表。"
+    },
+    {
+      "Domain": "background",
+      "PresetCategory": "screen_background",
+      "ConfigID": "settlement_victory",
+      "DisplayName": "撤离成功结算背景",
+      "AssetType": "background",
+      "VisualID": "bg_settlement_victory",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_victory.png",
+      "Priority": "P2",
+      "Screen": "settlement",
+      "Usage": "撤离成功结算界面背景或插图",
+      "SourceFactsCN": "预置资产：撤离成功结算界面需要成功反馈背景，不来自玩法配置表。"
+    },
+    {
+      "Domain": "background",
+      "PresetCategory": "screen_background",
+      "ConfigID": "settlement_defeat",
+      "DisplayName": "战败结算背景",
+      "AssetType": "background",
+      "VisualID": "bg_settlement_defeat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_defeat.png",
+      "Priority": "P2",
+      "Screen": "settlement",
+      "Usage": "战败结算界面背景或插图",
+      "SourceFactsCN": "预置资产：战败结算界面需要损失反馈背景，不来自玩法配置表。"
+    },
+    {
       "Domain": "ui",
       "PresetCategory": "ui_skin",
       "ConfigID": "panel_main",
@@ -404,6 +443,32 @@
       "Screen": "combat_hud",
       "Usage": "玩家回合/敌方行动提示区域",
       "SourceFactsCN": "预置 UI 皮肤：战斗回合提示条。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_combat",
+      "ConfigID": "combat_entity_shadow",
+      "DisplayName": "战斗实体脚底阴影",
+      "AssetType": "shadow",
+      "VisualID": "ui_combat_entity_shadow",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_entity_shadow.png",
+      "Priority": "P1",
+      "Screen": "combat_hud",
+      "Usage": "玩家和敌人战斗实体脚下舞台落点",
+      "SourceFactsCN": "预置 UI 皮肤：Formal V1 战斗实体需要脚底阴影来连接舞台地面。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_combat",
+      "ConfigID": "combat_target_ring",
+      "DisplayName": "战斗目标选择光环",
+      "AssetType": "ring",
+      "VisualID": "ui_combat_target_ring",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_target_ring.png",
+      "Priority": "P1",
+      "Screen": "combat_hud",
+      "Usage": "当前可攻击或已选中敌人的脚下目标提示",
+      "SourceFactsCN": "预置 UI 皮肤：Formal V1 敌人不再以卡片选中，需要脚下目标光环表达选中状态。"
     },
     {
       "Domain": "ui",

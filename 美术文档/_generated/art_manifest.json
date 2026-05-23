@@ -250,7 +250,7 @@
       "VisualID": "bg_safe_room",
       "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_safe_room.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置资产：安全屋界面需要房间感背景，不来自玩法配置表。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。安全屋背景，安静的地下休整房间、小维修台、暖灯、毯子、黄铜管线和药柜，前景留空。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, quiet underground refuge room, small repair bench, warm lanterns, blankets, brass pipes, medicine cabinet, calm empty floor area, low visual noise, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
@@ -289,10 +289,10 @@
       },
       "BatchID": "",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_safe_room.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_safe_room.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
       "PresetCategory": "screen_background",
       "Screen": "safe_room",
       "Usage": "安全屋/休整节点界面背景或插图"
@@ -308,7 +308,7 @@
       "VisualID": "bg_stairs_room",
       "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_stairs_room.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置资产：阶梯房间界面需要入口背景，不来自玩法配置表。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。阶梯房间背景，向下延伸的石阶和金属梯栏、圆形舱口、旧警示灯和下方洞穴黑暗，前景留空。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, deep stairwell chamber, descending stone stairs and metal ladder rails, round hatch opening, old warning lamps, cavern darkness below, empty foreground floor, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
@@ -347,10 +347,10 @@
       },
       "BatchID": "",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_stairs_room.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_stairs_room.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
       "PresetCategory": "screen_background",
       "Screen": "stairs_room",
       "Usage": "进入下一层/撤离选择界面背景或插图"
@@ -412,6 +412,180 @@
       "PresetCategory": "screen_background",
       "Screen": "workshop_main",
       "Usage": "工坊主界面背景"
+    },
+    {
+      "Domain": "background",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "layer_select",
+      "DisplayName": "层选择入口背景",
+      "AssetType": "background",
+      "VisualID": "bg_layer_select",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_layer_select.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置资产：层选择界面需要深渊入口感背景，不来自玩法配置表。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。层选择入口背景，地下出发闸门、拱形矿洞入口、黄铜路线牌、旧警示灯和空的中心列表区域。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, underground departure gate chamber, arched mine entrance, brass route board, old warning lamps, empty central area for layer list, dark side walls, low visual noise, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "wide environment with negative space",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_layer_select.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_layer_select.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "PresetCategory": "screen_background",
+      "Screen": "layer_select",
+      "Usage": "出发层选择界面背景或插图"
+    },
+    {
+      "Domain": "background",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "settlement_defeat",
+      "DisplayName": "战败结算背景",
+      "AssetType": "background",
+      "VisualID": "bg_settlement_defeat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_defeat.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置资产：战败结算界面需要损失反馈背景，不来自玩法配置表。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。战败结算背景，昏暗地下返回区、损坏装备箱、破裂灯具、低饱和红色警示灯和空的中心区域。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, failed expedition result backdrop, dim underground return bay, damaged gear crates, broken lanterns, muted red warning lamps, empty central area, somber mood, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "wide environment with negative space",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_defeat.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_defeat.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "PresetCategory": "screen_background",
+      "Screen": "settlement",
+      "Usage": "战败结算界面背景或插图"
+    },
+    {
+      "Domain": "background",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "settlement_victory",
+      "DisplayName": "撤离成功结算背景",
+      "AssetType": "background",
+      "VisualID": "bg_settlement_victory",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_victory.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置资产：撤离成功结算界面需要成功反馈背景，不来自玩法配置表。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。撤离成功结算背景，地下升降出口、温暖小镇侧灯光、黄铜货秤、回收物资箱和空的中心区域。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, successful evacuation result backdrop, underground lift exit, warm town-side lamps, brass cargo scale, recovered supply crates, empty central area, calm relief mood, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "wide environment with negative space",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_victory.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_victory.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "PresetCategory": "screen_background",
+      "Screen": "settlement",
+      "Usage": "撤离成功结算界面背景或插图"
     },
     {
       "Domain": "chassis",
@@ -1351,6 +1525,62 @@
     {
       "Domain": "monster",
       "SourceType": "config",
+      "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_mutant_amalgam.json",
+      "ConfigID": "elite_mutant_amalgam",
+      "DisplayName": "畸变融合体战斗实体",
+      "AssetType": "combat_sprite",
+      "VisualID": "monster_elite_mutant_amalgam_combat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_mutant_amalgam_combat.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "配置表怪物战斗实体：畸变融合体。层级 2，生命 150，用于 Formal V1 战斗舞台站位。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。畸变融合体战斗实体站姿，有机组织与破损机械融合，多肢不对称，紫绿色污染痕迹和外露金属骨架。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, mutant amalgam creature, fused organic mass and broken machinery, multiple asymmetrical limbs, purple-green contamination marks, exposed metal bones, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "BatchID": "combat_formal_v1_20260524_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_mutant_amalgam_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_mutant_amalgam_combat/selected/monster_elite_mutant_amalgam_combat.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_mutant_amalgam_combat.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-24T00:55:05+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_elite_mutant_amalgam_combat/contact_sheet/monster_elite_mutant_amalgam_combat_contact_sheet.png\n[2026-05-24T01:02:12+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/monster_elite_mutant_amalgam_combat/selected/monster_elite_mutant_amalgam_combat.png"
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
       "DeriveRule": "Monsters/*.json -> monster portrait",
       "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_mutant_amalgam.json",
       "ConfigID": "elite_mutant_amalgam",
@@ -1401,6 +1631,62 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_mutant_amalgam_portrait.png",
       "RegistryStatus": "unregistered",
       "Notes": "[2026-05-10T00:59:56+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_elite_mutant_amalgam_portrait/contact_sheet/monster_elite_mutant_amalgam_portrait_contact_sheet.png\n[2026-05-10T01:02:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/monster_elite_mutant_amalgam_portrait/selected/monster_elite_mutant_amalgam_portrait.png"
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_scrap_guard.json",
+      "ConfigID": "elite_scrap_guard",
+      "DisplayName": "废铁守卫 (守门人)战斗实体",
+      "AssetType": "combat_sprite",
+      "VisualID": "monster_elite_scrap_guard_combat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_scrap_guard_combat.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "配置表怪物战斗实体：废铁守卫 (守门人)。层级 1，生命 120，用于 Formal V1 战斗舞台站位。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。废铁守卫战斗实体站姿，焊接废铁头盔和肩甲，单眼红色感应器，厚重守门人压迫感。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, heavy scrap-metal guardian, bulky welded helmet and shoulder armor, single red sensor eye, defensive intimidating silhouette, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "BatchID": "combat_formal_v1_20260524_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_scrap_guard_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_scrap_guard_combat/selected/monster_elite_scrap_guard_combat.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_scrap_guard_combat.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-24T00:55:05+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_elite_scrap_guard_combat/contact_sheet/monster_elite_scrap_guard_combat_contact_sheet.png\n[2026-05-24T01:02:12+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/monster_elite_scrap_guard_combat/selected/monster_elite_scrap_guard_combat.png"
     },
     {
       "Domain": "monster",
@@ -1459,6 +1745,62 @@
     {
       "Domain": "monster",
       "SourceType": "config",
+      "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_acid_slime.json",
+      "ConfigID": "mob_acid_slime",
+      "DisplayName": "酸液软体战斗实体",
+      "AssetType": "combat_sprite",
+      "VisualID": "monster_mob_acid_slime_combat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_acid_slime_combat.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "配置表怪物战斗实体：酸液软体。层级 2，生命 80，用于 Formal V1 战斗舞台站位。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。酸液软体战斗实体站姿，半透明腐蚀软泥，内部有金属碎片和气泡，紫绿色酸液发光。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, acidic slime creature, semi-transparent corrosive body, trapped metal debris and bubbles inside, purple-green glow, readable blob silhouette, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "BatchID": "combat_formal_v1_20260524_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_combat/selected/monster_mob_acid_slime_combat.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_acid_slime_combat.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-24T00:55:05+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_combat/contact_sheet/monster_mob_acid_slime_combat_contact_sheet.png\n[2026-05-24T01:02:12+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_combat/selected/monster_mob_acid_slime_combat.png"
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
       "DeriveRule": "Monsters/*.json -> monster portrait",
       "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_acid_slime.json",
       "ConfigID": "mob_acid_slime",
@@ -1509,6 +1851,62 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_acid_slime_portrait.png",
       "RegistryStatus": "unregistered",
       "Notes": "[2026-05-10T00:59:56+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_portrait/contact_sheet/monster_mob_acid_slime_portrait_contact_sheet.png\n[2026-05-10T01:02:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_portrait/selected/monster_mob_acid_slime_portrait.png"
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_scavenger_bug.json",
+      "ConfigID": "mob_scavenger_bug",
+      "DisplayName": "拾荒虫战斗实体",
+      "AssetType": "combat_sprite",
+      "VisualID": "monster_mob_scavenger_bug_combat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_scavenger_bug_combat.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "配置表怪物战斗实体：拾荒虫。层级 1，生命 40，用于 Formal V1 战斗舞台站位。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。拾荒虫战斗实体站姿，小型地底昆虫感，废铁甲壳、钳状口器和附着的机械碎片，威胁较低但不滑稽。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, small scavenger insect creature, scrap-metal shell plates, pincer mouthparts, tiny mechanical fragments attached, low-threat silhouette, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "BatchID": "combat_formal_v1_20260524_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_scavenger_bug_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_scavenger_bug_combat/selected/monster_mob_scavenger_bug_combat.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_scavenger_bug_combat.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-24T00:55:05+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_scavenger_bug_combat/contact_sheet/monster_mob_scavenger_bug_combat_contact_sheet.png\n[2026-05-24T01:02:12+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/monster_mob_scavenger_bug_combat/selected/monster_mob_scavenger_bug_combat.png"
     },
     {
       "Domain": "monster",
@@ -2262,6 +2660,63 @@
       "SourceType": "preset",
       "DeriveRule": "art requirements seed preset",
       "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "combat_entity_shadow",
+      "DisplayName": "战斗实体脚底阴影",
+      "AssetType": "shadow",
+      "VisualID": "ui_combat_entity_shadow",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_entity_shadow.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 皮肤：Formal V1 战斗实体需要脚底阴影来连接舞台地面。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。战斗实体脚底阴影，柔和透明椭圆、暗色边缘、中心干净，不做硬边框。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, soft 2D interface shadow sprite, soft transparent elliptical floor shadow, subtle dark edge, centered empty interior, no hard border, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 256,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 300,
+          "DisplayHeight": 90,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.94,
+          "Anchor": "center",
+          "Composition": "soft elliptical floor shadow"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "preserve_transparency"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "BatchID": "combat_formal_v1_20260524_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_entity_shadow/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_entity_shadow/selected/ui_combat_entity_shadow.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_entity_shadow.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-24T00:55:05+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_entity_shadow/contact_sheet/ui_combat_entity_shadow_contact_sheet.png\n[2026-05-24T01:02:12+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_combat_entity_shadow/selected/ui_combat_entity_shadow.png",
+      "PresetCategory": "ui_combat",
+      "Screen": "combat_hud",
+      "Usage": "玩家和敌人战斗实体脚下舞台落点"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
       "ConfigID": "combat_status_bar_hp",
       "DisplayName": "生命状态条",
       "AssetType": "bar",
@@ -2390,6 +2845,63 @@
       "PresetCategory": "ui_combat",
       "Screen": "combat_hud",
       "Usage": "护盾值条皮肤"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "combat_target_ring",
+      "DisplayName": "战斗目标选择光环",
+      "AssetType": "ring",
+      "VisualID": "ui_combat_target_ring",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_target_ring.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 皮肤：Formal V1 敌人不再以卡片选中，需要脚下目标光环表达选中状态。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。目标选择光环，椭圆形黄铜机械线框、柔和琥珀光、中心透明。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, 2D interface target ring sprite, elliptical target selection ring, thin brass mechanical outline, soft amber glow, transparent center, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 256,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 110,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.96,
+          "Anchor": "center",
+          "Composition": "elliptical target selection ring with transparent center"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "preserve_transparency"
+          ],
+          "PreviewSize": 180
+        }
+      },
+      "BatchID": "combat_formal_v1_20260524_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_target_ring/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_target_ring/selected/ui_combat_target_ring.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_target_ring.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-24T00:55:05+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_target_ring/contact_sheet/ui_combat_target_ring_contact_sheet.png\n[2026-05-24T01:02:12+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_combat_target_ring/selected/ui_combat_target_ring.png",
+      "PresetCategory": "ui_combat",
+      "Screen": "combat_hud",
+      "Usage": "当前可攻击或已选中敌人的脚下目标提示"
     },
     {
       "Domain": "ui",
@@ -2935,7 +3447,7 @@
       "VisualID": "ui_panel_main",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_panel_main.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 皮肤：MVP 多数弹窗需要可复用主面板。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。主弹窗面板皮肤，大型模块化界面面板，暗色旧金属主体、黄铜角片、细铆钉和空的中心区域。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, modular 2D interface panel sprite, large modular interface panel frame, dark worn metal body, brass corner plates, thin rivets, empty center area, subtle inner shadow, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -2983,10 +3495,10 @@
       },
       "BatchID": "",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_panel_main.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_panel_main.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
       "PresetCategory": "ui_skin",
       "Screen": "global",
       "Usage": "出售、义体、层选择、结算等大弹窗"
@@ -3136,7 +3648,7 @@
       "VisualID": "ui_dungeon_node_plate",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_node_plate.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 皮肤：深渊地图节点底板。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。地图节点底板，圆形暗金属盘、黄铜环、小螺丝痕和空中心。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, modular 2D interface frame sprite, round map node backing plate, dark metal disk, brass ring, small screw marks, empty center, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3175,10 +3687,10 @@
       },
       "BatchID": "",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_node_plate.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_node_plate.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
       "PresetCategory": "ui_dungeon_map",
       "Screen": "dungeon_map",
       "Usage": "深渊地图节点图标下方底板"
@@ -3194,7 +3706,7 @@
       "VisualID": "ui_dungeon_route_line",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_route_line.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 皮肤：深渊地图路线连接线。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。地图路线连接线，黄铜管线段、小铆钉和横向可平铺条。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, modular 2D decorative divider sprite, thin map route connector line, brass pipe segment with small rivets, horizontal tileable strip, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3232,10 +3744,10 @@
       },
       "BatchID": "",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_route_line.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_route_line.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
       "PresetCategory": "ui_dungeon_map",
       "Screen": "dungeon_map",
       "Usage": "深渊地图节点之间的路线连接"
@@ -3251,7 +3763,7 @@
       "VisualID": "ui_icon_equipped",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_equipped.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：已装备状态符号。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。已装备图标，黄铜确认标记叠在小齿轮徽章上，轮廓清楚。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, small equipped check symbol, brass check mark over compact gear badge, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3289,10 +3801,10 @@
       },
       "BatchID": "",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_equipped.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_equipped.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
       "PresetCategory": "ui_skin",
       "Screen": "prosthetic_panel",
       "Usage": "义体制造列表已装备状态"
@@ -3308,7 +3820,7 @@
       "VisualID": "ui_icon_locked",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_locked.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：锁定状态符号。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。锁定图标，黄铜挂锁和磨损金属锁梁，轮廓清楚。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, small lock symbol, brass padlock with worn metal shackle, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3346,10 +3858,10 @@
       },
       "BatchID": "",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_locked.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_locked.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
       "PresetCategory": "ui_skin",
       "Screen": "global",
       "Usage": "层选择、未解锁功能"
@@ -3422,7 +3934,7 @@
       "VisualID": "ui_list_row_normal",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_normal.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 皮肤：普通列表行底板。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。普通列表行底板，横向暗金属薄板、黄铜细边、低对比空白条。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, modular 2D interface panel sprite, horizontal list row plate, thin dark metal slab, subtle brass edge, empty center strip, low contrast, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3470,10 +3982,10 @@
       },
       "BatchID": "",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_normal.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_normal.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
       "PresetCategory": "ui_skin",
       "Screen": "global",
       "Usage": "出售列表、义体列表、层选择列表"
@@ -3489,7 +4001,7 @@
       "VisualID": "ui_list_row_selected",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_selected.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 皮肤：选中状态列表行底板。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。选中列表行底板，横向暗金属板、较亮黄铜外轮廓和柔和琥珀边缘光。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, modular 2D interface panel sprite, horizontal selected list row plate, dark metal slab, brighter brass outline, soft amber edge glow, empty center strip, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3537,10 +4049,10 @@
       },
       "BatchID": "",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_selected.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_selected.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
       "PresetCategory": "ui_skin",
       "Screen": "global",
       "Usage": "当前选中层、当前选中条目"
@@ -3556,7 +4068,7 @@
       "VisualID": "ui_settlement_defeat_panel",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_defeat_panel.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 皮肤：战败结算面板。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。战败结算面板，暗色破损金属、低饱和红色警示边、破裂黄铜角和空中心。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, modular 2D interface panel sprite, large defeat result panel frame, dark damaged metal body, muted red warning trims, cracked brass corners, empty center area, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3604,10 +4116,10 @@
       },
       "BatchID": "",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_defeat_panel.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_defeat_panel.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
       "PresetCategory": "ui_settlement",
       "Screen": "settlement",
       "Usage": "战败/损失结算弹窗"
@@ -3623,7 +4135,7 @@
       "VisualID": "ui_settlement_victory_panel",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_victory_panel.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 皮肤：撤离成功结算面板。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。撤离成功结算面板，暗金属主体、暖黄铜边、微弱绿蓝信号灯和空中心。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, modular 2D interface panel sprite, large evacuation success panel frame, dark metal body, warm brass trim, subtle green-blue signal light, empty center area, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3671,10 +4183,10 @@
       },
       "BatchID": "",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_victory_panel.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_victory_panel.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
       "PresetCategory": "ui_settlement",
       "Screen": "settlement",
       "Usage": "撤离成功/胜利结算弹窗"
@@ -3690,7 +4202,7 @@
       "VisualID": "ui_title_divider",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_title_divider.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 皮肤：标题分隔装饰。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。标题装饰线，黄铜管线、小齿轮点缀和对称横向装饰。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, modular 2D decorative divider sprite, thin decorative title divider, brass pipe line, small gear accents, symmetrical horizontal ornament, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3728,10 +4240,10 @@
       },
       "BatchID": "",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_title_divider.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_title_divider.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
       "PresetCategory": "ui_skin",
       "Screen": "global",
       "Usage": "标题下方装饰与分隔"

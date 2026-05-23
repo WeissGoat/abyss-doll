@@ -37,7 +37,7 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 
 | ScreenID | Baseline Version | Candidate Version | Active 状态 | 迁移状态 | 备注 |
 |---|---|---|---|---|---|
-| `combat_hud` | `mvp_baseline_2026-05-22` | 可选 `formal_v1_candidate` | `validated` | `design_draft` | 第一优先级，需从敌人卡片改为敌方实体舞台。 |
+| `combat_hud` | `mvp_baseline_2026-05-22` | 可选 `formal_v1_candidate` | `active_spec` | `active_spec` | 已按 Formal V1 改为左玩家、右敌方实体、底部居中背包、敌人脚下血条；等待素材与程序接入。 |
 | `workshop_main` | `mvp_baseline_2026-05-22` | 无 | `validated` | `design_draft` | 第二优先级，改为正式工坊工作台。 |
 | `inventory_loot` | `mvp_baseline_2026-05-22` | 无 | `validated` | `design_draft` | 第三优先级，强化战后清点结构。 |
 | `dungeon_map` | `mvp_baseline_2026-05-22` | 无 | `draft` | `design_draft` | 暂停直接 handoff，先按 Formal V1 审查。 |
@@ -73,3 +73,10 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 * 建立 `formal_v1_candidate`，但明确为复杂界面的可选暂存区。
 * 规定 `screen_layouts.json` 只代表 active 对接规格。
 * Formal V1 默认在用户确认后逐界面修改 active；candidate 不作为必经流程。
+
+### 2026-05-24：`combat_hud` 写入 Formal V1 active 规格
+
+* 根据用户确认，将战斗背包从右下改为底部居中。
+* 敌人主表现从卡片迁移为右侧战斗实体舞台，敌人血条和护盾条放到实体脚下。
+* 明确现有 `monster_*_portrait` 只作为临时 fallback，正式验收需要 `monster_*_combat` 透明战斗实体素材。
+* 新增 `ui_combat_entity_shadow` 与 `ui_combat_target_ring` 作为 Formal V1 战斗实体落点和选中提示资源。

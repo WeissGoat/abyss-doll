@@ -19,7 +19,7 @@ related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 开发文档/09_视觉资源系统程序开发规范.md
   - 开发文档/14_Unity运行时美术自动验收方案.md
-last_verified: 2026-05-23
+last_verified: 2026-05-24
 update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约变化时同步本文件。
 ---
 
@@ -53,4 +53,5 @@ update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约�
 - `美术文档/_generated` 与 `美术文档/ui_design/_generated` 是脚本输出，优先通过工具刷新。
 - 刷新 Manifest 前先同步配置：`.\tools\config\Sync-Configs.ps1 -Clean`。
 - UI 结构迭代时，`screen_layouts.json` 是 active；`versions/` 是 baseline / 可选暂存，不是程序接入口。
+- `combat_hud` 已进入 Formal V1 active 规格，第一批 `monster_*_combat` 战斗实体、脚底阴影和目标光环已入库；下一步交给 UI 程序接入并由美术侧截图验收。
 - 如果美术交付影响程序接入或策划规则，需要同步 `PROJECT_STATUS.md` 和对应职能状态页。

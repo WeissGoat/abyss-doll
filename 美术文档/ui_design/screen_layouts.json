@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "UpdatedAt": "2026-05-22",
+  "UpdatedAt": "2026-05-24",
   "ReferenceResolution": "1920x1080",
   "Screens": [
     {
@@ -34,23 +34,45 @@
           "ZoneID": "top_status_bar",
           "Purpose": "天数、金币、SAN/维修等全局状态摘要",
           "Anchor": "top_stretch",
-          "Rect": {"X": 64, "Y": 32, "Width": 1792, "Height": 72},
-          "ComponentRefs": ["Panel.Info", "Icon.Money"],
+          "Rect": {
+            "X": 64,
+            "Y": 32,
+            "Width": 1792,
+            "Height": 72
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Money"
+          ],
           "Notes": "低高度横条，不遮挡工坊背景主体。"
         },
         {
           "ZoneID": "left_action_panel",
           "Purpose": "出发、出售、义体制造等主操作入口",
           "Anchor": "left_middle",
-          "Rect": {"X": 96, "Y": 168, "Width": 420, "Height": 520},
-          "ComponentRefs": ["Panel.Info", "Button.Primary", "Button.Secondary"],
+          "Rect": {
+            "X": 96,
+            "Y": 168,
+            "Width": 420,
+            "Height": 520
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Button.Primary",
+            "Button.Secondary"
+          ],
           "Notes": "按钮纵向排列，主按钮只用于出发深渊。"
         },
         {
           "ZoneID": "doll_display",
           "Purpose": "魔偶立绘展示区",
           "Anchor": "bottom_right",
-          "Rect": {"X": 1180, "Y": 160, "Width": 520, "Height": 820},
+          "Rect": {
+            "X": 1180,
+            "Y": 160,
+            "Width": 520,
+            "Height": 820
+          },
           "ComponentRefs": [],
           "Notes": "立绘 bottom_center 对齐，脚底基线靠近地面，不进入按钮区。"
         },
@@ -58,16 +80,31 @@
           "ZoneID": "inventory_preview",
           "Purpose": "当前底盘和背包格预览",
           "Anchor": "bottom_center",
-          "Rect": {"X": 560, "Y": 650, "Width": 560, "Height": 360},
-          "ComponentRefs": ["Inventory.ChassisPanel", "Inventory.Slot"],
+          "Rect": {
+            "X": 560,
+            "Y": 650,
+            "Width": 560,
+            "Height": 360
+          },
+          "ComponentRefs": [
+            "Inventory.ChassisPanel",
+            "Inventory.Slot"
+          ],
           "Notes": "用于让局外主界面形成装备/背包视觉中心，可先做不可交互预览。"
         },
         {
           "ZoneID": "bottom_hint_area",
           "Purpose": "当前选择说明和轻量提示",
           "Anchor": "bottom_left",
-          "Rect": {"X": 96, "Y": 720, "Width": 420, "Height": 180},
-          "ComponentRefs": ["Panel.Info"],
+          "Rect": {
+            "X": 96,
+            "Y": 720,
+            "Width": 420,
+            "Height": 180
+          },
+          "ComponentRefs": [
+            "Panel.Info"
+          ],
           "Notes": "用于按钮 hover 或当前日程提示。"
         }
       ],
@@ -256,14 +293,17 @@
       "ScreenID": "combat_hud",
       "DisplayName": "战斗界面",
       "Priority": "P0",
-      "LayoutStatus": "validated",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "mvp_baseline_2026-05-22",
       "BackgroundVisualID": "bg_combat_abyss",
-      "PrimaryGoal": "在不遮挡背包和战斗目标的前提下，强化敌人、玩家、行动点和状态反馈。",
+      "PrimaryGoal": "战斗界面正式化：左侧玩家魔偶、右侧敌方实体舞台，中间保留行动反馈和 VFX 空间，战斗背包固定为底部居中核心操作盘。",
       "RequiredComponents": [
         "Panel.Info",
         "Button.Primary",
         "Button.Secondary",
-        "Combat.EnemyCard",
+        "Combat.EntityShadow",
+        "Combat.TargetRing",
         "Combat.HpBar",
         "Combat.ShieldBar",
         "Combat.ApPip",
@@ -274,11 +314,15 @@
       "RequiredVisualIDs": [
         "bg_combat_abyss",
         "doll_proto_0_stand",
+        "monster_mob_scavenger_bug_combat",
+        "monster_mob_acid_slime_combat",
+        "monster_elite_scrap_guard_combat",
+        "monster_elite_mutant_amalgam_combat",
         "ui_panel_info",
         "ui_button_primary",
         "ui_button_secondary",
-        "ui_combat_enemy_card",
-        "ui_combat_enemy_card_selected",
+        "ui_combat_entity_shadow",
+        "ui_combat_target_ring",
         "ui_combat_status_bar_hp",
         "ui_combat_status_bar_shield",
         "ui_combat_ap_pip",
@@ -288,68 +332,164 @@
       ],
       "Zones": [
         {
-          "ZoneID": "turn_banner",
-          "Purpose": "玩家回合/敌方行动提示",
-          "Anchor": "top_center",
-          "Rect": {"X": 660, "Y": 36, "Width": 600, "Height": 92},
-          "ComponentRefs": ["Combat.TurnBanner"],
-          "Notes": "只做提示容器，文字由程序叠加。"
-        },
-        {
-          "ZoneID": "enemy_cards",
-          "Purpose": "敌人头像、血条、护盾和目标选择",
-          "Anchor": "top_right",
-          "Rect": {"X": 1030, "Y": 128, "Width": 780, "Height": 360},
-          "ComponentRefs": ["Combat.EnemyCard", "Combat.HpBar", "Combat.ShieldBar"],
-          "Notes": "最多先支持 3 个敌人卡位，选中目标切换 selected 框。"
-        },
-        {
-          "ZoneID": "player_doll",
-          "Purpose": "玩家魔偶站姿和受击反馈",
-          "Anchor": "bottom_left",
-          "Rect": {"X": 120, "Y": 260, "Width": 420, "Height": 720},
+          "ZoneID": "battle_background",
+          "Purpose": "战斗背景，cover 适配，不承载关键交互。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
           "ComponentRefs": [],
-          "Notes": "立绘 bottom_center 对齐。后续可加受击/VFX 挂点。"
+          "Notes": "背景必须是不透明横版舞台，避免 UI 底色穿透；核心实体和背包不依赖背景内置元素定位。"
         },
         {
-          "ZoneID": "player_status",
-          "Purpose": "玩家 HP、护盾、SAN、AP 摘要",
-          "Anchor": "left_bottom",
-          "Rect": {"X": 560, "Y": 690, "Width": 520, "Height": 170},
-          "ComponentRefs": ["Panel.Info", "Combat.HpBar", "Combat.ShieldBar", "Combat.ApPip"],
-          "Notes": "AP 使用 pip，HP/护盾使用状态条。"
+          "ZoneID": "turn_banner",
+          "Purpose": "当前回合、敌方行动、目标选择提示的轻量横条。",
+          "Anchor": "top_center",
+          "Rect": {
+            "X": 660,
+            "Y": 32,
+            "Width": 600,
+            "Height": 84
+          },
+          "ComponentRefs": [
+            "Combat.TurnBanner"
+          ],
+          "Notes": "文字由程序叠加，Banner 只提供承托。"
         },
         {
-          "ZoneID": "action_bar",
-          "Purpose": "武器行动、结束回合等操作",
+          "ZoneID": "player_stage",
+          "Purpose": "玩家魔偶实体、脚底阴影、受击/VFX 挂点。",
+          "Anchor": "left_middle",
+          "Rect": {
+            "X": 100,
+            "Y": 190,
+            "Width": 440,
+            "Height": 620
+          },
+          "ComponentRefs": [
+            "Combat.EntityShadow"
+          ],
+          "Notes": "魔偶 bottom_center 对齐，脚底阴影贴近地面；不放入卡片或面板。"
+        },
+        {
+          "ZoneID": "enemy_stage",
+          "Purpose": "1-3 个敌方战斗实体站位、点击热区、脚下血条和选中光环。",
+          "Anchor": "right_middle",
+          "Rect": {
+            "X": 1240,
+            "Y": 160,
+            "Width": 600,
+            "Height": 500
+          },
+          "ComponentRefs": [
+            "Combat.EntityShadow",
+            "Combat.TargetRing",
+            "Combat.HpBar",
+            "Combat.ShieldBar"
+          ],
+          "Notes": "敌人是舞台实体，不是卡片；HP/Shield 条贴近实体脚下，目标光环也在脚下。"
+        },
+        {
+          "ZoneID": "vfx_space",
+          "Purpose": "攻击轨迹、投射物、伤害数字、状态变化和命中反馈的中央空间。",
+          "Anchor": "center",
+          "Rect": {
+            "X": 560,
+            "Y": 180,
+            "Width": 620,
+            "Height": 240
+          },
+          "ComponentRefs": [],
+          "Notes": "该区域不放固定面板；只作为运行时 VFX 层和短暂反馈层。"
+        },
+        {
+          "ZoneID": "target_hint",
+          "Purpose": "当前选中物品、AP 消耗、目标选择提示。",
+          "Anchor": "center_bottom",
+          "Rect": {
+            "X": 680,
+            "Y": 430,
+            "Width": 560,
+            "Height": 68
+          },
+          "ComponentRefs": [
+            "Panel.Info"
+          ],
+          "Notes": "短文本提示，不遮挡实体脚底和背包格。"
+        },
+        {
+          "ZoneID": "action_strip",
+          "Purpose": "结束回合、取消选择、临时战斗操作按钮。",
+          "Anchor": "center_bottom",
+          "Rect": {
+            "X": 680,
+            "Y": 510,
+            "Width": 560,
+            "Height": 84
+          },
+          "ComponentRefs": [
+            "Button.Primary",
+            "Button.Secondary"
+          ],
+          "Notes": "紧贴背包上方，按钮数量不足时居中排列。"
+        },
+        {
+          "ZoneID": "combat_backpack",
+          "Purpose": "战斗背包和可用物品，是战斗操作核心盘。",
           "Anchor": "bottom_center",
-          "Rect": {"X": 560, "Y": 900, "Width": 760, "Height": 112},
-          "ComponentRefs": ["Button.Primary", "Button.Secondary"],
-          "Notes": "按钮数量不足时居中排列。"
+          "Rect": {
+            "X": 680,
+            "Y": 610,
+            "Width": 560,
+            "Height": 440
+          },
+          "ComponentRefs": [
+            "Inventory.ChassisPanel",
+            "Inventory.Slot"
+          ],
+          "Notes": "背包居中；保持 100x100 玩法格和 5 间距，不为了布局压缩格子。"
         },
         {
-          "ZoneID": "combat_inventory",
-          "Purpose": "战斗中背包和可用物品",
-          "Anchor": "right_bottom",
-          "Rect": {"X": 1320, "Y": 560, "Width": 520, "Height": 440},
-          "ComponentRefs": ["Inventory.ChassisPanel", "Inventory.Slot"],
-          "Notes": "不遮挡敌人卡片；拖拽或点击由程序保持。"
+          "ZoneID": "player_status_cluster",
+          "Purpose": "玩家 HP、护盾、SAN、AP 摘要。",
+          "Anchor": "left_bottom",
+          "Rect": {
+            "X": 120,
+            "Y": 830,
+            "Width": 500,
+            "Height": 150
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Combat.HpBar",
+            "Combat.ShieldBar",
+            "Combat.ApPip"
+          ],
+          "Notes": "状态贴近玩家侧，不与底部居中背包重叠。"
         }
       ],
       "ProgramHandoff": {
         "LayoutChanges": [
-          "敌人卡片容器统一使用 Combat.EnemyCard。",
-          "玩家状态从纯文字块拆为状态条和 AP pip。",
-          "背包容器固定在右下，避免和敌人卡片重叠。"
+          "敌人从 EnemyCardsRoot 迁移到 EnemyStageRoot / EnemySlot_*，主表现从卡片改为战斗实体。",
+          "战斗背包从右下迁移到底部居中 combat_backpack，保留 100x100 玩法格和 5 间距。",
+          "敌人 HP/Shield 条从卡片内部迁移到敌人实体脚下；选中态使用 ui_combat_target_ring 或运行时描边/tint。",
+          "中央 vfx_space 不放固定面板，用于攻击轨迹、伤害数字、状态反馈和命中效果。"
         ],
         "DataBindings": [
-          "HP/护盾填充由程序 Image fillAmount 或 RectTransform 控制。",
-          "AP pip 数量由当前 AP 动态生成。",
-          "敌人选中态切换 ui_combat_enemy_card_selected。"
+          "EnemySprite_Image 优先绑定 MonsterEntity.CombatVisualID；缺图时才临时 fallback 到 PortraitID。",
+          "当前配置中的 4 个 MVP 怪物 CombatVisualID 已入库 Approved：monster_mob_scavenger_bug_combat、monster_mob_acid_slime_combat、monster_elite_scrap_guard_combat、monster_elite_mutant_amalgam_combat。",
+          "EnemyClickHotspot_Button 覆盖实体主体和脚下光环，不依赖卡片框点击。",
+          "HP/Shield 填充由程序 Image fillAmount 或 RectTransform 控制；底图不烘焙数值。",
+          "AP pip 数量由当前 AP 动态生成；targetHintLabel 继续由 HUDController 文本叠加。"
         ],
         "InteractionNotes": [
-          "敌人卡片点击区域保持在卡框内。",
-          "状态条轨道不阻挡射线。"
+          "EnemyShadow_Image、EnemyTargetRing_Image、EnemyHpBar、EnemyShieldBar 默认 raycastTarget=false。",
+          "EnemyClickHotspot_Button 或敌人实体 hit area 才接收目标选择点击。",
+          "背包 GridContainer 和 InventoryItemLayer 同锚到 combat_backpack，并保持物品层在格子层之后。",
+          "背景、阴影、VFX 层、目标光环不能阻断背包、敌人热区或按钮射线。"
         ]
       },
       "ControllerBindings": [
@@ -367,9 +507,10 @@
           ],
           "BindingNotes": [
             "backgroundImage 使用 bg_combat_abyss。",
-            "enemyListParent 锚到 enemy_cards 区域，敌人卡片宽高由该区域内的 LayoutGroup 控制。",
-            "endTurnBtn 使用 Button.Primary；临时或次级行动按钮使用 Button.Secondary。",
-            "现有 hp/san/ap/shield 文本可保留，新增条形和 pip 先作为视觉承托层。"
+            "enemyListParent 现阶段可复用为 EnemyStageRoot 挂点；后续可在程序侧重命名为 enemyStageParent。",
+            "敌人 UI 模板从卡片改为 EnemySlot：包含 click hotspot、shadow、combat sprite、foot hp/shield bars、target ring。",
+            "endTurnBtn 使用 Button.Primary；取消/次级行动使用 Button.Secondary。",
+            "hp/san/ap/shield 文本可保留，但视觉承托拆到 player_status_cluster。"
           ]
         },
         {
@@ -379,8 +520,8 @@
             "inventoryItemLayer"
           ],
           "BindingNotes": [
-            "战斗状态显示全局背包对象，锚到 combat_inventory 区域。",
-            "切换到 Combat 时调用现有背包显示逻辑后，再保证 GridContainer 与 InventoryItemLayer 处于同一父层的最后显示顺序。"
+            "战斗状态显示全局背包对象，GridContainer 和 InventoryItemLayer 锚到 combat_backpack。",
+            "切换到 Combat 时仍调用现有背包显示逻辑，但容器位置由 bottom_center Formal V1 规格控制。"
           ]
         }
       ],
@@ -394,6 +535,82 @@
           "RaycastTarget": false
         },
         {
+          "Path": "CombatPanel/StageRoot/PlayerStageRoot/PlayerShadow_Image",
+          "Layer": "CharacterOrMonster",
+          "ComponentRef": "Combat.EntityShadow",
+          "VisualID": "ui_combat_entity_shadow",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/StageRoot/PlayerStageRoot/PlayerDoll_Image",
+          "Layer": "CharacterOrMonster",
+          "VisualID": "doll_proto_0_stand",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*",
+          "Layer": "CharacterOrMonster",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemyClickHotspot_Button",
+          "Layer": "Controls",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemyShadow_Image",
+          "Layer": "CharacterOrMonster",
+          "ComponentRef": "Combat.EntityShadow",
+          "VisualID": "ui_combat_entity_shadow",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemyTargetRing_Image",
+          "Layer": "CharacterOrMonster",
+          "ComponentRef": "Combat.TargetRing",
+          "VisualID": "ui_combat_target_ring",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemySprite_Image",
+          "Layer": "CharacterOrMonster",
+          "VisualIDPattern": "monster_{MonsterID}_combat",
+          "FallbackVisualIDPattern": "monster_{MonsterID}_portrait",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "Pivot": "bottom_center",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemyFootHpBar",
+          "Layer": "Controls",
+          "ComponentRef": "Combat.HpBar",
+          "VisualID": "ui_combat_status_bar_hp",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemyFootShieldBar",
+          "Layer": "Controls",
+          "ComponentRef": "Combat.ShieldBar",
+          "VisualID": "ui_combat_status_bar_shield",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/StageRoot/VfxLayer",
+          "Layer": "VFX",
+          "RaycastTarget": false
+        },
+        {
           "Path": "CombatPanel/TurnBanner",
           "Layer": "Controls",
           "ComponentRef": "Combat.TurnBanner",
@@ -402,45 +619,7 @@
           "RaycastTarget": false
         },
         {
-          "Path": "CombatPanel/EnemyCardsRoot",
-          "Layer": "InventoryOrCards",
-          "ComponentRef": "Combat.EnemyCard",
-          "RaycastTarget": true
-        },
-        {
-          "Path": "CombatPanel/EnemyCardsRoot/EnemyCardTemplate/Frame",
-          "Layer": "InventoryOrCards",
-          "ComponentRef": "Combat.EnemyCard",
-          "VisualID": "ui_combat_enemy_card",
-          "ImageType": "Simple",
-          "RaycastTarget": true
-        },
-        {
-          "Path": "CombatPanel/EnemyCardsRoot/EnemyCardTemplate/HpBar",
-          "Layer": "Controls",
-          "ComponentRef": "Combat.HpBar",
-          "VisualID": "ui_combat_status_bar_hp",
-          "ImageType": "Sliced",
-          "RaycastTarget": false
-        },
-        {
-          "Path": "CombatPanel/EnemyCardsRoot/EnemyCardTemplate/ShieldBar",
-          "Layer": "Controls",
-          "ComponentRef": "Combat.ShieldBar",
-          "VisualID": "ui_combat_status_bar_shield",
-          "ImageType": "Sliced",
-          "RaycastTarget": false
-        },
-        {
-          "Path": "CombatPanel/PlayerDoll/DollImage",
-          "Layer": "CharacterOrMonster",
-          "VisualID": "doll_proto_0_stand",
-          "ImageType": "Simple",
-          "FitMode": "contain",
-          "RaycastTarget": false
-        },
-        {
-          "Path": "CombatPanel/PlayerStatusPanel",
+          "Path": "CombatPanel/TargetHintPanel",
           "Layer": "MainPanel",
           "ComponentRef": "Panel.Info",
           "VisualID": "ui_panel_info",
@@ -448,31 +627,7 @@
           "RaycastTarget": false
         },
         {
-          "Path": "CombatPanel/PlayerStatusPanel/HpBar",
-          "Layer": "Controls",
-          "ComponentRef": "Combat.HpBar",
-          "VisualID": "ui_combat_status_bar_hp",
-          "ImageType": "Sliced",
-          "RaycastTarget": false
-        },
-        {
-          "Path": "CombatPanel/PlayerStatusPanel/ShieldBar",
-          "Layer": "Controls",
-          "ComponentRef": "Combat.ShieldBar",
-          "VisualID": "ui_combat_status_bar_shield",
-          "ImageType": "Sliced",
-          "RaycastTarget": false
-        },
-        {
-          "Path": "CombatPanel/PlayerStatusPanel/ApPips",
-          "Layer": "Controls",
-          "ComponentRef": "Combat.ApPip",
-          "VisualID": "ui_combat_ap_pip",
-          "ImageType": "Simple",
-          "RaycastTarget": false
-        },
-        {
-          "Path": "CombatPanel/ActionBar/EndTurnButton",
+          "Path": "CombatPanel/ActionStrip/EndTurnButton",
           "Layer": "Controls",
           "ComponentRef": "Button.Primary",
           "VisualID": "ui_button_primary",
@@ -480,12 +635,52 @@
           "RaycastTarget": true
         },
         {
-          "Path": "CombatPanel/ActionBar/SecondaryActionButton",
+          "Path": "CombatPanel/ActionStrip/CancelSelectionButton",
           "Layer": "Controls",
           "ComponentRef": "Button.Secondary",
           "VisualID": "ui_button_secondary",
           "ImageType": "Sliced",
           "RaycastTarget": true
+        },
+        {
+          "Path": "CombatPanel/PlayerStatusCluster",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/PlayerStatusCluster/HpBar",
+          "Layer": "Controls",
+          "ComponentRef": "Combat.HpBar",
+          "VisualID": "ui_combat_status_bar_hp",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/PlayerStatusCluster/ShieldBar",
+          "Layer": "Controls",
+          "ComponentRef": "Combat.ShieldBar",
+          "VisualID": "ui_combat_status_bar_shield",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/PlayerStatusCluster/ApPips",
+          "Layer": "Controls",
+          "ComponentRef": "Combat.ApPip",
+          "VisualID": "ui_combat_ap_pip",
+          "ImageType": "Simple",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/CombatBackpackAnchor/ChassisPanel",
+          "Layer": "InventoryOrCards",
+          "ComponentRef": "Inventory.ChassisPanel",
+          "VisualID": "ui_inventory_chassis_panel",
+          "ImageType": "Simple",
+          "RaycastTarget": false
         },
         {
           "Path": "InventoryCanvas/GridContainer",
@@ -511,18 +706,28 @@
           "RaycastTarget": false
         },
         {
-          "Target": "enemy card frame normal",
-          "VisualID": "ui_combat_enemy_card",
-          "ComponentRef": "Combat.EnemyCard",
+          "Target": "EnemySlot_*/EnemySprite_Image",
+          "VisualIDPattern": "monster_{MonsterID}_combat",
+          "FallbackVisualIDPattern": "monster_{MonsterID}_portrait",
           "ImageType": "Simple",
-          "RaycastTarget": true
+          "FitMode": "contain",
+          "RaycastTarget": false
         },
         {
-          "Target": "enemy card frame selected",
-          "VisualID": "ui_combat_enemy_card_selected",
-          "ComponentRef": "Combat.EnemyCard",
+          "Target": "EnemySlot_*/EnemyShadow_Image and PlayerShadow_Image",
+          "VisualID": "ui_combat_entity_shadow",
+          "ComponentRef": "Combat.EntityShadow",
           "ImageType": "Simple",
-          "RaycastTarget": true
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "EnemySlot_*/EnemyTargetRing_Image",
+          "VisualID": "ui_combat_target_ring",
+          "ComponentRef": "Combat.TargetRing",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
         },
         {
           "Target": "enemy/player hp bar frame",
@@ -551,27 +756,42 @@
           "ComponentRef": "Button.Primary",
           "ImageType": "Sliced",
           "RaycastTarget": true
+        },
+        {
+          "Target": "CancelSelectionButton.Image",
+          "VisualID": "ui_button_secondary",
+          "ComponentRef": "Button.Secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "GridSlotUI.slotImage",
+          "VisualID": "ui_inventory_slot_available",
+          "ComponentRef": "Inventory.Slot",
+          "ImageType": "Simple",
+          "RaycastTarget": true
         }
       ],
       "InventoryLayerPolicy": {
         "UsesGlobalInventory": true,
         "GridCellSize": 100,
         "GridSpacing": 5,
-        "TargetZone": "combat_inventory",
+        "TargetZone": "combat_backpack",
         "GridSizeFormula": "width = columns * 100 + (columns - 1) * 5; height = rows * 100 + (rows - 1) * 5",
         "Rules": [
-          "战斗背包区域不得进入 enemy_cards 区域。",
-          "GridContainer 和 InventoryItemLayer 同步锚到 combat_inventory 区域。",
+          "GridContainer 和 InventoryItemLayer 同步锚到 combat_backpack 区域。",
           "InventoryItemLayer 显示顺序保持在 GridContainer 之后，避免物品图标被格子盖住。",
-          "背包缩放优先保持 100x100 玩法格；如屏幕比例导致拥挤，只移动容器，不缩小玩法格。"
+          "背包缩放优先保持 100x100 玩法格；如屏幕比例导致拥挤，优先移动容器或调整留白，不缩小玩法格。",
+          "背包底部居中，不进入 player_stage、enemy_stage 或 vfx_space 的核心实体区域。"
         ]
       },
       "AcceptanceCriteria": [
-        "1920x1080 下 enemy_cards、combat_inventory、action_bar 三个区域互不重叠。",
-        "敌人卡片可点击区域仍覆盖卡框主体，状态条和装饰图不拦截点击。",
-        "HP/护盾数值变化由程序填充层表现，底图 Sprite 不包含固定数值。",
-        "AP pip 数量随程序状态变化，已消耗状态可用运行时 tint 降亮。",
-        "战斗中背包格仍为 100x100，物品拖拽、点击和使用不受 UI 皮肤影响。"
+        "1920x1080 下玩家实体在左侧、敌方实体在右侧，敌人不再以大卡片作为主要表现。",
+        "战斗背包位于底部居中，100x100 背包格和 5 间距保持不变，拖拽/点击不受 UI 皮肤影响。",
+        "敌人 HP/Shield 条贴近敌人脚下，选中目标时脚下 target ring 或等效高亮可见。",
+        "中央 vfx_space 没有固定面板遮挡，可用于攻击轨迹、投射物、伤害数字和状态反馈。",
+        "MonsterEntity.CombatVisualID 缺图时可以临时 fallback 到 PortraitID，但正式验收以透明背景战斗实体素材为准。",
+        "背景、阴影、目标光环、状态条和 VFX 层不拦截敌人热区、背包格或按钮射线。"
       ]
     },
     {
@@ -610,40 +830,78 @@
           "ZoneID": "modal_panel",
           "Purpose": "拾取界面主容器",
           "Anchor": "center",
-          "Rect": {"X": 160, "Y": 96, "Width": 1600, "Height": 888},
-          "ComponentRefs": ["Loot.PickupPanel"],
+          "Rect": {
+            "X": 160,
+            "Y": 96,
+            "Width": 1600,
+            "Height": 888
+          },
+          "ComponentRefs": [
+            "Loot.PickupPanel"
+          ],
           "Notes": "作为遮罩上的主弹窗，使用九宫格。"
         },
         {
           "ZoneID": "inventory_grid",
           "Purpose": "玩家当前背包",
           "Anchor": "left_middle",
-          "Rect": {"X": 260, "Y": 220, "Width": 640, "Height": 640},
-          "ComponentRefs": ["Inventory.ChassisPanel", "Inventory.Slot"],
+          "Rect": {
+            "X": 260,
+            "Y": 220,
+            "Width": 640,
+            "Height": 640
+          },
+          "ComponentRefs": [
+            "Inventory.ChassisPanel",
+            "Inventory.Slot"
+          ],
           "Notes": "玩法格固定 100x100，物品按 shape 占格；格内图标和装饰按需要 contain。"
         },
         {
           "ZoneID": "loot_drop_zone",
           "Purpose": "待拾取战利品区域",
           "Anchor": "right_top",
-          "Rect": {"X": 1010, "Y": 230, "Width": 560, "Height": 420},
-          "ComponentRefs": ["Loot.DropZone"],
+          "Rect": {
+            "X": 1010,
+            "Y": 230,
+            "Width": 560,
+            "Height": 420
+          },
+          "ComponentRefs": [
+            "Loot.DropZone"
+          ],
           "Notes": "战利品位于背包外侧，表达拖入背包。"
         },
         {
           "ZoneID": "item_detail",
           "Purpose": "当前悬停或选中物品说明",
           "Anchor": "right_bottom",
-          "Rect": {"X": 1010, "Y": 680, "Width": 560, "Height": 160},
-          "ComponentRefs": ["Panel.Info"],
+          "Rect": {
+            "X": 1010,
+            "Y": 680,
+            "Width": 560,
+            "Height": 160
+          },
+          "ComponentRefs": [
+            "Panel.Info"
+          ],
           "Notes": "文字、数值和占格说明由程序渲染。"
         },
         {
           "ZoneID": "decision_buttons",
           "Purpose": "确认拾取、返回、丢弃等决策按钮",
           "Anchor": "bottom_right",
-          "Rect": {"X": 1010, "Y": 870, "Width": 560, "Height": 80},
-          "ComponentRefs": ["Button.Primary", "Button.Secondary", "Button.Danger"],
+          "Rect": {
+            "X": 1010,
+            "Y": 870,
+            "Width": 560,
+            "Height": 80
+          },
+          "ComponentRefs": [
+            "Button.Primary",
+            "Button.Secondary",
+            "Button.Danger"
+          ],
           "Notes": "危险按钮只用于丢弃或放弃。"
         }
       ],
@@ -875,7 +1133,12 @@
           "ZoneID": "map_background",
           "Purpose": "深渊地图背景",
           "Anchor": "full_screen",
-          "Rect": {"X": 0, "Y": 0, "Width": 1920, "Height": 1080},
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
           "ComponentRefs": [],
           "Notes": "使用 bg_dungeon_map cover；不承载关键文字。"
         },
@@ -883,16 +1146,34 @@
           "ZoneID": "map_canvas",
           "Purpose": "节点路线主区域",
           "Anchor": "center",
-          "Rect": {"X": 240, "Y": 160, "Width": 1440, "Height": 650},
-          "ComponentRefs": ["Map.NodePlate", "Map.RouteLine", "Icon.Locked"],
+          "Rect": {
+            "X": 240,
+            "Y": 160,
+            "Width": 1440,
+            "Height": 650
+          },
+          "ComponentRefs": [
+            "Map.NodePlate",
+            "Map.RouteLine",
+            "Icon.Locked"
+          ],
           "Notes": "路线线段在底板下方，节点图标和文字在底板上方。"
         },
         {
           "ZoneID": "inventory_controls",
           "Purpose": "整理背包入口、关闭背包和说明文字",
           "Anchor": "bottom_right",
-          "Rect": {"X": 1070, "Y": 880, "Width": 800, "Height": 150},
-          "ComponentRefs": ["Panel.Info", "Button.Secondary", "Button.Danger"],
+          "Rect": {
+            "X": 1070,
+            "Y": 880,
+            "Width": 800,
+            "Height": 150
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Button.Secondary",
+            "Button.Danger"
+          ],
           "Notes": "背包未展开时显示整理按钮；展开时显示关闭按钮和丢弃提示。"
         }
       ],
@@ -916,7 +1197,14 @@
       "ControllerBindings": [
         {
           "Script": "DungeonMapUIController",
-          "ExistingFields": ["nodeButtonPrefab", "contentParent", "openBackpackBtn", "closeBackpackBtn", "backpackHintText", "backgroundImage"],
+          "ExistingFields": [
+            "nodeButtonPrefab",
+            "contentParent",
+            "openBackpackBtn",
+            "closeBackpackBtn",
+            "backpackHintText",
+            "backgroundImage"
+          ],
           "BindingNotes": [
             "backgroundImage 使用 bg_dungeon_map。",
             "contentParent 对应 map_canvas。",
@@ -925,7 +1213,11 @@
         },
         {
           "Script": "GameFlowController",
-          "ExistingFields": ["dungeonMapPanel", "gridGenerator.gridParent", "inventoryItemLayer"],
+          "ExistingFields": [
+            "dungeonMapPanel",
+            "gridGenerator.gridParent",
+            "inventoryItemLayer"
+          ],
           "BindingNotes": [
             "DungeonMap 状态下背包只在整理模式展开。",
             "展开背包时保持 GridContainer 与 InventoryItemLayer 同步显示。"
@@ -933,21 +1225,105 @@
         }
       ],
       "UnityHierarchy": [
-        {"Path": "DungeonMapPanel/DungeonMapBackground_Image", "Layer": "Background", "VisualID": "bg_dungeon_map", "ImageType": "Simple", "FitMode": "cover", "RaycastTarget": false},
-        {"Path": "DungeonMapPanel/ContentParent", "Layer": "MainPanel", "Notes": "节点路线容器，锚到 map_canvas。"},
-        {"Path": "DungeonMapPanel/ContentParent/DungeonRouteLine_Image", "Layer": "MainPanel", "ComponentRef": "Map.RouteLine", "VisualID": "ui_dungeon_route_line", "ImageType": "Simple", "FitMode": "contain", "RaycastTarget": false},
-        {"Path": "DungeonMapPanel/ContentParent/NodeButton(Clone)", "Layer": "Controls", "ComponentRef": "Map.NodePlate", "VisualID": "ui_dungeon_node_plate", "ImageType": "Simple", "RaycastTarget": true},
-        {"Path": "DungeonMapPanel/ContentParent/NodeButton(Clone)/NodeIcon_Image", "Layer": "Controls", "ImageType": "Simple", "FitMode": "contain", "RaycastTarget": false},
-        {"Path": "DungeonMapPanel/BackpackHint_Text", "Layer": "Controls", "ComponentRef": "Panel.Info", "VisualID": "ui_panel_info", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Path": "DungeonMapPanel/OpenBackpack_Button", "Layer": "Controls", "ComponentRef": "Button.Secondary", "VisualID": "ui_button_secondary", "ImageType": "Sliced", "RaycastTarget": true},
-        {"Path": "DungeonMapPanel/CloseBackpack_Button", "Layer": "Controls", "ComponentRef": "Button.Danger", "VisualID": "ui_button_danger", "ImageType": "Sliced", "RaycastTarget": true}
+        {
+          "Path": "DungeonMapPanel/DungeonMapBackground_Image",
+          "Layer": "Background",
+          "VisualID": "bg_dungeon_map",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DungeonMapPanel/ContentParent",
+          "Layer": "MainPanel",
+          "Notes": "节点路线容器，锚到 map_canvas。"
+        },
+        {
+          "Path": "DungeonMapPanel/ContentParent/DungeonRouteLine_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Map.RouteLine",
+          "VisualID": "ui_dungeon_route_line",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DungeonMapPanel/ContentParent/NodeButton(Clone)",
+          "Layer": "Controls",
+          "ComponentRef": "Map.NodePlate",
+          "VisualID": "ui_dungeon_node_plate",
+          "ImageType": "Simple",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "DungeonMapPanel/ContentParent/NodeButton(Clone)/NodeIcon_Image",
+          "Layer": "Controls",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DungeonMapPanel/BackpackHint_Text",
+          "Layer": "Controls",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DungeonMapPanel/OpenBackpack_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "DungeonMapPanel/CloseBackpack_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
       ],
       "SpriteAssignments": [
-        {"Target": "DungeonMapUIController.backgroundImage", "VisualID": "bg_dungeon_map", "ImageType": "Simple", "FitMode": "cover", "RaycastTarget": false},
-        {"Target": "DungeonMapUIController node button frame", "ComponentRef": "Map.NodePlate", "VisualID": "ui_dungeon_node_plate", "ImageType": "Simple", "RaycastTarget": true},
-        {"Target": "DungeonMapUIController route line", "ComponentRef": "Map.RouteLine", "VisualID": "ui_dungeon_route_line", "ImageType": "Simple", "FitMode": "contain", "RaycastTarget": false},
-        {"Target": "openBackpackBtn.Image", "ComponentRef": "Button.Secondary", "VisualID": "ui_button_secondary", "ImageType": "Sliced", "RaycastTarget": true},
-        {"Target": "closeBackpackBtn.Image", "ComponentRef": "Button.Danger", "VisualID": "ui_button_danger", "ImageType": "Sliced", "RaycastTarget": true}
+        {
+          "Target": "DungeonMapUIController.backgroundImage",
+          "VisualID": "bg_dungeon_map",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DungeonMapUIController node button frame",
+          "ComponentRef": "Map.NodePlate",
+          "VisualID": "ui_dungeon_node_plate",
+          "ImageType": "Simple",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "DungeonMapUIController route line",
+          "ComponentRef": "Map.RouteLine",
+          "VisualID": "ui_dungeon_route_line",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "openBackpackBtn.Image",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "closeBackpackBtn.Image",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
       ],
       "AcceptanceCriteria": [
         "节点、路线和节点文字都落在 map_canvas 内，不遮挡右下角背包整理入口。",
@@ -987,7 +1363,12 @@
           "ZoneID": "settlement_background",
           "Purpose": "撤离或战败背景",
           "Anchor": "full_screen",
-          "Rect": {"X": 0, "Y": 0, "Width": 1920, "Height": 1080},
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
           "ComponentRefs": [],
           "Notes": "成功使用 bg_settlement_victory，失败使用 bg_settlement_defeat。"
         },
@@ -995,15 +1376,30 @@
           "ZoneID": "result_panel",
           "Purpose": "结算主面板",
           "Anchor": "center",
-          "Rect": {"X": 510, "Y": 190, "Width": 900, "Height": 700},
-          "ComponentRefs": ["Settlement.VictoryPanel", "Settlement.DefeatPanel", "Title.Divider", "Button.Primary"],
+          "Rect": {
+            "X": 510,
+            "Y": 190,
+            "Width": 900,
+            "Height": 700
+          },
+          "ComponentRefs": [
+            "Settlement.VictoryPanel",
+            "Settlement.DefeatPanel",
+            "Title.Divider",
+            "Button.Primary"
+          ],
           "Notes": "胜利和战败共用布局，不同主面板皮肤。"
         },
         {
           "ZoneID": "summary_area",
           "Purpose": "本次拾取、带出、损失和仓库摘要",
           "Anchor": "center_top",
-          "Rect": {"X": 610, "Y": 300, "Width": 700, "Height": 180},
+          "Rect": {
+            "X": 610,
+            "Y": 300,
+            "Width": 700,
+            "Height": 180
+          },
           "ComponentRefs": [],
           "Notes": "仅放程序 Text，不烘焙文字。"
         },
@@ -1011,16 +1407,31 @@
           "ZoneID": "loot_detail_area",
           "Purpose": "带出、拾取、损失列表",
           "Anchor": "center",
-          "Rect": {"X": 610, "Y": 500, "Width": 700, "Height": 300},
-          "ComponentRefs": ["List.Row.Normal", "Icon.Money"],
+          "Rect": {
+            "X": 610,
+            "Y": 500,
+            "Width": 700,
+            "Height": 300
+          },
+          "ComponentRefs": [
+            "List.Row.Normal",
+            "Icon.Money"
+          ],
           "Notes": "当前可先用 Text 列表，后续再拆成行组件。"
         },
         {
           "ZoneID": "continue_action",
           "Purpose": "返回工坊确认按钮",
           "Anchor": "bottom_center",
-          "Rect": {"X": 820, "Y": 790, "Width": 280, "Height": 72},
-          "ComponentRefs": ["Button.Primary"],
+          "Rect": {
+            "X": 820,
+            "Y": 790,
+            "Width": 280,
+            "Height": 72
+          },
+          "ComponentRefs": [
+            "Button.Primary"
+          ],
           "Notes": "继续按钮保持原 continueBtn 回调。"
         }
       ],
@@ -1044,7 +1455,16 @@
       "ControllerBindings": [
         {
           "Script": "SettlementUIController",
-          "ExistingFields": ["titleText", "summaryText", "lootText", "continueBtn", "backgroundImage", "backdropImage", "settlementPanelImage", "titleDividerImage"],
+          "ExistingFields": [
+            "titleText",
+            "summaryText",
+            "lootText",
+            "continueBtn",
+            "backgroundImage",
+            "backdropImage",
+            "settlementPanelImage",
+            "titleDividerImage"
+          ],
           "BindingNotes": [
             "backgroundImage 使用 ResolveSettlementBackgroundID(result.IsVictory)。",
             "settlementPanelImage 使用 ResolveSettlementPanelID(result.IsVictory)。",
@@ -1053,29 +1473,112 @@
         },
         {
           "Script": "GameFlowController",
-          "ExistingFields": ["settlementPanel"],
+          "ExistingFields": [
+            "settlementPanel"
+          ],
           "BindingNotes": [
             "Settlement 状态进入时调用 SettlementUIController.Present(result, EnterWorkshop)。"
           ]
         }
       ],
       "UnityHierarchy": [
-        {"Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementBackdrop_Image", "Layer": "Background", "ImageType": "Simple", "RaycastTarget": false},
-        {"Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementBackground_Image", "Layer": "Background", "VisualID": "bg_settlement_victory", "ImageType": "Simple", "FitMode": "cover", "RaycastTarget": false},
-        {"Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image", "Layer": "MainPanel", "ComponentRef": "Settlement.VictoryPanel", "VisualID": "ui_settlement_victory_panel", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/TitleDivider_Image", "Layer": "MainPanel", "ComponentRef": "Title.Divider", "VisualID": "ui_title_divider", "ImageType": "Simple", "RaycastTarget": false},
-        {"Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Title_Text", "Layer": "Controls", "RaycastTarget": false},
-        {"Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Summary_Text", "Layer": "Controls", "RaycastTarget": false},
-        {"Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Loot_Text", "Layer": "Controls", "RaycastTarget": false},
-        {"Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Continue_Button", "Layer": "Controls", "ComponentRef": "Button.Primary", "VisualID": "ui_button_primary", "ImageType": "Sliced", "RaycastTarget": true}
+        {
+          "Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementBackdrop_Image",
+          "Layer": "Background",
+          "ImageType": "Simple",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementBackground_Image",
+          "Layer": "Background",
+          "VisualID": "bg_settlement_victory",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Settlement.VictoryPanel",
+          "VisualID": "ui_settlement_victory_panel",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/TitleDivider_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Title_Text",
+          "Layer": "Controls",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Summary_Text",
+          "Layer": "Controls",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Loot_Text",
+          "Layer": "Controls",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Continue_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
       ],
       "SpriteAssignments": [
-        {"Target": "SettlementUIController.backgroundImage.victory", "VisualID": "bg_settlement_victory", "ImageType": "Simple", "FitMode": "cover", "RaycastTarget": false},
-        {"Target": "SettlementUIController.backgroundImage.defeat", "VisualID": "bg_settlement_defeat", "ImageType": "Simple", "FitMode": "cover", "RaycastTarget": false},
-        {"Target": "SettlementUIController.settlementPanelImage.victory", "ComponentRef": "Settlement.VictoryPanel", "VisualID": "ui_settlement_victory_panel", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Target": "SettlementUIController.settlementPanelImage.defeat", "ComponentRef": "Settlement.DefeatPanel", "VisualID": "ui_settlement_defeat_panel", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Target": "SettlementUIController.titleDividerImage", "ComponentRef": "Title.Divider", "VisualID": "ui_title_divider", "ImageType": "Simple", "RaycastTarget": false},
-        {"Target": "continueBtn.Image", "ComponentRef": "Button.Primary", "VisualID": "ui_button_primary", "ImageType": "Sliced", "RaycastTarget": true}
+        {
+          "Target": "SettlementUIController.backgroundImage.victory",
+          "VisualID": "bg_settlement_victory",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SettlementUIController.backgroundImage.defeat",
+          "VisualID": "bg_settlement_defeat",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SettlementUIController.settlementPanelImage.victory",
+          "ComponentRef": "Settlement.VictoryPanel",
+          "VisualID": "ui_settlement_victory_panel",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SettlementUIController.settlementPanelImage.defeat",
+          "ComponentRef": "Settlement.DefeatPanel",
+          "VisualID": "ui_settlement_defeat_panel",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SettlementUIController.titleDividerImage",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "continueBtn.Image",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
       ],
       "AcceptanceCriteria": [
         "胜利结算使用 bg_settlement_victory 和 ui_settlement_victory_panel。",
@@ -1117,7 +1620,12 @@
           "ZoneID": "modal_backdrop",
           "Purpose": "隔离工坊底层的暗色遮罩",
           "Anchor": "full_screen",
-          "Rect": {"X": 0, "Y": 0, "Width": 1920, "Height": 1080},
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
           "ComponentRefs": [],
           "Notes": "遮罩可接收背景点击阻挡，但不使用可见复杂纹理。"
         },
@@ -1125,24 +1633,55 @@
           "ZoneID": "sell_card",
           "Purpose": "出售主面板",
           "Anchor": "center",
-          "Rect": {"X": 380, "Y": 150, "Width": 1160, "Height": 780},
-          "ComponentRefs": ["Panel.Main", "Title.Divider", "Button.Secondary", "Button.Danger"],
+          "Rect": {
+            "X": 380,
+            "Y": 150,
+            "Width": 1160,
+            "Height": 780
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Title.Divider",
+            "Button.Secondary",
+            "Button.Danger"
+          ],
           "Notes": "对应 SellPanel_Card。"
         },
         {
           "ZoneID": "sell_header",
           "Purpose": "标题、摘要、Sell All 和关闭按钮",
           "Anchor": "top_stretch",
-          "Rect": {"X": 420, "Y": 180, "Width": 1080, "Height": 140},
-          "ComponentRefs": ["Title.Divider", "Button.Secondary", "Button.Danger", "Icon.Money"],
+          "Rect": {
+            "X": 420,
+            "Y": 180,
+            "Width": 1080,
+            "Height": 140
+          },
+          "ComponentRefs": [
+            "Title.Divider",
+            "Button.Secondary",
+            "Button.Danger",
+            "Icon.Money"
+          ],
           "Notes": "标题左侧，操作按钮右侧。"
         },
         {
           "ZoneID": "sell_list",
           "Purpose": "可出售物品列表",
           "Anchor": "center",
-          "Rect": {"X": 430, "Y": 330, "Width": 1060, "Height": 560},
-          "ComponentRefs": ["Panel.Main", "List.Row.Normal", "List.Row.Selected", "Button.Secondary", "Icon.Money"],
+          "Rect": {
+            "X": 430,
+            "Y": 330,
+            "Width": 1060,
+            "Height": 560
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "List.Row.Normal",
+            "List.Row.Selected",
+            "Button.Secondary",
+            "Icon.Money"
+          ],
           "Notes": "对应 SellList_Scroll/Viewport/Content。"
         }
       ],
@@ -1166,7 +1705,15 @@
       "ControllerBindings": [
         {
           "Script": "WorkshopUIController",
-          "ExistingFields": ["sellPanel", "stashHeaderText", "sellSummaryText", "stashListParent", "sellAllBtn", "closeSellPanelBtn", "openSellPanelBtn"],
+          "ExistingFields": [
+            "sellPanel",
+            "stashHeaderText",
+            "sellSummaryText",
+            "stashListParent",
+            "sellAllBtn",
+            "closeSellPanelBtn",
+            "openSellPanelBtn"
+          ],
           "BindingNotes": [
             "EnsureSellPanel 创建 WorkshopSellPanel_Runtime 和 SellPanel_Card。",
             "stashListParent 对应 SellList_Scroll/Viewport/Content。",
@@ -1175,22 +1722,111 @@
         }
       ],
       "UnityHierarchy": [
-        {"Path": "WorkshopSellPanel_Runtime", "Layer": "Modal", "RaycastTarget": true},
-        {"Path": "WorkshopSellPanel_Runtime/SellPanel_Card", "Layer": "Modal", "ComponentRef": "Panel.Main", "VisualID": "ui_panel_main", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Path": "WorkshopSellPanel_Runtime/SellPanel_Card/TitleDivider_Image", "Layer": "Modal", "ComponentRef": "Title.Divider", "VisualID": "ui_title_divider", "ImageType": "Simple", "RaycastTarget": false},
-        {"Path": "WorkshopSellPanel_Runtime/SellPanel_Card/SellAll_Button", "Layer": "Controls", "ComponentRef": "Button.Danger", "VisualID": "ui_button_danger", "ImageType": "Sliced", "RaycastTarget": true},
-        {"Path": "WorkshopSellPanel_Runtime/SellPanel_Card/Close_Button", "Layer": "Controls", "ComponentRef": "Button.Secondary", "VisualID": "ui_button_secondary", "ImageType": "Sliced", "RaycastTarget": true},
-        {"Path": "WorkshopSellPanel_Runtime/SellPanel_Card/SellList_Scroll", "Layer": "MainPanel", "ComponentRef": "Panel.Main", "VisualID": "ui_panel_main", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Path": "WorkshopSellPanel_Runtime/SellPanel_Card/SellList_Scroll/Viewport/Content/SellRow_*", "Layer": "Controls", "ComponentRef": "List.Row.Normal", "VisualID": "ui_list_row_normal", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Path": "WorkshopSellPanel_Runtime/SellPanel_Card/SellList_Scroll/Viewport/Content/SellRow_*/Sell_Button", "Layer": "Controls", "ComponentRef": "Button.Secondary", "VisualID": "ui_button_secondary", "ImageType": "Sliced", "RaycastTarget": true}
+        {
+          "Path": "WorkshopSellPanel_Runtime",
+          "Layer": "Modal",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "WorkshopSellPanel_Runtime/SellPanel_Card",
+          "Layer": "Modal",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopSellPanel_Runtime/SellPanel_Card/TitleDivider_Image",
+          "Layer": "Modal",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopSellPanel_Runtime/SellPanel_Card/SellAll_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "WorkshopSellPanel_Runtime/SellPanel_Card/Close_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "WorkshopSellPanel_Runtime/SellPanel_Card/SellList_Scroll",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopSellPanel_Runtime/SellPanel_Card/SellList_Scroll/Viewport/Content/SellRow_*",
+          "Layer": "Controls",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopSellPanel_Runtime/SellPanel_Card/SellList_Scroll/Viewport/Content/SellRow_*/Sell_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
       ],
       "SpriteAssignments": [
-        {"Target": "SellPanel_Card.Image", "ComponentRef": "Panel.Main", "VisualID": "ui_panel_main", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Target": "SellPanel_Card/TitleDivider_Image", "ComponentRef": "Title.Divider", "VisualID": "ui_title_divider", "ImageType": "Simple", "RaycastTarget": false},
-        {"Target": "SellAll_Button.Image", "ComponentRef": "Button.Danger", "VisualID": "ui_button_danger", "ImageType": "Sliced", "RaycastTarget": true},
-        {"Target": "Close_Button.Image", "ComponentRef": "Button.Secondary", "VisualID": "ui_button_secondary", "ImageType": "Sliced", "RaycastTarget": true},
-        {"Target": "SellRow_*.Image", "ComponentRef": "List.Row.Normal", "VisualID": "ui_list_row_normal", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Target": "SellRow_*/Sell_Button.Image", "ComponentRef": "Button.Secondary", "VisualID": "ui_button_secondary", "ImageType": "Sliced", "RaycastTarget": true}
+        {
+          "Target": "SellPanel_Card.Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SellPanel_Card/TitleDivider_Image",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SellAll_Button.Image",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "Close_Button.Image",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "SellRow_*.Image",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SellRow_*/Sell_Button.Image",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
       ],
       "AcceptanceCriteria": [
         "出售面板打开时至少展示 1 条可出售物品行，包含图标、名称、来源、估值和 Sell 按钮。",
@@ -1230,7 +1866,12 @@
           "ZoneID": "modal_backdrop",
           "Purpose": "隔离工坊底层的暗色遮罩",
           "Anchor": "full_screen",
-          "Rect": {"X": 0, "Y": 0, "Width": 1920, "Height": 1080},
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
           "ComponentRefs": [],
           "Notes": "与出售面板保持统一。"
         },
@@ -1238,24 +1879,52 @@
           "ZoneID": "prosthetic_card",
           "Purpose": "义体制造主面板",
           "Anchor": "center",
-          "Rect": {"X": 380, "Y": 150, "Width": 1160, "Height": 780},
-          "ComponentRefs": ["Panel.Main", "Title.Divider", "Button.Secondary"],
+          "Rect": {
+            "X": 380,
+            "Y": 150,
+            "Width": 1160,
+            "Height": 780
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Title.Divider",
+            "Button.Secondary"
+          ],
           "Notes": "对应 ProstheticPanel_Card。"
         },
         {
           "ZoneID": "prosthetic_header",
           "Purpose": "标题、摘要和关闭按钮",
           "Anchor": "top_stretch",
-          "Rect": {"X": 420, "Y": 180, "Width": 1080, "Height": 140},
-          "ComponentRefs": ["Title.Divider", "Button.Secondary"],
+          "Rect": {
+            "X": 420,
+            "Y": 180,
+            "Width": 1080,
+            "Height": 140
+          },
+          "ComponentRefs": [
+            "Title.Divider",
+            "Button.Secondary"
+          ],
           "Notes": "显示可制造数量和已装备摘要。"
         },
         {
           "ZoneID": "prosthetic_list",
           "Purpose": "义体配方列表",
           "Anchor": "center",
-          "Rect": {"X": 430, "Y": 330, "Width": 1060, "Height": 560},
-          "ComponentRefs": ["Panel.Main", "List.Row.Normal", "List.Row.Selected", "Button.Primary", "Icon.Equipped"],
+          "Rect": {
+            "X": 430,
+            "Y": 330,
+            "Width": 1060,
+            "Height": 560
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "List.Row.Normal",
+            "List.Row.Selected",
+            "Button.Primary",
+            "Icon.Equipped"
+          ],
           "Notes": "对应 ProstheticList_Scroll/Viewport/Content。"
         }
       ],
@@ -1279,7 +1948,14 @@
       "ControllerBindings": [
         {
           "Script": "WorkshopUIController",
-          "ExistingFields": ["prostheticPanel", "prostheticHeaderText", "prostheticSummaryText", "prostheticListParent", "closeProstheticPanelBtn", "openProstheticPanelBtn"],
+          "ExistingFields": [
+            "prostheticPanel",
+            "prostheticHeaderText",
+            "prostheticSummaryText",
+            "prostheticListParent",
+            "closeProstheticPanelBtn",
+            "openProstheticPanelBtn"
+          ],
           "BindingNotes": [
             "EnsureProstheticPanel 创建 WorkshopProstheticPanel_Runtime 和 ProstheticPanel_Card。",
             "prostheticListParent 对应 ProstheticList_Scroll/Viewport/Content。",
@@ -1288,23 +1964,120 @@
         }
       ],
       "UnityHierarchy": [
-        {"Path": "WorkshopProstheticPanel_Runtime", "Layer": "Modal", "RaycastTarget": true},
-        {"Path": "WorkshopProstheticPanel_Runtime/ProstheticPanel_Card", "Layer": "Modal", "ComponentRef": "Panel.Main", "VisualID": "ui_panel_main", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Path": "WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/TitleDivider_Image", "Layer": "Modal", "ComponentRef": "Title.Divider", "VisualID": "ui_title_divider", "ImageType": "Simple", "RaycastTarget": false},
-        {"Path": "WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/Close_Button", "Layer": "Controls", "ComponentRef": "Button.Secondary", "VisualID": "ui_button_secondary", "ImageType": "Sliced", "RaycastTarget": true},
-        {"Path": "WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/ProstheticList_Scroll", "Layer": "MainPanel", "ComponentRef": "Panel.Main", "VisualID": "ui_panel_main", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Path": "WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/ProstheticList_Scroll/Viewport/Content/ProstheticRow_*", "Layer": "Controls", "ComponentRef": "List.Row.Normal", "VisualID": "ui_list_row_normal", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Path": "WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/ProstheticList_Scroll/Viewport/Content/ProstheticRow_*/EquippedIcon_Image", "Layer": "Controls", "ComponentRef": "Icon.Equipped", "VisualID": "ui_icon_equipped", "ImageType": "Simple", "FitMode": "contain", "RaycastTarget": false},
-        {"Path": "WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/ProstheticList_Scroll/Viewport/Content/ProstheticRow_*/Craft_Button", "Layer": "Controls", "ComponentRef": "Button.Primary", "VisualID": "ui_button_primary", "ImageType": "Sliced", "RaycastTarget": true}
+        {
+          "Path": "WorkshopProstheticPanel_Runtime",
+          "Layer": "Modal",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "WorkshopProstheticPanel_Runtime/ProstheticPanel_Card",
+          "Layer": "Modal",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/TitleDivider_Image",
+          "Layer": "Modal",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/Close_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/ProstheticList_Scroll",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/ProstheticList_Scroll/Viewport/Content/ProstheticRow_*",
+          "Layer": "Controls",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/ProstheticList_Scroll/Viewport/Content/ProstheticRow_*/EquippedIcon_Image",
+          "Layer": "Controls",
+          "ComponentRef": "Icon.Equipped",
+          "VisualID": "ui_icon_equipped",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/ProstheticList_Scroll/Viewport/Content/ProstheticRow_*/Craft_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
       ],
       "SpriteAssignments": [
-        {"Target": "ProstheticPanel_Card.Image", "ComponentRef": "Panel.Main", "VisualID": "ui_panel_main", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Target": "ProstheticPanel_Card/TitleDivider_Image", "ComponentRef": "Title.Divider", "VisualID": "ui_title_divider", "ImageType": "Simple", "RaycastTarget": false},
-        {"Target": "Close_Button.Image", "ComponentRef": "Button.Secondary", "VisualID": "ui_button_secondary", "ImageType": "Sliced", "RaycastTarget": true},
-        {"Target": "ProstheticRow_*.Image.normal", "ComponentRef": "List.Row.Normal", "VisualID": "ui_list_row_normal", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Target": "ProstheticRow_*.Image.equipped", "ComponentRef": "List.Row.Selected", "VisualID": "ui_list_row_selected", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Target": "EquippedIcon_Image", "ComponentRef": "Icon.Equipped", "VisualID": "ui_icon_equipped", "ImageType": "Simple", "FitMode": "contain", "RaycastTarget": false},
-        {"Target": "Craft_Button.Image", "ComponentRef": "Button.Primary", "VisualID": "ui_button_primary", "ImageType": "Sliced", "RaycastTarget": true}
+        {
+          "Target": "ProstheticPanel_Card.Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "ProstheticPanel_Card/TitleDivider_Image",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "Close_Button.Image",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "ProstheticRow_*.Image.normal",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "ProstheticRow_*.Image.equipped",
+          "ComponentRef": "List.Row.Selected",
+          "VisualID": "ui_list_row_selected",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "EquippedIcon_Image",
+          "ComponentRef": "Icon.Equipped",
+          "VisualID": "ui_icon_equipped",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "Craft_Button.Image",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
       ],
       "AcceptanceCriteria": [
         "义体面板打开时至少展示 1 条义体配方行，包含图标、名称、槽位、材料需求和 Craft/Equipped 状态。",
@@ -1345,7 +2118,12 @@
           "ZoneID": "layer_select_background",
           "Purpose": "层选择背景",
           "Anchor": "full_screen",
-          "Rect": {"X": 0, "Y": 0, "Width": 1920, "Height": 1080},
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
           "ComponentRefs": [],
           "Notes": "使用 bg_layer_select，降低工坊 UI 穿透感。"
         },
@@ -1353,24 +2131,51 @@
           "ZoneID": "layer_select_modal",
           "Purpose": "层列表、锁定状态和出发确认主容器",
           "Anchor": "center",
-          "Rect": {"X": 480, "Y": 180, "Width": 960, "Height": 720},
-          "ComponentRefs": ["Panel.Main", "Title.Divider", "Button.Primary", "Button.Secondary"],
+          "Rect": {
+            "X": 480,
+            "Y": 180,
+            "Width": 960,
+            "Height": 720
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Title.Divider",
+            "Button.Primary",
+            "Button.Secondary"
+          ],
           "Notes": "对应 DungeonStartLayer_Card。"
         },
         {
           "ZoneID": "layer_list",
           "Purpose": "可进入层和锁定层列表",
           "Anchor": "center",
-          "Rect": {"X": 560, "Y": 380, "Width": 800, "Height": 390},
-          "ComponentRefs": ["List.Row.Normal", "List.Row.Selected", "Icon.Locked"],
+          "Rect": {
+            "X": 560,
+            "Y": 380,
+            "Width": 800,
+            "Height": 390
+          },
+          "ComponentRefs": [
+            "List.Row.Normal",
+            "List.Row.Selected",
+            "Icon.Locked"
+          ],
           "Notes": "对应 LayerList，行内锁定图标不阻挡点击。"
         },
         {
           "ZoneID": "layer_actions",
           "Purpose": "开始下潜和返回按钮",
           "Anchor": "bottom_stretch",
-          "Rect": {"X": 520, "Y": 820, "Width": 880, "Height": 90},
-          "ComponentRefs": ["Button.Primary", "Button.Secondary"],
+          "Rect": {
+            "X": 520,
+            "Y": 820,
+            "Width": 880,
+            "Height": 90
+          },
+          "ComponentRefs": [
+            "Button.Primary",
+            "Button.Secondary"
+          ],
           "Notes": "Confirm_Button 在右下，Close_Button 在左下。"
         }
       ],
@@ -1394,7 +2199,9 @@
       "ControllerBindings": [
         {
           "Script": "WorkshopUIController",
-          "ExistingFields": ["dungeonStartLayerPanel"],
+          "ExistingFields": [
+            "dungeonStartLayerPanel"
+          ],
           "BindingNotes": [
             "EnsureDungeonStartLayerPanel 创建 DungeonStartLayerPanel_Runtime。",
             "LayerSelectBackground_Image 使用 bg_layer_select。",
@@ -1403,7 +2210,14 @@
         },
         {
           "Script": "DungeonStartLayerUIController",
-          "ExistingFields": ["titleText", "summaryText", "listParent", "confirmBtn", "closeBtn", "titleDividerImage"],
+          "ExistingFields": [
+            "titleText",
+            "summaryText",
+            "listParent",
+            "confirmBtn",
+            "closeBtn",
+            "titleDividerImage"
+          ],
           "BindingNotes": [
             "listParent 对应 LayerList。",
             "锁定层行显示 Icon.Locked。",
@@ -1412,24 +2226,127 @@
         }
       ],
       "UnityHierarchy": [
-        {"Path": "DungeonStartLayerPanel_Runtime", "Layer": "Modal", "RaycastTarget": true},
-        {"Path": "DungeonStartLayerPanel_Runtime/LayerSelectBackground_Image", "Layer": "Background", "VisualID": "bg_layer_select", "ImageType": "Simple", "FitMode": "cover", "RaycastTarget": false},
-        {"Path": "DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card", "Layer": "Modal", "ComponentRef": "Panel.Main", "VisualID": "ui_panel_main", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Path": "DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/TitleDivider_Image", "Layer": "Modal", "ComponentRef": "Title.Divider", "VisualID": "ui_title_divider", "ImageType": "Simple", "RaycastTarget": false},
-        {"Path": "DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/LayerList/DungeonStartLayer_*", "Layer": "Controls", "ComponentRef": "List.Row.Normal", "VisualID": "ui_list_row_normal", "ImageType": "Sliced", "RaycastTarget": true},
-        {"Path": "DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/LayerList/DungeonStartLayer_*/LockedIcon_Image", "Layer": "Controls", "ComponentRef": "Icon.Locked", "VisualID": "ui_icon_locked", "ImageType": "Simple", "FitMode": "contain", "RaycastTarget": false},
-        {"Path": "DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/Confirm_Button", "Layer": "Controls", "ComponentRef": "Button.Primary", "VisualID": "ui_button_primary", "ImageType": "Sliced", "RaycastTarget": true},
-        {"Path": "DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/Close_Button", "Layer": "Controls", "ComponentRef": "Button.Secondary", "VisualID": "ui_button_secondary", "ImageType": "Sliced", "RaycastTarget": true}
+        {
+          "Path": "DungeonStartLayerPanel_Runtime",
+          "Layer": "Modal",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "DungeonStartLayerPanel_Runtime/LayerSelectBackground_Image",
+          "Layer": "Background",
+          "VisualID": "bg_layer_select",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card",
+          "Layer": "Modal",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/TitleDivider_Image",
+          "Layer": "Modal",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/LayerList/DungeonStartLayer_*",
+          "Layer": "Controls",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/LayerList/DungeonStartLayer_*/LockedIcon_Image",
+          "Layer": "Controls",
+          "ComponentRef": "Icon.Locked",
+          "VisualID": "ui_icon_locked",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/Confirm_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/Close_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
       ],
       "SpriteAssignments": [
-        {"Target": "LayerSelectBackground_Image", "VisualID": "bg_layer_select", "ImageType": "Simple", "FitMode": "cover", "RaycastTarget": false},
-        {"Target": "DungeonStartLayer_Card.Image", "ComponentRef": "Panel.Main", "VisualID": "ui_panel_main", "ImageType": "Sliced", "RaycastTarget": false},
-        {"Target": "DungeonStartLayerUIController.titleDividerImage", "ComponentRef": "Title.Divider", "VisualID": "ui_title_divider", "ImageType": "Simple", "RaycastTarget": false},
-        {"Target": "DungeonStartLayer row normal", "ComponentRef": "List.Row.Normal", "VisualID": "ui_list_row_normal", "ImageType": "Sliced", "RaycastTarget": true},
-        {"Target": "DungeonStartLayer row selected", "ComponentRef": "List.Row.Selected", "VisualID": "ui_list_row_selected", "ImageType": "Sliced", "RaycastTarget": true},
-        {"Target": "LockedIcon_Image", "ComponentRef": "Icon.Locked", "VisualID": "ui_icon_locked", "ImageType": "Simple", "FitMode": "contain", "RaycastTarget": false},
-        {"Target": "Confirm_Button.Image", "ComponentRef": "Button.Primary", "VisualID": "ui_button_primary", "ImageType": "Sliced", "RaycastTarget": true},
-        {"Target": "Close_Button.Image", "ComponentRef": "Button.Secondary", "VisualID": "ui_button_secondary", "ImageType": "Sliced", "RaycastTarget": true}
+        {
+          "Target": "LayerSelectBackground_Image",
+          "VisualID": "bg_layer_select",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DungeonStartLayer_Card.Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DungeonStartLayerUIController.titleDividerImage",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DungeonStartLayer row normal",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "DungeonStartLayer row selected",
+          "ComponentRef": "List.Row.Selected",
+          "VisualID": "ui_list_row_selected",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "LockedIcon_Image",
+          "ComponentRef": "Icon.Locked",
+          "VisualID": "ui_icon_locked",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "Confirm_Button.Image",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "Close_Button.Image",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
       ],
       "AcceptanceCriteria": [
         "层选择界面背景使用 bg_layer_select，不再透出工坊杂乱背景。",

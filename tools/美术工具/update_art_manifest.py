@@ -203,6 +203,30 @@ def scan_monsters(config_root: Path, project_root: Path, existing_map: Dict[str,
             ),
         )
 
+        combat_visual_id = str(data.get("CombatVisualID") or "").strip()
+        if combat_visual_id:
+            combat_facts = (
+                f"配置表怪物战斗实体：{data.get('Name', data['MonsterID'])}。层级 {data.get('Layer', '')}，"
+                f"生命 {data.get('HP', '')}，用于 Formal V1 战斗舞台站位。"
+            )
+            add_entry(
+                entries,
+                existing_map,
+                new_entry(
+                    domain="monster",
+                    source_type="config",
+                    derive_rule="Monsters/*.json CombatVisualID -> monster combat sprite",
+                    config_source=repo_path(path, project_root),
+                    config_id=data["MonsterID"],
+                    display_name=f"{data.get('Name', data['MonsterID'])}战斗实体",
+                    asset_type="combat_sprite",
+                    visual_id=combat_visual_id,
+                    output_path=join_repo_path("UnityClient/Assets/Art/Approved/Monsters/Combat", f"{combat_visual_id}.png"),
+                    priority="P0",
+                    source_facts_cn=combat_facts,
+                ),
+            )
+
 
 def scan_dungeons(config_root: Path, project_root: Path, existing_map: Dict[str, Dict[str, Any]], entries: List[Dict[str, Any]]) -> None:
     dungeon_dir = config_root / "Dungeons"

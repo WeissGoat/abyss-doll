@@ -74,18 +74,18 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - `GridGenerator` 与 `MVPEditorSetup` 已接入 `InventoryDisplaySpec.ApplyGridLayout()`，背包格运行时生成和编辑器骨架默认值不再各自维护尺寸常量。
 - 新增 `InventoryGridLayoutAssetValidator` Editor 工具与 smoke test，自动检查 Prefab / Scene 中背包 GridLayoutGroup 默认值是否符合 `InventoryDisplaySpec`。
 - 美术侧已交付 `combat_hud` Formal V1 active 规格：敌人从卡片迁移为右侧战斗实体，背包底部居中，敌人血条贴脚下。
+- 美术侧已入库 `combat_hud` Formal V1 所需第一批战斗资源：4 个 `monster_*_combat`、`ui_combat_entity_shadow` 和 `ui_combat_target_ring`。
 
 ## 下一步建议
 
 1. 按 A1 节点增加 `tools/agent` 启动与验证脚本，让复制智能体快速检查仓库健康状态。
 2. 继续推进 Alpha 1A 背包交互正式化：将 `InventoryDisplaySpecSmokeTest` 和 `InventoryGridLayoutAssetValidatorTest` 纳入统一 agent / Unity smoke test 清单。
-3. 接入 `combat_hud` Formal V1 时以 active `screen_layouts.json` 为准，敌人实体优先读 `MonsterEntity.CombatVisualID`，缺图再临时 fallback 到 `PortraitID`。
+3. 接入 `combat_hud` Formal V1 时以 active `screen_layouts.json` 为准，敌人实体优先读 `MonsterEntity.CombatVisualID`，并使用已入库的 `monster_*_combat`、`ui_combat_entity_shadow`、`ui_combat_target_ring`。
 4. 增加配置校验工具，检查必填字段、唯一 ID、交叉引用和正式 UI 缺引用。
 
 ## 问题 / 阻塞
 
 - 当前工作区已有其他 agent / 用户留下的 Unity UI 脚本脏文件，编辑前需要先检查并避免覆盖无关改动。
-- `combat_hud` Formal V1 的 `monster_*_combat` 透明战斗实体素材尚未生成，程序接入阶段需要 fallback 或占位策略。
 - `tools/ai-image-gateway` 子模块内部有未提交改动。
 
 ## 完成回写清单

@@ -7,6 +7,7 @@ domain: gdd_alpha_coverage
 status: active
 source_of_truth: true
 related:
+  - AGENTS.md
   - 版本规划/09_正式版核心纵切开发路线.md
   - 版本规划/10_正式版核心纵切版本节点规划.md
   - 设计文档/GDD_00_系统关联总图.md
