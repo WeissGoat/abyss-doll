@@ -1,5 +1,6 @@
 param(
     [string[]]$Tests = @(
+        "InventoryInteractionServiceSmokeTest.Run",
         "InventoryDisplaySpecSmokeTest.Run",
         "InventoryGridLayoutAssetValidatorTest.Run"
     ),

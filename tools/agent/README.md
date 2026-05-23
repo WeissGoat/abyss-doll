@@ -40,6 +40,7 @@ update_rule: 调整复制智能体开工检查项、风险路径或提交前检�
 
 默认会依次触发：
 
+- `InventoryInteractionServiceSmokeTest.Run`
 - `InventoryDisplaySpecSmokeTest.Run`
 - `InventoryGridLayoutAssetValidatorTest.Run`
 
@@ -55,7 +56,7 @@ update_rule: 调整复制智能体开工检查项、风险路径或提交前检�
 - 是否存在容易误提交的生成物、运行时副本、本地工具目录或 submodule 改动。
 - `tools/docs/Validate-Docs.ps1` 对应的知识库索引和双向关系是否通过校验。
 - 当前分支和 HEAD，方便复制智能体记录上下文。
-- 背包 DisplaySpec 与 GridLayoutGroup 资产布局 smoke test 可通过 `Invoke-UnitySmokeTests.ps1` 单独执行。
+- 背包交互服务、DisplaySpec 与 GridLayoutGroup 资产布局 smoke test 可通过 `Invoke-UnitySmokeTests.ps1` 单独执行。
 
 ## 结果约定
 
