@@ -18,7 +18,7 @@
 | `monster` | 8 |
 | `node` | 4 |
 | `prosthetic` | 2 |
-| `ui` | 32 |
+| `ui` | 35 |
 
 ## 资产列表
 
@@ -75,6 +75,9 @@
 | `ui` | `combat_status_bar_hp` | 生命状态条 | `bar` | `ui_combat_status_bar_hp` | P1 | `approved` |
 | `ui` | `combat_status_bar_shield` | 护盾状态条 | `bar` | `ui_combat_status_bar_shield` | P1 | `approved` |
 | `ui` | `combat_target_ring` | 战斗目标选择光环 | `ring` | `ui_combat_target_ring` | P1 | `approved` |
+| `ui` | `icon_bill` | 账单图标 | `icon` | `ui_icon_bill` | P1 | `prompted` |
+| `ui` | `icon_maintenance` | 维护状态图标 | `icon` | `ui_icon_maintenance` | P1 | `prompted` |
+| `ui` | `icon_warning` | 警告图标 | `icon` | `ui_icon_warning` | P1 | `prompted` |
 | `ui` | `inventory_chassis_panel` | 背包底盘面板 | `panel` | `ui_inventory_chassis_panel` | P1 | `approved` |
 | `ui` | `inventory_slot_available` | 背包可用格 | `slot` | `ui_inventory_slot_available` | P1 | `approved` |
 | `ui` | `inventory_slot_hover` | 背包悬停格 | `slot` | `ui_inventory_slot_hover` | P1 | `approved` |
@@ -100,5 +103,5 @@
 
 ## 下一步
 
-1. 将 `Approved` 素材登记到 `VisualAssetRegistry`。
-2. 游戏内验证后更新 `RegistryStatus` 和 `Status=validated`。
+1. 对 `Status=prompted` 的条目按批次生成图片。
+2. 生成后填写 `BatchID` 和 `RawPath`，并将状态改为 `generated`。

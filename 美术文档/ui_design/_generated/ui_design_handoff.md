@@ -5,8 +5,8 @@
 ## Summary
 
 * Reference resolution: `1920x1080`
-* Components: `26`
-* Screens: `10`
+* Components: `29`
+* Screens: `12`
 
 ## Screens
 
@@ -22,18 +22,20 @@
 | `P1` | `layer_select` | 出发层选择界面 | `active_spec` | 7 | 8 |
 | `P1` | `safe_room` | 深渊安全区界面 | `active_spec` | 7 | 8 |
 | `P1` | `stairs_room` | 深渊阶梯房间界面 | `active_spec` | 7 | 8 |
+| `P1` | `maintenance_panel` | 机体维护整备界面 | `active_spec` | 10 | 11 |
+| `P1` | `daily_bill_report` | 每日账单报告界面 | `active_spec` | 11 | 12 |
 
 ## Components
 
 | Priority | ComponentID | VisualID | Resize | Screens |
 |---|---|---|---|---|
-| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `workshop_main`, `safe_room`, `stairs_room` |
-| `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `safe_room`, `stairs_room` |
-| `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room` |
-| `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room` |
-| `P1` | `Button.Danger` | `ui_button_danger` | `nine_slice` | `inventory_loot`, `dungeon_map`, `sell_panel`, `safe_room`, `stairs_room` |
-| `P1` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement` |
-| `P1` | `List.Row.Selected` | `ui_list_row_selected` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select` |
+| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `workshop_main`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report` |
+| `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report` |
+| `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report` |
+| `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report` |
+| `P1` | `Button.Danger` | `ui_button_danger` | `nine_slice` | `inventory_loot`, `dungeon_map`, `sell_panel`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report` |
+| `P1` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement`, `maintenance_panel`, `daily_bill_report` |
+| `P1` | `List.Row.Selected` | `ui_list_row_selected` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `daily_bill_report` |
 | `P1` | `Inventory.Slot` | `ui_inventory_slot_available`, `ui_inventory_slot_hover`, `ui_inventory_slot_invalid`, `ui_inventory_slot_locked`, `ui_inventory_slot_valid` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
 | `P1` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
 | `P1` | `Loot.PickupPanel` | `ui_loot_pickup_panel` | `nine_slice` | `inventory_loot` |
@@ -49,10 +51,13 @@
 | `P1` | `Map.RouteLine` | `ui_dungeon_route_line` | `tile_or_stretch` | `dungeon_map` |
 | `P1` | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | `nine_slice` | `settlement` |
 | `P1` | `Settlement.DefeatPanel` | `ui_settlement_defeat_panel` | `nine_slice` | `settlement` |
-| `P1` | `Icon.Money` | `ui_icon_money` | `fixed` | `sell_panel`, `settlement`, `workshop_main` |
+| `P1` | `Icon.Money` | `ui_icon_money` | `fixed` | `sell_panel`, `settlement`, `workshop_main`, `maintenance_panel`, `daily_bill_report` |
 | `P1` | `Icon.Locked` | `ui_icon_locked` | `fixed` | `layer_select`, `dungeon_map` |
 | `P1` | `Icon.Equipped` | `ui_icon_equipped` | `fixed` | `prosthetic_panel` |
-| `P1` | `Title.Divider` | `ui_title_divider` | `fixed_or_stretch` | `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select` |
+| `P1` | `Title.Divider` | `ui_title_divider` | `fixed_or_stretch` | `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `maintenance_panel`, `daily_bill_report` |
+| `P1` | `Icon.Maintenance` | `ui_icon_maintenance` | `fixed` | `maintenance_panel` |
+| `P1` | `Icon.Bill` | `ui_icon_bill` | `fixed` | `daily_bill_report` |
+| `P1` | `Icon.Warning` | `ui_icon_warning` | `fixed` | `maintenance_panel`, `daily_bill_report` |
 
 ## Program Handoff
 
@@ -852,6 +857,185 @@ Acceptance criteria:
 * 背包格保持 100x100 与 5 间距，拖拽不被背景或面板阻挡。
 * 继续深入不清空本轮探索账本的规则由程序状态保证，不烘焙进图片。
 
+### 机体维护整备界面
+
+* Goal: 把局外维护从工坊摘要升级为正式整备界面：玩家能看懂磨损、侵蚀、维护费用、材料缺口和是否允许下潜。
+* Background: `bg_workshop_day`
+
+Zones:
+| ZoneID | Anchor | Rect | Components | Purpose |
+|---|---|---|---|---|
+| `maintenance_background` | full_screen | 0,0 1920x1080 |  | 复用工坊背景，cover 适配，作为维护整备空间基底。 |
+| `maintenance_card` | center | 280,110 1360x860 | `Panel.Main` | 维护界面主容器，承载状态、费用、操作和下潜检查。 |
+| `maintenance_header` | top_center | 340,150 1240x120 | `Panel.Info`, `Icon.Maintenance`, `Icon.Money`, `Title.Divider`, `Button.Secondary` | 标题、维护图标、当前天数/金币摘要和关闭入口。 |
+| `doll_condition_panel` | left_middle | 340,300 520x230 | `Panel.Info`, `Icon.Warning` | 当前人偶 HP、SAN、Bond、疲劳和核心状态摘要。 |
+| `dive_readiness_panel` | left_middle | 340,550 520x140 | `Panel.Info`, `Icon.Maintenance`, `Icon.Warning` | 下潜许可检查：能否出发、不可下潜原因和建议处理项。 |
+| `material_cost_list` | left_bottom | 340,710 520x210 | `Panel.Info`, `List.Row.Normal`, `Icon.Money` | 维护消耗、材料缺口、金币费用和背包/仓库来源。 |
+| `wear_corrosion_panel` | right_top | 900,300 680x280 | `Panel.Info`, `List.Row.Normal`, `Icon.Warning` | 磨损、侵蚀、异常状态和本次维护后变化预览。 |
+| `repair_action_panel` | right_bottom | 900,620 680x300 | `Panel.Main`, `Button.Primary`, `Button.Secondary`, `Button.Danger`, `Icon.Money` | 执行完整维护、使用修复剂、暂缓维护和返回工坊。 |
+
+Layout changes:
+* 新增 MaintenancePanel_Runtime 或等价容器，作为 workshop_main 的维护整备弹窗。
+* 复用 bg_workshop_day，不新增整张维护背景；维护信息用组件面板和图标表达。
+* 把维护费用、磨损/侵蚀、下潜许可和材料缺口拆成独立区域，避免挤在工坊主界面摘要里。
+
+Data bindings:
+* HP、SAN、Bond、磨损、侵蚀、材料缺口、维护费用、金币和下潜许可由 Unity Text 或运行时条渲染。
+* 维护、使用修复剂、暂缓维护、返回工坊按钮由局外成长/维护控制器绑定。
+* warning 图标只表达危险状态，具体原因来自程序文本。
+
+Interaction notes:
+* 背景、面板、图标和标题分隔默认 raycastTarget=false。
+* FullRepair 使用 Button.Primary；UseRepairKit/Close 使用 Button.Secondary；Postpone 使用 Button.Danger。
+* 材料列表的行底板不阻挡行内按钮或 ScrollRect。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `MaintenancePanelUIController` | `maintenancePanel`, `closeBtn`, `fullRepairBtn`, `useRepairKitBtn`, `postponeBtn`, `conditionText`, `readinessText`, `costListRoot`, `warningIcon` | 控制维护弹窗显示、维护动作和状态刷新。<br>如果当前代码尚未有独立控制器，可先由 WorkshopUIController 打开该面板，但数据仍来自维护/成长服务。 |
+| `WorkshopUIController` | `openMaintenancePanelBtn`, `moneyText` | 工坊主界面只提供维护入口和金币摘要，不把维护详情继续堆在主界面。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `MaintenancePanel_Runtime/MaintenanceBackground_Image` | Background |  | `bg_workshop_day` | Simple | cover | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/HeaderPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/HeaderPanel/MaintenanceIcon_Image` | MainPanel | `Icon.Maintenance` | `ui_icon_maintenance` | Simple | contain | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/HeaderPanel/MoneyIcon_Image` | MainPanel | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/HeaderPanel/TitleDivider_Image` | MainPanel | `Title.Divider` | `ui_title_divider` | Simple | stretch | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/HeaderPanel/Close_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/DollConditionPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/DollConditionPanel/WarningIcon_Image` | MainPanel | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/DiveReadinessPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/DiveReadinessPanel/ReadinessIcon_Image` | MainPanel | `Icon.Maintenance` | `ui_icon_maintenance` | Simple | contain | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/DiveReadinessPanel/WarningIcon_Image` | MainPanel | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/MaterialCostListPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/MaterialCostListPanel/CostRow_Template` | MainPanel | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/WearCorrosionPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/WearCorrosionPanel/StatusRow_Template` | MainPanel | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/RepairActionPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/RepairActionPanel/FullRepair_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/RepairActionPanel/UseRepairKit_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/RepairActionPanel/Postpone_Button` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `MaintenanceBackground_Image` |  | `bg_workshop_day` | Simple | cover | False |
+| `MaintenanceCard_Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `HeaderPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `MaintenanceIcon_Image` | `Icon.Maintenance` | `ui_icon_maintenance` | Simple | contain | False |
+| `MoneyIcon_Image` | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `WarningIcon_Image` | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `TitleDivider_Image` | `Title.Divider` | `ui_title_divider` | Simple | stretch | False |
+| `DollConditionPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DiveReadinessPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `MaterialCostListPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `CostRow_Template.Image` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `WearCorrosionPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `StatusRow_Template.Image` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `RepairActionPanel.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `FullRepair_Button.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `UseRepairKit_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `Postpone_Button.Image` | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+
+Acceptance criteria:
+* 维护界面打开后能同时看到人偶状态、磨损/侵蚀、维护费用、材料缺口和下潜许可检查。
+* Full Repair 是最明显主行动，暂缓维护作为危险动作视觉上弱于主行动但风险清楚。
+* 金币、材料、状态数值和不可下潜原因都由 Unity Text 渲染，图片中不包含文字或数字。
+* 维护、账单和警告图标按 contain 显示，不遮挡按钮、列表或滚动区域。
+* 背景、面板和装饰图标不拦截按钮射线。
+
+### 每日账单报告界面
+
+* Goal: 把每日收入支出和长期压力做成正式账单界面：玩家能看懂今天赚了什么、花了什么、哪些物品滞留、欠债或月租风险如何变化。
+* Background: `bg_workshop_day`
+
+Zones:
+| ZoneID | Anchor | Rect | Components | Purpose |
+|---|---|---|---|---|
+| `bill_background` | full_screen | 0,0 1920x1080 |  | 复用工坊背景，表现每日收账后的局外空间。 |
+| `bill_card` | center | 340,100 1240x880 | `Panel.Main` | 每日账单主容器，承载总结、收支明细、压力预警和行动按钮。 |
+| `bill_header` | top_center | 400,140 1120x120 | `Panel.Info`, `Icon.Bill`, `Icon.Money`, `Title.Divider` | 标题、日期、账单图标、当前金币和标题分隔。 |
+| `bill_summary_panel` | left_top | 400,290 520x250 | `Panel.Info`, `Icon.Money`, `Icon.Bill` | 今日净收益、总收入、总支出、租金进度和维护成本摘要。 |
+| `pressure_warning_panel` | left_middle | 400,570 520x190 | `Panel.Info`, `Icon.Warning` | 欠债风险、即将到期账单、不可支付项和明日压力提示。 |
+| `unsold_goods_panel` | left_bottom | 400,790 520x140 | `Panel.Info`, `List.Row.Selected`, `Icon.Warning` | 未售出物、滞留物品、违禁品隔夜代价和建议处理入口。 |
+| `income_expense_list` | right_middle | 960,290 560x500 | `Panel.Info`, `List.Row.Normal`, `Icon.Money` | 收入、支出、维护、租金、出售收益等明细列表。 |
+| `bill_action_panel` | right_bottom | 960,820 560x110 | `Panel.Main`, `Button.Primary`, `Button.Secondary`, `Button.Danger` | 继续下一天、返回工坊处理、延后付款/承担风险。 |
+
+Layout changes:
+* 新增 DailyBillReportPanel_Runtime 或等价容器，作为日终结算/账单报告界面。
+* 复用工坊背景和通用面板，不为账单单独画整张背景。
+* 把经济结论、收支明细、压力预警和未售出物拆成四个区域。
+
+Data bindings:
+* Day/Week/Month、金币、收入、支出、净收益、租金进度、维护费用、未售出物和欠债风险由 Unity Text 渲染。
+* 收支明细行可以复用 List.Row.Normal；高风险未售出项可使用 List.Row.Selected 或 warning 图标。
+* 继续下一天、返回工坊/出售、延后付款由局外时间和经济控制器绑定。
+
+Interaction notes:
+* 背景、面板、标题分隔和图标默认 raycastTarget=false。
+* Continue 使用 Button.Primary；Review Sell/Close 使用 Button.Secondary；Defer Payment 使用 Button.Danger。
+* 收支列表行底板不阻挡 ScrollRect。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `DailyBillReportUIController` | `billPanel`, `continueBtn`, `reviewSellBtn`, `deferPaymentBtn`, `dayText`, `moneyText`, `summaryText`, `incomeExpenseListRoot`, `warningText`, `unsoldGoodsRoot` | 控制日终账单显示、按钮行为和经济压力刷新。<br>如果当前代码尚未有独立控制器，可先从 settlement/workshop 流程触发，但账单数据不写死在 UI。 |
+| `EconomyFlowController / GameFlowController` | `currentMoney`, `currentDay`, `openSellPanelBtn` | 账单界面只展示经济结果和行动入口，具体扣款、欠债和天数推进由经济/时间服务处理。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `DailyBillReportPanel_Runtime/BillBackground_Image` | Background |  | `bg_workshop_day` | Simple | cover | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/HeaderPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/HeaderPanel/BillIcon_Image` | MainPanel | `Icon.Bill` | `ui_icon_bill` | Simple | contain | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/HeaderPanel/MoneyIcon_Image` | MainPanel | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/HeaderPanel/TitleDivider_Image` | MainPanel | `Title.Divider` | `ui_title_divider` | Simple | stretch | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/BillIcon_Image` | MainPanel | `Icon.Bill` | `ui_icon_bill` | Simple | contain | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/MoneyIcon_Image` | MainPanel | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/PressureWarningPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/PressureWarningPanel/WarningIcon_Image` | MainPanel | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/UnsoldGoodsPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/UnsoldGoodsPanel/UnsoldRow_Template` | MainPanel | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/IncomeExpenseListPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/IncomeExpenseListPanel/BillRow_Template` | MainPanel | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/ActionPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/ActionPanel/Continue_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `DailyBillReportPanel_Runtime/BillCard_Image/ActionPanel/ReviewSell_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `DailyBillReportPanel_Runtime/BillCard_Image/ActionPanel/DeferPayment_Button` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `BillBackground_Image` |  | `bg_workshop_day` | Simple | cover | False |
+| `BillCard_Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `HeaderPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `BillIcon_Image` | `Icon.Bill` | `ui_icon_bill` | Simple | contain | False |
+| `MoneyIcon_Image` | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `WarningIcon_Image` | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `TitleDivider_Image` | `Title.Divider` | `ui_title_divider` | Simple | stretch | False |
+| `SummaryPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `PressureWarningPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `UnsoldGoodsPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `UnsoldRow_Template.Image` | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | False |
+| `IncomeExpenseListPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `BillRow_Template.Image` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `ActionPanel.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `Continue_Button.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `ReviewSell_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `DeferPayment_Button.Image` | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+
+Acceptance criteria:
+* 账单界面打开后能一眼看到今日净收益、总收入、总支出、当前金币和下一次压力。
+* 收入/支出明细至少展示 1 条列表行，行底板不阻挡滚动或按钮。
+* 欠债、即将到期、未售出高风险物品使用 warning 图标或运行时 tint 表达。
+* 继续下一天是主行动，返回工坊/出售是次行动，延后付款是危险行动。
+* 日期、价格、收入、支出、物品名和风险原因全部由 Unity Text 渲染，图片中不包含文字或数字。
+
 ## Known VisualID Sources
 
-* Known VisualID count: `72`
+* Known VisualID count: `75`

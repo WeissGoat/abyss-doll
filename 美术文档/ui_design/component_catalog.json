@@ -18,7 +18,9 @@
         "layer_select",
         "workshop_main",
         "safe_room",
-        "stairs_room"
+        "stairs_room",
+        "maintenance_panel",
+        "daily_bill_report"
       ],
       "ProgramUse": "用于大弹窗和主内容容器。Unity Image Type 使用 Sliced，不烘焙标题和正文。"
     },
@@ -38,7 +40,9 @@
         "inventory_loot",
         "dungeon_map",
         "safe_room",
-        "stairs_room"
+        "stairs_room",
+        "maintenance_panel",
+        "daily_bill_report"
       ],
       "ProgramUse": "用于状态摘要、说明区和小块信息承托。"
     },
@@ -63,7 +67,9 @@
         "prosthetic_panel",
         "layer_select",
         "safe_room",
-        "stairs_room"
+        "stairs_room",
+        "maintenance_panel",
+        "daily_bill_report"
       ],
       "ProgramUse": "用于出发、确认、继续等正向操作。文字由 Text 组件叠加。"
     },
@@ -88,7 +94,9 @@
         "prosthetic_panel",
         "layer_select",
         "safe_room",
-        "stairs_room"
+        "stairs_room",
+        "maintenance_panel",
+        "daily_bill_report"
       ],
       "ProgramUse": "用于返回、关闭、取消等次级操作。"
     },
@@ -109,7 +117,9 @@
         "dungeon_map",
         "sell_panel",
         "safe_room",
-        "stairs_room"
+        "stairs_room",
+        "maintenance_panel",
+        "daily_bill_report"
       ],
       "ProgramUse": "用于丢弃、卖出、撤离等高风险操作。"
     },
@@ -127,7 +137,9 @@
         "sell_panel",
         "prosthetic_panel",
         "layer_select",
-        "settlement"
+        "settlement",
+        "maintenance_panel",
+        "daily_bill_report"
       ],
       "ProgramUse": "用于可滚动列表项底板。"
     },
@@ -144,7 +156,8 @@
       "RequiredForScreens": [
         "sell_panel",
         "prosthetic_panel",
-        "layer_select"
+        "layer_select",
+        "daily_bill_report"
       ],
       "ProgramUse": "用于当前选择项或焦点项底板。"
     },
@@ -414,7 +427,9 @@
       "RequiredForScreens": [
         "sell_panel",
         "settlement",
-        "workshop_main"
+        "workshop_main",
+        "maintenance_panel",
+        "daily_bill_report"
       ],
       "ProgramUse": "金币、价格、价值显示的小图标。"
     },
@@ -463,9 +478,58 @@
         "settlement",
         "sell_panel",
         "prosthetic_panel",
-        "layer_select"
+        "layer_select",
+        "maintenance_panel",
+        "daily_bill_report"
       ],
       "ProgramUse": "标题和正文之间的装饰分隔线，不承载文字，不拦截射线。"
+    },
+    {
+      "ComponentID": "Icon.Maintenance",
+      "DisplayName": "维护图标",
+      "VisualID": "ui_icon_maintenance",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "maintenance_panel"
+      ],
+      "ProgramUse": "机体维护、磨损/侵蚀和下潜整备状态的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Bill",
+      "DisplayName": "账单图标",
+      "VisualID": "ui_icon_bill",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "daily_bill_report"
+      ],
+      "ProgramUse": "每日账单、收入支出和欠债压力的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Warning",
+      "DisplayName": "警告图标",
+      "VisualID": "ui_icon_warning",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal",
+        "hidden_runtime_tint"
+      ],
+      "RequiredForScreens": [
+        "maintenance_panel",
+        "daily_bill_report"
+      ],
+      "ProgramUse": "维护风险、欠债风险、不可下潜、材料不足等警告状态图标。"
     }
   ]
 }

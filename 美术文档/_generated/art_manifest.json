@@ -2908,6 +2908,177 @@
       "SourceType": "preset",
       "DeriveRule": "art requirements seed preset",
       "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_bill",
+      "DisplayName": "账单图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_bill",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_bill.png",
+      "Priority": "P1",
+      "Status": "prompted",
+      "SourceFactsCN": "预置 UI 图标：每日结算、账单和欠债压力需要稳定账单符号。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。账单图标，带黄铜边的折叠票据、硬币印章和小齿轮标记，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, small invoice symbol, folded brass-edged paper slip with coin stamp and tiny gear mark, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": "",
+      "PresetCategory": "ui_status_icon",
+      "Screen": "daily_bill_report",
+      "Usage": "每日账单、收入支出和经济压力提示"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_maintenance",
+      "DisplayName": "维护状态图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_maintenance",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_maintenance.png",
+      "Priority": "P1",
+      "Status": "prompted",
+      "SourceFactsCN": "预置 UI 图标：机体维护、磨损/侵蚀和下潜整备检查需要稳定维护符号。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。维护图标，交叉黄铜扳手和小压力表叠在磨损齿轮徽章上，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, small maintenance symbol, crossed brass wrench and tiny pressure gauge over a worn gear badge, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": "",
+      "PresetCategory": "ui_status_icon",
+      "Screen": "maintenance_panel",
+      "Usage": "维护界面、机体状态和整备入口提示"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_warning",
+      "DisplayName": "警告图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_warning",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_warning.png",
+      "Priority": "P1",
+      "Status": "prompted",
+      "SourceFactsCN": "预置 UI 图标：多个正式 UI 需要统一警告符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。警告图标，三角黄铜危险牌和低饱和红色珐琅边，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, small warning symbol, triangular brass hazard plate with subtle red enamel edge, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": "",
+      "PresetCategory": "ui_status_icon",
+      "Screen": "global",
+      "Usage": "维护风险、欠债风险、不可下潜和危险提示"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
       "ConfigID": "inventory_chassis_panel",
       "DisplayName": "背包底盘面板",
       "AssetType": "panel",

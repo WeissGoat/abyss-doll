@@ -3546,6 +3546,1034 @@
         "背包格保持 100x100 与 5 间距，拖拽不被背景或面板阻挡。",
         "继续深入不清空本轮探索账本的规则由程序状态保证，不烘焙进图片。"
       ]
+    },
+    {
+      "ScreenID": "maintenance_panel",
+      "DisplayName": "机体维护整备界面",
+      "Priority": "P1",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "new_formal_v1",
+      "BackgroundVisualID": "bg_workshop_day",
+      "PrimaryGoal": "把局外维护从工坊摘要升级为正式整备界面：玩家能看懂磨损、侵蚀、维护费用、材料缺口和是否允许下潜。",
+      "RequiredComponents": [
+        "Panel.Main",
+        "Panel.Info",
+        "Button.Primary",
+        "Button.Secondary",
+        "Button.Danger",
+        "List.Row.Normal",
+        "Icon.Maintenance",
+        "Icon.Warning",
+        "Icon.Money",
+        "Title.Divider"
+      ],
+      "RequiredVisualIDs": [
+        "bg_workshop_day",
+        "ui_panel_main",
+        "ui_panel_info",
+        "ui_button_primary",
+        "ui_button_secondary",
+        "ui_button_danger",
+        "ui_list_row_normal",
+        "ui_icon_maintenance",
+        "ui_icon_warning",
+        "ui_icon_money",
+        "ui_title_divider"
+      ],
+      "Zones": [
+        {
+          "ZoneID": "maintenance_background",
+          "Purpose": "复用工坊背景，cover 适配，作为维护整备空间基底。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
+          "ComponentRefs": [],
+          "Notes": "背景不烘焙文字、按钮或维修数值。"
+        },
+        {
+          "ZoneID": "maintenance_card",
+          "Purpose": "维护界面主容器，承载状态、费用、操作和下潜检查。",
+          "Anchor": "center",
+          "Rect": {
+            "X": 280,
+            "Y": 110,
+            "Width": 1360,
+            "Height": 860
+          },
+          "ComponentRefs": [
+            "Panel.Main"
+          ],
+          "Notes": "作为工坊上的正式弹窗层，背景和面板不拦截按钮射线。"
+        },
+        {
+          "ZoneID": "maintenance_header",
+          "Purpose": "标题、维护图标、当前天数/金币摘要和关闭入口。",
+          "Anchor": "top_center",
+          "Rect": {
+            "X": 340,
+            "Y": 150,
+            "Width": 1240,
+            "Height": 120
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Maintenance",
+            "Icon.Money",
+            "Title.Divider",
+            "Button.Secondary"
+          ],
+          "Notes": "标题与数值由程序文本渲染，图标仅做视觉锚点。"
+        },
+        {
+          "ZoneID": "doll_condition_panel",
+          "Purpose": "当前人偶 HP、SAN、Bond、疲劳和核心状态摘要。",
+          "Anchor": "left_middle",
+          "Rect": {
+            "X": 340,
+            "Y": 300,
+            "Width": 520,
+            "Height": 230
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Warning"
+          ],
+          "Notes": "危险状态只使用 warning 图标和运行时 tint，不把具体数值烘焙进图片。"
+        },
+        {
+          "ZoneID": "dive_readiness_panel",
+          "Purpose": "下潜许可检查：能否出发、不可下潜原因和建议处理项。",
+          "Anchor": "left_middle",
+          "Rect": {
+            "X": 340,
+            "Y": 550,
+            "Width": 520,
+            "Height": 140
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Maintenance",
+            "Icon.Warning"
+          ],
+          "Notes": "作为出发前检查摘要，文字由程序根据规则生成。"
+        },
+        {
+          "ZoneID": "material_cost_list",
+          "Purpose": "维护消耗、材料缺口、金币费用和背包/仓库来源。",
+          "Anchor": "left_bottom",
+          "Rect": {
+            "X": 340,
+            "Y": 710,
+            "Width": 520,
+            "Height": 210
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Normal",
+            "Icon.Money"
+          ],
+          "Notes": "列表行可滚动或复用模板，不在背景图里画材料名。"
+        },
+        {
+          "ZoneID": "wear_corrosion_panel",
+          "Purpose": "磨损、侵蚀、异常状态和本次维护后变化预览。",
+          "Anchor": "right_top",
+          "Rect": {
+            "X": 900,
+            "Y": 300,
+            "Width": 680,
+            "Height": 280
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Normal",
+            "Icon.Warning"
+          ],
+          "Notes": "适合做多行状态条或列表行，第一版可用文字+图标。"
+        },
+        {
+          "ZoneID": "repair_action_panel",
+          "Purpose": "执行完整维护、使用修复剂、暂缓维护和返回工坊。",
+          "Anchor": "right_bottom",
+          "Rect": {
+            "X": 900,
+            "Y": 620,
+            "Width": 680,
+            "Height": 300
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Button.Primary",
+            "Button.Secondary",
+            "Button.Danger",
+            "Icon.Money"
+          ],
+          "Notes": "Full Repair 是主行动；Postpone 是危险/带风险行动。"
+        }
+      ],
+      "ProgramHandoff": {
+        "LayoutChanges": [
+          "新增 MaintenancePanel_Runtime 或等价容器，作为 workshop_main 的维护整备弹窗。",
+          "复用 bg_workshop_day，不新增整张维护背景；维护信息用组件面板和图标表达。",
+          "把维护费用、磨损/侵蚀、下潜许可和材料缺口拆成独立区域，避免挤在工坊主界面摘要里。"
+        ],
+        "DataBindings": [
+          "HP、SAN、Bond、磨损、侵蚀、材料缺口、维护费用、金币和下潜许可由 Unity Text 或运行时条渲染。",
+          "维护、使用修复剂、暂缓维护、返回工坊按钮由局外成长/维护控制器绑定。",
+          "warning 图标只表达危险状态，具体原因来自程序文本。"
+        ],
+        "InteractionNotes": [
+          "背景、面板、图标和标题分隔默认 raycastTarget=false。",
+          "FullRepair 使用 Button.Primary；UseRepairKit/Close 使用 Button.Secondary；Postpone 使用 Button.Danger。",
+          "材料列表的行底板不阻挡行内按钮或 ScrollRect。"
+        ]
+      },
+      "ControllerBindings": [
+        {
+          "Script": "MaintenancePanelUIController",
+          "ExistingFields": [
+            "maintenancePanel",
+            "closeBtn",
+            "fullRepairBtn",
+            "useRepairKitBtn",
+            "postponeBtn",
+            "conditionText",
+            "readinessText",
+            "costListRoot",
+            "warningIcon"
+          ],
+          "BindingNotes": [
+            "控制维护弹窗显示、维护动作和状态刷新。",
+            "如果当前代码尚未有独立控制器，可先由 WorkshopUIController 打开该面板，但数据仍来自维护/成长服务。"
+          ]
+        },
+        {
+          "Script": "WorkshopUIController",
+          "ExistingFields": [
+            "openMaintenancePanelBtn",
+            "moneyText"
+          ],
+          "BindingNotes": [
+            "工坊主界面只提供维护入口和金币摘要，不把维护详情继续堆在主界面。"
+          ]
+        }
+      ],
+      "UnityHierarchy": [
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceBackground_Image",
+          "Layer": "Background",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/HeaderPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/HeaderPanel/MaintenanceIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Maintenance",
+          "VisualID": "ui_icon_maintenance",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/HeaderPanel/MoneyIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Money",
+          "VisualID": "ui_icon_money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/HeaderPanel/TitleDivider_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/HeaderPanel/Close_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/DollConditionPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/DollConditionPanel/WarningIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Warning",
+          "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/DiveReadinessPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/DiveReadinessPanel/ReadinessIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Maintenance",
+          "VisualID": "ui_icon_maintenance",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/DiveReadinessPanel/WarningIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Warning",
+          "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/MaterialCostListPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/MaterialCostListPanel/CostRow_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/WearCorrosionPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/WearCorrosionPanel/StatusRow_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/RepairActionPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/RepairActionPanel/FullRepair_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/RepairActionPanel/UseRepairKit_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/RepairActionPanel/Postpone_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "SpriteAssignments": [
+        {
+          "Target": "MaintenanceBackground_Image",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "MaintenanceCard_Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "HeaderPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "MaintenanceIcon_Image",
+          "ComponentRef": "Icon.Maintenance",
+          "VisualID": "ui_icon_maintenance",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "MoneyIcon_Image",
+          "ComponentRef": "Icon.Money",
+          "VisualID": "ui_icon_money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "WarningIcon_Image",
+          "ComponentRef": "Icon.Warning",
+          "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "TitleDivider_Image",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DollConditionPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DiveReadinessPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "MaterialCostListPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "CostRow_Template.Image",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "WearCorrosionPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "StatusRow_Template.Image",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "RepairActionPanel.Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "FullRepair_Button.Image",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "UseRepairKit_Button.Image",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "Postpone_Button.Image",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "AcceptanceCriteria": [
+        "维护界面打开后能同时看到人偶状态、磨损/侵蚀、维护费用、材料缺口和下潜许可检查。",
+        "Full Repair 是最明显主行动，暂缓维护作为危险动作视觉上弱于主行动但风险清楚。",
+        "金币、材料、状态数值和不可下潜原因都由 Unity Text 渲染，图片中不包含文字或数字。",
+        "维护、账单和警告图标按 contain 显示，不遮挡按钮、列表或滚动区域。",
+        "背景、面板和装饰图标不拦截按钮射线。"
+      ]
+    },
+    {
+      "ScreenID": "daily_bill_report",
+      "DisplayName": "每日账单报告界面",
+      "Priority": "P1",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "new_formal_v1",
+      "BackgroundVisualID": "bg_workshop_day",
+      "PrimaryGoal": "把每日收入支出和长期压力做成正式账单界面：玩家能看懂今天赚了什么、花了什么、哪些物品滞留、欠债或月租风险如何变化。",
+      "RequiredComponents": [
+        "Panel.Main",
+        "Panel.Info",
+        "Button.Primary",
+        "Button.Secondary",
+        "Button.Danger",
+        "List.Row.Normal",
+        "List.Row.Selected",
+        "Icon.Bill",
+        "Icon.Warning",
+        "Icon.Money",
+        "Title.Divider"
+      ],
+      "RequiredVisualIDs": [
+        "bg_workshop_day",
+        "ui_panel_main",
+        "ui_panel_info",
+        "ui_button_primary",
+        "ui_button_secondary",
+        "ui_button_danger",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_bill",
+        "ui_icon_warning",
+        "ui_icon_money",
+        "ui_title_divider"
+      ],
+      "Zones": [
+        {
+          "ZoneID": "bill_background",
+          "Purpose": "复用工坊背景，表现每日收账后的局外空间。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
+          "ComponentRefs": [],
+          "Notes": "背景不表达具体账单文字，避免与程序文本冲突。"
+        },
+        {
+          "ZoneID": "bill_card",
+          "Purpose": "每日账单主容器，承载总结、收支明细、压力预警和行动按钮。",
+          "Anchor": "center",
+          "Rect": {
+            "X": 340,
+            "Y": 100,
+            "Width": 1240,
+            "Height": 880
+          },
+          "ComponentRefs": [
+            "Panel.Main"
+          ],
+          "Notes": "作为日终弹窗，可从结算/出售/工坊流程触发。"
+        },
+        {
+          "ZoneID": "bill_header",
+          "Purpose": "标题、日期、账单图标、当前金币和标题分隔。",
+          "Anchor": "top_center",
+          "Rect": {
+            "X": 400,
+            "Y": 140,
+            "Width": 1120,
+            "Height": 120
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Bill",
+            "Icon.Money",
+            "Title.Divider"
+          ],
+          "Notes": "日期、Day/Week/Month 和金币由程序文本渲染。"
+        },
+        {
+          "ZoneID": "bill_summary_panel",
+          "Purpose": "今日净收益、总收入、总支出、租金进度和维护成本摘要。",
+          "Anchor": "left_top",
+          "Rect": {
+            "X": 400,
+            "Y": 290,
+            "Width": 520,
+            "Height": 250
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Money",
+            "Icon.Bill"
+          ],
+          "Notes": "作为玩家最先看的经济结论。"
+        },
+        {
+          "ZoneID": "pressure_warning_panel",
+          "Purpose": "欠债风险、即将到期账单、不可支付项和明日压力提示。",
+          "Anchor": "left_middle",
+          "Rect": {
+            "X": 400,
+            "Y": 570,
+            "Width": 520,
+            "Height": 190
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Warning"
+          ],
+          "Notes": "仅在有风险时高亮，常态可降亮或折叠。"
+        },
+        {
+          "ZoneID": "unsold_goods_panel",
+          "Purpose": "未售出物、滞留物品、违禁品隔夜代价和建议处理入口。",
+          "Anchor": "left_bottom",
+          "Rect": {
+            "X": 400,
+            "Y": 790,
+            "Width": 520,
+            "Height": 140
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Selected",
+            "Icon.Warning"
+          ],
+          "Notes": "用于把卖出系统和经济压力连接起来。"
+        },
+        {
+          "ZoneID": "income_expense_list",
+          "Purpose": "收入、支出、维护、租金、出售收益等明细列表。",
+          "Anchor": "right_middle",
+          "Rect": {
+            "X": 960,
+            "Y": 290,
+            "Width": 560,
+            "Height": 500
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Normal",
+            "Icon.Money"
+          ],
+          "Notes": "第一版可使用两组列表或一组带类型标签的列表。"
+        },
+        {
+          "ZoneID": "bill_action_panel",
+          "Purpose": "继续下一天、返回工坊处理、延后付款/承担风险。",
+          "Anchor": "right_bottom",
+          "Rect": {
+            "X": 960,
+            "Y": 820,
+            "Width": 560,
+            "Height": 110
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Button.Primary",
+            "Button.Secondary",
+            "Button.Danger"
+          ],
+          "Notes": "Continue 是主行动；Review Sell 是次行动；Defer/Ignore 是危险行动。"
+        }
+      ],
+      "ProgramHandoff": {
+        "LayoutChanges": [
+          "新增 DailyBillReportPanel_Runtime 或等价容器，作为日终结算/账单报告界面。",
+          "复用工坊背景和通用面板，不为账单单独画整张背景。",
+          "把经济结论、收支明细、压力预警和未售出物拆成四个区域。"
+        ],
+        "DataBindings": [
+          "Day/Week/Month、金币、收入、支出、净收益、租金进度、维护费用、未售出物和欠债风险由 Unity Text 渲染。",
+          "收支明细行可以复用 List.Row.Normal；高风险未售出项可使用 List.Row.Selected 或 warning 图标。",
+          "继续下一天、返回工坊/出售、延后付款由局外时间和经济控制器绑定。"
+        ],
+        "InteractionNotes": [
+          "背景、面板、标题分隔和图标默认 raycastTarget=false。",
+          "Continue 使用 Button.Primary；Review Sell/Close 使用 Button.Secondary；Defer Payment 使用 Button.Danger。",
+          "收支列表行底板不阻挡 ScrollRect。"
+        ]
+      },
+      "ControllerBindings": [
+        {
+          "Script": "DailyBillReportUIController",
+          "ExistingFields": [
+            "billPanel",
+            "continueBtn",
+            "reviewSellBtn",
+            "deferPaymentBtn",
+            "dayText",
+            "moneyText",
+            "summaryText",
+            "incomeExpenseListRoot",
+            "warningText",
+            "unsoldGoodsRoot"
+          ],
+          "BindingNotes": [
+            "控制日终账单显示、按钮行为和经济压力刷新。",
+            "如果当前代码尚未有独立控制器，可先从 settlement/workshop 流程触发，但账单数据不写死在 UI。"
+          ]
+        },
+        {
+          "Script": "EconomyFlowController / GameFlowController",
+          "ExistingFields": [
+            "currentMoney",
+            "currentDay",
+            "openSellPanelBtn"
+          ],
+          "BindingNotes": [
+            "账单界面只展示经济结果和行动入口，具体扣款、欠债和天数推进由经济/时间服务处理。"
+          ]
+        }
+      ],
+      "UnityHierarchy": [
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillBackground_Image",
+          "Layer": "Background",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/HeaderPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/HeaderPanel/BillIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Bill",
+          "VisualID": "ui_icon_bill",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/HeaderPanel/MoneyIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Money",
+          "VisualID": "ui_icon_money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/HeaderPanel/TitleDivider_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/BillIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Bill",
+          "VisualID": "ui_icon_bill",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/MoneyIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Money",
+          "VisualID": "ui_icon_money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/PressureWarningPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/PressureWarningPanel/WarningIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Warning",
+          "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/UnsoldGoodsPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/UnsoldGoodsPanel/UnsoldRow_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "List.Row.Selected",
+          "VisualID": "ui_list_row_selected",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/IncomeExpenseListPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/IncomeExpenseListPanel/BillRow_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/ActionPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/ActionPanel/Continue_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/ActionPanel/ReviewSell_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/ActionPanel/DeferPayment_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "SpriteAssignments": [
+        {
+          "Target": "BillBackground_Image",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "BillCard_Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "HeaderPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "BillIcon_Image",
+          "ComponentRef": "Icon.Bill",
+          "VisualID": "ui_icon_bill",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "MoneyIcon_Image",
+          "ComponentRef": "Icon.Money",
+          "VisualID": "ui_icon_money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "WarningIcon_Image",
+          "ComponentRef": "Icon.Warning",
+          "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "TitleDivider_Image",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SummaryPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "PressureWarningPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "UnsoldGoodsPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "UnsoldRow_Template.Image",
+          "ComponentRef": "List.Row.Selected",
+          "VisualID": "ui_list_row_selected",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "IncomeExpenseListPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "BillRow_Template.Image",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "ActionPanel.Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "Continue_Button.Image",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "ReviewSell_Button.Image",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "DeferPayment_Button.Image",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "AcceptanceCriteria": [
+        "账单界面打开后能一眼看到今日净收益、总收入、总支出、当前金币和下一次压力。",
+        "收入/支出明细至少展示 1 条列表行，行底板不阻挡滚动或按钮。",
+        "欠债、即将到期、未售出高风险物品使用 warning 图标或运行时 tint 表达。",
+        "继续下一天是主行动，返回工坊/出售是次行动，延后付款是危险行动。",
+        "日期、价格、收入、支出、物品名和风险原因全部由 Unity Text 渲染，图片中不包含文字或数字。"
+      ]
     }
   ]
 }

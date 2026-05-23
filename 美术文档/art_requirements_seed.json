@@ -521,6 +521,45 @@
       "Screen": "settlement",
       "Usage": "战败/损失结算弹窗",
       "SourceFactsCN": "预置 UI 皮肤：战败结算面板。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_status_icon",
+      "ConfigID": "icon_maintenance",
+      "DisplayName": "维护状态图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_maintenance",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_maintenance.png",
+      "Priority": "P1",
+      "Screen": "maintenance_panel",
+      "Usage": "维护界面、机体状态和整备入口提示",
+      "SourceFactsCN": "预置 UI 图标：机体维护、磨损/侵蚀和下潜整备检查需要稳定维护符号。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_status_icon",
+      "ConfigID": "icon_bill",
+      "DisplayName": "账单图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_bill",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_bill.png",
+      "Priority": "P1",
+      "Screen": "daily_bill_report",
+      "Usage": "每日账单、收入支出和经济压力提示",
+      "SourceFactsCN": "预置 UI 图标：每日结算、账单和欠债压力需要稳定账单符号。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_status_icon",
+      "ConfigID": "icon_warning",
+      "DisplayName": "警告图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_warning",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_warning.png",
+      "Priority": "P1",
+      "Screen": "global",
+      "Usage": "维护风险、欠债风险、不可下潜和危险提示",
+      "SourceFactsCN": "预置 UI 图标：多个正式 UI 需要统一警告符号，配置表无法直接扫描。"
     }
   ]
 }
