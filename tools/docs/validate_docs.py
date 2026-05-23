@@ -3,6 +3,14 @@ import json
 import sys
 from pathlib import Path
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_DIR.parent.parent
+
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+from generate_docs_index import collect_docs
+
 
 CORE_DOCS = {
     "AGENTS.md",
@@ -30,11 +38,25 @@ def main():
         print(f"[docs] missing index: {index_path}", file=sys.stderr)
         return 1
 
-    payload = json.loads(index_path.read_text(encoding="utf-8"))
+    payload = json.loads(index_path.read_text(encoding="utf-8-sig"))
     docs = payload.get("documents", [])
     by_path = {doc["path"]: doc for doc in docs}
+    current_docs = collect_docs(REPO_ROOT)
+    current_paths = {doc["path"] for doc in current_docs}
+    indexed_paths = set(by_path)
 
     errors = []
+    missing_from_index = sorted(current_paths - indexed_paths)
+    stale_in_index = sorted(indexed_paths - current_paths)
+    if missing_from_index:
+        errors.append(
+            "docs index is stale; missing current markdown: " + ", ".join(missing_from_index)
+        )
+    if stale_in_index:
+        errors.append(
+            "docs index is stale; contains removed markdown: " + ", ".join(stale_in_index)
+        )
+
     for path in sorted(CORE_DOCS):
         doc = by_path.get(path)
         if doc is None:

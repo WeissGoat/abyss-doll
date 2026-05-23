@@ -9,8 +9,10 @@ source_of_truth: true
 related:
   - GEMINI.md
   - agent_status/README.md
+  - agent_status/pm.md
   - PROJECT_STATUS.md
   - 知识库/README.md
+  - 知识库/views/pm.md
   - 知识库/views/art.md
   - 知识库/views/design.md
   - 知识库/views/program.md
@@ -26,10 +28,12 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 
 1. 先读 `PROJECT_STATUS.md`，确认项目总目标、当前阶段、跨职能交接和阻塞项。
 2. 再按任务职能读取对应状态页：
+   - PM / 版本规划：`agent_status/pm.md`
    - 美术 / UI：`agent_status/art.md`
    - 策划 / 数值：`agent_status/design.md`
    - 程序 / Unity：`agent_status/program.md`
 3. 需要快速定位上下文时，读取对应职能视图：
+   - PM / 版本规划：`知识库/views/pm.md`
    - 美术 / UI：`知识库/views/art.md`
    - 策划 / 数值：`知识库/views/design.md`
    - 程序 / Unity：`知识库/views/program.md`
@@ -44,6 +48,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 
 | 角色 | 工作范围 | 需要关注的文件 | 需要修改的文件 | 完成后回写 |
 |---|---|---|---|---|
+| PM / 版本规划智能体 | 版本路线、阶段判断、里程碑拆分、优先级排序、跨职能交接、完成标准和状态同步 | `PROJECT_STATUS.md`、`版本规划/09_正式版核心纵切开发路线.md`、`agent_status/pm.md`、三职能状态页、当前系统事实来源 | `版本规划/`、`PROJECT_STATUS.md`、`agent_status/pm.md`、必要的职能状态和交接文档 | `agent_status/pm.md`，影响项目阶段或交接时同步 `PROJECT_STATUS.md` |
 | 美术智能体 | 视觉流水线、Manifest、AI 素材筛选、正式资源入库、UI 结构版本迭代、UI 视觉交付、运行时美术验收 | `美术文档/README.md`、`美术文档/00_美术流水线总览.md`、`美术文档/10_正式版核心纵切美术路线.md`、`美术文档/ui_design/README.md`、`美术文档/ui_design/ui_iteration_process.md`、`美术文档/ui_design/formal_v1/screen_structure_review.md`、`开发文档/09_视觉资源系统程序开发规范.md` | `美术文档/`、`美术文档/ui_design/`、`UnityClient/Assets/Art/Approved`、必要的美术状态和交接文档 | `agent_status/art.md` |
 | 程序智能体 | Unity 客户端、C# 架构、CoreBackend、UGUI、Validator、测试、编辑器自动化 | `开发文档/00_程序开发大纲.md`、`开发文档/00_客户端核心架构规范.md`、`开发文档/00_Unity表现层与编辑器构建规范.md`、`开发文档/12_程序开发优化建议与重构路线.md`、`开发文档/13_编程规范与架构约定.md` | `UnityClient/Assets/Scripts`、`UnityClient/Assets/Tests`、`UnityClient/Assets/Editor`、`开发文档/`、必要的配置同步和验证脚本 | `agent_status/program.md` |
 | UI 程序智能体 | UGUI 表现层、Prefab、VisualID 绑定、运行时美术验收 | UI 设计交付、视觉资源契约、表现层架构、当前 UI 代码 | `UnityClient/Assets/Scripts/UI`、`UnityClient/Assets/Prefabs`、必要的开发文档 | `agent_status/program.md`，有美术交接时同步 `agent_status/art.md` |
@@ -51,6 +56,31 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 | 知识库智能体 | 文档元数据、索引、校验脚本、知识库规范、职能阅读入口 | `知识库/README.md`、`知识库/views/`、`DOCS_INDEX.md`、`docs_index.json`、核心入口文档 | `AGENTS.md`、`PROJECT_STATUS.md`、`知识库/`、`tools/docs/`、必要的文档元数据头 | `PROJECT_STATUS.md` |
 
 ## 职能路由
+
+### PM / 版本规划智能体
+
+主要关注：
+
+- 维护正式版核心纵切 Alpha 的版本路线、阶段判断、优先级、里程碑和跨职能交接。
+- 把用户的方向性决定拆成可执行工作包，明确目标、范围外、事实来源、职能落点和验收方式。
+- 不替代 GDD、程序开发文档或美术文档的事实来源；具体规则、实现和视觉交付仍回写到对应职能文档。
+
+必读：
+
+- `agent_status/pm.md`
+- `PROJECT_STATUS.md`
+- `版本规划/09_正式版核心纵切开发路线.md`
+- `agent_status/design.md`
+- `agent_status/program.md`
+- `agent_status/art.md`
+- 当前任务涉及的 GDD、开发文档、美术路线或配置 README。
+
+版本规划规则：
+
+- 阶段目标、系统优先级或里程碑变化时，同步 `版本规划/09_正式版核心纵切开发路线.md`。
+- 项目总目标、跨职能交接、阻塞项或下一步总优先级变化时，同步 `PROJECT_STATUS.md`。
+- PM 自身判断、最近完成、下一步建议和阻塞项写入 `agent_status/pm.md`。
+- 每个正式纵切工作包至少包含：目标、范围外、涉及事实来源、策划 / 程序 / 美术交接、验收方式。
 
 ### 美术 / UI 智能体
 
@@ -206,6 +236,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 
 1. 如果工作影响项目阶段、总目标、跨职能交接或阻塞项，更新 `PROJECT_STATUS.md`。
 2. 更新对应职能状态页：
+   - PM / 版本规划工作 -> `agent_status/pm.md`
    - 美术 / UI 工作 -> `agent_status/art.md`
    - 策划 / 数值工作 -> `agent_status/design.md`
    - 程序 / Unity 工作 -> `agent_status/program.md`

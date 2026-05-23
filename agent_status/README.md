@@ -8,6 +8,7 @@ status: active
 source_of_truth: false
 related:
   - AGENTS.md
+  - agent_status/pm.md
   - agent_status/program.md
   - agent_status/design.md
   - agent_status/art.md
@@ -19,6 +20,7 @@ update_rule: 新增或调整职能状态页时同步本文件。
 
 本目录存放不同职能智能体的交接状态。
 
+- `pm.md`：PM / 版本规划 / 里程碑与跨职能交接状态。
 - `art.md`：美术 / UI / 视觉流水线状态。
 - `design.md`：策划 / 数值 / GDD / 配置意图状态。
 - `program.md`：程序 / Unity / 验证状态。

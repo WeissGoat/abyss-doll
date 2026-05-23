@@ -10,9 +10,11 @@ related:
   - AGENTS.md
   - GEMINI.md
   - 版本规划/09_正式版核心纵切开发路线.md
+  - agent_status/pm.md
   - agent_status/program.md
   - agent_status/design.md
   - agent_status/art.md
+  - 知识库/views/pm.md
   - 知识库/views/art.md
   - 知识库/views/design.md
   - 知识库/views/program.md
@@ -53,6 +55,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 ## 职能状态页
 
+- PM / 版本规划：`agent_status/pm.md`
 - 美术 / UI：`agent_status/art.md`
 - 策划 / 数值：`agent_status/design.md`
 - 程序 / Unity：`agent_status/program.md`
@@ -69,10 +72,12 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 知识库智能体已完成轻量知识库首版：元数据规范、核心文档元数据头、索引生成和校验脚本。
 - 已为当前索引内全部 Markdown 文档补齐元数据头，并重新生成 `DOCS_INDEX.md` 与 `docs_index.json`。
 - 已把文档 `related` 元数据升级为双向关系网，让美术、程序、策划、配置、数值和版本路线文档形成可校验互链。
+- 知识库校验已补上索引新鲜度检查，会扫描当前 Markdown 清单并与 `docs_index.json` 比对，避免新增文档未入索引时误通过。
 - 已新增 `知识库/views/art.md`、`知识库/views/design.md`、`知识库/views/program.md`，作为复制智能体按职能开工的阅读入口。
 - 已明确 `UnityClient/Assets/StreamingAssets/Configs` 是由 `配置表(JSON)` 同步生成的运行时副本，不作为知识库事实来源。
 - 美术智能体已建立 UI 设计版本化流程：MVP Baseline 冻结、Formal V1 结构设计、active `screen_layouts.json` 确认后更新、再进入素材生成和程序接入。
 - P0 UI MVP Baseline 已运行时验收通过；下一步不是继续美化 MVP 结构，而是先重审 Formal V1 战斗/工坊/拾取等正式结构。
+- PM / 版本规划智能体已建立状态页和阅读入口，用于维护正式版核心纵切 Alpha 的阶段判断、里程碑、优先级和跨职能交接。
 
 ## 跨职能交接
 
@@ -85,6 +90,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 任意智能体新增或调整文档关联时，必须维护 `related` 双向互链，并运行 `.\tools\docs\Validate-Docs.ps1`。
 - 复制智能体需要快速定位上下文时，优先读取 `知识库/views/` 下对应职能入口，再进入事实来源文档。
 - 配置相关问题以 `配置表(JSON)` 为源；不要手写修改 `UnityClient/Assets/StreamingAssets/Configs` 运行时副本。
+- PM / 版本规划智能体负责维护 `09` 路线、`PROJECT_STATUS.md` 和跨职能版本拆分；变更阶段、优先级、里程碑或交接时必须同步目标职能状态页。
 
 ## 问题 / 阻塞
 
@@ -98,4 +104,4 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 2. 增加配置校验工具，检查 `配置表(JSON)` 的 ID、必填字段和交叉引用。
 3. 为知识库索引增加可选的职能 / 领域 / 关联深度过滤入口，方便复制智能体按任务快速定位文档。
 4. 美术侧先完成 `combat_hud` Formal V1 结构确认和 active 规格更新，再交给 UI 程序侧迁移。
-5. 从 Alpha 优先级中选择下一个正式纵切系统，并通过职能状态页拆分给美术 / 策划 / 程序。
+5. PM 先从 Alpha 优先级中选择下一个正式纵切系统，并通过职能状态页拆分给美术 / 策划 / 程序。

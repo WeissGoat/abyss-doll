@@ -18,17 +18,18 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：98
-- 已补元数据：98
+- 文档总数：101
+- 已补元数据：101
 - 缺少元数据：0
-- 事实来源文档：77
-- 关联边数：336
-- 跨职能关联：110
+- 事实来源文档：79
+- 关联边数：353
+- 跨职能关联：118
 
 ## 事实来源
 
 - [美术 / UI 状态](agent_status/art.md) - `status` / `art_pipeline`
 - [策划 / 数值 状态](agent_status/design.md) - `status` / `design_balance`
+- [PM / 版本规划 状态](agent_status/pm.md) - `status` / `version_planning`
 - [程序 / Unity 状态](agent_status/program.md) - `status` / `unity_programming`
 - [Project P3 智能体入口](AGENTS.md) - `entry` / `agent_workflow`
 - [魔偶深渊 AI 核心知识库](GEMINI.md) - `entry` / `project_context`
@@ -79,6 +80,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [工坊主界面 Formal V1](美术文档/ui_design/formal_v1/workshop_main_v1.md) - `art` / `ui_design`
 - [UI 交付检查清单](美术文档/ui_design/handoff_checklist.md) - `art` / `art_pipeline`
 - [UI 设计流水线](美术文档/ui_design/README.md) - `art` / `art_pipeline`
+- [UI 设计迭代与版本迁移流程](美术文档/ui_design/ui_iteration_process.md) - `art` / `ui_design`
 - [UI 设计版本迁移记录](美术文档/ui_design/versions/migration_log.md) - `art` / `ui_design`
 - [UI 设计版本管理](美术文档/ui_design/versions/README.md) - `art` / `ui_design`
 - [系统关联总图：全系统内在关联与数据流向](设计文档/GDD_00_系统关联总图.md) - `gdd` / `system_overview`
@@ -107,6 +109,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 关联网络
 
+- `PM <-> 全局`：7 条
+- `PM <-> 知识库`：1 条
 - `全局 <-> 知识库`：3 条
 - `全局 <-> 程序`：9 条
 - `全局 <-> 策划`：8 条
@@ -120,28 +124,35 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 按职能分组
 
+### PM
+
+| 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
+|---|---|---|---|---|---|
+| [PM / 版本规划 状态](agent_status/pm.md) | `status` | `active` | `version_planning` | 5 | 完整 |
+| [PM 智能体阅读入口](知识库/views/pm.md) | `view` | `active` | `agent_context_view` | 5 | 完整 |
+
 ### 全局
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 7 | 完整 |
+| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 9 | 完整 |
 | [文档索引](DOCS_INDEX.md) | `index` | `generated` | `knowledge_base` | 1 | 完整 |
 | [魔偶深渊 AI 核心知识库](GEMINI.md) | `entry` | `active` | `project_context` | 7 | 完整 |
-| [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 9 | 完整 |
-| [智能体状态页说明](agent_status/README.md) | `status` | `active` | `agent_status` | 4 | 完整 |
+| [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 11 | 完整 |
+| [智能体状态页说明](agent_status/README.md) | `status` | `active` | `agent_status` | 5 | 完整 |
 | [最小可玩版本 (MVP) 核心闭环内容清单](版本规划/00_最小MVP体验闭环内容清单.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 客户端开发里程碑与节点规划](版本规划/02_开发里程碑与节点规划.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 验证需要补充的功能开发](版本规划/04_MVP验证需要补充的功能开发.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 白盒试玩收口推进计划](版本规划/06_MVP白盒试玩收口推进计划.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 自动化试玩验收方案](版本规划/07_MVP自动化试玩验收方案.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [MVP 自动化试玩首轮报告](版本规划/08_MVP自动化试玩首轮报告.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
-| [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `alpha_vertical_slice` | 9 | 完整 |
+| [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `alpha_vertical_slice` | 11 | 完整 |
 
 ### 知识库
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [知识库规范](知识库/README.md) | `kb` | `active` | `knowledge_base` | 6 | 完整 |
+| [知识库规范](知识库/README.md) | `kb` | `active` | `knowledge_base` | 7 | 完整 |
 
 ### 程序
 
@@ -212,10 +223,10 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 12 | 完整 |
+| [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 14 | 完整 |
 | [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 7 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
-| [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 10 | 完整 |
+| [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 12 | 完整 |
 | [美术流水线总览](美术文档/00_美术流水线总览.md) | `art` | `active` | `art_pipeline` | 8 | 完整 |
 | [Manifest 规范](美术文档/01_Manifest规范.md) | `art` | `active` | `art_manifest` | 6 | 完整 |
 | [资源规格与接入规范](美术文档/02_资源规格与接入规范.md) | `art` | `active` | `art_asset_spec` | 9 | 完整 |
@@ -230,17 +241,18 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Alpha P0 UI 骨架接入交付](美术文档/11_Alpha_P0_UI骨架接入交付.md) | `art` | `active` | `ui_handoff` | 7 | 完整 |
 | [Alpha P1 UI 骨架接入准备](美术文档/12_Alpha_P1_UI骨架接入准备.md) | `art` | `active` | `ui_handoff` | 6 | 完整 |
 | [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 9 | 完整 |
-| [UI 设计流水线](美术文档/ui_design/README.md) | `art` | `active` | `art_pipeline` | 13 | 完整 |
+| [UI 设计流水线](美术文档/ui_design/README.md) | `art` | `active` | `art_pipeline` | 14 | 完整 |
 | [战斗界面 Formal V1](美术文档/ui_design/formal_v1/combat_hud_v1.md) | `art` | `draft` | `ui_design` | 2 | 完整 |
 | [深渊地图界面 Formal V1](美术文档/ui_design/formal_v1/dungeon_map_v1.md) | `art` | `draft` | `ui_design` | 1 | 完整 |
 | [战利品拾取界面 Formal V1](美术文档/ui_design/formal_v1/inventory_loot_v1.md) | `art` | `draft` | `ui_design` | 1 | 完整 |
-| [正式版 UI 结构 V1 总览](美术文档/ui_design/formal_v1/screen_structure_review.md) | `art` | `draft` | `ui_design` | 10 | 完整 |
+| [正式版 UI 结构 V1 总览](美术文档/ui_design/formal_v1/screen_structure_review.md) | `art` | `draft` | `ui_design` | 13 | 完整 |
 | [结算界面 Formal V1](美术文档/ui_design/formal_v1/settlement_v1.md) | `art` | `draft` | `ui_design` | 1 | 完整 |
 | [工坊主界面 Formal V1](美术文档/ui_design/formal_v1/workshop_main_v1.md) | `art` | `draft` | `ui_design` | 1 | 完整 |
 | [UI 交付检查清单](美术文档/ui_design/handoff_checklist.md) | `art` | `active` | `art_pipeline` | 6 | 完整 |
-| [UI 设计版本管理](美术文档/ui_design/versions/README.md) | `art` | `active` | `ui_design` | 5 | 完整 |
-| [Formal V1 Candidate](美术文档/ui_design/versions/formal_v1_candidate/README.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
-| [UI 设计版本迁移记录](美术文档/ui_design/versions/migration_log.md) | `art` | `active` | `ui_design` | 4 | 完整 |
+| [UI 设计迭代与版本迁移流程](美术文档/ui_design/ui_iteration_process.md) | `art` | `active` | `ui_design` | 6 | 完整 |
+| [UI 设计版本管理](美术文档/ui_design/versions/README.md) | `art` | `active` | `ui_design` | 6 | 完整 |
+| [Formal V1 Candidate Optional Staging](美术文档/ui_design/versions/formal_v1_candidate/README.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [UI 设计版本迁移记录](美术文档/ui_design/versions/migration_log.md) | `art` | `active` | `ui_design` | 5 | 完整 |
 | [MVP UI Baseline 2026-05-22](美术文档/ui_design/versions/mvp_baseline_2026-05-22/README.md) | `art` | `frozen` | `ui_design` | 3 | 完整 |
 
 ## 元数据缺口

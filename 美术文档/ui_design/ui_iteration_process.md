@@ -8,7 +8,8 @@ status: active
 source_of_truth: true
 related:
   - 美术文档/ui_design/README.md
-  - 美术文档/ui_design/screen_layouts.json
+  - agent_status/art.md
+  - 知识库/views/art.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/ui_design/versions/README.md
   - 美术文档/ui_design/versions/migration_log.md
@@ -185,4 +186,3 @@ combat_hud 如需复杂结构对比，可选用 candidate 暂存
 3. `inventory_loot` Formal V1。
 4. `dungeon_map` Formal V1。
 5. `settlement` Formal V1。
-

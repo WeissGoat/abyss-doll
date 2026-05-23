@@ -8,6 +8,9 @@ status: draft
 source_of_truth: true
 related:
   - 美术文档/ui_design/README.md
+  - agent_status/art.md
+  - 知识库/views/art.md
+  - 美术文档/ui_design/ui_iteration_process.md
   - 美术文档/ui_design/formal_v1/combat_hud_v1.md
   - 美术文档/ui_design/formal_v1/dungeon_map_v1.md
   - 美术文档/ui_design/formal_v1/inventory_loot_v1.md

@@ -8,6 +8,7 @@ status: active
 source_of_truth: true
 related:
   - 美术文档/ui_design/README.md
+  - 美术文档/ui_design/ui_iteration_process.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/ui_design/versions/migration_log.md
   - 美术文档/ui_design/versions/formal_v1_candidate/README.md
