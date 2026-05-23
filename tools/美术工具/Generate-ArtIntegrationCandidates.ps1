@@ -2,6 +2,7 @@ param(
     [string]$ManifestPath = "",
     [string]$ScreensPath = "",
     [string]$RegistryPath = "",
+    [string]$RegistryDisplayPath = "",
     [string]$IncomingRoot = "",
     [string]$OutputJson = "",
     [string]$OutputMarkdown = "",
@@ -28,6 +29,10 @@ if ($ScreensPath -ne "") {
 
 if ($RegistryPath -ne "") {
     $argsList += @("--registry-path", $RegistryPath)
+}
+
+if ($RegistryDisplayPath -ne "") {
+    $argsList += @("--registry-display-path", $RegistryDisplayPath)
 }
 
 if ($IncomingRoot -ne "") {

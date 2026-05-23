@@ -419,6 +419,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
     manifest_path = resolve_project_path(args.manifest_path)
     screens_path = resolve_project_path(args.screens_path)
     registry_path = resolve_project_path(args.registry_path)
+    registry_display_path = str(args.registry_display_path or "").strip()
     incoming_root = resolve_project_path(args.incoming_root)
     manifest = read_json(manifest_path, {})
     screens = read_json(screens_path, {})
@@ -442,7 +443,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
         "Inputs": {
             "ManifestPath": repo_path(manifest_path),
             "ScreensPath": repo_path(screens_path),
-            "RegistryPath": repo_path(registry_path),
+            "RegistryPath": registry_display_path or repo_path(registry_path),
             "IncomingRoot": repo_path(incoming_root),
         },
         "Summary": {
@@ -462,6 +463,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--manifest-path", default=DEFAULT_MANIFEST)
     parser.add_argument("--screens-path", default=DEFAULT_SCREENS)
     parser.add_argument("--registry-path", default=DEFAULT_REGISTRY)
+    parser.add_argument("--registry-display-path", default="")
     parser.add_argument("--incoming-root", default=DEFAULT_INCOMING_ROOT)
     parser.add_argument("--output-json", default=DEFAULT_OUTPUT_JSON)
     parser.add_argument("--output-markdown", default=DEFAULT_OUTPUT_MARKDOWN)

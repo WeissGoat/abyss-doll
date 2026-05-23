@@ -178,6 +178,12 @@ $env:NAI_ACCESS_TOKEN = "<token>"
 .\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag manual_review
 ```
 
+如果为了避开当前工作区里的未提交 Registry 改动，需要用某个临时 Registry 快照生成报告，可以用 `-RegistryPath` 指向实际读取文件，并用 `-RegistryDisplayPath` 写入稳定显示路径，避免把本机临时路径写进清单：
+
+```powershell
+.\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -RegistryPath $tempRegistry -RegistryDisplayPath 'UnityClient/Assets/Resources/VisualAssetRegistry.asset@HEAD' -Snapshot -SnapshotTag repo_state
+```
+
 报告按 `VisualID` 聚合。同一素材如果被多个配置或界面引用，只出现一条，并在 `ReferencedBy` 中合并来源。
 
 `可接入素材清单.*` 是 latest，永远覆盖；`art_integration_snapshots/` 是历史快照，用来追溯每次生成、预处理和 Approved 同步后队列变化。

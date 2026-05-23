@@ -4,11 +4,11 @@ title: 深渊地图界面 Formal V1
 type: art
 role: 美术
 domain: ui_design
-status: draft
+status: active
 source_of_truth: true
 related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
-last_verified: 2026-05-23
+last_verified: 2026-05-24
 update_rule: 修改深渊地图正式结构或程序迁移要求时同步本文件。
 ---
 
@@ -40,6 +40,8 @@ update_rule: 修改深渊地图正式结构或程序迁移要求时同步本文�
 | `route_canvas` | `220,150 1480x660` | 节点、路线、分支、当前节点。 |
 | `selected_node_detail` | `220,830 680x160` | 选中节点说明、风险、预期奖励。 |
 | `inventory_controls` | `1040,830 760x160` | 整理背包、关闭背包、继续探索。 |
+
+当前已写入 active `screen_layouts.json`，状态为 `active_spec / FormalV1`。程序和素材生成均以 active 规格为准。
 
 ---
 
@@ -100,6 +102,19 @@ DungeonMapPanel
 ```
 
 路线线条和背景不拦截点击，点击热区仍在节点按钮上。
+
+active 规格中的关键路径：
+
+| 路径 | VisualID / 组件 |
+|---|---|
+| `DungeonMapPanel/DungeonMapBackground_Image` | `bg_dungeon_map` |
+| `DungeonMapPanel/LayerHeaderPanel` | `Panel.Info` / `ui_panel_info` |
+| `DungeonMapPanel/RouteCanvas/RouteLinesLayer/DungeonRouteLine_Image` | `Map.RouteLine` / `ui_dungeon_route_line` |
+| `DungeonMapPanel/RouteCanvas/NodesLayer/NodeButton(Clone)` | `Map.NodePlate` / `ui_dungeon_node_plate` |
+| `DungeonMapPanel/RouteCanvas/NodesLayer/NodeButton(Clone)/LockedIcon_Image` | `Icon.Locked` / `ui_icon_locked` |
+| `DungeonMapPanel/SelectedNodeDetailPanel` | `Panel.Info` / `ui_panel_info` |
+| `DungeonMapPanel/InventoryControlsPanel/OpenBackpack_Button` | `Button.Secondary` / `ui_button_secondary` |
+| `DungeonMapPanel/InventoryControlsPanel/CloseBackpack_Button` | `Button.Danger` / `ui_button_danger` |
 
 ---
 

@@ -34,9 +34,9 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 当前关注
 
-支撑正式版核心纵切。当前重点从 MVP UI 骨架验收转向 Formal V1 正式 UI 结构迭代：先冻结 MVP Baseline，再逐界面确认 Formal V1，更新 active UI 规格，最后进入素材生成、程序接入和运行时验收。
+支撑正式版核心纵切。当前重点从 MVP UI 骨架验收转向 Formal V1 正式 UI 结构迭代：P0 / P1 已先迁移 active UI 规格，后续按界面进入程序接入、截图验收、素材质量升级和动效/VFX 迭代。
 
-PM 版本节点中，美术线当前已完成 A1 的 `combat_hud` Formal V1 active 规格更新和第一批战斗资源入库；UI 程序侧已完成接入并通过 ArtAcceptance。当前继续把 P0 的 `workshop_main` / `inventory_loot` 切到 Formal V1 active 规格，为后续程序接入和截图验收提供正式结构。
+PM 版本节点中，美术线当前已完成 `combat_hud` Formal V1 active 规格更新和第一批战斗资源入库；UI 程序侧已完成接入并通过 ArtAcceptance。当前 P0 / P1 八个界面都已具备 Formal V1 active 规格，程序侧可按 `ui_design_handoff.md` 分批接入。
 
 ## 必读文件
 
@@ -54,7 +54,7 @@ PM 版本节点中，美术线当前已完成 A1 的 `combat_hud` Formal V1 acti
 ## 工作边界
 
 - 运行时 UI 目标是纯 UGUI。不要新增 UI Toolkit、UXML、USS 或 `UIDocument` 运行时流程。
-- `美术文档/ui_design/screen_layouts.json` 是当前 active UI 对接规格；程序和素材生成只认 active。
+- `美术文档/ui_design/screen_layouts.json` 是当前 active UI 对接规格；程序接入、素材生成和可接入素材清单只认 active。
 - MVP UI 设计已冻结到 `美术文档/ui_design/versions/mvp_baseline_2026-05-22/`，作为历史基线和回退参考。
 - Formal V1 先写在 `美术文档/ui_design/formal_v1/`；用户确认后再逐界面修改 active。
 - `versions/formal_v1_candidate/` 是复杂界面的可选暂存区，不是必经流程。
@@ -62,7 +62,7 @@ PM 版本节点中，美术线当前已完成 A1 的 `combat_hud` Formal V1 acti
 - `美术文档/_generated` 与 `美术文档/ui_design/_generated` 是生成输出。
 - 正式运行时资源放在 `UnityClient/Assets/Art/Approved`。
 - AI 出图工作区 `UnityClient/Assets/Art/_IncomingAI` 保持忽略。
-- 每次 AI 出图、预处理或 Approved 同步完成后，都必须维护一版可接入素材清单：`美术文档/_generated/可接入素材清单.md/json` 作为 latest，`美术文档/_generated/art_integration_snapshots/` 作为历史快照。
+- 每次 AI 出图、预处理或 Approved 同步完成后，都必须维护一版可接入素材清单：`美术文档/_generated/可接入素材清单.md/json` 作为 latest，`美术文档/_generated/art_integration_snapshots/` 作为历史快照。只有明确说明“不更新交付清单”的本地调试才允许使用 `-SkipIntegrationCandidates`。
 
 ## 常用命令
 
@@ -91,20 +91,22 @@ PM 版本节点中，美术线当前已完成 A1 的 `combat_hud` Formal V1 acti
 - 已把可接入素材清单升级为 `latest + snapshot` 机制：`Run-ArtGeneration.ps1`、`Optimize-ArtAssets.ps1`、`Sync-ApprovedArt.ps1` 非 DryRun 后默认刷新 latest，并在 `美术文档/_generated/art_integration_snapshots/` 留一份阶段快照；新增 `art_process` 状态表示 raw 已生成但还需预处理。
 - UI 程序侧已接入 `combat_hud` Formal V1，并通过 ArtAcceptance `20260524_043441`：左玩家、右敌方实体、底部居中背包、敌人脚下血条和目标光环均已出现在运行时截图中，报告无 warnings / errors。
 - 已把 `workshop_main` / `inventory_loot` active 规格切到 Formal V1，并通过 `Validate-UIDesign.ps1`；程序交付摘要 `ui_design_handoff.md` 已重新生成。
+- 已把 P1 五个界面 `dungeon_map`、`settlement`、`layer_select`、`sell_panel`、`prosthetic_panel` 切到 Formal V1 active 规格，补齐对应结构文档和迁移记录；程序侧可按 active 规格分批接入。
 - 已明确美术侧生成交付协议：每轮生成、预处理或 Approved 同步后都维护 latest 可接入素材清单，并留下 snapshot，供程序侧按 `program_integrate` 自助接入。
+- 本轮已刷新 latest 可接入素材清单，并留档 `美术文档/_generated/art_integration_snapshots/20260524_063303_p1_formal_v1_active_repo_state.*`；当前清单显示 `program_integrate=6`、`acceptance_needed=65`、`generate_needed=0`。
 
 ## 下一步建议
 
 1. 基于 ArtAcceptance `20260524_043441` 最新截图验收 `combat_hud`：左玩家、右敌方实体、底部居中背包、敌人脚下血条、目标光环和敌方实体透明边缘。
-2. 将 `workshop_main` / `inventory_loot` Formal V1 active 规格交给 UI 程序侧接入；程序侧接入前读取 `ui_design_handoff.md` 和 latest 可接入素材清单。
-3. 验收或接入后再次执行 `Scan-UIIterationCandidates.ps1`，刷新 UI 迭代候选报告。
-4. 下一批优先推进 P1 active 规格迁移：`dungeon_map`、`settlement`，再处理 `layer_select` / `sell_panel` / `prosthetic_panel`。
+2. 等程序侧完成 P0 / P1 Formal V1 接入后，用 ArtAcceptance 逐屏验收结构、缺图、黑块、点击遮挡和列表有效数据。
+3. 执行 `Scan-UIIterationCandidates.ps1`，基于最新截图生成下一轮 UI 迭代候选。
+4. 若 latest 可接入素材清单出现 `generate_needed` 或 `art_process`，优先补素材生产链路；若出现 `program_integrate`，交给程序侧登记 Registry。
 5. 后续新增怪物时继续按 `CombatVisualID -> monster_*_combat -> Approved/Monsters/Combat` 流程补图。
 
 ## 问题 / 阻塞
 
 - 当前工作区仍有大量程序、策划、Unity 资产和知识库生成物处于脏状态；美术侧提交时只纳入本轮美术流水线相关文件。
-- P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 正式结构已通过。
+- P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 正式结构已通过；P0 / P1 Formal V1 仍需要程序接入后的运行时截图验收。
 - `combat_hud` 已有 2026-05-24 最新 ArtAcceptance 截图可用于当前规格验收；其他界面的 UI 迭代候选报告仍可能基于较旧截图，需要逐界面确认。
 - `tools/ComfyUI_NAIDGenerator/` 未跟踪，需要决定是否纳入正式美术流水线。
 

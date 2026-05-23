@@ -1457,9 +1457,9 @@
       "ScreenID": "dungeon_map",
       "DisplayName": "深渊地图界面",
       "Priority": "P1",
-      "LayoutStatus": "draft",
+      "LayoutStatus": "active_spec",
       "BackgroundVisualID": "bg_dungeon_map",
-      "PrimaryGoal": "在已有节点图标基础上补强路线、节点状态、背包整理入口和层级信息。",
+      "PrimaryGoal": "把深渊地图升级为正式路线图：当前层级、路线分支、节点状态、选中节点详情和背包整理入口清楚分层。",
       "RequiredComponents": [
         "Map.NodePlate",
         "Map.RouteLine",
@@ -1480,7 +1480,7 @@
       "Zones": [
         {
           "ZoneID": "map_background",
-          "Purpose": "深渊地图背景",
+          "Purpose": "深渊路线图背景，cover 适配，不承载关键文字。",
           "Anchor": "full_screen",
           "Rect": {
             "X": 0,
@@ -1489,34 +1489,64 @@
             "Height": 1080
           },
           "ComponentRefs": [],
-          "Notes": "使用 bg_dungeon_map cover；不承载关键文字。"
+          "Notes": "使用 bg_dungeon_map；背景保持低噪声，路线和节点由程序叠加。"
         },
         {
-          "ZoneID": "map_canvas",
-          "Purpose": "节点路线主区域",
+          "ZoneID": "layer_header",
+          "Purpose": "当前层、深度、风险和已探索进度摘要。",
+          "Anchor": "top_left",
+          "Rect": {
+            "X": 96,
+            "Y": 48,
+            "Width": 900,
+            "Height": 96
+          },
+          "ComponentRefs": [
+            "Panel.Info"
+          ],
+          "Notes": "文字由程序 Text 渲染；不烘焙层名和风险数值。"
+        },
+        {
+          "ZoneID": "route_canvas",
+          "Purpose": "正式路线地图主区域，承载路线线段、节点、当前节点、高亮和锁定状态。",
           "Anchor": "center",
           "Rect": {
-            "X": 240,
-            "Y": 160,
-            "Width": 1440,
-            "Height": 650
+            "X": 220,
+            "Y": 150,
+            "Width": 1480,
+            "Height": 660
           },
           "ComponentRefs": [
             "Map.NodePlate",
             "Map.RouteLine",
             "Icon.Locked"
           ],
-          "Notes": "路线线段在底板下方，节点图标和文字在底板上方。"
+          "Notes": "路线线段在节点底板下方，节点按钮热区位于最上层。"
+        },
+        {
+          "ZoneID": "selected_node_detail",
+          "Purpose": "选中节点说明、风险预览、预期奖励和进入条件。",
+          "Anchor": "bottom_left",
+          "Rect": {
+            "X": 220,
+            "Y": 830,
+            "Width": 680,
+            "Height": 160
+          },
+          "ComponentRefs": [
+            "Panel.Info"
+          ],
+          "Notes": "用于解释当前节点，不抢路线图主体。"
         },
         {
           "ZoneID": "inventory_controls",
-          "Purpose": "整理背包入口、关闭背包和说明文字",
+          "Purpose": "整理背包、关闭背包、格外物品丢弃提示和返回/继续操作。",
           "Anchor": "bottom_right",
           "Rect": {
-            "X": 1070,
-            "Y": 880,
-            "Width": 800,
-            "Height": 150
+            "X": 1040,
+            "Y": 830,
+            "Width": 760,
+            "Height": 160
           },
           "ComponentRefs": [
             "Panel.Info",
@@ -1528,18 +1558,19 @@
       ],
       "ProgramHandoff": {
         "LayoutChanges": [
-          "背景使用 DungeonMapBackground_Image / bg_dungeon_map。",
-          "contentParent 锚到 map_canvas，节点、路线和图标都在该区域内生成。",
-          "OpenBackpack_Button 和 CloseBackpack_Button 锚到 inventory_controls。"
+          "把原 map_canvas 拆为 layer_header、route_canvas、selected_node_detail 和 inventory_controls。",
+          "contentParent 锚到 route_canvas，节点、路线、当前节点高亮和锁定图标都在该区域内生成。",
+          "OpenBackpack_Button 和 CloseBackpack_Button 锚到 inventory_controls；节点详情锚到 selected_node_detail。"
         ],
         "DataBindings": [
           "节点图标继续使用 VisualAssetService.ResolveNodeIconID(node)。",
-          "节点访问/当前/不可达状态用 interactable、tint 或后续状态 Sprite 表现。",
+          "当前层、深度、风险、节点说明和预期奖励全部由 Unity Text 渲染。",
+          "节点访问/当前/不可达状态用 interactable、tint、Icon.Locked 或后续状态 Sprite 表现。",
           "背包展开状态由 GameFlowController.OpenDungeonMapInventory / CloseDungeonMapInventory 控制。"
         ],
         "InteractionNotes": [
-          "节点按钮点击区域仍跟随 Button，不被节点底板或路线图阻挡。",
-          "路线线段和背景 raycastTarget=false。",
+          "节点按钮点击区域仍跟随 Button，不被节点底板、路线图、锁定图标或说明面板阻挡。",
+          "路线线段、背景、说明面板和装饰图默认 raycastTarget=false。",
           "关闭背包时仍沿用当前丢弃格外物品逻辑。"
         ]
       },
@@ -1556,8 +1587,9 @@
           ],
           "BindingNotes": [
             "backgroundImage 使用 bg_dungeon_map。",
-            "contentParent 对应 map_canvas。",
-            "openBackpackBtn 使用 Button.Secondary；closeBackpackBtn 使用 Button.Danger。"
+            "contentParent 对应 route_canvas。",
+            "openBackpackBtn 和 closeBackpackBtn 锚到 inventory_controls。",
+            "backpackHintText 或节点详情文本锚到 selected_node_detail / inventory_controls。"
           ]
         },
         {
@@ -1583,21 +1615,29 @@
           "RaycastTarget": false
         },
         {
-          "Path": "DungeonMapPanel/ContentParent",
+          "Path": "DungeonMapPanel/LayerHeaderPanel",
           "Layer": "MainPanel",
-          "Notes": "节点路线容器，锚到 map_canvas。"
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
         },
         {
-          "Path": "DungeonMapPanel/ContentParent/DungeonRouteLine_Image",
+          "Path": "DungeonMapPanel/RouteCanvas",
+          "Layer": "MainPanel",
+          "Notes": "节点路线容器，锚到 route_canvas。"
+        },
+        {
+          "Path": "DungeonMapPanel/RouteCanvas/RouteLinesLayer/DungeonRouteLine_Image",
           "Layer": "MainPanel",
           "ComponentRef": "Map.RouteLine",
           "VisualID": "ui_dungeon_route_line",
           "ImageType": "Simple",
-          "FitMode": "contain",
+          "FitMode": "stretch",
           "RaycastTarget": false
         },
         {
-          "Path": "DungeonMapPanel/ContentParent/NodeButton(Clone)",
+          "Path": "DungeonMapPanel/RouteCanvas/NodesLayer/NodeButton(Clone)",
           "Layer": "Controls",
           "ComponentRef": "Map.NodePlate",
           "VisualID": "ui_dungeon_node_plate",
@@ -1605,14 +1645,31 @@
           "RaycastTarget": true
         },
         {
-          "Path": "DungeonMapPanel/ContentParent/NodeButton(Clone)/NodeIcon_Image",
+          "Path": "DungeonMapPanel/RouteCanvas/NodesLayer/NodeButton(Clone)/NodeIcon_Image",
           "Layer": "Controls",
           "ImageType": "Simple",
           "FitMode": "contain",
           "RaycastTarget": false
         },
         {
-          "Path": "DungeonMapPanel/BackpackHint_Text",
+          "Path": "DungeonMapPanel/RouteCanvas/NodesLayer/NodeButton(Clone)/LockedIcon_Image",
+          "Layer": "Controls",
+          "ComponentRef": "Icon.Locked",
+          "VisualID": "ui_icon_locked",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DungeonMapPanel/SelectedNodeDetailPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DungeonMapPanel/InventoryControlsPanel",
           "Layer": "Controls",
           "ComponentRef": "Panel.Info",
           "VisualID": "ui_panel_info",
@@ -1620,7 +1677,7 @@
           "RaycastTarget": false
         },
         {
-          "Path": "DungeonMapPanel/OpenBackpack_Button",
+          "Path": "DungeonMapPanel/InventoryControlsPanel/OpenBackpack_Button",
           "Layer": "Controls",
           "ComponentRef": "Button.Secondary",
           "VisualID": "ui_button_secondary",
@@ -1628,7 +1685,7 @@
           "RaycastTarget": true
         },
         {
-          "Path": "DungeonMapPanel/CloseBackpack_Button",
+          "Path": "DungeonMapPanel/InventoryControlsPanel/CloseBackpack_Button",
           "Layer": "Controls",
           "ComponentRef": "Button.Danger",
           "VisualID": "ui_button_danger",
@@ -1645,6 +1702,13 @@
           "RaycastTarget": false
         },
         {
+          "Target": "LayerHeaderPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
           "Target": "DungeonMapUIController node button frame",
           "ComponentRef": "Map.NodePlate",
           "VisualID": "ui_dungeon_node_plate",
@@ -1656,7 +1720,29 @@
           "ComponentRef": "Map.RouteLine",
           "VisualID": "ui_dungeon_route_line",
           "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DungeonMapUIController locked icon",
+          "ComponentRef": "Icon.Locked",
+          "VisualID": "ui_icon_locked",
+          "ImageType": "Simple",
           "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SelectedNodeDetailPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "InventoryControlsPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
           "RaycastTarget": false
         },
         {
@@ -1675,20 +1761,23 @@
         }
       ],
       "AcceptanceCriteria": [
-        "节点、路线和节点文字都落在 map_canvas 内，不遮挡右下角背包整理入口。",
+        "1920x1080 下 layer_header、route_canvas、selected_node_detail、inventory_controls 互不重叠。",
+        "地图截图中可以看出路线、节点、当前层和当前节点或选中节点。",
+        "可进入、锁定、不可达状态至少有一种可见区分，锁定图标不阻挡点击。",
         "节点按钮仍可点击，路线和背景不拦截点击。",
         "打开/关闭背包按钮状态切换正确，关闭背包仍执行格外物品丢弃规则。",
-        "路线连接线使用 ui_dungeon_route_line，节点底板使用 ui_dungeon_node_plate。",
-        "地图背景使用 bg_dungeon_map，截图中不再出现纯色蓝底。"
-      ]
+        "路线连接线使用 ui_dungeon_route_line，节点底板使用 ui_dungeon_node_plate，背景使用 bg_dungeon_map。"
+      ],
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "mvp_baseline_2026-05-22"
     },
     {
       "ScreenID": "settlement",
       "DisplayName": "撤离/战败结算界面",
       "Priority": "P1",
-      "LayoutStatus": "draft",
+      "LayoutStatus": "active_spec",
       "BackgroundVisualID": "",
-      "PrimaryGoal": "强化成功撤离与战败损失的反馈差异，并复用列表和按钮组件。",
+      "PrimaryGoal": "把撤离/战败结算升级为正式仪式界面：胜利、失败、收益、损失、带出物和下一步压力有明确层级。",
       "RequiredComponents": [
         "Settlement.VictoryPanel",
         "Settlement.DefeatPanel",
@@ -1710,7 +1799,7 @@
       "Zones": [
         {
           "ZoneID": "settlement_background",
-          "Purpose": "撤离或战败背景",
+          "Purpose": "撤离成功或战败损失背景。",
           "Anchor": "full_screen",
           "Rect": {
             "X": 0,
@@ -1722,14 +1811,14 @@
           "Notes": "成功使用 bg_settlement_victory，失败使用 bg_settlement_defeat。"
         },
         {
-          "ZoneID": "result_panel",
-          "Purpose": "结算主面板",
+          "ZoneID": "result_card",
+          "Purpose": "结算主面板，承载标题、摘要、明细和继续按钮。",
           "Anchor": "center",
           "Rect": {
-            "X": 510,
-            "Y": 190,
-            "Width": 900,
-            "Height": 700
+            "X": 500,
+            "Y": 150,
+            "Width": 920,
+            "Height": 780
           },
           "ComponentRefs": [
             "Settlement.VictoryPanel",
@@ -1737,46 +1826,63 @@
             "Title.Divider",
             "Button.Primary"
           ],
-          "Notes": "胜利和战败共用布局，不同主面板皮肤。"
+          "Notes": "胜利和战败共用布局，不同背景和主面板皮肤。"
+        },
+        {
+          "ZoneID": "result_header",
+          "Purpose": "结算标题、结果徽记、层数和标题分隔。",
+          "Anchor": "top_center",
+          "Rect": {
+            "X": 570,
+            "Y": 190,
+            "Width": 780,
+            "Height": 150
+          },
+          "ComponentRefs": [
+            "Title.Divider"
+          ],
+          "Notes": "标题和结果文本由程序渲染；可后续补结果徽记。"
         },
         {
           "ZoneID": "summary_area",
-          "Purpose": "本次拾取、带出、损失和仓库摘要",
+          "Purpose": "深度、收益、损失、仓库变化和房租压力摘要。",
           "Anchor": "center_top",
           "Rect": {
-            "X": 610,
-            "Y": 300,
-            "Width": 700,
-            "Height": 180
+            "X": 600,
+            "Y": 340,
+            "Width": 720,
+            "Height": 170
           },
-          "ComponentRefs": [],
-          "Notes": "仅放程序 Text，不烘焙文字。"
+          "ComponentRefs": [
+            "Icon.Money"
+          ],
+          "Notes": "以文字为主，金币图标可用于价值行。"
         },
         {
-          "ZoneID": "loot_detail_area",
-          "Purpose": "带出、拾取、损失列表",
+          "ZoneID": "loot_breakdown",
+          "Purpose": "带出物、遗失物、价值和损失明细列表。",
           "Anchor": "center",
           "Rect": {
-            "X": 610,
-            "Y": 500,
-            "Width": 700,
+            "X": 600,
+            "Y": 530,
+            "Width": 720,
             "Height": 300
           },
           "ComponentRefs": [
             "List.Row.Normal",
             "Icon.Money"
           ],
-          "Notes": "当前可先用 Text 列表，后续再拆成行组件。"
+          "Notes": "当前可先用 Text 列表，后续再拆成物品行。"
         },
         {
           "ZoneID": "continue_action",
-          "Purpose": "返回工坊确认按钮",
+          "Purpose": "返回工坊确认按钮。",
           "Anchor": "bottom_center",
           "Rect": {
-            "X": 820,
-            "Y": 790,
-            "Width": 280,
-            "Height": 72
+            "X": 790,
+            "Y": 850,
+            "Width": 340,
+            "Height": 80
           },
           "ComponentRefs": [
             "Button.Primary"
@@ -1786,17 +1892,19 @@
       ],
       "ProgramHandoff": {
         "LayoutChanges": [
+          "把 result_panel 拆为 result_card、result_header、summary_area、loot_breakdown 和 continue_action。",
           "按 result.IsVictory 切换背景和结算主面板。",
-          "SettlementCard_Image 固定为 900x700，文字和按钮都作为其子节点。",
+          "SettlementCard_Image 固定为 920x780，文字和按钮都作为其子节点。",
           "TitleDivider_Image 放在标题下方，不承载文字。"
         ],
         "DataBindings": [
           "标题、摘要、拾取/带出/损失列表仍由 SettlementUIController 文本生成。",
           "返回工坊按钮继续使用 continueBtn 和 onContinue 回调。",
-          "金币/估值可先保持文本，后续再拆 Icon.Money。"
+          "金币/估值可先保持文本，后续再拆 Icon.Money。",
+          "房租压力或下一步经济提示由程序 Text 渲染。"
         ],
         "InteractionNotes": [
-          "背景和主面板不拦截按钮射线。",
+          "背景、主面板、标题分隔和列表底纹不拦截按钮射线。",
           "continueBtn 是本界面唯一强交互。",
           "结算背景视觉权重不应压过主面板文字。"
         ]
@@ -1817,7 +1925,8 @@
           "BindingNotes": [
             "backgroundImage 使用 ResolveSettlementBackgroundID(result.IsVictory)。",
             "settlementPanelImage 使用 ResolveSettlementPanelID(result.IsVictory)。",
-            "continueBtn 使用 Button.Primary。"
+            "titleText 锚到 result_header；summaryText 锚到 summary_area；lootText 锚到 loot_breakdown。",
+            "continueBtn 锚到 continue_action，使用 Button.Primary。"
           ]
         },
         {
@@ -1854,11 +1963,28 @@
           "RaycastTarget": false
         },
         {
-          "Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/TitleDivider_Image",
+          "Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/ResultHeader",
           "Layer": "MainPanel",
           "ComponentRef": "Title.Divider",
           "VisualID": "ui_title_divider",
           "ImageType": "Simple",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/SummaryArea",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Money",
+          "VisualID": "ui_icon_money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/LootBreakdown/ListRow_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
           "RaycastTarget": false
         },
         {
@@ -1922,6 +2048,21 @@
           "RaycastTarget": false
         },
         {
+          "Target": "Settlement value icon",
+          "ComponentRef": "Icon.Money",
+          "VisualID": "ui_icon_money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "Settlement loot list row",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
           "Target": "continueBtn.Image",
           "ComponentRef": "Button.Primary",
           "VisualID": "ui_button_primary",
@@ -1932,18 +2073,21 @@
       "AcceptanceCriteria": [
         "胜利结算使用 bg_settlement_victory 和 ui_settlement_victory_panel。",
         "战败结算使用 bg_settlement_defeat 和 ui_settlement_defeat_panel。",
+        "结果标题、收益/损失摘要、带出/遗失明细和返回工坊按钮可读。",
         "标题、摘要、列表文字在 1920x1080 下不溢出主面板。",
         "Continue_Button 可点击，背景和面板不拦截按钮射线。",
         "背景对比不压过主面板文字，结算结果一眼可读。"
-      ]
+      ],
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "mvp_baseline_2026-05-22"
     },
     {
       "ScreenID": "sell_panel",
       "DisplayName": "工坊出售界面",
       "Priority": "P1",
-      "LayoutStatus": "draft",
+      "LayoutStatus": "active_spec",
       "BackgroundVisualID": "",
-      "PrimaryGoal": "复用主面板、列表行、金币图标和按钮皮肤，承载物品出售列表与收益确认。",
+      "PrimaryGoal": "把出售功能弹窗正式化：仓库物品、单件出售、批量出售、估值和金币回流在同一主面板内清晰表达。",
       "RequiredComponents": [
         "Panel.Main",
         "List.Row.Normal",
@@ -2183,15 +2327,17 @@
         "列表可滚动，行皮肤不阻挡按钮或 ScrollRect。",
         "物品图标按 item_*_icon contain 显示，不拉伸变形。",
         "关闭按钮返回工坊主界面，义体面板保持关闭。"
-      ]
+      ],
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "mvp_baseline_2026-05-22"
     },
     {
       "ScreenID": "prosthetic_panel",
       "DisplayName": "义体制造界面",
       "Priority": "P1",
-      "LayoutStatus": "draft",
+      "LayoutStatus": "active_spec",
       "BackgroundVisualID": "",
-      "PrimaryGoal": "复用主面板、列表行和已装备图标，承载义体制造、材料需求和装备状态。",
+      "PrimaryGoal": "把义体制造弹窗正式化：配方、材料缺口、可制造状态和已装备状态在同一列表结构中清晰表达。",
       "RequiredComponents": [
         "Panel.Main",
         "List.Row.Normal",
@@ -2434,15 +2580,17 @@
         "材料不足时 Craft_Button 不可交互但仍可读。",
         "列表可滚动，义体图标按 prosthetic_*_icon contain 显示。",
         "关闭按钮返回工坊主界面，出售面板保持关闭。"
-      ]
+      ],
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "mvp_baseline_2026-05-22"
     },
     {
       "ScreenID": "layer_select",
       "DisplayName": "出发层选择界面",
       "Priority": "P1",
-      "LayoutStatus": "draft",
+      "LayoutStatus": "active_spec",
       "BackgroundVisualID": "bg_layer_select",
-      "PrimaryGoal": "复用主面板、列表行、锁定图标和按钮皮肤，承载可进入深渊层选择。",
+      "PrimaryGoal": "把出发层选择正式化：可进入层、锁定层、当前选择和确认下潜操作在深渊入口背景上清楚表达。",
       "RequiredComponents": [
         "Panel.Main",
         "List.Row.Normal",
@@ -2703,7 +2851,9 @@
         "选中行使用 ui_list_row_selected 或明显高亮，未选中行使用 ui_list_row_normal。",
         "Confirm_Button 只在可进入层可交互，Close_Button 可返回工坊。",
         "锁定图标、标题装饰和背景不阻挡列表行或按钮点击。"
-      ]
+      ],
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "mvp_baseline_2026-05-22"
     }
   ]
 }

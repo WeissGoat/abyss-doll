@@ -15,11 +15,11 @@
 | `P0` | `workshop_main` | 工坊主界面 | `active_spec` | 7 | 10 |
 | `P0` | `combat_hud` | 战斗界面 | `active_spec` | 11 | 17 |
 | `P0` | `inventory_loot` | 背包与战利品拾取界面 | `active_spec` | 8 | 13 |
-| `P1` | `dungeon_map` | 深渊地图界面 | `draft` | 6 | 7 |
-| `P1` | `settlement` | 撤离/战败结算界面 | `draft` | 6 | 8 |
-| `P1` | `sell_panel` | 工坊出售界面 | `draft` | 8 | 8 |
-| `P1` | `prosthetic_panel` | 义体制造界面 | `draft` | 7 | 7 |
-| `P1` | `layer_select` | 出发层选择界面 | `draft` | 7 | 8 |
+| `P1` | `dungeon_map` | 深渊地图界面 | `active_spec` | 6 | 7 |
+| `P1` | `settlement` | 撤离/战败结算界面 | `active_spec` | 6 | 8 |
+| `P1` | `sell_panel` | 工坊出售界面 | `active_spec` | 8 | 8 |
+| `P1` | `prosthetic_panel` | 义体制造界面 | `active_spec` | 7 | 7 |
+| `P1` | `layer_select` | 出发层选择界面 | `active_spec` | 7 | 8 |
 
 ## Components
 
@@ -356,97 +356,111 @@ Acceptance criteria:
 
 ### 深渊地图界面
 
-* Goal: 在已有节点图标基础上补强路线、节点状态、背包整理入口和层级信息。
+* Goal: 把深渊地图升级为正式路线图：当前层级、路线分支、节点状态、选中节点详情和背包整理入口清楚分层。
 * Background: `bg_dungeon_map`
 
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
-| `map_background` | full_screen | 0,0 1920x1080 |  | 深渊地图背景 |
-| `map_canvas` | center | 240,160 1440x650 | `Map.NodePlate`, `Map.RouteLine`, `Icon.Locked` | 节点路线主区域 |
-| `inventory_controls` | bottom_right | 1070,880 800x150 | `Panel.Info`, `Button.Secondary`, `Button.Danger` | 整理背包入口、关闭背包和说明文字 |
+| `map_background` | full_screen | 0,0 1920x1080 |  | 深渊路线图背景，cover 适配，不承载关键文字。 |
+| `layer_header` | top_left | 96,48 900x96 | `Panel.Info` | 当前层、深度、风险和已探索进度摘要。 |
+| `route_canvas` | center | 220,150 1480x660 | `Map.NodePlate`, `Map.RouteLine`, `Icon.Locked` | 正式路线地图主区域，承载路线线段、节点、当前节点、高亮和锁定状态。 |
+| `selected_node_detail` | bottom_left | 220,830 680x160 | `Panel.Info` | 选中节点说明、风险预览、预期奖励和进入条件。 |
+| `inventory_controls` | bottom_right | 1040,830 760x160 | `Panel.Info`, `Button.Secondary`, `Button.Danger` | 整理背包、关闭背包、格外物品丢弃提示和返回/继续操作。 |
 
 Layout changes:
-* 背景使用 DungeonMapBackground_Image / bg_dungeon_map。
-* contentParent 锚到 map_canvas，节点、路线和图标都在该区域内生成。
-* OpenBackpack_Button 和 CloseBackpack_Button 锚到 inventory_controls。
+* 把原 map_canvas 拆为 layer_header、route_canvas、selected_node_detail 和 inventory_controls。
+* contentParent 锚到 route_canvas，节点、路线、当前节点高亮和锁定图标都在该区域内生成。
+* OpenBackpack_Button 和 CloseBackpack_Button 锚到 inventory_controls；节点详情锚到 selected_node_detail。
 
 Data bindings:
 * 节点图标继续使用 VisualAssetService.ResolveNodeIconID(node)。
-* 节点访问/当前/不可达状态用 interactable、tint 或后续状态 Sprite 表现。
+* 当前层、深度、风险、节点说明和预期奖励全部由 Unity Text 渲染。
+* 节点访问/当前/不可达状态用 interactable、tint、Icon.Locked 或后续状态 Sprite 表现。
 * 背包展开状态由 GameFlowController.OpenDungeonMapInventory / CloseDungeonMapInventory 控制。
 
 Interaction notes:
-* 节点按钮点击区域仍跟随 Button，不被节点底板或路线图阻挡。
-* 路线线段和背景 raycastTarget=false。
+* 节点按钮点击区域仍跟随 Button，不被节点底板、路线图、锁定图标或说明面板阻挡。
+* 路线线段、背景、说明面板和装饰图默认 raycastTarget=false。
 * 关闭背包时仍沿用当前丢弃格外物品逻辑。
 
 Controller bindings:
 | Script | Existing fields | Notes |
 |---|---|---|
-| `DungeonMapUIController` | `nodeButtonPrefab`, `contentParent`, `openBackpackBtn`, `closeBackpackBtn`, `backpackHintText`, `backgroundImage` | backgroundImage 使用 bg_dungeon_map。<br>contentParent 对应 map_canvas。<br>openBackpackBtn 使用 Button.Secondary；closeBackpackBtn 使用 Button.Danger。 |
+| `DungeonMapUIController` | `nodeButtonPrefab`, `contentParent`, `openBackpackBtn`, `closeBackpackBtn`, `backpackHintText`, `backgroundImage` | backgroundImage 使用 bg_dungeon_map。<br>contentParent 对应 route_canvas。<br>openBackpackBtn 和 closeBackpackBtn 锚到 inventory_controls。<br>backpackHintText 或节点详情文本锚到 selected_node_detail / inventory_controls。 |
 | `GameFlowController` | `dungeonMapPanel`, `gridGenerator.gridParent`, `inventoryItemLayer` | DungeonMap 状态下背包只在整理模式展开。<br>展开背包时保持 GridContainer 与 InventoryItemLayer 同步显示。 |
 
 Unity hierarchy:
 | Path | Layer | Component | VisualID | Image | Fit | Raycast |
 |---|---|---|---|---|---|---|
 | `DungeonMapPanel/DungeonMapBackground_Image` | Background |  | `bg_dungeon_map` | Simple | cover | False |
-| `DungeonMapPanel/ContentParent` | MainPanel |  |  |  |  |  |
-| `DungeonMapPanel/ContentParent/DungeonRouteLine_Image` | MainPanel | `Map.RouteLine` | `ui_dungeon_route_line` | Simple | contain | False |
-| `DungeonMapPanel/ContentParent/NodeButton(Clone)` | Controls | `Map.NodePlate` | `ui_dungeon_node_plate` | Simple |  | True |
-| `DungeonMapPanel/ContentParent/NodeButton(Clone)/NodeIcon_Image` | Controls |  |  | Simple | contain | False |
-| `DungeonMapPanel/BackpackHint_Text` | Controls | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
-| `DungeonMapPanel/OpenBackpack_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
-| `DungeonMapPanel/CloseBackpack_Button` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+| `DungeonMapPanel/LayerHeaderPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DungeonMapPanel/RouteCanvas` | MainPanel |  |  |  |  |  |
+| `DungeonMapPanel/RouteCanvas/RouteLinesLayer/DungeonRouteLine_Image` | MainPanel | `Map.RouteLine` | `ui_dungeon_route_line` | Simple | stretch | False |
+| `DungeonMapPanel/RouteCanvas/NodesLayer/NodeButton(Clone)` | Controls | `Map.NodePlate` | `ui_dungeon_node_plate` | Simple |  | True |
+| `DungeonMapPanel/RouteCanvas/NodesLayer/NodeButton(Clone)/NodeIcon_Image` | Controls |  |  | Simple | contain | False |
+| `DungeonMapPanel/RouteCanvas/NodesLayer/NodeButton(Clone)/LockedIcon_Image` | Controls | `Icon.Locked` | `ui_icon_locked` | Simple | contain | False |
+| `DungeonMapPanel/SelectedNodeDetailPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DungeonMapPanel/InventoryControlsPanel` | Controls | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DungeonMapPanel/InventoryControlsPanel/OpenBackpack_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `DungeonMapPanel/InventoryControlsPanel/CloseBackpack_Button` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
 
 Sprite assignments:
 | Target | Component | VisualID | Image | Fit | Raycast |
 |---|---|---|---|---|---|
 | `DungeonMapUIController.backgroundImage` |  | `bg_dungeon_map` | Simple | cover | False |
+| `LayerHeaderPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `DungeonMapUIController node button frame` | `Map.NodePlate` | `ui_dungeon_node_plate` | Simple |  | True |
-| `DungeonMapUIController route line` | `Map.RouteLine` | `ui_dungeon_route_line` | Simple | contain | False |
+| `DungeonMapUIController route line` | `Map.RouteLine` | `ui_dungeon_route_line` | Simple | stretch | False |
+| `DungeonMapUIController locked icon` | `Icon.Locked` | `ui_icon_locked` | Simple | contain | False |
+| `SelectedNodeDetailPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `InventoryControlsPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `openBackpackBtn.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
 | `closeBackpackBtn.Image` | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
 
 Acceptance criteria:
-* 节点、路线和节点文字都落在 map_canvas 内，不遮挡右下角背包整理入口。
+* 1920x1080 下 layer_header、route_canvas、selected_node_detail、inventory_controls 互不重叠。
+* 地图截图中可以看出路线、节点、当前层和当前节点或选中节点。
+* 可进入、锁定、不可达状态至少有一种可见区分，锁定图标不阻挡点击。
 * 节点按钮仍可点击，路线和背景不拦截点击。
 * 打开/关闭背包按钮状态切换正确，关闭背包仍执行格外物品丢弃规则。
-* 路线连接线使用 ui_dungeon_route_line，节点底板使用 ui_dungeon_node_plate。
-* 地图背景使用 bg_dungeon_map，截图中不再出现纯色蓝底。
+* 路线连接线使用 ui_dungeon_route_line，节点底板使用 ui_dungeon_node_plate，背景使用 bg_dungeon_map。
 
 ### 撤离/战败结算界面
 
-* Goal: 强化成功撤离与战败损失的反馈差异，并复用列表和按钮组件。
+* Goal: 把撤离/战败结算升级为正式仪式界面：胜利、失败、收益、损失、带出物和下一步压力有明确层级。
 
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
-| `settlement_background` | full_screen | 0,0 1920x1080 |  | 撤离或战败背景 |
-| `result_panel` | center | 510,190 900x700 | `Settlement.VictoryPanel`, `Settlement.DefeatPanel`, `Title.Divider`, `Button.Primary` | 结算主面板 |
-| `summary_area` | center_top | 610,300 700x180 |  | 本次拾取、带出、损失和仓库摘要 |
-| `loot_detail_area` | center | 610,500 700x300 | `List.Row.Normal`, `Icon.Money` | 带出、拾取、损失列表 |
-| `continue_action` | bottom_center | 820,790 280x72 | `Button.Primary` | 返回工坊确认按钮 |
+| `settlement_background` | full_screen | 0,0 1920x1080 |  | 撤离成功或战败损失背景。 |
+| `result_card` | center | 500,150 920x780 | `Settlement.VictoryPanel`, `Settlement.DefeatPanel`, `Title.Divider`, `Button.Primary` | 结算主面板，承载标题、摘要、明细和继续按钮。 |
+| `result_header` | top_center | 570,190 780x150 | `Title.Divider` | 结算标题、结果徽记、层数和标题分隔。 |
+| `summary_area` | center_top | 600,340 720x170 | `Icon.Money` | 深度、收益、损失、仓库变化和房租压力摘要。 |
+| `loot_breakdown` | center | 600,530 720x300 | `List.Row.Normal`, `Icon.Money` | 带出物、遗失物、价值和损失明细列表。 |
+| `continue_action` | bottom_center | 790,850 340x80 | `Button.Primary` | 返回工坊确认按钮。 |
 
 Layout changes:
+* 把 result_panel 拆为 result_card、result_header、summary_area、loot_breakdown 和 continue_action。
 * 按 result.IsVictory 切换背景和结算主面板。
-* SettlementCard_Image 固定为 900x700，文字和按钮都作为其子节点。
+* SettlementCard_Image 固定为 920x780，文字和按钮都作为其子节点。
 * TitleDivider_Image 放在标题下方，不承载文字。
 
 Data bindings:
 * 标题、摘要、拾取/带出/损失列表仍由 SettlementUIController 文本生成。
 * 返回工坊按钮继续使用 continueBtn 和 onContinue 回调。
 * 金币/估值可先保持文本，后续再拆 Icon.Money。
+* 房租压力或下一步经济提示由程序 Text 渲染。
 
 Interaction notes:
-* 背景和主面板不拦截按钮射线。
+* 背景、主面板、标题分隔和列表底纹不拦截按钮射线。
 * continueBtn 是本界面唯一强交互。
 * 结算背景视觉权重不应压过主面板文字。
 
 Controller bindings:
 | Script | Existing fields | Notes |
 |---|---|---|
-| `SettlementUIController` | `titleText`, `summaryText`, `lootText`, `continueBtn`, `backgroundImage`, `backdropImage`, `settlementPanelImage`, `titleDividerImage` | backgroundImage 使用 ResolveSettlementBackgroundID(result.IsVictory)。<br>settlementPanelImage 使用 ResolveSettlementPanelID(result.IsVictory)。<br>continueBtn 使用 Button.Primary。 |
+| `SettlementUIController` | `titleText`, `summaryText`, `lootText`, `continueBtn`, `backgroundImage`, `backdropImage`, `settlementPanelImage`, `titleDividerImage` | backgroundImage 使用 ResolveSettlementBackgroundID(result.IsVictory)。<br>settlementPanelImage 使用 ResolveSettlementPanelID(result.IsVictory)。<br>titleText 锚到 result_header；summaryText 锚到 summary_area；lootText 锚到 loot_breakdown。<br>continueBtn 锚到 continue_action，使用 Button.Primary。 |
 | `GameFlowController` | `settlementPanel` | Settlement 状态进入时调用 SettlementUIController.Present(result, EnterWorkshop)。 |
 
 Unity hierarchy:
@@ -455,7 +469,9 @@ Unity hierarchy:
 | `InventoryCanvas/SettlementPanel_Runtime/SettlementBackdrop_Image` | Background |  |  | Simple |  | False |
 | `InventoryCanvas/SettlementPanel_Runtime/SettlementBackground_Image` | Background |  | `bg_settlement_victory` | Simple | cover | False |
 | `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image` | MainPanel | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | Sliced |  | False |
-| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/TitleDivider_Image` | MainPanel | `Title.Divider` | `ui_title_divider` | Simple |  | False |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/ResultHeader` | MainPanel | `Title.Divider` | `ui_title_divider` | Simple |  | False |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/SummaryArea` | MainPanel | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/LootBreakdown/ListRow_Template` | MainPanel | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
 | `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Title_Text` | Controls |  |  |  |  | False |
 | `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Summary_Text` | Controls |  |  |  |  | False |
 | `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Loot_Text` | Controls |  |  |  |  | False |
@@ -469,18 +485,21 @@ Sprite assignments:
 | `SettlementUIController.settlementPanelImage.victory` | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | Sliced |  | False |
 | `SettlementUIController.settlementPanelImage.defeat` | `Settlement.DefeatPanel` | `ui_settlement_defeat_panel` | Sliced |  | False |
 | `SettlementUIController.titleDividerImage` | `Title.Divider` | `ui_title_divider` | Simple |  | False |
+| `Settlement value icon` | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `Settlement loot list row` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
 | `continueBtn.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
 
 Acceptance criteria:
 * 胜利结算使用 bg_settlement_victory 和 ui_settlement_victory_panel。
 * 战败结算使用 bg_settlement_defeat 和 ui_settlement_defeat_panel。
+* 结果标题、收益/损失摘要、带出/遗失明细和返回工坊按钮可读。
 * 标题、摘要、列表文字在 1920x1080 下不溢出主面板。
 * Continue_Button 可点击，背景和面板不拦截按钮射线。
 * 背景对比不压过主面板文字，结算结果一眼可读。
 
 ### 工坊出售界面
 
-* Goal: 复用主面板、列表行、金币图标和按钮皮肤，承载物品出售列表与收益确认。
+* Goal: 把出售功能弹窗正式化：仓库物品、单件出售、批量出售、估值和金币回流在同一主面板内清晰表达。
 
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
@@ -541,7 +560,7 @@ Acceptance criteria:
 
 ### 义体制造界面
 
-* Goal: 复用主面板、列表行和已装备图标，承载义体制造、材料需求和装备状态。
+* Goal: 把义体制造弹窗正式化：配方、材料缺口、可制造状态和已装备状态在同一列表结构中清晰表达。
 
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
@@ -603,7 +622,7 @@ Acceptance criteria:
 
 ### 出发层选择界面
 
-* Goal: 复用主面板、列表行、锁定图标和按钮皮肤，承载可进入深渊层选择。
+* Goal: 把出发层选择正式化：可进入层、锁定层、当前选择和确认下潜操作在深渊入口背景上清楚表达。
 * Background: `bg_layer_select`
 
 Zones:

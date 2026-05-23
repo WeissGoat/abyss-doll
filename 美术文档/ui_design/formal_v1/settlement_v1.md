@@ -4,7 +4,7 @@ title: 结算界面 Formal V1
 type: art
 role: 美术
 domain: ui_design
-status: draft
+status: active
 source_of_truth: true
 related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
@@ -43,6 +43,8 @@ update_rule: 修改结算界面正式结构或程序迁移要求时同步本文�
 | `summary_area` | `600,340 720x170` | 深度、收益、损失、房租压力摘要。 |
 | `loot_breakdown` | `600,530 720x300` | 带出/损失物品列表。 |
 | `continue_action` | `790,850 340x80` | 返回工坊按钮。 |
+
+当前已写入 active `screen_layouts.json`，状态为 `active_spec / FormalV1`。程序和素材生成均以 active 规格为准。
 
 ---
 
@@ -88,6 +90,17 @@ SettlementPanel_Runtime
 ```
 
 第一轮可以继续使用文本列表，后续再升级为物品图标行。
+
+active 规格中的关键路径：
+
+| 路径 | VisualID / 组件 |
+|---|---|
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementBackground_Image` | `bg_settlement_victory` / `bg_settlement_defeat` |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image` | `ui_settlement_victory_panel` / `ui_settlement_defeat_panel` |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/ResultHeader` | `Title.Divider` / `ui_title_divider` |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/SummaryArea` | `Icon.Money` / `ui_icon_money` |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/LootBreakdown/ListRow_Template` | `List.Row.Normal` / `ui_list_row_normal` |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Continue_Button` | `Button.Primary` / `ui_button_primary` |
 
 ---
 

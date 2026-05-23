@@ -40,11 +40,11 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 | `combat_hud` | `mvp_baseline_2026-05-22` | 可选 `formal_v1_candidate` | `active_spec` | `active_spec` | 已按 Formal V1 改为左玩家、右敌方实体、底部居中背包、敌人脚下血条；等待素材与程序接入。 |
 | `workshop_main` | `mvp_baseline_2026-05-22` | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：正式工坊工作台、出发主行动、服务入口、魔偶维护和背包装配工作台。 |
 | `inventory_loot` | `mvp_baseline_2026-05-22` | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：战后清点、左侧背包、右侧战利品缓存、容量压力和确认区。 |
-| `dungeon_map` | `mvp_baseline_2026-05-22` | 无 | `draft` | `design_draft` | 暂停直接 handoff，先按 Formal V1 审查。 |
-| `settlement` | `mvp_baseline_2026-05-22` | 无 | `draft` | `design_draft` | 暂停直接 handoff，先按 Formal V1 审查。 |
-| `sell_panel` | `mvp_baseline_2026-05-22` | 未建立 | `draft` | `pending` | 功能弹窗，等主界面结构稳定后处理。 |
-| `prosthetic_panel` | `mvp_baseline_2026-05-22` | 未建立 | `draft` | `pending` | 功能弹窗，等主界面结构稳定后处理。 |
-| `layer_select` | `mvp_baseline_2026-05-22` | 未建立 | `draft` | `pending` | 功能弹窗/出发简报，等主界面结构稳定后处理。 |
+| `dungeon_map` | `mvp_baseline_2026-05-22` | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：深渊路线地图、层级信息、选中节点详情和背包整理入口。 |
+| `settlement` | `mvp_baseline_2026-05-22` | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：胜利/战败背景、结算主卡、摘要、明细和返回工坊行动。 |
+| `sell_panel` | `mvp_baseline_2026-05-22` | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：出售主卡、仓库列表、单件出售、批量出售和估值。 |
+| `prosthetic_panel` | `mvp_baseline_2026-05-22` | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：义体配方列表、材料缺口、制造按钮和已装备状态。 |
+| `layer_select` | `mvp_baseline_2026-05-22` | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：出发层列表、锁定层、当前选择和确认下潜。 |
 
 ---
 
@@ -86,4 +86,11 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 * `workshop_main` 从 MVP Baseline 的主界面骨架迁移为正式工坊工作台结构，拆分 `status_cluster`、`expedition_panel`、`service_panel`、`backpack_workbench` 和 `doll_bay`。
 * `inventory_loot` 从 MVP Baseline 的拾取弹窗迁移为正式战后清点结构，拆分 `loot_modal`、`inventory_grid`、`loot_cache`、`capacity_summary`、`item_detail` 和 `confirm_area`。
 * 两个界面均保留背包玩法格 `100x100` 与 `5` 间距，不为了构图压缩格子规则。
+* `Validate-UIDesign.ps1` 已通过，并重新生成 `美术文档/ui_design/_generated/ui_design_handoff.md`。
+
+### 2026-05-24：P1 五个界面写入 Formal V1 active 规格
+
+* `dungeon_map` 从节点按钮容器迁移为正式深渊路线地图结构，拆分 `layer_header`、`route_canvas`、`selected_node_detail` 和 `inventory_controls`。
+* `settlement` 从结果弹窗迁移为胜利/战败结算仪式结构，拆分 `result_card`、`result_header`、`summary_area`、`loot_breakdown` 和 `continue_action`。
+* `sell_panel`、`prosthetic_panel`、`layer_select` 从功能弹窗草案迁移为 active Formal V1 规格，并补齐对应正式结构文档。
 * `Validate-UIDesign.ps1` 已通过，并重新生成 `美术文档/ui_design/_generated/ui_design_handoff.md`。
