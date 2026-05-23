@@ -214,25 +214,17 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     public void OnPointerClick(PointerEventData eventData) {
+        if (ItemData == null) {
+            Debug.LogWarning("[UI] 点击了未绑定物品数据的背包物品 UI。");
+            return;
+        }
+
         Debug.Log($"[UI] 你点击了 {ItemData.Name}");
         
-        BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
-        
-        // 因为深渊结算或者切换地图时，底层的 RuntimeGrid 实例会被 new 重置！
-        // 如果 UI 记录的 _wasInGrid 为真，但底层不包含它，我们需要自动尝试修复或报错
+        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
         if (grid == null || !grid.ContainedItems.Contains(ItemData)) {
-            // 如果它在 UI 上仍然显示在格子里，可能需要将其重新放置进去
-            if (_wasInGrid && grid != null) {
-                Debug.LogWarning($"[UI] 自动修复：将失联的武器【{ItemData.Name}】重新注册到网格 ({_lastValidX},{_lastValidY})。");
-                InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("ItemClickAutoRepair");
-                if (!InventoryInteractionService.RequestPlace(ItemData, _lastValidX, _lastValidY, context, out string repairReason)) {
-                    Debug.LogWarning($"[UI] 自动修复失败：{repairReason}");
-                    return;
-                }
-            } else {
-                Debug.LogWarning($"[UI] 武器【{ItemData.Name}】还没有被放入背包网格！请先将它拖入网格中才能在战斗里使用！");
-                return;
-            }
+            Debug.LogWarning($"[UI] 物品【{ItemData.Name}】当前不在背包网格中，无法使用。请先将它放入背包。");
+            return;
         }
 
         if (!ItemUseService.TryUseItem(ItemData, out string failureReason)) {

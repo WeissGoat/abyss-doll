@@ -68,16 +68,17 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - 已新增并验证 `tools/config/Sync-Configs.ps1`。
 - 项目结构整理时已移除旧的受跟踪 UI Toolkit 运行时资产。
 - PM 已将程序线纳入 `版本规划/10_正式版核心纵切版本节点规划.md`：A1 收边界，A2 做背包与战斗正式纵切，A3 承接深渊与局外成长。
+- Alpha 1A 背包交互继续收口：`DraggableItemUI` 已移除历史“失联物品自动修复”，点击使用不再由 UI 悄悄改写真实背包状态。
 
 ## 下一步建议
 
 1. 按 A1 节点增加 `tools/agent` 启动与验证脚本，让复制智能体快速检查仓库健康状态。
-2. 增加配置校验工具，检查必填字段、唯一 ID、交叉引用和正式 UI 缺引用。
-3. 继续推进 Alpha 1 边界收口：`GameFlowController` 瘦身、运行时 fallback UI 集中管理、UI Controller 不承载规则。
+2. 继续推进 Alpha 1A 背包交互正式化：补 `InventoryDisplaySpec` / `InventoryLayoutProfile`，并增加旋转碰撞、死格、失败回滚、方向效果刷新的 smoke test。
+3. 增加配置校验工具，检查必填字段、唯一 ID、交叉引用和正式 UI 缺引用。
 
 ## 问题 / 阻塞
 
-- 当前工作区已有 Unity UI 脚本脏文件和未跟踪的 `InventoryPresentationController.cs`，编辑前需要先检查。
+- 当前工作区已有其他 agent / 用户留下的 Unity UI 脚本脏文件，编辑前需要先检查并避免覆盖无关改动。
 - `tools/ai-image-gateway` 子模块内部有未提交改动。
 
 ## 完成回写清单
