@@ -1,4 +1,4 @@
----
+﻿---
 id: art_ui_formal_v1_combat_hud
 title: 战斗界面 Formal V1
 type: art
@@ -8,7 +8,7 @@ status: active
 source_of_truth: true
 related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
-  - 美术文档/11_Alpha_P0_UI骨架接入交付.md
+  - 美术文档/11_P0_UI骨架接入交付.md
 last_verified: 2026-05-24
 update_rule: 修改战斗界面正式结构、敌我站位、背包交互区、战斗实体素材或程序迁移要求时同步本文档。
 ---
@@ -254,3 +254,4 @@ Formal V1 接入后，ArtAcceptance 至少检查：
 * Manifest 扫描器已把 `MonsterEntity.CombatVisualID` 扫出为 `monster_*_combat` 战斗实体需求。
 * 美术侧已完成第一批战斗实体和战斗 UI 辅助素材入库：4 个 `monster_*_combat`、`ui_combat_entity_shadow`、`ui_combat_target_ring`。
 * 下一步交给 UI 程序侧做正式结构接入；接入后由美术侧用 ArtAcceptance 截图验收。
+

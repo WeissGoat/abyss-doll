@@ -1,4 +1,4 @@
----
+﻿---
 id: art_readme
 title: 美术文档索引
 type: art
@@ -28,8 +28,8 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 ## 推荐阅读顺序
 
 0. [../知识库/views/art.md](../知识库/views/art.md)：美术智能体开工导航，只做上下文路由。
-1. [10_正式版核心纵切美术路线.md](10_正式版核心纵切美术路线.md)：正式版核心纵切 Alpha 的美术/UI 路线，明确 UI 骨架按正式版设计、素材内容逐步迭代。
-2. [00_美术流水线总览.md](00_美术流水线总览.md)：整体流程、职责边界和当前 Alpha 优先级。
+1. [10_正式版核心纵切美术路线.md](10_正式版核心纵切美术路线.md)：正式版核心纵切的美术/UI 路线，明确以批次控制范围，进入批次的 UI 和素材按正式标准验收。
+2. [00_美术流水线总览.md](00_美术流水线总览.md)：整体流程、职责边界和当前纵切批次 优先级。
 3. [ui_design/README.md](ui_design/README.md)：UI 设计系统、组件目录、界面布局和程序交付校验。
 4. [ui_design/ui_iteration_process.md](ui_design/ui_iteration_process.md)：UI 设计迭代、baseline/active/candidate 关系和 Formal V1 迁移流程。
 5. [ui_design/formal_v1/screen_structure_review.md](ui_design/formal_v1/screen_structure_review.md)：Formal V1 正式 UI 结构总览。
@@ -42,8 +42,8 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 12. [07_MVP_UI重新设计同步.md](07_MVP_UI重新设计同步.md)：MVP UI 重设计同步，后续作为历史方案参考，不再作为正式 UI 目标。
 13. [08_Unity运行时美术验收工具需求.md](08_Unity运行时美术验收工具需求.md)：给程序侧实现运行时截图、UI 状态导出和美术接入验收的工具需求。
 14. [09_运行时美术验收记录.md](09_运行时美术验收记录.md)：记录 Unity 运行时截图验收结论、返修项和下一批补素材需求。
-15. [11_Alpha_P0_UI骨架接入交付.md](11_Alpha_P0_UI骨架接入交付.md)：P0 UI 骨架交给程序侧接入的本轮执行文档。
-16. [12_Alpha_P1_UI骨架接入准备.md](12_Alpha_P1_UI骨架接入准备.md)：P1 UI 骨架草案和后续接入准备。
+15. [11_P0_UI骨架接入交付.md](11_P0_UI骨架接入交付.md)：P0 UI 骨架交给程序侧接入的本轮执行文档。
+16. [12_P1_UI骨架接入准备.md](12_P1_UI骨架接入准备.md)：P1 UI 骨架草案和后续接入准备。
 17. [art_requirements_seed.json](art_requirements_seed.json)：配置表无法扫出的 preset 资产种子，例如 UI 皮肤、背景、程序缺口反馈。
 
 ## 机器生成文件
@@ -63,7 +63,8 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 
 ## 外部契约
 
-* [版本规划/09_正式版核心纵切开发路线.md](../版本规划/09_正式版核心纵切开发路线.md)：当前正式版核心纵切 Alpha 的顶层路线，以此为准。
+* [版本规划/09_正式版核心纵切开发路线.md](../版本规划/09_正式版核心纵切开发路线.md)：当前正式版核心纵切的顶层路线，以此为准。
 * [版本规划/01_MVP美术与UI需求清单.md](../版本规划/01_MVP美术与UI需求清单.md)：MVP UI 和交互表现需求。
 * [开发文档/09_视觉资源系统程序开发规范.md](../开发文档/09_视觉资源系统程序开发规范.md)：程序侧 `VisualID -> VisualAssetRegistry -> Unity Asset` 契约。
 * [tools/美术工具/README.md](../tools/美术工具/README.md)：美术流水线脚本说明。
+

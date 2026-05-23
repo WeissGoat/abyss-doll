@@ -1,4 +1,4 @@
----
+﻿---
 id: project_status
 title: 项目状态
 type: status
@@ -83,10 +83,10 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 已明确 `UnityClient/Assets/StreamingAssets/Configs` 是由 `配置表(JSON)` 同步生成的运行时副本，不作为知识库事实来源。
 - 美术智能体已建立 UI 设计版本化流程：MVP Baseline 冻结、Formal V1 结构设计、active `screen_layouts.json` 确认后更新、再进入素材生成和程序接入。
 - P0 UI MVP Baseline 已运行时验收通过；下一步不是继续美化 MVP 结构，而是先重审 Formal V1 战斗/工坊/拾取等正式结构。
-- PM / 版本规划智能体已建立状态页和阅读入口，用于维护正式版核心纵切 Alpha 的阶段判断、里程碑、优先级和跨职能交接。
+- PM / 版本规划智能体已建立状态页和阅读入口，用于维护正式版核心纵切的阶段判断、里程碑、优先级和跨职能交接。
 - 已新增 `tools/agent/Invoke-AgentHealthCheck.ps1`，用于复制智能体开工前检查工作区脏文件、易误提交路径、submodule 风险和知识库校验状态。
 - PM 已新增正式版核心纵切版本节点规划，按 A1 核心边界收口、A2 背包与战斗、A3 深渊与局外成长、A4 经济压力与候选版本推进。
-- 策划侧已统一正式版纵切口径：A1-A4 只代表系统推进批次，不代表简化版或半成品质量；深渊地图规则已改为正式版节点网络生成。
+- 策划侧已统一正式版纵切口径：A1-A4 只代表系统推进批次，不代表降低完成标准；深渊地图规则已改为正式版节点网络生成。
 - 美术侧已把 `combat_hud` 写入 Formal V1 active 规格：底部居中背包、左玩家/右敌方实体舞台、敌人脚下血条，并扩展 Manifest 扫描 `CombatVisualID` 生成 `monster_*_combat` 战斗实体需求。
 - 美术侧已完成 `combat_hud` Formal V1 第一批战斗资源入库：4 个 `monster_*_combat` 透明战斗实体、`ui_combat_entity_shadow` 和 `ui_combat_target_ring`，并补齐 Unity `.meta`。
 
@@ -117,3 +117,4 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 2. 为知识库索引增加可选的职能 / 领域 / 关联深度过滤入口，方便复制智能体按任务快速定位文档。
 3. UI 程序侧接入 `combat_hud` Formal V1，使用已入库的 `monster_*_combat`、`ui_combat_entity_shadow` 和 `ui_combat_target_ring`；接入后由美术侧用 ArtAcceptance 截图验收。
 4. 按 `版本规划/10_正式版核心纵切版本节点规划.md` 继续推进 A1/A2：程序核心边界收口、战斗正式结构接入、A2 策划规则卡。
+

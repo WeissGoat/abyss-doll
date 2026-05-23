@@ -1,7 +1,7 @@
 {
   "Version": 1,
   "UpdatedAt": "2026-05-21",
-  "ProductionStage": "FormalVerticalSliceAlpha",
+  "ProductionStage": "FormalVerticalSlice",
   "DesignPolicy": {
     "UISkeleton": "formal_first",
     "AssetContent": "iterative_fill",

@@ -1,4 +1,4 @@
----
+﻿---
 id: agent_status_program
 title: 程序 / Unity 状态
 type: status
@@ -31,7 +31,7 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 ## 当前关注
 
-支撑正式版核心纵切 Alpha，让 Unity 运行时系统保持模块清晰、数据驱动、可测试，并与当前 GDD 规则一致。
+支撑正式版核心纵切，让 Unity 运行时系统保持模块清晰、数据驱动、可测试，并与当前 GDD 规则一致。
 
 PM 版本节点中，程序线当前落在 A1 核心边界收口：继续收口 `GameFlowController`、runtime fallback UI、配置校验和 agent 健康检查，为 A2 背包与战斗纵切降低冲突风险。
 
@@ -68,8 +68,8 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - 已新增并验证 `tools/config/Sync-Configs.ps1`。
 - 项目结构整理时已移除旧的受跟踪 UI Toolkit 运行时资产。
 - PM 已将程序线纳入 `版本规划/10_正式版核心纵切版本节点规划.md`：A1 收边界，A2 做背包与战斗正式纵切，A3 承接深渊与局外成长。
-- Alpha 1A 背包交互继续收口：`DraggableItemUI` 已移除历史“失联物品自动修复”，点击使用不再由 UI 悄悄改写真实背包状态。
-- Alpha 1A 背包表现规格继续收口：新增 `InventoryDisplaySpec`，统一格子尺寸、间距、物品占格尺寸、拖拽偏移和各界面背包布局 profile。
+- A1A 背包交互继续收口：`DraggableItemUI` 已移除历史“失联物品自动修复”，点击使用不再由 UI 悄悄改写真实背包状态。
+- A1A 背包表现规格继续收口：新增 `InventoryDisplaySpec`，统一格子尺寸、间距、物品占格尺寸、拖拽偏移和各界面背包布局 profile。
 - `InventoryDisplaySpecSmokeTest` 已通过 Unity 自动测试守护执行，确认背包规格入口、布局 profile 和 GridLayoutGroup 应用结果一致。
 - `GridGenerator` 与 `MVPEditorSetup` 已接入 `InventoryDisplaySpec.ApplyGridLayout()`，背包格运行时生成和编辑器骨架默认值不再各自维护尺寸常量。
 - 新增 `InventoryGridLayoutAssetValidator` Editor 工具与 smoke test，自动检查 Prefab / Scene 中背包 GridLayoutGroup 默认值是否符合 `InventoryDisplaySpec`。
@@ -79,7 +79,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 
 ## 下一步建议
 
-1. 继续推进 Alpha 1A 背包交互正式化：补 UI 层拖拽取消、战利品拾取共用规则和非战斗整理路径的回归测试。
+1. 继续推进 A1A 背包交互正式化：补 UI 层拖拽取消、战利品拾取共用规则和非战斗整理路径的回归测试。
 2. 按 A1 节点继续增加 `tools/agent` 启动与验证脚本，让复制智能体快速检查仓库健康状态。
 3. 接入 `combat_hud` Formal V1 时以 active `screen_layouts.json` 为准，敌人实体优先读 `MonsterEntity.CombatVisualID`，并使用已入库的 `monster_*_combat`、`ui_combat_entity_shadow`、`ui_combat_target_ring`。
 4. 增加配置校验工具，检查必填字段、唯一 ID、交叉引用和正式 UI 缺引用。
@@ -95,3 +95,4 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - 在 `最近完成` 记录简短事实。
 - 如有变化，刷新 `当前关注`、`下一步建议` 和阻塞项。
 - 如果需要美术或策划跟进，在 `PROJECT_STATUS.md` 增加跨职能交接。
+

@@ -60,9 +60,9 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [经济循环与通缩模型 (Economy & Deflation Model)](数值模型设计/01_经济循环与通缩模型.md) - `balance` / `balance_economy`
 - [战斗伤害与生存公式 (Combat & Survival Formulas)](数值模型设计/02_战斗伤害与生存公式.md) - `balance` / `balance_combat`
 - [深渊产出与掉落期望 (Loot Generation & Expectation)](数值模型设计/03_深渊产出与掉落期望.md) - `balance` / `balance_loot`
-- [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) - `plan` / `alpha_vertical_slice`
-- [正式版核心纵切版本节点规划](版本规划/10_正式版核心纵切版本节点规划.md) - `plan` / `alpha_version_nodes`
-- [设计文档 Alpha 覆盖矩阵](版本规划/11_设计文档Alpha覆盖矩阵.md) - `plan` / `gdd_alpha_coverage`
+- [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) - `plan` / `formal_vertical_slice`
+- [正式版核心纵切版本节点规划](版本规划/10_正式版核心纵切版本节点规划.md) - `plan` / `formal_vertical_nodes`
+- [设计文档纵切批次矩阵](版本规划/11_设计文档纵切批次矩阵.md) - `plan` / `gdd_vertical_batch_matrix`
 - [知识库规范](知识库/README.md) - `kb` / `knowledge_base`
 - [美术流水线总览](美术文档/00_美术流水线总览.md) - `art` / `art_pipeline`
 - [Manifest 规范](美术文档/01_Manifest规范.md) - `art` / `art_manifest`
@@ -71,9 +71,9 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [美术风格基准](美术文档/04_美术风格基准.md) - `art` / `art_style`
 - [AI 图片网关接入方案](美术文档/05_AI图片网关接入方案.md) - `art` / `ai_image_gateway`
 - [运行时美术验收记录](美术文档/09_运行时美术验收记录.md) - `art` / `runtime_art_validation`
-- [正式版核心纵切美术路线](美术文档/10_正式版核心纵切美术路线.md) - `art` / `alpha_art_route`
-- [Alpha P0 UI 骨架接入交付](美术文档/11_Alpha_P0_UI骨架接入交付.md) - `art` / `ui_handoff`
-- [Alpha P1 UI 骨架接入准备](美术文档/12_Alpha_P1_UI骨架接入准备.md) - `art` / `ui_handoff`
+- [正式版核心纵切美术路线](美术文档/10_正式版核心纵切美术路线.md) - `art` / `formal_art_route`
+- [P0 UI 骨架接入交付](美术文档/11_P0_UI骨架接入交付.md) - `art` / `ui_handoff`
+- [P1 UI 骨架接入准备](美术文档/12_P1_UI骨架接入准备.md) - `art` / `ui_handoff`
 - [美术文档索引](美术文档/README.md) - `art` / `art_pipeline`
 - [战斗界面 Formal V1](美术文档/ui_design/formal_v1/combat_hud_v1.md) - `art` / `ui_design`
 - [深渊地图界面 Formal V1](美术文档/ui_design/formal_v1/dungeon_map_v1.md) - `art` / `ui_design`
@@ -135,7 +135,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
 | [PM / 版本规划 状态](agent_status/pm.md) | `status` | `active` | `version_planning` | 6 | 完整 |
-| [正式版核心纵切版本节点规划](版本规划/10_正式版核心纵切版本节点规划.md) | `plan` | `active` | `alpha_version_nodes` | 12 | 完整 |
+| [正式版核心纵切版本节点规划](版本规划/10_正式版核心纵切版本节点规划.md) | `plan` | `active` | `formal_vertical_nodes` | 12 | 完整 |
 | [PM 智能体阅读入口](知识库/views/pm.md) | `view` | `active` | `agent_context_view` | 6 | 完整 |
 
 ### 全局
@@ -154,7 +154,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [MVP 白盒试玩收口推进计划](版本规划/06_MVP白盒试玩收口推进计划.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 自动化试玩验收方案](版本规划/07_MVP自动化试玩验收方案.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [MVP 自动化试玩首轮报告](版本规划/08_MVP自动化试玩首轮报告.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
-| [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `alpha_vertical_slice` | 14 | 完整 |
+| [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `formal_vertical_slice` | 14 | 完整 |
 
 ### 知识库
 
@@ -202,7 +202,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [深渊产出与掉落期望 (Loot Generation & Expectation)](数值模型设计/03_深渊产出与掉落期望.md) | `balance` | `active` | `balance_loot` | 6 | 完整 |
 | [数值模型沙盘推演方法论 (Numerical Sandboxing)](版本规划/03_mvp数值要求.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 需要补充的配置调整](版本规划/05_MVP需要补充的配置调整.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
-| [设计文档 Alpha 覆盖矩阵](版本规划/11_设计文档Alpha覆盖矩阵.md) | `plan` | `active` | `gdd_alpha_coverage` | 5 | 完整 |
+| [设计文档纵切批次矩阵](版本规划/11_设计文档纵切批次矩阵.md) | `plan` | `active` | `gdd_vertical_batch_matrix` | 5 | 完整 |
 | [策划智能体阅读入口](知识库/views/design.md) | `view` | `active` | `agent_context_view` | 9 | 完整 |
 | [系统关联总图：全系统内在关联与数据流向](设计文档/GDD_00_系统关联总图.md) | `gdd` | `active` | `system_overview` | 24 | 完整 |
 | [详案_01：背包战斗与局内网格机制 (GDD_01)](设计文档/GDD_01_背包战斗与局内网格机制.md) | `gdd` | `active` | `grid_inventory` | 11 | 完整 |
@@ -246,9 +246,9 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [MVP UI 重新设计同步](美术文档/07_MVP_UI重新设计同步.md) | `art` | `historical` | `mvp_ui_archive` | 2 | 完整 |
 | [Unity 运行时美术验收工具需求与交付状态](美术文档/08_Unity运行时美术验收工具需求.md) | `art` | `historical` | `runtime_art_validation` | 3 | 完整 |
 | [运行时美术验收记录](美术文档/09_运行时美术验收记录.md) | `art` | `active` | `runtime_art_validation` | 5 | 完整 |
-| [正式版核心纵切美术路线](美术文档/10_正式版核心纵切美术路线.md) | `art` | `active` | `alpha_art_route` | 16 | 完整 |
-| [Alpha P0 UI 骨架接入交付](美术文档/11_Alpha_P0_UI骨架接入交付.md) | `art` | `active` | `ui_handoff` | 7 | 完整 |
-| [Alpha P1 UI 骨架接入准备](美术文档/12_Alpha_P1_UI骨架接入准备.md) | `art` | `active` | `ui_handoff` | 6 | 完整 |
+| [正式版核心纵切美术路线](美术文档/10_正式版核心纵切美术路线.md) | `art` | `active` | `formal_art_route` | 16 | 完整 |
+| [P0 UI 骨架接入交付](美术文档/11_P0_UI骨架接入交付.md) | `art` | `active` | `ui_handoff` | 7 | 完整 |
+| [P1 UI 骨架接入准备](美术文档/12_P1_UI骨架接入准备.md) | `art` | `active` | `ui_handoff` | 6 | 完整 |
 | [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 9 | 完整 |
 | [UI 设计流水线](美术文档/ui_design/README.md) | `art` | `active` | `art_pipeline` | 14 | 完整 |
 | [战斗界面 Formal V1](美术文档/ui_design/formal_v1/combat_hud_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |

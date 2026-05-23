@@ -1,4 +1,4 @@
----
+﻿---
 id: agent_status_art
 title: 美术 / UI 状态
 type: status
@@ -34,7 +34,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 当前关注
 
-支撑正式版核心纵切 Alpha。当前重点从 MVP UI 骨架验收转向 Formal V1 正式 UI 结构迭代：先冻结 MVP Baseline，再逐界面确认 Formal V1，更新 active UI 规格，最后进入素材生成、程序接入和运行时验收。
+支撑正式版核心纵切。当前重点从 MVP UI 骨架验收转向 Formal V1 正式 UI 结构迭代：先冻结 MVP Baseline，再逐界面确认 Formal V1，更新 active UI 规格，最后进入素材生成、程序接入和运行时验收。
 
 PM 版本节点中，美术线当前已完成 A1 的 `combat_hud` Formal V1 active 规格更新和第一批战斗资源入库，下一步转入程序接入验收，为 A2 战斗正式纵切提供 UI 验收入口。
 
@@ -107,3 +107,4 @@ PM 版本节点中，美术线当前已完成 A1 的 `combat_hud` Formal V1 acti
 - 如有变化，刷新 `当前关注`、`下一步建议` 和阻塞项。
 - 如果需要程序或策划跟进，在 `PROJECT_STATUS.md` 增加跨职能交接。
 - 美术侧每轮实际交付完成后，提交本轮美术相关改动；提交范围必须排除程序、策划、子模块或本地工具无关改动。
+

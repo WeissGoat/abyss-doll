@@ -49,7 +49,7 @@ MVP 可运行骨架
   -> Formal V1 正式结构
   -> 程序分批迁移
   -> 运行时验收
-  -> 素材品质 / 动效 / VFX 逐步迭代
+  -> 进入批次的素材 / 动效 / VFX 按正式标准验收
 ```
 
 ---
@@ -139,4 +139,4 @@ Formal V1 不应直接删除 MVP 经验。MVP Baseline 作为可运行对照保�
 1. `combat_hud` 已进入 active Formal V1 规格，第一批 `monster_*_combat` 战斗实体和脚底阴影/目标光环已入库，下一步交给程序接入并截图验收。
 2. `workshop_main` 和 `inventory_loot` 可以复用较多现有 UI，但主区域关系需要从功能堆叠转为正式工作流。
 3. `dungeon_map` 和 `settlement` 的 P1 设计不应急着 handoff，应先按 Formal V1 审查后再交付。
-4. Formal V1 第一轮不要求重画全部素材，但要求程序接入后的截图从结构上看像正式游戏界面。
+4. Formal V1 第一轮只处理已进入本批次的界面和素材，不抢跑全量重画；进入批次的部分要求程序接入后的截图达到正式游戏界面结构标准。

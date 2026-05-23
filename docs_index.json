@@ -77,7 +77,7 @@
       "related": [
         "版本规划/09_正式版核心纵切开发路线.md",
         "版本规划/10_正式版核心纵切版本节点规划.md",
-        "版本规划/11_设计文档Alpha覆盖矩阵.md",
+        "版本规划/11_设计文档纵切批次矩阵.md",
         "agent_status/README.md",
         "PROJECT_STATUS.md",
         "开发文档/00_程序开发大纲.md",
@@ -195,7 +195,7 @@
         "tools/agent/README.md",
         "版本规划/09_正式版核心纵切开发路线.md",
         "版本规划/10_正式版核心纵切版本节点规划.md",
-        "版本规划/11_设计文档Alpha覆盖矩阵.md"
+        "版本规划/11_设计文档纵切批次矩阵.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "修改智能体分工、开工流程或完成协议时同步本文件。",
@@ -340,7 +340,7 @@
         "美术文档/README.md",
         "美术文档/04_美术风格基准.md"
       ],
-      "last_verified": "2026-05-23",
+      "last_verified": "2026-05-24",
       "update_rule": "修改对应工具入口、参数或执行流程时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -367,8 +367,8 @@
         "美术文档/02_资源规格与接入规范.md",
         "美术文档/ui_design/README.md",
         "美术文档/ui_design/handoff_checklist.md",
-        "美术文档/11_Alpha_P0_UI骨架接入交付.md",
-        "美术文档/12_Alpha_P1_UI骨架接入准备.md",
+        "美术文档/11_P0_UI骨架接入交付.md",
+        "美术文档/12_P1_UI骨架接入准备.md",
         "知识库/views/program.md"
       ],
       "last_verified": "2026-05-23",
@@ -584,8 +584,8 @@
         "美术文档/10_正式版核心纵切美术路线.md",
         "美术文档/ui_design/README.md",
         "美术文档/ui_design/handoff_checklist.md",
-        "美术文档/11_Alpha_P0_UI骨架接入交付.md",
-        "美术文档/12_Alpha_P1_UI骨架接入准备.md"
+        "美术文档/11_P0_UI骨架接入交付.md",
+        "美术文档/12_P1_UI骨架接入准备.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
@@ -1177,10 +1177,10 @@
     {
       "path": "版本规划/09_正式版核心纵切开发路线.md",
       "title": "正式版核心纵切开发路线",
-      "id": "plan_alpha_vertical_slice",
+      "id": "plan_formal_vertical_slice",
       "type": "plan",
       "role": "全局",
-      "domain": "alpha_vertical_slice",
+      "domain": "formal_vertical_slice",
       "status": "active",
       "source_of_truth": true,
       "related": [
@@ -1190,7 +1190,7 @@
         "agent_status/pm.md",
         "知识库/views/pm.md",
         "版本规划/10_正式版核心纵切版本节点规划.md",
-        "版本规划/11_设计文档Alpha覆盖矩阵.md",
+        "版本规划/11_设计文档纵切批次矩阵.md",
         "开发文档/00_程序开发大纲.md",
         "agent_status/program.md",
         "设计文档/GDD_00_系统关联总图.md",
@@ -1200,7 +1200,7 @@
         "知识库/views/design.md"
       ],
       "last_verified": "2026-05-24",
-      "update_rule": "正式版 Alpha 阶段目标、优先级或里程碑变化时同步本文件。",
+      "update_rule": "正式版纵切阶段目标、优先级或里程碑变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 14,
@@ -1209,10 +1209,10 @@
     {
       "path": "版本规划/10_正式版核心纵切版本节点规划.md",
       "title": "正式版核心纵切版本节点规划",
-      "id": "plan_10_alpha_version_nodes",
+      "id": "plan_10_formal_vertical_nodes",
       "type": "plan",
       "role": "PM",
-      "domain": "alpha_version_nodes",
+      "domain": "formal_vertical_nodes",
       "status": "active",
       "source_of_truth": true,
       "related": [
@@ -1220,7 +1220,7 @@
         "PROJECT_STATUS.md",
         "agent_status/pm.md",
         "版本规划/09_正式版核心纵切开发路线.md",
-        "版本规划/11_设计文档Alpha覆盖矩阵.md",
+        "版本规划/11_设计文档纵切批次矩阵.md",
         "agent_status/art.md",
         "agent_status/program.md",
         "agent_status/design.md",
@@ -1230,19 +1230,19 @@
         "知识库/views/pm.md"
       ],
       "last_verified": "2026-05-24",
-      "update_rule": "调整 Alpha 版本节点、跨职能交付顺序、完成标准或验收口径时同步本文件。",
+      "update_rule": "调整正式版纵切版本节点、跨职能交付顺序、完成标准或验收口径时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 12,
       "cross_role_relation_count": 10
     },
     {
-      "path": "版本规划/11_设计文档Alpha覆盖矩阵.md",
-      "title": "设计文档 Alpha 覆盖矩阵",
-      "id": "plan_11_gdd_alpha_coverage",
+      "path": "版本规划/11_设计文档纵切批次矩阵.md",
+      "title": "设计文档纵切批次矩阵",
+      "id": "plan_11_gdd_vertical_batch_matrix",
       "type": "plan",
       "role": "策划",
-      "domain": "gdd_alpha_coverage",
+      "domain": "gdd_vertical_batch_matrix",
       "status": "active",
       "source_of_truth": true,
       "related": [
@@ -1253,7 +1253,7 @@
         "agent_status/design.md"
       ],
       "last_verified": "2026-05-24",
-      "update_rule": "调整 GDD 功能进入 Alpha 的范围、优先级、阶段归属或暂缓理由时同步本文件。",
+      "update_rule": "调整 GDD 系统纵切批次、优先级、阶段归属或正式完成口径时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 5,
@@ -1630,10 +1630,10 @@
     {
       "path": "美术文档/10_正式版核心纵切美术路线.md",
       "title": "正式版核心纵切美术路线",
-      "id": "art_alpha_vertical_slice_art_route",
+      "id": "art_formal_vertical_slice_art_route",
       "type": "art",
       "role": "美术",
-      "domain": "alpha_art_route",
+      "domain": "formal_art_route",
       "status": "active",
       "source_of_truth": true,
       "related": [
@@ -1648,8 +1648,8 @@
         "美术文档/README.md",
         "美术文档/ui_design/README.md",
         "美术文档/ui_design/handoff_checklist.md",
-        "美术文档/11_Alpha_P0_UI骨架接入交付.md",
-        "美术文档/12_Alpha_P1_UI骨架接入准备.md",
+        "美术文档/11_P0_UI骨架接入交付.md",
+        "美术文档/12_P1_UI骨架接入准备.md",
         "agent_status/art.md",
         "知识库/views/art.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md"
@@ -1662,9 +1662,9 @@
       "cross_role_relation_count": 8
     },
     {
-      "path": "美术文档/11_Alpha_P0_UI骨架接入交付.md",
-      "title": "Alpha P0 UI 骨架接入交付",
-      "id": "art_alpha_p0_ui_skeleton_handoff",
+      "path": "美术文档/11_P0_UI骨架接入交付.md",
+      "title": "P0 UI 骨架接入交付",
+      "id": "art_p0_ui_skeleton_handoff",
       "type": "art",
       "role": "美术",
       "domain": "ui_handoff",
@@ -1676,7 +1676,7 @@
         "美术文档/10_正式版核心纵切美术路线.md",
         "美术文档/ui_design/README.md",
         "美术文档/ui_design/handoff_checklist.md",
-        "美术文档/12_Alpha_P1_UI骨架接入准备.md",
+        "美术文档/12_P1_UI骨架接入准备.md",
         "美术文档/ui_design/formal_v1/combat_hud_v1.md"
       ],
       "last_verified": "2026-05-23",
@@ -1687,9 +1687,9 @@
       "cross_role_relation_count": 2
     },
     {
-      "path": "美术文档/12_Alpha_P1_UI骨架接入准备.md",
-      "title": "Alpha P1 UI 骨架接入准备",
-      "id": "art_alpha_p1_ui_skeleton_plan",
+      "path": "美术文档/12_P1_UI骨架接入准备.md",
+      "title": "P1 UI 骨架接入准备",
+      "id": "art_p1_ui_skeleton_plan",
       "type": "art",
       "role": "美术",
       "domain": "ui_handoff",
@@ -1701,7 +1701,7 @@
         "美术文档/10_正式版核心纵切美术路线.md",
         "美术文档/ui_design/README.md",
         "美术文档/ui_design/handoff_checklist.md",
-        "美术文档/11_Alpha_P0_UI骨架接入交付.md"
+        "美术文档/11_P0_UI骨架接入交付.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
@@ -1748,7 +1748,7 @@
       "source_of_truth": true,
       "related": [
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
-        "美术文档/11_Alpha_P0_UI骨架接入交付.md"
+        "美术文档/11_P0_UI骨架接入交付.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "修改战斗界面正式结构、敌我站位、背包交互区、战斗实体素材或程序迁移要求时同步本文档。",
@@ -1878,8 +1878,8 @@
         "开发文档/00_Unity表现层与编辑器构建规范.md",
         "美术文档/10_正式版核心纵切美术路线.md",
         "美术文档/ui_design/README.md",
-        "美术文档/11_Alpha_P0_UI骨架接入交付.md",
-        "美术文档/12_Alpha_P1_UI骨架接入准备.md"
+        "美术文档/11_P0_UI骨架接入交付.md",
+        "美术文档/12_P1_UI骨架接入准备.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
@@ -1909,8 +1909,8 @@
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
         "美术文档/ui_design/versions/README.md",
         "美术文档/ui_design/versions/migration_log.md",
-        "美术文档/11_Alpha_P0_UI骨架接入交付.md",
-        "美术文档/12_Alpha_P1_UI骨架接入准备.md",
+        "美术文档/11_P0_UI骨架接入交付.md",
+        "美术文档/12_P1_UI骨架接入准备.md",
         "知识库/views/art.md"
       ],
       "last_verified": "2026-05-23",
@@ -2046,7 +2046,7 @@
         "GEMINI.md",
         "版本规划/09_正式版核心纵切开发路线.md",
         "版本规划/10_正式版核心纵切版本节点规划.md",
-        "版本规划/11_设计文档Alpha覆盖矩阵.md",
+        "版本规划/11_设计文档纵切批次矩阵.md",
         "开发文档/00_程序开发大纲.md",
         "agent_status/program.md",
         "数值模型设计/00_基准价值与空间本位模型.md",
@@ -2124,7 +2124,7 @@
         "设计文档/GDD_01_背包战斗与局内网格机制.md",
         "设计文档/GDD_00_系统关联总图.md"
       ],
-      "last_verified": "2026-05-23",
+      "last_verified": "2026-05-24",
       "update_rule": "修改对应玩法规则、系统边界或配置意图时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],

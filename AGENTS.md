@@ -1,4 +1,4 @@
----
+﻿---
 id: agents_entry
 title: Project P3 智能体入口
 type: entry
@@ -19,7 +19,7 @@ related:
   - tools/agent/README.md
   - 版本规划/09_正式版核心纵切开发路线.md
   - 版本规划/10_正式版核心纵切版本节点规划.md
-  - 版本规划/11_设计文档Alpha覆盖矩阵.md
+  - 版本规划/11_设计文档纵切批次矩阵.md
 last_verified: 2026-05-24
 update_rule: 修改智能体分工、开工流程或完成协议时同步本文件。
 ---
@@ -43,7 +43,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
    - 程序 / Unity：`知识库/views/program.md`
 4. `GEMINI.md` 是项目知识库和上下文路由。
 5. `版本规划/09_正式版核心纵切开发路线.md` 是当前开发核心与顶层路线。所有职能的阶段判断、优先级和是否偏离当前目标，先以 `09` 为准。
-6. `版本规划/11_设计文档Alpha覆盖矩阵.md` 当前标题为“设计文档纵切批次矩阵”，说明 `设计文档/GDD_00` 到 `GDD_12` 的系统批次、当前依赖和正式完成口径。
+6. `版本规划/11_设计文档纵切批次矩阵.md` 当前标题为“设计文档纵切批次矩阵”，说明 `设计文档/GDD_00` 到 `GDD_12` 的系统批次、当前依赖和正式完成口径。
 7. `版本规划/10_正式版核心纵切版本节点规划.md` 是 PM 执行层版本节点规划，把 `09` 的路线和 `11` 的批次关系拆成 A1-A4 节点、三线交付和门禁。
 
 如果旧 MVP 文档与当前 GDD、`09` 路线或状态页冲突，以当前 GDD、`09` 路线和状态页为准。
@@ -78,7 +78,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 
 | 角色 | 工作范围 | 需要关注的文件 | 需要修改的文件 | 完成后回写 |
 |---|---|---|---|---|
-| PM / 版本规划智能体 | 版本路线、阶段判断、里程碑拆分、优先级排序、跨职能交接、完成标准和状态同步 | `PROJECT_STATUS.md`、`版本规划/09_正式版核心纵切开发路线.md`、`版本规划/10_正式版核心纵切版本节点规划.md`、`版本规划/11_设计文档Alpha覆盖矩阵.md`、`agent_status/pm.md`、三职能状态页、当前系统事实来源 | `版本规划/`、`PROJECT_STATUS.md`、`agent_status/pm.md`、必要的职能状态和交接文档 | `agent_status/pm.md`，影响项目阶段或交接时同步 `PROJECT_STATUS.md` |
+| PM / 版本规划智能体 | 版本路线、阶段判断、里程碑拆分、优先级排序、跨职能交接、完成标准和状态同步 | `PROJECT_STATUS.md`、`版本规划/09_正式版核心纵切开发路线.md`、`版本规划/10_正式版核心纵切版本节点规划.md`、`版本规划/11_设计文档纵切批次矩阵.md`、`agent_status/pm.md`、三职能状态页、当前系统事实来源 | `版本规划/`、`PROJECT_STATUS.md`、`agent_status/pm.md`、必要的职能状态和交接文档 | `agent_status/pm.md`，影响项目阶段或交接时同步 `PROJECT_STATUS.md` |
 | 美术智能体 | 视觉流水线、Manifest、AI 素材筛选、正式资源入库、UI 结构版本迭代、UI 视觉交付、运行时美术验收 | `美术文档/README.md`、`美术文档/00_美术流水线总览.md`、`美术文档/10_正式版核心纵切美术路线.md`、`美术文档/ui_design/README.md`、`美术文档/ui_design/ui_iteration_process.md`、`美术文档/ui_design/formal_v1/screen_structure_review.md`、`开发文档/09_视觉资源系统程序开发规范.md` | `美术文档/`、`美术文档/ui_design/`、`UnityClient/Assets/Art/Approved`、必要的美术状态和交接文档 | `agent_status/art.md` |
 | 程序智能体 | Unity 客户端、C# 架构、CoreBackend、UGUI、Validator、测试、编辑器自动化 | `开发文档/00_程序开发大纲.md`、`开发文档/00_客户端核心架构规范.md`、`开发文档/00_Unity表现层与编辑器构建规范.md`、`开发文档/12_程序开发优化建议与重构路线.md`、`开发文档/13_编程规范与架构约定.md` | `UnityClient/Assets/Scripts`、`UnityClient/Assets/Tests`、`UnityClient/Assets/Editor`、`开发文档/`、必要的配置同步和验证脚本 | `agent_status/program.md` |
 | UI 程序智能体 | UGUI 表现层、Prefab、VisualID 绑定、运行时美术验收 | UI 设计交付、视觉资源契约、表现层架构、当前 UI 代码 | `UnityClient/Assets/Scripts/UI`、`UnityClient/Assets/Prefabs`、必要的开发文档 | `agent_status/program.md`，有美术交接时同步 `agent_status/art.md` |
@@ -100,7 +100,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 - `agent_status/pm.md`
 - `PROJECT_STATUS.md`
 - `版本规划/09_正式版核心纵切开发路线.md`
-- `版本规划/11_设计文档Alpha覆盖矩阵.md`
+- `版本规划/11_设计文档纵切批次矩阵.md`
 - `版本规划/10_正式版核心纵切版本节点规划.md`
 - `agent_status/design.md`
 - `agent_status/program.md`
@@ -164,7 +164,7 @@ UI 版本规则：
 - `agent_status/design.md`
 - `设计文档/GDD_00_系统关联总图.md`
 - `版本规划/09_正式版核心纵切开发路线.md`
-- `版本规划/11_设计文档Alpha覆盖矩阵.md`
+- `版本规划/11_设计文档纵切批次矩阵.md`
 - `数值模型设计/00_基准价值与空间本位模型.md`
 - 当前任务涉及的 `设计文档/GDD_*.md`
 
@@ -292,3 +292,4 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - 只暂存与当前任务相关的文件。
 - 移动 Unity 资产时，必须一起移动 `.meta` 文件。
 - 提交前查看 `git status --short`，确认没有误提交生成物或无关文件。
+

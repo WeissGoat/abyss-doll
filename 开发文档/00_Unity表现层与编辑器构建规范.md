@@ -1,4 +1,4 @@
----
+﻿---
 id: dev_00_unity_ui_editor_guidelines
 title: Unity 表现层与编辑器构建规范 (UI & Editor Construction Guidelines)
 type: dev
@@ -17,8 +17,8 @@ related:
   - 美术文档/02_资源规格与接入规范.md
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/handoff_checklist.md
-  - 美术文档/11_Alpha_P0_UI骨架接入交付.md
-  - 美术文档/12_Alpha_P1_UI骨架接入准备.md
+  - 美术文档/11_P0_UI骨架接入交付.md
+  - 美术文档/12_P1_UI骨架接入准备.md
   - 知识库/views/program.md
 last_verified: 2026-05-23
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
@@ -90,3 +90,4 @@ UI 脚本仅负责渲染呈现与捕捉外设输入，严禁承载任何游戏�
 
 *   **`MVPTester.cs`** 作为独立的胶水代码，仅用于研发环境中的闭环链路测试。
 *   流程规范要求：在 `GameRoot.Awake` 的 JSON 异步反序列化与核心总线生成完毕后（可通过事件通知或延时调用），再向 `CoreBackend` 发起第一层深渊的加载请求（`LoadLayer`），并初始化玩家初始底盘资源。
+

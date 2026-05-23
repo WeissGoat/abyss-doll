@@ -1,4 +1,4 @@
----
+﻿---
 id: dev_05_view_event_bus
 title: 表现层架构与事件总线 (View & EventBus System)
 type: dev
@@ -14,8 +14,8 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/handoff_checklist.md
-  - 美术文档/11_Alpha_P0_UI骨架接入交付.md
-  - 美术文档/12_Alpha_P1_UI骨架接入准备.md
+  - 美术文档/11_P0_UI骨架接入交付.md
+  - 美术文档/12_P1_UI骨架接入准备.md
 last_verified: 2026-05-23
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---
@@ -194,3 +194,4 @@ private void OnGoldChanged(OnGoldChangedEvent e) {
 *   **核心玩法（背包网格、不规则物品拖拽）：使用 UGUI + 代码批量生成。**
     *   背包格、物品图标、深渊节点按钮等可复用元素统一放在 `UnityClient/Assets/Prefabs/` 下。
     *   运行时通过 `Instantiate` 生成格子、节点和条目，挂载 `IDragHandler` / `IPointerHandler` 等 UGUI 事件接口实现交互。
+

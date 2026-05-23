@@ -1,4 +1,4 @@
----
+﻿---
 id: art_ui_handoff_checklist
 title: UI 交付检查清单
 type: art
@@ -11,8 +11,8 @@ related:
   - 开发文档/00_Unity表现层与编辑器构建规范.md
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/ui_design/README.md
-  - 美术文档/11_Alpha_P0_UI骨架接入交付.md
-  - 美术文档/12_Alpha_P1_UI骨架接入准备.md
+  - 美术文档/11_P0_UI骨架接入交付.md
+  - 美术文档/12_P1_UI骨架接入准备.md
 last_verified: 2026-05-23
 update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
 ---
@@ -94,3 +94,4 @@ update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收�
 * 小图标在实际显示尺寸下可识别。
 * UI 皮肤不会盖住可点击区域。
 * 背包拖拽、敌人选择、按钮点击没有被装饰图阻挡。
+

@@ -1,4 +1,4 @@
----
+﻿---
 id: art_ui_design_readme
 title: UI 设计流水线
 type: art
@@ -18,8 +18,8 @@ related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/ui_design/versions/README.md
   - 美术文档/ui_design/versions/migration_log.md
-  - 美术文档/11_Alpha_P0_UI骨架接入交付.md
-  - 美术文档/12_Alpha_P1_UI骨架接入准备.md
+  - 美术文档/11_P0_UI骨架接入交付.md
+  - 美术文档/12_P1_UI骨架接入准备.md
   - 知识库/views/art.md
 last_verified: 2026-05-23
 update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
@@ -27,7 +27,7 @@ update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收�
 
 # UI 设计流水线
 
-> **定位：** 管理正式版核心纵切 Alpha 的 UI 设计系统、界面布局、组件清单和程序交付检查。
+> **定位：** 管理正式版核心纵切的 UI 设计系统、界面布局、组件清单和程序交付检查。
 > **更新时间：** 2026-05-23
 
 ---
@@ -36,7 +36,7 @@ update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收�
 
 UI 资产不能只按单张图片生产。面板、按钮、背包格、状态条、卡框、列表行必须先形成统一组件系统，再进入 AI 跑图、切图和程序接入。
 
-正式版核心纵切阶段的原则是：UI 骨架要按正式版设计，内容和品质可以逐步迭代。也就是说，允许第一批图片不是最终品质，但不应继续用临时色块、临时布局和后续必定推翻的界面结构作为主路径。
+正式版核心纵切阶段的原则是：用批次控制当前处理哪些界面，不用半成品标准降低进入批次的完成质量。凡是进入当前批次的 UI，结构、组件、VisualID、程序绑定和验收标准都按正式版处理；未进入批次的界面不抢跑。
 
 UI 设计流解决四件事：
 
@@ -139,7 +139,7 @@ formal_v1/*.md
 * `SpriteAssignments`
 * `AcceptanceCriteria`
 
-不要先跑图。先让界面区域、层级和程序交互点稳定。进入 Alpha 纵切的 active 界面，布局状态应按以下顺序推进：
+不要先跑图。先让界面区域、层级和程序交互点稳定。进入正式版纵切的 active 界面，布局状态应按以下顺序推进：
 
 ```text
 planned -> draft -> handoff -> integrated -> validated
@@ -213,3 +213,4 @@ Candidate 仅作复杂界面的可选暂存，迁移状态不复用 `LayoutStatu
 * P0 界面是否已有 `ControllerBindings`、`UnityHierarchy`、`SpriteAssignments`、`AcceptanceCriteria`。
 * 使用背包组件的 P0 界面是否已有 `InventoryLayerPolicy`。
 * 是否生成当前 handoff 摘要。
+
