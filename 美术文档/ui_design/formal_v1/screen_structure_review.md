@@ -91,7 +91,9 @@ Formal V1 不应直接删除 MVP 经验。MVP Baseline 作为可运行对照保�
 
 ## 5. 迁移状态建议
 
-现有 `screen_layouts.json` 的状态仍保留 MVP Baseline 验收结果。Formal V1 在确认前先写在本目录中。待某个界面 Formal V1 方案确认后，再回写结构化规格。
+现有 `screen_layouts.json` 的状态仍保留 MVP Baseline 验收结果。Formal V1 在确认前先写在本目录中。待某个界面 Formal V1 方案确认后，再修改当前 active `screen_layouts.json`。
+
+`versions/formal_v1_candidate/` 只作为复杂界面的可选暂存区。例如 `combat_hud` 涉及敌方实体、战斗舞台和背包锚点，可以先在 candidate 中试写结构化 JSON，再合并到 active。普通界面不需要经过 candidate。
 
 建议新增或使用以下字段：
 

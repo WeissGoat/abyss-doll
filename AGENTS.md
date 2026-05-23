@@ -44,7 +44,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 
 | 角色 | 工作范围 | 需要关注的文件 | 需要修改的文件 | 完成后回写 |
 |---|---|---|---|---|
-| 美术智能体 | 视觉流水线、Manifest、AI 素材筛选、正式资源入库、UI 视觉交付、运行时美术验收 | `美术文档/README.md`、`美术文档/00_美术流水线总览.md`、`美术文档/10_正式版核心纵切美术路线.md`、`美术文档/ui_design/README.md`、`开发文档/09_视觉资源系统程序开发规范.md` | `美术文档/`、`美术文档/ui_design/`、`UnityClient/Assets/Art/Approved`、必要的美术状态和交接文档 | `agent_status/art.md` |
+| 美术智能体 | 视觉流水线、Manifest、AI 素材筛选、正式资源入库、UI 结构版本迭代、UI 视觉交付、运行时美术验收 | `美术文档/README.md`、`美术文档/00_美术流水线总览.md`、`美术文档/10_正式版核心纵切美术路线.md`、`美术文档/ui_design/README.md`、`美术文档/ui_design/ui_iteration_process.md`、`美术文档/ui_design/formal_v1/screen_structure_review.md`、`开发文档/09_视觉资源系统程序开发规范.md` | `美术文档/`、`美术文档/ui_design/`、`UnityClient/Assets/Art/Approved`、必要的美术状态和交接文档 | `agent_status/art.md` |
 | 程序智能体 | Unity 客户端、C# 架构、CoreBackend、UGUI、Validator、测试、编辑器自动化 | `开发文档/00_程序开发大纲.md`、`开发文档/00_客户端核心架构规范.md`、`开发文档/00_Unity表现层与编辑器构建规范.md`、`开发文档/12_程序开发优化建议与重构路线.md`、`开发文档/13_编程规范与架构约定.md` | `UnityClient/Assets/Scripts`、`UnityClient/Assets/Tests`、`UnityClient/Assets/Editor`、`开发文档/`、必要的配置同步和验证脚本 | `agent_status/program.md` |
 | UI 程序智能体 | UGUI 表现层、Prefab、VisualID 绑定、运行时美术验收 | UI 设计交付、视觉资源契约、表现层架构、当前 UI 代码 | `UnityClient/Assets/Scripts/UI`、`UnityClient/Assets/Prefabs`、必要的开发文档 | `agent_status/program.md`，有美术交接时同步 `agent_status/art.md` |
 | 策划智能体 | GDD 规则、经济循环、物品生命周期、深渊节奏、数值假设、配置意图 | `设计文档/GDD_00_系统关联总图.md`、`版本规划/09_正式版核心纵切开发路线.md`、`数值模型设计/00_基准价值与空间本位模型.md`、当前任务涉及的 `设计文档/GDD_*.md` 和配置 README | `设计文档/`、`数值模型设计/`、`配置表(JSON)/`、`版本规划/`、必要的策划状态和交接文档 | `agent_status/design.md` |
@@ -57,6 +57,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 主要关注：
 
 - 视觉流水线、Manifest、AI 素材生成、正式入库资源、UI 设计交付、运行时美术验收。
+- 负责 UI 从 MVP Baseline 到 Formal V1 / 后续版本的结构设计、版本冻结、active 规格更新和美术验收，不直接接管 Unity UI 程序实现。
 
 必读：
 
@@ -65,7 +66,17 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 - `美术文档/10_正式版核心纵切美术路线.md`
 - `美术文档/00_美术流水线总览.md`
 - `美术文档/ui_design/README.md`
+- `美术文档/ui_design/ui_iteration_process.md`
+- `美术文档/ui_design/formal_v1/screen_structure_review.md`
 - `开发文档/09_视觉资源系统程序开发规范.md`
+
+UI 版本规则：
+
+- `美术文档/ui_design/screen_layouts.json` 是当前 active UI 对接规格；程序和素材生成都以它为准。
+- 已通过验收的 UI 设计先冻结到 `美术文档/ui_design/versions/`，例如 `mvp_baseline_2026-05-22`。
+- `formal_v1/*.md` 是正式结构设计文档；用户确认后，美术智能体逐界面修改 active `screen_layouts.json`。
+- `versions/formal_v1_candidate/` 只是复杂界面的可选暂存区，不是必经流程，也不是程序接入口。
+- 素材生成、Manifest 回填和程序交接必须发生在 active 规格更新并通过 `Validate-UIDesign.ps1` 之后。
 
 常用命令：
 

@@ -13,6 +13,7 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/02_资源规格与接入规范.md
   - 美术文档/README.md
+  - 美术文档/ui_design/ui_iteration_process.md
   - 美术文档/ui_design/handoff_checklist.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/ui_design/versions/README.md
@@ -39,7 +40,7 @@ UI 资产不能只按单张图片生产。面板、按钮、背包格、状态�
 
 UI 设计流解决四件事：
 
-* UI 设计版本如何冻结、候选和合并：由 `versions/` 记录。
+* UI 设计版本如何冻结、确认、合并和验收：由 `ui_iteration_process.md` 记录。
 * 正式版结构怎么从 MVP 骨架迁移：由 `formal_v1/` 记录结构草案。
 * 界面区域怎么摆：由 `screen_layouts.json` 记录。
 * 组件怎么复用：由 `component_catalog.json` 记录。
@@ -55,8 +56,9 @@ UI 设计流解决四件事：
 | `design_tokens.json` | UI 参考分辨率、安全区、颜色、字号、间距、圆角和层级标准。 |
 | `component_catalog.json` | UI 组件目录，记录组件、VisualID、状态、拉伸方式、使用界面和程序接入要求。 |
 | `screen_layouts.json` | 当前 active 界面布局规格，程序只按它对接。 |
+| `ui_iteration_process.md` | UI 设计迭代与版本迁移流程，定义 baseline、active、candidate 的关系。 |
 | `formal_v1/` | 正式版 UI 结构 V1 设计层，先审查舞台、区域、信息层级和程序对象边界。 |
-| `versions/` | UI 设计版本管理目录，保存 baseline、candidate 和迁移记录。 |
+| `versions/` | UI 设计版本管理目录，保存 baseline、可选 candidate 和迁移记录。 |
 | `handoff_checklist.md` | UI 从设计到程序接入的检查清单。 |
 | `_generated/ui_design_handoff.md` | 校验脚本生成的当前 UI 交付摘要。 |
 
@@ -68,9 +70,8 @@ UI 设计流解决四件事：
 MVP Baseline / Runtime Findings
   -> Freeze Baseline in versions/
   -> Formal V1 Structure Review
-  -> Candidate Spec in versions/formal_v1_candidate/
-  -> Per-screen Review
-  -> Merge One Screen into Active screen_layouts.json
+  -> User / Art Review
+  -> Update Active screen_layouts.json
   -> Validate UI Design
   -> Preset Seed / Manifest
   -> Prompt / Spec
@@ -85,7 +86,8 @@ MVP Baseline / Runtime Findings
 
 * 已通过验收的 UI 设计必须先冻结到 `versions/`，作为 Baseline 保留。
 * `screen_layouts.json` 只表示当前 active 对接规格；程序不直接接 candidate。
-* 正式版结构调整先写入 `formal_v1/` 和 `versions/formal_v1_candidate/`，再按 `versions/migration_log.md` 逐界面合并到 active。
+* 正式版结构调整先写入 `formal_v1/`；你确认后，逐界面修改 active `screen_layouts.json`。
+* `versions/formal_v1_candidate/` 是复杂界面的可选暂存区，不是必经流程。
 * 新界面或重做界面必须先更新 `screen_layouts.json`，不要先跑图。
 * 核心界面的 `ScreenID`、主区域、程序绑定和 `VisualID` 应保持长期稳定。
 * 文字、数字、价格、物品名、按钮文案继续由 Unity Text 渲染，不烘焙进 UI Sprite。
@@ -97,21 +99,21 @@ MVP Baseline / Runtime Findings
 新增界面时，先判断是否直接进入 active：
 
 * 若是全新、不影响已验收流程的小界面，可直接新增到 `screen_layouts.json`。
-* 若会重构已验收核心界面，必须先进入 candidate。
+* 若会重构已验收核心界面，必须先写设计文档并由你确认；复杂界面可选进入 candidate 试写。
 
 重做现有核心界面时，流程是：
 
 ```text
 formal_v1/*.md
-  -> versions/formal_v1_candidate/screen_layouts.formal_v1_candidate.json
-  -> versions/migration_log.md
-  -> merge one screen into active screen_layouts.json
+  -> 用户 / 美术确认
+  -> update active screen_layouts.json
   -> Validate-UIDesign.ps1
+  -> update versions/migration_log.md
   -> program handoff
   -> ArtAcceptance
 ```
 
-先在 `formal_v1/` 写结构重审文档，确认以下内容后，再写入 candidate JSON：
+先在 `formal_v1/` 写结构重审文档，确认以下内容后，再写入 active `screen_layouts.json`：
 
 * 该界面的 MVP Baseline 问题。
 * Formal V1 的主区域和信息层级。
@@ -120,7 +122,9 @@ formal_v1/*.md
 * 程序侧需要迁移的 Unity 节点或对象边界。
 * 运行时截图验收标准。
 
-写入 candidate 或 active 时至少包含：
+对于 `combat_hud` 这类复杂界面，可以先写入 `versions/formal_v1_candidate/` 作为暂存和对比，再合并到 active。
+
+写入 active 时至少包含：
 
 * `ScreenID`
 * `Priority`
@@ -151,7 +155,7 @@ planned -> draft -> handoff -> integrated -> validated
 | `integrated` | Unity 已接入，等待运行时截图验收。 |
 | `validated` | ArtAcceptance 截图和快照已通过美术侧验收。 |
 
-Candidate 迁移状态不复用 `LayoutStatus` 单独表达，而记录在：
+Candidate 仅作复杂界面的可选暂存，迁移状态不复用 `LayoutStatus` 单独表达，而记录在：
 
 ```text
 美术文档/ui_design/versions/migration_log.md

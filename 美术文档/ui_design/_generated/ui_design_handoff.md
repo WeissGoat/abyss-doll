@@ -5,21 +5,21 @@
 ## Summary
 
 * Reference resolution: `1920x1080`
-* Components: `23`
+* Components: `24`
 * Screens: `8`
 
 ## Screens
 
 | Priority | ScreenID | Name | Status | Required Components | Required Visuals |
 |---|---|---|---|---:|---:|
-| `P0` | `workshop_main` | 工坊主界面 | `draft` | 6 | 9 |
-| `P0` | `combat_hud` | 战斗界面 | `draft` | 10 | 13 |
-| `P0` | `inventory_loot` | 背包与战利品拾取界面 | `draft` | 8 | 12 |
-| `P1` | `dungeon_map` | 深渊地图界面 | `planned` | 5 | 6 |
-| `P1` | `settlement` | 撤离/战败结算界面 | `planned` | 5 | 5 |
-| `P2` | `sell_panel` | 工坊出售界面 | `planned` | 7 | 7 |
-| `P2` | `prosthetic_panel` | 义体制造界面 | `planned` | 6 | 6 |
-| `P2` | `layer_select` | 出发层选择界面 | `planned` | 6 | 6 |
+| `P0` | `workshop_main` | 工坊主界面 | `validated` | 6 | 9 |
+| `P0` | `combat_hud` | 战斗界面 | `validated` | 10 | 13 |
+| `P0` | `inventory_loot` | 背包与战利品拾取界面 | `validated` | 8 | 12 |
+| `P1` | `dungeon_map` | 深渊地图界面 | `draft` | 6 | 7 |
+| `P1` | `settlement` | 撤离/战败结算界面 | `draft` | 6 | 8 |
+| `P1` | `sell_panel` | 工坊出售界面 | `draft` | 8 | 8 |
+| `P1` | `prosthetic_panel` | 义体制造界面 | `draft` | 7 | 7 |
+| `P1` | `layer_select` | 出发层选择界面 | `draft` | 7 | 8 |
 
 ## Components
 
@@ -29,9 +29,9 @@
 | `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map` |
 | `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select` |
 | `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select` |
-| `P2` | `Button.Danger` | `ui_button_danger` | `nine_slice` | `inventory_loot`, `sell_panel` |
-| `P2` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement` |
-| `P2` | `List.Row.Selected` | `ui_list_row_selected` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select` |
+| `P1` | `Button.Danger` | `ui_button_danger` | `nine_slice` | `inventory_loot`, `dungeon_map`, `sell_panel` |
+| `P1` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement` |
+| `P1` | `List.Row.Selected` | `ui_list_row_selected` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select` |
 | `P1` | `Inventory.Slot` | `ui_inventory_slot_available`, `ui_inventory_slot_hover`, `ui_inventory_slot_invalid`, `ui_inventory_slot_locked`, `ui_inventory_slot_valid` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud` |
 | `P1` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud` |
 | `P1` | `Loot.PickupPanel` | `ui_loot_pickup_panel` | `nine_slice` | `inventory_loot` |
@@ -40,14 +40,15 @@
 | `P1` | `Combat.HpBar` | `ui_combat_status_bar_hp` | `nine_slice` | `combat_hud` |
 | `P1` | `Combat.ShieldBar` | `ui_combat_status_bar_shield` | `nine_slice` | `combat_hud` |
 | `P1` | `Combat.ApPip` | `ui_combat_ap_pip` | `fixed` | `combat_hud` |
-| `P2` | `Combat.TurnBanner` | `ui_combat_turn_banner` | `nine_slice` | `combat_hud` |
-| `P2` | `Map.NodePlate` | `ui_dungeon_node_plate` | `fixed` | `dungeon_map` |
-| `P2` | `Map.RouteLine` | `ui_dungeon_route_line` | `tile_or_stretch` | `dungeon_map` |
-| `P2` | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | `nine_slice` | `settlement` |
-| `P2` | `Settlement.DefeatPanel` | `ui_settlement_defeat_panel` | `nine_slice` | `settlement` |
-| `P2` | `Icon.Money` | `ui_icon_money` | `fixed` | `sell_panel`, `settlement`, `workshop_main` |
-| `P2` | `Icon.Locked` | `ui_icon_locked` | `fixed` | `layer_select`, `dungeon_map` |
-| `P2` | `Icon.Equipped` | `ui_icon_equipped` | `fixed` | `prosthetic_panel` |
+| `P1` | `Combat.TurnBanner` | `ui_combat_turn_banner` | `nine_slice` | `combat_hud` |
+| `P1` | `Map.NodePlate` | `ui_dungeon_node_plate` | `fixed` | `dungeon_map` |
+| `P1` | `Map.RouteLine` | `ui_dungeon_route_line` | `tile_or_stretch` | `dungeon_map` |
+| `P1` | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | `nine_slice` | `settlement` |
+| `P1` | `Settlement.DefeatPanel` | `ui_settlement_defeat_panel` | `nine_slice` | `settlement` |
+| `P1` | `Icon.Money` | `ui_icon_money` | `fixed` | `sell_panel`, `settlement`, `workshop_main` |
+| `P1` | `Icon.Locked` | `ui_icon_locked` | `fixed` | `layer_select`, `dungeon_map` |
+| `P1` | `Icon.Equipped` | `ui_icon_equipped` | `fixed` | `prosthetic_panel` |
+| `P1` | `Title.Divider` | `ui_title_divider` | `fixed_or_stretch` | `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select` |
 
 ## Program Handoff
 
@@ -284,22 +285,64 @@ Acceptance criteria:
 
 ### 深渊地图界面
 
-* Goal: 在已有节点图标基础上补强路线、节点状态和层级信息。
+* Goal: 在已有节点图标基础上补强路线、节点状态、背包整理入口和层级信息。
 * Background: `bg_dungeon_map`
 
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
-| `map_canvas` | center | 240,120 1440x820 | `Map.NodePlate`, `Map.RouteLine`, `Icon.Locked` | 节点路线主区域 |
+| `map_background` | full_screen | 0,0 1920x1080 |  | 深渊地图背景 |
+| `map_canvas` | center | 240,160 1440x650 | `Map.NodePlate`, `Map.RouteLine`, `Icon.Locked` | 节点路线主区域 |
+| `inventory_controls` | bottom_right | 1070,880 800x150 | `Panel.Info`, `Button.Secondary`, `Button.Danger` | 整理背包入口、关闭背包和说明文字 |
 
 Layout changes:
-* 为节点增加底板层和路线连接线层。
+* 背景使用 DungeonMapBackground_Image / bg_dungeon_map。
+* contentParent 锚到 map_canvas，节点、路线和图标都在该区域内生成。
+* OpenBackpack_Button 和 CloseBackpack_Button 锚到 inventory_controls。
 
 Data bindings:
-* 节点状态用运行时 tint 或 Sprite 状态表现。
+* 节点图标继续使用 VisualAssetService.ResolveNodeIconID(node)。
+* 节点访问/当前/不可达状态用 interactable、tint 或后续状态 Sprite 表现。
+* 背包展开状态由 GameFlowController.OpenDungeonMapInventory / CloseDungeonMapInventory 控制。
 
 Interaction notes:
-* 点击区域仍跟随节点按钮。
+* 节点按钮点击区域仍跟随 Button，不被节点底板或路线图阻挡。
+* 路线线段和背景 raycastTarget=false。
+* 关闭背包时仍沿用当前丢弃格外物品逻辑。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `DungeonMapUIController` | `nodeButtonPrefab`, `contentParent`, `openBackpackBtn`, `closeBackpackBtn`, `backpackHintText`, `backgroundImage` | backgroundImage 使用 bg_dungeon_map。<br>contentParent 对应 map_canvas。<br>openBackpackBtn 使用 Button.Secondary；closeBackpackBtn 使用 Button.Danger。 |
+| `GameFlowController` | `dungeonMapPanel`, `gridGenerator.gridParent`, `inventoryItemLayer` | DungeonMap 状态下背包只在整理模式展开。<br>展开背包时保持 GridContainer 与 InventoryItemLayer 同步显示。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `DungeonMapPanel/DungeonMapBackground_Image` | Background |  | `bg_dungeon_map` | Simple | cover | False |
+| `DungeonMapPanel/ContentParent` | MainPanel |  |  |  |  |  |
+| `DungeonMapPanel/ContentParent/DungeonRouteLine_Image` | MainPanel | `Map.RouteLine` | `ui_dungeon_route_line` | Simple | contain | False |
+| `DungeonMapPanel/ContentParent/NodeButton(Clone)` | Controls | `Map.NodePlate` | `ui_dungeon_node_plate` | Simple |  | True |
+| `DungeonMapPanel/ContentParent/NodeButton(Clone)/NodeIcon_Image` | Controls |  |  | Simple | contain | False |
+| `DungeonMapPanel/BackpackHint_Text` | Controls | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DungeonMapPanel/OpenBackpack_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `DungeonMapPanel/CloseBackpack_Button` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `DungeonMapUIController.backgroundImage` |  | `bg_dungeon_map` | Simple | cover | False |
+| `DungeonMapUIController node button frame` | `Map.NodePlate` | `ui_dungeon_node_plate` | Simple |  | True |
+| `DungeonMapUIController route line` | `Map.RouteLine` | `ui_dungeon_route_line` | Simple | contain | False |
+| `openBackpackBtn.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `closeBackpackBtn.Image` | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+
+Acceptance criteria:
+* 节点、路线和节点文字都落在 map_canvas 内，不遮挡右下角背包整理入口。
+* 节点按钮仍可点击，路线和背景不拦截点击。
+* 打开/关闭背包按钮状态切换正确，关闭背包仍执行格外物品丢弃规则。
+* 路线连接线使用 ui_dungeon_route_line，节点底板使用 ui_dungeon_node_plate。
+* 地图背景使用 bg_dungeon_map，截图中不再出现纯色蓝底。
 
 ### 撤离/战败结算界面
 
@@ -308,16 +351,61 @@ Interaction notes:
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
-| `result_panel` | center | 360,140 1200x800 | `Settlement.VictoryPanel`, `Settlement.DefeatPanel`, `List.Row.Normal`, `Button.Primary` | 结算主面板 |
+| `settlement_background` | full_screen | 0,0 1920x1080 |  | 撤离或战败背景 |
+| `result_panel` | center | 510,190 900x700 | `Settlement.VictoryPanel`, `Settlement.DefeatPanel`, `Title.Divider`, `Button.Primary` | 结算主面板 |
+| `summary_area` | center_top | 610,300 700x180 |  | 本次拾取、带出、损失和仓库摘要 |
+| `loot_detail_area` | center | 610,500 700x300 | `List.Row.Normal`, `Icon.Money` | 带出、拾取、损失列表 |
+| `continue_action` | bottom_center | 820,790 280x72 | `Button.Primary` | 返回工坊确认按钮 |
 
 Layout changes:
-* 按结算结果切换 victory/defeat panel。
+* 按 result.IsVictory 切换背景和结算主面板。
+* SettlementCard_Image 固定为 900x700，文字和按钮都作为其子节点。
+* TitleDivider_Image 放在标题下方，不承载文字。
 
 Data bindings:
-* 收益、损失、物品清单由程序文本和图标生成。
+* 标题、摘要、拾取/带出/损失列表仍由 SettlementUIController 文本生成。
+* 返回工坊按钮继续使用 continueBtn 和 onContinue 回调。
+* 金币/估值可先保持文本，后续再拆 Icon.Money。
 
 Interaction notes:
-* 返回小镇按钮使用 Button.Primary。
+* 背景和主面板不拦截按钮射线。
+* continueBtn 是本界面唯一强交互。
+* 结算背景视觉权重不应压过主面板文字。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `SettlementUIController` | `titleText`, `summaryText`, `lootText`, `continueBtn`, `backgroundImage`, `backdropImage`, `settlementPanelImage`, `titleDividerImage` | backgroundImage 使用 ResolveSettlementBackgroundID(result.IsVictory)。<br>settlementPanelImage 使用 ResolveSettlementPanelID(result.IsVictory)。<br>continueBtn 使用 Button.Primary。 |
+| `GameFlowController` | `settlementPanel` | Settlement 状态进入时调用 SettlementUIController.Present(result, EnterWorkshop)。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementBackdrop_Image` | Background |  |  | Simple |  | False |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementBackground_Image` | Background |  | `bg_settlement_victory` | Simple | cover | False |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image` | MainPanel | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | Sliced |  | False |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/TitleDivider_Image` | MainPanel | `Title.Divider` | `ui_title_divider` | Simple |  | False |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Title_Text` | Controls |  |  |  |  | False |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Summary_Text` | Controls |  |  |  |  | False |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Loot_Text` | Controls |  |  |  |  | False |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/Continue_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `SettlementUIController.backgroundImage.victory` |  | `bg_settlement_victory` | Simple | cover | False |
+| `SettlementUIController.backgroundImage.defeat` |  | `bg_settlement_defeat` | Simple | cover | False |
+| `SettlementUIController.settlementPanelImage.victory` | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | Sliced |  | False |
+| `SettlementUIController.settlementPanelImage.defeat` | `Settlement.DefeatPanel` | `ui_settlement_defeat_panel` | Sliced |  | False |
+| `SettlementUIController.titleDividerImage` | `Title.Divider` | `ui_title_divider` | Simple |  | False |
+| `continueBtn.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+
+Acceptance criteria:
+* 胜利结算使用 bg_settlement_victory 和 ui_settlement_victory_panel。
+* 战败结算使用 bg_settlement_defeat 和 ui_settlement_defeat_panel。
+* 标题、摘要、列表文字在 1920x1080 下不溢出主面板。
+* Continue_Button 可点击，背景和面板不拦截按钮射线。
+* 背景对比不压过主面板文字，结算结果一眼可读。
 
 ### 工坊出售界面
 
@@ -326,16 +414,59 @@ Interaction notes:
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
-| `sell_modal` | center | 360,140 1200x800 | `Panel.Main`, `List.Row.Normal`, `List.Row.Selected`, `Button.Primary`, `Button.Secondary`, `Button.Danger`, `Icon.Money` | 出售列表和确认区主容器 |
+| `modal_backdrop` | full_screen | 0,0 1920x1080 |  | 隔离工坊底层的暗色遮罩 |
+| `sell_card` | center | 380,150 1160x780 | `Panel.Main`, `Title.Divider`, `Button.Secondary`, `Button.Danger` | 出售主面板 |
+| `sell_header` | top_stretch | 420,180 1080x140 | `Title.Divider`, `Button.Secondary`, `Button.Danger`, `Icon.Money` | 标题、摘要、Sell All 和关闭按钮 |
+| `sell_list` | center | 430,330 1060x560 | `Panel.Main`, `List.Row.Normal`, `List.Row.Selected`, `Button.Secondary`, `Icon.Money` | 可出售物品列表 |
 
 Layout changes:
-* 把出售列表放入 Panel.Main，列表项使用 List.Row.*。
+* WorkshopSellPanel_Runtime 保持全屏弹窗，SellPanel_Card 作为主容器。
+* SellList_Scroll 使用 Panel.Main 弱化底纹，Content 内每行使用 List.Row.Normal。
+* SellAll_Button 使用 Button.Danger；单行 Sell_Button 使用 Button.Secondary。
 
 Data bindings:
-* 价格、数量、物品名由程序文本渲染。
+* 物品图标继续使用 VisualAssetService.ResolveItemIconID(item)。
+* 价格、来源、物品名和数量由程序 Text 渲染。
+* 出售后调用 RefreshUI 并刷新列表。
 
 Interaction notes:
-* 列表行负责选择，装饰 Image 不阻挡射线。
+* 列表行可点击或只承托；Sell_Button 是主要交互。
+* 装饰面板不阻挡 ScrollRect、按钮和列表行射线。
+* 出售面板打开时义体面板应关闭。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `WorkshopUIController` | `sellPanel`, `stashHeaderText`, `sellSummaryText`, `stashListParent`, `sellAllBtn`, `closeSellPanelBtn`, `openSellPanelBtn` | EnsureSellPanel 创建 WorkshopSellPanel_Runtime 和 SellPanel_Card。<br>stashListParent 对应 SellList_Scroll/Viewport/Content。<br>SellAll_Button 使用 Button.Danger，Close_Button 使用 Button.Secondary。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `WorkshopSellPanel_Runtime` | Modal |  |  |  |  | True |
+| `WorkshopSellPanel_Runtime/SellPanel_Card` | Modal | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `WorkshopSellPanel_Runtime/SellPanel_Card/TitleDivider_Image` | Modal | `Title.Divider` | `ui_title_divider` | Simple |  | False |
+| `WorkshopSellPanel_Runtime/SellPanel_Card/SellAll_Button` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+| `WorkshopSellPanel_Runtime/SellPanel_Card/Close_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `WorkshopSellPanel_Runtime/SellPanel_Card/SellList_Scroll` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `WorkshopSellPanel_Runtime/SellPanel_Card/SellList_Scroll/Viewport/Content/SellRow_*` | Controls | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `WorkshopSellPanel_Runtime/SellPanel_Card/SellList_Scroll/Viewport/Content/SellRow_*/Sell_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `SellPanel_Card.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `SellPanel_Card/TitleDivider_Image` | `Title.Divider` | `ui_title_divider` | Simple |  | False |
+| `SellAll_Button.Image` | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+| `Close_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `SellRow_*.Image` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `SellRow_*/Sell_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+
+Acceptance criteria:
+* 出售面板打开时至少展示 1 条可出售物品行，包含图标、名称、来源、估值和 Sell 按钮。
+* SellAll_Button 和单行 Sell_Button 可点击，点击后金币和列表刷新。
+* 列表可滚动，行皮肤不阻挡按钮或 ScrollRect。
+* 物品图标按 item_*_icon contain 显示，不拉伸变形。
+* 关闭按钮返回工坊主界面，义体面板保持关闭。
 
 ### 义体制造界面
 
@@ -344,35 +475,126 @@ Interaction notes:
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
-| `prosthetic_modal` | center | 320,120 1280x840 | `Panel.Main`, `List.Row.Normal`, `List.Row.Selected`, `Button.Primary`, `Button.Secondary`, `Icon.Equipped` | 义体列表、材料需求和制造按钮主容器 |
+| `modal_backdrop` | full_screen | 0,0 1920x1080 |  | 隔离工坊底层的暗色遮罩 |
+| `prosthetic_card` | center | 380,150 1160x780 | `Panel.Main`, `Title.Divider`, `Button.Secondary` | 义体制造主面板 |
+| `prosthetic_header` | top_stretch | 420,180 1080x140 | `Title.Divider`, `Button.Secondary` | 标题、摘要和关闭按钮 |
+| `prosthetic_list` | center | 430,330 1060x560 | `Panel.Main`, `List.Row.Normal`, `List.Row.Selected`, `Button.Primary`, `Icon.Equipped` | 义体配方列表 |
 
 Layout changes:
-* 把义体列表和材料需求放入 Panel.Main。
+* WorkshopProstheticPanel_Runtime 保持全屏弹窗，ProstheticPanel_Card 作为主容器。
+* ProstheticList_Scroll 使用 Panel.Main 弱化底纹，Content 内每行使用 List.Row.Normal/Selected。
+* 已装备行使用 List.Row.Selected，并显示 Icon.Equipped。
 
 Data bindings:
+* 义体图标继续使用 VisualAssetService.ResolveProstheticIconID(prosthetic)。
 * 材料数量、可制造状态、已装备状态由程序控制。
+* Craft_Button 状态由 WorkshopSystem.CanAfford 和 equipped 状态决定。
 
 Interaction notes:
-* 已装备图标不阻挡列表行点击。
+* 已装备图标不阻挡列表行或按钮点击。
+* 关闭按钮使用 Button.Secondary。
+* 义体面板打开时出售面板应关闭。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `WorkshopUIController` | `prostheticPanel`, `prostheticHeaderText`, `prostheticSummaryText`, `prostheticListParent`, `closeProstheticPanelBtn`, `openProstheticPanelBtn` | EnsureProstheticPanel 创建 WorkshopProstheticPanel_Runtime 和 ProstheticPanel_Card。<br>prostheticListParent 对应 ProstheticList_Scroll/Viewport/Content。<br>已装备状态显示 Icon.Equipped，Craft_Button 不可交互。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `WorkshopProstheticPanel_Runtime` | Modal |  |  |  |  | True |
+| `WorkshopProstheticPanel_Runtime/ProstheticPanel_Card` | Modal | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/TitleDivider_Image` | Modal | `Title.Divider` | `ui_title_divider` | Simple |  | False |
+| `WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/Close_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/ProstheticList_Scroll` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/ProstheticList_Scroll/Viewport/Content/ProstheticRow_*` | Controls | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/ProstheticList_Scroll/Viewport/Content/ProstheticRow_*/EquippedIcon_Image` | Controls | `Icon.Equipped` | `ui_icon_equipped` | Simple | contain | False |
+| `WorkshopProstheticPanel_Runtime/ProstheticPanel_Card/ProstheticList_Scroll/Viewport/Content/ProstheticRow_*/Craft_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `ProstheticPanel_Card.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `ProstheticPanel_Card/TitleDivider_Image` | `Title.Divider` | `ui_title_divider` | Simple |  | False |
+| `Close_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `ProstheticRow_*.Image.normal` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `ProstheticRow_*.Image.equipped` | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | False |
+| `EquippedIcon_Image` | `Icon.Equipped` | `ui_icon_equipped` | Simple | contain | False |
+| `Craft_Button.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+
+Acceptance criteria:
+* 义体面板打开时至少展示 1 条义体配方行，包含图标、名称、槽位、材料需求和 Craft/Equipped 状态。
+* 已装备行使用选中态或已装备图标，Icon.Equipped 不阻挡点击。
+* 材料不足时 Craft_Button 不可交互但仍可读。
+* 列表可滚动，义体图标按 prosthetic_*_icon contain 显示。
+* 关闭按钮返回工坊主界面，出售面板保持关闭。
 
 ### 出发层选择界面
 
 * Goal: 复用主面板、列表行、锁定图标和按钮皮肤，承载可进入深渊层选择。
+* Background: `bg_layer_select`
 
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
-| `layer_select_modal` | center | 420,160 1080x760 | `Panel.Main`, `List.Row.Normal`, `List.Row.Selected`, `Button.Primary`, `Button.Secondary`, `Icon.Locked` | 层列表、锁定状态和出发确认主容器 |
+| `layer_select_background` | full_screen | 0,0 1920x1080 |  | 层选择背景 |
+| `layer_select_modal` | center | 480,180 960x720 | `Panel.Main`, `Title.Divider`, `Button.Primary`, `Button.Secondary` | 层列表、锁定状态和出发确认主容器 |
+| `layer_list` | center | 560,380 800x390 | `List.Row.Normal`, `List.Row.Selected`, `Icon.Locked` | 可进入层和锁定层列表 |
+| `layer_actions` | bottom_stretch | 520,820 880x90 | `Button.Primary`, `Button.Secondary` | 开始下潜和返回按钮 |
 
 Layout changes:
-* 把层选择列表放入 Panel.Main，锁定层显示 Icon.Locked。
+* DungeonStartLayerPanel_Runtime 使用 bg_layer_select 作为全屏背景。
+* DungeonStartLayer_Card 使用 ui_panel_main。
+* LayerList 行使用 ui_list_row_normal / ui_list_row_selected。
 
 Data bindings:
-* 解锁状态、层信息和确认按钮状态由程序控制。
+* 层名、解锁状态、已选择状态和确认按钮可交互由 DungeonStartLayerUIController 控制。
+* 锁定层显示 ui_icon_locked。
+* Confirm_Button 调用 Dungeon.StartRunAtLayer。
 
 Interaction notes:
 * 锁定图标不阻挡列表行点击。
+* 不可进入层的 Button.interactable=false。
+* 背景图和标题装饰不拦截按钮射线。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `WorkshopUIController` | `dungeonStartLayerPanel` | EnsureDungeonStartLayerPanel 创建 DungeonStartLayerPanel_Runtime。<br>LayerSelectBackground_Image 使用 bg_layer_select。<br>DungeonStartLayer_Card 使用 Panel.Main。 |
+| `DungeonStartLayerUIController` | `titleText`, `summaryText`, `listParent`, `confirmBtn`, `closeBtn`, `titleDividerImage` | listParent 对应 LayerList。<br>锁定层行显示 Icon.Locked。<br>confirmBtn 使用 Button.Primary；closeBtn 使用 Button.Secondary。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `DungeonStartLayerPanel_Runtime` | Modal |  |  |  |  | True |
+| `DungeonStartLayerPanel_Runtime/LayerSelectBackground_Image` | Background |  | `bg_layer_select` | Simple | cover | False |
+| `DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card` | Modal | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/TitleDivider_Image` | Modal | `Title.Divider` | `ui_title_divider` | Simple |  | False |
+| `DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/LayerList/DungeonStartLayer_*` | Controls | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | True |
+| `DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/LayerList/DungeonStartLayer_*/LockedIcon_Image` | Controls | `Icon.Locked` | `ui_icon_locked` | Simple | contain | False |
+| `DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/Confirm_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `DungeonStartLayerPanel_Runtime/DungeonStartLayer_Card/Close_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `LayerSelectBackground_Image` |  | `bg_layer_select` | Simple | cover | False |
+| `DungeonStartLayer_Card.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `DungeonStartLayerUIController.titleDividerImage` | `Title.Divider` | `ui_title_divider` | Simple |  | False |
+| `DungeonStartLayer row normal` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | True |
+| `DungeonStartLayer row selected` | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | True |
+| `LockedIcon_Image` | `Icon.Locked` | `ui_icon_locked` | Simple | contain | False |
+| `Confirm_Button.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `Close_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+
+Acceptance criteria:
+* 层选择界面背景使用 bg_layer_select，不再透出工坊杂乱背景。
+* 至少显示第 1 层和第 2 层行，锁定层显示 ui_icon_locked。
+* 选中行使用 ui_list_row_selected 或明显高亮，未选中行使用 ui_list_row_normal。
+* Confirm_Button 只在可进入层可交互，Close_Button 可返回工坊。
+* 锁定图标、标题装饰和背景不阻挡列表行或按钮点击。
 
 ## Known VisualID Sources
 
-* Known VisualID count: `63`
+* Known VisualID count: `66`
