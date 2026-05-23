@@ -30,12 +30,32 @@ update_rule: 调整复制智能体开工检查项、风险路径或提交前检�
 .\tools\agent\Invoke-AgentHealthCheck.ps1 -Strict
 ```
 
+背包表现与资产布局相关 Unity smoke test 使用：
+
+```powershell
+.\tools\agent\Invoke-UnitySmokeTests.ps1
+```
+
+运行前需要 Unity Editor 已打开当前项目，并由 `AutoTestDaemon` 监听 `UnityClient/Logs/.test_trigger`。
+
+默认会依次触发：
+
+- `InventoryDisplaySpecSmokeTest.Run`
+- `InventoryGridLayoutAssetValidatorTest.Run`
+
+也可以指定测试名：
+
+```powershell
+.\tools\agent\Invoke-UnitySmokeTests.ps1 -Tests InventoryDisplaySpecSmokeTest.Run
+```
+
 ## 当前检查项
 
 - Git 工作区是否已有暂存、未暂存或未跟踪文件。
 - 是否存在容易误提交的生成物、运行时副本、本地工具目录或 submodule 改动。
 - `tools/docs/Validate-Docs.ps1` 对应的知识库索引和双向关系是否通过校验。
 - 当前分支和 HEAD，方便复制智能体记录上下文。
+- 背包 DisplaySpec 与 GridLayoutGroup 资产布局 smoke test 可通过 `Invoke-UnitySmokeTests.ps1` 单独执行。
 
 ## 结果约定
 
