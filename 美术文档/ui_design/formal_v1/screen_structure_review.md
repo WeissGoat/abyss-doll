@@ -16,13 +16,16 @@ related:
   - 美术文档/ui_design/formal_v1/inventory_loot_v1.md
   - 美术文档/ui_design/formal_v1/layer_select_v1.md
   - 美术文档/ui_design/formal_v1/prosthetic_panel_v1.md
+  - 美术文档/ui_design/formal_v1/safe_room_v1.md
   - 美术文档/ui_design/formal_v1/sell_panel_v1.md
   - 美术文档/ui_design/formal_v1/settlement_v1.md
+  - 美术文档/ui_design/formal_v1/stairs_room_v1.md
   - 美术文档/ui_design/formal_v1/workshop_main_v1.md
   - 美术文档/ui_design/versions/README.md
   - 美术文档/ui_design/versions/formal_v1_candidate/README.md
   - 美术文档/09_运行时美术验收记录.md
   - 美术文档/10_正式版核心纵切美术路线.md
+  - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
 last_verified: 2026-05-24
 update_rule: 修改正式版 UI 结构、界面迁移顺序或程序接入口径时同步本文件。
 ---
@@ -77,7 +80,7 @@ Formal V1 不应直接删除 MVP 经验。MVP Baseline 作为可运行对照保�
 4. **文字不烘焙进图片。** 名称、价格、数值、按钮文案、说明继续由 Unity Text 渲染。
 5. **VisualID 稳定优先。** Formal V1 可以新增 VisualID，但已稳定的通用组件尽量复用，后续替换图片不改程序绑定。
 6. **先结构，后品质。** 第一轮可以继续用现有背景、立绘、怪物图、按钮皮肤；只要结构是正式版方向。
-7. **逐界面迁移。** 不一次性推翻 8 个界面。每个界面单独设计、接入、截图验收、推进状态。
+7. **逐界面迁移。** 不一次性推翻所有界面。每个界面单独设计、接入、截图验收、推进状态。
 
 ---
 
@@ -93,8 +96,10 @@ Formal V1 不应直接删除 MVP 经验。MVP Baseline 作为可运行对照保�
 | P1-C | `layer_select` | 已写入 active Formal V1：出发层列表、锁定状态、当前选择和确认下潜。 |
 | P1-D | `sell_panel` | 已写入 active Formal V1：仓库物品、单件出售、批量出售、估值和金币回流。 |
 | P1-E | `prosthetic_panel` | 已写入 active Formal V1：配方、材料缺口、可制造状态和已装备状态。 |
+| P1-F | `safe_room` | 已写入 active Formal V1：安全区休整、撤离/继续深入、背包整理和魔偶通讯。 |
+| P1-G | `stairs_room` | 已写入 active Formal V1：阶梯房间、下一层风险、撤离/深入决策和背包整理。 |
 
-P0 与 P1 当前均已进入 active `screen_layouts.json` 规格。后续程序接入不读取本目录草案，而是读取 active 规格、`ui_design_handoff.md` 和可接入素材清单。
+P0 与 P1 当前 10 个界面均已进入 active `screen_layouts.json` 规格。后续程序接入不读取本目录草案，而是读取 active 规格、`ui_design_handoff.md` 和可接入素材清单。
 
 ---
 
@@ -143,8 +148,8 @@ P0 与 P1 当前均已进入 active `screen_layouts.json` 规格。后续程序�
 
 ## 7. 当前结论
 
-1. P0 / P1 的 8 个界面均已进入 active Formal V1 规格。
+1. P0 / P1 的 10 个界面均已进入 active Formal V1 规格。
 2. `combat_hud` 已有第一批战斗实体和脚底阴影/目标光环入库，并已完成一次程序接入验证。
-3. `workshop_main`、`inventory_loot`、`dungeon_map`、`settlement`、`layer_select`、`sell_panel`、`prosthetic_panel` 当前重点是程序按 active 规格迁移后截图验收。
+3. `workshop_main`、`inventory_loot`、`dungeon_map`、`settlement`、`layer_select`、`sell_panel`、`prosthetic_panel`、`safe_room`、`stairs_room` 当前重点是程序按 active 规格迁移后截图验收。
 4. Formal V1 第一轮只保证正式结构、信息层级和资源槽位；后续 Visual V2/V3 再逐批替换更高品质素材、动画和 VFX。
 5. 每轮实际生成、预处理或 Approved 同步后，美术侧必须刷新 `美术文档/_generated/可接入素材清单.md/json` 并保留快照，程序侧按 `program_integrate` 队列自助接入。

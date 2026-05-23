@@ -18,6 +18,7 @@ related:
   - 设计文档/GDD_00_系统关联总图.md
   - agent_status/design.md
   - 美术文档/10_正式版核心纵切美术路线.md
+  - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 美术文档/ui_design/ui_iteration_process.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/README.md
@@ -36,7 +37,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 支撑正式版核心纵切。当前重点从 MVP UI 骨架验收转向 Formal V1 正式 UI 结构迭代：P0 / P1 已先迁移 active UI 规格，后续按界面进入程序接入、截图验收、素材质量升级和动效/VFX 迭代。
 
-PM 版本节点中，美术线当前已完成 `combat_hud` Formal V1 active 规格更新和第一批战斗资源入库；UI 程序侧已完成接入并通过 ArtAcceptance。当前 P0 / P1 八个界面都已具备 Formal V1 active 规格，程序侧可按 `ui_design_handoff.md` 分批接入。
+PM 版本节点中，美术线当前已完成 `combat_hud` Formal V1 active 规格更新和第一批战斗资源入库；UI 程序侧已完成接入并通过 ArtAcceptance。当前 P0 / P1 十个界面都已具备 Formal V1 active 规格，程序侧可按 `ui_design_handoff.md` 和 latest 可接入素材清单分批接入。
 
 ## 必读文件
 
@@ -86,19 +87,20 @@ PM 版本节点中，美术线当前已完成 `combat_hud` Formal V1 active 规�
 - 已扩展 Manifest 扫描与提示词生成：`MonsterEntity.CombatVisualID` 会扫出 `monster_*_combat` 透明战斗实体素材需求，并新增 `ui_combat_entity_shadow` / `ui_combat_target_ring`。
 - 已完成 `combat_hud` Formal V1 第一批战斗资源入库：`monster_mob_scavenger_bug_combat`、`monster_mob_acid_slime_combat`、`monster_elite_scrap_guard_combat`、`monster_elite_mutant_amalgam_combat`、`ui_combat_entity_shadow`、`ui_combat_target_ring`，并补齐 Unity `.meta`。
 - 已新增 `Scan-UIIterationCandidates.ps1`，可自动扫描 active UI 规格、Manifest、Approved 资源和最新 ArtAcceptance 输出，生成 UI 迭代候选报告。
-- 当前扫描报告显示：8 个 active UI 规格界面都有可看的旧截图，但最新 ArtAcceptance 为 2026-05-22，早于 2026-05-24 active 规格；`combat_hud` 还存在最新 registry / 验收未反映已入库新战斗素材的问题。
+- 当前扫描报告的旧截图早于 2026-05-24 active 规格；后续需要用最新 ArtAcceptance 逐屏覆盖当前 Formal V1 结构。
 - 已新增 `Generate-ArtIntegrationCandidates.ps1`，生成 `美术文档/_generated/可接入素材清单.md/json`；`Sync-ApprovedArt.ps1` 非 DryRun 同步后会默认刷新清单，程序侧可按 `program_integrate` 自助接入。
 - 已把可接入素材清单升级为 `latest + snapshot` 机制：`Run-ArtGeneration.ps1`、`Optimize-ArtAssets.ps1`、`Sync-ApprovedArt.ps1` 非 DryRun 后默认刷新 latest，并在 `美术文档/_generated/art_integration_snapshots/` 留一份阶段快照；新增 `art_process` 状态表示 raw 已生成但还需预处理。
 - UI 程序侧已接入 `combat_hud` Formal V1，并通过 ArtAcceptance `20260524_043441`：左玩家、右敌方实体、底部居中背包、敌人脚下血条和目标光环均已出现在运行时截图中，报告无 warnings / errors。
 - 已把 `workshop_main` / `inventory_loot` active 规格切到 Formal V1，并通过 `Validate-UIDesign.ps1`；程序交付摘要 `ui_design_handoff.md` 已重新生成。
-- 已把 P1 五个界面 `dungeon_map`、`settlement`、`layer_select`、`sell_panel`、`prosthetic_panel` 切到 Formal V1 active 规格，补齐对应结构文档和迁移记录；程序侧可按 active 规格分批接入。
+- 已把 P1 首批五个界面 `dungeon_map`、`settlement`、`layer_select`、`sell_panel`、`prosthetic_panel` 切到 Formal V1 active 规格，补齐对应结构文档和迁移记录；程序侧可按 active 规格分批接入。
+- 已把 A3 房间节点 `safe_room`、`stairs_room` 切到 Formal V1 active 规格，补齐结构文档、迁移记录和 `13_正式纵切UI与素材覆盖矩阵.md`；程序侧可按 active 规格分批接入。
 - 已明确美术侧生成交付协议：每轮生成、预处理或 Approved 同步后都维护 latest 可接入素材清单，并留下 snapshot，供程序侧按 `program_integrate` 自助接入。
-- 本轮已刷新 latest 可接入素材清单，并留档 `美术文档/_generated/art_integration_snapshots/20260524_063303_p1_formal_v1_active_repo_state.*`；当前清单显示 `program_integrate=6`、`acceptance_needed=65`、`generate_needed=0`。
+- 本轮已刷新 latest 可接入素材清单，并留档 `美术文档/_generated/art_integration_snapshots/20260524_065808_a3_rooms_formal_v1_active_repo_state.*`；当前清单显示 `program_integrate=6`、`acceptance_needed=65`、`generate_needed=0`。
 
 ## 下一步建议
 
 1. 基于 ArtAcceptance `20260524_043441` 最新截图验收 `combat_hud`：左玩家、右敌方实体、底部居中背包、敌人脚下血条、目标光环和敌方实体透明边缘。
-2. 等程序侧完成 P0 / P1 Formal V1 接入后，用 ArtAcceptance 逐屏验收结构、缺图、黑块、点击遮挡和列表有效数据。
+2. 等程序侧完成 P0 / P1 Formal V1 接入后，用 ArtAcceptance 逐屏验收结构、缺图、黑块、点击遮挡和列表有效数据，优先覆盖 `safe_room` / `stairs_room` 的不透明背景和背包拖拽。
 3. 执行 `Scan-UIIterationCandidates.ps1`，基于最新截图生成下一轮 UI 迭代候选。
 4. 若 latest 可接入素材清单出现 `generate_needed` 或 `art_process`，优先补素材生产链路；若出现 `program_integrate`，交给程序侧登记 Registry。
 5. 后续新增怪物时继续按 `CombatVisualID -> monster_*_combat -> Approved/Monsters/Combat` 流程补图。

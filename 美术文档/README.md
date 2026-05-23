@@ -11,19 +11,20 @@ related:
   - 开发文档/14_Unity运行时美术自动验收方案.md
   - 开发文档/09_视觉资源系统程序开发规范.md
   - 美术文档/10_正式版核心纵切美术路线.md
+  - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 美术文档/00_美术流水线总览.md
   - 美术文档/ui_design/README.md
   - agent_status/art.md
   - tools/美术工具/README.md
   - 知识库/views/art.md
-last_verified: 2026-05-23
+last_verified: 2026-05-24
 update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。
 ---
 
 # 美术文档索引
 
 > **定位：** Project P3 美术生产、AI 素材生成、资源接入与 Manifest 管理的入口。
-> **更新时间：** 2026-05-22
+> **更新时间：** 2026-05-24
 
 ## 推荐阅读顺序
 
@@ -43,14 +44,17 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 13. [08_Unity运行时美术验收工具需求.md](08_Unity运行时美术验收工具需求.md)：给程序侧实现运行时截图、UI 状态导出和美术接入验收的工具需求。
 14. [09_运行时美术验收记录.md](09_运行时美术验收记录.md)：记录 Unity 运行时截图验收结论、返修项和下一批补素材需求。
 15. [11_P0_UI骨架接入交付.md](11_P0_UI骨架接入交付.md)：P0 UI 骨架交给程序侧接入的本轮执行文档。
-16. [12_P1_UI骨架接入准备.md](12_P1_UI骨架接入准备.md)：P1 UI 骨架草案和后续接入准备。
-17. [art_requirements_seed.json](art_requirements_seed.json)：配置表无法扫出的 preset 资产种子，例如 UI 皮肤、背景、程序缺口反馈。
+16. [12_P1_UI骨架接入准备.md](12_P1_UI骨架接入准备.md)：P1 active Formal V1 UI 接入准备。
+17. [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md)：正式纵切 UI 覆盖、素材批次和未覆盖 UI 队列。
+18. [art_requirements_seed.json](art_requirements_seed.json)：配置表无法扫出的 preset 资产种子，例如 UI 皮肤、背景、程序缺口反馈。
 
 ## 机器生成文件
 
 * [_generated/art_manifest.json](_generated/art_manifest.json)：机器可读 Manifest。
 * [_generated/视觉资产Manifest.md](_generated/视觉资产Manifest.md)：脚本生成的 Manifest 摘要，方便快速查看。
 * [_generated/AI绘图提示词清单.md](_generated/AI绘图提示词清单.md)：脚本补全后的提示词清单，供出图和审阅。
+* [_generated/可接入素材清单.md](_generated/可接入素材清单.md)：当前可接入素材 latest，程序侧优先按其中 `program_integrate` 队列接入。
+* [_generated/art_integration_snapshots/](_generated/art_integration_snapshots/)：每次生成、预处理或 Approved 同步后的可接入素材清单快照。
 * [ui_design/_generated/ui_design_handoff.md](ui_design/_generated/ui_design_handoff.md)：UI 设计校验后生成的程序交付摘要。
 
 生成命令：
@@ -59,6 +63,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 .\tools\美术工具\Update-ArtManifest.ps1
 .\tools\美术工具\Generate-ArtPrompts.ps1
 .\tools\美术工具\Validate-UIDesign.ps1
+.\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag manual_review
 ```
 
 ## 外部契约

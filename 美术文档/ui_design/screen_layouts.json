@@ -2854,6 +2854,698 @@
       ],
       "StructureVersion": "FormalV1",
       "PreviousValidatedVersion": "mvp_baseline_2026-05-22"
+    },
+    {
+      "ScreenID": "safe_room",
+      "DisplayName": "深渊安全区界面",
+      "Priority": "P1",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "new_formal_v1",
+      "BackgroundVisualID": "bg_safe_room",
+      "PrimaryGoal": "把安全区从恢复提示升级为正式节奏节点：休整、整理背包、使用消耗品、撤离或继续深入都在同一个房间场景中清楚表达。",
+      "RequiredComponents": [
+        "Panel.Main",
+        "Panel.Info",
+        "Button.Primary",
+        "Button.Secondary",
+        "Button.Danger",
+        "Inventory.ChassisPanel",
+        "Inventory.Slot"
+      ],
+      "RequiredVisualIDs": [
+        "bg_safe_room",
+        "ui_panel_main",
+        "ui_panel_info",
+        "ui_button_primary",
+        "ui_button_secondary",
+        "ui_button_danger",
+        "ui_inventory_chassis_panel",
+        "ui_inventory_slot_available"
+      ],
+      "Zones": [
+        {
+          "ZoneID": "safe_room_background",
+          "Purpose": "安全区房间背景，cover 适配，必须完全不透明。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
+          "ComponentRefs": [],
+          "Notes": "背景表现喘息感和临时营地感，不烘焙按钮、数值或文字。"
+        },
+        {
+          "ZoneID": "rest_status_panel",
+          "Purpose": "恢复结果、当前 HP/SAN、背包压力和本轮探索摘要。",
+          "Anchor": "top_left",
+          "Rect": {
+            "X": 96,
+            "Y": 72,
+            "Width": 620,
+            "Height": 180
+          },
+          "ComponentRefs": [
+            "Panel.Info"
+          ],
+          "Notes": "文字由程序渲染；进入安全区后的免费恢复反馈在这里展示。"
+        },
+        {
+          "ZoneID": "room_action_panel",
+          "Purpose": "继续深入、撤离、整理背包、使用消耗品等核心操作。",
+          "Anchor": "left_middle",
+          "Rect": {
+            "X": 96,
+            "Y": 300,
+            "Width": 420,
+            "Height": 430
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Button.Primary",
+            "Button.Secondary",
+            "Button.Danger"
+          ],
+          "Notes": "Continue 是主行动；Extract 是高风险放弃深入；整理背包作为次级行动。"
+        },
+        {
+          "ZoneID": "safe_inventory_workbench",
+          "Purpose": "安全区背包整理与安全收纳提示区。",
+          "Anchor": "bottom_center",
+          "Rect": {
+            "X": 600,
+            "Y": 610,
+            "Width": 720,
+            "Height": 380
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Inventory.ChassisPanel",
+            "Inventory.Slot"
+          ],
+          "Notes": "继续复用全局背包对象；安全盒/安全收纳提示由程序文本叠加。"
+        },
+        {
+          "ZoneID": "doll_comm_panel",
+          "Purpose": "魔偶通讯、状态恢复、后续轻互动或维护入口。",
+          "Anchor": "right_middle",
+          "Rect": {
+            "X": 1340,
+            "Y": 190,
+            "Width": 430,
+            "Height": 560
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Button.Secondary"
+          ],
+          "Notes": "A3 先用于状态反馈和通讯提示，后续可扩展到人偶交互管理器。"
+        }
+      ],
+      "ProgramHandoff": {
+        "LayoutChanges": [
+          "新增 SafeRoomPanel_Runtime 或等价容器，作为深渊安全区的正式房间界面。",
+          "背景使用 bg_safe_room，所有交互控件在前景面板中实现。",
+          "背包整理区复用全局 GridContainer 和 InventoryItemLayer，不创建第二套背包数据。"
+        ],
+        "DataBindings": [
+          "HP/SAN 恢复结果、本轮战利品摘要、安全收纳容量和当前层信息由 Unity Text 渲染。",
+          "Continue / Extract / Organize / Use Item 按钮由深渊流程控制器绑定实际行为。",
+          "安全区允许使用消耗品、整理背包、撤离或继续深入，但不推进局外天数。"
+        ],
+        "InteractionNotes": [
+          "背景、状态面板、通讯面板和背包底板默认不拦截按钮或背包拖拽射线。",
+          "Continue 使用 Button.Primary；Organize / Use Item 使用 Button.Secondary；Extract 使用 Button.Danger。",
+          "背包格保持 100x100 与 5 间距。"
+        ]
+      },
+      "ControllerBindings": [
+        {
+          "Script": "DungeonFlowController / SafeRoomUIController",
+          "ExistingFields": [
+            "safeRoomPanel",
+            "continueBtn",
+            "extractBtn",
+            "openBackpackBtn",
+            "statusText",
+            "safeBoxText"
+          ],
+          "BindingNotes": [
+            "控制安全区界面显示、继续深入、撤离、背包整理和安全收纳提示。",
+            "如果当前代码尚未有 SafeRoomUIController，程序侧可先用 DungeonMap / GameFlow 流程入口挂接。"
+          ]
+        },
+        {
+          "Script": "GameFlowController",
+          "ExistingFields": [
+            "gridGenerator.gridParent",
+            "inventoryItemLayer"
+          ],
+          "BindingNotes": [
+            "GridContainer 和 InventoryItemLayer 锚到 safe_inventory_workbench。",
+            "不复制背包数据，只迁移显示容器。"
+          ]
+        }
+      ],
+      "UnityHierarchy": [
+        {
+          "Path": "SafeRoomPanel_Runtime/SafeRoomBackground_Image",
+          "Layer": "Background",
+          "VisualID": "bg_safe_room",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "SafeRoomPanel_Runtime/RestStatusPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "SafeRoomPanel_Runtime/RoomActionPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "SafeRoomPanel_Runtime/RoomActionPanel/Continue_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "SafeRoomPanel_Runtime/RoomActionPanel/Organize_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "SafeRoomPanel_Runtime/RoomActionPanel/UseItem_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "SafeRoomPanel_Runtime/RoomActionPanel/Extract_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "SafeRoomPanel_Runtime/SafeInventoryWorkbench/WorkbenchPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "SafeRoomPanel_Runtime/SafeInventoryWorkbench/ChassisFrame_Image",
+          "Layer": "InventoryOrCards",
+          "ComponentRef": "Inventory.ChassisPanel",
+          "VisualID": "ui_inventory_chassis_panel",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "InventoryCanvas/GridContainer",
+          "Layer": "InventoryOrCards",
+          "ComponentRef": "Inventory.Slot",
+          "VisualID": "ui_inventory_slot_available",
+          "ImageType": "Simple",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "InventoryCanvas/InventoryItemLayer",
+          "Layer": "InventoryOrCards",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "SafeRoomPanel_Runtime/DollCommPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "SafeRoomPanel_Runtime/DollCommPanel/CommAction_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "SpriteAssignments": [
+        {
+          "Target": "SafeRoomBackground_Image",
+          "VisualID": "bg_safe_room",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "RestStatusPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "RoomActionPanel.Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "Continue_Button.Image",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "Organize_Button.Image",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "UseItem_Button.Image",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "Extract_Button.Image",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "SafeInventoryWorkbench/WorkbenchPanel.Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SafeInventoryWorkbench/ChassisFrame_Image",
+          "ComponentRef": "Inventory.ChassisPanel",
+          "VisualID": "ui_inventory_chassis_panel",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "GridSlotUI.slotImage",
+          "ComponentRef": "Inventory.Slot",
+          "VisualID": "ui_inventory_slot_available",
+          "ImageType": "Simple",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "DollCommPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        }
+      ],
+      "InventoryLayerPolicy": {
+        "UsesGlobalInventory": true,
+        "GridCellSize": 100,
+        "GridSpacing": 5,
+        "TargetZone": "safe_inventory_workbench",
+        "GridSizeFormula": "width = columns * 100 + (columns - 1) * 5; height = rows * 100 + (rows - 1) * 5",
+        "Rules": [
+          "GridContainer 和 InventoryItemLayer 使用同一锚点与同一缩放策略。",
+          "安全区不复制背包数据，只临时重锚全局背包表现。",
+          "安全收纳容量由程序文本或后续安全盒组件表达，不把安全盒做成第二背包。"
+        ]
+      },
+      "AcceptanceCriteria": [
+        "安全区截图能明显区别于战斗/地图界面，背景使用 bg_safe_room 且无透明黑洞。",
+        "Continue、Extract、Organize/Use Item 操作层级清楚，撤离是危险操作。",
+        "背包格保持 100x100 与 5 间距，拖拽不被背景或面板阻挡。",
+        "HP/SAN 恢复、当前层、战利品摘要和安全收纳提示可读。",
+        "安全区不推进局外天数的规则不由 UI 文案烘焙，文本由程序渲染。"
+      ]
+    },
+    {
+      "ScreenID": "stairs_room",
+      "DisplayName": "深渊阶梯房间界面",
+      "Priority": "P1",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "new_formal_v1",
+      "BackgroundVisualID": "bg_stairs_room",
+      "PrimaryGoal": "把阶梯房间做成层间决策界面：进入下一层、撤离、查看下一层风险和整理背包之间的取舍清楚可读。",
+      "RequiredComponents": [
+        "Panel.Main",
+        "Panel.Info",
+        "Button.Primary",
+        "Button.Secondary",
+        "Button.Danger",
+        "Inventory.ChassisPanel",
+        "Inventory.Slot"
+      ],
+      "RequiredVisualIDs": [
+        "bg_stairs_room",
+        "ui_panel_main",
+        "ui_panel_info",
+        "ui_button_primary",
+        "ui_button_secondary",
+        "ui_button_danger",
+        "ui_inventory_chassis_panel",
+        "ui_inventory_slot_available"
+      ],
+      "Zones": [
+        {
+          "ZoneID": "stairs_room_background",
+          "Purpose": "阶梯/升降井房间背景，cover 适配，必须完全不透明。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
+          "ComponentRefs": [],
+          "Notes": "背景要明确“下一层入口”信号，但不烘焙按钮和文字。"
+        },
+        {
+          "ZoneID": "next_layer_briefing",
+          "Purpose": "下一层层级、风险、预期奖励、解锁状态和撤离后果。",
+          "Anchor": "top_left",
+          "Rect": {
+            "X": 96,
+            "Y": 72,
+            "Width": 680,
+            "Height": 220
+          },
+          "ComponentRefs": [
+            "Panel.Info"
+          ],
+          "Notes": "文字由程序渲染，可复用地图层信息。"
+        },
+        {
+          "ZoneID": "stairs_choice_panel",
+          "Purpose": "继续进入下一层、返回安全区/整理背包、撤离等关键选择。",
+          "Anchor": "left_middle",
+          "Rect": {
+            "X": 96,
+            "Y": 340,
+            "Width": 460,
+            "Height": 420
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Button.Primary",
+            "Button.Secondary",
+            "Button.Danger"
+          ],
+          "Notes": "Descend 是主行动；Extract 是危险/结束本轮行动。"
+        },
+        {
+          "ZoneID": "carry_risk_panel",
+          "Purpose": "当前背包重量、格外物品、重要战利品和损失风险提示。",
+          "Anchor": "right_top",
+          "Rect": {
+            "X": 1220,
+            "Y": 90,
+            "Width": 560,
+            "Height": 260
+          },
+          "ComponentRefs": [
+            "Panel.Info"
+          ],
+          "Notes": "提醒玩家继续深入的携带风险。"
+        },
+        {
+          "ZoneID": "stairs_inventory_workbench",
+          "Purpose": "进入下一层前的最后背包整理区。",
+          "Anchor": "bottom_center",
+          "Rect": {
+            "X": 600,
+            "Y": 610,
+            "Width": 720,
+            "Height": 380
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Inventory.ChassisPanel",
+            "Inventory.Slot"
+          ],
+          "Notes": "复用全局背包对象；格外物品处理与地图关闭背包规则保持一致。"
+        }
+      ],
+      "ProgramHandoff": {
+        "LayoutChanges": [
+          "新增 StairsRoomPanel_Runtime 或等价容器，作为通过 StairsNode 后的层间决策界面。",
+          "背景使用 bg_stairs_room，前景由下一层简报、选择面板、携带风险和背包整理区组成。",
+          "背包整理区复用全局 GridContainer 和 InventoryItemLayer。"
+        ],
+        "DataBindings": [
+          "下一层层级、风险摘要、预计敌人/奖励、当前带出价值、格外物品和撤离结果由 Unity Text 渲染。",
+          "Descend / Extract / Organize 按钮由深渊流程控制器绑定。",
+          "通过阶梯继续深入仍视为同一轮探索，保留本轮战利品账本。"
+        ],
+        "InteractionNotes": [
+          "背景、简报面板、风险面板和背包底板默认不拦截按钮或拖拽射线。",
+          "Descend 使用 Button.Primary；Organize 使用 Button.Secondary；Extract 使用 Button.Danger。",
+          "如果下一层未解锁或条件不足，Descend 使用 disabled runtime tint。"
+        ]
+      },
+      "ControllerBindings": [
+        {
+          "Script": "DungeonFlowController / StairsRoomUIController",
+          "ExistingFields": [
+            "stairsRoomPanel",
+            "descendBtn",
+            "extractBtn",
+            "organizeBtn",
+            "nextLayerText",
+            "carryRiskText"
+          ],
+          "BindingNotes": [
+            "控制阶梯房间显示、进入下一层、撤离和背包整理。",
+            "如果当前代码尚未有 StairsRoomUIController，程序侧可先用 DungeonMap / GameFlow 流程入口挂接。"
+          ]
+        },
+        {
+          "Script": "GameFlowController",
+          "ExistingFields": [
+            "gridGenerator.gridParent",
+            "inventoryItemLayer"
+          ],
+          "BindingNotes": [
+            "GridContainer 和 InventoryItemLayer 锚到 stairs_inventory_workbench。",
+            "格外物品处理沿用关闭背包/继续移动规则。"
+          ]
+        }
+      ],
+      "UnityHierarchy": [
+        {
+          "Path": "StairsRoomPanel_Runtime/StairsRoomBackground_Image",
+          "Layer": "Background",
+          "VisualID": "bg_stairs_room",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "StairsRoomPanel_Runtime/NextLayerBriefingPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "StairsRoomPanel_Runtime/StairsChoicePanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "StairsRoomPanel_Runtime/StairsChoicePanel/Descend_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "StairsRoomPanel_Runtime/StairsChoicePanel/Organize_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "StairsRoomPanel_Runtime/StairsChoicePanel/Extract_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "StairsRoomPanel_Runtime/CarryRiskPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "StairsRoomPanel_Runtime/StairsInventoryWorkbench/WorkbenchPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "StairsRoomPanel_Runtime/StairsInventoryWorkbench/ChassisFrame_Image",
+          "Layer": "InventoryOrCards",
+          "ComponentRef": "Inventory.ChassisPanel",
+          "VisualID": "ui_inventory_chassis_panel",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "InventoryCanvas/GridContainer",
+          "Layer": "InventoryOrCards",
+          "ComponentRef": "Inventory.Slot",
+          "VisualID": "ui_inventory_slot_available",
+          "ImageType": "Simple",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "InventoryCanvas/InventoryItemLayer",
+          "Layer": "InventoryOrCards",
+          "RaycastTarget": true
+        }
+      ],
+      "SpriteAssignments": [
+        {
+          "Target": "StairsRoomBackground_Image",
+          "VisualID": "bg_stairs_room",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "NextLayerBriefingPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "StairsChoicePanel.Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "Descend_Button.Image",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "Organize_Button.Image",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "Extract_Button.Image",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "CarryRiskPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "StairsInventoryWorkbench/WorkbenchPanel.Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "StairsInventoryWorkbench/ChassisFrame_Image",
+          "ComponentRef": "Inventory.ChassisPanel",
+          "VisualID": "ui_inventory_chassis_panel",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "GridSlotUI.slotImage",
+          "ComponentRef": "Inventory.Slot",
+          "VisualID": "ui_inventory_slot_available",
+          "ImageType": "Simple",
+          "RaycastTarget": true
+        }
+      ],
+      "InventoryLayerPolicy": {
+        "UsesGlobalInventory": true,
+        "GridCellSize": 100,
+        "GridSpacing": 5,
+        "TargetZone": "stairs_inventory_workbench",
+        "GridSizeFormula": "width = columns * 100 + (columns - 1) * 5; height = rows * 100 + (rows - 1) * 5",
+        "Rules": [
+          "GridContainer 和 InventoryItemLayer 使用同一锚点与同一缩放策略。",
+          "阶梯房间不复制背包数据，只临时重锚全局背包表现。",
+          "继续深入前的格外物品处理必须与深渊地图关闭背包规则一致。"
+        ]
+      },
+      "AcceptanceCriteria": [
+        "阶梯房间截图能明显表达“下一层入口”，背景使用 bg_stairs_room 且无透明黑洞。",
+        "Descend、Extract、Organize 操作层级清楚，进入下一层是主行动，撤离是结束本轮行动。",
+        "下一层风险、当前携带风险、格外物品和战利品价值提示可读。",
+        "背包格保持 100x100 与 5 间距，拖拽不被背景或面板阻挡。",
+        "继续深入不清空本轮探索账本的规则由程序状态保证，不烘焙进图片。"
+      ]
     }
   ]
 }

@@ -6,7 +6,7 @@
 
 * Reference resolution: `1920x1080`
 * Components: `26`
-* Screens: `8`
+* Screens: `10`
 
 ## Screens
 
@@ -20,20 +20,22 @@
 | `P1` | `sell_panel` | 工坊出售界面 | `active_spec` | 8 | 8 |
 | `P1` | `prosthetic_panel` | 义体制造界面 | `active_spec` | 7 | 7 |
 | `P1` | `layer_select` | 出发层选择界面 | `active_spec` | 7 | 8 |
+| `P1` | `safe_room` | 深渊安全区界面 | `active_spec` | 7 | 8 |
+| `P1` | `stairs_room` | 深渊阶梯房间界面 | `active_spec` | 7 | 8 |
 
 ## Components
 
 | Priority | ComponentID | VisualID | Resize | Screens |
 |---|---|---|---|---|
-| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `workshop_main` |
-| `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map` |
-| `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select` |
-| `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select` |
-| `P1` | `Button.Danger` | `ui_button_danger` | `nine_slice` | `inventory_loot`, `dungeon_map`, `sell_panel` |
+| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `workshop_main`, `safe_room`, `stairs_room` |
+| `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `safe_room`, `stairs_room` |
+| `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room` |
+| `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room` |
+| `P1` | `Button.Danger` | `ui_button_danger` | `nine_slice` | `inventory_loot`, `dungeon_map`, `sell_panel`, `safe_room`, `stairs_room` |
 | `P1` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement` |
 | `P1` | `List.Row.Selected` | `ui_list_row_selected` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select` |
-| `P1` | `Inventory.Slot` | `ui_inventory_slot_available`, `ui_inventory_slot_hover`, `ui_inventory_slot_invalid`, `ui_inventory_slot_locked`, `ui_inventory_slot_valid` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud` |
-| `P1` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud` |
+| `P1` | `Inventory.Slot` | `ui_inventory_slot_available`, `ui_inventory_slot_hover`, `ui_inventory_slot_invalid`, `ui_inventory_slot_locked`, `ui_inventory_slot_valid` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
+| `P1` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
 | `P1` | `Loot.PickupPanel` | `ui_loot_pickup_panel` | `nine_slice` | `inventory_loot` |
 | `P1` | `Loot.DropZone` | `ui_loot_drop_zone` | `fixed_or_sliced` | `inventory_loot` |
 | `P1` | `Combat.EnemyCard` | `ui_combat_enemy_card`, `ui_combat_enemy_card_selected` | `fixed` |  |
@@ -684,6 +686,171 @@ Acceptance criteria:
 * 选中行使用 ui_list_row_selected 或明显高亮，未选中行使用 ui_list_row_normal。
 * Confirm_Button 只在可进入层可交互，Close_Button 可返回工坊。
 * 锁定图标、标题装饰和背景不阻挡列表行或按钮点击。
+
+### 深渊安全区界面
+
+* Goal: 把安全区从恢复提示升级为正式节奏节点：休整、整理背包、使用消耗品、撤离或继续深入都在同一个房间场景中清楚表达。
+* Background: `bg_safe_room`
+
+Zones:
+| ZoneID | Anchor | Rect | Components | Purpose |
+|---|---|---|---|---|
+| `safe_room_background` | full_screen | 0,0 1920x1080 |  | 安全区房间背景，cover 适配，必须完全不透明。 |
+| `rest_status_panel` | top_left | 96,72 620x180 | `Panel.Info` | 恢复结果、当前 HP/SAN、背包压力和本轮探索摘要。 |
+| `room_action_panel` | left_middle | 96,300 420x430 | `Panel.Main`, `Button.Primary`, `Button.Secondary`, `Button.Danger` | 继续深入、撤离、整理背包、使用消耗品等核心操作。 |
+| `safe_inventory_workbench` | bottom_center | 600,610 720x380 | `Panel.Main`, `Inventory.ChassisPanel`, `Inventory.Slot` | 安全区背包整理与安全收纳提示区。 |
+| `doll_comm_panel` | right_middle | 1340,190 430x560 | `Panel.Info`, `Button.Secondary` | 魔偶通讯、状态恢复、后续轻互动或维护入口。 |
+
+Layout changes:
+* 新增 SafeRoomPanel_Runtime 或等价容器，作为深渊安全区的正式房间界面。
+* 背景使用 bg_safe_room，所有交互控件在前景面板中实现。
+* 背包整理区复用全局 GridContainer 和 InventoryItemLayer，不创建第二套背包数据。
+
+Data bindings:
+* HP/SAN 恢复结果、本轮战利品摘要、安全收纳容量和当前层信息由 Unity Text 渲染。
+* Continue / Extract / Organize / Use Item 按钮由深渊流程控制器绑定实际行为。
+* 安全区允许使用消耗品、整理背包、撤离或继续深入，但不推进局外天数。
+
+Interaction notes:
+* 背景、状态面板、通讯面板和背包底板默认不拦截按钮或背包拖拽射线。
+* Continue 使用 Button.Primary；Organize / Use Item 使用 Button.Secondary；Extract 使用 Button.Danger。
+* 背包格保持 100x100 与 5 间距。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `DungeonFlowController / SafeRoomUIController` | `safeRoomPanel`, `continueBtn`, `extractBtn`, `openBackpackBtn`, `statusText`, `safeBoxText` | 控制安全区界面显示、继续深入、撤离、背包整理和安全收纳提示。<br>如果当前代码尚未有 SafeRoomUIController，程序侧可先用 DungeonMap / GameFlow 流程入口挂接。 |
+| `GameFlowController` | `gridGenerator.gridParent`, `inventoryItemLayer` | GridContainer 和 InventoryItemLayer 锚到 safe_inventory_workbench。<br>不复制背包数据，只迁移显示容器。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `SafeRoomPanel_Runtime/SafeRoomBackground_Image` | Background |  | `bg_safe_room` | Simple | cover | False |
+| `SafeRoomPanel_Runtime/RestStatusPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `SafeRoomPanel_Runtime/RoomActionPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `SafeRoomPanel_Runtime/RoomActionPanel/Continue_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `SafeRoomPanel_Runtime/RoomActionPanel/Organize_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `SafeRoomPanel_Runtime/RoomActionPanel/UseItem_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `SafeRoomPanel_Runtime/RoomActionPanel/Extract_Button` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+| `SafeRoomPanel_Runtime/SafeInventoryWorkbench/WorkbenchPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `SafeRoomPanel_Runtime/SafeInventoryWorkbench/ChassisFrame_Image` | InventoryOrCards | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | Simple | stretch | False |
+| `InventoryCanvas/GridContainer` | InventoryOrCards | `Inventory.Slot` | `ui_inventory_slot_available` | Simple |  | True |
+| `InventoryCanvas/InventoryItemLayer` | InventoryOrCards |  |  |  |  | True |
+| `SafeRoomPanel_Runtime/DollCommPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `SafeRoomPanel_Runtime/DollCommPanel/CommAction_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `SafeRoomBackground_Image` |  | `bg_safe_room` | Simple | cover | False |
+| `RestStatusPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `RoomActionPanel.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `Continue_Button.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `Organize_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `UseItem_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `Extract_Button.Image` | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+| `SafeInventoryWorkbench/WorkbenchPanel.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `SafeInventoryWorkbench/ChassisFrame_Image` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | Simple | stretch | False |
+| `GridSlotUI.slotImage` | `Inventory.Slot` | `ui_inventory_slot_available` | Simple |  | True |
+| `DollCommPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+
+Inventory layer policy:
+* Uses global inventory: `True`
+* Target zone: `safe_inventory_workbench`
+* Cell size: `100`
+* Spacing: `5`
+* Grid size formula: `width = columns * 100 + (columns - 1) * 5; height = rows * 100 + (rows - 1) * 5`
+* GridContainer 和 InventoryItemLayer 使用同一锚点与同一缩放策略。
+* 安全区不复制背包数据，只临时重锚全局背包表现。
+* 安全收纳容量由程序文本或后续安全盒组件表达，不把安全盒做成第二背包。
+
+Acceptance criteria:
+* 安全区截图能明显区别于战斗/地图界面，背景使用 bg_safe_room 且无透明黑洞。
+* Continue、Extract、Organize/Use Item 操作层级清楚，撤离是危险操作。
+* 背包格保持 100x100 与 5 间距，拖拽不被背景或面板阻挡。
+* HP/SAN 恢复、当前层、战利品摘要和安全收纳提示可读。
+* 安全区不推进局外天数的规则不由 UI 文案烘焙，文本由程序渲染。
+
+### 深渊阶梯房间界面
+
+* Goal: 把阶梯房间做成层间决策界面：进入下一层、撤离、查看下一层风险和整理背包之间的取舍清楚可读。
+* Background: `bg_stairs_room`
+
+Zones:
+| ZoneID | Anchor | Rect | Components | Purpose |
+|---|---|---|---|---|
+| `stairs_room_background` | full_screen | 0,0 1920x1080 |  | 阶梯/升降井房间背景，cover 适配，必须完全不透明。 |
+| `next_layer_briefing` | top_left | 96,72 680x220 | `Panel.Info` | 下一层层级、风险、预期奖励、解锁状态和撤离后果。 |
+| `stairs_choice_panel` | left_middle | 96,340 460x420 | `Panel.Main`, `Button.Primary`, `Button.Secondary`, `Button.Danger` | 继续进入下一层、返回安全区/整理背包、撤离等关键选择。 |
+| `carry_risk_panel` | right_top | 1220,90 560x260 | `Panel.Info` | 当前背包重量、格外物品、重要战利品和损失风险提示。 |
+| `stairs_inventory_workbench` | bottom_center | 600,610 720x380 | `Panel.Main`, `Inventory.ChassisPanel`, `Inventory.Slot` | 进入下一层前的最后背包整理区。 |
+
+Layout changes:
+* 新增 StairsRoomPanel_Runtime 或等价容器，作为通过 StairsNode 后的层间决策界面。
+* 背景使用 bg_stairs_room，前景由下一层简报、选择面板、携带风险和背包整理区组成。
+* 背包整理区复用全局 GridContainer 和 InventoryItemLayer。
+
+Data bindings:
+* 下一层层级、风险摘要、预计敌人/奖励、当前带出价值、格外物品和撤离结果由 Unity Text 渲染。
+* Descend / Extract / Organize 按钮由深渊流程控制器绑定。
+* 通过阶梯继续深入仍视为同一轮探索，保留本轮战利品账本。
+
+Interaction notes:
+* 背景、简报面板、风险面板和背包底板默认不拦截按钮或拖拽射线。
+* Descend 使用 Button.Primary；Organize 使用 Button.Secondary；Extract 使用 Button.Danger。
+* 如果下一层未解锁或条件不足，Descend 使用 disabled runtime tint。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `DungeonFlowController / StairsRoomUIController` | `stairsRoomPanel`, `descendBtn`, `extractBtn`, `organizeBtn`, `nextLayerText`, `carryRiskText` | 控制阶梯房间显示、进入下一层、撤离和背包整理。<br>如果当前代码尚未有 StairsRoomUIController，程序侧可先用 DungeonMap / GameFlow 流程入口挂接。 |
+| `GameFlowController` | `gridGenerator.gridParent`, `inventoryItemLayer` | GridContainer 和 InventoryItemLayer 锚到 stairs_inventory_workbench。<br>格外物品处理沿用关闭背包/继续移动规则。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `StairsRoomPanel_Runtime/StairsRoomBackground_Image` | Background |  | `bg_stairs_room` | Simple | cover | False |
+| `StairsRoomPanel_Runtime/NextLayerBriefingPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `StairsRoomPanel_Runtime/StairsChoicePanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `StairsRoomPanel_Runtime/StairsChoicePanel/Descend_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `StairsRoomPanel_Runtime/StairsChoicePanel/Organize_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `StairsRoomPanel_Runtime/StairsChoicePanel/Extract_Button` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+| `StairsRoomPanel_Runtime/CarryRiskPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `StairsRoomPanel_Runtime/StairsInventoryWorkbench/WorkbenchPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `StairsRoomPanel_Runtime/StairsInventoryWorkbench/ChassisFrame_Image` | InventoryOrCards | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | Simple | stretch | False |
+| `InventoryCanvas/GridContainer` | InventoryOrCards | `Inventory.Slot` | `ui_inventory_slot_available` | Simple |  | True |
+| `InventoryCanvas/InventoryItemLayer` | InventoryOrCards |  |  |  |  | True |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `StairsRoomBackground_Image` |  | `bg_stairs_room` | Simple | cover | False |
+| `NextLayerBriefingPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `StairsChoicePanel.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `Descend_Button.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `Organize_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `Extract_Button.Image` | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+| `CarryRiskPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `StairsInventoryWorkbench/WorkbenchPanel.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `StairsInventoryWorkbench/ChassisFrame_Image` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | Simple | stretch | False |
+| `GridSlotUI.slotImage` | `Inventory.Slot` | `ui_inventory_slot_available` | Simple |  | True |
+
+Inventory layer policy:
+* Uses global inventory: `True`
+* Target zone: `stairs_inventory_workbench`
+* Cell size: `100`
+* Spacing: `5`
+* Grid size formula: `width = columns * 100 + (columns - 1) * 5; height = rows * 100 + (rows - 1) * 5`
+* GridContainer 和 InventoryItemLayer 使用同一锚点与同一缩放策略。
+* 阶梯房间不复制背包数据，只临时重锚全局背包表现。
+* 继续深入前的格外物品处理必须与深渊地图关闭背包规则一致。
+
+Acceptance criteria:
+* 阶梯房间截图能明显表达“下一层入口”，背景使用 bg_stairs_room 且无透明黑洞。
+* Descend、Extract、Organize 操作层级清楚，进入下一层是主行动，撤离是结束本轮行动。
+* 下一层风险、当前携带风险、格外物品和战利品价值提示可读。
+* 背包格保持 100x100 与 5 间距，拖拽不被背景或面板阻挡。
+* 继续深入不清空本轮探索账本的规则由程序状态保证，不烘焙进图片。
 
 ## Known VisualID Sources
 

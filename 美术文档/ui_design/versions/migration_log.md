@@ -45,6 +45,8 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 | `sell_panel` | `mvp_baseline_2026-05-22` | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：出售主卡、仓库列表、单件出售、批量出售和估值。 |
 | `prosthetic_panel` | `mvp_baseline_2026-05-22` | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：义体配方列表、材料缺口、制造按钮和已装备状态。 |
 | `layer_select` | `mvp_baseline_2026-05-22` | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：出发层列表、锁定层、当前选择和确认下潜。 |
+| `safe_room` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：安全区休整、撤离/继续深入、背包整理和魔偶通讯。 |
+| `stairs_room` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：阶梯房间、下一层风险、撤离/深入决策和背包整理。 |
 
 ---
 
@@ -93,4 +95,11 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 * `dungeon_map` 从节点按钮容器迁移为正式深渊路线地图结构，拆分 `layer_header`、`route_canvas`、`selected_node_detail` 和 `inventory_controls`。
 * `settlement` 从结果弹窗迁移为胜利/战败结算仪式结构，拆分 `result_card`、`result_header`、`summary_area`、`loot_breakdown` 和 `continue_action`。
 * `sell_panel`、`prosthetic_panel`、`layer_select` 从功能弹窗草案迁移为 active Formal V1 规格，并补齐对应正式结构文档。
+* `Validate-UIDesign.ps1` 已通过，并重新生成 `美术文档/ui_design/_generated/ui_design_handoff.md`。
+
+### 2026-05-24：A3 房间节点写入 Formal V1 active 规格
+
+* `safe_room` 作为深渊安全区界面进入 active 规格，拆分 `rest_status_panel`、`room_action_panel`、`safe_inventory_workbench` 和 `doll_comm_panel`。
+* `stairs_room` 作为阶梯房间界面进入 active 规格，拆分 `next_layer_briefing`、`stairs_choice_panel`、`carry_risk_panel` 和 `stairs_inventory_workbench`。
+* 两个房间界面都复用全局背包对象，保持背包格 `100x100` 与 `5` 间距，不创建第二套背包数据。
 * `Validate-UIDesign.ps1` 已通过，并重新生成 `美术文档/ui_design/_generated/ui_design_handoff.md`。

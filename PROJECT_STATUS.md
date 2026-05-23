@@ -92,6 +92,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 美术侧已把 `combat_hud` 写入 Formal V1 active 规格：底部居中背包、左玩家/右敌方实体舞台、敌人脚下血条，并扩展 Manifest 扫描 `CombatVisualID` 生成 `monster_*_combat` 战斗实体需求。
 - 美术侧已完成 `combat_hud` Formal V1 第一批战斗资源入库：4 个 `monster_*_combat` 透明战斗实体、`ui_combat_entity_shadow` 和 `ui_combat_target_ring`，并补齐 Unity `.meta`。
 - 美术侧已新增可接入素材清单：`美术文档/_generated/可接入素材清单.md/json`，后续每次生成或同步 Approved 素材后刷新，程序侧可按 `program_integrate` 队列自助接入。
+- 美术侧已将 A3 房间节点 `safe_room` / `stairs_room` 写入 Formal V1 active UI 规格，并刷新 `20260524_065808_a3_rooms_formal_v1_active_repo_state` 可接入素材快照；程序侧可按 active `screen_layouts.json` 分批接入。
 
 ## 跨职能交接
 

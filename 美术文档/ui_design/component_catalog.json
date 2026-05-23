@@ -16,7 +16,9 @@
         "prosthetic_panel",
         "sell_panel",
         "layer_select",
-        "workshop_main"
+        "workshop_main",
+        "safe_room",
+        "stairs_room"
       ],
       "ProgramUse": "用于大弹窗和主内容容器。Unity Image Type 使用 Sliced，不烘焙标题和正文。"
     },
@@ -34,7 +36,9 @@
         "workshop_main",
         "combat_hud",
         "inventory_loot",
-        "dungeon_map"
+        "dungeon_map",
+        "safe_room",
+        "stairs_room"
       ],
       "ProgramUse": "用于状态摘要、说明区和小块信息承托。"
     },
@@ -57,7 +61,9 @@
         "settlement",
         "sell_panel",
         "prosthetic_panel",
-        "layer_select"
+        "layer_select",
+        "safe_room",
+        "stairs_room"
       ],
       "ProgramUse": "用于出发、确认、继续等正向操作。文字由 Text 组件叠加。"
     },
@@ -80,7 +86,9 @@
         "dungeon_map",
         "sell_panel",
         "prosthetic_panel",
-        "layer_select"
+        "layer_select",
+        "safe_room",
+        "stairs_room"
       ],
       "ProgramUse": "用于返回、关闭、取消等次级操作。"
     },
@@ -99,7 +107,9 @@
       "RequiredForScreens": [
         "inventory_loot",
         "dungeon_map",
-        "sell_panel"
+        "sell_panel",
+        "safe_room",
+        "stairs_room"
       ],
       "ProgramUse": "用于丢弃、卖出、撤离等高风险操作。"
     },
@@ -162,7 +172,9 @@
       "RequiredForScreens": [
         "inventory_loot",
         "workshop_main",
-        "combat_hud"
+        "combat_hud",
+        "safe_room",
+        "stairs_room"
       ],
       "ProgramUse": "背包玩法格固定 100x100 参考尺寸，状态由 Sprite 切换或运行时 tint 叠加；格内物品图标按需要 contain。"
     },
@@ -179,7 +191,9 @@
       "RequiredForScreens": [
         "inventory_loot",
         "workshop_main",
-        "combat_hud"
+        "combat_hud",
+        "safe_room",
+        "stairs_room"
       ],
       "ProgramUse": "承托背包网格，位于格子层下方；chassis frame 可作为额外装饰层。"
     },
