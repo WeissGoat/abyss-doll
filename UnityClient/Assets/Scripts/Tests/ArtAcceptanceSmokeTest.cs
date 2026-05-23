@@ -152,7 +152,7 @@ public static class ArtAcceptanceSmokeTest {
             "ExpectedSlicedImageButTypeIsNotSliced",
             "ButtonMissingTargetGraphic",
             "ButtonMissingImageSprite",
-            "InventorySlotSizeNot100x100"
+            "InventorySlotSizeMismatch"
         };
 
         bool allPresent = true;

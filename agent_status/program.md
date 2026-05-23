@@ -69,16 +69,21 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - 项目结构整理时已移除旧的受跟踪 UI Toolkit 运行时资产。
 - PM 已将程序线纳入 `版本规划/10_正式版核心纵切版本节点规划.md`：A1 收边界，A2 做背包与战斗正式纵切，A3 承接深渊与局外成长。
 - Alpha 1A 背包交互继续收口：`DraggableItemUI` 已移除历史“失联物品自动修复”，点击使用不再由 UI 悄悄改写真实背包状态。
+- Alpha 1A 背包表现规格继续收口：新增 `InventoryDisplaySpec`，统一格子尺寸、间距、物品占格尺寸、拖拽偏移和各界面背包布局 profile。
+- `InventoryDisplaySpecSmokeTest` 已通过 Unity 自动测试守护执行，确认背包规格入口、布局 profile 和 GridLayoutGroup 应用结果一致。
+- 美术侧已交付 `combat_hud` Formal V1 active 规格：敌人从卡片迁移为右侧战斗实体，背包底部居中，敌人血条贴脚下。
 
 ## 下一步建议
 
 1. 按 A1 节点增加 `tools/agent` 启动与验证脚本，让复制智能体快速检查仓库健康状态。
-2. 继续推进 Alpha 1A 背包交互正式化：补 `InventoryDisplaySpec` / `InventoryLayoutProfile`，并增加旋转碰撞、死格、失败回滚、方向效果刷新的 smoke test。
-3. 增加配置校验工具，检查必填字段、唯一 ID、交叉引用和正式 UI 缺引用。
+2. 继续推进 Alpha 1A 背包交互正式化：把编辑器搭建脚本和更多背包 UI 初始化切到 `InventoryDisplaySpec`，并补 Unity smoke test 触发清单。
+3. 接入 `combat_hud` Formal V1 时以 active `screen_layouts.json` 为准，敌人实体优先读 `MonsterEntity.CombatVisualID`，缺图再临时 fallback 到 `PortraitID`。
+4. 增加配置校验工具，检查必填字段、唯一 ID、交叉引用和正式 UI 缺引用。
 
 ## 问题 / 阻塞
 
 - 当前工作区已有其他 agent / 用户留下的 Unity UI 脚本脏文件，编辑前需要先检查并避免覆盖无关改动。
+- `combat_hud` Formal V1 的 `monster_*_combat` 透明战斗实体素材尚未生成，程序接入阶段需要 fallback 或占位策略。
 - `tools/ai-image-gateway` 子模块内部有未提交改动。
 
 ## 完成回写清单

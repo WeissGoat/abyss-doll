@@ -16,9 +16,6 @@ public enum InventoryPresentationMode {
 public class InventoryPresentationController : MonoBehaviour {
     public static InventoryPresentationController Active { get; private set; }
 
-    private const float InventoryCellSize = 100f;
-    private const float InventoryCellSpacing = 5f;
-
     public event Action ItemPresentationChanged;
 
     [SerializeField] private GameObject itemPrefab;
@@ -259,9 +256,7 @@ public class InventoryPresentationController : MonoBehaviour {
 
         GridLayoutGroup layoutGroup = generator.gridParent.GetComponent<GridLayoutGroup>();
         if (layoutGroup != null) {
-            layoutGroup.cellSize = new Vector2(InventoryCellSize, InventoryCellSize);
-            layoutGroup.spacing = new Vector2(InventoryCellSpacing, InventoryCellSpacing);
-            layoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            InventoryDisplaySpec.ApplyGridLayout(layoutGroup);
         }
 
         RectTransform gridRect = generator.gridParent as RectTransform;
@@ -296,8 +291,9 @@ public class InventoryPresentationController : MonoBehaviour {
 
         BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
         Vector2 gridSize = ResolveInventoryGridSize(grid);
-        Vector2 position = ResolveInventoryAnchoredPosition();
-        float inventoryScale = ResolveInventoryScaleForCurrentScreen();
+        InventoryLayoutProfile profile = InventoryDisplaySpec.ResolveLayoutProfile(_mode);
+        Vector2 position = profile.AnchoredPosition;
+        float inventoryScale = profile.Scale;
 
         RectTransform gridRect = generator.gridParent as RectTransform;
         if (gridRect != null) {
@@ -325,37 +321,7 @@ public class InventoryPresentationController : MonoBehaviour {
     private Vector2 ResolveInventoryGridSize(BackpackGrid grid) {
         int width = Mathf.Max(1, grid?.Width ?? 4);
         int height = Mathf.Max(1, grid?.Height ?? 4);
-        return new Vector2(
-            width * InventoryCellSize + (width - 1) * InventoryCellSpacing,
-            height * InventoryCellSize + (height - 1) * InventoryCellSpacing);
-    }
-
-    private Vector2 ResolveInventoryAnchoredPosition() {
-        switch (_mode) {
-            case InventoryPresentationMode.Workshop:
-                return new Vector2(-120f, -290f);
-            case InventoryPresentationMode.Combat:
-                return new Vector2(620f, -240f);
-            case InventoryPresentationMode.CombatLoot:
-                return new Vector2(-380f, 0f);
-            case InventoryPresentationMode.SafeRoom:
-            case InventoryPresentationMode.Stairs:
-                return new Vector2(500f, -150f);
-            case InventoryPresentationMode.DungeonMap:
-                return new Vector2(0f, -250f);
-            default:
-                return Vector2.zero;
-        }
-    }
-
-    private float ResolveInventoryScaleForCurrentScreen() {
-        switch (_mode) {
-            case InventoryPresentationMode.SafeRoom:
-            case InventoryPresentationMode.Stairs:
-                return 0.78f;
-            default:
-                return 1f;
-        }
+        return InventoryDisplaySpec.ResolveGridSize(width, height);
     }
 
     private void EnsureInventoryChassisPanel(GridGenerator generator, Vector2 gridSize, Vector2 position) {
@@ -382,8 +348,8 @@ public class InventoryPresentationController : MonoBehaviour {
         panelRect.anchorMax = new Vector2(0.5f, 0.5f);
         panelRect.pivot = new Vector2(0.5f, 0.5f);
         panelRect.anchoredPosition = position;
-        panelRect.sizeDelta = gridSize + new Vector2(52f, 52f);
-        panelRect.localScale = Vector3.one * ResolveInventoryScaleForCurrentScreen();
+        panelRect.sizeDelta = InventoryDisplaySpec.ResolveChassisPanelSize(gridSize);
+        panelRect.localScale = Vector3.one * InventoryDisplaySpec.ResolveLayoutProfile(_mode).Scale;
 
         VisualUIHelper.ApplyContainSprite(
             _inventoryChassisPanel,

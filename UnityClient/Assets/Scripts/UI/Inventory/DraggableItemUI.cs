@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 // 挂载在物品预制体（如剑、药水）上
 public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerDownHandler, IPointerEnterHandler {
-    private const float CellSize = 100f;
     private const KeyCode RotateHeldItemKey = KeyCode.R;
 
     public ItemEntity ItemData { get; private set; }
@@ -148,8 +147,8 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             return;
         }
 
-        rect.sizeDelta = new Vector2(cols * CellSize, rows * CellSize);
-        rect.pivot = new Vector2(0.5f / cols, 1.0f - (0.5f / rows));
+        rect.sizeDelta = InventoryDisplaySpec.ResolveItemSize(cols, rows);
+        rect.pivot = InventoryDisplaySpec.ResolveItemPivot(cols, rows);
 
         Image iconImage = transform.Find("Icon_Image")?.GetComponent<Image>();
         if (iconImage != null) {
@@ -175,16 +174,9 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, screenPosition, eventCamera, out Vector2 localPoint);
-        int offsetX = Mathf.RoundToInt(localPoint.x / CellSize);
-        int offsetY = Mathf.RoundToInt(-localPoint.y / CellSize);
-
-        if (ItemData?.Grid != null && BackpackGrid.TryGetRotatedBounds(ItemData, ItemData.Grid.Rotation, out int cols, out int rows)) {
-            offsetX = Mathf.Clamp(offsetX, 0, cols - 1);
-            offsetY = Mathf.Clamp(offsetY, 0, rows - 1);
-        }
-
-        DragCellOffsetX = offsetX;
-        DragCellOffsetY = offsetY;
+        Vector2Int offset = InventoryDisplaySpec.ResolveDragCellOffset(localPoint, ItemData);
+        DragCellOffsetX = offset.x;
+        DragCellOffsetY = offset.y;
     }
 
     private void TryRotateHeldItem(Vector2 screenPosition, Camera eventCamera) {

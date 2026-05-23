@@ -1252,8 +1252,8 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         }
 
         GridSlotUI slot = rect.GetComponent<GridSlotUI>();
-        if (slot != null && (Mathf.Abs(rect.sizeDelta.x - 100f) > 0.1f || Mathf.Abs(rect.sizeDelta.y - 100f) > 0.1f)) {
-            risks.Add($"InventorySlotSizeNot100x100:{FormatVector2(rect.sizeDelta)}");
+        if (slot != null && (Mathf.Abs(rect.sizeDelta.x - InventoryDisplaySpec.CellSize) > 0.1f || Mathf.Abs(rect.sizeDelta.y - InventoryDisplaySpec.CellSize) > 0.1f)) {
+            risks.Add($"InventorySlotSizeMismatch:expected={InventoryDisplaySpec.CellSize}x{InventoryDisplaySpec.CellSize},actual={FormatVector2(rect.sizeDelta)}");
         }
 
         return risks;

@@ -432,7 +432,7 @@ UnityClient/Logs/ArtAcceptance/latest/ui_snapshot.json
 | `ExpectedSlicedImageButTypeIsNotSliced` | 需要 Sliced 的 P0 UI 使用了非 Sliced。 |
 | `ButtonMissingTargetGraphic` | Button 缺少 targetGraphic。 |
 | `ButtonMissingImageSprite` | Button 缺少 Image sprite。 |
-| `InventorySlotSizeNot100x100:*` | 背包格尺寸不是 `100x100`。 |
+| `InventorySlotSizeMismatch:*` | 背包格尺寸不符合程序侧 `InventoryDisplaySpec.CellSize`。 |
 
 ### 7.3 Sliced 判定口径
 
