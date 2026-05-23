@@ -15,6 +15,7 @@ related:
   - 美术文档/ui_design/README.md
   - agent_status/art.md
   - tools/美术工具/README.md
+  - 知识库/views/art.md
 last_verified: 2026-05-23
 update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。
 ---
@@ -26,6 +27,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 
 ## 推荐阅读顺序
 
+0. [../知识库/views/art.md](../知识库/views/art.md)：美术智能体开工导航，只做上下文路由。
 1. [10_正式版核心纵切美术路线.md](10_正式版核心纵切美术路线.md)：正式版核心纵切 Alpha 的美术/UI 路线，明确 UI 骨架按正式版设计、素材内容逐步迭代。
 2. [00_美术流水线总览.md](00_美术流水线总览.md)：整体流程、职责边界和当前 Alpha 优先级。
 3. [ui_design/README.md](ui_design/README.md)：UI 设计系统、组件目录、界面布局和程序交付校验。

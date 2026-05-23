@@ -13,6 +13,7 @@ related:
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/handoff_checklist.md
   - 美术文档/12_Alpha_P1_UI骨架接入准备.md
+  - 美术文档/ui_design/formal_v1/combat_hud_v1.md
 last_verified: 2026-05-23
 update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
 ---

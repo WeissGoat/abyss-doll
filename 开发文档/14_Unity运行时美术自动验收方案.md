@@ -14,6 +14,7 @@ related:
   - 美术文档/08_Unity运行时美术验收工具需求.md
   - 美术文档/09_运行时美术验收记录.md
   - agent_status/art.md
+  - 知识库/views/art.md
 last_verified: 2026-05-23
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---

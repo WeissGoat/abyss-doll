@@ -11,6 +11,9 @@ related:
   - agent_status/README.md
   - PROJECT_STATUS.md
   - 知识库/README.md
+  - 知识库/views/art.md
+  - 知识库/views/design.md
+  - 知识库/views/program.md
 last_verified: 2026-05-23
 update_rule: 修改智能体分工、开工流程或完成协议时同步本文件。
 ---
@@ -26,8 +29,12 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
    - 美术 / UI：`agent_status/art.md`
    - 策划 / 数值：`agent_status/design.md`
    - 程序 / Unity：`agent_status/program.md`
-3. `GEMINI.md` 是项目知识库和上下文路由。
-4. `版本规划/09_正式版核心纵切开发路线.md` 是当前顶层开发路线。
+3. 需要快速定位上下文时，读取对应职能视图：
+   - 美术 / UI：`知识库/views/art.md`
+   - 策划 / 数值：`知识库/views/design.md`
+   - 程序 / Unity：`知识库/views/program.md`
+4. `GEMINI.md` 是项目知识库和上下文路由。
+5. `版本规划/09_正式版核心纵切开发路线.md` 是当前顶层开发路线。
 
 如果旧 MVP 文档与当前 GDD、`09` 路线或状态页冲突，以当前 GDD、`09` 路线和状态页为准。
 
@@ -41,7 +48,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 | 程序智能体 | Unity 客户端、C# 架构、CoreBackend、UGUI、Validator、测试、编辑器自动化 | `开发文档/00_程序开发大纲.md`、`开发文档/00_客户端核心架构规范.md`、`开发文档/00_Unity表现层与编辑器构建规范.md`、`开发文档/12_程序开发优化建议与重构路线.md`、`开发文档/13_编程规范与架构约定.md` | `UnityClient/Assets/Scripts`、`UnityClient/Assets/Tests`、`UnityClient/Assets/Editor`、`开发文档/`、必要的配置同步和验证脚本 | `agent_status/program.md` |
 | UI 程序智能体 | UGUI 表现层、Prefab、VisualID 绑定、运行时美术验收 | UI 设计交付、视觉资源契约、表现层架构、当前 UI 代码 | `UnityClient/Assets/Scripts/UI`、`UnityClient/Assets/Prefabs`、必要的开发文档 | `agent_status/program.md`，有美术交接时同步 `agent_status/art.md` |
 | 策划智能体 | GDD 规则、经济循环、物品生命周期、深渊节奏、数值假设、配置意图 | `设计文档/GDD_00_系统关联总图.md`、`版本规划/09_正式版核心纵切开发路线.md`、`数值模型设计/00_基准价值与空间本位模型.md`、当前任务涉及的 `设计文档/GDD_*.md` 和配置 README | `设计文档/`、`数值模型设计/`、`配置表(JSON)/`、`版本规划/`、必要的策划状态和交接文档 | `agent_status/design.md` |
-| 知识库智能体 | 文档元数据、索引、校验脚本、知识库规范 | `知识库/README.md`、`DOCS_INDEX.md`、`docs_index.json`、核心入口文档 | `AGENTS.md`、`PROJECT_STATUS.md`、`知识库/`、`tools/docs/`、必要的文档元数据头 | `PROJECT_STATUS.md` |
+| 知识库智能体 | 文档元数据、索引、校验脚本、知识库规范、职能阅读入口 | `知识库/README.md`、`知识库/views/`、`DOCS_INDEX.md`、`docs_index.json`、核心入口文档 | `AGENTS.md`、`PROJECT_STATUS.md`、`知识库/`、`tools/docs/`、必要的文档元数据头 | `PROJECT_STATUS.md` |
 
 ## 职能路由
 
@@ -176,6 +183,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 ## 共享边界
 
 - `配置表(JSON)` 是源数据；`UnityClient/Assets/StreamingAssets/Configs` 是生成副本。
+- `UnityClient/Assets/StreamingAssets/Configs` 是 Unity 运行时读取副本，不作为事实来源、不手写维护、不纳入知识库索引。
 - `UnityClient/Assets/Art/Approved` 存放正式入库运行时美术资源。
 - `UnityClient/Assets/Art/_IncomingAI` 是 AI 出图工作区，应保持忽略。
 - `美术文档/_generated` 与 `美术文档/ui_design/_generated` 是脚本输出；除非任务明确要求修复生成物，否则应通过对应流水线更新。

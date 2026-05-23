@@ -28,6 +28,7 @@ related:
   - agent_status/design.md
   - 美术文档/10_正式版核心纵切美术路线.md
   - agent_status/art.md
+  - 知识库/views/design.md
 last_verified: 2026-05-23
 update_rule: 修改系统关系、资源流向、循环健康度或系统优先级时同步本文件。
 ---

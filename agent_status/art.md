@@ -18,6 +18,7 @@ related:
   - agent_status/design.md
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/README.md
+  - 知识库/views/art.md
 last_verified: 2026-05-23
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
@@ -34,6 +35,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 必读文件
 
+- `知识库/views/art.md`
 - `美术文档/README.md`
 - `美术文档/10_正式版核心纵切美术路线.md`
 - `美术文档/00_美术流水线总览.md`

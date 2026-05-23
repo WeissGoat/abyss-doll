@@ -19,6 +19,7 @@ related:
   - 美术文档/ui_design/handoff_checklist.md
   - 美术文档/11_Alpha_P0_UI骨架接入交付.md
   - 美术文档/12_Alpha_P1_UI骨架接入准备.md
+  - 知识库/views/program.md
 last_verified: 2026-05-23
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---

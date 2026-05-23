@@ -10,6 +10,7 @@ related:
   - 开发文档/00_程序开发大纲.md
   - 开发文档/00_自动化测试框架与流程指南.md
   - 配置表(JSON)/README.md
+  - 知识库/views/program.md
 last_verified: 2026-05-23
 update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
 ---
@@ -21,6 +22,8 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 ## Sync-Configs.ps1
 
 Copies all config JSON folders from the repository source directory into Unity `StreamingAssets`, which is ignored by Git and treated as a generated runtime copy.
+
+`配置表(JSON)` is the only versioned config source. Do not edit `UnityClient/Assets/StreamingAssets/Configs` by hand; clean and rebuild it from the source configs instead.
 
 ```powershell
 .\tools\config\Sync-Configs.ps1 -Clean

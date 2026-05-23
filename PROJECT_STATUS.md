@@ -13,6 +13,9 @@ related:
   - agent_status/program.md
   - agent_status/design.md
   - agent_status/art.md
+  - 知识库/views/art.md
+  - 知识库/views/design.md
+  - 知识库/views/program.md
 last_verified: 2026-05-23
 update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。
 ---
@@ -65,6 +68,8 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 知识库智能体已完成轻量知识库首版：元数据规范、核心文档元数据头、索引生成和校验脚本。
 - 已为当前索引内全部 Markdown 文档补齐元数据头，并重新生成 `DOCS_INDEX.md` 与 `docs_index.json`。
 - 已把文档 `related` 元数据升级为双向关系网，让美术、程序、策划、配置、数值和版本路线文档形成可校验互链。
+- 已新增 `知识库/views/art.md`、`知识库/views/design.md`、`知识库/views/program.md`，作为复制智能体按职能开工的阅读入口。
+- 已明确 `UnityClient/Assets/StreamingAssets/Configs` 是由 `配置表(JSON)` 同步生成的运行时副本，不作为知识库事实来源。
 
 ## 跨职能交接
 
@@ -73,6 +78,8 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 美术智能体刷新 Manifest 前应先同步配置，确保视觉需求跟随当前配置源。
 - 任意智能体修改系统规则时，必须更新对应 GDD 或开发文档，不能只改代码或配置。
 - 任意智能体新增或调整文档关联时，必须维护 `related` 双向互链，并运行 `.\tools\docs\Validate-Docs.ps1`。
+- 复制智能体需要快速定位上下文时，优先读取 `知识库/views/` 下对应职能入口，再进入事实来源文档。
+- 配置相关问题以 `配置表(JSON)` 为源；不要手写修改 `UnityClient/Assets/StreamingAssets/Configs` 运行时副本。
 
 ## 问题 / 阻塞
 

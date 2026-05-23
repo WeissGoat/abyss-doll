@@ -10,16 +10,19 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 576,
-    "relation_edges": 288,
-    "cross_role_edges": 96,
+    "directed_edges": 672,
+    "relation_edges": 336,
+    "cross_role_edges": 110,
     "role_pairs": {
       "全局 <-> 知识库": 3,
-      "全局 <-> 程序": 7,
-      "全局 <-> 策划": 5,
-      "全局 <-> 美术": 5,
-      "程序 <-> 策划": 47,
-      "程序 <-> 美术": 25,
+      "全局 <-> 程序": 9,
+      "全局 <-> 策划": 8,
+      "全局 <-> 美术": 7,
+      "知识库 <-> 程序": 1,
+      "知识库 <-> 策划": 1,
+      "知识库 <-> 美术": 1,
+      "程序 <-> 策划": 49,
+      "程序 <-> 美术": 27,
       "策划 <-> 美术": 4
     }
   },
@@ -44,13 +47,14 @@
         "设计文档/GDD_00_系统关联总图.md",
         "agent_status/design.md",
         "美术文档/10_正式版核心纵切美术路线.md",
-        "美术文档/README.md"
+        "美术文档/README.md",
+        "知识库/views/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "美术或 UI 视觉流水线任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 11,
+      "relation_count": 12,
       "cross_role_relation_count": 9
     },
     {
@@ -72,13 +76,14 @@
         "配置表(JSON)/README.md",
         "设计文档/GDD_00_系统关联总图.md",
         "美术文档/10_正式版核心纵切美术路线.md",
-        "agent_status/art.md"
+        "agent_status/art.md",
+        "知识库/views/design.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "策划、数值、GDD 或配置意图任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 10,
+      "relation_count": 11,
       "cross_role_relation_count": 7
     },
     {
@@ -100,13 +105,14 @@
         "设计文档/GDD_00_系统关联总图.md",
         "agent_status/design.md",
         "美术文档/10_正式版核心纵切美术路线.md",
-        "agent_status/art.md"
+        "agent_status/art.md",
+        "知识库/views/program.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "程序、Unity、验证或工程边界任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 10,
+      "relation_count": 11,
       "cross_role_relation_count": 7
     },
     {
@@ -144,14 +150,17 @@
         "GEMINI.md",
         "agent_status/README.md",
         "PROJECT_STATUS.md",
-        "知识库/README.md"
+        "知识库/README.md",
+        "知识库/views/art.md",
+        "知识库/views/design.md",
+        "知识库/views/program.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改智能体分工、开工流程或完成协议时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 4,
-      "cross_role_relation_count": 1
+      "relation_count": 7,
+      "cross_role_relation_count": 4
     },
     {
       "path": "DOCS_INDEX.md",
@@ -212,14 +221,17 @@
         "版本规划/09_正式版核心纵切开发路线.md",
         "agent_status/program.md",
         "agent_status/design.md",
-        "agent_status/art.md"
+        "agent_status/art.md",
+        "知识库/views/art.md",
+        "知识库/views/design.md",
+        "知识库/views/program.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 6,
-      "cross_role_relation_count": 3
+      "relation_count": 9,
+      "cross_role_relation_count": 6
     },
     {
       "path": "tools/config/README.md",
@@ -233,13 +245,14 @@
       "related": [
         "开发文档/00_程序开发大纲.md",
         "开发文档/00_自动化测试框架与流程指南.md",
-        "配置表(JSON)/README.md"
+        "配置表(JSON)/README.md",
+        "知识库/views/program.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应工具入口、参数或执行流程时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 3,
+      "relation_count": 4,
       "cross_role_relation_count": 1
     },
     {
@@ -288,13 +301,14 @@
         "美术文档/ui_design/README.md",
         "美术文档/ui_design/handoff_checklist.md",
         "美术文档/11_Alpha_P0_UI骨架接入交付.md",
-        "美术文档/12_Alpha_P1_UI骨架接入准备.md"
+        "美术文档/12_Alpha_P1_UI骨架接入准备.md",
+        "知识库/views/program.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 12,
+      "relation_count": 13,
       "cross_role_relation_count": 6
     },
     {
@@ -312,13 +326,14 @@
         "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
         "开发文档/00_程序开发大纲.md",
         "开发文档/00_Unity表现层与编辑器构建规范.md",
-        "agent_status/program.md"
+        "agent_status/program.md",
+        "知识库/views/program.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 6,
+      "relation_count": 7,
       "cross_role_relation_count": 0
     },
     {
@@ -345,14 +360,16 @@
         "设计文档/GDD_00_系统关联总图.md",
         "agent_status/design.md",
         "美术文档/10_正式版核心纵切美术路线.md",
-        "agent_status/art.md"
+        "agent_status/art.md",
+        "知识库/views/design.md",
+        "知识库/views/program.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "程序系统分类、开发口径或模块索引变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 15,
-      "cross_role_relation_count": 6
+      "relation_count": 17,
+      "cross_role_relation_count": 7
     },
     {
       "path": "开发文档/00_自动化测试框架与流程指南.md",
@@ -549,14 +566,15 @@
         "美术文档/ui_design/README.md",
         "美术文档/08_Unity运行时美术验收工具需求.md",
         "美术文档/09_运行时美术验收记录.md",
-        "agent_status/art.md"
+        "agent_status/art.md",
+        "知识库/views/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 8,
-      "cross_role_relation_count": 6
+      "relation_count": 9,
+      "cross_role_relation_count": 7
     },
     {
       "path": "开发文档/10_奖励与掉落系统(RewardSystem).md",
@@ -644,13 +662,14 @@
         "开发文档/14_Unity运行时美术自动验收方案.md",
         "开发文档/00_自动化测试框架与流程指南.md",
         "开发文档/00_Unity表现层与编辑器构建规范.md",
-        "agent_status/program.md"
+        "agent_status/program.md",
+        "知识库/views/program.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 10,
+      "relation_count": 11,
       "cross_role_relation_count": 0
     },
     {
@@ -669,14 +688,15 @@
         "美术文档/README.md",
         "美术文档/08_Unity运行时美术验收工具需求.md",
         "美术文档/09_运行时美术验收记录.md",
-        "agent_status/art.md"
+        "agent_status/art.md",
+        "知识库/views/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 7,
-      "cross_role_relation_count": 4
+      "relation_count": 8,
+      "cross_role_relation_count": 5
     },
     {
       "path": "开发文档/数据与实体定义/01_全局与玩家实体.md",
@@ -818,13 +838,14 @@
         "设计文档/GDD_00_系统关联总图.md",
         "版本规划/03_mvp数值要求.md",
         "版本规划/05_MVP需要补充的配置调整.md",
-        "agent_status/design.md"
+        "agent_status/design.md",
+        "知识库/views/design.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改数值假设、公式、产出期望或经济模型时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 14,
+      "relation_count": 15,
       "cross_role_relation_count": 2
     },
     {
@@ -1102,14 +1123,15 @@
         "设计文档/GDD_00_系统关联总图.md",
         "agent_status/design.md",
         "美术文档/10_正式版核心纵切美术路线.md",
-        "agent_status/art.md"
+        "agent_status/art.md",
+        "知识库/views/design.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "正式版 Alpha 阶段目标、优先级或里程碑变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 8,
-      "cross_role_relation_count": 6
+      "relation_count": 9,
+      "cross_role_relation_count": 7
     },
     {
       "path": "知识库/README.md",
@@ -1123,14 +1145,100 @@
       "related": [
         "AGENTS.md",
         "GEMINI.md",
-        "DOCS_INDEX.md"
+        "DOCS_INDEX.md",
+        "知识库/views/art.md",
+        "知识库/views/design.md",
+        "知识库/views/program.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "调整元数据字段、索引策略或文档治理规则时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 3,
-      "cross_role_relation_count": 3
+      "relation_count": 6,
+      "cross_role_relation_count": 6
+    },
+    {
+      "path": "知识库/views/art.md",
+      "title": "美术智能体阅读入口",
+      "id": "kb_view_art",
+      "type": "view",
+      "role": "美术",
+      "domain": "agent_context_view",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md",
+        "agent_status/art.md",
+        "知识库/README.md",
+        "美术文档/README.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "美术文档/00_美术流水线总览.md",
+        "美术文档/ui_design/README.md",
+        "开发文档/09_视觉资源系统程序开发规范.md",
+        "开发文档/14_Unity运行时美术自动验收方案.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "美术入口文档、流水线、UI 交付或程序侧视觉契约变化时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 10,
+      "cross_role_relation_count": 5
+    },
+    {
+      "path": "知识库/views/design.md",
+      "title": "策划智能体阅读入口",
+      "id": "kb_view_design",
+      "type": "view",
+      "role": "策划",
+      "domain": "agent_context_view",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md",
+        "agent_status/design.md",
+        "知识库/README.md",
+        "设计文档/GDD_00_系统关联总图.md",
+        "版本规划/09_正式版核心纵切开发路线.md",
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/README.md",
+        "开发文档/00_程序开发大纲.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "策划入口文档、GDD、配置源、数值模型或路线变化时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 9,
+      "cross_role_relation_count": 5
+    },
+    {
+      "path": "知识库/views/program.md",
+      "title": "程序智能体阅读入口",
+      "id": "kb_view_program",
+      "type": "view",
+      "role": "程序",
+      "domain": "agent_context_view",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md",
+        "agent_status/program.md",
+        "知识库/README.md",
+        "开发文档/00_程序开发大纲.md",
+        "开发文档/00_客户端核心架构规范.md",
+        "开发文档/00_Unity表现层与编辑器构建规范.md",
+        "开发文档/13_编程规范与架构约定.md",
+        "tools/config/README.md",
+        "配置表(JSON)/README.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "程序入口文档、Unity 工程边界、配置同步或验证流程变化时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 10,
+      "cross_role_relation_count": 4
     },
     {
       "path": "美术文档/00_美术流水线总览.md",
@@ -1148,13 +1256,14 @@
         "美术文档/01_Manifest规范.md",
         "美术文档/README.md",
         "美术文档/04_美术风格基准.md",
-        "tools/美术工具/README.md"
+        "tools/美术工具/README.md",
+        "知识库/views/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 7,
+      "relation_count": 8,
       "cross_role_relation_count": 0
     },
     {
@@ -1353,13 +1462,15 @@
       "related": [
         "开发文档/14_Unity运行时美术自动验收方案.md",
         "开发文档/09_视觉资源系统程序开发规范.md",
-        "美术文档/08_Unity运行时美术验收工具需求.md"
+        "美术文档/08_Unity运行时美术验收工具需求.md",
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/versions/mvp_baseline_2026-05-22/README.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 3,
+      "relation_count": 5,
       "cross_role_relation_count": 2
     },
     {
@@ -1384,13 +1495,15 @@
         "美术文档/ui_design/handoff_checklist.md",
         "美术文档/11_Alpha_P0_UI骨架接入交付.md",
         "美术文档/12_Alpha_P1_UI骨架接入准备.md",
-        "agent_status/art.md"
+        "agent_status/art.md",
+        "知识库/views/art.md",
+        "美术文档/ui_design/formal_v1/screen_structure_review.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 13,
+      "relation_count": 15,
       "cross_role_relation_count": 7
     },
     {
@@ -1408,13 +1521,14 @@
         "美术文档/10_正式版核心纵切美术路线.md",
         "美术文档/ui_design/README.md",
         "美术文档/ui_design/handoff_checklist.md",
-        "美术文档/12_Alpha_P1_UI骨架接入准备.md"
+        "美术文档/12_Alpha_P1_UI骨架接入准备.md",
+        "美术文档/ui_design/formal_v1/combat_hud_v1.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 6,
+      "relation_count": 7,
       "cross_role_relation_count": 2
     },
     {
@@ -1458,14 +1572,139 @@
         "美术文档/00_美术流水线总览.md",
         "美术文档/ui_design/README.md",
         "agent_status/art.md",
-        "tools/美术工具/README.md"
+        "tools/美术工具/README.md",
+        "知识库/views/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 8,
+      "relation_count": 9,
       "cross_role_relation_count": 3
+    },
+    {
+      "path": "美术文档/ui_design/formal_v1/combat_hud_v1.md",
+      "title": "战斗界面 Formal V1",
+      "id": "art_ui_formal_v1_combat_hud",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": true,
+      "related": [
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/11_Alpha_P0_UI骨架接入交付.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改战斗界面正式结构、敌我站位、背包交互区或程序迁移要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 2,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v1/dungeon_map_v1.md",
+      "title": "深渊地图界面 Formal V1",
+      "id": "art_ui_formal_v1_dungeon_map",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": true,
+      "related": [
+        "美术文档/ui_design/formal_v1/screen_structure_review.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改深渊地图正式结构或程序迁移要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 1,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v1/inventory_loot_v1.md",
+      "title": "战利品拾取界面 Formal V1",
+      "id": "art_ui_formal_v1_inventory_loot",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": true,
+      "related": [
+        "美术文档/ui_design/formal_v1/screen_structure_review.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改战利品拾取正式结构或程序迁移要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 1,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v1/screen_structure_review.md",
+      "title": "正式版 UI 结构 V1 总览",
+      "id": "art_ui_formal_v1_structure_review",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": true,
+      "related": [
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/formal_v1/combat_hud_v1.md",
+        "美术文档/ui_design/formal_v1/dungeon_map_v1.md",
+        "美术文档/ui_design/formal_v1/inventory_loot_v1.md",
+        "美术文档/ui_design/formal_v1/settlement_v1.md",
+        "美术文档/ui_design/formal_v1/workshop_main_v1.md",
+        "美术文档/ui_design/versions/README.md",
+        "美术文档/ui_design/versions/formal_v1_candidate/README.md",
+        "美术文档/09_运行时美术验收记录.md",
+        "美术文档/10_正式版核心纵切美术路线.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改正式版 UI 结构、界面迁移顺序或程序接入口径时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 10,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v1/settlement_v1.md",
+      "title": "结算界面 Formal V1",
+      "id": "art_ui_formal_v1_settlement",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": true,
+      "related": [
+        "美术文档/ui_design/formal_v1/screen_structure_review.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改结算界面正式结构或程序迁移要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 1,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v1/workshop_main_v1.md",
+      "title": "工坊主界面 Formal V1",
+      "id": "art_ui_formal_v1_workshop_main",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": true,
+      "related": [
+        "美术文档/ui_design/formal_v1/screen_structure_review.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改工坊主界面正式结构或程序迁移要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 1,
+      "cross_role_relation_count": 0
     },
     {
       "path": "美术文档/ui_design/handoff_checklist.md",
@@ -1508,15 +1747,106 @@
         "美术文档/02_资源规格与接入规范.md",
         "美术文档/README.md",
         "美术文档/ui_design/handoff_checklist.md",
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/versions/README.md",
+        "美术文档/ui_design/versions/migration_log.md",
         "美术文档/11_Alpha_P0_UI骨架接入交付.md",
-        "美术文档/12_Alpha_P1_UI骨架接入准备.md"
+        "美术文档/12_Alpha_P1_UI骨架接入准备.md",
+        "知识库/views/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 9,
+      "relation_count": 13,
       "cross_role_relation_count": 3
+    },
+    {
+      "path": "美术文档/ui_design/versions/formal_v1_candidate/README.md",
+      "title": "Formal V1 Candidate",
+      "id": "art_ui_formal_v1_candidate",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/versions/README.md",
+        "美术文档/ui_design/versions/migration_log.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "Formal V1 候选规格变更时同步本文件和 migration_log。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/versions/migration_log.md",
+      "title": "UI 设计版本迁移记录",
+      "id": "art_ui_migration_log",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/versions/README.md",
+        "美术文档/ui_design/versions/mvp_baseline_2026-05-22/README.md",
+        "美术文档/ui_design/versions/formal_v1_candidate/README.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "每次 UI 设计版本冻结、候选版本合并、程序接入或运行时验收后同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 4,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/versions/mvp_baseline_2026-05-22/README.md",
+      "title": "MVP UI Baseline 2026-05-22",
+      "id": "art_ui_mvp_baseline_2026_05_22",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "frozen",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/09_运行时美术验收记录.md",
+        "美术文档/ui_design/versions/README.md",
+        "美术文档/ui_design/versions/migration_log.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "baseline 为冻结快照，不修改规格文件；如需说明，只追加本文 notes。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/versions/README.md",
+      "title": "UI 设计版本管理",
+      "id": "art_ui_versions_readme",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/versions/migration_log.md",
+        "美术文档/ui_design/versions/formal_v1_candidate/README.md",
+        "美术文档/ui_design/versions/mvp_baseline_2026-05-22/README.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "新增 UI 设计版本、冻结基线或合并候选版本时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 5,
+      "cross_role_relation_count": 0
     },
     {
       "path": "设计文档/GDD_00_系统关联总图.md",
@@ -1548,13 +1878,14 @@
         "设计文档/GDD_04_小镇循环与经济物价波浪模型.md",
         "agent_status/design.md",
         "美术文档/10_正式版核心纵切美术路线.md",
-        "agent_status/art.md"
+        "agent_status/art.md",
+        "知识库/views/design.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改系统关系、资源流向、循环健康度或系统优先级时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 21,
+      "relation_count": 22,
       "cross_role_relation_count": 6
     },
     {
@@ -2093,14 +2424,16 @@
         "设计文档/GDD_00_系统关联总图.md",
         "版本规划/03_mvp数值要求.md",
         "版本规划/05_MVP需要补充的配置调整.md",
-        "agent_status/design.md"
+        "agent_status/design.md",
+        "知识库/views/design.md",
+        "知识库/views/program.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 16,
-      "cross_role_relation_count": 2
+      "relation_count": 18,
+      "cross_role_relation_count": 3
     },
     {
       "path": "配置表(JSON)/Rewards/README.md",

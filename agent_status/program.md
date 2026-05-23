@@ -17,6 +17,7 @@ related:
   - agent_status/design.md
   - 美术文档/10_正式版核心纵切美术路线.md
   - agent_status/art.md
+  - 知识库/views/program.md
 last_verified: 2026-05-23
 update_rule: 程序、Unity、验证或工程边界任务完成后更新本文件。
 ---
@@ -33,6 +34,7 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 ## 必读文件
 
+- `知识库/views/program.md`
 - `开发文档/00_程序开发大纲.md`
 - `开发文档/00_客户端核心架构规范.md`
 - `开发文档/00_Unity表现层与编辑器构建规范.md`
