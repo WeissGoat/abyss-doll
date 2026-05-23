@@ -17,6 +17,7 @@ related:
   - 知识库/views/design.md
   - 知识库/views/program.md
   - tools/agent/README.md
+  - 版本规划/10_正式版核心纵切版本节点规划.md
 last_verified: 2026-05-24
 update_rule: 修改智能体分工、开工流程或完成协议时同步本文件。
 ---
@@ -40,6 +41,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
    - 程序 / Unity：`知识库/views/program.md`
 4. `GEMINI.md` 是项目知识库和上下文路由。
 5. `版本规划/09_正式版核心纵切开发路线.md` 是当前顶层开发路线。
+6. `版本规划/10_正式版核心纵切版本节点规划.md` 是 PM 执行层版本节点规划。
 
 如果旧 MVP 文档与当前 GDD、`09` 路线或状态页冲突，以当前 GDD、`09` 路线和状态页为准。
 
@@ -63,7 +65,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 
 | 角色 | 工作范围 | 需要关注的文件 | 需要修改的文件 | 完成后回写 |
 |---|---|---|---|---|
-| PM / 版本规划智能体 | 版本路线、阶段判断、里程碑拆分、优先级排序、跨职能交接、完成标准和状态同步 | `PROJECT_STATUS.md`、`版本规划/09_正式版核心纵切开发路线.md`、`agent_status/pm.md`、三职能状态页、当前系统事实来源 | `版本规划/`、`PROJECT_STATUS.md`、`agent_status/pm.md`、必要的职能状态和交接文档 | `agent_status/pm.md`，影响项目阶段或交接时同步 `PROJECT_STATUS.md` |
+| PM / 版本规划智能体 | 版本路线、阶段判断、里程碑拆分、优先级排序、跨职能交接、完成标准和状态同步 | `PROJECT_STATUS.md`、`版本规划/09_正式版核心纵切开发路线.md`、`版本规划/10_正式版核心纵切版本节点规划.md`、`agent_status/pm.md`、三职能状态页、当前系统事实来源 | `版本规划/`、`PROJECT_STATUS.md`、`agent_status/pm.md`、必要的职能状态和交接文档 | `agent_status/pm.md`，影响项目阶段或交接时同步 `PROJECT_STATUS.md` |
 | 美术智能体 | 视觉流水线、Manifest、AI 素材筛选、正式资源入库、UI 结构版本迭代、UI 视觉交付、运行时美术验收 | `美术文档/README.md`、`美术文档/00_美术流水线总览.md`、`美术文档/10_正式版核心纵切美术路线.md`、`美术文档/ui_design/README.md`、`美术文档/ui_design/ui_iteration_process.md`、`美术文档/ui_design/formal_v1/screen_structure_review.md`、`开发文档/09_视觉资源系统程序开发规范.md` | `美术文档/`、`美术文档/ui_design/`、`UnityClient/Assets/Art/Approved`、必要的美术状态和交接文档 | `agent_status/art.md` |
 | 程序智能体 | Unity 客户端、C# 架构、CoreBackend、UGUI、Validator、测试、编辑器自动化 | `开发文档/00_程序开发大纲.md`、`开发文档/00_客户端核心架构规范.md`、`开发文档/00_Unity表现层与编辑器构建规范.md`、`开发文档/12_程序开发优化建议与重构路线.md`、`开发文档/13_编程规范与架构约定.md` | `UnityClient/Assets/Scripts`、`UnityClient/Assets/Tests`、`UnityClient/Assets/Editor`、`开发文档/`、必要的配置同步和验证脚本 | `agent_status/program.md` |
 | UI 程序智能体 | UGUI 表现层、Prefab、VisualID 绑定、运行时美术验收 | UI 设计交付、视觉资源契约、表现层架构、当前 UI 代码 | `UnityClient/Assets/Scripts/UI`、`UnityClient/Assets/Prefabs`、必要的开发文档 | `agent_status/program.md`，有美术交接时同步 `agent_status/art.md` |
@@ -85,6 +87,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 - `agent_status/pm.md`
 - `PROJECT_STATUS.md`
 - `版本规划/09_正式版核心纵切开发路线.md`
+- `版本规划/10_正式版核心纵切版本节点规划.md`
 - `agent_status/design.md`
 - `agent_status/program.md`
 - `agent_status/art.md`

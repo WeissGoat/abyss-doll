@@ -8,6 +8,7 @@ status: active
 source_of_truth: true
 related:
   - 版本规划/09_正式版核心纵切开发路线.md
+  - 版本规划/10_正式版核心纵切版本节点规划.md
   - agent_status/README.md
   - PROJECT_STATUS.md
   - 开发文档/00_程序开发大纲.md
@@ -21,7 +22,7 @@ related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/README.md
   - 知识库/views/art.md
-last_verified: 2026-05-23
+last_verified: 2026-05-24
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
 
@@ -29,11 +30,13 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 最后更新
 
-2026-05-23
+2026-05-24
 
 ## 当前关注
 
 支撑正式版核心纵切 Alpha。当前重点从 MVP UI 骨架验收转向 Formal V1 正式 UI 结构迭代：先冻结 MVP Baseline，再逐界面确认 Formal V1，更新 active UI 规格，最后进入素材生成、程序接入和运行时验收。
+
+PM 版本节点中，美术线当前落在 A1 前置：先确认 `combat_hud` Formal V1 并更新 active 规格，为 A2 战斗正式纵切提供 UI 验收入口。
 
 ## 必读文件
 
@@ -75,13 +78,14 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 - 已建立 Formal V1 UI 结构设计层：`combat_hud`、`workshop_main`、`inventory_loot`、`dungeon_map`、`settlement`。
 - 已冻结 MVP UI Baseline：`美术文档/ui_design/versions/mvp_baseline_2026-05-22/`。
 - 已建立 UI 设计迭代流程：Formal V1 文档确认后修改 active `screen_layouts.json`，再生成素材和交给程序接入。
+- PM 已将美术线纳入 `版本规划/10_正式版核心纵切版本节点规划.md`：A1 聚焦 `combat_hud` Formal V1，A2/A3 依次承接拾取、战斗、地图、工坊和结算界面。
 
 ## 下一步建议
 
-1. 先审查并确认 `美术文档/ui_design/formal_v1/combat_hud_v1.md`，重点确认敌人从卡片改为右侧战斗实体舞台。
+1. 按 A1 节点先审查并确认 `美术文档/ui_design/formal_v1/combat_hud_v1.md`，重点确认敌人从卡片改为右侧战斗实体舞台。
 2. 用户确认后，更新 active `美术文档/ui_design/screen_layouts.json` 的 `combat_hud`，并运行 `Validate-UIDesign.ps1`。
 3. `combat_hud` active 更新后，再检查新增 VisualID / Manifest / 素材缺口，决定是否先用现有素材或补图。
-4. 后续按 `workshop_main`、`inventory_loot`、`dungeon_map`、`settlement` 顺序推进 Formal V1。
+4. 后续按 A2/A3 节点承接 `inventory_loot`、`workshop_main`、`dungeon_map`、`settlement` Formal V1。
 
 ## 问题 / 阻塞
 

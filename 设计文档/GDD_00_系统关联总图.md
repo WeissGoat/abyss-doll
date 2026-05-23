@@ -9,6 +9,7 @@ source_of_truth: true
 related:
   - GEMINI.md
   - 版本规划/09_正式版核心纵切开发路线.md
+  - 版本规划/10_正式版核心纵切版本节点规划.md
   - 开发文档/00_程序开发大纲.md
   - agent_status/program.md
   - 数值模型设计/00_基准价值与空间本位模型.md
@@ -29,7 +30,7 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - agent_status/art.md
   - 知识库/views/design.md
-last_verified: 2026-05-23
+last_verified: 2026-05-24
 update_rule: 修改系统关系、资源流向、循环健康度或系统优先级时同步本文件。
 ---
 

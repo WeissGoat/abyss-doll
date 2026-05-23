@@ -8,6 +8,7 @@ status: active
 source_of_truth: true
 related:
   - 版本规划/09_正式版核心纵切开发路线.md
+  - 版本规划/10_正式版核心纵切版本节点规划.md
   - agent_status/README.md
   - PROJECT_STATUS.md
   - 开发文档/00_客户端核心架构规范.md
@@ -18,7 +19,7 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - agent_status/art.md
   - 知识库/views/program.md
-last_verified: 2026-05-23
+last_verified: 2026-05-24
 update_rule: 程序、Unity、验证或工程边界任务完成后更新本文件。
 ---
 
@@ -26,11 +27,13 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 ## 最后更新
 
-2026-05-23
+2026-05-24
 
 ## 当前关注
 
 支撑正式版核心纵切 Alpha，让 Unity 运行时系统保持模块清晰、数据驱动、可测试，并与当前 GDD 规则一致。
+
+PM 版本节点中，程序线当前落在 A1 核心边界收口：继续收口 `GameFlowController`、runtime fallback UI、配置校验和 agent 健康检查，为 A2 背包与战斗纵切降低冲突风险。
 
 ## 必读文件
 
@@ -64,12 +67,13 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - 运行时 Prefab 已移动到 `UnityClient/Assets/Prefabs`。
 - 已新增并验证 `tools/config/Sync-Configs.ps1`。
 - 项目结构整理时已移除旧的受跟踪 UI Toolkit 运行时资产。
+- PM 已将程序线纳入 `版本规划/10_正式版核心纵切版本节点规划.md`：A1 收边界，A2 做背包与战斗正式纵切，A3 承接深渊与局外成长。
 
 ## 下一步建议
 
-1. 增加 `tools/agent` 启动与验证脚本，让复制智能体快速检查仓库健康状态。
-2. 增加配置校验工具，检查必填字段、唯一 ID 和交叉引用。
-3. 继续推进 Alpha 1 边界收口：UI Controller 瘦身、物品使用、背包交互、运行时 fallback UI。
+1. 按 A1 节点增加 `tools/agent` 启动与验证脚本，让复制智能体快速检查仓库健康状态。
+2. 增加配置校验工具，检查必填字段、唯一 ID、交叉引用和正式 UI 缺引用。
+3. 继续推进 Alpha 1 边界收口：`GameFlowController` 瘦身、运行时 fallback UI 集中管理、UI Controller 不承载规则。
 
 ## 问题 / 阻塞
 
