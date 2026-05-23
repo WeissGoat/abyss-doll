@@ -72,12 +72,13 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - Alpha 1A 背包表现规格继续收口：新增 `InventoryDisplaySpec`，统一格子尺寸、间距、物品占格尺寸、拖拽偏移和各界面背包布局 profile。
 - `InventoryDisplaySpecSmokeTest` 已通过 Unity 自动测试守护执行，确认背包规格入口、布局 profile 和 GridLayoutGroup 应用结果一致。
 - `GridGenerator` 与 `MVPEditorSetup` 已接入 `InventoryDisplaySpec.ApplyGridLayout()`，背包格运行时生成和编辑器骨架默认值不再各自维护尺寸常量。
+- 新增 `InventoryGridLayoutAssetValidator` Editor 工具与 smoke test，自动检查 Prefab / Scene 中背包 GridLayoutGroup 默认值是否符合 `InventoryDisplaySpec`。
 - 美术侧已交付 `combat_hud` Formal V1 active 规格：敌人从卡片迁移为右侧战斗实体，背包底部居中，敌人血条贴脚下。
 
 ## 下一步建议
 
 1. 按 A1 节点增加 `tools/agent` 启动与验证脚本，让复制智能体快速检查仓库健康状态。
-2. 继续推进 Alpha 1A 背包交互正式化：检查正式 UI Prefab / 场景资产中的背包 GridLayoutGroup 默认值，必要时通过编辑器工具统一修正。
+2. 继续推进 Alpha 1A 背包交互正式化：将 `InventoryDisplaySpecSmokeTest` 和 `InventoryGridLayoutAssetValidatorTest` 纳入统一 agent / Unity smoke test 清单。
 3. 接入 `combat_hud` Formal V1 时以 active `screen_layouts.json` 为准，敌人实体优先读 `MonsterEntity.CombatVisualID`，缺图再临时 fallback 到 `PortraitID`。
 4. 增加配置校验工具，检查必填字段、唯一 ID、交叉引用和正式 UI 缺引用。
 
