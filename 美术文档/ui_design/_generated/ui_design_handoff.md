@@ -12,9 +12,9 @@
 
 | Priority | ScreenID | Name | Status | Required Components | Required Visuals |
 |---|---|---|---|---:|---:|
-| `P0` | `workshop_main` | 工坊主界面 | `validated` | 6 | 9 |
+| `P0` | `workshop_main` | 工坊主界面 | `active_spec` | 7 | 10 |
 | `P0` | `combat_hud` | 战斗界面 | `active_spec` | 11 | 17 |
-| `P0` | `inventory_loot` | 背包与战利品拾取界面 | `validated` | 8 | 12 |
+| `P0` | `inventory_loot` | 背包与战利品拾取界面 | `active_spec` | 8 | 13 |
 | `P1` | `dungeon_map` | 深渊地图界面 | `draft` | 6 | 7 |
 | `P1` | `settlement` | 撤离/战败结算界面 | `draft` | 6 | 8 |
 | `P1` | `sell_panel` | 工坊出售界面 | `draft` | 8 | 8 |
@@ -25,7 +25,7 @@
 
 | Priority | ComponentID | VisualID | Resize | Screens |
 |---|---|---|---|---|
-| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select` |
+| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `workshop_main` |
 | `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map` |
 | `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select` |
 | `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select` |
@@ -56,75 +56,103 @@
 
 ### 工坊主界面
 
-* Goal: 作为局外主界面，承载整备、出售、义体制造、出发入口，并展示魔偶和背包底盘。
+* Goal: 把局外主界面升级为正式工坊工作台：出发准备、服务入口、魔偶维护、背包装配和当前压力围绕同一工坊空间组织。
 * Background: `bg_workshop_day`
 
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
-| `top_status_bar` | top_stretch | 64,32 1792x72 | `Panel.Info`, `Icon.Money` | 天数、金币、SAN/维修等全局状态摘要 |
-| `left_action_panel` | left_middle | 96,168 420x520 | `Panel.Info`, `Button.Primary`, `Button.Secondary` | 出发、出售、义体制造等主操作入口 |
-| `doll_display` | bottom_right | 1180,160 520x820 |  | 魔偶立绘展示区 |
-| `inventory_preview` | bottom_center | 560,650 560x360 | `Inventory.ChassisPanel`, `Inventory.Slot` | 当前底盘和背包格预览 |
-| `bottom_hint_area` | bottom_left | 96,720 420x180 | `Panel.Info` | 当前选择说明和轻量提示 |
+| `workshop_background` | full_screen | 0,0 1920x1080 |  | 工坊背景，cover 适配，作为正式局外空间基底。 |
+| `status_cluster` | top_left | 64,32 760x84 | `Panel.Info`, `Icon.Money` | 金币、天数、租金压力、SAN/维修摘要的紧凑状态组。 |
+| `expedition_panel` | left_middle | 88,170 360x360 | `Panel.Main`, `Panel.Info`, `Button.Primary` | 出发深渊主入口、当前风险摘要和下一目标。 |
+| `service_panel` | left_middle | 88,550 360x260 | `Panel.Info`, `Button.Secondary` | 出售、义体制造和后续维修等工坊服务入口。 |
+| `chassis_summary` | center_bottom | 520,450 560x120 | `Panel.Info` | 当前底盘、容量、负载和升级提示。 |
+| `backpack_workbench` | bottom_center | 520,590 560x420 | `Panel.Main`, `Inventory.ChassisPanel`, `Inventory.Slot` | 背包底盘、100x100 格子和已装备物品，作为工坊装配工作台。 |
+| `doll_bay` | right_middle | 1120,140 540x760 | `Panel.Info` | 魔偶展示、维护状态和后续义体槽位提示的主视觉区。 |
+| `bottom_hint` | bottom_left | 88,870 1000x120 | `Panel.Info` | 当前压力、目标提示、按钮 hover 说明和警告。 |
 
 Layout changes:
-* 把当前主界面功能按钮整理到 left_action_panel。
-* 增加 doll_display 容器，使用 doll_proto_0_stand。
-* 增加 inventory_preview 容器，可先只展示底盘框和格子。
+* 把 MVP 顶部长状态条拆成左上 status_cluster，不再横跨全屏。
+* 把主操作拆为 expedition_panel 和 service_panel：出发为主行动，出售/义体为次级工坊服务。
+* 把背包从中下预览升级为 backpack_workbench，使用工作台主框、底盘和 100x100 玩法格。
+* 保留右侧 doll_bay 作为魔偶维护核心，后续接入状态/损伤/义体槽位提示。
 
 Data bindings:
-* 金币、天数、SAN/维修状态仍由程序文本渲染。
-* 按钮文案不烘焙进图片。
+* 金币、天数、租金压力、SAN、维修状态、底盘容量和下一目标均由 Unity Text 渲染。
+* 背景、面板、按钮、格子、金币图标和魔偶立绘通过 VisualID 绑定。
+* 背包仍使用全局 GridContainer 和 InventoryItemLayer，不创建第二套背包数据。
 
 Interaction notes:
-* 背景和装饰 Image 默认 raycastTarget=false。
-* 按钮点击区域使用 Unity Button 原交互。
+* 背景、面板、魔偶立绘和信息装饰默认 raycastTarget=false。
+* departBtn 使用 Button.Primary；openSellPanelBtn 和 openProstheticPanelBtn 使用 Button.Secondary。
+* GridContainer 和 InventoryItemLayer 同锚到 backpack_workbench，物品层位于格子层之后。
 
 Controller bindings:
 | Script | Existing fields | Notes |
 |---|---|---|
-| `WorkshopUIController` | `backgroundImage`, `moneyText`, `chassisInfoText`, `upgradeBtn`, `departBtn`, `openSellPanelBtn`, `openProstheticPanelBtn` | backgroundImage 使用 bg_workshop_day。<br>departBtn 使用 Button.Primary，其余工坊入口使用 Button.Secondary。<br>moneyText 和 chassisInfoText 继续使用程序 Text，不烘焙到图片。 |
-| `GameFlowController` | `gridGenerator.gridParent`, `inventoryItemLayer` | 工坊状态显示全局背包对象，不创建第二套可交互背包。<br>GridContainer 和 InventoryItemLayer 需要一起锚到 inventory_preview 区域。 |
+| `WorkshopUIController` | `backgroundImage`, `moneyText`, `chassisInfoText`, `upgradeBtn`, `departBtn`, `openSellPanelBtn`, `openProstheticPanelBtn` | backgroundImage 使用 bg_workshop_day，并按 cover 填满 workshop_background。<br>moneyText 迁移到 status_cluster，后续可扩展天数、租金和维修摘要文本。<br>departBtn 锚到 expedition_panel，使用 Button.Primary。<br>openSellPanelBtn 和 openProstheticPanelBtn 锚到 service_panel，使用 Button.Secondary。<br>chassisInfoText 锚到 chassis_summary，继续由程序文本渲染。 |
+| `GameFlowController` | `gridGenerator.gridParent`, `inventoryItemLayer` | 工坊状态显示全局背包对象，不创建第二套可交互背包。<br>GridContainer 和 InventoryItemLayer 需要一起锚到 backpack_workbench 区域。<br>如果工坊背包仅做预览，应显式禁用整组射线；不要复制背包数据。 |
 
 Unity hierarchy:
 | Path | Layer | Component | VisualID | Image | Fit | Raycast |
 |---|---|---|---|---|---|---|
-| `WorkshopPanel/BackgroundImage` | Background |  | `bg_workshop_day` | Simple | cover | False |
-| `WorkshopPanel/TopStatusPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
-| `WorkshopPanel/LeftActionPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
-| `WorkshopPanel/LeftActionPanel/DepartButton` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
-| `WorkshopPanel/LeftActionPanel/SellButton` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
-| `WorkshopPanel/LeftActionPanel/ProstheticButton` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
-| `WorkshopPanel/DollDisplay/DollImage` | CharacterOrMonster |  | `doll_proto_0_stand` | Simple | contain | False |
+| `WorkshopPanel/WorkshopBackground_Image` | Background |  | `bg_workshop_day` | Simple | cover | False |
+| `WorkshopPanel/StatusCluster` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `WorkshopPanel/StatusCluster/MoneyIcon_Image` | MainPanel | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `WorkshopPanel/ExpeditionPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `WorkshopPanel/ExpeditionPanel/ExpeditionRiskInfo` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `WorkshopPanel/ExpeditionPanel/DepartButton` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `WorkshopPanel/ServicePanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `WorkshopPanel/ServicePanel/SellButton` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `WorkshopPanel/ServicePanel/ProstheticButton` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `WorkshopPanel/ChassisSummaryPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `WorkshopPanel/BackpackWorkbench/WorkbenchPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `WorkshopPanel/BackpackWorkbench/ChassisFrame_Image` | InventoryOrCards | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | Simple | stretch | False |
+| `WorkshopPanel/BackpackWorkbench/ChassisVisual_Image` | InventoryOrCards |  | `chassis_chassis_lv1_basic_frame` | Simple | contain | False |
 | `InventoryCanvas/GridContainer` | InventoryOrCards | `Inventory.Slot` | `ui_inventory_slot_available` | Simple |  | True |
 | `InventoryCanvas/InventoryItemLayer` | InventoryOrCards |  |  |  |  | True |
-| `WorkshopPanel/BottomHintArea` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `WorkshopPanel/DollBay/DollStatusPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `WorkshopPanel/DollBay/DollImage` | CharacterOrMonster |  | `doll_proto_0_stand` | Simple | contain | False |
+| `WorkshopPanel/BottomHintPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 
 Sprite assignments:
 | Target | Component | VisualID | Image | Fit | Raycast |
 |---|---|---|---|---|---|
 | `WorkshopUIController.backgroundImage` |  | `bg_workshop_day` | Simple | cover | False |
+| `StatusCluster.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `MoneyIcon_Image` | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `ExpeditionPanel.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
 | `departBtn.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `ServicePanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `openSellPanelBtn.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
 | `openProstheticPanelBtn.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `ChassisSummaryPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `BackpackWorkbench/WorkbenchPanel.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `BackpackWorkbench/ChassisFrame_Image` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | Simple | stretch | False |
+| `BackpackWorkbench/ChassisVisual_Image` |  | `chassis_chassis_lv1_basic_frame` | Simple | contain | False |
 | `GridSlotUI.slotImage` | `Inventory.Slot` | `ui_inventory_slot_available` | Simple |  | True |
+| `DollImage` |  | `doll_proto_0_stand` | Simple | contain | False |
+| `DollStatusPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `BottomHintPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 
 Inventory layer policy:
 * Uses global inventory: `True`
-* Target zone: `inventory_preview`
+* Target zone: `backpack_workbench`
 * Cell size: `100`
 * Spacing: `5`
 * Grid size formula: `width = columns * 100 + (columns - 1) * 5; height = rows * 100 + (rows - 1) * 5`
 * GridContainer 和 InventoryItemLayer 使用同一锚点与同一缩放策略。
 * InventoryItemLayer 必须位于 GridContainer 之后，保证物品图标显示在格子之上。
 * 工坊界面不创建第二套可交互背包；预览若要不可交互，应显式禁用整组射线而不是复制数据。
+* 背包格保持 100x100 与 5 间距，不为了工坊构图压缩玩法格。
 
 Acceptance criteria:
-* 1920x1080 下 left_action_panel、doll_display、inventory_preview 互不重叠。
+* 1920x1080 下 status_cluster、expedition_panel、service_panel、doll_bay、backpack_workbench 互不重叠。
+* 出发深渊是最明显主行动，出售和义体制造是次级服务入口。
 * 背包格实际显示尺寸为 100x100，格间距为 5，拖拽占格与后端 shape 一致。
 * 背景、立绘、装饰面板不拦截按钮、格子或物品拖拽射线。
-* 所有按钮文案、金币、天数、底盘信息均由 Unity Text 渲染。
+* 所有按钮文案、金币、天数、底盘容量、维修和压力信息均由 Unity Text 渲染。
+* 工坊界面不复制背包数据；GridContainer 和 InventoryItemLayer 仍指向同一套全局背包表现。
 
 ### 战斗界面
 
@@ -230,61 +258,81 @@ Acceptance criteria:
 
 ### 背包与战利品拾取界面
 
-* Goal: 突出战斗后拾取取舍：左侧背包，右侧战利品，底部确认和丢弃决策。
+* Goal: 把战后拾取升级为正式清点界面：左侧当前背包、右侧战利品缓存，容量压力、物品价值、未拾取损失和确认行动清楚表达。
+* Background: `bg_combat_abyss`
 
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
-| `modal_panel` | center | 160,96 1600x888 | `Loot.PickupPanel` | 拾取界面主容器 |
-| `inventory_grid` | left_middle | 260,220 640x640 | `Inventory.ChassisPanel`, `Inventory.Slot` | 玩家当前背包 |
-| `loot_drop_zone` | right_top | 1010,230 560x420 | `Loot.DropZone` | 待拾取战利品区域 |
-| `item_detail` | right_bottom | 1010,680 560x160 | `Panel.Info` | 当前悬停或选中物品说明 |
-| `decision_buttons` | bottom_right | 1010,870 560x80 | `Button.Primary`, `Button.Secondary`, `Button.Danger` | 确认拾取、返回、丢弃等决策按钮 |
+| `loot_background` | full_screen | 0,0 1920x1080 |  | 战斗后暗化背景，保留战斗空间余味但不抢交互。 |
+| `loot_modal` | center | 160,96 1600x888 | `Loot.PickupPanel` | 战利品拾取主容器，承载背包、战利品和确认区。 |
+| `title_area` | top_stretch | 260,140 1400x92 | `Panel.Info` | 战斗结果、拾取标题和本场掉落摘要。 |
+| `inventory_grid` | left_middle | 260,260 640x600 | `Inventory.ChassisPanel`, `Inventory.Slot` | 玩家当前背包和底盘，是拾取取舍主视角。 |
+| `loot_cache` | right_top | 1010,250 560x420 | `Loot.DropZone` | 待拾取战利品缓存和拖拽起点。 |
+| `capacity_summary` | left_bottom | 260,875 640x80 | `Panel.Info` | 背包容量、剩余格、超载或无法放入警告。 |
+| `item_detail` | right_bottom | 1010,700 560x150 | `Panel.Info` | 当前物品名称、价值、用途、占格和标签。 |
+| `confirm_area` | bottom_right | 1010,880 560x84 | `Panel.Info`, `Button.Primary`, `Button.Secondary`, `Button.Danger` | 未拾取警告、确认继续、取消/放弃类操作。 |
 
 Layout changes:
-* 拾取界面从纯色遮罩改为 Loot.PickupPanel 主容器。
+* CombatLootPanel_Runtime 增加 LootBackground_Image，使用 bg_combat_abyss cover 并可叠加暗色遮罩。
+* PickupPanel 更名/整理为 LootModal，内部明确 title_area、inventory_grid、loot_cache、capacity_summary、item_detail、confirm_area。
+* 背包保留左侧主视角，战利品缓存固定在右侧，确认区固定在右下。
 * 背包格 Sprite 根据拖拽状态切换 available/locked/hover/valid/invalid。
-* 战利品区域使用 Loot.DropZone。
 
 Data bindings:
 * 物品图标仍使用 item_*_icon。
-* 物品占格和拖拽合法性仍由现有 Grid 逻辑控制。
+* 物品占格、旋转和拖拽合法性仍由现有 Grid / InventoryInteractionService 控制。
+* 容量摘要、物品详情、未拾取警告和按钮文字全部由 Unity Text 渲染。
+* 未拾取丢弃规则保持当前后端逻辑，不由 UI Controller 自行处理。
 
 Interaction notes:
-* 面板和底纹 raycastTarget=false，格子和物品保留 raycast。
+* 背景、暗色遮罩、主面板、DropZone 底纹和详情面板默认 raycastTarget=false。
+* GridSlotUI、物品图标、lootParent 下的战利品和按钮保留 raycast。
 * 拖拽时 valid/invalid 状态优先于 hover 状态。
 
 Controller bindings:
 | Script | Existing fields | Notes |
 |---|---|---|
-| `CombatLootUIController` | `titleText`, `summaryText`, `lootParent`, `continueBtn` | 根面板使用 ui_loot_pickup_panel，titleText 和 summaryText 继续使用 Unity Text。<br>lootParent 锚到 loot_drop_zone 区域，战利品图标继续使用 item_*_icon。<br>continueBtn 使用 Button.Primary；放弃/丢弃类按钮使用 Button.Danger。 |
-| `GameFlowController` | `gridGenerator.gridParent`, `inventoryItemLayer` | CombatLoot 状态显示全局背包对象，锚到 inventory_grid 区域。<br>保持现有拖拽和后端 CanPlaceItem 判定，不在 UI 方案里复制背包逻辑。 |
+| `CombatLootUIController` | `titleText`, `summaryText`, `lootParent`, `continueBtn` | titleText 和 summaryText 锚到 title_area，继续使用 Unity Text。<br>lootParent 锚到 loot_cache，战利品图标继续使用 item_*_icon。<br>continueBtn 锚到 confirm_area，使用 Button.Primary。<br>如果后续增加放弃/丢弃按钮，使用 Button.Danger，并清楚提示未拾取损失。 |
+| `GameFlowController` | `gridGenerator.gridParent`, `inventoryItemLayer` | CombatLoot 状态显示全局背包对象，GridContainer 和 InventoryItemLayer 锚到 inventory_grid。<br>保持现有拖拽和后端 CanPlaceItem 判定，不在 UI 方案里复制背包逻辑。 |
 
 Unity hierarchy:
 | Path | Layer | Component | VisualID | Image | Fit | Raycast |
 |---|---|---|---|---|---|---|
-| `CombatLootPanel/DimOverlay` | Modal |  |  | Simple |  | False |
-| `CombatLootPanel/PickupPanel` | Modal | `Loot.PickupPanel` | `ui_loot_pickup_panel` | Sliced |  | False |
-| `CombatLootPanel/PickupPanel/InventoryFrame` | MainPanel | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | Simple |  | False |
+| `CombatLootPanel_Runtime/LootBackground_Image` | Background |  | `bg_combat_abyss` | Simple | cover | False |
+| `CombatLootPanel_Runtime/DimOverlay` | Modal |  |  | Simple |  | False |
+| `CombatLootPanel_Runtime/LootModal` | Modal | `Loot.PickupPanel` | `ui_loot_pickup_panel` | Sliced |  | False |
+| `CombatLootPanel_Runtime/LootModal/TitleArea` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `CombatLootPanel_Runtime/LootModal/InventoryFrame` | MainPanel | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | Simple |  | False |
 | `InventoryCanvas/GridContainer` | InventoryOrCards | `Inventory.Slot` | `ui_inventory_slot_available` | Simple |  | True |
 | `InventoryCanvas/InventoryItemLayer` | InventoryOrCards |  |  |  |  | True |
-| `CombatLootPanel/PickupPanel/LootDropZone` | InventoryOrCards | `Loot.DropZone` | `ui_loot_drop_zone` | Sliced |  | False |
-| `CombatLootPanel/PickupPanel/ItemDetailPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
-| `CombatLootPanel/PickupPanel/DecisionButtons/ContinueButton` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
-| `CombatLootPanel/PickupPanel/DecisionButtons/CancelButton` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
-| `CombatLootPanel/PickupPanel/DecisionButtons/DiscardButton` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+| `CombatLootPanel_Runtime/LootModal/LootCache` | InventoryOrCards | `Loot.DropZone` | `ui_loot_drop_zone` | Sliced |  | False |
+| `CombatLootPanel_Runtime/LootModal/CapacitySummary` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `CombatLootPanel_Runtime/LootModal/ItemDetailPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `CombatLootPanel_Runtime/LootModal/ConfirmArea/UnclaimedWarningPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `CombatLootPanel_Runtime/LootModal/ConfirmArea/ContinueButton` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `CombatLootPanel_Runtime/LootModal/ConfirmArea/CancelButton` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `CombatLootPanel_Runtime/LootModal/ConfirmArea/DiscardButton` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
 
 Sprite assignments:
 | Target | Component | VisualID | Image | Fit | Raycast |
 |---|---|---|---|---|---|
-| `CombatLootPanel/PickupPanel.Image` | `Loot.PickupPanel` | `ui_loot_pickup_panel` | Sliced |  | False |
-| `CombatLootPanel/PickupPanel/LootDropZone.Image` | `Loot.DropZone` | `ui_loot_drop_zone` | Sliced |  | False |
+| `CombatLootPanel_Runtime/LootBackground_Image` |  | `bg_combat_abyss` | Simple | cover | False |
+| `CombatLootPanel_Runtime/LootModal.Image` | `Loot.PickupPanel` | `ui_loot_pickup_panel` | Sliced |  | False |
+| `TitleArea.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `InventoryFrame.Image` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | Simple |  | False |
+| `CombatLootPanel_Runtime/LootModal/LootCache.Image` | `Loot.DropZone` | `ui_loot_drop_zone` | Sliced |  | False |
+| `CapacitySummary.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ItemDetailPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `UnclaimedWarningPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `GridSlotUI.slotImage.available` | `Inventory.Slot` | `ui_inventory_slot_available` | Simple |  | True |
 | `GridSlotUI.slotImage.locked` | `Inventory.Slot` | `ui_inventory_slot_locked` | Simple |  | True |
 | `GridSlotUI.slotImage.hover` | `Inventory.Slot` | `ui_inventory_slot_hover` | Simple |  | True |
 | `GridSlotUI.slotImage.valid` | `Inventory.Slot` | `ui_inventory_slot_valid` | Simple |  | True |
 | `GridSlotUI.slotImage.invalid` | `Inventory.Slot` | `ui_inventory_slot_invalid` | Simple |  | True |
 | `continueBtn.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `CancelButton.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `DiscardButton.Image` | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
 
 Inventory layer policy:
 * Uses global inventory: `True`
@@ -295,14 +343,16 @@ Inventory layer policy:
 * CombatLoot 不创建独立背包，只重定位全局 GridContainer 和 InventoryItemLayer。
 * GridSlotUI 的可交互对象保留 raycastTarget=true，背包底盘和装饰框为 false。
 * 拖拽状态显示优先级为 invalid/valid > hover > locked/available。
-* lootParent 下的战利品图标必须位于 LootDropZone 装饰层之上。
+* lootParent 下的战利品图标必须位于 LootCache 装饰层之上。
+* 背包格保持 100x100 与 5 间距，不为了拾取弹窗构图压缩玩法格。
 
 Acceptance criteria:
-* 战利品图标可以从 loot_drop_zone 拖入 inventory_grid，合法/非法格状态能正确变化。
-* PickupPanel、LootDropZone、ItemDetailPanel 不阻挡格子、物品和按钮射线。
+* 左侧 inventory_grid、右侧 loot_cache、右下 confirm_area 结构清晰，三者互不重叠。
+* 战利品图标可以从 loot_cache 拖入 inventory_grid，合法/非法格状态能正确变化。
+* PickupPanel、LootDropZone、ItemDetailPanel、UnclaimedWarningPanel 不阻挡格子、物品和按钮射线。
 * 背包格实际显示尺寸为 100x100，和 DraggableItemUI 的占格尺寸一致。
 * 确认按钮继续沿用现有 continueBtn 逻辑，未拾取物品的清理规则不被 UI 皮肤改变。
-* 物品名称、价值、占格说明、结算摘要全部由 Unity Text 渲染，不烘焙进 UI 图片。
+* 容量摘要、物品名称、价值、占格说明、未拾取警告和结算摘要全部由 Unity Text 渲染。
 
 ### 深渊地图界面
 

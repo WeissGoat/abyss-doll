@@ -15,7 +15,8 @@
       "RequiredForScreens": [
         "prosthetic_panel",
         "sell_panel",
-        "layer_select"
+        "layer_select",
+        "workshop_main"
       ],
       "ProgramUse": "用于大弹窗和主内容容器。Unity Image Type 使用 Sliced，不烘焙标题和正文。"
     },

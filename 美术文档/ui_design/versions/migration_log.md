@@ -12,7 +12,7 @@ related:
   - 美术文档/ui_design/versions/README.md
   - 美术文档/ui_design/versions/mvp_baseline_2026-05-22/README.md
   - 美术文档/ui_design/versions/formal_v1_candidate/README.md
-last_verified: 2026-05-23
+last_verified: 2026-05-24
 update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或运行时验收后同步本文件。
 ---
 
@@ -38,8 +38,8 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 | ScreenID | Baseline Version | Candidate Version | Active 状态 | 迁移状态 | 备注 |
 |---|---|---|---|---|---|
 | `combat_hud` | `mvp_baseline_2026-05-22` | 可选 `formal_v1_candidate` | `active_spec` | `active_spec` | 已按 Formal V1 改为左玩家、右敌方实体、底部居中背包、敌人脚下血条；等待素材与程序接入。 |
-| `workshop_main` | `mvp_baseline_2026-05-22` | 无 | `validated` | `design_draft` | 第二优先级，改为正式工坊工作台。 |
-| `inventory_loot` | `mvp_baseline_2026-05-22` | 无 | `validated` | `design_draft` | 第三优先级，强化战后清点结构。 |
+| `workshop_main` | `mvp_baseline_2026-05-22` | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：正式工坊工作台、出发主行动、服务入口、魔偶维护和背包装配工作台。 |
+| `inventory_loot` | `mvp_baseline_2026-05-22` | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：战后清点、左侧背包、右侧战利品缓存、容量压力和确认区。 |
 | `dungeon_map` | `mvp_baseline_2026-05-22` | 无 | `draft` | `design_draft` | 暂停直接 handoff，先按 Formal V1 审查。 |
 | `settlement` | `mvp_baseline_2026-05-22` | 无 | `draft` | `design_draft` | 暂停直接 handoff，先按 Formal V1 审查。 |
 | `sell_panel` | `mvp_baseline_2026-05-22` | 未建立 | `draft` | `pending` | 功能弹窗，等主界面结构稳定后处理。 |
@@ -80,3 +80,10 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 * 敌人主表现从卡片迁移为右侧战斗实体舞台，敌人血条和护盾条放到实体脚下。
 * 明确现有 `monster_*_portrait` 只作为临时 fallback，正式验收需要 `monster_*_combat` 透明战斗实体素材。
 * 新增 `ui_combat_entity_shadow` 与 `ui_combat_target_ring` 作为 Formal V1 战斗实体落点和选中提示资源。
+
+### 2026-05-24：`workshop_main` / `inventory_loot` 写入 Formal V1 active 规格
+
+* `workshop_main` 从 MVP Baseline 的主界面骨架迁移为正式工坊工作台结构，拆分 `status_cluster`、`expedition_panel`、`service_panel`、`backpack_workbench` 和 `doll_bay`。
+* `inventory_loot` 从 MVP Baseline 的拾取弹窗迁移为正式战后清点结构，拆分 `loot_modal`、`inventory_grid`、`loot_cache`、`capacity_summary`、`item_detail` 和 `confirm_area`。
+* 两个界面均保留背包玩法格 `100x100` 与 `5` 间距，不为了构图压缩格子规则。
+* `Validate-UIDesign.ps1` 已通过，并重新生成 `美术文档/ui_design/_generated/ui_design_handoff.md`。

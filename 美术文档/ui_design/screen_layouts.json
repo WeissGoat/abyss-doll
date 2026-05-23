@@ -7,10 +7,13 @@
       "ScreenID": "workshop_main",
       "DisplayName": "工坊主界面",
       "Priority": "P0",
-      "LayoutStatus": "validated",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "mvp_baseline_2026-05-22",
       "BackgroundVisualID": "bg_workshop_day",
-      "PrimaryGoal": "作为局外主界面，承载整备、出售、义体制造、出发入口，并展示魔偶和背包底盘。",
+      "PrimaryGoal": "把局外主界面升级为正式工坊工作台：出发准备、服务入口、魔偶维护、背包装配和当前压力围绕同一工坊空间组织。",
       "RequiredComponents": [
+        "Panel.Main",
         "Panel.Info",
         "Button.Primary",
         "Button.Secondary",
@@ -22,6 +25,7 @@
         "bg_workshop_day",
         "doll_proto_0_stand",
         "chassis_chassis_lv1_basic_frame",
+        "ui_panel_main",
         "ui_panel_info",
         "ui_button_primary",
         "ui_button_secondary",
@@ -31,96 +35,146 @@
       ],
       "Zones": [
         {
-          "ZoneID": "top_status_bar",
-          "Purpose": "天数、金币、SAN/维修等全局状态摘要",
-          "Anchor": "top_stretch",
+          "ZoneID": "workshop_background",
+          "Purpose": "工坊背景，cover 适配，作为正式局外空间基底。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
+          "ComponentRefs": [],
+          "Notes": "背景低对比，不把关键按钮、格子或文字烘焙进图片。"
+        },
+        {
+          "ZoneID": "status_cluster",
+          "Purpose": "金币、天数、租金压力、SAN/维修摘要的紧凑状态组。",
+          "Anchor": "top_left",
           "Rect": {
             "X": 64,
             "Y": 32,
-            "Width": 1792,
-            "Height": 72
+            "Width": 760,
+            "Height": 84
           },
           "ComponentRefs": [
             "Panel.Info",
             "Icon.Money"
           ],
-          "Notes": "低高度横条，不遮挡工坊背景主体。"
+          "Notes": "不再横跨全屏，保留右侧和中部给工坊空间与魔偶。"
         },
         {
-          "ZoneID": "left_action_panel",
-          "Purpose": "出发、出售、义体制造等主操作入口",
+          "ZoneID": "expedition_panel",
+          "Purpose": "出发深渊主入口、当前风险摘要和下一目标。",
           "Anchor": "left_middle",
           "Rect": {
-            "X": 96,
-            "Y": 168,
-            "Width": 420,
-            "Height": 520
-          },
-          "ComponentRefs": [
-            "Panel.Info",
-            "Button.Primary",
-            "Button.Secondary"
-          ],
-          "Notes": "按钮纵向排列，主按钮只用于出发深渊。"
-        },
-        {
-          "ZoneID": "doll_display",
-          "Purpose": "魔偶立绘展示区",
-          "Anchor": "bottom_right",
-          "Rect": {
-            "X": 1180,
-            "Y": 160,
-            "Width": 520,
-            "Height": 820
-          },
-          "ComponentRefs": [],
-          "Notes": "立绘 bottom_center 对齐，脚底基线靠近地面，不进入按钮区。"
-        },
-        {
-          "ZoneID": "inventory_preview",
-          "Purpose": "当前底盘和背包格预览",
-          "Anchor": "bottom_center",
-          "Rect": {
-            "X": 560,
-            "Y": 650,
-            "Width": 560,
+            "X": 88,
+            "Y": 170,
+            "Width": 360,
             "Height": 360
           },
           "ComponentRefs": [
-            "Inventory.ChassisPanel",
-            "Inventory.Slot"
+            "Panel.Main",
+            "Panel.Info",
+            "Button.Primary"
           ],
-          "Notes": "用于让局外主界面形成装备/背包视觉中心，可先做不可交互预览。"
+          "Notes": "Start Expedition 是最高视觉优先级；风险摘要文字由程序叠加。"
         },
         {
-          "ZoneID": "bottom_hint_area",
-          "Purpose": "当前选择说明和轻量提示",
-          "Anchor": "bottom_left",
+          "ZoneID": "service_panel",
+          "Purpose": "出售、义体制造和后续维修等工坊服务入口。",
+          "Anchor": "left_middle",
           "Rect": {
-            "X": 96,
-            "Y": 720,
-            "Width": 420,
-            "Height": 180
+            "X": 88,
+            "Y": 550,
+            "Width": 360,
+            "Height": 260
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Button.Secondary"
+          ],
+          "Notes": "服务按钮不和出发按钮等权，视觉上作为次级入口。"
+        },
+        {
+          "ZoneID": "chassis_summary",
+          "Purpose": "当前底盘、容量、负载和升级提示。",
+          "Anchor": "center_bottom",
+          "Rect": {
+            "X": 520,
+            "Y": 450,
+            "Width": 560,
+            "Height": 120
           },
           "ComponentRefs": [
             "Panel.Info"
           ],
-          "Notes": "用于按钮 hover 或当前日程提示。"
+          "Notes": "作为背包工作台上方的信息条，文字由程序渲染。"
+        },
+        {
+          "ZoneID": "backpack_workbench",
+          "Purpose": "背包底盘、100x100 格子和已装备物品，作为工坊装配工作台。",
+          "Anchor": "bottom_center",
+          "Rect": {
+            "X": 520,
+            "Y": 590,
+            "Width": 560,
+            "Height": 420
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Inventory.ChassisPanel",
+            "Inventory.Slot"
+          ],
+          "Notes": "背包仍使用全局 GridContainer 和 InventoryItemLayer，不复制背包状态。"
+        },
+        {
+          "ZoneID": "doll_bay",
+          "Purpose": "魔偶展示、维护状态和后续义体槽位提示的主视觉区。",
+          "Anchor": "right_middle",
+          "Rect": {
+            "X": 1120,
+            "Y": 140,
+            "Width": 540,
+            "Height": 760
+          },
+          "ComponentRefs": [
+            "Panel.Info"
+          ],
+          "Notes": "魔偶 bottom_center 对齐，后续可挂损伤、好感或义体槽位提示。"
+        },
+        {
+          "ZoneID": "bottom_hint",
+          "Purpose": "当前压力、目标提示、按钮 hover 说明和警告。",
+          "Anchor": "bottom_left",
+          "Rect": {
+            "X": 88,
+            "Y": 870,
+            "Width": 1000,
+            "Height": 120
+          },
+          "ComponentRefs": [
+            "Panel.Info"
+          ],
+          "Notes": "作为局外目标和经济压力的轻量提示，不放入主按钮区。"
         }
       ],
       "ProgramHandoff": {
         "LayoutChanges": [
-          "把当前主界面功能按钮整理到 left_action_panel。",
-          "增加 doll_display 容器，使用 doll_proto_0_stand。",
-          "增加 inventory_preview 容器，可先只展示底盘框和格子。"
+          "把 MVP 顶部长状态条拆成左上 status_cluster，不再横跨全屏。",
+          "把主操作拆为 expedition_panel 和 service_panel：出发为主行动，出售/义体为次级工坊服务。",
+          "把背包从中下预览升级为 backpack_workbench，使用工作台主框、底盘和 100x100 玩法格。",
+          "保留右侧 doll_bay 作为魔偶维护核心，后续接入状态/损伤/义体槽位提示。"
         ],
         "DataBindings": [
-          "金币、天数、SAN/维修状态仍由程序文本渲染。",
-          "按钮文案不烘焙进图片。"
+          "金币、天数、租金压力、SAN、维修状态、底盘容量和下一目标均由 Unity Text 渲染。",
+          "背景、面板、按钮、格子、金币图标和魔偶立绘通过 VisualID 绑定。",
+          "背包仍使用全局 GridContainer 和 InventoryItemLayer，不创建第二套背包数据。"
         ],
         "InteractionNotes": [
-          "背景和装饰 Image 默认 raycastTarget=false。",
-          "按钮点击区域使用 Unity Button 原交互。"
+          "背景、面板、魔偶立绘和信息装饰默认 raycastTarget=false。",
+          "departBtn 使用 Button.Primary；openSellPanelBtn 和 openProstheticPanelBtn 使用 Button.Secondary。",
+          "GridContainer 和 InventoryItemLayer 同锚到 backpack_workbench，物品层位于格子层之后。"
         ]
       },
       "ControllerBindings": [
@@ -136,9 +190,11 @@
             "openProstheticPanelBtn"
           ],
           "BindingNotes": [
-            "backgroundImage 使用 bg_workshop_day。",
-            "departBtn 使用 Button.Primary，其余工坊入口使用 Button.Secondary。",
-            "moneyText 和 chassisInfoText 继续使用程序 Text，不烘焙到图片。"
+            "backgroundImage 使用 bg_workshop_day，并按 cover 填满 workshop_background。",
+            "moneyText 迁移到 status_cluster，后续可扩展天数、租金和维修摘要文本。",
+            "departBtn 锚到 expedition_panel，使用 Button.Primary。",
+            "openSellPanelBtn 和 openProstheticPanelBtn 锚到 service_panel，使用 Button.Secondary。",
+            "chassisInfoText 锚到 chassis_summary，继续由程序文本渲染。"
           ]
         },
         {
@@ -149,13 +205,14 @@
           ],
           "BindingNotes": [
             "工坊状态显示全局背包对象，不创建第二套可交互背包。",
-            "GridContainer 和 InventoryItemLayer 需要一起锚到 inventory_preview 区域。"
+            "GridContainer 和 InventoryItemLayer 需要一起锚到 backpack_workbench 区域。",
+            "如果工坊背包仅做预览，应显式禁用整组射线；不要复制背包数据。"
           ]
         }
       ],
       "UnityHierarchy": [
         {
-          "Path": "WorkshopPanel/BackgroundImage",
+          "Path": "WorkshopPanel/WorkshopBackground_Image",
           "Layer": "Background",
           "VisualID": "bg_workshop_day",
           "ImageType": "Simple",
@@ -163,7 +220,7 @@
           "RaycastTarget": false
         },
         {
-          "Path": "WorkshopPanel/TopStatusPanel",
+          "Path": "WorkshopPanel/StatusCluster",
           "Layer": "MainPanel",
           "ComponentRef": "Panel.Info",
           "VisualID": "ui_panel_info",
@@ -171,7 +228,24 @@
           "RaycastTarget": false
         },
         {
-          "Path": "WorkshopPanel/LeftActionPanel",
+          "Path": "WorkshopPanel/StatusCluster/MoneyIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Money",
+          "VisualID": "ui_icon_money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopPanel/ExpeditionPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopPanel/ExpeditionPanel/ExpeditionRiskInfo",
           "Layer": "MainPanel",
           "ComponentRef": "Panel.Info",
           "VisualID": "ui_panel_info",
@@ -179,7 +253,7 @@
           "RaycastTarget": false
         },
         {
-          "Path": "WorkshopPanel/LeftActionPanel/DepartButton",
+          "Path": "WorkshopPanel/ExpeditionPanel/DepartButton",
           "Layer": "Controls",
           "ComponentRef": "Button.Primary",
           "VisualID": "ui_button_primary",
@@ -187,7 +261,15 @@
           "RaycastTarget": true
         },
         {
-          "Path": "WorkshopPanel/LeftActionPanel/SellButton",
+          "Path": "WorkshopPanel/ServicePanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopPanel/ServicePanel/SellButton",
           "Layer": "Controls",
           "ComponentRef": "Button.Secondary",
           "VisualID": "ui_button_secondary",
@@ -195,7 +277,7 @@
           "RaycastTarget": true
         },
         {
-          "Path": "WorkshopPanel/LeftActionPanel/ProstheticButton",
+          "Path": "WorkshopPanel/ServicePanel/ProstheticButton",
           "Layer": "Controls",
           "ComponentRef": "Button.Secondary",
           "VisualID": "ui_button_secondary",
@@ -203,9 +285,34 @@
           "RaycastTarget": true
         },
         {
-          "Path": "WorkshopPanel/DollDisplay/DollImage",
-          "Layer": "CharacterOrMonster",
-          "VisualID": "doll_proto_0_stand",
+          "Path": "WorkshopPanel/ChassisSummaryPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopPanel/BackpackWorkbench/WorkbenchPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopPanel/BackpackWorkbench/ChassisFrame_Image",
+          "Layer": "InventoryOrCards",
+          "ComponentRef": "Inventory.ChassisPanel",
+          "VisualID": "ui_inventory_chassis_panel",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopPanel/BackpackWorkbench/ChassisVisual_Image",
+          "Layer": "InventoryOrCards",
+          "VisualID": "chassis_chassis_lv1_basic_frame",
           "ImageType": "Simple",
           "FitMode": "contain",
           "RaycastTarget": false
@@ -224,7 +331,23 @@
           "RaycastTarget": true
         },
         {
-          "Path": "WorkshopPanel/BottomHintArea",
+          "Path": "WorkshopPanel/DollBay/DollStatusPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopPanel/DollBay/DollImage",
+          "Layer": "CharacterOrMonster",
+          "VisualID": "doll_proto_0_stand",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "WorkshopPanel/BottomHintPanel",
           "Layer": "MainPanel",
           "ComponentRef": "Panel.Info",
           "VisualID": "ui_panel_info",
@@ -242,11 +365,40 @@
           "RaycastTarget": false
         },
         {
+          "Target": "StatusCluster.Image",
+          "VisualID": "ui_panel_info",
+          "ComponentRef": "Panel.Info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "MoneyIcon_Image",
+          "VisualID": "ui_icon_money",
+          "ComponentRef": "Icon.Money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "ExpeditionPanel.Image",
+          "VisualID": "ui_panel_main",
+          "ComponentRef": "Panel.Main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
           "Target": "departBtn.Image",
           "VisualID": "ui_button_primary",
           "ComponentRef": "Button.Primary",
           "ImageType": "Sliced",
           "RaycastTarget": true
+        },
+        {
+          "Target": "ServicePanel.Image",
+          "VisualID": "ui_panel_info",
+          "ComponentRef": "Panel.Info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
         },
         {
           "Target": "openSellPanelBtn.Image",
@@ -263,30 +415,85 @@
           "RaycastTarget": true
         },
         {
+          "Target": "ChassisSummaryPanel.Image",
+          "VisualID": "ui_panel_info",
+          "ComponentRef": "Panel.Info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "BackpackWorkbench/WorkbenchPanel.Image",
+          "VisualID": "ui_panel_main",
+          "ComponentRef": "Panel.Main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "BackpackWorkbench/ChassisFrame_Image",
+          "VisualID": "ui_inventory_chassis_panel",
+          "ComponentRef": "Inventory.ChassisPanel",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "BackpackWorkbench/ChassisVisual_Image",
+          "VisualID": "chassis_chassis_lv1_basic_frame",
+          "ComponentRef": "",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
           "Target": "GridSlotUI.slotImage",
           "VisualID": "ui_inventory_slot_available",
           "ComponentRef": "Inventory.Slot",
           "ImageType": "Simple",
           "RaycastTarget": true
+        },
+        {
+          "Target": "DollImage",
+          "VisualID": "doll_proto_0_stand",
+          "ComponentRef": "",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DollStatusPanel.Image",
+          "VisualID": "ui_panel_info",
+          "ComponentRef": "Panel.Info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "BottomHintPanel.Image",
+          "VisualID": "ui_panel_info",
+          "ComponentRef": "Panel.Info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
         }
       ],
       "InventoryLayerPolicy": {
         "UsesGlobalInventory": true,
         "GridCellSize": 100,
         "GridSpacing": 5,
-        "TargetZone": "inventory_preview",
+        "TargetZone": "backpack_workbench",
         "GridSizeFormula": "width = columns * 100 + (columns - 1) * 5; height = rows * 100 + (rows - 1) * 5",
         "Rules": [
           "GridContainer 和 InventoryItemLayer 使用同一锚点与同一缩放策略。",
           "InventoryItemLayer 必须位于 GridContainer 之后，保证物品图标显示在格子之上。",
-          "工坊界面不创建第二套可交互背包；预览若要不可交互，应显式禁用整组射线而不是复制数据。"
+          "工坊界面不创建第二套可交互背包；预览若要不可交互，应显式禁用整组射线而不是复制数据。",
+          "背包格保持 100x100 与 5 间距，不为了工坊构图压缩玩法格。"
         ]
       },
       "AcceptanceCriteria": [
-        "1920x1080 下 left_action_panel、doll_display、inventory_preview 互不重叠。",
+        "1920x1080 下 status_cluster、expedition_panel、service_panel、doll_bay、backpack_workbench 互不重叠。",
+        "出发深渊是最明显主行动，出售和义体制造是次级服务入口。",
         "背包格实际显示尺寸为 100x100，格间距为 5，拖拽占格与后端 shape 一致。",
         "背景、立绘、装饰面板不拦截按钮、格子或物品拖拽射线。",
-        "所有按钮文案、金币、天数、底盘信息均由 Unity Text 渲染。"
+        "所有按钮文案、金币、天数、底盘容量、维修和压力信息均由 Unity Text 渲染。",
+        "工坊界面不复制背包数据；GridContainer 和 InventoryItemLayer 仍指向同一套全局背包表现。"
       ]
     },
     {
@@ -798,9 +1005,11 @@
       "ScreenID": "inventory_loot",
       "DisplayName": "背包与战利品拾取界面",
       "Priority": "P0",
-      "LayoutStatus": "validated",
-      "BackgroundVisualID": "",
-      "PrimaryGoal": "突出战斗后拾取取舍：左侧背包，右侧战利品，底部确认和丢弃决策。",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "mvp_baseline_2026-05-22",
+      "BackgroundVisualID": "bg_combat_abyss",
+      "PrimaryGoal": "把战后拾取升级为正式清点界面：左侧当前背包、右侧战利品缓存，容量压力、物品价值、未拾取损失和确认行动清楚表达。",
       "RequiredComponents": [
         "Loot.PickupPanel",
         "Loot.DropZone",
@@ -812,6 +1021,7 @@
         "Button.Danger"
       ],
       "RequiredVisualIDs": [
+        "bg_combat_abyss",
         "ui_loot_pickup_panel",
         "ui_loot_drop_zone",
         "ui_inventory_chassis_panel",
@@ -827,8 +1037,21 @@
       ],
       "Zones": [
         {
-          "ZoneID": "modal_panel",
-          "Purpose": "拾取界面主容器",
+          "ZoneID": "loot_background",
+          "Purpose": "战斗后暗化背景，保留战斗空间余味但不抢交互。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
+          "ComponentRefs": [],
+          "Notes": "使用 bg_combat_abyss cover；可叠加程序暗色遮罩。"
+        },
+        {
+          "ZoneID": "loot_modal",
+          "Purpose": "战利品拾取主容器，承载背包、战利品和确认区。",
           "Anchor": "center",
           "Rect": {
             "X": 160,
@@ -839,84 +1062,119 @@
           "ComponentRefs": [
             "Loot.PickupPanel"
           ],
-          "Notes": "作为遮罩上的主弹窗，使用九宫格。"
+          "Notes": "主面板使用九宫格，内部所有文字由程序渲染。"
+        },
+        {
+          "ZoneID": "title_area",
+          "Purpose": "战斗结果、拾取标题和本场掉落摘要。",
+          "Anchor": "top_stretch",
+          "Rect": {
+            "X": 260,
+            "Y": 140,
+            "Width": 1400,
+            "Height": 92
+          },
+          "ComponentRefs": [
+            "Panel.Info"
+          ],
+          "Notes": "标题和摘要文本不烘焙进图片。"
         },
         {
           "ZoneID": "inventory_grid",
-          "Purpose": "玩家当前背包",
+          "Purpose": "玩家当前背包和底盘，是拾取取舍主视角。",
           "Anchor": "left_middle",
           "Rect": {
             "X": 260,
-            "Y": 220,
+            "Y": 260,
             "Width": 640,
-            "Height": 640
+            "Height": 600
           },
           "ComponentRefs": [
             "Inventory.ChassisPanel",
             "Inventory.Slot"
           ],
-          "Notes": "玩法格固定 100x100，物品按 shape 占格；格内图标和装饰按需要 contain。"
+          "Notes": "玩法格固定 100x100，物品按 shape 占格。"
         },
         {
-          "ZoneID": "loot_drop_zone",
-          "Purpose": "待拾取战利品区域",
+          "ZoneID": "loot_cache",
+          "Purpose": "待拾取战利品缓存和拖拽起点。",
           "Anchor": "right_top",
           "Rect": {
             "X": 1010,
-            "Y": 230,
+            "Y": 250,
             "Width": 560,
             "Height": 420
           },
           "ComponentRefs": [
             "Loot.DropZone"
           ],
-          "Notes": "战利品位于背包外侧，表达拖入背包。"
+          "Notes": "战利品物品不贴边，表达可拿走但空间有限。"
         },
         {
-          "ZoneID": "item_detail",
-          "Purpose": "当前悬停或选中物品说明",
-          "Anchor": "right_bottom",
+          "ZoneID": "capacity_summary",
+          "Purpose": "背包容量、剩余格、超载或无法放入警告。",
+          "Anchor": "left_bottom",
           "Rect": {
-            "X": 1010,
-            "Y": 680,
-            "Width": 560,
-            "Height": 160
+            "X": 260,
+            "Y": 875,
+            "Width": 640,
+            "Height": 80
           },
           "ComponentRefs": [
             "Panel.Info"
           ],
-          "Notes": "文字、数值和占格说明由程序渲染。"
+          "Notes": "容量摘要贴近背包，帮助玩家判断取舍。"
         },
         {
-          "ZoneID": "decision_buttons",
-          "Purpose": "确认拾取、返回、丢弃等决策按钮",
+          "ZoneID": "item_detail",
+          "Purpose": "当前物品名称、价值、用途、占格和标签。",
+          "Anchor": "right_bottom",
+          "Rect": {
+            "X": 1010,
+            "Y": 700,
+            "Width": 560,
+            "Height": 150
+          },
+          "ComponentRefs": [
+            "Panel.Info"
+          ],
+          "Notes": "详情靠近确认区，帮助决定是否放弃。"
+        },
+        {
+          "ZoneID": "confirm_area",
+          "Purpose": "未拾取警告、确认继续、取消/放弃类操作。",
           "Anchor": "bottom_right",
           "Rect": {
             "X": 1010,
-            "Y": 870,
+            "Y": 880,
             "Width": 560,
-            "Height": 80
+            "Height": 84
           },
           "ComponentRefs": [
+            "Panel.Info",
             "Button.Primary",
             "Button.Secondary",
             "Button.Danger"
           ],
-          "Notes": "危险按钮只用于丢弃或放弃。"
+          "Notes": "未拾取会丢弃的提示必须可读；危险按钮只用于放弃/丢弃。"
         }
       ],
       "ProgramHandoff": {
         "LayoutChanges": [
-          "拾取界面从纯色遮罩改为 Loot.PickupPanel 主容器。",
-          "背包格 Sprite 根据拖拽状态切换 available/locked/hover/valid/invalid。",
-          "战利品区域使用 Loot.DropZone。"
+          "CombatLootPanel_Runtime 增加 LootBackground_Image，使用 bg_combat_abyss cover 并可叠加暗色遮罩。",
+          "PickupPanel 更名/整理为 LootModal，内部明确 title_area、inventory_grid、loot_cache、capacity_summary、item_detail、confirm_area。",
+          "背包保留左侧主视角，战利品缓存固定在右侧，确认区固定在右下。",
+          "背包格 Sprite 根据拖拽状态切换 available/locked/hover/valid/invalid。"
         ],
         "DataBindings": [
           "物品图标仍使用 item_*_icon。",
-          "物品占格和拖拽合法性仍由现有 Grid 逻辑控制。"
+          "物品占格、旋转和拖拽合法性仍由现有 Grid / InventoryInteractionService 控制。",
+          "容量摘要、物品详情、未拾取警告和按钮文字全部由 Unity Text 渲染。",
+          "未拾取丢弃规则保持当前后端逻辑，不由 UI Controller 自行处理。"
         ],
         "InteractionNotes": [
-          "面板和底纹 raycastTarget=false，格子和物品保留 raycast。",
+          "背景、暗色遮罩、主面板、DropZone 底纹和详情面板默认 raycastTarget=false。",
+          "GridSlotUI、物品图标、lootParent 下的战利品和按钮保留 raycast。",
           "拖拽时 valid/invalid 状态优先于 hover 状态。"
         ]
       },
@@ -930,9 +1188,10 @@
             "continueBtn"
           ],
           "BindingNotes": [
-            "根面板使用 ui_loot_pickup_panel，titleText 和 summaryText 继续使用 Unity Text。",
-            "lootParent 锚到 loot_drop_zone 区域，战利品图标继续使用 item_*_icon。",
-            "continueBtn 使用 Button.Primary；放弃/丢弃类按钮使用 Button.Danger。"
+            "titleText 和 summaryText 锚到 title_area，继续使用 Unity Text。",
+            "lootParent 锚到 loot_cache，战利品图标继续使用 item_*_icon。",
+            "continueBtn 锚到 confirm_area，使用 Button.Primary。",
+            "如果后续增加放弃/丢弃按钮，使用 Button.Danger，并清楚提示未拾取损失。"
           ]
         },
         {
@@ -942,21 +1201,28 @@
             "inventoryItemLayer"
           ],
           "BindingNotes": [
-            "CombatLoot 状态显示全局背包对象，锚到 inventory_grid 区域。",
+            "CombatLoot 状态显示全局背包对象，GridContainer 和 InventoryItemLayer 锚到 inventory_grid。",
             "保持现有拖拽和后端 CanPlaceItem 判定，不在 UI 方案里复制背包逻辑。"
           ]
         }
       ],
       "UnityHierarchy": [
         {
-          "Path": "CombatLootPanel/DimOverlay",
+          "Path": "CombatLootPanel_Runtime/LootBackground_Image",
+          "Layer": "Background",
+          "VisualID": "bg_combat_abyss",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatLootPanel_Runtime/DimOverlay",
           "Layer": "Modal",
-          "VisualID": "",
           "ImageType": "Simple",
           "RaycastTarget": false
         },
         {
-          "Path": "CombatLootPanel/PickupPanel",
+          "Path": "CombatLootPanel_Runtime/LootModal",
           "Layer": "Modal",
           "ComponentRef": "Loot.PickupPanel",
           "VisualID": "ui_loot_pickup_panel",
@@ -964,7 +1230,15 @@
           "RaycastTarget": false
         },
         {
-          "Path": "CombatLootPanel/PickupPanel/InventoryFrame",
+          "Path": "CombatLootPanel_Runtime/LootModal/TitleArea",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatLootPanel_Runtime/LootModal/InventoryFrame",
           "Layer": "MainPanel",
           "ComponentRef": "Inventory.ChassisPanel",
           "VisualID": "ui_inventory_chassis_panel",
@@ -985,7 +1259,7 @@
           "RaycastTarget": true
         },
         {
-          "Path": "CombatLootPanel/PickupPanel/LootDropZone",
+          "Path": "CombatLootPanel_Runtime/LootModal/LootCache",
           "Layer": "InventoryOrCards",
           "ComponentRef": "Loot.DropZone",
           "VisualID": "ui_loot_drop_zone",
@@ -993,7 +1267,7 @@
           "RaycastTarget": false
         },
         {
-          "Path": "CombatLootPanel/PickupPanel/ItemDetailPanel",
+          "Path": "CombatLootPanel_Runtime/LootModal/CapacitySummary",
           "Layer": "MainPanel",
           "ComponentRef": "Panel.Info",
           "VisualID": "ui_panel_info",
@@ -1001,7 +1275,23 @@
           "RaycastTarget": false
         },
         {
-          "Path": "CombatLootPanel/PickupPanel/DecisionButtons/ContinueButton",
+          "Path": "CombatLootPanel_Runtime/LootModal/ItemDetailPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatLootPanel_Runtime/LootModal/ConfirmArea/UnclaimedWarningPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatLootPanel_Runtime/LootModal/ConfirmArea/ContinueButton",
           "Layer": "Controls",
           "ComponentRef": "Button.Primary",
           "VisualID": "ui_button_primary",
@@ -1009,7 +1299,7 @@
           "RaycastTarget": true
         },
         {
-          "Path": "CombatLootPanel/PickupPanel/DecisionButtons/CancelButton",
+          "Path": "CombatLootPanel_Runtime/LootModal/ConfirmArea/CancelButton",
           "Layer": "Controls",
           "ComponentRef": "Button.Secondary",
           "VisualID": "ui_button_secondary",
@@ -1017,7 +1307,7 @@
           "RaycastTarget": true
         },
         {
-          "Path": "CombatLootPanel/PickupPanel/DecisionButtons/DiscardButton",
+          "Path": "CombatLootPanel_Runtime/LootModal/ConfirmArea/DiscardButton",
           "Layer": "Controls",
           "ComponentRef": "Button.Danger",
           "VisualID": "ui_button_danger",
@@ -1027,16 +1317,59 @@
       ],
       "SpriteAssignments": [
         {
-          "Target": "CombatLootPanel/PickupPanel.Image",
+          "Target": "CombatLootPanel_Runtime/LootBackground_Image",
+          "VisualID": "bg_combat_abyss",
+          "ComponentRef": "",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "CombatLootPanel_Runtime/LootModal.Image",
           "VisualID": "ui_loot_pickup_panel",
           "ComponentRef": "Loot.PickupPanel",
           "ImageType": "Sliced",
           "RaycastTarget": false
         },
         {
-          "Target": "CombatLootPanel/PickupPanel/LootDropZone.Image",
+          "Target": "TitleArea.Image",
+          "VisualID": "ui_panel_info",
+          "ComponentRef": "Panel.Info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "InventoryFrame.Image",
+          "VisualID": "ui_inventory_chassis_panel",
+          "ComponentRef": "Inventory.ChassisPanel",
+          "ImageType": "Simple",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "CombatLootPanel_Runtime/LootModal/LootCache.Image",
           "VisualID": "ui_loot_drop_zone",
           "ComponentRef": "Loot.DropZone",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "CapacitySummary.Image",
+          "VisualID": "ui_panel_info",
+          "ComponentRef": "Panel.Info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "ItemDetailPanel.Image",
+          "VisualID": "ui_panel_info",
+          "ComponentRef": "Panel.Info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "UnclaimedWarningPanel.Image",
+          "VisualID": "ui_panel_info",
+          "ComponentRef": "Panel.Info",
           "ImageType": "Sliced",
           "RaycastTarget": false
         },
@@ -1081,6 +1414,20 @@
           "ComponentRef": "Button.Primary",
           "ImageType": "Sliced",
           "RaycastTarget": true
+        },
+        {
+          "Target": "CancelButton.Image",
+          "VisualID": "ui_button_secondary",
+          "ComponentRef": "Button.Secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "DiscardButton.Image",
+          "VisualID": "ui_button_danger",
+          "ComponentRef": "Button.Danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
         }
       ],
       "InventoryLayerPolicy": {
@@ -1093,15 +1440,17 @@
           "CombatLoot 不创建独立背包，只重定位全局 GridContainer 和 InventoryItemLayer。",
           "GridSlotUI 的可交互对象保留 raycastTarget=true，背包底盘和装饰框为 false。",
           "拖拽状态显示优先级为 invalid/valid > hover > locked/available。",
-          "lootParent 下的战利品图标必须位于 LootDropZone 装饰层之上。"
+          "lootParent 下的战利品图标必须位于 LootCache 装饰层之上。",
+          "背包格保持 100x100 与 5 间距，不为了拾取弹窗构图压缩玩法格。"
         ]
       },
       "AcceptanceCriteria": [
-        "战利品图标可以从 loot_drop_zone 拖入 inventory_grid，合法/非法格状态能正确变化。",
-        "PickupPanel、LootDropZone、ItemDetailPanel 不阻挡格子、物品和按钮射线。",
+        "左侧 inventory_grid、右侧 loot_cache、右下 confirm_area 结构清晰，三者互不重叠。",
+        "战利品图标可以从 loot_cache 拖入 inventory_grid，合法/非法格状态能正确变化。",
+        "PickupPanel、LootDropZone、ItemDetailPanel、UnclaimedWarningPanel 不阻挡格子、物品和按钮射线。",
         "背包格实际显示尺寸为 100x100，和 DraggableItemUI 的占格尺寸一致。",
         "确认按钮继续沿用现有 continueBtn 逻辑，未拾取物品的清理规则不被 UI 皮肤改变。",
-        "物品名称、价值、占格说明、结算摘要全部由 Unity Text 渲染，不烘焙进 UI 图片。"
+        "容量摘要、物品名称、价值、占格说明、未拾取警告和结算摘要全部由 Unity Text 渲染。"
       ]
     },
     {
