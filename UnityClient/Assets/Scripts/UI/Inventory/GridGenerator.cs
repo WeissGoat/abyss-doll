@@ -23,7 +23,10 @@ public class GridGenerator : MonoBehaviour {
         
         // 动态设置列数
         GridLayoutGroup layout = gridParent.GetComponent<GridLayoutGroup>();
-        if (layout != null) layout.constraintCount = _width;
+        if (layout != null) {
+            InventoryDisplaySpec.ApplyGridLayout(layout);
+            layout.constraintCount = _width;
+        }
         
         _uiSlots = new GameObject[_width, _height];
 

@@ -50,9 +50,7 @@ public class MVPEditorSetup : EditorWindow
         gridRect.pivot = new Vector2(0.5f, 0.5f);
         
         GridLayoutGroup layoutGroup = gridContainer.AddComponent<GridLayoutGroup>();
-        layoutGroup.cellSize = new Vector2(100, 100);
-        layoutGroup.spacing = new Vector2(5, 5);
-        layoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+        InventoryDisplaySpec.ApplyGridLayout(layoutGroup);
         layoutGroup.constraintCount = 5; 
 
         GridGenerator generator = canvasGo.AddComponent<GridGenerator>();
