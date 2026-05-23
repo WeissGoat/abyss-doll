@@ -70,6 +70,7 @@ PM 版本节点中，美术线当前已完成 A1 的 `combat_hud` Formal V1 acti
 .\tools\美术工具\Update-ArtManifest.ps1
 .\tools\美术工具\Generate-ArtPrompts.ps1
 .\tools\美术工具\Validate-UIDesign.ps1
+.\tools\美术工具\Scan-UIIterationCandidates.ps1
 ```
 
 ## 最近完成
@@ -82,18 +83,21 @@ PM 版本节点中，美术线当前已完成 A1 的 `combat_hud` Formal V1 acti
 - 已把 `combat_hud` active 规格切到 Formal V1：底部居中背包、左玩家/右敌人实体舞台、敌人脚下血条、中央 `vfx_space`。
 - 已扩展 Manifest 扫描与提示词生成：`MonsterEntity.CombatVisualID` 会扫出 `monster_*_combat` 透明战斗实体素材需求，并新增 `ui_combat_entity_shadow` / `ui_combat_target_ring`。
 - 已完成 `combat_hud` Formal V1 第一批战斗资源入库：`monster_mob_scavenger_bug_combat`、`monster_mob_acid_slime_combat`、`monster_elite_scrap_guard_combat`、`monster_elite_mutant_amalgam_combat`、`ui_combat_entity_shadow`、`ui_combat_target_ring`，并补齐 Unity `.meta`。
+- 已新增 `Scan-UIIterationCandidates.ps1`，可自动扫描 active UI 规格、Manifest、Approved 资源和最新 ArtAcceptance 输出，生成 UI 迭代候选报告。
+- 当前扫描报告显示：8 个 active UI 规格界面都有可看的旧截图，但最新 ArtAcceptance 为 2026-05-22，早于 2026-05-24 active 规格；`combat_hud` 还存在最新 registry / 验收未反映已入库新战斗素材的问题。
 
 ## 下一步建议
 
-1. 将 `combat_hud` Formal V1 active 规格和已入库战斗资源交给 UI 程序侧接入。
-2. 接入完成后，用 ArtAcceptance 截图验收左玩家、右敌方实体、底部居中背包、敌人脚下血条和目标光环。
-3. 验收通过后再推进 `inventory_loot`、`workshop_main`、`dungeon_map`、`settlement` Formal V1。
+1. 等 UI 程序侧接入 `combat_hud` Formal V1 后，重跑 ArtAcceptance，并再次执行 `Scan-UIIterationCandidates.ps1`。
+2. 重跑后优先验收 `combat_hud`：左玩家、右敌方实体、底部居中背包、敌人脚下血条和目标光环。
+3. 可先用当前旧截图做方向性审查：`inventory_loot`、`workshop_main` 适合进入 Formal V1 结构复审；`dungeon_map`、`layer_select`、`sell_panel`、`prosthetic_panel`、`settlement` 可做 P1 UI 迭代预审。
 4. 后续新增怪物时继续按 `CombatVisualID -> monster_*_combat -> Approved/Monsters/Combat` 流程补图。
 
 ## 问题 / 阻塞
 
 - 当前工作区已有多个美术文档和生成文件处于脏状态，后续美术智能体编辑前需要先阅读差异。
 - P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 正式结构已通过。
+- 最新 UI 迭代候选报告基于 2026-05-22 ArtAcceptance 截图，早于当前 2026-05-24 active UI 规格；当前截图可看方向，但不能作为当前规格验收结论。
 - `tools/ComfyUI_NAIDGenerator/` 未跟踪，需要决定是否纳入正式美术流水线。
 
 ## 完成回写清单

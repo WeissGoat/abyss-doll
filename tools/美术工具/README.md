@@ -14,7 +14,7 @@ related:
   - 美术文档/00_美术流水线总览.md
   - 美术文档/README.md
   - 美术文档/04_美术风格基准.md
-last_verified: 2026-05-23
+last_verified: 2026-05-24
 update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
 ---
 
@@ -170,3 +170,25 @@ $env:NAI_ACCESS_TOKEN = "<token>"
 * 组件引用的 `VisualID` 是否存在于 `art_requirements_seed.json` 或 Manifest。
 * 界面引用的 `ComponentID` 是否存在于组件目录。
 * 界面要求的 `VisualID` 是否已被美术流水线纳管。
+
+## Scan-UIIterationCandidates.ps1
+
+扫描当前 UI 规格、Manifest、Approved 资源和最新 ArtAcceptance 输出，生成“这版哪些界面能看、哪些适合进入 UI 迭代、哪些还缺程序接入或重跑验收”的候选清单。
+
+输出：
+
+* `美术文档/ui_design/_generated/ui_iteration_candidates.json`
+* `美术文档/ui_design/_generated/ui_iteration_candidates.md`
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Scan-UIIterationCandidates.ps1
+```
+
+报告中的主要状态：
+
+* `viewable_but_stale`：已有截图可看，但截图早于当前 active UI 规格，需要重跑 ArtAcceptance 后才能验收当前版本。
+* `registry_or_acceptance_gap`：Approved 素材已具备，但最新 registry / 截图还没反映出来，通常需要 Unity 导入或重跑验收。
+* `mvp_baseline_review_ready`：MVP 骨架截图可看，适合进入 Formal V1 结构审查。
+* `review_ready`：当前截图可直接进入 UI 设计或视觉精修判断。
