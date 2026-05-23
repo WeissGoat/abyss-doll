@@ -18,7 +18,8 @@ related:
   - 知识库/views/art.md
   - 知识库/views/design.md
   - 知识库/views/program.md
-last_verified: 2026-05-23
+  - tools/agent/README.md
+last_verified: 2026-05-24
 update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。
 ---
 
@@ -28,7 +29,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 ## 最后更新
 
-2026-05-23
+2026-05-24
 
 ## 当前阶段
 
@@ -78,6 +79,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 美术智能体已建立 UI 设计版本化流程：MVP Baseline 冻结、Formal V1 结构设计、active `screen_layouts.json` 确认后更新、再进入素材生成和程序接入。
 - P0 UI MVP Baseline 已运行时验收通过；下一步不是继续美化 MVP 结构，而是先重审 Formal V1 战斗/工坊/拾取等正式结构。
 - PM / 版本规划智能体已建立状态页和阅读入口，用于维护正式版核心纵切 Alpha 的阶段判断、里程碑、优先级和跨职能交接。
+- 已新增 `tools/agent/Invoke-AgentHealthCheck.ps1`，用于复制智能体开工前检查工作区脏文件、易误提交路径、submodule 风险和知识库校验状态。
 
 ## 跨职能交接
 
@@ -94,14 +96,13 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 ## 问题 / 阻塞
 
-- 当前工作区已有前序 UI、美术、生成物和 submodule 相关脏文件。后续智能体暂存时需要严格收窄范围。
+- 当前工作区已有前序 UI、美术、生成物和 submodule 相关脏文件。后续智能体开工前应先运行 `.\tools\agent\Invoke-AgentHealthCheck.ps1`，提交时严格收窄范围。
 - `tools/ComfyUI_NAIDGenerator/` 当前未跟踪，后续需要决定它是 vendor 代码、submodule，还是本地专用工具。
 - `tools/ai-image-gateway` 子模块内部有未提交改动；如需处理，应进入子模块内部单独处理。
 
 ## 下一步总建议
 
-1. 增加 `tools/agent` 健康检查脚本，方便复制智能体开工前检查仓库状态。
-2. 增加配置校验工具，检查 `配置表(JSON)` 的 ID、必填字段和交叉引用。
-3. 为知识库索引增加可选的职能 / 领域 / 关联深度过滤入口，方便复制智能体按任务快速定位文档。
-4. 美术侧先完成 `combat_hud` Formal V1 结构确认和 active 规格更新，再交给 UI 程序侧迁移。
-5. PM 先从 Alpha 优先级中选择下一个正式纵切系统，并通过职能状态页拆分给美术 / 策划 / 程序。
+1. 增加配置校验工具，检查 `配置表(JSON)` 的 ID、必填字段和交叉引用。
+2. 为知识库索引增加可选的职能 / 领域 / 关联深度过滤入口，方便复制智能体按任务快速定位文档。
+3. 美术侧先完成 `combat_hud` Formal V1 结构确认和 active 规格更新，再交给 UI 程序侧迁移。
+4. PM 先从 Alpha 优先级中选择下一个正式纵切系统，并通过职能状态页拆分给美术 / 策划 / 程序。

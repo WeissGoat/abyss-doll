@@ -14,7 +14,8 @@ related:
   - 知识库/views/art.md
   - 知识库/views/design.md
   - 知识库/views/program.md
-last_verified: 2026-05-23
+  - tools/agent/README.md
+last_verified: 2026-05-24
 update_rule: 调整元数据字段、索引策略或文档治理规则时更新本文件。
 ---
 
@@ -85,6 +86,7 @@ update_rule: 修改系统关系、资源流向或优先级时同步本文件。
 - `docs_index.json`：给智能体和工具读取的机器索引。
 - `知识库/views/`：按职能整理的阅读入口，只做上下文导航，不替代事实来源文档。
 - `知识库/views/pm.md`：PM / 版本规划阅读入口，负责快速定位阶段路线、里程碑和跨职能交接。
+- `tools/agent/README.md`：复制智能体开工前健康检查入口，用于发现工作区和知识库风险。
 - 索引会统计文档关联数、跨职能关联数和职能之间的关联边。
 
 生成命令：

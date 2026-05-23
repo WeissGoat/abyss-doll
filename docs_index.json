@@ -10,13 +10,13 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 706,
-    "relation_edges": 353,
-    "cross_role_edges": 118,
+    "directed_edges": 712,
+    "relation_edges": 356,
+    "cross_role_edges": 119,
     "role_pairs": {
       "PM <-> 全局": 7,
       "PM <-> 知识库": 1,
-      "全局 <-> 知识库": 3,
+      "全局 <-> 知识库": 4,
       "全局 <-> 程序": 9,
       "全局 <-> 策划": 8,
       "全局 <-> 美术": 7,
@@ -183,13 +183,14 @@
         "知识库/views/pm.md",
         "知识库/views/art.md",
         "知识库/views/design.md",
-        "知识库/views/program.md"
+        "知识库/views/program.md",
+        "tools/agent/README.md"
       ],
-      "last_verified": "2026-05-23",
+      "last_verified": "2026-05-24",
       "update_rule": "修改智能体分工、开工流程或完成协议时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 9,
+      "relation_count": 10,
       "cross_role_relation_count": 6
     },
     {
@@ -256,14 +257,36 @@
         "知识库/views/pm.md",
         "知识库/views/art.md",
         "知识库/views/design.md",
-        "知识库/views/program.md"
+        "知识库/views/program.md",
+        "tools/agent/README.md"
       ],
-      "last_verified": "2026-05-23",
+      "last_verified": "2026-05-24",
       "update_rule": "项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 11,
+      "relation_count": 12,
       "cross_role_relation_count": 8
+    },
+    {
+      "path": "tools/agent/README.md",
+      "title": "智能体开工健康检查",
+      "id": "agent_health_check",
+      "type": "tool",
+      "role": "全局",
+      "domain": "agent_workflow",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md",
+        "知识库/README.md"
+      ],
+      "last_verified": "2026-05-24",
+      "update_rule": "调整复制智能体开工检查项、风险路径或提交前检查流程时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 1
     },
     {
       "path": "tools/config/README.md",
@@ -1183,14 +1206,15 @@
         "知识库/views/pm.md",
         "知识库/views/art.md",
         "知识库/views/design.md",
-        "知识库/views/program.md"
+        "知识库/views/program.md",
+        "tools/agent/README.md"
       ],
-      "last_verified": "2026-05-23",
+      "last_verified": "2026-05-24",
       "update_rule": "调整元数据字段、索引策略或文档治理规则时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 7,
-      "cross_role_relation_count": 7
+      "relation_count": 8,
+      "cross_role_relation_count": 8
     },
     {
       "path": "知识库/views/art.md",

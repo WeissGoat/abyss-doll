@@ -16,7 +16,8 @@ related:
   - 知识库/views/art.md
   - 知识库/views/design.md
   - 知识库/views/program.md
-last_verified: 2026-05-23
+  - tools/agent/README.md
+last_verified: 2026-05-24
 update_rule: 修改智能体分工、开工流程或完成协议时同步本文件。
 ---
 
@@ -41,6 +42,20 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 5. `版本规划/09_正式版核心纵切开发路线.md` 是当前顶层开发路线。
 
 如果旧 MVP 文档与当前 GDD、`09` 路线或状态页冲突，以当前 GDD、`09` 路线和状态页为准。
+
+## 开工健康检查
+
+复制出来的智能体开始实际改动前，建议先运行：
+
+```powershell
+.\tools\agent\Invoke-AgentHealthCheck.ps1
+```
+
+它只报告风险，不会清理或修改文件。提交前可以使用严格模式：
+
+```powershell
+.\tools\agent\Invoke-AgentHealthCheck.ps1 -Strict
+```
 
 ## 角色
 

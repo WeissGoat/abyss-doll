@@ -18,12 +18,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：101
-- 已补元数据：101
+- 文档总数：102
+- 已补元数据：102
 - 缺少元数据：0
-- 事实来源文档：79
-- 关联边数：353
-- 跨职能关联：118
+- 事实来源文档：80
+- 关联边数：356
+- 跨职能关联：119
 
 ## 事实来源
 
@@ -34,6 +34,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [Project P3 智能体入口](AGENTS.md) - `entry` / `agent_workflow`
 - [魔偶深渊 AI 核心知识库](GEMINI.md) - `entry` / `project_context`
 - [项目状态](PROJECT_STATUS.md) - `status` / `project_status`
+- [智能体开工健康检查](tools/agent/README.md) - `tool` / `agent_workflow`
 - [Unity 表现层与编辑器构建规范 (UI & Editor Construction Guidelines)](开发文档/00_Unity表现层与编辑器构建规范.md) - `dev` / `unity_presentation`
 - [客户端核心架构规范 (Client Architecture Guidelines)](开发文档/00_客户端核心架构规范.md) - `dev` / `client_architecture`
 - [程序开发大纲与系统索引](开发文档/00_程序开发大纲.md) - `dev` / `program_architecture`
@@ -111,7 +112,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 - `PM <-> 全局`：7 条
 - `PM <-> 知识库`：1 条
-- `全局 <-> 知识库`：3 条
+- `全局 <-> 知识库`：4 条
 - `全局 <-> 程序`：9 条
 - `全局 <-> 策划`：8 条
 - `全局 <-> 美术`：7 条
@@ -135,11 +136,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 9 | 完整 |
+| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 10 | 完整 |
 | [文档索引](DOCS_INDEX.md) | `index` | `generated` | `knowledge_base` | 1 | 完整 |
 | [魔偶深渊 AI 核心知识库](GEMINI.md) | `entry` | `active` | `project_context` | 7 | 完整 |
-| [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 11 | 完整 |
+| [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 12 | 完整 |
 | [智能体状态页说明](agent_status/README.md) | `status` | `active` | `agent_status` | 5 | 完整 |
+| [智能体开工健康检查](tools/agent/README.md) | `tool` | `active` | `agent_workflow` | 3 | 完整 |
 | [最小可玩版本 (MVP) 核心闭环内容清单](版本规划/00_最小MVP体验闭环内容清单.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 客户端开发里程碑与节点规划](版本规划/02_开发里程碑与节点规划.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 验证需要补充的功能开发](版本规划/04_MVP验证需要补充的功能开发.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
@@ -152,7 +154,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [知识库规范](知识库/README.md) | `kb` | `active` | `knowledge_base` | 7 | 完整 |
+| [知识库规范](知识库/README.md) | `kb` | `active` | `knowledge_base` | 8 | 完整 |
 
 ### 程序
 
