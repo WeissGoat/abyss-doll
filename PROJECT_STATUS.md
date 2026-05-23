@@ -14,6 +14,7 @@ related:
   - agent_status/pm.md
   - agent_status/program.md
   - agent_status/design.md
+  - 设计文档/00_策划文档开发交付审计.md
   - agent_status/art.md
   - 知识库/views/pm.md
   - 知识库/views/art.md
@@ -87,8 +88,10 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 已新增 `tools/agent/Invoke-AgentHealthCheck.ps1`，用于复制智能体开工前检查工作区脏文件、易误提交路径、submodule 风险和知识库校验状态。
 - PM 已新增正式版核心纵切版本节点规划，按 A1 核心边界收口、A2 背包与战斗、A3 深渊与局外成长、A4 经济压力与候选版本推进。
 - 策划侧已统一正式版纵切口径：A1-A4 只代表系统推进批次，不代表降低完成标准；深渊地图规则已改为正式版节点网络生成。
+- 策划侧已新增 `设计文档/00_策划文档开发交付审计.md`，按开发交付标准审计 `GDD_00` 到 `GDD_12`，明确当前 P0 缺口是局外时间口径统一、物品背包规则卡、战斗怪物意图规则卡和深渊地图生成开发规则卡。
 - 美术侧已把 `combat_hud` 写入 Formal V1 active 规格：底部居中背包、左玩家/右敌方实体舞台、敌人脚下血条，并扩展 Manifest 扫描 `CombatVisualID` 生成 `monster_*_combat` 战斗实体需求。
 - 美术侧已完成 `combat_hud` Formal V1 第一批战斗资源入库：4 个 `monster_*_combat` 透明战斗实体、`ui_combat_entity_shadow` 和 `ui_combat_target_ring`，并补齐 Unity `.meta`。
+- 美术侧已新增可接入素材清单：`美术文档/_generated/可接入素材清单.md/json`，后续每次生成或同步 Approved 素材后刷新，程序侧可按 `program_integrate` 队列自助接入。
 
 ## 跨职能交接
 
@@ -97,6 +100,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 美术智能体刷新 Manifest 前应先同步配置，确保视觉需求跟随当前配置源。
 - 美术 / UI 的程序接入只以 `美术文档/ui_design/screen_layouts.json` 当前 active 规格为准；`versions/` baseline 和 candidate 不作为程序接入口。
 - Formal V1 UI 文档由美术侧先提出，用户确认后再更新 active 规格、生成素材并交给程序接入。
+- 美术侧每次生成或同步 Approved 素材后会刷新 `美术文档/_generated/可接入素材清单.md/json`；程序侧接入新素材前优先查看其中 `program_integrate` 条目。
 - UI 程序接入 `combat_hud` Formal V1 时，应以 `MonsterEntity.CombatVisualID` 作为敌人舞台实体优先来源；当前 4 个 MVP 怪物的 `monster_*_combat` 已入库，`PortraitID` 只作为后续新增怪物缺图时的临时 fallback。
 - 任意智能体修改系统规则时，必须更新对应 GDD 或开发文档，不能只改代码或配置。
 - 任意智能体新增或调整文档关联时，必须维护 `related` 双向互链，并运行 `.\tools\docs\Validate-Docs.ps1`。
@@ -116,5 +120,5 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 1. 增加配置校验工具，检查 `配置表(JSON)` 的 ID、必填字段和交叉引用。
 2. 为知识库索引增加可选的职能 / 领域 / 关联深度过滤入口，方便复制智能体按任务快速定位文档。
 3. UI 程序侧接入 `combat_hud` Formal V1，使用已入库的 `monster_*_combat`、`ui_combat_entity_shadow` 和 `ui_combat_target_ring`；接入后由美术侧用 ArtAcceptance 截图验收。
-4. 按 `版本规划/10_正式版核心纵切版本节点规划.md` 继续推进 A1/A2：程序核心边界收口、战斗正式结构接入、A2 策划规则卡。
+4. 按 `设计文档/00_策划文档开发交付审计.md` 先补 P0 策划硬规格：局外时间口径统一、物品背包规则卡、战斗怪物意图规则卡、深渊地图生成开发规则卡。
 

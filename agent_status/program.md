@@ -51,6 +51,7 @@ PM 版本节点中，程序线当前落在 A1 核心边界收口：继续收口 
 - `配置表(JSON)` 是配置源；`UnityClient/Assets/StreamingAssets/Configs` 是生成副本。
 - 游戏规则属于后端 / 领域服务，不属于 UI Controller。
 - UI Controller 只调用后端 API 并监听事件。
+- 接入新 Approved 美术素材前，先查看 `美术文档/_generated/可接入素材清单.md`；`program_integrate` 是当前可登记 / 可接入队列。
 - 移动 Unity 资产时保留并同步移动 `.meta` 文件。
 - `tools/ai-image-gateway` 按 submodule 处理。
 
@@ -76,13 +77,15 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - 新增 `tools/agent/Invoke-UnitySmokeTests.ps1`，复制程序智能体可一键触发背包交互服务、DisplaySpec 与 GridLayoutGroup 资产布局 smoke test。
 - 美术侧已交付 `combat_hud` Formal V1 active 规格：敌人从卡片迁移为右侧战斗实体，背包底部居中，敌人血条贴脚下。
 - 美术侧已入库 `combat_hud` Formal V1 所需第一批战斗资源：4 个 `monster_*_combat`、`ui_combat_entity_shadow` 和 `ui_combat_target_ring`。
+- 美术侧已提供 `美术文档/_generated/可接入素材清单.md/json`，程序侧可按 `program_integrate` 条目自助发现待接入素材。
 
 ## 下一步建议
 
 1. 继续推进 A1A 背包交互正式化：补 UI 层拖拽取消、战利品拾取共用规则和非战斗整理路径的回归测试。
 2. 按 A1 节点继续增加 `tools/agent` 启动与验证脚本，让复制智能体快速检查仓库健康状态。
-3. 接入 `combat_hud` Formal V1 时以 active `screen_layouts.json` 为准，敌人实体优先读 `MonsterEntity.CombatVisualID`，并使用已入库的 `monster_*_combat`、`ui_combat_entity_shadow`、`ui_combat_target_ring`。
-4. 增加配置校验工具，检查必填字段、唯一 ID、交叉引用和正式 UI 缺引用。
+3. 接入美术新素材时优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
+4. 接入 `combat_hud` Formal V1 时以 active `screen_layouts.json` 为准，敌人实体优先读 `MonsterEntity.CombatVisualID`，并使用已入库的 `monster_*_combat`、`ui_combat_entity_shadow`、`ui_combat_target_ring`。
+5. 增加配置校验工具，检查必填字段、唯一 ID、交叉引用和正式 UI 缺引用。
 
 ## 问题 / 阻塞
 

@@ -142,6 +142,7 @@ UI 版本规则：
 - `formal_v1/*.md` 是正式结构设计文档；用户确认后，美术智能体逐界面修改 active `screen_layouts.json`。
 - `versions/formal_v1_candidate/` 只是复杂界面的可选暂存区，不是必经流程，也不是程序接入口。
 - 素材生成、Manifest 回填和程序交接必须发生在 active 规格更新并通过 `Validate-UIDesign.ps1` 之后。
+- 每次生成或同步 Approved 素材后，必须刷新 `美术文档/_generated/可接入素材清单.md` 和 `.json`；程序侧优先读取其中 `program_integrate` 条目自助接入。
 - 美术侧每轮实际交付完成后，必须更新 `agent_status/art.md`，并将本轮美术相关改动单独提交；不要混入程序、策划、子模块或本地工具无关改动。
 
 常用命令：
@@ -151,6 +152,7 @@ UI 版本规则：
 .\tools\美术工具\Update-ArtManifest.ps1
 .\tools\美术工具\Generate-ArtPrompts.ps1
 .\tools\美术工具\Validate-UIDesign.ps1
+.\tools\美术工具\Generate-ArtIntegrationCandidates.ps1
 ```
 
 ### 策划 / 数值 智能体
@@ -232,6 +234,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - 背包真实规则统一走 `InventoryInteractionService`；背包显示、物品 UI 同步和层级统一走 `InventoryPresentationController`。
 - `GameFlowController` 只作为流程上下文入口，不要把具体 UI 构建、背包同步、玩法规则继续塞回去。
 - 美术资源通过 `VisualAssetService` / VisualID 接入；不要让运行时代码依赖 `art_manifest.json`。
+- 接入新 Approved 素材前，优先查看 `美术文档/_generated/可接入素材清单.md`，其中 `program_integrate` 是当前可登记 / 可接入队列。
 - 移动、复制、重命名 Unity 资产时必须同步处理 `.meta`，保留 GUID。
 
 重点检查：

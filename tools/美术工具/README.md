@@ -150,6 +150,33 @@ $env:NAI_ACCESS_TOKEN = "<token>"
 .\tools\美术工具\Sync-ApprovedArt.ps1 -BatchID nai_p0_item_20260508_01 -Overwrite
 ```
 
+非 `-DryRun` 同步完成后，脚本会默认刷新“可接入素材清单”，方便程序侧直接查看当前哪些 Approved 素材已经可以接入。需要只做同步、不刷新清单时使用 `-SkipIntegrationCandidates`。
+
+## Generate-ArtIntegrationCandidates.ps1
+
+扫描 Manifest、active UI 规格、Approved 素材、Unity `.meta` 和 `VisualAssetRegistry`，生成面向程序接入的当前素材队列。
+
+输出：
+
+* `美术文档/_generated/可接入素材清单.json`
+* `美术文档/_generated/可接入素材清单.md`
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Generate-ArtIntegrationCandidates.ps1
+```
+
+报告按 `VisualID` 聚合。同一素材如果被多个配置或界面引用，只出现一条，并在 `ReferencedBy` 中合并来源。
+
+主要状态：
+
+* `program_integrate`：Approved PNG 已存在，程序侧应导入 / 登记 `VisualAssetRegistry`。
+* `acceptance_needed`：Registry 已能找到素材，下一步是运行时截图验收或回填 Manifest 状态。
+* `art_approve`：`_IncomingAI/<VisualID>/selected` 已有候选，等待同步到 Approved。
+* `art_select`：`processed` 已有候选，等待美术筛选。
+* `generate_needed`：Manifest 有需求，但还没有可接入素材。
+
 ## Validate-UIDesign.ps1
 
 校验 UI 设计系统的结构化文件，并生成程序交付摘要：

@@ -9,7 +9,8 @@ param(
     [int]$Limit = 0,
     [switch]$AllowProcessedFallback,
     [switch]$DryRun,
-    [switch]$Overwrite
+    [switch]$Overwrite,
+    [switch]$SkipIntegrationCandidates
 )
 
 $ErrorActionPreference = "Stop"
@@ -66,4 +67,12 @@ if ($Overwrite) {
 python @argsList
 if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
+}
+
+if (-not $DryRun -and -not $SkipIntegrationCandidates) {
+    $candidateScript = Join-Path $scriptDir "Generate-ArtIntegrationCandidates.ps1"
+    & $candidateScript
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
 }
