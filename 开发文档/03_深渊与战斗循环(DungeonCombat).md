@@ -543,9 +543,12 @@ CombatEventBus.OnCombatOutcomePrepared
 
 `CombatTimelineRecorder` 属于战斗领域数据层，不依赖 UI。它在战斗开始、回合开始 / 结束、伤害结算、怪物物品干涉和胜负结算时记录结构化事件。事件只保存 UI 可消费快照，不持有战斗对象引用，避免表现层在战斗清理后反查运行态。
 
+`CombatReadabilityTextService` 是当前占位 UI / 正式 UI 的文本适配层。它只消费 `MonsterIntentPreviewService` 和 `CombatOutcomeReport`，输出怪物意图、战斗者状态和最近战斗记录的只读文本快照；不得在该服务中修改战斗状态、背包状态、掉落归属或美术资源绑定。
+
 验收：
 
 * `CombatOutcomeReportSmokeTest.Run` 覆盖胜利报告、HP 战败报告、SAN 崩溃战败报告、事件派发、`TimelineEvents` 和 `LastOutcomeReport` 快照一致性。
+* `CombatReadabilityTextServiceSmokeTest.Run` 覆盖怪物意图文本、胜利结果文本、战败结果文本和最近时间线裁剪输出。
 * 报告生成必须发生在 `PlayerFaction.Cleanup()` / `EnemyFaction.Cleanup()` 之前，避免清理监听或运行态后丢失复盘数据。
 
 ## 4. 战斗胜利奖励与 RewardSystem
