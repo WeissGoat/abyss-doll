@@ -754,6 +754,186 @@
       "Notes": "[2026-05-10T01:11:02+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/chassis_chassis_lv2_expanded_frame/contact_sheet/chassis_chassis_lv2_expanded_frame_contact_sheet.png\n[2026-05-10T01:14:24+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/chassis_chassis_lv2_expanded_frame/selected/chassis_chassis_lv2_expanded_frame.png"
     },
     {
+      "Domain": "chassis",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "chassis_bulwark_carrier",
+      "DisplayName": "重载承运底盘图标",
+      "AssetType": "icon",
+      "VisualID": "chassis_bulwark_carrier_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_bulwark_carrier_icon.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长资产：`40_局外成长底盘正式配置落地设计.md` 已锁定 VisualID=chassis_bulwark_carrier_icon，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。重载承运底盘图标，宽大的加固货架、厚侧轨、锚定板和结实黄铜角块，轮廓稳定。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, mechanical chassis badge icon, heavy carrier backpack chassis icon, broad reinforced cargo frame, thick side rails, anchor plates, sturdy brass corner blocks, clean readable silhouette, centered single object, clean silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, baked grid numbers, UI text, closed solid plate, cluttered center",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 96,
+          "DisplayHeight": 96,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.72,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered mechanical chassis badge icon"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "BatchID": "local_v0_formal_growth_assets_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_bulwark_carrier_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_bulwark_carrier_icon.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Chassis/chassis_bulwark_carrier_icon.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_chassis",
+      "Screen": "chassis_upgrade_panel",
+      "Usage": "正式局外成长重载订单承载底盘、抗干涉构筑和底盘升级列表",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+    },
+    {
+      "Domain": "chassis",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "chassis_compact_raider",
+      "DisplayName": "轻装掠行底盘图标",
+      "AssetType": "icon",
+      "VisualID": "chassis_compact_raider_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_compact_raider_icon.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长资产：`40_局外成长底盘正式配置落地设计.md` 已锁定 VisualID=chassis_compact_raider_icon，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。轻装掠行底盘图标，轻窄框架、侦察传感鳍片、圆形撤离挂钩和灵活黄铜侧轨。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, mechanical chassis badge icon, compact raider backpack chassis icon, light narrow frame, scout sensor fins, rounded extraction hooks, agile brass side rails, clean readable silhouette, centered single object, clean silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, baked grid numbers, UI text, closed solid plate, cluttered center",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 96,
+          "DisplayHeight": 96,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.72,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered mechanical chassis badge icon"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "BatchID": "local_v0_formal_growth_assets_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_compact_raider_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_compact_raider_icon.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Chassis/chassis_compact_raider_icon.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_chassis",
+      "Screen": "chassis_upgrade_panel",
+      "Usage": "正式局外成长轻装路线预览底盘、撤离构筑和底盘升级列表",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+    },
+    {
+      "Domain": "chassis",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "chassis_standard_frame",
+      "DisplayName": "标准工坊底盘图标",
+      "AssetType": "icon",
+      "VisualID": "chassis_standard_frame_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_standard_frame_icon.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长资产：`40_局外成长底盘正式配置落地设计.md` 已锁定 VisualID=chassis_standard_frame_icon，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。标准工坊底盘图标，均衡矩形框、简洁黄铜导轨、核心安装插槽和稳定基准轮廓。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, mechanical chassis badge icon, standard workshop backpack chassis icon, balanced rectangular frame, simple brass rails, core mounting sockets, stable baseline silhouette, centered single object, clean silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, baked grid numbers, UI text, closed solid plate, cluttered center",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 96,
+          "DisplayHeight": 96,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.72,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered mechanical chassis badge icon"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "BatchID": "local_v0_formal_growth_assets_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_standard_frame_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_standard_frame_icon.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Chassis/chassis_standard_frame_icon.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_chassis",
+      "Screen": "chassis_upgrade_panel",
+      "Usage": "正式局外成长标准底盘、默认底盘和底盘升级列表",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+    },
+    {
       "Domain": "doll",
       "SourceType": "config",
       "DeriveRule": "Dolls/*.json -> doll standing visual",
@@ -2577,6 +2757,366 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_pros_power_arm_icon.png",
       "RegistryStatus": "unregistered",
       "Notes": "[2026-05-10T01:11:02+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/prosthetic_pros_power_arm_icon/contact_sheet/prosthetic_pros_power_arm_icon_contact_sheet.png\n[2026-05-10T01:14:24+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/prosthetic_pros_power_arm_icon/selected/prosthetic_pros_power_arm_icon.png"
+    },
+    {
+      "Domain": "prosthetic",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "prosthetic_anchor_left_arm",
+      "DisplayName": "锚定左臂图标",
+      "AssetType": "icon",
+      "VisualID": "prosthetic_anchor_left_arm_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_anchor_left_arm_icon.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长资产：`42_局外成长义体正式配置落地设计.md` 已锁定 VisualID=prosthetic_anchor_left_arm_icon，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。锚定左臂图标，机械夹爪、加固腕箍、背包格稳定插针和厚重黄铜铰链，轮廓紧凑。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, prosthetic machine module icon, mechanical anchor left-arm module, clamp fingers, reinforced wrist brace, small grid-lock stabilizer pins, heavy brass hinge, compact machine part, centered single object, clean silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, real human limb, medical advertisement style, cropped object, clean plastic product",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 80,
+          "DisplayHeight": 80,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.72,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single module"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 80
+        }
+      },
+      "BatchID": "local_v0_formal_growth_assets_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_anchor_left_arm_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_anchor_left_arm_icon.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_anchor_left_arm_icon.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_prosthetic",
+      "Screen": "prosthetic_panel",
+      "Usage": "正式局外成长背包干涉抵抗义体、封格反制和义体制造列表",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+    },
+    {
+      "Domain": "prosthetic",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "prosthetic_charge_coil_arm",
+      "DisplayName": "蓄能线圈臂图标",
+      "AssetType": "icon",
+      "VisualID": "prosthetic_charge_coil_arm_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_charge_coil_arm_icon.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长资产：`42_局外成长义体正式配置落地设计.md` 已锁定 VisualID=prosthetic_charge_coil_arm_icon，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。蓄能线圈臂图标，外露铜线圈、紧凑电容核心、加固前臂外壳和琥珀过载火花。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, prosthetic machine module icon, charge-coil arm module, exposed copper coil, compact capacitor core, reinforced forearm casing, amber overload spark, compact machine part, centered single object, clean silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, real human limb, medical advertisement style, cropped object, clean plastic product",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 80,
+          "DisplayHeight": 80,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.72,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single module"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 80
+        }
+      },
+      "BatchID": "local_v0_formal_growth_assets_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_charge_coil_arm_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_charge_coil_arm_icon.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_charge_coil_arm_icon.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_prosthetic",
+      "Screen": "prosthetic_panel",
+      "Usage": "正式局外成长充能武器爆发义体、战斗构筑和义体制造列表",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+    },
+    {
+      "Domain": "prosthetic",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "prosthetic_focus_lens",
+      "DisplayName": "裂隙聚焦镜图标",
+      "AssetType": "icon",
+      "VisualID": "prosthetic_focus_lens_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_focus_lens_icon.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长资产：`42_局外成长义体正式配置落地设计.md` 已锁定 VisualID=prosthetic_focus_lens_icon，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。裂隙聚焦镜图标，圆形黄铜光学镜、层叠玻璃镜片、小型扫描鳍片和柔和蓝色侦测光。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, prosthetic machine module icon, focus-lens sensor module, round brass optic, layered glass lens, tiny scanning fins, soft blue detection glow, compact machine part, centered single object, clean silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, real human limb, medical advertisement style, cropped object, clean plastic product",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 80,
+          "DisplayHeight": 80,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.72,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single module"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 80
+        }
+      },
+      "BatchID": "local_v0_formal_growth_assets_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_focus_lens_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_focus_lens_icon.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_focus_lens_icon.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_prosthetic",
+      "Screen": "prosthetic_panel",
+      "Usage": "正式局外成长地图阅读义体、路线预览和义体制造列表",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+    },
+    {
+      "Domain": "prosthetic",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "prosthetic_mender_spine",
+      "DisplayName": "修复脊索图标",
+      "AssetType": "icon",
+      "VisualID": "prosthetic_mender_spine_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_mender_spine_icon.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长资产：`42_局外成长义体正式配置落地设计.md` 已锁定 VisualID=prosthetic_mender_spine_icon，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。修复脊索图标，分节脊柱导轨、小型修复注射器和浅蓝修复脉冲，轮廓紧凑。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, prosthetic machine module icon, mender-spine prosthetic module, articulated spinal rail, small repair injectors, pale blue repair pulse, compact machine part, centered single object, clean silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, real human limb, medical advertisement style, cropped object, clean plastic product",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 80,
+          "DisplayHeight": 80,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.72,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single module"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 80
+        }
+      },
+      "BatchID": "local_v0_formal_growth_assets_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_mender_spine_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_mender_spine_icon.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_mender_spine_icon.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_prosthetic",
+      "Screen": "prosthetic_panel",
+      "Usage": "正式局外成长安全区后续修复义体、长线恢复和义体制造列表",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+    },
+    {
+      "Domain": "prosthetic",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "prosthetic_salvage_fingertips",
+      "DisplayName": "精密拾荒指图标",
+      "AssetType": "icon",
+      "VisualID": "prosthetic_salvage_fingertips_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_salvage_fingertips_icon.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长资产：`42_局外成长义体正式配置落地设计.md` 已锁定 VisualID=prosthetic_salvage_fingertips_icon，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。精密拾荒指图标，小型分节黄铜手指、细切割尖端和材料扫描光点。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, prosthetic machine module icon, precision salvage fingertip module, tiny articulated brass fingers, small cutting tips, material scanner dot, compact machine part, centered single object, clean silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, real human limb, medical advertisement style, cropped object, clean plastic product",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 80,
+          "DisplayHeight": 80,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.72,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single module"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 80
+        }
+      },
+      "BatchID": "local_v0_formal_growth_assets_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_salvage_fingertips_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_salvage_fingertips_icon.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_salvage_fingertips_icon.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_prosthetic",
+      "Screen": "prosthetic_panel",
+      "Usage": "正式局外成长材料识别义体、撤离拆解收益和义体制造列表",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+    },
+    {
+      "Domain": "prosthetic",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "prosthetic_san_regulator_core",
+      "DisplayName": "SAN稳态调节核图标",
+      "AssetType": "icon",
+      "VisualID": "prosthetic_san_regulator_core_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_san_regulator_core_icon.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长资产：`42_局外成长义体正式配置落地设计.md` 已锁定 VisualID=prosthetic_san_regulator_core_icon，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。SAN 稳态调节核图标，密封黄铜泵、小压力表、小型水晶稳压器和蓝紫安定脉冲。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, prosthetic machine module icon, SAN regulator core module, sealed brass pump, pressure gauge, small crystal stabilizer, blue-purple calming pulse, compact machine part, centered single object, clean silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, real human limb, medical advertisement style, cropped object, clean plastic product",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 80,
+          "DisplayHeight": 80,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.72,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single module"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 80
+        }
+      },
+      "BatchID": "local_v0_formal_growth_assets_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_san_regulator_core_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_san_regulator_core_icon.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_san_regulator_core_icon.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_prosthetic",
+      "Screen": "prosthetic_panel",
+      "Usage": "正式局外成长 SAN 稳定义体、崩溃缓冲和义体制造列表",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
     },
     {
       "Domain": "ui",

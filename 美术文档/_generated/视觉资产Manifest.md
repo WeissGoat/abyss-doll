@@ -12,12 +12,12 @@
 | Domain | Count |
 |---|---:|
 | `background` | 11 |
-| `chassis` | 2 |
+| `chassis` | 5 |
 | `doll` | 2 |
 | `item` | 13 |
 | `monster` | 8 |
 | `node` | 8 |
-| `prosthetic` | 2 |
+| `prosthetic` | 8 |
 | `ui` | 83 |
 
 ## 资产列表
@@ -37,6 +37,9 @@
 | `background` | `settlement_victory` | 撤离成功结算背景 | `background` | `bg_settlement_victory` | P2 | `approved` |
 | `chassis` | `chassis_lv1_basic` | chassis_lv1_basic | `frame` | `chassis_chassis_lv1_basic_frame` | P1 | `approved` |
 | `chassis` | `chassis_lv2_expanded` | chassis_lv2_expanded | `frame` | `chassis_chassis_lv2_expanded_frame` | P1 | `approved` |
+| `chassis` | `chassis_bulwark_carrier` | 重载承运底盘图标 | `icon` | `chassis_bulwark_carrier_icon` | P2 | `todo` |
+| `chassis` | `chassis_compact_raider` | 轻装掠行底盘图标 | `icon` | `chassis_compact_raider_icon` | P2 | `todo` |
+| `chassis` | `chassis_standard_frame` | 标准工坊底盘图标 | `icon` | `chassis_standard_frame_icon` | P2 | `todo` |
 | `doll` | `doll_proto_0` | 原型机·零 | `stand` | `doll_proto_0_stand` | P1 | `approved` |
 | `doll` | `doll_proto_0_test` | 原型机·零（测试） | `stand` | `doll_proto_0_test_stand` | P1 | `deprecated` |
 | `item` | `con_cheap_sedative` | 廉价镇静剂 | `icon` | `item_con_cheap_sedative_icon` | P0 | `approved` |
@@ -70,6 +73,12 @@
 | `node` | `TreasureNode` | TreasureNode | `icon` | `node_treasurenode_icon` | P0 | `approved` |
 | `prosthetic` | `pros_cooling_system` | 稳压散热插件 | `icon` | `prosthetic_pros_cooling_system_icon` | P1 | `approved` |
 | `prosthetic` | `pros_power_arm` | 动力臂增幅插件 | `icon` | `prosthetic_pros_power_arm_icon` | P1 | `approved` |
+| `prosthetic` | `prosthetic_anchor_left_arm` | 锚定左臂图标 | `icon` | `prosthetic_anchor_left_arm_icon` | P2 | `todo` |
+| `prosthetic` | `prosthetic_charge_coil_arm` | 蓄能线圈臂图标 | `icon` | `prosthetic_charge_coil_arm_icon` | P2 | `todo` |
+| `prosthetic` | `prosthetic_focus_lens` | 裂隙聚焦镜图标 | `icon` | `prosthetic_focus_lens_icon` | P2 | `todo` |
+| `prosthetic` | `prosthetic_mender_spine` | 修复脊索图标 | `icon` | `prosthetic_mender_spine_icon` | P2 | `todo` |
+| `prosthetic` | `prosthetic_salvage_fingertips` | 精密拾荒指图标 | `icon` | `prosthetic_salvage_fingertips_icon` | P2 | `todo` |
+| `prosthetic` | `prosthetic_san_regulator_core` | SAN稳态调节核图标 | `icon` | `prosthetic_san_regulator_core_icon` | P2 | `todo` |
 | `ui` | `missing_sprite` | 缺失占位图 | `icon` | `ui_missing_sprite` | P0 | `approved` |
 | `ui` | `button_primary` | 主按钮 | `button` | `ui_button_primary` | P1 | `approved` |
 | `ui` | `button_secondary` | 次按钮 | `button` | `ui_button_secondary` | P1 | `approved` |
@@ -99,10 +108,10 @@
 | `ui` | `combat_target_ring` | 战斗目标选择光环 | `ring` | `ui_combat_target_ring` | P1 | `approved` |
 | `ui` | `icon_bill` | 账单图标 | `icon` | `ui_icon_bill` | P1 | `approved` |
 | `ui` | `icon_corruption_purify` | 侵蚀净化图标 | `icon` | `ui_icon_corruption_purify` | P1 | `approved` |
-| `ui` | `icon_debt_rent` | 月租债务图标 | `icon` | `ui_icon_debt_rent` | P1 | `todo` |
+| `ui` | `icon_debt_rent` | 月租债务图标 | `icon` | `ui_icon_debt_rent` | P1 | `approved` |
 | `ui` | `icon_dive_permit` | 下潜许可图标 | `icon` | `ui_icon_dive_permit` | P1 | `approved` |
-| `ui` | `icon_expense` | 支出图标 | `icon` | `ui_icon_expense` | P1 | `todo` |
-| `ui` | `icon_income` | 收入图标 | `icon` | `ui_icon_income` | P1 | `todo` |
+| `ui` | `icon_expense` | 支出图标 | `icon` | `ui_icon_expense` | P1 | `approved` |
+| `ui` | `icon_income` | 收入图标 | `icon` | `ui_icon_income` | P1 | `approved` |
 | `ui` | `icon_maintenance` | 维护状态图标 | `icon` | `ui_icon_maintenance` | P1 | `approved` |
 | `ui` | `icon_warning` | 警告图标 | `icon` | `ui_icon_warning` | P1 | `approved` |
 | `ui` | `icon_wear_repair` | 磨损修复图标 | `icon` | `ui_icon_wear_repair` | P1 | `approved` |

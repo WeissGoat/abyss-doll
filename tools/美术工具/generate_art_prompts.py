@@ -87,21 +87,39 @@ NODE_CN: Dict[str, str] = {
 PROSTHETIC_EN: Dict[str, str] = {
     "pros_cooling_system": "prosthetic cooling-system module, heat sink fins, coolant tubes, tiny pressure gauge, cold blue stabilizing light, compact machine part",
     "pros_power_arm": "prosthetic power-arm module, hydraulic joint, reinforced piston, mechanical fist connector, orange-red power cable, compact machine part",
+    "prosthetic_anchor_left_arm": "mechanical anchor left-arm module, clamp fingers, reinforced wrist brace, small grid-lock stabilizer pins, heavy brass hinge, compact machine part",
+    "prosthetic_charge_coil_arm": "charge-coil arm module, exposed copper coil, compact capacitor core, reinforced forearm casing, amber overload spark, compact machine part",
+    "prosthetic_focus_lens": "focus-lens sensor module, round brass optic, layered glass lens, tiny scanning fins, soft blue detection glow, compact machine part",
+    "prosthetic_mender_spine": "mender-spine prosthetic module, articulated spinal rail, small repair injectors, pale blue repair pulse, compact machine part",
+    "prosthetic_salvage_fingertips": "precision salvage fingertip module, tiny articulated brass fingers, small cutting tips, material scanner dot, compact machine part",
+    "prosthetic_san_regulator_core": "SAN regulator core module, sealed brass pump, pressure gauge, small crystal stabilizer, blue-purple calming pulse, compact machine part",
 }
 
 PROSTHETIC_CN: Dict[str, str] = {
     "pros_cooling_system": "稳压散热插件图标，散热鳍片、冷却管线、小压力表和冷蓝稳定光。",
     "pros_power_arm": "动力臂增幅插件图标，液压关节、强化活塞、机械拳臂接口和橙红动力线。",
+    "prosthetic_anchor_left_arm": "锚定左臂图标，机械夹爪、加固腕箍、背包格稳定插针和厚重黄铜铰链，轮廓紧凑。",
+    "prosthetic_charge_coil_arm": "蓄能线圈臂图标，外露铜线圈、紧凑电容核心、加固前臂外壳和琥珀过载火花。",
+    "prosthetic_focus_lens": "裂隙聚焦镜图标，圆形黄铜光学镜、层叠玻璃镜片、小型扫描鳍片和柔和蓝色侦测光。",
+    "prosthetic_mender_spine": "修复脊索图标，分节脊柱导轨、小型修复注射器和浅蓝修复脉冲，轮廓紧凑。",
+    "prosthetic_salvage_fingertips": "精密拾荒指图标，小型分节黄铜手指、细切割尖端和材料扫描光点。",
+    "prosthetic_san_regulator_core": "SAN 稳态调节核图标，密封黄铜泵、小压力表、小型水晶稳压器和蓝紫安定脉冲。",
 }
 
 CHASSIS_EN: Dict[str, str] = {
     "chassis_lv1_basic": "basic backpack chassis frame, old workshop metal border, screws, worn corners, simple mechanical base plate, open center area",
     "chassis_lv2_expanded": "upgraded backpack chassis frame, sturdier metal border, reinforced side bars, upgrade connectors, precise mechanical details, open center area",
+    "chassis_bulwark_carrier": "heavy carrier backpack chassis icon, broad reinforced cargo frame, thick side rails, anchor plates, sturdy brass corner blocks, clean readable silhouette",
+    "chassis_compact_raider": "compact raider backpack chassis icon, light narrow frame, scout sensor fins, rounded extraction hooks, agile brass side rails, clean readable silhouette",
+    "chassis_standard_frame": "standard workshop backpack chassis icon, balanced rectangular frame, simple brass rails, core mounting sockets, stable baseline silhouette",
 }
 
 CHASSIS_CN: Dict[str, str] = {
     "chassis_lv1_basic": "基础背包底盘框架，旧工坊金属边框、螺丝、磨损边角和简洁机械底板，中间留空。",
     "chassis_lv2_expanded": "升级背包底盘框架，更坚固的金属边框、加固侧条、升级接口和精密机械细节，中间留空。",
+    "chassis_bulwark_carrier": "重载承运底盘图标，宽大的加固货架、厚侧轨、锚定板和结实黄铜角块，轮廓稳定。",
+    "chassis_compact_raider": "轻装掠行底盘图标，轻窄框架、侦察传感鳍片、圆形撤离挂钩和灵活黄铜侧轨。",
+    "chassis_standard_frame": "标准工坊底盘图标，均衡矩形框、简洁黄铜导轨、核心安装插槽和稳定基准轮廓。",
 }
 
 BACKGROUND_EN: Dict[str, str] = {
@@ -485,6 +503,20 @@ SPEC = {
         composition="open-center mechanical frame",
         post_process=["resize", "trim_transparent_edges"],
         preview_size=256,
+    ),
+    "chassis_icon": make_spec(
+        width=512,
+        height=512,
+        background="transparent",
+        alpha_required=True,
+        display_width=96,
+        display_height=96,
+        safe_padding=10,
+        subject_min=0.72,
+        subject_max=0.86,
+        composition="centered mechanical chassis badge icon",
+        post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
+        preview_size=96,
     ),
     "doll": make_spec(
         width=1024,
@@ -1157,7 +1189,10 @@ def prompt_for(entry: Dict[str, Any]) -> tuple[str, str, str, Dict[str, Any]]:
     elif domain == "node":
         prompt_en = f"{STYLE_EN}, minimal map icon, {detail_en}, centered symbol, bold silhouette, high contrast, transparent background, no text"
     elif domain == "chassis":
-        prompt_en = f"{STYLE_EN}, mechanical frame asset, {detail_en}, rectangular frame, open center, clean silhouette, transparent background, no text"
+        if asset_type == "icon" or visual_id.endswith("_icon"):
+            prompt_en = f"{STYLE_EN}, mechanical chassis badge icon, {detail_en}, centered single object, clean silhouette, transparent background, no text"
+        else:
+            prompt_en = f"{STYLE_EN}, mechanical frame asset, {detail_en}, rectangular frame, open center, clean silhouette, transparent background, no text"
     elif domain == "prosthetic":
         prompt_en = f"{STYLE_EN}, prosthetic machine module icon, {detail_en}, centered single object, clean silhouette, transparent background, no text"
     elif domain == "ui":
@@ -1185,6 +1220,8 @@ def prompt_for(entry: Dict[str, Any]) -> tuple[str, str, str, Dict[str, Any]]:
         spec = UI_SPEC_BY_CONFIG.get(config_id, SPEC["ui"])
     elif is_monster_combat:
         spec = SPEC["monster_combat"]
+    elif domain == "chassis" and (asset_type == "icon" or visual_id.endswith("_icon")):
+        spec = SPEC["chassis_icon"]
     else:
         spec = SPEC.get(domain, SPEC["item"])
     negative = NEGATIVE.get(domain, NEGATIVE["item"])

@@ -142,4 +142,3 @@ After generation succeeds:
 # Review selected/contact_sheet before syncing.
 .\tools\美术工具\Sync-ApprovedArt.ps1 -Status generated -VisualID chassis_standard_frame_icon -BatchID nai_formal_growth_assets_20260525_01 -AllowProcessedFallback -Overwrite
 ```
-

@@ -4,16 +4,16 @@
 
 ## Summary
 
-* GeneratedAt: `2026-05-25T05:20:02+08:00`
+* GeneratedAt: `2026-05-25T05:19:37+08:00`
 * Manifest entries: `138`
 * Unique VisualIDs: `137`
 * Candidate entries: `136`
-* Program integrate: `54`
+* Program integrate: `45`
 * Acceptance needed: `82`
 * Art approve: `0`
 * Art select: `0`
 * Art process: `0`
-* Generate needed: `0`
+* Generate needed: `9`
 
 ## Program Integrate
 
@@ -47,15 +47,6 @@
 | P1 | `ui_icon_income` | ui | 收入图标 | preset:美术文档/art_requirements_seed.json, screen:daily_bill_report | UnityClient/Assets/Art/Approved/UI/ui_icon_income.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P1 | `ui_icon_wear_repair` | ui | 磨损修复图标 | preset:美术文档/art_requirements_seed.json, screen:maintenance_panel | UnityClient/Assets/Art/Approved/UI/ui_icon_wear_repair.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `bg_doll_room_attic` | background | 人偶阁楼房间背景 | preset:美术文档/art_requirements_seed.json, screen:doll_room | UnityClient/Assets/Art/Approved/Backgrounds/DollRoom/bg_doll_room_attic.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `chassis_bulwark_carrier_icon` | chassis | 重载承运底盘图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Chassis/chassis_bulwark_carrier_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `chassis_compact_raider_icon` | chassis | 轻装掠行底盘图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Chassis/chassis_compact_raider_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `chassis_standard_frame_icon` | chassis | 标准工坊底盘图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Chassis/chassis_standard_frame_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `prosthetic_anchor_left_arm_icon` | prosthetic | 锚定左臂图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_anchor_left_arm_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `prosthetic_charge_coil_arm_icon` | prosthetic | 蓄能线圈臂图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_charge_coil_arm_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `prosthetic_focus_lens_icon` | prosthetic | 裂隙聚焦镜图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_focus_lens_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `prosthetic_mender_spine_icon` | prosthetic | 修复脊索图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_mender_spine_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `prosthetic_salvage_fingertips_icon` | prosthetic | 精密拾荒指图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_salvage_fingertips_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `prosthetic_san_regulator_core_icon` | prosthetic | SAN稳态调节核图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_san_regulator_core_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `ui_icon_blueprint` | ui | 蓝图图标 | preset:美术文档/art_requirements_seed.json, screen:chassis_upgrade_panel | UnityClient/Assets/Art/Approved/UI/ui_icon_blueprint.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `ui_icon_business_settlement` | ui | 营业结算图标 | preset:美术文档/art_requirements_seed.json, screen:business_settlement | UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `ui_icon_chassis_upgrade` | ui | 底盘升级图标 | preset:美术文档/art_requirements_seed.json, screen:chassis_upgrade_panel | UnityClient/Assets/Art/Approved/UI/ui_icon_chassis_upgrade.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
@@ -160,6 +151,15 @@
 | `acceptance_needed` | P2 | `ui_settlement_defeat_panel` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_settlement_defeat_panel.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_settlement_victory_panel` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_settlement_victory_panel.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_title_divider` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_title_divider.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
+| `generate_needed` | P2 | `chassis_bulwark_carrier_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Chassis/chassis_bulwark_carrier_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `chassis_compact_raider_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Chassis/chassis_compact_raider_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `chassis_standard_frame_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Chassis/chassis_standard_frame_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `prosthetic_anchor_left_arm_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_anchor_left_arm_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `prosthetic_charge_coil_arm_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_charge_coil_arm_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `prosthetic_focus_lens_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_focus_lens_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `prosthetic_mender_spine_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_mender_spine_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `prosthetic_salvage_fingertips_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_salvage_fingertips_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `prosthetic_san_regulator_core_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_san_regulator_core_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
 
 ## Action Meanings
 

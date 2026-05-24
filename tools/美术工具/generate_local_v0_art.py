@@ -526,11 +526,123 @@ def draw_icon_business_settlement(c: Canvas) -> None:
     c.line([(0.32, 0.76), (0.68, 0.76)], rgba("brass_light", 180), 0.012)
 
 
+def draw_chassis_standard(c: Canvas) -> None:
+    draw_badge(c, rgba("brass_light", 60))
+    c.round_rect((0.24, 0.32, 0.76, 0.70), 0.035, rgba("metal"), rgba("brass_light"), 0.018)
+    c.round_rect((0.34, 0.41, 0.66, 0.61), 0.018, (0, 0, 0, 0), rgba("brass", 180), 0.011)
+    c.line([(0.30, 0.36), (0.70, 0.36)], rgba("brass", 210), 0.014)
+    c.line([(0.30, 0.66), (0.70, 0.66)], rgba("brass", 210), 0.014)
+    for x in (0.30, 0.70):
+        c.ellipse((x - 0.035, 0.29, x + 0.035, 0.36), rgba("brass_light"), rgba("brass_dark"), 0.006)
+        c.ellipse((x - 0.035, 0.66, x + 0.035, 0.73), rgba("brass_light"), rgba("brass_dark"), 0.006)
+    c.ellipse((0.44, 0.47, 0.56, 0.59), rgba("blue", 180), rgba("cream"), 0.006)
+
+
+def draw_chassis_compact(c: Canvas) -> None:
+    draw_badge(c, rgba("blue", 60))
+    c.round_rect((0.31, 0.30, 0.69, 0.72), 0.04, rgba("metal"), rgba("brass_light"), 0.017)
+    c.round_rect((0.39, 0.41, 0.61, 0.61), 0.018, (0, 0, 0, 0), rgba("brass", 180), 0.01)
+    c.polygon([(0.26, 0.42), (0.16, 0.50), (0.27, 0.58)], rgba("blue", 210), rgba("brass_light"))
+    c.polygon([(0.74, 0.42), (0.84, 0.50), (0.73, 0.58)], rgba("blue", 210), rgba("brass_light"))
+    c.arc((0.34, 0.19, 0.66, 0.43), 190, 350, rgba("brass_light"), 0.014)
+    c.line([(0.40, 0.32), (0.32, 0.22)], rgba("brass_light"), 0.01)
+    c.line([(0.60, 0.32), (0.68, 0.22)], rgba("brass_light"), 0.01)
+    c.ellipse((0.45, 0.24, 0.55, 0.34), rgba("blue", 180), None)
+
+
+def draw_chassis_bulwark(c: Canvas) -> None:
+    draw_badge(c, rgba("orange", 70))
+    c.round_rect((0.19, 0.34, 0.81, 0.72), 0.045, rgba("metal"), rgba("brass_light"), 0.019)
+    c.round_rect((0.32, 0.44, 0.68, 0.62), 0.02, (0, 0, 0, 0), rgba("brass", 170), 0.011)
+    c.rect((0.18, 0.43, 0.30, 0.64), rgba("brass_dark"), rgba("brass_light"), 0.011)
+    c.rect((0.70, 0.43, 0.82, 0.64), rgba("brass_dark"), rgba("brass_light"), 0.011)
+    c.line([(0.24, 0.30), (0.24, 0.75)], rgba("brass_light", 200), 0.016)
+    c.line([(0.76, 0.30), (0.76, 0.75)], rgba("brass_light", 200), 0.016)
+    for x in (0.28, 0.72):
+        c.ellipse((x - 0.04, 0.29, x + 0.04, 0.37), rgba("brass_light"), rgba("brass_dark"), 0.006)
+        c.ellipse((x - 0.04, 0.70, x + 0.04, 0.78), rgba("brass_light"), rgba("brass_dark"), 0.006)
+    c.line([(0.37, 0.76), (0.63, 0.76)], rgba("orange", 210), 0.012)
+
+
+def draw_prosthetic_focus_lens(c: Canvas) -> None:
+    draw_badge(c, rgba("blue", 65))
+    c.ellipse((0.30, 0.30, 0.70, 0.70), rgba("brass"), rgba("brass_light"), 0.018)
+    c.ellipse((0.38, 0.38, 0.62, 0.62), rgba("blue", 170), rgba("cream"), 0.01)
+    c.ellipse((0.44, 0.44, 0.56, 0.56), (15, 24, 40, 230), rgba("blue", 220), 0.006)
+    c.arc((0.24, 0.24, 0.76, 0.76), 220, 320, rgba("blue"), 0.014)
+    c.arc((0.24, 0.24, 0.76, 0.76), 40, 140, rgba("blue"), 0.014)
+    c.line([(0.22, 0.50), (0.32, 0.50)], rgba("brass_light"), 0.012)
+    c.line([(0.68, 0.50), (0.78, 0.50)], rgba("brass_light"), 0.012)
+
+
+def draw_prosthetic_anchor_arm(c: Canvas) -> None:
+    draw_badge(c, rgba("red", 55))
+    c.round_rect((0.30, 0.30, 0.46, 0.66), 0.035, rgba("metal_light"), rgba("brass_light"), 0.013)
+    c.round_rect((0.45, 0.42, 0.69, 0.60), 0.03, rgba("metal"), rgba("brass_light"), 0.013)
+    c.line([(0.62, 0.43), (0.78, 0.30)], rgba("brass_light"), 0.018)
+    c.line([(0.63, 0.50), (0.82, 0.50)], rgba("brass_light"), 0.018)
+    c.line([(0.62, 0.57), (0.78, 0.70)], rgba("brass_light"), 0.018)
+    c.round_rect((0.22, 0.34, 0.36, 0.62), 0.025, rgba("brass_dark"), rgba("brass_light"), 0.01)
+    c.line([(0.22, 0.76), (0.78, 0.22)], rgba("red", 180), 0.012)
+
+
+def draw_prosthetic_charge_coil(c: Canvas) -> None:
+    draw_badge(c, rgba("orange", 70))
+    c.round_rect((0.28, 0.34, 0.70, 0.66), 0.045, rgba("metal"), rgba("brass_light"), 0.014)
+    for x in (0.36, 0.44, 0.52, 0.60):
+        c.arc((x - 0.07, 0.36, x + 0.07, 0.64), 90, 270, rgba("brass_light"), 0.012)
+    c.ellipse((0.58, 0.40, 0.75, 0.57), rgba("orange", 210), rgba("brass_light"), 0.008)
+    c.line([(0.25, 0.50), (0.15, 0.50)], rgba("brass_light"), 0.015)
+    c.line([(0.75, 0.50), (0.86, 0.50)], rgba("orange"), 0.018)
+    c.glow((0.52, 0.31, 0.79, 0.66), rgba("orange", 65), 0.03)
+
+
+def draw_prosthetic_san_regulator(c: Canvas) -> None:
+    draw_badge(c, rgba("purple", 70))
+    c.ellipse((0.31, 0.29, 0.69, 0.67), rgba("metal"), rgba("brass_light"), 0.017)
+    c.ellipse((0.39, 0.37, 0.61, 0.59), rgba("purple", 185), rgba("cream"), 0.008)
+    c.line([(0.50, 0.37), (0.56, 0.48), (0.49, 0.59)], rgba("blue", 220), 0.012)
+    c.arc((0.28, 0.58, 0.72, 0.84), 200, 340, rgba("brass_light"), 0.014)
+    c.ellipse((0.65, 0.25, 0.78, 0.38), rgba("blue", 175), rgba("brass_light"), 0.006)
+    c.line([(0.62, 0.33), (0.54, 0.40)], rgba("brass_light"), 0.008)
+
+
+def draw_prosthetic_salvage_fingertips(c: Canvas) -> None:
+    draw_badge(c, rgba("green", 65))
+    c.round_rect((0.26, 0.54, 0.70, 0.68), 0.03, rgba("metal"), rgba("brass_light"), 0.012)
+    for index, x in enumerate((0.34, 0.44, 0.54, 0.64)):
+        tip_y = 0.32 + index * 0.018
+        c.line([(x, 0.55), (x - 0.02, tip_y)], rgba("brass_light"), 0.018)
+        c.ellipse((x - 0.045, tip_y - 0.035, x + 0.015, tip_y + 0.025), rgba("metal_light"), rgba("brass_light"), 0.006)
+    c.ellipse((0.68, 0.37, 0.80, 0.49), rgba("green", 180), None)
+    c.line([(0.30, 0.75), (0.70, 0.75)], rgba("brass_light", 170), 0.01)
+
+
+def draw_prosthetic_mender_spine(c: Canvas) -> None:
+    draw_badge(c, rgba("blue", 65))
+    for y in (0.28, 0.38, 0.48, 0.58, 0.68):
+        c.round_rect((0.42, y - 0.035, 0.58, y + 0.035), 0.018, rgba("metal_light"), rgba("brass_light"), 0.008)
+    c.line([(0.50, 0.23), (0.50, 0.73)], rgba("brass_light"), 0.012)
+    c.line([(0.39, 0.34), (0.27, 0.28)], rgba("blue"), 0.012)
+    c.line([(0.61, 0.44), (0.75, 0.38)], rgba("blue"), 0.012)
+    c.line([(0.39, 0.59), (0.27, 0.68)], rgba("blue"), 0.012)
+    c.glow((0.34, 0.26, 0.66, 0.74), rgba("blue", 60), 0.025)
+
+
 DRAWERS = {
+    "chassis_bulwark_carrier_icon": draw_chassis_bulwark,
+    "chassis_compact_raider_icon": draw_chassis_compact,
+    "chassis_standard_frame_icon": draw_chassis_standard,
     "node_eventnode_icon": draw_node_event,
     "node_hazardnode_icon": draw_node_hazard,
     "node_reststopnode_icon": draw_node_rest,
     "node_treasurenode_icon": draw_node_treasure,
+    "prosthetic_anchor_left_arm_icon": draw_prosthetic_anchor_arm,
+    "prosthetic_charge_coil_arm_icon": draw_prosthetic_charge_coil,
+    "prosthetic_focus_lens_icon": draw_prosthetic_focus_lens,
+    "prosthetic_mender_spine_icon": draw_prosthetic_mender_spine,
+    "prosthetic_salvage_fingertips_icon": draw_prosthetic_salvage_fingertips,
+    "prosthetic_san_regulator_core_icon": draw_prosthetic_san_regulator,
     "ui_combat_feedback_hit": draw_hit_feedback,
     "ui_combat_feedback_shield_break": draw_shield_break,
     "ui_combat_grid_lock_marker": lambda c: draw_square_marker(c, "lock"),
