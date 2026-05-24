@@ -49,6 +49,8 @@ Visual V2 工具链已补齐安全替换流程：已接入素材可用 `Run-ArtG
 
 美术文档已收敛为四层入口：`README.md` 只做导航，`10_正式版核心纵切美术路线.md` 作为当前规划入口，`00_美术流水线总览.md` 作为端到端资产生产工作流入口，`ui_design/README.md` 作为 UI 版本和 active 规格入口。`archive/` 保存 MVP 记录和旧批次交付快照。
 
+Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` 会从 active `screen_layouts.json`、Manifest、latest ArtAcceptance 和 Registry 快照生成 `美术文档/ui_design/_generated/FormalV1验收队列.md/json`。当前队列覆盖 21 个 active Formal V1 界面，latest ArtAcceptance `20260524_212423` 已覆盖 15 个截图点；9 个界面仍需程序登记新 VisualID 或补验收截图后重跑，12 个界面有旧截图可粗看但需要重跑后才能判定当前 active 规格。
+
 ## 必读文件
 
 - `知识库/views/art.md`
@@ -88,6 +90,7 @@ Visual V2 工具链已补齐安全替换流程：已接入素材可用 `Run-ArtG
 .\tools\美术工具\Generate-ArtQualityBacklog.ps1
 .\tools\美术工具\Generate-VisualV2Plan.ps1
 .\tools\美术工具\Generate-LocalV0Art.ps1
+.\tools\美术工具\Generate-FormalV1AcceptanceQueue.ps1
 ```
 
 ## 最近完成
@@ -155,12 +158,13 @@ Visual V2 工具链已补齐安全替换流程：已接入素材可用 `Run-ArtG
 - 已刷新 latest 可接入素材清单、缺图生成计划、质量清单和 Visual V2 计划：当前 `program_integrate=42`、`acceptance_needed=82`、`generate_needed=0`、`technical_fix=0`、`visual_v2_replace=50`、`spec_review=0`，正式 AI 替换批次为 `nai_visual_v2_20260525_05`。
 - 已补齐 `daily_bill_report` 每日账单经济可读性增量：新增 `ui_icon_income`、`ui_icon_expense`、`ui_icon_debt_rent` 三个 preset UI 图标需求、英文提示词、中文说明、负面提示词和结构化 Spec，并用 `local_v0_daily_bill_readability_20260525_01` 生成 Approved PNG 和 Unity `.meta`。
 - 已刷新 latest 可接入素材清单、缺图生成计划、质量清单和 Visual V2 计划：当前 `program_integrate=45`、`acceptance_needed=82`、`generate_needed=0`、`technical_fix=0`、`visual_v2_replace=53`、`spec_review=0`，正式 AI 替换批次为 `nai_visual_v2_20260525_06`。
+- 已新增 `Generate-FormalV1AcceptanceQueue.ps1` / `generate_formal_v1_acceptance_queue.py`，从 active UI 规格、Manifest、latest ArtAcceptance 和 Registry 快照生成 Formal V1 运行时美术验收队列；当前 `screens=21`、`captured=15`、`program_register_visuals=9`、`review_previous_screenshot=12`，最新快照为 `美术文档/ui_design/_generated/formal_v1_acceptance_snapshots/20260525_044724_formal_v1_acceptance_queue_20260525_02.*`。
 
 ## 下一步建议
 
 1. 程序侧可按 latest 可接入素材清单登记 45 个 `program_integrate` VisualID：本轮 3 个 P4 每日账单经济图标，加上此前 42 个 P0/P1/P2/P3/P4 local_v0 / 当前依赖素材。
 2. NovelAI Anlas 恢复后，优先按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_visual_v2_20260525_06` 串行替换 53 个 local_v0 素材；替换仍走 `PreserveStatus -> CandidateBatchID -> QualityTier=formal_ai_v2` 流程。
-3. 程序接入后，美术侧基于最新 ArtAcceptance 逐屏验收 21 个 active Formal V1 界面的结构、缺图、黑块、点击遮挡、列表有效数据和图标可读性。
+3. 程序接入后，美术侧基于 `美术文档/ui_design/_generated/FormalV1验收队列.md` 和最新 ArtAcceptance 逐屏验收 21 个 active Formal V1 界面的结构、缺图、黑块、点击遮挡、列表有效数据和图标可读性。
 4. 缺图生成计划 latest 当前为 `planned=0`；后续只有新增配置 / preset 导致新的 `generate_needed` 时再启用 `Generate-ArtBatchPlan.ps1`。
 5. 每次替换或技术修复 Approved PNG 后，同时刷新 `可接入素材清单` 和 `素材质量替换清单`，并分别保留 integration / quality snapshot。
 6. 后续新增怪物时继续按 `CombatVisualID -> monster_*_combat -> Approved/Monsters/Combat` 流程补图。

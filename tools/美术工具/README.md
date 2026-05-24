@@ -376,3 +376,30 @@ Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec �
 * `registry_or_acceptance_gap`：Approved 素材已具备，但最新 registry / 截图还没反映出来，通常需要 Unity 导入或重跑验收。
 * `mvp_baseline_review_ready`：MVP 骨架截图可看，适合进入 Formal V1 结构审查。
 * `review_ready`：当前截图可直接进入 UI 设计或视觉精修判断。
+
+## Generate-FormalV1AcceptanceQueue.ps1
+
+读取 active `screen_layouts.json`、Manifest、最新 ArtAcceptance 报告和 Registry 快照，生成 21 个 Formal V1 界面的运行时美术验收队列。它用于统一验收，不替代程序侧实际截图工具。
+
+输出：
+
+* `美术文档/ui_design/_generated/FormalV1验收队列.json`
+* `美术文档/ui_design/_generated/FormalV1验收队列.md`
+
+使用 `-Snapshot` 时额外输出：
+
+* `美术文档/ui_design/_generated/formal_v1_acceptance_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.json`
+* `美术文档/ui_design/_generated/formal_v1_acceptance_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.md`
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Generate-FormalV1AcceptanceQueue.ps1 -Snapshot -SnapshotTag formal_v1_acceptance_queue
+```
+
+主要队列：
+
+* `program_register_visuals`：Approved 素材已具备，但 latest Registry 或截图还没反映，程序先登记并重跑 ArtAcceptance。
+* `capture_coverage_needed`：active Formal V1 界面尚未被 ArtAcceptance latest 覆盖，需要程序补截图点或验收入口。
+* `review_previous_screenshot`：已有旧截图可粗看，但必须重跑后才能判定当前 active 规格。
+* `art_review_ready`：当前截图和数据足够进入正式美术验收。

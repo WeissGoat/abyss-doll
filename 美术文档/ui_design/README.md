@@ -68,6 +68,7 @@ UI 设计流解决六件事：
 | `versions/` | UI 设计版本管理目录，保存 baseline、可选 candidate 和迁移记录。 |
 | `handoff_checklist.md` | UI 从设计到程序接入的检查清单。 |
 | `_generated/ui_design_handoff.md` | 校验脚本生成的当前 UI 交付摘要。 |
+| `_generated/FormalV1验收队列.md/json` | active Formal V1 运行时美术验收队列，按最新 ArtAcceptance 和 Registry 快照生成。 |
 
 ---
 
@@ -81,6 +82,8 @@ UI 设计流解决六件事：
 | candidate | `versions/formal_v1_candidate/` | 可选暂存区，不是必经流程。 |
 
 程序侧永远不直接读取 `formal_v1/*.md`、baseline 或 candidate。程序接入只读 active `screen_layouts.json`、`component_catalog.json` 和生成的 `ui_design_handoff.md`。
+
+运行时验收统一看 `_generated/FormalV1验收队列.md`。该队列会把每个 active 界面的截图覆盖、Registry 缺口、local_v0 数量、必要动作和逐屏 checklist 拆开，避免从聊天记录或旧验收记录里手工判断下一步。
 
 ---
 
@@ -220,6 +223,7 @@ Candidate 仅作复杂界面的可选暂存，迁移状态不复用 `LayoutStatu
 
 ```powershell
 .\tools\美术工具\Validate-UIDesign.ps1
+.\tools\美术工具\Generate-FormalV1AcceptanceQueue.ps1 -Snapshot -SnapshotTag manual_review
 ```
 
 校验内容：
