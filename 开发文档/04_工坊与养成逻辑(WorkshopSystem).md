@@ -152,7 +152,24 @@ public class MaintenanceConfig {
 
 *   `MaintenanceServiceSmokeTest.Run` 覆盖磨损维护解除下潜阻断、侵蚀净化解除下潜阻断、费用不足不修改状态、维护费用可消耗背包材料。
 
-## 9. 小镇经济压力链服务
+## 9. 局外成长反馈与占位文本
+
+`GrowthFeedbackService` 是局外成长 UI 的只读数据入口，用于把下潜许可、维护、制造和材料 / 金币缺口统一整理成 `GrowthFeedbackReport`。UI 不应直接扫描配置、背包或仓库去拼规则，也不应为了展示缺口执行维护或制造。
+
+`GrowthReadabilityTextService` 是占位 UI / 正式 UI 的文本适配层。它只消费 `GrowthFeedbackReport`，输出下潜许可、下潜检查 issue、建议行动、费用缺口和汇总计数等 UI 可直接展示的文本快照。
+
+边界：
+
+*   `GrowthFeedbackService` 可以读取玩家、配置、仓库和当前背包，不能修改状态。
+*   `GrowthReadabilityTextService` 只能做文本和快照适配，不能执行 `MaintenanceService.Apply`、义体制造、背包扣除或美术资源绑定。
+*   工坊 UI、层级选择 UI 和后续正式整备界面应优先消费 `GrowthReadabilitySnapshot` 或 `GrowthFeedbackReport`，不要各自复制下潜许可和材料缺口逻辑。
+
+验证：
+
+*   `GrowthFeedbackServiceSmokeTest.Run` 覆盖制造缺口、维护解除下潜阻断和可下潜建议。
+*   `GrowthReadabilityTextServiceSmokeTest.Run` 覆盖可下潜文本、维护阻断文本、制造缺口文本和汇总计数。
+
+## 10. 小镇经济压力链服务
 
 `TownEconomyService` 是 P4 小镇经济压力链的领域服务入口。它不依赖 UI，也不在 UI Controller 中散写经济规则；后续账单、典当和营业界面只读取服务产出的报告对象。
 
