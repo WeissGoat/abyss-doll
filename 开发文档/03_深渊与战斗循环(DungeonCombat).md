@@ -327,6 +327,23 @@ DungeonOutcomeNode.OnEnterNode()
 * `DungeonStairsProgressionTest.Run` 的地图布局检查按可渲染路线线段计数，避免战争迷雾导致测试误判。
 * `ConfigValidationSmokeTest.Run` 验证 `FogProfile`、迷雾深度和 `RiskLevel` 合法性。
 
+### 1.6 固定 seed 验收摘要
+
+固定 seed 验收由 `DungeonSeedAcceptanceService` 生成稳定摘要，作为后续前三层正式配置和 P0 报告的可复用底座。该服务不改变运行时流程，只读取 `DungeonConfig` 和 `DungeonLayer.GenerateMapTree()` 的生成结果。
+
+摘要至少包含：
+
+* `SeedID`、`LayerID`、请求 seed、实际解析 seed 和 `MapProfileID`。
+* 行数、入口数、节点数、连线数。
+* Boss 节点、阶梯节点是否存在，以及是否从所有入口可达。
+* 每一行节点的类型、节点 ID、路线主题、风险等级、奖励 ID、怪物 ID 和后继坐标。
+* 失败原因列表，供 Validator、smoke test 或人工验收报告引用。
+
+当前 smoke test：
+
+* `DungeonSeedAcceptanceSmokeTest.Run` 验证 `V-L1-SEED-1024-ROUTE-01` 和 `V-L2-DIRECT-2048-ROUTE-01` 同 seed 摘要稳定、Boss / Stairs 可达。
+* 缺失层配置会返回失败摘要和明确 issue，不应静默通过。
+
 ## 2. 战斗包装器与阵营 (Fighter & Faction)
 
 战斗发生时，决不能直接在原生的 `DollEntity` 或 `MonsterEntity` 上写乱七八糟的战斗逻辑。需要一层只存活在战斗场景的 Wrapper。
