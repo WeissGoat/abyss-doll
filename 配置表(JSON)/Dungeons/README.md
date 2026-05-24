@@ -16,7 +16,7 @@ related:
   - 配置表(JSON)/Rewards/README.md
   - 设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md
   - 设计文档/GDD_01_背包战斗与局内网格机制.md
-last_verified: 2026-05-23
+last_verified: 2026-05-25
 update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
 ---
 
@@ -34,6 +34,9 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | `SANCostPerNode` | int | 移动税（理智流失） | **核心痛点：** 玩家每经过一个非安全区节点强制扣除的SAN值。深层此数值应急剧放大。 |
 | `ExpectedNodeCount`| int | 入口到 Boss 的路径长度摘要 | 正式网络下建议等于 `RowCount + 1`，用于调试和节奏描述，不代表 UI 实际节点数 |
 | `MapProfileID` | string | 地图生成画像 ID | 同一 `LayerID + RunSeed + MapProfileID` 应生成稳定节点网络 |
+| `FogProfile` | string | 战争迷雾配置 | 支撑未知节点、预览范围和可见信息 |
+| `NodeRevealDepth` | int | 完整揭示行数 | 从当前位置向后完整显示多少行，允许 `0`，缺省为 `1` |
+| `NodePreviewDepth` | int | 预览行数 | 完整揭示范围之后预览多少行，允许 `0`，缺省为 `1` |
 | `MapSeed` | int | 配置固定种子 | 用于固定回归；正式 run 可叠加运行时 seed |
 | `RowCount` | int | Boss 前路线行数 | 不包含 Boss 行和 `EndNode` 终点行 |
 | `MinWidth` / `MaxWidth` | int | 每行节点数量范围 | 当前正式基础生成器按行生成 2-4 个节点 |
@@ -114,12 +117,18 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 * Boss 行固定 1 个 `CombatNode`，读取 `BossNode` 和 `BossNodeIconID`。
 * EndNode 行固定 1 个配置节点，当前前两层为 `StairsNode`。
 * UI 根据生成后的 `NodeRows` 和 `NextNodes` 展示多路线网络；只允许点击入口节点或当前节点的后继节点。
+* UI 根据 `FogProfile`、`NodeRevealDepth`、`NodePreviewDepth` 和运行时当前位置展示 `Revealed` / `Preview` / `Hidden` 三类节点。
+* Hidden 节点用“迷雾 / 未知”占位，Preview 节点只表达类型与风险，不泄露完整路线信息。
+* 路线连线只在起点和终点均不是 Hidden 时渲染。
+* `RiskLevel` 可由配置显式覆盖；未配置时程序按节点类型、怪物数量、Boss 标记和路线主题推断。
 
 ## NodePool (节点刷新池对象) 内部字段
 
 | 字段名 | 数据类型 | 注释说明 | 可选项 / 备注 |
 | :--- | :--- | :--- | :--- |
 | `NodeType` | string | 欲刷新的节点类型 | `CombatNode`, `SafeRoomNode` 等 |
+| `RiskLevel` | string | 节点风险等级 | 可选；合法值 `Unknown`、`Safe`、`Low`、`Medium`、`High`、`Boss` |
+| `RiskHint` | string | 节点风险提示 | 可选；用于后续 tooltip / 详情面板 |
 | `MonsterIDs` | array | (如果是战斗节点)怪物的ID列表 | 支持配置多个ID生成群殴节点 |
 | `RewardID` | string | 节点自身额外奖励表 ID | 可选，指向 `/Rewards`；与怪物奖励并存 |
 | `Weight` | int | 随机抽取的权重值 | 权重越高，该节点在路径中出现的概率越大 |

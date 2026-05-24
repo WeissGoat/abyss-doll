@@ -34,7 +34,7 @@ public class DungeonMapUIController : MonoBehaviour {
         List<List<NodeBase>> rows = GetRenderableRows(layer);
         Dictionary<NodeBase, Vector2> nodePositions = BuildNodePositions(rows);
         ConfigureMapLayout(rows);
-        CreateRouteLines(rows, nodePositions);
+        CreateRouteLines(layer, rows, nodePositions);
 
         foreach (List<NodeBase> row in rows) {
             foreach (NodeBase node in row) {
@@ -69,14 +69,15 @@ public class DungeonMapUIController : MonoBehaviour {
         ConfigureNodeButtonLayout(btnGo, anchoredPosition);
         Button btn = btnGo.GetComponent<Button>();
         Text txt = btnGo.GetComponentInChildren<Text>();
+        DungeonMapNodePresentation presentation = DungeonMapVisibilityService.BuildNodePresentation(layer, node);
         bool isSelectable = IsNodeSelectable(layer, node);
-        ApplyNodeButtonSkin(btn, node, !isSelectable || node.IsVisited);
+        ApplyNodeButtonSkin(btn, node, presentation, !isSelectable || node.IsVisited);
 
         if (txt != null) {
-            txt.text = BuildNodeLabel(node);
+            txt.text = BuildNodeLabel(node, presentation);
         }
 
-        ApplyNodeIcon(btnGo.transform, node);
+        ApplyNodeIcon(btnGo.transform, node, presentation);
 
         Debug.Log($"[DungeonMapUI] Render node button: {node.NodeID}, Type={node.GetType().Name}, Label={txt?.text?.Replace('\n', ' ')}");
 
@@ -127,43 +128,54 @@ public class DungeonMapUIController : MonoBehaviour {
         }
     }
 
-    private string BuildNodeLabel(NodeBase node) {
+    private string BuildNodeLabel(NodeBase node, DungeonMapNodePresentation presentation) {
+        if (presentation != null && presentation.IsHidden) {
+            return "迷雾\n(未知)";
+        }
+
+        string visibilityPrefix = presentation != null && presentation.IsPreview ? "预览 " : string.Empty;
+        string riskLabel = presentation?.RiskLabel ?? "未知风险";
+        string nodeLabel = BuildNodeTypeLabel(node);
+        return $"{visibilityPrefix}{nodeLabel}\n[{riskLabel}]";
+    }
+
+    private string BuildNodeTypeLabel(NodeBase node) {
         if (node is CombatNode) {
             if (VisualAssetService.ResolveNodeIconID(node) == VisualAssetService.BossNodeIconID) {
-                return "首领节点\n(消耗SAN)";
+                return "首领节点";
             }
 
-            return "战斗节点\n(消耗SAN)";
+            return "战斗节点";
         }
 
         if (node is SafeRoomNode) {
-            return "安全屋\n(休整)";
+            return "安全屋";
         }
 
         if (node is StairsNode) {
-            return "阶梯\n(深入/返回)";
+            return "阶梯";
         }
 
         if (node is TreasureNode) {
-            return "宝箱\n(战利品)";
+            return "宝箱";
         }
 
         if (node is RestStopNode) {
-            return "营地\n(小休整)";
+            return "营地";
         }
 
         if (node is EventNode) {
-            return "事件\n(未知)";
+            return "事件";
         }
 
         if (node is HazardNode) {
-            return "危险\n(损耗)";
+            return "危险";
         }
 
         return "未知节点";
     }
 
-    private void ApplyNodeIcon(Transform buttonTransform, NodeBase node) {
+    private void ApplyNodeIcon(Transform buttonTransform, NodeBase node, DungeonMapNodePresentation presentation) {
         if (buttonTransform == null) {
             return;
         }
@@ -182,8 +194,16 @@ public class DungeonMapUIController : MonoBehaviour {
             iconRect.anchoredPosition = new Vector2(0f, -10f);
         }
 
-        string visualID = VisualAssetService.ResolveNodeIconID(node);
-        VisualUIHelper.ApplyContainSprite(icon, visualID, VisualDisplaySpecs.NodeIcon, Color.white, ResolveNodeFallbackTint(node), false);
+        bool isHidden = presentation != null && presentation.IsHidden;
+        bool isPreview = presentation != null && presentation.IsPreview;
+        if (isHidden) {
+            VisualUIHelper.ApplyFixedContainer(icon.rectTransform, VisualDisplaySpecs.NodeIcon, false);
+            VisualUIHelper.ApplySolidColor(icon, new Color(0.15f, 0.17f, 0.2f, 0.95f));
+        } else {
+            string visualID = VisualAssetService.ResolveNodeIconID(node);
+            Color registeredColor = isPreview ? new Color(1f, 1f, 1f, 0.55f) : Color.white;
+            VisualUIHelper.ApplyContainSprite(icon, visualID, VisualDisplaySpecs.NodeIcon, registeredColor, ResolveNodeFallbackTint(node, presentation), false);
+        }
 
         Text label = buttonTransform.GetComponentInChildren<Text>();
         if (label != null) {
@@ -197,7 +217,15 @@ public class DungeonMapUIController : MonoBehaviour {
         }
     }
 
-    private Color ResolveNodeFallbackTint(NodeBase node) {
+    private Color ResolveNodeFallbackTint(NodeBase node, DungeonMapNodePresentation presentation = null) {
+        if (presentation != null && presentation.IsHidden) {
+            return new Color(0.15f, 0.17f, 0.2f, 0.95f);
+        }
+
+        if (presentation != null && presentation.IsPreview) {
+            return new Color(0.32f, 0.34f, 0.38f, 0.82f);
+        }
+
         if (node is CombatNode) {
             return new Color(0.75f, 0.22f, 0.18f, 1f);
         }
@@ -430,12 +458,12 @@ public class DungeonMapUIController : MonoBehaviour {
         return button;
     }
 
-    private void ApplyNodeButtonSkin(Button button, NodeBase node, bool dimmed) {
+    private void ApplyNodeButtonSkin(Button button, NodeBase node, DungeonMapNodePresentation presentation, bool dimmed) {
         if (button == null) {
             return;
         }
 
-        Color fallback = ResolveNodeFallbackTint(node);
+        Color fallback = ResolveNodeFallbackTint(node, presentation);
         if (dimmed) {
             fallback = new Color(fallback.r * 0.35f, fallback.g * 0.35f, fallback.b * 0.35f, 0.92f);
         }
@@ -457,6 +485,12 @@ public class DungeonMapUIController : MonoBehaviour {
         if (dimmed) {
             image.color = new Color(0.28f, 0.28f, 0.28f, 0.92f);
         }
+
+        if (presentation != null && presentation.IsHidden) {
+            image.color = new Color(0.12f, 0.14f, 0.17f, 0.92f);
+        } else if (presentation != null && presentation.IsPreview) {
+            image.color = new Color(0.38f, 0.4f, 0.44f, 0.86f);
+        }
     }
 
     private void ApplyMapBackground() {
@@ -465,7 +499,7 @@ public class DungeonMapUIController : MonoBehaviour {
         VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, Color.white, new Color(0.05f, 0.08f, 0.1f, 0.92f));
     }
 
-    private void CreateRouteLines(List<List<NodeBase>> rows, Dictionary<NodeBase, Vector2> nodePositions) {
+    private void CreateRouteLines(DungeonLayer layer, List<List<NodeBase>> rows, Dictionary<NodeBase, Vector2> nodePositions) {
         if (rows == null || nodePositions == null || contentParent == null) {
             return;
         }
@@ -485,13 +519,17 @@ public class DungeonMapUIController : MonoBehaviour {
                         continue;
                     }
 
-                    CreateRouteLine(fromPosition, toPosition);
+                    if (!DungeonMapVisibilityService.ShouldRenderRouteLine(layer, node, next)) {
+                        continue;
+                    }
+
+                    CreateRouteLine(layer, node, next, fromPosition, toPosition);
                 }
             }
         }
     }
 
-    private void CreateRouteLine(Vector2 fromPosition, Vector2 toPosition) {
+    private void CreateRouteLine(DungeonLayer layer, NodeBase fromNode, NodeBase toNode, Vector2 fromPosition, Vector2 toPosition) {
         GameObject routeObj = new GameObject("DungeonRouteLine_Image");
         routeObj.transform.SetParent(contentParent, false);
         Image routeImage = routeObj.AddComponent<Image>();
@@ -509,7 +547,7 @@ public class DungeonMapUIController : MonoBehaviour {
             routeImage,
             VisualAssetService.UIDungeonRouteLineID,
             Color.white,
-            new Color(0.7f, 0.58f, 0.32f, 0.75f),
+            ResolveRouteLineFallbackColor(layer, fromNode, toNode),
             false,
             false);
 
@@ -524,5 +562,19 @@ public class DungeonMapUIController : MonoBehaviour {
         layoutElement.minHeight = RouteLineHeight;
         layoutElement.preferredHeight = RouteLineHeight;
         layoutElement.flexibleHeight = 0f;
+    }
+
+    private Color ResolveRouteLineFallbackColor(DungeonLayer layer, NodeBase fromNode, NodeBase toNode) {
+        DungeonNodeVisibilityState fromVisibility = DungeonMapVisibilityService.ResolveVisibility(layer, fromNode);
+        DungeonNodeVisibilityState toVisibility = DungeonMapVisibilityService.ResolveVisibility(layer, toNode);
+        if (fromVisibility == DungeonNodeVisibilityState.Hidden || toVisibility == DungeonNodeVisibilityState.Hidden) {
+            return new Color(0.2f, 0.23f, 0.28f, 0.35f);
+        }
+
+        if (fromVisibility == DungeonNodeVisibilityState.Preview || toVisibility == DungeonNodeVisibilityState.Preview) {
+            return new Color(0.45f, 0.48f, 0.55f, 0.55f);
+        }
+
+        return new Color(0.7f, 0.58f, 0.32f, 0.75f);
     }
 }

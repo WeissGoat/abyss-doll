@@ -572,6 +572,18 @@ public static class ConfigValidator {
         if (dungeon.RowCount > 0 && dungeon.ExpectedNodeCount > 0 && dungeon.ExpectedNodeCount != dungeon.RowCount + 1) {
             report.AddWarning($"Dungeon layer [{dungeon.LayerID}] ExpectedNodeCount [{dungeon.ExpectedNodeCount}] should equal RowCount + Boss [{dungeon.RowCount + 1}] under the formal network map contract.");
         }
+
+        if (string.IsNullOrEmpty(dungeon.FogProfile)) {
+            report.AddWarning($"Dungeon layer [{dungeon.LayerID}] should define FogProfile for formal map visibility.");
+        }
+
+        if (dungeon.NodeRevealDepth < 0) {
+            report.AddError($"Dungeon layer [{dungeon.LayerID}] NodeRevealDepth [{dungeon.NodeRevealDepth}] must be >= 0.");
+        }
+
+        if (dungeon.NodePreviewDepth < 0) {
+            report.AddError($"Dungeon layer [{dungeon.LayerID}] NodePreviewDepth [{dungeon.NodePreviewDepth}] must be >= 0.");
+        }
     }
 
     private static void ValidateDungeonNodeEntry(ConfigValidationReport report, DungeonConfig dungeon, NodePoolEntry entry, string owner, bool requirePositiveWeight) {
@@ -592,6 +604,7 @@ public static class ConfigValidator {
             report.AddError($"Dungeon layer [{dungeon.LayerID}] {owner} reward references missing RewardID [{entry.RewardID}].");
         }
 
+        ValidateDungeonNodeRisk(report, dungeon, entry, owner);
         ValidateDungeonNodeOutcomes(report, dungeon, entry, owner);
 
         if (IsCombatNodeType(entry.NodeType)) {
@@ -609,6 +622,16 @@ public static class ConfigValidator {
 
         if (IsTreasureNodeType(entry.NodeType) && string.IsNullOrEmpty(entry.RewardID)) {
             report.AddWarning($"Dungeon layer [{dungeon.LayerID}] {owner} TreasureNode has no RewardID configured.");
+        }
+    }
+
+    private static void ValidateDungeonNodeRisk(ConfigValidationReport report, DungeonConfig dungeon, NodePoolEntry entry, string owner) {
+        if (entry == null || string.IsNullOrEmpty(entry.RiskLevel)) {
+            return;
+        }
+
+        if (!Enum.TryParse(entry.RiskLevel, true, out DungeonNodeRiskLevel _)) {
+            report.AddError($"Dungeon layer [{dungeon.LayerID}] {owner} [{entry.NodeType}] has unknown RiskLevel [{entry.RiskLevel}].");
         }
     }
 

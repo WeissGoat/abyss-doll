@@ -144,7 +144,7 @@ public static class DungeonStairsProgressionTest {
 
         DungeonLayer layer = core.Dungeon.CurrentLayer;
         int expectedNodeCount = CountNodes(layer);
-        int expectedRouteLineCount = CountEdges(layer);
+        int expectedRouteLineCount = CountRenderableEdges(layer);
         int nodeButtonCount = 0;
         int routeLineCount = 0;
         int interactableNodeButtons = 0;
@@ -445,6 +445,33 @@ public static class DungeonStairsProgressionTest {
 
             foreach (NodeBase node in row) {
                 count += node?.NextNodes?.Count ?? 0;
+            }
+        }
+
+        return count;
+    }
+
+    private static int CountRenderableEdges(DungeonLayer layer) {
+        int count = 0;
+        if (layer?.NodeRows == null) {
+            return 0;
+        }
+
+        foreach (List<NodeBase> row in layer.NodeRows) {
+            if (row == null) {
+                continue;
+            }
+
+            foreach (NodeBase node in row) {
+                if (node?.NextNodes == null) {
+                    continue;
+                }
+
+                foreach (NodeBase next in node.NextNodes) {
+                    if (DungeonMapVisibilityService.ShouldRenderRouteLine(layer, node, next)) {
+                        count++;
+                    }
+                }
             }
         }
 

@@ -10,10 +10,15 @@
   "MaxWidth": 3,
   "MinRouteCount": 2,
   "MapBackgroundID": "bg_dungeon_layer_1",
+  "FogProfile": "tutorial_reveal_1_preview_1",
+  "NodeRevealDepth": 1,
+  "NodePreviewDepth": 1,
   "NodePool": [
     {
       "NodeType": "CombatNode",
       "NodeIconID": "node_combat_icon",
+      "RiskLevel": "Medium",
+      "RiskHint": "基础战斗节点，会消耗 HP 和 SAN。",
       "MonsterIDs": [
         "mob_scavenger_bug"
       ],
@@ -22,6 +27,8 @@
     {
       "NodeType": "CombatNode",
       "NodeIconID": "node_combat_icon",
+      "RiskLevel": "High",
+      "RiskHint": "双怪战斗，收益略高但损耗更明显。",
       "MonsterIDs": [
         "mob_scavenger_bug",
         "mob_scavenger_bug"
@@ -31,6 +38,8 @@
     {
       "NodeType": "SafeRoomNode",
       "NodeIconID": "node_safe_room_icon",
+      "RiskLevel": "Safe",
+      "RiskHint": "安全休整节点，不产生战斗压力。",
       "MonsterIDs": [],
       "Weight": 10
     },
@@ -40,6 +49,8 @@
       "Title": "废弃矿车",
       "Description": "矿车里还残留着可回收的浅层物资。",
       "RewardID": "reward_node_treasure_layer1",
+      "RiskLevel": "Low",
+      "RiskHint": "低风险战利品节点，主要考验背包空间。",
       "Weight": 12
     },
     {
@@ -48,6 +59,8 @@
       "Title": "微光裂隙",
       "Description": "裂隙中传来微弱回响，换来一小笔可带走的深渊回收金。",
       "RewardID": "reward_node_event_layer1",
+      "RiskLevel": "Medium",
+      "RiskHint": "事件节点，可能交换少量 SAN 换取收益。",
       "OutcomeEffects": [
         {
           "Type": "ModifyResource",
@@ -62,6 +75,8 @@
       "NodeIconID": "node_rest_icon",
       "Title": "旧维护点",
       "Description": "这里还能临时校准机体，恢复少量状态，但无法撤离。",
+      "RiskLevel": "Low",
+      "RiskHint": "层内小休整，不能撤离。",
       "OutcomeEffects": [
         {
           "Type": "ModifyResource",
@@ -81,6 +96,8 @@
       "NodeIconID": "node_hazard_icon",
       "Title": "松动支架",
       "Description": "矿道支架塌落，魔偶穿行时受到轻微损伤。",
+      "RiskLevel": "High",
+      "RiskHint": "危险节点，会造成明确资源损耗。",
       "OutcomeEffects": [
         {
           "Type": "ModifyResource",
@@ -95,6 +112,8 @@
   "BossNodeIconID": "node_boss_icon",
   "EndNode": {
     "NodeType": "StairsNode",
-    "NodeIconID": "node_stairs_icon"
+    "NodeIconID": "node_stairs_icon",
+    "RiskLevel": "Safe",
+    "RiskHint": "层终点，可选择深入下一层或返回小镇。"
   }
 }

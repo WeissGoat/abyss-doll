@@ -292,6 +292,40 @@ DungeonOutcomeNode.OnEnterNode()
 * `DungeonStairsProgressionTest.Run` 验证新增节点不会破坏正式地图网络、阶梯进层和地图点击路径。
 * `ConfigValidationSmokeTest.Run` 验证 `OutcomeEffects`、`RewardID` 和节点配置引用。
 
+### 1.5 地图迷雾与路线风险表达
+
+深渊地图可见性和风险提示由 `DungeonMapVisibilityService` 统一计算，UI 只读取 presentation，不直接判断节点是否该隐藏、预览或显示风险。
+
+领域规则：
+
+* `DungeonConfig.FogProfile` 标记当前层的迷雾策略，用于配置审计、日志和后续多 profile 扩展。
+* `DungeonConfig.NodeRevealDepth` 表示从当前位置向后完整揭示的行数，默认 `1`，允许显式配置为 `0`。
+* `DungeonConfig.NodePreviewDepth` 表示完整揭示范围之后的预览行数，默认 `1`，允许显式配置为 `0`。
+* 已访问节点、当前节点、入口节点和当前节点的后继节点始终为 `Revealed`。
+* 预览节点只显示类型与风险等级，不承诺完整奖励或怪物信息。
+* 超出预览范围的节点为 `Hidden`，地图 UI 使用“迷雾 / 未知”占位，不依赖真实美术资源。
+* Boss 节点在当前基础实现中保持 `Preview`，避免玩家完全不知道路线终点。
+
+路线风险：
+
+* 节点可通过 `NodePoolEntry.RiskLevel` 显式配置风险等级：`Unknown`、`Safe`、`Low`、`Medium`、`High`、`Boss`。
+* 节点可通过 `RiskHint` 配置简短提示，用于后续 tooltip 或详情面板。
+* 未配置 `RiskLevel` 时，程序根据节点类型、怪物数量、Boss 标记和 `RouteTheme` 做基础推断。
+* `RouteTheme=RiskReward` 或 `Attrition` 会提升非安全节点风险；`RouteTheme=Safe` 可降低普通战斗风险。
+
+表现规则：
+
+* `DungeonMapUIController` 调用 `DungeonMapVisibilityService.BuildNodePresentation()` 构建显示数据。
+* Hidden 节点使用纯色占位和“迷雾 / 未知”文案。
+* Preview 节点降低透明度，并在标签前增加“预览”。
+* 路线连线只在起点和终点都不是 Hidden 时显示，避免提前泄露隐藏路线结构。
+
+验收：
+
+* `DungeonMapVisibilitySmokeTest.Run` 验证层配置迷雾字段、初始可见范围、移动后的可见范围和配置风险覆盖。
+* `DungeonStairsProgressionTest.Run` 的地图布局检查按可渲染路线线段计数，避免战争迷雾导致测试误判。
+* `ConfigValidationSmokeTest.Run` 验证 `FogProfile`、迷雾深度和 `RiskLevel` 合法性。
+
 ## 2. 战斗包装器与阵营 (Fighter & Faction)
 
 战斗发生时，决不能直接在原生的 `DollEntity` 或 `MonsterEntity` 上写乱七八糟的战斗逻辑。需要一层只存活在战斗场景的 Wrapper。

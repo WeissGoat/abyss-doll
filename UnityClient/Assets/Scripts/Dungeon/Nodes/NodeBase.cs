@@ -10,11 +10,15 @@ public abstract class NodeBase {
     public int MapRow { get; set; } = -1;
     public int MapColumn { get; set; } = -1;
     public string RouteTheme { get; set; }
+    public string RiskLevel { get; set; }
+    public string RiskHint { get; set; }
     
     public virtual void Init(NodePoolEntry entry) {
         if (entry != null) {
             RewardID = entry.RewardID;
             NodeIconID = entry.NodeIconID;
+            RiskLevel = entry.RiskLevel;
+            RiskHint = entry.RiskHint;
         }
     }
     

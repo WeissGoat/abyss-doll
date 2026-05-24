@@ -10,22 +10,31 @@
   "MaxWidth": 4,
   "MinRouteCount": 2,
   "MapBackgroundID": "bg_dungeon_layer_2",
+  "FogProfile": "pressure_reveal_1_preview_1",
+  "NodeRevealDepth": 1,
+  "NodePreviewDepth": 1,
   "NodePool": [
     {
       "NodeType": "CombatNode",
       "NodeIconID": "node_combat_icon",
+      "RiskLevel": "Medium",
+      "RiskHint": "酸液软体会制造武器腐蚀压力。",
       "MonsterIDs": ["mob_acid_slime"],
       "Weight": 45
     },
     {
       "NodeType": "CombatNode",
       "NodeIconID": "node_combat_icon",
+      "RiskLevel": "High",
+      "RiskHint": "多只酸液软体会显著提高腐蚀和损耗压力。",
       "MonsterIDs": ["mob_acid_slime", "mob_acid_slime"],
       "Weight": 10
     },
     {
       "NodeType": "SafeRoomNode",
       "NodeIconID": "node_safe_room_icon",
+      "RiskLevel": "Safe",
+      "RiskHint": "安全休整节点，不产生战斗压力。",
       "MonsterIDs": [],
       "Weight": 45
     },
@@ -35,6 +44,8 @@
       "Title": "污染物资箱",
       "Description": "箱体被瘴气腐蚀，但里面仍有更高价值的污染素材。",
       "RewardID": "reward_node_treasure_layer2",
+      "RiskLevel": "Medium",
+      "RiskHint": "污染宝箱收益更高，但可能带来后续携带压力。",
       "Weight": 16
     },
     {
@@ -43,6 +54,8 @@
       "Title": "菌丝低语",
       "Description": "菌丝群落短暂让出通道，同时留下了可交易的情报碎片。",
       "RewardID": "reward_node_event_layer2",
+      "RiskLevel": "Medium",
+      "RiskHint": "事件节点，通常以 SAN 压力换取收益。",
       "OutcomeEffects": [
         {
           "Type": "ModifyResource",
@@ -57,6 +70,8 @@
       "NodeIconID": "node_hazard_icon",
       "Title": "酸雾回廊",
       "Description": "酸雾附着在关节上，造成额外损耗。",
+      "RiskLevel": "High",
+      "RiskHint": "危险节点，会同时消耗 HP 与 SAN。",
       "OutcomeEffects": [
         {
           "Type": "ModifyResource",
@@ -76,6 +91,8 @@
   "BossNodeIconID": "node_boss_icon",
   "EndNode": {
     "NodeType": "StairsNode",
-    "NodeIconID": "node_stairs_icon"
+    "NodeIconID": "node_stairs_icon",
+    "RiskLevel": "Safe",
+    "RiskHint": "层终点，可选择深入下一层或返回小镇。"
   }
 }
