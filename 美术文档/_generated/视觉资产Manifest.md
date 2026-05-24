@@ -14,11 +14,13 @@
 | `background` | 11 |
 | `chassis` | 5 |
 | `doll` | 2 |
+| `faction` | 5 |
 | `item` | 13 |
 | `memento` | 8 |
 | `monster` | 8 |
 | `node` | 8 |
 | `prosthetic` | 8 |
+| `rumor` | 8 |
 | `ui` | 83 |
 
 ## 资产列表
@@ -43,6 +45,11 @@
 | `chassis` | `chassis_standard_frame` | 标准工坊底盘图标 | `icon` | `chassis_standard_frame_icon` | P2 | `approved` |
 | `doll` | `doll_proto_0` | 原型机·零 | `stand` | `doll_proto_0_stand` | P1 | `approved` |
 | `doll` | `doll_proto_0_test` | 原型机·零（测试） | `stand` | `doll_proto_0_test_stand` | P1 | `deprecated` |
+| `faction` | `faction_adventurer_guild` | 冒险者公会徽章 | `icon` | `faction_adventurer_guild_icon` | P2 | `todo` |
+| `faction` | `faction_alchemy_guild` | 炼金公会徽章 | `icon` | `faction_alchemy_guild_icon` | P2 | `todo` |
+| `faction` | `faction_black_market` | 黑市徽章 | `icon` | `faction_black_market_icon` | P2 | `todo` |
+| `faction` | `faction_mage_tower` | 法师塔徽章 | `icon` | `faction_mage_tower_icon` | P2 | `todo` |
+| `faction` | `faction_mechanic_workshop` | 机械工坊徽章 | `icon` | `faction_mechanic_workshop_icon` | P2 | `todo` |
 | `item` | `con_cheap_sedative` | 廉价镇静剂 | `icon` | `item_con_cheap_sedative_icon` | P0 | `approved` |
 | `item` | `con_repair_kit` | 便携修复剂 | `icon` | `item_con_repair_kit_icon` | P0 | `approved` |
 | `item` | `gear_chainsaw_sword` | 链锯大剑 | `icon` | `item_gear_chainsaw_sword_icon` | P0 | `approved` |
@@ -56,14 +63,14 @@
 | `item` | `loot_toxic_filter` | 污染滤芯 | `icon` | `item_loot_toxic_filter_icon` | P0 | `approved` |
 | `item` | `mat_core_tier1` | 一阶动力核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `approved` |
 | `item` | `mat_core_tier2` | 二阶污染核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `approved` |
-| `memento` | `memento_boss1_lamp` | 第一层矿灯纪念物 | `prop` | `memento_boss1_lamp` | P2 | `todo` |
-| `memento` | `memento_first_chassis_frame` | 首次底盘纪念物 | `prop` | `memento_first_chassis_frame` | P2 | `todo` |
-| `memento` | `memento_first_prosthetic_case` | 首次义体纪念物 | `prop` | `memento_first_prosthetic_case` | P2 | `todo` |
-| `memento` | `memento_first_repair_patch` | 首次修补纪念物 | `prop` | `memento_first_repair_patch` | P2 | `todo` |
-| `memento` | `memento_layer2_corrosion_vial` | 第二层腐蚀样本纪念物 | `prop` | `memento_layer2_corrosion_vial` | P2 | `todo` |
-| `memento` | `memento_miracle_burn_mark` | 奇迹灼痕纪念物 | `prop` | `memento_miracle_burn_mark` | P2 | `todo` |
-| `memento` | `memento_return_mark` | 归还痕迹纪念物 | `prop` | `memento_return_mark` | P2 | `todo` |
-| `memento` | `memento_san_collapse_blanket` | SAN崩溃安抚纪念物 | `prop` | `memento_san_collapse_blanket` | P2 | `todo` |
+| `memento` | `memento_boss1_lamp` | 第一层矿灯纪念物 | `prop` | `memento_boss1_lamp` | P2 | `approved` |
+| `memento` | `memento_first_chassis_frame` | 首次底盘纪念物 | `prop` | `memento_first_chassis_frame` | P2 | `approved` |
+| `memento` | `memento_first_prosthetic_case` | 首次义体纪念物 | `prop` | `memento_first_prosthetic_case` | P2 | `approved` |
+| `memento` | `memento_first_repair_patch` | 首次修补纪念物 | `prop` | `memento_first_repair_patch` | P2 | `approved` |
+| `memento` | `memento_layer2_corrosion_vial` | 第二层腐蚀样本纪念物 | `prop` | `memento_layer2_corrosion_vial` | P2 | `approved` |
+| `memento` | `memento_miracle_burn_mark` | 奇迹灼痕纪念物 | `prop` | `memento_miracle_burn_mark` | P2 | `approved` |
+| `memento` | `memento_return_mark` | 归还痕迹纪念物 | `prop` | `memento_return_mark` | P2 | `approved` |
+| `memento` | `memento_san_collapse_blanket` | SAN崩溃安抚纪念物 | `prop` | `memento_san_collapse_blanket` | P2 | `approved` |
 | `monster` | `elite_mutant_amalgam` | 畸变融合体战斗实体 | `combat_sprite` | `monster_elite_mutant_amalgam_combat` | P0 | `approved` |
 | `monster` | `elite_mutant_amalgam` | 畸变融合体 | `portrait` | `monster_elite_mutant_amalgam_portrait` | P0 | `approved` |
 | `monster` | `elite_scrap_guard` | 废铁守卫 (守门人)战斗实体 | `combat_sprite` | `monster_elite_scrap_guard_combat` | P0 | `approved` |
@@ -88,6 +95,14 @@
 | `prosthetic` | `prosthetic_mender_spine` | 修复脊索图标 | `icon` | `prosthetic_mender_spine_icon` | P2 | `approved` |
 | `prosthetic` | `prosthetic_salvage_fingertips` | 精密拾荒指图标 | `icon` | `prosthetic_salvage_fingertips_icon` | P2 | `approved` |
 | `prosthetic` | `prosthetic_san_regulator_core` | SAN稳态调节核图标 | `icon` | `prosthetic_san_regulator_core_icon` | P2 | `approved` |
+| `rumor` | `rumor_contraband_night_channel` | 黑市夜间窗口传闻图标 | `icon` | `rumor_contraband_night_channel_icon` | P2 | `todo` |
+| `rumor` | `rumor_corrosion_sample_premium` | 腐蚀样本溢价传闻图标 | `icon` | `rumor_corrosion_sample_premium_icon` | P2 | `todo` |
+| `rumor` | `rumor_faction_medical_request` | 医疗势力需求传闻图标 | `icon` | `rumor_faction_medical_request_icon` | P2 | `todo` |
+| `rumor` | `rumor_low_layer_bulk_buy` | 低层统购传闻图标 | `icon` | `rumor_low_layer_bulk_buy_icon` | P2 | `todo` |
+| `rumor` | `rumor_origin_stone_demand` | 源石需求传闻图标 | `icon` | `rumor_origin_stone_demand_icon` | P2 | `todo` |
+| `rumor` | `rumor_scrap_workshop_shortage` | 工坊废料短缺传闻图标 | `icon` | `rumor_scrap_workshop_shortage_icon` | P2 | `todo` |
+| `rumor` | `rumor_slime_crash` | 史莱姆跌价传闻图标 | `icon` | `rumor_slime_crash_icon` | P2 | `todo` |
+| `rumor` | `rumor_weapon_collector_visit` | 武器藏家到访传闻图标 | `icon` | `rumor_weapon_collector_visit_icon` | P2 | `todo` |
 | `ui` | `missing_sprite` | 缺失占位图 | `icon` | `ui_missing_sprite` | P0 | `approved` |
 | `ui` | `button_primary` | 主按钮 | `button` | `ui_button_primary` | P1 | `approved` |
 | `ui` | `button_secondary` | 次按钮 | `button` | `ui_button_secondary` | P1 | `approved` |

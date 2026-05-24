@@ -734,10 +734,149 @@ def draw_memento_return_mark(c: Canvas) -> None:
     c.line([(0.41, 0.74), (0.59, 0.74)], rgba("brass_light", 160), 0.008)
 
 
+def draw_rumor_origin_stone(c: Canvas) -> None:
+    draw_badge(c, rgba("blue", 70))
+    c.glow((0.34, 0.20, 0.66, 0.58), rgba("blue", 90), 0.035)
+    c.polygon([(0.50, 0.20), (0.66, 0.42), (0.56, 0.62), (0.40, 0.62), (0.31, 0.41)], rgba("blue"), rgba("brass_light"))
+    c.line([(0.50, 0.22), (0.50, 0.62)], rgba("cream", 160), 0.009)
+    c.ellipse((0.32, 0.60, 0.50, 0.73), rgba("brass"), rgba("brass_light"), 0.008)
+    c.ellipse((0.47, 0.63, 0.65, 0.76), rgba("brass_light"), rgba("brass_dark"), 0.008)
+    c.polygon([(0.68, 0.67), (0.68, 0.41), (0.60, 0.41), (0.75, 0.24), (0.90, 0.41), (0.82, 0.41), (0.82, 0.67)], rgba("green"), rgba("brass_light"))
+
+
+def draw_rumor_slime_crash(c: Canvas) -> None:
+    draw_badge(c, rgba("acid", 70))
+    c.glow((0.30, 0.24, 0.70, 0.66), rgba("acid", 80), 0.035)
+    c.polygon([(0.50, 0.22), (0.66, 0.49), (0.58, 0.66), (0.40, 0.66), (0.33, 0.49)], rgba("acid"), rgba("brass_light"))
+    c.ellipse((0.40, 0.42, 0.47, 0.49), (22, 32, 22, 180), None)
+    c.ellipse((0.54, 0.43, 0.61, 0.50), (22, 32, 22, 180), None)
+    c.ellipse((0.35, 0.63, 0.60, 0.78), rgba("brass"), rgba("brass_light"), 0.008)
+    c.polygon([(0.73, 0.30), (0.73, 0.60), (0.82, 0.60), (0.66, 0.78), (0.50, 0.60), (0.59, 0.60), (0.59, 0.30)], rgba("red"), rgba("brass_light"))
+
+
+def draw_rumor_scrap_shortage(c: Canvas) -> None:
+    draw_badge(c, rgba("orange", 70))
+    c.ellipse((0.30, 0.31, 0.66, 0.67), rgba("brass"), rgba("brass_light"), 0.014)
+    c.ellipse((0.42, 0.43, 0.54, 0.55), rgba("metal"), None)
+    for angle in range(0, 360, 45):
+        x0 = 0.48 + math.cos(math.radians(angle)) * 0.18
+        y0 = 0.49 + math.sin(math.radians(angle)) * 0.18
+        x1 = 0.48 + math.cos(math.radians(angle)) * 0.27
+        y1 = 0.49 + math.sin(math.radians(angle)) * 0.27
+        c.line([(x0, y0), (x1, y1)], rgba("brass_light"), 0.012)
+    c.line([(0.34, 0.36), (0.44, 0.49), (0.39, 0.63)], rgba("metal"), 0.014)
+    c.polygon([(0.70, 0.28), (0.84, 0.54), (0.56, 0.54)], rgba("orange"), rgba("brass_dark"))
+    c.ellipse((0.67, 0.48, 0.73, 0.54), rgba("cream"), None)
+
+
+def draw_rumor_corrosion_sample(c: Canvas) -> None:
+    draw_badge(c, rgba("acid", 75))
+    c.glow((0.37, 0.21, 0.63, 0.70), rgba("acid", 75), 0.035)
+    c.round_rect((0.41, 0.25, 0.59, 0.68), 0.04, rgba("metal"), rgba("brass_light"), 0.012)
+    c.round_rect((0.44, 0.39, 0.56, 0.65), 0.03, rgba("purple", 190), rgba("acid", 160), 0.006)
+    c.polygon([(0.44, 0.54), (0.56, 0.49), (0.56, 0.65), (0.44, 0.65)], rgba("acid", 200), None)
+    c.ellipse((0.27, 0.60, 0.45, 0.73), rgba("brass"), rgba("brass_light"), 0.008)
+    c.ellipse((0.55, 0.62, 0.73, 0.75), rgba("brass_light"), rgba("brass_dark"), 0.008)
+    c.line([(0.68, 0.32), (0.76, 0.48), (0.66, 0.55)], rgba("red"), 0.012)
+
+
+def draw_rumor_contraband_channel(c: Canvas) -> None:
+    draw_badge(c, rgba("red", 65))
+    c.polygon([(0.28, 0.43), (0.50, 0.28), (0.72, 0.43), (0.66, 0.66), (0.50, 0.75), (0.34, 0.66)], rgba("metal"), rgba("brass_light"))
+    c.ellipse((0.36, 0.46, 0.46, 0.56), rgba("red", 170), None)
+    c.ellipse((0.54, 0.46, 0.64, 0.56), rgba("red", 170), None)
+    c.arc((0.43, 0.54, 0.57, 0.68), 20, 160, rgba("brass_light"), 0.008)
+    c.round_rect((0.34, 0.67, 0.66, 0.79), 0.025, rgba("brass_dark"), rgba("brass_light"), 0.008)
+    c.arc((0.60, 0.21, 0.78, 0.39), 80, 280, rgba("cream"), 0.013)
+    c.arc((0.64, 0.23, 0.80, 0.37), 90, 270, rgba("metal"), 0.013)
+
+
+def draw_rumor_medical_request(c: Canvas) -> None:
+    draw_badge(c, rgba("green", 70))
+    c.round_rect((0.28, 0.41, 0.72, 0.69), 0.035, rgba("brass"), rgba("brass_light"), 0.012)
+    c.round_rect((0.35, 0.32, 0.65, 0.46), 0.03, rgba("metal"), rgba("brass_light"), 0.01)
+    c.line([(0.50, 0.45), (0.50, 0.65)], rgba("cream"), 0.018)
+    c.line([(0.40, 0.55), (0.60, 0.55)], rgba("cream"), 0.018)
+    c.polygon([(0.73, 0.24), (0.84, 0.45), (0.78, 0.59), (0.66, 0.59), (0.61, 0.45)], rgba("blue", 190), rgba("cream"))
+    c.ellipse((0.66, 0.65, 0.76, 0.75), rgba("green", 180), None)
+
+
+def draw_rumor_weapon_collector(c: Canvas) -> None:
+    draw_badge(c, rgba("brass_light", 70))
+    c.line([(0.32, 0.65), (0.68, 0.29)], rgba("metal_light"), 0.035)
+    c.polygon([(0.66, 0.25), (0.78, 0.20), (0.73, 0.34)], rgba("cream"), None)
+    c.round_rect((0.25, 0.64, 0.75, 0.73), 0.025, rgba("brass_dark"), rgba("brass_light"), 0.01)
+    c.round_rect((0.38, 0.57, 0.62, 0.65), 0.015, rgba("brass"), rgba("brass_light"), 0.006)
+    c.ellipse((0.58, 0.42, 0.75, 0.55), rgba("brass_light"), rgba("brass_dark"), 0.008)
+    c.line([(0.62, 0.485), (0.71, 0.485)], rgba("brass_dark", 170), 0.006)
+
+
+def draw_rumor_low_layer_bulk(c: Canvas) -> None:
+    draw_badge(c, rgba("brass_light", 65))
+    c.round_rect((0.29, 0.43, 0.72, 0.70), 0.035, rgba("brass"), rgba("brass_light"), 0.012)
+    c.round_rect((0.33, 0.34, 0.68, 0.49), 0.03, rgba("brass_dark"), rgba("brass_light"), 0.01)
+    c.ellipse((0.34, 0.51, 0.45, 0.62), rgba("metal_light"), rgba("brass_dark"), 0.004)
+    c.ellipse((0.46, 0.48, 0.59, 0.62), rgba("metal_light"), rgba("brass_dark"), 0.004)
+    c.ellipse((0.57, 0.53, 0.68, 0.65), rgba("brass_light"), rgba("brass_dark"), 0.004)
+    c.line([(0.28, 0.74), (0.72, 0.74)], rgba("brass_light", 170), 0.01)
+
+
+def draw_faction_adventurer(c: Canvas) -> None:
+    draw_badge(c, rgba("blue", 65))
+    c.polygon([(0.50, 0.22), (0.58, 0.43), (0.78, 0.50), (0.58, 0.57), (0.50, 0.78), (0.42, 0.57), (0.22, 0.50), (0.42, 0.43)], rgba("brass"), rgba("brass_light"))
+    c.ellipse((0.42, 0.42, 0.58, 0.58), rgba("blue", 170), rgba("cream"), 0.006)
+    c.round_rect((0.60, 0.56, 0.72, 0.72), 0.02, rgba("brass_dark"), rgba("brass_light"), 0.006)
+
+
+def draw_faction_workshop(c: Canvas) -> None:
+    draw_badge(c, rgba("orange", 65))
+    c.ellipse((0.30, 0.28, 0.70, 0.68), rgba("brass"), rgba("brass_light"), 0.014)
+    c.ellipse((0.43, 0.41, 0.57, 0.55), rgba("metal"), None)
+    for angle in range(0, 360, 45):
+        x0 = 0.5 + math.cos(math.radians(angle)) * 0.18
+        y0 = 0.48 + math.sin(math.radians(angle)) * 0.18
+        x1 = 0.5 + math.cos(math.radians(angle)) * 0.28
+        y1 = 0.48 + math.sin(math.radians(angle)) * 0.28
+        c.line([(x0, y0), (x1, y1)], rgba("brass_light"), 0.012)
+    c.line([(0.31, 0.70), (0.69, 0.32)], rgba("metal_light"), 0.018)
+    c.line([(0.31, 0.32), (0.69, 0.70)], rgba("metal_light"), 0.018)
+
+
+def draw_faction_mage(c: Canvas) -> None:
+    draw_badge(c, rgba("purple", 70))
+    c.polygon([(0.50, 0.20), (0.67, 0.74), (0.33, 0.74)], rgba("brass_dark"), rgba("brass_light"))
+    c.round_rect((0.38, 0.42, 0.62, 0.74), 0.025, rgba("metal"), rgba("brass_light"), 0.01)
+    c.polygon([(0.50, 0.25), (0.62, 0.43), (0.54, 0.58), (0.43, 0.58), (0.38, 0.43)], rgba("purple"), rgba("cream"))
+    c.glow((0.36, 0.22, 0.64, 0.60), rgba("purple", 80), 0.03)
+
+
+def draw_faction_alchemy(c: Canvas) -> None:
+    draw_badge(c, rgba("green", 70))
+    c.round_rect((0.40, 0.24, 0.60, 0.39), 0.02, rgba("brass"), rgba("brass_light"), 0.008)
+    c.polygon([(0.42, 0.38), (0.58, 0.38), (0.70, 0.70), (0.30, 0.70)], rgba("metal"), rgba("brass_light"))
+    c.polygon([(0.35, 0.57), (0.65, 0.51), (0.70, 0.70), (0.30, 0.70)], rgba("acid", 185), None)
+    c.polygon([(0.72, 0.32), (0.84, 0.47), (0.72, 0.62), (0.62, 0.48)], rgba("green", 190), rgba("brass_light"))
+    c.glow((0.30, 0.48, 0.70, 0.74), rgba("acid", 60), 0.03)
+
+
+def draw_faction_black_market(c: Canvas) -> None:
+    draw_badge(c, rgba("red", 65))
+    c.polygon([(0.27, 0.43), (0.50, 0.25), (0.73, 0.43), (0.66, 0.68), (0.50, 0.77), (0.34, 0.68)], rgba("metal"), rgba("brass_light"))
+    c.ellipse((0.36, 0.47, 0.46, 0.56), rgba("red", 165), None)
+    c.ellipse((0.54, 0.47, 0.64, 0.56), rgba("red", 165), None)
+    c.round_rect((0.39, 0.66, 0.61, 0.76), 0.02, rgba("brass_dark"), rgba("brass_light"), 0.006)
+    c.line([(0.25, 0.75), (0.75, 0.25)], rgba("red", 150), 0.01)
+
+
 DRAWERS = {
     "chassis_bulwark_carrier_icon": draw_chassis_bulwark,
     "chassis_compact_raider_icon": draw_chassis_compact,
     "chassis_standard_frame_icon": draw_chassis_standard,
+    "faction_adventurer_guild_icon": draw_faction_adventurer,
+    "faction_alchemy_guild_icon": draw_faction_alchemy,
+    "faction_black_market_icon": draw_faction_black_market,
+    "faction_mage_tower_icon": draw_faction_mage,
+    "faction_mechanic_workshop_icon": draw_faction_workshop,
     "memento_boss1_lamp": draw_memento_boss1_lamp,
     "memento_first_chassis_frame": draw_memento_first_chassis_frame,
     "memento_first_prosthetic_case": draw_memento_first_prosthetic_case,
@@ -756,6 +895,14 @@ DRAWERS = {
     "prosthetic_mender_spine_icon": draw_prosthetic_mender_spine,
     "prosthetic_salvage_fingertips_icon": draw_prosthetic_salvage_fingertips,
     "prosthetic_san_regulator_core_icon": draw_prosthetic_san_regulator,
+    "rumor_contraband_night_channel_icon": draw_rumor_contraband_channel,
+    "rumor_corrosion_sample_premium_icon": draw_rumor_corrosion_sample,
+    "rumor_faction_medical_request_icon": draw_rumor_medical_request,
+    "rumor_low_layer_bulk_buy_icon": draw_rumor_low_layer_bulk,
+    "rumor_origin_stone_demand_icon": draw_rumor_origin_stone,
+    "rumor_scrap_workshop_shortage_icon": draw_rumor_scrap_shortage,
+    "rumor_slime_crash_icon": draw_rumor_slime_crash,
+    "rumor_weapon_collector_visit_icon": draw_rumor_weapon_collector,
     "ui_combat_feedback_hit": draw_hit_feedback,
     "ui_combat_feedback_shield_break": draw_shield_break,
     "ui_combat_grid_lock_marker": lambda c: draw_square_marker(c, "lock"),

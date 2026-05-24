@@ -4,16 +4,16 @@
 
 ## Summary
 
-* GeneratedAt: `2026-05-25T06:01:41+08:00`
+* GeneratedAt: `2026-05-25T06:01:15+08:00`
 * Manifest entries: `159`
 * Unique VisualIDs: `158`
 * Candidate entries: `157`
-* Program integrate: `75`
+* Program integrate: `62`
 * Acceptance needed: `82`
 * Art approve: `0`
 * Art select: `0`
 * Art process: `0`
-* Generate needed: `0`
+* Generate needed: `13`
 
 ## Program Integrate
 
@@ -50,11 +50,6 @@
 | P2 | `chassis_bulwark_carrier_icon` | chassis | 重载承运底盘图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Chassis/chassis_bulwark_carrier_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `chassis_compact_raider_icon` | chassis | 轻装掠行底盘图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Chassis/chassis_compact_raider_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `chassis_standard_frame_icon` | chassis | 标准工坊底盘图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Chassis/chassis_standard_frame_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `faction_adventurer_guild_icon` | faction | 冒险者公会徽章 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Factions/Icons/faction_adventurer_guild_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `faction_alchemy_guild_icon` | faction | 炼金公会徽章 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Factions/Icons/faction_alchemy_guild_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `faction_black_market_icon` | faction | 黑市徽章 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Factions/Icons/faction_black_market_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `faction_mage_tower_icon` | faction | 法师塔徽章 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Factions/Icons/faction_mage_tower_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `faction_mechanic_workshop_icon` | faction | 机械工坊徽章 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Factions/Icons/faction_mechanic_workshop_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `memento_boss1_lamp` | memento | 第一层矿灯纪念物 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_boss1_lamp.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `memento_first_chassis_frame` | memento | 首次底盘纪念物 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_chassis_frame.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `memento_first_prosthetic_case` | memento | 首次义体纪念物 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_prosthetic_case.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
@@ -69,14 +64,6 @@
 | P2 | `prosthetic_mender_spine_icon` | prosthetic | 修复脊索图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_mender_spine_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `prosthetic_salvage_fingertips_icon` | prosthetic | 精密拾荒指图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_salvage_fingertips_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `prosthetic_san_regulator_core_icon` | prosthetic | SAN稳态调节核图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_san_regulator_core_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `rumor_contraband_night_channel_icon` | rumor | 黑市夜间窗口传闻图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_contraband_night_channel_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `rumor_corrosion_sample_premium_icon` | rumor | 腐蚀样本溢价传闻图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_corrosion_sample_premium_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `rumor_faction_medical_request_icon` | rumor | 医疗势力需求传闻图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_faction_medical_request_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `rumor_low_layer_bulk_buy_icon` | rumor | 低层统购传闻图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_low_layer_bulk_buy_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `rumor_origin_stone_demand_icon` | rumor | 源石需求传闻图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_origin_stone_demand_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `rumor_scrap_workshop_shortage_icon` | rumor | 工坊废料短缺传闻图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_scrap_workshop_shortage_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `rumor_slime_crash_icon` | rumor | 史莱姆跌价传闻图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_slime_crash_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `rumor_weapon_collector_visit_icon` | rumor | 武器藏家到访传闻图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_weapon_collector_visit_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `ui_icon_blueprint` | ui | 蓝图图标 | preset:美术文档/art_requirements_seed.json, screen:chassis_upgrade_panel | UnityClient/Assets/Art/Approved/UI/ui_icon_blueprint.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `ui_icon_business_settlement` | ui | 营业结算图标 | preset:美术文档/art_requirements_seed.json, screen:business_settlement | UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `ui_icon_chassis_upgrade` | ui | 底盘升级图标 | preset:美术文档/art_requirements_seed.json, screen:chassis_upgrade_panel | UnityClient/Assets/Art/Approved/UI/ui_icon_chassis_upgrade.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
@@ -181,6 +168,19 @@
 | `acceptance_needed` | P2 | `ui_settlement_defeat_panel` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_settlement_defeat_panel.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_settlement_victory_panel` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_settlement_victory_panel.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_title_divider` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_title_divider.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
+| `generate_needed` | P2 | `faction_adventurer_guild_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Factions/Icons/faction_adventurer_guild_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `faction_alchemy_guild_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Factions/Icons/faction_alchemy_guild_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `faction_black_market_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Factions/Icons/faction_black_market_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `faction_mage_tower_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Factions/Icons/faction_mage_tower_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `faction_mechanic_workshop_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Factions/Icons/faction_mechanic_workshop_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `rumor_contraband_night_channel_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_contraband_night_channel_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `rumor_corrosion_sample_premium_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_corrosion_sample_premium_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `rumor_faction_medical_request_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_faction_medical_request_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `rumor_low_layer_bulk_buy_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_low_layer_bulk_buy_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `rumor_origin_stone_demand_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_origin_stone_demand_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `rumor_scrap_workshop_shortage_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_scrap_workshop_shortage_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `rumor_slime_crash_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_slime_crash_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `rumor_weapon_collector_visit_icon` | `prompted` | missing | UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_weapon_collector_visit_icon.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
 
 ## Action Meanings
 

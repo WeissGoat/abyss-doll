@@ -144,6 +144,44 @@ MEMENTO_CN: Dict[str, str] = {
     "memento_san_collapse_blanket": "首次 SAN 崩溃安抚纪念物，折叠的恢复毯、小黄铜别针和浅蓝安定微光，轮廓清楚。",
 }
 
+RUMOR_EN: Dict[str, str] = {
+    "rumor_contraband_night_channel": "black-market night-channel rumor emblem, dark brass mask, hidden contraband crate, tiny crescent moon shape, muted red risk seal, clean readable silhouette",
+    "rumor_corrosion_sample_premium": "corrosion sample premium rumor emblem, sealed purple-green vial beside stacked brass coins, small danger glow, clean readable silhouette",
+    "rumor_faction_medical_request": "medical faction request rumor emblem, brass medical supply case, pale blue purification droplet, small green signal spark, clean readable silhouette",
+    "rumor_low_layer_bulk_buy": "low-layer bulk purchase rumor emblem, small brass cargo crate filled with common stones and coins, warm market glow, clean readable silhouette",
+    "rumor_origin_stone_demand": "origin stone demand rumor emblem, blue-gold crystal above stacked brass coins, small upward market arrow, clean readable silhouette",
+    "rumor_scrap_workshop_shortage": "workshop scrap shortage rumor emblem, cracked brass gear and loose screws beside a small warning marker, clean readable silhouette",
+    "rumor_slime_crash": "slime price crash rumor emblem, green slime droplet above a brass coin with a red downward marker, clean readable silhouette",
+    "rumor_weapon_collector_visit": "weapon collector visit rumor emblem, polished blade on a small brass display stand with collector coin sparkle, clean readable silhouette",
+}
+
+RUMOR_CN: Dict[str, str] = {
+    "rumor_contraband_night_channel": "黑市夜间窗口传闻图标，暗黄铜面具、隐藏违禁品箱、小月牙和低饱和红色风险封印，轮廓清楚。",
+    "rumor_corrosion_sample_premium": "腐蚀样本溢价传闻图标，密封紫绿色样本瓶、黄铜硬币和小型危险微光，轮廓清楚。",
+    "rumor_faction_medical_request": "医疗势力需求传闻图标，黄铜医疗补给箱、浅蓝净化液滴和绿色信号火花，轮廓清楚。",
+    "rumor_low_layer_bulk_buy": "低层统购传闻图标，小型黄铜货箱中装有常见石块和硬币，带暖色市场光，轮廓清楚。",
+    "rumor_origin_stone_demand": "源石需求传闻图标，蓝金晶石置于黄铜硬币上方，带小型上涨箭头，轮廓清楚。",
+    "rumor_scrap_workshop_shortage": "工坊废料短缺传闻图标，开裂黄铜齿轮、散落螺丝和小警告标记，轮廓清楚。",
+    "rumor_slime_crash": "史莱姆跌价传闻图标，绿色软泥液滴压在黄铜硬币上，带红色下行标记，轮廓清楚。",
+    "rumor_weapon_collector_visit": "武器藏家到访传闻图标，展示架上的抛光刀刃和藏家硬币火花，轮廓清楚。",
+}
+
+FACTION_EN: Dict[str, str] = {
+    "faction_adventurer_guild": "adventurer guild faction crest, brass compass star, small lantern, route-marker notches, reliable exploration emblem, clean readable silhouette",
+    "faction_alchemy_guild": "alchemy guild faction crest, brass flask, purification droplet, leaf-like filter fins, calm green-blue glow, clean readable silhouette",
+    "faction_black_market": "black market faction crest, dark brass half-mask, hidden red seal, locked contraband clasp, risky secretive emblem, clean readable silhouette",
+    "faction_mage_tower": "mage tower faction crest, tall brass tower silhouette, floating blue-purple crystal, research lens ring, clean readable silhouette",
+    "faction_mechanic_workshop": "mechanic workshop faction crest, brass gear, crossed wrench and piston, sturdy engineering badge, warm amber worklight, clean readable silhouette",
+}
+
+FACTION_CN: Dict[str, str] = {
+    "faction_adventurer_guild": "冒险者公会势力徽章，黄铜罗盘星、小提灯和路线刻痕，表达可靠探索支持，轮廓清楚。",
+    "faction_alchemy_guild": "炼金公会势力徽章，黄铜烧瓶、净化液滴和叶片状滤片，带绿蓝安定微光，轮廓清楚。",
+    "faction_black_market": "黑市势力徽章，暗黄铜半面具、隐藏红色封印和违禁品锁扣，表达高风险秘密渠道，轮廓清楚。",
+    "faction_mage_tower": "法师塔势力徽章，黄铜高塔剪影、蓝紫悬浮水晶和研究镜环，轮廓清楚。",
+    "faction_mechanic_workshop": "机械工坊势力徽章，黄铜齿轮、交叉扳手与活塞，带暖琥珀工坊灯，轮廓清楚。",
+}
+
 BACKGROUND_EN: Dict[str, str] = {
     "combat": "side-scrolling battle arena background, empty industrial floor across the foreground, broken pipes, abandoned metal platform, dark vertical cavern fog in the midground, wide negative space on left and right",
     "dungeon_map": "dark route-map background texture, low visual noise, cracked stone, old brass pipes, faint mine lamps, deep vertical cavern feeling, large negative space",
@@ -359,6 +397,8 @@ NEGATIVE = {
     "prosthetic": "text, letters, numbers, watermark, logo, signature, busy background, real human limb, medical advertisement style, cropped object, clean plastic product",
     "chassis": "text, letters, numbers, watermark, logo, signature, busy background, baked grid numbers, UI text, closed solid plate, cluttered center",
     "memento": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+    "rumor": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, paper with readable writing, multiple copies, photorealistic product shot",
+    "faction": "text, letters, numbers, watermark, logo, signature, busy background, national flag, real-world heraldry, photorealistic medal, multiple copies",
     "doll": "text, letters, numbers, watermark, logo, signature, photorealistic human, sexy pose, exaggerated expression, cropped feet, cropped head, busy background",
     "background": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
     "ui": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
@@ -554,6 +594,34 @@ SPEC = {
         composition="centered small room keepsake prop",
         post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
         preview_size=120,
+    ),
+    "rumor": make_spec(
+        width=512,
+        height=512,
+        background="transparent",
+        alpha_required=True,
+        display_width=72,
+        display_height=72,
+        safe_padding=10,
+        subject_min=0.70,
+        subject_max=0.86,
+        composition="centered market rumor emblem",
+        post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
+        preview_size=72,
+    ),
+    "faction": make_spec(
+        width=512,
+        height=512,
+        background="transparent",
+        alpha_required=True,
+        display_width=88,
+        display_height=88,
+        safe_padding=10,
+        subject_min=0.72,
+        subject_max=0.88,
+        composition="centered faction crest emblem",
+        post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
+        preview_size=88,
     ),
     "doll": make_spec(
         width=1024,
@@ -1195,6 +1263,10 @@ def lookup(domain: str, config_id: str, english: bool) -> str:
         ("chassis", False): CHASSIS_CN,
         ("memento", True): MEMENTO_EN,
         ("memento", False): MEMENTO_CN,
+        ("rumor", True): RUMOR_EN,
+        ("rumor", False): RUMOR_CN,
+        ("faction", True): FACTION_EN,
+        ("faction", False): FACTION_CN,
         ("background", True): BACKGROUND_EN,
         ("background", False): BACKGROUND_CN,
         ("ui", True): UI_EN,
@@ -1234,6 +1306,10 @@ def prompt_for(entry: Dict[str, Any]) -> tuple[str, str, str, Dict[str, Any]]:
             prompt_en = f"{STYLE_EN}, mechanical frame asset, {detail_en}, rectangular frame, open center, clean silhouette, transparent background, no text"
     elif domain == "memento":
         prompt_en = f"{STYLE_EN}, small room keepsake prop, {detail_en}, centered single object, clean silhouette, transparent background, no text, no letters, no numbers"
+    elif domain == "rumor":
+        prompt_en = f"{STYLE_EN}, small market rumor emblem, {detail_en}, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers"
+    elif domain == "faction":
+        prompt_en = f"{STYLE_EN}, faction crest emblem, {detail_en}, centered heraldic badge, bold readable silhouette, transparent background, no text, no letters, no numbers"
     elif domain == "prosthetic":
         prompt_en = f"{STYLE_EN}, prosthetic machine module icon, {detail_en}, centered single object, clean silhouette, transparent background, no text"
     elif domain == "ui":
