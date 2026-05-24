@@ -63,6 +63,8 @@ update_rule: 策划、数值、GDD 或配置意图任务完成后更新本文件
 
 PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正式纵切先输出规则卡、配置影响、运行时预期和验证需求。
 
+新增策划交付门禁：所有进入开发、配置、表现或自动验收的系统需求，都必须有详细需求文档承接；不能只用路线文档、优先级列表或聊天结论中的一句话替代。
+
 ## 必读文件
 
 - `知识库/views/design.md`
@@ -122,6 +124,7 @@ PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正
 - 已新增 `设计文档/14_策划配置表现验收承接规格.md`，把规则卡之后的配置字段、表现信息、验收样例和内容量承接粒度统一成策划交付规格。
 - 已新增 `设计文档/15_P0主干配置表现验收承接清单.md`，把 `Items`、`Monsters`、`Dungeons` 三条 P0 主干拆成配置字段、玩家可见信息、首批内容、验收样例和完成判定。
 - 已新增 `开发文档/15_P0配置Validator与自动验收底座需求.md`，把 P0 配置 / Validator / 验收底座转成程序可开发工具需求，作为策划承接清单的程序落地点。
+- 已将“系统需求不能只是一句话，必须有详细需求文档承接”写入 `AGENTS.md`、`知识库/views/design.md` 和 `设计文档/README.md`，作为后续策划 agent 的开工门禁。
 - 已新增 `设计文档/16_P1人偶成长情感承接清单.md`，把人偶核心状态、局外成长、标签特质、交互反馈和房间视觉叙事拆成配置字段、玩家可见信息、验收样例和联合验收路径。
 - 已新增 `设计文档/17_P2长期循环叙事承接清单.md`，把长期经济、势力订单、剧本事件队列和房间长期记忆拆成配置字段、玩家可见信息、首批内容、验收样例和联合验收路径。
 - 已新增 `设计文档/18_正式版内容生产规格.md`，规定物品、怪物、地图画像、人偶成长、经济、订单、剧情事件和房间记忆等具体内容条目的玩家承诺、玩法职责、系统连接、内容包组织和验收口径。
@@ -138,19 +141,20 @@ PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正
 ## 下一步建议
 
 1. 先以 `设计文档/README.md` 作为策划文档阅读入口，避免把 GDD、规则卡、交付矩阵和内容包混成同一层级。
-2. 以交付审计 2.0 的完整交付包为单位派发开发任务：GDD 负责体验定位，规则卡负责硬规则，承接清单负责配置 / 表现 / 验收粒度，`19` 到 `25` 中已进入优先级的内容包负责首批正式内容。
-3. 按 `14_策划配置表现验收承接规格.md` 先补 `Items`、`Monsters`、`Dungeons` 的配置承接、表现承接和 P0 验收样例。
-4. 按 `15_P0主干配置表现验收承接清单.md` 将 P0 主干落到 `配置表(JSON)/Items/README.md`、`配置表(JSON)/Monsters/README.md`、`配置表(JSON)/Dungeons/README.md`。
-5. 按 `16_P1人偶成长情感承接清单.md` 和 `21_人偶成长修复内容包.md` 将 P1 主干落到 `Dolls`、`Effects`、`Chassis`、`Prosthetics`、`CraftingRecipes` 和房间 / 交互配置 README。
-6. 按 `17_P2长期循环叙事承接清单.md` 将 P2 主干落到经济、Factions / Orders / Rewards、ScenarioEvents / DialogueTrees、RoomMemory / Mementos 等配置 README。
-7. 按 `19_第一层正式核心内容包.md`、`20_第二层背包压力内容包.md` 和 `25_第三层路线侵蚀内容包.md` 将前三层内容包落到 `Items`、`Monsters`、`Dungeons`、Orders、经济传闻、事件、房间记忆和路线侵蚀验收。
-8. 按 `22_小镇经济月租内容包.md`、`23_长期记忆剧情内容包.md` 和 `24_势力订单声望内容包.md` 将经济、长期剧情、势力订单主干落到对应配置 README、UI / 美术规格和验收清单。
-9. 将 `02_物品背包旋转与生命周期规则卡.md` 同步到 `配置表(JSON)/Items/README.md` 和物品 / 背包 Validator。
-10. 将 `03_战斗回合与怪物意图规则卡.md` 同步到 `配置表(JSON)/Monsters/README.md`、怪物配置、意图 UI 和战斗 Validator。
-11. 将 `GDD_02` 的 `LayerConfig` / `MapProfile` 同步到 `配置表(JSON)/Dungeons/README.md`，并补地图生成 seed 验收样例与 Validator 规则。
-12. 将 `11_人偶房间布局与视觉叙事规则卡.md` 同步到 `配置表(JSON)/Dolls/README.md`、房间资源清单、UI / 美术规格和 Validator。
-13. 清点各规则卡剩余配置 README / Validator 对接项，按当前开发优先级拆到配置与开发文档。
-14. 若设计变更影响配置，同时更新 GDD 和对应 `配置表(JSON)` README 或样例配置。
+2. 派发任何系统开发、配置、表现或验收任务前，先检查是否已有详细需求文档；若只有一句功能项，先补文档再交接。
+3. 以交付审计 2.0 的完整交付包为单位派发开发任务：GDD 负责体验定位，规则卡负责硬规则，承接清单负责配置 / 表现 / 验收粒度，`19` 到 `25` 中已进入优先级的内容包负责首批正式内容。
+4. 按 `14_策划配置表现验收承接规格.md` 先补 `Items`、`Monsters`、`Dungeons` 的配置承接、表现承接和 P0 验收样例。
+5. 按 `15_P0主干配置表现验收承接清单.md` 将 P0 主干落到 `配置表(JSON)/Items/README.md`、`配置表(JSON)/Monsters/README.md`、`配置表(JSON)/Dungeons/README.md`。
+6. 按 `16_P1人偶成长情感承接清单.md` 和 `21_人偶成长修复内容包.md` 将 P1 主干落到 `Dolls`、`Effects`、`Chassis`、`Prosthetics`、`CraftingRecipes` 和房间 / 交互配置 README。
+7. 按 `17_P2长期循环叙事承接清单.md` 将 P2 主干落到经济、Factions / Orders / Rewards、ScenarioEvents / DialogueTrees、RoomMemory / Mementos 等配置 README。
+8. 按 `19_第一层正式核心内容包.md`、`20_第二层背包压力内容包.md` 和 `25_第三层路线侵蚀内容包.md` 将前三层内容包落到 `Items`、`Monsters`、`Dungeons`、Orders、经济传闻、事件、房间记忆和路线侵蚀验收。
+9. 按 `22_小镇经济月租内容包.md`、`23_长期记忆剧情内容包.md` 和 `24_势力订单声望内容包.md` 将经济、长期剧情、势力订单主干落到对应配置 README、UI / 美术规格和验收清单。
+10. 将 `02_物品背包旋转与生命周期规则卡.md` 同步到 `配置表(JSON)/Items/README.md` 和物品 / 背包 Validator。
+11. 将 `03_战斗回合与怪物意图规则卡.md` 同步到 `配置表(JSON)/Monsters/README.md`、怪物配置、意图 UI 和战斗 Validator。
+12. 将 `GDD_02` 的 `LayerConfig` / `MapProfile` 同步到 `配置表(JSON)/Dungeons/README.md`，并补地图生成 seed 验收样例与 Validator 规则。
+13. 将 `11_人偶房间布局与视觉叙事规则卡.md` 同步到 `配置表(JSON)/Dolls/README.md`、房间资源清单、UI / 美术规格和 Validator。
+14. 清点各规则卡剩余配置 README / Validator 对接项，按当前开发优先级拆到配置与开发文档。
+15. 若设计变更影响配置，同时更新 GDD 和对应 `配置表(JSON)` README 或样例配置。
 
 ## 问题 / 阻塞
 
