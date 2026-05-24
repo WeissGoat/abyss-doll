@@ -8,7 +8,7 @@ status: active
 source_of_truth: true
 related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
-  - 美术文档/11_P0_UI骨架接入交付.md
+  - 美术文档/archive/11_P0_UI骨架接入交付.md
 last_verified: 2026-05-24
 update_rule: 修改战斗界面正式结构、敌我站位、背包交互区、战斗实体素材或程序迁移要求时同步本文档。
 ---

@@ -68,10 +68,11 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 
 | 文档 | 当前定位 |
 |---|---|
-| [11_P0_UI骨架接入交付.md](11_P0_UI骨架接入交付.md) | P0 批次交付快照，具体接入仍以 active JSON 和 handoff 为准。 |
-| [12_P1_UI骨架接入准备.md](12_P1_UI骨架接入准备.md) | P1 批次交付快照，具体接入仍以 active JSON 和 handoff 为准。 |
-| [06_MVP素材接入状态同步.md](06_MVP素材接入状态同步.md) | 历史归档，不作为当前规划入口。 |
-| [07_MVP_UI重新设计同步.md](07_MVP_UI重新设计同步.md) | 历史归档，不作为正式 UI 目标。 |
+| [archive/README.md](archive/README.md) | 归档入口，保存 MVP 记录和旧批次交付快照。 |
+| [archive/11_P0_UI骨架接入交付.md](archive/11_P0_UI骨架接入交付.md) | P0 批次交付快照，具体接入仍以 active JSON 和 handoff 为准。 |
+| [archive/12_P1_UI骨架接入准备.md](archive/12_P1_UI骨架接入准备.md) | P1 批次交付快照，具体接入仍以 active JSON 和 handoff 为准。 |
+| [archive/06_MVP素材接入状态同步.md](archive/06_MVP素材接入状态同步.md) | 历史归档，不作为当前规划入口。 |
+| [archive/07_MVP_UI重新设计同步.md](archive/07_MVP_UI重新设计同步.md) | 历史归档，不作为正式 UI 目标。 |
 
 ## 三套工作流
 
@@ -88,6 +89,8 @@ baseline / 当前截图问题
 ```
 
 程序只接 active `screen_layouts.json`。`formal_v1/*.md` 如果还没写入 active，只是设计草案，不是程序接入口。
+
+完整版本迭代规则见 [ui_design/ui_iteration_process.md](ui_design/ui_iteration_process.md)。该工作流负责：冻结旧版本 baseline、编写新版本 draft、用户确认后修改 active、生成 handoff、程序接入、运行时验收和 validated 回填。
 
 ### 资产生产流
 

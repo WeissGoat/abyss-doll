@@ -39,7 +39,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 PM 版本节点中，美术线当前已完成 `combat_hud` Formal V1 active 规格更新和第一批战斗资源入库；UI 程序侧已完成接入并通过 ArtAcceptance。当前 15 个界面都已具备 Formal V1 active 规格；`maintenance_panel` / `daily_bill_report` 的新增 UI 图标已进入 Approved，A4 的 `shop_staging` / `order_board` / `rumor_board` 新增图标已补齐 local_v0 可接入版，程序侧可按 `ui_design_handoff.md` 和 latest 可接入素材清单分批登记。
 
-美术文档已收敛为四层入口：`README.md` 只做导航，`10_正式版核心纵切美术路线.md` 作为当前规划入口，`00_美术流水线总览.md` 作为端到端资产生产工作流入口，`ui_design/README.md` 作为 UI 版本和 active 规格入口。`11_P0_UI骨架接入交付.md`、`12_P1_UI骨架接入准备.md` 已降级为历史交付快照。
+美术文档已收敛为四层入口：`README.md` 只做导航，`10_正式版核心纵切美术路线.md` 作为当前规划入口，`00_美术流水线总览.md` 作为端到端资产生产工作流入口，`ui_design/README.md` 作为 UI 版本和 active 规格入口。`archive/` 保存 MVP 记录和旧批次交付快照。
 
 ## 必读文件
 
@@ -109,7 +109,8 @@ PM 版本节点中，美术线当前已完成 `combat_hud` Formal V1 active 规�
 - 已刷新 latest 可接入素材清单，并用 `VisualAssetRegistry.asset@HEAD` 留档 `美术文档/_generated/art_integration_snapshots/20260524_085725_a4_ui_icons_local_v0_approved_repo_state.*`；当前清单显示 `program_integrate=17`、`acceptance_needed=65`、`generate_needed=0`。
 - 已完成美术文档高内聚整理：`README.md` 明确规划层 / 工作流层 / 契约与数据层 / 交付与历史层；`00_美术流水线总览.md` 收敛为资产生产流程；`10_正式版核心纵切美术路线.md` 收敛为当前规划和近期顺序；`13_正式纵切UI与素材覆盖矩阵.md` 明确 15 个 active Formal V1 与 4 个 draft Formal V1 的边界；`ui_design/README.md` 明确程序只接 active `screen_layouts.json`。
 - 已将 `faction_shop`、`doll_interaction`、`scenario_event`、`doll_room` 四个 Formal V1 文档标为 draft，尚未进入 active `screen_layouts.json`，暂不触发程序接入、Manifest 或跑图。
-- 已将 `11_P0_UI骨架接入交付.md` 和 `12_P1_UI骨架接入准备.md` 降级为历史交付快照，当前接入口统一为 active JSON、`ui_design_handoff.md` 和 latest 可接入素材清单。
+- 已将 `06_MVP素材接入状态同步.md`、`07_MVP_UI重新设计同步.md`、`11_P0_UI骨架接入交付.md`、`12_P1_UI骨架接入准备.md` 归档到 `美术文档/archive/`，并新增 `archive/README.md` 说明归档规则和替代入口。
+- 已将 `ui_design/ui_iteration_process.md` 升级为独立 UI 版本迭代工作流：baseline -> design draft -> 用户确认 -> active -> handoff -> seed/Manifest/Prompt/Spec -> Approved -> 可接入清单 -> 程序接入 -> ArtAcceptance -> validated。
 
 ## 下一步建议
 
