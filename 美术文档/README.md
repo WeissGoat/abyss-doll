@@ -18,14 +18,14 @@ related:
   - agent_status/art.md
   - tools/美术工具/README.md
   - 知识库/views/art.md
-last_verified: 2026-05-24
+last_verified: 2026-05-25
 update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。
 ---
 
 # 美术文档索引
 
 > **定位：** Project P3 美术 / UI 文档入口。本文件只负责导航和职责边界，不承载详细规格。
-> **更新时间：** 2026-05-24
+> **更新时间：** 2026-05-25
 
 ## 先看哪里
 
@@ -121,11 +121,11 @@ config / derived / preset
 
 ## 当前状态
 
-截至 2026-05-24：
+截至 2026-05-25：
 
-* active Formal V1 UI 已覆盖 15 个界面，详见 [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md)。
-* `faction_shop`、`doll_interaction`、`scenario_event`、`doll_room` 已有 Formal V1 设计草案，但尚未进入 active `screen_layouts.json`，暂不作为程序接入口。
-* 最新可接入素材清单显示 `program_integrate=17`，程序侧可按清单登记和接入。
+* active Formal V1 UI 已覆盖 19 个界面，详见 [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md)。
+* 当前没有剩余 draft UI 队列；`doll_room` 已进入 active `screen_layouts.json`，并补齐 seed / Manifest / Prompt / Spec。
+* 最新可接入素材清单显示 `program_integrate=12`，程序侧可按清单登记和接入。
 * NovelAI 当前存在 Anlas 余额不足风险，local_v0 素材只用于先解锁程序接入和验收，后续需要替换为正式版。
 
 ## 机器生成文件

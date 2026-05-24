@@ -5,14 +5,14 @@
 ## Summary
 
 * Reference resolution: `1920x1080`
-* Components: `37`
-* Screens: `15`
+* Components: `48`
+* Screens: `19`
 
 ## Screens
 
 | Priority | ScreenID | Name | Status | Required Components | Required Visuals |
 |---|---|---|---|---:|---:|
-| `P0` | `workshop_main` | 工坊主界面 | `active_spec` | 7 | 10 |
+| `P0` | `workshop_main` | 工坊主界面 | `active_spec` | 7 | 14 |
 | `P0` | `combat_hud` | 战斗界面 | `active_spec` | 11 | 17 |
 | `P0` | `inventory_loot` | 背包与战利品拾取界面 | `active_spec` | 8 | 13 |
 | `P1` | `dungeon_map` | 深渊地图界面 | `active_spec` | 6 | 7 |
@@ -20,55 +20,70 @@
 | `P1` | `sell_panel` | 工坊出售界面 | `active_spec` | 8 | 8 |
 | `P1` | `prosthetic_panel` | 义体制造界面 | `active_spec` | 7 | 7 |
 | `P1` | `layer_select` | 出发层选择界面 | `active_spec` | 7 | 8 |
-| `P1` | `safe_room` | 深渊安全区界面 | `active_spec` | 7 | 8 |
-| `P1` | `stairs_room` | 深渊阶梯房间界面 | `active_spec` | 7 | 8 |
+| `P1` | `safe_room` | 深渊安全区界面 | `active_spec` | 7 | 12 |
+| `P1` | `stairs_room` | 深渊阶梯房间界面 | `active_spec` | 7 | 12 |
 | `P1` | `maintenance_panel` | 机体维护整备界面 | `active_spec` | 10 | 11 |
 | `P1` | `daily_bill_report` | 每日账单报告界面 | `active_spec` | 11 | 12 |
 | `P2` | `shop_staging` | 出货分配界面 | `active_spec` | 13 | 14 |
 | `P2` | `order_board` | 势力订单板界面 | `active_spec` | 13 | 14 |
 | `P2` | `rumor_board` | 传闻情报板界面 | `active_spec` | 12 | 13 |
+| `P2` | `faction_shop` | 势力商店界面 | `active_spec` | 14 | 15 |
+| `P2` | `doll_interaction` | 人偶交互界面 | `active_spec` | 14 | 16 |
+| `P2` | `scenario_event` | 剧本事件界面 | `active_spec` | 12 | 13 |
+| `P2` | `doll_room` | 人偶房间界面 | `active_spec` | 9 | 11 |
 
 ## Components
 
 | Priority | ComponentID | VisualID | Resize | Screens |
 |---|---|---|---|---|
-| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `workshop_main`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
-| `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
-| `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
-| `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
-| `P1` | `Button.Danger` | `ui_button_danger` | `nine_slice` | `inventory_loot`, `dungeon_map`, `sell_panel`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board` |
-| `P1` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
-| `P1` | `List.Row.Selected` | `ui_list_row_selected` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
-| `P1` | `Inventory.Slot` | `ui_inventory_slot_available`, `ui_inventory_slot_hover`, `ui_inventory_slot_invalid`, `ui_inventory_slot_locked`, `ui_inventory_slot_valid` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
-| `P1` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
-| `P1` | `Loot.PickupPanel` | `ui_loot_pickup_panel` | `nine_slice` | `inventory_loot` |
-| `P1` | `Loot.DropZone` | `ui_loot_drop_zone` | `fixed_or_sliced` | `inventory_loot` |
+| `P1` | `Button.Danger` | `ui_button_danger` | `nine_slice` | `inventory_loot`, `dungeon_map`, `sell_panel`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `faction_shop`, `doll_interaction`, `scenario_event` |
+| `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room` |
+| `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room` |
+| `P1` | `Combat.ApPip` | `ui_combat_ap_pip` | `fixed` | `combat_hud` |
 | `P1` | `Combat.EnemyCard` | `ui_combat_enemy_card`, `ui_combat_enemy_card_selected` | `fixed` |  |
 | `P1` | `Combat.EntityShadow` | `ui_combat_entity_shadow` | `fixed_or_stretch` | `combat_hud` |
-| `P1` | `Combat.TargetRing` | `ui_combat_target_ring` | `fixed_or_stretch` | `combat_hud` |
 | `P1` | `Combat.HpBar` | `ui_combat_status_bar_hp` | `nine_slice` | `combat_hud` |
 | `P1` | `Combat.ShieldBar` | `ui_combat_status_bar_shield` | `nine_slice` | `combat_hud` |
-| `P1` | `Combat.ApPip` | `ui_combat_ap_pip` | `fixed` | `combat_hud` |
+| `P1` | `Combat.TargetRing` | `ui_combat_target_ring` | `fixed_or_stretch` | `combat_hud` |
 | `P1` | `Combat.TurnBanner` | `ui_combat_turn_banner` | `nine_slice` | `combat_hud` |
+| `P1` | `Icon.Bill` | `ui_icon_bill` | `fixed` | `daily_bill_report` |
+| `P2` | `Icon.BlackMarket` | `ui_icon_black_market` | `fixed` | `shop_staging`, `faction_shop` |
+| `P2` | `Icon.Deadline` | `ui_icon_deadline` | `fixed` | `order_board` |
+| `P2` | `Icon.Diary` | `ui_icon_diary` | `fixed` | `doll_room` |
+| `P1` | `Icon.Equipped` | `ui_icon_equipped` | `fixed` | `prosthetic_panel` |
+| `P2` | `Icon.Event` | `ui_icon_event` | `fixed` | `scenario_event` |
+| `P2` | `Icon.Faction` | `ui_icon_faction` | `fixed` | `order_board`, `faction_shop` |
+| `P2` | `Icon.Gift` | `ui_icon_gift` | `fixed` | `doll_interaction` |
+| `P1` | `Icon.Locked` | `ui_icon_locked` | `fixed` | `layer_select`, `dungeon_map` |
+| `P2` | `Icon.Lore` | `ui_icon_lore` | `fixed` | `scenario_event` |
+| `P1` | `Icon.Maintenance` | `ui_icon_maintenance` | `fixed` | `maintenance_panel`, `doll_interaction` |
+| `P2` | `Icon.Memento` | `ui_icon_memento` | `fixed` | `doll_interaction`, `doll_room` |
+| `P1` | `Icon.Money` | `ui_icon_money` | `fixed` | `sell_panel`, `settlement`, `workshop_main`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop` |
+| `P2` | `Icon.Order` | `ui_icon_order` | `fixed` | `shop_staging`, `order_board` |
+| `P2` | `Icon.PriceDown` | `ui_icon_price_down` | `fixed` | `rumor_board` |
+| `P2` | `Icon.PriceUp` | `ui_icon_price_up` | `fixed` | `rumor_board` |
+| `P2` | `Icon.Reputation` | `ui_icon_reputation` | `fixed` | `faction_shop` |
+| `P2` | `Icon.Rumor` | `ui_icon_rumor` | `fixed` | `rumor_board` |
+| `P2` | `Icon.ShopChannel` | `ui_icon_shop_channel` | `fixed` | `shop_staging` |
+| `P2` | `Icon.Skip` | `ui_icon_skip` | `fixed` | `scenario_event` |
+| `P2` | `Icon.Talk` | `ui_icon_talk` | `fixed` | `doll_interaction` |
+| `P2` | `Icon.Touch` | `ui_icon_touch` | `fixed` | `doll_interaction` |
+| `P2` | `Icon.Trust` | `ui_icon_trust` | `fixed` | `faction_shop` |
+| `P1` | `Icon.Warning` | `ui_icon_warning` | `fixed` | `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room` |
+| `P1` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
+| `P1` | `Inventory.Slot` | `ui_inventory_slot_available`, `ui_inventory_slot_hover`, `ui_inventory_slot_invalid`, `ui_inventory_slot_locked`, `ui_inventory_slot_valid` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
+| `P1` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room` |
+| `P1` | `List.Row.Selected` | `ui_list_row_selected` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room` |
+| `P1` | `Loot.DropZone` | `ui_loot_drop_zone` | `fixed_or_sliced` | `inventory_loot` |
+| `P1` | `Loot.PickupPanel` | `ui_loot_pickup_panel` | `nine_slice` | `inventory_loot` |
 | `P1` | `Map.NodePlate` | `ui_dungeon_node_plate` | `fixed` | `dungeon_map` |
 | `P1` | `Map.RouteLine` | `ui_dungeon_route_line` | `tile_or_stretch` | `dungeon_map` |
-| `P1` | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | `nine_slice` | `settlement` |
+| `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room` |
+| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `workshop_main`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event` |
+| `P2` | `Room.MementoSlot` | `ui_room_memento_slot` | `fixed` | `doll_room` |
 | `P1` | `Settlement.DefeatPanel` | `ui_settlement_defeat_panel` | `nine_slice` | `settlement` |
-| `P1` | `Icon.Money` | `ui_icon_money` | `fixed` | `sell_panel`, `settlement`, `workshop_main`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
-| `P1` | `Icon.Locked` | `ui_icon_locked` | `fixed` | `layer_select`, `dungeon_map` |
-| `P1` | `Icon.Equipped` | `ui_icon_equipped` | `fixed` | `prosthetic_panel` |
-| `P1` | `Title.Divider` | `ui_title_divider` | `fixed_or_stretch` | `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
-| `P1` | `Icon.Maintenance` | `ui_icon_maintenance` | `fixed` | `maintenance_panel` |
-| `P1` | `Icon.Bill` | `ui_icon_bill` | `fixed` | `daily_bill_report` |
-| `P1` | `Icon.Warning` | `ui_icon_warning` | `fixed` | `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
-| `P2` | `Icon.ShopChannel` | `ui_icon_shop_channel` | `fixed` | `shop_staging` |
-| `P2` | `Icon.BlackMarket` | `ui_icon_black_market` | `fixed` | `shop_staging` |
-| `P2` | `Icon.Order` | `ui_icon_order` | `fixed` | `shop_staging`, `order_board` |
-| `P2` | `Icon.Faction` | `ui_icon_faction` | `fixed` | `order_board` |
-| `P2` | `Icon.Deadline` | `ui_icon_deadline` | `fixed` | `order_board` |
-| `P2` | `Icon.Rumor` | `ui_icon_rumor` | `fixed` | `rumor_board` |
-| `P2` | `Icon.PriceUp` | `ui_icon_price_up` | `fixed` | `rumor_board` |
-| `P2` | `Icon.PriceDown` | `ui_icon_price_down` | `fixed` | `rumor_board` |
+| `P1` | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | `nine_slice` | `settlement` |
+| `P1` | `Title.Divider` | `ui_title_divider` | `fixed_or_stretch` | `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event` |
 
 ## Program Handoff
 
@@ -1292,6 +1307,320 @@ Acceptance criteria:
 * Plan Expedition 只是跳转/规划入口，不直接修改地图节点或经济状态。
 * 背景、面板、分隔线和图标不阻挡列表滚动或按钮点击。
 
+### 势力商店界面
+
+* Goal: 把势力声望、商店解锁、黑市信任和商品兑换做成稳定入口；玩家能比较势力、库存、价格、解锁条件和交易风险。
+* Background: `bg_workshop_day`
+
+Zones:
+| ZoneID | Anchor | Rect | Components | Purpose |
+|---|---|---|---|---|
+| `faction_shop_background` | full_screen | 0,0 1920x1080 |  | 复用工坊背景，表示小镇拜访/交易空间。 |
+| `faction_shop_card` | center | 260,90 1400x900 | `Panel.Main` | 势力商店主容器，承载势力列表、声望/信任、商品、详情和交易动作。 |
+| `faction_header` | top_center | 320,130 1280x110 | `Panel.Info`, `Icon.Faction`, `Icon.Reputation`, `Icon.Trust`, `Icon.Money`, `Title.Divider` | 当前势力、声望等级、信任状态、金币和标题分隔。 |
+| `faction_list_panel` | left_middle | 320,270 320x610 | `Panel.Info`, `List.Row.Normal`, `List.Row.Selected`, `Icon.Faction`, `Icon.BlackMarket`, `Icon.Warning` | 势力列表，显示正规势力和黑市入口。 |
+| `reputation_track_panel` | center_top | 680,270 360x260 | `Panel.Info`, `Icon.Reputation`, `Icon.Trust`, `Icon.Warning` | 声望/信任等级、下一解锁、怀疑状态和黑市信任。 |
+| `shop_item_list` | center_bottom | 680,560 520x320 | `Panel.Info`, `List.Row.Normal`, `List.Row.Selected`, `Icon.Money`, `Icon.Warning` | 可购买商品、图纸、服务和情报列表。 |
+| `selected_item_detail` | right_middle | 1240,270 360x420 | `Panel.Info`, `Icon.Money`, `Icon.Reputation`, `Icon.Warning` | 选中商品详情、价格、库存、条件、风险和购买结果预览。 |
+| `shop_action_panel` | right_bottom | 1240,720 360x160 | `Panel.Main`, `Button.Primary`, `Button.Secondary`, `Button.Danger` | 购买、兑换、跳转订单、关闭和黑市高风险交易操作。 |
+| `black_market_risk_panel` | bottom_center | 320,900 880x70 | `Panel.Info`, `Icon.BlackMarket`, `Icon.Warning` | 黑市风险、正规势力怀疑、背叛代价和二次确认提示。 |
+
+Layout changes:
+* 新增 FactionShopPanel_Runtime 或同等容器，作为势力商店/黑市交易的正式 UI 入口。
+* 左侧势力列表，中部声望/信任与商品列表，右侧商品详情和动作区。
+* 不要把 faction_shop 合并进 order_board；订单板只承载委托，商店承载解锁和交易。
+
+Data bindings:
+* 势力 ID、声望等级、黑市信任、库存、价格、解锁条件、怀疑状态和交易结果预览由服务提供。
+* ui_icon_reputation 表示正规声望，ui_icon_trust 表示黑市信任，ui_icon_black_market 表示高风险渠道。
+* 购买、兑换和黑市交易只触发服务调用，UI 不直接修改金币、库存、声望或信任。
+
+Interaction notes:
+* 背景、面板、图标、标题分隔默认 raycastTarget=false。
+* 势力列表、商品列表和按钮必须可点击；锁定商品行显示但禁用购买。
+* 黑市交易或背叛动作必须使用 Button.Danger 并保留二次确认入口。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `FactionShopUIController` | `rootPanel`, `factionListRoot`, `reputationTrackPanel`, `shopItemListRoot`, `selectedItemDetailPanel`, `buyBtn`, `exchangeBtn`, `blackMarketBtn`, `closeBtn` | 负责势力选择、库存列表、选中详情和按钮可用态。<br>所有交易和声望变化走 FactionShopService / EconomyService，不写在 UI Controller。 |
+| `FactionShopService / FactionReputationService / EconomyFlowController` | `availableFactions`, `shopInventory`, `reputationState`, `trustState`, `currentMoney` | 提供势力、库存、价格、声望/信任和交易结果预览。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `FactionShopPanel_Runtime/Background_Image` | Background |  | `bg_workshop_day` | Simple | cover | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel/FactionIcon_Image` | MainPanel | `Icon.Faction` | `ui_icon_faction` | Simple | contain | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel/ReputationIcon_Image` | MainPanel | `Icon.Reputation` | `ui_icon_reputation` | Simple | contain | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel/TrustIcon_Image` | MainPanel | `Icon.Trust` | `ui_icon_trust` | Simple | contain | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel/MoneyIcon_Image` | MainPanel | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel/TitleDivider_Image` | MainPanel | `Title.Divider` | `ui_title_divider` | Simple | stretch | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/FactionListPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/FactionListPanel/FactionRow_Template` | MainPanel | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/FactionListPanel/SelectedFactionRow_Template` | MainPanel | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/ReputationTrackPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/ShopItemListPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/ShopItemListPanel/ShopItemRow_Template` | MainPanel | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/SelectedItemDetailPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/ActionPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/ActionPanel/Buy_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/ActionPanel/Close_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/ActionPanel/BlackMarket_Button` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/BlackMarketRiskPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/BlackMarketRiskPanel/BlackMarketIcon_Image` | MainPanel | `Icon.BlackMarket` | `ui_icon_black_market` | Simple | contain | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/BlackMarketRiskPanel/WarningIcon_Image` | MainPanel | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `FactionShopPanel_Runtime/Background_Image` |  | `bg_workshop_day` | Simple | cover | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel/ReputationIcon_Image` | `Icon.Reputation` | `ui_icon_reputation` | Simple | contain | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel/TrustIcon_Image` | `Icon.Trust` | `ui_icon_trust` | Simple | contain | False |
+| `FactionShopPanel_Runtime/FactionShopCard_Image/ActionPanel/BlackMarket_Button` | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+
+Acceptance criteria:
+* 势力列表、声望/信任、商品列表、选中详情、风险区和动作按钮同时可见。
+* 正规势力和黑市入口在视觉上能区分，黑市风险不会被藏到小字里。
+* 未解锁商品能显示条件，但购买按钮处于禁用或明确不可用状态。
+* 面板和图标不阻挡列表滚动、商品选择或按钮点击。
+
+### 人偶交互界面
+
+* Goal: 给触摸、对话、赠礼、保养和特殊交互一个正式入口；界面表达照料与反馈，但不把 Bond / SAN / 情绪裁决写进 UI。
+* Background: `bg_workshop_day`
+
+Zones:
+| ZoneID | Anchor | Rect | Components | Purpose |
+|---|---|---|---|---|
+| `doll_interaction_background` | full_screen | 0,0 1920x1080 |  | 复用工坊背景，表现照料场景。 |
+| `doll_interaction_card` | center | 220,80 1480x920 | `Panel.Main` | 人偶交互主容器，承载状态、人偶舞台、交互菜单、列表和反馈。 |
+| `condition_header` | top_center | 280,120 1360x100 | `Panel.Info`, `Icon.Warning`, `Title.Divider` | HP、SAN、Bond、情绪、每日交互次数、警告和标题分隔。 |
+| `interaction_menu` | left_middle | 300,250 300x520 | `Panel.Info`, `Button.Primary`, `Button.Secondary`, `Icon.Touch`, `Icon.Talk`, `Icon.Gift`, `Icon.Maintenance`, `Icon.Memento` | 触摸、对话、赠礼、保养、特殊交互按钮。 |
+| `gift_or_topic_panel` | center_middle | 630,250 350x520 | `Panel.Info`, `List.Row.Normal`, `List.Row.Selected`, `Icon.Gift`, `Icon.Talk`, `Icon.Maintenance` | 礼物、话题、保养材料或交互目标列表。 |
+| `doll_stage` | right_middle | 1020,230 520x610 |  | 人偶立绘、表情/待机动作和点击热区。 |
+| `feedback_panel` | bottom_center | 300,800 1240x130 | `Panel.Info`, `Icon.Warning`, `Icon.Memento` | 反馈台词、结果提示、上限/冷却原因和状态变化摘要。 |
+| `action_hint_panel` | right_middle | 1560,250 100x520 | `Panel.Main`, `Button.Secondary`, `Button.Danger` | 安抚、跳过、关闭等轻量操作。 |
+
+Layout changes:
+* 新增 DollInteractionPanel_Runtime 或同等容器，作为工坊内人偶交互入口。
+* 右侧人偶舞台，左侧交互菜单，中部礼物/话题/材料列表，底部反馈区。
+* 不要把 Bond / SAN / 情绪裁决写在 UI；UI 只提交交互请求并展示结果。
+
+Data bindings:
+* HP、SAN、Bond、情绪、每日交互次数、冷却、礼物列表、话题列表和保养材料由人偶状态/交互服务提供。
+* ui_icon_touch / talk / gift / maintenance / memento 用于交互类型区分。
+* 交互结果、拒绝原因和状态变化摘要由服务返回后显示。
+
+Interaction notes:
+* 背景、面板、图标和立绘默认不拦截按钮；触摸热区由程序单独设置。
+* 低 SAN、Broken、冷却、超上限和拒绝状态必须显示 warning。
+* 危险或跳过类操作使用 Button.Danger。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `DollInteractionUIController` | `rootPanel`, `conditionHeader`, `interactionMenuRoot`, `giftOrTopicListRoot`, `dollStageImage`, `feedbackText`, `comfortBtn`, `skipBtn`, `closeBtn` | 负责交互菜单、列表选择、热区请求和反馈展示。<br>所有数值变化和状态裁决走 DollInteractionService / DollStateService。 |
+| `DollInteractionService / DollStateService / InventoryService` | `dollState`, `dailyInteractionLimit`, `availableTopics`, `availableGifts`, `maintenanceMaterials` | 提供可交互项、材料、冷却、结果和拒绝原因。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `DollInteractionPanel_Runtime/Background_Image` | Background |  | `bg_workshop_day` | Simple | cover | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/ConditionHeader` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/ConditionHeader/WarningIcon_Image` | MainPanel | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/ConditionHeader/TitleDivider_Image` | MainPanel | `Title.Divider` | `ui_title_divider` | Simple | stretch | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/Touch_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/TouchIcon_Image` | MainPanel | `Icon.Touch` | `ui_icon_touch` | Simple | contain | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/TalkIcon_Image` | MainPanel | `Icon.Talk` | `ui_icon_talk` | Simple | contain | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/GiftIcon_Image` | MainPanel | `Icon.Gift` | `ui_icon_gift` | Simple | contain | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/MaintenanceIcon_Image` | MainPanel | `Icon.Maintenance` | `ui_icon_maintenance` | Simple | contain | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/MementoIcon_Image` | MainPanel | `Icon.Memento` | `ui_icon_memento` | Simple | contain | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/GiftOrTopicPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/GiftOrTopicPanel/OptionRow_Template` | MainPanel | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/GiftOrTopicPanel/SelectedOptionRow_Template` | MainPanel | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/DollStage/DollStand_Image` | Stage |  | `doll_proto_0_stand` | Simple | contain | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/FeedbackPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/FeedbackPanel/MementoIcon_Image` | MainPanel | `Icon.Memento` | `ui_icon_memento` | Simple | contain | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/ActionHintPanel` | Controls | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/ActionHintPanel/Close_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/ActionHintPanel/Skip_Button` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `DollInteractionPanel_Runtime/Background_Image` |  | `bg_workshop_day` | Simple | cover | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/DollStage/DollStand_Image` |  | `doll_proto_0_stand` | Simple | contain | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/TouchIcon_Image` | `Icon.Touch` | `ui_icon_touch` | Simple | contain | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/TalkIcon_Image` | `Icon.Talk` | `ui_icon_talk` | Simple | contain | False |
+| `DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/GiftIcon_Image` | `Icon.Gift` | `ui_icon_gift` | Simple | contain | False |
+
+Acceptance criteria:
+* 人偶舞台、交互菜单、礼物/话题列表和反馈区同时可见。
+* 触摸、对话、赠礼、保养和特殊入口图标能被区分。
+* 台词、数值、按钮文案和状态变化全部由 Unity Text 渲染。
+* 立绘、装饰面板和图标不阻挡按钮、列表或触摸热区射线。
+
+### 剧本事件界面
+
+* Goal: 给主线 AVG、系统弹窗、气泡、LorePanel、事件日志和跳过摘要提供统一表现规格；事件队列负责状态，UI 只负责展示和选择。
+
+Zones:
+| ZoneID | Anchor | Rect | Components | Purpose |
+|---|---|---|---|---|
+| `scenario_event_overlay` | full_screen | 0,0 1920x1080 |  | 暗化当前场景或复用当前背景，事件层不烘焙文字。 |
+| `event_modal_card` | center | 300,130 1320x820 | `Panel.Main` | Blocking AVG / SystemModal / LorePanel 主容器。 |
+| `event_header` | top_center | 360,170 1200x90 | `Panel.Info`, `Icon.Event`, `Icon.Lore`, `Icon.Warning`, `Title.Divider` | 事件类型、优先级、来源、标题图标和分隔线。 |
+| `speaker_visual_slot` | left_middle | 360,290 380x430 | `Panel.Info`, `Icon.Event`, `Icon.Lore` | 人偶、势力徽记或物品 / lore 图标。 |
+| `dialogue_text_panel` | right_top | 780,290 780x260 | `Panel.Info` | 当前对白、系统说明或 Lore 正文。 |
+| `choice_list_panel` | right_middle | 780,580 780x210 | `Panel.Info`, `List.Row.Normal`, `List.Row.Selected`, `Icon.Warning` | 选项列表，支持 1-4 个选择。 |
+| `command_summary_panel` | left_bottom | 360,740 560x120 | `Panel.Info`, `Icon.Skip`, `Icon.Warning` | 跳过摘要、奖励/惩罚/旗标提示。 |
+| `event_action_bar` | right_bottom | 960,820 600x90 | `Panel.Main`, `Button.Primary`, `Button.Secondary`, `Button.Danger`, `Icon.Skip` | 继续、跳过、确认、关闭。 |
+
+Layout changes:
+* 新增 ScenarioEventPanel_Runtime 或同等事件层，作为 BlockingEvent / SystemModal / LorePanel 的统一表现入口。
+* 主 modal 包含说话者槽、正文、选项、摘要和动作栏；非阻塞气泡可复用子组件。
+* 不要让 UI 直接执行事件命令，UI 只提交选择、继续、跳过或关闭请求。
+
+Data bindings:
+* 事件类型、说话者、正文、选项、命令摘要、可跳过状态和 SummaryOnSkip 由 ScenarioEventService 提供。
+* ui_icon_event 表示事件，ui_icon_lore 表示档案/世界观，ui_icon_skip 表示跳过摘要。
+* 奖励、惩罚、AddBond、RemoveGold、SetFlag 等命令只由事件系统执行。
+
+Interaction notes:
+* Overlay 背景不接收点击；modal 外点击是否关闭由事件配置决定。
+* 选项行可点击；不可跳过事件禁用 Skip 并显示 warning。
+* 跳过、危险选择或不可逆确认使用 Button.Danger。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `ScenarioEventUIController` | `rootPanel`, `eventHeader`, `speakerVisualSlot`, `dialogueText`, `choiceListRoot`, `commandSummaryText`, `continueBtn`, `skipBtn`, `confirmBtn`, `closeBtn` | 负责事件层显示、选项选择、继续、跳过和关闭请求。<br>不直接执行奖励、惩罚或旗标命令。 |
+| `ScenarioEventService / EventQueueService` | `activeEvent`, `eventQueue`, `currentNode`, `summaryOnSkip`, `availableChoices` | 提供事件状态、队列、选项、可跳过状态和命令执行结果。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `ScenarioEventPanel_Runtime/Overlay_Image` | Overlay |  |  | Image |  | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/EventHeaderPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/EventHeaderPanel/EventIcon_Image` | MainPanel | `Icon.Event` | `ui_icon_event` | Simple | contain | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/EventHeaderPanel/LoreIcon_Image` | MainPanel | `Icon.Lore` | `ui_icon_lore` | Simple | contain | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/EventHeaderPanel/WarningIcon_Image` | MainPanel | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/EventHeaderPanel/TitleDivider_Image` | MainPanel | `Title.Divider` | `ui_title_divider` | Simple | stretch | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/SpeakerVisualPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/SpeakerVisualPanel/DollSpeaker_Image` | Stage |  | `doll_proto_0_stand` | Simple | contain | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/DialogueTextPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/ChoiceListPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/ChoiceListPanel/ChoiceRow_Template` | Controls | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | True |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/ChoiceListPanel/SelectedChoiceRow_Template` | Controls | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | True |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/CommandSummaryPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/CommandSummaryPanel/SkipIcon_Image` | MainPanel | `Icon.Skip` | `ui_icon_skip` | Simple | contain | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/EventActionBar` | Controls | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/EventActionBar/Continue_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/EventActionBar/Close_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/EventActionBar/Skip_Button` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/EventActionBar/SkipIcon_Image` | MainPanel | `Icon.Skip` | `ui_icon_skip` | Simple | contain | False |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `ScenarioEventPanel_Runtime/EventModalCard_Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/EventHeaderPanel/EventIcon_Image` | `Icon.Event` | `ui_icon_event` | Simple | contain | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/EventHeaderPanel/LoreIcon_Image` | `Icon.Lore` | `ui_icon_lore` | Simple | contain | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/CommandSummaryPanel/SkipIcon_Image` | `Icon.Skip` | `ui_icon_skip` | Simple | contain | False |
+| `ScenarioEventPanel_Runtime/EventModalCard_Image/SpeakerVisualPanel/DollSpeaker_Image` |  | `doll_proto_0_stand` | Simple | contain | False |
+
+Acceptance criteria:
+* Blocking 事件能显示说话者、正文、选项和动作栏。
+* SystemModal 与 LorePanel 能复用同一结构，但图标、警告和按钮层级不同。
+* 跳过不隐藏关键状态变化摘要，SummaryOnSkip 或命令摘要可见。
+* 面板不遮挡自身按钮射线；Overlay 背景不接收点击。
+
+### 人偶房间界面
+
+* Goal: 把人偶房间做成零压力视觉日记入口：房间背景、待机人偶、纪念物、窗外状态、日记本和观察反馈共同记录长期经历。
+* Background: `bg_doll_room_attic`
+
+Zones:
+| ZoneID | Anchor | Rect | Components | Purpose |
+|---|---|---|---|---|
+| `doll_room_background` | full_screen | 0,0 1920x1080 |  | 完全不透明的人偶房间背景，cover 适配，不烘焙文字或按钮。 |
+| `window_state_area` | top_left | 120,100 460x320 | `Panel.Info`, `Icon.Warning` | 窗外状态、红月、雨夜、债务阴影等覆盖槽。 |
+| `doll_idle_stage` | center | 680,180 520x700 |  | 人偶待机、低 SAN、Bond、战败后姿态的主展示区。 |
+| `memento_display_area` | right_middle | 1230,180 460x520 | `Panel.Info`, `Room.MementoSlot`, `Icon.Memento` | 纪念物、展示品、礼物剪影和空槽。 |
+| `diary_panel` | left_bottom | 120,470 480x360 | `Panel.Info`, `List.Row.Normal`, `List.Row.Selected`, `Icon.Diary` | 日记条目和房间记忆列表。 |
+| `room_detail_panel` | right_bottom | 1230,730 460x170 | `Panel.Info`, `Icon.Memento`, `Icon.Warning` | 选中纪念物、窗外状态或日记详情。 |
+| `room_action_strip` | bottom_center | 680,910 520x80 | `Button.Primary`, `Button.Secondary`, `Icon.Diary` | 观察、日记、返回工坊等轻操作。 |
+
+Layout changes:
+* 新增 DollRoomPanel_Runtime 或同等人偶房间层，作为房间视觉日记和观察入口。
+* 背景、人偶待机、纪念物展示、日记列表、详情区和底部动作条同时存在。
+* 不要把房间做成仓库或经营界面；展示品是视觉引用或快照。
+
+Data bindings:
+* 房间状态、窗外状态、纪念物槽、日记条目、观察反馈和可用动作由 DollRoomService / RoomNarrativeService 提供。
+* bg_doll_room_attic 表示基础房间背景，ui_room_memento_slot 表示展示槽，ui_icon_diary 表示日记入口。
+* 人偶待机第一版复用 doll_proto_0_stand，后续可按状态替换为专用待机姿态。
+
+Interaction notes:
+* 背景、人偶立绘、展示槽装饰和信息面板默认 raycastTarget=false。
+* 日记行、纪念物槽和底部按钮可接收点击；点击只请求查看详情或观察，不推进 Day。
+* 缺失纪念物、低 SAN 或特殊窗外状态使用 warning 图标提示，不烘焙文字。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `DollRoomUIController` | `rootPanel`, `backgroundImage`, `dollIdleImage`, `windowStateRoot`, `mementoSlotRoot`, `diaryListRoot`, `detailText`, `observeBtn`, `diaryBtn`, `closeBtn` | 负责房间显示、纪念物选择、日记选择、观察和关闭请求。<br>不直接推进时间、不结算账单、不修改仓库或物品归属。 |
+| `DollRoomService / RoomNarrativeService` | `roomState`, `windowState`, `mementos`, `diaryEntries`, `selectedRoomDetail`, `availableRoomActions` | 提供房间视觉叙事状态、日记和纪念物数据。<br>缺资源或展示品失效时给 UI 返回 fallback 状态。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `DollRoomPanel_Runtime/Background_Image` | Background |  | `bg_doll_room_attic` | Simple | cover | False |
+| `DollRoomPanel_Runtime/WindowStatePanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DollRoomPanel_Runtime/WindowStatePanel/WarningIcon_Image` | MainPanel | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `DollRoomPanel_Runtime/DollIdleStage/DollIdle_Image` | CharacterOrMonster |  | `doll_proto_0_stand` | Simple | contain | False |
+| `DollRoomPanel_Runtime/MementoDisplayPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DollRoomPanel_Runtime/MementoDisplayPanel/MementoSlot_Template` | Controls | `Room.MementoSlot` | `ui_room_memento_slot` | Simple | contain | True |
+| `DollRoomPanel_Runtime/MementoDisplayPanel/MementoIcon_Template` | MainPanel | `Icon.Memento` | `ui_icon_memento` | Simple | contain | False |
+| `DollRoomPanel_Runtime/DiaryPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DollRoomPanel_Runtime/DiaryPanel/DiaryIcon_Image` | MainPanel | `Icon.Diary` | `ui_icon_diary` | Simple | contain | False |
+| `DollRoomPanel_Runtime/DiaryPanel/DiaryRow_Template` | Controls | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | True |
+| `DollRoomPanel_Runtime/DiaryPanel/SelectedDiaryRow_Template` | Controls | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | True |
+| `DollRoomPanel_Runtime/RoomDetailPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `DollRoomPanel_Runtime/RoomDetailPanel/MementoIcon_Image` | MainPanel | `Icon.Memento` | `ui_icon_memento` | Simple | contain | False |
+| `DollRoomPanel_Runtime/ActionStrip/Observe_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `DollRoomPanel_Runtime/ActionStrip/Diary_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `DollRoomPanel_Runtime/ActionStrip/DiaryIcon_Image` | MainPanel | `Icon.Diary` | `ui_icon_diary` | Simple | contain | False |
+| `DollRoomPanel_Runtime/ActionStrip/Close_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `DollRoomPanel_Runtime/Background_Image` |  | `bg_doll_room_attic` | Simple | cover | False |
+| `DollRoomPanel_Runtime/DollIdleStage/DollIdle_Image` |  | `doll_proto_0_stand` | Simple | contain | False |
+| `DollRoomPanel_Runtime/MementoDisplayPanel/MementoSlot_Template` | `Room.MementoSlot` | `ui_room_memento_slot` | Simple | contain | True |
+| `DollRoomPanel_Runtime/DiaryPanel/DiaryIcon_Image` | `Icon.Diary` | `ui_icon_diary` | Simple | contain | False |
+| `DollRoomPanel_Runtime/DiaryPanel/DiaryRow_Template` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | True |
+| `DollRoomPanel_Runtime/DiaryPanel/SelectedDiaryRow_Template` | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | True |
+| `DollRoomPanel_Runtime/RoomDetailPanel/MementoIcon_Image` | `Icon.Memento` | `ui_icon_memento` | Simple | contain | False |
+| `DollRoomPanel_Runtime/ActionStrip/Observe_Button` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `DollRoomPanel_Runtime/ActionStrip/Diary_Button` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `DollRoomPanel_Runtime/ActionStrip/Close_Button` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+
+Acceptance criteria:
+* 房间截图能明显区别于工坊、战斗和深渊房间。
+* 人偶待机、窗外状态、纪念物展示、日记和详情区互不遮挡。
+* 点击房间区域只触发观察/详情，不推进 Day，不触发营业结算。
+* 背景必须完全不透明，不允许出现透明黑洞。
+* 日记、纪念物和状态说明全部由 Unity Text 渲染，不烘焙到图片。
+
 ## Known VisualID Sources
 
-* Known VisualID count: `83`
+* Known VisualID count: `95`

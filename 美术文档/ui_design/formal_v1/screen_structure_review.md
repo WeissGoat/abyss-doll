@@ -4,7 +4,7 @@ title: 正式版 UI 结构 V1 总览
 type: art
 role: 美术
 domain: ui_design
-status: draft
+status: active
 source_of_truth: true
 related:
   - 美术文档/ui_design/README.md
@@ -35,7 +35,7 @@ related:
   - 美术文档/09_运行时美术验收记录.md
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
-last_verified: 2026-05-24
+last_verified: 2026-05-25
 update_rule: 修改正式版 UI 结构、界面迁移顺序或程序接入口径时同步本文件。
 ---
 
@@ -112,18 +112,18 @@ Formal V1 不应直接删除 MVP 经验。MVP Baseline 作为可运行对照保�
 | P2-A | `shop_staging` | 已写入 active Formal V1：仓库出货分配、普通渠道、订单渠道、黑市渠道和收益风险预览。 |
 | P2-B | `order_board` | 已写入 active Formal V1：势力订单列表、目标物、截止日、奖励预览和接取/提交动作。 |
 | P2-C | `rumor_board` | 已写入 active Formal V1：今日传闻、价格涨跌、选中详情和推荐行动。 |
-| P3-Draft | `faction_shop` | 设计草案：势力声望、专属商品、黑市信任和交易风险；未进 active。 |
-| P3-Draft | `doll_interaction` | 设计草案：触摸、对话、赠礼、保养、特殊交互和反馈；未进 active。 |
-| P3-Draft | `scenario_event` | 设计草案：AVG、系统弹窗、气泡、LorePanel、事件日志和跳过摘要；未进 active。 |
-| P3-Draft | `doll_room` | 设计草案：房间背景、待机人偶、纪念物、窗外状态和日记；未进 active。 |
+| P2-D | `faction_shop` | 已写入 active Formal V1：势力声望、专属商品、黑市信任和交易风险。 |
+| P2-E | `doll_interaction` | 已写入 active Formal V1：触摸、对话、赠礼、保养、特殊交互和反馈。 |
+| P2-F | `scenario_event` | 已写入 active Formal V1：AVG、系统弹窗、气泡、LorePanel、事件日志和跳过摘要。 |
+| P3-A | `doll_room` | 已写入 active Formal V1：房间背景、待机人偶、纪念物、窗外状态和日记。 |
 
-P0 / P1 / P2 当前 15 个界面均已进入 active `screen_layouts.json` 规格。P3 四个界面目前只有结构草案。后续程序接入不读取本目录草案，而是读取 active 规格、`ui_design_handoff.md` 和可接入素材清单。
+P0 / P1 / P2 / P3 当前 19 个界面均已进入 active `screen_layouts.json` 规格。后续程序接入不读取本目录草案，而是读取 active 规格、`ui_design_handoff.md` 和可接入素材清单。
 
 ---
 
 ## 5. 迁移状态建议
 
-当前 P0 / P1 / P2 已完成从 MVP Baseline 或新增界面规划到 Formal V1 active 规格的第一轮迁移。P3 四个界面处于 `design_draft`，后续仍按同一流程处理：先写版本设计文档，用户确认后修改 active `screen_layouts.json`。
+当前 P0 / P1 / P2 / P3 已完成从 MVP Baseline 或新增界面规划到 Formal V1 active 规格的第一轮迁移。当前没有剩余 draft UI；后续新增界面仍按同一流程处理：先写版本设计文档，用户确认后修改 active `screen_layouts.json`。
 
 `versions/formal_v1_candidate/` 只作为复杂界面的可选暂存区。`combat_hud` 本轮已在用户确认关键结构后直接写入 active `screen_layouts.json`；后续更复杂界面仍可先在 candidate 中试写结构化 JSON，再合并到 active。
 
@@ -166,9 +166,9 @@ P0 / P1 / P2 当前 15 个界面均已进入 active `screen_layouts.json` 规格
 
 ## 7. 当前结论
 
-1. P0 / P1 / P2 的 15 个界面均已进入 active Formal V1 规格。
+1. P0 / P1 / P2 / P3 的 19 个界面均已进入 active Formal V1 规格。
 2. `combat_hud` 已有第一批战斗实体和脚底阴影/目标光环入库，并已完成一次程序接入验证。
-3. `workshop_main`、`inventory_loot`、`dungeon_map`、`settlement`、`layer_select`、`sell_panel`、`prosthetic_panel`、`safe_room`、`stairs_room`、`maintenance_panel`、`daily_bill_report`、`shop_staging`、`order_board`、`rumor_board` 当前重点是程序按 active 规格迁移后截图验收。
-4. `faction_shop`、`doll_interaction`、`scenario_event`、`doll_room` 当前为设计草案，用户确认并写入 active 前不触发程序接入和批量跑图。
+3. `workshop_main`、`inventory_loot`、`dungeon_map`、`settlement`、`layer_select`、`sell_panel`、`prosthetic_panel`、`safe_room`、`stairs_room`、`maintenance_panel`、`daily_bill_report`、`shop_staging`、`order_board`、`rumor_board`、`faction_shop`、`doll_interaction`、`scenario_event`、`doll_room` 当前重点是程序按 active 规格迁移后截图验收。
+4. `doll_room` 已补齐 `bg_doll_room_attic`、`ui_icon_diary`、`ui_room_memento_slot` 的 local_v0 Approved 可接入素材；后续正式 AI 版可同名替换。
 5. Formal V1 第一轮只保证正式结构、信息层级和资源槽位；后续 Visual V2/V3 再逐批替换更高品质素材、动画和 VFX。
 6. 每轮实际生成、预处理或 Approved 同步后，美术侧必须刷新 `美术文档/_generated/可接入素材清单.md/json` 并保留快照，程序侧按 `program_integrate` 队列自助接入。

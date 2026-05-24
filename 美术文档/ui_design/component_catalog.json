@@ -3,54 +3,32 @@
   "UpdatedAt": "2026-05-24",
   "Components": [
     {
-      "ComponentID": "Panel.Main",
-      "DisplayName": "主弹窗面板",
-      "VisualID": "ui_panel_main",
-      "Category": "panel",
+      "ComponentID": "Button.Danger",
+      "DisplayName": "危险按钮",
+      "VisualID": "ui_button_danger",
+      "Category": "button",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
       "States": [
-        "normal"
+        "normal",
+        "pressed",
+        "disabled_runtime_tint"
       ],
       "RequiredForScreens": [
-        "prosthetic_panel",
-        "sell_panel",
-        "layer_select",
-        "workshop_main",
-        "safe_room",
-        "stairs_room",
-        "maintenance_panel",
-        "daily_bill_report",
-        "shop_staging",
-        "order_board",
-        "rumor_board"
-      ],
-      "ProgramUse": "用于大弹窗和主内容容器。Unity Image Type 使用 Sliced，不烘焙标题和正文。"
-    },
-    {
-      "ComponentID": "Panel.Info",
-      "DisplayName": "小信息面板",
-      "VisualID": "ui_panel_info",
-      "Category": "panel",
-      "Priority": "P1",
-      "ResizeMode": "nine_slice",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "workshop_main",
-        "combat_hud",
         "inventory_loot",
         "dungeon_map",
+        "sell_panel",
         "safe_room",
         "stairs_room",
         "maintenance_panel",
         "daily_bill_report",
         "shop_staging",
         "order_board",
-        "rumor_board"
+        "faction_shop",
+        "doll_interaction",
+        "scenario_event"
       ],
-      "ProgramUse": "用于状态摘要、说明区和小块信息承托。"
+      "ProgramUse": "用于丢弃、卖出、撤离等高风险操作。"
     },
     {
       "ComponentID": "Button.Primary",
@@ -78,7 +56,11 @@
         "daily_bill_report",
         "shop_staging",
         "order_board",
-        "rumor_board"
+        "rumor_board",
+        "faction_shop",
+        "doll_interaction",
+        "scenario_event",
+        "doll_room"
       ],
       "ProgramUse": "用于出发、确认、继续等正向操作。文字由 Text 组件叠加。"
     },
@@ -108,158 +90,29 @@
         "daily_bill_report",
         "shop_staging",
         "order_board",
-        "rumor_board"
+        "rumor_board",
+        "faction_shop",
+        "doll_interaction",
+        "scenario_event",
+        "doll_room"
       ],
       "ProgramUse": "用于返回、关闭、取消等次级操作。"
     },
     {
-      "ComponentID": "Button.Danger",
-      "DisplayName": "危险按钮",
-      "VisualID": "ui_button_danger",
-      "Category": "button",
-      "Priority": "P1",
-      "ResizeMode": "nine_slice",
-      "States": [
-        "normal",
-        "pressed",
-        "disabled_runtime_tint"
-      ],
-      "RequiredForScreens": [
-        "inventory_loot",
-        "dungeon_map",
-        "sell_panel",
-        "safe_room",
-        "stairs_room",
-        "maintenance_panel",
-        "daily_bill_report",
-        "shop_staging",
-        "order_board"
-      ],
-      "ProgramUse": "用于丢弃、卖出、撤离等高风险操作。"
-    },
-    {
-      "ComponentID": "List.Row.Normal",
-      "DisplayName": "普通列表行",
-      "VisualID": "ui_list_row_normal",
-      "Category": "list",
-      "Priority": "P1",
-      "ResizeMode": "nine_slice",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "sell_panel",
-        "prosthetic_panel",
-        "layer_select",
-        "settlement",
-        "maintenance_panel",
-        "daily_bill_report",
-        "shop_staging",
-        "order_board",
-        "rumor_board"
-      ],
-      "ProgramUse": "用于可滚动列表项底板。"
-    },
-    {
-      "ComponentID": "List.Row.Selected",
-      "DisplayName": "选中列表行",
-      "VisualID": "ui_list_row_selected",
-      "Category": "list",
-      "Priority": "P1",
-      "ResizeMode": "nine_slice",
-      "States": [
-        "selected"
-      ],
-      "RequiredForScreens": [
-        "sell_panel",
-        "prosthetic_panel",
-        "layer_select",
-        "daily_bill_report",
-        "shop_staging",
-        "order_board",
-        "rumor_board"
-      ],
-      "ProgramUse": "用于当前选择项或焦点项底板。"
-    },
-    {
-      "ComponentID": "Inventory.Slot",
-      "DisplayName": "背包格状态组",
-      "VisualID": "ui_inventory_slot_available",
-      "StateVisualIDs": {
-        "available": "ui_inventory_slot_available",
-        "locked": "ui_inventory_slot_locked",
-        "hover": "ui_inventory_slot_hover",
-        "valid": "ui_inventory_slot_valid",
-        "invalid": "ui_inventory_slot_invalid"
-      },
-      "Category": "inventory",
+      "ComponentID": "Combat.ApPip",
+      "DisplayName": "行动点圆点",
+      "VisualID": "ui_combat_ap_pip",
+      "Category": "combat",
       "Priority": "P1",
       "ResizeMode": "fixed",
       "States": [
         "available",
-        "locked",
-        "hover",
-        "valid",
-        "invalid"
+        "spent_runtime_tint"
       ],
       "RequiredForScreens": [
-        "inventory_loot",
-        "workshop_main",
-        "combat_hud",
-        "safe_room",
-        "stairs_room"
+        "combat_hud"
       ],
-      "ProgramUse": "背包玩法格固定 100x100 参考尺寸，状态由 Sprite 切换或运行时 tint 叠加；格内物品图标按需要 contain。"
-    },
-    {
-      "ComponentID": "Inventory.ChassisPanel",
-      "DisplayName": "背包底盘面板",
-      "VisualID": "ui_inventory_chassis_panel",
-      "Category": "inventory",
-      "Priority": "P1",
-      "ResizeMode": "fixed",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "inventory_loot",
-        "workshop_main",
-        "combat_hud",
-        "safe_room",
-        "stairs_room"
-      ],
-      "ProgramUse": "承托背包网格，位于格子层下方；chassis frame 可作为额外装饰层。"
-    },
-    {
-      "ComponentID": "Loot.PickupPanel",
-      "DisplayName": "战利品拾取面板",
-      "VisualID": "ui_loot_pickup_panel",
-      "Category": "inventory",
-      "Priority": "P1",
-      "ResizeMode": "nine_slice",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "inventory_loot"
-      ],
-      "ProgramUse": "战利品拾取界面主容器，内部区域由布局放置。"
-    },
-    {
-      "ComponentID": "Loot.DropZone",
-      "DisplayName": "战利品掉落区",
-      "VisualID": "ui_loot_drop_zone",
-      "Category": "inventory",
-      "Priority": "P1",
-      "ResizeMode": "fixed_or_sliced",
-      "States": [
-        "normal",
-        "hover_runtime_tint"
-      ],
-      "RequiredForScreens": [
-        "inventory_loot"
-      ],
-      "ProgramUse": "背包外侧待拾取物品区域，拖拽悬停可用运行时高亮。"
+      "ProgramUse": "AP 点阵，已消耗状态可用运行时降亮。"
     },
     {
       "ComponentID": "Combat.EnemyCard",
@@ -295,22 +148,6 @@
       "ProgramUse": "玩家和敌人实体脚下的舞台落点阴影，不承载交互，不拦截射线。"
     },
     {
-      "ComponentID": "Combat.TargetRing",
-      "DisplayName": "战斗目标选择光环",
-      "VisualID": "ui_combat_target_ring",
-      "Category": "combat",
-      "Priority": "P1",
-      "ResizeMode": "fixed_or_stretch",
-      "States": [
-        "normal",
-        "hidden_runtime"
-      ],
-      "RequiredForScreens": [
-        "combat_hud"
-      ],
-      "ProgramUse": "当前可攻击/已选中敌人的脚下目标光环，由运行时显示隐藏或 tint。"
-    },
-    {
       "ComponentID": "Combat.HpBar",
       "DisplayName": "生命状态条",
       "VisualID": "ui_combat_status_bar_hp",
@@ -341,20 +178,20 @@
       "ProgramUse": "只做轨道和外框，填充量由程序控制。Formal V1 中敌人护盾条贴近实体脚下，玩家护盾条贴近玩家状态组。"
     },
     {
-      "ComponentID": "Combat.ApPip",
-      "DisplayName": "行动点圆点",
-      "VisualID": "ui_combat_ap_pip",
+      "ComponentID": "Combat.TargetRing",
+      "DisplayName": "战斗目标选择光环",
+      "VisualID": "ui_combat_target_ring",
       "Category": "combat",
       "Priority": "P1",
-      "ResizeMode": "fixed",
+      "ResizeMode": "fixed_or_stretch",
       "States": [
-        "available",
-        "spent_runtime_tint"
+        "normal",
+        "hidden_runtime"
       ],
       "RequiredForScreens": [
         "combat_hud"
       ],
-      "ProgramUse": "AP 点阵，已消耗状态可用运行时降亮。"
+      "ProgramUse": "当前可攻击/已选中敌人的脚下目标光环，由运行时显示隐藏或 tint。"
     },
     {
       "ComponentID": "Combat.TurnBanner",
@@ -370,6 +207,521 @@
         "combat_hud"
       ],
       "ProgramUse": "回合状态提示容器，文字由程序叠加。"
+    },
+    {
+      "ComponentID": "Icon.Bill",
+      "DisplayName": "账单图标",
+      "VisualID": "ui_icon_bill",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "daily_bill_report"
+      ],
+      "ProgramUse": "每日账单、收入支出和欠债压力的小图标。"
+    },
+    {
+      "ComponentID": "Icon.BlackMarket",
+      "DisplayName": "黑市渠道图标",
+      "VisualID": "ui_icon_black_market",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "shop_staging",
+        "faction_shop"
+      ],
+      "ProgramUse": "黑市、违禁品、背叛或高风险收益渠道的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Deadline",
+      "DisplayName": "截止日图标",
+      "VisualID": "ui_icon_deadline",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "order_board"
+      ],
+      "ProgramUse": "订单截止日、剩余天数和时间压力的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Diary",
+      "DisplayName": "日记图标",
+      "VisualID": "ui_icon_diary",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "doll_room"
+      ],
+      "ProgramUse": "人偶房间日记本、记忆记录和房间日志入口的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Equipped",
+      "DisplayName": "已装备图标",
+      "VisualID": "ui_icon_equipped",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "prosthetic_panel"
+      ],
+      "ProgramUse": "义体列表已装备状态图标。"
+    },
+    {
+      "ComponentID": "Icon.Event",
+      "DisplayName": "剧本事件图标",
+      "VisualID": "ui_icon_event",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "scenario_event"
+      ],
+      "ProgramUse": "剧本事件、系统弹窗、AVG 事件和事件来源的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Faction",
+      "DisplayName": "势力图标",
+      "VisualID": "ui_icon_faction",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "order_board",
+        "faction_shop"
+      ],
+      "ProgramUse": "势力来源、声望变化、委托方和奖励归属的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Gift",
+      "DisplayName": "赠礼图标",
+      "VisualID": "ui_icon_gift",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "doll_interaction"
+      ],
+      "ProgramUse": "人偶赠礼、礼物列表和偏好反馈的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Locked",
+      "DisplayName": "锁定图标",
+      "VisualID": "ui_icon_locked",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "layer_select",
+        "dungeon_map"
+      ],
+      "ProgramUse": "未解锁或不可进入状态图标。"
+    },
+    {
+      "ComponentID": "Icon.Lore",
+      "DisplayName": "Lore 档案图标",
+      "VisualID": "ui_icon_lore",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "scenario_event"
+      ],
+      "ProgramUse": "LorePanel、世界观档案、记录文本和图鉴入口的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Maintenance",
+      "DisplayName": "维护图标",
+      "VisualID": "ui_icon_maintenance",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "maintenance_panel",
+        "doll_interaction"
+      ],
+      "ProgramUse": "机体维护、磨损/侵蚀和下潜整备状态的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Memento",
+      "DisplayName": "纪念物图标",
+      "VisualID": "ui_icon_memento",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "doll_interaction",
+        "doll_room"
+      ],
+      "ProgramUse": "特殊交互、记忆反馈、纪念物和情绪回声的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Money",
+      "DisplayName": "金币图标",
+      "VisualID": "ui_icon_money",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "sell_panel",
+        "settlement",
+        "workshop_main",
+        "maintenance_panel",
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board",
+        "faction_shop"
+      ],
+      "ProgramUse": "金币、价格、价值显示的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Order",
+      "DisplayName": "订单图标",
+      "VisualID": "ui_icon_order",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "shop_staging",
+        "order_board"
+      ],
+      "ProgramUse": "势力订单、交付目标、订单槽位和委托入口的小图标。"
+    },
+    {
+      "ComponentID": "Icon.PriceDown",
+      "DisplayName": "价格下跌图标",
+      "VisualID": "ui_icon_price_down",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "rumor_board"
+      ],
+      "ProgramUse": "价格下跌、滞销、需求降低和收益衰减的小图标。"
+    },
+    {
+      "ComponentID": "Icon.PriceUp",
+      "DisplayName": "价格上涨图标",
+      "VisualID": "ui_icon_price_up",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "rumor_board"
+      ],
+      "ProgramUse": "价格上涨、热销、需求增加和收益提升的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Reputation",
+      "DisplayName": "声望等级图标",
+      "VisualID": "ui_icon_reputation",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "faction_shop"
+      ],
+      "ProgramUse": "正规势力声望、等级、解锁进度和奖励门槛的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Rumor",
+      "DisplayName": "传闻图标",
+      "VisualID": "ui_icon_rumor",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "rumor_board"
+      ],
+      "ProgramUse": "每日传闻、深渊情报、市场消息和推荐目标的小图标。"
+    },
+    {
+      "ComponentID": "Icon.ShopChannel",
+      "DisplayName": "出货渠道图标",
+      "VisualID": "ui_icon_shop_channel",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "shop_staging"
+      ],
+      "ProgramUse": "普通柜台、寄售槽、出货渠道和营业分配入口的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Skip",
+      "DisplayName": "跳过摘要图标",
+      "VisualID": "ui_icon_skip",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "scenario_event"
+      ],
+      "ProgramUse": "事件跳过、摘要、快进和状态变化回顾的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Talk",
+      "DisplayName": "对话图标",
+      "VisualID": "ui_icon_talk",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "doll_interaction"
+      ],
+      "ProgramUse": "人偶对话、话题和交流入口的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Touch",
+      "DisplayName": "触摸图标",
+      "VisualID": "ui_icon_touch",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "doll_interaction"
+      ],
+      "ProgramUse": "人偶触摸、安抚和轻交互入口的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Trust",
+      "DisplayName": "黑市信任图标",
+      "VisualID": "ui_icon_trust",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "faction_shop"
+      ],
+      "ProgramUse": "黑市信任、隐秘交易和高风险渠道信任度的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Warning",
+      "DisplayName": "警告图标",
+      "VisualID": "ui_icon_warning",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal",
+        "hidden_runtime_tint"
+      ],
+      "RequiredForScreens": [
+        "maintenance_panel",
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board",
+        "faction_shop",
+        "doll_interaction",
+        "scenario_event",
+        "doll_room"
+      ],
+      "ProgramUse": "维护风险、欠债风险、不可下潜、材料不足等警告状态图标。"
+    },
+    {
+      "ComponentID": "Inventory.ChassisPanel",
+      "DisplayName": "背包底盘面板",
+      "VisualID": "ui_inventory_chassis_panel",
+      "Category": "inventory",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "inventory_loot",
+        "workshop_main",
+        "combat_hud",
+        "safe_room",
+        "stairs_room"
+      ],
+      "ProgramUse": "承托背包网格，位于格子层下方；chassis frame 可作为额外装饰层。"
+    },
+    {
+      "ComponentID": "Inventory.Slot",
+      "DisplayName": "背包格状态组",
+      "VisualID": "ui_inventory_slot_available",
+      "StateVisualIDs": {
+        "available": "ui_inventory_slot_available",
+        "locked": "ui_inventory_slot_locked",
+        "hover": "ui_inventory_slot_hover",
+        "valid": "ui_inventory_slot_valid",
+        "invalid": "ui_inventory_slot_invalid"
+      },
+      "Category": "inventory",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "available",
+        "locked",
+        "hover",
+        "valid",
+        "invalid"
+      ],
+      "RequiredForScreens": [
+        "inventory_loot",
+        "workshop_main",
+        "combat_hud",
+        "safe_room",
+        "stairs_room"
+      ],
+      "ProgramUse": "背包玩法格固定 100x100 参考尺寸，状态由 Sprite 切换或运行时 tint 叠加；格内物品图标按需要 contain。"
+    },
+    {
+      "ComponentID": "List.Row.Normal",
+      "DisplayName": "普通列表行",
+      "VisualID": "ui_list_row_normal",
+      "Category": "list",
+      "Priority": "P1",
+      "ResizeMode": "nine_slice",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "sell_panel",
+        "prosthetic_panel",
+        "layer_select",
+        "settlement",
+        "maintenance_panel",
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board",
+        "faction_shop",
+        "doll_interaction",
+        "scenario_event",
+        "doll_room"
+      ],
+      "ProgramUse": "用于可滚动列表项底板。"
+    },
+    {
+      "ComponentID": "List.Row.Selected",
+      "DisplayName": "选中列表行",
+      "VisualID": "ui_list_row_selected",
+      "Category": "list",
+      "Priority": "P1",
+      "ResizeMode": "nine_slice",
+      "States": [
+        "selected"
+      ],
+      "RequiredForScreens": [
+        "sell_panel",
+        "prosthetic_panel",
+        "layer_select",
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board",
+        "faction_shop",
+        "doll_interaction",
+        "scenario_event",
+        "doll_room"
+      ],
+      "ProgramUse": "用于当前选择项或焦点项底板。"
+    },
+    {
+      "ComponentID": "Loot.DropZone",
+      "DisplayName": "战利品掉落区",
+      "VisualID": "ui_loot_drop_zone",
+      "Category": "inventory",
+      "Priority": "P1",
+      "ResizeMode": "fixed_or_sliced",
+      "States": [
+        "normal",
+        "hover_runtime_tint"
+      ],
+      "RequiredForScreens": [
+        "inventory_loot"
+      ],
+      "ProgramUse": "背包外侧待拾取物品区域，拖拽悬停可用运行时高亮。"
+    },
+    {
+      "ComponentID": "Loot.PickupPanel",
+      "DisplayName": "战利品拾取面板",
+      "VisualID": "ui_loot_pickup_panel",
+      "Category": "inventory",
+      "Priority": "P1",
+      "ResizeMode": "nine_slice",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "inventory_loot"
+      ],
+      "ProgramUse": "战利品拾取界面主容器，内部区域由布局放置。"
     },
     {
       "ComponentID": "Map.NodePlate",
@@ -405,19 +757,78 @@
       "ProgramUse": "节点之间连接线，可旋转和缩放。"
     },
     {
-      "ComponentID": "Settlement.VictoryPanel",
-      "DisplayName": "撤离成功结算面板",
-      "VisualID": "ui_settlement_victory_panel",
-      "Category": "settlement",
+      "ComponentID": "Panel.Info",
+      "DisplayName": "小信息面板",
+      "VisualID": "ui_panel_info",
+      "Category": "panel",
       "Priority": "P1",
       "ResizeMode": "nine_slice",
       "States": [
         "normal"
       ],
       "RequiredForScreens": [
-        "settlement"
+        "workshop_main",
+        "combat_hud",
+        "inventory_loot",
+        "dungeon_map",
+        "safe_room",
+        "stairs_room",
+        "maintenance_panel",
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board",
+        "faction_shop",
+        "doll_interaction",
+        "scenario_event",
+        "doll_room"
       ],
-      "ProgramUse": "撤离成功结算主面板。"
+      "ProgramUse": "用于状态摘要、说明区和小块信息承托。"
+    },
+    {
+      "ComponentID": "Panel.Main",
+      "DisplayName": "主弹窗面板",
+      "VisualID": "ui_panel_main",
+      "Category": "panel",
+      "Priority": "P1",
+      "ResizeMode": "nine_slice",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "prosthetic_panel",
+        "sell_panel",
+        "layer_select",
+        "workshop_main",
+        "safe_room",
+        "stairs_room",
+        "maintenance_panel",
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board",
+        "faction_shop",
+        "doll_interaction",
+        "scenario_event"
+      ],
+      "ProgramUse": "用于大弹窗和主内容容器。Unity Image Type 使用 Sliced，不烘焙标题和正文。"
+    },
+    {
+      "ComponentID": "Room.MementoSlot",
+      "DisplayName": "纪念物展示槽",
+      "VisualID": "ui_room_memento_slot",
+      "Category": "room",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "empty",
+        "filled_runtime_tint",
+        "selected_runtime_tint"
+      ],
+      "RequiredForScreens": [
+        "doll_room"
+      ],
+      "ProgramUse": "人偶房间纪念物、礼物剪影和展示品槽位；只作视觉引用，不承担仓库功能。"
     },
     {
       "ComponentID": "Settlement.DefeatPanel",
@@ -435,57 +846,19 @@
       "ProgramUse": "战败结算主面板。"
     },
     {
-      "ComponentID": "Icon.Money",
-      "DisplayName": "金币图标",
-      "VisualID": "ui_icon_money",
-      "Category": "icon",
+      "ComponentID": "Settlement.VictoryPanel",
+      "DisplayName": "撤离成功结算面板",
+      "VisualID": "ui_settlement_victory_panel",
+      "Category": "settlement",
       "Priority": "P1",
-      "ResizeMode": "fixed",
+      "ResizeMode": "nine_slice",
       "States": [
         "normal"
       ],
       "RequiredForScreens": [
-        "sell_panel",
-        "settlement",
-        "workshop_main",
-        "maintenance_panel",
-        "daily_bill_report",
-        "shop_staging",
-        "order_board",
-        "rumor_board"
+        "settlement"
       ],
-      "ProgramUse": "金币、价格、价值显示的小图标。"
-    },
-    {
-      "ComponentID": "Icon.Locked",
-      "DisplayName": "锁定图标",
-      "VisualID": "ui_icon_locked",
-      "Category": "icon",
-      "Priority": "P1",
-      "ResizeMode": "fixed",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "layer_select",
-        "dungeon_map"
-      ],
-      "ProgramUse": "未解锁或不可进入状态图标。"
-    },
-    {
-      "ComponentID": "Icon.Equipped",
-      "DisplayName": "已装备图标",
-      "VisualID": "ui_icon_equipped",
-      "Category": "icon",
-      "Priority": "P1",
-      "ResizeMode": "fixed",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "prosthetic_panel"
-      ],
-      "ProgramUse": "义体列表已装备状态图标。"
+      "ProgramUse": "撤离成功结算主面板。"
     },
     {
       "ComponentID": "Title.Divider",
@@ -506,180 +879,12 @@
         "daily_bill_report",
         "shop_staging",
         "order_board",
-        "rumor_board"
+        "rumor_board",
+        "faction_shop",
+        "doll_interaction",
+        "scenario_event"
       ],
       "ProgramUse": "标题和正文之间的装饰分隔线，不承载文字，不拦截射线。"
-    },
-    {
-      "ComponentID": "Icon.Maintenance",
-      "DisplayName": "维护图标",
-      "VisualID": "ui_icon_maintenance",
-      "Category": "icon",
-      "Priority": "P1",
-      "ResizeMode": "fixed",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "maintenance_panel"
-      ],
-      "ProgramUse": "机体维护、磨损/侵蚀和下潜整备状态的小图标。"
-    },
-    {
-      "ComponentID": "Icon.Bill",
-      "DisplayName": "账单图标",
-      "VisualID": "ui_icon_bill",
-      "Category": "icon",
-      "Priority": "P1",
-      "ResizeMode": "fixed",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "daily_bill_report"
-      ],
-      "ProgramUse": "每日账单、收入支出和欠债压力的小图标。"
-    },
-    {
-      "ComponentID": "Icon.Warning",
-      "DisplayName": "警告图标",
-      "VisualID": "ui_icon_warning",
-      "Category": "icon",
-      "Priority": "P1",
-      "ResizeMode": "fixed",
-      "States": [
-        "normal",
-        "hidden_runtime_tint"
-      ],
-      "RequiredForScreens": [
-        "maintenance_panel",
-        "daily_bill_report",
-        "shop_staging",
-        "order_board",
-        "rumor_board"
-      ],
-      "ProgramUse": "维护风险、欠债风险、不可下潜、材料不足等警告状态图标。"
-    },
-    {
-      "ComponentID": "Icon.ShopChannel",
-      "DisplayName": "出货渠道图标",
-      "VisualID": "ui_icon_shop_channel",
-      "Category": "icon",
-      "Priority": "P2",
-      "ResizeMode": "fixed",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "shop_staging"
-      ],
-      "ProgramUse": "普通柜台、寄售槽、出货渠道和营业分配入口的小图标。"
-    },
-    {
-      "ComponentID": "Icon.BlackMarket",
-      "DisplayName": "黑市渠道图标",
-      "VisualID": "ui_icon_black_market",
-      "Category": "icon",
-      "Priority": "P2",
-      "ResizeMode": "fixed",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "shop_staging"
-      ],
-      "ProgramUse": "黑市、违禁品、背叛或高风险收益渠道的小图标。"
-    },
-    {
-      "ComponentID": "Icon.Order",
-      "DisplayName": "订单图标",
-      "VisualID": "ui_icon_order",
-      "Category": "icon",
-      "Priority": "P2",
-      "ResizeMode": "fixed",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "shop_staging",
-        "order_board"
-      ],
-      "ProgramUse": "势力订单、交付目标、订单槽位和委托入口的小图标。"
-    },
-    {
-      "ComponentID": "Icon.Faction",
-      "DisplayName": "势力图标",
-      "VisualID": "ui_icon_faction",
-      "Category": "icon",
-      "Priority": "P2",
-      "ResizeMode": "fixed",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "order_board"
-      ],
-      "ProgramUse": "势力来源、声望变化、委托方和奖励归属的小图标。"
-    },
-    {
-      "ComponentID": "Icon.Deadline",
-      "DisplayName": "截止日图标",
-      "VisualID": "ui_icon_deadline",
-      "Category": "icon",
-      "Priority": "P2",
-      "ResizeMode": "fixed",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "order_board"
-      ],
-      "ProgramUse": "订单截止日、剩余天数和时间压力的小图标。"
-    },
-    {
-      "ComponentID": "Icon.Rumor",
-      "DisplayName": "传闻图标",
-      "VisualID": "ui_icon_rumor",
-      "Category": "icon",
-      "Priority": "P2",
-      "ResizeMode": "fixed",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "rumor_board"
-      ],
-      "ProgramUse": "每日传闻、深渊情报、市场消息和推荐目标的小图标。"
-    },
-    {
-      "ComponentID": "Icon.PriceUp",
-      "DisplayName": "价格上涨图标",
-      "VisualID": "ui_icon_price_up",
-      "Category": "icon",
-      "Priority": "P2",
-      "ResizeMode": "fixed",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "rumor_board"
-      ],
-      "ProgramUse": "价格上涨、热销、需求增加和收益提升的小图标。"
-    },
-    {
-      "ComponentID": "Icon.PriceDown",
-      "DisplayName": "价格下跌图标",
-      "VisualID": "ui_icon_price_down",
-      "Category": "icon",
-      "Priority": "P2",
-      "ResizeMode": "fixed",
-      "States": [
-        "normal"
-      ],
-      "RequiredForScreens": [
-        "rumor_board"
-      ],
-      "ProgramUse": "价格下跌、滞销、需求降低和收益衰减的小图标。"
     }
   ]
 }

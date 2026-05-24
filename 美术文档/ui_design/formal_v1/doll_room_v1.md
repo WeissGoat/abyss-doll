@@ -4,20 +4,20 @@ title: 人偶房间界面 Formal V1
 type: art
 role: 美术
 domain: ui_design
-status: draft
+status: active
 source_of_truth: false
 related:
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/ui_design/versions/migration_log.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
-last_verified: 2026-05-24
+last_verified: 2026-05-25
 update_rule: 修改人偶房间结构、纪念物/日记/窗外状态槽位或程序迁移要求时同步本文件。
 ---
 
 # 人偶房间界面 Formal V1
 
-> **状态：** 设计草案，尚未写入 active `screen_layouts.json`，暂不作为程序接入口。
+> **状态：** 已写入 active `screen_layouts.json`，可作为程序接入口和素材生产入口。
 > **策划依据：** `设计文档/11_人偶房间布局与视觉叙事规则卡.md`、`设计文档/23_长期记忆剧情内容包.md`。
 > **目标：** 把人偶房间做成零压力视觉日记入口：房间背景、待机人偶、纪念物、窗外状态、日记本和观察反馈共同记录长期经历。
 

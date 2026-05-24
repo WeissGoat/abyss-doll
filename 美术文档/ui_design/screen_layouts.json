@@ -22,16 +22,20 @@
         "Icon.Money"
       ],
       "RequiredVisualIDs": [
-        "bg_workshop_day",
-        "doll_proto_0_stand",
-        "chassis_chassis_lv1_basic_frame",
         "ui_panel_main",
         "ui_panel_info",
         "ui_button_primary",
         "ui_button_secondary",
         "ui_inventory_chassis_panel",
         "ui_inventory_slot_available",
-        "ui_icon_money"
+        "ui_inventory_slot_locked",
+        "ui_inventory_slot_hover",
+        "ui_inventory_slot_valid",
+        "ui_inventory_slot_invalid",
+        "ui_icon_money",
+        "bg_workshop_day",
+        "chassis_chassis_lv1_basic_frame",
+        "doll_proto_0_stand"
       ],
       "Zones": [
         {
@@ -519,12 +523,6 @@
         "Inventory.Slot"
       ],
       "RequiredVisualIDs": [
-        "bg_combat_abyss",
-        "doll_proto_0_stand",
-        "monster_mob_scavenger_bug_combat",
-        "monster_mob_acid_slime_combat",
-        "monster_elite_scrap_guard_combat",
-        "monster_elite_mutant_amalgam_combat",
         "ui_panel_info",
         "ui_button_primary",
         "ui_button_secondary",
@@ -535,7 +533,13 @@
         "ui_combat_ap_pip",
         "ui_combat_turn_banner",
         "ui_inventory_chassis_panel",
-        "ui_inventory_slot_available"
+        "ui_inventory_slot_available",
+        "ui_inventory_slot_locked",
+        "ui_inventory_slot_hover",
+        "ui_inventory_slot_valid",
+        "ui_inventory_slot_invalid",
+        "bg_combat_abyss",
+        "doll_proto_0_stand"
       ],
       "Zones": [
         {
@@ -1021,7 +1025,6 @@
         "Button.Danger"
       ],
       "RequiredVisualIDs": [
-        "bg_combat_abyss",
         "ui_loot_pickup_panel",
         "ui_loot_drop_zone",
         "ui_inventory_chassis_panel",
@@ -1033,7 +1036,8 @@
         "ui_panel_info",
         "ui_button_primary",
         "ui_button_secondary",
-        "ui_button_danger"
+        "ui_button_danger",
+        "bg_combat_abyss"
       ],
       "Zones": [
         {
@@ -1469,13 +1473,13 @@
         "Icon.Locked"
       ],
       "RequiredVisualIDs": [
-        "bg_dungeon_map",
         "ui_dungeon_node_plate",
         "ui_dungeon_route_line",
         "ui_panel_info",
         "ui_button_secondary",
         "ui_button_danger",
-        "ui_icon_locked"
+        "ui_icon_locked",
+        "bg_dungeon_map"
       ],
       "Zones": [
         {
@@ -1787,14 +1791,14 @@
         "Title.Divider"
       ],
       "RequiredVisualIDs": [
-        "bg_settlement_victory",
-        "bg_settlement_defeat",
         "ui_settlement_victory_panel",
         "ui_settlement_defeat_panel",
-        "ui_title_divider",
         "ui_list_row_normal",
         "ui_button_primary",
-        "ui_icon_money"
+        "ui_icon_money",
+        "ui_title_divider",
+        "bg_settlement_victory",
+        "bg_settlement_defeat"
       ],
       "Zones": [
         {
@@ -2601,14 +2605,14 @@
         "Title.Divider"
       ],
       "RequiredVisualIDs": [
-        "bg_layer_select",
         "ui_panel_main",
         "ui_list_row_normal",
         "ui_list_row_selected",
         "ui_button_primary",
         "ui_button_secondary",
         "ui_icon_locked",
-        "ui_title_divider"
+        "ui_title_divider",
+        "bg_layer_select"
       ],
       "Zones": [
         {
@@ -2874,14 +2878,18 @@
         "Inventory.Slot"
       ],
       "RequiredVisualIDs": [
-        "bg_safe_room",
         "ui_panel_main",
         "ui_panel_info",
         "ui_button_primary",
         "ui_button_secondary",
         "ui_button_danger",
         "ui_inventory_chassis_panel",
-        "ui_inventory_slot_available"
+        "ui_inventory_slot_available",
+        "ui_inventory_slot_locked",
+        "ui_inventory_slot_hover",
+        "ui_inventory_slot_valid",
+        "ui_inventory_slot_invalid",
+        "bg_safe_room"
       ],
       "Zones": [
         {
@@ -3232,14 +3240,18 @@
         "Inventory.Slot"
       ],
       "RequiredVisualIDs": [
-        "bg_stairs_room",
         "ui_panel_main",
         "ui_panel_info",
         "ui_button_primary",
         "ui_button_secondary",
         "ui_button_danger",
         "ui_inventory_chassis_panel",
-        "ui_inventory_slot_available"
+        "ui_inventory_slot_available",
+        "ui_inventory_slot_locked",
+        "ui_inventory_slot_hover",
+        "ui_inventory_slot_valid",
+        "ui_inventory_slot_invalid",
+        "bg_stairs_room"
       ],
       "Zones": [
         {
@@ -3569,7 +3581,6 @@
         "Title.Divider"
       ],
       "RequiredVisualIDs": [
-        "bg_workshop_day",
         "ui_panel_main",
         "ui_panel_info",
         "ui_button_primary",
@@ -3579,7 +3590,8 @@
         "ui_icon_maintenance",
         "ui_icon_warning",
         "ui_icon_money",
-        "ui_title_divider"
+        "ui_title_divider",
+        "bg_workshop_day"
       ],
       "Zones": [
         {
@@ -4087,7 +4099,6 @@
         "Title.Divider"
       ],
       "RequiredVisualIDs": [
-        "bg_workshop_day",
         "ui_panel_main",
         "ui_panel_info",
         "ui_button_primary",
@@ -4098,7 +4109,8 @@
         "ui_icon_bill",
         "ui_icon_warning",
         "ui_icon_money",
-        "ui_title_divider"
+        "ui_title_divider",
+        "bg_workshop_day"
       ],
       "Zones": [
         {
@@ -4600,7 +4612,6 @@
         "Title.Divider"
       ],
       "RequiredVisualIDs": [
-        "bg_workshop_day",
         "ui_panel_main",
         "ui_panel_info",
         "ui_button_primary",
@@ -4613,7 +4624,8 @@
         "ui_icon_shop_channel",
         "ui_icon_black_market",
         "ui_icon_order",
-        "ui_title_divider"
+        "ui_title_divider",
+        "bg_workshop_day"
       ],
       "Zones": [
         {
@@ -5077,7 +5089,6 @@
         "Title.Divider"
       ],
       "RequiredVisualIDs": [
-        "bg_workshop_day",
         "ui_panel_main",
         "ui_panel_info",
         "ui_button_primary",
@@ -5090,7 +5101,8 @@
         "ui_icon_deadline",
         "ui_icon_money",
         "ui_icon_warning",
-        "ui_title_divider"
+        "ui_title_divider",
+        "bg_workshop_day"
       ],
       "Zones": [
         {
@@ -5533,7 +5545,6 @@
         "Title.Divider"
       ],
       "RequiredVisualIDs": [
-        "bg_workshop_day",
         "ui_panel_main",
         "ui_panel_info",
         "ui_button_primary",
@@ -5545,7 +5556,8 @@
         "ui_icon_price_down",
         "ui_icon_warning",
         "ui_icon_money",
-        "ui_title_divider"
+        "ui_title_divider",
+        "bg_workshop_day"
       ],
       "Zones": [
         {
@@ -5952,6 +5964,1813 @@
         "高风险、低可信或即将过期的传闻能用 warning 图标或运行时 tint 表达。",
         "Plan Expedition 只是跳转/规划入口，不直接修改地图节点或经济状态。",
         "背景、面板、分隔线和图标不阻挡列表滚动或按钮点击。"
+      ]
+    },
+    {
+      "ScreenID": "faction_shop",
+      "DisplayName": "势力商店界面",
+      "Priority": "P2",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "new_formal_v1",
+      "BackgroundVisualID": "bg_workshop_day",
+      "PrimaryGoal": "把势力声望、商店解锁、黑市信任和商品兑换做成稳定入口；玩家能比较势力、库存、价格、解锁条件和交易风险。",
+      "RequiredComponents": [
+        "Panel.Main",
+        "Panel.Info",
+        "Button.Primary",
+        "Button.Secondary",
+        "Button.Danger",
+        "List.Row.Normal",
+        "List.Row.Selected",
+        "Icon.Faction",
+        "Icon.Reputation",
+        "Icon.Trust",
+        "Icon.BlackMarket",
+        "Icon.Money",
+        "Icon.Warning",
+        "Title.Divider"
+      ],
+      "RequiredVisualIDs": [
+        "ui_panel_main",
+        "ui_panel_info",
+        "ui_button_primary",
+        "ui_button_secondary",
+        "ui_button_danger",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_faction",
+        "ui_icon_reputation",
+        "ui_icon_trust",
+        "ui_icon_black_market",
+        "ui_icon_money",
+        "ui_icon_warning",
+        "ui_title_divider",
+        "bg_workshop_day"
+      ],
+      "Zones": [
+        {
+          "ZoneID": "faction_shop_background",
+          "Purpose": "复用工坊背景，表示小镇拜访/交易空间。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
+          "ComponentRefs": [],
+          "Notes": "背景不承载势力名、商品文字、价格或风险说明。"
+        },
+        {
+          "ZoneID": "faction_shop_card",
+          "Purpose": "势力商店主容器，承载势力列表、声望/信任、商品、详情和交易动作。",
+          "Anchor": "center",
+          "Rect": {
+            "X": 260,
+            "Y": 90,
+            "Width": 1400,
+            "Height": 900
+          },
+          "ComponentRefs": [
+            "Panel.Main"
+          ],
+          "Notes": "弹窗级界面，可从订单板、工坊或黑市入口打开。"
+        },
+        {
+          "ZoneID": "faction_header",
+          "Purpose": "当前势力、声望等级、信任状态、金币和标题分隔。",
+          "Anchor": "top_center",
+          "Rect": {
+            "X": 320,
+            "Y": 130,
+            "Width": 1280,
+            "Height": 110
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Faction",
+            "Icon.Reputation",
+            "Icon.Trust",
+            "Icon.Money",
+            "Title.Divider"
+          ],
+          "Notes": "势力名、等级、金币和解锁说明由 Unity Text 渲染。"
+        },
+        {
+          "ZoneID": "faction_list_panel",
+          "Purpose": "势力列表，显示正规势力和黑市入口。",
+          "Anchor": "left_middle",
+          "Rect": {
+            "X": 320,
+            "Y": 270,
+            "Width": 320,
+            "Height": 610
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Normal",
+            "List.Row.Selected",
+            "Icon.Faction",
+            "Icon.BlackMarket",
+            "Icon.Warning"
+          ],
+          "Notes": "列表行可点击选择；黑市行使用不同图标和风险 tint。"
+        },
+        {
+          "ZoneID": "reputation_track_panel",
+          "Purpose": "声望/信任等级、下一解锁、怀疑状态和黑市信任。",
+          "Anchor": "center_top",
+          "Rect": {
+            "X": 680,
+            "Y": 270,
+            "Width": 360,
+            "Height": 260
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Reputation",
+            "Icon.Trust",
+            "Icon.Warning"
+          ],
+          "Notes": "进度条、等级数字和解锁条件由程序渲染。"
+        },
+        {
+          "ZoneID": "shop_item_list",
+          "Purpose": "可购买商品、图纸、服务和情报列表。",
+          "Anchor": "center_bottom",
+          "Rect": {
+            "X": 680,
+            "Y": 560,
+            "Width": 520,
+            "Height": 320
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Normal",
+            "List.Row.Selected",
+            "Icon.Money",
+            "Icon.Warning"
+          ],
+          "Notes": "商品图标复用 item/prosthetic/chassis 资源，不在 UI 图里烘焙商品名。"
+        },
+        {
+          "ZoneID": "selected_item_detail",
+          "Purpose": "选中商品详情、价格、库存、条件、风险和购买结果预览。",
+          "Anchor": "right_middle",
+          "Rect": {
+            "X": 1240,
+            "Y": 270,
+            "Width": 360,
+            "Height": 420
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Money",
+            "Icon.Reputation",
+            "Icon.Warning"
+          ],
+          "Notes": "未解锁商品也显示条件，但按钮不可用。"
+        },
+        {
+          "ZoneID": "shop_action_panel",
+          "Purpose": "购买、兑换、跳转订单、关闭和黑市高风险交易操作。",
+          "Anchor": "right_bottom",
+          "Rect": {
+            "X": 1240,
+            "Y": 720,
+            "Width": 360,
+            "Height": 160
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Button.Primary",
+            "Button.Secondary",
+            "Button.Danger"
+          ],
+          "Notes": "普通购买用主按钮；黑市/背叛交易用危险按钮。"
+        },
+        {
+          "ZoneID": "black_market_risk_panel",
+          "Purpose": "黑市风险、正规势力怀疑、背叛代价和二次确认提示。",
+          "Anchor": "bottom_center",
+          "Rect": {
+            "X": 320,
+            "Y": 900,
+            "Width": 880,
+            "Height": 70
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.BlackMarket",
+            "Icon.Warning"
+          ],
+          "Notes": "只显示运行时摘要，不把风险规则写死进图片。"
+        }
+      ],
+      "ProgramHandoff": {
+        "LayoutChanges": [
+          "新增 FactionShopPanel_Runtime 或同等容器，作为势力商店/黑市交易的正式 UI 入口。",
+          "左侧势力列表，中部声望/信任与商品列表，右侧商品详情和动作区。",
+          "不要把 faction_shop 合并进 order_board；订单板只承载委托，商店承载解锁和交易。"
+        ],
+        "DataBindings": [
+          "势力 ID、声望等级、黑市信任、库存、价格、解锁条件、怀疑状态和交易结果预览由服务提供。",
+          "ui_icon_reputation 表示正规声望，ui_icon_trust 表示黑市信任，ui_icon_black_market 表示高风险渠道。",
+          "购买、兑换和黑市交易只触发服务调用，UI 不直接修改金币、库存、声望或信任。"
+        ],
+        "InteractionNotes": [
+          "背景、面板、图标、标题分隔默认 raycastTarget=false。",
+          "势力列表、商品列表和按钮必须可点击；锁定商品行显示但禁用购买。",
+          "黑市交易或背叛动作必须使用 Button.Danger 并保留二次确认入口。"
+        ]
+      },
+      "ControllerBindings": [
+        {
+          "Script": "FactionShopUIController",
+          "ExistingFields": [
+            "rootPanel",
+            "factionListRoot",
+            "reputationTrackPanel",
+            "shopItemListRoot",
+            "selectedItemDetailPanel",
+            "buyBtn",
+            "exchangeBtn",
+            "blackMarketBtn",
+            "closeBtn"
+          ],
+          "BindingNotes": [
+            "负责势力选择、库存列表、选中详情和按钮可用态。",
+            "所有交易和声望变化走 FactionShopService / EconomyService，不写在 UI Controller。"
+          ]
+        },
+        {
+          "Script": "FactionShopService / FactionReputationService / EconomyFlowController",
+          "ExistingFields": [
+            "availableFactions",
+            "shopInventory",
+            "reputationState",
+            "trustState",
+            "currentMoney"
+          ],
+          "BindingNotes": [
+            "提供势力、库存、价格、声望/信任和交易结果预览。"
+          ]
+        }
+      ],
+      "UnityHierarchy": [
+        {
+          "Path": "FactionShopPanel_Runtime/Background_Image",
+          "Layer": "Background",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel/FactionIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Faction",
+          "VisualID": "ui_icon_faction",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel/ReputationIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Reputation",
+          "VisualID": "ui_icon_reputation",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel/TrustIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Trust",
+          "VisualID": "ui_icon_trust",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel/MoneyIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Money",
+          "VisualID": "ui_icon_money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel/TitleDivider_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/FactionListPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/FactionListPanel/FactionRow_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/FactionListPanel/SelectedFactionRow_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "List.Row.Selected",
+          "VisualID": "ui_list_row_selected",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/ReputationTrackPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/ShopItemListPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/ShopItemListPanel/ShopItemRow_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/SelectedItemDetailPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/ActionPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/ActionPanel/Buy_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/ActionPanel/Close_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/ActionPanel/BlackMarket_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/BlackMarketRiskPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/BlackMarketRiskPanel/BlackMarketIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.BlackMarket",
+          "VisualID": "ui_icon_black_market",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "FactionShopPanel_Runtime/FactionShopCard_Image/BlackMarketRiskPanel/WarningIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Warning",
+          "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        }
+      ],
+      "SpriteAssignments": [
+        {
+          "Target": "FactionShopPanel_Runtime/Background_Image",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "FactionShopPanel_Runtime/FactionShopCard_Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel/ReputationIcon_Image",
+          "ComponentRef": "Icon.Reputation",
+          "VisualID": "ui_icon_reputation",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "FactionShopPanel_Runtime/FactionShopCard_Image/HeaderPanel/TrustIcon_Image",
+          "ComponentRef": "Icon.Trust",
+          "VisualID": "ui_icon_trust",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "FactionShopPanel_Runtime/FactionShopCard_Image/ActionPanel/BlackMarket_Button",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "AcceptanceCriteria": [
+        "势力列表、声望/信任、商品列表、选中详情、风险区和动作按钮同时可见。",
+        "正规势力和黑市入口在视觉上能区分，黑市风险不会被藏到小字里。",
+        "未解锁商品能显示条件，但购买按钮处于禁用或明确不可用状态。",
+        "面板和图标不阻挡列表滚动、商品选择或按钮点击。"
+      ]
+    },
+    {
+      "ScreenID": "doll_interaction",
+      "DisplayName": "人偶交互界面",
+      "Priority": "P2",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "new_formal_v1",
+      "BackgroundVisualID": "bg_workshop_day",
+      "PrimaryGoal": "给触摸、对话、赠礼、保养和特殊交互一个正式入口；界面表达照料与反馈，但不把 Bond / SAN / 情绪裁决写进 UI。",
+      "RequiredComponents": [
+        "Panel.Main",
+        "Panel.Info",
+        "Button.Primary",
+        "Button.Secondary",
+        "Button.Danger",
+        "List.Row.Normal",
+        "List.Row.Selected",
+        "Icon.Touch",
+        "Icon.Talk",
+        "Icon.Gift",
+        "Icon.Maintenance",
+        "Icon.Warning",
+        "Icon.Memento",
+        "Title.Divider"
+      ],
+      "RequiredVisualIDs": [
+        "ui_panel_main",
+        "ui_panel_info",
+        "ui_button_primary",
+        "ui_button_secondary",
+        "ui_button_danger",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_touch",
+        "ui_icon_talk",
+        "ui_icon_gift",
+        "ui_icon_maintenance",
+        "ui_icon_warning",
+        "ui_icon_memento",
+        "ui_title_divider",
+        "bg_workshop_day",
+        "doll_proto_0_stand"
+      ],
+      "Zones": [
+        {
+          "ZoneID": "doll_interaction_background",
+          "Purpose": "复用工坊背景，表现照料场景。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
+          "ComponentRefs": [],
+          "Notes": "背景不承载台词、数值或交互说明。"
+        },
+        {
+          "ZoneID": "doll_interaction_card",
+          "Purpose": "人偶交互主容器，承载状态、人偶舞台、交互菜单、列表和反馈。",
+          "Anchor": "center",
+          "Rect": {
+            "X": 220,
+            "Y": 80,
+            "Width": 1480,
+            "Height": 920
+          },
+          "ComponentRefs": [
+            "Panel.Main"
+          ],
+          "Notes": "可从工坊魔偶区或维护界面打开。"
+        },
+        {
+          "ZoneID": "condition_header",
+          "Purpose": "HP、SAN、Bond、情绪、每日交互次数、警告和标题分隔。",
+          "Anchor": "top_center",
+          "Rect": {
+            "X": 280,
+            "Y": 120,
+            "Width": 1360,
+            "Height": 100
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Warning",
+            "Title.Divider"
+          ],
+          "Notes": "数值和状态由程序文本/条形组件渲染。"
+        },
+        {
+          "ZoneID": "interaction_menu",
+          "Purpose": "触摸、对话、赠礼、保养、特殊交互按钮。",
+          "Anchor": "left_middle",
+          "Rect": {
+            "X": 300,
+            "Y": 250,
+            "Width": 300,
+            "Height": 520
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Button.Primary",
+            "Button.Secondary",
+            "Icon.Touch",
+            "Icon.Talk",
+            "Icon.Gift",
+            "Icon.Maintenance",
+            "Icon.Memento"
+          ],
+          "Notes": "按钮可用态由每日上限、状态和材料决定。"
+        },
+        {
+          "ZoneID": "gift_or_topic_panel",
+          "Purpose": "礼物、话题、保养材料或交互目标列表。",
+          "Anchor": "center_middle",
+          "Rect": {
+            "X": 630,
+            "Y": 250,
+            "Width": 350,
+            "Height": 520
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Normal",
+            "List.Row.Selected",
+            "Icon.Gift",
+            "Icon.Talk",
+            "Icon.Maintenance"
+          ],
+          "Notes": "列表复用 item/prosthetic 图标，文字由 Unity Text 渲染。"
+        },
+        {
+          "ZoneID": "doll_stage",
+          "Purpose": "人偶立绘、表情/待机动作和点击热区。",
+          "Anchor": "right_middle",
+          "Rect": {
+            "X": 1020,
+            "Y": 230,
+            "Width": 520,
+            "Height": 610
+          },
+          "ComponentRefs": [],
+          "Notes": "第一版使用 doll_proto_0_stand；后续再接表情、动作和热区反馈。"
+        },
+        {
+          "ZoneID": "feedback_panel",
+          "Purpose": "反馈台词、结果提示、上限/冷却原因和状态变化摘要。",
+          "Anchor": "bottom_center",
+          "Rect": {
+            "X": 300,
+            "Y": 800,
+            "Width": 1240,
+            "Height": 130
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Warning",
+            "Icon.Memento"
+          ],
+          "Notes": "台词、结果和摘要全部运行时文本。"
+        },
+        {
+          "ZoneID": "action_hint_panel",
+          "Purpose": "安抚、跳过、关闭等轻量操作。",
+          "Anchor": "right_middle",
+          "Rect": {
+            "X": 1560,
+            "Y": 250,
+            "Width": 100,
+            "Height": 520
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Button.Secondary",
+            "Button.Danger"
+          ],
+          "Notes": "窄操作栏，避免占用人偶舞台。"
+        }
+      ],
+      "ProgramHandoff": {
+        "LayoutChanges": [
+          "新增 DollInteractionPanel_Runtime 或同等容器，作为工坊内人偶交互入口。",
+          "右侧人偶舞台，左侧交互菜单，中部礼物/话题/材料列表，底部反馈区。",
+          "不要把 Bond / SAN / 情绪裁决写在 UI；UI 只提交交互请求并展示结果。"
+        ],
+        "DataBindings": [
+          "HP、SAN、Bond、情绪、每日交互次数、冷却、礼物列表、话题列表和保养材料由人偶状态/交互服务提供。",
+          "ui_icon_touch / talk / gift / maintenance / memento 用于交互类型区分。",
+          "交互结果、拒绝原因和状态变化摘要由服务返回后显示。"
+        ],
+        "InteractionNotes": [
+          "背景、面板、图标和立绘默认不拦截按钮；触摸热区由程序单独设置。",
+          "低 SAN、Broken、冷却、超上限和拒绝状态必须显示 warning。",
+          "危险或跳过类操作使用 Button.Danger。"
+        ]
+      },
+      "ControllerBindings": [
+        {
+          "Script": "DollInteractionUIController",
+          "ExistingFields": [
+            "rootPanel",
+            "conditionHeader",
+            "interactionMenuRoot",
+            "giftOrTopicListRoot",
+            "dollStageImage",
+            "feedbackText",
+            "comfortBtn",
+            "skipBtn",
+            "closeBtn"
+          ],
+          "BindingNotes": [
+            "负责交互菜单、列表选择、热区请求和反馈展示。",
+            "所有数值变化和状态裁决走 DollInteractionService / DollStateService。"
+          ]
+        },
+        {
+          "Script": "DollInteractionService / DollStateService / InventoryService",
+          "ExistingFields": [
+            "dollState",
+            "dailyInteractionLimit",
+            "availableTopics",
+            "availableGifts",
+            "maintenanceMaterials"
+          ],
+          "BindingNotes": [
+            "提供可交互项、材料、冷却、结果和拒绝原因。"
+          ]
+        }
+      ],
+      "UnityHierarchy": [
+        {
+          "Path": "DollInteractionPanel_Runtime/Background_Image",
+          "Layer": "Background",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/ConditionHeader",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/ConditionHeader/WarningIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Warning",
+          "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/ConditionHeader/TitleDivider_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/Touch_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/TouchIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Touch",
+          "VisualID": "ui_icon_touch",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/TalkIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Talk",
+          "VisualID": "ui_icon_talk",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/GiftIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Gift",
+          "VisualID": "ui_icon_gift",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/MaintenanceIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Maintenance",
+          "VisualID": "ui_icon_maintenance",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/MementoIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Memento",
+          "VisualID": "ui_icon_memento",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/GiftOrTopicPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/GiftOrTopicPanel/OptionRow_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/GiftOrTopicPanel/SelectedOptionRow_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "List.Row.Selected",
+          "VisualID": "ui_list_row_selected",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/DollStage/DollStand_Image",
+          "Layer": "Stage",
+          "VisualID": "doll_proto_0_stand",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/FeedbackPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/FeedbackPanel/MementoIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Memento",
+          "VisualID": "ui_icon_memento",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/ActionHintPanel",
+          "Layer": "Controls",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/ActionHintPanel/Close_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "DollInteractionPanel_Runtime/DollInteractionCard_Image/ActionHintPanel/Skip_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "SpriteAssignments": [
+        {
+          "Target": "DollInteractionPanel_Runtime/Background_Image",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DollInteractionPanel_Runtime/DollInteractionCard_Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DollInteractionPanel_Runtime/DollInteractionCard_Image/DollStage/DollStand_Image",
+          "VisualID": "doll_proto_0_stand",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/TouchIcon_Image",
+          "ComponentRef": "Icon.Touch",
+          "VisualID": "ui_icon_touch",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/TalkIcon_Image",
+          "ComponentRef": "Icon.Talk",
+          "VisualID": "ui_icon_talk",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DollInteractionPanel_Runtime/DollInteractionCard_Image/InteractionMenu/GiftIcon_Image",
+          "ComponentRef": "Icon.Gift",
+          "VisualID": "ui_icon_gift",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        }
+      ],
+      "AcceptanceCriteria": [
+        "人偶舞台、交互菜单、礼物/话题列表和反馈区同时可见。",
+        "触摸、对话、赠礼、保养和特殊入口图标能被区分。",
+        "台词、数值、按钮文案和状态变化全部由 Unity Text 渲染。",
+        "立绘、装饰面板和图标不阻挡按钮、列表或触摸热区射线。"
+      ]
+    },
+    {
+      "ScreenID": "scenario_event",
+      "DisplayName": "剧本事件界面",
+      "Priority": "P2",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "new_formal_v1",
+      "BackgroundVisualID": null,
+      "PrimaryGoal": "给主线 AVG、系统弹窗、气泡、LorePanel、事件日志和跳过摘要提供统一表现规格；事件队列负责状态，UI 只负责展示和选择。",
+      "RequiredComponents": [
+        "Panel.Main",
+        "Panel.Info",
+        "Button.Primary",
+        "Button.Secondary",
+        "Button.Danger",
+        "List.Row.Normal",
+        "List.Row.Selected",
+        "Icon.Event",
+        "Icon.Lore",
+        "Icon.Skip",
+        "Icon.Warning",
+        "Title.Divider"
+      ],
+      "RequiredVisualIDs": [
+        "ui_panel_main",
+        "ui_panel_info",
+        "ui_button_primary",
+        "ui_button_secondary",
+        "ui_button_danger",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_event",
+        "ui_icon_lore",
+        "ui_icon_skip",
+        "ui_icon_warning",
+        "ui_title_divider",
+        "doll_proto_0_stand"
+      ],
+      "Zones": [
+        {
+          "ZoneID": "scenario_event_overlay",
+          "Purpose": "暗化当前场景或复用当前背景，事件层不烘焙文字。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
+          "ComponentRefs": [],
+          "Notes": "Overlay 本身可由程序 tint/遮罩实现，不要求独立背景图。"
+        },
+        {
+          "ZoneID": "event_modal_card",
+          "Purpose": "Blocking AVG / SystemModal / LorePanel 主容器。",
+          "Anchor": "center",
+          "Rect": {
+            "X": 300,
+            "Y": 130,
+            "Width": 1320,
+            "Height": 820
+          },
+          "ComponentRefs": [
+            "Panel.Main"
+          ],
+          "Notes": "用于阻塞事件；非阻塞气泡可复用小面板变体。"
+        },
+        {
+          "ZoneID": "event_header",
+          "Purpose": "事件类型、优先级、来源、标题图标和分隔线。",
+          "Anchor": "top_center",
+          "Rect": {
+            "X": 360,
+            "Y": 170,
+            "Width": 1200,
+            "Height": 90
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Event",
+            "Icon.Lore",
+            "Icon.Warning",
+            "Title.Divider"
+          ],
+          "Notes": "事件标题、来源和优先级由 Unity Text 渲染。"
+        },
+        {
+          "ZoneID": "speaker_visual_slot",
+          "Purpose": "人偶、势力徽记或物品 / lore 图标。",
+          "Anchor": "left_middle",
+          "Rect": {
+            "X": 360,
+            "Y": 290,
+            "Width": 380,
+            "Height": 430
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Event",
+            "Icon.Lore"
+          ],
+          "Notes": "第一版人偶说话者 fallback 使用 doll_proto_0_stand。"
+        },
+        {
+          "ZoneID": "dialogue_text_panel",
+          "Purpose": "当前对白、系统说明或 Lore 正文。",
+          "Anchor": "right_top",
+          "Rect": {
+            "X": 780,
+            "Y": 290,
+            "Width": 780,
+            "Height": 260
+          },
+          "ComponentRefs": [
+            "Panel.Info"
+          ],
+          "Notes": "纯文本面板，不烘焙对白。"
+        },
+        {
+          "ZoneID": "choice_list_panel",
+          "Purpose": "选项列表，支持 1-4 个选择。",
+          "Anchor": "right_middle",
+          "Rect": {
+            "X": 780,
+            "Y": 580,
+            "Width": 780,
+            "Height": 210
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Normal",
+            "List.Row.Selected",
+            "Icon.Warning"
+          ],
+          "Notes": "选项行可点击，危险选项使用 warning。"
+        },
+        {
+          "ZoneID": "command_summary_panel",
+          "Purpose": "跳过摘要、奖励/惩罚/旗标提示。",
+          "Anchor": "left_bottom",
+          "Rect": {
+            "X": 360,
+            "Y": 740,
+            "Width": 560,
+            "Height": 120
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Skip",
+            "Icon.Warning"
+          ],
+          "Notes": "跳过后必须显示 SummaryOnSkip 或状态变化摘要。"
+        },
+        {
+          "ZoneID": "event_action_bar",
+          "Purpose": "继续、跳过、确认、关闭。",
+          "Anchor": "right_bottom",
+          "Rect": {
+            "X": 960,
+            "Y": 820,
+            "Width": 600,
+            "Height": 90
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Button.Primary",
+            "Button.Secondary",
+            "Button.Danger",
+            "Icon.Skip"
+          ],
+          "Notes": "Continue/Confirm 为主行动；Skip 或高风险确认用危险按钮。"
+        }
+      ],
+      "ProgramHandoff": {
+        "LayoutChanges": [
+          "新增 ScenarioEventPanel_Runtime 或同等事件层，作为 BlockingEvent / SystemModal / LorePanel 的统一表现入口。",
+          "主 modal 包含说话者槽、正文、选项、摘要和动作栏；非阻塞气泡可复用子组件。",
+          "不要让 UI 直接执行事件命令，UI 只提交选择、继续、跳过或关闭请求。"
+        ],
+        "DataBindings": [
+          "事件类型、说话者、正文、选项、命令摘要、可跳过状态和 SummaryOnSkip 由 ScenarioEventService 提供。",
+          "ui_icon_event 表示事件，ui_icon_lore 表示档案/世界观，ui_icon_skip 表示跳过摘要。",
+          "奖励、惩罚、AddBond、RemoveGold、SetFlag 等命令只由事件系统执行。"
+        ],
+        "InteractionNotes": [
+          "Overlay 背景不接收点击；modal 外点击是否关闭由事件配置决定。",
+          "选项行可点击；不可跳过事件禁用 Skip 并显示 warning。",
+          "跳过、危险选择或不可逆确认使用 Button.Danger。"
+        ]
+      },
+      "ControllerBindings": [
+        {
+          "Script": "ScenarioEventUIController",
+          "ExistingFields": [
+            "rootPanel",
+            "eventHeader",
+            "speakerVisualSlot",
+            "dialogueText",
+            "choiceListRoot",
+            "commandSummaryText",
+            "continueBtn",
+            "skipBtn",
+            "confirmBtn",
+            "closeBtn"
+          ],
+          "BindingNotes": [
+            "负责事件层显示、选项选择、继续、跳过和关闭请求。",
+            "不直接执行奖励、惩罚或旗标命令。"
+          ]
+        },
+        {
+          "Script": "ScenarioEventService / EventQueueService",
+          "ExistingFields": [
+            "activeEvent",
+            "eventQueue",
+            "currentNode",
+            "summaryOnSkip",
+            "availableChoices"
+          ],
+          "BindingNotes": [
+            "提供事件状态、队列、选项、可跳过状态和命令执行结果。"
+          ]
+        }
+      ],
+      "UnityHierarchy": [
+        {
+          "Path": "ScenarioEventPanel_Runtime/Overlay_Image",
+          "Layer": "Overlay",
+          "ImageType": "Image",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/EventHeaderPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/EventHeaderPanel/EventIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Event",
+          "VisualID": "ui_icon_event",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/EventHeaderPanel/LoreIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Lore",
+          "VisualID": "ui_icon_lore",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/EventHeaderPanel/WarningIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Warning",
+          "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/EventHeaderPanel/TitleDivider_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/SpeakerVisualPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/SpeakerVisualPanel/DollSpeaker_Image",
+          "Layer": "Stage",
+          "VisualID": "doll_proto_0_stand",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/DialogueTextPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/ChoiceListPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/ChoiceListPanel/ChoiceRow_Template",
+          "Layer": "Controls",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/ChoiceListPanel/SelectedChoiceRow_Template",
+          "Layer": "Controls",
+          "ComponentRef": "List.Row.Selected",
+          "VisualID": "ui_list_row_selected",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/CommandSummaryPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/CommandSummaryPanel/SkipIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Skip",
+          "VisualID": "ui_icon_skip",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/EventActionBar",
+          "Layer": "Controls",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/EventActionBar/Continue_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/EventActionBar/Close_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/EventActionBar/Skip_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "ScenarioEventPanel_Runtime/EventModalCard_Image/EventActionBar/SkipIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Skip",
+          "VisualID": "ui_icon_skip",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        }
+      ],
+      "SpriteAssignments": [
+        {
+          "Target": "ScenarioEventPanel_Runtime/EventModalCard_Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "ScenarioEventPanel_Runtime/EventModalCard_Image/EventHeaderPanel/EventIcon_Image",
+          "ComponentRef": "Icon.Event",
+          "VisualID": "ui_icon_event",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "ScenarioEventPanel_Runtime/EventModalCard_Image/EventHeaderPanel/LoreIcon_Image",
+          "ComponentRef": "Icon.Lore",
+          "VisualID": "ui_icon_lore",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "ScenarioEventPanel_Runtime/EventModalCard_Image/CommandSummaryPanel/SkipIcon_Image",
+          "ComponentRef": "Icon.Skip",
+          "VisualID": "ui_icon_skip",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "ScenarioEventPanel_Runtime/EventModalCard_Image/SpeakerVisualPanel/DollSpeaker_Image",
+          "VisualID": "doll_proto_0_stand",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        }
+      ],
+      "AcceptanceCriteria": [
+        "Blocking 事件能显示说话者、正文、选项和动作栏。",
+        "SystemModal 与 LorePanel 能复用同一结构，但图标、警告和按钮层级不同。",
+        "跳过不隐藏关键状态变化摘要，SummaryOnSkip 或命令摘要可见。",
+        "面板不遮挡自身按钮射线；Overlay 背景不接收点击。"
+      ]
+    },
+    {
+      "ScreenID": "doll_room",
+      "DisplayName": "人偶房间界面",
+      "Priority": "P2",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "new_formal_v1",
+      "BackgroundVisualID": "bg_doll_room_attic",
+      "PrimaryGoal": "把人偶房间做成零压力视觉日记入口：房间背景、待机人偶、纪念物、窗外状态、日记本和观察反馈共同记录长期经历。",
+      "RequiredComponents": [
+        "Panel.Info",
+        "Button.Primary",
+        "Button.Secondary",
+        "List.Row.Normal",
+        "List.Row.Selected",
+        "Icon.Diary",
+        "Icon.Memento",
+        "Icon.Warning",
+        "Room.MementoSlot"
+      ],
+      "RequiredVisualIDs": [
+        "ui_panel_info",
+        "ui_button_primary",
+        "ui_button_secondary",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_diary",
+        "ui_icon_memento",
+        "ui_icon_warning",
+        "ui_room_memento_slot",
+        "bg_doll_room_attic",
+        "doll_proto_0_stand"
+      ],
+      "Zones": [
+        {
+          "ZoneID": "doll_room_background",
+          "Purpose": "完全不透明的人偶房间背景，cover 适配，不烘焙文字或按钮。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
+          "ComponentRefs": [],
+          "Notes": "背景负责房间氛围和窗外状态基底，必须 opaque，避免黑块穿透。"
+        },
+        {
+          "ZoneID": "window_state_area",
+          "Purpose": "窗外状态、红月、雨夜、债务阴影等覆盖槽。",
+          "Anchor": "top_left",
+          "Rect": {
+            "X": 120,
+            "Y": 100,
+            "Width": 460,
+            "Height": 320
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Warning"
+          ],
+          "Notes": "第一版用背景内窗户和 warning 图标提示状态；后续可叠加独立窗外状态图。"
+        },
+        {
+          "ZoneID": "doll_idle_stage",
+          "Purpose": "人偶待机、低 SAN、Bond、战败后姿态的主展示区。",
+          "Anchor": "center",
+          "Rect": {
+            "X": 680,
+            "Y": 180,
+            "Width": 520,
+            "Height": 700
+          },
+          "ComponentRefs": [],
+          "Notes": "人偶立绘 bottom_center 对齐，立绘和阴影不接收射线。"
+        },
+        {
+          "ZoneID": "memento_display_area",
+          "Purpose": "纪念物、展示品、礼物剪影和空槽。",
+          "Anchor": "right_middle",
+          "Rect": {
+            "X": 1230,
+            "Y": 180,
+            "Width": 460,
+            "Height": 520
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Room.MementoSlot",
+            "Icon.Memento"
+          ],
+          "Notes": "展示槽只承载视觉引用，不能承担仓库功能。"
+        },
+        {
+          "ZoneID": "diary_panel",
+          "Purpose": "日记条目和房间记忆列表。",
+          "Anchor": "left_bottom",
+          "Rect": {
+            "X": 120,
+            "Y": 470,
+            "Width": 480,
+            "Height": 360
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Normal",
+            "List.Row.Selected",
+            "Icon.Diary"
+          ],
+          "Notes": "日记标题、日期和正文摘要由 Unity Text 渲染。"
+        },
+        {
+          "ZoneID": "room_detail_panel",
+          "Purpose": "选中纪念物、窗外状态或日记详情。",
+          "Anchor": "right_bottom",
+          "Rect": {
+            "X": 1230,
+            "Y": 730,
+            "Width": 460,
+            "Height": 170
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Memento",
+            "Icon.Warning"
+          ],
+          "Notes": "详情文本由 Unity Text 渲染；缺资源时显示 fallback 或空槽。"
+        },
+        {
+          "ZoneID": "room_action_strip",
+          "Purpose": "观察、日记、返回工坊等轻操作。",
+          "Anchor": "bottom_center",
+          "Rect": {
+            "X": 680,
+            "Y": 910,
+            "Width": 520,
+            "Height": 80
+          },
+          "ComponentRefs": [
+            "Button.Primary",
+            "Button.Secondary",
+            "Icon.Diary"
+          ],
+          "Notes": "房间操作零时耗，不推进 Day，不触发营业结算。"
+        }
+      ],
+      "ProgramHandoff": {
+        "LayoutChanges": [
+          "新增 DollRoomPanel_Runtime 或同等人偶房间层，作为房间视觉日记和观察入口。",
+          "背景、人偶待机、纪念物展示、日记列表、详情区和底部动作条同时存在。",
+          "不要把房间做成仓库或经营界面；展示品是视觉引用或快照。"
+        ],
+        "DataBindings": [
+          "房间状态、窗外状态、纪念物槽、日记条目、观察反馈和可用动作由 DollRoomService / RoomNarrativeService 提供。",
+          "bg_doll_room_attic 表示基础房间背景，ui_room_memento_slot 表示展示槽，ui_icon_diary 表示日记入口。",
+          "人偶待机第一版复用 doll_proto_0_stand，后续可按状态替换为专用待机姿态。"
+        ],
+        "InteractionNotes": [
+          "背景、人偶立绘、展示槽装饰和信息面板默认 raycastTarget=false。",
+          "日记行、纪念物槽和底部按钮可接收点击；点击只请求查看详情或观察，不推进 Day。",
+          "缺失纪念物、低 SAN 或特殊窗外状态使用 warning 图标提示，不烘焙文字。"
+        ]
+      },
+      "ControllerBindings": [
+        {
+          "Script": "DollRoomUIController",
+          "ExistingFields": [
+            "rootPanel",
+            "backgroundImage",
+            "dollIdleImage",
+            "windowStateRoot",
+            "mementoSlotRoot",
+            "diaryListRoot",
+            "detailText",
+            "observeBtn",
+            "diaryBtn",
+            "closeBtn"
+          ],
+          "BindingNotes": [
+            "负责房间显示、纪念物选择、日记选择、观察和关闭请求。",
+            "不直接推进时间、不结算账单、不修改仓库或物品归属。"
+          ]
+        },
+        {
+          "Script": "DollRoomService / RoomNarrativeService",
+          "ExistingFields": [
+            "roomState",
+            "windowState",
+            "mementos",
+            "diaryEntries",
+            "selectedRoomDetail",
+            "availableRoomActions"
+          ],
+          "BindingNotes": [
+            "提供房间视觉叙事状态、日记和纪念物数据。",
+            "缺资源或展示品失效时给 UI 返回 fallback 状态。"
+          ]
+        }
+      ],
+      "UnityHierarchy": [
+        {
+          "Path": "DollRoomPanel_Runtime/Background_Image",
+          "Layer": "Background",
+          "VisualID": "bg_doll_room_attic",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/WindowStatePanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/WindowStatePanel/WarningIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Warning",
+          "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/DollIdleStage/DollIdle_Image",
+          "Layer": "CharacterOrMonster",
+          "VisualID": "doll_proto_0_stand",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/MementoDisplayPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/MementoDisplayPanel/MementoSlot_Template",
+          "Layer": "Controls",
+          "ComponentRef": "Room.MementoSlot",
+          "VisualID": "ui_room_memento_slot",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/MementoDisplayPanel/MementoIcon_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Memento",
+          "VisualID": "ui_icon_memento",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/DiaryPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/DiaryPanel/DiaryIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Diary",
+          "VisualID": "ui_icon_diary",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/DiaryPanel/DiaryRow_Template",
+          "Layer": "Controls",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/DiaryPanel/SelectedDiaryRow_Template",
+          "Layer": "Controls",
+          "ComponentRef": "List.Row.Selected",
+          "VisualID": "ui_list_row_selected",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/RoomDetailPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/RoomDetailPanel/MementoIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Memento",
+          "VisualID": "ui_icon_memento",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/ActionStrip/Observe_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/ActionStrip/Diary_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/ActionStrip/DiaryIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Diary",
+          "VisualID": "ui_icon_diary",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DollRoomPanel_Runtime/ActionStrip/Close_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "SpriteAssignments": [
+        {
+          "Target": "DollRoomPanel_Runtime/Background_Image",
+          "VisualID": "bg_doll_room_attic",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DollRoomPanel_Runtime/DollIdleStage/DollIdle_Image",
+          "VisualID": "doll_proto_0_stand",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DollRoomPanel_Runtime/MementoDisplayPanel/MementoSlot_Template",
+          "ComponentRef": "Room.MementoSlot",
+          "VisualID": "ui_room_memento_slot",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "DollRoomPanel_Runtime/DiaryPanel/DiaryIcon_Image",
+          "ComponentRef": "Icon.Diary",
+          "VisualID": "ui_icon_diary",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DollRoomPanel_Runtime/DiaryPanel/DiaryRow_Template",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "DollRoomPanel_Runtime/DiaryPanel/SelectedDiaryRow_Template",
+          "ComponentRef": "List.Row.Selected",
+          "VisualID": "ui_list_row_selected",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "DollRoomPanel_Runtime/RoomDetailPanel/MementoIcon_Image",
+          "ComponentRef": "Icon.Memento",
+          "VisualID": "ui_icon_memento",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DollRoomPanel_Runtime/ActionStrip/Observe_Button",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "DollRoomPanel_Runtime/ActionStrip/Diary_Button",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "DollRoomPanel_Runtime/ActionStrip/Close_Button",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "AcceptanceCriteria": [
+        "房间截图能明显区别于工坊、战斗和深渊房间。",
+        "人偶待机、窗外状态、纪念物展示、日记和详情区互不遮挡。",
+        "点击房间区域只触发观察/详情，不推进 Day，不触发营业结算。",
+        "背景必须完全不透明，不允许出现透明黑洞。",
+        "日记、纪念物和状态说明全部由 Unity Text 渲染，不烘焙到图片。"
       ]
     }
   ]

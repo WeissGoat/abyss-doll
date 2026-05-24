@@ -11,14 +11,14 @@
 
 | Domain | Count |
 |---|---:|
-| `background` | 10 |
+| `background` | 11 |
 | `chassis` | 2 |
 | `doll` | 2 |
 | `item` | 13 |
 | `monster` | 8 |
 | `node` | 4 |
 | `prosthetic` | 2 |
-| `ui` | 43 |
+| `ui` | 54 |
 
 ## 资产列表
 
@@ -31,6 +31,7 @@
 | `background` | `safe_room` | 安全屋房间背景 | `background` | `bg_safe_room` | P1 | `approved` |
 | `background` | `stairs_room` | 阶梯房间背景 | `background` | `bg_stairs_room` | P1 | `approved` |
 | `background` | `workshop` | 工坊整备背景 | `background` | `bg_workshop_day` | P1 | `approved` |
+| `background` | `doll_room_attic` | 人偶阁楼房间背景 | `background` | `bg_doll_room_attic` | P2 | `approved` |
 | `background` | `layer_select` | 层选择入口背景 | `background` | `bg_layer_select` | P2 | `approved` |
 | `background` | `settlement_defeat` | 战败结算背景 | `background` | `bg_settlement_defeat` | P2 | `approved` |
 | `background` | `settlement_victory` | 撤离成功结算背景 | `background` | `bg_settlement_victory` | P2 | `approved` |
@@ -94,17 +95,28 @@
 | `ui` | `dungeon_route_line` | 地图路线连接线 | `divider` | `ui_dungeon_route_line` | P2 | `approved` |
 | `ui` | `icon_black_market` | 黑市渠道图标 | `icon` | `ui_icon_black_market` | P2 | `approved` |
 | `ui` | `icon_deadline` | 截止日图标 | `icon` | `ui_icon_deadline` | P2 | `approved` |
+| `ui` | `icon_diary` | 日记图标 | `icon` | `ui_icon_diary` | P2 | `approved` |
 | `ui` | `icon_equipped` | 已装备图标 | `icon` | `ui_icon_equipped` | P2 | `approved` |
+| `ui` | `icon_event` | 剧本事件图标 | `icon` | `ui_icon_event` | P2 | `approved` |
 | `ui` | `icon_faction` | 势力图标 | `icon` | `ui_icon_faction` | P2 | `approved` |
+| `ui` | `icon_gift` | 赠礼图标 | `icon` | `ui_icon_gift` | P2 | `approved` |
 | `ui` | `icon_locked` | 锁定图标 | `icon` | `ui_icon_locked` | P2 | `approved` |
+| `ui` | `icon_lore` | Lore 档案图标 | `icon` | `ui_icon_lore` | P2 | `approved` |
+| `ui` | `icon_memento` | 纪念物图标 | `icon` | `ui_icon_memento` | P2 | `approved` |
 | `ui` | `icon_money` | 金币图标 | `icon` | `ui_icon_money` | P2 | `approved` |
 | `ui` | `icon_order` | 订单图标 | `icon` | `ui_icon_order` | P2 | `approved` |
 | `ui` | `icon_price_down` | 价格下跌图标 | `icon` | `ui_icon_price_down` | P2 | `approved` |
 | `ui` | `icon_price_up` | 价格上涨图标 | `icon` | `ui_icon_price_up` | P2 | `approved` |
+| `ui` | `icon_reputation` | 声望等级图标 | `icon` | `ui_icon_reputation` | P2 | `approved` |
 | `ui` | `icon_rumor` | 传闻图标 | `icon` | `ui_icon_rumor` | P2 | `approved` |
 | `ui` | `icon_shop_channel` | 出货渠道图标 | `icon` | `ui_icon_shop_channel` | P2 | `approved` |
+| `ui` | `icon_skip` | 跳过摘要图标 | `icon` | `ui_icon_skip` | P2 | `approved` |
+| `ui` | `icon_talk` | 对话图标 | `icon` | `ui_icon_talk` | P2 | `approved` |
+| `ui` | `icon_touch` | 触摸图标 | `icon` | `ui_icon_touch` | P2 | `approved` |
+| `ui` | `icon_trust` | 黑市信任图标 | `icon` | `ui_icon_trust` | P2 | `approved` |
 | `ui` | `list_row_normal` | 列表行底板 | `panel` | `ui_list_row_normal` | P2 | `approved` |
 | `ui` | `list_row_selected` | 选中列表行底板 | `panel` | `ui_list_row_selected` | P2 | `approved` |
+| `ui` | `room_memento_slot` | 纪念物展示槽 | `slot` | `ui_room_memento_slot` | P2 | `approved` |
 | `ui` | `settlement_defeat_panel` | 战败结算面板 | `panel` | `ui_settlement_defeat_panel` | P2 | `approved` |
 | `ui` | `settlement_victory_panel` | 撤离成功结算面板 | `panel` | `ui_settlement_victory_panel` | P2 | `approved` |
 | `ui` | `title_divider` | 标题装饰线 | `divider` | `ui_title_divider` | P2 | `approved` |

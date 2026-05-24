@@ -4,8 +4,8 @@ title: 人偶交互界面 Formal V1
 type: art
 role: 美术
 domain: ui_design
-status: draft
-source_of_truth: false
+status: active
+source_of_truth: true
 related:
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
@@ -17,7 +17,7 @@ update_rule: 修改人偶交互结构、触摸/对话/赠礼/保养入口或程�
 
 # 人偶交互界面 Formal V1
 
-> **状态：** 设计草案，尚未写入 active `screen_layouts.json`，暂不作为程序接入口。
+> **状态：** 已写入 active `screen_layouts.json`，作为当前依赖 UI 规格和后续程序接入口。
 > **策划依据：** `设计文档/08_人偶核心状态与好感双轨规则卡.md`、`设计文档/09_人偶交互事件与反馈规则卡.md`。
 > **目标：** 给触摸、对话、赠礼、保养和特殊交互一个正式入口。界面表达“照料与反馈”，但不把 Bond / SAN / 情绪裁决写进 UI。
 

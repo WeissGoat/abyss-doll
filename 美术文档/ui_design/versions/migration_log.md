@@ -21,7 +21,7 @@ related:
   - 美术文档/ui_design/formal_v1/doll_interaction_v1.md
   - 美术文档/ui_design/formal_v1/scenario_event_v1.md
   - 美术文档/ui_design/formal_v1/doll_room_v1.md
-last_verified: 2026-05-24
+last_verified: 2026-05-25
 update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或运行时验收后同步本文件。
 ---
 
@@ -61,10 +61,10 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 | `shop_staging` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：仓库出货分配、普通渠道、订单渠道、黑市渠道和收益风险预览。 |
 | `order_board` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：势力订单列表、目标物、截止日、奖励预览和接取/提交动作。 |
 | `rumor_board` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：今日传闻、价格涨跌、选中详情和推荐行动。 |
-| `faction_shop` | 新增 Formal V1 | 无 | 未进入 active | `design_draft` | 已有设计草案：势力声望、专属商品、黑市信任和交易风险；等待用户确认后写入 active。 |
-| `doll_interaction` | 新增 Formal V1 | 无 | 未进入 active | `design_draft` | 已有设计草案：触摸、对话、赠礼、保养、特殊交互和反馈；等待用户确认后写入 active。 |
-| `scenario_event` | 新增 Formal V1 | 无 | 未进入 active | `design_draft` | 已有设计草案：AVG、系统弹窗、气泡、LorePanel、事件日志和跳过摘要；等待用户确认后写入 active。 |
-| `doll_room` | 新增 Formal V1 | 无 | 未进入 active | `design_draft` | 已有设计草案：房间背景、待机人偶、纪念物、窗外状态和日记；等待用户确认后写入 active。 |
+| `faction_shop` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：势力声望、专属商品、黑市信任和交易风险。 |
+| `doll_interaction` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：触摸、对话、赠礼、保养、特殊交互和反馈。 |
+| `scenario_event` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：AVG、系统弹窗、气泡、LorePanel、事件日志和跳过摘要。 |
+| `doll_room` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：房间背景、待机人偶、纪念物、窗外状态、日记和详情区。 |
 
 ---
 
@@ -142,4 +142,18 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 * `doll_interaction` 已有设计草案，用于承接触摸、对话、赠礼、保养、特殊交互和反馈。
 * `scenario_event` 已有设计草案，用于承接 AVG、系统弹窗、气泡、LorePanel、事件日志和跳过摘要。
 * `doll_room` 已有设计草案，用于承接房间背景、待机人偶、纪念物、窗外状态和日记。
-* 这四个界面尚未写入 active `screen_layouts.json`，暂不作为程序接入口，也不触发 Manifest / Prompt / 素材生成。
+* 本节为设计草案建立记录。后续当前依赖判断调整后，前三个界面已进入 active；`doll_room` 仍保留后续批次。
+
+### 2026-05-24：当前依赖界面写入 Formal V1 active 规格
+
+* `faction_shop` 作为 A4 势力商店 / 黑市交易入口进入 active 规格，拆分 `faction_list_panel`、`reputation_track_panel`、`shop_item_list`、`selected_item_detail`、`shop_action_panel` 和 `black_market_risk_panel`。
+* `doll_interaction` 作为 A3 / A4 人偶状态反馈入口进入 active 规格，拆分 `condition_header`、`interaction_menu`、`gift_or_topic_panel`、`doll_stage`、`feedback_panel` 和 `action_hint_panel`。
+* `scenario_event` 作为当前依赖的事件表现入口进入 active 规格，拆分 `event_header`、`speaker_visual_slot`、`dialogue_text_panel`、`choice_list_panel`、`command_summary_panel` 和 `event_action_bar`。
+* 新增 `ui_icon_reputation`、`ui_icon_trust`、`ui_icon_touch`、`ui_icon_talk`、`ui_icon_gift`、`ui_icon_memento`、`ui_icon_event`、`ui_icon_lore`、`ui_icon_skip` 九个 preset UI 图标需求，后续按 Manifest / Prompt / 可接入清单推进。
+* `doll_room` 仍为后续房间系统草案，不进入当前 active、Manifest 或跑图队列。
+
+### 2026-05-25：`doll_room` 写入 Formal V1 active 规格
+
+* `doll_room` 作为 P3 人偶房间 / 视觉日记入口进入 active 规格，拆分 `doll_room_background`、`window_state_area`、`doll_idle_stage`、`memento_display_area`、`diary_panel`、`room_detail_panel` 和 `room_action_strip`。
+* 新增 `bg_doll_room_attic`、`ui_icon_diary`、`ui_room_memento_slot` 三个 preset 资产需求，并补齐 Manifest / Prompt / Spec。
+* 已生成 local_v0 Approved 素材并进入 latest `program_integrate` 队列，供程序侧登记 `VisualAssetRegistry` 和接入 UI。

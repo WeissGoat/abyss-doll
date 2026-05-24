@@ -4,8 +4,8 @@ title: 势力商店界面 Formal V1
 type: art
 role: 美术
 domain: ui_design
-status: draft
-source_of_truth: false
+status: active
+source_of_truth: true
 related:
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
@@ -17,7 +17,7 @@ update_rule: 修改势力商店结构、声望/信任展示或程序迁移要求
 
 # 势力商店界面 Formal V1
 
-> **状态：** 设计草案，尚未写入 active `screen_layouts.json`，暂不作为程序接入口。
+> **状态：** 已写入 active `screen_layouts.json`，作为当前依赖 UI 规格和后续程序接入口。
 > **策划依据：** `设计文档/07_势力声望与订单规则卡.md`、`设计文档/24_势力订单声望内容包.md`。
 > **目标：** 把势力声望、商店解锁、黑市信任和商品兑换做成稳定入口。玩家能比较不同势力的解锁、价格、库存和风险，而不是把势力商店藏在订单板的备注里。
 

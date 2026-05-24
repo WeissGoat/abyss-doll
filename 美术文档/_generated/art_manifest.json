@@ -47,8 +47,8 @@
         },
         "CompositionSpec": {
           "SafePaddingPercent": 0,
-          "SubjectOccupancyMin": 0.0,
-          "SubjectOccupancyMax": 1.0,
+          "SubjectOccupancyMin": 0,
+          "SubjectOccupancyMax": 1,
           "Anchor": "center",
           "Composition": "wide environment with negative space",
           "SafeArea": "center_4_3"
@@ -105,8 +105,8 @@
         },
         "CompositionSpec": {
           "SafePaddingPercent": 0,
-          "SubjectOccupancyMin": 0.0,
-          "SubjectOccupancyMax": 1.0,
+          "SubjectOccupancyMin": 0,
+          "SubjectOccupancyMax": 1,
           "Anchor": "center",
           "Composition": "wide environment with negative space",
           "SafeArea": "center_4_3"
@@ -163,8 +163,8 @@
         },
         "CompositionSpec": {
           "SafePaddingPercent": 0,
-          "SubjectOccupancyMin": 0.0,
-          "SubjectOccupancyMax": 1.0,
+          "SubjectOccupancyMin": 0,
+          "SubjectOccupancyMax": 1,
           "Anchor": "center",
           "Composition": "wide environment with negative space",
           "SafeArea": "center_4_3"
@@ -218,8 +218,8 @@
         },
         "CompositionSpec": {
           "SafePaddingPercent": 0,
-          "SubjectOccupancyMin": 0.0,
-          "SubjectOccupancyMax": 1.0,
+          "SubjectOccupancyMin": 0,
+          "SubjectOccupancyMax": 1,
           "Anchor": "center",
           "Composition": "wide environment with negative space",
           "SafeArea": "center_4_3"
@@ -273,8 +273,8 @@
         },
         "CompositionSpec": {
           "SafePaddingPercent": 0,
-          "SubjectOccupancyMin": 0.0,
-          "SubjectOccupancyMax": 1.0,
+          "SubjectOccupancyMin": 0,
+          "SubjectOccupancyMax": 1,
           "Anchor": "center",
           "Composition": "wide environment with negative space",
           "SafeArea": "center_4_3"
@@ -331,8 +331,8 @@
         },
         "CompositionSpec": {
           "SafePaddingPercent": 0,
-          "SubjectOccupancyMin": 0.0,
-          "SubjectOccupancyMax": 1.0,
+          "SubjectOccupancyMin": 0,
+          "SubjectOccupancyMax": 1,
           "Anchor": "center",
           "Composition": "wide environment with negative space",
           "SafeArea": "center_4_3"
@@ -389,8 +389,8 @@
         },
         "CompositionSpec": {
           "SafePaddingPercent": 0,
-          "SubjectOccupancyMin": 0.0,
-          "SubjectOccupancyMax": 1.0,
+          "SubjectOccupancyMin": 0,
+          "SubjectOccupancyMax": 1,
           "Anchor": "center",
           "Composition": "wide environment with negative space",
           "SafeArea": "center_4_3"
@@ -412,6 +412,64 @@
       "PresetCategory": "screen_background",
       "Screen": "workshop_main",
       "Usage": "工坊主界面背景"
+    },
+    {
+      "Domain": "background",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "doll_room_attic",
+      "DisplayName": "人偶阁楼房间背景",
+      "AssetType": "background",
+      "VisualID": "bg_doll_room_attic",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/DollRoom/bg_doll_room_attic.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置资产：人偶房间界面需要完全不透明的阁楼房间背景，不来自玩法配置表。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。人偶阁楼房间背景，暖色维修灯、窄床、旧木地板、黄铜管线、日记桌、纪念物架和地下小镇窗光，中间留空。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, small attic room for a mechanical doll, warm repair lamp, narrow bed, old wooden floor, brass pipes, diary desk, memento shelf, window to a deep underground town glow, calm empty center floor, low visual noise, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0,
+          "SubjectOccupancyMax": 1,
+          "Anchor": "center",
+          "Composition": "wide environment with negative space",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "local_v0_doll_room_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/DollRoom/bg_doll_room_attic.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T00:00:00+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Backgrounds/DollRoom/bg_doll_room_attic.png",
+      "PresetCategory": "screen_background",
+      "Screen": "doll_room",
+      "Usage": "人偶房间/视觉日记界面背景"
     },
     {
       "Domain": "background",
@@ -447,8 +505,8 @@
         },
         "CompositionSpec": {
           "SafePaddingPercent": 0,
-          "SubjectOccupancyMin": 0.0,
-          "SubjectOccupancyMax": 1.0,
+          "SubjectOccupancyMin": 0,
+          "SubjectOccupancyMax": 1,
           "Anchor": "center",
           "Composition": "wide environment with negative space",
           "SafeArea": "center_4_3"
@@ -505,8 +563,8 @@
         },
         "CompositionSpec": {
           "SafePaddingPercent": 0,
-          "SubjectOccupancyMin": 0.0,
-          "SubjectOccupancyMax": 1.0,
+          "SubjectOccupancyMin": 0,
+          "SubjectOccupancyMax": 1,
           "Anchor": "center",
           "Composition": "wide environment with negative space",
           "SafeArea": "center_4_3"
@@ -563,8 +621,8 @@
         },
         "CompositionSpec": {
           "SafePaddingPercent": 0,
-          "SubjectOccupancyMin": 0.0,
-          "SubjectOccupancyMax": 1.0,
+          "SubjectOccupancyMin": 0,
+          "SubjectOccupancyMax": 1,
           "Anchor": "center",
           "Composition": "wide environment with negative space",
           "SafeArea": "center_4_3"
@@ -4042,6 +4100,63 @@
       "SourceType": "preset",
       "DeriveRule": "art requirements seed preset",
       "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_diary",
+      "DisplayName": "日记图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_diary",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：人偶房间需要稳定日记符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。日记和记忆记录图标，黄铜边小笔记本、缎带书签和小齿轮锁扣，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, diary and memory log symbol, small brass-edged notebook with ribbon bookmark and tiny gear clasp, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "local_v0_doll_room_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T00:00:00+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png",
+      "PresetCategory": "ui_doll_room",
+      "Screen": "doll_room",
+      "Usage": "日记本、房间记忆和记录入口"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
       "ConfigID": "icon_equipped",
       "DisplayName": "已装备图标",
       "AssetType": "icon",
@@ -4093,6 +4208,63 @@
       "PresetCategory": "ui_skin",
       "Screen": "prosthetic_panel",
       "Usage": "义体制造列表已装备状态"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_event",
+      "DisplayName": "剧本事件图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_event",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_event.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：剧本事件界面需要稳定事件符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。剧本事件图标，小剧场帷幕徽章和黄铜感叹号，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, scenario event symbol, small theater curtain badge with brass exclamation mark, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "missing",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "PresetCategory": "ui_current_dependency_icon",
+      "Screen": "scenario_event",
+      "Usage": "剧本事件、系统弹窗、AVG 事件和事件来源"
     },
     {
       "Domain": "ui",
@@ -4156,6 +4328,63 @@
       "SourceType": "preset",
       "DeriveRule": "art requirements seed preset",
       "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_gift",
+      "DisplayName": "赠礼图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_gift",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_gift.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：人偶交互需要稳定赠礼符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。赠礼图标，小包裹、黄铜缎带和齿轮标签，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, gift interaction symbol, small wrapped parcel with brass ribbon and tiny gear tag, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "missing",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "PresetCategory": "ui_current_dependency_icon",
+      "Screen": "doll_interaction",
+      "Usage": "人偶赠礼、礼物列表和偏好反馈"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
       "ConfigID": "icon_locked",
       "DisplayName": "锁定图标",
       "AssetType": "icon",
@@ -4207,6 +4436,120 @@
       "PresetCategory": "ui_skin",
       "Screen": "global",
       "Usage": "层选择、未解锁功能"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_lore",
+      "DisplayName": "Lore 档案图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_lore",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_lore.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：剧本事件界面需要稳定 lore/档案符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。Lore/档案图标，黄铜边旧书和小水晶书签，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, lore archive symbol, old brass-edged book and small crystal bookmark, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "missing",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "PresetCategory": "ui_current_dependency_icon",
+      "Screen": "scenario_event",
+      "Usage": "LorePanel、世界观档案、记录文本和图鉴入口"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_memento",
+      "DisplayName": "纪念物图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_memento",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_memento.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：人偶交互需要稳定纪念物/记忆符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。纪念物/记忆图标，小吊坠或齿轮纪念物，带柔和蓝光，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, memento memory symbol, small locket or keepsake gear charm with soft blue glow, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "missing",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "PresetCategory": "ui_current_dependency_icon",
+      "Screen": "doll_interaction",
+      "Usage": "特殊交互、记忆反馈、纪念物和情绪回声"
     },
     {
       "Domain": "ui",
@@ -4441,6 +4784,63 @@
       "SourceType": "preset",
       "DeriveRule": "art requirements seed preset",
       "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_reputation",
+      "DisplayName": "声望等级图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_reputation",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_reputation.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：势力商店需要稳定声望符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。声望等级图标，黄铜月桂齿轮徽章和小型进度刻痕，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, reputation rank symbol, brass laurel gear crest with small progress notches, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "missing",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "PresetCategory": "ui_current_dependency_icon",
+      "Screen": "faction_shop",
+      "Usage": "正规势力声望、等级、解锁进度和奖励门槛"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
       "ConfigID": "icon_rumor",
       "DisplayName": "传闻图标",
       "AssetType": "icon",
@@ -4549,6 +4949,234 @@
       "PresetCategory": "ui_a4_icon",
       "Screen": "shop_staging",
       "Usage": "普通柜台、寄售槽、营业出货渠道和分配入口"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_skip",
+      "DisplayName": "跳过摘要图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_skip",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_skip.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：剧本事件界面需要稳定跳过摘要符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。跳过摘要图标，黄铜快进双箭头叠在小纸条上，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, skip summary symbol, fast-forward brass double arrow over a small note sheet, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "missing",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "PresetCategory": "ui_current_dependency_icon",
+      "Screen": "scenario_event",
+      "Usage": "事件跳过、摘要、快进和状态变化回顾"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_talk",
+      "DisplayName": "对话图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_talk",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_talk.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：人偶交互需要稳定对话符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。对话交互图标，黄铜对话气泡和小齿轮铆钉，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, talk interaction symbol, brass speech bubble with tiny gear rivets, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "missing",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "PresetCategory": "ui_current_dependency_icon",
+      "Screen": "doll_interaction",
+      "Usage": "人偶对话、话题和交流入口"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_touch",
+      "DisplayName": "触摸图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_touch",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_touch.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：人偶交互需要稳定触摸符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。触摸交互图标，戴手套的手悬停在黄铜脉冲环上，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, touch interaction symbol, small gloved hand hovering over a brass pulse ring, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "missing",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "PresetCategory": "ui_current_dependency_icon",
+      "Screen": "doll_interaction",
+      "Usage": "人偶触摸、安抚和轻交互入口"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_trust",
+      "DisplayName": "黑市信任图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_trust",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_trust.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：势力商店需要稳定黑市信任符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。黑市信任图标，半隐藏的黄铜握手徽章和低饱和红色封印，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, black market trust symbol, half-hidden brass handshake badge with muted red seal, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "missing",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "PresetCategory": "ui_current_dependency_icon",
+      "Screen": "faction_shop",
+      "Usage": "黑市信任、隐秘交易和高风险渠道信任度"
     },
     {
       "Domain": "ui",
@@ -4683,6 +5311,63 @@
       "PresetCategory": "ui_skin",
       "Screen": "global",
       "Usage": "当前选中层、当前选中条目"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "room_memento_slot",
+      "DisplayName": "纪念物展示槽",
+      "AssetType": "slot",
+      "VisualID": "ui_room_memento_slot",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_room_memento_slot.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 槽位：人偶房间需要展示纪念物和视觉快照的空槽符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。纪念物展示槽，空的黄铜小展示架、柔和内嵌底板和小螺丝角，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, modular 2D inventory slot sprite, memento display slot, small empty brass shelf frame with soft inset backing and tiny screw corners, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "single empty display slot frame"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "preserve_transparency"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "BatchID": "local_v0_doll_room_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_room_memento_slot.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T00:00:00+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_room_memento_slot.png",
+      "PresetCategory": "ui_doll_room",
+      "Screen": "doll_room",
+      "Usage": "人偶房间纪念物、展示品和礼物剪影槽位"
     },
     {
       "Domain": "ui",

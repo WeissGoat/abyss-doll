@@ -4,8 +4,8 @@ title: 剧本事件界面 Formal V1
 type: art
 role: 美术
 domain: ui_design
-status: draft
-source_of_truth: false
+status: active
+source_of_truth: true
 related:
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
@@ -17,7 +17,7 @@ update_rule: 修改剧本事件表现结构、AVG/气泡/日志/系统弹窗槽�
 
 # 剧本事件界面 Formal V1
 
-> **状态：** 设计草案，尚未写入 active `screen_layouts.json`，暂不作为程序接入口。
+> **状态：** 已写入 active `screen_layouts.json`，作为当前依赖 UI 规格和后续程序接入口。
 > **策划依据：** `设计文档/10_剧本调度与事件队列规则卡.md`、`设计文档/23_长期记忆剧情内容包.md`。
 > **目标：** 给主线 AVG、系统弹窗、气泡、LorePanel、事件日志和跳过摘要提供统一表现规格。事件队列负责状态，UI 只负责展示和选择。
 

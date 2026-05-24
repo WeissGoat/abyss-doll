@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-05-25T00:32:40+08:00",
-  "SnapshotTag": "formal_v1_19_active_doll_room_ready",
+  "GeneratedAt": "2026-05-25T00:21:39+08:00",
+  "SnapshotTag": "doll_room_local_v0_approved_ready",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",

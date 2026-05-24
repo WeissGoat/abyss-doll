@@ -27,14 +27,14 @@ related:
   - 美术文档/archive/11_P0_UI骨架接入交付.md
   - 美术文档/archive/12_P1_UI骨架接入准备.md
   - 知识库/views/art.md
-last_verified: 2026-05-24
+last_verified: 2026-05-25
 update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
 ---
 
 # UI 设计流水线
 
 > **定位：** UI 结构版本管理和程序对接规格入口。当前 active 规格只看 `screen_layouts.json`，设计草案不直接交给程序。
-> **更新时间：** 2026-05-24
+> **更新时间：** 2026-05-25
 
 ---
 
@@ -74,8 +74,8 @@ UI 设计流解决六件事：
 
 | 类型 | 范围 | 接入口径 |
 |---|---|---|
-| active Formal V1 | 15 个界面，详见 `screen_layouts.json` 和 `13_正式纵切UI与素材覆盖矩阵.md` | 程序、美术素材生成、验收都可以使用。 |
-| draft Formal V1 | `faction_shop`、`doll_interaction`、`scenario_event`、`doll_room` | 只作为设计审阅，不是程序接入口，不触发素材生成。 |
+| active Formal V1 | 19 个界面，详见 `screen_layouts.json` 和 `13_正式纵切UI与素材覆盖矩阵.md` | 程序、美术素材生成、验收都可以使用。 |
+| draft Formal V1 | 暂无 | 后续新增界面仍先写设计草案，确认后再进入 active。 |
 | historical baseline | `versions/mvp_baseline_2026-05-22/` | 只读归档，用于对比和回退参考。 |
 | candidate | `versions/formal_v1_candidate/` | 可选暂存区，不是必经流程。 |
 
