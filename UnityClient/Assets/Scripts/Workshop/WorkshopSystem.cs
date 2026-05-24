@@ -94,6 +94,16 @@ public class WorkshopSystem {
         return true;
     }
 
+    public bool CanApplyMaintenance(string maintenanceID, DollEntity doll, out string reason) {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        return MaintenanceService.CanApply(player, doll, maintenanceID, out reason);
+    }
+
+    public MaintenanceApplicationResult ApplyMaintenance(string maintenanceID, DollEntity doll) {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        return MaintenanceService.Apply(player, doll, maintenanceID);
+    }
+
     private void UnequipSameSlotProsthetic(DollEntity doll, ProstheticEntity newProsthetic) {
         if (doll?.EquippedProsthetics == null || newProsthetic == null || string.IsNullOrEmpty(newProsthetic.SlotType)) {
             return;

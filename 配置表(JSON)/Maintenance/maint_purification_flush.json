@@ -1,0 +1,27 @@
+{
+  "MaintenanceID": "maint_purification_flush",
+  "Name": "净化冲洗",
+  "Description": "使用污染过滤件冲洗侵蚀残留，降低侵蚀并恢复少量 SAN。",
+  "QualityTier": "Basic",
+  "Cost": {
+    "Money": 80,
+    "RequiredItems": [
+      {
+        "ConfigID": "loot_toxic_filter",
+        "Count": 1
+      }
+    ]
+  },
+  "Effects": [
+    {
+      "TargetState": "Corruption",
+      "Amount": 40
+    },
+    {
+      "TargetState": "SAN",
+      "Amount": 10
+    }
+  ],
+  "DailyLimit": 0,
+  "RestoresDivePermit": true
+}

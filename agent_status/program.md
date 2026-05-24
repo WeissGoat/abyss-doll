@@ -89,6 +89,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - P2 深渊地图正式网络基础已落地：`DungeonLayer` 按 `RowCount` / 宽度 / seed 生成多行节点网络，`DungeonMapUIController` 改为展示多路线节点和连线，`DungeonManager.CanMoveToNode()` 在领域层限制入口 / 后继节点移动；`DungeonStairsProgressionTest.Run` 与 `ConfigValidationSmokeTest.Run` 已通过。
 - P2 非战斗节点基础已落地：新增 `DungeonOutcomeNode`、`TreasureNode`、`EventNode`、`RestStopNode`、`HazardNode`，支持 `Title` / `Description` / `OutcomeEffects` / `RewardID` 配置，结果节点和节点奖励分别接入节点结果 UI 与战利品拾取流；`DungeonNodeTypesSmokeTest.Run`、`DungeonStairsProgressionTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
 - P2 路线风险表达与战争迷雾基础已落地：新增 `DungeonMapVisibilityService`，支持 `FogProfile`、`NodeRevealDepth`、`NodePreviewDepth`、`RiskLevel`、`RiskHint` 配置，地图 UI 按 `Revealed` / `Preview` / `Hidden` 展示节点与路线；`DungeonMapVisibilitySmokeTest.Run`、`DungeonStairsProgressionTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
+- P3 维护真实服务已落地：新增 `MaintenanceService`、`WorkshopCostService`、`MaintenanceConfig`、`Maintenance` 配置域和 `MaintenanceServiceSmokeTest.Run`，支持金币 / 材料成本、磨损 / 侵蚀降低、HP / SAN 恢复，并由 `DiveReadinessService` 重新判断下潜许可。
 
 ## 下一步建议
 

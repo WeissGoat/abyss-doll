@@ -12,7 +12,7 @@ related:
   - 配置表(JSON)/CraftingRecipes/README.md
   - 设计文档/GDD_10_势力声望与订单系统.md
   - 设计文档/GDD_04_小镇循环与经济物价波浪模型.md
-last_verified: 2026-05-23
+last_verified: 2026-05-25
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---
 
@@ -107,3 +107,46 @@ public class ProstheticEntity {
 验证：
 
 *   `DiveReadinessSmokeTest.Run` 覆盖正常下潜、极端磨损、极端侵蚀、缺底盘、运行时网格不匹配、非法义体自动卸下和 warning 不阻断下潜。
+
+## 8. 维护真实服务
+
+`MaintenanceService` 是局外成长的维护执行入口，用于把磨损、侵蚀、HP、SAN 等状态从“下潜阻断原因”转化为可被玩家用金币和材料解决的局外循环。
+
+配置来源：
+
+*   `配置表(JSON)/Maintenance/*.json` 是维护方案源数据。
+*   `ConfigManager.MaintenanceConfigs` 负责运行时加载。
+*   `ConfigValidator.ValidateMaintenanceConfigs` 校验 `MaintenanceID`、费用、目标状态、恢复量、每日次数字段和下潜许可恢复标记。
+
+维护配置结构：
+
+```csharp
+public class MaintenanceConfig {
+    public string MaintenanceID;
+    public string Name;
+    public string Description;
+    public string QualityTier;
+    public CraftingCost Cost;
+    public List<MaintenanceEffectConfig> Effects;
+    public int DailyLimit;
+    public bool RestoresDivePermit;
+}
+```
+
+执行规则：
+
+*   `MaintenanceService.CanApply` 在扣费前完整校验玩家、人偶、配置、费用和全部效果合法性。
+*   `WorkshopCostService` 统一统计与支付维护费用，覆盖仓库和当前出战人偶背包内材料；扣除顺序为仓库优先，仓库不足时再消耗背包材料。
+*   维护效果目前支持 `Wear`、`Corruption`、`HP`、`SAN`。`Wear` / `Corruption` 是降低值；`HP` / `SAN` 是恢复值并夹取到上限。
+*   HP / SAN 变化会发布 `GameEventBus.PublishHPChanged` / `PublishSANChanged`，供表现层刷新。
+*   `WorkshopSystem.CanApplyMaintenance` 和 `WorkshopSystem.ApplyMaintenance` 只作为工坊系统的薄入口，不承载维护规则。
+*   `RestoresDivePermit` 是配置语义标记，实际是否解除阻断仍由 `DiveReadinessService.Evaluate` 重新计算，不在维护服务中硬写“许可状态”。
+
+当前首批配置：
+
+*   `maint_basic_patch`：消耗金币和 `loot_gear_scrap`，降低磨损并恢复 HP。
+*   `maint_purification_flush`：消耗金币和 `loot_toxic_filter`，降低侵蚀并恢复 SAN。
+
+验证：
+
+*   `MaintenanceServiceSmokeTest.Run` 覆盖磨损维护解除下潜阻断、侵蚀净化解除下潜阻断、费用不足不修改状态、维护费用可消耗背包材料。

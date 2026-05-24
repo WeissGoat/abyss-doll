@@ -1,0 +1,27 @@
+{
+  "MaintenanceID": "maint_basic_patch",
+  "Name": "基础整备",
+  "Description": "消耗少量废料进行基础修补，降低磨损并恢复少量生命。",
+  "QualityTier": "Basic",
+  "Cost": {
+    "Money": 50,
+    "RequiredItems": [
+      {
+        "ConfigID": "loot_gear_scrap",
+        "Count": 1
+      }
+    ]
+  },
+  "Effects": [
+    {
+      "TargetState": "Wear",
+      "Amount": 40
+    },
+    {
+      "TargetState": "HP",
+      "Amount": 20
+    }
+  ],
+  "DailyLimit": 0,
+  "RestoresDivePermit": true
+}

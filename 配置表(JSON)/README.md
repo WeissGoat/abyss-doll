@@ -26,7 +26,7 @@ related:
   - agent_status/design.md
   - 知识库/views/design.md
   - 知识库/views/program.md
-last_verified: 2026-05-23
+last_verified: 2026-05-25
 update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
 ---
 
@@ -49,6 +49,7 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | **[`/Dungeons`](./Dungeons/README.md)** | 深渊层数 (Dungeon) | 决定每一层地图的长度（节点数）、走一步掉多少SAN，以及怪物和Boss的刷新池。 | 探索系统 |
 | **[`/Prosthetics`](./Prosthetics/README.md)** | 义体插件 (Prosthetic) | 局外装备的被动词条插件。**不占背包网格**，改变规则或提供全局增幅。 | 养成系统 |
 | **[`/CraftingRecipes`](./CraftingRecipes/README.md)**| 制造配方 (Crafting) | 工坊中制造义体或升级底盘所需的金币与素材清单。 | 经济系统 / 养成系统 |
+| **`/Maintenance`** | 维护方案 (Maintenance) | 局外维护方案，定义金币 / 材料成本以及磨损、侵蚀、HP、SAN 修复效果。 | 养成系统 / 下潜许可 |
 | **[`/Effects`](./Effects/README.md)** | 效果字典 (Effect) | 定义游戏中所有可被物品、怪物、义体调用的基础效果（如加血、叠盾、乘伤）及其参数规范。 | 战斗系统 / 核心框架 |
 
 ## 全局通用规范

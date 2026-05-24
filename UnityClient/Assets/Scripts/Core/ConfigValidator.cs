@@ -50,6 +50,7 @@ public static class ConfigValidator {
         ValidateChassis(report);
         ValidateProsthetics(report);
         ValidateCraftingRecipes(report);
+        ValidateMaintenanceConfigs(report);
         ValidateRewards(report);
         ValidateMonsters(report);
         ValidateDungeons(report);
@@ -254,6 +255,61 @@ public static class ConfigValidator {
             }
 
             ValidateCost(report, $"Crafting recipe [{recipe.RecipeID}] Cost", recipe.Cost);
+        }
+    }
+
+    private static void ValidateMaintenanceConfigs(ConfigValidationReport report) {
+        foreach (var kvp in ConfigManager.MaintenanceConfigs) {
+            MaintenanceConfig maintenance = kvp.Value;
+            if (maintenance == null) {
+                report.AddError($"Maintenance [{kvp.Key}] deserialized as null.");
+                continue;
+            }
+
+            if (string.IsNullOrEmpty(maintenance.MaintenanceID)) {
+                report.AddError($"Maintenance file loaded with empty MaintenanceID under key [{kvp.Key}].");
+            }
+
+            if (!string.Equals(kvp.Key, maintenance.MaintenanceID, StringComparison.Ordinal)) {
+                report.AddWarning($"Maintenance [{kvp.Key}] dictionary key differs from MaintenanceID [{maintenance.MaintenanceID}].");
+            }
+
+            ValidateCost(report, $"Maintenance [{maintenance.MaintenanceID}] Cost", maintenance.Cost);
+
+            if (maintenance.DailyLimit < 0) {
+                report.AddError($"Maintenance [{maintenance.MaintenanceID}] DailyLimit must be >= 0.");
+            }
+
+            if (maintenance.Effects == null || maintenance.Effects.Count == 0) {
+                report.AddError($"Maintenance [{maintenance.MaintenanceID}] must define at least one effect.");
+                continue;
+            }
+
+            bool hasDivePermitRecoveryEffect = false;
+            for (int i = 0; i < maintenance.Effects.Count; i++) {
+                MaintenanceEffectConfig effect = maintenance.Effects[i];
+                if (effect == null) {
+                    report.AddError($"Maintenance [{maintenance.MaintenanceID}] Effects[{i}] is null.");
+                    continue;
+                }
+
+                if (!Enum.TryParse(effect.TargetState, true, out MaintenanceTargetState targetState)) {
+                    report.AddError($"Maintenance [{maintenance.MaintenanceID}] Effects[{i}] has unknown TargetState [{effect.TargetState}].");
+                    continue;
+                }
+
+                if (effect.Amount <= 0f) {
+                    report.AddError($"Maintenance [{maintenance.MaintenanceID}] Effects[{i}] amount must be positive.");
+                }
+
+                if (targetState == MaintenanceTargetState.Wear || targetState == MaintenanceTargetState.Corruption) {
+                    hasDivePermitRecoveryEffect = true;
+                }
+            }
+
+            if (maintenance.RestoresDivePermit && !hasDivePermitRecoveryEffect) {
+                report.AddWarning($"Maintenance [{maintenance.MaintenanceID}] RestoresDivePermit=true but has no Wear/Corruption recovery effect.");
+            }
         }
     }
 
