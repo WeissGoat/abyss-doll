@@ -31,6 +31,18 @@ public class MonsterFighter : FighterEntity {
         GameEventBus.PublishDamageDealt(Name, target.Name, damage);
 
         Debug.Log($"[{Name}] uses [{actionName}] on [{target.Name}] for {damage} damage.");
+        int targetHPBefore = target.RuntimeHP;
+        int targetShieldBefore = target.RuntimeShield;
         target.TakeDamage(damage);
+        GameRoot.Core?.Combat?.Timeline?.RecordDamage(
+            ParentFaction != null ? ParentFaction.Type : FactionType.Enemy,
+            Name,
+            target.Name,
+            actionName,
+            damage,
+            targetHPBefore,
+            target.RuntimeHP,
+            targetShieldBefore,
+            target.RuntimeShield);
     }
 }

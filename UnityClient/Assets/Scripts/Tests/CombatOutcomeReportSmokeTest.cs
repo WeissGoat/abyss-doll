@@ -35,6 +35,7 @@ public static class CombatOutcomeReportSmokeTest {
                 && report.PlayerAliveCount == 1
                 && report.PlayerFighters.Count == 1
                 && report.EnemyFighters.Count == 1
+                && HasTimelineEvent(report, CombatTimelineEventType.Outcome)
                 && report.Summary.Contains("已击败全部敌人");
 
             if (passed) {
@@ -70,6 +71,8 @@ public static class CombatOutcomeReportSmokeTest {
                 && report.EnemyTotalCount == 1
                 && report.PlayerAliveCount == 0
                 && report.Title == "HP 战败"
+                && HasTimelineEvent(report, CombatTimelineEventType.DamageDealt)
+                && HasTimelineEvent(report, CombatTimelineEventType.Outcome)
                 && report.Summary.Contains("HP 归零");
 
             if (passed) {
@@ -105,6 +108,7 @@ public static class CombatOutcomeReportSmokeTest {
                 && report.EnemyTotalCount == 1
                 && report.PlayerAliveCount == 1
                 && report.Title == "SAN 崩溃"
+                && HasTimelineEvent(report, CombatTimelineEventType.Outcome)
                 && report.Summary.Contains("SAN 归零");
 
             if (passed) {
@@ -128,5 +132,13 @@ public static class CombatOutcomeReportSmokeTest {
 
     private static void CaptureOutcomeReport(CombatOutcomeReport report) {
         _lastReport = report;
+    }
+
+    private static bool HasTimelineEvent(CombatOutcomeReport report, CombatTimelineEventType eventType) {
+        if (report?.TimelineEvents == null) {
+            return false;
+        }
+
+        return report.TimelineEvents.Exists(entry => entry != null && entry.EventType == eventType);
     }
 }

@@ -98,7 +98,19 @@ public class DollFighter : FighterEntity {
             GameEventBus.PublishAttackAction(Name, target.Name, weaponSource.Name);
             GameEventBus.PublishDamageDealt(Name, target.Name, dmg);
             Debug.Log($"[{Name}] attacks [{target.Name}] with {weaponSource.Name} for {dmg} damage! (AP Left: {CurrentAP})");
+            int targetHPBefore = target.RuntimeHP;
+            int targetShieldBefore = target.RuntimeShield;
             target.TakeDamage(dmg);
+            GameRoot.Core?.Combat?.Timeline?.RecordDamage(
+                ParentFaction != null ? ParentFaction.Type : FactionType.Player,
+                Name,
+                target.Name,
+                weaponSource.Name,
+                dmg,
+                targetHPBefore,
+                target.RuntimeHP,
+                targetShieldBefore,
+                target.RuntimeShield);
         }
         else if (weaponSource.Combat.DamageType == DamageType.Shield.ToString()) {
             GameEventBus.PublishAttackAction(Name, Name, weaponSource.Name);

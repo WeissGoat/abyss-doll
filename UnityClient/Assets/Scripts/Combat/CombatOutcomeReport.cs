@@ -30,6 +30,7 @@ public class CombatOutcomeReport {
     public int EnemyTotalCount;
     public List<CombatOutcomeFighterSnapshot> PlayerFighters = new List<CombatOutcomeFighterSnapshot>();
     public List<CombatOutcomeFighterSnapshot> EnemyFighters = new List<CombatOutcomeFighterSnapshot>();
+    public List<CombatTimelineEvent> TimelineEvents = new List<CombatTimelineEvent>();
 }
 
 public class CombatOutcomeFighterSnapshot {
@@ -75,6 +76,9 @@ public static class CombatOutcomeReportService {
         AppendFactionSnapshots(combat?.PlayerFaction, report.PlayerFighters, out report.PlayerAliveCount);
         AppendFactionSnapshots(combat?.EnemyFaction, report.EnemyFighters, out report.EnemyAliveCount);
         report.EnemyTotalCount = report.EnemyFighters.Count;
+        if (combat?.Timeline != null) {
+            report.TimelineEvents = combat.Timeline.BuildSnapshot();
+        }
 
         CombatOutcomeFighterSnapshot activeDollSnapshot = report.PlayerFighters.Count > 0 ? report.PlayerFighters[0] : null;
         if (activeDollSnapshot != null) {

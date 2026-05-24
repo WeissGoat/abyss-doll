@@ -10,10 +10,12 @@ public class CombatSystem {
     public CombatState CurrentState;
     public CombatOutcomeReport LastOutcomeReport { get; private set; }
     public MonsterCombatModifierSystem MonsterRuntimeModifiers => _monsterRuntimeModifiers;
+    public CombatTimelineRecorder Timeline => _timeline;
 
     private readonly MonsterActionRunner _monsterActionRunner = new MonsterActionRunner();
     private readonly MonsterActionRuntimeState _monsterActionState = new MonsterActionRuntimeState();
     private readonly MonsterCombatModifierSystem _monsterRuntimeModifiers = new MonsterCombatModifierSystem();
+    private readonly CombatTimelineRecorder _timeline = new CombatTimelineRecorder();
 
     public void StartCombat(List<string> monsterIDs) {
         Debug.Log("\n[CombatSystem] Initiating Combat!");
@@ -21,6 +23,7 @@ public class CombatSystem {
         LastOutcomeReport = null;
         _monsterActionState.Reset();
         _monsterRuntimeModifiers.Clear();
+        _timeline.Reset();
 
         PlayerFaction = new CombatFaction { Type = FactionType.Player };
         PlayerFaction.Fighters.Add(new DollFighter(GameRoot.Core.CurrentPlayer.ActiveDoll, PlayerFaction));
@@ -36,6 +39,7 @@ public class CombatSystem {
         }
 
         Debug.Log($"[CombatSystem] Combat Started! Player vs {EnemyFaction.Fighters.Count} Monsters.");
+        _timeline.RecordCombatStarted(EnemyFaction.Fighters.Count);
         StartPlayerTurn();
     }
 
@@ -48,6 +52,7 @@ public class CombatSystem {
 
         _monsterActionState.AdvanceCooldownsForNewIntentRound();
         LockMonsterIntentsForPlayerTurn();
+        _timeline.RecordTurnStarted(FactionType.Player);
         CombatEventBus.Publish(CombatEventType.OnTurnStart, PlayerFaction);
 
         if (IsPlayerDefeated()) {
@@ -62,6 +67,7 @@ public class CombatSystem {
 
         ItemUseService.ClearPendingTargetSelection();
         Debug.Log("[CombatSystem] Player ends turn.");
+        _timeline.RecordTurnEnded(FactionType.Player);
         CombatEventBus.Publish(CombatEventType.OnTurnEnd, PlayerFaction);
         _monsterRuntimeModifiers.AdvancePlayerTurnEnd();
 
@@ -81,6 +87,7 @@ public class CombatSystem {
     public void StartEnemyTurn() {
         CurrentState = CombatState.EnemyTurn;
         ItemUseService.ClearPendingTargetSelection();
+        _timeline.RecordTurnStarted(FactionType.Enemy);
         CombatEventBus.Publish(CombatEventType.OnTurnStart, EnemyFaction);
 
         foreach (var fighter in EnemyFaction.Fighters) {
@@ -91,6 +98,7 @@ public class CombatSystem {
             }
         }
 
+        _timeline.RecordTurnEnded(FactionType.Enemy);
         CombatEventBus.Publish(CombatEventType.OnTurnEnd, EnemyFaction);
 
         if (!IsPlayerDefeated()) {
@@ -142,6 +150,11 @@ public class CombatSystem {
     }
 
     private void PrepareCombatOutcomeReport(CombatOutcomeType outcomeType) {
+        CombatDefeatReasonType defeatReason = outcomeType == CombatOutcomeType.Defeat
+            ? CombatDefeatConditionService.Evaluate(this).Reason
+            : CombatDefeatReasonType.None;
+        _timeline.RecordOutcome(outcomeType, defeatReason);
+
         LastOutcomeReport = outcomeType == CombatOutcomeType.Victory
             ? CombatOutcomeReportService.BuildVictory(this)
             : CombatOutcomeReportService.BuildDefeat(this);

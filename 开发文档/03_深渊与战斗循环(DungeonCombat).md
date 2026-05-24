@@ -539,10 +539,13 @@ CombatEventBus.OnCombatOutcomePrepared
 * `Title` / `Summary`：供占位 UI 或正式 UI 直接展示的短文本。
 * 玩家与敌方 `CombatOutcomeFighterSnapshot`：记录 HP、护盾、AP 和存活状态。
 * 当前人偶 HP / SAN 快照：用于战败复盘和后续失败反馈。
+* `TimelineEvents`：由 `CombatTimelineRecorder` 输出的只读战斗时间线，用于占位 UI 或正式 UI 展示战斗复盘。
+
+`CombatTimelineRecorder` 属于战斗领域数据层，不依赖 UI。它在战斗开始、回合开始 / 结束、伤害结算、怪物物品干涉和胜负结算时记录结构化事件。事件只保存 UI 可消费快照，不持有战斗对象引用，避免表现层在战斗清理后反查运行态。
 
 验收：
 
-* `CombatOutcomeReportSmokeTest.Run` 覆盖胜利报告、HP 战败报告、SAN 崩溃战败报告、事件派发和 `LastOutcomeReport` 快照一致性。
+* `CombatOutcomeReportSmokeTest.Run` 覆盖胜利报告、HP 战败报告、SAN 崩溃战败报告、事件派发、`TimelineEvents` 和 `LastOutcomeReport` 快照一致性。
 * 报告生成必须发生在 `PlayerFaction.Cleanup()` / `EnemyFaction.Cleanup()` 之前，避免清理监听或运行态后丢失复盘数据。
 
 ## 4. 战斗胜利奖励与 RewardSystem

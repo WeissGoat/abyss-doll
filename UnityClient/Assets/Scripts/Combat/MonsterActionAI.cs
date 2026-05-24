@@ -577,6 +577,14 @@ public class ReduceWeaponDamageAction : MonsterActionBase {
         context.RuntimeModifiers.AddWeaponDamageMultiplier(weapon, multiplier, durationPlayerTurns, Config.ActionID);
         GameEventBus.PublishAttackAction(context.Actor.Name, weapon.Name, Config.ActionID);
         Debug.Log($"[MonsterActionAI] {context.Actor.Name} reduced [{weapon.Name}] damage by multiplier {multiplier} for {durationPlayerTurns} player turn(s).");
+        context.Combat?.Timeline?.RecordItemInterference(
+            FactionType.Enemy,
+            context.Actor.Name,
+            weapon.Name,
+            Config.ActionID,
+            "武器腐蚀",
+            $"{context.Actor.Name} 腐蚀了 {weapon.Name}，伤害倍率 {multiplier}，持续 {durationPlayerTurns} 个玩家回合。",
+            weapon);
 
         if (context.ActiveDoll != null) {
             GridSolver.RecalculateAllEffects(context.ActiveDoll);
@@ -622,6 +630,16 @@ public class AddCursedItemAction : MonsterActionBase {
 
         GameEventBus.PublishAttackAction(context.Actor.Name, item.Name, Config.ActionID);
         GameEventBus.PublishItemPlaced(item.InstanceID, x, y);
+        context.Combat?.Timeline?.RecordItemInterference(
+            FactionType.Enemy,
+            context.Actor.Name,
+            item.Name,
+            Config.ActionID,
+            "塞入污染物",
+            $"{context.Actor.Name} 将 {item.Name} 塞入背包 ({x},{y})。",
+            item,
+            x,
+            y);
         if (context.ActiveDoll != null) {
             GridSolver.RecalculateAllEffects(context.ActiveDoll);
         }
