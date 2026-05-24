@@ -8,6 +8,7 @@ public class CombatSystem {
     public CombatFaction EnemyFaction;
 
     public CombatState CurrentState;
+    public CombatOutcomeReport LastOutcomeReport { get; private set; }
     public MonsterCombatModifierSystem MonsterRuntimeModifiers => _monsterRuntimeModifiers;
 
     private readonly MonsterActionRunner _monsterActionRunner = new MonsterActionRunner();
@@ -17,6 +18,7 @@ public class CombatSystem {
     public void StartCombat(List<string> monsterIDs) {
         Debug.Log("\n[CombatSystem] Initiating Combat!");
         ItemUseService.ClearPendingTargetSelection();
+        LastOutcomeReport = null;
         _monsterActionState.Reset();
         _monsterRuntimeModifiers.Clear();
 
@@ -96,6 +98,8 @@ public class CombatSystem {
             }
         }
 
+        PrepareCombatOutcomeReport(CombatOutcomeType.Victory);
+
         PlayerFaction.Cleanup();
         EnemyFaction.Cleanup();
         CleanupMonsterActionRuntime();
@@ -114,11 +118,22 @@ public class CombatSystem {
         ItemUseService.ClearPendingTargetSelection();
         Debug.Log("<color=red>[CombatSystem] Defeat! All player entities wiped out.</color>");
 
+        PrepareCombatOutcomeReport(CombatOutcomeType.Defeat);
+
         PlayerFaction.Cleanup();
         EnemyFaction.Cleanup();
         CleanupMonsterActionRuntime();
 
         DungeonEventBus.PublishDungeonDefeated();
+    }
+
+    private void PrepareCombatOutcomeReport(CombatOutcomeType outcomeType) {
+        LastOutcomeReport = outcomeType == CombatOutcomeType.Victory
+            ? CombatOutcomeReportService.BuildVictory(this)
+            : CombatOutcomeReportService.BuildDefeat(this);
+
+        CombatEventBus.PublishCombatOutcomePrepared(LastOutcomeReport);
+        Debug.Log($"[CombatSystem] Outcome prepared. Type={LastOutcomeReport.OutcomeType}, Reason={LastOutcomeReport.DefeatReason}, Summary={LastOutcomeReport.Summary}");
     }
 
     private MonsterActionContext BuildMonsterActionContext(MonsterFighter actor) {

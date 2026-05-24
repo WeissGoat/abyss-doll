@@ -502,6 +502,38 @@ private void HandleVictory() {
 }
 ```
 
+### 3.1 战斗结果报告
+
+战斗胜负确定后，`CombatSystem` 负责生成只读结果报告，并在清理战斗运行态前发布给表现层或流程层消费。UI 不应自行判断胜负原因，也不应为了展示结果反查或修改战斗状态。
+
+当前契约：
+
+```text
+CombatSystem.HandleVictory() / HandleDefeat()
+        |
+        v
+CombatOutcomeReportService.BuildVictory() / BuildDefeat()
+        |
+        v
+CombatSystem.LastOutcomeReport
+        |
+        v
+CombatEventBus.OnCombatOutcomePrepared
+```
+
+`CombatOutcomeReport` 至少包含：
+
+* `OutcomeType`：胜利 / 战败。
+* `DefeatReason`：HP 归零、SAN 崩溃、HP 与 SAN 同时归零、玩家阵营全灭或未知。
+* `Title` / `Summary`：供占位 UI 或正式 UI 直接展示的短文本。
+* 玩家与敌方 `CombatOutcomeFighterSnapshot`：记录 HP、护盾、AP 和存活状态。
+* 当前人偶 HP / SAN 快照：用于战败复盘和后续失败反馈。
+
+验收：
+
+* `CombatOutcomeReportSmokeTest.Run` 覆盖胜利报告、HP 战败报告、事件派发和 `LastOutcomeReport` 快照一致性。
+* 报告生成必须发生在 `PlayerFaction.Cleanup()` / `EnemyFaction.Cleanup()` 之前，避免清理监听或运行态后丢失复盘数据。
+
 ## 4. 战斗胜利奖励与 RewardSystem
 
 战斗胜利后的奖励不应由 `CombatNode` 直接维护权重随机。`CombatNode` 的职责是“根据当前战斗来源请求奖励，并把奖励交给拾取界面”，具体保底、权重、空掉落、组合奖励由 `RewardSystem` 负责。
