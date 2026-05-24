@@ -351,6 +351,52 @@
       "ProgramUse": "每日账单、收入支出和欠债压力的小图标。"
     },
     {
+      "ComponentID": "Icon.Income",
+      "DisplayName": "收入图标",
+      "VisualID": "ui_icon_income",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "daily_bill_report"
+      ],
+      "ProgramUse": "每日账单中表达总收入、出售收入、订单收入和当日进账的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Expense",
+      "DisplayName": "支出图标",
+      "VisualID": "ui_icon_expense",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "daily_bill_report"
+      ],
+      "ProgramUse": "每日账单中表达维护费、材料费、经营成本和当日出账的小图标。"
+    },
+    {
+      "ComponentID": "Icon.DebtRent",
+      "DisplayName": "月租债务图标",
+      "VisualID": "ui_icon_debt_rent",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal",
+        "hidden_runtime_tint"
+      ],
+      "RequiredForScreens": [
+        "daily_bill_report"
+      ],
+      "ProgramUse": "每日账单中表达月租进度、欠债压力、到期账单和不可支付风险的小图标。"
+    },
+    {
       "ComponentID": "Icon.BlackMarket",
       "DisplayName": "黑市渠道图标",
       "VisualID": "ui_icon_black_market",

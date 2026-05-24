@@ -4326,6 +4326,65 @@
       "SourceType": "preset",
       "DeriveRule": "art requirements seed preset",
       "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_debt_rent",
+      "DisplayName": "月租债务图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_debt_rent",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_debt_rent.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：每日账单需要把月租/债务压力从通用警告图标中拆出，方便区分长期压力和普通危险提示。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。月租债务图标，折叠账单被黄铜钥匙和红蜡封压住，带小硬币标记，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, rent debt pressure symbol, folded invoice pinned by a brass key and red wax seal, small coin mark, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "local_v0_daily_bill_readability_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_debt_rent.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_debt_rent.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T04:27:50+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_debt_rent.png; formal AI replacement remains required.",
+      "PresetCategory": "ui_status_icon",
+      "Screen": "daily_bill_report",
+      "Usage": "每日账单月租进度、欠债压力、到期账单和不可支付风险",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T04:27:50+08:00"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
       "ConfigID": "icon_dive_permit",
       "DisplayName": "下潜许可图标",
       "AssetType": "icon",
@@ -4379,6 +4438,124 @@
       "Usage": "维护界面下潜许可、出发前检查、允许下潜状态恢复",
       "QualityTier": "local_v0",
       "QualityUpdatedAt": "2026-05-25T04:08:11+08:00"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_expense",
+      "DisplayName": "支出图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_expense",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：每日账单需要把支出从通用金币图标中拆出，方便区分出账和当前余额。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。支出图标，黄铜硬币从旧账本托盘滑出，带低饱和红色下行标记，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, expense symbol, brass coin leaving a small worn ledger tray, muted red downward marker, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "local_v0_daily_bill_readability_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T04:27:50+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png; formal AI replacement remains required.",
+      "PresetCategory": "ui_status_icon",
+      "Screen": "daily_bill_report",
+      "Usage": "每日账单总支出、维护费、材料费和经营成本",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T04:27:50+08:00"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_income",
+      "DisplayName": "收入图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_income",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_income.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：每日账单需要把收入从通用金币图标中拆出，方便区分进账和当前余额。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。收入图标，叠放黄铜硬币旁有绿色上升火花和小齿轮印记，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, income symbol, stacked brass coins rising beside a small green upward spark, tiny gear stamp, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "local_v0_daily_bill_readability_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_income.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_income.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T04:27:50+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_income.png; formal AI replacement remains required.",
+      "PresetCategory": "ui_status_icon",
+      "Screen": "daily_bill_report",
+      "Usage": "每日账单总收入、出售收入、订单收入和当日进账",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T04:27:50+08:00"
     },
     {
       "Domain": "ui",

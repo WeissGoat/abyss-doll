@@ -436,6 +436,39 @@ def draw_icon_dive_permit(c: Canvas) -> None:
     c.line([(0.36, 0.78), (0.64, 0.78)], rgba("brass_light", 180), 0.012)
 
 
+def draw_icon_income(c: Canvas) -> None:
+    draw_badge(c, rgba("green", 65))
+    c.ellipse((0.28, 0.57, 0.50, 0.72), rgba("brass"), rgba("brass_light"), 0.008)
+    c.ellipse((0.36, 0.48, 0.58, 0.63), rgba("brass_light"), rgba("brass_dark"), 0.008)
+    c.ellipse((0.45, 0.39, 0.67, 0.54), rgba("brass"), rgba("brass_light"), 0.008)
+    c.polygon([(0.61, 0.66), (0.61, 0.36), (0.52, 0.36), (0.70, 0.17), (0.88, 0.36), (0.78, 0.36), (0.78, 0.66)], rgba("green"), rgba("brass_light"))
+    c.ellipse((0.31, 0.31, 0.43, 0.43), rgba("brass_light", 220), rgba("brass_dark"), 0.006)
+    c.line([(0.35, 0.37), (0.39, 0.37)], rgba("brass_dark", 190), 0.007)
+
+
+def draw_icon_expense(c: Canvas) -> None:
+    draw_badge(c, rgba("red", 65))
+    c.round_rect((0.26, 0.45, 0.66, 0.70), 0.035, rgba("metal"), rgba("brass_light"), 0.012)
+    c.line([(0.32, 0.50), (0.57, 0.50)], rgba("cream", 160), 0.008)
+    c.line([(0.32, 0.58), (0.52, 0.58)], rgba("cream", 130), 0.007)
+    c.ellipse((0.55, 0.31, 0.77, 0.46), rgba("brass"), rgba("brass_light"), 0.008)
+    c.polygon([(0.65, 0.36), (0.84, 0.36), (0.84, 0.27), (0.95, 0.43), (0.84, 0.59), (0.84, 0.50), (0.65, 0.50)], rgba("red"), rgba("brass_light"))
+    c.line([(0.32, 0.78), (0.68, 0.78)], rgba("brass_light", 170), 0.012)
+
+
+def draw_icon_debt_rent(c: Canvas) -> None:
+    draw_badge(c, rgba("orange", 70))
+    c.round_rect((0.30, 0.30, 0.67, 0.70), 0.025, rgba("cream"), rgba("brass_light"), 0.012)
+    c.line([(0.36, 0.41), (0.58, 0.41)], rgba("brass_dark", 150), 0.007)
+    c.line([(0.36, 0.51), (0.55, 0.51)], rgba("brass_dark", 135), 0.007)
+    c.ellipse((0.58, 0.56, 0.75, 0.73), rgba("red"), rgba("brass_dark"), 0.007)
+    c.line([(0.63, 0.60), (0.70, 0.69)], rgba("brass_light", 210), 0.008)
+    c.ellipse((0.22, 0.39, 0.38, 0.55), rgba("brass"), rgba("brass_light"), 0.008)
+    c.line([(0.35, 0.37), (0.52, 0.24)], rgba("brass_light"), 0.018)
+    c.ellipse((0.49, 0.20, 0.61, 0.32), (0, 0, 0, 0), rgba("brass_light"), 0.011)
+    c.line([(0.52, 0.24), (0.59, 0.24)], rgba("brass_light"), 0.01)
+
+
 def draw_icon_blueprint(c: Canvas) -> None:
     draw_badge(c, rgba("blue", 65))
     c.round_rect((0.28, 0.28, 0.72, 0.72), 0.035, rgba("blue", 165), rgba("brass_light"), 0.012)
@@ -519,6 +552,9 @@ DRAWERS = {
     "ui_icon_chassis_upgrade": draw_icon_chassis_upgrade,
     "ui_icon_corruption_purify": draw_icon_corruption_purify,
     "ui_icon_dive_permit": draw_icon_dive_permit,
+    "ui_icon_debt_rent": draw_icon_debt_rent,
+    "ui_icon_expense": draw_icon_expense,
+    "ui_icon_income": draw_icon_income,
     "ui_icon_business_settlement": draw_icon_business_settlement,
     "ui_icon_customer": draw_icon_customer,
     "ui_icon_material_need": draw_icon_material_need,

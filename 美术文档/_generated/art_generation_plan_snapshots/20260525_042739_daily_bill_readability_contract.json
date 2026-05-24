@@ -1,0 +1,236 @@
+{
+  "GeneratedAt": "2026-05-25T04:27:39+08:00",
+  "SnapshotTag": "daily_bill_readability_contract",
+  "Inputs": {
+    "IntegrationCandidatesPath": "美术文档/_generated/可接入素材清单.json",
+    "ManifestPath": "美术文档/_generated/art_manifest.json"
+  },
+  "RunConfig": {
+    "Provider": "novelai",
+    "BatchID": "nai_missing_assets_20260525_06",
+    "StatusFilter": "prompted",
+    "ActionFilter": "generate_needed",
+    "Variants": 4,
+    "DelaySeconds": 1.0,
+    "SerialRequired": true,
+    "LastProbeBatchID": "nai_visual_v2_probe_20260525_01",
+    "LastProbeNote": "NovelAI HTTP 402 Anlas 不足；本批先用 local_v0 解锁接入，正式 AI 版走 Visual V2。"
+  },
+  "Summary": {
+    "TotalCandidateItems": 3,
+    "PlannedItems": 3,
+    "PromptReadyItems": 3,
+    "MissingManifestEntries": [],
+    "PriorityCounts": {
+      "P1": 3
+    },
+    "DomainCounts": {
+      "ui": 3
+    },
+    "SizeCounts": {
+      "512x512": 3
+    }
+  },
+  "BatchCommands": {
+    "RunAllGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID ui_icon_debt_rent,ui_icon_expense,ui_icon_income -Variants 4 -DelaySeconds 1 -BatchID nai_missing_assets_20260525_06",
+    "OptimizeAllAfterGeneration": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -BatchID nai_missing_assets_20260525_06 -Overwrite",
+    "SyncAllAfterReviewOrFallback": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -BatchID nai_missing_assets_20260525_06 -AllowProcessedFallback -Overwrite",
+    "RefreshIntegration": ".\\tools\\美术工具\\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag nai_missing_assets_20260525_06",
+    "RefreshQuality": ".\\tools\\美术工具\\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag nai_missing_assets_20260525_06",
+    "RefreshPlan": ".\\tools\\美术工具\\Generate-ArtBatchPlan.ps1 -Snapshot -SnapshotTag nai_missing_assets_20260525_06_after -BatchID nai_missing_assets_20260525_06"
+  },
+  "Items": [
+    {
+      "VisualID": "ui_icon_debt_rent",
+      "Order": 1,
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "月租债务图标",
+      "ConfigID": "icon_debt_rent",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。月租债务图标，折叠账单被黄铜钥匙和红蜡封压住，带小硬币标记，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, rent debt pressure symbol, folded invoice pinned by a brass key and red wax seal, small coin mark, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_debt_rent.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/ui_icon_debt_rent",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/ui_icon_debt_rent/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/ui_icon_debt_rent/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/ui_icon_debt_rent/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/ui_icon_debt_rent/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:daily_bill_report"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID ui_icon_debt_rent -Variants 4 -DelaySeconds 1 -BatchID nai_missing_assets_20260525_06",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID ui_icon_debt_rent -BatchID nai_missing_assets_20260525_06 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID ui_icon_debt_rent -BatchID nai_missing_assets_20260525_06 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "ui_icon_expense",
+      "Order": 2,
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "支出图标",
+      "ConfigID": "icon_expense",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。支出图标，黄铜硬币从旧账本托盘滑出，带低饱和红色下行标记，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, expense symbol, brass coin leaving a small worn ledger tray, muted red downward marker, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/ui_icon_expense",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/ui_icon_expense/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/ui_icon_expense/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/ui_icon_expense/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/ui_icon_expense/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:daily_bill_report"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID ui_icon_expense -Variants 4 -DelaySeconds 1 -BatchID nai_missing_assets_20260525_06",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID ui_icon_expense -BatchID nai_missing_assets_20260525_06 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID ui_icon_expense -BatchID nai_missing_assets_20260525_06 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "ui_icon_income",
+      "Order": 3,
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "收入图标",
+      "ConfigID": "icon_income",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。收入图标，叠放黄铜硬币旁有绿色上升火花和小齿轮印记，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, income symbol, stacked brass coins rising beside a small green upward spark, tiny gear stamp, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_income.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/ui_icon_income",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/ui_icon_income/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/ui_icon_income/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/ui_icon_income/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/ui_icon_income/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:daily_bill_report"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID ui_icon_income -Variants 4 -DelaySeconds 1 -BatchID nai_missing_assets_20260525_06",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID ui_icon_income -BatchID nai_missing_assets_20260525_06 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID ui_icon_income -BatchID nai_missing_assets_20260525_06 -AllowProcessedFallback -Overwrite"
+      }
+    }
+  ]
+}

@@ -4,16 +4,16 @@
 
 ## Summary
 
-* GeneratedAt: `2026-05-25T04:28:07+08:00`
+* GeneratedAt: `2026-05-25T04:27:27+08:00`
 * Manifest entries: `129`
 * Unique VisualIDs: `128`
 * Candidate entries: `127`
-* Program integrate: `45`
+* Program integrate: `42`
 * Acceptance needed: `82`
 * Art approve: `0`
 * Art select: `0`
 * Art process: `0`
-* Generate needed: `0`
+* Generate needed: `3`
 
 ## Program Integrate
 
@@ -41,10 +41,7 @@
 | P1 | `ui_combat_status_curse` | ui | 诅咒状态图标 | preset:美术文档/art_requirements_seed.json, screen:combat_hud | UnityClient/Assets/Art/Approved/UI/ui_combat_status_curse.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P1 | `ui_combat_status_stun` | ui | 眩晕状态图标 | preset:美术文档/art_requirements_seed.json, screen:combat_hud | UnityClient/Assets/Art/Approved/UI/ui_combat_status_stun.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P1 | `ui_icon_corruption_purify` | ui | 侵蚀净化图标 | preset:美术文档/art_requirements_seed.json, screen:maintenance_panel | UnityClient/Assets/Art/Approved/UI/ui_icon_corruption_purify.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P1 | `ui_icon_debt_rent` | ui | 月租债务图标 | preset:美术文档/art_requirements_seed.json, screen:daily_bill_report | UnityClient/Assets/Art/Approved/UI/ui_icon_debt_rent.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P1 | `ui_icon_dive_permit` | ui | 下潜许可图标 | preset:美术文档/art_requirements_seed.json, screen:maintenance_panel | UnityClient/Assets/Art/Approved/UI/ui_icon_dive_permit.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P1 | `ui_icon_expense` | ui | 支出图标 | preset:美术文档/art_requirements_seed.json, screen:daily_bill_report | UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P1 | `ui_icon_income` | ui | 收入图标 | preset:美术文档/art_requirements_seed.json, screen:daily_bill_report | UnityClient/Assets/Art/Approved/UI/ui_icon_income.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P1 | `ui_icon_wear_repair` | ui | 磨损修复图标 | preset:美术文档/art_requirements_seed.json, screen:maintenance_panel | UnityClient/Assets/Art/Approved/UI/ui_icon_wear_repair.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `bg_doll_room_attic` | background | 人偶阁楼房间背景 | preset:美术文档/art_requirements_seed.json, screen:doll_room | UnityClient/Assets/Art/Approved/Backgrounds/DollRoom/bg_doll_room_attic.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `ui_icon_blueprint` | ui | 蓝图图标 | preset:美术文档/art_requirements_seed.json, screen:chassis_upgrade_panel | UnityClient/Assets/Art/Approved/UI/ui_icon_blueprint.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
@@ -151,6 +148,9 @@
 | `acceptance_needed` | P2 | `ui_settlement_defeat_panel` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_settlement_defeat_panel.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_settlement_victory_panel` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_settlement_victory_panel.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_title_divider` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_title_divider.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
+| `generate_needed` | P1 | `ui_icon_debt_rent` | `prompted` | missing | UnityClient/Assets/Art/Approved/UI/ui_icon_debt_rent.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P1 | `ui_icon_expense` | `prompted` | missing | UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P1 | `ui_icon_income` | `prompted` | missing | UnityClient/Assets/Art/Approved/UI/ui_icon_income.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
 
 ## Action Meanings
 

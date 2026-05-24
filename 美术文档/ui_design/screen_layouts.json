@@ -4315,6 +4315,9 @@
         "Icon.Bill",
         "Icon.Warning",
         "Icon.Money",
+        "Icon.Income",
+        "Icon.Expense",
+        "Icon.DebtRent",
         "Title.Divider"
       ],
       "RequiredVisualIDs": [
@@ -4328,6 +4331,9 @@
         "ui_icon_bill",
         "ui_icon_warning",
         "ui_icon_money",
+        "ui_icon_income",
+        "ui_icon_expense",
+        "ui_icon_debt_rent",
         "ui_title_divider",
         "bg_workshop_day"
       ],
@@ -4391,7 +4397,10 @@
           "ComponentRefs": [
             "Panel.Info",
             "Icon.Money",
-            "Icon.Bill"
+            "Icon.Bill",
+            "Icon.Income",
+            "Icon.Expense",
+            "Icon.DebtRent"
           ],
           "Notes": "作为玩家最先看的经济结论。"
         },
@@ -4407,7 +4416,8 @@
           },
           "ComponentRefs": [
             "Panel.Info",
-            "Icon.Warning"
+            "Icon.Warning",
+            "Icon.DebtRent"
           ],
           "Notes": "仅在有风险时高亮，常态可降亮或折叠。"
         },
@@ -4441,7 +4451,10 @@
           "ComponentRefs": [
             "Panel.Info",
             "List.Row.Normal",
-            "Icon.Money"
+            "Icon.Money",
+            "Icon.Income",
+            "Icon.Expense",
+            "Icon.DebtRent"
           ],
           "Notes": "第一版可使用两组列表或一组带类型标签的列表。"
         },
@@ -4592,6 +4605,33 @@
           "RaycastTarget": false
         },
         {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/IncomeIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Income",
+          "VisualID": "ui_icon_income",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/ExpenseIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Expense",
+          "VisualID": "ui_icon_expense",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/DebtRentIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.DebtRent",
+          "VisualID": "ui_icon_debt_rent",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
           "Path": "DailyBillReportPanel_Runtime/BillCard_Image/PressureWarningPanel",
           "Layer": "MainPanel",
           "ComponentRef": "Panel.Info",
@@ -4604,6 +4644,15 @@
           "Layer": "MainPanel",
           "ComponentRef": "Icon.Warning",
           "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/PressureWarningPanel/DebtRentIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.DebtRent",
+          "VisualID": "ui_icon_debt_rent",
           "ImageType": "Simple",
           "FitMode": "contain",
           "RaycastTarget": false
@@ -4638,6 +4687,24 @@
           "ComponentRef": "List.Row.Normal",
           "VisualID": "ui_list_row_normal",
           "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/IncomeExpenseListPanel/IncomeIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Income",
+          "VisualID": "ui_icon_income",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "DailyBillReportPanel_Runtime/BillCard_Image/IncomeExpenseListPanel/ExpenseIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Expense",
+          "VisualID": "ui_icon_expense",
+          "ImageType": "Simple",
+          "FitMode": "contain",
           "RaycastTarget": false
         },
         {
@@ -4712,9 +4779,41 @@
           "RaycastTarget": false
         },
         {
+          "Target": "SummaryPanel/IncomeIcon_Image",
+          "ComponentRef": "Icon.Income",
+          "VisualID": "ui_icon_income",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SummaryPanel/ExpenseIcon_Image",
+          "ComponentRef": "Icon.Expense",
+          "VisualID": "ui_icon_expense",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SummaryPanel/DebtRentIcon_Image",
+          "ComponentRef": "Icon.DebtRent",
+          "VisualID": "ui_icon_debt_rent",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
           "Target": "WarningIcon_Image",
           "ComponentRef": "Icon.Warning",
           "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "PressureWarningPanel/DebtRentIcon_Image",
+          "ComponentRef": "Icon.DebtRent",
+          "VisualID": "ui_icon_debt_rent",
           "ImageType": "Simple",
           "FitMode": "contain",
           "RaycastTarget": false
@@ -4770,6 +4869,22 @@
           "RaycastTarget": false
         },
         {
+          "Target": "IncomeExpenseListPanel/IncomeIcon_Image",
+          "ComponentRef": "Icon.Income",
+          "VisualID": "ui_icon_income",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "IncomeExpenseListPanel/ExpenseIcon_Image",
+          "ComponentRef": "Icon.Expense",
+          "VisualID": "ui_icon_expense",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
           "Target": "ActionPanel.Image",
           "ComponentRef": "Panel.Main",
           "VisualID": "ui_panel_main",
@@ -4800,6 +4915,7 @@
       ],
       "AcceptanceCriteria": [
         "账单界面打开后能一眼看到今日净收益、总收入、总支出、当前金币和下一次压力。",
+        "总收入、总支出和月租/债务压力分别使用独立图标，不再只复用金币或警告图标。",
         "收入/支出明细至少展示 1 条列表行，行底板不阻挡滚动或按钮。",
         "欠债、即将到期、未售出高风险物品使用 warning 图标或运行时 tint 表达。",
         "继续下一天是主行动，返回工坊/出售是次行动，延后付款是危险行动。",

@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-05-25T04:28:07+08:00",
-  "SnapshotTag": "local_v0_daily_bill_readability_20260525_01",
+  "GeneratedAt": "2026-05-25T04:27:27+08:00",
+  "SnapshotTag": "daily_bill_readability_contract",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",
@@ -13,7 +13,8 @@
     "TotalCandidates": 127,
     "ActionCounts": {
       "acceptance_needed": 82,
-      "program_integrate": 45
+      "generate_needed": 3,
+      "program_integrate": 42
     },
     "DomainCounts": {
       "background": 11,
@@ -579,31 +580,6 @@
       "ManifestEntryCount": 1
     },
     {
-      "VisualID": "ui_icon_debt_rent",
-      "Action": "program_integrate",
-      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。",
-      "Confidence": "high",
-      "Priority": "P1",
-      "Domain": "ui",
-      "AssetType": "icon",
-      "ConfigID": "icon_debt_rent",
-      "DisplayName": "月租债务图标",
-      "Status": "approved",
-      "RegistryStatus": "unregistered",
-      "RegistryHasSprite": false,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_debt_rent.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "",
-      "ProcessedCandidate": "",
-      "RawCandidate": "",
-      "ReferencedBy": [
-        "preset:美术文档/art_requirements_seed.json",
-        "screen:daily_bill_report"
-      ],
-      "ManifestEntryCount": 1
-    },
-    {
       "VisualID": "ui_icon_dive_permit",
       "Action": "program_integrate",
       "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。",
@@ -625,56 +601,6 @@
       "ReferencedBy": [
         "preset:美术文档/art_requirements_seed.json",
         "screen:maintenance_panel"
-      ],
-      "ManifestEntryCount": 1
-    },
-    {
-      "VisualID": "ui_icon_expense",
-      "Action": "program_integrate",
-      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。",
-      "Confidence": "high",
-      "Priority": "P1",
-      "Domain": "ui",
-      "AssetType": "icon",
-      "ConfigID": "icon_expense",
-      "DisplayName": "支出图标",
-      "Status": "approved",
-      "RegistryStatus": "unregistered",
-      "RegistryHasSprite": false,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "",
-      "ProcessedCandidate": "",
-      "RawCandidate": "",
-      "ReferencedBy": [
-        "preset:美术文档/art_requirements_seed.json",
-        "screen:daily_bill_report"
-      ],
-      "ManifestEntryCount": 1
-    },
-    {
-      "VisualID": "ui_icon_income",
-      "Action": "program_integrate",
-      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。",
-      "Confidence": "high",
-      "Priority": "P1",
-      "Domain": "ui",
-      "AssetType": "icon",
-      "ConfigID": "icon_income",
-      "DisplayName": "收入图标",
-      "Status": "approved",
-      "RegistryStatus": "unregistered",
-      "RegistryHasSprite": false,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_income.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "",
-      "ProcessedCandidate": "",
-      "RawCandidate": "",
-      "ReferencedBy": [
-        "preset:美术文档/art_requirements_seed.json",
-        "screen:daily_bill_report"
       ],
       "ManifestEntryCount": 1
     },
@@ -3355,6 +3281,81 @@
         "screen:sell_panel",
         "screen:settlement",
         "screen:shop_staging"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "ui_icon_debt_rent",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "ConfigID": "icon_debt_rent",
+      "DisplayName": "月租债务图标",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_debt_rent.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:daily_bill_report"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "ui_icon_expense",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "ConfigID": "icon_expense",
+      "DisplayName": "支出图标",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:daily_bill_report"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "ui_icon_income",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "ConfigID": "icon_income",
+      "DisplayName": "收入图标",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_income.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:daily_bill_report"
       ],
       "ManifestEntryCount": 1
     }

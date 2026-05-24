@@ -18,7 +18,7 @@
 | `monster` | 8 |
 | `node` | 8 |
 | `prosthetic` | 2 |
-| `ui` | 80 |
+| `ui` | 83 |
 
 ## 资产列表
 
@@ -98,11 +98,14 @@
 | `ui` | `combat_status_stun` | 眩晕状态图标 | `icon` | `ui_combat_status_stun` | P1 | `approved` |
 | `ui` | `combat_target_ring` | 战斗目标选择光环 | `ring` | `ui_combat_target_ring` | P1 | `approved` |
 | `ui` | `icon_bill` | 账单图标 | `icon` | `ui_icon_bill` | P1 | `approved` |
-| `ui` | `icon_corruption_purify` | 侵蚀净化图标 | `icon` | `ui_icon_corruption_purify` | P1 | `todo` |
-| `ui` | `icon_dive_permit` | 下潜许可图标 | `icon` | `ui_icon_dive_permit` | P1 | `todo` |
+| `ui` | `icon_corruption_purify` | 侵蚀净化图标 | `icon` | `ui_icon_corruption_purify` | P1 | `approved` |
+| `ui` | `icon_debt_rent` | 月租债务图标 | `icon` | `ui_icon_debt_rent` | P1 | `todo` |
+| `ui` | `icon_dive_permit` | 下潜许可图标 | `icon` | `ui_icon_dive_permit` | P1 | `approved` |
+| `ui` | `icon_expense` | 支出图标 | `icon` | `ui_icon_expense` | P1 | `todo` |
+| `ui` | `icon_income` | 收入图标 | `icon` | `ui_icon_income` | P1 | `todo` |
 | `ui` | `icon_maintenance` | 维护状态图标 | `icon` | `ui_icon_maintenance` | P1 | `approved` |
 | `ui` | `icon_warning` | 警告图标 | `icon` | `ui_icon_warning` | P1 | `approved` |
-| `ui` | `icon_wear_repair` | 磨损修复图标 | `icon` | `ui_icon_wear_repair` | P1 | `todo` |
+| `ui` | `icon_wear_repair` | 磨损修复图标 | `icon` | `ui_icon_wear_repair` | P1 | `approved` |
 | `ui` | `inventory_chassis_panel` | 背包底盘面板 | `panel` | `ui_inventory_chassis_panel` | P1 | `approved` |
 | `ui` | `inventory_slot_available` | 背包可用格 | `slot` | `ui_inventory_slot_available` | P1 | `approved` |
 | `ui` | `inventory_slot_hover` | 背包悬停格 | `slot` | `ui_inventory_slot_hover` | P1 | `approved` |

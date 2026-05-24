@@ -5,7 +5,7 @@
 ## Summary
 
 * Reference resolution: `1920x1080`
-* Components: `63`
+* Components: `66`
 * Screens: `21`
 
 ## Screens
@@ -23,7 +23,7 @@
 | `P1` | `safe_room` | 深渊安全区界面 | `active_spec` | 7 | 12 |
 | `P1` | `stairs_room` | 深渊阶梯房间界面 | `active_spec` | 7 | 12 |
 | `P1` | `maintenance_panel` | 机体维护整备界面 | `active_spec` | 13 | 14 |
-| `P1` | `daily_bill_report` | 每日账单报告界面 | `active_spec` | 11 | 12 |
+| `P1` | `daily_bill_report` | 每日账单报告界面 | `active_spec` | 14 | 15 |
 | `P2` | `shop_staging` | 出货分配界面 | `active_spec` | 13 | 14 |
 | `P2` | `order_board` | 势力订单板界面 | `active_spec` | 13 | 14 |
 | `P2` | `rumor_board` | 传闻情报板界面 | `active_spec` | 12 | 13 |
@@ -55,6 +55,9 @@
 | `P1` | `Combat.JunkPreviewMarker` | `ui_combat_junk_preview_marker` | `fixed` | `combat_hud` |
 | `P1` | `Combat.TurnBanner` | `ui_combat_turn_banner` | `nine_slice` | `combat_hud` |
 | `P1` | `Icon.Bill` | `ui_icon_bill` | `fixed` | `daily_bill_report` |
+| `P1` | `Icon.Income` | `ui_icon_income` | `fixed` | `daily_bill_report` |
+| `P1` | `Icon.Expense` | `ui_icon_expense` | `fixed` | `daily_bill_report` |
+| `P1` | `Icon.DebtRent` | `ui_icon_debt_rent` | `fixed` | `daily_bill_report` |
 | `P2` | `Icon.BlackMarket` | `ui_icon_black_market` | `fixed` | `shop_staging`, `faction_shop` |
 | `P2` | `Icon.Deadline` | `ui_icon_deadline` | `fixed` | `order_board` |
 | `P2` | `Icon.Diary` | `ui_icon_diary` | `fixed` | `doll_room` |
@@ -1031,10 +1034,10 @@ Zones:
 | `bill_background` | full_screen | 0,0 1920x1080 |  | 复用工坊背景，表现每日收账后的局外空间。 |
 | `bill_card` | center | 340,100 1240x880 | `Panel.Main` | 每日账单主容器，承载总结、收支明细、压力预警和行动按钮。 |
 | `bill_header` | top_center | 400,140 1120x120 | `Panel.Info`, `Icon.Bill`, `Icon.Money`, `Title.Divider` | 标题、日期、账单图标、当前金币和标题分隔。 |
-| `bill_summary_panel` | left_top | 400,290 520x250 | `Panel.Info`, `Icon.Money`, `Icon.Bill` | 今日净收益、总收入、总支出、租金进度和维护成本摘要。 |
-| `pressure_warning_panel` | left_middle | 400,570 520x190 | `Panel.Info`, `Icon.Warning` | 欠债风险、即将到期账单、不可支付项和明日压力提示。 |
+| `bill_summary_panel` | left_top | 400,290 520x250 | `Panel.Info`, `Icon.Money`, `Icon.Bill`, `Icon.Income`, `Icon.Expense`, `Icon.DebtRent` | 今日净收益、总收入、总支出、租金进度和维护成本摘要。 |
+| `pressure_warning_panel` | left_middle | 400,570 520x190 | `Panel.Info`, `Icon.Warning`, `Icon.DebtRent` | 欠债风险、即将到期账单、不可支付项和明日压力提示。 |
 | `unsold_goods_panel` | left_bottom | 400,790 520x140 | `Panel.Info`, `List.Row.Selected`, `Icon.Warning` | 未售出物、滞留物品、违禁品隔夜代价和建议处理入口。 |
-| `income_expense_list` | right_middle | 960,290 560x500 | `Panel.Info`, `List.Row.Normal`, `Icon.Money` | 收入、支出、维护、租金、出售收益等明细列表。 |
+| `income_expense_list` | right_middle | 960,290 560x500 | `Panel.Info`, `List.Row.Normal`, `Icon.Money`, `Icon.Income`, `Icon.Expense`, `Icon.DebtRent` | 收入、支出、维护、租金、出售收益等明细列表。 |
 | `bill_action_panel` | right_bottom | 960,820 560x110 | `Panel.Main`, `Button.Primary`, `Button.Secondary`, `Button.Danger` | 继续下一天、返回工坊处理、延后付款/承担风险。 |
 
 Layout changes:
@@ -1070,12 +1073,18 @@ Unity hierarchy:
 | `DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/BillIcon_Image` | MainPanel | `Icon.Bill` | `ui_icon_bill` | Simple | contain | False |
 | `DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/MoneyIcon_Image` | MainPanel | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/IncomeIcon_Image` | MainPanel | `Icon.Income` | `ui_icon_income` | Simple | contain | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/ExpenseIcon_Image` | MainPanel | `Icon.Expense` | `ui_icon_expense` | Simple | contain | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/DebtRentIcon_Image` | MainPanel | `Icon.DebtRent` | `ui_icon_debt_rent` | Simple | contain | False |
 | `DailyBillReportPanel_Runtime/BillCard_Image/PressureWarningPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `DailyBillReportPanel_Runtime/BillCard_Image/PressureWarningPanel/WarningIcon_Image` | MainPanel | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/PressureWarningPanel/DebtRentIcon_Image` | MainPanel | `Icon.DebtRent` | `ui_icon_debt_rent` | Simple | contain | False |
 | `DailyBillReportPanel_Runtime/BillCard_Image/UnsoldGoodsPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `DailyBillReportPanel_Runtime/BillCard_Image/UnsoldGoodsPanel/UnsoldRow_Template` | MainPanel | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | False |
 | `DailyBillReportPanel_Runtime/BillCard_Image/IncomeExpenseListPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `DailyBillReportPanel_Runtime/BillCard_Image/IncomeExpenseListPanel/BillRow_Template` | MainPanel | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/IncomeExpenseListPanel/IncomeIcon_Image` | MainPanel | `Icon.Income` | `ui_icon_income` | Simple | contain | False |
+| `DailyBillReportPanel_Runtime/BillCard_Image/IncomeExpenseListPanel/ExpenseIcon_Image` | MainPanel | `Icon.Expense` | `ui_icon_expense` | Simple | contain | False |
 | `DailyBillReportPanel_Runtime/BillCard_Image/ActionPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
 | `DailyBillReportPanel_Runtime/BillCard_Image/ActionPanel/Continue_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
 | `DailyBillReportPanel_Runtime/BillCard_Image/ActionPanel/ReviewSell_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
@@ -1089,7 +1098,11 @@ Sprite assignments:
 | `HeaderPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `BillIcon_Image` | `Icon.Bill` | `ui_icon_bill` | Simple | contain | False |
 | `MoneyIcon_Image` | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `SummaryPanel/IncomeIcon_Image` | `Icon.Income` | `ui_icon_income` | Simple | contain | False |
+| `SummaryPanel/ExpenseIcon_Image` | `Icon.Expense` | `ui_icon_expense` | Simple | contain | False |
+| `SummaryPanel/DebtRentIcon_Image` | `Icon.DebtRent` | `ui_icon_debt_rent` | Simple | contain | False |
 | `WarningIcon_Image` | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `PressureWarningPanel/DebtRentIcon_Image` | `Icon.DebtRent` | `ui_icon_debt_rent` | Simple | contain | False |
 | `TitleDivider_Image` | `Title.Divider` | `ui_title_divider` | Simple | stretch | False |
 | `SummaryPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `PressureWarningPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
@@ -1097,6 +1110,8 @@ Sprite assignments:
 | `UnsoldRow_Template.Image` | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | False |
 | `IncomeExpenseListPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `BillRow_Template.Image` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `IncomeExpenseListPanel/IncomeIcon_Image` | `Icon.Income` | `ui_icon_income` | Simple | contain | False |
+| `IncomeExpenseListPanel/ExpenseIcon_Image` | `Icon.Expense` | `ui_icon_expense` | Simple | contain | False |
 | `ActionPanel.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
 | `Continue_Button.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
 | `ReviewSell_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
@@ -1104,6 +1119,7 @@ Sprite assignments:
 
 Acceptance criteria:
 * 账单界面打开后能一眼看到今日净收益、总收入、总支出、当前金币和下一次压力。
+* 总收入、总支出和月租/债务压力分别使用独立图标，不再只复用金币或警告图标。
 * 收入/支出明细至少展示 1 条列表行，行底板不阻挡滚动或按钮。
 * 欠债、即将到期、未售出高风险物品使用 warning 图标或运行时 tint 表达。
 * 继续下一天是主行动，返回工坊/出售是次行动，延后付款是危险行动。
@@ -1840,4 +1856,4 @@ Acceptance criteria:
 
 ## Known VisualID Sources
 
-* Known VisualID count: `125`
+* Known VisualID count: `128`

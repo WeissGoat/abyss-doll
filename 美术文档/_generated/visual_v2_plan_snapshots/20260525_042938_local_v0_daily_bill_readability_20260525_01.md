@@ -33,7 +33,6 @@ Run all planned generation:
 $env:NAI_ACCESS_TOKEN = '<set locally>'
 .\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID node_eventnode_icon,node_hazardnode_icon,node_reststopnode_icon,node_treasurenode_icon,ui_combat_feedback_hit,ui_combat_feedback_shield_break,ui_combat_grid_lock_marker,ui_combat_intent_add_junk,ui_combat_intent_attack,ui_combat_intent_buff,ui_combat_intent_charge,ui_combat_intent_debuff,ui_combat_intent_defend,ui_combat_intent_grid_lock,ui_combat_intent_move_item,ui_combat_intent_san_pressure,ui_combat_intent_unknown,ui_combat_junk_preview_marker,ui_combat_status_corrosion,ui_combat_status_curse,ui_combat_status_stun,ui_icon_corruption_purify,ui_icon_debt_rent,ui_icon_dive_permit,ui_icon_expense,ui_icon_income,ui_icon_wear_repair,ui_icon_black_market,ui_icon_blueprint,ui_icon_business_settlement,ui_icon_chassis_upgrade,ui_icon_customer,ui_icon_deadline,ui_icon_diary,ui_icon_event,ui_icon_faction,ui_icon_gift,ui_icon_lore,ui_icon_material_need,ui_icon_memento,ui_icon_order,ui_icon_price_down,ui_icon_price_up,ui_icon_reputation,ui_icon_rumor,ui_icon_sale_spark,ui_icon_shop_channel,ui_icon_skip,ui_icon_talk,ui_icon_touch,ui_icon_trust,ui_room_memento_slot,bg_doll_room_attic -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_06 -PreserveStatus
 ```
-
 After generation succeeds:
 
 ```powershell
@@ -581,4 +580,3 @@ After generation succeeds:
 # Review selected/contact_sheet before syncing.
 .\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_doll_room_attic -CandidateBatchID nai_visual_v2_20260525_06 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
-

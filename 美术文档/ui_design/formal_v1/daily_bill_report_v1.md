@@ -74,8 +74,11 @@ Daily Bill Report
 | `ui_button_secondary` | Review Sell / Close。 |
 | `ui_button_danger` | Defer Payment。 |
 | `ui_icon_bill` | 账单图标。 |
-| `ui_icon_warning` | 欠债、到期、违禁品或滞留风险。 |
-| `ui_icon_money` | 金币、收入、支出和价值。 |
+| `ui_icon_income` | 总收入、出售收入、订单收入和当日进账。 |
+| `ui_icon_expense` | 总支出、维护费、材料费和经营成本。 |
+| `ui_icon_debt_rent` | 月租进度、欠债压力、到期账单和不可支付风险。 |
+| `ui_icon_warning` | 普通危险、违禁品或滞留风险。 |
+| `ui_icon_money` | 当前金币、余额和价值。 |
 | `ui_title_divider` | 标题分隔。 |
 
 ---
@@ -89,8 +92,14 @@ Daily Bill Report
 | `DailyBillReportPanel_Runtime/BillBackground_Image` | `bg_workshop_day` |
 | `DailyBillReportPanel_Runtime/BillCard_Image` | `Panel.Main` / `ui_panel_main` |
 | `DailyBillReportPanel_Runtime/BillCard_Image/HeaderPanel/BillIcon_Image` | `Icon.Bill` / `ui_icon_bill` |
+| `DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/IncomeIcon_Image` | `Icon.Income` / `ui_icon_income` |
+| `DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/ExpenseIcon_Image` | `Icon.Expense` / `ui_icon_expense` |
+| `DailyBillReportPanel_Runtime/BillCard_Image/SummaryPanel/DebtRentIcon_Image` | `Icon.DebtRent` / `ui_icon_debt_rent` |
 | `DailyBillReportPanel_Runtime/BillCard_Image/PressureWarningPanel/WarningIcon_Image` | `Icon.Warning` / `ui_icon_warning` |
+| `DailyBillReportPanel_Runtime/BillCard_Image/PressureWarningPanel/DebtRentIcon_Image` | `Icon.DebtRent` / `ui_icon_debt_rent` |
 | `DailyBillReportPanel_Runtime/BillCard_Image/IncomeExpenseListPanel/BillRow_Template` | `List.Row.Normal` / `ui_list_row_normal` |
+| `DailyBillReportPanel_Runtime/BillCard_Image/IncomeExpenseListPanel/IncomeIcon_Image` | `Icon.Income` / `ui_icon_income` |
+| `DailyBillReportPanel_Runtime/BillCard_Image/IncomeExpenseListPanel/ExpenseIcon_Image` | `Icon.Expense` / `ui_icon_expense` |
 | `DailyBillReportPanel_Runtime/BillCard_Image/UnsoldGoodsPanel/UnsoldRow_Template` | `List.Row.Selected` / `ui_list_row_selected` |
 | `DailyBillReportPanel_Runtime/BillCard_Image/ActionPanel/Continue_Button` | `Button.Primary` / `ui_button_primary` |
 | `DailyBillReportPanel_Runtime/BillCard_Image/ActionPanel/DeferPayment_Button` | `Button.Danger` / `ui_button_danger` |
@@ -102,7 +111,8 @@ Daily Bill Report
 ## 5. 验收标准
 
 1. 账单界面打开后能一眼看到净收益、总收入、总支出、当前金币和下一次压力。
-2. 收入/支出明细至少展示 1 条列表行。
-3. 欠债、即将到期、未售出高风险物品使用 warning 图标或运行时 tint 表达。
-4. Continue 是主行动，返回工坊/出售是次行动，延后付款是危险行动。
-5. 图片中不包含文字、数字、价格、日期或物品名。
+2. 总收入、总支出和月租/债务压力分别使用独立图标，不再只依赖金币或警告图标。
+3. 收入/支出明细至少展示 1 条列表行。
+4. 欠债、即将到期、未售出高风险物品使用债务图标、warning 图标或运行时 tint 表达。
+5. Continue 是主行动，返回工坊/出售是次行动，延后付款是危险行动。
+6. 图片中不包含文字、数字、价格、日期或物品名。
