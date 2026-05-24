@@ -629,10 +629,123 @@ def draw_prosthetic_mender_spine(c: Canvas) -> None:
     c.glow((0.34, 0.26, 0.66, 0.74), rgba("blue", 60), 0.025)
 
 
+def draw_prop_shadow(c: Canvas) -> None:
+    c.ellipse((0.24, 0.70, 0.76, 0.80), rgba("shadow"), None)
+
+
+def draw_memento_first_repair_patch(c: Canvas) -> None:
+    draw_prop_shadow(c)
+    c.glow((0.28, 0.32, 0.72, 0.68), rgba("blue", 70), 0.03)
+    c.round_rect((0.25, 0.39, 0.75, 0.64), 0.035, rgba("brass_dark"), rgba("brass_light"), 0.012)
+    c.round_rect((0.31, 0.43, 0.69, 0.59), 0.025, rgba("cream"), rgba("brass"), 0.008)
+    c.line([(0.35, 0.45), (0.63, 0.57)], rgba("blue", 180), 0.014)
+    c.line([(0.37, 0.57), (0.65, 0.45)], rgba("blue", 160), 0.012)
+    for x in (0.30, 0.70):
+        for y in (0.43, 0.60):
+            c.ellipse((x - 0.025, y - 0.025, x + 0.025, y + 0.025), rgba("brass_light"), rgba("brass_dark"), 0.004)
+    for x in (0.38, 0.46, 0.54, 0.62):
+        c.line([(x, 0.43), (x, 0.48)], rgba("brass_dark", 160), 0.005)
+        c.line([(x, 0.54), (x, 0.59)], rgba("brass_dark", 145), 0.005)
+
+
+def draw_memento_first_chassis_frame(c: Canvas) -> None:
+    draw_prop_shadow(c)
+    c.round_rect((0.24, 0.33, 0.76, 0.67), 0.04, rgba("metal"), rgba("brass_light"), 0.018)
+    c.round_rect((0.35, 0.42, 0.65, 0.58), 0.02, (0, 0, 0, 0), rgba("brass"), 0.012)
+    c.line([(0.30, 0.38), (0.70, 0.38)], rgba("brass", 210), 0.014)
+    c.line([(0.30, 0.62), (0.70, 0.62)], rgba("brass", 210), 0.014)
+    for x in (0.32, 0.68):
+        for y in (0.35, 0.65):
+            c.ellipse((x - 0.035, y - 0.035, x + 0.035, y + 0.035), rgba("brass_light"), rgba("brass_dark"), 0.006)
+    c.ellipse((0.45, 0.47, 0.55, 0.57), rgba("blue", 150), rgba("cream"), 0.005)
+    c.line([(0.26, 0.72), (0.74, 0.72)], rgba("brass_light", 130), 0.008)
+
+
+def draw_memento_first_prosthetic_case(c: Canvas) -> None:
+    draw_prop_shadow(c)
+    c.round_rect((0.23, 0.43, 0.77, 0.68), 0.04, rgba("brass_dark"), rgba("brass_light"), 0.014)
+    c.round_rect((0.26, 0.31, 0.74, 0.49), 0.04, rgba("metal"), rgba("brass_light"), 0.014)
+    c.round_rect((0.32, 0.47, 0.68, 0.62), 0.025, (18, 18, 24, 230), rgba("brass", 150), 0.008)
+    c.round_rect((0.37, 0.50, 0.55, 0.58), 0.025, rgba("cream", 190), None)
+    c.round_rect((0.51, 0.45, 0.65, 0.56), 0.025, rgba("metal_light"), rgba("brass_light"), 0.007)
+    c.line([(0.28, 0.49), (0.72, 0.49)], rgba("brass_light"), 0.01)
+    for x in (0.28, 0.72):
+        c.ellipse((x - 0.03, 0.39, x + 0.03, 0.45), rgba("brass_light"), rgba("brass_dark"), 0.004)
+
+
+def draw_memento_san_collapse_blanket(c: Canvas) -> None:
+    draw_prop_shadow(c)
+    c.glow((0.27, 0.34, 0.73, 0.70), rgba("blue", 80), 0.035)
+    c.round_rect((0.29, 0.45, 0.72, 0.67), 0.055, rgba("blue", 150), rgba("cream"), 0.01)
+    c.round_rect((0.24, 0.38, 0.68, 0.57), 0.055, (132, 141, 153, 235), rgba("cream", 180), 0.01)
+    c.ellipse((0.21, 0.40, 0.38, 0.57), (102, 112, 126, 240), rgba("cream", 160), 0.008)
+    c.line([(0.36, 0.39), (0.63, 0.57)], rgba("blue", 170), 0.01)
+    c.line([(0.31, 0.52), (0.68, 0.52)], rgba("cream", 120), 0.007)
+    c.ellipse((0.60, 0.34, 0.70, 0.44), rgba("brass_light"), rgba("brass_dark"), 0.005)
+
+
+def draw_memento_miracle_burn_mark(c: Canvas) -> None:
+    draw_prop_shadow(c)
+    c.glow((0.25, 0.25, 0.75, 0.75), rgba("brass_light", 75), 0.035)
+    c.ellipse((0.28, 0.25, 0.72, 0.69), rgba("brass"), rgba("brass_light"), 0.016)
+    c.ellipse((0.36, 0.33, 0.64, 0.61), (42, 26, 20, 235), rgba("orange", 180), 0.012)
+    c.arc((0.31, 0.28, 0.69, 0.66), 30, 310, rgba("blue", 170), 0.011)
+    c.line([(0.48, 0.31), (0.54, 0.44), (0.45, 0.58)], rgba("brass_light", 190), 0.009)
+    c.line([(0.58, 0.37), (0.49, 0.49), (0.61, 0.57)], rgba("orange", 200), 0.008)
+    c.ellipse((0.40, 0.21, 0.46, 0.27), rgba("brass_dark"), None)
+
+
+def draw_memento_boss1_lamp(c: Canvas) -> None:
+    draw_prop_shadow(c)
+    c.glow((0.34, 0.31, 0.66, 0.68), rgba("brass_light", 95), 0.04)
+    c.arc((0.34, 0.18, 0.66, 0.42), 185, 355, rgba("brass_light"), 0.015)
+    c.round_rect((0.36, 0.34, 0.64, 0.67), 0.04, rgba("brass_dark"), rgba("brass_light"), 0.014)
+    c.round_rect((0.41, 0.39, 0.59, 0.61), 0.025, (255, 178, 72, 170), rgba("brass"), 0.007)
+    c.polygon([(0.50, 0.42), (0.57, 0.55), (0.49, 0.62), (0.43, 0.53)], rgba("orange", 230), None)
+    for x in (0.40, 0.47, 0.53, 0.60):
+        c.line([(x, 0.36), (x, 0.65)], rgba("brass_light", 170), 0.006)
+    c.round_rect((0.34, 0.65, 0.66, 0.72), 0.02, rgba("brass"), rgba("brass_light"), 0.008)
+    c.round_rect((0.39, 0.26, 0.61, 0.35), 0.02, rgba("brass"), rgba("brass_light"), 0.008)
+
+
+def draw_memento_layer2_corrosion_vial(c: Canvas) -> None:
+    draw_prop_shadow(c)
+    c.glow((0.35, 0.24, 0.65, 0.75), rgba("acid", 80), 0.035)
+    c.round_rect((0.40, 0.25, 0.60, 0.70), 0.045, rgba("metal"), rgba("brass_light"), 0.012)
+    c.round_rect((0.43, 0.38, 0.57, 0.66), 0.035, rgba("purple", 190), rgba("acid", 180), 0.006)
+    c.polygon([(0.43, 0.52), (0.57, 0.47), (0.57, 0.66), (0.43, 0.66)], rgba("acid", 190), None)
+    c.round_rect((0.38, 0.20, 0.62, 0.31), 0.025, rgba("brass"), rgba("brass_light"), 0.008)
+    c.line([(0.31, 0.37), (0.40, 0.37)], rgba("brass_light"), 0.014)
+    c.line([(0.60, 0.37), (0.69, 0.37)], rgba("brass_light"), 0.014)
+    c.line([(0.31, 0.60), (0.40, 0.60)], rgba("brass_light"), 0.014)
+    c.line([(0.60, 0.60), (0.69, 0.60)], rgba("brass_light"), 0.014)
+    c.ellipse((0.62, 0.48, 0.72, 0.58), rgba("acid", 130), None)
+
+
+def draw_memento_return_mark(c: Canvas) -> None:
+    draw_prop_shadow(c)
+    c.glow((0.30, 0.28, 0.70, 0.72), rgba("brass_light", 65), 0.035)
+    c.round_rect((0.34, 0.31, 0.66, 0.68), 0.035, rgba("brass"), rgba("brass_light"), 0.014)
+    c.ellipse((0.45, 0.36, 0.55, 0.46), (0, 0, 0, 0), rgba("brass_dark"), 0.008)
+    c.arc((0.28, 0.17, 0.72, 0.48), 200, 340, rgba("red"), 0.012)
+    c.line([(0.35, 0.42), (0.26, 0.34), (0.21, 0.43)], rgba("red"), 0.012)
+    c.line([(0.65, 0.42), (0.74, 0.34), (0.79, 0.43)], rgba("red"), 0.012)
+    c.line([(0.41, 0.55), (0.49, 0.62), (0.61, 0.47)], rgba("cream", 200), 0.014)
+    c.line([(0.41, 0.74), (0.59, 0.74)], rgba("brass_light", 160), 0.008)
+
+
 DRAWERS = {
     "chassis_bulwark_carrier_icon": draw_chassis_bulwark,
     "chassis_compact_raider_icon": draw_chassis_compact,
     "chassis_standard_frame_icon": draw_chassis_standard,
+    "memento_boss1_lamp": draw_memento_boss1_lamp,
+    "memento_first_chassis_frame": draw_memento_first_chassis_frame,
+    "memento_first_prosthetic_case": draw_memento_first_prosthetic_case,
+    "memento_first_repair_patch": draw_memento_first_repair_patch,
+    "memento_layer2_corrosion_vial": draw_memento_layer2_corrosion_vial,
+    "memento_miracle_burn_mark": draw_memento_miracle_burn_mark,
+    "memento_return_mark": draw_memento_return_mark,
+    "memento_san_collapse_blanket": draw_memento_san_collapse_blanket,
     "node_eventnode_icon": draw_node_event,
     "node_hazardnode_icon": draw_node_hazard,
     "node_reststopnode_icon": draw_node_rest,

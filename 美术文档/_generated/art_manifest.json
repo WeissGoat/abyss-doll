@@ -1761,6 +1761,486 @@
       "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/contact_sheet/item_mat_core_tier1_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/item_mat_core_tier1_icon.png"
     },
     {
+      "Domain": "memento",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "memento_boss1_lamp",
+      "DisplayName": "第一层矿灯纪念物",
+      "AssetType": "prop",
+      "VisualID": "memento_boss1_lamp",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_boss1_lamp.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长房间资产：`44_局外成长人偶特质房间正式配置落地设计.md` 已锁定 Room Memento=memento_boss1_lamp，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。第一层首领后的矿灯纪念物，小型旧矿灯、黄铜护笼、暖琥珀灯芯和磨损提手，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, small old mining lamp keepsake, brass cage, warm amber flame core, scratched handle, quiet memory object, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "BatchID": "local_v0_room_mementos_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_boss1_lamp.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_boss1_lamp.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_boss1_lamp.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_room_memento",
+      "Screen": "doll_room",
+      "Usage": "人偶房间纪念物槽位、第一层首领后房间光源、房间观察反馈",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+    },
+    {
+      "Domain": "memento",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "memento_first_chassis_frame",
+      "DisplayName": "首次底盘纪念物",
+      "AssetType": "prop",
+      "VisualID": "memento_first_chassis_frame",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_chassis_frame.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长房间资产：`44_局外成长人偶特质房间正式配置落地设计.md` 已锁定 Room Memento=memento_first_chassis_frame，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。首次底盘纪念物，小型黄铜身体框样品、矩形工坊底盘、安装插槽和旧螺丝，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, miniature brass body-frame keepsake, small rectangular workshop chassis sample, tiny mounting sockets, worn screws, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "BatchID": "local_v0_room_mementos_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_chassis_frame.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_chassis_frame.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_chassis_frame.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_room_memento",
+      "Screen": "doll_room",
+      "Usage": "人偶房间纪念物槽位、默认底盘记录、房间观察反馈",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+    },
+    {
+      "Domain": "memento",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "memento_first_prosthetic_case",
+      "DisplayName": "首次义体纪念物",
+      "AssetType": "prop",
+      "VisualID": "memento_first_prosthetic_case",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_prosthetic_case.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长房间资产：`44_局外成长人偶特质房间正式配置落地设计.md` 已锁定 Room Memento=memento_first_prosthetic_case，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。首次义体纪念物，打开的小型义体收纳盒、深色软垫、黄铜护角和无文字旧包装纸，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, small opened prosthetic storage case, padded dark interior, brass corner clips, old paper wrapping without text, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "BatchID": "local_v0_room_mementos_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_prosthetic_case.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_prosthetic_case.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_prosthetic_case.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_room_memento",
+      "Screen": "doll_room",
+      "Usage": "人偶房间纪念物槽位、首次义体制造或安装记录、房间观察反馈",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+    },
+    {
+      "Domain": "memento",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "memento_first_repair_patch",
+      "DisplayName": "首次修补纪念物",
+      "AssetType": "prop",
+      "VisualID": "memento_first_repair_patch",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_repair_patch.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长房间资产：`44_局外成长人偶特质房间正式配置落地设计.md` 已锁定 Room Memento=memento_first_repair_patch，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。首次修补纪念物，缝合布条固定在小黄铜铭板上，带蓝白修复微光和磨损螺丝角，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, first repair patch keepsake, stitched cloth strip on a tiny brass plate, blue-white repair glow, worn screw corners, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "BatchID": "local_v0_room_mementos_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_repair_patch.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_repair_patch.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_repair_patch.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_room_memento",
+      "Screen": "doll_room",
+      "Usage": "人偶房间纪念物槽位、首次维修记录、房间观察反馈",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+    },
+    {
+      "Domain": "memento",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "memento_layer2_corrosion_vial",
+      "DisplayName": "第二层腐蚀样本纪念物",
+      "AssetType": "prop",
+      "VisualID": "memento_layer2_corrosion_vial",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_layer2_corrosion_vial.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长房间资产：`44_局外成长人偶特质房间正式配置落地设计.md` 已锁定 Room Memento=memento_layer2_corrosion_vial，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。第二层腐蚀净化纪念物，密封腐蚀样本瓶、紫绿色液体、黄铜夹架和小滤帽，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, sealed corrosion sample vial keepsake, purple-green liquid, brass clamp frame, tiny filter cap, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "BatchID": "local_v0_room_mementos_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_layer2_corrosion_vial.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_layer2_corrosion_vial.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_layer2_corrosion_vial.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_room_memento",
+      "Screen": "doll_room",
+      "Usage": "人偶房间纪念物槽位、第二层腐蚀路线和净化记录、房间观察反馈",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+    },
+    {
+      "Domain": "memento",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "memento_miracle_burn_mark",
+      "DisplayName": "奇迹灼痕纪念物",
+      "AssetType": "prop",
+      "VisualID": "memento_miracle_burn_mark",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_miracle_burn_mark.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长房间资产：`44_局外成长人偶特质房间正式配置落地设计.md` 已锁定 Room Memento=memento_miracle_burn_mark，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。首次奇迹纪念物，小型焦黑黄铜圆牌、环形灼痕、蓝金余辉和开裂边缘，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, small charred brass token keepsake, circular scorch mark, faint blue-gold afterglow, cracked rim, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "BatchID": "local_v0_room_mementos_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_miracle_burn_mark.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_miracle_burn_mark.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_miracle_burn_mark.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_room_memento",
+      "Screen": "doll_room",
+      "Usage": "人偶房间纪念物槽位、首次奇迹触发记录、房间观察反馈",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+    },
+    {
+      "Domain": "memento",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "memento_return_mark",
+      "DisplayName": "归还痕迹纪念物",
+      "AssetType": "prop",
+      "VisualID": "memento_return_mark",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_return_mark.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长房间资产：`44_局外成长人偶特质房间正式配置落地设计.md` 已锁定 Room Memento=memento_return_mark，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。高压路线归还纪念物，小型磨损黄铜吊牌、修补红线和柔和暖光，表达“回来了”的痕迹。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, homecoming mark keepsake, small worn brass tag with repaired red thread and soft warm glow, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "BatchID": "local_v0_room_mementos_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_return_mark.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_return_mark.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_return_mark.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_room_memento",
+      "Screen": "doll_room",
+      "Usage": "人偶房间纪念物槽位、高压路线撤离与修复记录、房间观察反馈",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+    },
+    {
+      "Domain": "memento",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "memento_san_collapse_blanket",
+      "DisplayName": "SAN崩溃安抚纪念物",
+      "AssetType": "prop",
+      "VisualID": "memento_san_collapse_blanket",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_san_collapse_blanket.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置正式成长房间资产：`44_局外成长人偶特质房间正式配置落地设计.md` 已锁定 Room Memento=memento_san_collapse_blanket，配置 JSON 尚未落地，先纳入美术流水线。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。首次 SAN 崩溃安抚纪念物，折叠的恢复毯、小黄铜别针和浅蓝安定微光，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, folded recovery blanket keepsake, muted fabric roll with brass pin, pale blue calming glow, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "BatchID": "local_v0_room_mementos_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_san_collapse_blanket.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_san_collapse_blanket.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_san_collapse_blanket.png; formal AI replacement remains required.",
+      "PresetCategory": "formal_growth_room_memento",
+      "Screen": "doll_room",
+      "Usage": "人偶房间纪念物槽位、首次 SAN 崩溃恢复记录、房间观察反馈",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+    },
+    {
       "Domain": "monster",
       "SourceType": "config",
       "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",

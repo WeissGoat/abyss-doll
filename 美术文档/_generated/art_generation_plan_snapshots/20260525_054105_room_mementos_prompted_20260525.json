@@ -1,0 +1,556 @@
+{
+  "GeneratedAt": "2026-05-25T05:41:05+08:00",
+  "SnapshotTag": "room_mementos_prompted_20260525",
+  "Inputs": {
+    "IntegrationCandidatesPath": "美术文档/_generated/可接入素材清单.json",
+    "ManifestPath": "美术文档/_generated/art_manifest.json"
+  },
+  "RunConfig": {
+    "Provider": "novelai",
+    "BatchID": "nai_room_mementos_20260525_01",
+    "StatusFilter": "prompted",
+    "ActionFilter": "generate_needed",
+    "Variants": 4,
+    "DelaySeconds": 1.0,
+    "SerialRequired": true,
+    "LastProbeBatchID": "",
+    "LastProbeNote": ""
+  },
+  "Summary": {
+    "TotalCandidateItems": 8,
+    "PlannedItems": 8,
+    "PromptReadyItems": 8,
+    "MissingManifestEntries": [],
+    "PriorityCounts": {
+      "P2": 8
+    },
+    "DomainCounts": {
+      "memento": 8
+    },
+    "SizeCounts": {
+      "512x512": 8
+    }
+  },
+  "BatchCommands": {
+    "RunAllGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID memento_boss1_lamp,memento_first_chassis_frame,memento_first_prosthetic_case,memento_first_repair_patch,memento_layer2_corrosion_vial,memento_miracle_burn_mark,memento_return_mark,memento_san_collapse_blanket -Variants 4 -DelaySeconds 1 -BatchID nai_room_mementos_20260525_01",
+    "OptimizeAllAfterGeneration": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -BatchID nai_room_mementos_20260525_01 -Overwrite",
+    "SyncAllAfterReviewOrFallback": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -BatchID nai_room_mementos_20260525_01 -AllowProcessedFallback -Overwrite",
+    "RefreshIntegration": ".\\tools\\美术工具\\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag nai_room_mementos_20260525_01",
+    "RefreshQuality": ".\\tools\\美术工具\\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag nai_room_mementos_20260525_01",
+    "RefreshPlan": ".\\tools\\美术工具\\Generate-ArtBatchPlan.ps1 -Snapshot -SnapshotTag nai_room_mementos_20260525_01_after -BatchID nai_room_mementos_20260525_01"
+  },
+  "Items": [
+    {
+      "VisualID": "memento_boss1_lamp",
+      "Order": 1,
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "第一层矿灯纪念物",
+      "ConfigID": "memento_boss1_lamp",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。第一层首领后的矿灯纪念物，小型旧矿灯、黄铜护笼、暖琥珀灯芯和磨损提手，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, small old mining lamp keepsake, brass cage, warm amber flame core, scratched handle, quiet memory object, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_boss1_lamp.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/memento_boss1_lamp",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/memento_boss1_lamp/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/memento_boss1_lamp/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/memento_boss1_lamp/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/memento_boss1_lamp/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID memento_boss1_lamp -Variants 4 -DelaySeconds 1 -BatchID nai_room_mementos_20260525_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID memento_boss1_lamp -BatchID nai_room_mementos_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID memento_boss1_lamp -BatchID nai_room_mementos_20260525_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "memento_first_chassis_frame",
+      "Order": 2,
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "首次底盘纪念物",
+      "ConfigID": "memento_first_chassis_frame",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。首次底盘纪念物，小型黄铜身体框样品、矩形工坊底盘、安装插槽和旧螺丝，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, miniature brass body-frame keepsake, small rectangular workshop chassis sample, tiny mounting sockets, worn screws, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_chassis_frame.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/memento_first_chassis_frame",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/memento_first_chassis_frame/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/memento_first_chassis_frame/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/memento_first_chassis_frame/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/memento_first_chassis_frame/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID memento_first_chassis_frame -Variants 4 -DelaySeconds 1 -BatchID nai_room_mementos_20260525_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID memento_first_chassis_frame -BatchID nai_room_mementos_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID memento_first_chassis_frame -BatchID nai_room_mementos_20260525_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "memento_first_prosthetic_case",
+      "Order": 3,
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "首次义体纪念物",
+      "ConfigID": "memento_first_prosthetic_case",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。首次义体纪念物，打开的小型义体收纳盒、深色软垫、黄铜护角和无文字旧包装纸，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, small opened prosthetic storage case, padded dark interior, brass corner clips, old paper wrapping without text, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_prosthetic_case.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/memento_first_prosthetic_case",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/memento_first_prosthetic_case/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/memento_first_prosthetic_case/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/memento_first_prosthetic_case/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/memento_first_prosthetic_case/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID memento_first_prosthetic_case -Variants 4 -DelaySeconds 1 -BatchID nai_room_mementos_20260525_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID memento_first_prosthetic_case -BatchID nai_room_mementos_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID memento_first_prosthetic_case -BatchID nai_room_mementos_20260525_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "memento_first_repair_patch",
+      "Order": 4,
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "首次修补纪念物",
+      "ConfigID": "memento_first_repair_patch",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。首次修补纪念物，缝合布条固定在小黄铜铭板上，带蓝白修复微光和磨损螺丝角，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, first repair patch keepsake, stitched cloth strip on a tiny brass plate, blue-white repair glow, worn screw corners, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_repair_patch.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/memento_first_repair_patch",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/memento_first_repair_patch/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/memento_first_repair_patch/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/memento_first_repair_patch/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/memento_first_repair_patch/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID memento_first_repair_patch -Variants 4 -DelaySeconds 1 -BatchID nai_room_mementos_20260525_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID memento_first_repair_patch -BatchID nai_room_mementos_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID memento_first_repair_patch -BatchID nai_room_mementos_20260525_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "memento_layer2_corrosion_vial",
+      "Order": 5,
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "第二层腐蚀样本纪念物",
+      "ConfigID": "memento_layer2_corrosion_vial",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。第二层腐蚀净化纪念物，密封腐蚀样本瓶、紫绿色液体、黄铜夹架和小滤帽，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, sealed corrosion sample vial keepsake, purple-green liquid, brass clamp frame, tiny filter cap, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_layer2_corrosion_vial.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/memento_layer2_corrosion_vial",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/memento_layer2_corrosion_vial/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/memento_layer2_corrosion_vial/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/memento_layer2_corrosion_vial/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/memento_layer2_corrosion_vial/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID memento_layer2_corrosion_vial -Variants 4 -DelaySeconds 1 -BatchID nai_room_mementos_20260525_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID memento_layer2_corrosion_vial -BatchID nai_room_mementos_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID memento_layer2_corrosion_vial -BatchID nai_room_mementos_20260525_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "memento_miracle_burn_mark",
+      "Order": 6,
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "奇迹灼痕纪念物",
+      "ConfigID": "memento_miracle_burn_mark",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。首次奇迹纪念物，小型焦黑黄铜圆牌、环形灼痕、蓝金余辉和开裂边缘，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, small charred brass token keepsake, circular scorch mark, faint blue-gold afterglow, cracked rim, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_miracle_burn_mark.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/memento_miracle_burn_mark",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/memento_miracle_burn_mark/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/memento_miracle_burn_mark/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/memento_miracle_burn_mark/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/memento_miracle_burn_mark/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID memento_miracle_burn_mark -Variants 4 -DelaySeconds 1 -BatchID nai_room_mementos_20260525_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID memento_miracle_burn_mark -BatchID nai_room_mementos_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID memento_miracle_burn_mark -BatchID nai_room_mementos_20260525_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "memento_return_mark",
+      "Order": 7,
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "归还痕迹纪念物",
+      "ConfigID": "memento_return_mark",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。高压路线归还纪念物，小型磨损黄铜吊牌、修补红线和柔和暖光，表达“回来了”的痕迹。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, homecoming mark keepsake, small worn brass tag with repaired red thread and soft warm glow, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_return_mark.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/memento_return_mark",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/memento_return_mark/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/memento_return_mark/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/memento_return_mark/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/memento_return_mark/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID memento_return_mark -Variants 4 -DelaySeconds 1 -BatchID nai_room_mementos_20260525_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID memento_return_mark -BatchID nai_room_mementos_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID memento_return_mark -BatchID nai_room_mementos_20260525_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "memento_san_collapse_blanket",
+      "Order": 8,
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "SAN崩溃安抚纪念物",
+      "ConfigID": "memento_san_collapse_blanket",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。首次 SAN 崩溃安抚纪念物，折叠的恢复毯、小黄铜别针和浅蓝安定微光，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, folded recovery blanket keepsake, muted fabric roll with brass pin, pale blue calming glow, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.7,
+          "SubjectOccupancyMax": 0.86,
+          "Anchor": "center",
+          "Composition": "centered small room keepsake prop"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 120
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_san_collapse_blanket.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/memento_san_collapse_blanket",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/memento_san_collapse_blanket/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/memento_san_collapse_blanket/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/memento_san_collapse_blanket/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/memento_san_collapse_blanket/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID memento_san_collapse_blanket -Variants 4 -DelaySeconds 1 -BatchID nai_room_mementos_20260525_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID memento_san_collapse_blanket -BatchID nai_room_mementos_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID memento_san_collapse_blanket -BatchID nai_room_mementos_20260525_01 -AllowProcessedFallback -Overwrite"
+      }
+    }
+  ]
+}

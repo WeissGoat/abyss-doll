@@ -122,6 +122,28 @@ CHASSIS_CN: Dict[str, str] = {
     "chassis_standard_frame": "标准工坊底盘图标，均衡矩形框、简洁黄铜导轨、核心安装插槽和稳定基准轮廓。",
 }
 
+MEMENTO_EN: Dict[str, str] = {
+    "memento_boss1_lamp": "small old mining lamp keepsake, brass cage, warm amber flame core, scratched handle, quiet memory object, clean readable silhouette",
+    "memento_first_chassis_frame": "miniature brass body-frame keepsake, small rectangular workshop chassis sample, tiny mounting sockets, worn screws, clean readable silhouette",
+    "memento_first_prosthetic_case": "small opened prosthetic storage case, padded dark interior, brass corner clips, old paper wrapping without text, clean readable silhouette",
+    "memento_first_repair_patch": "first repair patch keepsake, stitched cloth strip on a tiny brass plate, blue-white repair glow, worn screw corners, clean readable silhouette",
+    "memento_layer2_corrosion_vial": "sealed corrosion sample vial keepsake, purple-green liquid, brass clamp frame, tiny filter cap, clean readable silhouette",
+    "memento_miracle_burn_mark": "small charred brass token keepsake, circular scorch mark, faint blue-gold afterglow, cracked rim, clean readable silhouette",
+    "memento_return_mark": "homecoming mark keepsake, small worn brass tag with repaired red thread and soft warm glow, clean readable silhouette",
+    "memento_san_collapse_blanket": "folded recovery blanket keepsake, muted fabric roll with brass pin, pale blue calming glow, clean readable silhouette",
+}
+
+MEMENTO_CN: Dict[str, str] = {
+    "memento_boss1_lamp": "第一层首领后的矿灯纪念物，小型旧矿灯、黄铜护笼、暖琥珀灯芯和磨损提手，轮廓清楚。",
+    "memento_first_chassis_frame": "首次底盘纪念物，小型黄铜身体框样品、矩形工坊底盘、安装插槽和旧螺丝，轮廓清楚。",
+    "memento_first_prosthetic_case": "首次义体纪念物，打开的小型义体收纳盒、深色软垫、黄铜护角和无文字旧包装纸，轮廓清楚。",
+    "memento_first_repair_patch": "首次修补纪念物，缝合布条固定在小黄铜铭板上，带蓝白修复微光和磨损螺丝角，轮廓清楚。",
+    "memento_layer2_corrosion_vial": "第二层腐蚀净化纪念物，密封腐蚀样本瓶、紫绿色液体、黄铜夹架和小滤帽，轮廓清楚。",
+    "memento_miracle_burn_mark": "首次奇迹纪念物，小型焦黑黄铜圆牌、环形灼痕、蓝金余辉和开裂边缘，轮廓清楚。",
+    "memento_return_mark": "高压路线归还纪念物，小型磨损黄铜吊牌、修补红线和柔和暖光，表达“回来了”的痕迹。",
+    "memento_san_collapse_blanket": "首次 SAN 崩溃安抚纪念物，折叠的恢复毯、小黄铜别针和浅蓝安定微光，轮廓清楚。",
+}
+
 BACKGROUND_EN: Dict[str, str] = {
     "combat": "side-scrolling battle arena background, empty industrial floor across the foreground, broken pipes, abandoned metal platform, dark vertical cavern fog in the midground, wide negative space on left and right",
     "dungeon_map": "dark route-map background texture, low visual noise, cracked stone, old brass pipes, faint mine lamps, deep vertical cavern feeling, large negative space",
@@ -336,6 +358,7 @@ NEGATIVE = {
     "node": "text, letters, numbers, watermark, logo, signature, busy background, tiny details, multiple symbols, photorealistic object, low contrast",
     "prosthetic": "text, letters, numbers, watermark, logo, signature, busy background, real human limb, medical advertisement style, cropped object, clean plastic product",
     "chassis": "text, letters, numbers, watermark, logo, signature, busy background, baked grid numbers, UI text, closed solid plate, cluttered center",
+    "memento": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
     "doll": "text, letters, numbers, watermark, logo, signature, photorealistic human, sexy pose, exaggerated expression, cropped feet, cropped head, busy background",
     "background": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
     "ui": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
@@ -517,6 +540,20 @@ SPEC = {
         composition="centered mechanical chassis badge icon",
         post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
         preview_size=96,
+    ),
+    "memento": make_spec(
+        width=512,
+        height=512,
+        background="transparent",
+        alpha_required=True,
+        display_width=120,
+        display_height=120,
+        safe_padding=10,
+        subject_min=0.70,
+        subject_max=0.86,
+        composition="centered small room keepsake prop",
+        post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
+        preview_size=120,
     ),
     "doll": make_spec(
         width=1024,
@@ -1156,6 +1193,8 @@ def lookup(domain: str, config_id: str, english: bool) -> str:
         ("prosthetic", False): PROSTHETIC_CN,
         ("chassis", True): CHASSIS_EN,
         ("chassis", False): CHASSIS_CN,
+        ("memento", True): MEMENTO_EN,
+        ("memento", False): MEMENTO_CN,
         ("background", True): BACKGROUND_EN,
         ("background", False): BACKGROUND_CN,
         ("ui", True): UI_EN,
@@ -1193,6 +1232,8 @@ def prompt_for(entry: Dict[str, Any]) -> tuple[str, str, str, Dict[str, Any]]:
             prompt_en = f"{STYLE_EN}, mechanical chassis badge icon, {detail_en}, centered single object, clean silhouette, transparent background, no text"
         else:
             prompt_en = f"{STYLE_EN}, mechanical frame asset, {detail_en}, rectangular frame, open center, clean silhouette, transparent background, no text"
+    elif domain == "memento":
+        prompt_en = f"{STYLE_EN}, small room keepsake prop, {detail_en}, centered single object, clean silhouette, transparent background, no text, no letters, no numbers"
     elif domain == "prosthetic":
         prompt_en = f"{STYLE_EN}, prosthetic machine module icon, {detail_en}, centered single object, clean silhouette, transparent background, no text"
     elif domain == "ui":

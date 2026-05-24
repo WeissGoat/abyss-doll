@@ -15,6 +15,7 @@
 | `chassis` | 5 |
 | `doll` | 2 |
 | `item` | 13 |
+| `memento` | 8 |
 | `monster` | 8 |
 | `node` | 8 |
 | `prosthetic` | 8 |
@@ -37,9 +38,9 @@
 | `background` | `settlement_victory` | 撤离成功结算背景 | `background` | `bg_settlement_victory` | P2 | `approved` |
 | `chassis` | `chassis_lv1_basic` | chassis_lv1_basic | `frame` | `chassis_chassis_lv1_basic_frame` | P1 | `approved` |
 | `chassis` | `chassis_lv2_expanded` | chassis_lv2_expanded | `frame` | `chassis_chassis_lv2_expanded_frame` | P1 | `approved` |
-| `chassis` | `chassis_bulwark_carrier` | 重载承运底盘图标 | `icon` | `chassis_bulwark_carrier_icon` | P2 | `todo` |
-| `chassis` | `chassis_compact_raider` | 轻装掠行底盘图标 | `icon` | `chassis_compact_raider_icon` | P2 | `todo` |
-| `chassis` | `chassis_standard_frame` | 标准工坊底盘图标 | `icon` | `chassis_standard_frame_icon` | P2 | `todo` |
+| `chassis` | `chassis_bulwark_carrier` | 重载承运底盘图标 | `icon` | `chassis_bulwark_carrier_icon` | P2 | `approved` |
+| `chassis` | `chassis_compact_raider` | 轻装掠行底盘图标 | `icon` | `chassis_compact_raider_icon` | P2 | `approved` |
+| `chassis` | `chassis_standard_frame` | 标准工坊底盘图标 | `icon` | `chassis_standard_frame_icon` | P2 | `approved` |
 | `doll` | `doll_proto_0` | 原型机·零 | `stand` | `doll_proto_0_stand` | P1 | `approved` |
 | `doll` | `doll_proto_0_test` | 原型机·零（测试） | `stand` | `doll_proto_0_test_stand` | P1 | `deprecated` |
 | `item` | `con_cheap_sedative` | 廉价镇静剂 | `icon` | `item_con_cheap_sedative_icon` | P0 | `approved` |
@@ -55,6 +56,14 @@
 | `item` | `loot_toxic_filter` | 污染滤芯 | `icon` | `item_loot_toxic_filter_icon` | P0 | `approved` |
 | `item` | `mat_core_tier1` | 一阶动力核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `approved` |
 | `item` | `mat_core_tier2` | 二阶污染核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `approved` |
+| `memento` | `memento_boss1_lamp` | 第一层矿灯纪念物 | `prop` | `memento_boss1_lamp` | P2 | `todo` |
+| `memento` | `memento_first_chassis_frame` | 首次底盘纪念物 | `prop` | `memento_first_chassis_frame` | P2 | `todo` |
+| `memento` | `memento_first_prosthetic_case` | 首次义体纪念物 | `prop` | `memento_first_prosthetic_case` | P2 | `todo` |
+| `memento` | `memento_first_repair_patch` | 首次修补纪念物 | `prop` | `memento_first_repair_patch` | P2 | `todo` |
+| `memento` | `memento_layer2_corrosion_vial` | 第二层腐蚀样本纪念物 | `prop` | `memento_layer2_corrosion_vial` | P2 | `todo` |
+| `memento` | `memento_miracle_burn_mark` | 奇迹灼痕纪念物 | `prop` | `memento_miracle_burn_mark` | P2 | `todo` |
+| `memento` | `memento_return_mark` | 归还痕迹纪念物 | `prop` | `memento_return_mark` | P2 | `todo` |
+| `memento` | `memento_san_collapse_blanket` | SAN崩溃安抚纪念物 | `prop` | `memento_san_collapse_blanket` | P2 | `todo` |
 | `monster` | `elite_mutant_amalgam` | 畸变融合体战斗实体 | `combat_sprite` | `monster_elite_mutant_amalgam_combat` | P0 | `approved` |
 | `monster` | `elite_mutant_amalgam` | 畸变融合体 | `portrait` | `monster_elite_mutant_amalgam_portrait` | P0 | `approved` |
 | `monster` | `elite_scrap_guard` | 废铁守卫 (守门人)战斗实体 | `combat_sprite` | `monster_elite_scrap_guard_combat` | P0 | `approved` |
@@ -73,12 +82,12 @@
 | `node` | `TreasureNode` | TreasureNode | `icon` | `node_treasurenode_icon` | P0 | `approved` |
 | `prosthetic` | `pros_cooling_system` | 稳压散热插件 | `icon` | `prosthetic_pros_cooling_system_icon` | P1 | `approved` |
 | `prosthetic` | `pros_power_arm` | 动力臂增幅插件 | `icon` | `prosthetic_pros_power_arm_icon` | P1 | `approved` |
-| `prosthetic` | `prosthetic_anchor_left_arm` | 锚定左臂图标 | `icon` | `prosthetic_anchor_left_arm_icon` | P2 | `todo` |
-| `prosthetic` | `prosthetic_charge_coil_arm` | 蓄能线圈臂图标 | `icon` | `prosthetic_charge_coil_arm_icon` | P2 | `todo` |
-| `prosthetic` | `prosthetic_focus_lens` | 裂隙聚焦镜图标 | `icon` | `prosthetic_focus_lens_icon` | P2 | `todo` |
-| `prosthetic` | `prosthetic_mender_spine` | 修复脊索图标 | `icon` | `prosthetic_mender_spine_icon` | P2 | `todo` |
-| `prosthetic` | `prosthetic_salvage_fingertips` | 精密拾荒指图标 | `icon` | `prosthetic_salvage_fingertips_icon` | P2 | `todo` |
-| `prosthetic` | `prosthetic_san_regulator_core` | SAN稳态调节核图标 | `icon` | `prosthetic_san_regulator_core_icon` | P2 | `todo` |
+| `prosthetic` | `prosthetic_anchor_left_arm` | 锚定左臂图标 | `icon` | `prosthetic_anchor_left_arm_icon` | P2 | `approved` |
+| `prosthetic` | `prosthetic_charge_coil_arm` | 蓄能线圈臂图标 | `icon` | `prosthetic_charge_coil_arm_icon` | P2 | `approved` |
+| `prosthetic` | `prosthetic_focus_lens` | 裂隙聚焦镜图标 | `icon` | `prosthetic_focus_lens_icon` | P2 | `approved` |
+| `prosthetic` | `prosthetic_mender_spine` | 修复脊索图标 | `icon` | `prosthetic_mender_spine_icon` | P2 | `approved` |
+| `prosthetic` | `prosthetic_salvage_fingertips` | 精密拾荒指图标 | `icon` | `prosthetic_salvage_fingertips_icon` | P2 | `approved` |
+| `prosthetic` | `prosthetic_san_regulator_core` | SAN稳态调节核图标 | `icon` | `prosthetic_san_regulator_core_icon` | P2 | `approved` |
 | `ui` | `missing_sprite` | 缺失占位图 | `icon` | `ui_missing_sprite` | P0 | `approved` |
 | `ui` | `button_primary` | 主按钮 | `button` | `ui_button_primary` | P1 | `approved` |
 | `ui` | `button_secondary` | 次按钮 | `button` | `ui_button_secondary` | P1 | `approved` |
