@@ -9,10 +9,14 @@ source_of_truth: false
 related:
   - AGENTS.md
   - PROJECT_STATUS.md
+  - 版本规划/09_正式版核心纵切开发路线.md
+  - 版本规划/11_设计文档纵切批次矩阵.md
+  - 版本规划/12_版本规划需求文档承接审计.md
   - agent_status/art.md
   - 知识库/README.md
   - 美术文档/README.md
   - 美术文档/10_正式版核心纵切美术路线.md
+  - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 美术文档/00_美术流水线总览.md
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/ui_iteration_process.md
@@ -39,6 +43,7 @@ update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约�
 
 | 任务类型 | 优先读取 |
 |---|---|
+| 版本规划对齐 / 当前优先级 | `版本规划/09_正式版核心纵切开发路线.md`、`版本规划/11_设计文档纵切批次矩阵.md`、`版本规划/12_版本规划需求文档承接审计.md` |
 | 美术路线 / 纵切交付 | `美术文档/10_正式版核心纵切美术路线.md` |
 | 美术流水线 / Manifest | `美术文档/00_美术流水线总览.md`、`美术文档/01_Manifest规范.md` |
 | UI 设计交付 | `美术文档/ui_design/README.md`、`美术文档/ui_design/ui_iteration_process.md`、`美术文档/ui_design/handoff_checklist.md` |
@@ -53,6 +58,8 @@ update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约�
 - `美术文档/_generated` 与 `美术文档/ui_design/_generated` 是脚本输出，优先通过工具刷新。
 - 刷新 Manifest 前先同步配置：`.\tools\config\Sync-Configs.ps1 -Clean`。
 - UI 结构迭代时，`screen_layouts.json` 是 active；`versions/` 是 baseline / 可选暂存，不是程序接入口。
-- `combat_hud` 已进入 Formal V1 active 规格，第一批 `monster_*_combat` 战斗实体、脚底阴影和目标光环已入库；下一步交给 UI 程序接入并由美术侧截图验收。
+- P5 UI / 美术只服务当前 P0-P4 功能纵切，不以横向铺满所有界面为近期目标。
+- 当前 active Formal V1 已覆盖 15 个界面；`faction_shop`、`doll_interaction`、`scenario_event`、`doll_room` 仍是 draft，用户确认前不触发程序接入、Manifest 或跑图。
+- `combat_hud` Formal V1 已完成程序接入和 ArtAcceptance；当前程序侧优先按 `美术文档/_generated/可接入素材清单.md` 的 `program_integrate` 队列登记剩余 Approved 素材，美术侧随后做截图验收。
 - 如果美术交付影响程序接入或策划规则，需要同步 `PROJECT_STATUS.md` 和对应职能状态页。
 

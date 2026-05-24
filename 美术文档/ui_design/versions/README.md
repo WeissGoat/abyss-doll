@@ -13,7 +13,7 @@ related:
   - 美术文档/ui_design/versions/migration_log.md
   - 美术文档/ui_design/versions/formal_v1_candidate/README.md
   - 美术文档/ui_design/versions/mvp_baseline_2026-05-22/README.md
-last_verified: 2026-05-23
+last_verified: 2026-05-24
 update_rule: 新增 UI 设计版本、冻结基线或合并候选版本时同步本文件。
 ---
 
@@ -123,5 +123,5 @@ formal_v1/*.md
 | 版本 | 状态 | 说明 |
 |---|---|---|
 | `mvp_baseline_2026-05-22` | frozen | P0 已运行时验收，P1 为当时 draft。 |
-| `formal_v1_candidate` | optional | 可选暂存区。`combat_hud` 如需复杂结构对比，可先在这里试写。 |
-| `active` | mixed | 当前 active 仍是 MVP Baseline 运行时通过版 + P1 draft；后续逐界面合并 Formal V1。 |
+| `formal_v1_candidate` | optional / inactive | 可选暂存区。当前 Formal V1 已直接写入 active，不作为程序接入口，也不是必经流程。 |
+| `active` | Formal V1 active | 当前 active `screen_layouts.json` 已覆盖 15 个 Formal V1 界面；程序接入、素材生成和验收只认 active。 |

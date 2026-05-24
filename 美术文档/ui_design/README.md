@@ -11,6 +11,7 @@ related:
   - 开发文档/00_Unity表现层与编辑器构建规范.md
   - 开发文档/09_视觉资源系统程序开发规范.md
   - 美术文档/10_正式版核心纵切美术路线.md
+  - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 美术文档/02_资源规格与接入规范.md
   - 美术文档/README.md
   - 美术文档/archive/README.md
@@ -26,7 +27,7 @@ related:
   - 美术文档/archive/11_P0_UI骨架接入交付.md
   - 美术文档/archive/12_P1_UI骨架接入准备.md
   - 知识库/views/art.md
-last_verified: 2026-05-23
+last_verified: 2026-05-24
 update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
 ---
 

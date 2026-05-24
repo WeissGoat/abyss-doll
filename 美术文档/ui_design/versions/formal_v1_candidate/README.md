@@ -10,7 +10,7 @@ related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/ui_design/versions/README.md
   - 美术文档/ui_design/versions/migration_log.md
-last_verified: 2026-05-23
+last_verified: 2026-05-24
 update_rule: Formal V1 候选规格变更时同步本文件和 migration_log。
 ---
 
@@ -28,13 +28,11 @@ update_rule: Formal V1 候选规格变更时同步本文件和 migration_log。
 美术文档/ui_design/formal_v1/
 ```
 
-当前 Formal V1 设计优先级：
+当前 Formal V1 设计状态：
 
-1. `combat_hud`
-2. `workshop_main`
-3. `inventory_loot`
-4. `dungeon_map`
-5. `settlement`
+1. 15 个 active Formal V1 界面已直接写入 `screen_layouts.json`。
+2. `faction_shop`、`doll_interaction`、`scenario_event`、`doll_room` 仍是 design draft，未进入 active。
+3. 本目录当前不承担程序交付职责；后续只有复杂 Formal V2 或局部重构需要结构化试写时才使用。
 
 ---
 
@@ -51,11 +49,11 @@ update_rule: Formal V1 候选规格变更时同步本文件和 migration_log。
 
 | ScreenID | Candidate 使用 | Active 状态 | 下一步 |
 |---|---|---|---|
-| `combat_hud` | 可选使用 | MVP Baseline `validated` | 先审查战斗舞台结构；如结构字段较复杂，可先写入 candidate JSON。 |
-| `workshop_main` | 默认不用 | MVP Baseline `validated` | 你确认文档后直接修改 active。 |
-| `inventory_loot` | 默认不用 | MVP Baseline `validated` | 你确认文档后直接修改 active。 |
-| `dungeon_map` | 默认不用 | active `draft` | 不急于 handoff，先按 Formal V1 审查，确认后修改 active。 |
-| `settlement` | 默认不用 | active `draft` | 不急于 handoff，先按 Formal V1 审查，确认后修改 active。 |
+| `combat_hud` | 未使用 | Formal V1 active，已完成程序接入和 ArtAcceptance | 继续按 active 截图验收和资源质量迭代。 |
+| `workshop_main` | 未使用 | Formal V1 active | 等程序接入当前 active 后截图验收。 |
+| `inventory_loot` | 未使用 | Formal V1 active | 等程序接入当前 active 后截图验收。 |
+| `dungeon_map` | 未使用 | Formal V1 active | 等程序接入当前 active 后截图验收。 |
+| `settlement` | 未使用 | Formal V1 active | 等程序接入当前 active 后截图验收。 |
 
 ---
 
