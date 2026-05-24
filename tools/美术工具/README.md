@@ -47,6 +47,41 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 
 注意：第一步只负责资产需求发现与台账更新，不自动填写 `PromptEN`、`NegativePromptEN` 和 `Spec`。这些字段在第二步由美术 Agent 逐项补全。
 
+## Scan-ArtRequirementCandidates.ps1
+
+扫描最新设计文档、配置表、版本规划和 active UI 文档，生成“可能需要美术资产但还没纳管”的候选清单。它是人工审查前哨，不会自动修改 Manifest 或 `art_requirements_seed.json`。
+
+输出：
+
+* `美术文档/_generated/美术需求候选清单.json`
+* `美术文档/_generated/美术需求候选清单.md`
+
+使用 `-Snapshot` 时额外输出：
+
+* `美术文档/_generated/art_requirement_candidate_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.json`
+* `美术文档/_generated/art_requirement_candidate_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.md`
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Scan-ArtRequirementCandidates.ps1
+.\tools\美术工具\Scan-ArtRequirementCandidates.ps1 -Snapshot -SnapshotTag manual_review
+```
+
+主要分类：
+
+* `explicit_visual_id`：文档或配置中直接出现的潜在 VisualID。
+* `derived_visual_candidate`：从订单、传闻、势力、底盘、义体等内容 ID 推导出的潜在图标 ID。
+
+主要状态：
+
+* `new_candidate`：Manifest / seed / Approved 都未纳管，需要美术审查。
+* `approved_without_manifest`：Approved 有同名 PNG，但 Manifest 未纳管，需要判断是否补 Manifest。
+* `seed_only`：seed 已有但 Manifest 未出现，通常需要重新运行 `Update-ArtManifest.ps1`。
+* `manifest_managed`：已纳入 Manifest，本报告不要求处理。
+
+确认要纳管的候选，应该人工写入 `美术文档/art_requirements_seed.json`，或等待配置 JSON 增加正式 `VisualID` / `IconVisualID` 字段后再运行 `Update-ArtManifest.ps1`。不要直接从候选报告生成图片。
+
 ## Generate-ArtPrompts.ps1
 
 根据 Manifest 中的 `Status=todo` 条目补全第二步字段：

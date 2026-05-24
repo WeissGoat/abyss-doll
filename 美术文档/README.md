@@ -36,6 +36,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | 端到端美术生产怎么走 | [00_美术流水线总览.md](00_美术流水线总览.md) | 只讲流程：需求发现、Manifest、提示词、出图、预处理、Approved、交接。 |
 | UI 结构版本怎么管理 | [ui_design/README.md](ui_design/README.md) | UI 设计系统入口，说明 active / baseline / draft / handoff。 |
 | 程序下一步接入 / 验收要做什么 | [_generated/程序接入交接清单.md](_generated/程序接入交接清单.md) | 程序侧一站式入口，汇总 VisualID 登记、截图覆盖和 ArtAcceptance 重跑队列。 |
+| 最新文档 / 配置里可能新增了哪些美术需求 | [_generated/美术需求候选清单.md](_generated/美术需求候选清单.md) | 美术侧审查入口，只提示候选，不自动写 Manifest 或 seed。 |
 | 程序当前应接入哪些素材 | [_generated/可接入素材清单.md](_generated/可接入素材清单.md) | 程序侧素材来源清单，只处理 `program_integrate` 队列。 |
 | 当前哪些缺图素材可直接跑图 | [_generated/缺图生成计划.md](_generated/缺图生成计划.md) | 美术侧处理 `generate_needed` 队列。 |
 | 当前哪些素材只是临时质量 | [_generated/素材质量替换清单.md](_generated/素材质量替换清单.md) | 美术侧处理 `technical_fix` 和 `visual_v2_replace` 队列。 |
@@ -100,7 +101,9 @@ baseline / 当前截图问题
 ### 资产生产流
 
 ```text
-config / derived / preset
+design / config / ui active
+  -> requirement candidate scan
+  -> confirmed config / derived / preset
   -> art_manifest.json
   -> PromptCN / PromptEN / NegativePromptEN / Spec
   -> AI 生成
@@ -113,6 +116,8 @@ config / derived / preset
 `_IncomingAI` 是工作区，不进程序接入；`Approved` 是正式区。每次生成、预处理或同步 Approved 后，都要刷新 latest 可接入清单并留 snapshot。
 
 `generate_needed` 缺图队列先生成 [_generated/缺图生成计划.md](_generated/缺图生成计划.md)，再执行 NovelAI 跑图、预处理和 Approved 同步。`visual_v2_replace` 质量替换队列看 [_generated/VisualV2生成计划.md](_generated/VisualV2生成计划.md)，两者不要混用。
+
+`美术需求候选清单` 是人工审查前哨：它扫描最新设计文档、配置 README / JSON、版本规划和 active UI 文档中出现的显式 VisualID 或可派生图标候选。确认后再写入 `art_requirements_seed.json` 或等待正式配置字段落地；不能把候选报告直接当成 Manifest。
 
 ### 程序接入与验收流
 
@@ -132,10 +137,11 @@ config / derived / preset
 
 * active Formal V1 UI 已覆盖 21 个界面，详见 [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md)。
 * 当前没有剩余 draft UI 队列；后续新增界面仍先写 `formal_v1/*.md` 草案，确认后再进入 active `screen_layouts.json`。
-* 最新可接入素材清单显示 `program_integrate=45`，程序侧可按清单登记和接入。
-* 最新程序接入交接清单显示 `VisualAssetRegistry register count=45`、`Screens needing ArtAcceptance capture coverage=6`、`Screens needing ArtAcceptance rerun=15`，程序侧优先按该清单接入。
+* 最新美术需求候选清单显示 `new_candidate=36`、`approved_without_manifest=0`、`seed_only=0`；这些是后续美术人工审查入口，不自动进入 Manifest。
+* 最新可接入素材清单显示 `program_integrate=109`，程序侧可按清单登记和接入。
+* 最新程序接入交接清单显示 `program_integrate=109`、`Screens needing ArtAcceptance capture coverage=6`、`Screens needing ArtAcceptance rerun=15`，程序侧优先按该清单接入。
 * 最新缺图生成计划显示 `generate_needed=0`；当前没有阻塞程序接入的新缺图项。
-* 最新素材质量替换清单显示 `technical_fix=0`、`visual_v2_replace=53`；这些 local_v0 素材不阻塞程序接入，但要在 Visual V2 批次同名替换。
+* 最新素材质量替换清单显示 `technical_fix=0`、`visual_v2_replace=117`；这些 local_v0 素材不阻塞程序接入，但要在 Visual V2 批次同名替换。
 * Formal V1 验收队列已生成：21 个 active 界面纳入队列，15 个有 latest 旧截图可粗看，9 个仍需程序登记 VisualID 或补截图后重跑 ArtAcceptance。
 * NovelAI 当前存在 Anlas 余额不足风险，local_v0 素材只用于先解锁程序接入和验收，后续需要替换为正式版。
 
@@ -144,6 +150,8 @@ config / derived / preset
 * [_generated/art_manifest.json](_generated/art_manifest.json)：机器可读 Manifest。
 * [_generated/视觉资产Manifest.md](_generated/视觉资产Manifest.md)：脚本生成的 Manifest 摘要，方便快速查看。
 * [_generated/AI绘图提示词清单.md](_generated/AI绘图提示词清单.md)：脚本补全后的提示词清单，供出图和审阅。
+* [_generated/美术需求候选清单.md](_generated/美术需求候选清单.md)：从设计 / 配置 / UI 文档扫描出的潜在新增美术需求，人工审查后才进入 seed 或配置。
+* [_generated/art_requirement_candidate_snapshots/](_generated/art_requirement_candidate_snapshots/)：美术需求候选清单历史快照。
 * [_generated/可接入素材清单.md](_generated/可接入素材清单.md)：当前可接入素材 latest，程序侧优先按其中 `program_integrate` 队列接入。
 * [_generated/程序接入交接清单.md](_generated/程序接入交接清单.md)：程序接入 latest，一站式汇总 VisualID 登记、截图覆盖和 ArtAcceptance 重跑队列。
 * [_generated/art_program_handoff_snapshots/](_generated/art_program_handoff_snapshots/)：程序接入交接清单历史快照。
@@ -160,6 +168,7 @@ config / derived / preset
 
 ```powershell
 .\tools\美术工具\Update-ArtManifest.ps1
+.\tools\美术工具\Scan-ArtRequirementCandidates.ps1 -Snapshot -SnapshotTag manual_review
 .\tools\美术工具\Generate-ArtPrompts.ps1
 .\tools\美术工具\Validate-UIDesign.ps1
 .\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag manual_review
