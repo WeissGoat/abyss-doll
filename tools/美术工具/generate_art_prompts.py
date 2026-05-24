@@ -67,6 +67,10 @@ NODE_EN: Dict[str, str] = {
     "SafeRoomNode": "safe-room map node symbol, small shelter lamp or repair beacon inside a protective circle, calm readable shape",
     "BossNode": "boss map node symbol, heavy warning emblem, sealed gate icon or large cracked eye-shaped mark, ominous high-contrast shape",
     "StairsNode": "stairs map node symbol, descending stone stairway or metal ladder opening, clear downward gateway shape, high contrast",
+    "EventNode": "event map node symbol, small brass scroll and question-mark-shaped torn ribbon, mysterious but calm silhouette, high contrast",
+    "HazardNode": "hazard map node symbol, triangular brass warning plate with cracked toxic crystal, sharp danger silhouette, high contrast",
+    "RestStopNode": "rest stop map node symbol, small warm lantern and folded blanket inside a protective brass ring, calm shelter silhouette, high contrast",
+    "TreasureNode": "treasure map node symbol, small locked brass supply chest with gear clasp and soft gold glow, readable reward silhouette, high contrast",
 }
 
 NODE_CN: Dict[str, str] = {
@@ -74,6 +78,10 @@ NODE_CN: Dict[str, str] = {
     "SafeRoomNode": "安全区节点图标，用庇护灯、维修灯或保护圆环表达休整。",
     "BossNode": "首领节点图标，用重型警告徽记、封闭门禁或裂隙眼形标记表达压迫感。",
     "StairsNode": "阶梯节点图标，用向下台阶、竖井入口或金属梯口表达进入下一层的通道感。",
+    "EventNode": "事件节点图标，用黄铜卷轴和问号形破布表达未知事件，轮廓神秘但不危险。",
+    "HazardNode": "危险节点图标，用三角黄铜警示牌和开裂污染水晶表达环境危害。",
+    "RestStopNode": "休整节点图标，用暖色小灯和折叠毯子置于黄铜保护环中表达短暂庇护。",
+    "TreasureNode": "宝箱节点图标，用带齿轮锁扣的黄铜补给箱和柔和金光表达奖励。",
 }
 
 PROSTHETIC_EN: Dict[str, str] = {
@@ -175,6 +183,23 @@ UI_EN = {
     "combat_turn_banner": "wide turn banner frame, dark metal ribbon, brass pipe ends, empty center area, subtle amber glow",
     "combat_entity_shadow": "soft transparent elliptical floor shadow, subtle dark edge, centered empty interior, no hard border",
     "combat_target_ring": "elliptical target selection ring, thin brass mechanical outline, soft amber glow, transparent center",
+    "combat_intent_attack": "attack warning emblem, sharp red claw slash over a small brass gear badge, angular impact shape, clean silhouette",
+    "combat_intent_defend": "defensive warning emblem, compact brass shield plate with blue edge light and tiny rivets, clean silhouette",
+    "combat_intent_buff": "empowerment emblem, upward brass arrow wrapped by warm golden energy coil, clean silhouette",
+    "combat_intent_debuff": "weakening emblem, downward broken brass arrow with cold purple haze, clean silhouette",
+    "combat_intent_grid_lock": "sealed square tile emblem, crossed brass clamps over a dark grid cell, muted red lock glow, clean silhouette",
+    "combat_intent_add_junk": "clutter warning emblem, cracked scrap chunk falling into a small metal tray, green toxic spark, clean silhouette",
+    "combat_intent_move_item": "displacement warning emblem, four brass direction arrows around a small crate, clean silhouette",
+    "combat_intent_san_pressure": "mental pressure emblem, cracked blue-purple crystal inside a brass pressure gauge ring, clean silhouette",
+    "combat_intent_charge": "charge-up warning emblem, glowing capacitor coil and compressed spring, amber energy buildup, clean silhouette",
+    "combat_intent_unknown": "unknown action emblem, obscured dark brass eye badge under a small torn veil, clean silhouette",
+    "combat_status_corrosion": "corrosion status emblem, green acid droplet eating into a brass plate, clean silhouette",
+    "combat_status_curse": "curse status emblem, dark purple cracked talisman plate wrapped by small brass wires, clean silhouette",
+    "combat_status_stun": "stun status emblem, tilted brass gear with blue spark burst, clean silhouette",
+    "combat_feedback_hit": "hit feedback overlay, sharp translucent red-orange impact burst with brass spark fragments, transparent center gaps",
+    "combat_feedback_shield_break": "shield break feedback overlay, cracked blue shield shards with brass spark fragments, transparent gaps",
+    "combat_grid_lock_marker": "square cell overlay marker, crossed brass clamp frame with muted red warning glow, transparent center",
+    "combat_junk_preview_marker": "square cell preview marker, faint green toxic stain and small scrap warning outline, transparent center",
     "dungeon_node_plate": "round map node backing plate, dark metal disk, brass ring, small screw marks, empty center",
     "dungeon_route_line": "thin map route connector line, brass pipe segment with small rivets, horizontal tileable strip",
     "settlement_victory_panel": "large evacuation success panel frame, dark metal body, warm brass trim, subtle green-blue signal light, empty center area",
@@ -232,6 +257,23 @@ UI_CN = {
     "combat_turn_banner": "回合提示条，宽暗金属条、黄铜管线端头、空中心和淡琥珀光。",
     "combat_entity_shadow": "战斗实体脚底阴影，柔和透明椭圆、暗色边缘、中心干净，不做硬边框。",
     "combat_target_ring": "目标选择光环，椭圆形黄铜机械线框、柔和琥珀光、中心透明。",
+    "combat_intent_attack": "攻击意图图标，红色爪痕斩击叠在小黄铜齿轮徽章上，轮廓尖锐清楚。",
+    "combat_intent_defend": "防御意图图标，小型黄铜盾牌、蓝色边缘光和细铆钉，轮廓清楚。",
+    "combat_intent_buff": "增益意图图标，向上黄铜箭头缠绕暖色能量线圈，轮廓清楚。",
+    "combat_intent_debuff": "弱化意图图标，断裂向下黄铜箭头和冷紫色雾气，轮廓清楚。",
+    "combat_intent_grid_lock": "封格意图图标，被交叉黄铜夹具封住的暗色方格，带低饱和红色锁定光。",
+    "combat_intent_add_junk": "塞包意图图标，破裂废料块落入小金属托盘，带绿色污染火花。",
+    "combat_intent_move_item": "移位意图图标，小箱子周围有四向黄铜箭头，轮廓清楚。",
+    "combat_intent_san_pressure": "SAN 压力意图图标，开裂蓝紫水晶位于黄铜压力表环中，轮廓清楚。",
+    "combat_intent_charge": "蓄力意图图标，发光电容线圈和压缩弹簧，琥珀能量聚集。",
+    "combat_intent_unknown": "未知意图图标，暗黄铜眼形徽章被小块破布遮住，轮廓清楚。",
+    "combat_status_corrosion": "腐蚀状态图标，绿色酸液滴腐蚀黄铜板，轮廓清楚。",
+    "combat_status_curse": "诅咒状态图标，暗紫开裂符牌被细黄铜线缠绕，轮廓清楚。",
+    "combat_status_stun": "眩晕状态图标，倾斜黄铜齿轮和蓝色电火花爆点，轮廓清楚。",
+    "combat_feedback_hit": "命中反馈覆盖图，半透明红橙冲击爆点和黄铜火花碎片，保留透明空隙。",
+    "combat_feedback_shield_break": "破盾反馈覆盖图，开裂蓝色护盾碎片和黄铜火花碎片，保留透明空隙。",
+    "combat_grid_lock_marker": "封格覆盖标记，方形格覆盖层、交叉黄铜夹具和低饱和红色警示光，中间透明。",
+    "combat_junk_preview_marker": "塞包预告标记，方形格预览层、淡绿色污染痕和小废料警示轮廓，中间透明。",
     "dungeon_node_plate": "地图节点底板，圆形暗金属盘、黄铜环、小螺丝痕和空中心。",
     "dungeon_route_line": "地图路线连接线，黄铜管线段、小铆钉和横向可平铺条。",
     "settlement_victory_panel": "撤离成功结算面板，暗金属主体、暖黄铜边、微弱绿蓝信号灯和空中心。",
@@ -468,6 +510,66 @@ SPEC = {
         preview_size=64,
     ),
 }
+
+COMBAT_INTENT_ICON_SPEC = make_spec(
+    width=512,
+    height=512,
+    background="transparent",
+    alpha_required=True,
+    display_width=64,
+    display_height=64,
+    safe_padding=10,
+    subject_min=0.68,
+    subject_max=0.84,
+    composition="centered combat intent emblem",
+    post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
+    preview_size=64,
+)
+
+COMBAT_STATUS_ICON_SPEC = make_spec(
+    width=512,
+    height=512,
+    background="transparent",
+    alpha_required=True,
+    display_width=48,
+    display_height=48,
+    safe_padding=10,
+    subject_min=0.68,
+    subject_max=0.84,
+    composition="centered compact status emblem",
+    post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
+    preview_size=56,
+)
+
+COMBAT_FEEDBACK_OVERLAY_SPEC = make_spec(
+    width=512,
+    height=512,
+    background="transparent",
+    alpha_required=True,
+    display_width=140,
+    display_height=140,
+    safe_padding=8,
+    subject_min=0.62,
+    subject_max=0.90,
+    composition="centered transient combat feedback burst with transparent gaps",
+    post_process=["resize", "preserve_transparency"],
+    preview_size=128,
+)
+
+COMBAT_GRID_MARKER_SPEC = make_spec(
+    width=256,
+    height=256,
+    background="transparent",
+    alpha_required=True,
+    display_width=100,
+    display_height=100,
+    safe_padding=6,
+    subject_min=0.76,
+    subject_max=0.96,
+    composition="square inventory grid overlay marker with transparent center",
+    post_process=["resize", "preserve_transparency"],
+    preview_size=100,
+)
 
 UI_SPEC_BY_CONFIG: Dict[str, Dict[str, Any]] = {
     "missing_sprite": SPEC["ui"],
@@ -867,6 +969,23 @@ UI_SPEC_BY_CONFIG: Dict[str, Dict[str, Any]] = {
         post_process=["resize", "preserve_transparency"],
         preview_size=180,
     ),
+    "combat_intent_attack": COMBAT_INTENT_ICON_SPEC,
+    "combat_intent_defend": COMBAT_INTENT_ICON_SPEC,
+    "combat_intent_buff": COMBAT_INTENT_ICON_SPEC,
+    "combat_intent_debuff": COMBAT_INTENT_ICON_SPEC,
+    "combat_intent_grid_lock": COMBAT_INTENT_ICON_SPEC,
+    "combat_intent_add_junk": COMBAT_INTENT_ICON_SPEC,
+    "combat_intent_move_item": COMBAT_INTENT_ICON_SPEC,
+    "combat_intent_san_pressure": COMBAT_INTENT_ICON_SPEC,
+    "combat_intent_charge": COMBAT_INTENT_ICON_SPEC,
+    "combat_intent_unknown": COMBAT_INTENT_ICON_SPEC,
+    "combat_status_corrosion": COMBAT_STATUS_ICON_SPEC,
+    "combat_status_curse": COMBAT_STATUS_ICON_SPEC,
+    "combat_status_stun": COMBAT_STATUS_ICON_SPEC,
+    "combat_feedback_hit": COMBAT_FEEDBACK_OVERLAY_SPEC,
+    "combat_feedback_shield_break": COMBAT_FEEDBACK_OVERLAY_SPEC,
+    "combat_grid_lock_marker": COMBAT_GRID_MARKER_SPEC,
+    "combat_junk_preview_marker": COMBAT_GRID_MARKER_SPEC,
     "dungeon_node_plate": make_spec(
         width=512,
         height=512,
@@ -1052,13 +1171,15 @@ def should_fill(entry: Dict[str, Any], overwrite: bool) -> bool:
         return False
     if overwrite:
         return True
+    prompt_en = str(entry.get("PromptEN", ""))
     return (
         entry.get("Status") == "todo"
         or not entry.get("PromptCN")
         or not entry.get("PromptEN")
         or not entry.get("NegativePromptEN")
         or spec_is_legacy(entry.get("Spec"))
-        or contains_forbidden_text(str(entry.get("PromptEN", "")))
+        or "single readable game asset" in prompt_en
+        or contains_forbidden_text(prompt_en)
         or contains_forbidden_text(str(entry.get("NegativePromptEN", "")))
     )
 

@@ -157,3 +157,10 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 * `doll_room` 作为 P3 人偶房间 / 视觉日记入口进入 active 规格，拆分 `doll_room_background`、`window_state_area`、`doll_idle_stage`、`memento_display_area`、`diary_panel`、`room_detail_panel` 和 `room_action_strip`。
 * 新增 `bg_doll_room_attic`、`ui_icon_diary`、`ui_room_memento_slot` 三个 preset 资产需求，并补齐 Manifest / Prompt / Spec。
 * 已生成 local_v0 Approved 素材并进入 latest `program_integrate` 队列，供程序侧登记 `VisualAssetRegistry` 和接入 UI。
+
+### 2026-05-25：`combat_hud` 增补 P1 战斗可读性 active 规格
+
+* 在 `combat_hud` active 规格中新增 `Combat.IntentIcon`、`Combat.StatusIcon`、`Combat.HitFeedback`、`Combat.ShieldBreakFeedback`、`Combat.GridLockMarker`、`Combat.JunkPreviewMarker` 六类组件。
+* 新增 17 个 preset VisualID：怪物意图图标 10 个、战斗状态图标 3 个、命中 / 破盾反馈 2 个、封格 / 塞包 overlay 2 个。
+* `EnemyIntentAnchor` 和 `EnemyStatusIcons` 挂在敌人实体近侧；`HitFeedback` / `ShieldBreakFeedback` 挂在 `VfxLayer`；`GridLockMarker` / `JunkPreviewMarker` 对齐 `100x100` 背包格，不参与布局尺寸计算。
+* 本次只建立 active UI 合同、Manifest seed 和提示词规格；不生成 local_v0 假图，后续按 Manifest 队列正式跑图并统一验收。

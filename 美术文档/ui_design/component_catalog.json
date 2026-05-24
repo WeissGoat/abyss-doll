@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "UpdatedAt": "2026-05-24",
+  "UpdatedAt": "2026-05-25",
   "Components": [
     {
       "ComponentID": "Button.Danger",
@@ -192,6 +192,128 @@
         "combat_hud"
       ],
       "ProgramUse": "当前可攻击/已选中敌人的脚下目标光环，由运行时显示隐藏或 tint。"
+    },
+    {
+      "ComponentID": "Combat.IntentIcon",
+      "DisplayName": "怪物意图图标",
+      "VisualID": "ui_combat_intent_unknown",
+      "StateVisualIDs": {
+        "attack": "ui_combat_intent_attack",
+        "defend": "ui_combat_intent_defend",
+        "buff": "ui_combat_intent_buff",
+        "debuff": "ui_combat_intent_debuff",
+        "grid_lock": "ui_combat_intent_grid_lock",
+        "add_junk": "ui_combat_intent_add_junk",
+        "move_item": "ui_combat_intent_move_item",
+        "san_pressure": "ui_combat_intent_san_pressure",
+        "charge": "ui_combat_intent_charge",
+        "unknown": "ui_combat_intent_unknown"
+      },
+      "Category": "combat",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "attack",
+        "defend",
+        "buff",
+        "debuff",
+        "grid_lock",
+        "add_junk",
+        "move_item",
+        "san_pressure",
+        "charge",
+        "unknown"
+      ],
+      "RequiredForScreens": [
+        "combat_hud"
+      ],
+      "ProgramUse": "显示在 EnemyIntentAnchor，用于怪物下一行动预告；伤害、护盾、倒计时等数字由运行时 Text 叠加，图标不烘焙文字或数字，raycastTarget=false。"
+    },
+    {
+      "ComponentID": "Combat.StatusIcon",
+      "DisplayName": "战斗状态图标",
+      "VisualID": "ui_combat_status_corrosion",
+      "StateVisualIDs": {
+        "corrosion": "ui_combat_status_corrosion",
+        "curse": "ui_combat_status_curse",
+        "stun": "ui_combat_status_stun"
+      },
+      "Category": "combat",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "corrosion",
+        "curse",
+        "stun"
+      ],
+      "RequiredForScreens": [
+        "combat_hud"
+      ],
+      "ProgramUse": "显示在 EnemyStatusIcons 或玩家状态组，用于腐蚀、诅咒、眩晕等短状态；层级不阻挡敌人点击。"
+    },
+    {
+      "ComponentID": "Combat.HitFeedback",
+      "DisplayName": "命中反馈覆盖图",
+      "VisualID": "ui_combat_feedback_hit",
+      "Category": "combat",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal",
+        "hidden_runtime"
+      ],
+      "RequiredForScreens": [
+        "combat_hud"
+      ],
+      "ProgramUse": "短暂生成在 VfxLayer，用于命中和伤害数字承托；不承载交互，不拦截射线。"
+    },
+    {
+      "ComponentID": "Combat.ShieldBreakFeedback",
+      "DisplayName": "破盾反馈覆盖图",
+      "VisualID": "ui_combat_feedback_shield_break",
+      "Category": "combat",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal",
+        "hidden_runtime"
+      ],
+      "RequiredForScreens": [
+        "combat_hud"
+      ],
+      "ProgramUse": "短暂生成在 VfxLayer，用于护盾破裂反馈；不承载交互，不拦截射线。"
+    },
+    {
+      "ComponentID": "Combat.GridLockMarker",
+      "DisplayName": "封格覆盖标记",
+      "VisualID": "ui_combat_grid_lock_marker",
+      "Category": "combat",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "locked",
+        "hidden_runtime"
+      ],
+      "RequiredForScreens": [
+        "combat_hud"
+      ],
+      "ProgramUse": "覆盖在 100x100 背包格上，表示临时封锁或不可用；不改变 GridContainer 布局，不拦截拖拽射线。"
+    },
+    {
+      "ComponentID": "Combat.JunkPreviewMarker",
+      "DisplayName": "塞包预告标记",
+      "VisualID": "ui_combat_junk_preview_marker",
+      "Category": "combat",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "preview",
+        "hidden_runtime"
+      ],
+      "RequiredForScreens": [
+        "combat_hud"
+      ],
+      "ProgramUse": "覆盖在 100x100 背包格上，表示即将塞入垃圾、毒液或污染物的落点；不改变 GridContainer 布局，不拦截拖拽射线。"
     },
     {
       "ComponentID": "Combat.TurnBanner",

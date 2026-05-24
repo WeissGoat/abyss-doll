@@ -9,7 +9,7 @@ source_of_truth: true
 related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/archive/11_P0_UI骨架接入交付.md
-last_verified: 2026-05-24
+last_verified: 2026-05-25
 update_rule: 修改战斗界面正式结构、敌我站位、背包交互区、战斗实体素材或程序迁移要求时同步本文档。
 ---
 
@@ -197,6 +197,22 @@ CombatBackpack
 | `ui_combat_entity_shadow` | preset | 玩家/敌人脚底阴影。 | 已入库 Approved |
 | `ui_combat_target_ring` | preset | 当前目标脚下光环。 | 已入库 Approved |
 
+### P1 战斗可读性新增
+
+| 类别 | VisualID | 用途 | 当前状态 |
+|---|---|---|---|
+| 怪物意图 | `ui_combat_intent_attack` / `defend` / `buff` / `debuff` / `grid_lock` / `add_junk` / `move_item` / `san_pressure` / `charge` / `unknown` | 敌人下一行动预告。伤害、护盾、倒计时和数量由 Unity Text 叠加，图标不烘焙文字或数字。 | 已写入 active 规格与 Manifest seed，待跑图。 |
+| 战斗状态 | `ui_combat_status_corrosion` / `curse` / `stun` | 腐蚀、诅咒、眩晕等短状态图标。 | 已写入 active 规格与 Manifest seed，待跑图。 |
+| 短暂反馈 | `ui_combat_feedback_hit` / `ui_combat_feedback_shield_break` | 命中、伤害数字承托、破盾短反馈，挂在 `VfxLayer`。 | 已写入 active 规格与 Manifest seed，待跑图。 |
+| 背包干扰标记 | `ui_combat_grid_lock_marker` / `ui_combat_junk_preview_marker` | 封格和塞包预告 overlay，严格对齐 100x100 背包格。 | 已写入 active 规格与 Manifest seed，待跑图。 |
+
+规格约束：
+
+* 意图图标源图 `512x512`、透明 PNG，运行时建议 `64x64`。
+* 状态图标源图 `512x512`、透明 PNG，运行时建议 `48x48`。
+* 命中 / 破盾反馈源图 `512x512`、透明 PNG，运行时建议 `140x140`。
+* 背包格 overlay 源图 `256x256`、透明 PNG，运行时固定 `100x100`，不参与 `LayoutGroup` 尺寸计算。
+
 ---
 
 ## 7. 程序迁移要求
@@ -208,7 +224,10 @@ CombatBackpack
 | 敌人点击 | 点击卡片 | 点击实体 hotspot 或 hit area |
 | 敌人血条 | 卡片内 | 实体脚下 |
 | 敌人选中 | selected card sprite | target ring / outline / tint |
+| 敌人意图 | 文本或无明确承托 | `EnemyIntentAnchor` 图标 + 运行时数值文本 |
+| 敌人状态 | 卡片/文本混合 | `EnemyStatusIcons` 图标组 |
 | 背包位置 | 右下 | 底部居中 |
+| 背包干扰 | 无明确视觉层 | `GridLockMarker` / `JunkPreviewMarker` 对齐 100x100 slot |
 | VFX 空间 | 无明确区域 | `VfxLayer` 位于玩家与敌人之间 |
 
 建议 Unity 层级：
@@ -225,12 +244,18 @@ CombatPanel
       EnemySlot_0
       EnemySlot_1
       EnemySlot_2
+      EnemySlot_*/EnemyIntentAnchor/IntentIcon_Image
+      EnemySlot_*/EnemyStatusIcons/StatusIcon_Template
     VfxLayer
+      HitFeedback_Template
+      ShieldBreakFeedback_Template
   TurnBanner
   TargetHintPanel
   ActionStrip
   PlayerStatusCluster
   CombatBackpackAnchor
+  InventoryCanvas/GridContainer/GridLockMarker_Template
+  InventoryCanvas/GridContainer/JunkPreviewMarker_Template
 ```
 
 ---
@@ -245,6 +270,10 @@ Formal V1 接入后，ArtAcceptance 至少检查：
 4. 中央留有可见战斗空间，未被背包、状态框或固定面板遮满。
 5. `EnemySprite_Image` 优先使用 `CombatVisualID`；若临时 fallback 到 `PortraitID`，验收记录必须标注为素材缺口。
 6. 背景、阴影、状态条、目标光环、VFX 层不拦截敌人点击、背包点击或按钮点击。
+7. 敌人意图图标位于敌人实体上方或近侧，运行时数字/倒计时由 Text 叠加，图标本身不含文字、字母或数字。
+8. 敌人状态图标不遮挡 `EnemyClickHotspot_Button`，点击敌人主体和脚下光环仍能选中目标。
+9. 封格和塞包预告标记严格对齐 100x100 背包格，不改变 `GridContainer` 尺寸、格间距或物品拖拽层级。
+10. 命中和破盾反馈只在 `VfxLayer` 短暂出现，不作为常驻面板，不阻挡敌人、背包或按钮射线。
 
 ---
 
@@ -253,5 +282,6 @@ Formal V1 接入后，ArtAcceptance 至少检查：
 * active `screen_layouts.json` 已切到 `combat_hud` Formal V1 active spec。
 * Manifest 扫描器已把 `MonsterEntity.CombatVisualID` 扫出为 `monster_*_combat` 战斗实体需求。
 * 美术侧已完成第一批战斗实体和战斗 UI 辅助素材入库：4 个 `monster_*_combat`、`ui_combat_entity_shadow`、`ui_combat_target_ring`。
-* 下一步交给 UI 程序侧做正式结构接入；接入后由美术侧用 ArtAcceptance 截图验收。
+* P1 战斗可读性增补已写入 active UI 规格、组件目录和 preset seed：意图图标、状态图标、命中/破盾反馈、封格/塞包 overlay。
+* 下一步刷新 Manifest / Prompt / 可接入清单；素材生成完成后再交 UI 程序侧接入并由美术侧用 ArtAcceptance 截图验收。
 

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "UpdatedAt": "2026-05-24",
+  "UpdatedAt": "2026-05-25",
   "ReferenceResolution": "1920x1080",
   "Screens": [
     {
@@ -520,7 +520,13 @@
         "Combat.ApPip",
         "Combat.TurnBanner",
         "Inventory.ChassisPanel",
-        "Inventory.Slot"
+        "Inventory.Slot",
+        "Combat.IntentIcon",
+        "Combat.StatusIcon",
+        "Combat.HitFeedback",
+        "Combat.ShieldBreakFeedback",
+        "Combat.GridLockMarker",
+        "Combat.JunkPreviewMarker"
       ],
       "RequiredVisualIDs": [
         "ui_panel_info",
@@ -539,7 +545,24 @@
         "ui_inventory_slot_valid",
         "ui_inventory_slot_invalid",
         "bg_combat_abyss",
-        "doll_proto_0_stand"
+        "doll_proto_0_stand",
+        "ui_combat_intent_attack",
+        "ui_combat_intent_defend",
+        "ui_combat_intent_buff",
+        "ui_combat_intent_debuff",
+        "ui_combat_intent_grid_lock",
+        "ui_combat_intent_add_junk",
+        "ui_combat_intent_move_item",
+        "ui_combat_intent_san_pressure",
+        "ui_combat_intent_charge",
+        "ui_combat_intent_unknown",
+        "ui_combat_status_corrosion",
+        "ui_combat_status_curse",
+        "ui_combat_status_stun",
+        "ui_combat_feedback_hit",
+        "ui_combat_feedback_shield_break",
+        "ui_combat_grid_lock_marker",
+        "ui_combat_junk_preview_marker"
       ],
       "Zones": [
         {
@@ -599,7 +622,9 @@
             "Combat.EntityShadow",
             "Combat.TargetRing",
             "Combat.HpBar",
-            "Combat.ShieldBar"
+            "Combat.ShieldBar",
+            "Combat.IntentIcon",
+            "Combat.StatusIcon"
           ],
           "Notes": "敌人是舞台实体，不是卡片；HP/Shield 条贴近实体脚下，目标光环也在脚下。"
         },
@@ -613,7 +638,10 @@
             "Width": 620,
             "Height": 240
           },
-          "ComponentRefs": [],
+          "ComponentRefs": [
+            "Combat.HitFeedback",
+            "Combat.ShieldBreakFeedback"
+          ],
           "Notes": "该区域不放固定面板；只作为运行时 VFX 层和短暂反馈层。"
         },
         {
@@ -659,7 +687,9 @@
           },
           "ComponentRefs": [
             "Inventory.ChassisPanel",
-            "Inventory.Slot"
+            "Inventory.Slot",
+            "Combat.GridLockMarker",
+            "Combat.JunkPreviewMarker"
           ],
           "Notes": "背包居中；保持 100x100 玩法格和 5 间距，不为了布局压缩格子。"
         },
@@ -687,20 +717,27 @@
           "敌人从 EnemyCardsRoot 迁移到 EnemyStageRoot / EnemySlot_*，主表现从卡片改为战斗实体。",
           "战斗背包从右下迁移到底部居中 combat_backpack，保留 100x100 玩法格和 5 间距。",
           "敌人 HP/Shield 条从卡片内部迁移到敌人实体脚下；选中态使用 ui_combat_target_ring 或运行时描边/tint。",
-          "中央 vfx_space 不放固定面板，用于攻击轨迹、伤害数字、状态反馈和命中效果。"
+          "中央 vfx_space 不放固定面板，用于攻击轨迹、伤害数字、状态反馈和命中效果。",
+          "敌人意图从纯文本提示升级为 EnemyIntentAnchor 图标 + 运行时数值文本，保持靠近敌方实体但不挡点击。",
+          "战斗干扰从纯规则文本升级为背包格 overlay：封格和塞包预告标记必须对齐 100x100 玩法格。"
         ],
         "DataBindings": [
           "EnemySprite_Image 优先绑定 MonsterEntity.CombatVisualID；缺图时才临时 fallback 到 PortraitID。",
           "当前配置中的 4 个 MVP 怪物 CombatVisualID 已入库 Approved：monster_mob_scavenger_bug_combat、monster_mob_acid_slime_combat、monster_elite_scrap_guard_combat、monster_elite_mutant_amalgam_combat。",
           "EnemyClickHotspot_Button 覆盖实体主体和脚下光环，不依赖卡片框点击。",
           "HP/Shield 填充由程序 Image fillAmount 或 RectTransform 控制；底图不烘焙数值。",
-          "AP pip 数量由当前 AP 动态生成；targetHintLabel 继续由 HUDController 文本叠加。"
+          "AP pip 数量由当前 AP 动态生成；targetHintLabel 继续由 HUDController 文本叠加。",
+          "怪物意图枚举映射到 Combat.IntentIcon 的 StateVisualIDs：attack、defend、buff、debuff、grid_lock、add_junk、move_item、san_pressure、charge、unknown。",
+          "腐蚀、诅咒、眩晕等战斗状态映射到 Combat.StatusIcon；状态层只显示图标，层数或持续回合由运行时 Text 叠加。",
+          "封格和塞包预告由程序按背包格坐标实例化 overlay，不修改背包真实格尺寸和拖拽计算。"
         ],
         "InteractionNotes": [
           "EnemyShadow_Image、EnemyTargetRing_Image、EnemyHpBar、EnemyShieldBar 默认 raycastTarget=false。",
           "EnemyClickHotspot_Button 或敌人实体 hit area 才接收目标选择点击。",
           "背包 GridContainer 和 InventoryItemLayer 同锚到 combat_backpack，并保持物品层在格子层之后。",
-          "背景、阴影、VFX 层、目标光环不能阻断背包、敌人热区或按钮射线。"
+          "背景、阴影、VFX 层、目标光环不能阻断背包、敌人热区或按钮射线。",
+          "EnemyIntentAnchor、EnemyStatusIcons、HitFeedback、ShieldBreakFeedback、GridLockMarker、JunkPreviewMarker 默认 raycastTarget=false。",
+          "GridLockMarker 和 JunkPreviewMarker 必须跟随对应 100x100 slot 的 anchored position，不参与 LayoutGroup 尺寸计算。"
         ]
       },
       "ControllerBindings": [
@@ -817,8 +854,49 @@
           "RaycastTarget": false
         },
         {
+          "Path": "CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemyIntentAnchor/IntentIcon_Image",
+          "Layer": "Controls",
+          "ComponentRef": "Combat.IntentIcon",
+          "VisualID": "ui_combat_intent_unknown",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemyIntentAnchor/IntentValue_Text",
+          "Layer": "Controls",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemyStatusIcons/StatusIcon_Template",
+          "Layer": "Controls",
+          "ComponentRef": "Combat.StatusIcon",
+          "VisualID": "ui_combat_status_corrosion",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
           "Path": "CombatPanel/StageRoot/VfxLayer",
           "Layer": "VFX",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/StageRoot/VfxLayer/HitFeedback_Template",
+          "Layer": "VFX",
+          "ComponentRef": "Combat.HitFeedback",
+          "VisualID": "ui_combat_feedback_hit",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "CombatPanel/StageRoot/VfxLayer/ShieldBreakFeedback_Template",
+          "Layer": "VFX",
+          "ComponentRef": "Combat.ShieldBreakFeedback",
+          "VisualID": "ui_combat_feedback_shield_break",
+          "ImageType": "Simple",
+          "FitMode": "contain",
           "RaycastTarget": false
         },
         {
@@ -902,6 +980,24 @@
           "RaycastTarget": true
         },
         {
+          "Path": "InventoryCanvas/GridContainer/GridLockMarker_Template",
+          "Layer": "InventoryOrCards",
+          "ComponentRef": "Combat.GridLockMarker",
+          "VisualID": "ui_combat_grid_lock_marker",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "InventoryCanvas/GridContainer/JunkPreviewMarker_Template",
+          "Layer": "InventoryOrCards",
+          "ComponentRef": "Combat.JunkPreviewMarker",
+          "VisualID": "ui_combat_junk_preview_marker",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
           "Path": "InventoryCanvas/InventoryItemLayer",
           "Layer": "InventoryOrCards",
           "RaycastTarget": true
@@ -941,6 +1037,39 @@
           "RaycastTarget": false
         },
         {
+          "Target": "EnemySlot_*/EnemyIntentAnchor/IntentIcon_Image",
+          "VisualID": "ui_combat_intent_unknown",
+          "StateVisualIDs": {
+            "attack": "ui_combat_intent_attack",
+            "defend": "ui_combat_intent_defend",
+            "buff": "ui_combat_intent_buff",
+            "debuff": "ui_combat_intent_debuff",
+            "grid_lock": "ui_combat_intent_grid_lock",
+            "add_junk": "ui_combat_intent_add_junk",
+            "move_item": "ui_combat_intent_move_item",
+            "san_pressure": "ui_combat_intent_san_pressure",
+            "charge": "ui_combat_intent_charge",
+            "unknown": "ui_combat_intent_unknown"
+          },
+          "ComponentRef": "Combat.IntentIcon",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "EnemySlot_*/EnemyStatusIcons/StatusIcon_Template",
+          "VisualID": "ui_combat_status_corrosion",
+          "StateVisualIDs": {
+            "corrosion": "ui_combat_status_corrosion",
+            "curse": "ui_combat_status_curse",
+            "stun": "ui_combat_status_stun"
+          },
+          "ComponentRef": "Combat.StatusIcon",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
           "Target": "enemy/player hp bar frame",
           "VisualID": "ui_combat_status_bar_hp",
           "ComponentRef": "Combat.HpBar",
@@ -959,6 +1088,22 @@
           "VisualID": "ui_combat_ap_pip",
           "ComponentRef": "Combat.ApPip",
           "ImageType": "Simple",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "VfxLayer/HitFeedback_Template",
+          "VisualID": "ui_combat_feedback_hit",
+          "ComponentRef": "Combat.HitFeedback",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "VfxLayer/ShieldBreakFeedback_Template",
+          "VisualID": "ui_combat_feedback_shield_break",
+          "ComponentRef": "Combat.ShieldBreakFeedback",
+          "ImageType": "Simple",
+          "FitMode": "contain",
           "RaycastTarget": false
         },
         {
@@ -981,6 +1126,22 @@
           "ComponentRef": "Inventory.Slot",
           "ImageType": "Simple",
           "RaycastTarget": true
+        },
+        {
+          "Target": "GridContainer/GridLockMarker_Template",
+          "VisualID": "ui_combat_grid_lock_marker",
+          "ComponentRef": "Combat.GridLockMarker",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "GridContainer/JunkPreviewMarker_Template",
+          "VisualID": "ui_combat_junk_preview_marker",
+          "ComponentRef": "Combat.JunkPreviewMarker",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
         }
       ],
       "InventoryLayerPolicy": {
@@ -1002,7 +1163,11 @@
         "敌人 HP/Shield 条贴近敌人脚下，选中目标时脚下 target ring 或等效高亮可见。",
         "中央 vfx_space 没有固定面板遮挡，可用于攻击轨迹、投射物、伤害数字和状态反馈。",
         "MonsterEntity.CombatVisualID 缺图时可以临时 fallback 到 PortraitID，但正式验收以透明背景战斗实体素材为准。",
-        "背景、阴影、目标光环、状态条和 VFX 层不拦截敌人热区、背包格或按钮射线。"
+        "背景、阴影、目标光环、状态条和 VFX 层不拦截敌人热区、背包格或按钮射线。",
+        "敌人意图图标位于敌人实体上方或近侧，运行时数字/倒计时由 Text 叠加，图标本身不含文字、字母或数字。",
+        "敌人状态图标与意图图标不遮挡 EnemyClickHotspot_Button，点击敌人主体和脚下光环仍能选中目标。",
+        "封格和塞包预告标记严格对齐 100x100 背包格，不改变 GridContainer 尺寸、格间距或物品拖拽层级。",
+        "命中和破盾反馈只在 VfxLayer 短暂出现，不作为常驻面板，不阻挡敌人、背包或按钮射线。"
       ]
     },
     {

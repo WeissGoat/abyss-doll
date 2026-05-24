@@ -5,7 +5,7 @@
 ## Summary
 
 * Reference resolution: `1920x1080`
-* Components: `48`
+* Components: `54`
 * Screens: `19`
 
 ## Screens
@@ -13,7 +13,7 @@
 | Priority | ScreenID | Name | Status | Required Components | Required Visuals |
 |---|---|---|---|---:|---:|
 | `P0` | `workshop_main` | 工坊主界面 | `active_spec` | 7 | 14 |
-| `P0` | `combat_hud` | 战斗界面 | `active_spec` | 11 | 17 |
+| `P0` | `combat_hud` | 战斗界面 | `active_spec` | 17 | 34 |
 | `P0` | `inventory_loot` | 背包与战利品拾取界面 | `active_spec` | 8 | 13 |
 | `P1` | `dungeon_map` | 深渊地图界面 | `active_spec` | 6 | 7 |
 | `P1` | `settlement` | 撤离/战败结算界面 | `active_spec` | 6 | 8 |
@@ -45,6 +45,12 @@
 | `P1` | `Combat.HpBar` | `ui_combat_status_bar_hp` | `nine_slice` | `combat_hud` |
 | `P1` | `Combat.ShieldBar` | `ui_combat_status_bar_shield` | `nine_slice` | `combat_hud` |
 | `P1` | `Combat.TargetRing` | `ui_combat_target_ring` | `fixed_or_stretch` | `combat_hud` |
+| `P1` | `Combat.IntentIcon` | `ui_combat_intent_add_junk`, `ui_combat_intent_attack`, `ui_combat_intent_buff`, `ui_combat_intent_charge`, `ui_combat_intent_debuff`, `ui_combat_intent_defend`, `ui_combat_intent_grid_lock`, `ui_combat_intent_move_item`, `ui_combat_intent_san_pressure`, `ui_combat_intent_unknown` | `fixed` | `combat_hud` |
+| `P1` | `Combat.StatusIcon` | `ui_combat_status_corrosion`, `ui_combat_status_curse`, `ui_combat_status_stun` | `fixed` | `combat_hud` |
+| `P1` | `Combat.HitFeedback` | `ui_combat_feedback_hit` | `fixed` | `combat_hud` |
+| `P1` | `Combat.ShieldBreakFeedback` | `ui_combat_feedback_shield_break` | `fixed` | `combat_hud` |
+| `P1` | `Combat.GridLockMarker` | `ui_combat_grid_lock_marker` | `fixed` | `combat_hud` |
+| `P1` | `Combat.JunkPreviewMarker` | `ui_combat_junk_preview_marker` | `fixed` | `combat_hud` |
 | `P1` | `Combat.TurnBanner` | `ui_combat_turn_banner` | `nine_slice` | `combat_hud` |
 | `P1` | `Icon.Bill` | `ui_icon_bill` | `fixed` | `daily_bill_report` |
 | `P2` | `Icon.BlackMarket` | `ui_icon_black_market` | `fixed` | `shop_staging`, `faction_shop` |
@@ -198,11 +204,11 @@ Zones:
 | `battle_background` | full_screen | 0,0 1920x1080 |  | 战斗背景，cover 适配，不承载关键交互。 |
 | `turn_banner` | top_center | 660,32 600x84 | `Combat.TurnBanner` | 当前回合、敌方行动、目标选择提示的轻量横条。 |
 | `player_stage` | left_middle | 100,190 440x620 | `Combat.EntityShadow` | 玩家魔偶实体、脚底阴影、受击/VFX 挂点。 |
-| `enemy_stage` | right_middle | 1240,160 600x500 | `Combat.EntityShadow`, `Combat.TargetRing`, `Combat.HpBar`, `Combat.ShieldBar` | 1-3 个敌方战斗实体站位、点击热区、脚下血条和选中光环。 |
-| `vfx_space` | center | 560,180 620x240 |  | 攻击轨迹、投射物、伤害数字、状态变化和命中反馈的中央空间。 |
+| `enemy_stage` | right_middle | 1240,160 600x500 | `Combat.EntityShadow`, `Combat.TargetRing`, `Combat.HpBar`, `Combat.ShieldBar`, `Combat.IntentIcon`, `Combat.StatusIcon` | 1-3 个敌方战斗实体站位、点击热区、脚下血条和选中光环。 |
+| `vfx_space` | center | 560,180 620x240 | `Combat.HitFeedback`, `Combat.ShieldBreakFeedback` | 攻击轨迹、投射物、伤害数字、状态变化和命中反馈的中央空间。 |
 | `target_hint` | center_bottom | 680,430 560x68 | `Panel.Info` | 当前选中物品、AP 消耗、目标选择提示。 |
 | `action_strip` | center_bottom | 680,510 560x84 | `Button.Primary`, `Button.Secondary` | 结束回合、取消选择、临时战斗操作按钮。 |
-| `combat_backpack` | bottom_center | 680,610 560x440 | `Inventory.ChassisPanel`, `Inventory.Slot` | 战斗背包和可用物品，是战斗操作核心盘。 |
+| `combat_backpack` | bottom_center | 680,610 560x440 | `Inventory.ChassisPanel`, `Inventory.Slot`, `Combat.GridLockMarker`, `Combat.JunkPreviewMarker` | 战斗背包和可用物品，是战斗操作核心盘。 |
 | `player_status_cluster` | left_bottom | 120,830 500x150 | `Panel.Info`, `Combat.HpBar`, `Combat.ShieldBar`, `Combat.ApPip` | 玩家 HP、护盾、SAN、AP 摘要。 |
 
 Layout changes:
@@ -210,6 +216,8 @@ Layout changes:
 * 战斗背包从右下迁移到底部居中 combat_backpack，保留 100x100 玩法格和 5 间距。
 * 敌人 HP/Shield 条从卡片内部迁移到敌人实体脚下；选中态使用 ui_combat_target_ring 或运行时描边/tint。
 * 中央 vfx_space 不放固定面板，用于攻击轨迹、伤害数字、状态反馈和命中效果。
+* 敌人意图从纯文本提示升级为 EnemyIntentAnchor 图标 + 运行时数值文本，保持靠近敌方实体但不挡点击。
+* 战斗干扰从纯规则文本升级为背包格 overlay：封格和塞包预告标记必须对齐 100x100 玩法格。
 
 Data bindings:
 * EnemySprite_Image 优先绑定 MonsterEntity.CombatVisualID；缺图时才临时 fallback 到 PortraitID。
@@ -217,12 +225,17 @@ Data bindings:
 * EnemyClickHotspot_Button 覆盖实体主体和脚下光环，不依赖卡片框点击。
 * HP/Shield 填充由程序 Image fillAmount 或 RectTransform 控制；底图不烘焙数值。
 * AP pip 数量由当前 AP 动态生成；targetHintLabel 继续由 HUDController 文本叠加。
+* 怪物意图枚举映射到 Combat.IntentIcon 的 StateVisualIDs：attack、defend、buff、debuff、grid_lock、add_junk、move_item、san_pressure、charge、unknown。
+* 腐蚀、诅咒、眩晕等战斗状态映射到 Combat.StatusIcon；状态层只显示图标，层数或持续回合由运行时 Text 叠加。
+* 封格和塞包预告由程序按背包格坐标实例化 overlay，不修改背包真实格尺寸和拖拽计算。
 
 Interaction notes:
 * EnemyShadow_Image、EnemyTargetRing_Image、EnemyHpBar、EnemyShieldBar 默认 raycastTarget=false。
 * EnemyClickHotspot_Button 或敌人实体 hit area 才接收目标选择点击。
 * 背包 GridContainer 和 InventoryItemLayer 同锚到 combat_backpack，并保持物品层在格子层之后。
 * 背景、阴影、VFX 层、目标光环不能阻断背包、敌人热区或按钮射线。
+* EnemyIntentAnchor、EnemyStatusIcons、HitFeedback、ShieldBreakFeedback、GridLockMarker、JunkPreviewMarker 默认 raycastTarget=false。
+* GridLockMarker 和 JunkPreviewMarker 必须跟随对应 100x100 slot 的 anchored position，不参与 LayoutGroup 尺寸计算。
 
 Controller bindings:
 | Script | Existing fields | Notes |
@@ -243,7 +256,12 @@ Unity hierarchy:
 | `CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemySprite_Image` | CharacterOrMonster |  |  | Simple | contain | False |
 | `CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemyFootHpBar` | Controls | `Combat.HpBar` | `ui_combat_status_bar_hp` | Sliced |  | False |
 | `CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemyFootShieldBar` | Controls | `Combat.ShieldBar` | `ui_combat_status_bar_shield` | Sliced |  | False |
+| `CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemyIntentAnchor/IntentIcon_Image` | Controls | `Combat.IntentIcon` | `ui_combat_intent_unknown` | Simple | contain | False |
+| `CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemyIntentAnchor/IntentValue_Text` | Controls |  |  |  |  | False |
+| `CombatPanel/StageRoot/EnemyStageRoot/EnemySlot_*/EnemyStatusIcons/StatusIcon_Template` | Controls | `Combat.StatusIcon` | `ui_combat_status_corrosion` | Simple | contain | False |
 | `CombatPanel/StageRoot/VfxLayer` | VFX |  |  |  |  | False |
+| `CombatPanel/StageRoot/VfxLayer/HitFeedback_Template` | VFX | `Combat.HitFeedback` | `ui_combat_feedback_hit` | Simple | contain | False |
+| `CombatPanel/StageRoot/VfxLayer/ShieldBreakFeedback_Template` | VFX | `Combat.ShieldBreakFeedback` | `ui_combat_feedback_shield_break` | Simple | contain | False |
 | `CombatPanel/TurnBanner` | Controls | `Combat.TurnBanner` | `ui_combat_turn_banner` | Sliced |  | False |
 | `CombatPanel/TargetHintPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `CombatPanel/ActionStrip/EndTurnButton` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
@@ -254,6 +272,8 @@ Unity hierarchy:
 | `CombatPanel/PlayerStatusCluster/ApPips` | Controls | `Combat.ApPip` | `ui_combat_ap_pip` | Simple |  | False |
 | `CombatPanel/CombatBackpackAnchor/ChassisPanel` | InventoryOrCards | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | Simple |  | False |
 | `InventoryCanvas/GridContainer` | InventoryOrCards | `Inventory.Slot` | `ui_inventory_slot_available` | Simple |  | True |
+| `InventoryCanvas/GridContainer/GridLockMarker_Template` | InventoryOrCards | `Combat.GridLockMarker` | `ui_combat_grid_lock_marker` | Simple | stretch | False |
+| `InventoryCanvas/GridContainer/JunkPreviewMarker_Template` | InventoryOrCards | `Combat.JunkPreviewMarker` | `ui_combat_junk_preview_marker` | Simple | stretch | False |
 | `InventoryCanvas/InventoryItemLayer` | InventoryOrCards |  |  |  |  | True |
 
 Sprite assignments:
@@ -263,12 +283,18 @@ Sprite assignments:
 | `EnemySlot_*/EnemySprite_Image` |  |  | Simple | contain | False |
 | `EnemySlot_*/EnemyShadow_Image and PlayerShadow_Image` | `Combat.EntityShadow` | `ui_combat_entity_shadow` | Simple | stretch | False |
 | `EnemySlot_*/EnemyTargetRing_Image` | `Combat.TargetRing` | `ui_combat_target_ring` | Simple | stretch | False |
+| `EnemySlot_*/EnemyIntentAnchor/IntentIcon_Image` | `Combat.IntentIcon` | `ui_combat_intent_unknown` | Simple | contain | False |
+| `EnemySlot_*/EnemyStatusIcons/StatusIcon_Template` | `Combat.StatusIcon` | `ui_combat_status_corrosion` | Simple | contain | False |
 | `enemy/player hp bar frame` | `Combat.HpBar` | `ui_combat_status_bar_hp` | Sliced |  | False |
 | `enemy/player shield bar frame` | `Combat.ShieldBar` | `ui_combat_status_bar_shield` | Sliced |  | False |
 | `ap pip image` | `Combat.ApPip` | `ui_combat_ap_pip` | Simple |  | False |
+| `VfxLayer/HitFeedback_Template` | `Combat.HitFeedback` | `ui_combat_feedback_hit` | Simple | contain | False |
+| `VfxLayer/ShieldBreakFeedback_Template` | `Combat.ShieldBreakFeedback` | `ui_combat_feedback_shield_break` | Simple | contain | False |
 | `endTurnBtn.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
 | `CancelSelectionButton.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
 | `GridSlotUI.slotImage` | `Inventory.Slot` | `ui_inventory_slot_available` | Simple |  | True |
+| `GridContainer/GridLockMarker_Template` | `Combat.GridLockMarker` | `ui_combat_grid_lock_marker` | Simple | stretch | False |
+| `GridContainer/JunkPreviewMarker_Template` | `Combat.JunkPreviewMarker` | `ui_combat_junk_preview_marker` | Simple | stretch | False |
 
 Inventory layer policy:
 * Uses global inventory: `True`
@@ -288,6 +314,10 @@ Acceptance criteria:
 * 中央 vfx_space 没有固定面板遮挡，可用于攻击轨迹、投射物、伤害数字和状态反馈。
 * MonsterEntity.CombatVisualID 缺图时可以临时 fallback 到 PortraitID，但正式验收以透明背景战斗实体素材为准。
 * 背景、阴影、目标光环、状态条和 VFX 层不拦截敌人热区、背包格或按钮射线。
+* 敌人意图图标位于敌人实体上方或近侧，运行时数字/倒计时由 Text 叠加，图标本身不含文字、字母或数字。
+* 敌人状态图标与意图图标不遮挡 EnemyClickHotspot_Button，点击敌人主体和脚下光环仍能选中目标。
+* 封格和塞包预告标记严格对齐 100x100 背包格，不改变 GridContainer 尺寸、格间距或物品拖拽层级。
+* 命中和破盾反馈只在 VfxLayer 短暂出现，不作为常驻面板，不阻挡敌人、背包或按钮射线。
 
 ### 背包与战利品拾取界面
 
@@ -1623,4 +1653,4 @@ Acceptance criteria:
 
 ## Known VisualID Sources
 
-* Known VisualID count: `95`
+* Known VisualID count: `116`
