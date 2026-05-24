@@ -132,6 +132,10 @@ public class CombatSystem {
         };
     }
 
+    public MonsterActionContext CreateMonsterActionContextForPreview(MonsterFighter actor) {
+        return BuildMonsterActionContext(actor);
+    }
+
     private void CleanupMonsterActionRuntime() {
         _monsterActionState.Reset();
         _monsterRuntimeModifiers.Clear();

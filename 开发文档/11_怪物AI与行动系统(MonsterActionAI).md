@@ -10,7 +10,7 @@ related:
   - 开发文档/03_深渊与战斗循环(DungeonCombat).md
   - 数值模型设计/02_战斗伤害与生存公式.md
   - 配置表(JSON)/Monsters/README.md
-last_verified: 2026-05-23
+last_verified: 2026-05-25
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---
 
@@ -816,3 +816,15 @@ MonsterActionAI 落地后，`ConfigValidator` 不再把旧 `GridInterference` �
 *   `MonsterActionAITest` 覆盖敌方回合 Runner、腐蚀武器伤害、塞入诅咒物三条链路。
 
 当前保留的 `LootPool` 只属于奖励系统迁移期 fallback，不再承载怪物行动或背包干涉逻辑。后续如果奖励系统完全去掉旧 fallback，可再单独移除 `MonsterEntity.LootPool` 与配置中的旧掉落池。
+
+截至 2026-05-25，怪物意图只读预览数据层已补齐第一版：
+
+*   新增 `MonsterIntentPreviewService`，从当前 `CombatSystem` / `MonsterActionAI` 运行时上下文生成怪物意图报告，不执行行动、不修改背包、不推进冷却。
+*   每只怪物输出 `MonsterIntentCard`，包含怪物运行时 HP / Shield、候选行动列表和一个确定性 `SelectedIntent`。
+*   每个候选行动输出 `MonsterActionIntentPreview`，包含 ActionID、ActionType、Target、权重、可执行状态、阻塞原因、标题、描述和类型化数值。
+*   当前已覆盖 3 类 MVP Action 的可读数据：`DamageTarget` 输出单次 / 总伤害，`ReduceWeaponDamage` 输出削弱倍率和持续回合，`AddCursedItem` 输出将塞入的物品、占格和覆盖标签。
+*   预览选择规则为“可执行、权重大优先、ActionID 稳定排序”，不会调用 `WeightedRandomMonsterActionSelector`，因此不消耗随机数，也不改变实际敌方回合语义。
+*   `CombatSystem.CreateMonsterActionContextForPreview()` 只暴露构建预览所需上下文，UI 或其他表现层不得通过它执行行动或修改战斗状态。
+*   `MonsterIntentPreviewServiceSmokeTest` 覆盖普通攻击、酸液软体腐蚀武器、畸变融合体塞污染物，以及预览不改变背包物品数量。
+
+当前该层只是“意图预览”，不是“回合意图锁定”。后续如果设计要求玩家看到的预告必须与敌方回合实际执行完全一致，应把本服务升级为回合开始的 Intent Lock 系统：在玩家回合开始锁定行动实例，UI 读锁定结果，敌方回合执行同一结果。
