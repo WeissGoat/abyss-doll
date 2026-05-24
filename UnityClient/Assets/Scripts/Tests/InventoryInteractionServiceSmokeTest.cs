@@ -42,6 +42,8 @@ public static class InventoryInteractionServiceSmokeTest {
         }
 
         RunRotationPlacementRules();
+        RunRotationPermissionRules();
+        RunRotatedDirectionEffectRules();
         Debug.Log("=== Inventory Interaction Service Smoke Test Finished ===");
     }
 
@@ -70,7 +72,7 @@ public static class InventoryInteractionServiceSmokeTest {
         ItemEntity blade = CreateTestItem("blade", "Rotating Blade", new int[][] {
             new int[] { 0, 0 },
             new int[] { 0, 1 }
-        }, 20);
+        }, 20, true, 4);
 
         bool rotationMutated = InventoryInteractionService.RequestRotateHeldItem(blade, 90, context, out int newRotation, out string rotateReason)
             && newRotation == 90
@@ -90,7 +92,7 @@ public static class InventoryInteractionServiceSmokeTest {
         ItemEntity lockedProbe = CreateTestItem("locked_probe", "Locked Probe", new int[][] {
             new int[] { 0, 0 },
             new int[] { 0, 1 }
-        }, 1);
+        }, 1, true, 4);
         lockedProbe.Grid.Rotation = 90;
         bool lockedRejected = InventoryInteractionService.PreviewPlacement(lockedProbe, 1, 1, context, out BackpackPlacementResult lockedPreview, out _)
             && !lockedPreview.CanPlace
@@ -98,7 +100,7 @@ public static class InventoryInteractionServiceSmokeTest {
 
         ItemEntity collisionProbe = CreateTestItem("collision_probe", "Collision Probe", new int[][] {
             new int[] { 0, 0 }
-        }, 1);
+        }, 1, false, 1);
         bool occupiedRejected = InventoryInteractionService.PreviewPlacement(collisionProbe, 0, 0, context, out BackpackPlacementResult occupiedPreview, out _)
             && !occupiedPreview.CanPlace
             && occupiedPreview.Failure == BackpackPlacementFailure.OccupiedCell;
@@ -134,7 +136,127 @@ public static class InventoryInteractionServiceSmokeTest {
         }
     }
 
-    private static ItemEntity CreateTestItem(string instanceID, string name, int[][] shape, int baseDamage) {
+    private static void RunRotationPermissionRules() {
+        ChassisComponent chassis = new ChassisComponent {
+            GridWidth = 3,
+            GridHeight = 3,
+            GridMask = new bool[][] {
+                new bool[] { true, true, true },
+                new bool[] { true, true, true },
+                new bool[] { true, true, true }
+            }
+        };
+
+        DollEntity doll = new DollEntity {
+            Name = "Inventory Rotation Permission Test Doll",
+            Chassis = chassis,
+            RuntimeGrid = new BackpackGrid(chassis),
+            EquippedProsthetics = new List<string>()
+        };
+
+        GameRoot.Core.CurrentPlayer.ActiveDoll = doll;
+        InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("InventoryInteractionRotationPermissionRules");
+
+        ItemEntity fixedItem = CreateTestItem("fixed_item", "Fixed Item", new int[][] {
+            new int[] { 0, 0 },
+            new int[] { 0, 1 }
+        }, 1, false, 1);
+
+        bool fixedRotationRejected = !InventoryInteractionService.RequestRotateHeldItem(fixedItem, 90, context, out int rejectedRotation, out string fixedRotateReason)
+            && rejectedRotation == 0
+            && fixedItem.Grid.Rotation == 0
+            && fixedRotateReason.Contains("不可旋转");
+
+        bool fixedPlacementRejectsRotatedAngle = InventoryInteractionService.PreviewPlacement(
+                fixedItem,
+                0,
+                0,
+                90,
+                context,
+                out BackpackPlacementResult fixedPreview,
+                out _)
+            && !fixedPreview.CanPlace
+            && fixedPreview.Failure == BackpackPlacementFailure.RotationNotAllowed;
+
+        ItemEntity twoStepItem = CreateTestItem("two_step_item", "Two Step Item", new int[][] {
+            new int[] { 0, 0 },
+            new int[] { 0, 1 }
+        }, 1, true, 2);
+
+        bool twoStepFirstRotation = InventoryInteractionService.RequestRotateHeldItem(twoStepItem, 90, context, out int firstRotation, out string firstRotateReason)
+            && firstRotation == 90
+            && twoStepItem.Grid.Rotation == 90;
+        bool twoStepWrapsToZero = InventoryInteractionService.RequestRotateHeldItem(twoStepItem, 90, context, out int wrappedRotation, out string wrappedRotateReason)
+            && wrappedRotation == 0
+            && twoStepItem.Grid.Rotation == 0;
+        bool twoStepRejects180Placement = InventoryInteractionService.PreviewPlacement(
+                twoStepItem,
+                0,
+                0,
+                180,
+                context,
+                out BackpackPlacementResult twoStepPreview,
+                out _)
+            && !twoStepPreview.CanPlace
+            && twoStepPreview.Failure == BackpackPlacementFailure.RotationNotAllowed;
+
+        if (fixedRotationRejected
+            && fixedPlacementRejectsRotatedAngle
+            && twoStepFirstRotation
+            && twoStepWrapsToZero
+            && twoStepRejects180Placement) {
+            Debug.Log("Inventory Interaction Rotation Permission Rules PASSED.");
+        } else {
+            Debug.LogError($"Inventory Interaction Rotation Permission Rules FAILED. FixedRotate={fixedRotationRejected} ({fixedRotateReason}), FixedPlacement={fixedPlacementRejectsRotatedAngle}, First={twoStepFirstRotation} ({firstRotateReason}), Wrap={twoStepWrapsToZero} ({wrappedRotateReason}), Reject180={twoStepRejects180Placement}");
+        }
+    }
+
+    private static void RunRotatedDirectionEffectRules() {
+        ChassisComponent chassis = new ChassisComponent {
+            GridWidth = 3,
+            GridHeight = 3,
+            GridMask = new bool[][] {
+                new bool[] { true, true, true },
+                new bool[] { true, true, true },
+                new bool[] { true, true, true }
+            }
+        };
+
+        DollEntity doll = new DollEntity {
+            Name = "Inventory Rotated Direction Test Doll",
+            Chassis = chassis,
+            RuntimeGrid = new BackpackGrid(chassis),
+            EquippedProsthetics = new List<string>()
+        };
+
+        GameRoot.Core.CurrentPlayer.ActiveDoll = doll;
+        InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("InventoryInteractionRotatedDirectionRules");
+        BackpackGrid grid = doll.RuntimeGrid as BackpackGrid;
+
+        ItemEntity target = CreateTestItem("direction_target", "Direction Target", new int[][] {
+            new int[] { 0, 0 }
+        }, 10, false, 1);
+
+        ItemEntity rotatedProvider = CreateAmplifier("rotated_provider", TargetDirection.Right.ToString(), 0.5f);
+        rotatedProvider.Grid.CanRotate = true;
+        rotatedProvider.Grid.RotationSteps = 4;
+        rotatedProvider.Grid.Rotation = 90;
+
+        bool targetPlaced = InventoryInteractionService.RequestPlace(target, 2, 1, context, out string targetPlaceReason);
+        bool providerPlaced = InventoryInteractionService.RequestPlace(rotatedProvider, 2, 0, context, out string providerPlaceReason);
+        bool rotatedDirectionAppliedDown = targetPlaced
+            && providerPlaced
+            && grid.GetItemAt(2, 1) == target
+            && Mathf.Approximately(target.Combat.RuntimeDamage, 15f);
+
+        if (rotatedDirectionAppliedDown) {
+            Debug.Log("Inventory Interaction Rotated Direction Rules PASSED.");
+        } else {
+            Debug.LogError($"Inventory Interaction Rotated Direction Rules FAILED. TargetPlaced={targetPlaced} ({targetPlaceReason}), ProviderPlaced={providerPlaced} ({providerPlaceReason}), Damage={target.Combat.RuntimeDamage}");
+        }
+    }
+
+    private static ItemEntity CreateTestItem(string instanceID, string name, int[][] shape, int baseDamage, bool canRotate, int rotationSteps) {
         return new ItemEntity {
             InstanceID = instanceID,
             ConfigID = instanceID,
@@ -142,6 +264,8 @@ public static class InventoryInteractionServiceSmokeTest {
             ItemType = nameof(ItemType.Weapon),
             Grid = new ItemGridComponent {
                 Shape = shape,
+                CanRotate = canRotate,
+                RotationSteps = rotationSteps,
                 Rotation = 0
             },
             Combat = new ItemCombatComponent {
@@ -154,7 +278,7 @@ public static class InventoryInteractionServiceSmokeTest {
     }
 
     private static ItemEntity CreateAmplifier(string instanceID, string target, float multiplier) {
-        ItemEntity item = CreateTestItem(instanceID, "Direction Amplifier", new int[][] { new int[] { 0, 0 } }, 0);
+        ItemEntity item = CreateTestItem(instanceID, "Direction Amplifier", new int[][] { new int[] { 0, 0 } }, 0, false, 1);
         item.Combat.TriggerType = nameof(TriggerType.Passive);
         item.Combat.DamageType = nameof(DamageType.None);
         item.Combat.Effects = new List<EffectData> {

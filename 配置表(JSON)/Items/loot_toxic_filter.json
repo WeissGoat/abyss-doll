@@ -24,6 +24,8 @@
         1
       ]
     ],
+    "CanRotate": false,
+    "RotationSteps": 1,
     "GridCost": 4
   },
   "Combat": {

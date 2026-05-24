@@ -208,7 +208,10 @@ public static class InventoryInteractionService {
             return false;
         }
 
-        newRotation = BackpackGrid.NormalizeRotation(item.Grid.Rotation + rotationDelta);
+        if (!BackpackGrid.TryResolveNextAllowedRotation(item, rotationDelta, out newRotation, out reason)) {
+            return false;
+        }
+
         item.Grid.Rotation = newRotation;
         reason = string.Empty;
         return true;

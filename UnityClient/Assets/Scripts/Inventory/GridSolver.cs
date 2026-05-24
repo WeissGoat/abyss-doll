@@ -93,6 +93,8 @@ public static class GridSolver {
             return targets;
         }
 
+        dir = BackpackGrid.RotateDirection(dir, provider.Grid != null ? provider.Grid.Rotation : 0);
+
         // Get the occupied cells of the provider
         List<int[]> providerCells = grid.GetOccupiedCells(provider, provider.Grid.CurrentPos[0], provider.Grid.CurrentPos[1]);
         if (providerCells.Count == 0) return targets;

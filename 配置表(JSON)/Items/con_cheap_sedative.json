@@ -7,6 +7,8 @@
   "IconID": "item_con_cheap_sedative_icon",
   "Grid": {
     "Shape": [[0,0]],
+    "CanRotate": false,
+    "RotationSteps": 1,
     "GridCost": 1
   },
   "Combat": {

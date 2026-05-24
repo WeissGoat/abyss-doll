@@ -13,7 +13,8 @@ related:
   - 配置表(JSON)/README.md
   - 设计文档/GDD_01_背包战斗与局内网格机制.md
   - 设计文档/GDD_06_物品系统与物品生命周期.md
-last_verified: 2026-05-23
+  - 设计文档/06_标签与特质规则卡.md
+last_verified: 2026-05-24
 update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
 ---
 
@@ -43,7 +44,26 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | 字段名 | 数据类型 | 注释说明 | 可选项 / 备注 |
 | :--- | :--- | :--- | :--- |
 | `Shape` | array<Vector2>| 形状坐标点集，定义在二维网格里的相对形状 | 如 L 型为 `[[0,0], [0,1], [1,0]]` |
+| `CanRotate` | bool | 是否允许玩家在背包整理、战利品拾取等交互中旋转该物品 | 必填。不可旋转物品必须为 `false` |
+| `RotationSteps` | int | 可用朝向数量 | 必填。`1`=仅 0 度；`2`=0/90；`4`=0/90/180/270 |
 | `GridCost` | int | 实际占用的总格子数 | 价值公式中计算 `(CV)` 的基准标尺 |
+
+### Grid 旋转配置规则
+
+旋转能力必须由配置显式声明，运行时不会根据物品形状自动推断。
+
+| 配置组合 | 运行时规则 |
+| :--- | :--- |
+| `CanRotate=false`, `RotationSteps=1` | 固定 0 度。任何非 0 角度放置都会被 `ConfigValidator` 或 `BackpackGrid` 拒绝 |
+| `CanRotate=true`, `RotationSteps=2` | 两向旋转，只允许 `0/90` 循环 |
+| `CanRotate=true`, `RotationSteps=4` | 四向旋转，允许 `0/90/180/270` 循环 |
+
+配置校验要求：
+
+* `Grid.CanRotate` 与 `Grid.RotationSteps` 都是必填字段。
+* `CanRotate=false` 时 `RotationSteps` 必须为 `1`。
+* `CanRotate=true` 时 `RotationSteps` 只能为 `2` 或 `4`。
+* 方向型效果的 `Target` 会随物品当前旋转后的朝向重新计算。
 
 ---
 

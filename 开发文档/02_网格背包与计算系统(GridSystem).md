@@ -12,7 +12,7 @@ related:
   - 配置表(JSON)/Items/README.md
   - 设计文档/GDD_01_背包战斗与局内网格机制.md
   - 设计文档/GDD_06_物品系统与物品生命周期.md
-last_verified: 2026-05-23
+last_verified: 2026-05-24
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---
 
@@ -59,6 +59,16 @@ public class BackpackGrid {
 
 物品旋转只允许使用 `0/90/180/270` 四种角度。任何输入角度都必须先通过 `BackpackGrid.NormalizeRotation()` 归一化。
 
+旋转能力由物品配置控制：
+
+| 字段 | 含义 |
+|---|---|
+| `Grid.CanRotate=false` | 只能使用 `0` 度，任何非 0 朝向都应被放置校验拒绝。 |
+| `Grid.CanRotate=true, RotationSteps=2` | 允许 `0/90` 两向循环，适合长条、矩形但无四向差异的物品。 |
+| `Grid.CanRotate=true, RotationSteps=4` | 允许 `0/90/180/270` 四向循环，适合方向性构筑或需要完整空间解谜的物品。 |
+
+运行时不根据物品形状自动推断是否可旋转。即使 1x1 或正方形旋转后视觉不变，也必须显式配置 `CanRotate=false, RotationSteps=1`，避免 UI 和规则层出现隐式口径。
+
 旋转规则：
 
 ```text
@@ -74,6 +84,9 @@ public class BackpackGrid {
 
 ```csharp
 BackpackGrid.NormalizeRotation(int rotation);
+BackpackGrid.GetAllowedRotationSteps(ItemEntity item);
+BackpackGrid.IsRotationAllowed(ItemEntity item, int rotation);
+BackpackGrid.TryResolveNextAllowedRotation(ItemEntity item, int rotationDelta, out int newRotation, out string reason);
 BackpackGrid.GetNormalizedShapeCells(ItemEntity item, int rotation);
 BackpackGrid.TryGetRotatedBounds(ItemEntity item, int rotation, out int width, out int height);
 ```
@@ -87,6 +100,7 @@ public enum BackpackPlacementFailure {
     None,
     MissingItem,
     MissingShape,
+    RotationNotAllowed,
     OutOfBounds,
     LockedCell,
     OccupiedCell
@@ -109,6 +123,7 @@ public struct BackpackPlacementResult {
 * UI 拖拽预览必须消费 `OccupiedCells`，不得自己重新推导占格。
 * `Failure` 用于自动化测试和日志定位，`Reason` 用于 UI 失败提示。
 * `PlaceItem(item, x, y, rotation)` 会在成功后写回 `item.Grid.CurrentPos` 和规范化后的 `item.Grid.Rotation`。
+* `RotationNotAllowed` 代表配置不允许该朝向，不属于普通碰撞失败；UI 应展示为“当前物品不能这样旋转 / 放置”。
 
 ### 2.3 背包交互服务
 
@@ -125,6 +140,8 @@ RequestStageDiscard(...)
 
 旋转只允许发生在“已拿起”的交互态。仍在背包矩阵中的物品不能直接修改 `Rotation`，否则矩阵占格和物品自身状态会不同步。
 
+`RequestRotateHeldItem()` 必须走 `BackpackGrid.TryResolveNextAllowedRotation()`，不能直接 `Rotation += 90`。这样 UI、战利品拾取、安全区整理和非战斗整理会共享同一套配置规则。
+
 成功放置后，服务负责：
 
 ```text
@@ -134,6 +151,8 @@ BackpackGrid.PlaceItem
 ```
 
 因此相邻、方向、光环、连接链路和被动效果必须在放置后立即刷新。
+
+方向型效果（`Left / Right / Up / Down`）以物品当前旋转后的朝向为准。`GridSolver` 在寻找目标前会使用 `BackpackGrid.RotateDirection()` 转换配置方向，避免“视觉旋转了但增益方向不变”的规则错位。
 
 ## 3. 效果工厂与网格解算器 (GridSolver & EffectFactory)
 

@@ -24,6 +24,8 @@ public class ItemEntity {
 [Serializable]
 public class ItemGridComponent {
     public int[][] Shape;
+    public bool CanRotate;
+    public int RotationSteps = 1;
     public int Rotation;
     public int GridCost;
     public int[] CurrentPos = new int[2] { 0, 0 };

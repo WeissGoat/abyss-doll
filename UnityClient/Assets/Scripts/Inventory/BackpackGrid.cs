@@ -5,6 +5,7 @@ public enum BackpackPlacementFailure {
     None,
     MissingItem,
     MissingShape,
+    RotationNotAllowed,
     OutOfBounds,
     LockedCell,
     OccupiedCell
@@ -82,6 +83,121 @@ public class BackpackGrid {
         }
 
         return (normalized / RotationStep) * RotationStep;
+    }
+
+    public static int GetAllowedRotationSteps(ItemEntity item) {
+        if (item?.Grid == null || !item.Grid.CanRotate) {
+            return 1;
+        }
+
+        if (item.Grid.RotationSteps == 2 || item.Grid.RotationSteps == 4) {
+            return item.Grid.RotationSteps;
+        }
+
+        return 1;
+    }
+
+    public static bool CanRotateItem(ItemEntity item) {
+        return GetAllowedRotationSteps(item) > 1;
+    }
+
+    public static bool IsRotationAllowed(ItemEntity item, int rotation) {
+        int normalizedRotation = NormalizeRotation(rotation);
+        int allowedSteps = GetAllowedRotationSteps(item);
+        if (allowedSteps <= 1) {
+            return normalizedRotation == 0;
+        }
+
+        return normalizedRotation >= 0 && normalizedRotation < allowedSteps * RotationStep;
+    }
+
+    public static bool TryResolveNextAllowedRotation(ItemEntity item, int rotationDelta, out int newRotation, out string reason) {
+        newRotation = item?.Grid != null ? NormalizeRotation(item.Grid.Rotation) : 0;
+
+        if (item?.Grid == null) {
+            reason = "物品缺少背包形状，无法旋转。";
+            return false;
+        }
+
+        int allowedSteps = GetAllowedRotationSteps(item);
+        if (allowedSteps <= 1) {
+            reason = $"物品 [{item.Name}] 配置为不可旋转。";
+            return false;
+        }
+
+        int deltaSteps = rotationDelta / RotationStep;
+        if (deltaSteps == 0 && rotationDelta != 0) {
+            deltaSteps = rotationDelta > 0 ? 1 : -1;
+        }
+
+        int currentIndex = NormalizeRotation(item.Grid.Rotation) / RotationStep;
+        int nextIndex = (currentIndex + deltaSteps) % allowedSteps;
+        if (nextIndex < 0) {
+            nextIndex += allowedSteps;
+        }
+
+        newRotation = nextIndex * RotationStep;
+        reason = string.Empty;
+        return true;
+    }
+
+    public static TargetDirection RotateDirection(TargetDirection direction, int rotation) {
+        switch (direction) {
+            case TargetDirection.Right:
+            case TargetDirection.Left:
+            case TargetDirection.Up:
+            case TargetDirection.Down:
+                break;
+            default:
+                return direction;
+        }
+
+        int x = 0;
+        int y = 0;
+        switch (direction) {
+            case TargetDirection.Right:
+                x = 1;
+                break;
+            case TargetDirection.Left:
+                x = -1;
+                break;
+            case TargetDirection.Up:
+                y = -1;
+                break;
+            case TargetDirection.Down:
+                y = 1;
+                break;
+        }
+
+        switch (NormalizeRotation(rotation)) {
+            case 90:
+                int rotated90X = -y;
+                int rotated90Y = x;
+                x = rotated90X;
+                y = rotated90Y;
+                break;
+            case 180:
+                x = -x;
+                y = -y;
+                break;
+            case 270:
+                int rotated270X = y;
+                int rotated270Y = -x;
+                x = rotated270X;
+                y = rotated270Y;
+                break;
+        }
+
+        if (x > 0) {
+            return TargetDirection.Right;
+        }
+        if (x < 0) {
+            return TargetDirection.Left;
+        }
+        if (y < 0) {
+            return TargetDirection.Up;
+        }
+        return TargetDirection.Down;
     }
 
     public static List<int[]> GetNormalizedShapeCells(ItemEntity item, int rotation) {
@@ -189,6 +305,15 @@ public class BackpackGrid {
 
         if (item.Grid == null || item.Grid.Shape == null || item.Grid.Shape.Length == 0) {
             return BackpackPlacementResult.Fail(BackpackPlacementFailure.MissingShape, $"物品 [{item.Name}] 缺少背包形状。", targetX, targetY, normalizedRotation);
+        }
+
+        if (!IsRotationAllowed(item, normalizedRotation)) {
+            return BackpackPlacementResult.Fail(
+                BackpackPlacementFailure.RotationNotAllowed,
+                $"物品 [{item.Name}] 不允许使用 {normalizedRotation} 度朝向。",
+                targetX,
+                targetY,
+                normalizedRotation);
         }
 
         List<int[]> occupiedCells = GetOccupiedCells(item, targetX, targetY, normalizedRotation);

@@ -81,12 +81,68 @@ public static class ConfigValidator {
                 report.AddError($"Item [{item.ConfigID}] has unknown Rarity [{item.Rarity}].");
             }
 
-            if (item.Grid == null || item.Grid.Shape == null || item.Grid.Shape.Length == 0) {
-                report.AddError($"Item [{item.ConfigID}] has no grid shape.");
-            }
+            ValidateItemGrid(report, item);
 
             ValidateCombatConfig(report, item.ConfigID, item.Combat);
             WarnMetadataOnlyTags(report, $"Item [{item.ConfigID}]", item.Tags);
+        }
+
+        ValidateItemJsonGridFields(report);
+    }
+
+    private static void ValidateItemGrid(ConfigValidationReport report, ItemEntity item) {
+        if (item.Grid == null) {
+            report.AddError($"Item [{item.ConfigID}] has no Grid component.");
+            return;
+        }
+
+        if (item.Grid.Shape == null || item.Grid.Shape.Length == 0) {
+            report.AddError($"Item [{item.ConfigID}] has no grid shape.");
+        }
+
+        if (item.Grid.GridCost <= 0) {
+            report.AddError($"Item [{item.ConfigID}] has invalid GridCost [{item.Grid.GridCost}].");
+        }
+
+        if (item.Grid.CanRotate) {
+            if (item.Grid.RotationSteps != 2 && item.Grid.RotationSteps != 4) {
+                report.AddError($"Item [{item.ConfigID}] CanRotate=true requires RotationSteps to be 2 or 4.");
+            }
+            return;
+        }
+
+        if (item.Grid.RotationSteps != 1) {
+            report.AddError($"Item [{item.ConfigID}] CanRotate=false requires RotationSteps=1.");
+        }
+    }
+
+    private static void ValidateItemJsonGridFields(ConfigValidationReport report) {
+        string itemsPath = Path.Combine(Application.streamingAssetsPath, "Configs", "Items");
+        if (!Directory.Exists(itemsPath)) {
+            return;
+        }
+
+        foreach (string file in Directory.GetFiles(itemsPath, "*.json")) {
+            try {
+                JObject root = JObject.Parse(File.ReadAllText(file));
+                string itemID = root.Value<string>("ConfigID") ?? Path.GetFileNameWithoutExtension(file);
+                JToken grid = root["Grid"];
+                if (grid == null || grid.Type != JTokenType.Object) {
+                    report.AddError($"Item [{itemID}] is missing Grid object.");
+                    continue;
+                }
+
+                JObject gridObject = (JObject)grid;
+                if (!gridObject.ContainsKey("CanRotate")) {
+                    report.AddError($"Item [{itemID}] Grid is missing required field [CanRotate].");
+                }
+
+                if (!gridObject.ContainsKey("RotationSteps")) {
+                    report.AddError($"Item [{itemID}] Grid is missing required field [RotationSteps].");
+                }
+            } catch (Exception ex) {
+                report.AddError($"Item config [{Path.GetFileName(file)}] could not be scanned for Grid rotation fields: {ex.Message}");
+            }
         }
     }
 

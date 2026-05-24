@@ -12,6 +12,8 @@
         0
       ]
     ],
+    "CanRotate": false,
+    "RotationSteps": 1,
     "GridCost": 1
   },
   "Tags": [

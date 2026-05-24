@@ -7,6 +7,8 @@
   "IconID": "item_gear_wooden_shield_icon",
   "Grid": {
     "Shape": [[0,0], [0,1]],
+    "CanRotate": true,
+    "RotationSteps": 2,
     "GridCost": 2
   },
   "Combat": {
