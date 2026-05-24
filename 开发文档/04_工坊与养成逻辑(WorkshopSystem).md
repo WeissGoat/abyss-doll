@@ -10,6 +10,7 @@ related:
   - 开发文档/数据与实体定义/05_经济与社会实体.md
   - 数值模型设计/01_经济循环与通缩模型.md
   - 配置表(JSON)/CraftingRecipes/README.md
+  - 配置表(JSON)/Economy/README.md
   - 设计文档/GDD_10_势力声望与订单系统.md
   - 设计文档/GDD_04_小镇循环与经济物价波浪模型.md
 last_verified: 2026-05-25
@@ -150,3 +151,48 @@ public class MaintenanceConfig {
 验证：
 
 *   `MaintenanceServiceSmokeTest.Run` 覆盖磨损维护解除下潜阻断、侵蚀净化解除下潜阻断、费用不足不修改状态、维护费用可消耗背包材料。
+
+## 9. 小镇经济压力链服务
+
+`TownEconomyService` 是 P4 小镇经济压力链的领域服务入口。它不依赖 UI，也不在 UI Controller 中散写经济规则；后续账单、典当和营业界面只读取服务产出的报告对象。
+
+配置来源：
+
+*   `配置表(JSON)/Economy/*.json` 是小镇经济配置源。
+*   `ConfigManager.EconomyConfigs` 负责运行时加载。
+*   `ConfigValidator.ValidateEconomyConfigs` 校验周期、月租曲线、欠债利息、轻债阈值和典当折扣。
+
+当前配置结构：
+
+```csharp
+public class EconomyConfig {
+    public string EconomyConfigID;
+    public int WeekLength;
+    public int MonthLength;
+    public string RentCurveID;
+    public List<RentCurveStepConfig> RentCurve;
+    public int WorkshopMaintenanceBase;
+    public int LicenseFeeBase;
+    public float DebtInterestRate;
+    public float LightDebtThresholdRatio;
+    public float PawnValueMultiplier;
+    public List<string> PawnProtectedTags;
+}
+```
+
+执行规则：
+
+*   `SettleDailyBusiness` 根据当日倾倒箱、橱窗、订单、黑市和支出输入生成 `DailyEconomyReport`，推进日历并记录月收入。
+*   每月末由 `ResolveMonthlyRent` 计算 `BaseRent + WorkshopMaintenance + LicenseFee + DebtPrincipal + DebtInterest`。
+*   金币足够时直接扣款；缺口小于等于 `LightDebtThresholdRatio` 时转入下月欠债。
+*   缺口较大且存在可典当物时只返回 `PawnCandidates`，不自动典当；玩家或后续 UI 必须显式传入选中的典当物。
+*   典当折扣由 `PawnValueMultiplier` 控制；命中 `PawnProtectedTags`、绑定物、订单物、剧情物、情感锚点或主线关键物不进入典当候选。
+*   典当如果移除当前背包物品，会发布 `GameEventBus.PublishItemRemoved` 并重新计算背包效果。
+
+当前首批配置：
+
+*   `economy_town_v1`：28 天月周期，第 1 月 1200G、第 2 月 2400G、第 3 月 4200G、第 4 月起 5200G，轻债阈值 10%，典当折扣 25%。
+
+验证：
+
+*   `TownEconomyServiceSmokeTest.Run` 覆盖日结报告与日历推进、月租支付、轻度欠账、玩家选择典当补足月租、保护物不进入典当候选。

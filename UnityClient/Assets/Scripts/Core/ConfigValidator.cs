@@ -51,6 +51,7 @@ public static class ConfigValidator {
         ValidateProsthetics(report);
         ValidateCraftingRecipes(report);
         ValidateMaintenanceConfigs(report);
+        ValidateEconomyConfigs(report);
         ValidateRewards(report);
         ValidateMonsters(report);
         ValidateDungeons(report);
@@ -313,6 +314,94 @@ public static class ConfigValidator {
         }
     }
 
+    private static void ValidateEconomyConfigs(ConfigValidationReport report) {
+        if (ConfigManager.EconomyConfigs.Count == 0) {
+            report.AddError("Economy config domain is empty. Add at least one Economy/*.json config.");
+            return;
+        }
+
+        foreach (var kvp in ConfigManager.EconomyConfigs) {
+            EconomyConfig economy = kvp.Value;
+            if (economy == null) {
+                report.AddError($"Economy [{kvp.Key}] deserialized as null.");
+                continue;
+            }
+
+            if (string.IsNullOrEmpty(economy.EconomyConfigID)) {
+                report.AddError($"Economy file loaded with empty EconomyConfigID under key [{kvp.Key}].");
+            }
+
+            if (!string.Equals(kvp.Key, economy.EconomyConfigID, StringComparison.Ordinal)) {
+                report.AddWarning($"Economy [{kvp.Key}] dictionary key differs from EconomyConfigID [{economy.EconomyConfigID}].");
+            }
+
+            if (economy.WeekLength <= 0) {
+                report.AddError($"Economy [{economy.EconomyConfigID}] WeekLength must be positive.");
+            }
+
+            if (economy.MonthLength <= 0) {
+                report.AddError($"Economy [{economy.EconomyConfigID}] MonthLength must be positive.");
+            } else if (economy.WeekLength > 0 && economy.MonthLength % economy.WeekLength != 0) {
+                report.AddWarning($"Economy [{economy.EconomyConfigID}] MonthLength [{economy.MonthLength}] is not divisible by WeekLength [{economy.WeekLength}].");
+            }
+
+            if (economy.WorkshopMaintenanceBase < 0) {
+                report.AddError($"Economy [{economy.EconomyConfigID}] WorkshopMaintenanceBase must be >= 0.");
+            }
+
+            if (economy.LicenseFeeBase < 0) {
+                report.AddError($"Economy [{economy.EconomyConfigID}] LicenseFeeBase must be >= 0.");
+            }
+
+            if (economy.DebtInterestRate < 0f) {
+                report.AddError($"Economy [{economy.EconomyConfigID}] DebtInterestRate must be >= 0.");
+            }
+
+            if (economy.LightDebtThresholdRatio < 0f || economy.LightDebtThresholdRatio > 1f) {
+                report.AddError($"Economy [{economy.EconomyConfigID}] LightDebtThresholdRatio must be between 0 and 1.");
+            }
+
+            if (economy.PawnValueMultiplier <= 0f || economy.PawnValueMultiplier > 1f) {
+                report.AddError($"Economy [{economy.EconomyConfigID}] PawnValueMultiplier must satisfy 0 < value <= 1.");
+            }
+
+            ValidateRentCurve(report, economy);
+        }
+    }
+
+    private static void ValidateRentCurve(ConfigValidationReport report, EconomyConfig economy) {
+        if (economy.RentCurve == null || economy.RentCurve.Count == 0) {
+            report.AddError($"Economy [{economy.EconomyConfigID}] must define at least one RentCurve step.");
+            return;
+        }
+
+        HashSet<int> months = new HashSet<int>();
+        bool hasFirstMonth = false;
+        foreach (RentCurveStepConfig step in economy.RentCurve) {
+            if (step == null) {
+                report.AddError($"Economy [{economy.EconomyConfigID}] has a null RentCurve step.");
+                continue;
+            }
+
+            if (step.Month <= 0) {
+                report.AddError($"Economy [{economy.EconomyConfigID}] has RentCurve step with invalid Month [{step.Month}].");
+            }
+
+            if (step.BaseRent <= 0) {
+                report.AddError($"Economy [{economy.EconomyConfigID}] Month [{step.Month}] BaseRent must be positive.");
+            }
+
+            if (!months.Add(step.Month)) {
+                report.AddError($"Economy [{economy.EconomyConfigID}] has duplicated RentCurve Month [{step.Month}].");
+            }
+
+            hasFirstMonth |= step.Month == 1;
+        }
+
+        if (!hasFirstMonth) {
+            report.AddWarning($"Economy [{economy.EconomyConfigID}] RentCurve has no Month=1 baseline.");
+        }
+    }
     private static void ValidateRewards(ConfigValidationReport report) {
         foreach (var kvp in ConfigManager.Rewards) {
             RewardConfig reward = kvp.Value;

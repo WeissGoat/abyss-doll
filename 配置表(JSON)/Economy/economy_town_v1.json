@@ -1,0 +1,38 @@
+{
+  "EconomyConfigID": "economy_town_v1",
+  "Name": "小镇经济压力链 V1",
+  "WeekLength": 7,
+  "MonthLength": 28,
+  "RentCurveID": "rent_curve_workshop_v1",
+  "RentCurve": [
+    {
+      "Month": 1,
+      "BaseRent": 1200
+    },
+    {
+      "Month": 2,
+      "BaseRent": 2400
+    },
+    {
+      "Month": 3,
+      "BaseRent": 4200
+    },
+    {
+      "Month": 4,
+      "BaseRent": 5200
+    }
+  ],
+  "WorkshopMaintenanceBase": 0,
+  "LicenseFeeBase": 0,
+  "DebtInterestRate": 0.1,
+  "LightDebtThresholdRatio": 0.1,
+  "PawnValueMultiplier": 0.25,
+  "PawnProtectedTags": [
+    "Bond",
+    "OrderBound",
+    "StoryLocked",
+    "Memento",
+    "MainQuest",
+    "KeyItem"
+  ]
+}

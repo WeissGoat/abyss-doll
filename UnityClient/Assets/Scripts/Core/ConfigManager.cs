@@ -13,6 +13,7 @@ public static class ConfigManager {
     public static Dictionary<string, CraftingRecipeConfig> CraftingRecipes = new Dictionary<string, CraftingRecipeConfig>();
     public static Dictionary<string, RewardConfig> Rewards = new Dictionary<string, RewardConfig>();
     public static Dictionary<string, MaintenanceConfig> MaintenanceConfigs = new Dictionary<string, MaintenanceConfig>();
+    public static Dictionary<string, EconomyConfig> EconomyConfigs = new Dictionary<string, EconomyConfig>();
 
     public static void LoadAllConfigs() {
         ResetAllCaches();
@@ -42,8 +43,10 @@ public static class ConfigManager {
         LoadConfigsIntoDict(Path.Combine(basePath, "Rewards"), Rewards, r => r.RewardID);
         // 9. Maintenance
         LoadConfigsIntoDict(Path.Combine(basePath, "Maintenance"), MaintenanceConfigs, m => m.MaintenanceID);
+        // 10. Economy
+        LoadConfigsIntoDict(Path.Combine(basePath, "Economy"), EconomyConfigs, e => e.EconomyConfigID);
 
-        Debug.Log($"[ConfigManager] Configs loaded successfully! Items: {Items.Count}, Monsters: {Monsters.Count}, Dungeons: {Dungeons.Count}, Rewards: {Rewards.Count}, Maintenance: {MaintenanceConfigs.Count}");
+        Debug.Log($"[ConfigManager] Configs loaded successfully! Items: {Items.Count}, Monsters: {Monsters.Count}, Dungeons: {Dungeons.Count}, Rewards: {Rewards.Count}, Maintenance: {MaintenanceConfigs.Count}, Economy: {EconomyConfigs.Count}");
     }
 
     public static void ResetAllCaches() {
@@ -56,6 +59,7 @@ public static class ConfigManager {
         CraftingRecipes.Clear();
         Rewards.Clear();
         MaintenanceConfigs.Clear();
+        EconomyConfigs.Clear();
     }
 
     private static void LoadConfigsIntoDict<K, T>(string dirPath, Dictionary<K, T> dict, System.Func<T, K> keySelector) {
