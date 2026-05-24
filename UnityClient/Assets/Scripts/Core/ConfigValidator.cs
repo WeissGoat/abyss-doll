@@ -592,6 +592,8 @@ public static class ConfigValidator {
             report.AddError($"Dungeon layer [{dungeon.LayerID}] {owner} reward references missing RewardID [{entry.RewardID}].");
         }
 
+        ValidateDungeonNodeOutcomes(report, dungeon, entry, owner);
+
         if (IsCombatNodeType(entry.NodeType)) {
             if (entry.MonsterIDs == null) {
                 report.AddError($"Dungeon layer [{dungeon.LayerID}] {owner} CombatNode has null MonsterIDs.");
@@ -604,6 +606,45 @@ public static class ConfigValidator {
                 }
             }
         }
+
+        if (IsTreasureNodeType(entry.NodeType) && string.IsNullOrEmpty(entry.RewardID)) {
+            report.AddWarning($"Dungeon layer [{dungeon.LayerID}] {owner} TreasureNode has no RewardID configured.");
+        }
+    }
+
+    private static void ValidateDungeonNodeOutcomes(ConfigValidationReport report, DungeonConfig dungeon, NodePoolEntry entry, string owner) {
+        if (entry?.OutcomeEffects == null) {
+            return;
+        }
+
+        for (int i = 0; i < entry.OutcomeEffects.Count; i++) {
+            DungeonNodeOutcomeConfig outcome = entry.OutcomeEffects[i];
+            if (outcome == null) {
+                report.AddError($"Dungeon layer [{dungeon.LayerID}] {owner} [{entry.NodeType}] OutcomeEffects[{i}] is null.");
+                continue;
+            }
+
+            string type = string.IsNullOrEmpty(outcome.Type) ? nameof(DungeonNodeOutcomeType.ModifyResource) : outcome.Type;
+            if (!Enum.TryParse(type, true, out DungeonNodeOutcomeType outcomeType)) {
+                report.AddError($"Dungeon layer [{dungeon.LayerID}] {owner} [{entry.NodeType}] OutcomeEffects[{i}] has unknown Type [{outcome.Type}].");
+                continue;
+            }
+
+            switch (outcomeType) {
+                case DungeonNodeOutcomeType.ModifyResource:
+                    if (!Enum.TryParse(outcome.Resource, true, out EffectResourceType resource)
+                        || (resource != EffectResourceType.HP
+                            && resource != EffectResourceType.SAN
+                            && resource != EffectResourceType.Money)) {
+                        report.AddError($"Dungeon layer [{dungeon.LayerID}] {owner} [{entry.NodeType}] OutcomeEffects[{i}] ModifyResource uses unsupported Resource [{outcome.Resource}].");
+                    }
+
+                    if (outcome.Amount == 0) {
+                        report.AddWarning($"Dungeon layer [{dungeon.LayerID}] {owner} [{entry.NodeType}] OutcomeEffects[{i}] modifies [{outcome.Resource}] by 0.");
+                    }
+                    break;
+            }
+        }
     }
 
     private static bool IsCombatNodeType(string nodeType) {
@@ -614,6 +655,11 @@ public static class ConfigValidator {
     private static bool IsStairsNodeType(string nodeType) {
         return string.Equals(nodeType, "StairsNode", StringComparison.OrdinalIgnoreCase)
             || string.Equals(nodeType, "Stairs", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsTreasureNodeType(string nodeType) {
+        return string.Equals(nodeType, "TreasureNode", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(nodeType, "Treasure", StringComparison.OrdinalIgnoreCase);
     }
 
     private static void ValidateVisualAssets(ConfigValidationReport report) {
@@ -631,6 +677,7 @@ public static class ConfigValidator {
             if (!VisualAssetService.TryGetSprite(portraitID, out _)) {
                 report.AddWarning($"Monster [{monster.MonsterID}] portrait VisualID [{portraitID}] is not registered.");
             }
+
         }
 
         foreach (var kvp in ConfigManager.Prosthetics) {

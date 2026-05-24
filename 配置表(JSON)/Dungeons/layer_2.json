@@ -28,6 +28,48 @@
       "NodeIconID": "node_safe_room_icon",
       "MonsterIDs": [],
       "Weight": 45
+    },
+    {
+      "NodeType": "TreasureNode",
+      "NodeIconID": "node_treasure_icon",
+      "Title": "污染物资箱",
+      "Description": "箱体被瘴气腐蚀，但里面仍有更高价值的污染素材。",
+      "RewardID": "reward_node_treasure_layer2",
+      "Weight": 16
+    },
+    {
+      "NodeType": "EventNode",
+      "NodeIconID": "node_event_icon",
+      "Title": "菌丝低语",
+      "Description": "菌丝群落短暂让出通道，同时留下了可交易的情报碎片。",
+      "RewardID": "reward_node_event_layer2",
+      "OutcomeEffects": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -2
+        }
+      ],
+      "Weight": 12
+    },
+    {
+      "NodeType": "HazardNode",
+      "NodeIconID": "node_hazard_icon",
+      "Title": "酸雾回廊",
+      "Description": "酸雾附着在关节上，造成额外损耗。",
+      "OutcomeEffects": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "HP",
+          "Amount": -8
+        },
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -2
+        }
+      ],
+      "Weight": 10
     }
   ],
   "BossNode": "elite_mutant_amalgam",

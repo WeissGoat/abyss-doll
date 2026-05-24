@@ -1,0 +1,20 @@
+{
+  "RewardID": "reward_node_treasure_layer2",
+  "Name": "第2层宝箱奖励",
+  "Tags": ["Node", "Treasure", "Layer2"],
+  "Guaranteed": [
+    { "Type": "Item", "ItemID": "loot_toxic_filter", "Count": 1 }
+  ],
+  "WeightedPools": [
+    {
+      "PoolID": "bonus",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        { "Type": "Item", "ItemID": "mat_core_tier1", "Weight": 25, "Count": 1 },
+        { "Type": "Item", "ItemID": "loot_rusty_coil", "Weight": 55, "Count": 1 },
+        { "Type": "Nothing", "Weight": 20 }
+      ]
+    }
+  ]
+}

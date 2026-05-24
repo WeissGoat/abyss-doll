@@ -354,6 +354,7 @@ internal class MVPAutoplayCampaign {
         GameRoot.Core = _core;
 
         DungeonEventBus.OnCombatLootPrepared += HandleCombatLootPrepared;
+        DungeonEventBus.OnDungeonNodeResolutionPrepared += HandleDungeonNodeResolutionPrepared;
         DungeonEventBus.OnNodeEntered += HandleNodeEntered;
         DungeonEventBus.OnDungeonSettled += HandleDungeonSettled;
 
@@ -383,6 +384,7 @@ internal class MVPAutoplayCampaign {
             }
         } finally {
             DungeonEventBus.OnCombatLootPrepared -= HandleCombatLootPrepared;
+            DungeonEventBus.OnDungeonNodeResolutionPrepared -= HandleDungeonNodeResolutionPrepared;
             DungeonEventBus.OnNodeEntered -= HandleNodeEntered;
             DungeonEventBus.OnDungeonSettled -= HandleDungeonSettled;
         }
@@ -431,6 +433,9 @@ internal class MVPAutoplayCampaign {
             } else if (node is SafeRoomNode safeRoomNode) {
                 UseConsumablesOutsideCombat();
                 safeRoomNode.Rest();
+            } else if (node is DungeonOutcomeNode) {
+                // Outcome nodes publish their result through the event bus.
+                // The autoplay handler confirms that result and lets the dungeon flow return to the map.
             } else if (node is StairsNode stairsNode) {
                 if (_core.Dungeon.CurrentLayer.LayerID == 1) {
                     _report.ClearedLayer1 = true;
@@ -616,7 +621,7 @@ internal class MVPAutoplayCampaign {
             return;
         }
 
-        CombatNode node = _core?.Dungeon?.CurrentLayer?.CurrentNode as CombatNode;
+        ILootPickupNode node = _core?.Dungeon?.CurrentLayer?.CurrentNode as ILootPickupNode;
         if (node == null) {
             return;
         }
@@ -640,6 +645,10 @@ internal class MVPAutoplayCampaign {
         }
 
         node.ConfirmLootCollection();
+    }
+
+    private void HandleDungeonNodeResolutionPrepared(DungeonNodeResolutionResult result) {
+        DungeonEventBus.PublishNodeSettlementCompleted();
     }
 
     private void HandleNodeEntered(NodeBase node, int sanCost) {

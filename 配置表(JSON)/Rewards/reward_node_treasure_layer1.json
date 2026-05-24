@@ -1,0 +1,20 @@
+{
+  "RewardID": "reward_node_treasure_layer1",
+  "Name": "第1层宝箱奖励",
+  "Tags": ["Node", "Treasure", "Layer1"],
+  "Guaranteed": [
+    { "Type": "Item", "ItemID": "loot_gear_scrap", "Count": 1 }
+  ],
+  "WeightedPools": [
+    {
+      "PoolID": "bonus",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        { "Type": "Item", "ItemID": "con_repair_kit", "Weight": 35, "Count": 1 },
+        { "Type": "Item", "ItemID": "loot_rusty_coil", "Weight": 45, "Count": 1 },
+        { "Type": "Nothing", "Weight": 20 }
+      ]
+    }
+  ]
+}

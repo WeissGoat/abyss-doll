@@ -144,6 +144,22 @@ public class DungeonMapUIController : MonoBehaviour {
             return "阶梯\n(深入/返回)";
         }
 
+        if (node is TreasureNode) {
+            return "宝箱\n(战利品)";
+        }
+
+        if (node is RestStopNode) {
+            return "营地\n(小休整)";
+        }
+
+        if (node is EventNode) {
+            return "事件\n(未知)";
+        }
+
+        if (node is HazardNode) {
+            return "危险\n(损耗)";
+        }
+
         return "未知节点";
     }
 
@@ -192,6 +208,22 @@ public class DungeonMapUIController : MonoBehaviour {
 
         if (node is StairsNode) {
             return new Color(0.78f, 0.7f, 0.42f, 1f);
+        }
+
+        if (node is TreasureNode) {
+            return new Color(0.86f, 0.64f, 0.2f, 1f);
+        }
+
+        if (node is RestStopNode) {
+            return new Color(0.26f, 0.58f, 0.68f, 1f);
+        }
+
+        if (node is EventNode) {
+            return new Color(0.55f, 0.43f, 0.7f, 1f);
+        }
+
+        if (node is HazardNode) {
+            return new Color(0.62f, 0.26f, 0.2f, 1f);
         }
 
         return Color.white;

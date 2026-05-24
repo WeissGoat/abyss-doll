@@ -85,6 +85,16 @@ public static class MUDTestWrapper {
                 Debug.Log("[MUD] 抵达阶梯间，选择返回小镇结算...");
                 stairsNode.ReturnToTown();
                 currNode = null;
+            } else if (currNode is DungeonOutcomeNode outcomeNode) {
+                Debug.Log($"[MUD] 处理非战斗节点：{currNode.GetType().Name}");
+                outcomeNode.ConfirmLootCollection();
+
+                if (currNode.NextNodes != null && currNode.NextNodes.Count > 0) {
+                    currNode = currNode.NextNodes[0];
+                    nodeIndex++;
+                } else {
+                    currNode = null;
+                }
             } else {
                 break; 
             }

@@ -17,7 +17,7 @@ related:
   - 配置表(JSON)/Rewards/README.md
   - 设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md
   - 设计文档/GDD_01_背包战斗与局内网格机制.md
-last_verified: 2026-05-23
+last_verified: 2026-05-25
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---
 
@@ -229,6 +229,68 @@ TotalSanCost = EffectModifierResolver.Resolve(
 * 需要修改移动 SAN 成本时，配置 `ModifyResourceCost`，并声明 `Trigger = OnDungeonMoveCost`、`Resource = SAN`、`Operation = AddFlat`。
 * `Toxic` 标签只作为分类、展示、条件筛选信息，不直接触发扣 SAN。
 * 【污染滤芯】MVP 配置为 `ModifyResourceCost.Params = [1]`，表示每进入一个节点额外消耗 1 SAN。
+
+### 1.4 非战斗结果节点
+
+深渊路线不应只由战斗和安全区组成。当前程序侧已提供一组可配置的非战斗结果节点：
+
+| 节点类型 | 运行时类 | 主要用途 |
+|---|---|---|
+| `TreasureNode` | `TreasureNode : DungeonOutcomeNode` | 宝箱、物资箱、路线收益节点。 |
+| `EventNode` | `EventNode : DungeonOutcomeNode` | 异常事件、交易事件、轻量风险收益事件。 |
+| `RestStopNode` | `RestStopNode : DungeonOutcomeNode` | 层内小休整，不等同于可撤离安全区。 |
+| `HazardNode` | `HazardNode : DungeonOutcomeNode` | 风险房、污染房、资源损耗节点。 |
+
+这些节点共用 `DungeonOutcomeNode`，由领域对象负责结算，不把规则写进 UI Controller。
+
+配置字段：
+
+```json
+{
+  "NodeType": "EventNode",
+  "NodeIconID": "node_event_icon",
+  "Title": "微光裂隙",
+  "Description": "裂隙中传来微弱回响。",
+  "RewardID": "reward_node_event_layer1",
+  "OutcomeEffects": [
+    {
+      "Type": "ModifyResource",
+      "Resource": "SAN",
+      "Amount": -1
+    }
+  ],
+  "Weight": 10
+}
+```
+
+运行规则：
+
+* `Title` / `Description` 只控制结算展示文本。
+* `OutcomeEffects` 当前支持 `ModifyResource`，可修改 `HP`、`SAN`、`Money`。
+* 资源变化在节点领域对象中执行，并通过 `GameEventBus` 刷新表现层。
+* 如果节点配置 `RewardID`，节点调用 `RewardSystem.Roll()` 生成奖励。
+* 奖励中的 `Money` 直接进入玩家金币；生成的物品进入战利品拾取面板。
+* 玩家确认拾取后，节点根据物品是否仍在背包中发布 `CombatLootCollected`，再发布 `NodeSettlementCompleted`。
+* 没有物品奖励的结果节点发布 `OnDungeonNodeResolutionPrepared`，由 `GameFlowController` 切到 `NodeResolution` 结果界面；玩家确认后发布 `NodeSettlementCompleted`。
+
+事件流：
+
+```text
+DungeonManager.MoveToNode()
+        |
+        v
+DungeonOutcomeNode.OnEnterNode()
+        |
+        +-- 有物品奖励 -> DungeonEventBus.OnCombatLootPrepared -> 战利品拾取 UI -> ConfirmLootCollection()
+        |
+        +-- 无物品奖励 -> DungeonEventBus.OnDungeonNodeResolutionPrepared -> 节点结果 UI -> NodeSettlementCompleted
+```
+
+验收：
+
+* `DungeonNodeTypesSmokeTest.Run` 验证节点类型注册、宝箱奖励拾取流、结果节点资源变化、配置中节点类型覆盖。
+* `DungeonStairsProgressionTest.Run` 验证新增节点不会破坏正式地图网络、阶梯进层和地图点击路径。
+* `ConfigValidationSmokeTest.Run` 验证 `OutcomeEffects`、`RewardID` 和节点配置引用。
 
 ## 2. 战斗包装器与阵营 (Fighter & Faction)
 

@@ -7,6 +7,7 @@ public class GameFlowController : MonoBehaviour {
         DungeonMap,
         Combat,
         CombatLoot,
+        NodeResolution,
         SafeRoom,
         Stairs,
         Settlement
@@ -18,6 +19,7 @@ public class GameFlowController : MonoBehaviour {
     public GameObject dungeonMapPanel;
     public GameObject combatPanel;
     public GameObject combatLootPanel;
+    public GameObject dungeonNodeResultPanel;
     public GameObject safeRoomPanel;
     public GameObject settlementPanel;
     public GameObject testItemPrefab;
@@ -63,6 +65,7 @@ public class GameFlowController : MonoBehaviour {
 
         DungeonEventBus.OnLayerLoaded += EnterDungeonMap;
         DungeonEventBus.OnNodeResolutionFinished += EnterDungeonMap;
+        DungeonEventBus.OnDungeonNodeResolutionPrepared += HandleDungeonNodeResolutionPrepared;
         DungeonEventBus.OnCombatLootPrepared += HandleCombatLootPrepared;
         DungeonEventBus.OnDungeonSettled += HandleDungeonSettled;
         DungeonEventBus.OnDungeonSettlementPrepared += HandleDungeonSettlementPrepared;
@@ -88,6 +91,10 @@ public class GameFlowController : MonoBehaviour {
 
     public void EnterCombatLoot(CombatLootPickupResult result) {
         TransitionToScreen(GameScreenState.CombatLoot, result);
+    }
+
+    public void EnterNodeResolution(DungeonNodeResolutionResult result) {
+        TransitionToScreen(GameScreenState.NodeResolution, result);
     }
 
     public void EnterSettlementPreview(DungeonSettlementResult result) {
@@ -167,6 +174,10 @@ public class GameFlowController : MonoBehaviour {
         EnterCombatLoot(result);
     }
 
+    private void HandleDungeonNodeResolutionPrepared(DungeonNodeResolutionResult result) {
+        EnterNodeResolution(result);
+    }
+
     private void HandleNodeEntered(NodeBase node, int cost) {
         if (node is CombatNode) {
             EnterCombat();
@@ -226,6 +237,7 @@ public class GameFlowController : MonoBehaviour {
         if (dungeonMapPanel) dungeonMapPanel.SetActive(nextScreen == GameScreenState.DungeonMap);
         if (combatPanel) combatPanel.SetActive(nextScreen == GameScreenState.Combat);
         if (combatLootPanel) combatLootPanel.SetActive(nextScreen == GameScreenState.CombatLoot);
+        if (dungeonNodeResultPanel) dungeonNodeResultPanel.SetActive(nextScreen == GameScreenState.NodeResolution);
         if (safeRoomPanel) safeRoomPanel.SetActive(nextScreen == GameScreenState.SafeRoom || nextScreen == GameScreenState.Stairs);
         if (settlementPanel) settlementPanel.SetActive(nextScreen == GameScreenState.Settlement);
         ApplyInventoryPresentationForCurrentScreen();
@@ -242,6 +254,9 @@ public class GameFlowController : MonoBehaviour {
                 break;
             case GameScreenState.CombatLoot:
                 OnEnterCombatLootScreen(payload as CombatLootPickupResult);
+                break;
+            case GameScreenState.NodeResolution:
+                OnEnterNodeResolutionScreen(payload as DungeonNodeResolutionResult);
                 break;
             case GameScreenState.SafeRoom:
                 OnEnterSafeRoomScreen(payload as SafeRoomNode);
@@ -262,6 +277,9 @@ public class GameFlowController : MonoBehaviour {
         switch (nextScreen) {
             case GameScreenState.CombatLoot:
                 EnsureCombatLootPanel();
+                break;
+            case GameScreenState.NodeResolution:
+                EnsureDungeonNodeResultPanel();
                 break;
             case GameScreenState.Settlement:
                 EnsureSettlementPanel();
@@ -328,11 +346,11 @@ public class GameFlowController : MonoBehaviour {
             lootCtrl.Present(result, testItemPrefab, () => {
                 _pendingCombatLootResult = null;
                 DiscardDetachedBackpackItems();
-                CombatNode currentCombatNode = GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode as CombatNode;
-                if (currentCombatNode != null) {
-                    currentCombatNode.ConfirmLootCollection();
+                ILootPickupNode currentLootNode = GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode as ILootPickupNode;
+                if (currentLootNode != null) {
+                    currentLootNode.ConfirmLootCollection();
                 } else {
-                    Debug.LogWarning("[GameFlow] Missing CombatNode while confirming combat loot. Falling back to generic node settlement completion.");
+                    Debug.LogWarning("[GameFlow] Missing loot pickup node while confirming combat loot. Falling back to generic node settlement completion.");
                     DungeonEventBus.PublishNodeSettlementCompleted();
                 }
             });
@@ -340,12 +358,35 @@ public class GameFlowController : MonoBehaviour {
             Debug.LogWarning("[GameFlow] CombatLootPanel missing. Falling back to auto-confirm without UI interaction.");
             _pendingCombatLootResult = null;
             DiscardDetachedBackpackItems();
-            CombatNode currentCombatNode = GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode as CombatNode;
-            if (currentCombatNode != null) {
-                currentCombatNode.ConfirmLootCollection();
+            ILootPickupNode currentLootNode = GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode as ILootPickupNode;
+            if (currentLootNode != null) {
+                currentLootNode.ConfirmLootCollection();
             } else {
                 DungeonEventBus.PublishNodeSettlementCompleted();
             }
+        }
+    }
+
+    private void OnEnterNodeResolutionScreen(DungeonNodeResolutionResult result) {
+        if (result == null) {
+            Debug.LogWarning("[GameFlow] Node resolution screen requested without payload. Returning to DungeonMap.");
+            EnterDungeonMap();
+            return;
+        }
+
+        EnsureDungeonNodeResultPanel();
+        if (dungeonNodeResultPanel != null) {
+            dungeonNodeResultPanel.SetActive(true);
+        }
+
+        var resultCtrl = dungeonNodeResultPanel?.GetComponent<DungeonNodeResultUIController>();
+        if (resultCtrl != null) {
+            resultCtrl.Present(result, () => {
+                DungeonEventBus.PublishNodeSettlementCompleted();
+            });
+        } else {
+            Debug.LogWarning("[GameFlow] DungeonNodeResultPanel missing. Falling back to node settlement completion.");
+            DungeonEventBus.PublishNodeSettlementCompleted();
         }
     }
 
@@ -584,6 +625,107 @@ public class GameFlowController : MonoBehaviour {
         }
     }
 
+    private void EnsureDungeonNodeResultPanel() {
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas == null) {
+            Debug.LogWarning("[GameFlow] Cannot create DungeonNodeResultPanel because no Canvas was found.");
+            return;
+        }
+
+        DungeonNodeResultUIController existingController = dungeonNodeResultPanel != null
+            ? dungeonNodeResultPanel.GetComponent<DungeonNodeResultUIController>()
+            : null;
+
+        if (dungeonNodeResultPanel != null && existingController != null) {
+            return;
+        }
+
+        if (dungeonNodeResultPanel != null && existingController == null) {
+            Debug.LogWarning("[GameFlow] Existing DungeonNodeResultPanel reference has no DungeonNodeResultUIController. Rebuilding runtime fallback panel.");
+            dungeonNodeResultPanel.SetActive(false);
+            dungeonNodeResultPanel = null;
+        }
+
+        Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        dungeonNodeResultPanel = new GameObject("DungeonNodeResultPanel_Runtime");
+        dungeonNodeResultPanel.transform.SetParent(canvas.transform, false);
+        RectTransform panelRect = dungeonNodeResultPanel.AddComponent<RectTransform>();
+        panelRect.anchorMin = Vector2.zero;
+        panelRect.anchorMax = Vector2.one;
+        panelRect.sizeDelta = Vector2.zero;
+        dungeonNodeResultPanel.SetActive(false);
+
+        Image bg = dungeonNodeResultPanel.AddComponent<Image>();
+        VisualUIHelper.ApplyCoverSprite(
+            bg,
+            VisualAssetService.DefaultDungeonMapBackgroundID,
+            new Color(0.3f, 0.28f, 0.23f, 0.96f),
+            new Color(0.025f, 0.028f, 0.03f, 0.96f));
+        bg.raycastTarget = false;
+
+        DungeonNodeResultUIController resultCtrl = dungeonNodeResultPanel.AddComponent<DungeonNodeResultUIController>();
+
+        GameObject titleObj = new GameObject("Title_Text");
+        titleObj.transform.SetParent(dungeonNodeResultPanel.transform, false);
+        Text titleTxt = titleObj.AddComponent<Text>();
+        titleTxt.font = defaultFont;
+        titleTxt.fontSize = 44;
+        titleTxt.color = Color.white;
+        titleTxt.alignment = TextAnchor.MiddleCenter;
+        titleTxt.raycastTarget = false;
+        RectTransform titleRect = titleObj.GetComponent<RectTransform>();
+        titleRect.anchorMin = new Vector2(0.5f, 1f);
+        titleRect.anchorMax = new Vector2(0.5f, 1f);
+        titleRect.pivot = new Vector2(0.5f, 1f);
+        titleRect.anchoredPosition = new Vector2(0f, -120f);
+        titleRect.sizeDelta = new Vector2(760f, 90f);
+        resultCtrl.titleText = titleTxt;
+
+        GameObject summaryObj = new GameObject("Summary_Text");
+        summaryObj.transform.SetParent(dungeonNodeResultPanel.transform, false);
+        Text summaryTxt = summaryObj.AddComponent<Text>();
+        summaryTxt.font = defaultFont;
+        summaryTxt.fontSize = 28;
+        summaryTxt.color = new Color(0.94f, 0.94f, 0.86f, 1f);
+        summaryTxt.alignment = TextAnchor.UpperCenter;
+        summaryTxt.raycastTarget = false;
+        RectTransform summaryRect = summaryObj.GetComponent<RectTransform>();
+        summaryRect.anchorMin = new Vector2(0.5f, 0.5f);
+        summaryRect.anchorMax = new Vector2(0.5f, 0.5f);
+        summaryRect.pivot = new Vector2(0.5f, 0.5f);
+        summaryRect.anchoredPosition = new Vector2(0f, 40f);
+        summaryRect.sizeDelta = new Vector2(780f, 360f);
+        resultCtrl.summaryText = summaryTxt;
+
+        GameObject continueObj = new GameObject("Continue_Button");
+        continueObj.transform.SetParent(dungeonNodeResultPanel.transform, false);
+        continueObj.AddComponent<Image>();
+        Button continueBtn = continueObj.AddComponent<Button>();
+        VisualUIHelper.ApplyButtonSkin(continueBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.76f, 0.5f, 0.18f));
+        RectTransform continueRect = continueObj.GetComponent<RectTransform>();
+        continueRect.anchorMin = new Vector2(0.5f, 0f);
+        continueRect.anchorMax = new Vector2(0.5f, 0f);
+        continueRect.pivot = new Vector2(0.5f, 0f);
+        continueRect.anchoredPosition = new Vector2(0f, 120f);
+        continueRect.sizeDelta = new Vector2(300f, 78f);
+        resultCtrl.continueBtn = continueBtn;
+
+        GameObject continueTextObj = new GameObject("Text");
+        continueTextObj.transform.SetParent(continueObj.transform, false);
+        Text continueTxt = continueTextObj.AddComponent<Text>();
+        continueTxt.font = defaultFont;
+        continueTxt.fontSize = 30;
+        continueTxt.color = Color.black;
+        continueTxt.alignment = TextAnchor.MiddleCenter;
+        continueTxt.raycastTarget = false;
+        RectTransform continueTextRect = continueTextObj.GetComponent<RectTransform>();
+        continueTextRect.anchorMin = Vector2.zero;
+        continueTextRect.anchorMax = Vector2.one;
+        continueTextRect.sizeDelta = Vector2.zero;
+
+        Debug.Log("[GameFlow] Runtime fallback DungeonNodeResultPanel created.");
+    }
+
     private void RefreshSafeRoomItemHintsIfNeeded() {
         if (_currentScreen != GameScreenState.SafeRoom) {
             return;
@@ -718,6 +860,7 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnDungeonSettlementPrepared -= HandleDungeonSettlementPrepared;
         DungeonEventBus.OnLayerLoaded -= EnterDungeonMap;
         DungeonEventBus.OnNodeResolutionFinished -= EnterDungeonMap;
+        DungeonEventBus.OnDungeonNodeResolutionPrepared -= HandleDungeonNodeResolutionPrepared;
         DungeonEventBus.OnCombatLootPrepared -= HandleCombatLootPrepared;
         DungeonEventBus.OnNodeEntered -= HandleNodeEntered;
         DungeonEventBus.OnSafeRoomEntered -= HandleSafeRoomEntered;

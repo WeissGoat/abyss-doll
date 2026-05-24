@@ -8,6 +8,7 @@ public static class DungeonEventBus {
 
     public static event Action OnNodeSettlementCompleted;
     public static event Action OnNodeResolutionFinished;
+    public static event Action<DungeonNodeResolutionResult> OnDungeonNodeResolutionPrepared;
     public static event Action<CombatLootPickupResult> OnCombatLootPrepared;
     public static event Action<CombatLootCollectionResult> OnCombatLootCollected;
 
@@ -41,6 +42,10 @@ public static class DungeonEventBus {
 
     public static void PublishNodeResolutionFinished() {
         OnNodeResolutionFinished?.Invoke();
+    }
+
+    public static void PublishDungeonNodeResolutionPrepared(DungeonNodeResolutionResult result) {
+        OnDungeonNodeResolutionPrepared?.Invoke(result);
     }
 
     public static void PublishCombatLootPrepared(CombatLootPickupResult result) {
@@ -86,6 +91,7 @@ public static class DungeonEventBus {
         OnStairsEntered = null;
         OnNodeSettlementCompleted = null;
         OnNodeResolutionFinished = null;
+        OnDungeonNodeResolutionPrepared = null;
         OnCombatLootPrepared = null;
         OnCombatLootCollected = null;
         OnDungeonEvacuated = null;

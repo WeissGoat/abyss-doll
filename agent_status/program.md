@@ -87,11 +87,12 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - 已修正 P0 阻断测试口径：`InventoryGridLayoutAssetValidatorTest` 避免在 PlayMode 中误调用编辑器场景 API；`DungeonStairsProgressionTest` 按正式地图的节点按钮 + 路线线段结构校验二层地图布局。
 - `Invoke-P0Validation.ps1 -TimeoutSeconds 180` 已通过非 Strict 验证：配置同步、ConfigValidator、Unity smoke tests、UI 规格校验、ArtAcceptance latest 均通过；当前仍有 ConfigValidator 元数据标签 warning 和锁层路径预期 warning。
 - P2 深渊地图正式网络基础已落地：`DungeonLayer` 按 `RowCount` / 宽度 / seed 生成多行节点网络，`DungeonMapUIController` 改为展示多路线节点和连线，`DungeonManager.CanMoveToNode()` 在领域层限制入口 / 后继节点移动；`DungeonStairsProgressionTest.Run` 与 `ConfigValidationSmokeTest.Run` 已通过。
+- P2 非战斗节点基础已落地：新增 `DungeonOutcomeNode`、`TreasureNode`、`EventNode`、`RestStopNode`、`HazardNode`，支持 `Title` / `Description` / `OutcomeEffects` / `RewardID` 配置，结果节点和节点奖励分别接入节点结果 UI 与战利品拾取流；`DungeonNodeTypesSmokeTest.Run`、`DungeonStairsProgressionTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
 
 ## 下一步建议
 
 1. 进入新程序任务前先查 `版本规划/11_纵切批次与需求文档承接矩阵.md` 第 4 节；已标记“程序功能开发完成”的能力只做 bug 修复、验收补强或真实数据绑定，不重复开发。
-2. 优先从未完成项中选下一步：P2 安全区节奏 / 节点类型扩展 / 战争迷雾、P3 维护 / 下潜许可 / 材料缺口、P4 月租 / 账单 / 订单 / 声望压力链、P0 Strict warning / seed 摘要。
+2. 优先从未完成项中选下一步：P2 安全区节奏 / 路线风险表达 / 战争迷雾、P3 维护 / 下潜许可 / 材料缺口、P4 月租 / 账单 / 订单 / 声望压力链、P0 Strict warning / seed 摘要。
 3. 等美术侧基于 ArtAcceptance 最新截图验收 `combat_hud` Formal V1，如需微调敌人站位、血条层级或目标光环显示，再回到 HUD 表现层处理。
 4. 接入美术新素材时优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
 

@@ -1,0 +1,9 @@
+{
+  "RewardID": "reward_node_event_layer2",
+  "Name": "第2层未知事件奖励",
+  "Tags": ["Node", "Event", "Layer2"],
+  "Guaranteed": [
+    { "Type": "Money", "Money": 18 }
+  ],
+  "WeightedPools": []
+}

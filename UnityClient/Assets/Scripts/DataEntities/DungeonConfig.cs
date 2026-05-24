@@ -23,9 +23,23 @@ public class DungeonConfig {
 
 [Serializable]
 public class NodePoolEntry {
-    public string NodeType; // "CombatNode", "SafeRoomNode", "StairsNode"
+    public string NodeType; // "CombatNode", "SafeRoomNode", "StairsNode", "TreasureNode", etc.
     public string NodeIconID;
+    public string Title;
+    public string Description;
     public List<string> MonsterIDs = new List<string>();
     public string RewardID;
+    public List<DungeonNodeOutcomeConfig> OutcomeEffects = new List<DungeonNodeOutcomeConfig>();
     public int Weight;
+}
+
+[Serializable]
+public class DungeonNodeOutcomeConfig {
+    public string Type;
+    public string Resource;
+    public int Amount;
+}
+
+public enum DungeonNodeOutcomeType {
+    ModifyResource = 0
 }

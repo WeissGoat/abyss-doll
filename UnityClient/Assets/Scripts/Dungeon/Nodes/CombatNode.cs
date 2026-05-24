@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombatNode : NodeBase {
+public class CombatNode : NodeBase, ILootPickupNode {
     public List<string> MonsterIDs { get; set; } = new List<string>();
     private CombatLootPickupResult _pendingLootResult;
     

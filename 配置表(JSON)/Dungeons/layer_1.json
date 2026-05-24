@@ -33,6 +33,62 @@
       "NodeIconID": "node_safe_room_icon",
       "MonsterIDs": [],
       "Weight": 10
+    },
+    {
+      "NodeType": "TreasureNode",
+      "NodeIconID": "node_treasure_icon",
+      "Title": "废弃矿车",
+      "Description": "矿车里还残留着可回收的浅层物资。",
+      "RewardID": "reward_node_treasure_layer1",
+      "Weight": 12
+    },
+    {
+      "NodeType": "EventNode",
+      "NodeIconID": "node_event_icon",
+      "Title": "微光裂隙",
+      "Description": "裂隙中传来微弱回响，换来一小笔可带走的深渊回收金。",
+      "RewardID": "reward_node_event_layer1",
+      "OutcomeEffects": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -1
+        }
+      ],
+      "Weight": 10
+    },
+    {
+      "NodeType": "RestStopNode",
+      "NodeIconID": "node_rest_icon",
+      "Title": "旧维护点",
+      "Description": "这里还能临时校准机体，恢复少量状态，但无法撤离。",
+      "OutcomeEffects": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "HP",
+          "Amount": 8
+        },
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": 4
+        }
+      ],
+      "Weight": 8
+    },
+    {
+      "NodeType": "HazardNode",
+      "NodeIconID": "node_hazard_icon",
+      "Title": "松动支架",
+      "Description": "矿道支架塌落，魔偶穿行时受到轻微损伤。",
+      "OutcomeEffects": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "HP",
+          "Amount": -5
+        }
+      ],
+      "Weight": 6
     }
   ],
   "BossNode": "elite_scrap_guard",
