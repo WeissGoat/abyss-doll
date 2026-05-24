@@ -344,6 +344,20 @@ DungeonOutcomeNode.OnEnterNode()
 * `DungeonSeedAcceptanceSmokeTest.Run` 验证 `V-L1-SEED-1024-ROUTE-01` 和 `V-L2-DIRECT-2048-ROUTE-01` 同 seed 摘要稳定、Boss / Stairs 可达。
 * 缺失层配置会返回失败摘要和明确 issue，不应静默通过。
 
+### 1.7 地图可读性占位文本层
+
+`DungeonMapReadabilityTextService` 是深渊地图占位 UI / 正式 UI 的文本适配层。它只读取 `DungeonLayer`、`DungeonMapVisibilityService` 和可选的 `DungeonSeedAcceptanceReport`，输出层级、seed、网络规模、可见性统计、当前节点、节点列表、路线列表和 seed 验收 issue 的只读文本快照。
+
+边界：
+
+* `DungeonMapReadabilityTextService` 不生成地图、不移动当前节点、不修改 `IsVisited`、不扣 SAN、不触发节点进入，也不绑定美术资源。
+* 地图 UI、层级选择 UI、自动验收报告和后续路线详情面板应优先消费 `DungeonMapReadabilitySnapshot` 或底层 presentation，不各自复制迷雾、风险和 seed 摘要逻辑。
+* Hidden 节点在文本层仍可以输出“隐藏 / 未知”占位，具体是否展示完整节点 ID 由 UI 层按当前调试 / 正式模式决定。
+
+验证：
+
+* `DungeonMapReadabilityTextServiceSmokeTest.Run` 覆盖初始地图快照、移动后可见性刷新和缺失层 seed issue 文本。
+
 ## 2. 战斗包装器与阵营 (Fighter & Faction)
 
 战斗发生时，决不能直接在原生的 `DollEntity` 或 `MonsterEntity` 上写乱七八糟的战斗逻辑。需要一层只存活在战斗场景的 Wrapper。
