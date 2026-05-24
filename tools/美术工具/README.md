@@ -403,30 +403,3 @@ Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec �
 * `capture_coverage_needed`：active Formal V1 界面尚未被 ArtAcceptance latest 覆盖，需要程序补截图点或验收入口。
 * `review_previous_screenshot`：已有旧截图可粗看，但必须重跑后才能判定当前 active 规格。
 * `art_review_ready`：当前截图和数据足够进入正式美术验收。
-
-## Generate-ArtProgramHandoff.ps1
-
-读取 `可接入素材清单.json` 和 `FormalV1验收队列.json`，生成给程序侧的一站式接入交接清单。它不替代两个源报告，而是把程序下一步动作压缩成 VisualID 登记、截图覆盖和 ArtAcceptance 重跑三类队列。
-
-输出：
-
-* `美术文档/_generated/程序接入交接清单.json`
-* `美术文档/_generated/程序接入交接清单.md`
-
-使用 `-Snapshot` 时额外输出：
-
-* `美术文档/_generated/art_program_handoff_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.json`
-* `美术文档/_generated/art_program_handoff_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.md`
-
-使用方式：
-
-```powershell
-.\tools\美术工具\Generate-ArtProgramHandoff.ps1 -Snapshot -SnapshotTag program_handoff
-```
-
-主要队列：
-
-* `RegisterVisualIDs`：程序登记 Approved PNG 到 `VisualAssetRegistry`。
-* `AddArtAcceptanceCaptureScreens`：程序补 ArtAcceptance 截图覆盖。
-* `RerunArtAcceptanceScreens`：程序登记或补截图后重跑验收。
-* `ArtReviewAfterRerunScreens`：重跑后交给美术侧逐屏验收。

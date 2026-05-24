@@ -69,7 +69,6 @@ UI 设计流解决六件事：
 | `handoff_checklist.md` | UI 从设计到程序接入的检查清单。 |
 | `_generated/ui_design_handoff.md` | 校验脚本生成的当前 UI 交付摘要。 |
 | `_generated/FormalV1验收队列.md/json` | active Formal V1 运行时美术验收队列，按最新 ArtAcceptance 和 Registry 快照生成。 |
-| `../_generated/程序接入交接清单.md/json` | 程序侧一站式接入队列，汇总 VisualID 登记、截图覆盖和 ArtAcceptance 重跑动作。 |
 
 ---
 
@@ -83,8 +82,6 @@ UI 设计流解决六件事：
 | candidate | `versions/formal_v1_candidate/` | 可选暂存区，不是必经流程。 |
 
 程序侧永远不直接读取 `formal_v1/*.md`、baseline 或 candidate。程序接入只读 active `screen_layouts.json`、`component_catalog.json` 和生成的 `ui_design_handoff.md`。
-
-程序侧执行当前美术接入时，优先看 `美术文档/_generated/程序接入交接清单.md`。该清单会合并 `可接入素材清单` 和 `FormalV1验收队列`，避免程序侧在多个报告之间手工拼接下一步。
 
 运行时验收统一看 `_generated/FormalV1验收队列.md`。该队列会把每个 active 界面的截图覆盖、Registry 缺口、local_v0 数量、必要动作和逐屏 checklist 拆开，避免从聊天记录或旧验收记录里手工判断下一步。
 
@@ -227,7 +224,6 @@ Candidate 仅作复杂界面的可选暂存，迁移状态不复用 `LayoutStatu
 ```powershell
 .\tools\美术工具\Validate-UIDesign.ps1
 .\tools\美术工具\Generate-FormalV1AcceptanceQueue.ps1 -Snapshot -SnapshotTag manual_review
-.\tools\美术工具\Generate-ArtProgramHandoff.ps1 -Snapshot -SnapshotTag manual_review
 ```
 
 校验内容：
