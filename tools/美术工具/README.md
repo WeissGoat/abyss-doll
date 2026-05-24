@@ -14,7 +14,7 @@ related:
   - 美术文档/00_美术流水线总览.md
   - 美术文档/README.md
   - 美术文档/04_美术风格基准.md
-last_verified: 2026-05-24
+last_verified: 2026-05-25
 update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
 ---
 
@@ -196,6 +196,35 @@ $env:NAI_ACCESS_TOKEN = "<token>"
 * `art_select`：`processed` 已有候选，等待美术筛选。
 * `art_process`：`raw` 已有候选，等待预处理和 contact sheet。
 * `generate_needed`：Manifest 有需求，但还没有可接入素材。
+
+## Generate-ArtQualityBacklog.ps1
+
+扫描 Manifest 和 Approved PNG，生成面向美术侧的质量替换队列。它不替代“可接入素材清单”：可接入清单给程序看，质量替换清单给美术看。
+
+输出：
+
+* `美术文档/_generated/素材质量替换清单.json`
+* `美术文档/_generated/素材质量替换清单.md`
+
+使用 `-Snapshot` 时额外输出：
+
+* `美术文档/_generated/art_quality_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.json`
+* `美术文档/_generated/art_quality_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.md`
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Generate-ArtQualityBacklog.ps1
+.\tools\美术工具\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag manual_review
+```
+
+主要状态：
+
+* `technical_fix`：当前 Approved 文件有技术风险，例如不透明规格却含透明像素；优先于视觉精修处理。
+* `visual_v2_replace`：当前图可用于程序接入和验收，但只是 local_v0 / placeholder，后续用同名 VisualID 替换正式版。
+* `spec_review`：素材尺寸与 Manifest SourceSpec 不一致，需要确认是素材错误还是规格要调整。
+
+Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec 或程序绑定。
 
 ## Validate-UIDesign.ps1
 
