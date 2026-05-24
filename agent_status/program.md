@@ -83,14 +83,16 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - ArtAcceptance `20260524_043441` 已通过，`combat_hud` 截图无 warnings / errors，可交美术侧做正式视觉验收。
 - 美术侧已提供 `美术文档/_generated/可接入素材清单.md/json`，程序侧可按 `program_integrate` 条目自助发现待接入素材。
 - A2 背包旋转规则已配置化：`Grid.CanRotate` / `Grid.RotationSteps` 纳入 `ItemGridComponent`、`BackpackGrid`、`InventoryInteractionService`、`ConfigValidator` 和 `InventoryInteractionServiceSmokeTest`，方向型相邻效果会随物品当前旋转后的朝向重新计算。
+- P0B 统一验收入口已落地：新增 `tools/agent/Invoke-P0Validation.ps1`，串联配置同步、`ConfigValidationSmokeTest.Run`、核心 Unity smoke tests、UI 规格校验和 ArtAcceptance latest 摘要，并生成 `UnityClient/Logs/P0Validation/latest/report.json` / `report.md`。
+- 已修正 P0 阻断测试口径：`InventoryGridLayoutAssetValidatorTest` 避免在 PlayMode 中误调用编辑器场景 API；`DungeonStairsProgressionTest` 按正式地图的节点按钮 + 路线线段结构校验二层地图布局。
+- `Invoke-P0Validation.ps1 -TimeoutSeconds 180` 已通过非 Strict 验证：配置同步、ConfigValidator、Unity smoke tests、UI 规格校验、ArtAcceptance latest 均通过；当前仍有 ConfigValidator 元数据标签 warning 和锁层路径预期 warning。
 
 ## 下一步建议
 
-1. 按 `开发文档/15_P0配置Validator与自动验收底座需求.md` 扩展 `ConfigValidator`：先覆盖 Items / Monsters / Dungeons / Rewards / VisualID 的必填、枚举、ID 引用和资源引用。
-2. 新增 `tools/agent/Invoke-P0Validation.ps1`，串联配置同步、ConfigValidator、Unity smoke test、UI 校验和 ArtAcceptance latest 摘要。
-3. 继续推进 A2 背包交互正式化：补 UI 层拖拽取消、战利品拾取共用规则和非战斗整理路径的回归测试。
-4. 等美术侧基于 ArtAcceptance 最新截图验收 `combat_hud` Formal V1，如需微调敌人站位、血条层级或目标光环显示，再回到 HUD 表现层处理。
-5. 接入美术新素材时优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
+1. 继续推进 A2 背包交互正式化：优先补物品生命周期服务化，统一拾取 / 整理 / 丢弃 / 使用 / 出售 / 制造 / 战败 / 撤离的规则入口和失败回滚。
+2. 处理 `Invoke-P0Validation.ps1 -Strict` 前的 warning 收口：确认 ConfigValidator 元数据标签是否进入白名单 / 正式标签表，并降低测试内预期锁层 warning 的噪音。
+3. 等美术侧基于 ArtAcceptance 最新截图验收 `combat_hud` Formal V1，如需微调敌人站位、血条层级或目标光环显示，再回到 HUD 表现层处理。
+4. 接入美术新素材时优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
 
 ## 问题 / 阻塞
 

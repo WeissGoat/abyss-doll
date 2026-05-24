@@ -83,20 +83,37 @@ public static class DungeonStairsProgressionTest {
         controller.RefreshMap();
 
         int expectedNodeCount = ConfigManager.Dungeons[2].ExpectedNodeCount + 1;
-        float expectedLayoutWidth = Mathf.Max(140f, expectedNodeCount * 140f + Mathf.Max(0, expectedNodeCount - 1) * 20f);
-        bool childCountMatches = contentObj.transform.childCount == expectedNodeCount;
+        int expectedRouteLineCount = Mathf.Max(0, expectedNodeCount - 1);
+        int nodeButtonCount = 0;
+        int routeLineCount = 0;
+        float expectedLayoutWidth = Mathf.Max(160f, expectedNodeCount * 160f + expectedRouteLineCount * 112f);
+        foreach (Transform child in contentObj.transform) {
+            if (child.GetComponent<Button>() != null) {
+                nodeButtonCount++;
+            } else if (child.name == "DungeonRouteLine_Image") {
+                routeLineCount++;
+            }
+        }
+
+        bool childCountMatches = nodeButtonCount == expectedNodeCount
+            && routeLineCount == expectedRouteLineCount
+            && contentObj.transform.childCount == expectedNodeCount + expectedRouteLineCount;
         bool layoutWidthExpanded = contentRect.sizeDelta.x >= expectedLayoutWidth;
         bool layoutNoLongerCompresses = !layout.childControlWidth && !layout.childForceExpandWidth;
         bool buttonsHavePreferredWidth = true;
         foreach (Transform child in contentObj.transform) {
+            if (child.GetComponent<Button>() == null) {
+                continue;
+            }
+
             LayoutElement element = child.GetComponent<LayoutElement>();
-            buttonsHavePreferredWidth &= element != null && element.preferredWidth >= 120f;
+            buttonsHavePreferredWidth &= element != null && element.preferredWidth >= 160f;
         }
 
         if (childCountMatches && layoutWidthExpanded && layoutNoLongerCompresses && buttonsHavePreferredWidth) {
             Debug.Log("Dungeon Map Layer 2 Layout PASSED.");
         } else {
-            Debug.LogError($"Dungeon Map Layer 2 Layout FAILED. ChildCount={contentObj.transform.childCount}/{expectedNodeCount}, Width={contentRect.sizeDelta.x}, Compress={layout.childControlWidth}, ForceExpand={layout.childForceExpandWidth}, PreferredWidth={buttonsHavePreferredWidth}");
+            Debug.LogError($"Dungeon Map Layer 2 Layout FAILED. Nodes={nodeButtonCount}/{expectedNodeCount}, Routes={routeLineCount}/{expectedRouteLineCount}, ChildCount={contentObj.transform.childCount}, Width={contentRect.sizeDelta.x}/{expectedLayoutWidth}, Compress={layout.childControlWidth}, ForceExpand={layout.childForceExpandWidth}, PreferredWidth={buttonsHavePreferredWidth}");
         }
 
         Object.DestroyImmediate(canvasObj);
