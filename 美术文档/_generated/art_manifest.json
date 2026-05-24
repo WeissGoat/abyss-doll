@@ -4147,7 +4147,7 @@
       "SelectedPath": "",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T00:00:00+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png",
+      "Notes": "[2026-05-25T00:00:00+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png\n[2026-05-25T01:21:05+08:00] generation failed: no images returned",
       "PresetCategory": "ui_doll_room",
       "Screen": "doll_room",
       "Usage": "日记本、房间记忆和记录入口"

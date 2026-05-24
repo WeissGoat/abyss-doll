@@ -1,0 +1,480 @@
+{
+  "GeneratedAt": "2026-05-25T01:31:16+08:00",
+  "SnapshotTag": "nai_visual_v2_20260525_01_anlas_blocked_after_quality_refresh",
+  "Inputs": {
+    "QualityBacklogPath": "美术文档/_generated/素材质量替换清单.json",
+    "ManifestPath": "美术文档/_generated/art_manifest.json"
+  },
+  "RunConfig": {
+    "Provider": "novelai",
+    "BatchID": "nai_visual_v2_20260525_01",
+    "Variants": 4,
+    "DelaySeconds": 1.0,
+    "QualityTierAfterSync": "formal_ai_v2",
+    "LastProbeBatchID": "nai_visual_v2_probe_20260525_01",
+    "LastProbeNote": "NovelAI HTTP 402: Not enough Anlas; one 512x512 image required 5 Anlas, available 2."
+  },
+  "Summary": {
+    "TotalBacklogItems": 20,
+    "PlannedItems": 20,
+    "PromptReadyItems": 20,
+    "MissingManifestEntries": [],
+    "DomainCounts": {
+      "background": 1,
+      "ui": 19
+    },
+    "SizeCounts": {
+      "1920x1080": 1,
+      "512x512": 19
+    }
+  },
+  "BatchCommands": {
+    "RunAllGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_black_market,ui_icon_deadline,ui_icon_diary,ui_icon_event,ui_icon_faction,ui_icon_gift,ui_icon_lore,ui_icon_memento,ui_icon_order,ui_icon_price_down,ui_icon_price_up,ui_icon_reputation,ui_icon_rumor,ui_icon_shop_channel,ui_icon_skip,ui_icon_talk,ui_icon_touch,ui_icon_trust,ui_room_memento_slot,bg_doll_room_attic -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+    "OptimizeAllAfterGeneration": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+    "RefreshIntegration": ".\\tools\\美术工具\\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01",
+    "RefreshQuality": ".\\tools\\美术工具\\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01",
+    "RefreshPlan": ".\\tools\\美术工具\\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01_after -BatchID nai_visual_v2_20260525_01"
+  },
+  "Items": [
+    {
+      "VisualID": "ui_icon_black_market",
+      "Order": 1,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "黑市渠道图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_black_market.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_black_market -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_black_market -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_black_market -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_deadline",
+      "Order": 2,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "截止日图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_deadline.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_deadline -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_deadline -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_deadline -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_diary",
+      "Order": 3,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "日记图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_diary -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_diary -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_diary -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_event",
+      "Order": 4,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "剧本事件图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_event.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_event -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_event -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_event -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_faction",
+      "Order": 5,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "势力图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_faction.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_faction -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_faction -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_faction -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_gift",
+      "Order": 6,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "赠礼图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_gift.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_gift -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_gift -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_gift -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_lore",
+      "Order": 7,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "Lore 档案图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_lore.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_lore -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_lore -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_lore -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_memento",
+      "Order": 8,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "纪念物图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_memento.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_memento -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_memento -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_memento -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_order",
+      "Order": 9,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "订单图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_order.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_order -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_order -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_order -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_price_down",
+      "Order": 10,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "价格下跌图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_price_down.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_price_down -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_price_down -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_price_down -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_price_up",
+      "Order": 11,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "价格上涨图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_price_up.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_price_up -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_price_up -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_price_up -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_reputation",
+      "Order": 12,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "声望等级图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_reputation.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_reputation -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_reputation -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_reputation -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_rumor",
+      "Order": 13,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "传闻图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_rumor.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_rumor -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_rumor -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_rumor -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_shop_channel",
+      "Order": 14,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "出货渠道图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_shop_channel.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_shop_channel -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_shop_channel -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_shop_channel -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_skip",
+      "Order": 15,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "跳过摘要图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_skip.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_skip -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_skip -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_skip -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_talk",
+      "Order": 16,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "对话图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_talk.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_talk -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_talk -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_talk -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_touch",
+      "Order": 17,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "触摸图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_touch.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_touch -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_touch -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_touch -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_icon_trust",
+      "Order": 18,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "黑市信任图标",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_trust.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_trust -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_trust -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_trust -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "ui_room_memento_slot",
+      "Order": 19,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "slot",
+      "DisplayName": "纪念物展示槽",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_room_memento_slot.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_room_memento_slot -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_room_memento_slot -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_room_memento_slot -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    },
+    {
+      "VisualID": "bg_doll_room_attic",
+      "Order": 20,
+      "Priority": "P2",
+      "Domain": "background",
+      "AssetType": "background",
+      "DisplayName": "人偶阁楼房间背景",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "PromptReady": true,
+      "ExpectedSize": "1920x1080",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/DollRoom/bg_doll_room_attic.png",
+      "ReplaceWithoutProgramChange": true,
+      "ProgramCanUseCurrent": true,
+      "AnlasNote": "",
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID bg_doll_room_attic -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260525_01 -PreserveStatus",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -VisualID bg_doll_room_attic -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_doll_room_attic -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate"
+      }
+    }
+  ]
+}

@@ -249,6 +249,32 @@ Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec �
 .\tools\美术工具\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag visual_v2_20260525_01
 ```
 
+## Generate-VisualV2Plan.ps1
+
+读取 `素材质量替换清单.json` 和 Manifest，把 `visual_v2_replace` 队列转成可执行的正式跑图计划。它不生成图片，只生成当前应该跑哪些 VisualID、用哪个 BatchID、每个素材的生成/预处理/同步命令，以及最近一次 NovelAI 探测结果。
+
+输出：
+
+* `美术文档/_generated/VisualV2生成计划.json`
+* `美术文档/_generated/VisualV2生成计划.md`
+
+使用 `-Snapshot` 时额外输出：
+
+* `美术文档/_generated/visual_v2_plan_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.json`
+* `美术文档/_generated/visual_v2_plan_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.md`
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01 -BatchID nai_visual_v2_20260525_01
+```
+
+当 NovelAI Anlas 不足时，也应刷新本计划并记录 `-LastProbeNote`，明确当前是外部额度不足，而不是素材队列、提示词或流水线缺失：
+
+```powershell
+.\tools\美术工具\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01_anlas_blocked -BatchID nai_visual_v2_20260525_01 -LastProbeBatchID nai_visual_v2_probe_20260525_01 -LastProbeNote "NovelAI HTTP 402: Not enough Anlas."
+```
+
 ## Validate-UIDesign.ps1
 
 校验 UI 设计系统的结构化文件，并生成程序交付摘要：
