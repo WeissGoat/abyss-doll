@@ -72,6 +72,7 @@ update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实
 
 阶梯房的职责：
 
+* 进入阶梯房：通过 `DungeonSafeZoneService.RestoreActiveDollToFull()` 免费恢复当前魔偶 HP / SAN 到上限，作为层间安全区节奏释放。
 * 进入下一层：调用 `DungeonManager.EnterNextLayer()`，加载 `CurrentLayer.LayerID + 1`。
 * 返回小镇：发布 `DungeonEventBus.PublishDungeonEvacuated()`，走现有撤离结算。
 * 无下一层时：进入下一层按钮不可用，仅允许返回小镇结算。
@@ -289,7 +290,7 @@ DungeonOutcomeNode.OnEnterNode()
 验收：
 
 * `DungeonNodeTypesSmokeTest.Run` 验证节点类型注册、宝箱奖励拾取流、结果节点资源变化、配置中节点类型覆盖。
-* `DungeonStairsProgressionTest.Run` 验证新增节点不会破坏正式地图网络、阶梯进层和地图点击路径。
+* `DungeonStairsProgressionTest.Run` 验证新增节点不会破坏正式地图网络、阶梯进层、安全区恢复、战利品账本保留和地图点击路径。
 * `ConfigValidationSmokeTest.Run` 验证 `OutcomeEffects`、`RewardID` 和节点配置引用。
 
 ### 1.5 地图迷雾与路线风险表达

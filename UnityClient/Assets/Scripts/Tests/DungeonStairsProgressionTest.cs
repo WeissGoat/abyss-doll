@@ -14,6 +14,7 @@ public static class DungeonStairsProgressionTest {
         TestDungeonMapMovementRules();
         TestDungeonStartLayerDefaultsAndLockedValidation();
         TestStairsUnlocksNextStartLayer();
+        TestStairsRestoresDollStatusWithoutClearingLootLedger();
         TestStartRunAtUnlockedLayerResetsRunLootLedger();
         TestEnterNextLayerKeepsRunLootLedger();
         TestStairsReturnSettlesRunLoot();
@@ -222,6 +223,47 @@ public static class DungeonStairsProgressionTest {
             Debug.Log("Stairs Unlocks Next Start Layer PASSED.");
         } else {
             Debug.LogError($"Stairs Unlocks Next Start Layer FAILED. Stairs={stairs != null}, Highest={core.CurrentPlayer.HighestUnlockedDungeonLayer}, EventLayer={_lastUnlockedStartLayerID}, CanStart2={core.Dungeon.CanStartAtLayer(2)}");
+        }
+    }
+
+    private static void TestStairsRestoresDollStatusWithoutClearingLootLedger() {
+        CoreBackend core = CreateCore();
+        DollEntity doll = core.CurrentPlayer.ActiveDoll;
+        BackpackGrid grid = ResetBackpack(doll);
+
+        core.Dungeon.LoadLayer(1);
+        doll.Status.HP_Current = Mathf.Max(1, doll.Status.HP_Max - 25);
+        doll.Status.SAN_Current = Mathf.Max(1, doll.Status.SAN_Max - 15);
+
+        StairsNode stairs = FindLastNode(core.Dungeon.CurrentLayer) as StairsNode;
+        ItemEntity carriedLoot = ConfigManager.CreateItem("loot_gear_scrap");
+        grid.PlaceItem(carriedLoot, 0, 0);
+        DungeonEventBus.PublishCombatLootCollected(new CombatLootCollectionResult {
+            NodeID = "stairs_recovery",
+            AcceptedItems = new List<ItemEntity> { carriedLoot }
+        });
+
+        core.Dungeon.CurrentLayer.CurrentNode = FindPredecessor(core.Dungeon.CurrentLayer, stairs);
+        core.Dungeon.MoveToNode(stairs);
+
+        bool restored = doll.Status.HP_Current == doll.Status.HP_Max
+            && doll.Status.SAN_Current == doll.Status.SAN_Max;
+
+        stairs?.EnterNextLayer();
+        _lastSettlementResult = null;
+        DungeonEventBus.OnDungeonSettlementPrepared += HandleSettlementPrepared;
+        DungeonEventBus.PublishDungeonEvacuated();
+        DungeonEventBus.OnDungeonSettlementPrepared -= HandleSettlementPrepared;
+
+        bool ledgerPreserved = _lastSettlementResult != null
+            && _lastSettlementResult.PickedUpCount == 1
+            && _lastSettlementResult.BroughtOutCount == 1
+            && _lastSettlementResult.LostCount == 0;
+
+        if (stairs != null && restored && ledgerPreserved) {
+            Debug.Log("Stairs Safe Zone Recovery PASSED.");
+        } else {
+            Debug.LogError($"Stairs Safe Zone Recovery FAILED. Stairs={stairs != null}, HP={doll.Status.HP_Current}/{doll.Status.HP_Max}, SAN={doll.Status.SAN_Current}/{doll.Status.SAN_Max}, Picked={_lastSettlementResult?.PickedUpCount ?? -1}, Brought={_lastSettlementResult?.BroughtOutCount ?? -1}, Lost={_lastSettlementResult?.LostCount ?? -1}");
         }
     }
 
