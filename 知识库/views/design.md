@@ -11,6 +11,7 @@ related:
   - PROJECT_STATUS.md
   - agent_status/design.md
   - 知识库/README.md
+  - 设计文档/README.md
   - 设计文档/GDD_00_系统关联总图.md
   - 版本规划/09_正式版核心纵切开发路线.md
   - 数值模型设计/00_基准价值与空间本位模型.md
