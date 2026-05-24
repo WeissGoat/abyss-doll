@@ -78,3 +78,32 @@ public class ProstheticEntity {
 ## 6. UI 入口
 
 `WorkshopUIController` 会根据 `ConfigManager.CraftingRecipes` 自动生成义体制造按钮。按钮状态由 `WorkshopSystem.CanAfford` 和当前是否已装备决定。
+
+## 7. 下潜许可服务
+
+`DiveReadinessService` 是局外成长进入深渊前的统一领域检查入口，不归属 UI，也不由 `DungeonManager` 直接散写规则。
+
+当前检查范围：
+
+*   玩家档案、层级 ID、层级配置和层级解锁。
+*   当前出战人偶是否存在。
+*   磨损与侵蚀阈值：`WearAndTear >= 90` 禁止下潜，`Corruption >= 90` 禁止下潜；高磨损 / 高侵蚀只返回 warning。
+*   底盘是否存在、底盘 ID、网格尺寸、`GridMask` 与运行时 `BackpackGrid` 是否一致。
+*   已装备义体引用是否存在、槽位是否为空、同槽位是否重复。
+
+返回结构：
+
+*   `DiveReadinessResult.CanDive`：是否允许下潜。
+*   `Issues`：结构化阻断 / 警告 / 信息，供深渊入口、工坊 UI 或后续局外界面复用。
+*   `BuildSummary()`：给现有事件和占位 UI 使用的短文本原因。
+*   `RemovedProstheticIDs`：正式开始下潜时按规则自动卸下的非法义体引用。
+
+调用边界：
+
+*   `DungeonManager.CanStartAtLayer()` 只做无副作用预检。
+*   `DungeonManager.StartRunAtLayer()` 在真正开始前允许 `autoUnequipIllegalProsthetics`，只自动修复规则允许自动卸下的义体问题。
+*   维护、净化、底盘修复和背包网格重建仍应由后续局外成长 / 维护服务处理，不能在下潜入口里静默修正。
+
+验证：
+
+*   `DiveReadinessSmokeTest.Run` 覆盖正常下潜、极端磨损、极端侵蚀、缺底盘、运行时网格不匹配、非法义体自动卸下和 warning 不阻断下潜。

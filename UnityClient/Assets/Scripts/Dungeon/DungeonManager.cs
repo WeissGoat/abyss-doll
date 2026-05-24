@@ -326,20 +326,22 @@ public class DungeonManager {
     }
 
     public bool CanStartAtLayer(int layerID) {
-        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
-        return player != null
-            && layerID >= 1
-            && layerID <= player.HighestUnlockedDungeonLayer
-            && ConfigManager.Dungeons.ContainsKey(layerID);
+        DiveReadinessResult readiness = DiveReadinessService.Evaluate(GameRoot.Core?.CurrentPlayer, layerID, false);
+        return readiness.CanDive;
     }
 
     public bool StartRunAtLayer(int layerID) {
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
-        if (!CanStartAtLayer(layerID)) {
-            string reason = BuildStartLayerRejectionReason(player, layerID);
+        DiveReadinessResult readiness = DiveReadinessService.Evaluate(player, layerID, true);
+        if (!readiness.CanDive) {
+            string reason = readiness.BuildSummary();
             Debug.LogWarning($"[DungeonManager] Cannot start dungeon at Layer {layerID}. {reason}");
             DungeonEventBus.PublishDungeonStartLayerRejected(layerID, reason);
             return false;
+        }
+
+        if (readiness.ProstheticsChanged) {
+            Debug.Log($"[DungeonManager] Dive readiness auto-unequipped {readiness.RemovedProstheticIDs.Count} illegal prosthetic reference(s).");
         }
 
         player.LastSelectedDungeonStartLayer = layerID;
