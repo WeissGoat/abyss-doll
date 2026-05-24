@@ -13,7 +13,7 @@ related:
   - 美术文档/00_美术流水线总览.md
   - 美术文档/04_美术风格基准.md
   - tools/美术工具/README.md
-last_verified: 2026-05-23
+last_verified: 2026-05-25
 update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
 ---
 
@@ -165,6 +165,20 @@ Step 2 完成后，将 `Status` 改为 `prompted`。
 | `RegistryStatus` | Step 5 | `unregistered`、`registered`、`validated` 等。 |
 | `Notes` | 任意 | 备注、返工原因、筛选结论。 |
 
+### Visual V2 质量替换字段
+
+已进入 `approved` / `registered` / `validated` 的素材，如果只是要替换更高质量图片，不应把 `Status` 改回 `generated`。这类流程使用候选字段记录新批次：
+
+| 字段 | 步骤 | 说明 |
+|---|---|---|
+| `CandidateBatchID` | Step 3 | Visual V2 候选生成批次，保留原 `Status`。 |
+| `CandidateRawFiles` | Step 3 | 本批候选 raw 文件列表，供预处理脚本只处理新候选。 |
+| `QualityTier` | Step 5 | 当前 Approved 质量层级，常用值：`local_v0`、`placeholder`、`formal_ai_v2`、`final`、`production`。 |
+| `ReplacementBatchID` | Step 5 | 最近一次同名替换所用批次。 |
+| `QualityUpdatedAt` | Step 5 | 最近一次质量替换时间。 |
+
+`QualityTier=formal_ai_v2/final/production` 表示当前素材已达到对应正式质量；质量清单不再因为旧备注里残留 `local_v0` 字样而继续报 `visual_v2_replace`。技术风险和尺寸规格问题仍会继续报出。
+
 ---
 
 ## 5. 填充边界
@@ -173,9 +187,9 @@ Step 2 完成后，将 `Status` 改为 `prompted`。
 |---|---|---|
 | Step 1：扫描 | 来源、配置事实、资产类型、VisualID、目标路径、状态 | `PromptCN`、`PromptEN`、`NegativePromptEN`、`Spec` |
 | Step 2：提示词 | `PromptCN`、`PromptEN`、`NegativePromptEN`、`Spec` | 玩法数值、Unity 对象引用、项目名、玩法黑话、引擎词 |
-| Step 3：生成 | `BatchID`、`RawPath` | `ApprovedPath` |
+| Step 3：生成 | `BatchID`、`RawPath`；Visual V2 用 `CandidateBatchID`、`CandidateRawFiles` | `ApprovedPath` |
 | Step 4：预处理 | `Notes` 可记录处理结果 | 人工筛选结论 |
-| Step 5：筛选接入 | `SelectedPath`、`ApprovedPath`、`RegistryStatus` | 改写配置事实 |
+| Step 5：筛选接入 | `SelectedPath`、`ApprovedPath`、`RegistryStatus`；Visual V2 用 `QualityTier`、`ReplacementBatchID`、`QualityUpdatedAt` | 改写配置事实、改写 `VisualID`、改写 DisplaySpec |
 
 ---
 

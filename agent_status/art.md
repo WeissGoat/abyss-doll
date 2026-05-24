@@ -8,6 +8,7 @@ status: active
 source_of_truth: true
 related:
   - 版本规划/09_正式版核心纵切开发路线.md
+  - 版本规划/12_正式版长期版本节点规划.md
   - agent_status/README.md
   - PROJECT_STATUS.md
   - 开发文档/00_程序开发大纲.md
@@ -39,6 +40,8 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 PM 版本节点中，美术线当前 19 个界面都已具备 Formal V1 active 规格。`combat_hud` 战斗资源、`maintenance_panel` / `daily_bill_report` 新增图标、A4 的 `shop_staging` / `order_board` / `rumor_board` local_v0 图标已由 UI 程序侧接入并通过 ArtAcceptance `20260524_212423`；`doll_room` 已进入 active，并补齐 `bg_doll_room_attic`、`ui_icon_diary`、`ui_room_memento_slot` local_v0 Approved 素材。下一步由程序侧按 latest `program_integrate` 队列登记剩余 12 个 Approved VisualID，美术侧等待接入后统一截图验收。
 
 美术侧已把“可接入覆盖”和“视觉质量替换”拆开：`可接入素材清单.md` 给程序看，`素材质量替换清单.md` 给美术看。当前质量清单为 `technical_fix=0`、`visual_v2_replace=20`，表示没有必须先修的技术风险，剩余 local_v0 素材不阻塞程序接入，后续按 Visual V2 同名替换。
+
+Visual V2 工具链已补齐安全替换流程：已接入素材可用 `Run-ArtGeneration.ps1 -PreserveStatus` 生成候选，用 `CandidateBatchID` 只预处理本批 raw，再用 `Sync-ApprovedArt.ps1 -QualityTier formal_ai_v2 -ClearCandidate` 同名替换 Approved。该流程不会把原 `approved` / `registered` / `validated` 状态回退到 `generated`。
 
 美术文档已收敛为四层入口：`README.md` 只做导航，`10_正式版核心纵切美术路线.md` 作为当前规划入口，`00_美术流水线总览.md` 作为端到端资产生产工作流入口，`ui_design/README.md` 作为 UI 版本和 active 规格入口。`archive/` 保存 MVP 记录和旧批次交付快照。
 
@@ -121,12 +124,15 @@ PM 版本节点中，美术线当前 19 个界面都已具备 Formal V1 active �
 - 已将质量替换队列接入 `README.md`、`00_美术流水线总览.md`、`10_正式版核心纵切美术路线.md`、`13_正式纵切UI与素材覆盖矩阵.md` 和 `tools/美术工具/README.md`；后续程序接入看 `可接入素材清单`，美术精修看 `素材质量替换清单`。
 - 已修复 4 张怪物头像 Approved PNG 的半透明边缘技术风险：`monster_mob_scavenger_bug_portrait`、`monster_mob_acid_slime_portrait`、`monster_elite_scrap_guard_portrait`、`monster_elite_mutant_amalgam_portrait` 现在符合 `AlphaRequired=false`。
 - 已刷新质量清单快照 `美术文档/_generated/art_quality_snapshots/20260525_004827_monster_portrait_alpha_fixed_visual_v2_backlog.*`；当前 `technical_fix=0`、`visual_v2_replace=20`、`spec_review=0`。
+- 已补齐 Visual V2 安全替换工具链：`Run-ArtGeneration.ps1` 支持 `-PreserveStatus`，`Optimize-ArtAssets.ps1` 支持 `-CandidateBatchID`，`Sync-ApprovedArt.ps1` 支持 `-CandidateBatchID` / `-QualityTier` / `-ClearCandidate`；Python 端兼容 `utf-8-sig` Manifest。
+- 已用临时 Manifest 和 mock provider 验证 Visual V2 流程：`ui_button_primary` 测试样本保持 `Status=approved`，同步后写入 `QualityTier=formal_ai_v2` / `ReplacementBatchID`，并清理候选字段，不污染正式 Manifest 和 Approved 目录。
+- 已刷新质量清单快照 `美术文档/_generated/art_quality_snapshots/20260525_011427_visual_v2_tooling_ready.*`；当前仍为 `technical_fix=0`、`visual_v2_replace=20`、`spec_review=0`，本轮没有真实素材替换。
 
 ## 下一步建议
 
 1. 程序侧优先按 latest 可接入素材清单登记 12 个 `program_integrate` VisualID：`bg_doll_room_attic`、`ui_icon_diary`、`ui_room_memento_slot` 以及当前依赖补充 UI 图标。
 2. 程序接入后，美术侧基于最新 ArtAcceptance 逐屏验收 19 个 active Formal V1 界面的结构、缺图、黑块、点击遮挡、列表有效数据和图标可读性。
-3. NovelAI Anlas 恢复后，按 `素材质量替换清单.md` 的 `visual_v2_replace` 队列重跑 A4 / 当前依赖 / `doll_room` local_v0 UI 图标和背景的正式美术版。
+3. NovelAI Anlas 恢复后，按 `素材质量替换清单.md` 的 `visual_v2_replace` 队列重跑 A4 / 当前依赖 / `doll_room` local_v0 UI 图标和背景的正式美术版；已接入素材统一走 `PreserveStatus -> CandidateBatchID -> QualityTier=formal_ai_v2` 流程。
 4. 每次替换或技术修复 Approved PNG 后，同时刷新 `可接入素材清单` 和 `素材质量替换清单`，并分别保留 integration / quality snapshot。
 5. 后续新增怪物时继续按 `CombatVisualID -> monster_*_combat -> Approved/Monsters/Combat` 流程补图。
 

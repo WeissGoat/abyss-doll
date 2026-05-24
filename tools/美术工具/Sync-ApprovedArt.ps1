@@ -6,8 +6,11 @@ param(
     [string[]]$VisualID = @(),
     [string[]]$Priority = @(),
     [string]$BatchID = "",
+    [string]$CandidateBatchID = "",
+    [string]$QualityTier = "",
     [int]$Limit = 0,
     [switch]$AllowProcessedFallback,
+    [switch]$ClearCandidate,
     [switch]$DryRun,
     [switch]$Overwrite,
     [switch]$SkipIntegrationCandidates
@@ -48,12 +51,24 @@ if ($BatchID -ne "") {
     $argsList += @("--batch-id", $BatchID)
 }
 
+if ($CandidateBatchID -ne "") {
+    $argsList += @("--candidate-batch-id", $CandidateBatchID)
+}
+
+if ($QualityTier -ne "") {
+    $argsList += @("--quality-tier", $QualityTier)
+}
+
 if ($Limit -gt 0) {
     $argsList += @("--limit", $Limit)
 }
 
 if ($AllowProcessedFallback) {
     $argsList += "--allow-processed-fallback"
+}
+
+if ($ClearCandidate) {
+    $argsList += "--clear-candidate"
 }
 
 if ($DryRun) {
@@ -74,6 +89,9 @@ if (-not $DryRun -and -not $SkipIntegrationCandidates) {
     $snapshotTag = "approved_sync"
     if ($BatchID -ne "") {
         $snapshotTag = "approved_sync_$BatchID"
+    }
+    if ($CandidateBatchID -ne "") {
+        $snapshotTag = "approved_sync_candidate_$CandidateBatchID"
     }
     & $candidateScript -Snapshot -SnapshotTag $snapshotTag
     if ($LASTEXITCODE -ne 0) {

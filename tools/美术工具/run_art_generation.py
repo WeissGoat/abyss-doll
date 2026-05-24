@@ -48,7 +48,7 @@ def resolve_project_path(value: str | None, default: str | None = None) -> Path 
 
 
 def read_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
 def write_json(path: Path, data: Any) -> None:
@@ -392,8 +392,13 @@ async def run_generation(args: argparse.Namespace) -> int:
             write_json(workspace["base"] / "generation.json", record)
 
             if outputs:
-                entry["Status"] = "generated"
-                entry["BatchID"] = batch_id
+                if args.preserve_status:
+                    entry["CandidateBatchID"] = batch_id
+                    entry["CandidateRawFiles"] = [item["RepoPath"] for item in outputs if item.get("RepoPath")]
+                    append_note(entry, f"[{created_at}] generated candidate batch {batch_id}; preserved Status={entry.get('Status', '')}.")
+                else:
+                    entry["Status"] = "generated"
+                    entry["BatchID"] = batch_id
                 entry["RawPath"] = repo_path(workspace["raw"])
                 if errors:
                     append_note(entry, f"[{created_at}] generation partial errors: {'; '.join(errors)}")
@@ -430,6 +435,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--extra", action="append", default=[])
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--overwrite", action="store_true")
+    parser.add_argument("--preserve-status", action="store_true")
     args = parser.parse_args()
     if args.variants < 1 or args.variants > 16:
         raise ValueError("--variants must be between 1 and 16.")

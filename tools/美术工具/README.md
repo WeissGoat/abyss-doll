@@ -121,6 +121,7 @@ $env:NAI_ACCESS_TOKEN = "<token>"
 * `-DelaySeconds`：每张图之间的等待时间，当前默认 1 秒。
 * `-Extra key=value`：透传 provider 参数。
 * `-Overwrite`：允许覆盖同名 raw 输出。
+* `-PreserveStatus`：用于已接入素材的 Visual V2 候选生成；保留原 `Status`，只写入 `CandidateBatchID` 和 `CandidateRawFiles`。
 * `-SkipIntegrationCandidates`：只生成图片，不刷新可接入素材清单。默认不要使用。
 
 非 `-DryRun` 生成完成后，脚本会默认刷新 `美术文档/_generated/可接入素材清单.*`，并在 `美术文档/_generated/art_integration_snapshots/` 写入一份 `generation` 快照。刚生成的 raw 素材会在清单中标为 `art_process`，表示还需要预处理和筛选，不能交给程序接入。
@@ -133,6 +134,12 @@ $env:NAI_ACCESS_TOKEN = "<token>"
 
 ```powershell
 .\tools\美术工具\Optimize-ArtAssets.ps1 -BatchID nai_p0_item_20260508_01 -Overwrite
+```
+
+Visual V2 候选批次使用 `-CandidateBatchID`，只处理 Manifest 中 `CandidateRawFiles` 对应的新 raw 文件，不会把历史 raw 全部重新预处理：
+
+```powershell
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite
 ```
 
 非 `-DryRun` 预处理完成后，脚本会默认刷新“可接入素材清单”，并写入一份 `processed` 快照。processed 已有候选但还未 selected 时，清单状态为 `art_select`。需要跳过清单刷新时使用 `-SkipIntegrationCandidates`。
@@ -153,6 +160,12 @@ $env:NAI_ACCESS_TOKEN = "<token>"
 
 ```powershell
 .\tools\美术工具\Sync-ApprovedArt.ps1 -BatchID nai_p0_item_20260508_01 -Overwrite
+```
+
+Visual V2 同名替换使用 `-CandidateBatchID` 和 `-QualityTier formal_ai_v2`。若 `selected` 为空，可加 `-AllowProcessedFallback` 使用本批候选 processed 第一张；同步后可用 `-ClearCandidate` 清理候选字段：
+
+```powershell
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_diary -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 非 `-DryRun` 同步完成后，脚本会默认刷新“可接入素材清单”，并写入一份 `approved_sync` 快照，方便程序侧直接查看当前哪些 Approved 素材已经可以接入。需要只做同步、不刷新清单时使用 `-SkipIntegrationCandidates`。
@@ -225,6 +238,16 @@ $env:NAI_ACCESS_TOKEN = "<token>"
 * `spec_review`：素材尺寸与 Manifest SourceSpec 不一致，需要确认是素材错误还是规格要调整。
 
 Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec 或程序绑定。
+
+标准 Visual V2 替换流程：
+
+```powershell
+.\tools\美术工具\Run-ArtGeneration.ps1 -Status approved -VisualID <VisualID> -PreserveStatus -BatchID nai_visual_v2_20260525_01 -Variants 4 -DelaySeconds 1
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID <VisualID> -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag visual_v2_20260525_01
+.\tools\美术工具\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag visual_v2_20260525_01
+```
 
 ## Validate-UIDesign.ps1
 

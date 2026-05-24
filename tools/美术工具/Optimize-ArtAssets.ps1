@@ -6,6 +6,7 @@ param(
     [string[]]$VisualID = @(),
     [string[]]$Priority = @(),
     [string]$BatchID = "",
+    [string]$CandidateBatchID = "",
     [int]$Limit = 0,
     [int]$ContactSize = 160,
     [int]$BackgroundThreshold = 34,
@@ -49,6 +50,10 @@ if ($BatchID -ne "") {
     $argsList += @("--batch-id", $BatchID)
 }
 
+if ($CandidateBatchID -ne "") {
+    $argsList += @("--candidate-batch-id", $CandidateBatchID)
+}
+
 if ($Limit -gt 0) {
     $argsList += @("--limit", $Limit)
 }
@@ -79,6 +84,9 @@ if (-not $DryRun -and -not $SkipIntegrationCandidates) {
     $snapshotTag = "processed"
     if ($BatchID -ne "") {
         $snapshotTag = "processed_$BatchID"
+    }
+    if ($CandidateBatchID -ne "") {
+        $snapshotTag = "processed_candidate_$CandidateBatchID"
     }
     & $candidateScript -Snapshot -SnapshotTag $snapshotTag
     if ($LASTEXITCODE -ne 0) {

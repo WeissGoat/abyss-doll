@@ -32,7 +32,7 @@ def resolve_project_path(value: str | None, default: str) -> Path:
 
 
 def read_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
 def write_json(path: Path, data: Any) -> None:
@@ -59,6 +59,8 @@ def select_entries(entries: list[dict[str, Any]], args: argparse.Namespace) -> l
         if args.status and entry.get("Status") != args.status:
             continue
         if args.batch_id and entry.get("BatchID") != args.batch_id:
+            continue
+        if args.candidate_batch_id and entry.get("CandidateBatchID") != args.candidate_batch_id:
             continue
         if domains and str(entry.get("Domain", "")) not in domains:
             continue
@@ -97,6 +99,61 @@ def choose_source(workspace: Path, allow_processed_fallback: bool) -> tuple[Path
     return None, ""
 
 
+def first_candidate_processed(workspace: Path, entry: dict[str, Any]) -> Path | None:
+    candidate_stems = candidate_raw_stems(entry)
+    if not candidate_stems:
+        return None
+    candidates = [
+        path
+        for path in (workspace / "processed").iterdir()
+        if path.is_file() and path.suffix.lower() in IMAGE_EXTENSIONS and path.stem in candidate_stems
+    ] if (workspace / "processed").exists() else []
+    return sorted(candidates)[0] if candidates else None
+
+
+def first_candidate_selected(workspace: Path, entry: dict[str, Any]) -> Path | None:
+    candidate_stems = candidate_raw_stems(entry)
+    if not candidate_stems:
+        return None
+    selected_dir = workspace / "selected"
+    if not selected_dir.exists():
+        return None
+    candidates = [
+        path
+        for path in selected_dir.iterdir()
+        if path.is_file() and path.suffix.lower() in IMAGE_EXTENSIONS and path.stem in candidate_stems
+    ]
+    return sorted(candidates)[0] if candidates else None
+
+
+def candidate_raw_stems(entry: dict[str, Any]) -> set[str]:
+    raw_files = entry.get("CandidateRawFiles")
+    if not isinstance(raw_files, list):
+        return set()
+    stems: set[str] = set()
+    for value in raw_files:
+        if not isinstance(value, str) or not value.strip():
+            continue
+        raw_path = resolve_project_path(value, value)
+        stems.add(raw_path.stem)
+    return stems
+
+
+def choose_candidate_source(
+    workspace: Path,
+    entry: dict[str, Any],
+    allow_processed_fallback: bool,
+) -> tuple[Path | None, str]:
+    selected = first_candidate_selected(workspace, entry)
+    if selected:
+        return selected, "selected"
+    if allow_processed_fallback:
+        processed = first_candidate_processed(workspace, entry)
+        if processed:
+            return processed, "candidate_processed"
+    return None, ""
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Sync selected art candidates to Approved output paths.")
     parser.add_argument("--manifest-path", default=DEFAULT_MANIFEST)
@@ -106,8 +163,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--visual-id", action="append", default=[])
     parser.add_argument("--priority", action="append", default=[])
     parser.add_argument("--batch-id", default="")
+    parser.add_argument("--candidate-batch-id", default="")
+    parser.add_argument("--quality-tier", default="")
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--allow-processed-fallback", action="store_true")
+    parser.add_argument("--clear-candidate", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--overwrite", action="store_true")
     return parser.parse_args()
@@ -127,7 +187,10 @@ def main() -> int:
     plan: list[tuple[dict[str, Any], Path, Path, str]] = []
     for entry in selected:
         workspace = in_root / entry["VisualID"]
-        source, source_kind = choose_source(workspace, args.allow_processed_fallback)
+        if args.candidate_batch_id:
+            source, source_kind = choose_candidate_source(workspace, entry, args.allow_processed_fallback)
+        else:
+            source, source_kind = choose_source(workspace, args.allow_processed_fallback)
         if source is None:
             print(f"[SKIP] {entry['VisualID']} no selected image")
             continue
@@ -150,6 +213,13 @@ def main() -> int:
         entry["SelectedPath"] = repo_path(source)
         entry["ApprovedPath"] = repo_path(target)
         entry["Status"] = "approved"
+        if args.quality_tier:
+            entry["QualityTier"] = args.quality_tier
+            entry["QualityUpdatedAt"] = created_at
+            entry["ReplacementBatchID"] = args.candidate_batch_id or args.batch_id or str(entry.get("BatchID", "") or "")
+        if args.clear_candidate:
+            entry.pop("CandidateBatchID", None)
+            entry.pop("CandidateRawFiles", None)
         append_note(entry, f"[{created_at}] approved from {source_kind}: {repo_path(source)}")
         synced += 1
         print(f"[OK] {entry['VisualID']} approved={repo_path(target)}")

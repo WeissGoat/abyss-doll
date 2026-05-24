@@ -16,6 +16,7 @@ param(
     [string[]]$Extra = @(),
     [switch]$DryRun,
     [switch]$Overwrite,
+    [switch]$PreserveStatus,
     [switch]$SkipIntegrationCandidates
 )
 
@@ -90,6 +91,10 @@ if ($DryRun) {
 
 if ($Overwrite) {
     $argsList += "--overwrite"
+}
+
+if ($PreserveStatus) {
+    $argsList += "--preserve-status"
 }
 
 python @argsList

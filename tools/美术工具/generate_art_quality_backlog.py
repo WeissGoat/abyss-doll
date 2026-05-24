@@ -35,6 +35,8 @@ LOCAL_QUALITY_PATTERNS = (
     "temporary",
     "fallback",
 )
+FORMAL_QUALITY_TIERS = {"formal_ai_v2", "final", "production"}
+LOCAL_QUALITY_TIERS = {"local_v0", "placeholder", "temporary", "fallback"}
 
 
 def resolve_project_path(value: str) -> Path:
@@ -104,6 +106,11 @@ def approved_path_for(entry: dict[str, Any]) -> Path | None:
 
 
 def has_local_quality_marker(entry: dict[str, Any]) -> bool:
+    quality_tier = str(entry.get("QualityTier", "") or "").strip().lower()
+    if quality_tier in FORMAL_QUALITY_TIERS:
+        return False
+    if quality_tier in LOCAL_QUALITY_TIERS:
+        return True
     fields = [
         str(entry.get("BatchID", "") or ""),
         str(entry.get("Notes", "") or ""),
@@ -252,6 +259,10 @@ def build_item(entry: dict[str, Any]) -> dict[str, Any] | None:
         ),
         "Reason": " ".join(reasons),
         "BatchID": str(entry.get("BatchID", "") or ""),
+        "CandidateBatchID": str(entry.get("CandidateBatchID", "") or ""),
+        "ReplacementBatchID": str(entry.get("ReplacementBatchID", "") or ""),
+        "QualityTier": str(entry.get("QualityTier", "") or ""),
+        "QualityUpdatedAt": str(entry.get("QualityUpdatedAt", "") or ""),
         "Notes": str(entry.get("Notes", "") or ""),
     }
 
@@ -334,8 +345,8 @@ def make_markdown(payload: dict[str, Any]) -> str:
     if replace_items:
         lines.extend(
             [
-                "| Priority | VisualID | Domain | Type | Name | Current | Program can use | Prompt | Approved | Reason |",
-                "|---|---|---|---|---|---|---|---|---|---|",
+                "| Priority | VisualID | Domain | Type | Name | Current | QualityTier | Program can use | Prompt | Approved | Reason |",
+                "|---|---|---|---|---|---|---|---|---|---|---|",
             ]
         )
         for item in replace_items:
@@ -349,6 +360,7 @@ def make_markdown(payload: dict[str, Any]) -> str:
                         md_cell(item["AssetType"]),
                         md_cell(item["DisplayName"]),
                         md_cell(item["CurrentQuality"]),
+                        md_cell(item["QualityTier"]),
                         md_cell(item["ProgramCanUseCurrent"]),
                         "ready" if item["PromptReady"] else "missing",
                         md_cell(item["ApprovedPath"]),

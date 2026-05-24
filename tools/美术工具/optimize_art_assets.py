@@ -34,7 +34,7 @@ def resolve_project_path(value: str | None, default: str) -> Path:
 
 
 def read_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
 def write_json(path: Path, data: Any) -> None:
@@ -89,6 +89,8 @@ def select_entries(entries: list[dict[str, Any]], args: argparse.Namespace) -> l
             continue
         if args.batch_id and entry.get("BatchID") != args.batch_id:
             continue
+        if args.candidate_batch_id and entry.get("CandidateBatchID") != args.candidate_batch_id:
+            continue
         if domains and str(entry.get("Domain", "")) not in domains:
             continue
         if visual_ids and str(entry.get("VisualID", "")) not in visual_ids:
@@ -125,6 +127,30 @@ def list_raw_images(raw_dir: Path) -> list[Path]:
     if not raw_dir.exists():
         return []
     return sorted(path for path in raw_dir.iterdir() if path.is_file() and path.suffix.lower() in IMAGE_EXTENSIONS)
+
+
+def candidate_raw_images(entry: dict[str, Any], raw_dir: Path, args: argparse.Namespace) -> tuple[list[Path], list[str]]:
+    if not args.candidate_batch_id:
+        return list_raw_images(raw_dir), []
+
+    raw_files = entry.get("CandidateRawFiles")
+    if not isinstance(raw_files, list):
+        return [], [f"CandidateBatchID={args.candidate_batch_id} has no CandidateRawFiles"]
+
+    images: list[Path] = []
+    warnings: list[str] = []
+    for value in raw_files:
+        if not isinstance(value, str) or not value.strip():
+            continue
+        path = resolve_project_path(value, value)
+        if not path.exists():
+            warnings.append(f"candidate raw file missing: {value}")
+            continue
+        if path.suffix.lower() not in IMAGE_EXTENSIONS:
+            warnings.append(f"candidate raw file has unsupported extension: {value}")
+            continue
+        images.append(path)
+    return sorted(images), warnings
 
 
 def crop_to_aspect(image: Image.Image, target_ratio: float) -> Image.Image:
@@ -280,9 +306,8 @@ def make_contact_sheet(visual_id: str, images: list[Path], out_path: Path, conta
 def optimize_entry(entry: dict[str, Any], args: argparse.Namespace, in_root: Path) -> dict[str, Any]:
     visual_id = entry["VisualID"]
     workspace = ensure_workspace(in_root, visual_id)
-    raw_images = list_raw_images(workspace["raw"])
     processed_outputs: list[dict[str, Any]] = []
-    warnings: list[str] = []
+    raw_images, warnings = candidate_raw_images(entry, workspace["raw"], args)
     if not raw_images:
         warnings.append("no raw images found")
 
@@ -295,14 +320,19 @@ def optimize_entry(entry: dict[str, Any], args: argparse.Namespace, in_root: Pat
         processed.save(out_path, format="PNG")
         processed_outputs.append({"Input": repo_path(raw_path), "Output": repo_path(out_path), "Skipped": False})
 
-    processed_paths = [Path(item["Output"]) for item in processed_outputs if not item.get("Skipped")]
-    actual_processed = sorted(workspace["processed"].glob("*.png"))
     contact_path = workspace["contact_sheet"] / f"{visual_id}_contact_sheet.png"
-    if actual_processed:
-        make_contact_sheet(visual_id, actual_processed, contact_path, args.contact_size)
+    contact_inputs = [
+        resolve_project_path(str(item["Output"]), str(item["Output"]))
+        for item in processed_outputs
+        if item.get("Output")
+    ]
+    contact_inputs = sorted(path for path in contact_inputs if path.exists())
+    if contact_inputs:
+        make_contact_sheet(visual_id, contact_inputs, contact_path, args.contact_size)
 
     return {
         "VisualID": visual_id,
+        "CandidateBatchID": str(args.candidate_batch_id or ""),
         "ProcessedPath": repo_path(workspace["processed"]),
         "ContactSheet": repo_path(contact_path) if contact_path.exists() else "",
         "Inputs": [repo_path(path) for path in raw_images],
@@ -320,6 +350,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--visual-id", action="append", default=[])
     parser.add_argument("--priority", action="append", default=[])
     parser.add_argument("--batch-id", default="")
+    parser.add_argument("--candidate-batch-id", default="")
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--contact-size", type=int, default=160)
     parser.add_argument("--background-threshold", type=int, default=34)
