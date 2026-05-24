@@ -9,6 +9,7 @@ public static class MonsterActionAITest {
         TestEnemyTurnUsesMonsterActionRunner();
         TestReduceWeaponDamageRuntimeModifier();
         TestAddCursedItemAction();
+        TestLockedIntentPreviewMatchesExecution();
 
         Debug.Log("=== Monster Action AI Test Finished ===");
     }
@@ -105,6 +106,84 @@ public static class MonsterActionAITest {
         }
 
         Debug.Log("AddCursedItem action PASSED.");
+    }
+
+    private static void TestLockedIntentPreviewMatchesExecution() {
+        CoreBackend core = BootstrapCoreWithEmptyGrid();
+        DollEntity doll = core.CurrentPlayer.ActiveDoll;
+        BackpackGrid grid = doll.RuntimeGrid as BackpackGrid;
+
+        ItemEntity weapon = ConfigManager.CreateItem("gear_tactical_blade");
+        grid.PlaceItem(weapon, 0, 0);
+        GridSolver.RecalculateAllEffects(doll);
+        int baseDamage = Mathf.RoundToInt(weapon.Combat.RuntimeDamage);
+
+        MonsterEntity monster = CloneMonsterForIntentLockTest("mob_acid_slime");
+        ConfigManager.Monsters["test_intent_lock_acid"] = monster;
+
+        try {
+            core.Combat.StartCombat(new List<string> { "test_intent_lock_acid" });
+
+            MonsterIntentReport report = MonsterIntentPreviewService.BuildReport(core.Combat);
+            MonsterActionIntentPreview selectedIntent = report.Monsters.Count > 0 ? report.Monsters[0].SelectedIntent : null;
+            if (!report.Success || selectedIntent == null || selectedIntent.ActionID != "test_lock_corrode_weapon") {
+                Debug.LogError($"Locked intent preview FAILED. Success={report.Success}, Action={selectedIntent?.ActionID}, Reason={report.Reason ?? selectedIntent?.BlockReason}");
+                return;
+            }
+
+            core.Combat.EndPlayerTurn();
+
+            int reducedDamage = Mathf.RoundToInt(weapon.Combat.RuntimeDamage);
+            int expectedDamage = Mathf.RoundToInt(baseDamage * 0.5f);
+            DollFighter playerFighter = core.Combat.PlayerFaction.Fighters[0] as DollFighter;
+
+            if (reducedDamage != expectedDamage || playerFighter == null || playerFighter.RuntimeHP != doll.Status.HP_Max) {
+                Debug.LogError($"Locked intent execution FAILED. Expected weapon damage {expectedDamage} and HP {doll.Status.HP_Max}, got damage {reducedDamage}, HP {playerFighter?.RuntimeHP}");
+                return;
+            }
+
+            MonsterIntentReport nextReport = MonsterIntentPreviewService.BuildReport(core.Combat);
+            MonsterIntentCard nextCard = nextReport.Monsters.Count > 0 ? nextReport.Monsters[0] : null;
+            MonsterActionIntentPreview nextCorrode = nextCard?.ActionIntents.Find(intent => intent.ActionID == "test_lock_corrode_weapon");
+            if (!nextReport.Success || nextCard == null || nextCard.SelectedIntent != null || nextCorrode == null || nextCorrode.CanExecute) {
+                Debug.LogError($"Locked intent cooldown refresh FAILED. NextSelected={nextCard?.SelectedIntent?.ActionID}, CorrodeCanExecute={nextCorrode?.CanExecute ?? false}, Reason={nextReport.Reason ?? nextCorrode?.BlockReason}");
+                return;
+            }
+
+            Debug.Log("Locked intent preview/execution consistency PASSED.");
+        } finally {
+            ConfigManager.Monsters.Remove("test_intent_lock_acid");
+        }
+    }
+
+    private static MonsterEntity CloneMonsterForIntentLockTest(string sourceMonsterID) {
+        MonsterEntity source = ConfigManager.Monsters[sourceMonsterID];
+        return new MonsterEntity {
+            MonsterID = "test_intent_lock_acid",
+            Name = "意图锁定测试酸液",
+            Layer = source.Layer,
+            HP = source.HP,
+            PortraitID = source.PortraitID,
+            CombatVisualID = source.CombatVisualID,
+            RewardID = source.RewardID,
+            AI = new MonsterAIConfig {
+                Selector = "WeightedRandom",
+                Actions = new List<MonsterActionConfig> {
+                    new MonsterActionConfig {
+                        ActionID = "test_lock_corrode_weapon",
+                        ActionType = "ReduceWeaponDamage",
+                        Target = "RandomPlayerWeapon",
+                        Weight = 100,
+                        CooldownTurns = 2,
+                        Condition = "PlayerHasWeapon",
+                        Params = new Dictionary<string, JToken> {
+                            { "Multiplier", JToken.FromObject(0.5f) },
+                            { "DurationPlayerTurns", JToken.FromObject(1) }
+                        }
+                    }
+                }
+            }
+        };
     }
 
     private static CoreBackend BootstrapCoreWithEmptyGrid() {

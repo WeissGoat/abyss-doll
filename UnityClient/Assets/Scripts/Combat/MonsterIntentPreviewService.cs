@@ -101,7 +101,7 @@ public static class MonsterIntentPreviewService {
             card.ActionIntents.Add(BuildActionPreview(monster, context, action));
         }
 
-        card.SelectedIntent = SelectPreviewIntent(card.ActionIntents);
+        card.SelectedIntent = SelectPreviewIntent(monster, context, ai, card.ActionIntents);
         return card;
     }
 
@@ -136,9 +136,19 @@ public static class MonsterIntentPreviewService {
         return preview;
     }
 
-    private static MonsterActionIntentPreview SelectPreviewIntent(List<MonsterActionIntentPreview> previews) {
+    private static MonsterActionIntentPreview SelectPreviewIntent(MonsterFighter monster, MonsterActionContext context, MonsterAIConfig ai, List<MonsterActionIntentPreview> previews) {
         if (previews == null || previews.Count == 0) {
             return null;
+        }
+
+        if (context?.RuntimeState != null && context.RuntimeState.TryGetLockedIntent(monster, ai, out MonsterActionConfig lockedAction)) {
+            MonsterActionIntentPreview lockedPreview = previews.Find(preview =>
+                preview != null &&
+                string.Equals(preview.ActionID, lockedAction.ActionID, StringComparison.OrdinalIgnoreCase));
+
+            if (lockedPreview != null) {
+                return lockedPreview;
+            }
         }
 
         MonsterActionIntentPreview selected = null;

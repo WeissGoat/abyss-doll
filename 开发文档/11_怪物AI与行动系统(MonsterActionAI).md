@@ -820,11 +820,18 @@ MonsterActionAI 落地后，`ConfigValidator` 不再把旧 `GridInterference` �
 截至 2026-05-25，怪物意图只读预览数据层已补齐第一版：
 
 *   新增 `MonsterIntentPreviewService`，从当前 `CombatSystem` / `MonsterActionAI` 运行时上下文生成怪物意图报告，不执行行动、不修改背包、不推进冷却。
-*   每只怪物输出 `MonsterIntentCard`，包含怪物运行时 HP / Shield、候选行动列表和一个确定性 `SelectedIntent`。
+*   每只怪物输出 `MonsterIntentCard`，包含怪物运行时 HP / Shield、候选行动列表和 `SelectedIntent`。
 *   每个候选行动输出 `MonsterActionIntentPreview`，包含 ActionID、ActionType、Target、权重、可执行状态、阻塞原因、标题、描述和类型化数值。
 *   当前已覆盖 3 类 MVP Action 的可读数据：`DamageTarget` 输出单次 / 总伤害，`ReduceWeaponDamage` 输出削弱倍率和持续回合，`AddCursedItem` 输出将塞入的物品、占格和覆盖标签。
-*   预览选择规则为“可执行、权重大优先、ActionID 稳定排序”，不会调用 `WeightedRandomMonsterActionSelector`，因此不消耗随机数，也不改变实际敌方回合语义。
+*   `SelectedIntent` 优先读取当前回合锁定的行动；若没有锁定行动，则回退为“可执行、权重大优先、ActionID 稳定排序”的只读预览。
 *   `CombatSystem.CreateMonsterActionContextForPreview()` 只暴露构建预览所需上下文，UI 或其他表现层不得通过它执行行动或修改战斗状态。
 *   `MonsterIntentPreviewServiceSmokeTest` 覆盖普通攻击、酸液软体腐蚀武器、畸变融合体塞污染物，以及预览不改变背包物品数量。
 
-当前该层只是“意图预览”，不是“回合意图锁定”。后续如果设计要求玩家看到的预告必须与敌方回合实际执行完全一致，应把本服务升级为回合开始的 Intent Lock 系统：在玩家回合开始锁定行动实例，UI 读锁定结果，敌方回合执行同一结果。
+截至 2026-05-25，回合意图锁定已接入第一版：
+
+*   `CombatSystem.StartPlayerTurn()` 会推进怪物行动冷却、清理旧锁定意图，并为每个存活怪物通过 `MonsterActionRunner.LockIntent()` 锁定本轮将执行的行动。
+*   `MonsterActionRuntimeState` 记录每个怪物运行时实例的锁定行动，使用 `RuntimeID` 区分同类多怪，避免 UI 预览和敌方回合重新随机出不同结果。
+*   `CombatSystem.StartEnemyTurn()` 不再重新推进冷却；敌方回合由 `MonsterActionRunner.ExecuteTurn()` 优先执行锁定行动，执行完成后清除对应锁定。
+*   如果锁定行动在敌方回合前因目标、条件、冷却或次数变得不可执行，本轮行动明确失败并清除锁定，不临场重选，避免玩家看到的意图被静默替换。
+*   `MonsterIntentPreviewService` 现在优先显示锁定行动，因此 UI 读取的 `SelectedIntent` 与敌方回合实际执行保持一致。
+*   `MonsterActionAITest` 已新增“锁定意图预览与执行一致”覆盖：锁定酸液腐蚀后，预览显示腐蚀武器，敌方回合同样执行腐蚀而不是重新随机攻击。

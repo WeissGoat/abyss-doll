@@ -95,11 +95,12 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - P4 订单 / 声望 / 传闻价格波后端链路已落地：新增 `Factions`、`Orders`、`Rumors` 配置域和运行时状态，`TownEconomyService` 支持每周刷新、接单、交付、奖励、声望 / 信任变更、传闻出售倍率和通用出售结算；`TownEconomyServiceSmokeTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
 - P4 小镇经济概览数据层已落地：新增 `TownEconomyOverviewService`，只读汇总可售物各渠道估值、订单进度、传闻、势力摘要、月租压力和典当候选，供占位 UI 或正式 UI 后续消费；`TownEconomyOverviewServiceSmokeTest.Run`、`TownEconomyServiceSmokeTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
 - P1 怪物意图只读预览数据层已落地：新增 `MonsterIntentPreviewService`，从当前战斗上下文输出怪物 HP / Shield、候选行动、可执行状态、阻塞原因、攻击 / 腐蚀武器 / 塞污染物的类型化意图数据，供占位 UI 或正式 UI 后续消费；`MonsterIntentPreviewServiceSmokeTest.Run` 覆盖预览不修改背包状态。
+- P1 回合意图锁定已落地：`CombatSystem.StartPlayerTurn()` 会锁定每个存活怪物本轮行动，`MonsterIntentPreviewService` 优先显示锁定行动，`MonsterActionRunner.ExecuteTurn()` 优先执行同一行动；若锁定行动变得不可执行则本轮失败不重选；`MonsterActionAITest.Run` 已覆盖预览与执行一致性。
 
 ## 下一步建议
 
 1. 进入新程序任务前先查 `版本规划/11_纵切批次与需求文档承接矩阵.md` 第 4 节；已标记“程序功能开发完成”的能力只做 bug 修复、验收补强或真实数据绑定，不重复开发。
-2. 优先从未完成项中选下一步：P1 战斗意图占位 UI 消费 `MonsterIntentPreviewService` / 回合意图锁定、P2 前三层正式配置 JSON / Validator 样例、P3 成长反馈 UI 数据绑定 / 更完整制造配置、P4 经济占位 UI 消费 `TownEconomyOverviewService` / 配置 Validator、P0 Strict warning / seed 摘要。
+2. 优先从未完成项中选下一步：P1 战斗意图占位 UI 消费 `MonsterIntentPreviewService` / 异常失败反馈、P2 前三层正式配置 JSON / Validator 样例、P3 成长反馈 UI 数据绑定 / 更完整制造配置、P4 经济占位 UI 消费 `TownEconomyOverviewService` / 配置 Validator、P0 Strict warning / seed 摘要。
 3. 等美术侧基于 ArtAcceptance 最新截图验收 `combat_hud` Formal V1，如需微调敌人站位、血条层级或目标光环显示，再回到 HUD 表现层处理。
 4. 接入美术新素材时优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
 

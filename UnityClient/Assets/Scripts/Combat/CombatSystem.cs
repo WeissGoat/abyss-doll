@@ -39,6 +39,8 @@ public class CombatSystem {
 
     public void StartPlayerTurn() {
         CurrentState = CombatState.PlayerTurn;
+        _monsterActionState.AdvanceCooldownsForNewIntentRound();
+        LockMonsterIntentsForPlayerTurn();
         CombatEventBus.Publish(CombatEventType.OnTurnStart, PlayerFaction);
     }
 
@@ -63,7 +65,6 @@ public class CombatSystem {
     public void StartEnemyTurn() {
         CurrentState = CombatState.EnemyTurn;
         ItemUseService.ClearPendingTargetSelection();
-        _monsterActionState.AdvanceCooldownsAtEnemyTurnStart();
         CombatEventBus.Publish(CombatEventType.OnTurnStart, EnemyFaction);
 
         foreach (var fighter in EnemyFaction.Fighters) {
@@ -134,6 +135,24 @@ public class CombatSystem {
 
     public MonsterActionContext CreateMonsterActionContextForPreview(MonsterFighter actor) {
         return BuildMonsterActionContext(actor);
+    }
+
+    private void LockMonsterIntentsForPlayerTurn() {
+        if (EnemyFaction?.Fighters == null || PlayerFaction == null || PlayerFaction.IsWipedOut()) {
+            _monsterActionState.ClearAllLockedIntents();
+            return;
+        }
+
+        _monsterActionState.ClearAllLockedIntents();
+        foreach (FighterEntity fighter in EnemyFaction.Fighters) {
+            MonsterFighter enemy = fighter as MonsterFighter;
+            if (enemy == null || enemy.RuntimeHP <= 0) {
+                continue;
+            }
+
+            MonsterActionContext context = BuildMonsterActionContext(enemy);
+            _monsterActionRunner.LockIntent(enemy, context);
+        }
     }
 
     private void CleanupMonsterActionRuntime() {

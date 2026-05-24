@@ -87,11 +87,90 @@ public static class MonsterActionConfigParser {
 }
 
 public class MonsterActionRunner {
+    public bool LockIntent(MonsterFighter actor, MonsterActionContext context) {
+        if (actor == null || actor.RuntimeHP <= 0) {
+            return false;
+        }
+
+        EnsureContext(actor, ref context);
+
+        MonsterAIConfig ai = actor.DataRef?.AI;
+        if (ai == null || ai.Actions == null || ai.Actions.Count == 0) {
+            Debug.LogError($"[MonsterActionAI] Monster [{actor.Name}] has no AI.Actions config.");
+            context.RuntimeState.ClearLockedIntent(actor);
+            return false;
+        }
+
+        IMonsterActionSelector selector = MonsterActionSelectorFactory.Create(ai.Selector);
+        if (selector == null) {
+            Debug.LogError($"[MonsterActionAI] Monster [{actor.Name}] uses unknown selector [{ai.Selector}].");
+            context.RuntimeState.ClearLockedIntent(actor);
+            return false;
+        }
+
+        MonsterActionConfig selected = selector.SelectAction(context, ai);
+        if (selected == null) {
+            Debug.LogWarning($"[MonsterActionAI] Monster [{actor.Name}] has no executable action to lock.");
+            context.RuntimeState.ClearLockedIntent(actor);
+            return false;
+        }
+
+        context.RuntimeState.LockIntent(actor, selected);
+        return true;
+    }
+
     public bool ExecuteTurn(MonsterFighter actor, MonsterActionContext context) {
         if (actor == null || actor.RuntimeHP <= 0) {
             return false;
         }
 
+        EnsureContext(actor, ref context);
+
+        MonsterAIConfig ai = actor.DataRef?.AI;
+        if (ai == null || ai.Actions == null || ai.Actions.Count == 0) {
+            Debug.LogError($"[MonsterActionAI] Monster [{actor.Name}] has no AI.Actions config.");
+            return false;
+        }
+
+        bool hasLockedIntent = context.RuntimeState.TryGetLockedIntent(actor, ai, out MonsterActionConfig selected);
+        if (!hasLockedIntent) {
+            IMonsterActionSelector selector = MonsterActionSelectorFactory.Create(ai.Selector);
+            if (selector == null) {
+                Debug.LogError($"[MonsterActionAI] Monster [{actor.Name}] uses unknown selector [{ai.Selector}].");
+                return false;
+            }
+
+            selected = selector.SelectAction(context, ai);
+        }
+
+        if (selected == null) {
+            Debug.LogWarning($"[MonsterActionAI] Monster [{actor.Name}] has no executable action this turn.");
+            return false;
+        }
+
+        if (hasLockedIntent && !CanExecuteSelectedAction(actor, context, selected)) {
+            Debug.LogWarning($"[MonsterActionAI] Locked action [{selected.ActionID}] for monster [{actor.Name}] is no longer executable. Intent fizzles instead of reselecting.");
+            context.RuntimeState.ClearLockedIntent(actor);
+            return false;
+        }
+
+        MonsterActionBase action = MonsterActionFactory.Create(selected);
+        if (action == null) {
+            Debug.LogError($"[MonsterActionAI] Action [{selected.ActionID}] type [{selected.ActionType}] is not implemented.");
+            context.RuntimeState.ClearLockedIntent(actor);
+            return false;
+        }
+
+        bool executed = action.Execute(context);
+        if (executed) {
+            context.RuntimeState.MarkUsed(actor, selected);
+        }
+
+        context.RuntimeState.ClearLockedIntent(actor);
+        return executed;
+    }
+
+    private static void EnsureContext(MonsterFighter actor, ref MonsterActionContext context) {
         if (context == null) {
             context = new MonsterActionContext();
         }
@@ -104,50 +183,42 @@ public class MonsterActionRunner {
         if (context.RuntimeModifiers == null) {
             context.RuntimeModifiers = new MonsterCombatModifierSystem();
         }
+    }
 
-        MonsterAIConfig ai = actor.DataRef?.AI;
-        if (ai == null || ai.Actions == null || ai.Actions.Count == 0) {
-            Debug.LogError($"[MonsterActionAI] Monster [{actor.Name}] has no AI.Actions config.");
+    private static bool CanExecuteSelectedAction(MonsterFighter actor, MonsterActionContext context, MonsterActionConfig selected) {
+        if (selected == null || selected.Weight <= 0) {
             return false;
         }
 
-        IMonsterActionSelector selector = MonsterActionSelectorFactory.Create(ai.Selector);
-        if (selector == null) {
-            Debug.LogError($"[MonsterActionAI] Monster [{actor.Name}] uses unknown selector [{ai.Selector}].");
+        if (context.RuntimeState != null && !context.RuntimeState.IsActionAvailable(actor, selected)) {
             return false;
         }
 
-        MonsterActionConfig selected = selector.SelectAction(context, ai);
-        if (selected == null) {
-            Debug.LogWarning($"[MonsterActionAI] Monster [{actor.Name}] has no executable action this turn.");
+        if (!MonsterActionConditionEvaluator.Evaluate(selected.Condition, context, selected)) {
             return false;
         }
 
         MonsterActionBase action = MonsterActionFactory.Create(selected);
-        if (action == null) {
-            Debug.LogError($"[MonsterActionAI] Action [{selected.ActionID}] type [{selected.ActionType}] is not implemented.");
-            return false;
-        }
-
-        bool executed = action.Execute(context);
-        if (executed) {
-            context.RuntimeState.MarkUsed(actor, selected);
-        }
-
-        return executed;
+        return action != null && action.CanExecute(context);
     }
 }
 
 public class MonsterActionRuntimeState {
     private readonly Dictionary<string, int> _cooldowns = new Dictionary<string, int>();
     private readonly Dictionary<string, int> _uses = new Dictionary<string, int>();
+    private readonly Dictionary<string, MonsterLockedIntent> _lockedIntents = new Dictionary<string, MonsterLockedIntent>();
 
     public void Reset() {
         _cooldowns.Clear();
         _uses.Clear();
+        _lockedIntents.Clear();
     }
 
     public void AdvanceCooldownsAtEnemyTurnStart() {
+        AdvanceCooldownsForNewIntentRound();
+    }
+
+    public void AdvanceCooldownsForNewIntentRound() {
         List<string> keys = new List<string>(_cooldowns.Keys);
         foreach (string key in keys) {
             _cooldowns[key]--;
@@ -190,11 +261,83 @@ public class MonsterActionRuntimeState {
         }
     }
 
+    public void LockIntent(MonsterFighter actor, MonsterActionConfig action) {
+        if (actor == null || action == null) {
+            return;
+        }
+
+        _lockedIntents[BuildActorKey(actor)] = new MonsterLockedIntent {
+            ActorRuntimeID = actor.RuntimeID,
+            MonsterID = actor.DataRef?.MonsterID ?? string.Empty,
+            ActionID = action.ActionID ?? string.Empty,
+            ActionType = action.ActionType ?? string.Empty,
+            Action = action
+        };
+    }
+
+    public bool TryGetLockedIntent(MonsterFighter actor, MonsterAIConfig aiConfig, out MonsterActionConfig action) {
+        action = null;
+        if (actor == null || aiConfig?.Actions == null) {
+            return false;
+        }
+
+        if (!_lockedIntents.TryGetValue(BuildActorKey(actor), out MonsterLockedIntent lockedIntent)) {
+            return false;
+        }
+
+        if (lockedIntent.Action != null && aiConfig.Actions.Contains(lockedIntent.Action)) {
+            action = lockedIntent.Action;
+            return true;
+        }
+
+        if (!string.IsNullOrEmpty(lockedIntent.ActionID)) {
+            action = aiConfig.Actions.Find(candidate =>
+                candidate != null &&
+                string.Equals(candidate.ActionID, lockedIntent.ActionID, StringComparison.OrdinalIgnoreCase));
+            if (action != null) {
+                return true;
+            }
+        }
+
+        if (!string.IsNullOrEmpty(lockedIntent.ActionType)) {
+            action = aiConfig.Actions.Find(candidate =>
+                candidate != null &&
+                string.Equals(candidate.ActionType, lockedIntent.ActionType, StringComparison.OrdinalIgnoreCase));
+        }
+
+        return action != null;
+    }
+
+    public void ClearLockedIntent(MonsterFighter actor) {
+        if (actor == null) {
+            return;
+        }
+
+        _lockedIntents.Remove(BuildActorKey(actor));
+    }
+
+    public void ClearAllLockedIntents() {
+        _lockedIntents.Clear();
+    }
+
     private string BuildKey(MonsterFighter actor, MonsterActionConfig action) {
-        string actorKey = !string.IsNullOrEmpty(actor.RuntimeID) ? actor.RuntimeID : actor.DataRef?.MonsterID ?? actor.Name;
+        string actorKey = BuildActorKey(actor);
         string actionKey = !string.IsNullOrEmpty(action.ActionID) ? action.ActionID : action.ActionType;
         return $"{actorKey}:{actionKey}";
     }
+
+    private string BuildActorKey(MonsterFighter actor) {
+        string actorKey = !string.IsNullOrEmpty(actor.RuntimeID) ? actor.RuntimeID : actor.DataRef?.MonsterID ?? actor.Name;
+        return actorKey ?? string.Empty;
+    }
+}
+
+public class MonsterLockedIntent {
+    public string ActorRuntimeID;
+    public string MonsterID;
+    public string ActionID;
+    public string ActionType;
+    public MonsterActionConfig Action;
 }
 
 public class MonsterCombatModifierSystem {
