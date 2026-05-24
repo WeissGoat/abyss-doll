@@ -1,4 +1,4 @@
-﻿---
+---
 id: gdd_00_system_overview
 title: 系统关联总图：全系统内在关联与数据流向
 type: gdd
@@ -10,7 +10,6 @@ related:
   - GEMINI.md
   - 设计文档/README.md
   - 版本规划/09_正式版核心纵切开发路线.md
-  - 版本规划/10_正式版核心纵切版本节点规划.md
   - 版本规划/11_设计文档纵切批次矩阵.md
   - 开发文档/00_程序开发大纲.md
   - agent_status/program.md

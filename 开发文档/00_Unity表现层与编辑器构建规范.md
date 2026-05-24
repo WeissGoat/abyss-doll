@@ -1,4 +1,4 @@
-﻿---
+---
 id: dev_00_unity_ui_editor_guidelines
 title: Unity 表现层与编辑器构建规范 (UI & Editor Construction Guidelines)
 type: dev
@@ -17,8 +17,8 @@ related:
   - 美术文档/02_资源规格与接入规范.md
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/handoff_checklist.md
-  - 美术文档/11_P0_UI骨架接入交付.md
-  - 美术文档/12_P1_UI骨架接入准备.md
+  - 美术文档/archive/11_P0_UI骨架接入交付.md
+  - 美术文档/archive/12_P1_UI骨架接入准备.md
   - 知识库/views/program.md
 last_verified: 2026-05-23
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。

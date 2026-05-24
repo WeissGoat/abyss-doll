@@ -13,9 +13,14 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/02_资源规格与接入规范.md
   - 美术文档/README.md
+  - 美术文档/archive/README.md
   - 美术文档/ui_design/ui_iteration_process.md
   - 美术文档/ui_design/handoff_checklist.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
+  - 美术文档/ui_design/formal_v1/doll_interaction_v1.md
+  - 美术文档/ui_design/formal_v1/doll_room_v1.md
+  - 美术文档/ui_design/formal_v1/faction_shop_v1.md
+  - 美术文档/ui_design/formal_v1/scenario_event_v1.md
   - 美术文档/ui_design/versions/README.md
   - 美术文档/ui_design/versions/migration_log.md
   - 美术文档/archive/11_P0_UI骨架接入交付.md

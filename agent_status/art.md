@@ -1,4 +1,4 @@
-﻿---
+---
 id: agent_status_art
 title: 美术 / UI 状态
 type: status
@@ -8,7 +8,6 @@ status: active
 source_of_truth: true
 related:
   - 版本规划/09_正式版核心纵切开发路线.md
-  - 版本规划/10_正式版核心纵切版本节点规划.md
   - agent_status/README.md
   - PROJECT_STATUS.md
   - 开发文档/00_程序开发大纲.md
@@ -84,7 +83,7 @@ PM 版本节点中，美术线当前已完成 `combat_hud` Formal V1 active 规�
 - 已建立 Formal V1 UI 结构设计层：`combat_hud`、`workshop_main`、`inventory_loot`、`dungeon_map`、`settlement`。
 - 已冻结 MVP UI Baseline：`美术文档/ui_design/versions/mvp_baseline_2026-05-22/`。
 - 已建立 UI 设计迭代流程：Formal V1 文档确认后修改 active `screen_layouts.json`，再生成素材和交给程序接入。
-- PM 已将美术线纳入 `版本规划/10_正式版核心纵切版本节点规划.md`：A1 聚焦 `combat_hud` Formal V1，A2/A3 依次承接拾取、战斗、地图、工坊和结算界面。
+- PM 已将美术线纳入 `版本规划/09_正式版核心纵切开发路线.md`：A1 聚焦 `combat_hud` Formal V1，A2/A3 依次承接拾取、战斗、地图、工坊和结算界面。
 - 已把 `combat_hud` active 规格切到 Formal V1：底部居中背包、左玩家/右敌人实体舞台、敌人脚下血条、中央 `vfx_space`。
 - 已扩展 Manifest 扫描与提示词生成：`MonsterEntity.CombatVisualID` 会扫出 `monster_*_combat` 透明战斗实体素材需求，并新增 `ui_combat_entity_shadow` / `ui_combat_target_ring`。
 - 已完成 `combat_hud` Formal V1 第一批战斗资源入库：`monster_mob_scavenger_bug_combat`、`monster_mob_acid_slime_combat`、`monster_elite_scrap_guard_combat`、`monster_elite_mutant_amalgam_combat`、`ui_combat_entity_shadow`、`ui_combat_target_ring`，并补齐 Unity `.meta`。

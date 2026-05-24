@@ -1,4 +1,4 @@
-﻿---
+---
 id: plan_06_mvp_playtest_closure
 title: MVP 白盒试玩收口推进计划
 type: plan
@@ -7,9 +7,9 @@ domain: mvp_planning
 status: historical
 source_of_truth: false
 related:
-  - 版本规划/00_最小MVP体验闭环内容清单.md
-  - 版本规划/02_开发里程碑与节点规划.md
-  - 版本规划/04_MVP验证需要补充的功能开发.md
+  - 版本规划/_archive/mvp_2026-05/00_最小MVP体验闭环内容清单.md
+  - 版本规划/_archive/mvp_2026-05/02_开发里程碑与节点规划.md
+  - 版本规划/_archive/mvp_2026-05/04_MVP验证需要补充的功能开发.md
 last_verified: 2026-05-23
 update_rule: 历史记录仅在追溯或修正归档事实时更新。
 ---

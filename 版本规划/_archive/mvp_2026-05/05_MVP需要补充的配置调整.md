@@ -1,4 +1,4 @@
-﻿---
+---
 id: plan_05_mvp_config_adjustments
 title: MVP 需要补充的配置调整
 type: plan
@@ -9,7 +9,7 @@ source_of_truth: false
 related:
   - 数值模型设计/00_基准价值与空间本位模型.md
   - 配置表(JSON)/README.md
-  - 版本规划/03_mvp数值要求.md
+  - 版本规划/_archive/mvp_2026-05/03_mvp数值要求.md
 last_verified: 2026-05-23
 update_rule: 历史记录仅在追溯或修正归档事实时更新。
 ---

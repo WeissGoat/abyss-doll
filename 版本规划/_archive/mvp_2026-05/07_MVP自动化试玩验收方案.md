@@ -7,7 +7,7 @@ domain: mvp_planning
 status: historical
 source_of_truth: false
 related:
-  - 版本规划/08_MVP自动化试玩首轮报告.md
+  - 版本规划/_archive/mvp_2026-05/08_MVP自动化试玩首轮报告.md
   - 开发文档/00_自动化测试框架与流程指南.md
 last_verified: 2026-05-23
 update_rule: 历史记录仅在追溯或修正归档事实时更新。

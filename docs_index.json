@@ -10,15 +10,13 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 1464,
-    "relation_edges": 732,
-    "cross_role_edges": 152,
+    "directed_edges": 1492,
+    "relation_edges": 746,
+    "cross_role_edges": 147,
     "role_pairs": {
       "PM <-> 全局": 10,
       "PM <-> 知识库": 1,
-      "PM <-> 程序": 2,
-      "PM <-> 策划": 3,
-      "PM <-> 美术": 2,
+      "PM <-> 策划": 2,
       "全局 <-> 知识库": 4,
       "全局 <-> 程序": 9,
       "全局 <-> 策划": 29,
@@ -43,7 +41,6 @@
       "source_of_truth": true,
       "related": [
         "版本规划/09_正式版核心纵切开发路线.md",
-        "版本规划/10_正式版核心纵切版本节点规划.md",
         "agent_status/README.md",
         "PROJECT_STATUS.md",
         "开发文档/00_程序开发大纲.md",
@@ -63,8 +60,8 @@
       "update_rule": "美术或 UI 视觉流水线任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 16,
-      "cross_role_relation_count": 10
+      "relation_count": 15,
+      "cross_role_relation_count": 9
     },
     {
       "path": "agent_status/design.md",
@@ -77,7 +74,6 @@
       "source_of_truth": true,
       "related": [
         "版本规划/09_正式版核心纵切开发路线.md",
-        "版本规划/10_正式版核心纵切版本节点规划.md",
         "版本规划/11_设计文档纵切批次矩阵.md",
         "agent_status/README.md",
         "PROJECT_STATUS.md",
@@ -121,8 +117,8 @@
       "update_rule": "策划、数值、GDD 或配置意图任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 40,
-      "cross_role_relation_count": 8
+      "relation_count": 39,
+      "cross_role_relation_count": 7
     },
     {
       "path": "agent_status/pm.md",
@@ -137,16 +133,17 @@
         "AGENTS.md",
         "agent_status/README.md",
         "PROJECT_STATUS.md",
+        "版本规划/README.md",
         "版本规划/09_正式版核心纵切开发路线.md",
-        "版本规划/10_正式版核心纵切版本节点规划.md",
+        "版本规划/11_设计文档纵切批次矩阵.md",
         "知识库/views/pm.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "版本路线、里程碑、优先级、跨职能拆分或交付节奏变化后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 6,
-      "cross_role_relation_count": 4
+      "relation_count": 7,
+      "cross_role_relation_count": 5
     },
     {
       "path": "agent_status/program.md",
@@ -159,7 +156,6 @@
       "source_of_truth": true,
       "related": [
         "版本规划/09_正式版核心纵切开发路线.md",
-        "版本规划/10_正式版核心纵切版本节点规划.md",
         "agent_status/README.md",
         "PROJECT_STATUS.md",
         "开发文档/00_客户端核心架构规范.md",
@@ -175,8 +171,8 @@
       "update_rule": "程序、Unity、验证或工程边界任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 12,
-      "cross_role_relation_count": 8
+      "relation_count": 11,
+      "cross_role_relation_count": 7
     },
     {
       "path": "agent_status/README.md",
@@ -222,7 +218,7 @@
         "知识库/views/program.md",
         "tools/agent/README.md",
         "版本规划/09_正式版核心纵切开发路线.md",
-        "版本规划/10_正式版核心纵切版本节点规划.md",
+        "版本规划/README.md",
         "版本规划/11_设计文档纵切批次矩阵.md"
       ],
       "last_verified": "2026-05-24",
@@ -288,8 +284,8 @@
       "related": [
         "AGENTS.md",
         "GEMINI.md",
+        "版本规划/README.md",
         "版本规划/09_正式版核心纵切开发路线.md",
-        "版本规划/10_正式版核心纵切版本节点规划.md",
         "agent_status/pm.md",
         "agent_status/program.md",
         "agent_status/design.md",
@@ -413,8 +409,8 @@
         "美术文档/02_资源规格与接入规范.md",
         "美术文档/ui_design/README.md",
         "美术文档/ui_design/handoff_checklist.md",
-        "美术文档/11_P0_UI骨架接入交付.md",
-        "美术文档/12_P1_UI骨架接入准备.md",
+        "美术文档/archive/11_P0_UI骨架接入交付.md",
+        "美术文档/archive/12_P1_UI骨架接入准备.md",
         "知识库/views/program.md"
       ],
       "last_verified": "2026-05-23",
@@ -494,8 +490,8 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "版本规划/07_MVP自动化试玩验收方案.md",
-        "版本规划/08_MVP自动化试玩首轮报告.md",
+        "版本规划/_archive/mvp_2026-05/07_MVP自动化试玩验收方案.md",
+        "版本规划/_archive/mvp_2026-05/08_MVP自动化试玩首轮报告.md",
         "开发文档/06_架构评估与收口建议.md",
         "开发文档/13_编程规范与架构约定.md",
         "开发文档/00_程序开发大纲.md",
@@ -630,8 +626,8 @@
         "美术文档/10_正式版核心纵切美术路线.md",
         "美术文档/ui_design/README.md",
         "美术文档/ui_design/handoff_checklist.md",
-        "美术文档/11_P0_UI骨架接入交付.md",
-        "美术文档/12_P1_UI骨架接入准备.md"
+        "美术文档/archive/11_P0_UI骨架接入交付.md",
+        "美术文档/archive/12_P1_UI骨架接入准备.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
@@ -744,7 +740,6 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "版本规划/10_正式版核心纵切版本节点规划.md",
         "开发文档/06_架构评估与收口建议.md",
         "开发文档/13_编程规范与架构约定.md",
         "开发文档/00_程序开发大纲.md",
@@ -754,8 +749,8 @@
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 5,
-      "cross_role_relation_count": 1
+      "relation_count": 4,
+      "cross_role_relation_count": 0
     },
     {
       "path": "开发文档/13_编程规范与架构约定.md",
@@ -951,8 +946,8 @@
         "设计文档/GDD_01_背包战斗与局内网格机制.md",
         "设计文档/GDD_06_物品系统与物品生命周期.md",
         "设计文档/GDD_00_系统关联总图.md",
-        "版本规划/03_mvp数值要求.md",
-        "版本规划/05_MVP需要补充的配置调整.md",
+        "版本规划/_archive/mvp_2026-05/03_mvp数值要求.md",
+        "版本规划/_archive/mvp_2026-05/05_MVP需要补充的配置调整.md",
         "agent_status/design.md",
         "知识库/views/design.md"
       ],
@@ -1041,192 +1036,6 @@
       "cross_role_relation_count": 2
     },
     {
-      "path": "版本规划/00_最小MVP体验闭环内容清单.md",
-      "title": "最小可玩版本 (MVP) 核心闭环内容清单",
-      "id": "plan_00_mvp_core_loop",
-      "type": "plan",
-      "role": "全局",
-      "domain": "mvp_planning",
-      "status": "historical",
-      "source_of_truth": false,
-      "related": [
-        "版本规划/02_开发里程碑与节点规划.md",
-        "版本规划/04_MVP验证需要补充的功能开发.md",
-        "版本规划/06_MVP白盒试玩收口推进计划.md"
-      ],
-      "last_verified": "2026-05-23",
-      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 3,
-      "cross_role_relation_count": 0
-    },
-    {
-      "path": "版本规划/01_MVP美术与UI需求清单.md",
-      "title": "MVP 美术与UI表现需求清单 (Art & UI Pipeline)",
-      "id": "plan_01_mvp_art_ui_requirements",
-      "type": "plan",
-      "role": "美术",
-      "domain": "mvp_planning",
-      "status": "historical",
-      "source_of_truth": false,
-      "related": [
-        "美术文档/06_MVP素材接入状态同步.md",
-        "美术文档/07_MVP_UI重新设计同步.md"
-      ],
-      "last_verified": "2026-05-23",
-      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 2,
-      "cross_role_relation_count": 0
-    },
-    {
-      "path": "版本规划/02_开发里程碑与节点规划.md",
-      "title": "MVP 客户端开发里程碑与节点规划",
-      "id": "plan_02_mvp_development_milestones",
-      "type": "plan",
-      "role": "全局",
-      "domain": "mvp_planning",
-      "status": "historical",
-      "source_of_truth": false,
-      "related": [
-        "版本规划/00_最小MVP体验闭环内容清单.md",
-        "版本规划/04_MVP验证需要补充的功能开发.md",
-        "版本规划/06_MVP白盒试玩收口推进计划.md"
-      ],
-      "last_verified": "2026-05-23",
-      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 3,
-      "cross_role_relation_count": 0
-    },
-    {
-      "path": "版本规划/03_mvp数值要求.md",
-      "title": "数值模型沙盘推演方法论 (Numerical Sandboxing)",
-      "id": "plan_03_mvp_balance_requirements",
-      "type": "plan",
-      "role": "策划",
-      "domain": "mvp_planning",
-      "status": "historical",
-      "source_of_truth": false,
-      "related": [
-        "数值模型设计/00_基准价值与空间本位模型.md",
-        "配置表(JSON)/README.md",
-        "版本规划/05_MVP需要补充的配置调整.md"
-      ],
-      "last_verified": "2026-05-23",
-      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 3,
-      "cross_role_relation_count": 0
-    },
-    {
-      "path": "版本规划/04_MVP验证需要补充的功能开发.md",
-      "title": "MVP 验证需要补充的功能开发",
-      "id": "plan_04_mvp_missing_features",
-      "type": "plan",
-      "role": "全局",
-      "domain": "mvp_planning",
-      "status": "historical",
-      "source_of_truth": false,
-      "related": [
-        "版本规划/00_最小MVP体验闭环内容清单.md",
-        "版本规划/02_开发里程碑与节点规划.md",
-        "版本规划/06_MVP白盒试玩收口推进计划.md"
-      ],
-      "last_verified": "2026-05-23",
-      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 3,
-      "cross_role_relation_count": 0
-    },
-    {
-      "path": "版本规划/05_MVP需要补充的配置调整.md",
-      "title": "MVP 需要补充的配置调整",
-      "id": "plan_05_mvp_config_adjustments",
-      "type": "plan",
-      "role": "策划",
-      "domain": "mvp_planning",
-      "status": "historical",
-      "source_of_truth": false,
-      "related": [
-        "数值模型设计/00_基准价值与空间本位模型.md",
-        "配置表(JSON)/README.md",
-        "版本规划/03_mvp数值要求.md"
-      ],
-      "last_verified": "2026-05-23",
-      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 3,
-      "cross_role_relation_count": 0
-    },
-    {
-      "path": "版本规划/06_MVP白盒试玩收口推进计划.md",
-      "title": "MVP 白盒试玩收口推进计划",
-      "id": "plan_06_mvp_playtest_closure",
-      "type": "plan",
-      "role": "全局",
-      "domain": "mvp_planning",
-      "status": "historical",
-      "source_of_truth": false,
-      "related": [
-        "版本规划/00_最小MVP体验闭环内容清单.md",
-        "版本规划/02_开发里程碑与节点规划.md",
-        "版本规划/04_MVP验证需要补充的功能开发.md"
-      ],
-      "last_verified": "2026-05-23",
-      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 3,
-      "cross_role_relation_count": 0
-    },
-    {
-      "path": "版本规划/07_MVP自动化试玩验收方案.md",
-      "title": "MVP 自动化试玩验收方案",
-      "id": "plan_07_mvp_auto_playtest_acceptance",
-      "type": "plan",
-      "role": "全局",
-      "domain": "mvp_planning",
-      "status": "historical",
-      "source_of_truth": false,
-      "related": [
-        "版本规划/08_MVP自动化试玩首轮报告.md",
-        "开发文档/00_自动化测试框架与流程指南.md"
-      ],
-      "last_verified": "2026-05-23",
-      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 2,
-      "cross_role_relation_count": 1
-    },
-    {
-      "path": "版本规划/08_MVP自动化试玩首轮报告.md",
-      "title": "MVP 自动化试玩首轮报告",
-      "id": "plan_08_mvp_auto_playtest_report",
-      "type": "plan",
-      "role": "全局",
-      "domain": "mvp_planning",
-      "status": "historical",
-      "source_of_truth": false,
-      "related": [
-        "版本规划/07_MVP自动化试玩验收方案.md",
-        "开发文档/00_自动化测试框架与流程指南.md"
-      ],
-      "last_verified": "2026-05-23",
-      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 2,
-      "cross_role_relation_count": 1
-    },
-    {
       "path": "版本规划/09_正式版核心纵切开发路线.md",
       "title": "正式版核心纵切开发路线",
       "id": "plan_formal_vertical_slice",
@@ -1239,9 +1048,9 @@
         "AGENTS.md",
         "GEMINI.md",
         "PROJECT_STATUS.md",
+        "版本规划/README.md",
         "agent_status/pm.md",
         "知识库/views/pm.md",
-        "版本规划/10_正式版核心纵切版本节点规划.md",
         "版本规划/11_设计文档纵切批次矩阵.md",
         "开发文档/00_程序开发大纲.md",
         "agent_status/program.md",
@@ -1261,36 +1070,6 @@
       "cross_role_relation_count": 13
     },
     {
-      "path": "版本规划/10_正式版核心纵切版本节点规划.md",
-      "title": "正式版核心纵切版本节点规划",
-      "id": "plan_10_formal_vertical_nodes",
-      "type": "plan",
-      "role": "PM",
-      "domain": "formal_vertical_nodes",
-      "status": "active",
-      "source_of_truth": true,
-      "related": [
-        "AGENTS.md",
-        "PROJECT_STATUS.md",
-        "agent_status/pm.md",
-        "版本规划/09_正式版核心纵切开发路线.md",
-        "版本规划/11_设计文档纵切批次矩阵.md",
-        "agent_status/art.md",
-        "agent_status/program.md",
-        "agent_status/design.md",
-        "美术文档/10_正式版核心纵切美术路线.md",
-        "开发文档/12_程序开发优化建议与重构路线.md",
-        "设计文档/GDD_00_系统关联总图.md",
-        "知识库/views/pm.md"
-      ],
-      "last_verified": "2026-05-24",
-      "update_rule": "调整正式版纵切版本节点、跨职能交付顺序、完成标准或验收口径时同步本文件。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 12,
-      "cross_role_relation_count": 10
-    },
-    {
       "path": "版本规划/11_设计文档纵切批次矩阵.md",
       "title": "设计文档纵切批次矩阵",
       "id": "plan_11_gdd_vertical_batch_matrix",
@@ -1301,8 +1080,9 @@
       "source_of_truth": true,
       "related": [
         "AGENTS.md",
+        "版本规划/README.md",
         "版本规划/09_正式版核心纵切开发路线.md",
-        "版本规划/10_正式版核心纵切版本节点规划.md",
+        "agent_status/pm.md",
         "设计文档/README.md",
         "设计文档/GDD_00_系统关联总图.md",
         "设计文档/00_策划文档开发交付审计.md",
@@ -1324,7 +1104,217 @@
       "update_rule": "调整 GDD 系统纵切批次、优先级、阶段归属或正式完成口径时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 19,
+      "relation_count": 20,
+      "cross_role_relation_count": 5
+    },
+    {
+      "path": "版本规划/_archive/mvp_2026-05/00_最小MVP体验闭环内容清单.md",
+      "title": "最小可玩版本 (MVP) 核心闭环内容清单",
+      "id": "plan_00_mvp_core_loop",
+      "type": "plan",
+      "role": "全局",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "版本规划/_archive/mvp_2026-05/02_开发里程碑与节点规划.md",
+        "版本规划/_archive/mvp_2026-05/04_MVP验证需要补充的功能开发.md",
+        "版本规划/_archive/mvp_2026-05/06_MVP白盒试玩收口推进计划.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md",
+      "title": "MVP 美术与UI表现需求清单 (Art & UI Pipeline)",
+      "id": "plan_01_mvp_art_ui_requirements",
+      "type": "plan",
+      "role": "美术",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/archive/06_MVP素材接入状态同步.md",
+        "美术文档/archive/07_MVP_UI重新设计同步.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 2,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "版本规划/_archive/mvp_2026-05/02_开发里程碑与节点规划.md",
+      "title": "MVP 客户端开发里程碑与节点规划",
+      "id": "plan_02_mvp_development_milestones",
+      "type": "plan",
+      "role": "全局",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "版本规划/_archive/mvp_2026-05/00_最小MVP体验闭环内容清单.md",
+        "版本规划/_archive/mvp_2026-05/04_MVP验证需要补充的功能开发.md",
+        "版本规划/_archive/mvp_2026-05/06_MVP白盒试玩收口推进计划.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "版本规划/_archive/mvp_2026-05/03_mvp数值要求.md",
+      "title": "数值模型沙盘推演方法论 (Numerical Sandboxing)",
+      "id": "plan_03_mvp_balance_requirements",
+      "type": "plan",
+      "role": "策划",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/README.md",
+        "版本规划/_archive/mvp_2026-05/05_MVP需要补充的配置调整.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "版本规划/_archive/mvp_2026-05/04_MVP验证需要补充的功能开发.md",
+      "title": "MVP 验证需要补充的功能开发",
+      "id": "plan_04_mvp_missing_features",
+      "type": "plan",
+      "role": "全局",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "版本规划/_archive/mvp_2026-05/00_最小MVP体验闭环内容清单.md",
+        "版本规划/_archive/mvp_2026-05/02_开发里程碑与节点规划.md",
+        "版本规划/_archive/mvp_2026-05/06_MVP白盒试玩收口推进计划.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "版本规划/_archive/mvp_2026-05/05_MVP需要补充的配置调整.md",
+      "title": "MVP 需要补充的配置调整",
+      "id": "plan_05_mvp_config_adjustments",
+      "type": "plan",
+      "role": "策划",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "数值模型设计/00_基准价值与空间本位模型.md",
+        "配置表(JSON)/README.md",
+        "版本规划/_archive/mvp_2026-05/03_mvp数值要求.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "版本规划/_archive/mvp_2026-05/06_MVP白盒试玩收口推进计划.md",
+      "title": "MVP 白盒试玩收口推进计划",
+      "id": "plan_06_mvp_playtest_closure",
+      "type": "plan",
+      "role": "全局",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "版本规划/_archive/mvp_2026-05/00_最小MVP体验闭环内容清单.md",
+        "版本规划/_archive/mvp_2026-05/02_开发里程碑与节点规划.md",
+        "版本规划/_archive/mvp_2026-05/04_MVP验证需要补充的功能开发.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "版本规划/_archive/mvp_2026-05/07_MVP自动化试玩验收方案.md",
+      "title": "MVP 自动化试玩验收方案",
+      "id": "plan_07_mvp_auto_playtest_acceptance",
+      "type": "plan",
+      "role": "全局",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "版本规划/_archive/mvp_2026-05/08_MVP自动化试玩首轮报告.md",
+        "开发文档/00_自动化测试框架与流程指南.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 2,
+      "cross_role_relation_count": 1
+    },
+    {
+      "path": "版本规划/_archive/mvp_2026-05/08_MVP自动化试玩首轮报告.md",
+      "title": "MVP 自动化试玩首轮报告",
+      "id": "plan_08_mvp_auto_playtest_report",
+      "type": "plan",
+      "role": "全局",
+      "domain": "mvp_planning",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "版本规划/_archive/mvp_2026-05/07_MVP自动化试玩验收方案.md",
+        "开发文档/00_自动化测试框架与流程指南.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 2,
+      "cross_role_relation_count": 1
+    },
+    {
+      "path": "版本规划/README.md",
+      "title": "版本规划阅读入口",
+      "id": "version_planning_readme",
+      "type": "entry",
+      "role": "PM",
+      "domain": "version_planning",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "PROJECT_STATUS.md",
+        "agent_status/pm.md",
+        "知识库/views/pm.md",
+        "版本规划/09_正式版核心纵切开发路线.md",
+        "版本规划/11_设计文档纵切批次矩阵.md"
+      ],
+      "last_verified": "2026-05-24",
+      "update_rule": "调整版本规划目录结构、active 文档、归档规则或当前事实来源时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 6,
       "cross_role_relation_count": 4
     },
     {
@@ -1425,8 +1415,8 @@
         "PROJECT_STATUS.md",
         "agent_status/pm.md",
         "知识库/README.md",
-        "版本规划/09_正式版核心纵切开发路线.md",
-        "版本规划/10_正式版核心纵切版本节点规划.md"
+        "版本规划/README.md",
+        "版本规划/09_正式版核心纵切开发路线.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "PM 入口文档、版本路线、里程碑或跨职能交接口径变化时同步本文件。",
@@ -1613,46 +1603,6 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "美术文档/06_MVP素材接入状态同步.md",
-      "title": "MVP 素材接入状态同步",
-      "id": "art_mvp_asset_intake_status",
-      "type": "art",
-      "role": "美术",
-      "domain": "mvp_art_archive",
-      "status": "historical",
-      "source_of_truth": false,
-      "related": [
-        "美术文档/07_MVP_UI重新设计同步.md",
-        "版本规划/01_MVP美术与UI需求清单.md"
-      ],
-      "last_verified": "2026-05-23",
-      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 2,
-      "cross_role_relation_count": 0
-    },
-    {
-      "path": "美术文档/07_MVP_UI重新设计同步.md",
-      "title": "MVP UI 重新设计同步",
-      "id": "art_mvp_ui_redesign_sync",
-      "type": "art",
-      "role": "美术",
-      "domain": "mvp_ui_archive",
-      "status": "historical",
-      "source_of_truth": false,
-      "related": [
-        "美术文档/06_MVP素材接入状态同步.md",
-        "版本规划/01_MVP美术与UI需求清单.md"
-      ],
-      "last_verified": "2026-05-23",
-      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 2,
-      "cross_role_relation_count": 0
-    },
-    {
       "path": "美术文档/08_Unity运行时美术验收工具需求.md",
       "title": "Unity 运行时美术验收工具需求与交付状态",
       "id": "art_runtime_art_validation_requirements",
@@ -1707,7 +1657,6 @@
       "source_of_truth": true,
       "related": [
         "版本规划/09_正式版核心纵切开发路线.md",
-        "版本规划/10_正式版核心纵切版本节点规划.md",
         "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
         "开发文档/00_程序开发大纲.md",
         "开发文档/00_Unity表现层与编辑器构建规范.md",
@@ -1715,10 +1664,11 @@
         "设计文档/GDD_00_系统关联总图.md",
         "agent_status/design.md",
         "美术文档/README.md",
+        "美术文档/archive/README.md",
         "美术文档/ui_design/README.md",
         "美术文档/ui_design/handoff_checklist.md",
-        "美术文档/11_P0_UI骨架接入交付.md",
-        "美术文档/12_P1_UI骨架接入准备.md",
+        "美术文档/archive/11_P0_UI骨架接入交付.md",
+        "美术文档/archive/12_P1_UI骨架接入准备.md",
         "agent_status/art.md",
         "知识库/views/art.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
@@ -1729,57 +1679,7 @@
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 17,
-      "cross_role_relation_count": 8
-    },
-    {
-      "path": "美术文档/11_P0_UI骨架接入交付.md",
-      "title": "P0 UI 骨架接入交付",
-      "id": "art_p0_ui_skeleton_handoff",
-      "type": "art",
-      "role": "美术",
-      "domain": "ui_handoff",
-      "status": "active",
-      "source_of_truth": true,
-      "related": [
-        "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
-        "开发文档/00_Unity表现层与编辑器构建规范.md",
-        "美术文档/10_正式版核心纵切美术路线.md",
-        "美术文档/ui_design/README.md",
-        "美术文档/ui_design/handoff_checklist.md",
-        "美术文档/12_P1_UI骨架接入准备.md",
-        "美术文档/ui_design/formal_v1/combat_hud_v1.md"
-      ],
-      "last_verified": "2026-05-23",
-      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 7,
-      "cross_role_relation_count": 2
-    },
-    {
-      "path": "美术文档/12_P1_UI骨架接入准备.md",
-      "title": "P1 Formal V1 UI 接入准备",
-      "id": "art_p1_ui_skeleton_plan",
-      "type": "art",
-      "role": "美术",
-      "domain": "ui_handoff",
-      "status": "active",
-      "source_of_truth": true,
-      "related": [
-        "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
-        "开发文档/00_Unity表现层与编辑器构建规范.md",
-        "美术文档/10_正式版核心纵切美术路线.md",
-        "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
-        "美术文档/ui_design/README.md",
-        "美术文档/ui_design/handoff_checklist.md",
-        "美术文档/11_P0_UI骨架接入交付.md"
-      ],
-      "last_verified": "2026-05-24",
-      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 7,
-      "cross_role_relation_count": 2
+      "cross_role_relation_count": 7
     },
     {
       "path": "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
@@ -1795,8 +1695,12 @@
         "版本规划/11_设计文档纵切批次矩阵.md",
         "美术文档/README.md",
         "美术文档/10_正式版核心纵切美术路线.md",
-        "美术文档/12_P1_UI骨架接入准备.md",
+        "美术文档/archive/12_P1_UI骨架接入准备.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v1/doll_interaction_v1.md",
+        "美术文档/ui_design/formal_v1/doll_room_v1.md",
+        "美术文档/ui_design/formal_v1/faction_shop_v1.md",
+        "美术文档/ui_design/formal_v1/scenario_event_v1.md",
         "美术文档/ui_design/formal_v1/daily_bill_report_v1.md",
         "美术文档/ui_design/formal_v1/maintenance_panel_v1.md",
         "美术文档/ui_design/formal_v1/order_board_v1.md",
@@ -1810,8 +1714,119 @@
       "update_rule": "调整正式纵切 UI 覆盖范围、素材批次优先级或缺口时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 14,
+      "relation_count": 18,
       "cross_role_relation_count": 2
+    },
+    {
+      "path": "美术文档/archive/06_MVP素材接入状态同步.md",
+      "title": "MVP 素材接入状态同步",
+      "id": "art_mvp_asset_intake_status",
+      "type": "art",
+      "role": "美术",
+      "domain": "mvp_art_archive",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/archive/07_MVP_UI重新设计同步.md",
+        "版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 2,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/archive/07_MVP_UI重新设计同步.md",
+      "title": "MVP UI 重新设计同步",
+      "id": "art_mvp_ui_redesign_sync",
+      "type": "art",
+      "role": "美术",
+      "domain": "mvp_ui_archive",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/archive/06_MVP素材接入状态同步.md",
+        "版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "历史记录仅在追溯或修正归档事实时更新。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 2,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/archive/11_P0_UI骨架接入交付.md",
+      "title": "P0 UI 骨架接入交付",
+      "id": "art_p0_ui_skeleton_handoff",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_handoff",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
+        "开发文档/00_Unity表现层与编辑器构建规范.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/handoff_checklist.md",
+        "美术文档/archive/12_P1_UI骨架接入准备.md",
+        "美术文档/ui_design/formal_v1/combat_hud_v1.md"
+      ],
+      "last_verified": "2026-05-23",
+      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 7,
+      "cross_role_relation_count": 2
+    },
+    {
+      "path": "美术文档/archive/12_P1_UI骨架接入准备.md",
+      "title": "P1 Formal V1 UI 接入准备",
+      "id": "art_p1_ui_skeleton_plan",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_handoff",
+      "status": "historical",
+      "source_of_truth": false,
+      "related": [
+        "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
+        "开发文档/00_Unity表现层与编辑器构建规范.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/handoff_checklist.md",
+        "美术文档/archive/11_P0_UI骨架接入交付.md"
+      ],
+      "last_verified": "2026-05-24",
+      "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 7,
+      "cross_role_relation_count": 2
+    },
+    {
+      "path": "美术文档/archive/README.md",
+      "title": "美术归档文档",
+      "id": "art_archive_readme",
+      "type": "art",
+      "role": "美术",
+      "domain": "art_archive",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "美术文档/README.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "美术文档/ui_design/README.md"
+      ],
+      "last_verified": "2026-05-24",
+      "update_rule": "新增、恢复或移动归档文档时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
     },
     {
       "path": "美术文档/README.md",
@@ -1830,6 +1845,7 @@
         "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
         "美术文档/00_美术流水线总览.md",
         "美术文档/ui_design/README.md",
+        "美术文档/archive/README.md",
         "agent_status/art.md",
         "tools/美术工具/README.md",
         "知识库/views/art.md"
@@ -1838,7 +1854,7 @@
       "update_rule": "美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 10,
+      "relation_count": 11,
       "cross_role_relation_count": 3
     },
     {
@@ -1852,7 +1868,7 @@
       "source_of_truth": true,
       "related": [
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
-        "美术文档/11_P0_UI骨架接入交付.md"
+        "美术文档/archive/11_P0_UI骨架接入交付.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "修改战斗界面正式结构、敌我站位、背包交互区、战斗实体素材或程序迁移要求时同步本文档。",
@@ -1883,6 +1899,50 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "美术文档/ui_design/formal_v1/doll_interaction_v1.md",
+      "title": "人偶交互界面 Formal V1",
+      "id": "art_ui_formal_v1_doll_interaction",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/versions/migration_log.md",
+        "美术文档/13_正式纵切UI与素材覆盖矩阵.md"
+      ],
+      "last_verified": "2026-05-24",
+      "update_rule": "修改人偶交互结构、触摸/对话/赠礼/保养入口或程序迁移要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 4,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v1/doll_room_v1.md",
+      "title": "人偶房间界面 Formal V1",
+      "id": "art_ui_formal_v1_doll_room",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/versions/migration_log.md",
+        "美术文档/13_正式纵切UI与素材覆盖矩阵.md"
+      ],
+      "last_verified": "2026-05-24",
+      "update_rule": "修改人偶房间结构、纪念物/日记/窗外状态槽位或程序迁移要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 4,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "美术文档/ui_design/formal_v1/dungeon_map_v1.md",
       "title": "深渊地图界面 Formal V1",
       "id": "art_ui_formal_v1_dungeon_map",
@@ -1899,6 +1959,28 @@
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 1,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v1/faction_shop_v1.md",
+      "title": "势力商店界面 Formal V1",
+      "id": "art_ui_formal_v1_faction_shop",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/versions/migration_log.md",
+        "美术文档/13_正式纵切UI与素材覆盖矩阵.md"
+      ],
+      "last_verified": "2026-05-24",
+      "update_rule": "修改势力商店结构、声望/信任展示或程序迁移要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 4,
       "cross_role_relation_count": 0
     },
     {
@@ -2042,6 +2124,28 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "美术文档/ui_design/formal_v1/scenario_event_v1.md",
+      "title": "剧本事件界面 Formal V1",
+      "id": "art_ui_formal_v1_scenario_event",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/versions/migration_log.md",
+        "美术文档/13_正式纵切UI与素材覆盖矩阵.md"
+      ],
+      "last_verified": "2026-05-24",
+      "update_rule": "修改剧本事件表现结构、AVG/气泡/日志/系统弹窗槽位或程序迁移要求时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 4,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "美术文档/ui_design/formal_v1/screen_structure_review.md",
       "title": "正式版 UI 结构 V1 总览",
       "id": "art_ui_formal_v1_structure_review",
@@ -2057,7 +2161,10 @@
         "美术文档/ui_design/ui_iteration_process.md",
         "美术文档/ui_design/formal_v1/combat_hud_v1.md",
         "美术文档/ui_design/formal_v1/daily_bill_report_v1.md",
+        "美术文档/ui_design/formal_v1/doll_interaction_v1.md",
+        "美术文档/ui_design/formal_v1/doll_room_v1.md",
         "美术文档/ui_design/formal_v1/dungeon_map_v1.md",
+        "美术文档/ui_design/formal_v1/faction_shop_v1.md",
         "美术文档/ui_design/formal_v1/inventory_loot_v1.md",
         "美术文档/ui_design/formal_v1/layer_select_v1.md",
         "美术文档/ui_design/formal_v1/maintenance_panel_v1.md",
@@ -2065,6 +2172,7 @@
         "美术文档/ui_design/formal_v1/prosthetic_panel_v1.md",
         "美术文档/ui_design/formal_v1/rumor_board_v1.md",
         "美术文档/ui_design/formal_v1/safe_room_v1.md",
+        "美术文档/ui_design/formal_v1/scenario_event_v1.md",
         "美术文档/ui_design/formal_v1/sell_panel_v1.md",
         "美术文档/ui_design/formal_v1/settlement_v1.md",
         "美术文档/ui_design/formal_v1/shop_staging_v1.md",
@@ -2080,7 +2188,7 @@
       "update_rule": "修改正式版 UI 结构、界面迁移顺序或程序接入口径时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 24,
+      "relation_count": 28,
       "cross_role_relation_count": 0
     },
     {
@@ -2195,8 +2303,8 @@
         "开发文档/00_Unity表现层与编辑器构建规范.md",
         "美术文档/10_正式版核心纵切美术路线.md",
         "美术文档/ui_design/README.md",
-        "美术文档/11_P0_UI骨架接入交付.md",
-        "美术文档/12_P1_UI骨架接入准备.md"
+        "美术文档/archive/11_P0_UI骨架接入交付.md",
+        "美术文档/archive/12_P1_UI骨架接入准备.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
@@ -2221,20 +2329,25 @@
         "美术文档/10_正式版核心纵切美术路线.md",
         "美术文档/02_资源规格与接入规范.md",
         "美术文档/README.md",
+        "美术文档/archive/README.md",
         "美术文档/ui_design/ui_iteration_process.md",
         "美术文档/ui_design/handoff_checklist.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v1/doll_interaction_v1.md",
+        "美术文档/ui_design/formal_v1/doll_room_v1.md",
+        "美术文档/ui_design/formal_v1/faction_shop_v1.md",
+        "美术文档/ui_design/formal_v1/scenario_event_v1.md",
         "美术文档/ui_design/versions/README.md",
         "美术文档/ui_design/versions/migration_log.md",
-        "美术文档/11_P0_UI骨架接入交付.md",
-        "美术文档/12_P1_UI骨架接入准备.md",
+        "美术文档/archive/11_P0_UI骨架接入交付.md",
+        "美术文档/archive/12_P1_UI骨架接入准备.md",
         "知识库/views/art.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 14,
+      "relation_count": 19,
       "cross_role_relation_count": 3
     },
     {
@@ -2254,7 +2367,7 @@
         "美术文档/ui_design/versions/README.md",
         "美术文档/ui_design/versions/migration_log.md"
       ],
-      "last_verified": "2026-05-23",
+      "last_verified": "2026-05-24",
       "update_rule": "修改 UI 版本迭代、active/candidate/baseline 关系或美术素材生成入口时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2301,13 +2414,17 @@
         "美术文档/ui_design/formal_v1/daily_bill_report_v1.md",
         "美术文档/ui_design/formal_v1/order_board_v1.md",
         "美术文档/ui_design/formal_v1/rumor_board_v1.md",
-        "美术文档/ui_design/formal_v1/shop_staging_v1.md"
+        "美术文档/ui_design/formal_v1/shop_staging_v1.md",
+        "美术文档/ui_design/formal_v1/faction_shop_v1.md",
+        "美术文档/ui_design/formal_v1/doll_interaction_v1.md",
+        "美术文档/ui_design/formal_v1/scenario_event_v1.md",
+        "美术文档/ui_design/formal_v1/doll_room_v1.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "每次 UI 设计版本冻结、候选版本合并、程序接入或运行时验收后同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 10,
+      "relation_count": 14,
       "cross_role_relation_count": 0
     },
     {
@@ -3287,7 +3404,7 @@
       "cross_role_relation_count": 1
     },
     {
-      "path": "设计文档/26_第四层组合压力内容包.md",
+      "path": "设计文档/_archive/content_backlog/26_第四层组合压力内容包.md",
       "title": "第四层组合压力内容包",
       "id": "design_pack_layer4_combined_pressure",
       "type": "content_pack",
@@ -3318,7 +3435,6 @@
         "GEMINI.md",
         "设计文档/README.md",
         "版本规划/09_正式版核心纵切开发路线.md",
-        "版本规划/10_正式版核心纵切版本节点规划.md",
         "版本规划/11_设计文档纵切批次矩阵.md",
         "开发文档/00_程序开发大纲.md",
         "agent_status/program.md",
@@ -3359,8 +3475,8 @@
       "update_rule": "修改系统关系、资源流向、循环健康度或系统优先级时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 39,
-      "cross_role_relation_count": 7
+      "relation_count": 38,
+      "cross_role_relation_count": 6
     },
     {
       "path": "设计文档/GDD_01_背包战斗与局内网格机制.md",
@@ -3783,7 +3899,7 @@
         "设计文档/00_策划文档开发交付审计.md",
         "设计文档/12_策划交付落地矩阵.md",
         "设计文档/18_正式版内容生产规格.md",
-        "设计文档/26_第四层组合压力内容包.md"
+        "设计文档/_archive/content_backlog/26_第四层组合压力内容包.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "调整设计文档目录结构、阅读顺序、文档分层或内容包优先级时同步本文件。",
@@ -4028,8 +4144,8 @@
         "配置表(JSON)/Prosthetics/README.md",
         "配置表(JSON)/Rewards/README.md",
         "设计文档/GDD_00_系统关联总图.md",
-        "版本规划/03_mvp数值要求.md",
-        "版本规划/05_MVP需要补充的配置调整.md",
+        "版本规划/_archive/mvp_2026-05/03_mvp数值要求.md",
+        "版本规划/_archive/mvp_2026-05/05_MVP需要补充的配置调整.md",
         "agent_status/design.md",
         "知识库/views/design.md",
         "知识库/views/program.md"

@@ -1,4 +1,4 @@
-﻿---
+---
 id: agent_status_program
 title: 程序 / Unity 状态
 type: status
@@ -8,7 +8,6 @@ status: active
 source_of_truth: true
 related:
   - 版本规划/09_正式版核心纵切开发路线.md
-  - 版本规划/10_正式版核心纵切版本节点规划.md
   - agent_status/README.md
   - PROJECT_STATUS.md
   - 开发文档/00_客户端核心架构规范.md
@@ -68,7 +67,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - 运行时 Prefab 已移动到 `UnityClient/Assets/Prefabs`。
 - 已新增并验证 `tools/config/Sync-Configs.ps1`。
 - 项目结构整理时已移除旧的受跟踪 UI Toolkit 运行时资产。
-- PM 已将程序线纳入 `版本规划/10_正式版核心纵切版本节点规划.md`：A1 收边界，A2 做背包与战斗正式纵切，A3 承接深渊与局外成长。
+- PM 已将程序线纳入 `版本规划/09_正式版核心纵切开发路线.md`：A1 收边界，A2 做背包与战斗正式纵切，A3 承接深渊与局外成长。
 - A1A 背包交互继续收口：`DraggableItemUI` 已移除历史“失联物品自动修复”，点击使用不再由 UI 悄悄改写真实背包状态。
 - A1A 背包表现规格继续收口：新增 `InventoryDisplaySpec`，统一格子尺寸、间距、物品占格尺寸、拖拽偏移和各界面背包布局 profile。
 - `InventoryDisplaySpecSmokeTest` 已通过 Unity 自动测试守护执行，确认背包规格入口、布局 profile 和 GridLayoutGroup 应用结果一致。

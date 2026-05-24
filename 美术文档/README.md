@@ -1,4 +1,4 @@
-﻿---
+---
 id: art_readme
 title: 美术文档索引
 type: art
@@ -14,6 +14,7 @@ related:
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 美术文档/00_美术流水线总览.md
   - 美术文档/ui_design/README.md
+  - 美术文档/archive/README.md
   - agent_status/art.md
   - tools/美术工具/README.md
   - 知识库/views/art.md
@@ -148,7 +149,6 @@ config / derived / preset
 ## 外部契约
 
 * [版本规划/09_正式版核心纵切开发路线.md](../版本规划/09_正式版核心纵切开发路线.md)：当前正式版核心纵切的顶层路线，以此为准。
-* [版本规划/10_正式版核心纵切版本节点规划.md](../版本规划/10_正式版核心纵切版本节点规划.md)：执行层节点规划。
 * [版本规划/11_设计文档纵切批次矩阵.md](../版本规划/11_设计文档纵切批次矩阵.md)：设计文档批次与完成口径。
 * [开发文档/09_视觉资源系统程序开发规范.md](../开发文档/09_视觉资源系统程序开发规范.md)：程序侧 `VisualID -> VisualAssetRegistry -> Unity Asset` 契约。
 * [tools/美术工具/README.md](../tools/美术工具/README.md)：美术流水线脚本说明。
