@@ -1,0 +1,236 @@
+{
+  "GeneratedAt": "2026-05-25T03:45:19+08:00",
+  "SnapshotTag": "business_settlement_contract",
+  "Inputs": {
+    "IntegrationCandidatesPath": "美术文档/_generated/可接入素材清单.json",
+    "ManifestPath": "美术文档/_generated/art_manifest.json"
+  },
+  "RunConfig": {
+    "Provider": "novelai",
+    "BatchID": "nai_missing_assets_20260525_04",
+    "StatusFilter": "prompted",
+    "ActionFilter": "generate_needed",
+    "Variants": 4,
+    "DelaySeconds": 1.0,
+    "SerialRequired": true,
+    "LastProbeBatchID": "",
+    "LastProbeNote": ""
+  },
+  "Summary": {
+    "TotalCandidateItems": 3,
+    "PlannedItems": 3,
+    "PromptReadyItems": 3,
+    "MissingManifestEntries": [],
+    "PriorityCounts": {
+      "P2": 3
+    },
+    "DomainCounts": {
+      "ui": 3
+    },
+    "SizeCounts": {
+      "512x512": 3
+    }
+  },
+  "BatchCommands": {
+    "RunAllGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID ui_icon_business_settlement,ui_icon_customer,ui_icon_sale_spark -Variants 4 -DelaySeconds 1 -BatchID nai_missing_assets_20260525_04",
+    "OptimizeAllAfterGeneration": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -BatchID nai_missing_assets_20260525_04 -Overwrite",
+    "SyncAllAfterReviewOrFallback": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -BatchID nai_missing_assets_20260525_04 -AllowProcessedFallback -Overwrite",
+    "RefreshIntegration": ".\\tools\\美术工具\\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag nai_missing_assets_20260525_04",
+    "RefreshQuality": ".\\tools\\美术工具\\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag nai_missing_assets_20260525_04",
+    "RefreshPlan": ".\\tools\\美术工具\\Generate-ArtBatchPlan.ps1 -Snapshot -SnapshotTag nai_missing_assets_20260525_04_after -BatchID nai_missing_assets_20260525_04"
+  },
+  "Items": [
+    {
+      "VisualID": "ui_icon_business_settlement",
+      "Order": 1,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "营业结算图标",
+      "ConfigID": "icon_business_settlement",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。营业结算图标，小型黄铜店铺柜台、硬币托盘和小齿轮印章，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, business settlement symbol, small brass shop counter with coin tray and tiny gear stamp, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/ui_icon_business_settlement",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/ui_icon_business_settlement/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/ui_icon_business_settlement/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/ui_icon_business_settlement/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/ui_icon_business_settlement/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:business_settlement"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID ui_icon_business_settlement -Variants 4 -DelaySeconds 1 -BatchID nai_missing_assets_20260525_04",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID ui_icon_business_settlement -BatchID nai_missing_assets_20260525_04 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID ui_icon_business_settlement -BatchID nai_missing_assets_20260525_04 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "ui_icon_customer",
+      "Order": 2,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "顾客图标",
+      "ConfigID": "icon_customer",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。顾客图标，小型黄铜访客剪影搭配店铺柜台徽章，侧影简洁，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, customer flow symbol, small brass visitor silhouette beside a shop counter badge, simple profile shape, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_customer.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/ui_icon_customer",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/ui_icon_customer/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/ui_icon_customer/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/ui_icon_customer/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/ui_icon_customer/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:business_settlement"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID ui_icon_customer -Variants 4 -DelaySeconds 1 -BatchID nai_missing_assets_20260525_04",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID ui_icon_customer -BatchID nai_missing_assets_20260525_04 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID ui_icon_customer -BatchID nai_missing_assets_20260525_04 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "ui_icon_sale_spark",
+      "Order": 3,
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "effect_overlay",
+      "DisplayName": "成交爆点图标",
+      "ConfigID": "icon_sale_spark",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。成交爆点图标，黄铜硬币火花、放射状短光线和半透明琥珀冲击光，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface feedback overlay sprite, sale feedback burst symbol, bright brass coin spark with small radial rays and translucent amber impact flare, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.62,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "center",
+          "Composition": "centered sale feedback burst with transparent gaps"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "preserve_transparency"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_sale_spark.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/ui_icon_sale_spark",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/ui_icon_sale_spark/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/ui_icon_sale_spark/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/ui_icon_sale_spark/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/ui_icon_sale_spark/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:business_settlement"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID ui_icon_sale_spark -Variants 4 -DelaySeconds 1 -BatchID nai_missing_assets_20260525_04",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID ui_icon_sale_spark -BatchID nai_missing_assets_20260525_04 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID ui_icon_sale_spark -BatchID nai_missing_assets_20260525_04 -AllowProcessedFallback -Overwrite"
+      }
+    }
+  ]
+}

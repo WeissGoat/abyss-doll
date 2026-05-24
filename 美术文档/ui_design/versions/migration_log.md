@@ -17,11 +17,13 @@ related:
   - 美术文档/ui_design/formal_v1/order_board_v1.md
   - 美术文档/ui_design/formal_v1/rumor_board_v1.md
   - 美术文档/ui_design/formal_v1/shop_staging_v1.md
+  - 美术文档/ui_design/formal_v1/business_settlement_v1.md
   - 美术文档/ui_design/formal_v1/faction_shop_v1.md
   - 美术文档/ui_design/formal_v1/doll_interaction_v1.md
   - 美术文档/ui_design/formal_v1/scenario_event_v1.md
   - 美术文档/ui_design/formal_v1/doll_room_v1.md
   - 美术文档/ui_design/formal_v1/chassis_upgrade_panel_v1.md
+  - 美术文档/ui_design/formal_v1/business_settlement_v1.md
 last_verified: 2026-05-25
 update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或运行时验收后同步本文件。
 ---
@@ -60,6 +62,7 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 | `maintenance_panel` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：机体维护、磨损/侵蚀、维护费用、材料缺口和下潜许可检查。 |
 | `daily_bill_report` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：每日收支、未售出物、维护/租金压力和欠债风险。 |
 | `shop_staging` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：仓库出货分配、普通渠道、订单渠道、黑市渠道和收益风险预览。 |
+| `business_settlement` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：顾客流、成交爆点、金币增长、未售出 / 黑市风险摘要和进入每日账单动作。 |
 | `order_board` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：势力订单列表、目标物、截止日、奖励预览和接取/提交动作。 |
 | `rumor_board` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：今日传闻、价格涨跌、选中详情和推荐行动。 |
 | `faction_shop` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：势力声望、专属商品、黑市信任和交易风险。 |
@@ -172,3 +175,9 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 * 新增 17 个 preset VisualID：怪物意图图标 10 个、战斗状态图标 3 个、命中 / 破盾反馈 2 个、封格 / 塞包 overlay 2 个。
 * `EnemyIntentAnchor` 和 `EnemyStatusIcons` 挂在敌人实体近侧；`HitFeedback` / `ShieldBreakFeedback` 挂在 `VfxLayer`；`GridLockMarker` / `JunkPreviewMarker` 对齐 `100x100` 背包格，不参与布局尺寸计算。
 * 本次只建立 active UI 合同、Manifest seed 和提示词规格；不生成 local_v0 假图，后续按 Manifest 队列正式跑图并统一验收。
+
+### 2026-05-25：`business_settlement` 写入 Formal V1 active 规格
+
+* `business_settlement` 作为 P4 经济压力链中 `shop_staging` 和 `daily_bill_report` 之间的营业反馈界面进入 active 规格。
+* 界面拆分 `customer_flow_lane`、`revenue_pulse_panel`、`risk_and_unsold_panel`、`transaction_feed_panel` 和 `business_action_panel`，只展示已计算的营业结果，不直接修改金币、物品归属或账单状态。
+* 新增 `ui_icon_customer`、`ui_icon_sale_spark`、`ui_icon_business_settlement` 三个 preset UI 图标需求，用于顾客流、成交反馈和营业结算阶段标识。

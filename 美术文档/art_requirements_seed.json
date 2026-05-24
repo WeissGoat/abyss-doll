@@ -1080,6 +1080,45 @@
       "Screen": "chassis_upgrade_panel",
       "Usage": "底盘升级材料不足、缺件、金币或核心材料缺口提示",
       "SourceFactsCN": "预置 UI 图标：局外成长需要统一材料缺口符号，配置表无法稳定扫描。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_business_icon",
+      "ConfigID": "icon_customer",
+      "DisplayName": "顾客图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_customer",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_customer.png",
+      "Priority": "P2",
+      "Screen": "business_settlement",
+      "Usage": "营业顾客、顾客流、顾客偏好和成交对象提示",
+      "SourceFactsCN": "预置 UI 图标：营业结算演出需要稳定顾客符号，配置表无法直接扫描。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_business_icon",
+      "ConfigID": "icon_sale_spark",
+      "DisplayName": "成交爆点图标",
+      "AssetType": "effect_overlay",
+      "VisualID": "ui_icon_sale_spark",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_sale_spark.png",
+      "Priority": "P2",
+      "Screen": "business_settlement",
+      "Usage": "营业成交、金币增长、收入脉冲和顾客购买反馈",
+      "SourceFactsCN": "预置 UI 反馈：营业结算演出需要统一成交爆点符号，配置表无法直接扫描。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_business_icon",
+      "ConfigID": "icon_business_settlement",
+      "DisplayName": "营业结算图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_business_settlement",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png",
+      "Priority": "P2",
+      "Screen": "business_settlement",
+      "Usage": "开始营业、阶段结算、经营反馈和进入账单前的标题标识",
+      "SourceFactsCN": "预置 UI 图标：小镇经济营业结算阶段需要稳定阶段符号，配置表无法直接扫描。"
     }
   ],
   "UpdatedAt": "2026-05-25"

@@ -20,6 +20,7 @@ related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/ui_design/formal_v1/doll_interaction_v1.md
   - 美术文档/ui_design/formal_v1/doll_room_v1.md
+  - 美术文档/ui_design/formal_v1/business_settlement_v1.md
   - 美术文档/ui_design/formal_v1/faction_shop_v1.md
   - 美术文档/ui_design/formal_v1/scenario_event_v1.md
   - 美术文档/ui_design/versions/README.md
@@ -74,7 +75,7 @@ UI 设计流解决六件事：
 
 | 类型 | 范围 | 接入口径 |
 |---|---|---|
-| active Formal V1 | 19 个界面，详见 `screen_layouts.json` 和 `13_正式纵切UI与素材覆盖矩阵.md` | 程序、美术素材生成、验收都可以使用。 |
+| active Formal V1 | 21 个界面，详见 `screen_layouts.json` 和 `13_正式纵切UI与素材覆盖矩阵.md` | 程序、美术素材生成、验收都可以使用。 |
 | draft Formal V1 | 暂无 | 后续新增界面仍先写设计草案，确认后再进入 active。 |
 | historical baseline | `versions/mvp_baseline_2026-05-22/` | 只读归档，用于对比和回退参考。 |
 | candidate | `versions/formal_v1_candidate/` | 可选暂存区，不是必经流程。 |

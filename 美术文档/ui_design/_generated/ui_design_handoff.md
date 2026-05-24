@@ -5,8 +5,8 @@
 ## Summary
 
 * Reference resolution: `1920x1080`
-* Components: `57`
-* Screens: `20`
+* Components: `60`
+* Screens: `21`
 
 ## Screens
 
@@ -32,14 +32,15 @@
 | `P2` | `scenario_event` | 剧本事件界面 | `active_spec` | 12 | 13 |
 | `P2` | `doll_room` | 人偶房间界面 | `active_spec` | 9 | 11 |
 | `P2` | `chassis_upgrade_panel` | 底盘升级界面 | `active_spec` | 14 | 17 |
+| `P2` | `business_settlement` | 营业结算演出界面 | `active_spec` | 11 | 12 |
 
 ## Components
 
 | Priority | ComponentID | VisualID | Resize | Screens |
 |---|---|---|---|---|
 | `P1` | `Button.Danger` | `ui_button_danger` | `nine_slice` | `inventory_loot`, `dungeon_map`, `sell_panel`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `chassis_upgrade_panel` |
-| `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel` |
-| `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel` |
+| `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement` |
+| `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement` |
 | `P1` | `Combat.ApPip` | `ui_combat_ap_pip` | `fixed` | `combat_hud` |
 | `P1` | `Combat.EnemyCard` | `ui_combat_enemy_card`, `ui_combat_enemy_card_selected` | `fixed` |  |
 | `P1` | `Combat.EntityShadow` | `ui_combat_entity_shadow` | `fixed_or_stretch` | `combat_hud` |
@@ -65,7 +66,7 @@
 | `P2` | `Icon.Lore` | `ui_icon_lore` | `fixed` | `scenario_event` |
 | `P1` | `Icon.Maintenance` | `ui_icon_maintenance` | `fixed` | `maintenance_panel`, `doll_interaction` |
 | `P2` | `Icon.Memento` | `ui_icon_memento` | `fixed` | `doll_interaction`, `doll_room` |
-| `P1` | `Icon.Money` | `ui_icon_money` | `fixed` | `sell_panel`, `settlement`, `workshop_main`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `chassis_upgrade_panel` |
+| `P1` | `Icon.Money` | `ui_icon_money` | `fixed` | `sell_panel`, `settlement`, `workshop_main`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `chassis_upgrade_panel`, `business_settlement` |
 | `P2` | `Icon.Order` | `ui_icon_order` | `fixed` | `shop_staging`, `order_board` |
 | `P2` | `Icon.PriceDown` | `ui_icon_price_down` | `fixed` | `rumor_board` |
 | `P2` | `Icon.PriceUp` | `ui_icon_price_up` | `fixed` | `rumor_board` |
@@ -76,24 +77,27 @@
 | `P2` | `Icon.Talk` | `ui_icon_talk` | `fixed` | `doll_interaction` |
 | `P2` | `Icon.Touch` | `ui_icon_touch` | `fixed` | `doll_interaction` |
 | `P2` | `Icon.Trust` | `ui_icon_trust` | `fixed` | `faction_shop` |
-| `P1` | `Icon.Warning` | `ui_icon_warning` | `fixed` | `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel` |
+| `P1` | `Icon.Warning` | `ui_icon_warning` | `fixed` | `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement` |
 | `P1` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room`, `chassis_upgrade_panel` |
 | `P1` | `Inventory.Slot` | `ui_inventory_slot_available`, `ui_inventory_slot_hover`, `ui_inventory_slot_invalid`, `ui_inventory_slot_locked`, `ui_inventory_slot_valid` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
-| `P1` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel` |
+| `P1` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement` |
 | `P1` | `List.Row.Selected` | `ui_list_row_selected` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel` |
 | `P1` | `Loot.DropZone` | `ui_loot_drop_zone` | `fixed_or_sliced` | `inventory_loot` |
 | `P1` | `Loot.PickupPanel` | `ui_loot_pickup_panel` | `nine_slice` | `inventory_loot` |
 | `P1` | `Map.NodePlate` | `ui_dungeon_node_plate` | `fixed` | `dungeon_map` |
 | `P1` | `Map.RouteLine` | `ui_dungeon_route_line` | `tile_or_stretch` | `dungeon_map` |
-| `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel` |
-| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `workshop_main`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `chassis_upgrade_panel` |
+| `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement` |
+| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `workshop_main`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `chassis_upgrade_panel`, `business_settlement` |
 | `P2` | `Room.MementoSlot` | `ui_room_memento_slot` | `fixed` | `doll_room` |
 | `P1` | `Settlement.DefeatPanel` | `ui_settlement_defeat_panel` | `nine_slice` | `settlement` |
 | `P1` | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | `nine_slice` | `settlement` |
-| `P1` | `Title.Divider` | `ui_title_divider` | `fixed_or_stretch` | `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `chassis_upgrade_panel` |
+| `P1` | `Title.Divider` | `ui_title_divider` | `fixed_or_stretch` | `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `chassis_upgrade_panel`, `business_settlement` |
 | `P2` | `Icon.ChassisUpgrade` | `ui_icon_chassis_upgrade` | `fixed` | `chassis_upgrade_panel` |
 | `P2` | `Icon.Blueprint` | `ui_icon_blueprint` | `fixed` | `chassis_upgrade_panel` |
 | `P2` | `Icon.MaterialNeed` | `ui_icon_material_need` | `fixed` | `chassis_upgrade_panel` |
+| `P2` | `Icon.Customer` | `ui_icon_customer` | `fixed` | `business_settlement` |
+| `P2` | `Icon.SaleSpark` | `ui_icon_sale_spark` | `fixed` | `business_settlement` |
+| `P2` | `Icon.BusinessSettlement` | `ui_icon_business_settlement` | `fixed` | `business_settlement` |
 
 ## Program Handoff
 
@@ -1743,6 +1747,88 @@ Acceptance criteria:
 * 所有名称、数量、费用、按钮文案和说明由 Unity Text 渲染，不烘焙进图片。
 * 背景、面板、图标和底盘预览不阻挡按钮射线。
 
+### 营业结算演出界面
+
+* Goal: 承接出货分配后的开始营业反馈：顾客流、成交爆点、金币增长、未售出/黑市风险摘要和进入每日账单的过渡必须可读。
+* Background: `bg_workshop_day`
+
+Zones:
+| ZoneID | Anchor | Rect | Components | Purpose |
+|---|---|---|---|---|
+| `business_background` | full_screen | 0,0 1920x1080 |  | 复用工坊背景，表现营业发生在工坊前厅或柜台空间。 |
+| `business_stage_card` | center | 180,90 1560x900 | `Panel.Main` | 营业结算主舞台，承载顾客流、成交反馈、收入脉冲和阶段摘要。 |
+| `business_header` | top_center | 240,130 1440x110 | `Panel.Info`, `Icon.BusinessSettlement`, `Icon.Money`, `Title.Divider` | 标题、日期、营业结算图标、当前金币和标题分隔。 |
+| `customer_flow_lane` | left_middle | 260,280 580x460 | `Panel.Info`, `Icon.Customer`, `List.Row.Normal` | 顾客流和成交对象区域，可显示顾客符号、入店离店节奏和购买偏好提示。 |
+| `revenue_pulse_panel` | center_middle | 880,280 420x460 | `Panel.Info`, `Icon.SaleSpark`, `Icon.Money` | 成交爆点、金币增长、倾倒箱/橱窗/订单/黑市收入即时反馈。 |
+| `risk_and_unsold_panel` | right_middle | 1340,280 320x280 | `Panel.Info`, `Icon.Warning`, `List.Row.Normal` | 未售出物、违禁拒收、黑市风险和隔夜代价摘要。 |
+| `transaction_feed_panel` | right_middle | 1340,590 320x150 | `Panel.Info`, `List.Row.Normal` | 最近成交记录、顾客偏好命中和收益来源 feed。 |
+| `business_bottom_hint` | bottom_left | 260,780 580x140 | `Panel.Info` | 营业阶段说明、跳过提示、下一步账单预告和动画状态。 |
+| `business_action_panel` | bottom_right | 880,780 780x140 | `Panel.Info`, `Button.Primary`, `Button.Secondary` | 进入每日账单、跳过/加速演出、返回出货分配等动作。 |
+
+Layout changes:
+* 新增 BusinessSettlementPanel_Runtime，放在 shop_staging 与 daily_bill_report 之间。
+* 营业结算界面只表现成交反馈和阶段摘要，不承载最终账单复盘。
+* 顾客流、成交爆点和交易 feed 都使用运行时数据驱动，图片只提供图标和承托。
+
+Data bindings:
+* 成交记录、收入脉冲、未售出物、黑市风险、当前金币、日期和进入账单按钮状态由经济流程服务提供。
+* 图标、面板和按钮通过 VisualAssetService / VisualID 绑定；数字、物品名、顾客名和收益来源全部用 Unity Text 渲染。
+* 该界面不直接修改金币、物品归属、声望、时间或账单状态，只展示 BusinessSettlement 已计算结果。
+
+Interaction notes:
+* 背景、面板、顾客图标、成交爆点和列表装饰默认 raycastTarget=false。
+* Continue Bill、Skip / Fast Forward、Back To Staging 按钮接收点击。
+* 如果程序第一版没有动画，可直接显示静态成交摘要并启用 Continue Bill。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `BusinessSettlementUIController` | `rootPanel`, `backgroundImage`, `customerLaneRoot`, `revenuePulseRoot`, `transactionFeedRoot`, `riskSummaryRoot`, `continueBillButton`, `skipButton`, `backToStagingButton` | 负责展示营业成交反馈、收入脉冲、交易 feed、风险摘要和按钮状态。<br>只消费经济服务提供的 BusinessSettlementViewModel，不直接结算金币或移动物品。 |
+| `EconomyFlowController` | `businessSettlementPanel`, `dailyBillReportPanel`, `shopStagingPanel` | Start Business 后先打开 businessSettlementPanel，完成或跳过后进入 dailyBillReportPanel。<br>Back To Staging 只在最终账单尚未确认前可用，避免重复结算。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `BusinessSettlementPanel_Runtime/Background_Image` | Background |  | `bg_workshop_day` | Simple | cover | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/HeaderPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/HeaderPanel/SettlementIcon_Image` | MainPanel | `Icon.BusinessSettlement` | `ui_icon_business_settlement` | Simple | contain | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/HeaderPanel/MoneyIcon_Image` | MainPanel | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/HeaderPanel/TitleDivider_Image` | MainPanel | `Title.Divider` | `ui_title_divider` | Simple | stretch | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/CustomerFlowLane` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/CustomerFlowLane/CustomerIcon_Image` | MainPanel | `Icon.Customer` | `ui_icon_customer` | Simple | contain | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/RevenuePulsePanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/RevenuePulsePanel/SaleSpark_Image` | Vfx | `Icon.SaleSpark` | `ui_icon_sale_spark` | Simple | contain | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/RiskAndUnsoldPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/RiskAndUnsoldPanel/WarningIcon_Image` | MainPanel | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/TransactionFeedPanel/FeedRow_Template` | Controls | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/BottomHintPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/ActionPanel/ContinueBill_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/ActionPanel/Skip_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `BusinessSettlementPanel_Runtime/StageCard_Image/ActionPanel/BackToStaging_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `BusinessSettlementPanel_Runtime/Background_Image` |  | `bg_workshop_day` | Simple | cover | False |
+| `BusinessSettlementPanel_Runtime/StageCard_Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `HeaderPanel/SettlementIcon_Image` | `Icon.BusinessSettlement` | `ui_icon_business_settlement` | Simple | contain | False |
+| `HeaderPanel/MoneyIcon_Image` | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `CustomerFlowLane/CustomerIcon_Image` | `Icon.Customer` | `ui_icon_customer` | Simple | contain | False |
+| `RevenuePulsePanel/SaleSpark_Image` | `Icon.SaleSpark` | `ui_icon_sale_spark` | Simple | contain | False |
+| `RiskAndUnsoldPanel/WarningIcon_Image` | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `TransactionFeedPanel/FeedRow_Template` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `ActionPanel/ContinueBill_Button` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `ActionPanel/Skip_Button` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `ActionPanel/BackToStaging_Button` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+
+Acceptance criteria:
+* 点击 Start Business 后，营业结算演出界面位于 shop_staging 和 daily_bill_report 之间。
+* 截图中能同时看到顾客流、成交爆点、金币增长区域、风险/未售出摘要和进入账单主按钮。
+* 数字、物品名、顾客名、日期和收益来源全部由 Unity Text 渲染，不烘焙到图片。
+* 未售出、违禁拒收或黑市风险必须通过 warning 图标或运行时 tint 表达。
+* 没有动画时也能以静态摘要通过结构验收；后续动效只增强，不改变 ScreenID、VisualID 或区域契约。
+
 ## Known VisualID Sources
 
-* Known VisualID count: `119`
+* Known VisualID count: `122`

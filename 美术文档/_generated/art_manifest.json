@@ -5346,6 +5346,65 @@
       "SourceType": "preset",
       "DeriveRule": "art requirements seed preset",
       "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_business_settlement",
+      "DisplayName": "营业结算图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_business_settlement",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：小镇经济营业结算阶段需要稳定阶段符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。营业结算图标，小型黄铜店铺柜台、硬币托盘和小齿轮印章，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, business settlement symbol, small brass shop counter with coin tray and tiny gear stamp, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "local_v0_business_settlement_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T03:45:27+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png; formal AI replacement remains required.",
+      "PresetCategory": "ui_business_icon",
+      "Screen": "business_settlement",
+      "Usage": "开始营业、阶段结算、经营反馈和进入账单前的标题标识",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T03:45:27+08:00"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
       "ConfigID": "icon_chassis_upgrade",
       "DisplayName": "底盘升级图标",
       "AssetType": "icon",
@@ -5399,6 +5458,65 @@
       "Usage": "底盘升级、容量扩展、下一阶段底盘预览和升级主行动",
       "QualityTier": "local_v0",
       "QualityUpdatedAt": "2026-05-25T03:13:25+08:00"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_customer",
+      "DisplayName": "顾客图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_customer",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_customer.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：营业结算演出需要稳定顾客符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。顾客图标，小型黄铜访客剪影搭配店铺柜台徽章，侧影简洁，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, customer flow symbol, small brass visitor silhouette beside a shop counter badge, simple profile shape, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "local_v0_business_settlement_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_customer.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_customer.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T03:45:27+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_customer.png; formal AI replacement remains required.",
+      "PresetCategory": "ui_business_icon",
+      "Screen": "business_settlement",
+      "Usage": "营业顾客、顾客流、顾客偏好和成交对象提示",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T03:45:27+08:00"
     },
     {
       "Domain": "ui",
@@ -6313,6 +6431,65 @@
       "PresetCategory": "ui_a4_icon",
       "Screen": "rumor_board",
       "Usage": "每日传闻、深渊情报和市场消息"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_sale_spark",
+      "DisplayName": "成交爆点图标",
+      "AssetType": "effect_overlay",
+      "VisualID": "ui_icon_sale_spark",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_sale_spark.png",
+      "Priority": "P2",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 反馈：营业结算演出需要统一成交爆点符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。成交爆点图标，黄铜硬币火花、放射状短光线和半透明琥珀冲击光，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface feedback overlay sprite, sale feedback burst symbol, bright brass coin spark with small radial rays and translucent amber impact flare, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 120,
+          "DisplayHeight": 120,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.62,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "center",
+          "Composition": "centered sale feedback burst with transparent gaps"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "preserve_transparency"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "BatchID": "local_v0_business_settlement_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_sale_spark.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_sale_spark.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T03:45:27+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_sale_spark.png; formal AI replacement remains required.",
+      "PresetCategory": "ui_business_icon",
+      "Screen": "business_settlement",
+      "Usage": "营业成交、金币增长、收入脉冲和顾客购买反馈",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T03:45:27+08:00"
     },
     {
       "Domain": "ui",

@@ -62,7 +62,8 @@
         "doll_interaction",
         "scenario_event",
         "doll_room",
-        "chassis_upgrade_panel"
+        "chassis_upgrade_panel",
+        "business_settlement"
       ],
       "ProgramUse": "用于出发、确认、继续等正向操作。文字由 Text 组件叠加。"
     },
@@ -97,7 +98,8 @@
         "doll_interaction",
         "scenario_event",
         "doll_room",
-        "chassis_upgrade_panel"
+        "chassis_upgrade_panel",
+        "business_settlement"
       ],
       "ProgramUse": "用于返回、关闭、取消等次级操作。"
     },
@@ -538,7 +540,8 @@
         "order_board",
         "rumor_board",
         "faction_shop",
-        "chassis_upgrade_panel"
+        "chassis_upgrade_panel",
+        "business_settlement"
       ],
       "ProgramUse": "金币、价格、价值显示的小图标。"
     },
@@ -714,7 +717,8 @@
         "doll_interaction",
         "scenario_event",
         "doll_room",
-        "chassis_upgrade_panel"
+        "chassis_upgrade_panel",
+        "business_settlement"
       ],
       "ProgramUse": "维护风险、欠债风险、不可下潜、材料不足等警告状态图标。"
     },
@@ -792,7 +796,8 @@
         "doll_interaction",
         "scenario_event",
         "doll_room",
-        "chassis_upgrade_panel"
+        "chassis_upgrade_panel",
+        "business_settlement"
       ],
       "ProgramUse": "用于可滚动列表项底板。"
     },
@@ -912,7 +917,8 @@
         "doll_interaction",
         "scenario_event",
         "doll_room",
-        "chassis_upgrade_panel"
+        "chassis_upgrade_panel",
+        "business_settlement"
       ],
       "ProgramUse": "用于状态摘要、说明区和小块信息承托。"
     },
@@ -941,7 +947,8 @@
         "faction_shop",
         "doll_interaction",
         "scenario_event",
-        "chassis_upgrade_panel"
+        "chassis_upgrade_panel",
+        "business_settlement"
       ],
       "ProgramUse": "用于大弹窗和主内容容器。Unity Image Type 使用 Sliced，不烘焙标题和正文。"
     },
@@ -1015,7 +1022,8 @@
         "faction_shop",
         "doll_interaction",
         "scenario_event",
-        "chassis_upgrade_panel"
+        "chassis_upgrade_panel",
+        "business_settlement"
       ],
       "ProgramUse": "标题和正文之间的装饰分隔线，不承载文字，不拦截射线。"
     },
@@ -1063,6 +1071,52 @@
         "chassis_upgrade_panel"
       ],
       "ProgramUse": "材料不足、缺件、核心材料缺口和不可升级原因的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Customer",
+      "DisplayName": "顾客图标",
+      "VisualID": "ui_icon_customer",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "business_settlement"
+      ],
+      "ProgramUse": "营业结算顾客流、顾客偏好和成交对象的小图标。"
+    },
+    {
+      "ComponentID": "Icon.SaleSpark",
+      "DisplayName": "成交爆点图标",
+      "VisualID": "ui_icon_sale_spark",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal",
+        "hidden_runtime"
+      ],
+      "RequiredForScreens": [
+        "business_settlement"
+      ],
+      "ProgramUse": "营业结算成交瞬间、金币增长和收入脉冲的短反馈图标；数值由运行时 Text 叠加。"
+    },
+    {
+      "ComponentID": "Icon.BusinessSettlement",
+      "DisplayName": "营业结算图标",
+      "VisualID": "ui_icon_business_settlement",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "business_settlement"
+      ],
+      "ProgramUse": "营业结算阶段标题、日终经营反馈和进入账单前的阶段标识。"
     }
   ]
 }

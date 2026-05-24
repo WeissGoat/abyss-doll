@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-05-25T03:45:51+08:00",
-  "SnapshotTag": "local_v0_business_settlement_20260525_01",
+  "GeneratedAt": "2026-05-25T03:45:09+08:00",
+  "SnapshotTag": "business_settlement_contract",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",
@@ -13,7 +13,8 @@
     "TotalCandidates": 121,
     "ActionCounts": {
       "acceptance_needed": 82,
-      "program_integrate": 39
+      "generate_needed": 3,
+      "program_integrate": 36
     },
     "DomainCounts": {
       "background": 11,
@@ -604,31 +605,6 @@
       "ManifestEntryCount": 1
     },
     {
-      "VisualID": "ui_icon_business_settlement",
-      "Action": "program_integrate",
-      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。",
-      "Confidence": "high",
-      "Priority": "P2",
-      "Domain": "ui",
-      "AssetType": "icon",
-      "ConfigID": "icon_business_settlement",
-      "DisplayName": "营业结算图标",
-      "Status": "approved",
-      "RegistryStatus": "unregistered",
-      "RegistryHasSprite": false,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "",
-      "ProcessedCandidate": "",
-      "RawCandidate": "",
-      "ReferencedBy": [
-        "preset:美术文档/art_requirements_seed.json",
-        "screen:business_settlement"
-      ],
-      "ManifestEntryCount": 1
-    },
-    {
       "VisualID": "ui_icon_chassis_upgrade",
       "Action": "program_integrate",
       "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。",
@@ -650,31 +626,6 @@
       "ReferencedBy": [
         "preset:美术文档/art_requirements_seed.json",
         "screen:chassis_upgrade_panel"
-      ],
-      "ManifestEntryCount": 1
-    },
-    {
-      "VisualID": "ui_icon_customer",
-      "Action": "program_integrate",
-      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。",
-      "Confidence": "high",
-      "Priority": "P2",
-      "Domain": "ui",
-      "AssetType": "icon",
-      "ConfigID": "icon_customer",
-      "DisplayName": "顾客图标",
-      "Status": "approved",
-      "RegistryStatus": "unregistered",
-      "RegistryHasSprite": false,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_customer.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "",
-      "ProcessedCandidate": "",
-      "RawCandidate": "",
-      "ReferencedBy": [
-        "preset:美术文档/art_requirements_seed.json",
-        "screen:business_settlement"
       ],
       "ManifestEntryCount": 1
     },
@@ -851,31 +802,6 @@
       "ReferencedBy": [
         "preset:美术文档/art_requirements_seed.json",
         "screen:faction_shop"
-      ],
-      "ManifestEntryCount": 1
-    },
-    {
-      "VisualID": "ui_icon_sale_spark",
-      "Action": "program_integrate",
-      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。",
-      "Confidence": "high",
-      "Priority": "P2",
-      "Domain": "ui",
-      "AssetType": "effect_overlay",
-      "ConfigID": "icon_sale_spark",
-      "DisplayName": "成交爆点图标",
-      "Status": "approved",
-      "RegistryStatus": "unregistered",
-      "RegistryHasSprite": false,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_sale_spark.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "",
-      "ProcessedCandidate": "",
-      "RawCandidate": "",
-      "ReferencedBy": [
-        "preset:美术文档/art_requirements_seed.json",
-        "screen:business_settlement"
       ],
       "ManifestEntryCount": 1
     },
@@ -3205,6 +3131,81 @@
         "screen:sell_panel",
         "screen:settlement",
         "screen:shop_staging"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "ui_icon_business_settlement",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "ConfigID": "icon_business_settlement",
+      "DisplayName": "营业结算图标",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:business_settlement"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "ui_icon_customer",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "ConfigID": "icon_customer",
+      "DisplayName": "顾客图标",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_customer.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:business_settlement"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "ui_icon_sale_spark",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "effect_overlay",
+      "ConfigID": "icon_sale_spark",
+      "DisplayName": "成交爆点图标",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_sale_spark.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:business_settlement"
       ],
       "ManifestEntryCount": 1
     }

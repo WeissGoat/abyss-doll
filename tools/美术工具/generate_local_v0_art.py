@@ -419,6 +419,43 @@ def draw_icon_material_need(c: Canvas) -> None:
     c.ellipse((0.675, 0.44, 0.725, 0.49), rgba("cream"), None)
 
 
+def draw_icon_customer(c: Canvas) -> None:
+    draw_badge(c, rgba("brass_light", 70))
+    c.ellipse((0.40, 0.24, 0.60, 0.44), rgba("cream"), rgba("brass_dark"), 0.009)
+    c.round_rect((0.32, 0.46, 0.68, 0.72), 0.06, rgba("metal_light"), rgba("brass_light"), 0.012)
+    c.round_rect((0.24, 0.62, 0.76, 0.76), 0.035, rgba("brass"), rgba("brass_light"), 0.012)
+    c.line([(0.30, 0.62), (0.70, 0.62)], rgba("brass_dark", 180), 0.008)
+    c.ellipse((0.36, 0.32, 0.42, 0.38), rgba("brass_dark"), None)
+    c.ellipse((0.58, 0.32, 0.64, 0.38), rgba("brass_dark"), None)
+
+
+def draw_icon_sale_spark(c: Canvas) -> None:
+    c.glow((0.18, 0.18, 0.82, 0.82), rgba("brass_light", 105), 0.04)
+    for angle in range(0, 360, 30):
+        inner = 0.18 if angle % 60 == 0 else 0.24
+        outer = 0.42 if angle % 60 == 0 else 0.34
+        x0 = 0.5 + math.cos(math.radians(angle)) * inner
+        y0 = 0.5 + math.sin(math.radians(angle)) * inner
+        x1 = 0.5 + math.cos(math.radians(angle)) * outer
+        y1 = 0.5 + math.sin(math.radians(angle)) * outer
+        c.line([(x0, y0), (x1, y1)], rgba("brass_light", 220), 0.012)
+    c.ellipse((0.30, 0.30, 0.70, 0.70), rgba("orange", 190), rgba("brass_light"), 0.014)
+    c.ellipse((0.39, 0.39, 0.61, 0.61), rgba("brass_light"), rgba("brass_dark"), 0.01)
+    c.line([(0.43, 0.50), (0.57, 0.50)], rgba("brass_dark", 190), 0.012)
+    c.line([(0.50, 0.43), (0.50, 0.57)], rgba("brass_dark", 170), 0.009)
+
+
+def draw_icon_business_settlement(c: Canvas) -> None:
+    draw_badge(c, rgba("green", 55))
+    c.round_rect((0.25, 0.48, 0.75, 0.70), 0.035, rgba("brass"), rgba("brass_light"), 0.012)
+    c.round_rect((0.30, 0.36, 0.70, 0.53), 0.03, rgba("metal"), rgba("brass_light"), 0.01)
+    c.line([(0.33, 0.36), (0.40, 0.25), (0.60, 0.25), (0.67, 0.36)], rgba("brass_light"), 0.012)
+    c.ellipse((0.34, 0.58, 0.45, 0.69), rgba("brass_light"), rgba("brass_dark"), 0.006)
+    c.ellipse((0.46, 0.57, 0.57, 0.68), rgba("brass_light", 220), rgba("brass_dark"), 0.006)
+    c.ellipse((0.58, 0.58, 0.69, 0.69), rgba("brass_light", 200), rgba("brass_dark"), 0.006)
+    c.line([(0.32, 0.76), (0.68, 0.76)], rgba("brass_light", 180), 0.012)
+
+
 DRAWERS = {
     "node_eventnode_icon": draw_node_event,
     "node_hazardnode_icon": draw_node_hazard,
@@ -443,7 +480,10 @@ DRAWERS = {
     "ui_combat_status_stun": draw_status_stun,
     "ui_icon_blueprint": draw_icon_blueprint,
     "ui_icon_chassis_upgrade": draw_icon_chassis_upgrade,
+    "ui_icon_business_settlement": draw_icon_business_settlement,
+    "ui_icon_customer": draw_icon_customer,
     "ui_icon_material_need": draw_icon_material_need,
+    "ui_icon_sale_spark": draw_icon_sale_spark,
 }
 
 

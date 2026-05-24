@@ -11,6 +11,7 @@ related:
   - agent_status/art.md
   - 知识库/views/art.md
   - 美术文档/ui_design/ui_iteration_process.md
+  - 美术文档/ui_design/formal_v1/business_settlement_v1.md
   - 美术文档/ui_design/formal_v1/combat_hud_v1.md
   - 美术文档/ui_design/formal_v1/chassis_upgrade_panel_v1.md
   - 美术文档/ui_design/formal_v1/daily_bill_report_v1.md
@@ -111,6 +112,7 @@ Formal V1 不应直接删除 MVP 经验。MVP Baseline 作为可运行对照保�
 | P1-H | `maintenance_panel` | 已写入 active Formal V1：机体维护、磨损/侵蚀、维护费用、材料缺口和下潜许可检查。 |
 | P1-I | `daily_bill_report` | 已写入 active Formal V1：每日收支、未售出物、维护/租金压力和欠债风险。 |
 | P2-A | `shop_staging` | 已写入 active Formal V1：仓库出货分配、普通渠道、订单渠道、黑市渠道和收益风险预览。 |
+| P2-A2 | `business_settlement` | 已写入 active Formal V1：开始营业后的顾客流、成交爆点、金币增长、未售出/黑市风险摘要和进入每日账单过渡。 |
 | P2-B | `order_board` | 已写入 active Formal V1：势力订单列表、目标物、截止日、奖励预览和接取/提交动作。 |
 | P2-C | `rumor_board` | 已写入 active Formal V1：今日传闻、价格涨跌、选中详情和推荐行动。 |
 | P2-D | `faction_shop` | 已写入 active Formal V1：势力声望、专属商品、黑市信任和交易风险。 |
@@ -119,7 +121,7 @@ Formal V1 不应直接删除 MVP 经验。MVP Baseline 作为可运行对照保�
 | P3-A | `doll_room` | 已写入 active Formal V1：房间背景、待机人偶、纪念物、窗外状态和日记。 |
 | P3-B | `chassis_upgrade_panel` | 已写入 active Formal V1：当前底盘、下一底盘、容量变化、材料缺口、蓝图前置和升级确认。 |
 
-P0 / P1 / P2 / P3 当前 20 个界面均已进入 active `screen_layouts.json` 规格。后续程序接入不读取本目录草案，而是读取 active 规格、`ui_design_handoff.md` 和可接入素材清单。
+P0 / P1 / P2 / P3 当前 21 个界面均已进入 active `screen_layouts.json` 规格。后续程序接入不读取本目录草案，而是读取 active 规格、`ui_design_handoff.md` 和可接入素材清单。
 
 ---
 
@@ -168,9 +170,9 @@ P0 / P1 / P2 / P3 当前 20 个界面均已进入 active `screen_layouts.json` �
 
 ## 7. 当前结论
 
-1. P0 / P1 / P2 / P3 的 20 个界面均已进入 active Formal V1 规格。
+1. P0 / P1 / P2 / P3 的 21 个界面均已进入 active Formal V1 规格。
 2. `combat_hud` 已有第一批战斗实体和脚底阴影/目标光环入库，并已完成一次程序接入验证。
-3. `workshop_main`、`inventory_loot`、`dungeon_map`、`settlement`、`layer_select`、`sell_panel`、`prosthetic_panel`、`safe_room`、`stairs_room`、`maintenance_panel`、`daily_bill_report`、`shop_staging`、`order_board`、`rumor_board`、`faction_shop`、`doll_interaction`、`scenario_event`、`doll_room`、`chassis_upgrade_panel` 当前重点是程序按 active 规格迁移后截图验收。
-4. `doll_room` 已补齐 `bg_doll_room_attic`、`ui_icon_diary`、`ui_room_memento_slot` 的 local_v0 Approved 可接入素材；`chassis_upgrade_panel` 已补齐 `ui_icon_chassis_upgrade`、`ui_icon_blueprint`、`ui_icon_material_need` 的素材需求入口；后续正式 AI 版可同名替换。
+3. `workshop_main`、`inventory_loot`、`dungeon_map`、`settlement`、`layer_select`、`sell_panel`、`prosthetic_panel`、`safe_room`、`stairs_room`、`maintenance_panel`、`daily_bill_report`、`shop_staging`、`business_settlement`、`order_board`、`rumor_board`、`faction_shop`、`doll_interaction`、`scenario_event`、`doll_room`、`chassis_upgrade_panel` 当前重点是程序按 active 规格迁移后截图验收。
+4. `doll_room` 已补齐 `bg_doll_room_attic`、`ui_icon_diary`、`ui_room_memento_slot` 的 local_v0 Approved 可接入素材；`chassis_upgrade_panel` 已补齐 `ui_icon_chassis_upgrade`、`ui_icon_blueprint`、`ui_icon_material_need` 的素材需求入口；`business_settlement` 已补齐 `ui_icon_customer`、`ui_icon_sale_spark`、`ui_icon_business_settlement` 的素材需求入口；后续正式 AI 版可同名替换。
 5. Formal V1 第一轮只保证正式结构、信息层级和资源槽位；后续 Visual V2/V3 再逐批替换更高品质素材、动画和 VFX。
 6. 每轮实际生成、预处理或 Approved 同步后，美术侧必须刷新 `美术文档/_generated/可接入素材清单.md/json` 并保留快照，程序侧按 `program_integrate` 队列自助接入。

@@ -8455,6 +8455,474 @@
         "所有名称、数量、费用、按钮文案和说明由 Unity Text 渲染，不烘焙进图片。",
         "背景、面板、图标和底盘预览不阻挡按钮射线。"
       ]
+    },
+    {
+      "ScreenID": "business_settlement",
+      "DisplayName": "营业结算演出界面",
+      "Priority": "P2",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "new_formal_v1",
+      "BackgroundVisualID": "bg_workshop_day",
+      "PrimaryGoal": "承接出货分配后的开始营业反馈：顾客流、成交爆点、金币增长、未售出/黑市风险摘要和进入每日账单的过渡必须可读。",
+      "RequiredComponents": [
+        "Panel.Main",
+        "Panel.Info",
+        "Button.Primary",
+        "Button.Secondary",
+        "List.Row.Normal",
+        "Title.Divider",
+        "Icon.Money",
+        "Icon.Warning",
+        "Icon.Customer",
+        "Icon.SaleSpark",
+        "Icon.BusinessSettlement"
+      ],
+      "RequiredVisualIDs": [
+        "bg_workshop_day",
+        "ui_panel_main",
+        "ui_panel_info",
+        "ui_button_primary",
+        "ui_button_secondary",
+        "ui_list_row_normal",
+        "ui_title_divider",
+        "ui_icon_money",
+        "ui_icon_warning",
+        "ui_icon_customer",
+        "ui_icon_sale_spark",
+        "ui_icon_business_settlement"
+      ],
+      "Zones": [
+        {
+          "ZoneID": "business_background",
+          "Purpose": "复用工坊背景，表现营业发生在工坊前厅或柜台空间。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
+          "ComponentRefs": [],
+          "Notes": "背景 cover 适配，不烘焙顾客、金币数字、账单文本或按钮。"
+        },
+        {
+          "ZoneID": "business_stage_card",
+          "Purpose": "营业结算主舞台，承载顾客流、成交反馈、收入脉冲和阶段摘要。",
+          "Anchor": "center",
+          "Rect": {
+            "X": 180,
+            "Y": 90,
+            "Width": 1560,
+            "Height": 900
+          },
+          "ComponentRefs": [
+            "Panel.Main"
+          ],
+          "Notes": "主舞台用九宫格面板，内部对象可做运行时动画。"
+        },
+        {
+          "ZoneID": "business_header",
+          "Purpose": "标题、日期、营业结算图标、当前金币和标题分隔。",
+          "Anchor": "top_center",
+          "Rect": {
+            "X": 240,
+            "Y": 130,
+            "Width": 1440,
+            "Height": 110
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.BusinessSettlement",
+            "Icon.Money",
+            "Title.Divider"
+          ],
+          "Notes": "日期、金币和阶段名全部由 Unity Text 渲染。"
+        },
+        {
+          "ZoneID": "customer_flow_lane",
+          "Purpose": "顾客流和成交对象区域，可显示顾客符号、入店离店节奏和购买偏好提示。",
+          "Anchor": "left_middle",
+          "Rect": {
+            "X": 260,
+            "Y": 280,
+            "Width": 580,
+            "Height": 460
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Customer",
+            "List.Row.Normal"
+          ],
+          "Notes": "第一版可以是静态顾客槽和成交列表；后续可挂横向小动画。"
+        },
+        {
+          "ZoneID": "revenue_pulse_panel",
+          "Purpose": "成交爆点、金币增长、倾倒箱/橱窗/订单/黑市收入即时反馈。",
+          "Anchor": "center_middle",
+          "Rect": {
+            "X": 880,
+            "Y": 280,
+            "Width": 420,
+            "Height": 460
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.SaleSpark",
+            "Icon.Money"
+          ],
+          "Notes": "数字由运行时 Text 或 TMP 渲染；图片只做爆点承托。"
+        },
+        {
+          "ZoneID": "risk_and_unsold_panel",
+          "Purpose": "未售出物、违禁拒收、黑市风险和隔夜代价摘要。",
+          "Anchor": "right_middle",
+          "Rect": {
+            "X": 1340,
+            "Y": 280,
+            "Width": 320,
+            "Height": 280
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Warning",
+            "List.Row.Normal"
+          ],
+          "Notes": "只显示摘要，不替代后续 DailyBillReport 的完整明细。"
+        },
+        {
+          "ZoneID": "transaction_feed_panel",
+          "Purpose": "最近成交记录、顾客偏好命中和收益来源 feed。",
+          "Anchor": "right_middle",
+          "Rect": {
+            "X": 1340,
+            "Y": 590,
+            "Width": 320,
+            "Height": 150
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Normal"
+          ],
+          "Notes": "成交条目由程序生成，避免把物品名或金币数烘焙到图里。"
+        },
+        {
+          "ZoneID": "business_bottom_hint",
+          "Purpose": "营业阶段说明、跳过提示、下一步账单预告和动画状态。",
+          "Anchor": "bottom_left",
+          "Rect": {
+            "X": 260,
+            "Y": 780,
+            "Width": 580,
+            "Height": 140
+          },
+          "ComponentRefs": [
+            "Panel.Info"
+          ],
+          "Notes": "用于说明当前在成交反馈阶段，不做结算裁决。"
+        },
+        {
+          "ZoneID": "business_action_panel",
+          "Purpose": "进入每日账单、跳过/加速演出、返回出货分配等动作。",
+          "Anchor": "bottom_right",
+          "Rect": {
+            "X": 880,
+            "Y": 780,
+            "Width": 780,
+            "Height": 140
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Button.Primary",
+            "Button.Secondary"
+          ],
+          "Notes": "Continue Bill 是主行动；Skip/Back 是次级动作。"
+        }
+      ],
+      "ProgramHandoff": {
+        "LayoutChanges": [
+          "新增 BusinessSettlementPanel_Runtime，放在 shop_staging 与 daily_bill_report 之间。",
+          "营业结算界面只表现成交反馈和阶段摘要，不承载最终账单复盘。",
+          "顾客流、成交爆点和交易 feed 都使用运行时数据驱动，图片只提供图标和承托。"
+        ],
+        "DataBindings": [
+          "成交记录、收入脉冲、未售出物、黑市风险、当前金币、日期和进入账单按钮状态由经济流程服务提供。",
+          "图标、面板和按钮通过 VisualAssetService / VisualID 绑定；数字、物品名、顾客名和收益来源全部用 Unity Text 渲染。",
+          "该界面不直接修改金币、物品归属、声望、时间或账单状态，只展示 BusinessSettlement 已计算结果。"
+        ],
+        "InteractionNotes": [
+          "背景、面板、顾客图标、成交爆点和列表装饰默认 raycastTarget=false。",
+          "Continue Bill、Skip / Fast Forward、Back To Staging 按钮接收点击。",
+          "如果程序第一版没有动画，可直接显示静态成交摘要并启用 Continue Bill。"
+        ]
+      },
+      "ControllerBindings": [
+        {
+          "Script": "BusinessSettlementUIController",
+          "ExistingFields": [
+            "rootPanel",
+            "backgroundImage",
+            "customerLaneRoot",
+            "revenuePulseRoot",
+            "transactionFeedRoot",
+            "riskSummaryRoot",
+            "continueBillButton",
+            "skipButton",
+            "backToStagingButton"
+          ],
+          "BindingNotes": [
+            "负责展示营业成交反馈、收入脉冲、交易 feed、风险摘要和按钮状态。",
+            "只消费经济服务提供的 BusinessSettlementViewModel，不直接结算金币或移动物品。"
+          ]
+        },
+        {
+          "Script": "EconomyFlowController",
+          "ExistingFields": [
+            "businessSettlementPanel",
+            "dailyBillReportPanel",
+            "shopStagingPanel"
+          ],
+          "BindingNotes": [
+            "Start Business 后先打开 businessSettlementPanel，完成或跳过后进入 dailyBillReportPanel。",
+            "Back To Staging 只在最终账单尚未确认前可用，避免重复结算。"
+          ]
+        }
+      ],
+      "UnityHierarchy": [
+        {
+          "Path": "BusinessSettlementPanel_Runtime/Background_Image",
+          "Layer": "Background",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/HeaderPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/HeaderPanel/SettlementIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.BusinessSettlement",
+          "VisualID": "ui_icon_business_settlement",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/HeaderPanel/MoneyIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Money",
+          "VisualID": "ui_icon_money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/HeaderPanel/TitleDivider_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "FitMode": "stretch",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/CustomerFlowLane",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/CustomerFlowLane/CustomerIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Customer",
+          "VisualID": "ui_icon_customer",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/RevenuePulsePanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/RevenuePulsePanel/SaleSpark_Image",
+          "Layer": "Vfx",
+          "ComponentRef": "Icon.SaleSpark",
+          "VisualID": "ui_icon_sale_spark",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/RiskAndUnsoldPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/RiskAndUnsoldPanel/WarningIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Warning",
+          "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/TransactionFeedPanel/FeedRow_Template",
+          "Layer": "Controls",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/BottomHintPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/ActionPanel/ContinueBill_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/ActionPanel/Skip_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "BusinessSettlementPanel_Runtime/StageCard_Image/ActionPanel/BackToStaging_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "SpriteAssignments": [
+        {
+          "Target": "BusinessSettlementPanel_Runtime/Background_Image",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "BusinessSettlementPanel_Runtime/StageCard_Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "HeaderPanel/SettlementIcon_Image",
+          "ComponentRef": "Icon.BusinessSettlement",
+          "VisualID": "ui_icon_business_settlement",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "HeaderPanel/MoneyIcon_Image",
+          "ComponentRef": "Icon.Money",
+          "VisualID": "ui_icon_money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "CustomerFlowLane/CustomerIcon_Image",
+          "ComponentRef": "Icon.Customer",
+          "VisualID": "ui_icon_customer",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "RevenuePulsePanel/SaleSpark_Image",
+          "ComponentRef": "Icon.SaleSpark",
+          "VisualID": "ui_icon_sale_spark",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "RiskAndUnsoldPanel/WarningIcon_Image",
+          "ComponentRef": "Icon.Warning",
+          "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "TransactionFeedPanel/FeedRow_Template",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "ActionPanel/ContinueBill_Button",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "ActionPanel/Skip_Button",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "ActionPanel/BackToStaging_Button",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "AcceptanceCriteria": [
+        "点击 Start Business 后，营业结算演出界面位于 shop_staging 和 daily_bill_report 之间。",
+        "截图中能同时看到顾客流、成交爆点、金币增长区域、风险/未售出摘要和进入账单主按钮。",
+        "数字、物品名、顾客名、日期和收益来源全部由 Unity Text 渲染，不烘焙到图片。",
+        "未售出、违禁拒收或黑市风险必须通过 warning 图标或运行时 tint 表达。",
+        "没有动画时也能以静态摘要通过结构验收；后续动效只增强，不改变 ScreenID、VisualID 或区域契约。"
+      ]
     }
   ]
 }
