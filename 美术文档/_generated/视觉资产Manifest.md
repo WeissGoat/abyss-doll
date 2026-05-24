@@ -92,17 +92,17 @@
 | `ui` | `combat_turn_banner` | 回合提示条 | `banner` | `ui_combat_turn_banner` | P2 | `approved` |
 | `ui` | `dungeon_node_plate` | 地图节点底板 | `frame` | `ui_dungeon_node_plate` | P2 | `approved` |
 | `ui` | `dungeon_route_line` | 地图路线连接线 | `divider` | `ui_dungeon_route_line` | P2 | `approved` |
-| `ui` | `icon_black_market` | 黑市渠道图标 | `icon` | `ui_icon_black_market` | P2 | `todo` |
-| `ui` | `icon_deadline` | 截止日图标 | `icon` | `ui_icon_deadline` | P2 | `todo` |
+| `ui` | `icon_black_market` | 黑市渠道图标 | `icon` | `ui_icon_black_market` | P2 | `approved` |
+| `ui` | `icon_deadline` | 截止日图标 | `icon` | `ui_icon_deadline` | P2 | `approved` |
 | `ui` | `icon_equipped` | 已装备图标 | `icon` | `ui_icon_equipped` | P2 | `approved` |
-| `ui` | `icon_faction` | 势力图标 | `icon` | `ui_icon_faction` | P2 | `todo` |
+| `ui` | `icon_faction` | 势力图标 | `icon` | `ui_icon_faction` | P2 | `approved` |
 | `ui` | `icon_locked` | 锁定图标 | `icon` | `ui_icon_locked` | P2 | `approved` |
 | `ui` | `icon_money` | 金币图标 | `icon` | `ui_icon_money` | P2 | `approved` |
-| `ui` | `icon_order` | 订单图标 | `icon` | `ui_icon_order` | P2 | `todo` |
-| `ui` | `icon_price_down` | 价格下跌图标 | `icon` | `ui_icon_price_down` | P2 | `todo` |
-| `ui` | `icon_price_up` | 价格上涨图标 | `icon` | `ui_icon_price_up` | P2 | `todo` |
-| `ui` | `icon_rumor` | 传闻图标 | `icon` | `ui_icon_rumor` | P2 | `todo` |
-| `ui` | `icon_shop_channel` | 出货渠道图标 | `icon` | `ui_icon_shop_channel` | P2 | `todo` |
+| `ui` | `icon_order` | 订单图标 | `icon` | `ui_icon_order` | P2 | `approved` |
+| `ui` | `icon_price_down` | 价格下跌图标 | `icon` | `ui_icon_price_down` | P2 | `approved` |
+| `ui` | `icon_price_up` | 价格上涨图标 | `icon` | `ui_icon_price_up` | P2 | `approved` |
+| `ui` | `icon_rumor` | 传闻图标 | `icon` | `ui_icon_rumor` | P2 | `approved` |
+| `ui` | `icon_shop_channel` | 出货渠道图标 | `icon` | `ui_icon_shop_channel` | P2 | `approved` |
 | `ui` | `list_row_normal` | 列表行底板 | `panel` | `ui_list_row_normal` | P2 | `approved` |
 | `ui` | `list_row_selected` | 选中列表行底板 | `panel` | `ui_list_row_selected` | P2 | `approved` |
 | `ui` | `settlement_defeat_panel` | 战败结算面板 | `panel` | `ui_settlement_defeat_panel` | P2 | `approved` |
@@ -111,5 +111,5 @@
 
 ## 下一步
 
-1. 对 `Status=todo` 的新增项补全 `PromptCN`、`PromptEN`、`NegativePromptEN` 和结构化 `Spec`。
-2. 完成后运行 `tools/美术工具/Generate-ArtPrompts.ps1` 或人工审阅提示词。
+1. 将 `Approved` 素材登记到 `VisualAssetRegistry`。
+2. 游戏内验证后更新 `RegistryStatus` 和 `Status=validated`。

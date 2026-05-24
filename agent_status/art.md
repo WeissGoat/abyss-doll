@@ -37,7 +37,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 支撑正式版核心纵切。当前重点从 MVP UI 骨架验收转向 Formal V1 正式 UI 结构迭代：P0 / P1 / P2 已先迁移 active UI 规格，后续按界面进入程序接入、截图验收、素材质量升级和动效/VFX 迭代。
 
-PM 版本节点中，美术线当前已完成 `combat_hud` Formal V1 active 规格更新和第一批战斗资源入库；UI 程序侧已完成接入并通过 ArtAcceptance。当前 15 个界面都已具备 Formal V1 active 规格；`maintenance_panel` / `daily_bill_report` 的新增 UI 图标已进入 Approved，A4 的 `shop_staging` / `order_board` / `rumor_board` 新增图标已进入 Manifest / Prompt 队列，程序侧可按 `ui_design_handoff.md` 和 latest 可接入素材清单分批接入或等待美术生成。
+PM 版本节点中，美术线当前已完成 `combat_hud` Formal V1 active 规格更新和第一批战斗资源入库；UI 程序侧已完成接入并通过 ArtAcceptance。当前 15 个界面都已具备 Formal V1 active 规格；`maintenance_panel` / `daily_bill_report` 的新增 UI 图标已进入 Approved，A4 的 `shop_staging` / `order_board` / `rumor_board` 新增图标已补齐 local_v0 可接入版，程序侧可按 `ui_design_handoff.md` 和 latest 可接入素材清单分批登记。
 
 ## 必读文件
 
@@ -102,15 +102,17 @@ PM 版本节点中，美术线当前已完成 `combat_hud` Formal V1 active 规�
 - 本轮已用 `VisualAssetRegistry.asset@HEAD` 刷新 latest 可接入素材清单，并留档 `美术文档/_generated/art_integration_snapshots/20260524_075054_p1_ui_icons_approved_ready_repo_state.*`；当前清单显示 `program_integrate=9`、`acceptance_needed=65`、`generate_needed=0`。
 - 已把 A4 三个界面 `shop_staging`、`order_board`、`rumor_board` 切到 Formal V1 active 规格，补齐结构文档、迁移记录和覆盖矩阵；当前 active Formal V1 UI 覆盖增至 15 个界面。
 - 已新增 `ui_icon_shop_channel`、`ui_icon_black_market`、`ui_icon_order`、`ui_icon_faction`、`ui_icon_deadline`、`ui_icon_rumor`、`ui_icon_price_up`、`ui_icon_price_down` 八个 preset UI 图标需求，并补齐英文绘图提示词、负面提示词和结构化 Spec。
-- 已运行 `Validate-UIDesign.ps1`、`Sync-Configs.ps1 -Clean`、`Update-ArtManifest.ps1`、`Generate-ArtPrompts.ps1`，并用 `VisualAssetRegistry.asset@HEAD` 刷新 latest 可接入素材清单，留档 `美术文档/_generated/art_integration_snapshots/20260524_083503_a4_ui_active_repo_state.*`；当前清单显示 `program_integrate=9`、`acceptance_needed=65`、`generate_needed=8`。
+- 已尝试用 NovelAI 串行生成 A4 八个 UI 图标，失败原因为 HTTP 402：Anlas 余额不足，不是并发或 rate limit；已留档 `美术文档/_generated/art_integration_snapshots/20260524_084327_generation_nai_a4_ui_icons_20260524_01.*`。
+- 已用 local_v0 方式补齐 A4 八个 UI 图标的透明 PNG 可接入临时版，并同步到 `UnityClient/Assets/Art/Approved/UI/`，同时补齐 Unity `.meta`：`ui_icon_shop_channel`、`ui_icon_black_market`、`ui_icon_order`、`ui_icon_faction`、`ui_icon_deadline`、`ui_icon_rumor`、`ui_icon_price_up`、`ui_icon_price_down`。
+- 已刷新 latest 可接入素材清单，并用 `VisualAssetRegistry.asset@HEAD` 留档 `美术文档/_generated/art_integration_snapshots/20260524_085725_a4_ui_icons_local_v0_approved_repo_state.*`；当前清单显示 `program_integrate=17`、`acceptance_needed=65`、`generate_needed=0`。
 
 ## 下一步建议
 
-1. 按 NovelAI 串行跑图规则生成 A4 八个 `generate_needed` 图标：`ui_icon_shop_channel`、`ui_icon_black_market`、`ui_icon_order`、`ui_icon_faction`、`ui_icon_deadline`、`ui_icon_rumor`、`ui_icon_price_up`、`ui_icon_price_down`；生成 / 预处理 / Approved 同步后继续刷新 latest 可接入清单并留 snapshot。
-2. 交给程序侧按 latest 可接入素材清单登记 9 个 `program_integrate` 资源；其中近期新增的是 `ui_icon_maintenance`、`ui_icon_bill`、`ui_icon_warning`。
+1. 交给程序侧按 latest 可接入素材清单登记 17 个 `program_integrate` 资源；其中近期新增的是 `ui_icon_maintenance`、`ui_icon_bill`、`ui_icon_warning` 和 A4 八个 local_v0 UI 图标。
+2. NovelAI Anlas 恢复后，重跑 A4 八个 local_v0 UI 图标的正式美术版；生成 / 预处理 / Approved 同步后继续刷新 latest 可接入清单并留 snapshot。
 3. 基于 ArtAcceptance `20260524_043441` 最新截图验收 `combat_hud`：左玩家、右敌方实体、底部居中背包、敌人脚下血条、目标光环和敌方实体透明边缘。
 4. 等程序侧完成 P0 / P1 / P2 Formal V1 接入后，用 ArtAcceptance 逐屏验收结构、缺图、黑块、点击遮挡和列表有效数据，优先覆盖 `safe_room` / `stairs_room` / `maintenance_panel` / `daily_bill_report` / `shop_staging` / `order_board` / `rumor_board`。
-5. `ui_icon_warning` 当前可接入，但中心符号识别度后续可在视觉精修批次单独重跑多版本。
+5. `ui_icon_warning` 和 A4 local_v0 图标当前可接入，但仍属于后续视觉精修批次的替换对象。
 6. 后续新增怪物时继续按 `CombatVisualID -> monster_*_combat -> Approved/Monsters/Combat` 流程补图。
 
 ## 问题 / 阻塞
@@ -118,6 +120,7 @@ PM 版本节点中，美术线当前已完成 `combat_hud` Formal V1 active 规�
 - 当前工作区仍有大量程序、策划、Unity 资产和知识库生成物处于脏状态；美术侧提交时只纳入本轮美术流水线相关文件。
 - P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 正式结构已通过；P0 / P1 Formal V1 仍需要程序接入后的运行时截图验收。
 - `combat_hud` 已有 2026-05-24 最新 ArtAcceptance 截图可用于当前规格验收；其他界面的 UI 迭代候选报告仍可能基于较旧截图，需要逐界面确认。
+- NovelAI 当前因 Anlas 余额不足无法继续正式跑图；local_v0 可接入图标只用于先解锁程序接入和运行时验收，后续需要替换为正式 AI 美术版。
 - `tools/ComfyUI_NAIDGenerator/` 未跟踪，需要决定是否纳入正式美术流水线。
 
 ## 完成回写清单
