@@ -18,12 +18,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：150
-- 已补元数据：150
+- 文档总数：151
+- 已补元数据：151
 - 缺少元数据：0
-- 事实来源文档：121
-- 关联边数：770
-- 跨职能关联：161
+- 事实来源文档：122
+- 关联边数：777
+- 跨职能关联：164
 
 ## 事实来源
 
@@ -124,6 +124,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [长期记忆剧情内容包](设计文档/23_长期记忆剧情内容包.md) - `content_pack` / `content_authoring`
 - [势力订单声望内容包](设计文档/24_势力订单声望内容包.md) - `content_pack` / `content_authoring`
 - [第三层路线侵蚀内容包](设计文档/25_第三层路线侵蚀内容包.md) - `content_pack` / `content_authoring`
+- [正式配置设计与填充推进计划](设计文档/26_正式配置设计与填充推进计划.md) - `plan` / `formal_config_authoring`
 - [系统关联总图：全系统内在关联与数据流向](设计文档/GDD_00_系统关联总图.md) - `gdd` / `system_overview`
 - [详案_01：背包战斗与局内网格机制 (GDD_01)](设计文档/GDD_01_背包战斗与局内网格机制.md) - `gdd` / `grid_inventory`
 - [详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)](设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md) - `gdd` / `dungeon_exploration`
@@ -155,16 +156,17 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - `PM <-> 知识库`：1 条
 - `PM <-> 程序`：1 条
 - `PM <-> 策划`：5 条
+- `PM <-> 美术`：1 条
 - `全局 <-> 知识库`：4 条
 - `全局 <-> 程序`：12 条
 - `全局 <-> 策划`：29 条
-- `全局 <-> 美术`：8 条
+- `全局 <-> 美术`：9 条
 - `知识库 <-> 程序`：1 条
 - `知识库 <-> 策划`：1 条
 - `知识库 <-> 美术`：1 条
 - `程序 <-> 策划`：53 条
 - `程序 <-> 美术`：27 条
-- `策划 <-> 美术`：5 条
+- `策划 <-> 美术`：6 条
 
 ## 按职能分组
 
@@ -173,7 +175,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
 | [PM / 版本规划 状态](agent_status/pm.md) | `status` | `active` | `version_planning` | 9 | 完整 |
-| [版本规划需求文档承接审计](版本规划/12_版本规划需求文档承接审计.md) | `plan` | `active` | `requirement_doc_coverage` | 9 | 完整 |
+| [版本规划需求文档承接审计](版本规划/12_版本规划需求文档承接审计.md) | `plan` | `active` | `requirement_doc_coverage` | 10 | 完整 |
 | [版本规划阅读入口](版本规划/README.md) | `entry` | `active` | `version_planning` | 7 | 完整 |
 | [PM 智能体阅读入口](知识库/views/pm.md) | `view` | `active` | `agent_context_view` | 7 | 完整 |
 
@@ -187,7 +189,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 33 | 完整 |
 | [智能体状态页说明](agent_status/README.md) | `status` | `active` | `agent_status` | 5 | 完整 |
 | [智能体开工健康检查](tools/agent/README.md) | `tool` | `active` | `agent_workflow` | 4 | 完整 |
-| [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `formal_vertical_slice` | 18 | 完整 |
+| [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `formal_vertical_slice` | 19 | 完整 |
 | [最小可玩版本 (MVP) 核心闭环内容清单](版本规划/_archive/mvp_2026-05/00_最小MVP体验闭环内容清单.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 客户端开发里程碑与节点规划](版本规划/_archive/mvp_2026-05/02_开发里程碑与节点规划.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 验证需要补充的功能开发](版本规划/_archive/mvp_2026-05/04_MVP验证需要补充的功能开发.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
@@ -235,12 +237,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [策划 / 数值 状态](agent_status/design.md) | `status` | `active` | `design_balance` | 41 | 完整 |
+| [策划 / 数值 状态](agent_status/design.md) | `status` | `active` | `design_balance` | 42 | 完整 |
 | [基准价值与空间本位模型 (Space-Value Standard)](数值模型设计/00_基准价值与空间本位模型.md) | `balance` | `active` | `balance_space_value` | 16 | 完整 |
 | [经济循环与通缩模型 (Economy & Deflation Model)](数值模型设计/01_经济循环与通缩模型.md) | `balance` | `active` | `balance_economy` | 8 | 完整 |
 | [战斗伤害与生存公式 (Combat & Survival Formulas)](数值模型设计/02_战斗伤害与生存公式.md) | `balance` | `active` | `balance_combat` | 7 | 完整 |
 | [深渊产出与掉落期望 (Loot Generation & Expectation)](数值模型设计/03_深渊产出与掉落期望.md) | `balance` | `active` | `balance_loot` | 8 | 完整 |
-| [设计文档纵切批次矩阵](版本规划/11_设计文档纵切批次矩阵.md) | `plan` | `active` | `gdd_vertical_batch_matrix` | 22 | 完整 |
+| [设计文档纵切批次矩阵](版本规划/11_设计文档纵切批次矩阵.md) | `plan` | `active` | `gdd_vertical_batch_matrix` | 23 | 完整 |
 | [数值模型沙盘推演方法论 (Numerical Sandboxing)](版本规划/_archive/mvp_2026-05/03_mvp数值要求.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 需要补充的配置调整](版本规划/_archive/mvp_2026-05/05_MVP需要补充的配置调整.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [策划智能体阅读入口](知识库/views/design.md) | `view` | `active` | `agent_context_view` | 10 | 完整 |
@@ -270,6 +272,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [长期记忆剧情内容包](设计文档/23_长期记忆剧情内容包.md) | `content_pack` | `active` | `content_authoring` | 19 | 完整 |
 | [势力订单声望内容包](设计文档/24_势力订单声望内容包.md) | `content_pack` | `active` | `content_authoring` | 19 | 完整 |
 | [第三层路线侵蚀内容包](设计文档/25_第三层路线侵蚀内容包.md) | `content_pack` | `active` | `content_authoring` | 19 | 完整 |
+| [正式配置设计与填充推进计划](设计文档/26_正式配置设计与填充推进计划.md) | `plan` | `active` | `formal_config_authoring` | 2 | 完整 |
 | [系统关联总图：全系统内在关联与数据流向](设计文档/GDD_00_系统关联总图.md) | `gdd` | `active` | `system_overview` | 38 | 完整 |
 | [详案_01：背包战斗与局内网格机制 (GDD_01)](设计文档/GDD_01_背包战斗与局内网格机制.md) | `gdd` | `active` | `grid_inventory` | 17 | 完整 |
 | [详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)](设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md) | `gdd` | `active` | `dungeon_exploration` | 14 | 完整 |
@@ -283,7 +286,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [详案_10：势力声望与订单系统 (GDD_10)](设计文档/GDD_10_势力声望与订单系统.md) | `gdd` | `active` | `faction_order` | 18 | 完整 |
 | [详案_11：人偶房间与视觉叙事系统 (GDD_11)](设计文档/GDD_11_人偶房间与视觉叙事系统.md) | `gdd` | `active` | `doll_room` | 14 | 完整 |
 | [详案_12：人偶交互管理器 (GDD_12)](设计文档/GDD_12_人偶交互管理器.md) | `gdd` | `active` | `doll_interaction` | 15 | 完整 |
-| [设计文档阅读入口](设计文档/README.md) | `entry` | `active` | `design_delivery` | 11 | 完整 |
+| [设计文档阅读入口](设计文档/README.md) | `entry` | `active` | `design_delivery` | 12 | 完整 |
 | [第四层组合压力内容包](设计文档/_archive/content_backlog/26_第四层组合压力内容包.md) | `content_pack` | `draft` | `content_authoring` | 1 | 完整 |
 | [局外底盘配置字段说明 (Chassis Config)](配置表(JSON)/Chassis/README.md) | `config` | `active` | `config_chassis` | 8 | 完整 |
 | [工坊制造配方字段说明 (Crafting Recipes Config)](配置表(JSON)/CraftingRecipes/README.md) | `config` | `active` | `config_crafting` | 12 | 完整 |
@@ -303,7 +306,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 15 | 完整 |
 | [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 7 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
-| [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 12 | 完整 |
+| [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 16 | 完整 |
 | [美术流水线总览](美术文档/00_美术流水线总览.md) | `art` | `active` | `art_pipeline` | 8 | 完整 |
 | [Manifest 规范](美术文档/01_Manifest规范.md) | `art` | `active` | `art_manifest` | 6 | 完整 |
 | [资源规格与接入规范](美术文档/02_资源规格与接入规范.md) | `art` | `active` | `art_asset_spec` | 9 | 完整 |
@@ -313,14 +316,14 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Unity 运行时美术验收工具需求与交付状态](美术文档/08_Unity运行时美术验收工具需求.md) | `art` | `historical` | `runtime_art_validation` | 3 | 完整 |
 | [运行时美术验收记录](美术文档/09_运行时美术验收记录.md) | `art` | `active` | `runtime_art_validation` | 5 | 完整 |
 | [正式版核心纵切美术路线](美术文档/10_正式版核心纵切美术路线.md) | `art` | `active` | `formal_art_route` | 17 | 完整 |
-| [正式纵切 UI 与素材覆盖矩阵](美术文档/13_正式纵切UI与素材覆盖矩阵.md) | `art` | `active` | `ui_design` | 18 | 完整 |
+| [正式纵切 UI 与素材覆盖矩阵](美术文档/13_正式纵切UI与素材覆盖矩阵.md) | `art` | `active` | `ui_design` | 20 | 完整 |
 | [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 11 | 完整 |
 | [MVP 素材接入状态同步](美术文档/archive/06_MVP素材接入状态同步.md) | `art` | `historical` | `mvp_art_archive` | 2 | 完整 |
 | [MVP UI 重新设计同步](美术文档/archive/07_MVP_UI重新设计同步.md) | `art` | `historical` | `mvp_ui_archive` | 2 | 完整 |
 | [P0 UI 骨架接入交付](美术文档/archive/11_P0_UI骨架接入交付.md) | `art` | `historical` | `ui_handoff` | 7 | 完整 |
 | [P1 Formal V1 UI 接入准备](美术文档/archive/12_P1_UI骨架接入准备.md) | `art` | `historical` | `ui_handoff` | 7 | 完整 |
 | [美术归档文档](美术文档/archive/README.md) | `art` | `active` | `art_archive` | 3 | 完整 |
-| [UI 设计流水线](美术文档/ui_design/README.md) | `art` | `active` | `art_pipeline` | 19 | 完整 |
+| [UI 设计流水线](美术文档/ui_design/README.md) | `art` | `active` | `art_pipeline` | 20 | 完整 |
 | [战斗界面 Formal V1](美术文档/ui_design/formal_v1/combat_hud_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
 | [每日账单报告界面 Formal V1](美术文档/ui_design/formal_v1/daily_bill_report_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
 | [人偶交互界面 Formal V1](美术文档/ui_design/formal_v1/doll_interaction_v1.md) | `art` | `draft` | `ui_design` | 4 | 完整 |
