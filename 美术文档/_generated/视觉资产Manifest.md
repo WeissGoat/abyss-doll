@@ -18,7 +18,7 @@
 | `monster` | 8 |
 | `node` | 4 |
 | `prosthetic` | 2 |
-| `ui` | 35 |
+| `ui` | 43 |
 
 ## 资产列表
 
@@ -75,9 +75,9 @@
 | `ui` | `combat_status_bar_hp` | 生命状态条 | `bar` | `ui_combat_status_bar_hp` | P1 | `approved` |
 | `ui` | `combat_status_bar_shield` | 护盾状态条 | `bar` | `ui_combat_status_bar_shield` | P1 | `approved` |
 | `ui` | `combat_target_ring` | 战斗目标选择光环 | `ring` | `ui_combat_target_ring` | P1 | `approved` |
-| `ui` | `icon_bill` | 账单图标 | `icon` | `ui_icon_bill` | P1 | `prompted` |
-| `ui` | `icon_maintenance` | 维护状态图标 | `icon` | `ui_icon_maintenance` | P1 | `prompted` |
-| `ui` | `icon_warning` | 警告图标 | `icon` | `ui_icon_warning` | P1 | `prompted` |
+| `ui` | `icon_bill` | 账单图标 | `icon` | `ui_icon_bill` | P1 | `approved` |
+| `ui` | `icon_maintenance` | 维护状态图标 | `icon` | `ui_icon_maintenance` | P1 | `approved` |
+| `ui` | `icon_warning` | 警告图标 | `icon` | `ui_icon_warning` | P1 | `approved` |
 | `ui` | `inventory_chassis_panel` | 背包底盘面板 | `panel` | `ui_inventory_chassis_panel` | P1 | `approved` |
 | `ui` | `inventory_slot_available` | 背包可用格 | `slot` | `ui_inventory_slot_available` | P1 | `approved` |
 | `ui` | `inventory_slot_hover` | 背包悬停格 | `slot` | `ui_inventory_slot_hover` | P1 | `approved` |
@@ -92,9 +92,17 @@
 | `ui` | `combat_turn_banner` | 回合提示条 | `banner` | `ui_combat_turn_banner` | P2 | `approved` |
 | `ui` | `dungeon_node_plate` | 地图节点底板 | `frame` | `ui_dungeon_node_plate` | P2 | `approved` |
 | `ui` | `dungeon_route_line` | 地图路线连接线 | `divider` | `ui_dungeon_route_line` | P2 | `approved` |
+| `ui` | `icon_black_market` | 黑市渠道图标 | `icon` | `ui_icon_black_market` | P2 | `todo` |
+| `ui` | `icon_deadline` | 截止日图标 | `icon` | `ui_icon_deadline` | P2 | `todo` |
 | `ui` | `icon_equipped` | 已装备图标 | `icon` | `ui_icon_equipped` | P2 | `approved` |
+| `ui` | `icon_faction` | 势力图标 | `icon` | `ui_icon_faction` | P2 | `todo` |
 | `ui` | `icon_locked` | 锁定图标 | `icon` | `ui_icon_locked` | P2 | `approved` |
 | `ui` | `icon_money` | 金币图标 | `icon` | `ui_icon_money` | P2 | `approved` |
+| `ui` | `icon_order` | 订单图标 | `icon` | `ui_icon_order` | P2 | `todo` |
+| `ui` | `icon_price_down` | 价格下跌图标 | `icon` | `ui_icon_price_down` | P2 | `todo` |
+| `ui` | `icon_price_up` | 价格上涨图标 | `icon` | `ui_icon_price_up` | P2 | `todo` |
+| `ui` | `icon_rumor` | 传闻图标 | `icon` | `ui_icon_rumor` | P2 | `todo` |
+| `ui` | `icon_shop_channel` | 出货渠道图标 | `icon` | `ui_icon_shop_channel` | P2 | `todo` |
 | `ui` | `list_row_normal` | 列表行底板 | `panel` | `ui_list_row_normal` | P2 | `approved` |
 | `ui` | `list_row_selected` | 选中列表行底板 | `panel` | `ui_list_row_selected` | P2 | `approved` |
 | `ui` | `settlement_defeat_panel` | 战败结算面板 | `panel` | `ui_settlement_defeat_panel` | P2 | `approved` |
@@ -103,5 +111,5 @@
 
 ## 下一步
 
-1. 对 `Status=prompted` 的条目按批次生成图片。
-2. 生成后填写 `BatchID` 和 `RawPath`，并将状态改为 `generated`。
+1. 对 `Status=todo` 的新增项补全 `PromptCN`、`PromptEN`、`NegativePromptEN` 和结构化 `Spec`。
+2. 完成后运行 `tools/美术工具/Generate-ArtPrompts.ps1` 或人工审阅提示词。

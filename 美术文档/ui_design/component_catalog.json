@@ -20,7 +20,10 @@
         "safe_room",
         "stairs_room",
         "maintenance_panel",
-        "daily_bill_report"
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board"
       ],
       "ProgramUse": "用于大弹窗和主内容容器。Unity Image Type 使用 Sliced，不烘焙标题和正文。"
     },
@@ -42,7 +45,10 @@
         "safe_room",
         "stairs_room",
         "maintenance_panel",
-        "daily_bill_report"
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board"
       ],
       "ProgramUse": "用于状态摘要、说明区和小块信息承托。"
     },
@@ -69,7 +75,10 @@
         "safe_room",
         "stairs_room",
         "maintenance_panel",
-        "daily_bill_report"
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board"
       ],
       "ProgramUse": "用于出发、确认、继续等正向操作。文字由 Text 组件叠加。"
     },
@@ -96,7 +105,10 @@
         "safe_room",
         "stairs_room",
         "maintenance_panel",
-        "daily_bill_report"
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board"
       ],
       "ProgramUse": "用于返回、关闭、取消等次级操作。"
     },
@@ -119,7 +131,9 @@
         "safe_room",
         "stairs_room",
         "maintenance_panel",
-        "daily_bill_report"
+        "daily_bill_report",
+        "shop_staging",
+        "order_board"
       ],
       "ProgramUse": "用于丢弃、卖出、撤离等高风险操作。"
     },
@@ -139,7 +153,10 @@
         "layer_select",
         "settlement",
         "maintenance_panel",
-        "daily_bill_report"
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board"
       ],
       "ProgramUse": "用于可滚动列表项底板。"
     },
@@ -157,7 +174,10 @@
         "sell_panel",
         "prosthetic_panel",
         "layer_select",
-        "daily_bill_report"
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board"
       ],
       "ProgramUse": "用于当前选择项或焦点项底板。"
     },
@@ -429,7 +449,10 @@
         "settlement",
         "workshop_main",
         "maintenance_panel",
-        "daily_bill_report"
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board"
       ],
       "ProgramUse": "金币、价格、价值显示的小图标。"
     },
@@ -480,7 +503,10 @@
         "prosthetic_panel",
         "layer_select",
         "maintenance_panel",
-        "daily_bill_report"
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board"
       ],
       "ProgramUse": "标题和正文之间的装饰分隔线，不承载文字，不拦截射线。"
     },
@@ -527,9 +553,133 @@
       ],
       "RequiredForScreens": [
         "maintenance_panel",
-        "daily_bill_report"
+        "daily_bill_report",
+        "shop_staging",
+        "order_board",
+        "rumor_board"
       ],
       "ProgramUse": "维护风险、欠债风险、不可下潜、材料不足等警告状态图标。"
+    },
+    {
+      "ComponentID": "Icon.ShopChannel",
+      "DisplayName": "出货渠道图标",
+      "VisualID": "ui_icon_shop_channel",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "shop_staging"
+      ],
+      "ProgramUse": "普通柜台、寄售槽、出货渠道和营业分配入口的小图标。"
+    },
+    {
+      "ComponentID": "Icon.BlackMarket",
+      "DisplayName": "黑市渠道图标",
+      "VisualID": "ui_icon_black_market",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "shop_staging"
+      ],
+      "ProgramUse": "黑市、违禁品、背叛或高风险收益渠道的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Order",
+      "DisplayName": "订单图标",
+      "VisualID": "ui_icon_order",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "shop_staging",
+        "order_board"
+      ],
+      "ProgramUse": "势力订单、交付目标、订单槽位和委托入口的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Faction",
+      "DisplayName": "势力图标",
+      "VisualID": "ui_icon_faction",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "order_board"
+      ],
+      "ProgramUse": "势力来源、声望变化、委托方和奖励归属的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Deadline",
+      "DisplayName": "截止日图标",
+      "VisualID": "ui_icon_deadline",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "order_board"
+      ],
+      "ProgramUse": "订单截止日、剩余天数和时间压力的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Rumor",
+      "DisplayName": "传闻图标",
+      "VisualID": "ui_icon_rumor",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "rumor_board"
+      ],
+      "ProgramUse": "每日传闻、深渊情报、市场消息和推荐目标的小图标。"
+    },
+    {
+      "ComponentID": "Icon.PriceUp",
+      "DisplayName": "价格上涨图标",
+      "VisualID": "ui_icon_price_up",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "rumor_board"
+      ],
+      "ProgramUse": "价格上涨、热销、需求增加和收益提升的小图标。"
+    },
+    {
+      "ComponentID": "Icon.PriceDown",
+      "DisplayName": "价格下跌图标",
+      "VisualID": "ui_icon_price_down",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "rumor_board"
+      ],
+      "ProgramUse": "价格下跌、滞销、需求降低和收益衰减的小图标。"
     }
   ]
 }

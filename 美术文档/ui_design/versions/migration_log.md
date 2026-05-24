@@ -14,6 +14,9 @@ related:
   - 美术文档/ui_design/versions/formal_v1_candidate/README.md
   - 美术文档/ui_design/formal_v1/maintenance_panel_v1.md
   - 美术文档/ui_design/formal_v1/daily_bill_report_v1.md
+  - 美术文档/ui_design/formal_v1/order_board_v1.md
+  - 美术文档/ui_design/formal_v1/rumor_board_v1.md
+  - 美术文档/ui_design/formal_v1/shop_staging_v1.md
 last_verified: 2026-05-24
 update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或运行时验收后同步本文件。
 ---
@@ -51,6 +54,9 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 | `stairs_room` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：阶梯房间、下一层风险、撤离/深入决策和背包整理。 |
 | `maintenance_panel` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：机体维护、磨损/侵蚀、维护费用、材料缺口和下潜许可检查。 |
 | `daily_bill_report` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：每日收支、未售出物、维护/租金压力和欠债风险。 |
+| `shop_staging` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：仓库出货分配、普通渠道、订单渠道、黑市渠道和收益风险预览。 |
+| `order_board` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：势力订单列表、目标物、截止日、奖励预览和接取/提交动作。 |
+| `rumor_board` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：今日传闻、价格涨跌、选中详情和推荐行动。 |
 
 ---
 
@@ -114,3 +120,10 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 * `daily_bill_report` 作为 A4 经济压力账单界面进入 active 规格，拆分 `bill_summary_panel`、`pressure_warning_panel`、`unsold_goods_panel`、`income_expense_list` 和 `bill_action_panel`。
 * 新增 `ui_icon_maintenance`、`ui_icon_bill`、`ui_icon_warning` 三个 preset UI 图标需求，用于维护、账单和风险提示。
 * 两个界面都复用 `bg_workshop_day` 与通用面板/按钮/列表组件，不新增整张不可拆账单或维护背景。
+
+### 2026-05-24：A4 出货、订单与传闻写入 Formal V1 active 规格
+
+* `shop_staging` 作为 A4 经济压力出货分配界面进入 active 规格，拆分 `storage_item_list`、`channel_lane_board`、`staging_preview_panel`、`staging_action_panel` 和 `staging_bottom_hint`。
+* `order_board` 作为 A4 势力订单板界面进入 active 规格，拆分 `order_list_panel`、`order_detail_panel`、`order_reward_panel` 和 `order_action_panel`。
+* `rumor_board` 作为 A4 时间 / 传闻决策界面进入 active 规格，拆分 `today_rumor_list`、`price_wave_panel`、`rumor_detail_panel`、`recommendation_panel` 和 `rumor_bottom_hint`。
+* 新增 `ui_icon_shop_channel`、`ui_icon_black_market`、`ui_icon_order`、`ui_icon_faction`、`ui_icon_deadline`、`ui_icon_rumor`、`ui_icon_price_up`、`ui_icon_price_down` 八个 preset UI 图标需求，后续按 Manifest / Prompt 流程串行跑图。

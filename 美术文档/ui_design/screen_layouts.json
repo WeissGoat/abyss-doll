@@ -4574,6 +4574,1385 @@
         "继续下一天是主行动，返回工坊/出售是次行动，延后付款是危险行动。",
         "日期、价格、收入、支出、物品名和风险原因全部由 Unity Text 渲染，图片中不包含文字或数字。"
       ]
+    },
+    {
+      "ScreenID": "shop_staging",
+      "DisplayName": "出货分配界面",
+      "Priority": "P2",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "new_formal_v1",
+      "BackgroundVisualID": "bg_workshop_day",
+      "PrimaryGoal": "把仓库出货从单纯出售扩展为正式的出货分配：玩家能把物品分配到柜台、订单、黑市或暂存，并理解收益、风险和截止日。",
+      "RequiredComponents": [
+        "Panel.Main",
+        "Panel.Info",
+        "Button.Primary",
+        "Button.Secondary",
+        "Button.Danger",
+        "List.Row.Normal",
+        "List.Row.Selected",
+        "Icon.Money",
+        "Icon.Warning",
+        "Icon.ShopChannel",
+        "Icon.BlackMarket",
+        "Icon.Order",
+        "Title.Divider"
+      ],
+      "RequiredVisualIDs": [
+        "bg_workshop_day",
+        "ui_panel_main",
+        "ui_panel_info",
+        "ui_button_primary",
+        "ui_button_secondary",
+        "ui_button_danger",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_money",
+        "ui_icon_warning",
+        "ui_icon_shop_channel",
+        "ui_icon_black_market",
+        "ui_icon_order",
+        "ui_title_divider"
+      ],
+      "Zones": [
+        {
+          "ZoneID": "shop_staging_background",
+          "Purpose": "复用工坊背景，表示局外营业前的出货整理场景。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
+          "ComponentRefs": [],
+          "Notes": "背景不烘焙柜台文字、价格或订单信息。"
+        },
+        {
+          "ZoneID": "shop_staging_card",
+          "Purpose": "出货分配主容器，承载仓库、渠道、订单槽和收益风险预览。",
+          "Anchor": "center",
+          "Rect": {
+            "X": 220,
+            "Y": 90,
+            "Width": 1480,
+            "Height": 900
+          },
+          "ComponentRefs": [
+            "Panel.Main"
+          ],
+          "Notes": "弹窗级界面，出货分配作为每日营业前或订单提交前的正式步骤。"
+        },
+        {
+          "ZoneID": "shop_staging_header",
+          "Purpose": "标题、日期、金币、渠道图标、警告摘要和分隔线。",
+          "Anchor": "top_center",
+          "Rect": {
+            "X": 280,
+            "Y": 130,
+            "Width": 1360,
+            "Height": 110
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.ShopChannel",
+            "Icon.Money",
+            "Icon.Warning",
+            "Title.Divider"
+          ],
+          "Notes": "Day/Week/Month、金币和风险摘要由 Unity Text 渲染。"
+        },
+        {
+          "ZoneID": "storage_item_list",
+          "Purpose": "可出货仓库列表，显示物品、数量、基础估值、标签和是否违禁。",
+          "Anchor": "left_middle",
+          "Rect": {
+            "X": 280,
+            "Y": 270,
+            "Width": 470,
+            "Height": 560
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Normal",
+            "List.Row.Selected",
+            "Icon.Warning",
+            "Icon.Money"
+          ],
+          "Notes": "物品图标通过已有 item_*_icon 显示。"
+        },
+        {
+          "ZoneID": "channel_lane_board",
+          "Purpose": "出货渠道列：柜台、订单、黑市和暂存，每列显示容量、收益倍率和风险。",
+          "Anchor": "center_middle",
+          "Rect": {
+            "X": 790,
+            "Y": 270,
+            "Width": 520,
+            "Height": 560
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Normal",
+            "Icon.ShopChannel",
+            "Icon.Order",
+            "Icon.BlackMarket",
+            "Icon.Warning"
+          ],
+          "Notes": "第一版可用固定 lane 容器，不要求拖拽动画。"
+        },
+        {
+          "ZoneID": "staging_preview_panel",
+          "Purpose": "当前选中物品或渠道的收益、声望、截止日、隔夜代价和风险说明。",
+          "Anchor": "right_middle",
+          "Rect": {
+            "X": 1350,
+            "Y": 270,
+            "Width": 290,
+            "Height": 420
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Money",
+            "Icon.Warning"
+          ],
+          "Notes": "只承载摘要，不替代订单详情页。"
+        },
+        {
+          "ZoneID": "staging_action_panel",
+          "Purpose": "确认出货、重置分配、移入黑市、返回工坊等动作。",
+          "Anchor": "bottom_right",
+          "Rect": {
+            "X": 1350,
+            "Y": 720,
+            "Width": 290,
+            "Height": 170
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Button.Primary",
+            "Button.Secondary",
+            "Button.Danger"
+          ],
+          "Notes": "Confirm Staging 是主行动；Black Market / Discard 归入危险行动。"
+        },
+        {
+          "ZoneID": "staging_bottom_hint",
+          "Purpose": "容量、未分配物、今日营业收益预测和阻塞原因。",
+          "Anchor": "bottom_center",
+          "Rect": {
+            "X": 280,
+            "Y": 850,
+            "Width": 1030,
+            "Height": 100
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Money",
+            "Icon.Warning"
+          ],
+          "Notes": "用于把出货分配和每日账单连接起来。"
+        }
+      ],
+      "ProgramHandoff": {
+        "LayoutChanges": [
+          "新增 ShopStagingPanel_Runtime 或同等容器，作为 sell_panel 和 daily_bill_report 之间的出货分配界面。",
+          "左侧保留仓库列表，中间使用固定渠道 lane，右侧显示当前选择的收益风险预览。",
+          "黑市和订单只作为渠道槽位表达，不承载完整势力商店或订单剧情。"
+        ],
+        "DataBindings": [
+          "仓库物品、估值、数量、标签、违禁状态、渠道容量、收益倍率、风险和未分配数量由 Unity Text / ItemIcon 渲染。",
+          "ui_icon_shop_channel 表示普通出货渠道，ui_icon_black_market 表示黑市风险渠道，ui_icon_order 表示订单渠道。",
+          "Confirm Staging 只提交分配结果，金币、声望、风险和隔夜代价由经济/订单服务处理。"
+        ],
+        "InteractionNotes": [
+          "背景、面板、分隔线和图标默认 raycastTarget=false。",
+          "仓库列表行可点击选择；渠道 lane 可以先用按钮式分配，后续再升级拖拽。",
+          "危险渠道按钮使用 Button.Danger。"
+        ]
+      },
+      "ControllerBindings": [
+        {
+          "Script": "ShopStagingUIController",
+          "ExistingFields": [
+            "rootPanel",
+            "storageListRoot",
+            "channelLaneRoot",
+            "previewText",
+            "confirmBtn",
+            "resetBtn",
+            "blackMarketBtn",
+            "closeBtn"
+          ],
+          "BindingNotes": [
+            "控制出货分配界面显示、选择、渠道分配和提交结果。",
+            "若当前还没有独立控制器，可先由 SellPanel/Workshop 流程打开，但分配结果不要写死在 UI。"
+          ]
+        },
+        {
+          "Script": "EconomyFlowController / OrderFlowController",
+          "ExistingFields": [
+            "currentMoney",
+            "warehouseItems",
+            "activeOrders"
+          ],
+          "BindingNotes": [
+            "提供仓库、订单、收益、风险和提交后的经济结算接口。"
+          ]
+        }
+      ],
+      "UnityHierarchy": [
+        {
+          "Path": "ShopStagingPanel_Runtime/Background_Image",
+          "Layer": "Background",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/HeaderPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/HeaderPanel/ShopChannelIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.ShopChannel",
+          "VisualID": "ui_icon_shop_channel",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/HeaderPanel/MoneyIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Money",
+          "VisualID": "ui_icon_money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/HeaderPanel/TitleDivider_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/StorageItemListPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/StorageItemListPanel/ItemRow_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/ChannelLaneBoard",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/ChannelLaneBoard/CounterLaneIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.ShopChannel",
+          "VisualID": "ui_icon_shop_channel",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/ChannelLaneBoard/OrderLaneIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Order",
+          "VisualID": "ui_icon_order",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/ChannelLaneBoard/BlackMarketLaneIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.BlackMarket",
+          "VisualID": "ui_icon_black_market",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/PreviewPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/ActionPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/ActionPanel/Confirm_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/ActionPanel/Reset_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/ActionPanel/BlackMarket_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "ShopStagingPanel_Runtime/StagingCard_Image/BottomHintPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        }
+      ],
+      "SpriteAssignments": [
+        {
+          "Target": "Background_Image",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "StagingCard_Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "HeaderPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "ShopChannelIcon_Image",
+          "ComponentRef": "Icon.ShopChannel",
+          "VisualID": "ui_icon_shop_channel",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "OrderLaneIcon_Image",
+          "ComponentRef": "Icon.Order",
+          "VisualID": "ui_icon_order",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "BlackMarketLaneIcon_Image",
+          "ComponentRef": "Icon.BlackMarket",
+          "VisualID": "ui_icon_black_market",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "MoneyIcon_Image",
+          "ComponentRef": "Icon.Money",
+          "VisualID": "ui_icon_money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "ItemRow_Template.Image",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SelectedItemRow.Image",
+          "ComponentRef": "List.Row.Selected",
+          "VisualID": "ui_list_row_selected",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "Confirm_Button.Image",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "Reset_Button.Image",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "BlackMarket_Button.Image",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "AcceptanceCriteria": [
+        "打开出货分配界面后，仓库列表、渠道 lane、当前收益风险预览和确认动作必须同时可见。",
+        "普通柜台、订单、黑市、暂存四类去向视觉上可区分，但不把文字烘焙进图片。",
+        "黑市或违禁风险必须能通过 warning / danger 视觉表达，不能和普通出售混淆。",
+        "所有价格、数量、物品名、订单名、截止日和风险说明都由 Unity Text 渲染。",
+        "列表行和渠道容器不阻挡按钮射线；后续拖拽接入时不得破坏仓库 ScrollRect。"
+      ]
+    },
+    {
+      "ScreenID": "order_board",
+      "DisplayName": "势力订单板界面",
+      "Priority": "P2",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "new_formal_v1",
+      "BackgroundVisualID": "bg_workshop_day",
+      "PrimaryGoal": "把势力订单做成正式的目标选择界面：玩家能比较订单目标、截止日、所需物品、奖励、声望和失败风险。",
+      "RequiredComponents": [
+        "Panel.Main",
+        "Panel.Info",
+        "Button.Primary",
+        "Button.Secondary",
+        "Button.Danger",
+        "List.Row.Normal",
+        "List.Row.Selected",
+        "Icon.Order",
+        "Icon.Faction",
+        "Icon.Deadline",
+        "Icon.Money",
+        "Icon.Warning",
+        "Title.Divider"
+      ],
+      "RequiredVisualIDs": [
+        "bg_workshop_day",
+        "ui_panel_main",
+        "ui_panel_info",
+        "ui_button_primary",
+        "ui_button_secondary",
+        "ui_button_danger",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_order",
+        "ui_icon_faction",
+        "ui_icon_deadline",
+        "ui_icon_money",
+        "ui_icon_warning",
+        "ui_title_divider"
+      ],
+      "Zones": [
+        {
+          "ZoneID": "order_board_background",
+          "Purpose": "复用工坊背景，表现工坊里的委托公告板或订单台。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
+          "ComponentRefs": [],
+          "Notes": "背景不包含势力名、订单文字或价格。"
+        },
+        {
+          "ZoneID": "order_board_card",
+          "Purpose": "订单板主容器，承载订单列表、详情、目标物、奖励和动作。",
+          "Anchor": "center",
+          "Rect": {
+            "X": 260,
+            "Y": 90,
+            "Width": 1400,
+            "Height": 900
+          },
+          "ComponentRefs": [
+            "Panel.Main"
+          ],
+          "Notes": "A4 经济与势力订单入口，不等同于完整 faction_shop。"
+        },
+        {
+          "ZoneID": "order_header",
+          "Purpose": "标题、势力图标、刷新时间、订单容量和分隔线。",
+          "Anchor": "top_center",
+          "Rect": {
+            "X": 320,
+            "Y": 130,
+            "Width": 1280,
+            "Height": 110
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Order",
+            "Icon.Faction",
+            "Title.Divider"
+          ],
+          "Notes": "订单刷新时间和数量由程序文本渲染。"
+        },
+        {
+          "ZoneID": "order_list_panel",
+          "Purpose": "可接取订单列表，显示势力、稀有度、截止日、目标摘要和状态。",
+          "Anchor": "left_middle",
+          "Rect": {
+            "X": 320,
+            "Y": 270,
+            "Width": 500,
+            "Height": 610
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Normal",
+            "List.Row.Selected",
+            "Icon.Faction",
+            "Icon.Deadline",
+            "Icon.Warning"
+          ],
+          "Notes": "列表行可选中，高风险/即将过期订单使用 warning。"
+        },
+        {
+          "ZoneID": "order_detail_panel",
+          "Purpose": "选中订单的目标物、交付数量、奖励、声望变化、失败代价和备注。",
+          "Anchor": "right_middle",
+          "Rect": {
+            "X": 860,
+            "Y": 270,
+            "Width": 470,
+            "Height": 610
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Order",
+            "Icon.Money",
+            "Icon.Warning",
+            "Title.Divider"
+          ],
+          "Notes": "目标物图标用已有 item_*_icon，文字由程序渲染。"
+        },
+        {
+          "ZoneID": "order_reward_panel",
+          "Purpose": "金币、材料、声望、解锁提示和订单链进度。",
+          "Anchor": "right_top",
+          "Rect": {
+            "X": 1360,
+            "Y": 270,
+            "Width": 240,
+            "Height": 260
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Money",
+            "Icon.Faction"
+          ],
+          "Notes": "第一版只做摘要，不承载完整势力商店。"
+        },
+        {
+          "ZoneID": "order_action_panel",
+          "Purpose": "接单、提交、放弃、返回和刷新动作。",
+          "Anchor": "right_bottom",
+          "Rect": {
+            "X": 1360,
+            "Y": 560,
+            "Width": 240,
+            "Height": 320
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Button.Primary",
+            "Button.Secondary",
+            "Button.Danger"
+          ],
+          "Notes": "Accept/Submit 为主行动，Abandon 是危险行动。"
+        }
+      ],
+      "ProgramHandoff": {
+        "LayoutChanges": [
+          "新增 OrderBoardPanel_Runtime 或同等容器，作为 A4 订单系统的正式 UI 入口。",
+          "左侧订单列表，右侧订单详情，最右侧奖励和动作，避免把所有订单做成过大的卡片墙。",
+          "订单目标物复用物品图标，不新增订单专用物品图。"
+        ],
+        "DataBindings": [
+          "订单 ID、势力、截止日、目标物、需求数量、奖励、声望、状态和失败代价由订单服务提供并由 Unity Text 渲染。",
+          "ui_icon_order 表示订单本体，ui_icon_faction 表示势力来源，ui_icon_deadline 表示时间压力。",
+          "接取、提交、放弃动作只触发服务调用，UI 不直接修改物品归属、金币或声望。"
+        ],
+        "InteractionNotes": [
+          "列表行和详情面板默认可滚动，底图不阻挡 ScrollRect。",
+          "Abandon / Betray 等高风险动作统一使用 Button.Danger。",
+          "订单详情可以先使用静态布局，后续再补势力徽记品质和交付动画。"
+        ]
+      },
+      "ControllerBindings": [
+        {
+          "Script": "OrderBoardUIController",
+          "ExistingFields": [
+            "rootPanel",
+            "orderListRoot",
+            "orderDetailPanel",
+            "rewardPanel",
+            "acceptBtn",
+            "submitBtn",
+            "abandonBtn",
+            "closeBtn"
+          ],
+          "BindingNotes": [
+            "负责订单列表刷新、选中态、详情显示和按钮可用态。",
+            "所有订单规则和奖励结算走订单服务，不写在 UI Controller。"
+          ]
+        },
+        {
+          "Script": "OrderService / FactionReputationService",
+          "ExistingFields": [
+            "activeOrders",
+            "availableOrders",
+            "reputationState"
+          ],
+          "BindingNotes": [
+            "提供订单状态、交付校验、奖励预览和声望变化。"
+          ]
+        }
+      ],
+      "UnityHierarchy": [
+        {
+          "Path": "OrderBoardPanel_Runtime/Background_Image",
+          "Layer": "Background",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/HeaderPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/HeaderPanel/OrderIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Order",
+          "VisualID": "ui_icon_order",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/HeaderPanel/FactionIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Faction",
+          "VisualID": "ui_icon_faction",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/OrderListPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/OrderListPanel/OrderRow_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/OrderListPanel/SelectedOrderRow_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "List.Row.Selected",
+          "VisualID": "ui_list_row_selected",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/OrderListPanel/DeadlineIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Deadline",
+          "VisualID": "ui_icon_deadline",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/OrderDetailPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/OrderDetailPanel/MoneyIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Money",
+          "VisualID": "ui_icon_money",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/OrderDetailPanel/WarningIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Warning",
+          "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/RewardPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/ActionPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/ActionPanel/Accept_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/ActionPanel/Submit_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/ActionPanel/Close_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "OrderBoardPanel_Runtime/OrderBoardCard_Image/ActionPanel/Abandon_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "SpriteAssignments": [
+        {
+          "Target": "Background_Image",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "OrderBoardCard_Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "HeaderPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "OrderIcon_Image",
+          "ComponentRef": "Icon.Order",
+          "VisualID": "ui_icon_order",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "FactionIcon_Image",
+          "ComponentRef": "Icon.Faction",
+          "VisualID": "ui_icon_faction",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "DeadlineIcon_Image",
+          "ComponentRef": "Icon.Deadline",
+          "VisualID": "ui_icon_deadline",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "OrderRow_Template.Image",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SelectedOrderRow_Template.Image",
+          "ComponentRef": "List.Row.Selected",
+          "VisualID": "ui_list_row_selected",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "Accept_Button.Image",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "Submit_Button.Image",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "Close_Button.Image",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "Abandon_Button.Image",
+          "ComponentRef": "Button.Danger",
+          "VisualID": "ui_button_danger",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "AcceptanceCriteria": [
+        "打开订单板后，订单列表、选中订单详情、奖励预览、截止日和主要动作必须同时可见。",
+        "玩家能区分可接取、已接取、可提交、即将过期和高风险订单。",
+        "订单目标物使用物品图标和 Unity Text，不在订单图标里烘焙物品名或数字。",
+        "接取/提交是主行动，放弃/背叛类动作必须使用危险按钮样式。",
+        "UI 不直接改物品、金币、声望或截止日，只调用对应服务。"
+      ]
+    },
+    {
+      "ScreenID": "rumor_board",
+      "DisplayName": "传闻情报板界面",
+      "Priority": "P2",
+      "LayoutStatus": "active_spec",
+      "StructureVersion": "FormalV1",
+      "PreviousValidatedVersion": "new_formal_v1",
+      "BackgroundVisualID": "bg_workshop_day",
+      "PrimaryGoal": "把每日传闻、价格波动和深渊情报做成正式的局外决策入口：玩家能看到今天哪些物品涨跌、哪些节点更危险、下一次下潜该优先考虑什么。",
+      "RequiredComponents": [
+        "Panel.Main",
+        "Panel.Info",
+        "Button.Primary",
+        "Button.Secondary",
+        "List.Row.Normal",
+        "List.Row.Selected",
+        "Icon.Rumor",
+        "Icon.PriceUp",
+        "Icon.PriceDown",
+        "Icon.Warning",
+        "Icon.Money",
+        "Title.Divider"
+      ],
+      "RequiredVisualIDs": [
+        "bg_workshop_day",
+        "ui_panel_main",
+        "ui_panel_info",
+        "ui_button_primary",
+        "ui_button_secondary",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_rumor",
+        "ui_icon_price_up",
+        "ui_icon_price_down",
+        "ui_icon_warning",
+        "ui_icon_money",
+        "ui_title_divider"
+      ],
+      "Zones": [
+        {
+          "ZoneID": "rumor_board_background",
+          "Purpose": "复用工坊背景，表现局外情报板或公告台。",
+          "Anchor": "full_screen",
+          "Rect": {
+            "X": 0,
+            "Y": 0,
+            "Width": 1920,
+            "Height": 1080
+          },
+          "ComponentRefs": [],
+          "Notes": "背景只提供氛围，不包含可读文字。"
+        },
+        {
+          "ZoneID": "rumor_board_card",
+          "Purpose": "传闻情报主容器，承载今日摘要、传闻列表、价格波动和推荐目标。",
+          "Anchor": "center",
+          "Rect": {
+            "X": 280,
+            "Y": 90,
+            "Width": 1360,
+            "Height": 900
+          },
+          "ComponentRefs": [
+            "Panel.Main"
+          ],
+          "Notes": "A4 时间/传闻入口，承接日程和经济压力。"
+        },
+        {
+          "ZoneID": "rumor_header",
+          "Purpose": "标题、日期、传闻图标、市场状态和分隔线。",
+          "Anchor": "top_center",
+          "Rect": {
+            "X": 340,
+            "Y": 130,
+            "Width": 1240,
+            "Height": 110
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Rumor",
+            "Title.Divider"
+          ],
+          "Notes": "日期、市场状态和情报等级由 Unity Text 渲染。"
+        },
+        {
+          "ZoneID": "today_rumor_list",
+          "Purpose": "今日传闻列表，显示来源、可信度、影响对象和剩余天数。",
+          "Anchor": "left_middle",
+          "Rect": {
+            "X": 340,
+            "Y": 270,
+            "Width": 520,
+            "Height": 560
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Normal",
+            "List.Row.Selected",
+            "Icon.Rumor",
+            "Icon.Warning"
+          ],
+          "Notes": "可按可信度/系统类型分类；第一版只需列表和选中详情。"
+        },
+        {
+          "ZoneID": "price_wave_panel",
+          "Purpose": "价格涨跌区域，显示涨价物、跌价物、倍率和持续时间。",
+          "Anchor": "center_middle",
+          "Rect": {
+            "X": 900,
+            "Y": 270,
+            "Width": 360,
+            "Height": 560
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "List.Row.Normal",
+            "Icon.PriceUp",
+            "Icon.PriceDown",
+            "Icon.Money"
+          ],
+          "Notes": "涨跌箭头是图标，具体物品名、倍率和天数由文字渲染。"
+        },
+        {
+          "ZoneID": "rumor_detail_panel",
+          "Purpose": "选中传闻详情，显示可能影响的层级、节点、怪物、物品或订单。",
+          "Anchor": "right_top",
+          "Rect": {
+            "X": 1300,
+            "Y": 270,
+            "Width": 280,
+            "Height": 360
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Warning",
+            "Icon.Rumor"
+          ],
+          "Notes": "用于把传闻转化为下一次下潜目标。"
+        },
+        {
+          "ZoneID": "recommendation_panel",
+          "Purpose": "今日推荐目标、可操作入口和返回按钮。",
+          "Anchor": "right_bottom",
+          "Rect": {
+            "X": 1300,
+            "Y": 660,
+            "Width": 280,
+            "Height": 220
+          },
+          "ComponentRefs": [
+            "Panel.Main",
+            "Button.Primary",
+            "Button.Secondary",
+            "Icon.Rumor"
+          ],
+          "Notes": "Plan Expedition 是主行动，Close 是次级行动。"
+        },
+        {
+          "ZoneID": "rumor_bottom_hint",
+          "Purpose": "传闻有效期、可信度说明、经济风险和当前未处理事项。",
+          "Anchor": "bottom_center",
+          "Rect": {
+            "X": 340,
+            "Y": 850,
+            "Width": 920,
+            "Height": 100
+          },
+          "ComponentRefs": [
+            "Panel.Info",
+            "Icon.Warning"
+          ],
+          "Notes": "不要烘焙教程说明；只提供运行时文本容器。"
+        }
+      ],
+      "ProgramHandoff": {
+        "LayoutChanges": [
+          "新增 RumorBoardPanel_Runtime 或同等容器，作为 workshop_main 的传闻/价格波动入口。",
+          "左侧传闻列表，中间价格波动，右侧详情和推荐行动，避免把传闻散落在多个小弹窗。",
+          "第一版不要求完整新闻系统，只要求传闻、价格波和推荐目标有稳定 UI 槽位。"
+        ],
+        "DataBindings": [
+          "传闻标题、来源、可信度、影响对象、剩余天数、价格倍率和推荐目标由传闻/经济服务提供。",
+          "ui_icon_price_up / ui_icon_price_down 只表示涨跌方向，不烘焙数字或物品名。",
+          "Plan Expedition 可以跳转 layer_select / dungeon_map，具体路线推荐由探索系统处理。"
+        ],
+        "InteractionNotes": [
+          "列表行可选中；价格波动行默认不阻挡滚动。",
+          "传闻详情和推荐面板不直接修改地图、价格或订单，只展示和跳转。",
+          "高风险或低可信传闻用 warning 图标或运行时 tint 表达。"
+        ]
+      },
+      "ControllerBindings": [
+        {
+          "Script": "RumorBoardUIController",
+          "ExistingFields": [
+            "rootPanel",
+            "rumorListRoot",
+            "priceWaveRoot",
+            "detailPanel",
+            "planExpeditionBtn",
+            "closeBtn"
+          ],
+          "BindingNotes": [
+            "负责传闻列表、价格波动、选中详情和跳转按钮。",
+            "如果当前没有传闻服务，可以先显示经济/日期系统提供的最小数据，但不要把文字写进图片。"
+          ]
+        },
+        {
+          "Script": "RumorService / EconomyFlowController / DungeonRouteService",
+          "ExistingFields": [
+            "activeRumors",
+            "priceModifiers",
+            "recommendedLayer"
+          ],
+          "BindingNotes": [
+            "提供传闻、价格波和推荐目标的数据来源。"
+          ]
+        }
+      ],
+      "UnityHierarchy": [
+        {
+          "Path": "RumorBoardPanel_Runtime/Background_Image",
+          "Layer": "Background",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image/HeaderPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image/HeaderPanel/RumorIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Rumor",
+          "VisualID": "ui_icon_rumor",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image/HeaderPanel/TitleDivider_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Title.Divider",
+          "VisualID": "ui_title_divider",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image/TodayRumorListPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image/TodayRumorListPanel/RumorRow_Template",
+          "Layer": "MainPanel",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image/PriceWavePanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image/PriceWavePanel/PriceUpIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.PriceUp",
+          "VisualID": "ui_icon_price_up",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image/PriceWavePanel/PriceDownIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.PriceDown",
+          "VisualID": "ui_icon_price_down",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image/RumorDetailPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image/RumorDetailPanel/WarningIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.Warning",
+          "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image/RecommendationPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image/RecommendationPanel/PlanExpedition_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image/RecommendationPanel/Close_Button",
+          "Layer": "Controls",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Path": "RumorBoardPanel_Runtime/RumorBoardCard_Image/BottomHintPanel",
+          "Layer": "MainPanel",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        }
+      ],
+      "SpriteAssignments": [
+        {
+          "Target": "Background_Image",
+          "VisualID": "bg_workshop_day",
+          "ImageType": "Simple",
+          "FitMode": "cover",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "RumorBoardCard_Image",
+          "ComponentRef": "Panel.Main",
+          "VisualID": "ui_panel_main",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "HeaderPanel.Image",
+          "ComponentRef": "Panel.Info",
+          "VisualID": "ui_panel_info",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "RumorIcon_Image",
+          "ComponentRef": "Icon.Rumor",
+          "VisualID": "ui_icon_rumor",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "PriceUpIcon_Image",
+          "ComponentRef": "Icon.PriceUp",
+          "VisualID": "ui_icon_price_up",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "PriceDownIcon_Image",
+          "ComponentRef": "Icon.PriceDown",
+          "VisualID": "ui_icon_price_down",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "RumorRow_Template.Image",
+          "ComponentRef": "List.Row.Normal",
+          "VisualID": "ui_list_row_normal",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SelectedRumorRow_Template.Image",
+          "ComponentRef": "List.Row.Selected",
+          "VisualID": "ui_list_row_selected",
+          "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "WarningIcon_Image",
+          "ComponentRef": "Icon.Warning",
+          "VisualID": "ui_icon_warning",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "PlanExpedition_Button.Image",
+          "ComponentRef": "Button.Primary",
+          "VisualID": "ui_button_primary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        },
+        {
+          "Target": "Close_Button.Image",
+          "ComponentRef": "Button.Secondary",
+          "VisualID": "ui_button_secondary",
+          "ImageType": "Sliced",
+          "RaycastTarget": true
+        }
+      ],
+      "AcceptanceCriteria": [
+        "打开传闻板后，今日传闻、价格涨跌、选中详情和推荐行动必须同时可见。",
+        "涨价和跌价方向能通过图标区分，但倍率、物品名和有效期由 Unity Text 渲染。",
+        "高风险、低可信或即将过期的传闻能用 warning 图标或运行时 tint 表达。",
+        "Plan Expedition 只是跳转/规划入口，不直接修改地图节点或经济状态。",
+        "背景、面板、分隔线和图标不阻挡列表滚动或按钮点击。"
+      ]
     }
   ]
 }

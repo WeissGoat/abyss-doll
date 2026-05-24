@@ -3928,6 +3928,120 @@
       "SourceType": "preset",
       "DeriveRule": "art requirements seed preset",
       "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_black_market",
+      "DisplayName": "黑市渠道图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_black_market",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_black_market.png",
+      "Priority": "P2",
+      "Status": "prompted",
+      "SourceFactsCN": "预置 UI 图标：A4 出货分配需要稳定的黑市风险符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。黑市风险图标，暗黄铜面具或隐藏违禁品箱徽章，带低饱和红色点缀，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, black market risk symbol, dark brass mask or hidden contraband crate badge, muted red accent, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": "",
+      "PresetCategory": "ui_a4_icon",
+      "Screen": "shop_staging",
+      "Usage": "黑市、高风险收益、违禁品和背叛渠道"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_deadline",
+      "DisplayName": "截止日图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_deadline",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_deadline.png",
+      "Priority": "P2",
+      "Status": "prompted",
+      "SourceFactsCN": "预置 UI 图标：A4 订单系统需要统一截止日符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。截止日和时间压力图标，小型黄铜沙漏或时钟徽章，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, deadline and time pressure symbol, small brass hourglass or clock badge, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": "",
+      "PresetCategory": "ui_a4_icon",
+      "Screen": "order_board",
+      "Usage": "订单截止日、剩余天数和时间压力"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
       "ConfigID": "icon_equipped",
       "DisplayName": "已装备图标",
       "AssetType": "icon",
@@ -3979,6 +4093,63 @@
       "PresetCategory": "ui_skin",
       "Screen": "prosthetic_panel",
       "Usage": "义体制造列表已装备状态"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_faction",
+      "DisplayName": "势力图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_faction",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_faction.png",
+      "Priority": "P2",
+      "Status": "prompted",
+      "SourceFactsCN": "预置 UI 图标：A4 势力订单板需要统一势力归属符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。势力声望图标，黄铜纹章齿轮徽记，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, faction reputation symbol, brass heraldic gear crest, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": "",
+      "PresetCategory": "ui_a4_icon",
+      "Screen": "order_board",
+      "Usage": "势力来源、声望变化和委托方"
     },
     {
       "Domain": "ui",
@@ -4093,6 +4264,291 @@
       "PresetCategory": "ui_skin",
       "Screen": "global",
       "Usage": "出售、结算、价值显示"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_order",
+      "DisplayName": "订单图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_order",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_order.png",
+      "Priority": "P2",
+      "Status": "prompted",
+      "SourceFactsCN": "预置 UI 图标：势力订单和出货分配都需要统一订单符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。订单委托图标，钉住的委托单或盖章包裹徽章，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, commission order symbol, pinned request slip or stamped parcel badge, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": "",
+      "PresetCategory": "ui_a4_icon",
+      "Screen": "global",
+      "Usage": "订单、委托、交付目标和订单槽位"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_price_down",
+      "DisplayName": "价格下跌图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_price_down",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_price_down.png",
+      "Priority": "P2",
+      "Status": "prompted",
+      "SourceFactsCN": "预置 UI 图标：A4 价格波动需要下跌方向符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。降价图标，黄铜下箭头叠在硬币和齿轮徽章上，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, price decrease symbol, brass downward arrow over coin and gear badge, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": "",
+      "PresetCategory": "ui_a4_icon",
+      "Screen": "rumor_board",
+      "Usage": "价格下跌、需求降低和收益衰减"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_price_up",
+      "DisplayName": "价格上涨图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_price_up",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_price_up.png",
+      "Priority": "P2",
+      "Status": "prompted",
+      "SourceFactsCN": "预置 UI 图标：A4 价格波动需要上涨方向符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。涨价图标，黄铜上箭头叠在硬币和齿轮徽章上，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, price increase symbol, brass upward arrow over coin and gear badge, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": "",
+      "PresetCategory": "ui_a4_icon",
+      "Screen": "rumor_board",
+      "Usage": "价格上涨、需求增加和收益提升"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_rumor",
+      "DisplayName": "传闻图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_rumor",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_rumor.png",
+      "Priority": "P2",
+      "Status": "prompted",
+      "SourceFactsCN": "预置 UI 图标：A4 传闻板需要统一情报符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。传闻情报图标，折叠纸条搭配小听筒或低语符号，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, rumor and intel symbol, folded note with small listening horn or whisper mark, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": "",
+      "PresetCategory": "ui_a4_icon",
+      "Screen": "rumor_board",
+      "Usage": "每日传闻、深渊情报和市场消息"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_shop_channel",
+      "DisplayName": "出货渠道图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_shop_channel",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_shop_channel.png",
+      "Priority": "P2",
+      "Status": "prompted",
+      "SourceFactsCN": "预置 UI 图标：A4 出货分配需要稳定的普通渠道符号，配置表无法直接扫描。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。普通出货渠道图标，小型黄铜柜台或运输托盘徽章，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, ordinary shop or export channel symbol, small brass counter stall or shipping tray badge, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": "",
+      "PresetCategory": "ui_a4_icon",
+      "Screen": "shop_staging",
+      "Usage": "普通柜台、寄售槽、营业出货渠道和分配入口"
     },
     {
       "Domain": "ui",

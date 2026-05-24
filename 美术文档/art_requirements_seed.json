@@ -560,6 +560,111 @@
       "Screen": "global",
       "Usage": "维护风险、欠债风险、不可下潜和危险提示",
       "SourceFactsCN": "预置 UI 图标：多个正式 UI 需要统一警告符号，配置表无法直接扫描。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_a4_icon",
+      "ConfigID": "icon_shop_channel",
+      "DisplayName": "出货渠道图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_shop_channel",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_shop_channel.png",
+      "Priority": "P2",
+      "Screen": "shop_staging",
+      "Usage": "普通柜台、寄售槽、营业出货渠道和分配入口",
+      "SourceFactsCN": "预置 UI 图标：A4 出货分配需要稳定的普通渠道符号，配置表无法直接扫描。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_a4_icon",
+      "ConfigID": "icon_black_market",
+      "DisplayName": "黑市渠道图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_black_market",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_black_market.png",
+      "Priority": "P2",
+      "Screen": "shop_staging",
+      "Usage": "黑市、高风险收益、违禁品和背叛渠道",
+      "SourceFactsCN": "预置 UI 图标：A4 出货分配需要稳定的黑市风险符号，配置表无法直接扫描。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_a4_icon",
+      "ConfigID": "icon_order",
+      "DisplayName": "订单图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_order",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_order.png",
+      "Priority": "P2",
+      "Screen": "global",
+      "Usage": "订单、委托、交付目标和订单槽位",
+      "SourceFactsCN": "预置 UI 图标：势力订单和出货分配都需要统一订单符号，配置表无法直接扫描。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_a4_icon",
+      "ConfigID": "icon_faction",
+      "DisplayName": "势力图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_faction",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_faction.png",
+      "Priority": "P2",
+      "Screen": "order_board",
+      "Usage": "势力来源、声望变化和委托方",
+      "SourceFactsCN": "预置 UI 图标：A4 势力订单板需要统一势力归属符号，配置表无法直接扫描。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_a4_icon",
+      "ConfigID": "icon_deadline",
+      "DisplayName": "截止日图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_deadline",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_deadline.png",
+      "Priority": "P2",
+      "Screen": "order_board",
+      "Usage": "订单截止日、剩余天数和时间压力",
+      "SourceFactsCN": "预置 UI 图标：A4 订单系统需要统一截止日符号，配置表无法直接扫描。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_a4_icon",
+      "ConfigID": "icon_rumor",
+      "DisplayName": "传闻图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_rumor",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_rumor.png",
+      "Priority": "P2",
+      "Screen": "rumor_board",
+      "Usage": "每日传闻、深渊情报和市场消息",
+      "SourceFactsCN": "预置 UI 图标：A4 传闻板需要统一情报符号，配置表无法直接扫描。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_a4_icon",
+      "ConfigID": "icon_price_up",
+      "DisplayName": "价格上涨图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_price_up",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_price_up.png",
+      "Priority": "P2",
+      "Screen": "rumor_board",
+      "Usage": "价格上涨、需求增加和收益提升",
+      "SourceFactsCN": "预置 UI 图标：A4 价格波动需要上涨方向符号，配置表无法直接扫描。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_a4_icon",
+      "ConfigID": "icon_price_down",
+      "DisplayName": "价格下跌图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_price_down",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_price_down.png",
+      "Priority": "P2",
+      "Screen": "rumor_board",
+      "Usage": "价格下跌、需求降低和收益衰减",
+      "SourceFactsCN": "预置 UI 图标：A4 价格波动需要下跌方向符号，配置表无法直接扫描。"
     }
-  ]
+  ],
+  "UpdatedAt": "2026-05-24"
 }

@@ -5,8 +5,8 @@
 ## Summary
 
 * Reference resolution: `1920x1080`
-* Components: `29`
-* Screens: `12`
+* Components: `37`
+* Screens: `15`
 
 ## Screens
 
@@ -24,18 +24,21 @@
 | `P1` | `stairs_room` | 深渊阶梯房间界面 | `active_spec` | 7 | 8 |
 | `P1` | `maintenance_panel` | 机体维护整备界面 | `active_spec` | 10 | 11 |
 | `P1` | `daily_bill_report` | 每日账单报告界面 | `active_spec` | 11 | 12 |
+| `P2` | `shop_staging` | 出货分配界面 | `active_spec` | 13 | 14 |
+| `P2` | `order_board` | 势力订单板界面 | `active_spec` | 13 | 14 |
+| `P2` | `rumor_board` | 传闻情报板界面 | `active_spec` | 12 | 13 |
 
 ## Components
 
 | Priority | ComponentID | VisualID | Resize | Screens |
 |---|---|---|---|---|
-| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `workshop_main`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report` |
-| `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report` |
-| `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report` |
-| `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report` |
-| `P1` | `Button.Danger` | `ui_button_danger` | `nine_slice` | `inventory_loot`, `dungeon_map`, `sell_panel`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report` |
-| `P1` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement`, `maintenance_panel`, `daily_bill_report` |
-| `P1` | `List.Row.Selected` | `ui_list_row_selected` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `daily_bill_report` |
+| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `workshop_main`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
+| `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
+| `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
+| `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
+| `P1` | `Button.Danger` | `ui_button_danger` | `nine_slice` | `inventory_loot`, `dungeon_map`, `sell_panel`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board` |
+| `P1` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
+| `P1` | `List.Row.Selected` | `ui_list_row_selected` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
 | `P1` | `Inventory.Slot` | `ui_inventory_slot_available`, `ui_inventory_slot_hover`, `ui_inventory_slot_invalid`, `ui_inventory_slot_locked`, `ui_inventory_slot_valid` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
 | `P1` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
 | `P1` | `Loot.PickupPanel` | `ui_loot_pickup_panel` | `nine_slice` | `inventory_loot` |
@@ -51,13 +54,21 @@
 | `P1` | `Map.RouteLine` | `ui_dungeon_route_line` | `tile_or_stretch` | `dungeon_map` |
 | `P1` | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | `nine_slice` | `settlement` |
 | `P1` | `Settlement.DefeatPanel` | `ui_settlement_defeat_panel` | `nine_slice` | `settlement` |
-| `P1` | `Icon.Money` | `ui_icon_money` | `fixed` | `sell_panel`, `settlement`, `workshop_main`, `maintenance_panel`, `daily_bill_report` |
+| `P1` | `Icon.Money` | `ui_icon_money` | `fixed` | `sell_panel`, `settlement`, `workshop_main`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
 | `P1` | `Icon.Locked` | `ui_icon_locked` | `fixed` | `layer_select`, `dungeon_map` |
 | `P1` | `Icon.Equipped` | `ui_icon_equipped` | `fixed` | `prosthetic_panel` |
-| `P1` | `Title.Divider` | `ui_title_divider` | `fixed_or_stretch` | `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `maintenance_panel`, `daily_bill_report` |
+| `P1` | `Title.Divider` | `ui_title_divider` | `fixed_or_stretch` | `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
 | `P1` | `Icon.Maintenance` | `ui_icon_maintenance` | `fixed` | `maintenance_panel` |
 | `P1` | `Icon.Bill` | `ui_icon_bill` | `fixed` | `daily_bill_report` |
-| `P1` | `Icon.Warning` | `ui_icon_warning` | `fixed` | `maintenance_panel`, `daily_bill_report` |
+| `P1` | `Icon.Warning` | `ui_icon_warning` | `fixed` | `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board` |
+| `P2` | `Icon.ShopChannel` | `ui_icon_shop_channel` | `fixed` | `shop_staging` |
+| `P2` | `Icon.BlackMarket` | `ui_icon_black_market` | `fixed` | `shop_staging` |
+| `P2` | `Icon.Order` | `ui_icon_order` | `fixed` | `shop_staging`, `order_board` |
+| `P2` | `Icon.Faction` | `ui_icon_faction` | `fixed` | `order_board` |
+| `P2` | `Icon.Deadline` | `ui_icon_deadline` | `fixed` | `order_board` |
+| `P2` | `Icon.Rumor` | `ui_icon_rumor` | `fixed` | `rumor_board` |
+| `P2` | `Icon.PriceUp` | `ui_icon_price_up` | `fixed` | `rumor_board` |
+| `P2` | `Icon.PriceDown` | `ui_icon_price_down` | `fixed` | `rumor_board` |
 
 ## Program Handoff
 
@@ -1036,6 +1047,251 @@ Acceptance criteria:
 * 继续下一天是主行动，返回工坊/出售是次行动，延后付款是危险行动。
 * 日期、价格、收入、支出、物品名和风险原因全部由 Unity Text 渲染，图片中不包含文字或数字。
 
+### 出货分配界面
+
+* Goal: 把仓库出货从单纯出售扩展为正式的出货分配：玩家能把物品分配到柜台、订单、黑市或暂存，并理解收益、风险和截止日。
+* Background: `bg_workshop_day`
+
+Zones:
+| ZoneID | Anchor | Rect | Components | Purpose |
+|---|---|---|---|---|
+| `shop_staging_background` | full_screen | 0,0 1920x1080 |  | 复用工坊背景，表示局外营业前的出货整理场景。 |
+| `shop_staging_card` | center | 220,90 1480x900 | `Panel.Main` | 出货分配主容器，承载仓库、渠道、订单槽和收益风险预览。 |
+| `shop_staging_header` | top_center | 280,130 1360x110 | `Panel.Info`, `Icon.ShopChannel`, `Icon.Money`, `Icon.Warning`, `Title.Divider` | 标题、日期、金币、渠道图标、警告摘要和分隔线。 |
+| `storage_item_list` | left_middle | 280,270 470x560 | `Panel.Info`, `List.Row.Normal`, `List.Row.Selected`, `Icon.Warning`, `Icon.Money` | 可出货仓库列表，显示物品、数量、基础估值、标签和是否违禁。 |
+| `channel_lane_board` | center_middle | 790,270 520x560 | `Panel.Info`, `List.Row.Normal`, `Icon.ShopChannel`, `Icon.Order`, `Icon.BlackMarket`, `Icon.Warning` | 出货渠道列：柜台、订单、黑市和暂存，每列显示容量、收益倍率和风险。 |
+| `staging_preview_panel` | right_middle | 1350,270 290x420 | `Panel.Info`, `Icon.Money`, `Icon.Warning` | 当前选中物品或渠道的收益、声望、截止日、隔夜代价和风险说明。 |
+| `staging_action_panel` | bottom_right | 1350,720 290x170 | `Panel.Main`, `Button.Primary`, `Button.Secondary`, `Button.Danger` | 确认出货、重置分配、移入黑市、返回工坊等动作。 |
+| `staging_bottom_hint` | bottom_center | 280,850 1030x100 | `Panel.Info`, `Icon.Money`, `Icon.Warning` | 容量、未分配物、今日营业收益预测和阻塞原因。 |
+
+Layout changes:
+* 新增 ShopStagingPanel_Runtime 或同等容器，作为 sell_panel 和 daily_bill_report 之间的出货分配界面。
+* 左侧保留仓库列表，中间使用固定渠道 lane，右侧显示当前选择的收益风险预览。
+* 黑市和订单只作为渠道槽位表达，不承载完整势力商店或订单剧情。
+
+Data bindings:
+* 仓库物品、估值、数量、标签、违禁状态、渠道容量、收益倍率、风险和未分配数量由 Unity Text / ItemIcon 渲染。
+* ui_icon_shop_channel 表示普通出货渠道，ui_icon_black_market 表示黑市风险渠道，ui_icon_order 表示订单渠道。
+* Confirm Staging 只提交分配结果，金币、声望、风险和隔夜代价由经济/订单服务处理。
+
+Interaction notes:
+* 背景、面板、分隔线和图标默认 raycastTarget=false。
+* 仓库列表行可点击选择；渠道 lane 可以先用按钮式分配，后续再升级拖拽。
+* 危险渠道按钮使用 Button.Danger。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `ShopStagingUIController` | `rootPanel`, `storageListRoot`, `channelLaneRoot`, `previewText`, `confirmBtn`, `resetBtn`, `blackMarketBtn`, `closeBtn` | 控制出货分配界面显示、选择、渠道分配和提交结果。<br>若当前还没有独立控制器，可先由 SellPanel/Workshop 流程打开，但分配结果不要写死在 UI。 |
+| `EconomyFlowController / OrderFlowController` | `currentMoney`, `warehouseItems`, `activeOrders` | 提供仓库、订单、收益、风险和提交后的经济结算接口。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `ShopStagingPanel_Runtime/Background_Image` | Background |  | `bg_workshop_day` | Simple | cover | False |
+| `ShopStagingPanel_Runtime/StagingCard_Image` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `ShopStagingPanel_Runtime/StagingCard_Image/HeaderPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ShopStagingPanel_Runtime/StagingCard_Image/HeaderPanel/ShopChannelIcon_Image` | MainPanel | `Icon.ShopChannel` | `ui_icon_shop_channel` | Simple | contain | False |
+| `ShopStagingPanel_Runtime/StagingCard_Image/HeaderPanel/MoneyIcon_Image` | MainPanel | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `ShopStagingPanel_Runtime/StagingCard_Image/HeaderPanel/TitleDivider_Image` | MainPanel | `Title.Divider` | `ui_title_divider` | Simple | contain | False |
+| `ShopStagingPanel_Runtime/StagingCard_Image/StorageItemListPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ShopStagingPanel_Runtime/StagingCard_Image/StorageItemListPanel/ItemRow_Template` | MainPanel | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `ShopStagingPanel_Runtime/StagingCard_Image/ChannelLaneBoard` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ShopStagingPanel_Runtime/StagingCard_Image/ChannelLaneBoard/CounterLaneIcon_Image` | MainPanel | `Icon.ShopChannel` | `ui_icon_shop_channel` | Simple | contain | False |
+| `ShopStagingPanel_Runtime/StagingCard_Image/ChannelLaneBoard/OrderLaneIcon_Image` | MainPanel | `Icon.Order` | `ui_icon_order` | Simple | contain | False |
+| `ShopStagingPanel_Runtime/StagingCard_Image/ChannelLaneBoard/BlackMarketLaneIcon_Image` | MainPanel | `Icon.BlackMarket` | `ui_icon_black_market` | Simple | contain | False |
+| `ShopStagingPanel_Runtime/StagingCard_Image/PreviewPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ShopStagingPanel_Runtime/StagingCard_Image/ActionPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `ShopStagingPanel_Runtime/StagingCard_Image/ActionPanel/Confirm_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `ShopStagingPanel_Runtime/StagingCard_Image/ActionPanel/Reset_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `ShopStagingPanel_Runtime/StagingCard_Image/ActionPanel/BlackMarket_Button` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+| `ShopStagingPanel_Runtime/StagingCard_Image/BottomHintPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `Background_Image` |  | `bg_workshop_day` | Simple | cover | False |
+| `StagingCard_Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `HeaderPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ShopChannelIcon_Image` | `Icon.ShopChannel` | `ui_icon_shop_channel` | Simple | contain | False |
+| `OrderLaneIcon_Image` | `Icon.Order` | `ui_icon_order` | Simple | contain | False |
+| `BlackMarketLaneIcon_Image` | `Icon.BlackMarket` | `ui_icon_black_market` | Simple | contain | False |
+| `MoneyIcon_Image` | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `ItemRow_Template.Image` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `SelectedItemRow.Image` | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | False |
+| `Confirm_Button.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `Reset_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `BlackMarket_Button.Image` | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+
+Acceptance criteria:
+* 打开出货分配界面后，仓库列表、渠道 lane、当前收益风险预览和确认动作必须同时可见。
+* 普通柜台、订单、黑市、暂存四类去向视觉上可区分，但不把文字烘焙进图片。
+* 黑市或违禁风险必须能通过 warning / danger 视觉表达，不能和普通出售混淆。
+* 所有价格、数量、物品名、订单名、截止日和风险说明都由 Unity Text 渲染。
+* 列表行和渠道容器不阻挡按钮射线；后续拖拽接入时不得破坏仓库 ScrollRect。
+
+### 势力订单板界面
+
+* Goal: 把势力订单做成正式的目标选择界面：玩家能比较订单目标、截止日、所需物品、奖励、声望和失败风险。
+* Background: `bg_workshop_day`
+
+Zones:
+| ZoneID | Anchor | Rect | Components | Purpose |
+|---|---|---|---|---|
+| `order_board_background` | full_screen | 0,0 1920x1080 |  | 复用工坊背景，表现工坊里的委托公告板或订单台。 |
+| `order_board_card` | center | 260,90 1400x900 | `Panel.Main` | 订单板主容器，承载订单列表、详情、目标物、奖励和动作。 |
+| `order_header` | top_center | 320,130 1280x110 | `Panel.Info`, `Icon.Order`, `Icon.Faction`, `Title.Divider` | 标题、势力图标、刷新时间、订单容量和分隔线。 |
+| `order_list_panel` | left_middle | 320,270 500x610 | `Panel.Info`, `List.Row.Normal`, `List.Row.Selected`, `Icon.Faction`, `Icon.Deadline`, `Icon.Warning` | 可接取订单列表，显示势力、稀有度、截止日、目标摘要和状态。 |
+| `order_detail_panel` | right_middle | 860,270 470x610 | `Panel.Info`, `Icon.Order`, `Icon.Money`, `Icon.Warning`, `Title.Divider` | 选中订单的目标物、交付数量、奖励、声望变化、失败代价和备注。 |
+| `order_reward_panel` | right_top | 1360,270 240x260 | `Panel.Info`, `Icon.Money`, `Icon.Faction` | 金币、材料、声望、解锁提示和订单链进度。 |
+| `order_action_panel` | right_bottom | 1360,560 240x320 | `Panel.Main`, `Button.Primary`, `Button.Secondary`, `Button.Danger` | 接单、提交、放弃、返回和刷新动作。 |
+
+Layout changes:
+* 新增 OrderBoardPanel_Runtime 或同等容器，作为 A4 订单系统的正式 UI 入口。
+* 左侧订单列表，右侧订单详情，最右侧奖励和动作，避免把所有订单做成过大的卡片墙。
+* 订单目标物复用物品图标，不新增订单专用物品图。
+
+Data bindings:
+* 订单 ID、势力、截止日、目标物、需求数量、奖励、声望、状态和失败代价由订单服务提供并由 Unity Text 渲染。
+* ui_icon_order 表示订单本体，ui_icon_faction 表示势力来源，ui_icon_deadline 表示时间压力。
+* 接取、提交、放弃动作只触发服务调用，UI 不直接修改物品归属、金币或声望。
+
+Interaction notes:
+* 列表行和详情面板默认可滚动，底图不阻挡 ScrollRect。
+* Abandon / Betray 等高风险动作统一使用 Button.Danger。
+* 订单详情可以先使用静态布局，后续再补势力徽记品质和交付动画。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `OrderBoardUIController` | `rootPanel`, `orderListRoot`, `orderDetailPanel`, `rewardPanel`, `acceptBtn`, `submitBtn`, `abandonBtn`, `closeBtn` | 负责订单列表刷新、选中态、详情显示和按钮可用态。<br>所有订单规则和奖励结算走订单服务，不写在 UI Controller。 |
+| `OrderService / FactionReputationService` | `activeOrders`, `availableOrders`, `reputationState` | 提供订单状态、交付校验、奖励预览和声望变化。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `OrderBoardPanel_Runtime/Background_Image` | Background |  | `bg_workshop_day` | Simple | cover | False |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/HeaderPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/HeaderPanel/OrderIcon_Image` | MainPanel | `Icon.Order` | `ui_icon_order` | Simple | contain | False |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/HeaderPanel/FactionIcon_Image` | MainPanel | `Icon.Faction` | `ui_icon_faction` | Simple | contain | False |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/OrderListPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/OrderListPanel/OrderRow_Template` | MainPanel | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/OrderListPanel/SelectedOrderRow_Template` | MainPanel | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | False |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/OrderListPanel/DeadlineIcon_Image` | MainPanel | `Icon.Deadline` | `ui_icon_deadline` | Simple | contain | False |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/OrderDetailPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/OrderDetailPanel/MoneyIcon_Image` | MainPanel | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/OrderDetailPanel/WarningIcon_Image` | MainPanel | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/RewardPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/ActionPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/ActionPanel/Accept_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/ActionPanel/Submit_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/ActionPanel/Close_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `OrderBoardPanel_Runtime/OrderBoardCard_Image/ActionPanel/Abandon_Button` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `Background_Image` |  | `bg_workshop_day` | Simple | cover | False |
+| `OrderBoardCard_Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `HeaderPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `OrderIcon_Image` | `Icon.Order` | `ui_icon_order` | Simple | contain | False |
+| `FactionIcon_Image` | `Icon.Faction` | `ui_icon_faction` | Simple | contain | False |
+| `DeadlineIcon_Image` | `Icon.Deadline` | `ui_icon_deadline` | Simple | contain | False |
+| `OrderRow_Template.Image` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `SelectedOrderRow_Template.Image` | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | False |
+| `Accept_Button.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `Submit_Button.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `Close_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `Abandon_Button.Image` | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+
+Acceptance criteria:
+* 打开订单板后，订单列表、选中订单详情、奖励预览、截止日和主要动作必须同时可见。
+* 玩家能区分可接取、已接取、可提交、即将过期和高风险订单。
+* 订单目标物使用物品图标和 Unity Text，不在订单图标里烘焙物品名或数字。
+* 接取/提交是主行动，放弃/背叛类动作必须使用危险按钮样式。
+* UI 不直接改物品、金币、声望或截止日，只调用对应服务。
+
+### 传闻情报板界面
+
+* Goal: 把每日传闻、价格波动和深渊情报做成正式的局外决策入口：玩家能看到今天哪些物品涨跌、哪些节点更危险、下一次下潜该优先考虑什么。
+* Background: `bg_workshop_day`
+
+Zones:
+| ZoneID | Anchor | Rect | Components | Purpose |
+|---|---|---|---|---|
+| `rumor_board_background` | full_screen | 0,0 1920x1080 |  | 复用工坊背景，表现局外情报板或公告台。 |
+| `rumor_board_card` | center | 280,90 1360x900 | `Panel.Main` | 传闻情报主容器，承载今日摘要、传闻列表、价格波动和推荐目标。 |
+| `rumor_header` | top_center | 340,130 1240x110 | `Panel.Info`, `Icon.Rumor`, `Title.Divider` | 标题、日期、传闻图标、市场状态和分隔线。 |
+| `today_rumor_list` | left_middle | 340,270 520x560 | `Panel.Info`, `List.Row.Normal`, `List.Row.Selected`, `Icon.Rumor`, `Icon.Warning` | 今日传闻列表，显示来源、可信度、影响对象和剩余天数。 |
+| `price_wave_panel` | center_middle | 900,270 360x560 | `Panel.Info`, `List.Row.Normal`, `Icon.PriceUp`, `Icon.PriceDown`, `Icon.Money` | 价格涨跌区域，显示涨价物、跌价物、倍率和持续时间。 |
+| `rumor_detail_panel` | right_top | 1300,270 280x360 | `Panel.Info`, `Icon.Warning`, `Icon.Rumor` | 选中传闻详情，显示可能影响的层级、节点、怪物、物品或订单。 |
+| `recommendation_panel` | right_bottom | 1300,660 280x220 | `Panel.Main`, `Button.Primary`, `Button.Secondary`, `Icon.Rumor` | 今日推荐目标、可操作入口和返回按钮。 |
+| `rumor_bottom_hint` | bottom_center | 340,850 920x100 | `Panel.Info`, `Icon.Warning` | 传闻有效期、可信度说明、经济风险和当前未处理事项。 |
+
+Layout changes:
+* 新增 RumorBoardPanel_Runtime 或同等容器，作为 workshop_main 的传闻/价格波动入口。
+* 左侧传闻列表，中间价格波动，右侧详情和推荐行动，避免把传闻散落在多个小弹窗。
+* 第一版不要求完整新闻系统，只要求传闻、价格波和推荐目标有稳定 UI 槽位。
+
+Data bindings:
+* 传闻标题、来源、可信度、影响对象、剩余天数、价格倍率和推荐目标由传闻/经济服务提供。
+* ui_icon_price_up / ui_icon_price_down 只表示涨跌方向，不烘焙数字或物品名。
+* Plan Expedition 可以跳转 layer_select / dungeon_map，具体路线推荐由探索系统处理。
+
+Interaction notes:
+* 列表行可选中；价格波动行默认不阻挡滚动。
+* 传闻详情和推荐面板不直接修改地图、价格或订单，只展示和跳转。
+* 高风险或低可信传闻用 warning 图标或运行时 tint 表达。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `RumorBoardUIController` | `rootPanel`, `rumorListRoot`, `priceWaveRoot`, `detailPanel`, `planExpeditionBtn`, `closeBtn` | 负责传闻列表、价格波动、选中详情和跳转按钮。<br>如果当前没有传闻服务，可以先显示经济/日期系统提供的最小数据，但不要把文字写进图片。 |
+| `RumorService / EconomyFlowController / DungeonRouteService` | `activeRumors`, `priceModifiers`, `recommendedLayer` | 提供传闻、价格波和推荐目标的数据来源。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `RumorBoardPanel_Runtime/Background_Image` | Background |  | `bg_workshop_day` | Simple | cover | False |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image/HeaderPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image/HeaderPanel/RumorIcon_Image` | MainPanel | `Icon.Rumor` | `ui_icon_rumor` | Simple | contain | False |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image/HeaderPanel/TitleDivider_Image` | MainPanel | `Title.Divider` | `ui_title_divider` | Simple | contain | False |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image/TodayRumorListPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image/TodayRumorListPanel/RumorRow_Template` | MainPanel | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image/PriceWavePanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image/PriceWavePanel/PriceUpIcon_Image` | MainPanel | `Icon.PriceUp` | `ui_icon_price_up` | Simple | contain | False |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image/PriceWavePanel/PriceDownIcon_Image` | MainPanel | `Icon.PriceDown` | `ui_icon_price_down` | Simple | contain | False |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image/RumorDetailPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image/RumorDetailPanel/WarningIcon_Image` | MainPanel | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image/RecommendationPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image/RecommendationPanel/PlanExpedition_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image/RecommendationPanel/Close_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `RumorBoardPanel_Runtime/RumorBoardCard_Image/BottomHintPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `Background_Image` |  | `bg_workshop_day` | Simple | cover | False |
+| `RumorBoardCard_Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `HeaderPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `RumorIcon_Image` | `Icon.Rumor` | `ui_icon_rumor` | Simple | contain | False |
+| `PriceUpIcon_Image` | `Icon.PriceUp` | `ui_icon_price_up` | Simple | contain | False |
+| `PriceDownIcon_Image` | `Icon.PriceDown` | `ui_icon_price_down` | Simple | contain | False |
+| `RumorRow_Template.Image` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
+| `SelectedRumorRow_Template.Image` | `List.Row.Selected` | `ui_list_row_selected` | Sliced |  | False |
+| `WarningIcon_Image` | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `PlanExpedition_Button.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `Close_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+
+Acceptance criteria:
+* 打开传闻板后，今日传闻、价格涨跌、选中详情和推荐行动必须同时可见。
+* 涨价和跌价方向能通过图标区分，但倍率、物品名和有效期由 Unity Text 渲染。
+* 高风险、低可信或即将过期的传闻能用 warning 图标或运行时 tint 表达。
+* Plan Expedition 只是跳转/规划入口，不直接修改地图节点或经济状态。
+* 背景、面板、分隔线和图标不阻挡列表滚动或按钮点击。
+
 ## Known VisualID Sources
 
-* Known VisualID count: `75`
+* Known VisualID count: `83`
