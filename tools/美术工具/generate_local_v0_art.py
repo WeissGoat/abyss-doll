@@ -399,6 +399,43 @@ def draw_icon_chassis_upgrade(c: Canvas) -> None:
         c.ellipse((x - 0.035, 0.47, x + 0.035, 0.54), rgba("brass_light", 210), None)
 
 
+def draw_icon_wear_repair(c: Canvas) -> None:
+    draw_badge(c, rgba("blue", 65))
+    c.ellipse((0.30, 0.28, 0.70, 0.68), rgba("brass"), rgba("brass_light"), 0.014)
+    c.ellipse((0.42, 0.40, 0.58, 0.56), rgba("metal"), None)
+    for angle in range(0, 360, 45):
+        x0 = 0.5 + math.cos(math.radians(angle)) * 0.20
+        y0 = 0.48 + math.sin(math.radians(angle)) * 0.20
+        x1 = 0.5 + math.cos(math.radians(angle)) * 0.28
+        y1 = 0.48 + math.sin(math.radians(angle)) * 0.28
+        c.line([(x0, y0), (x1, y1)], rgba("brass_light"), 0.012)
+    c.line([(0.38, 0.34), (0.48, 0.47), (0.43, 0.62)], rgba("metal"), 0.014)
+    c.line([(0.34, 0.71), (0.66, 0.39)], rgba("blue"), 0.022)
+    c.ellipse((0.62, 0.31, 0.75, 0.44), rgba("brass_light"), rgba("brass_dark"), 0.007)
+    c.line([(0.62, 0.35), (0.71, 0.44)], rgba("brass_dark"), 0.008)
+
+
+def draw_icon_corruption_purify(c: Canvas) -> None:
+    draw_badge(c, rgba("acid", 65))
+    c.ellipse((0.28, 0.28, 0.72, 0.72), (0, 0, 0, 0), rgba("brass_light"), 0.018)
+    c.polygon([(0.50, 0.24), (0.65, 0.52), (0.57, 0.72), (0.40, 0.72), (0.34, 0.52)], rgba("purple", 210), rgba("acid"))
+    c.line([(0.30, 0.63), (0.43, 0.52), (0.54, 0.59), (0.71, 0.38)], rgba("blue"), 0.018)
+    c.glow((0.26, 0.26, 0.74, 0.74), rgba("blue", 70), 0.03)
+    c.ellipse((0.59, 0.32, 0.70, 0.43), rgba("acid", 180), None)
+    c.ellipse((0.35, 0.61, 0.45, 0.71), rgba("blue", 190), None)
+
+
+def draw_icon_dive_permit(c: Canvas) -> None:
+    draw_badge(c, rgba("green", 65))
+    c.round_rect((0.28, 0.36, 0.72, 0.72), 0.04, rgba("metal"), rgba("brass_light"), 0.014)
+    c.arc((0.34, 0.18, 0.66, 0.54), 180, 360, rgba("brass_light"), 0.016)
+    c.line([(0.35, 0.36), (0.35, 0.30)], rgba("brass_light"), 0.012)
+    c.line([(0.65, 0.36), (0.65, 0.30)], rgba("brass_light"), 0.012)
+    c.ellipse((0.58, 0.42, 0.72, 0.56), rgba("green"), rgba("brass_dark"), 0.007)
+    c.line([(0.33, 0.56), (0.45, 0.67), (0.70, 0.38)], rgba("green"), 0.025)
+    c.line([(0.36, 0.78), (0.64, 0.78)], rgba("brass_light", 180), 0.012)
+
+
 def draw_icon_blueprint(c: Canvas) -> None:
     draw_badge(c, rgba("blue", 65))
     c.round_rect((0.28, 0.28, 0.72, 0.72), 0.035, rgba("blue", 165), rgba("brass_light"), 0.012)
@@ -480,10 +517,13 @@ DRAWERS = {
     "ui_combat_status_stun": draw_status_stun,
     "ui_icon_blueprint": draw_icon_blueprint,
     "ui_icon_chassis_upgrade": draw_icon_chassis_upgrade,
+    "ui_icon_corruption_purify": draw_icon_corruption_purify,
+    "ui_icon_dive_permit": draw_icon_dive_permit,
     "ui_icon_business_settlement": draw_icon_business_settlement,
     "ui_icon_customer": draw_icon_customer,
     "ui_icon_material_need": draw_icon_material_need,
     "ui_icon_sale_spark": draw_icon_sale_spark,
+    "ui_icon_wear_repair": draw_icon_wear_repair,
 }
 
 

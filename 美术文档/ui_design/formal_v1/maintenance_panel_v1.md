@@ -73,6 +73,9 @@ Maintenance Panel
 | `ui_button_secondary` | Use Repair Kit / Close。 |
 | `ui_button_danger` | Postpone / 暂缓维护。 |
 | `ui_icon_maintenance` | 维护状态和整备检查图标。 |
+| `ui_icon_wear_repair` | 磨损修复、结构补强和修复后变化预览图标。 |
+| `ui_icon_corruption_purify` | 侵蚀净化、污染清理和 SAN 风险处理图标。 |
+| `ui_icon_dive_permit` | 下潜许可、出发前检查通过和许可恢复图标。 |
 | `ui_icon_warning` | 风险、不可下潜、材料不足提示。 |
 | `ui_icon_money` | 费用和金币。 |
 | `ui_title_divider` | 标题分隔。 |
@@ -90,6 +93,9 @@ Maintenance Panel
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/HeaderPanel` | `Panel.Info` / `ui_panel_info` |
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/HeaderPanel/MaintenanceIcon_Image` | `Icon.Maintenance` / `ui_icon_maintenance` |
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/DollConditionPanel/WarningIcon_Image` | `Icon.Warning` / `ui_icon_warning` |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/DiveReadinessPanel/ReadinessIcon_Image` | `Icon.DivePermit` / `ui_icon_dive_permit` |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/WearCorrosionPanel/WearRepairIcon_Image` | `Icon.WearRepair` / `ui_icon_wear_repair` |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/WearCorrosionPanel/CorruptionPurifyIcon_Image` | `Icon.CorruptionPurify` / `ui_icon_corruption_purify` |
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/MaterialCostListPanel/CostRow_Template` | `List.Row.Normal` / `ui_list_row_normal` |
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/RepairActionPanel/FullRepair_Button` | `Button.Primary` / `ui_button_primary` |
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/RepairActionPanel/Postpone_Button` | `Button.Danger` / `ui_button_danger` |
@@ -102,6 +108,6 @@ Maintenance Panel
 
 1. 维护界面打开后能同时看到状态、磨损/侵蚀、费用、材料缺口和下潜许可。
 2. Full Repair 是最明显主行动，暂缓维护作为危险动作清楚可见。
-3. 警告、维护、金币图标按 contain 显示，不遮挡按钮或列表。
+3. 磨损修复、侵蚀净化、下潜许可、警告、维护、金币图标按 contain 显示，不遮挡按钮或列表。
 4. 背景、面板和装饰不拦截按钮射线。
 5. 图片中不包含文字、数字、材料名或按钮文案。

@@ -3741,6 +3741,9 @@
         "Button.Danger",
         "List.Row.Normal",
         "Icon.Maintenance",
+        "Icon.WearRepair",
+        "Icon.CorruptionPurify",
+        "Icon.DivePermit",
         "Icon.Warning",
         "Icon.Money",
         "Title.Divider"
@@ -3753,6 +3756,9 @@
         "ui_button_danger",
         "ui_list_row_normal",
         "ui_icon_maintenance",
+        "ui_icon_wear_repair",
+        "ui_icon_corruption_purify",
+        "ui_icon_dive_permit",
         "ui_icon_warning",
         "ui_icon_money",
         "ui_title_divider",
@@ -3834,7 +3840,7 @@
           },
           "ComponentRefs": [
             "Panel.Info",
-            "Icon.Maintenance",
+            "Icon.DivePermit",
             "Icon.Warning"
           ],
           "Notes": "作为出发前检查摘要，文字由程序根据规则生成。"
@@ -3869,9 +3875,11 @@
           "ComponentRefs": [
             "Panel.Info",
             "List.Row.Normal",
+            "Icon.WearRepair",
+            "Icon.CorruptionPurify",
             "Icon.Warning"
           ],
-          "Notes": "适合做多行状态条或列表行，第一版可用文字+图标。"
+          "Notes": "磨损修复和侵蚀净化使用独立小图标；异常风险仍使用 warning 图标和运行时 tint。"
         },
         {
           "ZoneID": "repair_action_panel",
@@ -3902,7 +3910,7 @@
         "DataBindings": [
           "HP、SAN、Bond、磨损、侵蚀、材料缺口、维护费用、金币和下潜许可由 Unity Text 或运行时条渲染。",
           "维护、使用修复剂、暂缓维护、返回工坊按钮由局外成长/维护控制器绑定。",
-          "warning 图标只表达危险状态，具体原因来自程序文本。"
+          "磨损修复、侵蚀净化、下潜许可图标只表达状态类别；具体数值和原因来自程序文本。"
         ],
         "InteractionNotes": [
           "背景、面板、图标和标题分隔默认 raycastTarget=false。",
@@ -3922,6 +3930,9 @@
             "conditionText",
             "readinessText",
             "costListRoot",
+            "wearRepairIcon",
+            "corruptionPurifyIcon",
+            "divePermitIcon",
             "warningIcon"
           ],
           "BindingNotes": [
@@ -4028,8 +4039,8 @@
         {
           "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/DiveReadinessPanel/ReadinessIcon_Image",
           "Layer": "MainPanel",
-          "ComponentRef": "Icon.Maintenance",
-          "VisualID": "ui_icon_maintenance",
+          "ComponentRef": "Icon.DivePermit",
+          "VisualID": "ui_icon_dive_permit",
           "ImageType": "Simple",
           "FitMode": "contain",
           "RaycastTarget": false
@@ -4065,6 +4076,24 @@
           "ComponentRef": "Panel.Info",
           "VisualID": "ui_panel_info",
           "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/WearCorrosionPanel/WearRepairIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.WearRepair",
+          "VisualID": "ui_icon_wear_repair",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "MaintenancePanel_Runtime/MaintenanceCard_Image/WearCorrosionPanel/CorruptionPurifyIcon_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Icon.CorruptionPurify",
+          "VisualID": "ui_icon_corruption_purify",
+          "ImageType": "Simple",
+          "FitMode": "contain",
           "RaycastTarget": false
         },
         {
@@ -4177,6 +4206,14 @@
           "RaycastTarget": false
         },
         {
+          "Target": "ReadinessIcon_Image",
+          "ComponentRef": "Icon.DivePermit",
+          "VisualID": "ui_icon_dive_permit",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
           "Target": "MaterialCostListPanel.Image",
           "ComponentRef": "Panel.Info",
           "VisualID": "ui_panel_info",
@@ -4195,6 +4232,22 @@
           "ComponentRef": "Panel.Info",
           "VisualID": "ui_panel_info",
           "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "WearRepairIcon_Image",
+          "ComponentRef": "Icon.WearRepair",
+          "VisualID": "ui_icon_wear_repair",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "CorruptionPurifyIcon_Image",
+          "ComponentRef": "Icon.CorruptionPurify",
+          "VisualID": "ui_icon_corruption_purify",
+          "ImageType": "Simple",
+          "FitMode": "contain",
           "RaycastTarget": false
         },
         {
@@ -4235,6 +4288,7 @@
       ],
       "AcceptanceCriteria": [
         "维护界面打开后能同时看到人偶状态、磨损/侵蚀、维护费用、材料缺口和下潜许可检查。",
+        "磨损修复、侵蚀净化和下潜许可使用独立 VisualID 图标，不再只依赖泛维护/警告符号。",
         "Full Repair 是最明显主行动，暂缓维护作为危险动作视觉上弱于主行动但风险清楚。",
         "金币、材料、状态数值和不可下潜原因都由 Unity Text 渲染，图片中不包含文字或数字。",
         "维护、账单和警告图标按 contain 显示，不遮挡按钮、列表或滚动区域。",

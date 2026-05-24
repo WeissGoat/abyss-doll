@@ -18,7 +18,7 @@
 | `monster` | 8 |
 | `node` | 8 |
 | `prosthetic` | 2 |
-| `ui` | 77 |
+| `ui` | 80 |
 
 ## 资产列表
 
@@ -98,8 +98,11 @@
 | `ui` | `combat_status_stun` | 眩晕状态图标 | `icon` | `ui_combat_status_stun` | P1 | `approved` |
 | `ui` | `combat_target_ring` | 战斗目标选择光环 | `ring` | `ui_combat_target_ring` | P1 | `approved` |
 | `ui` | `icon_bill` | 账单图标 | `icon` | `ui_icon_bill` | P1 | `approved` |
+| `ui` | `icon_corruption_purify` | 侵蚀净化图标 | `icon` | `ui_icon_corruption_purify` | P1 | `todo` |
+| `ui` | `icon_dive_permit` | 下潜许可图标 | `icon` | `ui_icon_dive_permit` | P1 | `todo` |
 | `ui` | `icon_maintenance` | 维护状态图标 | `icon` | `ui_icon_maintenance` | P1 | `approved` |
 | `ui` | `icon_warning` | 警告图标 | `icon` | `ui_icon_warning` | P1 | `approved` |
+| `ui` | `icon_wear_repair` | 磨损修复图标 | `icon` | `ui_icon_wear_repair` | P1 | `todo` |
 | `ui` | `inventory_chassis_panel` | 背包底盘面板 | `panel` | `ui_inventory_chassis_panel` | P1 | `approved` |
 | `ui` | `inventory_slot_available` | 背包可用格 | `slot` | `ui_inventory_slot_available` | P1 | `approved` |
 | `ui` | `inventory_slot_hover` | 背包悬停格 | `slot` | `ui_inventory_slot_hover` | P1 | `approved` |
@@ -116,9 +119,9 @@
 | `ui` | `dungeon_route_line` | 地图路线连接线 | `divider` | `ui_dungeon_route_line` | P2 | `approved` |
 | `ui` | `icon_black_market` | 黑市渠道图标 | `icon` | `ui_icon_black_market` | P2 | `approved` |
 | `ui` | `icon_blueprint` | 蓝图图标 | `icon` | `ui_icon_blueprint` | P2 | `approved` |
-| `ui` | `icon_business_settlement` | 营业结算图标 | `icon` | `ui_icon_business_settlement` | P2 | `todo` |
+| `ui` | `icon_business_settlement` | 营业结算图标 | `icon` | `ui_icon_business_settlement` | P2 | `approved` |
 | `ui` | `icon_chassis_upgrade` | 底盘升级图标 | `icon` | `ui_icon_chassis_upgrade` | P2 | `approved` |
-| `ui` | `icon_customer` | 顾客图标 | `icon` | `ui_icon_customer` | P2 | `todo` |
+| `ui` | `icon_customer` | 顾客图标 | `icon` | `ui_icon_customer` | P2 | `approved` |
 | `ui` | `icon_deadline` | 截止日图标 | `icon` | `ui_icon_deadline` | P2 | `approved` |
 | `ui` | `icon_diary` | 日记图标 | `icon` | `ui_icon_diary` | P2 | `approved` |
 | `ui` | `icon_equipped` | 已装备图标 | `icon` | `ui_icon_equipped` | P2 | `approved` |
@@ -135,7 +138,7 @@
 | `ui` | `icon_price_up` | 价格上涨图标 | `icon` | `ui_icon_price_up` | P2 | `approved` |
 | `ui` | `icon_reputation` | 声望等级图标 | `icon` | `ui_icon_reputation` | P2 | `approved` |
 | `ui` | `icon_rumor` | 传闻图标 | `icon` | `ui_icon_rumor` | P2 | `approved` |
-| `ui` | `icon_sale_spark` | 成交爆点图标 | `effect_overlay` | `ui_icon_sale_spark` | P2 | `todo` |
+| `ui` | `icon_sale_spark` | 成交爆点图标 | `effect_overlay` | `ui_icon_sale_spark` | P2 | `approved` |
 | `ui` | `icon_shop_channel` | 出货渠道图标 | `icon` | `ui_icon_shop_channel` | P2 | `approved` |
 | `ui` | `icon_skip` | 跳过摘要图标 | `icon` | `ui_icon_skip` | P2 | `approved` |
 | `ui` | `icon_talk` | 对话图标 | `icon` | `ui_icon_talk` | P2 | `approved` |

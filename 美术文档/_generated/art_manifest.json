@@ -4267,6 +4267,124 @@
       "SourceType": "preset",
       "DeriveRule": "art requirements seed preset",
       "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_corruption_purify",
+      "DisplayName": "侵蚀净化图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_corruption_purify",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_corruption_purify.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：维护面板需要把侵蚀净化从警告图标中拆出，方便区分污染处理和普通危险提示。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。侵蚀净化图标，紫绿色污染液滴置于黄铜滤环中，被浅蓝净化光清除，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, corruption purification symbol, purple-green droplet inside a brass filter ring being cleansed by pale blue light, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "local_v0_maintenance_readability_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_corruption_purify.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_corruption_purify.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T04:08:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_corruption_purify.png; formal AI replacement remains required.",
+      "PresetCategory": "ui_status_icon",
+      "Screen": "maintenance_panel",
+      "Usage": "维护界面侵蚀清理、污染净化、SAN 风险处理",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T04:08:11+08:00"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_dive_permit",
+      "DisplayName": "下潜许可图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_dive_permit",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_dive_permit.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：维护面板需要明确表达下潜许可是否恢复，不能只复用维护或警告图标。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。下潜许可图标，黄铜出发闸门徽章、绿色信号灯和确认标记，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, dive permit readiness symbol, brass departure gate badge with green signal lamp and check mark, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "local_v0_maintenance_readability_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_dive_permit.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_dive_permit.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T04:08:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_dive_permit.png; formal AI replacement remains required.",
+      "PresetCategory": "ui_status_icon",
+      "Screen": "maintenance_panel",
+      "Usage": "维护界面下潜许可、出发前检查、允许下潜状态恢复",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T04:08:11+08:00"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
       "ConfigID": "icon_maintenance",
       "DisplayName": "维护状态图标",
       "AssetType": "icon",
@@ -4375,6 +4493,65 @@
       "PresetCategory": "ui_status_icon",
       "Screen": "global",
       "Usage": "维护风险、欠债风险、不可下潜和危险提示"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "icon_wear_repair",
+      "DisplayName": "磨损修复图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_wear_repair",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_wear_repair.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "预置 UI 图标：维护面板需要把磨损修复从泛维护图标中拆出，方便玩家区分结构损耗处理。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。磨损修复图标，开裂黄铜齿轮被小扳手修补，带蓝白修复微光，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, wear repair symbol, cracked brass gear being patched by a tiny wrench, blue-white repair glow, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 12,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.8,
+          "Anchor": "center",
+          "Composition": "centered placeholder symbol"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "local_v0_maintenance_readability_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_wear_repair.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_wear_repair.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T04:08:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_wear_repair.png; formal AI replacement remains required.",
+      "PresetCategory": "ui_status_icon",
+      "Screen": "maintenance_panel",
+      "Usage": "维护界面磨损修复、结构补强、修复后变化预览",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T04:08:11+08:00"
     },
     {
       "Domain": "ui",

@@ -505,6 +505,52 @@
       "ProgramUse": "机体维护、磨损/侵蚀和下潜整备状态的小图标。"
     },
     {
+      "ComponentID": "Icon.WearRepair",
+      "DisplayName": "磨损修复图标",
+      "VisualID": "ui_icon_wear_repair",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "maintenance_panel"
+      ],
+      "ProgramUse": "维护面板中表达磨损修复、结构补强和修复后变化预览的小图标。"
+    },
+    {
+      "ComponentID": "Icon.CorruptionPurify",
+      "DisplayName": "侵蚀净化图标",
+      "VisualID": "ui_icon_corruption_purify",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "maintenance_panel"
+      ],
+      "ProgramUse": "维护面板中表达侵蚀清理、污染净化和 SAN 风险处理的小图标。"
+    },
+    {
+      "ComponentID": "Icon.DivePermit",
+      "DisplayName": "下潜许可图标",
+      "VisualID": "ui_icon_dive_permit",
+      "Category": "icon",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal",
+        "hidden_runtime_tint"
+      ],
+      "RequiredForScreens": [
+        "maintenance_panel"
+      ],
+      "ProgramUse": "维护面板中表达是否允许出发、下潜许可恢复和出发前检查通过的小图标。"
+    },
+    {
       "ComponentID": "Icon.Memento",
       "DisplayName": "纪念物图标",
       "VisualID": "ui_icon_memento",

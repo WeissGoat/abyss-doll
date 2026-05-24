@@ -5,7 +5,7 @@
 ## Summary
 
 * Reference resolution: `1920x1080`
-* Components: `60`
+* Components: `63`
 * Screens: `21`
 
 ## Screens
@@ -22,7 +22,7 @@
 | `P1` | `layer_select` | 出发层选择界面 | `active_spec` | 7 | 8 |
 | `P1` | `safe_room` | 深渊安全区界面 | `active_spec` | 7 | 12 |
 | `P1` | `stairs_room` | 深渊阶梯房间界面 | `active_spec` | 7 | 12 |
-| `P1` | `maintenance_panel` | 机体维护整备界面 | `active_spec` | 10 | 11 |
+| `P1` | `maintenance_panel` | 机体维护整备界面 | `active_spec` | 13 | 14 |
 | `P1` | `daily_bill_report` | 每日账单报告界面 | `active_spec` | 11 | 12 |
 | `P2` | `shop_staging` | 出货分配界面 | `active_spec` | 13 | 14 |
 | `P2` | `order_board` | 势力订单板界面 | `active_spec` | 13 | 14 |
@@ -65,6 +65,9 @@
 | `P1` | `Icon.Locked` | `ui_icon_locked` | `fixed` | `layer_select`, `dungeon_map` |
 | `P2` | `Icon.Lore` | `ui_icon_lore` | `fixed` | `scenario_event` |
 | `P1` | `Icon.Maintenance` | `ui_icon_maintenance` | `fixed` | `maintenance_panel`, `doll_interaction` |
+| `P1` | `Icon.WearRepair` | `ui_icon_wear_repair` | `fixed` | `maintenance_panel` |
+| `P1` | `Icon.CorruptionPurify` | `ui_icon_corruption_purify` | `fixed` | `maintenance_panel` |
+| `P1` | `Icon.DivePermit` | `ui_icon_dive_permit` | `fixed` | `maintenance_panel` |
 | `P2` | `Icon.Memento` | `ui_icon_memento` | `fixed` | `doll_interaction`, `doll_room` |
 | `P1` | `Icon.Money` | `ui_icon_money` | `fixed` | `sell_panel`, `settlement`, `workshop_main`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `chassis_upgrade_panel`, `business_settlement` |
 | `P2` | `Icon.Order` | `ui_icon_order` | `fixed` | `shop_staging`, `order_board` |
@@ -933,9 +936,9 @@ Zones:
 | `maintenance_card` | center | 280,110 1360x860 | `Panel.Main` | 维护界面主容器，承载状态、费用、操作和下潜检查。 |
 | `maintenance_header` | top_center | 340,150 1240x120 | `Panel.Info`, `Icon.Maintenance`, `Icon.Money`, `Title.Divider`, `Button.Secondary` | 标题、维护图标、当前天数/金币摘要和关闭入口。 |
 | `doll_condition_panel` | left_middle | 340,300 520x230 | `Panel.Info`, `Icon.Warning` | 当前人偶 HP、SAN、Bond、疲劳和核心状态摘要。 |
-| `dive_readiness_panel` | left_middle | 340,550 520x140 | `Panel.Info`, `Icon.Maintenance`, `Icon.Warning` | 下潜许可检查：能否出发、不可下潜原因和建议处理项。 |
+| `dive_readiness_panel` | left_middle | 340,550 520x140 | `Panel.Info`, `Icon.DivePermit`, `Icon.Warning` | 下潜许可检查：能否出发、不可下潜原因和建议处理项。 |
 | `material_cost_list` | left_bottom | 340,710 520x210 | `Panel.Info`, `List.Row.Normal`, `Icon.Money` | 维护消耗、材料缺口、金币费用和背包/仓库来源。 |
-| `wear_corrosion_panel` | right_top | 900,300 680x280 | `Panel.Info`, `List.Row.Normal`, `Icon.Warning` | 磨损、侵蚀、异常状态和本次维护后变化预览。 |
+| `wear_corrosion_panel` | right_top | 900,300 680x280 | `Panel.Info`, `List.Row.Normal`, `Icon.WearRepair`, `Icon.CorruptionPurify`, `Icon.Warning` | 磨损、侵蚀、异常状态和本次维护后变化预览。 |
 | `repair_action_panel` | right_bottom | 900,620 680x300 | `Panel.Main`, `Button.Primary`, `Button.Secondary`, `Button.Danger`, `Icon.Money` | 执行完整维护、使用修复剂、暂缓维护和返回工坊。 |
 
 Layout changes:
@@ -946,7 +949,7 @@ Layout changes:
 Data bindings:
 * HP、SAN、Bond、磨损、侵蚀、材料缺口、维护费用、金币和下潜许可由 Unity Text 或运行时条渲染。
 * 维护、使用修复剂、暂缓维护、返回工坊按钮由局外成长/维护控制器绑定。
-* warning 图标只表达危险状态，具体原因来自程序文本。
+* 磨损修复、侵蚀净化、下潜许可图标只表达状态类别；具体数值和原因来自程序文本。
 
 Interaction notes:
 * 背景、面板、图标和标题分隔默认 raycastTarget=false。
@@ -956,7 +959,7 @@ Interaction notes:
 Controller bindings:
 | Script | Existing fields | Notes |
 |---|---|---|
-| `MaintenancePanelUIController` | `maintenancePanel`, `closeBtn`, `fullRepairBtn`, `useRepairKitBtn`, `postponeBtn`, `conditionText`, `readinessText`, `costListRoot`, `warningIcon` | 控制维护弹窗显示、维护动作和状态刷新。<br>如果当前代码尚未有独立控制器，可先由 WorkshopUIController 打开该面板，但数据仍来自维护/成长服务。 |
+| `MaintenancePanelUIController` | `maintenancePanel`, `closeBtn`, `fullRepairBtn`, `useRepairKitBtn`, `postponeBtn`, `conditionText`, `readinessText`, `costListRoot`, `wearRepairIcon`, `corruptionPurifyIcon`, `divePermitIcon`, `warningIcon` | 控制维护弹窗显示、维护动作和状态刷新。<br>如果当前代码尚未有独立控制器，可先由 WorkshopUIController 打开该面板，但数据仍来自维护/成长服务。 |
 | `WorkshopUIController` | `openMaintenancePanelBtn`, `moneyText` | 工坊主界面只提供维护入口和金币摘要，不把维护详情继续堆在主界面。 |
 
 Unity hierarchy:
@@ -972,11 +975,13 @@ Unity hierarchy:
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/DollConditionPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/DollConditionPanel/WarningIcon_Image` | MainPanel | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/DiveReadinessPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
-| `MaintenancePanel_Runtime/MaintenanceCard_Image/DiveReadinessPanel/ReadinessIcon_Image` | MainPanel | `Icon.Maintenance` | `ui_icon_maintenance` | Simple | contain | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/DiveReadinessPanel/ReadinessIcon_Image` | MainPanel | `Icon.DivePermit` | `ui_icon_dive_permit` | Simple | contain | False |
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/DiveReadinessPanel/WarningIcon_Image` | MainPanel | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/MaterialCostListPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/MaterialCostListPanel/CostRow_Template` | MainPanel | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/WearCorrosionPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/WearCorrosionPanel/WearRepairIcon_Image` | MainPanel | `Icon.WearRepair` | `ui_icon_wear_repair` | Simple | contain | False |
+| `MaintenancePanel_Runtime/MaintenanceCard_Image/WearCorrosionPanel/CorruptionPurifyIcon_Image` | MainPanel | `Icon.CorruptionPurify` | `ui_icon_corruption_purify` | Simple | contain | False |
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/WearCorrosionPanel/StatusRow_Template` | MainPanel | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/RepairActionPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
 | `MaintenancePanel_Runtime/MaintenanceCard_Image/RepairActionPanel/FullRepair_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
@@ -995,9 +1000,12 @@ Sprite assignments:
 | `TitleDivider_Image` | `Title.Divider` | `ui_title_divider` | Simple | stretch | False |
 | `DollConditionPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `DiveReadinessPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ReadinessIcon_Image` | `Icon.DivePermit` | `ui_icon_dive_permit` | Simple | contain | False |
 | `MaterialCostListPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `CostRow_Template.Image` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
 | `WearCorrosionPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `WearRepairIcon_Image` | `Icon.WearRepair` | `ui_icon_wear_repair` | Simple | contain | False |
+| `CorruptionPurifyIcon_Image` | `Icon.CorruptionPurify` | `ui_icon_corruption_purify` | Simple | contain | False |
 | `StatusRow_Template.Image` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
 | `RepairActionPanel.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
 | `FullRepair_Button.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
@@ -1006,6 +1014,7 @@ Sprite assignments:
 
 Acceptance criteria:
 * 维护界面打开后能同时看到人偶状态、磨损/侵蚀、维护费用、材料缺口和下潜许可检查。
+* 磨损修复、侵蚀净化和下潜许可使用独立 VisualID 图标，不再只依赖泛维护/警告符号。
 * Full Repair 是最明显主行动，暂缓维护作为危险动作视觉上弱于主行动但风险清楚。
 * 金币、材料、状态数值和不可下潜原因都由 Unity Text 渲染，图片中不包含文字或数字。
 * 维护、账单和警告图标按 contain 显示，不遮挡按钮、列表或滚动区域。
@@ -1831,4 +1840,4 @@ Acceptance criteria:
 
 ## Known VisualID Sources
 
-* Known VisualID count: `122`
+* Known VisualID count: `125`

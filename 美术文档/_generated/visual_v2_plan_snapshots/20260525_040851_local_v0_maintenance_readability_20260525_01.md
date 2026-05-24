@@ -551,4 +551,3 @@ After generation succeeds:
 # Review selected/contact_sheet before syncing.
 .\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_doll_room_attic -CandidateBatchID nai_visual_v2_20260525_05 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
-
