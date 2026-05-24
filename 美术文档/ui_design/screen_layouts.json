@@ -1942,25 +1942,33 @@
     },
     {
       "ScreenID": "settlement",
-      "DisplayName": "撤离/战败结算界面",
+      "DisplayName": "撤离/战斗结果结算界面",
       "Priority": "P1",
       "LayoutStatus": "active_spec",
       "BackgroundVisualID": "",
-      "PrimaryGoal": "把撤离/战败结算升级为正式仪式界面：胜利、失败、收益、损失、带出物和下一步压力有明确层级。",
+      "PrimaryGoal": "把撤离/战斗结果结算升级为正式结果报告：胜利、HP 战败、SAN 崩溃、复合战败、收益、损失、带出物和下一步压力有明确层级。",
       "RequiredComponents": [
         "Settlement.VictoryPanel",
         "Settlement.DefeatPanel",
+        "Settlement.OutcomeEmblem",
         "List.Row.Normal",
         "Button.Primary",
         "Icon.Money",
+        "Icon.Warning",
         "Title.Divider"
       ],
       "RequiredVisualIDs": [
         "ui_settlement_victory_panel",
         "ui_settlement_defeat_panel",
+        "ui_settlement_outcome_victory",
+        "ui_settlement_outcome_hp_defeat",
+        "ui_settlement_outcome_san_collapse",
+        "ui_settlement_outcome_hp_san_defeat",
+        "ui_settlement_outcome_party_wipe",
         "ui_list_row_normal",
         "ui_button_primary",
         "ui_icon_money",
+        "ui_icon_warning",
         "ui_title_divider",
         "bg_settlement_victory",
         "bg_settlement_defeat"
@@ -1981,7 +1989,7 @@
         },
         {
           "ZoneID": "result_card",
-          "Purpose": "结算主面板，承载标题、摘要、明细和继续按钮。",
+          "Purpose": "结算主面板，承载结果徽记、标题、摘要、明细和继续按钮。",
           "Anchor": "center",
           "Rect": {
             "X": 500,
@@ -1992,14 +2000,15 @@
           "ComponentRefs": [
             "Settlement.VictoryPanel",
             "Settlement.DefeatPanel",
+            "Settlement.OutcomeEmblem",
             "Title.Divider",
             "Button.Primary"
           ],
-          "Notes": "胜利和战败共用布局，不同背景和主面板皮肤。"
+          "Notes": "胜利和战败共用布局，不同背景和主面板皮肤；结果徽记按 CombatOutcomeReport.OutcomeType / DefeatReason 切换。"
         },
         {
           "ZoneID": "result_header",
-          "Purpose": "结算标题、结果徽记、层数和标题分隔。",
+          "Purpose": "结果徽记、结算标题、失败原因、层数和标题分隔。",
           "Anchor": "top_center",
           "Rect": {
             "X": 570,
@@ -2008,13 +2017,14 @@
             "Height": 150
           },
           "ComponentRefs": [
+            "Settlement.OutcomeEmblem",
             "Title.Divider"
           ],
-          "Notes": "标题和结果文本由程序渲染；可后续补结果徽记。"
+          "Notes": "标题和原因文本由程序渲染；OutcomeEmblem 图标由程序按 victory / hp_defeat / san_collapse / hp_san_defeat / party_wipe 状态切换。"
         },
         {
           "ZoneID": "summary_area",
-          "Purpose": "深度、收益、损失、仓库变化和房租压力摘要。",
+          "Purpose": "战斗结果快照、HP/SAN 结论、剩余敌人、收益、损失、仓库变化和房租压力摘要。",
           "Anchor": "center_top",
           "Rect": {
             "X": 600,
@@ -2023,13 +2033,14 @@
             "Height": 170
           },
           "ComponentRefs": [
-            "Icon.Money"
+            "Icon.Money",
+            "Icon.Warning"
           ],
-          "Notes": "以文字为主，金币图标可用于价值行。"
+          "Notes": "以文字为主；金币图标用于价值行，警告图标用于 HP/SAN 战败、复合失败或损失提示。"
         },
         {
           "ZoneID": "loot_breakdown",
-          "Purpose": "带出物、遗失物、价值和损失明细列表。",
+          "Purpose": "带出物、遗失物、价值、损失和战斗失败复盘明细列表。",
           "Anchor": "center",
           "Rect": {
             "X": 600,
@@ -2041,7 +2052,7 @@
             "List.Row.Normal",
             "Icon.Money"
           ],
-          "Notes": "当前可先用 Text 列表，后续再拆成物品行。"
+          "Notes": "当前可先用 Text 列表；CombatOutcomeReport 的 PlayerFighters / EnemyFighters 可追加为简短复盘行。"
         },
         {
           "ZoneID": "continue_action",
@@ -2060,17 +2071,21 @@
         }
       ],
       "ProgramHandoff": {
-        "LayoutChanges": [
-          "把 result_panel 拆为 result_card、result_header、summary_area、loot_breakdown 和 continue_action。",
-          "按 result.IsVictory 切换背景和结算主面板。",
-          "SettlementCard_Image 固定为 920x780，文字和按钮都作为其子节点。",
-          "TitleDivider_Image 放在标题下方，不承载文字。"
-        ],
-        "DataBindings": [
-          "标题、摘要、拾取/带出/损失列表仍由 SettlementUIController 文本生成。",
-          "返回工坊按钮继续使用 continueBtn 和 onContinue 回调。",
-          "金币/估值可先保持文本，后续再拆 Icon.Money。",
-          "房租压力或下一步经济提示由程序 Text 渲染。"
+          "LayoutChanges": [
+            "把 result_panel 拆为 result_card、result_header、summary_area、loot_breakdown 和 continue_action。",
+            "按 result.IsVictory 切换背景和结算主面板。",
+            "按 CombatOutcomeReport.OutcomeType / DefeatReason 在 result_header 内切换结果徽记。",
+            "SettlementCard_Image 固定为 920x780，文字和按钮都作为其子节点。",
+            "TitleDivider_Image 放在标题下方，不承载文字。"
+          ],
+          "DataBindings": [
+            "标题、摘要、拾取/带出/损失列表仍由 SettlementUIController 文本生成。",
+            "战斗结果报告接入后，标题优先读取 CombatOutcomeReport.Title，摘要优先读取 CombatOutcomeReport.Summary。",
+            "DefeatReason 映射：PlayerHpDepleted -> ui_settlement_outcome_hp_defeat；PlayerSanCollapsed -> ui_settlement_outcome_san_collapse；PlayerHpAndSanDepleted -> ui_settlement_outcome_hp_san_defeat；PlayerFactionWiped / Unknown -> ui_settlement_outcome_party_wipe。",
+            "胜利结果映射到 ui_settlement_outcome_victory。",
+            "返回工坊按钮继续使用 continueBtn 和 onContinue 回调。",
+            "金币/估值可先保持文本，后续再拆 Icon.Money。",
+            "房租压力或下一步经济提示由程序 Text 渲染。"
         ],
         "InteractionNotes": [
           "背景、主面板、标题分隔和列表底纹不拦截按钮射线。",
@@ -2089,11 +2104,13 @@
             "backgroundImage",
             "backdropImage",
             "settlementPanelImage",
+            "outcomeEmblemImage",
             "titleDividerImage"
           ],
           "BindingNotes": [
             "backgroundImage 使用 ResolveSettlementBackgroundID(result.IsVictory)。",
             "settlementPanelImage 使用 ResolveSettlementPanelID(result.IsVictory)。",
+            "outcomeEmblemImage 使用 Settlement.OutcomeEmblem 的 StateVisualIDs；没有 CombatOutcomeReport 时按 result.IsVictory 使用 victory 或 party_wipe fallback。",
             "titleText 锚到 result_header；summaryText 锚到 summary_area；lootText 锚到 loot_breakdown。",
             "continueBtn 锚到 continue_action，使用 Button.Primary。"
           ]
@@ -2129,6 +2146,15 @@
           "ComponentRef": "Settlement.VictoryPanel",
           "VisualID": "ui_settlement_victory_panel",
           "ImageType": "Sliced",
+          "RaycastTarget": false
+        },
+        {
+          "Path": "InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/ResultHeader/OutcomeEmblem_Image",
+          "Layer": "MainPanel",
+          "ComponentRef": "Settlement.OutcomeEmblem",
+          "VisualID": "ui_settlement_outcome_victory",
+          "ImageType": "Simple",
+          "FitMode": "contain",
           "RaycastTarget": false
         },
         {
@@ -2217,6 +2243,46 @@
           "RaycastTarget": false
         },
         {
+          "Target": "SettlementUIController.outcomeEmblemImage.victory",
+          "ComponentRef": "Settlement.OutcomeEmblem",
+          "VisualID": "ui_settlement_outcome_victory",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SettlementUIController.outcomeEmblemImage.hp_defeat",
+          "ComponentRef": "Settlement.OutcomeEmblem",
+          "VisualID": "ui_settlement_outcome_hp_defeat",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SettlementUIController.outcomeEmblemImage.san_collapse",
+          "ComponentRef": "Settlement.OutcomeEmblem",
+          "VisualID": "ui_settlement_outcome_san_collapse",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SettlementUIController.outcomeEmblemImage.hp_san_defeat",
+          "ComponentRef": "Settlement.OutcomeEmblem",
+          "VisualID": "ui_settlement_outcome_hp_san_defeat",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
+          "Target": "SettlementUIController.outcomeEmblemImage.party_wipe",
+          "ComponentRef": "Settlement.OutcomeEmblem",
+          "VisualID": "ui_settlement_outcome_party_wipe",
+          "ImageType": "Simple",
+          "FitMode": "contain",
+          "RaycastTarget": false
+        },
+        {
           "Target": "Settlement value icon",
           "ComponentRef": "Icon.Money",
           "VisualID": "ui_icon_money",
@@ -2242,7 +2308,9 @@
       "AcceptanceCriteria": [
         "胜利结算使用 bg_settlement_victory 和 ui_settlement_victory_panel。",
         "战败结算使用 bg_settlement_defeat 和 ui_settlement_defeat_panel。",
+        "结果徽记按 CombatOutcomeReport.OutcomeType / DefeatReason 切换，至少覆盖胜利、HP 战败、SAN 崩溃、HP+SAN 复合战败和队伍溃败。",
         "结果标题、收益/损失摘要、带出/遗失明细和返回工坊按钮可读。",
+        "HP 战败和 SAN 崩溃在标题或摘要第一屏可区分，不只显示通用“失败”。",
         "标题、摘要、列表文字在 1920x1080 下不溢出主面板。",
         "Continue_Button 可点击，背景和面板不拦截按钮射线。",
         "背景对比不压过主面板文字，结算结果一眼可读。"

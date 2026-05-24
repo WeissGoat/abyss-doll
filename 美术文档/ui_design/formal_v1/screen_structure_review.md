@@ -103,7 +103,7 @@ Formal V1 不应直接删除 MVP 经验。MVP Baseline 作为可运行对照保�
 | P0-B | `workshop_main` | 已写入 active Formal V1：正式工坊工作台、魔偶维护、服务入口和出发整备。 |
 | P0-C | `inventory_loot` | 已写入 active Formal V1：战后清点、左侧背包、右侧战利品缓存、容量压力和确认区。 |
 | P1-A | `dungeon_map` | 已写入 active Formal V1：深渊路线地图、层级推进、选中节点详情和背包整理入口。 |
-| P1-B | `settlement` | 已写入 active Formal V1：胜利/战败结算仪式界面、收益损失摘要和带出/遗失明细。 |
+| P1-B | `settlement` | 已写入 active Formal V1：CombatOutcomeReport 五态结果报告、收益损失摘要、带出/遗失明细和返回工坊动作。 |
 | P1-C | `layer_select` | 已写入 active Formal V1：出发层列表、锁定状态、当前选择和确认下潜。 |
 | P1-D | `sell_panel` | 已写入 active Formal V1：仓库物品、单件出售、批量出售、估值和金币回流。 |
 | P1-E | `prosthetic_panel` | 已写入 active Formal V1：配方、材料缺口、可制造状态和已装备状态。 |
@@ -173,6 +173,6 @@ P0 / P1 / P2 / P3 当前 21 个界面均已进入 active `screen_layouts.json` �
 1. P0 / P1 / P2 / P3 的 21 个界面均已进入 active Formal V1 规格。
 2. `combat_hud` 已有第一批战斗实体和脚底阴影/目标光环入库，并已完成一次程序接入验证。
 3. `workshop_main`、`inventory_loot`、`dungeon_map`、`settlement`、`layer_select`、`sell_panel`、`prosthetic_panel`、`safe_room`、`stairs_room`、`maintenance_panel`、`daily_bill_report`、`shop_staging`、`business_settlement`、`order_board`、`rumor_board`、`faction_shop`、`doll_interaction`、`scenario_event`、`doll_room`、`chassis_upgrade_panel` 当前重点是程序按 active 规格迁移后截图验收。
-4. `doll_room` 已补齐 `bg_doll_room_attic`、`ui_icon_diary`、`ui_room_memento_slot` 的 local_v0 Approved 可接入素材；`chassis_upgrade_panel` 已补齐 `ui_icon_chassis_upgrade`、`ui_icon_blueprint`、`ui_icon_material_need` 的素材需求入口；`business_settlement` 已补齐 `ui_icon_customer`、`ui_icon_sale_spark`、`ui_icon_business_settlement` 的素材需求入口；后续正式 AI 版可同名替换。
+4. `settlement` 已补齐 `ui_settlement_outcome_victory`、`ui_settlement_outcome_hp_defeat`、`ui_settlement_outcome_san_collapse`、`ui_settlement_outcome_hp_san_defeat`、`ui_settlement_outcome_party_wipe` 五个结果徽记；`doll_room` 已补齐 `bg_doll_room_attic`、`ui_icon_diary`、`ui_room_memento_slot` 的 local_v0 Approved 可接入素材；`chassis_upgrade_panel` 已补齐 `ui_icon_chassis_upgrade`、`ui_icon_blueprint`、`ui_icon_material_need` 的素材需求入口；`business_settlement` 已补齐 `ui_icon_customer`、`ui_icon_sale_spark`、`ui_icon_business_settlement` 的素材需求入口；后续正式 AI 版可同名替换。
 5. Formal V1 第一轮只保证正式结构、信息层级和资源槽位；后续 Visual V2/V3 再逐批替换更高品质素材、动画和 VFX。
 6. 每轮实际生成、预处理或 Approved 同步后，美术侧必须刷新 `美术文档/_generated/可接入素材清单.md/json` 并保留快照，程序侧按 `program_integrate` 队列自助接入。

@@ -22,7 +22,7 @@
 | `order` | 29 |
 | `prosthetic` | 8 |
 | `rumor` | 8 |
-| `ui` | 83 |
+| `ui` | 88 |
 
 ## 资产列表
 
@@ -88,35 +88,35 @@
 | `node` | `SafeRoomNode` | 安全区节点 | `icon` | `node_safe_room_icon` | P0 | `approved` |
 | `node` | `StairsNode` | 阶梯节点 | `icon` | `node_stairs_icon` | P0 | `approved` |
 | `node` | `TreasureNode` | TreasureNode | `icon` | `node_treasurenode_icon` | P0 | `approved` |
-| `order` | `order_alchemy_antitoxin_contract` | 抗毒供应订单图标 | `icon` | `order_alchemy_antitoxin_contract_icon` | P2 | `todo` |
-| `order` | `order_alchemy_market_forecast` | 炼金市场预测订单图标 | `icon` | `order_alchemy_market_forecast_icon` | P2 | `todo` |
-| `order` | `order_alchemy_purification_batch` | 炼金净化批量订单图标 | `icon` | `order_alchemy_purification_batch_icon` | P2 | `todo` |
-| `order` | `order_alchemy_spore_sample_fast` | 限时孢子样本订单图标 | `icon` | `order_alchemy_spore_sample_fast_icon` | P2 | `todo` |
-| `order` | `order_black_bound_core_betrayal` | 黑市绑定核心背叛订单图标 | `icon` | `order_black_bound_core_betrayal_icon` | P2 | `todo` |
-| `order` | `order_black_forbidden_relic_buyout` | 黑市违禁遗物收购订单图标 | `icon` | `order_black_forbidden_relic_buyout_icon` | P2 | `todo` |
-| `order` | `order_black_live_sample_no_questions` | 黑市活体样本收购订单图标 | `icon` | `order_black_live_sample_no_questions_icon` | P2 | `todo` |
-| `order` | `order_black_smuggled_route_key` | 黑市走私路线钥匙订单图标 | `icon` | `order_black_smuggled_route_key_icon` | P2 | `todo` |
-| `order` | `order_guild_layer1_map_rubbing` | 第一层拓图报告订单图标 | `icon` | `order_guild_layer1_map_rubbing_icon` | P2 | `todo` |
-| `order` | `order_guild_layer2_route_report` | 第二层路线报告订单图标 | `icon` | `order_guild_layer2_route_report_icon` | P2 | `todo` |
-| `order` | `order_guild_safezone_signal` | 安全区信号订单图标 | `icon` | `order_guild_safezone_signal_icon` | P2 | `todo` |
-| `order` | `order_mage_boss_core_research` | 法师塔 Boss 核心研究订单图标 | `icon` | `order_mage_boss_core_research_icon` | P2 | `todo` |
-| `order` | `order_mage_corroded_memory_stone` | 腐蚀记忆石订单图标 | `icon` | `order_mage_corroded_memory_stone_icon` | P2 | `todo` |
-| `order` | `order_mage_live_slime_sample` | 活体史莱姆样本订单图标 | `icon` | `order_mage_live_slime_sample_icon` | P2 | `todo` |
-| `order` | `order_mage_unidentified_relic` | 未鉴定遗物订单图标 | `icon` | `order_mage_unidentified_relic_icon` | P2 | `todo` |
-| `order` | `order_status_boss_core_mutex` | 订单状态-Boss 核心互斥图标 | `icon` | `order_status_boss_core_mutex_icon` | P2 | `todo` |
-| `order` | `order_status_deadline_warning` | 订单状态-期限警告图标 | `icon` | `order_status_deadline_warning_icon` | P2 | `todo` |
-| `order` | `order_status_order_bound` | 订单状态-绑定物图标 | `icon` | `order_status_order_bound_icon` | P2 | `todo` |
-| `order` | `order_status_perishable` | 订单状态-易腐图标 | `icon` | `order_status_perishable_icon` | P2 | `todo` |
-| `order` | `order_type_black_market_betrayal` | 订单类型-黑市背叛图标 | `icon` | `order_type_black_market_betrayal_icon` | P2 | `todo` |
-| `order` | `order_type_exploration_report` | 订单类型-探索报告图标 | `icon` | `order_type_exploration_report_icon` | P2 | `todo` |
-| `order` | `order_type_large_cargo` | 订单类型-大型货物图标 | `icon` | `order_type_large_cargo_icon` | P2 | `todo` |
-| `order` | `order_type_live_capture` | 订单类型-活体捕获图标 | `icon` | `order_type_live_capture_icon` | P2 | `todo` |
-| `order` | `order_type_procurement` | 订单类型-采购图标 | `icon` | `order_type_procurement_icon` | P2 | `todo` |
-| `order` | `order_type_target_item` | 订单类型-指定物图标 | `icon` | `order_type_target_item_icon` | P2 | `todo` |
-| `order` | `order_workshop_boss_core_claim` | 工坊 Boss 核心索取订单图标 | `icon` | `order_workshop_boss_core_claim_icon` | P2 | `todo` |
-| `order` | `order_workshop_furnace_core_large` | 大型炉芯订单图标 | `icon` | `order_workshop_furnace_core_large_icon` | P2 | `todo` |
-| `order` | `order_workshop_layer2_ore_batch` | 第二层矿石批量订单图标 | `icon` | `order_workshop_layer2_ore_batch_icon` | P2 | `todo` |
-| `order` | `order_workshop_scrap_guard_plate` | 废料守卫装甲板订单图标 | `icon` | `order_workshop_scrap_guard_plate_icon` | P2 | `todo` |
+| `order` | `order_alchemy_antitoxin_contract` | 抗毒供应订单图标 | `icon` | `order_alchemy_antitoxin_contract_icon` | P2 | `approved` |
+| `order` | `order_alchemy_market_forecast` | 炼金市场预测订单图标 | `icon` | `order_alchemy_market_forecast_icon` | P2 | `approved` |
+| `order` | `order_alchemy_purification_batch` | 炼金净化批量订单图标 | `icon` | `order_alchemy_purification_batch_icon` | P2 | `approved` |
+| `order` | `order_alchemy_spore_sample_fast` | 限时孢子样本订单图标 | `icon` | `order_alchemy_spore_sample_fast_icon` | P2 | `approved` |
+| `order` | `order_black_bound_core_betrayal` | 黑市绑定核心背叛订单图标 | `icon` | `order_black_bound_core_betrayal_icon` | P2 | `approved` |
+| `order` | `order_black_forbidden_relic_buyout` | 黑市违禁遗物收购订单图标 | `icon` | `order_black_forbidden_relic_buyout_icon` | P2 | `approved` |
+| `order` | `order_black_live_sample_no_questions` | 黑市活体样本收购订单图标 | `icon` | `order_black_live_sample_no_questions_icon` | P2 | `approved` |
+| `order` | `order_black_smuggled_route_key` | 黑市走私路线钥匙订单图标 | `icon` | `order_black_smuggled_route_key_icon` | P2 | `approved` |
+| `order` | `order_guild_layer1_map_rubbing` | 第一层拓图报告订单图标 | `icon` | `order_guild_layer1_map_rubbing_icon` | P2 | `approved` |
+| `order` | `order_guild_layer2_route_report` | 第二层路线报告订单图标 | `icon` | `order_guild_layer2_route_report_icon` | P2 | `approved` |
+| `order` | `order_guild_safezone_signal` | 安全区信号订单图标 | `icon` | `order_guild_safezone_signal_icon` | P2 | `approved` |
+| `order` | `order_mage_boss_core_research` | 法师塔 Boss 核心研究订单图标 | `icon` | `order_mage_boss_core_research_icon` | P2 | `approved` |
+| `order` | `order_mage_corroded_memory_stone` | 腐蚀记忆石订单图标 | `icon` | `order_mage_corroded_memory_stone_icon` | P2 | `approved` |
+| `order` | `order_mage_live_slime_sample` | 活体史莱姆样本订单图标 | `icon` | `order_mage_live_slime_sample_icon` | P2 | `approved` |
+| `order` | `order_mage_unidentified_relic` | 未鉴定遗物订单图标 | `icon` | `order_mage_unidentified_relic_icon` | P2 | `approved` |
+| `order` | `order_status_boss_core_mutex` | 订单状态-Boss 核心互斥图标 | `icon` | `order_status_boss_core_mutex_icon` | P2 | `approved` |
+| `order` | `order_status_deadline_warning` | 订单状态-期限警告图标 | `icon` | `order_status_deadline_warning_icon` | P2 | `approved` |
+| `order` | `order_status_order_bound` | 订单状态-绑定物图标 | `icon` | `order_status_order_bound_icon` | P2 | `approved` |
+| `order` | `order_status_perishable` | 订单状态-易腐图标 | `icon` | `order_status_perishable_icon` | P2 | `approved` |
+| `order` | `order_type_black_market_betrayal` | 订单类型-黑市背叛图标 | `icon` | `order_type_black_market_betrayal_icon` | P2 | `approved` |
+| `order` | `order_type_exploration_report` | 订单类型-探索报告图标 | `icon` | `order_type_exploration_report_icon` | P2 | `approved` |
+| `order` | `order_type_large_cargo` | 订单类型-大型货物图标 | `icon` | `order_type_large_cargo_icon` | P2 | `approved` |
+| `order` | `order_type_live_capture` | 订单类型-活体捕获图标 | `icon` | `order_type_live_capture_icon` | P2 | `approved` |
+| `order` | `order_type_procurement` | 订单类型-采购图标 | `icon` | `order_type_procurement_icon` | P2 | `approved` |
+| `order` | `order_type_target_item` | 订单类型-指定物图标 | `icon` | `order_type_target_item_icon` | P2 | `approved` |
+| `order` | `order_workshop_boss_core_claim` | 工坊 Boss 核心索取订单图标 | `icon` | `order_workshop_boss_core_claim_icon` | P2 | `approved` |
+| `order` | `order_workshop_furnace_core_large` | 大型炉芯订单图标 | `icon` | `order_workshop_furnace_core_large_icon` | P2 | `approved` |
+| `order` | `order_workshop_layer2_ore_batch` | 第二层矿石批量订单图标 | `icon` | `order_workshop_layer2_ore_batch_icon` | P2 | `approved` |
+| `order` | `order_workshop_scrap_guard_plate` | 废料守卫装甲板订单图标 | `icon` | `order_workshop_scrap_guard_plate_icon` | P2 | `approved` |
 | `prosthetic` | `pros_cooling_system` | 稳压散热插件 | `icon` | `prosthetic_pros_cooling_system_icon` | P1 | `approved` |
 | `prosthetic` | `pros_power_arm` | 动力臂增幅插件 | `icon` | `prosthetic_pros_power_arm_icon` | P1 | `approved` |
 | `prosthetic` | `prosthetic_anchor_left_arm` | 锚定左臂图标 | `icon` | `prosthetic_anchor_left_arm_icon` | P2 | `approved` |
@@ -179,6 +179,11 @@
 | `ui` | `loot_pickup_panel` | 战利品拾取面板 | `panel` | `ui_loot_pickup_panel` | P1 | `approved` |
 | `ui` | `panel_info` | 小信息面板 | `panel` | `ui_panel_info` | P1 | `approved` |
 | `ui` | `panel_main` | 主弹窗面板 | `panel` | `ui_panel_main` | P1 | `approved` |
+| `ui` | `settlement_outcome_hp_defeat` | 结算结果-HP 战败徽记 | `icon` | `ui_settlement_outcome_hp_defeat` | P1 | `todo` |
+| `ui` | `settlement_outcome_hp_san_defeat` | 结算结果-HP+SAN 复合战败徽记 | `icon` | `ui_settlement_outcome_hp_san_defeat` | P1 | `todo` |
+| `ui` | `settlement_outcome_party_wipe` | 结算结果-队伍溃败徽记 | `icon` | `ui_settlement_outcome_party_wipe` | P1 | `todo` |
+| `ui` | `settlement_outcome_san_collapse` | 结算结果-SAN 崩溃徽记 | `icon` | `ui_settlement_outcome_san_collapse` | P1 | `todo` |
+| `ui` | `settlement_outcome_victory` | 结算结果-胜利徽记 | `icon` | `ui_settlement_outcome_victory` | P1 | `todo` |
 | `ui` | `button_danger` | 危险按钮 | `button` | `ui_button_danger` | P2 | `approved` |
 | `ui` | `combat_turn_banner` | 回合提示条 | `banner` | `ui_combat_turn_banner` | P2 | `approved` |
 | `ui` | `dungeon_node_plate` | 地图节点底板 | `frame` | `ui_dungeon_node_plate` | P2 | `approved` |

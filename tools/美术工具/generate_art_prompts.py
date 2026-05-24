@@ -358,6 +358,11 @@ UI_EN = {
     "dungeon_route_line": "thin map route connector line, brass pipe segment with small rivets, horizontal tileable strip",
     "settlement_victory_panel": "large evacuation success panel frame, dark metal body, warm brass trim, subtle green-blue signal light, empty center area",
     "settlement_defeat_panel": "large defeat result panel frame, dark damaged metal body, muted red warning trims, cracked brass corners, empty center area",
+    "settlement_outcome_victory": "victory result emblem, brass rescue beacon above a small recovered supply crate, green-blue signal spark, clean silhouette",
+    "settlement_outcome_hp_defeat": "physical defeat result emblem, cracked brass heart gauge with muted red warning glow, broken armor shard, clean silhouette",
+    "settlement_outcome_san_collapse": "mental collapse result emblem, cracked blue-purple crystal inside a brass pressure ring, pale cold pulse, clean silhouette",
+    "settlement_outcome_hp_san_defeat": "combined defeat result emblem, split brass badge with cracked heart gauge and fractured blue-purple crystal, clean silhouette",
+    "settlement_outcome_party_wipe": "party collapse result emblem, fallen brass banner beside a broken lantern and muted red warning spark, clean silhouette",
 }
 
 UI_CN = {
@@ -444,6 +449,11 @@ UI_CN = {
     "dungeon_route_line": "地图路线连接线，黄铜管线段、小铆钉和横向可平铺条。",
     "settlement_victory_panel": "撤离成功结算面板，暗金属主体、暖黄铜边、微弱绿蓝信号灯和空中心。",
     "settlement_defeat_panel": "战败结算面板，暗色破损金属、低饱和红色警示边、破裂黄铜角和空中心。",
+    "settlement_outcome_victory": "胜利结果徽记，黄铜救援信标、小型回收补给箱和绿蓝信号火花，轮廓清楚。",
+    "settlement_outcome_hp_defeat": "HP 战败结果徽记，开裂黄铜生命表、低饱和红色警示光和破损护甲碎片，轮廓清楚。",
+    "settlement_outcome_san_collapse": "SAN 崩溃结果徽记，开裂蓝紫水晶置于黄铜压力环内，带浅冷色脉冲，轮廓清楚。",
+    "settlement_outcome_hp_san_defeat": "HP+SAN 复合战败徽记，分裂黄铜徽章中同时包含开裂生命表和破碎蓝紫水晶，轮廓清楚。",
+    "settlement_outcome_party_wipe": "队伍溃败结果徽记，倒下的黄铜旗、破损提灯和低饱和红色警示火花，轮廓清楚。",
 }
 
 DOLL_EN = {
@@ -809,6 +819,21 @@ COMBAT_GRID_MARKER_SPEC = make_spec(
     composition="square inventory grid overlay marker with transparent center",
     post_process=["resize", "preserve_transparency"],
     preview_size=100,
+)
+
+SETTLEMENT_OUTCOME_EMBLEM_SPEC = make_spec(
+    width=512,
+    height=512,
+    background="transparent",
+    alpha_required=True,
+    display_width=96,
+    display_height=96,
+    safe_padding=10,
+    subject_min=0.68,
+    subject_max=0.84,
+    composition="centered combat outcome emblem",
+    post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
+    preview_size=96,
 )
 
 UI_SPEC_BY_CONFIG: Dict[str, Dict[str, Any]] = {
@@ -1311,6 +1336,11 @@ UI_SPEC_BY_CONFIG: Dict[str, Dict[str, Any]] = {
         preview_size=320,
         nine_slice=nine_slice(96, 96, 96, 96),
     ),
+    "settlement_outcome_victory": SETTLEMENT_OUTCOME_EMBLEM_SPEC,
+    "settlement_outcome_hp_defeat": SETTLEMENT_OUTCOME_EMBLEM_SPEC,
+    "settlement_outcome_san_collapse": SETTLEMENT_OUTCOME_EMBLEM_SPEC,
+    "settlement_outcome_hp_san_defeat": SETTLEMENT_OUTCOME_EMBLEM_SPEC,
+    "settlement_outcome_party_wipe": SETTLEMENT_OUTCOME_EMBLEM_SPEC,
 }
 
 FORBIDDEN_PATTERNS = [

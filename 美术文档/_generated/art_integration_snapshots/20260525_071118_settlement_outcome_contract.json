@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-05-25T07:11:51+08:00",
-  "SnapshotTag": "settlement_outcome_local_v0_ready",
+  "GeneratedAt": "2026-05-25T07:11:18+08:00",
+  "SnapshotTag": "settlement_outcome_contract",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",
@@ -13,7 +13,8 @@
     "TotalCandidates": 191,
     "ActionCounts": {
       "acceptance_needed": 82,
-      "program_integrate": 109
+      "generate_needed": 5,
+      "program_integrate": 104
     },
     "DomainCounts": {
       "background": 11,
@@ -704,131 +705,6 @@
       "ReferencedBy": [
         "preset:美术文档/art_requirements_seed.json",
         "screen:maintenance_panel"
-      ],
-      "ManifestEntryCount": 1
-    },
-    {
-      "VisualID": "ui_settlement_outcome_hp_defeat",
-      "Action": "program_integrate",
-      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。",
-      "Confidence": "high",
-      "Priority": "P1",
-      "Domain": "ui",
-      "AssetType": "icon",
-      "ConfigID": "settlement_outcome_hp_defeat",
-      "DisplayName": "结算结果-HP 战败徽记",
-      "Status": "approved",
-      "RegistryStatus": "unregistered",
-      "RegistryHasSprite": false,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_defeat.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "",
-      "ProcessedCandidate": "",
-      "RawCandidate": "",
-      "ReferencedBy": [
-        "preset:美术文档/art_requirements_seed.json",
-        "screen:settlement"
-      ],
-      "ManifestEntryCount": 1
-    },
-    {
-      "VisualID": "ui_settlement_outcome_hp_san_defeat",
-      "Action": "program_integrate",
-      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。",
-      "Confidence": "high",
-      "Priority": "P1",
-      "Domain": "ui",
-      "AssetType": "icon",
-      "ConfigID": "settlement_outcome_hp_san_defeat",
-      "DisplayName": "结算结果-HP+SAN 复合战败徽记",
-      "Status": "approved",
-      "RegistryStatus": "unregistered",
-      "RegistryHasSprite": false,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_san_defeat.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "",
-      "ProcessedCandidate": "",
-      "RawCandidate": "",
-      "ReferencedBy": [
-        "preset:美术文档/art_requirements_seed.json",
-        "screen:settlement"
-      ],
-      "ManifestEntryCount": 1
-    },
-    {
-      "VisualID": "ui_settlement_outcome_party_wipe",
-      "Action": "program_integrate",
-      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。",
-      "Confidence": "high",
-      "Priority": "P1",
-      "Domain": "ui",
-      "AssetType": "icon",
-      "ConfigID": "settlement_outcome_party_wipe",
-      "DisplayName": "结算结果-队伍溃败徽记",
-      "Status": "approved",
-      "RegistryStatus": "unregistered",
-      "RegistryHasSprite": false,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_party_wipe.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "",
-      "ProcessedCandidate": "",
-      "RawCandidate": "",
-      "ReferencedBy": [
-        "preset:美术文档/art_requirements_seed.json",
-        "screen:settlement"
-      ],
-      "ManifestEntryCount": 1
-    },
-    {
-      "VisualID": "ui_settlement_outcome_san_collapse",
-      "Action": "program_integrate",
-      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。",
-      "Confidence": "high",
-      "Priority": "P1",
-      "Domain": "ui",
-      "AssetType": "icon",
-      "ConfigID": "settlement_outcome_san_collapse",
-      "DisplayName": "结算结果-SAN 崩溃徽记",
-      "Status": "approved",
-      "RegistryStatus": "unregistered",
-      "RegistryHasSprite": false,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_san_collapse.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "",
-      "ProcessedCandidate": "",
-      "RawCandidate": "",
-      "ReferencedBy": [
-        "preset:美术文档/art_requirements_seed.json",
-        "screen:settlement"
-      ],
-      "ManifestEntryCount": 1
-    },
-    {
-      "VisualID": "ui_settlement_outcome_victory",
-      "Action": "program_integrate",
-      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。",
-      "Confidence": "high",
-      "Priority": "P1",
-      "Domain": "ui",
-      "AssetType": "icon",
-      "ConfigID": "settlement_outcome_victory",
-      "DisplayName": "结算结果-胜利徽记",
-      "Status": "approved",
-      "RegistryStatus": "unregistered",
-      "RegistryHasSprite": false,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_victory.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "",
-      "ProcessedCandidate": "",
-      "RawCandidate": "",
-      "ReferencedBy": [
-        "preset:美术文档/art_requirements_seed.json",
-        "screen:settlement"
       ],
       "ManifestEntryCount": 1
     },
@@ -4901,6 +4777,131 @@
         "screen:sell_panel",
         "screen:settlement",
         "screen:shop_staging"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "ui_settlement_outcome_hp_defeat",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "ConfigID": "settlement_outcome_hp_defeat",
+      "DisplayName": "结算结果-HP 战败徽记",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_defeat.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:settlement"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "ui_settlement_outcome_hp_san_defeat",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "ConfigID": "settlement_outcome_hp_san_defeat",
+      "DisplayName": "结算结果-HP+SAN 复合战败徽记",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_san_defeat.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:settlement"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "ui_settlement_outcome_party_wipe",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "ConfigID": "settlement_outcome_party_wipe",
+      "DisplayName": "结算结果-队伍溃败徽记",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_party_wipe.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:settlement"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "ui_settlement_outcome_san_collapse",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "ConfigID": "settlement_outcome_san_collapse",
+      "DisplayName": "结算结果-SAN 崩溃徽记",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_san_collapse.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:settlement"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "ui_settlement_outcome_victory",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "ConfigID": "settlement_outcome_victory",
+      "DisplayName": "结算结果-胜利徽记",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_victory.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:settlement"
       ],
       "ManifestEntryCount": 1
     }

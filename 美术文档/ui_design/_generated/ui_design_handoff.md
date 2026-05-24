@@ -5,7 +5,7 @@
 ## Summary
 
 * Reference resolution: `1920x1080`
-* Components: `66`
+* Components: `67`
 * Screens: `21`
 
 ## Screens
@@ -16,7 +16,7 @@
 | `P0` | `combat_hud` | 战斗界面 | `active_spec` | 17 | 34 |
 | `P0` | `inventory_loot` | 背包与战利品拾取界面 | `active_spec` | 8 | 13 |
 | `P1` | `dungeon_map` | 深渊地图界面 | `active_spec` | 6 | 7 |
-| `P1` | `settlement` | 撤离/战败结算界面 | `active_spec` | 6 | 8 |
+| `P1` | `settlement` | 撤离/战斗结果结算界面 | `active_spec` | 8 | 14 |
 | `P1` | `sell_panel` | 工坊出售界面 | `active_spec` | 8 | 8 |
 | `P1` | `prosthetic_panel` | 义体制造界面 | `active_spec` | 7 | 7 |
 | `P1` | `layer_select` | 出发层选择界面 | `active_spec` | 7 | 8 |
@@ -83,7 +83,7 @@
 | `P2` | `Icon.Talk` | `ui_icon_talk` | `fixed` | `doll_interaction` |
 | `P2` | `Icon.Touch` | `ui_icon_touch` | `fixed` | `doll_interaction` |
 | `P2` | `Icon.Trust` | `ui_icon_trust` | `fixed` | `faction_shop` |
-| `P1` | `Icon.Warning` | `ui_icon_warning` | `fixed` | `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement` |
+| `P1` | `Icon.Warning` | `ui_icon_warning` | `fixed` | `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement`, `settlement` |
 | `P1` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room`, `chassis_upgrade_panel` |
 | `P1` | `Inventory.Slot` | `ui_inventory_slot_available`, `ui_inventory_slot_hover`, `ui_inventory_slot_invalid`, `ui_inventory_slot_locked`, `ui_inventory_slot_valid` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
 | `P1` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement` |
@@ -97,6 +97,7 @@
 | `P2` | `Room.MementoSlot` | `ui_room_memento_slot` | `fixed` | `doll_room` |
 | `P1` | `Settlement.DefeatPanel` | `ui_settlement_defeat_panel` | `nine_slice` | `settlement` |
 | `P1` | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | `nine_slice` | `settlement` |
+| `P1` | `Settlement.OutcomeEmblem` | `ui_settlement_outcome_hp_defeat`, `ui_settlement_outcome_hp_san_defeat`, `ui_settlement_outcome_party_wipe`, `ui_settlement_outcome_san_collapse`, `ui_settlement_outcome_victory` | `fixed` | `settlement` |
 | `P1` | `Title.Divider` | `ui_title_divider` | `fixed_or_stretch` | `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `chassis_upgrade_panel`, `business_settlement` |
 | `P2` | `Icon.ChassisUpgrade` | `ui_icon_chassis_upgrade` | `fixed` | `chassis_upgrade_panel` |
 | `P2` | `Icon.Blueprint` | `ui_icon_blueprint` | `fixed` | `chassis_upgrade_panel` |
@@ -503,28 +504,32 @@ Acceptance criteria:
 * 打开/关闭背包按钮状态切换正确，关闭背包仍执行格外物品丢弃规则。
 * 路线连接线使用 ui_dungeon_route_line，节点底板使用 ui_dungeon_node_plate，背景使用 bg_dungeon_map。
 
-### 撤离/战败结算界面
+### 撤离/战斗结果结算界面
 
-* Goal: 把撤离/战败结算升级为正式仪式界面：胜利、失败、收益、损失、带出物和下一步压力有明确层级。
+* Goal: 把撤离/战斗结果结算升级为正式结果报告：胜利、HP 战败、SAN 崩溃、复合战败、收益、损失、带出物和下一步压力有明确层级。
 
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
 | `settlement_background` | full_screen | 0,0 1920x1080 |  | 撤离成功或战败损失背景。 |
-| `result_card` | center | 500,150 920x780 | `Settlement.VictoryPanel`, `Settlement.DefeatPanel`, `Title.Divider`, `Button.Primary` | 结算主面板，承载标题、摘要、明细和继续按钮。 |
-| `result_header` | top_center | 570,190 780x150 | `Title.Divider` | 结算标题、结果徽记、层数和标题分隔。 |
-| `summary_area` | center_top | 600,340 720x170 | `Icon.Money` | 深度、收益、损失、仓库变化和房租压力摘要。 |
-| `loot_breakdown` | center | 600,530 720x300 | `List.Row.Normal`, `Icon.Money` | 带出物、遗失物、价值和损失明细列表。 |
+| `result_card` | center | 500,150 920x780 | `Settlement.VictoryPanel`, `Settlement.DefeatPanel`, `Settlement.OutcomeEmblem`, `Title.Divider`, `Button.Primary` | 结算主面板，承载结果徽记、标题、摘要、明细和继续按钮。 |
+| `result_header` | top_center | 570,190 780x150 | `Settlement.OutcomeEmblem`, `Title.Divider` | 结果徽记、结算标题、失败原因、层数和标题分隔。 |
+| `summary_area` | center_top | 600,340 720x170 | `Icon.Money`, `Icon.Warning` | 战斗结果快照、HP/SAN 结论、剩余敌人、收益、损失、仓库变化和房租压力摘要。 |
+| `loot_breakdown` | center | 600,530 720x300 | `List.Row.Normal`, `Icon.Money` | 带出物、遗失物、价值、损失和战斗失败复盘明细列表。 |
 | `continue_action` | bottom_center | 790,850 340x80 | `Button.Primary` | 返回工坊确认按钮。 |
 
 Layout changes:
 * 把 result_panel 拆为 result_card、result_header、summary_area、loot_breakdown 和 continue_action。
 * 按 result.IsVictory 切换背景和结算主面板。
+* 按 CombatOutcomeReport.OutcomeType / DefeatReason 在 result_header 内切换结果徽记。
 * SettlementCard_Image 固定为 920x780，文字和按钮都作为其子节点。
 * TitleDivider_Image 放在标题下方，不承载文字。
 
 Data bindings:
 * 标题、摘要、拾取/带出/损失列表仍由 SettlementUIController 文本生成。
+* 战斗结果报告接入后，标题优先读取 CombatOutcomeReport.Title，摘要优先读取 CombatOutcomeReport.Summary。
+* DefeatReason 映射：PlayerHpDepleted -> ui_settlement_outcome_hp_defeat；PlayerSanCollapsed -> ui_settlement_outcome_san_collapse；PlayerHpAndSanDepleted -> ui_settlement_outcome_hp_san_defeat；PlayerFactionWiped / Unknown -> ui_settlement_outcome_party_wipe。
+* 胜利结果映射到 ui_settlement_outcome_victory。
 * 返回工坊按钮继续使用 continueBtn 和 onContinue 回调。
 * 金币/估值可先保持文本，后续再拆 Icon.Money。
 * 房租压力或下一步经济提示由程序 Text 渲染。
@@ -537,7 +542,7 @@ Interaction notes:
 Controller bindings:
 | Script | Existing fields | Notes |
 |---|---|---|
-| `SettlementUIController` | `titleText`, `summaryText`, `lootText`, `continueBtn`, `backgroundImage`, `backdropImage`, `settlementPanelImage`, `titleDividerImage` | backgroundImage 使用 ResolveSettlementBackgroundID(result.IsVictory)。<br>settlementPanelImage 使用 ResolveSettlementPanelID(result.IsVictory)。<br>titleText 锚到 result_header；summaryText 锚到 summary_area；lootText 锚到 loot_breakdown。<br>continueBtn 锚到 continue_action，使用 Button.Primary。 |
+| `SettlementUIController` | `titleText`, `summaryText`, `lootText`, `continueBtn`, `backgroundImage`, `backdropImage`, `settlementPanelImage`, `outcomeEmblemImage`, `titleDividerImage` | backgroundImage 使用 ResolveSettlementBackgroundID(result.IsVictory)。<br>settlementPanelImage 使用 ResolveSettlementPanelID(result.IsVictory)。<br>outcomeEmblemImage 使用 Settlement.OutcomeEmblem 的 StateVisualIDs；没有 CombatOutcomeReport 时按 result.IsVictory 使用 victory 或 party_wipe fallback。<br>titleText 锚到 result_header；summaryText 锚到 summary_area；lootText 锚到 loot_breakdown。<br>continueBtn 锚到 continue_action，使用 Button.Primary。 |
 | `GameFlowController` | `settlementPanel` | Settlement 状态进入时调用 SettlementUIController.Present(result, EnterWorkshop)。 |
 
 Unity hierarchy:
@@ -546,6 +551,7 @@ Unity hierarchy:
 | `InventoryCanvas/SettlementPanel_Runtime/SettlementBackdrop_Image` | Background |  |  | Simple |  | False |
 | `InventoryCanvas/SettlementPanel_Runtime/SettlementBackground_Image` | Background |  | `bg_settlement_victory` | Simple | cover | False |
 | `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image` | MainPanel | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | Sliced |  | False |
+| `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/ResultHeader/OutcomeEmblem_Image` | MainPanel | `Settlement.OutcomeEmblem` | `ui_settlement_outcome_victory` | Simple | contain | False |
 | `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/ResultHeader` | MainPanel | `Title.Divider` | `ui_title_divider` | Simple |  | False |
 | `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/SummaryArea` | MainPanel | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
 | `InventoryCanvas/SettlementPanel_Runtime/SettlementCard_Image/LootBreakdown/ListRow_Template` | MainPanel | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
@@ -562,6 +568,11 @@ Sprite assignments:
 | `SettlementUIController.settlementPanelImage.victory` | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | Sliced |  | False |
 | `SettlementUIController.settlementPanelImage.defeat` | `Settlement.DefeatPanel` | `ui_settlement_defeat_panel` | Sliced |  | False |
 | `SettlementUIController.titleDividerImage` | `Title.Divider` | `ui_title_divider` | Simple |  | False |
+| `SettlementUIController.outcomeEmblemImage.victory` | `Settlement.OutcomeEmblem` | `ui_settlement_outcome_victory` | Simple | contain | False |
+| `SettlementUIController.outcomeEmblemImage.hp_defeat` | `Settlement.OutcomeEmblem` | `ui_settlement_outcome_hp_defeat` | Simple | contain | False |
+| `SettlementUIController.outcomeEmblemImage.san_collapse` | `Settlement.OutcomeEmblem` | `ui_settlement_outcome_san_collapse` | Simple | contain | False |
+| `SettlementUIController.outcomeEmblemImage.hp_san_defeat` | `Settlement.OutcomeEmblem` | `ui_settlement_outcome_hp_san_defeat` | Simple | contain | False |
+| `SettlementUIController.outcomeEmblemImage.party_wipe` | `Settlement.OutcomeEmblem` | `ui_settlement_outcome_party_wipe` | Simple | contain | False |
 | `Settlement value icon` | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
 | `Settlement loot list row` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | False |
 | `continueBtn.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
@@ -569,7 +580,9 @@ Sprite assignments:
 Acceptance criteria:
 * 胜利结算使用 bg_settlement_victory 和 ui_settlement_victory_panel。
 * 战败结算使用 bg_settlement_defeat 和 ui_settlement_defeat_panel。
+* 结果徽记按 CombatOutcomeReport.OutcomeType / DefeatReason 切换，至少覆盖胜利、HP 战败、SAN 崩溃、HP+SAN 复合战败和队伍溃败。
 * 结果标题、收益/损失摘要、带出/遗失明细和返回工坊按钮可读。
+* HP 战败和 SAN 崩溃在标题或摘要第一屏可区分，不只显示通用“失败”。
 * 标题、摘要、列表文字在 1920x1080 下不溢出主面板。
 * Continue_Button 可点击，背景和面板不拦截按钮射线。
 * 背景对比不压过主面板文字，结算结果一眼可读。
@@ -1856,4 +1869,4 @@ Acceptance criteria:
 
 ## Known VisualID Sources
 
-* Known VisualID count: `187`
+* Known VisualID count: `192`

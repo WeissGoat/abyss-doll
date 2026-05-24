@@ -997,6 +997,76 @@ def draw_order_mutex(c: Canvas) -> None:
     c.polygon([(0.75, 0.69), (0.66, 0.70), (0.70, 0.78)], rgba("brass_light"), None)
 
 
+def draw_settlement_outcome_victory(c: Canvas) -> None:
+    draw_badge(c, rgba("green", 70))
+    c.glow((0.31, 0.20, 0.69, 0.57), rgba("blue", 65), 0.03)
+    c.round_rect((0.32, 0.53, 0.68, 0.72), 0.035, rgba("brass"), rgba("brass_light"), 0.012)
+    c.round_rect((0.35, 0.45, 0.65, 0.58), 0.025, rgba("brass_dark"), rgba("brass_light"), 0.01)
+    c.line([(0.32, 0.58), (0.68, 0.58)], rgba("brass_light", 190), 0.01)
+    c.round_rect((0.47, 0.50, 0.53, 0.65), 0.012, rgba("metal"), rgba("brass_light"), 0.006)
+    c.round_rect((0.43, 0.27, 0.57, 0.50), 0.025, rgba("metal"), rgba("brass_light"), 0.012)
+    c.ellipse((0.39, 0.18, 0.61, 0.40), rgba("blue", 150), rgba("brass_light"), 0.01)
+    c.ellipse((0.45, 0.24, 0.55, 0.34), rgba("green"), None)
+    c.line([(0.29, 0.32), (0.20, 0.28)], rgba("green", 190), 0.011)
+    c.line([(0.71, 0.32), (0.80, 0.28)], rgba("green", 190), 0.011)
+    c.line([(0.50, 0.18), (0.50, 0.09)], rgba("blue", 170), 0.011)
+
+
+def draw_settlement_outcome_hp_defeat(c: Canvas) -> None:
+    draw_badge(c, rgba("red", 75))
+    c.glow((0.26, 0.25, 0.74, 0.74), rgba("red", 75), 0.03)
+    c.polygon(
+        [(0.50, 0.72), (0.28, 0.50), (0.31, 0.33), (0.44, 0.29), (0.50, 0.38), (0.56, 0.29), (0.69, 0.33), (0.72, 0.50)],
+        rgba("red"),
+        rgba("brass_light"),
+    )
+    c.line([(0.50, 0.38), (0.43, 0.48), (0.53, 0.54), (0.46, 0.67)], rgba("cream"), 0.014)
+    c.line([(0.30, 0.74), (0.71, 0.74)], rgba("brass_dark", 200), 0.012)
+    c.polygon([(0.64, 0.28), (0.80, 0.38), (0.70, 0.58), (0.60, 0.48)], rgba("metal_light"), rgba("brass_light"))
+    c.line([(0.67, 0.33), (0.73, 0.52)], rgba("brass_dark", 170), 0.008)
+    c.ellipse((0.23, 0.49, 0.33, 0.59), rgba("red", 150), None)
+
+
+def draw_settlement_outcome_san_collapse(c: Canvas) -> None:
+    draw_badge(c, rgba("purple", 75))
+    c.glow((0.25, 0.20, 0.75, 0.78), rgba("blue", 70), 0.035)
+    c.ellipse((0.25, 0.25, 0.75, 0.75), (0, 0, 0, 0), rgba("brass_light"), 0.019)
+    c.arc((0.19, 0.19, 0.81, 0.81), 215, 340, rgba("purple", 210), 0.014)
+    c.arc((0.19, 0.19, 0.81, 0.81), 35, 160, rgba("blue", 200), 0.014)
+    c.polygon([(0.50, 0.20), (0.67, 0.44), (0.60, 0.72), (0.40, 0.72), (0.33, 0.44)], rgba("purple"), rgba("brass_light"))
+    c.polygon([(0.50, 0.27), (0.57, 0.45), (0.50, 0.60), (0.42, 0.46)], rgba("blue", 185), None)
+    c.line([(0.46, 0.25), (0.52, 0.43), (0.46, 0.57), (0.53, 0.71)], rgba("cream", 190), 0.01)
+    c.line([(0.61, 0.39), (0.52, 0.50), (0.62, 0.61)], rgba("cream", 150), 0.008)
+    c.ellipse((0.30, 0.66, 0.39, 0.75), rgba("blue", 160), None)
+
+
+def draw_settlement_outcome_hp_san_defeat(c: Canvas) -> None:
+    draw_badge(c, rgba("purple", 65))
+    c.glow((0.20, 0.23, 0.80, 0.77), rgba("red", 55), 0.03)
+    c.polygon([(0.27, 0.31), (0.50, 0.21), (0.73, 0.31), (0.70, 0.70), (0.50, 0.81), (0.30, 0.70)], rgba("brass_dark"), rgba("brass_light"))
+    c.line([(0.50, 0.23), (0.50, 0.78)], rgba("brass_light", 190), 0.012)
+    c.polygon([(0.39, 0.62), (0.26, 0.49), (0.28, 0.38), (0.37, 0.35), (0.42, 0.41), (0.47, 0.35), (0.50, 0.37), (0.50, 0.70)], rgba("red"), None)
+    c.line([(0.37, 0.39), (0.43, 0.50), (0.38, 0.60)], rgba("cream", 180), 0.008)
+    c.polygon([(0.60, 0.33), (0.72, 0.49), (0.66, 0.68), (0.54, 0.68), (0.50, 0.53), (0.53, 0.38)], rgba("purple"), rgba("blue", 190))
+    c.line([(0.59, 0.35), (0.55, 0.51), (0.62, 0.63)], rgba("cream", 160), 0.008)
+    c.ellipse((0.42, 0.72, 0.48, 0.78), rgba("red", 150), None)
+    c.ellipse((0.57, 0.72, 0.63, 0.78), rgba("blue", 150), None)
+
+
+def draw_settlement_outcome_party_wipe(c: Canvas) -> None:
+    draw_badge(c, rgba("red", 70))
+    c.glow((0.24, 0.27, 0.78, 0.78), rgba("red", 70), 0.035)
+    c.line([(0.31, 0.29), (0.58, 0.76)], rgba("brass_light"), 0.016)
+    c.polygon([(0.35, 0.30), (0.68, 0.37), (0.56, 0.54), (0.33, 0.48)], rgba("red", 185), rgba("brass_light"))
+    c.line([(0.27, 0.76), (0.73, 0.76)], rgba("brass_dark", 210), 0.014)
+    c.round_rect((0.55, 0.48, 0.73, 0.70), 0.03, rgba("metal"), rgba("brass_light"), 0.01)
+    c.arc((0.55, 0.36, 0.73, 0.58), 200, 340, rgba("brass_light"), 0.011)
+    c.line([(0.58, 0.62), (0.71, 0.50)], rgba("cream", 130), 0.008)
+    c.line([(0.70, 0.32), (0.82, 0.22)], rgba("red"), 0.012)
+    c.line([(0.72, 0.23), (0.81, 0.32)], rgba("red"), 0.012)
+    c.ellipse((0.21, 0.61, 0.31, 0.71), rgba("brass_dark", 190), None)
+
+
 DRAWERS = {
     "chassis_bulwark_carrier_icon": draw_chassis_bulwark,
     "chassis_compact_raider_icon": draw_chassis_compact,
@@ -1061,6 +1131,11 @@ DRAWERS = {
     "rumor_scrap_workshop_shortage_icon": draw_rumor_scrap_shortage,
     "rumor_slime_crash_icon": draw_rumor_slime_crash,
     "rumor_weapon_collector_visit_icon": draw_rumor_weapon_collector,
+    "ui_settlement_outcome_victory": draw_settlement_outcome_victory,
+    "ui_settlement_outcome_hp_defeat": draw_settlement_outcome_hp_defeat,
+    "ui_settlement_outcome_san_collapse": draw_settlement_outcome_san_collapse,
+    "ui_settlement_outcome_hp_san_defeat": draw_settlement_outcome_hp_san_defeat,
+    "ui_settlement_outcome_party_wipe": draw_settlement_outcome_party_wipe,
     "ui_combat_feedback_hit": draw_hit_feedback,
     "ui_combat_feedback_shield_break": draw_shield_break,
     "ui_combat_grid_lock_marker": lambda c: draw_square_marker(c, "lock"),

@@ -8875,6 +8875,306 @@
       "SourceType": "preset",
       "DeriveRule": "art requirements seed preset",
       "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "settlement_outcome_hp_defeat",
+      "DisplayName": "结算结果-HP 战败徽记",
+      "AssetType": "icon",
+      "VisualID": "ui_settlement_outcome_hp_defeat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_defeat.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "预置 P1 战斗结果报告资产：程序侧已提供 CombatDefeatReasonType.PlayerHpDepleted，结算界面需要独立 HP 战败徽记。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。HP 战败结果徽记，开裂黄铜生命表、低饱和红色警示光和破损护甲碎片，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, physical defeat result emblem, cracked brass heart gauge with muted red warning glow, broken armor shard, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 96,
+          "DisplayHeight": 96,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered combat outcome emblem"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "BatchID": "local_v0_settlement_outcome_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_defeat.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_defeat.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T07:11:36+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_defeat.png; formal AI replacement remains required.",
+      "PresetCategory": "ui_settlement_outcome",
+      "Screen": "settlement",
+      "Usage": "CombatOutcomeReport PlayerHpDepleted 失败原因徽记",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T07:11:36+08:00"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "settlement_outcome_hp_san_defeat",
+      "DisplayName": "结算结果-HP+SAN 复合战败徽记",
+      "AssetType": "icon",
+      "VisualID": "ui_settlement_outcome_hp_san_defeat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_san_defeat.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "预置 P1 战斗结果报告资产：程序侧已提供 CombatDefeatReasonType.PlayerHpAndSanDepleted，结算界面需要独立复合战败徽记。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。HP+SAN 复合战败徽记，分裂黄铜徽章中同时包含开裂生命表和破碎蓝紫水晶，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, combined defeat result emblem, split brass badge with cracked heart gauge and fractured blue-purple crystal, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 96,
+          "DisplayHeight": 96,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered combat outcome emblem"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "BatchID": "local_v0_settlement_outcome_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_san_defeat.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_san_defeat.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T07:11:36+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_san_defeat.png; formal AI replacement remains required.",
+      "PresetCategory": "ui_settlement_outcome",
+      "Screen": "settlement",
+      "Usage": "CombatOutcomeReport PlayerHpAndSanDepleted 失败原因徽记",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T07:11:36+08:00"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "settlement_outcome_party_wipe",
+      "DisplayName": "结算结果-队伍溃败徽记",
+      "AssetType": "icon",
+      "VisualID": "ui_settlement_outcome_party_wipe",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_party_wipe.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "预置 P1 战斗结果报告资产：程序侧已提供 CombatDefeatReasonType.PlayerFactionWiped / Unknown，结算界面需要通用队伍溃败徽记。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。队伍溃败结果徽记，倒下的黄铜旗、破损提灯和低饱和红色警示火花，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, party collapse result emblem, fallen brass banner beside a broken lantern and muted red warning spark, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 96,
+          "DisplayHeight": 96,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered combat outcome emblem"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "BatchID": "local_v0_settlement_outcome_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_party_wipe.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_party_wipe.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T07:11:36+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_party_wipe.png; formal AI replacement remains required.",
+      "PresetCategory": "ui_settlement_outcome",
+      "Screen": "settlement",
+      "Usage": "CombatOutcomeReport PlayerFactionWiped 或 Unknown 失败原因徽记",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T07:11:36+08:00"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "settlement_outcome_san_collapse",
+      "DisplayName": "结算结果-SAN 崩溃徽记",
+      "AssetType": "icon",
+      "VisualID": "ui_settlement_outcome_san_collapse",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_san_collapse.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "预置 P1 战斗结果报告资产：程序侧已提供 CombatDefeatReasonType.PlayerSanCollapsed，结算界面需要独立 SAN 崩溃徽记。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。SAN 崩溃结果徽记，开裂蓝紫水晶置于黄铜压力环内，带浅冷色脉冲，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, mental collapse result emblem, cracked blue-purple crystal inside a brass pressure ring, pale cold pulse, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 96,
+          "DisplayHeight": 96,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered combat outcome emblem"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "BatchID": "local_v0_settlement_outcome_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_san_collapse.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_san_collapse.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T07:11:36+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_san_collapse.png; formal AI replacement remains required.",
+      "PresetCategory": "ui_settlement_outcome",
+      "Screen": "settlement",
+      "Usage": "CombatOutcomeReport PlayerSanCollapsed 失败原因徽记",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T07:11:36+08:00"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "settlement_outcome_victory",
+      "DisplayName": "结算结果-胜利徽记",
+      "AssetType": "icon",
+      "VisualID": "ui_settlement_outcome_victory",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_victory.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "预置 P1 战斗结果报告资产：程序侧已提供 CombatOutcomeReport.Victory，结算界面需要独立胜利徽记，不来自配置表。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。胜利结果徽记，黄铜救援信标、小型回收补给箱和绿蓝信号火花，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, victory result emblem, brass rescue beacon above a small recovered supply crate, green-blue signal spark, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 96,
+          "DisplayHeight": 96,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered combat outcome emblem"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "BatchID": "local_v0_settlement_outcome_20260525_01",
+      "RawPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_victory.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_victory.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-25T07:11:36+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_victory.png; formal AI replacement remains required.",
+      "PresetCategory": "ui_settlement_outcome",
+      "Screen": "settlement",
+      "Usage": "CombatOutcomeReport 胜利结果徽记",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T07:11:36+08:00"
+    },
+    {
+      "Domain": "ui",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
       "ConfigID": "button_danger",
       "DisplayName": "危险按钮",
       "AssetType": "button",

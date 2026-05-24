@@ -1,0 +1,369 @@
+{
+  "GeneratedAt": "2026-05-25T07:11:28+08:00",
+  "SnapshotTag": "settlement_outcome_missing",
+  "Inputs": {
+    "IntegrationCandidatesPath": "美术文档/_generated/可接入素材清单.json",
+    "ManifestPath": "美术文档/_generated/art_manifest.json"
+  },
+  "RunConfig": {
+    "Provider": "novelai",
+    "BatchID": "local_v0_settlement_outcome_20260525_01",
+    "StatusFilter": "prompted",
+    "ActionFilter": "generate_needed",
+    "Variants": 4,
+    "DelaySeconds": 1.0,
+    "SerialRequired": true,
+    "LastProbeBatchID": "",
+    "LastProbeNote": ""
+  },
+  "Summary": {
+    "TotalCandidateItems": 5,
+    "PlannedItems": 5,
+    "PromptReadyItems": 5,
+    "MissingManifestEntries": [],
+    "PriorityCounts": {
+      "P1": 5
+    },
+    "DomainCounts": {
+      "ui": 5
+    },
+    "SizeCounts": {
+      "512x512": 5
+    }
+  },
+  "BatchCommands": {
+    "RunAllGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID ui_settlement_outcome_hp_defeat,ui_settlement_outcome_hp_san_defeat,ui_settlement_outcome_party_wipe,ui_settlement_outcome_san_collapse,ui_settlement_outcome_victory -Variants 4 -DelaySeconds 1 -BatchID local_v0_settlement_outcome_20260525_01",
+    "OptimizeAllAfterGeneration": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -BatchID local_v0_settlement_outcome_20260525_01 -Overwrite",
+    "SyncAllAfterReviewOrFallback": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -BatchID local_v0_settlement_outcome_20260525_01 -AllowProcessedFallback -Overwrite",
+    "RefreshIntegration": ".\\tools\\美术工具\\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag local_v0_settlement_outcome_20260525_01",
+    "RefreshQuality": ".\\tools\\美术工具\\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag local_v0_settlement_outcome_20260525_01",
+    "RefreshPlan": ".\\tools\\美术工具\\Generate-ArtBatchPlan.ps1 -Snapshot -SnapshotTag local_v0_settlement_outcome_20260525_01_after -BatchID local_v0_settlement_outcome_20260525_01"
+  },
+  "Items": [
+    {
+      "VisualID": "ui_settlement_outcome_hp_defeat",
+      "Order": 1,
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "结算结果-HP 战败徽记",
+      "ConfigID": "settlement_outcome_hp_defeat",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。HP 战败结果徽记，开裂黄铜生命表、低饱和红色警示光和破损护甲碎片，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, physical defeat result emblem, cracked brass heart gauge with muted red warning glow, broken armor shard, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 96,
+          "DisplayHeight": 96,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered combat outcome emblem"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_defeat.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_hp_defeat",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_hp_defeat/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_hp_defeat/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_hp_defeat/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_hp_defeat/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:settlement"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID ui_settlement_outcome_hp_defeat -Variants 4 -DelaySeconds 1 -BatchID local_v0_settlement_outcome_20260525_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID ui_settlement_outcome_hp_defeat -BatchID local_v0_settlement_outcome_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID ui_settlement_outcome_hp_defeat -BatchID local_v0_settlement_outcome_20260525_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "ui_settlement_outcome_hp_san_defeat",
+      "Order": 2,
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "结算结果-HP+SAN 复合战败徽记",
+      "ConfigID": "settlement_outcome_hp_san_defeat",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。HP+SAN 复合战败徽记，分裂黄铜徽章中同时包含开裂生命表和破碎蓝紫水晶，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, combined defeat result emblem, split brass badge with cracked heart gauge and fractured blue-purple crystal, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 96,
+          "DisplayHeight": 96,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered combat outcome emblem"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_san_defeat.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_hp_san_defeat",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_hp_san_defeat/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_hp_san_defeat/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_hp_san_defeat/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_hp_san_defeat/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:settlement"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID ui_settlement_outcome_hp_san_defeat -Variants 4 -DelaySeconds 1 -BatchID local_v0_settlement_outcome_20260525_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID ui_settlement_outcome_hp_san_defeat -BatchID local_v0_settlement_outcome_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID ui_settlement_outcome_hp_san_defeat -BatchID local_v0_settlement_outcome_20260525_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "ui_settlement_outcome_party_wipe",
+      "Order": 3,
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "结算结果-队伍溃败徽记",
+      "ConfigID": "settlement_outcome_party_wipe",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。队伍溃败结果徽记，倒下的黄铜旗、破损提灯和低饱和红色警示火花，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, party collapse result emblem, fallen brass banner beside a broken lantern and muted red warning spark, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 96,
+          "DisplayHeight": 96,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered combat outcome emblem"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_party_wipe.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_party_wipe",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_party_wipe/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_party_wipe/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_party_wipe/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_party_wipe/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:settlement"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID ui_settlement_outcome_party_wipe -Variants 4 -DelaySeconds 1 -BatchID local_v0_settlement_outcome_20260525_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID ui_settlement_outcome_party_wipe -BatchID local_v0_settlement_outcome_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID ui_settlement_outcome_party_wipe -BatchID local_v0_settlement_outcome_20260525_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "ui_settlement_outcome_san_collapse",
+      "Order": 4,
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "结算结果-SAN 崩溃徽记",
+      "ConfigID": "settlement_outcome_san_collapse",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。SAN 崩溃结果徽记，开裂蓝紫水晶置于黄铜压力环内，带浅冷色脉冲，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, mental collapse result emblem, cracked blue-purple crystal inside a brass pressure ring, pale cold pulse, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 96,
+          "DisplayHeight": 96,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered combat outcome emblem"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_san_collapse.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_san_collapse",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_san_collapse/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_san_collapse/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_san_collapse/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_san_collapse/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:settlement"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID ui_settlement_outcome_san_collapse -Variants 4 -DelaySeconds 1 -BatchID local_v0_settlement_outcome_20260525_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID ui_settlement_outcome_san_collapse -BatchID local_v0_settlement_outcome_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID ui_settlement_outcome_san_collapse -BatchID local_v0_settlement_outcome_20260525_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "ui_settlement_outcome_victory",
+      "Order": 5,
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "结算结果-胜利徽记",
+      "ConfigID": "settlement_outcome_victory",
+      "Status": "prompted",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。胜利结果徽记，黄铜救援信标、小型回收补给箱和绿蓝信号火花，轮廓清楚。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, victory result emblem, brass rescue beacon above a small recovered supply crate, green-blue signal spark, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 96,
+          "DisplayHeight": 96,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.68,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered combat outcome emblem"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 96
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_victory.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_victory",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_victory/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_victory/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_victory/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/ui_settlement_outcome_victory/contact_sheet"
+      },
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json",
+        "screen:settlement"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID ui_settlement_outcome_victory -Variants 4 -DelaySeconds 1 -BatchID local_v0_settlement_outcome_20260525_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID ui_settlement_outcome_victory -BatchID local_v0_settlement_outcome_20260525_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID ui_settlement_outcome_victory -BatchID local_v0_settlement_outcome_20260525_01 -AllowProcessedFallback -Overwrite"
+      }
+    }
+  ]
+}

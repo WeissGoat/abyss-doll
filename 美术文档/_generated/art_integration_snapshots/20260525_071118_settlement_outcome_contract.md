@@ -4,16 +4,16 @@
 
 ## Summary
 
-* GeneratedAt: `2026-05-25T07:11:51+08:00`
+* GeneratedAt: `2026-05-25T07:11:18+08:00`
 * Manifest entries: `193`
 * Unique VisualIDs: `192`
 * Candidate entries: `191`
-* Program integrate: `109`
+* Program integrate: `104`
 * Acceptance needed: `82`
 * Art approve: `0`
 * Art select: `0`
 * Art process: `0`
-* Generate needed: `0`
+* Generate needed: `5`
 
 ## Program Integrate
 
@@ -46,11 +46,6 @@
 | P1 | `ui_icon_expense` | ui | 支出图标 | preset:美术文档/art_requirements_seed.json, screen:daily_bill_report | UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P1 | `ui_icon_income` | ui | 收入图标 | preset:美术文档/art_requirements_seed.json, screen:daily_bill_report | UnityClient/Assets/Art/Approved/UI/ui_icon_income.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P1 | `ui_icon_wear_repair` | ui | 磨损修复图标 | preset:美术文档/art_requirements_seed.json, screen:maintenance_panel | UnityClient/Assets/Art/Approved/UI/ui_icon_wear_repair.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P1 | `ui_settlement_outcome_hp_defeat` | ui | 结算结果-HP 战败徽记 | preset:美术文档/art_requirements_seed.json, screen:settlement | UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_defeat.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P1 | `ui_settlement_outcome_hp_san_defeat` | ui | 结算结果-HP+SAN 复合战败徽记 | preset:美术文档/art_requirements_seed.json, screen:settlement | UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_san_defeat.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P1 | `ui_settlement_outcome_party_wipe` | ui | 结算结果-队伍溃败徽记 | preset:美术文档/art_requirements_seed.json, screen:settlement | UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_party_wipe.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P1 | `ui_settlement_outcome_san_collapse` | ui | 结算结果-SAN 崩溃徽记 | preset:美术文档/art_requirements_seed.json, screen:settlement | UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_san_collapse.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P1 | `ui_settlement_outcome_victory` | ui | 结算结果-胜利徽记 | preset:美术文档/art_requirements_seed.json, screen:settlement | UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_victory.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `bg_doll_room_attic` | background | 人偶阁楼房间背景 | preset:美术文档/art_requirements_seed.json, screen:doll_room | UnityClient/Assets/Art/Approved/Backgrounds/DollRoom/bg_doll_room_attic.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `chassis_bulwark_carrier_icon` | chassis | 重载承运底盘图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Chassis/chassis_bulwark_carrier_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `chassis_compact_raider_icon` | chassis | 轻装掠行底盘图标 | preset:美术文档/art_requirements_seed.json | UnityClient/Assets/Art/Approved/Chassis/chassis_compact_raider_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
@@ -215,6 +210,11 @@
 | `acceptance_needed` | P2 | `ui_settlement_defeat_panel` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_settlement_defeat_panel.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_settlement_victory_panel` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_settlement_victory_panel.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_title_divider` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_title_divider.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
+| `generate_needed` | P1 | `ui_settlement_outcome_hp_defeat` | `prompted` | missing | UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_defeat.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P1 | `ui_settlement_outcome_hp_san_defeat` | `prompted` | missing | UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_san_defeat.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P1 | `ui_settlement_outcome_party_wipe` | `prompted` | missing | UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_party_wipe.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P1 | `ui_settlement_outcome_san_collapse` | `prompted` | missing | UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_san_collapse.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P1 | `ui_settlement_outcome_victory` | `prompted` | missing | UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_victory.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
 
 ## Action Meanings
 

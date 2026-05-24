@@ -1964,6 +1964,71 @@
       "Screen": "order_board",
       "Usage": "订单详情、Boss 核心交付裁决、互斥提示",
       "SourceFactsCN": "预置正式经济压力订单可读性资产：`50_经济压力订单正式配置落地设计.md` 和 `51_经济压力正式配置Validator与固定验收样例.md` 要求 Boss 核心互斥裁决可见，先纳入美术流水线。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_settlement_outcome",
+      "ConfigID": "settlement_outcome_victory",
+      "DisplayName": "结算结果-胜利徽记",
+      "AssetType": "icon",
+      "VisualID": "ui_settlement_outcome_victory",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_victory.png",
+      "Priority": "P1",
+      "Screen": "settlement",
+      "Usage": "CombatOutcomeReport 胜利结果徽记",
+      "SourceFactsCN": "预置 P1 战斗结果报告资产：程序侧已提供 CombatOutcomeReport.Victory，结算界面需要独立胜利徽记，不来自配置表。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_settlement_outcome",
+      "ConfigID": "settlement_outcome_hp_defeat",
+      "DisplayName": "结算结果-HP 战败徽记",
+      "AssetType": "icon",
+      "VisualID": "ui_settlement_outcome_hp_defeat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_defeat.png",
+      "Priority": "P1",
+      "Screen": "settlement",
+      "Usage": "CombatOutcomeReport PlayerHpDepleted 失败原因徽记",
+      "SourceFactsCN": "预置 P1 战斗结果报告资产：程序侧已提供 CombatDefeatReasonType.PlayerHpDepleted，结算界面需要独立 HP 战败徽记。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_settlement_outcome",
+      "ConfigID": "settlement_outcome_san_collapse",
+      "DisplayName": "结算结果-SAN 崩溃徽记",
+      "AssetType": "icon",
+      "VisualID": "ui_settlement_outcome_san_collapse",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_san_collapse.png",
+      "Priority": "P1",
+      "Screen": "settlement",
+      "Usage": "CombatOutcomeReport PlayerSanCollapsed 失败原因徽记",
+      "SourceFactsCN": "预置 P1 战斗结果报告资产：程序侧已提供 CombatDefeatReasonType.PlayerSanCollapsed，结算界面需要独立 SAN 崩溃徽记。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_settlement_outcome",
+      "ConfigID": "settlement_outcome_hp_san_defeat",
+      "DisplayName": "结算结果-HP+SAN 复合战败徽记",
+      "AssetType": "icon",
+      "VisualID": "ui_settlement_outcome_hp_san_defeat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_san_defeat.png",
+      "Priority": "P1",
+      "Screen": "settlement",
+      "Usage": "CombatOutcomeReport PlayerHpAndSanDepleted 失败原因徽记",
+      "SourceFactsCN": "预置 P1 战斗结果报告资产：程序侧已提供 CombatDefeatReasonType.PlayerHpAndSanDepleted，结算界面需要独立复合战败徽记。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_settlement_outcome",
+      "ConfigID": "settlement_outcome_party_wipe",
+      "DisplayName": "结算结果-队伍溃败徽记",
+      "AssetType": "icon",
+      "VisualID": "ui_settlement_outcome_party_wipe",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_party_wipe.png",
+      "Priority": "P1",
+      "Screen": "settlement",
+      "Usage": "CombatOutcomeReport PlayerFactionWiped 或 Unknown 失败原因徽记",
+      "SourceFactsCN": "预置 P1 战斗结果报告资产：程序侧已提供 CombatDefeatReasonType.PlayerFactionWiped / Unknown，结算界面需要通用队伍溃败徽记。"
     }
   ],
   "UpdatedAt": "2026-05-25"

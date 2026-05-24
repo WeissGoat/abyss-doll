@@ -810,7 +810,8 @@
         "scenario_event",
         "doll_room",
         "chassis_upgrade_panel",
-        "business_settlement"
+        "business_settlement",
+        "settlement"
       ],
       "ProgramUse": "维护风险、欠债风险、不可下潜、材料不足等警告状态图标。"
     },
@@ -1090,6 +1091,32 @@
         "settlement"
       ],
       "ProgramUse": "撤离成功结算主面板。"
+    },
+    {
+      "ComponentID": "Settlement.OutcomeEmblem",
+      "DisplayName": "战斗结果徽记",
+      "VisualID": "ui_settlement_outcome_victory",
+      "StateVisualIDs": {
+        "victory": "ui_settlement_outcome_victory",
+        "hp_defeat": "ui_settlement_outcome_hp_defeat",
+        "san_collapse": "ui_settlement_outcome_san_collapse",
+        "hp_san_defeat": "ui_settlement_outcome_hp_san_defeat",
+        "party_wipe": "ui_settlement_outcome_party_wipe"
+      },
+      "Category": "settlement",
+      "Priority": "P1",
+      "ResizeMode": "fixed",
+      "States": [
+        "victory",
+        "hp_defeat",
+        "san_collapse",
+        "hp_san_defeat",
+        "party_wipe"
+      ],
+      "RequiredForScreens": [
+        "settlement"
+      ],
+      "ProgramUse": "结算标题区的结果徽记，按 CombatOutcomeReport.OutcomeType / DefeatReason 切换；文字、数值和失败原因由运行时 Text 叠加。"
     },
     {
       "ComponentID": "Title.Divider",
