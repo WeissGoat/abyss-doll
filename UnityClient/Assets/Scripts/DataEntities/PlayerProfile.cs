@@ -16,6 +16,7 @@ public class PlayerProfile {
     public bool HasPendingMonthlyRent;
     public int PendingMonthlyBillAmount;
     public int PendingMonthlyRentDay;
+    public int LastEconomyRefreshWeek;
     public int WorkshopLevel;
     public int MemoryFragments;
     public int HighestUnlockedDungeonLayer = 1;
@@ -26,4 +27,7 @@ public class PlayerProfile {
     
     public List<string> UnlockedDolls = new List<string>();
     public List<ItemEntity> StashInventory = new List<ItemEntity>();
+    public List<FactionRuntimeState> FactionStates = new List<FactionRuntimeState>();
+    public List<OrderInstanceState> ActiveOrders = new List<OrderInstanceState>();
+    public List<ActiveRumorState> ActiveRumors = new List<ActiveRumorState>();
 }

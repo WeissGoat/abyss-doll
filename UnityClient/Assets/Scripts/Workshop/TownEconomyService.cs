@@ -74,6 +74,59 @@ public class PawnCandidate {
     public string SourceContainer;
 }
 
+public class WeeklyEconomyRefreshReport {
+    public bool Success;
+    public string Reason;
+    public int Week;
+    public List<ActiveRumorState> ActiveRumors = new List<ActiveRumorState>();
+    public List<OrderInstanceState> AvailableOrders = new List<OrderInstanceState>();
+    public List<string> Logs = new List<string>();
+}
+
+public class OrderAcceptReport {
+    public bool Success;
+    public string Reason;
+    public OrderInstanceState OrderInstance;
+}
+
+public class OrderDeliveryReport {
+    public bool Success;
+    public string Reason;
+    public OrderInstanceState OrderInstance;
+    public string OrderID;
+    public string FactionID;
+    public int GoldReward;
+    public int RewardMoney;
+    public int ReputationDelta;
+    public int TrustDelta;
+    public int NewReputationValue;
+    public int NewTrustValue;
+    public List<ItemEntity> DeliveredItems = new List<ItemEntity>();
+    public List<ItemEntity> GeneratedRewardItems = new List<ItemEntity>();
+    public List<string> Logs = new List<string>();
+}
+
+public class EconomySellLine {
+    public ItemEntity Item;
+    public string ItemID;
+    public string Name;
+    public int BaseValue;
+    public int FinalValue;
+    public float Multiplier = 1f;
+    public List<string> AppliedRumorIDs = new List<string>();
+}
+
+public class EconomySellReport {
+    public bool Success = true;
+    public string Reason;
+    public string Channel;
+    public int StartingMoney;
+    public int EndingMoney;
+    public int TotalIncome;
+    public List<EconomySellLine> SoldItems = new List<EconomySellLine>();
+    public List<string> FailedItems = new List<string>();
+}
+
 internal class OwnedEconomyItemSlot {
     public ItemEntity Item;
     public string SourceContainer;
@@ -253,6 +306,677 @@ public static class TownEconomyService {
         }
 
         return CalculateMonthlyBill(player, config, out _, out _, out _, out _, out _);
+    }
+
+    public static WeeklyEconomyRefreshReport RefreshWeeklyEconomy(
+        PlayerProfile player,
+        int runSeed = 0,
+        string economyConfigID = DefaultEconomyConfigID) {
+        WeeklyEconomyRefreshReport report = new WeeklyEconomyRefreshReport();
+        if (!TryResolveContext(player, economyConfigID, out EconomyConfig config, out string reason)) {
+            report.Success = false;
+            report.Reason = reason;
+            return report;
+        }
+
+        NormalizeEconomicState(player);
+        int week = CalculateCurrentWeek(player, config);
+        report.Week = week;
+
+        if (player.LastEconomyRefreshWeek == week) {
+            report.Success = true;
+            report.ActiveRumors.AddRange(GetActiveRumors(player));
+            report.AvailableOrders.AddRange(player.ActiveOrders.Where(IsAvailableOrder));
+            report.Logs.Add($"Economy week [{week}] already refreshed.");
+            return report;
+        }
+
+        player.ActiveRumors.RemoveAll(rumor => rumor == null || rumor.ExpireDay < player.CurrentDay || !ConfigManager.Rumors.ContainsKey(rumor.RumorID));
+        player.ActiveOrders.RemoveAll(order => order == null || IsAvailableOrder(order));
+
+        RollWeeklyRumors(player, config, week, runSeed, report);
+        RollWeeklyOrders(player, config, week, runSeed, report);
+
+        player.LastEconomyRefreshWeek = week;
+        report.Success = true;
+        report.ActiveRumors.AddRange(GetActiveRumors(player));
+        report.AvailableOrders.AddRange(player.ActiveOrders.Where(IsAvailableOrder));
+        return report;
+    }
+
+    public static OrderAcceptReport AcceptOrder(PlayerProfile player, string orderInstanceID) {
+        OrderAcceptReport report = new OrderAcceptReport();
+        if (player == null) {
+            report.Reason = "Player profile is missing.";
+            return report;
+        }
+
+        NormalizeEconomicState(player);
+        OrderInstanceState instance = player.ActiveOrders.FirstOrDefault(order => order != null && order.InstanceID == orderInstanceID);
+        if (instance == null) {
+            report.Reason = $"Order instance [{orderInstanceID}] is missing.";
+            return report;
+        }
+
+        if (!Enum.TryParse(instance.Status, true, out EconomyOrderStatus status) || status != EconomyOrderStatus.Available) {
+            report.Reason = $"Order instance [{orderInstanceID}] is not available.";
+            return report;
+        }
+
+        if (!ConfigManager.Orders.TryGetValue(instance.OrderID, out OrderConfig config)) {
+            report.Reason = $"Order config [{instance.OrderID}] is missing.";
+            return report;
+        }
+
+        FactionRuntimeState factionState = GetOrCreateFactionState(player, instance.FactionID);
+        int activeCount = player.ActiveOrders.Count(order => order != null
+            && order.FactionID == instance.FactionID
+            && (IsAcceptedOrder(order) || IsInProgressOrder(order)));
+        int maxActive = ConfigManager.Factions.TryGetValue(instance.FactionID, out FactionConfig factionConfig)
+            ? Mathf.Max(1, factionConfig.MaxActiveOrders)
+            : 3;
+
+        if (activeCount >= maxActive) {
+            report.Reason = $"Faction [{instance.FactionID}] active order limit reached.";
+            return report;
+        }
+
+        instance.Status = EconomyOrderStatus.Accepted.ToString();
+        instance.AcceptedDay = Mathf.Max(1, player.CurrentDay);
+        instance.DeadlineDay = instance.AcceptedDay + Mathf.Max(1, config.DeadlineDays);
+        factionState.FactionID = instance.FactionID;
+
+        report.Success = true;
+        report.OrderInstance = instance;
+        return report;
+    }
+
+    public static OrderDeliveryReport DeliverOrder(PlayerProfile player, string orderInstanceID, IEnumerable<ItemEntity> selectedItems) {
+        OrderDeliveryReport report = new OrderDeliveryReport();
+        if (player == null) {
+            report.Reason = "Player profile is missing.";
+            return report;
+        }
+
+        NormalizeEconomicState(player);
+        OrderInstanceState instance = player.ActiveOrders.FirstOrDefault(order => order != null && order.InstanceID == orderInstanceID);
+        if (instance == null) {
+            report.Reason = $"Order instance [{orderInstanceID}] is missing.";
+            return report;
+        }
+
+        if (!ConfigManager.Orders.TryGetValue(instance.OrderID, out OrderConfig orderConfig)) {
+            report.Reason = $"Order config [{instance.OrderID}] is missing.";
+            return report;
+        }
+
+        report.OrderInstance = instance;
+        report.OrderID = orderConfig.OrderID;
+        report.FactionID = orderConfig.FactionID;
+
+        if (!IsAcceptedOrder(instance) && !IsInProgressOrder(instance)) {
+            report.Reason = $"Order instance [{orderInstanceID}] cannot be delivered from status [{instance.Status}].";
+            return report;
+        }
+
+        if (instance.DeadlineDay > 0 && player.CurrentDay > instance.DeadlineDay) {
+            ExpireOrder(player, instance, orderConfig);
+            report.Reason = $"Order instance [{orderInstanceID}] is expired.";
+            return report;
+        }
+
+        List<ItemEntity> items = selectedItems?.Where(item => item != null).Distinct().ToList() ?? new List<ItemEntity>();
+        if (!TrySelectDeliveryItems(orderConfig, items, out List<ItemEntity> deliveredItems, out string deliveryReason)) {
+            report.Reason = deliveryReason;
+            return report;
+        }
+
+        foreach (ItemEntity item in deliveredItems) {
+            if (!TryRemoveOwnedItem(player, item, true, out string removeReason)) {
+                report.Reason = removeReason;
+                return report;
+            }
+
+            instance.DeliveredItemInstanceIDs.Add(item.InstanceID);
+            report.DeliveredItems.Add(item);
+        }
+
+        int rewardMoney = GrantOrderReward(player, orderConfig, report);
+        FactionRuntimeState factionState = GetOrCreateFactionState(player, orderConfig.FactionID);
+        factionState.ReputationValue = Mathf.Max(0, factionState.ReputationValue + orderConfig.ReputationDelta);
+        factionState.TrustValue = Mathf.Max(0, factionState.TrustValue + orderConfig.TrustDelta);
+        if (!factionState.CompletedOrderIDs.Contains(orderConfig.OrderID)) {
+            factionState.CompletedOrderIDs.Add(orderConfig.OrderID);
+        }
+
+        player.Money += Mathf.Max(0, orderConfig.FixedGold);
+        instance.Status = EconomyOrderStatus.Completed.ToString();
+
+        report.Success = true;
+        report.GoldReward = Mathf.Max(0, orderConfig.FixedGold);
+        report.RewardMoney = rewardMoney;
+        report.ReputationDelta = orderConfig.ReputationDelta;
+        report.TrustDelta = orderConfig.TrustDelta;
+        report.NewReputationValue = factionState.ReputationValue;
+        report.NewTrustValue = factionState.TrustValue;
+        report.Logs.Add($"Order [{orderConfig.OrderID}] completed.");
+        return report;
+    }
+
+    public static EconomySellReport SellItems(PlayerProfile player, IEnumerable<ItemEntity> selectedItems, EconomySellChannel channel) {
+        EconomySellReport report = new EconomySellReport {
+            Channel = channel.ToString()
+        };
+
+        if (player == null) {
+            report.Success = false;
+            report.Reason = "Player profile is missing.";
+            return report;
+        }
+
+        NormalizeEconomicState(player);
+        report.StartingMoney = player.Money;
+        List<ItemEntity> items = selectedItems?.Where(item => item != null).Distinct().ToList() ?? new List<ItemEntity>();
+        foreach (ItemEntity item in items) {
+            EconomySellLine line = CalculateItemSellValue(player, item, channel);
+            if (line.FinalValue <= 0) {
+                report.Success = false;
+                report.FailedItems.Add($"{item.Name}: no sell value.");
+                continue;
+            }
+
+            if (!CanSellInChannel(item, channel, out string blockReason)) {
+                report.Success = false;
+                report.FailedItems.Add($"{item.Name}: {blockReason}");
+                continue;
+            }
+
+            if (!TryRemoveOwnedItem(player, item, true, out string removeReason)) {
+                report.Success = false;
+                report.FailedItems.Add($"{item.Name}: {removeReason}");
+                continue;
+            }
+
+            player.Money += line.FinalValue;
+            report.TotalIncome += line.FinalValue;
+            report.SoldItems.Add(line);
+        }
+
+        report.EndingMoney = player.Money;
+        if (!report.Success && string.IsNullOrEmpty(report.Reason)) {
+            report.Reason = "One or more items could not be sold.";
+        }
+
+        return report;
+    }
+
+    public static EconomySellLine CalculateItemSellValue(PlayerProfile player, ItemEntity item, EconomySellChannel channel) {
+        EconomySellLine line = new EconomySellLine {
+            Item = item,
+            ItemID = item?.ConfigID,
+            Name = item?.Name,
+            BaseValue = Mathf.Max(0, item?.BaseValue ?? 0)
+        };
+
+        if (player == null || item == null || line.BaseValue <= 0) {
+            line.FinalValue = 0;
+            return line;
+        }
+
+        float multiplier = 1f;
+        foreach (ActiveRumorState activeRumor in GetActiveRumors(player)) {
+            if (!ConfigManager.Rumors.TryGetValue(activeRumor.RumorID, out RumorConfig rumor)) {
+                continue;
+            }
+
+            if (!RumorAppliesToItem(rumor, item, channel)) {
+                continue;
+            }
+
+            multiplier *= Mathf.Max(0.01f, rumor.PriceMultiplier);
+            line.AppliedRumorIDs.Add(rumor.RumorID);
+        }
+
+        line.Multiplier = multiplier;
+        line.FinalValue = Mathf.Max(0, Mathf.RoundToInt(line.BaseValue * multiplier));
+        return line;
+    }
+
+    private static void NormalizeEconomicState(PlayerProfile player) {
+        if (player == null) {
+            return;
+        }
+
+        NormalizeCalendar(player);
+        if (player.FactionStates == null) {
+            player.FactionStates = new List<FactionRuntimeState>();
+        }
+
+        if (player.ActiveOrders == null) {
+            player.ActiveOrders = new List<OrderInstanceState>();
+        }
+
+        if (player.ActiveRumors == null) {
+            player.ActiveRumors = new List<ActiveRumorState>();
+        }
+    }
+
+    private static int CalculateCurrentWeek(PlayerProfile player, EconomyConfig config) {
+        int weekLength = Mathf.Max(1, config?.WeekLength ?? 7);
+        int currentDay = Mathf.Max(1, player?.CurrentDay ?? 1);
+        return ((currentDay - 1) / weekLength) + 1;
+    }
+
+    private static List<ActiveRumorState> GetActiveRumors(PlayerProfile player) {
+        if (player?.ActiveRumors == null) {
+            return new List<ActiveRumorState>();
+        }
+
+        int currentDay = Mathf.Max(1, player.CurrentDay);
+        return player.ActiveRumors
+            .Where(rumor => rumor != null
+                && rumor.StartDay <= currentDay
+                && rumor.ExpireDay >= currentDay
+                && ConfigManager.Rumors.ContainsKey(rumor.RumorID))
+            .ToList();
+    }
+
+    private static void RollWeeklyRumors(
+        PlayerProfile player,
+        EconomyConfig config,
+        int week,
+        int runSeed,
+        WeeklyEconomyRefreshReport report) {
+        List<RumorConfig> candidates = ConfigManager.Rumors.Values
+            .Where(rumor => rumor != null && rumor.Weight > 0 && rumor.DurationDays > 0)
+            .OrderBy(rumor => rumor.RumorID)
+            .ToList();
+        if (candidates.Count == 0) {
+            report.Logs.Add("No rumor config available for weekly refresh.");
+            return;
+        }
+
+        int seed = BuildDeterministicSeed(runSeed, week, 17);
+        RumorConfig selected = PickWeighted(candidates, rumor => rumor.Weight, seed);
+        if (selected == null) {
+            report.Logs.Add("No positive-weight rumor selected.");
+            return;
+        }
+
+        player.ActiveRumors.Add(new ActiveRumorState {
+            RumorID = selected.RumorID,
+            StartDay = Mathf.Max(1, player.CurrentDay),
+            ExpireDay = Mathf.Max(1, player.CurrentDay) + Mathf.Max(1, selected.DurationDays) - 1,
+            LogSeed = seed
+        });
+        report.Logs.Add($"Rumor [{selected.RumorID}] activated for week [{week}].");
+    }
+
+    private static void RollWeeklyOrders(
+        PlayerProfile player,
+        EconomyConfig config,
+        int week,
+        int runSeed,
+        WeeklyEconomyRefreshReport report) {
+        List<FactionConfig> factions = ConfigManager.Factions.Values
+            .Where(faction => faction != null && !string.IsNullOrEmpty(faction.FactionID))
+            .OrderBy(faction => faction.FactionID)
+            .ToList();
+        if (factions.Count == 0) {
+            report.Logs.Add("No faction config available for weekly order refresh.");
+            return;
+        }
+
+        foreach (FactionConfig faction in factions) {
+            FactionRuntimeState factionState = GetOrCreateFactionState(player, faction.FactionID);
+            if (factionState.CooldownUntilDay > 0 && factionState.CooldownUntilDay > player.CurrentDay) {
+                report.Logs.Add($"Faction [{faction.FactionID}] skipped by cooldown until day [{factionState.CooldownUntilDay}].");
+                continue;
+            }
+
+            List<OrderConfig> candidates = ConfigManager.Orders.Values
+                .Where(order => IsOrderConfigAvailable(player, order, factionState, faction.FactionID))
+                .OrderBy(order => order.OrderID)
+                .ToList();
+            if (candidates.Count == 0) {
+                report.Logs.Add($"Faction [{faction.FactionID}] has no available order candidates.");
+                continue;
+            }
+
+            int slots = Mathf.Max(1, faction.VisibleOrderSlots);
+            HashSet<string> usedOrderIDs = new HashSet<string>();
+            for (int slot = 0; slot < slots; slot++) {
+                List<OrderConfig> slotCandidates = candidates
+                    .Where(order => !usedOrderIDs.Contains(order.OrderID))
+                    .ToList();
+                if (slotCandidates.Count == 0) {
+                    break;
+                }
+
+                int seed = BuildDeterministicSeed(runSeed, week, 101 + slot + usedOrderIDs.Count + faction.FactionID.Length);
+                OrderConfig selected = PickWeighted(slotCandidates, order => ResolveOrderWeight(player, order), seed);
+                if (selected == null) {
+                    break;
+                }
+
+                usedOrderIDs.Add(selected.OrderID);
+                player.ActiveOrders.Add(new OrderInstanceState {
+                    InstanceID = $"{selected.OrderID}_w{week}_s{slot}",
+                    OrderID = selected.OrderID,
+                    FactionID = selected.FactionID,
+                    Status = EconomyOrderStatus.Available.ToString(),
+                    GeneratedDay = Mathf.Max(1, player.CurrentDay),
+                    LogSeed = seed
+                });
+                report.Logs.Add($"Order [{selected.OrderID}] generated for faction [{faction.FactionID}].");
+            }
+        }
+    }
+
+    private static bool IsActiveOrder(OrderInstanceState order) {
+        return IsAvailableOrder(order) || IsAcceptedOrder(order) || IsInProgressOrder(order);
+    }
+
+    private static bool IsAvailableOrder(OrderInstanceState order) {
+        return HasOrderStatus(order, EconomyOrderStatus.Available);
+    }
+
+    private static bool IsAcceptedOrder(OrderInstanceState order) {
+        return HasOrderStatus(order, EconomyOrderStatus.Accepted);
+    }
+
+    private static bool IsInProgressOrder(OrderInstanceState order) {
+        return HasOrderStatus(order, EconomyOrderStatus.InProgress);
+    }
+
+    private static bool HasOrderStatus(OrderInstanceState order, EconomyOrderStatus expected) {
+        return order != null
+            && Enum.TryParse(order.Status, true, out EconomyOrderStatus status)
+            && status == expected;
+    }
+
+    private static bool IsOrderConfigAvailable(PlayerProfile player, OrderConfig order, FactionRuntimeState factionState, string factionID) {
+        if (order == null
+            || string.IsNullOrEmpty(order.OrderID)
+            || !string.Equals(order.FactionID, factionID, StringComparison.OrdinalIgnoreCase)
+            || order.Weight <= 0) {
+            return false;
+        }
+
+        if (order.Requirement != null
+            && order.Requirement.MinLayer > 0
+            && (player?.HighestUnlockedDungeonLayer ?? 1) < order.Requirement.MinLayer) {
+            return false;
+        }
+
+        bool onceOnly = string.Equals(order.RepeatPolicy, "Once", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(order.RepeatPolicy, "Unique", StringComparison.OrdinalIgnoreCase);
+        return !onceOnly
+            || factionState == null
+            || factionState.CompletedOrderIDs == null
+            || !factionState.CompletedOrderIDs.Contains(order.OrderID);
+    }
+
+    private static int ResolveOrderWeight(PlayerProfile player, OrderConfig order) {
+        if (order == null) {
+            return 0;
+        }
+
+        int weight = Mathf.Max(0, order.Weight);
+        foreach (ActiveRumorState activeRumor in GetActiveRumors(player)) {
+            if (!ConfigManager.Rumors.TryGetValue(activeRumor.RumorID, out RumorConfig rumor)
+                || rumor.BoostedOrderTags == null
+                || rumor.BoostedOrderTags.Count == 0
+                || order.Tags == null) {
+                continue;
+            }
+
+            if (order.Tags.Any(tag => rumor.BoostedOrderTags.Any(boostedTag => string.Equals(tag, boostedTag, StringComparison.OrdinalIgnoreCase)))) {
+                weight += Mathf.Max(1, order.Weight);
+            }
+        }
+
+        return weight;
+    }
+
+    private static FactionRuntimeState GetOrCreateFactionState(PlayerProfile player, string factionID) {
+        NormalizeEconomicState(player);
+        FactionRuntimeState state = player.FactionStates.FirstOrDefault(faction =>
+            faction != null && string.Equals(faction.FactionID, factionID, StringComparison.OrdinalIgnoreCase));
+        if (state != null) {
+            return state;
+        }
+
+        state = new FactionRuntimeState {
+            FactionID = factionID
+        };
+        player.FactionStates.Add(state);
+        return state;
+    }
+
+    private static void ExpireOrder(PlayerProfile player, OrderInstanceState instance, OrderConfig config) {
+        if (instance == null || config == null) {
+            return;
+        }
+
+        instance.Status = EconomyOrderStatus.Expired.ToString();
+        instance.FailureReason = "Deadline expired.";
+
+        FactionRuntimeState factionState = GetOrCreateFactionState(player, config.FactionID);
+        factionState.FailedOrderCount++;
+        if (config.FailurePenalty != null) {
+            factionState.ReputationValue = Mathf.Max(0, factionState.ReputationValue + config.FailurePenalty.ExpiredReputationDelta);
+            if (config.FailurePenalty.CooldownDays > 0) {
+                factionState.CooldownUntilDay = Mathf.Max(factionState.CooldownUntilDay, player.CurrentDay + config.FailurePenalty.CooldownDays);
+            }
+        }
+    }
+
+    private static bool TrySelectDeliveryItems(
+        OrderConfig orderConfig,
+        List<ItemEntity> selectedItems,
+        out List<ItemEntity> deliveredItems,
+        out string reason) {
+        deliveredItems = new List<ItemEntity>();
+        reason = string.Empty;
+
+        if (orderConfig == null) {
+            reason = "Order config is missing.";
+            return false;
+        }
+
+        OrderRequirementConfig requirement = orderConfig.Requirement ?? new OrderRequirementConfig();
+        int requiredCount = Mathf.Max(1, requirement.RequiredCount);
+        foreach (ItemEntity item in selectedItems ?? new List<ItemEntity>()) {
+            if (ItemMatchesRequirement(item, requirement)) {
+                deliveredItems.Add(item);
+                if (deliveredItems.Count >= requiredCount) {
+                    return true;
+                }
+            }
+        }
+
+        reason = $"Order [{orderConfig.OrderID}] requires [{requiredCount}] matching item(s), selected [{deliveredItems.Count}].";
+        return false;
+    }
+
+    private static bool ItemMatchesRequirement(ItemEntity item, OrderRequirementConfig requirement) {
+        if (item == null || requirement == null) {
+            return false;
+        }
+
+        if (requirement.RequiredItemIDs != null
+            && requirement.RequiredItemIDs.Count > 0
+            && !requirement.RequiredItemIDs.Any(requiredID => string.Equals(requiredID, item.ConfigID, StringComparison.OrdinalIgnoreCase))) {
+            return false;
+        }
+
+        List<string> tags = CollectItemTags(item);
+        if (requirement.RequiredTags != null
+            && requirement.RequiredTags.Count > 0
+            && !requirement.RequiredTags.All(requiredTag => tags.Any(tag => string.Equals(tag, requiredTag, StringComparison.OrdinalIgnoreCase)))) {
+            return false;
+        }
+
+        if (requirement.ForbiddenTags != null
+            && requirement.ForbiddenTags.Any(forbiddenTag => tags.Any(tag => string.Equals(tag, forbiddenTag, StringComparison.OrdinalIgnoreCase)))) {
+            return false;
+        }
+
+        return item.Grid == null || requirement.MinGridCost <= 0 || item.Grid.GridCost >= requirement.MinGridCost;
+    }
+
+    private static bool TryRemoveOwnedItem(PlayerProfile player, ItemEntity item, bool recalculateGrid, out string reason) {
+        reason = string.Empty;
+        if (player == null || item == null) {
+            reason = "Player or item is missing.";
+            return false;
+        }
+
+        if (player.StashInventory != null && player.StashInventory.Remove(item)) {
+            ClearItemGridPosition(item);
+            return true;
+        }
+
+        BackpackGrid grid = player.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        if (grid == null || !grid.ContainedItems.Contains(item)) {
+            reason = $"Item [{item.Name}] is not owned by the player.";
+            return false;
+        }
+
+        grid.RemoveItem(item);
+        ClearItemGridPosition(item);
+        if (!string.IsNullOrEmpty(item.InstanceID)) {
+            GameEventBus.PublishItemRemoved(item.InstanceID);
+        }
+
+        if (recalculateGrid && player.ActiveDoll != null) {
+            GridSolver.RecalculateAllEffects(player.ActiveDoll);
+        }
+
+        return true;
+    }
+
+    private static int GrantOrderReward(PlayerProfile player, OrderConfig orderConfig, OrderDeliveryReport report) {
+        if (player == null || orderConfig == null || string.IsNullOrEmpty(orderConfig.RewardID)) {
+            return 0;
+        }
+
+        RewardRollResult result = new RewardSystem().Roll(orderConfig.RewardID, new RewardContext {
+            SourceType = "Order",
+            SourceID = orderConfig.OrderID,
+            Player = player,
+            ActiveDoll = player.ActiveDoll
+        });
+
+        int money = Mathf.Max(0, result.Money);
+        player.Money += money;
+        if (result.GeneratedItems != null) {
+            foreach (ItemEntity item in result.GeneratedItems) {
+                if (item == null) {
+                    continue;
+                }
+
+                player.StashInventory.Add(item);
+                report.GeneratedRewardItems.Add(item);
+            }
+        }
+
+        if (result.Logs != null) {
+            report.Logs.AddRange(result.Logs);
+        }
+
+        return money;
+    }
+
+    private static bool CanSellInChannel(ItemEntity item, EconomySellChannel channel, out string reason) {
+        reason = string.Empty;
+        if (item == null) {
+            reason = "Item is missing.";
+            return false;
+        }
+
+        if (item.BaseValue <= 0) {
+            reason = "Item has no sell value.";
+            return false;
+        }
+
+        return true;
+    }
+
+    private static bool RumorAppliesToItem(RumorConfig rumor, ItemEntity item, EconomySellChannel channel) {
+        if (rumor == null || item == null) {
+            return false;
+        }
+
+        if (!string.IsNullOrEmpty(rumor.Channel)
+            && Enum.TryParse(rumor.Channel, true, out EconomySellChannel rumorChannel)
+            && rumorChannel != channel) {
+            return false;
+        }
+
+        if (rumor.TargetTags == null || rumor.TargetTags.Count == 0) {
+            return true;
+        }
+
+        List<string> tags = CollectItemTags(item);
+        return rumor.TargetTags.Any(targetTag => tags.Any(tag => string.Equals(tag, targetTag, StringComparison.OrdinalIgnoreCase)));
+    }
+
+    private static List<string> CollectItemTags(ItemEntity item) {
+        List<string> tags = new List<string>();
+        if (item?.Tags != null) {
+            tags.AddRange(item.Tags.Where(tag => !string.IsNullOrEmpty(tag)));
+        }
+
+        List<string> dynamicTags = GetDynamicTags(item);
+        if (dynamicTags != null) {
+            tags.AddRange(dynamicTags.Where(tag => !string.IsNullOrEmpty(tag)));
+        }
+
+        return tags;
+    }
+
+    private static void ClearItemGridPosition(ItemEntity item) {
+        if (item?.Grid?.CurrentPos == null || item.Grid.CurrentPos.Length < 2) {
+            return;
+        }
+
+        item.Grid.CurrentPos[0] = -1;
+        item.Grid.CurrentPos[1] = -1;
+    }
+
+    private static int BuildDeterministicSeed(int runSeed, int week, int salt) {
+        unchecked {
+            int seed = 17;
+            seed = seed * 31 + runSeed;
+            seed = seed * 31 + week;
+            seed = seed * 31 + salt;
+            return seed == int.MinValue ? int.MaxValue : Mathf.Abs(seed);
+        }
+    }
+
+    private static T PickWeighted<T>(List<T> candidates, Func<T, int> weightSelector, int seed) where T : class {
+        if (candidates == null || candidates.Count == 0) {
+            return null;
+        }
+
+        int totalWeight = candidates.Sum(candidate => Mathf.Max(0, weightSelector(candidate)));
+        if (totalWeight <= 0) {
+            return null;
+        }
+
+        System.Random random = new System.Random(seed);
+        int roll = random.Next(0, totalWeight);
+        int cursor = 0;
+        foreach (T candidate in candidates) {
+            cursor += Mathf.Max(0, weightSelector(candidate));
+            if (roll < cursor) {
+                return candidate;
+            }
+        }
+
+        return candidates[candidates.Count - 1];
     }
 
     private static bool TryResolveContext(PlayerProfile player, string economyConfigID, out EconomyConfig config, out string reason) {

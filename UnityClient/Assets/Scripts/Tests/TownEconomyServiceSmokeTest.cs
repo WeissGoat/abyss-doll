@@ -10,6 +10,8 @@ public static class TownEconomyServiceSmokeTest {
         TestLightDebtAccepted();
         TestPawnRequiredAndPlayerSelectedPawnPaysRent();
         TestProtectedItemsCannotBePawned();
+        TestWeeklyRefreshAcceptsAndDeliversOrder();
+        TestRumorMultiplierAppliesToSellValue();
 
         Debug.Log("=== Town Economy Service Smoke Test Finished ===");
     }
@@ -151,6 +153,72 @@ public static class TownEconomyServiceSmokeTest {
             Debug.Log("Town Economy Protected Pawn Boundary PASSED.");
         } else {
             Debug.LogError($"Town Economy Protected Pawn Boundary FAILED. Success={report.Success}, Status={report.Status}, Candidates={report.PawnCandidates.Count}, Money={player.Money}, Debt={player.EconomyDebtAmount}, DebtLevel={player.DebtLevel}, HeavyDefaults={player.ConsecutiveHeavyDefaultCount}, ContainsProtected={player.StashInventory.Contains(protectedItem)}");
+        }
+    }
+
+    private static void TestWeeklyRefreshAcceptsAndDeliversOrder() {
+        CoreBackend core = CreateCore();
+        PlayerProfile player = core.CurrentPlayer;
+        player.Money = 0;
+        player.CurrentDay = 1;
+        player.HighestUnlockedDungeonLayer = 1;
+        player.StashInventory.Clear();
+        ItemEntity scrap = AddStashItem(player, "loot_gear_scrap");
+        ItemEntity coil = AddStashItem(player, "loot_rusty_coil");
+
+        WeeklyEconomyRefreshReport refresh = TownEconomyService.RefreshWeeklyEconomy(player, 42);
+        OrderInstanceState order = refresh.AvailableOrders.FirstOrDefault(instance => instance.OrderID == "order_mechanic_scrap_drive");
+        OrderAcceptReport accepted = TownEconomyService.AcceptOrder(player, order?.InstanceID);
+        OrderDeliveryReport delivered = TownEconomyService.DeliverOrder(player, order?.InstanceID, new[] { scrap, coil });
+        FactionRuntimeState faction = player.FactionStates.FirstOrDefault(state => state.FactionID == "faction_mechanic_workshop");
+
+        bool passed = refresh.Success
+            && refresh.ActiveRumors.Any(rumor => rumor.RumorID == "rumor_mechanical_price_up")
+            && order != null
+            && accepted.Success
+            && delivered.Success
+            && delivered.DeliveredItems.Count == 2
+            && delivered.GoldReward == 180
+            && delivered.RewardMoney == 40
+            && player.Money == 220
+            && faction != null
+            && faction.ReputationValue == 10
+            && faction.TrustValue == 2
+            && faction.CompletedOrderIDs.Contains("order_mechanic_scrap_drive")
+            && !player.StashInventory.Contains(scrap)
+            && !player.StashInventory.Contains(coil);
+
+        if (passed) {
+            Debug.Log("Town Economy Order Delivery PASSED.");
+        } else {
+            Debug.LogError($"Town Economy Order Delivery FAILED. Refresh={refresh.Success}, Order={order?.OrderID}, Accept={accepted.Success}, Deliver={delivered.Success}, Money={player.Money}, Rep={faction?.ReputationValue ?? -1}, Trust={faction?.TrustValue ?? -1}, Reason={delivered.Reason ?? accepted.Reason ?? refresh.Reason}");
+        }
+    }
+
+    private static void TestRumorMultiplierAppliesToSellValue() {
+        CoreBackend core = CreateCore();
+        PlayerProfile player = core.CurrentPlayer;
+        player.Money = 10;
+        player.CurrentDay = 1;
+        player.StashInventory.Clear();
+        ItemEntity scrap = AddStashItem(player, "loot_gear_scrap");
+
+        WeeklyEconomyRefreshReport refresh = TownEconomyService.RefreshWeeklyEconomy(player, 42);
+        EconomySellLine value = TownEconomyService.CalculateItemSellValue(player, scrap, EconomySellChannel.DumpBox);
+        EconomySellReport sell = TownEconomyService.SellItems(player, new[] { scrap }, EconomySellChannel.DumpBox);
+
+        bool passed = refresh.Success
+            && value.FinalValue == 150
+            && value.AppliedRumorIDs.Contains("rumor_mechanical_price_up")
+            && sell.Success
+            && sell.TotalIncome == 150
+            && player.Money == 160
+            && !player.StashInventory.Contains(scrap);
+
+        if (passed) {
+            Debug.Log("Town Economy Rumor Sell Multiplier PASSED.");
+        } else {
+            Debug.LogError($"Town Economy Rumor Sell Multiplier FAILED. Refresh={refresh.Success}, Value={value.FinalValue}, Applied={string.Join(",", value.AppliedRumorIDs)}, Sell={sell.Success}, Income={sell.TotalIncome}, Money={player.Money}, Reason={sell.Reason ?? refresh.Reason}");
         }
     }
 

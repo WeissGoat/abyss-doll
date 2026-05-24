@@ -1,0 +1,17 @@
+{
+  "RewardID": "reward_order_mechanic_scrap_drive",
+  "Name": "Mechanic Scrap Drive Bonus",
+  "Tags": [
+    "Order",
+    "Faction",
+    "Mechanical"
+  ],
+  "Guaranteed": [
+    {
+      "Type": "Money",
+      "Money": 40,
+      "Count": 1
+    }
+  ],
+  "WeightedPools": []
+}

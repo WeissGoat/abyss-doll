@@ -52,6 +52,9 @@ public static class ConfigValidator {
         ValidateCraftingRecipes(report);
         ValidateMaintenanceConfigs(report);
         ValidateEconomyConfigs(report);
+        ValidateFactionConfigs(report);
+        ValidateOrderConfigs(report);
+        ValidateRumorConfigs(report);
         ValidateRewards(report);
         ValidateMonsters(report);
         ValidateDungeons(report);
@@ -400,6 +403,178 @@ public static class ConfigValidator {
 
         if (!hasFirstMonth) {
             report.AddWarning($"Economy [{economy.EconomyConfigID}] RentCurve has no Month=1 baseline.");
+        }
+    }
+
+    private static void ValidateFactionConfigs(ConfigValidationReport report) {
+        foreach (var kvp in ConfigManager.Factions) {
+            FactionConfig faction = kvp.Value;
+            if (faction == null) {
+                report.AddError($"Faction [{kvp.Key}] deserialized as null.");
+                continue;
+            }
+
+            if (string.IsNullOrEmpty(faction.FactionID)) {
+                report.AddError($"Faction file loaded with empty FactionID under key [{kvp.Key}].");
+            }
+
+            if (!string.Equals(kvp.Key, faction.FactionID, StringComparison.Ordinal)) {
+                report.AddWarning($"Faction [{kvp.Key}] dictionary key differs from FactionID [{faction.FactionID}].");
+            }
+
+            if (faction.VisibleOrderSlots <= 0) {
+                report.AddError($"Faction [{faction.FactionID}] VisibleOrderSlots must be positive.");
+            }
+
+            if (faction.MaxActiveOrders <= 0) {
+                report.AddError($"Faction [{faction.FactionID}] MaxActiveOrders must be positive.");
+            }
+
+            if (faction.ReputationRanks == null) {
+                continue;
+            }
+
+            HashSet<int> ranks = new HashSet<int>();
+            foreach (ReputationRankConfig rank in faction.ReputationRanks) {
+                if (rank == null) {
+                    report.AddError($"Faction [{faction.FactionID}] has a null ReputationRanks entry.");
+                    continue;
+                }
+
+                if (rank.Rank <= 0) {
+                    report.AddError($"Faction [{faction.FactionID}] has invalid ReputationRank Rank [{rank.Rank}].");
+                }
+
+                if (rank.Threshold < 0) {
+                    report.AddError($"Faction [{faction.FactionID}] rank [{rank.Rank}] Threshold must be >= 0.");
+                }
+
+                if (!ranks.Add(rank.Rank)) {
+                    report.AddError($"Faction [{faction.FactionID}] has duplicated ReputationRank [{rank.Rank}].");
+                }
+            }
+        }
+    }
+
+    private static void ValidateOrderConfigs(ConfigValidationReport report) {
+        foreach (var kvp in ConfigManager.Orders) {
+            OrderConfig order = kvp.Value;
+            if (order == null) {
+                report.AddError($"Order [{kvp.Key}] deserialized as null.");
+                continue;
+            }
+
+            if (string.IsNullOrEmpty(order.OrderID)) {
+                report.AddError($"Order file loaded with empty OrderID under key [{kvp.Key}].");
+            }
+
+            if (!string.Equals(kvp.Key, order.OrderID, StringComparison.Ordinal)) {
+                report.AddWarning($"Order [{kvp.Key}] dictionary key differs from OrderID [{order.OrderID}].");
+            }
+
+            if (string.IsNullOrEmpty(order.FactionID) || !ConfigManager.Factions.ContainsKey(order.FactionID)) {
+                report.AddError($"Order [{order.OrderID}] references missing FactionID [{order.FactionID}].");
+            }
+
+            if (!Enum.TryParse(order.OrderType, true, out EconomyOrderType _)) {
+                report.AddError($"Order [{order.OrderID}] has unknown OrderType [{order.OrderType}].");
+            }
+
+            if (order.DeadlineDays <= 0) {
+                report.AddError($"Order [{order.OrderID}] DeadlineDays must be positive.");
+            }
+
+            if (order.Weight <= 0) {
+                report.AddError($"Order [{order.OrderID}] Weight must be positive.");
+            }
+
+            if (!string.IsNullOrEmpty(order.RewardID) && !ConfigManager.Rewards.ContainsKey(order.RewardID)) {
+                report.AddError($"Order [{order.OrderID}] references missing RewardID [{order.RewardID}].");
+            }
+
+            ValidateOrderRequirement(report, order);
+
+            if (order.FailurePenalty != null && order.FailurePenalty.CooldownDays < 0) {
+                report.AddError($"Order [{order.OrderID}] FailurePenalty.CooldownDays must be >= 0.");
+            }
+        }
+    }
+
+    private static void ValidateOrderRequirement(ConfigValidationReport report, OrderConfig order) {
+        OrderRequirementConfig requirement = order.Requirement;
+        if (requirement == null) {
+            report.AddError($"Order [{order.OrderID}] must define Requirement.");
+            return;
+        }
+
+        if (requirement.RequiredCount <= 0) {
+            report.AddError($"Order [{order.OrderID}] Requirement.RequiredCount must be positive.");
+        }
+
+        if (requirement.MinGridCost < 0) {
+            report.AddError($"Order [{order.OrderID}] Requirement.MinGridCost must be >= 0.");
+        }
+
+        if (requirement.MinLayer < 0) {
+            report.AddError($"Order [{order.OrderID}] Requirement.MinLayer must be >= 0.");
+        }
+
+        bool hasRequiredItem = requirement.RequiredItemIDs != null && requirement.RequiredItemIDs.Count > 0;
+        bool hasRequiredTag = requirement.RequiredTags != null && requirement.RequiredTags.Count > 0;
+        if (!hasRequiredItem && !hasRequiredTag) {
+            report.AddError($"Order [{order.OrderID}] Requirement must define RequiredItemIDs or RequiredTags.");
+        }
+
+        if (requirement.RequiredItemIDs == null) {
+            return;
+        }
+
+        foreach (string itemID in requirement.RequiredItemIDs) {
+            if (string.IsNullOrEmpty(itemID) || !ConfigManager.Items.ContainsKey(itemID)) {
+                report.AddError($"Order [{order.OrderID}] Requirement references missing item [{itemID}].");
+            }
+        }
+    }
+
+    private static void ValidateRumorConfigs(ConfigValidationReport report) {
+        foreach (var kvp in ConfigManager.Rumors) {
+            RumorConfig rumor = kvp.Value;
+            if (rumor == null) {
+                report.AddError($"Rumor [{kvp.Key}] deserialized as null.");
+                continue;
+            }
+
+            if (string.IsNullOrEmpty(rumor.RumorID)) {
+                report.AddError($"Rumor file loaded with empty RumorID under key [{kvp.Key}].");
+            }
+
+            if (!string.Equals(kvp.Key, rumor.RumorID, StringComparison.Ordinal)) {
+                report.AddWarning($"Rumor [{kvp.Key}] dictionary key differs from RumorID [{rumor.RumorID}].");
+            }
+
+            if (!Enum.TryParse(rumor.RumorType, true, out EconomyRumorType _)) {
+                report.AddError($"Rumor [{rumor.RumorID}] has unknown RumorType [{rumor.RumorType}].");
+            }
+
+            if (!Enum.TryParse(rumor.Channel, true, out EconomySellChannel _)) {
+                report.AddError($"Rumor [{rumor.RumorID}] has unknown Channel [{rumor.Channel}].");
+            }
+
+            if (rumor.PriceMultiplier <= 0f) {
+                report.AddError($"Rumor [{rumor.RumorID}] PriceMultiplier must be positive.");
+            }
+
+            if (rumor.DurationDays <= 0) {
+                report.AddError($"Rumor [{rumor.RumorID}] DurationDays must be positive.");
+            }
+
+            if (rumor.Weight <= 0) {
+                report.AddError($"Rumor [{rumor.RumorID}] Weight must be positive.");
+            }
+
+            if (rumor.TargetLayer < 0) {
+                report.AddError($"Rumor [{rumor.RumorID}] TargetLayer must be >= 0.");
+            }
         }
     }
     private static void ValidateRewards(ConfigValidationReport report) {

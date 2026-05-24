@@ -1,0 +1,17 @@
+{
+  "RumorID": "rumor_mechanical_price_up",
+  "DisplayName": "Mechanical Parts Shortage",
+  "RumorType": "DemandUp",
+  "Description": "Local workshops are paying extra for mechanical salvage this week.",
+  "TargetTags": [
+    "Mechanical"
+  ],
+  "TargetLayer": 1,
+  "Channel": "DumpBox",
+  "PriceMultiplier": 1.5,
+  "DurationDays": 7,
+  "Weight": 100,
+  "BoostedOrderTags": [
+    "Mechanical"
+  ]
+}

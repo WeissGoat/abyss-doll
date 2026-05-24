@@ -1,0 +1,38 @@
+{
+  "OrderID": "order_mechanic_scrap_drive",
+  "FactionID": "faction_mechanic_workshop",
+  "OrderType": "Procurement",
+  "DisplayName": "Scrap Drive",
+  "Description": "Deliver mechanical salvage for workshop repairs.",
+  "Requirement": {
+    "RequiredItemIDs": [],
+    "RequiredTags": [
+      "Mechanical"
+    ],
+    "ForbiddenTags": [
+      "StoryLocked",
+      "OrderBound"
+    ],
+    "RequiredCount": 2,
+    "MinGridCost": 1,
+    "MinLayer": 1
+  },
+  "DeadlineDays": 7,
+  "RewardID": "reward_order_mechanic_scrap_drive",
+  "FixedGold": 180,
+  "ReputationDelta": 10,
+  "TrustDelta": 2,
+  "FailurePenalty": {
+    "ExpiredReputationDelta": -5,
+    "AbandonedReputationDelta": -3,
+    "BetrayedReputationDelta": -15,
+    "CooldownDays": 7
+  },
+  "RepeatPolicy": "Repeatable",
+  "Weight": 100,
+  "Tags": [
+    "Mechanical",
+    "Procurement",
+    "Layer1"
+  ]
+}
