@@ -1041,6 +1041,45 @@
       "Screen": "combat_hud",
       "Usage": "怪物即将塞入垃圾、毒液或污染物的背包落点预告",
       "SourceFactsCN": "预置 UI 标记：正式战斗需要统一塞包预告符号，配置表无法稳定扫描。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_growth_icon",
+      "ConfigID": "icon_chassis_upgrade",
+      "DisplayName": "底盘升级图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_chassis_upgrade",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_chassis_upgrade.png",
+      "Priority": "P2",
+      "Screen": "chassis_upgrade_panel",
+      "Usage": "底盘升级、容量扩展、下一阶段底盘预览和升级主行动",
+      "SourceFactsCN": "预置 UI 图标：局外成长底盘升级需要稳定升级符号，配置表无法直接扫描。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_growth_icon",
+      "ConfigID": "icon_blueprint",
+      "DisplayName": "蓝图图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_blueprint",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_blueprint.png",
+      "Priority": "P2",
+      "Screen": "chassis_upgrade_panel",
+      "Usage": "底盘图纸、阶段解锁、工坊工程线和升级前置条件",
+      "SourceFactsCN": "预置 UI 图标：底盘升级需要展示图纸或工程蓝图状态，配置表无法直接扫描。"
+    },
+    {
+      "Domain": "ui",
+      "PresetCategory": "ui_growth_icon",
+      "ConfigID": "icon_material_need",
+      "DisplayName": "材料缺口图标",
+      "AssetType": "icon",
+      "VisualID": "ui_icon_material_need",
+      "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_material_need.png",
+      "Priority": "P2",
+      "Screen": "chassis_upgrade_panel",
+      "Usage": "底盘升级材料不足、缺件、金币或核心材料缺口提示",
+      "SourceFactsCN": "预置 UI 图标：局外成长需要统一材料缺口符号，配置表无法稳定扫描。"
     }
   ],
   "UpdatedAt": "2026-05-25"

@@ -26,7 +26,8 @@
         "order_board",
         "faction_shop",
         "doll_interaction",
-        "scenario_event"
+        "scenario_event",
+        "chassis_upgrade_panel"
       ],
       "ProgramUse": "用于丢弃、卖出、撤离等高风险操作。"
     },
@@ -60,7 +61,8 @@
         "faction_shop",
         "doll_interaction",
         "scenario_event",
-        "doll_room"
+        "doll_room",
+        "chassis_upgrade_panel"
       ],
       "ProgramUse": "用于出发、确认、继续等正向操作。文字由 Text 组件叠加。"
     },
@@ -94,7 +96,8 @@
         "faction_shop",
         "doll_interaction",
         "scenario_event",
-        "doll_room"
+        "doll_room",
+        "chassis_upgrade_panel"
       ],
       "ProgramUse": "用于返回、关闭、取消等次级操作。"
     },
@@ -534,7 +537,8 @@
         "shop_staging",
         "order_board",
         "rumor_board",
-        "faction_shop"
+        "faction_shop",
+        "chassis_upgrade_panel"
       ],
       "ProgramUse": "金币、价格、价值显示的小图标。"
     },
@@ -709,7 +713,8 @@
         "faction_shop",
         "doll_interaction",
         "scenario_event",
-        "doll_room"
+        "doll_room",
+        "chassis_upgrade_panel"
       ],
       "ProgramUse": "维护风险、欠债风险、不可下潜、材料不足等警告状态图标。"
     },
@@ -728,7 +733,8 @@
         "workshop_main",
         "combat_hud",
         "safe_room",
-        "stairs_room"
+        "stairs_room",
+        "chassis_upgrade_panel"
       ],
       "ProgramUse": "承托背包网格，位于格子层下方；chassis frame 可作为额外装饰层。"
     },
@@ -785,7 +791,8 @@
         "faction_shop",
         "doll_interaction",
         "scenario_event",
-        "doll_room"
+        "doll_room",
+        "chassis_upgrade_panel"
       ],
       "ProgramUse": "用于可滚动列表项底板。"
     },
@@ -810,7 +817,8 @@
         "faction_shop",
         "doll_interaction",
         "scenario_event",
-        "doll_room"
+        "doll_room",
+        "chassis_upgrade_panel"
       ],
       "ProgramUse": "用于当前选择项或焦点项底板。"
     },
@@ -903,7 +911,8 @@
         "faction_shop",
         "doll_interaction",
         "scenario_event",
-        "doll_room"
+        "doll_room",
+        "chassis_upgrade_panel"
       ],
       "ProgramUse": "用于状态摘要、说明区和小块信息承托。"
     },
@@ -931,7 +940,8 @@
         "rumor_board",
         "faction_shop",
         "doll_interaction",
-        "scenario_event"
+        "scenario_event",
+        "chassis_upgrade_panel"
       ],
       "ProgramUse": "用于大弹窗和主内容容器。Unity Image Type 使用 Sliced，不烘焙标题和正文。"
     },
@@ -1004,9 +1014,55 @@
         "rumor_board",
         "faction_shop",
         "doll_interaction",
-        "scenario_event"
+        "scenario_event",
+        "chassis_upgrade_panel"
       ],
       "ProgramUse": "标题和正文之间的装饰分隔线，不承载文字，不拦截射线。"
+    },
+    {
+      "ComponentID": "Icon.ChassisUpgrade",
+      "DisplayName": "底盘升级图标",
+      "VisualID": "ui_icon_chassis_upgrade",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "chassis_upgrade_panel"
+      ],
+      "ProgramUse": "底盘升级、容量扩展和下一阶段预览的小图标。"
+    },
+    {
+      "ComponentID": "Icon.Blueprint",
+      "DisplayName": "蓝图图标",
+      "VisualID": "ui_icon_blueprint",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "chassis_upgrade_panel"
+      ],
+      "ProgramUse": "底盘图纸、工程线解锁和升级前置条件的小图标。"
+    },
+    {
+      "ComponentID": "Icon.MaterialNeed",
+      "DisplayName": "材料缺口图标",
+      "VisualID": "ui_icon_material_need",
+      "Category": "icon",
+      "Priority": "P2",
+      "ResizeMode": "fixed",
+      "States": [
+        "normal"
+      ],
+      "RequiredForScreens": [
+        "chassis_upgrade_panel"
+      ],
+      "ProgramUse": "材料不足、缺件、核心材料缺口和不可升级原因的小图标。"
     }
   ]
 }

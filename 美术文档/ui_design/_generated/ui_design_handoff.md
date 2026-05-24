@@ -5,8 +5,8 @@
 ## Summary
 
 * Reference resolution: `1920x1080`
-* Components: `54`
-* Screens: `19`
+* Components: `57`
+* Screens: `20`
 
 ## Screens
 
@@ -31,14 +31,15 @@
 | `P2` | `doll_interaction` | 人偶交互界面 | `active_spec` | 14 | 16 |
 | `P2` | `scenario_event` | 剧本事件界面 | `active_spec` | 12 | 13 |
 | `P2` | `doll_room` | 人偶房间界面 | `active_spec` | 9 | 11 |
+| `P2` | `chassis_upgrade_panel` | 底盘升级界面 | `active_spec` | 14 | 17 |
 
 ## Components
 
 | Priority | ComponentID | VisualID | Resize | Screens |
 |---|---|---|---|---|
-| `P1` | `Button.Danger` | `ui_button_danger` | `nine_slice` | `inventory_loot`, `dungeon_map`, `sell_panel`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `faction_shop`, `doll_interaction`, `scenario_event` |
-| `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room` |
-| `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room` |
+| `P1` | `Button.Danger` | `ui_button_danger` | `nine_slice` | `inventory_loot`, `dungeon_map`, `sell_panel`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `chassis_upgrade_panel` |
+| `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel` |
+| `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel` |
 | `P1` | `Combat.ApPip` | `ui_combat_ap_pip` | `fixed` | `combat_hud` |
 | `P1` | `Combat.EnemyCard` | `ui_combat_enemy_card`, `ui_combat_enemy_card_selected` | `fixed` |  |
 | `P1` | `Combat.EntityShadow` | `ui_combat_entity_shadow` | `fixed_or_stretch` | `combat_hud` |
@@ -64,7 +65,7 @@
 | `P2` | `Icon.Lore` | `ui_icon_lore` | `fixed` | `scenario_event` |
 | `P1` | `Icon.Maintenance` | `ui_icon_maintenance` | `fixed` | `maintenance_panel`, `doll_interaction` |
 | `P2` | `Icon.Memento` | `ui_icon_memento` | `fixed` | `doll_interaction`, `doll_room` |
-| `P1` | `Icon.Money` | `ui_icon_money` | `fixed` | `sell_panel`, `settlement`, `workshop_main`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop` |
+| `P1` | `Icon.Money` | `ui_icon_money` | `fixed` | `sell_panel`, `settlement`, `workshop_main`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `chassis_upgrade_panel` |
 | `P2` | `Icon.Order` | `ui_icon_order` | `fixed` | `shop_staging`, `order_board` |
 | `P2` | `Icon.PriceDown` | `ui_icon_price_down` | `fixed` | `rumor_board` |
 | `P2` | `Icon.PriceUp` | `ui_icon_price_up` | `fixed` | `rumor_board` |
@@ -75,21 +76,24 @@
 | `P2` | `Icon.Talk` | `ui_icon_talk` | `fixed` | `doll_interaction` |
 | `P2` | `Icon.Touch` | `ui_icon_touch` | `fixed` | `doll_interaction` |
 | `P2` | `Icon.Trust` | `ui_icon_trust` | `fixed` | `faction_shop` |
-| `P1` | `Icon.Warning` | `ui_icon_warning` | `fixed` | `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room` |
-| `P1` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
+| `P1` | `Icon.Warning` | `ui_icon_warning` | `fixed` | `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel` |
+| `P1` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room`, `chassis_upgrade_panel` |
 | `P1` | `Inventory.Slot` | `ui_inventory_slot_available`, `ui_inventory_slot_hover`, `ui_inventory_slot_invalid`, `ui_inventory_slot_locked`, `ui_inventory_slot_valid` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
-| `P1` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room` |
-| `P1` | `List.Row.Selected` | `ui_list_row_selected` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room` |
+| `P1` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel` |
+| `P1` | `List.Row.Selected` | `ui_list_row_selected` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel` |
 | `P1` | `Loot.DropZone` | `ui_loot_drop_zone` | `fixed_or_sliced` | `inventory_loot` |
 | `P1` | `Loot.PickupPanel` | `ui_loot_pickup_panel` | `nine_slice` | `inventory_loot` |
 | `P1` | `Map.NodePlate` | `ui_dungeon_node_plate` | `fixed` | `dungeon_map` |
 | `P1` | `Map.RouteLine` | `ui_dungeon_route_line` | `tile_or_stretch` | `dungeon_map` |
-| `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room` |
-| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `workshop_main`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event` |
+| `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel` |
+| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `workshop_main`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `chassis_upgrade_panel` |
 | `P2` | `Room.MementoSlot` | `ui_room_memento_slot` | `fixed` | `doll_room` |
 | `P1` | `Settlement.DefeatPanel` | `ui_settlement_defeat_panel` | `nine_slice` | `settlement` |
 | `P1` | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | `nine_slice` | `settlement` |
-| `P1` | `Title.Divider` | `ui_title_divider` | `fixed_or_stretch` | `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event` |
+| `P1` | `Title.Divider` | `ui_title_divider` | `fixed_or_stretch` | `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `chassis_upgrade_panel` |
+| `P2` | `Icon.ChassisUpgrade` | `ui_icon_chassis_upgrade` | `fixed` | `chassis_upgrade_panel` |
+| `P2` | `Icon.Blueprint` | `ui_icon_blueprint` | `fixed` | `chassis_upgrade_panel` |
+| `P2` | `Icon.MaterialNeed` | `ui_icon_material_need` | `fixed` | `chassis_upgrade_panel` |
 
 ## Program Handoff
 
@@ -1651,6 +1655,94 @@ Acceptance criteria:
 * 背景必须完全不透明，不允许出现透明黑洞。
 * 日记、纪念物和状态说明全部由 Unity Text 渲染，不烘焙到图片。
 
+### 底盘升级界面
+
+* Goal: 把底盘升级从工坊摘要拆成正式局外成长界面：当前底盘、下一阶段预览、网格变化、材料/金币缺口、蓝图前置和升级确认必须同时可读。
+* Background: `bg_workshop_day`
+
+Zones:
+| ZoneID | Anchor | Rect | Components | Purpose |
+|---|---|---|---|---|
+| `upgrade_background` | full_screen | 0,0 1920x1080 |  | 复用工坊背景，表达局外工程台环境。 |
+| `upgrade_card` | center | 220,110 1480x860 | `Panel.Main` | 底盘升级主容器。 |
+| `upgrade_header` | top_center | 280,150 1360x110 | `Panel.Info`, `Icon.ChassisUpgrade`, `Icon.Blueprint`, `Button.Secondary` | 标题、底盘升级图标、蓝图状态和关闭入口。 |
+| `current_chassis_preview` | left_middle | 300,300 520x430 | `Panel.Info`, `Inventory.ChassisPanel` | 当前底盘和当前背包格局预览。 |
+| `next_chassis_preview` | center_middle | 860,300 520x430 | `Panel.Info`, `Inventory.ChassisPanel`, `Icon.ChassisUpgrade` | 升级后底盘、容量变化和新解锁格局预览。 |
+| `cost_and_requirement_list` | right_middle | 1410,300 250x430 | `Panel.Info`, `List.Row.Normal`, `List.Row.Selected`, `Icon.Money`, `Icon.MaterialNeed`, `Icon.Blueprint`, `Icon.Warning` | 金币、核心材料、普通材料、图纸和前置条件列表。 |
+| `upgrade_delta_panel` | bottom_left | 300,760 740x160 | `Panel.Info`, `Icon.ChassisUpgrade`, `Icon.Warning` | 容量、可用格、负载、下潜许可变化摘要。 |
+| `upgrade_action_panel` | bottom_right | 1080,760 580x160 | `Panel.Info`, `Button.Primary`, `Button.Secondary`, `Button.Danger` | 升级、追踪材料、暂缓和返回工坊动作。 |
+
+Layout changes:
+* 新增 ChassisUpgradePanel_Runtime 或同等底盘升级弹窗，和 prosthetic_panel / maintenance_panel 平级。
+* 当前底盘、下一底盘和材料缺口同时可见，不把升级藏在工坊主界面的摘要文本里。
+* 底盘 frame 继续使用 chassis_*_frame，升级相关符号使用 ui_icon_chassis_upgrade / ui_icon_blueprint / ui_icon_material_need。
+
+Data bindings:
+* 当前底盘、下一底盘、容量变化、负载变化、金币费用、材料需求、蓝图状态和下潜许可由成长/工坊服务提供。
+* 图标和面板通过 VisualAssetService / VisualID 绑定；名称、数量、按钮文案和说明全部用 Unity Text。
+* 材料不足、蓝图未解锁或已最高级时由程序控制按钮禁用、warning 图标显示和列表行状态。
+
+Interaction notes:
+* 背景、主面板、装饰图标、底盘预览默认 raycastTarget=false。
+* Upgrade / Track Materials / Postpone / Close 按钮接收点击；UI 不直接扣费或修改底盘。
+* 底盘预览不是可拖拽背包，不创建第二套背包数据。
+
+Controller bindings:
+| Script | Existing fields | Notes |
+|---|---|---|
+| `ChassisUpgradeUIController` | `rootPanel`, `backgroundImage`, `currentChassisImage`, `nextChassisImage`, `costListRoot`, `upgradeButton`, `trackMaterialsButton`, `postponeButton`, `closeButton` | 负责显示底盘升级状态、材料缺口、升级收益和按钮状态。<br>只调用成长/工坊服务请求升级，不直接修改金币、材料、底盘或下潜许可。 |
+| `WorkshopUIController` | `openChassisUpgradePanelBtn` | 工坊主界面新增或复用底盘升级入口，打开该弹窗时关闭出售、义体和维护面板。 |
+
+Unity hierarchy:
+| Path | Layer | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|---|
+| `ChassisUpgradePanel_Runtime/Background_Image` | Background |  | `bg_workshop_day` | Simple | cover | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/HeaderPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/HeaderPanel/UpgradeIcon_Image` | MainPanel | `Icon.ChassisUpgrade` | `ui_icon_chassis_upgrade` | Simple | contain | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/HeaderPanel/BlueprintIcon_Image` | MainPanel | `Icon.Blueprint` | `ui_icon_blueprint` | Simple | contain | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/HeaderPanel/Close_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/CurrentChassisPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/CurrentChassisPanel/ChassisFrame_Image` | InventoryOrCards | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | Simple | stretch | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/CurrentChassisPanel/CurrentChassis_Image` | InventoryOrCards |  | `chassis_chassis_lv1_basic_frame` | Simple | contain | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/NextChassisPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/NextChassisPanel/ChassisFrame_Image` | InventoryOrCards | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | Simple | stretch | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/NextChassisPanel/NextChassis_Image` | InventoryOrCards |  | `chassis_chassis_lv2_expanded_frame` | Simple | contain | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/RequirementListPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/RequirementListPanel/RequirementRow_Template` | Controls | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | True |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/RequirementListPanel/MissingMaterialIcon_Image` | MainPanel | `Icon.MaterialNeed` | `ui_icon_material_need` | Simple | contain | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/RequirementListPanel/MoneyIcon_Image` | MainPanel | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/DeltaPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/DeltaPanel/WarningIcon_Image` | MainPanel | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/ActionPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/ActionPanel/Upgrade_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/ActionPanel/TrackMaterials_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image/ActionPanel/Postpone_Button` | Controls | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+
+Sprite assignments:
+| Target | Component | VisualID | Image | Fit | Raycast |
+|---|---|---|---|---|---|
+| `ChassisUpgradePanel_Runtime/Background_Image` |  | `bg_workshop_day` | Simple | cover | False |
+| `ChassisUpgradePanel_Runtime/UpgradeCard_Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
+| `HeaderPanel/UpgradeIcon_Image` | `Icon.ChassisUpgrade` | `ui_icon_chassis_upgrade` | Simple | contain | False |
+| `HeaderPanel/BlueprintIcon_Image` | `Icon.Blueprint` | `ui_icon_blueprint` | Simple | contain | False |
+| `CurrentChassisPanel/CurrentChassis_Image` |  | `chassis_chassis_lv1_basic_frame` | Simple | contain | False |
+| `NextChassisPanel/NextChassis_Image` |  | `chassis_chassis_lv2_expanded_frame` | Simple | contain | False |
+| `RequirementListPanel/RequirementRow_Template` | `List.Row.Normal` | `ui_list_row_normal` | Sliced |  | True |
+| `RequirementListPanel/MissingMaterialIcon_Image` | `Icon.MaterialNeed` | `ui_icon_material_need` | Simple | contain | False |
+| `RequirementListPanel/MoneyIcon_Image` | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `DeltaPanel/WarningIcon_Image` | `Icon.Warning` | `ui_icon_warning` | Simple | contain | False |
+| `ActionPanel/Upgrade_Button` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `ActionPanel/TrackMaterials_Button` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `ActionPanel/Postpone_Button` | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
+
+Acceptance criteria:
+* 底盘升级界面打开后能同时看到当前底盘、下一底盘、容量变化、材料缺口和升级按钮。
+* 材料不足、蓝图未解锁或已最高级状态必须可读，且主按钮禁用时仍能看清原因。
+* 底盘预览不创建第二套背包数据，不接收拖拽，不影响工坊全局背包。
+* 所有名称、数量、费用、按钮文案和说明由 Unity Text 渲染，不烘焙进图片。
+* 背景、面板、图标和底盘预览不阻挡按钮射线。
+
 ## Known VisualID Sources
 
-* Known VisualID count: `116`
+* Known VisualID count: `119`

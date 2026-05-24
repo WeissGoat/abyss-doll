@@ -18,7 +18,7 @@
 | `monster` | 8 |
 | `node` | 8 |
 | `prosthetic` | 2 |
-| `ui` | 71 |
+| `ui` | 74 |
 
 ## 资产列表
 
@@ -62,12 +62,12 @@
 | `monster` | `mob_scavenger_bug` | 拾荒虫 | `portrait` | `monster_mob_scavenger_bug_portrait` | P0 | `approved` |
 | `node` | `BossNode` | 首领节点 | `icon` | `node_boss_icon` | P0 | `approved` |
 | `node` | `CombatNode` | 战斗节点 | `icon` | `node_combat_icon` | P0 | `approved` |
-| `node` | `EventNode` | EventNode | `icon` | `node_eventnode_icon` | P0 | `todo` |
-| `node` | `HazardNode` | HazardNode | `icon` | `node_hazardnode_icon` | P0 | `todo` |
-| `node` | `RestStopNode` | RestStopNode | `icon` | `node_reststopnode_icon` | P0 | `todo` |
+| `node` | `EventNode` | EventNode | `icon` | `node_eventnode_icon` | P0 | `approved` |
+| `node` | `HazardNode` | HazardNode | `icon` | `node_hazardnode_icon` | P0 | `approved` |
+| `node` | `RestStopNode` | RestStopNode | `icon` | `node_reststopnode_icon` | P0 | `approved` |
 | `node` | `SafeRoomNode` | 安全区节点 | `icon` | `node_safe_room_icon` | P0 | `approved` |
 | `node` | `StairsNode` | 阶梯节点 | `icon` | `node_stairs_icon` | P0 | `approved` |
-| `node` | `TreasureNode` | TreasureNode | `icon` | `node_treasurenode_icon` | P0 | `todo` |
+| `node` | `TreasureNode` | TreasureNode | `icon` | `node_treasurenode_icon` | P0 | `approved` |
 | `prosthetic` | `pros_cooling_system` | 稳压散热插件 | `icon` | `prosthetic_pros_cooling_system_icon` | P1 | `approved` |
 | `prosthetic` | `pros_power_arm` | 动力臂增幅插件 | `icon` | `prosthetic_pros_power_arm_icon` | P1 | `approved` |
 | `ui` | `missing_sprite` | 缺失占位图 | `icon` | `ui_missing_sprite` | P0 | `approved` |
@@ -77,25 +77,25 @@
 | `ui` | `combat_enemy_card` | 敌人卡片框 | `frame` | `ui_combat_enemy_card` | P1 | `approved` |
 | `ui` | `combat_enemy_card_selected` | 敌人选中卡片框 | `frame` | `ui_combat_enemy_card_selected` | P1 | `approved` |
 | `ui` | `combat_entity_shadow` | 战斗实体脚底阴影 | `shadow` | `ui_combat_entity_shadow` | P1 | `approved` |
-| `ui` | `combat_feedback_hit` | 命中反馈符号 | `effect_overlay` | `ui_combat_feedback_hit` | P1 | `todo` |
-| `ui` | `combat_feedback_shield_break` | 破盾反馈符号 | `effect_overlay` | `ui_combat_feedback_shield_break` | P1 | `todo` |
-| `ui` | `combat_grid_lock_marker` | 封格覆盖标记 | `marker` | `ui_combat_grid_lock_marker` | P1 | `todo` |
-| `ui` | `combat_intent_add_junk` | 塞包意图图标 | `icon` | `ui_combat_intent_add_junk` | P1 | `todo` |
-| `ui` | `combat_intent_attack` | 攻击意图图标 | `icon` | `ui_combat_intent_attack` | P1 | `todo` |
-| `ui` | `combat_intent_buff` | 增益意图图标 | `icon` | `ui_combat_intent_buff` | P1 | `todo` |
-| `ui` | `combat_intent_charge` | 蓄力意图图标 | `icon` | `ui_combat_intent_charge` | P1 | `todo` |
-| `ui` | `combat_intent_debuff` | 弱化意图图标 | `icon` | `ui_combat_intent_debuff` | P1 | `todo` |
-| `ui` | `combat_intent_defend` | 防御意图图标 | `icon` | `ui_combat_intent_defend` | P1 | `todo` |
-| `ui` | `combat_intent_grid_lock` | 封格意图图标 | `icon` | `ui_combat_intent_grid_lock` | P1 | `todo` |
-| `ui` | `combat_intent_move_item` | 移位意图图标 | `icon` | `ui_combat_intent_move_item` | P1 | `todo` |
-| `ui` | `combat_intent_san_pressure` | SAN压力意图图标 | `icon` | `ui_combat_intent_san_pressure` | P1 | `todo` |
-| `ui` | `combat_intent_unknown` | 未知意图图标 | `icon` | `ui_combat_intent_unknown` | P1 | `todo` |
-| `ui` | `combat_junk_preview_marker` | 塞包预告标记 | `marker` | `ui_combat_junk_preview_marker` | P1 | `todo` |
+| `ui` | `combat_feedback_hit` | 命中反馈符号 | `effect_overlay` | `ui_combat_feedback_hit` | P1 | `approved` |
+| `ui` | `combat_feedback_shield_break` | 破盾反馈符号 | `effect_overlay` | `ui_combat_feedback_shield_break` | P1 | `approved` |
+| `ui` | `combat_grid_lock_marker` | 封格覆盖标记 | `marker` | `ui_combat_grid_lock_marker` | P1 | `approved` |
+| `ui` | `combat_intent_add_junk` | 塞包意图图标 | `icon` | `ui_combat_intent_add_junk` | P1 | `approved` |
+| `ui` | `combat_intent_attack` | 攻击意图图标 | `icon` | `ui_combat_intent_attack` | P1 | `approved` |
+| `ui` | `combat_intent_buff` | 增益意图图标 | `icon` | `ui_combat_intent_buff` | P1 | `approved` |
+| `ui` | `combat_intent_charge` | 蓄力意图图标 | `icon` | `ui_combat_intent_charge` | P1 | `approved` |
+| `ui` | `combat_intent_debuff` | 弱化意图图标 | `icon` | `ui_combat_intent_debuff` | P1 | `approved` |
+| `ui` | `combat_intent_defend` | 防御意图图标 | `icon` | `ui_combat_intent_defend` | P1 | `approved` |
+| `ui` | `combat_intent_grid_lock` | 封格意图图标 | `icon` | `ui_combat_intent_grid_lock` | P1 | `approved` |
+| `ui` | `combat_intent_move_item` | 移位意图图标 | `icon` | `ui_combat_intent_move_item` | P1 | `approved` |
+| `ui` | `combat_intent_san_pressure` | SAN压力意图图标 | `icon` | `ui_combat_intent_san_pressure` | P1 | `approved` |
+| `ui` | `combat_intent_unknown` | 未知意图图标 | `icon` | `ui_combat_intent_unknown` | P1 | `approved` |
+| `ui` | `combat_junk_preview_marker` | 塞包预告标记 | `marker` | `ui_combat_junk_preview_marker` | P1 | `approved` |
 | `ui` | `combat_status_bar_hp` | 生命状态条 | `bar` | `ui_combat_status_bar_hp` | P1 | `approved` |
 | `ui` | `combat_status_bar_shield` | 护盾状态条 | `bar` | `ui_combat_status_bar_shield` | P1 | `approved` |
-| `ui` | `combat_status_corrosion` | 腐蚀状态图标 | `icon` | `ui_combat_status_corrosion` | P1 | `todo` |
-| `ui` | `combat_status_curse` | 诅咒状态图标 | `icon` | `ui_combat_status_curse` | P1 | `todo` |
-| `ui` | `combat_status_stun` | 眩晕状态图标 | `icon` | `ui_combat_status_stun` | P1 | `todo` |
+| `ui` | `combat_status_corrosion` | 腐蚀状态图标 | `icon` | `ui_combat_status_corrosion` | P1 | `approved` |
+| `ui` | `combat_status_curse` | 诅咒状态图标 | `icon` | `ui_combat_status_curse` | P1 | `approved` |
+| `ui` | `combat_status_stun` | 眩晕状态图标 | `icon` | `ui_combat_status_stun` | P1 | `approved` |
 | `ui` | `combat_target_ring` | 战斗目标选择光环 | `ring` | `ui_combat_target_ring` | P1 | `approved` |
 | `ui` | `icon_bill` | 账单图标 | `icon` | `ui_icon_bill` | P1 | `approved` |
 | `ui` | `icon_maintenance` | 维护状态图标 | `icon` | `ui_icon_maintenance` | P1 | `approved` |
@@ -115,6 +115,8 @@
 | `ui` | `dungeon_node_plate` | 地图节点底板 | `frame` | `ui_dungeon_node_plate` | P2 | `approved` |
 | `ui` | `dungeon_route_line` | 地图路线连接线 | `divider` | `ui_dungeon_route_line` | P2 | `approved` |
 | `ui` | `icon_black_market` | 黑市渠道图标 | `icon` | `ui_icon_black_market` | P2 | `approved` |
+| `ui` | `icon_blueprint` | 蓝图图标 | `icon` | `ui_icon_blueprint` | P2 | `todo` |
+| `ui` | `icon_chassis_upgrade` | 底盘升级图标 | `icon` | `ui_icon_chassis_upgrade` | P2 | `todo` |
 | `ui` | `icon_deadline` | 截止日图标 | `icon` | `ui_icon_deadline` | P2 | `approved` |
 | `ui` | `icon_diary` | 日记图标 | `icon` | `ui_icon_diary` | P2 | `approved` |
 | `ui` | `icon_equipped` | 已装备图标 | `icon` | `ui_icon_equipped` | P2 | `approved` |
@@ -123,6 +125,7 @@
 | `ui` | `icon_gift` | 赠礼图标 | `icon` | `ui_icon_gift` | P2 | `approved` |
 | `ui` | `icon_locked` | 锁定图标 | `icon` | `ui_icon_locked` | P2 | `approved` |
 | `ui` | `icon_lore` | Lore 档案图标 | `icon` | `ui_icon_lore` | P2 | `approved` |
+| `ui` | `icon_material_need` | 材料缺口图标 | `icon` | `ui_icon_material_need` | P2 | `todo` |
 | `ui` | `icon_memento` | 纪念物图标 | `icon` | `ui_icon_memento` | P2 | `approved` |
 | `ui` | `icon_money` | 金币图标 | `icon` | `ui_icon_money` | P2 | `approved` |
 | `ui` | `icon_order` | 订单图标 | `icon` | `ui_icon_order` | P2 | `approved` |

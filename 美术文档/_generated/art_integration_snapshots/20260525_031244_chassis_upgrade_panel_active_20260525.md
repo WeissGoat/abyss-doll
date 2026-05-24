@@ -4,16 +4,16 @@
 
 ## Summary
 
-* GeneratedAt: `2026-05-25T03:14:02+08:00`
+* GeneratedAt: `2026-05-25T03:12:44+08:00`
 * Manifest entries: `120`
 * Unique VisualIDs: `119`
 * Candidate entries: `118`
-* Program integrate: `36`
+* Program integrate: `33`
 * Acceptance needed: `82`
 * Art approve: `0`
 * Art select: `0`
 * Art process: `0`
-* Generate needed: `0`
+* Generate needed: `3`
 
 ## Program Integrate
 
@@ -41,13 +41,10 @@
 | P1 | `ui_combat_status_curse` | ui | 诅咒状态图标 | preset:美术文档/art_requirements_seed.json, screen:combat_hud | UnityClient/Assets/Art/Approved/UI/ui_combat_status_curse.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P1 | `ui_combat_status_stun` | ui | 眩晕状态图标 | preset:美术文档/art_requirements_seed.json, screen:combat_hud | UnityClient/Assets/Art/Approved/UI/ui_combat_status_stun.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `bg_doll_room_attic` | background | 人偶阁楼房间背景 | preset:美术文档/art_requirements_seed.json, screen:doll_room | UnityClient/Assets/Art/Approved/Backgrounds/DollRoom/bg_doll_room_attic.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `ui_icon_blueprint` | ui | 蓝图图标 | preset:美术文档/art_requirements_seed.json, screen:chassis_upgrade_panel | UnityClient/Assets/Art/Approved/UI/ui_icon_blueprint.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `ui_icon_chassis_upgrade` | ui | 底盘升级图标 | preset:美术文档/art_requirements_seed.json, screen:chassis_upgrade_panel | UnityClient/Assets/Art/Approved/UI/ui_icon_chassis_upgrade.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `ui_icon_diary` | ui | 日记图标 | preset:美术文档/art_requirements_seed.json, screen:doll_room | UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `ui_icon_event` | ui | 剧本事件图标 | preset:美术文档/art_requirements_seed.json, screen:scenario_event | UnityClient/Assets/Art/Approved/UI/ui_icon_event.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `ui_icon_gift` | ui | 赠礼图标 | preset:美术文档/art_requirements_seed.json, screen:doll_interaction | UnityClient/Assets/Art/Approved/UI/ui_icon_gift.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `ui_icon_lore` | ui | Lore 档案图标 | preset:美术文档/art_requirements_seed.json, screen:scenario_event | UnityClient/Assets/Art/Approved/UI/ui_icon_lore.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P2 | `ui_icon_material_need` | ui | 材料缺口图标 | preset:美术文档/art_requirements_seed.json, screen:chassis_upgrade_panel | UnityClient/Assets/Art/Approved/UI/ui_icon_material_need.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `ui_icon_memento` | ui | 纪念物图标 | preset:美术文档/art_requirements_seed.json, screen:doll_interaction, screen:doll_room | UnityClient/Assets/Art/Approved/UI/ui_icon_memento.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `ui_icon_reputation` | ui | 声望等级图标 | preset:美术文档/art_requirements_seed.json, screen:faction_shop | UnityClient/Assets/Art/Approved/UI/ui_icon_reputation.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P2 | `ui_icon_skip` | ui | 跳过摘要图标 | preset:美术文档/art_requirements_seed.json, screen:scenario_event | UnityClient/Assets/Art/Approved/UI/ui_icon_skip.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
@@ -142,6 +139,9 @@
 | `acceptance_needed` | P2 | `ui_settlement_defeat_panel` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_settlement_defeat_panel.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_settlement_victory_panel` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_settlement_victory_panel.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_title_divider` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_title_divider.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
+| `generate_needed` | P2 | `ui_icon_blueprint` | `prompted` | missing | UnityClient/Assets/Art/Approved/UI/ui_icon_blueprint.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `ui_icon_chassis_upgrade` | `prompted` | missing | UnityClient/Assets/Art/Approved/UI/ui_icon_chassis_upgrade.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
+| `generate_needed` | P2 | `ui_icon_material_need` | `prompted` | missing | UnityClient/Assets/Art/Approved/UI/ui_icon_material_need.png | Manifest 有需求但尚未形成可接入 Approved 素材。 |
 
 ## Action Meanings
 

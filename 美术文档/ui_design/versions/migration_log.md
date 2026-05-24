@@ -21,6 +21,7 @@ related:
   - 美术文档/ui_design/formal_v1/doll_interaction_v1.md
   - 美术文档/ui_design/formal_v1/scenario_event_v1.md
   - 美术文档/ui_design/formal_v1/doll_room_v1.md
+  - 美术文档/ui_design/formal_v1/chassis_upgrade_panel_v1.md
 last_verified: 2026-05-25
 update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或运行时验收后同步本文件。
 ---
@@ -65,6 +66,7 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 | `doll_interaction` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：触摸、对话、赠礼、保养、特殊交互和反馈。 |
 | `scenario_event` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：AVG、系统弹窗、气泡、LorePanel、事件日志和跳过摘要。 |
 | `doll_room` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：房间背景、待机人偶、纪念物、窗外状态、日记和详情区。 |
+| `chassis_upgrade_panel` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：当前底盘、下一底盘、容量变化、材料缺口、蓝图前置和升级确认。 |
 
 ---
 
@@ -157,6 +159,12 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 * `doll_room` 作为 P3 人偶房间 / 视觉日记入口进入 active 规格，拆分 `doll_room_background`、`window_state_area`、`doll_idle_stage`、`memento_display_area`、`diary_panel`、`room_detail_panel` 和 `room_action_strip`。
 * 新增 `bg_doll_room_attic`、`ui_icon_diary`、`ui_room_memento_slot` 三个 preset 资产需求，并补齐 Manifest / Prompt / Spec。
 * 已生成 local_v0 Approved 素材并进入 latest `program_integrate` 队列，供程序侧登记 `VisualAssetRegistry` 和接入 UI。
+
+### 2026-05-25：`chassis_upgrade_panel` 写入 Formal V1 active 规格
+
+* `chassis_upgrade_panel` 作为 P3 局外成长底盘升级界面进入 active 规格，拆分 `upgrade_header`、`current_chassis_preview`、`next_chassis_preview`、`cost_and_requirement_list`、`upgrade_delta_panel` 和 `upgrade_action_panel`。
+* 新增 `ui_icon_chassis_upgrade`、`ui_icon_blueprint`、`ui_icon_material_need` 三个 preset UI 图标需求，用于升级、蓝图和材料缺口表达。
+* 第一版使用工坊背景和已有底盘 frame，所有材料名、数量、费用和按钮文案由 Unity Text 渲染；UI 只请求成长服务，不直接扣费或改底盘。
 
 ### 2026-05-25：`combat_hud` 增补 P1 战斗可读性 active 规格
 

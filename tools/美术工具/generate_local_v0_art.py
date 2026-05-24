@@ -389,6 +389,36 @@ def draw_status_stun(c: Canvas) -> None:
     c.line([(0.66, 0.72), (0.77, 0.61), (0.75, 0.78)], rgba("blue"), 0.014)
 
 
+def draw_icon_chassis_upgrade(c: Canvas) -> None:
+    draw_badge(c, rgba("green", 65))
+    c.round_rect((0.28, 0.50, 0.72, 0.72), 0.03, rgba("metal"), rgba("brass_light"), 0.012)
+    c.round_rect((0.34, 0.56, 0.66, 0.66), 0.018, (0, 0, 0, 0), rgba("brass", 190), 0.008)
+    c.polygon([(0.50, 0.20), (0.68, 0.43), (0.57, 0.43), (0.57, 0.57), (0.43, 0.57), (0.43, 0.43), (0.32, 0.43)], rgba("green"), rgba("brass_light"))
+    c.line([(0.34, 0.76), (0.66, 0.76)], rgba("brass_light", 180), 0.012)
+    for x in (0.33, 0.67):
+        c.ellipse((x - 0.035, 0.47, x + 0.035, 0.54), rgba("brass_light", 210), None)
+
+
+def draw_icon_blueprint(c: Canvas) -> None:
+    draw_badge(c, rgba("blue", 65))
+    c.round_rect((0.28, 0.28, 0.72, 0.72), 0.035, rgba("blue", 165), rgba("brass_light"), 0.012)
+    c.line([(0.36, 0.38), (0.64, 0.38)], rgba("cream", 180), 0.008)
+    c.line([(0.36, 0.50), (0.58, 0.50)], rgba("cream", 170), 0.008)
+    c.line([(0.36, 0.62), (0.66, 0.62)], rgba("cream", 160), 0.008)
+    c.round_rect((0.50, 0.43, 0.66, 0.56), 0.016, (0, 0, 0, 0), rgba("cream", 190), 0.007)
+    c.ellipse((0.61, 0.23, 0.70, 0.32), rgba("brass_light", 230), rgba("brass_dark"), 0.006)
+
+
+def draw_icon_material_need(c: Canvas) -> None:
+    draw_badge(c, rgba("orange", 70))
+    c.round_rect((0.29, 0.42, 0.70, 0.70), 0.035, rgba("brass"), rgba("brass_light"), 0.012)
+    c.round_rect((0.34, 0.34, 0.65, 0.48), 0.03, rgba("brass_dark"), rgba("brass_light"), 0.01)
+    c.line([(0.39, 0.42), (0.49, 0.56), (0.43, 0.68)], rgba("metal"), 0.018)
+    c.polygon([(0.70, 0.24), (0.84, 0.50), (0.56, 0.50)], rgba("orange"), rgba("brass_dark"))
+    c.line([(0.70, 0.31), (0.70, 0.42)], rgba("cream"), 0.01)
+    c.ellipse((0.675, 0.44, 0.725, 0.49), rgba("cream"), None)
+
+
 DRAWERS = {
     "node_eventnode_icon": draw_node_event,
     "node_hazardnode_icon": draw_node_hazard,
@@ -411,6 +441,9 @@ DRAWERS = {
     "ui_combat_status_corrosion": draw_status_corrosion,
     "ui_combat_status_curse": draw_status_curse,
     "ui_combat_status_stun": draw_status_stun,
+    "ui_icon_blueprint": draw_icon_blueprint,
+    "ui_icon_chassis_upgrade": draw_icon_chassis_upgrade,
+    "ui_icon_material_need": draw_icon_material_need,
 }
 
 
