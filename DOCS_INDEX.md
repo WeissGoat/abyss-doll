@@ -22,8 +22,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - 已补元数据：151
 - 缺少元数据：0
 - 事实来源文档：122
-- 关联边数：777
-- 跨职能关联：164
+- 关联边数：780
+- 跨职能关联：178
 
 ## 事实来源
 
@@ -62,8 +62,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [战斗伤害与生存公式 (Combat & Survival Formulas)](数值模型设计/02_战斗伤害与生存公式.md) - `balance` / `balance_combat`
 - [深渊产出与掉落期望 (Loot Generation & Expectation)](数值模型设计/03_深渊产出与掉落期望.md) - `balance` / `balance_loot`
 - [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) - `plan` / `formal_vertical_slice`
-- [设计文档纵切批次矩阵](版本规划/11_设计文档纵切批次矩阵.md) - `plan` / `gdd_vertical_batch_matrix`
-- [版本规划需求文档承接审计](版本规划/12_版本规划需求文档承接审计.md) - `plan` / `requirement_doc_coverage`
+- [纵切批次与需求文档承接矩阵](版本规划/11_纵切批次与需求文档承接矩阵.md) - `plan` / `vertical_batch_requirement_coverage`
+- [正式版长期版本节点规划](版本规划/12_正式版长期版本节点规划.md) - `plan` / `formal_version_milestones`
 - [版本规划阅读入口](版本规划/README.md) - `entry` / `version_planning`
 - [知识库规范](知识库/README.md) - `kb` / `knowledge_base`
 - [美术流水线总览](美术文档/00_美术流水线总览.md) - `art` / `art_pipeline`
@@ -152,21 +152,21 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 关联网络
 
-- `PM <-> 全局`：13 条
+- `PM <-> 全局`：15 条
 - `PM <-> 知识库`：1 条
-- `PM <-> 程序`：1 条
-- `PM <-> 策划`：5 条
-- `PM <-> 美术`：1 条
+- `PM <-> 程序`：2 条
+- `PM <-> 策划`：19 条
+- `PM <-> 美术`：3 条
 - `全局 <-> 知识库`：4 条
 - `全局 <-> 程序`：12 条
-- `全局 <-> 策划`：29 条
+- `全局 <-> 策划`：27 条
 - `全局 <-> 美术`：9 条
 - `知识库 <-> 程序`：1 条
 - `知识库 <-> 策划`：1 条
 - `知识库 <-> 美术`：1 条
-- `程序 <-> 策划`：53 条
+- `程序 <-> 策划`：52 条
 - `程序 <-> 美术`：27 条
-- `策划 <-> 美术`：6 条
+- `策划 <-> 美术`：4 条
 
 ## 按职能分组
 
@@ -175,9 +175,10 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
 | [PM / 版本规划 状态](agent_status/pm.md) | `status` | `active` | `version_planning` | 9 | 完整 |
-| [版本规划需求文档承接审计](版本规划/12_版本规划需求文档承接审计.md) | `plan` | `active` | `requirement_doc_coverage` | 10 | 完整 |
+| [纵切批次与需求文档承接矩阵](版本规划/11_纵切批次与需求文档承接矩阵.md) | `plan` | `active` | `vertical_batch_requirement_coverage` | 25 | 完整 |
+| [正式版长期版本节点规划](版本规划/12_正式版长期版本节点规划.md) | `plan` | `active` | `formal_version_milestones` | 11 | 完整 |
 | [版本规划阅读入口](版本规划/README.md) | `entry` | `active` | `version_planning` | 7 | 完整 |
-| [PM 智能体阅读入口](知识库/views/pm.md) | `view` | `active` | `agent_context_view` | 7 | 完整 |
+| [PM 智能体阅读入口](知识库/views/pm.md) | `view` | `active` | `agent_context_view` | 8 | 完整 |
 
 ### 全局
 
@@ -242,10 +243,9 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [经济循环与通缩模型 (Economy & Deflation Model)](数值模型设计/01_经济循环与通缩模型.md) | `balance` | `active` | `balance_economy` | 8 | 完整 |
 | [战斗伤害与生存公式 (Combat & Survival Formulas)](数值模型设计/02_战斗伤害与生存公式.md) | `balance` | `active` | `balance_combat` | 7 | 完整 |
 | [深渊产出与掉落期望 (Loot Generation & Expectation)](数值模型设计/03_深渊产出与掉落期望.md) | `balance` | `active` | `balance_loot` | 8 | 完整 |
-| [设计文档纵切批次矩阵](版本规划/11_设计文档纵切批次矩阵.md) | `plan` | `active` | `gdd_vertical_batch_matrix` | 23 | 完整 |
 | [数值模型沙盘推演方法论 (Numerical Sandboxing)](版本规划/_archive/mvp_2026-05/03_mvp数值要求.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 需要补充的配置调整](版本规划/_archive/mvp_2026-05/05_MVP需要补充的配置调整.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
-| [策划智能体阅读入口](知识库/views/design.md) | `view` | `active` | `agent_context_view` | 10 | 完整 |
+| [策划智能体阅读入口](知识库/views/design.md) | `view` | `active` | `agent_context_view` | 11 | 完整 |
 | [策划文档开发交付审计](设计文档/00_策划文档开发交付审计.md) | `audit` | `active` | `design_delivery` | 31 | 完整 |
 | [局外时间与日程口径规则卡](设计文档/01_局外时间与日程口径规则卡.md) | `rule_card` | `active` | `time_schedule` | 14 | 完整 |
 | [物品、背包、旋转与生命周期规则卡](设计文档/02_物品背包旋转与生命周期规则卡.md) | `rule_card` | `active` | `item_inventory_lifecycle` | 13 | 完整 |
@@ -272,7 +272,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [长期记忆剧情内容包](设计文档/23_长期记忆剧情内容包.md) | `content_pack` | `active` | `content_authoring` | 19 | 完整 |
 | [势力订单声望内容包](设计文档/24_势力订单声望内容包.md) | `content_pack` | `active` | `content_authoring` | 19 | 完整 |
 | [第三层路线侵蚀内容包](设计文档/25_第三层路线侵蚀内容包.md) | `content_pack` | `active` | `content_authoring` | 19 | 完整 |
-| [正式配置设计与填充推进计划](设计文档/26_正式配置设计与填充推进计划.md) | `plan` | `active` | `formal_config_authoring` | 2 | 完整 |
+| [正式配置设计与填充推进计划](设计文档/26_正式配置设计与填充推进计划.md) | `plan` | `active` | `formal_config_authoring` | 3 | 完整 |
 | [系统关联总图：全系统内在关联与数据流向](设计文档/GDD_00_系统关联总图.md) | `gdd` | `active` | `system_overview` | 38 | 完整 |
 | [详案_01：背包战斗与局内网格机制 (GDD_01)](设计文档/GDD_01_背包战斗与局内网格机制.md) | `gdd` | `active` | `grid_inventory` | 17 | 完整 |
 | [详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)](设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md) | `gdd` | `active` | `dungeon_exploration` | 14 | 完整 |

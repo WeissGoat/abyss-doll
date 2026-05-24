@@ -1,4 +1,4 @@
-﻿---
+---
 id: art_ui_formal_v1_combat_hud
 title: 战斗界面 Formal V1
 type: art

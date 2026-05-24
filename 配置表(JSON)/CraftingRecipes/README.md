@@ -15,9 +15,11 @@ related:
   - 配置表(JSON)/README.md
   - 配置表(JSON)/Prosthetics/README.md
   - 设计文档/GDD_08_人偶养成子模块全案.md
+  - 设计文档/05_局外成长与维护规则卡.md
   - 设计文档/GDD_10_势力声望与订单系统.md
+  - 设计文档/07_势力声望与订单规则卡.md
   - 设计文档/GDD_04_小镇循环与经济物价波浪模型.md
-last_verified: 2026-05-23
+last_verified: 2026-05-24
 update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
 ---
 

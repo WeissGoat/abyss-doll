@@ -1,4 +1,4 @@
-﻿---
+---
 id: art_ui_handoff_checklist
 title: UI 交付检查清单
 type: art

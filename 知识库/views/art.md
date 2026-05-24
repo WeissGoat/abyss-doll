@@ -1,4 +1,4 @@
-﻿---
+---
 id: kb_view_art
 title: 美术智能体阅读入口
 type: view
@@ -10,8 +10,8 @@ related:
   - AGENTS.md
   - PROJECT_STATUS.md
   - 版本规划/09_正式版核心纵切开发路线.md
-  - 版本规划/11_设计文档纵切批次矩阵.md
-  - 版本规划/12_版本规划需求文档承接审计.md
+  - 版本规划/11_纵切批次与需求文档承接矩阵.md
+  - 版本规划/12_正式版长期版本节点规划.md
   - agent_status/art.md
   - 知识库/README.md
   - 美术文档/README.md
@@ -23,7 +23,7 @@ related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 开发文档/09_视觉资源系统程序开发规范.md
   - 开发文档/14_Unity运行时美术自动验收方案.md
-last_verified: 2026-05-24
+last_verified: 2026-05-25
 update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约变化时同步本文件。
 ---
 
@@ -43,7 +43,7 @@ update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约�
 
 | 任务类型 | 优先读取 |
 |---|---|
-| 版本规划对齐 / 当前优先级 | `版本规划/09_正式版核心纵切开发路线.md`、`版本规划/11_设计文档纵切批次矩阵.md`、`版本规划/12_版本规划需求文档承接审计.md` |
+| 版本规划对齐 / 当前优先级 | `版本规划/09_正式版核心纵切开发路线.md`、`版本规划/11_纵切批次与需求文档承接矩阵.md`、`版本规划/12_正式版长期版本节点规划.md` |
 | 美术路线 / 纵切交付 | `美术文档/10_正式版核心纵切美术路线.md` |
 | 美术流水线 / Manifest | `美术文档/00_美术流水线总览.md`、`美术文档/01_Manifest规范.md` |
 | UI 设计交付 | `美术文档/ui_design/README.md`、`美术文档/ui_design/ui_iteration_process.md`、`美术文档/ui_design/handoff_checklist.md` |

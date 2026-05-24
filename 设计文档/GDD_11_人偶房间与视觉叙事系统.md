@@ -1,4 +1,4 @@
-﻿---
+---
 id: gdd_11_doll_room_visual_narrative
 title: 详案_11：人偶房间与视觉叙事系统 (GDD_11)
 type: gdd
