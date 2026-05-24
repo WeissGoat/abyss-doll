@@ -90,11 +90,12 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - P2 非战斗节点基础已落地：新增 `DungeonOutcomeNode`、`TreasureNode`、`EventNode`、`RestStopNode`、`HazardNode`，支持 `Title` / `Description` / `OutcomeEffects` / `RewardID` 配置，结果节点和节点奖励分别接入节点结果 UI 与战利品拾取流；`DungeonNodeTypesSmokeTest.Run`、`DungeonStairsProgressionTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
 - P2 路线风险表达与战争迷雾基础已落地：新增 `DungeonMapVisibilityService`，支持 `FogProfile`、`NodeRevealDepth`、`NodePreviewDepth`、`RiskLevel`、`RiskHint` 配置，地图 UI 按 `Revealed` / `Preview` / `Hidden` 展示节点与路线；`DungeonMapVisibilitySmokeTest.Run`、`DungeonStairsProgressionTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
 - P3 维护真实服务已落地：新增 `MaintenanceService`、`WorkshopCostService`、`MaintenanceConfig`、`Maintenance` 配置域和 `MaintenanceServiceSmokeTest.Run`，支持金币 / 材料成本、磨损 / 侵蚀降低、HP / SAN 恢复，并由 `DiveReadinessService` 重新判断下潜许可。
+- P3 材料缺口 / 成长反馈后端服务已落地：新增 `GrowthFeedbackService`，统一输出制造、维护、下潜许可的可执行状态、金币缺口、材料缺口和推荐动作；`GrowthFeedbackServiceSmokeTest.Run`、`MaintenanceServiceSmokeTest.Run`、`DiveReadinessSmokeTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
 
 ## 下一步建议
 
 1. 进入新程序任务前先查 `版本规划/11_纵切批次与需求文档承接矩阵.md` 第 4 节；已标记“程序功能开发完成”的能力只做 bug 修复、验收补强或真实数据绑定，不重复开发。
-2. 优先从未完成项中选下一步：P2 安全区节奏 / 前三层正式配置和固定 seed 验收、P3 维护 / 下潜许可 / 材料缺口、P4 月租 / 账单 / 订单 / 声望压力链、P0 Strict warning / seed 摘要。
+2. 优先从未完成项中选下一步：P2 前三层正式配置 JSON / Validator 样例、P3 成长反馈 UI 数据绑定 / 更完整制造配置、P4 出售汇总 / 订单面板数据绑定、P0 Strict warning / seed 摘要。
 3. 等美术侧基于 ArtAcceptance 最新截图验收 `combat_hud` Formal V1，如需微调敌人站位、血条层级或目标光环显示，再回到 HUD 表现层处理。
 4. 接入美术新素材时优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
 
