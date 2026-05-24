@@ -33,6 +33,12 @@ PRESERVE_FIELDS = [
     "ApprovedPath",
     "RegistryStatus",
     "Notes",
+    "QualityTier",
+    "QualityUpdatedAt",
+    "ReplacementBatchID",
+    "CandidateBatchID",
+    "CandidateRawFiles",
+    "CandidateRawPath",
 ]
 
 

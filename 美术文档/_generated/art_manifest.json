@@ -2141,7 +2141,7 @@
       "VisualID": "node_eventnode_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "由 Dungeon 节点类型 EventNode 推导，需要一个地图节点资产。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。事件节点图标，用黄铜卷轴和问号形破布表达未知事件，轮廓神秘但不危险。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, minimal map icon, event map node symbol, small brass scroll and question-mark-shaped torn ribbon, mysterious but calm silhouette, high contrast, centered symbol, bold silhouette, high contrast, transparent background, no text",
@@ -2178,12 +2178,14 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png; formal AI replacement remains required.",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "node",
@@ -2196,7 +2198,7 @@
       "VisualID": "node_hazardnode_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_hazardnode_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "由 Dungeon 节点类型 HazardNode 推导，需要一个地图节点资产。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。危险节点图标，用三角黄铜警示牌和开裂污染水晶表达环境危害。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, minimal map icon, hazard map node symbol, triangular brass warning plate with cracked toxic crystal, sharp danger silhouette, high contrast, centered symbol, bold silhouette, high contrast, transparent background, no text",
@@ -2233,12 +2235,14 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_hazardnode_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_hazardnode_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Nodes/Icons/node_hazardnode_icon.png; formal AI replacement remains required.",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "node",
@@ -2251,7 +2255,7 @@
       "VisualID": "node_reststopnode_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_reststopnode_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "由 Dungeon 节点类型 RestStopNode 推导，需要一个地图节点资产。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。休整节点图标，用暖色小灯和折叠毯子置于黄铜保护环中表达短暂庇护。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, minimal map icon, rest stop map node symbol, small warm lantern and folded blanket inside a protective brass ring, calm shelter silhouette, high contrast, centered symbol, bold silhouette, high contrast, transparent background, no text",
@@ -2288,12 +2292,14 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_reststopnode_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_reststopnode_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Nodes/Icons/node_reststopnode_icon.png; formal AI replacement remains required.",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "node",
@@ -2416,7 +2422,7 @@
       "VisualID": "node_treasurenode_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_treasurenode_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "由 Dungeon 节点类型 TreasureNode 推导，需要一个地图节点资产。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。宝箱节点图标，用带齿轮锁扣的黄铜补给箱和柔和金光表达奖励。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, minimal map icon, treasure map node symbol, small locked brass supply chest with gear clasp and soft gold glow, readable reward silhouette, high contrast, centered symbol, bold silhouette, high contrast, transparent background, no text",
@@ -2453,12 +2459,14 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_treasurenode_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_treasurenode_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Nodes/Icons/node_treasurenode_icon.png; formal AI replacement remains required.",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "prosthetic",
@@ -3001,7 +3009,7 @@
       "VisualID": "ui_combat_feedback_hit",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_hit.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 反馈：正式战斗需要统一命中反馈符号，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。命中反馈覆盖图，半透明红橙冲击爆点和黄铜火花碎片，保留透明空隙。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, modular 2D interface sprite, hit feedback overlay, sharp translucent red-orange impact burst with brass spark fragments, transparent center gaps, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3037,15 +3045,17 @@
           "PreviewSize": 128
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_hit.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_hit.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_hit.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "命中、伤害数字或短暂打击反馈的承托符号"
+      "Usage": "命中、伤害数字或短暂打击反馈的承托符号",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -3058,7 +3068,7 @@
       "VisualID": "ui_combat_feedback_shield_break",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_shield_break.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 反馈：正式战斗需要统一破盾反馈符号，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。破盾反馈覆盖图，开裂蓝色护盾碎片和黄铜火花碎片，保留透明空隙。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, modular 2D interface sprite, shield break feedback overlay, cracked blue shield shards with brass spark fragments, transparent gaps, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3094,15 +3104,17 @@
           "PreviewSize": 128
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_shield_break.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_shield_break.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_shield_break.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "护盾被击穿、破盾或穿盾反馈"
+      "Usage": "护盾被击穿、破盾或穿盾反馈",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -3115,7 +3127,7 @@
       "VisualID": "ui_combat_grid_lock_marker",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_grid_lock_marker.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 标记：正式战斗需要统一封格覆盖符号，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。封格覆盖标记，方形格覆盖层、交叉黄铜夹具和低饱和红色警示光，中间透明。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, modular 2D interface sprite, square cell overlay marker, crossed brass clamp frame with muted red warning glow, transparent center, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3151,15 +3163,17 @@
           "PreviewSize": 100
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_grid_lock_marker.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_grid_lock_marker.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_grid_lock_marker.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "背包格被封锁、结晶或临时不可用时的覆盖标记"
+      "Usage": "背包格被封锁、结晶或临时不可用时的覆盖标记",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -3172,7 +3186,7 @@
       "VisualID": "ui_combat_intent_add_junk",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_add_junk.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：正式战斗需要展示塞包意图，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。塞包意图图标，破裂废料块落入小金属托盘，带绿色污染火花。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, clutter warning emblem, cracked scrap chunk falling into a small metal tray, green toxic spark, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3209,15 +3223,17 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_add_junk.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_add_junk.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_add_junk.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "怪物向背包塞入垃圾或污染物的意图，形状提示由程序叠加"
+      "Usage": "怪物向背包塞入垃圾或污染物的意图，形状提示由程序叠加",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -3230,7 +3246,7 @@
       "VisualID": "ui_combat_intent_attack",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_attack.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：正式战斗需要提前展示怪物攻击意图，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。攻击意图图标，红色爪痕斩击叠在小黄铜齿轮徽章上，轮廓尖锐清楚。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, attack warning emblem, sharp red claw slash over a small brass gear badge, angular impact shape, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3267,15 +3283,17 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_attack.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_attack.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_attack.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "怪物攻击意图，伤害数字由 Unity Text 叠加"
+      "Usage": "怪物攻击意图，伤害数字由 Unity Text 叠加",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -3288,7 +3306,7 @@
       "VisualID": "ui_combat_intent_buff",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_buff.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：正式战斗需要展示怪物增益意图，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。增益意图图标，向上黄铜箭头缠绕暖色能量线圈，轮廓清楚。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, empowerment emblem, upward brass arrow wrapped by warm golden energy coil, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3325,15 +3343,17 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_buff.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_buff.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_buff.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "怪物增强自身或同伴的意图"
+      "Usage": "怪物增强自身或同伴的意图",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -3346,7 +3366,7 @@
       "VisualID": "ui_combat_intent_charge",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_charge.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：正式战斗需要展示蓄力意图，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。蓄力意图图标，发光电容线圈和压缩弹簧，琥珀能量聚集。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, charge-up warning emblem, glowing capacitor coil and compressed spring, amber energy buildup, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3383,15 +3403,17 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_charge.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_charge.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_charge.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "怪物蓄力或倒计时大招意图"
+      "Usage": "怪物蓄力或倒计时大招意图",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -3404,7 +3426,7 @@
       "VisualID": "ui_combat_intent_debuff",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_debuff.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：正式战斗需要展示怪物弱化意图，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。弱化意图图标，断裂向下黄铜箭头和冷紫色雾气，轮廓清楚。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, weakening emblem, downward broken brass arrow with cold purple haze, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3441,15 +3463,17 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_debuff.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_debuff.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_debuff.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "怪物降低玩家输出、防御或 AP 的意图"
+      "Usage": "怪物降低玩家输出、防御或 AP 的意图",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -3462,7 +3486,7 @@
       "VisualID": "ui_combat_intent_defend",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_defend.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：正式战斗需要提前展示怪物防御意图，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。防御意图图标，小型黄铜盾牌、蓝色边缘光和细铆钉，轮廓清楚。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, defensive warning emblem, compact brass shield plate with blue edge light and tiny rivets, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3499,15 +3523,17 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_defend.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_defend.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_defend.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "怪物防御或加护盾意图，数值由 Unity Text 叠加"
+      "Usage": "怪物防御或加护盾意图，数值由 Unity Text 叠加",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -3520,7 +3546,7 @@
       "VisualID": "ui_combat_intent_grid_lock",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_grid_lock.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：正式战斗需要展示封格意图，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。封格意图图标，被交叉黄铜夹具封住的暗色方格，带低饱和红色锁定光。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, sealed square tile emblem, crossed brass clamps over a dark grid cell, muted red lock glow, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3557,15 +3583,17 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_grid_lock.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_grid_lock.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_grid_lock.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "怪物封锁背包格子的意图，数量由 Unity Text 叠加"
+      "Usage": "怪物封锁背包格子的意图，数量由 Unity Text 叠加",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -3578,7 +3606,7 @@
       "VisualID": "ui_combat_intent_move_item",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_move_item.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：正式战斗需要展示移位干涉意图，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。移位意图图标，小箱子周围有四向黄铜箭头，轮廓清楚。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, displacement warning emblem, four brass direction arrows around a small crate, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3615,15 +3643,17 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_move_item.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_move_item.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_move_item.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "怪物推移、交换或扰乱背包物品的意图"
+      "Usage": "怪物推移、交换或扰乱背包物品的意图",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -3636,7 +3666,7 @@
       "VisualID": "ui_combat_intent_san_pressure",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_san_pressure.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：正式战斗需要展示 SAN 压力意图，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。SAN 压力意图图标，开裂蓝紫水晶位于黄铜压力表环中，轮廓清楚。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, mental pressure emblem, cracked blue-purple crystal inside a brass pressure gauge ring, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3673,15 +3703,17 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_san_pressure.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_san_pressure.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_san_pressure.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "怪物直接造成 SAN 压力或理智损耗的意图"
+      "Usage": "怪物直接造成 SAN 压力或理智损耗的意图",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -3694,7 +3726,7 @@
       "VisualID": "ui_combat_intent_unknown",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_unknown.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：正式战斗需要少量未知意图符号，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。未知意图图标，暗黄铜眼形徽章被小块破布遮住，轮廓清楚。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, unknown action emblem, obscured dark brass eye badge under a small torn veil, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3731,15 +3763,17 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_unknown.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_unknown.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_unknown.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "少数特殊怪物或特殊状态使用的未知意图"
+      "Usage": "少数特殊怪物或特殊状态使用的未知意图",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -3752,7 +3786,7 @@
       "VisualID": "ui_combat_junk_preview_marker",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_junk_preview_marker.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 标记：正式战斗需要统一塞包预告符号，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。塞包预告标记，方形格预览层、淡绿色污染痕和小废料警示轮廓，中间透明。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, modular 2D interface sprite, square cell preview marker, faint green toxic stain and small scrap warning outline, transparent center, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3788,15 +3822,17 @@
           "PreviewSize": 100
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_junk_preview_marker.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_junk_preview_marker.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_junk_preview_marker.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "怪物即将塞入垃圾、毒液或污染物的背包落点预告"
+      "Usage": "怪物即将塞入垃圾、毒液或污染物的背包落点预告",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -3943,7 +3979,7 @@
       "VisualID": "ui_combat_status_corrosion",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_corrosion.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：正式战斗需要统一腐蚀状态符号，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。腐蚀状态图标，绿色酸液滴腐蚀黄铜板，轮廓清楚。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, corrosion status emblem, green acid droplet eating into a brass plate, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -3980,15 +4016,17 @@
           "PreviewSize": 56
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_corrosion.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_corrosion.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_status_corrosion.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "怪物、玩家或背包物品的腐蚀状态提示"
+      "Usage": "怪物、玩家或背包物品的腐蚀状态提示",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -4001,7 +4039,7 @@
       "VisualID": "ui_combat_status_curse",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_curse.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：正式战斗需要统一诅咒状态符号，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。诅咒状态图标，暗紫开裂符牌被细黄铜线缠绕，轮廓清楚。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, curse status emblem, dark purple cracked talisman plate wrapped by small brass wires, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -4038,15 +4076,17 @@
           "PreviewSize": 56
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_curse.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_curse.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_status_curse.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "诅咒、深渊污染和负面辐射状态提示"
+      "Usage": "诅咒、深渊污染和负面辐射状态提示",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",
@@ -4059,7 +4099,7 @@
       "VisualID": "ui_combat_status_stun",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_stun.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：正式战斗需要统一眩晕/冻结状态符号，配置表无法稳定扫描。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。眩晕状态图标，倾斜黄铜齿轮和蓝色电火花爆点，轮廓清楚。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, stun status emblem, tilted brass gear with blue spark burst, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
@@ -4096,15 +4136,17 @@
           "PreviewSize": 56
         }
       },
-      "BatchID": "",
+      "BatchID": "local_v0_missing_assets_20260525_01",
       "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_stun.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_stun.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_status_stun.png; formal AI replacement remains required.",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
-      "Usage": "眩晕、冻结或跳过行动状态提示"
+      "Usage": "眩晕、冻结或跳过行动状态提示",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
     },
     {
       "Domain": "ui",

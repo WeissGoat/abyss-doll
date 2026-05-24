@@ -281,6 +281,33 @@ Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec �
 .\tools\美术工具\Generate-ArtBatchPlan.ps1 -Snapshot -SnapshotTag nai_missing_assets_20260525_01_anlas_blocked -BatchID nai_missing_assets_20260525_01 -LastProbeBatchID nai_visual_v2_probe_20260525_01 -LastProbeNote "NovelAI HTTP 402: Not enough Anlas."
 ```
 
+## Generate-LocalV0Art.ps1
+
+读取 `缺图生成计划.json` 和 Manifest，为已有 Prompt / Spec 但暂时无法跑 NovelAI 的缺图项生成确定性的 local_v0 Approved PNG。它的用途是解锁 VisualID、Registry 和运行时 UI 验收，不替代正式 AI 出图。
+
+输出：
+
+* Manifest 中对应条目推进到 `Status=approved`
+* `QualityTier=local_v0`
+* `ApprovedPath` 对应 PNG
+* Unity `.meta`
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Generate-LocalV0Art.ps1 -BatchID local_v0_missing_assets_20260525_01 -Overwrite
+.\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag local_v0_missing_assets_20260525_01
+.\tools\美术工具\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag local_v0_missing_assets_20260525_01
+.\tools\美术工具\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag local_v0_missing_assets_20260525_01 -BatchID nai_visual_v2_20260525_02
+```
+
+约束：
+
+* 只处理 `缺图生成计划` 中 `PromptReady=true` 的条目。
+* 生成物必须保留 `QualityTier=local_v0`，并进入 `visual_v2_replace` 队列。
+* 不允许把 local_v0 当最终美术验收通过，只能用于程序接入、布局验证和可读性预验收。
+* 正式替换仍走 Visual V2 流程，不能改变同名 `VisualID`、Approved 路径或 DisplaySpec。
+
 ## Generate-VisualV2Plan.ps1
 
 读取 `素材质量替换清单.json` 和 Manifest，把 `visual_v2_replace` 队列转成可执行的正式跑图计划。它不生成图片，只生成当前应该跑哪些 VisualID、用哪个 BatchID、每个素材的生成/预处理/同步命令，以及最近一次 NovelAI 探测结果。
