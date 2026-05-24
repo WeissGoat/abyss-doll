@@ -38,19 +38,31 @@ update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实
 
 每一层的最后一个可进入节点应配置为 `StairsNode`（显示名：阶梯）。它不是 `NodePool` 随机出来的普通节点，而是由 `DungeonConfig.EndNode` 显式声明，程序只负责按配置在关底 Boss 节点之后实例化该节点。
 
-当前 MVP 的线性结构为：
+当前正式基础结构为多行节点网络：
 
 ```text
-沿途随机节点 ... -> Boss CombatNode -> StairsNode
+入口行 / 路线行若干 -> Boss CombatNode -> StairsNode
 ```
 
-`ExpectedNodeCount` 仍表示“从入口到 Boss 的路径长度，包含 Boss”。当 `EndNode` 配置为 `StairsNode` 时，实际地图按钮数量会是 `ExpectedNodeCount + 1`，多出来的 1 个就是配置声明的阶梯房。
+`ExpectedNodeCount` 只作为“入口到 Boss 的路径长度摘要”，正式网络下建议等于 `RowCount + 1`。实际地图按钮数量由 `NodeRows` 决定：
+
+```text
+实际地图按钮数 = sum(路线行宽度) + 1 个 Boss + 1 个 EndNode
+```
+
+`RowCount` 表示 Boss 前路线行数，不包含 Boss 行和 `EndNode` 终点行。当 `EndNode` 配置为 `StairsNode` 时，程序会在 Boss 后追加该阶梯房。
 
 配置示例：
 
 ```json
 {
-  "ExpectedNodeCount": 3,
+  "ExpectedNodeCount": 6,
+  "MapProfileID": "layer_1_tutorial_branching",
+  "MapSeed": 1001,
+  "RowCount": 5,
+  "MinWidth": 2,
+  "MaxWidth": 3,
+  "MinRouteCount": 2,
   "BossNode": "elite_scrap_guard",
   "EndNode": {
     "NodeType": "StairsNode"
@@ -107,9 +119,13 @@ public class DungeonLayer {
     public int LayerID;
     public NodeBase RootNode;
     public NodeBase CurrentNode;
+    public List<NodeBase> EntryNodes;
+    public List<List<NodeBase>> NodeRows;
+    public int RunSeed;
+    public string MapProfileID;
     
-    public void GenerateMapTree() {
-        // 根据配置表生成分支树结构，并在 Boss 后追加 DungeonConfig.EndNode
+    public void GenerateMapTree(DungeonConfig config, int runSeed) {
+        // 根据 RowCount / Width / seed 生成多行节点网络，并在 Boss 后追加 DungeonConfig.EndNode
     }
 }
 
@@ -141,7 +157,7 @@ public class DungeonManager : MonoBehaviour {
     }
     
     public void MoveToNode(NodeBase targetNode) {
-        // 验证 targetNode 是否属于 CurrentNode.NextNodes
+        // 验证 targetNode 是否为入口节点，或属于 CurrentNode.NextNodes
         CurrentLayer.CurrentNode = targetNode;
         // 结算 SAN 值移动税：节点基础消耗 + 背包物品 Effect 额外消耗
         int sanCost = GetBaseSanCostForNode(targetNode) + GetExtraSanCostFromBackpackEffects(targetNode);

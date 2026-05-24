@@ -2,7 +2,13 @@
   "LayerID": 1,
   "Name": "浅层区域",
   "SANCostPerNode": 1,
-  "ExpectedNodeCount": 3,
+  "ExpectedNodeCount": 6,
+  "MapProfileID": "layer_1_tutorial_branching",
+  "MapSeed": 1001,
+  "RowCount": 5,
+  "MinWidth": 2,
+  "MaxWidth": 3,
+  "MinRouteCount": 2,
   "MapBackgroundID": "bg_dungeon_layer_1",
   "NodePool": [
     {

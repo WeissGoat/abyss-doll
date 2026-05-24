@@ -516,6 +516,14 @@ public static class ConfigValidator {
                 report.AddError($"Dungeon layer [{dungeon.LayerID}] has invalid ExpectedNodeCount [{dungeon.ExpectedNodeCount}].");
             }
 
+            ValidateDungeonMapProfile(report, dungeon);
+
+            if (dungeon.NodePool == null || dungeon.NodePool.Count == 0) {
+                report.AddError($"Dungeon layer [{dungeon.LayerID}] must define at least one NodePool entry.");
+                ValidateDungeonNodeEntry(report, dungeon, dungeon.EndNode, "EndNode", false);
+                continue;
+            }
+
             foreach (NodePoolEntry entry in dungeon.NodePool) {
                 ValidateDungeonNodeEntry(report, dungeon, entry, "NodePool", true);
 
@@ -525,6 +533,44 @@ public static class ConfigValidator {
             }
 
             ValidateDungeonNodeEntry(report, dungeon, dungeon.EndNode, "EndNode", false);
+        }
+    }
+
+    private static void ValidateDungeonMapProfile(ConfigValidationReport report, DungeonConfig dungeon) {
+        if (dungeon == null) {
+            return;
+        }
+
+        if (string.IsNullOrEmpty(dungeon.MapProfileID)) {
+            report.AddError($"Dungeon layer [{dungeon.LayerID}] must define MapProfileID for formal map generation.");
+        }
+
+        if (dungeon.RowCount <= 0) {
+            report.AddError($"Dungeon layer [{dungeon.LayerID}] must define positive RowCount.");
+        }
+
+        if (dungeon.MinWidth <= 0) {
+            report.AddError($"Dungeon layer [{dungeon.LayerID}] must define positive MinWidth.");
+        }
+
+        if (dungeon.MaxWidth <= 0) {
+            report.AddError($"Dungeon layer [{dungeon.LayerID}] must define positive MaxWidth.");
+        }
+
+        if (dungeon.MinRouteCount <= 0) {
+            report.AddError($"Dungeon layer [{dungeon.LayerID}] must define positive MinRouteCount.");
+        }
+
+        if (dungeon.MinWidth > 0 && dungeon.MaxWidth > 0 && dungeon.MaxWidth < dungeon.MinWidth) {
+            report.AddError($"Dungeon layer [{dungeon.LayerID}] MaxWidth [{dungeon.MaxWidth}] must be >= MinWidth [{dungeon.MinWidth}].");
+        }
+
+        if (dungeon.MinRouteCount > 0 && dungeon.MaxWidth > 0 && dungeon.MinRouteCount > dungeon.MaxWidth) {
+            report.AddError($"Dungeon layer [{dungeon.LayerID}] MinRouteCount [{dungeon.MinRouteCount}] must be <= MaxWidth [{dungeon.MaxWidth}].");
+        }
+
+        if (dungeon.RowCount > 0 && dungeon.ExpectedNodeCount > 0 && dungeon.ExpectedNodeCount != dungeon.RowCount + 1) {
+            report.AddWarning($"Dungeon layer [{dungeon.LayerID}] ExpectedNodeCount [{dungeon.ExpectedNodeCount}] should equal RowCount + Boss [{dungeon.RowCount + 1}] under the formal network map contract.");
         }
     }
 

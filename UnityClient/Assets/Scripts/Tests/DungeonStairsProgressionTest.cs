@@ -10,6 +10,8 @@ public static class DungeonStairsProgressionTest {
         Debug.Log("=== Running Dungeon Stairs Progression Test ===");
 
         TestLayerEndsWithStairsAfterBoss();
+        TestDungeonMapSeedReproducible();
+        TestDungeonMapMovementRules();
         TestDungeonStartLayerDefaultsAndLockedValidation();
         TestStairsUnlocksNextStartLayer();
         TestStartRunAtUnlockedLayerResetsRunLootLedger();
@@ -25,12 +27,16 @@ public static class DungeonStairsProgressionTest {
         CoreBackend core = CreateCore();
         core.Dungeon.LoadLayer(1);
 
-        List<NodeBase> path = BuildLinearPath(core.Dungeon.CurrentLayer);
+        DungeonLayer layer = core.Dungeon.CurrentLayer;
         DungeonConfig config = ConfigManager.Dungeons[1];
-        NodeBase bossNode = path.Count >= 2 ? path[path.Count - 2] : null;
-        NodeBase finalNode = path.Count >= 1 ? path[path.Count - 1] : null;
+        NodeBase bossNode = GetBossNode(layer);
+        NodeBase finalNode = FindLastNode(layer);
 
-        bool pathShapeValid = path.Count == config.ExpectedNodeCount + 1
+        bool networkShapeValid = layer != null
+            && layer.NodeRows.Count == config.RowCount + 2
+            && layer.EntryNodes.Count >= config.MinRouteCount
+            && CountNodes(layer) > config.ExpectedNodeCount + 1
+            && CountEdges(layer) >= CountNodes(layer) - 1
             && config.EndNode != null
             && config.EndNode.NodeType == "StairsNode"
             && bossNode is CombatNode bossCombat
@@ -38,21 +44,75 @@ public static class DungeonStairsProgressionTest {
             && bossCombat.MonsterIDs[0] == config.BossNode
             && finalNode is StairsNode stairs
             && stairs.LayerID == config.LayerID
-            && finalNode.NextNodes.Count == 0;
+            && finalNode.NextNodes.Count == 0
+            && AllRowsBeforeTargetReach(layer, bossNode)
+            && AllNodesReach(layer, finalNode);
 
-        if (pathShapeValid) {
-            Debug.Log("Configured Layer Stairs Generation PASSED.");
+        if (networkShapeValid) {
+            Debug.Log("Configured Layer Network Stairs Generation PASSED.");
         } else {
-            Debug.LogError($"Configured Layer Stairs Generation FAILED. PathCount={path.Count}, Expected={config.ExpectedNodeCount + 1}, EndNode={config.EndNode?.NodeType ?? "null"}, BossType={bossNode?.GetType().Name ?? "null"}, FinalType={finalNode?.GetType().Name ?? "null"}");
+            Debug.LogError($"Configured Layer Network Stairs Generation FAILED. Rows={layer?.NodeRows.Count ?? -1}/{config.RowCount + 2}, Entries={layer?.EntryNodes.Count ?? -1}/{config.MinRouteCount}, Nodes={CountNodes(layer)}, Edges={CountEdges(layer)}, EndNode={config.EndNode?.NodeType ?? "null"}, BossType={bossNode?.GetType().Name ?? "null"}, FinalType={finalNode?.GetType().Name ?? "null"}");
         }
 
         int beforeSan = core.CurrentPlayer.ActiveDoll.Status.SAN_Current;
-        core.Dungeon.MoveToNode(finalNode);
+        if (bossNode != null && finalNode != null) {
+            layer.CurrentNode = bossNode;
+            core.Dungeon.MoveToNode(finalNode);
+        }
         int afterSan = core.CurrentPlayer.ActiveDoll.Status.SAN_Current;
         if (beforeSan == afterSan) {
             Debug.Log("Stairs SAN Cost PASSED.");
         } else {
             Debug.LogError($"Stairs SAN Cost FAILED. Before={beforeSan}, After={afterSan}");
+        }
+    }
+
+    private static void TestDungeonMapSeedReproducible() {
+        CreateCore();
+        DungeonConfig config = ConfigManager.Dungeons[1];
+        DungeonLayer first = new DungeonLayer();
+        DungeonLayer second = new DungeonLayer();
+        first.GenerateMapTree(config, 12345);
+        second.GenerateMapTree(config, 12345);
+
+        bool reproducible = !string.IsNullOrEmpty(first.GenerationSummary)
+            && first.GenerationSummary == second.GenerationSummary;
+
+        if (reproducible) {
+            Debug.Log("Dungeon Map Seed Reproducible PASSED.");
+        } else {
+            Debug.LogError($"Dungeon Map Seed Reproducible FAILED. First={first.GenerationSummary}\nSecond={second.GenerationSummary}");
+        }
+    }
+
+    private static void TestDungeonMapMovementRules() {
+        CoreBackend core = CreateCore();
+        core.Dungeon.LoadLayer(1);
+
+        DungeonLayer layer = core.Dungeon.CurrentLayer;
+        NodeBase entry = layer?.EntryNodes.Count > 0 ? layer.EntryNodes[0] : null;
+        NodeBase invalidInitialTarget = layer?.NodeRows.Count > 1 && layer.NodeRows[1].Count > 0 ? layer.NodeRows[1][0] : null;
+        NodeBase validNextTarget = entry?.NextNodes != null && entry.NextNodes.Count > 0 ? entry.NextNodes[0] : null;
+
+        bool entryAllowed = entry != null && core.Dungeon.CanMoveToNode(entry);
+        bool nonEntryRejected = invalidInitialTarget != null && !core.Dungeon.CanMoveToNode(invalidInitialTarget);
+        if (invalidInitialTarget != null) {
+            core.Dungeon.MoveToNode(invalidInitialTarget);
+        }
+
+        bool invalidMoveHadNoEffect = layer != null
+            && layer.CurrentNode == null
+            && (invalidInitialTarget == null || !invalidInitialTarget.IsVisited);
+
+        if (layer != null) {
+            layer.CurrentNode = entry;
+        }
+        bool nextAllowed = validNextTarget != null && core.Dungeon.CanMoveToNode(validNextTarget);
+
+        if (entryAllowed && nonEntryRejected && invalidMoveHadNoEffect && nextAllowed) {
+            Debug.Log("Dungeon Map Movement Rules PASSED.");
+        } else {
+            Debug.LogError($"Dungeon Map Movement Rules FAILED. EntryAllowed={entryAllowed}, NonEntryRejected={nonEntryRejected}, InvalidNoEffect={invalidMoveHadNoEffect}, NextAllowed={nextAllowed}");
         }
     }
 
@@ -82,14 +142,20 @@ public static class DungeonStairsProgressionTest {
 
         controller.RefreshMap();
 
-        int expectedNodeCount = ConfigManager.Dungeons[2].ExpectedNodeCount + 1;
-        int expectedRouteLineCount = Mathf.Max(0, expectedNodeCount - 1);
+        DungeonLayer layer = core.Dungeon.CurrentLayer;
+        int expectedNodeCount = CountNodes(layer);
+        int expectedRouteLineCount = CountEdges(layer);
         int nodeButtonCount = 0;
         int routeLineCount = 0;
-        float expectedLayoutWidth = Mathf.Max(160f, expectedNodeCount * 160f + expectedRouteLineCount * 112f);
+        int interactableNodeButtons = 0;
+        float expectedLayoutWidth = Mathf.Max(720f, 160f + Mathf.Max(0, layer.NodeRows.Count - 1) * 230f);
         foreach (Transform child in contentObj.transform) {
-            if (child.GetComponent<Button>() != null) {
+            Button button = child.GetComponent<Button>();
+            if (button != null) {
                 nodeButtonCount++;
+                if (button.interactable) {
+                    interactableNodeButtons++;
+                }
             } else if (child.name == "DungeonRouteLine_Image") {
                 routeLineCount++;
             }
@@ -99,7 +165,8 @@ public static class DungeonStairsProgressionTest {
             && routeLineCount == expectedRouteLineCount
             && contentObj.transform.childCount == expectedNodeCount + expectedRouteLineCount;
         bool layoutWidthExpanded = contentRect.sizeDelta.x >= expectedLayoutWidth;
-        bool layoutNoLongerCompresses = !layout.childControlWidth && !layout.childForceExpandWidth;
+        bool layoutNoLongerCompresses = !layout.enabled && !layout.childControlWidth && !layout.childForceExpandWidth;
+        bool onlyEntryNodesInteractable = interactableNodeButtons == layer.EntryNodes.Count;
         bool buttonsHavePreferredWidth = true;
         foreach (Transform child in contentObj.transform) {
             if (child.GetComponent<Button>() == null) {
@@ -110,10 +177,10 @@ public static class DungeonStairsProgressionTest {
             buttonsHavePreferredWidth &= element != null && element.preferredWidth >= 160f;
         }
 
-        if (childCountMatches && layoutWidthExpanded && layoutNoLongerCompresses && buttonsHavePreferredWidth) {
+        if (childCountMatches && layoutWidthExpanded && layoutNoLongerCompresses && onlyEntryNodesInteractable && buttonsHavePreferredWidth) {
             Debug.Log("Dungeon Map Layer 2 Layout PASSED.");
         } else {
-            Debug.LogError($"Dungeon Map Layer 2 Layout FAILED. Nodes={nodeButtonCount}/{expectedNodeCount}, Routes={routeLineCount}/{expectedRouteLineCount}, ChildCount={contentObj.transform.childCount}, Width={contentRect.sizeDelta.x}/{expectedLayoutWidth}, Compress={layout.childControlWidth}, ForceExpand={layout.childForceExpandWidth}, PreferredWidth={buttonsHavePreferredWidth}");
+            Debug.LogError($"Dungeon Map Layer 2 Layout FAILED. Nodes={nodeButtonCount}/{expectedNodeCount}, Routes={routeLineCount}/{expectedRouteLineCount}, ChildCount={contentObj.transform.childCount}, Width={contentRect.sizeDelta.x}/{expectedLayoutWidth}, LayoutEnabled={layout.enabled}, Compress={layout.childControlWidth}, ForceExpand={layout.childForceExpandWidth}, Interactable={interactableNodeButtons}/{layer.EntryNodes.Count}, PreferredWidth={buttonsHavePreferredWidth}");
         }
 
         Object.DestroyImmediate(canvasObj);
@@ -142,6 +209,7 @@ public static class DungeonStairsProgressionTest {
         _lastUnlockedStartLayerID = -1;
         DungeonEventBus.OnDungeonStartLayerUnlocked += HandleStartLayerUnlocked;
         StairsNode stairs = FindLastNode(core.Dungeon.CurrentLayer) as StairsNode;
+        core.Dungeon.CurrentLayer.CurrentNode = FindPredecessor(core.Dungeon.CurrentLayer, stairs);
         core.Dungeon.MoveToNode(stairs);
         DungeonEventBus.OnDungeonStartLayerUnlocked -= HandleStartLayerUnlocked;
 
@@ -313,8 +381,145 @@ public static class DungeonStairsProgressionTest {
     }
 
     private static NodeBase FindLastNode(DungeonLayer layer) {
+        if (layer?.NodeRows != null && layer.NodeRows.Count > 0) {
+            List<NodeBase> lastRow = layer.NodeRows[layer.NodeRows.Count - 1];
+            return lastRow != null && lastRow.Count > 0 ? lastRow[0] : null;
+        }
+
         List<NodeBase> path = BuildLinearPath(layer);
         return path.Count > 0 ? path[path.Count - 1] : null;
+    }
+
+    private static NodeBase GetBossNode(DungeonLayer layer) {
+        if (layer?.NodeRows == null || layer.NodeRows.Count < 2) {
+            return null;
+        }
+
+        List<NodeBase> bossRow = layer.NodeRows[layer.NodeRows.Count - 2];
+        return bossRow != null && bossRow.Count > 0 ? bossRow[0] : null;
+    }
+
+    private static NodeBase FindPredecessor(DungeonLayer layer, NodeBase target) {
+        if (layer?.NodeRows == null || target == null) {
+            return null;
+        }
+
+        foreach (List<NodeBase> row in layer.NodeRows) {
+            if (row == null) {
+                continue;
+            }
+
+            foreach (NodeBase node in row) {
+                if (node?.NextNodes != null && node.NextNodes.Contains(target)) {
+                    return node;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private static int CountNodes(DungeonLayer layer) {
+        int count = 0;
+        if (layer?.NodeRows == null) {
+            return 0;
+        }
+
+        foreach (List<NodeBase> row in layer.NodeRows) {
+            count += row?.Count ?? 0;
+        }
+
+        return count;
+    }
+
+    private static int CountEdges(DungeonLayer layer) {
+        int count = 0;
+        if (layer?.NodeRows == null) {
+            return 0;
+        }
+
+        foreach (List<NodeBase> row in layer.NodeRows) {
+            if (row == null) {
+                continue;
+            }
+
+            foreach (NodeBase node in row) {
+                count += node?.NextNodes?.Count ?? 0;
+            }
+        }
+
+        return count;
+    }
+
+    private static bool AllNodesReach(DungeonLayer layer, NodeBase target) {
+        if (layer?.NodeRows == null || target == null) {
+            return false;
+        }
+
+        foreach (List<NodeBase> row in layer.NodeRows) {
+            if (row == null) {
+                continue;
+            }
+
+            foreach (NodeBase node in row) {
+                if (node != target && !CanReach(node, target)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private static bool AllRowsBeforeTargetReach(DungeonLayer layer, NodeBase target) {
+        if (layer?.NodeRows == null || target == null) {
+            return false;
+        }
+
+        for (int rowIndex = 0; rowIndex < layer.NodeRows.Count; rowIndex++) {
+            List<NodeBase> row = layer.NodeRows[rowIndex];
+            if (row == null || row.Contains(target)) {
+                return true;
+            }
+
+            foreach (NodeBase node in row) {
+                if (!CanReach(node, target)) {
+                    return false;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private static bool CanReach(NodeBase start, NodeBase target) {
+        if (start == null || target == null) {
+            return false;
+        }
+
+        HashSet<NodeBase> visited = new HashSet<NodeBase>();
+        Queue<NodeBase> queue = new Queue<NodeBase>();
+        queue.Enqueue(start);
+        visited.Add(start);
+
+        while (queue.Count > 0) {
+            NodeBase current = queue.Dequeue();
+            if (current == target) {
+                return true;
+            }
+
+            if (current.NextNodes == null) {
+                continue;
+            }
+
+            foreach (NodeBase next in current.NextNodes) {
+                if (next != null && visited.Add(next)) {
+                    queue.Enqueue(next);
+                }
+            }
+        }
+
+        return false;
     }
 
     private static void HandleSettlementPrepared(DungeonSettlementResult result) {

@@ -19,7 +19,7 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - agent_status/art.md
   - 知识库/views/program.md
-last_verified: 2026-05-24
+last_verified: 2026-05-25
 update_rule: 程序、Unity、验证或工程边界任务完成后更新本文件。
 ---
 
@@ -27,13 +27,13 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 ## 最后更新
 
-2026-05-24
+2026-05-25
 
 ## 当前关注
 
 支撑正式版核心纵切，让 Unity 运行时系统保持模块清晰、数据驱动、可测试，并与当前 GDD 规则一致。
 
-PM 版本节点中，程序线当前落在 A1 核心边界收口：继续收口 `GameFlowController`、runtime fallback UI、配置校验和 agent 健康检查，为 A2 背包与战斗纵切降低冲突风险。
+程序侧已完成项以 `版本规划/11_纵切批次与需求文档承接矩阵.md` 的“当前实现进度校准”为准。标记为“程序功能开发完成”的背包、战斗、层级入口、义体制造、出售、P0 验收入口和部分 UI 接入能力，不再作为新功能重复派发。
 
 ## 必读文件
 
@@ -86,11 +86,12 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - P0B 统一验收入口已落地：新增 `tools/agent/Invoke-P0Validation.ps1`，串联配置同步、`ConfigValidationSmokeTest.Run`、核心 Unity smoke tests、UI 规格校验和 ArtAcceptance latest 摘要，并生成 `UnityClient/Logs/P0Validation/latest/report.json` / `report.md`。
 - 已修正 P0 阻断测试口径：`InventoryGridLayoutAssetValidatorTest` 避免在 PlayMode 中误调用编辑器场景 API；`DungeonStairsProgressionTest` 按正式地图的节点按钮 + 路线线段结构校验二层地图布局。
 - `Invoke-P0Validation.ps1 -TimeoutSeconds 180` 已通过非 Strict 验证：配置同步、ConfigValidator、Unity smoke tests、UI 规格校验、ArtAcceptance latest 均通过；当前仍有 ConfigValidator 元数据标签 warning 和锁层路径预期 warning。
+- P2 深渊地图正式网络基础已落地：`DungeonLayer` 按 `RowCount` / 宽度 / seed 生成多行节点网络，`DungeonMapUIController` 改为展示多路线节点和连线，`DungeonManager.CanMoveToNode()` 在领域层限制入口 / 后继节点移动；`DungeonStairsProgressionTest.Run` 与 `ConfigValidationSmokeTest.Run` 已通过。
 
 ## 下一步建议
 
-1. 继续推进 A2 背包交互正式化：优先补物品生命周期服务化，统一拾取 / 整理 / 丢弃 / 使用 / 出售 / 制造 / 战败 / 撤离的规则入口和失败回滚。
-2. 处理 `Invoke-P0Validation.ps1 -Strict` 前的 warning 收口：确认 ConfigValidator 元数据标签是否进入白名单 / 正式标签表，并降低测试内预期锁层 warning 的噪音。
+1. 进入新程序任务前先查 `版本规划/11_纵切批次与需求文档承接矩阵.md` 第 4 节；已标记“程序功能开发完成”的能力只做 bug 修复、验收补强或真实数据绑定，不重复开发。
+2. 优先从未完成项中选下一步：P2 安全区节奏 / 节点类型扩展 / 战争迷雾、P3 维护 / 下潜许可 / 材料缺口、P4 月租 / 账单 / 订单 / 声望压力链、P0 Strict warning / seed 摘要。
 3. 等美术侧基于 ArtAcceptance 最新截图验收 `combat_hud` Formal V1，如需微调敌人站位、血条层级或目标光环显示，再回到 HUD 表现层处理。
 4. 接入美术新素材时优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
 

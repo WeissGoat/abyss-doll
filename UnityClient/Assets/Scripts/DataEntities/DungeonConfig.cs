@@ -7,6 +7,12 @@ public class DungeonConfig {
     public string Name;
     public int SANCostPerNode;
     public int ExpectedNodeCount;
+    public string MapProfileID;
+    public int MapSeed;
+    public int RowCount;
+    public int MinWidth;
+    public int MaxWidth;
+    public int MinRouteCount;
     public string MapBackgroundID;
     
     public List<NodePoolEntry> NodePool = new List<NodePoolEntry>();

@@ -5,8 +5,9 @@ using System.Collections.Generic;
 public class DungeonMapUIController : MonoBehaviour {
     private const float NodeButtonWidth = 160f;
     private const float NodeButtonHeight = 150f;
-    private const float RouteLineWidth = 112f;
-    private const float RouteLineHeight = 28f;
+    private const float NodeColumnSpacing = 230f;
+    private const float NodeRowSpacing = 190f;
+    private const float RouteLineHeight = 24f;
 
     public GameObject nodeButtonPrefab;
     public Transform contentParent;
@@ -30,57 +31,68 @@ public class DungeonMapUIController : MonoBehaviour {
             return;
         }
 
-        List<NodeBase> path = new List<NodeBase>();
-        NodeBase curr = layer.RootNode;
-        while (curr != null) {
-            path.Add(curr);
-            curr = curr.NextNodes != null && curr.NextNodes.Count > 0 ? curr.NextNodes[0] : null;
-        }
+        List<List<NodeBase>> rows = GetRenderableRows(layer);
+        Dictionary<NodeBase, Vector2> nodePositions = BuildNodePositions(rows);
+        ConfigureMapLayout(rows);
+        CreateRouteLines(rows, nodePositions);
 
-        ConfigureMapLayout(path.Count);
-
-        bool foundCurrent = false;
-
-        for (int i = 0; i < path.Count; i++) {
-            NodeBase node = path[i];
-            if (i > 0) {
-                CreateRouteLine();
-            }
-
-            GameObject btnGo = Instantiate(nodeButtonPrefab, contentParent);
-            ConfigureNodeButtonLayout(btnGo);
-            Button btn = btnGo.GetComponent<Button>();
-            Text txt = btnGo.GetComponentInChildren<Text>();
-            ApplyNodeButtonSkin(btn, node, false);
-
-            if (txt != null) {
-                txt.text = BuildNodeLabel(node);
-            }
-
-            ApplyNodeIcon(btnGo.transform, node);
-
-            Debug.Log($"[DungeonMapUI] Render node button: {node.NodeID}, Type={node.GetType().Name}, Label={txt?.text?.Replace('\n', ' ')}");
-
-            if (node.IsVisited) {
-                ApplyNodeButtonSkin(btn, node, true);
-                btn.interactable = false;
-                continue;
-            }
-
-            if (!foundCurrent) {
-                ApplyNodeButtonSkin(btn, node, false);
-                btn.interactable = true;
-                btn.onClick.AddListener(() => {
-                    GameRoot.Core.Dungeon.MoveToNode(node);
-                });
-                foundCurrent = true;
-            } else {
-                ApplyNodeButtonSkin(btn, node, true);
-                btn.interactable = false;
+        foreach (List<NodeBase> row in rows) {
+            foreach (NodeBase node in row) {
+                CreateNodeButton(layer, node, nodePositions);
             }
         }
 
         RebuildMapLayout();
+    }
+
+    private List<List<NodeBase>> GetRenderableRows(DungeonLayer layer) {
+        if (layer?.NodeRows != null && layer.NodeRows.Count > 0) {
+            return layer.NodeRows;
+        }
+
+        List<List<NodeBase>> fallbackRows = new List<List<NodeBase>>();
+        NodeBase current = layer?.RootNode;
+        while (current != null) {
+            fallbackRows.Add(new List<NodeBase> { current });
+            current = current.NextNodes != null && current.NextNodes.Count > 0 ? current.NextNodes[0] : null;
+        }
+
+        return fallbackRows;
+    }
+
+    private void CreateNodeButton(DungeonLayer layer, NodeBase node, Dictionary<NodeBase, Vector2> nodePositions) {
+        if (node == null || nodePositions == null || !nodePositions.TryGetValue(node, out Vector2 anchoredPosition)) {
+            return;
+        }
+
+        GameObject btnGo = Instantiate(nodeButtonPrefab, contentParent);
+        ConfigureNodeButtonLayout(btnGo, anchoredPosition);
+        Button btn = btnGo.GetComponent<Button>();
+        Text txt = btnGo.GetComponentInChildren<Text>();
+        bool isSelectable = IsNodeSelectable(layer, node);
+        ApplyNodeButtonSkin(btn, node, !isSelectable || node.IsVisited);
+
+        if (txt != null) {
+            txt.text = BuildNodeLabel(node);
+        }
+
+        ApplyNodeIcon(btnGo.transform, node);
+
+        Debug.Log($"[DungeonMapUI] Render node button: {node.NodeID}, Type={node.GetType().Name}, Label={txt?.text?.Replace('\n', ' ')}");
+
+        if (btn == null) {
+            return;
+        }
+
+        if (!isSelectable || node.IsVisited) {
+            btn.interactable = false;
+            return;
+        }
+
+        btn.interactable = true;
+        btn.onClick.AddListener(() => {
+            GameRoot.Core.Dungeon.MoveToNode(node);
+        });
     }
 
     public void BindBackpackControls(GameFlowController flow, bool isOpen) {
@@ -197,36 +209,77 @@ public class DungeonMapUIController : MonoBehaviour {
         }
     }
 
-    private void ConfigureMapLayout(int nodeCount) {
+    private void ConfigureMapLayout(List<List<NodeBase>> rows) {
+        int rowCount = rows?.Count ?? 0;
+        int maxNodesInRow = 1;
+        if (rows != null) {
+            foreach (List<NodeBase> row in rows) {
+                maxNodesInRow = Mathf.Max(maxNodesInRow, row?.Count ?? 0);
+            }
+        }
+
         RectTransform contentRect = contentParent as RectTransform;
         if (contentRect != null) {
-            float width = Mathf.Max(NodeButtonWidth, nodeCount * NodeButtonWidth + Mathf.Max(0, nodeCount - 1) * RouteLineWidth);
+            float width = Mathf.Max(720f, NodeButtonWidth + Mathf.Max(0, rowCount - 1) * NodeColumnSpacing);
+            float height = Mathf.Max(360f, NodeButtonHeight + Mathf.Max(0, maxNodesInRow - 1) * NodeRowSpacing);
             contentRect.anchorMin = new Vector2(0.5f, 0.5f);
             contentRect.anchorMax = new Vector2(0.5f, 0.5f);
             contentRect.pivot = new Vector2(0.5f, 0.5f);
-            contentRect.sizeDelta = new Vector2(width, NodeButtonHeight);
+            contentRect.sizeDelta = new Vector2(width, height);
         }
 
         HorizontalLayoutGroup layout = contentParent.GetComponent<HorizontalLayoutGroup>();
-        if (layout == null) {
-            layout = contentParent.gameObject.AddComponent<HorizontalLayoutGroup>();
+        if (layout != null) {
+            layout.enabled = false;
+            layout.spacing = 0f;
+            layout.childAlignment = TextAnchor.MiddleCenter;
+            layout.childControlWidth = false;
+            layout.childControlHeight = false;
+            layout.childForceExpandWidth = false;
+            layout.childForceExpandHeight = false;
         }
-
-        layout.spacing = 0f;
-        layout.childAlignment = TextAnchor.MiddleCenter;
-        layout.childControlWidth = false;
-        layout.childControlHeight = false;
-        layout.childForceExpandWidth = false;
-        layout.childForceExpandHeight = false;
     }
 
-    private void ConfigureNodeButtonLayout(GameObject buttonObject) {
+    private Dictionary<NodeBase, Vector2> BuildNodePositions(List<List<NodeBase>> rows) {
+        Dictionary<NodeBase, Vector2> positions = new Dictionary<NodeBase, Vector2>();
+        if (rows == null || rows.Count == 0) {
+            return positions;
+        }
+
+        float totalWidth = Mathf.Max(0, rows.Count - 1) * NodeColumnSpacing;
+        float startX = -totalWidth * 0.5f;
+        for (int rowIndex = 0; rowIndex < rows.Count; rowIndex++) {
+            List<NodeBase> row = rows[rowIndex];
+            if (row == null || row.Count == 0) {
+                continue;
+            }
+
+            float rowHeight = Mathf.Max(0, row.Count - 1) * NodeRowSpacing;
+            float startY = rowHeight * 0.5f;
+            for (int columnIndex = 0; columnIndex < row.Count; columnIndex++) {
+                NodeBase node = row[columnIndex];
+                if (node == null) {
+                    continue;
+                }
+
+                positions[node] = new Vector2(startX + rowIndex * NodeColumnSpacing, startY - columnIndex * NodeRowSpacing);
+            }
+        }
+
+        return positions;
+    }
+
+    private void ConfigureNodeButtonLayout(GameObject buttonObject, Vector2 anchoredPosition) {
         if (buttonObject == null) {
             return;
         }
 
         RectTransform rect = buttonObject.GetComponent<RectTransform>();
         if (rect != null) {
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = anchoredPosition;
             rect.sizeDelta = new Vector2(NodeButtonWidth, NodeButtonHeight);
         }
 
@@ -241,6 +294,19 @@ public class DungeonMapUIController : MonoBehaviour {
         layoutElement.minHeight = NodeButtonHeight;
         layoutElement.preferredHeight = NodeButtonHeight;
         layoutElement.flexibleHeight = 0f;
+    }
+
+    private bool IsNodeSelectable(DungeonLayer layer, NodeBase node) {
+        if (layer == null || node == null || node.IsVisited) {
+            return false;
+        }
+
+        if (layer.CurrentNode == null) {
+            return (layer.EntryNodes != null && layer.EntryNodes.Contains(node))
+                || (layer.EntryNodes == null || layer.EntryNodes.Count == 0) && node == layer.RootNode;
+        }
+
+        return layer.CurrentNode.NextNodes != null && layer.CurrentNode.NextNodes.Contains(node);
     }
 
     private void RebuildMapLayout() {
@@ -367,29 +433,61 @@ public class DungeonMapUIController : MonoBehaviour {
         VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, Color.white, new Color(0.05f, 0.08f, 0.1f, 0.92f));
     }
 
-    private void CreateRouteLine() {
-        if (contentParent == null) {
+    private void CreateRouteLines(List<List<NodeBase>> rows, Dictionary<NodeBase, Vector2> nodePositions) {
+        if (rows == null || nodePositions == null || contentParent == null) {
             return;
         }
 
+        foreach (List<NodeBase> row in rows) {
+            if (row == null) {
+                continue;
+            }
+
+            foreach (NodeBase node in row) {
+                if (node?.NextNodes == null || !nodePositions.TryGetValue(node, out Vector2 fromPosition)) {
+                    continue;
+                }
+
+                foreach (NodeBase next in node.NextNodes) {
+                    if (next == null || !nodePositions.TryGetValue(next, out Vector2 toPosition)) {
+                        continue;
+                    }
+
+                    CreateRouteLine(fromPosition, toPosition);
+                }
+            }
+        }
+    }
+
+    private void CreateRouteLine(Vector2 fromPosition, Vector2 toPosition) {
         GameObject routeObj = new GameObject("DungeonRouteLine_Image");
         routeObj.transform.SetParent(contentParent, false);
         Image routeImage = routeObj.AddComponent<Image>();
-        VisualUIHelper.ApplyContainSprite(
+
+        Vector2 delta = toPosition - fromPosition;
+        RectTransform routeRect = routeObj.GetComponent<RectTransform>();
+        routeRect.anchorMin = new Vector2(0.5f, 0.5f);
+        routeRect.anchorMax = new Vector2(0.5f, 0.5f);
+        routeRect.pivot = new Vector2(0.5f, 0.5f);
+        routeRect.anchoredPosition = (fromPosition + toPosition) * 0.5f;
+        routeRect.sizeDelta = new Vector2(Mathf.Max(16f, delta.magnitude), RouteLineHeight);
+        routeRect.localEulerAngles = new Vector3(0f, 0f, Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
+
+        VisualUIHelper.ApplySimpleSprite(
             routeImage,
             VisualAssetService.UIDungeonRouteLineID,
-            new Vector2(RouteLineWidth, RouteLineHeight),
             Color.white,
             new Color(0.7f, 0.58f, 0.32f, 0.75f),
-            true);
+            false,
+            false);
 
         LayoutElement layoutElement = routeObj.GetComponent<LayoutElement>();
         if (layoutElement == null) {
             layoutElement = routeObj.AddComponent<LayoutElement>();
         }
 
-        layoutElement.minWidth = RouteLineWidth;
-        layoutElement.preferredWidth = RouteLineWidth;
+        layoutElement.minWidth = routeRect.sizeDelta.x;
+        layoutElement.preferredWidth = routeRect.sizeDelta.x;
         layoutElement.flexibleWidth = 0f;
         layoutElement.minHeight = RouteLineHeight;
         layoutElement.preferredHeight = RouteLineHeight;

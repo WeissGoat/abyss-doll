@@ -2,7 +2,13 @@
   "LayerID": 2,
   "Name": "污染矿带",
   "SANCostPerNode": 2,
-  "ExpectedNodeCount": 3,
+  "ExpectedNodeCount": 7,
+  "MapProfileID": "layer_2_pressure_branching",
+  "MapSeed": 2001,
+  "RowCount": 6,
+  "MinWidth": 2,
+  "MaxWidth": 4,
+  "MinRouteCount": 2,
   "MapBackgroundID": "bg_dungeon_layer_2",
   "NodePool": [
     {

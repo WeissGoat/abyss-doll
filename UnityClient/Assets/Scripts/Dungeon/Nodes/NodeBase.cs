@@ -7,6 +7,9 @@ public abstract class NodeBase {
     public List<NodeBase> NextNodes { get; set; } = new List<NodeBase>();
     public string RewardID { get; set; }
     public string NodeIconID { get; set; }
+    public int MapRow { get; set; } = -1;
+    public int MapColumn { get; set; } = -1;
+    public string RouteTheme { get; set; }
     
     public virtual void Init(NodePoolEntry entry) {
         if (entry != null) {

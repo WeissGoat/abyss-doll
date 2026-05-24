@@ -1,29 +1,61 @@
+using System;
+using System.Text;
 using UnityEngine;
 using System.Collections.Generic;
 
 public class DungeonLayer {
     public int LayerID;
     public string MapBackgroundID;
+    public string MapProfileID;
+    public int RunSeed;
     public NodeBase RootNode;
     public NodeBase CurrentNode;
+    public List<NodeBase> EntryNodes { get; private set; } = new List<NodeBase>();
+    public List<List<NodeBase>> NodeRows { get; private set; } = new List<List<NodeBase>>();
+    public string GenerationSummary { get; private set; }
 
-    public void GenerateMapTree(DungeonConfig config) {
+    public void GenerateMapTree(DungeonConfig config, int runSeed = 0) {
         if (config != null) {
             LayerID = config.LayerID;
             MapBackgroundID = config.MapBackgroundID;
+            MapProfileID = string.IsNullOrEmpty(config.MapProfileID) ? $"layer_{config.LayerID}_default" : config.MapProfileID;
         }
 
-        NodeBase prevNode = null;
+        RootNode = null;
+        CurrentNode = null;
+        EntryNodes.Clear();
+        NodeRows.Clear();
 
-        // MVP: linear path. ExpectedNodeCount includes the boss; EndNode is configured separately.
-        for (int i = 0; i < config.ExpectedNodeCount - 1; i++) {
-            NodePoolEntry entry = PickRandomNode(config.NodePool);
-            if (entry == null) {
-                continue;
+        if (config == null) {
+            GenerationSummary = "[DungeonMap] Config is null.";
+            return;
+        }
+
+        RunSeed = ResolveSeed(config, runSeed);
+        System.Random rng = new System.Random(RunSeed);
+
+        int routeRowCount = ResolveRouteRowCount(config);
+        int minWidth = ResolveMinWidth(config);
+        int maxWidth = ResolveMaxWidth(config, minWidth);
+        int minRouteCount = Mathf.Clamp(config.MinRouteCount > 0 ? config.MinRouteCount : minWidth, 1, maxWidth);
+
+        for (int rowIndex = 0; rowIndex < routeRowCount; rowIndex++) {
+            int width = ResolveRouteRowWidth(rowIndex, routeRowCount, minWidth, maxWidth, minRouteCount, rng);
+            List<NodeBase> row = new List<NodeBase>();
+            for (int columnIndex = 0; columnIndex < width; columnIndex++) {
+                NodePoolEntry entry = PickRandomNode(config.NodePool, rng);
+                NodeBase node = CreateConfiguredNode(entry, $"layer_{config.LayerID}_r{rowIndex}_c{columnIndex}", config.LayerID);
+                if (node == null) {
+                    continue;
+                }
+
+                ConfigureMapPosition(node, rowIndex, columnIndex, ResolveRouteTheme(columnIndex, width));
+                row.Add(node);
             }
 
-            NodeBase newNode = CreateConfiguredNode(entry, $"layer_{config.LayerID}_node_{i}", config.LayerID);
-            AppendNode(ref prevNode, newNode);
+            if (row.Count > 0) {
+                NodeRows.Add(row);
+            }
         }
 
         CombatNode bossNode = NodeFactory.CreateNode("CombatNode") as CombatNode;
@@ -31,11 +63,24 @@ public class DungeonLayer {
             bossNode.NodeID = $"layer_{config.LayerID}_boss";
             bossNode.NodeIconID = config.BossNodeIconID;
             bossNode.MonsterIDs = new List<string> { config.BossNode };
-            AppendNode(ref prevNode, bossNode);
+            ConfigureMapPosition(bossNode, NodeRows.Count, 0, "Boss");
+            NodeRows.Add(new List<NodeBase> { bossNode });
         }
 
         NodeBase endNode = CreateConfiguredNode(config.EndNode, $"layer_{config.LayerID}_end", config.LayerID);
-        AppendNode(ref prevNode, endNode);
+        if (endNode != null) {
+            ConfigureMapPosition(endNode, NodeRows.Count, 0, "SafeZone");
+            NodeRows.Add(new List<NodeBase> { endNode });
+        }
+
+        BuildNetworkEdges();
+        if (NodeRows.Count > 0 && NodeRows[0].Count > 0) {
+            EntryNodes.AddRange(NodeRows[0]);
+            RootNode = EntryNodes[0];
+        }
+
+        GenerationSummary = BuildGenerationSummary();
+        Debug.Log(GenerationSummary);
     }
 
     private NodeBase CreateConfiguredNode(NodePoolEntry entry, string nodeID, int layerID) {
@@ -58,21 +103,76 @@ public class DungeonLayer {
         return node;
     }
 
-    private void AppendNode(ref NodeBase prevNode, NodeBase newNode) {
-        if (newNode == null) {
+    private void ConfigureMapPosition(NodeBase node, int rowIndex, int columnIndex, string routeTheme) {
+        if (node == null) {
             return;
         }
 
-        if (prevNode == null) {
-            RootNode = newNode;
-        } else {
-            prevNode.NextNodes.Add(newNode);
-        }
-
-        prevNode = newNode;
+        node.MapRow = rowIndex;
+        node.MapColumn = columnIndex;
+        node.RouteTheme = routeTheme;
     }
 
-    private NodePoolEntry PickRandomNode(List<NodePoolEntry> pool) {
+    private void BuildNetworkEdges() {
+        for (int rowIndex = 0; rowIndex < NodeRows.Count - 1; rowIndex++) {
+            List<NodeBase> currentRow = NodeRows[rowIndex];
+            List<NodeBase> nextRow = NodeRows[rowIndex + 1];
+            if (currentRow == null || currentRow.Count == 0 || nextRow == null || nextRow.Count == 0) {
+                continue;
+            }
+
+            if (nextRow.Count == 1) {
+                foreach (NodeBase node in currentRow) {
+                    AddEdge(node, nextRow[0]);
+                }
+                continue;
+            }
+
+            bool[] hasIncoming = new bool[nextRow.Count];
+            for (int currentIndex = 0; currentIndex < currentRow.Count; currentIndex++) {
+                NodeBase node = currentRow[currentIndex];
+                int mappedIndex = MapColumnIndex(currentIndex, currentRow.Count, nextRow.Count);
+                AddEdge(node, nextRow[mappedIndex]);
+                hasIncoming[mappedIndex] = true;
+
+                int adjacentIndex = Mathf.Clamp(mappedIndex + (currentIndex % 2 == 0 ? 1 : -1), 0, nextRow.Count - 1);
+                if (adjacentIndex != mappedIndex) {
+                    AddEdge(node, nextRow[adjacentIndex]);
+                    hasIncoming[adjacentIndex] = true;
+                }
+            }
+
+            for (int nextIndex = 0; nextIndex < nextRow.Count; nextIndex++) {
+                if (hasIncoming[nextIndex]) {
+                    continue;
+                }
+
+                int sourceIndex = MapColumnIndex(nextIndex, nextRow.Count, currentRow.Count);
+                AddEdge(currentRow[sourceIndex], nextRow[nextIndex]);
+            }
+        }
+    }
+
+    private void AddEdge(NodeBase from, NodeBase to) {
+        if (from == null || to == null) {
+            return;
+        }
+
+        if (!from.NextNodes.Contains(to)) {
+            from.NextNodes.Add(to);
+        }
+    }
+
+    private int MapColumnIndex(int sourceIndex, int sourceCount, int targetCount) {
+        if (targetCount <= 1 || sourceCount <= 1) {
+            return 0;
+        }
+
+        float normalized = (float)sourceIndex / (float)(sourceCount - 1);
+        return Mathf.Clamp(Mathf.RoundToInt(normalized * (targetCount - 1)), 0, targetCount - 1);
+    }
+
+    private NodePoolEntry PickRandomNode(List<NodePoolEntry> pool, System.Random rng) {
         if (pool == null || pool.Count == 0) {
             return null;
         }
@@ -82,7 +182,11 @@ public class DungeonLayer {
             totalWeight += p.Weight;
         }
 
-        int roll = UnityEngine.Random.Range(0, totalWeight);
+        if (totalWeight <= 0) {
+            return pool[0];
+        }
+
+        int roll = rng.Next(0, totalWeight);
         int current = 0;
         foreach (var p in pool) {
             current += p.Weight;
@@ -93,11 +197,115 @@ public class DungeonLayer {
 
         return pool[pool.Count - 1];
     }
+
+    private int ResolveSeed(DungeonConfig config, int runSeed) {
+        unchecked {
+            int profileHash = StableHash(MapProfileID);
+            int baseSeed = runSeed != 0 ? runSeed : (config.MapSeed != 0 ? config.MapSeed : config.LayerID * 73856093);
+            return baseSeed ^ (config.LayerID * 19349663) ^ profileHash;
+        }
+    }
+
+    private int StableHash(string value) {
+        if (string.IsNullOrEmpty(value)) {
+            return 0;
+        }
+
+        unchecked {
+            int hash = 23;
+            for (int i = 0; i < value.Length; i++) {
+                hash = hash * 31 + value[i];
+            }
+            return hash;
+        }
+    }
+
+    private int ResolveRouteRowCount(DungeonConfig config) {
+        if (config.RowCount > 0) {
+            return config.RowCount;
+        }
+
+        return Mathf.Max(2, config.ExpectedNodeCount - 1);
+    }
+
+    private int ResolveMinWidth(DungeonConfig config) {
+        return Mathf.Max(1, config.MinWidth > 0 ? config.MinWidth : 2);
+    }
+
+    private int ResolveMaxWidth(DungeonConfig config, int minWidth) {
+        return Mathf.Max(minWidth, config.MaxWidth > 0 ? config.MaxWidth : Mathf.Max(3, minWidth));
+    }
+
+    private int ResolveRouteRowWidth(int rowIndex, int rowCount, int minWidth, int maxWidth, int minRouteCount, System.Random rng) {
+        if (rowCount <= 1) {
+            return Mathf.Max(1, minWidth);
+        }
+
+        if (rowIndex == 0) {
+            return Mathf.Clamp(minRouteCount, minWidth, maxWidth);
+        }
+
+        if (rowIndex == rowCount - 1) {
+            return Mathf.Clamp(Mathf.Min(2, maxWidth), minWidth, maxWidth);
+        }
+
+        return rng.Next(minWidth, maxWidth + 1);
+    }
+
+    private string ResolveRouteTheme(int columnIndex, int width) {
+        if (width <= 1) {
+            return "Main";
+        }
+
+        if (columnIndex == 0) {
+            return "Safe";
+        }
+
+        if (columnIndex == width - 1) {
+            return "RiskReward";
+        }
+
+        return "Explore";
+    }
+
+    private string BuildGenerationSummary() {
+        StringBuilder builder = new StringBuilder();
+        builder.AppendLine($"[DungeonMap] Layer={LayerID}, Seed={RunSeed}, Profile={MapProfileID}, Rows={NodeRows.Count}");
+        for (int rowIndex = 0; rowIndex < NodeRows.Count; rowIndex++) {
+            List<NodeBase> row = NodeRows[rowIndex];
+            builder.Append($"R{rowIndex}: ");
+            for (int columnIndex = 0; columnIndex < row.Count; columnIndex++) {
+                NodeBase node = row[columnIndex];
+                if (columnIndex > 0) {
+                    builder.Append(", ");
+                }
+                builder.Append($"{node.GetType().Name}({node.NodeID})");
+            }
+            builder.AppendLine();
+        }
+
+        builder.Append("Edges: ");
+        bool firstEdge = true;
+        foreach (List<NodeBase> row in NodeRows) {
+            foreach (NodeBase node in row) {
+                foreach (NodeBase next in node.NextNodes) {
+                    if (!firstEdge) {
+                        builder.Append("; ");
+                    }
+                    builder.Append($"{node.NodeID}->{next.NodeID}");
+                    firstEdge = false;
+                }
+            }
+        }
+
+        return builder.ToString();
+    }
 }
 
 public class DungeonManager {
     public DungeonLayer CurrentLayer;
     private readonly List<ItemEntity> _runAcceptedLoot = new List<ItemEntity>();
+    private int _currentRunSeed;
 
     public DungeonManager() {
         DungeonEventBus.OnDungeonEvacuated += HandleEvacuate;
@@ -135,6 +343,7 @@ public class DungeonManager {
         }
 
         player.LastSelectedDungeonStartLayer = layerID;
+        _currentRunSeed = CreateRunSeed(layerID);
         Debug.Log($"[DungeonManager] Starting new dungeon run at Layer {layerID}.");
         ResetRunLootLedger();
         LoadLayerInternal(layerID, false);
@@ -178,9 +387,15 @@ public class DungeonManager {
         }
 
         CurrentLayer = new DungeonLayer();
-        CurrentLayer.GenerateMapTree(config);
+        CurrentLayer.GenerateMapTree(config, _currentRunSeed);
 
         DungeonEventBus.PublishLayerLoaded();
+    }
+
+    private int CreateRunSeed(int startLayerID) {
+        unchecked {
+            return Environment.TickCount ^ (startLayerID * 83492791);
+        }
     }
 
     public bool CanEnterNextLayer() {
@@ -206,7 +421,8 @@ public class DungeonManager {
     }
 
     public void MoveToNode(NodeBase targetNode) {
-        if (CurrentLayer == null || targetNode == null) {
+        if (!CanMoveToNode(targetNode)) {
+            Debug.LogWarning($"[DungeonManager] Rejected invalid map move. Target={targetNode?.NodeID ?? "null"}, Current={CurrentLayer?.CurrentNode?.NodeID ?? "null"}");
             return;
         }
 
@@ -217,6 +433,68 @@ public class DungeonManager {
         DungeonEventBus.PublishNodeEntered(targetNode, cost);
 
         targetNode.OnEnterNode();
+    }
+
+    public bool CanMoveToNode(NodeBase targetNode) {
+        if (CurrentLayer == null || targetNode == null || targetNode.IsVisited) {
+            return false;
+        }
+
+        if (!LayerContainsNode(CurrentLayer, targetNode)) {
+            return false;
+        }
+
+        if (CurrentLayer.CurrentNode == null) {
+            return (CurrentLayer.EntryNodes != null && CurrentLayer.EntryNodes.Contains(targetNode))
+                || (CurrentLayer.EntryNodes == null || CurrentLayer.EntryNodes.Count == 0) && targetNode == CurrentLayer.RootNode;
+        }
+
+        return CurrentLayer.CurrentNode.NextNodes != null && CurrentLayer.CurrentNode.NextNodes.Contains(targetNode);
+    }
+
+    private bool LayerContainsNode(DungeonLayer layer, NodeBase targetNode) {
+        if (layer == null || targetNode == null) {
+            return false;
+        }
+
+        if (layer.NodeRows != null && layer.NodeRows.Count > 0) {
+            foreach (List<NodeBase> row in layer.NodeRows) {
+                if (row != null && row.Contains(targetNode)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        if (targetNode == layer.RootNode || (layer.EntryNodes != null && layer.EntryNodes.Contains(targetNode))) {
+            return true;
+        }
+
+        HashSet<NodeBase> visited = new HashSet<NodeBase>();
+        Queue<NodeBase> queue = new Queue<NodeBase>();
+        if (layer.RootNode != null) {
+            queue.Enqueue(layer.RootNode);
+            visited.Add(layer.RootNode);
+        }
+
+        while (queue.Count > 0) {
+            NodeBase current = queue.Dequeue();
+            if (current == targetNode) {
+                return true;
+            }
+
+            if (current.NextNodes == null) {
+                continue;
+            }
+
+            foreach (NodeBase next in current.NextNodes) {
+                if (next != null && visited.Add(next)) {
+                    queue.Enqueue(next);
+                }
+            }
+        }
+
+        return false;
     }
 
     private int GetSanCostForNode(NodeBase node) {
