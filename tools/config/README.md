@@ -9,6 +9,7 @@ source_of_truth: false
 related:
   - 开发文档/00_程序开发大纲.md
   - 开发文档/00_自动化测试框架与流程指南.md
+  - 开发文档/15_P0配置Validator与自动验收底座需求.md
   - 配置表(JSON)/README.md
   - 知识库/views/program.md
 last_verified: 2026-05-23

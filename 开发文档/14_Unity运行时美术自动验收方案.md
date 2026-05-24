@@ -8,6 +8,7 @@ status: active
 source_of_truth: true
 related:
   - 开发文档/13_编程规范与架构约定.md
+  - 开发文档/15_P0配置Validator与自动验收底座需求.md
   - 开发文档/00_自动化测试框架与流程指南.md
   - 开发文档/09_视觉资源系统程序开发规范.md
   - 美术文档/README.md

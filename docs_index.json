@@ -10,21 +10,22 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 1492,
-    "relation_edges": 746,
-    "cross_role_edges": 147,
+    "directed_edges": 1522,
+    "relation_edges": 761,
+    "cross_role_edges": 155,
     "role_pairs": {
       "PM <-> 全局": 10,
       "PM <-> 知识库": 1,
+      "PM <-> 程序": 1,
       "PM <-> 策划": 2,
       "全局 <-> 知识库": 4,
-      "全局 <-> 程序": 9,
+      "全局 <-> 程序": 12,
       "全局 <-> 策划": 29,
       "全局 <-> 美术": 8,
       "知识库 <-> 程序": 1,
       "知识库 <-> 策划": 1,
       "知识库 <-> 美术": 1,
-      "程序 <-> 策划": 49,
+      "程序 <-> 策划": 53,
       "程序 <-> 美术": 27,
       "策划 <-> 美术": 5
     }
@@ -104,6 +105,7 @@
         "设计文档/18_正式版内容生产规格.md",
         "设计文档/19_第一层正式核心内容包.md",
         "设计文档/20_第二层背包压力内容包.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "设计文档/21_人偶成长修复内容包.md",
         "设计文档/22_小镇经济月租内容包.md",
         "设计文档/23_长期记忆剧情内容包.md",
@@ -117,8 +119,8 @@
       "update_rule": "策划、数值、GDD 或配置意图任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 39,
-      "cross_role_relation_count": 7
+      "relation_count": 40,
+      "cross_role_relation_count": 8
     },
     {
       "path": "agent_status/pm.md",
@@ -136,14 +138,15 @@
         "版本规划/README.md",
         "版本规划/09_正式版核心纵切开发路线.md",
         "版本规划/11_设计文档纵切批次矩阵.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "知识库/views/pm.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "版本路线、里程碑、优先级、跨职能拆分或交付节奏变化后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 7,
-      "cross_role_relation_count": 5
+      "relation_count": 8,
+      "cross_role_relation_count": 6
     },
     {
       "path": "agent_status/program.md",
@@ -161,6 +164,7 @@
         "开发文档/00_客户端核心架构规范.md",
         "开发文档/13_编程规范与架构约定.md",
         "开发文档/00_程序开发大纲.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "设计文档/GDD_00_系统关联总图.md",
         "agent_status/design.md",
         "美术文档/10_正式版核心纵切美术路线.md",
@@ -171,7 +175,7 @@
       "update_rule": "程序、Unity、验证或工程边界任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 11,
+      "relation_count": 12,
       "cross_role_relation_count": 7
     },
     {
@@ -307,6 +311,7 @@
         "设计文档/23_长期记忆剧情内容包.md",
         "设计文档/24_势力订单声望内容包.md",
         "设计文档/25_第三层路线侵蚀内容包.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "agent_status/art.md",
         "知识库/views/pm.md",
         "知识库/views/art.md",
@@ -318,8 +323,8 @@
       "update_rule": "项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 31,
-      "cross_role_relation_count": 27
+      "relation_count": 32,
+      "cross_role_relation_count": 28
     },
     {
       "path": "tools/agent/README.md",
@@ -333,14 +338,15 @@
       "related": [
         "AGENTS.md",
         "PROJECT_STATUS.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "知识库/README.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "调整复制智能体开工检查项、风险路径或提交前检查流程时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 3,
-      "cross_role_relation_count": 1
+      "relation_count": 4,
+      "cross_role_relation_count": 2
     },
     {
       "path": "tools/config/README.md",
@@ -354,6 +360,7 @@
       "related": [
         "开发文档/00_程序开发大纲.md",
         "开发文档/00_自动化测试框架与流程指南.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "配置表(JSON)/README.md",
         "知识库/views/program.md"
       ],
@@ -361,7 +368,7 @@
       "update_rule": "修改对应工具入口、参数或执行流程时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 4,
+      "relation_count": 5,
       "cross_role_relation_count": 1
     },
     {
@@ -462,6 +469,7 @@
         "开发文档/13_编程规范与架构约定.md",
         "开发文档/01_核心数据与实体容器(CoreData).md",
         "开发文档/12_程序开发优化建议与重构路线.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "开发文档/00_自动化测试框架与流程指南.md",
         "开发文档/00_Unity表现层与编辑器构建规范.md",
         "agent_status/program.md",
@@ -477,7 +485,7 @@
       "update_rule": "程序系统分类、开发口径或模块索引变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 17,
+      "relation_count": 18,
       "cross_role_relation_count": 7
     },
     {
@@ -669,6 +677,7 @@
       "source_of_truth": true,
       "related": [
         "开发文档/14_Unity运行时美术自动验收方案.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "开发文档/00_Unity表现层与编辑器构建规范.md",
         "美术文档/02_资源规格与接入规范.md",
         "美术文档/README.md",
@@ -682,7 +691,7 @@
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 9,
+      "relation_count": 10,
       "cross_role_relation_count": 7
     },
     {
@@ -743,13 +752,14 @@
         "开发文档/06_架构评估与收口建议.md",
         "开发文档/13_编程规范与架构约定.md",
         "开发文档/00_程序开发大纲.md",
-        "开发文档/00_自动化测试框架与流程指南.md"
+        "开发文档/00_自动化测试框架与流程指南.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 4,
+      "relation_count": 5,
       "cross_role_relation_count": 0
     },
     {
@@ -768,6 +778,7 @@
         "开发文档/05_表现层架构与事件总线(ViewAndEventBus).md",
         "开发文档/00_程序开发大纲.md",
         "开发文档/12_程序开发优化建议与重构路线.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "开发文档/14_Unity运行时美术自动验收方案.md",
         "开发文档/00_自动化测试框架与流程指南.md",
         "开发文档/00_Unity表现层与编辑器构建规范.md",
@@ -778,7 +789,7 @@
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 11,
+      "relation_count": 12,
       "cross_role_relation_count": 0
     },
     {
@@ -792,6 +803,7 @@
       "source_of_truth": true,
       "related": [
         "开发文档/13_编程规范与架构约定.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "开发文档/00_自动化测试框架与流程指南.md",
         "开发文档/09_视觉资源系统程序开发规范.md",
         "美术文档/README.md",
@@ -804,8 +816,41 @@
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 8,
+      "relation_count": 9,
       "cross_role_relation_count": 5
+    },
+    {
+      "path": "开发文档/15_P0配置Validator与自动验收底座需求.md",
+      "title": "P0配置Validator与自动验收底座需求",
+      "id": "dev_15_p0_config_validator_acceptance",
+      "type": "dev",
+      "role": "程序",
+      "domain": "config_validation",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "版本规划/09_正式版核心纵切开发路线.md",
+        "版本规划/11_设计文档纵切批次矩阵.md",
+        "开发文档/00_程序开发大纲.md",
+        "开发文档/12_程序开发优化建议与重构路线.md",
+        "开发文档/13_编程规范与架构约定.md",
+        "开发文档/14_Unity运行时美术自动验收方案.md",
+        "开发文档/09_视觉资源系统程序开发规范.md",
+        "设计文档/15_P0主干配置表现验收承接清单.md",
+        "配置表(JSON)/README.md",
+        "tools/config/README.md",
+        "tools/agent/README.md",
+        "agent_status/program.md",
+        "agent_status/design.md",
+        "agent_status/pm.md",
+        "PROJECT_STATUS.md"
+      ],
+      "last_verified": "2026-05-24",
+      "update_rule": "调整 P0 配置校验范围、自动验收命令、报告格式、通过标准或门禁等级时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 15,
+      "cross_role_relation_count": 8
     },
     {
       "path": "开发文档/数据与实体定义/01_全局与玩家实体.md",
@@ -1053,6 +1098,7 @@
         "知识库/views/pm.md",
         "版本规划/11_设计文档纵切批次矩阵.md",
         "开发文档/00_程序开发大纲.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "agent_status/program.md",
         "设计文档/README.md",
         "设计文档/GDD_00_系统关联总图.md",
@@ -1066,8 +1112,8 @@
       "update_rule": "正式版纵切阶段目标、优先级或里程碑变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 16,
-      "cross_role_relation_count": 13
+      "relation_count": 17,
+      "cross_role_relation_count": 14
     },
     {
       "path": "版本规划/11_设计文档纵切批次矩阵.md",
@@ -1083,6 +1129,7 @@
         "版本规划/README.md",
         "版本规划/09_正式版核心纵切开发路线.md",
         "agent_status/pm.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "设计文档/README.md",
         "设计文档/GDD_00_系统关联总图.md",
         "设计文档/00_策划文档开发交付审计.md",
@@ -1104,8 +1151,8 @@
       "update_rule": "调整 GDD 系统纵切批次、优先级、阶段归属或正式完成口径时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 20,
-      "cross_role_relation_count": 5
+      "relation_count": 21,
+      "cross_role_relation_count": 6
     },
     {
       "path": "版本规划/_archive/mvp_2026-05/00_最小MVP体验闭环内容清单.md",
@@ -3033,14 +3080,15 @@
         "设计文档/18_正式版内容生产规格.md",
         "设计文档/19_第一层正式核心内容包.md",
         "设计文档/20_第二层背包压力内容包.md",
-        "设计文档/25_第三层路线侵蚀内容包.md"
+        "设计文档/25_第三层路线侵蚀内容包.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "调整 P0 主干系统的配置承接、表现承接、验收样例、完成判定或优先级时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 13,
-      "cross_role_relation_count": 0
+      "relation_count": 14,
+      "cross_role_relation_count": 1
     },
     {
       "path": "设计文档/16_P1人偶成长情感承接清单.md",
@@ -4132,6 +4180,7 @@
       "source_of_truth": true,
       "related": [
         "开发文档/00_自动化测试框架与流程指南.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "tools/config/README.md",
         "数值模型设计/00_基准价值与空间本位模型.md",
         "配置表(JSON)/Chassis/README.md",
@@ -4154,8 +4203,8 @@
       "update_rule": "修改配置字段、数据源规则或表间引用时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 18,
-      "cross_role_relation_count": 3
+      "relation_count": 19,
+      "cross_role_relation_count": 4
     },
     {
       "path": "配置表(JSON)/Rewards/README.md",

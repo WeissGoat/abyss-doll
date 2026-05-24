@@ -13,6 +13,7 @@ related:
   - 开发文档/00_客户端核心架构规范.md
   - 开发文档/13_编程规范与架构约定.md
   - 开发文档/00_程序开发大纲.md
+  - 开发文档/15_P0配置Validator与自动验收底座需求.md
   - 设计文档/GDD_00_系统关联总图.md
   - agent_status/design.md
   - 美术文档/10_正式版核心纵切美术路线.md
@@ -74,6 +75,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - `GridGenerator` 与 `MVPEditorSetup` 已接入 `InventoryDisplaySpec.ApplyGridLayout()`，背包格运行时生成和编辑器骨架默认值不再各自维护尺寸常量。
 - 新增 `InventoryGridLayoutAssetValidator` Editor 工具与 smoke test，自动检查 Prefab / Scene 中背包 GridLayoutGroup 默认值是否符合 `InventoryDisplaySpec`。
 - 新增 `tools/agent/Invoke-UnitySmokeTests.ps1`，复制程序智能体可一键触发背包交互服务、DisplaySpec 与 GridLayoutGroup 资产布局 smoke test。
+- 已新增 `开发文档/15_P0配置Validator与自动验收底座需求.md`，明确 P0 配置校验、统一验收命令、报告格式、门禁等级和 seed 回归需求，后续程序可按该文档扩 `ConfigValidator` 和 `Invoke-P0Validation.ps1`。
 - 美术侧已交付 `combat_hud` Formal V1 active 规格：敌人从卡片迁移为右侧战斗实体，背包底部居中，敌人血条贴脚下。
 - 美术侧已入库 `combat_hud` Formal V1 所需第一批战斗资源：4 个 `monster_*_combat`、`ui_combat_entity_shadow` 和 `ui_combat_target_ring`。
 - UI 程序侧已接入 `combat_hud` Formal V1：`HUDController` 生成左玩家 / 右敌人实体舞台、敌人脚下血条、目标光环和底部居中战斗背包，敌人实体优先读取 `MonsterEntity.CombatVisualID`。
@@ -84,11 +86,11 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 
 ## 下一步建议
 
-1. 继续推进 A2 背包交互正式化：补 UI 层拖拽取消、战利品拾取共用规则和非战斗整理路径的回归测试。
-2. 继续收口物品生命周期：使用、消耗、出售、制造消耗、撤离和战败损失都应走领域服务并补 smoke test。
-3. 等美术侧基于 ArtAcceptance 最新截图验收 `combat_hud` Formal V1，如需微调敌人站位、血条层级或目标光环显示，再回到 HUD 表现层处理。
-4. 接入美术新素材时优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
-5. 增加配置校验工具，检查必填字段、唯一 ID、交叉引用和正式 UI 缺引用。
+1. 按 `开发文档/15_P0配置Validator与自动验收底座需求.md` 扩展 `ConfigValidator`：先覆盖 Items / Monsters / Dungeons / Rewards / VisualID 的必填、枚举、ID 引用和资源引用。
+2. 新增 `tools/agent/Invoke-P0Validation.ps1`，串联配置同步、ConfigValidator、Unity smoke test、UI 校验和 ArtAcceptance latest 摘要。
+3. 继续推进 A2 背包交互正式化：补 UI 层拖拽取消、战利品拾取共用规则和非战斗整理路径的回归测试。
+4. 等美术侧基于 ArtAcceptance 最新截图验收 `combat_hud` Formal V1，如需微调敌人站位、血条层级或目标光环显示，再回到 HUD 表现层处理。
+5. 接入美术新素材时优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
 
 ## 问题 / 阻塞
 

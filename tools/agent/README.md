@@ -9,6 +9,7 @@ source_of_truth: true
 related:
   - AGENTS.md
   - PROJECT_STATUS.md
+  - 开发文档/15_P0配置Validator与自动验收底座需求.md
   - 知识库/README.md
 last_verified: 2026-05-24
 update_rule: 调整复制智能体开工检查项、风险路径或提交前检查流程时同步本文件。
@@ -35,6 +36,8 @@ update_rule: 调整复制智能体开工检查项、风险路径或提交前检�
 ```powershell
 .\tools\agent\Invoke-UnitySmokeTests.ps1
 ```
+
+P0 配置 Validator 与自动验收底座的目标命令、报告格式和门禁要求见 `开发文档/15_P0配置Validator与自动验收底座需求.md`。后续新增 `Invoke-P0Validation.ps1` 时，应在本目录补充用法。
 
 运行前需要 Unity Editor 已打开当前项目，并由 `AutoTestDaemon` 监听 `UnityClient/Logs/.test_trigger`。
 
