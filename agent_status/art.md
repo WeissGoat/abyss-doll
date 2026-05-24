@@ -39,6 +39,8 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 PM 版本节点中，美术线当前已完成 `combat_hud` Formal V1 active 规格更新和第一批战斗资源入库；UI 程序侧已完成接入并通过 ArtAcceptance。当前 15 个界面都已具备 Formal V1 active 规格；`maintenance_panel` / `daily_bill_report` 的新增 UI 图标已进入 Approved，A4 的 `shop_staging` / `order_board` / `rumor_board` 新增图标已补齐 local_v0 可接入版，程序侧可按 `ui_design_handoff.md` 和 latest 可接入素材清单分批登记。
 
+美术文档已收敛为四层入口：`README.md` 只做导航，`10_正式版核心纵切美术路线.md` 作为当前规划入口，`00_美术流水线总览.md` 作为端到端资产生产工作流入口，`ui_design/README.md` 作为 UI 版本和 active 规格入口。`11_P0_UI骨架接入交付.md`、`12_P1_UI骨架接入准备.md` 已降级为历史交付快照。
+
 ## 必读文件
 
 - `知识库/views/art.md`
@@ -105,15 +107,19 @@ PM 版本节点中，美术线当前已完成 `combat_hud` Formal V1 active 规�
 - 已尝试用 NovelAI 串行生成 A4 八个 UI 图标，失败原因为 HTTP 402：Anlas 余额不足，不是并发或 rate limit；已留档 `美术文档/_generated/art_integration_snapshots/20260524_084327_generation_nai_a4_ui_icons_20260524_01.*`。
 - 已用 local_v0 方式补齐 A4 八个 UI 图标的透明 PNG 可接入临时版，并同步到 `UnityClient/Assets/Art/Approved/UI/`，同时补齐 Unity `.meta`：`ui_icon_shop_channel`、`ui_icon_black_market`、`ui_icon_order`、`ui_icon_faction`、`ui_icon_deadline`、`ui_icon_rumor`、`ui_icon_price_up`、`ui_icon_price_down`。
 - 已刷新 latest 可接入素材清单，并用 `VisualAssetRegistry.asset@HEAD` 留档 `美术文档/_generated/art_integration_snapshots/20260524_085725_a4_ui_icons_local_v0_approved_repo_state.*`；当前清单显示 `program_integrate=17`、`acceptance_needed=65`、`generate_needed=0`。
+- 已完成美术文档高内聚整理：`README.md` 明确规划层 / 工作流层 / 契约与数据层 / 交付与历史层；`00_美术流水线总览.md` 收敛为资产生产流程；`10_正式版核心纵切美术路线.md` 收敛为当前规划和近期顺序；`13_正式纵切UI与素材覆盖矩阵.md` 明确 15 个 active Formal V1 与 4 个 draft Formal V1 的边界；`ui_design/README.md` 明确程序只接 active `screen_layouts.json`。
+- 已将 `faction_shop`、`doll_interaction`、`scenario_event`、`doll_room` 四个 Formal V1 文档标为 draft，尚未进入 active `screen_layouts.json`，暂不触发程序接入、Manifest 或跑图。
+- 已将 `11_P0_UI骨架接入交付.md` 和 `12_P1_UI骨架接入准备.md` 降级为历史交付快照，当前接入口统一为 active JSON、`ui_design_handoff.md` 和 latest 可接入素材清单。
 
 ## 下一步建议
 
 1. 交给程序侧按 latest 可接入素材清单登记 17 个 `program_integrate` 资源；其中近期新增的是 `ui_icon_maintenance`、`ui_icon_bill`、`ui_icon_warning` 和 A4 八个 local_v0 UI 图标。
-2. NovelAI Anlas 恢复后，重跑 A4 八个 local_v0 UI 图标的正式美术版；生成 / 预处理 / Approved 同步后继续刷新 latest 可接入清单并留 snapshot。
-3. 基于 ArtAcceptance `20260524_043441` 最新截图验收 `combat_hud`：左玩家、右敌方实体、底部居中背包、敌人脚下血条、目标光环和敌方实体透明边缘。
-4. 等程序侧完成 P0 / P1 / P2 Formal V1 接入后，用 ArtAcceptance 逐屏验收结构、缺图、黑块、点击遮挡和列表有效数据，优先覆盖 `safe_room` / `stairs_room` / `maintenance_panel` / `daily_bill_report` / `shop_staging` / `order_board` / `rumor_board`。
-5. `ui_icon_warning` 和 A4 local_v0 图标当前可接入，但仍属于后续视觉精修批次的替换对象。
-6. 后续新增怪物时继续按 `CombatVisualID -> monster_*_combat -> Approved/Monsters/Combat` 流程补图。
+2. 用户确认后，将 `faction_shop`、`doll_interaction`、`scenario_event`、`doll_room` 按 UI 版本流程逐个写入 active `screen_layouts.json`，再补 seed、Manifest、Prompt、Spec 和可接入素材清单。
+3. NovelAI Anlas 恢复后，重跑 A4 八个 local_v0 UI 图标的正式美术版；生成 / 预处理 / Approved 同步后继续刷新 latest 可接入清单并留 snapshot。
+4. 基于 ArtAcceptance `20260524_043441` 最新截图验收 `combat_hud`：左玩家、右敌方实体、底部居中背包、敌人脚下血条、目标光环和敌方实体透明边缘。
+5. 等程序侧完成 P0 / P1 / P2 Formal V1 接入后，用 ArtAcceptance 逐屏验收结构、缺图、黑块、点击遮挡和列表有效数据，优先覆盖 `safe_room` / `stairs_room` / `maintenance_panel` / `daily_bill_report` / `shop_staging` / `order_board` / `rumor_board`。
+6. `ui_icon_warning` 和 A4 local_v0 图标当前可接入，但仍属于后续视觉精修批次的替换对象。
+7. 后续新增怪物时继续按 `CombatVisualID -> monster_*_combat -> Approved/Monsters/Combat` 流程补图。
 
 ## 问题 / 阻塞
 

@@ -23,30 +23,106 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 
 # 美术文档索引
 
-> **定位：** Project P3 美术生产、AI 素材生成、资源接入与 Manifest 管理的入口。
+> **定位：** Project P3 美术 / UI 文档入口。本文件只负责导航和职责边界，不承载详细规格。
 > **更新时间：** 2026-05-24
 
-## 推荐阅读顺序
+## 先看哪里
 
-0. [../知识库/views/art.md](../知识库/views/art.md)：美术智能体开工导航，只做上下文路由。
-1. [10_正式版核心纵切美术路线.md](10_正式版核心纵切美术路线.md)：正式版核心纵切的美术/UI 路线，明确以批次控制范围，进入批次的 UI 和素材按正式标准验收。
-2. [00_美术流水线总览.md](00_美术流水线总览.md)：整体流程、职责边界和当前纵切批次 优先级。
-3. [ui_design/README.md](ui_design/README.md)：UI 设计系统、组件目录、界面布局和程序交付校验。
-4. [ui_design/ui_iteration_process.md](ui_design/ui_iteration_process.md)：UI 设计迭代、baseline/active/candidate 关系和 Formal V1 迁移流程。
-5. [ui_design/formal_v1/screen_structure_review.md](ui_design/formal_v1/screen_structure_review.md)：Formal V1 正式 UI 结构总览。
-6. [01_Manifest规范.md](01_Manifest规范.md)：Manifest 字段结构，以及每一步应该填哪些内容。
-7. [02_资源规格与接入规范.md](02_资源规格与接入规范.md)：目录、命名、素材规格和 Unity 接入边界。
-8. [03_AI生成与筛选规范.md](03_AI生成与筛选规范.md)：AI 出图批次、预处理、筛选和状态回填。
-9. [04_美术风格基准.md](04_美术风格基准.md)：地底奇幻冒险 + 蒸汽朋克的视觉基准。
-10. [05_AI图片网关接入方案.md](05_AI图片网关接入方案.md)：将 `tools/ai-image-gateway` 接入 Manifest 批量跑图流程的开发方案。
-11. [06_MVP素材接入状态同步.md](06_MVP素材接入状态同步.md)：MVP 阶段素材接入状态，后续作为历史基线和缺口参考。
-12. [07_MVP_UI重新设计同步.md](07_MVP_UI重新设计同步.md)：MVP UI 重设计同步，后续作为历史方案参考，不再作为正式 UI 目标。
-13. [08_Unity运行时美术验收工具需求.md](08_Unity运行时美术验收工具需求.md)：给程序侧实现运行时截图、UI 状态导出和美术接入验收的工具需求。
-14. [09_运行时美术验收记录.md](09_运行时美术验收记录.md)：记录 Unity 运行时截图验收结论、返修项和下一批补素材需求。
-15. [11_P0_UI骨架接入交付.md](11_P0_UI骨架接入交付.md)：P0 UI 骨架交给程序侧接入的本轮执行文档。
-16. [12_P1_UI骨架接入准备.md](12_P1_UI骨架接入准备.md)：P1 active Formal V1 UI 接入准备。
-17. [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md)：正式纵切 UI 覆盖、素材批次和未覆盖 UI 队列。
-18. [art_requirements_seed.json](art_requirements_seed.json)：配置表无法扫出的 preset 资产种子，例如 UI 皮肤、背景、程序缺口反馈。
+| 想确认什么 | 看哪个文档 | 说明 |
+|---|---|---|
+| 当前美术规划和优先级 | [10_正式版核心纵切美术路线.md](10_正式版核心纵切美术路线.md) | 美术侧当前路线的唯一规划入口。 |
+| 当前哪些 UI 已覆盖、哪些还没进 active | [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md) | 把 `09` 路线和 `11` 批次矩阵翻译成美术覆盖表。 |
+| 端到端美术生产怎么走 | [00_美术流水线总览.md](00_美术流水线总览.md) | 只讲流程：需求发现、Manifest、提示词、出图、预处理、Approved、交接。 |
+| UI 结构版本怎么管理 | [ui_design/README.md](ui_design/README.md) | UI 设计系统入口，说明 active / baseline / draft / handoff。 |
+| 程序当前应接入哪些素材 | [_generated/可接入素材清单.md](_generated/可接入素材清单.md) | 程序侧只处理 `program_integrate` 队列。 |
+| 当前美术状态和下一步 | [../agent_status/art.md](../agent_status/art.md) | 智能体交接状态页。 |
+
+## 文档分层
+
+### 规划层
+
+| 文档 | 职责 |
+|---|---|
+| [10_正式版核心纵切美术路线.md](10_正式版核心纵切美术路线.md) | 当前美术规划、正式版原则、近期执行顺序。 |
+| [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md) | UI / 素材覆盖矩阵、active 界面、draft 界面和缺口队列。 |
+| [../agent_status/art.md](../agent_status/art.md) | 当前事实状态、最近完成、下一步建议和阻塞。 |
+
+### 工作流层
+
+| 工作流 | 主入口 | 细节文档 |
+|---|---|---|
+| 资产生产流水线 | [00_美术流水线总览.md](00_美术流水线总览.md) | [01_Manifest规范.md](01_Manifest规范.md)、[02_资源规格与接入规范.md](02_资源规格与接入规范.md)、[03_AI生成与筛选规范.md](03_AI生成与筛选规范.md)、[04_美术风格基准.md](04_美术风格基准.md)、[05_AI图片网关接入方案.md](05_AI图片网关接入方案.md) |
+| UI 设计版本流水线 | [ui_design/README.md](ui_design/README.md) | [ui_design/ui_iteration_process.md](ui_design/ui_iteration_process.md)、[ui_design/formal_v1/screen_structure_review.md](ui_design/formal_v1/screen_structure_review.md)、[ui_design/versions/migration_log.md](ui_design/versions/migration_log.md) |
+| 运行时验收流水线 | [08_Unity运行时美术验收工具需求.md](08_Unity运行时美术验收工具需求.md) | [09_运行时美术验收记录.md](09_运行时美术验收记录.md)、[../开发文档/14_Unity运行时美术自动验收方案.md](../开发文档/14_Unity运行时美术自动验收方案.md) |
+
+### 契约与数据层
+
+| 文件 | 用途 |
+|---|---|
+| [art_requirements_seed.json](art_requirements_seed.json) | 配置表扫不出的 preset 资产需求种子。 |
+| [ui_design/screen_layouts.json](ui_design/screen_layouts.json) | 当前 active UI 对接规格，程序和素材生成只认这里。 |
+| [ui_design/component_catalog.json](ui_design/component_catalog.json) | UI 组件目录和 VisualID 映射。 |
+| [ui_design/design_tokens.json](ui_design/design_tokens.json) | 参考分辨率、间距、颜色、层级等 UI 基础标准。 |
+
+### 交付与历史层
+
+| 文档 | 当前定位 |
+|---|---|
+| [11_P0_UI骨架接入交付.md](11_P0_UI骨架接入交付.md) | P0 批次交付快照，具体接入仍以 active JSON 和 handoff 为准。 |
+| [12_P1_UI骨架接入准备.md](12_P1_UI骨架接入准备.md) | P1 批次交付快照，具体接入仍以 active JSON 和 handoff 为准。 |
+| [06_MVP素材接入状态同步.md](06_MVP素材接入状态同步.md) | 历史归档，不作为当前规划入口。 |
+| [07_MVP_UI重新设计同步.md](07_MVP_UI重新设计同步.md) | 历史归档，不作为正式 UI 目标。 |
+
+## 三套工作流
+
+### UI 设计版本流
+
+```text
+baseline / 当前截图问题
+  -> formal_v1 设计文档
+  -> 用户确认
+  -> active screen_layouts.json
+  -> Validate-UIDesign.ps1
+  -> 程序接入
+  -> ArtAcceptance
+```
+
+程序只接 active `screen_layouts.json`。`formal_v1/*.md` 如果还没写入 active，只是设计草案，不是程序接入口。
+
+### 资产生产流
+
+```text
+config / derived / preset
+  -> art_manifest.json
+  -> PromptCN / PromptEN / NegativePromptEN / Spec
+  -> AI 生成
+  -> 预处理
+  -> 筛选
+  -> Approved
+  -> 可接入素材清单
+```
+
+`_IncomingAI` 是工作区，不进程序接入；`Approved` 是正式区。每次生成、预处理或同步 Approved 后，都要刷新 latest 可接入清单并留 snapshot。
+
+### 程序接入与验收流
+
+```text
+可接入素材清单 program_integrate
+  -> VisualAssetRegistry 登记
+  -> UI / 配置绑定
+  -> ArtAcceptance 截图
+  -> 09_运行时美术验收记录.md
+  -> 缺口回填到 seed / UI active / Manifest
+```
+
+## 当前状态
+
+截至 2026-05-24：
+
+* active Formal V1 UI 已覆盖 15 个界面，详见 [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md)。
+* `faction_shop`、`doll_interaction`、`scenario_event`、`doll_room` 已有 Formal V1 设计草案，但尚未进入 active `screen_layouts.json`，暂不作为程序接入口。
+* 最新可接入素材清单显示 `program_integrate=17`，程序侧可按清单登记和接入。
+* NovelAI 当前存在 Anlas 余额不足风险，local_v0 素材只用于先解锁程序接入和验收，后续需要替换为正式版。
 
 ## 机器生成文件
 
@@ -69,7 +145,8 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 ## 外部契约
 
 * [版本规划/09_正式版核心纵切开发路线.md](../版本规划/09_正式版核心纵切开发路线.md)：当前正式版核心纵切的顶层路线，以此为准。
-* [版本规划/01_MVP美术与UI需求清单.md](../版本规划/01_MVP美术与UI需求清单.md)：MVP UI 和交互表现需求。
+* [版本规划/10_正式版核心纵切版本节点规划.md](../版本规划/10_正式版核心纵切版本节点规划.md)：执行层节点规划。
+* [版本规划/11_设计文档纵切批次矩阵.md](../版本规划/11_设计文档纵切批次矩阵.md)：设计文档批次与完成口径。
 * [开发文档/09_视觉资源系统程序开发规范.md](../开发文档/09_视觉资源系统程序开发规范.md)：程序侧 `VisualID -> VisualAssetRegistry -> Unity Asset` 契约。
 * [tools/美术工具/README.md](../tools/美术工具/README.md)：美术流水线脚本说明。
 

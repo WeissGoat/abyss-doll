@@ -17,6 +17,10 @@ related:
   - 美术文档/ui_design/formal_v1/order_board_v1.md
   - 美术文档/ui_design/formal_v1/rumor_board_v1.md
   - 美术文档/ui_design/formal_v1/shop_staging_v1.md
+  - 美术文档/ui_design/formal_v1/faction_shop_v1.md
+  - 美术文档/ui_design/formal_v1/doll_interaction_v1.md
+  - 美术文档/ui_design/formal_v1/scenario_event_v1.md
+  - 美术文档/ui_design/formal_v1/doll_room_v1.md
 last_verified: 2026-05-24
 update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或运行时验收后同步本文件。
 ---
@@ -57,6 +61,10 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 | `shop_staging` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：仓库出货分配、普通渠道、订单渠道、黑市渠道和收益风险预览。 |
 | `order_board` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：势力订单列表、目标物、截止日、奖励预览和接取/提交动作。 |
 | `rumor_board` | 新增 Formal V1 | 无 | `active_spec` | `active_spec` | 已写入 Formal V1 active 规格：今日传闻、价格涨跌、选中详情和推荐行动。 |
+| `faction_shop` | 新增 Formal V1 | 无 | 未进入 active | `design_draft` | 已有设计草案：势力声望、专属商品、黑市信任和交易风险；等待用户确认后写入 active。 |
+| `doll_interaction` | 新增 Formal V1 | 无 | 未进入 active | `design_draft` | 已有设计草案：触摸、对话、赠礼、保养、特殊交互和反馈；等待用户确认后写入 active。 |
+| `scenario_event` | 新增 Formal V1 | 无 | 未进入 active | `design_draft` | 已有设计草案：AVG、系统弹窗、气泡、LorePanel、事件日志和跳过摘要；等待用户确认后写入 active。 |
+| `doll_room` | 新增 Formal V1 | 无 | 未进入 active | `design_draft` | 已有设计草案：房间背景、待机人偶、纪念物、窗外状态和日记；等待用户确认后写入 active。 |
 
 ---
 
@@ -127,3 +135,11 @@ update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或
 * `order_board` 作为 A4 势力订单板界面进入 active 规格，拆分 `order_list_panel`、`order_detail_panel`、`order_reward_panel` 和 `order_action_panel`。
 * `rumor_board` 作为 A4 时间 / 传闻决策界面进入 active 规格，拆分 `today_rumor_list`、`price_wave_panel`、`rumor_detail_panel`、`recommendation_panel` 和 `rumor_bottom_hint`。
 * 新增 `ui_icon_shop_channel`、`ui_icon_black_market`、`ui_icon_order`、`ui_icon_faction`、`ui_icon_deadline`、`ui_icon_rumor`、`ui_icon_price_up`、`ui_icon_price_down` 八个 preset UI 图标需求，后续按 Manifest / Prompt 流程串行跑图。
+
+### 2026-05-24：P3 四个界面建立 Formal V1 设计草案
+
+* `faction_shop` 已有设计草案，用于承接势力声望、专属商品、黑市信任和交易风险。
+* `doll_interaction` 已有设计草案，用于承接触摸、对话、赠礼、保养、特殊交互和反馈。
+* `scenario_event` 已有设计草案，用于承接 AVG、系统弹窗、气泡、LorePanel、事件日志和跳过摘要。
+* `doll_room` 已有设计草案，用于承接房间背景、待机人偶、纪念物、窗外状态和日记。
+* 这四个界面尚未写入 active `screen_layouts.json`，暂不作为程序接入口，也不触发 Manifest / Prompt / 素材生成。

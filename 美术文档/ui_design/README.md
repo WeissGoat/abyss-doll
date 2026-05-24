@@ -27,8 +27,8 @@ update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收�
 
 # UI 设计流水线
 
-> **定位：** 管理正式版核心纵切的 UI 设计系统、界面布局、组件清单和程序交付检查。
-> **更新时间：** 2026-05-23
+> **定位：** UI 结构版本管理和程序对接规格入口。当前 active 规格只看 `screen_layouts.json`，设计草案不直接交给程序。
+> **更新时间：** 2026-05-24
 
 ---
 
@@ -38,11 +38,11 @@ UI 资产不能只按单张图片生产。面板、按钮、背包格、状态�
 
 正式版核心纵切阶段的原则是：用批次控制当前处理哪些界面，不用半成品标准降低进入批次的完成质量。凡是进入当前批次的 UI，结构、组件、VisualID、程序绑定和验收标准都按正式版处理；未进入批次的界面不抢跑。
 
-UI 设计流解决四件事：
+UI 设计流解决六件事：
 
 * UI 设计版本如何冻结、确认、合并和验收：由 `ui_iteration_process.md` 记录。
-* 正式版结构怎么从 MVP 骨架迁移：由 `formal_v1/` 记录结构草案。
-* 界面区域怎么摆：由 `screen_layouts.json` 记录。
+* 正式版结构怎么从 MVP 骨架迁移：由 `formal_v1/` 记录结构文档。
+* 当前程序应该按什么接入：只看 `screen_layouts.json`。
 * 组件怎么复用：由 `component_catalog.json` 记录。
 * 视觉基础标准是什么：由 `design_tokens.json` 记录。
 * 交付是否完整：由 `Validate-UIDesign.ps1` 校验并生成 handoff。
@@ -64,7 +64,20 @@ UI 设计流解决四件事：
 
 ---
 
-## 3. 标准流程
+## 3. 当前状态
+
+| 类型 | 范围 | 接入口径 |
+|---|---|---|
+| active Formal V1 | 15 个界面，详见 `screen_layouts.json` 和 `13_正式纵切UI与素材覆盖矩阵.md` | 程序、美术素材生成、验收都可以使用。 |
+| draft Formal V1 | `faction_shop`、`doll_interaction`、`scenario_event`、`doll_room` | 只作为设计审阅，不是程序接入口，不触发素材生成。 |
+| historical baseline | `versions/mvp_baseline_2026-05-22/` | 只读归档，用于对比和回退参考。 |
+| candidate | `versions/formal_v1_candidate/` | 可选暂存区，不是必经流程。 |
+
+程序侧永远不直接读取 `formal_v1/*.md`、baseline 或 candidate。程序接入只读 active `screen_layouts.json`、`component_catalog.json` 和生成的 `ui_design_handoff.md`。
+
+---
+
+## 4. 标准流程
 
 ```text
 MVP Baseline / Runtime Findings
