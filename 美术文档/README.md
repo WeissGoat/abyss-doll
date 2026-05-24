@@ -36,6 +36,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | 端到端美术生产怎么走 | [00_美术流水线总览.md](00_美术流水线总览.md) | 只讲流程：需求发现、Manifest、提示词、出图、预处理、Approved、交接。 |
 | UI 结构版本怎么管理 | [ui_design/README.md](ui_design/README.md) | UI 设计系统入口，说明 active / baseline / draft / handoff。 |
 | 程序当前应接入哪些素材 | [_generated/可接入素材清单.md](_generated/可接入素材清单.md) | 程序侧只处理 `program_integrate` 队列。 |
+| 当前哪些缺图素材可直接跑图 | [_generated/缺图生成计划.md](_generated/缺图生成计划.md) | 美术侧处理 `generate_needed` 队列。 |
 | 当前哪些素材只是临时质量 | [_generated/素材质量替换清单.md](_generated/素材质量替换清单.md) | 美术侧处理 `technical_fix` 和 `visual_v2_replace` 队列。 |
 | 当前美术状态和下一步 | [../agent_status/art.md](../agent_status/art.md) | 智能体交接状态页。 |
 
@@ -109,6 +110,8 @@ config / derived / preset
 
 `_IncomingAI` 是工作区，不进程序接入；`Approved` 是正式区。每次生成、预处理或同步 Approved 后，都要刷新 latest 可接入清单并留 snapshot。
 
+`generate_needed` 缺图队列先生成 [_generated/缺图生成计划.md](_generated/缺图生成计划.md)，再执行 NovelAI 跑图、预处理和 Approved 同步。`visual_v2_replace` 质量替换队列看 [_generated/VisualV2生成计划.md](_generated/VisualV2生成计划.md)，两者不要混用。
+
 ### 程序接入与验收流
 
 ```text
@@ -127,6 +130,7 @@ config / derived / preset
 * active Formal V1 UI 已覆盖 19 个界面，详见 [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md)。
 * 当前没有剩余 draft UI 队列；`doll_room` 已进入 active `screen_layouts.json`，并补齐 seed / Manifest / Prompt / Spec。
 * 最新可接入素材清单显示 `program_integrate=12`，程序侧可按清单登记和接入。
+* 最新缺图生成计划覆盖 `generate_needed=21`，其中 P0 新节点图标 4 个、P1 战斗可读性 UI 素材 17 个；NovelAI 需要额度恢复后串行执行。
 * 最新素材质量替换清单显示 `technical_fix=0`、`visual_v2_replace=20`；这些 local_v0 素材不阻塞程序接入，但要在 Visual V2 批次同名替换。
 * NovelAI 当前存在 Anlas 余额不足风险，local_v0 素材只用于先解锁程序接入和验收，后续需要替换为正式版。
 
@@ -137,6 +141,8 @@ config / derived / preset
 * [_generated/AI绘图提示词清单.md](_generated/AI绘图提示词清单.md)：脚本补全后的提示词清单，供出图和审阅。
 * [_generated/可接入素材清单.md](_generated/可接入素材清单.md)：当前可接入素材 latest，程序侧优先按其中 `program_integrate` 队列接入。
 * [_generated/art_integration_snapshots/](_generated/art_integration_snapshots/)：每次生成、预处理或 Approved 同步后的可接入素材清单快照。
+* [_generated/缺图生成计划.md](_generated/缺图生成计划.md)：当前 `generate_needed` 缺图队列的可执行跑图计划。
+* [_generated/art_generation_plan_snapshots/](_generated/art_generation_plan_snapshots/)：缺图跑图计划历史快照。
 * [_generated/素材质量替换清单.md](_generated/素材质量替换清单.md)：当前质量替换 latest，区分技术修复和 Visual V2 同名替换。
 * [_generated/art_quality_snapshots/](_generated/art_quality_snapshots/)：素材质量替换清单历史快照。
 * [ui_design/_generated/ui_design_handoff.md](ui_design/_generated/ui_design_handoff.md)：UI 设计校验后生成的程序交付摘要。
@@ -148,6 +154,7 @@ config / derived / preset
 .\tools\美术工具\Generate-ArtPrompts.ps1
 .\tools\美术工具\Validate-UIDesign.ps1
 .\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag manual_review
+.\tools\美术工具\Generate-ArtBatchPlan.ps1 -Snapshot -SnapshotTag manual_review
 .\tools\美术工具\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag manual_review
 ```
 

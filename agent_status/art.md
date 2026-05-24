@@ -39,9 +39,9 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 PM 版本节点中，美术线当前 19 个界面都已具备 Formal V1 active 规格。`combat_hud` 战斗资源、`maintenance_panel` / `daily_bill_report` 新增图标、A4 的 `shop_staging` / `order_board` / `rumor_board` local_v0 图标已由 UI 程序侧接入并通过 ArtAcceptance `20260524_212423`；`doll_room` 已进入 active，并补齐 `bg_doll_room_attic`、`ui_icon_diary`、`ui_room_memento_slot` local_v0 Approved 素材。下一步由程序侧按 latest `program_integrate` 队列登记剩余 12 个 Approved VisualID，美术侧等待接入后统一截图验收。
 
-美术侧已把“可接入覆盖”和“视觉质量替换”拆开：`可接入素材清单.md` 给程序看，`素材质量替换清单.md` 给美术看。当前质量清单为 `technical_fix=0`、`visual_v2_replace=20`，表示没有必须先修的技术风险，剩余 local_v0 素材不阻塞程序接入，后续按 Visual V2 同名替换。
+美术侧已把“可接入覆盖”、“缺图生成”和“视觉质量替换”拆开：`可接入素材清单.md` 给程序看，`缺图生成计划.md` 给美术侧执行 `generate_needed` 新素材跑图，`素材质量替换清单.md` 给美术侧执行 local_v0 / placeholder 同名替换。当前质量清单为 `technical_fix=0`、`visual_v2_replace=20`，表示没有必须先修的技术风险，剩余 local_v0 素材不阻塞程序接入，后续按 Visual V2 同名替换。
 
-P1 战斗可读性 active 合同已补齐：`combat_hud` 现在包含怪物意图图标、战斗状态图标、命中 / 破盾反馈、封格 / 塞包 overlay。latest 可接入清单当前为 `program_integrate=12`、`acceptance_needed=82`、`generate_needed=21`；其中 17 个是本轮战斗可读性 UI 素材，4 个是最新配置 / 节点类型带出的地图节点图标。
+P1 战斗可读性 active 合同已补齐：`combat_hud` 现在包含怪物意图图标、战斗状态图标、命中 / 破盾反馈、封格 / 塞包 overlay。latest 可接入清单当前为 `program_integrate=12`、`acceptance_needed=82`、`generate_needed=21`；其中 17 个是本轮战斗可读性 UI 素材，4 个是最新配置 / 节点类型带出的地图节点图标。`美术文档/_generated/缺图生成计划.md/json` 已生成执行批次 `nai_missing_assets_20260525_01`，21 项全部 `PromptReadyItems=21`，尺寸分布为 `512x512=19`、`256x256=2`。
 
 Visual V2 执行入口已补齐：`美术文档/_generated/VisualV2生成计划.md/json` 当前规划 20 项替换资源，`PromptReadyItems=20`，其中 UI 图标 / 槽位 19 项、背景 1 项。最近 NovelAI 探测批次 `nai_visual_v2_probe_20260525_01` 因 HTTP 402 Anlas 不足失败；该问题不属于提示词、Manifest、串行生成或预处理脚本缺口。
 
@@ -84,6 +84,7 @@ Visual V2 工具链已补齐安全替换流程：已接入素材可用 `Run-ArtG
 .\tools\美术工具\Validate-UIDesign.ps1
 .\tools\美术工具\Scan-UIIterationCandidates.ps1
 .\tools\美术工具\Generate-ArtIntegrationCandidates.ps1
+.\tools\美术工具\Generate-ArtBatchPlan.ps1
 .\tools\美术工具\Generate-ArtQualityBacklog.ps1
 .\tools\美术工具\Generate-VisualV2Plan.ps1
 ```
@@ -139,10 +140,12 @@ Visual V2 工具链已补齐安全替换流程：已接入素材可用 `Run-ArtG
 - 已把 P1 战斗可读性增补写入 `combat_hud` active 规格、组件目录、Formal V1 文档和迁移记录：新增 `Combat.IntentIcon`、`Combat.StatusIcon`、`Combat.HitFeedback`、`Combat.ShieldBreakFeedback`、`Combat.GridLockMarker`、`Combat.JunkPreviewMarker` 六类组件。
 - 已在 `art_requirements_seed.json` 和提示词生成脚本中补齐 17 个战斗可读性 VisualID 的英文绘图提示词、中文说明、负面提示词和结构化 Spec；图标 / 反馈 / 背包格 overlay 尺寸分别按 `512x512`、`512x512`、`256x256` 管理。
 - 已刷新 Manifest / Prompt / UI handoff / 可接入清单 / 质量清单并留档 `20260525_020335_p1_combat_readability_contract_prompt_fix.*` 与 `20260525_020357_p1_combat_readability_contract_prompt_fix.*`；当前 `generate_needed=21`、`technical_fix=0`、`visual_v2_replace=20`。
+- 已新增 `Generate-ArtBatchPlan.ps1` / `generate_art_batch_plan.py`，把 `可接入素材清单` 中的 `generate_needed` 队列转成 NovelAI 可执行缺图跑图计划；latest 为 `美术文档/_generated/缺图生成计划.md/json`，历史快照在 `美术文档/_generated/art_generation_plan_snapshots/`。
+- 已生成缺图执行计划 `nai_missing_assets_20260525_01`：计划生成 21 个缺失素材，全部具备英文提示词、负面提示词和结构化 Spec，构成为 P0 新节点图标 4 个、P1 战斗可读性 UI 素材 17 个；已记录 NovelAI 上次探测 HTTP 402 Anlas 不足，后续额度恢复后按计划串行跑图。
 
 ## 下一步建议
 
-1. NovelAI Anlas 恢复后，优先为 latest `generate_needed=21` 跑图：17 个 P1 战斗可读性 UI 素材和 4 个新增地图节点图标；生成后按预处理 / Approved / 可接入清单流程推进。
+1. NovelAI Anlas 恢复后，优先按 `美术文档/_generated/缺图生成计划.md` 的 `nai_missing_assets_20260525_01` 串行跑图：17 个 P1 战斗可读性 UI 素材和 4 个新增地图节点图标；生成后按预处理 / Approved / 可接入清单流程推进。
 2. 程序侧仍可优先按 latest 可接入素材清单登记 12 个 `program_integrate` VisualID：`bg_doll_room_attic`、`ui_icon_diary`、`ui_room_memento_slot` 以及当前依赖补充 UI 图标；本轮新增的 17 个战斗可读性 VisualID 还没有 Approved PNG，不应作为真实素材接入。
 3. 程序接入后，美术侧基于最新 ArtAcceptance 逐屏验收 19 个 active Formal V1 界面的结构、缺图、黑块、点击遮挡、列表有效数据和图标可读性。
 4. Visual V2 替换仍按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_visual_v2_20260525_01` 执行，重跑 A4 / 当前依赖 / `doll_room` local_v0 UI 图标和背景；已接入素材统一走 `PreserveStatus -> CandidateBatchID -> QualityTier=formal_ai_v2` 流程。
@@ -155,7 +158,7 @@ Visual V2 工具链已补齐安全替换流程：已接入素材可用 `Run-ArtG
 - P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 正式结构已通过；P0 / P1 Formal V1 仍需要程序接入后的运行时截图验收。
 - `combat_hud` 已有 2026-05-24 最新 ArtAcceptance 截图可用于当前规格验收；其他界面的 UI 迭代候选报告仍可能基于较旧截图，需要逐界面确认。
 - NovelAI 当前因 Anlas 余额不足无法继续正式跑图；local_v0 可接入图标只用于先解锁程序接入和运行时验收，后续需要替换为正式 AI 美术版。
-- P1 战斗可读性 17 个新增 UI 素材当前只有 Prompt / Spec / Manifest 合同，没有 Approved PNG；在出图前不会进入 `program_integrate` 队列。
+- P1 战斗可读性 17 个新增 UI 素材和 4 个新增地图节点图标当前只有 Prompt / Spec / Manifest 合同，没有 Approved PNG；在出图前不会进入 `program_integrate` 队列。
 - `tools/ComfyUI_NAIDGenerator/` 未跟踪，需要决定是否纳入正式美术流水线。
 
 ## 完成回写清单
