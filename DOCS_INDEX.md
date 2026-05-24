@@ -18,12 +18,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：149
-- 已补元数据：149
+- 文档总数：150
+- 已补元数据：150
 - 缺少元数据：0
-- 事实来源文档：120
-- 关联边数：761
-- 跨职能关联：155
+- 事实来源文档：121
+- 关联边数：770
+- 跨职能关联：161
 
 ## 事实来源
 
@@ -63,6 +63,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [深渊产出与掉落期望 (Loot Generation & Expectation)](数值模型设计/03_深渊产出与掉落期望.md) - `balance` / `balance_loot`
 - [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) - `plan` / `formal_vertical_slice`
 - [设计文档纵切批次矩阵](版本规划/11_设计文档纵切批次矩阵.md) - `plan` / `gdd_vertical_batch_matrix`
+- [版本规划需求文档承接审计](版本规划/12_版本规划需求文档承接审计.md) - `plan` / `requirement_doc_coverage`
 - [版本规划阅读入口](版本规划/README.md) - `entry` / `version_planning`
 - [知识库规范](知识库/README.md) - `kb` / `knowledge_base`
 - [美术流水线总览](美术文档/00_美术流水线总览.md) - `art` / `art_pipeline`
@@ -150,10 +151,10 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 关联网络
 
-- `PM <-> 全局`：10 条
+- `PM <-> 全局`：13 条
 - `PM <-> 知识库`：1 条
 - `PM <-> 程序`：1 条
-- `PM <-> 策划`：2 条
+- `PM <-> 策划`：5 条
 - `全局 <-> 知识库`：4 条
 - `全局 <-> 程序`：12 条
 - `全局 <-> 策划`：29 条
@@ -171,21 +172,22 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [PM / 版本规划 状态](agent_status/pm.md) | `status` | `active` | `version_planning` | 8 | 完整 |
-| [版本规划阅读入口](版本规划/README.md) | `entry` | `active` | `version_planning` | 6 | 完整 |
-| [PM 智能体阅读入口](知识库/views/pm.md) | `view` | `active` | `agent_context_view` | 6 | 完整 |
+| [PM / 版本规划 状态](agent_status/pm.md) | `status` | `active` | `version_planning` | 9 | 完整 |
+| [版本规划需求文档承接审计](版本规划/12_版本规划需求文档承接审计.md) | `plan` | `active` | `requirement_doc_coverage` | 9 | 完整 |
+| [版本规划阅读入口](版本规划/README.md) | `entry` | `active` | `version_planning` | 7 | 完整 |
+| [PM 智能体阅读入口](知识库/views/pm.md) | `view` | `active` | `agent_context_view` | 7 | 完整 |
 
 ### 全局
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 13 | 完整 |
+| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 14 | 完整 |
 | [文档索引](DOCS_INDEX.md) | `index` | `generated` | `knowledge_base` | 1 | 完整 |
 | [魔偶深渊 AI 核心知识库](GEMINI.md) | `entry` | `active` | `project_context` | 7 | 完整 |
-| [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 32 | 完整 |
+| [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 33 | 完整 |
 | [智能体状态页说明](agent_status/README.md) | `status` | `active` | `agent_status` | 5 | 完整 |
 | [智能体开工健康检查](tools/agent/README.md) | `tool` | `active` | `agent_workflow` | 4 | 完整 |
-| [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `formal_vertical_slice` | 17 | 完整 |
+| [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `formal_vertical_slice` | 18 | 完整 |
 | [最小可玩版本 (MVP) 核心闭环内容清单](版本规划/_archive/mvp_2026-05/00_最小MVP体验闭环内容清单.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 客户端开发里程碑与节点规划](版本规划/_archive/mvp_2026-05/02_开发里程碑与节点规划.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 验证需要补充的功能开发](版本规划/_archive/mvp_2026-05/04_MVP验证需要补充的功能开发.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
@@ -233,12 +235,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [策划 / 数值 状态](agent_status/design.md) | `status` | `active` | `design_balance` | 40 | 完整 |
+| [策划 / 数值 状态](agent_status/design.md) | `status` | `active` | `design_balance` | 41 | 完整 |
 | [基准价值与空间本位模型 (Space-Value Standard)](数值模型设计/00_基准价值与空间本位模型.md) | `balance` | `active` | `balance_space_value` | 16 | 完整 |
 | [经济循环与通缩模型 (Economy & Deflation Model)](数值模型设计/01_经济循环与通缩模型.md) | `balance` | `active` | `balance_economy` | 8 | 完整 |
 | [战斗伤害与生存公式 (Combat & Survival Formulas)](数值模型设计/02_战斗伤害与生存公式.md) | `balance` | `active` | `balance_combat` | 7 | 完整 |
 | [深渊产出与掉落期望 (Loot Generation & Expectation)](数值模型设计/03_深渊产出与掉落期望.md) | `balance` | `active` | `balance_loot` | 8 | 完整 |
-| [设计文档纵切批次矩阵](版本规划/11_设计文档纵切批次矩阵.md) | `plan` | `active` | `gdd_vertical_batch_matrix` | 21 | 完整 |
+| [设计文档纵切批次矩阵](版本规划/11_设计文档纵切批次矩阵.md) | `plan` | `active` | `gdd_vertical_batch_matrix` | 22 | 完整 |
 | [数值模型沙盘推演方法论 (Numerical Sandboxing)](版本规划/_archive/mvp_2026-05/03_mvp数值要求.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 需要补充的配置调整](版本规划/_archive/mvp_2026-05/05_MVP需要补充的配置调整.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [策划智能体阅读入口](知识库/views/design.md) | `view` | `active` | `agent_context_view` | 10 | 完整 |
@@ -281,7 +283,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [详案_10：势力声望与订单系统 (GDD_10)](设计文档/GDD_10_势力声望与订单系统.md) | `gdd` | `active` | `faction_order` | 18 | 完整 |
 | [详案_11：人偶房间与视觉叙事系统 (GDD_11)](设计文档/GDD_11_人偶房间与视觉叙事系统.md) | `gdd` | `active` | `doll_room` | 14 | 完整 |
 | [详案_12：人偶交互管理器 (GDD_12)](设计文档/GDD_12_人偶交互管理器.md) | `gdd` | `active` | `doll_interaction` | 15 | 完整 |
-| [设计文档阅读入口](设计文档/README.md) | `entry` | `active` | `design_delivery` | 10 | 完整 |
+| [设计文档阅读入口](设计文档/README.md) | `entry` | `active` | `design_delivery` | 11 | 完整 |
 | [第四层组合压力内容包](设计文档/_archive/content_backlog/26_第四层组合压力内容包.md) | `content_pack` | `draft` | `content_authoring` | 1 | 完整 |
 | [局外底盘配置字段说明 (Chassis Config)](配置表(JSON)/Chassis/README.md) | `config` | `active` | `config_chassis` | 8 | 完整 |
 | [工坊制造配方字段说明 (Crafting Recipes Config)](配置表(JSON)/CraftingRecipes/README.md) | `config` | `active` | `config_crafting` | 12 | 完整 |

@@ -9,6 +9,7 @@ source_of_truth: true
 related:
   - 版本规划/09_正式版核心纵切开发路线.md
   - 版本规划/11_设计文档纵切批次矩阵.md
+  - 版本规划/12_版本规划需求文档承接审计.md
   - agent_status/README.md
   - PROJECT_STATUS.md
   - 开发文档/00_程序开发大纲.md
