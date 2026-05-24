@@ -9,6 +9,7 @@ public static class CombatOutcomeReportSmokeTest {
 
         TestVictoryOutcomeReport();
         TestHpDefeatOutcomeReport();
+        TestSanCollapseOutcomeReport();
 
         Debug.Log("=== Combat Outcome Report Smoke Test Finished ===");
     }
@@ -75,6 +76,41 @@ public static class CombatOutcomeReportSmokeTest {
                 Debug.Log("Combat Outcome HP Defeat Report PASSED.");
             } else {
                 Debug.LogError($"Combat Outcome HP Defeat Report FAILED. Type={report?.OutcomeType}, Reason={report?.DefeatReason}, HP={report?.ActiveDollHP}/{report?.ActiveDollMaxHP}, Enemy={report?.EnemyAliveCount}/{report?.EnemyTotalCount}, Captured={_lastReport != null}");
+            }
+        } finally {
+            CombatEventBus.OnCombatOutcomePrepared -= CaptureOutcomeReport;
+        }
+    }
+
+    private static void TestSanCollapseOutcomeReport() {
+        CoreBackend core = BootstrapCore();
+        DollEntity doll = core.CurrentPlayer.ActiveDoll;
+        doll.Status.SAN_Current = 0;
+
+        _lastReport = null;
+        CombatEventBus.OnCombatOutcomePrepared += CaptureOutcomeReport;
+
+        try {
+            core.Combat.StartCombat(new List<string> { "mob_scavenger_bug" });
+
+            CombatOutcomeReport report = core.Combat.LastOutcomeReport;
+            bool passed = report != null
+                && ReferenceEquals(report, _lastReport)
+                && core.Combat.CurrentState == CombatState.End
+                && report.OutcomeType == CombatOutcomeType.Defeat
+                && report.DefeatReason == CombatDefeatReasonType.PlayerSanCollapsed
+                && report.ActiveDollSAN == 0
+                && report.ActiveDollMaxSAN == doll.Status.SAN_Max
+                && report.EnemyAliveCount == 1
+                && report.EnemyTotalCount == 1
+                && report.PlayerAliveCount == 1
+                && report.Title == "SAN 崩溃"
+                && report.Summary.Contains("SAN 归零");
+
+            if (passed) {
+                Debug.Log("Combat Outcome SAN Collapse Report PASSED.");
+            } else {
+                Debug.LogError($"Combat Outcome SAN Collapse Report FAILED. Type={report?.OutcomeType}, Reason={report?.DefeatReason}, SAN={report?.ActiveDollSAN}/{report?.ActiveDollMaxSAN}, Enemy={report?.EnemyAliveCount}/{report?.EnemyTotalCount}, State={core.Combat.CurrentState}, Captured={_lastReport != null}");
             }
         } finally {
             CombatEventBus.OnCombatOutcomePrepared -= CaptureOutcomeReport;

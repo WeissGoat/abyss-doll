@@ -55,7 +55,7 @@ public static class CombatOutcomeReportService {
     public static CombatOutcomeReport BuildDefeat(CombatSystem combat) {
         CombatOutcomeReport report = BuildBaseReport(combat);
         report.OutcomeType = CombatOutcomeType.Defeat;
-        report.DefeatReason = ResolveDefeatReason(combat, report);
+        report.DefeatReason = CombatDefeatConditionService.Evaluate(combat).Reason;
         report.Title = BuildDefeatTitle(report.DefeatReason);
         report.Summary = BuildDefeatSummary(report);
         return report;
@@ -112,29 +112,6 @@ public static class CombatOutcomeReportService {
                 IsAlive = isAlive
             });
         }
-    }
-
-    private static CombatDefeatReasonType ResolveDefeatReason(CombatSystem combat, CombatOutcomeReport report) {
-        bool hpDepleted = combat?.PlayerFaction != null && combat.PlayerFaction.IsWipedOut();
-        bool sanCollapsed = report != null && report.ActiveDollMaxSAN > 0 && report.ActiveDollSAN <= 0;
-
-        if (hpDepleted && sanCollapsed) {
-            return CombatDefeatReasonType.PlayerHpAndSanDepleted;
-        }
-
-        if (hpDepleted) {
-            return CombatDefeatReasonType.PlayerHpDepleted;
-        }
-
-        if (sanCollapsed) {
-            return CombatDefeatReasonType.PlayerSanCollapsed;
-        }
-
-        if (combat?.PlayerFaction != null && combat.PlayerFaction.Fighters.Count > 0 && combat.PlayerFaction.IsWipedOut()) {
-            return CombatDefeatReasonType.PlayerFactionWiped;
-        }
-
-        return CombatDefeatReasonType.Unknown;
     }
 
     private static string BuildDefeatTitle(CombatDefeatReasonType reason) {

@@ -41,9 +41,18 @@ public class CombatSystem {
 
     public void StartPlayerTurn() {
         CurrentState = CombatState.PlayerTurn;
+        if (IsPlayerDefeated()) {
+            HandleDefeat();
+            return;
+        }
+
         _monsterActionState.AdvanceCooldownsForNewIntentRound();
         LockMonsterIntentsForPlayerTurn();
         CombatEventBus.Publish(CombatEventType.OnTurnStart, PlayerFaction);
+
+        if (IsPlayerDefeated()) {
+            HandleDefeat();
+        }
     }
 
     public void EndPlayerTurn() {
@@ -55,6 +64,11 @@ public class CombatSystem {
         Debug.Log("[CombatSystem] Player ends turn.");
         CombatEventBus.Publish(CombatEventType.OnTurnEnd, PlayerFaction);
         _monsterRuntimeModifiers.AdvancePlayerTurnEnd();
+
+        if (IsPlayerDefeated()) {
+            HandleDefeat();
+            return;
+        }
 
         if (EnemyFaction.IsWipedOut()) {
             HandleVictory();
@@ -71,7 +85,7 @@ public class CombatSystem {
 
         foreach (var fighter in EnemyFaction.Fighters) {
             MonsterFighter enemy = fighter as MonsterFighter;
-            if (enemy != null && enemy.RuntimeHP > 0 && !PlayerFaction.IsWipedOut()) {
+            if (enemy != null && enemy.RuntimeHP > 0 && !IsPlayerDefeated()) {
                 MonsterActionContext context = BuildMonsterActionContext(enemy);
                 _monsterActionRunner.ExecuteTurn(enemy, context);
             }
@@ -79,7 +93,7 @@ public class CombatSystem {
 
         CombatEventBus.Publish(CombatEventType.OnTurnEnd, EnemyFaction);
 
-        if (!PlayerFaction.IsWipedOut()) {
+        if (!IsPlayerDefeated()) {
             StartPlayerTurn();
         } else {
             HandleDefeat();
@@ -116,7 +130,7 @@ public class CombatSystem {
     private void HandleDefeat() {
         CurrentState = CombatState.End;
         ItemUseService.ClearPendingTargetSelection();
-        Debug.Log("<color=red>[CombatSystem] Defeat! All player entities wiped out.</color>");
+        Debug.Log("<color=red>[CombatSystem] Defeat! Player combat failure condition reached.</color>");
 
         PrepareCombatOutcomeReport(CombatOutcomeType.Defeat);
 
@@ -136,6 +150,10 @@ public class CombatSystem {
         Debug.Log($"[CombatSystem] Outcome prepared. Type={LastOutcomeReport.OutcomeType}, Reason={LastOutcomeReport.DefeatReason}, Summary={LastOutcomeReport.Summary}");
     }
 
+    private bool IsPlayerDefeated() {
+        return CombatDefeatConditionService.Evaluate(this).IsDefeated;
+    }
+
     private MonsterActionContext BuildMonsterActionContext(MonsterFighter actor) {
         return new MonsterActionContext {
             Combat = this,
@@ -153,7 +171,7 @@ public class CombatSystem {
     }
 
     private void LockMonsterIntentsForPlayerTurn() {
-        if (EnemyFaction?.Fighters == null || PlayerFaction == null || PlayerFaction.IsWipedOut()) {
+        if (EnemyFaction?.Fighters == null || PlayerFaction == null || IsPlayerDefeated()) {
             _monsterActionState.ClearAllLockedIntents();
             return;
         }

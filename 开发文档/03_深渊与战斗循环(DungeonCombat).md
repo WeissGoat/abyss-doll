@@ -506,9 +506,20 @@ private void HandleVictory() {
 
 战斗胜负确定后，`CombatSystem` 负责生成只读结果报告，并在清理战斗运行态前发布给表现层或流程层消费。UI 不应自行判断胜负原因，也不应为了展示结果反查或修改战斗状态。
 
+失败判定由 `CombatDefeatConditionService` 统一处理，当前正式入口包含：
+
+* 当前出战人偶战斗 HP 归零。
+* 玩家阵营全部失去战斗能力。
+* 当前出战人偶 `SAN_Current <= 0`。
+
+`CombatSystem`、`CombatOutcomeReportService` 和后续占位 / 正式 UI 必须共用该服务输出的 `CombatDefeatEvaluation`，避免流程判定、报告原因和表现文案各自维护一套逻辑。
+
 当前契约：
 
 ```text
+CombatDefeatConditionService.Evaluate()
+        |
+        v
 CombatSystem.HandleVictory() / HandleDefeat()
         |
         v
@@ -531,7 +542,7 @@ CombatEventBus.OnCombatOutcomePrepared
 
 验收：
 
-* `CombatOutcomeReportSmokeTest.Run` 覆盖胜利报告、HP 战败报告、事件派发和 `LastOutcomeReport` 快照一致性。
+* `CombatOutcomeReportSmokeTest.Run` 覆盖胜利报告、HP 战败报告、SAN 崩溃战败报告、事件派发和 `LastOutcomeReport` 快照一致性。
 * 报告生成必须发生在 `PlayerFaction.Cleanup()` / `EnemyFaction.Cleanup()` 之前，避免清理监听或运行态后丢失复盘数据。
 
 ## 4. 战斗胜利奖励与 RewardSystem
