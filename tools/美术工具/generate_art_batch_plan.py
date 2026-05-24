@@ -25,10 +25,11 @@ DEFAULT_BATCH_ID = "nai_missing_assets_20260525_01"
 DOMAIN_ORDER = {
     "node": 0,
     "ui": 1,
-    "item": 2,
-    "prosthetic": 3,
-    "monster": 4,
-    "background": 5,
+    "order": 2,
+    "item": 3,
+    "prosthetic": 4,
+    "monster": 5,
+    "background": 6,
 }
 PRIORITY_ORDER = {"P0": 0, "P1": 1, "P2": 2, "P3": 3}
 

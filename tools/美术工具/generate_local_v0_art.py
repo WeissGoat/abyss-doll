@@ -868,6 +868,135 @@ def draw_faction_black_market(c: Canvas) -> None:
     c.line([(0.25, 0.75), (0.75, 0.25)], rgba("red", 150), 0.01)
 
 
+def draw_order_base(c: Canvas, accent: str = "blue") -> None:
+    draw_badge(c, rgba(accent, 65))
+    c.round_rect((0.27, 0.29, 0.73, 0.72), 0.035, rgba("cream"), rgba("brass_light"), 0.012)
+    c.round_rect((0.34, 0.23, 0.66, 0.36), 0.025, rgba("brass"), rgba("brass_light"), 0.008)
+    c.line([(0.35, 0.43), (0.65, 0.43)], rgba("brass_dark", 125), 0.006)
+    c.line([(0.35, 0.52), (0.61, 0.52)], rgba("brass_dark", 105), 0.006)
+    c.line([(0.35, 0.61), (0.58, 0.61)], rgba("brass_dark", 90), 0.006)
+
+
+def draw_order_map(c: Canvas) -> None:
+    draw_order_base(c, "blue")
+    c.polygon([(0.33, 0.38), (0.47, 0.33), (0.61, 0.39), (0.67, 0.65), (0.51, 0.70), (0.36, 0.63)], rgba("metal_light", 165), rgba("brass_dark"))
+    for point in [(0.40, 0.48), (0.51, 0.43), (0.59, 0.57)]:
+        c.ellipse((point[0] - 0.025, point[1] - 0.025, point[0] + 0.025, point[1] + 0.025), rgba("blue"), None)
+    c.line([(0.40, 0.48), (0.51, 0.43), (0.59, 0.57)], rgba("brass_light"), 0.008)
+    c.round_rect((0.63, 0.22, 0.73, 0.34), 0.015, rgba("brass_dark"), rgba("brass_light"), 0.006)
+
+
+def draw_order_safezone(c: Canvas) -> None:
+    draw_order_base(c, "green")
+    c.round_rect((0.38, 0.43, 0.62, 0.64), 0.025, rgba("brass"), rgba("brass_light"), 0.01)
+    c.arc((0.37, 0.28, 0.63, 0.56), 200, 340, rgba("brass_light"), 0.016)
+    c.polygon([(0.72, 0.27), (0.83, 0.45), (0.72, 0.63), (0.62, 0.45)], rgba("green"), rgba("brass_light"))
+    c.glow((0.61, 0.25, 0.84, 0.66), rgba("green", 55), 0.025)
+
+
+def draw_order_ore(c: Canvas) -> None:
+    draw_order_base(c, "orange")
+    for x, y, s in [(0.38, 0.52, 0.12), (0.51, 0.47, 0.14), (0.61, 0.57, 0.11)]:
+        c.polygon([(x, y - s), (x + s, y - s * 0.2), (x + s * 0.5, y + s), (x - s * 0.7, y + s * 0.7)], rgba("metal_light"), rgba("brass_dark"))
+    c.round_rect((0.32, 0.67, 0.69, 0.74), 0.02, rgba("brass"), rgba("brass_light"), 0.008)
+
+
+def draw_order_plate(c: Canvas) -> None:
+    draw_order_base(c, "orange")
+    c.polygon([(0.32, 0.44), (0.65, 0.34), (0.72, 0.58), (0.38, 0.70)], rgba("metal_light"), rgba("brass_light"))
+    c.line([(0.39, 0.45), (0.61, 0.61)], rgba("brass_dark", 150), 0.009)
+    c.ellipse((0.57, 0.44, 0.67, 0.54), rgba("brass"), rgba("brass_dark"), 0.005)
+
+
+def draw_order_large_core(c: Canvas) -> None:
+    draw_order_base(c, "orange")
+    c.round_rect((0.28, 0.40, 0.72, 0.72), 0.035, rgba("brass_dark"), rgba("brass_light"), 0.012)
+    for x in [0.42, 0.56]:
+        c.line([(x, 0.40), (x, 0.72)], rgba("brass", 180), 0.006)
+    for y in [0.51, 0.62]:
+        c.line([(0.28, y), (0.72, y)], rgba("brass", 180), 0.006)
+    c.ellipse((0.39, 0.45, 0.61, 0.67), rgba("orange"), rgba("brass_light"), 0.009)
+    c.glow((0.35, 0.40, 0.65, 0.70), rgba("orange", 80), 0.03)
+
+
+def draw_order_relic(c: Canvas) -> None:
+    draw_order_base(c, "purple")
+    c.polygon([(0.50, 0.32), (0.67, 0.47), (0.60, 0.68), (0.41, 0.70), (0.32, 0.50)], rgba("purple"), rgba("brass_light"))
+    c.ellipse((0.57, 0.27, 0.76, 0.46), (0, 0, 0, 0), rgba("brass_light"), 0.011)
+    c.line([(0.70, 0.41), (0.80, 0.54)], rgba("brass_light"), 0.012)
+    c.glow((0.31, 0.30, 0.69, 0.72), rgba("purple", 60), 0.025)
+
+
+def draw_order_live_sample(c: Canvas) -> None:
+    draw_order_base(c, "green")
+    c.round_rect((0.38, 0.32, 0.62, 0.70), 0.045, rgba("metal"), rgba("brass_light"), 0.012)
+    c.round_rect((0.42, 0.45, 0.58, 0.66), 0.035, rgba("acid", 160), rgba("green", 160), 0.006)
+    c.ellipse((0.44, 0.51, 0.56, 0.63), rgba("acid"), None)
+    c.ellipse((0.46, 0.54, 0.49, 0.57), rgba("metal"), None)
+    c.ellipse((0.53, 0.54, 0.56, 0.57), rgba("metal"), None)
+
+
+def draw_order_corroded_stone(c: Canvas) -> None:
+    draw_order_base(c, "acid")
+    c.polygon([(0.49, 0.31), (0.66, 0.46), (0.60, 0.67), (0.39, 0.70), (0.31, 0.51)], rgba("purple"), rgba("acid"))
+    c.line([(0.42, 0.38), (0.49, 0.53), (0.45, 0.66)], rgba("acid"), 0.011)
+    c.line([(0.55, 0.37), (0.50, 0.49), (0.61, 0.61)], rgba("green"), 0.008)
+    c.round_rect((0.33, 0.30, 0.68, 0.72), 0.03, (0, 0, 0, 0), rgba("brass_light", 160), 0.008)
+
+
+def draw_order_purification(c: Canvas) -> None:
+    draw_order_base(c, "green")
+    for x, color in [(0.38, "blue"), (0.50, "acid"), (0.62, "green")]:
+        c.round_rect((x - 0.045, 0.38, x + 0.045, 0.68), 0.025, rgba("metal"), rgba("brass_light"), 0.006)
+        c.round_rect((x - 0.032, 0.51, x + 0.032, 0.66), 0.018, rgba(color, 165), None)
+    c.round_rect((0.31, 0.67, 0.69, 0.74), 0.02, rgba("brass"), rgba("brass_light"), 0.006)
+
+
+def draw_order_hourglass(c: Canvas) -> None:
+    draw_order_base(c, "red")
+    c.line([(0.39, 0.34), (0.61, 0.34)], rgba("brass_light"), 0.014)
+    c.line([(0.39, 0.70), (0.61, 0.70)], rgba("brass_light"), 0.014)
+    c.line([(0.42, 0.36), (0.58, 0.68)], rgba("brass_light"), 0.009)
+    c.line([(0.58, 0.36), (0.42, 0.68)], rgba("brass_light"), 0.009)
+    c.polygon([(0.44, 0.39), (0.56, 0.39), (0.50, 0.51)], rgba("orange", 190), None)
+    c.polygon([(0.43, 0.66), (0.57, 0.66), (0.50, 0.55)], rgba("orange", 210), None)
+    c.polygon([(0.70, 0.27), (0.83, 0.50), (0.57, 0.50)], rgba("red"), rgba("brass_light"))
+
+
+def draw_order_black_market(c: Canvas) -> None:
+    draw_order_base(c, "red")
+    c.polygon([(0.31, 0.44), (0.50, 0.31), (0.69, 0.44), (0.64, 0.64), (0.50, 0.72), (0.36, 0.64)], rgba("metal"), rgba("brass_light"))
+    c.ellipse((0.39, 0.48, 0.47, 0.56), rgba("red", 165), None)
+    c.ellipse((0.53, 0.48, 0.61, 0.56), rgba("red", 165), None)
+    c.line([(0.30, 0.73), (0.70, 0.33)], rgba("red", 150), 0.012)
+
+
+def draw_order_key(c: Canvas) -> None:
+    draw_order_base(c, "red")
+    c.ellipse((0.33, 0.43, 0.51, 0.61), (0, 0, 0, 0), rgba("brass_light"), 0.014)
+    c.line([(0.48, 0.52), (0.73, 0.31)], rgba("brass_light"), 0.026)
+    c.line([(0.64, 0.38), (0.76, 0.50)], rgba("brass_light"), 0.01)
+    c.line([(0.69, 0.34), (0.80, 0.45)], rgba("brass_light"), 0.01)
+    c.polygon([(0.27, 0.66), (0.73, 0.66), (0.70, 0.74), (0.30, 0.74)], rgba("metal_light", 140), rgba("brass_dark"))
+
+
+def draw_order_bound(c: Canvas) -> None:
+    draw_order_base(c, "blue")
+    c.round_rect((0.34, 0.44, 0.66, 0.66), 0.025, rgba("brass"), rgba("brass_light"), 0.01)
+    c.arc((0.37, 0.31, 0.63, 0.57), 180, 360, rgba("blue"), 0.018)
+    c.round_rect((0.41, 0.54, 0.59, 0.70), 0.018, rgba("metal"), rgba("brass_light"), 0.008)
+
+
+def draw_order_mutex(c: Canvas) -> None:
+    draw_order_base(c, "purple")
+    c.ellipse((0.39, 0.38, 0.61, 0.60), rgba("purple"), rgba("brass_light"), 0.01)
+    c.glow((0.36, 0.35, 0.64, 0.64), rgba("purple", 80), 0.025)
+    c.line([(0.25, 0.69), (0.46, 0.53)], rgba("brass_light"), 0.018)
+    c.line([(0.75, 0.69), (0.54, 0.53)], rgba("brass_light"), 0.018)
+    c.polygon([(0.25, 0.69), (0.34, 0.70), (0.30, 0.78)], rgba("brass_light"), None)
+    c.polygon([(0.75, 0.69), (0.66, 0.70), (0.70, 0.78)], rgba("brass_light"), None)
+
+
 DRAWERS = {
     "chassis_bulwark_carrier_icon": draw_chassis_bulwark,
     "chassis_compact_raider_icon": draw_chassis_compact,
@@ -889,6 +1018,35 @@ DRAWERS = {
     "node_hazardnode_icon": draw_node_hazard,
     "node_reststopnode_icon": draw_node_rest,
     "node_treasurenode_icon": draw_node_treasure,
+    "order_alchemy_antitoxin_contract_icon": draw_order_purification,
+    "order_alchemy_market_forecast_icon": draw_order_map,
+    "order_alchemy_purification_batch_icon": draw_order_purification,
+    "order_alchemy_spore_sample_fast_icon": draw_order_hourglass,
+    "order_black_bound_core_betrayal_icon": draw_order_black_market,
+    "order_black_forbidden_relic_buyout_icon": draw_order_black_market,
+    "order_black_live_sample_no_questions_icon": draw_order_live_sample,
+    "order_black_smuggled_route_key_icon": draw_order_key,
+    "order_guild_layer1_map_rubbing_icon": draw_order_map,
+    "order_guild_layer2_route_report_icon": draw_order_map,
+    "order_guild_safezone_signal_icon": draw_order_safezone,
+    "order_mage_boss_core_research_icon": draw_order_mutex,
+    "order_mage_corroded_memory_stone_icon": draw_order_corroded_stone,
+    "order_mage_live_slime_sample_icon": draw_order_live_sample,
+    "order_mage_unidentified_relic_icon": draw_order_relic,
+    "order_status_boss_core_mutex_icon": draw_order_mutex,
+    "order_status_deadline_warning_icon": draw_order_hourglass,
+    "order_status_order_bound_icon": draw_order_bound,
+    "order_status_perishable_icon": draw_order_hourglass,
+    "order_type_black_market_betrayal_icon": draw_order_black_market,
+    "order_type_exploration_report_icon": draw_order_map,
+    "order_type_large_cargo_icon": draw_order_large_core,
+    "order_type_live_capture_icon": draw_order_live_sample,
+    "order_type_procurement_icon": draw_order_ore,
+    "order_type_target_item_icon": draw_order_relic,
+    "order_workshop_boss_core_claim_icon": draw_order_large_core,
+    "order_workshop_furnace_core_large_icon": draw_order_large_core,
+    "order_workshop_layer2_ore_batch_icon": draw_order_ore,
+    "order_workshop_scrap_guard_plate_icon": draw_order_plate,
     "prosthetic_anchor_left_arm_icon": draw_prosthetic_anchor_arm,
     "prosthetic_charge_coil_arm_icon": draw_prosthetic_charge_coil,
     "prosthetic_focus_lens_icon": draw_prosthetic_focus_lens,

@@ -19,6 +19,7 @@
 | `memento` | 8 |
 | `monster` | 8 |
 | `node` | 8 |
+| `order` | 29 |
 | `prosthetic` | 8 |
 | `rumor` | 8 |
 | `ui` | 83 |
@@ -45,11 +46,11 @@
 | `chassis` | `chassis_standard_frame` | 标准工坊底盘图标 | `icon` | `chassis_standard_frame_icon` | P2 | `approved` |
 | `doll` | `doll_proto_0` | 原型机·零 | `stand` | `doll_proto_0_stand` | P1 | `approved` |
 | `doll` | `doll_proto_0_test` | 原型机·零（测试） | `stand` | `doll_proto_0_test_stand` | P1 | `deprecated` |
-| `faction` | `faction_adventurer_guild` | 冒险者公会徽章 | `icon` | `faction_adventurer_guild_icon` | P2 | `todo` |
-| `faction` | `faction_alchemy_guild` | 炼金公会徽章 | `icon` | `faction_alchemy_guild_icon` | P2 | `todo` |
-| `faction` | `faction_black_market` | 黑市徽章 | `icon` | `faction_black_market_icon` | P2 | `todo` |
-| `faction` | `faction_mage_tower` | 法师塔徽章 | `icon` | `faction_mage_tower_icon` | P2 | `todo` |
-| `faction` | `faction_mechanic_workshop` | 机械工坊徽章 | `icon` | `faction_mechanic_workshop_icon` | P2 | `todo` |
+| `faction` | `faction_adventurer_guild` | 冒险者公会徽章 | `icon` | `faction_adventurer_guild_icon` | P2 | `approved` |
+| `faction` | `faction_alchemy_guild` | 炼金公会徽章 | `icon` | `faction_alchemy_guild_icon` | P2 | `approved` |
+| `faction` | `faction_black_market` | 黑市徽章 | `icon` | `faction_black_market_icon` | P2 | `approved` |
+| `faction` | `faction_mage_tower` | 法师塔徽章 | `icon` | `faction_mage_tower_icon` | P2 | `approved` |
+| `faction` | `faction_mechanic_workshop` | 机械工坊徽章 | `icon` | `faction_mechanic_workshop_icon` | P2 | `approved` |
 | `item` | `con_cheap_sedative` | 廉价镇静剂 | `icon` | `item_con_cheap_sedative_icon` | P0 | `approved` |
 | `item` | `con_repair_kit` | 便携修复剂 | `icon` | `item_con_repair_kit_icon` | P0 | `approved` |
 | `item` | `gear_chainsaw_sword` | 链锯大剑 | `icon` | `item_gear_chainsaw_sword_icon` | P0 | `approved` |
@@ -87,6 +88,35 @@
 | `node` | `SafeRoomNode` | 安全区节点 | `icon` | `node_safe_room_icon` | P0 | `approved` |
 | `node` | `StairsNode` | 阶梯节点 | `icon` | `node_stairs_icon` | P0 | `approved` |
 | `node` | `TreasureNode` | TreasureNode | `icon` | `node_treasurenode_icon` | P0 | `approved` |
+| `order` | `order_alchemy_antitoxin_contract` | 抗毒供应订单图标 | `icon` | `order_alchemy_antitoxin_contract_icon` | P2 | `todo` |
+| `order` | `order_alchemy_market_forecast` | 炼金市场预测订单图标 | `icon` | `order_alchemy_market_forecast_icon` | P2 | `todo` |
+| `order` | `order_alchemy_purification_batch` | 炼金净化批量订单图标 | `icon` | `order_alchemy_purification_batch_icon` | P2 | `todo` |
+| `order` | `order_alchemy_spore_sample_fast` | 限时孢子样本订单图标 | `icon` | `order_alchemy_spore_sample_fast_icon` | P2 | `todo` |
+| `order` | `order_black_bound_core_betrayal` | 黑市绑定核心背叛订单图标 | `icon` | `order_black_bound_core_betrayal_icon` | P2 | `todo` |
+| `order` | `order_black_forbidden_relic_buyout` | 黑市违禁遗物收购订单图标 | `icon` | `order_black_forbidden_relic_buyout_icon` | P2 | `todo` |
+| `order` | `order_black_live_sample_no_questions` | 黑市活体样本收购订单图标 | `icon` | `order_black_live_sample_no_questions_icon` | P2 | `todo` |
+| `order` | `order_black_smuggled_route_key` | 黑市走私路线钥匙订单图标 | `icon` | `order_black_smuggled_route_key_icon` | P2 | `todo` |
+| `order` | `order_guild_layer1_map_rubbing` | 第一层拓图报告订单图标 | `icon` | `order_guild_layer1_map_rubbing_icon` | P2 | `todo` |
+| `order` | `order_guild_layer2_route_report` | 第二层路线报告订单图标 | `icon` | `order_guild_layer2_route_report_icon` | P2 | `todo` |
+| `order` | `order_guild_safezone_signal` | 安全区信号订单图标 | `icon` | `order_guild_safezone_signal_icon` | P2 | `todo` |
+| `order` | `order_mage_boss_core_research` | 法师塔 Boss 核心研究订单图标 | `icon` | `order_mage_boss_core_research_icon` | P2 | `todo` |
+| `order` | `order_mage_corroded_memory_stone` | 腐蚀记忆石订单图标 | `icon` | `order_mage_corroded_memory_stone_icon` | P2 | `todo` |
+| `order` | `order_mage_live_slime_sample` | 活体史莱姆样本订单图标 | `icon` | `order_mage_live_slime_sample_icon` | P2 | `todo` |
+| `order` | `order_mage_unidentified_relic` | 未鉴定遗物订单图标 | `icon` | `order_mage_unidentified_relic_icon` | P2 | `todo` |
+| `order` | `order_status_boss_core_mutex` | 订单状态-Boss 核心互斥图标 | `icon` | `order_status_boss_core_mutex_icon` | P2 | `todo` |
+| `order` | `order_status_deadline_warning` | 订单状态-期限警告图标 | `icon` | `order_status_deadline_warning_icon` | P2 | `todo` |
+| `order` | `order_status_order_bound` | 订单状态-绑定物图标 | `icon` | `order_status_order_bound_icon` | P2 | `todo` |
+| `order` | `order_status_perishable` | 订单状态-易腐图标 | `icon` | `order_status_perishable_icon` | P2 | `todo` |
+| `order` | `order_type_black_market_betrayal` | 订单类型-黑市背叛图标 | `icon` | `order_type_black_market_betrayal_icon` | P2 | `todo` |
+| `order` | `order_type_exploration_report` | 订单类型-探索报告图标 | `icon` | `order_type_exploration_report_icon` | P2 | `todo` |
+| `order` | `order_type_large_cargo` | 订单类型-大型货物图标 | `icon` | `order_type_large_cargo_icon` | P2 | `todo` |
+| `order` | `order_type_live_capture` | 订单类型-活体捕获图标 | `icon` | `order_type_live_capture_icon` | P2 | `todo` |
+| `order` | `order_type_procurement` | 订单类型-采购图标 | `icon` | `order_type_procurement_icon` | P2 | `todo` |
+| `order` | `order_type_target_item` | 订单类型-指定物图标 | `icon` | `order_type_target_item_icon` | P2 | `todo` |
+| `order` | `order_workshop_boss_core_claim` | 工坊 Boss 核心索取订单图标 | `icon` | `order_workshop_boss_core_claim_icon` | P2 | `todo` |
+| `order` | `order_workshop_furnace_core_large` | 大型炉芯订单图标 | `icon` | `order_workshop_furnace_core_large_icon` | P2 | `todo` |
+| `order` | `order_workshop_layer2_ore_batch` | 第二层矿石批量订单图标 | `icon` | `order_workshop_layer2_ore_batch_icon` | P2 | `todo` |
+| `order` | `order_workshop_scrap_guard_plate` | 废料守卫装甲板订单图标 | `icon` | `order_workshop_scrap_guard_plate_icon` | P2 | `todo` |
 | `prosthetic` | `pros_cooling_system` | 稳压散热插件 | `icon` | `prosthetic_pros_cooling_system_icon` | P1 | `approved` |
 | `prosthetic` | `pros_power_arm` | 动力臂增幅插件 | `icon` | `prosthetic_pros_power_arm_icon` | P1 | `approved` |
 | `prosthetic` | `prosthetic_anchor_left_arm` | 锚定左臂图标 | `icon` | `prosthetic_anchor_left_arm_icon` | P2 | `approved` |
@@ -95,14 +125,14 @@
 | `prosthetic` | `prosthetic_mender_spine` | 修复脊索图标 | `icon` | `prosthetic_mender_spine_icon` | P2 | `approved` |
 | `prosthetic` | `prosthetic_salvage_fingertips` | 精密拾荒指图标 | `icon` | `prosthetic_salvage_fingertips_icon` | P2 | `approved` |
 | `prosthetic` | `prosthetic_san_regulator_core` | SAN稳态调节核图标 | `icon` | `prosthetic_san_regulator_core_icon` | P2 | `approved` |
-| `rumor` | `rumor_contraband_night_channel` | 黑市夜间窗口传闻图标 | `icon` | `rumor_contraband_night_channel_icon` | P2 | `todo` |
-| `rumor` | `rumor_corrosion_sample_premium` | 腐蚀样本溢价传闻图标 | `icon` | `rumor_corrosion_sample_premium_icon` | P2 | `todo` |
-| `rumor` | `rumor_faction_medical_request` | 医疗势力需求传闻图标 | `icon` | `rumor_faction_medical_request_icon` | P2 | `todo` |
-| `rumor` | `rumor_low_layer_bulk_buy` | 低层统购传闻图标 | `icon` | `rumor_low_layer_bulk_buy_icon` | P2 | `todo` |
-| `rumor` | `rumor_origin_stone_demand` | 源石需求传闻图标 | `icon` | `rumor_origin_stone_demand_icon` | P2 | `todo` |
-| `rumor` | `rumor_scrap_workshop_shortage` | 工坊废料短缺传闻图标 | `icon` | `rumor_scrap_workshop_shortage_icon` | P2 | `todo` |
-| `rumor` | `rumor_slime_crash` | 史莱姆跌价传闻图标 | `icon` | `rumor_slime_crash_icon` | P2 | `todo` |
-| `rumor` | `rumor_weapon_collector_visit` | 武器藏家到访传闻图标 | `icon` | `rumor_weapon_collector_visit_icon` | P2 | `todo` |
+| `rumor` | `rumor_contraband_night_channel` | 黑市夜间窗口传闻图标 | `icon` | `rumor_contraband_night_channel_icon` | P2 | `approved` |
+| `rumor` | `rumor_corrosion_sample_premium` | 腐蚀样本溢价传闻图标 | `icon` | `rumor_corrosion_sample_premium_icon` | P2 | `approved` |
+| `rumor` | `rumor_faction_medical_request` | 医疗势力需求传闻图标 | `icon` | `rumor_faction_medical_request_icon` | P2 | `approved` |
+| `rumor` | `rumor_low_layer_bulk_buy` | 低层统购传闻图标 | `icon` | `rumor_low_layer_bulk_buy_icon` | P2 | `approved` |
+| `rumor` | `rumor_origin_stone_demand` | 源石需求传闻图标 | `icon` | `rumor_origin_stone_demand_icon` | P2 | `approved` |
+| `rumor` | `rumor_scrap_workshop_shortage` | 工坊废料短缺传闻图标 | `icon` | `rumor_scrap_workshop_shortage_icon` | P2 | `approved` |
+| `rumor` | `rumor_slime_crash` | 史莱姆跌价传闻图标 | `icon` | `rumor_slime_crash_icon` | P2 | `approved` |
+| `rumor` | `rumor_weapon_collector_visit` | 武器藏家到访传闻图标 | `icon` | `rumor_weapon_collector_visit_icon` | P2 | `approved` |
 | `ui` | `missing_sprite` | 缺失占位图 | `icon` | `ui_missing_sprite` | P0 | `approved` |
 | `ui` | `button_primary` | 主按钮 | `button` | `ui_button_primary` | P1 | `approved` |
 | `ui` | `button_secondary` | 次按钮 | `button` | `ui_button_secondary` | P1 | `approved` |

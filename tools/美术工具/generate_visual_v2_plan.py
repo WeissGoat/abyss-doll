@@ -24,10 +24,11 @@ DEFAULT_BATCH_ID = "nai_visual_v2_20260525_01"
 
 DOMAIN_ORDER = {
     "ui": 0,
-    "item": 1,
-    "prosthetic": 2,
-    "monster": 3,
-    "background": 4,
+    "order": 1,
+    "item": 2,
+    "prosthetic": 3,
+    "monster": 4,
+    "background": 5,
 }
 PRIORITY_ORDER = {"P0": 0, "P1": 1, "P2": 2, "P3": 3}
 

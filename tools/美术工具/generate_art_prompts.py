@@ -182,6 +182,70 @@ FACTION_CN: Dict[str, str] = {
     "faction_mechanic_workshop": "机械工坊势力徽章，黄铜齿轮、交叉扳手与活塞，带暖琥珀工坊灯，轮廓清楚。",
 }
 
+ORDER_EN: Dict[str, str] = {
+    "order_alchemy_antitoxin_contract": "antitoxin supply contract emblem, brass medicine case, green filter vial, sealed supply clasp, clean readable silhouette",
+    "order_alchemy_market_forecast": "market forecast contract emblem, small brass chart frame, coin stack, green alchemy flask, clean readable silhouette",
+    "order_alchemy_purification_batch": "purification batch contract emblem, grouped glass vials in a brass rack, blue-green cleansing glow, clean readable silhouette",
+    "order_alchemy_spore_sample_fast": "urgent spore sample contract emblem, sealed spore vial, small hourglass, fragile green glow, clean readable silhouette",
+    "order_black_bound_core_betrayal": "secret-market betrayal contract emblem, dark brass mask, broken red wax seal, unique glowing core, clean readable silhouette",
+    "order_black_forbidden_relic_buyout": "forbidden relic buyout contract emblem, locked dark relic box, red risk seal, stacked brass coins, clean readable silhouette",
+    "order_black_live_sample_no_questions": "secret live-sample buyout emblem, dark capture jar, hidden mask mark, muted red trust token, clean readable silhouette",
+    "order_black_smuggled_route_key": "smuggled route key contract emblem, dark brass route key, hidden map notch, red warning spark, clean readable silhouette",
+    "order_guild_layer1_map_rubbing": "exploration report contract emblem, charcoal map rubbing sheet, brass compass pin, warm lantern spark, clean readable silhouette",
+    "order_guild_layer2_route_report": "route report contract emblem, folded cavern route map, three brass node pins, small blue path glow, clean readable silhouette",
+    "order_guild_safezone_signal": "safe-zone signal contract emblem, brass signal flare canister, shelter lamp, green beacon spark, clean readable silhouette",
+    "order_mage_boss_core_research": "rare core research contract emblem, blue-purple crystal core held by brass lens rings, clean readable silhouette",
+    "order_mage_corroded_memory_stone": "corroded memory stone contract emblem, purple-green cracked stone, brass research clamp, faint echo glow, clean readable silhouette",
+    "order_mage_live_slime_sample": "live slime sample contract emblem, glass capture jar with green slime inside, brass lid, blue research glow, clean readable silhouette",
+    "order_mage_unidentified_relic": "unidentified relic contract emblem, wrapped unknown relic, brass magnifying lens, blue-purple question glow without any text, clean readable silhouette",
+    "order_status_boss_core_mutex": "unique core exclusivity status emblem, one glowing core between two crossed brass claim hooks, clean readable silhouette",
+    "order_status_deadline_warning": "deadline warning status emblem, brass hourglass, red warning spark, small fading sand glow, clean readable silhouette",
+    "order_status_order_bound": "bound item status emblem, brass chain clasp around a sealed parcel, blue lock glow, clean readable silhouette",
+    "order_status_perishable": "perishable status emblem, fragile green vial, wilting leaf mark, small hourglass, clean readable silhouette",
+    "order_type_black_market_betrayal": "secret-market betrayal type emblem, dark brass mask, broken contract ribbon, muted red warning glow, clean readable silhouette",
+    "order_type_exploration_report": "exploration report type emblem, folded route paper, brass compass needle, lantern spark, clean readable silhouette",
+    "order_type_large_cargo": "large cargo type emblem, heavy brass crate with reinforced corners, 3-by-3 cargo silhouette blocks, clean readable silhouette",
+    "order_type_live_capture": "live capture type emblem, glass capture jar, small air valve, green living glow, clean readable silhouette",
+    "order_type_procurement": "procurement type emblem, supply crate, small checklist tags without text, brass coin token, clean readable silhouette",
+    "order_type_target_item": "target item type emblem, single marked relic under brass focus brackets, blue target glow, clean readable silhouette",
+    "order_workshop_boss_core_claim": "workshop core claim contract emblem, heavy glowing engine core, brass gear claws, amber worklight, clean readable silhouette",
+    "order_workshop_furnace_core_large": "large furnace core contract emblem, reinforced 3-by-3 brass cargo crate, hot orange engine core, clean readable silhouette",
+    "order_workshop_layer2_ore_batch": "ore batch contract emblem, three dark ore chunks in a brass tray, amber workshop stamp without text, clean readable silhouette",
+    "order_workshop_scrap_guard_plate": "scrap guard plate contract emblem, dented armor plate, gear teeth, repair sparks, clean readable silhouette",
+}
+
+ORDER_CN: Dict[str, str] = {
+    "order_alchemy_antitoxin_contract": "抗毒供应订单图标，黄铜药箱、绿色滤液瓶和封口供给扣，轮廓清楚。",
+    "order_alchemy_market_forecast": "市场预测订单图标，小型黄铜图表框、硬币堆和绿色炼金瓶，轮廓清楚。",
+    "order_alchemy_purification_batch": "净化批量订单图标，黄铜架上的成组玻璃瓶、蓝绿净化微光，轮廓清楚。",
+    "order_alchemy_spore_sample_fast": "限时孢子样本订单图标，密封孢子瓶、小沙漏和脆弱绿色微光，轮廓清楚。",
+    "order_black_bound_core_betrayal": "黑市核心背叛订单图标，暗黄铜面具、破裂红蜡封和发光唯一核心，轮廓清楚。",
+    "order_black_forbidden_relic_buyout": "违禁遗物收购订单图标，锁住的暗色遗物盒、红色风险封印和黄铜硬币堆，轮廓清楚。",
+    "order_black_live_sample_no_questions": "黑市活体样本收购订单图标，暗色捕获罐、隐藏面具标记和低饱和红色信任币，轮廓清楚。",
+    "order_black_smuggled_route_key": "走私路线钥匙订单图标，暗黄铜路线钥匙、隐藏地图刻痕和红色警示火花，轮廓清楚。",
+    "order_guild_layer1_map_rubbing": "第一层拓图报告订单图标，炭拓地图纸、黄铜罗盘针和暖色提灯火花，轮廓清楚。",
+    "order_guild_layer2_route_report": "第二层路线报告订单图标，折叠洞穴路线图、三个黄铜节点针和蓝色路径微光，轮廓清楚。",
+    "order_guild_safezone_signal": "安全区信号订单图标，黄铜信号筒、避难灯和绿色信标火花，轮廓清楚。",
+    "order_mage_boss_core_research": "稀有核心研究订单图标，蓝紫晶体核心被黄铜镜环固定，轮廓清楚。",
+    "order_mage_corroded_memory_stone": "腐蚀记忆石订单图标，紫绿色裂石、黄铜研究夹具和微弱回声光，轮廓清楚。",
+    "order_mage_live_slime_sample": "活体史莱姆样本订单图标，玻璃捕获罐中有绿色软泥、黄铜盖和蓝色研究光，轮廓清楚。",
+    "order_mage_unidentified_relic": "未鉴定遗物订单图标，包裹的未知遗物、黄铜放大镜和蓝紫疑问微光，不出现文字，轮廓清楚。",
+    "order_status_boss_core_mutex": "唯一核心互斥状态图标，一个发光核心位于两只交叉黄铜索取钩之间，轮廓清楚。",
+    "order_status_deadline_warning": "期限警告状态图标，黄铜沙漏、红色警示火花和正在流逝的微光沙，轮廓清楚。",
+    "order_status_order_bound": "订单绑定状态图标，黄铜链扣环绕封好的包裹，带蓝色锁定微光，轮廓清楚。",
+    "order_status_perishable": "易腐状态图标，脆弱绿色小瓶、枯叶标记和小沙漏，轮廓清楚。",
+    "order_type_black_market_betrayal": "黑市背叛类型图标，暗黄铜面具、断裂契约绳和低饱和红色警示光，轮廓清楚。",
+    "order_type_exploration_report": "探索报告类型图标，折叠路线纸、黄铜罗盘针和提灯火花，轮廓清楚。",
+    "order_type_large_cargo": "大型货物类型图标，加固重型黄铜货箱和 3x3 货物轮廓块，轮廓清楚。",
+    "order_type_live_capture": "活体捕获类型图标，玻璃捕获罐、小气阀和绿色生命微光，轮廓清楚。",
+    "order_type_procurement": "采购类型图标，补给箱、无文字小标签和黄铜硬币，轮廓清楚。",
+    "order_type_target_item": "指定目标物类型图标，单个遗物被黄铜定位框包围，带蓝色目标微光，轮廓清楚。",
+    "order_workshop_boss_core_claim": "工坊核心索取订单图标，沉重发光引擎核心、黄铜齿轮夹爪和琥珀工坊灯，轮廓清楚。",
+    "order_workshop_furnace_core_large": "大型炉芯订单图标，加固 3x3 黄铜货箱和炽热橙色引擎核心，轮廓清楚。",
+    "order_workshop_layer2_ore_batch": "第二层矿石批量订单图标，黄铜托盘中的三块暗色矿石和无文字琥珀工坊印记，轮廓清楚。",
+    "order_workshop_scrap_guard_plate": "废料守卫装甲板订单图标，凹陷护甲板、齿轮齿和维修火花，轮廓清楚。",
+}
+
 BACKGROUND_EN: Dict[str, str] = {
     "combat": "side-scrolling battle arena background, empty industrial floor across the foreground, broken pipes, abandoned metal platform, dark vertical cavern fog in the midground, wide negative space on left and right",
     "dungeon_map": "dark route-map background texture, low visual noise, cracked stone, old brass pipes, faint mine lamps, deep vertical cavern feeling, large negative space",
@@ -399,6 +463,7 @@ NEGATIVE = {
     "memento": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
     "rumor": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, paper with readable writing, multiple copies, photorealistic product shot",
     "faction": "text, letters, numbers, watermark, logo, signature, busy background, national flag, real-world heraldry, photorealistic medal, multiple copies",
+    "order": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, readable paperwork, multiple copies, photorealistic product shot, human hands",
     "doll": "text, letters, numbers, watermark, logo, signature, photorealistic human, sexy pose, exaggerated expression, cropped feet, cropped head, busy background",
     "background": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
     "ui": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
@@ -622,6 +687,20 @@ SPEC = {
         composition="centered faction crest emblem",
         post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
         preview_size=88,
+    ),
+    "order": make_spec(
+        width=512,
+        height=512,
+        background="transparent",
+        alpha_required=True,
+        display_width=72,
+        display_height=72,
+        safe_padding=10,
+        subject_min=0.70,
+        subject_max=0.86,
+        composition="centered contract or order emblem",
+        post_process=["resize", "trim_transparent_edges", "fit_safe_padding"],
+        preview_size=72,
     ),
     "doll": make_spec(
         width=1024,
@@ -1267,6 +1346,8 @@ def lookup(domain: str, config_id: str, english: bool) -> str:
         ("rumor", False): RUMOR_CN,
         ("faction", True): FACTION_EN,
         ("faction", False): FACTION_CN,
+        ("order", True): ORDER_EN,
+        ("order", False): ORDER_CN,
         ("background", True): BACKGROUND_EN,
         ("background", False): BACKGROUND_CN,
         ("ui", True): UI_EN,
@@ -1310,6 +1391,8 @@ def prompt_for(entry: Dict[str, Any]) -> tuple[str, str, str, Dict[str, Any]]:
         prompt_en = f"{STYLE_EN}, small market rumor emblem, {detail_en}, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers"
     elif domain == "faction":
         prompt_en = f"{STYLE_EN}, faction crest emblem, {detail_en}, centered heraldic badge, bold readable silhouette, transparent background, no text, no letters, no numbers"
+    elif domain == "order":
+        prompt_en = f"{STYLE_EN}, compact contract emblem, {detail_en}, centered single symbol, bold readable silhouette, transparent background, no text, no letters, no numbers"
     elif domain == "prosthetic":
         prompt_en = f"{STYLE_EN}, prosthetic machine module icon, {detail_en}, centered single object, clean silhouette, transparent background, no text"
     elif domain == "ui":

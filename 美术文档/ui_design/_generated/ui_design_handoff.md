@@ -1856,4 +1856,4 @@ Acceptance criteria:
 
 ## Known VisualID Sources
 
-* Known VisualID count: `158`
+* Known VisualID count: `187`
