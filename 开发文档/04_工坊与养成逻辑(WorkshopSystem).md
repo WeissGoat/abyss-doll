@@ -173,6 +173,10 @@ public class MaintenanceConfig {
 
 `TownEconomyService` 是 P4 小镇经济压力链的领域服务入口。它不依赖 UI，也不在 UI Controller 中散写经济规则；后续账单、典当和营业界面只读取服务产出的报告对象。
 
+`TownEconomyOverviewService` 是小镇经济 UI 的只读数据入口，用于汇总可出售物、各出售渠道估值、当前订单进度、有效传闻、势力摘要、月租压力和典当候选。它只读取玩家、配置、仓库和当前背包，不执行出售、订单交付、典当或扣款。
+
+`TownEconomyReadabilityTextService` 是占位 UI / 正式 UI 的文本适配层。它只消费 `TownEconomyOverviewReport`，输出日历、金币、月租压力、可出售物、订单、传闻、势力和典当候选的结构化文本快照。后续正式 UI 可以直接消费 `TownEconomyReadabilitySnapshot`，也可以在表现层替换为卡片、列表或图标展示。
+
 配置来源：
 
 *   `配置表(JSON)/Economy/*.json` 是小镇经济配置源。
@@ -205,6 +209,7 @@ public class EconomyConfig {
 *   缺口较大且存在可典当物时只返回 `PawnCandidates`，不自动典当；玩家或后续 UI 必须显式传入选中的典当物。
 *   典当折扣由 `PawnValueMultiplier` 控制；命中 `PawnProtectedTags`、绑定物、订单物、剧情物、情感锚点或主线关键物不进入典当候选。
 *   典当如果移除当前背包物品，会发布 `GameEventBus.PublishItemRemoved` 并重新计算背包效果。
+*   `TownEconomyOverviewService` 和 `TownEconomyReadabilityTextService` 只做读模型和文本适配，不修改玩家金钱、订单状态、物品归属、背包格子或势力声望。
 
 当前首批配置：
 
@@ -213,3 +218,5 @@ public class EconomyConfig {
 验证：
 
 *   `TownEconomyServiceSmokeTest.Run` 覆盖日结报告与日历推进、月租支付、轻度欠账、玩家选择典当补足月租、保护物不进入典当候选。
+*   `TownEconomyOverviewServiceSmokeTest.Run` 覆盖传闻影响最佳出售渠道、已接订单交付进度、月租压力、典当候选和势力摘要。
+*   `TownEconomyReadabilityTextServiceSmokeTest.Run` 覆盖出售 / 传闻文本、订单进度文本、月租压力 / 典当 / 势力文本和汇总计数。
