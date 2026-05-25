@@ -72,8 +72,9 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
             CreateIcon(icon.Name, header.transform, new Vector2(iconX + i * 78f, 25f), icon.VisualID);
         }
 
-        BuildContentPanels(card.transform, spec);
-        BuildRows(card.transform, spec);
+        WorkshopFormalV1PanelBinding binding = WorkshopFormalV1PanelBindingService.Build(spec.ScreenID, GameRoot.Core?.CurrentPlayer);
+        BuildContentPanels(card.transform, spec, binding);
+        BuildRows(card.transform, spec, binding);
         BuildButtons(card.transform, spec);
 
         CanvasGroup group = _rootPanel.GetComponent<CanvasGroup>();
@@ -87,17 +88,18 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
         _rootPanel.transform.SetAsLastSibling();
     }
 
-    private void BuildContentPanels(Transform card, PanelSpec spec) {
+    private void BuildContentPanels(Transform card, PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
         for (int i = 0; i < spec.InfoPanels.Length; i++) {
             NamedRect panel = spec.InfoPanels[i];
             Image image = CreateImage(panel.Name, card);
             ConfigureTopLeftRect(image.rectTransform, panel.X, panel.Y, panel.Width, panel.Height);
             string visualID = panel.UseMainPanel ? VisualAssetService.UIPanelMainID : VisualAssetService.UIPanelInfoID;
             VisualUIHelper.ApplySlicedSprite(image, visualID, Color.white, new Color(0.07f, 0.075f, 0.07f, 0.9f), false);
+            string panelText = WorkshopFormalV1PanelBindingService.ResolveText(binding.PanelTexts, panel.Name, panel.Label);
             CreateText(
                 $"{panel.Name}_Text",
                 image.transform,
-                panel.Label,
+                panelText,
                 new Vector2(18f, 14f),
                 new Vector2(Mathf.Max(120f, panel.Width - 36f), Mathf.Max(40f, panel.Height - 28f)),
                 22,
@@ -106,16 +108,17 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
         }
     }
 
-    private void BuildRows(Transform card, PanelSpec spec) {
+    private void BuildRows(Transform card, PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
         for (int i = 0; i < spec.Rows.Length; i++) {
             RowSpec row = spec.Rows[i];
             Image rowImage = CreateImage(row.Name, card);
             ConfigureTopLeftRect(rowImage.rectTransform, row.X, row.Y, row.Width, row.Height);
             VisualUIHelper.ApplySlicedSprite(rowImage, row.VisualID, Color.white, new Color(0.1f, 0.105f, 0.095f, 0.94f), false);
+            string rowText = WorkshopFormalV1PanelBindingService.ResolveText(binding.RowTexts, row.Name, row.Label);
             CreateText(
                 $"{row.Name}_Text",
                 rowImage.transform,
-                row.Label,
+                rowText,
                 new Vector2(16f, 8f),
                 new Vector2(Mathf.Max(100f, row.Width - 32f), Mathf.Max(30f, row.Height - 16f)),
                 20,
