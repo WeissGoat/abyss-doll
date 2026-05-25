@@ -340,7 +340,7 @@ UI_EN = {
     "combat_intent_attack": "attack warning emblem, sharp red claw slash over a small brass gear badge, angular impact shape, clean silhouette",
     "combat_intent_defend": "defensive warning emblem, compact brass shield plate with blue edge light and tiny rivets, clean silhouette",
     "combat_intent_buff": "empowerment emblem, upward brass arrow wrapped by warm golden energy coil, clean silhouette",
-    "combat_intent_debuff": "weakening emblem, downward broken brass arrow with cold purple haze, clean silhouette",
+    "combat_intent_debuff": "weakening status emblem, one single bold downward arrow icon, arrowhead pointing down at the bottom, vertical shaft above the arrowhead, cracked purple enamel fill with brass outline, small broken gear badge behind it, flat simple silhouette",
     "combat_intent_grid_lock": "sealed square tile emblem, crossed brass clamps over a dark grid cell, muted red lock glow, clean silhouette",
     "combat_intent_add_junk": "clutter warning emblem, cracked scrap chunk falling into a small metal tray, green toxic spark, clean silhouette",
     "combat_intent_move_item": "displacement warning emblem, four brass direction arrows around a small crate, clean silhouette",
@@ -431,7 +431,7 @@ UI_CN = {
     "combat_intent_attack": "攻击意图图标，红色爪痕斩击叠在小黄铜齿轮徽章上，轮廓尖锐清楚。",
     "combat_intent_defend": "防御意图图标，小型黄铜盾牌、蓝色边缘光和细铆钉，轮廓清楚。",
     "combat_intent_buff": "增益意图图标，向上黄铜箭头缠绕暖色能量线圈，轮廓清楚。",
-    "combat_intent_debuff": "弱化意图图标，断裂向下黄铜箭头和冷紫色雾气，轮廓清楚。",
+    "combat_intent_debuff": "弱化意图图标，单个粗大的向下箭头，箭头尖明确朝下且位于底部，上方有竖直箭杆，紫色开裂珐琅填充、黄铜描边，背后可有小型破损齿轮徽章。",
     "combat_intent_grid_lock": "封格意图图标，被交叉黄铜夹具封住的暗色方格，带低饱和红色锁定光。",
     "combat_intent_add_junk": "塞包意图图标，破裂废料块落入小金属托盘，带绿色污染火花。",
     "combat_intent_move_item": "移位意图图标，小箱子周围有四向黄铜箭头，轮廓清楚。",
@@ -1357,6 +1357,18 @@ FORBIDDEN_PATTERNS = [
     "站位",
 ]
 
+STALE_PROMPT_FRAGMENTS = [
+    "downward broken brass arrow with cold purple haze",
+    "cracked downward brass arrow combined with a purple falling triangle",
+]
+
+NEGATIVE_BY_CONFIG = {
+    "combat_intent_debuff": (
+        "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, "
+        "upward arrow, arrowhead pointing up, triangle only, purple triangle, diamond shape, rhombus, bottle, flask, torch, staff, wand, spear, flame, lantern"
+    ),
+}
+
 
 def lookup(domain: str, config_id: str, english: bool) -> str:
     maps = {
@@ -1454,7 +1466,7 @@ def prompt_for(entry: Dict[str, Any]) -> tuple[str, str, str, Dict[str, Any]]:
         spec = SPEC["chassis_icon"]
     else:
         spec = SPEC.get(domain, SPEC["item"])
-    negative = NEGATIVE.get(domain, NEGATIVE["item"])
+    negative = NEGATIVE_BY_CONFIG.get(config_id, NEGATIVE.get(domain, NEGATIVE["item"]))
     if is_monster_combat:
         negative = (
             "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, "
@@ -1496,6 +1508,7 @@ def should_fill(entry: Dict[str, Any], overwrite: bool) -> bool:
         or not entry.get("NegativePromptEN")
         or spec_is_legacy(entry.get("Spec"))
         or "single readable game asset" in prompt_en
+        or any(fragment in prompt_en for fragment in STALE_PROMPT_FRAGMENTS)
         or contains_forbidden_text(prompt_en)
         or contains_forbidden_text(str(entry.get("NegativePromptEN", "")))
     )
@@ -1558,12 +1571,16 @@ def main() -> int:
     violations = []
     for entry in manifest["Entries"]:
         if should_fill(entry, args.overwrite):
+            original_status = str(entry.get("Status", ""))
             prompt_cn, prompt_en, negative_en, spec = prompt_for(entry)
             entry["PromptCN"] = prompt_cn
             entry["PromptEN"] = prompt_en
             entry["NegativePromptEN"] = negative_en
             entry["Spec"] = spec
-            entry["Status"] = "prompted"
+            if original_status in {"", "todo"}:
+                entry["Status"] = "prompted"
+            else:
+                entry["Status"] = original_status
             changed += 1
         elif args.refresh_spec and entry.get("Status") != "deprecated":
             _, _, _, spec = prompt_for(entry)

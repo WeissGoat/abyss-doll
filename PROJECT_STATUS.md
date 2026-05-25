@@ -202,7 +202,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 策划侧已新增 `设计文档/config/gates/54_经济压力正式配置README字段口径检查.md`，完成 `ECON-README-CHECK` 策划证据：`Economy` / `Factions` / `Rumors` / `Orders` 四个 README 已能承接后续 JSON 实现字段口径，旧样例迁移 warning 已记录；该文档不修改 JSON，也不代表经济压力配置完成。
 - 策划侧已新增 `设计文档/config/gates/55_经济压力订单ID最终锁定表.md`，锁定经济压力首批 5 个正式 OrderPoolID 和 19 个正式 OrderID；旧 `order_pool_*` 只作为草案迁移别名，`order_mechanic_scrap_drive` 不进入正式订单池。该文档不修改 JSON，也不代表订单配置完成。
 - 策划侧已新增 `设计文档/config/gates/56_正式配置源落地准入门禁.md`，统一前三层、局外成长和经济压力进入配置源 JSON 实现前的设计准入、实现证据和状态回写口径；该文档不修改 JSON，也不代表任何配置源已完成。
-- 美术侧已完成 local_v0 质量层级规范化和 P0 新节点图标 NovelAI 链路验证：历史本地生成 Approved 已统一补标 `QualityTier=local_v0`，`node_eventnode_icon`、`node_hazardnode_icon`、`node_reststopnode_icon`、`node_treasurenode_icon` 已同步为 `formal_ai_v2`；latest 程序交接清单为 `program_integrate=0`，Visual V2 后续替换批次为 `nai_visual_v2_20260526_02`。
+- 美术侧已完成 local_v0 质量层级规范化、P0 新节点图标和 P1 核心战斗意图图标 NovelAI 正式替换：`node_eventnode_icon`、`node_hazardnode_icon`、`node_reststopnode_icon`、`node_treasurenode_icon`、`ui_combat_intent_attack`、`ui_combat_intent_defend`、`ui_combat_intent_buff`、`ui_combat_intent_debuff` 已同步为 `formal_ai_v2`；latest 程序交接清单为 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=0`，Visual V2 后续替换批次为 `nai_visual_v2_20260526_03`。
 
 ## 跨职能交接
 
@@ -212,7 +212,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 美术 / UI 的程序接入只以 `美术文档/ui_design/screen_layouts.json` 当前 active 规格为准；`versions/` baseline 和 candidate 不作为程序接入口。
 - Formal V1 UI 文档由美术侧先提出，用户确认后再更新 active 规格、生成素材并交给程序接入。
 - 美术侧每次生成或同步 Approved 素材后会刷新 `美术文档/_generated/可接入素材清单.md/json`；程序侧接入新素材前优先查看其中 `program_integrate` 条目。
-- 当前 latest `program_integrate=0`，程序侧无需重复登记旧素材；下一步按 `美术文档/_generated/程序接入交接清单.md` 补 6 个截图点并重跑 15 个 Formal V1 截图验收。local_v0 只用于结构接入和截图验收，不作为最终视觉质量。美术侧后续按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_visual_v2_20260526_02` 串行同名替换 128 项正式 AI 版。
+- 当前 latest `program_integrate=0`、`add_capture=0`、`rerun_acceptance=0`，程序侧无需重复登记旧素材或补截图点；latest Formal V1 验收队列显示 21 个 active 界面均已 captured，下一步由美术侧逐屏验收截图质量。local_v0 只用于结构接入和截图验收，不作为最终视觉质量。美术侧后续按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_visual_v2_20260526_03` 串行同名替换 124 项正式 AI 版。
 - `program_integrate` 17 个 Approved VisualID 曾完成 UI 程序接入记录；按当前正式版本完成口径，该记录只作为历史接入事实，不计为 P5 表现支撑正式版本完成。美术侧如继续推进，应基于 ArtAcceptance 截图验收后回写 `agent_status/art.md`，如影响长期节点门禁再通知 PM 更新 `09`。
 - 任意智能体修改系统规则时，必须更新对应 GDD 或开发文档，不能只改代码或配置。
 - 任意智能体新增或调整文档关联时，必须维护 `related` 双向互链，并运行 `.\tools\docs\Validate-Docs.ps1`。
@@ -233,7 +233,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 1. 增加配置校验工具，检查 `配置表(JSON)` 的 ID、必填字段和交叉引用。
 2. 为知识库索引增加可选的职能 / 领域 / 关联深度过滤入口，方便复制智能体按任务快速定位文档。
-3. 美术侧基于 ArtAcceptance `20260524_212423` 截图验收 `combat_hud`、`maintenance_panel`、`daily_bill_report`、`shop_staging`、`order_board`、`rumor_board` 的 Formal V1 运行时效果，如需微调再交回 UI 程序侧。
+3. 美术侧基于 ArtAcceptance `20260526_005605` 对 21 个 active Formal V1 界面逐屏验收运行时效果；同时继续按 `nai_visual_v2_20260526_03` 串行替换剩余 124 个 local_v0 资源。
 4. 策划 / 配置侧继续推进 `26` 时，优先按 `agent_status/design.md` 和对应设计文档确认工作项状态；若进入配置源 JSON，实现前先按 `56_正式配置源落地准入门禁.md` 检查设计准入，再补配置同步证据、Validator 需求和固定验收样例。经济压力 `ECON-ID-LOCK` 已有 `53` 证据，`ECON-README-CHECK` 已有 `54` 证据，订单最终 ID 已由 `55` 锁定；进入配置实现则从 `ECON-CORE-JSON` 开始。程序 Validator 实现、Unity 测试或 UI 表现必须分别回写程序 / 美术状态页。
 5. 程序侧按新的功能优先级推进：P0 自动验收底座和 P1 背包 / 物品生命周期只做验收补强或缺口修复；下一步正式开发应从 `agent_status/program.md` 中确认 P1 战斗 / 怪物意图、P2 深渊地图、P3 局外成长、P4 经济压力的真实缺口后拆任务。
 

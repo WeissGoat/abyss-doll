@@ -6840,16 +6840,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_attack.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_attack/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_attack/processed/20260526_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_attack.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_attack.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_attack.png; formal AI replacement remains required.\n[2026-05-26T02:00:54+08:00] generated candidate batch nai_visual_v2_p1_intents_core_20260526_01; preserved Status=approved.\n[2026-05-26T02:11:37+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_attack/contact_sheet/ui_combat_intent_attack_contact_sheet.png\n[2026-05-26T02:12:32+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_attack/processed/20260526_001.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "怪物攻击意图，伤害数字由 Unity Text 叠加",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-05-26T02:12:32+08:00",
+      "ReplacementBatchID": "nai_visual_v2_p1_intents_core_20260526_01"
     },
     {
       "Domain": "ui",
@@ -6900,16 +6901,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_buff.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_buff/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_buff/processed/20260526_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_buff.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_buff.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_buff.png; formal AI replacement remains required.\n[2026-05-26T02:00:54+08:00] generated candidate batch nai_visual_v2_p1_intents_core_20260526_01; preserved Status=approved.\n[2026-05-26T02:11:37+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_buff/contact_sheet/ui_combat_intent_buff_contact_sheet.png\n[2026-05-26T02:12:32+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_buff/processed/20260526_001.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "怪物增强自身或同伴的意图",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-05-26T02:12:32+08:00",
+      "ReplacementBatchID": "nai_visual_v2_p1_intents_core_20260526_01"
     },
     {
       "Domain": "ui",
@@ -6984,9 +6986,9 @@
       "Priority": "P1",
       "Status": "approved",
       "SourceFactsCN": "预置 UI 图标：正式战斗需要展示怪物弱化意图，配置表无法稳定扫描。",
-      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。弱化意图图标，断裂向下黄铜箭头和冷紫色雾气，轮廓清楚。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, weakening emblem, downward broken brass arrow with cold purple haze, clean silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。弱化意图图标，单个粗大的向下箭头，箭头尖明确朝下且位于底部，上方有竖直箭杆，紫色开裂珐琅填充、黄铜描边，背后可有小型破损齿轮徽章。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, weakening status emblem, one single bold downward arrow icon, arrowhead pointing down at the bottom, vertical shaft above the arrowhead, cracked purple enamel fill with brass outline, small broken gear badge behind it, flat simple silhouette, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, upward arrow, arrowhead pointing up, triangle only, purple triangle, diamond shape, rhombus, bottle, flask, torch, staff, wand, spear, flame, lantern",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -7020,16 +7022,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_debuff.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_debuff/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_debuff/processed/20260526_007.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_debuff.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_debuff.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_debuff.png; formal AI replacement remains required.\n[2026-05-26T02:00:54+08:00] generated candidate batch nai_visual_v2_p1_intents_core_20260526_01; preserved Status=approved.\n[2026-05-26T02:11:37+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_debuff/contact_sheet/ui_combat_intent_debuff_contact_sheet.png\n[2026-05-26T02:15:05+08:00] generated candidate batch nai_visual_v2_p1_intent_debuff_retry_20260526_01; preserved Status=approved.\n[2026-05-26T02:20:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_debuff/contact_sheet/ui_combat_intent_debuff_contact_sheet.png\n[2026-05-26T02:22:47+08:00] generated candidate batch nai_visual_v2_p1_intent_debuff_retry2_20260526_01; preserved Status=approved.\n[2026-05-26T02:27:40+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_debuff/contact_sheet/ui_combat_intent_debuff_contact_sheet.png\n[2026-05-26T02:28:02+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_debuff/processed/20260526_007.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "怪物降低玩家输出、防御或 AP 的意图",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-05-26T02:28:02+08:00",
+      "ReplacementBatchID": "nai_visual_v2_p1_intent_debuff_retry2_20260526_01"
     },
     {
       "Domain": "ui",
@@ -7080,16 +7083,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_defend.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_defend/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_defend/processed/20260526_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_defend.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_defend.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_defend.png; formal AI replacement remains required.\n[2026-05-26T02:00:54+08:00] generated candidate batch nai_visual_v2_p1_intents_core_20260526_01; preserved Status=approved.\n[2026-05-26T02:11:37+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_defend/contact_sheet/ui_combat_intent_defend_contact_sheet.png\n[2026-05-26T02:12:32+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_defend/processed/20260526_001.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "怪物防御或加护盾意图，数值由 Unity Text 叠加",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-05-26T02:12:32+08:00",
+      "ReplacementBatchID": "nai_visual_v2_p1_intents_core_20260526_01"
     },
     {
       "Domain": "ui",
