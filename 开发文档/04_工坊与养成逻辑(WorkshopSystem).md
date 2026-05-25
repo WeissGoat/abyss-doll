@@ -169,7 +169,27 @@ public class MaintenanceConfig {
 *   `GrowthFeedbackServiceSmokeTest.Run` 覆盖制造缺口、维护解除下潜阻断和可下潜建议。
 *   `GrowthReadabilityTextServiceSmokeTest.Run` 覆盖可下潜文本、维护阻断文本、制造缺口文本和汇总计数。
 
-## 10. 小镇经济压力链服务
+## 10. 人偶核心状态只读快照与占位文本
+
+`DollCoreStateReadabilityService` 是人偶核心状态 UI 的只读数据入口，用于把当前出战人偶的 HP、SAN、SAN 阈值、推导情绪、维护风险、Bond 阶段、底盘、属性、特质和已装备义体整理成 UI 可直接展示的结构化快照。
+
+输出结构：
+
+*   `DollCoreStateReadabilitySnapshot`：包含基础数值、百分比、文本行、警告行、义体行和 `CombinedText`。
+*   `DollCoreEmotionState`：当前第一版按 SAN 阈值和 Bond 等级推导 `Energetic`、`Calm`、`Tired`、`Depressed`、`Panic`、`Broken`。
+*   `DollCoreProstheticLine`：把已装备义体 ID 映射为名称、槽位、等级和配置存在性，供占位 UI 或正式 UI 列表展示。
+
+边界：
+
+*   该服务只读取 `PlayerProfile.ActiveDoll` / `DollEntity` 和必要配置，不修改 HP、SAN、Bond、义体、特质、背包或维护状态。
+*   维护风险只做展示和警告汇总，真正能否下潜仍由 `DiveReadinessService` 判定，真正恢复状态仍由 `MaintenanceService` 执行。
+*   UI 不应直接从 `DollEntity` 拼接核心状态文案；后续工坊主页、人偶房间、层级选择和战败复盘应优先消费该快照。
+
+验证：
+
+*   `DollCoreStateReadabilityServiceSmokeTest.Run` 覆盖默认状态、SAN 阈值、维护风险、Bond 阶段、义体 / 特质列表和缺失人偶失败快照。
+
+## 11. 小镇经济压力链服务
 
 `TownEconomyService` 是 P4 小镇经济压力链的领域服务入口。它不依赖 UI，也不在 UI Controller 中散写经济规则；后续账单、典当和营业界面只读取服务产出的报告对象。
 
