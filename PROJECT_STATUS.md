@@ -65,7 +65,7 @@ related:
   - 知识库/views/design.md
   - 知识库/views/program.md
   - tools/agent/README.md
-last_verified: 2026-05-25
+last_verified: 2026-05-26
 update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。
 ---
 
@@ -75,7 +75,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 ## 最后更新
 
-2026-05-25
+2026-05-26
 
 ## 当前阶段
 
@@ -201,7 +201,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 策划侧已新增 `设计文档/54_经济压力正式配置README字段口径检查.md`，完成 `ECON-README-CHECK` 策划证据：`Economy` / `Factions` / `Rumors` / `Orders` 四个 README 已能承接后续 JSON 实现字段口径，旧样例迁移 warning 已记录；该文档不修改 JSON，也不代表经济压力配置完成。
 - 策划侧已新增 `设计文档/55_经济压力订单ID最终锁定表.md`，锁定经济压力首批 5 个正式 OrderPoolID 和 19 个正式 OrderID；旧 `order_pool_*` 只作为草案迁移别名，`order_mechanic_scrap_drive` 不进入正式订单池。该文档不修改 JSON，也不代表订单配置完成。
 - 策划侧已新增 `设计文档/56_正式配置源落地准入门禁.md`，统一前三层、局外成长和经济压力进入配置源 JSON 实现前的设计准入、实现证据和状态回写口径；该文档不修改 JSON，也不代表任何配置源已完成。
-- 美术侧已按 `48` / `49` / `50` 前置补齐 P4 经济压力 8 个传闻图标、5 个势力徽章和 29 个订单图标的 seed、Prompt / Spec、local_v0 Approved PNG 和 `.meta`；latest 程序交接清单为 `program_integrate=104`，正式 AI 版进入 `nai_visual_v2_20260525_10`。
+- 美术侧已完成 local_v0 质量层级规范化和 NovelAI 单图链路验证：历史本地生成 Approved 已统一补标 `QualityTier=local_v0`，`node_eventnode_icon` 已同步为首个 `formal_ai_v2`；latest 程序交接清单为 `program_integrate=109`，Visual V2 后续替换批次为 `nai_visual_v2_20260526_01`。
 
 ## 跨职能交接
 
@@ -211,7 +211,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 美术 / UI 的程序接入只以 `美术文档/ui_design/screen_layouts.json` 当前 active 规格为准；`versions/` baseline 和 candidate 不作为程序接入口。
 - Formal V1 UI 文档由美术侧先提出，用户确认后再更新 active 规格、生成素材并交给程序接入。
 - 美术侧每次生成或同步 Approved 素材后会刷新 `美术文档/_generated/可接入素材清单.md/json`；程序侧接入新素材前优先查看其中 `program_integrate` 条目。
-- 当前 latest `program_integrate=104`，其中包含 P4 经济压力 8 个传闻图标、5 个势力徽章和 29 个订单图标；程序侧可按 `美术文档/_generated/程序接入交接清单.md` 登记，local_v0 只用于结构接入和截图验收，后续由美术侧同名替换正式 AI 版。
+- 当前 latest `program_integrate=109`，程序侧可按 `美术文档/_generated/程序接入交接清单.md` 登记；其中 local_v0 只用于结构接入和截图验收，不作为最终视觉质量。美术侧后续按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_visual_v2_20260526_01` 串行同名替换为正式 AI 版。
 - `program_integrate` 17 个 Approved VisualID 曾完成 UI 程序接入记录；按当前正式版本完成口径，该记录只作为历史接入事实，不计为 P5 表现支撑正式版本完成。美术侧如继续推进，应基于 ArtAcceptance 截图验收后回写 `agent_status/art.md`，如影响长期节点门禁再通知 PM 更新 `09`。
 - 任意智能体修改系统规则时，必须更新对应 GDD 或开发文档，不能只改代码或配置。
 - 任意智能体新增或调整文档关联时，必须维护 `related` 双向互链，并运行 `.\tools\docs\Validate-Docs.ps1`。

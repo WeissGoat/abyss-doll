@@ -14,7 +14,7 @@ related:
   - 美术文档/00_美术流水线总览.md
   - 美术文档/README.md
   - 美术文档/04_美术风格基准.md
-last_verified: 2026-05-25
+last_verified: 2026-05-26
 update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
 ---
 
@@ -271,6 +271,35 @@ Visual V2 同名替换使用 `-CandidateBatchID` 和 `-QualityTier formal_ai_v2`
 * `technical_fix`：当前 Approved 文件有技术风险，例如不透明规格却含透明像素；优先于视觉精修处理。
 * `visual_v2_replace`：当前图可用于程序接入和验收，但只是 local_v0 / placeholder，后续用同名 VisualID 替换正式版。
 * `spec_review`：素材尺寸与 Manifest SourceSpec 不一致，需要确认是素材错误还是规格要调整。
+
+## Normalize-ArtQualityTier.ps1
+
+把早期本地生成但没有显式 `QualityTier` 的历史 Approved 素材规范化为 `QualityTier=local_v0`。该脚本只处理带有本地生成证据的 Manifest 条目，不会把 `formal_ai_v2`、`final` 或 `production` 降级。
+
+输出：
+
+* `美术文档/_generated/local_v0_quality_normalization.json`
+* `美术文档/_generated/local_v0_quality_normalization.md`
+
+使用 `-Snapshot` 时额外输出到：
+
+* `美术文档/_generated/art_quality_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.json`
+* `美术文档/_generated/art_quality_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.md`
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Normalize-ArtQualityTier.ps1 -DryRun -Snapshot -SnapshotTag dry_run
+.\tools\美术工具\Normalize-ArtQualityTier.ps1 -Snapshot -SnapshotTag local_v0_quality_normalized
+.\tools\美术工具\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag local_v0_quality_normalized
+.\tools\美术工具\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag local_v0_quality_normalized -BatchID nai_visual_v2_20260526_01
+```
+
+判定规则：
+
+* `QualityTier=local_v0/placeholder/temporary/fallback` 保持不变。
+* `BatchID`、`Notes`、`SelectedPath` 或 `ApprovedPath` 中含 `local_v0`、`generated locally` 或 `approved directly in Approved`，且当前没有正式质量层级时，补写 `QualityTier=local_v0`。
+* `QualityTier=formal_ai_v2/final/production` 永不降级。
 
 Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec 或程序绑定。
 

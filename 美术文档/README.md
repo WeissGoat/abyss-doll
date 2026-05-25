@@ -18,14 +18,14 @@ related:
   - agent_status/art.md
   - tools/美术工具/README.md
   - 知识库/views/art.md
-last_verified: 2026-05-25
+last_verified: 2026-05-26
 update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。
 ---
 
 # 美术文档索引
 
 > **定位：** Project P3 美术 / UI 文档入口。本文件只负责导航和职责边界，不承载详细规格。
-> **更新时间：** 2026-05-25
+> **更新时间：** 2026-05-26
 
 ## 先看哪里
 
@@ -133,7 +133,7 @@ design / config / ui active
 
 ## 当前状态
 
-截至 2026-05-25：
+截至 2026-05-26：
 
 * active Formal V1 UI 已覆盖 21 个界面，详见 [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md)。
 * 当前没有剩余 draft UI 队列；后续新增界面仍先写 `formal_v1/*.md` 草案，确认后再进入 active `screen_layouts.json`。
@@ -141,9 +141,9 @@ design / config / ui active
 * 最新可接入素材清单显示 `program_integrate=109`，程序侧可按清单登记和接入。
 * 最新程序接入交接清单显示 `program_integrate=109`、`Screens needing ArtAcceptance capture coverage=6`、`Screens needing ArtAcceptance rerun=15`，程序侧优先按该清单接入。
 * 最新缺图生成计划显示 `generate_needed=0`；当前没有阻塞程序接入的新缺图项。
-* 最新素材质量替换清单显示 `technical_fix=0`、`visual_v2_replace=117`；这些 local_v0 素材不阻塞程序接入，但要在 Visual V2 批次同名替换。
-* Formal V1 验收队列已生成：21 个 active 界面纳入队列，15 个有 latest 旧截图可粗看，9 个仍需程序登记 VisualID 或补截图后重跑 ArtAcceptance。
-* NovelAI 当前存在 Anlas 余额不足风险，local_v0 素材只用于先解锁程序接入和验收，后续需要替换为正式版。
+* 最新素材质量替换清单显示 `technical_fix=0`、`visual_v2_replace=131`；历史本地生成图已统一补标 `QualityTier=local_v0`，这些素材不阻塞程序接入，但要在 Visual V2 批次同名替换。
+* Formal V1 验收队列已生成：21 个 active 界面纳入队列，15 个有 latest 旧截图可粗看，10 个仍需程序登记 VisualID 或补截图后重跑 ArtAcceptance。
+* NovelAI token 链路已通过 `node_eventnode_icon` 单图验证；该图已同步为 `formal_ai_v2`，后续按 Visual V2 队列继续串行替换。
 
 ## 机器生成文件
 
@@ -159,6 +159,7 @@ design / config / ui active
 * [_generated/缺图生成计划.md](_generated/缺图生成计划.md)：当前 `generate_needed` 缺图队列的可执行跑图计划。
 * [_generated/art_generation_plan_snapshots/](_generated/art_generation_plan_snapshots/)：缺图跑图计划历史快照。
 * [_generated/素材质量替换清单.md](_generated/素材质量替换清单.md)：当前质量替换 latest，区分技术修复和 Visual V2 同名替换。
+* [_generated/local_v0_quality_normalization.md](_generated/local_v0_quality_normalization.md)：历史本地生成素材的 `QualityTier=local_v0` 规范化记录。
 * [_generated/art_quality_snapshots/](_generated/art_quality_snapshots/)：素材质量替换清单历史快照。
 * [ui_design/_generated/ui_design_handoff.md](ui_design/_generated/ui_design_handoff.md)：UI 设计校验后生成的程序交付摘要。
 * [ui_design/_generated/FormalV1验收队列.md](ui_design/_generated/FormalV1验收队列.md)：21 个 active Formal V1 界面的运行时美术验收队列。
@@ -174,6 +175,7 @@ design / config / ui active
 .\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag manual_review
 .\tools\美术工具\Generate-ArtBatchPlan.ps1 -Snapshot -SnapshotTag manual_review
 .\tools\美术工具\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag manual_review
+.\tools\美术工具\Normalize-ArtQualityTier.ps1 -DryRun -Snapshot -SnapshotTag manual_review
 .\tools\美术工具\Generate-FormalV1AcceptanceQueue.ps1 -Snapshot -SnapshotTag manual_review
 .\tools\美术工具\Generate-ArtProgramHandoff.ps1 -Snapshot -SnapshotTag manual_review
 ```

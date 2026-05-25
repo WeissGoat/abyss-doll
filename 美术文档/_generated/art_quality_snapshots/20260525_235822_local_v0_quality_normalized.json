@@ -1,33 +1,69 @@
 {
-  "GeneratedAt": "2026-05-26T00:01:33+08:00",
-  "SnapshotTag": "nai_probe_node_eventnode_formal_ai_v2",
+  "GeneratedAt": "2026-05-25T23:58:22+08:00",
+  "SnapshotTag": "local_v0_quality_normalized",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json"
   },
   "Summary": {
     "TotalManifestEntries": 193,
-    "TotalBacklogItems": 131,
+    "TotalBacklogItems": 132,
     "ActionCounts": {
-      "visual_v2_replace": 131
+      "visual_v2_replace": 132
     },
     "DomainCounts": {
       "background": 6,
       "chassis": 3,
       "faction": 5,
       "memento": 8,
-      "node": 3,
+      "node": 4,
       "order": 29,
       "prosthetic": 6,
       "rumor": 8,
       "ui": 63
     },
     "PriorityCounts": {
-      "P0": 3,
+      "P0": 4,
       "P1": 31,
       "P2": 97
     }
   },
   "Items": [
+    {
+      "VisualID": "node_eventnode_icon",
+      "Action": "visual_v2_replace",
+      "Priority": "P0",
+      "Domain": "node",
+      "AssetType": "icon",
+      "ConfigID": "EventNode",
+      "DisplayName": "EventNode",
+      "Status": "approved",
+      "CurrentQuality": "local_v0",
+      "TargetQuality": "formal_ai_v2",
+      "ProgramCanUseCurrent": true,
+      "ReplaceWithoutProgramChange": true,
+      "PromptReady": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png",
+      "ApprovedFileExists": true,
+      "ExpectedSize": "512x512",
+      "ActualSize": "512x512",
+      "SourceBackground": "transparent",
+      "AlphaRequired": true,
+      "ImageAlpha": {
+        "HasAlpha": true,
+        "TransparentPixelCount": 117827,
+        "SemiTransparentPixelCount": 133142,
+        "AlphaMin": 0,
+        "AlphaMax": 255
+      },
+      "DisplaySize": "80x80",
+      "Reason": "Manifest 标记为 local_v0 / placeholder，可用于接入但不是正式视觉质量。",
+      "BatchID": "local_v0_missing_assets_20260525_01",
+      "CandidateBatchID": "",
+      "ReplacementBatchID": "",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png; formal AI replacement remains required."
+    },
     {
       "VisualID": "node_hazardnode_icon",
       "Action": "visual_v2_replace",

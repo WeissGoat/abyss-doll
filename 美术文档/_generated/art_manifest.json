@@ -292,10 +292,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_safe_room.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_safe_room.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "screen_background",
       "Screen": "safe_room",
-      "Usage": "安全屋/休整节点界面背景或插图"
+      "Usage": "安全屋/休整节点界面背景或插图",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "background",
@@ -350,10 +352,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_stairs_room.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_stairs_room.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "screen_background",
       "Screen": "stairs_room",
-      "Usage": "进入下一层/撤离选择界面背景或插图"
+      "Usage": "进入下一层/撤离选择界面背景或插图",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "background",
@@ -466,10 +470,12 @@
       "SelectedPath": "",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/DollRoom/bg_doll_room_attic.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T00:00:00+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Backgrounds/DollRoom/bg_doll_room_attic.png",
+      "Notes": "[2026-05-25T00:00:00+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Backgrounds/DollRoom/bg_doll_room_attic.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "screen_background",
       "Screen": "doll_room",
-      "Usage": "人偶房间/视觉日记界面背景"
+      "Usage": "人偶房间/视觉日记界面背景",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "background",
@@ -524,10 +530,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_layer_select.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_layer_select.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "screen_background",
       "Screen": "layer_select",
-      "Usage": "出发层选择界面背景或插图"
+      "Usage": "出发层选择界面背景或插图",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "background",
@@ -582,10 +590,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_defeat.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_defeat.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "screen_background",
       "Screen": "settlement",
-      "Usage": "战败结算界面背景或插图"
+      "Usage": "战败结算界面背景或插图",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "background",
@@ -640,10 +650,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_victory.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_victory.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "screen_background",
       "Screen": "settlement",
-      "Usage": "撤离成功结算界面背景或插图"
+      "Usage": "撤离成功结算界面背景或插图",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "chassis",
@@ -3139,13 +3151,14 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/node_eventnode_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/node_eventnode_icon/processed/20260525_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png; formal AI replacement remains required.",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png; formal AI replacement remains required.\n[2026-05-25T23:59:44+08:00] generated candidate batch nai_visual_v2_probe_20260525_02; preserved Status=approved.\n[2026-05-26T00:00:19+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/node_eventnode_icon/contact_sheet/node_eventnode_icon_contact_sheet.png\n[2026-05-26T00:01:12+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/node_eventnode_icon/processed/20260525_001.png",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-05-26T00:01:12+08:00",
+      "ReplacementBatchID": "nai_visual_v2_probe_20260525_02"
     },
     {
       "Domain": "node",
@@ -8865,10 +8878,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_panel_main.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_panel_main.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_skin",
       "Screen": "global",
-      "Usage": "出售、义体、层选择、结算等大弹窗"
+      "Usage": "出售、义体、层选择、结算等大弹窗",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -9357,10 +9372,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_node_plate.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_node_plate.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_dungeon_map",
       "Screen": "dungeon_map",
-      "Usage": "深渊地图节点图标下方底板"
+      "Usage": "深渊地图节点图标下方底板",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -9414,10 +9431,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_route_line.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_route_line.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_dungeon_map",
       "Screen": "dungeon_map",
-      "Usage": "深渊地图节点之间的路线连接"
+      "Usage": "深渊地图节点之间的路线连接",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -9471,10 +9490,12 @@
       "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_black_market/selected/20260524_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_black_market.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_black_market/selected/20260524_001.png",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_black_market/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_a4_icon",
       "Screen": "shop_staging",
-      "Usage": "黑市、高风险收益、违禁品和背叛渠道"
+      "Usage": "黑市、高风险收益、违禁品和背叛渠道",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -9764,10 +9785,12 @@
       "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_deadline/selected/20260524_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_deadline.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_deadline/selected/20260524_001.png",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_deadline/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_a4_icon",
       "Screen": "order_board",
-      "Usage": "订单截止日、剩余天数和时间压力"
+      "Usage": "订单截止日、剩余天数和时间压力",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -9821,10 +9844,12 @@
       "SelectedPath": "",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T00:00:00+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png\n[2026-05-25T01:21:05+08:00] generation failed: no images returned",
+      "Notes": "[2026-05-25T00:00:00+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png\n[2026-05-25T01:21:05+08:00] generation failed: no images returned\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_doll_room",
       "Screen": "doll_room",
-      "Usage": "日记本、房间记忆和记录入口"
+      "Usage": "日记本、房间记忆和记录入口",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -9878,10 +9903,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_equipped.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_equipped.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_skin",
       "Screen": "prosthetic_panel",
-      "Usage": "义体制造列表已装备状态"
+      "Usage": "义体制造列表已装备状态",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -9935,10 +9962,12 @@
       "SelectedPath": "",
       "ApprovedPath": "",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "scenario_event",
-      "Usage": "剧本事件、系统弹窗、AVG 事件和事件来源"
+      "Usage": "剧本事件、系统弹窗、AVG 事件和事件来源",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -9992,10 +10021,12 @@
       "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_faction/selected/20260524_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_faction.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_faction/selected/20260524_001.png",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_faction/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_a4_icon",
       "Screen": "order_board",
-      "Usage": "势力来源、声望变化和委托方"
+      "Usage": "势力来源、声望变化和委托方",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -10049,10 +10080,12 @@
       "SelectedPath": "",
       "ApprovedPath": "",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "doll_interaction",
-      "Usage": "人偶赠礼、礼物列表和偏好反馈"
+      "Usage": "人偶赠礼、礼物列表和偏好反馈",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -10106,10 +10139,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_locked.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_locked.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_skin",
       "Screen": "global",
-      "Usage": "层选择、未解锁功能"
+      "Usage": "层选择、未解锁功能",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -10163,10 +10198,12 @@
       "SelectedPath": "",
       "ApprovedPath": "",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "scenario_event",
-      "Usage": "LorePanel、世界观档案、记录文本和图鉴入口"
+      "Usage": "LorePanel、世界观档案、记录文本和图鉴入口",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -10279,10 +10316,12 @@
       "SelectedPath": "",
       "ApprovedPath": "",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "doll_interaction",
-      "Usage": "特殊交互、记忆反馈、纪念物和情绪回声"
+      "Usage": "特殊交互、记忆反馈、纪念物和情绪回声",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -10393,10 +10432,12 @@
       "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_order/selected/20260524_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_order.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_order/selected/20260524_001.png",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_order/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_a4_icon",
       "Screen": "global",
-      "Usage": "订单、委托、交付目标和订单槽位"
+      "Usage": "订单、委托、交付目标和订单槽位",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -10450,10 +10491,12 @@
       "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_price_down/selected/20260524_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_price_down.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_price_down/selected/20260524_001.png",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_price_down/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_a4_icon",
       "Screen": "rumor_board",
-      "Usage": "价格下跌、需求降低和收益衰减"
+      "Usage": "价格下跌、需求降低和收益衰减",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -10507,10 +10550,12 @@
       "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_price_up/selected/20260524_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_price_up.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_price_up/selected/20260524_001.png",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_price_up/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_a4_icon",
       "Screen": "rumor_board",
-      "Usage": "价格上涨、需求增加和收益提升"
+      "Usage": "价格上涨、需求增加和收益提升",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -10564,10 +10609,12 @@
       "SelectedPath": "",
       "ApprovedPath": "",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "faction_shop",
-      "Usage": "正规势力声望、等级、解锁进度和奖励门槛"
+      "Usage": "正规势力声望、等级、解锁进度和奖励门槛",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -10621,10 +10668,12 @@
       "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_rumor/selected/20260524_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_rumor.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_rumor/selected/20260524_001.png",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_rumor/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_a4_icon",
       "Screen": "rumor_board",
-      "Usage": "每日传闻、深渊情报和市场消息"
+      "Usage": "每日传闻、深渊情报和市场消息",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -10737,10 +10786,12 @@
       "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_shop_channel/selected/20260524_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_shop_channel.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_shop_channel/selected/20260524_001.png",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_shop_channel/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_a4_icon",
       "Screen": "shop_staging",
-      "Usage": "普通柜台、寄售槽、营业出货渠道和分配入口"
+      "Usage": "普通柜台、寄售槽、营业出货渠道和分配入口",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -10794,10 +10845,12 @@
       "SelectedPath": "",
       "ApprovedPath": "",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "scenario_event",
-      "Usage": "事件跳过、摘要、快进和状态变化回顾"
+      "Usage": "事件跳过、摘要、快进和状态变化回顾",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -10851,10 +10904,12 @@
       "SelectedPath": "",
       "ApprovedPath": "",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "doll_interaction",
-      "Usage": "人偶对话、话题和交流入口"
+      "Usage": "人偶对话、话题和交流入口",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -10908,10 +10963,12 @@
       "SelectedPath": "",
       "ApprovedPath": "",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "doll_interaction",
-      "Usage": "人偶触摸、安抚和轻交互入口"
+      "Usage": "人偶触摸、安抚和轻交互入口",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -10965,10 +11022,12 @@
       "SelectedPath": "",
       "ApprovedPath": "",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "faction_shop",
-      "Usage": "黑市信任、隐秘交易和高风险渠道信任度"
+      "Usage": "黑市信任、隐秘交易和高风险渠道信任度",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -11032,10 +11091,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_normal.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_normal.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_skin",
       "Screen": "global",
-      "Usage": "出售列表、义体列表、层选择列表"
+      "Usage": "出售列表、义体列表、层选择列表",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -11099,10 +11160,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_selected.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_selected.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_skin",
       "Screen": "global",
-      "Usage": "当前选中层、当前选中条目"
+      "Usage": "当前选中层、当前选中条目",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -11156,10 +11219,12 @@
       "SelectedPath": "",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_room_memento_slot.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T00:00:00+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_room_memento_slot.png",
+      "Notes": "[2026-05-25T00:00:00+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_room_memento_slot.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_doll_room",
       "Screen": "doll_room",
-      "Usage": "人偶房间纪念物、展示品和礼物剪影槽位"
+      "Usage": "人偶房间纪念物、展示品和礼物剪影槽位",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -11223,10 +11288,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_defeat_panel.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_defeat_panel.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_settlement",
       "Screen": "settlement",
-      "Usage": "战败/损失结算弹窗"
+      "Usage": "战败/损失结算弹窗",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -11290,10 +11357,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_victory_panel.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_victory_panel.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_settlement",
       "Screen": "settlement",
-      "Usage": "撤离成功/胜利结算弹窗"
+      "Usage": "撤离成功/胜利结算弹窗",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     },
     {
       "Domain": "ui",
@@ -11347,10 +11416,12 @@
       "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_title_divider.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_title_divider.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
       "PresetCategory": "ui_skin",
       "Screen": "global",
-      "Usage": "标题下方装饰与分隔"
+      "Usage": "标题下方装饰与分隔",
+      "QualityTier": "local_v0",
+      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
     }
   ],
   "ArtStyle": {

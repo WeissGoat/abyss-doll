@@ -179,11 +179,11 @@
 | `ui` | `loot_pickup_panel` | 战利品拾取面板 | `panel` | `ui_loot_pickup_panel` | P1 | `approved` |
 | `ui` | `panel_info` | 小信息面板 | `panel` | `ui_panel_info` | P1 | `approved` |
 | `ui` | `panel_main` | 主弹窗面板 | `panel` | `ui_panel_main` | P1 | `approved` |
-| `ui` | `settlement_outcome_hp_defeat` | 结算结果-HP 战败徽记 | `icon` | `ui_settlement_outcome_hp_defeat` | P1 | `todo` |
-| `ui` | `settlement_outcome_hp_san_defeat` | 结算结果-HP+SAN 复合战败徽记 | `icon` | `ui_settlement_outcome_hp_san_defeat` | P1 | `todo` |
-| `ui` | `settlement_outcome_party_wipe` | 结算结果-队伍溃败徽记 | `icon` | `ui_settlement_outcome_party_wipe` | P1 | `todo` |
-| `ui` | `settlement_outcome_san_collapse` | 结算结果-SAN 崩溃徽记 | `icon` | `ui_settlement_outcome_san_collapse` | P1 | `todo` |
-| `ui` | `settlement_outcome_victory` | 结算结果-胜利徽记 | `icon` | `ui_settlement_outcome_victory` | P1 | `todo` |
+| `ui` | `settlement_outcome_hp_defeat` | 结算结果-HP 战败徽记 | `icon` | `ui_settlement_outcome_hp_defeat` | P1 | `approved` |
+| `ui` | `settlement_outcome_hp_san_defeat` | 结算结果-HP+SAN 复合战败徽记 | `icon` | `ui_settlement_outcome_hp_san_defeat` | P1 | `approved` |
+| `ui` | `settlement_outcome_party_wipe` | 结算结果-队伍溃败徽记 | `icon` | `ui_settlement_outcome_party_wipe` | P1 | `approved` |
+| `ui` | `settlement_outcome_san_collapse` | 结算结果-SAN 崩溃徽记 | `icon` | `ui_settlement_outcome_san_collapse` | P1 | `approved` |
+| `ui` | `settlement_outcome_victory` | 结算结果-胜利徽记 | `icon` | `ui_settlement_outcome_victory` | P1 | `approved` |
 | `ui` | `button_danger` | 危险按钮 | `button` | `ui_button_danger` | P2 | `approved` |
 | `ui` | `combat_turn_banner` | 回合提示条 | `banner` | `ui_combat_turn_banner` | P2 | `approved` |
 | `ui` | `dungeon_node_plate` | 地图节点底板 | `frame` | `ui_dungeon_node_plate` | P2 | `approved` |
@@ -224,5 +224,5 @@
 
 ## 下一步
 
-1. 对 `Status=todo` 的新增项补全 `PromptCN`、`PromptEN`、`NegativePromptEN` 和结构化 `Spec`。
-2. 完成后运行 `tools/美术工具/Generate-ArtPrompts.ps1` 或人工审阅提示词。
+1. 将 `Approved` 素材登记到 `VisualAssetRegistry`。
+2. 游戏内验证后更新 `RegistryStatus` 和 `Status=validated`。

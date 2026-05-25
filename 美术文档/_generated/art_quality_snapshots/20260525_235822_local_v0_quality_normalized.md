@@ -4,11 +4,11 @@
 
 ## Summary
 
-* GeneratedAt: `2026-05-26T00:01:33+08:00`
+* GeneratedAt: `2026-05-25T23:58:22+08:00`
 * Manifest entries: `193`
-* Backlog items: `131`
+* Backlog items: `132`
 * Technical fix: `0`
-* Visual V2 replace: `131`
+* Visual V2 replace: `132`
 * Spec review: `0`
 
 ## Technical Fix
@@ -19,6 +19,7 @@
 
 | Priority | VisualID | Domain | Type | Name | Current | QualityTier | Program can use | Prompt | Approved | Reason |
 |---|---|---|---|---|---|---|---|---|---|---|
+| P0 | `node_eventnode_icon` | node | icon | EventNode | local_v0 | local_v0 | yes | ready | UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png | Manifest 标记为 local_v0 / placeholder，可用于接入但不是正式视觉质量。 |
 | P0 | `node_hazardnode_icon` | node | icon | HazardNode | local_v0 | local_v0 | yes | ready | UnityClient/Assets/Art/Approved/Nodes/Icons/node_hazardnode_icon.png | Manifest 标记为 local_v0 / placeholder，可用于接入但不是正式视觉质量。 |
 | P0 | `node_reststopnode_icon` | node | icon | RestStopNode | local_v0 | local_v0 | yes | ready | UnityClient/Assets/Art/Approved/Nodes/Icons/node_reststopnode_icon.png | Manifest 标记为 local_v0 / placeholder，可用于接入但不是正式视觉质量。 |
 | P0 | `node_treasurenode_icon` | node | icon | TreasureNode | local_v0 | local_v0 | yes | ready | UnityClient/Assets/Art/Approved/Nodes/Icons/node_treasurenode_icon.png | Manifest 标记为 local_v0 / placeholder，可用于接入但不是正式视觉质量。 |

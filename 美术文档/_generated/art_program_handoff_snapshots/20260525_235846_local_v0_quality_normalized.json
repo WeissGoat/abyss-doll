@@ -1,13 +1,13 @@
 {
-  "GeneratedAt": "2026-05-26T00:01:32+08:00",
-  "SnapshotTag": "nai_probe_node_eventnode_formal_ai_v2",
+  "GeneratedAt": "2026-05-25T23:58:46+08:00",
+  "SnapshotTag": "local_v0_quality_normalized",
   "Inputs": {
     "IntegrationCandidatesPath": "美术文档/_generated/可接入素材清单.json",
     "AcceptanceQueuePath": "美术文档/ui_design/_generated/FormalV1验收队列.json",
     "ManifestPath": "美术文档/_generated/art_manifest.json"
   },
   "SourceSummaries": {
-    "IntegrationGeneratedAt": "2026-05-26T00:01:13+08:00",
+    "IntegrationGeneratedAt": "2026-05-25T23:58:21+08:00",
     "IntegrationActionCounts": {
       "acceptance_needed": 82,
       "program_integrate": 109
@@ -20,7 +20,7 @@
   },
   "Summary": {
     "ProgramIntegrateVisualCount": 109,
-    "ProgramIntegrateLocalV0Count": 108,
+    "ProgramIntegrateLocalV0Count": 109,
     "ProgramIntegratePriorityCounts": {
       "P0": 4,
       "P1": 28,
@@ -216,12 +216,12 @@
       "AssetType": "icon",
       "DisplayName": "EventNode",
       "QualityTiers": [
-        "formal_ai_v2"
+        "local_v0"
       ],
       "ManifestStatuses": [
         "approved"
       ],
-      "IsLocalV0": false,
+      "IsLocalV0": true,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png",
       "MetaFileExists": true,
       "RegistryHasSprite": false,

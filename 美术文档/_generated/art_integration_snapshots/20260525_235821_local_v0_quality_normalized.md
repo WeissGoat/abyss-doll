@@ -4,7 +4,7 @@
 
 ## Summary
 
-* GeneratedAt: `2026-05-26T00:01:13+08:00`
+* GeneratedAt: `2026-05-25T23:58:21+08:00`
 * Manifest entries: `193`
 * Unique VisualIDs: `192`
 * Candidate entries: `191`

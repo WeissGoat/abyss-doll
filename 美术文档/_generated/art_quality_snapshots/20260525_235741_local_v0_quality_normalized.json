@@ -1,0 +1,334 @@
+{
+  "GeneratedAt": "2026-05-25T23:57:41+08:00",
+  "DryRun": false,
+  "Summary": {
+    "TotalManifestEntries": 193,
+    "LegacyLocalCandidates": 132,
+    "UpdatedEntries": 35,
+    "QualityTierBefore": {
+      "<empty>": 96,
+      "local_v0": 97
+    },
+    "QualityTierAfter": {
+      "<empty>": 61,
+      "local_v0": 132
+    }
+  },
+  "UpdatedEntries": [
+    {
+      "VisualID": "bg_safe_room",
+      "Domain": "background",
+      "AssetType": "background",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_safe_room.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "bg_stairs_room",
+      "Domain": "background",
+      "AssetType": "background",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_stairs_room.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "bg_doll_room_attic",
+      "Domain": "background",
+      "AssetType": "background",
+      "BatchID": "local_v0_doll_room_20260525_01",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/DollRoom/bg_doll_room_attic.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "bg_layer_select",
+      "Domain": "background",
+      "AssetType": "background",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_layer_select.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "bg_settlement_defeat",
+      "Domain": "background",
+      "AssetType": "background",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_defeat.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "bg_settlement_victory",
+      "Domain": "background",
+      "AssetType": "background",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_victory.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_panel_main",
+      "Domain": "ui",
+      "AssetType": "panel",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_panel_main.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_dungeon_node_plate",
+      "Domain": "ui",
+      "AssetType": "frame",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_node_plate.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_dungeon_route_line",
+      "Domain": "ui",
+      "AssetType": "divider",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_route_line.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_black_market",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "local_v0_a4_ui_icons_20260524_01",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_black_market.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_deadline",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "local_v0_a4_ui_icons_20260524_01",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_deadline.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_diary",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "local_v0_doll_room_20260525_01",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_equipped",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_equipped.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_event",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_event.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_faction",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "local_v0_a4_ui_icons_20260524_01",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_faction.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_gift",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_gift.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_locked",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_locked.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_lore",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_lore.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_memento",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_memento.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_order",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "local_v0_a4_ui_icons_20260524_01",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_order.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_price_down",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "local_v0_a4_ui_icons_20260524_01",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_price_down.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_price_up",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "local_v0_a4_ui_icons_20260524_01",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_price_up.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_reputation",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_reputation.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_rumor",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "local_v0_a4_ui_icons_20260524_01",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_rumor.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_shop_channel",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "local_v0_a4_ui_icons_20260524_01",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_shop_channel.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_skip",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_skip.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_talk",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_talk.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_touch",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_touch.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_icon_trust",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_trust.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_list_row_normal",
+      "Domain": "ui",
+      "AssetType": "panel",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_normal.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_list_row_selected",
+      "Domain": "ui",
+      "AssetType": "panel",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_selected.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_room_memento_slot",
+      "Domain": "ui",
+      "AssetType": "slot",
+      "BatchID": "local_v0_doll_room_20260525_01",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_room_memento_slot.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_settlement_defeat_panel",
+      "Domain": "ui",
+      "AssetType": "panel",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_defeat_panel.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_settlement_victory_panel",
+      "Domain": "ui",
+      "AssetType": "panel",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_victory_panel.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    },
+    {
+      "VisualID": "ui_title_divider",
+      "Domain": "ui",
+      "AssetType": "divider",
+      "BatchID": "",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_title_divider.png",
+      "PreviousQualityTier": "",
+      "NewQualityTier": "local_v0"
+    }
+  ]
+}

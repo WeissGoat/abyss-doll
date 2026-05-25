@@ -4,13 +4,13 @@
 
 ## Summary
 
-* GeneratedAt: `2026-05-26T00:01:32+08:00`
-* Integration source: `美术文档/_generated/可接入素材清单.json` / `2026-05-26T00:01:13+08:00`
+* GeneratedAt: `2026-05-25T23:58:46+08:00`
+* Integration source: `美术文档/_generated/可接入素材清单.json` / `2026-05-25T23:58:21+08:00`
 * Acceptance source: `美术文档/ui_design/_generated/FormalV1验收队列.json` / `2026-05-25T23:58:20+08:00`
 * Latest ArtAcceptance: `20260524_212423` / `PASSED` / `2026-05-24T21:24:39.7401303+08:00`
 * Acceptance older than active spec: `True`
 * VisualAssetRegistry register count: `109`
-* Local V0 among register count: `108`
+* Local V0 among register count: `109`
 * Formal V1 screens: `21`
 * Screens needing VisualID registration: `10`
 * Screens needing ArtAcceptance capture coverage: `6`
@@ -29,7 +29,7 @@
 
 | Priority | VisualID | Domain | Quality | Screens / refs | ApprovedPath |
 |---|---|---|---|---|---|
-| P0 | `node_eventnode_icon` | node | formal_ai_v2 | derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons | UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png |
+| P0 | `node_eventnode_icon` | node | local_v0 | derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons | UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png |
 | P0 | `node_hazardnode_icon` | node | local_v0 | derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons | UnityClient/Assets/Art/Approved/Nodes/Icons/node_hazardnode_icon.png |
 | P0 | `node_reststopnode_icon` | node | local_v0 | derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons | UnityClient/Assets/Art/Approved/Nodes/Icons/node_reststopnode_icon.png |
 | P0 | `node_treasurenode_icon` | node | local_v0 | derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons | UnityClient/Assets/Art/Approved/Nodes/Icons/node_treasurenode_icon.png |

@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-05-26T00:01:13+08:00",
-  "SnapshotTag": "approved_sync_candidate_nai_visual_v2_probe_20260525_02",
+  "GeneratedAt": "2026-05-25T23:58:21+08:00",
+  "SnapshotTag": "local_v0_quality_normalized",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",
@@ -53,8 +53,8 @@
       "ApprovedFileExists": true,
       "MetaFileExists": true,
       "SelectedCandidate": "",
-      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/node_eventnode_icon/processed/20260525_001.png",
-      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/node_eventnode_icon/raw/20260525_001.png",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
       "ReferencedBy": [
         "derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons"
       ],
