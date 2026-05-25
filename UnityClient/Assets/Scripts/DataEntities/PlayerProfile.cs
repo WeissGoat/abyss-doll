@@ -21,6 +21,7 @@ public class PlayerProfile {
     public int MemoryFragments;
     public int HighestUnlockedDungeonLayer = 1;
     public int LastSelectedDungeonStartLayer = 1;
+    public DollInteractionRuntimeState DollInteractionState = new DollInteractionRuntimeState();
     
     public string ActiveDollID;
     public DollEntity ActiveDoll;
@@ -30,4 +31,59 @@ public class PlayerProfile {
     public List<FactionRuntimeState> FactionStates = new List<FactionRuntimeState>();
     public List<OrderInstanceState> ActiveOrders = new List<OrderInstanceState>();
     public List<ActiveRumorState> ActiveRumors = new List<ActiveRumorState>();
+}
+
+[Serializable]
+public class DollInteractionRuntimeState {
+    public List<DollDailyInteractionState> DailyStates = new List<DollDailyInteractionState>();
+
+    public DollDailyInteractionState GetOrCreateDailyState(int day) {
+        int safeDay = Math.Max(1, day);
+        if (DailyStates == null) {
+            DailyStates = new List<DollDailyInteractionState>();
+        }
+
+        foreach (DollDailyInteractionState state in DailyStates) {
+            if (state != null && state.Day == safeDay) {
+                state.Normalize();
+                return state;
+            }
+        }
+
+        DollDailyInteractionState newState = new DollDailyInteractionState {
+            Day = safeDay
+        };
+        DailyStates.Add(newState);
+        return newState;
+    }
+}
+
+[Serializable]
+public class DollDailyInteractionState {
+    public int Day;
+    public int TotalTouchCount;
+    public int EffectiveTouchCount;
+    public string LastTouchRegion;
+    public int RepeatedTouchRegionCount;
+    public int TotalTalkCount;
+    public int EffectiveTalkCount;
+    public int TotalGiftCount;
+    public int AcceptedGiftCount;
+    public int RejectedGiftCount;
+    public List<string> LogLines = new List<string>();
+
+    public void Normalize() {
+        Day = Math.Max(1, Day);
+        TotalTouchCount = Math.Max(0, TotalTouchCount);
+        EffectiveTouchCount = Math.Max(0, EffectiveTouchCount);
+        RepeatedTouchRegionCount = Math.Max(0, RepeatedTouchRegionCount);
+        TotalTalkCount = Math.Max(0, TotalTalkCount);
+        EffectiveTalkCount = Math.Max(0, EffectiveTalkCount);
+        TotalGiftCount = Math.Max(0, TotalGiftCount);
+        AcceptedGiftCount = Math.Max(0, AcceptedGiftCount);
+        RejectedGiftCount = Math.Max(0, RejectedGiftCount);
+        if (LogLines == null) {
+            LogLines = new List<string>();
+        }
+    }
 }

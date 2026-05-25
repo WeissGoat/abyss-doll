@@ -189,7 +189,34 @@ public class MaintenanceConfig {
 
 *   `DollCoreStateReadabilityServiceSmokeTest.Run` 覆盖默认状态、SAN 阈值、维护风险、Bond 阶段、义体 / 特质列表和缺失人偶失败快照。
 
-## 11. 小镇经济压力链服务
+## 11. 人偶基础交互服务
+
+`DollInteractionService` 是人偶日常交互的领域服务入口，用于把触摸、对话和赠礼统一结算为结构化结果。UI 只能调用服务并展示 `DollInteractionResult`，不得直接修改 Bond、SAN、每日次数或物品归属。
+
+运行时状态：
+
+*   `PlayerProfile.DollInteractionState` 保存按 Day 分组的交互计数。
+*   `DollDailyInteractionState` 记录当日触摸、对话、赠礼次数、连续触摸区域和简短日志。
+*   旧档案或测试档案如果缺失运行时状态，由服务入口自动补齐，不要求 UI 或外部流程手动初始化。
+
+当前首版范围：
+
+*   `ExecuteTouch` 支持工坊触摸，前 5 次产生少量 Bond；同一区域连续超过 3 次或超过每日有效次数后只返回反馈，不再产出数值。
+*   低 SAN 时触摸头部 / 脸部会触发压力反馈，可能扣减少量 Bond / SAN；SAN 为 0 时只允许安抚反馈，不直接恢复状态。
+*   `ExecuteTalk` 支持工坊日常对话与安全区上下文对话；每日前 3 次有效，之后返回兜底闲聊但不产出数值。
+*   `GiveGift` 支持玩家已拥有物品赠礼；接受时才消耗物品，拒收时不消耗。第一版按物品类型、标签、价值和当日赠礼次数计算 Bond，诅咒类礼物拒收并产生负反馈。
+
+边界：
+
+*   本服务不实现完整对话池、不推进 Day、不绑定语音 / 立绘 / 动画、不读运行时美术资源。
+*   保养 / 修复 / 净化的真实消耗和状态恢复仍由 `MaintenanceService` 负责；后续如需要“保养交互表现”，只在交互层包装反馈，不复制维护规则。
+*   赠礼消耗只处理已拥有的仓库或当前出战背包物品；如果移除背包物品，会发布 `GameEventBus.PublishItemRemoved` 并重算背包效果。
+
+验证：
+
+*   `DollInteractionServiceSmokeTest.Run` 覆盖触摸每日上限、连续区域防刷、低 SAN 压力反馈、赠礼接受消耗、拒收不消耗、对话上限和场景权限。
+
+## 12. 小镇经济压力链服务
 
 `TownEconomyService` 是 P4 小镇经济压力链的领域服务入口。它不依赖 UI，也不在 UI Controller 中散写经济规则；后续账单、典当和营业界面只读取服务产出的报告对象。
 
