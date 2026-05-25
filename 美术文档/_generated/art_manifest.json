@@ -3209,13 +3209,14 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_hazardnode_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/node_hazardnode_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/node_hazardnode_icon/processed/20260526_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_hazardnode_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Nodes/Icons/node_hazardnode_icon.png; formal AI replacement remains required.",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Nodes/Icons/node_hazardnode_icon.png; formal AI replacement remains required.\n[2026-05-26T00:36:21+08:00] generated candidate batch nai_visual_v2_p0_nodes_20260526_01; preserved Status=approved.\n[2026-05-26T00:39:17+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/node_hazardnode_icon/contact_sheet/node_hazardnode_icon_contact_sheet.png\n[2026-05-26T00:43:51+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/node_hazardnode_icon/processed/20260526_001.png",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-05-26T00:43:51+08:00",
+      "ReplacementBatchID": "nai_visual_v2_p0_nodes_20260526_01"
     },
     {
       "Domain": "node",
@@ -3266,13 +3267,14 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_reststopnode_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/node_reststopnode_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/node_reststopnode_icon/processed/20260526_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_reststopnode_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Nodes/Icons/node_reststopnode_icon.png; formal AI replacement remains required.",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Nodes/Icons/node_reststopnode_icon.png; formal AI replacement remains required.\n[2026-05-26T00:36:21+08:00] generated candidate batch nai_visual_v2_p0_nodes_20260526_01; preserved Status=approved.\n[2026-05-26T00:39:17+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/node_reststopnode_icon/contact_sheet/node_reststopnode_icon_contact_sheet.png\n[2026-05-26T00:43:51+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/node_reststopnode_icon/processed/20260526_001.png",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-05-26T00:43:51+08:00",
+      "ReplacementBatchID": "nai_visual_v2_p0_nodes_20260526_01"
     },
     {
       "Domain": "node",
@@ -3433,13 +3435,14 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_treasurenode_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/node_treasurenode_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/node_treasurenode_icon/processed/20260526_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_treasurenode_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Nodes/Icons/node_treasurenode_icon.png; formal AI replacement remains required.",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Nodes/Icons/node_treasurenode_icon.png; formal AI replacement remains required.\n[2026-05-26T00:36:21+08:00] generated candidate batch nai_visual_v2_p0_nodes_20260526_01; preserved Status=approved.\n[2026-05-26T00:39:17+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/node_treasurenode_icon/contact_sheet/node_treasurenode_icon_contact_sheet.png\n[2026-05-26T00:41:31+08:00] generated candidate batch nai_visual_v2_p0_treasure_retry_20260526_01; preserved Status=approved.\n[2026-05-26T00:41:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/node_treasurenode_icon/contact_sheet/node_treasurenode_icon_contact_sheet.png\n[2026-05-26T00:44:02+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/node_treasurenode_icon/processed/20260526_002.png",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-05-26T00:44:02+08:00",
+      "ReplacementBatchID": "nai_visual_v2_p0_treasure_retry_20260526_01"
     },
     {
       "Domain": "order",

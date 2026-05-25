@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-05-26T00:52:36+08:00",
-  "SnapshotTag": "p0_nodes_formal_ai_v2",
+  "GeneratedAt": "2026-05-26T00:36:56+08:00",
+  "SnapshotTag": "generation_nai_visual_v2_p0_nodes_20260526_01",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",
@@ -605,7 +605,7 @@
       "ApprovedFileExists": true,
       "MetaFileExists": true,
       "SelectedCandidate": "",
-      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/node_hazardnode_icon/processed/20260526_001.png",
+      "ProcessedCandidate": "",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/node_hazardnode_icon/raw/20260526_001.png",
       "ReferencedBy": [
         "derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons"
@@ -629,7 +629,7 @@
       "ApprovedFileExists": true,
       "MetaFileExists": true,
       "SelectedCandidate": "",
-      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/node_reststopnode_icon/processed/20260526_001.png",
+      "ProcessedCandidate": "",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/node_reststopnode_icon/raw/20260526_001.png",
       "ReferencedBy": [
         "derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons"
@@ -701,7 +701,7 @@
       "ApprovedFileExists": true,
       "MetaFileExists": true,
       "SelectedCandidate": "",
-      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/node_treasurenode_icon/processed/20260526_001.png",
+      "ProcessedCandidate": "",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/node_treasurenode_icon/raw/20260526_001.png",
       "ReferencedBy": [
         "derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons"

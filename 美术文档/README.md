@@ -138,12 +138,12 @@ design / config / ui active
 * active Formal V1 UI 已覆盖 21 个界面，详见 [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md)。
 * 当前没有剩余 draft UI 队列；后续新增界面仍先写 `formal_v1/*.md` 草案，确认后再进入 active `screen_layouts.json`。
 * 最新美术需求候选清单显示 `new_candidate=36`、`approved_without_manifest=0`、`seed_only=0`；这些是后续美术人工审查入口，不自动进入 Manifest。
-* 最新可接入素材清单显示 `program_integrate=109`，程序侧可按清单登记和接入。
-* 最新程序接入交接清单显示 `program_integrate=109`、`Screens needing ArtAcceptance capture coverage=6`、`Screens needing ArtAcceptance rerun=15`，程序侧优先按该清单接入。
+* 最新可接入素材清单显示 `program_integrate=0`、`acceptance_needed=191`，当前没有新的 Approved 素材登记队列，重点转为运行时截图验收和 Manifest 状态回填。
+* 最新程序接入交接清单显示 `program_integrate=0`、`Screens needing ArtAcceptance capture coverage=6`、`Screens needing ArtAcceptance rerun=15`，程序侧优先按该清单补截图和重跑验收。
 * 最新缺图生成计划显示 `generate_needed=0`；当前没有阻塞程序接入的新缺图项。
-* 最新素材质量替换清单显示 `technical_fix=0`、`visual_v2_replace=131`；历史本地生成图已统一补标 `QualityTier=local_v0`，这些素材不阻塞程序接入，但要在 Visual V2 批次同名替换。
+* 最新素材质量替换清单显示 `technical_fix=0`、`visual_v2_replace=128`；历史本地生成图已统一补标 `QualityTier=local_v0`，这些素材不阻塞程序接入，但要在 Visual V2 批次同名替换。
 * Formal V1 验收队列已生成：21 个 active 界面纳入队列，15 个有 latest 旧截图可粗看，10 个仍需程序登记 VisualID 或补截图后重跑 ArtAcceptance。
-* NovelAI token 链路已通过 `node_eventnode_icon` 单图验证；该图已同步为 `formal_ai_v2`，后续按 Visual V2 队列继续串行替换。
+* NovelAI token 链路已通过 P0 新节点图标验证；`node_eventnode_icon`、`node_hazardnode_icon`、`node_reststopnode_icon`、`node_treasurenode_icon` 已同步为 `formal_ai_v2`，后续按 `nai_visual_v2_20260526_02` 队列继续串行替换。
 
 ## 机器生成文件
 

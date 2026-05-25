@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-05-26T00:52:36+08:00",
-  "SnapshotTag": "p0_nodes_formal_ai_v2",
+  "GeneratedAt": "2026-05-26T00:42:01+08:00",
+  "SnapshotTag": "processed_candidate_nai_visual_v2_p0_treasure_retry_20260526_01",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",
