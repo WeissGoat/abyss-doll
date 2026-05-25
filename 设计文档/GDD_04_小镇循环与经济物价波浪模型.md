@@ -12,6 +12,7 @@ related:
   - 数值模型设计/01_经济循环与通缩模型.md
   - 配置表(JSON)/Chassis/README.md
   - 配置表(JSON)/CraftingRecipes/README.md
+  - 配置表(JSON)/Economy/README.md
   - 配置表(JSON)/Prosthetics/README.md
   - 配置表(JSON)/Rewards/README.md
   - 设计文档/GDD_10_势力声望与订单系统.md
@@ -24,6 +25,7 @@ related:
   - 设计文档/07_势力声望与订单规则卡.md
   - 设计文档/22_小镇经济月租内容包.md
   - 设计文档/24_势力订单声望内容包.md
+  - 美术文档/ui_design/formal_v1/business_settlement_v1.md
 last_verified: 2026-05-24
 update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
 ---
