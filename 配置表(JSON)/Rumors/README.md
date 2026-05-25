@@ -1,4 +1,4 @@
----
+﻿---
 id: config_rumors_readme
 title: 传闻配置字段说明 (Rumors Config)
 type: config
@@ -10,14 +10,14 @@ related:
   - 配置表(JSON)/README.md
   - 配置表(JSON)/Items/README.md
   - 配置表(JSON)/Orders/README.md
-  - 设计文档/04_小镇经济结算与压力链规则卡.md
-  - 设计文档/22_小镇经济月租内容包.md
-  - 设计文档/46_经济压力正式配置承接审计.md
-  - 设计文档/48_经济压力传闻正式配置落地设计.md
-  - 设计文档/51_经济压力正式配置Validator与固定验收样例.md
-  - 设计文档/52_经济压力正式配置实现任务拆分.md
-  - 设计文档/53_经济压力正式配置ID锁定与冲突检查.md
-  - 设计文档/54_经济压力正式配置README字段口径检查.md
+  - 设计文档/rules/04_小镇经济结算与压力链规则卡.md
+  - 设计文档/content_packs/22_小镇经济月租内容包.md
+  - 设计文档/config/audits/46_经济压力正式配置承接审计.md
+  - 设计文档/config/designs/48_经济压力传闻正式配置落地设计.md
+  - 设计文档/config/validation/51_经济压力正式配置Validator与固定验收样例.md
+  - 设计文档/config/tasks/52_经济压力正式配置实现任务拆分.md
+  - 设计文档/config/gates/53_经济压力正式配置ID锁定与冲突检查.md
+  - 设计文档/config/gates/54_经济压力正式配置README字段口径检查.md
 last_verified: 2026-05-25
 update_rule: 修改传闻字段、目标标签、价格倍率、渠道、持续时间、刷新权重或订单权重加成时同步本文件。
 ---
@@ -26,7 +26,7 @@ update_rule: 修改传闻字段、目标标签、价格倍率、渠道、持续�
 
 `Rumors/*.json` defines weekly economy rumors. Current runtime support applies item sell price multipliers and order tag weight boosts.
 
-正式传闻池、8 条传闻的字段级设计、刷新组合规则、来源追踪、Validator 和固定验收样例见 `设计文档/48_经济压力传闻正式配置落地设计.md`。经济压力整体验收规格、跨域 Validator、固定样例和 `DES-V4-001` 回写证据模板见 `设计文档/51_经济压力正式配置Validator与固定验收样例.md`；配置实现派发顺序和证据模板见 `设计文档/52_经济压力正式配置实现任务拆分.md`；当前 ID 锁定与旧样例迁移口径见 `设计文档/53_经济压力正式配置ID锁定与冲突检查.md`；README 字段口径检查见 `设计文档/54_经济压力正式配置README字段口径检查.md`。这些文档是 JSON 修改前策划清单、验收规格、任务拆分、ID 证据和字段口径证据，不代表 `Rumors/*.json` 已经完成。
+正式传闻池、8 条传闻的字段级设计、刷新组合规则、来源追踪、Validator 和固定验收样例见 `设计文档/config/designs/48_经济压力传闻正式配置落地设计.md`。经济压力整体验收规格、跨域 Validator、固定样例和 `DES-V4-001` 回写证据模板见 `设计文档/config/validation/51_经济压力正式配置Validator与固定验收样例.md`；配置实现派发顺序和证据模板见 `设计文档/config/tasks/52_经济压力正式配置实现任务拆分.md`；当前 ID 锁定与旧样例迁移口径见 `设计文档/config/gates/53_经济压力正式配置ID锁定与冲突检查.md`；README 字段口径检查见 `设计文档/config/gates/54_经济压力正式配置README字段口径检查.md`。这些文档是 JSON 修改前策划清单、验收规格、任务拆分、ID 证据和字段口径证据，不代表 `Rumors/*.json` 已经完成。
 
 ## 1. Required fields
 

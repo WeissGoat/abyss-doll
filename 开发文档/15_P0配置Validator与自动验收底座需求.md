@@ -1,4 +1,4 @@
----
+﻿---
 id: dev_15_p0_config_validator_acceptance
 title: P0配置Validator与自动验收底座需求
 type: dev
@@ -14,7 +14,9 @@ related:
   - 开发文档/13_编程规范与架构约定.md
   - 开发文档/14_Unity运行时美术自动验收方案.md
   - 开发文档/09_视觉资源系统程序开发规范.md
-  - 设计文档/15_P0主干配置表现验收承接清单.md
+  - 设计文档/delivery/15_P0主干配置表现验收承接清单.md
+  - 设计文档/config/validation/35_前三层正式配置Validator与固定Seed验收样例.md
+  - 设计文档/config/validation/45_局外成长正式配置Validator与固定验收样例.md
   - 配置表(JSON)/README.md
   - tools/config/README.md
   - tools/agent/README.md
@@ -70,10 +72,10 @@ P0 底座的目标是：
 
 | 不覆盖项 | 归属 |
 |---|---|
-| 具体物品、怪物、地图节点怎么设计 | `设计文档/15_P0主干配置表现验收承接清单.md` 和内容包。 |
+| 具体物品、怪物、地图节点怎么设计 | `设计文档/delivery/15_P0主干配置表现验收承接清单.md` 和内容包。 |
 | 背包旋转、物品生命周期、怪物意图规则 | 对应 GDD 和规则卡。 |
 | Unity UI 视觉结构设计 | `美术文档/ui_design/screen_layouts.json` 和美术文档。 |
-| 大量新内容生产 | `设计文档/18_正式版内容生产规格.md`。 |
+| 大量新内容生产 | `设计文档/content_packs/18_正式版内容生产规格.md`。 |
 | 修复配置错误 | 对应配置 / 策划 / 程序任务；Validator 只发现问题，不静默修复。 |
 
 ---
@@ -235,6 +237,8 @@ LayerID / RunSeed / MapProfileID / NodeSummary / EncounterSummary / RewardSummar
 
 这些 seed 不要求覆盖全部游戏内容，只要求成为回归测试的稳定锚点。若配置变动导致 seed 摘要变化，报告必须显示差异。
 
+前三层正式配置的更细样例由策划侧 `设计文档/config/validation/35_前三层正式配置Validator与固定Seed验收样例.md` 承接。程序侧实现 P0 / 后续 Validator 时，应把本文的 `p0_core` seed 组视为底座，把 `35` 中的 `V-L1-*`、`V-L2-*`、`V-L3-*` 视为前三层正式配置扩展验收样例。
+
 ---
 
 ## 7. 报告格式
@@ -357,6 +361,7 @@ P0 Strict 通过：
 
 * 固定 `p0_core` seed 组。
 * 检查 `19/20/25` 内容包关键条目在配置中的落点和引用。
+* 为 `设计文档/config/validation/35_前三层正式配置Validator与固定Seed验收样例.md` 中的前三层 seed 样例预留扩展入口。
 
 出口：
 

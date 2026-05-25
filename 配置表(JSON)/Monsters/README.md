@@ -1,4 +1,4 @@
----
+﻿---
 id: config_monsters_readme
 title: 深渊怪物配置字段说明 (Monsters Config)
 type: config
@@ -11,12 +11,12 @@ related:
   - 开发文档/11_怪物AI与行动系统(MonsterActionAI).md
   - 数值模型设计/02_战斗伤害与生存公式.md
   - 配置表(JSON)/README.md
-  - 设计文档/28_Monsters正式配置承接审计.md
-  - 设计文档/29_Dungeons正式配置承接审计.md
-  - 设计文档/30_Rewards正式配置承接审计.md
-  - 设计文档/31_第一层正式配置落地设计.md
-  - 设计文档/32_第二层正式配置落地设计.md
-  - 设计文档/33_第三层正式配置落地设计.md
+  - 设计文档/config/audits/28_Monsters正式配置承接审计.md
+  - 设计文档/config/audits/29_Dungeons正式配置承接审计.md
+  - 设计文档/config/audits/30_Rewards正式配置承接审计.md
+  - 设计文档/config/designs/31_第一层正式配置落地设计.md
+  - 设计文档/config/designs/32_第二层正式配置落地设计.md
+  - 设计文档/config/designs/33_第三层正式配置落地设计.md
 last_verified: 2026-05-25
 update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
 ---
@@ -25,7 +25,7 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 
 > 本目录下的 JSON 文件定义深渊战斗节点中遭遇的敌对实体。怪物的攻击、技能、背包干涉统一通过 `AI.Actions` 配置，不再使用旧的 `DamageValue`、`AttacksPerTurn`、`GridInterference` 字段。
 
-正式配置字段、前三层怪物 / Boss 内容缺口、Boss / 精英职责拆分和 Validator 建议见 `设计文档/28_Monsters正式配置承接审计.md`。该审计是配置改造依据，不代表本文字段已经全部落地。
+正式配置字段、前三层怪物 / Boss 内容缺口、Boss / 精英职责拆分和 Validator 建议见 `设计文档/config/audits/28_Monsters正式配置承接审计.md`。该审计是配置改造依据，不代表本文字段已经全部落地。
 
 ## 正式配置基本规则
 

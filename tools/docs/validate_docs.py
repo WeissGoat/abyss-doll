@@ -19,7 +19,7 @@ CORE_DOCS = {
     "DOCS_INDEX.md",
     "知识库/README.md",
     "版本规划/09_正式版核心纵切开发路线.md",
-    "设计文档/GDD_00_系统关联总图.md",
+    "设计文档/GDD/GDD_00_系统关联总图.md",
     "开发文档/00_程序开发大纲.md",
     "美术文档/README.md",
     "agent_status/art.md",

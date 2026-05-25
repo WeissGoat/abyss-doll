@@ -102,77 +102,77 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [UI 设计迭代与版本迁移流程](美术文档/ui_design/ui_iteration_process.md) - `art` / `ui_design`
 - [UI 设计版本迁移记录](美术文档/ui_design/versions/migration_log.md) - `art` / `ui_design`
 - [UI 设计版本管理](美术文档/ui_design/versions/README.md) - `art` / `ui_design`
-- [策划文档开发交付审计](设计文档/00_策划文档开发交付审计.md) - `audit` / `design_delivery`
-- [局外时间与日程口径规则卡](设计文档/01_局外时间与日程口径规则卡.md) - `rule_card` / `time_schedule`
-- [物品、背包、旋转与生命周期规则卡](设计文档/02_物品背包旋转与生命周期规则卡.md) - `rule_card` / `item_inventory_lifecycle`
-- [战斗回合与怪物意图规则卡](设计文档/03_战斗回合与怪物意图规则卡.md) - `rule_card` / `combat_turn_intent`
-- [小镇经济结算与压力链规则卡](设计文档/04_小镇经济结算与压力链规则卡.md) - `rule_card` / `town_economy_settlement`
-- [局外成长与维护规则卡](设计文档/05_局外成长与维护规则卡.md) - `rule_card` / `outgame_growth_maintenance`
-- [标签与特质规则卡](设计文档/06_标签与特质规则卡.md) - `rule_card` / `tag_trait_rules`
-- [势力声望与订单规则卡](设计文档/07_势力声望与订单规则卡.md) - `rule_card` / `faction_order_rules`
-- [人偶核心状态与好感双轨规则卡](设计文档/08_人偶核心状态与好感双轨规则卡.md) - `rule_card` / `doll_core_state_affection`
-- [人偶交互事件与反馈规则卡](设计文档/09_人偶交互事件与反馈规则卡.md) - `rule_card` / `doll_interaction_rules`
-- [剧本调度与事件队列规则卡](设计文档/10_剧本调度与事件队列规则卡.md) - `rule_card` / `scenario_event_queue`
-- [人偶房间布局与视觉叙事规则卡](设计文档/11_人偶房间布局与视觉叙事规则卡.md) - `rule_card` / `doll_room_rules`
-- [策划交付落地矩阵](设计文档/12_策划交付落地矩阵.md) - `matrix` / `design_delivery`
-- [策划跨系统验收场景矩阵](设计文档/13_策划跨系统验收场景矩阵.md) - `matrix` / `design_acceptance`
-- [策划配置表现验收承接规格](设计文档/14_策划配置表现验收承接规格.md) - `handoff` / `design_delivery`
-- [P0主干配置表现验收承接清单](设计文档/15_P0主干配置表现验收承接清单.md) - `checklist` / `design_delivery`
-- [P1人偶成长情感承接清单](设计文档/16_P1人偶成长情感承接清单.md) - `checklist` / `design_delivery`
-- [P2长期循环叙事承接清单](设计文档/17_P2长期循环叙事承接清单.md) - `checklist` / `design_delivery`
-- [正式版内容生产规格](设计文档/18_正式版内容生产规格.md) - `spec` / `content_authoring`
-- [第一层正式核心内容包](设计文档/19_第一层正式核心内容包.md) - `content_pack` / `content_authoring`
-- [第二层背包压力内容包](设计文档/20_第二层背包压力内容包.md) - `content_pack` / `content_authoring`
-- [人偶成长修复内容包](设计文档/21_人偶成长修复内容包.md) - `content_pack` / `content_authoring`
-- [小镇经济月租内容包](设计文档/22_小镇经济月租内容包.md) - `content_pack` / `content_authoring`
-- [长期记忆剧情内容包](设计文档/23_长期记忆剧情内容包.md) - `content_pack` / `content_authoring`
-- [势力订单声望内容包](设计文档/24_势力订单声望内容包.md) - `content_pack` / `content_authoring`
-- [第三层路线侵蚀内容包](设计文档/25_第三层路线侵蚀内容包.md) - `content_pack` / `content_authoring`
-- [正式配置设计与填充推进计划](设计文档/26_正式配置设计与填充推进计划.md) - `plan` / `formal_config_authoring`
-- [Items正式配置承接审计](设计文档/27_Items正式配置承接审计.md) - `audit` / `formal_config_authoring`
-- [Monsters正式配置承接审计](设计文档/28_Monsters正式配置承接审计.md) - `audit` / `formal_config_authoring`
-- [Dungeons正式配置承接审计](设计文档/29_Dungeons正式配置承接审计.md) - `audit` / `formal_config_authoring`
-- [Rewards正式配置承接审计](设计文档/30_Rewards正式配置承接审计.md) - `audit` / `formal_config_authoring`
-- [第一层正式配置落地设计](设计文档/31_第一层正式配置落地设计.md) - `config_design` / `formal_config_authoring`
-- [第二层正式配置落地设计](设计文档/32_第二层正式配置落地设计.md) - `config_design` / `formal_config_authoring`
-- [第三层正式配置落地设计](设计文档/33_第三层正式配置落地设计.md) - `config_design` / `formal_config_authoring`
-- [前三层正式配置实现任务拆分](设计文档/34_前三层正式配置实现任务拆分.md) - `task_split` / `formal_config_authoring`
-- [前三层正式配置Validator与固定Seed验收样例](设计文档/35_前三层正式配置Validator与固定Seed验收样例.md) - `acceptance_spec` / `formal_config_acceptance`
-- [局外成长正式配置承接审计](设计文档/36_局外成长正式配置承接审计.md) - `audit` / `formal_config_authoring`
-- [局外成长正式配置落地设计](设计文档/37_局外成长正式配置落地设计.md) - `config_design` / `formal_config_authoring`
-- [局外成长正式配置实现任务拆分](设计文档/38_局外成长正式配置实现任务拆分.md) - `task_breakdown` / `formal_config_authoring`
-- [局外成长正式配置ID锁定与冲突检查](设计文档/39_局外成长正式配置ID锁定与冲突检查.md) - `audit` / `formal_config_authoring`
-- [局外成长底盘正式配置落地设计](设计文档/40_局外成长底盘正式配置落地设计.md) - `config_design` / `formal_config_authoring`
-- [局外成长效果特质正式配置落地设计](设计文档/41_局外成长效果特质正式配置落地设计.md) - `config_design` / `formal_config_authoring`
-- [局外成长义体正式配置落地设计](设计文档/42_局外成长义体正式配置落地设计.md) - `config_design` / `formal_config_authoring`
-- [局外成长制造维护正式配置落地设计](设计文档/43_局外成长制造维护正式配置落地设计.md) - `config_design` / `formal_config_authoring`
-- [局外成长人偶特质房间正式配置落地设计](设计文档/44_局外成长人偶特质房间正式配置落地设计.md) - `config_design` / `formal_config_authoring`
-- [局外成长正式配置Validator与固定验收样例](设计文档/45_局外成长正式配置Validator与固定验收样例.md) - `acceptance_spec` / `formal_config_acceptance`
-- [经济压力正式配置承接审计](设计文档/46_经济压力正式配置承接审计.md) - `audit` / `formal_config_authoring`
-- [经济压力核心正式配置落地设计](设计文档/47_经济压力核心正式配置落地设计.md) - `config_design` / `formal_config_authoring`
-- [经济压力传闻正式配置落地设计](设计文档/48_经济压力传闻正式配置落地设计.md) - `config_design` / `formal_config_authoring`
-- [经济压力势力正式配置落地设计](设计文档/49_经济压力势力正式配置落地设计.md) - `config_design` / `formal_config_authoring`
-- [经济压力订单正式配置落地设计](设计文档/50_经济压力订单正式配置落地设计.md) - `config_design` / `formal_config_authoring`
-- [经济压力正式配置Validator与固定验收样例](设计文档/51_经济压力正式配置Validator与固定验收样例.md) - `acceptance_spec` / `formal_config_acceptance`
-- [经济压力正式配置实现任务拆分](设计文档/52_经济压力正式配置实现任务拆分.md) - `task_breakdown` / `formal_config_authoring`
-- [经济压力正式配置ID锁定与冲突检查](设计文档/53_经济压力正式配置ID锁定与冲突检查.md) - `audit` / `formal_config_authoring`
-- [经济压力正式配置README字段口径检查](设计文档/54_经济压力正式配置README字段口径检查.md) - `audit` / `formal_config_authoring`
-- [经济压力订单ID最终锁定表](设计文档/55_经济压力订单ID最终锁定表.md) - `audit` / `formal_config_authoring`
-- [正式配置源落地准入门禁](设计文档/56_正式配置源落地准入门禁.md) - `gate` / `formal_config_authoring`
-- [系统关联总图：全系统内在关联与数据流向](设计文档/GDD_00_系统关联总图.md) - `gdd` / `system_overview`
-- [详案_01：背包战斗与局内网格机制 (GDD_01)](设计文档/GDD_01_背包战斗与局内网格机制.md) - `gdd` / `grid_inventory`
-- [详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)](设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md) - `gdd` / `dungeon_exploration`
-- [详案_03：人偶实体对象与好感双轨机制 (GDD_03)](设计文档/GDD_03_人偶实体对象与好感双轨机制.md) - `gdd` / `doll_relationship`
-- [详案_04：小镇循环与经济物价波浪模型 (GDD_04)](设计文档/GDD_04_小镇循环与经济物价波浪模型.md) - `gdd` / `town_economy`
-- [详案_05：剧本调度引擎与世界观封装逻辑 (GDD_05)](设计文档/GDD_05_剧本调度引擎与世界观封装逻辑.md) - `gdd` / `scenario_worldview`
-- [详案_06：物品系统与物品生命周期 (GDD_06)](设计文档/GDD_06_物品系统与物品生命周期.md) - `gdd` / `item_lifecycle`
-- [详案_07：时间日程系统与天数轮转机制 (GDD_07)](设计文档/GDD_07_时间日程系统与天数轮转机制.md) - `gdd` / `time_schedule`
-- [详案_08：人偶养成子模块全案 (GDD_08)](设计文档/GDD_08_人偶养成子模块全案.md) - `gdd` / `doll_growth`
-- [详案_09：标签与特质系统 (GDD_09)](设计文档/GDD_09_标签与特质系统.md) - `gdd` / `tag_trait`
-- [详案_10：势力声望与订单系统 (GDD_10)](设计文档/GDD_10_势力声望与订单系统.md) - `gdd` / `faction_order`
-- [详案_11：人偶房间与视觉叙事系统 (GDD_11)](设计文档/GDD_11_人偶房间与视觉叙事系统.md) - `gdd` / `doll_room`
-- [详案_12：人偶交互管理器 (GDD_12)](设计文档/GDD_12_人偶交互管理器.md) - `gdd` / `doll_interaction`
+- [正式配置设计与填充推进计划](设计文档/config/26_正式配置设计与填充推进计划.md) - `plan` / `formal_config_authoring`
+- [Items正式配置承接审计](设计文档/config/audits/27_Items正式配置承接审计.md) - `audit` / `formal_config_authoring`
+- [Monsters正式配置承接审计](设计文档/config/audits/28_Monsters正式配置承接审计.md) - `audit` / `formal_config_authoring`
+- [Dungeons正式配置承接审计](设计文档/config/audits/29_Dungeons正式配置承接审计.md) - `audit` / `formal_config_authoring`
+- [Rewards正式配置承接审计](设计文档/config/audits/30_Rewards正式配置承接审计.md) - `audit` / `formal_config_authoring`
+- [局外成长正式配置承接审计](设计文档/config/audits/36_局外成长正式配置承接审计.md) - `audit` / `formal_config_authoring`
+- [经济压力正式配置承接审计](设计文档/config/audits/46_经济压力正式配置承接审计.md) - `audit` / `formal_config_authoring`
+- [第一层正式配置落地设计](设计文档/config/designs/31_第一层正式配置落地设计.md) - `config_design` / `formal_config_authoring`
+- [第二层正式配置落地设计](设计文档/config/designs/32_第二层正式配置落地设计.md) - `config_design` / `formal_config_authoring`
+- [第三层正式配置落地设计](设计文档/config/designs/33_第三层正式配置落地设计.md) - `config_design` / `formal_config_authoring`
+- [局外成长正式配置落地设计](设计文档/config/designs/37_局外成长正式配置落地设计.md) - `config_design` / `formal_config_authoring`
+- [局外成长底盘正式配置落地设计](设计文档/config/designs/40_局外成长底盘正式配置落地设计.md) - `config_design` / `formal_config_authoring`
+- [局外成长效果特质正式配置落地设计](设计文档/config/designs/41_局外成长效果特质正式配置落地设计.md) - `config_design` / `formal_config_authoring`
+- [局外成长义体正式配置落地设计](设计文档/config/designs/42_局外成长义体正式配置落地设计.md) - `config_design` / `formal_config_authoring`
+- [局外成长制造维护正式配置落地设计](设计文档/config/designs/43_局外成长制造维护正式配置落地设计.md) - `config_design` / `formal_config_authoring`
+- [局外成长人偶特质房间正式配置落地设计](设计文档/config/designs/44_局外成长人偶特质房间正式配置落地设计.md) - `config_design` / `formal_config_authoring`
+- [经济压力核心正式配置落地设计](设计文档/config/designs/47_经济压力核心正式配置落地设计.md) - `config_design` / `formal_config_authoring`
+- [经济压力传闻正式配置落地设计](设计文档/config/designs/48_经济压力传闻正式配置落地设计.md) - `config_design` / `formal_config_authoring`
+- [经济压力势力正式配置落地设计](设计文档/config/designs/49_经济压力势力正式配置落地设计.md) - `config_design` / `formal_config_authoring`
+- [经济压力订单正式配置落地设计](设计文档/config/designs/50_经济压力订单正式配置落地设计.md) - `config_design` / `formal_config_authoring`
+- [局外成长正式配置ID锁定与冲突检查](设计文档/config/gates/39_局外成长正式配置ID锁定与冲突检查.md) - `audit` / `formal_config_authoring`
+- [经济压力正式配置ID锁定与冲突检查](设计文档/config/gates/53_经济压力正式配置ID锁定与冲突检查.md) - `audit` / `formal_config_authoring`
+- [经济压力正式配置README字段口径检查](设计文档/config/gates/54_经济压力正式配置README字段口径检查.md) - `audit` / `formal_config_authoring`
+- [经济压力订单ID最终锁定表](设计文档/config/gates/55_经济压力订单ID最终锁定表.md) - `audit` / `formal_config_authoring`
+- [正式配置源落地准入门禁](设计文档/config/gates/56_正式配置源落地准入门禁.md) - `gate` / `formal_config_authoring`
+- [前三层正式配置实现任务拆分](设计文档/config/tasks/34_前三层正式配置实现任务拆分.md) - `task_split` / `formal_config_authoring`
+- [局外成长正式配置实现任务拆分](设计文档/config/tasks/38_局外成长正式配置实现任务拆分.md) - `task_breakdown` / `formal_config_authoring`
+- [经济压力正式配置实现任务拆分](设计文档/config/tasks/52_经济压力正式配置实现任务拆分.md) - `task_breakdown` / `formal_config_authoring`
+- [前三层正式配置Validator与固定Seed验收样例](设计文档/config/validation/35_前三层正式配置Validator与固定Seed验收样例.md) - `acceptance_spec` / `formal_config_acceptance`
+- [局外成长正式配置Validator与固定验收样例](设计文档/config/validation/45_局外成长正式配置Validator与固定验收样例.md) - `acceptance_spec` / `formal_config_acceptance`
+- [经济压力正式配置Validator与固定验收样例](设计文档/config/validation/51_经济压力正式配置Validator与固定验收样例.md) - `acceptance_spec` / `formal_config_acceptance`
+- [正式版内容生产规格](设计文档/content_packs/18_正式版内容生产规格.md) - `spec` / `content_authoring`
+- [第一层正式核心内容包](设计文档/content_packs/19_第一层正式核心内容包.md) - `content_pack` / `content_authoring`
+- [第二层背包压力内容包](设计文档/content_packs/20_第二层背包压力内容包.md) - `content_pack` / `content_authoring`
+- [人偶成长修复内容包](设计文档/content_packs/21_人偶成长修复内容包.md) - `content_pack` / `content_authoring`
+- [小镇经济月租内容包](设计文档/content_packs/22_小镇经济月租内容包.md) - `content_pack` / `content_authoring`
+- [长期记忆剧情内容包](设计文档/content_packs/23_长期记忆剧情内容包.md) - `content_pack` / `content_authoring`
+- [势力订单声望内容包](设计文档/content_packs/24_势力订单声望内容包.md) - `content_pack` / `content_authoring`
+- [第三层路线侵蚀内容包](设计文档/content_packs/25_第三层路线侵蚀内容包.md) - `content_pack` / `content_authoring`
+- [策划文档开发交付审计](设计文档/delivery/00_策划文档开发交付审计.md) - `audit` / `design_delivery`
+- [策划交付落地矩阵](设计文档/delivery/12_策划交付落地矩阵.md) - `matrix` / `design_delivery`
+- [策划跨系统验收场景矩阵](设计文档/delivery/13_策划跨系统验收场景矩阵.md) - `matrix` / `design_acceptance`
+- [策划配置表现验收承接规格](设计文档/delivery/14_策划配置表现验收承接规格.md) - `handoff` / `design_delivery`
+- [P0主干配置表现验收承接清单](设计文档/delivery/15_P0主干配置表现验收承接清单.md) - `checklist` / `design_delivery`
+- [P1人偶成长情感承接清单](设计文档/delivery/16_P1人偶成长情感承接清单.md) - `checklist` / `design_delivery`
+- [P2长期循环叙事承接清单](设计文档/delivery/17_P2长期循环叙事承接清单.md) - `checklist` / `design_delivery`
+- [系统关联总图：全系统内在关联与数据流向](设计文档/GDD/GDD_00_系统关联总图.md) - `gdd` / `system_overview`
+- [详案_01：背包战斗与局内网格机制 (GDD_01)](设计文档/GDD/GDD_01_背包战斗与局内网格机制.md) - `gdd` / `grid_inventory`
+- [详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)](设计文档/GDD/GDD_02_深渊地图遍历与搜打撤抉择.md) - `gdd` / `dungeon_exploration`
+- [详案_03：人偶实体对象与好感双轨机制 (GDD_03)](设计文档/GDD/GDD_03_人偶实体对象与好感双轨机制.md) - `gdd` / `doll_relationship`
+- [详案_04：小镇循环与经济物价波浪模型 (GDD_04)](设计文档/GDD/GDD_04_小镇循环与经济物价波浪模型.md) - `gdd` / `town_economy`
+- [详案_05：剧本调度引擎与世界观封装逻辑 (GDD_05)](设计文档/GDD/GDD_05_剧本调度引擎与世界观封装逻辑.md) - `gdd` / `scenario_worldview`
+- [详案_06：物品系统与物品生命周期 (GDD_06)](设计文档/GDD/GDD_06_物品系统与物品生命周期.md) - `gdd` / `item_lifecycle`
+- [详案_07：时间日程系统与天数轮转机制 (GDD_07)](设计文档/GDD/GDD_07_时间日程系统与天数轮转机制.md) - `gdd` / `time_schedule`
+- [详案_08：人偶养成子模块全案 (GDD_08)](设计文档/GDD/GDD_08_人偶养成子模块全案.md) - `gdd` / `doll_growth`
+- [详案_09：标签与特质系统 (GDD_09)](设计文档/GDD/GDD_09_标签与特质系统.md) - `gdd` / `tag_trait`
+- [详案_10：势力声望与订单系统 (GDD_10)](设计文档/GDD/GDD_10_势力声望与订单系统.md) - `gdd` / `faction_order`
+- [详案_11：人偶房间与视觉叙事系统 (GDD_11)](设计文档/GDD/GDD_11_人偶房间与视觉叙事系统.md) - `gdd` / `doll_room`
+- [详案_12：人偶交互管理器 (GDD_12)](设计文档/GDD/GDD_12_人偶交互管理器.md) - `gdd` / `doll_interaction`
 - [设计文档阅读入口](设计文档/README.md) - `entry` / `design_delivery`
+- [局外时间与日程口径规则卡](设计文档/rules/01_局外时间与日程口径规则卡.md) - `rule_card` / `time_schedule`
+- [物品、背包、旋转与生命周期规则卡](设计文档/rules/02_物品背包旋转与生命周期规则卡.md) - `rule_card` / `item_inventory_lifecycle`
+- [战斗回合与怪物意图规则卡](设计文档/rules/03_战斗回合与怪物意图规则卡.md) - `rule_card` / `combat_turn_intent`
+- [小镇经济结算与压力链规则卡](设计文档/rules/04_小镇经济结算与压力链规则卡.md) - `rule_card` / `town_economy_settlement`
+- [局外成长与维护规则卡](设计文档/rules/05_局外成长与维护规则卡.md) - `rule_card` / `outgame_growth_maintenance`
+- [标签与特质规则卡](设计文档/rules/06_标签与特质规则卡.md) - `rule_card` / `tag_trait_rules`
+- [势力声望与订单规则卡](设计文档/rules/07_势力声望与订单规则卡.md) - `rule_card` / `faction_order_rules`
+- [人偶核心状态与好感双轨规则卡](设计文档/rules/08_人偶核心状态与好感双轨规则卡.md) - `rule_card` / `doll_core_state_affection`
+- [人偶交互事件与反馈规则卡](设计文档/rules/09_人偶交互事件与反馈规则卡.md) - `rule_card` / `doll_interaction_rules`
+- [剧本调度与事件队列规则卡](设计文档/rules/10_剧本调度与事件队列规则卡.md) - `rule_card` / `scenario_event_queue`
+- [人偶房间布局与视觉叙事规则卡](设计文档/rules/11_人偶房间布局与视觉叙事规则卡.md) - `rule_card` / `doll_room_rules`
 - [局外底盘配置字段说明 (Chassis Config)](配置表(JSON)/Chassis/README.md) - `config` / `config_chassis`
 - [工坊制造配方字段说明 (Crafting Recipes Config)](配置表(JSON)/CraftingRecipes/README.md) - `config` / `config_crafting`
 - [人偶基础档案配置字段说明 (Dolls Config)](配置表(JSON)/Dolls/README.md) - `config` / `config_dolls`
@@ -284,78 +284,78 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [数值模型沙盘推演方法论 (Numerical Sandboxing)](版本规划/_archive/mvp_2026-05/03_mvp数值要求.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 需要补充的配置调整](版本规划/_archive/mvp_2026-05/05_MVP需要补充的配置调整.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [策划智能体阅读入口](知识库/views/design.md) | `view` | `active` | `agent_context_view` | 11 | 完整 |
-| [策划文档开发交付审计](设计文档/00_策划文档开发交付审计.md) | `audit` | `active` | `design_delivery` | 31 | 完整 |
-| [局外时间与日程口径规则卡](设计文档/01_局外时间与日程口径规则卡.md) | `rule_card` | `active` | `time_schedule` | 14 | 完整 |
-| [物品、背包、旋转与生命周期规则卡](设计文档/02_物品背包旋转与生命周期规则卡.md) | `rule_card` | `active` | `item_inventory_lifecycle` | 14 | 完整 |
-| [战斗回合与怪物意图规则卡](设计文档/03_战斗回合与怪物意图规则卡.md) | `rule_card` | `active` | `combat_turn_intent` | 12 | 完整 |
-| [小镇经济结算与压力链规则卡](设计文档/04_小镇经济结算与压力链规则卡.md) | `rule_card` | `active` | `town_economy_settlement` | 26 | 完整 |
-| [局外成长与维护规则卡](设计文档/05_局外成长与维护规则卡.md) | `rule_card` | `active` | `outgame_growth_maintenance` | 27 | 完整 |
-| [标签与特质规则卡](设计文档/06_标签与特质规则卡.md) | `rule_card` | `active` | `tag_trait_rules` | 26 | 完整 |
-| [势力声望与订单规则卡](设计文档/07_势力声望与订单规则卡.md) | `rule_card` | `active` | `faction_order_rules` | 24 | 完整 |
-| [人偶核心状态与好感双轨规则卡](设计文档/08_人偶核心状态与好感双轨规则卡.md) | `rule_card` | `active` | `doll_core_state_affection` | 23 | 完整 |
-| [人偶交互事件与反馈规则卡](设计文档/09_人偶交互事件与反馈规则卡.md) | `rule_card` | `active` | `doll_interaction_rules` | 20 | 完整 |
-| [剧本调度与事件队列规则卡](设计文档/10_剧本调度与事件队列规则卡.md) | `rule_card` | `active` | `scenario_event_queue` | 15 | 完整 |
-| [人偶房间布局与视觉叙事规则卡](设计文档/11_人偶房间布局与视觉叙事规则卡.md) | `rule_card` | `active` | `doll_room_rules` | 22 | 完整 |
-| [策划交付落地矩阵](设计文档/12_策划交付落地矩阵.md) | `matrix` | `active` | `design_delivery` | 18 | 完整 |
-| [策划跨系统验收场景矩阵](设计文档/13_策划跨系统验收场景矩阵.md) | `matrix` | `active` | `design_acceptance` | 16 | 完整 |
-| [策划配置表现验收承接规格](设计文档/14_策划配置表现验收承接规格.md) | `handoff` | `active` | `design_delivery` | 8 | 完整 |
-| [P0主干配置表现验收承接清单](设计文档/15_P0主干配置表现验收承接清单.md) | `checklist` | `active` | `design_delivery` | 18 | 完整 |
-| [P1人偶成长情感承接清单](设计文档/16_P1人偶成长情感承接清单.md) | `checklist` | `active` | `design_delivery` | 17 | 完整 |
-| [P2长期循环叙事承接清单](设计文档/17_P2长期循环叙事承接清单.md) | `checklist` | `active` | `design_delivery` | 20 | 完整 |
-| [正式版内容生产规格](设计文档/18_正式版内容生产规格.md) | `spec` | `active` | `content_authoring` | 15 | 完整 |
-| [第一层正式核心内容包](设计文档/19_第一层正式核心内容包.md) | `content_pack` | `active` | `content_authoring` | 23 | 完整 |
-| [第二层背包压力内容包](设计文档/20_第二层背包压力内容包.md) | `content_pack` | `active` | `content_authoring` | 25 | 完整 |
-| [人偶成长修复内容包](设计文档/21_人偶成长修复内容包.md) | `content_pack` | `active` | `content_authoring` | 28 | 完整 |
-| [小镇经济月租内容包](设计文档/22_小镇经济月租内容包.md) | `content_pack` | `active` | `content_authoring` | 25 | 完整 |
-| [长期记忆剧情内容包](设计文档/23_长期记忆剧情内容包.md) | `content_pack` | `active` | `content_authoring` | 19 | 完整 |
-| [势力订单声望内容包](设计文档/24_势力订单声望内容包.md) | `content_pack` | `active` | `content_authoring` | 25 | 完整 |
-| [第三层路线侵蚀内容包](设计文档/25_第三层路线侵蚀内容包.md) | `content_pack` | `active` | `content_authoring` | 25 | 完整 |
-| [正式配置设计与填充推进计划](设计文档/26_正式配置设计与填充推进计划.md) | `plan` | `active` | `formal_config_authoring` | 32 | 完整 |
-| [Items正式配置承接审计](设计文档/27_Items正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 13 | 完整 |
-| [Monsters正式配置承接审计](设计文档/28_Monsters正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 15 | 完整 |
-| [Dungeons正式配置承接审计](设计文档/29_Dungeons正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 15 | 完整 |
-| [Rewards正式配置承接审计](设计文档/30_Rewards正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 16 | 完整 |
-| [第一层正式配置落地设计](设计文档/31_第一层正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 14 | 完整 |
-| [第二层正式配置落地设计](设计文档/32_第二层正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 14 | 完整 |
-| [第三层正式配置落地设计](设计文档/33_第三层正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 14 | 完整 |
-| [前三层正式配置实现任务拆分](设计文档/34_前三层正式配置实现任务拆分.md) | `task_split` | `active` | `formal_config_authoring` | 13 | 完整 |
-| [前三层正式配置Validator与固定Seed验收样例](设计文档/35_前三层正式配置Validator与固定Seed验收样例.md) | `acceptance_spec` | `active` | `formal_config_acceptance` | 7 | 完整 |
-| [局外成长正式配置承接审计](设计文档/36_局外成长正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 20 | 完整 |
-| [局外成长正式配置落地设计](设计文档/37_局外成长正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 21 | 完整 |
-| [局外成长正式配置实现任务拆分](设计文档/38_局外成长正式配置实现任务拆分.md) | `task_breakdown` | `active` | `formal_config_authoring` | 19 | 完整 |
-| [局外成长正式配置ID锁定与冲突检查](设计文档/39_局外成长正式配置ID锁定与冲突检查.md) | `audit` | `active` | `formal_config_authoring` | 18 | 完整 |
-| [局外成长底盘正式配置落地设计](设计文档/40_局外成长底盘正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 16 | 完整 |
-| [局外成长效果特质正式配置落地设计](设计文档/41_局外成长效果特质正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 19 | 完整 |
-| [局外成长义体正式配置落地设计](设计文档/42_局外成长义体正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 18 | 完整 |
-| [局外成长制造维护正式配置落地设计](设计文档/43_局外成长制造维护正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 20 | 完整 |
-| [局外成长人偶特质房间正式配置落地设计](设计文档/44_局外成长人偶特质房间正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 19 | 完整 |
-| [局外成长正式配置Validator与固定验收样例](设计文档/45_局外成长正式配置Validator与固定验收样例.md) | `acceptance_spec` | `active` | `formal_config_acceptance` | 21 | 完整 |
-| [经济压力正式配置承接审计](设计文档/46_经济压力正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 21 | 完整 |
-| [经济压力核心正式配置落地设计](设计文档/47_经济压力核心正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 15 | 完整 |
-| [经济压力传闻正式配置落地设计](设计文档/48_经济压力传闻正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 18 | 完整 |
-| [经济压力势力正式配置落地设计](设计文档/49_经济压力势力正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 18 | 完整 |
-| [经济压力订单正式配置落地设计](设计文档/50_经济压力订单正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 20 | 完整 |
-| [经济压力正式配置Validator与固定验收样例](设计文档/51_经济压力正式配置Validator与固定验收样例.md) | `acceptance_spec` | `active` | `formal_config_acceptance` | 16 | 完整 |
-| [经济压力正式配置实现任务拆分](设计文档/52_经济压力正式配置实现任务拆分.md) | `task_breakdown` | `active` | `formal_config_authoring` | 21 | 完整 |
-| [经济压力正式配置ID锁定与冲突检查](设计文档/53_经济压力正式配置ID锁定与冲突检查.md) | `audit` | `active` | `formal_config_authoring` | 17 | 完整 |
-| [经济压力正式配置README字段口径检查](设计文档/54_经济压力正式配置README字段口径检查.md) | `audit` | `active` | `formal_config_authoring` | 17 | 完整 |
-| [经济压力订单ID最终锁定表](设计文档/55_经济压力订单ID最终锁定表.md) | `audit` | `active` | `formal_config_authoring` | 10 | 完整 |
-| [正式配置源落地准入门禁](设计文档/56_正式配置源落地准入门禁.md) | `gate` | `active` | `formal_config_authoring` | 7 | 完整 |
-| [系统关联总图：全系统内在关联与数据流向](设计文档/GDD_00_系统关联总图.md) | `gdd` | `active` | `system_overview` | 38 | 完整 |
-| [详案_01：背包战斗与局内网格机制 (GDD_01)](设计文档/GDD_01_背包战斗与局内网格机制.md) | `gdd` | `active` | `grid_inventory` | 17 | 完整 |
-| [详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)](设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md) | `gdd` | `active` | `dungeon_exploration` | 15 | 完整 |
-| [详案_03：人偶实体对象与好感双轨机制 (GDD_03)](设计文档/GDD_03_人偶实体对象与好感双轨机制.md) | `gdd` | `active` | `doll_relationship` | 19 | 完整 |
-| [详案_04：小镇循环与经济物价波浪模型 (GDD_04)](设计文档/GDD_04_小镇循环与经济物价波浪模型.md) | `gdd` | `active` | `town_economy` | 19 | 完整 |
-| [详案_05：剧本调度引擎与世界观封装逻辑 (GDD_05)](设计文档/GDD_05_剧本调度引擎与世界观封装逻辑.md) | `gdd` | `active` | `scenario_worldview` | 9 | 完整 |
-| [详案_06：物品系统与物品生命周期 (GDD_06)](设计文档/GDD_06_物品系统与物品生命周期.md) | `gdd` | `active` | `item_lifecycle` | 14 | 完整 |
-| [详案_07：时间日程系统与天数轮转机制 (GDD_07)](设计文档/GDD_07_时间日程系统与天数轮转机制.md) | `gdd` | `active` | `time_schedule` | 15 | 完整 |
-| [详案_08：人偶养成子模块全案 (GDD_08)](设计文档/GDD_08_人偶养成子模块全案.md) | `gdd` | `active` | `doll_growth` | 23 | 完整 |
-| [详案_09：标签与特质系统 (GDD_09)](设计文档/GDD_09_标签与特质系统.md) | `gdd` | `active` | `tag_trait` | 11 | 完整 |
-| [详案_10：势力声望与订单系统 (GDD_10)](设计文档/GDD_10_势力声望与订单系统.md) | `gdd` | `active` | `faction_order` | 18 | 完整 |
-| [详案_11：人偶房间与视觉叙事系统 (GDD_11)](设计文档/GDD_11_人偶房间与视觉叙事系统.md) | `gdd` | `active` | `doll_room` | 14 | 完整 |
-| [详案_12：人偶交互管理器 (GDD_12)](设计文档/GDD_12_人偶交互管理器.md) | `gdd` | `active` | `doll_interaction` | 15 | 完整 |
+| [系统关联总图：全系统内在关联与数据流向](设计文档/GDD/GDD_00_系统关联总图.md) | `gdd` | `active` | `system_overview` | 38 | 完整 |
+| [详案_01：背包战斗与局内网格机制 (GDD_01)](设计文档/GDD/GDD_01_背包战斗与局内网格机制.md) | `gdd` | `active` | `grid_inventory` | 17 | 完整 |
+| [详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)](设计文档/GDD/GDD_02_深渊地图遍历与搜打撤抉择.md) | `gdd` | `active` | `dungeon_exploration` | 15 | 完整 |
+| [详案_03：人偶实体对象与好感双轨机制 (GDD_03)](设计文档/GDD/GDD_03_人偶实体对象与好感双轨机制.md) | `gdd` | `active` | `doll_relationship` | 19 | 完整 |
+| [详案_04：小镇循环与经济物价波浪模型 (GDD_04)](设计文档/GDD/GDD_04_小镇循环与经济物价波浪模型.md) | `gdd` | `active` | `town_economy` | 19 | 完整 |
+| [详案_05：剧本调度引擎与世界观封装逻辑 (GDD_05)](设计文档/GDD/GDD_05_剧本调度引擎与世界观封装逻辑.md) | `gdd` | `active` | `scenario_worldview` | 9 | 完整 |
+| [详案_06：物品系统与物品生命周期 (GDD_06)](设计文档/GDD/GDD_06_物品系统与物品生命周期.md) | `gdd` | `active` | `item_lifecycle` | 14 | 完整 |
+| [详案_07：时间日程系统与天数轮转机制 (GDD_07)](设计文档/GDD/GDD_07_时间日程系统与天数轮转机制.md) | `gdd` | `active` | `time_schedule` | 15 | 完整 |
+| [详案_08：人偶养成子模块全案 (GDD_08)](设计文档/GDD/GDD_08_人偶养成子模块全案.md) | `gdd` | `active` | `doll_growth` | 23 | 完整 |
+| [详案_09：标签与特质系统 (GDD_09)](设计文档/GDD/GDD_09_标签与特质系统.md) | `gdd` | `active` | `tag_trait` | 11 | 完整 |
+| [详案_10：势力声望与订单系统 (GDD_10)](设计文档/GDD/GDD_10_势力声望与订单系统.md) | `gdd` | `active` | `faction_order` | 18 | 完整 |
+| [详案_11：人偶房间与视觉叙事系统 (GDD_11)](设计文档/GDD/GDD_11_人偶房间与视觉叙事系统.md) | `gdd` | `active` | `doll_room` | 14 | 完整 |
+| [详案_12：人偶交互管理器 (GDD_12)](设计文档/GDD/GDD_12_人偶交互管理器.md) | `gdd` | `active` | `doll_interaction` | 15 | 完整 |
 | [设计文档阅读入口](设计文档/README.md) | `entry` | `active` | `design_delivery` | 41 | 完整 |
 | [第四层组合压力内容包](设计文档/_archive/content_backlog/26_第四层组合压力内容包.md) | `content_pack` | `draft` | `content_authoring` | 1 | 完整 |
+| [正式配置设计与填充推进计划](设计文档/config/26_正式配置设计与填充推进计划.md) | `plan` | `active` | `formal_config_authoring` | 32 | 完整 |
+| [Items正式配置承接审计](设计文档/config/audits/27_Items正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 13 | 完整 |
+| [Monsters正式配置承接审计](设计文档/config/audits/28_Monsters正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 15 | 完整 |
+| [Dungeons正式配置承接审计](设计文档/config/audits/29_Dungeons正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 15 | 完整 |
+| [Rewards正式配置承接审计](设计文档/config/audits/30_Rewards正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 16 | 完整 |
+| [局外成长正式配置承接审计](设计文档/config/audits/36_局外成长正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 20 | 完整 |
+| [经济压力正式配置承接审计](设计文档/config/audits/46_经济压力正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 21 | 完整 |
+| [第一层正式配置落地设计](设计文档/config/designs/31_第一层正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 14 | 完整 |
+| [第二层正式配置落地设计](设计文档/config/designs/32_第二层正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 14 | 完整 |
+| [第三层正式配置落地设计](设计文档/config/designs/33_第三层正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 14 | 完整 |
+| [局外成长正式配置落地设计](设计文档/config/designs/37_局外成长正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 21 | 完整 |
+| [局外成长底盘正式配置落地设计](设计文档/config/designs/40_局外成长底盘正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 16 | 完整 |
+| [局外成长效果特质正式配置落地设计](设计文档/config/designs/41_局外成长效果特质正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 19 | 完整 |
+| [局外成长义体正式配置落地设计](设计文档/config/designs/42_局外成长义体正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 18 | 完整 |
+| [局外成长制造维护正式配置落地设计](设计文档/config/designs/43_局外成长制造维护正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 20 | 完整 |
+| [局外成长人偶特质房间正式配置落地设计](设计文档/config/designs/44_局外成长人偶特质房间正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 19 | 完整 |
+| [经济压力核心正式配置落地设计](设计文档/config/designs/47_经济压力核心正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 15 | 完整 |
+| [经济压力传闻正式配置落地设计](设计文档/config/designs/48_经济压力传闻正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 18 | 完整 |
+| [经济压力势力正式配置落地设计](设计文档/config/designs/49_经济压力势力正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 18 | 完整 |
+| [经济压力订单正式配置落地设计](设计文档/config/designs/50_经济压力订单正式配置落地设计.md) | `config_design` | `active` | `formal_config_authoring` | 20 | 完整 |
+| [局外成长正式配置ID锁定与冲突检查](设计文档/config/gates/39_局外成长正式配置ID锁定与冲突检查.md) | `audit` | `active` | `formal_config_authoring` | 18 | 完整 |
+| [经济压力正式配置ID锁定与冲突检查](设计文档/config/gates/53_经济压力正式配置ID锁定与冲突检查.md) | `audit` | `active` | `formal_config_authoring` | 17 | 完整 |
+| [经济压力正式配置README字段口径检查](设计文档/config/gates/54_经济压力正式配置README字段口径检查.md) | `audit` | `active` | `formal_config_authoring` | 17 | 完整 |
+| [经济压力订单ID最终锁定表](设计文档/config/gates/55_经济压力订单ID最终锁定表.md) | `audit` | `active` | `formal_config_authoring` | 10 | 完整 |
+| [正式配置源落地准入门禁](设计文档/config/gates/56_正式配置源落地准入门禁.md) | `gate` | `active` | `formal_config_authoring` | 7 | 完整 |
+| [前三层正式配置实现任务拆分](设计文档/config/tasks/34_前三层正式配置实现任务拆分.md) | `task_split` | `active` | `formal_config_authoring` | 13 | 完整 |
+| [局外成长正式配置实现任务拆分](设计文档/config/tasks/38_局外成长正式配置实现任务拆分.md) | `task_breakdown` | `active` | `formal_config_authoring` | 19 | 完整 |
+| [经济压力正式配置实现任务拆分](设计文档/config/tasks/52_经济压力正式配置实现任务拆分.md) | `task_breakdown` | `active` | `formal_config_authoring` | 21 | 完整 |
+| [前三层正式配置Validator与固定Seed验收样例](设计文档/config/validation/35_前三层正式配置Validator与固定Seed验收样例.md) | `acceptance_spec` | `active` | `formal_config_acceptance` | 7 | 完整 |
+| [局外成长正式配置Validator与固定验收样例](设计文档/config/validation/45_局外成长正式配置Validator与固定验收样例.md) | `acceptance_spec` | `active` | `formal_config_acceptance` | 21 | 完整 |
+| [经济压力正式配置Validator与固定验收样例](设计文档/config/validation/51_经济压力正式配置Validator与固定验收样例.md) | `acceptance_spec` | `active` | `formal_config_acceptance` | 16 | 完整 |
+| [正式版内容生产规格](设计文档/content_packs/18_正式版内容生产规格.md) | `spec` | `active` | `content_authoring` | 15 | 完整 |
+| [第一层正式核心内容包](设计文档/content_packs/19_第一层正式核心内容包.md) | `content_pack` | `active` | `content_authoring` | 23 | 完整 |
+| [第二层背包压力内容包](设计文档/content_packs/20_第二层背包压力内容包.md) | `content_pack` | `active` | `content_authoring` | 25 | 完整 |
+| [人偶成长修复内容包](设计文档/content_packs/21_人偶成长修复内容包.md) | `content_pack` | `active` | `content_authoring` | 28 | 完整 |
+| [小镇经济月租内容包](设计文档/content_packs/22_小镇经济月租内容包.md) | `content_pack` | `active` | `content_authoring` | 25 | 完整 |
+| [长期记忆剧情内容包](设计文档/content_packs/23_长期记忆剧情内容包.md) | `content_pack` | `active` | `content_authoring` | 19 | 完整 |
+| [势力订单声望内容包](设计文档/content_packs/24_势力订单声望内容包.md) | `content_pack` | `active` | `content_authoring` | 25 | 完整 |
+| [第三层路线侵蚀内容包](设计文档/content_packs/25_第三层路线侵蚀内容包.md) | `content_pack` | `active` | `content_authoring` | 25 | 完整 |
+| [策划文档开发交付审计](设计文档/delivery/00_策划文档开发交付审计.md) | `audit` | `active` | `design_delivery` | 31 | 完整 |
+| [策划交付落地矩阵](设计文档/delivery/12_策划交付落地矩阵.md) | `matrix` | `active` | `design_delivery` | 18 | 完整 |
+| [策划跨系统验收场景矩阵](设计文档/delivery/13_策划跨系统验收场景矩阵.md) | `matrix` | `active` | `design_acceptance` | 16 | 完整 |
+| [策划配置表现验收承接规格](设计文档/delivery/14_策划配置表现验收承接规格.md) | `handoff` | `active` | `design_delivery` | 8 | 完整 |
+| [P0主干配置表现验收承接清单](设计文档/delivery/15_P0主干配置表现验收承接清单.md) | `checklist` | `active` | `design_delivery` | 18 | 完整 |
+| [P1人偶成长情感承接清单](设计文档/delivery/16_P1人偶成长情感承接清单.md) | `checklist` | `active` | `design_delivery` | 17 | 完整 |
+| [P2长期循环叙事承接清单](设计文档/delivery/17_P2长期循环叙事承接清单.md) | `checklist` | `active` | `design_delivery` | 20 | 完整 |
+| [局外时间与日程口径规则卡](设计文档/rules/01_局外时间与日程口径规则卡.md) | `rule_card` | `active` | `time_schedule` | 14 | 完整 |
+| [物品、背包、旋转与生命周期规则卡](设计文档/rules/02_物品背包旋转与生命周期规则卡.md) | `rule_card` | `active` | `item_inventory_lifecycle` | 14 | 完整 |
+| [战斗回合与怪物意图规则卡](设计文档/rules/03_战斗回合与怪物意图规则卡.md) | `rule_card` | `active` | `combat_turn_intent` | 12 | 完整 |
+| [小镇经济结算与压力链规则卡](设计文档/rules/04_小镇经济结算与压力链规则卡.md) | `rule_card` | `active` | `town_economy_settlement` | 26 | 完整 |
+| [局外成长与维护规则卡](设计文档/rules/05_局外成长与维护规则卡.md) | `rule_card` | `active` | `outgame_growth_maintenance` | 27 | 完整 |
+| [标签与特质规则卡](设计文档/rules/06_标签与特质规则卡.md) | `rule_card` | `active` | `tag_trait_rules` | 26 | 完整 |
+| [势力声望与订单规则卡](设计文档/rules/07_势力声望与订单规则卡.md) | `rule_card` | `active` | `faction_order_rules` | 24 | 完整 |
+| [人偶核心状态与好感双轨规则卡](设计文档/rules/08_人偶核心状态与好感双轨规则卡.md) | `rule_card` | `active` | `doll_core_state_affection` | 23 | 完整 |
+| [人偶交互事件与反馈规则卡](设计文档/rules/09_人偶交互事件与反馈规则卡.md) | `rule_card` | `active` | `doll_interaction_rules` | 20 | 完整 |
+| [剧本调度与事件队列规则卡](设计文档/rules/10_剧本调度与事件队列规则卡.md) | `rule_card` | `active` | `scenario_event_queue` | 15 | 完整 |
+| [人偶房间布局与视觉叙事规则卡](设计文档/rules/11_人偶房间布局与视觉叙事规则卡.md) | `rule_card` | `active` | `doll_room_rules` | 22 | 完整 |
 | [局外底盘配置字段说明 (Chassis Config)](配置表(JSON)/Chassis/README.md) | `config` | `active` | `config_chassis` | 16 | 完整 |
 | [工坊制造配方字段说明 (Crafting Recipes Config)](配置表(JSON)/CraftingRecipes/README.md) | `config` | `active` | `config_crafting` | 21 | 完整 |
 | [人偶基础档案配置字段说明 (Dolls Config)](配置表(JSON)/Dolls/README.md) | `config` | `active` | `config_dolls` | 21 | 完整 |

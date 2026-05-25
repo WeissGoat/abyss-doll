@@ -1,4 +1,4 @@
----
+﻿---
 id: config_economy_readme
 title: 小镇经济配置字段说明 (Economy Config)
 type: config
@@ -8,16 +8,16 @@ status: active
 source_of_truth: true
 related:
   - 配置表(JSON)/README.md
-  - 设计文档/GDD_04_小镇循环与经济物价波浪模型.md
-  - 设计文档/04_小镇经济结算与压力链规则卡.md
-  - 设计文档/22_小镇经济月租内容包.md
-  - 设计文档/46_经济压力正式配置承接审计.md
-  - 设计文档/47_经济压力核心正式配置落地设计.md
-  - 设计文档/51_经济压力正式配置Validator与固定验收样例.md
-  - 设计文档/52_经济压力正式配置实现任务拆分.md
-  - 设计文档/53_经济压力正式配置ID锁定与冲突检查.md
-  - 设计文档/54_经济压力正式配置README字段口径检查.md
-  - 设计文档/49_经济压力势力正式配置落地设计.md
+  - 设计文档/GDD/GDD_04_小镇循环与经济物价波浪模型.md
+  - 设计文档/rules/04_小镇经济结算与压力链规则卡.md
+  - 设计文档/content_packs/22_小镇经济月租内容包.md
+  - 设计文档/config/audits/46_经济压力正式配置承接审计.md
+  - 设计文档/config/designs/47_经济压力核心正式配置落地设计.md
+  - 设计文档/config/validation/51_经济压力正式配置Validator与固定验收样例.md
+  - 设计文档/config/tasks/52_经济压力正式配置实现任务拆分.md
+  - 设计文档/config/gates/53_经济压力正式配置ID锁定与冲突检查.md
+  - 设计文档/config/gates/54_经济压力正式配置README字段口径检查.md
+  - 设计文档/config/designs/49_经济压力势力正式配置落地设计.md
   - 开发文档/04_工坊与养成逻辑(WorkshopSystem).md
 last_verified: 2026-05-25
 update_rule: 修改小镇经济周期、月租曲线、欠债利息、轻债阈值、典当折扣或保护标签时同步本文件。
@@ -27,7 +27,7 @@ update_rule: 修改小镇经济周期、月租曲线、欠债利息、轻债阈�
 
 > 本目录是小镇经济压力链的配置源。当前程序已接入 `TownEconomyService`，先覆盖日结报告、月租扣款、轻度欠账、典当候选和重度违约裁决。传闻、顾客、订单和声望仍待后续服务接入。
 
-经济压力整体验收规格、跨域 Validator、固定样例和 `DES-V4-001` 回写证据模板见 `设计文档/51_经济压力正式配置Validator与固定验收样例.md`；配置实现派发顺序和证据模板见 `设计文档/52_经济压力正式配置实现任务拆分.md`；当前 ID 锁定与冲突检查见 `设计文档/53_经济压力正式配置ID锁定与冲突检查.md`；README 字段口径检查见 `设计文档/54_经济压力正式配置README字段口径检查.md`。这些文档是策划规格、任务拆分、ID 证据和字段口径证据，不代表 `Economy/*.json` 已经完成。
+经济压力整体验收规格、跨域 Validator、固定样例和 `DES-V4-001` 回写证据模板见 `设计文档/config/validation/51_经济压力正式配置Validator与固定验收样例.md`；配置实现派发顺序和证据模板见 `设计文档/config/tasks/52_经济压力正式配置实现任务拆分.md`；当前 ID 锁定与冲突检查见 `设计文档/config/gates/53_经济压力正式配置ID锁定与冲突检查.md`；README 字段口径检查见 `设计文档/config/gates/54_经济压力正式配置README字段口径检查.md`。这些文档是策划规格、任务拆分、ID 证据和字段口径证据，不代表 `Economy/*.json` 已经完成。
 
 ## 1. 文件规则
 

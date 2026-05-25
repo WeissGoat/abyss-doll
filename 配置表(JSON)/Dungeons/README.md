@@ -1,4 +1,4 @@
----
+﻿---
 id: config_dungeons_readme
 title: 深渊地图层级配置说明 (Dungeons Config)
 type: config
@@ -14,17 +14,17 @@ related:
   - 数值模型设计/03_深渊产出与掉落期望.md
   - 配置表(JSON)/README.md
   - 配置表(JSON)/Rewards/README.md
-  - 设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md
-  - 设计文档/28_Monsters正式配置承接审计.md
-  - 设计文档/29_Dungeons正式配置承接审计.md
-  - 设计文档/30_Rewards正式配置承接审计.md
-  - 设计文档/31_第一层正式配置落地设计.md
-  - 设计文档/32_第二层正式配置落地设计.md
-  - 设计文档/33_第三层正式配置落地设计.md
-  - 设计文档/48_经济压力传闻正式配置落地设计.md
-  - 设计文档/50_经济压力订单正式配置落地设计.md
-  - 设计文档/52_经济压力正式配置实现任务拆分.md
-  - 设计文档/GDD_01_背包战斗与局内网格机制.md
+  - 设计文档/GDD/GDD_02_深渊地图遍历与搜打撤抉择.md
+  - 设计文档/config/audits/28_Monsters正式配置承接审计.md
+  - 设计文档/config/audits/29_Dungeons正式配置承接审计.md
+  - 设计文档/config/audits/30_Rewards正式配置承接审计.md
+  - 设计文档/config/designs/31_第一层正式配置落地设计.md
+  - 设计文档/config/designs/32_第二层正式配置落地设计.md
+  - 设计文档/config/designs/33_第三层正式配置落地设计.md
+  - 设计文档/config/designs/48_经济压力传闻正式配置落地设计.md
+  - 设计文档/config/designs/50_经济压力订单正式配置落地设计.md
+  - 设计文档/config/tasks/52_经济压力正式配置实现任务拆分.md
+  - 设计文档/GDD/GDD_01_背包战斗与局内网格机制.md
 last_verified: 2026-05-25
 update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
 ---
@@ -34,7 +34,7 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 > 位于本目录下的 JSON 文件定义了深渊宏观“环境层”的参数。
 > 决定了该层的长度、走一步的代价，以及这里盘踞着什么样的怪物。
 
-正式配置字段、前三层地图画像缺口、NodePool / BossNode / SafeZone 语义差异和 Validator 建议见 `设计文档/29_Dungeons正式配置承接审计.md`。该审计是配置改造依据，不代表本文字段或 `layer_*.json` 已经全部落地。
+正式配置字段、前三层地图画像缺口、NodePool / BossNode / SafeZone 语义差异和 Validator 建议见 `设计文档/config/audits/29_Dungeons正式配置承接审计.md`。该审计是配置改造依据，不代表本文字段或 `layer_*.json` 已经全部落地。
 
 ## 正式配置基本规则
 

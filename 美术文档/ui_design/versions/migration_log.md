@@ -23,7 +23,6 @@ related:
   - 美术文档/ui_design/formal_v1/scenario_event_v1.md
   - 美术文档/ui_design/formal_v1/doll_room_v1.md
   - 美术文档/ui_design/formal_v1/chassis_upgrade_panel_v1.md
-  - 美术文档/ui_design/formal_v1/business_settlement_v1.md
 last_verified: 2026-05-25
 update_rule: 每次 UI 设计版本冻结、候选版本合并、程序接入或运行时验收后同步本文件。
 ---

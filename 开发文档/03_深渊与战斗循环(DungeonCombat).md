@@ -1,4 +1,4 @@
----
+﻿---
 id: dev_03_dungeon_combat
 title: 深渊与战斗循环系统 (Dungeon & Combat System)
 type: dev
@@ -15,8 +15,8 @@ related:
   - 配置表(JSON)/Dungeons/README.md
   - 配置表(JSON)/Monsters/README.md
   - 配置表(JSON)/Rewards/README.md
-  - 设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md
-  - 设计文档/GDD_01_背包战斗与局内网格机制.md
+  - 设计文档/GDD/GDD_02_深渊地图遍历与搜打撤抉择.md
+  - 设计文档/GDD/GDD_01_背包战斗与局内网格机制.md
 last_verified: 2026-05-25
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---

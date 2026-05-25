@@ -1,4 +1,4 @@
----
+﻿---
 id: config_orders_readme
 title: 订单配置字段说明 (Orders Config)
 type: config
@@ -11,17 +11,17 @@ related:
   - 配置表(JSON)/Factions/README.md
   - 配置表(JSON)/Rewards/README.md
   - 配置表(JSON)/Rumors/README.md
-  - 设计文档/07_势力声望与订单规则卡.md
-  - 设计文档/24_势力订单声望内容包.md
-  - 设计文档/46_经济压力正式配置承接审计.md
-  - 设计文档/48_经济压力传闻正式配置落地设计.md
-  - 设计文档/49_经济压力势力正式配置落地设计.md
-  - 设计文档/50_经济压力订单正式配置落地设计.md
-  - 设计文档/51_经济压力正式配置Validator与固定验收样例.md
-  - 设计文档/52_经济压力正式配置实现任务拆分.md
-  - 设计文档/53_经济压力正式配置ID锁定与冲突检查.md
-  - 设计文档/54_经济压力正式配置README字段口径检查.md
-  - 设计文档/55_经济压力订单ID最终锁定表.md
+  - 设计文档/rules/07_势力声望与订单规则卡.md
+  - 设计文档/content_packs/24_势力订单声望内容包.md
+  - 设计文档/config/audits/46_经济压力正式配置承接审计.md
+  - 设计文档/config/designs/48_经济压力传闻正式配置落地设计.md
+  - 设计文档/config/designs/49_经济压力势力正式配置落地设计.md
+  - 设计文档/config/designs/50_经济压力订单正式配置落地设计.md
+  - 设计文档/config/validation/51_经济压力正式配置Validator与固定验收样例.md
+  - 设计文档/config/tasks/52_经济压力正式配置实现任务拆分.md
+  - 设计文档/config/gates/53_经济压力正式配置ID锁定与冲突检查.md
+  - 设计文档/config/gates/54_经济压力正式配置README字段口径检查.md
+  - 设计文档/config/gates/55_经济压力订单ID最终锁定表.md
 last_verified: 2026-05-25
 update_rule: 修改订单字段、需求表达、奖励、声望 / 信任变化、失败惩罚、刷新权重或黑市背叛口径时同步本文件。
 ---
@@ -30,7 +30,7 @@ update_rule: 修改订单字段、需求表达、奖励、声望 / 信任变化�
 
 `Orders/*.json` defines weekly town orders. Runtime state is stored as order instances on `PlayerProfile`.
 
-正式订单池、19 条订单模板、需求表达、失败 / 背叛裁决、Validator 和固定验收样例见 `设计文档/50_经济压力订单正式配置落地设计.md`；最终 OrderPoolID / OrderID 见 `设计文档/55_经济压力订单ID最终锁定表.md`。经济压力整体验收规格、跨域 Validator、固定样例和回写证据模板见 `设计文档/51_经济压力正式配置Validator与固定验收样例.md`；配置实现派发顺序和证据模板见 `设计文档/52_经济压力正式配置实现任务拆分.md`；当前 ID 锁定与旧样例迁移口径见 `设计文档/53_经济压力正式配置ID锁定与冲突检查.md`；README 字段口径检查见 `设计文档/54_经济压力正式配置README字段口径检查.md`。这些文档是 JSON 修改前策划清单、验收规格、任务拆分、ID 证据和字段口径证据，不代表 `Orders/*.json` 已经完成。
+正式订单池、19 条订单模板、需求表达、失败 / 背叛裁决、Validator 和固定验收样例见 `设计文档/config/designs/50_经济压力订单正式配置落地设计.md`；最终 OrderPoolID / OrderID 见 `设计文档/config/gates/55_经济压力订单ID最终锁定表.md`。经济压力整体验收规格、跨域 Validator、固定样例和回写证据模板见 `设计文档/config/validation/51_经济压力正式配置Validator与固定验收样例.md`；配置实现派发顺序和证据模板见 `设计文档/config/tasks/52_经济压力正式配置实现任务拆分.md`；当前 ID 锁定与旧样例迁移口径见 `设计文档/config/gates/53_经济压力正式配置ID锁定与冲突检查.md`；README 字段口径检查见 `设计文档/config/gates/54_经济压力正式配置README字段口径检查.md`。这些文档是 JSON 修改前策划清单、验收规格、任务拆分、ID 证据和字段口径证据，不代表 `Orders/*.json` 已经完成。
 
 ## 1. Required fields
 
@@ -85,7 +85,7 @@ update_rule: 修改订单字段、需求表达、奖励、声望 / 信任变化�
 | `pool_black_market_betrayal` | 未见 JSON 主 ID。 | 新增黑市背叛订单池。 |
 | `order_mechanic_scrap_drive` | 当前旧样例 JSON 已占用。 | 实现时迁移为工坊工程池正式订单，或标记为 deprecated / test sample。 |
 
-正式 `OrderID` 已在 `设计文档/55_经济压力订单ID最终锁定表.md` 锁定为 19 条订单模板。后续配置实现以 `55` 为准；如调整订单 ID，必须同步 `50`、`52`、`53`、`54`、`55` 和本 README。
+正式 `OrderID` 已在 `设计文档/config/gates/55_经济压力订单ID最终锁定表.md` 锁定为 19 条订单模板。后续配置实现以 `55` 为准；如调整订单 ID，必须同步 `50`、`52`、`53`、`54`、`55` 和本 README。
 
 ## 6. Validator rules
 

@@ -1,4 +1,4 @@
----
+﻿---
 id: config_configuration_overview
 title: 配置表数据总览说明 (Configuration Overview)
 type: config
@@ -24,7 +24,7 @@ related:
   - 配置表(JSON)/Prosthetics/README.md
   - 配置表(JSON)/Rewards/README.md
   - 配置表(JSON)/Rumors/README.md
-  - 设计文档/GDD_00_系统关联总图.md
+  - 设计文档/GDD/GDD_00_系统关联总图.md
   - 版本规划/_archive/mvp_2026-05/03_mvp数值要求.md
   - 版本规划/_archive/mvp_2026-05/05_MVP需要补充的配置调整.md
   - agent_status/design.md

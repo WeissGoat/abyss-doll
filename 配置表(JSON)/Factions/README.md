@@ -1,4 +1,4 @@
----
+﻿---
 id: config_factions_readme
 title: 势力配置字段说明 (Factions Config)
 type: config
@@ -9,15 +9,15 @@ source_of_truth: true
 related:
   - 配置表(JSON)/README.md
   - 配置表(JSON)/Orders/README.md
-  - 设计文档/07_势力声望与订单规则卡.md
-  - 设计文档/24_势力订单声望内容包.md
-  - 设计文档/46_经济压力正式配置承接审计.md
-  - 设计文档/49_经济压力势力正式配置落地设计.md
-  - 设计文档/50_经济压力订单正式配置落地设计.md
-  - 设计文档/51_经济压力正式配置Validator与固定验收样例.md
-  - 设计文档/52_经济压力正式配置实现任务拆分.md
-  - 设计文档/53_经济压力正式配置ID锁定与冲突检查.md
-  - 设计文档/54_经济压力正式配置README字段口径检查.md
+  - 设计文档/rules/07_势力声望与订单规则卡.md
+  - 设计文档/content_packs/24_势力订单声望内容包.md
+  - 设计文档/config/audits/46_经济压力正式配置承接审计.md
+  - 设计文档/config/designs/49_经济压力势力正式配置落地设计.md
+  - 设计文档/config/designs/50_经济压力订单正式配置落地设计.md
+  - 设计文档/config/validation/51_经济压力正式配置Validator与固定验收样例.md
+  - 设计文档/config/tasks/52_经济压力正式配置实现任务拆分.md
+  - 设计文档/config/gates/53_经济压力正式配置ID锁定与冲突检查.md
+  - 设计文档/config/gates/54_经济压力正式配置README字段口径检查.md
 last_verified: 2026-05-25
 update_rule: 修改势力字段、订单槽位、声望阶梯、黑市标记、解锁引用或势力标签时同步本文件。
 ---
@@ -26,7 +26,7 @@ update_rule: 修改势力字段、订单槽位、声望阶梯、黑市标记、�
 
 `Factions/*.json` defines town economy factions used by orders, reputation, trust, and black-market hooks.
 
-正式势力池、5 个势力的字段级设计、正规声望阶梯、黑市信任阶梯、冲突规则、Validator 和固定验收样例见 `设计文档/49_经济压力势力正式配置落地设计.md`。经济压力整体验收规格、跨域 Validator、固定样例和 `DES-V4-001` 回写证据模板见 `设计文档/51_经济压力正式配置Validator与固定验收样例.md`；配置实现派发顺序和证据模板见 `设计文档/52_经济压力正式配置实现任务拆分.md`；当前 ID 锁定与冲突检查见 `设计文档/53_经济压力正式配置ID锁定与冲突检查.md`；README 字段口径检查见 `设计文档/54_经济压力正式配置README字段口径检查.md`。这些文档是 JSON 修改前策划清单、验收规格、任务拆分、ID 证据和字段口径证据，不代表 `Factions/*.json` 已经完成。
+正式势力池、5 个势力的字段级设计、正规声望阶梯、黑市信任阶梯、冲突规则、Validator 和固定验收样例见 `设计文档/config/designs/49_经济压力势力正式配置落地设计.md`。经济压力整体验收规格、跨域 Validator、固定样例和 `DES-V4-001` 回写证据模板见 `设计文档/config/validation/51_经济压力正式配置Validator与固定验收样例.md`；配置实现派发顺序和证据模板见 `设计文档/config/tasks/52_经济压力正式配置实现任务拆分.md`；当前 ID 锁定与冲突检查见 `设计文档/config/gates/53_经济压力正式配置ID锁定与冲突检查.md`；README 字段口径检查见 `设计文档/config/gates/54_经济压力正式配置README字段口径检查.md`。这些文档是 JSON 修改前策划清单、验收规格、任务拆分、ID 证据和字段口径证据，不代表 `Factions/*.json` 已经完成。
 
 ## 1. Required fields
 

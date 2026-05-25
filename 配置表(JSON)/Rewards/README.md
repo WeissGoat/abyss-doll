@@ -1,4 +1,4 @@
----
+﻿---
 id: config_rewards_readme
 title: 奖励表配置字段说明 (Rewards Config)
 type: config
@@ -15,19 +15,19 @@ related:
   - 配置表(JSON)/Dungeons/README.md
   - 配置表(JSON)/Orders/README.md
   - 配置表(JSON)/Prosthetics/README.md
-  - 设计文档/GDD_02_深渊地图遍历与搜打撤抉择.md
-  - 设计文档/GDD_10_势力声望与订单系统.md
-  - 设计文档/07_势力声望与订单规则卡.md
-  - 设计文档/GDD_04_小镇循环与经济物价波浪模型.md
-  - 设计文档/28_Monsters正式配置承接审计.md
-  - 设计文档/29_Dungeons正式配置承接审计.md
-  - 设计文档/30_Rewards正式配置承接审计.md
-  - 设计文档/31_第一层正式配置落地设计.md
-  - 设计文档/32_第二层正式配置落地设计.md
-  - 设计文档/33_第三层正式配置落地设计.md
-  - 设计文档/49_经济压力势力正式配置落地设计.md
-  - 设计文档/50_经济压力订单正式配置落地设计.md
-  - 设计文档/52_经济压力正式配置实现任务拆分.md
+  - 设计文档/GDD/GDD_02_深渊地图遍历与搜打撤抉择.md
+  - 设计文档/GDD/GDD_10_势力声望与订单系统.md
+  - 设计文档/rules/07_势力声望与订单规则卡.md
+  - 设计文档/GDD/GDD_04_小镇循环与经济物价波浪模型.md
+  - 设计文档/config/audits/28_Monsters正式配置承接审计.md
+  - 设计文档/config/audits/29_Dungeons正式配置承接审计.md
+  - 设计文档/config/audits/30_Rewards正式配置承接审计.md
+  - 设计文档/config/designs/31_第一层正式配置落地设计.md
+  - 设计文档/config/designs/32_第二层正式配置落地设计.md
+  - 设计文档/config/designs/33_第三层正式配置落地设计.md
+  - 设计文档/config/designs/49_经济压力势力正式配置落地设计.md
+  - 设计文档/config/designs/50_经济压力订单正式配置落地设计.md
+  - 设计文档/config/tasks/52_经济压力正式配置实现任务拆分.md
 last_verified: 2026-05-25
 update_rule: 修改配置字段、数据源规则或表间引用时同步本文件。
 ---
@@ -36,7 +36,7 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 
 > 本目录用于配置所有掉落、宝箱、事件、任务、节点结算等奖励。调用方只配置 `RewardID`，具体保底、权重、空掉落和奖励组合都由奖励表负责。
 
-正式配置字段、前三层奖励内容缺口、Boss 保底错位、订单 / 成长 / 节点奖励引用和 Validator 建议见 `设计文档/30_Rewards正式配置承接审计.md`。该审计是配置改造依据，不代表本文字段或奖励 JSON 已经全部落地。
+正式配置字段、前三层奖励内容缺口、Boss 保底错位、订单 / 成长 / 节点奖励引用和 Validator 建议见 `设计文档/config/audits/30_Rewards正式配置承接审计.md`。该审计是配置改造依据，不代表本文字段或奖励 JSON 已经全部落地。
 
 ## 1. 基本约定
 

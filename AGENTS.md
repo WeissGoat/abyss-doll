@@ -80,7 +80,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 | 美术智能体 | 视觉流水线、Manifest、AI 素材筛选、正式资源入库、UI 结构版本迭代、UI 视觉交付、运行时美术验收 | `美术文档/README.md`、`美术文档/00_美术流水线总览.md`、`美术文档/10_正式版核心纵切美术路线.md`、`美术文档/ui_design/README.md`、`美术文档/ui_design/ui_iteration_process.md`、`美术文档/ui_design/formal_v1/screen_structure_review.md`、`开发文档/09_视觉资源系统程序开发规范.md` | `美术文档/`、`美术文档/ui_design/`、`UnityClient/Assets/Art/Approved`、必要的美术状态和交接文档 | `agent_status/art.md` |
 | 程序智能体 | Unity 客户端、C# 架构、CoreBackend、UGUI、Validator、测试、编辑器自动化 | `开发文档/00_程序开发大纲.md`、`开发文档/00_客户端核心架构规范.md`、`开发文档/00_Unity表现层与编辑器构建规范.md`、`开发文档/12_程序开发优化建议与重构路线.md`、`开发文档/13_编程规范与架构约定.md` | `UnityClient/Assets/Scripts`、`UnityClient/Assets/Tests`、`UnityClient/Assets/Editor`、`开发文档/`、必要的配置同步和验证脚本 | `agent_status/program.md` |
 | UI 程序智能体 | UGUI 表现层、Prefab、VisualID 绑定、运行时美术验收 | UI 设计交付、视觉资源契约、表现层架构、当前 UI 代码 | `UnityClient/Assets/Scripts/UI`、`UnityClient/Assets/Prefabs`、必要的开发文档 | `agent_status/program.md`，有美术交接时同步 `agent_status/art.md` |
-| 策划智能体 | GDD 规则、经济循环、物品生命周期、深渊节奏、数值假设、配置意图 | `设计文档/GDD_00_系统关联总图.md`、`版本规划/09_正式版核心纵切开发路线.md`、`数值模型设计/00_基准价值与空间本位模型.md`、当前任务涉及的 `设计文档/GDD_*.md` 和配置 README | `设计文档/`、`数值模型设计/`、`配置表(JSON)/`、`版本规划/`、必要的策划状态和交接文档 | `agent_status/design.md` |
+| 策划智能体 | GDD 规则、经济循环、物品生命周期、深渊节奏、数值假设、配置意图 | `设计文档/GDD/GDD_00_系统关联总图.md`、`版本规划/09_正式版核心纵切开发路线.md`、`数值模型设计/00_基准价值与空间本位模型.md`、当前任务涉及的 `设计文档/GDD/GDD_*.md` 和配置 README | `设计文档/`、`数值模型设计/`、`配置表(JSON)/`、`版本规划/`、必要的策划状态和交接文档 | `agent_status/design.md` |
 | 知识库智能体 | 文档元数据、索引、校验脚本、知识库规范、职能阅读入口 | `知识库/README.md`、`知识库/views/`、`DOCS_INDEX.md`、`docs_index.json`、核心入口文档 | `AGENTS.md`、`PROJECT_STATUS.md`、`知识库/`、`tools/docs/`、必要的文档元数据头 | `PROJECT_STATUS.md` |
 
 ## 职能路由
@@ -114,7 +114,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 - PM 自身判断、最近完成、下一步建议和阻塞项写入 `agent_status/pm.md`。
 - 每个正式纵切工作包至少包含：目标、范围外、涉及事实来源、策划 / 程序 / 美术交接、验收方式。
 - 派发工作前先检索对应职能状态页：PM 看 `agent_status/pm.md`，策划 / 配置看 `agent_status/design.md`，程序看 `agent_status/program.md`，美术 / UI 看 `agent_status/art.md`。已完成或进行中的同名工作不得重复派发，只能按验收补强、缺口修复、表现补强或配置补齐处理。
-- 详细进度必须按职能分开维护。策划配置计划写入 `设计文档/26_正式配置设计与填充推进计划.md` 和 `agent_status/design.md`；程序实现写入开发文档和 `agent_status/program.md`；美术交付写入美术文档和 `agent_status/art.md`；PM 节点和交接写入 `agent_status/pm.md`、`PROJECT_STATUS.md` 和必要时的 `09`。
+- 详细进度必须按职能分开维护。策划配置计划写入 `设计文档/config/26_正式配置设计与填充推进计划.md` 和 `agent_status/design.md`；程序实现写入开发文档和 `agent_status/program.md`；美术交付写入美术文档和 `agent_status/art.md`；PM 节点和交接写入 `agent_status/pm.md`、`PROJECT_STATUS.md` 和必要时的 `09`。
 - 不要把策划配置计划、程序实现任务和美术交付混写进同一张执行表。`09` 只保留宏观路线、长期节点、职能入口和防重复派发规则。
 - 字段说明、README、审计结论、任务拆分和 JSON 修改前设计不等于配置源完成；只有配置源落地并通过校验后，才能在状态页中标记 `配置完成`。
 - 后续如果需要新增进度表、验收状态表或防重复派发表，优先合并进对应职能状态页或事实文档；只有影响长期节点、跨职能入口或通用状态标记规则时才同步 `09`。
@@ -167,12 +167,12 @@ UI 版本规则：
 必读：
 
 - `agent_status/design.md`
-- `设计文档/GDD_00_系统关联总图.md`
+- `设计文档/GDD/GDD_00_系统关联总图.md`
 - `版本规划/09_正式版核心纵切开发路线.md`
 - `版本规划/11_纵切批次与需求文档承接矩阵.md`
 - `数值模型设计/00_基准价值与空间本位模型.md`
-- 当前任务涉及的 `设计文档/GDD_*.md`
-- 配置源实现前读取 `设计文档/56_正式配置源落地准入门禁.md`
+- 当前任务涉及的 `设计文档/GDD/GDD_*.md`
+- 配置源实现前读取 `设计文档/config/gates/56_正式配置源落地准入门禁.md`
 
 策划需求文档规则：
 
@@ -186,7 +186,7 @@ UI 版本规则：
 
 - `配置表(JSON)` 是版本源。
 - `UnityClient/Assets/StreamingAssets/Configs` 是运行时生成副本。
-- 进入配置源 JSON 实现前，先按 `设计文档/56_正式配置源落地准入门禁.md` 检查是否达到 `设计准入`；未准入时先补 GDD、规则卡、配置承接审计、落地设计、任务拆分、ID 锁定或验收样例。
+- 进入配置源 JSON 实现前，先按 `设计文档/config/gates/56_正式配置源落地准入门禁.md` 检查是否达到 `设计准入`；未准入时先补 GDD、规则卡、配置承接审计、落地设计、任务拆分、ID 锁定或验收样例。
 - 字段说明、README、审计结论、任务拆分、ID 锁定、JSON 修改前设计和准入门禁都只是策划 / 配置证据，不等于 `配置完成`。
 - 只有配置源已落地、同步通过、关键引用 error 为 0，并有 Validator / 固定样例 / 人工复核证据后，才能在 `agent_status/design.md` 标记 `配置完成`。
 - 运行 Unity 或自动化验证前先同步：
@@ -306,7 +306,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 6. 同一系统涉及多个职能时，各职能分别回写自己的状态页和事实文档，不写跨职能混合执行行。
 7. 不得在 `11` 或其他需求承接文档中另写实现进度表；实现进度统一回到对应职能状态页和事实文档。
 8. 不得在没有验收证据时把条目标记为 `已完成`。字段说明、README、审计结论、任务拆分和 JSON 修改前设计只能作为策划 / 配置证据，不能直接标记 `配置完成`。
-9. 如果某项工作需要进度挂钩表，按职能写入对应状态页或事实文档：策划 / 配置写 `agent_status/design.md` 或 `设计文档/26_正式配置设计与填充推进计划.md`，程序写 `agent_status/program.md` 或开发文档，美术 / UI 写 `agent_status/art.md` 或美术文档，PM 写 `agent_status/pm.md` 或 `PROJECT_STATUS.md`。
+9. 如果某项工作需要进度挂钩表，按职能写入对应状态页或事实文档：策划 / 配置写 `agent_status/design.md` 或 `设计文档/config/26_正式配置设计与填充推进计划.md`，程序写 `agent_status/program.md` 或开发文档，美术 / UI 写 `agent_status/art.md` 或美术文档，PM 写 `agent_status/pm.md` 或 `PROJECT_STATUS.md`。
 10. 如果工作影响长期里程碑、节点门禁、职能进度入口、状态标记规则或跨职能防重复派发规则，再同步 `版本规划/09_正式版核心纵切开发路线.md`。
 11. 状态记录要短、事实化、可延续，不要粘贴聊天记录。
 
