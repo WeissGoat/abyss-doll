@@ -93,6 +93,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - P3 材料缺口 / 成长反馈后端服务已落地：新增 `GrowthFeedbackService`，统一输出制造、维护、下潜许可的可执行状态、金币缺口、材料缺口和推荐动作；`GrowthFeedbackServiceSmokeTest.Run`、`MaintenanceServiceSmokeTest.Run`、`DiveReadinessSmokeTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
 - P3 人偶核心状态可读性占位文本层已落地：新增 `DollCoreStateReadabilityService`，把 HP、SAN、情绪、维护风险、Bond、底盘、义体和特质整理为 UI 可直接展示的只读文本快照；`DollCoreStateReadabilityServiceSmokeTest.Run` 已通过。
 - P3 人偶基础交互领域服务已落地：新增 `DollInteractionService` 和按日运行时计数，支持触摸、对话、赠礼的场景权限、每日上限、防刷、低 SAN 压力反馈和赠礼接受才消耗；`DollInteractionServiceSmokeTest.Run` 已通过。
+- P3 人偶交互可读性占位文本层已落地：新增 `DollInteractionReadabilityTextService`，把单次触摸 / 对话 / 赠礼结果和当日交互计数整理为 UI 可直接展示的只读文本快照；`DollInteractionReadabilityTextServiceSmokeTest.Run` 已通过。
 - P4 月租 / 账单压力链后端底座已落地：新增 `EconomyConfig`、`TownEconomyService`、`Economy` 配置域和 `TownEconomyServiceSmokeTest.Run`，支持日结报告、月租支付、轻度欠账、玩家选择典当补足和保护物不典当；`TownEconomyServiceSmokeTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
 - P4 订单 / 声望 / 传闻价格波后端链路已落地：新增 `Factions`、`Orders`、`Rumors` 配置域和运行时状态，`TownEconomyService` 支持每周刷新、接单、交付、奖励、声望 / 信任变更、传闻出售倍率和通用出售结算；`TownEconomyServiceSmokeTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
 - P4 小镇经济概览数据层已落地：新增 `TownEconomyOverviewService`，只读汇总可售物各渠道估值、订单进度、传闻、势力摘要、月租压力和典当候选，供占位 UI 或正式 UI 后续消费；`TownEconomyOverviewServiceSmokeTest.Run`、`TownEconomyServiceSmokeTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。

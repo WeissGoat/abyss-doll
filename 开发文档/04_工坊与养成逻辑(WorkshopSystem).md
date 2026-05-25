@@ -212,9 +212,17 @@ public class MaintenanceConfig {
 *   保养 / 修复 / 净化的真实消耗和状态恢复仍由 `MaintenanceService` 负责；后续如需要“保养交互表现”，只在交互层包装反馈，不复制维护规则。
 *   赠礼消耗只处理已拥有的仓库或当前出战背包物品；如果移除背包物品，会发布 `GameEventBus.PublishItemRemoved` 并重算背包效果。
 
+可读快照：
+
+*   `DollInteractionReadabilityTextService` 是人偶交互结果的只读文本适配层，只消费 `DollInteractionResult` 和 `DollDailyInteractionState`。
+*   `DollInteractionReadabilitySnapshot` 输出单次交互的类型、场景、结果、Bond / SAN 变化、赠礼消耗状态、当日计数和提示行。
+*   `DollInteractionDailyReadabilitySnapshot` 输出当日触摸 / 对话 / 赠礼计数、连续触摸区域和最近交互日志。
+*   该服务不执行触摸、对话、赠礼，不修改 Bond、SAN、物品归属、每日计数或背包状态；正式 UI 和占位 UI 应优先消费快照，而不是自行拼接交互规则文本。
+
 验证：
 
 *   `DollInteractionServiceSmokeTest.Run` 覆盖触摸每日上限、连续区域防刷、低 SAN 压力反馈、赠礼接受消耗、拒收不消耗、对话上限和场景权限。
+*   `DollInteractionReadabilityTextServiceSmokeTest.Run` 覆盖接受触摸、收益上限、低 SAN 压力反馈、赠礼接受消耗、赠礼拒收不消耗和当日交互计数快照。
 
 ## 12. 小镇经济压力链服务
 
