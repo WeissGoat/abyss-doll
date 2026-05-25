@@ -73,11 +73,53 @@ public static class VisualAssetSmokeTest {
                 VisualAssetService.UILootDropZoneID,
                 VisualAssetService.UICombatEnemyCardID,
                 VisualAssetService.UICombatEnemyCardSelectedID,
+                VisualAssetService.UICombatEntityShadowID,
+                VisualAssetService.UICombatTargetRingID,
                 VisualAssetService.UICombatStatusBarHpID,
                 VisualAssetService.UICombatStatusBarShieldID,
                 VisualAssetService.UICombatApPipID,
                 VisualAssetService.UICombatTurnBannerID,
                 VisualAssetService.UIIconMoneyID,
+                VisualAssetService.UIIconMaintenanceID,
+                VisualAssetService.UIIconBillID,
+                VisualAssetService.UIIconWarningID,
+                VisualAssetService.UIIconShopChannelID,
+                VisualAssetService.UIIconBlackMarketID,
+                VisualAssetService.UIIconOrderID,
+                VisualAssetService.UIIconFactionID,
+                VisualAssetService.UIIconDeadlineID,
+                VisualAssetService.UIIconRumorID,
+                VisualAssetService.UIIconPriceUpID,
+                VisualAssetService.UIIconPriceDownID,
+                VisualAssetService.UIIconIncomeID,
+                VisualAssetService.UIIconExpenseID,
+                VisualAssetService.UIIconDebtRentID,
+                VisualAssetService.UIIconWearRepairID,
+                VisualAssetService.UIIconCorruptionPurifyID,
+                VisualAssetService.UIIconDivePermitID,
+                VisualAssetService.UIIconBusinessSettlementID,
+                VisualAssetService.UIIconCustomerID,
+                VisualAssetService.UIIconSaleSparkID,
+                VisualAssetService.UIIconChassisUpgradeID,
+                VisualAssetService.UIIconBlueprintID,
+                VisualAssetService.UIIconMaterialNeedID,
+                VisualAssetService.UIIconTouchID,
+                VisualAssetService.UIIconTalkID,
+                VisualAssetService.UIIconGiftID,
+                VisualAssetService.UIIconMementoID,
+                VisualAssetService.UIIconDiaryID,
+                VisualAssetService.UIRoomMementoSlotID,
+                VisualAssetService.DollRoomAtticBackgroundID,
+                VisualAssetService.UIIconReputationID,
+                VisualAssetService.UIIconTrustID,
+                VisualAssetService.UIIconEventID,
+                VisualAssetService.UIIconLoreID,
+                VisualAssetService.UIIconSkipID,
+                VisualAssetService.UISettlementOutcomeVictoryID,
+                VisualAssetService.UISettlementOutcomeHpDefeatID,
+                VisualAssetService.UISettlementOutcomeSanCollapseID,
+                VisualAssetService.UISettlementOutcomeHpSanDefeatID,
+                VisualAssetService.UISettlementOutcomePartyWipeID,
                 VisualAssetService.SafeRoomBackgroundID,
                 VisualAssetService.StairsRoomBackgroundID,
                 VisualAssetService.LayerSelectBackgroundID,
@@ -113,6 +155,21 @@ public static class VisualAssetSmokeTest {
                 Debug.Log("Monster Portrait Resolver PASSED.");
             } else {
                 Debug.LogError($"Monster Portrait Resolver FAILED. Got {portraitID}");
+            }
+
+            string combatVisualID = VisualAssetService.ResolveMonsterCombatVisualID(monster);
+            if (combatVisualID == "monster_mob_scavenger_bug_combat") {
+                Debug.Log("Monster Combat Visual Resolver PASSED.");
+            } else {
+                Debug.LogError($"Monster Combat Visual Resolver FAILED. Got {combatVisualID}");
+            }
+
+            MonsterEntity legacyMonster = new MonsterEntity { MonsterID = "legacy_debug_monster", PortraitID = "monster_legacy_debug_monster_portrait" };
+            string fallbackCombatVisualID = VisualAssetService.ResolveMonsterCombatVisualID(legacyMonster);
+            if (fallbackCombatVisualID == "monster_legacy_debug_monster_portrait") {
+                Debug.Log("Monster Combat Visual Portrait Fallback PASSED.");
+            } else {
+                Debug.LogError($"Monster Combat Visual Portrait Fallback FAILED. Got {fallbackCombatVisualID}");
             }
 
             if (VisualAssetService.ResolveNodeIconID(new CombatNode { NodeID = "layer_1_node_0", NodeIconID = "node_combat_icon" }) == "node_combat_icon"

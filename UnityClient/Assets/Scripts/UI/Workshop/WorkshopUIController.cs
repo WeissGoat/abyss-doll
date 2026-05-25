@@ -30,6 +30,7 @@ public class WorkshopUIController : MonoBehaviour {
     private Image _leftActionPanel;
     private Image _bottomHintPanel;
     private Image _dollStandImage;
+    private WorkshopFormalV1PanelController _formalV1PanelController;
 
     void Start() {
         ApplyWorkshopBackground();
@@ -151,6 +152,7 @@ public class WorkshopUIController : MonoBehaviour {
 
     public void OpenSellPanel() {
         EnsureSellControls();
+        CloseFormalV1Panel();
         CloseProstheticPanel(false);
         _sellPanelOpen = true;
 
@@ -180,6 +182,7 @@ public class WorkshopUIController : MonoBehaviour {
 
     public void OpenProstheticPanel() {
         EnsureSellControls();
+        CloseFormalV1Panel();
         CloseSellPanel(false);
         _prostheticPanelOpen = true;
 
@@ -211,6 +214,7 @@ public class WorkshopUIController : MonoBehaviour {
         EnsureSellControls();
         CloseSellPanel(false);
         CloseProstheticPanel(false);
+        CloseFormalV1Panel();
         _dungeonStartLayerPanelOpen = true;
 
         if (dungeonStartLayerPanel != null) {
@@ -235,6 +239,19 @@ public class WorkshopUIController : MonoBehaviour {
         if (refresh) {
             RefreshUI();
         }
+    }
+
+    public void OpenFormalV1Panel(string screenID) {
+        EnsureSellControls();
+        CloseSellPanel(false);
+        CloseProstheticPanel(false);
+        CloseDungeonStartLayerPanel(false);
+        EnsureFormalV1PanelController();
+        _formalV1PanelController?.Show(screenID);
+    }
+
+    public void CloseFormalV1Panel() {
+        _formalV1PanelController?.Hide();
     }
 
     private void RefreshSellList() {
@@ -552,7 +569,19 @@ public class WorkshopUIController : MonoBehaviour {
         EnsureSellPanel(defaultFont);
         EnsureProstheticControls(defaultFont);
         EnsureDungeonStartLayerPanel(defaultFont);
+        EnsureFormalV1PanelController();
         ApplyMainButtonSkin();
+    }
+
+    private void EnsureFormalV1PanelController() {
+        if (_formalV1PanelController != null) {
+            return;
+        }
+
+        _formalV1PanelController = GetComponent<WorkshopFormalV1PanelController>();
+        if (_formalV1PanelController == null) {
+            _formalV1PanelController = gameObject.AddComponent<WorkshopFormalV1PanelController>();
+        }
     }
 
     private void EnsureSellPanel(Font defaultFont) {

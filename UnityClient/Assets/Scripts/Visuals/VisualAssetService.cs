@@ -40,11 +40,53 @@ public static class VisualAssetService {
     public const string UILootDropZoneID = "ui_loot_drop_zone";
     public const string UICombatEnemyCardID = "ui_combat_enemy_card";
     public const string UICombatEnemyCardSelectedID = "ui_combat_enemy_card_selected";
+    public const string UICombatEntityShadowID = "ui_combat_entity_shadow";
+    public const string UICombatTargetRingID = "ui_combat_target_ring";
     public const string UICombatStatusBarHpID = "ui_combat_status_bar_hp";
     public const string UICombatStatusBarShieldID = "ui_combat_status_bar_shield";
     public const string UICombatApPipID = "ui_combat_ap_pip";
     public const string UICombatTurnBannerID = "ui_combat_turn_banner";
     public const string UIIconMoneyID = "ui_icon_money";
+    public const string UIIconMaintenanceID = "ui_icon_maintenance";
+    public const string UIIconBillID = "ui_icon_bill";
+    public const string UIIconWarningID = "ui_icon_warning";
+    public const string UIIconShopChannelID = "ui_icon_shop_channel";
+    public const string UIIconBlackMarketID = "ui_icon_black_market";
+    public const string UIIconOrderID = "ui_icon_order";
+    public const string UIIconFactionID = "ui_icon_faction";
+    public const string UIIconDeadlineID = "ui_icon_deadline";
+    public const string UIIconRumorID = "ui_icon_rumor";
+    public const string UIIconPriceUpID = "ui_icon_price_up";
+    public const string UIIconPriceDownID = "ui_icon_price_down";
+    public const string UIIconIncomeID = "ui_icon_income";
+    public const string UIIconExpenseID = "ui_icon_expense";
+    public const string UIIconDebtRentID = "ui_icon_debt_rent";
+    public const string UIIconWearRepairID = "ui_icon_wear_repair";
+    public const string UIIconCorruptionPurifyID = "ui_icon_corruption_purify";
+    public const string UIIconDivePermitID = "ui_icon_dive_permit";
+    public const string UIIconBusinessSettlementID = "ui_icon_business_settlement";
+    public const string UIIconCustomerID = "ui_icon_customer";
+    public const string UIIconSaleSparkID = "ui_icon_sale_spark";
+    public const string UIIconChassisUpgradeID = "ui_icon_chassis_upgrade";
+    public const string UIIconBlueprintID = "ui_icon_blueprint";
+    public const string UIIconMaterialNeedID = "ui_icon_material_need";
+    public const string UIIconTouchID = "ui_icon_touch";
+    public const string UIIconTalkID = "ui_icon_talk";
+    public const string UIIconGiftID = "ui_icon_gift";
+    public const string UIIconMementoID = "ui_icon_memento";
+    public const string UIIconDiaryID = "ui_icon_diary";
+    public const string UIRoomMementoSlotID = "ui_room_memento_slot";
+    public const string DollRoomAtticBackgroundID = "bg_doll_room_attic";
+    public const string UIIconReputationID = "ui_icon_reputation";
+    public const string UIIconTrustID = "ui_icon_trust";
+    public const string UIIconEventID = "ui_icon_event";
+    public const string UIIconLoreID = "ui_icon_lore";
+    public const string UIIconSkipID = "ui_icon_skip";
+    public const string UISettlementOutcomeVictoryID = "ui_settlement_outcome_victory";
+    public const string UISettlementOutcomeHpDefeatID = "ui_settlement_outcome_hp_defeat";
+    public const string UISettlementOutcomeSanCollapseID = "ui_settlement_outcome_san_collapse";
+    public const string UISettlementOutcomeHpSanDefeatID = "ui_settlement_outcome_hp_san_defeat";
+    public const string UISettlementOutcomePartyWipeID = "ui_settlement_outcome_party_wipe";
 
     private static VisualAssetRegistry _registry;
     private static Sprite _runtimeMissingSprite;
@@ -134,6 +176,18 @@ public static class VisualAssetService {
         return string.IsNullOrEmpty(monster.MonsterID)
             ? MissingSpriteVisualID
             : $"monster_{monster.MonsterID}_portrait";
+    }
+
+    public static string ResolveMonsterCombatVisualID(MonsterEntity monster) {
+        if (monster == null) {
+            return MissingSpriteVisualID;
+        }
+
+        if (!string.IsNullOrEmpty(monster.CombatVisualID)) {
+            return monster.CombatVisualID;
+        }
+
+        return ResolveMonsterPortraitID(monster);
     }
 
     public static string ResolveNodeIconID(NodeBase node) {
@@ -236,10 +290,16 @@ public static class VisualAssetService {
 public static class VisualDisplaySpecs {
     public static readonly Vector2 ReferenceResolution = new Vector2(1920f, 1080f);
     public static readonly Vector2 ItemIcon = new Vector2(64f, 64f);
+    public static readonly Vector2 UIIcon = new Vector2(64f, 64f);
     public static readonly Vector2 NodeIcon = new Vector2(80f, 80f);
     public static readonly Vector2 ProstheticIcon = new Vector2(80f, 80f);
     public static readonly Vector2 MissingSprite = new Vector2(64f, 64f);
     public static readonly Vector2 MonsterPortrait = new Vector2(320f, 320f);
+    public static readonly Vector2 MonsterCombatEntity = new Vector2(300f, 360f);
+    public static readonly Vector2 MonsterCombatEntityLarge = new Vector2(360f, 420f);
+    public static readonly Vector2 CombatEntityShadow = new Vector2(260f, 78f);
+    public static readonly Vector2 CombatTargetRing = new Vector2(240f, 96f);
+    public static readonly Vector2 CombatDoll = new Vector2(360f, 560f);
     public static readonly Vector2 DollStand = new Vector2(420f, 720f);
     public static readonly Vector2 ChassisFrame = new Vector2(512f, 512f);
     public static readonly Vector2 BackgroundReferenceViewport = new Vector2(1920f, 1080f);

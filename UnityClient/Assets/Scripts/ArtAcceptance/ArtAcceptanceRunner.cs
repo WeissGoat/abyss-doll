@@ -188,6 +188,28 @@ public class ArtAcceptanceRunner : MonoBehaviour {
 
         yield return RunStep("CaptureWorkshopMain", CaptureWorkshopMain);
         LogFlowCheckpoint("CaptureWorkshopMain");
+        yield return RunStep("CaptureMaintenancePanel", CaptureMaintenancePanel);
+        LogFlowCheckpoint("CaptureMaintenancePanel");
+        yield return RunStep("CaptureDailyBillReport", CaptureDailyBillReport);
+        LogFlowCheckpoint("CaptureDailyBillReport");
+        yield return RunStep("CaptureShopStaging", CaptureShopStaging);
+        LogFlowCheckpoint("CaptureShopStaging");
+        yield return RunStep("CaptureOrderBoard", CaptureOrderBoard);
+        LogFlowCheckpoint("CaptureOrderBoard");
+        yield return RunStep("CaptureRumorBoard", CaptureRumorBoard);
+        LogFlowCheckpoint("CaptureRumorBoard");
+        yield return RunStep("CaptureBusinessSettlement", CaptureBusinessSettlement);
+        LogFlowCheckpoint("CaptureBusinessSettlement");
+        yield return RunStep("CaptureChassisUpgradePanel", CaptureChassisUpgradePanel);
+        LogFlowCheckpoint("CaptureChassisUpgradePanel");
+        yield return RunStep("CaptureDollInteraction", CaptureDollInteraction);
+        LogFlowCheckpoint("CaptureDollInteraction");
+        yield return RunStep("CaptureDollRoom", CaptureDollRoom);
+        LogFlowCheckpoint("CaptureDollRoom");
+        yield return RunStep("CaptureFactionShop", CaptureFactionShop);
+        LogFlowCheckpoint("CaptureFactionShop");
+        yield return RunStep("CaptureScenarioEvent", CaptureScenarioEvent);
+        LogFlowCheckpoint("CaptureScenarioEvent");
         yield return RunStep("CaptureSellPanel", CaptureSellPanel);
         LogFlowCheckpoint("CaptureSellPanel");
         yield return RunStep("CaptureProstheticPanel", CaptureProstheticPanel);
@@ -430,6 +452,75 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         GameFlowController.Instance.EnterWorkshop();
         yield return WaitForVisualStable();
         yield return CaptureCurrentScreen(capture);
+    }
+
+    private IEnumerator CaptureMaintenancePanel() {
+        yield return CaptureWorkshopFormalV1Panel("maintenance_panel", "screenshots/maintenance_panel.png");
+    }
+
+    private IEnumerator CaptureDailyBillReport() {
+        yield return CaptureWorkshopFormalV1Panel("daily_bill_report", "screenshots/daily_bill_report.png");
+    }
+
+    private IEnumerator CaptureShopStaging() {
+        yield return CaptureWorkshopFormalV1Panel("shop_staging", "screenshots/shop_staging.png");
+    }
+
+    private IEnumerator CaptureOrderBoard() {
+        yield return CaptureWorkshopFormalV1Panel("order_board", "screenshots/order_board.png");
+    }
+
+    private IEnumerator CaptureRumorBoard() {
+        yield return CaptureWorkshopFormalV1Panel("rumor_board", "screenshots/rumor_board.png");
+    }
+
+    private IEnumerator CaptureBusinessSettlement() {
+        yield return CaptureWorkshopFormalV1Panel("business_settlement", "screenshots/business_settlement.png");
+    }
+
+    private IEnumerator CaptureChassisUpgradePanel() {
+        yield return CaptureWorkshopFormalV1Panel("chassis_upgrade_panel", "screenshots/chassis_upgrade_panel.png");
+    }
+
+    private IEnumerator CaptureDollInteraction() {
+        yield return CaptureWorkshopFormalV1Panel("doll_interaction", "screenshots/doll_interaction.png");
+    }
+
+    private IEnumerator CaptureDollRoom() {
+        yield return CaptureWorkshopFormalV1Panel("doll_room", "screenshots/doll_room.png");
+    }
+
+    private IEnumerator CaptureFactionShop() {
+        yield return CaptureWorkshopFormalV1Panel("faction_shop", "screenshots/faction_shop.png");
+    }
+
+    private IEnumerator CaptureScenarioEvent() {
+        yield return CaptureWorkshopFormalV1Panel("scenario_event", "screenshots/scenario_event.png");
+    }
+
+    private IEnumerator CaptureWorkshopFormalV1Panel(string screenTag, string relativeScreenshotPath) {
+        Debug.Log($"[ArtAcceptance] Capturing {screenTag}...");
+        ArtAcceptanceCaptureRecord capture = BeginCapture(screenTag, relativeScreenshotPath);
+
+        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
+            CompleteSkipped(capture);
+            yield break;
+        }
+
+        GameFlowController.Instance.EnterWorkshop();
+        yield return WaitForVisualStable();
+
+        WorkshopUIController workshopController = FindObjectOfType<WorkshopUIController>();
+        if (workshopController == null) {
+            capture.Warnings.Add($"WorkshopUIController not found for {screenTag} capture.");
+            CompleteSkipped(capture);
+            yield break;
+        }
+
+        workshopController.OpenFormalV1Panel(screenTag);
+        yield return WaitForVisualStable();
+        yield return CaptureCurrentScreen(capture);
+        CloseWorkshopAcceptanceOverlays(workshopController);
     }
 
     private IEnumerator CaptureSellPanel() {
@@ -863,6 +954,7 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         controller.CloseSellPanel();
         controller.CloseProstheticPanel();
         controller.CloseDungeonStartLayerPanel();
+        controller.CloseFormalV1Panel();
     }
 
     private void UnlockConfiguredLayersForAcceptance() {
@@ -1070,7 +1162,7 @@ public class ArtAcceptanceRunner : MonoBehaviour {
     }
 
     private string[] GetRequiredP0VisualIDs() {
-        return new[] {
+        List<string> visualIDs = new List<string> {
             VisualAssetService.UIPanelInfoID,
             VisualAssetService.UIButtonPrimaryID,
             VisualAssetService.UIButtonSecondaryID,
@@ -1085,11 +1177,53 @@ public class ArtAcceptanceRunner : MonoBehaviour {
             VisualAssetService.UILootDropZoneID,
             VisualAssetService.UICombatEnemyCardID,
             VisualAssetService.UICombatEnemyCardSelectedID,
+            VisualAssetService.UICombatEntityShadowID,
+            VisualAssetService.UICombatTargetRingID,
             VisualAssetService.UICombatStatusBarHpID,
             VisualAssetService.UICombatStatusBarShieldID,
             VisualAssetService.UICombatApPipID,
             VisualAssetService.UICombatTurnBannerID,
             VisualAssetService.UIIconMoneyID,
+            VisualAssetService.UIIconMaintenanceID,
+            VisualAssetService.UIIconBillID,
+            VisualAssetService.UIIconWarningID,
+            VisualAssetService.UIIconShopChannelID,
+            VisualAssetService.UIIconBlackMarketID,
+            VisualAssetService.UIIconOrderID,
+            VisualAssetService.UIIconFactionID,
+            VisualAssetService.UIIconDeadlineID,
+            VisualAssetService.UIIconRumorID,
+            VisualAssetService.UIIconPriceUpID,
+            VisualAssetService.UIIconPriceDownID,
+            VisualAssetService.UIIconIncomeID,
+            VisualAssetService.UIIconExpenseID,
+            VisualAssetService.UIIconDebtRentID,
+            VisualAssetService.UIIconWearRepairID,
+            VisualAssetService.UIIconCorruptionPurifyID,
+            VisualAssetService.UIIconDivePermitID,
+            VisualAssetService.UIIconBusinessSettlementID,
+            VisualAssetService.UIIconCustomerID,
+            VisualAssetService.UIIconSaleSparkID,
+            VisualAssetService.UIIconChassisUpgradeID,
+            VisualAssetService.UIIconBlueprintID,
+            VisualAssetService.UIIconMaterialNeedID,
+            VisualAssetService.UIIconTouchID,
+            VisualAssetService.UIIconTalkID,
+            VisualAssetService.UIIconGiftID,
+            VisualAssetService.UIIconMementoID,
+            VisualAssetService.UIIconDiaryID,
+            VisualAssetService.UIRoomMementoSlotID,
+            VisualAssetService.DollRoomAtticBackgroundID,
+            VisualAssetService.UIIconReputationID,
+            VisualAssetService.UIIconTrustID,
+            VisualAssetService.UIIconEventID,
+            VisualAssetService.UIIconLoreID,
+            VisualAssetService.UIIconSkipID,
+            VisualAssetService.UISettlementOutcomeVictoryID,
+            VisualAssetService.UISettlementOutcomeHpDefeatID,
+            VisualAssetService.UISettlementOutcomeSanCollapseID,
+            VisualAssetService.UISettlementOutcomeHpSanDefeatID,
+            VisualAssetService.UISettlementOutcomePartyWipeID,
             VisualAssetService.SafeRoomBackgroundID,
             VisualAssetService.StairsRoomBackgroundID,
             VisualAssetService.LayerSelectBackgroundID,
@@ -1106,6 +1240,22 @@ public class ArtAcceptanceRunner : MonoBehaviour {
             VisualAssetService.UIIconEquippedID,
             VisualAssetService.UITitleDividerID
         };
+
+        if (ConfigManager.Monsters != null) {
+            foreach (var kvp in ConfigManager.Monsters) {
+                MonsterEntity monster = kvp.Value;
+                if (monster == null) {
+                    continue;
+                }
+
+                string combatVisualID = VisualAssetService.ResolveMonsterCombatVisualID(monster);
+                if (!string.IsNullOrEmpty(combatVisualID) && !visualIDs.Contains(combatVisualID)) {
+                    visualIDs.Add(combatVisualID);
+                }
+            }
+        }
+
+        return visualIDs.ToArray();
     }
 
     private ArtAcceptanceUiCaptureSnapshot BuildUiCaptureSnapshot(string screenTag) {
@@ -1328,6 +1478,102 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         }
 
         switch (uiCapture.ScreenTag) {
+            case "maintenance_panel":
+                RequireWorkshopFormalV1Panel(uiCapture, capture, "MaintenancePanel_Runtime", "MaintenanceCard_Image", "MaintenanceIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "WearRepairIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "CorruptionPurifyIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "DivePermitIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "WarningIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "FullRepair_Button");
+                RequireVisibleElement(uiCapture, capture, "Postpone_Button");
+                break;
+            case "daily_bill_report":
+                RequireWorkshopFormalV1Panel(uiCapture, capture, "DailyBillReportPanel_Runtime", "BillCard_Image", "BillIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "IncomeIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "ExpenseIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "DebtRentIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "MoneyIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "WarningIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "DeferPayment_Button");
+                break;
+            case "shop_staging":
+                RequireWorkshopFormalV1Panel(uiCapture, capture, "ShopStagingPanel_Runtime", "StagingCard_Image", "ShopChannelIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "BlackMarketLaneIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "OrderLaneIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "BlackMarket_Button");
+                break;
+            case "order_board":
+                RequireWorkshopFormalV1Panel(uiCapture, capture, "OrderBoardPanel_Runtime", "OrderBoardCard_Image", "OrderIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "FactionIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "DeadlineIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "Abandon_Button");
+                break;
+            case "rumor_board":
+                RequireWorkshopFormalV1Panel(uiCapture, capture, "RumorBoardPanel_Runtime", "RumorBoardCard_Image", "RumorIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "PriceUpIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "PriceDownIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "WarningIcon_Image");
+                break;
+            case "business_settlement":
+                RequireWorkshopFormalV1Panel(uiCapture, capture, "BusinessSettlementPanel_Runtime", "BusinessSettlementCard_Image", "BusinessSettlementIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "CustomerIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "SaleSparkIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "ContinueToBill_Button");
+                RequireVisibleElement(uiCapture, capture, "ReviewRisk_Button");
+                break;
+            case "chassis_upgrade_panel":
+                RequireWorkshopFormalV1Panel(uiCapture, capture, "ChassisUpgradePanel_Runtime", "ChassisUpgradeCard_Image", "ChassisUpgradeIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "BlueprintIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "MaterialNeedIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "Upgrade_Button");
+                RequireVisibleElement(uiCapture, capture, "Blueprint_Button");
+                break;
+            case "doll_interaction":
+                RequireWorkshopFormalV1Panel(uiCapture, capture, "DollInteractionPanel_Runtime", "DollInteractionCard_Image", "TouchIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "TalkIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "GiftIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "MementoIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "Touch_Button");
+                break;
+            case "doll_room":
+                RequireWorkshopFormalV1Panel(uiCapture, capture, "DollRoomPanel_Runtime", "DollRoomCard_Image", "DiaryIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "DollRoomBackground_Image");
+                RequireVisibleElement(uiCapture, capture, "MementoIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "MementoSlotIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "Observe_Button");
+                break;
+            case "faction_shop":
+                RequireWorkshopFormalV1Panel(uiCapture, capture, "FactionShopPanel_Runtime", "FactionShopCard_Image", "FactionIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "ReputationIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "TrustIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "BlackMarketIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "Buy_Button");
+                break;
+            case "scenario_event":
+                RequireWorkshopFormalV1Panel(uiCapture, capture, "ScenarioEventPanel_Runtime", "ScenarioEventCard_Image", "EventIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "LoreIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "SkipIcon_Image");
+                RequireVisibleElement(uiCapture, capture, "ConfirmChoice_Button");
+                RequireVisibleElement(uiCapture, capture, "Skip_Button");
+                break;
+            case "combat_hud":
+                RequireActiveController(capture, nameof(HUDController));
+                RequireVisibleElement(uiCapture, capture, "CombatBackground_Image");
+                RequireActiveElement(uiCapture, capture, "PlayerStageRoot");
+                RequireVisibleElement(uiCapture, capture, "PlayerShadow_Image");
+                RequireVisibleElement(uiCapture, capture, "PlayerDoll_Image");
+                RequireActiveElement(uiCapture, capture, "EnemyStageRoot");
+                RequireActiveElement(uiCapture, capture, "EnemySlot_0");
+                RequireVisibleElement(uiCapture, capture, "EnemySprite_Image");
+                RequireVisibleElement(uiCapture, capture, "EnemyShadow_Image");
+                RequireVisibleElement(uiCapture, capture, "EnemyTargetRing_Image");
+                RequireVisibleElement(uiCapture, capture, "EnemyFootHpBar");
+                RequireVisibleElement(uiCapture, capture, "TargetHintPanel");
+                RequireVisibleElement(uiCapture, capture, "ActionStrip");
+                RequireVisibleElement(uiCapture, capture, "PlayerStatusCluster");
+                RequireVisibleElement(uiCapture, capture, "InventoryChassisPanel");
+                RequireVisibleTextCount(uiCapture, capture, 6);
+                break;
             case "inventory_loot":
                 RequireActiveController(capture, nameof(CombatLootUIController));
                 RequireVisibleElement(uiCapture, capture, "CombatLootPanel_Runtime");
@@ -1358,6 +1604,17 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         }
     }
 
+    private void RequireWorkshopFormalV1Panel(ArtAcceptanceUiCaptureSnapshot uiCapture, ArtAcceptanceCaptureRecord capture, string rootName, string cardName, string primaryIconName) {
+        RequireActiveController(capture, nameof(WorkshopFormalV1PanelController));
+        RequireVisibleElement(uiCapture, capture, rootName);
+        RequireVisibleElement(uiCapture, capture, cardName);
+        RequireVisibleElement(uiCapture, capture, "HeaderPanel");
+        RequireVisibleElement(uiCapture, capture, primaryIconName);
+        RequireVisibleElement(uiCapture, capture, "TitleDivider_Image");
+        RequireVisibleElement(uiCapture, capture, "Close_Button");
+        RequireVisibleTextCount(uiCapture, capture, 6);
+    }
+
     private void RequireVisibleElement(ArtAcceptanceUiCaptureSnapshot uiCapture, ArtAcceptanceCaptureRecord capture, string elementName) {
         if (uiCapture == null || string.IsNullOrEmpty(elementName)) {
             return;
@@ -1372,6 +1629,22 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         }
 
         AddCaptureError(capture, $"Required visible UI element missing: {elementName}.");
+    }
+
+    private void RequireActiveElement(ArtAcceptanceUiCaptureSnapshot uiCapture, ArtAcceptanceCaptureRecord capture, string elementName) {
+        if (uiCapture == null || string.IsNullOrEmpty(elementName)) {
+            return;
+        }
+
+        foreach (ArtAcceptanceCanvasSnapshot canvas in uiCapture.Canvases) {
+            foreach (ArtAcceptanceUiElementSnapshot element in canvas.Elements) {
+                if (element.Name == elementName && element.Active) {
+                    return;
+                }
+            }
+        }
+
+        AddCaptureError(capture, $"Required active UI element missing: {elementName}.");
     }
 
     private void RequireVisibleTextCount(ArtAcceptanceUiCaptureSnapshot uiCapture, ArtAcceptanceCaptureRecord capture, int minCount) {
