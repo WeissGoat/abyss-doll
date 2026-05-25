@@ -45,7 +45,7 @@
     },
     {
       "NodeType": "TreasureNode",
-      "NodeIconID": "node_treasure_icon",
+      "NodeIconID": "node_treasurenode_icon",
       "Title": "废弃矿车",
       "Description": "矿车里还残留着可回收的浅层物资。",
       "RewardID": "reward_node_treasure_layer1",
@@ -55,7 +55,7 @@
     },
     {
       "NodeType": "EventNode",
-      "NodeIconID": "node_event_icon",
+      "NodeIconID": "node_eventnode_icon",
       "Title": "微光裂隙",
       "Description": "裂隙中传来微弱回响，换来一小笔可带走的深渊回收金。",
       "RewardID": "reward_node_event_layer1",
@@ -72,7 +72,7 @@
     },
     {
       "NodeType": "RestStopNode",
-      "NodeIconID": "node_rest_icon",
+      "NodeIconID": "node_reststopnode_icon",
       "Title": "旧维护点",
       "Description": "这里还能临时校准机体，恢复少量状态，但无法撤离。",
       "RiskLevel": "Low",
@@ -93,7 +93,7 @@
     },
     {
       "NodeType": "HazardNode",
-      "NodeIconID": "node_hazard_icon",
+      "NodeIconID": "node_hazardnode_icon",
       "Title": "松动支架",
       "Description": "矿道支架塌落，魔偶穿行时受到轻微损伤。",
       "RiskLevel": "High",
