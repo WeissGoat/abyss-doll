@@ -5,7 +5,8 @@ param(
         "InventoryGridLayoutAssetValidatorTest.Run"
     ),
     [int]$TimeoutSeconds = 90,
-    [string]$UnityClientPath = "UnityClient"
+    [string]$UnityClientPath = "UnityClient",
+    [string]$ReportOutputPath = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -15,6 +16,29 @@ $unityRoot = Join-Path $repoRoot $UnityClientPath
 $logsDir = Join-Path $unityRoot "Logs"
 $triggerFile = Join-Path $logsDir ".test_trigger"
 $reportFile = Join-Path $logsDir "TestReport.json"
+
+function Read-MatchedReport {
+    param(
+        [string]$ReportFile,
+        [string]$Test
+    )
+
+    if (-not (Test-Path $ReportFile)) {
+        return $null
+    }
+
+    try {
+        $report = Get-Content -Raw -Path $ReportFile | ConvertFrom-Json
+    } catch {
+        return $null
+    }
+
+    if ($report.Command -ne $Test) {
+        return $null
+    }
+
+    return $report
+}
 
 if (-not (Test-Path $unityRoot)) {
     throw "Unity client path not found: $unityRoot"
@@ -34,32 +58,37 @@ if (-not $unityProcess) {
 
 $failed = $false
 foreach ($test in $Tests) {
-    $startedAt = [DateTime]::UtcNow
     Write-Host "[UnitySmoke] Running $test"
+
+    if (Test-Path $reportFile) {
+        Remove-Item -LiteralPath $reportFile -Force
+    }
+
+    $clearDeadline = (Get-Date).AddSeconds(5)
+    while ((Get-Date) -lt $clearDeadline -and (Test-Path $reportFile)) {
+        Start-Sleep -Milliseconds 100
+    }
+
     Set-Content -Path $triggerFile -Value $test
 
     $deadline = (Get-Date).AddSeconds($TimeoutSeconds)
     $matchedReport = $null
     while ((Get-Date) -lt $deadline) {
         Start-Sleep -Seconds 2
-        if (-not (Test-Path $reportFile)) {
-            continue
-        }
-
-        $reportItem = Get-Item $reportFile
-        if ($reportItem.LastWriteTimeUtc -lt $startedAt) {
-            continue
-        }
-
-        try {
-            $report = Get-Content -Raw -Path $reportFile | ConvertFrom-Json
-        } catch {
-            continue
-        }
-
-        if ($report.Command -eq $test) {
-            $matchedReport = $report
+        $matchedReport = Read-MatchedReport -ReportFile $reportFile -Test $test
+        if ($null -ne $matchedReport) {
             break
+        }
+    }
+
+    if ($null -eq $matchedReport) {
+        $graceDeadline = (Get-Date).AddSeconds(10)
+        while ((Get-Date) -lt $graceDeadline) {
+            Start-Sleep -Seconds 1
+            $matchedReport = Read-MatchedReport -ReportFile $reportFile -Test $test
+            if ($null -ne $matchedReport) {
+                break
+            }
         }
     }
 
@@ -67,6 +96,16 @@ foreach ($test in $Tests) {
         Write-Warning "[UnitySmoke] TIMEOUT waiting for $test"
         $failed = $true
         continue
+    }
+
+    if (-not [string]::IsNullOrWhiteSpace($ReportOutputPath)) {
+        $reportOutputFullPath = [System.IO.Path]::GetFullPath($ReportOutputPath)
+        $reportOutputDir = Split-Path -Parent $reportOutputFullPath
+        if (-not [string]::IsNullOrWhiteSpace($reportOutputDir) -and -not (Test-Path -LiteralPath $reportOutputDir)) {
+            New-Item -ItemType Directory -Force -Path $reportOutputDir | Out-Null
+        }
+
+        $matchedReport | ConvertTo-Json -Depth 20 | Set-Content -Path $reportOutputFullPath -Encoding UTF8
     }
 
     if ($matchedReport.Status -ne "PASSED") {

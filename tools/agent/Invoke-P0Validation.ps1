@@ -232,21 +232,26 @@ function Invoke-UnityTest {
     )
 
     $unitySmokeScript = Join-Path $repoRoot "tools\agent\Invoke-UnitySmokeTests.ps1"
-    $testReportPath = Join-Path $repoRoot "UnityClient\Logs\TestReport.json"
+    $stableTestReportPath = [System.IO.Path]::ChangeExtension($OutputPath, ".TestReport.json")
+    if (Test-Path -LiteralPath $stableTestReportPath) {
+        Remove-Item -LiteralPath $stableTestReportPath -Force
+    }
+
     $args = @(
         "-Tests", $TestName,
-        "-TimeoutSeconds", [string]$TimeoutSeconds
+        "-TimeoutSeconds", [string]$TimeoutSeconds,
+        "-ReportOutputPath", $stableTestReportPath
     )
 
     $result = Invoke-ChildPowerShell -ScriptPath $unitySmokeScript -Arguments $args
-    $testReport = Parse-TestReport -ReportPath $testReportPath -ExpectedCommand $TestName
+    $testReport = Parse-TestReport -ReportPath $stableTestReportPath -ExpectedCommand $TestName
     $status = "Blocked"
     $errorCount = 0
     $warningCount = 0
     $details = [ordered]@{
         Test = $TestName
         ExitCode = $result.ExitCode
-        TestReportPath = Convert-ToRepoPath $testReportPath
+        TestReportPath = Convert-ToRepoPath $stableTestReportPath
         TestReport = $testReport
     }
 

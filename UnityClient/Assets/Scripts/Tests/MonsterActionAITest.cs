@@ -19,13 +19,19 @@ public static class MonsterActionAITest {
         DollEntity doll = core.CurrentPlayer.ActiveDoll;
         doll.Status.HP_Max = 100;
         doll.Status.HP_Current = 100;
+        int expectedDamage = ResolveConfiguredDamage("mob_scavenger_bug", "scavenger_basic_attack");
+        if (expectedDamage <= 0) {
+            Debug.LogError($"MonsterActionRunner damage setup FAILED. Could not resolve configured damage for mob_scavenger_bug/scavenger_basic_attack.");
+            return;
+        }
 
         core.Combat.StartCombat(new List<string> { "mob_scavenger_bug" });
         core.Combat.EndPlayerTurn();
 
         DollFighter playerFighter = core.Combat.PlayerFaction.Fighters[0] as DollFighter;
-        if (playerFighter == null || playerFighter.RuntimeHP != 90) {
-            Debug.LogError($"MonsterActionRunner damage FAILED. Expected player HP 90, got {playerFighter?.RuntimeHP}");
+        int expectedHP = doll.Status.HP_Max - expectedDamage;
+        if (playerFighter == null || playerFighter.RuntimeHP != expectedHP) {
+            Debug.LogError($"MonsterActionRunner damage FAILED. Expected player HP {expectedHP} after configured damage {expectedDamage}, got {playerFighter?.RuntimeHP}");
             return;
         }
 
@@ -184,6 +190,26 @@ public static class MonsterActionAITest {
                 }
             }
         };
+    }
+
+    private static int ResolveConfiguredDamage(string monsterID, string actionID) {
+        if (!ConfigManager.Monsters.TryGetValue(monsterID, out MonsterEntity monster)
+            || monster?.AI?.Actions == null) {
+            return 0;
+        }
+
+        foreach (MonsterActionConfig action in monster.AI.Actions) {
+            if (action == null || action.ActionID != actionID) {
+                continue;
+            }
+
+            MonsterActionParamReader reader = new MonsterActionParamReader(action);
+            int damage = reader.GetInt("Damage", 0);
+            int repeatCount = Mathf.Max(1, reader.GetInt("RepeatCount", 1));
+            return damage * repeatCount;
+        }
+
+        return 0;
     }
 
     private static CoreBackend BootstrapCoreWithEmptyGrid() {
