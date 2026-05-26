@@ -213,6 +213,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - Formal V1 UI 文档由美术侧先提出，用户确认后再更新 active 规格、生成素材并交给程序接入。
 - 美术侧每次生成或同步 Approved 素材后会刷新 `美术文档/_generated/可接入素材清单.md/json`；程序侧接入新素材前优先查看其中 `program_integrate` 条目。
 - 当前 latest `program_integrate=0`、`add_capture=0`、`rerun_acceptance=0`，程序侧无需重复登记旧素材或补截图点；latest Formal V1 验收队列显示 21 个 active 界面均已 captured，下一步由美术侧逐屏验收截图质量。local_v0 只用于结构接入和截图验收，不作为最终视觉质量。美术侧后续按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_visual_v2_20260526_04` 串行同名替换 121 项正式 AI 版。已接入素材做正式图替换时，必须保持同 `VisualID`、同 Approved 路径、同 Unity `.meta` / GUID；`Sync-ApprovedArt.ps1 -CandidateBatchID` 默认强校验该规则，满足时程序侧无需重新登记资源。
+- Formal V1 UI 的“资源登记完成”和“运行时截图覆盖完成”不等于“玩家可玩接入完成”。后续程序侧声明某界面可玩完成前，必须同时补齐玩家主流程可达入口，以及关键按钮 / 操作调用真实后端或领域服务的闭环证据；ArtAcceptance、debug 入口、验收专用 preview 对象或只读快照只能作为资源 / 截图接入证据。
 - `program_integrate` 17 个 Approved VisualID 曾完成 UI 程序接入记录；按当前正式版本完成口径，该记录只作为历史接入事实，不计为 P5 表现支撑正式版本完成。美术侧如继续推进，应基于 ArtAcceptance 截图验收后回写 `agent_status/art.md`，如影响长期节点门禁再通知 PM 更新 `09`。
 - 任意智能体修改系统规则时，必须更新对应 GDD 或开发文档，不能只改代码或配置。
 - 任意智能体新增或调整文档关联时，必须维护 `related` 双向互链，并运行 `.\tools\docs\Validate-Docs.ps1`。
