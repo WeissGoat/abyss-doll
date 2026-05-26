@@ -6602,16 +6602,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_hit.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_hit/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_hit/selected/20260526_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_hit.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_hit.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_hit.png; formal AI replacement remains required.\n[2026-05-26T22:53:52+08:00] generated candidate batch nai_visual_v2_p1_feedback_20260526_01; preserved Status=approved.\n[2026-05-26T22:55:09+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_hit/contact_sheet/ui_combat_feedback_hit_contact_sheet.png\n[2026-05-26T22:56:02+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_hit/selected/20260526_004.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "命中、伤害数字或短暂打击反馈的承托符号",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-05-26T22:56:02+08:00",
+      "ReplacementBatchID": "nai_visual_v2_p1_feedback_20260526_01"
     },
     {
       "Domain": "ui",
@@ -6661,16 +6662,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_shield_break.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_shield_break/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_shield_break/selected/20260526_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_shield_break.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_shield_break.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_shield_break.png; formal AI replacement remains required.\n[2026-05-26T22:56:46+08:00] generated candidate batch nai_visual_v2_p1_feedback_20260526_01; preserved Status=approved.\n[2026-05-26T22:58:49+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_shield_break/contact_sheet/ui_combat_feedback_shield_break_contact_sheet.png\n[2026-05-26T22:59:43+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_shield_break/selected/20260526_001.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "护盾被击穿、破盾或穿盾反馈",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-05-26T22:59:43+08:00",
+      "ReplacementBatchID": "nai_visual_v2_p1_feedback_20260526_01"
     },
     {
       "Domain": "ui",
@@ -6720,16 +6722,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_grid_lock_marker.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_grid_lock_marker/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_grid_lock_marker/selected/20260526_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_grid_lock_marker.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_grid_lock_marker.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_grid_lock_marker.png; formal AI replacement remains required.\n[2026-05-26T22:56:46+08:00] generated candidate batch nai_visual_v2_p1_feedback_20260526_01; preserved Status=approved.\n[2026-05-26T22:58:49+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_grid_lock_marker/contact_sheet/ui_combat_grid_lock_marker_contact_sheet.png\n[2026-05-26T22:59:43+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_combat_grid_lock_marker/selected/20260526_004.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "背包格被封锁、结晶或临时不可用时的覆盖标记",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-05-26T22:59:43+08:00",
+      "ReplacementBatchID": "nai_visual_v2_p1_feedback_20260526_01"
     },
     {
       "Domain": "ui",

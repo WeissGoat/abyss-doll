@@ -4,7 +4,7 @@
 
 ## Summary
 
-* GeneratedAt: `2026-05-26T22:59:44+08:00`
+* GeneratedAt: `2026-05-26T22:54:53+08:00`
 * Manifest entries: `193`
 * Unique VisualIDs: `192`
 * Candidate entries: `191`
@@ -70,9 +70,9 @@
 | `acceptance_needed` | P1 | `ui_combat_enemy_card` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/ui_combat_enemy_card/selected/ui_combat_enemy_card.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `ui_combat_enemy_card_selected` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/ui_combat_enemy_card_selected/selected/ui_combat_enemy_card_selected.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `ui_combat_entity_shadow` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/ui_combat_entity_shadow/selected/ui_combat_entity_shadow.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
-| `acceptance_needed` | P1 | `ui_combat_feedback_hit` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_hit/selected/20260526_004.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
-| `acceptance_needed` | P1 | `ui_combat_feedback_shield_break` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_shield_break/selected/20260526_001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
-| `acceptance_needed` | P1 | `ui_combat_grid_lock_marker` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/ui_combat_grid_lock_marker/selected/20260526_004.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
+| `acceptance_needed` | P1 | `ui_combat_feedback_hit` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_hit/raw/20260526_001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
+| `acceptance_needed` | P1 | `ui_combat_feedback_shield_break` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_shield_break.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
+| `acceptance_needed` | P1 | `ui_combat_grid_lock_marker` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_combat_grid_lock_marker.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `ui_combat_intent_add_junk` | `approved` | registered | UnityClient/Assets/Art/Approved/UI/ui_combat_intent_add_junk.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `ui_combat_intent_attack` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_attack/processed/20260526_001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `ui_combat_intent_buff` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_buff/processed/20260526_001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |

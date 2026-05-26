@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-05-26T22:59:44+08:00",
-  "SnapshotTag": "approved_sync_candidate_nai_visual_v2_p1_feedback_20260526_01",
+  "GeneratedAt": "2026-05-26T22:58:53+08:00",
+  "SnapshotTag": "processed_candidate_nai_visual_v2_p1_feedback_20260526_01",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",
@@ -1270,7 +1270,7 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_shield_break.png",
       "ApprovedFileExists": true,
       "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_shield_break/selected/20260526_001.png",
+      "SelectedCandidate": "",
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_shield_break/processed/20260526_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_shield_break/raw/20260526_001.png",
       "ReferencedBy": [
@@ -1295,7 +1295,7 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_grid_lock_marker.png",
       "ApprovedFileExists": true,
       "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/ui_combat_grid_lock_marker/selected/20260526_004.png",
+      "SelectedCandidate": "",
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/ui_combat_grid_lock_marker/processed/20260526_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/ui_combat_grid_lock_marker/raw/20260526_001.png",
       "ReferencedBy": [
