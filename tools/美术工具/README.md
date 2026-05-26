@@ -190,6 +190,7 @@ Visual V2 候选批次使用 `-CandidateBatchID`，只处理 Manifest 中 `Candi
 * 如果启用 fallback 且 `selected/` 为空，则取 `processed/` 下按文件名升序第一张图片。
 * 复制到 `Approved` 目标路径后，更新 `SelectedPath`、`ApprovedPath` 和 `Status=approved`。
 * 覆盖已有 PNG 时保留 Unity `.meta` 文件。
+* 使用 `-CandidateBatchID` 做 Visual V2 同名替换时，默认启用严格 `.meta` guard：目标 PNG 和目标 `.meta` 必须已经存在；同步前后 `.meta` 字节必须完全一致，否则脚本失败。
 
 使用方式：
 
@@ -202,6 +203,8 @@ Visual V2 同名替换使用 `-CandidateBatchID` 和 `-QualityTier formal_ai_v2`
 ```powershell
 .\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_diary -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
+
+这条流程的目标是“替换图片内容，不让程序重新接入”。因此必须保持同一个 `VisualID`、同一个 Manifest `OutputPath`、同一个 Unity `.meta` / GUID。`-AllowNewTargetWithCandidate` 只允许在明确创建新资产路径时使用，不能用于已接入素材的正式图替换。
 
 非 `-DryRun` 同步完成后，脚本会默认刷新“可接入素材清单”，并写入一份 `approved_sync` 快照，方便程序侧直接查看当前哪些 Approved 素材已经可以接入。需要只做同步、不刷新清单时使用 `-SkipIntegrationCandidates`。
 
@@ -301,7 +304,7 @@ Visual V2 同名替换使用 `-CandidateBatchID` 和 `-QualityTier formal_ai_v2`
 * `BatchID`、`Notes`、`SelectedPath` 或 `ApprovedPath` 中含 `local_v0`、`generated locally` 或 `approved directly in Approved`，且当前没有正式质量层级时，补写 `QualityTier=local_v0`。
 * `QualityTier=formal_ai_v2/final/production` 永不降级。
 
-Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec 或程序绑定。
+Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec、Unity `.meta` / GUID 或程序绑定。`Sync-ApprovedArt.ps1 -CandidateBatchID` 默认会校验这一点；如果目标 PNG 或 `.meta` 不存在，脚本会拒绝把候选图同步为 Visual V2 替换。
 
 标准 Visual V2 替换流程：
 

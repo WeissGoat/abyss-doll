@@ -46,7 +46,7 @@ P1 战斗可读性 active 合同已补齐：`combat_hud` 现在包含怪物意�
 
 Visual V2 执行入口已补齐：`美术文档/_generated/VisualV2生成计划.md/json` 当前规划 124 项替换资源，`PromptReadyItems=124`，下一批次为 `nai_visual_v2_20260526_03`，其中 P1 仍剩 27 项、P2 97 项。NovelAI token 链路已完成 P0 新节点图标和 P1 核心战斗意图图标替换，后续继续串行生成，脚本每次请求 1 张图，图间隔 1 秒。
 
-Visual V2 工具链已补齐安全替换流程：已接入素材可用 `Run-ArtGeneration.ps1 -PreserveStatus` 生成候选，用 `CandidateBatchID` 只预处理本批 raw，再用 `Sync-ApprovedArt.ps1 -QualityTier formal_ai_v2 -ClearCandidate` 同名替换 Approved。该流程不会把原 `approved` / `registered` / `validated` 状态回退到 `generated`。
+Visual V2 工具链已补齐安全替换流程：已接入素材可用 `Run-ArtGeneration.ps1 -PreserveStatus` 生成候选，用 `CandidateBatchID` 只预处理本批 raw，再用 `Sync-ApprovedArt.ps1 -QualityTier formal_ai_v2 -ClearCandidate` 同名替换 Approved。该流程不会把原 `approved` / `registered` / `validated` 状态回退到 `generated`。`Sync-ApprovedArt.ps1 -CandidateBatchID` 默认启用严格 `.meta` guard：目标 PNG 和目标 `.meta` 必须已存在，且同步前后 `.meta` 字节必须一致，确保正式图替换只改 PNG 内容，不要求程序侧重新登记同一资产。
 
 美术文档已收敛为四层入口：`README.md` 只做导航，`10_正式版核心纵切美术路线.md` 作为当前规划入口，`00_美术流水线总览.md` 作为端到端资产生产工作流入口，`ui_design/README.md` 作为 UI 版本和 active 规格入口。`archive/` 保存 MVP 记录和旧批次交付快照。
 
@@ -181,12 +181,13 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 - 已刷新 latest 队列：`program_integrate=0`、`acceptance_needed=191`、`generate_needed=0`、`technical_fix=0`、`visual_v2_replace=128`；Visual V2 下一执行批次为 `nai_visual_v2_20260526_02`，`PromptReadyItems=128`。
 - 已完成 P1 核心战斗意图图标正式 AI 替换：`ui_combat_intent_attack`、`ui_combat_intent_defend`、`ui_combat_intent_buff`、`ui_combat_intent_debuff` 均已串行生成、预处理、人工筛选并同步为 `QualityTier=formal_ai_v2`；`debuff` 已因首轮语义偏差修正提示词模板和专用负面词。
 - 已刷新 latest 队列：`program_integrate=0`、`generate_needed=0`、`technical_fix=0`、`visual_v2_replace=124`，Visual V2 下一执行批次为 `nai_visual_v2_20260526_03`；Formal V1 验收队列显示 21 个 active 界面均已 captured，当前进入美术截图验收。
+- 已加固 Visual V2 Approved 同名替换工具：`Sync-ApprovedArt.ps1 -CandidateBatchID` 默认拒绝创建新 Approved 路径，要求目标 PNG / `.meta` 已存在并校验 `.meta` 同步前后不变；`-AllowNewTargetWithCandidate` 仅用于明确创建新资产路径，不用于已接入素材的正式图替换。已用临时 Manifest 验证 strict dry-run、缺目标默认失败和显式放行新目标三种路径。
 
 ## 下一步建议
 
 1. 程序侧当前没有新的 `program_integrate`、`add_capture` 或 `rerun_acceptance` 队列；美术侧下一步应基于 ArtAcceptance `20260526_005605` 对 21 个 active Formal V1 界面做逐屏验收，记录结构、缺图、黑块、遮挡、列表有效数据和图标可读性问题。
 2. 美术侧审查 `美术文档/_generated/美术需求候选清单.md` 的 36 个 `new_candidate`；确认需要纳管的项再写 `art_requirements_seed.json`，或等待配置 JSON 增加正式 `VisualID` / `IconVisualID` 字段。
-3. 美术侧按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_visual_v2_20260526_03` 继续串行替换 124 个 local_v0 素材；每次只请求 1 张图，图间隔 1 秒，替换仍走 `PreserveStatus -> CandidateBatchID -> QualityTier=formal_ai_v2` 流程。
+3. 美术侧按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_visual_v2_20260526_03` 继续串行替换 124 个 local_v0 素材；每次只请求 1 张图，图间隔 1 秒，替换仍走 `PreserveStatus -> CandidateBatchID -> QualityTier=formal_ai_v2` 流程，并保持同 VisualID、同 Approved 路径、同 Unity `.meta` / GUID。
 4. 继续优先处理 P1 战斗可读性剩余 UI 图标 / 反馈 overlay，再进入 P2 背景、UI 皮肤、经济压力和成长类图标。
 5. 缺图生成计划 latest 当前为 `planned=0`；后续只有新增配置 / preset 导致新的 `generate_needed` 时再启用 `Generate-ArtBatchPlan.ps1`。
 6. 每次替换或技术修复 Approved PNG 后，同时刷新 `可接入素材清单` 和 `素材质量替换清单`，并分别保留 integration / quality snapshot。

@@ -10,6 +10,7 @@ param(
     [string]$QualityTier = "",
     [int]$Limit = 0,
     [switch]$AllowProcessedFallback,
+    [switch]$AllowNewTargetWithCandidate,
     [switch]$ClearCandidate,
     [switch]$DryRun,
     [switch]$Overwrite,
@@ -65,6 +66,10 @@ if ($Limit -gt 0) {
 
 if ($AllowProcessedFallback) {
     $argsList += "--allow-processed-fallback"
+}
+
+if ($AllowNewTargetWithCandidate) {
+    $argsList += "--allow-new-target-with-candidate"
 }
 
 if ($ClearCandidate) {

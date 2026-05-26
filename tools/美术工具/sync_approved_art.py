@@ -154,6 +154,34 @@ def choose_candidate_source(
     return None, ""
 
 
+def unity_meta_path(asset_path: Path) -> Path:
+    return asset_path.with_name(asset_path.name + ".meta")
+
+
+def read_meta_guard(target: Path, require_existing: bool) -> bytes | None:
+    meta_path = unity_meta_path(target)
+    if require_existing and not target.exists():
+        raise FileNotFoundError(
+            f"Visual V2 replacement target does not exist; refusing to create a new Unity asset path: {repo_path(target)}"
+        )
+    if require_existing and not meta_path.exists():
+        raise FileNotFoundError(
+            f"Visual V2 replacement target has no Unity .meta; refusing to replace without GUID guard: {repo_path(meta_path)}"
+        )
+    return meta_path.read_bytes() if meta_path.exists() else None
+
+
+def verify_meta_guard(target: Path, before: bytes | None) -> None:
+    if before is None:
+        return
+    meta_path = unity_meta_path(target)
+    if not meta_path.exists():
+        raise FileNotFoundError(f"Unity .meta disappeared during sync: {repo_path(meta_path)}")
+    after = meta_path.read_bytes()
+    if after != before:
+        raise RuntimeError(f"Unity .meta changed during sync; GUID guard failed: {repo_path(meta_path)}")
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Sync selected art candidates to Approved output paths.")
     parser.add_argument("--manifest-path", default=DEFAULT_MANIFEST)
@@ -168,6 +196,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--allow-processed-fallback", action="store_true")
     parser.add_argument("--clear-candidate", action="store_true")
+    parser.add_argument(
+        "--allow-new-target-with-candidate",
+        action="store_true",
+        help="Allow CandidateBatchID sync to create a new target asset. Default is strict replacement with existing .meta.",
+    )
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--overwrite", action="store_true")
     return parser.parse_args()
@@ -184,7 +217,7 @@ def main() -> int:
 
     selected = select_entries(entries, args)
     print(f"[PLAN] selected_entries={len(selected)} batch={args.batch_id or '<any>'} status={args.status or '<any>'}")
-    plan: list[tuple[dict[str, Any], Path, Path, str]] = []
+    plan: list[tuple[dict[str, Any], Path, Path, str, bytes | None]] = []
     for entry in selected:
         workspace = in_root / entry["VisualID"]
         if args.candidate_batch_id:
@@ -195,8 +228,11 @@ def main() -> int:
             print(f"[SKIP] {entry['VisualID']} no selected image")
             continue
         target = resolve_project_path(entry["OutputPath"], entry["OutputPath"])
-        print(f"[ITEM] {entry['VisualID']} {source_kind}={repo_path(source)} -> {repo_path(target)}")
-        plan.append((entry, source, target, source_kind))
+        require_existing_meta = bool(args.candidate_batch_id and not args.allow_new_target_with_candidate)
+        meta_before = read_meta_guard(target, require_existing_meta)
+        meta_note = "meta_guard=strict" if require_existing_meta else ("meta_guard=preserve" if meta_before else "meta_guard=none")
+        print(f"[ITEM] {entry['VisualID']} {source_kind}={repo_path(source)} -> {repo_path(target)} {meta_note}")
+        plan.append((entry, source, target, source_kind, meta_before))
 
     if args.dry_run:
         print("[DONE] dry-run only; no files changed.")
@@ -204,12 +240,13 @@ def main() -> int:
 
     created_at = datetime.now().astimezone().isoformat(timespec="seconds")
     synced = 0
-    for entry, source, target, source_kind in plan:
+    for entry, source, target, source_kind, meta_before in plan:
         if target.exists() and not args.overwrite:
             print(f"[SKIP] {entry['VisualID']} target exists; use --overwrite")
             continue
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, target)
+        verify_meta_guard(target, meta_before)
         entry["SelectedPath"] = repo_path(source)
         entry["ApprovedPath"] = repo_path(target)
         entry["Status"] = "approved"
