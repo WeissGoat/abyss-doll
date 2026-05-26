@@ -13,6 +13,34 @@ public class SettlementUIController : MonoBehaviour {
     public Image settlementPanelImage;
     public Image titleDividerImage;
 
+    public void Present(CombatOutcomeReport report, Action onContinue) {
+        if (report == null) {
+            return;
+        }
+
+        bool isVictory = report.OutcomeType == CombatOutcomeType.Victory;
+        ApplySettlementSkin(isVictory);
+
+        if (titleText != null) {
+            titleText.text = string.IsNullOrEmpty(report.Title)
+                ? (isVictory ? "战斗胜利" : "战斗失败")
+                : report.Title;
+        }
+
+        if (summaryText != null) {
+            summaryText.text = BuildCombatOutcomeSummary(report);
+        }
+
+        if (lootText != null) {
+            lootText.text = BuildCombatOutcomeDetails(report);
+        }
+
+        if (continueBtn != null) {
+            continueBtn.onClick.RemoveAllListeners();
+            continueBtn.onClick.AddListener(() => onContinue?.Invoke());
+        }
+    }
+
     public void Present(DungeonSettlementResult result, Action onContinue) {
         if (result == null) {
             return;
@@ -181,6 +209,77 @@ public class SettlementUIController : MonoBehaviour {
         AppendSection(builder, "最终带出", result.BroughtOutNames, result.BroughtOutEstimatedValue, result.IsVictory ? "本次没有带出任何战利品。" : "战败时未能带出任何战利品。");
         builder.AppendLine();
         AppendSection(builder, "本次损失", result.LostNames, result.LostEstimatedValue, "本次没有损失任何已拾取战利品。");
+        return builder.ToString().TrimEnd();
+    }
+
+    private string BuildCombatOutcomeSummary(CombatOutcomeReport report) {
+        if (report == null) {
+            return string.Empty;
+        }
+
+        StringBuilder builder = new StringBuilder();
+        if (!string.IsNullOrEmpty(report.Summary)) {
+            builder.AppendLine(report.Summary);
+        }
+
+        if (!string.IsNullOrEmpty(report.ActiveDollName)) {
+            builder.Append("魔偶: ");
+            builder.Append(report.ActiveDollName);
+            builder.Append(" | HP ");
+            builder.Append(report.ActiveDollHP);
+            builder.Append("/");
+            builder.Append(report.ActiveDollMaxHP);
+            builder.Append(" | SAN ");
+            builder.Append(report.ActiveDollSAN);
+            builder.Append("/");
+            builder.AppendLine(report.ActiveDollMaxSAN.ToString());
+        }
+
+        builder.Append("敌人剩余: ");
+        builder.Append(report.EnemyAliveCount);
+        builder.Append("/");
+        builder.Append(report.EnemyTotalCount);
+        builder.Append(" | 玩家存活: ");
+        builder.Append(report.PlayerAliveCount);
+
+        return builder.ToString().TrimEnd();
+    }
+
+    private string BuildCombatOutcomeDetails(CombatOutcomeReport report) {
+        if (report == null) {
+            return string.Empty;
+        }
+
+        StringBuilder builder = new StringBuilder();
+        builder.AppendLine("战斗时间线:");
+
+        if (report.TimelineEvents == null || report.TimelineEvents.Count == 0) {
+            builder.AppendLine("- 暂无战斗记录。");
+            return builder.ToString().TrimEnd();
+        }
+
+        int startIndex = Mathf.Max(0, report.TimelineEvents.Count - 6);
+        for (int i = startIndex; i < report.TimelineEvents.Count; i++) {
+            CombatTimelineEvent entry = report.TimelineEvents[i];
+            if (entry == null) {
+                continue;
+            }
+
+            builder.Append("- ");
+            if (!string.IsNullOrEmpty(entry.Title)) {
+                builder.Append(entry.Title);
+            } else {
+                builder.Append(entry.EventType);
+            }
+
+            if (!string.IsNullOrEmpty(entry.Detail)) {
+                builder.Append(": ");
+                builder.Append(entry.Detail);
+            }
+
+            builder.AppendLine();
+        }
+
         return builder.ToString().TrimEnd();
     }
 

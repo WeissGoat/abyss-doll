@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class CombatOutcomeReportSmokeTest {
     private static CombatOutcomeReport _lastReport;
@@ -10,6 +13,7 @@ public static class CombatOutcomeReportSmokeTest {
         TestVictoryOutcomeReport();
         TestHpDefeatOutcomeReport();
         TestSanCollapseOutcomeReport();
+        TestSettlementUIConsumesCombatOutcomeReport();
 
         Debug.Log("=== Combat Outcome Report Smoke Test Finished ===");
     }
@@ -140,5 +144,101 @@ public static class CombatOutcomeReportSmokeTest {
         }
 
         return report.TimelineEvents.Exists(entry => entry != null && entry.EventType == eventType);
+    }
+
+    private static void TestSettlementUIConsumesCombatOutcomeReport() {
+        GameObject canvasObj = CreateCanvas();
+        GameObject settlementObj = new GameObject("CombatOutcomeSettlementBindingTestPanel");
+        settlementObj.transform.SetParent(canvasObj.transform, false);
+        settlementObj.AddComponent<RectTransform>();
+        SettlementUIController controller = settlementObj.AddComponent<SettlementUIController>();
+        controller.titleText = CreateText(settlementObj.transform, "TitleText");
+        controller.summaryText = CreateText(settlementObj.transform, "SummaryText");
+        controller.lootText = CreateText(settlementObj.transform, "LootText");
+        controller.continueBtn = CreateButton(settlementObj.transform, "ContinueButton");
+
+        CombatOutcomeReport report = new CombatOutcomeReport {
+            OutcomeType = CombatOutcomeType.Defeat,
+            DefeatReason = CombatDefeatReasonType.PlayerSanCollapsed,
+            Title = "SAN 崩溃",
+            Summary = "魔偶 SAN 归零。当前 SAN 0/100。",
+            ActiveDollName = "原型机·零",
+            ActiveDollHP = 91,
+            ActiveDollMaxHP = 100,
+            ActiveDollSAN = 0,
+            ActiveDollMaxSAN = 100,
+            PlayerAliveCount = 1,
+            EnemyAliveCount = 1,
+            EnemyTotalCount = 1,
+            TimelineEvents = new List<CombatTimelineEvent> {
+                new CombatTimelineEvent {
+                    Sequence = 0,
+                    EventType = CombatTimelineEventType.CombatStarted,
+                    Title = "战斗开始",
+                    Detail = "遭遇 1 个敌人。"
+                },
+                new CombatTimelineEvent {
+                    Sequence = 1,
+                    EventType = CombatTimelineEventType.Outcome,
+                    Title = "战斗失败",
+                    Detail = "失败原因：PlayerSanCollapsed。"
+                }
+            }
+        };
+
+        try {
+            MethodInfo presentMethod = typeof(SettlementUIController).GetMethod(
+                "Present",
+                new[] { typeof(CombatOutcomeReport), typeof(System.Action) });
+            if (presentMethod == null) {
+                Debug.LogError("Combat Outcome Settlement UI Binding FAILED. Present(CombatOutcomeReport, Action) missing.");
+                return;
+            }
+
+            presentMethod.Invoke(controller, new object[] { report, null });
+            string allText = CollectText(canvasObj);
+            bool passed = allText.Contains("SAN 崩溃")
+                && allText.Contains("魔偶 SAN 归零")
+                && allText.Contains("原型机·零")
+                && allText.Contains("战斗时间线")
+                && allText.Contains("战斗失败")
+                && allText.Contains("失败原因");
+
+            if (passed) {
+                Debug.Log("Combat Outcome Settlement UI Binding PASSED.");
+            } else {
+                Debug.LogError($"Combat Outcome Settlement UI Binding FAILED. Text={allText}");
+            }
+        } finally {
+            Object.DestroyImmediate(canvasObj);
+        }
+    }
+
+    private static GameObject CreateCanvas() {
+        GameObject canvasObj = new GameObject("CombatOutcomeSettlementBindingTestCanvas");
+        Canvas canvas = canvasObj.AddComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvasObj.AddComponent<GraphicRaycaster>();
+        return canvasObj;
+    }
+
+    private static Text CreateText(Transform parent, string name) {
+        GameObject textObj = new GameObject(name);
+        textObj.transform.SetParent(parent, false);
+        textObj.AddComponent<RectTransform>();
+        return textObj.AddComponent<Text>();
+    }
+
+    private static Button CreateButton(Transform parent, string name) {
+        GameObject buttonObj = new GameObject(name);
+        buttonObj.transform.SetParent(parent, false);
+        buttonObj.AddComponent<RectTransform>();
+        buttonObj.AddComponent<Image>();
+        return buttonObj.AddComponent<Button>();
+    }
+
+    private static string CollectText(GameObject root) {
+        Text[] texts = root.GetComponentsInChildren<Text>(true);
+        return string.Join("\n", texts.Select(text => text != null ? text.text : string.Empty));
     }
 }
