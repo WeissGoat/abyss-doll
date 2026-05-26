@@ -4,10 +4,23 @@ using UnityEngine.UI;
 public class WorkshopFormalV1PanelController : MonoBehaviour {
     private GameObject _rootPanel;
     private Font _defaultFont;
+    private string _lastActionFeedback;
+    private string _lastActionScreenID;
 
     public string CurrentScreenID { get; private set; }
 
     public void Show(string screenID) {
+        _lastActionFeedback = string.Empty;
+        _lastActionScreenID = string.Empty;
+        ShowInternal(screenID);
+    }
+
+    private void ShowInternal(string screenID, bool preserveActionFeedback = false) {
+        if (!preserveActionFeedback) {
+            _lastActionFeedback = string.Empty;
+            _lastActionScreenID = string.Empty;
+        }
+
         PanelSpec spec = ResolveSpec(screenID);
         if (spec == null) {
             Debug.LogWarning($"[WorkshopFormalV1Panel] Unknown screenID: {screenID}");
@@ -133,7 +146,53 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
             Button button = CreateButton(buttonSpec.Name, buttonSpec.Label, card, buttonSpec.X, buttonSpec.Y, buttonSpec.Width, buttonSpec.Height, buttonSpec.VisualID);
             if (buttonSpec.ClosesPanel) {
                 button.onClick.AddListener(Hide);
+            } else {
+                string capturedScreenID = spec.ScreenID;
+                string capturedButtonName = buttonSpec.Name;
+                button.onClick.AddListener(() => ExecutePanelAction(capturedScreenID, capturedButtonName));
             }
+        }
+
+        if (!string.IsNullOrEmpty(_lastActionFeedback) && _lastActionScreenID == spec.ScreenID) {
+            CreateText(
+                "ActionFeedback_Text",
+                card,
+                _lastActionFeedback,
+                new Vector2(60f, 820f),
+                new Vector2(1240f, 46f),
+                20,
+                new Color(0.94f, 0.82f, 0.5f, 1f),
+                TextAnchor.MiddleLeft);
+        }
+    }
+
+    private void ExecutePanelAction(string screenID, string buttonName) {
+        WorkshopFormalV1PanelActionResult result = WorkshopFormalV1PanelActionService.Execute(screenID, buttonName, GameRoot.Core);
+        if (result == null) {
+            return;
+        }
+
+        _lastActionScreenID = string.IsNullOrEmpty(result.NextScreenID) ? screenID : result.NextScreenID;
+        _lastActionFeedback = result.FeedbackText ?? string.Empty;
+
+        if (result.Success) {
+            Debug.Log($"[WorkshopFormalV1Panel] Action succeeded. Screen={screenID}, Button={buttonName}, Feedback={result.FeedbackText}");
+        } else {
+            Debug.LogWarning($"[WorkshopFormalV1Panel] Action failed or unsupported. Screen={screenID}, Button={buttonName}, Reason={result.Reason}");
+        }
+
+        if (result.ClosePanel) {
+            Hide();
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(result.NextScreenID)) {
+            ShowInternal(result.NextScreenID, true);
+            return;
+        }
+
+        if (result.RefreshPanel) {
+            ShowInternal(screenID, true);
         }
     }
 

@@ -21,6 +21,17 @@ public class WorkshopUIController : MonoBehaviour {
     public Transform prostheticListParent;
     public Image backgroundImage;
     public GameObject dungeonStartLayerPanel;
+    public Button openMaintenancePanelBtn;
+    public Button openDailyBillPanelBtn;
+    public Button openShopStagingPanelBtn;
+    public Button openOrderBoardPanelBtn;
+    public Button openRumorBoardPanelBtn;
+    public Button openBusinessSettlementPanelBtn;
+    public Button openChassisUpgradePanelBtn;
+    public Button openDollInteractionPanelBtn;
+    public Button openDollRoomPanelBtn;
+    public Button openFactionShopPanelBtn;
+    public Button openScenarioEventPanelBtn;
 
     private bool _sellPanelOpen;
     private bool _prostheticPanelOpen;
@@ -28,6 +39,7 @@ public class WorkshopUIController : MonoBehaviour {
     private DungeonStartLayerUIController _dungeonStartLayerController;
     private Image _topStatusPanel;
     private Image _leftActionPanel;
+    private Image _formalV1EntryPanel;
     private Image _bottomHintPanel;
     private Image _dollStandImage;
     private WorkshopFormalV1PanelController _formalV1PanelController;
@@ -148,6 +160,18 @@ public class WorkshopUIController : MonoBehaviour {
             closeProstheticPanelBtn.onClick.RemoveAllListeners();
             closeProstheticPanelBtn.onClick.AddListener(CloseProstheticPanel);
         }
+
+        BindFormalV1Button(openMaintenancePanelBtn, "maintenance_panel");
+        BindFormalV1Button(openDailyBillPanelBtn, "daily_bill_report");
+        BindFormalV1Button(openShopStagingPanelBtn, "shop_staging");
+        BindFormalV1Button(openOrderBoardPanelBtn, "order_board");
+        BindFormalV1Button(openRumorBoardPanelBtn, "rumor_board");
+        BindFormalV1Button(openBusinessSettlementPanelBtn, "business_settlement");
+        BindFormalV1Button(openChassisUpgradePanelBtn, "chassis_upgrade_panel");
+        BindFormalV1Button(openDollInteractionPanelBtn, "doll_interaction");
+        BindFormalV1Button(openDollRoomPanelBtn, "doll_room");
+        BindFormalV1Button(openFactionShopPanelBtn, "faction_shop");
+        BindFormalV1Button(openScenarioEventPanelBtn, "scenario_event");
     }
 
     public void OpenSellPanel() {
@@ -570,7 +594,57 @@ public class WorkshopUIController : MonoBehaviour {
         EnsureProstheticControls(defaultFont);
         EnsureDungeonStartLayerPanel(defaultFont);
         EnsureFormalV1PanelController();
+        EnsureFormalV1EntryButtons(defaultFont);
         ApplyMainButtonSkin();
+    }
+
+    private void EnsureFormalV1EntryButtons(Font defaultFont) {
+        Transform parent = _formalV1EntryPanel != null ? _formalV1EntryPanel.transform : transform;
+        openMaintenancePanelBtn = EnsureFormalV1EntryButton(openMaintenancePanelBtn, "OpenMaintenancePanel_Button", "Maintenance", parent, 0, 0, defaultFont);
+        openDailyBillPanelBtn = EnsureFormalV1EntryButton(openDailyBillPanelBtn, "OpenDailyBillPanel_Button", "Daily Bill", parent, 1, 0, defaultFont);
+        openShopStagingPanelBtn = EnsureFormalV1EntryButton(openShopStagingPanelBtn, "OpenShopStagingPanel_Button", "Shop", parent, 0, 1, defaultFont);
+        openOrderBoardPanelBtn = EnsureFormalV1EntryButton(openOrderBoardPanelBtn, "OpenOrderBoardPanel_Button", "Orders", parent, 1, 1, defaultFont);
+        openRumorBoardPanelBtn = EnsureFormalV1EntryButton(openRumorBoardPanelBtn, "OpenRumorBoardPanel_Button", "Rumors", parent, 0, 2, defaultFont);
+        openBusinessSettlementPanelBtn = EnsureFormalV1EntryButton(openBusinessSettlementPanelBtn, "OpenBusinessSettlementPanel_Button", "Business", parent, 1, 2, defaultFont);
+        openChassisUpgradePanelBtn = EnsureFormalV1EntryButton(openChassisUpgradePanelBtn, "OpenChassisUpgradePanel_Button", "Chassis", parent, 0, 3, defaultFont);
+        openDollInteractionPanelBtn = EnsureFormalV1EntryButton(openDollInteractionPanelBtn, "OpenDollInteractionPanel_Button", "Doll Talk", parent, 1, 3, defaultFont);
+        openDollRoomPanelBtn = EnsureFormalV1EntryButton(openDollRoomPanelBtn, "OpenDollRoomPanel_Button", "Doll Room", parent, 0, 4, defaultFont);
+        openFactionShopPanelBtn = EnsureFormalV1EntryButton(openFactionShopPanelBtn, "OpenFactionShopPanel_Button", "Factions", parent, 1, 4, defaultFont);
+        openScenarioEventPanelBtn = EnsureFormalV1EntryButton(openScenarioEventPanelBtn, "OpenScenarioEventPanel_Button", "Scenario", parent, 0, 5, defaultFont);
+    }
+
+    private Button EnsureFormalV1EntryButton(Button button, string objectName, string label, Transform parent, int column, int row, Font font) {
+        if (button == null) {
+            button = CreateAnchoredButton(
+                objectName,
+                label,
+                parent,
+                new Vector2(0.5f, 1f),
+                new Vector2(0.5f, 1f),
+                new Vector2(0.5f, 1f),
+                ResolveFormalV1EntryPosition(column, row),
+                new Vector2(190f, 48f),
+                new Color(0.28f, 0.34f, 0.34f),
+                font,
+                20);
+        }
+
+        RepositionButton(button, parent, ResolveFormalV1EntryPosition(column, row), new Vector2(190f, 48f));
+        return button;
+    }
+
+    private Vector2 ResolveFormalV1EntryPosition(int column, int row) {
+        float x = column == 0 ? -105f : 105f;
+        return new Vector2(x, -48f - row * 62f);
+    }
+
+    private void BindFormalV1Button(Button button, string screenID) {
+        if (button == null || string.IsNullOrEmpty(screenID)) {
+            return;
+        }
+
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => OpenFormalV1Panel(screenID));
     }
 
     private void EnsureFormalV1PanelController() {
@@ -1118,6 +1192,13 @@ public class WorkshopUIController : MonoBehaviour {
             new Vector2(306f, 0f),
             new Vector2(420f, 520f));
 
+        _formalV1EntryPanel = EnsureDecorPanel(
+            _formalV1EntryPanel,
+            "FormalV1EntryPanel",
+            new Vector2(0f, 0.5f),
+            new Vector2(760f, 0f),
+            new Vector2(440f, 520f));
+
         _bottomHintPanel = EnsureDecorPanel(
             _bottomHintPanel,
             "BottomHintArea",
@@ -1132,6 +1213,18 @@ public class WorkshopUIController : MonoBehaviour {
         RepositionButton(departBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -20f), new Vector2(250f, 70f));
         RepositionButton(openSellPanelBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -190f), new Vector2(250f, 70f));
         RepositionButton(openProstheticPanelBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -280f), new Vector2(250f, 70f));
+        Transform formalParent = _formalV1EntryPanel != null ? _formalV1EntryPanel.transform : transform;
+        RepositionButton(openMaintenancePanelBtn, formalParent, ResolveFormalV1EntryPosition(0, 0), new Vector2(190f, 48f));
+        RepositionButton(openDailyBillPanelBtn, formalParent, ResolveFormalV1EntryPosition(1, 0), new Vector2(190f, 48f));
+        RepositionButton(openShopStagingPanelBtn, formalParent, ResolveFormalV1EntryPosition(0, 1), new Vector2(190f, 48f));
+        RepositionButton(openOrderBoardPanelBtn, formalParent, ResolveFormalV1EntryPosition(1, 1), new Vector2(190f, 48f));
+        RepositionButton(openRumorBoardPanelBtn, formalParent, ResolveFormalV1EntryPosition(0, 2), new Vector2(190f, 48f));
+        RepositionButton(openBusinessSettlementPanelBtn, formalParent, ResolveFormalV1EntryPosition(1, 2), new Vector2(190f, 48f));
+        RepositionButton(openChassisUpgradePanelBtn, formalParent, ResolveFormalV1EntryPosition(0, 3), new Vector2(190f, 48f));
+        RepositionButton(openDollInteractionPanelBtn, formalParent, ResolveFormalV1EntryPosition(1, 3), new Vector2(190f, 48f));
+        RepositionButton(openDollRoomPanelBtn, formalParent, ResolveFormalV1EntryPosition(0, 4), new Vector2(190f, 48f));
+        RepositionButton(openFactionShopPanelBtn, formalParent, ResolveFormalV1EntryPosition(1, 4), new Vector2(190f, 48f));
+        RepositionButton(openScenarioEventPanelBtn, formalParent, ResolveFormalV1EntryPosition(0, 5), new Vector2(190f, 48f));
     }
 
     private Image EnsureDecorPanel(Image current, string objectName, Vector2 anchor, Vector2 position, Vector2 size) {
@@ -1223,6 +1316,21 @@ public class WorkshopUIController : MonoBehaviour {
         VisualUIHelper.ApplyButtonSkin(upgradeBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.2f, 0.6f, 0.2f));
         VisualUIHelper.ApplyButtonSkin(openSellPanelBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.72f, 0.36f, 0.16f));
         VisualUIHelper.ApplyButtonSkin(openProstheticPanelBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.18f, 0.42f, 0.58f));
+        ApplyFormalV1EntryButtonSkin(openMaintenancePanelBtn);
+        ApplyFormalV1EntryButtonSkin(openDailyBillPanelBtn);
+        ApplyFormalV1EntryButtonSkin(openShopStagingPanelBtn);
+        ApplyFormalV1EntryButtonSkin(openOrderBoardPanelBtn);
+        ApplyFormalV1EntryButtonSkin(openRumorBoardPanelBtn);
+        ApplyFormalV1EntryButtonSkin(openBusinessSettlementPanelBtn);
+        ApplyFormalV1EntryButtonSkin(openChassisUpgradePanelBtn);
+        ApplyFormalV1EntryButtonSkin(openDollInteractionPanelBtn);
+        ApplyFormalV1EntryButtonSkin(openDollRoomPanelBtn);
+        ApplyFormalV1EntryButtonSkin(openFactionShopPanelBtn);
+        ApplyFormalV1EntryButtonSkin(openScenarioEventPanelBtn);
+    }
+
+    private void ApplyFormalV1EntryButtonSkin(Button button) {
+        VisualUIHelper.ApplyButtonSkin(button, VisualAssetService.UIButtonSecondaryID, new Color(0.28f, 0.34f, 0.34f));
     }
 
     private void MoveIntoPanel(Text text, Transform parent, Vector2 topLeftOffset, Vector2 size, int fontSize) {
