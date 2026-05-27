@@ -19,7 +19,7 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - agent_status/art.md
   - 知识库/views/program.md
-last_verified: 2026-05-25
+last_verified: 2026-05-27
 update_rule: 程序、Unity、验证或工程边界任务完成后更新本文件。
 ---
 
@@ -27,7 +27,7 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 ## 最后更新
 
-2026-05-25
+2026-05-27
 
 ## 当前关注
 
@@ -104,13 +104,15 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 ## 下一步建议
 
 1. 进入新程序任务前先查 `版本规划/11_纵切批次与需求文档承接矩阵.md` 第 4 节；已标记“程序功能开发完成”的能力只做 bug 修复、验收补强或真实数据绑定，不重复开发。
-2. 优先从未完成项中选下一步：P1 战斗意图占位 UI 消费 `MonsterIntentPreviewService` / 异常失败反馈、P2 前三层正式配置 JSON / Validator 样例、P3 成长反馈 UI 数据绑定 / 更完整制造配置、P4 经济占位 UI 消费 `TownEconomyOverviewService` / 配置 Validator、P0 Strict warning / seed 摘要。
-3. 等美术侧基于 ArtAcceptance 最新截图验收 `combat_hud` Formal V1，如需微调敌人站位、血条层级或目标光环显示，再回到 HUD 表现层处理。
-4. 接入美术新素材时优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
+2. 先处理美术验收返修：ArtAcceptance latest `20260527_002436` 工具层通过且 `program_integrate=0`，但美术人工验收判定 `combat_hud`、`dungeon_map`、`safe_room`、`stairs_room`、`sell_panel`、`prosthetic_panel` 不通过。前四项需要截图前清理 Scenario Event、工坊面板、背包弹层等跨界面残留；后两项需要至少 1 条有效可出售物品行 / 义体配方行后重跑。
+3. 对 `shop_staging`、`daily_bill_report`、`business_settlement`、`chassis_upgrade_panel` 做文本容器和行距收束，避免中文长文本压边框、按钮或选中行。
+4. 优先从未完成项中选下一步：P1 战斗意图占位 UI 消费 `MonsterIntentPreviewService` / 异常失败反馈、P2 前三层正式配置 JSON / Validator 样例、P3 成长反馈 UI 数据绑定 / 更完整制造配置、P4 经济占位 UI 消费 `TownEconomyOverviewService` / 配置 Validator、P0 Strict warning / seed 摘要。
+5. 接入美术新素材时优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
 
 ## 问题 / 阻塞
 
 - 当前工作区已有其他 agent / 用户留下的 Unity UI 脚本脏文件，编辑前需要先检查并避免覆盖无关改动。
+- 美术验收发现 latest ArtAcceptance 虽然工具层 `PASSED`，但部分截图存在跨界面残留和空列表状态，不能作为 Formal V1 画面通过证据；程序侧需按 `美术文档/09_运行时美术验收记录.md` 的 2026-05-27 条目返修并重跑。
 - `tools/ai-image-gateway` 子模块内部有未提交改动。
 
 ## 完成回写清单
