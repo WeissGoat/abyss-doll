@@ -96,30 +96,109 @@ public partial class ArtAcceptanceRunner {
         return monsterIDs;
     }
 
+    // ──────────────────────────────────────────
+    // 验收选品策略
+    // ──────────────────────────────────────────
+
+    /// <summary>
+    /// 验收专用固定选品列表。按 Rarity × ItemType 覆盖视觉差异最大的组合。
+    /// 优先级：Epic > Rare > Uncommon > Common，每个 Rarity 至少选一种不同 ItemType。
+    /// 如果固定 ID 不存在，降级到按 Rarity 分桶自动选取。
+    /// </summary>
+    private static readonly string[] PreferredLootIDs = {
+        "mat_core_tier1",           // Epic / QuestItem — 大体积 2x2，高价值
+        "gear_chainsaw_sword",      // Rare / Weapon — 高价值武器
+        "loot_toxic_filter",        // Rare / Loot — 高价值战利品
+        "gear_iron_armor",          // Uncommon / Armor — 防具
+        "con_repair_kit",           // Common / Consumable — 消耗品
+        "loot_rusty_coil",          // Uncommon / Loot — 中价值战利品
+    };
+
+    /// <summary>
+    /// 从配置中按选品策略构建战利品集合，最多 maxCount 件。
+    /// 先尝试固定列表，再按 Rarity 分桶补齐。
+    /// </summary>
+    private List<ItemEntity> SelectCuratedItems(int maxCount) {
+        List<ItemEntity> selected = new List<ItemEntity>();
+        HashSet<string> usedIDs = new HashSet<string>();
+
+        if (ConfigManager.Items == null || ConfigManager.Items.Count == 0) {
+            return selected;
+        }
+
+        // 第一轮：从固定列表选取
+        foreach (string configID in PreferredLootIDs) {
+            if (selected.Count >= maxCount) {
+                break;
+            }
+
+            if (ConfigManager.Items.ContainsKey(configID)) {
+                ItemEntity item = ConfigManager.CreateItem(configID);
+                if (item != null) {
+                    selected.Add(item);
+                    usedIDs.Add(configID);
+                }
+            }
+        }
+
+        // 第二轮：按 Rarity 分桶补齐（覆盖固定列表以外的稀有度）
+        if (selected.Count < maxCount) {
+            string[] rarityOrder = { "Epic", "Rare", "Uncommon", "Common" };
+            foreach (string rarity in rarityOrder) {
+                if (selected.Count >= maxCount) {
+                    break;
+                }
+
+                foreach (var kvp in ConfigManager.Items) {
+                    if (selected.Count >= maxCount) {
+                        break;
+                    }
+
+                    if (usedIDs.Contains(kvp.Key)) {
+                        continue;
+                    }
+
+                    if (kvp.Value.Rarity == rarity) {
+                        ItemEntity item = ConfigManager.CreateItem(kvp.Key);
+                        if (item != null) {
+                            selected.Add(item);
+                            usedIDs.Add(kvp.Key);
+                        }
+                    }
+                }
+            }
+        }
+
+        return selected;
+    }
+
     private CombatLootPickupResult BuildAcceptanceLootResult() {
         CombatLootPickupResult result = new CombatLootPickupResult {
             NodeID = "art_acceptance_loot_preview"
         };
 
-        if (ConfigManager.Items == null) {
-            return result;
-        }
-
-        int count = 0;
-        foreach (var kvp in ConfigManager.Items) {
-            if (count >= 4) {
-                break;
-            }
-
-            ItemEntity item = ConfigManager.CreateItem(kvp.Key);
-            if (item == null) {
-                continue;
-            }
-
+        List<ItemEntity> items = SelectCuratedItems(5);
+        foreach (ItemEntity item in items) {
             result.OfferedItems.Add(item);
             result.TotalEstimatedValue += item.BaseValue;
-            count++;
         }
+
+        // 添加怪物来源 ID，使 UI 显示更真实
+        if (ConfigManager.Monsters != null) {
+            int monsterCount = 0;
+            foreach (var kvp in ConfigManager.Monsters) {
+                if (monsterCount >= 2) {
+                    break;
+                }
+
+                result.SourceMonsterIDs.Add(kvp.Key);
+                monsterCount++;
+            }
+        }
+
+        Debug.Log($"[ArtAcceptance] Loot payload: {result.OfferedItems.Count} items, " +
+                  $"total value={result.TotalEstimatedValue}, " +
+                  $"monsters={string.Join(",", result.SourceMonsterIDs)}");
 
         return result;
     }
@@ -130,26 +209,18 @@ public partial class ArtAcceptanceRunner {
             StashCountAfterSettlement = GameRoot.Core?.CurrentPlayer?.StashInventory?.Count ?? 0
         };
 
-        if (ConfigManager.Items == null) {
-            return result;
-        }
+        List<ItemEntity> items = SelectCuratedItems(5);
 
-        int count = 0;
-        foreach (var kvp in ConfigManager.Items) {
-            if (count >= 3) {
-                break;
-            }
+        for (int i = 0; i < items.Count; i++) {
+            ItemEntity item = items[i];
 
-            ItemEntity item = ConfigManager.CreateItem(kvp.Key);
-            if (item == null) {
-                continue;
-            }
-
+            // 全部计入 PickedUp
             result.PickedUpCount++;
             result.PickedUpEstimatedValue += item.BaseValue;
             result.PickedUpNames.Add(item.Name);
 
-            if (count < 2) {
+            if (i < 3) {
+                // 前 3 件成功带出
                 result.BroughtOutCount++;
                 result.BroughtOutEstimatedValue += item.BaseValue;
                 result.BroughtOutNames.Add(item.Name);
@@ -157,13 +228,15 @@ public partial class ArtAcceptanceRunner {
                 result.LootEstimatedValue += item.BaseValue;
                 result.LootNames.Add(item.Name);
             } else {
+                // 后面的丢失（演示丢失区域的视觉）
                 result.LostCount++;
                 result.LostEstimatedValue += item.BaseValue;
                 result.LostNames.Add(item.Name);
             }
-
-            count++;
         }
+
+        Debug.Log($"[ArtAcceptance] Settlement payload: victory={result.IsVictory}, " +
+                  $"pickedUp={result.PickedUpCount}, broughtOut={result.BroughtOutCount}, lost={result.LostCount}");
 
         return result;
     }
