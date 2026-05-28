@@ -135,6 +135,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 - `美术文档/ui_design/README.md`
 - `美术文档/ui_design/ui_iteration_process.md`
 - `美术文档/ui_design/formal_v1/screen_structure_review.md`
+- `美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md`
 - `开发文档/09_视觉资源系统程序开发规范.md`
 
 UI 版本规则：
@@ -142,6 +143,7 @@ UI 版本规则：
 - `美术文档/ui_design/screen_layouts.json` 是当前 active UI 对接规格；程序和素材生成都以它为准。
 - 已通过验收的 UI 设计先冻结到 `美术文档/ui_design/versions/`，例如 `mvp_baseline_2026-05-22`。
 - `formal_v1/*.md` 是正式结构设计文档；用户确认后，美术智能体逐界面修改 active `screen_layouts.json`。
+- `formal_v2/*.md` 是 UX/UI 重构设计草案，用于解决按钮堆叠、主次行动不清和正式感不足；用户确认并写入 active 前，不作为程序接入口，也不触发素材生成。
 - `versions/formal_v1_candidate/` 只是复杂界面的可选暂存区，不是必经流程，也不是程序接入口。
 - 素材生成、Manifest 回填和程序交接必须发生在 active 规格更新并通过 `Validate-UIDesign.ps1` 之后。
 - 每次 AI 出图、预处理或同步 Approved 素材后，必须刷新 `美术文档/_generated/可接入素材清单.md` 和 `.json`，并在 `美术文档/_generated/art_integration_snapshots/` 留快照；程序侧优先读取 latest 中的 `program_integrate` 条目自助接入。

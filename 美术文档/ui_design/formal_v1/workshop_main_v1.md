@@ -8,6 +8,7 @@ status: draft
 source_of_truth: true
 related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
+  - 美术文档/ui_design/formal_v2/01_workshop_main_v2.md
 last_verified: 2026-05-23
 update_rule: 修改工坊主界面正式结构或程序迁移要求时同步本文件。
 ---

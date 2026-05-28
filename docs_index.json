@@ -10,9 +10,9 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 2370,
-    "relation_edges": 1185,
-    "cross_role_edges": 202,
+    "directed_edges": 2440,
+    "relation_edges": 1220,
+    "cross_role_edges": 204,
     "role_pairs": {
       "PM <-> 全局": 12,
       "PM <-> 知识库": 1,
@@ -27,7 +27,7 @@
       "知识库 <-> 策划": 1,
       "知识库 <-> 美术": 1,
       "程序 <-> 策划": 55,
-      "程序 <-> 美术": 27,
+      "程序 <-> 美术": 29,
       "策划 <-> 美术": 6
     }
   },
@@ -52,18 +52,20 @@
         "设计文档/GDD/GDD_00_系统关联总图.md",
         "agent_status/design.md",
         "美术文档/10_正式版核心纵切美术路线.md",
+        "美术文档/10_美术验收截图优化与真实数据驱动演进方案.md",
         "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
         "美术文档/ui_design/ui_iteration_process.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
         "美术文档/README.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-05-26",
+      "last_verified": "2026-05-29",
       "update_rule": "美术或 UI 视觉流水线任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 15,
-      "cross_role_relation_count": 9
+      "relation_count": 17,
+      "cross_role_relation_count": 10
     },
     {
       "path": "agent_status/design.md",
@@ -173,7 +175,7 @@
         "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "知识库/views/pm.md"
       ],
-      "last_verified": "2026-05-25",
+      "last_verified": "2026-05-27",
       "update_rule": "版本路线、里程碑、优先级、跨职能拆分或交付节奏变化后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -203,7 +205,7 @@
         "agent_status/art.md",
         "知识库/views/program.md"
       ],
-      "last_verified": "2026-05-25",
+      "last_verified": "2026-05-27",
       "update_rule": "程序、Unity、验证或工程边界任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -377,7 +379,7 @@
         "知识库/views/program.md",
         "tools/agent/README.md"
       ],
-      "last_verified": "2026-05-26",
+      "last_verified": "2026-05-29",
       "update_rule": "项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -746,7 +748,7 @@
         "agent_status/art.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-05-23",
+      "last_verified": "2026-05-26",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -868,14 +870,15 @@
         "美术文档/README.md",
         "美术文档/08_Unity运行时美术验收工具需求.md",
         "美术文档/09_运行时美术验收记录.md",
+        "美术文档/10_美术验收截图优化与真实数据驱动演进方案.md",
         "agent_status/art.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-05-23",
+      "last_verified": "2026-05-26",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 9,
+      "relation_count": 10,
       "cross_role_relation_count": 5
     },
     {
@@ -1170,7 +1173,7 @@
         "美术文档/10_正式版核心纵切美术路线.md",
         "美术文档/13_正式纵切UI与素材覆盖矩阵.md"
       ],
-      "last_verified": "2026-05-25",
+      "last_verified": "2026-05-27",
       "update_rule": "调整正式版顶层目标、系统优先级、纵切顺序或阶段边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -1495,14 +1498,16 @@
         "美术文档/ui_design/README.md",
         "美术文档/ui_design/ui_iteration_process.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
         "开发文档/09_视觉资源系统程序开发规范.md",
         "开发文档/14_Unity运行时美术自动验收方案.md"
       ],
-      "last_verified": "2026-05-25",
+      "last_verified": "2026-05-29",
       "update_rule": "美术入口文档、流水线、UI 交付或程序侧视觉契约变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 15,
+      "relation_count": 17,
       "cross_role_relation_count": 7
     },
     {
@@ -1657,7 +1662,7 @@
         "美术文档/04_美术风格基准.md",
         "tools/美术工具/README.md"
       ],
-      "last_verified": "2026-05-23",
+      "last_verified": "2026-05-26",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -1771,14 +1776,16 @@
         "开发文档/09_视觉资源系统程序开发规范.md",
         "美术文档/08_Unity运行时美术验收工具需求.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+        "美术文档/10_美术验收截图优化与真实数据驱动演进方案.md",
         "美术文档/ui_design/versions/mvp_baseline_2026-05-22/README.md"
       ],
-      "last_verified": "2026-05-23",
+      "last_verified": "2026-05-27",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 5,
-      "cross_role_relation_count": 2
+      "relation_count": 7,
+      "cross_role_relation_count": 3
     },
     {
       "path": "美术文档/10_正式版核心纵切美术路线.md",
@@ -1806,14 +1813,37 @@
         "agent_status/art.md",
         "知识库/views/art.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
         "美术文档/13_正式纵切UI与素材覆盖矩阵.md"
       ],
-      "last_verified": "2026-05-26",
+      "last_verified": "2026-05-29",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 17,
+      "relation_count": 19,
       "cross_role_relation_count": 7
+    },
+    {
+      "path": "美术文档/10_美术验收截图优化与真实数据驱动演进方案.md",
+      "title": "Project P3 美术自动验收（截图）流程优化与真实数据驱动演进方案",
+      "id": "art_acceptance_optimization_proposal",
+      "type": "other",
+      "role": "程序",
+      "domain": "runtime_art_validation",
+      "status": "proposal",
+      "source_of_truth": false,
+      "related": [
+        "开发文档/14_Unity运行时美术自动验收方案.md",
+        "美术文档/09_运行时美术验收记录.md",
+        "agent_status/art.md"
+      ],
+      "last_verified": "2026-05-28",
+      "update_rule": "本文档是流程演进设计提案，待评审通过并拆入具体执行任务后更新。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 2
     },
     {
       "path": "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
@@ -1831,6 +1861,8 @@
         "美术文档/10_正式版核心纵切美术路线.md",
         "美术文档/archive/12_P1_UI骨架接入准备.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
         "美术文档/ui_design/formal_v1/business_settlement_v1.md",
         "美术文档/ui_design/formal_v1/doll_interaction_v1.md",
         "美术文档/ui_design/formal_v1/doll_room_v1.md",
@@ -1848,11 +1880,11 @@
         "agent_status/art.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-05-26",
+      "last_verified": "2026-05-29",
       "update_rule": "调整正式纵切 UI 覆盖范围、素材批次优先级或缺口时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 22,
+      "relation_count": 24,
       "cross_role_relation_count": 2
     },
     {
@@ -1983,16 +2015,18 @@
         "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
         "美术文档/00_美术流水线总览.md",
         "美术文档/ui_design/README.md",
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
         "美术文档/archive/README.md",
         "agent_status/art.md",
         "tools/美术工具/README.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-05-26",
+      "last_verified": "2026-05-29",
       "update_rule": "美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 11,
+      "relation_count": 13,
       "cross_role_relation_count": 3
     },
     {
@@ -2051,13 +2085,14 @@
       "source_of_truth": true,
       "related": [
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/02_combat_hud_v2.md",
         "美术文档/archive/11_P0_UI骨架接入交付.md"
       ],
       "last_verified": "2026-05-25",
       "update_rule": "修改战斗界面正式结构、敌我站位、背包交互区、战斗实体素材或程序迁移要求时同步本文档。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 2,
+      "relation_count": 3,
       "cross_role_relation_count": 0
     },
     {
@@ -2135,13 +2170,14 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "美术文档/ui_design/formal_v1/screen_structure_review.md"
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/04_dungeon_map_v2.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "修改深渊地图正式结构或程序迁移要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 1,
+      "relation_count": 2,
       "cross_role_relation_count": 0
     },
     {
@@ -2176,13 +2212,14 @@
       "status": "draft",
       "source_of_truth": true,
       "related": [
-        "美术文档/ui_design/formal_v1/screen_structure_review.md"
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/03_inventory_loot_v2.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改战利品拾取正式结构或程序迁移要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 1,
+      "relation_count": 2,
       "cross_role_relation_count": 0
     },
     {
@@ -2342,6 +2379,8 @@
         "agent_status/art.md",
         "知识库/views/art.md",
         "美术文档/ui_design/ui_iteration_process.md",
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
         "美术文档/ui_design/formal_v1/business_settlement_v1.md",
         "美术文档/ui_design/formal_v1/combat_hud_v1.md",
         "美术文档/ui_design/formal_v1/chassis_upgrade_panel_v1.md",
@@ -2373,7 +2412,7 @@
       "update_rule": "修改正式版 UI 结构、界面迁移顺序或程序接入口径时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 30,
+      "relation_count": 32,
       "cross_role_relation_count": 0
     },
     {
@@ -2405,13 +2444,14 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "美术文档/ui_design/formal_v1/screen_structure_review.md"
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/05_settlement_v2.md"
       ],
       "last_verified": "2026-05-25",
       "update_rule": "修改结算界面正式结构或程序迁移要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 1,
+      "relation_count": 2,
       "cross_role_relation_count": 0
     },
     {
@@ -2465,13 +2505,183 @@
       "status": "draft",
       "source_of_truth": true,
       "related": [
-        "美术文档/ui_design/formal_v1/screen_structure_review.md"
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/01_workshop_main_v2.md"
       ],
       "last_verified": "2026-05-23",
       "update_rule": "修改工坊主界面正式结构或程序迁移要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 1,
+      "relation_count": 2,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+      "title": "Formal V2 UX/UI 重构总方案",
+      "id": "art_ui_formal_v2_ux_ui_overview",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": true,
+      "related": [
+        "美术文档/README.md",
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/ui_iteration_process.md",
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/01_workshop_main_v2.md",
+        "美术文档/ui_design/formal_v2/02_combat_hud_v2.md",
+        "美术文档/ui_design/formal_v2/03_inventory_loot_v2.md",
+        "美术文档/ui_design/formal_v2/04_dungeon_map_v2.md",
+        "美术文档/ui_design/formal_v2/05_settlement_v2.md",
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/09_运行时美术验收记录.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
+        "agent_status/art.md",
+        "知识库/views/art.md"
+      ],
+      "last_verified": "2026-05-29",
+      "update_rule": "修改 Formal V2 总目标、批次、验收门槛或 active 迁移规则时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 15,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v2/01_workshop_main_v2.md",
+      "title": "Workshop Main Formal V2 方案",
+      "id": "art_ui_formal_v2_workshop_main",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "planned",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+        "美术文档/ui_design/formal_v1/workshop_main_v1.md"
+      ],
+      "last_verified": "2026-05-29",
+      "update_rule": "编写或确认 workshop_main Formal V2 详细方案时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v2/02_combat_hud_v2.md",
+      "title": "Combat HUD Formal V2 方案",
+      "id": "art_ui_formal_v2_combat_hud",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "planned",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+        "美术文档/ui_design/formal_v1/combat_hud_v1.md"
+      ],
+      "last_verified": "2026-05-29",
+      "update_rule": "编写或确认 combat_hud Formal V2 详细方案时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v2/03_inventory_loot_v2.md",
+      "title": "Inventory Loot Formal V2 方案",
+      "id": "art_ui_formal_v2_inventory_loot",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "planned",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+        "美术文档/ui_design/formal_v1/inventory_loot_v1.md"
+      ],
+      "last_verified": "2026-05-29",
+      "update_rule": "编写或确认 inventory_loot Formal V2 详细方案时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v2/04_dungeon_map_v2.md",
+      "title": "Dungeon Map Formal V2 方案",
+      "id": "art_ui_formal_v2_dungeon_map",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "planned",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+        "美术文档/ui_design/formal_v1/dungeon_map_v1.md"
+      ],
+      "last_verified": "2026-05-29",
+      "update_rule": "编写或确认 dungeon_map Formal V2 详细方案时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v2/05_settlement_v2.md",
+      "title": "Settlement Formal V2 方案",
+      "id": "art_ui_formal_v2_settlement",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "planned",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+        "美术文档/ui_design/formal_v1/settlement_v1.md"
+      ],
+      "last_verified": "2026-05-29",
+      "update_rule": "编写或确认 settlement Formal V2 详细方案时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v2/README.md",
+      "title": "Formal V2 UX/UI 设计层",
+      "id": "art_ui_formal_v2_readme",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": true,
+      "related": [
+        "美术文档/README.md",
+        "美术文档/ui_design/README.md",
+        "美术文档/ui_design/ui_iteration_process.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+        "美术文档/ui_design/formal_v2/01_workshop_main_v2.md",
+        "美术文档/ui_design/formal_v2/02_combat_hud_v2.md",
+        "美术文档/ui_design/formal_v2/03_inventory_loot_v2.md",
+        "美术文档/ui_design/formal_v2/04_dungeon_map_v2.md",
+        "美术文档/ui_design/formal_v2/05_settlement_v2.md",
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
+        "知识库/views/art.md"
+      ],
+      "last_verified": "2026-05-29",
+      "update_rule": "新增 Formal V2 设计批次、确认规则或界面设计文档时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 13,
       "cross_role_relation_count": 0
     },
     {
@@ -2519,6 +2729,8 @@
         "美术文档/ui_design/ui_iteration_process.md",
         "美术文档/ui_design/handoff_checklist.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
         "美术文档/ui_design/formal_v1/doll_interaction_v1.md",
         "美术文档/ui_design/formal_v1/doll_room_v1.md",
         "美术文档/ui_design/formal_v1/business_settlement_v1.md",
@@ -2530,11 +2742,11 @@
         "美术文档/archive/12_P1_UI骨架接入准备.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-05-25",
+      "last_verified": "2026-05-29",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 21,
+      "relation_count": 23,
       "cross_role_relation_count": 3
     },
     {
@@ -2551,14 +2763,16 @@
         "agent_status/art.md",
         "知识库/views/art.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
         "美术文档/ui_design/versions/README.md",
         "美术文档/ui_design/versions/migration_log.md"
       ],
-      "last_verified": "2026-05-24",
+      "last_verified": "2026-05-29",
       "update_rule": "修改 UI 版本迭代、active/candidate/baseline 关系或美术素材生成入口时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 6,
+      "relation_count": 8,
       "cross_role_relation_count": 0
     },
     {

@@ -18,6 +18,8 @@ related:
   - 美术文档/ui_design/ui_iteration_process.md
   - 美术文档/ui_design/handoff_checklist.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
+  - 美术文档/ui_design/formal_v2/README.md
+  - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/ui_design/formal_v1/doll_interaction_v1.md
   - 美术文档/ui_design/formal_v1/doll_room_v1.md
   - 美术文档/ui_design/formal_v1/business_settlement_v1.md
@@ -28,14 +30,14 @@ related:
   - 美术文档/archive/11_P0_UI骨架接入交付.md
   - 美术文档/archive/12_P1_UI骨架接入准备.md
   - 知识库/views/art.md
-last_verified: 2026-05-25
+last_verified: 2026-05-29
 update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
 ---
 
 # UI 设计流水线
 
 > **定位：** UI 结构版本管理和程序对接规格入口。当前 active 规格只看 `screen_layouts.json`，设计草案不直接交给程序。
-> **更新时间：** 2026-05-25
+> **更新时间：** 2026-05-29
 
 ---
 
@@ -49,6 +51,7 @@ UI 设计流解决六件事：
 
 * UI 设计版本如何冻结、确认、合并和验收：由 `ui_iteration_process.md` 记录。
 * 正式版结构怎么从 MVP 骨架迁移：由 `formal_v1/` 记录结构文档。
+* 正式版 UX/UI 怎么从功能区规格升级为正式游戏界面：由 `formal_v2/` 记录设计草案。
 * 当前程序应该按什么接入：只看 `screen_layouts.json`。
 * 组件怎么复用：由 `component_catalog.json` 记录。
 * 视觉基础标准是什么：由 `design_tokens.json` 记录。
@@ -65,6 +68,7 @@ UI 设计流解决六件事：
 | `screen_layouts.json` | 当前 active 界面布局规格，程序只按它对接。 |
 | `ui_iteration_process.md` | UI 设计迭代与版本迁移流程，定义 baseline、active、candidate 的关系。 |
 | `formal_v1/` | 正式版 UI 结构 V1 设计层，先审查舞台、区域、信息层级和程序对象边界。 |
+| `formal_v2/` | 正式版 UX/UI V2 设计草案层，解决按钮堆叠、主次行动、场景隐喻和信息架构问题。 |
 | `versions/` | UI 设计版本管理目录，保存 baseline、可选 candidate 和迁移记录。 |
 | `handoff_checklist.md` | UI 从设计到程序接入的检查清单。 |
 | `_generated/ui_design_handoff.md` | 校验脚本生成的当前 UI 交付摘要。 |
@@ -78,11 +82,12 @@ UI 设计流解决六件事：
 | 类型 | 范围 | 接入口径 |
 |---|---|---|
 | active Formal V1 | 21 个界面，详见 `screen_layouts.json` 和 `13_正式纵切UI与素材覆盖矩阵.md` | 程序、美术素材生成、验收都可以使用。 |
-| draft Formal V1 | 暂无 | 后续新增界面仍先写设计草案，确认后再进入 active。 |
+| draft Formal V2 | 已建立总方案和 V2-A 五个核心界面设计入口 | 只作设计确认，不作为程序接入口，不触发素材生成。 |
+| draft Formal V1 | 暂无 | 后续新增非 V2 界面仍先写设计草案，确认后再进入 active。 |
 | historical baseline | `versions/mvp_baseline_2026-05-22/` | 只读归档，用于对比和回退参考。 |
 | candidate | `versions/formal_v1_candidate/` | 可选暂存区，不是必经流程。 |
 
-程序侧永远不直接读取 `formal_v1/*.md`、baseline 或 candidate。程序接入只读 active `screen_layouts.json`、`component_catalog.json` 和生成的 `ui_design_handoff.md`。
+程序侧永远不直接读取 `formal_v1/*.md`、`formal_v2/*.md`、baseline 或 candidate。程序接入只读 active `screen_layouts.json`、`component_catalog.json` 和生成的 `ui_design_handoff.md`。
 
 程序侧执行当前美术接入时，优先看 `美术文档/_generated/程序接入交接清单.md`。该清单会合并 `可接入素材清单` 和 `FormalV1验收队列`，避免程序侧在多个报告之间手工拼接下一步。
 
@@ -96,6 +101,7 @@ UI 设计流解决六件事：
 MVP Baseline / Runtime Findings
   -> Freeze Baseline in versions/
   -> Formal V1 Structure Review
+  -> Formal V2 UX/UI Review when Formal V1 reads as button/menu UI
   -> User / Art Review
   -> Update Active screen_layouts.json
   -> Validate UI Design
@@ -113,6 +119,7 @@ MVP Baseline / Runtime Findings
 * 已通过验收的 UI 设计必须先冻结到 `versions/`，作为 Baseline 保留。
 * `screen_layouts.json` 只表示当前 active 对接规格；程序不直接接 candidate。
 * 正式版结构调整先写入 `formal_v1/`；你确认后，逐界面修改 active `screen_layouts.json`。
+* UX/UI 正式感不足、按钮堆叠、主次行动不清时，先写入 `formal_v2/`；你确认后，逐界面修改 active `screen_layouts.json`。
 * `versions/formal_v1_candidate/` 是复杂界面的可选暂存区，不是必经流程。
 * 新界面或重做界面必须先更新 `screen_layouts.json`，不要先跑图。
 * 核心界面的 `ScreenID`、主区域、程序绑定和 `VisualID` 应保持长期稳定。
@@ -139,6 +146,18 @@ formal_v1/*.md
   -> ArtAcceptance
 ```
 
+Formal V2 重做现有核心界面时，流程是：
+
+```text
+formal_v2/*.md
+  -> 用户 / 美术确认
+  -> update active screen_layouts.json
+  -> Validate-UIDesign.ps1
+  -> update versions/migration_log.md
+  -> program handoff
+  -> ArtAcceptance + UX 验收
+```
+
 先在 `formal_v1/` 写结构重审文档，确认以下内容后，再写入 active `screen_layouts.json`：
 
 * 该界面的 MVP Baseline 问题。
@@ -147,6 +166,14 @@ formal_v1/*.md
 * 需要复用的 VisualID 和建议新增的 VisualID。
 * 程序侧需要迁移的 Unity 节点或对象边界。
 * 运行时截图验收标准。
+
+Formal V2 文档还必须说明：
+
+* 玩家在该界面的真实目标。
+* 主行动、次行动和危险行动。
+* 哪些按钮需要合并、降级、隐藏或图标化。
+* 使用什么场景隐喻替代按钮菜单。
+* 截图中如何判断该界面不再是功能按钮堆叠。
 
 对于 `combat_hud` 这类复杂界面，可以先写入 `versions/formal_v1_candidate/` 作为暂存和对比，再合并到 active。
 

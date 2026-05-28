@@ -18,12 +18,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：187
-- 已补元数据：187
+- 文档总数：195
+- 已补元数据：195
 - 缺少元数据：0
-- 事实来源文档：160
-- 关联边数：1185
-- 跨职能关联：202
+- 事实来源文档：162
+- 关联边数：1220
+- 跨职能关联：204
 
 ## 事实来源
 
@@ -97,6 +97,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [出货分配界面 Formal V1](美术文档/ui_design/formal_v1/shop_staging_v1.md) - `art` / `ui_design`
 - [深渊阶梯房间界面 Formal V1](美术文档/ui_design/formal_v1/stairs_room_v1.md) - `art` / `ui_design`
 - [工坊主界面 Formal V1](美术文档/ui_design/formal_v1/workshop_main_v1.md) - `art` / `ui_design`
+- [Formal V2 UX/UI 重构总方案](美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md) - `art` / `ui_design`
+- [Formal V2 UX/UI 设计层](美术文档/ui_design/formal_v2/README.md) - `art` / `ui_design`
 - [UI 交付检查清单](美术文档/ui_design/handoff_checklist.md) - `art` / `art_pipeline`
 - [UI 设计流水线](美术文档/ui_design/README.md) - `art` / `art_pipeline`
 - [UI 设计迭代与版本迁移流程](美术文档/ui_design/ui_iteration_process.md) - `art` / `ui_design`
@@ -203,7 +205,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - `知识库 <-> 策划`：1 条
 - `知识库 <-> 美术`：1 条
 - `程序 <-> 策划`：55 条
-- `程序 <-> 美术`：27 条
+- `程序 <-> 美术`：29 条
 - `策划 <-> 美术`：6 条
 
 ## 按职能分组
@@ -263,7 +265,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [怪物 AI 与行动系统 (MonsterActionAI)](开发文档/11_怪物AI与行动系统(MonsterActionAI).md) | `dev` | `active` | `monster_ai` | 3 | 完整 |
 | [程序开发优化建议与重构路线](开发文档/12_程序开发优化建议与重构路线.md) | `dev` | `active` | `program_refactor` | 5 | 完整 |
 | [编程规范与架构约定](开发文档/13_编程规范与架构约定.md) | `dev` | `active` | `coding_standard` | 12 | 完整 |
-| [Unity 运行时美术自动验收方案](开发文档/14_Unity运行时美术自动验收方案.md) | `dev` | `active` | `runtime_art_validation` | 9 | 完整 |
+| [Unity 运行时美术自动验收方案](开发文档/14_Unity运行时美术自动验收方案.md) | `dev` | `active` | `runtime_art_validation` | 10 | 完整 |
 | [P0配置Validator与自动验收底座需求](开发文档/15_P0配置Validator与自动验收底座需求.md) | `dev` | `active` | `config_validation` | 17 | 完整 |
 | [全局与玩家实体定义 (Player & Global Entities)](开发文档/数据与实体定义/01_全局与玩家实体.md) | `dev` | `active` | `program_architecture` | 1 | 完整 |
 | [人偶与状态实体定义 (Doll & Status Entities)](开发文档/数据与实体定义/02_人偶与状态实体.md) | `dev` | `active` | `program_architecture` | 8 | 完整 |
@@ -271,6 +273,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [深渊与战斗实体定义 (Dungeon & Combat Entities)](开发文档/数据与实体定义/04_深渊与战斗实体.md) | `dev` | `active` | `dungeon_combat` | 6 | 完整 |
 | [经济与社会实体定义 (Economy & Social Entities)](开发文档/数据与实体定义/05_经济与社会实体.md) | `dev` | `active` | `program_architecture` | 6 | 完整 |
 | [程序智能体阅读入口](知识库/views/program.md) | `view` | `active` | `agent_context_view` | 10 | 完整 |
+| [Project P3 美术自动验收（截图）流程优化与真实数据驱动演进方案](美术文档/10_美术验收截图优化与真实数据驱动演进方案.md) | `other` | `proposal` | `runtime_art_validation` | 3 | 完整 |
 
 ### 策划
 
@@ -375,10 +378,10 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 15 | 完整 |
+| [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 17 | 完整 |
 | [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 7 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
-| [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 15 | 完整 |
+| [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 17 | 完整 |
 | [美术流水线总览](美术文档/00_美术流水线总览.md) | `art` | `active` | `art_pipeline` | 8 | 完整 |
 | [Manifest 规范](美术文档/01_Manifest规范.md) | `art` | `active` | `art_manifest` | 6 | 完整 |
 | [资源规格与接入规范](美术文档/02_资源规格与接入规范.md) | `art` | `active` | `art_asset_spec` | 9 | 完整 |
@@ -386,25 +389,25 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [美术风格基准](美术文档/04_美术风格基准.md) | `art` | `active` | `art_style` | 6 | 完整 |
 | [AI 图片网关接入方案](美术文档/05_AI图片网关接入方案.md) | `art` | `active` | `ai_image_gateway` | 6 | 完整 |
 | [Unity 运行时美术验收工具需求与交付状态](美术文档/08_Unity运行时美术验收工具需求.md) | `art` | `historical` | `runtime_art_validation` | 3 | 完整 |
-| [运行时美术验收记录](美术文档/09_运行时美术验收记录.md) | `art` | `active` | `runtime_art_validation` | 5 | 完整 |
-| [正式版核心纵切美术路线](美术文档/10_正式版核心纵切美术路线.md) | `art` | `active` | `formal_art_route` | 17 | 完整 |
-| [正式纵切 UI 与素材覆盖矩阵](美术文档/13_正式纵切UI与素材覆盖矩阵.md) | `art` | `active` | `ui_design` | 22 | 完整 |
-| [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 11 | 完整 |
+| [运行时美术验收记录](美术文档/09_运行时美术验收记录.md) | `art` | `active` | `runtime_art_validation` | 7 | 完整 |
+| [正式版核心纵切美术路线](美术文档/10_正式版核心纵切美术路线.md) | `art` | `active` | `formal_art_route` | 19 | 完整 |
+| [正式纵切 UI 与素材覆盖矩阵](美术文档/13_正式纵切UI与素材覆盖矩阵.md) | `art` | `active` | `ui_design` | 24 | 完整 |
+| [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 13 | 完整 |
 | [MVP 素材接入状态同步](美术文档/archive/06_MVP素材接入状态同步.md) | `art` | `historical` | `mvp_art_archive` | 2 | 完整 |
 | [MVP UI 重新设计同步](美术文档/archive/07_MVP_UI重新设计同步.md) | `art` | `historical` | `mvp_ui_archive` | 2 | 完整 |
 | [P0 UI 骨架接入交付](美术文档/archive/11_P0_UI骨架接入交付.md) | `art` | `historical` | `ui_handoff` | 7 | 完整 |
 | [P1 Formal V1 UI 接入准备](美术文档/archive/12_P1_UI骨架接入准备.md) | `art` | `historical` | `ui_handoff` | 7 | 完整 |
 | [美术归档文档](美术文档/archive/README.md) | `art` | `active` | `art_archive` | 3 | 完整 |
-| [UI 设计流水线](美术文档/ui_design/README.md) | `art` | `active` | `art_pipeline` | 21 | 完整 |
+| [UI 设计流水线](美术文档/ui_design/README.md) | `art` | `active` | `art_pipeline` | 23 | 完整 |
 | [营业结算演出界面 Formal V1](美术文档/ui_design/formal_v1/business_settlement_v1.md) | `art` | `active` | `ui_design` | 6 | 完整 |
 | [底盘升级界面 Formal V1](美术文档/ui_design/formal_v1/chassis_upgrade_panel_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
-| [战斗界面 Formal V1](美术文档/ui_design/formal_v1/combat_hud_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
+| [战斗界面 Formal V1](美术文档/ui_design/formal_v1/combat_hud_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
 | [每日账单报告界面 Formal V1](美术文档/ui_design/formal_v1/daily_bill_report_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
 | [人偶交互界面 Formal V1](美术文档/ui_design/formal_v1/doll_interaction_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
 | [人偶房间界面 Formal V1](美术文档/ui_design/formal_v1/doll_room_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
-| [深渊地图界面 Formal V1](美术文档/ui_design/formal_v1/dungeon_map_v1.md) | `art` | `active` | `ui_design` | 1 | 完整 |
+| [深渊地图界面 Formal V1](美术文档/ui_design/formal_v1/dungeon_map_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
 | [势力商店界面 Formal V1](美术文档/ui_design/formal_v1/faction_shop_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
-| [战利品拾取界面 Formal V1](美术文档/ui_design/formal_v1/inventory_loot_v1.md) | `art` | `draft` | `ui_design` | 1 | 完整 |
+| [战利品拾取界面 Formal V1](美术文档/ui_design/formal_v1/inventory_loot_v1.md) | `art` | `draft` | `ui_design` | 2 | 完整 |
 | [出发层选择界面 Formal V1](美术文档/ui_design/formal_v1/layer_select_v1.md) | `art` | `active` | `ui_design` | 1 | 完整 |
 | [机体维护整备界面 Formal V1](美术文档/ui_design/formal_v1/maintenance_panel_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
 | [势力订单板界面 Formal V1](美术文档/ui_design/formal_v1/order_board_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
@@ -412,14 +415,21 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [传闻情报板界面 Formal V1](美术文档/ui_design/formal_v1/rumor_board_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
 | [深渊安全区界面 Formal V1](美术文档/ui_design/formal_v1/safe_room_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
 | [剧本事件界面 Formal V1](美术文档/ui_design/formal_v1/scenario_event_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
-| [正式版 UI 结构 V1 总览](美术文档/ui_design/formal_v1/screen_structure_review.md) | `art` | `active` | `ui_design` | 30 | 完整 |
+| [正式版 UI 结构 V1 总览](美术文档/ui_design/formal_v1/screen_structure_review.md) | `art` | `active` | `ui_design` | 32 | 完整 |
 | [工坊出售界面 Formal V1](美术文档/ui_design/formal_v1/sell_panel_v1.md) | `art` | `active` | `ui_design` | 1 | 完整 |
-| [结算界面 Formal V1](美术文档/ui_design/formal_v1/settlement_v1.md) | `art` | `active` | `ui_design` | 1 | 完整 |
+| [结算界面 Formal V1](美术文档/ui_design/formal_v1/settlement_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
 | [出货分配界面 Formal V1](美术文档/ui_design/formal_v1/shop_staging_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
 | [深渊阶梯房间界面 Formal V1](美术文档/ui_design/formal_v1/stairs_room_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
-| [工坊主界面 Formal V1](美术文档/ui_design/formal_v1/workshop_main_v1.md) | `art` | `draft` | `ui_design` | 1 | 完整 |
+| [工坊主界面 Formal V1](美术文档/ui_design/formal_v1/workshop_main_v1.md) | `art` | `draft` | `ui_design` | 2 | 完整 |
+| [Formal V2 UX/UI 重构总方案](美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md) | `art` | `draft` | `ui_design` | 15 | 完整 |
+| [Workshop Main Formal V2 方案](美术文档/ui_design/formal_v2/01_workshop_main_v2.md) | `art` | `planned` | `ui_design` | 3 | 完整 |
+| [Combat HUD Formal V2 方案](美术文档/ui_design/formal_v2/02_combat_hud_v2.md) | `art` | `planned` | `ui_design` | 3 | 完整 |
+| [Inventory Loot Formal V2 方案](美术文档/ui_design/formal_v2/03_inventory_loot_v2.md) | `art` | `planned` | `ui_design` | 3 | 完整 |
+| [Dungeon Map Formal V2 方案](美术文档/ui_design/formal_v2/04_dungeon_map_v2.md) | `art` | `planned` | `ui_design` | 3 | 完整 |
+| [Settlement Formal V2 方案](美术文档/ui_design/formal_v2/05_settlement_v2.md) | `art` | `planned` | `ui_design` | 3 | 完整 |
+| [Formal V2 UX/UI 设计层](美术文档/ui_design/formal_v2/README.md) | `art` | `draft` | `ui_design` | 13 | 完整 |
 | [UI 交付检查清单](美术文档/ui_design/handoff_checklist.md) | `art` | `active` | `art_pipeline` | 6 | 完整 |
-| [UI 设计迭代与版本迁移流程](美术文档/ui_design/ui_iteration_process.md) | `art` | `active` | `ui_design` | 6 | 完整 |
+| [UI 设计迭代与版本迁移流程](美术文档/ui_design/ui_iteration_process.md) | `art` | `active` | `ui_design` | 8 | 完整 |
 | [UI 设计版本管理](美术文档/ui_design/versions/README.md) | `art` | `active` | `ui_design` | 6 | 完整 |
 | [Formal V1 Candidate Optional Staging](美术文档/ui_design/versions/formal_v1_candidate/README.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
 | [UI 设计版本迁移记录](美术文档/ui_design/versions/migration_log.md) | `art` | `active` | `ui_design` | 16 | 完整 |

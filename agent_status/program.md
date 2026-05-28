@@ -14,7 +14,7 @@ related:
   - 开发文档/13_编程规范与架构约定.md
   - 开发文档/00_程序开发大纲.md
   - 开发文档/15_P0配置Validator与自动验收底座需求.md
-  - 设计文档/GDD_00_系统关联总图.md
+  - 设计文档/GDD/GDD_00_系统关联总图.md
   - agent_status/design.md
   - 美术文档/10_正式版核心纵切美术路线.md
   - agent_status/art.md

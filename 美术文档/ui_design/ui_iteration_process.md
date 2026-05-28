@@ -11,9 +11,11 @@ related:
   - agent_status/art.md
   - 知识库/views/art.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
+  - 美术文档/ui_design/formal_v2/README.md
+  - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/ui_design/versions/README.md
   - 美术文档/ui_design/versions/migration_log.md
-last_verified: 2026-05-24
+last_verified: 2026-05-29
 update_rule: 修改 UI 版本迭代、active/candidate/baseline 关系或美术素材生成入口时同步本文件。
 ---
 
@@ -56,7 +58,7 @@ update_rule: 修改 UI 版本迭代、active/candidate/baseline 关系或美术�
 | 类型 | 路径 | 作用 |
 |---|---|---|
 | Active | `美术文档/ui_design/screen_layouts.json` | 当前正式对接规格。程序、美术素材生成、验收都以它为准。 |
-| Draft | `美术文档/ui_design/formal_v1/*.md` 或后续 `formal_v2/*.md` | 设计草案，说明目标、区域、VisualID 和程序边界。确认前不触发接入。 |
+| Draft | `美术文档/ui_design/formal_v1/*.md` 或 `美术文档/ui_design/formal_v2/*.md` | 设计草案，说明目标、区域、VisualID、程序边界和 UX 目标。确认前不触发接入。 |
 | Baseline | `美术文档/ui_design/versions/mvp_baseline_2026-05-22/` | 已验收旧版本备份，只读保存，用于回溯和对比。 |
 | Candidate | `美术文档/ui_design/versions/formal_v1_candidate/` | 可选暂存区。复杂界面可先在这里试写，不直接影响 active。 |
 | Migration Log | `美术文档/ui_design/versions/migration_log.md` | 记录从哪个版本迁移到哪个版本、何时确认、何时接入和验收。 |
@@ -67,7 +69,7 @@ update_rule: 修改 UI 版本迭代、active/candidate/baseline 关系或美术�
 
 ## 3. Formal V1 当前流程
 
-Formal V1 用于从 MVP UI 骨架迁移到正式结构。后续 Formal V2 / Visual V2 / Animation V1 也按同样规则处理。
+Formal V1 用于从 MVP UI 骨架迁移到正式结构。Formal V2 用于在 Formal V1 已有功能区域后，继续解决按钮堆叠、主次行动不清、场景隐喻不足和正式感不足。后续 Visual V2 / Animation V1 也按同样规则处理。
 
 ```text
 formal_v1/*.md
@@ -82,8 +84,8 @@ formal_v1/*.md
 
 当前状态：
 
-* P0 / P1 / P2 共 15 个界面已经写入 active Formal V1。
-* `faction_shop`、`doll_interaction`、`scenario_event`、`doll_room` 只有 design draft，用户确认前不写入 active。
+* P0 / P1 / P2 / P3 共 21 个界面已经写入 active Formal V1。
+* Formal V2 已建立总方案和 V2-A 五个核心界面设计入口，均为 draft；用户确认前不写入 active。
 
 如果界面很复杂，例如涉及敌我实体、战斗舞台、背包锚点和程序对象边界，可以先走：
 
@@ -93,6 +95,17 @@ formal_v1/combat_hud_v1.md
   -> 对比 MVP baseline
   -> 用户确认
   -> 合并 combat_hud 到 active screen_layouts.json
+```
+
+Formal V2 迁移采用同样门槛：
+
+```text
+formal_v2/00_formal_v2_ux_ui_overview.md
+  -> formal_v2/<screen>_v2.md
+  -> 用户确认
+  -> 合并该 screen 到 active screen_layouts.json
+  -> Validate-UIDesign.ps1
+  -> 程序接入和 ArtAcceptance + UX 验收
 ```
 
 ---
@@ -218,16 +231,16 @@ active screen_layouts.json 更新
 
 ```text
 MVP Baseline 已冻结
-Formal V1 active 已覆盖 15 个界面
-P3 四个界面处于 draft
+Formal V1 active 规格已覆盖 21 个界面
+Formal V2 正在 draft 设计层重审核心 UX/UI
 用户确认后逐界面修改 active
 复杂界面可选用 candidate 暂存
 ```
 
 当前优先级：
 
-1. 程序侧按 active `screen_layouts.json` 和 latest 可接入素材清单接入 15 个 active Formal V1 界面。
-2. 美术侧用 ArtAcceptance 逐屏验收，回填缺图、黑块、尺寸和射线问题。
-3. 用户确认后，把 `faction_shop`、`doll_interaction`、`scenario_event`、`doll_room` 从 draft 逐个推进到 active。
-4. active 更新后再补 seed、Manifest、Prompt、Spec、Approved 和可接入素材清单。
-5. Formal V1 结构稳定后，才进入 Visual V2 / Motion V1 等表现增强批次。
+1. Formal V2 先完成 V2-A 五个核心界面设计：`workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。
+2. 用户逐界面确认后，美术侧再修改 active `screen_layouts.json`，并运行 `Validate-UIDesign.ps1`。
+3. active 更新后再补 seed、Manifest、Prompt、Spec、Approved 和可接入素材清单。
+4. 程序侧在 active 更新前继续以 Formal V1 `screen_layouts.json` 为准，不按 `formal_v2/*.md` 接入。
+5. Formal V2 核心结构稳定后，再进入 Visual V2 / Motion V1 等表现增强批次。

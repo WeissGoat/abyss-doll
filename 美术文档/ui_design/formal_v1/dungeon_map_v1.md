@@ -8,6 +8,7 @@ status: active
 source_of_truth: true
 related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
+  - 美术文档/ui_design/formal_v2/04_dungeon_map_v2.md
 last_verified: 2026-05-24
 update_rule: 修改深渊地图正式结构或程序迁移要求时同步本文件。
 ---

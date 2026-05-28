@@ -11,6 +11,8 @@ related:
   - agent_status/art.md
   - 知识库/views/art.md
   - 美术文档/ui_design/ui_iteration_process.md
+  - 美术文档/ui_design/formal_v2/README.md
+  - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/ui_design/formal_v1/business_settlement_v1.md
   - 美术文档/ui_design/formal_v1/combat_hud_v1.md
   - 美术文档/ui_design/formal_v1/chassis_upgrade_panel_v1.md

@@ -14,18 +14,20 @@ related:
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 美术文档/00_美术流水线总览.md
   - 美术文档/ui_design/README.md
+  - 美术文档/ui_design/formal_v2/README.md
+  - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/archive/README.md
   - agent_status/art.md
   - tools/美术工具/README.md
   - 知识库/views/art.md
-last_verified: 2026-05-26
+last_verified: 2026-05-29
 update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。
 ---
 
 # 美术文档索引
 
 > **定位：** Project P3 美术 / UI 文档入口。本文件只负责导航和职责边界，不承载详细规格。
-> **更新时间：** 2026-05-26
+> **更新时间：** 2026-05-29
 
 ## 先看哪里
 
@@ -35,6 +37,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | 当前哪些 UI 已覆盖、哪些还没进 active | [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md) | 把 `09` 路线和 `11` 批次矩阵翻译成美术覆盖表。 |
 | 端到端美术生产怎么走 | [00_美术流水线总览.md](00_美术流水线总览.md) | 只讲流程：需求发现、Manifest、提示词、出图、预处理、Approved、交接。 |
 | UI 结构版本怎么管理 | [ui_design/README.md](ui_design/README.md) | UI 设计系统入口，说明 active / baseline / draft / handoff。 |
+| Formal V2 UX/UI 怎么推进 | [ui_design/formal_v2/00_formal_v2_ux_ui_overview.md](ui_design/formal_v2/00_formal_v2_ux_ui_overview.md) | 当前 Formal V2 总方案，解决按钮堆叠和正式感不足。 |
 | 程序下一步接入 / 验收要做什么 | [_generated/程序接入交接清单.md](_generated/程序接入交接清单.md) | 程序侧一站式入口，汇总 VisualID 登记、截图覆盖和 ArtAcceptance 重跑队列。 |
 | 最新文档 / 配置里可能新增了哪些美术需求 | [_generated/美术需求候选清单.md](_generated/美术需求候选清单.md) | 美术侧审查入口，只提示候选，不自动写 Manifest 或 seed。 |
 | 程序当前应接入哪些素材 | [_generated/可接入素材清单.md](_generated/可接入素材清单.md) | 程序侧素材来源清单，只处理 `program_integrate` 队列。 |
@@ -58,7 +61,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | 工作流 | 主入口 | 细节文档 |
 |---|---|---|
 | 资产生产流水线 | [00_美术流水线总览.md](00_美术流水线总览.md) | [01_Manifest规范.md](01_Manifest规范.md)、[02_资源规格与接入规范.md](02_资源规格与接入规范.md)、[03_AI生成与筛选规范.md](03_AI生成与筛选规范.md)、[04_美术风格基准.md](04_美术风格基准.md)、[05_AI图片网关接入方案.md](05_AI图片网关接入方案.md) |
-| UI 设计版本流水线 | [ui_design/README.md](ui_design/README.md) | [ui_design/ui_iteration_process.md](ui_design/ui_iteration_process.md)、[ui_design/formal_v1/screen_structure_review.md](ui_design/formal_v1/screen_structure_review.md)、[ui_design/versions/migration_log.md](ui_design/versions/migration_log.md) |
+| UI 设计版本流水线 | [ui_design/README.md](ui_design/README.md) | [ui_design/ui_iteration_process.md](ui_design/ui_iteration_process.md)、[ui_design/formal_v1/screen_structure_review.md](ui_design/formal_v1/screen_structure_review.md)、[ui_design/formal_v2/00_formal_v2_ux_ui_overview.md](ui_design/formal_v2/00_formal_v2_ux_ui_overview.md)、[ui_design/versions/migration_log.md](ui_design/versions/migration_log.md) |
 | 运行时验收流水线 | [08_Unity运行时美术验收工具需求.md](08_Unity运行时美术验收工具需求.md) | [09_运行时美术验收记录.md](09_运行时美术验收记录.md)、[../开发文档/14_Unity运行时美术自动验收方案.md](../开发文档/14_Unity运行时美术自动验收方案.md) |
 
 ### 契约与数据层
@@ -87,6 +90,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 ```text
 baseline / 当前截图问题
   -> formal_v1 设计文档
+  -> formal_v2 UX/UI 设计文档（当 Formal V1 仍像按钮菜单时）
   -> 用户确认
   -> active screen_layouts.json
   -> Validate-UIDesign.ps1
@@ -95,6 +99,7 @@ baseline / 当前截图问题
 ```
 
 程序只接 active `screen_layouts.json`。`formal_v1/*.md` 如果还没写入 active，只是设计草案，不是程序接入口。
+`formal_v2/*.md` 同样只是设计草案：用于重审玩家目标、主次行动、场景隐喻和信息架构；用户确认并写入 active 前，不允许要求程序接入或触发素材生成。
 
 完整版本迭代规则见 [ui_design/ui_iteration_process.md](ui_design/ui_iteration_process.md)。该工作流负责：冻结旧版本 baseline、编写新版本 draft、用户确认后修改 active、生成 handoff、程序接入、运行时验收和 validated 回填。
 
@@ -136,7 +141,7 @@ design / config / ui active
 截至 2026-05-26：
 
 * active Formal V1 UI 已覆盖 21 个界面，详见 [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md)。
-* 当前没有剩余 draft UI 队列；后续新增界面仍先写 `formal_v1/*.md` 草案，确认后再进入 active `screen_layouts.json`。
+* Formal V2 UX/UI 重构已建立 draft 设计层，当前总方案见 [ui_design/formal_v2/00_formal_v2_ux_ui_overview.md](ui_design/formal_v2/00_formal_v2_ux_ui_overview.md)；V2-A 优先重审 `workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。
 * 最新美术需求候选清单显示 `new_candidate=36`、`approved_without_manifest=0`、`seed_only=0`；这些是后续美术人工审查入口，不自动进入 Manifest。
 * 最新可接入素材清单显示 `program_integrate=0`、`acceptance_needed=191`，当前没有新的 Approved 素材登记队列，重点转为运行时截图验收和 Manifest 状态回填。
 * 最新程序接入交接清单显示 `program_integrate=0`、`Screens needing ArtAcceptance capture coverage=6`、`Screens needing ArtAcceptance rerun=15`，程序侧优先按该清单补截图和重跑验收。

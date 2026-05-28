@@ -14,6 +14,7 @@ related:
   - 美术文档/README.md
   - 美术文档/08_Unity运行时美术验收工具需求.md
   - 美术文档/09_运行时美术验收记录.md
+  - 美术文档/10_美术验收截图优化与真实数据驱动演进方案.md
   - agent_status/art.md
   - 知识库/views/art.md
 last_verified: 2026-05-26
