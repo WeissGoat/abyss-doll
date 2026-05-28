@@ -9,7 +9,16 @@ using UnityEngine.UI;
 using UnityEditor;
 #endif
 
-public class ArtAcceptanceRunner : MonoBehaviour {
+/// <summary>
+/// 美术自动验收流程控制核心。
+/// 负责：入口触发、手动协程栈驱动、流程编排、报告初始化/输出、全局环境检查和基础 helpers。
+/// 
+/// 具体截图步骤见 ArtAcceptanceCaptureSteps.cs (partial class)
+/// 截图渲染逻辑见 ArtAcceptanceScreenCapture.cs (partial class)
+/// 验收 payload 构造见 ArtAcceptancePayloadFactory.cs (partial class)
+/// UI 层级扫描见 ArtAcceptanceUiScanner.cs (partial class)
+/// </summary>
+public partial class ArtAcceptanceRunner : MonoBehaviour {
     private const string SchemaVersion = "1.0";
     private const string ProjectName = "P3";
     private const string ModeAuto = "auto";
@@ -34,6 +43,10 @@ public class ArtAcceptanceRunner : MonoBehaviour {
     private float _manualRunStartedAt;
     private readonly Stack<IEnumerator> _manualRoutineStack = new Stack<IEnumerator>();
 
+    // ──────────────────────────────────────────
+    // 入口与生命周期
+    // ──────────────────────────────────────────
+
     public static void BeginAutomatedRun(bool autoExitPlayMode) {
         if (_activeRunner != null && _activeRunner._report.IsRunning) {
             Debug.LogWarning("[ArtAcceptance] A run is already active.");
@@ -57,6 +70,10 @@ public class ArtAcceptanceRunner : MonoBehaviour {
     private void Update() {
         AdvanceManualRun();
     }
+
+    // ──────────────────────────────────────────
+    // 手动协程栈驱动器
+    // ──────────────────────────────────────────
 
     private void BeginManualRun() {
         _manualRunActive = true;
@@ -174,6 +191,10 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         CompleteRun();
     }
 
+    // ──────────────────────────────────────────
+    // 主流程编排
+    // ──────────────────────────────────────────
+
     private IEnumerator RunAcceptanceFlow() {
         if (!TryPrepareRun()) {
             CompleteRun();
@@ -241,6 +262,10 @@ public class ArtAcceptanceRunner : MonoBehaviour {
 
         CompleteRun();
     }
+
+    // ──────────────────────────────────────────
+    // 流程辅助
+    // ──────────────────────────────────────────
 
     private bool TryPrepareRun() {
         try {
@@ -341,6 +366,10 @@ public class ArtAcceptanceRunner : MonoBehaviour {
 #endif
     }
 
+    // ──────────────────────────────────────────
+    // 初始化与运行时就绪检查
+    // ──────────────────────────────────────────
+
     private void PrepareOutputDirectories() {
         _runID = DateTime.Now.ToString("yyyyMMdd_HHmmss");
         string logsRoot = Path.GetFullPath(Path.Combine(Application.dataPath, "../Logs"));
@@ -440,459 +469,33 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         }
     }
 
-    private IEnumerator CaptureWorkshopMain() {
-        Debug.Log("[ArtAcceptance] Capturing workshop_main...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture("workshop_main", "screenshots/workshop_main.png");
+    // ──────────────────────────────────────────
+    // BeginCapture (带 DataSource 标记)
+    // ──────────────────────────────────────────
 
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        GameFlowController.Instance.EnterWorkshop();
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
-    }
-
-    private IEnumerator CaptureMaintenancePanel() {
-        yield return CaptureWorkshopFormalV1Panel("maintenance_panel", "screenshots/maintenance_panel.png");
-    }
-
-    private IEnumerator CaptureDailyBillReport() {
-        yield return CaptureWorkshopFormalV1Panel("daily_bill_report", "screenshots/daily_bill_report.png");
-    }
-
-    private IEnumerator CaptureShopStaging() {
-        yield return CaptureWorkshopFormalV1Panel("shop_staging", "screenshots/shop_staging.png");
-    }
-
-    private IEnumerator CaptureOrderBoard() {
-        yield return CaptureWorkshopFormalV1Panel("order_board", "screenshots/order_board.png");
-    }
-
-    private IEnumerator CaptureRumorBoard() {
-        yield return CaptureWorkshopFormalV1Panel("rumor_board", "screenshots/rumor_board.png");
-    }
-
-    private IEnumerator CaptureBusinessSettlement() {
-        yield return CaptureWorkshopFormalV1Panel("business_settlement", "screenshots/business_settlement.png");
-    }
-
-    private IEnumerator CaptureChassisUpgradePanel() {
-        yield return CaptureWorkshopFormalV1Panel("chassis_upgrade_panel", "screenshots/chassis_upgrade_panel.png");
-    }
-
-    private IEnumerator CaptureDollInteraction() {
-        yield return CaptureWorkshopFormalV1Panel("doll_interaction", "screenshots/doll_interaction.png");
-    }
-
-    private IEnumerator CaptureDollRoom() {
-        yield return CaptureWorkshopFormalV1Panel("doll_room", "screenshots/doll_room.png");
-    }
-
-    private IEnumerator CaptureFactionShop() {
-        yield return CaptureWorkshopFormalV1Panel("faction_shop", "screenshots/faction_shop.png");
-    }
-
-    private IEnumerator CaptureScenarioEvent() {
-        yield return CaptureWorkshopFormalV1Panel("scenario_event", "screenshots/scenario_event.png");
-    }
-
-    private IEnumerator CaptureWorkshopFormalV1Panel(string screenTag, string relativeScreenshotPath) {
-        Debug.Log($"[ArtAcceptance] Capturing {screenTag}...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture(screenTag, relativeScreenshotPath);
-
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        GameFlowController.Instance.EnterWorkshop();
-        yield return WaitForVisualStable();
-
-        WorkshopUIController workshopController = FindObjectOfType<WorkshopUIController>();
-        if (workshopController == null) {
-            capture.Warnings.Add($"WorkshopUIController not found for {screenTag} capture.");
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        workshopController.OpenFormalV1Panel(screenTag);
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
-        CloseWorkshopAcceptanceOverlays(workshopController);
-    }
-
-    private IEnumerator CaptureSellPanel() {
-        Debug.Log("[ArtAcceptance] Capturing sell_panel...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture("sell_panel", "screenshots/sell_panel.png");
-
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        GameFlowController.Instance.EnterWorkshop();
-        yield return WaitForVisualStable();
-
-        WorkshopUIController workshopController = FindObjectOfType<WorkshopUIController>();
-        if (workshopController == null) {
-            capture.Warnings.Add("WorkshopUIController not found for sell panel capture.");
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        workshopController.OpenSellPanel();
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
-        CloseWorkshopAcceptanceOverlays(workshopController);
-    }
-
-    private IEnumerator CaptureProstheticPanel() {
-        Debug.Log("[ArtAcceptance] Capturing prosthetic_panel...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture("prosthetic_panel", "screenshots/prosthetic_panel.png");
-
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        GameFlowController.Instance.EnterWorkshop();
-        yield return WaitForVisualStable();
-
-        WorkshopUIController workshopController = FindObjectOfType<WorkshopUIController>();
-        if (workshopController == null) {
-            capture.Warnings.Add("WorkshopUIController not found for prosthetic panel capture.");
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        workshopController.OpenProstheticPanel();
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
-        CloseWorkshopAcceptanceOverlays(workshopController);
-    }
-
-    private IEnumerator CaptureLayerSelect() {
-        Debug.Log("[ArtAcceptance] Capturing layer_select...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture("layer_select", "screenshots/layer_select.png");
-
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture) || !RequireDungeon(capture)) {
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        int previousHighestUnlockedLayer = GameRoot.Core.CurrentPlayer.HighestUnlockedDungeonLayer;
-        UnlockConfiguredLayersForAcceptance();
-        GameFlowController.Instance.EnterWorkshop();
-        yield return WaitForVisualStable();
-
-        WorkshopUIController workshopController = FindObjectOfType<WorkshopUIController>();
-        if (workshopController == null) {
-            GameRoot.Core.CurrentPlayer.HighestUnlockedDungeonLayer = previousHighestUnlockedLayer;
-            capture.Warnings.Add("WorkshopUIController not found for layer select capture.");
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        workshopController.OpenDungeonStartLayerPanel();
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
-        CloseWorkshopAcceptanceOverlays(workshopController);
-        GameRoot.Core.CurrentPlayer.HighestUnlockedDungeonLayer = previousHighestUnlockedLayer;
-    }
-
-    private IEnumerator CaptureDungeonMap() {
-        Debug.Log("[ArtAcceptance] Capturing dungeon_map...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture("dungeon_map", "screenshots/dungeon_map.png");
-
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture) || !RequireDungeon(capture)) {
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        int layerID = ResolveAcceptanceLayerID();
-        if (layerID <= 0) {
-            capture.Warnings.Add("No unlocked dungeon layer config found.");
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        bool started = GameRoot.Core.Dungeon.StartRunAtLayer(layerID);
-        if (!started) {
-            capture.Warnings.Add($"Dungeon.StartRunAtLayer({layerID}) returned false.");
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        // Switch the visible screen to DungeonMap panel.
-        // Without this, the workshopPanel remains active and the screenshot captures workshop instead.
-        GameFlowController.Instance.EnterDungeonMap();
-        yield return WaitForVisualStable();
-        DungeonMapUIController mapController = FindObjectOfType<DungeonMapUIController>();
-        if (mapController != null) {
-            mapController.RefreshMap();
-        }
-
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
-    }
-
-    private IEnumerator CaptureSafeRoom() {
-        Debug.Log("[ArtAcceptance] Capturing safe_room...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture("safe_room", "screenshots/safe_room.png");
-
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        SafeRoomNode node = new SafeRoomNode {
-            NodeID = "art_acceptance_safe_room_preview"
-        };
-
-        GameFlowController.Instance.EnterSafeRoom(node);
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
-    }
-
-    private IEnumerator CaptureStairsRoom() {
-        Debug.Log("[ArtAcceptance] Capturing stairs_room...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture("stairs_room", "screenshots/stairs_room.png");
-
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture) || !RequireDungeon(capture)) {
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        EnsureAcceptanceDungeonLayer();
-        int layerID = GameRoot.Core?.Dungeon?.CurrentLayer?.LayerID ?? ResolveAcceptanceLayerID();
-        StairsNode node = new StairsNode {
-            NodeID = "art_acceptance_stairs_room_preview",
-            LayerID = Mathf.Max(1, layerID)
-        };
-
-        GameFlowController.Instance.EnterStairs(node);
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
-    }
-
-    private IEnumerator CaptureCombatHud() {
-        Debug.Log("[ArtAcceptance] Capturing combat_hud...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture("combat_hud", "screenshots/combat_hud.png");
-
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture) || GameRoot.Core?.Combat == null) {
-            if (GameRoot.Core?.Combat == null) {
-                capture.Errors.Add("CombatSystem is missing.");
-                AddError($"Capture [{capture.ScreenTag}] requires CombatSystem.");
-            }
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        List<string> monsterIDs = ResolveAcceptanceMonsterIDs();
-        if (monsterIDs.Count == 0) {
-            capture.Warnings.Add("No monster config found for combat HUD capture.");
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        GameRoot.Core.Combat.StartCombat(monsterIDs);
-        GameFlowController.Instance.EnterCombat();
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
-    }
-
-    private IEnumerator CaptureInventoryLoot() {
-        Debug.Log("[ArtAcceptance] Capturing inventory_loot...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture("inventory_loot", "screenshots/inventory_loot.png");
-
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        CombatLootPickupResult lootResult = BuildAcceptanceLootResult();
-        if (lootResult == null || lootResult.OfferedItems.Count == 0) {
-            capture.Warnings.Add("No item config found for inventory loot capture.");
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        Debug.Log("[ArtAcceptance] inventory_loot uses an acceptance-only loot payload; real reward settlement is not invoked.");
-        GameFlowController.Instance.EnterCombatLoot(lootResult);
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
-    }
-
-    private IEnumerator CaptureSettlement() {
-        Debug.Log("[ArtAcceptance] Capturing settlement...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture("settlement", "screenshots/settlement.png");
-
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        DungeonSettlementResult settlementResult = BuildAcceptanceSettlementResult();
-        if (settlementResult == null) {
-            capture.Warnings.Add("Failed to build settlement preview payload.");
-            CompleteSkipped(capture);
-            yield break;
-        }
-
-        GameFlowController.Instance.EnterSettlementPreview(settlementResult);
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
-    }
-
-    private ArtAcceptanceCaptureRecord BeginCapture(string screenTag, string relativeFile) {
+    private ArtAcceptanceCaptureRecord BeginCapture(string screenTag, string relativeFile, string dataSource = "real_gameplay") {
         ArtAcceptanceCaptureRecord capture = new ArtAcceptanceCaptureRecord {
             Index = _report.Captures.Count + 1,
             ScreenTag = screenTag,
             File = relativeFile,
             CapturedAt = DateTime.Now.ToString("o"),
             Status = "running",
-            Resolution = $"{ReferenceWidth}x{ReferenceHeight}"
+            Resolution = $"{ReferenceWidth}x{ReferenceHeight}",
+            DataSource = dataSource
         };
         _report.Captures.Add(capture);
         return capture;
     }
 
-    private IEnumerator CaptureCurrentScreen(ArtAcceptanceCaptureRecord capture) {
-        capture.ActiveControllers = CollectActiveControllers();
-        ArtAcceptanceUiCaptureSnapshot uiCapture = BuildUiCaptureSnapshot(capture.ScreenTag);
-        _uiSnapshot.Captures.Add(uiCapture);
-        ApplyUiRisksToCapture(uiCapture, capture);
-        ApplyRequiredUiChecksToCapture(uiCapture, capture);
-
-        string absolutePath = Path.Combine(_outputRoot, capture.File.Replace('/', Path.DirectorySeparatorChar));
-        Directory.CreateDirectory(Path.GetDirectoryName(absolutePath));
-
-        // Wait for UI layout to settle before capturing.
-        yield return WaitSecondsRealtime(0.1f);
-        Canvas.ForceUpdateCanvases();
-        yield return WaitSecondsRealtime(0.05f);
-
-        RenderCameraScreenshot(absolutePath, capture);
-
-        capture.Status = File.Exists(absolutePath) ? "captured" : "failed";
-        if (capture.Status == "failed") {
-            capture.Errors.Add($"Screenshot file was not created: {absolutePath}");
-            AddError($"Capture [{capture.ScreenTag}] failed to write screenshot.");
-        }
-    }
-
-    /// <summary>
-    /// Synchronous screenshot via Camera.Render + RenderTexture.
-    /// This approach works at any point in the frame — no WaitForEndOfFrame required.
-    /// Temporarily converts Screen Space Overlay canvases to Camera mode so UI is captured.
-    /// </summary>
-    private void RenderCameraScreenshot(string absolutePath, ArtAcceptanceCaptureRecord capture) {
-        Camera camera = Camera.main;
-        if (camera == null) {
-            Camera[] cameras = FindObjectsOfType<Camera>();
-            foreach (Camera cam in cameras) {
-                if (cam != null && cam.isActiveAndEnabled) {
-                    camera = cam;
-                    break;
-                }
-            }
-        }
-
-        if (camera == null) {
-            AddError($"No active camera found for screenshot [{absolutePath}].");
-            Debug.LogError($"[ArtAcceptance] No active camera for screenshot: {absolutePath}");
-            return;
-        }
-
-        int width = ReferenceWidth;
-        int height = ReferenceHeight;
-
-        // Temporarily attach Screen Space Overlay canvases to this camera so they render.
-        Canvas[] allCanvases = FindObjectsOfType<Canvas>();
-        var overlayBackup = new System.Collections.Generic.List<(Canvas canvas, RenderMode mode, Camera cam)>();
-        foreach (Canvas c in allCanvases) {
-            if (c != null && c.isActiveAndEnabled && c.renderMode == RenderMode.ScreenSpaceOverlay) {
-                overlayBackup.Add((c, c.renderMode, c.worldCamera));
-                c.renderMode = RenderMode.ScreenSpaceCamera;
-                c.worldCamera = camera;
-            }
-        }
-
-        RenderTexture renderTexture = null;
-        RenderTexture previousActive = RenderTexture.active;
-        RenderTexture previousTarget = camera.targetTexture;
-        float previousAspect = camera.aspect;
-        Texture2D screenshot = null;
-
-        try {
-            renderTexture = new RenderTexture(width, height, 24, RenderTextureFormat.ARGB32);
-            renderTexture.antiAliasing = 1;
-            renderTexture.Create();
-
-            camera.targetTexture = renderTexture;
-            camera.aspect = (float)width / height;
-            camera.Render();
-
-            RenderTexture.active = renderTexture;
-            screenshot = new Texture2D(width, height, TextureFormat.RGB24, false);
-            screenshot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-            screenshot.Apply();
-
-            ApplyScreenshotContentChecks(screenshot, capture);
-            File.WriteAllBytes(absolutePath, screenshot.EncodeToPNG());
-            Debug.Log($"[ArtAcceptance] Screenshot written: {absolutePath} ({width}x{height})");
-        } catch (Exception ex) {
-            AddError($"Failed to write screenshot [{absolutePath}]: {ex.Message}");
-            Debug.LogError($"[ArtAcceptance] Failed to write screenshot: {absolutePath}\n{ex}");
-        } finally {
-            // Restore camera state.
-            camera.targetTexture = previousTarget;
-            camera.aspect = previousAspect;
-            RenderTexture.active = previousActive;
-
-            if (renderTexture != null) {
-                renderTexture.Release();
-                Destroy(renderTexture);
-            }
-            if (screenshot != null) {
-                Destroy(screenshot);
-            }
-
-            // Restore overlay canvases.
-            foreach (var backup in overlayBackup) {
-                if (backup.canvas != null) {
-                    backup.canvas.renderMode = backup.mode;
-                    backup.canvas.worldCamera = backup.cam;
-                }
-            }
-        }
-    }
+    // ──────────────────────────────────────────
+    // 前置条件检查
+    // ──────────────────────────────────────────
 
     private void CompleteSkipped(ArtAcceptanceCaptureRecord capture) {
         capture.Status = "skipped";
         capture.ActiveControllers = CollectActiveControllers();
         if (capture.Warnings.Count == 0 && capture.Errors.Count == 0) {
             capture.Warnings.Add("Capture skipped because required runtime state was unavailable.");
-        }
-    }
-
-    private IEnumerator WaitForVisualStable() {
-        yield return WaitSecondsRealtime(0.1f);
-        Canvas.ForceUpdateCanvases();
-        yield return WaitSecondsRealtime(0.1f);
-        Canvas.ForceUpdateCanvases();
-    }
-
-    private IEnumerator WaitFrames(int frameCount) {
-        yield return WaitSecondsRealtime(Mathf.Max(1, frameCount) / 60f);
-    }
-
-    private IEnumerator WaitSecondsRealtime(float seconds) {
-        float deadline = Time.realtimeSinceStartup + Mathf.Max(0.01f, seconds);
-        while (Time.realtimeSinceStartup < deadline) {
-            yield return null;
         }
     }
 
@@ -927,165 +530,31 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         return false;
     }
 
-    private int ResolveAcceptanceLayerID() {
-        if (GameRoot.Core?.CurrentPlayer == null || ConfigManager.Dungeons == null) {
-            return 0;
-        }
+    // ──────────────────────────────────────────
+    // Wait helpers
+    // ──────────────────────────────────────────
 
-        int highestUnlocked = Mathf.Max(1, GameRoot.Core.CurrentPlayer.HighestUnlockedDungeonLayer);
-        int selected = 0;
-        foreach (var kvp in ConfigManager.Dungeons) {
-            if (kvp.Key <= highestUnlocked && (selected == 0 || kvp.Key < selected)) {
-                selected = kvp.Key;
-            }
-        }
-
-        return selected;
+    private IEnumerator WaitForVisualStable() {
+        yield return WaitSecondsRealtime(0.1f);
+        Canvas.ForceUpdateCanvases();
+        yield return WaitSecondsRealtime(0.1f);
+        Canvas.ForceUpdateCanvases();
     }
 
-    private void CloseWorkshopAcceptanceOverlays(WorkshopUIController workshopController = null) {
-        WorkshopUIController controller = workshopController != null
-            ? workshopController
-            : FindObjectOfType<WorkshopUIController>();
-        if (controller == null) {
-            return;
-        }
-
-        controller.CloseSellPanel();
-        controller.CloseProstheticPanel();
-        controller.CloseDungeonStartLayerPanel();
-        controller.CloseFormalV1Panel();
+    private IEnumerator WaitFrames(int frameCount) {
+        yield return WaitSecondsRealtime(Mathf.Max(1, frameCount) / 60f);
     }
 
-    private void UnlockConfiguredLayersForAcceptance() {
-        if (GameRoot.Core?.CurrentPlayer == null || ConfigManager.Dungeons == null || ConfigManager.Dungeons.Count == 0) {
-            return;
-        }
-
-        int highestConfiguredLayer = 1;
-        foreach (int layerID in ConfigManager.Dungeons.Keys) {
-            if (layerID > highestConfiguredLayer) {
-                highestConfiguredLayer = layerID;
-            }
-        }
-
-        GameRoot.Core.CurrentPlayer.HighestUnlockedDungeonLayer = Mathf.Max(
-            GameRoot.Core.CurrentPlayer.HighestUnlockedDungeonLayer,
-            highestConfiguredLayer);
-    }
-
-    private void EnsureAcceptanceDungeonLayer() {
-        if (GameRoot.Core?.Dungeon == null || GameRoot.Core.Dungeon.CurrentLayer != null) {
-            return;
-        }
-
-        int layerID = ResolveAcceptanceLayerID();
-        if (layerID > 0) {
-            GameRoot.Core.Dungeon.StartRunAtLayer(layerID);
+    private IEnumerator WaitSecondsRealtime(float seconds) {
+        float deadline = Time.realtimeSinceStartup + Mathf.Max(0.01f, seconds);
+        while (Time.realtimeSinceStartup < deadline) {
+            yield return null;
         }
     }
 
-    private List<string> ResolveAcceptanceMonsterIDs() {
-        List<string> monsterIDs = new List<string>();
-        DungeonLayer layer = GameRoot.Core?.Dungeon?.CurrentLayer;
-        if (layer?.RootNode != null) {
-            NodeBase node = layer.RootNode;
-            while (node != null) {
-                CombatNode combatNode = node as CombatNode;
-                if (combatNode != null && combatNode.MonsterIDs != null && combatNode.MonsterIDs.Count > 0) {
-                    monsterIDs.AddRange(combatNode.MonsterIDs);
-                    return monsterIDs;
-                }
-
-                node = node.NextNodes != null && node.NextNodes.Count > 0 ? node.NextNodes[0] : null;
-            }
-        }
-
-        if (ConfigManager.Monsters == null) {
-            return monsterIDs;
-        }
-
-        foreach (var kvp in ConfigManager.Monsters) {
-            if (kvp.Value != null && !string.IsNullOrEmpty(kvp.Key)) {
-                monsterIDs.Add(kvp.Key);
-                break;
-            }
-        }
-
-        return monsterIDs;
-    }
-
-    private CombatLootPickupResult BuildAcceptanceLootResult() {
-        CombatLootPickupResult result = new CombatLootPickupResult {
-            NodeID = "art_acceptance_loot_preview"
-        };
-
-        if (ConfigManager.Items == null) {
-            return result;
-        }
-
-        int count = 0;
-        foreach (var kvp in ConfigManager.Items) {
-            if (count >= 4) {
-                break;
-            }
-
-            ItemEntity item = ConfigManager.CreateItem(kvp.Key);
-            if (item == null) {
-                continue;
-            }
-
-            result.OfferedItems.Add(item);
-            result.TotalEstimatedValue += item.BaseValue;
-            count++;
-        }
-
-        return result;
-    }
-
-    private DungeonSettlementResult BuildAcceptanceSettlementResult() {
-        DungeonSettlementResult result = new DungeonSettlementResult {
-            IsVictory = true,
-            StashCountAfterSettlement = GameRoot.Core?.CurrentPlayer?.StashInventory?.Count ?? 0
-        };
-
-        if (ConfigManager.Items == null) {
-            return result;
-        }
-
-        int count = 0;
-        foreach (var kvp in ConfigManager.Items) {
-            if (count >= 3) {
-                break;
-            }
-
-            ItemEntity item = ConfigManager.CreateItem(kvp.Key);
-            if (item == null) {
-                continue;
-            }
-
-            result.PickedUpCount++;
-            result.PickedUpEstimatedValue += item.BaseValue;
-            result.PickedUpNames.Add(item.Name);
-
-            if (count < 2) {
-                result.BroughtOutCount++;
-                result.BroughtOutEstimatedValue += item.BaseValue;
-                result.BroughtOutNames.Add(item.Name);
-                result.LootTransferredCount++;
-                result.LootEstimatedValue += item.BaseValue;
-                result.LootNames.Add(item.Name);
-            } else {
-                result.LostCount++;
-                result.LostEstimatedValue += item.BaseValue;
-                result.LostNames.Add(item.Name);
-            }
-
-            count++;
-        }
-
-        return result;
-    }
+    // ──────────────────────────────────────────
+    // Registry snapshot & P0 VisualID 检查
+    // ──────────────────────────────────────────
 
     private ArtAcceptanceRegistrySnapshotReport BuildRegistrySnapshot() {
         ArtAcceptanceRegistrySnapshotReport snapshot = new ArtAcceptanceRegistrySnapshotReport {
@@ -1258,486 +727,9 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         return visualIDs.ToArray();
     }
 
-    private ArtAcceptanceUiCaptureSnapshot BuildUiCaptureSnapshot(string screenTag) {
-        ArtAcceptanceUiCaptureSnapshot capture = new ArtAcceptanceUiCaptureSnapshot {
-            ScreenTag = screenTag
-        };
-
-        Canvas[] canvases = FindObjectsOfType<Canvas>();
-        foreach (Canvas canvas in canvases) {
-            if (canvas == null || !canvas.gameObject.activeInHierarchy) {
-                continue;
-            }
-
-            ArtAcceptanceCanvasSnapshot canvasSnapshot = new ArtAcceptanceCanvasSnapshot {
-                Name = canvas.name,
-                Path = BuildTransformPath(canvas.transform),
-                RenderMode = canvas.renderMode.ToString(),
-                SortingOrder = canvas.sortingOrder
-            };
-
-            RectTransform[] rects = canvas.GetComponentsInChildren<RectTransform>(false);
-            foreach (RectTransform rect in rects) {
-                if (rect == null) {
-                    continue;
-                }
-
-                ArtAcceptanceUiElementSnapshot element = BuildUiElementSnapshot(canvas.transform, rect);
-                canvasSnapshot.Elements.Add(element);
-            }
-
-            capture.Canvases.Add(canvasSnapshot);
-        }
-
-        return capture;
-    }
-
-    private ArtAcceptanceUiElementSnapshot BuildUiElementSnapshot(Transform canvasTransform, RectTransform rect) {
-        ArtAcceptanceUiElementSnapshot element = new ArtAcceptanceUiElementSnapshot {
-            Name = rect.name,
-            Path = BuildRelativePath(canvasTransform, rect.transform),
-            Active = rect.gameObject.activeInHierarchy,
-            AnchoredPosition = FormatVector2(rect.anchoredPosition),
-            SizeDelta = FormatVector2(rect.sizeDelta),
-            AnchorMin = FormatVector2(rect.anchorMin),
-            AnchorMax = FormatVector2(rect.anchorMax),
-            Pivot = FormatVector2(rect.pivot)
-        };
-
-        Component[] components = rect.GetComponents<Component>();
-        foreach (Component component in components) {
-            element.ComponentTypes.Add(component != null ? component.GetType().Name : "MissingScript");
-        }
-
-        Image image = rect.GetComponent<Image>();
-        if (image != null) {
-            element.Image = new ArtAcceptanceImageSnapshot {
-                Found = true,
-                Enabled = image.enabled,
-                SpriteName = image.sprite != null ? image.sprite.name : string.Empty,
-                Type = image.type.ToString(),
-                RaycastTarget = image.raycastTarget,
-                PreserveAspect = image.preserveAspect
-            };
-        }
-
-        Button button = rect.GetComponent<Button>();
-        if (button != null) {
-            element.Button = new ArtAcceptanceButtonSnapshot {
-                Found = true,
-                Interactable = button.interactable,
-                HasTargetGraphic = button.targetGraphic != null
-            };
-        }
-
-        Text text = rect.GetComponent<Text>();
-        if (text != null) {
-            element.Text = new ArtAcceptanceTextSnapshot {
-                Found = true,
-                Enabled = text.enabled,
-                TextLength = string.IsNullOrEmpty(text.text) ? 0 : text.text.Length,
-                RaycastTarget = text.raycastTarget,
-                FontSize = text.fontSize
-            };
-        }
-
-        CanvasGroup canvasGroup = rect.GetComponent<CanvasGroup>();
-        if (canvasGroup != null) {
-            element.CanvasGroup = new ArtAcceptanceCanvasGroupSnapshot {
-                Found = true,
-                Alpha = canvasGroup.alpha,
-                Interactable = canvasGroup.interactable,
-                BlocksRaycasts = canvasGroup.blocksRaycasts
-            };
-        }
-
-        element.Risks = EvaluateElementRisks(rect, element);
-        return element;
-    }
-
-    private List<string> EvaluateElementRisks(RectTransform rect, ArtAcceptanceUiElementSnapshot element) {
-        List<string> risks = new List<string>();
-
-        if (!IsElementVisibleForAcceptance(rect)) {
-            return risks;
-        }
-
-        Image imageComponent = rect.GetComponent<Image>();
-        bool imageVisible = element.Image != null &&
-            element.Image.Found &&
-            imageComponent != null &&
-            IsGraphicVisibleForAcceptance(imageComponent);
-
-        if (imageVisible) {
-            if (string.IsNullOrEmpty(element.Image.SpriteName)) {
-                risks.Add("ImageEnabledButSpriteEmpty");
-            }
-
-            if (element.Image.SpriteName == VisualAssetService.MissingSpriteVisualID ||
-                element.Image.SpriteName.IndexOf("missing", StringComparison.OrdinalIgnoreCase) >= 0) {
-                risks.Add("MissingSpriteVisible");
-            }
-
-            if (element.Image.RaycastTarget &&
-                IsElementRaycastRelevant(rect) &&
-                rect.sizeDelta.x >= 500f &&
-                rect.sizeDelta.y >= 300f &&
-                !element.Button.Found) {
-                risks.Add("LargeNonButtonImageBlocksRaycasts");
-            }
-
-            if (RequiresSlicedSprite(element.Image.SpriteName) && element.Image.Type != Image.Type.Sliced.ToString()) {
-                risks.Add("ExpectedSlicedImageButTypeIsNotSliced");
-            }
-        }
-
-        if (element.Button != null && element.Button.Found) {
-            if (!element.Button.HasTargetGraphic) {
-                risks.Add("ButtonMissingTargetGraphic");
-            }
-
-            if (element.Image == null || !element.Image.Found || string.IsNullOrEmpty(element.Image.SpriteName)) {
-                risks.Add("ButtonMissingImageSprite");
-            }
-        }
-
-        GridSlotUI slot = rect.GetComponent<GridSlotUI>();
-        if (slot != null && (Mathf.Abs(rect.sizeDelta.x - InventoryDisplaySpec.CellSize) > 0.1f || Mathf.Abs(rect.sizeDelta.y - InventoryDisplaySpec.CellSize) > 0.1f)) {
-            risks.Add($"InventorySlotSizeMismatch:expected={InventoryDisplaySpec.CellSize}x{InventoryDisplaySpec.CellSize},actual={FormatVector2(rect.sizeDelta)}");
-        }
-
-        return risks;
-    }
-
-    private bool IsElementVisibleForAcceptance(RectTransform rect) {
-        if (rect == null || !rect.gameObject.activeInHierarchy) {
-            return false;
-        }
-
-        Canvas canvas = rect.GetComponentInParent<Canvas>();
-        if (canvas != null && !canvas.enabled) {
-            return false;
-        }
-
-        CanvasGroup[] groups = rect.GetComponentsInParent<CanvasGroup>(true);
-        foreach (CanvasGroup group in groups) {
-            if (group != null && group.alpha <= VisibleAlphaThreshold) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private bool IsGraphicVisibleForAcceptance(Graphic graphic) {
-        if (graphic == null || !graphic.enabled) {
-            return false;
-        }
-
-        if (graphic.color.a <= VisibleAlphaThreshold) {
-            return false;
-        }
-
-        return graphic.canvasRenderer == null || graphic.canvasRenderer.GetAlpha() > VisibleAlphaThreshold;
-    }
-
-    private bool IsElementRaycastRelevant(RectTransform rect) {
-        CanvasGroup[] groups = rect.GetComponentsInParent<CanvasGroup>(true);
-        foreach (CanvasGroup group in groups) {
-            if (group != null && !group.blocksRaycasts) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private bool RequiresSlicedSprite(string spriteName) {
-        if (string.IsNullOrEmpty(spriteName)) {
-            return false;
-        }
-
-        return spriteName.StartsWith("ui_button_", StringComparison.OrdinalIgnoreCase)
-            || spriteName.StartsWith("ui_panel_", StringComparison.OrdinalIgnoreCase)
-            || spriteName.StartsWith("ui_list_row_", StringComparison.OrdinalIgnoreCase)
-            || spriteName == VisualAssetService.UIPanelMainID
-            || spriteName == VisualAssetService.UILootPickupPanelID
-            || spriteName == VisualAssetService.UILootDropZoneID
-            || spriteName == VisualAssetService.UISettlementVictoryPanelID
-            || spriteName == VisualAssetService.UISettlementDefeatPanelID
-            || spriteName == VisualAssetService.UICombatEnemyCardID
-            || spriteName == VisualAssetService.UICombatEnemyCardSelectedID
-            || spriteName == VisualAssetService.UICombatStatusBarHpID
-            || spriteName == VisualAssetService.UICombatStatusBarShieldID
-            || spriteName == VisualAssetService.UICombatTurnBannerID;
-    }
-
-    private void ApplyRequiredUiChecksToCapture(ArtAcceptanceUiCaptureSnapshot uiCapture, ArtAcceptanceCaptureRecord capture) {
-        if (uiCapture == null || capture == null) {
-            return;
-        }
-
-        switch (uiCapture.ScreenTag) {
-            case "maintenance_panel":
-                RequireWorkshopFormalV1Panel(uiCapture, capture, "MaintenancePanel_Runtime", "MaintenanceCard_Image", "MaintenanceIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "WearRepairIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "CorruptionPurifyIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "DivePermitIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "WarningIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "FullRepair_Button");
-                RequireVisibleElement(uiCapture, capture, "Postpone_Button");
-                break;
-            case "daily_bill_report":
-                RequireWorkshopFormalV1Panel(uiCapture, capture, "DailyBillReportPanel_Runtime", "BillCard_Image", "BillIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "IncomeIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "ExpenseIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "DebtRentIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "MoneyIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "WarningIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "DeferPayment_Button");
-                break;
-            case "shop_staging":
-                RequireWorkshopFormalV1Panel(uiCapture, capture, "ShopStagingPanel_Runtime", "StagingCard_Image", "ShopChannelIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "BlackMarketLaneIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "OrderLaneIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "BlackMarket_Button");
-                break;
-            case "order_board":
-                RequireWorkshopFormalV1Panel(uiCapture, capture, "OrderBoardPanel_Runtime", "OrderBoardCard_Image", "OrderIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "FactionIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "DeadlineIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "Abandon_Button");
-                break;
-            case "rumor_board":
-                RequireWorkshopFormalV1Panel(uiCapture, capture, "RumorBoardPanel_Runtime", "RumorBoardCard_Image", "RumorIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "PriceUpIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "PriceDownIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "WarningIcon_Image");
-                break;
-            case "business_settlement":
-                RequireWorkshopFormalV1Panel(uiCapture, capture, "BusinessSettlementPanel_Runtime", "BusinessSettlementCard_Image", "BusinessSettlementIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "CustomerIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "SaleSparkIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "ContinueToBill_Button");
-                RequireVisibleElement(uiCapture, capture, "ReviewRisk_Button");
-                break;
-            case "chassis_upgrade_panel":
-                RequireWorkshopFormalV1Panel(uiCapture, capture, "ChassisUpgradePanel_Runtime", "ChassisUpgradeCard_Image", "ChassisUpgradeIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "BlueprintIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "MaterialNeedIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "Upgrade_Button");
-                RequireVisibleElement(uiCapture, capture, "Blueprint_Button");
-                break;
-            case "doll_interaction":
-                RequireWorkshopFormalV1Panel(uiCapture, capture, "DollInteractionPanel_Runtime", "DollInteractionCard_Image", "TouchIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "TalkIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "GiftIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "MementoIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "Touch_Button");
-                break;
-            case "doll_room":
-                RequireWorkshopFormalV1Panel(uiCapture, capture, "DollRoomPanel_Runtime", "DollRoomCard_Image", "DiaryIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "DollRoomBackground_Image");
-                RequireVisibleElement(uiCapture, capture, "MementoIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "MementoSlotIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "Observe_Button");
-                break;
-            case "faction_shop":
-                RequireWorkshopFormalV1Panel(uiCapture, capture, "FactionShopPanel_Runtime", "FactionShopCard_Image", "FactionIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "ReputationIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "TrustIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "BlackMarketIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "Buy_Button");
-                break;
-            case "scenario_event":
-                RequireWorkshopFormalV1Panel(uiCapture, capture, "ScenarioEventPanel_Runtime", "ScenarioEventCard_Image", "EventIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "LoreIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "SkipIcon_Image");
-                RequireVisibleElement(uiCapture, capture, "ConfirmChoice_Button");
-                RequireVisibleElement(uiCapture, capture, "Skip_Button");
-                break;
-            case "combat_hud":
-                RequireActiveController(capture, nameof(HUDController));
-                RequireVisibleElement(uiCapture, capture, "CombatBackground_Image");
-                RequireActiveElement(uiCapture, capture, "PlayerStageRoot");
-                RequireVisibleElement(uiCapture, capture, "PlayerShadow_Image");
-                RequireVisibleElement(uiCapture, capture, "PlayerDoll_Image");
-                RequireActiveElement(uiCapture, capture, "EnemyStageRoot");
-                RequireActiveElement(uiCapture, capture, "EnemySlot_0");
-                RequireVisibleElement(uiCapture, capture, "EnemySprite_Image");
-                RequireVisibleElement(uiCapture, capture, "EnemyShadow_Image");
-                RequireVisibleElement(uiCapture, capture, "EnemyTargetRing_Image");
-                RequireVisibleElement(uiCapture, capture, "EnemyFootHpBar");
-                RequireVisibleElement(uiCapture, capture, "TargetHintPanel");
-                RequireVisibleElement(uiCapture, capture, "ActionStrip");
-                RequireVisibleElement(uiCapture, capture, "PlayerStatusCluster");
-                RequireVisibleElement(uiCapture, capture, "InventoryChassisPanel");
-                RequireVisibleTextCount(uiCapture, capture, 6);
-                break;
-            case "inventory_loot":
-                RequireActiveController(capture, nameof(CombatLootUIController));
-                RequireVisibleElement(uiCapture, capture, "CombatLootPanel_Runtime");
-                RequireVisibleElement(uiCapture, capture, "PickupPanel");
-                RequireVisibleElement(uiCapture, capture, "LootDropZone");
-                RequireVisibleElement(uiCapture, capture, "Continue_Button");
-                RequireVisibleTextCount(uiCapture, capture, 2);
-                break;
-            case "settlement":
-                RequireActiveController(capture, nameof(SettlementUIController));
-                RequireVisibleElement(uiCapture, capture, "SettlementPanel_Runtime");
-                RequireVisibleElement(uiCapture, capture, "Title_Text");
-                RequireVisibleElement(uiCapture, capture, "Summary_Text");
-                RequireVisibleElement(uiCapture, capture, "Loot_Text");
-                RequireVisibleElement(uiCapture, capture, "Continue_Button");
-                RequireVisibleTextCount(uiCapture, capture, 4);
-                break;
-        }
-    }
-
-    private void RequireActiveController(ArtAcceptanceCaptureRecord capture, string controllerName) {
-        if (capture == null || string.IsNullOrEmpty(controllerName)) {
-            return;
-        }
-
-        if (capture.ActiveControllers == null || !capture.ActiveControllers.Contains(controllerName)) {
-            AddCaptureError(capture, $"Required active controller missing: {controllerName}.");
-        }
-    }
-
-    private void RequireWorkshopFormalV1Panel(ArtAcceptanceUiCaptureSnapshot uiCapture, ArtAcceptanceCaptureRecord capture, string rootName, string cardName, string primaryIconName) {
-        RequireActiveController(capture, nameof(WorkshopFormalV1PanelController));
-        RequireVisibleElement(uiCapture, capture, rootName);
-        RequireVisibleElement(uiCapture, capture, cardName);
-        RequireVisibleElement(uiCapture, capture, "HeaderPanel");
-        RequireVisibleElement(uiCapture, capture, primaryIconName);
-        RequireVisibleElement(uiCapture, capture, "TitleDivider_Image");
-        RequireVisibleElement(uiCapture, capture, "Close_Button");
-        RequireVisibleTextCount(uiCapture, capture, 6);
-    }
-
-    private void RequireVisibleElement(ArtAcceptanceUiCaptureSnapshot uiCapture, ArtAcceptanceCaptureRecord capture, string elementName) {
-        if (uiCapture == null || string.IsNullOrEmpty(elementName)) {
-            return;
-        }
-
-        foreach (ArtAcceptanceCanvasSnapshot canvas in uiCapture.Canvases) {
-            foreach (ArtAcceptanceUiElementSnapshot element in canvas.Elements) {
-                if (element.Name == elementName && IsSnapshotElementVisible(element)) {
-                    return;
-                }
-            }
-        }
-
-        AddCaptureError(capture, $"Required visible UI element missing: {elementName}.");
-    }
-
-    private void RequireActiveElement(ArtAcceptanceUiCaptureSnapshot uiCapture, ArtAcceptanceCaptureRecord capture, string elementName) {
-        if (uiCapture == null || string.IsNullOrEmpty(elementName)) {
-            return;
-        }
-
-        foreach (ArtAcceptanceCanvasSnapshot canvas in uiCapture.Canvases) {
-            foreach (ArtAcceptanceUiElementSnapshot element in canvas.Elements) {
-                if (element.Name == elementName && element.Active) {
-                    return;
-                }
-            }
-        }
-
-        AddCaptureError(capture, $"Required active UI element missing: {elementName}.");
-    }
-
-    private void RequireVisibleTextCount(ArtAcceptanceUiCaptureSnapshot uiCapture, ArtAcceptanceCaptureRecord capture, int minCount) {
-        if (uiCapture == null) {
-            return;
-        }
-
-        int count = 0;
-        foreach (ArtAcceptanceCanvasSnapshot canvas in uiCapture.Canvases) {
-            foreach (ArtAcceptanceUiElementSnapshot element in canvas.Elements) {
-                if (element.Text != null &&
-                    element.Text.Found &&
-                    element.Text.Enabled &&
-                    element.Text.TextLength > 0 &&
-                    IsSnapshotElementVisible(element)) {
-                    count++;
-                }
-            }
-        }
-
-        if (count < minCount) {
-            AddCaptureError(capture, $"Visible text count below requirement: actual={count}, required={minCount}.");
-        }
-    }
-
-    private bool IsSnapshotElementVisible(ArtAcceptanceUiElementSnapshot element) {
-        if (element == null || !element.Active) {
-            return false;
-        }
-
-        return element.CanvasGroup == null || !element.CanvasGroup.Found || element.CanvasGroup.Alpha > VisibleAlphaThreshold;
-    }
-
-    private void ApplyScreenshotContentChecks(Texture2D screenshot, ArtAcceptanceCaptureRecord capture) {
-        if (screenshot == null || capture == null) {
-            return;
-        }
-
-        if (IsScreenshotVisuallyBlank(screenshot)) {
-            AddCaptureError(capture, "Screenshot appears visually blank or near-solid color.");
-        }
-    }
-
-    private bool IsScreenshotVisuallyBlank(Texture2D screenshot) {
-        if (screenshot == null) {
-            return true;
-        }
-
-        int width = screenshot.width;
-        int height = screenshot.height;
-        int stepX = Mathf.Max(1, width / 32);
-        int stepY = Mathf.Max(1, height / 18);
-        Color32 first = screenshot.GetPixel(0, 0);
-        int sampled = 0;
-        int different = 0;
-
-        for (int y = 0; y < height; y += stepY) {
-            for (int x = 0; x < width; x += stepX) {
-                sampled++;
-                Color32 current = screenshot.GetPixel(x, y);
-                int delta =
-                    Mathf.Abs(current.r - first.r) +
-                    Mathf.Abs(current.g - first.g) +
-                    Mathf.Abs(current.b - first.b);
-                if (delta > 8) {
-                    different++;
-                }
-            }
-        }
-
-        if (sampled == 0) {
-            return true;
-        }
-
-        return different < Mathf.Max(4, sampled / 100);
-    }
-
-    private void ApplyUiRisksToCapture(ArtAcceptanceUiCaptureSnapshot uiCapture, ArtAcceptanceCaptureRecord capture) {
-        foreach (ArtAcceptanceCanvasSnapshot canvas in uiCapture.Canvases) {
-            foreach (ArtAcceptanceUiElementSnapshot element in canvas.Elements) {
-                foreach (string risk in element.Risks) {
-                    string message = $"{uiCapture.ScreenTag}:{element.Path}:{risk}";
-                    if (!capture.Warnings.Contains(message)) {
-                        capture.Warnings.Add(message);
-                    }
-
-                    if (risk == "MissingSpriteVisible") {
-                        AddWarning(message);
-                    }
-                }
-            }
-        }
-    }
+    // ──────────────────────────────────────────
+    // 报告构建与输出
+    // ──────────────────────────────────────────
 
     private List<string> CollectActiveControllers() {
         List<string> names = new List<string>();
@@ -1767,9 +759,22 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         _report.IsRunning = false;
 
         bool hasCaptured = false;
+        int realGameplay = 0;
+        int acceptancePreview = 0;
+        int formalV1Template = 0;
+
         foreach (ArtAcceptanceCaptureRecord capture in _report.Captures) {
             if (capture.Status == "captured") {
                 hasCaptured = true;
+            }
+
+            // DataSource 统计
+            if (capture.DataSource == "real_gameplay") {
+                realGameplay++;
+            } else if (capture.DataSource == "acceptance_preview") {
+                acceptancePreview++;
+            } else if (capture.DataSource == "formal_v1_template") {
+                formalV1Template++;
             }
 
             foreach (string warning in capture.Warnings) {
@@ -1784,6 +789,16 @@ public class ArtAcceptanceRunner : MonoBehaviour {
                 }
             }
         }
+
+        _report.DataSourceSummary = new ArtAcceptanceDataSourceSummary {
+            RealGameplay = realGameplay,
+            AcceptancePreview = acceptancePreview,
+            FormalV1Template = formalV1Template,
+            Total = _report.Captures.Count
+        };
+
+        // 查找上一次 RunID
+        _report.PreviousRunID = ResolvePreviousRunID();
 
         if (!hasCaptured) {
             AddError("No screenshots were captured.");
@@ -1804,14 +819,148 @@ public class ArtAcceptanceRunner : MonoBehaviour {
         File.WriteAllText(Path.Combine(_outputRoot, "ui_snapshot.json"), JsonUtility.ToJson(_uiSnapshot, true));
         File.WriteAllText(Path.Combine(_outputRoot, "registry_snapshot.json"), JsonUtility.ToJson(_registrySnapshot, true));
         File.WriteAllText(Path.Combine(_outputRoot, "notes.txt"), BuildNotesText());
+
+        // 自动生成验收清单
+        try {
+            string checklist = BuildAcceptanceChecklist();
+            File.WriteAllText(Path.Combine(_outputRoot, "acceptance_checklist.md"), checklist);
+            Debug.Log("[ArtAcceptance] acceptance_checklist.md written.");
+        } catch (Exception ex) {
+            Debug.LogWarning($"[ArtAcceptance] Failed to write acceptance_checklist.md: {ex.Message}");
+        }
+
+        // History 留档：将 latest/ 完整拷贝到 history/<RunID>/
+        try {
+            ArchiveToHistory();
+        } catch (Exception ex) {
+            Debug.LogWarning($"[ArtAcceptance] Failed to archive to history: {ex.Message}");
+        }
     }
 
     private string BuildNotesText() {
         return "ArtAcceptance latest output is overwritten on each run.\n" +
                "Trigger: UnityClient/Logs/.art_acceptance_trigger = RUN_ART_ACCEPTANCE\n" +
                $"RunID: {_runID}\n" +
-               $"Status: {_report.Status}\n";
+               $"Status: {_report.Status}\n" +
+               $"PreviousRunID: {(_report.PreviousRunID ?? "none")}\n";
     }
+
+    // ──────────────────────────────────────────
+    // History 留档
+    // ──────────────────────────────────────────
+
+    private void ArchiveToHistory() {
+        string logsRoot = Path.GetFullPath(Path.Combine(Application.dataPath, "../Logs"));
+        string historyRoot = Path.Combine(logsRoot, "ArtAcceptance", "history", _runID);
+
+        if (Directory.Exists(historyRoot)) {
+            Directory.Delete(historyRoot, true);
+        }
+
+        CopyDirectoryRecursive(_outputRoot, historyRoot);
+        Debug.Log($"[ArtAcceptance] Archived to history: {historyRoot}");
+    }
+
+    private void CopyDirectoryRecursive(string sourceDir, string destDir) {
+        Directory.CreateDirectory(destDir);
+
+        foreach (string file in Directory.GetFiles(sourceDir)) {
+            string destFile = Path.Combine(destDir, Path.GetFileName(file));
+            File.Copy(file, destFile, true);
+        }
+
+        foreach (string subDir in Directory.GetDirectories(sourceDir)) {
+            string destSubDir = Path.Combine(destDir, Path.GetFileName(subDir));
+            CopyDirectoryRecursive(subDir, destSubDir);
+        }
+    }
+
+    private string ResolvePreviousRunID() {
+        string logsRoot = Path.GetFullPath(Path.Combine(Application.dataPath, "../Logs"));
+        string historyRoot = Path.Combine(logsRoot, "ArtAcceptance", "history");
+
+        if (!Directory.Exists(historyRoot)) {
+            return null;
+        }
+
+        string[] dirs = Directory.GetDirectories(historyRoot);
+        if (dirs.Length == 0) {
+            return null;
+        }
+
+        // RunID 格式 yyyyMMdd_HHmmss，按字符串排序即可按时间排序
+        System.Array.Sort(dirs, StringComparer.Ordinal);
+
+        // 最新的历史 RunID (排除当前)
+        for (int i = dirs.Length - 1; i >= 0; i--) {
+            string dirName = Path.GetFileName(dirs[i]);
+            if (dirName != _runID) {
+                return dirName;
+            }
+        }
+
+        return null;
+    }
+
+    // ──────────────────────────────────────────
+    // 验收清单自动生成
+    // ──────────────────────────────────────────
+
+    private string BuildAcceptanceChecklist() {
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        sb.AppendLine("# 美术验收清单 (自动生成)");
+        sb.AppendLine();
+        sb.AppendLine($"> **RunID:** {_runID}");
+        sb.AppendLine($"> **Status:** {_report.Status}");
+        sb.AppendLine($"> **Time:** {_report.StartedAt} → {_report.FinishedAt}");
+        if (!string.IsNullOrEmpty(_report.PreviousRunID)) {
+            sb.AppendLine($"> **PreviousRunID:** {_report.PreviousRunID}");
+        }
+        sb.AppendLine();
+
+        // DataSource 统计
+        sb.AppendLine("## 数据来源统计");
+        sb.AppendLine();
+        sb.AppendLine($"| 类别 | 数量 |");
+        sb.AppendLine($"|---|---|");
+        sb.AppendLine($"| 真实游戏流 (real_gameplay) | {_report.DataSourceSummary.RealGameplay} |");
+        sb.AppendLine($"| 验收构造数据 (acceptance_preview) | {_report.DataSourceSummary.AcceptancePreview} |");
+        sb.AppendLine($"| V1 模板面板 (formal_v1_template) | {_report.DataSourceSummary.FormalV1Template} |");
+        sb.AppendLine($"| **合计** | **{_report.DataSourceSummary.Total}** |");
+        sb.AppendLine();
+
+        // 逐截图点清单
+        sb.AppendLine("## 截图点清单");
+        sb.AppendLine();
+        sb.AppendLine("| # | ScreenTag | Status | DataSource | Errors | Warnings | 美术验收结论 |");
+        sb.AppendLine("|---|---|---|---|---|---|---|");
+
+        foreach (ArtAcceptanceCaptureRecord capture in _report.Captures) {
+            string statusIcon = capture.Status == "captured" ? "✅" : (capture.Status == "skipped" ? "⏭️" : "❌");
+            sb.AppendLine($"| {capture.Index} | `{capture.ScreenTag}` | {statusIcon} {capture.Status} | {capture.DataSource} | {capture.Errors.Count} | {capture.Warnings.Count} | _待填写_ |");
+        }
+
+        sb.AppendLine();
+
+        // 全局 Errors
+        if (_report.Errors.Count > 0) {
+            sb.AppendLine("## 全局 Errors");
+            sb.AppendLine();
+            foreach (string error in _report.Errors) {
+                sb.AppendLine($"- ❌ {error}");
+            }
+            sb.AppendLine();
+        }
+
+        sb.AppendLine("---");
+        sb.AppendLine("*本文件由 ArtAcceptanceRunner 自动生成。美术侧在「美术验收结论」列填写验收判定即可。*");
+
+        return sb.ToString();
+    }
+
+    // ──────────────────────────────────────────
+    // 通用 helpers
+    // ──────────────────────────────────────────
 
     private void AddWarning(string message) {
         if (!string.IsNullOrEmpty(message) && !_report.Warnings.Contains(message)) {
