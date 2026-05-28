@@ -423,11 +423,29 @@ public class GameFlowController : MonoBehaviour {
         if (settlementCtrl != null) {
             settlementPanel.SetActive(true);
             settlementPanel.transform.SetAsLastSibling();
-            settlementCtrl.Present(result, EnterWorkshop);
+            CombatOutcomeReport combatReport = TryGetDefeatCombatOutcomeForSettlement(result);
+            if (combatReport != null) {
+                settlementCtrl.Present(combatReport, EnterWorkshop);
+            } else {
+                settlementCtrl.Present(result, EnterWorkshop);
+            }
         } else {
             Debug.LogWarning("[GameFlow] SettlementPanel missing. Falling back to Workshop without UI interaction.");
             EnterWorkshop();
         }
+    }
+
+    private CombatOutcomeReport TryGetDefeatCombatOutcomeForSettlement(DungeonSettlementResult result) {
+        if (result == null || result.IsVictory) {
+            return null;
+        }
+
+        CombatOutcomeReport report = GameRoot.Core?.Combat?.LastOutcomeReport;
+        if (report == null || report.OutcomeType != CombatOutcomeType.Defeat) {
+            return null;
+        }
+
+        return report;
     }
 
     private void SyncInventoryItemUI() {

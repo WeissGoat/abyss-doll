@@ -14,6 +14,7 @@ public static class CombatOutcomeReportSmokeTest {
         TestHpDefeatOutcomeReport();
         TestSanCollapseOutcomeReport();
         TestSettlementUIConsumesCombatOutcomeReport();
+        TestGameFlowSettlementUsesCombatOutcomeReportForDefeat();
 
         Debug.Log("=== Combat Outcome Report Smoke Test Finished ===");
     }
@@ -240,5 +241,65 @@ public static class CombatOutcomeReportSmokeTest {
     private static string CollectText(GameObject root) {
         Text[] texts = root.GetComponentsInChildren<Text>(true);
         return string.Join("\n", texts.Select(text => text != null ? text.text : string.Empty));
+    }
+
+    private static void TestGameFlowSettlementUsesCombatOutcomeReportForDefeat() {
+        CoreBackend core = BootstrapCore();
+        core.CurrentPlayer.ActiveDoll.Status.SAN_Current = 0;
+        core.Combat.StartCombat(new List<string> { "mob_scavenger_bug" });
+        CombatOutcomeReport report = core.Combat.LastOutcomeReport;
+        if (report == null || report.OutcomeType != CombatOutcomeType.Defeat) {
+            Debug.LogError($"Combat Outcome GameFlow Settlement Binding FAILED. Missing defeat report. Type={report?.OutcomeType}");
+            return;
+        }
+
+        GameObject canvasObj = CreateCanvas();
+        GameObject flowObj = new GameObject("CombatOutcomeGameFlowBindingTestFlow");
+        GameObject settlementObj = new GameObject("CombatOutcomeGameFlowBindingTestSettlementPanel");
+        settlementObj.transform.SetParent(canvasObj.transform, false);
+        settlementObj.AddComponent<RectTransform>();
+        SettlementUIController settlement = settlementObj.AddComponent<SettlementUIController>();
+        settlement.titleText = CreateText(settlementObj.transform, "TitleText");
+        settlement.summaryText = CreateText(settlementObj.transform, "SummaryText");
+        settlement.lootText = CreateText(settlementObj.transform, "LootText");
+        settlement.continueBtn = CreateButton(settlementObj.transform, "ContinueButton");
+        settlementObj.SetActive(false);
+
+        try {
+            GameFlowController flow = flowObj.AddComponent<GameFlowController>();
+            flow.settlementPanel = settlementObj;
+
+            MethodInfo enterSettlementMethod = typeof(GameFlowController).GetMethod(
+                "OnEnterSettlementScreen",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            if (enterSettlementMethod == null) {
+                Debug.LogError("Combat Outcome GameFlow Settlement Binding FAILED. OnEnterSettlementScreen missing.");
+                return;
+            }
+
+            DungeonSettlementResult dungeonResult = new DungeonSettlementResult {
+                IsVictory = false,
+                LostCount = 1,
+                LostEstimatedValue = 10,
+                StashCountAfterSettlement = 0
+            };
+
+            enterSettlementMethod.Invoke(flow, new object[] { dungeonResult });
+            string allText = CollectText(canvasObj);
+            bool passed = allText.Contains(report.Title)
+                && allText.Contains(report.Summary)
+                && allText.Contains(report.ActiveDollName)
+                && report.TimelineEvents.Count > 0
+                && allText.Contains(report.TimelineEvents[report.TimelineEvents.Count - 1].Title);
+
+            if (passed) {
+                Debug.Log("Combat Outcome GameFlow Settlement Binding PASSED.");
+            } else {
+                Debug.LogError($"Combat Outcome GameFlow Settlement Binding FAILED. Text={allText}");
+            }
+        } finally {
+            Object.DestroyImmediate(flowObj);
+            Object.DestroyImmediate(canvasObj);
+        }
     }
 }
