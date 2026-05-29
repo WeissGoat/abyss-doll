@@ -174,41 +174,117 @@ public partial class ArtAcceptanceRunner {
 
     private IEnumerator CaptureSafeRoom() {
         Debug.Log("[ArtAcceptance] Capturing safe_room...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture("safe_room", "screenshots/safe_room.png", "acceptance_preview");
 
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
-            CompleteSkipped(capture);
+        bool coreReady = _runtimeCoreReady ||
+            (GameRoot.Core != null && GameRoot.Core.CurrentPlayer != null && GameRoot.Core.CurrentPlayer.ActiveDoll != null);
+        bool flowReady = GameFlowController.Instance != null;
+
+        if (!coreReady || !flowReady) {
+            ArtAcceptanceCaptureRecord skipCapture = BeginCapture("safe_room", "screenshots/safe_room.png", "acceptance_preview");
+            if (!coreReady) {
+                skipCapture.Errors.Add($"Runtime core is missing. {BuildRuntimeReadinessSummary()}");
+                AddError("Capture [safe_room] requires runtime core.");
+            }
+            if (!flowReady) {
+                skipCapture.Errors.Add("GameFlowController.Instance is missing.");
+                AddError("Capture [safe_room] requires GameFlowController.");
+            }
+            CompleteSkipped(skipCapture);
             yield break;
         }
 
-        SafeRoomNode node = new SafeRoomNode {
-            NodeID = "art_acceptance_safe_room_preview"
-        };
+        // 从已生成的真实地图中查找 SafeRoomNode
+        SafeRoomNode realSafeRoom = FindNodeInCurrentLayer<SafeRoomNode>();
 
-        GameFlowController.Instance.EnterSafeRoom(node);
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
+        if (realSafeRoom != null) {
+            ArtAcceptanceCaptureRecord capture = BeginCapture("safe_room", "screenshots/safe_room.png", "real_gameplay");
+            Debug.Log($"[ArtAcceptance] safe_room: Found real SafeRoomNode '{realSafeRoom.NodeID}' from generated map.");
+            GameFlowController.Instance.EnterSafeRoom(realSafeRoom);
+            yield return WaitForVisualStable();
+            yield return CaptureCurrentScreen(capture);
+        } else {
+            // 降级：地图中未生成 SafeRoomNode（配置中缺少），使用预览构造体
+            ArtAcceptanceCaptureRecord capture = BeginCapture("safe_room", "screenshots/safe_room.png", "acceptance_preview");
+            Debug.Log("[ArtAcceptance] safe_room: No SafeRoomNode in generated map, falling back to preview node.");
+            SafeRoomNode fallbackNode = new SafeRoomNode {
+                NodeID = "art_acceptance_safe_room_preview"
+            };
+            GameFlowController.Instance.EnterSafeRoom(fallbackNode);
+            yield return WaitForVisualStable();
+            yield return CaptureCurrentScreen(capture);
+        }
     }
 
     private IEnumerator CaptureStairsRoom() {
         Debug.Log("[ArtAcceptance] Capturing stairs_room...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture("stairs_room", "screenshots/stairs_room.png", "acceptance_preview");
 
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture) || !RequireDungeon(capture)) {
-            CompleteSkipped(capture);
+        bool coreReady = _runtimeCoreReady ||
+            (GameRoot.Core != null && GameRoot.Core.CurrentPlayer != null && GameRoot.Core.CurrentPlayer.ActiveDoll != null);
+        bool flowReady = GameFlowController.Instance != null;
+
+        if (!coreReady || !flowReady) {
+            ArtAcceptanceCaptureRecord skipCapture = BeginCapture("stairs_room", "screenshots/stairs_room.png", "acceptance_preview");
+            if (!coreReady) {
+                skipCapture.Errors.Add($"Runtime core is missing. {BuildRuntimeReadinessSummary()}");
+                AddError("Capture [stairs_room] requires runtime core.");
+            }
+            if (!flowReady) {
+                skipCapture.Errors.Add("GameFlowController.Instance is missing.");
+                AddError("Capture [stairs_room] requires GameFlowController.");
+            }
+            CompleteSkipped(skipCapture);
             yield break;
         }
 
         EnsureAcceptanceDungeonLayer();
-        int layerID = GameRoot.Core?.Dungeon?.CurrentLayer?.LayerID ?? ResolveAcceptanceLayerID();
-        StairsNode node = new StairsNode {
-            NodeID = "art_acceptance_stairs_room_preview",
-            LayerID = Mathf.Max(1, layerID)
-        };
 
-        GameFlowController.Instance.EnterStairs(node);
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
+        // 从已生成的真实地图中查找 StairsNode
+        StairsNode realStairs = FindNodeInCurrentLayer<StairsNode>();
+
+        if (realStairs != null) {
+            ArtAcceptanceCaptureRecord capture = BeginCapture("stairs_room", "screenshots/stairs_room.png", "real_gameplay");
+            Debug.Log($"[ArtAcceptance] stairs_room: Found real StairsNode '{realStairs.NodeID}' from generated map.");
+            GameFlowController.Instance.EnterStairs(realStairs);
+            yield return WaitForVisualStable();
+            yield return CaptureCurrentScreen(capture);
+        } else {
+            // 降级：地图中未生成 StairsNode，使用预览构造体
+            ArtAcceptanceCaptureRecord capture = BeginCapture("stairs_room", "screenshots/stairs_room.png", "acceptance_preview");
+            Debug.Log("[ArtAcceptance] stairs_room: No StairsNode in generated map, falling back to preview node.");
+            int layerID = GameRoot.Core?.Dungeon?.CurrentLayer?.LayerID ?? ResolveAcceptanceLayerID();
+            StairsNode fallbackNode = new StairsNode {
+                NodeID = "art_acceptance_stairs_room_preview",
+                LayerID = Mathf.Max(1, layerID)
+            };
+            GameFlowController.Instance.EnterStairs(fallbackNode);
+            yield return WaitForVisualStable();
+            yield return CaptureCurrentScreen(capture);
+        }
+    }
+
+    /// <summary>
+    /// 从当前已生成的地图中查找指定类型的节点。
+    /// 遍历 CurrentLayer.NodeRows 所有行中的所有节点。
+    /// </summary>
+    private T FindNodeInCurrentLayer<T>() where T : NodeBase {
+        DungeonLayer layer = GameRoot.Core?.Dungeon?.CurrentLayer;
+        if (layer?.NodeRows == null) {
+            return null;
+        }
+
+        foreach (List<NodeBase> row in layer.NodeRows) {
+            if (row == null) {
+                continue;
+            }
+
+            foreach (NodeBase node in row) {
+                if (node is T typedNode) {
+                    return typedNode;
+                }
+            }
+        }
+
+        return null;
     }
 
     private IEnumerator CaptureInventoryLoot() {
