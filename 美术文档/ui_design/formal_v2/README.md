@@ -35,6 +35,7 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 3. 每个界面先完成详细方案，再按确认顺序迁移到 active。
 4. Formal V2 的核心目标是重建玩家流程、主次行动、场景隐喻和信息层级，不是简单换按钮皮肤。
 5. Formal V2 允许继续复用已稳定 VisualID；新增 VisualID 必须等 active 更新后再进入 Manifest。
+6. Figma、Unity MCP 或额外自动化工具只作为设计 / 验收辅助；任何正式接入口仍必须回到 active `screen_layouts.json`、Manifest 和 ArtAcceptance。
 
 ## 文件职责
 
@@ -46,6 +47,18 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 | `03_inventory_loot_v2.md` | 战利品清点界面审查入口，按确认顺序扩展为完整方案。 |
 | `04_dungeon_map_v2.md` | 深渊地图界面审查入口，按确认顺序扩展为完整方案。 |
 | `05_settlement_v2.md` | 结算界面审查入口，按确认顺序扩展为完整方案。 |
+
+## 当前完成度
+
+截至 2026-05-31，V2-A 五个核心界面都已补齐可评审草案：
+
+| ScreenID | 草案状态 | 当前建议 |
+|---|---|---|
+| `workshop_main` | 已完成详细草案 | 优先给用户确认。 |
+| `combat_hud` | 已完成详细草案 | 工坊确认后审。 |
+| `inventory_loot` | 已完成详细草案 | 和战斗 / 战后流程一起审。 |
+| `dungeon_map` | 已完成详细草案 | 和 P2 地图节奏一起审。 |
+| `settlement` | 已完成详细草案 | 和 CombatOutcomeReport / 账本流一起审。 |
 
 ## 设计确认顺序
 

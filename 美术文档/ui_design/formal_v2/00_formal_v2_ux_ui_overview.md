@@ -334,9 +334,35 @@ Formal V2 的运行时验收不只看技术项，还要新增 UX 检查：
 
 ---
 
-## 10. 当前下一步
+## 10. 工具策略
 
-1. 先由美术侧编写 `01_workshop_main_v2.md`。
-2. 用户确认工坊 Hub 方案后，再决定是否画线框图或直接写 active。
-3. 工坊确认后，依次推进 `combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。
-4. V2-A 五个界面方案全部确认后，再统一评估程序迁移批次。
+Formal V2 的重点是先把玩家目标、信息层级和主行动设计清楚。工具可以提高评审和验收质量，但不应成为当前设计确认的前置阻塞。
+
+| 工具 | 当前建议 | 适合解决的问题 | 不作为前置的原因 |
+|---|---|---|---|
+| Figma | V2-A 结构确认后再接入 | 线框图、组件库、交互标注、开发切图参考 | 现在核心问题是信息架构和流程，不是高保真稿不足。 |
+| Unity MCP / Editor 自动化 | 程序侧稳定后评估 | 自动打开场景、运行截图、读取层级、做布局回归 | 当前已有 ArtAcceptance 工具，先不要并行两套验收入口。 |
+| 截图标注工具 | 立即可用，轻量推进 | 在 ArtAcceptance 截图上标注按钮堆叠、文本压边、主行动不清 | 不要求额外工程接入，适合美术验收。 |
+| PlayMode 布局扫描 | 跟随程序迭代 | 检查文字溢出、重叠、射线遮挡、格子尺寸 | 需要程序侧配合暴露快照字段。 |
+
+分阶段策略：
+
+1. **当前阶段：文档线框。** 先用 `formal_v2/*.md` 确认结构，不修改 active。
+2. **结构确认后：轻量视觉线框。** 可用 Figma 或静态图片把 5 个核心界面做低保真线框，输出给程序和美术共同确认。
+3. **active 迁移时：Unity 验收。** 继续以 `Validate-UIDesign.ps1`、ArtAcceptance 和截图人工验收为准。
+4. **Formal V2 第一批接入后：评估 Unity MCP。** 如果重复截图、层级检查、文本溢出检查耗时明显，再让程序接入 Unity MCP 或增强 Editor 自动化。
+
+工具接入原则：
+
+* Figma 稿只能作为设计参考，不能替代 active `screen_layouts.json`。
+* Unity MCP / 自动化截图只能作为验收工具，不能替代美术人工判断。
+* 任何工具输出都要回写到 `screen_layouts.json`、Manifest、验收记录或状态页，不能只留在外部工具里。
+
+---
+
+## 11. 当前下一步
+
+1. 用户先审 `01_workshop_main_v2.md`，确认工坊 Hub 空间结构和主行动降级策略。
+2. 依次审 `02_combat_hud_v2.md`、`03_inventory_loot_v2.md`、`04_dungeon_map_v2.md`、`05_settlement_v2.md`。
+3. 五个界面都确认后，决定是否先画低保真线框，或直接逐界面迁移 active `screen_layouts.json`。
+4. active 迁移后再补 seed、Manifest、Prompt、Spec 和程序交接清单。

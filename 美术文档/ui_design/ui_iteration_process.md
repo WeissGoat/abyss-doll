@@ -244,3 +244,16 @@ Formal V2 正在 draft 设计层重审核心 UX/UI
 3. active 更新后再补 seed、Manifest、Prompt、Spec、Approved 和可接入素材清单。
 4. 程序侧在 active 更新前继续以 Formal V1 `screen_layouts.json` 为准，不按 `formal_v2/*.md` 接入。
 5. Formal V2 核心结构稳定后，再进入 Visual V2 / Motion V1 等表现增强批次。
+
+截至 2026-05-31，V2-A 五个核心界面已有可评审草案。下一步不是直接改 active，而是按顺序确认：
+
+```text
+workshop_main
+  -> combat_hud
+  -> inventory_loot
+  -> dungeon_map
+  -> settlement
+  -> decide wireframe or active migration
+```
+
+Figma、Unity MCP、截图标注和 PlayMode 布局扫描都属于辅助工具。它们可以提高设计评审和运行时验收效率，但不能替代 active `screen_layouts.json`、Manifest、程序交接清单和 ArtAcceptance 记录。

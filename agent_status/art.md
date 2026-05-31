@@ -24,7 +24,7 @@ related:
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/README.md
   - 知识库/views/art.md
-last_verified: 2026-05-29
+last_verified: 2026-05-31
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
 
@@ -32,7 +32,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 最后更新
 
-2026-05-29
+2026-05-31
 
 ## 当前关注
 
@@ -41,6 +41,8 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 PM 版本节点中，美术线当前 21 个界面都已具备 Formal V1 active 规格。美术侧已主动触发 latest ArtAcceptance `20260527_002436`，工具层 21/21 captured、`PASSED`、Registry 191、MissingRequiredVisualIDs=0、UI snapshot risks=0；latest 程序交接清单为 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=0`。本轮人工验收结论是“资源接入通过、画面不完全通过”：`combat_hud`、`dungeon_map`、`safe_room`、`stairs_room`、`sell_panel`、`prosthetic_panel` 需要程序侧清理截图状态或补有效展示数据后重跑；其余界面多为通过或条件通过，后续继续 Visual V2 同名替换。
 
 当前新增重点是 Formal V2 UX/UI 重构。Formal V1 证明了功能区域、VisualID 和截图链路可运行，但整体体验仍偏按钮菜单 / debug 面板。Formal V2 先作为 draft 设计层推进，不修改 active `screen_layouts.json`，不触发素材生成，也不要求程序接入；V2-A 优先重审 `workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement` 五个核心主流程界面。
+
+截至 2026-05-31，V2-A 五个核心界面已全部补齐可评审草案：`workshop_main` 定义工坊 Hub、深渊入口主行动、工作台、魔偶维护舱和市场账本；`combat_hud` 定义战斗舞台、敌方实体、背包指令区和回合决策层级；`inventory_loot` 定义撤离清点台、容量压力和确认带出主行动；`dungeon_map` 定义路线图主视觉、节点详情和进入节点主行动；`settlement` 定义报告式结算、收益损失、状态变化和下一步主行动。Figma、Unity MCP、截图标注和 PlayMode 布局扫描已写入 Formal V2 工具策略：当前不作为前置阻塞，结构确认后再评估接入。
 
 美术侧已把“可接入覆盖”、“缺图生成”和“视觉质量替换”拆开：`可接入素材清单.md` 给程序看，`缺图生成计划.md` 给美术侧执行 `generate_needed` 新素材跑图，`素材质量替换清单.md` 给美术侧执行 local_v0 / placeholder 同名替换。当前 `generate_needed=0`，质量清单为 `technical_fix=0`、`visual_v2_replace=121`，表示没有必须先修的技术风险；历史本地生成 Approved 已统一补标 `QualityTier=local_v0`，这些素材不阻塞程序接入，后续按 Visual V2 同名替换。
 
@@ -193,11 +195,13 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 - 已主动触发并验收程序接入后的 latest ArtAcceptance：RunID=`20260527_002436`，21/21 截图、`PASSED`、Registry EntryCount=191、MissingRequiredVisualIDs=0、UI snapshot risks=0；已刷新 Formal V1 验收队列和程序交接清单，当前 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=0`。
 - 已把本轮人工验收写入 `美术文档/09_运行时美术验收记录.md`：`inventory_loot`、`settlement` 通过；`layer_select`、`maintenance_panel`、`daily_bill_report`、`business_settlement`、`chassis_upgrade_panel`、`doll_interaction`、`doll_room`、`order_board`、`rumor_board`、`faction_shop`、`scenario_event`、`shop_staging`、`workshop_main` 条件通过；`combat_hud`、`dungeon_map`、`safe_room`、`stairs_room`、`sell_panel`、`prosthetic_panel` 不通过，需程序侧返修截图状态或补有效列表数据后重跑。
 - 已建立 Formal V2 UX/UI 重构设计层：新增 `美术文档/ui_design/formal_v2/README.md`、`00_formal_v2_ux_ui_overview.md` 和 V2-A 五个核心界面设计入口，明确 Formal V2 先解决按钮堆叠、主次行动不清、场景隐喻不足和正式感不足。
+- 已将 V2-A 五个核心界面从入口占位推进为可评审草案：`01_workshop_main_v2.md`、`02_combat_hud_v2.md`、`03_inventory_loot_v2.md`、`04_dungeon_map_v2.md`、`05_settlement_v2.md` 均已覆盖 Formal V1 问题、玩家目标、主结构、信息层级、行动层级、程序迁移、素材变化和 UX 验收标准。
+- 已在 Formal V2 总方案补充工具策略：Figma、Unity MCP、截图标注和 PlayMode 布局扫描只作为设计 / 验收辅助，不替代 active `screen_layouts.json`、Manifest、程序交接清单和 ArtAcceptance。
 
 ## 下一步建议
 
-1. 先编写 `workshop_main` Formal V2 详细方案，提交给用户确认工坊 Hub、空间入口、主行动和按钮降级策略。
-2. 依次补 `combat_hud`、`inventory_loot`、`dungeon_map`、`settlement` Formal V2 详细方案；每个界面确认后再进入 active 迁移。
+1. 先让用户审 `workshop_main` Formal V2 方案，确认工坊 Hub 空间骨架、深渊入口主行动、功能入口降级和是否需要低保真线框。
+2. 再依次审 `combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`；五个界面确认后，再决定逐界面迁移 active 还是先补 Figma / 静态线框。
 3. 程序侧在 Formal V2 active 更新前继续按 Formal V1 `screen_layouts.json` 工作；不要按 `formal_v2/*.md` 草案接入 Unity。
 4. 程序侧仍可并行返修 Formal V1 ArtAcceptance 截图状态：`combat_hud`、`dungeon_map`、`safe_room`、`stairs_room` 清理叠层；`sell_panel` 和 `prosthetic_panel` 补有效列表 / 配方行。
 5. 美术侧按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_visual_v2_20260526_04` 继续串行替换 121 个 local_v0 素材；每次只请求 1 张图，图间隔 1 秒，替换仍走 `PreserveStatus -> CandidateBatchID -> QualityTier=formal_ai_v2` 流程，并保持同 VisualID、同 Approved 路径、同 Unity `.meta` / GUID。
