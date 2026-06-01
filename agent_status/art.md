@@ -44,7 +44,7 @@ PM 版本节点中，美术线当前 21 个界面都已具备 Formal V1 active �
 
 截至 2026-06-01，V2-A 五个核心界面已全部补齐可评审草案，并生成对应概念参考图。用户反馈后，美术侧已把 Formal V2 风格从硬核工业感调整为“温暖奇幻 + 轻蒸汽工艺 + 低信息密度”：`workshop_main` 改为以魔偶为中心的安心房间，并新增 `workshop_studio` 承接左背包、右魔偶改造椅；`inventory_loot` 改为战斗场景上叠半透明清点层，中央背包，奖励散落在背包外；`dungeon_map` 改为地图 / 节点主视觉，暂不做常驻选中节点详情；`combat_hud` 和 `settlement` 保持结构方向但降低硬核感和信息密度。概念图位于 `美术文档/ui_design/formal_v2/concepts/`，只用于结构和氛围评审，不作为 Approved 运行时素材、Manifest 条目或程序接入口。Figma、Unity MCP、截图标注和 PlayMode 布局扫描已写入 Formal V2 工具策略：当前不作为前置阻塞，结构确认后再评估接入。
 
-V2-B 七个局外功能界面也已补齐详细草案：`maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel`、`sell_panel`、`shop_staging`、`business_settlement`、`daily_bill_report`。本批次把局外功能从列表 / 按钮面板改为更正式的空间化子流程：维护是护理舱，义体是义体柜 + 改造椅，底盘是蓝图桌，出售是估价柜台，摆货是店面陈列台，营业结算是收摊小演出，每日账单是打开账本和月租压力轨。它们仍是 Formal V2 draft，用户确认并写入 active 前不作为程序接入口，也不触发素材生成。
+V2-B 七个局外功能界面也已补齐详细草案和概念参考图：`maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel`、`sell_panel`、`shop_staging`、`business_settlement`、`daily_bill_report`。本批次把局外功能从列表 / 按钮面板改为更正式的空间化子流程：维护是护理舱，义体是义体柜 + 改造椅，底盘是蓝图桌，出售是估价柜台，摆货是店面陈列台，营业结算是收摊小演出，每日账单是打开账本和月租压力轨。概念图位于 `美术文档/ui_design/formal_v2/concepts/`，只用于结构和氛围评审；它们仍是 Formal V2 draft，用户确认并写入 active 前不作为程序接入口，也不触发素材生成。
 
 美术侧已把“可接入覆盖”、“缺图生成”和“视觉质量替换”拆开：`可接入素材清单.md` 给程序看，`缺图生成计划.md` 给美术侧执行 `generate_needed` 新素材跑图，`素材质量替换清单.md` 给美术侧执行 local_v0 / placeholder 同名替换。当前 `generate_needed=0`，质量清单为 `technical_fix=0`、`visual_v2_replace=121`，表示没有必须先修的技术风险；历史本地生成 Approved 已统一补标 `QualityTier=local_v0`，这些素材不阻塞程序接入，后续按 Visual V2 同名替换。
 
@@ -203,6 +203,7 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 - 已生成 V2-A 五个核心界面概念参考图并归档到 `美术文档/ui_design/formal_v2/concepts/`：`workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。这些图只用于结构、氛围和视觉重心评审，不作为运行时素材。
 - 已按用户反馈替换 Formal V2 概念图风格和结构：`workshop_main` 改为魔偶中心安心房间，新增 `workshop_studio` 工作室参考图；`inventory_loot` 改为半透明战斗场景清点层；`dungeon_map` 改为地图 / 节点视觉中心且暂不保留常驻节点详情；`combat_hud`、`settlement` 统一降低硬核感和信息密度。
 - 已补齐 Formal V2-B 七个局外功能界面详细草案：`06_maintenance_panel_v2.md`、`07_prosthetic_panel_v2.md`、`08_chassis_upgrade_panel_v2.md`、`09_sell_panel_v2.md`、`10_shop_staging_v2.md`、`11_business_settlement_v2.md`、`12_daily_bill_report_v2.md`；并同步 `formal_v2/README.md`、`00_formal_v2_ux_ui_overview.md` 和对应 Formal V1 文档的双向关系。
+- 已生成并归档 Formal V2-B 七张局外功能概念参考图：`maintenance_panel_formal_v2_concept.png`、`prosthetic_panel_formal_v2_concept.png`、`chassis_upgrade_panel_formal_v2_concept.png`、`sell_panel_formal_v2_concept.png`、`shop_staging_formal_v2_concept.png`、`business_settlement_formal_v2_concept.png`、`daily_bill_report_formal_v2_concept.png`；这些图片仅用于设计评审，不进入 Approved、Manifest 或程序交接清单。
 
 ## 下一步建议
 
