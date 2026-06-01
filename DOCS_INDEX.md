@@ -18,11 +18,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：195
-- 已补元数据：195
+- 文档总数：196
+- 已补元数据：196
 - 缺少元数据：0
 - 事实来源文档：162
-- 关联边数：1220
+- 关联边数：1221
 - 跨职能关联：204
 
 ## 事实来源
@@ -422,12 +422,13 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [深渊阶梯房间界面 Formal V1](美术文档/ui_design/formal_v1/stairs_room_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
 | [工坊主界面 Formal V1](美术文档/ui_design/formal_v1/workshop_main_v1.md) | `art` | `draft` | `ui_design` | 2 | 完整 |
 | [Formal V2 UX/UI 重构总方案](美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md) | `art` | `draft` | `ui_design` | 15 | 完整 |
-| [Workshop Main Formal V2 方案](美术文档/ui_design/formal_v2/01_workshop_main_v2.md) | `art` | `planned` | `ui_design` | 3 | 完整 |
-| [Combat HUD Formal V2 方案](美术文档/ui_design/formal_v2/02_combat_hud_v2.md) | `art` | `planned` | `ui_design` | 3 | 完整 |
-| [Inventory Loot Formal V2 方案](美术文档/ui_design/formal_v2/03_inventory_loot_v2.md) | `art` | `planned` | `ui_design` | 3 | 完整 |
-| [Dungeon Map Formal V2 方案](美术文档/ui_design/formal_v2/04_dungeon_map_v2.md) | `art` | `planned` | `ui_design` | 3 | 完整 |
-| [Settlement Formal V2 方案](美术文档/ui_design/formal_v2/05_settlement_v2.md) | `art` | `planned` | `ui_design` | 3 | 完整 |
-| [Formal V2 UX/UI 设计层](美术文档/ui_design/formal_v2/README.md) | `art` | `draft` | `ui_design` | 13 | 完整 |
+| [Workshop Main Formal V2 方案](美术文档/ui_design/formal_v2/01_workshop_main_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Combat HUD Formal V2 方案](美术文档/ui_design/formal_v2/02_combat_hud_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Inventory Loot Formal V2 方案](美术文档/ui_design/formal_v2/03_inventory_loot_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Dungeon Map Formal V2 方案](美术文档/ui_design/formal_v2/04_dungeon_map_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Settlement Formal V2 方案](美术文档/ui_design/formal_v2/05_settlement_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Formal V2 UX/UI 设计层](美术文档/ui_design/formal_v2/README.md) | `art` | `draft` | `ui_design` | 14 | 完整 |
+| [Formal V2 UI 概念参考图](美术文档/ui_design/formal_v2/concepts/README.md) | `art` | `draft` | `ui_design` | 1 | 完整 |
 | [UI 交付检查清单](美术文档/ui_design/handoff_checklist.md) | `art` | `active` | `art_pipeline` | 6 | 完整 |
 | [UI 设计迭代与版本迁移流程](美术文档/ui_design/ui_iteration_process.md) | `art` | `active` | `ui_design` | 8 | 完整 |
 | [UI 设计版本管理](美术文档/ui_design/versions/README.md) | `art` | `active` | `ui_design` | 6 | 完整 |

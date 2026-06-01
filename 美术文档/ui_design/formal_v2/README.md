@@ -16,11 +16,12 @@ related:
   - 美术文档/ui_design/formal_v2/03_inventory_loot_v2.md
   - 美术文档/ui_design/formal_v2/04_dungeon_map_v2.md
   - 美术文档/ui_design/formal_v2/05_settlement_v2.md
+  - 美术文档/ui_design/formal_v2/concepts/README.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 知识库/views/art.md
-last_verified: 2026-05-29
+last_verified: 2026-06-01
 update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档时同步本文件。
 ---
 
@@ -36,6 +37,7 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 4. Formal V2 的核心目标是重建玩家流程、主次行动、场景隐喻和信息层级，不是简单换按钮皮肤。
 5. Formal V2 允许继续复用已稳定 VisualID；新增 VisualID 必须等 active 更新后再进入 Manifest。
 6. Figma、Unity MCP 或额外自动化工具只作为设计 / 验收辅助；任何正式接入口仍必须回到 active `screen_layouts.json`、Manifest 和 ArtAcceptance。
+7. `concepts/` 只存放 Formal V2 概念参考图；这些图片不进入 Approved、Manifest 或程序接入队列。
 
 ## 文件职责
 
@@ -47,10 +49,11 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 | `03_inventory_loot_v2.md` | 战利品清点界面审查入口，按确认顺序扩展为完整方案。 |
 | `04_dungeon_map_v2.md` | 深渊地图界面审查入口，按确认顺序扩展为完整方案。 |
 | `05_settlement_v2.md` | 结算界面审查入口，按确认顺序扩展为完整方案。 |
+| `concepts/` | AI 生成的 Formal V2 概念参考图，仅用于结构、氛围和视觉重心评审。 |
 
 ## 当前完成度
 
-截至 2026-05-31，V2-A 五个核心界面都已补齐可评审草案：
+截至 2026-06-01，V2-A 五个核心界面都已补齐可评审草案，并已生成对应概念参考图：
 
 | ScreenID | 草案状态 | 当前建议 |
 |---|---|---|
