@@ -46,10 +46,12 @@ update_rule: 编写或确认 maintenance_panel Formal V2 详细方案时同步�
 
 ## 3. Formal V2 体验定位
 
-`maintenance_panel` 是“魔偶护理舱”，不是维修清单。
+`maintenance_panel` 是 `workshop_studio` 内的“维护模式页”，不是独立大场景，也不是维修清单。
 
 ```text
-魔偶维护舱
+workshop_studio
+  -> 切换到维护模式
+  -> 魔偶维护舱 / 改造椅状态
   -> 状态诊断
   -> 三个维护方案
   -> 费用 / 材料 token
@@ -58,6 +60,7 @@ update_rule: 编写或确认 maintenance_panel Formal V2 详细方案时同步�
 
 视觉目标：
 
+* 复用 `workshop_studio` 的工作室底图、魔偶改造椅和机械臂。
 * 魔偶或核心部件是中心对象。
 * 维护方案像桌上的工具和药剂，而不是按钮列表。
 * 玩家默认只需要比较当前选中的方案。
@@ -83,7 +86,7 @@ update_rule: 编写或确认 maintenance_panel Formal V2 详细方案时同步�
 
 | ZoneID | 建议位置 | 作用 |
 |---|---|---|
-| `maintenance_background` | `0,0 1920x1080` | 温暖工坊工作室背景，弱化硬工业感。 |
+| `studio_background` | `0,0 1920x1080` | 复用 `workshop_studio` 背景，维护模式只替换面板和局部器械。 |
 | `care_bay` | `180,170 620x600` | 魔偶护理舱、状态条、磨损和侵蚀可视化。 |
 | `diagnosis_board` | `850,170 520x360` | 当前风险、下潜许可、维护后预览。 |
 | `treatment_tray` | `850,560 760x210` | 三个维护方案卡：磨损修复、侵蚀净化、下潜许可检查。 |
@@ -137,9 +140,9 @@ update_rule: 编写或确认 maintenance_panel Formal V2 详细方案时同步�
 
 ## 8. 场景隐喻
 
-维护界面像一个安静的护理工作台：
+维护界面像同一个工作室里切换出的安静护理台：
 
-* 魔偶躺在暖色护理舱或坐在低矮维护椅中。
+* 魔偶继续位于 `workshop_studio` 的改造椅 / 护理位，不切换到完全不同房间。
 * 桌面上有布、黄铜工具、玻璃药剂和修补材料。
 * 侵蚀以暗色污渍、裂纹或薄雾表现。
 * 下潜许可像盖章的检查牌，而不是系统状态字段。
@@ -152,7 +155,8 @@ update_rule: 编写或确认 maintenance_panel Formal V2 详细方案时同步�
 
 ```text
 MaintenancePanel
-  MaintenanceBackground
+  StudioBackground
+  StudioModeTabs
   CareBay
   DiagnosisBoard
   TreatmentTray
@@ -178,7 +182,7 @@ MaintenancePanel
 
 | VisualID | 用法 |
 |---|---|
-| `bg_workshop_day` | 工作室背景。 |
+| `bg_workshop_studio` / `bg_workshop_day` | 工作室背景，优先复用 `workshop_studio`。 |
 | `doll_proto_0_stand` | 魔偶临时展示。 |
 | `ui_panel_main` / `ui_panel_info` | 诊断板、方案卡、费用区。 |
 | `ui_icon_wear_repair` | 磨损修复方案。 |
@@ -193,6 +197,19 @@ MaintenancePanel
 | `ui_maintenance_care_bay_frame` | 魔偶护理舱框体。 |
 | `ui_maintenance_treatment_card` | 维护方案卡皮肤。 |
 | `ui_maintenance_cost_token` | 材料 / 金币 token 底板。 |
+
+---
+
+## 10.1 概念图状态
+
+旧 `maintenance_panel_formal_v2_concept.png` 已归档到 `concepts/archive/2026-06-01_workshop_studio_and_shop_semantics/`。归档原因：画面把维护做成独立大场景，但当前方向应是 `workshop_studio` 内的可切换维护模式页。
+
+后续重新出图时，提示词必须明确：
+
+* same cozy fantasy steampunk workshop studio as the doll modification room
+* maintenance mode overlay
+* shared doll chair and shared room background
+* no separate room, no standalone clinic scene
 
 ---
 

@@ -133,7 +133,8 @@ Formal V2 的默认风格从“硬核工业 / 暗色系统面板”调整为“�
 | 下潜 | 工坊出发门 / 升降机 / 深渊入口。 |
 | 背包整理 | 工作台 / 底盘装配台。 |
 | 维护 | 魔偶维护舱。 |
-| 出售 / 市场 | 柜台 / 出货台 / 账本终端。 |
+| 出货分配 | 工坊陈列台 / 出货台 / 账本终端。 |
+| 小镇商店 / 市场 | 店铺柜台 / 商店货架 / 买卖账本。 |
 | 订单 | 公告板 / 委托板。 |
 | 传闻 | 市场行情板 / 情报纸条。 |
 | 账单 | 账本 / 月租压力栏。 |
@@ -227,8 +228,9 @@ Formal V2 的主流程组织为：
 |---|---|---|
 | 舞台型 | `combat_hud`、`doll_room`、`safe_room`、`stairs_room` | 世界 / 角色 / 房间为主，UI 控件服务当前情境。 |
 | 决策型 | `dungeon_map`、`layer_select`、`settlement`、`inventory_loot` | 中央决策对象 + 侧边详情 + 明确主行动。 |
-| 工作台型 | `maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel`、`sell_panel` | 左列表 / 中预览 / 右后果与操作。 |
-| 信息板型 | `order_board`、`rumor_board`、`daily_bill_report`、`business_settlement`、`faction_shop` | 摘要列表 + 详情 + 风险 / 奖励 / 行动。 |
+| 工作室子面板型 | `maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel` | 共用 `workshop_studio` 场景底图，在工作室内切换护理、义体和底盘面板。 |
+| 商店交易型 | `sell_panel`、`faction_shop` | 商店货架 / 柜台 + 交易详情 + 买入 / 卖出操作。 |
+| 信息板型 | `order_board`、`rumor_board`、`daily_bill_report`、`business_settlement` | 摘要列表 + 详情 + 风险 / 奖励 / 行动。 |
 
 ---
 
@@ -283,15 +285,15 @@ V2-A 通过后，才能批量迁移局外功能面板。
 
 | ScreenID | Formal V2 目标 |
 |---|---|
-| `maintenance_panel` | 魔偶维护舱工作流：状态诊断 -> 方案选择 -> 费用 / 材料 -> 执行。 |
-| `prosthetic_panel` | 义体制造工作台：配方列表 -> 义体预览 -> 材料缺口 -> 制造 / 装备。 |
-| `chassis_upgrade_panel` | 底盘升级工作台：当前 / 下一底盘对比 -> 容量变化 -> 蓝图 / 材料。 |
-| `sell_panel` | 出货柜台：可售库存 -> 渠道估值 -> 风险 / 收益 -> 出售。 |
+| `maintenance_panel` | `workshop_studio` 的维护子面板：状态诊断 -> 方案选择 -> 费用 / 材料 -> 执行。 |
+| `prosthetic_panel` | `workshop_studio` 的义体子面板：配方列表 -> 义体预览 -> 材料缺口 -> 制造 / 装备。 |
+| `chassis_upgrade_panel` | `workshop_studio` 的底盘子面板：当前 / 下一底盘对比 -> 容量变化 -> 蓝图 / 材料。 |
+| `sell_panel` | 小镇商店 / 市场交易：商店库存、玩家货物、价格反馈、买入 / 卖出。 |
 | `shop_staging` | 出货分配台：普通渠道、订单渠道、黑市渠道。 |
 | `daily_bill_report` | 账本日结：收入、支出、月租压力和未售出风险。 |
 | `business_settlement` | 营业演出：顾客流、成交反馈和进入账单。 |
 
-截至 2026-06-01，V2-B 七个局外功能界面已补齐详细草案。它们仍是 design draft，不修改 active `screen_layouts.json`，不触发素材生成，也不要求程序接入。
+截至 2026-06-01，V2-B 七个局外功能界面已补齐详细草案。根据后续语义修正，`maintenance_panel`、`prosthetic_panel` 和 `chassis_upgrade_panel` 应作为 `workshop_studio` 内可切换的不同面板或弹出窗口，而不是独立大场景；`sell_panel` 应改作小镇商店 / 市场交易界面，工坊卖出和出货分配由 `shop_staging` 承接。它们仍是 design draft，不修改 active `screen_layouts.json`，不触发素材生成，也不要求程序接入。
 
 ### V2-C：长期系统和叙事
 
@@ -401,6 +403,6 @@ Formal V2 的重点是先把玩家目标、信息层级和主行动设计清楚�
 
 1. 用户先审 `01_workshop_main_v2.md`，确认工坊 Hub 与 `workshop_studio` 的空间拆分。
 2. 依次审 V2-A 核心流程：`02_combat_hud_v2.md`、`03_inventory_loot_v2.md`、`04_dungeon_map_v2.md`、`05_settlement_v2.md`。
-3. 再审 V2-B 局外功能：`06_maintenance_panel_v2.md` 到 `12_daily_bill_report_v2.md`，重点确认工作室、柜台、营业和账本的边界。
+3. 再审 V2-B 局外功能：先确认 `workshop_studio` 内维护 / 义体 / 底盘三种子面板的切换方式，再确认 `shop_staging -> business_settlement -> daily_bill_report` 的经营链路，最后按小镇商店语义重审 `sell_panel`。
 4. 界面结构确认后，决定是否先画低保真线框，或直接逐界面迁移 active `screen_layouts.json`。
 5. active 迁移后再补 seed、Manifest、Prompt、Spec 和程序交接清单。

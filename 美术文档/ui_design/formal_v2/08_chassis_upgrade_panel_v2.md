@@ -46,10 +46,12 @@ update_rule: 编写或确认 chassis_upgrade_panel Formal V2 详细方案时同�
 
 ## 3. Formal V2 体验定位
 
-`chassis_upgrade_panel` 是“蓝图桌上的升级决策”。
+`chassis_upgrade_panel` 是 `workshop_studio` 内的“底盘 / 蓝图模式页”。
 
 ```text
-蓝图桌
+workshop_studio
+  -> 切换到底盘模式
+  -> 蓝图桌
   -> 当前底盘
   -> 下一底盘
   -> 容量 / 负载变化
@@ -59,6 +61,7 @@ update_rule: 编写或确认 chassis_upgrade_panel Formal V2 详细方案时同�
 
 视觉目标：
 
+* 复用 `workshop_studio` 的工作室底图和魔偶改造椅，只把中央工作台切换为蓝图桌。
 * 玩家一眼看到从当前底盘到下一底盘的方向。
 * 蓝图、黄铜尺、格局轮廓和材料 token 形成工程感。
 * 信息密度低，优先突出升级收益和首个阻塞项。
@@ -84,7 +87,7 @@ update_rule: 编写或确认 chassis_upgrade_panel Formal V2 详细方案时同�
 
 | ZoneID | 建议位置 | 作用 |
 |---|---|---|
-| `chassis_background` | `0,0 1920x1080` | 工作室 / 蓝图桌背景。 |
+| `studio_background` | `0,0 1920x1080` | 复用 `workshop_studio` 背景，底盘模式只替换蓝图桌和对比面板。 |
 | `blueprint_table` | `180,130 1560x820` | 主工作台。 |
 | `current_chassis_blueprint` | `260,250 520x430` | 当前底盘、容量、格局轮廓。 |
 | `upgrade_arrow_plate` | `820,330 280x220` | 升级方向、蓝图状态、首个阻塞项。 |
@@ -139,11 +142,12 @@ update_rule: 编写或确认 chassis_upgrade_panel Formal V2 详细方案时同�
 
 ## 8. 场景隐喻
 
-底盘升级界面像一张展开的工坊蓝图桌：
+底盘升级界面像同一个工作室里切换出的蓝图桌：
 
 * 当前底盘在左，下一底盘在右，中间有黄铜尺和箭头。
 * 桌面有少量材料、核心、螺丝、蓝图章。
 * 底盘格局是可读轮廓，不是可操作背包。
+* 魔偶改造椅可以保留在右后方或弱化为背景，保持与 `workshop_studio` 的空间连续性。
 * 色调保持温暖奇幻，避免冷色科幻面板。
 
 ---
@@ -154,7 +158,8 @@ update_rule: 编写或确认 chassis_upgrade_panel Formal V2 详细方案时同�
 
 ```text
 ChassisUpgradePanel
-  ChassisBackground
+  StudioBackground
+  StudioModeTabs
   BlueprintTable
   CurrentChassisBlueprint
   UpgradeArrowPlate
@@ -182,7 +187,7 @@ ChassisUpgradePanel
 
 | VisualID | 用法 |
 |---|---|
-| `bg_workshop_day` | 工作室背景。 |
+| `bg_workshop_studio` / `bg_workshop_day` | 工作室背景，优先复用 `workshop_studio`。 |
 | `ui_inventory_chassis_panel` | 底盘蓝图承托。 |
 | `chassis_*_icon` / `chassis_chassis_*` | 当前 / 下一底盘。 |
 | `ui_icon_chassis_upgrade` | 升级方向和主标题。 |
@@ -197,6 +202,20 @@ ChassisUpgradePanel
 | `ui_chassis_blueprint_table` | 蓝图桌主皮肤。 |
 | `ui_chassis_upgrade_arrow_plate` | 当前到下一底盘的箭头 / 章。 |
 | `ui_chassis_delta_strip` | 容量变化条。 |
+
+---
+
+## 10.1 概念图状态
+
+旧 `chassis_upgrade_panel_formal_v2_concept.png` 已归档到 `concepts/archive/2026-06-01_workshop_studio_and_shop_semantics/`。归档原因：画面把底盘升级做成独立蓝图大场景，但当前方向应是 `workshop_studio` 内的可切换底盘 / 蓝图模式页。
+
+后续重新出图时，提示词必须明确：
+
+* same cozy fantasy steampunk workshop studio as workshop_studio
+* chassis blueprint mode overlay
+* shared workshop background and doll modification chair
+* central blueprint table with current and next chassis
+* no separate blueprint room, no standalone engineering hall
 
 ---
 

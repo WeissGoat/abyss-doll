@@ -57,10 +57,10 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 | `03_inventory_loot_v2.md` | 战利品清点界面草案：半透明战斗场景清点层、中央背包和散落奖励。 |
 | `04_dungeon_map_v2.md` | 深渊地图界面草案：地图 / 节点视觉中心、低按钮密度和节点详情降级。 |
 | `05_settlement_v2.md` | 结算界面草案：结果报告、收益损失、状态变化和下一步行动。 |
-| `06_maintenance_panel_v2.md` | 维护整备界面草案：护理舱、诊断板、维护方案托盘和单主行动。 |
-| `07_prosthetic_panel_v2.md` | 义体制造界面草案：左义体柜、中工作托盘、右魔偶改造椅。 |
-| `08_chassis_upgrade_panel_v2.md` | 底盘升级界面草案：蓝图桌、当前 / 下一底盘对比、材料 token 和升级主行动。 |
-| `09_sell_panel_v2.md` | 即时出售界面草案：货架、估价托盘、价值账本和危险 Sell All 降级。 |
+| `06_maintenance_panel_v2.md` | `workshop_studio` 内维护子面板草案：共用工作室场景，切换护理舱、诊断板和维护方案托盘。 |
+| `07_prosthetic_panel_v2.md` | `workshop_studio` 内义体子面板草案：共用工作室场景，切换义体柜、工作托盘和魔偶改造椅。 |
+| `08_chassis_upgrade_panel_v2.md` | `workshop_studio` 内底盘子面板草案：共用工作室场景，切换蓝图桌、当前 / 下一底盘对比和材料 token。 |
+| `09_sell_panel_v2.md` | 小镇商店 / 市场交易界面草案：从出货分配中拆出，负责商店浏览、买入 / 卖出和价格反馈。 |
 | `10_shop_staging_v2.md` | 营业前摆货界面草案：店面陈列台、订单 / 黑市侧抽屉和 Start Business 主行动。 |
 | `11_business_settlement_v2.md` | 营业结算演出界面草案：顾客流、成交爆点、金币增长和进入账单。 |
 | `12_daily_bill_report_v2.md` | 每日账单界面草案：打开账本、今日结论、月租压力轨和结束当天。 |
@@ -68,7 +68,7 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 
 ## 当前完成度
 
-截至 2026-06-01，V2-A 五个核心界面都已补齐可评审草案，并已生成对应概念参考图；V2-B 七个局外功能界面已补齐可评审草案，暂未生成概念图：
+截至 2026-06-01，active UI 规格共有 21 个界面。Formal V2 已补齐 12 个界面 / 子界面的可评审草案，其中 9 张概念图仍保留在 `concepts/` 当前目录；维护、义体、底盘升级和旧 `sell_panel` 概念图已归档，等待按新语义重新出图。剩余 9 个 active 界面尚未补 Formal V2 草案。
 
 | ScreenID | 草案状态 | 当前建议 |
 |---|---|---|
@@ -77,13 +77,22 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 | `inventory_loot` | 已完成详细草案 | 和战斗 / 战后流程一起审。 |
 | `dungeon_map` | 已完成详细草案 | 和 P2 地图节奏一起审。 |
 | `settlement` | 已完成详细草案 | 和 CombatOutcomeReport / 账本流一起审。 |
-| `maintenance_panel` | 已完成详细草案 | 和 `workshop_studio` 的护理 / 整备入口一起审。 |
-| `prosthetic_panel` | 已完成详细草案 | 和 `workshop_studio` 的改造椅、义体槽位一起审。 |
-| `chassis_upgrade_panel` | 已完成详细草案 | 和底盘容量、背包格局预览规则一起审。 |
-| `sell_panel` | 已完成详细草案 | 和 `shop_staging` 区分即时出售 / 营业分配边界。 |
+| `maintenance_panel` | 已完成详细草案，需重出概念图 | 作为 `workshop_studio` 的维护子面板审，不再作为独立大场景。 |
+| `prosthetic_panel` | 已完成详细草案，需重出概念图 | 作为 `workshop_studio` 的义体子面板审，不再作为独立大场景。 |
+| `chassis_upgrade_panel` | 已完成详细草案，需重出概念图 | 作为 `workshop_studio` 的底盘子面板审，不再作为独立大场景。 |
+| `sell_panel` | 已按小镇商店语义修订，需重出概念图 | 不再负责工坊即时卖出；工坊卖出 / 出货由 `shop_staging` 承接。 |
 | `shop_staging` | 已完成详细草案 | 和 P4 经济压力的营业前摆货流程一起审。 |
 | `business_settlement` | 已完成详细草案 | 和 `daily_bill_report` 区分营业演出 / 最终账单。 |
 | `daily_bill_report` | 已完成详细草案 | 和月租 / 债务压力表现一起审。 |
+| `order_board` | 未开始 V2 草案 | V2-C。 |
+| `rumor_board` | 未开始 V2 草案 | V2-C。 |
+| `faction_shop` | 未开始 V2 草案 | V2-C。 |
+| `layer_select` | 未开始 V2 草案 | V2-C。 |
+| `safe_room` | 未开始 V2 草案 | V2-C。 |
+| `stairs_room` | 未开始 V2 草案 | V2-C。 |
+| `doll_interaction` | 未开始 V2 草案 | V2-C。 |
+| `doll_room` | 未开始 V2 草案 | V2-C。 |
+| `scenario_event` | 未开始 V2 草案 | V2-C。 |
 
 ## 设计确认顺序
 
@@ -94,7 +103,9 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 | V2-A | `inventory_loot` | 把拾取界面改为半透明战斗场景清点层，中央背包，奖励散落在背包外。 |
 | V2-A | `dungeon_map` | 把地图界面改为地图 / 节点视觉中心，只保留必要按钮，暂不做常驻节点详情。 |
 | V2-A | `settlement` | 把结算界面改为结果报告、损失收益和下一步行动。 |
-| V2-B | `maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel`、`sell_panel`、`shop_staging`、`daily_bill_report`、`business_settlement` | 把局外功能面板收敛为工坊工作台、账本、市场和制造维护子流程。 |
+| V2-B | `maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel` | 作为 `workshop_studio` 内可切换子面板或弹出窗口审，不再作为独立大场景。 |
+| V2-B | `shop_staging`、`daily_bill_report`、`business_settlement` | 把局外经营流程收敛为出货分配、营业演出和每日账本。 |
+| V2-B | `sell_panel` | 改作小镇商店 / 市场交易界面，和工坊出货分配解耦。 |
 | V2-C | `order_board`、`rumor_board`、`faction_shop`、`layer_select`、`safe_room`、`stairs_room`、`doll_interaction`、`doll_room`、`scenario_event` | 把长期系统、深渊房间和叙事界面补成正式结构。 |
 
 ## 单界面方案模板

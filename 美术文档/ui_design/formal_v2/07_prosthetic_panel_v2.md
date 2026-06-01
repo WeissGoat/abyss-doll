@@ -46,10 +46,12 @@ update_rule: 编写或确认 prosthetic_panel Formal V2 详细方案时同步本
 
 ## 3. Formal V2 体验定位
 
-`prosthetic_panel` 是“义体柜 + 改造椅”，不是配方表。
+`prosthetic_panel` 是 `workshop_studio` 内的“义体模式页”，不是独立大场景，也不是配方表。
 
 ```text
-义体柜
+workshop_studio
+  -> 切换到义体模式
+  -> 义体柜
   -> 选中一个义体
   -> 工作托盘展示材料与效果
   -> 魔偶改造椅展示槽位
@@ -58,8 +60,9 @@ update_rule: 编写或确认 prosthetic_panel Formal V2 详细方案时同步本
 
 视觉目标：
 
+* 复用 `workshop_studio` 的工作室底图、魔偶改造椅和机械臂。
 * 义体像陈列在柜子中的手工器械。
-* 魔偶坐在机械感但不冷硬的改造椅上。
+* 魔偶继续坐在同一张机械感但不冷硬的改造椅上。
 * 玩家一次只评估一个义体，减少列表噪声。
 * 蒸汽工艺只作为黄铜、玻璃、齿轮、皮革细节存在。
 
@@ -83,7 +86,7 @@ update_rule: 编写或确认 prosthetic_panel Formal V2 详细方案时同步本
 
 | ZoneID | 建议位置 | 作用 |
 |---|---|---|
-| `prosthetic_background` | `0,0 1920x1080` | 工作室背景。 |
+| `studio_background` | `0,0 1920x1080` | 复用 `workshop_studio` 背景，义体模式只替换柜体、托盘和槽位标记。 |
 | `prosthetic_cabinet` | `160,160 480x720` | 义体候选，行只显示图标、名称和状态。 |
 | `selected_prosthetic_tray` | `690,180 520x500` | 当前义体大图、槽位、功能摘要、材料。 |
 | `doll_mod_chair` | `1260,160 500x620` | 魔偶改造椅、可装备槽位和已装备提示。 |
@@ -136,11 +139,11 @@ update_rule: 编写或确认 prosthetic_panel Formal V2 详细方案时同步本
 
 ## 8. 场景隐喻
 
-义体界面像一个小型改造室：
+义体界面像同一个工作室里切换出的义体改造模式：
 
 * 左边是带玻璃门的义体柜，义体像工具或收藏物摆放。
 * 中间是木质 / 黄铜工作托盘，展示当前选中部件。
-* 右边是魔偶坐在机械改造椅上，槽位用柔和光点标注。
+* 右边沿用 `workshop_studio` 的魔偶机械改造椅，槽位用柔和光点标注。
 * 整体应有手工维修与奇幻器械感，不做科幻实验室。
 
 ---
@@ -151,7 +154,8 @@ update_rule: 编写或确认 prosthetic_panel Formal V2 详细方案时同步本
 
 ```text
 ProstheticPanel
-  ProstheticBackground
+  StudioBackground
+  StudioModeTabs
   ProstheticCabinet
   SelectedProstheticTray
   DollModChair
@@ -176,7 +180,7 @@ ProstheticPanel
 
 | VisualID | 用法 |
 |---|---|
-| `bg_workshop_day` | 工作室背景。 |
+| `bg_workshop_studio` / `bg_workshop_day` | 工作室背景，优先复用 `workshop_studio`。 |
 | `doll_proto_0_stand` | 魔偶临时展示。 |
 | `prosthetic_*_icon` | 义体候选和选中大图。 |
 | `ui_panel_main` / `ui_panel_info` | 柜子、工作托盘、槽位面板。 |
@@ -192,6 +196,20 @@ ProstheticPanel
 | `ui_prosthetic_work_tray` | 当前义体工作托盘。 |
 | `ui_doll_mod_chair_frame` | 魔偶改造椅 UI / 背景层。 |
 | `ui_prosthetic_slot_marker` | 身体槽位标记。 |
+
+---
+
+## 10.1 概念图状态
+
+旧 `prosthetic_panel_formal_v2_concept.png` 已归档到 `concepts/archive/2026-06-01_workshop_studio_and_shop_semantics/`。归档原因：画面可以保留义体柜 / 魔偶椅方向，但它表现为独立界面大场景；当前方向应是 `workshop_studio` 内的可切换义体模式页。
+
+后续重新出图时，提示词必须明确：
+
+* same cozy fantasy steampunk workshop studio as workshop_studio
+* prosthetic mode overlay
+* shared doll modification chair
+* left prosthetic cabinet, center selected part tray
+* no separate laboratory, no standalone room
 
 ---
 

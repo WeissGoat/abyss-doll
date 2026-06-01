@@ -36,10 +36,6 @@ update_rule: 新增、替换或废弃 Formal V2 概念参考图时同步本文�
 | `inventory_loot_formal_v2_concept.png` | `inventory_loot` | `03_inventory_loot_v2.md` | 半透明战斗场景清点层：中央背包，奖励散落在背包外。 |
 | `dungeon_map_formal_v2_concept.png` | `dungeon_map` | `04_dungeon_map_v2.md` | 地图和节点作为视觉中心，暂不做常驻选中节点详情。 |
 | `settlement_formal_v2_concept.png` | `settlement` | `05_settlement_v2.md` | 结算报告、收益损失、状态变化和下一步行动参考。 |
-| `maintenance_panel_formal_v2_concept.png` | `maintenance_panel` | `06_maintenance_panel_v2.md` | 护理舱、诊断板和三张维护行动卡的空间化参考。 |
-| `prosthetic_panel_formal_v2_concept.png` | `prosthetic_panel` | `07_prosthetic_panel_v2.md` | 左义体柜、中装备预览、右魔偶改造椅的结构参考。 |
-| `chassis_upgrade_panel_formal_v2_concept.png` | `chassis_upgrade_panel` | `08_chassis_upgrade_panel_v2.md` | 当前 / 下一底盘蓝图对照、材料需求和升级动作参考。 |
-| `sell_panel_formal_v2_concept.png` | `sell_panel` | `09_sell_panel_v2.md` | 库存、估价托盘、价值摘要和出售动作的柜台参考。 |
 | `shop_staging_formal_v2_concept.png` | `shop_staging` | `10_shop_staging_v2.md` | 左库存、中央陈列台、右订单 / 黑市侧箱的店面摆货参考。 |
 | `business_settlement_formal_v2_concept.png` | `business_settlement` | `11_business_settlement_v2.md` | 顾客流、成交反馈、未售出风险和进入账单动作参考。 |
 | `daily_bill_report_formal_v2_concept.png` | `daily_bill_report` | `12_daily_bill_report_v2.md` | 打开账本、收入 / 支出页和月租压力轨参考。 |
@@ -56,11 +52,21 @@ update_rule: 新增、替换或废弃 Formal V2 概念参考图时同步本文�
 
 ## 2026-06-01 V2-B 局外功能概念图
 
-本轮补齐 7 个局外功能界面的概念参考图：维护、义体、底盘升级、出售、摆货、营业结算和每日账单。
+本轮曾补齐 7 个局外功能界面的概念参考图。根据 2026-06-01 反馈，当前目录只保留可继续评审的摆货、营业结算和每日账单三张图。
 
-- 维护 / 义体 / 底盘升级与 `workshop_studio` 一起评审，重点看是否形成“照料 / 改造魔偶”的连续空间。
-- 出售 / 摆货 / 营业结算 / 每日账单与 P4 经济压力流程一起评审，重点看是否从按钮列表转为清晰的店铺经营动作。
+- 维护 / 义体 / 底盘升级不再作为独立大场景评审，改为 `workshop_studio` 内可切换的不同面板或弹出窗口，后续应围绕同一工作室底图重新出图。
+- `sell_panel` 不再表达工坊即时卖出；工坊卖出由 `shop_staging` 出货分配承接。`sell_panel` 后续改作小镇商店 / 市场交易界面，需重新设计和出图。
+- 摆货 / 营业结算 / 每日账单仍与 P4 经济压力流程一起评审，重点看是否从按钮列表转为清晰的店铺经营动作。
 - `shop_staging` 当前概念图底部有少量 AI 裁切噪声，不影响评审中央陈列台和左右功能区；若该界面进入 active 迁移，应在正式 blockout 中重新约束安全边距。
+
+## 归档文件
+
+| 文件 | 归档位置 | 原因 |
+|---|---|---|
+| `maintenance_panel_formal_v2_concept.png` | `archive/2026-06-01_workshop_studio_and_shop_semantics/` | 场景应归入 `workshop_studio` 子面板，不作为独立大场景。 |
+| `prosthetic_panel_formal_v2_concept.png` | `archive/2026-06-01_workshop_studio_and_shop_semantics/` | 场景应归入 `workshop_studio` 子面板，不作为独立大场景。 |
+| `chassis_upgrade_panel_formal_v2_concept.png` | `archive/2026-06-01_workshop_studio_and_shop_semantics/` | 场景应归入 `workshop_studio` 子面板，不作为独立大场景。 |
+| `sell_panel_formal_v2_concept.png` | `archive/2026-06-01_workshop_studio_and_shop_semantics/` | 语义错误：工坊卖出已由 `shop_staging` 承接，`sell_panel` 应改作小镇商店。 |
 
 ## 当前限制
 
