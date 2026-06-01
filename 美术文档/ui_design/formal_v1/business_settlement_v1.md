@@ -9,6 +9,7 @@ source_of_truth: true
 related:
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
+  - 美术文档/ui_design/formal_v2/11_business_settlement_v2.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 美术文档/ui_design/versions/migration_log.md
   - 设计文档/rules/04_小镇经济结算与压力链规则卡.md

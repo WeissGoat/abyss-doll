@@ -8,6 +8,7 @@ status: active
 source_of_truth: true
 related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
+  - 美术文档/ui_design/formal_v2/07_prosthetic_panel_v2.md
 last_verified: 2026-05-24
 update_rule: 修改义体制造界面正式结构或程序迁移要求时同步本文件。
 ---

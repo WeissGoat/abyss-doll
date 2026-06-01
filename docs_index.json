@@ -10,8 +10,8 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 2442,
-    "relation_edges": 1221,
+    "directed_edges": 2484,
+    "relation_edges": 1242,
     "cross_role_edges": 204,
     "role_pairs": {
       "PM <-> 全局": 12,
@@ -2041,6 +2041,7 @@
       "related": [
         "美术文档/ui_design/README.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/11_business_settlement_v2.md",
         "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
         "美术文档/ui_design/versions/migration_log.md",
         "设计文档/rules/04_小镇经济结算与压力链规则卡.md",
@@ -2050,7 +2051,7 @@
       "update_rule": "修改营业结算演出界面正式结构、资源槽位或程序迁移要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 6,
+      "relation_count": 7,
       "cross_role_relation_count": 2
     },
     {
@@ -2064,6 +2065,7 @@
       "source_of_truth": true,
       "related": [
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/08_chassis_upgrade_panel_v2.md",
         "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
         "美术文档/ui_design/versions/migration_log.md"
       ],
@@ -2071,7 +2073,7 @@
       "update_rule": "修改底盘升级界面正式结构或程序迁移要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 3,
+      "relation_count": 4,
       "cross_role_relation_count": 0
     },
     {
@@ -2106,6 +2108,7 @@
       "source_of_truth": true,
       "related": [
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/12_daily_bill_report_v2.md",
         "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
         "美术文档/ui_design/versions/migration_log.md"
       ],
@@ -2113,7 +2116,7 @@
       "update_rule": "修改每日账单报告界面正式结构或程序迁移要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 3,
+      "relation_count": 4,
       "cross_role_relation_count": 0
     },
     {
@@ -2252,6 +2255,7 @@
       "source_of_truth": true,
       "related": [
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/06_maintenance_panel_v2.md",
         "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
         "美术文档/ui_design/versions/migration_log.md"
       ],
@@ -2259,7 +2263,7 @@
       "update_rule": "修改维护整备界面正式结构或程序迁移要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 3,
+      "relation_count": 4,
       "cross_role_relation_count": 0
     },
     {
@@ -2293,13 +2297,14 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "美术文档/ui_design/formal_v1/screen_structure_review.md"
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/07_prosthetic_panel_v2.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "修改义体制造界面正式结构或程序迁移要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 1,
+      "relation_count": 2,
       "cross_role_relation_count": 0
     },
     {
@@ -2425,13 +2430,14 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "美术文档/ui_design/formal_v1/screen_structure_review.md"
+        "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/09_sell_panel_v2.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "修改出售界面正式结构或程序迁移要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 1,
+      "relation_count": 2,
       "cross_role_relation_count": 0
     },
     {
@@ -2465,6 +2471,7 @@
       "source_of_truth": true,
       "related": [
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
+        "美术文档/ui_design/formal_v2/10_shop_staging_v2.md",
         "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
         "美术文档/ui_design/versions/migration_log.md"
       ],
@@ -2472,7 +2479,7 @@
       "update_rule": "修改出货分配界面正式结构、资源槽位或程序迁移要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 3,
+      "relation_count": 4,
       "cross_role_relation_count": 0
     },
     {
@@ -2534,6 +2541,13 @@
         "美术文档/ui_design/formal_v2/03_inventory_loot_v2.md",
         "美术文档/ui_design/formal_v2/04_dungeon_map_v2.md",
         "美术文档/ui_design/formal_v2/05_settlement_v2.md",
+        "美术文档/ui_design/formal_v2/06_maintenance_panel_v2.md",
+        "美术文档/ui_design/formal_v2/07_prosthetic_panel_v2.md",
+        "美术文档/ui_design/formal_v2/08_chassis_upgrade_panel_v2.md",
+        "美术文档/ui_design/formal_v2/09_sell_panel_v2.md",
+        "美术文档/ui_design/formal_v2/10_shop_staging_v2.md",
+        "美术文档/ui_design/formal_v2/11_business_settlement_v2.md",
+        "美术文档/ui_design/formal_v2/12_daily_bill_report_v2.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
         "美术文档/09_运行时美术验收记录.md",
         "美术文档/10_正式版核心纵切美术路线.md",
@@ -2545,7 +2559,7 @@
       "update_rule": "修改 Formal V2 总目标、批次、验收门槛或 active 迁移规则时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 15,
+      "relation_count": 22,
       "cross_role_relation_count": 0
     },
     {
@@ -2654,6 +2668,153 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "美术文档/ui_design/formal_v2/06_maintenance_panel_v2.md",
+      "title": "Maintenance Panel Formal V2 方案",
+      "id": "art_ui_formal_v2_maintenance_panel",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+        "美术文档/ui_design/formal_v1/maintenance_panel_v1.md"
+      ],
+      "last_verified": "2026-06-01",
+      "update_rule": "编写或确认 maintenance_panel Formal V2 详细方案时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v2/07_prosthetic_panel_v2.md",
+      "title": "Prosthetic Panel Formal V2 方案",
+      "id": "art_ui_formal_v2_prosthetic_panel",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+        "美术文档/ui_design/formal_v1/prosthetic_panel_v1.md"
+      ],
+      "last_verified": "2026-06-01",
+      "update_rule": "编写或确认 prosthetic_panel Formal V2 详细方案时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v2/08_chassis_upgrade_panel_v2.md",
+      "title": "Chassis Upgrade Panel Formal V2 方案",
+      "id": "art_ui_formal_v2_chassis_upgrade_panel",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+        "美术文档/ui_design/formal_v1/chassis_upgrade_panel_v1.md"
+      ],
+      "last_verified": "2026-06-01",
+      "update_rule": "编写或确认 chassis_upgrade_panel Formal V2 详细方案时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v2/09_sell_panel_v2.md",
+      "title": "Sell Panel Formal V2 方案",
+      "id": "art_ui_formal_v2_sell_panel",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+        "美术文档/ui_design/formal_v1/sell_panel_v1.md"
+      ],
+      "last_verified": "2026-06-01",
+      "update_rule": "编写或确认 sell_panel Formal V2 详细方案时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v2/10_shop_staging_v2.md",
+      "title": "Shop Staging Formal V2 方案",
+      "id": "art_ui_formal_v2_shop_staging",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+        "美术文档/ui_design/formal_v1/shop_staging_v1.md"
+      ],
+      "last_verified": "2026-06-01",
+      "update_rule": "编写或确认 shop_staging Formal V2 详细方案时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v2/11_business_settlement_v2.md",
+      "title": "Business Settlement Formal V2 方案",
+      "id": "art_ui_formal_v2_business_settlement",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+        "美术文档/ui_design/formal_v1/business_settlement_v1.md"
+      ],
+      "last_verified": "2026-06-01",
+      "update_rule": "编写或确认 business_settlement Formal V2 详细方案时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v2/12_daily_bill_report_v2.md",
+      "title": "Daily Bill Report Formal V2 方案",
+      "id": "art_ui_formal_v2_daily_bill_report",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+        "美术文档/ui_design/formal_v1/daily_bill_report_v1.md"
+      ],
+      "last_verified": "2026-06-01",
+      "update_rule": "编写或确认 daily_bill_report Formal V2 详细方案时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "美术文档/ui_design/formal_v2/concepts/README.md",
       "title": "Formal V2 UI 概念参考图",
       "id": "art_ui_formal_v2_concepts",
@@ -2691,6 +2852,13 @@
         "美术文档/ui_design/formal_v2/03_inventory_loot_v2.md",
         "美术文档/ui_design/formal_v2/04_dungeon_map_v2.md",
         "美术文档/ui_design/formal_v2/05_settlement_v2.md",
+        "美术文档/ui_design/formal_v2/06_maintenance_panel_v2.md",
+        "美术文档/ui_design/formal_v2/07_prosthetic_panel_v2.md",
+        "美术文档/ui_design/formal_v2/08_chassis_upgrade_panel_v2.md",
+        "美术文档/ui_design/formal_v2/09_sell_panel_v2.md",
+        "美术文档/ui_design/formal_v2/10_shop_staging_v2.md",
+        "美术文档/ui_design/formal_v2/11_business_settlement_v2.md",
+        "美术文档/ui_design/formal_v2/12_daily_bill_report_v2.md",
         "美术文档/ui_design/formal_v2/concepts/README.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
         "美术文档/10_正式版核心纵切美术路线.md",
@@ -2701,7 +2869,7 @@
       "update_rule": "新增 Formal V2 设计批次、确认规则或界面设计文档时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 14,
+      "relation_count": 21,
       "cross_role_relation_count": 0
     },
     {

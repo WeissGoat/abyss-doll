@@ -8,6 +8,7 @@ status: active
 source_of_truth: true
 related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
+  - 美术文档/ui_design/formal_v2/10_shop_staging_v2.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 美术文档/ui_design/versions/migration_log.md
 last_verified: 2026-05-24

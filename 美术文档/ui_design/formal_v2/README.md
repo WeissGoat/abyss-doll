@@ -16,6 +16,13 @@ related:
   - 美术文档/ui_design/formal_v2/03_inventory_loot_v2.md
   - 美术文档/ui_design/formal_v2/04_dungeon_map_v2.md
   - 美术文档/ui_design/formal_v2/05_settlement_v2.md
+  - 美术文档/ui_design/formal_v2/06_maintenance_panel_v2.md
+  - 美术文档/ui_design/formal_v2/07_prosthetic_panel_v2.md
+  - 美术文档/ui_design/formal_v2/08_chassis_upgrade_panel_v2.md
+  - 美术文档/ui_design/formal_v2/09_sell_panel_v2.md
+  - 美术文档/ui_design/formal_v2/10_shop_staging_v2.md
+  - 美术文档/ui_design/formal_v2/11_business_settlement_v2.md
+  - 美术文档/ui_design/formal_v2/12_daily_bill_report_v2.md
   - 美术文档/ui_design/formal_v2/concepts/README.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/10_正式版核心纵切美术路线.md
@@ -46,15 +53,22 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 |---|---|
 | `00_formal_v2_ux_ui_overview.md` | Formal V2 总体 UX/UI 重构方案、批次、设计原则和验收门槛。 |
 | `01_workshop_main_v2.md` | 工坊主界面和工作室拆分方案：主界面是魔偶中心安心房间，工作室承接背包和改造椅。 |
-| `02_combat_hud_v2.md` | 战斗界面审查入口，按确认顺序扩展为完整方案。 |
-| `03_inventory_loot_v2.md` | 战利品清点界面审查入口，按确认顺序扩展为完整方案。 |
-| `04_dungeon_map_v2.md` | 深渊地图界面审查入口，按确认顺序扩展为完整方案。 |
-| `05_settlement_v2.md` | 结算界面审查入口，按确认顺序扩展为完整方案。 |
+| `02_combat_hud_v2.md` | 战斗界面草案：战斗舞台、底部背包指令区、敌方意图和单主行动。 |
+| `03_inventory_loot_v2.md` | 战利品清点界面草案：半透明战斗场景清点层、中央背包和散落奖励。 |
+| `04_dungeon_map_v2.md` | 深渊地图界面草案：地图 / 节点视觉中心、低按钮密度和节点详情降级。 |
+| `05_settlement_v2.md` | 结算界面草案：结果报告、收益损失、状态变化和下一步行动。 |
+| `06_maintenance_panel_v2.md` | 维护整备界面草案：护理舱、诊断板、维护方案托盘和单主行动。 |
+| `07_prosthetic_panel_v2.md` | 义体制造界面草案：左义体柜、中工作托盘、右魔偶改造椅。 |
+| `08_chassis_upgrade_panel_v2.md` | 底盘升级界面草案：蓝图桌、当前 / 下一底盘对比、材料 token 和升级主行动。 |
+| `09_sell_panel_v2.md` | 即时出售界面草案：货架、估价托盘、价值账本和危险 Sell All 降级。 |
+| `10_shop_staging_v2.md` | 营业前摆货界面草案：店面陈列台、订单 / 黑市侧抽屉和 Start Business 主行动。 |
+| `11_business_settlement_v2.md` | 营业结算演出界面草案：顾客流、成交爆点、金币增长和进入账单。 |
+| `12_daily_bill_report_v2.md` | 每日账单界面草案：打开账本、今日结论、月租压力轨和结束当天。 |
 | `concepts/` | AI 生成的 Formal V2 概念参考图，仅用于结构、氛围和视觉重心评审。 |
 
 ## 当前完成度
 
-截至 2026-06-01，V2-A 五个核心界面都已补齐可评审草案，并已生成对应概念参考图：
+截至 2026-06-01，V2-A 五个核心界面都已补齐可评审草案，并已生成对应概念参考图；V2-B 七个局外功能界面已补齐可评审草案，暂未生成概念图：
 
 | ScreenID | 草案状态 | 当前建议 |
 |---|---|---|
@@ -63,6 +77,13 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 | `inventory_loot` | 已完成详细草案 | 和战斗 / 战后流程一起审。 |
 | `dungeon_map` | 已完成详细草案 | 和 P2 地图节奏一起审。 |
 | `settlement` | 已完成详细草案 | 和 CombatOutcomeReport / 账本流一起审。 |
+| `maintenance_panel` | 已完成详细草案 | 和 `workshop_studio` 的护理 / 整备入口一起审。 |
+| `prosthetic_panel` | 已完成详细草案 | 和 `workshop_studio` 的改造椅、义体槽位一起审。 |
+| `chassis_upgrade_panel` | 已完成详细草案 | 和底盘容量、背包格局预览规则一起审。 |
+| `sell_panel` | 已完成详细草案 | 和 `shop_staging` 区分即时出售 / 营业分配边界。 |
+| `shop_staging` | 已完成详细草案 | 和 P4 经济压力的营业前摆货流程一起审。 |
+| `business_settlement` | 已完成详细草案 | 和 `daily_bill_report` 区分营业演出 / 最终账单。 |
+| `daily_bill_report` | 已完成详细草案 | 和月租 / 债务压力表现一起审。 |
 
 ## 设计确认顺序
 

@@ -18,11 +18,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：196
-- 已补元数据：196
+- 文档总数：203
+- 已补元数据：203
 - 缺少元数据：0
 - 事实来源文档：162
-- 关联边数：1221
+- 关联边数：1242
 - 跨职能关联：204
 
 ## 事实来源
@@ -399,35 +399,42 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [P1 Formal V1 UI 接入准备](美术文档/archive/12_P1_UI骨架接入准备.md) | `art` | `historical` | `ui_handoff` | 7 | 完整 |
 | [美术归档文档](美术文档/archive/README.md) | `art` | `active` | `art_archive` | 3 | 完整 |
 | [UI 设计流水线](美术文档/ui_design/README.md) | `art` | `active` | `art_pipeline` | 23 | 完整 |
-| [营业结算演出界面 Formal V1](美术文档/ui_design/formal_v1/business_settlement_v1.md) | `art` | `active` | `ui_design` | 6 | 完整 |
-| [底盘升级界面 Formal V1](美术文档/ui_design/formal_v1/chassis_upgrade_panel_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
+| [营业结算演出界面 Formal V1](美术文档/ui_design/formal_v1/business_settlement_v1.md) | `art` | `active` | `ui_design` | 7 | 完整 |
+| [底盘升级界面 Formal V1](美术文档/ui_design/formal_v1/chassis_upgrade_panel_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
 | [战斗界面 Formal V1](美术文档/ui_design/formal_v1/combat_hud_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
-| [每日账单报告界面 Formal V1](美术文档/ui_design/formal_v1/daily_bill_report_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
+| [每日账单报告界面 Formal V1](美术文档/ui_design/formal_v1/daily_bill_report_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
 | [人偶交互界面 Formal V1](美术文档/ui_design/formal_v1/doll_interaction_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
 | [人偶房间界面 Formal V1](美术文档/ui_design/formal_v1/doll_room_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
 | [深渊地图界面 Formal V1](美术文档/ui_design/formal_v1/dungeon_map_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
 | [势力商店界面 Formal V1](美术文档/ui_design/formal_v1/faction_shop_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
 | [战利品拾取界面 Formal V1](美术文档/ui_design/formal_v1/inventory_loot_v1.md) | `art` | `draft` | `ui_design` | 2 | 完整 |
 | [出发层选择界面 Formal V1](美术文档/ui_design/formal_v1/layer_select_v1.md) | `art` | `active` | `ui_design` | 1 | 完整 |
-| [机体维护整备界面 Formal V1](美术文档/ui_design/formal_v1/maintenance_panel_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
+| [机体维护整备界面 Formal V1](美术文档/ui_design/formal_v1/maintenance_panel_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
 | [势力订单板界面 Formal V1](美术文档/ui_design/formal_v1/order_board_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
-| [义体制造界面 Formal V1](美术文档/ui_design/formal_v1/prosthetic_panel_v1.md) | `art` | `active` | `ui_design` | 1 | 完整 |
+| [义体制造界面 Formal V1](美术文档/ui_design/formal_v1/prosthetic_panel_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
 | [传闻情报板界面 Formal V1](美术文档/ui_design/formal_v1/rumor_board_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
 | [深渊安全区界面 Formal V1](美术文档/ui_design/formal_v1/safe_room_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
 | [剧本事件界面 Formal V1](美术文档/ui_design/formal_v1/scenario_event_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
 | [正式版 UI 结构 V1 总览](美术文档/ui_design/formal_v1/screen_structure_review.md) | `art` | `active` | `ui_design` | 32 | 完整 |
-| [工坊出售界面 Formal V1](美术文档/ui_design/formal_v1/sell_panel_v1.md) | `art` | `active` | `ui_design` | 1 | 完整 |
+| [工坊出售界面 Formal V1](美术文档/ui_design/formal_v1/sell_panel_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
 | [结算界面 Formal V1](美术文档/ui_design/formal_v1/settlement_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
-| [出货分配界面 Formal V1](美术文档/ui_design/formal_v1/shop_staging_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
+| [出货分配界面 Formal V1](美术文档/ui_design/formal_v1/shop_staging_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
 | [深渊阶梯房间界面 Formal V1](美术文档/ui_design/formal_v1/stairs_room_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
 | [工坊主界面 Formal V1](美术文档/ui_design/formal_v1/workshop_main_v1.md) | `art` | `draft` | `ui_design` | 2 | 完整 |
-| [Formal V2 UX/UI 重构总方案](美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md) | `art` | `draft` | `ui_design` | 15 | 完整 |
+| [Formal V2 UX/UI 重构总方案](美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md) | `art` | `draft` | `ui_design` | 22 | 完整 |
 | [Workshop Main Formal V2 方案](美术文档/ui_design/formal_v2/01_workshop_main_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
 | [Combat HUD Formal V2 方案](美术文档/ui_design/formal_v2/02_combat_hud_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
 | [Inventory Loot Formal V2 方案](美术文档/ui_design/formal_v2/03_inventory_loot_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
 | [Dungeon Map Formal V2 方案](美术文档/ui_design/formal_v2/04_dungeon_map_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
 | [Settlement Formal V2 方案](美术文档/ui_design/formal_v2/05_settlement_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
-| [Formal V2 UX/UI 设计层](美术文档/ui_design/formal_v2/README.md) | `art` | `draft` | `ui_design` | 14 | 完整 |
+| [Maintenance Panel Formal V2 方案](美术文档/ui_design/formal_v2/06_maintenance_panel_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Prosthetic Panel Formal V2 方案](美术文档/ui_design/formal_v2/07_prosthetic_panel_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Chassis Upgrade Panel Formal V2 方案](美术文档/ui_design/formal_v2/08_chassis_upgrade_panel_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Sell Panel Formal V2 方案](美术文档/ui_design/formal_v2/09_sell_panel_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Shop Staging Formal V2 方案](美术文档/ui_design/formal_v2/10_shop_staging_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Business Settlement Formal V2 方案](美术文档/ui_design/formal_v2/11_business_settlement_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Daily Bill Report Formal V2 方案](美术文档/ui_design/formal_v2/12_daily_bill_report_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Formal V2 UX/UI 设计层](美术文档/ui_design/formal_v2/README.md) | `art` | `draft` | `ui_design` | 21 | 完整 |
 | [Formal V2 UI 概念参考图](美术文档/ui_design/formal_v2/concepts/README.md) | `art` | `draft` | `ui_design` | 1 | 完整 |
 | [UI 交付检查清单](美术文档/ui_design/handoff_checklist.md) | `art` | `active` | `art_pipeline` | 6 | 完整 |
 | [UI 设计迭代与版本迁移流程](美术文档/ui_design/ui_iteration_process.md) | `art` | `active` | `ui_design` | 8 | 完整 |

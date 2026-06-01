@@ -16,6 +16,13 @@ related:
   - 美术文档/ui_design/formal_v2/03_inventory_loot_v2.md
   - 美术文档/ui_design/formal_v2/04_dungeon_map_v2.md
   - 美术文档/ui_design/formal_v2/05_settlement_v2.md
+  - 美术文档/ui_design/formal_v2/06_maintenance_panel_v2.md
+  - 美术文档/ui_design/formal_v2/07_prosthetic_panel_v2.md
+  - 美术文档/ui_design/formal_v2/08_chassis_upgrade_panel_v2.md
+  - 美术文档/ui_design/formal_v2/09_sell_panel_v2.md
+  - 美术文档/ui_design/formal_v2/10_shop_staging_v2.md
+  - 美术文档/ui_design/formal_v2/11_business_settlement_v2.md
+  - 美术文档/ui_design/formal_v2/12_daily_bill_report_v2.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/09_运行时美术验收记录.md
   - 美术文档/10_正式版核心纵切美术路线.md
@@ -284,6 +291,8 @@ V2-A 通过后，才能批量迁移局外功能面板。
 | `daily_bill_report` | 账本日结：收入、支出、月租压力和未售出风险。 |
 | `business_settlement` | 营业演出：顾客流、成交反馈和进入账单。 |
 
+截至 2026-06-01，V2-B 七个局外功能界面已补齐详细草案。它们仍是 design draft，不修改 active `screen_layouts.json`，不触发素材生成，也不要求程序接入。
+
 ### V2-C：长期系统和叙事
 
 | ScreenID | Formal V2 目标 |
@@ -390,7 +399,8 @@ Formal V2 的重点是先把玩家目标、信息层级和主行动设计清楚�
 
 ## 11. 当前下一步
 
-1. 用户先审 `01_workshop_main_v2.md`，确认工坊 Hub 空间结构和主行动降级策略。
-2. 依次审 `02_combat_hud_v2.md`、`03_inventory_loot_v2.md`、`04_dungeon_map_v2.md`、`05_settlement_v2.md`。
-3. 五个界面都确认后，决定是否先画低保真线框，或直接逐界面迁移 active `screen_layouts.json`。
-4. active 迁移后再补 seed、Manifest、Prompt、Spec 和程序交接清单。
+1. 用户先审 `01_workshop_main_v2.md`，确认工坊 Hub 与 `workshop_studio` 的空间拆分。
+2. 依次审 V2-A 核心流程：`02_combat_hud_v2.md`、`03_inventory_loot_v2.md`、`04_dungeon_map_v2.md`、`05_settlement_v2.md`。
+3. 再审 V2-B 局外功能：`06_maintenance_panel_v2.md` 到 `12_daily_bill_report_v2.md`，重点确认工作室、柜台、营业和账本的边界。
+4. 界面结构确认后，决定是否先画低保真线框，或直接逐界面迁移 active `screen_layouts.json`。
+5. active 迁移后再补 seed、Manifest、Prompt、Spec 和程序交接清单。
