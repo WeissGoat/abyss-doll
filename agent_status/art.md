@@ -42,7 +42,7 @@ PM 版本节点中，美术线当前 21 个界面都已具备 Formal V1 active �
 
 当前新增重点是 Formal V2 UX/UI 重构。Formal V1 证明了功能区域、VisualID 和截图链路可运行，但整体体验仍偏按钮菜单 / debug 面板。Formal V2 先作为 draft 设计层推进，不修改 active `screen_layouts.json`，不触发素材生成，也不要求程序接入；V2-A 优先重审 `workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement` 五个核心主流程界面。
 
-截至 2026-06-01，V2-A 五个核心界面已全部补齐可评审草案，并生成对应概念参考图：`workshop_main` 定义工坊 Hub、深渊入口主行动、工作台、魔偶维护舱和市场账本；`combat_hud` 定义战斗舞台、敌方实体、背包指令区和回合决策层级；`inventory_loot` 定义撤离清点台、容量压力和确认带出主行动；`dungeon_map` 定义路线图主视觉、节点详情和进入节点主行动；`settlement` 定义报告式结算、收益损失、状态变化和下一步主行动。概念图位于 `美术文档/ui_design/formal_v2/concepts/`，只用于结构和氛围评审，不作为 Approved 运行时素材、Manifest 条目或程序接入口。Figma、Unity MCP、截图标注和 PlayMode 布局扫描已写入 Formal V2 工具策略：当前不作为前置阻塞，结构确认后再评估接入。
+截至 2026-06-01，V2-A 五个核心界面已全部补齐可评审草案，并生成对应概念参考图。用户反馈后，美术侧已把 Formal V2 风格从硬核工业感调整为“温暖奇幻 + 轻蒸汽工艺 + 低信息密度”：`workshop_main` 改为以魔偶为中心的安心房间，并新增 `workshop_studio` 承接左背包、右魔偶改造椅；`inventory_loot` 改为战斗场景上叠半透明清点层，中央背包，奖励散落在背包外；`dungeon_map` 改为地图 / 节点主视觉，暂不做常驻选中节点详情；`combat_hud` 和 `settlement` 保持结构方向但降低硬核感和信息密度。概念图位于 `美术文档/ui_design/formal_v2/concepts/`，只用于结构和氛围评审，不作为 Approved 运行时素材、Manifest 条目或程序接入口。Figma、Unity MCP、截图标注和 PlayMode 布局扫描已写入 Formal V2 工具策略：当前不作为前置阻塞，结构确认后再评估接入。
 
 美术侧已把“可接入覆盖”、“缺图生成”和“视觉质量替换”拆开：`可接入素材清单.md` 给程序看，`缺图生成计划.md` 给美术侧执行 `generate_needed` 新素材跑图，`素材质量替换清单.md` 给美术侧执行 local_v0 / placeholder 同名替换。当前 `generate_needed=0`，质量清单为 `technical_fix=0`、`visual_v2_replace=121`，表示没有必须先修的技术风险；历史本地生成 Approved 已统一补标 `QualityTier=local_v0`，这些素材不阻塞程序接入，后续按 Visual V2 同名替换。
 
@@ -199,11 +199,12 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 - 已将 V2-A 五个核心界面从入口占位推进为可评审草案：`01_workshop_main_v2.md`、`02_combat_hud_v2.md`、`03_inventory_loot_v2.md`、`04_dungeon_map_v2.md`、`05_settlement_v2.md` 均已覆盖 Formal V1 问题、玩家目标、主结构、信息层级、行动层级、程序迁移、素材变化和 UX 验收标准。
 - 已在 Formal V2 总方案补充工具策略：Figma、Unity MCP、截图标注和 PlayMode 布局扫描只作为设计 / 验收辅助，不替代 active `screen_layouts.json`、Manifest、程序交接清单和 ArtAcceptance。
 - 已生成 V2-A 五个核心界面概念参考图并归档到 `美术文档/ui_design/formal_v2/concepts/`：`workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。这些图只用于结构、氛围和视觉重心评审，不作为运行时素材。
+- 已按用户反馈替换 Formal V2 概念图风格和结构：`workshop_main` 改为魔偶中心安心房间，新增 `workshop_studio` 工作室参考图；`inventory_loot` 改为半透明战斗场景清点层；`dungeon_map` 改为地图 / 节点视觉中心且暂不保留常驻节点详情；`combat_hud`、`settlement` 统一降低硬核感和信息密度。
 
 ## 下一步建议
 
-1. 先让用户结合 `concepts/workshop_main_formal_v2_concept.png` 审 `workshop_main` Formal V2 方案，确认工坊 Hub 空间骨架、深渊入口主行动、功能入口降级和是否需要低保真线框。
-2. 再结合概念图依次审 `combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`；五个界面确认后，再决定逐界面迁移 active 还是先补 Figma / 静态线框。
+1. 先让用户结合 `concepts/workshop_main_formal_v2_concept.png` 和 `concepts/workshop_studio_formal_v2_concept.png` 审主界面拆分：主界面是否只保留安心房间和少量热点，工作室是否承接背包 / 改造椅。
+2. 再结合概念图审 `inventory_loot` 的半透明清点层和 `dungeon_map` 的地图中心结构；确认后再审 `combat_hud`、`settlement` 是否需要继续降信息密度。
 3. 程序侧在 Formal V2 active 更新前继续按 Formal V1 `screen_layouts.json` 工作；不要按 `formal_v2/*.md` 草案接入 Unity。
 4. 程序侧仍可并行返修 Formal V1 ArtAcceptance 截图状态：`combat_hud`、`dungeon_map`、`safe_room`、`stairs_room` 清理叠层；`sell_panel` 和 `prosthetic_panel` 补有效列表 / 配方行。
 5. 美术侧按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_visual_v2_20260526_04` 继续串行替换 121 个 local_v0 素材；每次只请求 1 张图，图间隔 1 秒，替换仍走 `PreserveStatus -> CandidateBatchID -> QualityTier=formal_ai_v2` 流程，并保持同 VisualID、同 Approved 路径、同 Unity `.meta` / GUID。

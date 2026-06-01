@@ -30,11 +30,22 @@ update_rule: 新增、替换或废弃 Formal V2 概念参考图时同步本文�
 
 | 文件 | 对应界面 | 对应设计文档 | 用途 |
 |---|---|---|---|
-| `workshop_main_formal_v2_concept.png` | `workshop_main` | `01_workshop_main_v2.md` | 工坊 Hub、深渊入口、工作台与侧栏功能分区参考。 |
+| `workshop_main_formal_v2_concept.png` | `workshop_main` | `01_workshop_main_v2.md` | 魔偶中心安心房间、深渊入口和少量房间热点参考。 |
+| `workshop_studio_formal_v2_concept.png` | `workshop_studio` | `01_workshop_main_v2.md` | 工作室子界面参考：左侧背包，右侧魔偶坐在机械改造椅上。 |
 | `combat_hud_formal_v2_concept.png` | `combat_hud` | `02_combat_hud_v2.md` | 左右战斗舞台、底部背包指令区、战斗状态信息层级参考。 |
-| `inventory_loot_formal_v2_concept.png` | `inventory_loot` | `03_inventory_loot_v2.md` | 战利品清点、容量压力、带出决策和对比区域参考。 |
-| `dungeon_map_formal_v2_concept.png` | `dungeon_map` | `04_dungeon_map_v2.md` | 路线图、节点风险阅读、节点详情和进入行动参考。 |
+| `inventory_loot_formal_v2_concept.png` | `inventory_loot` | `03_inventory_loot_v2.md` | 半透明战斗场景清点层：中央背包，奖励散落在背包外。 |
+| `dungeon_map_formal_v2_concept.png` | `dungeon_map` | `04_dungeon_map_v2.md` | 地图和节点作为视觉中心，暂不做常驻选中节点详情。 |
 | `settlement_formal_v2_concept.png` | `settlement` | `05_settlement_v2.md` | 结算报告、收益损失、状态变化和下一步行动参考。 |
+
+## 2026-06-01 方向修正
+
+本轮概念图已按用户反馈替换为更温暖、奇幻、低信息密度的版本：
+
+- `workshop_main` 从功能工坊改为以魔偶为中心的安心房间。
+- 新增 `workshop_studio`，承接背包、底盘、义体和改造椅。
+- `inventory_loot` 改为战斗场景上叠半透明清点层，中央背包，奖励散落在背包外。
+- `dungeon_map` 改为地图 / 节点主视觉，暂不需要常驻选中节点详情。
+- `combat_hud` 和 `settlement` 保持原结构方向，但风格改为更干净、更奇幻、少硬核工业。
 
 ## 当前限制
 

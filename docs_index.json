@@ -2541,7 +2541,7 @@
         "agent_status/art.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-05-29",
+      "last_verified": "2026-06-01",
       "update_rule": "修改 Formal V2 总目标、批次、验收门槛或 active 迁移规则时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2562,7 +2562,7 @@
         "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
         "美术文档/ui_design/formal_v1/workshop_main_v1.md"
       ],
-      "last_verified": "2026-05-31",
+      "last_verified": "2026-06-01",
       "update_rule": "编写或确认 workshop_main Formal V2 详细方案时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2604,7 +2604,7 @@
         "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
         "美术文档/ui_design/formal_v1/inventory_loot_v1.md"
       ],
-      "last_verified": "2026-05-31",
+      "last_verified": "2026-06-01",
       "update_rule": "编写或确认 inventory_loot Formal V2 详细方案时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2625,7 +2625,7 @@
         "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
         "美术文档/ui_design/formal_v1/dungeon_map_v1.md"
       ],
-      "last_verified": "2026-05-31",
+      "last_verified": "2026-06-01",
       "update_rule": "编写或确认 dungeon_map Formal V2 详细方案时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],

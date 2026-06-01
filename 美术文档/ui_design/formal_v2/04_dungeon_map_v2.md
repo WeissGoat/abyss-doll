@@ -10,7 +10,7 @@ related:
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/ui_design/formal_v1/dungeon_map_v1.md
-last_verified: 2026-05-31
+last_verified: 2026-06-01
 update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文件。
 ---
 
@@ -27,7 +27,7 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 | 问题 | 表现 | V2 处理 |
 |---|---|---|
 | 路线决策感弱 | 节点像一组可点按钮 | 把地图变成路线规划板，强化分支、风险和目的地。 |
-| 选中详情弱 | 节点说明可能只是文本框 | 选中节点详情必须解释风险、奖励、状态和进入后果。 |
+| 选中详情抢画面 | 右侧详情面板容易把地图挤成辅助区域 | 暂时取消常驻选中详情，让地图、路线和节点成为视觉中心。 |
 | 地图与背包关系弱 | 背包整理入口和进入节点并列 | 背包整理降级为整备辅助，不和进入节点同权。 |
 | 战争迷雾不够分层 | 已知 / 预览 / 未知状态不明显 | 建立清晰雾层、预览层和锁定层。 |
 
@@ -46,18 +46,18 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 
 ## 3. Formal V2 体验定位
 
-`dungeon_map` 是路线决策界面，不是节点按钮菜单。
+`dungeon_map` 是路线地图界面，不是节点按钮菜单，也不是详情面板页。
 
 ```text
-当前层级 -> 路线网络 -> 选中节点详情 -> 进入节点主行动
+当前层级 -> 地图与节点主视觉 -> 少量必要按钮 -> 进入 / 确认路线
 ```
 
 视觉目标：
 
 * 路线网络是主视觉。
 * 可走、预览、未知、锁定的节点状态一眼可辨。
-* 选中节点后，详情区解释“为什么要去 / 为什么危险”。
-* 背包整理、撤离、层级信息是辅助，不抢进入节点的权重。
+* 暂时不做常驻选中节点详情；需要的信息用小型 tooltip 或节点图标状态表达。
+* 背包整理、撤离、层级信息是辅助，不抢地图和节点的权重。
 
 ---
 
@@ -67,23 +67,23 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 
 ```text
 ┌────────────────────────────────────────────────────────────┐
-│ Layer Header: layer, depth, route seed, retreat state       │
+│ Minimal Status: layer / depth / small resource icons        │
 │                                                            │
-│ Route Canvas                                  Node Detail   │
-│ branching paths, fog, current node            risk/reward   │
-│                                                enter action │
 │                                                            │
-│ Route Legend / Backpack Pressure / Retreat                 │
+│                Large Route Map Canvas                      │
+│       floating islands / paths / large node plates          │
+│                                                            │
+│ small legend / route menu                 Confirm Route     │
 └────────────────────────────────────────────────────────────┘
 ```
 
 | ZoneID | 建议位置 | 作用 |
 |---|---|---|
-| `layer_header` | `64,36 1792x80` | 当前层、深度、路线状态、已通层提示。 |
-| `route_canvas` | `80,150 1240x760` | 节点网络和路线连线主视觉。 |
-| `selected_node_detail` | `1360,150 480x560` | 选中节点详情、风险、奖励、状态。 |
-| `map_action_panel` | `1360,740 480x170` | 进入节点主行动、撤离 / 背包整理次行动。 |
-| `route_legend` | `80,930 1240x80` | 节点状态图例、战争迷雾说明、背包压力短提示。 |
+| `layer_header` | `64,36 1792x72` | 当前层、深度、少量资源图标。 |
+| `route_canvas` | `80,120 1760x820` | 节点网络、路线连线、地图地貌主视觉。 |
+| `node_tooltip` | 跟随选中节点，小尺寸 | 暂时只显示极短风险 / 奖励图标，不做常驻详情面板。 |
+| `map_action_button` | `1560,850 260x120` | 确认路线 / 进入节点主行动。 |
+| `route_legend` | `80,920 760x80` | 节点状态图例和战争迷雾说明，低权重。 |
 
 ---
 
@@ -93,8 +93,8 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 
 1. 当前层级和当前位置。
 2. 可达路线和可见分支。
-3. 选中节点风险 / 奖励 / 节点类型。
-4. 进入节点主行动。
+3. 选中节点的极简风险 / 奖励提示。
+4. 进入节点 / 确认路线主行动。
 5. 背包压力、撤离和已通层直达等辅助信息。
 
 节点牌只显示：
@@ -103,7 +103,7 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 * 风险等级或未知状态。
 * 当前 / 可达 / 已探索 / 锁定状态。
 
-文字解释进入 `selected_node_detail`。
+暂时不做常驻 `selected_node_detail`。文字解释若需要，进入轻量 tooltip 或后续版本再补。
 
 ---
 
@@ -111,7 +111,7 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 
 | 层级 | 行动 | 表达 |
 |---|---|---|
-| Primary | `EnterSelectedNode` | 详情区下方唯一主按钮。 |
+| Primary | `EnterSelectedNode` / `ConfirmRoute` | 地图右下唯一主按钮。 |
 | Secondary | 整理背包、查看路线、撤离 / 返回安全区 | 低权重按钮。 |
 | Tertiary | 图例、种子信息、筛选 | 图标或小文本入口。 |
 | Danger | 撤离、进入高危未知节点 | 视觉标记风险，必要时二次确认。 |
@@ -123,7 +123,7 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 | 当前入口 | V2 策略 |
 |---|---|
 | 每个节点按钮 | 节点仍可点击，但视觉上是地图对象，不是普通按钮。 |
-| 进入节点 | 只在选中详情区显示一个主行动。 |
+| 进入节点 | 在地图右下显示一个主行动，不做右侧大详情面板。 |
 | 背包整理 | 降级为辅助入口，提示背包压力时才提升。 |
 | 撤离 | 可见但低权重；若有损失或阶段影响，进入确认。 |
 | 层级切换 | 放到 `layer_header` 或 `layer_select`，不在地图主视觉中平铺。 |
@@ -132,12 +132,13 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 
 ## 8. 场景隐喻
 
-地图界面像一张贴在工坊或探险手册上的深渊路线图：
+地图界面像一张明亮、可直接操作的冒险路线图，可参考 `美术文档/美术风格参考/兰斯地图.png` 的“地图作为主体、节点和路线直接可见”的处理：
 
 * 路线线段像探索线索。
 * 未知节点被雾遮住。
 * 当前节点有清晰定位。
-* 选中详情像旁边的勘探记录卡。
+* 大节点岛 / 节点牌是视觉焦点。
+* 边角只保留少量必要按钮。
 
 AI 或后续美术提示应描述 map board, branching route, fogged nodes, brass markers, parchment/mechanical chart 等可视概念。
 
@@ -154,8 +155,8 @@ DungeonMapPanel
     RouteLines
     NodeButtons
     FogLayer
-  SelectedNodeDetail
-  MapActionPanel
+  NodeTooltip
+  MapActionButton
   RouteLegend
 ```
 
@@ -172,7 +173,7 @@ DungeonMapPanel
 约束：
 
 * 节点点击和路线可视层分离，路线线段不拦截节点点击。
-* 详情区只展示选中节点，不在每个节点上堆长文本。
+* 暂时不做常驻详情区，不在每个节点上堆长文本。
 * 进入节点按钮不可在未选中或不可达时误触。
 
 ---
@@ -187,7 +188,7 @@ DungeonMapPanel
 | `ui_dungeon_node_plate` | 节点底板。 |
 | `ui_dungeon_route_line` | 路线线段。 |
 | `node_*_icon` | 节点类型图标。 |
-| `ui_panel_info` | 选中节点详情和图例。 |
+| `ui_panel_info` | 图例、极简 tooltip 和少量状态提示。 |
 | `ui_button_primary` / `ui_button_secondary` / `ui_button_danger` | 进入、整理、撤离。 |
 | `ui_icon_locked` / `ui_icon_warning` | 锁定和风险提示。 |
 
@@ -208,7 +209,7 @@ DungeonMapPanel
 1. 3 秒内能看出当前任务是选下一条路线。
 2. 路线网络是主视觉，不是按钮列表。
 3. 当前、可达、预览、隐藏、锁定状态可辨。
-4. 选中节点详情能解释风险、奖励和进入后果。
+4. 暂时不需要常驻选中节点详情；节点状态和极简 tooltip 足够支撑选择。
 5. 进入节点是唯一主行动。
 6. 背包整理和撤离不抢主行动权重。
 7. 路线、雾层、节点点击不会互相遮挡。
@@ -219,6 +220,6 @@ DungeonMapPanel
 
 建议确认以下 3 点：
 
-1. `dungeon_map` 是否采用“路线图主视觉 + 右侧节点详情 + 进入节点主行动”的结构。
-2. 背包整理是否降级为辅助入口，只在容量压力明显时强调。
-3. 是否允许第一版继续复用当前地图背景和节点图标，先验证路线决策结构。
+1. `dungeon_map` 是否采用“地图 / 节点视觉中心 + 少量必要按钮”的结构。
+2. 是否确认暂时不做常驻选中节点详情，只保留极简 tooltip / 图标状态。
+3. 是否允许第一版继续复用当前地图背景和节点图标，先验证地图决策结构。

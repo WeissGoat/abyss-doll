@@ -35,16 +35,17 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 2. `formal_v2/*.md` 只记录新设计方案；用户确认前不改 active，不生成素材，不要求程序接入。
 3. 每个界面先完成详细方案，再按确认顺序迁移到 active。
 4. Formal V2 的核心目标是重建玩家流程、主次行动、场景隐喻和信息层级，不是简单换按钮皮肤。
-5. Formal V2 允许继续复用已稳定 VisualID；新增 VisualID 必须等 active 更新后再进入 Manifest。
-6. Figma、Unity MCP 或额外自动化工具只作为设计 / 验收辅助；任何正式接入口仍必须回到 active `screen_layouts.json`、Manifest 和 ArtAcceptance。
-7. `concepts/` 只存放 Formal V2 概念参考图；这些图片不进入 Approved、Manifest 或程序接入队列。
+5. Formal V2 默认风格为温暖奇幻 + 轻蒸汽工艺 + 低信息密度，避免硬核工业控制台和密集按钮墙。
+6. Formal V2 允许继续复用已稳定 VisualID；新增 VisualID 必须等 active 更新后再进入 Manifest。
+7. Figma、Unity MCP 或额外自动化工具只作为设计 / 验收辅助；任何正式接入口仍必须回到 active `screen_layouts.json`、Manifest 和 ArtAcceptance。
+8. `concepts/` 只存放 Formal V2 概念参考图；这些图片不进入 Approved、Manifest 或程序接入队列。
 
 ## 文件职责
 
 | 文件 | 职责 |
 |---|---|
 | `00_formal_v2_ux_ui_overview.md` | Formal V2 总体 UX/UI 重构方案、批次、设计原则和验收门槛。 |
-| `01_workshop_main_v2.md` | 工坊 Hub 审查入口，按确认顺序扩展为完整方案。 |
+| `01_workshop_main_v2.md` | 工坊主界面和工作室拆分方案：主界面是魔偶中心安心房间，工作室承接背包和改造椅。 |
 | `02_combat_hud_v2.md` | 战斗界面审查入口，按确认顺序扩展为完整方案。 |
 | `03_inventory_loot_v2.md` | 战利品清点界面审查入口，按确认顺序扩展为完整方案。 |
 | `04_dungeon_map_v2.md` | 深渊地图界面审查入口，按确认顺序扩展为完整方案。 |
@@ -57,7 +58,7 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 
 | ScreenID | 草案状态 | 当前建议 |
 |---|---|---|
-| `workshop_main` | 已完成详细草案 | 优先给用户确认。 |
+| `workshop_main` / `workshop_studio` | 已完成详细草案 | 优先给用户确认主界面与工作室拆分。 |
 | `combat_hud` | 已完成详细草案 | 工坊确认后审。 |
 | `inventory_loot` | 已完成详细草案 | 和战斗 / 战后流程一起审。 |
 | `dungeon_map` | 已完成详细草案 | 和 P2 地图节奏一起审。 |
@@ -67,10 +68,10 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 
 | 批次 | 界面 | 目标 |
 |---|---|---|
-| V2-A | `workshop_main` | 把主界面从按钮菜单改为正式工坊 Hub。 |
+| V2-A | `workshop_main` / `workshop_studio` | 把主界面从按钮菜单改为魔偶中心安心房间，并把背包 / 改造拆到工作室。 |
 | V2-A | `combat_hud` | 把战斗界面从信息堆叠改为战斗舞台 + 背包指令区。 |
-| V2-A | `inventory_loot` | 把拾取界面改为撤离清点、容量压力和带出决策。 |
-| V2-A | `dungeon_map` | 把地图界面改为路线决策、风险阅读和节点预览。 |
+| V2-A | `inventory_loot` | 把拾取界面改为半透明战斗场景清点层，中央背包，奖励散落在背包外。 |
+| V2-A | `dungeon_map` | 把地图界面改为地图 / 节点视觉中心，只保留必要按钮，暂不做常驻节点详情。 |
 | V2-A | `settlement` | 把结算界面改为结果报告、损失收益和下一步行动。 |
 | V2-B | `maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel`、`sell_panel`、`shop_staging`、`daily_bill_report`、`business_settlement` | 把局外功能面板收敛为工坊工作台、账本、市场和制造维护子流程。 |
 | V2-C | `order_board`、`rumor_board`、`faction_shop`、`layer_select`、`safe_room`、`stairs_room`、`doll_interaction`、`doll_room`、`scenario_event` | 把长期系统、深渊房间和叙事界面补成正式结构。 |
