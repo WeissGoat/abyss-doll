@@ -11,7 +11,8 @@ related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/ui_design/versions/migration_log.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
-last_verified: 2026-05-24
+  - 美术文档/ui_design/formal_v2/20_scenario_event_v2.md
+last_verified: 2026-06-02
 update_rule: 修改剧本事件表现结构、AVG/气泡/日志/系统弹窗槽位或程序迁移要求时同步本文件。
 ---
 

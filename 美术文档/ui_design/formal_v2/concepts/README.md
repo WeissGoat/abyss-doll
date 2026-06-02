@@ -8,7 +8,8 @@ status: draft
 source_of_truth: false
 related:
   - 美术文档/ui_design/formal_v2/README.md
-last_verified: 2026-06-01
+  - 美术文档/ui_design/formal_v2/design_boards/README.md
+last_verified: 2026-06-02
 update_rule: 新增、替换或废弃 Formal V2 概念参考图时同步本文件。
 ---
 
@@ -39,6 +40,37 @@ update_rule: 新增、替换或废弃 Formal V2 概念参考图时同步本文�
 | `shop_staging_formal_v2_concept.png` | `shop_staging` | `10_shop_staging_v2.md` | 左库存、中央陈列台、右订单 / 黑市侧箱的店面摆货参考。 |
 | `business_settlement_formal_v2_concept.png` | `business_settlement` | `11_business_settlement_v2.md` | 顾客流、成交反馈、未售出风险和进入账单动作参考。 |
 | `daily_bill_report_formal_v2_concept.png` | `daily_bill_report` | `12_daily_bill_report_v2.md` | 打开账本、收入 / 支出页和月租压力轨参考。 |
+
+## 概念图覆盖状态
+
+截至 2026-06-02，本目录只记录 AI 氛围概念图，不记录结构设计图。全部 Formal V2 结构设计图已经放在 `../design_boards/`，覆盖 21 个 active 界面和 `workshop_studio` 拆分图。
+
+| 类别 | 数量 | 状态 |
+|---|---:|---|
+| 当前可评审 AI 概念图 | 9 | 保留在本目录根路径。 |
+| 已归档 AI 概念图 | 4 | 旧维护 / 义体 / 底盘独立大场景和旧 `sell_panel` 语义已归档。 |
+| 待补 / 待重出 AI 概念图 | 13 | 等 NovelAI token 修复后串行生成。 |
+| 结构设计图 | 22 | 已在 `../design_boards/` 生成，不属于 AI 概念图。 |
+
+待补 / 待重出的 AI 概念图：
+
+| 文件 | 对应界面 | 原因 |
+|---|---|---|
+| `maintenance_panel_formal_v2_concept.png` | `maintenance_panel` | 需按 `workshop_studio` 子面板语义重出。 |
+| `prosthetic_panel_formal_v2_concept.png` | `prosthetic_panel` | 需按 `workshop_studio` 子面板语义重出。 |
+| `chassis_upgrade_panel_formal_v2_concept.png` | `chassis_upgrade_panel` | 需按 `workshop_studio` 子面板语义重出。 |
+| `sell_panel_formal_v2_concept.png` | `sell_panel` | 需按小镇商店 / 市场交易语义重出。 |
+| `layer_select_formal_v2_concept.png` | `layer_select` | V2-C 新增草案，尚未出 AI 概念图。 |
+| `safe_room_formal_v2_concept.png` | `safe_room` | V2-C 新增草案，尚未出 AI 概念图。 |
+| `stairs_room_formal_v2_concept.png` | `stairs_room` | V2-C 新增草案，尚未出 AI 概念图。 |
+| `order_board_formal_v2_concept.png` | `order_board` | V2-C 新增草案，尚未出 AI 概念图。 |
+| `rumor_board_formal_v2_concept.png` | `rumor_board` | V2-C 新增草案，尚未出 AI 概念图。 |
+| `faction_shop_formal_v2_concept.png` | `faction_shop` | V2-C 新增草案，尚未出 AI 概念图。 |
+| `doll_interaction_formal_v2_concept.png` | `doll_interaction` | V2-C 新增草案，尚未出 AI 概念图。 |
+| `scenario_event_formal_v2_concept.png` | `scenario_event` | V2-C 新增草案，尚未出 AI 概念图。 |
+| `doll_room_formal_v2_concept.png` | `doll_room` | V2-C 新增草案，尚未出 AI 概念图。 |
+
+2026-06-02 探测结果：本地 `tools/美术工具/ai_image_gateway.local.yaml` 的 NovelAI access token 当前返回 HTTP 401 Unauthorized。修复 token 后再按上表串行出图；不要用 mock 图或结构设计图冒充 AI 概念图。
 
 ## 2026-06-01 方向修正
 

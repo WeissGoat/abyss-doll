@@ -23,12 +23,23 @@ related:
   - 美术文档/ui_design/formal_v2/10_shop_staging_v2.md
   - 美术文档/ui_design/formal_v2/11_business_settlement_v2.md
   - 美术文档/ui_design/formal_v2/12_daily_bill_report_v2.md
+  - 美术文档/ui_design/formal_v2/13_layer_select_v2.md
+  - 美术文档/ui_design/formal_v2/14_safe_room_v2.md
+  - 美术文档/ui_design/formal_v2/15_stairs_room_v2.md
+  - 美术文档/ui_design/formal_v2/16_order_board_v2.md
+  - 美术文档/ui_design/formal_v2/17_rumor_board_v2.md
+  - 美术文档/ui_design/formal_v2/18_faction_shop_v2.md
+  - 美术文档/ui_design/formal_v2/19_doll_interaction_v2.md
+  - 美术文档/ui_design/formal_v2/20_scenario_event_v2.md
+  - 美术文档/ui_design/formal_v2/21_doll_room_v2.md
   - 美术文档/ui_design/formal_v2/concepts/README.md
+  - 美术文档/ui_design/formal_v2/design_boards/README.md
+  - tools/美术工具/README.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 知识库/views/art.md
-last_verified: 2026-06-01
+last_verified: 2026-06-02
 update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档时同步本文件。
 ---
 
@@ -64,35 +75,54 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 | `10_shop_staging_v2.md` | 营业前摆货界面草案：店面陈列台、订单 / 黑市侧抽屉和 Start Business 主行动。 |
 | `11_business_settlement_v2.md` | 营业结算演出界面草案：顾客流、成交爆点、金币增长和进入账单。 |
 | `12_daily_bill_report_v2.md` | 每日账单界面草案：打开账本、今日结论、月租压力轨和结束当天。 |
+| `13_layer_select_v2.md` | 下潜层选择界面草案：深渊剖面、锁定层、整备检查和开始下潜。 |
+| `14_safe_room_v2.md` | 安全屋界面草案：安全营地、休整、背包整理、撤离和继续深入。 |
+| `15_stairs_room_v2.md` | 阶梯房间界面草案：下降口、下一层风险、撤离 / 深入决策和最后整理。 |
+| `16_order_board_v2.md` | 订单委托板草案：公告板合同、目标物、期限、奖励和接取 / 提交。 |
+| `17_rumor_board_v2.md` | 传闻行情板草案：情报纸条、价格波动、推荐计划和行动入口。 |
+| `18_faction_shop_v2.md` | 势力商店草案：势力柜台、声望账本、货架、黑市风险和购买。 |
+| `19_doll_interaction_v2.md` | 魔偶互动草案：围绕魔偶的触摸、对话、赠礼、护理和反馈。 |
+| `20_scenario_event_v2.md` | 剧情事件草案：当前场景叠加故事卡、选项、结果和继续。 |
+| `21_doll_room_v2.md` | 魔偶房间草案：房间叙事、待机魔偶、纪念物、日记和低密度热点。 |
 | `concepts/` | AI 生成的 Formal V2 概念参考图，仅用于结构、氛围和视觉重心评审。 |
+| `design_boards/` | 结构设计图：每个 active 界面一张 16:9 layout board，外加 `workshop_studio` 拆分图。 |
 
 ## 当前完成度
 
-截至 2026-06-01，active UI 规格共有 21 个界面。Formal V2 已补齐 12 个界面 / 子界面的可评审草案，其中 9 张概念图仍保留在 `concepts/` 当前目录；维护、义体、底盘升级和旧 `sell_panel` 概念图已归档，等待按新语义重新出图。剩余 9 个 active 界面尚未补 Formal V2 草案。
+截至 2026-06-02，active UI 规格共有 21 个界面。Formal V2 已补齐 21 个 active 界面的可评审草案，并额外保留 `workshop_studio` 作为 `workshop_main` 的设计拆分图。
+
+当前设计图覆盖：
+
+| 类型 | 数量 | 位置 | 状态 |
+|---|---:|---|---|
+| Formal V2 结构设计图 | 22 | `design_boards/` | 21 个 active 界面 + `workshop_studio` 已全部生成。 |
+| AI 概念参考图 | 9 | `concepts/` | 可继续评审的氛围图。 |
+| 已归档旧概念图 | 4 | `concepts/archive/2026-06-01_workshop_studio_and_shop_semantics/` | 维护 / 义体 / 底盘独立大场景和旧 `sell_panel` 语义已废弃。 |
+| 待重出 AI 概念图 | 13 | `concepts/README.md` 记录 | NovelAI 本地配置当前返回 401，待 token 修复后再串行生成。 |
 
 | ScreenID | 草案状态 | 当前建议 |
 |---|---|---|
-| `workshop_main` / `workshop_studio` | 已完成详细草案 | 优先给用户确认主界面与工作室拆分。 |
-| `combat_hud` | 已完成详细草案 | 工坊确认后审。 |
-| `inventory_loot` | 已完成详细草案 | 和战斗 / 战后流程一起审。 |
-| `dungeon_map` | 已完成详细草案 | 和 P2 地图节奏一起审。 |
-| `settlement` | 已完成详细草案 | 和 CombatOutcomeReport / 账本流一起审。 |
-| `maintenance_panel` | 已完成详细草案，需重出概念图 | 作为 `workshop_studio` 的维护子面板审，不再作为独立大场景。 |
-| `prosthetic_panel` | 已完成详细草案，需重出概念图 | 作为 `workshop_studio` 的义体子面板审，不再作为独立大场景。 |
-| `chassis_upgrade_panel` | 已完成详细草案，需重出概念图 | 作为 `workshop_studio` 的底盘子面板审，不再作为独立大场景。 |
-| `sell_panel` | 已按小镇商店语义修订，需重出概念图 | 不再负责工坊即时卖出；工坊卖出 / 出货由 `shop_staging` 承接。 |
-| `shop_staging` | 已完成详细草案 | 和 P4 经济压力的营业前摆货流程一起审。 |
-| `business_settlement` | 已完成详细草案 | 和 `daily_bill_report` 区分营业演出 / 最终账单。 |
-| `daily_bill_report` | 已完成详细草案 | 和月租 / 债务压力表现一起审。 |
-| `order_board` | 未开始 V2 草案 | V2-C。 |
-| `rumor_board` | 未开始 V2 草案 | V2-C。 |
-| `faction_shop` | 未开始 V2 草案 | V2-C。 |
-| `layer_select` | 未开始 V2 草案 | V2-C。 |
-| `safe_room` | 未开始 V2 草案 | V2-C。 |
-| `stairs_room` | 未开始 V2 草案 | V2-C。 |
-| `doll_interaction` | 未开始 V2 草案 | V2-C。 |
-| `doll_room` | 未开始 V2 草案 | V2-C。 |
-| `scenario_event` | 未开始 V2 草案 | V2-C。 |
+| `workshop_main` / `workshop_studio` | 已完成详细草案和结构设计图 | 优先给用户确认主界面与工作室拆分。 |
+| `combat_hud` | 已完成详细草案和结构设计图 | 工坊确认后审。 |
+| `inventory_loot` | 已完成详细草案和结构设计图 | 和战斗 / 战后流程一起审。 |
+| `dungeon_map` | 已完成详细草案和结构设计图 | 和 P2 地图节奏一起审。 |
+| `settlement` | 已完成详细草案和结构设计图 | 和 CombatOutcomeReport / 账本流一起审。 |
+| `maintenance_panel` | 已完成详细草案和结构设计图 | 作为 `workshop_studio` 的维护子面板审，不再作为独立大场景。 |
+| `prosthetic_panel` | 已完成详细草案和结构设计图 | 作为 `workshop_studio` 的义体子面板审，不再作为独立大场景。 |
+| `chassis_upgrade_panel` | 已完成详细草案和结构设计图 | 作为 `workshop_studio` 的底盘子面板审，不再作为独立大场景。 |
+| `sell_panel` | 已按小镇商店语义修订，并完成结构设计图 | 不再负责工坊即时卖出；工坊卖出 / 出货由 `shop_staging` 承接。 |
+| `shop_staging` | 已完成详细草案和结构设计图 | 和 P4 经济压力的营业前摆货流程一起审。 |
+| `business_settlement` | 已完成详细草案和结构设计图 | 和 `daily_bill_report` 区分营业演出 / 最终账单。 |
+| `daily_bill_report` | 已完成详细草案和结构设计图 | 和月租 / 债务压力表现一起审。 |
+| `order_board` | 已完成详细草案和结构设计图 | V2-C 评审。 |
+| `rumor_board` | 已完成详细草案和结构设计图 | V2-C 评审。 |
+| `faction_shop` | 已完成详细草案和结构设计图 | V2-C 评审。 |
+| `layer_select` | 已完成详细草案和结构设计图 | V2-C 评审。 |
+| `safe_room` | 已完成详细草案和结构设计图 | V2-C 评审。 |
+| `stairs_room` | 已完成详细草案和结构设计图 | V2-C 评审。 |
+| `doll_interaction` | 已完成详细草案和结构设计图 | V2-C 评审。 |
+| `doll_room` | 已完成详细草案和结构设计图 | V2-C 评审。 |
+| `scenario_event` | 已完成详细草案和结构设计图 | V2-C 评审。 |
 
 ## 设计确认顺序
 

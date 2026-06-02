@@ -23,13 +23,23 @@ related:
   - 美术文档/ui_design/formal_v2/10_shop_staging_v2.md
   - 美术文档/ui_design/formal_v2/11_business_settlement_v2.md
   - 美术文档/ui_design/formal_v2/12_daily_bill_report_v2.md
+  - 美术文档/ui_design/formal_v2/13_layer_select_v2.md
+  - 美术文档/ui_design/formal_v2/14_safe_room_v2.md
+  - 美术文档/ui_design/formal_v2/15_stairs_room_v2.md
+  - 美术文档/ui_design/formal_v2/16_order_board_v2.md
+  - 美术文档/ui_design/formal_v2/17_rumor_board_v2.md
+  - 美术文档/ui_design/formal_v2/18_faction_shop_v2.md
+  - 美术文档/ui_design/formal_v2/19_doll_interaction_v2.md
+  - 美术文档/ui_design/formal_v2/20_scenario_event_v2.md
+  - 美术文档/ui_design/formal_v2/21_doll_room_v2.md
+  - 美术文档/ui_design/formal_v2/design_boards/README.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/09_运行时美术验收记录.md
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - agent_status/art.md
   - 知识库/views/art.md
-last_verified: 2026-06-01
+last_verified: 2026-06-02
 update_rule: 修改 Formal V2 总目标、批次、验收门槛或 active 迁移规则时同步本文件。
 ---
 
@@ -309,6 +319,8 @@ V2-A 通过后，才能批量迁移局外功能面板。
 | `doll_room` | 人偶房间：待机、纪念物、日记和长期状态。 |
 | `scenario_event` | 剧情事件：角色、对白、选项、系统结果和跳过摘要。 |
 
+截至 2026-06-02，V2-C 九个长期系统和叙事界面已补齐详细草案：`13_layer_select_v2.md` 到 `21_doll_room_v2.md`。Formal V2 当前已覆盖 21 个 active ScreenID；`workshop_studio` 作为 `workshop_main` 的设计拆分存在，不是额外 active ScreenID。
+
 ---
 
 ## 7. 单界面交付格式
@@ -387,7 +399,7 @@ Formal V2 的重点是先把玩家目标、信息层级和主行动设计清楚�
 分阶段策略：
 
 1. **当前阶段：文档线框。** 先用 `formal_v2/*.md` 确认结构，不修改 active。
-2. **结构确认后：轻量视觉线框。** 可用 Figma 或静态图片把 5 个核心界面做低保真线框，输出给程序和美术共同确认。
+2. **结构确认前：结构设计图。** `design_boards/` 已生成 21 个 active 界面和 `workshop_studio` 的 16:9 layout board，用来评审视觉中心、主行动和信息层级。
 3. **active 迁移时：Unity 验收。** 继续以 `Validate-UIDesign.ps1`、ArtAcceptance 和截图人工验收为准。
 4. **Formal V2 第一批接入后：评估 Unity MCP。** 如果重复截图、层级检查、文本溢出检查耗时明显，再让程序接入 Unity MCP 或增强 Editor 自动化。
 
@@ -401,8 +413,9 @@ Formal V2 的重点是先把玩家目标、信息层级和主行动设计清楚�
 
 ## 11. 当前下一步
 
-1. 用户先审 `01_workshop_main_v2.md`，确认工坊 Hub 与 `workshop_studio` 的空间拆分。
-2. 依次审 V2-A 核心流程：`02_combat_hud_v2.md`、`03_inventory_loot_v2.md`、`04_dungeon_map_v2.md`、`05_settlement_v2.md`。
+1. 用户先结合 `design_boards/workshop_main_formal_v2_design_board.png` 和 `design_boards/workshop_studio_formal_v2_design_board.png` 审工坊 Hub 与工作室拆分。
+2. 依次审 V2-A 核心流程：`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。
 3. 再审 V2-B 局外功能：先确认 `workshop_studio` 内维护 / 义体 / 底盘三种子面板的切换方式，再确认 `shop_staging -> business_settlement -> daily_bill_report` 的经营链路，最后按小镇商店语义重审 `sell_panel`。
-4. 界面结构确认后，决定是否先画低保真线框，或直接逐界面迁移 active `screen_layouts.json`。
-5. active 迁移后再补 seed、Manifest、Prompt、Spec 和程序交接清单。
+4. 最后审 V2-C：`layer_select`、`safe_room`、`stairs_room`、`order_board`、`rumor_board`、`faction_shop`、`doll_interaction`、`scenario_event`、`doll_room`。
+5. 界面结构确认后，逐界面迁移 active `screen_layouts.json`。
+6. active 迁移后再补 seed、Manifest、Prompt、Spec 和程序交接清单。

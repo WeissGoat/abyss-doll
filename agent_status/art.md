@@ -24,7 +24,7 @@ related:
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/README.md
   - 知识库/views/art.md
-last_verified: 2026-06-01
+last_verified: 2026-06-02
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
 
@@ -32,7 +32,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 最后更新
 
-2026-06-01
+2026-06-02
 
 ## 当前关注
 
@@ -44,9 +44,9 @@ PM 版本节点中，美术线当前 21 个界面都已具备 Formal V1 active �
 
 截至 2026-06-01，V2-A 五个核心界面已全部补齐可评审草案，并生成对应概念参考图。用户反馈后，美术侧已把 Formal V2 风格从硬核工业感调整为“温暖奇幻 + 轻蒸汽工艺 + 低信息密度”：`workshop_main` 改为以魔偶为中心的安心房间，并新增 `workshop_studio` 承接左背包、右魔偶改造椅；`inventory_loot` 改为战斗场景上叠半透明清点层，中央背包，奖励散落在背包外；`dungeon_map` 改为地图 / 节点主视觉，暂不做常驻选中节点详情；`combat_hud` 和 `settlement` 保持结构方向但降低硬核感和信息密度。概念图位于 `美术文档/ui_design/formal_v2/concepts/`，只用于结构和氛围评审，不作为 Approved 运行时素材、Manifest 条目或程序接入口。Figma、Unity MCP、截图标注和 PlayMode 布局扫描已写入 Formal V2 工具策略：当前不作为前置阻塞，结构确认后再评估接入。
 
-V2-B 七个局外功能界面已补齐详细草案，并按最新反馈修正语义：`maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel` 归入 `workshop_studio` 内的可切换子面板或弹出窗口，不再作为独立大场景；`sell_panel` 改作小镇商店 / 市场交易界面，工坊卖出和出货分配由 `shop_staging` 承接。当前 `concepts/` 根目录只保留 9 张可继续评审的概念图；旧维护、义体、底盘升级和旧 `sell_panel` 概念图已归档到 `concepts/archive/2026-06-01_workshop_studio_and_shop_semantics/`，等待按新语义重新出图。
+V2-B 七个局外功能界面已补齐详细草案，并按最新反馈修正语义：`maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel` 归入 `workshop_studio` 内的可切换子面板或弹出窗口，不再作为独立大场景；`sell_panel` 改作小镇商店 / 市场交易界面，工坊卖出和出货分配由 `shop_staging` 承接。当前 `concepts/` 根目录只保留 9 张可继续评审的 AI 概念图；旧维护、义体、底盘升级和旧 `sell_panel` 概念图已归档到 `concepts/archive/2026-06-01_workshop_studio_and_shop_semantics/`。
 
-Formal V2 数量账：active UI 规格共有 21 个界面；已补 V2 草案 12 个，包括 V2-A 五个核心界面、`workshop_studio` 拆分和 V2-B 七个局外功能；尚未补 V2 草案 9 个：`order_board`、`rumor_board`、`faction_shop`、`layer_select`、`safe_room`、`stairs_room`、`doll_interaction`、`doll_room`、`scenario_event`。
+Formal V2 数量账：active UI 规格共有 21 个界面；21 个 active 界面的 V2 草案已全部补齐，并额外保留 `workshop_studio` 作为 `workshop_main` 的拆分方案。结构设计图已生成 22 张，位于 `美术文档/ui_design/formal_v2/design_boards/`，覆盖 21 个 active 界面和 `workshop_studio`。这些设计图是确定性 layout board，不是 AI 概念图，不进入 Approved、Manifest 或程序交接清单。
 
 美术侧已把“可接入覆盖”、“缺图生成”和“视觉质量替换”拆开：`可接入素材清单.md` 给程序看，`缺图生成计划.md` 给美术侧执行 `generate_needed` 新素材跑图，`素材质量替换清单.md` 给美术侧执行 local_v0 / placeholder 同名替换。当前 `generate_needed=0`，质量清单为 `technical_fix=0`、`visual_v2_replace=121`，表示没有必须先修的技术风险；历史本地生成 Approved 已统一补标 `QualityTier=local_v0`，这些素材不阻塞程序接入，后续按 Visual V2 同名替换。
 
@@ -207,12 +207,15 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 - 已补齐 Formal V2-B 七个局外功能界面详细草案：`06_maintenance_panel_v2.md`、`07_prosthetic_panel_v2.md`、`08_chassis_upgrade_panel_v2.md`、`09_sell_panel_v2.md`、`10_shop_staging_v2.md`、`11_business_settlement_v2.md`、`12_daily_bill_report_v2.md`；并同步 `formal_v2/README.md`、`00_formal_v2_ux_ui_overview.md` 和对应 Formal V1 文档的双向关系。
 - 已生成并归档 Formal V2-B 七张局外功能概念参考图：`maintenance_panel_formal_v2_concept.png`、`prosthetic_panel_formal_v2_concept.png`、`chassis_upgrade_panel_formal_v2_concept.png`、`sell_panel_formal_v2_concept.png`、`shop_staging_formal_v2_concept.png`、`business_settlement_formal_v2_concept.png`、`daily_bill_report_formal_v2_concept.png`；这些图片仅用于设计评审，不进入 Approved、Manifest 或程序交接清单。
 - 已按用户反馈修正 V2-B 语义并整理概念图目录：维护 / 义体 / 底盘升级改为 `workshop_studio` 子面板，旧三张独立大场景图归档；`sell_panel` 改为小镇商店 / 市场交易，旧工坊估价柜台图归档；当前 Formal V2 尚未补草案的 active 界面为 9 个。
+- 已补齐 Formal V2-C 九个剩余 active 界面详细草案：`13_layer_select_v2.md`、`14_safe_room_v2.md`、`15_stairs_room_v2.md`、`16_order_board_v2.md`、`17_rumor_board_v2.md`、`18_faction_shop_v2.md`、`19_doll_interaction_v2.md`、`20_scenario_event_v2.md`、`21_doll_room_v2.md`。至此 21 个 active UI 界面均已有 Formal V2 可评审方案。
+- 已新增 `Generate-FormalV2DesignBoards.ps1` / `generate_formal_v2_design_boards.py`，生成确定性 Formal V2 结构设计图；当前 `design_boards/` 已覆盖 21 个 active 界面和 `workshop_studio`，共 22 张 PNG，并生成 `formal_v2_design_boards.json` 和目录说明。
+- 已明确区分 `concepts/` 与 `design_boards/`：前者是 AI 氛围概念图，后者是结构 layout board；两者都不是 Approved 运行时素材、Manifest 条目或程序接入口。当前 NovelAI 本地 token 探测返回 HTTP 401，待 token 修复后再补 13 张 AI 概念图。
 
 ## 下一步建议
 
-1. 先让用户结合 `concepts/workshop_main_formal_v2_concept.png` 和 `concepts/workshop_studio_formal_v2_concept.png` 审主界面拆分：主界面是否只保留安心房间和少量热点，工作室是否承接背包 / 改造椅。
-2. 再审 V2-A 核心流程：`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。
-3. 然后按 V2-B 审局外功能：维护 / 义体 / 底盘作为 `workshop_studio` 的三种子面板一起审；`shop_staging -> business_settlement -> daily_bill_report` 作为经营链路一起审；`sell_panel` 另按小镇商店 / 市场交易重审并重出概念图。
+1. 先让用户按 `design_boards/` 审 Formal V2 结构：优先 `workshop_main` / `workshop_studio`，再审 `combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。
+2. 再按链路审局外功能：维护 / 义体 / 底盘作为 `workshop_studio` 子面板一起审；`shop_staging -> business_settlement -> daily_bill_report` 作为经营链路一起审；`sell_panel` 按小镇商店 / 市场交易审。
+3. 最后审 V2-C：`layer_select`、`safe_room`、`stairs_room`、`order_board`、`rumor_board`、`faction_shop`、`doll_interaction`、`scenario_event`、`doll_room`。
 4. 程序侧在 Formal V2 active 更新前继续按 Formal V1 `screen_layouts.json` 工作；不要按 `formal_v2/*.md` 草案接入 Unity。
 5. 程序侧仍可并行返修 Formal V1 ArtAcceptance 截图状态：`combat_hud`、`dungeon_map`、`safe_room`、`stairs_room` 清理叠层；`sell_panel` 和 `prosthetic_panel` 补有效列表 / 配方行。
 6. 美术侧按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_visual_v2_20260526_04` 继续串行替换 121 个 local_v0 素材；每次只请求 1 张图，图间隔 1 秒，替换仍走 `PreserveStatus -> CandidateBatchID -> QualityTier=formal_ai_v2` 流程，并保持同 VisualID、同 Approved 路径、同 Unity `.meta` / GUID。
@@ -221,10 +224,11 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 
 - 当前工作区仍有大量程序、策划、Unity 资产和知识库生成物处于脏状态；美术侧提交时只纳入本轮美术流水线相关文件。
 - P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 正式结构已通过；本轮 latest `20260527_002436` 已确认资源接入通过，但 `combat_hud` 等 6 个界面仍需程序返修后复验。
-- NovelAI token / 单图生成链路已验证，P0 节点与 P1 核心战斗意图图标正式替换已完成；完整批量生成仍取决于 Anlas 余额。local_v0 可接入图标只用于先解锁程序接入和运行时验收，后续需要替换为正式 AI 美术版。
+- NovelAI token / 单图生成链路历史上已验证，P0 节点与 P1 核心战斗意图图标正式替换已完成；但当前本地 `ai_image_gateway.local.yaml` 探测返回 HTTP 401 Unauthorized，后续 13 张 Formal V2 AI 概念图和 121 个 Visual V2 替换项需先修复 token。local_v0 可接入图标只用于先解锁程序接入和运行时验收，后续需要替换为正式 AI 美术版。
 - latest `program_integrate=0` 不等于美术最终通过；当前还有 6 个 Formal V1 界面需程序返修后复验，以及 121 个 local_v0 Visual V2 替换项，正式验收时可以验收结构、绑定和可读性，但不应把 local_v0 视为最终视觉质量。
 - Formal V2 目前只是 draft 设计层；如果程序侧需要接入，必须等待用户确认并由美术侧更新 active `screen_layouts.json`。
 - Formal V2 概念图含 AI 伪文字和局部装饰噪声，只能作为结构参考；正式接入前仍需将控件、文本、图标和面板皮肤拆回可实现规格。
+- Formal V2 结构设计图是确定性 layout board，只用于评审结构和迁移顺序；不能被当作最终视觉稿或程序接入规格。
 - `tools/ComfyUI_NAIDGenerator/` 未跟踪，需要决定是否纳入正式美术流水线。
 
 ## 完成回写清单

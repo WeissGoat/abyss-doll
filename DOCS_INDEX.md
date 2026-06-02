@@ -18,11 +18,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：203
-- 已补元数据：203
+- 文档总数：213
+- 已补元数据：213
 - 缺少元数据：0
 - 事实来源文档：162
-- 关联边数：1242
+- 关联边数：1274
 - 跨职能关联：204
 
 ## 事实来源
@@ -379,7 +379,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
 | [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 17 | 完整 |
-| [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 7 | 完整 |
+| [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 9 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 17 | 完整 |
 | [美术流水线总览](美术文档/00_美术流水线总览.md) | `art` | `active` | `art_pipeline` | 8 | 完整 |
@@ -403,25 +403,25 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [底盘升级界面 Formal V1](美术文档/ui_design/formal_v1/chassis_upgrade_panel_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
 | [战斗界面 Formal V1](美术文档/ui_design/formal_v1/combat_hud_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
 | [每日账单报告界面 Formal V1](美术文档/ui_design/formal_v1/daily_bill_report_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
-| [人偶交互界面 Formal V1](美术文档/ui_design/formal_v1/doll_interaction_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
-| [人偶房间界面 Formal V1](美术文档/ui_design/formal_v1/doll_room_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
+| [人偶交互界面 Formal V1](美术文档/ui_design/formal_v1/doll_interaction_v1.md) | `art` | `active` | `ui_design` | 5 | 完整 |
+| [人偶房间界面 Formal V1](美术文档/ui_design/formal_v1/doll_room_v1.md) | `art` | `active` | `ui_design` | 5 | 完整 |
 | [深渊地图界面 Formal V1](美术文档/ui_design/formal_v1/dungeon_map_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
-| [势力商店界面 Formal V1](美术文档/ui_design/formal_v1/faction_shop_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
+| [势力商店界面 Formal V1](美术文档/ui_design/formal_v1/faction_shop_v1.md) | `art` | `active` | `ui_design` | 5 | 完整 |
 | [战利品拾取界面 Formal V1](美术文档/ui_design/formal_v1/inventory_loot_v1.md) | `art` | `draft` | `ui_design` | 2 | 完整 |
-| [出发层选择界面 Formal V1](美术文档/ui_design/formal_v1/layer_select_v1.md) | `art` | `active` | `ui_design` | 1 | 完整 |
+| [出发层选择界面 Formal V1](美术文档/ui_design/formal_v1/layer_select_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
 | [机体维护整备界面 Formal V1](美术文档/ui_design/formal_v1/maintenance_panel_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
-| [势力订单板界面 Formal V1](美术文档/ui_design/formal_v1/order_board_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
+| [势力订单板界面 Formal V1](美术文档/ui_design/formal_v1/order_board_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
 | [义体制造界面 Formal V1](美术文档/ui_design/formal_v1/prosthetic_panel_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
-| [传闻情报板界面 Formal V1](美术文档/ui_design/formal_v1/rumor_board_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
-| [深渊安全区界面 Formal V1](美术文档/ui_design/formal_v1/safe_room_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
-| [剧本事件界面 Formal V1](美术文档/ui_design/formal_v1/scenario_event_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
+| [传闻情报板界面 Formal V1](美术文档/ui_design/formal_v1/rumor_board_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
+| [深渊安全区界面 Formal V1](美术文档/ui_design/formal_v1/safe_room_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
+| [剧本事件界面 Formal V1](美术文档/ui_design/formal_v1/scenario_event_v1.md) | `art` | `active` | `ui_design` | 5 | 完整 |
 | [正式版 UI 结构 V1 总览](美术文档/ui_design/formal_v1/screen_structure_review.md) | `art` | `active` | `ui_design` | 32 | 完整 |
 | [工坊出售界面 Formal V1](美术文档/ui_design/formal_v1/sell_panel_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
 | [结算界面 Formal V1](美术文档/ui_design/formal_v1/settlement_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
 | [出货分配界面 Formal V1](美术文档/ui_design/formal_v1/shop_staging_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
-| [深渊阶梯房间界面 Formal V1](美术文档/ui_design/formal_v1/stairs_room_v1.md) | `art` | `active` | `ui_design` | 2 | 完整 |
+| [深渊阶梯房间界面 Formal V1](美术文档/ui_design/formal_v1/stairs_room_v1.md) | `art` | `active` | `ui_design` | 3 | 完整 |
 | [工坊主界面 Formal V1](美术文档/ui_design/formal_v1/workshop_main_v1.md) | `art` | `draft` | `ui_design` | 2 | 完整 |
-| [Formal V2 UX/UI 重构总方案](美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md) | `art` | `draft` | `ui_design` | 22 | 完整 |
+| [Formal V2 UX/UI 重构总方案](美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md) | `art` | `draft` | `ui_design` | 32 | 完整 |
 | [Workshop Main Formal V2 方案](美术文档/ui_design/formal_v2/01_workshop_main_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
 | [Combat HUD Formal V2 方案](美术文档/ui_design/formal_v2/02_combat_hud_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
 | [Inventory Loot Formal V2 方案](美术文档/ui_design/formal_v2/03_inventory_loot_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
@@ -434,8 +434,18 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Shop Staging Formal V2 方案](美术文档/ui_design/formal_v2/10_shop_staging_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
 | [Business Settlement Formal V2 方案](美术文档/ui_design/formal_v2/11_business_settlement_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
 | [Daily Bill Report Formal V2 方案](美术文档/ui_design/formal_v2/12_daily_bill_report_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
-| [Formal V2 UX/UI 设计层](美术文档/ui_design/formal_v2/README.md) | `art` | `draft` | `ui_design` | 21 | 完整 |
-| [Formal V2 UI 概念参考图](美术文档/ui_design/formal_v2/concepts/README.md) | `art` | `draft` | `ui_design` | 1 | 完整 |
+| [Layer Select Formal V2 方案](美术文档/ui_design/formal_v2/13_layer_select_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Safe Room Formal V2 方案](美术文档/ui_design/formal_v2/14_safe_room_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Stairs Room Formal V2 方案](美术文档/ui_design/formal_v2/15_stairs_room_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Order Board Formal V2 方案](美术文档/ui_design/formal_v2/16_order_board_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Rumor Board Formal V2 方案](美术文档/ui_design/formal_v2/17_rumor_board_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Faction Shop Formal V2 方案](美术文档/ui_design/formal_v2/18_faction_shop_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Doll Interaction Formal V2 方案](美术文档/ui_design/formal_v2/19_doll_interaction_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Scenario Event Formal V2 方案](美术文档/ui_design/formal_v2/20_scenario_event_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Doll Room Formal V2 方案](美术文档/ui_design/formal_v2/21_doll_room_v2.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
+| [Formal V2 UX/UI 设计层](美术文档/ui_design/formal_v2/README.md) | `art` | `draft` | `ui_design` | 32 | 完整 |
+| [Formal V2 UI 概念参考图](美术文档/ui_design/formal_v2/concepts/README.md) | `art` | `draft` | `ui_design` | 2 | 完整 |
+| [Formal V2 UI 结构设计图](美术文档/ui_design/formal_v2/design_boards/README.md) | `art` | `draft` | `ui_design` | 4 | 完整 |
 | [UI 交付检查清单](美术文档/ui_design/handoff_checklist.md) | `art` | `active` | `art_pipeline` | 6 | 完整 |
 | [UI 设计迭代与版本迁移流程](美术文档/ui_design/ui_iteration_process.md) | `art` | `active` | `ui_design` | 8 | 完整 |
 | [UI 设计版本管理](美术文档/ui_design/versions/README.md) | `art` | `active` | `ui_design` | 6 | 完整 |

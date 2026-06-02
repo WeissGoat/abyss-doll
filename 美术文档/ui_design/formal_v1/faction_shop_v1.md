@@ -11,7 +11,8 @@ related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/ui_design/versions/migration_log.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
-last_verified: 2026-05-24
+  - 美术文档/ui_design/formal_v2/18_faction_shop_v2.md
+last_verified: 2026-06-02
 update_rule: 修改势力商店结构、声望/信任展示或程序迁移要求时同步本文件。
 ---
 

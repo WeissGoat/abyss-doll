@@ -14,7 +14,9 @@ related:
   - 美术文档/00_美术流水线总览.md
   - 美术文档/README.md
   - 美术文档/04_美术风格基准.md
-last_verified: 2026-05-26
+  - 美术文档/ui_design/formal_v2/README.md
+  - 美术文档/ui_design/formal_v2/design_boards/README.md
+last_verified: 2026-06-02
 update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
 ---
 
@@ -421,6 +423,30 @@ Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec、
 * 组件引用的 `VisualID` 是否存在于 `art_requirements_seed.json` 或 Manifest。
 * 界面引用的 `ComponentID` 是否存在于组件目录。
 * 界面要求的 `VisualID` 是否已被美术流水线纳管。
+
+## Generate-FormalV2DesignBoards.ps1
+
+生成 Formal V2 的结构设计图，用于评审界面布局、视觉重心、主行动和信息层级。它输出的是确定性 layout board，不是 AI 概念图，不进入 Approved、Manifest 或程序接入清单。
+
+输出：
+
+* `美术文档/ui_design/formal_v2/design_boards/*.png`
+* `美术文档/ui_design/formal_v2/design_boards/formal_v2_design_boards.json`
+* `美术文档/ui_design/formal_v2/design_boards/README.md`
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Generate-FormalV2DesignBoards.ps1 -Overwrite
+```
+
+默认覆盖 21 个 active UI 界面，并额外生成 `workshop_studio` 拆分图。若要输出到临时目录，可使用：
+
+```powershell
+.\tools\美术工具\Generate-FormalV2DesignBoards.ps1 -OutDir tmp/formal_v2_boards -Overwrite
+```
+
+注意：这些图只用于 Formal V2 草案评审。用户确认某个界面后，仍需先更新 active `screen_layouts.json`，再通过 `Validate-UIDesign.ps1` 进入素材和程序交接。
 
 ## Scan-UIIterationCandidates.ps1
 

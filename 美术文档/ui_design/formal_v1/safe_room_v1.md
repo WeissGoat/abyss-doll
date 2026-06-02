@@ -9,7 +9,8 @@ source_of_truth: true
 related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
-last_verified: 2026-05-24
+  - 美术文档/ui_design/formal_v2/14_safe_room_v2.md
+last_verified: 2026-06-02
 update_rule: 修改安全区正式结构或程序迁移要求时同步本文件。
 ---
 

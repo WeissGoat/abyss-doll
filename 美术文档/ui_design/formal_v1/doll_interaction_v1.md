@@ -11,7 +11,8 @@ related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/ui_design/versions/migration_log.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
-last_verified: 2026-05-24
+  - 美术文档/ui_design/formal_v2/19_doll_interaction_v2.md
+last_verified: 2026-06-02
 update_rule: 修改人偶交互结构、触摸/对话/赠礼/保养入口或程序迁移要求时同步本文件。
 ---
 

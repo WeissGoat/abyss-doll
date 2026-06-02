@@ -1,0 +1,183 @@
+{
+  "Version": 1,
+  "GeneratedAt": "2026-06-02",
+  "Purpose": "Formal V2 UI structure design boards; not runtime assets.",
+  "Boards": [
+    {
+      "screen_id": "workshop_main",
+      "title": "工坊主界面",
+      "doc": "01_workshop_main_v2.md",
+      "file": "workshop_main_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/workshop_main_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "workshop_studio",
+      "title": "工作室拆分界面",
+      "doc": "01_workshop_main_v2.md",
+      "file": "workshop_studio_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/workshop_studio_formal_v2_design_board.png",
+      "companion": "true"
+    },
+    {
+      "screen_id": "combat_hud",
+      "title": "战斗界面",
+      "doc": "02_combat_hud_v2.md",
+      "file": "combat_hud_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/combat_hud_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "inventory_loot",
+      "title": "战利品清点",
+      "doc": "03_inventory_loot_v2.md",
+      "file": "inventory_loot_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/inventory_loot_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "dungeon_map",
+      "title": "深渊地图",
+      "doc": "04_dungeon_map_v2.md",
+      "file": "dungeon_map_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/dungeon_map_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "settlement",
+      "title": "战斗结算",
+      "doc": "05_settlement_v2.md",
+      "file": "settlement_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/settlement_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "maintenance_panel",
+      "title": "维护子面板",
+      "doc": "06_maintenance_panel_v2.md",
+      "file": "maintenance_panel_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/maintenance_panel_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "prosthetic_panel",
+      "title": "义体子面板",
+      "doc": "07_prosthetic_panel_v2.md",
+      "file": "prosthetic_panel_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/prosthetic_panel_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "chassis_upgrade_panel",
+      "title": "底盘升级子面板",
+      "doc": "08_chassis_upgrade_panel_v2.md",
+      "file": "chassis_upgrade_panel_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/chassis_upgrade_panel_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "sell_panel",
+      "title": "小镇商店 / 市场",
+      "doc": "09_sell_panel_v2.md",
+      "file": "sell_panel_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/sell_panel_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "shop_staging",
+      "title": "营业前摆货",
+      "doc": "10_shop_staging_v2.md",
+      "file": "shop_staging_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/shop_staging_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "business_settlement",
+      "title": "营业结算演出",
+      "doc": "11_business_settlement_v2.md",
+      "file": "business_settlement_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/business_settlement_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "daily_bill_report",
+      "title": "每日账单",
+      "doc": "12_daily_bill_report_v2.md",
+      "file": "daily_bill_report_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/daily_bill_report_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "layer_select",
+      "title": "下潜层选择",
+      "doc": "13_layer_select_v2.md",
+      "file": "layer_select_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/layer_select_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "safe_room",
+      "title": "安全屋",
+      "doc": "14_safe_room_v2.md",
+      "file": "safe_room_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/safe_room_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "stairs_room",
+      "title": "阶梯房间",
+      "doc": "15_stairs_room_v2.md",
+      "file": "stairs_room_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/stairs_room_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "order_board",
+      "title": "订单委托板",
+      "doc": "16_order_board_v2.md",
+      "file": "order_board_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/order_board_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "rumor_board",
+      "title": "传闻行情板",
+      "doc": "17_rumor_board_v2.md",
+      "file": "rumor_board_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/rumor_board_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "faction_shop",
+      "title": "势力商店",
+      "doc": "18_faction_shop_v2.md",
+      "file": "faction_shop_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/faction_shop_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "doll_interaction",
+      "title": "魔偶互动",
+      "doc": "19_doll_interaction_v2.md",
+      "file": "doll_interaction_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/doll_interaction_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "scenario_event",
+      "title": "剧情事件",
+      "doc": "20_scenario_event_v2.md",
+      "file": "scenario_event_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/scenario_event_formal_v2_design_board.png",
+      "companion": "false"
+    },
+    {
+      "screen_id": "doll_room",
+      "title": "魔偶房间",
+      "doc": "21_doll_room_v2.md",
+      "file": "doll_room_formal_v2_design_board.png",
+      "path": "美术文档/ui_design/formal_v2/design_boards/doll_room_formal_v2_design_board.png",
+      "companion": "false"
+    }
+  ]
+}
