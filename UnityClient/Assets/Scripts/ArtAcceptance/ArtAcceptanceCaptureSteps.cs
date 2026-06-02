@@ -155,17 +155,82 @@ public partial class ArtAcceptanceRunner {
             yield break;
         }
 
-        List<string> monsterIDs = ResolveAcceptanceMonsterIDs();
-        if (monsterIDs.Count == 0) {
-            capture.Warnings.Add("No monster config found for combat HUD capture.");
-            CompleteSkipped(capture);
+        // 尝试通过真实 CombatNode 进入战斗
+        CombatNode combatNode = FindNodeInCurrentLayer<CombatNode>();
+        if (combatNode != null && GameRoot.Core.Dungeon?.CurrentLayer != null) {
+            Debug.Log($"[ArtAcceptance] combat_hud: Entering real CombatNode '{combatNode.NodeID}' via MoveToNode.");
+            GameRoot.Core.Dungeon.MoveToNode(combatNode);
+            // MoveToNode → CombatNode.OnEnterNode → CombatSystem.StartCombat
+            // GameFlowController 通过 HandleNodeEntered 自动调用 EnterCombat
+        } else {
+            // 降级：没有 CombatNode，手动启动战斗
+            List<string> monsterIDs = ResolveAcceptanceMonsterIDs();
+            if (monsterIDs.Count == 0) {
+                capture.Warnings.Add("No monster config found for combat HUD capture.");
+                CompleteSkipped(capture);
+                yield break;
+            }
+            GameRoot.Core.Combat.StartCombat(monsterIDs);
+            GameFlowController.Instance.EnterCombat();
+        }
+
+        yield return WaitForVisualStable();
+        yield return CaptureCurrentScreen(capture);
+
+        // ── 自动战斗闭环：秒杀 + 事件捕获 ──
+        yield return ExecuteAutoBattleInstantKill();
+    }
+
+    /// <summary>
+    /// 自动战斗闭环：秒杀所有敌人，通过事件总线捕获真实的 CombatLootPickupResult。
+    /// 捕获到的数据存入 _autoBattleLootResult，供后续 CaptureInventoryLoot 使用。
+    /// </summary>
+    private IEnumerator ExecuteAutoBattleInstantKill() {
+        CombatSystem combat = GameRoot.Core?.Combat;
+        if (combat == null || combat.CurrentState == CombatState.End) {
+            Debug.Log("[ArtAcceptance] Auto-battle: No active combat to resolve.");
             yield break;
         }
 
-        GameRoot.Core.Combat.StartCombat(monsterIDs);
-        GameFlowController.Instance.EnterCombat();
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
+        // 注册事件监听，捕获真实数据
+        _autoBattleLootResult = null;
+        _autoBattleSettlementResult = null;
+        DungeonEventBus.OnCombatLootPrepared += OnAutoBattleLootCaptured;
+        DungeonEventBus.OnDungeonSettlementPrepared += OnAutoBattleSettlementCaptured;
+
+        try {
+            // 秒杀所有敌人
+            if (combat.EnemyFaction?.Fighters != null) {
+                foreach (FighterEntity fighter in combat.EnemyFaction.Fighters) {
+                    MonsterFighter monster = fighter as MonsterFighter;
+                    if (monster != null && monster.RuntimeHP > 0) {
+                        Debug.Log($"[ArtAcceptance] Auto-battle: Instant-killing {monster.DataRef?.MonsterID} (HP={monster.RuntimeHP}→0).");
+                        monster.RuntimeHP = 0;
+                    }
+                }
+            }
+
+            // EndPlayerTurn 检测到全部敌人死亡 → HandleVictory → ResolveAfterVictory → PublishCombatLootPrepared
+            combat.EndPlayerTurn();
+
+            Debug.Log($"[ArtAcceptance] Auto-battle completed. LootCaptured={_autoBattleLootResult != null}, " +
+                      $"SettlementCaptured={_autoBattleSettlementResult != null}");
+        } finally {
+            DungeonEventBus.OnCombatLootPrepared -= OnAutoBattleLootCaptured;
+            DungeonEventBus.OnDungeonSettlementPrepared -= OnAutoBattleSettlementCaptured;
+        }
+
+        yield return null; // 让 UI 有一帧响应
+    }
+
+    private void OnAutoBattleLootCaptured(CombatLootPickupResult result) {
+        _autoBattleLootResult = result;
+        Debug.Log($"[ArtAcceptance] Auto-battle event captured: CombatLootPrepared. Items={result?.OfferedItems?.Count ?? 0}");
+    }
+
+    private void OnAutoBattleSettlementCaptured(DungeonSettlementResult result) {
+        _autoBattleSettlementResult = result;
+        Debug.Log($"[ArtAcceptance] Auto-battle event captured: SettlementPrepared. Victory={result?.IsVictory}");
     }
 
     // ──────────────────────────────────────────
@@ -289,45 +354,87 @@ public partial class ArtAcceptanceRunner {
 
     private IEnumerator CaptureInventoryLoot() {
         Debug.Log("[ArtAcceptance] Capturing inventory_loot...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture("inventory_loot", "screenshots/inventory_loot.png", "acceptance_preview");
 
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
-            CompleteSkipped(capture);
+        if (!RequireRuntimeCore(null) || !RequireFlowController(null)) {
+            ArtAcceptanceCaptureRecord skipCapture = BeginCapture("inventory_loot", "screenshots/inventory_loot.png", "acceptance_preview");
+            skipCapture.Errors.Add("Runtime not ready.");
+            CompleteSkipped(skipCapture);
             yield break;
         }
 
-        CombatLootPickupResult lootResult = BuildAcceptanceLootResult();
-        if (lootResult == null || lootResult.OfferedItems.Count == 0) {
-            capture.Warnings.Add("No item config found for inventory loot capture.");
-            CompleteSkipped(capture);
-            yield break;
-        }
+        // 优先使用自动战斗闭环产出的真实数据
+        if (_autoBattleLootResult != null && _autoBattleLootResult.OfferedItems.Count > 0) {
+            ArtAcceptanceCaptureRecord capture = BeginCapture("inventory_loot", "screenshots/inventory_loot.png", "real_gameplay");
+            Debug.Log($"[ArtAcceptance] inventory_loot: Using real auto-battle loot. Items={_autoBattleLootResult.OfferedItems.Count}");
+            GameFlowController.Instance.EnterCombatLoot(_autoBattleLootResult);
+            yield return WaitForVisualStable();
+            yield return CaptureCurrentScreen(capture);
 
-        Debug.Log("[ArtAcceptance] inventory_loot uses an acceptance-only loot payload; real reward settlement is not invoked.");
-        GameFlowController.Instance.EnterCombatLoot(lootResult);
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
+            // 模拟确认拾取，使战利品进入背包，为后续撤退结算提供真实数据
+            CombatNode currentCombatNode = GameRoot.Core?.Dungeon?.CurrentLayer?.CurrentNode as CombatNode;
+            if (currentCombatNode != null) {
+                currentCombatNode.ConfirmLootCollection();
+                Debug.Log("[ArtAcceptance] Loot collection confirmed via real CombatNode.");
+            }
+        } else {
+            // 降级到构造数据
+            ArtAcceptanceCaptureRecord capture = BeginCapture("inventory_loot", "screenshots/inventory_loot.png", "acceptance_preview");
+            CombatLootPickupResult lootResult = BuildAcceptanceLootResult();
+            if (lootResult == null || lootResult.OfferedItems.Count == 0) {
+                capture.Warnings.Add("No item config found for inventory loot capture.");
+                CompleteSkipped(capture);
+                yield break;
+            }
+
+            Debug.Log("[ArtAcceptance] inventory_loot: Falling back to acceptance-only loot payload.");
+            GameFlowController.Instance.EnterCombatLoot(lootResult);
+            yield return WaitForVisualStable();
+            yield return CaptureCurrentScreen(capture);
+        }
     }
 
     private IEnumerator CaptureSettlement() {
         Debug.Log("[ArtAcceptance] Capturing settlement...");
-        ArtAcceptanceCaptureRecord capture = BeginCapture("settlement", "screenshots/settlement.png", "acceptance_preview");
 
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture)) {
-            CompleteSkipped(capture);
+        if (!RequireRuntimeCore(null) || !RequireFlowController(null)) {
+            ArtAcceptanceCaptureRecord skipCapture = BeginCapture("settlement", "screenshots/settlement.png", "acceptance_preview");
+            skipCapture.Errors.Add("Runtime not ready.");
+            CompleteSkipped(skipCapture);
             yield break;
         }
 
-        DungeonSettlementResult settlementResult = BuildAcceptanceSettlementResult();
-        if (settlementResult == null) {
-            capture.Warnings.Add("Failed to build settlement preview payload.");
-            CompleteSkipped(capture);
-            yield break;
+        // 如果自动战斗后有真实 loot 但没有 settlement，触发撤退获取真实结算
+        if (_autoBattleLootResult != null && _autoBattleSettlementResult == null) {
+            Debug.Log("[ArtAcceptance] settlement: Triggering evacuation to generate real settlement data.");
+            DungeonEventBus.OnDungeonSettlementPrepared += OnAutoBattleSettlementCaptured;
+            try {
+                DungeonEventBus.PublishDungeonEvacuated();
+            } finally {
+                DungeonEventBus.OnDungeonSettlementPrepared -= OnAutoBattleSettlementCaptured;
+            }
         }
 
-        GameFlowController.Instance.EnterSettlementPreview(settlementResult);
-        yield return WaitForVisualStable();
-        yield return CaptureCurrentScreen(capture);
+        if (_autoBattleSettlementResult != null) {
+            ArtAcceptanceCaptureRecord capture = BeginCapture("settlement", "screenshots/settlement.png", "real_gameplay");
+            Debug.Log($"[ArtAcceptance] settlement: Using real auto-battle settlement. Victory={_autoBattleSettlementResult.IsVictory}");
+            GameFlowController.Instance.EnterSettlementPreview(_autoBattleSettlementResult);
+            yield return WaitForVisualStable();
+            yield return CaptureCurrentScreen(capture);
+        } else {
+            // 降级到构造数据
+            ArtAcceptanceCaptureRecord capture = BeginCapture("settlement", "screenshots/settlement.png", "acceptance_preview");
+            DungeonSettlementResult settlementResult = BuildAcceptanceSettlementResult();
+            if (settlementResult == null) {
+                capture.Warnings.Add("Failed to build settlement preview payload.");
+                CompleteSkipped(capture);
+                yield break;
+            }
+
+            Debug.Log("[ArtAcceptance] settlement: Falling back to acceptance-only settlement payload.");
+            GameFlowController.Instance.EnterSettlementPreview(settlementResult);
+            yield return WaitForVisualStable();
+            yield return CaptureCurrentScreen(capture);
+        }
     }
 
     // ──────────────────────────────────────────

@@ -43,6 +43,11 @@ public partial class ArtAcceptanceRunner : MonoBehaviour {
     private float _manualRunStartedAt;
     private readonly Stack<IEnumerator> _manualRoutineStack = new Stack<IEnumerator>();
 
+    // 自动战斗闭环产出（阶段五）
+    // 在 CaptureCombatHud 后执行秒杀，通过事件总线捕获真实 loot 和 settlement 数据。
+    private CombatLootPickupResult _autoBattleLootResult;
+    private DungeonSettlementResult _autoBattleSettlementResult;
+
     // ──────────────────────────────────────────
     // 入口与生命周期
     // ──────────────────────────────────────────
