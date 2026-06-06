@@ -33,6 +33,7 @@ related:
   - 美术文档/ui_design/formal_v2/20_scenario_event_v2.md
   - 美术文档/ui_design/formal_v2/21_doll_room_v2.md
   - 美术文档/ui_design/formal_v2/concepts/README.md
+  - 美术文档/ui_design/formal_v2/concepts/review_index.md
   - 美术文档/ui_design/formal_v2/design_boards/README.md
   - tools/美术工具/README.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
@@ -85,6 +86,7 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 | `20_scenario_event_v2.md` | 剧情事件草案：当前场景叠加故事卡、选项、结果和继续。 |
 | `21_doll_room_v2.md` | 魔偶房间草案：房间叙事、待机魔偶、纪念物、日记和低密度热点。 |
 | `concepts/` | AI 生成的 Formal V2 概念参考图，仅用于结构、氛围和视觉重心评审。 |
+| `concepts/review_index.md` | AI 概念图评审索引，按 V2-A / V2-B / V2-C 汇总 contact sheet 和评审口径。 |
 | `design_boards/` | 结构设计图：每个 active 界面一张 16:9 layout board，外加 `workshop_studio` 拆分图。 |
 
 ## 当前完成度

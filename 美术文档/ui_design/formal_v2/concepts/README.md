@@ -9,6 +9,7 @@ source_of_truth: false
 related:
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/design_boards/README.md
+  - 美术文档/ui_design/formal_v2/concepts/review_index.md
 last_verified: 2026-06-06
 update_rule: 新增、替换或废弃 Formal V2 概念参考图时同步本文件。
 ---
@@ -53,6 +54,17 @@ update_rule: 新增、替换或废弃 Formal V2 概念参考图时同步本文�
 | `doll_interaction_formal_v2_concept.png` | `doll_interaction` | `19_doll_interaction_v2.md` | 魔偶触摸、对话、赠礼、护理和反馈参考。 |
 | `scenario_event_formal_v2_concept.png` | `scenario_event` | `20_scenario_event_v2.md` | 场景叠加故事卡、选项、结果和继续参考。 |
 | `doll_room_formal_v2_concept.png` | `doll_room` | `21_doll_room_v2.md` | 房间叙事、待机魔偶、纪念物、日记和低密度热点参考。 |
+
+## 评审总览图
+
+| 文件 | 内容 | 用途 |
+|---|---|---|
+| `contact_sheets/formal_v2_a_core_flow.png` | V2-A 核心流程 6 张概念图。 | 优先评审主流程结构、视觉重心和风格方向。 |
+| `contact_sheets/formal_v2_b_outgame.png` | V2-B 局外功能 7 张概念图。 | 评审工作室子面板、小镇商店和经营链路。 |
+| `contact_sheets/formal_v2_c_longterm.png` | V2-C 长期系统 / 叙事 9 张概念图。 | 评审深渊房间、小镇信息板、魔偶互动和叙事界面。 |
+| `contact_sheets/formal_v2_all_concepts.png` | 22 张 Formal V2 AI 概念图总览。 | 横向检查整体风格统一性和信息密度。 |
+
+这些 contact sheet 只是评审辅助图，不是新的界面设计源文件，也不进入 Approved、Manifest 或程序接入清单。
 
 ## 概念图覆盖状态
 

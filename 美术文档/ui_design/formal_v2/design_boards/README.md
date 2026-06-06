@@ -10,8 +10,9 @@ related:
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/ui_design/formal_v2/concepts/README.md
+  - 美术文档/ui_design/formal_v2/concepts/review_index.md
   - tools/美术工具/README.md
-last_verified: 2026-06-02
+last_verified: 2026-06-06
 update_rule: 新增或替换 Formal V2 UI 结构设计图时同步本文件。
 ---
 

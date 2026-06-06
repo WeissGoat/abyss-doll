@@ -46,7 +46,7 @@ PM 版本节点中，美术线当前 21 个界面都已具备 Formal V1 active �
 
 V2-B 七个局外功能界面已补齐详细草案，并按最新反馈修正语义：`maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel` 归入 `workshop_studio` 内的可切换子面板或弹出窗口，不再作为独立大场景；`sell_panel` 改作小镇商店 / 市场交易界面，工坊卖出和出货分配由 `shop_staging` 承接。旧维护、义体、底盘升级和旧 `sell_panel` 概念图已归档到 `concepts/archive/2026-06-01_workshop_studio_and_shop_semantics/`；2026-06-06 已用内置 imagegen 按新语义重出 4 张概念图。
 
-Formal V2 数量账：active UI 规格共有 21 个界面；21 个 active 界面的 V2 草案已全部补齐，并额外保留 `workshop_studio` 作为 `workshop_main` 的拆分方案。结构设计图已生成 22 张，位于 `美术文档/ui_design/formal_v2/design_boards/`，覆盖 21 个 active 界面和 `workshop_studio`；AI 概念参考图也已补齐 22 张，位于 `美术文档/ui_design/formal_v2/concepts/`。两类设计图都不进入 Approved、Manifest 或程序交接清单。
+Formal V2 数量账：active UI 规格共有 21 个界面；21 个 active 界面的 V2 草案已全部补齐，并额外保留 `workshop_studio` 作为 `workshop_main` 的拆分方案。结构设计图已生成 22 张，位于 `美术文档/ui_design/formal_v2/design_boards/`，覆盖 21 个 active 界面和 `workshop_studio`；AI 概念参考图也已补齐 22 张，位于 `美术文档/ui_design/formal_v2/concepts/`。概念图评审索引和 4 张 contact sheet 已补到 `美术文档/ui_design/formal_v2/concepts/review_index.md` 与 `concepts/contact_sheets/`。这些设计图都不进入 Approved、Manifest 或程序交接清单。
 
 美术侧已把“可接入覆盖”、“缺图生成”和“视觉质量替换”拆开：`可接入素材清单.md` 给程序看，`缺图生成计划.md` 给美术侧执行 `generate_needed` 新素材跑图，`素材质量替换清单.md` 给美术侧执行 local_v0 / placeholder 同名替换。当前 `generate_needed=0`，质量清单为 `technical_fix=0`、`visual_v2_replace=121`，表示没有必须先修的技术风险；历史本地生成 Approved 已统一补标 `QualityTier=local_v0`，这些素材不阻塞程序接入，后续按 Visual V2 同名替换。
 
@@ -210,10 +210,11 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 - 已补齐 Formal V2-C 九个剩余 active 界面详细草案：`13_layer_select_v2.md`、`14_safe_room_v2.md`、`15_stairs_room_v2.md`、`16_order_board_v2.md`、`17_rumor_board_v2.md`、`18_faction_shop_v2.md`、`19_doll_interaction_v2.md`、`20_scenario_event_v2.md`、`21_doll_room_v2.md`。至此 21 个 active UI 界面均已有 Formal V2 可评审方案。
 - 已新增 `Generate-FormalV2DesignBoards.ps1` / `generate_formal_v2_design_boards.py`，生成确定性 Formal V2 结构设计图；当前 `design_boards/` 已覆盖 21 个 active 界面和 `workshop_studio`，共 22 张 PNG，并生成 `formal_v2_design_boards.json` 和目录说明。
 - 已明确区分 `concepts/` 与 `design_boards/`：前者是 AI 氛围概念图，后者是结构 layout board；两者都不是 Approved 运行时素材、Manifest 条目或程序接入口。2026-06-06 已用内置 imagegen 补齐 13 张缺口概念图，当前 AI 概念图总数为 22 张。
+- 已新增 Formal V2 概念图评审索引和 contact sheet：`concepts/review_index.md` 记录评审顺序与口径，`concepts/contact_sheets/` 生成 V2-A、V2-B、V2-C 和全部 22 张概念图总览，方便用户横向审风格统一性和信息密度。
 
 ## 下一步建议
 
-1. 先让用户结合 `design_boards/` 和 `concepts/` 审 Formal V2 结构与氛围：优先 `workshop_main` / `workshop_studio`，再审 `combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。
+1. 先让用户结合 `concepts/review_index.md`、`concepts/contact_sheets/`、`design_boards/` 和 `concepts/` 审 Formal V2 结构与氛围：优先 `workshop_main` / `workshop_studio`，再审 `combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。
 2. 再按链路审局外功能：维护 / 义体 / 底盘作为 `workshop_studio` 子面板一起审；`shop_staging -> business_settlement -> daily_bill_report` 作为经营链路一起审；`sell_panel` 按小镇商店 / 市场交易审。
 3. 最后审 V2-C：`layer_select`、`safe_room`、`stairs_room`、`order_board`、`rumor_board`、`faction_shop`、`doll_interaction`、`scenario_event`、`doll_room`。
 4. 程序侧在 Formal V2 active 更新前继续按 Formal V1 `screen_layouts.json` 工作；不要按 `formal_v2/*.md` 草案接入 Unity。

@@ -10,8 +10,8 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 2548,
-    "relation_edges": 1274,
+    "directed_edges": 2554,
+    "relation_edges": 1277,
     "cross_role_edges": 204,
     "role_pairs": {
       "PM <-> 全局": 12,
@@ -60,7 +60,7 @@
         "美术文档/README.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-06-02",
+      "last_verified": "2026-06-06",
       "update_rule": "美术或 UI 视觉流水线任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -3035,13 +3035,35 @@
       "source_of_truth": false,
       "related": [
         "美术文档/ui_design/formal_v2/README.md",
-        "美术文档/ui_design/formal_v2/design_boards/README.md"
+        "美术文档/ui_design/formal_v2/design_boards/README.md",
+        "美术文档/ui_design/formal_v2/concepts/review_index.md"
       ],
-      "last_verified": "2026-06-02",
+      "last_verified": "2026-06-06",
       "update_rule": "新增、替换或废弃 Formal V2 概念参考图时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 2,
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/ui_design/formal_v2/concepts/review_index.md",
+      "title": "Formal V2 UI 概念图评审索引",
+      "id": "art_ui_formal_v2_concept_review_index",
+      "type": "art",
+      "role": "美术",
+      "domain": "ui_design",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [
+        "美术文档/ui_design/formal_v2/concepts/README.md",
+        "美术文档/ui_design/formal_v2/README.md",
+        "美术文档/ui_design/formal_v2/design_boards/README.md"
+      ],
+      "last_verified": "2026-06-06",
+      "update_rule": "新增、替换或废弃 Formal V2 概念图总览时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
       "cross_role_relation_count": 0
     },
     {
@@ -3057,13 +3079,14 @@
         "美术文档/ui_design/formal_v2/README.md",
         "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
         "美术文档/ui_design/formal_v2/concepts/README.md",
+        "美术文档/ui_design/formal_v2/concepts/review_index.md",
         "tools/美术工具/README.md"
       ],
-      "last_verified": "2026-06-02",
+      "last_verified": "2026-06-06",
       "update_rule": "新增或替换 Formal V2 UI 结构设计图时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 4,
+      "relation_count": 5,
       "cross_role_relation_count": 0
     },
     {
@@ -3102,6 +3125,7 @@
         "美术文档/ui_design/formal_v2/20_scenario_event_v2.md",
         "美术文档/ui_design/formal_v2/21_doll_room_v2.md",
         "美术文档/ui_design/formal_v2/concepts/README.md",
+        "美术文档/ui_design/formal_v2/concepts/review_index.md",
         "美术文档/ui_design/formal_v2/design_boards/README.md",
         "tools/美术工具/README.md",
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
@@ -3109,11 +3133,11 @@
         "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-06-02",
+      "last_verified": "2026-06-06",
       "update_rule": "新增 Formal V2 设计批次、确认规则或界面设计文档时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 32,
+      "relation_count": 33,
       "cross_role_relation_count": 0
     },
     {
@@ -3369,7 +3393,7 @@
         "设计文档/config/gates/56_正式配置源落地准入门禁.md",
         "agent_status/design.md"
       ],
-      "last_verified": "2026-05-25",
+      "last_verified": "2026-05-28",
       "update_rule": "调整正式配置推进顺序、内容量目标、可玩时长目标、配置域优先级或策划交付节奏时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
