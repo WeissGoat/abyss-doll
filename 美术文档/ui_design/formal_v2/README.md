@@ -39,7 +39,7 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 知识库/views/art.md
-last_verified: 2026-06-02
+last_verified: 2026-06-06
 update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档时同步本文件。
 ---
 
@@ -89,16 +89,16 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 
 ## 当前完成度
 
-截至 2026-06-02，active UI 规格共有 21 个界面。Formal V2 已补齐 21 个 active 界面的可评审草案，并额外保留 `workshop_studio` 作为 `workshop_main` 的设计拆分图。
+截至 2026-06-06，active UI 规格共有 21 个界面。Formal V2 已补齐 21 个 active 界面的可评审草案，并额外保留 `workshop_studio` 作为 `workshop_main` 的设计拆分图。
 
 当前设计图覆盖：
 
 | 类型 | 数量 | 位置 | 状态 |
 |---|---:|---|---|
 | Formal V2 结构设计图 | 22 | `design_boards/` | 21 个 active 界面 + `workshop_studio` 已全部生成。 |
-| AI 概念参考图 | 9 | `concepts/` | 可继续评审的氛围图。 |
+| AI 概念参考图 | 22 | `concepts/` | 21 个 active 界面 + `workshop_studio` 已全部生成。 |
 | 已归档旧概念图 | 4 | `concepts/archive/2026-06-01_workshop_studio_and_shop_semantics/` | 维护 / 义体 / 底盘独立大场景和旧 `sell_panel` 语义已废弃。 |
-| 待重出 AI 概念图 | 13 | `concepts/README.md` 记录 | NovelAI 本地配置当前返回 401，待 token 修复后再串行生成。 |
+| 待重出 AI 概念图 | 0 | `concepts/README.md` 记录 | 2026-06-06 已用内置 imagegen 补齐。 |
 
 | ScreenID | 草案状态 | 当前建议 |
 |---|---|---|
