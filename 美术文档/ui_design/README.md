@@ -8,8 +8,8 @@ status: active
 source_of_truth: true
 related:
   - 开发文档/05_表现层架构与事件总线(ViewAndEventBus).md
-  - 开发文档/00_Unity表现层与编辑器构建规范.md
-  - 开发文档/09_视觉资源系统程序开发规范.md
+  - 开发文档/rules/00_Unity表现层与编辑器构建规范.md
+  - 开发文档/rules/09_视觉资源系统程序开发规范.md
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 美术文档/02_资源规格与接入规范.md

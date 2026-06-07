@@ -10,8 +10,8 @@ related:
   - 版本规划/09_正式版核心纵切开发路线.md
   - agent_status/README.md
   - PROJECT_STATUS.md
-  - 开发文档/00_客户端核心架构规范.md
-  - 开发文档/13_编程规范与架构约定.md
+  - 开发文档/rules/00_客户端核心架构规范.md
+  - 开发文档/rules/13_编程规范与架构约定.md
   - 开发文档/00_程序开发大纲.md
   - 开发文档/15_P0配置Validator与自动验收底座需求.md
   - 设计文档/GDD/GDD_00_系统关联总图.md
@@ -27,22 +27,22 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 ## 最后更新
 
-2026-05-27
+2026-06-07
 
 ## 当前关注
 
 支撑正式版核心纵切，让 Unity 运行时系统保持模块清晰、数据驱动、可测试，并与当前 GDD 规则一致。
 
-程序侧已完成项以 `版本规划/11_纵切批次与需求文档承接矩阵.md` 的“当前实现进度校准”为准。标记为“程序功能开发完成”的背包、战斗、层级入口、义体制造、出售、P0 验收入口和部分 UI 接入能力，不再作为新功能重复派发。
+程序侧完成项以本状态页、开发文档、代码事实和验收证据为准；`版本规划/09_正式版核心纵切开发路线.md` 只提供宏观优先级、长期节点和防重复派发口径。当前正式完成口径只把 P0 自动验收底座、P1 背包 / 物品生命周期标记为程序完成；战斗已开始补正式意图可读数据层，深渊地图、局外成长、经济压力和 P5 表现支撑仍按进行中或待正式验收处理，不得因历史原型或局部接入误判为正式完成。
 
 ## 必读文件
 
 - `知识库/views/program.md`
 - `开发文档/00_程序开发大纲.md`
-- `开发文档/00_客户端核心架构规范.md`
-- `开发文档/00_Unity表现层与编辑器构建规范.md`
+- `开发文档/rules/00_客户端核心架构规范.md`
+- `开发文档/rules/00_Unity表现层与编辑器构建规范.md`
 - `开发文档/12_程序开发优化建议与重构路线.md`
-- `开发文档/13_编程规范与架构约定.md`
+- `开发文档/rules/13_编程规范与架构约定.md`
 - 当前系统对应的 `开发文档/` 落地文档。
 
 ## 工作边界
@@ -64,6 +64,8 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 
 ## 最近完成
 
+- 开发文档结构已按当前项目阶段重整：新增 `开发文档/README.md`、`开发文档/rules/README.md`、`开发文档/archive/README.md`；将架构 / 编码 / UGUI / 自动化测试 / 视觉资源程序接入规范迁入 `开发文档/rules/`；将早期 `06_架构评估与收口建议.md` 归档到 `开发文档/archive/` 并标记 `archived`；同步更新跨文档引用、知识库入口和索引，`Generate-DocsIndex.ps1` 与 `Validate-Docs.ps1` 已通过，indexed=221。
+- P0 验收口径与报告采集已修复：`RewardSystemSmokeTest.Run` 改为验证 `reward_boss_gatekeeper_mk1` 保底 `mat_core_tier1`，并确认 `reward_monster_elite_scrap_guard` 不承担 Boss 保底；`MonsterActionAITest.Run` 改为按怪物 AI 配置的 `Damage * RepeatCount` 计算期望 HP；`Invoke-UnitySmokeTests.ps1` 现在可输出匹配的稳定 `TestReport` 副本，`Invoke-P0Validation.ps1` 改为读取该副本，避免抢读全局 `UnityClient/Logs/TestReport.json` 时误判 `Blocked`。最新 `Invoke-P0Validation.ps1 -TimeoutSeconds 180` 通过，RunID=`20260527_013319`，Errors=0，Warnings=17。
 - 已创建复制程序智能体使用的状态页。
 - 运行时 Prefab 已移动到 `UnityClient/Assets/Prefabs`。
 - 已新增并验证 `tools/config/Sync-Configs.ps1`。
@@ -83,35 +85,60 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - ArtAcceptance `20260524_043441` 已通过，`combat_hud` 截图无 warnings / errors，可交美术侧做正式视觉验收。
 - 美术侧已提供 `美术文档/_generated/可接入素材清单.md/json`，程序侧可按 `program_integrate` 条目自助发现待接入素材。
 - A2 背包旋转规则已配置化：`Grid.CanRotate` / `Grid.RotationSteps` 纳入 `ItemGridComponent`、`BackpackGrid`、`InventoryInteractionService`、`ConfigValidator` 和 `InventoryInteractionServiceSmokeTest`，方向型相邻效果会随物品当前旋转后的朝向重新计算。
+- 已按 `美术文档/_generated/可接入素材清单.md` 的 `program_integrate` 区块登记 17 个 Approved VisualID：4 个 `monster_*_combat`、`ui_combat_entity_shadow`、`ui_combat_target_ring` 和 11 个维护 / 账单 / A4 界面图标。
 - 已重建 `VisualAssetRegistry` 到 191 个 Approved Sprite 条目，并把深渊 L1 / L2 的 Treasure / Event / Rest / Hazard 节点 `NodeIconID` 对齐到正式 VisualID；`VisualAssetSmokeTest.Run`、`ConfigValidationSmokeTest.Run`、`DungeonNodeTypesSmokeTest.Run` 顺序 batchmode 验证通过。
+- 已新增 `WorkshopFormalV1PanelController`，通过 `WorkshopUIController.OpenFormalV1Panel()` 接入 `maintenance_panel`、`daily_bill_report`、`shop_staging`、`order_board`、`rumor_board` 的 UGUI 预览面板和 Sprite 绑定，不写入玩法 / 经济规则。
+- 已扩展 `VisualAssetSmokeTest`、`ConfigValidator` 和 `ArtAcceptanceRunner` 覆盖本轮新增 VisualID 与 5 个 Formal V1 面板；`VisualAssetSmokeTest.Run`、`ConfigValidationSmokeTest.Run`、`Validate-UIDesign.ps1` 均通过。
+- ArtAcceptance `20260524_212423` 已通过，15 个截图点均 captured，`MissingRequiredVisualIDs=0`，UI snapshot 未发现 missing sprite；新增截图包含 `maintenance_panel`、`daily_bill_report`、`shop_staging`、`order_board`、`rumor_board`。
+- Formal V1 运行时美术验收覆盖继续补齐：`ArtAcceptanceRunner` 新增 `business_settlement`、`chassis_upgrade_panel`、`doll_interaction`、`doll_room`、`faction_shop`、`scenario_event` 6 个截图入口；`WorkshopFormalV1PanelController` 已用 `VisualAssetService` 绑定对应 Approved VisualID，不写入玩法状态。
+- 本轮校验：`VisualAssetSmokeTest.Run` 顺序 batchmode 通过；`ArtAcceptanceSmokeTest.Run` 首次因 Unity 工程锁被拦截，释放后单独重跑通过。完整运行时截图验收仍需在 Unity Editor 触发 ArtAcceptance 自动跑一轮。
 - P0B 统一验收入口已落地：新增 `tools/agent/Invoke-P0Validation.ps1`，串联配置同步、`ConfigValidationSmokeTest.Run`、核心 Unity smoke tests、UI 规格校验和 ArtAcceptance latest 摘要，并生成 `UnityClient/Logs/P0Validation/latest/report.json` / `report.md`。
 - 已修正 P0 阻断测试口径：`InventoryGridLayoutAssetValidatorTest` 避免在 PlayMode 中误调用编辑器场景 API；`DungeonStairsProgressionTest` 按正式地图的节点按钮 + 路线线段结构校验二层地图布局。
 - `Invoke-P0Validation.ps1 -TimeoutSeconds 180` 已通过非 Strict 验证：配置同步、ConfigValidator、Unity smoke tests、UI 规格校验、ArtAcceptance latest 均通过；当前仍有 ConfigValidator 元数据标签 warning 和锁层路径预期 warning。
+- 版本规划已补“程序功能开发完成”识别口径：`09` 增加完成项识别入口和防重复派发规则，`11` 保持需求承接门禁；程序实际完成状态仍回到本状态页、开发文档、代码事实和验收证据。
 - P2 深渊地图正式网络基础已落地：`DungeonLayer` 按 `RowCount` / 宽度 / seed 生成多行节点网络，`DungeonMapUIController` 改为展示多路线节点和连线，`DungeonManager.CanMoveToNode()` 在领域层限制入口 / 后继节点移动；`DungeonStairsProgressionTest.Run` 与 `ConfigValidationSmokeTest.Run` 已通过。
 - P2 非战斗节点基础已落地：新增 `DungeonOutcomeNode`、`TreasureNode`、`EventNode`、`RestStopNode`、`HazardNode`，支持 `Title` / `Description` / `OutcomeEffects` / `RewardID` 配置，结果节点和节点奖励分别接入节点结果 UI 与战利品拾取流；`DungeonNodeTypesSmokeTest.Run`、`DungeonStairsProgressionTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
 - P2 路线风险表达与战争迷雾基础已落地：新增 `DungeonMapVisibilityService`，支持 `FogProfile`、`NodeRevealDepth`、`NodePreviewDepth`、`RiskLevel`、`RiskHint` 配置，地图 UI 按 `Revealed` / `Preview` / `Hidden` 展示节点与路线；`DungeonMapVisibilitySmokeTest.Run`、`DungeonStairsProgressionTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
+- P2 层间安全区节奏已落地：新增 `DungeonSafeZoneService`，`StairsNode` 进入时自动全恢复 HP / SAN，`SafeRoomNode.Rest()` 复用同一领域服务；`DungeonStairsProgressionTest.Run` 已覆盖恢复不清空本轮战利品账本。
+- P2 固定 seed 验收底座已落地：新增 `DungeonSeedAcceptanceService`，可输出层级 / seed / MapProfile 的稳定摘要、Boss / Stairs 可达性和失败 issue；`DungeonSeedAcceptanceSmokeTest.Run`、`DungeonStairsProgressionTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
+- P3 下潜许可服务已落地：新增 `DiveReadinessService`，统一检查层级解锁、出战人偶、极端磨损 / 侵蚀、底盘网格、运行时背包网格和义体引用合法性；`DungeonManager.StartRunAtLayer()` 已接入正式预检；`DiveReadinessSmokeTest.Run`、`DungeonStairsProgressionTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
 - P3 维护真实服务已落地：新增 `MaintenanceService`、`WorkshopCostService`、`MaintenanceConfig`、`Maintenance` 配置域和 `MaintenanceServiceSmokeTest.Run`，支持金币 / 材料成本、磨损 / 侵蚀降低、HP / SAN 恢复，并由 `DiveReadinessService` 重新判断下潜许可。
 - P3 材料缺口 / 成长反馈后端服务已落地：新增 `GrowthFeedbackService`，统一输出制造、维护、下潜许可的可执行状态、金币缺口、材料缺口和推荐动作；`GrowthFeedbackServiceSmokeTest.Run`、`MaintenanceServiceSmokeTest.Run`、`DiveReadinessSmokeTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
+- P3 成长反馈可读性占位文本层已落地：新增 `GrowthReadabilityTextService`，把下潜许可、维护 / 制造缺口和建议行动整理为 UI 可直接展示的只读文本快照；`GrowthReadabilityTextServiceSmokeTest.Run` 已通过。
 - P3 人偶核心状态可读性占位文本层已落地：新增 `DollCoreStateReadabilityService`，把 HP、SAN、情绪、维护风险、Bond、底盘、义体和特质整理为 UI 可直接展示的只读文本快照；`DollCoreStateReadabilityServiceSmokeTest.Run` 已通过。
 - P3 人偶基础交互领域服务已落地：新增 `DollInteractionService` 和按日运行时计数，支持触摸、对话、赠礼的场景权限、每日上限、防刷、低 SAN 压力反馈和赠礼接受才消耗；`DollInteractionServiceSmokeTest.Run` 已通过。
 - P3 人偶交互可读性占位文本层已落地：新增 `DollInteractionReadabilityTextService`，把单次触摸 / 对话 / 赠礼结果和当日交互计数整理为 UI 可直接展示的只读文本快照；`DollInteractionReadabilityTextServiceSmokeTest.Run` 已通过。
 - P4 月租 / 账单压力链后端底座已落地：新增 `EconomyConfig`、`TownEconomyService`、`Economy` 配置域和 `TownEconomyServiceSmokeTest.Run`，支持日结报告、月租支付、轻度欠账、玩家选择典当补足和保护物不典当；`TownEconomyServiceSmokeTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
 - P4 订单 / 声望 / 传闻价格波后端链路已落地：新增 `Factions`、`Orders`、`Rumors` 配置域和运行时状态，`TownEconomyService` 支持每周刷新、接单、交付、奖励、声望 / 信任变更、传闻出售倍率和通用出售结算；`TownEconomyServiceSmokeTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
 - P4 小镇经济概览数据层已落地：新增 `TownEconomyOverviewService`，只读汇总可售物各渠道估值、订单进度、传闻、势力摘要、月租压力和典当候选，供占位 UI 或正式 UI 后续消费；`TownEconomyOverviewServiceSmokeTest.Run`、`TownEconomyServiceSmokeTest.Run`、`ConfigValidationSmokeTest.Run` 已通过。
+- P4 小镇经济可读性占位文本层已落地：新增 `TownEconomyReadabilityTextService`，把日历、金币、月租压力、出售候选、订单、传闻、势力和典当候选整理为 UI 可直接展示的只读文本快照；`TownEconomyReadabilityTextServiceSmokeTest.Run`、`TownEconomyOverviewServiceSmokeTest.Run`、`TownEconomyServiceSmokeTest.Run` 已通过。
 - P1 怪物意图只读预览数据层已落地：新增 `MonsterIntentPreviewService`，从当前战斗上下文输出怪物 HP / Shield、候选行动、可执行状态、阻塞原因、攻击 / 腐蚀武器 / 塞污染物的类型化意图数据，供占位 UI 或正式 UI 后续消费；`MonsterIntentPreviewServiceSmokeTest.Run` 覆盖预览不修改背包状态。
 - P1 回合意图锁定已落地：`CombatSystem.StartPlayerTurn()` 会锁定每个存活怪物本轮行动，`MonsterIntentPreviewService` 优先显示锁定行动，`MonsterActionRunner.ExecuteTurn()` 优先执行同一行动；若锁定行动变得不可执行则本轮失败不重选；`MonsterActionAITest.Run` 已覆盖预览与执行一致性。
+- P1 战斗结果报告数据层已落地：新增 `CombatOutcomeReport` / `CombatOutcomeReportService` / `CombatEventBus.OnCombatOutcomePrepared`，胜利、HP 战败和 SAN 崩溃均可输出 UI 可消费快照；`CombatOutcomeReportSmokeTest.Run` 在 Unity Editor 日志中三项用例通过。
+- P1 SAN 崩溃战败判定已落地：新增 `CombatDefeatConditionService`，`CombatSystem` 和结果报告共用 HP / SAN / 阵营全灭判定；`MonsterActionAITest.Run`、`MonsterIntentPreviewServiceSmokeTest.Run`、`ConfigValidationSmokeTest.Run` 命令行通过。
+- P1 战斗复盘时间线数据层已落地：新增 `CombatTimelineRecorder`，`CombatOutcomeReport.TimelineEvents` 可输出战斗开始、回合、伤害、物品干涉和胜负结算事件；`CombatOutcomeReportSmokeTest.Run` 在 Unity Editor 日志中通过时间线断言。
+- P1 战斗可读性占位文本层已落地：新增 `CombatReadabilityTextService`，把怪物意图、战斗者状态和最近战斗记录整理为 UI 可直接展示的只读文本快照；`CombatReadabilityTextServiceSmokeTest.Run` 已通过。
+- P1 战斗 HUD 意图消费第一段已落地：`HUDController` 在敌人槽中消费 `CombatReadabilityTextService.BuildIntentSnapshot()`，按 `MonsterFighter.RuntimeID` 显示锁定怪物意图、可执行状态和伤害描述，缺失快照时回退到 HP 文案；新增 `CombatHUDIntentBindingSmokeTest.Run` 覆盖 HUD 文本中可见“敌方意图 / 攻击 / 造成约 10 伤害”，单测已通过。
+- P1 战斗结算 UI 消费第一段已落地：`SettlementUIController` 新增 `Present(CombatOutcomeReport, Action)` 只读展示入口，复用 Formal V1 结算皮肤显示战斗标题、胜负摘要、魔偶 HP / SAN、敌我存活和最近时间线；`CombatOutcomeReportSmokeTest.Run` 新增 `Combat Outcome Settlement UI Binding` 覆盖，直接 Unity 触发验证通过。
+- P1 战斗结算主流程绑定已落地：`GameFlowController` 在失败结算时优先消费 `Combat.LastOutcomeReport` 的 Defeat 报告，撤离 / 胜利结算仍走 `DungeonSettlementResult`；`CombatOutcomeReportSmokeTest.Run` 新增 `Combat Outcome GameFlow Settlement Binding`，RED 证明旧流程仍显示副本失败结算，GREEN 直接 Unity 触发验证 `Status=PASSED`、`GameFlowBinding=PASSED`。
+- Formal V1 工坊面板只读数据绑定第一版已落地：新增 `WorkshopFormalV1PanelBindingService`，`WorkshopFormalV1PanelController` 改为从成长、人偶、经济和交互只读快照服务取文案，不在 UI Controller 内持有玩法规则或改写状态；`WorkshopFormalV1PanelBindingSmokeTest.Run` 已通过，覆盖维护面板和日账单面板真实绑定与经济状态不变性。
+- 已补充视觉 / UI 接入完成口径：`program_integrate=0` 和 ArtAcceptance 截图通过只代表资源登记与运行时截图覆盖，不等于玩家可玩接入；Formal V1 界面后续必须同时满足玩家主流程可达和真实后端 / 领域服务操作闭环，才能标记为可玩接入完成。
+- Formal V1 工坊可玩接入第一段已落地：`WorkshopUIController` 新增玩家主流程入口区，可打开维护、账单、商店、订单、传闻、经营结算、底盘、人偶互动、人偶房间、势力商店和剧情事件面板；新增 `WorkshopFormalV1PanelActionService`，维护按钮调用 `MaintenanceService`，人偶互动按钮调用 `DollInteractionService`，账单 / 经营按钮仅做真实导航或关闭，不伪造未完成业务结果；`WorkshopFormalV1PanelBindingSmokeTest.Run`、`MaintenanceServiceSmokeTest.Run`、`DollInteractionServiceSmokeTest.Run` 已通过。
 
 ## 下一步建议
 
 1. 进入新程序任务前先查 `版本规划/11_纵切批次与需求文档承接矩阵.md` 第 4 节；已标记“程序功能开发完成”的能力只做 bug 修复、验收补强或真实数据绑定，不重复开发。
 2. 先处理美术验收返修：ArtAcceptance latest `20260527_002436` 工具层通过且 `program_integrate=0`，但美术人工验收判定 `combat_hud`、`dungeon_map`、`safe_room`、`stairs_room`、`sell_panel`、`prosthetic_panel` 不通过。前四项需要截图前清理 Scenario Event、工坊面板、背包弹层等跨界面残留；后两项需要至少 1 条有效可出售物品行 / 义体配方行后重跑。
 3. 对 `shop_staging`、`daily_bill_report`、`business_settlement`、`chassis_upgrade_panel` 做文本容器和行距收束，避免中文长文本压边框、按钮或选中行。
-4. 优先从未完成项中选下一步：P1 战斗意图占位 UI 消费 `MonsterIntentPreviewService` / 异常失败反馈、P2 前三层正式配置 JSON / Validator 样例、P3 成长反馈 UI 数据绑定 / 更完整制造配置、P4 经济占位 UI 消费 `TownEconomyOverviewService` / 配置 Validator、P0 Strict warning / seed 摘要。
-5. 接入美术新素材时优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
+4. 优先从未完成项中选下一步：P1 战斗胜利 / 掉落 / 战后复盘的玩家可见操作闭环、P2 前三层正式配置 JSON / Validator 样例、P3 更完整制造配置与真实操作流、P4 经济操作流 / 配置 Validator、P0 Strict warning / seed 摘要。
+5. P0 后续补强重点转为 warning 分级和 Strict 门禁：当前 17 个 warning 主要来自 ConfigValidator 元数据标签、缺失正式怪物 VisualID 和 smoke test 日志 warning，需要按是否阻塞候选版本分类处理。
+6. Formal V1 UI 后续接入按四层验收：先确认资源登记，再确认 ArtAcceptance 截图覆盖，再补玩家主流程入口，最后把关键按钮绑定到真实后端 / 领域服务；当前工坊主入口、维护和人偶互动已进入真实服务闭环，订单 / 商店 / 势力 / 剧情仍需后续补真实操作流。
+7. 接入下一批美术新素材时继续优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
 
 ## 问题 / 阻塞
 
 - 当前工作区已有其他 agent / 用户留下的 Unity UI 脚本脏文件，编辑前需要先检查并避免覆盖无关改动。
+- `CombatLootDropTest.Run` 仍有旧奖励断言：当前正式配置要求 `boss_gatekeeper_mk1` 保底 `mat_core_tier1`，`elite_scrap_guard` 只作为可绕精英；该测试仍断言精英奖励包含 `mat_core_tier1`。后续程序侧应把测试改为 Boss 保底口径，避免误判 C1 配置。
 - 美术验收发现 latest ArtAcceptance 虽然工具层 `PASSED`，但部分截图存在跨界面残留和空列表状态，不能作为 Formal V1 画面通过证据；程序侧需按 `美术文档/09_运行时美术验收记录.md` 的 2026-05-27 条目返修并重跑。
 - `tools/ai-image-gateway` 子模块内部有未提交改动。
 

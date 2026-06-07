@@ -9,7 +9,7 @@ REPO_ROOT = SCRIPT_DIR.parent.parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from generate_docs_index import collect_docs
+from generate_docs_index import collect_docs, should_skip
 
 
 CORE_DOCS = {
@@ -85,6 +85,8 @@ def main():
                 continue
             target_doc = by_path.get(target)
             if target_doc is None:
+                if should_skip(Path(target)):
+                    continue
                 errors.append(f"related doc is not indexed: {path} -> {target}")
                 continue
             if path not in target_doc.get("related", []):

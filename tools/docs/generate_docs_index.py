@@ -30,6 +30,7 @@ EXCLUDED_PARTS = {
     "StreamingAssets",
     "ai-image-gateway",
     "ComfyUI_NAIDGenerator",
+    "p3-mission",
 }
 
 EXCLUDED_PATH_PREFIXES = {

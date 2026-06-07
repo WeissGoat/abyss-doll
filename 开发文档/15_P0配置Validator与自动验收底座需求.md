@@ -1,4 +1,4 @@
-﻿---
+---
 id: dev_15_p0_config_validator_acceptance
 title: P0配置Validator与自动验收底座需求
 type: dev
@@ -11,9 +11,9 @@ related:
   - 版本规划/11_纵切批次与需求文档承接矩阵.md
   - 开发文档/00_程序开发大纲.md
   - 开发文档/12_程序开发优化建议与重构路线.md
-  - 开发文档/13_编程规范与架构约定.md
+  - 开发文档/rules/13_编程规范与架构约定.md
   - 开发文档/14_Unity运行时美术自动验收方案.md
-  - 开发文档/09_视觉资源系统程序开发规范.md
+  - 开发文档/rules/09_视觉资源系统程序开发规范.md
   - 设计文档/delivery/15_P0主干配置表现验收承接清单.md
   - 设计文档/config/validation/35_前三层正式配置Validator与固定Seed验收样例.md
   - 设计文档/config/validation/45_局外成长正式配置Validator与固定验收样例.md
