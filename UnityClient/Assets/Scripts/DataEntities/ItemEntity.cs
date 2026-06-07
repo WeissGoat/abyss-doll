@@ -19,6 +19,12 @@ public class ItemEntity {
     public ItemGridComponent Grid;
     public ItemCombatComponent Combat;
     public List<string> Tags = new List<string>();
+    public ItemOwnerScope OwnerScope = ItemOwnerScope.Unknown;
+    public ItemContainerType ContainerType = ItemContainerType.Unknown;
+    public float Durability = 1f;
+    public int CorruptionLevel;
+    public List<string> DynamicTags = new List<string>();
+    public bool IsBinding;
 }
 
 [Serializable]

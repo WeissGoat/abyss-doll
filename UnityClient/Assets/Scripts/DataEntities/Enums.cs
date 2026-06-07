@@ -9,6 +9,43 @@ public enum ItemType {
     Anchor = 5
 }
 
+public enum ItemOwnerScope {
+    Unknown = 0,
+    Run = 1,
+    Workshop = 2,
+    Shop = 3,
+    Consumed = 4,
+    Lost = 5
+}
+
+public enum ItemContainerType {
+    Unknown = 0,
+    Generated = 1,
+    Inbox = 2,
+    Backpack = 3,
+    SafeBox = 4,
+    GroundInventory = 5,
+    ShopBin = 6,
+    Consumed = 7,
+    Lost = 8,
+    Sold = 9
+}
+
+public enum ItemLifecycleTransition {
+    None = 0,
+    GenerateToInbox = 1,
+    InboxToBackpack = 2,
+    BackpackToGroundInventory = 3,
+    BackpackToLost = 4,
+    BackpackToConsumed = 5,
+    BackpackToSold = 6,
+    GroundInventoryToConsumed = 7,
+    GroundInventoryToSold = 8,
+    ActiveDiscardToLost = 9,
+    ShopBinToSold = 10,
+    InboxToLost = 11
+}
+
 public enum ItemRarity {
     Common = 1,
     Uncommon = 2,

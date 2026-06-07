@@ -103,6 +103,15 @@ public static class ConfigManager {
             string json = JsonConvert.SerializeObject(template);
             ItemEntity newItem = JsonConvert.DeserializeObject<ItemEntity>(json);
             newItem.InstanceID = System.Guid.NewGuid().ToString();
+            newItem.OwnerScope = ItemOwnerScope.Unknown;
+            newItem.ContainerType = ItemContainerType.Generated;
+            newItem.Durability = newItem.Durability <= 0f ? 1f : newItem.Durability;
+            if (newItem.Tags == null) {
+                newItem.Tags = new List<string>();
+            }
+            if (newItem.DynamicTags == null) {
+                newItem.DynamicTags = new List<string>();
+            }
             return newItem;
         }
         Debug.LogError($"[ConfigManager] Item ConfigID not found: {configID}");

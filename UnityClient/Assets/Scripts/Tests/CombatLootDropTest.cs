@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public static class CombatLootDropTest {
     private static CombatLootPickupResult _preparedLootResult;
+    private static CombatLootCollectionResult _lastCollectionResult;
     private static bool _nodeSettlementCompleted;
 
     public static void Run() {
@@ -31,8 +32,10 @@ public static class CombatLootDropTest {
         };
 
         _preparedLootResult = null;
+        _lastCollectionResult = null;
         _nodeSettlementCompleted = false;
         DungeonEventBus.OnCombatLootPrepared += HandleCombatLootPrepared;
+        DungeonEventBus.OnCombatLootCollected += HandleCombatLootCollected;
         DungeonEventBus.OnNodeSettlementCompleted += HandleNodeSettlementCompleted;
 
         int beforeCount = ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count;
@@ -48,17 +51,26 @@ public static class CombatLootDropTest {
             Debug.LogError($"Combat Loot Preparation FAILED. Offered={_preparedLootResult?.OfferedItems.Count ?? 0}, BackpackCount={afterPrepareCount}, SettlementCompleted={_nodeSettlementCompleted}");
         }
 
+        ItemEntity acceptedOfferedItem = null;
+        bool placedOfferedItem = false;
         if (_preparedLootResult != null) {
-            ItemEntity offeredItem = _preparedLootResult.OfferedItems[0];
-            ((BackpackGrid)doll.RuntimeGrid).PlaceItem(offeredItem, 0, 0);
+            acceptedOfferedItem = _preparedLootResult.OfferedItems[0];
+            placedOfferedItem = PlaceViaInventoryService(acceptedOfferedItem, 0, 0, "CombatLootAccept", out string placeReason);
+            if (!placedOfferedItem) {
+                Debug.LogError($"Combat Loot Confirmation setup FAILED. Could not place offered item through InventoryInteractionService: {placeReason}");
+            }
             combatNode.ConfirmLootCollection();
         }
 
         int afterConfirmCount = ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count;
-        if (afterConfirmCount == beforeCount + 1 && _nodeSettlementCompleted) {
+        bool acceptedCollectionResult = _lastCollectionResult != null
+            && acceptedOfferedItem != null
+            && _lastCollectionResult.AcceptedItems.Contains(acceptedOfferedItem)
+            && _lastCollectionResult.DiscardedItems.Count == 0;
+        if (placedOfferedItem && afterConfirmCount == beforeCount + 1 && _nodeSettlementCompleted && acceptedCollectionResult) {
             Debug.Log("Combat Loot Confirmation PASSED.");
         } else {
-            Debug.LogError($"Combat Loot Confirmation FAILED. Expected backpack count {beforeCount + 1}, got {afterConfirmCount}, SettlementCompleted={_nodeSettlementCompleted}");
+            Debug.LogError($"Combat Loot Confirmation FAILED. PlacedByService={placedOfferedItem}, Expected backpack count {beforeCount + 1}, got {afterConfirmCount}, SettlementCompleted={_nodeSettlementCompleted}, AcceptedResult={acceptedCollectionResult}");
         }
 
         CombatNode eliteNode = new CombatNode {
@@ -87,7 +99,10 @@ public static class CombatLootDropTest {
             Debug.LogError($"Combat RewardSystem Integration FAILED. Offered={_preparedLootResult?.OfferedItems.Count ?? 0}, HasCore={HasOfferedItem(_preparedLootResult, "mat_core_tier1")}, BackpackCount={afterElitePrepareCount}, SettlementCompleted={_nodeSettlementCompleted}");
         }
 
+        RunCombatLootConfirmationRequiresBackpackPlacement(core);
+
         DungeonEventBus.OnCombatLootPrepared -= HandleCombatLootPrepared;
+        DungeonEventBus.OnCombatLootCollected -= HandleCombatLootCollected;
         DungeonEventBus.OnNodeSettlementCompleted -= HandleNodeSettlementCompleted;
 
         RunCombatLootBackpackDiscardUITest(core);
@@ -104,14 +119,19 @@ public static class CombatLootDropTest {
         GameFlowController flow = flowObj.AddComponent<GameFlowController>();
         SetGameFlowInstance(flow);
         SetGameFlowScreen(flow, "CombatLoot");
+        InventoryPresentationController presentation = flowObj.AddComponent<InventoryPresentationController>();
+        presentation.SetContext(InventoryPresentationMode.CombatLoot);
 
         var doll = core.CurrentPlayer.ActiveDoll;
         doll.RuntimeGrid = new BackpackGrid(doll.Chassis);
         BackpackGrid grid = doll.RuntimeGrid as BackpackGrid;
         ItemEntity backpackItem = ConfigManager.CreateItem("loot_gear_scrap");
-        bool placed = grid != null && backpackItem != null && grid.PlaceItem(backpackItem, 0, 0);
+        string placeReason = string.Empty;
+        bool placed = grid != null
+            && backpackItem != null
+            && PlaceViaInventoryService(backpackItem, 0, 0, "CombatLootDiscardUITestSetup", out placeReason);
         if (!placed) {
-            Debug.LogError("Combat Loot Backpack Discard UI FAILED. Could not place test backpack item.");
+            Debug.LogError($"Combat Loot Backpack Discard UI FAILED. Could not place test backpack item through InventoryInteractionService: {placeReason}");
             UnityEngine.Object.DestroyImmediate(canvasObj);
             UnityEngine.Object.DestroyImmediate(flowObj);
             return;
@@ -154,6 +174,51 @@ public static class CombatLootDropTest {
         UnityEngine.Object.DestroyImmediate(flowObj);
     }
 
+    private static void RunCombatLootConfirmationRequiresBackpackPlacement(CoreBackend core) {
+        var doll = core.CurrentPlayer.ActiveDoll;
+        doll.RuntimeGrid = new BackpackGrid(doll.Chassis);
+        BackpackGrid grid = doll.RuntimeGrid as BackpackGrid;
+
+        CombatNode discardNode = new CombatNode {
+            NodeID = "test_unplaced_loot_discard"
+        };
+        discardNode.MonsterIDs.Add("mob_scavenger_bug");
+        core.Dungeon.CurrentLayer = new DungeonLayer {
+            LayerID = 1,
+            RootNode = discardNode,
+            CurrentNode = discardNode
+        };
+
+        _preparedLootResult = null;
+        _lastCollectionResult = null;
+        _nodeSettlementCompleted = false;
+
+        int beforeCount = grid?.ContainedItems.Count ?? -1;
+        discardNode.ResolveAfterVictory();
+        int afterPrepareCount = grid?.ContainedItems.Count ?? -1;
+        ItemEntity offeredItem = _preparedLootResult?.OfferedItems.Count > 0
+            ? _preparedLootResult.OfferedItems[0]
+            : null;
+
+        discardNode.ConfirmLootCollection();
+        int afterConfirmCount = grid?.ContainedItems.Count ?? -1;
+        bool discardedCollectionResult = _lastCollectionResult != null
+            && offeredItem != null
+            && _lastCollectionResult.AcceptedItems.Count == 0
+            && _lastCollectionResult.DiscardedItems.Contains(offeredItem);
+
+        if (_preparedLootResult != null
+            && offeredItem != null
+            && afterPrepareCount == beforeCount
+            && afterConfirmCount == beforeCount
+            && _nodeSettlementCompleted
+            && discardedCollectionResult) {
+            Debug.Log("Combat Loot Unplaced Confirmation PASSED.");
+        } else {
+            Debug.LogError($"Combat Loot Unplaced Confirmation FAILED. Offered={_preparedLootResult?.OfferedItems.Count ?? 0}, Before={beforeCount}, AfterPrepare={afterPrepareCount}, AfterConfirm={afterConfirmCount}, SettlementCompleted={_nodeSettlementCompleted}, DiscardedResult={discardedCollectionResult}");
+        }
+    }
+
     private static void SetGameFlowScreen(GameFlowController controller, string screenName) {
         Type screenType = typeof(GameFlowController).GetNestedType("GameScreenState", BindingFlags.NonPublic);
         object state = Enum.Parse(screenType, screenName);
@@ -175,6 +240,11 @@ public static class CombatLootDropTest {
             .Invoke(controller, null);
     }
 
+    private static bool PlaceViaInventoryService(ItemEntity item, int x, int y, string source, out string reason) {
+        InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll(source);
+        return InventoryInteractionService.RequestPlace(item, x, y, context, out reason);
+    }
+
     private static bool HasOfferedItem(CombatLootPickupResult result, string configID) {
         if (result?.OfferedItems == null) {
             return false;
@@ -192,6 +262,11 @@ public static class CombatLootDropTest {
     private static void HandleCombatLootPrepared(CombatLootPickupResult result) {
         _preparedLootResult = result;
         Debug.Log($"Received combat loot payload. OfferedCount={result?.OfferedItems.Count ?? 0}");
+    }
+
+    private static void HandleCombatLootCollected(CombatLootCollectionResult result) {
+        _lastCollectionResult = result;
+        Debug.Log($"Received combat loot collection. Accepted={result?.AcceptedItems.Count ?? 0}, Discarded={result?.DiscardedItems.Count ?? 0}");
     }
 
     private static void HandleNodeSettlementCompleted() {

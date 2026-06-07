@@ -564,11 +564,12 @@ public class DungeonManager {
 
     private void HandleEvacuate() {
         Debug.Log("<color=green>[DungeonManager] Handling Dungeon Evacuation (Victory/Escape).</color>");
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
         DungeonSettlementResult result = new DungeonSettlementResult {
             IsVictory = true
         };
 
-        var activeDoll = GameRoot.Core.CurrentPlayer.ActiveDoll;
+        var activeDoll = player?.ActiveDoll;
         if (activeDoll != null) {
             BackpackGrid grid = activeDoll.RuntimeGrid as BackpackGrid;
             if (grid != null) {
@@ -591,7 +592,12 @@ public class DungeonManager {
             }
         }
 
-        result.StashCountAfterSettlement = GameRoot.Core.CurrentPlayer.StashInventory.Count;
+        ItemLifecycleBatchResult extractResult = ItemLifecycleService.ExtractBackpackItemsToGroundInventory(player, "DungeonEvacuate");
+        if (!extractResult.Success) {
+            Debug.LogWarning($"[DungeonManager] Evacuation extraction warning: {extractResult.Reason}");
+        }
+
+        result.StashCountAfterSettlement = player?.StashInventory?.Count ?? 0;
         Debug.Log($"[DungeonManager] Settlement summary prepared. LootCount={result.LootTransferredCount}, EstimatedValue={result.LootEstimatedValue}, StashCount={result.StashCountAfterSettlement}");
         DungeonEventBus.PublishDungeonSettlementPrepared(result);
         DungeonEventBus.PublishDungeonSettled(true);
@@ -600,22 +606,16 @@ public class DungeonManager {
 
     private void HandleDefeat() {
         Debug.Log("<color=red>[DungeonManager] Handling Dungeon Defeat.</color>");
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
         DungeonSettlementResult result = new DungeonSettlementResult {
             IsVictory = false
         };
 
-        var activeDoll = GameRoot.Core.CurrentPlayer.ActiveDoll;
-        if (activeDoll != null) {
-            BackpackGrid grid = activeDoll.RuntimeGrid as BackpackGrid;
-            if (grid != null) {
-                PopulateRunLootSummary(result, null);
-                List<ItemEntity> clearedItems = grid.ClearAllItems();
-                PublishInventoryRemovalEvents(clearedItems);
-                Debug.LogWarning($"[DungeonManager] Player defeated. All items in Backpack have been lost.");
-            }
-        }
+        ItemLifecycleBatchResult defeatResult = ItemLifecycleService.ResolveDefeatBackpackItems(player, "DungeonDefeat");
+        List<ItemEntity> preservedRunLoot = CollectPreservedRunLoot(defeatResult);
+        PopulateRunLootSummary(result, preservedRunLoot);
 
-        result.StashCountAfterSettlement = GameRoot.Core.CurrentPlayer.StashInventory.Count;
+        result.StashCountAfterSettlement = player?.StashInventory?.Count ?? 0;
         Debug.Log($"[DungeonManager] Defeat settlement prepared. StashCount={result.StashCountAfterSettlement}");
         DungeonEventBus.PublishDungeonSettlementPrepared(result);
         DungeonEventBus.PublishDungeonSettled(false);
@@ -682,39 +682,40 @@ public class DungeonManager {
         return carriedRunLoot;
     }
 
+    private List<ItemEntity> CollectPreservedRunLoot(ItemLifecycleBatchResult lifecycleResult) {
+        List<ItemEntity> preservedRunLoot = new List<ItemEntity>();
+        if (lifecycleResult?.Results == null || lifecycleResult.Results.Count == 0) {
+            return preservedRunLoot;
+        }
+
+        HashSet<string> runLootIds = new HashSet<string>();
+        foreach (ItemEntity item in _runAcceptedLoot) {
+            if (item != null && !string.IsNullOrEmpty(item.InstanceID)) {
+                runLootIds.Add(item.InstanceID);
+            }
+        }
+
+        foreach (ItemLifecycleResult result in lifecycleResult.Results) {
+            if (result?.Item == null || string.IsNullOrEmpty(result.Item.InstanceID)) {
+                continue;
+            }
+
+            if (result.Success
+                && result.ToContainer == ItemContainerType.GroundInventory
+                && runLootIds.Contains(result.Item.InstanceID)) {
+                preservedRunLoot.Add(result.Item);
+            }
+        }
+
+        return preservedRunLoot;
+    }
+
     private void ResetRunLootLedger() {
         _runAcceptedLoot.Clear();
     }
 
     private string BuildStartLayerRejectionReason(PlayerProfile player, int layerID) {
-        if (player == null) {
-            return "Player profile is missing.";
-        }
-
-        if (layerID < 1) {
-            return "Layer ID must be >= 1.";
-        }
-
-        if (!ConfigManager.Dungeons.ContainsKey(layerID)) {
-            return "Layer config does not exist.";
-        }
-
-        if (layerID > player.HighestUnlockedDungeonLayer) {
-            return $"Layer is locked. HighestUnlocked={player.HighestUnlockedDungeonLayer}.";
-        }
-
-        return "Unknown rejection reason.";
-    }
-
-    private void PublishInventoryRemovalEvents(IEnumerable<ItemEntity> removedItems) {
-        if (removedItems == null) {
-            return;
-        }
-
-        foreach (var item in removedItems) {
-            if (item != null && !string.IsNullOrEmpty(item.InstanceID)) {
-                GameEventBus.PublishItemRemoved(item.InstanceID);
-            }
-        }
+        DiveReadinessResult readiness = DiveReadinessService.Evaluate(player, layerID, false);
+        return readiness.BuildSummary();
     }
 }

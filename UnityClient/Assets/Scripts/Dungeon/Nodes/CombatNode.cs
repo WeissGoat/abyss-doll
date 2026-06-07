@@ -47,9 +47,11 @@ public class CombatNode : NodeBase, ILootPickupNode {
 
                 if (grid != null && grid.ContainedItems.Contains(item)) {
                     acceptedCount++;
+                    ItemLifecycleService.MarkBackpackItem(item, ItemOwnerScope.Run);
                     collectionResult.AcceptedItems.Add(item);
                 } else {
                     discardedCount++;
+                    ItemLifecycleService.MarkInboxItemLost(item, "CombatLootConfirm", out _);
                     collectionResult.DiscardedItems.Add(item);
                 }
             }
@@ -115,6 +117,7 @@ public class CombatNode : NodeBase, ILootPickupNode {
         }
 
         result.SourceMonsterIDs.Add(monsterID);
+        ItemLifecycleService.MarkGeneratedToInbox(droppedItem, $"LegacyLoot:{monsterID}");
         result.OfferedItems.Add(droppedItem);
         result.TotalEstimatedValue += droppedItem.BaseValue;
     }
@@ -133,6 +136,7 @@ public class CombatNode : NodeBase, ILootPickupNode {
                 pickupResult.SourceMonsterIDs.Add(sourceID);
             }
 
+            ItemLifecycleService.MarkGeneratedToInbox(item, $"Reward:{rewardResult.RootRewardID}");
             pickupResult.OfferedItems.Add(item);
             pickupResult.TotalEstimatedValue += item.BaseValue;
         }

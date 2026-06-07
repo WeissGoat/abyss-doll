@@ -107,6 +107,7 @@ public static class InventoryInteractionService {
         }
 
         grid.PlaceItem(item, x, y, placement.Rotation);
+        ItemLifecycleService.MarkBackpackItem(item, ItemOwnerScope.Run);
         Recalculate(context);
         GameEventBus.PublishItemPlaced(item.InstanceID, x, y);
         return true;

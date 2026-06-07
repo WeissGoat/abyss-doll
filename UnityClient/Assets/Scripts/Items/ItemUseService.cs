@@ -230,15 +230,10 @@ public static class ItemUseService {
             return;
         }
 
-        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
-        if (grid == null || !grid.ContainedItems.Contains(item)) {
-            return;
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        if (!ItemLifecycleService.TryConsumeBackpackItem(player, item, "ItemUse", out ItemLifecycleResult result)) {
+            Debug.LogWarning($"[ItemUse] Failed to consume item [{item.Name}]: {result?.Reason ?? "Unknown reason"}");
         }
-
-        grid.RemoveItem(item);
-        GridSolver.RecalculateAllEffects(GameRoot.Core.CurrentPlayer.ActiveDoll);
-        GameEventBus.PublishItemRemoved(item.InstanceID);
-        Debug.Log($"[ItemUse] Consumed item [{item.Name}] and removed it from backpack.");
     }
 
     private static bool CanUsePayload(ItemEntity item, DollEntity doll, out string failureReason) {

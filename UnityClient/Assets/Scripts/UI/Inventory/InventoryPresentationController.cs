@@ -123,6 +123,7 @@ public class InventoryPresentationController : MonoBehaviour {
         int discardedCount = 0;
         foreach (var itemUI in FindObjectsOfType<DraggableItemUI>()) {
             if (itemUI != null && itemUI.IsPendingDiscard) {
+                ItemLifecycleService.MarkDetachedItemLost(itemUI.ItemData, "InventoryPresentationDiscard", out _);
                 discardedCount++;
                 DestroyRuntimeObject(itemUI.gameObject);
             }

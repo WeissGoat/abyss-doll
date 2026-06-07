@@ -28,8 +28,10 @@ public static class DungeonSettlementTest {
             var carriedLoot = ConfigManager.CreateItem("mat_core_tier1");
             var discardedLoot = ConfigManager.CreateItem("loot_gear_scrap");
             ((BackpackGrid)doll.RuntimeGrid).PlaceItem(carriedLoot, 0, 0);
+            ItemLifecycleService.MarkBackpackItem(carriedLoot, ItemOwnerScope.Run);
             var startingShield = ConfigManager.CreateItem("gear_wooden_shield");
             ((BackpackGrid)doll.RuntimeGrid).PlaceItem(startingShield, 3, 0);
+            ItemLifecycleService.MarkBackpackItem(startingShield, ItemOwnerScope.Workshop, true);
             DungeonEventBus.PublishCombatLootCollected(new CombatLootCollectionResult {
                 NodeID = "settlement_test_node",
                 AcceptedItems = new System.Collections.Generic.List<ItemEntity> { carriedLoot, discardedLoot }
@@ -48,17 +50,19 @@ public static class DungeonSettlementTest {
 
             Debug.Log($"[After Evacuate] Stash Count: {player.StashInventory.Count}, Backpack Count: {((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count}");
             
-            if (player.StashInventory.Count == 0 &&
-                ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count == 2 &&
-                ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Contains(startingShield) &&
-                ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Contains(carriedLoot)) {
+            if (player.StashInventory.Count == 2 &&
+                ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count == 0 &&
+                player.StashInventory.Contains(startingShield) &&
+                player.StashInventory.Contains(carriedLoot) &&
+                startingShield.ContainerType == ItemContainerType.GroundInventory &&
+                carriedLoot.ContainerType == ItemContainerType.GroundInventory) {
                 Debug.Log("Evacuation Loot Transfer PASSED.");
             } else {
                 Debug.LogError("Evacuation Loot Transfer FAILED.");
             }
 
-            if (((BackpackGrid)doll.RuntimeGrid).GetItemAt(0, 0) == carriedLoot &&
-                ((BackpackGrid)doll.RuntimeGrid).GetItemAt(3, 0) == startingShield) {
+            if (((BackpackGrid)doll.RuntimeGrid).GetItemAt(0, 0) == null &&
+                ((BackpackGrid)doll.RuntimeGrid).GetItemAt(3, 0) == null) {
                 Debug.Log("Evacuation Grid Cleanup PASSED.");
             } else {
                 Debug.LogError("Evacuation Grid Cleanup FAILED.");
@@ -76,7 +80,7 @@ public static class DungeonSettlementTest {
                 _lastSettlementResult.PickedUpCount == 2 &&
                 _lastSettlementResult.BroughtOutCount == 1 &&
                 _lastSettlementResult.LostCount == 1 &&
-                _lastSettlementResult.StashCountAfterSettlement == 0) {
+                _lastSettlementResult.StashCountAfterSettlement == 2) {
                 Debug.Log("Evacuation Settlement Summary PASSED.");
             } else {
                 Debug.LogError("Evacuation Settlement Summary FAILED.");
@@ -88,6 +92,7 @@ public static class DungeonSettlementTest {
             doll.RuntimeGrid = new BackpackGrid(doll.Chassis);
             var defeatLoot = ConfigManager.CreateItem("loot_rusty_coil");
             ((BackpackGrid)doll.RuntimeGrid).PlaceItem(defeatLoot, 0, 0);
+            ItemLifecycleService.MarkBackpackItem(defeatLoot, ItemOwnerScope.Run);
             DungeonEventBus.PublishCombatLootCollected(new CombatLootCollectionResult {
                 NodeID = "settlement_test_defeat",
                 AcceptedItems = new System.Collections.Generic.List<ItemEntity> { defeatLoot }
@@ -101,7 +106,8 @@ public static class DungeonSettlementTest {
                 Debug.LogError("Defeat Loot Penalty FAILED.");
             }
 
-            if (((BackpackGrid)doll.RuntimeGrid).GetItemAt(0, 0) == null) {
+            if (((BackpackGrid)doll.RuntimeGrid).GetItemAt(0, 0) == null &&
+                defeatLoot.ContainerType == ItemContainerType.Lost) {
                 Debug.Log("Defeat Grid Cleanup PASSED.");
             } else {
                 Debug.LogError("Defeat Grid Cleanup FAILED.");
@@ -119,7 +125,7 @@ public static class DungeonSettlementTest {
                 _lastSettlementResult.PickedUpCount == 1 &&
                 _lastSettlementResult.BroughtOutCount == 0 &&
                 _lastSettlementResult.LostCount == 1 &&
-                _lastSettlementResult.StashCountAfterSettlement == 0) {
+                _lastSettlementResult.StashCountAfterSettlement == 2) {
                 Debug.Log("Defeat Settlement Summary PASSED.");
             } else {
                 Debug.LogError("Defeat Settlement Summary FAILED.");

@@ -94,6 +94,7 @@ public class CoreBackend {
                 continue;
             }
 
+            ItemLifecycleService.MarkBackpackItem(item, ItemOwnerScope.Workshop, true);
             Debug.Log($"[CoreBackend] Placed initial item [{item.Name}] for doll [{doll.Name}] at ({initialItem.X},{initialItem.Y}).");
         }
 
