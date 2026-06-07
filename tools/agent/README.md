@@ -11,7 +11,7 @@ related:
   - PROJECT_STATUS.md
   - 开发文档/15_P0配置Validator与自动验收底座需求.md
   - 知识库/README.md
-last_verified: 2026-05-24
+last_verified: 2026-06-08
 update_rule: 调整复制智能体开工检查项、风险路径或提交前检查流程时同步本文件。
 ---
 
@@ -50,6 +50,8 @@ UnityClient/Logs/P0Validation/latest/
 ```
 
 P0 核心 Unity smoke 会覆盖背包交互、奖励系统、战斗战利品、深渊节点闭环、怪物行动、阶梯/楼层推进、小镇经济出售链路、工坊维护/成长链路、黄金路径 `MainFlowGoldenPathSmokeTest.Run` 和视觉资源登记；`Invoke-UnitySmokeTests.ps1` 的默认列表只保留少量可单独快速触发的背包/布局测试。
+
+`report.json` 会单独输出 `ErrorCount`、`WarningCount`、`BlockedCount`、`LimitationCount`、`ValidationLimitations` 和 `SmokeTestRegistry`。例如 Unity Editor 未运行时，ConfigValidator / Unity smoke 会记录为 `Blocked` 与 `validation_limited:UnityEditorNotRunning`，不会混入 `ErrorCount` 冒充配置或代码错误；ArtAcceptance latest 的真实失败仍会保留为 `Failed`。
 
 快速静态检查可跳过 Unity：
 

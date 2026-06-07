@@ -270,25 +270,48 @@ UnityClient/Logs/P0Validation/latest/
 
 ```json
 {
-  "status": "Passed | Failed | Blocked",
-  "startedAt": "2026-05-24T00:00:00+08:00",
-  "durationMs": 0,
-  "strict": false,
-  "steps": [
+  "Status": "Passed | Failed | Blocked",
+  "StartedAt": "2026-05-24T00:00:00+08:00",
+  "DurationMs": 0,
+  "Strict": false,
+  "ErrorCount": 0,
+  "WarningCount": 0,
+  "BlockedCount": 0,
+  "LimitationCount": 0,
+  "Steps": [
     {
-      "name": "ConfigValidator",
-      "status": "Passed",
-      "errorCount": 0,
-      "warningCount": 0,
-      "output": "UnityClient/Logs/P0Validation/latest/config_validation.json"
+      "Name": "ConfigValidator",
+      "Status": "Passed",
+      "ErrorCount": 0,
+      "WarningCount": 0,
+      "BlockedCount": 0,
+      "LimitationCount": 0,
+      "Output": "UnityClient/Logs/P0Validation/latest/config_validation.json"
     }
   ],
-  "errors": [],
-  "warnings": [],
-  "artAcceptanceLatest": {
-    "reportPath": "UnityClient/Logs/ArtAcceptance/latest/report.json",
-    "generatedAt": "",
-    "isStaleAgainstActiveUi": false
+  "ValidationLimitations": [
+    {
+      "Code": "validation_limited:UnityEditorNotRunning",
+      "Step": "UnitySmokeTests",
+      "Scope": "UnitySmokeTests",
+      "Message": "Unity Editor is not running; AutoTestDaemon cannot execute runtime validation.",
+      "Blocking": true
+    }
+  ],
+  "SmokeTestRegistry": [
+    {
+      "Test": "MainFlowGoldenPathSmokeTest.Run",
+      "Category": "MainFlowGoldenPath",
+      "IsMainFlow": true,
+      "Required": true
+    }
+  ],
+  "Errors": [],
+  "Warnings": [],
+  "ArtAcceptanceLatest": {
+    "ReportPath": "UnityClient/Logs/ArtAcceptance/latest/report.json",
+    "FinishedAt": "",
+    "IsStaleAgainstActiveUi": false
   }
 }
 ```
@@ -299,8 +322,10 @@ UnityClient/Logs/P0Validation/latest/
 2. 每一步通过 / 失败 / 阻塞。
 3. Error 列表，按配置目录和 ID 分组。
 4. Warning 列表，按优先级排序。
-5. ArtAcceptance latest 是否过期。
-6. 下一步建议：例如“补 `monster_xxx.CombatVisualID`”。
+5. `ValidationLimitations` 列表，使用稳定 code，例如 `validation_limited:UnityEditorNotRunning`。
+6. 主流程 smoke registry，至少列出 `MainFlowGoldenPathSmokeTest.Run` 和相关分段主流程 smoke。
+7. ArtAcceptance latest 是否过期。
+8. 下一步建议：例如“补 `monster_xxx.CombatVisualID`”。
 
 ---
 
@@ -312,8 +337,10 @@ UnityClient/Logs/P0Validation/latest/
 | `warning` | 不阻塞当前运行，但会影响可读性、内容完整度、后续维护。 | `-Strict` 下阻塞 |
 | `info` | 统计、建议或非当前批次提示。 | 否 |
 | `blocked` | 工具无法运行，例如 Unity 被占用、配置文件无法读取。 | 是 |
+| `validation_limited:*` | 验证覆盖受限的稳定机器码，例如 `validation_limited:UnityEditorNotRunning`、`validation_limited:SkipUnityRequested`、`validation_limited:ArtAcceptanceTimeout`。 | 按 `blocking` 字段判断 |
 
 不得把 `error` 自动降级为 runtime fallback。
+不得把 `blocked` 或 `validation_limited:*` 塞进 `errorCount` 冒充业务错误；报告必须通过 `blockedCount`、`limitationCount` 和 `validationLimitations` 单独表达验证受限原因。
 
 ---
 
@@ -329,6 +356,7 @@ P0 普通通过：
 | UI 规格校验 | active `screen_layouts.json` 校验通过。 |
 | ArtAcceptance | latest report 可读取；若过期，普通模式 warning，Strict 模式失败。 |
 | 报告 | `report.json` 和 `report.md` 成功输出。 |
+| 验证受限 | `blockedCount = 0` 才能声明完整通过；若存在 `validation_limited:*`，只能声明“部分验证受限”，不能宣称对应范围已通过。 |
 
 P0 Strict 通过：
 

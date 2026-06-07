@@ -18,6 +18,7 @@ $startedAt = [DateTimeOffset]::Now
 $steps = New-Object System.Collections.Generic.List[object]
 $errors = New-Object System.Collections.Generic.List[string]
 $warnings = New-Object System.Collections.Generic.List[string]
+$validationLimitations = New-Object System.Collections.Generic.List[object]
 
 function Resolve-ProjectPath {
     param([string]$Path)
@@ -83,11 +84,14 @@ function New-Step {
     return [ordered]@{
         Name = $Name
         Status = "Pending"
+        StatusCode = "pending"
         StartedAt = ""
         FinishedAt = ""
         DurationMs = 0
         ErrorCount = 0
         WarningCount = 0
+        BlockedCount = 0
+        LimitationCount = 0
         Output = ""
         Logs = @()
         Details = [ordered]@{}
@@ -102,6 +106,8 @@ function Complete-Step {
         [string[]]$Logs = @(),
         [int]$ErrorCount = 0,
         [int]$WarningCount = 0,
+        [int]$BlockedCount = 0,
+        [int]$LimitationCount = 0,
         [string]$Output = "",
         $Details = $null
     )
@@ -113,13 +119,44 @@ function Complete-Step {
     $Step.DurationMs = [int][Math]::Round(($finished - $Started).TotalMilliseconds)
     $Step.ErrorCount = $ErrorCount
     $Step.WarningCount = $WarningCount
+    $Step.BlockedCount = $BlockedCount
+    $Step.LimitationCount = $LimitationCount
     $Step.Output = Convert-ToRepoPath $Output
     $Step.Logs = @($Logs)
+    $Step.StatusCode = $Status.ToLowerInvariant()
     if ($null -ne $Details) {
         $Step.Details = $Details
     }
 
     $steps.Add([pscustomobject]$Step) | Out-Null
+}
+
+function Add-ValidationLimitation {
+    param(
+        [string]$Code,
+        [string]$Step,
+        [string]$Scope,
+        [string]$Message,
+        [bool]$Blocking = $true
+    )
+
+    if ([string]::IsNullOrWhiteSpace($Code)) {
+        $Code = "validation_limited:Unknown"
+    }
+
+    foreach ($existing in $validationLimitations) {
+        if ($existing.Code -eq $Code -and $existing.Step -eq $Step -and $existing.Scope -eq $Scope) {
+            return
+        }
+    }
+
+    $validationLimitations.Add([pscustomobject][ordered]@{
+        Code = $Code
+        Step = $Step
+        Scope = $Scope
+        Message = $Message
+        Blocking = $Blocking
+    }) | Out-Null
 }
 
 function Write-JsonFile {
@@ -248,6 +285,8 @@ function Invoke-UnityTest {
     $status = "Blocked"
     $errorCount = 0
     $warningCount = 0
+    $blockedCount = 0
+    $limitationCount = 0
     $details = [ordered]@{
         Test = $TestName
         ExitCode = $result.ExitCode
@@ -256,7 +295,9 @@ function Invoke-UnityTest {
     }
 
     if ($null -eq $testReport) {
-        $errorCount = 1
+        $blockedCount = 1
+        $limitationCount = 1
+        $details.ReasonCode = "validation_limited:UnityTestReportMissing"
         $details.BlockReason = "No matching Unity TestReport.json was produced."
     } elseif ($testReport.Status -eq "PASSED") {
         $status = "Passed"
@@ -276,6 +317,8 @@ function Invoke-UnityTest {
         Status = $status
         ErrorCount = $errorCount
         WarningCount = $warningCount
+        BlockedCount = $blockedCount
+        LimitationCount = $limitationCount
         StartedAt = ([DateTimeOffset]$result.StartedAt).ToString("o")
         DurationMs = $result.DurationMs
         Logs = $result.Logs
@@ -414,10 +457,14 @@ function Invoke-ArtAcceptanceRun {
     $start = Get-Date
 
     if (-not (Test-UnityEditorRunning)) {
-        Complete-Step -Step $step -Status "Blocked" -Started $start -ErrorCount 1 -Logs @("Unity Editor is not running; cannot rerun ArtAcceptance.") -Details ([ordered]@{
+        $reason = "Unity Editor is not running; cannot rerun ArtAcceptance."
+        $reasonCode = "validation_limited:UnityEditorNotRunning"
+        Complete-Step -Step $step -Status "Blocked" -Started $start -BlockedCount 1 -LimitationCount 1 -Logs @($reason) -Details ([ordered]@{
+            ReasonCode = $reasonCode
+            Reason = $reason
             Trigger = "UnityClient/Logs/.art_acceptance_trigger"
         })
-        $errors.Add("ArtAcceptance rerun blocked: Unity Editor is not running.") | Out-Null
+        Add-ValidationLimitation -Code $reasonCode -Step "ArtAcceptanceRerun" -Scope "ArtAcceptance" -Message $reason -Blocking $true
         return
     }
 
@@ -456,11 +503,15 @@ function Invoke-ArtAcceptanceRun {
     }
 
     if ($null -eq $newReport) {
-        Complete-Step -Step $step -Status "Blocked" -Started $start -ErrorCount 1 -Logs @("Timed out waiting for ArtAcceptance latest report.") -Details ([ordered]@{
+        $reason = "Timed out waiting for ArtAcceptance latest report."
+        $reasonCode = "validation_limited:ArtAcceptanceTimeout"
+        Complete-Step -Step $step -Status "Blocked" -Started $start -BlockedCount 1 -LimitationCount 1 -Logs @($reason) -Details ([ordered]@{
+            ReasonCode = $reasonCode
+            Reason = $reason
             Trigger = Convert-ToRepoPath $triggerFile
             TimeoutSeconds = $ArtAcceptanceTimeoutSeconds
         })
-        $errors.Add("ArtAcceptance rerun blocked: timeout waiting for latest report.") | Out-Null
+        Add-ValidationLimitation -Code $reasonCode -Step "ArtAcceptanceRerun" -Scope "ArtAcceptance" -Message $reason -Blocking $true
         return
     }
 
@@ -585,13 +636,17 @@ function Write-MarkdownReport {
     $lines.Add(('* DurationMs: `{0}`' -f $Report.DurationMs)) | Out-Null
     $lines.Add(('* Strict: `{0}`' -f $Report.Strict)) | Out-Null
     $lines.Add(('* SeedProfile: `{0}`' -f $Report.SeedProfile)) | Out-Null
+    $lines.Add(('* ErrorCount: `{0}`' -f $Report.ErrorCount)) | Out-Null
+    $lines.Add(('* WarningCount: `{0}`' -f $Report.WarningCount)) | Out-Null
+    $lines.Add(('* BlockedCount: `{0}`' -f $Report.BlockedCount)) | Out-Null
+    $lines.Add(('* ValidationLimitations: `{0}`' -f (Get-Count $Report.ValidationLimitations))) | Out-Null
     $lines.Add("") | Out-Null
     $lines.Add("## Steps") | Out-Null
     $lines.Add("") | Out-Null
-    $lines.Add("| Step | Status | Errors | Warnings | Output |") | Out-Null
-    $lines.Add("|---|---|---:|---:|---|") | Out-Null
+    $lines.Add("| Step | Status | Errors | Warnings | Blocked | Limited | Output |") | Out-Null
+    $lines.Add("|---|---|---:|---:|---:|---:|---|") | Out-Null
     foreach ($step in $Report.Steps) {
-        $lines.Add(('| `{0}` | `{1}` | {2} | {3} | `{4}` |' -f $step.Name, $step.Status, $step.ErrorCount, $step.WarningCount, $step.Output)) | Out-Null
+        $lines.Add(('| `{0}` | `{1}` | {2} | {3} | {4} | {5} | `{6}` |' -f $step.Name, $step.Status, $step.ErrorCount, $step.WarningCount, $step.BlockedCount, $step.LimitationCount, $step.Output)) | Out-Null
     }
 
     $lines.Add("") | Out-Null
@@ -613,6 +668,29 @@ function Write-MarkdownReport {
     } else {
         foreach ($item in $Report.Warnings) {
             $lines.Add("* $item") | Out-Null
+        }
+    }
+
+    $lines.Add("") | Out-Null
+    $lines.Add("## Validation Limitations") | Out-Null
+    if ((Get-Count $Report.ValidationLimitations) -eq 0) {
+        $lines.Add("") | Out-Null
+        $lines.Add("None.") | Out-Null
+    } else {
+        foreach ($item in $Report.ValidationLimitations) {
+            $lines.Add(('* `{0}` step=`{1}` scope=`{2}` blocking=`{3}` - {4}' -f $item.Code, $item.Step, $item.Scope, $item.Blocking, $item.Message)) | Out-Null
+        }
+    }
+
+    $lines.Add("") | Out-Null
+    $lines.Add("## Main Flow Smoke Registry") | Out-Null
+    $mainFlowTests = @($Report.SmokeTestRegistry | Where-Object { $_.IsMainFlow })
+    if ($mainFlowTests.Count -eq 0) {
+        $lines.Add("") | Out-Null
+        $lines.Add("None.") | Out-Null
+    } else {
+        foreach ($item in $mainFlowTests) {
+            $lines.Add(('* `{0}` category=`{1}` required=`{2}`' -f $item.Test, $item.Category, $item.Required)) | Out-Null
         }
     }
 
@@ -662,89 +740,132 @@ if ($syncResult.ExitCode -eq 0) {
 $configValidationPath = Join-Path $outputPath "config_validation.json"
 $smokeTestsPath = Join-Path $outputPath "smoke_tests.json"
 $unityRunning = Test-UnityEditorRunning
-$smokeTests = @(
-    "InventoryInteractionServiceSmokeTest.Run",
-    "InventoryDisplaySpecSmokeTest.Run",
-    "InventoryGridLayoutAssetValidatorTest.Run",
-    "RewardSystemSmokeTest.Run",
-    "CombatLootDropTest.Run",
-    "DungeonNodeTypesSmokeTest.Run",
-    "MonsterActionAITest.Run",
-    "DungeonStairsProgressionTest.Run",
-    "MainFlowGoldenPathSmokeTest.Run",
-    "TownEconomyServiceSmokeTest.Run",
-    "WorkshopSmokeTest.Run",
-    "MaintenanceServiceSmokeTest.Run",
-    "GrowthFeedbackServiceSmokeTest.Run",
-    "WorkshopFormalV1PanelBindingSmokeTest.Run",
-    "VisualAssetSmokeTest.Run"
+$smokeTestDefinitions = @(
+    [ordered]@{ Test = "InventoryInteractionServiceSmokeTest.Run"; Category = "Inventory"; IsMainFlow = $false; Required = $true },
+    [ordered]@{ Test = "InventoryDisplaySpecSmokeTest.Run"; Category = "Inventory"; IsMainFlow = $false; Required = $true },
+    [ordered]@{ Test = "InventoryGridLayoutAssetValidatorTest.Run"; Category = "Inventory"; IsMainFlow = $false; Required = $true },
+    [ordered]@{ Test = "RewardSystemSmokeTest.Run"; Category = "RewardLoot"; IsMainFlow = $false; Required = $true },
+    [ordered]@{ Test = "CombatLootDropTest.Run"; Category = "RewardLoot"; IsMainFlow = $true; Required = $true },
+    [ordered]@{ Test = "DungeonNodeTypesSmokeTest.Run"; Category = "MainFlowDungeon"; IsMainFlow = $true; Required = $true },
+    [ordered]@{ Test = "MonsterActionAITest.Run"; Category = "Combat"; IsMainFlow = $false; Required = $true },
+    [ordered]@{ Test = "DungeonStairsProgressionTest.Run"; Category = "MainFlowDungeon"; IsMainFlow = $true; Required = $true },
+    [ordered]@{ Test = "MainFlowGoldenPathSmokeTest.Run"; Category = "MainFlowGoldenPath"; IsMainFlow = $true; Required = $true },
+    [ordered]@{ Test = "TownEconomyServiceSmokeTest.Run"; Category = "MainFlowEconomy"; IsMainFlow = $true; Required = $true },
+    [ordered]@{ Test = "WorkshopSmokeTest.Run"; Category = "MainFlowEconomy"; IsMainFlow = $true; Required = $true },
+    [ordered]@{ Test = "MaintenanceServiceSmokeTest.Run"; Category = "MainFlowGrowth"; IsMainFlow = $true; Required = $true },
+    [ordered]@{ Test = "GrowthFeedbackServiceSmokeTest.Run"; Category = "MainFlowGrowth"; IsMainFlow = $true; Required = $true },
+    [ordered]@{ Test = "WorkshopFormalV1PanelBindingSmokeTest.Run"; Category = "MainFlowGrowth"; IsMainFlow = $true; Required = $true },
+    [ordered]@{ Test = "VisualAssetSmokeTest.Run"; Category = "VisualAsset"; IsMainFlow = $false; Required = $true }
 )
+$smokeTests = @($smokeTestDefinitions | ForEach-Object { $_.Test })
 
 if ($SkipUnity) {
+    $skipReasonCode = "validation_limited:SkipUnityRequested"
     $skipPayload = [ordered]@{
         Status = "Skipped"
         ErrorCount = 0
         WarningCount = 1
+        BlockedCount = 0
+        LimitationCount = 1
+        ReasonCode = $skipReasonCode
         Reason = "-SkipUnity was specified; ConfigValidator and Unity smoke tests were not executed."
     }
     Write-JsonFile -Path $configValidationPath -Value $skipPayload
     $step = New-Step "ConfigValidator"
     $start = Get-Date
-    Complete-Step -Step $step -Status "Skipped" -Started $start -WarningCount 1 -Output $configValidationPath -Logs @($skipPayload.Reason)
+    Complete-Step -Step $step -Status "Skipped" -Started $start -WarningCount 1 -LimitationCount 1 -Output $configValidationPath -Logs @($skipPayload.Reason) -Details ([ordered]@{
+        ReasonCode = $skipReasonCode
+        Reason = $skipPayload.Reason
+    })
+    Add-ValidationLimitation -Code $skipReasonCode -Step "ConfigValidator" -Scope "ConfigValidator" -Message $skipPayload.Reason -Blocking $false
     $warnings.Add($skipPayload.Reason) | Out-Null
 
     $smokePayload = [ordered]@{
         Status = "Skipped"
         ErrorCount = 0
         WarningCount = 1
+        BlockedCount = 0
+        LimitationCount = 1
+        ReasonCode = $skipReasonCode
         Reason = "-SkipUnity was specified; Unity smoke tests were not executed."
-        Tests = @($smokeTests | ForEach-Object {
+        RegisteredTests = @($smokeTestDefinitions)
+        Tests = @($smokeTestDefinitions | ForEach-Object {
             [ordered]@{
-                Test = $_
+                Test = $_.Test
+                Category = $_.Category
+                IsMainFlow = $_.IsMainFlow
+                Required = $_.Required
                 Status = "Skipped"
                 ErrorCount = 0
                 WarningCount = 1
+                BlockedCount = 0
+                LimitationCount = 1
+                ReasonCode = $skipReasonCode
             }
         })
     }
     Write-JsonFile -Path $smokeTestsPath -Value $smokePayload
     $step = New-Step "UnitySmokeTests"
     $start = Get-Date
-    Complete-Step -Step $step -Status "Skipped" -Started $start -WarningCount 1 -Output $smokeTestsPath -Logs @($smokePayload.Reason)
+    Complete-Step -Step $step -Status "Skipped" -Started $start -WarningCount 1 -LimitationCount 1 -Output $smokeTestsPath -Logs @($smokePayload.Reason) -Details ([ordered]@{
+        ReasonCode = $skipReasonCode
+        RegisteredTests = @($smokeTestDefinitions)
+    })
+    Add-ValidationLimitation -Code $skipReasonCode -Step "UnitySmokeTests" -Scope "UnitySmokeTests" -Message $smokePayload.Reason -Blocking $false
     $warnings.Add($smokePayload.Reason) | Out-Null
 } elseif (-not $unityRunning) {
     $blockedReason = "Unity Editor is not running; AutoTestDaemon cannot execute runtime validation."
+    $blockedReasonCode = "validation_limited:UnityEditorNotRunning"
     $configPayload = [ordered]@{
         Status = "Blocked"
-        ErrorCount = 1
+        ErrorCount = 0
         WarningCount = 0
+        BlockedCount = 1
+        LimitationCount = 1
+        ReasonCode = $blockedReasonCode
         Reason = $blockedReason
     }
     Write-JsonFile -Path $configValidationPath -Value $configPayload
     $step = New-Step "ConfigValidator"
     $start = Get-Date
-    Complete-Step -Step $step -Status "Blocked" -Started $start -ErrorCount 1 -Output $configValidationPath -Logs @($blockedReason)
-    $errors.Add("ConfigValidator blocked: $blockedReason") | Out-Null
+    Complete-Step -Step $step -Status "Blocked" -Started $start -BlockedCount 1 -LimitationCount 1 -Output $configValidationPath -Logs @($blockedReason) -Details ([ordered]@{
+        ReasonCode = $blockedReasonCode
+        Reason = $blockedReason
+    })
+    Add-ValidationLimitation -Code $blockedReasonCode -Step "ConfigValidator" -Scope "ConfigValidator" -Message $blockedReason -Blocking $true
 
     $smokePayload = [ordered]@{
         Status = "Blocked"
-        ErrorCount = 1
+        ErrorCount = 0
         WarningCount = 0
+        BlockedCount = 1
+        LimitationCount = 1
+        ReasonCode = $blockedReasonCode
         Reason = $blockedReason
-        Tests = @($smokeTests | ForEach-Object {
+        RegisteredTests = @($smokeTestDefinitions)
+        Tests = @($smokeTestDefinitions | ForEach-Object {
             [ordered]@{
-                Test = $_
+                Test = $_.Test
+                Category = $_.Category
+                IsMainFlow = $_.IsMainFlow
+                Required = $_.Required
                 Status = "Blocked"
-                ErrorCount = 1
+                ErrorCount = 0
                 WarningCount = 0
+                BlockedCount = 1
+                LimitationCount = 1
+                ReasonCode = $blockedReasonCode
             }
         })
     }
     Write-JsonFile -Path $smokeTestsPath -Value $smokePayload
     $step = New-Step "UnitySmokeTests"
     $start = Get-Date
-    Complete-Step -Step $step -Status "Blocked" -Started $start -ErrorCount 1 -Output $smokeTestsPath -Logs @($blockedReason)
-    $errors.Add("UnitySmokeTests blocked: $blockedReason") | Out-Null
+    Complete-Step -Step $step -Status "Blocked" -Started $start -BlockedCount 1 -LimitationCount 1 -Output $smokeTestsPath -Logs @($blockedReason) -Details ([ordered]@{
+        ReasonCode = $blockedReasonCode
+        RegisteredTests = @($smokeTestDefinitions)
+    })
+    Add-ValidationLimitation -Code $blockedReasonCode -Step "UnitySmokeTests" -Scope "UnitySmokeTests" -Message $blockedReason -Blocking $true
 } else {
     $configTestOutput = Join-Path $outputPath "config_validation.raw.json"
     $configStepStart = Get-Date
@@ -755,16 +876,21 @@ if ($SkipUnity) {
         Status = $configResult.Status
         ErrorCount = $counts.ErrorCount
         WarningCount = $counts.WarningCount
+        BlockedCount = $configResult.BlockedCount
+        LimitationCount = $configResult.LimitationCount
         Logs = $configResult.Logs
         Details = $configResult.Details
     }
     if ($configResult.Status -eq "Blocked") {
-        $configPayload.ErrorCount = 1
+        $configPayload.ErrorCount = 0
+        $configPayload.BlockedCount = [Math]::Max(1, [int]$configPayload.BlockedCount)
+        $configPayload.LimitationCount = [Math]::Max(1, [int]$configPayload.LimitationCount)
+        Add-ValidationLimitation -Code $configResult.Details.ReasonCode -Step "ConfigValidator" -Scope "ConfigValidator" -Message $configResult.Details.BlockReason -Blocking $true
     }
     Write-JsonFile -Path $configValidationPath -Value $configPayload
 
     $step = New-Step "ConfigValidator"
-    Complete-Step -Step $step -Status $configPayload.Status -Started $configStepStart -ErrorCount $configPayload.ErrorCount -WarningCount $configPayload.WarningCount -Output $configValidationPath -Logs $configResult.Logs -Details $configPayload.Details
+    Complete-Step -Step $step -Status $configPayload.Status -Started $configStepStart -ErrorCount $configPayload.ErrorCount -WarningCount $configPayload.WarningCount -BlockedCount $configPayload.BlockedCount -LimitationCount $configPayload.LimitationCount -Output $configValidationPath -Logs $configResult.Logs -Details $configPayload.Details
 
     if ($configPayload.ErrorCount -gt 0) {
         $errors.Add("ConfigValidator reported $($configPayload.ErrorCount) error(s).") | Out-Null
@@ -776,26 +902,38 @@ if ($SkipUnity) {
     $testResults = @()
     $smokeErrorCount = 0
     $smokeWarningCount = 0
+    $smokeBlockedCount = 0
+    $smokeLimitationCount = 0
     $smokeStatus = "Passed"
     $smokeLogs = @()
     $smokeStepStart = Get-Date
 
-    foreach ($test in $smokeTests) {
+    foreach ($definition in $smokeTestDefinitions) {
+        $test = $definition.Test
         $singleOutput = Join-Path $outputPath ("smoke_" + ($test -replace "[^A-Za-z0-9_.-]", "_") + ".json")
         $result = Invoke-UnityTest -TestName $test -OutputPath $singleOutput
         $testResults += [ordered]@{
             Test = $test
+            Category = $definition.Category
+            IsMainFlow = $definition.IsMainFlow
+            Required = $definition.Required
             Status = $result.Status
             ErrorCount = $result.ErrorCount
             WarningCount = $result.WarningCount
+            BlockedCount = $result.BlockedCount
+            LimitationCount = $result.LimitationCount
+            ReasonCode = if ($result.Details.ReasonCode) { $result.Details.ReasonCode } else { "" }
             Output = Convert-ToRepoPath $singleOutput
             Details = $result.Details
         }
         $smokeLogs += $result.Logs
         $smokeErrorCount += $result.ErrorCount
         $smokeWarningCount += $result.WarningCount
+        $smokeBlockedCount += $result.BlockedCount
+        $smokeLimitationCount += $result.LimitationCount
         if ($result.Status -eq "Blocked") {
             $smokeStatus = "Blocked"
+            Add-ValidationLimitation -Code $result.Details.ReasonCode -Step "UnitySmokeTests" -Scope $test -Message $result.Details.BlockReason -Blocking $true
         } elseif ($result.Status -eq "Failed" -and $smokeStatus -ne "Blocked") {
             $smokeStatus = "Failed"
         }
@@ -805,11 +943,15 @@ if ($SkipUnity) {
         Status = $smokeStatus
         ErrorCount = $smokeErrorCount
         WarningCount = $smokeWarningCount
+        BlockedCount = $smokeBlockedCount
+        LimitationCount = $smokeLimitationCount
+        RegisteredTests = @($smokeTestDefinitions)
         Tests = $testResults
     }
     Write-JsonFile -Path $smokeTestsPath -Value $smokePayload
     $step = New-Step "UnitySmokeTests"
-    Complete-Step -Step $step -Status $smokeStatus -Started $smokeStepStart -ErrorCount $smokeErrorCount -WarningCount $smokeWarningCount -Output $smokeTestsPath -Logs $smokeLogs -Details ([ordered]@{
+    Complete-Step -Step $step -Status $smokeStatus -Started $smokeStepStart -ErrorCount $smokeErrorCount -WarningCount $smokeWarningCount -BlockedCount $smokeBlockedCount -LimitationCount $smokeLimitationCount -Output $smokeTestsPath -Logs $smokeLogs -Details ([ordered]@{
+        RegisteredTests = @($smokeTestDefinitions)
         Tests = $testResults
     })
 
@@ -875,12 +1017,24 @@ foreach ($item in @($artSummary.Warnings)) {
 
 $hasFailed = $false
 $hasBlocked = $false
+$passedStepCount = 0
+$failedStepCount = 0
+$blockedStepCount = 0
+$skippedStepCount = 0
 foreach ($step in $steps) {
+    if ($step.Status -eq "Passed") {
+        $passedStepCount++
+    }
     if ($step.Status -eq "Failed") {
         $hasFailed = $true
+        $failedStepCount++
     }
     if ($step.Status -eq "Blocked") {
         $hasBlocked = $true
+        $blockedStepCount++
+    }
+    if ($step.Status -eq "Skipped") {
+        $skippedStepCount++
     }
 }
 
@@ -898,32 +1052,64 @@ if ($Strict -and $warnings.Count -gt 0 -and $finalStatus -eq "Passed") {
 
 $totalStepErrors = 0
 $totalStepWarnings = 0
+$totalStepBlocked = 0
+$totalStepLimitations = 0
 foreach ($step in $steps) {
     $totalStepErrors += [int]$step.ErrorCount
     $totalStepWarnings += [int]$step.WarningCount
+    $totalStepBlocked += [int]$step.BlockedCount
+    $totalStepLimitations += [int]$step.LimitationCount
 }
 
 $finishedAt = [DateTimeOffset]::Now
 $reportJsonPath = Join-Path $outputPath "report.json"
 $reportMdPath = Join-Path $outputPath "report.md"
-$report = [ordered]@{
-    Status = $finalStatus
-    RunID = $runId
-    StartedAt = $startedAt.ToString("o")
-    FinishedAt = $finishedAt.ToString("o")
-    DurationMs = [int][Math]::Round(($finishedAt - $startedAt).TotalMilliseconds)
-    Strict = [bool]$Strict
-    SkipUnity = [bool]$SkipUnity
-    SkipArtAcceptance = [bool]$SkipArtAcceptance
-    SeedProfile = $SeedProfile
-    OutputRoot = Convert-ToRepoPath $outputPath
-    Steps = $steps
-    ErrorCount = $totalStepErrors
-    WarningCount = $totalStepWarnings
-    Errors = @($errors)
-    Warnings = @($warnings)
-    ArtAcceptanceLatest = $artSummary
+$stepArray = @()
+foreach ($step in $steps) {
+    $stepArray += $step
 }
+
+$errorArray = @()
+foreach ($item in $errors) {
+    $errorArray += $item
+}
+
+$warningArray = @()
+foreach ($item in $warnings) {
+    $warningArray += $item
+}
+
+$limitationArray = @()
+foreach ($item in $validationLimitations) {
+    $limitationArray += $item
+}
+
+$report = New-Object System.Collections.Specialized.OrderedDictionary
+$report.Add("Status", $finalStatus)
+$report.Add("RunID", $runId)
+$report.Add("StartedAt", $startedAt.ToString("o"))
+$report.Add("FinishedAt", $finishedAt.ToString("o"))
+$report.Add("DurationMs", [int][Math]::Round(($finishedAt - $startedAt).TotalMilliseconds))
+$report.Add("Strict", [bool]$Strict)
+$report.Add("SkipUnity", [bool]$SkipUnity)
+$report.Add("SkipArtAcceptance", [bool]$SkipArtAcceptance)
+$report.Add("SeedProfile", $SeedProfile)
+$report.Add("OutputRoot", (Convert-ToRepoPath $outputPath))
+$report.Add("Steps", $stepArray)
+$report.Add("ErrorCount", $totalStepErrors)
+$report.Add("WarningCount", $totalStepWarnings)
+$report.Add("BlockedCount", $totalStepBlocked)
+$report.Add("LimitationCount", $totalStepLimitations)
+$report.Add("PassedStepCount", $passedStepCount)
+$report.Add("FailedStepCount", $failedStepCount)
+$report.Add("BlockedStepCount", $blockedStepCount)
+$report.Add("SkippedStepCount", $skippedStepCount)
+$report.Add("ValidationLimitations", $limitationArray)
+$report.Add("SmokeTestRegistry", @($smokeTestDefinitions))
+$report.Add("MainFlowSmokeTests", @($smokeTestDefinitions | Where-Object { $_.IsMainFlow }))
+$report.Add("Errors", $errorArray)
+$report.Add("Warnings", $warningArray)
+$report.Add("ArtAcceptanceLatest", $artSummary)
 
 Write-JsonFile -Path $reportJsonPath -Value $report
 Write-MarkdownReport -Path $reportMdPath -Report ([pscustomobject]$report)
@@ -938,7 +1124,7 @@ if ($History) {
     }
 }
 
-Write-Host "[P0Validation] Status=$finalStatus Errors=$($errors.Count) Warnings=$($warnings.Count)"
+Write-Host "[P0Validation] Status=$finalStatus Errors=$totalStepErrors Warnings=$totalStepWarnings Blocked=$totalStepBlocked Limitations=$($validationLimitations.Count)"
 Write-Host "[P0Validation] Report=$(Convert-ToRepoPath $reportJsonPath)"
 
 if ($finalStatus -ne "Passed") {
