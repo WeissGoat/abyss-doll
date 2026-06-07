@@ -8,7 +8,7 @@ status: historical
 source_of_truth: false
 related:
   - 开发文档/14_Unity运行时美术自动验收方案.md
-  - 开发文档/rules/09_视觉资源系统程序开发规范.md
+  - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - 美术文档/09_运行时美术验收记录.md
 last_verified: 2026-05-23
 update_rule: 历史记录仅在追溯或修正归档事实时更新。

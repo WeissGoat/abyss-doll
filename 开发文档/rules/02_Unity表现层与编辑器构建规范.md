@@ -1,6 +1,6 @@
 ---
-id: dev_00_unity_ui_editor_guidelines
-title: Unity 表现层与编辑器构建规范 (UI & Editor Construction Guidelines)
+id: dev_rules_02_unity_presentation_editor
+title: Unity 表现层与编辑器构建规范
 type: dev
 role: 程序
 domain: unity_presentation
@@ -8,30 +8,28 @@ status: active
 source_of_truth: true
 related:
   - 开发文档/rules/README.md
-  - 开发文档/rules/00_客户端核心架构规范.md
-  - 开发文档/rules/13_编程规范与架构约定.md
-  - 开发文档/01_核心数据与实体容器(CoreData).md
+  - 开发文档/rules/00_程序开发总规则.md
+  - 开发文档/rules/01_客户端分层与领域架构规范.md
+  - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - 开发文档/05_表现层架构与事件总线(ViewAndEventBus).md
-  - 开发文档/00_程序开发大纲.md
-  - 开发文档/rules/09_视觉资源系统程序开发规范.md
-  - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/02_资源规格与接入规范.md
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/handoff_checklist.md
+  - 知识库/views/program.md
+  - 开发文档/00_程序开发大纲.md
+  - 开发文档/01_核心数据与实体容器(CoreData).md
+  - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/archive/11_P0_UI骨架接入交付.md
   - 美术文档/archive/12_P1_UI骨架接入准备.md
-  - 知识库/views/program.md
-last_verified: 2026-05-23
-update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
+last_verified: 2026-06-07
+update_rule: 修改运行时 UGUI、Prefab/场景/Editor 构建、表现层交互边界或射线/层级规范时同步本文档。
 ---
 
-# Unity 表现层与编辑器构建规范 (UI & Editor Construction Guidelines)
+# Unity 表现层与编辑器构建规范
 
-> **定位说明：** 本文档旨在为客户端工程师确立表现层（UI）搭建与场景构建的工程规范。
-> **核心开发理念：** 全面摒弃传统的手工预设拼接模式，采用自动化场景生成（Editor Scripting）与数据驱动的运行时 UI 实例化（Runtime Generation），确保客户端结构的高内聚与可复现性。
+> 定位：本文只规定 Unity 运行时表现层、UGUI、Prefab / 场景 / Editor 构建、射线与交互边界。玩法事实和领域规则不写在本文；视觉资源 ID 与 DisplaySpec 细则见 `03_视觉资源系统程序开发规范.md`。
 
 ---
-
 ## 1. 场景构建原则 (Scene Construction Principles)
 
 客户端基础场景骨架禁止手动操作 Hierarchy 进行层级拼装，必须通过编写具有幂等性的 C# 编辑器扩展脚本实现一键生成。

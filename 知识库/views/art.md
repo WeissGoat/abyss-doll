@@ -22,7 +22,7 @@ related:
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
-  - 开发文档/rules/09_视觉资源系统程序开发规范.md
+  - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - 开发文档/14_Unity运行时美术自动验收方案.md
 last_verified: 2026-05-29
 update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约变化时同步本文件。
@@ -51,7 +51,7 @@ update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约�
 | UI 设计交付 | `美术文档/ui_design/README.md`、`美术文档/ui_design/ui_iteration_process.md`、`美术文档/ui_design/handoff_checklist.md` |
 | Formal V1 结构迭代 | `美术文档/ui_design/formal_v1/screen_structure_review.md`、`美术文档/ui_design/formal_v1/combat_hud_v1.md` |
 | Formal V2 UX/UI 重构 | `美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md`、`美术文档/ui_design/formal_v2/README.md` |
-| 程序接入契约 | `开发文档/rules/09_视觉资源系统程序开发规范.md` |
+| 程序接入契约 | `开发文档/rules/03_视觉资源系统程序开发规范.md` |
 | 运行时验收 | `开发文档/14_Unity运行时美术自动验收方案.md`、`美术文档/09_运行时美术验收记录.md` |
 
 ## 边界提醒

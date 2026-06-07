@@ -22,7 +22,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - 已补元数据：217
 - 缺少元数据：0
 - 事实来源文档：164
-- 关联边数：1287
+- 关联边数：1288
 - 跨职能关联：204
 
 ## 事实来源
@@ -48,11 +48,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [P0配置Validator与自动验收底座需求](开发文档/15_P0配置Validator与自动验收底座需求.md) - `dev` / `config_validation`
 - [开发文档归档目录入口](开发文档/archive/README.md) - `dev` / `program_docs_archive`
 - [开发文档目录入口](开发文档/README.md) - `dev` / `program_docs_index`
-- [Unity 表现层与编辑器构建规范 (UI & Editor Construction Guidelines)](开发文档/rules/00_Unity表现层与编辑器构建规范.md) - `dev` / `unity_presentation`
-- [客户端核心架构规范 (Client Architecture Guidelines)](开发文档/rules/00_客户端核心架构规范.md) - `dev` / `client_architecture`
-- [幽灵探针：全自动无头测试框架指南 (Ghost Daemon Auto-Test Framework)](开发文档/rules/00_自动化测试框架与流程指南.md) - `dev` / `test_automation`
-- [视觉资源系统程序开发规范](开发文档/rules/09_视觉资源系统程序开发规范.md) - `dev` / `visual_asset_system`
-- [编程规范与架构约定](开发文档/rules/13_编程规范与架构约定.md) - `dev` / `coding_standard`
+- [程序开发总规则](开发文档/rules/00_程序开发总规则.md) - `dev` / `program_general_rules`
+- [客户端分层与领域架构规范](开发文档/rules/01_客户端分层与领域架构规范.md) - `dev` / `client_architecture`
+- [Unity 表现层与编辑器构建规范](开发文档/rules/02_Unity表现层与编辑器构建规范.md) - `dev` / `unity_presentation`
+- [视觉资源系统程序开发规范](开发文档/rules/03_视觉资源系统程序开发规范.md) - `dev` / `visual_asset_system`
+- [自动化测试与验收流程规范](开发文档/rules/04_自动化测试与验收流程规范.md) - `dev` / `test_automation`
 - [程序开发规范目录入口](开发文档/rules/README.md) - `dev` / `program_rules_index`
 - [全局与玩家实体定义 (Player & Global Entities)](开发文档/数据与实体定义/01_全局与玩家实体.md) - `dev` / `program_architecture`
 - [人偶与状态实体定义 (Doll & Status Entities)](开发文档/数据与实体定义/02_人偶与状态实体.md) - `dev` / `program_architecture`
@@ -266,11 +266,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [开发文档目录入口](开发文档/README.md) | `dev` | `active` | `program_docs_index` | 3 | 完整 |
 | [架构评估与收口建议](开发文档/archive/06_架构评估与收口建议.md) | `dev` | `archived` | `architecture_review` | 5 | 完整 |
 | [开发文档归档目录入口](开发文档/archive/README.md) | `dev` | `active` | `program_docs_archive` | 2 | 完整 |
-| [Unity 表现层与编辑器构建规范 (UI & Editor Construction Guidelines)](开发文档/rules/00_Unity表现层与编辑器构建规范.md) | `dev` | `active` | `unity_presentation` | 14 | 完整 |
-| [客户端核心架构规范 (Client Architecture Guidelines)](开发文档/rules/00_客户端核心架构规范.md) | `dev` | `active` | `client_architecture` | 8 | 完整 |
-| [幽灵探针：全自动无头测试框架指南 (Ghost Daemon Auto-Test Framework)](开发文档/rules/00_自动化测试框架与流程指南.md) | `dev` | `active` | `test_automation` | 10 | 完整 |
-| [视觉资源系统程序开发规范](开发文档/rules/09_视觉资源系统程序开发规范.md) | `dev` | `active` | `visual_asset_system` | 11 | 完整 |
-| [编程规范与架构约定](开发文档/rules/13_编程规范与架构约定.md) | `dev` | `active` | `coding_standard` | 13 | 完整 |
+| [程序开发总规则](开发文档/rules/00_程序开发总规则.md) | `dev` | `active` | `program_general_rules` | 14 | 完整 |
+| [客户端分层与领域架构规范](开发文档/rules/01_客户端分层与领域架构规范.md) | `dev` | `active` | `client_architecture` | 8 | 完整 |
+| [Unity 表现层与编辑器构建规范](开发文档/rules/02_Unity表现层与编辑器构建规范.md) | `dev` | `active` | `unity_presentation` | 14 | 完整 |
+| [视觉资源系统程序开发规范](开发文档/rules/03_视觉资源系统程序开发规范.md) | `dev` | `active` | `visual_asset_system` | 12 | 完整 |
+| [自动化测试与验收流程规范](开发文档/rules/04_自动化测试与验收流程规范.md) | `dev` | `active` | `test_automation` | 10 | 完整 |
 | [程序开发规范目录入口](开发文档/rules/README.md) | `dev` | `active` | `program_rules_index` | 7 | 完整 |
 | [全局与玩家实体定义 (Player & Global Entities)](开发文档/数据与实体定义/01_全局与玩家实体.md) | `dev` | `active` | `program_architecture` | 1 | 完整 |
 | [人偶与状态实体定义 (Doll & Status Entities)](开发文档/数据与实体定义/02_人偶与状态实体.md) | `dev` | `active` | `program_architecture` | 8 | 完整 |

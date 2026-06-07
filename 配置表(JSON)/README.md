@@ -7,7 +7,7 @@ domain: config_data
 status: active
 source_of_truth: true
 related:
-  - 开发文档/rules/00_自动化测试框架与流程指南.md
+  - 开发文档/rules/04_自动化测试与验收流程规范.md
   - 开发文档/15_P0配置Validator与自动验收底座需求.md
   - tools/config/README.md
   - 数值模型设计/00_基准价值与空间本位模型.md

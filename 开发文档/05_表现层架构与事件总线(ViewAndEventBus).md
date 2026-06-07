@@ -7,10 +7,10 @@ domain: presentation_layer
 status: active
 source_of_truth: true
 related:
-  - 开发文档/rules/00_客户端核心架构规范.md
-  - 开发文档/rules/13_编程规范与架构约定.md
+  - 开发文档/rules/01_客户端分层与领域架构规范.md
+  - 开发文档/rules/00_程序开发总规则.md
   - 开发文档/01_核心数据与实体容器(CoreData).md
-  - 开发文档/rules/00_Unity表现层与编辑器构建规范.md
+  - 开发文档/rules/02_Unity表现层与编辑器构建规范.md
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/handoff_checklist.md
@@ -186,7 +186,7 @@ private void OnGoldChanged(OnGoldChangedEvent e) {
 
 ## 4. UI 技术选型策略 (Pure UGUI)
 
-当前客户端表现层统一采用 `UGUI`，不再维护 `UI Toolkit`、`UXML` 或 `USS` 运行时界面。早期混合方案在背包网格、跨画布拖拽和射线检测中暴露出事件拦截风险，后续新增界面应遵循 `开发文档/rules/00_Unity表现层与编辑器构建规范.md` 的纯 UGUI 方案。
+当前客户端表现层统一采用 `UGUI`，不再维护 `UI Toolkit`、`UXML` 或 `USS` 运行时界面。早期混合方案在背包网格、跨画布拖拽和射线检测中暴露出事件拦截风险，后续新增界面应遵循 `开发文档/rules/02_Unity表现层与编辑器构建规范.md` 的纯 UGUI 方案。
 
 *   **常规面板（商店、对话框、属性界面）：使用 UGUI 预制体与控制器脚本。**
     *   面板骨架由编辑器构建脚本或稳定 Prefab 提供，避免手工重复搭建。

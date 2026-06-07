@@ -8,7 +8,7 @@ status: active
 source_of_truth: true
 related:
   - 开发文档/05_表现层架构与事件总线(ViewAndEventBus).md
-  - 开发文档/rules/00_Unity表现层与编辑器构建规范.md
+  - 开发文档/rules/02_Unity表现层与编辑器构建规范.md
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/ui_design/README.md
   - 美术文档/archive/11_P0_UI骨架接入交付.md

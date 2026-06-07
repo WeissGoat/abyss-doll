@@ -10,8 +10,8 @@ related:
   - 版本规划/09_正式版核心纵切开发路线.md
   - agent_status/README.md
   - PROJECT_STATUS.md
-  - 开发文档/rules/00_客户端核心架构规范.md
-  - 开发文档/rules/13_编程规范与架构约定.md
+  - 开发文档/rules/01_客户端分层与领域架构规范.md
+  - 开发文档/rules/00_程序开发总规则.md
   - 开发文档/00_程序开发大纲.md
   - 开发文档/15_P0配置Validator与自动验收底座需求.md
   - 设计文档/GDD/GDD_00_系统关联总图.md
@@ -39,10 +39,10 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 - `知识库/views/program.md`
 - `开发文档/00_程序开发大纲.md`
-- `开发文档/rules/00_客户端核心架构规范.md`
-- `开发文档/rules/00_Unity表现层与编辑器构建规范.md`
+- `开发文档/rules/01_客户端分层与领域架构规范.md`
+- `开发文档/rules/02_Unity表现层与编辑器构建规范.md`
 - `开发文档/12_程序开发优化建议与重构路线.md`
-- `开发文档/rules/13_编程规范与架构约定.md`
+- `开发文档/rules/00_程序开发总规则.md`
 - 当前系统对应的 `开发文档/` 落地文档。
 
 ## 工作边界
@@ -63,6 +63,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 ```
 
 ## 最近完成
+- `开发文档/rules/` 已重构为 `00-04` 顺序结构：`00_程序开发总规则.md` 只保留开工门禁与通用红线，`01` 负责客户端分层 / 领域架构，`02` 负责 Unity UGUI / Editor 构建，`03` 负责 VisualID / VisualAssetService 资源契约，`04` 负责自动化测试与验收流程；已同步跨文档引用、知识库索引和双向 related，`Generate-DocsIndex.ps1` / `Validate-Docs.ps1` 验证通过，indexed=217、missing_metadata=0。
 
 - 开发文档结构已按当前项目阶段重整：新增 `开发文档/README.md`、`开发文档/rules/README.md`、`开发文档/archive/README.md`；将架构 / 编码 / UGUI / 自动化测试 / 视觉资源程序接入规范迁入 `开发文档/rules/`；将早期 `06_架构评估与收口建议.md` 归档到 `开发文档/archive/` 并标记 `archived`；同步更新跨文档引用、知识库入口和索引，`Generate-DocsIndex.ps1` 与 `Validate-Docs.ps1` 已通过，indexed=221。
 - P0 验收口径与报告采集已修复：`RewardSystemSmokeTest.Run` 改为验证 `reward_boss_gatekeeper_mk1` 保底 `mat_core_tier1`，并确认 `reward_monster_elite_scrap_guard` 不承担 Boss 保底；`MonsterActionAITest.Run` 改为按怪物 AI 配置的 `Damage * RepeatCount` 计算期望 HP；`Invoke-UnitySmokeTests.ps1` 现在可输出匹配的稳定 `TestReport` 副本，`Invoke-P0Validation.ps1` 改为读取该副本，避免抢读全局 `UnityClient/Logs/TestReport.json` 时误判 `Blocked`。最新 `Invoke-P0Validation.ps1 -TimeoutSeconds 180` 通过，RunID=`20260527_013319`，Errors=0，Warnings=17。

@@ -7,8 +7,8 @@ domain: core_data
 status: active
 source_of_truth: true
 related:
-  - 开发文档/rules/00_客户端核心架构规范.md
-  - 开发文档/rules/13_编程规范与架构约定.md
+  - 开发文档/rules/01_客户端分层与领域架构规范.md
+  - 开发文档/rules/00_程序开发总规则.md
   - 开发文档/数据与实体定义/04_深渊与战斗实体.md
   - 开发文档/05_表现层架构与事件总线(ViewAndEventBus).md
   - 开发文档/00_程序开发大纲.md
@@ -16,7 +16,7 @@ related:
   - 开发文档/数据与实体定义/02_人偶与状态实体.md
   - 开发文档/数据与实体定义/03_物品与网格实体.md
   - 开发文档/数据与实体定义/05_经济与社会实体.md
-  - 开发文档/rules/00_Unity表现层与编辑器构建规范.md
+  - 开发文档/rules/02_Unity表现层与编辑器构建规范.md
 last_verified: 2026-05-23
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---
