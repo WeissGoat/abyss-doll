@@ -64,6 +64,8 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 ```
 
 ## 最近完成
+- `CFG-01` C1-C3 配置程序支持审计已完成：`.\tools\config\Sync-Configs.ps1 -Clean` 通过；`.\tools\agent\Invoke-P0Validation.ps1 -TimeoutSeconds 180` 产出 `UnityClient/Logs/P0Validation/latest/report.json`，其中 ConfigValidator / Unity smoke 因 Unity Editor 未运行记为 `Blocked`，UI 规格校验通过，ArtAcceptance latest 为既有表现 / 缺图 / stale 问题；补充静态交叉审计报告 `UnityClient/Logs/P0Validation/latest/c1_c3_static_config_audit.json` / `.md`，覆盖 Items=40、Rewards=41、Monsters=21、Dungeons=3、Orders=8、Rumors=4、Factions=4，审计 C1-C3 硬运行时引用 error=0、warning=0。
+- `CFG-02` 已按证据关闭且未做空代码改动：复跑 `.\tools\config\Sync-Configs.ps1 -Clean` 通过；复跑 `.\tools\agent\Invoke-P0Validation.ps1 -TimeoutSeconds 180` 产出 RunID=`20260608_022356`，失败项仍为 `validation_limited:UnityEditorNotRunning` 的 ConfigValidator / UnitySmokeTests 以及既有 ArtAcceptance stale / 缺图 / combat_hud 截图验收问题；结合 `CFG-01` 静态审计 error=0、warning=0，本轮未发现需要立即修复的 C1-C3 阻断性解析、Validator 或 smoke 程序缺口，下一步进入 `FLOW-01`。
 - 已同步修正 `版本规划/09_正式版核心纵切开发路线.md` 的程序近期顺序：从旧的“战斗 UI / 经济 UI / 工坊 UI / C1-C3”改为用户最新三段优先级：1）C1-C3 配置程序支持；2）继续开发“功能未开放完”的主流程闭环；3）程序架构优化 / 收口。
 - 已补全正式程序推进细化文档：`开发文档/16_程序主流程闭环与架构收口推进计划.md`。该文档现在明确本轮不是只做 C1-C3 配置审计，而是三段连续工作：1）C1-C3 配置程序支持；2）继续开发“功能未开放完”的主流程闭环；3）程序架构优化 / 收口。
 - `开发文档/16_程序主流程闭环与架构收口推进计划.md` 已把主流程闭环拆成 `FLOW-01..FLOW-07`：玩家路径缺口审计、层选择 / 下潜 / 地图进入、地图节点 / 战斗 / 战利品、阶梯 / 安全区 / 撤离 / 层级解锁、小镇经济操作、工坊成长操作、整条黄金路径 smoke / P0 摘要。
@@ -136,15 +138,17 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 
 ## 下一步建议
 
-1. 优先执行 C1-C3 配置程序支持审计：同步 `配置表(JSON)`，跑 `Invoke-P0Validation.ps1`，确认前三层 Items / Rewards / Monsters / Dungeons / Orders / Rumors / Events 能被运行时解析、Validator 和固定 seed 验收消费；先修阻断性程序缺口，例如旧测试口径、字段解析、Validator 分级或层级入口消费问题。
-2. 第二优先级必须继续开发“功能未开放完”的主流程闭环：先执行 `FLOW-01` 玩家路径缺口审计，再按 `FLOW-02..FLOW-07` 打通层选择 / 下潜 / 地图、地图节点 / 战斗 / 战利品、阶梯 / 安全区 / 撤离 / 层级解锁、小镇经济操作、工坊成长操作和整条黄金路径 smoke。
+1. 第一优先级 C1-C3 配置程序支持已完成当前可做审计和无阻断收口；后续只在 Unity runtime 补跑或人工体验发现真实阻断时按 bug 修复追加处理，不继续占用主线。
+2. 第二优先级必须立即进入“功能未开放完”的主流程闭环：下一步执行 `FLOW-01` 玩家路径缺口审计，再按 `FLOW-02..FLOW-07` 打通层选择 / 下潜 / 地图、地图节点 / 战斗 / 战利品、阶梯 / 安全区 / 撤离 / 层级解锁、小镇经济操作、工坊成长操作和整条黄金路径 smoke。
 3. 主流程闭环的完成口径是“玩家正常 UI 可达 + 调用真实领域服务 + 状态真实变化 + 有 smoke / P0 证据”，不能用只读快照、debug preview、ArtAcceptance 截图或静态面板代替；服务已存在但 UI 不可达，仍然只能算“功能未开放完”。
-4. 第三优先级必须做程序架构优化 / 收口：在功能路径可达后，按 `ARCH-01..ARCH-03` 审计并收紧 `GameFlowController`、UI Controller、领域服务、EventBus、ConfigValidator、P0 报告和测试入口职责，移除重复入口和硬编码，但不为了重构改变玩法结果。
+4. 第三优先级必须做程序架构优化 / 收口：在功能路径可达后，按 `ARCH-01..ARCH-05` 审计并收紧 `GameFlowController`、UI Controller、领域服务、EventBus、ConfigValidator、P0 报告和测试入口职责，移除重复入口和硬编码，但不为了重构改变玩法结果。
 5. UI / 美术接入跟随上述功能闭环推进：有 Approved 资源和 active UI 规格时一起接入；没有资源或规格不适配时记录清楚缺口，不让美术返修压过 C1-C3 程序支持和主流程开放。
 
 ## 问题 / 阻塞
 
 - 当前工作区仍有未纳入本次提交的无关改动：`tools/ai-image-gateway` 子模块内部 `implementation_plan.md` 已修改，`tools/ComfyUI_NAIDGenerator/` 为未跟踪本地工具目录；后续提交前继续严格收窄暂存范围。
+- 当前环境 Unity Editor 未运行，`Invoke-P0Validation.ps1` 中 ConfigValidator 和 Unity smoke 只能记录为 `validation_limited:UnityEditorNotRunning`；这不是 C1-C3 JSON 硬断链证据，后续打开 Unity 后应补跑 runtime 验证。
+- 当前 ArtAcceptance latest `20260606_230523` 失败且早于 active UI / art specs：缺 `monster_boss_gatekeeper_mk1_combat`、`monster_mob_lost_miner_echo_combat`、`monster_mob_rust_hound_combat` 等战斗图，以及 `combat_hud` 层级截图缺失；该问题属于 UI / 美术验收跟进，不作为 `CFG-01` 配置源失败证据。
 - `CombatLootDropTest.Run` 仍有旧奖励断言：当前正式配置要求 `boss_gatekeeper_mk1` 保底 `mat_core_tier1`，`elite_scrap_guard` 只作为可绕精英；该测试仍断言精英奖励包含 `mat_core_tier1`。后续程序侧应把测试改为 Boss 保底口径，避免误判 C1 配置。
 - 美术验收发现 latest ArtAcceptance 虽然工具层 `PASSED`，但部分截图存在跨界面残留和空列表状态，不能作为 Formal V1 画面通过证据；程序侧需按 `美术文档/09_运行时美术验收记录.md` 的 2026-05-27 条目返修并重跑。
 - `tools/ai-image-gateway` 子模块内部有未提交改动。
