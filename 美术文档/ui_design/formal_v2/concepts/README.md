@@ -87,6 +87,8 @@ NovelAI 和 `tools/ai-image-gateway` 默认只用于运行时正式资产、Visu
 
 2026-06-02 探测结果：本地 `tools/美术工具/ai_image_gateway.local.yaml` 的 NovelAI access token 返回 HTTP 401 Unauthorized，导致 13 张 AI 概念图当时未生成。
 
+2026-06-07 风格重出结果：已按“日系二次元地底奇幻 + 轻蒸汽工艺”方向，用 Codex 内置 `image_gen` 重出 `workshop_main`、`combat_hud`、`dungeon_map` 三张概念图，并刷新 V2-A / V2-B / V2-C / 全量 contact sheet。旧三张已归档到 `archive/2026-06-07_anime_style_regen/`。
+
 2026-06-06 补齐结果：已改用内置 imagegen 生成并保存 13 张缺口概念图，覆盖维护 / 义体 / 底盘子面板、小镇商店和 V2-C 九个界面。新增图片分辨率统一为 `1672x941`，只作为结构、氛围和视觉重心评审参考，不进入 Approved、Manifest 或程序接入清单。
 
 ## 2026-06-01 方向修正
@@ -116,6 +118,9 @@ NovelAI 和 `tools/ai-image-gateway` 默认只用于运行时正式资产、Visu
 | `prosthetic_panel_formal_v2_concept.png` | `archive/2026-06-01_workshop_studio_and_shop_semantics/` | 场景应归入 `workshop_studio` 子面板，不作为独立大场景。 |
 | `chassis_upgrade_panel_formal_v2_concept.png` | `archive/2026-06-01_workshop_studio_and_shop_semantics/` | 场景应归入 `workshop_studio` 子面板，不作为独立大场景。 |
 | `sell_panel_formal_v2_concept.png` | `archive/2026-06-01_workshop_studio_and_shop_semantics/` | 语义错误：工坊卖出已由 `shop_staging` 承接，`sell_panel` 应改作小镇商店。 |
+| `workshop_main_formal_v2_concept.png` | `archive/2026-06-07_anime_style_regen/` | 按日系二次元地底奇幻方向重出，减少欧美硬核感。 |
+| `combat_hud_formal_v2_concept.png` | `archive/2026-06-07_anime_style_regen/` | 按左人偶 / 右敌方 / 底部背包正式战斗舞台重出。 |
+| `dungeon_map_formal_v2_concept.png` | `archive/2026-06-07_anime_style_regen/` | 修正海面底图和悬浮节点问题，改为洞窟剖面与嵌入式节点。 |
 
 ## 当前限制
 

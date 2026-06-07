@@ -42,7 +42,7 @@ PM 版本节点中，美术线当前 21 个界面都已具备 Formal V1 active �
 
 当前新增重点是 Formal V2 UX/UI 重构。Formal V1 证明了功能区域、VisualID 和截图链路可运行，但整体体验仍偏按钮菜单 / debug 面板。Formal V2 先作为 draft 设计层推进，不修改 active `screen_layouts.json`，不触发素材生成，也不要求程序接入；V2-A 优先重审 `workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement` 五个核心主流程界面。
 
-截至 2026-06-07，V2-A 五个核心界面已全部补齐可评审草案，并生成对应概念参考图。用户最新反馈后，美术侧已把 Formal V2 风格从“温暖奇幻 + 轻蒸汽工艺”进一步收束为“日系二次元地底奇幻 + 轻蒸汽工艺 + 低信息密度”：`workshop_main` 保持魔偶中心安心房间，`combat_hud` 保持左人偶 / 右敌方 / 底部背包结构，`dungeon_map` 额外要求底图、路线和节点融合，避免海面底图或悬浮节点。概念图位于 `美术文档/ui_design/formal_v2/concepts/`，只用于结构和氛围评审，不作为 Approved 运行时素材、Manifest 条目或程序接入口。设计图 / 概念图默认必须用 Codex 内置 `image_gen`；若当前工具环境没有暴露 `image_gen`，美术智能体必须先提醒用户并等待确认，不能自动切到 NovelAI、AI 图片网关、mock 或本地脚本。
+截至 2026-06-07，V2-A 五个核心界面已全部补齐可评审草案，并生成对应概念参考图。用户最新反馈后，美术侧已把 Formal V2 风格从“温暖奇幻 + 轻蒸汽工艺”进一步收束为“日系二次元地底奇幻 + 轻蒸汽工艺 + 低信息密度”：`workshop_main` 保持魔偶中心安心房间，`combat_hud` 保持左人偶 / 右敌方 / 底部背包结构，`dungeon_map` 额外要求底图、路线和节点融合，避免海面底图或悬浮节点。2026-06-07 已用 Codex 内置 `image_gen` 重出 `workshop_main`、`combat_hud`、`dungeon_map` 三张概念图，并刷新 V2-A / V2-B / V2-C / 全量 contact sheet；旧三张已归档到 `concepts/archive/2026-06-07_anime_style_regen/`。概念图位于 `美术文档/ui_design/formal_v2/concepts/`，只用于结构和氛围评审，不作为 Approved 运行时素材、Manifest 条目或程序接入口。设计图 / 概念图默认必须用 Codex 内置 `image_gen`；若当前工具环境没有暴露 `image_gen`，美术智能体必须先提醒用户并等待确认，不能自动切到 NovelAI、AI 图片网关、mock 或本地脚本。
 
 V2-B 七个局外功能界面已补齐详细草案，并按最新反馈修正语义：`maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel` 归入 `workshop_studio` 内的可切换子面板或弹出窗口，不再作为独立大场景；`sell_panel` 改作小镇商店 / 市场交易界面，工坊卖出和出货分配由 `shop_staging` 承接。旧维护、义体、底盘升级和旧 `sell_panel` 概念图已归档到 `concepts/archive/2026-06-01_workshop_studio_and_shop_semantics/`；2026-06-06 已用内置 imagegen 按新语义重出 4 张概念图。
 
@@ -212,6 +212,7 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 - 已明确区分 `concepts/` 与 `design_boards/`：前者是 AI 氛围概念图，后者是结构 layout board；两者都不是 Approved 运行时素材、Manifest 条目或程序接入口。2026-06-06 已用内置 imagegen 补齐 13 张缺口概念图，当前 AI 概念图总数为 22 张。
 - 已新增 Formal V2 概念图评审索引和 contact sheet：`concepts/review_index.md` 记录评审顺序与口径，`concepts/contact_sheets/` 生成 V2-A、V2-B、V2-C 和全部 22 张概念图总览，方便用户横向审风格统一性和信息密度。
 - 已按用户最新要求更新 Formal V2 风格与概念图生成规则：`04_美术风格基准.md`、`00_formal_v2_ux_ui_overview.md`、`01_workshop_main_v2.md`、`02_combat_hud_v2.md`、`04_dungeon_map_v2.md` 已收束到“日系二次元地底奇幻 + 轻蒸汽工艺”；`formal_v2/README.md` 和 `concepts/README.md` 已明确设计图 / 概念图默认用 Codex 内置 `image_gen`，无 `image_gen` 时必须先提醒用户，不能自动切换到 NovelAI 或其他生图渠道。先前误生成的 NovelAI 临时概念图目录已清理，未进入正式 `concepts/`。
+- 已在当前工具环境试通 Codex 内置 `image_gen`，并按新风格同名替换 `workshop_main_formal_v2_concept.png`、`combat_hud_formal_v2_concept.png`、`dungeon_map_formal_v2_concept.png`；旧图归档到 `concepts/archive/2026-06-07_anime_style_regen/`，四张 contact sheet 已刷新。
 
 ## 下一步建议
 
@@ -221,7 +222,7 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 4. 程序侧在 Formal V2 active 更新前继续按 Formal V1 `screen_layouts.json` 工作；不要按 `formal_v2/*.md` 草案接入 Unity。
 5. 程序侧仍可并行返修 Formal V1 ArtAcceptance 截图状态：`combat_hud`、`dungeon_map`、`safe_room`、`stairs_room` 清理叠层；`sell_panel` 和 `prosthetic_panel` 补有效列表 / 配方行。
 6. 美术侧按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_visual_v2_20260526_04` 继续串行替换 121 个 local_v0 素材；每次只请求 1 张图，图间隔 1 秒，替换仍走 `PreserveStatus -> CandidateBatchID -> QualityTier=formal_ai_v2` 流程，并保持同 VisualID、同 Approved 路径、同 Unity `.meta` / GUID。
-7. 等 Codex `image_gen` 工具可用后，再按新风格重出 `workshop_main`、`combat_hud`、`dungeon_map` 三张概念图；在此之前不自动使用 NovelAI 或项目图片网关替代。
+7. 让用户优先评审 2026-06-07 重出的 `workshop_main`、`combat_hud`、`dungeon_map`：重点看是否足够日系二次元、地图节点是否融合、战斗界面是否正式且不过度硬核。
 
 ## 问题 / 阻塞
 
@@ -232,7 +233,6 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 - Formal V2 目前只是 draft 设计层；如果程序侧需要接入，必须等待用户确认并由美术侧更新 active `screen_layouts.json`。
 - Formal V2 概念图含 AI 伪文字和局部装饰噪声，只能作为结构参考；正式接入前仍需将控件、文本、图标和面板皮肤拆回可实现规格。
 - Formal V2 结构设计图是确定性 layout board，只用于评审结构和迁移顺序；不能被当作最终视觉稿或程序接入规格。
-- 当前会话工具环境没有暴露 Codex 内置 `image_gen` 调用入口；因此本轮只能更新风格与流程文档，不能继续按默认规则生成新的 Formal V2 概念图。
 - `tools/ComfyUI_NAIDGenerator/` 未跟踪，需要决定是否纳入正式美术流水线。
 
 ## 完成回写清单
