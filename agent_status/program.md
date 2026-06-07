@@ -63,6 +63,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 ```
 
 ## 最近完成
+- 已按用户最新优先级建立本地程序推进 mission：`.mission/20260608_012621-Program-C1-C3-MainLoop-Architecture.csv`。新顺序为先审计并支持策划 C1-C3 配置运行时消费，再开放未完成的玩家主流程闭环，最后做程序架构优化 / 收口；mission 已通过 `Test-P3Mission.ps1 -Strict` 校验，作为后续持续推进的本地恢复计划，不纳入提交。
 - 开发文档/rules/00_程序开发总规则.md 已补充模块职责 / 代码归属 / hardcode 红线：新增代码必须进入拥有业务事实的模块，找不到归属先补服务、工厂、Action、Effect、Reward 或接口，不得塞进总控、流程或 UI Controller；4_自动化测试与验收流程规范.md 已补充测试粒度原则，要求测试围绕业务闭环、玩家可见结果、配置契约和验收场景，避免针对内部实现碎片写过细测试。
 - `开发文档/rules/` 已重构为 `00-04` 顺序结构：`00_程序开发总规则.md` 只保留开工门禁与通用红线，`01` 负责客户端分层 / 领域架构，`02` 负责 Unity UGUI / Editor 构建，`03` 负责 VisualID / VisualAssetService 资源契约，`04` 负责自动化测试与验收流程；已同步跨文档引用、知识库索引和双向 related，`Generate-DocsIndex.ps1` / `Validate-Docs.ps1` 验证通过，indexed=217、missing_metadata=0。
 
@@ -130,17 +131,15 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 
 ## 下一步建议
 
-1. 进入新程序任务前先查 `版本规划/11_纵切批次与需求文档承接矩阵.md` 第 4 节；已标记“程序功能开发完成”的能力只做 bug 修复、验收补强或真实数据绑定，不重复开发。
-2. UI 表现下一步优先按 active FormalV2 五屏重排：`workshop_main` 改为魔偶中心安心房间 + 深渊门主行动，`combat_hud` 保持战斗舞台 + 背包指令区，`inventory_loot` 改为半透明战后清点层，`dungeon_map` 改为可推进大地图，`settlement` 改为撤离 / 损伤报告。
-3. 当前 `美术文档/_generated/程序接入交接清单.md` 显示 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=16`；其中 16 屏是仍为 FormalV1 的非 V2-A 屏截图早于当前规格日期，不代表 V2-A 五屏已经完成运行时接入。
-4. 新增 `generate_needed=29` 属于美术缺图生成队列：11 个物品图标、9 个怪物战斗实体和 9 个怪物头像；在它们 Approved 前，程序侧无需登记这些 VisualID，可继续用 fallback 或等待美术后续同名入库。
-5. 原 Formal V1 返修仍可并行处理：`safe_room`、`stairs_room` 清理跨界面残留，`sell_panel` 和 `prosthetic_panel` 补有效列表 / 配方行后重跑 ArtAcceptance。
-6. P0 后续补强重点转为 warning 分级和 Strict 门禁：当前 17 个 warning 主要来自 ConfigValidator 元数据标签、缺失正式怪物 VisualID 和 smoke test 日志 warning，需要按是否阻塞候选版本分类处理。
-7. 接入下一批美术新素材时继续优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
+1. 优先执行 C1-C3 配置程序支持审计：同步 `配置表(JSON)`，跑 `Invoke-P0Validation.ps1`，确认前三层 Items / Rewards / Monsters / Dungeons / Orders / Rumors / Events 能被运行时解析、Validator 和固定 seed 验收消费；先修阻断性程序缺口，例如旧测试口径、字段解析、Validator 分级或层级入口消费问题。
+2. 第二优先级是继续开放“功能未开放完”的玩家主流程闭环：从小镇准备、层选择、下潜、地图、战斗、战利品、阶梯 / 安全区、撤离 / 结算、出售 / 维护到再下潜，按玩家真实路径补可达入口和真实服务调用。
+3. 主流程闭环的程序拆分顺序建议为：先收战斗 / 深渊 / 结算闭环，再收小镇经济操作闭环，随后收工坊成长操作闭环；每一项都要求 UI 调用后端或领域服务产生真实状态变化，不把只读快照、debug preview 或截图验收当作可玩完成。
+4. 第三优先级才做程序架构优化 / 收口：在功能路径可达后检查 `GameFlowController`、UI Controller、ConfigValidator、领域服务和测试入口的职责边界，移除重复入口和硬编码，但不为了重构改变玩法结果。
+5. UI / 美术接入改为跟随上述功能闭环推进：有 Approved 资源和 active UI 规格时一起接入；没有资源或规格不适配时记录清楚缺口，不让美术返修压过 C1-C3 程序支持和主流程开放。
 
 ## 问题 / 阻塞
 
-- 当前工作区已有其他 agent / 用户留下的 Unity UI 脚本脏文件，编辑前需要先检查并避免覆盖无关改动。
+- 当前工作区仍有未纳入本次提交的无关改动：`tools/ai-image-gateway` 子模块内部 `implementation_plan.md` 已修改，`tools/ComfyUI_NAIDGenerator/` 为未跟踪本地工具目录；后续提交前继续严格收窄暂存范围。
 - `CombatLootDropTest.Run` 仍有旧奖励断言：当前正式配置要求 `boss_gatekeeper_mk1` 保底 `mat_core_tier1`，`elite_scrap_guard` 只作为可绕精英；该测试仍断言精英奖励包含 `mat_core_tier1`。后续程序侧应把测试改为 Boss 保底口径，避免误判 C1 配置。
 - 美术验收发现 latest ArtAcceptance 虽然工具层 `PASSED`，但部分截图存在跨界面残留和空列表状态，不能作为 Formal V1 画面通过证据；程序侧需按 `美术文档/09_运行时美术验收记录.md` 的 2026-05-27 条目返修并重跑。
 - `tools/ai-image-gateway` 子模块内部有未提交改动。
