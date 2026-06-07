@@ -116,13 +116,7 @@ public class WorkshopUIController : MonoBehaviour {
     private void BindButtons() {
         if (upgradeBtn != null) {
             upgradeBtn.onClick.RemoveAllListeners();
-            upgradeBtn.onClick.AddListener(() => {
-                GameRoot.Core.Workshop.UpgradeDollChassis(GameRoot.Core.CurrentPlayer.ActiveDoll);
-                RefreshUI();
-
-                var chassis = GameRoot.Core.CurrentPlayer.ActiveDoll.Chassis;
-                FindObjectOfType<GridGenerator>().GenerateGrid(chassis);
-            });
+            upgradeBtn.onClick.AddListener(ExecuteChassisUpgradeFromButton);
         }
 
         if (departBtn != null) {
@@ -170,6 +164,63 @@ public class WorkshopUIController : MonoBehaviour {
         BindFormalV1Button(openDollRoomPanelBtn, "doll_room");
         BindFormalV1Button(openFactionShopPanelBtn, "faction_shop");
         BindFormalV1Button(openScenarioEventPanelBtn, "scenario_event");
+    }
+
+    private void ExecuteChassisUpgradeFromButton() {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        DollEntity doll = player?.ActiveDoll;
+        ChassisUpgradeResult result = ChassisUpgradeService.Upgrade(player, doll);
+        LogChassisUpgradeResult(result, "WorkshopUI");
+
+        RefreshUI();
+        if (result != null && result.Success && result.RuntimeGridRebuilt && doll?.Chassis != null) {
+            GridGenerator generator = FindObjectOfType<GridGenerator>();
+            if (generator != null) {
+                generator.GenerateGrid(doll.Chassis);
+            }
+        }
+
+        if (chassisInfoText != null && result != null) {
+            chassisInfoText.text += $"\n{result.FeedbackText}";
+        }
+    }
+
+    private void ExecuteProstheticCraftFromButton(string recipeID) {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        DollEntity doll = player?.ActiveDoll;
+        ProstheticCraftingResult result = ProstheticCraftingService.CraftAndEquip(player, doll, recipeID);
+        LogProstheticCraftingResult(result, "WorkshopUI");
+
+        RefreshUI();
+        if (prostheticSummaryText != null && result != null) {
+            prostheticSummaryText.text = $"{BuildProstheticSummary()}\n{result.FeedbackText}";
+        }
+    }
+
+    private void LogChassisUpgradeResult(ChassisUpgradeResult result, string source) {
+        if (result == null) {
+            Debug.LogWarning($"[{source}] Chassis upgrade failed: result is null.");
+            return;
+        }
+
+        if (result.Success) {
+            Debug.Log($"[{source}] {result.FeedbackText}");
+        } else {
+            Debug.LogWarning($"[{source}] Chassis upgrade failed: {result.Reason}");
+        }
+    }
+
+    private void LogProstheticCraftingResult(ProstheticCraftingResult result, string source) {
+        if (result == null) {
+            Debug.LogWarning($"[{source}] Prosthetic crafting failed: result is null.");
+            return;
+        }
+
+        if (result.Success) {
+            Debug.Log($"[{source}] {result.FeedbackText}");
+        } else {
+            Debug.LogWarning($"[{source}] Prosthetic crafting failed: {result.Reason}");
+        }
     }
 
     public void OpenSellPanel() {
@@ -519,7 +570,10 @@ public class WorkshopUIController : MonoBehaviour {
     private void CreateProstheticRow(CraftingRecipeConfig recipe, ProstheticEntity prosthetic, Font defaultFont) {
         GameObject row = new GameObject($"ProstheticRow_{prosthetic.ProstheticID}");
         row.transform.SetParent(prostheticListParent, false);
-        bool isEquipped = GameRoot.Core.CurrentPlayer.ActiveDoll.EquippedProsthetics.Contains(prosthetic.ProstheticID);
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        DollEntity doll = player?.ActiveDoll;
+        bool isEquipped = doll?.EquippedProsthetics?.Contains(prosthetic.ProstheticID) == true;
+        bool canCraft = ProstheticCraftingService.CanCraftAndEquip(player, doll, recipe.RecipeID, out string craftReason);
         Image rowBg = row.AddComponent<Image>();
         VisualUIHelper.ApplySlicedSprite(
             rowBg,
@@ -553,7 +607,12 @@ public class WorkshopUIController : MonoBehaviour {
         label.color = Color.white;
         label.alignment = TextAnchor.MiddleLeft;
         label.raycastTarget = false;
-        label.text = $"{prosthetic.Name} [{prosthetic.SlotType}]\n{BuildCostText(recipe.Cost)}{(isEquipped ? "  Equipped" : string.Empty)}";
+        string craftStateText = isEquipped
+            ? "  Equipped"
+            : canCraft
+                ? string.Empty
+                : $"  {craftReason}";
+        label.text = $"{prosthetic.Name} [{prosthetic.SlotType}]\n{BuildCostText(recipe.Cost)}{craftStateText}";
         RectTransform labelRect = labelObj.GetComponent<RectTransform>();
         labelRect.sizeDelta = new Vector2(isEquipped ? 438f : 500f, 80f);
 
@@ -569,7 +628,6 @@ public class WorkshopUIController : MonoBehaviour {
                 new Color(0.46f, 0.72f, 0.46f, 1f));
         }
 
-        bool canCraft = GameRoot.Core.Workshop.CanAfford(recipe.Cost, GameRoot.Core.CurrentPlayer);
         Button craftBtn = CreateInlineButton(
             "Craft_Button",
             isEquipped ? "Equipped" : "Craft",
@@ -580,8 +638,7 @@ public class WorkshopUIController : MonoBehaviour {
             22);
         craftBtn.interactable = !isEquipped && canCraft;
         craftBtn.onClick.AddListener(() => {
-            GameRoot.Core.Workshop.CraftAndEquipProsthetic(recipe.RecipeID, GameRoot.Core.CurrentPlayer.ActiveDoll);
-            RefreshUI();
+            ExecuteProstheticCraftFromButton(recipe.RecipeID);
         });
     }
 
@@ -614,17 +671,23 @@ public class WorkshopUIController : MonoBehaviour {
     }
 
     private string BuildProstheticSummary() {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        DollEntity doll = player?.ActiveDoll;
         int recipeCount = 0;
+        int craftableCount = 0;
         foreach (var kvp in ConfigManager.CraftingRecipes) {
             CraftingRecipeConfig recipe = kvp.Value;
             if (recipe != null && !string.IsNullOrEmpty(recipe.TargetProstheticID)) {
                 recipeCount++;
+                if (ProstheticCraftingService.CanCraftAndEquip(player, doll, recipe.RecipeID, out _)) {
+                    craftableCount++;
+                }
             }
         }
 
-        int equippedCount = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.EquippedProsthetics?.Count ?? 0;
+        int equippedCount = doll?.EquippedProsthetics?.Count ?? 0;
         return recipeCount > 0
-            ? $"Recipes: {recipeCount}   Equipped: {equippedCount}\nCrafted prosthetics are equipped immediately."
+            ? $"Recipes: {recipeCount}   Craftable: {craftableCount}   Equipped: {equippedCount}\nCrafted prosthetics are equipped immediately."
             : "No prosthetic recipes are available.";
     }
 

@@ -113,16 +113,12 @@ public static class WorkshopFormalV1PanelActionService {
         }
 
         DollEntity doll = core.CurrentPlayer.ActiveDoll;
-        string beforeID = doll?.Chassis?.ChassisID ?? string.Empty;
-        int beforeMoney = core.CurrentPlayer.Money;
-        core.Workshop.UpgradeDollChassis(doll);
-        string afterID = doll?.Chassis?.ChassisID ?? string.Empty;
+        ChassisUpgradeResult upgradeResult = ChassisUpgradeService.Upgrade(core.CurrentPlayer, doll);
 
         result.Handled = true;
-        result.Success = !string.Equals(beforeID, afterID, StringComparison.Ordinal);
-        result.FeedbackText = result.Success
-            ? $"Chassis upgraded: {beforeID} -> {afterID}. Money {beforeMoney} -> {core.CurrentPlayer.Money}."
-            : "Chassis upgrade did not change state. Check max tier or missing cost.";
+        result.Success = upgradeResult.Success;
+        result.Reason = upgradeResult.Reason;
+        result.FeedbackText = upgradeResult.FeedbackText;
         return result;
     }
 

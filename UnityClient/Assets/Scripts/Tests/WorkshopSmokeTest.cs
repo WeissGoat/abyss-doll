@@ -58,7 +58,7 @@ public static class WorkshopSmokeTest {
             }
             player.StashInventory.Add(coreMaterial);
 
-            core.Workshop.UpgradeDollChassis(doll);
+            ChassisUpgradeResult upgradeResult = core.Workshop.UpgradeDollChassis(doll);
 
             if (player.Money == 500) {
                 Debug.Log("Money Deduction PASSED.");
@@ -76,6 +76,18 @@ public static class WorkshopSmokeTest {
                 Debug.Log("Chassis Upgrade PASSED.");
             } else {
                 Debug.LogError($"Chassis Upgrade FAILED. Current Chassis: {doll.Chassis.ChassisID} ({doll.Chassis.GridWidth}x{doll.Chassis.GridHeight})");
+            }
+
+            bool upgradeResultPassed = upgradeResult.Success
+                && upgradeResult.PreviousChassisID == "chassis_lv1_basic"
+                && upgradeResult.NewChassisID == "chassis_lv2_expanded"
+                && upgradeResult.MoneySpent == 1000
+                && upgradeResult.ConsumedItems.Count == 1
+                && upgradeResult.RuntimeGridRebuilt;
+            if (upgradeResultPassed) {
+                Debug.Log("Chassis Upgrade Result DTO PASSED.");
+            } else {
+                Debug.LogError($"Chassis Upgrade Result DTO FAILED. Success={upgradeResult.Success}, From={upgradeResult.PreviousChassisID}, To={upgradeResult.NewChassisID}, Money={upgradeResult.MoneySpent}, Items={upgradeResult.ConsumedItems.Count}, GridRebuilt={upgradeResult.RuntimeGridRebuilt}, Reason={upgradeResult.Reason}");
             }
 
             RunProstheticCraftAndEffectTest(core);
@@ -150,6 +162,11 @@ public static class WorkshopSmokeTest {
         controller.moneyText = CreateTestText(workshopObj.transform);
         controller.chassisInfoText = CreateTestText(workshopObj.transform);
 
+        core.CurrentPlayer.ActiveDoll.EquippedProsthetics.Clear();
+        core.CurrentPlayer.StashInventory.Clear();
+        core.CurrentPlayer.Money = 2000;
+        AddStashItems(core.CurrentPlayer, "loot_gear_scrap", 4);
+
         controller.RefreshUI();
         controller.OpenProstheticPanel();
 
@@ -157,11 +174,26 @@ public static class WorkshopSmokeTest {
         bool panelOpened = controller.prostheticPanel != null && controller.prostheticPanel.activeSelf;
         bool listBuilt = controller.prostheticListParent != null && controller.prostheticListParent.childCount > 0;
         bool sellPanelClosed = controller.sellPanel != null && !controller.sellPanel.activeSelf;
+        Button craftButton = listBuilt
+            ? controller.prostheticListParent.GetChild(0).Find("Craft_Button")?.GetComponent<Button>()
+            : null;
+        bool craftButtonInteractable = craftButton != null && craftButton.interactable;
 
-        if (panelIsSeparate && panelOpened && listBuilt && sellPanelClosed) {
+        int beforeMoney = core.CurrentPlayer.Money;
+        int beforeStashCount = core.CurrentPlayer.StashInventory.Count;
+        craftButton?.onClick.Invoke();
+        bool craftApplied = craftButton != null
+            && craftButtonInteractable
+            && core.CurrentPlayer.ActiveDoll.EquippedProsthetics.Count == 1
+            && core.CurrentPlayer.Money < beforeMoney
+            && core.CurrentPlayer.StashInventory.Count < beforeStashCount
+            && controller.prostheticSummaryText != null
+            && controller.prostheticSummaryText.text.Contains("Crafted and equipped");
+
+        if (panelIsSeparate && panelOpened && listBuilt && sellPanelClosed && craftApplied) {
             Debug.Log("Workshop Prosthetic Panel UI PASSED.");
         } else {
-            Debug.LogError($"Workshop Prosthetic Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, ProstheticRows={controller.prostheticListParent?.childCount ?? 0}, SellPanelClosed={sellPanelClosed}");
+            Debug.LogError($"Workshop Prosthetic Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, ProstheticRows={controller.prostheticListParent?.childCount ?? 0}, SellPanelClosed={sellPanelClosed}, CraftButton={craftButton != null}, Interactable={craftButtonInteractable}, CraftApplied={craftApplied}, Money={core.CurrentPlayer.Money}, Stash={core.CurrentPlayer.StashInventory.Count}, Summary={controller.prostheticSummaryText?.text}");
         }
 
         controller.CloseProstheticPanel();
@@ -180,19 +212,21 @@ public static class WorkshopSmokeTest {
         player.Money = 2000;
         AddStashItems(player, "loot_gear_scrap", 3);
 
-        bool craftedPowerArm = core.Workshop.CraftAndEquipProsthetic("craft_pros_power_arm", doll);
+        ProstheticCraftingResult powerArmResult = core.Workshop.CraftAndEquipProstheticWithResult("craft_pros_power_arm", doll);
+        bool craftedPowerArm = powerArmResult.Success;
         bool hasPowerArm = doll.EquippedProsthetics.Contains("pros_power_arm");
         bool damageBuffed = meleeWeapon.Combat.RuntimeDamage > meleeWeapon.Combat.BaseValue;
 
-        if (craftedPowerArm && hasPowerArm && damageBuffed) {
+        if (craftedPowerArm && hasPowerArm && damageBuffed && powerArmResult.MoneySpent == 300 && powerArmResult.ConsumedItems.Count == 2 && powerArmResult.Equipped && powerArmResult.EffectsRecalculated) {
             Debug.Log("Prosthetic Craft Damage Effect PASSED.");
         } else {
-            Debug.LogError($"Prosthetic Craft Damage Effect FAILED. Crafted={craftedPowerArm}, Equipped={hasPowerArm}, Base={meleeWeapon.Combat.BaseValue}, Runtime={meleeWeapon.Combat.RuntimeDamage}");
+            Debug.LogError($"Prosthetic Craft Damage Effect FAILED. Crafted={craftedPowerArm}, Equipped={hasPowerArm}, Base={meleeWeapon.Combat.BaseValue}, Runtime={meleeWeapon.Combat.RuntimeDamage}, Money={powerArmResult.MoneySpent}, Items={powerArmResult.ConsumedItems.Count}, Effects={powerArmResult.EffectsRecalculated}, Reason={powerArmResult.Reason}");
         }
 
         player.Money = 2000;
         AddStashItems(player, "loot_gear_scrap", 2);
-        bool craftedCooling = core.Workshop.CraftAndEquipProsthetic("craft_pros_cooling_system", doll);
+        ProstheticCraftingResult coolingResult = core.Workshop.CraftAndEquipProstheticWithResult("craft_pros_cooling_system", doll);
+        bool craftedCooling = coolingResult.Success;
         doll.Status.SAN_Current = 10;
         int beforeSAN = doll.Status.SAN_Current;
 
@@ -203,10 +237,10 @@ public static class WorkshopSmokeTest {
         fighter.Cleanup();
 
         bool restoredSAN = doll.Status.SAN_Current == beforeSAN + 2;
-        if (craftedCooling && doll.EquippedProsthetics.Contains("pros_cooling_system") && restoredSAN) {
+        if (craftedCooling && doll.EquippedProsthetics.Contains("pros_cooling_system") && restoredSAN && coolingResult.MoneySpent == 1000 && coolingResult.ConsumedItems.Count == 2 && coolingResult.Equipped && coolingResult.EffectsRecalculated) {
             Debug.Log("Prosthetic Combat End SAN Effect PASSED.");
         } else {
-            Debug.LogError($"Prosthetic Combat End SAN Effect FAILED. Crafted={craftedCooling}, Equipped={doll.EquippedProsthetics.Contains("pros_cooling_system")}, SAN={doll.Status.SAN_Current}, Expected={beforeSAN + 2}");
+            Debug.LogError($"Prosthetic Combat End SAN Effect FAILED. Crafted={craftedCooling}, Equipped={doll.EquippedProsthetics.Contains("pros_cooling_system")}, SAN={doll.Status.SAN_Current}, Expected={beforeSAN + 2}, Money={coolingResult.MoneySpent}, Items={coolingResult.ConsumedItems.Count}, Effects={coolingResult.EffectsRecalculated}, Reason={coolingResult.Reason}");
         }
     }
 

@@ -11,6 +11,7 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
             TestDailyBillPanelUsesReadOnlyEconomySnapshot();
             TestWorkshopMainFlowCanOpenFormalV1Panels();
             TestMaintenancePanelButtonAppliesBackendService();
+            TestChassisUpgradePanelButtonAppliesBackendService();
             TestDollInteractionPanelButtonsApplyBackendService();
 
             Debug.Log("=== Workshop Formal V1 Panel Binding Smoke Test Finished ===");
@@ -106,6 +107,40 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
             Debug.Log("Workshop Formal V1 Maintenance Button Backend Action PASSED.");
         } else {
             Debug.LogError($"Workshop Formal V1 Maintenance Button Backend Action FAILED. Button={repairButton != null}, Screen={controller.CurrentScreenID}, Money={player.Money}, StashContains={player.StashInventory.Contains(scrap)}, Wear={doll.Status.WearAndTear}, HP={doll.Status.HP_Current}/{doll.Status.HP_Max}, BeforeDive={beforeReadiness.CanDive}, AfterDive={afterReadiness.CanDive}, Text={CollectText(canvasObj)}");
+        }
+
+        controller.Hide();
+        Object.DestroyImmediate(canvasObj);
+    }
+
+    private static void TestChassisUpgradePanelButtonAppliesBackendService() {
+        CoreBackend core = CreateCore();
+        PlayerProfile player = core.CurrentPlayer;
+        DollEntity doll = player.ActiveDoll;
+        player.Money = 1500;
+        player.StashInventory.Clear();
+        ItemEntity coreMaterial = ConfigManager.CreateItem("mat_core_tier1");
+        player.StashInventory.Add(coreMaterial);
+
+        GameObject canvasObj = CreateCanvas();
+        WorkshopFormalV1PanelController controller = CreateController(canvasObj.transform);
+        controller.Show("chassis_upgrade_panel");
+
+        Button upgradeButton = FindButton(canvasObj, "Upgrade_Button");
+        upgradeButton?.onClick.Invoke();
+
+        bool passed = upgradeButton != null
+            && controller.CurrentScreenID == "chassis_upgrade_panel"
+            && doll.Chassis.ChassisID == "chassis_lv2_expanded"
+            && doll.RuntimeGrid is BackpackGrid
+            && player.Money == 500
+            && !player.StashInventory.Contains(coreMaterial)
+            && CollectText(canvasObj).Contains("Chassis upgraded");
+
+        if (passed) {
+            Debug.Log("Workshop Formal V1 Chassis Upgrade Button Backend Action PASSED.");
+        } else {
+            Debug.LogError($"Workshop Formal V1 Chassis Upgrade Button Backend Action FAILED. Button={upgradeButton != null}, Screen={controller.CurrentScreenID}, Chassis={doll.Chassis?.ChassisID}, Grid={doll.RuntimeGrid?.GetType().Name}, Money={player.Money}, StashContains={player.StashInventory.Contains(coreMaterial)}, Text={CollectText(canvasObj)}");
         }
 
         controller.Hide();
