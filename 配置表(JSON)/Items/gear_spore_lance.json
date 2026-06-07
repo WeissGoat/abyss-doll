@@ -1,0 +1,138 @@
+{
+  "ConfigID": "gear_spore_lance",
+  "Name": "孢刺长枪",
+  "ItemType": "Weapon",
+  "Rarity": "Rare",
+  "BaseValue": 980,
+  "IconID": "item_gear_spore_lance_icon",
+  "DescriptionKey": "item.gear_spore_lance.desc",
+  "ItemRole": [
+    "BuildCore",
+    "CounterCheck"
+  ],
+  "LayerTags": [
+    "Layer3",
+    "ContentPack25"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 4,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Weapon",
+      "Long"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Physical",
+    "BaseValue": 32,
+    "Effects": [
+      {
+        "EffectID": "DamageMultiplier",
+        "Level": 0,
+        "Target": "Right",
+        "Params": [
+          0.15
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Weapon",
+    "Layer3",
+    "Spore",
+    "Long"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "CannotConsume",
+    "OvernightRule": "None"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "elite_spore_matriarch",
+      "mob_spore_archer"
+    ],
+    "RewardRefs": [
+      "reward_monster_mob_spore_archer",
+      "reward_node_treasure_layer3"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": [],
+    "EventRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [
+      "craft_spore_lance_reinforce"
+    ],
+    "OrderSubmitRefs": [
+      "order_workshop_spore_core_frame"
+    ],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": [],
+    "PurifyRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Weapon",
+      "Layer3",
+      "Spore"
+    ],
+    "RumorRefs": [
+      "rumor_spore_amber_jeweler"
+    ],
+    "ContrabandRule": "None",
+    "DismantleProfile": "spore_weapon_tier3"
+  },
+  "Risk": {
+    "RiskTags": [
+      "Long",
+      "LayoutPressure"
+    ],
+    "PollutionProfile": "None",
+    "CorruptionProfile": "None",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_spore_lance_icon",
+    "GridPreviewStyle": "WeaponLong",
+    "RiskIconRefs": [
+      "Long",
+      "LayoutPressure"
+    ],
+    "PickupHintKey": "pickup.item_gear_spore_lance_icon"
+  }
+}

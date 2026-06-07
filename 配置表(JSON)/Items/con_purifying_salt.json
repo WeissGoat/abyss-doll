@@ -1,0 +1,107 @@
+{
+  "ConfigID": "con_purifying_salt",
+  "Name": "净化盐",
+  "ItemType": "Consumable",
+  "Rarity": "Uncommon",
+  "BaseValue": 180,
+  "IconID": "item_con_purifying_salt_icon",
+  "DescriptionKey": "item.con_purifying_salt.desc",
+  "ItemRole": [
+    "Recovery",
+    "CounterCheck"
+  ],
+  "LayerTags": [
+    "Layer3",
+    "ContentPack25"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Consumable"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 0,
+    "DamageType": "Heal",
+    "BaseValue": 0,
+    "Effects": []
+  },
+  "Tags": [
+    "Consumable",
+    "Purify",
+    "Layer3"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ConsumeOnUse",
+    "OvernightRule": "None"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [
+      "reward_node_treasure_layer3",
+      "reward_order_alchemy_living_mycelium_batch"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": [],
+    "EventRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": [
+      "event_singing_fossil_choir"
+    ],
+    "PurifyRefs": [
+      "loot_living_mycelium",
+      "gear_mycelium_cloak"
+    ]
+  },
+  "Economy": {
+    "ValueTags": [
+      "Consumable",
+      "Purify"
+    ],
+    "RumorRefs": [
+      "rumor_living_mycelium_shortage"
+    ],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": "None",
+  "Visual": {
+    "IconVisualID": "item_con_purifying_salt_icon",
+    "GridPreviewStyle": {
+      "RiskTags": [
+        "PurifyTool"
+      ],
+      "PollutionProfile": "None",
+      "CorruptionProfile": "None",
+      "OvernightRule": "None",
+      "OrderConflictGroup": ""
+    },
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.item_con_purifying_salt_icon"
+  }
+}

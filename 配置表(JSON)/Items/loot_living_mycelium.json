@@ -1,0 +1,128 @@
+{
+  "ConfigID": "loot_living_mycelium",
+  "Name": "活性菌丝",
+  "ItemType": "Loot",
+  "Rarity": "Rare",
+  "BaseValue": 520,
+  "IconID": "item_loot_living_mycelium_icon",
+  "DescriptionKey": "item.loot_living_mycelium.desc",
+  "ItemRole": [
+    "RiskObject",
+    "Material",
+    "OrderTarget"
+  ],
+  "LayerTags": [
+    "Layer3",
+    "ContentPack25"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 4,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "RiskObject",
+      "Material"
+    ]
+  },
+  "Combat": null,
+  "Tags": [
+    "Loot",
+    "Material",
+    "Layer3",
+    "SporeDormant",
+    "CorruptionMid"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "ShopOrFaction",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "Ingredient",
+    "OvernightRule": "TriggerCorruptionMaintenance"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_mycelium_crawler",
+      "elite_spore_matriarch"
+    ],
+    "RewardRefs": [
+      "reward_monster_mob_mycelium_crawler",
+      "reward_node_event_layer3_contested_core"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": [],
+    "EventRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [
+      "recipe_mycelium_cloak_repair"
+    ],
+    "OrderSubmitRefs": [
+      "order_alchemy_living_mycelium_batch"
+    ],
+    "RoomMemoryRefs": [
+      "room_memory_first_route_corrosion"
+    ],
+    "ScenarioEventRefs": [],
+    "PurifyRefs": [
+      "con_purifying_salt"
+    ]
+  },
+  "Economy": {
+    "ValueTags": [
+      "Material",
+      "Spore",
+      "RiskPremium"
+    ],
+    "RumorRefs": [
+      "rumor_living_mycelium_shortage"
+    ],
+    "ContrabandRule": "RiskPremiumWithMaintenance",
+    "DismantleProfile": "spore_material_tier3"
+  },
+  "Risk": {
+    "RiskTags": [
+      "SporeDormant",
+      "CorruptionMid"
+    ],
+    "PollutionProfile": "l3_living_mycelium_dormant",
+    "CorruptionProfile": "MidMaintenanceCost",
+    "OvernightRule": "TriggerCorruptionMaintenance",
+    "OrderConflictGroup": "living_mycelium_batch"
+  },
+  "Visual": {
+    "IconVisualID": "item_loot_living_mycelium_icon",
+    "GridPreviewStyle": "RiskObjectMedium",
+    "RiskIconRefs": [
+      "SporeDormant",
+      "CorruptionMid"
+    ],
+    "PickupHintKey": "pickup.item_loot_living_mycelium_icon"
+  }
+}

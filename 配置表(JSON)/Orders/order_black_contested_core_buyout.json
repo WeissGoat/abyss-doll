@@ -1,0 +1,51 @@
+{
+  "OrderID": "order_black_contested_core_buyout",
+  "FactionID": "faction_black_market",
+  "OrderType": "BlackMarketBetrayal",
+  "DisplayName": "黑市孢核买断",
+  "Description": "高价收购争夺孢核或污染三阶材料，正规势力会进入怀疑或背叛裁决。",
+  "Requirement": {
+    "RequiredItemIDs": [
+      "order_contested_spore_core",
+      "mat_core_tier3_seed"
+    ],
+    "RequiredTags": [
+      "Layer3"
+    ],
+    "ForbiddenTags": [
+      "Sold",
+      "Broken"
+    ],
+    "RequiredCount": 1,
+    "MinGridCost": 6,
+    "MinLayer": 3
+  },
+  "DeadlineDays": 3,
+  "RewardID": "reward_order_black_contested_core_buyout",
+  "FixedGold": 520,
+  "ReputationDelta": -10,
+  "TrustDelta": 5,
+  "FailurePenalty": {
+    "ExpiredReputationDelta": -10,
+    "AbandonedReputationDelta": -5,
+    "BetrayedReputationDelta": -22,
+    "CooldownDays": 7
+  },
+  "RepeatPolicy": "Limited",
+  "Weight": 45,
+  "Tags": [
+    "Layer3",
+    "BlackMarket",
+    "Betrayal",
+    "Contraband"
+  ],
+  "MutexGroupID": "contested_spore_core",
+  "BetrayalPolicy": {
+    "RequiresConfirm": true,
+    "RelatedOrderIDs": [
+      "order_workshop_spore_core_frame",
+      "order_mage_oracle_sample"
+    ],
+    "BetrayalLogKey": "order.layer3.contested_core.betrayal"
+  }
+}

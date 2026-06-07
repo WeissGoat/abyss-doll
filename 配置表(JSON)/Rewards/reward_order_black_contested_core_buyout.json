@@ -1,0 +1,56 @@
+{
+  "RewardID": "reward_order_black_contested_core_buyout",
+  "Name": "黑市孢核买断订单奖励",
+  "Tags": [
+    "Layer3",
+    "OrderReward"
+  ],
+  "RewardRole": "OrderReward",
+  "SourceType": "Order",
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "RewardTier": "Order",
+  "ExpectedValueBand": {
+    "Min": 420,
+    "Max": 1800
+  },
+  "RiskBudgetTag": "Layer3RouteCorrosion",
+  "GrowthHooks": [],
+  "ValidationTags": [
+    "Layer3Reward"
+  ],
+  "AuditNotes": "Black market betrayal reward.",
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "order_bonus",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        {
+          "Type": "Item",
+          "ItemID": "loot_corroded_nerve",
+          "Weight": 22,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "trade_singing_fossil",
+          "Weight": 14,
+          "Count": 1
+        },
+        {
+          "Type": "Money",
+          "Money": 420,
+          "Weight": 64,
+          "Count": 1
+        }
+      ]
+    }
+  ]
+}

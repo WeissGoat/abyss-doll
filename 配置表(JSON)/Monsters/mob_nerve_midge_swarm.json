@@ -1,0 +1,113 @@
+{
+  "MonsterID": "mob_nerve_midge_swarm",
+  "Name": "神经虫群",
+  "MonsterRole": [
+    "SanPressure",
+    "RoutePressure"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "Layer": 3,
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "EncounterTags": [
+    "Combat",
+    "Layer3",
+    "SanPressure",
+    "RoutePressure"
+  ],
+  "DifficultyBudget": {
+    "Base": 86,
+    "Variance": 12
+  },
+  "HP": 86,
+  "PortraitID": "monster_mob_nerve_midge_swarm_portrait",
+  "CombatVisualID": "monster_mob_nerve_midge_swarm_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "midge_san",
+      "IntentType": "SanPressureMid",
+      "PowerPreview": "-5 SAN preview",
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.san_pressure",
+      "IntentIconRef": "ui_combat_intent_debuff"
+    },
+    {
+      "IntentID": "midge_mark",
+      "IntentType": "MarkWeakSlot",
+      "PowerPreview": "weak slot",
+      "TargetPreview": "Backpack",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.keep_space",
+      "IntentIconRef": "ui_combat_grid_lock_marker"
+    }
+  ],
+  "RewardID": "reward_monster_mob_nerve_midge_swarm",
+  "DropThemeTags": [
+    "Layer3",
+    "RouteCorrosion"
+  ],
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "midge_pain",
+        "ActionType": "DamageTarget",
+        "Target": "LowestHpPlayer",
+        "Weight": 55,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 12,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "midge_static",
+        "ActionType": "ReduceWeaponDamage",
+        "Target": "RandomPlayerWeapon",
+        "Weight": 25,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerHasWeapon",
+        "Params": {
+          "Multiplier": 0.85,
+          "DurationPlayerTurns": 1
+        }
+      },
+      {
+        "ActionID": "midge_nerve",
+        "ActionType": "AddCursedItem",
+        "Target": "PlayerGridFirstFit",
+        "Weight": 20,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerGridHasSpace",
+        "Params": {
+          "ItemID": "loot_corroded_nerve",
+          "OverrideTags": [
+            "Cursed",
+            "SanUneaseMid"
+          ],
+          "OverrideValue": 0
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {
+      "ItemID": "loot_corroded_nerve",
+      "Weight": 65
+    },
+    {
+      "ItemID": "con_anchor_charm",
+      "Weight": 15
+    }
+  ]
+}

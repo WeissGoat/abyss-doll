@@ -1,0 +1,692 @@
+{
+  "LayerID": 3,
+  "LayerKey": "layer_03_mycelium_court",
+  "Name": "菌脉深庭",
+  "DisplayNameKey": "dungeon.layer3.mycelium_court.name",
+  "LayerThemeTags": [
+    "RouteCorrosion",
+    "OrderConflict",
+    "PollutedLoot",
+    "Attrition",
+    "ContentPack25"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "SANCostPerNode": 3,
+  "ExpectedNodeCount": 8,
+  "MapProfileID": "layer3_route_attrition",
+  "MapSeed": 3072,
+  "RowCount": 7,
+  "MinWidth": 3,
+  "MaxWidth": 4,
+  "MinRouteCount": 3,
+  "MapBackgroundID": "bg_dungeon_layer_3",
+  "FogProfile": "corrosion_reveal_1_preview_1",
+  "NodeRevealDepth": 1,
+  "NodePreviewDepth": 1,
+  "RunStateFields": [
+    "RouteCorrosion",
+    "OrderConflictHint",
+    "PollutedLootCount"
+  ],
+  "MapProfiles": [
+    {
+      "ProfileID": "layer3_route_attrition",
+      "ProfileRole": "Attrition",
+      "DisplayName": "菌脉深庭标准侵蚀",
+      "RowCount": 7,
+      "MinWidth": 3,
+      "MaxWidth": 4,
+      "ValidationSeed": 3072,
+      "RouteThemeWeights": {
+        "SafeRoute": 25,
+        "Attrition": 35,
+        "RiskReward": 25,
+        "OrderTrack": 15
+      },
+      "RequiredNodes": [
+        {
+          "NodeType": "CombatNode",
+          "MinCountPerRoute": 3,
+          "PoolRef": "Minor"
+        },
+        {
+          "NodeType": "CombatNode",
+          "RuntimeRole": "CorruptionCombat",
+          "MinCountPerMap": 1,
+          "PoolRef": "Corruption"
+        },
+        {
+          "NodeType": "CombatNode",
+          "RuntimeRole": "EliteNode",
+          "MonsterIDs": [
+            "elite_spore_matriarch",
+            "elite_vein_knight"
+          ],
+          "BypassRequired": true
+        },
+        {
+          "NodeType": "EventNode",
+          "RuntimeRole": "RouteCorrosionEvent",
+          "RewardID": "reward_node_event_layer3_singing_fossil",
+          "MinCountPerMap": 1
+        },
+        {
+          "NodeType": "TreasureNode",
+          "RewardID": "reward_node_treasure_layer3",
+          "MinCountPerMap": 1
+        },
+        {
+          "NodeType": "CombatNode",
+          "RuntimeRole": "BossNode",
+          "MonsterIDs": [
+            "boss_mycelium_oracle"
+          ],
+          "FixedRow": "Boss"
+        },
+        {
+          "NodeType": "StairsNode",
+          "RuntimeRole": "PostBossSafeZone",
+          "FixedRow": "PostBoss"
+        }
+      ]
+    },
+    {
+      "ProfileID": "layer3_order_conflict_core",
+      "ProfileRole": "OrderConflict",
+      "DisplayName": "争夺孢核订单画像",
+      "RowCount": 8,
+      "MinWidth": 3,
+      "MaxWidth": 5,
+      "ValidationSeed": 3303,
+      "RouteThemeWeights": {
+        "OrderTrack": 35,
+        "BlackMarketTemptation": 25,
+        "RiskReward": 25,
+        "SafeRoute": 15
+      },
+      "RequiredNodes": [
+        {
+          "NodeType": "EventNode",
+          "RuntimeRole": "OrderTargetNode",
+          "RewardID": "reward_node_event_layer3_contested_core",
+          "OrderID": "order_workshop_spore_core_frame",
+          "MinCountPerMap": 1
+        },
+        {
+          "NodeType": "CombatNode",
+          "MinCountPerRoute": 3,
+          "PoolRef": "Minor"
+        },
+        {
+          "NodeType": "CombatNode",
+          "RuntimeRole": "EliteNode",
+          "MonsterIDs": [
+            "elite_spore_matriarch",
+            "elite_vein_knight"
+          ],
+          "BypassRequired": true
+        },
+        {
+          "NodeType": "EventNode",
+          "RewardIDs": [
+            "reward_node_event_layer3_contested_core",
+            "reward_node_event_layer3_singing_fossil"
+          ],
+          "MinCountPerMap": 1
+        },
+        {
+          "NodeType": "CombatNode",
+          "RuntimeRole": "BossNode",
+          "MonsterIDs": [
+            "boss_mycelium_oracle"
+          ],
+          "FixedRow": "Boss"
+        },
+        {
+          "NodeType": "StairsNode",
+          "RuntimeRole": "PostBossSafeZone",
+          "FixedRow": "PostBoss"
+        }
+      ]
+    }
+  ],
+  "RouteThemeWeights": {
+    "SafeRoute": 20,
+    "Attrition": 35,
+    "RiskReward": 25,
+    "OrderTrack": 20
+  },
+  "NodeTypeWeights": {
+    "CombatNode": 54,
+    "TreasureNode": 10,
+    "EventNode": 18,
+    "RestStopNode": 6,
+    "HazardNode": 8,
+    "SafeRoomNode": 4
+  },
+  "RequiredNodes": [
+    {
+      "NodeType": "CombatNode",
+      "RuntimeRole": "EliteNode",
+      "MonsterIDs": [
+        "elite_spore_matriarch",
+        "elite_vein_knight"
+      ],
+      "BypassRequired": true
+    },
+    {
+      "NodeType": "CombatNode",
+      "RuntimeRole": "BossNode",
+      "MonsterIDs": [
+        "boss_mycelium_oracle"
+      ],
+      "FixedRow": "Boss"
+    },
+    {
+      "NodeType": "StairsNode",
+      "RuntimeRole": "PostBossSafeZone",
+      "FixedRow": "PostBoss"
+    }
+  ],
+  "Constraints": {
+    "MinEffectiveRouteCount": 3,
+    "EliteBypassRequired": true,
+    "BossBufferRequired": true,
+    "MaxSameTypeStreak": 2,
+    "MinCombatPerRoute": 3,
+    "MaxRestStopPerRoute": 1,
+    "MinCorruptionOrAttritionEncounter": 1,
+    "OrderTargetReachable": true,
+    "RouteCorrosionReadable": true
+  },
+  "EncounterPools": {
+    "Minor": [
+      {
+        "EncounterID": "enc_l3_mycelium_crawler",
+        "MonsterIDs": [
+          "mob_mycelium_crawler"
+        ],
+        "EncounterTags": [
+          "Pollution",
+          "Material"
+        ],
+        "Weight": 24
+      },
+      {
+        "EncounterID": "enc_l3_nerve_midge_swarm",
+        "MonsterIDs": [
+          "mob_nerve_midge_swarm"
+        ],
+        "EncounterTags": [
+          "SanPressure",
+          "RoutePressure"
+        ],
+        "Weight": 20
+      },
+      {
+        "EncounterID": "enc_l3_spore_archer",
+        "MonsterIDs": [
+          "mob_spore_archer"
+        ],
+        "EncounterTags": [
+          "ChargeThreat"
+        ],
+        "Weight": 20
+      },
+      {
+        "EncounterID": "enc_l3_shell_grafter",
+        "MonsterIDs": [
+          "mob_shell_grafter"
+        ],
+        "EncounterTags": [
+          "Defense",
+          "Attrition"
+        ],
+        "Weight": 18
+      },
+      {
+        "EncounterID": "enc_l3_echo_pilgrim",
+        "MonsterIDs": [
+          "mob_echo_pilgrim"
+        ],
+        "EncounterTags": [
+          "Narrative",
+          "SanPressure"
+        ],
+        "Weight": 18
+      }
+    ],
+    "Corruption": [
+      {
+        "EncounterID": "enc_l3_corruption_crawler_midge",
+        "MonsterIDs": [
+          "mob_mycelium_crawler",
+          "mob_nerve_midge_swarm"
+        ],
+        "EncounterTags": [
+          "Corruption",
+          "SanPressure"
+        ],
+        "Weight": 55
+      },
+      {
+        "EncounterID": "enc_l3_echo_shell_pressure",
+        "MonsterIDs": [
+          "mob_echo_pilgrim",
+          "mob_shell_grafter"
+        ],
+        "EncounterTags": [
+          "Attrition",
+          "PollutedLoot"
+        ],
+        "Weight": 45
+      }
+    ],
+    "Elite": [
+      {
+        "EncounterID": "enc_l3_elite_spore_matriarch",
+        "MonsterIDs": [
+          "elite_spore_matriarch"
+        ],
+        "EncounterTags": [
+          "Elite",
+          "Bypassable",
+          "Pollution"
+        ],
+        "Weight": 52,
+        "BypassRequired": true
+      },
+      {
+        "EncounterID": "enc_l3_elite_vein_knight",
+        "MonsterIDs": [
+          "elite_vein_knight"
+        ],
+        "EncounterTags": [
+          "Elite",
+          "Bypassable",
+          "BuildCheck"
+        ],
+        "Weight": 48,
+        "BypassRequired": true
+      }
+    ],
+    "BossEncounterID": "boss_mycelium_oracle",
+    "EncounterTags": [
+      "Layer3",
+      "RouteCorrosion",
+      "OrderConflict"
+    ]
+  },
+  "TreasureRewardPoolRefs": [
+    "reward_node_treasure_layer3"
+  ],
+  "EventPoolRefs": [
+    "reward_node_event_layer3_contested_core",
+    "reward_node_event_layer3_singing_fossil"
+  ],
+  "HazardPoolRefs": [
+    "hazard_l3_mycelium_toll_gate"
+  ],
+  "OrderTargetRefs": [
+    "order_workshop_spore_core_frame",
+    "order_mage_oracle_sample",
+    "order_black_contested_core_buyout"
+  ],
+  "NodeRewardRefs": [
+    "reward_node_treasure_layer3",
+    "reward_node_event_layer3_contested_core",
+    "reward_node_event_layer3_singing_fossil"
+  ],
+  "NodePool": [
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "菌丝爬行体",
+      "Description": "污染教学遭遇，会把风险材料塞进背包。",
+      "RiskLevel": "Medium",
+      "RiskHint": "污染物品节点，建议预留净化盐或低价值承压物。",
+      "Weight": 18,
+      "MonsterIDs": [
+        "mob_mycelium_crawler"
+      ]
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "神经虫群",
+      "Description": "SAN 与弱点标记压力。",
+      "RiskLevel": "Medium",
+      "RiskHint": "SAN 压力节点，锚定符坠可抵消一次。",
+      "Weight": 16,
+      "MonsterIDs": [
+        "mob_nerve_midge_swarm"
+      ]
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "孢刺射手",
+      "Description": "蓄力射击与边缘封锁。",
+      "RiskLevel": "Medium",
+      "RiskHint": "蓄力节点，抢杀或防御都有效。",
+      "Weight": 16,
+      "MonsterIDs": [
+        "mob_spore_archer"
+      ]
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "壳层嫁接者",
+      "Description": "防御与修复拉长战斗。",
+      "RiskLevel": "Medium",
+      "RiskHint": "消耗节点，拖久会吃更多路线成本。",
+      "Weight": 15,
+      "MonsterIDs": [
+        "mob_shell_grafter"
+      ]
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "回声朝圣者",
+      "Description": "低语与 SAN 压力。",
+      "RiskLevel": "High",
+      "RiskHint": "剧情压力节点，高价遗物伴随低语风险。",
+      "Weight": 12,
+      "MonsterIDs": [
+        "mob_echo_pilgrim"
+      ]
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "孢巢母体",
+      "Description": "可绕污染精英，奖励更高但污染更重。",
+      "RiskLevel": "High",
+      "RiskHint": "精英节点，可绕；挑战前确认净化资源。",
+      "Weight": 6,
+      "MonsterIDs": [
+        "elite_spore_matriarch"
+      ]
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "菌脉骑士",
+      "Description": "可绕构筑检查精英。",
+      "RiskLevel": "High",
+      "RiskHint": "精英节点，会标记构筑弱点。",
+      "Weight": 6,
+      "MonsterIDs": [
+        "elite_vein_knight"
+      ]
+    },
+    {
+      "NodeType": "TreasureNode",
+      "NodeIconID": "node_treasurenode_icon",
+      "Title": "菌脉物资巢",
+      "Description": "净化盐、锚定符坠和孢晶琥珀。",
+      "RiskLevel": "Medium",
+      "RiskHint": "宝箱节点，给第三层反制工具。",
+      "Weight": 10,
+      "RewardID": "reward_node_treasure_layer3"
+    },
+    {
+      "NodeType": "EventNode",
+      "NodeIconID": "node_eventnode_icon",
+      "Title": "争夺孢核脉动",
+      "Description": "可以取走 3x3 争夺孢核或切样本。",
+      "RiskLevel": "High",
+      "RiskHint": "订单目标事件，空间不足时不要强拿。",
+      "Weight": 8,
+      "RewardID": "reward_node_event_layer3_contested_core",
+      "OrderID": "order_workshop_spore_core_frame",
+      "OutcomeEffects": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -3
+        }
+      ]
+    },
+    {
+      "NodeType": "EventNode",
+      "NodeIconID": "node_eventnode_icon",
+      "Title": "低唱化石合唱",
+      "Description": "高价值遗物和地图预览伴随低语。",
+      "RiskLevel": "Medium",
+      "RiskHint": "遗物事件，可用锚定符坠止损。",
+      "Weight": 8,
+      "RewardID": "reward_node_event_layer3_singing_fossil",
+      "OutcomeEffects": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -5
+        }
+      ]
+    },
+    {
+      "NodeType": "HazardNode",
+      "NodeIconID": "node_hazardnode_icon",
+      "Title": "菌脉过路门",
+      "Description": "接受捷径会增加本次下潜 RouteCorrosion。",
+      "RiskLevel": "High",
+      "RiskHint": "路线侵蚀节点，只影响本次下潜和 Boss 入场。",
+      "Weight": 7,
+      "OutcomeEffects": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -4
+        }
+      ]
+    },
+    {
+      "NodeType": "RestStopNode",
+      "NodeIconID": "node_reststopnode_icon",
+      "Title": "盐化休整点",
+      "Description": "层内休整，小幅恢复并提示污染处理。",
+      "RiskLevel": "Low",
+      "RiskHint": "不是 Boss 后安全区，不能撤离。",
+      "Weight": 6,
+      "OutcomeEffects": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "HP",
+          "Amount": 10
+        },
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": 5
+        }
+      ]
+    }
+  ],
+  "BossNode": "boss_mycelium_oracle",
+  "BossNodeIconID": "node_boss_icon",
+  "PostBossNode": {
+    "NodeType": "StairsNode",
+    "RuntimeRole": "PostBossSafeZone",
+    "NodeIconID": "node_stairs_icon",
+    "RiskLevel": "Safe",
+    "RiskHint": "Boss 后安全区，免费恢复 HP / SAN；污染物和订单状态保留。"
+  },
+  "SafeZoneRules": {
+    "FreeRecoverHP": true,
+    "FreeRecoverSAN": true,
+    "ClearRouteCorrosion": true,
+    "ClearItemPollution": false,
+    "ClearOrderState": false,
+    "AllowExtract": true,
+    "AllowDescend": true,
+    "PreserveRunLedger": true
+  },
+  "EndNode": {
+    "NodeType": "StairsNode",
+    "NodeIconID": "node_stairs_icon",
+    "RiskLevel": "Safe",
+    "RiskHint": "Boss 后安全区，可撤离、回城处理污染或继续深入。"
+  },
+  "UnlockRule": {
+    "RequiresHighestUnlockedLayer": 3,
+    "RequiresLayer2BossDefeated": true,
+    "UnlocksLayerID": 4,
+    "RequiresBossDefeated": true,
+    "RequiresEndNodeReached": true
+  },
+  "DirectStartAllowed": true,
+  "PreviousLayerRequired": 2,
+  "NextLayerID": 4,
+  "FixedSeedSamples": [
+    {
+      "SeedID": "V-L3-DIRECT-3072-ROUTE-01",
+      "LayerID": 3,
+      "MapProfileID": "layer3_route_attrition",
+      "RunSeed": 3072,
+      "RouteSummary": "从小镇直达第三层，至少 3 条有效路线，包含安全、侵蚀和风险收益路线；Boss 固定为 boss_mycelium_oracle，Boss 后进入 SafeZone。",
+      "EncounterSummary": "普通遭遇覆盖五只第三层普通怪；elite_spore_matriarch / elite_vein_knight 可绕；boss_mycelium_oracle 承担第三层终点 Boss。",
+      "RewardSummary": "宝箱引用 reward_node_treasure_layer3；事件引用 contested core / singing fossil；Boss 保底 mat_core_tier3_seed。",
+      "ExpectedEffectiveRouteCount": 3,
+      "ExpectedNodeTypeCoverage": [
+        "CombatNode",
+        "TreasureNode",
+        "EventNode",
+        "HazardNode",
+        "EliteNode",
+        "BossNode",
+        "SafeZoneNode"
+      ],
+      "ExpectedBossID": "boss_mycelium_oracle",
+      "ExpectedEliteIDs": [
+        "elite_spore_matriarch",
+        "elite_vein_knight"
+      ],
+      "ExpectedRewardRefs": [
+        "reward_node_treasure_layer3",
+        "reward_node_event_layer3_contested_core",
+        "reward_boss_mycelium_oracle"
+      ],
+      "ExpectedPlayerChoice": "安全路线保守推进，侵蚀路线换高收益和更强 Boss 压力。",
+      "PassCriteria": "直达第三层，路线数、可绕精英、Boss 和 Boss 后 SafeZone 均成立。",
+      "FailureSignals": [
+        "重打一层或第二层",
+        "第三层引用第二层怪物池",
+        "精英必经",
+        "Boss 后没有 SafeZone"
+      ]
+    },
+    {
+      "SeedID": "V-L3-ATTRITION-01",
+      "LayerID": 3,
+      "MapProfileID": "layer3_route_attrition",
+      "RunSeed": 3072,
+      "RouteSummary": "选择 Attrition 路线并经过菌脉过路门，获得本次下潜 RouteCorrosion 预告。",
+      "EncounterSummary": "污染 / SAN 压力遭遇至少一次，Boss 前能看到路线侵蚀影响。",
+      "RewardSummary": "高风险路线提高事件或宝箱收益。",
+      "ExpectedRunStateRefs": [
+        "RouteCorrosion"
+      ],
+      "PassCriteria": "RouteCorrosion 来源、影响和清除边界可复核。",
+      "FailureSignals": [
+        "侵蚀暗中生效",
+        "变成永久状态",
+        "安全区错误清物品污染"
+      ]
+    },
+    {
+      "SeedID": "V-L3-CORRUPT-ITEM-01",
+      "LayerID": 3,
+      "MapProfileID": "layer3_route_attrition",
+      "RunSeed": 3072,
+      "RouteSummary": "获得 loot_living_mycelium 或 trade_singing_fossil 后撤离，保留污染 / 低语处理入口。",
+      "ExpectedItemRefs": [
+        "loot_living_mycelium",
+        "trade_singing_fossil",
+        "con_purifying_salt"
+      ],
+      "PassCriteria": "污染来源、隔夜风险和净化 / 出售 / 交付去向可读。",
+      "FailureSignals": [
+        "污染只在战斗存在",
+        "撤离后无提示",
+        "隔夜暗扣资源"
+      ]
+    },
+    {
+      "SeedID": "V-L3-ORDER-CONFLICT-01",
+      "LayerID": 3,
+      "MapProfileID": "layer3_order_conflict_core",
+      "RunSeed": 3303,
+      "RouteSummary": "订单画像稳定出现争夺孢核目标，带回 order_contested_spore_core 后只能提交给一个目标。",
+      "ExpectedOrderRefs": [
+        "order_workshop_spore_core_frame",
+        "order_mage_oracle_sample",
+        "order_black_contested_core_buyout"
+      ],
+      "ExpectedItemRefs": [
+        "order_contested_spore_core"
+      ],
+      "PassCriteria": "同一孢核不可重复交付，黑市背叛和正规势力失败原因可复核。",
+      "FailureSignals": [
+        "同一核心多次交付",
+        "背叛自动发生",
+        "声望变化不可见"
+      ]
+    },
+    {
+      "SeedID": "V-L3-BOSS-REWARD-01",
+      "LayerID": 3,
+      "MapProfileID": "layer3_route_attrition",
+      "RunSeed": 3072,
+      "RouteSummary": "以 0-3 层 RouteCorrosion 击败 boss_mycelium_oracle 后进入 Boss 后安全区。",
+      "EncounterSummary": "Boss 读取路线侵蚀并使用攻击、塞风险物、削武器映射污染压力。",
+      "RewardSummary": "reward_boss_mycelium_oracle 保底 mat_core_tier3_seed；精英不承担三阶核心保底。",
+      "ExpectedBossID": "boss_mycelium_oracle",
+      "ExpectedGuaranteedItemRefs": [
+        "mat_core_tier3_seed"
+      ],
+      "PassCriteria": "Boss 保底三阶机核种，Boss 后免费恢复 HP / SAN，但保留物品污染、订单物和背包压力。",
+      "FailureSignals": [
+        "三阶机核无来源",
+        "安全区错误净化所有污染",
+        "Boss 与路线选择无关"
+      ]
+    }
+  ],
+  "ExpectedRouteSummary": {
+    "MinEffectiveRouteCount": 3,
+    "MinCombatPerRoute": 3,
+    "EliteBypassRequired": true,
+    "BossBufferRequired": true,
+    "BossID": "boss_mycelium_oracle",
+    "EliteIDs": [
+      "elite_spore_matriarch",
+      "elite_vein_knight"
+    ],
+    "PostBossSafeZone": true
+  },
+  "ValidationScenarioRefs": [
+    "CFG-DUNGEON-REF-001",
+    "CFG-DUNGEON-ROUTE-001",
+    "CFG-DUNGEON-SAFEZONE-001",
+    "CFG-LAYER-DIRECT-001",
+    "CFG-ORDER-CONFLICT-001",
+    "CFG-SEED-001",
+    "V-L3-DIRECT-3072-ROUTE-01",
+    "V-L3-ATTRITION-01",
+    "V-L3-CORRUPT-ITEM-01",
+    "V-L3-ORDER-CONFLICT-01",
+    "V-L3-BOSS-REWARD-01"
+  ],
+  "NodeIconSet": "layer3_route_corrosion_node_icons",
+  "RouteThemeVisuals": {
+    "SafeRoute": "route_theme_safe_green",
+    "Attrition": "route_theme_attrition_red",
+    "RiskReward": "route_theme_reward_gold",
+    "OrderTrack": "route_theme_order_blue"
+  }
+}

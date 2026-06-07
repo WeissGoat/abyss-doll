@@ -116,6 +116,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 ## 最近完成
 
+- 策划侧已完成 C3 第三层路线侵蚀配置源落地：`L3-ITEMS`、`L3-REWARDS`、`L3-MONSTERS`、`L3-DUNGEONS`、`L3-ORDERS-RUMORS-EVENTS`、`L3-SEED` 均已在 `设计文档/config/26_正式配置设计与填充推进计划.md` 标记为 `配置完成`。本轮新增第三层 12 件物品、15 个奖励、8 个怪物、4 个订单、3 条传闻、1 个新 Faction 和 `配置表(JSON)/Dungeons/layer_3.json`；`layer_3.json` 已具备 `DirectStartAllowed=true`、`PreviousLayerRequired=2`、Boss `boss_mycelium_oracle`、Boss 后免费恢复 HP / SAN 的 SafeZone、路线侵蚀 / 订单冲突 MapProfile 和 5 条固定样例。已通过 C3 静态交叉引用检查（error / warning 为 0）和 `./tools/config/Sync-Configs.ps1 -Clean`；P0 入口已运行，`ConfigValidator` / Unity smoke 因 Unity Editor 未运行阻塞，ArtAcceptance 为既有 UI / 美术验收问题，未作为 C3 配置失败证据。C4 已解锁为 `待开始`，当前子项为 `GROWTH-ID-LOCK`。
 - 策划侧已完成 C2 第二层直达与背包压力配置源落地，并完成 C2 收尾 / C3 开工口径同步：`L2-ITEMS`、`L2-REWARDS`、`L2-MONSTERS`、`L2-DUNGEONS`、`L2-ORDERS`、`L2-SEED` 均已在 `设计文档/config/26_正式配置设计与填充推进计划.md` 标记为 `配置完成`。本轮新增 / 补强第二层 12 件物品、14 个奖励、7 个怪物、3 个订单、2 个必要 Faction 引用和 `配置表(JSON)/Dungeons/layer_2.json`；`layer_2.json` 已具备 `DirectStartAllowed=true`、`PreviousLayerRequired=1`、Boss `boss_spore_foundry`、Boss 后免费恢复 HP / SAN 的 `StairsNode + SafeZoneRules`，并补 5 条固定样例。已通过 C2 静态 Validator 等价检查和 `./tools/config/Sync-Configs.ps1 -Clean`；`ConfigValidationSmokeTest.Run` / P0 Unity 步骤因 Unity Editor 未运行被工具阻塞，未作为通过证据。C3 已解锁为 `待开始`，当前子项为 `L3-ITEMS`；后续只按缺口修复处理 C1 / C2，不重复派发基础配置。
 - 策划侧已完成 C1 第一层正式配置源收口：`L1-ITEMS`、`L1-REWARDS`、`L1-MONSTERS`、`L1-DUNGEONS`、`L1-SEED` 均已在 `设计文档/config/26_正式配置设计与填充推进计划.md` 标记为 `配置完成`。`layer_1.json` 已补 2 个 MapProfile、11 个 NodePool、5 条 FixedSeedSamples 和 9 条 ValidationScenarioRefs；Boss 指向 `boss_gatekeeper_mk1`，`elite_scrap_guard` 只作为可绕精英；Boss 后 `StairsNode + SafeZoneRules` 为免费恢复 HP / SAN、允许撤离 / 深入、不清污染 / 订单 / 探索账本。已通过 L1-SEED 静态证据检查、`Sync-Configs.ps1 -Clean`、`ConfigValidationSmokeTest.Run`、`DungeonSeedAcceptanceSmokeTest.Run`、`RewardSystemSmokeTest.Run`、`ItemLifecycleServiceSmokeTest.Run` 和 Boss 保底结构检查。该历史记录已被 C2 完成记录推进；当前下一项为 C3 `L3-ITEMS`。
 - 策划侧已完成 `设计文档/` 目录结构重构：GDD、规则卡、交付承接、内容包和正式配置链路已分别迁入 `GDD/`、`rules/`、`delivery/`、`content_packs/`、`config/` 分区；`设计文档/README.md` 已重写为目录地图和名词词典，明确“配置承接审计”是配置源缺口审计，“正式配置落地设计”是 JSON 修改前配置设计清单。
@@ -242,6 +243,6 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 1. 增加配置校验工具，检查 `配置表(JSON)` 的 ID、必填字段和交叉引用。
 2. 为知识库索引增加可选的职能 / 领域 / 关联深度过滤入口，方便复制智能体按任务快速定位文档。
 3. 程序侧可按 active `screen_layouts.json` 接入 V2-A 五屏 FormalV2 规格：`workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`；美术侧继续处理 `generate_needed=29` 缺图队列和 V2-B / V2-C 后续确认。
-4. 策划 / 配置侧继续推进 `26` 时，优先按 `agent_status/design.md` 和对应设计文档确认工作项状态；C1、C2 已配置完成，下一步从 C3 `L3-ITEMS` 开始。开工前只做 `56_正式配置源落地准入门禁.md` 准入复核；开始写 `配置表(JSON)/Items` 后，将 `26` 的 C3 和 `L3-ITEMS` 改为 `进行中`。完成 `L3-ITEMS` 时必须留下源 JSON、配置同步、静态 Validator / 固定样例证据和状态回写，再推进 `L3-REWARDS`。程序 Validator 实现、Unity 测试或 UI 表现必须分别回写程序 / 美术状态页。
+4. 策划 / 配置侧继续推进 `26` 时，优先按 `agent_status/design.md` 和对应设计文档确认工作项状态；C1、C2、C3 已配置完成，下一步进入 C4 `GROWTH-ID-LOCK` 复核，再推进局外成长配置源落地。前三层配置后续只按真实缺口做补齐、验收修复、字段迁移或数值校准；程序 Validator 实现、Unity 测试或 UI 表现必须分别回写程序 / 美术状态页。
 5. 程序侧按新的功能优先级推进：P0 自动验收底座和 P1 背包 / 物品生命周期只做验收补强或缺口修复；下一步正式开发应从 `agent_status/program.md` 中确认 P1 战斗 / 怪物意图、P2 深渊地图、P3 局外成长、P4 经济压力的真实缺口后拆任务。
 

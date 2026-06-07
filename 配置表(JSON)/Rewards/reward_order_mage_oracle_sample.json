@@ -1,0 +1,56 @@
+{
+  "RewardID": "reward_order_mage_oracle_sample",
+  "Name": "法师塔神谕样本订单奖励",
+  "Tags": [
+    "Layer3",
+    "OrderReward"
+  ],
+  "RewardRole": "OrderReward",
+  "SourceType": "Order",
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "RewardTier": "Order",
+  "ExpectedValueBand": {
+    "Min": 420,
+    "Max": 1800
+  },
+  "RiskBudgetTag": "Layer3RouteCorrosion",
+  "GrowthHooks": [],
+  "ValidationTags": [
+    "Layer3Reward"
+  ],
+  "AuditNotes": "",
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "order_bonus",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        {
+          "Type": "Item",
+          "ItemID": "con_anchor_charm",
+          "Weight": 32,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "loot_corroded_nerve",
+          "Weight": 20,
+          "Count": 1
+        },
+        {
+          "Type": "Money",
+          "Money": 180,
+          "Weight": 48,
+          "Count": 1
+        }
+      ]
+    }
+  ]
+}

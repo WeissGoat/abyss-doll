@@ -1,0 +1,60 @@
+{
+  "RewardID": "reward_node_event_layer3_contested_core",
+  "Name": "争夺孢核事件奖励",
+  "Tags": [
+    "Layer3",
+    "EventNode"
+  ],
+  "RewardRole": "EventNode",
+  "SourceType": "Node",
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "RewardTier": "Event",
+  "ExpectedValueBand": {
+    "Min": 420,
+    "Max": 1800
+  },
+  "RiskBudgetTag": "Layer3RouteCorrosion",
+  "GrowthHooks": [],
+  "ValidationTags": [
+    "Layer3Reward"
+  ],
+  "AuditNotes": "",
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "event_main",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        {
+          "Type": "Item",
+          "ItemID": "order_contested_spore_core",
+          "Weight": 42,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "loot_living_mycelium",
+          "Weight": 35,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "loot_spore_amber",
+          "Weight": 18,
+          "Count": 1
+        },
+        {
+          "Type": "Nothing",
+          "Weight": 5
+        }
+      ]
+    }
+  ]
+}

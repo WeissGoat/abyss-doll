@@ -1,0 +1,26 @@
+{
+  "FactionID": "faction_mage_tower",
+  "DisplayName": "Mage Tower",
+  "IsBlackMarket": false,
+  "VisibleOrderSlots": 1,
+  "MaxActiveOrders": 2,
+  "FactionTags": [
+    "Mage",
+    "Research",
+    "Relic"
+  ],
+  "ReputationRanks": [
+    {
+      "Rank": 1,
+      "Threshold": 0,
+      "UnlockRefs": []
+    },
+    {
+      "Rank": 2,
+      "Threshold": 50,
+      "UnlockRefs": [
+        "order_mage_oracle_sample"
+      ]
+    }
+  ]
+}

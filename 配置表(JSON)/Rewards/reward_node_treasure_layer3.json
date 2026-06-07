@@ -1,0 +1,68 @@
+{
+  "RewardID": "reward_node_treasure_layer3",
+  "Name": "第三层宝箱奖励",
+  "Tags": [
+    "Layer3",
+    "TreasureNode"
+  ],
+  "RewardRole": "TreasureNode",
+  "SourceType": "Node",
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "RewardTier": "Treasure",
+  "ExpectedValueBand": {
+    "Min": 420,
+    "Max": 1800
+  },
+  "RiskBudgetTag": "Layer3RouteCorrosion",
+  "GrowthHooks": [],
+  "ValidationTags": [
+    "Layer3Reward"
+  ],
+  "AuditNotes": "",
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "treasure_main",
+      "RollCount": 2,
+      "AllowDuplicate": false,
+      "Entries": [
+        {
+          "Type": "Item",
+          "ItemID": "con_purifying_salt",
+          "Weight": 28,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "con_anchor_charm",
+          "Weight": 20,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "loot_spore_amber",
+          "Weight": 26,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_spore_lance",
+          "Weight": 10,
+          "Count": 1
+        },
+        {
+          "Type": "Money",
+          "Money": 90,
+          "Weight": 16,
+          "Count": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "MonsterID": "elite_vein_knight",
+  "Name": "菌脉骑士",
+  "MonsterRole": [
+    "Elite",
+    "BuildCheck"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "Layer": 3,
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "EncounterTags": [
+    "Combat",
+    "Layer3",
+    "Elite",
+    "BuildCheck"
+  ],
+  "DifficultyBudget": {
+    "Base": 190,
+    "Variance": 12
+  },
+  "HP": 190,
+  "PortraitID": "monster_elite_vein_knight_portrait",
+  "CombatVisualID": "monster_elite_vein_knight_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "knight_guard",
+      "IntentType": "Guard",
+      "PowerPreview": "guard",
+      "TargetPreview": "Self",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.attack_window",
+      "IntentIconRef": "ui_combat_intent_defend"
+    },
+    {
+      "IntentID": "knight_mark",
+      "IntentType": "MarkWeakSlot",
+      "PowerPreview": "weak slot",
+      "TargetPreview": "Backpack",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.reposition",
+      "IntentIconRef": "ui_combat_grid_lock_marker"
+    },
+    {
+      "IntentID": "knight_pierce",
+      "IntentType": "PierceAttack",
+      "PowerPreview": 30,
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.guard",
+      "IntentIconRef": "ui_combat_intent_attack"
+    }
+  ],
+  "RewardID": "reward_monster_elite_vein_knight",
+  "DropThemeTags": [
+    "Layer3",
+    "RouteCorrosion"
+  ],
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "knight_pierce",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 55,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 30,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "knight_mark",
+        "ActionType": "ReduceWeaponDamage",
+        "Target": "RandomPlayerWeapon",
+        "Weight": 30,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerHasWeapon",
+        "Params": {
+          "Multiplier": 0.7,
+          "DurationPlayerTurns": 1
+        }
+      },
+      {
+        "ActionID": "knight_plate",
+        "ActionType": "AddCursedItem",
+        "Target": "PlayerGridFirstFit",
+        "Weight": 15,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerGridHasSpace",
+        "Params": {
+          "ItemID": "loot_vein_plate",
+          "OverrideTags": [
+            "Cursed",
+            "VeinMark"
+          ],
+          "OverrideValue": 0
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {
+      "ItemID": "gear_vein_sickle",
+      "Weight": 45
+    },
+    {
+      "ItemID": "loot_vein_plate",
+      "Weight": 50
+    }
+  ]
+}

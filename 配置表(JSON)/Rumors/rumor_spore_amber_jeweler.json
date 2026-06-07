@@ -1,0 +1,19 @@
+{
+  "RumorID": "rumor_spore_amber_jeweler",
+  "DisplayName": "孢晶琥珀珠宝热",
+  "RumorType": "DemandUp",
+  "Description": "珠宝商抬高孢晶琥珀收购价，小件高价路线收益提高。",
+  "TargetTags": [
+    "SporeAmber",
+    "Trade"
+  ],
+  "TargetLayer": 3,
+  "Channel": "Showcase",
+  "PriceMultiplier": 1.45,
+  "DurationDays": 7,
+  "Weight": 65,
+  "BoostedOrderTags": [
+    "Trade",
+    "SporeAmber"
+  ]
+}

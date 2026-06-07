@@ -1,0 +1,60 @@
+{
+  "RewardID": "reward_monster_mob_mycelium_crawler",
+  "Name": "菌丝爬行体掉落",
+  "Tags": [
+    "Layer3",
+    "MobDrop"
+  ],
+  "RewardRole": "MobDrop",
+  "SourceType": "Monster",
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "RewardTier": "Mob",
+  "ExpectedValueBand": {
+    "Min": 420,
+    "Max": 1800
+  },
+  "RiskBudgetTag": "Layer3RouteCorrosion",
+  "GrowthHooks": [],
+  "ValidationTags": [
+    "Layer3Reward"
+  ],
+  "AuditNotes": "Layer3 pollution tutorial drop.",
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "mob_main",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        {
+          "Type": "Item",
+          "ItemID": "loot_living_mycelium",
+          "Weight": 45,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "loot_vein_plate",
+          "Weight": 25,
+          "Count": 1
+        },
+        {
+          "Type": "Money",
+          "Money": 45,
+          "Weight": 20,
+          "Count": 1
+        },
+        {
+          "Type": "Nothing",
+          "Weight": 10
+        }
+      ]
+    }
+  ]
+}

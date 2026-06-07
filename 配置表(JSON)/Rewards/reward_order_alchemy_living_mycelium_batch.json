@@ -1,0 +1,56 @@
+{
+  "RewardID": "reward_order_alchemy_living_mycelium_batch",
+  "Name": "炼金活性菌丝订单奖励",
+  "Tags": [
+    "Layer3",
+    "OrderReward"
+  ],
+  "RewardRole": "OrderReward",
+  "SourceType": "Order",
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "RewardTier": "Order",
+  "ExpectedValueBand": {
+    "Min": 420,
+    "Max": 1800
+  },
+  "RiskBudgetTag": "Layer3RouteCorrosion",
+  "GrowthHooks": [],
+  "ValidationTags": [
+    "Layer3Reward"
+  ],
+  "AuditNotes": "",
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "order_bonus",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        {
+          "Type": "Item",
+          "ItemID": "con_purifying_salt",
+          "Weight": 45,
+          "Count": 2
+        },
+        {
+          "Type": "Item",
+          "ItemID": "loot_spore_amber",
+          "Weight": 15,
+          "Count": 1
+        },
+        {
+          "Type": "Money",
+          "Money": 170,
+          "Weight": 40,
+          "Count": 1
+        }
+      ]
+    }
+  ]
+}

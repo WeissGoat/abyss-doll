@@ -1,0 +1,129 @@
+{
+  "ConfigID": "trade_singing_fossil",
+  "Name": "低唱化石",
+  "ItemType": "Loot",
+  "Rarity": "Epic",
+  "BaseValue": 1250,
+  "IconID": "item_trade_singing_fossil_icon",
+  "DescriptionKey": "item.trade_singing_fossil.desc",
+  "ItemRole": [
+    "Trade",
+    "RiskObject",
+    "RoomMemory"
+  ],
+  "LayerTags": [
+    "Layer3",
+    "ContentPack25"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 4,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Trade",
+      "RiskObject"
+    ]
+  },
+  "Combat": null,
+  "Tags": [
+    "Trade",
+    "AbyssRelic",
+    "Whispering",
+    "Layer3"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "ShopOrBlackMarket",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "CannotConsume",
+    "OvernightRule": "WhisperingSanUnease"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_echo_pilgrim",
+      "boss_mycelium_oracle"
+    ],
+    "RewardRefs": [
+      "reward_node_event_layer3_singing_fossil",
+      "reward_boss_mycelium_oracle"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": [],
+    "EventRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [
+      "blackmarket_singing_fossil_sell"
+    ],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [
+      "order_mage_oracle_sample"
+    ],
+    "RoomMemoryRefs": [
+      "room_memory_singing_fossil_kept"
+    ],
+    "ScenarioEventRefs": [
+      "event_singing_fossil_choir"
+    ],
+    "PurifyRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "AbyssRelic",
+      "RiskPremium",
+      "Whispering"
+    ],
+    "RumorRefs": [
+      "rumor_oracle_fossil_collector"
+    ],
+    "ContrabandRule": "BlackMarketPremiumWithSuspicion",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [
+      "AbyssRelic",
+      "Whispering",
+      "SanUneaseMid"
+    ],
+    "PollutionProfile": "l3_singing_fossil_whisper",
+    "CorruptionProfile": "None",
+    "OvernightRule": "WhisperingSanUnease",
+    "OrderConflictGroup": "oracle_relic"
+  },
+  "Visual": {
+    "IconVisualID": "item_trade_singing_fossil_icon",
+    "GridPreviewStyle": "RiskObjectMedium",
+    "RiskIconRefs": [
+      "AbyssRelic",
+      "Whispering",
+      "SanUneaseMid"
+    ],
+    "PickupHintKey": "pickup.item_trade_singing_fossil_icon"
+  }
+}

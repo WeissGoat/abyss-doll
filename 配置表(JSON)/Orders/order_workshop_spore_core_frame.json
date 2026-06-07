@@ -1,0 +1,52 @@
+{
+  "OrderID": "order_workshop_spore_core_frame",
+  "FactionID": "faction_mechanic_workshop",
+  "OrderType": "TargetItem",
+  "DisplayName": "工坊孢核框架",
+  "Description": "交付争夺孢核或三阶机核种，换取底盘二阶段工程线。",
+  "Requirement": {
+    "RequiredItemIDs": [
+      "order_contested_spore_core",
+      "mat_core_tier3_seed"
+    ],
+    "RequiredTags": [
+      "Layer3",
+      "FactionConflict"
+    ],
+    "ForbiddenTags": [
+      "Sold",
+      "Broken"
+    ],
+    "RequiredCount": 1,
+    "MinGridCost": 6,
+    "MinLayer": 3
+  },
+  "DeadlineDays": 10,
+  "RewardID": "reward_order_workshop_spore_core_frame",
+  "FixedGold": 300,
+  "ReputationDelta": 25,
+  "TrustDelta": 2,
+  "FailurePenalty": {
+    "ExpiredReputationDelta": -10,
+    "AbandonedReputationDelta": -5,
+    "BetrayedReputationDelta": -22,
+    "CooldownDays": 7
+  },
+  "RepeatPolicy": "Limited",
+  "Weight": 70,
+  "Tags": [
+    "Layer3",
+    "Workshop",
+    "SporeCore",
+    "MutualExclusive"
+  ],
+  "MutexGroupID": "contested_spore_core",
+  "BetrayalPolicy": {
+    "RequiresConfirm": false,
+    "RelatedOrderIDs": [
+      "order_workshop_spore_core_frame",
+      "order_mage_oracle_sample"
+    ],
+    "BetrayalLogKey": "order.layer3.contested_core.betrayal"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "OrderID": "order_mage_oracle_sample",
+  "FactionID": "faction_mage_tower",
+  "OrderType": "TargetItem",
+  "DisplayName": "法师塔神谕样本",
+  "Description": "交付低唱化石或神谕样本，换取心智催化和深渊研究线索。",
+  "Requirement": {
+    "RequiredItemIDs": [
+      "trade_singing_fossil",
+      "loot_corroded_nerve"
+    ],
+    "RequiredTags": [
+      "Layer3"
+    ],
+    "ForbiddenTags": [
+      "Sold",
+      "Broken"
+    ],
+    "RequiredCount": 1,
+    "MinGridCost": 2,
+    "MinLayer": 3
+  },
+  "DeadlineDays": 10,
+  "RewardID": "reward_order_mage_oracle_sample",
+  "FixedGold": 180,
+  "ReputationDelta": 25,
+  "TrustDelta": 2,
+  "FailurePenalty": {
+    "ExpiredReputationDelta": -10,
+    "AbandonedReputationDelta": -5,
+    "BetrayedReputationDelta": -22,
+    "CooldownDays": 7
+  },
+  "RepeatPolicy": "Limited",
+  "Weight": 65,
+  "Tags": [
+    "Layer3",
+    "Mage",
+    "OracleSample",
+    "MutualExclusive"
+  ],
+  "MutexGroupID": "contested_spore_core",
+  "BetrayalPolicy": {
+    "RequiresConfirm": false,
+    "RelatedOrderIDs": [
+      "order_workshop_spore_core_frame",
+      "order_mage_oracle_sample"
+    ],
+    "BetrayalLogKey": "order.layer3.contested_core.betrayal"
+  }
+}

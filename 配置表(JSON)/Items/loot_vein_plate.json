@@ -1,0 +1,116 @@
+{
+  "ConfigID": "loot_vein_plate",
+  "Name": "菌脉甲片",
+  "ItemType": "Loot",
+  "Rarity": "Uncommon",
+  "BaseValue": 460,
+  "IconID": "item_loot_vein_plate_icon",
+  "DescriptionKey": "item.loot_vein_plate.desc",
+  "ItemRole": [
+    "Material",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer3",
+    "ContentPack25"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 4,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Material"
+    ]
+  },
+  "Combat": null,
+  "Tags": [
+    "Loot",
+    "Material",
+    "Layer3",
+    "Vein"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "Ingredient",
+    "OvernightRule": "None"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_shell_grafter",
+      "elite_vein_knight"
+    ],
+    "RewardRefs": [
+      "reward_monster_mob_shell_grafter",
+      "reward_monster_elite_vein_knight"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": [],
+    "EventRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [
+      "craft_chassis_vein_frame"
+    ],
+    "OrderSubmitRefs": [
+      "order_workshop_spore_core_frame"
+    ],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": [],
+    "PurifyRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Material",
+      "VeinPlate"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "plate_tier3"
+  },
+  "Risk": {
+    "RiskTags": [
+      "BulkyMaterial"
+    ],
+    "PollutionProfile": "None",
+    "CorruptionProfile": "None",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_loot_vein_plate_icon",
+    "GridPreviewStyle": "MaterialMedium",
+    "RiskIconRefs": [
+      "BulkyMaterial"
+    ],
+    "PickupHintKey": "pickup.item_loot_vein_plate_icon"
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "ConfigID": "order_contested_spore_core",
+  "Name": "争夺孢核",
+  "ItemType": "QuestItem",
+  "Rarity": "Epic",
+  "BaseValue": 0,
+  "IconID": "item_order_contested_spore_core_icon",
+  "DescriptionKey": "item.order_contested_spore_core.desc",
+  "ItemRole": [
+    "OrderBound",
+    "RiskObject",
+    "FactionConflict"
+  ],
+  "LayerTags": [
+    "Layer3",
+    "ContentPack25"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        2
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 9,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "OrderBound",
+      "LargeCargo"
+    ]
+  },
+  "Combat": null,
+  "Tags": [
+    "OrderBound",
+    "Layer3",
+    "FactionConflict",
+    "LargeCargo"
+  ],
+  "Lifecycle": {
+    "CanSell": false,
+    "SellChannel": "None",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "OrderContested",
+    "CraftingConsumeRule": "CannotConsume",
+    "OvernightRule": "ContestedCoreWhisper"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "boss_mycelium_oracle"
+    ],
+    "RewardRefs": [
+      "reward_node_event_layer3_contested_core",
+      "reward_boss_mycelium_oracle"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": [
+      "order_workshop_spore_core_frame",
+      "order_black_contested_core_buyout"
+    ],
+    "EventRefs": [
+      "event_contested_core_pulse"
+    ]
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [
+      "order_workshop_spore_core_frame",
+      "order_black_contested_core_buyout"
+    ],
+    "RoomMemoryRefs": [
+      "room_memory_first_order_conflict"
+    ],
+    "ScenarioEventRefs": [
+      "event_contested_core_pulse"
+    ],
+    "PurifyRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "OrderBound",
+      "FactionConflict",
+      "Contraband"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "BlackMarketBetrayalOnly",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [
+      "FactionConflict",
+      "SporeDormant",
+      "LargeCargo"
+    ],
+    "PollutionProfile": "l3_contested_core_pulse",
+    "CorruptionProfile": "MidMaintenanceCost",
+    "OvernightRule": "ContestedCoreWhisper",
+    "OrderConflictGroup": "contested_spore_core"
+  },
+  "Visual": {
+    "IconVisualID": "item_order_contested_spore_core_icon",
+    "GridPreviewStyle": "OrderCargoLarge",
+    "RiskIconRefs": [
+      "FactionConflict",
+      "SporeDormant",
+      "LargeCargo"
+    ],
+    "PickupHintKey": "pickup.item_order_contested_spore_core_icon"
+  }
+}

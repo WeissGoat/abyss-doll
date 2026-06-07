@@ -1,0 +1,19 @@
+{
+  "RumorID": "rumor_oracle_fossil_collector",
+  "DisplayName": "神谕化石收藏家",
+  "RumorType": "RiskPremium",
+  "Description": "收藏家和黑市都在找低唱化石，出售、研究和展示的取舍更尖锐。",
+  "TargetTags": [
+    "AbyssRelic",
+    "Whispering"
+  ],
+  "TargetLayer": 3,
+  "Channel": "BlackMarket",
+  "PriceMultiplier": 1.85,
+  "DurationDays": 3,
+  "Weight": 50,
+  "BoostedOrderTags": [
+    "Mage",
+    "BlackMarket"
+  ]
+}

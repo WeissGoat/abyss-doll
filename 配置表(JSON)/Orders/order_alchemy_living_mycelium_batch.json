@@ -1,0 +1,50 @@
+{
+  "OrderID": "order_alchemy_living_mycelium_batch",
+  "FactionID": "faction_alchemy_guild",
+  "OrderType": "Procurement",
+  "DisplayName": "炼金活性菌丝批次",
+  "Description": "限时交付未腐坏活性菌丝，换取净化盐和炼金折扣。",
+  "Requirement": {
+    "RequiredItemIDs": [
+      "loot_living_mycelium"
+    ],
+    "RequiredTags": [
+      "SporeDormant"
+    ],
+    "ForbiddenTags": [
+      "Sold",
+      "Broken"
+    ],
+    "RequiredCount": 3,
+    "MinGridCost": 4,
+    "MinLayer": 3
+  },
+  "DeadlineDays": 5,
+  "RewardID": "reward_order_alchemy_living_mycelium_batch",
+  "FixedGold": 260,
+  "ReputationDelta": 14,
+  "TrustDelta": 1,
+  "FailurePenalty": {
+    "ExpiredReputationDelta": -10,
+    "AbandonedReputationDelta": -5,
+    "BetrayedReputationDelta": -22,
+    "CooldownDays": 7
+  },
+  "RepeatPolicy": "Limited",
+  "Weight": 75,
+  "Tags": [
+    "Layer3",
+    "Alchemy",
+    "Purification",
+    "Batch"
+  ],
+  "MutexGroupID": "contested_spore_core",
+  "BetrayalPolicy": {
+    "RequiresConfirm": false,
+    "RelatedOrderIDs": [
+      "order_workshop_spore_core_frame",
+      "order_mage_oracle_sample"
+    ],
+    "BetrayalLogKey": "order.layer3.contested_core.betrayal"
+  }
+}

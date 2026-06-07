@@ -1,0 +1,101 @@
+{
+  "MonsterID": "mob_mycelium_crawler",
+  "Name": "菌丝爬行体",
+  "MonsterRole": [
+    "PollutionTutorial",
+    "Pressure"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "Layer": 3,
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "EncounterTags": [
+    "Combat",
+    "Layer3",
+    "PollutionTutorial",
+    "Pressure"
+  ],
+  "DifficultyBudget": {
+    "Base": 92,
+    "Variance": 12
+  },
+  "HP": 92,
+  "PortraitID": "monster_mob_mycelium_crawler_portrait",
+  "CombatVisualID": "monster_mob_mycelium_crawler_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "crawler_bite",
+      "IntentType": "Attack",
+      "PowerPreview": 14,
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.basic_guard",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "crawler_spore",
+      "IntentType": "PolluteItemLow",
+      "PowerPreview": "low pollution",
+      "TargetPreview": "Backpack",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.cleanse_window",
+      "IntentIconRef": "ui_combat_intent_debuff"
+    }
+  ],
+  "RewardID": "reward_monster_mob_mycelium_crawler",
+  "DropThemeTags": [
+    "Layer3",
+    "RouteCorrosion"
+  ],
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "crawler_bite",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 70,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 14,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "crawler_spore_shed",
+        "ActionType": "AddCursedItem",
+        "Target": "PlayerGridFirstFit",
+        "Weight": 30,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerGridHasSpace",
+        "Params": {
+          "ItemID": "loot_living_mycelium",
+          "OverrideTags": [
+            "Cursed",
+            "SporeDormant",
+            "TemporaryPressure"
+          ],
+          "OverrideValue": 0
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {
+      "ItemID": "loot_living_mycelium",
+      "Weight": 60
+    },
+    {
+      "ItemID": "loot_vein_plate",
+      "Weight": 25
+    }
+  ]
+}

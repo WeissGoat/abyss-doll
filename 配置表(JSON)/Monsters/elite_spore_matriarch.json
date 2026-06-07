@@ -1,0 +1,123 @@
+{
+  "MonsterID": "elite_spore_matriarch",
+  "Name": "孢巢母体",
+  "MonsterRole": [
+    "Elite",
+    "Pollution"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "Layer": 3,
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "EncounterTags": [
+    "Combat",
+    "Layer3",
+    "Elite",
+    "Pollution"
+  ],
+  "DifficultyBudget": {
+    "Base": 178,
+    "Variance": 12
+  },
+  "HP": 178,
+  "PortraitID": "monster_elite_spore_matriarch_portrait",
+  "CombatVisualID": "monster_elite_spore_matriarch_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "matriarch_summon",
+      "IntentType": "SummonSpore",
+      "PowerPreview": "spawn pressure",
+      "TargetPreview": "Backpack",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.clear_small",
+      "IntentIconRef": "ui_combat_intent_buff"
+    },
+    {
+      "IntentID": "matriarch_pollute",
+      "IntentType": "PolluteCellMid",
+      "PowerPreview": "mid pollution",
+      "TargetPreview": "Backpack",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.cleanse_window",
+      "IntentIconRef": "ui_combat_intent_debuff"
+    },
+    {
+      "IntentID": "matriarch_heavy",
+      "IntentType": "HeavyAttack",
+      "PowerPreview": 28,
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.guard",
+      "IntentIconRef": "ui_combat_intent_attack"
+    }
+  ],
+  "RewardID": "reward_monster_elite_spore_matriarch",
+  "DropThemeTags": [
+    "Layer3",
+    "RouteCorrosion"
+  ],
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "matriarch_heavy",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 45,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 28,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "matriarch_spawn",
+        "ActionType": "AddCursedItem",
+        "Target": "PlayerGridFirstFit",
+        "Weight": 35,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerGridHasSpace",
+        "Params": {
+          "ItemID": "loot_living_mycelium",
+          "OverrideTags": [
+            "Cursed",
+            "SporeDormant",
+            "ElitePressure"
+          ],
+          "OverrideValue": 0
+        }
+      },
+      {
+        "ActionID": "matriarch_fume",
+        "ActionType": "ReduceWeaponDamage",
+        "Target": "RandomPlayerWeapon",
+        "Weight": 20,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerHasWeapon",
+        "Params": {
+          "Multiplier": 0.75,
+          "DurationPlayerTurns": 1
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {
+      "ItemID": "loot_living_mycelium",
+      "Weight": 55
+    },
+    {
+      "ItemID": "loot_spore_amber",
+      "Weight": 35
+    }
+  ]
+}

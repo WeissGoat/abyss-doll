@@ -1,0 +1,114 @@
+{
+  "ConfigID": "con_anchor_charm",
+  "Name": "锚定符坠",
+  "ItemType": "Anchor",
+  "Rarity": "Rare",
+  "BaseValue": 320,
+  "IconID": "item_con_anchor_charm_icon",
+  "DescriptionKey": "item.con_anchor_charm.desc",
+  "ItemRole": [
+    "Recovery",
+    "CounterCheck",
+    "RouteTool"
+  ],
+  "LayerTags": [
+    "Layer3",
+    "ContentPack25"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Anchor"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 0,
+    "DamageType": "RestoreSAN",
+    "BaseValue": 6,
+    "Effects": []
+  },
+  "Tags": [
+    "Consumable",
+    "Anchor",
+    "Layer3",
+    "RouteTool"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ConsumeOnUse",
+    "OvernightRule": "None"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_nerve_midge_swarm"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer3",
+      "reward_monster_mob_nerve_midge_swarm"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": [],
+    "EventRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [
+      "room_memory_first_route_corrosion"
+    ],
+    "ScenarioEventRefs": [
+      "event_mycelium_toll_gate",
+      "event_singing_fossil_choir"
+    ],
+    "PurifyRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Anchor",
+      "RouteTool"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": "None",
+  "Visual": {
+    "IconVisualID": "item_con_anchor_charm_icon",
+    "GridPreviewStyle": {
+      "RiskTags": [
+        "RouteCorrosionCounter"
+      ],
+      "PollutionProfile": "None",
+      "CorruptionProfile": "None",
+      "OvernightRule": "None",
+      "OrderConflictGroup": ""
+    },
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.item_con_anchor_charm_icon"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "ConfigID": "loot_spore_amber",
+  "Name": "孢晶琥珀",
+  "ItemType": "Loot",
+  "Rarity": "Rare",
+  "BaseValue": 620,
+  "IconID": "item_loot_spore_amber_icon",
+  "DescriptionKey": "item.loot_spore_amber.desc",
+  "ItemRole": [
+    "Trade",
+    "Material"
+  ],
+  "LayerTags": [
+    "Layer3",
+    "ContentPack25"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Trade"
+    ]
+  },
+  "Combat": null,
+  "Tags": [
+    "Loot",
+    "Trade",
+    "Layer3",
+    "SporeAmber"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "CannotConsume",
+    "OvernightRule": "None"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_spore_archer",
+      "elite_spore_matriarch"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer3",
+      "reward_monster_elite_spore_matriarch"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": [],
+    "EventRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [
+      "craft_spore_amber_lens"
+    ],
+    "OrderSubmitRefs": [
+      "order_alchemy_living_mycelium_batch"
+    ],
+    "RoomMemoryRefs": [
+      "room_memory_singing_fossil_kept"
+    ],
+    "ScenarioEventRefs": [],
+    "PurifyRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Trade",
+      "SporeAmber"
+    ],
+    "RumorRefs": [
+      "rumor_spore_amber_jeweler"
+    ],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": "None",
+  "Visual": {
+    "IconVisualID": "item_loot_spore_amber_icon",
+    "GridPreviewStyle": {
+      "RiskTags": [
+        "HighValueSmall"
+      ],
+      "PollutionProfile": "None",
+      "CorruptionProfile": "None",
+      "OvernightRule": "None",
+      "OrderConflictGroup": ""
+    },
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.item_loot_spore_amber_icon"
+  }
+}

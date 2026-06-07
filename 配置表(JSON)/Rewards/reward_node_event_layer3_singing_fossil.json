@@ -1,0 +1,60 @@
+{
+  "RewardID": "reward_node_event_layer3_singing_fossil",
+  "Name": "低唱化石事件奖励",
+  "Tags": [
+    "Layer3",
+    "EventNode"
+  ],
+  "RewardRole": "EventNode",
+  "SourceType": "Node",
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "RewardTier": "Event",
+  "ExpectedValueBand": {
+    "Min": 420,
+    "Max": 1800
+  },
+  "RiskBudgetTag": "Layer3RouteCorrosion",
+  "GrowthHooks": [],
+  "ValidationTags": [
+    "Layer3Reward"
+  ],
+  "AuditNotes": "",
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "event_main",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        {
+          "Type": "Item",
+          "ItemID": "trade_singing_fossil",
+          "Weight": 46,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "con_anchor_charm",
+          "Weight": 18,
+          "Count": 1
+        },
+        {
+          "Type": "Money",
+          "Money": 90,
+          "Weight": 20,
+          "Count": 1
+        },
+        {
+          "Type": "Nothing",
+          "Weight": 16
+        }
+      ]
+    }
+  ]
+}

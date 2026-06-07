@@ -1,0 +1,147 @@
+{
+  "ConfigID": "gear_mycelium_cloak",
+  "Name": "菌丝披覆",
+  "ItemType": "Armor",
+  "Rarity": "Epic",
+  "BaseValue": 1040,
+  "IconID": "item_gear_mycelium_cloak_icon",
+  "DescriptionKey": "item.gear_mycelium_cloak.desc",
+  "ItemRole": [
+    "Defense",
+    "RiskObject"
+  ],
+  "LayerTags": [
+    "Layer3",
+    "ContentPack25"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 6,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Armor",
+      "Bulky",
+      "RiskObject"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "Shield",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "ModifyResourceCost",
+        "Level": 0,
+        "Target": "Global",
+        "Params": [
+          -0.1
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Armor",
+    "Layer3",
+    "Spore",
+    "PollutionResist"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "ShopOrBlackMarket",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "CannotConsume",
+    "OvernightRule": "MaintenanceCost"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "boss_mycelium_oracle",
+      "elite_spore_matriarch"
+    ],
+    "RewardRefs": [
+      "reward_boss_mycelium_oracle"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": [],
+    "EventRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [
+      "craft_mycelium_cloak_repair"
+    ],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [
+      "room_memory_first_route_corrosion"
+    ],
+    "ScenarioEventRefs": [],
+    "PurifyRefs": [
+      "con_purifying_salt"
+    ]
+  },
+  "Economy": {
+    "ValueTags": [
+      "Armor",
+      "RiskPremium",
+      "Layer3"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "RiskPremiumWithMaintenance",
+    "DismantleProfile": "mycelium_armor_tier3"
+  },
+  "Risk": {
+    "RiskTags": [
+      "SporeDormant",
+      "CorruptionMid",
+      "Bulky"
+    ],
+    "PollutionProfile": "l3_mycelium_cloak_pollution",
+    "CorruptionProfile": "MidMaintenanceCost",
+    "OvernightRule": "TriggerCorruptionMaintenance",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_mycelium_cloak_icon",
+    "GridPreviewStyle": "RiskObjectLarge",
+    "RiskIconRefs": [
+      "SporeDormant",
+      "CorruptionMid",
+      "Bulky"
+    ],
+    "PickupHintKey": "pickup.item_gear_mycelium_cloak_icon"
+  }
+}

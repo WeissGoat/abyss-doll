@@ -1,0 +1,113 @@
+{
+  "MonsterID": "mob_echo_pilgrim",
+  "Name": "回声朝圣者",
+  "MonsterRole": [
+    "Narrative",
+    "SanPressure"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "Layer": 3,
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "EncounterTags": [
+    "Combat",
+    "Layer3",
+    "Narrative",
+    "SanPressure"
+  ],
+  "DifficultyBudget": {
+    "Base": 98,
+    "Variance": 12
+  },
+  "HP": 98,
+  "PortraitID": "monster_mob_echo_pilgrim_portrait",
+  "CombatVisualID": "monster_mob_echo_pilgrim_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "pilgrim_whisper",
+      "IntentType": "SanPressureMid",
+      "PowerPreview": "-4 SAN preview",
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.san_pressure",
+      "IntentIconRef": "ui_combat_intent_debuff"
+    },
+    {
+      "IntentID": "pilgrim_curse",
+      "IntentType": "CurseHint",
+      "PowerPreview": "whisper",
+      "TargetPreview": "Backpack",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.cleanse_window",
+      "IntentIconRef": "ui_combat_intent_debuff"
+    }
+  ],
+  "RewardID": "reward_monster_mob_echo_pilgrim",
+  "DropThemeTags": [
+    "Layer3",
+    "RouteCorrosion"
+  ],
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "pilgrim_touch",
+        "ActionType": "DamageTarget",
+        "Target": "RandomPlayer",
+        "Weight": 55,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 13,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "pilgrim_whisper",
+        "ActionType": "ReduceWeaponDamage",
+        "Target": "RandomPlayerWeapon",
+        "Weight": 20,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerHasWeapon",
+        "Params": {
+          "Multiplier": 0.85,
+          "DurationPlayerTurns": 1
+        }
+      },
+      {
+        "ActionID": "pilgrim_fossil",
+        "ActionType": "AddCursedItem",
+        "Target": "PlayerGridFirstFit",
+        "Weight": 25,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerGridHasSpace",
+        "Params": {
+          "ItemID": "trade_singing_fossil",
+          "OverrideTags": [
+            "Cursed",
+            "Whispering"
+          ],
+          "OverrideValue": 0
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {
+      "ItemID": "trade_singing_fossil",
+      "Weight": 20
+    },
+    {
+      "ItemID": "loot_corroded_nerve",
+      "Weight": 45
+    }
+  ]
+}

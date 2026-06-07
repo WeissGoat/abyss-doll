@@ -1,0 +1,19 @@
+{
+  "RumorID": "rumor_living_mycelium_shortage",
+  "DisplayName": "活性菌丝短缺",
+  "RumorType": "DemandUp",
+  "Description": "炼金公会本周急需活性菌丝，但隔夜污染仍由玩家承担。",
+  "TargetTags": [
+    "SporeDormant",
+    "Material"
+  ],
+  "TargetLayer": 3,
+  "Channel": "DumpBox",
+  "PriceMultiplier": 1.6,
+  "DurationDays": 5,
+  "Weight": 70,
+  "BoostedOrderTags": [
+    "Alchemy",
+    "Purification"
+  ]
+}

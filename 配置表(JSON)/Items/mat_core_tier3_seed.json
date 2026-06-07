@@ -1,0 +1,132 @@
+{
+  "ConfigID": "mat_core_tier3_seed",
+  "Name": "三阶机核种",
+  "ItemType": "QuestItem",
+  "Rarity": "Epic",
+  "BaseValue": 0,
+  "IconID": "item_mat_core_tier3_seed_icon",
+  "DescriptionKey": "item.mat_core_tier3_seed.desc",
+  "ItemRole": [
+    "BossKey",
+    "Material",
+    "FactionConflictCandidate"
+  ],
+  "LayerTags": [
+    "Layer3",
+    "ContentPack25"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 6,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "CoreMaterial",
+      "BossKey",
+      "Bulky"
+    ]
+  },
+  "Combat": null,
+  "Tags": [
+    "CoreMaterial",
+    "BossKey",
+    "Layer3",
+    "Tier3Core"
+  ],
+  "Lifecycle": {
+    "CanSell": false,
+    "SellChannel": "None",
+    "BattleLossRule": "KeepIfBossReward",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "GrowthKey",
+    "CraftingConsumeRule": "Ingredient",
+    "OvernightRule": "None"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "boss_mycelium_oracle"
+    ],
+    "RewardRefs": [
+      "reward_boss_mycelium_oracle"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": [],
+    "EventRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [
+      "chassis_vein_frame",
+      "prosthetic_oracle_anchor"
+    ],
+    "OrderSubmitRefs": [
+      "order_workshop_spore_core_frame",
+      "order_black_contested_core_buyout"
+    ],
+    "RoomMemoryRefs": [
+      "room_memory_first_layer3_reach"
+    ],
+    "ScenarioEventRefs": [],
+    "PurifyRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "CoreMaterial",
+      "NoSell",
+      "Tier3Core"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "NoSell",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [
+      "BossKey",
+      "FactionConflictCandidate"
+    ],
+    "PollutionProfile": "None",
+    "CorruptionProfile": "None",
+    "OvernightRule": "None",
+    "OrderConflictGroup": "contested_spore_core"
+  },
+  "Visual": {
+    "IconVisualID": "item_mat_core_tier3_seed_icon",
+    "GridPreviewStyle": "CoreMaterial",
+    "RiskIconRefs": [
+      "BossKey",
+      "FactionConflictCandidate"
+    ],
+    "PickupHintKey": "pickup.item_mat_core_tier3_seed_icon"
+  }
+}

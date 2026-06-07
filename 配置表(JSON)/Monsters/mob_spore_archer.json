@@ -1,0 +1,113 @@
+{
+  "MonsterID": "mob_spore_archer",
+  "Name": "孢刺射手",
+  "MonsterRole": [
+    "ChargeThreat",
+    "GridLock"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "Layer": 3,
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "EncounterTags": [
+    "Combat",
+    "Layer3",
+    "ChargeThreat",
+    "GridLock"
+  ],
+  "DifficultyBudget": {
+    "Base": 104,
+    "Variance": 12
+  },
+  "HP": 104,
+  "PortraitID": "monster_mob_spore_archer_portrait",
+  "CombatVisualID": "monster_mob_spore_archer_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "archer_charge",
+      "IntentType": "ChargeShot",
+      "PowerPreview": 22,
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.burst_or_guard",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "archer_edge",
+      "IntentType": "GridLockEdge",
+      "PowerPreview": "edge lock",
+      "TargetPreview": "Backpack",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.keep_space",
+      "IntentIconRef": "ui_combat_grid_lock_marker"
+    }
+  ],
+  "RewardID": "reward_monster_mob_spore_archer",
+  "DropThemeTags": [
+    "Layer3",
+    "RouteCorrosion"
+  ],
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "archer_shot",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 65,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 18,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "archer_pin",
+        "ActionType": "ReduceWeaponDamage",
+        "Target": "RandomPlayerWeapon",
+        "Weight": 20,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerHasWeapon",
+        "Params": {
+          "Multiplier": 0.8,
+          "DurationPlayerTurns": 1
+        }
+      },
+      {
+        "ActionID": "archer_spike",
+        "ActionType": "AddCursedItem",
+        "Target": "PlayerGridFirstFit",
+        "Weight": 15,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerGridHasSpace",
+        "Params": {
+          "ItemID": "loot_spore_amber",
+          "OverrideTags": [
+            "Cursed",
+            "SporeSpike"
+          ],
+          "OverrideValue": 0
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {
+      "ItemID": "loot_spore_amber",
+      "Weight": 60
+    },
+    {
+      "ItemID": "gear_spore_lance",
+      "Weight": 12
+    }
+  ]
+}

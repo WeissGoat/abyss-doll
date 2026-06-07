@@ -1,0 +1,75 @@
+{
+  "RewardID": "reward_boss_mycelium_oracle",
+  "Name": "菌脉神谕体 Boss 掉落",
+  "Tags": [
+    "Layer3",
+    "BossDrop"
+  ],
+  "RewardRole": "BossDrop",
+  "SourceType": "Monster",
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "RewardTier": "Boss",
+  "ExpectedValueBand": {
+    "Min": 420,
+    "Max": 1800
+  },
+  "RiskBudgetTag": "Layer3RouteCorrosion",
+  "GrowthHooks": [],
+  "ValidationTags": [
+    "Layer3Reward"
+  ],
+  "AuditNotes": "Formal C3 boss guarantee.",
+  "Guaranteed": [
+    {
+      "Type": "Item",
+      "ItemID": "mat_core_tier3_seed",
+      "Weight": 0,
+      "Count": 1
+    }
+  ],
+  "WeightedPools": [
+    {
+      "PoolID": "boss_bonus",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        {
+          "Type": "Item",
+          "ItemID": "trade_singing_fossil",
+          "Weight": 28,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_mycelium_cloak",
+          "Weight": 24,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "order_contested_spore_core",
+          "Weight": 18,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_vein_sickle",
+          "Weight": 15,
+          "Count": 1
+        },
+        {
+          "Type": "Money",
+          "Money": 160,
+          "Weight": 15,
+          "Count": 1
+        }
+      ]
+    }
+  ]
+}

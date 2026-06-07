@@ -1,0 +1,136 @@
+{
+  "ConfigID": "gear_vein_sickle",
+  "Name": "菌脉弯镰",
+  "ItemType": "Weapon",
+  "Rarity": "Rare",
+  "BaseValue": 860,
+  "IconID": "item_gear_vein_sickle_icon",
+  "DescriptionKey": "item.gear_vein_sickle.desc",
+  "ItemRole": [
+    "BuildCore",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer3",
+    "ContentPack25"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 4,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Weapon",
+      "OddShape"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Physical",
+    "BaseValue": 27,
+    "Effects": [
+      {
+        "EffectID": "DamageMultiplier",
+        "Level": 0,
+        "Target": "Right",
+        "Params": [
+          0.25
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Weapon",
+    "Layer3",
+    "Vein",
+    "OddShape"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "ShopOrBlackMarket",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "CannotConsume",
+    "OvernightRule": "None"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "elite_vein_knight"
+    ],
+    "RewardRefs": [
+      "reward_monster_elite_vein_knight"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": [],
+    "EventRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [
+      "craft_vein_sickle_rework"
+    ],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [
+      "room_memory_first_order_conflict"
+    ],
+    "ScenarioEventRefs": [],
+    "PurifyRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Weapon",
+      "AbyssRelic",
+      "Layer3"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "BlackMarketPremiumWithSuspicion",
+    "DismantleProfile": "vein_weapon_tier3"
+  },
+  "Risk": {
+    "RiskTags": [
+      "OddShape",
+      "AbyssRelic"
+    ],
+    "PollutionProfile": "None",
+    "CorruptionProfile": "LowMaintenanceCost",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_vein_sickle_icon",
+    "GridPreviewStyle": "WeaponOdd",
+    "RiskIconRefs": [
+      "OddShape",
+      "AbyssRelic"
+    ],
+    "PickupHintKey": "pickup.item_gear_vein_sickle_icon"
+  }
+}

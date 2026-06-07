@@ -1,0 +1,68 @@
+{
+  "RewardID": "reward_monster_elite_spore_matriarch",
+  "Name": "孢巢母体精英掉落",
+  "Tags": [
+    "Layer3",
+    "EliteDrop"
+  ],
+  "RewardRole": "EliteDrop",
+  "SourceType": "Monster",
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "RewardTier": "Elite",
+  "ExpectedValueBand": {
+    "Min": 420,
+    "Max": 1800
+  },
+  "RiskBudgetTag": "Layer3RouteCorrosion",
+  "GrowthHooks": [],
+  "ValidationTags": [
+    "Layer3Reward"
+  ],
+  "AuditNotes": "Elite has chance tier3 material but no guarantee.",
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "elite_main",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        {
+          "Type": "Item",
+          "ItemID": "loot_living_mycelium",
+          "Weight": 38,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "loot_spore_amber",
+          "Weight": 28,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_mycelium_cloak",
+          "Weight": 18,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "mat_core_tier3_seed",
+          "Weight": 8,
+          "Count": 1
+        },
+        {
+          "Type": "Money",
+          "Money": 120,
+          "Weight": 8,
+          "Count": 1
+        }
+      ]
+    }
+  ]
+}

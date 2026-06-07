@@ -1,0 +1,109 @@
+{
+  "MonsterID": "mob_shell_grafter",
+  "Name": "壳层嫁接者",
+  "MonsterRole": [
+    "Defense",
+    "AttritionCheck"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "Layer": 3,
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "EncounterTags": [
+    "Combat",
+    "Layer3",
+    "Defense",
+    "AttritionCheck"
+  ],
+  "DifficultyBudget": {
+    "Base": 132,
+    "Variance": 12
+  },
+  "HP": 132,
+  "PortraitID": "monster_mob_shell_grafter_portrait",
+  "CombatVisualID": "monster_mob_shell_grafter_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "grafter_guard",
+      "IntentType": "Defend",
+      "PowerPreview": "shield",
+      "TargetPreview": "Self",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.attack_window",
+      "IntentIconRef": "ui_combat_intent_defend"
+    },
+    {
+      "IntentID": "grafter_hit",
+      "IntentType": "Attack",
+      "PowerPreview": 18,
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.basic_guard",
+      "IntentIconRef": "ui_combat_intent_attack"
+    }
+  ],
+  "RewardID": "reward_monster_mob_shell_grafter",
+  "DropThemeTags": [
+    "Layer3",
+    "RouteCorrosion"
+  ],
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "grafter_hit",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 55,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 18,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "grafter_repair",
+        "ActionType": "ReduceWeaponDamage",
+        "Target": "RandomPlayerWeapon",
+        "Weight": 25,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerHasWeapon",
+        "Params": {
+          "Multiplier": 0.75,
+          "DurationPlayerTurns": 1
+        }
+      },
+      {
+        "ActionID": "grafter_plate",
+        "ActionType": "AddCursedItem",
+        "Target": "PlayerGridFirstFit",
+        "Weight": 20,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerGridHasSpace",
+        "Params": {
+          "ItemID": "loot_vein_plate",
+          "OverrideTags": [
+            "Cursed",
+            "HeavyPlate"
+          ],
+          "OverrideValue": 0
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {
+      "ItemID": "loot_vein_plate",
+      "Weight": 70
+    }
+  ]
+}

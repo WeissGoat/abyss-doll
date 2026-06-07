@@ -1,0 +1,119 @@
+{
+  "ConfigID": "loot_corroded_nerve",
+  "Name": "腐蚀神经束",
+  "ItemType": "Loot",
+  "Rarity": "Rare",
+  "BaseValue": 700,
+  "IconID": "item_loot_corroded_nerve_icon",
+  "DescriptionKey": "item.loot_corroded_nerve.desc",
+  "ItemRole": [
+    "RiskObject",
+    "Material",
+    "SanPressure"
+  ],
+  "LayerTags": [
+    "Layer3",
+    "ContentPack25"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 3,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "RiskObject",
+      "Material"
+    ]
+  },
+  "Combat": null,
+  "Tags": [
+    "Loot",
+    "Material",
+    "Layer3",
+    "SanPressure",
+    "CorruptionMid"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "ShopOrBlackMarket",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "Ingredient",
+    "OvernightRule": "SanUneaseWarning"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_nerve_midge_swarm"
+    ],
+    "RewardRefs": [
+      "reward_monster_mob_nerve_midge_swarm"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": [],
+    "EventRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [
+      "craft_san_regulator_core"
+    ],
+    "OrderSubmitRefs": [
+      "order_mage_oracle_sample"
+    ],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": [],
+    "PurifyRefs": [
+      "con_purifying_salt"
+    ]
+  },
+  "Economy": {
+    "ValueTags": [
+      "Material",
+      "SanPressure",
+      "RiskPremium"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "BlackMarketPremiumWithSuspicion",
+    "DismantleProfile": "nerve_material_tier3"
+  },
+  "Risk": {
+    "RiskTags": [
+      "CorrosionMid",
+      "SanUneaseMid"
+    ],
+    "PollutionProfile": "l3_corroded_nerve",
+    "CorruptionProfile": "MidMaintenanceCost",
+    "OvernightRule": "SanUneaseWarning",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_loot_corroded_nerve_icon",
+    "GridPreviewStyle": "RiskObjectLong",
+    "RiskIconRefs": [
+      "CorrosionMid",
+      "SanUneaseMid"
+    ],
+    "PickupHintKey": "pickup.item_loot_corroded_nerve_icon"
+  }
+}

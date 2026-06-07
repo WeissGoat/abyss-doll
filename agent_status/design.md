@@ -98,7 +98,7 @@ PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正
 
 新增策划交付门禁：所有进入开发、配置、表现或自动验收的系统需求，都必须有详细需求文档承接；不能只用路线文档、优先级列表或聊天结论中的一句话替代。
 
-下一阶段策划工作已从“继续补设计文档”切换为“配置源 JSON 落地”。`设计文档/config/26_正式配置设计与填充推进计划.md` 已作为执行方案入口，按 `C1 第一层正式配置落地 -> C2 第二层直达与背包压力配置 -> C3 第三层路线侵蚀配置 -> C4 局外成长配置落地 -> C5 经济压力与订单配置落地` 推进。C1 与 C2 均已配置完成；当前策划配置执行批次切到 C3，下一项为 `L3-ITEMS`，只处理第三层路线侵蚀 / 污染物、订单冲突物、局外回流物和三层关键材料源配置，不扩局外成长、经济压力、美术 UI 或第四层内容。C3 开工前只做 `56` 准入复核；一旦开始写 `配置表(JSON)/Items`，同步把 `26` 的 C3 与 `L3-ITEMS` 改为 `进行中`。
+下一阶段策划工作已从“继续补设计文档”切换为“配置源 JSON 落地”。`设计文档/config/26_正式配置设计与填充推进计划.md` 已作为执行方案入口，按 `C1 第一层正式配置落地 -> C2 第二层直达与背包压力配置 -> C3 第三层路线侵蚀配置 -> C4 局外成长配置落地 -> C5 经济压力与订单配置落地` 推进。C1、C2 与 C3 均已配置完成；当前策划配置执行批次切到 C4 局外成长配置源落地，下一项为 `GROWTH-ID-LOCK` 复核，再进入底盘、义体、制造、维护、人偶状态和成长效果源 JSON。C4 只处理局外成长配置链，不扩经济压力、美术 UI 或第四层副本内容。
 
 防重复策划 / 配置开发状态已挂到 `设计文档/config/26_正式配置设计与填充推进计划.md`：`8.3 策划侧完整执行规划与状态总览` 是策划 agent 的完整工作规划入口，按需求 / 规则、配置设计准入、配置源落地、验收 / 校准、后续内容池分层记录；`8.4 策划配置执行状态表` 是配置源 JSON 落地的最小防重复台账，包含 C1-C5 批次总状态和子项级状态。后续完成任一策划工作项、配置批次或配置子项后，必须同步更新 `26` 和本状态页；没有源 JSON、同步和校验证据时，不得把状态标为 `配置完成`。
 
@@ -151,6 +151,7 @@ PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正
 
 ## 最近完成
 
+- 已完成 C3 第三层路线侵蚀配置源落地：`L3-ITEMS`、`L3-REWARDS`、`L3-MONSTERS`、`L3-DUNGEONS`、`L3-ORDERS-RUMORS-EVENTS`、`L3-SEED` 均已在 `设计文档/config/26_正式配置设计与填充推进计划.md` 标记为 `配置完成`。本轮新增第三层 12 件物品、15 个奖励、8 个怪物、4 个订单、3 条传闻、1 个新 Faction 和 `配置表(JSON)/Dungeons/layer_3.json`；`layer_3.json` 已具备 `DirectStartAllowed=true`、`PreviousLayerRequired=2`、Boss `boss_mycelium_oracle`、Boss 后免费恢复 HP / SAN 的 SafeZone、路线侵蚀 / 订单冲突 MapProfile 和 5 条固定样例。已通过 C3 静态交叉引用检查（error / warning 为 0）和 `./tools/config/Sync-Configs.ps1 -Clean`；P0 入口已运行，`ConfigValidator` / Unity smoke 因 Unity Editor 未运行阻塞，ArtAcceptance 为既有 UI / 美术验收问题，未作为 C3 配置失败证据。C4 已解锁为 `待开始`，当前子项为 `GROWTH-ID-LOCK`。
 - 已完成 C1 第一层正式配置源工作区收尾：确认当前未提交配置表变更均属于第一层正式配置落地范围，并完成 14 个 Items、10 个 Rewards、6 个 Monsters、`layer_1.json`、5 条 FixedSeedSamples、Boss / 精英保底归属和 Boss 后 SafeZone 的静态复核；`./tools/config/Sync-Configs.ps1 -Clean` 已通过。本次收尾只处理 C1 配置源提交，不改变 C3 下一步仍从 `L3-ITEMS` 开始的计划。
 - 已完成 C2 第二层直达与背包压力配置源落地：`L2-ITEMS`、`L2-REWARDS`、`L2-MONSTERS`、`L2-DUNGEONS`、`L2-ORDERS`、`L2-SEED` 均已在 `设计文档/config/26_正式配置设计与填充推进计划.md` 标记为 `配置完成`。本轮新增 / 补强第二层 12 件物品、14 个奖励、7 个怪物、3 个订单、2 个必要 Faction 引用和 `配置表(JSON)/Dungeons/layer_2.json`；`layer_2.json` 已具备 `DirectStartAllowed=true`、`PreviousLayerRequired=1`、Boss `boss_spore_foundry`、Boss 后免费恢复 HP / SAN 的 `StairsNode + SafeZoneRules`，并补 `V-L2-DIRECT-2048-ROUTE-01`、`V-L2-PACK-RUN-01`、`V-L2-PACK-ORDER-01`、`V-L2-PACK-ELITE-01`、`V-L2-PACK-BOSS-01` 五条固定样例。已通过 C2 静态 Validator 等价检查和 `./tools/config/Sync-Configs.ps1 -Clean`；`ConfigValidationSmokeTest.Run` / P0 Unity 步骤因 Unity Editor 未运行被工具阻塞，未作为通过证据。C3 已解锁为 `待开始`，当前子项为 `L3-ITEMS`。
 - 已完成 C2 后的策划收尾：`设计文档/config/26_正式配置设计与填充推进计划.md` 已补充 C1 / C2 完成记录、C3 开工方案和 C3 边界；后续不重复派发 C1 / C2 基础配置，只按缺口补齐、验收修复、字段迁移或数值校准处理。当前下一步明确为 C3 `L3-ITEMS`，先准入复核，再落第三层 Items 源 JSON。
@@ -258,7 +259,7 @@ PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正
 
 1. 先以 `设计文档/README.md` 作为策划文档阅读入口，避免把 GDD、规则卡、交付矩阵和内容包混成同一层级。
 2. 派发任何系统开发、配置、表现或验收任务前，先检查是否已有详细需求文档；若只有一句功能项，先补文档再交接。
-3. 按 `26_正式配置设计与填充推进计划.md` 的 `配置源落地执行方案` 进入 C3：第三层路线侵蚀配置。下一步执行 `L3-ITEMS`：先按 `56_正式配置源落地准入门禁.md` 复核设计准入，再修改 `配置表(JSON)/Items`，补第三层侵蚀 / 污染物、路线取舍物、订单冲突物、局外回流物和三层关键材料，并保留形状 / 旋转 / 生命周期 / 风险字段、同步、Validator / 固定样例和状态回写证据。
+3. 按 `26_正式配置设计与填充推进计划.md` 的 `配置源落地执行方案` 进入 C4：局外成长配置源落地。下一步执行 `GROWTH-ID-LOCK` 复核，再按 `GROWTH-CHASSIS -> GROWTH-EFFECTS-TRAITS -> GROWTH-PROSTHETICS -> GROWTH-CRAFT-MAINT -> GROWTH-DOLL-TRAIT-ROOM -> GROWTH-VALIDATION` 推进；C1-C3 只按真实缺口做补齐、验收修复、字段迁移或数值校准，不重复派发基础配置。
 4. 策划工作项、C1-C5 任一批次或子项开始、完成或阻塞时，同步更新 `26` 的 `8.3 策划侧完整执行规划与状态总览`、必要时更新 `8.4 策划配置执行状态表` 和本状态页；需求 / 规则、配置设计准入、配置源落地、验收 / 校准、后续内容池要分层记录，已完成或进行中的同名配置批次 / 子项不得重复派发，只能按真实缺口做补齐、验收修复、字段迁移或数值校准。
 5. 以交付审计 2.0 的完整交付包为单位派发开发任务：GDD 负责体验定位，规则卡负责硬规则，承接清单负责配置 / 表现 / 验收粒度，`19` 到 `25` 中已进入优先级的内容包负责首批正式内容。
 6. 按 `27_Items正式配置承接审计.md` 继续处理第一层关键物品差异、第二层反制 / 订单物和 Validator 建议；不要把 README 字段口径视为物品 JSON 已完成。
@@ -279,7 +280,7 @@ PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正
 
 ## 问题 / 阻塞
 
-- ConfigValidationSmokeTest.Run / P0 Unity 步骤当前因 Unity Editor 未运行被工具阻塞；C2 已用静态 Validator 等价检查和配置同步作为配置侧证据，后续 Unity 打开后可补跑运行时 smoke。
+- ConfigValidationSmokeTest.Run / P0 Unity 步骤当前因 Unity Editor 未运行被工具阻塞；C3 已用静态交叉引用检查和配置同步作为配置侧证据，后续 Unity 打开后可补跑运行时 smoke。
 - 当前工作区已有前序设计 / 美术文档 / 程序 / 生成物脏文件，提交时必须严格收窄范围，避免覆盖其他 agent 的改动。
 - 需要更强的配置校验层，让策划改动可以被机械检查。
 - `L1-ITEMS` P0 验证仍有非阻塞 warning：`Material`、`CoreMaterial`、`Cursed` 等标签当前在程序侧仍是 metadata-only；后续 Validator 强化或规则接入时需要决定是否继续 warning、转为可执行标签，或从 `Tags` 迁移到纯策划字段。

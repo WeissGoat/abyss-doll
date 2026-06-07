@@ -1,0 +1,62 @@
+{
+  "RewardID": "reward_monster_elite_vein_knight",
+  "Name": "菌脉骑士精英掉落",
+  "Tags": [
+    "Layer3",
+    "EliteDrop"
+  ],
+  "RewardRole": "EliteDrop",
+  "SourceType": "Monster",
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "RewardTier": "Elite",
+  "ExpectedValueBand": {
+    "Min": 420,
+    "Max": 1800
+  },
+  "RiskBudgetTag": "Layer3RouteCorrosion",
+  "GrowthHooks": [],
+  "ValidationTags": [
+    "Layer3Reward"
+  ],
+  "AuditNotes": "",
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "elite_main",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        {
+          "Type": "Item",
+          "ItemID": "gear_vein_sickle",
+          "Weight": 35,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "loot_vein_plate",
+          "Weight": 35,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_spore_lance",
+          "Weight": 15,
+          "Count": 1
+        },
+        {
+          "Type": "Money",
+          "Money": 130,
+          "Weight": 15,
+          "Count": 1
+        }
+      ]
+    }
+  ]
+}

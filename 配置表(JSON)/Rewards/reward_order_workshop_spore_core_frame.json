@@ -1,0 +1,56 @@
+{
+  "RewardID": "reward_order_workshop_spore_core_frame",
+  "Name": "工坊孢核框架订单奖励",
+  "Tags": [
+    "Layer3",
+    "OrderReward"
+  ],
+  "RewardRole": "OrderReward",
+  "SourceType": "Order",
+  "LayerRange": {
+    "Min": 3,
+    "Max": 3
+  },
+  "ContentPackRefs": [
+    "design_pack_layer3_route_corrosion"
+  ],
+  "RewardTier": "Order",
+  "ExpectedValueBand": {
+    "Min": 420,
+    "Max": 1800
+  },
+  "RiskBudgetTag": "Layer3RouteCorrosion",
+  "GrowthHooks": [],
+  "ValidationTags": [
+    "Layer3Reward"
+  ],
+  "AuditNotes": "Blueprint unlock is represented in order metadata.",
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "order_bonus",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        {
+          "Type": "Item",
+          "ItemID": "loot_vein_plate",
+          "Weight": 30,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_mycelium_cloak",
+          "Weight": 12,
+          "Count": 1
+        },
+        {
+          "Type": "Money",
+          "Money": 220,
+          "Weight": 58,
+          "Count": 1
+        }
+      ]
+    }
+  ]
+}
