@@ -24,7 +24,7 @@ related:
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/README.md
   - 知识库/views/art.md
-last_verified: 2026-06-06
+last_verified: 2026-06-07
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
 
@@ -39,6 +39,8 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 支撑正式版核心纵切。按最新 `09` 路线，美术 / UI 作为 P5 表现支撑，只围绕当前 P0-P4 功能纵切补表达、资源和截图验收，不继续横向铺所有界面。
 
 PM 版本节点中，美术线当前 21 个界面都已具备 Formal V1 active 规格。美术侧已主动触发 latest ArtAcceptance `20260527_002436`，工具层 21/21 captured、`PASSED`、Registry 191、MissingRequiredVisualIDs=0、UI snapshot risks=0；latest 程序交接清单为 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=0`。本轮人工验收结论是“资源接入通过、画面不完全通过”：`combat_hud`、`dungeon_map`、`safe_room`、`stairs_room`、`sell_panel`、`prosthetic_panel` 需要程序侧清理截图状态或补有效展示数据后重跑；其余界面多为通过或条件通过，后续继续 Visual V2 同名替换。
+
+2026-06-07 已由美术侧直接修复 ArtAcceptance 程序截图问题：每个截图点前新增清场钩子，`combat_hud` 改为重开验收层并直接绑定 CombatNode 进入战斗，`ui_snapshot` 改为只记录当前可见/有效 UI 元素。修复已提交为 `771149e fix art acceptance capture cleanup`，C# 编译通过；本地 Unity Editor 未消费 `RUN_ART_ACCEPTANCE` 触发，仍需下次 Unity 重跑确认。当前预期剩余阻塞是 3 个怪物战斗图缺失：`monster_boss_gatekeeper_mk1_combat`、`monster_mob_lost_miner_echo_combat`、`monster_mob_rust_hound_combat`。
 
 当前新增重点是 Formal V2 UX/UI 重构。Formal V1 证明了功能区域、VisualID 和截图链路可运行，但整体体验仍偏按钮菜单 / debug 面板。Formal V2 先作为 draft 设计层推进，不修改 active `screen_layouts.json`，不触发素材生成，也不要求程序接入；V2-A 优先重审 `workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement` 五个核心主流程界面。
 
@@ -213,6 +215,7 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 - 已新增 Formal V2 概念图评审索引和 contact sheet：`concepts/review_index.md` 记录评审顺序与口径，`concepts/contact_sheets/` 生成 V2-A、V2-B、V2-C 和全部 22 张概念图总览，方便用户横向审风格统一性和信息密度。
 - 已按用户最新要求更新 Formal V2 风格与概念图生成规则：`04_美术风格基准.md`、`00_formal_v2_ux_ui_overview.md`、`01_workshop_main_v2.md`、`02_combat_hud_v2.md`、`04_dungeon_map_v2.md` 已收束到“日系二次元地底奇幻 + 轻蒸汽工艺”；`formal_v2/README.md` 和 `concepts/README.md` 已明确设计图 / 概念图默认用 Codex 内置 `image_gen`，无 `image_gen` 时必须先提醒用户，不能自动切换到 NovelAI 或其他生图渠道。先前误生成的 NovelAI 临时概念图目录已清理，未进入正式 `concepts/`。
 - 已在当前工具环境试通 Codex 内置 `image_gen`，并按新风格同名替换 `workshop_main_formal_v2_concept.png`、`combat_hud_formal_v2_concept.png`、`dungeon_map_formal_v2_concept.png`；旧图归档到 `concepts/archive/2026-06-07_anime_style_regen/`，四张 contact sheet 已刷新。
+- 已直接处理程序侧 ArtAcceptance 验收工具问题并提交 `771149e`：截图点前清理跨界面残留，`combat_hud` 进入独立战斗状态，`ui_snapshot` 过滤不可见残留元素；下一轮需要 Unity 重跑验收确认截图和报告。
 
 ## 下一步建议
 
