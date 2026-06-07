@@ -1,117 +1,147 @@
----
-id: p3_mission_execution_protocol
-title: P3 Mission 执行与恢复协议
-type: tool
-role: 全局
-domain: agent_workflow
-status: active
-source_of_truth: true
-related:
-  - tools/p3-mission/README.md
-  - tools/p3-mission/SKILL.md
-  - tools/p3-mission/references/csv-schema.md
-last_verified: 2026-06-07
-update_rule: 修改 mission 执行、验收、状态回写或恢复流程时同步本文件。
----
+# P3 Mission Execution Protocol
 
-# P3 Mission 执行与恢复协议
+This reference is loaded when the agent is creating, executing, reviewing, or resuming a P3 mission.
 
-## 1. 提出目标
+## 1. Create Or Locate A Mission
 
-用户给出目标后，先判断是否需要 mission。满足任一条件即可使用：
-
-- 跨 3 个以上步骤。
-- 需要多轮验证。
-- 需要跨会话恢复。
-- 涉及多个职能状态页或事实文档。
-
-创建命令：
+If the user gives a long goal, create a local mission:
 
 ```powershell
 .\tools\p3-mission\New-P3Mission.ps1 -Goal "<goal>" -Role "<role>"
 ```
 
-## 2. 规划任务
-
-把 `PLAN-01` 替换为 3-12 条 `TASK` 行。每条行必须：
-
-- 可独立验证。
-- 有明确 `read_before`。
-- 有明确 `verify`。
-- 有明确 `status_writeback`。
-- 不跨越过大的职能边界。
-
-规划完成后运行：
-
-```powershell
-.\tools\p3-mission\Test-P3Mission.ps1 -Path "<mission.csv>"
-```
-
-## 3. 执行任务
-
-从下一条未完成行开始：
-
-```powershell
-.\tools\p3-mission\Get-P3NextIssue.ps1 -Path "<mission.csv>"
-```
-
-执行当前行时：
-
-1. 状态改为 `DOING`。
-2. 读取 `read_before`。
-3. 执行 `scope`，不做 `out_of_scope`。
-4. 运行 `commands` / `verify` 中适用的命令。
-5. 把证据写入 `evidence`。
-6. 按 `status_writeback` 更新 P3 状态页或事实文档。
-7. 状态改为 `DONE`。
-
-## 4. 更新状态
-
-状态更新命令只修改 CSV，不替代实际开发和文档回写：
-
-```powershell
-.\tools\p3-mission\Update-P3MissionState.ps1 -Path "<mission.csv>" -Id "<id>" -Status "DOING"
-```
-
-完成时：
-
-```powershell
-.\tools\p3-mission\Update-P3MissionState.ps1 -Path "<mission.csv>" -Id "<id>" -Status "DONE" -Evidence "<evidence>" -Notes "done_at:<date>; status_writeback:<path>"
-```
-
-阻塞时：
-
-```powershell
-.\tools\p3-mission\Update-P3MissionState.ps1 -Path "<mission.csv>" -Id "<id>" -Status "BLOCKED" -Notes "blocked:<reason>"
-```
-
-## 5. 恢复并继续
-
-恢复命令：
+If the user asks to continue or resume:
 
 ```powershell
 .\tools\p3-mission\Get-P3NextIssue.ps1 -Latest
 ```
 
-如果返回 `next`，继续该行。不要重做 `DONE` 行；如果 `DONE` 行证据被发现不成立，把该行改为 `FIX` 并记录原因。
+If multiple unfinished missions exist, choose the most recently modified one unless the user clearly names another file.
 
-## 6. 状态回写矩阵
+## 2. Plan Rows
 
-| 任务类型 | 回写位置 |
+Replace `PLAN-01` with 3-12 concrete `TASK` rows plus one final `REVIEW-01`.
+
+Each `TASK` row must be:
+
+- Independently verifiable.
+- Small enough to finish without swallowing unrelated refactors.
+- Explicit about `read_before`, `scope`, `out_of_scope`, `verify`, `required_tools`, and `status_writeback`.
+- Assigned to the closest P3 role: `PM`, `策划`, `程序`, `UI程序`, `美术`, `知识库`, or `全局`.
+
+Before execution:
+
+```powershell
+.\tools\p3-mission\Test-P3Mission.ps1 -Path "<mission.csv>"
+```
+
+## 3. Execute The Next Active Row
+
+Get the next row:
+
+```powershell
+.\tools\p3-mission\Get-P3NextIssue.ps1 -Path "<mission.csv>"
+```
+
+For that row:
+
+1. Set `status=DOING`.
+2. Read `AGENTS.md`, `PROJECT_STATUS.md`, the relevant `agent_status/*`, and row `read_before`.
+3. Work only inside `scope`.
+4. Respect `out_of_scope`.
+5. Use every `required_tools` entry or record `validation_limited:<reason>`.
+6. Run the row's `verify` command or the closest available validation.
+7. Update the row's `status_writeback` target when the work has real project meaning.
+8. Set `status=DONE` only after evidence and status writeback exist.
+
+Status commands:
+
+```powershell
+.\tools\p3-mission\Update-P3MissionState.ps1 -Path "<mission.csv>" -Id "<id>" -Status "DOING"
+.\tools\p3-mission\Update-P3MissionState.ps1 -Path "<mission.csv>" -Id "<id>" -Status "DONE" -Evidence "<evidence>" -Notes "done_at:<YYYY-MM-DD>; status_writeback:<path>"
+.\tools\p3-mission\Update-P3MissionState.ps1 -Path "<mission.csv>" -Id "<id>" -Status "BLOCKED" -Notes "blocked:<reason>"
+```
+
+## 4. P3 Status Writeback Matrix
+
+| Work type | Writeback target |
 |---|---|
-| PM / 版本规划 | `agent_status/pm.md`，必要时 `PROJECT_STATUS.md` 和 `版本规划/09_正式版核心纵切开发路线.md`。 |
-| 策划 / 数值 / 配置 | `agent_status/design.md`，必要时配置事实文档和 GDD。 |
-| 程序 / Unity / 验证 | `agent_status/program.md`，必要时开发文档。 |
-| 美术 / UI | `agent_status/art.md`，必要时美术文档。 |
-| 知识库 / 工具 / 文档索引 | 对应工具文档，必要时 `PROJECT_STATUS.md` 或状态页。 |
+| PM / version planning | `agent_status/pm.md`; update `PROJECT_STATUS.md` or `版本规划/09_正式版核心纵切开发路线.md` only when stage, priority, handoff, or blockers change. |
+| Design / economy / config | `agent_status/design.md`; update GDD, rules, config docs, or JSON source when they are the fact source. |
+| Program / Unity / validation | `agent_status/program.md`; update development docs when contracts or architecture change. |
+| UI program | `agent_status/program.md`; update `agent_status/art.md` only for art handoff or runtime art acceptance impact. |
+| Art / UI design | `agent_status/art.md`; update art docs, UI specs, manifests, or integration snapshots as required. |
+| Knowledge base / tools | Relevant tool docs or status pages; update `PROJECT_STATUS.md` only if project-level workflow or blockers change. |
 
-状态页只写事实、证据入口、下一步和阻塞；不要粘贴聊天记录。
+Never use the mission CSV as the final project fact source.
 
-## 7. 证据等级
+## 5. Evidence Levels
 
-- 命令通过：记录命令和关键结果。
-- Unity 自动化通过：记录测试名、RunID 或日志路径。
-- 文档校验通过：记录校验命令。
-- 无法运行：记录 `validation_limited:<reason>`，并说明替代证据和风险。
+Be honest about evidence. Static inspection, README edits, dry runs, mock data, fixtures, and string checks do not prove runtime integration.
 
-不要用静态检查冒充 Unity 运行时验证，不要用 README 或审计结论冒充配置源完成。
+Use these tags when validation is limited:
+
+- `validation_limited:<objective reason>`
+- `manual_test:<command or steps the user can run later>`
+- `risk:<low|medium|high> <remaining risk>`
+- `evidence:<what was actually checked>`
+
+If Unity, browser, or external validation cannot run, record why and finish every reachable alternative check.
+
+## 6. Review Row
+
+`REVIEW-*` rows do not implement features. They test whether the mission's claims match evidence.
+
+Before closing review, check:
+
+- All prior `TASK` rows are `DONE` or explicitly `BLOCKED`.
+- `DONE` rows have evidence and status writeback.
+- Delivery claims do not overstate evidence level.
+- `required_tools` were actually used or limitation notes exist.
+- The original user goal is met, not merely a subset of it.
+- P3 completion protocol in `AGENTS.md` was followed.
+
+If review finds gaps:
+
+1. Append follow-up `TASK` rows.
+2. Append a new `REVIEW-(N+1)` row.
+3. Mark the current review `DONE` with evidence describing the gap conversion.
+4. Continue to the new follow-up rows.
+
+## 7. Resume Rules
+
+When resuming:
+
+- Do not replan rows already marked `DONE`.
+- Reopen a `DONE` row to `FIX` only if evidence is false, stale, or contradicted.
+- Prefer the first active row returned by the tool.
+- If the CSV state conflicts with the actual worktree, correct the CSV before continuing and record why in `notes`.
+
+## 8. Anti-Pause Rules From Missions, Adapted For P3
+
+Partial completion is not a stop condition. Continue after checkpoints, status updates, and blocker repairs.
+
+Do not stop just because:
+
+- A phase finished.
+- A few rows are done.
+- A row was blocked but later repaired.
+- The next row is harder or dirtier.
+- Validation is limited but alternatives remain.
+- You want to summarize progress.
+
+Stop only when:
+
+- All rows are complete and the latest `REVIEW-*` row says the original goal is met.
+- Every remaining active row is `BLOCKED` with `blocked:<reason>` and needs user or external action.
+- The user explicitly asks to pause, stop, cancel, or change the task boundary.
+
+## 9. Common Rationalizations
+
+| Rationalization | Reality |
+|---|---|
+| "I created the CSV, so this turn can end." | CSV creation is setup. Validate it and start execution unless the user asked only for a plan. |
+| "This row has static evidence, so it is done." | Static evidence must be labeled as such; do not claim runtime or end-to-end completion. |
+| "The status page is updated, so the work is complete." | Status writeback records evidence; it does not replace implementation or validation. |
+| "A review found gaps, so I should ask the user." | Convert actionable gaps into rows. Ask only for human-required decisions. |
+| "The worktree is dirty, so I should stop." | Scope carefully, avoid unrelated changes, and keep moving unless the dirty state makes the row impossible. |

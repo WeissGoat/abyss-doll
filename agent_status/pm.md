@@ -59,6 +59,7 @@ update_rule: 版本路线、里程碑、优先级、跨职能拆分或交付节�
 
 ## 最近完成
 
+- 已按 `superpowers:writing-skills` 的触发描述、精简正文、渐进披露和 UI 元数据规范完善 `p3-mission`；同时吸收 `misc/Missions` 的恢复、REVIEW、claim/evidence 对齐和反暂停规则，并保留 P3 的 `.mission` / `missions`、状态页回写和非 Trellis hook 边界。
 - 已将 `p3-mission` 放入项目内 Codex 可识别目录 `.codex/skills/p3-mission/`；`tools/p3-mission` 保持为独立工具源码仓库，`.codex` 目录不纳入 P3 知识库索引。
 - 已新增非侵入式 `tools/p3-mission` 长任务协议：支持目标创建、CSV 任务规划、逐行执行、验证证据、状态回写和恢复继续；`.mission/*.csv` 作为本地恢复工件，`missions/*.csv` 可作为用户批准的正式执行队列。该协议不接入 Trellis hooks，也不替代 P3 现有事实来源和职能状态页。
 - 已建立 PM / 版本规划状态页和阅读入口。
