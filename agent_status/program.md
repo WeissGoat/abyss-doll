@@ -63,6 +63,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 ```
 
 ## 最近完成
+- 开发文档/rules/00_程序开发总规则.md 已补充模块职责 / 代码归属 / hardcode 红线：新增代码必须进入拥有业务事实的模块，找不到归属先补服务、工厂、Action、Effect、Reward 或接口，不得塞进总控、流程或 UI Controller；4_自动化测试与验收流程规范.md 已补充测试粒度原则，要求测试围绕业务闭环、玩家可见结果、配置契约和验收场景，避免针对内部实现碎片写过细测试。
 - `开发文档/rules/` 已重构为 `00-04` 顺序结构：`00_程序开发总规则.md` 只保留开工门禁与通用红线，`01` 负责客户端分层 / 领域架构，`02` 负责 Unity UGUI / Editor 构建，`03` 负责 VisualID / VisualAssetService 资源契约，`04` 负责自动化测试与验收流程；已同步跨文档引用、知识库索引和双向 related，`Generate-DocsIndex.ps1` / `Validate-Docs.ps1` 验证通过，indexed=217、missing_metadata=0。
 
 - 开发文档结构已按当前项目阶段重整：新增 `开发文档/README.md`、`开发文档/rules/README.md`、`开发文档/archive/README.md`；将架构 / 编码 / UGUI / 自动化测试 / 视觉资源程序接入规范迁入 `开发文档/rules/`；将早期 `06_架构评估与收口建议.md` 归档到 `开发文档/archive/` 并标记 `archived`；同步更新跨文档引用、知识库入口和索引，`Generate-DocsIndex.ps1` 与 `Validate-Docs.ps1` 已通过，indexed=221。
