@@ -69,7 +69,7 @@ public static class InventoryDisplaySpec {
             case InventoryPresentationMode.Workshop:
                 return new InventoryLayoutProfile(new Vector2(-120f, -290f), 1f);
             case InventoryPresentationMode.Combat:
-                return new InventoryLayoutProfile(new Vector2(620f, -240f), 1f);
+                return new InventoryLayoutProfile(new Vector2(0f, -290f), 1f);
             case InventoryPresentationMode.CombatLoot:
                 return new InventoryLayoutProfile(new Vector2(-380f, 0f), 1f);
             case InventoryPresentationMode.SafeRoom:

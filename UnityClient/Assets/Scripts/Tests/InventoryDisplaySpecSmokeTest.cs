@@ -14,7 +14,7 @@ public static class InventoryDisplaySpecSmokeTest {
         bool profileOk =
             Approximately(safeRoomProfile.AnchoredPosition, new Vector2(500f, -150f))
             && Approximately(new Vector2(safeRoomProfile.Scale, 0f), new Vector2(0.78f, 0f), 0.0001f)
-            && Approximately(combatProfile.AnchoredPosition, new Vector2(620f, -240f))
+            && Approximately(combatProfile.AnchoredPosition, new Vector2(0f, -290f))
             && Approximately(new Vector2(combatProfile.Scale, 0f), new Vector2(1f, 0f), 0.0001f);
 
         GameObject layoutGo = new GameObject("InventoryDisplaySpecSmokeTest_Layout");

@@ -577,6 +577,7 @@ public static class ConfigValidator {
             }
         }
     }
+
     private static void ValidateRewards(ConfigValidationReport report) {
         foreach (var kvp in ConfigManager.Rewards) {
             RewardConfig reward = kvp.Value;
@@ -1016,11 +1017,15 @@ public static class ConfigValidator {
         foreach (var kvp in ConfigManager.Monsters) {
             MonsterEntity monster = kvp.Value;
             string portraitID = VisualAssetService.ResolveMonsterPortraitID(monster);
+            string combatVisualID = VisualAssetService.ResolveMonsterCombatVisualID(monster);
 
             if (!VisualAssetService.TryGetSprite(portraitID, out _)) {
                 report.AddWarning($"Monster [{monster.MonsterID}] portrait VisualID [{portraitID}] is not registered.");
             }
 
+            if (!VisualAssetService.TryGetSprite(combatVisualID, out _)) {
+                report.AddWarning($"Monster [{monster.MonsterID}] combat VisualID [{combatVisualID}] is not registered.");
+            }
         }
 
         foreach (var kvp in ConfigManager.Prosthetics) {
@@ -1050,8 +1055,22 @@ public static class ConfigValidator {
         ValidateRequiredSprite(report, VisualAssetService.UISettlementDefeatPanelID, "UI skin");
         ValidateRequiredSprite(report, VisualAssetService.UIDungeonNodePlateID, "UI skin");
         ValidateRequiredSprite(report, VisualAssetService.UIDungeonRouteLineID, "UI skin");
+        ValidateRequiredSprite(report, VisualAssetService.UICombatEntityShadowID, "UI combat skin");
+        ValidateRequiredSprite(report, VisualAssetService.UICombatTargetRingID, "UI combat skin");
         ValidateRequiredSprite(report, VisualAssetService.UIIconLockedID, "UI icon");
         ValidateRequiredSprite(report, VisualAssetService.UIIconEquippedID, "UI icon");
+        ValidateRequiredSprite(report, VisualAssetService.UIIconMoneyID, "UI icon");
+        ValidateRequiredSprite(report, VisualAssetService.UIIconMaintenanceID, "UI icon");
+        ValidateRequiredSprite(report, VisualAssetService.UIIconBillID, "UI icon");
+        ValidateRequiredSprite(report, VisualAssetService.UIIconWarningID, "UI icon");
+        ValidateRequiredSprite(report, VisualAssetService.UIIconShopChannelID, "UI icon");
+        ValidateRequiredSprite(report, VisualAssetService.UIIconBlackMarketID, "UI icon");
+        ValidateRequiredSprite(report, VisualAssetService.UIIconOrderID, "UI icon");
+        ValidateRequiredSprite(report, VisualAssetService.UIIconFactionID, "UI icon");
+        ValidateRequiredSprite(report, VisualAssetService.UIIconDeadlineID, "UI icon");
+        ValidateRequiredSprite(report, VisualAssetService.UIIconRumorID, "UI icon");
+        ValidateRequiredSprite(report, VisualAssetService.UIIconPriceUpID, "UI icon");
+        ValidateRequiredSprite(report, VisualAssetService.UIIconPriceDownID, "UI icon");
         ValidateRequiredSprite(report, VisualAssetService.UITitleDividerID, "UI skin");
 
         foreach (var kvp in ConfigManager.Dungeons) {

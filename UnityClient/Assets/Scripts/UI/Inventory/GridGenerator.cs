@@ -43,7 +43,10 @@ public class GridGenerator : MonoBehaviour {
                 }
 
                 // 挂载自定义脚本记录坐标
-                GridSlotUI slotUI = slotGo.AddComponent<GridSlotUI>();
+                GridSlotUI slotUI = slotGo.GetComponent<GridSlotUI>();
+                if (slotUI == null) {
+                    slotUI = slotGo.AddComponent<GridSlotUI>();
+                }
                 slotUI.Initialize(x, y, isLocked);
                 
                 _uiSlots[x, y] = slotGo;

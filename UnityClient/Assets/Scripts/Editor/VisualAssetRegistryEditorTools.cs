@@ -240,6 +240,10 @@ public static class VisualAssetRegistryEditorTools {
             return new ApprovedSpriteSpec("monster portrait", 1024, 1024, true, 1024);
         }
 
+        if (normalized.Contains("/Monsters/Combat/")) {
+            return new ApprovedSpriteSpec("monster combat entity", 1024, 1024, true, 1024);
+        }
+
         if (normalized.Contains("/Nodes/Icons/")) {
             return new ApprovedSpriteSpec("node icon", 512, 512, true, 512);
         }
@@ -277,6 +281,9 @@ public static class VisualAssetRegistryEditorTools {
                 return new ApprovedSpriteSpec("ui status bar", 512, 96, true, 512);
             case VisualAssetService.UICombatTurnBannerID:
                 return new ApprovedSpriteSpec("ui banner", 1024, 256, true, 1024);
+            case VisualAssetService.UICombatEntityShadowID:
+            case VisualAssetService.UICombatTargetRingID:
+                return new ApprovedSpriteSpec("ui combat floor marker", 512, 256, true, 512);
             case VisualAssetService.UILootPickupPanelID:
             case VisualAssetService.UIPanelMainID:
             case VisualAssetService.UISettlementVictoryPanelID:

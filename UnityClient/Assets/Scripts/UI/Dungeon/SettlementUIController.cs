@@ -375,12 +375,11 @@ public class CombatLootUIController : MonoBehaviour {
     private void PrepareOverlayForPickup() {
         Image panelImage = GetComponent<Image>();
         if (panelImage != null) {
-            VisualUIHelper.ApplySlicedSprite(
+            VisualUIHelper.ApplyCoverSprite(
                 panelImage,
-                VisualAssetService.UIPanelInfoID,
-                new Color(1f, 1f, 1f, 0.86f),
-                new Color(0.08f, 0.08f, 0.08f, 0.82f),
-                false);
+                VisualAssetService.CombatBackgroundID,
+                new Color(0.42f, 0.38f, 0.32f, 0.96f),
+                new Color(0.012f, 0.014f, 0.013f, 0.96f));
             panelImage.raycastTarget = false;
         }
 
