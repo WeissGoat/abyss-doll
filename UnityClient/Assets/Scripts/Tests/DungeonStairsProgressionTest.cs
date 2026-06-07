@@ -13,6 +13,7 @@ public static class DungeonStairsProgressionTest {
         TestDungeonMapSeedReproducible();
         TestDungeonMapMovementRules();
         TestDungeonStartLayerDefaultsAndLockedValidation();
+        TestDungeonStartLayerUiShowsReadinessReasons();
         TestStairsUnlocksNextStartLayer();
         TestStairsRestoresDollStatusWithoutClearingLootLedger();
         TestStartRunAtUnlockedLayerResetsRunLootLedger();
@@ -201,6 +202,53 @@ public static class DungeonStairsProgressionTest {
         } else {
             Debug.LogError($"Dungeon Start Layer Defaults FAILED. Highest={core.CurrentPlayer.HighestUnlockedDungeonLayer}, Last={core.CurrentPlayer.LastSelectedDungeonStartLayer}, Can1={canStartLayerOne}, Reject2={rejectsLockedLayerTwo}, CurrentLayer={core.Dungeon.CurrentLayer?.LayerID.ToString() ?? "null"}");
         }
+    }
+
+    private static void TestDungeonStartLayerUiShowsReadinessReasons() {
+        CoreBackend core = CreateCore();
+
+        GameObject canvasObj = new GameObject("DungeonStartLayerReasonTestCanvas");
+        canvasObj.AddComponent<Canvas>();
+        canvasObj.AddComponent<GraphicRaycaster>();
+
+        GameObject panelObj = new GameObject("DungeonStartLayerReasonPanel");
+        panelObj.transform.SetParent(canvasObj.transform, false);
+        panelObj.AddComponent<RectTransform>();
+
+        Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        DungeonStartLayerUIController controller = panelObj.AddComponent<DungeonStartLayerUIController>();
+        controller.titleText = CreateTestText("Title_Text", panelObj.transform, font);
+        controller.summaryText = CreateTestText("Summary_Text", panelObj.transform, font);
+
+        GameObject listObj = new GameObject("LayerList");
+        listObj.transform.SetParent(panelObj.transform, false);
+        listObj.AddComponent<RectTransform>();
+        controller.listParent = listObj.transform;
+
+        controller.confirmBtn = CreateTestButton("Confirm_Button", panelObj.transform, font);
+        controller.closeBtn = CreateTestButton("Close_Button", panelObj.transform, font);
+
+        controller.Present(null);
+        string lockedText = CollectText(panelObj.transform);
+        bool lockedReasonVisible = lockedText.Contains("未解锁")
+            && lockedText.Contains("先通过上一层")
+            && controller.confirmBtn.interactable;
+
+        core.CurrentPlayer.ActiveDoll.Status.WearAndTear = DiveReadinessService.ExtremeWearThreshold;
+        controller.Present(null);
+        string wearText = CollectText(panelObj.transform);
+        bool wearReasonVisible = wearText.Contains("磨损过高")
+            && wearText.Contains("Wear is too high")
+            && wearText.Contains("Perform maintenance before diving.")
+            && !controller.confirmBtn.interactable;
+
+        if (lockedReasonVisible && wearReasonVisible) {
+            Debug.Log("Dungeon Start Layer UI Readiness Reasons PASSED.");
+        } else {
+            Debug.LogError($"Dungeon Start Layer UI Readiness Reasons FAILED. LockedVisible={lockedReasonVisible}, WearVisible={wearReasonVisible}, Confirm={controller.confirmBtn.interactable}, Text={wearText}");
+        }
+
+        Object.DestroyImmediate(canvasObj);
     }
 
     private static void TestStairsUnlocksNextStartLayer() {
@@ -396,6 +444,50 @@ public static class DungeonStairsProgressionTest {
         } else {
             Debug.LogError($"Movement SAN Cost Item Effects FAILED. Placed={placed}, ExpectedCost={expectedCost}, ActualCost={actualCost}");
         }
+    }
+
+    private static Text CreateTestText(string objectName, Transform parent, Font font) {
+        GameObject obj = new GameObject(objectName);
+        obj.transform.SetParent(parent, false);
+        obj.AddComponent<RectTransform>();
+        Text text = obj.AddComponent<Text>();
+        text.font = font;
+        text.text = string.Empty;
+        return text;
+    }
+
+    private static Button CreateTestButton(string objectName, Transform parent, Font font) {
+        GameObject buttonObj = new GameObject(objectName);
+        buttonObj.transform.SetParent(parent, false);
+        buttonObj.AddComponent<RectTransform>();
+        buttonObj.AddComponent<Image>();
+        Button button = buttonObj.AddComponent<Button>();
+
+        Text label = CreateTestText("Text", buttonObj.transform, font);
+        label.text = objectName;
+        return button;
+    }
+
+    private static string CollectText(Transform root) {
+        if (root == null) {
+            return string.Empty;
+        }
+
+        System.Text.StringBuilder builder = new System.Text.StringBuilder();
+        Text[] texts = root.GetComponentsInChildren<Text>(true);
+        foreach (Text text in texts) {
+            if (text == null || string.IsNullOrEmpty(text.text)) {
+                continue;
+            }
+
+            if (builder.Length > 0) {
+                builder.Append("\n");
+            }
+
+            builder.Append(text.text);
+        }
+
+        return builder.ToString();
     }
 
     private static CoreBackend CreateCore() {
