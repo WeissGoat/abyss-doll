@@ -10,7 +10,7 @@ related:
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/design_boards/README.md
   - 美术文档/ui_design/formal_v2/concepts/review_index.md
-last_verified: 2026-06-06
+last_verified: 2026-06-07
 update_rule: 新增、替换或废弃 Formal V2 概念参考图时同步本文件。
 ---
 
@@ -27,6 +27,14 @@ update_rule: 新增、替换或废弃 Formal V2 概念参考图时同步本文�
 3. 图片中的控件细节不直接等同于 Unity Prefab 或 VisualID。
 4. 用户确认结构后，先更新 Formal V2 文档，再迁移 active 规格，最后才进入素材生成和程序接入。
 5. 若后续替换概念图，保留同屏幕命名并在本文件记录原因。
+
+## 生成工具规则
+
+设计图 / 概念图默认使用 Codex 内置 `image_gen` 能力生成。
+
+如果当前工具环境没有暴露 `image_gen`，美术智能体必须先提醒用户并等待确认，不能自动改用 NovelAI、AI 图片网关、mock、本地脚本或其他图片生成渠道。
+
+NovelAI 和 `tools/ai-image-gateway` 默认只用于运行时正式资产、Visual V2 同名替换或用户明确指定的生图任务；不得在未确认时替代 `image_gen` 生成 Formal V2 设计图 / 概念图。
 
 ## 当前文件
 

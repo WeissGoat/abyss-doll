@@ -10,7 +10,7 @@ related:
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/ui_design/formal_v1/dungeon_map_v1.md
-last_verified: 2026-06-01
+last_verified: 2026-06-07
 update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文件。
 ---
 
@@ -58,6 +58,8 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 * 可走、预览、未知、锁定的节点状态一眼可辨。
 * 暂时不做常驻选中节点详情；需要的信息用小型 tooltip 或节点图标状态表达。
 * 背包整理、撤离、层级信息是辅助，不抢地图和节点的权重。
+* 地图底图和节点必须融合：节点应嵌在岩台、地层、羊皮纸剖面或铜质地图牌上，不能像漂浮按钮贴在海面背景上。
+* 画风贴近日系二次元冒险地图，明亮、干净、有童话式深渊感，不走欧美写实地图或冷硬战术雷达。
 
 ---
 
@@ -139,8 +141,16 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 * 当前节点有清晰定位。
 * 大节点岛 / 节点牌是视觉焦点。
 * 边角只保留少量必要按钮。
+* 底图应是深渊纵剖、洞窟地层、羊皮纸地图或机械测绘图的融合，不使用海面、水域或纯天空背景。
+* 节点和路线要长在地貌上：铜质节点牌固定在岩层或羊皮纸路径上，路线像刻线、绳桥、轨迹或发光矿脉。
 
 AI 或后续美术提示应描述 map board, branching route, fogged nodes, brass markers, parchment/mechanical chart 等可视概念。
+
+Formal V2 概念图提示还应追加：
+
+```text
+Japanese anime fantasy game UI concept art, vertical abyss cavern route map, parchment map blended with geological cross-section, route nodes embedded on cave terraces and brass map plates, paths carved into terrain, warm hand-painted 2D background, soft cel shading, clean low-density interface, no ocean, no sea, no floating disconnected nodes, no western realistic tactical map
+```
 
 ---
 
@@ -213,6 +223,7 @@ DungeonMapPanel
 5. 进入节点是唯一主行动。
 6. 背包整理和撤离不抢主行动权重。
 7. 路线、雾层、节点点击不会互相遮挡。
+8. 底图、节点和路线像同一张地图系统，不能出现“海面底图 + 漂浮节点”的割裂感。
 
 ---
 

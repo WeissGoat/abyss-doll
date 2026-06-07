@@ -10,7 +10,7 @@ related:
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/ui_design/formal_v1/combat_hud_v1.md
-last_verified: 2026-05-31
+last_verified: 2026-06-07
 update_rule: 编写或确认 combat_hud Formal V2 详细方案时同步本文件。
 ---
 
@@ -65,6 +65,7 @@ Formal V2 的核心区别：
 * 不再让动作按钮抢走背包玩法的核心地位。
 * 意图图标贴近敌人，行动选择贴近背包。
 * 中央保留清楚的命中、弹道、伤害和异常反馈空间。
+* 画风保持日系二次元战斗舞台感：角色和敌人轮廓清楚、阴影柔和、危险感来自深渊生物和场景气氛，不来自欧美暗黑写实或血腥厚涂。
 
 ---
 
@@ -156,8 +157,15 @@ V2 建议：
 * 中央是攻击和受击路径。
 * 敌人脚下有落点、血条和目标环。
 * 背包像战术盘，放在画面下方，玩家从背包中“发动”行动。
+* 背景和实体应像地底奇幻动画场景，保留童话式冒险感；UI 控件轻量贴附，不能变成重工业仪表盘。
 
 素材提示词应描述“side-view battle stage, full body enemy, transparent combat sprite, readable silhouette”等视觉内容，不使用“UGUI”“程序绑定”“塔科夫like”等工具或黑话词。
+
+Formal V2 概念图提示还应追加：
+
+```text
+Japanese anime fantasy game UI concept art, side-view subterranean battle stage, player doll on the left, monster on the right, centered bottom backpack command grid, soft cel shading, clean silhouettes, warm cave light and subtle bioluminescence, light brass UI frames, low information density, no enemy cards, no western grimdark realism
+```
 
 ---
 

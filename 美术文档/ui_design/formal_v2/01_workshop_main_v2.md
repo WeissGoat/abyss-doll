@@ -10,7 +10,7 @@ related:
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/ui_design/formal_v1/workshop_main_v1.md
-last_verified: 2026-06-01
+last_verified: 2026-06-07
 update_rule: 编写或确认 workshop_main Formal V2 详细方案时同步本文件。
 ---
 
@@ -66,6 +66,7 @@ update_rule: 编写或确认 workshop_main Formal V2 详细方案时同步本文
 * 主行动是“下潜 / 整备完成后出发”。
 * 其他功能是少量空间热点，点击后进入子界面。
 * 背包、底盘、义体、改造椅拆到 `workshop_studio`，主界面不显示完整背包格。
+* 画风贴近日系二次元生活场景和地底奇幻冒险，不走欧美写实工坊、暗黑炼金房或厚重油画方向。
 
 ---
 
@@ -154,6 +155,7 @@ update_rule: 编写或确认 workshop_main Formal V2 详细方案时同步本文
 * 另一侧是工作室门、工具角或楼梯，承担改造入口。
 * 角落保留账本 / 委托板 / 出货箱，承担经济压力。
 * 木质、布艺、植物、暖光和小收藏物应多于硬冷机械。
+* 线条和阴影应偏干净、柔和、二次元；机械细节是生活化的手作器具，不是冷硬工业机器。
 
 `workshop_studio` 的视觉隐喻是“专门的改造工作室”：
 
@@ -162,6 +164,12 @@ update_rule: 编写或确认 workshop_main Formal V2 详细方案时同步本文
 * 中间是少量选中部件对比和确认操作。
 
 AI 或后续美术资产提示词应使用这些可视描述，不使用“功能菜单”“UGUI 可读性”等程序词。
+
+Formal V2 概念图提示还应追加：
+
+```text
+Japanese anime fantasy game UI concept art, cozy room at the edge of a vertical abyss, warm hand-painted 2D background, soft cel shading, gentle storybook mood, young doll-like girl centered in a safe home, light brass gadgets and handmade tools, low information density, no western dark fantasy, no gritty realistic workshop
+```
 
 ---
 
