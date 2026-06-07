@@ -6,12 +6,17 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import struct
+import zlib
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from PIL import Image
+try:
+    from PIL import Image
+except ModuleNotFoundError:  # Optional: some CI/agent Python environments do not bundle Pillow.
+    Image = None
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -121,19 +126,127 @@ def has_local_quality_marker(entry: dict[str, Any]) -> bool:
     return any(pattern in text for pattern in LOCAL_QUALITY_PATTERNS)
 
 
+def empty_image_facts(exists: bool = False) -> dict[str, Any]:
+    return {
+        "Exists": exists,
+        "Width": 0,
+        "Height": 0,
+        "Mode": "",
+        "HasAlpha": False,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+    }
+
+
+def paeth_predictor(a: int, b: int, c: int) -> int:
+    p = a + b - c
+    pa = abs(p - a)
+    pb = abs(p - b)
+    pc = abs(p - c)
+    if pa <= pb and pa <= pc:
+        return a
+    if pb <= pc:
+        return b
+    return c
+
+
+def png_channel_info(color_type: int) -> tuple[int, int, str, bool]:
+    if color_type == 0:
+        return (1, 0, "L", False)
+    if color_type == 2:
+        return (3, 0, "RGB", False)
+    if color_type == 3:
+        return (1, 0, "P", False)
+    if color_type == 4:
+        return (2, 1, "LA", True)
+    if color_type == 6:
+        return (4, 3, "RGBA", True)
+    return (0, 0, f"PNG_COLOR_{color_type}", False)
+
+
+def read_png_facts(path: Path) -> dict[str, Any]:
+    data = path.read_bytes()
+    if not data.startswith(b"\x89PNG\r\n\x1a\n"):
+        return empty_image_facts(True)
+
+    offset = 8
+    width = height = bit_depth = color_type = interlace = 0
+    idat_parts: list[bytes] = []
+    has_trns = False
+    while offset + 8 <= len(data):
+        length = struct.unpack(">I", data[offset : offset + 4])[0]
+        chunk_type = data[offset + 4 : offset + 8]
+        chunk_data = data[offset + 8 : offset + 8 + length]
+        offset += 12 + length
+        if chunk_type == b"IHDR":
+            width, height, bit_depth, color_type, _compression, _filter, interlace = struct.unpack(">IIBBBBB", chunk_data)
+        elif chunk_type == b"IDAT":
+            idat_parts.append(chunk_data)
+        elif chunk_type == b"tRNS":
+            has_trns = True
+        elif chunk_type == b"IEND":
+            break
+
+    channels, alpha_index, mode, has_direct_alpha = png_channel_info(color_type)
+    facts = empty_image_facts(True)
+    facts.update(
+        {
+            "Width": width,
+            "Height": height,
+            "Mode": mode,
+            "HasAlpha": bool(has_direct_alpha or has_trns),
+        }
+    )
+
+    if not has_direct_alpha or bit_depth != 8 or interlace != 0 or not idat_parts or not width or not height:
+        return facts
+
+    raw = zlib.decompress(b"".join(idat_parts))
+    bytes_per_pixel = channels
+    stride = width * bytes_per_pixel
+    pos = 0
+    prev = bytearray(stride)
+    histogram = [0] * 256
+    for _row in range(height):
+        filter_type = raw[pos]
+        pos += 1
+        scan = bytearray(raw[pos : pos + stride])
+        pos += stride
+        recon = bytearray(stride)
+        for index, value in enumerate(scan):
+            left = recon[index - bytes_per_pixel] if index >= bytes_per_pixel else 0
+            up = prev[index]
+            up_left = prev[index - bytes_per_pixel] if index >= bytes_per_pixel else 0
+            if filter_type == 0:
+                recon[index] = value
+            elif filter_type == 1:
+                recon[index] = (value + left) & 0xFF
+            elif filter_type == 2:
+                recon[index] = (value + up) & 0xFF
+            elif filter_type == 3:
+                recon[index] = (value + ((left + up) // 2)) & 0xFF
+            elif filter_type == 4:
+                recon[index] = (value + paeth_predictor(left, up, up_left)) & 0xFF
+            else:
+                return facts
+        for pixel in range(width):
+            histogram[recon[pixel * bytes_per_pixel + alpha_index]] += 1
+        prev = recon
+
+    facts["TransparentPixelCount"] = histogram[0]
+    facts["SemiTransparentPixelCount"] = sum(histogram[1:255])
+    facts["AlphaMin"] = next((index for index, count in enumerate(histogram) if count), 255)
+    facts["AlphaMax"] = next((index for index in range(255, -1, -1) if histogram[index]), 255)
+    return facts
+
+
 def read_image_facts(path: Path | None) -> dict[str, Any]:
     if path is None or not path.exists():
-        return {
-            "Exists": False,
-            "Width": 0,
-            "Height": 0,
-            "Mode": "",
-            "HasAlpha": False,
-            "TransparentPixelCount": 0,
-            "SemiTransparentPixelCount": 0,
-            "AlphaMin": 255,
-            "AlphaMax": 255,
-        }
+        return empty_image_facts(False)
+    if Image is None:
+        return read_png_facts(path)
     with Image.open(path) as image:
         facts: dict[str, Any] = {
             "Exists": True,

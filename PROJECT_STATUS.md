@@ -219,7 +219,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 美术 / UI 的程序接入只以 `美术文档/ui_design/screen_layouts.json` 当前 active 规格为准；`versions/` baseline 和 candidate 不作为程序接入口。
 - Formal V1 / Formal V2 UI 文档由美术侧先提出，用户确认后再更新 active 规格、生成素材并交给程序接入；`formal_v2/*.md` 在确认前只是 UX/UI draft，程序侧不得直接按 draft 接入。当前 V2-A 五屏已经完成 active 迁移，程序侧可按 active `screen_layouts.json` 接入；V2-B / V2-C 仍是 draft。
 - 美术侧每次生成或同步 Approved 素材后会刷新 `美术文档/_generated/可接入素材清单.md/json`；程序侧接入新素材前优先查看其中 `program_integrate` 条目。
-- 当前 latest `program_integrate=0`、`add_capture=0`、`rerun_acceptance=16`。`program_integrate=0` 表示没有新增 Approved VisualID 需要程序登记；`rerun_acceptance=16` 是仍为 FormalV1 的非 V2-A 屏截图早于当前 active 规格日期，不代表 V2-A 五屏已完成运行时接入。V2-A 五屏需要程序侧按 active FormalV2 规格重排运行时 UI；`generate_needed=29` 是美术侧缺图队列，包含 11 个物品图标、9 个怪物战斗实体和 9 个怪物头像，当前缺图批次为 `nai_v2a_runtime_missing_20260608_01`。local_v0 只用于结构接入和截图验收，不作为最终视觉质量。美术侧后续按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_v2a_runtime_quality_20260608_01` 串行同名替换 121 项正式 AI 版。已接入素材做正式图替换时，必须保持同 `VisualID`、同 Approved 路径、同 Unity `.meta` / GUID；`Sync-ApprovedArt.ps1 -CandidateBatchID` 默认强校验该规则，满足时程序侧无需重新登记资源。
+- 当前 latest `program_integrate=0`、`add_capture=0`、`rerun_acceptance=16`。`program_integrate=0` 表示没有新增 Approved VisualID 需要程序登记；`rerun_acceptance=16` 是仍为 FormalV1 的非 V2-A 屏截图早于当前 active 规格日期，不代表 V2-A 五屏已完成运行时接入。V2-A 五屏需要程序侧按 active FormalV2 规格重排运行时 UI；`generate_needed=58` 是美术侧缺图队列，包含 23 个物品图标、34 个怪物战斗 / 头像素材和 1 个背景，当前缺图批次为 `nai_formalv2_missing_20260608_01`。local_v0 只用于结构接入和截图验收，不作为最终视觉质量。美术侧后续按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_formalv2_quality_20260608_01` 串行同名替换 121 项正式 AI 版，并已拆成 7 个推荐小批次。已接入素材做正式图替换时，必须保持同 `VisualID`、同 Approved 路径、同 Unity `.meta` / GUID；`Sync-ApprovedArt.ps1 -CandidateBatchID` 默认强校验该规则，满足时程序侧无需重新登记资源。
 - Formal V1 UI 的“资源登记完成”和“运行时截图覆盖完成”不等于“玩家可玩接入完成”。后续程序侧声明某界面可玩完成前，必须同时补齐玩家主流程可达入口，以及关键按钮 / 操作调用真实后端或领域服务的闭环证据；ArtAcceptance、debug 入口、验收专用 preview 对象或只读快照只能作为资源 / 截图接入证据。
 - `program_integrate` 17 个 Approved VisualID 曾完成 UI 程序接入记录；按当前正式版本完成口径，该记录只作为历史接入事实，不计为 P5 表现支撑正式版本完成。美术侧如继续推进，应基于 ArtAcceptance 截图验收后回写 `agent_status/art.md`，如影响长期节点门禁再通知 PM 更新 `09`。
 - 任意智能体修改系统规则时，必须更新对应 GDD 或开发文档，不能只改代码或配置。
@@ -242,7 +242,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 1. 增加配置校验工具，检查 `配置表(JSON)` 的 ID、必填字段和交叉引用。
 2. 为知识库索引增加可选的职能 / 领域 / 关联深度过滤入口，方便复制智能体按任务快速定位文档。
-3. 程序侧可按 active `screen_layouts.json` 接入 V2-A 五屏 FormalV2 规格：`workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`；美术侧继续处理 `generate_needed=29` 缺图队列和 V2-B / V2-C 后续确认。
+3. 程序侧可按 active `screen_layouts.json` 接入 V2-A 五屏 FormalV2 规格：`workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`；美术侧继续处理 `generate_needed=58` 缺图队列、`visual_v2_replace=121` 质量替换队列和 V2-B / V2-C 后续确认。
 4. 策划 / 配置侧继续推进 `26` 时，优先按 `agent_status/design.md` 和对应设计文档确认工作项状态；C1、C2、C3 已配置完成，下一步进入 C4 `GROWTH-ID-LOCK` 复核，再推进局外成长配置源落地。前三层配置后续只按真实缺口做补齐、验收修复、字段迁移或数值校准；程序 Validator 实现、Unity 测试或 UI 表现必须分别回写程序 / 美术状态页。
 5. 程序侧按新的功能优先级推进：P0 自动验收底座和 P1 背包 / 物品生命周期只做验收补强或缺口修复；下一步正式开发应从 `agent_status/program.md` 中确认 P1 战斗 / 怪物意图、P2 深渊地图、P3 局外成长、P4 经济压力的真实缺口后拆任务。
 

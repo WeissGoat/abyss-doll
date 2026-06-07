@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-06-08T02:23:37+08:00",
-  "SnapshotTag": "formalv2_missing_batch_ready_20260608_01",
+  "GeneratedAt": "2026-06-08T02:17:12+08:00",
+  "SnapshotTag": "formalv2_art_iteration_20260608_01",
   "Inputs": {
     "IntegrationCandidatesPath": "美术文档/_generated/可接入素材清单.json",
     "ManifestPath": "美术文档/_generated/art_manifest.json"

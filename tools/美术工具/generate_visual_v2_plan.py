@@ -115,6 +115,89 @@ def observed_anlas_note(size: str, provider: str) -> str:
     return ""
 
 
+def replacement_batch_key(item: dict[str, Any]) -> str:
+    visual_id = str(item.get("VisualID", "") or "")
+    domain = str(item.get("Domain", "") or "")
+    asset_type = str(item.get("AssetType", "") or "")
+    priority = str(item.get("Priority", "") or "")
+    if priority == "P1" and visual_id.startswith("ui_combat_"):
+        return "p1_combat_readability"
+    if priority == "P1" and domain == "background":
+        return "p1_core_backgrounds"
+    if domain == "ui" and (
+        asset_type in {"panel", "divider", "frame", "slot", "marker", "effect_overlay"}
+        or visual_id.startswith("ui_settlement_")
+        or visual_id in {"ui_panel_main", "ui_list_row_normal", "ui_list_row_selected", "ui_title_divider"}
+    ):
+        return "p1_p2_ui_skin_core"
+    if domain == "ui":
+        return "p2_shared_ui_icons"
+    if domain == "background":
+        return "p2_scene_backgrounds"
+    if domain in {"order", "rumor", "faction"}:
+        return "p2_economy_social_icons"
+    if domain in {"prosthetic", "chassis", "memento"}:
+        return "p2_growth_room_assets"
+    return "p2_misc_runtime_assets"
+
+
+BATCH_TITLES = {
+    "p1_combat_readability": "P1 combat readability icons and markers",
+    "p1_core_backgrounds": "P1 safe room and stairs room backgrounds",
+    "p1_p2_ui_skin_core": "P1/P2 reusable UI skin core",
+    "p2_shared_ui_icons": "P2 shared UI icons",
+    "p2_scene_backgrounds": "P2 scene backgrounds",
+    "p2_economy_social_icons": "P2 economy, order, rumor, and faction icons",
+    "p2_growth_room_assets": "P2 growth, chassis, prosthetic, and room memento assets",
+    "p2_misc_runtime_assets": "P2 miscellaneous runtime assets",
+}
+
+
+BATCH_ORDER = list(BATCH_TITLES.keys())
+
+
+def build_recommended_batches(plan_items: list[dict[str, Any]], args: argparse.Namespace) -> list[dict[str, Any]]:
+    grouped: dict[str, list[dict[str, Any]]] = {key: [] for key in BATCH_ORDER}
+    for item in plan_items:
+        grouped.setdefault(replacement_batch_key(item), []).append(item)
+
+    batches: list[dict[str, Any]] = []
+    for key in BATCH_ORDER:
+        items = grouped.get(key, [])
+        if not items:
+            continue
+        batch_id = f"{args.batch_id}_{key}"
+        visual_ids = comma_visual_ids(items)
+        domain_counts = Counter(item["Domain"] for item in items)
+        size_counts = Counter(item["ExpectedSize"] for item in items)
+        ready_count = sum(1 for item in items if item["PromptReady"])
+        batches.append(
+            {
+                "Key": key,
+                "Title": BATCH_TITLES.get(key, key),
+                "BatchID": batch_id,
+                "ItemCount": len(items),
+                "PromptReadyItems": ready_count,
+                "DomainCounts": dict(sorted(domain_counts.items())),
+                "SizeCounts": dict(sorted(size_counts.items())),
+                "VisualIDs": [str(item["VisualID"]) for item in items],
+                "Commands": {
+                    "RunGeneration": (
+                        f".\\tools\\缇庢湳宸ュ叿\\Run-ArtGeneration.ps1 -Config .\\tools\\缇庢湳宸ュ叿\\ai_image_gateway.local.yaml "
+                        f"-Provider {args.provider} -Status approved -VisualID {visual_ids} "
+                        f"-Variants {args.variants} -DelaySeconds {args.delay_seconds:g} "
+                        f"-BatchID {batch_id} -PreserveStatus"
+                    ),
+                    "Optimize": f".\\tools\\缇庢湳宸ュ叿\\Optimize-ArtAssets.ps1 -Status approved -CandidateBatchID {batch_id} -Overwrite",
+                    "RefreshIntegration": f".\\tools\\缇庢湳宸ュ叿\\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag {batch_id}",
+                    "RefreshQuality": f".\\tools\\缇庢湳宸ュ叿\\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag {batch_id}",
+                    "RefreshPlan": f".\\tools\\缇庢湳宸ュ叿\\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag {batch_id}_after -BatchID {args.batch_id}",
+                },
+            }
+        )
+    return batches
+
+
 def build_item(
     backlog_item: dict[str, Any],
     manifest_entry: dict[str, Any],
@@ -208,6 +291,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
         else ""
     )
 
+    recommended_batches = build_recommended_batches(plan_items, args)
     return {
         "GeneratedAt": timestamp_text(),
         "SnapshotTag": str(args.snapshot_tag or ""),
@@ -239,6 +323,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
             "RefreshQuality": f".\\tools\\美术工具\\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag {args.batch_id}",
             "RefreshPlan": f".\\tools\\美术工具\\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag {args.batch_id}_after -BatchID {args.batch_id}",
         },
+        "RecommendedBatches": recommended_batches,
         "Items": plan_items,
     }
 
@@ -305,6 +390,56 @@ def make_markdown(payload: dict[str, Any]) -> str:
             payload["BatchCommands"]["RefreshPlan"],
             "```",
             "",
+            "## Recommended Execution Batches",
+            "",
+            "These batches are the preferred execution order for serial NovelAI replacement work. Keep missing-art generation separate from same-path quality replacement, review contact sheets per batch, and sync with the per-item meta guard commands after selection.",
+            "",
+            "| Order | BatchID | Title | Items | Prompt Ready | Domains | Sizes |",
+            "|---:|---|---|---:|---:|---|---|",
+        ]
+    )
+    for index, batch in enumerate(payload.get("RecommendedBatches", []), start=1):
+        lines.append(
+            "| "
+            + " | ".join(
+                [
+                    md_cell(index),
+                    f"`{md_cell(batch['BatchID'])}`",
+                    md_cell(batch["Title"]),
+                    md_cell(batch["ItemCount"]),
+                    md_cell(batch["PromptReadyItems"]),
+                    md_cell(json.dumps(batch["DomainCounts"], ensure_ascii=False)),
+                    md_cell(json.dumps(batch["SizeCounts"], ensure_ascii=False)),
+                ]
+            )
+            + " |"
+        )
+    lines.extend(
+        [
+            "",
+            "Per-batch command examples:",
+            "",
+        ]
+    )
+    for batch in payload.get("RecommendedBatches", []):
+        commands = batch["Commands"]
+        lines.extend(
+            [
+                f"### `{batch['BatchID']}`",
+                "",
+                "```powershell",
+                commands["RunGeneration"],
+                commands["Optimize"],
+                "# Review selected/contact_sheet before syncing accepted VisualIDs with per-item SyncApproved commands below.",
+                commands["RefreshIntegration"],
+                commands["RefreshQuality"],
+                commands["RefreshPlan"],
+                "```",
+                "",
+            ]
+        )
+    lines.extend(
+        [
             "## Planned Items",
             "",
             "| Order | VisualID | Domain | Type | Size | Prompt | Current | Approved |",

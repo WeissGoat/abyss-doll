@@ -39,7 +39,7 @@ related:
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - agent_status/art.md
   - 知识库/views/art.md
-last_verified: 2026-06-07
+last_verified: 2026-06-08
 update_rule: 修改 Formal V2 总目标、批次、验收门槛或 active 迁移规则时同步本文件。
 ---
 
@@ -125,6 +125,43 @@ Formal V2 的默认风格从“硬核工业 / 暗色系统面板”调整为“�
 层地图按“可推进的大地图”理解，不按单屏静态节点板理解：一张地图可以很大，玩家沿路线不断前进，镜头随当前节点向前推移。美术上要留出前景、中景、远景和路线延展感，让玩家相信当前屏幕只是大地图的一段。
 
 每一层可以有独立生态主题，不必都画成深渊洞窟。可以是地底草原、地下森林、晶洞、遗迹、雾谷、矿坑或水边湿地；关键是仍符合“巨大未知空间、童话好奇、危险潜伏、节点与地貌融合”的方向。
+
+### 3.0.1 Formal V2 美术系统标准
+
+Formal V2 的美术系统不只是一批新概念图，而是一套贯穿 UI 结构、运行时素材、AI 出图和验收的共同标准。后续所有 Formal V2 设计、素材清单和跑图计划都按本节判断是否同属一套视觉系统。
+
+| 维度 | 标准 |
+|---|---|
+| 视觉母题 | 日系二次元地底奇幻冒险 + 轻蒸汽工艺；画面有童话好奇、生活温度和未知危险。 |
+| UI 气质 | 少按钮、强主视觉、清晰主行动；优先像游戏场景中的可交互物，而不是调试面板或网页后台。 |
+| 组件语言 | 面板、按钮、列表、节点、背包格和状态条都应带轻工艺边框、柔和阴影和可读轮廓；避免硬核工业控制台。 |
+| 信息密度 | 默认低密度；每屏保留一个视觉中心、一个主行动和少量关键状态。详情通过二级展开、侧栏或弹窗承接。 |
+| 场景融合 | 背景、角色、地图、面板和图标需要共享材质线索，例如黄铜、旧木、布料、暖灯、生物荧光和手绘地貌。 |
+| 可迭代性 | 结构和素材质量分开验收；local_v0 可用于结构验证，但不能被称为最终美术。 |
+
+### 3.0.2 质量层级
+
+Formal V2 使用以下质量层级管理素材，不再用“有图 / 没图”粗略判断美术完成度：
+
+| QualityTier | 含义 | 可用于 | 不可用于 |
+|---|---|---|---|
+| `local_v0` | 本地生成或临时占位的可运行素材，命名、尺寸和 `.meta` 可接入，但视觉质量不是正式版。 | 程序结构接入、截图链路验证、布局和可读性初验。 | 最终美术验收、风格统一性结论、宣传或正式截图。 |
+| `formal_ai_v2` | 按 Formal V2 风格、Prompt、Spec 和筛选流程生成的正式 AI 图，并通过预处理 / 同步 / 基础技术检查。 | 正式纵切截图、运行时美术验收、后续动效和 VFX 叠加。 | 仍不能替代最终人工 polish；若构图或语义不达标，需要继续替换。 |
+| `final_polish` | 在 `formal_ai_v2` 基础上完成必要人工修正、统一线条 / 色彩 / 文字空区 / 边缘噪声后的最终候选。 | 候选版本、对外展示、长期保留资产。 | 未经过 Manifest、Approved、`.meta` 和验收记录的素材不能直接标为该层级。 |
+
+同名质量替换必须保持 `VisualID`、Approved 路径、DisplaySpec、Unity `.meta` / GUID 和程序绑定不变。新增缺图生成和已接入素材质量替换必须分成不同批次，不能混在同一次同步里。
+
+### 3.0.3 概念图、结构图和运行时素材边界
+
+Formal V2 目前同时使用三类图，它们的用途不能混淆：
+
+| 类型 | 目录 | 用途 | 是否进入 Manifest / Approved |
+|---|---|---|---|
+| AI 概念图 | `美术文档/ui_design/formal_v2/concepts/` | 评审氛围、风格、视觉中心和信息密度。 | 否。不能作为运行时素材，也不能给程序登记。 |
+| 结构设计图 | `美术文档/ui_design/formal_v2/design_boards/` | 评审 16:9 布局、区域关系、主行动和信息层级。 | 否。不能替代 active `screen_layouts.json`。 |
+| 运行时素材 | `UnityClient/Assets/Art/Approved/` | Unity 实际读取的图标、背景、面板、角色和 UI skin。 | 是。必须由 Manifest、Prompt、Spec、预处理和同步流程管理。 |
+
+设计图 / 概念图默认使用 Codex 内置 `image_gen`。如果当前工具环境没有暴露 `image_gen`，必须先提醒用户并等待确认；不能自动切到 NovelAI、AI 图片网关、mock 或本地脚本。运行时素材生成才使用 NovelAI / AI 图片网关，并且必须遵守串行生成：每次只请求一张图，图间隔 1 秒。
 
 ### 3.1 先玩家目标，后功能按钮
 
@@ -258,6 +295,49 @@ Formal V2 的主流程组织为：
 | 商店交易型 | `sell_panel`、`faction_shop` | 商店货架 / 柜台 + 交易详情 + 买入 / 卖出操作。 |
 | 信息板型 | `order_board`、`rumor_board`、`daily_bill_report`、`business_settlement` | 摘要列表 + 详情 + 风险 / 奖励 / 行动。 |
 
+### 4.4 Formal V2 UI Skin 资产清单
+
+Formal V2 UI Skin 先按“可复用组件”管理，不按单屏零散出图。下表是后续 Manifest / Prompt / 质量替换计划的美术侧基准；已有 VisualID 可以复用，缺失项再进入 `art_requirements_seed.json` 或后续 active 规格。
+
+| 资产组 | 代表 VisualID / 组件 | Domain | Type | 尺寸策略 | Alpha | 优先级 | 屏幕暴露 |
+|---|---|---|---|---|---|---|---|
+| 主面板皮肤 | `ui_panel_main`、`ui_panel_info`、`ui_settlement_victory_panel`、`ui_settlement_defeat_panel` | ui | panel | 1024x768 或 nine-slice 源图，运行时 sliced | true | P0 | 全局、结算、信息板、工作室子面板 |
+| 主 / 次 / 危险按钮 | `ui_button_primary`、`ui_button_secondary`、`ui_button_danger` | ui | button | 512x128 或 nine-slice 源图，文字运行时叠加 | true | P0 | 全局主行动、返回、撤离、出售、风险确认 |
+| 列表行和选中态 | `ui_list_row_normal`、`ui_list_row_selected` | ui | list_row | 1024x128 或 nine-slice 源图 | true | P0 | 订单、传闻、商店、账本、结算、义体列表 |
+| 标题与分割装饰 | `ui_title_divider` | ui | divider | 512x128，可横向拉伸 | true | P1 | 结算、信息板、商店、工作室子面板 |
+| 地图节点皮肤 | `ui_dungeon_node_plate`、`ui_dungeon_route_line` | ui | map_frame | 节点 512x512；路线 512x128，可旋转/拉伸 | true | P0 | `dungeon_map`、后续 `layer_select` |
+| 背包格与掉落区 | `ui_inventory_cell`、`ui_inventory_cell_selected`、`ui_loot_drop_zone`、`ui_loot_pickup_panel` | ui | inventory_skin | 格子围绕 100x100 玩法格；面板 nine-slice | true | P0 | `combat_hud`、`inventory_loot`、房间整理 |
+| 战斗状态条 | `ui_combat_status_bar_hp`、`ui_combat_status_bar_shield` | ui | status_bar | 512x64 或 nine-slice 源图，填充值运行时控制 | true | P0 | `combat_hud` |
+| 战斗反馈与标记 | `ui_combat_feedback_hit`、`ui_combat_feedback_shield_break`、`ui_combat_grid_lock_marker`、`ui_combat_junk_preview_marker` | ui | combat_feedback | 256x256 或 512x512，根据覆盖范围 contain | true | P0 | `combat_hud` |
+| 结果徽记 | `ui_settlement_outcome_*` | ui | emblem | 512x512，主体居中，文字运行时叠加 | true | P0 | `settlement` |
+| 弹窗壳和确认框 | 复用 `ui_panel_main` + `ui_button_*`，必要时新增 `ui_modal_frame` | ui | modal | 1024x768 或 nine-slice 源图 | true | P1 | 风险确认、剧情事件、商店交易确认 |
+| 空状态 / 锁定 / 装备态 | `ui_icon_locked`、`ui_icon_equipped`、后续空状态插图 | ui | state_icon | 图标 512x512；空状态可 1024x768 | true | P1 | 商店、订单、义体、底盘、层选择 |
+| 共享系统图标 | `ui_icon_money`、`ui_icon_warning`、`ui_icon_order`、`ui_icon_rumor`、`ui_icon_faction` 等 | ui | icon | 512x512，contain，文字/数字运行时叠加 | true | P1-P2 | 全局状态、经济、小镇、叙事 |
+
+处理顺序：先做 P0 的主面板、按钮、列表行、地图节点、背包格、战斗状态条和结果徽记；再做 P1 的标题装饰、弹窗壳、锁定/装备态和高频共享图标；P2 只处理低频或仍处 draft 的小图标。UI Skin 图不烘焙可读文字、数字和按钮文案。
+
+### 4.5 Formal V2 场景 / 背景资产清单
+
+场景和背景属于配置表难以直接扫出的 preset 需求。Formal V2 先按场景功能定义，再决定是否复用现有 `bg_*`、新增 preset，或只保留概念图。未进入 active 的界面只记录规划，不进入 Manifest 和跑图队列。
+
+| 场景组 | 代表 ScreenID | Runtime VisualID 建议 | 尺寸 / 适配 | Alpha | 状态 | 美术要求 |
+|---|---|---|---|---|---|---|
+| 工坊主界面房间 | `workshop_main` | 复用 `bg_workshop_day`，后续可升级为 FormalV2 同名替换 | 1920x1080，cover，UI 安全区不烘焙文字 | false | V2-A active | 魔偶中心安心房间，暖灯、旧木、布料、轻蒸汽工艺；减少控制台感。 |
+| 工坊改造室 | `workshop_studio`、`maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel` | 待定 `bg_workshop_studio`，未 active 前仅规划 | 1920x1080，cover，右侧改造椅和左侧工具/背包区需留空间 | false | draft planning | 机械感更强但仍温暖；魔偶坐在改造椅上，维护 / 义体 / 底盘作为同场景子面板。 |
+| 通用战斗舞台 | `combat_hud` | 复用 `bg_combat_abyss`，后续按层主题同名替换或扩展 | 1920x1080，cover，地面需支持左右实体落点 | false | V2-A active | 横版舞台，左人偶右敌方，前景地面清晰，背景低噪声。 |
+| 可推进层地图 | `dungeon_map` | 复用 `bg_dungeon_map`，后续可按层新增背景组 | 1920x1080 或更大滚动图，支持前中远景和镜头前移 | false | V2-A active | 大地图纵深、路线延展、节点嵌入地貌；每层可有草原、森林、晶洞、遗迹等独立生态。 |
+| 层选择剖面 | `layer_select` | `bg_layer_select` | 1920x1080，cover | false | FormalV1 active + V2 draft | 深渊剖面、层级锁定和整备检查；不做密集菜单墙。 |
+| 安全屋 | `safe_room` | `bg_safe_room` | 1920x1080，cover | false | FormalV1 active + V2 draft | 完全不透明 PNG；营地、暖灯、可休整空间，避免透明黑洞。 |
+| 阶梯房间 | `stairs_room` | `bg_stairs_room` | 1920x1080，cover | false | FormalV1 active + V2 draft | 完全不透明 PNG；下降口、下一层风险和撤离/深入决策空间。 |
+| 战利品清点叠层 | `inventory_loot` | 不单独新增背景，复用战斗场景 + 半透明 UI 层 | UI 层按背包和散落奖励布局；背景由战斗截图或战斗底图承接 | mixed | V2-A active | 背后仍能读出战斗场景，但 UI 遮罩不能影响背包格和奖励可读性。 |
+| 结算报告背景 | `settlement` | `bg_settlement_victory`、`bg_settlement_defeat` | 1920x1080，cover | false | V2-A active | 撤离成功 / 战败损伤的报告氛围，背景低噪声，报告面板是视觉中心。 |
+| 小镇商店 / 市场 | `sell_panel`、`faction_shop` | 待定 `bg_town_shop` / `bg_faction_shop`，未 active 前仅规划 | 1920x1080，cover，柜台与货架分区 | false | FormalV1 active + V2 draft | 温暖小镇店铺、柜台、货架、账本；`sell_panel` 不再是工坊估价柜台。 |
+| 经营链路 | `shop_staging`、`business_settlement`、`daily_bill_report` | 可复用商店 / 账本背景，必要时新增 `bg_shop_staging`、`bg_daily_bill` | 1920x1080 或面板式背景 | false | FormalV1 active + V2 draft | 出货陈列台、营业演出、每日账本分开表达；金币增长和月租压力不能只靠文字。 |
+| 人偶房间 | `doll_room`、`doll_interaction` | `bg_doll_room_attic`，后续可同名 FormalV2 替换 | 1920x1080，cover | false | FormalV1 active + V2 draft | 待机魔偶、纪念物、日记和生活痕迹；房间应像家，不像功能面板。 |
+| 剧情事件表面 | `scenario_event` | 不急于新增背景；默认叠加在当前场景或使用轻量故事卡背景 | 1024x768 卡面或全屏半透明叠层 | mixed | FormalV1 active + V2 draft | 故事卡、选项和结果保持低密度；不烘焙可读文字。 |
+
+背景默认 `Alpha=false`，除非明确是 UI 叠层、故事卡或半透明遮罩。环境背景不允许出现大面积透明 / 半透明导致黑底穿透。概念图只用于评审氛围；进入运行时前必须拆成 Manifest 管理的 `bg_*` 或 UI skin 资产。
+
 ---
 
 ## 5. 组件层级
@@ -383,6 +463,22 @@ Formal V2 的运行时验收不只看技术项，还要新增 UX 检查：
 | 风险表达 | 危险行动、黑市风险、战败损失、月租压力必须视觉区分。 |
 | 背包规则 | 100x100 格不被压缩；背包对象和物品层不因装饰变形。 |
 
+### 8.1 静态美术验收门禁
+
+Formal V2 在要求程序接入或运行 ArtAcceptance 前，先由美术侧完成静态验收。静态验收只能证明素材和设计已准备好进入接入 / 替换，不能证明 Unity 运行时已经正确显示。
+
+| 门禁 | 输入 | 通过标准 | 输出 / 记录 | 不能证明 |
+|---|---|---|---|---|
+| 概念评审 | `concepts/`、`concepts/review_index.md` | 风格、视觉中心、低信息密度和场景气质符合 Formal V2；AI 伪文字不作为 UI 文字。 | 评审结论、归档旧图、保留候选概念图。 | 不证明运行时素材可用，不进入 Manifest。 |
+| 结构评审 | `design_boards/`、单屏 `*_v2.md` | 16:9 布局有明确视觉中心、主行动、信息层级和按钮降级策略。 | 可迁移 / 需修改 / 暂缓的屏幕结论。 | 不替代 active `screen_layouts.json`。 |
+| Active 合同 | `screen_layouts.json`、`component_catalog.json` | 用户确认后才写入 active；`Validate-UIDesign.ps1` 通过。 | UI handoff 刷新。 | 不证明 Unity prefab 已改。 |
+| Manifest / Prompt / Spec | `art_manifest.json`、`AI绘图提示词清单.md` | 每个运行时 VisualID 有英文 Prompt、负面词、结构化 Spec、尺寸、Alpha 和输出路径。 | 缺图 / 质量替换队列刷新。 | 不证明图已经生成。 |
+| PNG 技术检查 | `Approved` 或 `_IncomingAI/<VisualID>/processed` | 尺寸符合 SourceSpec；背景按要求不透明；图标有 alpha；主体不贴边；无需可读文字。 | 技术修复 / spec_review / 可筛选候选。 | 不证明风格最终达标。 |
+| Contact sheet 筛选 | `_IncomingAI/<VisualID>/contact_sheet`、`selected/` | 每个 VisualID 明确选中图；未选中时不得自动把 mock 当正式图。 | `selected/` 或人工备注。 | 不证明已同步 Approved。 |
+| Approved / QualityTier | `UnityClient/Assets/Art/Approved`、Manifest | 新缺图进入 Approved；同名替换保持 VisualID、路径、`.meta` / GUID；`QualityTier` 正确更新。 | 可接入素材清单、质量替换清单和快照。 | 不证明运行时绑定或截图通过。 |
+| Runtime ArtAcceptance | Unity 截图、Registry、验收记录 | 资源加载、missing sprite、截图覆盖、布局和 UX 人工验收通过。 | `09_运行时美术验收记录.md` 和状态页。 | 只有到此层才可说运行时美术验收通过。 |
+
+静态门禁的状态命名：`concept_ready` 表示概念可评审，`layout_ready` 表示结构可迁移，`prompt_ready` 表示可跑图，`approved_ready` 表示可交程序登记 / 替换，`runtime_validated` 只能由 Unity 验收证据赋值。`local_v0` 最高只能到结构验证和可接入初验，不能标为最终美术通过。
 若技术验收通过但 UX 验收失败，只能标记为“资源 / 截图接入通过”，不能标记为 Formal V2 通过。
 
 ---
