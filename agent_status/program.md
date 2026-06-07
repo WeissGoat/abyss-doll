@@ -64,6 +64,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 ```
 
 ## 最近完成
+- `REVIEW-01` mission outcome 审查已完成：`.mission/20260608_012621-Program-C1-C3-MainLoop-Architecture.csv` 的 14 个 TASK 均为 `DONE`，strict 校验通过；本轮原始目标“三段推进”已有对应证据：`CFG-01..02` 覆盖 C1-C3 配置程序支持，`FLOW-01..07` 覆盖主流程可玩闭环一轮补强，`ARCH-01..05` 覆盖架构审计、服务化、快照 / 操作配对、P0 报告契约和防重复派发规则。剩余风险不改写为完成：Unity Editor 未运行导致 runtime smoke 仍是 `validation_limited:UnityEditorNotRunning`，ArtAcceptance latest 仍有既有 combat HUD / 怪物战斗图失败。
 - `ARCH-05` 文档和状态防重复派发收口已完成：`开发文档/16_程序主流程闭环与架构收口推进计划.md` 新增程序完成状态标签和防重复派发规则，统一区分 `服务完成`、`UI可达`、`展示已接入`、`可操作闭环完成`、`验收受限`、`未开放` 和 `架构收口`；`版本规划/09_正式版核心纵切开发路线.md` 同步宏观派发口径。后续已标为 `可操作闭环完成` 的基础能力不得以同名功能重开，只能按 bug、验收补强、表现补强或配置补齐处理；`validation_limited:*` 只能说明验证受限，不能当作通过证据。验证证据：`.\tools\docs\Validate-Docs.ps1` 通过；mission strict 通过，`tasks=14/14 done`。
 - `ARCH-04` Validator / P0 / smoke 报告契约首批收口已完成：`tools/agent/Invoke-P0Validation.ps1` 新增 `BlockedCount`、`LimitationCount`、`ValidationLimitations`、`SmokeTestRegistry`、`MainFlowSmokeTests` 和 step 级 `StatusCode`，让 `Failed`、`Blocked`、warning 与 `validation_limited:*` 不再混在同一个错误口径里。Unity Editor 未运行时，`ConfigValidator` / `UnitySmokeTests` 现在记录为 `Blocked` 和 `validation_limited:UnityEditorNotRunning`，不再混入 `ErrorCount`；ArtAcceptance latest 的真实失败仍保留为 `Failed`。`开发文档/15_P0配置Validator与自动验收底座需求.md`、`开发文档/16_程序主流程闭环与架构收口推进计划.md`、`开发文档/rules/04_自动化测试与验收流程规范.md` 和 `tools/agent/README.md` 已同步字段与状态语义。验证证据：`.\tools\agent\Invoke-P0Validation.ps1 -TimeoutSeconds 180` 产出 RunID=`20260608_044305`，报告为 `Failed`，其中 `ErrorCount=17` 来自既有 ArtAcceptance latest 失败，`BlockedCount=2` / `LimitationCount=2` 来自 Unity Editor 未运行，`MainFlowSmokeTests` 列出 9 个主流程 smoke；`git diff --check` 通过；`.\tools\docs\Validate-Docs.ps1` 通过。
 - 已同步项目级程序推进口径到 `PROJECT_STATUS.md`：当前程序优先级不再只写 C1-C3 配置支持，而是明确为 `CFG-01..02 -> FLOW-01..07 -> ARCH-01..05 -> REVIEW-01`。其中第二优先级是继续复核并补强“功能未开放完”的主流程可玩闭环，第三优先级是继续推进 Validator / P0 / smoke / 总控和 UI 职责边界的架构收口。
@@ -154,7 +155,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 1. 第一优先级 C1-C3 配置程序支持已完成当前可做审计和无阻断收口；后续只在 Unity runtime 补跑或人工体验发现真实阻断时按 bug 修复追加处理，不继续占用主线。
 2. 第二优先级主流程可玩闭环已完成一轮程序补强批次：`FLOW-01..FLOW-07` 覆盖玩家路径缺口审计、层选择 / 下潜、地图节点、战斗 / 非战斗节点、战利品、阶梯 / 撤离、小镇出售、工坊维护和黄金路径 smoke / P0 摘要。后续重点不是重开基础线，而是做 Unity runtime / 人工体验复核；若发现正常 UI 不可达、按钮未调用真实服务或状态未回写，按对应 `FLOW-*` 追加 bug 修复或验收补强。
 3. 主流程闭环的完成口径是“玩家正常 UI 可达 + 调用真实领域服务 + 状态真实变化 + 有 smoke / P0 证据”，不能用只读快照、debug preview、ArtAcceptance 截图或静态面板代替；服务已存在但 UI 不可达，仍然只能算“功能未开放完”。
-4. 第三优先级程序架构优化 / 收口已完成 `ARCH-01..ARCH-05` 当前批次收口；下一步进入 `REVIEW-01`，按 mission 证据审查原始目标是否已满足。若 review 发现缺口，再新增后续任务；否则结束本轮三段推进。
+4. 第三优先级程序架构优化 / 收口已完成 `ARCH-01..ARCH-05` 当前批次收口；`REVIEW-01` 已确认本轮 mission 的 TASK 证据完整。后续若继续处理 `GameFlowController` fallback UI、`DungeonManager` 结算职责或测试入口夹具，应作为新一轮架构任务单独派发，不重开已完成基础能力。
 5. UI / 美术接入跟随上述功能闭环推进：有 Approved 资源和 active UI 规格时一起接入；没有资源或规格不适配时记录清楚缺口，不让美术返修压过 C1-C3 程序支持和主流程开放。
 
 ## 问题 / 阻塞
