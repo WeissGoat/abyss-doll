@@ -671,6 +671,7 @@ $smokeTests = @(
     "DungeonNodeTypesSmokeTest.Run",
     "MonsterActionAITest.Run",
     "DungeonStairsProgressionTest.Run",
+    "MainFlowGoldenPathSmokeTest.Run",
     "TownEconomyServiceSmokeTest.Run",
     "WorkshopSmokeTest.Run",
     "MaintenanceServiceSmokeTest.Run",

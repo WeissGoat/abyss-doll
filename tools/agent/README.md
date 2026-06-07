@@ -49,7 +49,7 @@ UnityClient/Logs/P0Validation/latest/
   art_acceptance_summary.json
 ```
 
-P0 核心 Unity smoke 会覆盖背包交互、奖励系统、战斗战利品、深渊节点闭环、怪物行动、阶梯/楼层推进、小镇经济出售链路、工坊维护/成长链路和视觉资源登记；`Invoke-UnitySmokeTests.ps1` 的默认列表只保留少量可单独快速触发的背包/布局测试。
+P0 核心 Unity smoke 会覆盖背包交互、奖励系统、战斗战利品、深渊节点闭环、怪物行动、阶梯/楼层推进、小镇经济出售链路、工坊维护/成长链路、黄金路径 `MainFlowGoldenPathSmokeTest.Run` 和视觉资源登记；`Invoke-UnitySmokeTests.ps1` 的默认列表只保留少量可单独快速触发的背包/布局测试。
 
 快速静态检查可跳过 Unity：
 
