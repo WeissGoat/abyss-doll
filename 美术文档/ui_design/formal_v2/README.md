@@ -52,13 +52,14 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 
 1. `screen_layouts.json` 仍是当前 active 对接规格，程序和素材生成只读 active。
 2. `formal_v2/*.md` 只记录新设计方案；用户确认前不改 active，不生成素材，不要求程序接入。
-3. 每个界面先完成详细方案，再按确认顺序迁移到 active。
-4. Formal V2 的核心目标是重建玩家流程、主次行动、场景隐喻和信息层级，不是简单换按钮皮肤。
-5. Formal V2 默认风格为日系二次元地底奇幻 + 轻蒸汽工艺 + 低信息密度，避免欧美暗黑写实、硬核工业控制台和密集按钮墙。
-6. Formal V2 允许继续复用已稳定 VisualID；新增 VisualID 必须等 active 更新后再进入 Manifest。
-7. Figma、Unity MCP 或额外自动化工具只作为设计 / 验收辅助；任何正式接入口仍必须回到 active `screen_layouts.json`、Manifest 和 ArtAcceptance。
-8. `concepts/` 只存放 Formal V2 概念参考图；这些图片不进入 Approved、Manifest 或程序接入队列。
-9. 设计图 / 概念图默认用 Codex 内置 `image_gen` 生成；若当前工具环境没有暴露 `image_gen`，必须先提醒用户并等待确认，不能自动切到 NovelAI、AI 图片网关、mock 或本地脚本。
+3. 2026-06-08 用户已评审并认可 `concepts/review_index.md` 当前 Formal V2 概念方向；下一阶段允许先迁移 V2-A 核心流程到 active，但 V2-B / V2-C 仍保持 draft，等待后续批次确认。
+4. 每个界面先完成详细方案，再按确认顺序迁移到 active。
+5. Formal V2 的核心目标是重建玩家流程、主次行动、场景隐喻和信息层级，不是简单换按钮皮肤。
+6. Formal V2 默认风格为日系二次元地底奇幻 + 轻蒸汽工艺 + 低信息密度，避免欧美暗黑写实、硬核工业控制台和密集按钮墙。
+7. Formal V2 允许继续复用已稳定 VisualID；新增 VisualID 必须等 active 更新后再进入 Manifest。
+8. Figma、Unity MCP 或额外自动化工具只作为设计 / 验收辅助；任何正式接入口仍必须回到 active `screen_layouts.json`、Manifest 和 ArtAcceptance。
+9. `concepts/` 只存放 Formal V2 概念参考图；这些图片不进入 Approved、Manifest 或程序接入队列。
+10. 设计图 / 概念图默认用 Codex 内置 `image_gen` 生成；若当前工具环境没有暴露 `image_gen`，必须先提醒用户并等待确认，不能自动切到 NovelAI、AI 图片网关、mock 或本地脚本。
 
 ## 文件职责
 
@@ -92,7 +93,7 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 
 ## 当前完成度
 
-截至 2026-06-07，active UI 规格共有 21 个界面。Formal V2 已补齐 21 个 active 界面的可评审草案，并额外保留 `workshop_studio` 作为 `workshop_main` 的设计拆分图。本轮按用户确认的 UI 结构继续保留现有骨架，但把概念图风格目标调整为更贴近日系二次元地底奇幻，减少欧美暗黑和厚重写实倾向。
+截至 2026-06-08，active UI 规格共有 21 个界面。Formal V2 已补齐 21 个 active 界面的可评审草案，并额外保留 `workshop_studio` 作为 `workshop_main` 的设计拆分图。用户已评审并认可 `concepts/review_index.md` 当前概念方向；下一阶段进入 V2-A active 迁移，优先处理 `workshop_main` / `workshop_studio`、`combat_hud`、`inventory_loot`、`dungeon_map` 和 `settlement`。V2-B / V2-C 仍作为 draft 保留，不在本批次触发程序接入。
 
 当前设计图覆盖：
 

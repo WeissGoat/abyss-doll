@@ -12,11 +12,11 @@
 
 | Priority | ScreenID | Name | Status | Required Components | Required Visuals |
 |---|---|---|---|---:|---:|
-| `P0` | `workshop_main` | 工坊主界面 | `active_spec` | 7 | 14 |
+| `P0` | `workshop_main` | 工坊主界面 | `active_spec` | 4 | 6 |
 | `P0` | `combat_hud` | 战斗界面 | `active_spec` | 17 | 34 |
 | `P0` | `inventory_loot` | 背包与战利品拾取界面 | `active_spec` | 8 | 13 |
-| `P1` | `dungeon_map` | 深渊地图界面 | `active_spec` | 6 | 7 |
-| `P1` | `settlement` | 撤离/战斗结果结算界面 | `active_spec` | 8 | 14 |
+| `P1` | `dungeon_map` | 深渊地图界面 | `active_spec` | 7 | 8 |
+| `P1` | `settlement` | 撤离/战斗结果结算界面 | `active_spec` | 10 | 16 |
 | `P1` | `sell_panel` | 工坊出售界面 | `active_spec` | 8 | 8 |
 | `P1` | `prosthetic_panel` | 义体制造界面 | `active_spec` | 7 | 7 |
 | `P1` | `layer_select` | 出发层选择界面 | `active_spec` | 7 | 8 |
@@ -39,8 +39,8 @@
 | Priority | ComponentID | VisualID | Resize | Screens |
 |---|---|---|---|---|
 | `P1` | `Button.Danger` | `ui_button_danger` | `nine_slice` | `inventory_loot`, `dungeon_map`, `sell_panel`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `chassis_upgrade_panel` |
-| `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement` |
-| `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement` |
+| `P1` | `Button.Primary` | `ui_button_primary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement`, `dungeon_map` |
+| `P1` | `Button.Secondary` | `ui_button_secondary` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `sell_panel`, `prosthetic_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement`, `settlement` |
 | `P1` | `Combat.ApPip` | `ui_combat_ap_pip` | `fixed` | `combat_hud` |
 | `P1` | `Combat.EnemyCard` | `ui_combat_enemy_card`, `ui_combat_enemy_card_selected` | `fixed` |  |
 | `P1` | `Combat.EntityShadow` | `ui_combat_entity_shadow` | `fixed_or_stretch` | `combat_hud` |
@@ -84,16 +84,16 @@
 | `P2` | `Icon.Touch` | `ui_icon_touch` | `fixed` | `doll_interaction` |
 | `P2` | `Icon.Trust` | `ui_icon_trust` | `fixed` | `faction_shop` |
 | `P1` | `Icon.Warning` | `ui_icon_warning` | `fixed` | `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement`, `settlement` |
-| `P1` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room`, `chassis_upgrade_panel` |
-| `P1` | `Inventory.Slot` | `ui_inventory_slot_available`, `ui_inventory_slot_hover`, `ui_inventory_slot_invalid`, `ui_inventory_slot_locked`, `ui_inventory_slot_valid` | `fixed` | `inventory_loot`, `workshop_main`, `combat_hud`, `safe_room`, `stairs_room` |
+| `P1` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | `fixed` | `inventory_loot`, `combat_hud`, `safe_room`, `stairs_room`, `chassis_upgrade_panel` |
+| `P1` | `Inventory.Slot` | `ui_inventory_slot_available`, `ui_inventory_slot_hover`, `ui_inventory_slot_invalid`, `ui_inventory_slot_locked`, `ui_inventory_slot_valid` | `fixed` | `inventory_loot`, `combat_hud`, `safe_room`, `stairs_room` |
 | `P1` | `List.Row.Normal` | `ui_list_row_normal` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `settlement`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement` |
 | `P1` | `List.Row.Selected` | `ui_list_row_selected` | `nine_slice` | `sell_panel`, `prosthetic_panel`, `layer_select`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel` |
 | `P1` | `Loot.DropZone` | `ui_loot_drop_zone` | `fixed_or_sliced` | `inventory_loot` |
 | `P1` | `Loot.PickupPanel` | `ui_loot_pickup_panel` | `nine_slice` | `inventory_loot` |
 | `P1` | `Map.NodePlate` | `ui_dungeon_node_plate` | `fixed` | `dungeon_map` |
 | `P1` | `Map.RouteLine` | `ui_dungeon_route_line` | `tile_or_stretch` | `dungeon_map` |
-| `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement` |
-| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `workshop_main`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `chassis_upgrade_panel`, `business_settlement` |
+| `P1` | `Panel.Info` | `ui_panel_info` | `nine_slice` | `workshop_main`, `combat_hud`, `inventory_loot`, `dungeon_map`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `doll_room`, `chassis_upgrade_panel`, `business_settlement`, `settlement` |
+| `P1` | `Panel.Main` | `ui_panel_main` | `nine_slice` | `prosthetic_panel`, `sell_panel`, `layer_select`, `safe_room`, `stairs_room`, `maintenance_panel`, `daily_bill_report`, `shop_staging`, `order_board`, `rumor_board`, `faction_shop`, `doll_interaction`, `scenario_event`, `chassis_upgrade_panel`, `business_settlement` |
 | `P2` | `Room.MementoSlot` | `ui_room_memento_slot` | `fixed` | `doll_room` |
 | `P1` | `Settlement.DefeatPanel` | `ui_settlement_defeat_panel` | `nine_slice` | `settlement` |
 | `P1` | `Settlement.VictoryPanel` | `ui_settlement_victory_panel` | `nine_slice` | `settlement` |
@@ -110,129 +110,92 @@
 
 ### 工坊主界面
 
-* Goal: 把局外主界面升级为正式工坊工作台：出发准备、服务入口、魔偶维护、背包装配和当前压力围绕同一工坊空间组织。
+* Goal: 把局外主界面从功能按钮集合迁移为魔偶中心的安心房间：魔偶是视觉中心，深渊门是唯一最高权重主行动，工作室和账本/市场作为低权重空间热点进入子界面。
 * Background: `bg_workshop_day`
 
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
-| `workshop_background` | full_screen | 0,0 1920x1080 |  | 工坊背景，cover 适配，作为正式局外空间基底。 |
-| `status_cluster` | top_left | 64,32 760x84 | `Panel.Info`, `Icon.Money` | 金币、天数、租金压力、SAN/维修摘要的紧凑状态组。 |
-| `expedition_panel` | left_middle | 88,170 360x360 | `Panel.Main`, `Panel.Info`, `Button.Primary` | 出发深渊主入口、当前风险摘要和下一目标。 |
-| `service_panel` | left_middle | 88,550 360x260 | `Panel.Info`, `Button.Secondary` | 出售、义体制造和后续维修等工坊服务入口。 |
-| `chassis_summary` | center_bottom | 520,450 560x120 | `Panel.Info` | 当前底盘、容量、负载和升级提示。 |
-| `backpack_workbench` | bottom_center | 520,590 560x420 | `Panel.Main`, `Inventory.ChassisPanel`, `Inventory.Slot` | 背包底盘、100x100 格子和已装备物品，作为工坊装配工作台。 |
-| `doll_bay` | right_middle | 1120,140 540x760 | `Panel.Info` | 魔偶展示、维护状态和后续义体槽位提示的主视觉区。 |
-| `bottom_hint` | bottom_left | 88,870 1000x120 | `Panel.Info` | 当前压力、目标提示、按钮 hover 说明和警告。 |
+| `home_room_scene` | full_screen | 0,0 1920x1080 |  | 温暖可居住的工坊房间背景，cover 适配，作为局外 Hub 的空间基底。 |
+| `light_status_strip` | top_stretch | 64,32 1792x72 | `Panel.Info`, `Icon.Money` | 今日、金币、月租压力和魔偶状态的轻量状态条。 |
+| `doll_center` | center | 620,210 680x610 | `Panel.Info` | 魔偶中心展示、情绪状态和互动入口。 |
+| `abyss_door` | right_middle | 1240,180 500x520 | `Button.Primary`, `Panel.Info` | 深渊门 / 升降机 / 出发入口，是默认唯一最高权重主行动。 |
+| `workshop_entry` | left_bottom | 160,560 360x260 | `Button.Secondary`, `Panel.Info` | 进入工作室，承接背包、底盘、义体、维护和改造椅。 |
+| `ledger_corner` | right_bottom | 1380,720 340x220 | `Button.Secondary`, `Panel.Info` | 市场、账本、订单和出货相关的低权重角落入口。 |
 
 Layout changes:
-* 把 MVP 顶部长状态条拆成左上 status_cluster，不再横跨全屏。
-* 把主操作拆为 expedition_panel 和 service_panel：出发为主行动，出售/义体为次级工坊服务。
-* 把背包从中下预览升级为 backpack_workbench，使用工作台主框、底盘和 100x100 玩法格。
-* 保留右侧 doll_bay 作为魔偶维护核心，后续接入状态/损伤/义体槽位提示。
+* 主界面从 FormalV1 的工坊工作台改为 HomeRoomScene：移除默认完整背包工作台和服务按钮列表。
+* 保留 depart / layer select 主入口，但视觉锚点改为 abyss_door，是默认唯一最高权重主行动。
+* 背包、底盘、义体和维护改由 workshop_entry 进入 workshop_studio 后处理；本批次先记录 active 合同，后续由程序决定是否新增独立 ScreenID 或复用子面板容器。
+* 出售、订单、传闻、账单降级到 ledger_corner，后续分别进入 shop_staging / sell_panel / order_board / rumor_board / daily_bill_report。
 
 Data bindings:
-* 金币、天数、租金压力、SAN、维修状态、底盘容量和下一目标均由 Unity Text 渲染。
-* 背景、面板、按钮、格子、金币图标和魔偶立绘通过 VisualID 绑定。
-* 背包仍使用全局 GridContainer 和 InventoryItemLayer，不创建第二套背包数据。
+* 金币、日期、月租压力和魔偶状态仍由 Unity Text 渲染。
+* DollCenter 使用 doll_proto_0_stand 临时展示，后续可同名替换正式待机图。
+* 主界面只展示只读摘要，不在 UI Controller 中改背包、扣金币或处理维护。
 
 Interaction notes:
-* 背景、面板、魔偶立绘和信息装饰默认 raycastTarget=false。
-* departBtn 使用 Button.Primary；openSellPanelBtn 和 openProstheticPanelBtn 使用 Button.Secondary。
-* GridContainer 和 InventoryItemLayer 同锚到 backpack_workbench，物品层位于格子层之后。
+* 背景、状态条、魔偶装饰和热点底板默认 raycastTarget=false；只有热点按钮接收点击。
+* AbyssDoor 使用 Button.Primary；WorkshopEntry 和 LedgerCorner 使用 Button.Secondary 或 Hotspot Button。
 
 Controller bindings:
 | Script | Existing fields | Notes |
 |---|---|---|
-| `WorkshopUIController` | `backgroundImage`, `moneyText`, `chassisInfoText`, `upgradeBtn`, `departBtn`, `openSellPanelBtn`, `openProstheticPanelBtn` | backgroundImage 使用 bg_workshop_day，并按 cover 填满 workshop_background。<br>moneyText 迁移到 status_cluster，后续可扩展天数、租金和维修摘要文本。<br>departBtn 锚到 expedition_panel，使用 Button.Primary。<br>openSellPanelBtn 和 openProstheticPanelBtn 锚到 service_panel，使用 Button.Secondary。<br>chassisInfoText 锚到 chassis_summary，继续由程序文本渲染。 |
-| `GameFlowController` | `gridGenerator.gridParent`, `inventoryItemLayer` | 工坊状态显示全局背包对象，不创建第二套可交互背包。<br>GridContainer 和 InventoryItemLayer 需要一起锚到 backpack_workbench 区域。<br>如果工坊背包仅做预览，应显式禁用整组射线；不要复制背包数据。 |
+| `WorkshopUIController` | `backgroundImage`, `moneyText`, `departBtn`, `openSellPanelBtn`, `openProstheticPanelBtn` | backgroundImage 使用 bg_workshop_day 并 cover。<br>moneyText 迁移到 light_status_strip。<br>departBtn 锚到 abyss_door。<br>openSellPanelBtn 可暂时映射到 ledger_corner；openProstheticPanelBtn 可暂时映射到 workshop_entry，直到 workshop_studio 程序容器落地。 |
 
 Unity hierarchy:
 | Path | Layer | Component | VisualID | Image | Fit | Raycast |
 |---|---|---|---|---|---|---|
-| `WorkshopPanel/WorkshopBackground_Image` | Background |  | `bg_workshop_day` | Simple | cover | False |
-| `WorkshopPanel/StatusCluster` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
-| `WorkshopPanel/StatusCluster/MoneyIcon_Image` | MainPanel | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
-| `WorkshopPanel/ExpeditionPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
-| `WorkshopPanel/ExpeditionPanel/ExpeditionRiskInfo` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
-| `WorkshopPanel/ExpeditionPanel/DepartButton` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
-| `WorkshopPanel/ServicePanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
-| `WorkshopPanel/ServicePanel/SellButton` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
-| `WorkshopPanel/ServicePanel/ProstheticButton` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
-| `WorkshopPanel/ChassisSummaryPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
-| `WorkshopPanel/BackpackWorkbench/WorkbenchPanel` | MainPanel | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
-| `WorkshopPanel/BackpackWorkbench/ChassisFrame_Image` | InventoryOrCards | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | Simple | stretch | False |
-| `WorkshopPanel/BackpackWorkbench/ChassisVisual_Image` | InventoryOrCards |  | `chassis_chassis_lv1_basic_frame` | Simple | contain | False |
-| `InventoryCanvas/GridContainer` | InventoryOrCards | `Inventory.Slot` | `ui_inventory_slot_available` | Simple |  | True |
-| `InventoryCanvas/InventoryItemLayer` | InventoryOrCards |  |  |  |  | True |
-| `WorkshopPanel/DollBay/DollStatusPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
-| `WorkshopPanel/DollBay/DollImage` | CharacterOrMonster |  | `doll_proto_0_stand` | Simple | contain | False |
-| `WorkshopPanel/BottomHintPanel` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `WorkshopPanel/HomeRoomScene/Background_Image` | Background |  | `bg_workshop_day` | Simple | cover | False |
+| `WorkshopPanel/LightStatusStrip` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `WorkshopPanel/LightStatusStrip/MoneyIcon_Image` | MainPanel | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
+| `WorkshopPanel/DollCenter/DollStatusPlate` | MainPanel | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `WorkshopPanel/DollCenter/DollImage` | CharacterOrMonster |  | `doll_proto_0_stand` | Simple | contain | False |
+| `WorkshopPanel/AbyssDoor/StartDive_Button` | Controls | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `WorkshopPanel/WorkshopEntry/OpenStudio_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `WorkshopPanel/LedgerCorner/OpenLedger_Button` | Controls | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
 
 Sprite assignments:
 | Target | Component | VisualID | Image | Fit | Raycast |
 |---|---|---|---|---|---|
 | `WorkshopUIController.backgroundImage` |  | `bg_workshop_day` | Simple | cover | False |
-| `StatusCluster.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
+| `LightStatusStrip.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
 | `MoneyIcon_Image` | `Icon.Money` | `ui_icon_money` | Simple | contain | False |
-| `ExpeditionPanel.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
-| `departBtn.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
-| `ServicePanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
-| `openSellPanelBtn.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
-| `openProstheticPanelBtn.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
-| `ChassisSummaryPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
-| `BackpackWorkbench/WorkbenchPanel.Image` | `Panel.Main` | `ui_panel_main` | Sliced |  | False |
-| `BackpackWorkbench/ChassisFrame_Image` | `Inventory.ChassisPanel` | `ui_inventory_chassis_panel` | Simple | stretch | False |
-| `BackpackWorkbench/ChassisVisual_Image` |  | `chassis_chassis_lv1_basic_frame` | Simple | contain | False |
-| `GridSlotUI.slotImage` | `Inventory.Slot` | `ui_inventory_slot_available` | Simple |  | True |
 | `DollImage` |  | `doll_proto_0_stand` | Simple | contain | False |
-| `DollStatusPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
-| `BottomHintPanel.Image` | `Panel.Info` | `ui_panel_info` | Sliced |  | False |
-
-Inventory layer policy:
-* Uses global inventory: `True`
-* Target zone: `backpack_workbench`
-* Cell size: `100`
-* Spacing: `5`
-* Grid size formula: `width = columns * 100 + (columns - 1) * 5; height = rows * 100 + (rows - 1) * 5`
-* GridContainer 和 InventoryItemLayer 使用同一锚点与同一缩放策略。
-* InventoryItemLayer 必须位于 GridContainer 之后，保证物品图标显示在格子之上。
-* 工坊界面不创建第二套可交互背包；预览若要不可交互，应显式禁用整组射线而不是复制数据。
-* 背包格保持 100x100 与 5 间距，不为了工坊构图压缩玩法格。
+| `departBtn.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
+| `OpenStudio_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
+| `OpenLedger_Button.Image` | `Button.Secondary` | `ui_button_secondary` | Sliced |  | True |
 
 Acceptance criteria:
-* 1920x1080 下 status_cluster、expedition_panel、service_panel、doll_bay、backpack_workbench 互不重叠。
-* 出发深渊是最明显主行动，出售和义体制造是次级服务入口。
-* 背包格实际显示尺寸为 100x100，格间距为 5，拖拽占格与后端 shape 一致。
-* 背景、立绘、装饰面板不拦截按钮、格子或物品拖拽射线。
-* 所有按钮文案、金币、天数、底盘容量、维修和压力信息均由 Unity Text 渲染。
-* 工坊界面不复制背包数据；GridContainer 和 InventoryItemLayer 仍指向同一套全局背包表现。
+* 1920x1080 下魔偶中心、深渊门、工作室入口和账本角互不重叠。
+* 默认最高权重行动只有深渊门 / 出发入口。
+* 主界面不默认展示完整背包格、订单列表、账单明细或维护配方列表。
+* 背景、魔偶和装饰不拦截热点按钮射线。
+* 所有金币、日期、月租、状态和按钮文字由 Unity Text 渲染。
 
 ### 战斗界面
 
-* Goal: 战斗界面正式化：左侧玩家魔偶、右侧敌方实体舞台，中间保留行动反馈和 VFX 空间，战斗背包固定为底部居中核心操作盘。
+* Goal: 把战斗界面迁移为正式战斗舞台 + 背包指令区：左侧玩家魔偶、右侧敌方实体、中央 VFX 走廊、底部居中 100x100 背包，敌人意图和血条贴附实体而不是卡片。
 * Background: `bg_combat_abyss`
 
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
-| `battle_background` | full_screen | 0,0 1920x1080 |  | 战斗背景，cover 适配，不承载关键交互。 |
-| `turn_banner` | top_center | 660,32 600x84 | `Combat.TurnBanner` | 当前回合、敌方行动、目标选择提示的轻量横条。 |
-| `player_stage` | left_middle | 100,190 440x620 | `Combat.EntityShadow` | 玩家魔偶实体、脚底阴影、受击/VFX 挂点。 |
-| `enemy_stage` | right_middle | 1240,160 600x500 | `Combat.EntityShadow`, `Combat.TargetRing`, `Combat.HpBar`, `Combat.ShieldBar`, `Combat.IntentIcon`, `Combat.StatusIcon` | 1-3 个敌方战斗实体站位、点击热区、脚下血条和选中光环。 |
-| `vfx_space` | center | 560,180 620x240 | `Combat.HitFeedback`, `Combat.ShieldBreakFeedback` | 攻击轨迹、投射物、伤害数字、状态变化和命中反馈的中央空间。 |
-| `target_hint` | center_bottom | 680,430 560x68 | `Panel.Info` | 当前选中物品、AP 消耗、目标选择提示。 |
-| `action_strip` | center_bottom | 680,510 560x84 | `Button.Primary`, `Button.Secondary` | 结束回合、取消选择、临时战斗操作按钮。 |
-| `combat_backpack` | bottom_center | 680,610 560x440 | `Inventory.ChassisPanel`, `Inventory.Slot`, `Combat.GridLockMarker`, `Combat.JunkPreviewMarker` | 战斗背包和可用物品，是战斗操作核心盘。 |
-| `player_status_cluster` | left_bottom | 120,830 500x150 | `Panel.Info`, `Combat.HpBar`, `Combat.ShieldBar`, `Combat.ApPip` | 玩家 HP、护盾、SAN、AP 摘要。 |
+| `battle_scene` | full_screen | 0,0 1920x1080 |  | 横版战斗背景和舞台空间。 |
+| `turn_banner` | top_center | 660,32 600x76 | `Combat.TurnBanner` | 回合、阶段和短警告。 |
+| `player_stage` | left_middle | 84,170 450x560 | `Combat.EntityShadow`, `Combat.HpBar`, `Combat.ShieldBar` | 玩家魔偶、脚底阴影、HP/SAN/Shield 贴附。 |
+| `enemy_stage` | right_middle | 1180,130 660x560 | `Combat.EntityShadow`, `Combat.TargetRing`, `Combat.HpBar`, `Combat.ShieldBar`, `Combat.IntentIcon`, `Combat.StatusIcon` | 1-3 个敌方实体、意图、状态、脚下血条和目标环。 |
+| `vfx_corridor` | center | 540,190 620x360 | `Combat.HitFeedback`, `Combat.ShieldBreakFeedback` | 伤害数字、弹道、命中、破盾、异常反馈。 |
+| `command_strip` | center_bottom | 610,560 700x96 | `Panel.Info`, `Button.Secondary` | 当前物品、AP 消耗、目标提示、取消选择。 |
+| `combat_backpack` | bottom_center | 610,670 700x360 | `Inventory.ChassisPanel`, `Inventory.Slot`, `Combat.GridLockMarker`, `Combat.JunkPreviewMarker` | 底部居中背包指令区，格子保持 100x100。 |
+| `end_turn_anchor` | bottom_right | 1330,810 260x88 | `Button.Primary` | 结束回合唯一主按钮。 |
+| `player_risk_cluster` | left_bottom | 120,790 430x170 | `Panel.Info`, `Combat.ApPip`, `Combat.HpBar`, `Combat.ShieldBar` | 玩家 HP、SAN、Shield、AP 摘要。 |
 
 Layout changes:
-* 敌人从 EnemyCardsRoot 迁移到 EnemyStageRoot / EnemySlot_*，主表现从卡片改为战斗实体。
-* 战斗背包从右下迁移到底部居中 combat_backpack，保留 100x100 玩法格和 5 间距。
-* 敌人 HP/Shield 条从卡片内部迁移到敌人实体脚下；选中态使用 ui_combat_target_ring 或运行时描边/tint。
-* 中央 vfx_space 不放固定面板，用于攻击轨迹、伤害数字、状态反馈和命中效果。
-* 敌人意图从纯文本提示升级为 EnemyIntentAnchor 图标 + 运行时数值文本，保持靠近敌方实体但不挡点击。
-* 战斗干扰从纯规则文本升级为背包格 overlay：封格和塞包预告标记必须对齐 100x100 玩法格。
+* FormalV2 保持 FormalV1 左玩家 / 右敌方 / 底部背包方向，但进一步降低按钮和面板权重。
+* 敌人仍使用战斗实体，不允许回退为敌人卡片主视觉。
+* 新增 command_strip 概念：物品选择、AP、目标和取消选择集中在背包上方。
+* EndTurn 是默认唯一主按钮，普通攻击不作为常驻大按钮。
 
 Data bindings:
 * EnemySprite_Image 优先绑定 MonsterEntity.CombatVisualID；缺图时才临时 fallback 到 PortraitID。
@@ -323,39 +286,32 @@ Inventory layer policy:
 * 背包底部居中，不进入 player_stage、enemy_stage 或 vfx_space 的核心实体区域。
 
 Acceptance criteria:
-* 1920x1080 下玩家实体在左侧、敌方实体在右侧，敌人不再以大卡片作为主要表现。
-* 战斗背包位于底部居中，100x100 背包格和 5 间距保持不变，拖拽/点击不受 UI 皮肤影响。
-* 敌人 HP/Shield 条贴近敌人脚下，选中目标时脚下 target ring 或等效高亮可见。
-* 中央 vfx_space 没有固定面板遮挡，可用于攻击轨迹、投射物、伤害数字和状态反馈。
-* MonsterEntity.CombatVisualID 缺图时可以临时 fallback 到 PortraitID，但正式验收以透明背景战斗实体素材为准。
-* 背景、阴影、目标光环、状态条和 VFX 层不拦截敌人热区、背包格或按钮射线。
-* 敌人意图图标位于敌人实体上方或近侧，运行时数字/倒计时由 Text 叠加，图标本身不含文字、字母或数字。
-* 敌人状态图标与意图图标不遮挡 EnemyClickHotspot_Button，点击敌人主体和脚下光环仍能选中目标。
-* 封格和塞包预告标记严格对齐 100x100 背包格，不改变 GridContainer 尺寸、格间距或物品拖拽层级。
-* 命中和破盾反馈只在 VfxLayer 短暂出现，不作为常驻面板，不阻挡敌人、背包或按钮射线。
+* 1920x1080 下玩家、敌方、VFX 走廊、command_strip、combat_backpack 和 end_turn_anchor 互不重叠。
+* 敌人以实体方式显示，意图、血条和目标环贴附敌人，不出现敌人卡片主视觉。
+* 底部背包格实际显示尺寸为 100x100，格间距为 5。
+* 默认最高权重按钮只有 EndTurn 或当前确认行动。
+* 背景、VFX、意图和状态图标不拦截敌人点击、背包拖拽或按钮射线。
 
 ### 背包与战利品拾取界面
 
-* Goal: 把战后拾取升级为正式清点界面：左侧当前背包、右侧战利品缓存，容量压力、物品价值、未拾取损失和确认行动清楚表达。
+* Goal: 把拾取界面迁移为战斗 / 节点结束后的半透明清点层：中央背包是主视觉，奖励散落在背包外，确认带出是唯一主行动。
 * Background: `bg_combat_abyss`
 
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
-| `loot_background` | full_screen | 0,0 1920x1080 |  | 战斗后暗化背景，保留战斗空间余味但不抢交互。 |
-| `loot_modal` | center | 160,96 1600x888 | `Loot.PickupPanel` | 战利品拾取主容器，承载背包、战利品和确认区。 |
-| `title_area` | top_stretch | 260,140 1400x92 | `Panel.Info` | 战斗结果、拾取标题和本场掉落摘要。 |
-| `inventory_grid` | left_middle | 260,260 640x600 | `Inventory.ChassisPanel`, `Inventory.Slot` | 玩家当前背包和底盘，是拾取取舍主视角。 |
-| `loot_cache` | right_top | 1010,250 560x420 | `Loot.DropZone` | 待拾取战利品缓存和拖拽起点。 |
-| `capacity_summary` | left_bottom | 260,875 640x80 | `Panel.Info` | 背包容量、剩余格、超载或无法放入警告。 |
-| `item_detail` | right_bottom | 1010,700 560x150 | `Panel.Info` | 当前物品名称、价值、用途、占格和标签。 |
-| `confirm_area` | bottom_right | 1010,880 560x84 | `Panel.Info`, `Button.Primary`, `Button.Secondary`, `Button.Danger` | 未拾取警告、确认继续、取消/放弃类操作。 |
+| `scene_backdrop` | full_screen | 0,0 1920x1080 |  | 战斗或房间场景背景，保留刚结束的现场感。 |
+| `loot_overlay` | full_screen | 0,0 1920x1080 | `Loot.PickupPanel` | 半透明清点遮罩，保证背包和奖励可读。 |
+| `backpack_grid` | center | 620,210 680x620 | `Inventory.ChassisPanel`, `Inventory.Slot` | 中央背包，玩法格保持 100x100。 |
+| `scattered_rewards` | center | 180,220 1560x590 | `Loot.DropZone` | 背包外散落的奖励图标、钱币、材料、遗物。 |
+| `capacity_hint` | bottom_center | 580,840 760x72 | `Panel.Info` | 容量压力和未带出摘要。 |
+| `confirm_area` | bottom_right | 1450,820 320x120 | `Button.Primary`, `Button.Secondary`, `Button.Danger` | 确认带出主行动。 |
 
 Layout changes:
-* CombatLootPanel_Runtime 增加 LootBackground_Image，使用 bg_combat_abyss cover 并可叠加暗色遮罩。
-* PickupPanel 更名/整理为 LootModal，内部明确 title_area、inventory_grid、loot_cache、capacity_summary、item_detail、confirm_area。
-* 背包保留左侧主视角，战利品缓存固定在右侧，确认区固定在右下。
-* 背包格 Sprite 根据拖拽状态切换 available/locked/hover/valid/invalid。
+* FormalV2 从左背包 / 右列表弹窗改为全屏半透明清点层。
+* 背包移动到屏幕中央，奖励以 scattered_rewards 区域的图标 / 可拖拽物表达。
+* 确认带出固定右下，返回 / 关闭不与确认同权。
+* 物品详情改为选中浮层，不做常驻大详情面板。
 
 Data bindings:
 * 物品图标仍使用 item_*_icon。
@@ -414,7 +370,7 @@ Sprite assignments:
 
 Inventory layer policy:
 * Uses global inventory: `True`
-* Target zone: `inventory_grid`
+* Target zone: `backpack_grid`
 * Cell size: `100`
 * Spacing: `5`
 * Grid size formula: `width = columns * 100 + (columns - 1) * 5; height = rows * 100 + (rows - 1) * 5`
@@ -425,31 +381,31 @@ Inventory layer policy:
 * 背包格保持 100x100 与 5 间距，不为了拾取弹窗构图压缩玩法格。
 
 Acceptance criteria:
-* 左侧 inventory_grid、右侧 loot_cache、右下 confirm_area 结构清晰，三者互不重叠。
-* 战利品图标可以从 loot_cache 拖入 inventory_grid，合法/非法格状态能正确变化。
-* PickupPanel、LootDropZone、ItemDetailPanel、UnclaimedWarningPanel 不阻挡格子、物品和按钮射线。
-* 背包格实际显示尺寸为 100x100，和 DraggableItemUI 的占格尺寸一致。
-* 确认按钮继续沿用现有 continueBtn 逻辑，未拾取物品的清理规则不被 UI 皮肤改变。
-* 容量摘要、物品名称、价值、占格说明、未拾取警告和结算摘要全部由 Unity Text 渲染。
+* 背景仍可见但不会影响中央背包和奖励阅读。
+* 中央背包格保持 100x100 和 5 间距。
+* 奖励不以长列表作为默认主视觉，而是在背包外散落或分组展示。
+* 确认带出是唯一最高权重主行动；丢弃 / 放弃有明显危险降级。
+* 遮罩、面板和背景不拦截背包格、奖励图标或确认按钮射线。
 
 ### 深渊地图界面
 
-* Goal: 把深渊地图升级为正式路线图：当前层级、路线分支、节点状态、选中节点详情和背包整理入口清楚分层。
+* Goal: 把深渊地图迁移为可推进的大型层地图：地图、路线和节点是视觉中心，节点嵌入地貌，镜头可随路线前移，常驻节点详情降级为小 tooltip。
 * Background: `bg_dungeon_map`
 
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
-| `map_background` | full_screen | 0,0 1920x1080 |  | 深渊路线图背景，cover 适配，不承载关键文字。 |
-| `layer_header` | top_left | 96,48 900x96 | `Panel.Info` | 当前层、深度、风险和已探索进度摘要。 |
-| `route_canvas` | center | 220,150 1480x660 | `Map.NodePlate`, `Map.RouteLine`, `Icon.Locked` | 正式路线地图主区域，承载路线线段、节点、当前节点、高亮和锁定状态。 |
-| `selected_node_detail` | bottom_left | 220,830 680x160 | `Panel.Info` | 选中节点说明、风险预览、预期奖励和进入条件。 |
-| `inventory_controls` | bottom_right | 1040,830 760x160 | `Panel.Info`, `Button.Secondary`, `Button.Danger` | 整理背包、关闭背包、格外物品丢弃提示和返回/继续操作。 |
+| `layer_header` | top_stretch | 64,36 1792x72 | `Panel.Info` | 当前层、深度和少量资源图标。 |
+| `route_canvas` | center | 80,120 1760x820 | `Map.NodePlate`, `Map.RouteLine`, `Icon.Locked` | 可推进大地图、节点网络、路线连线和地貌主视觉。 |
+| `node_tooltip` | floating | 1120,720 360x120 | `Panel.Info` | 选中节点的极简风险 / 奖励提示。 |
+| `map_action_button` | bottom_right | 1560,850 260x120 | `Button.Primary`, `Button.Secondary`, `Button.Danger` | 确认路线 / 进入节点主行动。 |
+| `route_legend` | bottom_left | 80,920 760x80 | `Panel.Info` | 节点状态图例和战争迷雾说明。 |
 
 Layout changes:
-* 把原 map_canvas 拆为 layer_header、route_canvas、selected_node_detail 和 inventory_controls。
-* contentParent 锚到 route_canvas，节点、路线、当前节点高亮和锁定图标都在该区域内生成。
-* OpenBackpack_Button 和 CloseBackpack_Button 锚到 inventory_controls；节点详情锚到 selected_node_detail。
+* FormalV2 取消常驻 selected_node_detail 大面板，改为 node_tooltip。
+* route_canvas 扩大为主视觉区域，承载可推进大地图、路线、节点和雾层。
+* 进入节点 / 确认路线集中到 map_action_button；背包整理和撤离降级。
+* 底图、路线和节点必须融合，不允许节点像漂浮按钮贴在背景上。
 
 Data bindings:
 * 节点图标继续使用 VisualAssetService.ResolveNodeIconID(node)。
@@ -497,33 +453,32 @@ Sprite assignments:
 | `closeBackpackBtn.Image` | `Button.Danger` | `ui_button_danger` | Sliced |  | True |
 
 Acceptance criteria:
-* 1920x1080 下 layer_header、route_canvas、selected_node_detail、inventory_controls 互不重叠。
-* 地图截图中可以看出路线、节点、当前层和当前节点或选中节点。
-* 可进入、锁定、不可达状态至少有一种可见区分，锁定图标不阻挡点击。
-* 节点按钮仍可点击，路线和背景不拦截点击。
-* 打开/关闭背包按钮状态切换正确，关闭背包仍执行格外物品丢弃规则。
-* 路线连接线使用 ui_dungeon_route_line，节点底板使用 ui_dungeon_node_plate，背景使用 bg_dungeon_map。
+* 地图截图中 route_canvas 是最大视觉中心，节点和路线不被详情面板压缩。
+* 节点嵌入地貌或地图牌，不能像海面 / 天空上的漂浮按钮。
+* 画面具有前景、中景、远景或路线延展感，支持镜头前移想象。
+* 进入节点是唯一最高权重主行动；整理背包和撤离视觉降级。
+* 路线线段、背景和雾层不拦截节点点击。
 
 ### 撤离/战斗结果结算界面
 
-* Goal: 把撤离/战斗结果结算升级为正式结果报告：胜利、HP 战败、SAN 崩溃、复合战败、收益、损失、带出物和下一步压力有明确层级。
+* Goal: 把结算界面迁移为撤离 / 损伤报告：结果徽记、收益损失、魔偶状态、关键复盘和下一步行动形成正式报告结构，主行动只有一个。
 
 Zones:
 | ZoneID | Anchor | Rect | Components | Purpose |
 |---|---|---|---|---|
-| `settlement_background` | full_screen | 0,0 1920x1080 |  | 撤离成功或战败损失背景。 |
-| `result_card` | center | 500,150 920x780 | `Settlement.VictoryPanel`, `Settlement.DefeatPanel`, `Settlement.OutcomeEmblem`, `Title.Divider`, `Button.Primary` | 结算主面板，承载结果徽记、标题、摘要、明细和继续按钮。 |
-| `result_header` | top_center | 570,190 780x150 | `Settlement.OutcomeEmblem`, `Title.Divider` | 结果徽记、结算标题、失败原因、层数和标题分隔。 |
-| `summary_area` | center_top | 600,340 720x170 | `Icon.Money`, `Icon.Warning` | 战斗结果快照、HP/SAN 结论、剩余敌人、收益、损失、仓库变化和房租压力摘要。 |
-| `loot_breakdown` | center | 600,530 720x300 | `List.Row.Normal`, `Icon.Money` | 带出物、遗失物、价值、损失和战斗失败复盘明细列表。 |
-| `continue_action` | bottom_center | 790,850 340x80 | `Button.Primary` | 返回工坊确认按钮。 |
+| `settlement_backdrop` | full_screen | 0,0 1920x1080 |  | 胜利 / 战败氛围背景，必须不透明。 |
+| `result_header` | top_center | 260,80 1400x150 | `Settlement.OutcomeEmblem`, `Title.Divider` | 结果徽记、标题和短原因。 |
+| `summary_panel` | center_left | 260,260 420x360 | `Panel.Info` | 金币、战利品数量、击败 / 逃离 / 失败摘要。 |
+| `gain_loss_panel` | center | 720,260 500x360 | `Panel.Info` | 带出、遗失、消耗和奖励。 |
+| `condition_panel` | center_right | 1260,260 400x360 | `Panel.Info` | 魔偶 HP / SAN / 维护风险 / 状态后果。 |
+| `timeline_panel` | bottom_left | 260,650 960x220 | `Panel.Info` | 关键复盘 2-4 条，完整时间线可展开。 |
+| `next_action_panel` | bottom_right | 1260,650 400x220 | `Panel.Info`, `Button.Primary`, `Button.Secondary` | 下一步压力和唯一主行动。 |
 
 Layout changes:
-* 把 result_panel 拆为 result_card、result_header、summary_area、loot_breakdown 和 continue_action。
-* 按 result.IsVictory 切换背景和结算主面板。
-* 按 CombatOutcomeReport.OutcomeType / DefeatReason 在 result_header 内切换结果徽记。
-* SettlementCard_Image 固定为 920x780，文字和按钮都作为其子节点。
-* TitleDivider_Image 放在标题下方，不承载文字。
+* FormalV2 从普通结果弹窗改为撤离 / 损伤报告结构。
+* 收益、损失、状态和时间线分为独立报告区。
+* 下一步行动集中到 next_action_panel，默认只有一个最高权重主按钮。
+* 完整战斗日志默认折叠，只展示关键复盘。
 
 Data bindings:
 * 标题、摘要、拾取/带出/损失列表仍由 SettlementUIController 文本生成。
@@ -578,14 +533,11 @@ Sprite assignments:
 | `continueBtn.Image` | `Button.Primary` | `ui_button_primary` | Sliced |  | True |
 
 Acceptance criteria:
-* 胜利结算使用 bg_settlement_victory 和 ui_settlement_victory_panel。
-* 战败结算使用 bg_settlement_defeat 和 ui_settlement_defeat_panel。
-* 结果徽记按 CombatOutcomeReport.OutcomeType / DefeatReason 切换，至少覆盖胜利、HP 战败、SAN 崩溃、HP+SAN 复合战败和队伍溃败。
-* 结果标题、收益/损失摘要、带出/遗失明细和返回工坊按钮可读。
-* HP 战败和 SAN 崩溃在标题或摘要第一屏可区分，不只显示通用“失败”。
-* 标题、摘要、列表文字在 1920x1080 下不溢出主面板。
-* Continue_Button 可点击，背景和面板不拦截按钮射线。
-* 背景对比不压过主面板文字，结算结果一眼可读。
+* 胜利 / 战败背景不透明，运行时不出现透明黑块。
+* 结果类型和短原因在第一屏最醒目。
+* 收益 / 损失、魔偶状态和关键复盘分组清楚，不混成单一文本墙。
+* 默认最高权重主行动只有一个。
+* 所有结果文本、数字、物品名和原因由 Unity Text 渲染。
 
 ### 工坊出售界面
 
@@ -1869,4 +1821,4 @@ Acceptance criteria:
 
 ## Known VisualID Sources
 
-* Known VisualID count: `192`
+* Known VisualID count: `221`

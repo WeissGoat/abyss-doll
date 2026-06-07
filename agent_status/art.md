@@ -12,7 +12,7 @@ related:
   - PROJECT_STATUS.md
   - 开发文档/00_程序开发大纲.md
   - 开发文档/14_Unity运行时美术自动验收方案.md
-  - 开发文档/09_视觉资源系统程序开发规范.md
+  - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - agent_status/program.md
   - 设计文档/GDD/GDD_00_系统关联总图.md
   - agent_status/design.md
@@ -32,7 +32,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 最后更新
 
-2026-06-07
+2026-06-08
 
 ## 当前关注
 
@@ -44,19 +44,25 @@ PM 版本节点中，美术线当前 21 个界面都已具备 Formal V1 active �
 
 当前新增重点是 Formal V2 UX/UI 重构。Formal V1 证明了功能区域、VisualID 和截图链路可运行，但整体体验仍偏按钮菜单 / debug 面板。Formal V2 先作为 draft 设计层推进，不修改 active `screen_layouts.json`，不触发素材生成，也不要求程序接入；V2-A 优先重审 `workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement` 五个核心主流程界面。
 
+2026-06-08 用户已评审并认可 `美术文档/ui_design/formal_v2/concepts/review_index.md` 当前 Formal V2 概念方向。Formal V2 进入 V2-A active 迁移准备阶段：下一步按 P3 mission `ART-V2-02` 先迁移 `workshop_main` / `workshop_studio`、`combat_hud`、`inventory_loot`、`dungeon_map` 和 `settlement` 到 active `screen_layouts.json`；V2-B / V2-C 暂不作为本批次程序接入口。
+
+2026-06-08 V2-A active 迁移已完成：`workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement` 已在 `美术文档/ui_design/screen_layouts.json` 标记为 `StructureVersion=FormalV2`，并通过 `Validate-UIDesign.ps1`；`美术文档/ui_design/_generated/ui_design_handoff.md` 已刷新。`workshop_main` 已移除主界面直接背包组件依赖，背包 / 底盘 / 义体 / 维护后续由 `workshop_studio` 方向承接。
+
+2026-06-08 已执行 V2-A active 后的生成物刷新：`Update-ArtManifest.ps1` 后 Manifest 为 226 条，`Generate-ArtPrompts.ps1` 更新 29 条提示词，`Generate-ArtIntegrationCandidates.ps1` 输出 `program_integrate=0`、`generate_needed=29`、`acceptance_needed=191`；`Generate-FormalV1AcceptanceQueue.ps1` 现在只统计 16 个仍为 FormalV1 的 active 屏，`Generate-ArtProgramHandoff.ps1` 输出 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=16`。
+
 截至 2026-06-07，V2-A 五个核心界面已全部补齐可评审草案，并生成对应概念参考图。用户最新反馈后，美术侧已把 Formal V2 风格从“温暖奇幻 + 轻蒸汽工艺”进一步收束为“日系二次元地底奇幻 + 轻蒸汽工艺 + 低信息密度”：`workshop_main` 保持魔偶中心安心房间，`combat_hud` 保持左人偶 / 右敌方 / 底部背包结构，`dungeon_map` 额外要求底图、路线和节点融合，避免海面底图或悬浮节点。2026-06-07 已用 Codex 内置 `image_gen` 重出 `workshop_main`、`combat_hud`、`dungeon_map` 三张概念图，并进一步按“可推进大地图 + 镜头前移 + 每层独立生态”规则重出 `dungeon_map` 代表图；当前地图采用地底草原 / 地下森林层，路线从前景延伸到远景，节点嵌入道路、树根、遗迹和草甸。四张 contact sheet 已刷新；旧图分别归档到 `concepts/archive/2026-06-07_anime_style_regen/` 和 `concepts/archive/2026-06-07_layer_map_depth_regen/`。概念图位于 `美术文档/ui_design/formal_v2/concepts/`，只用于结构和氛围评审，不作为 Approved 运行时素材、Manifest 条目或程序接入口。设计图 / 概念图默认必须用 Codex 内置 `image_gen`；若当前工具环境没有暴露 `image_gen`，美术智能体必须先提醒用户并等待确认，不能自动切到 NovelAI、AI 图片网关、mock 或本地脚本。
 
 V2-B 七个局外功能界面已补齐详细草案，并按最新反馈修正语义：`maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel` 归入 `workshop_studio` 内的可切换子面板或弹出窗口，不再作为独立大场景；`sell_panel` 改作小镇商店 / 市场交易界面，工坊卖出和出货分配由 `shop_staging` 承接。旧维护、义体、底盘升级和旧 `sell_panel` 概念图已归档到 `concepts/archive/2026-06-01_workshop_studio_and_shop_semantics/`；2026-06-06 已用内置 imagegen 按新语义重出 4 张概念图。
 
 Formal V2 数量账：active UI 规格共有 21 个界面；21 个 active 界面的 V2 草案已全部补齐，并额外保留 `workshop_studio` 作为 `workshop_main` 的拆分方案。结构设计图已生成 22 张，位于 `美术文档/ui_design/formal_v2/design_boards/`，覆盖 21 个 active 界面和 `workshop_studio`；AI 概念参考图也已补齐 22 张，位于 `美术文档/ui_design/formal_v2/concepts/`。概念图评审索引和 4 张 contact sheet 已补到 `美术文档/ui_design/formal_v2/concepts/review_index.md` 与 `concepts/contact_sheets/`。这些设计图都不进入 Approved、Manifest 或程序交接清单。
 
-美术侧已把“可接入覆盖”、“缺图生成”和“视觉质量替换”拆开：`可接入素材清单.md` 给程序看，`缺图生成计划.md` 给美术侧执行 `generate_needed` 新素材跑图，`素材质量替换清单.md` 给美术侧执行 local_v0 / placeholder 同名替换。当前 `generate_needed=0`，质量清单为 `technical_fix=0`、`visual_v2_replace=121`，表示没有必须先修的技术风险；历史本地生成 Approved 已统一补标 `QualityTier=local_v0`，这些素材不阻塞程序接入，后续按 Visual V2 同名替换。
+美术侧已把“可接入覆盖”、“缺图生成”和“视觉质量替换”拆开：`可接入素材清单.md` 给程序看，`缺图生成计划.md` 给美术侧执行 `generate_needed` 新素材跑图，`素材质量替换清单.md` 给美术侧执行 local_v0 / placeholder 同名替换。当前 `generate_needed=29`，质量清单为 `technical_fix=0`、`visual_v2_replace=121`，表示没有必须先修的技术风险；历史本地生成 Approved 已统一补标 `QualityTier=local_v0`，这些素材不阻塞程序接入，后续按 Visual V2 同名替换。
 
 美术侧已新增“需求候选扫描”前哨：`Scan-ArtRequirementCandidates.ps1` 会扫描最新设计文档、配置表、版本规划和 active UI 文档，生成 `美术文档/_generated/美术需求候选清单.md/json`。当前 latest 为 `new_candidate=36`、`approved_without_manifest=0`、`seed_only=0`、`manifest_managed=158`；这些候选只用于人工审查，确认后才写入 `art_requirements_seed.json` 或等待正式配置字段落地，不自动进入 Manifest。
 
-P1 战斗可读性 active 合同已补齐：`combat_hud` 现在包含怪物意图图标、战斗状态图标、命中 / 破盾反馈、封格 / 塞包 overlay。P1 结算结果 active 合同已补齐：`settlement` 现在包含胜利、HP 战败、SAN 崩溃、HP+SAN 复合战败和队伍溃败五态结果徽记。P3 底盘升级 active 合同已补齐：`chassis_upgrade_panel` 包含当前底盘、下一底盘、容量变化、材料缺口、蓝图前置和升级确认。P3 维护可读性 active 合同已补齐：`maintenance_panel` 现在把磨损修复、侵蚀净化和下潜许可拆成独立 VisualID。P3 Room Memento 已按 `44_局外成长人偶特质房间正式配置落地设计.md` 前置补齐 8 个房间纪念物 VisualID。P4 营业结算 active 合同已补齐：`business_settlement` 位于 `shop_staging` 和 `daily_bill_report` 之间，承接顾客流、成交反馈、未售出 / 黑市风险摘要和进入账单动作。P4 每日账单 active 合同已补齐：`daily_bill_report` 现在把收入、支出和月租债务拆成独立 VisualID。P4 经济压力传闻 / 势力 / 订单已按 `48_经济压力传闻正式配置落地设计.md`、`49_经济压力势力正式配置落地设计.md` 和 `50_经济压力订单正式配置落地设计.md` 前置补齐 42 个 VisualID。latest 可接入清单当前为 `program_integrate=0`、`acceptance_needed=191`、`generate_needed=0`；新增缺图项均已有 Approved PNG 和 `.meta`，但多数质量层级仍为 `local_v0`，不视为最终美术。
+P1 战斗可读性 active 合同已补齐：`combat_hud` 现在包含怪物意图图标、战斗状态图标、命中 / 破盾反馈、封格 / 塞包 overlay。P1 结算结果 active 合同已补齐：`settlement` 现在包含胜利、HP 战败、SAN 崩溃、HP+SAN 复合战败和队伍溃败五态结果徽记。P3 底盘升级 active 合同已补齐：`chassis_upgrade_panel` 包含当前底盘、下一底盘、容量变化、材料缺口、蓝图前置和升级确认。P3 维护可读性 active 合同已补齐：`maintenance_panel` 现在把磨损修复、侵蚀净化和下潜许可拆成独立 VisualID。P3 Room Memento 已按 `44_局外成长人偶特质房间正式配置落地设计.md` 前置补齐 8 个房间纪念物 VisualID。P4 营业结算 active 合同已补齐：`business_settlement` 位于 `shop_staging` 和 `daily_bill_report` 之间，承接顾客流、成交反馈、未售出 / 黑市风险摘要和进入账单动作。P4 每日账单 active 合同已补齐：`daily_bill_report` 现在把收入、支出和月租债务拆成独立 VisualID。P4 经济压力传闻 / 势力 / 订单已按 `48_经济压力传闻正式配置落地设计.md`、`49_经济压力势力正式配置落地设计.md` 和 `50_经济压力订单正式配置落地设计.md` 前置补齐 42 个 VisualID。latest 可接入清单当前为 `program_integrate=0`、`acceptance_needed=191`、`generate_needed=29`；当前 29 个缺图项还未生成 Approved PNG，构成为 11 个物品图标、9 个怪物战斗实体和 9 个怪物头像。既有多数已接入素材质量层级仍为 `local_v0`，不视为最终美术。
 
-Visual V2 执行入口已补齐：`美术文档/_generated/VisualV2生成计划.md/json` 当前规划 121 项替换资源，`PromptReadyItems=121`，下一批次为 `nai_visual_v2_20260526_04`，其中 P1 仍剩 24 项、P2 97 项。NovelAI token 链路已完成 P0 新节点图标、P1 核心战斗意图图标和 P1 首批战斗反馈 / 标记替换，后续继续串行生成，脚本每次请求 1 张图，图间隔 1 秒。
+Visual V2 执行入口已补齐：`美术文档/_generated/VisualV2生成计划.md/json` 当前规划 121 项替换资源，`PromptReadyItems=121`，当前质量替换批次为 `nai_v2a_runtime_quality_20260608_01`，其中 P1 仍剩 24 项、P2 97 项。NovelAI token 链路已完成 P0 新节点图标、P1 核心战斗意图图标和 P1 首批战斗反馈 / 标记替换，后续继续串行生成，脚本每次请求 1 张图，图间隔 1 秒。
 
 Visual V2 工具链已补齐安全替换流程：已接入素材可用 `Run-ArtGeneration.ps1 -PreserveStatus` 生成候选，用 `CandidateBatchID` 只预处理本批 raw，再用 `Sync-ApprovedArt.ps1 -QualityTier formal_ai_v2 -ClearCandidate` 同名替换 Approved。该流程不会把原 `approved` / `registered` / `validated` 状态回退到 `generated`。`Sync-ApprovedArt.ps1 -CandidateBatchID` 默认启用严格 `.meta` guard：目标 PNG 和目标 `.meta` 必须已存在，且同步前后 `.meta` 字节必须一致，确保正式图替换只改 PNG 内容，不要求程序侧重新登记同一资产。
 
@@ -75,7 +81,7 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 - `美术文档/ui_design/formal_v1/screen_structure_review.md`
 - `美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md`
 - `美术文档/01_Manifest规范.md`
-- `开发文档/09_视觉资源系统程序开发规范.md`
+- `开发文档/rules/03_视觉资源系统程序开发规范.md`
 - `开发文档/14_Unity运行时美术自动验收方案.md`
 
 ## 工作边界
@@ -113,6 +119,11 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 
 ## 最近完成
 
+- 已按用户要求创建本地 P3 mission：`.mission/20260608_002315-Formal-V2-UI-active规格迁移与美术交接落地.csv`，并拆分为 V2 评审冻结、V2-A active 迁移、Manifest / handoff 刷新、素材缺口拆分、程序交接和首批运行时素材批次规划 6 个任务。`ART-V2-01` 已记录用户认可 `concepts/review_index.md`，Formal V2 当前进入 V2-A active 迁移阶段。
+- 已完成 P3 mission `ART-V2-02`：V2-A 五个核心屏幕 active 规格已迁移到 FormalV2；同步调整 `component_catalog.json` 的屏幕组件适用关系；`Validate-UIDesign.ps1` 通过并刷新 `美术文档/ui_design/_generated/ui_design_handoff.md`。
+- 已执行 P3 mission `ART-V2-03` 的生成链路：同步配置、刷新 Manifest、Prompt、UI handoff、FormalV1 验收队列、程序交接清单和可接入素材清单；当前 V2-A 相关新增缺口集中体现为 `generate_needed=29`，程序登记队列仍为 0。
+- 已完成 P3 mission `ART-V2-04` / `ART-V2-05` 的交接整理：`美术文档/13_正式纵切UI与素材覆盖矩阵.md` 已记录 V2-A 五屏 active、`generate_needed=29` 构成和程序侧交接口径；`agent_status/program.md` 和 `PROJECT_STATUS.md` 已同步 `program_integrate=0`、`rerun_acceptance=16` 的当前判断。
+- 已完成 P3 mission `ART-V2-06` 的首批运行时素材规划：缺图跑图批次为 `nai_v2a_runtime_missing_20260608_01`，包含 29 个已具备 Prompt / Spec 的运行时内容素材；Visual V2 质量替换批次为 `nai_v2a_runtime_quality_20260608_01`，包含 121 个已接入 local_v0 / placeholder 的同名替换项。本轮只完成批次计划和文档交接，尚未实际调用 NovelAI 跑图。
 - 已整理本轮待提交美术工作区变更：Approved 图标 / 纪念物 / 势力 / 订单 / 传闻 `.meta` 导入上限按运行时用途提升到 1024 或 2048；补提交美术流水线历史快照与 `美术风格参考/` 参考图，并为参考图补 LFS 规则；同步收口 `dungeon_map` Formal V2 为“可推进大地图 + 独立生态层”方向。`tools/ComfyUI_NAIDGenerator/` 仍按第三方工具候选留在未跟踪状态，待确认 vendor / submodule / 本地工具口径。
 - 已完成 P0 UI 运行时验收：`workshop_main`、`combat_hud`、`inventory_loot` 当前 MVP Baseline 为 `validated`。
 - 已建立 Formal V1 UI 结构设计层：`combat_hud`、`workshop_main`、`inventory_loot`、`dungeon_map`、`settlement`。
@@ -164,7 +175,7 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 - 已在 `art_requirements_seed.json` 和提示词生成脚本中补齐 17 个战斗可读性 VisualID 的英文绘图提示词、中文说明、负面提示词和结构化 Spec；图标 / 反馈 / 背包格 overlay 尺寸分别按 `512x512`、`512x512`、`256x256` 管理。
 - 已刷新 Manifest / Prompt / UI handoff / 可接入清单 / 质量清单并留档 `20260525_020335_p1_combat_readability_contract_prompt_fix.*` 与 `20260525_020357_p1_combat_readability_contract_prompt_fix.*`；当前 `generate_needed=21`、`technical_fix=0`、`visual_v2_replace=20`。
 - 已新增 `Generate-ArtBatchPlan.ps1` / `generate_art_batch_plan.py`，把 `可接入素材清单` 中的 `generate_needed` 队列转成 NovelAI 可执行缺图跑图计划；latest 为 `美术文档/_generated/缺图生成计划.md/json`，历史快照在 `美术文档/_generated/art_generation_plan_snapshots/`。
-- 已生成缺图执行计划 `nai_missing_assets_20260525_01`：计划生成 21 个缺失素材，全部具备英文提示词、负面提示词和结构化 Spec，构成为 P0 新节点图标 4 个、P1 战斗可读性 UI 素材 17 个；已记录 NovelAI 上次探测 HTTP 402 Anlas 不足，后续额度恢复后按计划串行跑图。
+- 已建立早期缺图执行计划并跑通 local_v0 兜底：当时 21 个缺失素材均具备英文提示词、负面提示词和结构化 Spec，构成为 P0 新节点图标 4 个、P1 战斗可读性 UI 素材 17 个；后续 P0 新节点图标和部分 P1 战斗素材已被 NovelAI 正式图替换。
 - 已新增 `Generate-LocalV0Art.ps1` / `generate_local_v0_art.py`，在 NovelAI Anlas 不足时为已有 Prompt / Spec 的缺图项生成明确标记的 local_v0 Approved 素材，不冒充正式 AI 产物。
 - 已用 `local_v0_missing_assets_20260525_01` 补齐 21 个缺图 Approved PNG 和 Unity `.meta`：4 个新地图节点图标、17 个 P1 战斗可读性 UI 素材。latest 可接入清单已刷新为 `program_integrate=33`、`acceptance_needed=82`、`generate_needed=0`。
 - 已刷新质量清单与 Visual V2 计划：当前 `technical_fix=0`、`visual_v2_replace=41`、`spec_review=0`，正式 AI 替换批次为 `nai_visual_v2_20260525_02`。
@@ -199,7 +210,7 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 - 已刷新 latest 队列：`program_integrate=0`、`generate_needed=0`、`technical_fix=0`、`visual_v2_replace=124`，Visual V2 下一执行批次为 `nai_visual_v2_20260526_03`；Formal V1 验收队列显示 21 个 active 界面均已 captured，当前进入美术截图验收。
 - 已加固 Visual V2 Approved 同名替换工具：`Sync-ApprovedArt.ps1 -CandidateBatchID` 默认拒绝创建新 Approved 路径，要求目标 PNG / `.meta` 已存在并校验 `.meta` 同步前后不变；`-AllowNewTargetWithCandidate` 仅用于明确创建新资产路径，不用于已接入素材的正式图替换。已用临时 Manifest 验证 strict dry-run、缺目标默认失败和显式放行新目标三种路径。
 - 已完成 P1 首批战斗反馈 / 标记正式 AI 替换：`ui_combat_feedback_hit`、`ui_combat_feedback_shield_break`、`ui_combat_grid_lock_marker` 已通过 NovelAI 串行生成、预处理、contact sheet 人工筛选，并以 `meta_guard=strict` 同名同步为 `QualityTier=formal_ai_v2`；Approved PNG 尺寸 / alpha 校验通过，Unity `.meta` 未改变。
-- 已刷新 latest 队列：`program_integrate=0`、`generate_needed=0`、`technical_fix=0`、`visual_v2_replace=121`，Visual V2 下一执行批次为 `nai_visual_v2_20260526_04`。
+- 已刷新 latest 队列：`program_integrate=0`、`generate_needed=29`、`technical_fix=0`、`visual_v2_replace=121`；当前缺图批次为 `nai_v2a_runtime_missing_20260608_01`，Visual V2 质量替换批次为 `nai_v2a_runtime_quality_20260608_01`。
 - 已主动触发并验收程序接入后的 latest ArtAcceptance：RunID=`20260527_002436`，21/21 截图、`PASSED`、Registry EntryCount=191、MissingRequiredVisualIDs=0、UI snapshot risks=0；已刷新 Formal V1 验收队列和程序交接清单，当前 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=0`。
 - 已把本轮人工验收写入 `美术文档/09_运行时美术验收记录.md`：`inventory_loot`、`settlement` 通过；`layer_select`、`maintenance_panel`、`daily_bill_report`、`business_settlement`、`chassis_upgrade_panel`、`doll_interaction`、`doll_room`、`order_board`、`rumor_board`、`faction_shop`、`scenario_event`、`shop_staging`、`workshop_main` 条件通过；`combat_hud`、`dungeon_map`、`safe_room`、`stairs_room`、`sell_panel`、`prosthetic_panel` 不通过，需程序侧返修截图状态或补有效列表数据后重跑。
 - 已建立 Formal V2 UX/UI 重构设计层：新增 `美术文档/ui_design/formal_v2/README.md`、`00_formal_v2_ux_ui_overview.md` 和 V2-A 五个核心界面设计入口，明确 Formal V2 先解决按钮堆叠、主次行动不清、场景隐喻不足和正式感不足。
@@ -221,13 +232,11 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 
 ## 下一步建议
 
-1. 先让用户结合 `concepts/review_index.md`、`concepts/contact_sheets/`、`design_boards/` 和 `concepts/` 审 Formal V2 结构与氛围：优先 `workshop_main` / `workshop_studio`，再审 `combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。
-2. 再按链路审局外功能：维护 / 义体 / 底盘作为 `workshop_studio` 子面板一起审；`shop_staging -> business_settlement -> daily_bill_report` 作为经营链路一起审；`sell_panel` 按小镇商店 / 市场交易审。
-3. 最后审 V2-C：`layer_select`、`safe_room`、`stairs_room`、`order_board`、`rumor_board`、`faction_shop`、`doll_interaction`、`scenario_event`、`doll_room`。
-4. 程序侧在 Formal V2 active 更新前继续按 Formal V1 `screen_layouts.json` 工作；不要按 `formal_v2/*.md` 草案接入 Unity。
-5. 程序侧仍可并行返修 Formal V1 ArtAcceptance 截图状态：`combat_hud`、`dungeon_map`、`safe_room`、`stairs_room` 清理叠层；`sell_panel` 和 `prosthetic_panel` 补有效列表 / 配方行。
-6. 美术侧按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_visual_v2_20260526_04` 继续串行替换 121 个 local_v0 素材；每次只请求 1 张图，图间隔 1 秒，替换仍走 `PreserveStatus -> CandidateBatchID -> QualityTier=formal_ai_v2` 流程，并保持同 VisualID、同 Approved 路径、同 Unity `.meta` / GUID。
-7. 让用户优先评审 2026-06-07 重出的 `workshop_main`、`combat_hud`、`dungeon_map`：重点看是否足够日系二次元、地图是否具备可推进大地图纵深、每层生态差异是否成立、战斗界面是否正式且不过度硬核。
+1. NovelAI 额度和 token 可用后，先执行缺图批次 `nai_v2a_runtime_missing_20260608_01`：29 个运行时内容素材全部串行生成，每次只请求 1 张图，图间隔 1 秒；优先筛选 9 个怪物战斗实体和 11 个物品图标，9 个怪物头像作为同批次低优先补齐。
+2. 程序侧现在可以读取 active `screen_layouts.json` 的 V2-A 五屏 FormalV2 规格；`program_integrate=0` 表示暂无新 Approved 资源需要登记，但后续 V2-A 运行时接入仍需按 active 合同重排界面。
+3. FormalV1 验收队列当前只剩 16 屏，`rerun_acceptance=16` 是因为最新 ArtAcceptance 截图早于当前 active 规格日期；这不代表 V2-A 五屏已完成运行时接入。
+4. V2-B / V2-C 暂不进入本批次 active 迁移；后续按 `workshop_studio` 子面板、经营链路、小镇商店和长期 / 叙事界面分批确认。
+5. 缺图批次完成并同步 Approved 后，再按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_v2a_runtime_quality_20260608_01` 串行替换 121 个 local_v0 素材；每次只请求 1 张图，图间隔 1 秒，替换仍走 `PreserveStatus -> CandidateBatchID -> QualityTier=formal_ai_v2` 流程，并保持同 VisualID、同 Approved 路径、同 Unity `.meta` / GUID。
 
 ## 问题 / 阻塞
 

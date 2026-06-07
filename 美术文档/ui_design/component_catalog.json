@@ -63,7 +63,8 @@
         "scenario_event",
         "doll_room",
         "chassis_upgrade_panel",
-        "business_settlement"
+        "business_settlement",
+        "dungeon_map"
       ],
       "ProgramUse": "用于出发、确认、继续等正向操作。文字由 Text 组件叠加。"
     },
@@ -99,7 +100,8 @@
         "scenario_event",
         "doll_room",
         "chassis_upgrade_panel",
-        "business_settlement"
+        "business_settlement",
+        "settlement"
       ],
       "ProgramUse": "用于返回、关闭、取消等次级操作。"
     },
@@ -827,7 +829,6 @@
       ],
       "RequiredForScreens": [
         "inventory_loot",
-        "workshop_main",
         "combat_hud",
         "safe_room",
         "stairs_room",
@@ -858,7 +859,6 @@
       ],
       "RequiredForScreens": [
         "inventory_loot",
-        "workshop_main",
         "combat_hud",
         "safe_room",
         "stairs_room"
@@ -1011,7 +1011,8 @@
         "scenario_event",
         "doll_room",
         "chassis_upgrade_panel",
-        "business_settlement"
+        "business_settlement",
+        "settlement"
       ],
       "ProgramUse": "用于状态摘要、说明区和小块信息承托。"
     },
@@ -1029,7 +1030,6 @@
         "prosthetic_panel",
         "sell_panel",
         "layer_select",
-        "workshop_main",
         "safe_room",
         "stairs_room",
         "maintenance_panel",

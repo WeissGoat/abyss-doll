@@ -1,37 +1,1902 @@
 {
-  "GeneratedAt": "2026-05-25T23:58:46+08:00",
-  "SnapshotTag": "local_v0_quality_normalized",
+  "GeneratedAt": "2026-06-08T00:47:36+08:00",
+  "SnapshotTag": "",
   "Inputs": {
     "IntegrationCandidatesPath": "美术文档/_generated/可接入素材清单.json",
     "ManifestPath": "美术文档/_generated/art_manifest.json"
   },
   "RunConfig": {
     "Provider": "novelai",
-    "BatchID": "nai_missing_assets_20260525_02",
+    "BatchID": "nai_v2a_runtime_missing_20260608_01",
     "StatusFilter": "prompted",
     "ActionFilter": "generate_needed",
     "Variants": 4,
     "DelaySeconds": 1.0,
     "SerialRequired": true,
-    "LastProbeBatchID": "nai_missing_probe_pending",
-    "LastProbeNote": "generate_needed should remain empty after local_v0 normalization."
+    "LastProbeBatchID": "",
+    "LastProbeNote": ""
   },
   "Summary": {
-    "TotalCandidateItems": 0,
-    "PlannedItems": 0,
-    "PromptReadyItems": 0,
+    "TotalCandidateItems": 29,
+    "PlannedItems": 29,
+    "PromptReadyItems": 29,
     "MissingManifestEntries": [],
-    "PriorityCounts": {},
-    "DomainCounts": {},
-    "SizeCounts": {}
+    "PriorityCounts": {
+      "P0": 29
+    },
+    "DomainCounts": {
+      "item": 11,
+      "monster": 18
+    },
+    "SizeCounts": {
+      "1024x1024": 18,
+      "512x512": 11
+    }
   },
   "BatchCommands": {
-    "RunAllGeneration": "",
-    "OptimizeAllAfterGeneration": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -BatchID nai_missing_assets_20260525_02 -Overwrite",
-    "SyncAllAfterReviewOrFallback": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -BatchID nai_missing_assets_20260525_02 -AllowProcessedFallback -Overwrite",
-    "RefreshIntegration": ".\\tools\\美术工具\\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag nai_missing_assets_20260525_02",
-    "RefreshQuality": ".\\tools\\美术工具\\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag nai_missing_assets_20260525_02",
-    "RefreshPlan": ".\\tools\\美术工具\\Generate-ArtBatchPlan.ps1 -Snapshot -SnapshotTag nai_missing_assets_20260525_02_after -BatchID nai_missing_assets_20260525_02"
+    "RunAllGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID item_con_solvent_spray_icon,item_con_stabilizer_ampoule_icon,item_gear_chain_hook_icon,item_gear_corroded_bulwark_icon,item_loot_acid_gland_icon,item_loot_crystal_scale_icon,item_loot_warped_plate_icon,item_mat_core_tier2_fragment_icon,item_order_live_spore_cage_icon,item_trade_luminous_fungus_icon,item_trade_sealed_relic_box_icon,monster_boss_gatekeeper_mk1_combat,monster_boss_gatekeeper_mk1_portrait,monster_boss_spore_foundry_combat,monster_boss_spore_foundry_portrait,monster_elite_crystal_bulwark_combat,monster_elite_crystal_bulwark_portrait,monster_mob_acid_slime_mature_combat,monster_mob_acid_slime_mature_portrait,monster_mob_crystal_guard_combat,monster_mob_crystal_guard_portrait,monster_mob_lost_miner_echo_combat,monster_mob_lost_miner_echo_portrait,monster_mob_rust_cultivator_combat,monster_mob_rust_cultivator_portrait,monster_mob_rust_hound_combat,monster_mob_rust_hound_portrait,monster_mob_soul_midge_swarm_combat,monster_mob_soul_midge_swarm_portrait -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+    "OptimizeAllAfterGeneration": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+    "SyncAllAfterReviewOrFallback": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite",
+    "RefreshIntegration": ".\\tools\\美术工具\\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag nai_v2a_runtime_missing_20260608_01",
+    "RefreshQuality": ".\\tools\\美术工具\\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag nai_v2a_runtime_missing_20260608_01",
+    "RefreshPlan": ".\\tools\\美术工具\\Generate-ArtBatchPlan.ps1 -Snapshot -SnapshotTag nai_v2a_runtime_missing_20260608_01_after -BatchID nai_v2a_runtime_missing_20260608_01"
   },
-  "Items": []
+  "Items": [
+    {
+      "VisualID": "item_con_solvent_spray_icon",
+      "Order": 1,
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "溶剂喷雾",
+      "ConfigID": "con_solvent_spray",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_solvent_spray_icon.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/item_con_solvent_spray_icon",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/item_con_solvent_spray_icon/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/item_con_solvent_spray_icon/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/item_con_solvent_spray_icon/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/item_con_solvent_spray_icon/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/con_solvent_spray.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID item_con_solvent_spray_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID item_con_solvent_spray_icon -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID item_con_solvent_spray_icon -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "item_con_stabilizer_ampoule_icon",
+      "Order": 2,
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "稳定安瓿",
+      "ConfigID": "con_stabilizer_ampoule",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_stabilizer_ampoule_icon.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/item_con_stabilizer_ampoule_icon",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/item_con_stabilizer_ampoule_icon/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/item_con_stabilizer_ampoule_icon/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/item_con_stabilizer_ampoule_icon/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/item_con_stabilizer_ampoule_icon/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/con_stabilizer_ampoule.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID item_con_stabilizer_ampoule_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID item_con_stabilizer_ampoule_icon -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID item_con_stabilizer_ampoule_icon -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "item_gear_chain_hook_icon",
+      "Order": 3,
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "链钩短枪",
+      "ConfigID": "gear_chain_hook",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_chain_hook_icon.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/item_gear_chain_hook_icon",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/item_gear_chain_hook_icon/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/item_gear_chain_hook_icon/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/item_gear_chain_hook_icon/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/item_gear_chain_hook_icon/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_chain_hook.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID item_gear_chain_hook_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID item_gear_chain_hook_icon -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID item_gear_chain_hook_icon -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "item_gear_corroded_bulwark_icon",
+      "Order": 4,
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "腐蚀壁盾",
+      "ConfigID": "gear_corroded_bulwark",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_corroded_bulwark_icon.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_corroded_bulwark.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID item_gear_corroded_bulwark_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID item_gear_corroded_bulwark_icon -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID item_gear_corroded_bulwark_icon -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "item_loot_acid_gland_icon",
+      "Order": 5,
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "酸腺囊",
+      "ConfigID": "loot_acid_gland",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_acid_gland_icon.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_acid_gland.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID item_loot_acid_gland_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID item_loot_acid_gland_icon -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID item_loot_acid_gland_icon -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "item_loot_crystal_scale_icon",
+      "Order": 6,
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "晶化鳞片",
+      "ConfigID": "loot_crystal_scale",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_crystal_scale_icon.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/item_loot_crystal_scale_icon",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/item_loot_crystal_scale_icon/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/item_loot_crystal_scale_icon/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/item_loot_crystal_scale_icon/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/item_loot_crystal_scale_icon/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_crystal_scale.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID item_loot_crystal_scale_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID item_loot_crystal_scale_icon -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID item_loot_crystal_scale_icon -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "item_loot_warped_plate_icon",
+      "Order": 7,
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "扭曲装甲片",
+      "ConfigID": "loot_warped_plate",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_warped_plate_icon.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_warped_plate.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID item_loot_warped_plate_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID item_loot_warped_plate_icon -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID item_loot_warped_plate_icon -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "item_mat_core_tier2_fragment_icon",
+      "Order": 8,
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "二阶机核碎片",
+      "ConfigID": "mat_core_tier2_fragment",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier2_fragment_icon.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/mat_core_tier2_fragment.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID item_mat_core_tier2_fragment_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID item_mat_core_tier2_fragment_icon -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID item_mat_core_tier2_fragment_icon -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "item_order_live_spore_cage_icon",
+      "Order": 9,
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "活孢子笼",
+      "ConfigID": "order_live_spore_cage",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_live_spore_cage_icon.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/order_live_spore_cage.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID item_order_live_spore_cage_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID item_order_live_spore_cage_icon -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID item_order_live_spore_cage_icon -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "item_trade_luminous_fungus_icon",
+      "Order": 10,
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "夜光菌簇",
+      "ConfigID": "trade_luminous_fungus",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_luminous_fungus_icon.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_luminous_fungus.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID item_trade_luminous_fungus_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID item_trade_luminous_fungus_icon -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID item_trade_luminous_fungus_icon -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "item_trade_sealed_relic_box_icon",
+      "Order": 11,
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "封存遗物匣",
+      "ConfigID": "trade_sealed_relic_box",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "512x512",
+      "AnlasNote": "Observed probe on 2026-05-25: NovelAI required 5 Anlas for one 512x512 image.",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_sealed_relic_box_icon.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_sealed_relic_box.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID item_trade_sealed_relic_box_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID item_trade_sealed_relic_box_icon -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID item_trade_sealed_relic_box_icon -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_boss_gatekeeper_mk1_combat",
+      "Order": 12,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "一层守门机 MK1战斗实体",
+      "ConfigID": "boss_gatekeeper_mk1",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_gatekeeper_mk1_combat.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_combat",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_combat/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_combat/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_combat/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_combat/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_gatekeeper_mk1.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_boss_gatekeeper_mk1_combat -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_boss_gatekeeper_mk1_combat -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_boss_gatekeeper_mk1_combat -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_boss_gatekeeper_mk1_portrait",
+      "Order": 13,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "一层守门机 MK1",
+      "ConfigID": "boss_gatekeeper_mk1",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_gatekeeper_mk1_portrait.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_portrait",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_portrait/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_portrait/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_portrait/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_portrait/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_gatekeeper_mk1.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_boss_gatekeeper_mk1_portrait -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_boss_gatekeeper_mk1_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_boss_gatekeeper_mk1_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_boss_spore_foundry_combat",
+      "Order": 14,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "孢殖熔炉战斗实体",
+      "ConfigID": "boss_spore_foundry",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_spore_foundry_combat.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_combat",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_combat/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_combat/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_combat/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_combat/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_spore_foundry.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_boss_spore_foundry_combat -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_boss_spore_foundry_combat -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_boss_spore_foundry_combat -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_boss_spore_foundry_portrait",
+      "Order": 15,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "孢殖熔炉",
+      "ConfigID": "boss_spore_foundry",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_spore_foundry_portrait.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_spore_foundry.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_boss_spore_foundry_portrait -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_boss_spore_foundry_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_boss_spore_foundry_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_elite_crystal_bulwark_combat",
+      "Order": 16,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "晶壁守卫战斗实体",
+      "ConfigID": "elite_crystal_bulwark",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_crystal_bulwark_combat.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_combat",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_combat/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_combat/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_combat/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_combat/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_crystal_bulwark.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_elite_crystal_bulwark_combat -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_elite_crystal_bulwark_combat -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_elite_crystal_bulwark_combat -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_elite_crystal_bulwark_portrait",
+      "Order": 17,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "晶壁守卫",
+      "ConfigID": "elite_crystal_bulwark",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_crystal_bulwark_portrait.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_portrait",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_portrait/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_portrait/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_portrait/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_portrait/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_crystal_bulwark.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_elite_crystal_bulwark_portrait -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_elite_crystal_bulwark_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_elite_crystal_bulwark_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_mob_acid_slime_mature_combat",
+      "Order": 18,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "成熟酸液软体战斗实体",
+      "ConfigID": "mob_acid_slime_mature",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_acid_slime_mature_combat.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_combat",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_combat/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_combat/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_combat/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_combat/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_acid_slime_mature.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_mob_acid_slime_mature_combat -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_mob_acid_slime_mature_combat -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_mob_acid_slime_mature_combat -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_mob_acid_slime_mature_portrait",
+      "Order": 19,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "成熟酸液软体",
+      "ConfigID": "mob_acid_slime_mature",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_acid_slime_mature_portrait.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_acid_slime_mature.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_mob_acid_slime_mature_portrait -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_mob_acid_slime_mature_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_mob_acid_slime_mature_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_mob_crystal_guard_combat",
+      "Order": 20,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "结晶守卫战斗实体",
+      "ConfigID": "mob_crystal_guard",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_crystal_guard_combat.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_combat",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_combat/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_combat/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_combat/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_combat/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_crystal_guard.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_mob_crystal_guard_combat -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_mob_crystal_guard_combat -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_mob_crystal_guard_combat -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_mob_crystal_guard_portrait",
+      "Order": 21,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "结晶守卫",
+      "ConfigID": "mob_crystal_guard",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_crystal_guard_portrait.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_portrait",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_portrait/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_portrait/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_portrait/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_portrait/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_crystal_guard.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_mob_crystal_guard_portrait -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_mob_crystal_guard_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_mob_crystal_guard_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_mob_lost_miner_echo_combat",
+      "Order": 22,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "迷失矿工回声战斗实体",
+      "ConfigID": "mob_lost_miner_echo",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_lost_miner_echo_combat.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_combat",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_combat/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_combat/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_combat/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_combat/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_lost_miner_echo.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_mob_lost_miner_echo_combat -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_mob_lost_miner_echo_combat -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_mob_lost_miner_echo_combat -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_mob_lost_miner_echo_portrait",
+      "Order": 23,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "迷失矿工回声",
+      "ConfigID": "mob_lost_miner_echo",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_lost_miner_echo_portrait.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_portrait",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_portrait/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_portrait/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_portrait/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_portrait/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_lost_miner_echo.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_mob_lost_miner_echo_portrait -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_mob_lost_miner_echo_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_mob_lost_miner_echo_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_mob_rust_cultivator_combat",
+      "Order": 24,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "锈蚀培植者战斗实体",
+      "ConfigID": "mob_rust_cultivator",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_cultivator_combat.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_combat",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_combat/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_combat/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_combat/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_combat/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_cultivator.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_mob_rust_cultivator_combat -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_mob_rust_cultivator_combat -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_mob_rust_cultivator_combat -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_mob_rust_cultivator_portrait",
+      "Order": 25,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "锈蚀培植者",
+      "ConfigID": "mob_rust_cultivator",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_cultivator_portrait.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_portrait",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_portrait/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_portrait/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_portrait/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_portrait/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_cultivator.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_mob_rust_cultivator_portrait -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_mob_rust_cultivator_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_mob_rust_cultivator_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_mob_rust_hound_combat",
+      "Order": 26,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "锈蚀猎犬战斗实体",
+      "ConfigID": "mob_rust_hound",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_hound_combat.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_combat",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_combat/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_combat/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_combat/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_combat/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_hound.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_mob_rust_hound_combat -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_mob_rust_hound_combat -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_mob_rust_hound_combat -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_mob_rust_hound_portrait",
+      "Order": 27,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "锈蚀猎犬",
+      "ConfigID": "mob_rust_hound",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_hound_portrait.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_portrait",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_portrait/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_portrait/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_portrait/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_portrait/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_hound.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_mob_rust_hound_portrait -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_mob_rust_hound_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_mob_rust_hound_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_mob_soul_midge_swarm_combat",
+      "Order": 28,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "窃魂虫群战斗实体",
+      "ConfigID": "mob_soul_midge_swarm",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_soul_midge_swarm_combat.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_combat",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_combat/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_combat/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_combat/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_combat/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_soul_midge_swarm.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_mob_soul_midge_swarm_combat -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_mob_soul_midge_swarm_combat -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_mob_soul_midge_swarm_combat -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    },
+    {
+      "VisualID": "monster_mob_soul_midge_swarm_portrait",
+      "Order": 29,
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "窃魂虫群",
+      "ConfigID": "mob_soul_midge_swarm",
+      "Status": "todo",
+      "PromptReady": true,
+      "ExpectedSize": "1024x1024",
+      "AnlasNote": "",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_soul_midge_swarm_portrait.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_portrait",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_portrait/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_portrait/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_portrait/selected",
+        "ContactSheet": "UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_portrait/contact_sheet"
+      },
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_soul_midge_swarm.json"
+      ],
+      "Commands": {
+        "RunGeneration": ".\\tools\\美术工具\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml -Provider novelai -Status prompted -VisualID monster_mob_soul_midge_swarm_portrait -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_missing_20260608_01",
+        "Optimize": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status generated -VisualID monster_mob_soul_midge_swarm_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -Overwrite",
+        "SyncApproved": ".\\tools\\美术工具\\Sync-ApprovedArt.ps1 -Status generated -VisualID monster_mob_soul_midge_swarm_portrait -BatchID nai_v2a_runtime_missing_20260608_01 -AllowProcessedFallback -Overwrite"
+      }
+    }
+  ]
 }

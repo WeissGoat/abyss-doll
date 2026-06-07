@@ -4,115 +4,48 @@
 
 ## Summary
 
-* GeneratedAt: `2026-05-27T23:11:55+08:00`
-* Active Formal V1 screens: `21`
-* Latest ArtAcceptance: `20260527_002436` / `PASSED` / `2026-05-27T00:24:58.3493484+08:00`
-* Captured in latest: `21`
+* GeneratedAt: `2026-06-08T00:39:05+08:00`
+* Active Formal V1 screens: `16`
+* Latest ArtAcceptance: `20260606_230523` / `FAILED` / `2026-06-06T23:05:41.4448072+08:00`
+* Captured in latest: `16`
 * Capture coverage needed: `0`
 * Program register visuals: `0`
 * Program add capture action: `0`
-* Program rerun action: `0`
-* Art review action: `21`
+* Program rerun action: `16`
+* Art review action: `16`
 * Rerun needed: `0`
-* Review previous screenshot: `0`
-* Art review ready: `21`
+* Review previous screenshot: `16`
+* Art review ready: `0`
+
+> Latest ArtAcceptance is older than active UI spec. Existing screenshots can be used for rough review, but current Formal V1 validation requires a rerun.
 
 ## Queue
 
 | Priority | Screen | Bucket | Screenshot | Required actions | Registry gaps | Local V0 | Checklist items |
 |---|---|---|---|---|---|---|---:|
-| P0 | `combat_hud` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/combat_hud.png) | art_review_screenshot | - | 10 | 17 |
-| P0 | `inventory_loot` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/inventory_loot.png) | art_review_screenshot | - | 0 | 13 |
-| P0 | `workshop_main` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/workshop_main.png) | art_review_screenshot | - | 1 | 13 |
-| P1 | `daily_bill_report` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/daily_bill_report.png) | art_review_screenshot | - | 7 | 12 |
-| P1 | `dungeon_map` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/dungeon_map.png) | art_review_screenshot | - | 3 | 12 |
-| P1 | `layer_select` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/layer_select.png) | art_review_screenshot | - | 6 | 11 |
-| P1 | `maintenance_panel` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/maintenance_panel.png) | art_review_screenshot | - | 6 | 12 |
-| P1 | `prosthetic_panel` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/prosthetic_panel.png) | art_review_screenshot | - | 5 | 10 |
-| P1 | `safe_room` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/safe_room.png) | art_review_screenshot | - | 2 | 12 |
-| P1 | `sell_panel` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/sell_panel.png) | art_review_screenshot | - | 4 | 10 |
-| P1 | `settlement` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/settlement.png) | art_review_screenshot | - | 11 | 13 |
-| P1 | `stairs_room` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/stairs_room.png) | art_review_screenshot | - | 2 | 12 |
-| P2 | `business_settlement` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/business_settlement.png) | art_review_screenshot | - | 6 | 11 |
-| P2 | `chassis_upgrade_panel` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/chassis_upgrade_panel.png) | art_review_screenshot | - | 7 | 11 |
-| P2 | `doll_interaction` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_interaction.png) | art_review_screenshot | - | 8 | 10 |
-| P2 | `doll_room` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_room.png) | art_review_screenshot | - | 6 | 11 |
-| P2 | `faction_shop` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/faction_shop.png) | art_review_screenshot | - | 8 | 10 |
-| P2 | `order_board` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/order_board.png) | art_review_screenshot | - | 7 | 11 |
-| P2 | `rumor_board` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/rumor_board.png) | art_review_screenshot | - | 7 | 11 |
-| P2 | `scenario_event` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/scenario_event.png) | art_review_screenshot | - | 7 | 9 |
-| P2 | `shop_staging` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/shop_staging.png) | art_review_screenshot | - | 7 | 11 |
+| P1 | `daily_bill_report` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/daily_bill_report.png) | program_rerun_art_acceptance, art_review_screenshot | - | 7 | 12 |
+| P1 | `layer_select` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/layer_select.png) | program_rerun_art_acceptance, art_review_screenshot | - | 6 | 11 |
+| P1 | `maintenance_panel` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/maintenance_panel.png) | program_rerun_art_acceptance, art_review_screenshot | - | 6 | 12 |
+| P1 | `prosthetic_panel` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/prosthetic_panel.png) | program_rerun_art_acceptance, art_review_screenshot | - | 5 | 10 |
+| P1 | `safe_room` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/safe_room.png) | program_rerun_art_acceptance, art_review_screenshot | - | 2 | 12 |
+| P1 | `sell_panel` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/sell_panel.png) | program_rerun_art_acceptance, art_review_screenshot | - | 4 | 10 |
+| P1 | `stairs_room` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/stairs_room.png) | program_rerun_art_acceptance, art_review_screenshot | - | 2 | 12 |
+| P2 | `business_settlement` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/business_settlement.png) | program_rerun_art_acceptance, art_review_screenshot | - | 6 | 11 |
+| P2 | `chassis_upgrade_panel` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/chassis_upgrade_panel.png) | program_rerun_art_acceptance, art_review_screenshot | - | 7 | 11 |
+| P2 | `doll_interaction` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_interaction.png) | program_rerun_art_acceptance, art_review_screenshot | - | 8 | 10 |
+| P2 | `doll_room` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_room.png) | program_rerun_art_acceptance, art_review_screenshot | - | 6 | 11 |
+| P2 | `faction_shop` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/faction_shop.png) | program_rerun_art_acceptance, art_review_screenshot | - | 8 | 10 |
+| P2 | `order_board` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/order_board.png) | program_rerun_art_acceptance, art_review_screenshot | - | 7 | 11 |
+| P2 | `rumor_board` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/rumor_board.png) | program_rerun_art_acceptance, art_review_screenshot | - | 7 | 11 |
+| P2 | `scenario_event` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/scenario_event.png) | program_rerun_art_acceptance, art_review_screenshot | - | 7 | 9 |
+| P2 | `shop_staging` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/shop_staging.png) | program_rerun_art_acceptance, art_review_screenshot | - | 7 | 11 |
 
 ## Per-Screen Checklist
 
-### `combat_hud`
-
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
-* Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/combat_hud.png`
-
-- [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
-- [ ] RequiredVisualIDs 在运行时不出现 missing sprite 或空 sprite。
-- [ ] 背景、面板、装饰和非交互图标不阻挡按钮、背包格或拖拽射线。
-- [ ] 所有数值、物品名、按钮文案、日期和说明由 Unity Text/TMP 渲染，不烘焙进图片。
-- [ ] 主操作、次级操作、警告和禁用态可读，长文本不溢出容器。
-- [ ] 背包格保持 100x100，GridContainer 与 InventoryItemLayer 同锚点、同缩放。
-- [ ] 背景使用 cover 适配，不因透明 alpha 或比例裁切产生黑块。
-- [ ] 1920x1080 下玩家实体在左侧、敌方实体在右侧，敌人不再以大卡片作为主要表现。
-- [ ] 战斗背包位于底部居中，100x100 背包格和 5 间距保持不变，拖拽/点击不受 UI 皮肤影响。
-- [ ] 敌人 HP/Shield 条贴近敌人脚下，选中目标时脚下 target ring 或等效高亮可见。
-- [ ] 中央 vfx_space 没有固定面板遮挡，可用于攻击轨迹、投射物、伤害数字和状态反馈。
-- [ ] MonsterEntity.CombatVisualID 缺图时可以临时 fallback 到 PortraitID，但正式验收以透明背景战斗实体素材为准。
-- [ ] 背景、阴影、目标光环、状态条和 VFX 层不拦截敌人热区、背包格或按钮射线。
-- [ ] 敌人意图图标位于敌人实体上方或近侧，运行时数字/倒计时由 Text 叠加，图标本身不含文字、字母或数字。
-- [ ] 敌人状态图标与意图图标不遮挡 EnemyClickHotspot_Button，点击敌人主体和脚下光环仍能选中目标。
-- [ ] 封格和塞包预告标记严格对齐 100x100 背包格，不改变 GridContainer 尺寸、格间距或物品拖拽层级。
-- [ ] 命中和破盾反馈只在 VfxLayer 短暂出现，不作为常驻面板，不阻挡敌人、背包或按钮射线。
-
-### `inventory_loot`
-
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
-* Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/inventory_loot.png`
-
-- [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
-- [ ] RequiredVisualIDs 在运行时不出现 missing sprite 或空 sprite。
-- [ ] 背景、面板、装饰和非交互图标不阻挡按钮、背包格或拖拽射线。
-- [ ] 所有数值、物品名、按钮文案、日期和说明由 Unity Text/TMP 渲染，不烘焙进图片。
-- [ ] 主操作、次级操作、警告和禁用态可读，长文本不溢出容器。
-- [ ] 背包格保持 100x100，GridContainer 与 InventoryItemLayer 同锚点、同缩放。
-- [ ] 背景使用 cover 适配，不因透明 alpha 或比例裁切产生黑块。
-- [ ] 左侧 inventory_grid、右侧 loot_cache、右下 confirm_area 结构清晰，三者互不重叠。
-- [ ] 战利品图标可以从 loot_cache 拖入 inventory_grid，合法/非法格状态能正确变化。
-- [ ] PickupPanel、LootDropZone、ItemDetailPanel、UnclaimedWarningPanel 不阻挡格子、物品和按钮射线。
-- [ ] 背包格实际显示尺寸为 100x100，和 DraggableItemUI 的占格尺寸一致。
-- [ ] 确认按钮继续沿用现有 continueBtn 逻辑，未拾取物品的清理规则不被 UI 皮肤改变。
-- [ ] 容量摘要、物品名称、价值、占格说明、未拾取警告和结算摘要全部由 Unity Text 渲染。
-
-### `workshop_main`
-
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
-* Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/workshop_main.png`
-
-- [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
-- [ ] RequiredVisualIDs 在运行时不出现 missing sprite 或空 sprite。
-- [ ] 背景、面板、装饰和非交互图标不阻挡按钮、背包格或拖拽射线。
-- [ ] 所有数值、物品名、按钮文案、日期和说明由 Unity Text/TMP 渲染，不烘焙进图片。
-- [ ] 主操作、次级操作、警告和禁用态可读，长文本不溢出容器。
-- [ ] 背包格保持 100x100，GridContainer 与 InventoryItemLayer 同锚点、同缩放。
-- [ ] 背景使用 cover 适配，不因透明 alpha 或比例裁切产生黑块。
-- [ ] 1920x1080 下 status_cluster、expedition_panel、service_panel、doll_bay、backpack_workbench 互不重叠。
-- [ ] 出发深渊是最明显主行动，出售和义体制造是次级服务入口。
-- [ ] 背包格实际显示尺寸为 100x100，格间距为 5，拖拽占格与后端 shape 一致。
-- [ ] 背景、立绘、装饰面板不拦截按钮、格子或物品拖拽射线。
-- [ ] 所有按钮文案、金币、天数、底盘容量、维修和压力信息均由 Unity Text 渲染。
-- [ ] 工坊界面不复制背包数据；GridContainer 和 InventoryItemLayer 仍指向同一套全局背包表现。
-
 ### `daily_bill_report`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/daily_bill_report.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -128,29 +61,10 @@
 - [ ] 继续下一天是主行动，返回工坊/出售是次行动，延后付款是危险行动。
 - [ ] 日期、价格、收入、支出、物品名和风险原因全部由 Unity Text 渲染，图片中不包含文字或数字。
 
-### `dungeon_map`
-
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
-* Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/dungeon_map.png`
-
-- [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
-- [ ] RequiredVisualIDs 在运行时不出现 missing sprite 或空 sprite。
-- [ ] 背景、面板、装饰和非交互图标不阻挡按钮、背包格或拖拽射线。
-- [ ] 所有数值、物品名、按钮文案、日期和说明由 Unity Text/TMP 渲染，不烘焙进图片。
-- [ ] 主操作、次级操作、警告和禁用态可读，长文本不溢出容器。
-- [ ] 背景使用 cover 适配，不因透明 alpha 或比例裁切产生黑块。
-- [ ] 1920x1080 下 layer_header、route_canvas、selected_node_detail、inventory_controls 互不重叠。
-- [ ] 地图截图中可以看出路线、节点、当前层和当前节点或选中节点。
-- [ ] 可进入、锁定、不可达状态至少有一种可见区分，锁定图标不阻挡点击。
-- [ ] 节点按钮仍可点击，路线和背景不拦截点击。
-- [ ] 打开/关闭背包按钮状态切换正确，关闭背包仍执行格外物品丢弃规则。
-- [ ] 路线连接线使用 ui_dungeon_route_line，节点底板使用 ui_dungeon_node_plate，背景使用 bg_dungeon_map。
-
 ### `layer_select`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/layer_select.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -167,8 +81,8 @@
 
 ### `maintenance_panel`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/maintenance_panel.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -186,8 +100,8 @@
 
 ### `prosthetic_panel`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/prosthetic_panel.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -203,8 +117,8 @@
 
 ### `safe_room`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/safe_room.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -222,8 +136,8 @@
 
 ### `sell_panel`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/sell_panel.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -237,30 +151,10 @@
 - [ ] 物品图标按 item_*_icon contain 显示，不拉伸变形。
 - [ ] 关闭按钮返回工坊主界面，义体面板保持关闭。
 
-### `settlement`
-
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
-* Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/settlement.png`
-
-- [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
-- [ ] RequiredVisualIDs 在运行时不出现 missing sprite 或空 sprite。
-- [ ] 背景、面板、装饰和非交互图标不阻挡按钮、背包格或拖拽射线。
-- [ ] 所有数值、物品名、按钮文案、日期和说明由 Unity Text/TMP 渲染，不烘焙进图片。
-- [ ] 主操作、次级操作、警告和禁用态可读，长文本不溢出容器。
-- [ ] 胜利结算使用 bg_settlement_victory 和 ui_settlement_victory_panel。
-- [ ] 战败结算使用 bg_settlement_defeat 和 ui_settlement_defeat_panel。
-- [ ] 结果徽记按 CombatOutcomeReport.OutcomeType / DefeatReason 切换，至少覆盖胜利、HP 战败、SAN 崩溃、HP+SAN 复合战败和队伍溃败。
-- [ ] 结果标题、收益/损失摘要、带出/遗失明细和返回工坊按钮可读。
-- [ ] HP 战败和 SAN 崩溃在标题或摘要第一屏可区分，不只显示通用“失败”。
-- [ ] 标题、摘要、列表文字在 1920x1080 下不溢出主面板。
-- [ ] Continue_Button 可点击，背景和面板不拦截按钮射线。
-- [ ] 背景对比不压过主面板文字，结算结果一眼可读。
-
 ### `stairs_room`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/stairs_room.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -278,8 +172,8 @@
 
 ### `business_settlement`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/business_settlement.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -296,8 +190,8 @@
 
 ### `chassis_upgrade_panel`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/chassis_upgrade_panel.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -314,8 +208,8 @@
 
 ### `doll_interaction`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_interaction.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -331,8 +225,8 @@
 
 ### `doll_room`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_room.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -349,8 +243,8 @@
 
 ### `faction_shop`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/faction_shop.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -366,8 +260,8 @@
 
 ### `order_board`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/order_board.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -384,8 +278,8 @@
 
 ### `rumor_board`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/rumor_board.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -402,8 +296,8 @@
 
 ### `scenario_event`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/scenario_event.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -418,8 +312,8 @@
 
 ### `shop_staging`
 
-* Bucket: `art_review_ready`
-* Required actions: `art_review_screenshot`
+* Bucket: `review_previous_screenshot`
+* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/shop_staging.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。

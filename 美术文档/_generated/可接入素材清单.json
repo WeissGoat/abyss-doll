@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-05-26T22:59:44+08:00",
-  "SnapshotTag": "approved_sync_candidate_nai_visual_v2_p1_feedback_20260526_01",
+  "GeneratedAt": "2026-06-08T00:38:37+08:00",
+  "SnapshotTag": "",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",
@@ -8,20 +8,21 @@
     "IncomingRoot": "UnityClient/Assets/Art/_IncomingAI"
   },
   "Summary": {
-    "TotalManifestEntries": 193,
-    "TotalVisualIDs": 192,
-    "TotalCandidates": 191,
+    "TotalManifestEntries": 226,
+    "TotalVisualIDs": 221,
+    "TotalCandidates": 220,
     "ActionCounts": {
-      "acceptance_needed": 191
+      "acceptance_needed": 191,
+      "generate_needed": 29
     },
     "DomainCounts": {
       "background": 11,
       "chassis": 5,
       "doll": 1,
       "faction": 5,
-      "item": 12,
+      "item": 23,
       "memento": 8,
-      "monster": 8,
+      "monster": 26,
       "node": 8,
       "order": 29,
       "prosthetic": 8,
@@ -29,7 +30,7 @@
       "ui": 88
     },
     "PriorityCounts": {
-      "P0": 29,
+      "P0": 58,
       "P1": 62,
       "P2": 100
     }
@@ -116,7 +117,7 @@
       "Domain": "item",
       "AssetType": "icon",
       "ConfigID": "gear_charge_pistol",
-      "DisplayName": "充能手枪",
+      "DisplayName": "充能手铳",
       "Status": "approved",
       "RegistryStatus": "unregistered",
       "RegistryHasSprite": true,
@@ -134,13 +135,13 @@
     {
       "VisualID": "item_gear_iron_armor_icon",
       "Action": "acceptance_needed",
-      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 已合并 2 个 Manifest 来源。",
       "Confidence": "medium",
       "Priority": "P0",
       "Domain": "item",
       "AssetType": "icon",
-      "ConfigID": "gear_iron_armor",
-      "DisplayName": "铁片装甲",
+      "ConfigID": "gear_cracked_iron_armor, gear_iron_armor",
+      "DisplayName": "裂铁胸甲 / 铁片装甲",
       "Status": "approved",
       "RegistryStatus": "unregistered",
       "RegistryHasSprite": true,
@@ -151,9 +152,10 @@
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_gear_iron_armor_icon/processed/20260508_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_gear_iron_armor_icon/raw/20260508_001.png",
       "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_cracked_iron_armor.json",
         "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_iron_armor.json"
       ],
-      "ManifestEntryCount": 1
+      "ManifestEntryCount": 2
     },
     {
       "VisualID": "item_gear_rusty_dagger_icon",
@@ -206,13 +208,13 @@
     {
       "VisualID": "item_gear_wooden_shield_icon",
       "Action": "acceptance_needed",
-      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 已合并 2 个 Manifest 来源。",
       "Confidence": "medium",
       "Priority": "P0",
       "Domain": "item",
       "AssetType": "icon",
-      "ConfigID": "gear_wooden_shield",
-      "DisplayName": "木制小盾",
+      "ConfigID": "gear_plank_shield_l1, gear_wooden_shield",
+      "DisplayName": "拼板护盾 / 木制小盾",
       "Status": "approved",
       "RegistryStatus": "unregistered",
       "RegistryHasSprite": true,
@@ -223,9 +225,10 @@
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_gear_wooden_shield_icon/processed/20260510_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_gear_wooden_shield_icon/raw/20260510_001.png",
       "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_plank_shield_l1.json",
         "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_wooden_shield.json"
       ],
-      "ManifestEntryCount": 1
+      "ManifestEntryCount": 2
     },
     {
       "VisualID": "item_loot_gear_scrap_icon",
@@ -254,13 +257,13 @@
     {
       "VisualID": "item_loot_rusty_coil_icon",
       "Action": "acceptance_needed",
-      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 已合并 2 个 Manifest 来源。",
       "Confidence": "medium",
       "Priority": "P0",
       "Domain": "item",
       "AssetType": "icon",
-      "ConfigID": "loot_rusty_coil",
-      "DisplayName": "生锈线圈",
+      "ConfigID": "loot_rusty_coil, trade_miner_lamp",
+      "DisplayName": "生锈线圈 / 矿工提灯",
       "Status": "approved",
       "RegistryStatus": "unregistered",
       "RegistryHasSprite": true,
@@ -271,20 +274,21 @@
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/processed/20260510_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/raw/20260510_001.png",
       "ReferencedBy": [
-        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_rusty_coil.json"
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_rusty_coil.json",
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_miner_lamp.json"
       ],
-      "ManifestEntryCount": 1
+      "ManifestEntryCount": 2
     },
     {
       "VisualID": "item_loot_toxic_filter_icon",
       "Action": "acceptance_needed",
-      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 已合并 2 个 Manifest 来源。",
       "Confidence": "medium",
       "Priority": "P0",
       "Domain": "item",
       "AssetType": "icon",
-      "ConfigID": "loot_toxic_filter",
-      "DisplayName": "污染滤芯",
+      "ConfigID": "loot_toxic_filter, trade_cracked_relic",
+      "DisplayName": "污染滤芯 / 裂纹圣牌",
       "Status": "approved",
       "RegistryStatus": "unregistered",
       "RegistryHasSprite": true,
@@ -295,9 +299,10 @@
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/processed/20260510_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/raw/20260510_001.png",
       "ReferencedBy": [
-        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_toxic_filter.json"
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_toxic_filter.json",
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_cracked_relic.json"
       ],
-      "ManifestEntryCount": 1
+      "ManifestEntryCount": 2
     },
     {
       "VisualID": "item_mat_core_tier1_icon",
@@ -381,7 +386,7 @@
       "Domain": "monster",
       "AssetType": "combat_sprite",
       "ConfigID": "elite_scrap_guard",
-      "DisplayName": "废铁守卫 (守门人)战斗实体",
+      "DisplayName": "废铁守卫战斗实体",
       "Status": "approved",
       "RegistryStatus": "unregistered",
       "RegistryHasSprite": true,
@@ -405,7 +410,7 @@
       "Domain": "monster",
       "AssetType": "portrait",
       "ConfigID": "elite_scrap_guard",
-      "DisplayName": "废铁守卫 (守门人)",
+      "DisplayName": "废铁守卫",
       "Status": "approved",
       "RegistryStatus": "unregistered",
       "RegistryHasSprite": true,
@@ -767,7 +772,7 @@
       "Domain": "background",
       "AssetType": "background",
       "ConfigID": "layer_1",
-      "DisplayName": "浅层区域",
+      "DisplayName": "浅渊回廊",
       "Status": "approved",
       "RegistryStatus": "unregistered",
       "RegistryHasSprite": true,
@@ -791,7 +796,7 @@
       "Domain": "background",
       "AssetType": "background",
       "ConfigID": "layer_2",
-      "DisplayName": "污染矿带",
+      "DisplayName": "腐蚀甬道",
       "Status": "approved",
       "RegistryStatus": "unregistered",
       "RegistryHasSprite": true,
@@ -936,8 +941,7 @@
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/chassis_chassis_lv1_basic_frame/raw/20260510_001.png",
       "ReferencedBy": [
         "config:UnityClient/Assets/StreamingAssets/Configs/Chassis/chassis_lv1_basic.json",
-        "screen:chassis_upgrade_panel",
-        "screen:workshop_main"
+        "screen:chassis_upgrade_panel"
       ],
       "ManifestEntryCount": 1
     },
@@ -1070,6 +1074,7 @@
         "screen:daily_bill_report",
         "screen:doll_interaction",
         "screen:doll_room",
+        "screen:dungeon_map",
         "screen:faction_shop",
         "screen:inventory_loot",
         "screen:layer_select",
@@ -1125,6 +1130,7 @@
         "screen:safe_room",
         "screen:scenario_event",
         "screen:sell_panel",
+        "screen:settlement",
         "screen:shop_staging",
         "screen:stairs_room",
         "screen:workshop_main"
@@ -1991,8 +1997,7 @@
         "screen:combat_hud",
         "screen:inventory_loot",
         "screen:safe_room",
-        "screen:stairs_room",
-        "screen:workshop_main"
+        "screen:stairs_room"
       ],
       "ManifestEntryCount": 1
     },
@@ -2020,8 +2025,7 @@
         "screen:combat_hud",
         "screen:inventory_loot",
         "screen:safe_room",
-        "screen:stairs_room",
-        "screen:workshop_main"
+        "screen:stairs_room"
       ],
       "ManifestEntryCount": 1
     },
@@ -2049,8 +2053,7 @@
         "screen:combat_hud",
         "screen:inventory_loot",
         "screen:safe_room",
-        "screen:stairs_room",
-        "screen:workshop_main"
+        "screen:stairs_room"
       ],
       "ManifestEntryCount": 1
     },
@@ -2078,8 +2081,7 @@
         "screen:combat_hud",
         "screen:inventory_loot",
         "screen:safe_room",
-        "screen:stairs_room",
-        "screen:workshop_main"
+        "screen:stairs_room"
       ],
       "ManifestEntryCount": 1
     },
@@ -2107,8 +2109,7 @@
         "screen:combat_hud",
         "screen:inventory_loot",
         "screen:safe_room",
-        "screen:stairs_room",
-        "screen:workshop_main"
+        "screen:stairs_room"
       ],
       "ManifestEntryCount": 1
     },
@@ -2136,8 +2137,7 @@
         "screen:combat_hud",
         "screen:inventory_loot",
         "screen:safe_room",
-        "screen:stairs_room",
-        "screen:workshop_main"
+        "screen:stairs_room"
       ],
       "ManifestEntryCount": 1
     },
@@ -2226,6 +2226,7 @@
         "screen:rumor_board",
         "screen:safe_room",
         "screen:scenario_event",
+        "screen:settlement",
         "screen:shop_staging",
         "screen:stairs_room",
         "screen:workshop_main"
@@ -2267,8 +2268,7 @@
         "screen:scenario_event",
         "screen:sell_panel",
         "screen:shop_staging",
-        "screen:stairs_room",
-        "screen:workshop_main"
+        "screen:stairs_room"
       ],
       "ManifestEntryCount": 1
     },
@@ -4900,6 +4900,702 @@
         "screen:sell_panel",
         "screen:settlement",
         "screen:shop_staging"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "item_con_solvent_spray_icon",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "ConfigID": "con_solvent_spray",
+      "DisplayName": "溶剂喷雾",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_solvent_spray_icon.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/con_solvent_spray.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "item_con_stabilizer_ampoule_icon",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "ConfigID": "con_stabilizer_ampoule",
+      "DisplayName": "稳定安瓿",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_stabilizer_ampoule_icon.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/con_stabilizer_ampoule.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "item_gear_chain_hook_icon",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "ConfigID": "gear_chain_hook",
+      "DisplayName": "链钩短枪",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_chain_hook_icon.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_chain_hook.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "item_gear_corroded_bulwark_icon",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "ConfigID": "gear_corroded_bulwark",
+      "DisplayName": "腐蚀壁盾",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_corroded_bulwark_icon.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_corroded_bulwark.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "item_loot_acid_gland_icon",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "ConfigID": "loot_acid_gland",
+      "DisplayName": "酸腺囊",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_acid_gland_icon.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_acid_gland.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "item_loot_crystal_scale_icon",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "ConfigID": "loot_crystal_scale",
+      "DisplayName": "晶化鳞片",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_crystal_scale_icon.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_crystal_scale.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "item_loot_warped_plate_icon",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "ConfigID": "loot_warped_plate",
+      "DisplayName": "扭曲装甲片",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_warped_plate_icon.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_warped_plate.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "item_mat_core_tier2_fragment_icon",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "ConfigID": "mat_core_tier2_fragment",
+      "DisplayName": "二阶机核碎片",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier2_fragment_icon.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/mat_core_tier2_fragment.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "item_order_live_spore_cage_icon",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "ConfigID": "order_live_spore_cage",
+      "DisplayName": "活孢子笼",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_live_spore_cage_icon.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/order_live_spore_cage.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "item_trade_luminous_fungus_icon",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "ConfigID": "trade_luminous_fungus",
+      "DisplayName": "夜光菌簇",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_luminous_fungus_icon.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_luminous_fungus.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "item_trade_sealed_relic_box_icon",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "ConfigID": "trade_sealed_relic_box",
+      "DisplayName": "封存遗物匣",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_sealed_relic_box_icon.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_sealed_relic_box.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_boss_gatekeeper_mk1_combat",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "ConfigID": "boss_gatekeeper_mk1",
+      "DisplayName": "一层守门机 MK1战斗实体",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_gatekeeper_mk1_combat.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_gatekeeper_mk1.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_boss_gatekeeper_mk1_portrait",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "ConfigID": "boss_gatekeeper_mk1",
+      "DisplayName": "一层守门机 MK1",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_gatekeeper_mk1_portrait.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_gatekeeper_mk1.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_boss_spore_foundry_combat",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "ConfigID": "boss_spore_foundry",
+      "DisplayName": "孢殖熔炉战斗实体",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_spore_foundry_combat.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_spore_foundry.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_boss_spore_foundry_portrait",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "ConfigID": "boss_spore_foundry",
+      "DisplayName": "孢殖熔炉",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_spore_foundry_portrait.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_spore_foundry.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_elite_crystal_bulwark_combat",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "ConfigID": "elite_crystal_bulwark",
+      "DisplayName": "晶壁守卫战斗实体",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_crystal_bulwark_combat.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_crystal_bulwark.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_elite_crystal_bulwark_portrait",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "ConfigID": "elite_crystal_bulwark",
+      "DisplayName": "晶壁守卫",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_crystal_bulwark_portrait.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_crystal_bulwark.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_mob_acid_slime_mature_combat",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "ConfigID": "mob_acid_slime_mature",
+      "DisplayName": "成熟酸液软体战斗实体",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_acid_slime_mature_combat.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_acid_slime_mature.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_mob_acid_slime_mature_portrait",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "ConfigID": "mob_acid_slime_mature",
+      "DisplayName": "成熟酸液软体",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_acid_slime_mature_portrait.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_acid_slime_mature.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_mob_crystal_guard_combat",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "ConfigID": "mob_crystal_guard",
+      "DisplayName": "结晶守卫战斗实体",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_crystal_guard_combat.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_crystal_guard.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_mob_crystal_guard_portrait",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "ConfigID": "mob_crystal_guard",
+      "DisplayName": "结晶守卫",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_crystal_guard_portrait.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_crystal_guard.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_mob_lost_miner_echo_combat",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "ConfigID": "mob_lost_miner_echo",
+      "DisplayName": "迷失矿工回声战斗实体",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_lost_miner_echo_combat.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_lost_miner_echo.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_mob_lost_miner_echo_portrait",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "ConfigID": "mob_lost_miner_echo",
+      "DisplayName": "迷失矿工回声",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_lost_miner_echo_portrait.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_lost_miner_echo.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_mob_rust_cultivator_combat",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "ConfigID": "mob_rust_cultivator",
+      "DisplayName": "锈蚀培植者战斗实体",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_cultivator_combat.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_cultivator.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_mob_rust_cultivator_portrait",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "ConfigID": "mob_rust_cultivator",
+      "DisplayName": "锈蚀培植者",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_cultivator_portrait.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_cultivator.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_mob_rust_hound_combat",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "ConfigID": "mob_rust_hound",
+      "DisplayName": "锈蚀猎犬战斗实体",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_hound_combat.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_hound.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_mob_rust_hound_portrait",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "ConfigID": "mob_rust_hound",
+      "DisplayName": "锈蚀猎犬",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_hound_portrait.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_hound.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_mob_soul_midge_swarm_combat",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "ConfigID": "mob_soul_midge_swarm",
+      "DisplayName": "窃魂虫群战斗实体",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_soul_midge_swarm_combat.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_soul_midge_swarm.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "monster_mob_soul_midge_swarm_portrait",
+      "Action": "generate_needed",
+      "Reason": "Manifest 有需求但尚未形成可接入 Approved 素材。",
+      "Confidence": "low",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "ConfigID": "mob_soul_midge_swarm",
+      "DisplayName": "窃魂虫群",
+      "Status": "todo",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_soul_midge_swarm_portrait.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "",
+      "RawCandidate": "",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_soul_midge_swarm.json"
       ],
       "ManifestEntryCount": 1
     }

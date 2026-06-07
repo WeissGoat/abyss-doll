@@ -75,7 +75,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 ## 最后更新
 
-2026-06-07
+2026-06-08
 
 ## 当前阶段
 
@@ -204,9 +204,10 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 策划侧已新增 `设计文档/config/gates/54_经济压力正式配置README字段口径检查.md`，完成 `ECON-README-CHECK` 策划证据：`Economy` / `Factions` / `Rumors` / `Orders` 四个 README 已能承接后续 JSON 实现字段口径，旧样例迁移 warning 已记录；该文档不修改 JSON，也不代表经济压力配置完成。
 - 策划侧已新增 `设计文档/config/gates/55_经济压力订单ID最终锁定表.md`，锁定经济压力首批 5 个正式 OrderPoolID 和 19 个正式 OrderID；旧 `order_pool_*` 只作为草案迁移别名，`order_mechanic_scrap_drive` 不进入正式订单池。该文档不修改 JSON，也不代表订单配置完成。
 - 策划侧已新增 `设计文档/config/gates/56_正式配置源落地准入门禁.md`，统一前三层、局外成长和经济压力进入配置源 JSON 实现前的设计准入、实现证据和状态回写口径；该文档不修改 JSON，也不代表任何配置源已完成。
-- 美术侧已完成 local_v0 质量层级规范化、P0 新节点图标、P1 核心战斗意图图标和 P1 首批战斗反馈 / 标记 NovelAI 正式替换：`node_eventnode_icon`、`node_hazardnode_icon`、`node_reststopnode_icon`、`node_treasurenode_icon`、`ui_combat_intent_attack`、`ui_combat_intent_defend`、`ui_combat_intent_buff`、`ui_combat_intent_debuff`、`ui_combat_feedback_hit`、`ui_combat_feedback_shield_break`、`ui_combat_grid_lock_marker` 已同步为 `formal_ai_v2`；latest 程序交接清单为 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=0`，Visual V2 后续替换批次为 `nai_visual_v2_20260526_04`。
+- 美术侧已完成 local_v0 质量层级规范化、P0 新节点图标、P1 核心战斗意图图标和 P1 首批战斗反馈 / 标记 NovelAI 正式替换：`node_eventnode_icon`、`node_hazardnode_icon`、`node_reststopnode_icon`、`node_treasurenode_icon`、`ui_combat_intent_attack`、`ui_combat_intent_defend`、`ui_combat_intent_buff`、`ui_combat_intent_debuff`、`ui_combat_feedback_hit`、`ui_combat_feedback_shield_break`、`ui_combat_grid_lock_marker` 已同步为 `formal_ai_v2`；latest 程序交接清单为 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=0`，Visual V2 后续替换批次为 `nai_v2a_runtime_quality_20260608_01`。
 - 美术侧已完成 Formal V1 素材接入运行时验收：ArtAcceptance `20260527_002436` 工具层 `PASSED`、21/21 captured、Registry 191、MissingRequiredVisualIDs=0，latest 程序交接清单 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=0`；人工画面验收结论为资源接入通过、画面不完全通过，`combat_hud`、`dungeon_map`、`safe_room`、`stairs_room`、`sell_panel`、`prosthetic_panel` 需程序侧清理截图状态或补展示数据后复验。
 - 美术侧已启动 Formal V2 UX/UI 重构设计层：先不修改 active `screen_layouts.json`，而是在 `美术文档/ui_design/formal_v2/` 建立总方案和 V2-A 五个核心界面入口，优先解决 Formal V1 运行时仍像按钮菜单 / debug 面板的问题。
+- 美术侧已完成 Formal V2-A active 迁移：`workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement` 已在 `美术文档/ui_design/screen_layouts.json` 标记为 `StructureVersion=FormalV2`，`Validate-UIDesign.ps1` 通过；当前程序交接为 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=16`，缺图生成队列为 `generate_needed=29`。
 
 ## 跨职能交接
 
@@ -215,9 +216,9 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 程序侧需要修正 `CombatLootDropTest.Run` 的旧奖励断言：当前正式配置要求 `boss_gatekeeper_mk1` 保底 `mat_core_tier1`，`elite_scrap_guard` 只作为可绕精英；该测试仍断言精英奖励包含 `mat_core_tier1`。策划侧已用结构检查确认 Boss 保底和精英非保底成立，程序侧后续应把测试改为 Boss 保底口径。
 - 美术智能体刷新 Manifest 前应先同步配置，确保视觉需求跟随当前配置源。
 - 美术 / UI 的程序接入只以 `美术文档/ui_design/screen_layouts.json` 当前 active 规格为准；`versions/` baseline 和 candidate 不作为程序接入口。
-- Formal V1 / Formal V2 UI 文档由美术侧先提出，用户确认后再更新 active 规格、生成素材并交给程序接入；`formal_v2/*.md` 在确认前只是 UX/UI draft，程序侧不得直接按 draft 接入。
+- Formal V1 / Formal V2 UI 文档由美术侧先提出，用户确认后再更新 active 规格、生成素材并交给程序接入；`formal_v2/*.md` 在确认前只是 UX/UI draft，程序侧不得直接按 draft 接入。当前 V2-A 五屏已经完成 active 迁移，程序侧可按 active `screen_layouts.json` 接入；V2-B / V2-C 仍是 draft。
 - 美术侧每次生成或同步 Approved 素材后会刷新 `美术文档/_generated/可接入素材清单.md/json`；程序侧接入新素材前优先查看其中 `program_integrate` 条目。
-- 当前 latest `program_integrate=0`、`add_capture=0`、`rerun_acceptance=0`，程序侧无需重复登记旧素材或补截图点；Formal V1 21 个 active 界面已全部 captured。美术侧已完成逐屏验收：资源接入层通过，但 `combat_hud`、`dungeon_map`、`safe_room`、`stairs_room` 存在跨界面叠层污染，`sell_panel`、`prosthetic_panel` 缺少有效列表行展示，需程序侧返修后重跑 ArtAcceptance。local_v0 只用于结构接入和截图验收，不作为最终视觉质量。美术侧后续按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_visual_v2_20260526_04` 串行同名替换 121 项正式 AI 版。已接入素材做正式图替换时，必须保持同 `VisualID`、同 Approved 路径、同 Unity `.meta` / GUID；`Sync-ApprovedArt.ps1 -CandidateBatchID` 默认强校验该规则，满足时程序侧无需重新登记资源。
+- 当前 latest `program_integrate=0`、`add_capture=0`、`rerun_acceptance=16`。`program_integrate=0` 表示没有新增 Approved VisualID 需要程序登记；`rerun_acceptance=16` 是仍为 FormalV1 的非 V2-A 屏截图早于当前 active 规格日期，不代表 V2-A 五屏已完成运行时接入。V2-A 五屏需要程序侧按 active FormalV2 规格重排运行时 UI；`generate_needed=29` 是美术侧缺图队列，包含 11 个物品图标、9 个怪物战斗实体和 9 个怪物头像，当前缺图批次为 `nai_v2a_runtime_missing_20260608_01`。local_v0 只用于结构接入和截图验收，不作为最终视觉质量。美术侧后续按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_v2a_runtime_quality_20260608_01` 串行同名替换 121 项正式 AI 版。已接入素材做正式图替换时，必须保持同 `VisualID`、同 Approved 路径、同 Unity `.meta` / GUID；`Sync-ApprovedArt.ps1 -CandidateBatchID` 默认强校验该规则，满足时程序侧无需重新登记资源。
 - Formal V1 UI 的“资源登记完成”和“运行时截图覆盖完成”不等于“玩家可玩接入完成”。后续程序侧声明某界面可玩完成前，必须同时补齐玩家主流程可达入口，以及关键按钮 / 操作调用真实后端或领域服务的闭环证据；ArtAcceptance、debug 入口、验收专用 preview 对象或只读快照只能作为资源 / 截图接入证据。
 - `program_integrate` 17 个 Approved VisualID 曾完成 UI 程序接入记录；按当前正式版本完成口径，该记录只作为历史接入事实，不计为 P5 表现支撑正式版本完成。美术侧如继续推进，应基于 ArtAcceptance 截图验收后回写 `agent_status/art.md`，如影响长期节点门禁再通知 PM 更新 `09`。
 - 任意智能体修改系统规则时，必须更新对应 GDD 或开发文档，不能只改代码或配置。
@@ -240,7 +241,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 1. 增加配置校验工具，检查 `配置表(JSON)` 的 ID、必填字段和交叉引用。
 2. 为知识库索引增加可选的职能 / 领域 / 关联深度过滤入口，方便复制智能体按任务快速定位文档。
-3. 美术侧先推进 Formal V2 UX/UI 设计确认：V2-A 优先输出 `workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement` 的详细方案；程序侧在 active 更新前继续以 Formal V1 `screen_layouts.json` 为准。
+3. 程序侧可按 active `screen_layouts.json` 接入 V2-A 五屏 FormalV2 规格：`workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`；美术侧继续处理 `generate_needed=29` 缺图队列和 V2-B / V2-C 后续确认。
 4. 策划 / 配置侧继续推进 `26` 时，优先按 `agent_status/design.md` 和对应设计文档确认工作项状态；C1、C2 已配置完成，下一步从 C3 `L3-ITEMS` 开始。开工前只做 `56_正式配置源落地准入门禁.md` 准入复核；开始写 `配置表(JSON)/Items` 后，将 `26` 的 C3 和 `L3-ITEMS` 改为 `进行中`。完成 `L3-ITEMS` 时必须留下源 JSON、配置同步、静态 Validator / 固定样例证据和状态回写，再推进 `L3-REWARDS`。程序 Validator 实现、Unity 测试或 UI 表现必须分别回写程序 / 美术状态页。
 5. 程序侧按新的功能优先级推进：P0 自动验收底座和 P1 背包 / 物品生命周期只做验收补强或缺口修复；下一步正式开发应从 `agent_status/program.md` 中确认 P1 战斗 / 怪物意图、P2 深渊地图、P3 局外成长、P4 经济压力的真实缺口后拆任务。
 

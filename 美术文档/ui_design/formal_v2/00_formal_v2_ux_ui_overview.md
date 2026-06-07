@@ -94,6 +94,8 @@ Formal V2 不承诺一次完成所有最终美术品质，但必须让进入迁�
 5. 每个界面有明确的场景隐喻或功能容器。
 6. 运行时截图可以判断结构、主次行动、空间关系和文本密度。
 
+2026-06-08，用户已评审并认可 `concepts/review_index.md` 当前 Formal V2 概念方向；本方案进入 V2-A active 迁移阶段。迁移范围先限定在 `workshop_main` / `workshop_studio`、`combat_hud`、`inventory_loot`、`dungeon_map` 和 `settlement`，其余 V2-B / V2-C 界面仍保持 design draft，不作为本批次程序接入口。
+
 ---
 
 ## 3. 设计原则
@@ -427,9 +429,8 @@ Formal V2 的重点是先把玩家目标、信息层级和主行动设计清楚�
 
 ## 11. 当前下一步
 
-1. 用户先结合 `design_boards/workshop_main_formal_v2_design_board.png` 和 `design_boards/workshop_studio_formal_v2_design_board.png` 审工坊 Hub 与工作室拆分。
-2. 依次审 V2-A 核心流程：`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。
-3. 再审 V2-B 局外功能：先确认 `workshop_studio` 内维护 / 义体 / 底盘三种子面板的切换方式，再确认 `shop_staging -> business_settlement -> daily_bill_report` 的经营链路，最后按小镇商店语义重审 `sell_panel`。
-4. 最后审 V2-C：`layer_select`、`safe_room`、`stairs_room`、`order_board`、`rumor_board`、`faction_shop`、`doll_interaction`、`scenario_event`、`doll_room`。
-5. 界面结构确认后，逐界面迁移 active `screen_layouts.json`。
-6. active 迁移后再补 seed、Manifest、Prompt、Spec 和程序交接清单。
+1. 按 P3 mission `ART-V2-02` 迁移 V2-A active `screen_layouts.json`：`workshop_main` / `workshop_studio`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。
+2. 迁移后运行 `Validate-UIDesign.ps1`，确保 active 规格仍是程序可读合同。
+3. active 通过后再刷新 Manifest、Prompt、UI handoff 和程序接入交接清单。
+4. 根据新生成队列拆分可复用素材、新增素材、local_v0 质量替换项和程序接入项。
+5. V2-B / V2-C 暂不进入本批次 active 迁移；后续按 `workshop_studio` 子面板、经营链路、小镇商店和长期 / 叙事界面分批确认。

@@ -1,11 +1,11 @@
 {
-  "GeneratedAt": "2026-05-26T23:00:29+08:00",
-  "SnapshotTag": "p1_feedback_formal_ai_v2",
+  "GeneratedAt": "2026-06-08T00:41:07+08:00",
+  "SnapshotTag": "",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json"
   },
   "Summary": {
-    "TotalManifestEntries": 193,
+    "TotalManifestEntries": 226,
     "TotalBacklogItems": 121,
     "ActionCounts": {
       "visual_v2_replace": 121

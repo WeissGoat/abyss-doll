@@ -135,13 +135,13 @@
       "DeriveRule": "Dungeons/*.json LayerID/Name -> dungeon layer background",
       "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Dungeons/layer_1.json",
       "ConfigID": "layer_1",
-      "DisplayName": "浅层区域",
+      "DisplayName": "浅渊回廊",
       "AssetType": "background",
       "VisualID": "bg_dungeon_layer_1",
       "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_dungeon_layer_1.png",
       "Priority": "P1",
       "Status": "approved",
-      "SourceFactsCN": "配置表深渊层：浅层区域。层级 1，每节点 SAN 消耗 1，期望节点数 6。",
+      "SourceFactsCN": "配置表深渊层：浅渊回廊。层级 1，每节点 SAN 消耗 1，期望节点数 6。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。浅层区域背景，废弃地下工业通道、旧金属墙、破损电缆、微弱暖灯和薄雾，危险感较低。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, shallow underground industrial passage, old metal walls, broken cables, faint warm lamps, light cavern mist, low danger atmosphere, wide empty floor, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
@@ -190,13 +190,13 @@
       "DeriveRule": "Dungeons/*.json LayerID/Name -> dungeon layer background",
       "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Dungeons/layer_2.json",
       "ConfigID": "layer_2",
-      "DisplayName": "污染矿带",
+      "DisplayName": "腐蚀甬道",
       "AssetType": "background",
       "VisualID": "bg_dungeon_layer_2",
       "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_dungeon_layer_2.png",
       "Priority": "P1",
       "Status": "approved",
-      "SourceFactsCN": "配置表深渊层：污染矿带。层级 2，每节点 SAN 消耗 2，期望节点数 7。",
+      "SourceFactsCN": "配置表深渊层：腐蚀甬道。层级 2，每节点 SAN 消耗 2，期望节点数 7。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。污染矿带背景，腐蚀矿道、紫绿色毒液、破损采矿设备、酸雾和昏暗工作灯。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, polluted mining zone, corroded mine tunnel, purple-green toxic liquid, broken mining machines, acid haze, dim work lights, dangerous atmosphere, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
@@ -1424,7 +1424,7 @@
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_repair_kit_icon.png",
       "Priority": "P0",
       "Status": "approved",
-      "SourceFactsCN": "配置表物品：便携修复剂。类型 Consumable，稀有度 Common，占格 1，标签 Medical。",
+      "SourceFactsCN": "配置表物品：便携修复剂。类型 Consumable，稀有度 Common，占格 2，标签 Medical, Repair。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。便携修复剂图标，小型机械维修包，包含折叠工具、胶管、修补液罐和蓝白修复微光。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, compact mechanical repair kit, folded tools, small hose, repair fluid canister, subtle blue-white repair glow, compact readable silhouette, centered single object, clean readable silhouette, transparent background, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
@@ -1466,6 +1466,171 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_repair_kit_icon.png",
       "RegistryStatus": "unregistered",
       "Notes": "[2026-05-08T22:34:59+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_con_repair_kit_icon/contact_sheet/item_con_repair_kit_icon_contact_sheet.png\n[2026-05-08T22:41:52+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_con_repair_kit_icon/selected/item_con_repair_kit_icon.png"
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/con_solvent_spray.json",
+      "ConfigID": "con_solvent_spray",
+      "DisplayName": "溶剂喷雾",
+      "AssetType": "icon",
+      "VisualID": "item_con_solvent_spray_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_solvent_spray_icon.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表物品：溶剂喷雾。类型 Consumable，稀有度 Uncommon，占格 2，标签 Consumable, CounterTool, Solvent, Layer2。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/con_stabilizer_ampoule.json",
+      "ConfigID": "con_stabilizer_ampoule",
+      "DisplayName": "稳定安瓿",
+      "AssetType": "icon",
+      "VisualID": "item_con_stabilizer_ampoule_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_stabilizer_ampoule_icon.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表物品：稳定安瓿。类型 Consumable，稀有度 Uncommon，占格 1，标签 Consumable, SAN, CounterTool, Layer2。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/gear_chain_hook.json",
+      "ConfigID": "gear_chain_hook",
+      "DisplayName": "链钩短枪",
+      "AssetType": "icon",
+      "VisualID": "item_gear_chain_hook_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_chain_hook_icon.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表物品：链钩短枪。类型 Weapon，稀有度 Rare，占格 4，标签 Weapon, Mechanical, Layer2, Bulky。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
     },
     {
       "Domain": "item",
@@ -1528,13 +1693,13 @@
       "DeriveRule": "Items/*.json -> item icon",
       "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/gear_charge_pistol.json",
       "ConfigID": "gear_charge_pistol",
-      "DisplayName": "充能手枪",
+      "DisplayName": "充能手铳",
       "AssetType": "icon",
       "VisualID": "item_gear_charge_pistol_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_charge_pistol_icon.png",
       "Priority": "P0",
       "Status": "approved",
-      "SourceFactsCN": "配置表物品：充能手枪。类型 Weapon，稀有度 Rare，占格 2，标签 Ranged, Energy。",
+      "SourceFactsCN": "配置表物品：充能手铳。类型 Weapon，稀有度 Rare，占格 2，标签 Ranged, Energy, Weapon, Layer2。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。充能手枪图标，短枪身、外露线圈、电容管和蓝色发光动力核心，横向轮廓清楚。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, compact energy pistol, short barrel, exposed coil, capacitor tube, blue glowing power core, clear horizontal silhouette, centered single object, clean readable silhouette, transparent background, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
@@ -1576,6 +1741,116 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_charge_pistol_icon.png",
       "RegistryStatus": "unregistered",
       "Notes": "[2026-05-08T22:34:59+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_charge_pistol_icon/contact_sheet/item_gear_charge_pistol_icon_contact_sheet.png\n[2026-05-08T22:41:52+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_gear_charge_pistol_icon/selected/item_gear_charge_pistol_icon.png"
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/gear_corroded_bulwark.json",
+      "ConfigID": "gear_corroded_bulwark",
+      "DisplayName": "腐蚀壁盾",
+      "AssetType": "icon",
+      "VisualID": "item_gear_corroded_bulwark_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_corroded_bulwark_icon.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表物品：腐蚀壁盾。类型 Armor，稀有度 Epic，占格 6，标签 Armor, Heavy, Corroded, Layer2。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/gear_cracked_iron_armor.json",
+      "ConfigID": "gear_cracked_iron_armor",
+      "DisplayName": "裂铁胸甲",
+      "AssetType": "icon",
+      "VisualID": "item_gear_iron_armor_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_iron_armor_icon.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "配置表物品：裂铁胸甲。类型 Armor，稀有度 Uncommon，占格 6，标签 Defense, Heavy, Mechanical。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。铁片装甲图标，拼接胸甲、粗糙铁片、铆钉、皮带和焊痕，整体厚重。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, patched iron chest armor, rough metal plates, rivets, leather straps, welding marks, heavy square silhouette, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "nai_p0_item_20260508_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_iron_armor_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_iron_armor_icon/selected/item_gear_iron_armor_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_iron_armor_icon.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-08T22:34:59+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_iron_armor_icon/contact_sheet/item_gear_iron_armor_icon_contact_sheet.png\n[2026-05-08T22:41:52+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_gear_iron_armor_icon/selected/item_gear_iron_armor_icon.png"
     },
     {
       "Domain": "item",
@@ -1636,6 +1911,61 @@
       "Domain": "item",
       "SourceType": "config",
       "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/gear_plank_shield_l1.json",
+      "ConfigID": "gear_plank_shield_l1",
+      "DisplayName": "拼板护盾",
+      "AssetType": "icon",
+      "VisualID": "item_gear_wooden_shield_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_wooden_shield_icon.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "配置表物品：拼板护盾。类型 Armor，稀有度 Common，占格 4，标签 Defense, Fragile, Wooden。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。木制小盾图标，旧木板、金属包边、铆钉和破损绑带，表现临时拼装感。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, small makeshift wooden shield, old planks, metal rim, rivets, broken straps, fragile defensive silhouette, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "nai_p0_item_20260510_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_wooden_shield_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_wooden_shield_icon/selected/item_gear_wooden_shield_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_wooden_shield_icon.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_wooden_shield_icon/contact_sheet/item_gear_wooden_shield_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_gear_wooden_shield_icon/selected/item_gear_wooden_shield_icon.png"
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
       "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/gear_rusty_dagger.json",
       "ConfigID": "gear_rusty_dagger",
       "DisplayName": "生锈短剑",
@@ -1644,7 +1974,7 @@
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_rusty_dagger_icon.png",
       "Priority": "P0",
       "Status": "approved",
-      "SourceFactsCN": "配置表物品：生锈短剑。类型 Weapon，稀有度 Common，占格 2，标签 Melee。",
+      "SourceFactsCN": "配置表物品：生锈短剑。类型 Weapon，稀有度 Common，占格 2，标签 Melee, Starter。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。生锈短剑图标，缺口刀刃、缠布握柄、腐蚀边缘和低级旧武器气质。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, short rusty dagger, chipped blade, wrapped handle, corroded edge, worn low-tier weapon silhouette, centered single object, clean readable silhouette, transparent background, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
@@ -1754,7 +2084,7 @@
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_wooden_shield_icon.png",
       "Priority": "P0",
       "Status": "approved",
-      "SourceFactsCN": "配置表物品：木制小盾。类型 Armor，稀有度 Common，占格 2，标签 Defense, Fragile。",
+      "SourceFactsCN": "配置表物品：木制小盾。类型 Armor，稀有度 Common，占格 2，标签 Defense, Fragile, Starter。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。木制小盾图标，旧木板、金属包边、铆钉和破损绑带，表现临时拼装感。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, small makeshift wooden shield, old planks, metal rim, rivets, broken straps, fragile defensive silhouette, centered single object, clean readable silhouette, transparent background, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
@@ -1796,6 +2126,116 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_wooden_shield_icon.png",
       "RegistryStatus": "unregistered",
       "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_wooden_shield_icon/contact_sheet/item_gear_wooden_shield_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_gear_wooden_shield_icon/selected/item_gear_wooden_shield_icon.png"
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/loot_acid_gland.json",
+      "ConfigID": "loot_acid_gland",
+      "DisplayName": "酸腺囊",
+      "AssetType": "icon",
+      "VisualID": "item_loot_acid_gland_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_acid_gland_icon.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表物品：酸腺囊。类型 Loot，稀有度 Rare，占格 4，标签 Material, Toxic, Corroded, Layer2, OddShape。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/loot_crystal_scale.json",
+      "ConfigID": "loot_crystal_scale",
+      "DisplayName": "晶化鳞片",
+      "AssetType": "icon",
+      "VisualID": "item_loot_crystal_scale_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_crystal_scale_icon.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表物品：晶化鳞片。类型 Loot，稀有度 Uncommon，占格 2，标签 Material, Crystal, Layer2, Mechanical。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
     },
     {
       "Domain": "item",
@@ -1864,7 +2304,7 @@
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_rusty_coil_icon.png",
       "Priority": "P0",
       "Status": "approved",
-      "SourceFactsCN": "配置表物品：生锈线圈。类型 Loot，稀有度 Uncommon，占格 2，标签 Mechanical。",
+      "SourceFactsCN": "配置表物品：生锈线圈。类型 Loot，稀有度 Uncommon，占格 2，标签 Material, Mechanical。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。生锈线圈材料图标，铜线圈、铁芯、断线和锈蚀外壳。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, rusty copper coil with iron core, loose wire ends, corroded casing, vertical mechanical component silhouette, centered single object, clean readable silhouette, transparent background, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
@@ -1919,7 +2359,7 @@
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_toxic_filter_icon.png",
       "Priority": "P0",
       "Status": "approved",
-      "SourceFactsCN": "配置表物品：污染滤芯。类型 Loot，稀有度 Rare，占格 4，标签 Toxic, Mechanical。",
+      "SourceFactsCN": "配置表物品：污染滤芯。类型 Loot，稀有度 Rare，占格 3，标签 Material, Toxic, Mechanical。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。污染滤芯图标，工业滤芯破裂外壳、紫绿色污染残留和腐蚀金属。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, polluted industrial filter cartridge, cracked casing, purple-green toxic residue, corroded metal, square silhouette, centered single object, clean readable silhouette, transparent background, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
@@ -1966,6 +2406,61 @@
       "Domain": "item",
       "SourceType": "config",
       "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/loot_warped_plate.json",
+      "ConfigID": "loot_warped_plate",
+      "DisplayName": "扭曲装甲片",
+      "AssetType": "icon",
+      "VisualID": "item_loot_warped_plate_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_warped_plate_icon.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表物品：扭曲装甲片。类型 Loot，稀有度 Rare，占格 4，标签 Material, ArmorPlate, Layer2, Heavy。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
       "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/mat_core_tier1.json",
       "ConfigID": "mat_core_tier1",
       "DisplayName": "一阶动力核心",
@@ -1974,7 +2469,7 @@
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier1_icon.png",
       "Priority": "P0",
       "Status": "approved",
-      "SourceFactsCN": "配置表物品：一阶动力核心。类型 QuestItem，稀有度 Epic，占格 4，标签 CoreMaterial, Heavy。",
+      "SourceFactsCN": "配置表物品：一阶动力核心。类型 QuestItem，稀有度 Epic，占格 4，标签 Material, CoreMaterial, Heavy。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。一阶动力核心图标，小型金属核心装置，内部有稳定蓝金色发光核心。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, small power core module, metal casing, stable blue-gold glowing core, heavy valuable machine part, strong centered silhouette, centered single object, clean readable silhouette, transparent background, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
@@ -2029,7 +2524,7 @@
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier1_icon.png",
       "Priority": "P0",
       "Status": "approved",
-      "SourceFactsCN": "配置表物品：二阶污染核心。类型 QuestItem，稀有度 Epic，占格 4，标签 CoreMaterial, Toxic, Heavy。",
+      "SourceFactsCN": "配置表物品：二阶污染核心。类型 QuestItem，稀有度 Epic，占格 4，标签 CoreMaterial, Toxic, Heavy, LegacyCompat。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。一阶动力核心图标，小型金属核心装置，内部有稳定蓝金色发光核心。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, small power core module, metal casing, stable blue-gold glowing core, heavy valuable machine part, strong centered silhouette, centered single object, clean readable silhouette, transparent background, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
@@ -2071,6 +2566,336 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier1_icon.png",
       "RegistryStatus": "unregistered",
       "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/contact_sheet/item_mat_core_tier1_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/item_mat_core_tier1_icon.png"
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/mat_core_tier2_fragment.json",
+      "ConfigID": "mat_core_tier2_fragment",
+      "DisplayName": "二阶机核碎片",
+      "AssetType": "icon",
+      "VisualID": "item_mat_core_tier2_fragment_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier2_fragment_icon.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表物品：二阶机核碎片。类型 QuestItem，稀有度 Epic，占格 4，标签 CoreMaterial, BossKey, Layer2, Mechanical。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/order_live_spore_cage.json",
+      "ConfigID": "order_live_spore_cage",
+      "DisplayName": "活孢子笼",
+      "AssetType": "icon",
+      "VisualID": "item_order_live_spore_cage_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_live_spore_cage_icon.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表物品：活孢子笼。类型 QuestItem，稀有度 Rare，占格 6，标签 OrderBound, LiveCargo, Layer2, Bulky。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/trade_cracked_relic.json",
+      "ConfigID": "trade_cracked_relic",
+      "DisplayName": "裂纹圣牌",
+      "AssetType": "icon",
+      "VisualID": "item_loot_toxic_filter_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_toxic_filter_icon.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "配置表物品：裂纹圣牌。类型 Loot，稀有度 Rare，占格 4，标签 TradeGood, Relic, Cursed。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。污染滤芯图标，工业滤芯破裂外壳、紫绿色污染残留和腐蚀金属。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, polluted industrial filter cartridge, cracked casing, purple-green toxic residue, corroded metal, square silhouette, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "nai_p0_item_20260510_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/item_loot_toxic_filter_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_toxic_filter_icon.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/contact_sheet/item_loot_toxic_filter_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/item_loot_toxic_filter_icon.png"
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/trade_luminous_fungus.json",
+      "ConfigID": "trade_luminous_fungus",
+      "DisplayName": "夜光菌簇",
+      "AssetType": "icon",
+      "VisualID": "item_trade_luminous_fungus_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_luminous_fungus_icon.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表物品：夜光菌簇。类型 Loot，稀有度 Uncommon，占格 2，标签 Trade, Fungus, Layer2, Material。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/trade_miner_lamp.json",
+      "ConfigID": "trade_miner_lamp",
+      "DisplayName": "矿工提灯",
+      "AssetType": "icon",
+      "VisualID": "item_loot_rusty_coil_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_rusty_coil_icon.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "配置表物品：矿工提灯。类型 Loot，稀有度 Uncommon，占格 2，标签 TradeGood, Mechanical, Memory。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。生锈线圈材料图标，铜线圈、铁芯、断线和锈蚀外壳。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, rusty copper coil with iron core, loose wire ends, corroded casing, vertical mechanical component silhouette, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "nai_p0_item_20260510_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/item_loot_rusty_coil_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_rusty_coil_icon.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/contact_sheet/item_loot_rusty_coil_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/item_loot_rusty_coil_icon.png"
+    },
+    {
+      "Domain": "item",
+      "SourceType": "config",
+      "DeriveRule": "Items/*.json -> item icon",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Items/trade_sealed_relic_box.json",
+      "ConfigID": "trade_sealed_relic_box",
+      "DisplayName": "封存遗物匣",
+      "AssetType": "icon",
+      "VisualID": "item_trade_sealed_relic_box_icon",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_sealed_relic_box_icon.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表物品：封存遗物匣。类型 Loot，稀有度 Epic，占格 6，标签 Trade, AbyssRelic, ContrabandLow, Layer2, Bulky。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 512,
+          "Height": 512,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 64,
+          "DisplayHeight": 64,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 10,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.84,
+          "Anchor": "center",
+          "Composition": "centered single object"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "resize",
+            "trim_transparent_edges",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 64
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
     },
     {
       "Domain": "memento",
@@ -2556,6 +3381,336 @@
       "Domain": "monster",
       "SourceType": "config",
       "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_gatekeeper_mk1.json",
+      "ConfigID": "boss_gatekeeper_mk1",
+      "DisplayName": "一层守门机 MK1战斗实体",
+      "AssetType": "combat_sprite",
+      "VisualID": "monster_boss_gatekeeper_mk1_combat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_gatekeeper_mk1_combat.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物战斗实体：一层守门机 MK1。层级 1，生命 175，用于 Formal V1 战斗舞台站位。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json -> monster portrait",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_gatekeeper_mk1.json",
+      "ConfigID": "boss_gatekeeper_mk1",
+      "DisplayName": "一层守门机 MK1",
+      "AssetType": "portrait",
+      "VisualID": "monster_boss_gatekeeper_mk1_portrait",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_gatekeeper_mk1_portrait.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物：一层守门机 MK1。层级 1，生命 175，背包干涉 None。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_spore_foundry.json",
+      "ConfigID": "boss_spore_foundry",
+      "DisplayName": "孢殖熔炉战斗实体",
+      "AssetType": "combat_sprite",
+      "VisualID": "monster_boss_spore_foundry_combat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_spore_foundry_combat.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物战斗实体：孢殖熔炉。层级 2，生命 230，用于 Formal V1 战斗舞台站位。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json -> monster portrait",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_spore_foundry.json",
+      "ConfigID": "boss_spore_foundry",
+      "DisplayName": "孢殖熔炉",
+      "AssetType": "portrait",
+      "VisualID": "monster_boss_spore_foundry_portrait",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_spore_foundry_portrait.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物：孢殖熔炉。层级 2，生命 230，背包干涉 None。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_crystal_bulwark.json",
+      "ConfigID": "elite_crystal_bulwark",
+      "DisplayName": "晶壁守卫战斗实体",
+      "AssetType": "combat_sprite",
+      "VisualID": "monster_elite_crystal_bulwark_combat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_crystal_bulwark_combat.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物战斗实体：晶壁守卫。层级 2，生命 165，用于 Formal V1 战斗舞台站位。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json -> monster portrait",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_crystal_bulwark.json",
+      "ConfigID": "elite_crystal_bulwark",
+      "DisplayName": "晶壁守卫",
+      "AssetType": "portrait",
+      "VisualID": "monster_elite_crystal_bulwark_portrait",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_crystal_bulwark_portrait.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物：晶壁守卫。层级 2，生命 165，背包干涉 None。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
       "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_mutant_amalgam.json",
       "ConfigID": "elite_mutant_amalgam",
       "DisplayName": "畸变融合体战斗实体",
@@ -2668,13 +3823,13 @@
       "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
       "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_scrap_guard.json",
       "ConfigID": "elite_scrap_guard",
-      "DisplayName": "废铁守卫 (守门人)战斗实体",
+      "DisplayName": "废铁守卫战斗实体",
       "AssetType": "combat_sprite",
       "VisualID": "monster_elite_scrap_guard_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_scrap_guard_combat.png",
       "Priority": "P0",
       "Status": "approved",
-      "SourceFactsCN": "配置表怪物战斗实体：废铁守卫 (守门人)。层级 1，生命 120，用于 Formal V1 战斗舞台站位。",
+      "SourceFactsCN": "配置表怪物战斗实体：废铁守卫。层级 1，生命 120，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。废铁守卫战斗实体站姿，焊接废铁头盔和肩甲，单眼红色感应器，厚重守门人压迫感。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, heavy scrap-metal guardian, bulky welded helmet and shoulder armor, single red sensor eye, defensive intimidating silhouette, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
@@ -2724,13 +3879,13 @@
       "DeriveRule": "Monsters/*.json -> monster portrait",
       "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_scrap_guard.json",
       "ConfigID": "elite_scrap_guard",
-      "DisplayName": "废铁守卫 (守门人)",
+      "DisplayName": "废铁守卫",
       "AssetType": "portrait",
       "VisualID": "monster_elite_scrap_guard_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_scrap_guard_portrait.png",
       "Priority": "P0",
       "Status": "approved",
-      "SourceFactsCN": "配置表怪物：废铁守卫 (守门人)。层级 1，生命 120，背包干涉 None。",
+      "SourceFactsCN": "配置表怪物：废铁守卫。层级 1，生命 120，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。废铁守卫头像，焊接废铁头盔和肩甲，单眼红色感应器，厚重守门人压迫感。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, heavy scrap-metal guardian, bulky welded helmet and shoulder armor, single red sensor eye, defensive intimidating silhouette, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
@@ -2784,7 +3939,7 @@
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_acid_slime_combat.png",
       "Priority": "P0",
       "Status": "approved",
-      "SourceFactsCN": "配置表怪物战斗实体：酸液软体。层级 2，生命 80，用于 Formal V1 战斗舞台站位。",
+      "SourceFactsCN": "配置表怪物战斗实体：酸液软体。层级 1，生命 55，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。酸液软体战斗实体站姿，半透明腐蚀软泥，内部有金属碎片和气泡，紫绿色酸液发光。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, acidic slime creature, semi-transparent corrosive body, trapped metal debris and bubbles inside, purple-green glow, readable blob silhouette, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
@@ -2840,7 +3995,7 @@
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_acid_slime_portrait.png",
       "Priority": "P0",
       "Status": "approved",
-      "SourceFactsCN": "配置表怪物：酸液软体。层级 2，生命 80，背包干涉 None。",
+      "SourceFactsCN": "配置表怪物：酸液软体。层级 1，生命 55，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。酸液软体头像，半透明腐蚀软泥，内部有金属碎片和气泡，紫绿色酸液发光。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, acidic slime creature, semi-transparent corrosive body, trapped metal debris and bubbles inside, purple-green glow, readable blob silhouette, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
@@ -2881,6 +4036,556 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_acid_slime_portrait.png",
       "RegistryStatus": "unregistered",
       "Notes": "[2026-05-10T00:59:56+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_portrait/contact_sheet/monster_mob_acid_slime_portrait_contact_sheet.png\n[2026-05-10T01:02:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_portrait/selected/monster_mob_acid_slime_portrait.png"
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_acid_slime_mature.json",
+      "ConfigID": "mob_acid_slime_mature",
+      "DisplayName": "成熟酸液软体战斗实体",
+      "AssetType": "combat_sprite",
+      "VisualID": "monster_mob_acid_slime_mature_combat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_acid_slime_mature_combat.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物战斗实体：成熟酸液软体。层级 2，生命 82，用于 Formal V1 战斗舞台站位。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json -> monster portrait",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_acid_slime_mature.json",
+      "ConfigID": "mob_acid_slime_mature",
+      "DisplayName": "成熟酸液软体",
+      "AssetType": "portrait",
+      "VisualID": "monster_mob_acid_slime_mature_portrait",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_acid_slime_mature_portrait.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物：成熟酸液软体。层级 2，生命 82，背包干涉 None。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_crystal_guard.json",
+      "ConfigID": "mob_crystal_guard",
+      "DisplayName": "结晶守卫战斗实体",
+      "AssetType": "combat_sprite",
+      "VisualID": "monster_mob_crystal_guard_combat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_crystal_guard_combat.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物战斗实体：结晶守卫。层级 2，生命 96，用于 Formal V1 战斗舞台站位。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json -> monster portrait",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_crystal_guard.json",
+      "ConfigID": "mob_crystal_guard",
+      "DisplayName": "结晶守卫",
+      "AssetType": "portrait",
+      "VisualID": "monster_mob_crystal_guard_portrait",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_crystal_guard_portrait.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物：结晶守卫。层级 2，生命 96，背包干涉 None。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_lost_miner_echo.json",
+      "ConfigID": "mob_lost_miner_echo",
+      "DisplayName": "迷失矿工回声战斗实体",
+      "AssetType": "combat_sprite",
+      "VisualID": "monster_mob_lost_miner_echo_combat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_lost_miner_echo_combat.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物战斗实体：迷失矿工回声。层级 1，生命 48，用于 Formal V1 战斗舞台站位。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json -> monster portrait",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_lost_miner_echo.json",
+      "ConfigID": "mob_lost_miner_echo",
+      "DisplayName": "迷失矿工回声",
+      "AssetType": "portrait",
+      "VisualID": "monster_mob_lost_miner_echo_portrait",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_lost_miner_echo_portrait.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物：迷失矿工回声。层级 1，生命 48，背包干涉 None。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_cultivator.json",
+      "ConfigID": "mob_rust_cultivator",
+      "DisplayName": "锈蚀培植者战斗实体",
+      "AssetType": "combat_sprite",
+      "VisualID": "monster_mob_rust_cultivator_combat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_cultivator_combat.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物战斗实体：锈蚀培植者。层级 2，生命 108，用于 Formal V1 战斗舞台站位。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json -> monster portrait",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_cultivator.json",
+      "ConfigID": "mob_rust_cultivator",
+      "DisplayName": "锈蚀培植者",
+      "AssetType": "portrait",
+      "VisualID": "monster_mob_rust_cultivator_portrait",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_cultivator_portrait.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物：锈蚀培植者。层级 2，生命 108，背包干涉 None。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_hound.json",
+      "ConfigID": "mob_rust_hound",
+      "DisplayName": "锈蚀猎犬战斗实体",
+      "AssetType": "combat_sprite",
+      "VisualID": "monster_mob_rust_hound_combat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_hound_combat.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物战斗实体：锈蚀猎犬。层级 1，生命 52，用于 Formal V1 战斗舞台站位。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json -> monster portrait",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_hound.json",
+      "ConfigID": "mob_rust_hound",
+      "DisplayName": "锈蚀猎犬",
+      "AssetType": "portrait",
+      "VisualID": "monster_mob_rust_hound_portrait",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_hound_portrait.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物：锈蚀猎犬。层级 1，生命 52，背包干涉 None。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
     },
     {
       "Domain": "monster",
@@ -2991,6 +4696,116 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_scavenger_bug_portrait.png",
       "RegistryStatus": "unregistered",
       "Notes": "[2026-05-10T00:59:56+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_scavenger_bug_portrait/contact_sheet/monster_mob_scavenger_bug_portrait_contact_sheet.png\n[2026-05-10T01:02:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/monster_mob_scavenger_bug_portrait/selected/monster_mob_scavenger_bug_portrait.png"
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json CombatVisualID -> monster combat sprite",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_soul_midge_swarm.json",
+      "ConfigID": "mob_soul_midge_swarm",
+      "DisplayName": "窃魂虫群战斗实体",
+      "AssetType": "combat_sprite",
+      "VisualID": "monster_mob_soul_midge_swarm_combat",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_soul_midge_swarm_combat.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物战斗实体：窃魂虫群。层级 2，生命 68，用于 Formal V1 战斗舞台站位。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent",
+          "AlphaRequired": true
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 360,
+          "DisplayHeight": 420,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "bottom_center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 6,
+          "SubjectOccupancyMin": 0.74,
+          "SubjectOccupancyMax": 0.9,
+          "Anchor": "bottom_center",
+          "Composition": "full-body battle stance, side or three-quarter side view",
+          "BaselinePercent": 92
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "trim_transparent_edges",
+            "resize",
+            "fit_safe_padding"
+          ],
+          "PreviewSize": 220
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
+    },
+    {
+      "Domain": "monster",
+      "SourceType": "config",
+      "DeriveRule": "Monsters/*.json -> monster portrait",
+      "ConfigSource": "UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_soul_midge_swarm.json",
+      "ConfigID": "mob_soul_midge_swarm",
+      "DisplayName": "窃魂虫群",
+      "AssetType": "portrait",
+      "VisualID": "monster_mob_soul_midge_swarm_portrait",
+      "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_soul_midge_swarm_portrait.png",
+      "Priority": "P0",
+      "Status": "prompted",
+      "SourceFactsCN": "配置表怪物：窃魂虫群。层级 2，生命 68，背包干涉 None。",
+      "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1024,
+          "Height": 1024,
+          "Background": "transparent_or_simple_dark",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 320,
+          "DisplayHeight": 320,
+          "Unit": "ui_px",
+          "FitMode": "contain",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.78,
+          "SubjectOccupancyMax": 0.92,
+          "Anchor": "center",
+          "Composition": "bust portrait, front or three-quarter view"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_square",
+            "resize"
+          ],
+          "PreviewSize": 160
+        }
+      },
+      "BatchID": "",
+      "RawPath": "",
+      "SelectedPath": "",
+      "ApprovedPath": "",
+      "RegistryStatus": "unregistered",
+      "Notes": ""
     },
     {
       "Domain": "node",

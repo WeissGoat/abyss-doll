@@ -15,9 +15,9 @@
 | `chassis` | 5 |
 | `doll` | 2 |
 | `faction` | 5 |
-| `item` | 13 |
+| `item` | 28 |
 | `memento` | 8 |
-| `monster` | 8 |
+| `monster` | 26 |
 | `node` | 8 |
 | `order` | 29 |
 | `prosthetic` | 8 |
@@ -30,8 +30,8 @@
 |---|---|---|---|---|---|---|
 | `background` | `combat` | 通用战斗背景 | `background` | `bg_combat_abyss` | P1 | `approved` |
 | `background` | `dungeon_map` | 深渊路线图背景 | `background` | `bg_dungeon_map` | P1 | `approved` |
-| `background` | `layer_1` | 浅层区域 | `background` | `bg_dungeon_layer_1` | P1 | `approved` |
-| `background` | `layer_2` | 污染矿带 | `background` | `bg_dungeon_layer_2` | P1 | `approved` |
+| `background` | `layer_1` | 浅渊回廊 | `background` | `bg_dungeon_layer_1` | P1 | `approved` |
+| `background` | `layer_2` | 腐蚀甬道 | `background` | `bg_dungeon_layer_2` | P1 | `approved` |
 | `background` | `safe_room` | 安全屋房间背景 | `background` | `bg_safe_room` | P1 | `approved` |
 | `background` | `stairs_room` | 阶梯房间背景 | `background` | `bg_stairs_room` | P1 | `approved` |
 | `background` | `workshop` | 工坊整备背景 | `background` | `bg_workshop_day` | P1 | `approved` |
@@ -53,17 +53,32 @@
 | `faction` | `faction_mechanic_workshop` | 机械工坊徽章 | `icon` | `faction_mechanic_workshop_icon` | P2 | `approved` |
 | `item` | `con_cheap_sedative` | 廉价镇静剂 | `icon` | `item_con_cheap_sedative_icon` | P0 | `approved` |
 | `item` | `con_repair_kit` | 便携修复剂 | `icon` | `item_con_repair_kit_icon` | P0 | `approved` |
+| `item` | `con_solvent_spray` | 溶剂喷雾 | `icon` | `item_con_solvent_spray_icon` | P0 | `todo` |
+| `item` | `con_stabilizer_ampoule` | 稳定安瓿 | `icon` | `item_con_stabilizer_ampoule_icon` | P0 | `todo` |
+| `item` | `gear_chain_hook` | 链钩短枪 | `icon` | `item_gear_chain_hook_icon` | P0 | `todo` |
 | `item` | `gear_chainsaw_sword` | 链锯大剑 | `icon` | `item_gear_chainsaw_sword_icon` | P0 | `approved` |
-| `item` | `gear_charge_pistol` | 充能手枪 | `icon` | `item_gear_charge_pistol_icon` | P0 | `approved` |
+| `item` | `gear_charge_pistol` | 充能手铳 | `icon` | `item_gear_charge_pistol_icon` | P0 | `approved` |
+| `item` | `gear_corroded_bulwark` | 腐蚀壁盾 | `icon` | `item_gear_corroded_bulwark_icon` | P0 | `todo` |
+| `item` | `gear_cracked_iron_armor` | 裂铁胸甲 | `icon` | `item_gear_iron_armor_icon` | P0 | `approved` |
 | `item` | `gear_iron_armor` | 铁片装甲 | `icon` | `item_gear_iron_armor_icon` | P0 | `approved` |
+| `item` | `gear_plank_shield_l1` | 拼板护盾 | `icon` | `item_gear_wooden_shield_icon` | P0 | `approved` |
 | `item` | `gear_rusty_dagger` | 生锈短剑 | `icon` | `item_gear_rusty_dagger_icon` | P0 | `approved` |
 | `item` | `gear_tactical_blade` | 战术长刀 | `icon` | `item_gear_tactical_blade_icon` | P0 | `approved` |
 | `item` | `gear_wooden_shield` | 木制小盾 | `icon` | `item_gear_wooden_shield_icon` | P0 | `approved` |
+| `item` | `loot_acid_gland` | 酸腺囊 | `icon` | `item_loot_acid_gland_icon` | P0 | `todo` |
+| `item` | `loot_crystal_scale` | 晶化鳞片 | `icon` | `item_loot_crystal_scale_icon` | P0 | `todo` |
 | `item` | `loot_gear_scrap` | 废旧齿轮 | `icon` | `item_loot_gear_scrap_icon` | P0 | `approved` |
 | `item` | `loot_rusty_coil` | 生锈线圈 | `icon` | `item_loot_rusty_coil_icon` | P0 | `approved` |
 | `item` | `loot_toxic_filter` | 污染滤芯 | `icon` | `item_loot_toxic_filter_icon` | P0 | `approved` |
+| `item` | `loot_warped_plate` | 扭曲装甲片 | `icon` | `item_loot_warped_plate_icon` | P0 | `todo` |
 | `item` | `mat_core_tier1` | 一阶动力核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `approved` |
 | `item` | `mat_core_tier2` | 二阶污染核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `approved` |
+| `item` | `mat_core_tier2_fragment` | 二阶机核碎片 | `icon` | `item_mat_core_tier2_fragment_icon` | P0 | `todo` |
+| `item` | `order_live_spore_cage` | 活孢子笼 | `icon` | `item_order_live_spore_cage_icon` | P0 | `todo` |
+| `item` | `trade_cracked_relic` | 裂纹圣牌 | `icon` | `item_loot_toxic_filter_icon` | P0 | `approved` |
+| `item` | `trade_luminous_fungus` | 夜光菌簇 | `icon` | `item_trade_luminous_fungus_icon` | P0 | `todo` |
+| `item` | `trade_miner_lamp` | 矿工提灯 | `icon` | `item_loot_rusty_coil_icon` | P0 | `approved` |
+| `item` | `trade_sealed_relic_box` | 封存遗物匣 | `icon` | `item_trade_sealed_relic_box_icon` | P0 | `todo` |
 | `memento` | `memento_boss1_lamp` | 第一层矿灯纪念物 | `prop` | `memento_boss1_lamp` | P2 | `approved` |
 | `memento` | `memento_first_chassis_frame` | 首次底盘纪念物 | `prop` | `memento_first_chassis_frame` | P2 | `approved` |
 | `memento` | `memento_first_prosthetic_case` | 首次义体纪念物 | `prop` | `memento_first_prosthetic_case` | P2 | `approved` |
@@ -72,14 +87,32 @@
 | `memento` | `memento_miracle_burn_mark` | 奇迹灼痕纪念物 | `prop` | `memento_miracle_burn_mark` | P2 | `approved` |
 | `memento` | `memento_return_mark` | 归还痕迹纪念物 | `prop` | `memento_return_mark` | P2 | `approved` |
 | `memento` | `memento_san_collapse_blanket` | SAN崩溃安抚纪念物 | `prop` | `memento_san_collapse_blanket` | P2 | `approved` |
+| `monster` | `boss_gatekeeper_mk1` | 一层守门机 MK1战斗实体 | `combat_sprite` | `monster_boss_gatekeeper_mk1_combat` | P0 | `todo` |
+| `monster` | `boss_gatekeeper_mk1` | 一层守门机 MK1 | `portrait` | `monster_boss_gatekeeper_mk1_portrait` | P0 | `todo` |
+| `monster` | `boss_spore_foundry` | 孢殖熔炉战斗实体 | `combat_sprite` | `monster_boss_spore_foundry_combat` | P0 | `todo` |
+| `monster` | `boss_spore_foundry` | 孢殖熔炉 | `portrait` | `monster_boss_spore_foundry_portrait` | P0 | `todo` |
+| `monster` | `elite_crystal_bulwark` | 晶壁守卫战斗实体 | `combat_sprite` | `monster_elite_crystal_bulwark_combat` | P0 | `todo` |
+| `monster` | `elite_crystal_bulwark` | 晶壁守卫 | `portrait` | `monster_elite_crystal_bulwark_portrait` | P0 | `todo` |
 | `monster` | `elite_mutant_amalgam` | 畸变融合体战斗实体 | `combat_sprite` | `monster_elite_mutant_amalgam_combat` | P0 | `approved` |
 | `monster` | `elite_mutant_amalgam` | 畸变融合体 | `portrait` | `monster_elite_mutant_amalgam_portrait` | P0 | `approved` |
-| `monster` | `elite_scrap_guard` | 废铁守卫 (守门人)战斗实体 | `combat_sprite` | `monster_elite_scrap_guard_combat` | P0 | `approved` |
-| `monster` | `elite_scrap_guard` | 废铁守卫 (守门人) | `portrait` | `monster_elite_scrap_guard_portrait` | P0 | `approved` |
+| `monster` | `elite_scrap_guard` | 废铁守卫战斗实体 | `combat_sprite` | `monster_elite_scrap_guard_combat` | P0 | `approved` |
+| `monster` | `elite_scrap_guard` | 废铁守卫 | `portrait` | `monster_elite_scrap_guard_portrait` | P0 | `approved` |
 | `monster` | `mob_acid_slime` | 酸液软体战斗实体 | `combat_sprite` | `monster_mob_acid_slime_combat` | P0 | `approved` |
 | `monster` | `mob_acid_slime` | 酸液软体 | `portrait` | `monster_mob_acid_slime_portrait` | P0 | `approved` |
+| `monster` | `mob_acid_slime_mature` | 成熟酸液软体战斗实体 | `combat_sprite` | `monster_mob_acid_slime_mature_combat` | P0 | `todo` |
+| `monster` | `mob_acid_slime_mature` | 成熟酸液软体 | `portrait` | `monster_mob_acid_slime_mature_portrait` | P0 | `todo` |
+| `monster` | `mob_crystal_guard` | 结晶守卫战斗实体 | `combat_sprite` | `monster_mob_crystal_guard_combat` | P0 | `todo` |
+| `monster` | `mob_crystal_guard` | 结晶守卫 | `portrait` | `monster_mob_crystal_guard_portrait` | P0 | `todo` |
+| `monster` | `mob_lost_miner_echo` | 迷失矿工回声战斗实体 | `combat_sprite` | `monster_mob_lost_miner_echo_combat` | P0 | `todo` |
+| `monster` | `mob_lost_miner_echo` | 迷失矿工回声 | `portrait` | `monster_mob_lost_miner_echo_portrait` | P0 | `todo` |
+| `monster` | `mob_rust_cultivator` | 锈蚀培植者战斗实体 | `combat_sprite` | `monster_mob_rust_cultivator_combat` | P0 | `todo` |
+| `monster` | `mob_rust_cultivator` | 锈蚀培植者 | `portrait` | `monster_mob_rust_cultivator_portrait` | P0 | `todo` |
+| `monster` | `mob_rust_hound` | 锈蚀猎犬战斗实体 | `combat_sprite` | `monster_mob_rust_hound_combat` | P0 | `todo` |
+| `monster` | `mob_rust_hound` | 锈蚀猎犬 | `portrait` | `monster_mob_rust_hound_portrait` | P0 | `todo` |
 | `monster` | `mob_scavenger_bug` | 拾荒虫战斗实体 | `combat_sprite` | `monster_mob_scavenger_bug_combat` | P0 | `approved` |
 | `monster` | `mob_scavenger_bug` | 拾荒虫 | `portrait` | `monster_mob_scavenger_bug_portrait` | P0 | `approved` |
+| `monster` | `mob_soul_midge_swarm` | 窃魂虫群战斗实体 | `combat_sprite` | `monster_mob_soul_midge_swarm_combat` | P0 | `todo` |
+| `monster` | `mob_soul_midge_swarm` | 窃魂虫群 | `portrait` | `monster_mob_soul_midge_swarm_portrait` | P0 | `todo` |
 | `node` | `BossNode` | 首领节点 | `icon` | `node_boss_icon` | P0 | `approved` |
 | `node` | `CombatNode` | 战斗节点 | `icon` | `node_combat_icon` | P0 | `approved` |
 | `node` | `EventNode` | EventNode | `icon` | `node_eventnode_icon` | P0 | `approved` |
@@ -224,5 +257,5 @@
 
 ## 下一步
 
-1. 将 `Approved` 素材登记到 `VisualAssetRegistry`。
-2. 游戏内验证后更新 `RegistryStatus` 和 `Status=validated`。
+1. 对 `Status=todo` 的新增项补全 `PromptCN`、`PromptEN`、`NegativePromptEN` 和结构化 `Spec`。
+2. 完成后运行 `tools/美术工具/Generate-ArtPrompts.ps1` 或人工审阅提示词。

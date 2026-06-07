@@ -4,9 +4,9 @@
 
 ## Summary
 
-* GeneratedAt: `2026-05-26T23:01:12+08:00`
+* GeneratedAt: `2026-06-08T00:47:36+08:00`
 * Provider: `novelai`
-* BatchID: `nai_visual_v2_20260526_04`
+* BatchID: `nai_v2a_runtime_quality_20260608_01`
 * Variants per asset: `4`
 * Planned items: `121`
 * Prompt ready: `121`
@@ -26,18 +26,18 @@ Run all planned generation:
 
 ```powershell
 $env:NAI_ACCESS_TOKEN = '<set locally>'
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_intent_add_junk,ui_combat_intent_charge,ui_combat_intent_grid_lock,ui_combat_intent_move_item,ui_combat_intent_san_pressure,ui_combat_intent_unknown,ui_combat_junk_preview_marker,ui_combat_status_corrosion,ui_combat_status_curse,ui_combat_status_stun,ui_icon_corruption_purify,ui_icon_debt_rent,ui_icon_dive_permit,ui_icon_expense,ui_icon_income,ui_icon_wear_repair,ui_panel_main,ui_settlement_outcome_hp_defeat,ui_settlement_outcome_hp_san_defeat,ui_settlement_outcome_party_wipe,ui_settlement_outcome_san_collapse,ui_settlement_outcome_victory,bg_safe_room,bg_stairs_room,ui_dungeon_node_plate,ui_dungeon_route_line,ui_icon_black_market,ui_icon_blueprint,ui_icon_business_settlement,ui_icon_chassis_upgrade,ui_icon_customer,ui_icon_deadline,ui_icon_diary,ui_icon_equipped,ui_icon_event,ui_icon_faction,ui_icon_gift,ui_icon_locked,ui_icon_lore,ui_icon_material_need,ui_icon_memento,ui_icon_order,ui_icon_price_down,ui_icon_price_up,ui_icon_reputation,ui_icon_rumor,ui_icon_sale_spark,ui_icon_shop_channel,ui_icon_skip,ui_icon_talk,ui_icon_touch,ui_icon_trust,ui_list_row_normal,ui_list_row_selected,ui_room_memento_slot,ui_settlement_defeat_panel,ui_settlement_victory_panel,ui_title_divider,order_alchemy_antitoxin_contract_icon,order_alchemy_market_forecast_icon,order_alchemy_purification_batch_icon,order_alchemy_spore_sample_fast_icon,order_black_bound_core_betrayal_icon,order_black_forbidden_relic_buyout_icon,order_black_live_sample_no_questions_icon,order_black_smuggled_route_key_icon,order_guild_layer1_map_rubbing_icon,order_guild_layer2_route_report_icon,order_guild_safezone_signal_icon,order_mage_boss_core_research_icon,order_mage_corroded_memory_stone_icon,order_mage_live_slime_sample_icon,order_mage_unidentified_relic_icon,order_status_boss_core_mutex_icon,order_status_deadline_warning_icon,order_status_order_bound_icon,order_status_perishable_icon,order_type_black_market_betrayal_icon,order_type_exploration_report_icon,order_type_large_cargo_icon,order_type_live_capture_icon,order_type_procurement_icon,order_type_target_item_icon,order_workshop_boss_core_claim_icon,order_workshop_furnace_core_large_icon,order_workshop_layer2_ore_batch_icon,order_workshop_scrap_guard_plate_icon,prosthetic_anchor_left_arm_icon,prosthetic_charge_coil_arm_icon,prosthetic_focus_lens_icon,prosthetic_mender_spine_icon,prosthetic_salvage_fingertips_icon,prosthetic_san_regulator_core_icon,bg_doll_room_attic,bg_layer_select,bg_settlement_defeat,bg_settlement_victory,chassis_bulwark_carrier_icon,chassis_compact_raider_icon,chassis_standard_frame_icon,faction_adventurer_guild_icon,faction_alchemy_guild_icon,faction_black_market_icon,faction_mage_tower_icon,faction_mechanic_workshop_icon,memento_boss1_lamp,memento_first_chassis_frame,memento_first_prosthetic_case,memento_first_repair_patch,memento_layer2_corrosion_vial,memento_miracle_burn_mark,memento_return_mark,memento_san_collapse_blanket,rumor_contraband_night_channel_icon,rumor_corrosion_sample_premium_icon,rumor_faction_medical_request_icon,rumor_low_layer_bulk_buy_icon,rumor_origin_stone_demand_icon,rumor_scrap_workshop_shortage_icon,rumor_slime_crash_icon,rumor_weapon_collector_visit_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_intent_add_junk,ui_combat_intent_charge,ui_combat_intent_grid_lock,ui_combat_intent_move_item,ui_combat_intent_san_pressure,ui_combat_intent_unknown,ui_combat_junk_preview_marker,ui_combat_status_corrosion,ui_combat_status_curse,ui_combat_status_stun,ui_icon_corruption_purify,ui_icon_debt_rent,ui_icon_dive_permit,ui_icon_expense,ui_icon_income,ui_icon_wear_repair,ui_panel_main,ui_settlement_outcome_hp_defeat,ui_settlement_outcome_hp_san_defeat,ui_settlement_outcome_party_wipe,ui_settlement_outcome_san_collapse,ui_settlement_outcome_victory,bg_safe_room,bg_stairs_room,ui_dungeon_node_plate,ui_dungeon_route_line,ui_icon_black_market,ui_icon_blueprint,ui_icon_business_settlement,ui_icon_chassis_upgrade,ui_icon_customer,ui_icon_deadline,ui_icon_diary,ui_icon_equipped,ui_icon_event,ui_icon_faction,ui_icon_gift,ui_icon_locked,ui_icon_lore,ui_icon_material_need,ui_icon_memento,ui_icon_order,ui_icon_price_down,ui_icon_price_up,ui_icon_reputation,ui_icon_rumor,ui_icon_sale_spark,ui_icon_shop_channel,ui_icon_skip,ui_icon_talk,ui_icon_touch,ui_icon_trust,ui_list_row_normal,ui_list_row_selected,ui_room_memento_slot,ui_settlement_defeat_panel,ui_settlement_victory_panel,ui_title_divider,order_alchemy_antitoxin_contract_icon,order_alchemy_market_forecast_icon,order_alchemy_purification_batch_icon,order_alchemy_spore_sample_fast_icon,order_black_bound_core_betrayal_icon,order_black_forbidden_relic_buyout_icon,order_black_live_sample_no_questions_icon,order_black_smuggled_route_key_icon,order_guild_layer1_map_rubbing_icon,order_guild_layer2_route_report_icon,order_guild_safezone_signal_icon,order_mage_boss_core_research_icon,order_mage_corroded_memory_stone_icon,order_mage_live_slime_sample_icon,order_mage_unidentified_relic_icon,order_status_boss_core_mutex_icon,order_status_deadline_warning_icon,order_status_order_bound_icon,order_status_perishable_icon,order_type_black_market_betrayal_icon,order_type_exploration_report_icon,order_type_large_cargo_icon,order_type_live_capture_icon,order_type_procurement_icon,order_type_target_item_icon,order_workshop_boss_core_claim_icon,order_workshop_furnace_core_large_icon,order_workshop_layer2_ore_batch_icon,order_workshop_scrap_guard_plate_icon,prosthetic_anchor_left_arm_icon,prosthetic_charge_coil_arm_icon,prosthetic_focus_lens_icon,prosthetic_mender_spine_icon,prosthetic_salvage_fingertips_icon,prosthetic_san_regulator_core_icon,bg_doll_room_attic,bg_layer_select,bg_settlement_defeat,bg_settlement_victory,chassis_bulwark_carrier_icon,chassis_compact_raider_icon,chassis_standard_frame_icon,faction_adventurer_guild_icon,faction_alchemy_guild_icon,faction_black_market_icon,faction_mage_tower_icon,faction_mechanic_workshop_icon,memento_boss1_lamp,memento_first_chassis_frame,memento_first_prosthetic_case,memento_first_repair_patch,memento_layer2_corrosion_vial,memento_miracle_burn_mark,memento_return_mark,memento_san_collapse_blanket,rumor_contraband_night_channel_icon,rumor_corrosion_sample_premium_icon,rumor_faction_medical_request_icon,rumor_low_layer_bulk_buy_icon,rumor_origin_stone_demand_icon,rumor_scrap_workshop_shortage_icon,rumor_slime_crash_icon,rumor_weapon_collector_visit_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
 ```
 
 After generation succeeds:
 
 ```powershell
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review contact sheets under UnityClient/Assets/Art/_IncomingAI/<VisualID>/contact_sheet before syncing.
 # Then sync each accepted VisualID with its per-item SyncApproved command below.
-.\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260526_04
-.\tools\美术工具\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260526_04
-.\tools\美术工具\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260526_04_after -BatchID nai_visual_v2_20260526_04
+.\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag nai_v2a_runtime_quality_20260608_01
+.\tools\美术工具\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag nai_v2a_runtime_quality_20260608_01
+.\tools\美术工具\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag nai_v2a_runtime_quality_20260608_01_after -BatchID nai_v2a_runtime_quality_20260608_01
 ```
 
 ## Planned Items
@@ -171,1089 +171,1089 @@ After generation succeeds:
 ### 1. `ui_combat_intent_add_junk`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_intent_add_junk -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_intent_add_junk -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_intent_add_junk -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_intent_add_junk -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_intent_add_junk -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_intent_add_junk -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 2. `ui_combat_intent_charge`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_intent_charge -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_intent_charge -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_intent_charge -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_intent_charge -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_intent_charge -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_intent_charge -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 3. `ui_combat_intent_grid_lock`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_intent_grid_lock -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_intent_grid_lock -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_intent_grid_lock -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_intent_grid_lock -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_intent_grid_lock -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_intent_grid_lock -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 4. `ui_combat_intent_move_item`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_intent_move_item -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_intent_move_item -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_intent_move_item -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_intent_move_item -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_intent_move_item -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_intent_move_item -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 5. `ui_combat_intent_san_pressure`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_intent_san_pressure -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_intent_san_pressure -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_intent_san_pressure -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_intent_san_pressure -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_intent_san_pressure -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_intent_san_pressure -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 6. `ui_combat_intent_unknown`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_intent_unknown -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_intent_unknown -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_intent_unknown -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_intent_unknown -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_intent_unknown -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_intent_unknown -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 7. `ui_combat_junk_preview_marker`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_junk_preview_marker -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_junk_preview_marker -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_junk_preview_marker -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_junk_preview_marker -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_junk_preview_marker -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_junk_preview_marker -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 8. `ui_combat_status_corrosion`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_status_corrosion -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_status_corrosion -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_status_corrosion -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_status_corrosion -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_status_corrosion -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_status_corrosion -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 9. `ui_combat_status_curse`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_status_curse -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_status_curse -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_status_curse -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_status_curse -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_status_curse -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_status_curse -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 10. `ui_combat_status_stun`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_status_stun -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_status_stun -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_combat_status_stun -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_combat_status_stun -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_status_stun -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_combat_status_stun -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 11. `ui_icon_corruption_purify`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_corruption_purify -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_corruption_purify -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_corruption_purify -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_corruption_purify -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_corruption_purify -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_corruption_purify -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 12. `ui_icon_debt_rent`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_debt_rent -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_debt_rent -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_debt_rent -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_debt_rent -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_debt_rent -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_debt_rent -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 13. `ui_icon_dive_permit`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_dive_permit -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_dive_permit -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_dive_permit -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_dive_permit -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_dive_permit -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_dive_permit -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 14. `ui_icon_expense`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_expense -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_expense -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_expense -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_expense -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_expense -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_expense -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 15. `ui_icon_income`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_income -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_income -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_income -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_income -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_income -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_income -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 16. `ui_icon_wear_repair`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_wear_repair -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_wear_repair -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_wear_repair -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_wear_repair -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_wear_repair -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_wear_repair -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 17. `ui_panel_main`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_panel_main -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_panel_main -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_panel_main -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_panel_main -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_panel_main -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_panel_main -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 18. `ui_settlement_outcome_hp_defeat`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_settlement_outcome_hp_defeat -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_settlement_outcome_hp_defeat -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_settlement_outcome_hp_defeat -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_settlement_outcome_hp_defeat -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_settlement_outcome_hp_defeat -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_settlement_outcome_hp_defeat -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 19. `ui_settlement_outcome_hp_san_defeat`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_settlement_outcome_hp_san_defeat -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_settlement_outcome_hp_san_defeat -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_settlement_outcome_hp_san_defeat -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_settlement_outcome_hp_san_defeat -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_settlement_outcome_hp_san_defeat -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_settlement_outcome_hp_san_defeat -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 20. `ui_settlement_outcome_party_wipe`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_settlement_outcome_party_wipe -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_settlement_outcome_party_wipe -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_settlement_outcome_party_wipe -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_settlement_outcome_party_wipe -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_settlement_outcome_party_wipe -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_settlement_outcome_party_wipe -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 21. `ui_settlement_outcome_san_collapse`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_settlement_outcome_san_collapse -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_settlement_outcome_san_collapse -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_settlement_outcome_san_collapse -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_settlement_outcome_san_collapse -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_settlement_outcome_san_collapse -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_settlement_outcome_san_collapse -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 22. `ui_settlement_outcome_victory`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_settlement_outcome_victory -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_settlement_outcome_victory -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_settlement_outcome_victory -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_settlement_outcome_victory -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_settlement_outcome_victory -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_settlement_outcome_victory -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 23. `bg_safe_room`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID bg_safe_room -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID bg_safe_room -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID bg_safe_room -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID bg_safe_room -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_safe_room -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_safe_room -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 24. `bg_stairs_room`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID bg_stairs_room -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID bg_stairs_room -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID bg_stairs_room -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID bg_stairs_room -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_stairs_room -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_stairs_room -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 25. `ui_dungeon_node_plate`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_dungeon_node_plate -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_dungeon_node_plate -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_dungeon_node_plate -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_dungeon_node_plate -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_dungeon_node_plate -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_dungeon_node_plate -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 26. `ui_dungeon_route_line`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_dungeon_route_line -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_dungeon_route_line -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_dungeon_route_line -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_dungeon_route_line -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_dungeon_route_line -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_dungeon_route_line -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 27. `ui_icon_black_market`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_black_market -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_black_market -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_black_market -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_black_market -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_black_market -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_black_market -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 28. `ui_icon_blueprint`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_blueprint -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_blueprint -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_blueprint -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_blueprint -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_blueprint -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_blueprint -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 29. `ui_icon_business_settlement`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_business_settlement -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_business_settlement -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_business_settlement -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_business_settlement -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_business_settlement -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_business_settlement -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 30. `ui_icon_chassis_upgrade`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_chassis_upgrade -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_chassis_upgrade -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_chassis_upgrade -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_chassis_upgrade -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_chassis_upgrade -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_chassis_upgrade -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 31. `ui_icon_customer`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_customer -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_customer -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_customer -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_customer -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_customer -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_customer -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 32. `ui_icon_deadline`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_deadline -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_deadline -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_deadline -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_deadline -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_deadline -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_deadline -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 33. `ui_icon_diary`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_diary -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_diary -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_diary -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_diary -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_diary -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_diary -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 34. `ui_icon_equipped`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_equipped -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_equipped -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_equipped -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_equipped -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_equipped -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_equipped -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 35. `ui_icon_event`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_event -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_event -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_event -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_event -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_event -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_event -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 36. `ui_icon_faction`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_faction -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_faction -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_faction -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_faction -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_faction -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_faction -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 37. `ui_icon_gift`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_gift -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_gift -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_gift -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_gift -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_gift -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_gift -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 38. `ui_icon_locked`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_locked -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_locked -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_locked -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_locked -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_locked -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_locked -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 39. `ui_icon_lore`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_lore -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_lore -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_lore -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_lore -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_lore -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_lore -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 40. `ui_icon_material_need`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_material_need -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_material_need -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_material_need -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_material_need -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_material_need -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_material_need -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 41. `ui_icon_memento`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_memento -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_memento -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_memento -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_memento -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_memento -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_memento -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 42. `ui_icon_order`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_order -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_order -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_order -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_order -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_order -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_order -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 43. `ui_icon_price_down`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_price_down -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_price_down -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_price_down -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_price_down -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_price_down -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_price_down -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 44. `ui_icon_price_up`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_price_up -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_price_up -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_price_up -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_price_up -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_price_up -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_price_up -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 45. `ui_icon_reputation`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_reputation -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_reputation -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_reputation -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_reputation -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_reputation -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_reputation -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 46. `ui_icon_rumor`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_rumor -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_rumor -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_rumor -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_rumor -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_rumor -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_rumor -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 47. `ui_icon_sale_spark`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_sale_spark -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_sale_spark -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_sale_spark -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_sale_spark -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_sale_spark -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_sale_spark -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 48. `ui_icon_shop_channel`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_shop_channel -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_shop_channel -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_shop_channel -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_shop_channel -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_shop_channel -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_shop_channel -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 49. `ui_icon_skip`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_skip -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_skip -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_skip -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_skip -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_skip -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_skip -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 50. `ui_icon_talk`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_talk -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_talk -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_talk -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_talk -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_talk -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_talk -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 51. `ui_icon_touch`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_touch -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_touch -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_touch -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_touch -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_touch -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_touch -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 52. `ui_icon_trust`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_trust -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_trust -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_icon_trust -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_icon_trust -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_trust -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_trust -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 53. `ui_list_row_normal`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_list_row_normal -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_list_row_normal -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_list_row_normal -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_list_row_normal -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_list_row_normal -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_list_row_normal -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 54. `ui_list_row_selected`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_list_row_selected -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_list_row_selected -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_list_row_selected -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_list_row_selected -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_list_row_selected -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_list_row_selected -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 55. `ui_room_memento_slot`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_room_memento_slot -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_room_memento_slot -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_room_memento_slot -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_room_memento_slot -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_room_memento_slot -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_room_memento_slot -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 56. `ui_settlement_defeat_panel`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_settlement_defeat_panel -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_settlement_defeat_panel -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_settlement_defeat_panel -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_settlement_defeat_panel -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_settlement_defeat_panel -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_settlement_defeat_panel -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 57. `ui_settlement_victory_panel`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_settlement_victory_panel -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_settlement_victory_panel -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_settlement_victory_panel -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_settlement_victory_panel -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_settlement_victory_panel -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_settlement_victory_panel -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 58. `ui_title_divider`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_title_divider -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_title_divider -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID ui_title_divider -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID ui_title_divider -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_title_divider -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_title_divider -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 59. `order_alchemy_antitoxin_contract_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_alchemy_antitoxin_contract_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_alchemy_antitoxin_contract_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_alchemy_antitoxin_contract_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_alchemy_antitoxin_contract_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_alchemy_antitoxin_contract_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_alchemy_antitoxin_contract_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 60. `order_alchemy_market_forecast_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_alchemy_market_forecast_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_alchemy_market_forecast_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_alchemy_market_forecast_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_alchemy_market_forecast_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_alchemy_market_forecast_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_alchemy_market_forecast_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 61. `order_alchemy_purification_batch_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_alchemy_purification_batch_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_alchemy_purification_batch_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_alchemy_purification_batch_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_alchemy_purification_batch_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_alchemy_purification_batch_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_alchemy_purification_batch_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 62. `order_alchemy_spore_sample_fast_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_alchemy_spore_sample_fast_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_alchemy_spore_sample_fast_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_alchemy_spore_sample_fast_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_alchemy_spore_sample_fast_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_alchemy_spore_sample_fast_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_alchemy_spore_sample_fast_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 63. `order_black_bound_core_betrayal_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_black_bound_core_betrayal_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_black_bound_core_betrayal_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_black_bound_core_betrayal_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_black_bound_core_betrayal_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_black_bound_core_betrayal_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_black_bound_core_betrayal_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 64. `order_black_forbidden_relic_buyout_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_black_forbidden_relic_buyout_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_black_forbidden_relic_buyout_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_black_forbidden_relic_buyout_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_black_forbidden_relic_buyout_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_black_forbidden_relic_buyout_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_black_forbidden_relic_buyout_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 65. `order_black_live_sample_no_questions_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_black_live_sample_no_questions_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_black_live_sample_no_questions_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_black_live_sample_no_questions_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_black_live_sample_no_questions_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_black_live_sample_no_questions_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_black_live_sample_no_questions_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 66. `order_black_smuggled_route_key_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_black_smuggled_route_key_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_black_smuggled_route_key_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_black_smuggled_route_key_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_black_smuggled_route_key_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_black_smuggled_route_key_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_black_smuggled_route_key_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 67. `order_guild_layer1_map_rubbing_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_guild_layer1_map_rubbing_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_guild_layer1_map_rubbing_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_guild_layer1_map_rubbing_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_guild_layer1_map_rubbing_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_guild_layer1_map_rubbing_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_guild_layer1_map_rubbing_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 68. `order_guild_layer2_route_report_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_guild_layer2_route_report_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_guild_layer2_route_report_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_guild_layer2_route_report_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_guild_layer2_route_report_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_guild_layer2_route_report_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_guild_layer2_route_report_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 69. `order_guild_safezone_signal_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_guild_safezone_signal_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_guild_safezone_signal_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_guild_safezone_signal_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_guild_safezone_signal_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_guild_safezone_signal_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_guild_safezone_signal_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 70. `order_mage_boss_core_research_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_mage_boss_core_research_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_mage_boss_core_research_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_mage_boss_core_research_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_mage_boss_core_research_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_mage_boss_core_research_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_mage_boss_core_research_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 71. `order_mage_corroded_memory_stone_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_mage_corroded_memory_stone_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_mage_corroded_memory_stone_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_mage_corroded_memory_stone_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_mage_corroded_memory_stone_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_mage_corroded_memory_stone_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_mage_corroded_memory_stone_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 72. `order_mage_live_slime_sample_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_mage_live_slime_sample_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_mage_live_slime_sample_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_mage_live_slime_sample_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_mage_live_slime_sample_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_mage_live_slime_sample_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_mage_live_slime_sample_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 73. `order_mage_unidentified_relic_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_mage_unidentified_relic_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_mage_unidentified_relic_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_mage_unidentified_relic_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_mage_unidentified_relic_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_mage_unidentified_relic_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_mage_unidentified_relic_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 74. `order_status_boss_core_mutex_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_status_boss_core_mutex_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_status_boss_core_mutex_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_status_boss_core_mutex_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_status_boss_core_mutex_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_status_boss_core_mutex_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_status_boss_core_mutex_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 75. `order_status_deadline_warning_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_status_deadline_warning_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_status_deadline_warning_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_status_deadline_warning_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_status_deadline_warning_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_status_deadline_warning_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_status_deadline_warning_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 76. `order_status_order_bound_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_status_order_bound_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_status_order_bound_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_status_order_bound_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_status_order_bound_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_status_order_bound_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_status_order_bound_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 77. `order_status_perishable_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_status_perishable_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_status_perishable_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_status_perishable_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_status_perishable_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_status_perishable_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_status_perishable_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 78. `order_type_black_market_betrayal_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_type_black_market_betrayal_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_type_black_market_betrayal_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_type_black_market_betrayal_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_type_black_market_betrayal_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_type_black_market_betrayal_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_type_black_market_betrayal_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 79. `order_type_exploration_report_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_type_exploration_report_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_type_exploration_report_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_type_exploration_report_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_type_exploration_report_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_type_exploration_report_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_type_exploration_report_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 80. `order_type_large_cargo_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_type_large_cargo_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_type_large_cargo_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_type_large_cargo_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_type_large_cargo_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_type_large_cargo_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_type_large_cargo_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 81. `order_type_live_capture_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_type_live_capture_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_type_live_capture_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_type_live_capture_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_type_live_capture_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_type_live_capture_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_type_live_capture_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 82. `order_type_procurement_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_type_procurement_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_type_procurement_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_type_procurement_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_type_procurement_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_type_procurement_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_type_procurement_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 83. `order_type_target_item_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_type_target_item_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_type_target_item_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_type_target_item_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_type_target_item_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_type_target_item_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_type_target_item_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 84. `order_workshop_boss_core_claim_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_workshop_boss_core_claim_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_workshop_boss_core_claim_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_workshop_boss_core_claim_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_workshop_boss_core_claim_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_workshop_boss_core_claim_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_workshop_boss_core_claim_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 85. `order_workshop_furnace_core_large_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_workshop_furnace_core_large_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_workshop_furnace_core_large_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_workshop_furnace_core_large_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_workshop_furnace_core_large_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_workshop_furnace_core_large_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_workshop_furnace_core_large_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 86. `order_workshop_layer2_ore_batch_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_workshop_layer2_ore_batch_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_workshop_layer2_ore_batch_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_workshop_layer2_ore_batch_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_workshop_layer2_ore_batch_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_workshop_layer2_ore_batch_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_workshop_layer2_ore_batch_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 87. `order_workshop_scrap_guard_plate_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_workshop_scrap_guard_plate_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_workshop_scrap_guard_plate_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID order_workshop_scrap_guard_plate_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID order_workshop_scrap_guard_plate_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_workshop_scrap_guard_plate_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID order_workshop_scrap_guard_plate_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 88. `prosthetic_anchor_left_arm_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID prosthetic_anchor_left_arm_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID prosthetic_anchor_left_arm_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID prosthetic_anchor_left_arm_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID prosthetic_anchor_left_arm_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID prosthetic_anchor_left_arm_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID prosthetic_anchor_left_arm_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 89. `prosthetic_charge_coil_arm_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID prosthetic_charge_coil_arm_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID prosthetic_charge_coil_arm_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID prosthetic_charge_coil_arm_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID prosthetic_charge_coil_arm_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID prosthetic_charge_coil_arm_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID prosthetic_charge_coil_arm_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 90. `prosthetic_focus_lens_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID prosthetic_focus_lens_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID prosthetic_focus_lens_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID prosthetic_focus_lens_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID prosthetic_focus_lens_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID prosthetic_focus_lens_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID prosthetic_focus_lens_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 91. `prosthetic_mender_spine_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID prosthetic_mender_spine_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID prosthetic_mender_spine_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID prosthetic_mender_spine_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID prosthetic_mender_spine_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID prosthetic_mender_spine_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID prosthetic_mender_spine_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 92. `prosthetic_salvage_fingertips_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID prosthetic_salvage_fingertips_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID prosthetic_salvage_fingertips_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID prosthetic_salvage_fingertips_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID prosthetic_salvage_fingertips_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID prosthetic_salvage_fingertips_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID prosthetic_salvage_fingertips_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 93. `prosthetic_san_regulator_core_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID prosthetic_san_regulator_core_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID prosthetic_san_regulator_core_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID prosthetic_san_regulator_core_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID prosthetic_san_regulator_core_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID prosthetic_san_regulator_core_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID prosthetic_san_regulator_core_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 94. `bg_doll_room_attic`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID bg_doll_room_attic -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID bg_doll_room_attic -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID bg_doll_room_attic -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID bg_doll_room_attic -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_doll_room_attic -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_doll_room_attic -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 95. `bg_layer_select`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID bg_layer_select -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID bg_layer_select -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID bg_layer_select -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID bg_layer_select -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_layer_select -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_layer_select -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 96. `bg_settlement_defeat`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID bg_settlement_defeat -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID bg_settlement_defeat -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID bg_settlement_defeat -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID bg_settlement_defeat -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_settlement_defeat -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_settlement_defeat -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 97. `bg_settlement_victory`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID bg_settlement_victory -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID bg_settlement_victory -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID bg_settlement_victory -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID bg_settlement_victory -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_settlement_victory -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID bg_settlement_victory -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 98. `chassis_bulwark_carrier_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID chassis_bulwark_carrier_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID chassis_bulwark_carrier_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID chassis_bulwark_carrier_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID chassis_bulwark_carrier_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID chassis_bulwark_carrier_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID chassis_bulwark_carrier_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 99. `chassis_compact_raider_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID chassis_compact_raider_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID chassis_compact_raider_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID chassis_compact_raider_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID chassis_compact_raider_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID chassis_compact_raider_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID chassis_compact_raider_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 100. `chassis_standard_frame_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID chassis_standard_frame_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID chassis_standard_frame_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID chassis_standard_frame_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID chassis_standard_frame_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID chassis_standard_frame_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID chassis_standard_frame_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 101. `faction_adventurer_guild_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID faction_adventurer_guild_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID faction_adventurer_guild_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID faction_adventurer_guild_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID faction_adventurer_guild_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID faction_adventurer_guild_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID faction_adventurer_guild_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 102. `faction_alchemy_guild_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID faction_alchemy_guild_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID faction_alchemy_guild_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID faction_alchemy_guild_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID faction_alchemy_guild_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID faction_alchemy_guild_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID faction_alchemy_guild_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 103. `faction_black_market_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID faction_black_market_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID faction_black_market_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID faction_black_market_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID faction_black_market_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID faction_black_market_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID faction_black_market_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 104. `faction_mage_tower_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID faction_mage_tower_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID faction_mage_tower_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID faction_mage_tower_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID faction_mage_tower_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID faction_mage_tower_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID faction_mage_tower_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 105. `faction_mechanic_workshop_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID faction_mechanic_workshop_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID faction_mechanic_workshop_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID faction_mechanic_workshop_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID faction_mechanic_workshop_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID faction_mechanic_workshop_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID faction_mechanic_workshop_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 106. `memento_boss1_lamp`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_boss1_lamp -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_boss1_lamp -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_boss1_lamp -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_boss1_lamp -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_boss1_lamp -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_boss1_lamp -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 107. `memento_first_chassis_frame`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_first_chassis_frame -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_first_chassis_frame -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_first_chassis_frame -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_first_chassis_frame -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_first_chassis_frame -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_first_chassis_frame -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 108. `memento_first_prosthetic_case`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_first_prosthetic_case -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_first_prosthetic_case -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_first_prosthetic_case -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_first_prosthetic_case -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_first_prosthetic_case -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_first_prosthetic_case -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 109. `memento_first_repair_patch`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_first_repair_patch -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_first_repair_patch -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_first_repair_patch -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_first_repair_patch -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_first_repair_patch -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_first_repair_patch -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 110. `memento_layer2_corrosion_vial`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_layer2_corrosion_vial -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_layer2_corrosion_vial -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_layer2_corrosion_vial -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_layer2_corrosion_vial -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_layer2_corrosion_vial -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_layer2_corrosion_vial -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 111. `memento_miracle_burn_mark`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_miracle_burn_mark -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_miracle_burn_mark -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_miracle_burn_mark -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_miracle_burn_mark -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_miracle_burn_mark -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_miracle_burn_mark -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 112. `memento_return_mark`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_return_mark -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_return_mark -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_return_mark -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_return_mark -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_return_mark -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_return_mark -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 113. `memento_san_collapse_blanket`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_san_collapse_blanket -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_san_collapse_blanket -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID memento_san_collapse_blanket -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID memento_san_collapse_blanket -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_san_collapse_blanket -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID memento_san_collapse_blanket -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 114. `rumor_contraband_night_channel_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_contraband_night_channel_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_contraband_night_channel_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_contraband_night_channel_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_contraband_night_channel_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_contraband_night_channel_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_contraband_night_channel_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 115. `rumor_corrosion_sample_premium_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_corrosion_sample_premium_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_corrosion_sample_premium_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_corrosion_sample_premium_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_corrosion_sample_premium_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_corrosion_sample_premium_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_corrosion_sample_premium_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 116. `rumor_faction_medical_request_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_faction_medical_request_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_faction_medical_request_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_faction_medical_request_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_faction_medical_request_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_faction_medical_request_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_faction_medical_request_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 117. `rumor_low_layer_bulk_buy_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_low_layer_bulk_buy_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_low_layer_bulk_buy_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_low_layer_bulk_buy_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_low_layer_bulk_buy_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_low_layer_bulk_buy_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_low_layer_bulk_buy_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 118. `rumor_origin_stone_demand_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_origin_stone_demand_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_origin_stone_demand_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_origin_stone_demand_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_origin_stone_demand_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_origin_stone_demand_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_origin_stone_demand_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 119. `rumor_scrap_workshop_shortage_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_scrap_workshop_shortage_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_scrap_workshop_shortage_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_scrap_workshop_shortage_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_scrap_workshop_shortage_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_scrap_workshop_shortage_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_scrap_workshop_shortage_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 120. `rumor_slime_crash_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_slime_crash_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_slime_crash_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_slime_crash_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_slime_crash_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_slime_crash_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_slime_crash_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 
 ### 121. `rumor_weapon_collector_visit_icon`
 
 ```powershell
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_weapon_collector_visit_icon -Variants 4 -DelaySeconds 1 -BatchID nai_visual_v2_20260526_04 -PreserveStatus
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_weapon_collector_visit_icon -CandidateBatchID nai_visual_v2_20260526_04 -Overwrite
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID rumor_weapon_collector_visit_icon -Variants 4 -DelaySeconds 1 -BatchID nai_v2a_runtime_quality_20260608_01 -PreserveStatus
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -VisualID rumor_weapon_collector_visit_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -Overwrite
 # Review selected/contact_sheet before syncing.
-.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_weapon_collector_visit_icon -CandidateBatchID nai_visual_v2_20260526_04 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
+.\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_weapon_collector_visit_icon -CandidateBatchID nai_v2a_runtime_quality_20260608_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
 

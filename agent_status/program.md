@@ -27,7 +27,7 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 ## 最后更新
 
-2026-06-07
+2026-06-08
 
 ## 当前关注
 
@@ -126,15 +126,16 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - Formal V1 工坊面板只读数据绑定第一版已落地：新增 `WorkshopFormalV1PanelBindingService`，`WorkshopFormalV1PanelController` 改为从成长、人偶、经济和交互只读快照服务取文案，不在 UI Controller 内持有玩法规则或改写状态；`WorkshopFormalV1PanelBindingSmokeTest.Run` 已通过，覆盖维护面板和日账单面板真实绑定与经济状态不变性。
 - 已补充视觉 / UI 接入完成口径：`program_integrate=0` 和 ArtAcceptance 截图通过只代表资源登记与运行时截图覆盖，不等于玩家可玩接入；Formal V1 界面后续必须同时满足玩家主流程可达和真实后端 / 领域服务操作闭环，才能标记为可玩接入完成。
 - Formal V1 工坊可玩接入第一段已落地：`WorkshopUIController` 新增玩家主流程入口区，可打开维护、账单、商店、订单、传闻、经营结算、底盘、人偶互动、人偶房间、势力商店和剧情事件面板；新增 `WorkshopFormalV1PanelActionService`，维护按钮调用 `MaintenanceService`，人偶互动按钮调用 `DollInteractionService`，账单 / 经营按钮仅做真实导航或关闭，不伪造未完成业务结果；`WorkshopFormalV1PanelBindingSmokeTest.Run`、`MaintenanceServiceSmokeTest.Run`、`DollInteractionServiceSmokeTest.Run` 已通过。
+- 美术侧已把 V2-A 五个核心流程界面迁移为 active FormalV2 规格：`workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。程序侧下一轮 UI 表现工作可直接读取 `美术文档/ui_design/screen_layouts.json`，不要再按 `formal_v2/*.md` 草案接入；当前 `program_integrate=0`，没有新增 Approved VisualID 需要登记。
 
 ## 下一步建议
 
 1. 进入新程序任务前先查 `版本规划/11_纵切批次与需求文档承接矩阵.md` 第 4 节；已标记“程序功能开发完成”的能力只做 bug 修复、验收补强或真实数据绑定，不重复开发。
-2. 先处理美术验收返修：ArtAcceptance latest `20260527_002436` 工具层通过且 `program_integrate=0`，但美术人工验收判定 `combat_hud`、`dungeon_map`、`safe_room`、`stairs_room`、`sell_panel`、`prosthetic_panel` 不通过。前四项需要截图前清理 Scenario Event、工坊面板、背包弹层等跨界面残留；后两项需要至少 1 条有效可出售物品行 / 义体配方行后重跑。
-3. 对 `shop_staging`、`daily_bill_report`、`business_settlement`、`chassis_upgrade_panel` 做文本容器和行距收束，避免中文长文本压边框、按钮或选中行。
-4. 优先从未完成项中选下一步：P1 战斗胜利 / 掉落 / 战后复盘的玩家可见操作闭环、P2 前三层正式配置 JSON / Validator 样例、P3 更完整制造配置与真实操作流、P4 经济操作流 / 配置 Validator、P0 Strict warning / seed 摘要。
-5. P0 后续补强重点转为 warning 分级和 Strict 门禁：当前 17 个 warning 主要来自 ConfigValidator 元数据标签、缺失正式怪物 VisualID 和 smoke test 日志 warning，需要按是否阻塞候选版本分类处理。
-6. Formal V1 UI 后续接入按四层验收：先确认资源登记，再确认 ArtAcceptance 截图覆盖，再补玩家主流程入口，最后把关键按钮绑定到真实后端 / 领域服务；当前工坊主入口、维护和人偶互动已进入真实服务闭环，订单 / 商店 / 势力 / 剧情仍需后续补真实操作流。
+2. UI 表现下一步优先按 active FormalV2 五屏重排：`workshop_main` 改为魔偶中心安心房间 + 深渊门主行动，`combat_hud` 保持战斗舞台 + 背包指令区，`inventory_loot` 改为半透明战后清点层，`dungeon_map` 改为可推进大地图，`settlement` 改为撤离 / 损伤报告。
+3. 当前 `美术文档/_generated/程序接入交接清单.md` 显示 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=16`；其中 16 屏是仍为 FormalV1 的非 V2-A 屏截图早于当前规格日期，不代表 V2-A 五屏已经完成运行时接入。
+4. 新增 `generate_needed=29` 属于美术缺图生成队列：11 个物品图标、9 个怪物战斗实体和 9 个怪物头像；在它们 Approved 前，程序侧无需登记这些 VisualID，可继续用 fallback 或等待美术后续同名入库。
+5. 原 Formal V1 返修仍可并行处理：`safe_room`、`stairs_room` 清理跨界面残留，`sell_panel` 和 `prosthetic_panel` 补有效列表 / 配方行后重跑 ArtAcceptance。
+6. P0 后续补强重点转为 warning 分级和 Strict 门禁：当前 17 个 warning 主要来自 ConfigValidator 元数据标签、缺失正式怪物 VisualID 和 smoke test 日志 warning，需要按是否阻塞候选版本分类处理。
 7. 接入下一批美术新素材时继续优先读取 `美术文档/_generated/可接入素材清单.md`，先处理 `program_integrate` 队列，再回到运行时截图验收。
 
 ## 问题 / 阻塞

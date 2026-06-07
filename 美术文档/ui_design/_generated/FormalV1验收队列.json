@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-05-27T23:11:55+08:00",
-  "SnapshotTag": "art_acceptance_20260527",
+  "GeneratedAt": "2026-06-08T00:39:05+08:00",
+  "SnapshotTag": "",
   "Inputs": {
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",
     "ManifestPath": "美术文档/_generated/art_manifest.json",
@@ -9,167 +9,22 @@
     "RegistryPath": "UnityClient/Logs/ArtAcceptance/latest/registry_snapshot.json"
   },
   "Summary": {
-    "ScreenSpecUpdatedAt": "2026-05-25",
-    "AcceptanceRunID": "20260527_002436",
-    "AcceptanceStatus": "PASSED",
-    "AcceptanceFinishedAt": "2026-05-27T00:24:58.3493484+08:00",
-    "AcceptanceIsOlderThanSpec": false,
-    "FormalV1ScreenCount": 21,
-    "CapturedScreenCount": 21,
+    "ScreenSpecUpdatedAt": "2026-06-08",
+    "AcceptanceRunID": "20260606_230523",
+    "AcceptanceStatus": "FAILED",
+    "AcceptanceFinishedAt": "2026-06-06T23:05:41.4448072+08:00",
+    "AcceptanceIsOlderThanSpec": true,
+    "FormalV1ScreenCount": 16,
+    "CapturedScreenCount": 16,
     "BucketCounts": {
-      "art_review_ready": 21
+      "review_previous_screenshot": 16
     },
     "ActionCounts": {
-      "art_review_screenshot": 21
+      "art_review_screenshot": 16,
+      "program_rerun_art_acceptance": 16
     }
   },
   "Queue": [
-    {
-      "ScreenID": "combat_hud",
-      "DisplayName": "战斗界面",
-      "Priority": "P0",
-      "LayoutStatus": "active_spec",
-      "StructureVersion": "FormalV1",
-      "BackgroundVisualID": "bg_combat_abyss",
-      "RequiredVisualCount": 34,
-      "RequiredComponentCount": 17,
-      "ZoneCount": 9,
-      "AcceptanceCriteriaCount": 10,
-      "MissingManifestVisualIDs": [],
-      "MissingApprovedVisualIDs": [],
-      "ApprovedButMissingMetaVisualIDs": [],
-      "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_combat_intent_grid_lock",
-        "ui_combat_intent_add_junk",
-        "ui_combat_intent_move_item",
-        "ui_combat_intent_san_pressure",
-        "ui_combat_intent_charge",
-        "ui_combat_intent_unknown",
-        "ui_combat_status_corrosion",
-        "ui_combat_status_curse",
-        "ui_combat_status_stun",
-        "ui_combat_junk_preview_marker"
-      ],
-      "CaptureConfiguredInLatestTool": true,
-      "HasScreenshot": true,
-      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/combat_hud.png",
-      "CaptureStatus": "captured",
-      "CaptureWarnings": [],
-      "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
-      "RequiredActions": [
-        "art_review_screenshot"
-      ],
-      "ReviewChecklist": [
-        "截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。",
-        "RequiredVisualIDs 在运行时不出现 missing sprite 或空 sprite。",
-        "背景、面板、装饰和非交互图标不阻挡按钮、背包格或拖拽射线。",
-        "所有数值、物品名、按钮文案、日期和说明由 Unity Text/TMP 渲染，不烘焙进图片。",
-        "主操作、次级操作、警告和禁用态可读，长文本不溢出容器。",
-        "背包格保持 100x100，GridContainer 与 InventoryItemLayer 同锚点、同缩放。",
-        "背景使用 cover 适配，不因透明 alpha 或比例裁切产生黑块。",
-        "1920x1080 下玩家实体在左侧、敌方实体在右侧，敌人不再以大卡片作为主要表现。",
-        "战斗背包位于底部居中，100x100 背包格和 5 间距保持不变，拖拽/点击不受 UI 皮肤影响。",
-        "敌人 HP/Shield 条贴近敌人脚下，选中目标时脚下 target ring 或等效高亮可见。",
-        "中央 vfx_space 没有固定面板遮挡，可用于攻击轨迹、投射物、伤害数字和状态反馈。",
-        "MonsterEntity.CombatVisualID 缺图时可以临时 fallback 到 PortraitID，但正式验收以透明背景战斗实体素材为准。",
-        "背景、阴影、目标光环、状态条和 VFX 层不拦截敌人热区、背包格或按钮射线。",
-        "敌人意图图标位于敌人实体上方或近侧，运行时数字/倒计时由 Text 叠加，图标本身不含文字、字母或数字。",
-        "敌人状态图标与意图图标不遮挡 EnemyClickHotspot_Button，点击敌人主体和脚下光环仍能选中目标。",
-        "封格和塞包预告标记严格对齐 100x100 背包格，不改变 GridContainer 尺寸、格间距或物品拖拽层级。",
-        "命中和破盾反馈只在 VfxLayer 短暂出现，不作为常驻面板，不阻挡敌人、背包或按钮射线。"
-      ]
-    },
-    {
-      "ScreenID": "inventory_loot",
-      "DisplayName": "背包与战利品拾取界面",
-      "Priority": "P0",
-      "LayoutStatus": "active_spec",
-      "StructureVersion": "FormalV1",
-      "BackgroundVisualID": "bg_combat_abyss",
-      "RequiredVisualCount": 13,
-      "RequiredComponentCount": 8,
-      "ZoneCount": 8,
-      "AcceptanceCriteriaCount": 6,
-      "MissingManifestVisualIDs": [],
-      "MissingApprovedVisualIDs": [],
-      "ApprovedButMissingMetaVisualIDs": [],
-      "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [],
-      "CaptureConfiguredInLatestTool": true,
-      "HasScreenshot": true,
-      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/inventory_loot.png",
-      "CaptureStatus": "captured",
-      "CaptureWarnings": [],
-      "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
-      "RequiredActions": [
-        "art_review_screenshot"
-      ],
-      "ReviewChecklist": [
-        "截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。",
-        "RequiredVisualIDs 在运行时不出现 missing sprite 或空 sprite。",
-        "背景、面板、装饰和非交互图标不阻挡按钮、背包格或拖拽射线。",
-        "所有数值、物品名、按钮文案、日期和说明由 Unity Text/TMP 渲染，不烘焙进图片。",
-        "主操作、次级操作、警告和禁用态可读，长文本不溢出容器。",
-        "背包格保持 100x100，GridContainer 与 InventoryItemLayer 同锚点、同缩放。",
-        "背景使用 cover 适配，不因透明 alpha 或比例裁切产生黑块。",
-        "左侧 inventory_grid、右侧 loot_cache、右下 confirm_area 结构清晰，三者互不重叠。",
-        "战利品图标可以从 loot_cache 拖入 inventory_grid，合法/非法格状态能正确变化。",
-        "PickupPanel、LootDropZone、ItemDetailPanel、UnclaimedWarningPanel 不阻挡格子、物品和按钮射线。",
-        "背包格实际显示尺寸为 100x100，和 DraggableItemUI 的占格尺寸一致。",
-        "确认按钮继续沿用现有 continueBtn 逻辑，未拾取物品的清理规则不被 UI 皮肤改变。",
-        "容量摘要、物品名称、价值、占格说明、未拾取警告和结算摘要全部由 Unity Text 渲染。"
-      ]
-    },
-    {
-      "ScreenID": "workshop_main",
-      "DisplayName": "工坊主界面",
-      "Priority": "P0",
-      "LayoutStatus": "active_spec",
-      "StructureVersion": "FormalV1",
-      "BackgroundVisualID": "bg_workshop_day",
-      "RequiredVisualCount": 14,
-      "RequiredComponentCount": 7,
-      "ZoneCount": 8,
-      "AcceptanceCriteriaCount": 6,
-      "MissingManifestVisualIDs": [],
-      "MissingApprovedVisualIDs": [],
-      "ApprovedButMissingMetaVisualIDs": [],
-      "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main"
-      ],
-      "CaptureConfiguredInLatestTool": true,
-      "HasScreenshot": true,
-      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/workshop_main.png",
-      "CaptureStatus": "captured",
-      "CaptureWarnings": [],
-      "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
-      "RequiredActions": [
-        "art_review_screenshot"
-      ],
-      "ReviewChecklist": [
-        "截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。",
-        "RequiredVisualIDs 在运行时不出现 missing sprite 或空 sprite。",
-        "背景、面板、装饰和非交互图标不阻挡按钮、背包格或拖拽射线。",
-        "所有数值、物品名、按钮文案、日期和说明由 Unity Text/TMP 渲染，不烘焙进图片。",
-        "主操作、次级操作、警告和禁用态可读，长文本不溢出容器。",
-        "背包格保持 100x100，GridContainer 与 InventoryItemLayer 同锚点、同缩放。",
-        "背景使用 cover 适配，不因透明 alpha 或比例裁切产生黑块。",
-        "1920x1080 下 status_cluster、expedition_panel、service_panel、doll_bay、backpack_workbench 互不重叠。",
-        "出发深渊是最明显主行动，出售和义体制造是次级服务入口。",
-        "背包格实际显示尺寸为 100x100，格间距为 5，拖拽占格与后端 shape 一致。",
-        "背景、立绘、装饰面板不拦截按钮、格子或物品拖拽射线。",
-        "所有按钮文案、金币、天数、底盘容量、维修和压力信息均由 Unity Text 渲染。",
-        "工坊界面不复制背包数据；GridContainer 和 InventoryItemLayer 仍指向同一套全局背包表现。"
-      ]
-    },
     {
       "ScreenID": "daily_bill_report",
       "DisplayName": "每日账单报告界面",
@@ -200,9 +55,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -218,52 +74,6 @@
         "欠债、即将到期、未售出高风险物品使用 warning 图标或运行时 tint 表达。",
         "继续下一天是主行动，返回工坊/出售是次行动，延后付款是危险行动。",
         "日期、价格、收入、支出、物品名和风险原因全部由 Unity Text 渲染，图片中不包含文字或数字。"
-      ]
-    },
-    {
-      "ScreenID": "dungeon_map",
-      "DisplayName": "深渊地图界面",
-      "Priority": "P1",
-      "LayoutStatus": "active_spec",
-      "StructureVersion": "FormalV1",
-      "BackgroundVisualID": "bg_dungeon_map",
-      "RequiredVisualCount": 7,
-      "RequiredComponentCount": 6,
-      "ZoneCount": 5,
-      "AcceptanceCriteriaCount": 6,
-      "MissingManifestVisualIDs": [],
-      "MissingApprovedVisualIDs": [],
-      "ApprovedButMissingMetaVisualIDs": [],
-      "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_dungeon_node_plate",
-        "ui_dungeon_route_line",
-        "ui_icon_locked"
-      ],
-      "CaptureConfiguredInLatestTool": true,
-      "HasScreenshot": true,
-      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/dungeon_map.png",
-      "CaptureStatus": "captured",
-      "CaptureWarnings": [],
-      "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
-      "RequiredActions": [
-        "art_review_screenshot"
-      ],
-      "ReviewChecklist": [
-        "截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。",
-        "RequiredVisualIDs 在运行时不出现 missing sprite 或空 sprite。",
-        "背景、面板、装饰和非交互图标不阻挡按钮、背包格或拖拽射线。",
-        "所有数值、物品名、按钮文案、日期和说明由 Unity Text/TMP 渲染，不烘焙进图片。",
-        "主操作、次级操作、警告和禁用态可读，长文本不溢出容器。",
-        "背景使用 cover 适配，不因透明 alpha 或比例裁切产生黑块。",
-        "1920x1080 下 layer_header、route_canvas、selected_node_detail、inventory_controls 互不重叠。",
-        "地图截图中可以看出路线、节点、当前层和当前节点或选中节点。",
-        "可进入、锁定、不可达状态至少有一种可见区分，锁定图标不阻挡点击。",
-        "节点按钮仍可点击，路线和背景不拦截点击。",
-        "打开/关闭背包按钮状态切换正确，关闭背包仍执行格外物品丢弃规则。",
-        "路线连接线使用 ui_dungeon_route_line，节点底板使用 ui_dungeon_node_plate，背景使用 bg_dungeon_map。"
       ]
     },
     {
@@ -295,9 +105,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -343,9 +154,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -391,9 +203,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -434,9 +247,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -481,9 +295,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -497,61 +312,6 @@
         "列表可滚动，行皮肤不阻挡按钮或 ScrollRect。",
         "物品图标按 item_*_icon contain 显示，不拉伸变形。",
         "关闭按钮返回工坊主界面，义体面板保持关闭。"
-      ]
-    },
-    {
-      "ScreenID": "settlement",
-      "DisplayName": "撤离/战斗结果结算界面",
-      "Priority": "P1",
-      "LayoutStatus": "active_spec",
-      "StructureVersion": "FormalV1",
-      "BackgroundVisualID": "",
-      "RequiredVisualCount": 14,
-      "RequiredComponentCount": 8,
-      "ZoneCount": 6,
-      "AcceptanceCriteriaCount": 8,
-      "MissingManifestVisualIDs": [],
-      "MissingApprovedVisualIDs": [],
-      "ApprovedButMissingMetaVisualIDs": [],
-      "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_settlement_victory_panel",
-        "ui_settlement_defeat_panel",
-        "ui_settlement_outcome_victory",
-        "ui_settlement_outcome_hp_defeat",
-        "ui_settlement_outcome_san_collapse",
-        "ui_settlement_outcome_hp_san_defeat",
-        "ui_settlement_outcome_party_wipe",
-        "ui_list_row_normal",
-        "ui_title_divider",
-        "bg_settlement_victory",
-        "bg_settlement_defeat"
-      ],
-      "CaptureConfiguredInLatestTool": true,
-      "HasScreenshot": true,
-      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/settlement.png",
-      "CaptureStatus": "captured",
-      "CaptureWarnings": [],
-      "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
-      "RequiredActions": [
-        "art_review_screenshot"
-      ],
-      "ReviewChecklist": [
-        "截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。",
-        "RequiredVisualIDs 在运行时不出现 missing sprite 或空 sprite。",
-        "背景、面板、装饰和非交互图标不阻挡按钮、背包格或拖拽射线。",
-        "所有数值、物品名、按钮文案、日期和说明由 Unity Text/TMP 渲染，不烘焙进图片。",
-        "主操作、次级操作、警告和禁用态可读，长文本不溢出容器。",
-        "胜利结算使用 bg_settlement_victory 和 ui_settlement_victory_panel。",
-        "战败结算使用 bg_settlement_defeat 和 ui_settlement_defeat_panel。",
-        "结果徽记按 CombatOutcomeReport.OutcomeType / DefeatReason 切换，至少覆盖胜利、HP 战败、SAN 崩溃、HP+SAN 复合战败和队伍溃败。",
-        "结果标题、收益/损失摘要、带出/遗失明细和返回工坊按钮可读。",
-        "HP 战败和 SAN 崩溃在标题或摘要第一屏可区分，不只显示通用“失败”。",
-        "标题、摘要、列表文字在 1920x1080 下不溢出主面板。",
-        "Continue_Button 可点击，背景和面板不拦截按钮射线。",
-        "背景对比不压过主面板文字，结算结果一眼可读。"
       ]
     },
     {
@@ -579,9 +339,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -628,9 +389,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -677,9 +439,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -727,9 +490,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -774,9 +538,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -824,9 +589,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -872,9 +638,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -921,9 +688,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -970,9 +738,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -1017,9 +786,10 @@
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": false,
-      "QueueBucket": "art_review_ready",
+      "ScreenshotStaleAgainstSpec": true,
+      "QueueBucket": "review_previous_screenshot",
       "RequiredActions": [
+        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
