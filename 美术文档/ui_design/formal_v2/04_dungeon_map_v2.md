@@ -59,6 +59,9 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 * 暂时不做常驻选中节点详情；需要的信息用小型 tooltip 或节点图标状态表达。
 * 背包整理、撤离、层级信息是辅助，不抢地图和节点的权重。
 * 地图底图和节点必须融合：节点应嵌在岩台、地层、羊皮纸剖面或铜质地图牌上，不能像漂浮按钮贴在海面背景上。
+* 层地图是一张可推进的大地图，不是一屏静态节点板；玩家沿路线前进时，镜头应能向当前节点和更深处持续推进。
+* 地图需要足够纵深：前景、中景、远景都要有可读路线或地貌线索，让玩家感觉还有未抵达区域。
+* 每一层可以有独立生态主题，不必都画成洞窟或深渊视觉；地底草原、地下森林、晶洞、遗迹、雾谷、矿坑、湿地都可以成为某一层的主视觉。
 * 画风贴近日系二次元冒险地图，明亮、干净、有童话式深渊感，不走欧美写实地图或冷硬战术雷达。
 
 ---
@@ -72,8 +75,8 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 │ Minimal Status: layer / depth / small resource icons        │
 │                                                            │
 │                                                            │
-│                Large Route Map Canvas                      │
-│       floating islands / paths / large node plates          │
+│            Large Scrollable Layer Route Map                │
+│ foreground -> midground -> distant route continuation       │
 │                                                            │
 │ small legend / route menu                 Confirm Route     │
 └────────────────────────────────────────────────────────────┘
@@ -82,7 +85,7 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 | ZoneID | 建议位置 | 作用 |
 |---|---|---|
 | `layer_header` | `64,36 1792x72` | 当前层、深度、少量资源图标。 |
-| `route_canvas` | `80,120 1760x820` | 节点网络、路线连线、地图地貌主视觉。 |
+| `route_canvas` | `80,120 1760x820` | 可推进大地图、节点网络、路线连线、地图地貌主视觉。 |
 | `node_tooltip` | 跟随选中节点，小尺寸 | 暂时只显示极短风险 / 奖励图标，不做常驻详情面板。 |
 | `map_action_button` | `1560,850 260x120` | 确认路线 / 进入节点主行动。 |
 | `route_legend` | `80,920 760x80` | 节点状态图例和战争迷雾说明，低权重。 |
@@ -139,17 +142,19 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 * 路线线段像探索线索。
 * 未知节点被雾遮住。
 * 当前节点有清晰定位。
-* 大节点岛 / 节点牌是视觉焦点。
+* 大节点岛 / 节点牌是视觉焦点，但要像地图地貌的一部分。
 * 边角只保留少量必要按钮。
-* 底图应是深渊纵剖、洞窟地层、羊皮纸地图或机械测绘图的融合，不使用海面、水域或纯天空背景。
-* 节点和路线要长在地貌上：铜质节点牌固定在岩层或羊皮纸路径上，路线像刻线、绳桥、轨迹或发光矿脉。
+* 底图可以是深渊纵剖、洞窟地层、羊皮纸地图、机械测绘图，也可以是某一层的独立生态地貌，例如地底草原、地下森林、晶洞、遗迹、雾谷、矿坑或湿地。
+* 不使用海面、水域地平线或纯天空背景；如果某层确实有水边湿地，也必须让路线和节点长在岸线、栈道、岩台或遗迹结构上。
+* 节点和路线要长在地貌上：铜质节点牌固定在岩层、树根、草甸道路、遗迹平台或羊皮纸路径上，路线像刻线、绳桥、轨迹、发光矿脉或被踩出的道路。
+* 一张层地图可以大于单屏。概念图和后续实现都应预留镜头推进感：当前节点在前 / 中景，远处能看到下一个区域和更深路线。
 
-AI 或后续美术提示应描述 map board, branching route, fogged nodes, brass markers, parchment/mechanical chart 等可视概念。
+AI 或后续美术提示应描述 large scrollable route map, foreground-to-background depth, camera-travel feeling, branching route, fogged nodes, brass markers, parchment/mechanical chart, distinct layer biome 等可视概念。
 
 Formal V2 概念图提示还应追加：
 
 ```text
-Japanese anime fantasy game UI concept art, vertical abyss cavern route map, parchment map blended with geological cross-section, route nodes embedded on cave terraces and brass map plates, paths carved into terrain, warm hand-painted 2D background, soft cel shading, clean low-density interface, no ocean, no sea, no floating disconnected nodes, no western realistic tactical map
+Japanese anime fantasy game UI concept art, large scrollable layer route map, strong foreground-to-background depth, camera-travel feeling, distinct subterranean biome for this layer, route nodes embedded into roads, terraces, trees, ruins or brass map plates, paths carved into terrain, warm hand-painted 2D background, soft cel shading, clean low-density interface, no ocean horizon, no floating disconnected nodes, no western realistic tactical map
 ```
 
 ---
@@ -224,13 +229,17 @@ DungeonMapPanel
 6. 背包整理和撤离不抢主行动权重。
 7. 路线、雾层、节点点击不会互相遮挡。
 8. 底图、节点和路线像同一张地图系统，不能出现“海面底图 + 漂浮节点”的割裂感。
+9. 地图有足够纵深，能支持玩家沿路线前进和镜头向前推移的想象。
+10. 当前层有明确生态主题，且允许和其他层明显不同，不把所有层都画成同一种深渊洞窟。
 
 ---
 
 ## 12. 用户确认问题
 
-建议确认以下 3 点：
+建议确认以下 5 点：
 
 1. `dungeon_map` 是否采用“地图 / 节点视觉中心 + 少量必要按钮”的结构。
 2. 是否确认暂时不做常驻选中节点详情，只保留极简 tooltip / 图标状态。
-3. 是否允许第一版继续复用当前地图背景和节点图标，先验证地图决策结构。
+3. 是否接受“可推进大地图 + 镜头前移”的层地图方向。
+4. 是否接受每一层按独立生态主题设计，例如草原层、森林层、晶洞层或遗迹层。
+5. 是否允许第一版继续复用当前地图背景和节点图标，先验证地图决策结构。

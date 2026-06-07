@@ -15,3 +15,4 @@ UnityClient/Assets/Art/Approved/**/*.blend filter=lfs diff=lfs merge=lfs -text
 
 # Formal UI concept references are binary design artifacts, not runtime assets.
 美术文档/ui_design/formal_v2/concepts/**/*.png filter=lfs diff=lfs merge=lfs -text
+美术文档/美术风格参考/**/*.png filter=lfs diff=lfs merge=lfs -text

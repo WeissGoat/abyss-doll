@@ -1,0 +1,3119 @@
+{
+  "GeneratedAt": "2026-05-25T07:30:44+08:00",
+  "SnapshotTag": "latest_fact_scan_20260525",
+  "Inputs": {
+    "IntegrationCandidatesPath": "美术文档/_generated/可接入素材清单.json",
+    "AcceptanceQueuePath": "美术文档/ui_design/_generated/FormalV1验收队列.json",
+    "ManifestPath": "美术文档/_generated/art_manifest.json"
+  },
+  "SourceSummaries": {
+    "IntegrationGeneratedAt": "2026-05-25T07:29:44+08:00",
+    "IntegrationActionCounts": {
+      "acceptance_needed": 82,
+      "program_integrate": 109
+    },
+    "AcceptanceGeneratedAt": "2026-05-25T07:30:27+08:00",
+    "AcceptanceRunID": "20260524_212423",
+    "AcceptanceStatus": "PASSED",
+    "AcceptanceFinishedAt": "2026-05-24T21:24:39.7401303+08:00",
+    "AcceptanceIsOlderThanSpec": true
+  },
+  "Summary": {
+    "ProgramIntegrateVisualCount": 109,
+    "ProgramIntegrateLocalV0Count": 97,
+    "ProgramIntegratePriorityCounts": {
+      "P0": 4,
+      "P1": 28,
+      "P2": 77
+    },
+    "ProgramIntegrateDomainCounts": {
+      "background": 1,
+      "chassis": 3,
+      "faction": 5,
+      "memento": 8,
+      "node": 4,
+      "order": 29,
+      "prosthetic": 6,
+      "rumor": 8,
+      "ui": 45
+    },
+    "FormalV1ScreenCount": 21,
+    "ProgramRegisterScreenCount": 10,
+    "ProgramAddCaptureScreenCount": 6,
+    "ProgramRerunAcceptanceScreenCount": 15,
+    "ArtReviewScreenshotScreenCount": 15,
+    "AcceptanceQueueBucketCounts": {
+      "program_register_visuals": 10,
+      "review_previous_screenshot": 11
+    },
+    "AcceptanceActionCounts": {
+      "art_review_screenshot": 15,
+      "program_add_art_acceptance_capture": 6,
+      "program_register_visuals": 10,
+      "program_rerun_art_acceptance": 15
+    }
+  },
+  "ProgramActions": {
+    "RegisterVisualIDs": [
+      "node_eventnode_icon",
+      "node_hazardnode_icon",
+      "node_reststopnode_icon",
+      "node_treasurenode_icon",
+      "ui_combat_feedback_hit",
+      "ui_combat_feedback_shield_break",
+      "ui_combat_grid_lock_marker",
+      "ui_combat_intent_add_junk",
+      "ui_combat_intent_attack",
+      "ui_combat_intent_buff",
+      "ui_combat_intent_charge",
+      "ui_combat_intent_debuff",
+      "ui_combat_intent_defend",
+      "ui_combat_intent_grid_lock",
+      "ui_combat_intent_move_item",
+      "ui_combat_intent_san_pressure",
+      "ui_combat_intent_unknown",
+      "ui_combat_junk_preview_marker",
+      "ui_combat_status_corrosion",
+      "ui_combat_status_curse",
+      "ui_combat_status_stun",
+      "ui_icon_debt_rent",
+      "ui_icon_expense",
+      "ui_icon_income",
+      "ui_icon_corruption_purify",
+      "ui_icon_dive_permit",
+      "ui_icon_wear_repair",
+      "ui_settlement_outcome_hp_defeat",
+      "ui_settlement_outcome_hp_san_defeat",
+      "ui_settlement_outcome_party_wipe",
+      "ui_settlement_outcome_san_collapse",
+      "ui_settlement_outcome_victory",
+      "ui_icon_business_settlement",
+      "ui_icon_customer",
+      "ui_icon_sale_spark",
+      "ui_icon_blueprint",
+      "ui_icon_chassis_upgrade",
+      "ui_icon_material_need",
+      "ui_icon_gift",
+      "ui_icon_memento",
+      "ui_icon_talk",
+      "ui_icon_touch",
+      "bg_doll_room_attic",
+      "ui_icon_diary",
+      "ui_room_memento_slot",
+      "ui_icon_reputation",
+      "ui_icon_trust",
+      "ui_icon_event",
+      "ui_icon_lore",
+      "ui_icon_skip",
+      "chassis_bulwark_carrier_icon",
+      "chassis_compact_raider_icon",
+      "chassis_standard_frame_icon",
+      "faction_adventurer_guild_icon",
+      "faction_alchemy_guild_icon",
+      "faction_black_market_icon",
+      "faction_mage_tower_icon",
+      "faction_mechanic_workshop_icon",
+      "memento_boss1_lamp",
+      "memento_first_chassis_frame",
+      "memento_first_prosthetic_case",
+      "memento_first_repair_patch",
+      "memento_layer2_corrosion_vial",
+      "memento_miracle_burn_mark",
+      "memento_return_mark",
+      "memento_san_collapse_blanket",
+      "order_alchemy_antitoxin_contract_icon",
+      "order_alchemy_market_forecast_icon",
+      "order_alchemy_purification_batch_icon",
+      "order_alchemy_spore_sample_fast_icon",
+      "order_black_bound_core_betrayal_icon",
+      "order_black_forbidden_relic_buyout_icon",
+      "order_black_live_sample_no_questions_icon",
+      "order_black_smuggled_route_key_icon",
+      "order_guild_layer1_map_rubbing_icon",
+      "order_guild_layer2_route_report_icon",
+      "order_guild_safezone_signal_icon",
+      "order_mage_boss_core_research_icon",
+      "order_mage_corroded_memory_stone_icon",
+      "order_mage_live_slime_sample_icon",
+      "order_mage_unidentified_relic_icon",
+      "order_status_boss_core_mutex_icon",
+      "order_status_deadline_warning_icon",
+      "order_status_order_bound_icon",
+      "order_status_perishable_icon",
+      "order_type_black_market_betrayal_icon",
+      "order_type_exploration_report_icon",
+      "order_type_large_cargo_icon",
+      "order_type_live_capture_icon",
+      "order_type_procurement_icon",
+      "order_type_target_item_icon",
+      "order_workshop_boss_core_claim_icon",
+      "order_workshop_furnace_core_large_icon",
+      "order_workshop_layer2_ore_batch_icon",
+      "order_workshop_scrap_guard_plate_icon",
+      "prosthetic_anchor_left_arm_icon",
+      "prosthetic_charge_coil_arm_icon",
+      "prosthetic_focus_lens_icon",
+      "prosthetic_mender_spine_icon",
+      "prosthetic_salvage_fingertips_icon",
+      "prosthetic_san_regulator_core_icon",
+      "rumor_contraband_night_channel_icon",
+      "rumor_corrosion_sample_premium_icon",
+      "rumor_faction_medical_request_icon",
+      "rumor_low_layer_bulk_buy_icon",
+      "rumor_origin_stone_demand_icon",
+      "rumor_scrap_workshop_shortage_icon",
+      "rumor_slime_crash_icon",
+      "rumor_weapon_collector_visit_icon"
+    ],
+    "AddArtAcceptanceCaptureScreens": [
+      "business_settlement",
+      "chassis_upgrade_panel",
+      "doll_interaction",
+      "doll_room",
+      "faction_shop",
+      "scenario_event"
+    ],
+    "RerunArtAcceptanceScreens": [
+      "combat_hud",
+      "inventory_loot",
+      "workshop_main",
+      "daily_bill_report",
+      "dungeon_map",
+      "layer_select",
+      "maintenance_panel",
+      "prosthetic_panel",
+      "safe_room",
+      "sell_panel",
+      "settlement",
+      "stairs_room",
+      "order_board",
+      "rumor_board",
+      "shop_staging"
+    ],
+    "ArtReviewAfterRerunScreens": [
+      "combat_hud",
+      "inventory_loot",
+      "workshop_main",
+      "daily_bill_report",
+      "dungeon_map",
+      "layer_select",
+      "maintenance_panel",
+      "prosthetic_panel",
+      "safe_room",
+      "sell_panel",
+      "settlement",
+      "stairs_room",
+      "order_board",
+      "rumor_board",
+      "shop_staging"
+    ]
+  },
+  "ProgramIntegrateVisuals": [
+    {
+      "VisualID": "node_eventnode_icon",
+      "Priority": "P0",
+      "Domain": "node",
+      "AssetType": "icon",
+      "DisplayName": "EventNode",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_eventnode_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "node_hazardnode_icon",
+      "Priority": "P0",
+      "Domain": "node",
+      "AssetType": "icon",
+      "DisplayName": "HazardNode",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_hazardnode_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "node_reststopnode_icon",
+      "Priority": "P0",
+      "Domain": "node",
+      "AssetType": "icon",
+      "DisplayName": "RestStopNode",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_reststopnode_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "node_treasurenode_icon",
+      "Priority": "P0",
+      "Domain": "node",
+      "AssetType": "icon",
+      "DisplayName": "TreasureNode",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Nodes/Icons/node_treasurenode_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_feedback_hit",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "effect_overlay",
+      "DisplayName": "命中反馈符号",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_hit.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_feedback_shield_break",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "effect_overlay",
+      "DisplayName": "破盾反馈符号",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_shield_break.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_grid_lock_marker",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "marker",
+      "DisplayName": "封格覆盖标记",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_grid_lock_marker.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_intent_add_junk",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "塞包意图图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_add_junk.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_intent_attack",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "攻击意图图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_attack.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_intent_buff",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "增益意图图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_buff.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_intent_charge",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "蓄力意图图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_charge.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_intent_debuff",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "弱化意图图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_debuff.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_intent_defend",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "防御意图图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_defend.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_intent_grid_lock",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "封格意图图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_grid_lock.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_intent_move_item",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "移位意图图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_move_item.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_intent_san_pressure",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "SAN压力意图图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_san_pressure.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_intent_unknown",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "未知意图图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_unknown.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_junk_preview_marker",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "marker",
+      "DisplayName": "塞包预告标记",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_junk_preview_marker.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_status_corrosion",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "腐蚀状态图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_corrosion.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_status_curse",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "诅咒状态图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_curse.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_combat_status_stun",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "眩晕状态图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_stun.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "combat_hud"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_debt_rent",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "月租债务图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_debt_rent.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "daily_bill_report"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_expense",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "支出图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "daily_bill_report"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_income",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "收入图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_income.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "daily_bill_report"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_corruption_purify",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "侵蚀净化图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_corruption_purify.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "maintenance_panel"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_dive_permit",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "下潜许可图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_dive_permit.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "maintenance_panel"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_wear_repair",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "磨损修复图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_wear_repair.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "maintenance_panel"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_settlement_outcome_hp_defeat",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "结算结果-HP 战败徽记",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_defeat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "settlement"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_settlement_outcome_hp_san_defeat",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "结算结果-HP+SAN 复合战败徽记",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_hp_san_defeat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "settlement"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_settlement_outcome_party_wipe",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "结算结果-队伍溃败徽记",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_party_wipe.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "settlement"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_settlement_outcome_san_collapse",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "结算结果-SAN 崩溃徽记",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_san_collapse.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "settlement"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_settlement_outcome_victory",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "结算结果-胜利徽记",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_outcome_victory.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "settlement"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_business_settlement",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "营业结算图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "business_settlement"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_customer",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "顾客图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_customer.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "business_settlement"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_sale_spark",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "effect_overlay",
+      "DisplayName": "成交爆点图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_sale_spark.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "business_settlement"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_blueprint",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "蓝图图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_blueprint.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "chassis_upgrade_panel"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_chassis_upgrade",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "底盘升级图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_chassis_upgrade.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "chassis_upgrade_panel"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_material_need",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "材料缺口图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_material_need.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "chassis_upgrade_panel"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_gift",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "赠礼图标",
+      "QualityTiers": [],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_gift.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "doll_interaction"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_memento",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "纪念物图标",
+      "QualityTiers": [],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_memento.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "doll_interaction",
+        "doll_room"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_talk",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "对话图标",
+      "QualityTiers": [],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_talk.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "doll_interaction"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_touch",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "触摸图标",
+      "QualityTiers": [],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_touch.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "doll_interaction"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "bg_doll_room_attic",
+      "Priority": "P2",
+      "Domain": "background",
+      "AssetType": "background",
+      "DisplayName": "人偶阁楼房间背景",
+      "QualityTiers": [],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/DollRoom/bg_doll_room_attic.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "doll_room"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_diary",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "日记图标",
+      "QualityTiers": [],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "doll_room"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_room_memento_slot",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "slot",
+      "DisplayName": "纪念物展示槽",
+      "QualityTiers": [],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_room_memento_slot.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "doll_room"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_reputation",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "声望等级图标",
+      "QualityTiers": [],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_reputation.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "faction_shop"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_trust",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "黑市信任图标",
+      "QualityTiers": [],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_trust.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "faction_shop"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_event",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "剧本事件图标",
+      "QualityTiers": [],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_event.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "scenario_event"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_lore",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "Lore 档案图标",
+      "QualityTiers": [],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_lore.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "scenario_event"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "ui_icon_skip",
+      "Priority": "P2",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "跳过摘要图标",
+      "QualityTiers": [],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_skip.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [
+        "scenario_event"
+      ],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "chassis_bulwark_carrier_icon",
+      "Priority": "P2",
+      "Domain": "chassis",
+      "AssetType": "icon",
+      "DisplayName": "重载承运底盘图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_bulwark_carrier_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "chassis_compact_raider_icon",
+      "Priority": "P2",
+      "Domain": "chassis",
+      "AssetType": "icon",
+      "DisplayName": "轻装掠行底盘图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_compact_raider_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "chassis_standard_frame_icon",
+      "Priority": "P2",
+      "Domain": "chassis",
+      "AssetType": "icon",
+      "DisplayName": "标准工坊底盘图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_standard_frame_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "faction_adventurer_guild_icon",
+      "Priority": "P2",
+      "Domain": "faction",
+      "AssetType": "icon",
+      "DisplayName": "冒险者公会徽章",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_adventurer_guild_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "faction_alchemy_guild_icon",
+      "Priority": "P2",
+      "Domain": "faction",
+      "AssetType": "icon",
+      "DisplayName": "炼金公会徽章",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_alchemy_guild_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "faction_black_market_icon",
+      "Priority": "P2",
+      "Domain": "faction",
+      "AssetType": "icon",
+      "DisplayName": "黑市徽章",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_black_market_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "faction_mage_tower_icon",
+      "Priority": "P2",
+      "Domain": "faction",
+      "AssetType": "icon",
+      "DisplayName": "法师塔徽章",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_mage_tower_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "faction_mechanic_workshop_icon",
+      "Priority": "P2",
+      "Domain": "faction",
+      "AssetType": "icon",
+      "DisplayName": "机械工坊徽章",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_mechanic_workshop_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "memento_boss1_lamp",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "第一层矿灯纪念物",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_boss1_lamp.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "memento_first_chassis_frame",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "首次底盘纪念物",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_chassis_frame.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "memento_first_prosthetic_case",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "首次义体纪念物",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_prosthetic_case.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "memento_first_repair_patch",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "首次修补纪念物",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_repair_patch.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "memento_layer2_corrosion_vial",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "第二层腐蚀样本纪念物",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_layer2_corrosion_vial.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "memento_miracle_burn_mark",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "奇迹灼痕纪念物",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_miracle_burn_mark.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "memento_return_mark",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "归还痕迹纪念物",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_return_mark.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "memento_san_collapse_blanket",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "prop",
+      "DisplayName": "SAN崩溃安抚纪念物",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_san_collapse_blanket.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_alchemy_antitoxin_contract_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "抗毒供应订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_antitoxin_contract_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_alchemy_market_forecast_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "炼金市场预测订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_market_forecast_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_alchemy_purification_batch_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "炼金净化批量订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_purification_batch_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_alchemy_spore_sample_fast_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "限时孢子样本订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_spore_sample_fast_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_black_bound_core_betrayal_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "黑市绑定核心背叛订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_bound_core_betrayal_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_black_forbidden_relic_buyout_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "黑市违禁遗物收购订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_forbidden_relic_buyout_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_black_live_sample_no_questions_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "黑市活体样本收购订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_live_sample_no_questions_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_black_smuggled_route_key_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "黑市走私路线钥匙订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_smuggled_route_key_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_guild_layer1_map_rubbing_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "第一层拓图报告订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_layer1_map_rubbing_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_guild_layer2_route_report_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "第二层路线报告订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_layer2_route_report_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_guild_safezone_signal_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "安全区信号订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_safezone_signal_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_mage_boss_core_research_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "法师塔 Boss 核心研究订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_boss_core_research_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_mage_corroded_memory_stone_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "腐蚀记忆石订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_corroded_memory_stone_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_mage_live_slime_sample_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "活体史莱姆样本订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_live_slime_sample_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_mage_unidentified_relic_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "未鉴定遗物订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_unidentified_relic_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_status_boss_core_mutex_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单状态-Boss 核心互斥图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_status_boss_core_mutex_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_status_deadline_warning_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单状态-期限警告图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_status_deadline_warning_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_status_order_bound_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单状态-绑定物图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_status_order_bound_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_status_perishable_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单状态-易腐图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_status_perishable_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_type_black_market_betrayal_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单类型-黑市背叛图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_black_market_betrayal_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_type_exploration_report_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单类型-探索报告图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_exploration_report_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_type_large_cargo_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单类型-大型货物图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_large_cargo_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_type_live_capture_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单类型-活体捕获图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_live_capture_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_type_procurement_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单类型-采购图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_procurement_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_type_target_item_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单类型-指定物图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_target_item_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_workshop_boss_core_claim_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "工坊 Boss 核心索取订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_boss_core_claim_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_workshop_furnace_core_large_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "大型炉芯订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_furnace_core_large_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_workshop_layer2_ore_batch_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "第二层矿石批量订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_layer2_ore_batch_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "order_workshop_scrap_guard_plate_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "废料守卫装甲板订单图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_scrap_guard_plate_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "prosthetic_anchor_left_arm_icon",
+      "Priority": "P2",
+      "Domain": "prosthetic",
+      "AssetType": "icon",
+      "DisplayName": "锚定左臂图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_anchor_left_arm_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "prosthetic_charge_coil_arm_icon",
+      "Priority": "P2",
+      "Domain": "prosthetic",
+      "AssetType": "icon",
+      "DisplayName": "蓄能线圈臂图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_charge_coil_arm_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "prosthetic_focus_lens_icon",
+      "Priority": "P2",
+      "Domain": "prosthetic",
+      "AssetType": "icon",
+      "DisplayName": "裂隙聚焦镜图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_focus_lens_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "prosthetic_mender_spine_icon",
+      "Priority": "P2",
+      "Domain": "prosthetic",
+      "AssetType": "icon",
+      "DisplayName": "修复脊索图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_mender_spine_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "prosthetic_salvage_fingertips_icon",
+      "Priority": "P2",
+      "Domain": "prosthetic",
+      "AssetType": "icon",
+      "DisplayName": "精密拾荒指图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_salvage_fingertips_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "prosthetic_san_regulator_core_icon",
+      "Priority": "P2",
+      "Domain": "prosthetic",
+      "AssetType": "icon",
+      "DisplayName": "SAN稳态调节核图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_san_regulator_core_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "rumor_contraband_night_channel_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "黑市夜间窗口传闻图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_contraband_night_channel_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "rumor_corrosion_sample_premium_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "腐蚀样本溢价传闻图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_corrosion_sample_premium_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "rumor_faction_medical_request_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "医疗势力需求传闻图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_faction_medical_request_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "rumor_low_layer_bulk_buy_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "低层统购传闻图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_low_layer_bulk_buy_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "rumor_origin_stone_demand_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "源石需求传闻图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_origin_stone_demand_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "rumor_scrap_workshop_shortage_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "工坊废料短缺传闻图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_scrap_workshop_shortage_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "rumor_slime_crash_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "史莱姆跌价传闻图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_slime_crash_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "rumor_weapon_collector_visit_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "武器藏家到访传闻图标",
+      "QualityTiers": [
+        "local_v0"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_weapon_collector_visit_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    }
+  ],
+  "FormalV1AcceptanceActions": [
+    {
+      "ScreenID": "combat_hud",
+      "DisplayName": "战斗界面",
+      "Priority": "P0",
+      "QueueBucket": "program_register_visuals",
+      "RequiredActions": [
+        "program_register_visuals",
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [
+        "ui_combat_intent_attack",
+        "ui_combat_intent_defend",
+        "ui_combat_intent_buff",
+        "ui_combat_intent_debuff",
+        "ui_combat_intent_grid_lock",
+        "ui_combat_intent_add_junk",
+        "ui_combat_intent_move_item",
+        "ui_combat_intent_san_pressure",
+        "ui_combat_intent_charge",
+        "ui_combat_intent_unknown",
+        "ui_combat_status_corrosion",
+        "ui_combat_status_curse",
+        "ui_combat_status_stun",
+        "ui_combat_feedback_hit",
+        "ui_combat_feedback_shield_break",
+        "ui_combat_grid_lock_marker",
+        "ui_combat_junk_preview_marker"
+      ],
+      "LocalV0VisualIDs": [
+        "ui_combat_intent_attack",
+        "ui_combat_intent_defend",
+        "ui_combat_intent_buff",
+        "ui_combat_intent_debuff",
+        "ui_combat_intent_grid_lock",
+        "ui_combat_intent_add_junk",
+        "ui_combat_intent_move_item",
+        "ui_combat_intent_san_pressure",
+        "ui_combat_intent_charge",
+        "ui_combat_intent_unknown",
+        "ui_combat_status_corrosion",
+        "ui_combat_status_curse",
+        "ui_combat_status_stun",
+        "ui_combat_feedback_hit",
+        "ui_combat_feedback_shield_break",
+        "ui_combat_grid_lock_marker",
+        "ui_combat_junk_preview_marker"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/combat_hud.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "inventory_loot",
+      "DisplayName": "背包与战利品拾取界面",
+      "Priority": "P0",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/inventory_loot.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "workshop_main",
+      "DisplayName": "工坊主界面",
+      "Priority": "P0",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/workshop_main.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "daily_bill_report",
+      "DisplayName": "每日账单报告界面",
+      "Priority": "P1",
+      "QueueBucket": "program_register_visuals",
+      "RequiredActions": [
+        "program_register_visuals",
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [
+        "ui_icon_income",
+        "ui_icon_expense",
+        "ui_icon_debt_rent"
+      ],
+      "LocalV0VisualIDs": [
+        "ui_icon_income",
+        "ui_icon_expense",
+        "ui_icon_debt_rent"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/daily_bill_report.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "dungeon_map",
+      "DisplayName": "深渊地图界面",
+      "Priority": "P1",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/dungeon_map.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "layer_select",
+      "DisplayName": "出发层选择界面",
+      "Priority": "P1",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/layer_select.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "maintenance_panel",
+      "DisplayName": "机体维护整备界面",
+      "Priority": "P1",
+      "QueueBucket": "program_register_visuals",
+      "RequiredActions": [
+        "program_register_visuals",
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [
+        "ui_icon_wear_repair",
+        "ui_icon_corruption_purify",
+        "ui_icon_dive_permit"
+      ],
+      "LocalV0VisualIDs": [
+        "ui_icon_wear_repair",
+        "ui_icon_corruption_purify",
+        "ui_icon_dive_permit"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/maintenance_panel.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "prosthetic_panel",
+      "DisplayName": "义体制造界面",
+      "Priority": "P1",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/prosthetic_panel.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "safe_room",
+      "DisplayName": "深渊安全区界面",
+      "Priority": "P1",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/safe_room.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "sell_panel",
+      "DisplayName": "工坊出售界面",
+      "Priority": "P1",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/sell_panel.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "settlement",
+      "DisplayName": "撤离/战斗结果结算界面",
+      "Priority": "P1",
+      "QueueBucket": "program_register_visuals",
+      "RequiredActions": [
+        "program_register_visuals",
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [
+        "ui_settlement_outcome_victory",
+        "ui_settlement_outcome_hp_defeat",
+        "ui_settlement_outcome_san_collapse",
+        "ui_settlement_outcome_hp_san_defeat",
+        "ui_settlement_outcome_party_wipe"
+      ],
+      "LocalV0VisualIDs": [
+        "ui_settlement_outcome_victory",
+        "ui_settlement_outcome_hp_defeat",
+        "ui_settlement_outcome_san_collapse",
+        "ui_settlement_outcome_hp_san_defeat",
+        "ui_settlement_outcome_party_wipe"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/settlement.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "stairs_room",
+      "DisplayName": "深渊阶梯房间界面",
+      "Priority": "P1",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/stairs_room.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "business_settlement",
+      "DisplayName": "营业结算演出界面",
+      "Priority": "P2",
+      "QueueBucket": "program_register_visuals",
+      "RequiredActions": [
+        "program_register_visuals",
+        "program_add_art_acceptance_capture"
+      ],
+      "RegistryGaps": [
+        "ui_icon_customer",
+        "ui_icon_sale_spark",
+        "ui_icon_business_settlement"
+      ],
+      "LocalV0VisualIDs": [
+        "ui_icon_customer",
+        "ui_icon_sale_spark",
+        "ui_icon_business_settlement"
+      ],
+      "CaptureConfiguredInLatestTool": false,
+      "HasScreenshot": false,
+      "ScreenshotPath": "",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "chassis_upgrade_panel",
+      "DisplayName": "底盘升级界面",
+      "Priority": "P2",
+      "QueueBucket": "program_register_visuals",
+      "RequiredActions": [
+        "program_register_visuals",
+        "program_add_art_acceptance_capture"
+      ],
+      "RegistryGaps": [
+        "ui_icon_chassis_upgrade",
+        "ui_icon_blueprint",
+        "ui_icon_material_need"
+      ],
+      "LocalV0VisualIDs": [
+        "ui_icon_chassis_upgrade",
+        "ui_icon_blueprint",
+        "ui_icon_material_need"
+      ],
+      "CaptureConfiguredInLatestTool": false,
+      "HasScreenshot": false,
+      "ScreenshotPath": "",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "doll_interaction",
+      "DisplayName": "人偶交互界面",
+      "Priority": "P2",
+      "QueueBucket": "program_register_visuals",
+      "RequiredActions": [
+        "program_register_visuals",
+        "program_add_art_acceptance_capture"
+      ],
+      "RegistryGaps": [
+        "ui_icon_touch",
+        "ui_icon_talk",
+        "ui_icon_gift",
+        "ui_icon_memento"
+      ],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": false,
+      "HasScreenshot": false,
+      "ScreenshotPath": "",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "doll_room",
+      "DisplayName": "人偶房间界面",
+      "Priority": "P2",
+      "QueueBucket": "program_register_visuals",
+      "RequiredActions": [
+        "program_register_visuals",
+        "program_add_art_acceptance_capture"
+      ],
+      "RegistryGaps": [
+        "ui_icon_diary",
+        "ui_icon_memento",
+        "ui_room_memento_slot",
+        "bg_doll_room_attic"
+      ],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": false,
+      "HasScreenshot": false,
+      "ScreenshotPath": "",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "faction_shop",
+      "DisplayName": "势力商店界面",
+      "Priority": "P2",
+      "QueueBucket": "program_register_visuals",
+      "RequiredActions": [
+        "program_register_visuals",
+        "program_add_art_acceptance_capture"
+      ],
+      "RegistryGaps": [
+        "ui_icon_reputation",
+        "ui_icon_trust"
+      ],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": false,
+      "HasScreenshot": false,
+      "ScreenshotPath": "",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "order_board",
+      "DisplayName": "势力订单板界面",
+      "Priority": "P2",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/order_board.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "rumor_board",
+      "DisplayName": "传闻情报板界面",
+      "Priority": "P2",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/rumor_board.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "scenario_event",
+      "DisplayName": "剧本事件界面",
+      "Priority": "P2",
+      "QueueBucket": "program_register_visuals",
+      "RequiredActions": [
+        "program_register_visuals",
+        "program_add_art_acceptance_capture"
+      ],
+      "RegistryGaps": [
+        "ui_icon_event",
+        "ui_icon_lore",
+        "ui_icon_skip"
+      ],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": false,
+      "HasScreenshot": false,
+      "ScreenshotPath": "",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "shop_staging",
+      "DisplayName": "出货分配界面",
+      "Priority": "P2",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/shop_staging.png",
+      "ScreenshotStaleAgainstSpec": true
+    }
+  ]
+}
