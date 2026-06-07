@@ -10,8 +10,8 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 2576,
-    "relation_edges": 1288,
+    "directed_edges": 2588,
+    "relation_edges": 1294,
     "cross_role_edges": 204,
     "role_pairs": {
       "PM <-> 全局": 12,
@@ -199,6 +199,7 @@
         "开发文档/rules/00_程序开发总规则.md",
         "开发文档/00_程序开发大纲.md",
         "开发文档/15_P0配置Validator与自动验收底座需求.md",
+        "开发文档/16_程序主流程闭环与架构收口推进计划.md",
         "设计文档/GDD/GDD_00_系统关联总图.md",
         "agent_status/design.md",
         "美术文档/10_正式版核心纵切美术路线.md",
@@ -209,7 +210,7 @@
       "update_rule": "程序、Unity、验证或工程边界任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 12,
+      "relation_count": 13,
       "cross_role_relation_count": 7
     },
     {
@@ -479,6 +480,7 @@
         "开发文档/01_核心数据与实体容器(CoreData).md",
         "开发文档/12_程序开发优化建议与重构路线.md",
         "开发文档/15_P0配置Validator与自动验收底座需求.md",
+        "开发文档/16_程序主流程闭环与架构收口推进计划.md",
         "开发文档/rules/04_自动化测试与验收流程规范.md",
         "开发文档/rules/02_Unity表现层与编辑器构建规范.md",
         "agent_status/program.md",
@@ -494,7 +496,7 @@
       "update_rule": "程序系统分类、开发口径或模块索引变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 20,
+      "relation_count": 21,
       "cross_role_relation_count": 7
     },
     {
@@ -686,13 +688,14 @@
         "开发文档/rules/00_程序开发总规则.md",
         "开发文档/00_程序开发大纲.md",
         "开发文档/rules/04_自动化测试与验收流程规范.md",
-        "开发文档/15_P0配置Validator与自动验收底座需求.md"
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
+        "开发文档/16_程序主流程闭环与架构收口推进计划.md"
       ],
       "last_verified": "2026-05-24",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 5,
+      "relation_count": 6,
       "cross_role_relation_count": 0
     },
     {
@@ -739,6 +742,7 @@
         "开发文档/12_程序开发优化建议与重构路线.md",
         "开发文档/rules/00_程序开发总规则.md",
         "开发文档/14_Unity运行时美术自动验收方案.md",
+        "开发文档/16_程序主流程闭环与架构收口推进计划.md",
         "开发文档/rules/03_视觉资源系统程序开发规范.md",
         "设计文档/delivery/15_P0主干配置表现验收承接清单.md",
         "设计文档/config/validation/35_前三层正式配置Validator与固定Seed验收样例.md",
@@ -755,8 +759,32 @@
       "update_rule": "调整 P0 配置校验范围、自动验收命令、报告格式、通过标准或门禁等级时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 17,
+      "relation_count": 18,
       "cross_role_relation_count": 10
+    },
+    {
+      "path": "开发文档/16_程序主流程闭环与架构收口推进计划.md",
+      "title": "程序主流程闭环与架构收口推进计划",
+      "id": "dev_16_main_flow_architecture_plan",
+      "type": "dev",
+      "role": "程序",
+      "domain": "main_flow_architecture",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "agent_status/program.md",
+        "开发文档/README.md",
+        "开发文档/00_程序开发大纲.md",
+        "开发文档/12_程序开发优化建议与重构路线.md",
+        "开发文档/15_P0配置Validator与自动验收底座需求.md",
+        "知识库/views/program.md"
+      ],
+      "last_verified": "2026-06-08",
+      "update_rule": "调整程序侧 C1-C3 配置支持、主流程开放顺序、架构收口边界或验收口径时同步本文档。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 6,
+      "cross_role_relation_count": 0
     },
     {
       "path": "开发文档/archive/06_架构评估与收口建议.md",
@@ -812,6 +840,7 @@
       "source_of_truth": true,
       "related": [
         "开发文档/00_程序开发大纲.md",
+        "开发文档/16_程序主流程闭环与架构收口推进计划.md",
         "开发文档/rules/README.md",
         "开发文档/archive/README.md"
       ],
@@ -819,7 +848,7 @@
       "update_rule": "开发文档目录结构、事实来源分层或归档规则变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 3,
+      "relation_count": 4,
       "cross_role_relation_count": 0
     },
     {
@@ -1658,6 +1687,7 @@
         "agent_status/program.md",
         "知识库/README.md",
         "开发文档/00_程序开发大纲.md",
+        "开发文档/16_程序主流程闭环与架构收口推进计划.md",
         "开发文档/rules/01_客户端分层与领域架构规范.md",
         "开发文档/rules/02_Unity表现层与编辑器构建规范.md",
         "开发文档/rules/00_程序开发总规则.md",
@@ -1668,7 +1698,7 @@
       "update_rule": "程序入口文档、Unity 工程边界、配置同步或验证流程变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 10,
+      "relation_count": 11,
       "cross_role_relation_count": 4
     },
     {
@@ -1959,7 +1989,7 @@
         "agent_status/art.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-05-29",
+      "last_verified": "2026-06-08",
       "update_rule": "调整正式纵切 UI 覆盖范围、素材批次优先级或缺口时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],

@@ -18,11 +18,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：217
-- 已补元数据：217
+- 文档总数：218
+- 已补元数据：218
 - 缺少元数据：0
-- 事实来源文档：164
-- 关联边数：1288
+- 事实来源文档：165
+- 关联边数：1294
 - 跨职能关联：204
 
 ## 事实来源
@@ -46,6 +46,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [程序开发优化建议与重构路线](开发文档/12_程序开发优化建议与重构路线.md) - `dev` / `program_refactor`
 - [Unity 运行时美术自动验收方案](开发文档/14_Unity运行时美术自动验收方案.md) - `dev` / `runtime_art_validation`
 - [P0配置Validator与自动验收底座需求](开发文档/15_P0配置Validator与自动验收底座需求.md) - `dev` / `config_validation`
+- [程序主流程闭环与架构收口推进计划](开发文档/16_程序主流程闭环与架构收口推进计划.md) - `dev` / `main_flow_architecture`
 - [开发文档归档目录入口](开发文档/archive/README.md) - `dev` / `program_docs_archive`
 - [开发文档目录入口](开发文档/README.md) - `dev` / `program_docs_index`
 - [程序开发总规则](开发文档/rules/00_程序开发总规则.md) - `dev` / `program_general_rules`
@@ -250,9 +251,9 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [程序 / Unity 状态](agent_status/program.md) | `status` | `active` | `unity_programming` | 12 | 完整 |
+| [程序 / Unity 状态](agent_status/program.md) | `status` | `active` | `unity_programming` | 13 | 完整 |
 | [Config Tools](tools/config/README.md) | `tool` | `active` | `config_tooling` | 5 | 完整 |
-| [程序开发大纲与系统索引](开发文档/00_程序开发大纲.md) | `dev` | `active` | `program_architecture` | 20 | 完整 |
+| [程序开发大纲与系统索引](开发文档/00_程序开发大纲.md) | `dev` | `active` | `program_architecture` | 21 | 完整 |
 | [核心数据容器系统 (Core Data System)](开发文档/01_核心数据与实体容器(CoreData).md) | `dev` | `active` | `core_data` | 10 | 完整 |
 | [网格背包与计算系统 (Grid System)](开发文档/02_网格背包与计算系统(GridSystem).md) | `dev` | `active` | `grid_inventory` | 5 | 完整 |
 | [深渊与战斗循环系统 (Dungeon & Combat System)](开发文档/03_深渊与战斗循环(DungeonCombat).md) | `dev` | `active` | `dungeon_combat` | 10 | 完整 |
@@ -260,10 +261,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [表现层架构与事件总线 (View & EventBus System)](开发文档/05_表现层架构与事件总线(ViewAndEventBus).md) | `dev` | `active` | `presentation_layer` | 9 | 完整 |
 | [奖励与掉落系统 (RewardSystem)](开发文档/10_奖励与掉落系统(RewardSystem).md) | `dev` | `active` | `reward_loot` | 6 | 完整 |
 | [怪物 AI 与行动系统 (MonsterActionAI)](开发文档/11_怪物AI与行动系统(MonsterActionAI).md) | `dev` | `active` | `monster_ai` | 3 | 完整 |
-| [程序开发优化建议与重构路线](开发文档/12_程序开发优化建议与重构路线.md) | `dev` | `active` | `program_refactor` | 5 | 完整 |
+| [程序开发优化建议与重构路线](开发文档/12_程序开发优化建议与重构路线.md) | `dev` | `active` | `program_refactor` | 6 | 完整 |
 | [Unity 运行时美术自动验收方案](开发文档/14_Unity运行时美术自动验收方案.md) | `dev` | `active` | `runtime_art_validation` | 10 | 完整 |
-| [P0配置Validator与自动验收底座需求](开发文档/15_P0配置Validator与自动验收底座需求.md) | `dev` | `active` | `config_validation` | 17 | 完整 |
-| [开发文档目录入口](开发文档/README.md) | `dev` | `active` | `program_docs_index` | 3 | 完整 |
+| [P0配置Validator与自动验收底座需求](开发文档/15_P0配置Validator与自动验收底座需求.md) | `dev` | `active` | `config_validation` | 18 | 完整 |
+| [程序主流程闭环与架构收口推进计划](开发文档/16_程序主流程闭环与架构收口推进计划.md) | `dev` | `active` | `main_flow_architecture` | 6 | 完整 |
+| [开发文档目录入口](开发文档/README.md) | `dev` | `active` | `program_docs_index` | 4 | 完整 |
 | [架构评估与收口建议](开发文档/archive/06_架构评估与收口建议.md) | `dev` | `archived` | `architecture_review` | 5 | 完整 |
 | [开发文档归档目录入口](开发文档/archive/README.md) | `dev` | `active` | `program_docs_archive` | 2 | 完整 |
 | [程序开发总规则](开发文档/rules/00_程序开发总规则.md) | `dev` | `active` | `program_general_rules` | 14 | 完整 |
@@ -277,7 +279,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [物品与网格实体定义 (Item & Inventory Entities)](开发文档/数据与实体定义/03_物品与网格实体.md) | `dev` | `active` | `program_architecture` | 6 | 完整 |
 | [深渊与战斗实体定义 (Dungeon & Combat Entities)](开发文档/数据与实体定义/04_深渊与战斗实体.md) | `dev` | `active` | `dungeon_combat` | 6 | 完整 |
 | [经济与社会实体定义 (Economy & Social Entities)](开发文档/数据与实体定义/05_经济与社会实体.md) | `dev` | `active` | `program_architecture` | 6 | 完整 |
-| [程序智能体阅读入口](知识库/views/program.md) | `view` | `active` | `agent_context_view` | 10 | 完整 |
+| [程序智能体阅读入口](知识库/views/program.md) | `view` | `active` | `agent_context_view` | 11 | 完整 |
 | [Project P3 美术自动验收（截图）流程优化与真实数据驱动演进方案](美术文档/10_美术验收截图优化与真实数据驱动演进方案.md) | `other` | `active` | `runtime_art_validation` | 3 | 完整 |
 
 ### 策划
