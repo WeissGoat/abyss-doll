@@ -213,6 +213,8 @@ public static class WorkshopFormalV1PanelBindingService {
 
     private static WorkshopFormalV1PanelBinding BuildChassisUpgradeBinding(PlayerProfile player) {
         DollCoreStateReadabilitySnapshot doll = DollCoreStateReadabilityService.BuildSnapshot(player);
+        DollEntity activeDoll = player?.ActiveDoll;
+        bool canUpgrade = ChassisUpgradeService.CanUpgrade(player, activeDoll, out string chassisUpgradeReason);
         GrowthReadabilitySnapshot growth = GrowthReadabilityTextService.BuildSnapshot(player, ResolveTargetLayer(player), 6);
         List<GrowthReadabilityActionLine> crafts = growth.ActionLines
             .Where(line => line != null && line.Type == GrowthActionType.CraftProsthetic)
@@ -228,7 +230,8 @@ public static class WorkshopFormalV1PanelBindingService {
             FormatGrowthActions(crafts, 5));
         binding.PanelTexts["CapacityDeltaPanel"] = JoinLines(
             "容量变化",
-            "底盘升级规则尚未接入正式后端服务；当前展示制造 / 材料缺口。");
+            "底盘升级已接入 ChassisUpgradeService；工坊义体面板已接入 ProstheticCraftingService。",
+            canUpgrade ? "当前底盘可升级。" : $"当前不可升级：{chassisUpgradeReason}");
         binding.PanelTexts["MaterialNeedPanel"] = JoinLines(
             "材料缺口",
             FormatGrowthActions(crafts.Where(line => line.Status == GrowthActionStatus.MissingRequirements), 4));

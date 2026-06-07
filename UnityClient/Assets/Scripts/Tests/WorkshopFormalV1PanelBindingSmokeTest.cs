@@ -126,11 +126,13 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
         WorkshopFormalV1PanelController controller = CreateController(canvasObj.transform);
         controller.Show("chassis_upgrade_panel");
 
+        string textBeforeClick = CollectText(canvasObj);
         Button upgradeButton = FindButton(canvasObj, "Upgrade_Button");
         upgradeButton?.onClick.Invoke();
 
         bool passed = upgradeButton != null
             && controller.CurrentScreenID == "chassis_upgrade_panel"
+            && textBeforeClick.Contains("底盘升级已接入 ChassisUpgradeService")
             && doll.Chassis.ChassisID == "chassis_lv2_expanded"
             && doll.RuntimeGrid is BackpackGrid
             && player.Money == 500
