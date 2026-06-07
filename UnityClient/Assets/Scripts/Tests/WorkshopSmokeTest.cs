@@ -33,12 +33,14 @@ public static class WorkshopSmokeTest {
             int[] soldPosition = sellTarget.Grid?.CurrentPos != null && sellTarget.Grid.CurrentPos.Length >= 2
                 ? new[] { sellTarget.Grid.CurrentPos[0], sellTarget.Grid.CurrentPos[1] }
                 : null;
-            bool sold = core.Workshop.SellItem(sellTarget, player);
+            EconomySellLine expectedSellLine = TownEconomyService.CalculateItemSellValue(player, sellTarget, EconomySellChannel.DumpBox);
+            EconomySellReport sellReport = TownEconomyService.SellItems(player, new[] { sellTarget }, EconomySellChannel.DumpBox);
+            bool sold = sellReport.Success && sellReport.SoldItems.Count == 1;
 
-            if (sold && player.Money == initialMoney + sellTarget.BaseValue) {
+            if (sold && player.Money == initialMoney + expectedSellLine.FinalValue) {
                 Debug.Log("Single Item Sell PASSED.");
             } else {
-                Debug.LogError($"Single Item Sell FAILED. Expected money {initialMoney + sellTarget.BaseValue}, got {player.Money}, Sold={sold}");
+                Debug.LogError($"Single Item Sell FAILED. Expected money {initialMoney + expectedSellLine.FinalValue}, got {player.Money}, Sold={sold}, Reason={sellReport.Reason}");
             }
 
             bool soldOriginCleared = soldPosition == null || grid.GetItemAt(soldPosition[0], soldPosition[1]) == null;
@@ -99,8 +101,13 @@ public static class WorkshopSmokeTest {
         controller.chassisInfoText = CreateTestText(workshopObj.transform);
 
         core.CurrentPlayer.ActiveDoll.RuntimeGrid = new BackpackGrid(core.CurrentPlayer.ActiveDoll.Chassis);
+        core.CurrentPlayer.ActiveRumors.Clear();
+        core.CurrentPlayer.Money = 10;
+        core.CurrentPlayer.CurrentDay = 1;
         ItemEntity sellTarget = ConfigManager.CreateItem("loot_gear_scrap");
         ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).PlaceItem(sellTarget, 0, 0);
+        TownEconomyService.RefreshWeeklyEconomy(core.CurrentPlayer, 42);
+        EconomySellLine expectedSellLine = TownEconomyService.CalculateItemSellValue(core.CurrentPlayer, sellTarget, EconomySellChannel.DumpBox);
 
         controller.RefreshUI();
         controller.OpenSellPanel();
@@ -109,11 +116,22 @@ public static class WorkshopSmokeTest {
         bool panelOpened = controller.sellPanel != null && controller.sellPanel.activeSelf;
         bool listBuilt = controller.stashListParent != null && controller.stashListParent.childCount > 0;
         bool prostheticPanelClosed = controller.prostheticPanel != null && !controller.prostheticPanel.activeSelf;
+        Button sellButton = listBuilt
+            ? controller.stashListParent.GetChild(0).Find("Sell_Button")?.GetComponent<Button>()
+            : null;
 
-        if (panelIsSeparate && panelOpened && listBuilt && prostheticPanelClosed) {
+        int beforeMoney = core.CurrentPlayer.Money;
+        int beforeBackpackCount = ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).ContainedItems.Count;
+        sellButton?.onClick.Invoke();
+        bool economySellApplied = expectedSellLine.FinalValue > sellTarget.BaseValue
+            && core.CurrentPlayer.Money == beforeMoney + expectedSellLine.FinalValue
+            && !((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).ContainedItems.Contains(sellTarget)
+            && ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).ContainedItems.Count == beforeBackpackCount - 1;
+
+        if (panelIsSeparate && panelOpened && listBuilt && prostheticPanelClosed && economySellApplied) {
             Debug.Log("Workshop Sell Panel UI PASSED.");
         } else {
-            Debug.LogError($"Workshop Sell Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, SellRows={controller.stashListParent?.childCount ?? 0}, ProstheticPanelClosed={prostheticPanelClosed}");
+            Debug.LogError($"Workshop Sell Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, SellRows={controller.stashListParent?.childCount ?? 0}, ProstheticPanelClosed={prostheticPanelClosed}, EconomySell={economySellApplied}, ExpectedIncome={expectedSellLine.FinalValue}, Money={core.CurrentPlayer.Money}");
         }
 
         controller.CloseSellPanel();

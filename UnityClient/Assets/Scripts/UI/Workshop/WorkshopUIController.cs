@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -145,10 +146,7 @@ public class WorkshopUIController : MonoBehaviour {
 
         if (sellAllBtn != null) {
             sellAllBtn.onClick.RemoveAllListeners();
-            sellAllBtn.onClick.AddListener(() => {
-                GameRoot.Core.Workshop.SellAllStashItems(GameRoot.Core.CurrentPlayer);
-                RefreshUI();
-            });
+            sellAllBtn.onClick.AddListener(SellAllVisibleItems);
         }
 
         if (openProstheticPanelBtn != null) {
@@ -342,7 +340,14 @@ public class WorkshopUIController : MonoBehaviour {
         label.color = Color.white;
         label.alignment = TextAnchor.MiddleLeft;
         label.raycastTarget = false;
-        label.text = $"[{sourceLabel}] {item.Name}  [{item.BaseValue}G]";
+        EconomySellLine sellLine = TownEconomyService.CalculateItemSellValue(
+            GameRoot.Core.CurrentPlayer,
+            item,
+            EconomySellChannel.DumpBox);
+        string valueText = sellLine.FinalValue == item.BaseValue
+            ? $"{sellLine.FinalValue}G"
+            : $"{item.BaseValue}G -> {sellLine.FinalValue}G";
+        label.text = $"[{sourceLabel}] {item.Name}  [{valueText}]";
         RectTransform labelRect = labelObj.GetComponent<RectTransform>();
         labelRect.sizeDelta = new Vector2(420f, 64f);
 
@@ -355,10 +360,7 @@ public class WorkshopUIController : MonoBehaviour {
         sellBtnRect.sizeDelta = new Vector2(140f, 52f);
 
         ItemEntity capturedItem = item;
-        sellBtn.onClick.AddListener(() => {
-            GameRoot.Core.Workshop.SellItem(capturedItem, GameRoot.Core.CurrentPlayer);
-            RefreshUI();
-        });
+        sellBtn.onClick.AddListener(() => SellSingleItem(capturedItem));
 
         GameObject sellTextObj = new GameObject("Text");
         sellTextObj.transform.SetParent(sellBtnObj.transform, false);
@@ -399,21 +401,90 @@ public class WorkshopUIController : MonoBehaviour {
         BackpackGrid grid = player.ActiveDoll?.RuntimeGrid as BackpackGrid;
         backpackCount = grid?.ContainedItems.Count ?? 0;
         stashCount = player.StashInventory.Count;
-        sellableCount = backpackCount + stashCount;
+        sellableCount = 0;
         sellableEstimatedValue = 0;
 
         if (grid != null) {
             foreach (var item in grid.ContainedItems) {
-                if (item != null) {
-                    sellableEstimatedValue += item.BaseValue;
+                if (TryGetSellValue(player, item, out int value)) {
+                    sellableCount++;
+                    sellableEstimatedValue += value;
                 }
             }
         }
 
         foreach (var item in player.StashInventory) {
-            if (item != null) {
-                sellableEstimatedValue += item.BaseValue;
+            if (TryGetSellValue(player, item, out int value)) {
+                sellableCount++;
+                sellableEstimatedValue += value;
             }
+        }
+    }
+
+    private void SellSingleItem(ItemEntity item) {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        EconomySellReport report = TownEconomyService.SellItems(
+            player,
+            new[] { item },
+            EconomySellChannel.DumpBox);
+        LogSellReport(report);
+        RefreshUI();
+    }
+
+    private void SellAllVisibleItems() {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        EconomySellReport report = TownEconomyService.SellItems(
+            player,
+            CollectOwnedItems(player),
+            EconomySellChannel.DumpBox);
+        LogSellReport(report);
+        RefreshUI();
+    }
+
+    private List<ItemEntity> CollectOwnedItems(PlayerProfile player) {
+        List<ItemEntity> items = new List<ItemEntity>();
+        BackpackGrid grid = player?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        if (grid != null) {
+            foreach (ItemEntity item in grid.ContainedItems) {
+                if (item != null) {
+                    items.Add(item);
+                }
+            }
+        }
+
+        if (player?.StashInventory != null) {
+            foreach (ItemEntity item in player.StashInventory) {
+                if (item != null) {
+                    items.Add(item);
+                }
+            }
+        }
+
+        return items;
+    }
+
+    private bool TryGetSellValue(PlayerProfile player, ItemEntity item, out int value) {
+        value = 0;
+        if (player == null || item == null) {
+            return false;
+        }
+
+        EconomySellLine line = TownEconomyService.CalculateItemSellValue(player, item, EconomySellChannel.DumpBox);
+        value = Mathf.Max(0, line.FinalValue);
+        return value > 0;
+    }
+
+    private void LogSellReport(EconomySellReport report) {
+        if (report == null) {
+            Debug.LogWarning("[WorkshopUI] Sell failed: report is null.");
+            return;
+        }
+
+        string summary = $"[WorkshopUI] Sell report. Channel={report.Channel}, Success={report.Success}, Sold={report.SoldItems.Count}, Income={report.TotalIncome}, Money={report.StartingMoney}->{report.EndingMoney}";
+        if (report.Success) {
+            Debug.Log(summary);
+        } else {
+            Debug.LogWarning($"{summary}, Reason={report.Reason}, Failed={string.Join("; ", report.FailedItems)}");
         }
     }
 
