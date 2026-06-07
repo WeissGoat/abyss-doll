@@ -82,6 +82,7 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
         player.StashInventory.Add(scrap);
         doll.Status.WearAndTear = DiveReadinessService.ExtremeWearThreshold;
         doll.Status.HP_Current = Mathf.Max(1, doll.Status.HP_Max - 10);
+        DiveReadinessResult beforeReadiness = DiveReadinessService.Evaluate(player, 1);
 
         GameObject canvasObj = CreateCanvas();
         WorkshopFormalV1PanelController controller = CreateController(canvasObj.transform);
@@ -89,19 +90,22 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
 
         Button repairButton = FindButton(canvasObj, "FullRepair_Button");
         repairButton?.onClick.Invoke();
+        DiveReadinessResult afterReadiness = DiveReadinessService.Evaluate(player, 1);
 
         bool passed = repairButton != null
             && controller.CurrentScreenID == "maintenance_panel"
+            && !beforeReadiness.CanDive
             && player.Money == 200
             && !player.StashInventory.Contains(scrap)
             && Mathf.Approximately(doll.Status.WearAndTear, DiveReadinessService.ExtremeWearThreshold - 40f)
             && doll.Status.HP_Current == doll.Status.HP_Max
+            && afterReadiness.CanDive
             && CollectText(canvasObj).Contains("Applied maintenance");
 
         if (passed) {
             Debug.Log("Workshop Formal V1 Maintenance Button Backend Action PASSED.");
         } else {
-            Debug.LogError($"Workshop Formal V1 Maintenance Button Backend Action FAILED. Button={repairButton != null}, Screen={controller.CurrentScreenID}, Money={player.Money}, StashContains={player.StashInventory.Contains(scrap)}, Wear={doll.Status.WearAndTear}, HP={doll.Status.HP_Current}/{doll.Status.HP_Max}, Text={CollectText(canvasObj)}");
+            Debug.LogError($"Workshop Formal V1 Maintenance Button Backend Action FAILED. Button={repairButton != null}, Screen={controller.CurrentScreenID}, Money={player.Money}, StashContains={player.StashInventory.Contains(scrap)}, Wear={doll.Status.WearAndTear}, HP={doll.Status.HP_Current}/{doll.Status.HP_Max}, BeforeDive={beforeReadiness.CanDive}, AfterDive={afterReadiness.CanDive}, Text={CollectText(canvasObj)}");
         }
 
         controller.Hide();
