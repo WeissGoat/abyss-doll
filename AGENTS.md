@@ -73,7 +73,8 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 
 ## 长任务协议
 
-当用户要求长期任务、拆任务执行、持续执行、`mission` 或恢复继续时，优先读取 `tools/p3-mission/README.md` 和 `tools/p3-mission/SKILL.md`。
+当用户要求长期任务、拆任务执行、持续执行、`mission` 或恢复继续时，优先使用项目内 Codex 可识别 skill：`.codex/skills/p3-mission/SKILL.md`。
+`tools/p3-mission` 是独立工具源码仓库；如果当前会话没有自动加载 skill，再读取 `tools/p3-mission/README.md` 和 `tools/p3-mission/SKILL.md` 作为 fallback。
 
 P3 mission 是非侵入式本地任务队列：用 `.mission/*.csv` 或 `missions/*.csv` 记录目标、任务拆分、执行状态、验证证据和状态回写；不启用 Trellis hooks，不替代 `AGENTS.md`、`PROJECT_STATUS.md`、`agent_status/*` 或各职能事实文档。
 
