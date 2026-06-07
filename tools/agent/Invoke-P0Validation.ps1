@@ -662,6 +662,17 @@ if ($syncResult.ExitCode -eq 0) {
 $configValidationPath = Join-Path $outputPath "config_validation.json"
 $smokeTestsPath = Join-Path $outputPath "smoke_tests.json"
 $unityRunning = Test-UnityEditorRunning
+$smokeTests = @(
+    "InventoryInteractionServiceSmokeTest.Run",
+    "InventoryDisplaySpecSmokeTest.Run",
+    "InventoryGridLayoutAssetValidatorTest.Run",
+    "RewardSystemSmokeTest.Run",
+    "CombatLootDropTest.Run",
+    "DungeonNodeTypesSmokeTest.Run",
+    "MonsterActionAITest.Run",
+    "DungeonStairsProgressionTest.Run",
+    "VisualAssetSmokeTest.Run"
+)
 
 if ($SkipUnity) {
     $skipPayload = [ordered]@{
@@ -681,7 +692,14 @@ if ($SkipUnity) {
         ErrorCount = 0
         WarningCount = 1
         Reason = "-SkipUnity was specified; Unity smoke tests were not executed."
-        Tests = @()
+        Tests = @($smokeTests | ForEach-Object {
+            [ordered]@{
+                Test = $_
+                Status = "Skipped"
+                ErrorCount = 0
+                WarningCount = 1
+            }
+        })
     }
     Write-JsonFile -Path $smokeTestsPath -Value $smokePayload
     $step = New-Step "UnitySmokeTests"
@@ -707,7 +725,14 @@ if ($SkipUnity) {
         ErrorCount = 1
         WarningCount = 0
         Reason = $blockedReason
-        Tests = @()
+        Tests = @($smokeTests | ForEach-Object {
+            [ordered]@{
+                Test = $_
+                Status = "Blocked"
+                ErrorCount = 1
+                WarningCount = 0
+            }
+        })
     }
     Write-JsonFile -Path $smokeTestsPath -Value $smokePayload
     $step = New-Step "UnitySmokeTests"
@@ -742,15 +767,6 @@ if ($SkipUnity) {
         $warnings.Add("ConfigValidator reported $($configPayload.WarningCount) warning(s).") | Out-Null
     }
 
-    $smokeTests = @(
-        "InventoryInteractionServiceSmokeTest.Run",
-        "InventoryDisplaySpecSmokeTest.Run",
-        "InventoryGridLayoutAssetValidatorTest.Run",
-        "RewardSystemSmokeTest.Run",
-        "MonsterActionAITest.Run",
-        "DungeonStairsProgressionTest.Run",
-        "VisualAssetSmokeTest.Run"
-    )
     $testResults = @()
     $smokeErrorCount = 0
     $smokeWarningCount = 0

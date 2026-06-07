@@ -25,7 +25,7 @@ related:
   - agent_status/design.md
   - agent_status/pm.md
   - PROJECT_STATUS.md
-last_verified: 2026-05-24
+last_verified: 2026-06-08
 update_rule: 调整 P0 配置校验范围、自动验收命令、报告格式、通过标准或门禁等级时同步本文件。
 ---
 
@@ -124,6 +124,16 @@ P0 底座的目标是：
 5. 读取 ArtAcceptance latest report
 6. 汇总 P0Validation report
 ```
+
+当前 P0 核心 Unity smoke 默认覆盖：
+
+| 分类 | 默认用例 |
+|---|---|
+| 背包 / 布局 | `InventoryInteractionServiceSmokeTest.Run`、`InventoryDisplaySpecSmokeTest.Run`、`InventoryGridLayoutAssetValidatorTest.Run` |
+| 奖励 / 战利品 | `RewardSystemSmokeTest.Run`、`CombatLootDropTest.Run` |
+| 深渊主流程 | `DungeonNodeTypesSmokeTest.Run`、`DungeonStairsProgressionTest.Run` |
+| 战斗怪物 | `MonsterActionAITest.Run` |
+| 视觉资源 | `VisualAssetSmokeTest.Run` |
 
 说明：
 

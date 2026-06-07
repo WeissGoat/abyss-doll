@@ -73,30 +73,30 @@ public static class CombatLootDropTest {
             Debug.LogError($"Combat Loot Confirmation FAILED. PlacedByService={placedOfferedItem}, Expected backpack count {beforeCount + 1}, got {afterConfirmCount}, SettlementCompleted={_nodeSettlementCompleted}, AcceptedResult={acceptedCollectionResult}");
         }
 
-        CombatNode eliteNode = new CombatNode {
-            NodeID = "test_elite_reward_loot"
+        CombatNode bossNode = new CombatNode {
+            NodeID = "test_boss_reward_loot"
         };
-        eliteNode.MonsterIDs.Add("elite_scrap_guard");
+        bossNode.MonsterIDs.Add("boss_gatekeeper_mk1");
         core.Dungeon.CurrentLayer = new DungeonLayer {
             LayerID = 1,
-            RootNode = eliteNode,
-            CurrentNode = eliteNode
+            RootNode = bossNode,
+            CurrentNode = bossNode
         };
 
         _preparedLootResult = null;
         _nodeSettlementCompleted = false;
-        int beforeEliteCount = ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count;
-        eliteNode.ResolveAfterVictory();
-        int afterElitePrepareCount = ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count;
+        int beforeBossCount = ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count;
+        bossNode.ResolveAfterVictory();
+        int afterBossPrepareCount = ((BackpackGrid)doll.RuntimeGrid).ContainedItems.Count;
 
         if (_preparedLootResult != null &&
             _preparedLootResult.OfferedItems.Count >= 2 &&
             HasOfferedItem(_preparedLootResult, "mat_core_tier1") &&
-            afterElitePrepareCount == beforeEliteCount &&
+            afterBossPrepareCount == beforeBossCount &&
             !_nodeSettlementCompleted) {
             Debug.Log("Combat RewardSystem Integration PASSED.");
         } else {
-            Debug.LogError($"Combat RewardSystem Integration FAILED. Offered={_preparedLootResult?.OfferedItems.Count ?? 0}, HasCore={HasOfferedItem(_preparedLootResult, "mat_core_tier1")}, BackpackCount={afterElitePrepareCount}, SettlementCompleted={_nodeSettlementCompleted}");
+            Debug.LogError($"Combat RewardSystem Integration FAILED. Offered={_preparedLootResult?.OfferedItems.Count ?? 0}, HasCore={HasOfferedItem(_preparedLootResult, "mat_core_tier1")}, BackpackCount={afterBossPrepareCount}, SettlementCompleted={_nodeSettlementCompleted}");
         }
 
         RunCombatLootConfirmationRequiresBackpackPlacement(core);

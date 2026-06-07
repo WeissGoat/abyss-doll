@@ -52,8 +52,10 @@ public abstract class DungeonOutcomeNode : NodeBase, ILootPickupNode {
                 }
 
                 if (grid != null && grid.ContainedItems.Contains(item)) {
+                    ItemLifecycleService.MarkBackpackItem(item, ItemOwnerScope.Run);
                     collectionResult.AcceptedItems.Add(item);
                 } else {
+                    ItemLifecycleService.MarkInboxItemLost(item, "DungeonNodeLootConfirm", out _);
                     collectionResult.DiscardedItems.Add(item);
                 }
             }
@@ -180,6 +182,7 @@ public abstract class DungeonOutcomeNode : NodeBase, ILootPickupNode {
                 continue;
             }
 
+            ItemLifecycleService.MarkGeneratedToInbox(item, $"Reward:{rewardResult.RootRewardID}");
             pickupResult.OfferedItems.Add(item);
             pickupResult.TotalEstimatedValue += item.BaseValue;
         }
