@@ -1,0 +1,63 @@
+{
+  "ConfigID": "trade_sealed_relic_box",
+  "Name": "封存遗物匣",
+  "ItemType": "Loot",
+  "Rarity": "Epic",
+  "BaseValue": 1100,
+  "IconID": "item_trade_sealed_relic_box_icon",
+  "DescriptionKey": "item.trade_sealed_relic_box.desc",
+  "ItemRole": ["Trade", "RiskObject", "RoomMemory", "BlackMarketTarget"],
+  "LayerTags": ["Layer2", "ContentPack20"],
+  "Grid": {
+    "Shape": [[0,0], [0,1], [0,2], [1,0], [1,1], [1,2]],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 6,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0],
+    "PlacementTags": ["Backpack", "Trade", "RiskObject", "Bulky"]
+  },
+  "Combat": null,
+  "Tags": ["Trade", "AbyssRelic", "ContrabandLow", "Layer2", "Bulky"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "ShopOrBlackMarket",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "CannotConsume"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["elite_mutant_amalgam", "boss_spore_foundry"],
+    "RewardRefs": ["reward_monster_elite_mutant_amalgam", "reward_boss_spore_foundry"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": ["order_blackmarket_relic_box"]
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": ["blackmarket_relic_box_sell"],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": ["order_blackmarket_relic_box"],
+    "RoomMemoryRefs": ["room_memory_first_order_betrayal_hint"],
+    "ScenarioEventRefs": ["event_blackmarket_relic_offer"]
+  },
+  "Economy": {
+    "ValueTags": ["AbyssRelic", "RiskPremium", "ContrabandLow"],
+    "RumorRefs": ["rumor_relic_box_buyer", "rumor_contraband_night_channel"],
+    "ContrabandRule": "BlackMarketPremiumWithSuspicion",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": ["AbyssRelic", "ContrabandLow", "SanUneaseMid", "Bulky"],
+    "PollutionProfile": "l2_relic_box_san_unease",
+    "CorruptionProfile": "None",
+    "OvernightRule": "ContrabandSuspicionWarning",
+    "OrderConflictGroup": "sealed_relic_box"
+  },
+  "Visual": {
+    "IconVisualID": "item_trade_sealed_relic_box_icon",
+    "GridPreviewStyle": "RiskObjectLarge",
+    "RiskIconRefs": ["order_type_black_market_betrayal", "ui_combat_status_san"],
+    "PickupHintKey": "pickup.trade_sealed_relic_box"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "ConfigID": "mat_core_tier2_fragment",
+  "Name": "二阶机核碎片",
+  "ItemType": "QuestItem",
+  "Rarity": "Epic",
+  "BaseValue": 0,
+  "IconID": "item_mat_core_tier2_fragment_icon",
+  "DescriptionKey": "item.mat_core_tier2_fragment.desc",
+  "ItemRole": ["BossKey", "Material", "GrowthHook"],
+  "LayerTags": ["Layer2", "ContentPack20"],
+  "Grid": {
+    "Shape": [[0,0], [0,1], [1,0], [1,1]],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 4,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0],
+    "PlacementTags": ["Backpack", "CoreMaterial", "BossKey"]
+  },
+  "Combat": null,
+  "Tags": ["CoreMaterial", "BossKey", "Layer2", "Mechanical"],
+  "Lifecycle": {
+    "CanSell": false,
+    "SellChannel": "None",
+    "BattleLossRule": "KeepIfBossReward",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "GrowthKey",
+    "CraftingConsumeRule": "Ingredient"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["boss_spore_foundry", "elite_crystal_bulwark"],
+    "RewardRefs": ["reward_boss_spore_foundry", "reward_monster_elite_crystal_bulwark"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": ["chassis_compact_raider", "prosthetic_crystal_focus"],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": ["room_memory_first_spore_foundry_win"],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["CoreMaterial", "NoSell"],
+    "RumorRefs": [],
+    "ContrabandRule": "NoSell",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": ["BossKey"],
+    "PollutionProfile": "None",
+    "CorruptionProfile": "None",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_mat_core_tier2_fragment_icon",
+    "GridPreviewStyle": "CoreMaterial",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.mat_core_tier2_fragment"
+  }
+}

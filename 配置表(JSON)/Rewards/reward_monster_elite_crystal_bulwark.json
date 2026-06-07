@@ -1,6 +1,6 @@
 {
-  "RewardID": "reward_monster_elite_mutant_amalgam",
-  "Name": "畸变融合体精英掉落",
+  "RewardID": "reward_monster_elite_crystal_bulwark",
+  "Name": "晶壁守卫精英掉落",
   "Tags": [
     "Monster",
     "Layer2",
@@ -25,35 +25,42 @@
   "ValidationTags": [
     "Layer2Reward"
   ],
-  "AuditNotes": "Elite reward only. Tier-2 progression guarantee is owned by reward_boss_spore_foundry.",
-  "Guaranteed": [],
+  "AuditNotes": "",
+  "Guaranteed": [
+    {
+      "Type": "Item",
+      "ItemID": "loot_warped_plate",
+      "Weight": 100,
+      "Count": 1
+    }
+  ],
   "WeightedPools": [
     {
-      "PoolID": "elite_main",
+      "PoolID": "elite_bonus",
       "RollCount": 1,
       "AllowDuplicate": false,
       "Entries": [
         {
           "Type": "Item",
-          "ItemID": "trade_sealed_relic_box",
-          "Weight": 32,
-          "Count": 1
-        },
-        {
-          "Type": "Item",
-          "ItemID": "gear_charge_pistol",
+          "ItemID": "gear_corroded_bulwark",
           "Weight": 28,
           "Count": 1
         },
         {
           "Type": "Item",
-          "ItemID": "loot_acid_gland",
-          "Weight": 25,
+          "ItemID": "mat_core_tier2_fragment",
+          "Weight": 22,
           "Count": 1
         },
         {
           "Type": "Item",
-          "ItemID": "mat_core_tier2_fragment",
+          "ItemID": "loot_crystal_scale",
+          "Weight": 35,
+          "Count": 1
+        },
+        {
+          "Type": "Money",
+          "Money": 60,
           "Weight": 15,
           "Count": 1
         }

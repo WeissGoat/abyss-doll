@@ -1,0 +1,86 @@
+{
+  "RewardID": "reward_boss_spore_foundry",
+  "Name": "孢殖熔炉 Boss 掉落",
+  "Tags": [
+    "Monster",
+    "Layer2",
+    "Boss"
+  ],
+  "RewardRole": "BossDrop",
+  "SourceType": "Monster",
+  "LayerRange": {
+    "Min": 2,
+    "Max": 2
+  },
+  "ContentPackRefs": [
+    "design_pack_layer2_bag_pressure"
+  ],
+  "RewardTier": "Boss",
+  "ExpectedValueBand": {
+    "Min": 250,
+    "Max": 1200
+  },
+  "RiskBudgetTag": "Layer2BagPressure",
+  "GrowthHooks": [],
+  "ValidationTags": [
+    "Layer2Reward"
+  ],
+  "AuditNotes": "Formal C2 boss guarantee.",
+  "Guaranteed": [
+    {
+      "Type": "Item",
+      "ItemID": "mat_core_tier2_fragment",
+      "Count": 1
+    }
+  ],
+  "WeightedPools": [
+    {
+      "PoolID": "boss_bonus",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        {
+          "Type": "Item",
+          "ItemID": "gear_charge_pistol",
+          "Weight": 25,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "trade_sealed_relic_box",
+          "Weight": 30,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_corroded_bulwark",
+          "Weight": 20,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "loot_acid_gland",
+          "Weight": 25,
+          "Count": 1
+        }
+      ]
+    },
+    {
+      "PoolID": "coins",
+      "RollCount": 1,
+      "AllowDuplicate": true,
+      "Entries": [
+        {
+          "Type": "Money",
+          "Money": 80,
+          "Weight": 60,
+          "Count": 1
+        },
+        {
+          "Type": "Nothing",
+          "Weight": 40
+        }
+      ]
+    }
+  ]
+}

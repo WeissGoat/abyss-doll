@@ -1,0 +1,129 @@
+{
+    "ConfigID":  "con_solvent_spray",
+    "Name":  "溶剂喷雾",
+    "ItemType":  "Consumable",
+    "Rarity":  "Uncommon",
+    "BaseValue":  180,
+    "IconID":  "item_con_solvent_spray_icon",
+    "DescriptionKey":  "item.con_solvent_spray.desc",
+    "ItemRole":  [
+                     "Recovery",
+                     "CounterCheck",
+                     "BagPressureCounter"
+                 ],
+    "LayerTags":  [
+                      "Layer2",
+                      "ContentPack20"
+                  ],
+    "Grid":  {
+                 "Shape":  [
+                               [
+                                   0,
+                                   0
+                               ],
+                               [
+                                   0,
+                                   1
+                               ]
+                           ],
+                 "CanRotate":  true,
+                 "RotationSteps":  2,
+                 "GridCost":  2,
+                 "DefaultRotation":  0,
+                 "AllowedRotations":  [
+                                          0,
+                                          90
+                                      ],
+                 "PlacementTags":  [
+                                       "Backpack",
+                                       "Consumable",
+                                       "CounterTool"
+                                   ]
+             },
+    "Combat":  {
+                   "TriggerType":  "Manual",
+                   "APCost":  1,
+                   "DamageType":  "None",
+                   "BaseValue":  0,
+                   "Effects":  [
+
+                               ]
+               },
+    "Tags":  [
+                 "Consumable",
+                 "CounterTool",
+                 "Solvent",
+                 "Layer2"
+             ],
+    "Lifecycle":  {
+                      "CanSell":  true,
+                      "SellChannel":  "Shop",
+                      "BattleLossRule":  "Drop",
+                      "EvacuationRule":  "MoveToTownInventory",
+                      "DefaultBinding":  "None",
+                      "CraftingConsumeRule":  "ConsumedOnUse"
+                  },
+    "SourceRefs":  {
+                       "DropPoolRefs":  [
+                                            "mob_crystal_guard"
+                                        ],
+                       "RewardRefs":  [
+                                          "reward_node_treasure_layer2",
+                                          "reward_node_event_layer2_corroded_cache"
+                                      ],
+                       "CraftingRefs":  [
+
+                                        ],
+                       "ShopRefs":  [
+                                        "shop_basic_tier2"
+                                    ],
+                       "OrderRefs":  [
+
+                                     ]
+                   },
+    "SinkRefs":  {
+                     "SellOutcomeRefs":  [
+
+                                         ],
+                     "CraftingAsIngredientRefs":  [
+
+                                                  ],
+                     "OrderSubmitRefs":  [
+
+                                         ],
+                     "RoomMemoryRefs":  [
+
+                                        ],
+                     "ScenarioEventRefs":  [
+                                               "event_corroded_cache"
+                                           ]
+                 },
+    "Economy":  {
+                    "ValueTags":  [
+                                      "CounterTool",
+                                      "Consumable"
+                                  ],
+                    "RumorRefs":  [
+
+                                  ],
+                    "ContrabandRule":  "None",
+                    "DismantleProfile":  ""
+                },
+    "Risk":  {
+                 "RiskTags":  [
+                                  "CounterTool"
+                              ],
+                 "PollutionProfile":  "ClearLowPollutionCell",
+                 "CorruptionProfile":  "ClearLowCorrosionResidue",
+                 "OvernightRule":  "None",
+                 "OrderConflictGroup":  ""
+             },
+    "Visual":  {
+                   "IconVisualID":  "item_con_solvent_spray_icon",
+                   "GridPreviewStyle":  "ConsumableCounter",
+                   "RiskIconRefs":  [
+                                        "ui_combat_status_cleanse"
+                                    ],
+                   "PickupHintKey":  "pickup.con_solvent_spray"
+               }
+}

@@ -1,0 +1,129 @@
+{
+  "MonsterID": "elite_crystal_bulwark",
+  "Name": "晶壁守卫",
+  "MonsterRole": [
+    "Elite",
+    "PackInterference",
+    "Bypassable"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer2_bag_pressure"
+  ],
+  "Layer": 2,
+  "LayerRange": {
+    "Min": 2,
+    "Max": 2
+  },
+  "EncounterTags": [
+    "Combat",
+    "Layer2",
+    "Elite",
+    "PackInterference",
+    "Bypassable"
+  ],
+  "DifficultyBudget": {
+    "Base": 165,
+    "Variance": 10
+  },
+  "HP": 165,
+  "PortraitID": "monster_elite_crystal_bulwark_portrait",
+  "CombatVisualID": "monster_elite_crystal_bulwark_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "bulwark_guard",
+      "IntentType": "Defend",
+      "PowerPreview": "high",
+      "TargetPreview": "Self",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.attack_window",
+      "IntentIconRef": "ui_combat_intent_defend"
+    },
+    {
+      "IntentID": "bulwark_lock",
+      "IntentType": "GridLock",
+      "PowerPreview": "2 edge cells",
+      "TargetPreview": "BackpackEdge",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.keep_edges_open",
+      "IntentIconRef": "ui_combat_grid_lock_marker"
+    },
+    {
+      "IntentID": "bulwark_heavy",
+      "IntentType": "Attack",
+      "PowerPreview": 38,
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.heavy_attack",
+      "IntentIconRef": "ui_combat_intent_attack"
+    }
+  ],
+  "RewardID": "reward_monster_elite_crystal_bulwark",
+  "DropThemeTags": [
+    "Layer2",
+    "BagPressure"
+  ],
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "bulwark_heavy",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 45,
+        "CooldownTurns": 1,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 38,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "bulwark_crystal_lock",
+        "ActionType": "AddCursedItem",
+        "Target": "PlayerGridFirstFit",
+        "Weight": 35,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerGridHasSpace",
+        "Params": {
+          "ItemID": "loot_crystal_scale",
+          "OverrideTags": [
+            "GridLock",
+            "Crystal",
+            "ElitePressure"
+          ],
+          "OverrideValue": 0
+        }
+      },
+      {
+        "ActionID": "bulwark_blunt_weapon",
+        "ActionType": "ReduceWeaponDamage",
+        "Target": "RandomPlayerWeapon",
+        "Weight": 20,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerHasWeapon",
+        "Params": {
+          "Multiplier": 0.7,
+          "DurationPlayerTurns": 1
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {
+      "ItemID": "gear_corroded_bulwark",
+      "Weight": 35
+    },
+    {
+      "ItemID": "mat_core_tier2_fragment",
+      "Weight": 25
+    },
+    {
+      "ItemID": "loot_crystal_scale",
+      "Weight": 40
+    }
+  ]
+}

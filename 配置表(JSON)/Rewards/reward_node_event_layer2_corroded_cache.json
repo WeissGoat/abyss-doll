@@ -1,13 +1,13 @@
 {
-  "RewardID": "reward_monster_elite_mutant_amalgam",
-  "Name": "畸变融合体精英掉落",
+  "RewardID": "reward_node_event_layer2_corroded_cache",
+  "Name": "腐蚀储藏箱事件奖励",
   "Tags": [
-    "Monster",
-    "Layer2",
-    "Elite"
+    "Node",
+    "Event",
+    "Layer2"
   ],
-  "RewardRole": "EliteDrop",
-  "SourceType": "Monster",
+  "RewardRole": "EventNode",
+  "SourceType": "Event",
   "LayerRange": {
     "Min": 2,
     "Max": 2
@@ -15,7 +15,7 @@
   "ContentPackRefs": [
     "design_pack_layer2_bag_pressure"
   ],
-  "RewardTier": "Elite",
+  "RewardTier": "Event",
   "ExpectedValueBand": {
     "Min": 250,
     "Max": 1200
@@ -25,36 +25,43 @@
   "ValidationTags": [
     "Layer2Reward"
   ],
-  "AuditNotes": "Elite reward only. Tier-2 progression guarantee is owned by reward_boss_spore_foundry.",
-  "Guaranteed": [],
+  "AuditNotes": "",
+  "Guaranteed": [
+    {
+      "Type": "Item",
+      "ItemID": "loot_acid_gland",
+      "Weight": 100,
+      "Count": 1
+    }
+  ],
   "WeightedPools": [
     {
-      "PoolID": "elite_main",
+      "PoolID": "cache",
       "RollCount": 1,
       "AllowDuplicate": false,
       "Entries": [
         {
           "Type": "Item",
-          "ItemID": "trade_sealed_relic_box",
-          "Weight": 32,
-          "Count": 1
-        },
-        {
-          "Type": "Item",
-          "ItemID": "gear_charge_pistol",
-          "Weight": 28,
-          "Count": 1
-        },
-        {
-          "Type": "Item",
-          "ItemID": "loot_acid_gland",
+          "ItemID": "con_solvent_spray",
           "Weight": 25,
           "Count": 1
         },
         {
           "Type": "Item",
-          "ItemID": "mat_core_tier2_fragment",
-          "Weight": 15,
+          "ItemID": "loot_warped_plate",
+          "Weight": 25,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "trade_luminous_fungus",
+          "Weight": 25,
+          "Count": 1
+        },
+        {
+          "Type": "Money",
+          "Money": 35,
+          "Weight": 25,
           "Count": 1
         }
       ]

@@ -1,0 +1,63 @@
+{
+  "ConfigID": "loot_crystal_scale",
+  "Name": "晶化鳞片",
+  "ItemType": "Loot",
+  "Rarity": "Uncommon",
+  "BaseValue": 280,
+  "IconID": "item_loot_crystal_scale_icon",
+  "DescriptionKey": "item.loot_crystal_scale.desc",
+  "ItemRole": ["Material", "Trade", "OrderTarget"],
+  "LayerTags": ["Layer2", "ContentPack20"],
+  "Grid": {
+    "Shape": [[0,0], [0,1]],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0, 90],
+    "PlacementTags": ["Backpack", "Material"]
+  },
+  "Combat": null,
+  "Tags": ["Material", "Crystal", "Layer2", "Mechanical"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "Ingredient"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["mob_crystal_guard", "elite_crystal_bulwark"],
+    "RewardRefs": ["reward_monster_mob_crystal_guard", "reward_node_treasure_layer2"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": ["order_crystal_scale_batch"]
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": ["prosthetic_crystal_focus"],
+    "OrderSubmitRefs": ["order_crystal_scale_batch"],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Crystal", "Material", "Layer2"],
+    "RumorRefs": ["rumor_crystal_scale_contract"],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "None",
+    "CorruptionProfile": "None",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_loot_crystal_scale_icon",
+    "GridPreviewStyle": "Material",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.loot_crystal_scale"
+  }
+}

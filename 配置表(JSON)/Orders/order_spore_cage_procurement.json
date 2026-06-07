@@ -1,0 +1,42 @@
+{
+  "OrderID": "order_spore_cage_procurement",
+  "FactionID": "faction_mechanic_workshop",
+  "OrderType": "LiveCapture",
+  "DisplayName": "活孢子笼委托",
+  "Description": "带回一个完整活孢子笼。委托物会占用大量背包空间，不能普通出售。",
+  "Requirement": {
+    "RequiredItemIDs": [
+      "order_live_spore_cage"
+    ],
+    "RequiredTags": [
+      "OrderBound",
+      "LiveCargo"
+    ],
+    "ForbiddenTags": [
+      "Sold",
+      "Broken"
+    ],
+    "RequiredCount": 1,
+    "MinGridCost": 6,
+    "MinLayer": 2
+  },
+  "DeadlineDays": 7,
+  "RewardID": "reward_order_spore_cage_procurement",
+  "FixedGold": 260,
+  "ReputationDelta": 12,
+  "TrustDelta": 2,
+  "FailurePenalty": {
+    "ExpiredReputationDelta": -8,
+    "AbandonedReputationDelta": -4,
+    "BetrayedReputationDelta": -18,
+    "CooldownDays": 7
+  },
+  "RepeatPolicy": "Limited",
+  "Weight": 70,
+  "Tags": [
+    "Layer2",
+    "LiveCapture",
+    "OrderBound",
+    "BagPressure"
+  ]
+}

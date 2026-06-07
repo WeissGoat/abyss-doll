@@ -1,0 +1,69 @@
+{
+  "ConfigID": "con_stabilizer_ampoule",
+  "Name": "稳定安瓿",
+  "ItemType": "Consumable",
+  "Rarity": "Uncommon",
+  "BaseValue": 160,
+  "IconID": "item_con_stabilizer_ampoule_icon",
+  "DescriptionKey": "item.con_stabilizer_ampoule.desc",
+  "ItemRole": ["Recovery", "CounterCheck", "SanCounter"],
+  "LayerTags": ["Layer2", "ContentPack20"],
+  "Grid": {
+    "Shape": [[0,0]],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0],
+    "PlacementTags": ["Backpack", "Consumable", "Small"]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "RestoreSAN",
+    "BaseValue": 6,
+    "Effects": []
+  },
+  "Tags": ["Consumable", "SAN", "CounterTool", "Layer2"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ConsumedOnUse"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["mob_soul_midge_swarm"],
+    "RewardRefs": ["reward_node_treasure_layer2", "reward_order_crystal_scale_batch"],
+    "CraftingRefs": [],
+    "ShopRefs": ["shop_basic_tier2"],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": ["event_whispering_detour"]
+  },
+  "Economy": {
+    "ValueTags": ["CounterTool", "Consumable", "SAN"],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": ["CounterTool"],
+    "PollutionProfile": "ResistLowSanPressure",
+    "CorruptionProfile": "None",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_con_stabilizer_ampoule_icon",
+    "GridPreviewStyle": "ConsumableSmall",
+    "RiskIconRefs": ["ui_combat_status_san"],
+    "PickupHintKey": "pickup.con_stabilizer_ampoule"
+  }
+}

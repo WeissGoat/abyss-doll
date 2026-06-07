@@ -1,0 +1,26 @@
+﻿{
+  "FactionID": "faction_alchemy_guild",
+  "DisplayName": "炼金协会",
+  "IsBlackMarket": false,
+  "VisibleOrderSlots": 2,
+  "MaxActiveOrders": 3,
+  "FactionTags": [
+    "Alchemy",
+    "Medical",
+    "Materials"
+  ],
+  "ReputationRanks": [
+    {
+      "Rank": 1,
+      "Threshold": 0,
+      "UnlockRefs": [
+        "order_crystal_scale_batch"
+      ]
+    },
+    {
+      "Rank": 2,
+      "Threshold": 50,
+      "UnlockRefs": []
+    }
+  ]
+}

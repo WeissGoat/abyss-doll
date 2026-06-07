@@ -1,0 +1,63 @@
+{
+  "ConfigID": "trade_luminous_fungus",
+  "Name": "夜光菌簇",
+  "ItemType": "Loot",
+  "Rarity": "Uncommon",
+  "BaseValue": 260,
+  "IconID": "item_trade_luminous_fungus_icon",
+  "DescriptionKey": "item.trade_luminous_fungus.desc",
+  "ItemRole": ["Trade", "Material", "RumorTarget"],
+  "LayerTags": ["Layer2", "ContentPack20"],
+  "Grid": {
+    "Shape": [[0,0], [0,1]],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0, 90],
+    "PlacementTags": ["Backpack", "Trade"]
+  },
+  "Combat": null,
+  "Tags": ["Trade", "Fungus", "Layer2", "Material"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "Ingredient"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": ["reward_node_event_layer2_spore_capture", "reward_node_event_layer2_corroded_cache"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": ["maint_stabilizer_ampoule_batch"],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Fungus", "Trade", "Layer2"],
+    "RumorRefs": ["rumor_faction_medical_request"],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "None",
+    "CorruptionProfile": "None",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_trade_luminous_fungus_icon",
+    "GridPreviewStyle": "Trade",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.trade_luminous_fungus"
+  }
+}

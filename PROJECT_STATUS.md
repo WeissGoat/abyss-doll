@@ -65,7 +65,7 @@ related:
   - 知识库/views/design.md
   - 知识库/views/program.md
   - tools/agent/README.md
-last_verified: 2026-05-29
+last_verified: 2026-06-07
 update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。
 ---
 
@@ -75,7 +75,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 ## 最后更新
 
-2026-05-29
+2026-06-07
 
 ## 当前阶段
 
@@ -116,6 +116,8 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 ## 最近完成
 
+- 策划侧已完成 C2 第二层直达与背包压力配置源落地：`L2-ITEMS`、`L2-REWARDS`、`L2-MONSTERS`、`L2-DUNGEONS`、`L2-ORDERS`、`L2-SEED` 均已在 `设计文档/config/26_正式配置设计与填充推进计划.md` 标记为 `配置完成`。本轮新增 / 补强第二层 12 件物品、14 个奖励、7 个怪物、3 个订单、2 个必要 Faction 引用和 `配置表(JSON)/Dungeons/layer_2.json`；`layer_2.json` 已具备 `DirectStartAllowed=true`、`PreviousLayerRequired=1`、Boss `boss_spore_foundry`、Boss 后免费恢复 HP / SAN 的 `StairsNode + SafeZoneRules`，并补 5 条固定样例。已通过 C2 静态 Validator 等价检查和 `./tools/config/Sync-Configs.ps1 -Clean`；`ConfigValidationSmokeTest.Run` / P0 Unity 步骤因 Unity Editor 未运行被工具阻塞，未作为通过证据。C3 已解锁为 待开始，当前子项为 L3-ITEMS。
+- 策划侧已完成 C1 第一层正式配置源收口：`L1-ITEMS`、`L1-REWARDS`、`L1-MONSTERS`、`L1-DUNGEONS`、`L1-SEED` 均已在 `设计文档/config/26_正式配置设计与填充推进计划.md` 标记为 `配置完成`。`layer_1.json` 已补 2 个 MapProfile、11 个 NodePool、5 条 FixedSeedSamples 和 9 条 ValidationScenarioRefs；Boss 指向 `boss_gatekeeper_mk1`，`elite_scrap_guard` 只作为可绕精英；Boss 后 `StairsNode + SafeZoneRules` 为免费恢复 HP / SAN、允许撤离 / 深入、不清污染 / 订单 / 探索账本。已通过 L1-SEED 静态证据检查、`Sync-Configs.ps1 -Clean`、`ConfigValidationSmokeTest.Run`、`DungeonSeedAcceptanceSmokeTest.Run`、`RewardSystemSmokeTest.Run`、`ItemLifecycleServiceSmokeTest.Run` 和 Boss 保底结构检查。该历史记录已被 C2 完成记录推进；当前下一项为 C3 `L3-ITEMS`。
 - 策划侧已完成 `设计文档/` 目录结构重构：GDD、规则卡、交付承接、内容包和正式配置链路已分别迁入 `GDD/`、`rules/`、`delivery/`、`content_packs/`、`config/` 分区；`设计文档/README.md` 已重写为目录地图和名词词典，明确“配置承接审计”是配置源缺口审计，“正式配置落地设计”是 JSON 修改前配置设计清单。
 - 项目结构整理已提交：`d5434b8 chore: tidy project structure`。
 - `tools/ai-image-gateway` 已登记为 submodule。
@@ -210,6 +212,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 - 美术/UI 与程序智能体都应以纯 UGUI 作为运行时 UI 目标。
 - 策划与程序智能体做运行时验证前应先同步配置：`.\tools\config\Sync-Configs.ps1 -Clean`。
+- 程序侧需要修正 `CombatLootDropTest.Run` 的旧奖励断言：当前正式配置要求 `boss_gatekeeper_mk1` 保底 `mat_core_tier1`，`elite_scrap_guard` 只作为可绕精英；该测试仍断言精英奖励包含 `mat_core_tier1`。策划侧已用结构检查确认 Boss 保底和精英非保底成立，程序侧后续应把测试改为 Boss 保底口径。
 - 美术智能体刷新 Manifest 前应先同步配置，确保视觉需求跟随当前配置源。
 - 美术 / UI 的程序接入只以 `美术文档/ui_design/screen_layouts.json` 当前 active 规格为准；`versions/` baseline 和 candidate 不作为程序接入口。
 - Formal V1 / Formal V2 UI 文档由美术侧先提出，用户确认后再更新 active 规格、生成素材并交给程序接入；`formal_v2/*.md` 在确认前只是 UX/UI draft，程序侧不得直接按 draft 接入。
@@ -229,6 +232,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 ## 问题 / 阻塞
 
 - 当前工作区已有前序 UI、美术、生成物和 submodule 相关脏文件。后续智能体开工前应先运行 `.\tools\agent\Invoke-AgentHealthCheck.ps1`，提交时严格收窄范围。
+- `CombatLootDropTest.Run` 当前仍使用旧精英保底断言，和 C1 正式配置口径冲突；这是程序测试口径缺口，不是 C1 配置引用错误。
 - `tools/ComfyUI_NAIDGenerator/` 当前未跟踪，后续需要决定它是 vendor 代码、submodule，还是本地专用工具。
 - `tools/ai-image-gateway` 子模块内部有未提交改动；如需处理，应进入子模块内部单独处理。
 
@@ -237,6 +241,6 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 1. 增加配置校验工具，检查 `配置表(JSON)` 的 ID、必填字段和交叉引用。
 2. 为知识库索引增加可选的职能 / 领域 / 关联深度过滤入口，方便复制智能体按任务快速定位文档。
 3. 美术侧先推进 Formal V2 UX/UI 设计确认：V2-A 优先输出 `workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement` 的详细方案；程序侧在 active 更新前继续以 Formal V1 `screen_layouts.json` 为准。
-4. 策划 / 配置侧继续推进 `26` 时，优先按 `agent_status/design.md` 和对应设计文档确认工作项状态；若进入配置源 JSON，实现前先按 `56_正式配置源落地准入门禁.md` 检查设计准入，再补配置同步证据、Validator 需求和固定验收样例。经济压力 `ECON-ID-LOCK` 已有 `53` 证据，`ECON-README-CHECK` 已有 `54` 证据，订单最终 ID 已由 `55` 锁定；进入配置实现则从 `ECON-CORE-JSON` 开始。程序 Validator 实现、Unity 测试或 UI 表现必须分别回写程序 / 美术状态页。
+4. 策划 / 配置侧继续推进 `26` 时，优先按 `agent_status/design.md` 和对应设计文档确认工作项状态；C1、C2 已配置完成，下一步从 C3 `L3-ITEMS` 开始。进入配置源 JSON 前先按 `56_正式配置源落地准入门禁.md` 检查设计准入，再补配置同步证据、Validator 需求和固定验收样例。程序 Validator 实现、Unity 测试或 UI 表现必须分别回写程序 / 美术状态页。
 5. 程序侧按新的功能优先级推进：P0 自动验收底座和 P1 背包 / 物品生命周期只做验收补强或缺口修复；下一步正式开发应从 `agent_status/program.md` 中确认 P1 战斗 / 怪物意图、P2 深渊地图、P3 局外成长、P4 经济压力的真实缺口后拆任务。
 

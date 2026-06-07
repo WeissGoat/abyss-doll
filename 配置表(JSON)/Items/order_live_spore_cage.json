@@ -1,0 +1,63 @@
+{
+  "ConfigID": "order_live_spore_cage",
+  "Name": "活孢子笼",
+  "ItemType": "QuestItem",
+  "Rarity": "Rare",
+  "BaseValue": 0,
+  "IconID": "item_order_live_spore_cage_icon",
+  "DescriptionKey": "item.order_live_spore_cage.desc",
+  "ItemRole": ["OrderBound", "RiskObject", "LiveCargo"],
+  "LayerTags": ["Layer2", "ContentPack20"],
+  "Grid": {
+    "Shape": [[0,0], [0,1], [0,2], [1,0], [1,1], [1,2]],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 6,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0, 90],
+    "PlacementTags": ["Backpack", "OrderBound", "LiveCargo", "Bulky"]
+  },
+  "Combat": null,
+  "Tags": ["OrderBound", "LiveCargo", "Layer2", "Bulky"],
+  "Lifecycle": {
+    "CanSell": false,
+    "SellChannel": "OrderOnly",
+    "BattleLossRule": "DamageAndKeepProgress",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "OrderBound",
+    "CraftingConsumeRule": "CannotConsume"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": ["reward_node_event_layer2_spore_capture"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": ["order_spore_cage_procurement"]
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": ["order_spore_cage_procurement"],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": ["event_blackmarket_spore_offer"]
+  },
+  "Economy": {
+    "ValueTags": ["OrderBound", "LiveCargo"],
+    "RumorRefs": [],
+    "ContrabandRule": "BlackMarketBetrayalOnly",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": ["OrderConflict", "LiveCargo", "Bulky"],
+    "PollutionProfile": "l2_live_cargo_san_warning",
+    "CorruptionProfile": "None",
+    "OvernightRule": "OrderDeadlineOnly",
+    "OrderConflictGroup": "spore_cage"
+  },
+  "Visual": {
+    "IconVisualID": "item_order_live_spore_cage_icon",
+    "GridPreviewStyle": "OrderBoundLarge",
+    "RiskIconRefs": ["order_status_order_bound", "order_status_perishable"],
+    "PickupHintKey": "pickup.order_live_spore_cage"
+  }
+}

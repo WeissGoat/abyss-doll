@@ -1,0 +1,129 @@
+{
+  "MonsterID": "boss_spore_foundry",
+  "Name": "孢殖熔炉",
+  "MonsterRole": [
+    "Boss",
+    "RouteGate",
+    "PackInterference"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer2_bag_pressure"
+  ],
+  "Layer": 2,
+  "LayerRange": {
+    "Min": 2,
+    "Max": 2
+  },
+  "EncounterTags": [
+    "Combat",
+    "Layer2",
+    "Boss",
+    "RouteGate",
+    "PackInterference"
+  ],
+  "DifficultyBudget": {
+    "Base": 230,
+    "Variance": 10
+  },
+  "HP": 230,
+  "PortraitID": "monster_boss_spore_foundry_portrait",
+  "CombatVisualID": "monster_boss_spore_foundry_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "foundry_slam",
+      "IntentType": "Attack",
+      "PowerPreview": 32,
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.boss_basic_attack",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "foundry_spore_sac",
+      "IntentType": "AddJunk",
+      "PowerPreview": "2 cells",
+      "TargetPreview": "Backpack",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.keep_space",
+      "IntentIconRef": "ui_combat_grid_lock_marker"
+    },
+    {
+      "IntentID": "foundry_pollute",
+      "IntentType": "Debuff",
+      "PowerPreview": "low pollution",
+      "TargetPreview": "Backpack",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.cleanse_window",
+      "IntentIconRef": "ui_combat_intent_debuff"
+    }
+  ],
+  "RewardID": "reward_boss_spore_foundry",
+  "DropThemeTags": [
+    "Layer2",
+    "BagPressure"
+  ],
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "foundry_slam",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 50,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 32,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "foundry_spore_sac",
+        "ActionType": "AddCursedItem",
+        "Target": "PlayerGridFirstFit",
+        "Weight": 30,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerGridHasSpace",
+        "Params": {
+          "ItemID": "order_live_spore_cage",
+          "OverrideTags": [
+            "Cursed",
+            "SporeSac",
+            "BossPressure"
+          ],
+          "OverrideValue": 0
+        }
+      },
+      {
+        "ActionID": "foundry_corrosive_fume",
+        "ActionType": "ReduceWeaponDamage",
+        "Target": "RandomPlayerWeapon",
+        "Weight": 20,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerHasWeapon",
+        "Params": {
+          "Multiplier": 0.75,
+          "DurationPlayerTurns": 1
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {
+      "ItemID": "mat_core_tier2_fragment",
+      "Weight": 100
+    },
+    {
+      "ItemID": "trade_sealed_relic_box",
+      "Weight": 35
+    },
+    {
+      "ItemID": "gear_charge_pistol",
+      "Weight": 25
+    }
+  ]
+}

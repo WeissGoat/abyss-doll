@@ -1,0 +1,96 @@
+{
+  "MonsterID": "mob_soul_midge_swarm",
+  "Name": "窃魂虫群",
+  "MonsterRole": [
+    "SanPressure",
+    "Pressure"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer2_bag_pressure"
+  ],
+  "Layer": 2,
+  "LayerRange": {
+    "Min": 2,
+    "Max": 2
+  },
+  "EncounterTags": [
+    "Combat",
+    "Layer2",
+    "SanPressure",
+    "Pressure"
+  ],
+  "DifficultyBudget": {
+    "Base": 68,
+    "Variance": 10
+  },
+  "HP": 68,
+  "PortraitID": "monster_mob_soul_midge_swarm_portrait",
+  "CombatVisualID": "monster_mob_soul_midge_swarm_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "midge_bite",
+      "IntentType": "Attack",
+      "PowerPreview": 12,
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.basic_attack",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "midge_drain",
+      "IntentType": "Debuff",
+      "PowerPreview": "SAN",
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.san_pressure",
+      "IntentIconRef": "ui_combat_intent_debuff"
+    }
+  ],
+  "RewardID": "reward_monster_mob_soul_midge_swarm",
+  "DropThemeTags": [
+    "Layer2",
+    "BagPressure"
+  ],
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "midge_bite",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 70,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 12,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "midge_disrupt_focus",
+        "ActionType": "ReduceWeaponDamage",
+        "Target": "RandomPlayerWeapon",
+        "Weight": 30,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerHasWeapon",
+        "Params": {
+          "Multiplier": 0.85,
+          "DurationPlayerTurns": 1
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {
+      "ItemID": "con_stabilizer_ampoule",
+      "Weight": 45
+    },
+    {
+      "ItemID": "trade_luminous_fungus",
+      "Weight": 55
+    }
+  ]
+}

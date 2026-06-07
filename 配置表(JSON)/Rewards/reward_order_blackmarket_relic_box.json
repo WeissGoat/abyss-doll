@@ -1,13 +1,13 @@
 {
-  "RewardID": "reward_node_event_layer2",
-  "Name": "第2层低语事件奖励",
+  "RewardID": "reward_order_blackmarket_relic_box",
+  "Name": "黑市遗物匣订单奖励",
   "Tags": [
-    "Node",
-    "Event",
-    "Layer2"
+    "Order",
+    "Layer2",
+    "BlackMarket"
   ],
-  "RewardRole": "EventNode",
-  "SourceType": "Event",
+  "RewardRole": "OrderReward",
+  "SourceType": "Order",
   "LayerRange": {
     "Min": 2,
     "Max": 2
@@ -15,7 +15,7 @@
   "ContentPackRefs": [
     "design_pack_layer2_bag_pressure"
   ],
-  "RewardTier": "Event",
+  "RewardTier": "Order",
   "ExpectedValueBand": {
     "Min": 250,
     "Max": 1200
@@ -29,32 +29,26 @@
   "Guaranteed": [],
   "WeightedPools": [
     {
-      "PoolID": "event",
-      "RollCount": 1,
+      "PoolID": "order",
+      "RollCount": 2,
       "AllowDuplicate": false,
       "Entries": [
+        {
+          "Type": "Money",
+          "Money": 520,
+          "Weight": 100,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "mat_core_tier2_fragment",
+          "Weight": 18,
+          "Count": 1
+        },
         {
           "Type": "Item",
           "ItemID": "trade_luminous_fungus",
           "Weight": 35,
-          "Count": 1
-        },
-        {
-          "Type": "Item",
-          "ItemID": "con_stabilizer_ampoule",
-          "Weight": 25,
-          "Count": 1
-        },
-        {
-          "Type": "Item",
-          "ItemID": "loot_acid_gland",
-          "Weight": 25,
-          "Count": 1
-        },
-        {
-          "Type": "Money",
-          "Money": 25,
-          "Weight": 15,
           "Count": 1
         }
       ]

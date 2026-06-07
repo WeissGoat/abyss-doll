@@ -5,6 +5,9 @@
   "Rarity": "Epic",
   "BaseValue": 0,
   "IconID": "item_mat_core_tier1_icon",
+  "DescriptionKey": "item.mat_core_tier2.desc",
+  "ItemRole": ["DeprecatedCompat", "Material"],
+  "LayerTags": ["Layer2", "CompatLegacy"],
   "Grid": {
     "Shape": [
       [
@@ -32,6 +35,30 @@
   "Tags": [
     "CoreMaterial",
     "Toxic",
-    "Heavy"
-  ]
+    "Heavy",
+    "LegacyCompat"
+  ],
+  "Lifecycle": {
+    "CanSell": false,
+    "SellChannel": "None",
+    "BattleLossRule": "KeepIfBossReward",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "GrowthKey",
+    "CraftingConsumeRule": "Ingredient"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "AuditNotes": "正式 C2 Boss 保底使用 mat_core_tier2_fragment；本条保留为历史兼容 ID，不再由第二层精英或 Boss 奖励保底产出。"
 }

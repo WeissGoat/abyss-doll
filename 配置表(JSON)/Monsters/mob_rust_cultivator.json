@@ -1,0 +1,96 @@
+{
+  "MonsterID": "mob_rust_cultivator",
+  "Name": "锈蚀培植者",
+  "MonsterRole": [
+    "Corruption",
+    "CounterCheck"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer2_bag_pressure"
+  ],
+  "Layer": 2,
+  "LayerRange": {
+    "Min": 2,
+    "Max": 2
+  },
+  "EncounterTags": [
+    "Combat",
+    "Layer2",
+    "Corruption",
+    "CounterCheck"
+  ],
+  "DifficultyBudget": {
+    "Base": 108,
+    "Variance": 10
+  },
+  "HP": 108,
+  "PortraitID": "monster_mob_rust_cultivator_portrait",
+  "CombatVisualID": "monster_mob_rust_cultivator_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "rust_strike",
+      "IntentType": "Attack",
+      "PowerPreview": 20,
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.basic_attack",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "rust_corrode",
+      "IntentType": "Debuff",
+      "PowerPreview": "low corrosion",
+      "TargetPreview": "Weapon",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.corrosion",
+      "IntentIconRef": "ui_combat_intent_debuff"
+    }
+  ],
+  "RewardID": "reward_monster_mob_rust_cultivator",
+  "DropThemeTags": [
+    "Layer2",
+    "BagPressure"
+  ],
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "rust_strike",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 55,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 20,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "rust_corrode_weapon",
+        "ActionType": "ReduceWeaponDamage",
+        "Target": "RandomPlayerWeapon",
+        "Weight": 45,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerHasWeapon",
+        "Params": {
+          "Multiplier": 0.75,
+          "DurationPlayerTurns": 1
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {
+      "ItemID": "loot_warped_plate",
+      "Weight": 60
+    },
+    {
+      "ItemID": "loot_acid_gland",
+      "Weight": 40
+    }
+  ]
+}

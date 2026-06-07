@@ -1,0 +1,69 @@
+{
+  "ConfigID": "gear_corroded_bulwark",
+  "Name": "腐蚀壁盾",
+  "ItemType": "Armor",
+  "Rarity": "Epic",
+  "BaseValue": 980,
+  "IconID": "item_gear_corroded_bulwark_icon",
+  "DescriptionKey": "item.gear_corroded_bulwark.desc",
+  "ItemRole": ["Defense", "RiskObject", "BuildCore"],
+  "LayerTags": ["Layer2", "ContentPack20"],
+  "Grid": {
+    "Shape": [[0,0], [0,1], [0,2], [1,0], [1,1], [1,2]],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 6,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0],
+    "PlacementTags": ["Backpack", "Armor", "Bulky", "RiskObject"]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "Shield",
+    "BaseValue": 10,
+    "Effects": []
+  },
+  "Tags": ["Armor", "Heavy", "Corroded", "Layer2"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "DamageAndKeepProgress",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "DismantleOnly"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["elite_crystal_bulwark", "boss_spore_foundry"],
+    "RewardRefs": ["reward_monster_elite_crystal_bulwark"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": ["maint_corrosion_scrub"],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Armor", "Corroded", "RiskPremium"],
+    "RumorRefs": ["rumor_corrosion_sample_premium"],
+    "ContrabandRule": "None",
+    "DismantleProfile": "armor_plate_tier2"
+  },
+  "Risk": {
+    "RiskTags": ["Corroded", "Bulky"],
+    "PollutionProfile": "None",
+    "CorruptionProfile": "l2_bulwark_maintenance_cost",
+    "OvernightRule": "MaintenanceWarning",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_corroded_bulwark_icon",
+    "GridPreviewStyle": "RiskObjectLarge",
+    "RiskIconRefs": ["ui_combat_status_corrosion"],
+    "PickupHintKey": "pickup.gear_corroded_bulwark"
+  }
+}

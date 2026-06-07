@@ -1,12 +1,12 @@
 {
-  "RewardID": "reward_monster_elite_mutant_amalgam",
-  "Name": "畸变融合体精英掉落",
+  "RewardID": "reward_monster_mob_crystal_guard",
+  "Name": "结晶守卫掉落",
   "Tags": [
     "Monster",
     "Layer2",
-    "Elite"
+    "Mob"
   ],
-  "RewardRole": "EliteDrop",
+  "RewardRole": "MobDrop",
   "SourceType": "Monster",
   "LayerRange": {
     "Min": 2,
@@ -15,7 +15,7 @@
   "ContentPackRefs": [
     "design_pack_layer2_bag_pressure"
   ],
-  "RewardTier": "Elite",
+  "RewardTier": "Standard",
   "ExpectedValueBand": {
     "Min": 250,
     "Max": 1200
@@ -25,37 +25,42 @@
   "ValidationTags": [
     "Layer2Reward"
   ],
-  "AuditNotes": "Elite reward only. Tier-2 progression guarantee is owned by reward_boss_spore_foundry.",
-  "Guaranteed": [],
+  "AuditNotes": "",
+  "Guaranteed": [
+    {
+      "Type": "Item",
+      "ItemID": "loot_crystal_scale",
+      "Weight": 100,
+      "Count": 1
+    }
+  ],
   "WeightedPools": [
     {
-      "PoolID": "elite_main",
+      "PoolID": "bonus",
       "RollCount": 1,
       "AllowDuplicate": false,
       "Entries": [
         {
           "Type": "Item",
-          "ItemID": "trade_sealed_relic_box",
-          "Weight": 32,
+          "ItemID": "con_solvent_spray",
+          "Weight": 20,
           "Count": 1
         },
         {
           "Type": "Item",
-          "ItemID": "gear_charge_pistol",
-          "Weight": 28,
+          "ItemID": "gear_chain_hook",
+          "Weight": 8,
           "Count": 1
         },
         {
-          "Type": "Item",
-          "ItemID": "loot_acid_gland",
-          "Weight": 25,
+          "Type": "Money",
+          "Money": 20,
+          "Weight": 40,
           "Count": 1
         },
         {
-          "Type": "Item",
-          "ItemID": "mat_core_tier2_fragment",
-          "Weight": 15,
-          "Count": 1
+          "Type": "Nothing",
+          "Weight": 32
         }
       ]
     }

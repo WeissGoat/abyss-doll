@@ -1,13 +1,13 @@
 {
-  "RewardID": "reward_node_treasure_layer2",
-  "Name": "第2层宝箱奖励",
+  "RewardID": "reward_node_event_layer2_spore_capture",
+  "Name": "活孢子捕获事件奖励",
   "Tags": [
     "Node",
-    "Treasure",
+    "Event",
     "Layer2"
   ],
-  "RewardRole": "TreasureNode",
-  "SourceType": "Treasure",
+  "RewardRole": "EventNode",
+  "SourceType": "Event",
   "LayerRange": {
     "Min": 2,
     "Max": 2
@@ -15,7 +15,7 @@
   "ContentPackRefs": [
     "design_pack_layer2_bag_pressure"
   ],
-  "RewardTier": "Treasure",
+  "RewardTier": "Event",
   "ExpectedValueBand": {
     "Min": 250,
     "Max": 1200
@@ -29,40 +29,32 @@
   "Guaranteed": [
     {
       "Type": "Item",
-      "ItemID": "con_stabilizer_ampoule",
+      "ItemID": "order_live_spore_cage",
       "Weight": 100,
       "Count": 1
     }
   ],
   "WeightedPools": [
     {
-      "PoolID": "treasure",
+      "PoolID": "side",
       "RollCount": 1,
       "AllowDuplicate": false,
       "Entries": [
         {
           "Type": "Item",
-          "ItemID": "gear_chain_hook",
-          "Weight": 20,
-          "Count": 1
-        },
-        {
-          "Type": "Item",
-          "ItemID": "loot_crystal_scale",
+          "ItemID": "trade_luminous_fungus",
           "Weight": 35,
           "Count": 1
         },
         {
           "Type": "Item",
-          "ItemID": "con_solvent_spray",
-          "Weight": 30,
+          "ItemID": "loot_acid_gland",
+          "Weight": 35,
           "Count": 1
         },
         {
-          "Type": "Item",
-          "ItemID": "loot_warped_plate",
-          "Weight": 15,
-          "Count": 1
+          "Type": "Nothing",
+          "Weight": 30
         }
       ]
     }

@@ -1,0 +1,69 @@
+{
+  "ConfigID": "loot_acid_gland",
+  "Name": "酸腺囊",
+  "ItemType": "Loot",
+  "Rarity": "Rare",
+  "BaseValue": 520,
+  "IconID": "item_loot_acid_gland_icon",
+  "DescriptionKey": "item.loot_acid_gland.desc",
+  "ItemRole": ["RiskObject", "Material", "Trade"],
+  "LayerTags": ["Layer2", "ContentPack20"],
+  "Grid": {
+    "Shape": [[0,0], [0,1], [0,2], [1,0]],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 4,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0, 90, 180, 270],
+    "PlacementTags": ["Backpack", "RiskObject", "Material", "OddShape"]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": []
+  },
+  "Tags": ["Material", "Toxic", "Corroded", "Layer2", "OddShape"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "Ingredient"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["mob_acid_slime_mature", "mob_rust_cultivator"],
+    "RewardRefs": ["reward_monster_mob_acid_slime_mature", "reward_node_event_layer2_corroded_cache"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": ["order_crystal_scale_batch"]
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": ["maint_corrosion_scrub", "prosthetic_toxic_filter_arm"],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": ["event_spore_cage_capture"]
+  },
+  "Economy": {
+    "ValueTags": ["Toxic", "RiskPremium", "Layer2"],
+    "RumorRefs": ["rumor_acid_gland_shortage", "rumor_corrosion_sample_premium"],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": ["Toxic", "Corroded", "Layer2"],
+    "PollutionProfile": "l2_acid_gland_low_pollution",
+    "CorruptionProfile": "l2_acid_gland_corrosion_warning",
+    "OvernightRule": "LightPollutionWarning",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_loot_acid_gland_icon",
+    "GridPreviewStyle": "RiskObjectOdd",
+    "RiskIconRefs": ["ui_combat_status_corrosion"],
+    "PickupHintKey": "pickup.loot_acid_gland"
+  }
+}

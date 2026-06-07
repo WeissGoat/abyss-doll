@@ -1,0 +1,41 @@
+{
+  "OrderID": "order_blackmarket_relic_box",
+  "FactionID": "faction_black_market",
+  "OrderType": "BlackMarketBetrayal",
+  "DisplayName": "黑市遗物匣收购",
+  "Description": "黑市高价收购封存遗物匣，但会留下正规势力怀疑。",
+  "Requirement": {
+    "RequiredItemIDs": [
+      "trade_sealed_relic_box"
+    ],
+    "RequiredTags": [
+      "AbyssRelic",
+      "ContrabandLow"
+    ],
+    "ForbiddenTags": [
+      "OrderBound"
+    ],
+    "RequiredCount": 1,
+    "MinGridCost": 6,
+    "MinLayer": 2
+  },
+  "DeadlineDays": 3,
+  "RewardID": "reward_order_blackmarket_relic_box",
+  "FixedGold": 520,
+  "ReputationDelta": 0,
+  "TrustDelta": 4,
+  "FailurePenalty": {
+    "ExpiredReputationDelta": 0,
+    "AbandonedReputationDelta": 0,
+    "BetrayedReputationDelta": -20,
+    "CooldownDays": 10
+  },
+  "RepeatPolicy": "Limited",
+  "Weight": 35,
+  "Tags": [
+    "Layer2",
+    "BlackMarket",
+    "BetrayalHint",
+    "Contraband"
+  ]
+}

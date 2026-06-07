@@ -1,0 +1,63 @@
+{
+  "ConfigID": "loot_warped_plate",
+  "Name": "扭曲装甲片",
+  "ItemType": "Loot",
+  "Rarity": "Rare",
+  "BaseValue": 460,
+  "IconID": "item_loot_warped_plate_icon",
+  "DescriptionKey": "item.loot_warped_plate.desc",
+  "ItemRole": ["Material", "Trade", "BulkyPressure"],
+  "LayerTags": ["Layer2", "ContentPack20"],
+  "Grid": {
+    "Shape": [[0,0], [0,1], [1,0], [1,1]],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 4,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0],
+    "PlacementTags": ["Backpack", "Material", "Bulky"]
+  },
+  "Combat": null,
+  "Tags": ["Material", "ArmorPlate", "Layer2", "Heavy"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "Ingredient"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["mob_rust_cultivator", "elite_crystal_bulwark"],
+    "RewardRefs": ["reward_monster_mob_rust_cultivator", "reward_monster_elite_crystal_bulwark"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": ["chassis_bulwark_carrier", "gear_corroded_bulwark"],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["ArmorPlate", "Material", "Bulky"],
+    "RumorRefs": ["rumor_low_layer_bulk_buy"],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": ["Bulky"],
+    "PollutionProfile": "None",
+    "CorruptionProfile": "LowMaintenanceCost",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_loot_warped_plate_icon",
+    "GridPreviewStyle": "MaterialBulky",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.loot_warped_plate"
+  }
+}

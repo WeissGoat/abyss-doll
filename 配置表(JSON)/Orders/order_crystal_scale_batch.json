@@ -1,0 +1,41 @@
+{
+  "OrderID": "order_crystal_scale_batch",
+  "FactionID": "faction_alchemy_guild",
+  "OrderType": "Procurement",
+  "DisplayName": "晶化鳞片批量采购",
+  "Description": "交付三片晶化鳞片，用于炼金协会的稳定剂试验。",
+  "Requirement": {
+    "RequiredItemIDs": [
+      "loot_crystal_scale"
+    ],
+    "RequiredTags": [
+      "Crystal",
+      "Material"
+    ],
+    "ForbiddenTags": [
+      "OrderBound"
+    ],
+    "RequiredCount": 3,
+    "MinGridCost": 2,
+    "MinLayer": 2
+  },
+  "DeadlineDays": 5,
+  "RewardID": "reward_order_crystal_scale_batch",
+  "FixedGold": 220,
+  "ReputationDelta": 10,
+  "TrustDelta": 1,
+  "FailurePenalty": {
+    "ExpiredReputationDelta": -5,
+    "AbandonedReputationDelta": -3,
+    "BetrayedReputationDelta": -10,
+    "CooldownDays": 5
+  },
+  "RepeatPolicy": "Repeatable",
+  "Weight": 90,
+  "Tags": [
+    "Layer2",
+    "Procurement",
+    "Crystal",
+    "LowRisk"
+  ]
+}

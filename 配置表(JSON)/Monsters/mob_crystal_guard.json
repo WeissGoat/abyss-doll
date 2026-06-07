@@ -1,0 +1,114 @@
+{
+  "MonsterID": "mob_crystal_guard",
+  "Name": "结晶守卫",
+  "MonsterRole": [
+    "CounterCheck",
+    "PackInterference"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer2_bag_pressure"
+  ],
+  "Layer": 2,
+  "LayerRange": {
+    "Min": 2,
+    "Max": 2
+  },
+  "EncounterTags": [
+    "Combat",
+    "Layer2",
+    "CounterCheck",
+    "PackInterference"
+  ],
+  "DifficultyBudget": {
+    "Base": 96,
+    "Variance": 10
+  },
+  "HP": 96,
+  "PortraitID": "monster_mob_crystal_guard_portrait",
+  "CombatVisualID": "monster_mob_crystal_guard_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "crystal_guard",
+      "IntentType": "Defend",
+      "PowerPreview": "medium",
+      "TargetPreview": "Self",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.attack_window",
+      "IntentIconRef": "ui_combat_intent_defend"
+    },
+    {
+      "IntentID": "crystal_edge_lock",
+      "IntentType": "GridLock",
+      "PowerPreview": "edge",
+      "TargetPreview": "BackpackEdge",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.keep_edges_open",
+      "IntentIconRef": "ui_combat_grid_lock_marker"
+    }
+  ],
+  "RewardID": "reward_monster_mob_crystal_guard",
+  "DropThemeTags": [
+    "Layer2",
+    "BagPressure"
+  ],
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "crystal_strike",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 45,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 18,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "crystal_blunt_weapon",
+        "ActionType": "ReduceWeaponDamage",
+        "Target": "RandomPlayerWeapon",
+        "Weight": 25,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerHasWeapon",
+        "Params": {
+          "Multiplier": 0.8,
+          "DurationPlayerTurns": 1
+        }
+      },
+      {
+        "ActionID": "crystal_edge_lock",
+        "ActionType": "AddCursedItem",
+        "Target": "PlayerGridFirstFit",
+        "Weight": 30,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "PlayerGridHasSpace",
+        "Params": {
+          "ItemID": "loot_crystal_scale",
+          "OverrideTags": [
+            "GridLock",
+            "Crystal",
+            "Temporary"
+          ],
+          "OverrideValue": 0
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {
+      "ItemID": "loot_crystal_scale",
+      "Weight": 80
+    },
+    {
+      "ItemID": "con_solvent_spray",
+      "Weight": 20
+    }
+  ]
+}

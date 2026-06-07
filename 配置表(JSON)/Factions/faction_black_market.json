@@ -1,0 +1,26 @@
+﻿{
+  "FactionID": "faction_black_market",
+  "DisplayName": "黑市",
+  "IsBlackMarket": true,
+  "VisibleOrderSlots": 1,
+  "MaxActiveOrders": 2,
+  "FactionTags": [
+    "BlackMarket",
+    "Contraband",
+    "Betrayal"
+  ],
+  "ReputationRanks": [
+    {
+      "Rank": 1,
+      "Threshold": 0,
+      "UnlockRefs": [
+        "order_blackmarket_relic_box"
+      ]
+    },
+    {
+      "Rank": 2,
+      "Threshold": 40,
+      "UnlockRefs": []
+    }
+  ]
+}

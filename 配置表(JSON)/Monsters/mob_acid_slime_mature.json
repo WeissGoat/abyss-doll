@@ -1,10 +1,9 @@
 {
-  "MonsterID": "elite_mutant_amalgam",
-  "Name": "畸变融合体",
+  "MonsterID": "mob_acid_slime_mature",
+  "Name": "成熟酸液软体",
   "MonsterRole": [
-    "Elite",
     "PackInterference",
-    "Bypassable"
+    "Pressure"
   ],
   "ContentPackRefs": [
     "design_pack_layer2_bag_pressure"
@@ -17,48 +16,38 @@
   "EncounterTags": [
     "Combat",
     "Layer2",
-    "Elite",
     "PackInterference",
-    "Bypassable"
+    "Pressure"
   ],
   "DifficultyBudget": {
-    "Base": 150,
+    "Base": 82,
     "Variance": 10
   },
-  "HP": 150,
-  "PortraitID": "monster_elite_mutant_amalgam_portrait",
-  "CombatVisualID": "monster_elite_mutant_amalgam_combat",
+  "HP": 82,
+  "PortraitID": "monster_mob_acid_slime_mature_portrait",
+  "CombatVisualID": "monster_mob_acid_slime_mature_combat",
   "IntentIconSet": "combat_intent_core_v1",
   "IntentList": [
     {
-      "IntentID": "mutant_charge",
-      "IntentType": "Charge",
-      "PowerPreview": 45,
+      "IntentID": "acid_spit",
+      "IntentType": "Attack",
+      "PowerPreview": 16,
       "TargetPreview": "Doll",
       "Reliability": "Medium",
-      "CounterHintKey": "hint.intent.boss_charge_window",
-      "IntentIconRef": "ui_combat_intent_buff"
+      "CounterHintKey": "hint.intent.basic_attack",
+      "IntentIconRef": "ui_combat_intent_attack"
     },
     {
-      "IntentID": "mutant_seed_curse",
+      "IntentID": "acid_residue",
       "IntentType": "AddJunk",
       "PowerPreview": "1x1 residue",
       "TargetPreview": "Backpack",
       "Reliability": "Medium",
       "CounterHintKey": "hint.intent.keep_space",
       "IntentIconRef": "ui_combat_grid_lock_marker"
-    },
-    {
-      "IntentID": "mutant_heavy",
-      "IntentType": "Attack",
-      "PowerPreview": 45,
-      "TargetPreview": "Doll",
-      "Reliability": "Medium",
-      "CounterHintKey": "hint.intent.heavy_attack",
-      "IntentIconRef": "ui_combat_intent_attack"
     }
   ],
-  "RewardID": "reward_monster_elite_mutant_amalgam",
+  "RewardID": "reward_monster_mob_acid_slime_mature",
   "DropThemeTags": [
     "Layer2",
     "BagPressure"
@@ -67,23 +56,23 @@
     "Selector": "WeightedRandom",
     "Actions": [
       {
-        "ActionID": "mutant_crushing_blow",
+        "ActionID": "acid_spit",
         "ActionType": "DamageTarget",
         "Target": "FirstAlivePlayer",
-        "Weight": 55,
+        "Weight": 60,
         "CooldownTurns": 0,
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 45,
+          "Damage": 16,
           "RepeatCount": 1
         }
       },
       {
-        "ActionID": "mutant_seed_curse",
+        "ActionID": "acid_residue",
         "ActionType": "AddCursedItem",
         "Target": "PlayerGridFirstFit",
-        "Weight": 45,
+        "Weight": 40,
         "CooldownTurns": 2,
         "UsesPerCombat": 0,
         "Condition": "PlayerGridHasSpace",
@@ -92,7 +81,7 @@
           "OverrideTags": [
             "Cursed",
             "Toxic",
-            "ElitePressure"
+            "TemporaryResidue"
           ],
           "OverrideValue": 0
         }
@@ -101,16 +90,12 @@
   },
   "LootPool": [
     {
-      "ItemID": "trade_sealed_relic_box",
-      "Weight": 35
-    },
-    {
-      "ItemID": "gear_charge_pistol",
-      "Weight": 30
-    },
-    {
       "ItemID": "loot_acid_gland",
-      "Weight": 35
+      "Weight": 70
+    },
+    {
+      "ItemID": "loot_toxic_filter",
+      "Weight": 30
     }
   ]
 }

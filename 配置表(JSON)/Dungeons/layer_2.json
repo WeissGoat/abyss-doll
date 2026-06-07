@@ -1,77 +1,476 @@
 {
   "LayerID": 2,
-  "Name": "污染矿带",
+  "LayerKey": "layer_02_corroded_passage",
+  "Name": "腐蚀甬道",
+  "DisplayNameKey": "dungeon.layer2.corroded_passage.name",
+  "LayerThemeTags": [
+    "BagPressure",
+    "OrderTrack",
+    "Attrition",
+    "ContentPack20"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer2_bag_pressure"
+  ],
   "SANCostPerNode": 2,
   "ExpectedNodeCount": 7,
-  "MapProfileID": "layer_2_pressure_branching",
-  "MapSeed": 2001,
+  "MapProfileID": "layer2_bag_pressure",
+  "MapSeed": 2048,
   "RowCount": 6,
   "MinWidth": 2,
   "MaxWidth": 4,
-  "MinRouteCount": 2,
+  "MinRouteCount": 3,
   "MapBackgroundID": "bg_dungeon_layer_2",
   "FogProfile": "pressure_reveal_1_preview_1",
   "NodeRevealDepth": 1,
   "NodePreviewDepth": 1,
+  "MapProfiles": [
+    {
+      "ProfileID": "layer2_bag_pressure",
+      "ProfileRole": "BagPressure",
+      "DisplayName": "腐蚀甬道标准压力",
+      "RowCount": 6,
+      "MinWidth": 2,
+      "MaxWidth": 4,
+      "ValidationSeed": 2048,
+      "RouteThemeWeights": {
+        "SafeRoute": 25,
+        "RiskReward": 30,
+        "Attrition": 30,
+        "OrderTrack": 15
+      },
+      "RequiredNodes": [
+        {
+          "NodeType": "CombatNode",
+          "MinCountPerRoute": 2,
+          "PoolRef": "Minor"
+        },
+        {
+          "NodeType": "CombatNode",
+          "RuntimeRole": "BagPressureCombat",
+          "MinCountPerMap": 1,
+          "PoolRef": "BagPressure"
+        },
+        {
+          "NodeType": "CombatNode",
+          "RuntimeRole": "EliteNode",
+          "MonsterIDs": [
+            "elite_crystal_bulwark",
+            "elite_mutant_amalgam"
+          ],
+          "BypassRequired": true
+        },
+        {
+          "NodeType": "TreasureNode",
+          "MinCountPerMap": 1,
+          "RewardID": "reward_node_treasure_layer2"
+        },
+        {
+          "NodeType": "CombatNode",
+          "RuntimeRole": "BossNode",
+          "MonsterIDs": [
+            "boss_spore_foundry"
+          ],
+          "FixedRow": "Boss"
+        },
+        {
+          "NodeType": "StairsNode",
+          "RuntimeRole": "PostBossSafeZone",
+          "FixedRow": "PostBoss"
+        }
+      ]
+    },
+    {
+      "ProfileID": "layer2_order_spore_hunt",
+      "ProfileRole": "OrderTrack",
+      "DisplayName": "活孢子订单追踪",
+      "RowCount": 7,
+      "MinWidth": 2,
+      "MaxWidth": 4,
+      "ValidationSeed": 2202,
+      "RouteThemeWeights": {
+        "OrderTrack": 40,
+        "SafeRoute": 20,
+        "RiskReward": 25,
+        "Attrition": 15
+      },
+      "RequiredNodes": [
+        {
+          "NodeType": "EventNode",
+          "RuntimeRole": "OrderTargetNode",
+          "RewardID": "reward_node_event_layer2_spore_capture",
+          "OrderID": "order_spore_cage_procurement",
+          "MinCountPerMap": 1
+        },
+        {
+          "NodeType": "CombatNode",
+          "MinCountPerRoute": 2,
+          "PoolRef": "Minor"
+        },
+        {
+          "NodeType": "CombatNode",
+          "RuntimeRole": "EliteNode",
+          "MonsterIDs": [
+            "elite_mutant_amalgam"
+          ],
+          "BypassRequired": true
+        },
+        {
+          "NodeType": "EventNode",
+          "MinCountPerMap": 1,
+          "RewardIDs": [
+            "reward_node_event_layer2_spore_capture",
+            "reward_node_event_layer2_corroded_cache"
+          ]
+        },
+        {
+          "NodeType": "CombatNode",
+          "RuntimeRole": "BossNode",
+          "MonsterIDs": [
+            "boss_spore_foundry"
+          ],
+          "FixedRow": "Boss"
+        },
+        {
+          "NodeType": "StairsNode",
+          "RuntimeRole": "PostBossSafeZone",
+          "FixedRow": "PostBoss"
+        }
+      ]
+    }
+  ],
+  "RouteThemeWeights": {
+    "SafeRoute": 25,
+    "RiskReward": 30,
+    "Attrition": 25,
+    "OrderTrack": 20
+  },
+  "NodeTypeWeights": {
+    "CombatNode": 52,
+    "TreasureNode": 10,
+    "EventNode": 16,
+    "RestStopNode": 8,
+    "HazardNode": 8,
+    "SafeRoomNode": 6
+  },
+  "RequiredNodes": [
+    {
+      "NodeType": "CombatNode",
+      "RuntimeRole": "EliteNode",
+      "MonsterIDs": [
+        "elite_crystal_bulwark",
+        "elite_mutant_amalgam"
+      ],
+      "BypassRequired": true
+    },
+    {
+      "NodeType": "CombatNode",
+      "RuntimeRole": "BossNode",
+      "MonsterIDs": [
+        "boss_spore_foundry"
+      ],
+      "FixedRow": "Boss"
+    },
+    {
+      "NodeType": "StairsNode",
+      "RuntimeRole": "PostBossSafeZone",
+      "FixedRow": "PostBoss"
+    }
+  ],
+  "Constraints": {
+    "MinEffectiveRouteCount": 3,
+    "EliteBypassRequired": true,
+    "BossBufferRequired": true,
+    "MaxSameTypeStreak": 2,
+    "MinCombatPerRoute": 2,
+    "MaxRestStopPerRoute": 1,
+    "MinBagPressureEncounter": 1,
+    "OrderTargetReachable": true
+  },
+  "EncounterPools": {
+    "Minor": [
+      {
+        "EncounterID": "enc_l2_acid_slime_mature",
+        "MonsterIDs": [
+          "mob_acid_slime_mature"
+        ],
+        "EncounterTags": [
+          "BagPressure",
+          "Toxic"
+        ],
+        "Weight": 28
+      },
+      {
+        "EncounterID": "enc_l2_crystal_guard",
+        "MonsterIDs": [
+          "mob_crystal_guard"
+        ],
+        "EncounterTags": [
+          "GridLock",
+          "CounterCheck"
+        ],
+        "Weight": 24
+      },
+      {
+        "EncounterID": "enc_l2_soul_midge_swarm",
+        "MonsterIDs": [
+          "mob_soul_midge_swarm"
+        ],
+        "EncounterTags": [
+          "SanPressure"
+        ],
+        "Weight": 20
+      },
+      {
+        "EncounterID": "enc_l2_rust_cultivator",
+        "MonsterIDs": [
+          "mob_rust_cultivator"
+        ],
+        "EncounterTags": [
+          "Corrosion"
+        ],
+        "Weight": 20
+      },
+      {
+        "EncounterID": "enc_l2_mixed_pressure",
+        "MonsterIDs": [
+          "mob_acid_slime_mature",
+          "mob_crystal_guard"
+        ],
+        "EncounterTags": [
+          "BagPressure",
+          "RiskReward"
+        ],
+        "Weight": 8
+      }
+    ],
+    "BagPressure": [
+      {
+        "EncounterID": "enc_l2_bag_acid_crystal",
+        "MonsterIDs": [
+          "mob_acid_slime_mature",
+          "mob_crystal_guard"
+        ],
+        "EncounterTags": [
+          "BagPressure",
+          "GridLock"
+        ],
+        "Weight": 60
+      },
+      {
+        "EncounterID": "enc_l2_bag_rust_spore",
+        "MonsterIDs": [
+          "mob_rust_cultivator",
+          "mob_soul_midge_swarm"
+        ],
+        "EncounterTags": [
+          "Corrosion",
+          "SanPressure"
+        ],
+        "Weight": 40
+      }
+    ],
+    "Elite": [
+      {
+        "EncounterID": "enc_l2_elite_crystal_bulwark",
+        "MonsterIDs": [
+          "elite_crystal_bulwark"
+        ],
+        "EncounterTags": [
+          "Elite",
+          "Bypassable",
+          "GridLock"
+        ],
+        "Weight": 55,
+        "BypassRequired": true
+      },
+      {
+        "EncounterID": "enc_l2_elite_mutant_amalgam",
+        "MonsterIDs": [
+          "elite_mutant_amalgam"
+        ],
+        "EncounterTags": [
+          "Elite",
+          "Bypassable",
+          "AddJunk"
+        ],
+        "Weight": 45,
+        "BypassRequired": true
+      }
+    ],
+    "BossEncounterID": "boss_spore_foundry",
+    "EncounterTags": [
+      "Layer2",
+      "BagPressure",
+      "OrderTrack"
+    ]
+  },
+  "TreasureRewardPoolRefs": [
+    "reward_node_treasure_layer2"
+  ],
+  "EventPoolRefs": [
+    "reward_node_event_layer2",
+    "reward_node_event_layer2_spore_capture",
+    "reward_node_event_layer2_corroded_cache"
+  ],
+  "HazardPoolRefs": [
+    "hazard_l2_acid_mist"
+  ],
+  "OrderTargetRefs": [
+    "order_spore_cage_procurement"
+  ],
+  "NodeRewardRefs": [
+    "reward_node_treasure_layer2",
+    "reward_node_event_layer2",
+    "reward_node_event_layer2_spore_capture",
+    "reward_node_event_layer2_corroded_cache"
+  ],
   "NodePool": [
     {
       "NodeType": "CombatNode",
       "NodeIconID": "node_combat_icon",
+      "Title": "成熟酸液软体",
+      "Description": "酸液软体会制造临时残渣，压缩背包空间。",
       "RiskLevel": "Medium",
-      "RiskHint": "酸液软体会制造武器腐蚀压力。",
-      "MonsterIDs": ["mob_acid_slime"],
-      "Weight": 45
+      "RiskHint": "背包压力节点，建议预留空格或携带溶剂喷雾。",
+      "Weight": 24,
+      "MonsterIDs": [
+        "mob_acid_slime_mature"
+      ]
     },
     {
       "NodeType": "CombatNode",
       "NodeIconID": "node_combat_icon",
-      "RiskLevel": "High",
-      "RiskHint": "多只酸液软体会显著提高腐蚀和损耗压力。",
-      "MonsterIDs": ["mob_acid_slime", "mob_acid_slime"],
-      "Weight": 10
+      "Title": "结晶守卫",
+      "Description": "结晶守卫会封锁边缘空间并防御。",
+      "RiskLevel": "Medium",
+      "RiskHint": "封格压力节点，边缘摆放越紧越危险。",
+      "Weight": 22,
+      "MonsterIDs": [
+        "mob_crystal_guard"
+      ]
     },
     {
-      "NodeType": "SafeRoomNode",
-      "NodeIconID": "node_safe_room_icon",
-      "RiskLevel": "Safe",
-      "RiskHint": "安全休整节点，不产生战斗压力。",
-      "MonsterIDs": [],
-      "Weight": 45
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "锈蚀培植者",
+      "Description": "锈蚀培植者会削弱武器并掉落重材料。",
+      "RiskLevel": "High",
+      "RiskHint": "腐蚀压力节点，战利品价值高但占格。",
+      "Weight": 18,
+      "MonsterIDs": [
+        "mob_rust_cultivator"
+      ]
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "窃魂虫群",
+      "Description": "虫群造成低强度 SAN 压力。",
+      "RiskLevel": "Medium",
+      "RiskHint": "SAN 压力节点，稳定安瓿可反制。",
+      "Weight": 16,
+      "MonsterIDs": [
+        "mob_soul_midge_swarm"
+      ]
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "晶壁守卫",
+      "Description": "可绕精英，封格压力更强。",
+      "RiskLevel": "High",
+      "RiskHint": "精英节点，可绕，奖励含二阶材料。",
+      "Weight": 6,
+      "MonsterIDs": [
+        "elite_crystal_bulwark"
+      ]
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "畸变融合体",
+      "Description": "可绕精英，会持续向背包塞入风险残渣。",
+      "RiskLevel": "High",
+      "RiskHint": "精英节点，可绕，高价值但不保底二阶机核。",
+      "Weight": 5,
+      "MonsterIDs": [
+        "elite_mutant_amalgam"
+      ]
     },
     {
       "NodeType": "TreasureNode",
       "NodeIconID": "node_treasurenode_icon",
-      "Title": "污染物资箱",
-      "Description": "箱体被瘴气腐蚀，但里面仍有更高价值的污染素材。",
-      "RewardID": "reward_node_treasure_layer2",
+      "Title": "腐蚀物资箱",
+      "Description": "箱内有反制物和二层材料。",
       "RiskLevel": "Medium",
-      "RiskHint": "污染宝箱收益更高，但可能带来后续携带压力。",
-      "Weight": 16
+      "RiskHint": "宝箱节点，常给反制消耗品和大件材料。",
+      "Weight": 12,
+      "RewardID": "reward_node_treasure_layer2"
     },
     {
       "NodeType": "EventNode",
       "NodeIconID": "node_eventnode_icon",
-      "Title": "菌丝低语",
-      "Description": "菌丝群落短暂让出通道，同时留下了可交易的情报碎片。",
-      "RewardID": "reward_node_event_layer2",
+      "Title": "活孢子捕获点",
+      "Description": "可捕获活孢子笼完成订单，但会立即占用 2x3 空间。",
       "RiskLevel": "Medium",
-      "RiskHint": "事件节点，通常以 SAN 压力换取收益。",
+      "RiskHint": "订单目标事件，空间不足时不应吞掉订单。",
+      "Weight": 8,
+      "RewardID": "reward_node_event_layer2_spore_capture",
       "OutcomeEffects": [
         {
           "Type": "ModifyResource",
           "Resource": "SAN",
           "Amount": -2
         }
-      ],
-      "Weight": 12
+      ]
+    },
+    {
+      "NodeType": "EventNode",
+      "NodeIconID": "node_eventnode_icon",
+      "Title": "腐蚀储藏箱",
+      "Description": "可用溶剂安全打开，否则带低级腐蚀风险。",
+      "RiskLevel": "Medium",
+      "RiskHint": "事件节点，用消耗品换安全收益。",
+      "Weight": 8,
+      "RewardID": "reward_node_event_layer2_corroded_cache",
+      "OutcomeEffects": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -1
+        }
+      ]
+    },
+    {
+      "NodeType": "RestStopNode",
+      "NodeIconID": "node_reststopnode_icon",
+      "Title": "通风维护点",
+      "Description": "层内短休整，可恢复少量状态但不能撤离。",
+      "RiskLevel": "Low",
+      "RiskHint": "层内休整，不是 Boss 后安全区。",
+      "Weight": 7,
+      "OutcomeEffects": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "HP",
+          "Amount": 8
+        },
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": 4
+        }
+      ]
     },
     {
       "NodeType": "HazardNode",
       "NodeIconID": "node_hazardnode_icon",
       "Title": "酸雾回廊",
-      "Description": "酸雾附着在关节上，造成额外损耗。",
+      "Description": "酸雾附着在背包和关节上。",
       "RiskLevel": "High",
-      "RiskHint": "危险节点，会同时消耗 HP 与 SAN。",
+      "RiskHint": "危险节点，造成 HP / SAN 损耗并预告腐蚀压力。",
+      "Weight": 7,
       "OutcomeEffects": [
         {
           "Type": "ModifyResource",
@@ -83,16 +482,192 @@
           "Resource": "SAN",
           "Amount": -2
         }
-      ],
-      "Weight": 10
+      ]
     }
   ],
-  "BossNode": "elite_mutant_amalgam",
+  "BossNode": "boss_spore_foundry",
   "BossNodeIconID": "node_boss_icon",
+  "PostBossNode": {
+    "NodeType": "StairsNode",
+    "RuntimeRole": "PostBossSafeZone",
+    "NodeIconID": "node_stairs_icon",
+    "RiskLevel": "Safe",
+    "RiskHint": "Boss 后安全区，免费恢复并选择撤离或继续深入。"
+  },
+  "SafeZoneRules": {
+    "FreeRecoverHP": true,
+    "FreeRecoverSAN": true,
+    "ClearItemPollution": false,
+    "ClearOrderState": false,
+    "AllowExtract": true,
+    "AllowDescend": true,
+    "PreserveRunLedger": true
+  },
   "EndNode": {
     "NodeType": "StairsNode",
     "NodeIconID": "node_stairs_icon",
     "RiskLevel": "Safe",
-    "RiskHint": "层终点，可选择深入下一层或返回小镇。"
+    "RiskHint": "Boss 后安全区，免费恢复 HP / SAN，可选择深入下一层或返回小镇。"
+  },
+  "UnlockRule": {
+    "RequiresHighestUnlockedLayer": 2,
+    "RequiresLayer1BossDefeated": true,
+    "UnlocksLayerID": 3,
+    "RequiresBossDefeated": true,
+    "RequiresEndNodeReached": true
+  },
+  "DirectStartAllowed": true,
+  "PreviousLayerRequired": 1,
+  "NextLayerID": 3,
+  "FixedSeedSamples": [
+    {
+      "SeedID": "V-L2-DIRECT-2048-ROUTE-01",
+      "LayerID": 2,
+      "MapProfileID": "layer2_bag_pressure",
+      "RunSeed": 2048,
+      "RouteSummary": "从小镇直达第二层，至少 3 条有效路线，普通战斗后分叉到宝箱 / 事件或可绕精英，Boss 固定为 boss_spore_foundry，Boss 后进入 StairsNode 承载 SafeZone。",
+      "EncounterSummary": "普通遭遇覆盖 mature slime、crystal guard、soul midge、rust cultivator；elite_crystal_bulwark / elite_mutant_amalgam 可绕；boss_spore_foundry 承担第二层终点 Boss。",
+      "RewardSummary": "宝箱引用 reward_node_treasure_layer2；事件引用 spore capture / corroded cache；Boss 保底 mat_core_tier2_fragment。",
+      "ExpectedEffectiveRouteCount": 3,
+      "ExpectedNodeTypeCoverage": [
+        "CombatNode",
+        "TreasureNode",
+        "EventNode",
+        "EliteNode",
+        "BossNode",
+        "SafeZoneNode"
+      ],
+      "ExpectedBossID": "boss_spore_foundry",
+      "ExpectedEliteIDs": [
+        "elite_crystal_bulwark",
+        "elite_mutant_amalgam"
+      ],
+      "ExpectedRewardRefs": [
+        "reward_node_treasure_layer2",
+        "reward_node_event_layer2_spore_capture",
+        "reward_boss_spore_foundry"
+      ],
+      "ExpectedPlayerChoice": "低风险路线保守推进，风险路线挑战可绕精英换高价值大件。",
+      "PassCriteria": "直达第二层，至少 3 条有效路线，精英可绕，Boss 可达，Boss 后安全区允许撤离或深入。",
+      "FailureSignals": [
+        "重打一层",
+        "第二层引用第一层怪物池",
+        "精英必经",
+        "Boss 后没有 SafeZone"
+      ]
+    },
+    {
+      "SeedID": "V-L2-PACK-RUN-01",
+      "LayerID": 2,
+      "MapProfileID": "layer2_bag_pressure",
+      "RunSeed": 2048,
+      "RouteSummary": "标准路线至少经历一次塞包 / 封格 / 低级腐蚀压力，并出现 con_solvent_spray 或 con_stabilizer_ampoule 反制窗口。",
+      "EncounterSummary": "成熟酸液软体和结晶守卫提供背包压力，锈蚀培植者提供低级腐蚀预告。",
+      "RewardSummary": "掉落覆盖 loot_acid_gland、loot_crystal_scale、con_solvent_spray。",
+      "ExpectedItemRefs": [
+        "loot_acid_gland",
+        "loot_crystal_scale",
+        "con_solvent_spray"
+      ],
+      "PassCriteria": "玩家能通过预留空间、消耗品、抢杀或绕路处理压力。",
+      "FailureSignals": [
+        "没有背包压力",
+        "反制物不可用或不可读",
+        "压力直接永久毁物"
+      ]
+    },
+    {
+      "SeedID": "V-L2-PACK-ORDER-01",
+      "LayerID": 2,
+      "MapProfileID": "layer2_order_spore_hunt",
+      "RunSeed": 2202,
+      "RouteSummary": "接取 order_spore_cage_procurement 后进入订单画像，事件路线可获得 order_live_spore_cage 并继续通 Boss / SafeZone。",
+      "EncounterSummary": "订单路线包含活孢子捕获点、普通战斗、可绕精英和 Boss。",
+      "RewardSummary": "事件保底 order_live_spore_cage，订单提交引用 reward_order_spore_cage_procurement。",
+      "ExpectedOrderRefs": [
+        "order_spore_cage_procurement"
+      ],
+      "ExpectedItemRefs": [
+        "order_live_spore_cage"
+      ],
+      "PassCriteria": "委托物占 2x3，可旋转，不可普通出售；撤离后可交付。",
+      "FailureSignals": [
+        "委托物不占格",
+        "普通出售成功",
+        "订单目标无法通向 Boss / SafeZone"
+      ]
+    },
+    {
+      "SeedID": "V-L2-PACK-ELITE-01",
+      "LayerID": 2,
+      "MapProfileID": "layer2_bag_pressure",
+      "RunSeed": 2048,
+      "RouteSummary": "至少一个精英节点可绕；挑战精英获得更高收益并承受封格 / 塞包压力。",
+      "ExpectedEliteIDs": [
+        "elite_crystal_bulwark",
+        "elite_mutant_amalgam"
+      ],
+      "ExpectedRewardRefs": [
+        "reward_monster_elite_crystal_bulwark",
+        "reward_monster_elite_mutant_amalgam"
+      ],
+      "PassCriteria": "精英奖励高于普通路线，但不承担 Boss 保底二阶碎片。",
+      "FailureSignals": [
+        "精英必经",
+        "精英仍保底成长钥匙",
+        "封格无预告或无法反制"
+      ]
+    },
+    {
+      "SeedID": "V-L2-PACK-BOSS-01",
+      "LayerID": 2,
+      "MapProfileID": "layer2_bag_pressure",
+      "RunSeed": 2048,
+      "RouteSummary": "击败 boss_spore_foundry 后进入 Boss 后 SafeZone / Stairs。",
+      "EncounterSummary": "Boss 阶段覆盖攻击、塞包、低级污染 / 腐蚀预告。",
+      "RewardSummary": "reward_boss_spore_foundry 保底 mat_core_tier2_fragment；elite_mutant_amalgam 不保底二阶成长钥匙。",
+      "ExpectedBossID": "boss_spore_foundry",
+      "ExpectedGuaranteedItemRefs": [
+        "mat_core_tier2_fragment"
+      ],
+      "PassCriteria": "Boss 保底二阶碎片，Boss 后安全区免费恢复 HP / SAN，但保留背包、订单、污染和探索账本。",
+      "FailureSignals": [
+        "二阶碎片仍由 elite_mutant_amalgam 保底",
+        "Boss 后清订单或污染",
+        "Boss 后不允许撤离 / 深入"
+      ]
+    }
+  ],
+  "ExpectedRouteSummary": {
+    "MinEffectiveRouteCount": 3,
+    "MinCombatPerRoute": 2,
+    "EliteBypassRequired": true,
+    "BossBufferRequired": true,
+    "BossID": "boss_spore_foundry",
+    "EliteIDs": [
+      "elite_crystal_bulwark",
+      "elite_mutant_amalgam"
+    ],
+    "PostBossSafeZone": true
+  },
+  "ValidationScenarioRefs": [
+    "CFG-DUNGEON-REF-001",
+    "CFG-DUNGEON-ROUTE-001",
+    "CFG-DUNGEON-SAFEZONE-001",
+    "CFG-LAYER-DIRECT-001",
+    "CFG-ORDER-CONFLICT-001",
+    "CFG-SEED-001",
+    "V-L2-DIRECT-2048-ROUTE-01",
+    "V-L2-PACK-RUN-01",
+    "V-L2-PACK-ORDER-01",
+    "V-L2-PACK-ELITE-01",
+    "V-L2-PACK-BOSS-01"
+  ],
+  "NodeIconSet": "layer2_bag_pressure_node_icons",
+  "RouteThemeVisuals": {
+    "SafeRoute": "route_theme_safe_green",
+    "RiskReward": "route_theme_reward_gold",
+    "Attrition": "route_theme_attrition_red",
+    "OrderTrack": "route_theme_order_blue"
   }
 }

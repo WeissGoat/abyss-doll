@@ -1,37 +1,37 @@
 {
-  "ConfigID": "gear_charge_pistol",
-  "Name": "充能手铳",
+  "ConfigID": "gear_chain_hook",
+  "Name": "链钩短枪",
   "ItemType": "Weapon",
   "Rarity": "Rare",
-  "BaseValue": 800,
-  "IconID": "item_gear_charge_pistol_icon",
-  "DescriptionKey": "item.gear_charge_pistol.desc",
-  "ItemRole": ["BuildCore", "CounterCheck", "BurstWeapon"],
+  "BaseValue": 720,
+  "IconID": "item_gear_chain_hook_icon",
+  "DescriptionKey": "item.gear_chain_hook.desc",
+  "ItemRole": ["BuildCore", "Trade", "Layer2Pressure"],
   "LayerTags": ["Layer2", "ContentPack20"],
   "Grid": {
-    "Shape": [[0,0], [0,1]],
+    "Shape": [[0,0], [0,1], [1,0], [1,1]],
     "CanRotate": true,
     "RotationSteps": 2,
-    "GridCost": 2,
+    "GridCost": 4,
     "DefaultRotation": 0,
     "AllowedRotations": [0, 90],
-    "PlacementTags": ["Backpack", "Weapon", "CounterCheck"]
+    "PlacementTags": ["Backpack", "Weapon", "Bulky"]
   },
   "Combat": {
     "TriggerType": "Manual",
     "APCost": 1,
-    "DamageType": "Energy",
-    "BaseValue": 20,
+    "DamageType": "Physical",
+    "BaseValue": 24,
     "Effects": [
       {
         "EffectID": "DamageMultiplier",
         "Level": 0,
         "Target": "Right",
-        "Params": [0.3]
+        "Params": [0.2]
       }
     ]
   },
-  "Tags": ["Ranged", "Energy", "Weapon", "Layer2"],
+  "Tags": ["Weapon", "Mechanical", "Layer2", "Bulky"],
   "Lifecycle": {
     "CanSell": true,
     "SellChannel": "Shop",
@@ -41,36 +41,36 @@
     "CraftingConsumeRule": "DismantleOnly"
   },
   "SourceRefs": {
-    "DropPoolRefs": ["elite_mutant_amalgam", "boss_spore_foundry"],
-    "RewardRefs": ["reward_monster_elite_mutant_amalgam", "reward_boss_spore_foundry"],
+    "DropPoolRefs": ["mob_crystal_guard"],
+    "RewardRefs": ["reward_node_treasure_layer2"],
     "CraftingRefs": [],
     "ShopRefs": [],
-    "OrderRefs": []
+    "OrderRefs": ["order_crystal_scale_batch"]
   },
   "SinkRefs": {
     "SellOutcomeRefs": [],
-    "CraftingAsIngredientRefs": ["prosthetic_charge_capacitor"],
+    "CraftingAsIngredientRefs": [],
     "OrderSubmitRefs": [],
     "RoomMemoryRefs": [],
     "ScenarioEventRefs": []
   },
   "Economy": {
-    "ValueTags": ["Weapon", "Energy", "Layer2"],
-    "RumorRefs": ["rumor_weapon_collector_visit"],
+    "ValueTags": ["Mechanical", "Weapon", "Layer2"],
+    "RumorRefs": [],
     "ContrabandRule": "None",
-    "DismantleProfile": "energy_weapon_tier2"
+    "DismantleProfile": "mechanical_weapon_tier2"
   },
   "Risk": {
-    "RiskTags": [],
+    "RiskTags": ["Bulky"],
     "PollutionProfile": "None",
     "CorruptionProfile": "LowMaintenanceCost",
     "OvernightRule": "None",
     "OrderConflictGroup": ""
   },
   "Visual": {
-    "IconVisualID": "item_gear_charge_pistol_icon",
-    "GridPreviewStyle": "WeaponSmall",
+    "IconVisualID": "item_gear_chain_hook_icon",
+    "GridPreviewStyle": "WeaponBulky",
     "RiskIconRefs": [],
-    "PickupHintKey": "pickup.gear_charge_pistol"
+    "PickupHintKey": "pickup.gear_chain_hook"
   }
 }
