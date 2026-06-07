@@ -19,6 +19,7 @@ public static class DungeonStairsProgressionTest {
         TestStartRunAtUnlockedLayerResetsRunLootLedger();
         TestEnterNextLayerKeepsRunLootLedger();
         TestStairsReturnSettlesRunLoot();
+        TestStairsProgressionOpensNextLayerMapEntries();
         TestLayerTwoMapLayoutKeepsNodeButtonsReadable();
         TestMovementSanCostIncludesBackpackEffects();
 
@@ -416,6 +417,54 @@ public static class DungeonStairsProgressionTest {
         }
     }
 
+    private static void TestStairsProgressionOpensNextLayerMapEntries() {
+        CoreBackend core = CreateCore();
+        core.Dungeon.LoadLayer(1);
+
+        _lastUnlockedStartLayerID = -1;
+        DungeonEventBus.OnDungeonStartLayerUnlocked += HandleStartLayerUnlocked;
+
+        bool layerOneStairsReached = WalkFirstRouteToStairs(core, 1, out StairsNode layerOneStairs, out string layerOneReason);
+        bool layerTwoUnlocked = core.CurrentPlayer.HighestUnlockedDungeonLayer >= 2
+            && _lastUnlockedStartLayerID == 2
+            && core.Dungeon.CanStartAtLayer(2);
+
+        bool layerOneCanDescend = layerOneStairs != null && layerOneStairs.CanEnterNextLayer();
+        layerOneStairs?.EnterNextLayer();
+        bool layerTwoLoaded = core.Dungeon.CurrentLayer != null && core.Dungeon.CurrentLayer.LayerID == 2;
+        bool layerTwoEntryClickable = FirstEntryCanBeClicked(core);
+
+        _lastUnlockedStartLayerID = -1;
+        bool layerTwoStairsReached = WalkFirstRouteToStairs(core, 2, out StairsNode layerTwoStairs, out string layerTwoReason);
+        bool layerThreeUnlocked = core.CurrentPlayer.HighestUnlockedDungeonLayer >= 3
+            && _lastUnlockedStartLayerID == 3
+            && core.Dungeon.CanStartAtLayer(3);
+
+        bool layerTwoCanDescend = layerTwoStairs != null && layerTwoStairs.CanEnterNextLayer();
+        layerTwoStairs?.EnterNextLayer();
+        bool layerThreeLoaded = core.Dungeon.CurrentLayer != null && core.Dungeon.CurrentLayer.LayerID == 3;
+        bool layerThreeEntryClickable = FirstEntryCanBeClicked(core);
+
+        DungeonEventBus.OnDungeonStartLayerUnlocked -= HandleStartLayerUnlocked;
+
+        bool progressionValid = layerOneStairsReached
+            && layerTwoUnlocked
+            && layerOneCanDescend
+            && layerTwoLoaded
+            && layerTwoEntryClickable
+            && layerTwoStairsReached
+            && layerThreeUnlocked
+            && layerTwoCanDescend
+            && layerThreeLoaded
+            && layerThreeEntryClickable;
+
+        if (progressionValid) {
+            Debug.Log("Stairs Multi Layer Progression PASSED.");
+        } else {
+            Debug.LogError($"Stairs Multi Layer Progression FAILED. L1Stairs={layerOneStairsReached} ({layerOneReason}), Unlock2={layerTwoUnlocked}, CanDescend1={layerOneCanDescend}, L2Loaded={layerTwoLoaded}, L2Entry={layerTwoEntryClickable}, L2Stairs={layerTwoStairsReached} ({layerTwoReason}), Unlock3={layerThreeUnlocked}, CanDescend2={layerTwoCanDescend}, L3Loaded={layerThreeLoaded}, L3Entry={layerThreeEntryClickable}, Highest={core.CurrentPlayer.HighestUnlockedDungeonLayer}, LastEvent={_lastUnlockedStartLayerID}");
+        }
+    }
+
     private static void TestMovementSanCostIncludesBackpackEffects() {
         CoreBackend core = CreateCore();
         DollEntity doll = core.CurrentPlayer.ActiveDoll;
@@ -522,6 +571,48 @@ public static class DungeonStairsProgressionTest {
 
         List<NodeBase> path = BuildLinearPath(layer);
         return path.Count > 0 ? path[path.Count - 1] : null;
+    }
+
+    private static bool WalkFirstRouteToStairs(CoreBackend core, int expectedLayerID, out StairsNode stairs, out string reason) {
+        stairs = null;
+        reason = string.Empty;
+
+        DungeonLayer layer = core?.Dungeon?.CurrentLayer;
+        if (layer == null) {
+            reason = "Current layer is null.";
+            return false;
+        }
+
+        if (layer.LayerID != expectedLayerID) {
+            reason = $"Expected layer {expectedLayerID}, actual layer {layer.LayerID}.";
+            return false;
+        }
+
+        NodeBase current = layer.EntryNodes != null && layer.EntryNodes.Count > 0 ? layer.EntryNodes[0] : layer.RootNode;
+        int guard = 0;
+        while (current != null && guard++ < 64) {
+            if (!core.Dungeon.CanMoveToNode(current)) {
+                reason = $"Node {current.NodeID} is not movable from {layer.CurrentNode?.NodeID ?? "start"}.";
+                return false;
+            }
+
+            core.Dungeon.MoveToNode(current);
+            if (current is StairsNode reachedStairs) {
+                stairs = reachedStairs;
+                return true;
+            }
+
+            current = current.NextNodes != null && current.NextNodes.Count > 0 ? current.NextNodes[0] : null;
+        }
+
+        reason = guard >= 64 ? "Route traversal guard reached." : "Route ended before stairs.";
+        return false;
+    }
+
+    private static bool FirstEntryCanBeClicked(CoreBackend core) {
+        DungeonLayer layer = core?.Dungeon?.CurrentLayer;
+        NodeBase entry = layer?.EntryNodes != null && layer.EntryNodes.Count > 0 ? layer.EntryNodes[0] : layer?.RootNode;
+        return entry != null && core.Dungeon.CanMoveToNode(entry);
     }
 
     private static NodeBase GetBossNode(DungeonLayer layer) {
