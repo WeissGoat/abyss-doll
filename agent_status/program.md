@@ -64,8 +64,10 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 ```
 
 ## 最近完成
-- 已补充正式程序推进细化文档：`开发文档/16_程序主流程闭环与架构收口推进计划.md`。该文档把“继续开发功能未开放完的主流程闭环”拆为层选择 / 下潜 / 地图 / 战斗 / 战利品 / 阶梯安全区 / 结算 / 小镇经济 / 工坊成长 / 再下潜的玩家黄金路径，并把“程序架构优化 / 收口”拆为 `GameFlowController`、UI Controller、领域服务、EventBus、ConfigValidator 和 smoke test 的职责边界收口。
-- 已按用户最新优先级建立本地程序推进 mission：`.mission/20260608_012621-Program-C1-C3-MainLoop-Architecture.csv`。新顺序为先审计并支持策划 C1-C3 配置运行时消费，再开放未完成的玩家主流程闭环，最后做程序架构优化 / 收口；mission 已通过 `Test-P3Mission.ps1 -Strict` 校验，作为后续持续推进的本地恢复计划，不纳入提交。
+- 已补全正式程序推进细化文档：`开发文档/16_程序主流程闭环与架构收口推进计划.md`。该文档现在明确本轮不是只做 C1-C3 配置审计，而是三段连续工作：1）C1-C3 配置程序支持；2）继续开发“功能未开放完”的主流程闭环；3）程序架构优化 / 收口。
+- `开发文档/16_程序主流程闭环与架构收口推进计划.md` 已把主流程闭环拆成 `FLOW-01..FLOW-07`：玩家路径缺口审计、层选择 / 下潜 / 地图进入、地图节点 / 战斗 / 战利品、阶梯 / 安全区 / 撤离 / 层级解锁、小镇经济操作、工坊成长操作、整条黄金路径 smoke / P0 摘要。
+- `开发文档/16_程序主流程闭环与架构收口推进计划.md` 已把架构优化 / 收口拆成 `ARCH-01..ARCH-05`：职责边界审计、流程编排与领域操作分离、只读快照与可操作服务配对、Validator / P0 / smoke 入口收口、文档和状态防重复收口。
+- 已按用户最新优先级建立并补全本地程序推进 mission：`.mission/20260608_012621-Program-C1-C3-MainLoop-Architecture.csv`。新顺序为 `CFG-01..02 -> FLOW-01..07 -> ARCH-01..03 -> REVIEW-01`；mission 作为后续持续推进的本地恢复计划，不纳入提交。
 - 开发文档/rules/00_程序开发总规则.md 已补充模块职责 / 代码归属 / hardcode 红线：新增代码必须进入拥有业务事实的模块，找不到归属先补服务、工厂、Action、Effect、Reward 或接口，不得塞进总控、流程或 UI Controller；4_自动化测试与验收流程规范.md 已补充测试粒度原则，要求测试围绕业务闭环、玩家可见结果、配置契约和验收场景，避免针对内部实现碎片写过细测试。
 - `开发文档/rules/` 已重构为 `00-04` 顺序结构：`00_程序开发总规则.md` 只保留开工门禁与通用红线，`01` 负责客户端分层 / 领域架构，`02` 负责 Unity UGUI / Editor 构建，`03` 负责 VisualID / VisualAssetService 资源契约，`04` 负责自动化测试与验收流程；已同步跨文档引用、知识库索引和双向 related，`Generate-DocsIndex.ps1` / `Validate-Docs.ps1` 验证通过，indexed=217、missing_metadata=0。
 
@@ -134,10 +136,10 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 ## 下一步建议
 
 1. 优先执行 C1-C3 配置程序支持审计：同步 `配置表(JSON)`，跑 `Invoke-P0Validation.ps1`，确认前三层 Items / Rewards / Monsters / Dungeons / Orders / Rumors / Events 能被运行时解析、Validator 和固定 seed 验收消费；先修阻断性程序缺口，例如旧测试口径、字段解析、Validator 分级或层级入口消费问题。
-2. 第二优先级按 `开发文档/16_程序主流程闭环与架构收口推进计划.md` 执行主流程开放：先做玩家路径缺口审计，再依次打通层选择 / 下潜 / 地图、战斗 / 战利品 / 结算、阶梯 / 安全区 / 撤离、小镇经济操作、工坊成长操作和整条黄金路径 smoke。
-3. 主流程闭环的完成口径是“玩家正常 UI 可达 + 调用真实领域服务 + 状态真实变化 + 有 smoke / P0 证据”，不能用只读快照、debug preview、ArtAcceptance 截图或静态面板代替。
-4. 第三优先级按 `开发文档/16_程序主流程闭环与架构收口推进计划.md` 做架构收口：在功能路径可达后，检查 `GameFlowController`、UI Controller、领域服务、EventBus、ConfigValidator 和测试入口的职责边界，移除重复入口和硬编码，但不为了重构改变玩法结果。
-5. UI / 美术接入改为跟随上述功能闭环推进：有 Approved 资源和 active UI 规格时一起接入；没有资源或规格不适配时记录清楚缺口，不让美术返修压过 C1-C3 程序支持和主流程开放。
+2. 第二优先级必须继续开发“功能未开放完”的主流程闭环：先执行 `FLOW-01` 玩家路径缺口审计，再按 `FLOW-02..FLOW-07` 打通层选择 / 下潜 / 地图、地图节点 / 战斗 / 战利品、阶梯 / 安全区 / 撤离 / 层级解锁、小镇经济操作、工坊成长操作和整条黄金路径 smoke。
+3. 主流程闭环的完成口径是“玩家正常 UI 可达 + 调用真实领域服务 + 状态真实变化 + 有 smoke / P0 证据”，不能用只读快照、debug preview、ArtAcceptance 截图或静态面板代替；服务已存在但 UI 不可达，仍然只能算“功能未开放完”。
+4. 第三优先级必须做程序架构优化 / 收口：在功能路径可达后，按 `ARCH-01..ARCH-03` 审计并收紧 `GameFlowController`、UI Controller、领域服务、EventBus、ConfigValidator、P0 报告和测试入口职责，移除重复入口和硬编码，但不为了重构改变玩法结果。
+5. UI / 美术接入跟随上述功能闭环推进：有 Approved 资源和 active UI 规格时一起接入；没有资源或规格不适配时记录清楚缺口，不让美术返修压过 C1-C3 程序支持和主流程开放。
 
 ## 问题 / 阻塞
 
