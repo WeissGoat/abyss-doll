@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// ArtAcceptanceRunner 的验收专用 payload 构造工厂。
@@ -7,6 +9,33 @@ using UnityEngine;
 /// 这些方法将在后续阶段被存档快照注入（SaveState Snapshot）方案逐步替换。
 /// </summary>
 public partial class ArtAcceptanceRunner {
+
+    private static readonly string[] FormalV1RuntimePanelRootNames = {
+        "MaintenancePanel_Runtime",
+        "DailyBillReportPanel_Runtime",
+        "ShopStagingPanel_Runtime",
+        "OrderBoardPanel_Runtime",
+        "RumorBoardPanel_Runtime",
+        "BusinessSettlementPanel_Runtime",
+        "ChassisUpgradePanel_Runtime",
+        "DollInteractionPanel_Runtime",
+        "DollRoomPanel_Runtime",
+        "FactionShopPanel_Runtime",
+        "ScenarioEventPanel_Runtime"
+    };
+
+    private IEnumerator PrepareForCaptureStep(string stepName) {
+        CloseWorkshopAcceptanceOverlays();
+        HideAllWorkshopFormalV1Panels();
+        DestroyLooseFormalV1PanelRoots();
+        HideTransientRuntimePanels();
+        ItemUseService.ClearPendingTargetSelection();
+        VisualQueue.Clear();
+
+        yield return WaitFrames(2);
+        Canvas.ForceUpdateCanvases();
+        Debug.Log($"[ArtAcceptance] Capture pre-clean completed for {stepName}.");
+    }
 
     private int ResolveAcceptanceLayerID() {
         if (GameRoot.Core?.CurrentPlayer == null || ConfigManager.Dungeons == null) {
@@ -36,6 +65,76 @@ public partial class ArtAcceptanceRunner {
         controller.CloseProstheticPanel();
         controller.CloseDungeonStartLayerPanel();
         controller.CloseFormalV1Panel();
+    }
+
+    private void HideAllWorkshopFormalV1Panels() {
+        WorkshopFormalV1PanelController[] controllers = FindObjectsOfType<WorkshopFormalV1PanelController>();
+        foreach (WorkshopFormalV1PanelController controller in controllers) {
+            if (controller != null) {
+                controller.Hide();
+            }
+        }
+    }
+
+    private void DestroyLooseFormalV1PanelRoots() {
+        Canvas[] canvases = FindObjectsOfType<Canvas>();
+        foreach (Canvas canvas in canvases) {
+            if (canvas == null) {
+                continue;
+            }
+
+            for (int i = canvas.transform.childCount - 1; i >= 0; i--) {
+                Transform child = canvas.transform.GetChild(i);
+                if (child == null || !IsFormalV1RuntimePanelRoot(child.name)) {
+                    continue;
+                }
+
+                DestroyAcceptanceRuntimeObject(child.gameObject);
+            }
+        }
+    }
+
+    private bool IsFormalV1RuntimePanelRoot(string objectName) {
+        if (string.IsNullOrEmpty(objectName)) {
+            return false;
+        }
+
+        for (int i = 0; i < FormalV1RuntimePanelRootNames.Length; i++) {
+            if (objectName == FormalV1RuntimePanelRootNames[i]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void HideTransientRuntimePanels() {
+        GameFlowController flow = GameFlowController.Instance;
+        if (flow == null) {
+            return;
+        }
+
+        SetInactiveIfPresent(flow.combatLootPanel);
+        SetInactiveIfPresent(flow.dungeonNodeResultPanel);
+        SetInactiveIfPresent(flow.settlementPanel);
+    }
+
+    private void SetInactiveIfPresent(GameObject obj) {
+        if (obj != null) {
+            obj.SetActive(false);
+        }
+    }
+
+    private void DestroyAcceptanceRuntimeObject(GameObject obj) {
+        if (obj == null) {
+            return;
+        }
+
+        if (Application.isPlaying) {
+            Destroy(obj);
+        } else {
+            DestroyImmediate(obj);
+        }
     }
 
     private void UnlockConfiguredLayersForAcceptance() {
@@ -94,6 +193,96 @@ public partial class ArtAcceptanceRunner {
         }
 
         return monsterIDs;
+    }
+
+    private CombatNode FindBestAcceptanceCombatNode() {
+        DungeonLayer layer = GameRoot.Core?.Dungeon?.CurrentLayer;
+        if (layer?.NodeRows == null) {
+            return null;
+        }
+
+        CombatNode fallback = null;
+        foreach (List<NodeBase> row in layer.NodeRows) {
+            if (row == null) {
+                continue;
+            }
+
+            foreach (NodeBase node in row) {
+                CombatNode combatNode = node as CombatNode;
+                if (combatNode == null || combatNode.MonsterIDs == null || combatNode.MonsterIDs.Count == 0) {
+                    continue;
+                }
+
+                if (fallback == null) {
+                    fallback = combatNode;
+                }
+
+                if (HasRenderableMonsterVisual(combatNode.MonsterIDs)) {
+                    return combatNode;
+                }
+            }
+        }
+
+        return fallback;
+    }
+
+    private bool HasRenderableMonsterVisual(List<string> monsterIDs) {
+        if (monsterIDs == null || monsterIDs.Count == 0 || ConfigManager.Monsters == null) {
+            return false;
+        }
+
+        VisualAssetRegistry registry = Resources.Load<VisualAssetRegistry>("VisualAssetRegistry");
+        if (registry == null) {
+            return false;
+        }
+
+        registry.RebuildLookup();
+        foreach (string monsterID in monsterIDs) {
+            if (string.IsNullOrEmpty(monsterID) || !ConfigManager.Monsters.TryGetValue(monsterID, out MonsterEntity monster)) {
+                continue;
+            }
+
+            string visualID = VisualAssetService.ResolveMonsterCombatVisualID(monster);
+            if (!string.IsNullOrEmpty(visualID) &&
+                registry.TryGetEntry(visualID, out VisualAssetEntry entry) &&
+                entry != null &&
+                entry.Sprite != null) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private List<string> ResolveRenderableAcceptanceMonsterIDs() {
+        List<string> monsterIDs = new List<string>();
+        if (ConfigManager.Monsters == null || ConfigManager.Monsters.Count == 0) {
+            return monsterIDs;
+        }
+
+        VisualAssetRegistry registry = Resources.Load<VisualAssetRegistry>("VisualAssetRegistry");
+        if (registry != null) {
+            registry.RebuildLookup();
+        }
+
+        foreach (var kvp in ConfigManager.Monsters) {
+            MonsterEntity monster = kvp.Value;
+            if (monster == null || string.IsNullOrEmpty(kvp.Key)) {
+                continue;
+            }
+
+            string visualID = VisualAssetService.ResolveMonsterCombatVisualID(monster);
+            if (registry != null &&
+                !string.IsNullOrEmpty(visualID) &&
+                registry.TryGetEntry(visualID, out VisualAssetEntry entry) &&
+                entry != null &&
+                entry.Sprite != null) {
+                monsterIDs.Add(kvp.Key);
+                return monsterIDs;
+            }
+        }
+
+        return ResolveAcceptanceMonsterIDs();
     }
 
     // ──────────────────────────────────────────

@@ -146,7 +146,7 @@ public partial class ArtAcceptanceRunner {
         Debug.Log("[ArtAcceptance] Capturing combat_hud...");
         ArtAcceptanceCaptureRecord capture = BeginCapture("combat_hud", "screenshots/combat_hud.png");
 
-        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture) || GameRoot.Core?.Combat == null) {
+        if (!RequireRuntimeCore(capture) || !RequireFlowController(capture) || !RequireDungeon(capture) || GameRoot.Core?.Combat == null) {
             if (GameRoot.Core?.Combat == null) {
                 capture.Errors.Add("CombatSystem is missing.");
                 AddError($"Capture [{capture.ScreenTag}] requires CombatSystem.");
@@ -155,25 +155,37 @@ public partial class ArtAcceptanceRunner {
             yield break;
         }
 
-        // 尝试通过真实 CombatNode 进入战斗
-        CombatNode combatNode = FindNodeInCurrentLayer<CombatNode>();
-        if (combatNode != null && GameRoot.Core.Dungeon?.CurrentLayer != null) {
-            Debug.Log($"[ArtAcceptance] combat_hud: Entering real CombatNode '{combatNode.NodeID}' via MoveToNode.");
-            GameRoot.Core.Dungeon.MoveToNode(combatNode);
-            // MoveToNode → CombatNode.OnEnterNode → CombatSystem.StartCombat
-            // GameFlowController 通过 HandleNodeEntered 自动调用 EnterCombat
-        } else {
-            // 降级：没有 CombatNode，手动启动战斗
-            List<string> monsterIDs = ResolveAcceptanceMonsterIDs();
-            if (monsterIDs.Count == 0) {
-                capture.Warnings.Add("No monster config found for combat HUD capture.");
-                CompleteSkipped(capture);
-                yield break;
+        _autoBattleLootResult = null;
+        _autoBattleSettlementResult = null;
+
+        int layerID = ResolveAcceptanceLayerID();
+        if (layerID > 0) {
+            bool started = GameRoot.Core.Dungeon.StartRunAtLayer(layerID);
+            if (!started) {
+                capture.Warnings.Add($"Dungeon.StartRunAtLayer({layerID}) returned false before combat HUD capture. Falling back to direct combat setup.");
             }
-            GameRoot.Core.Combat.StartCombat(monsterIDs);
-            GameFlowController.Instance.EnterCombat();
+            yield return WaitForVisualStable();
         }
 
+        CombatNode combatNode = FindBestAcceptanceCombatNode();
+        List<string> monsterIDs = combatNode != null && combatNode.MonsterIDs != null && combatNode.MonsterIDs.Count > 0
+            ? new List<string>(combatNode.MonsterIDs)
+            : ResolveRenderableAcceptanceMonsterIDs();
+
+        if (monsterIDs.Count == 0) {
+            capture.Warnings.Add("No monster config found for combat HUD capture.");
+            CompleteSkipped(capture);
+            yield break;
+        }
+
+        if (combatNode != null && GameRoot.Core.Dungeon?.CurrentLayer != null) {
+            GameRoot.Core.Dungeon.CurrentLayer.CurrentNode = combatNode;
+            combatNode.IsVisited = true;
+            Debug.Log($"[ArtAcceptance] combat_hud: Bound combat to node '{combatNode.NodeID}' without map traversal.");
+        }
+
+        GameRoot.Core.Combat.StartCombat(monsterIDs);
+        GameFlowController.Instance.EnterCombat();
         yield return WaitForVisualStable();
         yield return CaptureCurrentScreen(capture);
 

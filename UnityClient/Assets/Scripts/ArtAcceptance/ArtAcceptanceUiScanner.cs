@@ -33,6 +33,10 @@ public partial class ArtAcceptanceRunner {
                     continue;
                 }
 
+                if (!IsElementVisibleForAcceptance(rect)) {
+                    continue;
+                }
+
                 ArtAcceptanceUiElementSnapshot element = BuildUiElementSnapshot(canvas.transform, rect);
                 canvasSnapshot.Elements.Add(element);
             }

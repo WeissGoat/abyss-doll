@@ -286,6 +286,10 @@ public partial class ArtAcceptanceRunner : MonoBehaviour {
     private IEnumerator RunStep(string stepName, Func<IEnumerator> stepFactory) {
         Debug.Log($"[ArtAcceptance] Step started: {stepName}");
 
+        if (!string.IsNullOrEmpty(stepName) && stepName.StartsWith("Capture", StringComparison.Ordinal)) {
+            yield return PrepareForCaptureStep(stepName);
+        }
+
         IEnumerator routine = null;
         Exception factoryException = null;
         try {
