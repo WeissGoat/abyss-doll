@@ -100,8 +100,8 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 |---|---:|---|---|
 | Formal V2 结构设计图 | 22 | `design_boards/` | 21 个 active 界面 + `workshop_studio` 已全部生成。 |
 | AI 概念参考图 | 22 | `concepts/` | 21 个 active 界面 + `workshop_studio` 已全部生成。 |
-| 已归档旧概念图 | 7 | `concepts/archive/` | 4 张语义废弃图 + 3 张 2026-06-07 风格重出前旧图。 |
-| 待重出 AI 概念图 | 0 | `concepts/README.md` 记录 | 2026-06-07 已用 Codex 内置 `image_gen` 重出 `workshop_main`、`combat_hud`、`dungeon_map`。 |
+| 已归档旧概念图 | 8 | `concepts/archive/` | 4 张语义废弃图 + 3 张风格重出前旧图 + 1 张层地图纵深重出前旧图。 |
+| 待重出 AI 概念图 | 0 | `concepts/README.md` 记录 | 2026-06-07 已用 Codex 内置 `image_gen` 重出 `workshop_main`、`combat_hud`、`dungeon_map`，并再次按层地图纵深规则重出 `dungeon_map`。 |
 
 | ScreenID | 草案状态 | 当前建议 |
 |---|---|---|
