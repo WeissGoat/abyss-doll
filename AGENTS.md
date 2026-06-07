@@ -17,10 +17,11 @@ related:
   - 知识库/views/design.md
   - 知识库/views/program.md
   - tools/agent/README.md
+  - tools/p3-mission/README.md
   - 版本规划/09_正式版核心纵切开发路线.md
   - 版本规划/README.md
   - 版本规划/11_纵切批次与需求文档承接矩阵.md
-last_verified: 2026-05-25
+last_verified: 2026-06-07
 update_rule: 修改智能体分工、开工流程或完成协议时同步本文件。
 ---
 
@@ -69,6 +70,12 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 ```powershell
 .\tools\agent\Invoke-AgentHealthCheck.ps1 -Strict
 ```
+
+## 长任务协议
+
+当用户要求长期任务、拆任务执行、持续执行、`mission` 或恢复继续时，优先读取 `tools/p3-mission/README.md` 和 `tools/p3-mission/SKILL.md`。
+
+P3 mission 是非侵入式本地任务队列：用 `.mission/*.csv` 或 `missions/*.csv` 记录目标、任务拆分、执行状态、验证证据和状态回写；不启用 Trellis hooks，不替代 `AGENTS.md`、`PROJECT_STATUS.md`、`agent_status/*` 或各职能事实文档。
 
 ## 角色
 

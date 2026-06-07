@@ -10,8 +10,8 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 2554,
-    "relation_edges": 1277,
+    "directed_edges": 2568,
+    "relation_edges": 1284,
     "cross_role_edges": 204,
     "role_pairs": {
       "PM <-> 全局": 12,
@@ -175,7 +175,7 @@
         "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "知识库/views/pm.md"
       ],
-      "last_verified": "2026-05-27",
+      "last_verified": "2026-06-07",
       "update_rule": "版本路线、里程碑、优先级、跨职能拆分或交付节奏变化后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -255,15 +255,16 @@
         "知识库/views/design.md",
         "知识库/views/program.md",
         "tools/agent/README.md",
+        "tools/p3-mission/README.md",
         "版本规划/09_正式版核心纵切开发路线.md",
         "版本规划/README.md",
         "版本规划/11_纵切批次与需求文档承接矩阵.md"
       ],
-      "last_verified": "2026-05-25",
+      "last_verified": "2026-06-07",
       "update_rule": "修改智能体分工、开工流程或完成协议时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 13,
+      "relation_count": 14,
       "cross_role_relation_count": 8
     },
     {
@@ -407,6 +408,91 @@
       "missing_fields": [],
       "relation_count": 4,
       "cross_role_relation_count": 2
+    },
+    {
+      "path": "tools/p3-mission/README.md",
+      "title": "P3 Mission 长任务协议",
+      "id": "p3_mission_readme",
+      "type": "tool",
+      "role": "全局",
+      "domain": "agent_workflow",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "tools/p3-mission/SKILL.md",
+        "tools/p3-mission/references/csv-schema.md",
+        "tools/p3-mission/references/execution-protocol.md"
+      ],
+      "last_verified": "2026-06-07",
+      "update_rule": "调整 P3 长任务拆分、执行、状态回写或恢复规则时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 4,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "tools/p3-mission/references/csv-schema.md",
+      "title": "P3 Mission CSV 字段规范",
+      "id": "p3_mission_csv_schema",
+      "type": "tool",
+      "role": "全局",
+      "domain": "agent_workflow",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "tools/p3-mission/README.md",
+        "tools/p3-mission/SKILL.md",
+        "tools/p3-mission/references/execution-protocol.md"
+      ],
+      "last_verified": "2026-06-07",
+      "update_rule": "修改 mission CSV 字段、状态枚举或校验规则时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "tools/p3-mission/references/execution-protocol.md",
+      "title": "P3 Mission 执行与恢复协议",
+      "id": "p3_mission_execution_protocol",
+      "type": "tool",
+      "role": "全局",
+      "domain": "agent_workflow",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "tools/p3-mission/README.md",
+        "tools/p3-mission/SKILL.md",
+        "tools/p3-mission/references/csv-schema.md"
+      ],
+      "last_verified": "2026-06-07",
+      "update_rule": "修改 mission 执行、验收、状态回写或恢复流程时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "tools/p3-mission/SKILL.md",
+      "title": "P3 Mission Skill",
+      "id": "p3_mission_skill",
+      "type": "tool",
+      "role": "全局",
+      "domain": "agent_workflow",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "tools/p3-mission/README.md",
+        "tools/p3-mission/references/csv-schema.md",
+        "tools/p3-mission/references/execution-protocol.md"
+      ],
+      "last_verified": "2026-06-07",
+      "update_rule": "调整 agent 长任务执行协议、CSV 状态或恢复规则时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 0
     },
     {
       "path": "tools/config/README.md",

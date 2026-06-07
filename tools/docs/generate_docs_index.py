@@ -16,6 +16,7 @@ REQUIRED_FIELDS = [
 
 EXCLUDED_PARTS = {
     ".git",
+    ".mission",
     ".pytest_cache",
     "__pycache__",
     "_generated",
@@ -30,13 +31,20 @@ EXCLUDED_PARTS = {
     "ComfyUI_NAIDGenerator",
 }
 
+EXCLUDED_PATH_PREFIXES = {
+    ("misc", "Missions"),
+}
+
 
 def to_posix(path: Path) -> str:
     return path.as_posix()
 
 
 def should_skip(path: Path) -> bool:
-    return any(part in EXCLUDED_PARTS for part in path.parts)
+    parts = path.parts
+    return any(part in EXCLUDED_PARTS for part in parts) or any(
+        parts[: len(prefix)] == prefix for prefix in EXCLUDED_PATH_PREFIXES
+    )
 
 
 def read_text(path: Path) -> str:
