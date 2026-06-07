@@ -1,0 +1,167 @@
+{
+  "MonsterID": "boss_gatekeeper_mk1",
+  "Name": "一层守门机 MK1",
+  "DisplayNameKey": "monster.boss_gatekeeper_mk1.name",
+  "MonsterRole": ["Boss", "RouteGate", "CounterCheck"],
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "LoreTags": ["Gatekeeper", "OldMachine", "Layer1Boss"],
+  "Layer": 1,
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "EncounterTags": ["Combat", "Boss", "Layer1", "RouteGate"],
+  "DifficultyBudget": { "Base": 150, "Variance": 0 },
+  "SpawnWeightTags": ["Layer1Boss", "RouteGate", "BossNodeOnly"],
+  "HP": 175,
+  "PortraitID": "monster_boss_gatekeeper_mk1_portrait",
+  "CombatVisualID": "monster_boss_gatekeeper_mk1_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "gatekeeper_strike",
+      "IntentType": "Attack",
+      "PowerPreview": 28,
+      "TargetPreview": "Doll",
+      "Reliability": "High",
+      "CounterHintKey": "hint.intent.boss_basic_attack",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "gatekeeper_defend",
+      "IntentType": "Defend",
+      "PowerPreview": "medium",
+      "TargetPreview": "Self",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.attack_window",
+      "IntentIconRef": "ui_combat_intent_defend"
+    },
+    {
+      "IntentID": "gatekeeper_crushing_warning",
+      "IntentType": "Charge",
+      "PowerPreview": 42,
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.boss_charge_window",
+      "IntentIconRef": "ui_combat_intent_buff"
+    },
+    {
+      "IntentID": "gatekeeper_grid_lock_edge_small",
+      "IntentType": "GridLock",
+      "PowerPreview": "edge warning",
+      "TargetPreview": "BackpackEdge",
+      "Reliability": "Low",
+      "CounterHintKey": "hint.intent.keep_edges_open",
+      "IntentIconRef": "ui_combat_grid_lock_marker"
+    }
+  ],
+  "IntentSequence": ["gatekeeper_strike", "gatekeeper_defend", "gatekeeper_crushing_warning", "gatekeeper_grid_lock_edge_small"],
+  "ActionPattern": {
+    "Selector": "WeightedRandom",
+    "CooldownPolicy": "PerAction",
+    "FallbackAction": "gatekeeper_strike",
+    "FormalIntentNote": "Two-stage boss intent is encoded in PhaseRules. Runtime baseline uses damage plus light scrap insertion until Defend/Charge/GridLock ActionTypes exist."
+  },
+  "PhaseRules": [
+    {
+      "PhaseID": "phase_1_guard_protocol",
+      "Trigger": "HpAbovePercent",
+      "Value": 50,
+      "ActionOverrides": ["gatekeeper_strike", "gatekeeper_guard_bash", "gatekeeper_crushing_blow"],
+      "IntentOverrides": ["gatekeeper_strike", "gatekeeper_defend", "gatekeeper_crushing_warning"]
+    },
+    {
+      "PhaseID": "phase_2_broken_gate",
+      "Trigger": "HpBelowPercent",
+      "Value": 50,
+      "EveryTurns": 3,
+      "ActionOverrides": ["gatekeeper_strike", "gatekeeper_edge_scrap", "gatekeeper_crushing_blow"],
+      "IntentOverrides": ["gatekeeper_strike", "gatekeeper_grid_lock_edge_small", "gatekeeper_crushing_warning"]
+    }
+  ],
+  "TargetRule": {
+    "CharacterTarget": "FirstAlivePlayer",
+    "GridTargetRule": "EdgeEmpty",
+    "RetargetPolicy": "FallbackAction"
+  },
+  "PackInterference": {
+    "GridLockProfile": "l1_boss_edge_lock_warning",
+    "AddJunkProfile": "l1_boss_edge_scrap",
+    "FailureFallbackAction": "gatekeeper_strike",
+    "NoPermanentLock": true
+  },
+  "RewardID": "reward_boss_gatekeeper_mk1",
+  "DropThemeTags": ["Boss", "CoreMaterial", "Mechanical", "Layer1"],
+  "BossGuaranteedRefs": ["mat_core_tier1"],
+  "MemoryRewardRefs": ["room_memory_first_gatekeeper_core"],
+  "ActionVfxRef": {
+    "gatekeeper_strike": "vfx_monster_boss_hit",
+    "gatekeeper_guard_bash": "vfx_monster_guard_bash",
+    "gatekeeper_crushing_blow": "vfx_monster_heavy_hit",
+    "gatekeeper_edge_scrap": "vfx_monster_grid_lock_warning"
+  },
+  "HitFeedbackRef": "ui_combat_feedback_hit",
+  "DefeatFeedbackRef": "ui_combat_feedback_shield_break",
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "gatekeeper_strike",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 55,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 28,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "gatekeeper_guard_bash",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 25,
+        "CooldownTurns": 1,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 18,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "gatekeeper_crushing_blow",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 20,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 42,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "gatekeeper_edge_scrap",
+        "ActionType": "AddCursedItem",
+        "Target": "PlayerGridFirstFit",
+        "Weight": 12,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 2,
+        "Condition": "PlayerGridHasSpace",
+        "Params": {
+          "ItemID": "loot_gear_scrap",
+          "OverrideTags": ["Junk", "GridLockWarning", "BossPressure"],
+          "OverrideValue": 0
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {"ItemID": "mat_core_tier1", "Weight": 100},
+    {"ItemID": "gear_cracked_iron_armor", "Weight": 25},
+    {"ItemID": "trade_cracked_relic", "Weight": 30},
+    {"ItemID": "gear_tactical_blade", "Weight": 25},
+    {"ItemID": "loot_rusty_coil", "Weight": 20}
+  ]
+}

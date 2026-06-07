@@ -1,11 +1,61 @@
 {
   "MonsterID": "mob_scavenger_bug",
   "Name": "拾荒虫",
+  "DisplayNameKey": "monster.mob_scavenger_bug.name",
+  "MonsterRole": ["Tutorial", "Pressure"],
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "LoreTags": ["ScrapBurrow", "MechanicalVermin"],
   "Layer": 1,
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "EncounterTags": ["Combat", "SafeRoute", "Tutorial", "Layer1"],
+  "DifficultyBudget": { "Base": 35, "Variance": 8 },
+  "SpawnWeightTags": ["Layer1Common", "LowRisk", "TutorialBranch"],
   "HP": 40,
   "PortraitID": "monster_mob_scavenger_bug_portrait",
   "CombatVisualID": "monster_mob_scavenger_bug_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "scavenger_attack_small",
+      "IntentType": "Attack",
+      "PowerPreview": 9,
+      "TargetPreview": "Doll",
+      "Reliability": "Fixed",
+      "CounterHintKey": "hint.intent.block_or_finish",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "scavenger_defend_small",
+      "IntentType": "Defend",
+      "PowerPreview": "low",
+      "TargetPreview": "Self",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.low_pressure",
+      "IntentIconRef": "ui_combat_intent_defend"
+    }
+  ],
+  "IntentSequence": ["scavenger_attack_small", "scavenger_defend_small"],
+  "ActionPattern": {
+    "Selector": "WeightedRandom",
+    "CooldownPolicy": "PerAction",
+    "FallbackAction": "scavenger_basic_attack",
+    "FormalIntentNote": "DefendSmall is metadata-only until Defend ActionType is implemented; executable baseline uses low damage pressure."
+  },
+  "PhaseRules": [],
+  "TargetRule": {
+    "CharacterTarget": "FirstAlivePlayer",
+    "RetargetPolicy": "UseBasicAttack"
+  },
   "RewardID": "reward_monster_mob_scavenger_bug",
+  "DropThemeTags": ["Scrap", "Repair", "Layer1"],
+  "BossGuaranteedRefs": [],
+  "MemoryRewardRefs": [],
+  "ActionVfxRef": {
+    "scavenger_basic_attack": "vfx_monster_small_hit",
+    "scavenger_scrap_rattle": "vfx_monster_defend_hint"
+  },
+  "HitFeedbackRef": "ui_combat_feedback_hit",
+  "DefeatFeedbackRef": "ui_combat_feedback_scrap_break",
   "AI": {
     "Selector": "WeightedRandom",
     "Actions": [
@@ -18,7 +68,20 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 10,
+          "Damage": 9,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "scavenger_scrap_rattle",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 30,
+        "CooldownTurns": 1,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 9,
           "RepeatCount": 1
         }
       }

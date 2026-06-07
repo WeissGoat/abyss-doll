@@ -1,11 +1,67 @@
 {
   "MonsterID": "mob_acid_slime",
   "Name": "酸液软体",
-  "Layer": 2,
-  "HP": 80,
+  "DisplayNameKey": "monster.mob_acid_slime.name",
+  "MonsterRole": ["Tutorial", "PackInterference", "Pressure"],
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "LoreTags": ["Acidic", "WastePool", "LowCorrosion"],
+  "Layer": 1,
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "EncounterTags": ["Combat", "Layer1", "PackPressure", "LowRisk"],
+  "DifficultyBudget": { "Base": 48, "Variance": 10 },
+  "SpawnWeightTags": ["Layer1Common", "PackPressureIntro", "EventBranch"],
+  "HP": 55,
   "PortraitID": "monster_mob_acid_slime_portrait",
   "CombatVisualID": "monster_mob_acid_slime_combat",
-  "RewardID": "reward_monster_mob_acid_slime",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "acid_attack_small",
+      "IntentType": "Attack",
+      "PowerPreview": 12,
+      "TargetPreview": "Doll",
+      "Reliability": "High",
+      "CounterHintKey": "hint.intent.block_or_finish",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "acid_add_junk_small",
+      "IntentType": "AddJunk",
+      "PowerPreview": "1x scrap",
+      "TargetPreview": "BackpackEmptySlot",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.keep_space_open",
+      "IntentIconRef": "ui_combat_intent_debuff"
+    }
+  ],
+  "IntentSequence": ["acid_attack_small", "acid_add_junk_small"],
+  "ActionPattern": {
+    "Selector": "WeightedRandom",
+    "CooldownPolicy": "PerAction",
+    "FallbackAction": "acid_basic_attack",
+    "FormalIntentNote": "First-layer slime uses AddCursedItem with scrap override as executable light junk insertion; mature corrosion remains L2 scope."
+  },
+  "PhaseRules": [],
+  "TargetRule": {
+    "CharacterTarget": "FirstAlivePlayer",
+    "GridTargetRule": "FirstFit",
+    "RetargetPolicy": "FallbackAction"
+  },
+  "PackInterference": {
+    "AddJunkProfile": "l1_acid_slime_light_scrap",
+    "FailureFallbackAction": "acid_basic_attack",
+    "NoPermanentCorrosion": true
+  },
+  "RewardID": "reward_monster_mob_acid_slime_l1",
+  "DropThemeTags": ["Toxic", "Scrap", "Layer1"],
+  "BossGuaranteedRefs": [],
+  "MemoryRewardRefs": [],
+  "ActionVfxRef": {
+    "acid_basic_attack": "vfx_monster_acid_splash_small",
+    "acid_add_scrap": "vfx_monster_pack_junk"
+  },
+  "HitFeedbackRef": "ui_combat_feedback_hit",
+  "DefeatFeedbackRef": "ui_combat_feedback_slime_pop",
   "AI": {
     "Selector": "WeightedRandom",
     "Actions": [
@@ -18,21 +74,22 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 30,
+          "Damage": 12,
           "RepeatCount": 1
         }
       },
       {
-        "ActionID": "acid_corrode_weapon",
-        "ActionType": "ReduceWeaponDamage",
-        "Target": "RandomPlayerWeapon",
-        "Weight": 30,
+        "ActionID": "acid_add_scrap",
+        "ActionType": "AddCursedItem",
+        "Target": "PlayerGridFirstFit",
+        "Weight": 35,
         "CooldownTurns": 2,
         "UsesPerCombat": 0,
-        "Condition": "PlayerHasWeapon",
+        "Condition": "PlayerGridHasSpace",
         "Params": {
-          "Multiplier": 0.5,
-          "DurationPlayerTurns": 1
+          "ItemID": "loot_gear_scrap",
+          "OverrideTags": ["Junk", "Toxic"],
+          "OverrideValue": 0
         }
       }
     ]

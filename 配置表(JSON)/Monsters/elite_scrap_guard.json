@@ -1,11 +1,77 @@
 {
   "MonsterID": "elite_scrap_guard",
-  "Name": "废铁守卫 (守门人)",
+  "Name": "废铁守卫",
+  "DisplayNameKey": "monster.elite_scrap_guard.name",
+  "MonsterRole": ["Elite", "CounterCheck", "Pressure"],
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "LoreTags": ["ScrapGuard", "OldGateMachine", "Mechanical"],
   "Layer": 1,
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "EncounterTags": ["Combat", "Elite", "Layer1", "HighRisk", "Bypassable"],
+  "DifficultyBudget": { "Base": 105, "Variance": 15 },
+  "SpawnWeightTags": ["Layer1Elite", "RiskReward", "BypassBranch"],
   "HP": 120,
   "PortraitID": "monster_elite_scrap_guard_portrait",
   "CombatVisualID": "monster_elite_scrap_guard_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "scrap_guard_heavy_attack",
+      "IntentType": "Attack",
+      "PowerPreview": 34,
+      "TargetPreview": "Doll",
+      "Reliability": "High",
+      "CounterHintKey": "hint.intent.elite_heavy_attack",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "scrap_guard_defend",
+      "IntentType": "Defend",
+      "PowerPreview": "medium",
+      "TargetPreview": "Self",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.attack_window",
+      "IntentIconRef": "ui_combat_intent_defend"
+    },
+    {
+      "IntentID": "scrap_guard_grid_lock_edge_small",
+      "IntentType": "GridLock",
+      "PowerPreview": "edge warning",
+      "TargetPreview": "BackpackEdge",
+      "Reliability": "Low",
+      "CounterHintKey": "hint.intent.keep_edges_open",
+      "IntentIconRef": "ui_combat_grid_lock_marker"
+    }
+  ],
+  "IntentSequence": ["scrap_guard_heavy_attack", "scrap_guard_defend", "scrap_guard_grid_lock_edge_small"],
+  "ActionPattern": {
+    "Selector": "WeightedRandom",
+    "CooldownPolicy": "PerAction",
+    "FallbackAction": "scrap_guard_heavy_strike",
+    "FormalIntentNote": "Defend and GridLock are formal intent metadata. Executable baseline uses heavy strike plus light scrap insertion until Defend/GridLock ActionTypes exist."
+  },
+  "PhaseRules": [],
+  "TargetRule": {
+    "CharacterTarget": "FirstAlivePlayer",
+    "GridTargetRule": "EdgeEmpty",
+    "RetargetPolicy": "FallbackAction"
+  },
+  "PackInterference": {
+    "GridLockProfile": "l1_elite_edge_lock_warning",
+    "AddJunkProfile": "l1_scrap_guard_edge_scrap",
+    "FailureFallbackAction": "scrap_guard_heavy_strike",
+    "NoPermanentLock": true
+  },
   "RewardID": "reward_monster_elite_scrap_guard",
+  "DropThemeTags": ["Scrap", "Elite", "Mechanical"],
+  "BossGuaranteedRefs": [],
+  "MemoryRewardRefs": ["room_memory_first_scrap_guard_plate"],
+  "ActionVfxRef": {
+    "scrap_guard_heavy_strike": "vfx_monster_heavy_hit",
+    "scrap_guard_edge_scrap": "vfx_monster_grid_lock_warning"
+  },
+  "HitFeedbackRef": "ui_combat_feedback_hit",
+  "DefeatFeedbackRef": "ui_combat_feedback_shield_break",
   "AI": {
     "Selector": "WeightedRandom",
     "Actions": [
@@ -18,14 +84,27 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 45,
+          "Damage": 34,
           "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "scrap_guard_edge_scrap",
+        "ActionType": "AddCursedItem",
+        "Target": "PlayerGridFirstFit",
+        "Weight": 18,
+        "CooldownTurns": 3,
+        "UsesPerCombat": 2,
+        "Condition": "PlayerGridHasSpace",
+        "Params": {
+          "ItemID": "loot_gear_scrap",
+          "OverrideTags": ["Junk", "GridLockWarning"],
+          "OverrideValue": 0
         }
       }
     ]
   },
   "LootPool": [
-    {"ItemID": "mat_core_tier1", "Weight": 100},
     {"ItemID": "gear_tactical_blade", "Weight": 35},
     {"ItemID": "loot_rusty_coil", "Weight": 80},
     {"ItemID": "con_cheap_sedative", "Weight": 20}

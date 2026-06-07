@@ -1,19 +1,37 @@
 {
   "RewardID": "reward_monster_elite_scrap_guard",
-  "Name": "Scrap Guard Drop",
-  "Tags": ["Monster", "Layer1", "Elite", "Boss"],
-  "Guaranteed": [
-    { "Type": "Item", "ItemID": "mat_core_tier1", "Count": 1 }
-  ],
+  "Name": "Layer 1 Scrap Guard Elite Drop",
+  "Tags": ["Monster", "Layer1", "Elite"],
+  "RewardRole": "EliteDrop",
+  "SourceType": "Monster",
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "RewardTier": "Elite",
+  "ExpectedValueBand": { "Min": 260, "Max": 620 },
+  "RiskBudgetTag": "RiskReward",
+  "ValidationTags": ["Layer1Reward", "L1EliteReward", "NoBossGuaranteedCore"],
+  "SeedSampleRefs": ["V-L1-ELITE-RISK-01"],
+  "AuditNotes": "Formal elite reward. Boss tag and mat_core_tier1 guaranteed drop migrated to reward_boss_gatekeeper_mk1.",
+  "Guaranteed": [],
   "WeightedPools": [
     {
       "PoolID": "bonus",
       "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        { "Type": "Item", "ItemID": "gear_tactical_blade", "Weight": 28, "Count": 1 },
+        { "Type": "Item", "ItemID": "trade_cracked_relic", "Weight": 24, "Count": 1 },
+        { "Type": "Item", "ItemID": "loot_rusty_coil", "Weight": 34, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_plank_shield_l1", "Weight": 14, "Count": 1 }
+      ]
+    },
+    {
+      "PoolID": "coins",
+      "RollCount": 1,
       "AllowDuplicate": true,
       "Entries": [
-        { "Type": "Item", "ItemID": "gear_tactical_blade", "Weight": 35, "Count": 1 },
-        { "Type": "Item", "ItemID": "loot_rusty_coil", "Weight": 80, "Count": 1 },
-        { "Type": "Item", "ItemID": "con_cheap_sedative", "Weight": 20, "Count": 1 }
+        { "Type": "Money", "Money": 24, "Weight": 40, "Count": 1 },
+        { "Type": "Nothing", "Weight": 60 }
       ]
     }
   ]

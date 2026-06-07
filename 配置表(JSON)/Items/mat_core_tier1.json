@@ -3,8 +3,11 @@
   "Name": "一阶动力核心",
   "ItemType": "QuestItem",
   "Rarity": "Epic",
-  "BaseValue": 0,
+  "BaseValue": 600,
   "IconID": "item_mat_core_tier1_icon",
+  "DescriptionKey": "item.mat_core_tier1.desc",
+  "ItemRole": ["BossKey", "Material"],
+  "LayerTags": ["Layer1", "ContentPack19", "BossDrop"],
   "Grid": {
     "Shape": [
       [
@@ -26,10 +29,55 @@
     ],
     "CanRotate": false,
     "RotationSteps": 1,
-    "GridCost": 4
+    "GridCost": 4,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0],
+    "PlacementTags": ["Backpack", "BossKey"]
   },
   "Tags": [
+    "Material",
     "CoreMaterial",
     "Heavy"
-  ]
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "Ingredient"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["boss_gatekeeper_mk1"],
+    "RewardRefs": ["reward_boss_gatekeeper_mk1"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": ["chassis_lv1_basic"],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": ["memento_boss1_lamp"],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["CoreMaterial", "BossKey"],
+    "RumorRefs": ["rumor_origin_stone_demand"],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_mat_core_tier1_icon",
+    "GridPreviewStyle": "Material",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.mat_core_tier1"
+  }
 }

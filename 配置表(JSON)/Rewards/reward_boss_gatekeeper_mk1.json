@@ -1,0 +1,44 @@
+{
+  "RewardID": "reward_boss_gatekeeper_mk1",
+  "Name": "Layer 1 Gatekeeper MK1 Boss Drop",
+  "Tags": ["Monster", "Layer1", "Boss"],
+  "RewardRole": "BossDrop",
+  "SourceType": "Monster",
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "RewardTier": "Boss",
+  "ExpectedValueBand": { "Min": 650, "Max": 1100 },
+  "GuaranteedValueBand": { "Min": 300, "Max": 500 },
+  "RiskBudgetTag": "BossGate",
+  "GrowthHooks": ["ChassisTier1", "ProstheticTier1"],
+  "CraftingRefs": ["tier1_growth_core"],
+  "MemoryRefs": ["room_memory_first_gatekeeper_core"],
+  "ValidationTags": ["Layer1Reward", "Layer1BossGuaranteed", "BossGrowthHook"],
+  "SeedSampleRefs": ["V-L1-BOSS-REWARD-01", "V-L1-SEED-1024-ROUTE-01"],
+  "AuditNotes": "Formal first-layer boss reward. Owns the tier-1 growth core guarantee formerly placed on elite_scrap_guard.",
+  "Guaranteed": [
+    { "Type": "Item", "ItemID": "mat_core_tier1", "Count": 1 }
+  ],
+  "WeightedPools": [
+    {
+      "PoolID": "bonus",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        { "Type": "Item", "ItemID": "gear_cracked_iron_armor", "Weight": 25, "Count": 1 },
+        { "Type": "Item", "ItemID": "trade_cracked_relic", "Weight": 30, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_tactical_blade", "Weight": 25, "Count": 1 },
+        { "Type": "Item", "ItemID": "loot_rusty_coil", "Weight": 20, "Count": 1 }
+      ]
+    },
+    {
+      "PoolID": "coins",
+      "RollCount": 1,
+      "AllowDuplicate": true,
+      "Entries": [
+        { "Type": "Money", "Money": 45, "Weight": 50, "Count": 1 },
+        { "Type": "Nothing", "Weight": 50 }
+      ]
+    }
+  ]
+}

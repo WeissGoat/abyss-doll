@@ -86,7 +86,7 @@ update_rule: 策划、数值、GDD 或配置意图任务完成后更新本文件
 
 ## 最后更新
 
-2026-06-07
+2026-06-08
 
 ## 当前关注
 
@@ -151,6 +151,7 @@ PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正
 
 ## 最近完成
 
+- 已完成 C1 第一层正式配置源工作区收尾：确认当前未提交配置表变更均属于第一层正式配置落地范围，并完成 14 个 Items、10 个 Rewards、6 个 Monsters、`layer_1.json`、5 条 FixedSeedSamples、Boss / 精英保底归属和 Boss 后 SafeZone 的静态复核；`./tools/config/Sync-Configs.ps1 -Clean` 已通过。本次收尾只处理 C1 配置源提交，不改变 C3 下一步仍从 `L3-ITEMS` 开始的计划。
 - 已完成 C2 第二层直达与背包压力配置源落地：`L2-ITEMS`、`L2-REWARDS`、`L2-MONSTERS`、`L2-DUNGEONS`、`L2-ORDERS`、`L2-SEED` 均已在 `设计文档/config/26_正式配置设计与填充推进计划.md` 标记为 `配置完成`。本轮新增 / 补强第二层 12 件物品、14 个奖励、7 个怪物、3 个订单、2 个必要 Faction 引用和 `配置表(JSON)/Dungeons/layer_2.json`；`layer_2.json` 已具备 `DirectStartAllowed=true`、`PreviousLayerRequired=1`、Boss `boss_spore_foundry`、Boss 后免费恢复 HP / SAN 的 `StairsNode + SafeZoneRules`，并补 `V-L2-DIRECT-2048-ROUTE-01`、`V-L2-PACK-RUN-01`、`V-L2-PACK-ORDER-01`、`V-L2-PACK-ELITE-01`、`V-L2-PACK-BOSS-01` 五条固定样例。已通过 C2 静态 Validator 等价检查和 `./tools/config/Sync-Configs.ps1 -Clean`；`ConfigValidationSmokeTest.Run` / P0 Unity 步骤因 Unity Editor 未运行被工具阻塞，未作为通过证据。C3 已解锁为 `待开始`，当前子项为 `L3-ITEMS`。
 - 已完成 C2 后的策划收尾：`设计文档/config/26_正式配置设计与填充推进计划.md` 已补充 C1 / C2 完成记录、C3 开工方案和 C3 边界；后续不重复派发 C1 / C2 基础配置，只按缺口补齐、验收修复、字段迁移或数值校准处理。当前下一步明确为 C3 `L3-ITEMS`，先准入复核，再落第三层 Items 源 JSON。
 - 历史阶段性收尾：2026-05-28 策划 / 配置侧当时未开启新的 C2 源 JSON 修改；`26` 与本状态页当时统一为 C1 `配置完成`、C2 `待开始`、当前子项 `L2-ITEMS`。该记录已被 2026-06-07 的 C2 配置完成记录覆盖。最新 P0 验证报告 `UnityClient/Logs/P0Validation/latest/report.json` 为 `Passed`，RunID=`20260527_014423`，Errors=0；C1 配置侧不再记录为 P0 阻塞。仍保留 `CombatLootDropTest.Run` 的旧精英机核断言作为程序测试口径缺口，因为该测试文件当前仍断言 `elite_scrap_guard` 奖励包含 `mat_core_tier1`。

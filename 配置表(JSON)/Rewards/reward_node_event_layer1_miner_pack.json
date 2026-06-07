@@ -1,0 +1,32 @@
+{
+  "RewardID": "reward_node_event_layer1_miner_pack",
+  "Name": "Layer 1 Miner Pack Event Reward",
+  "Tags": ["Node", "Event", "Layer1", "MinerRelic"],
+  "RewardRole": "EventNode",
+  "SourceType": "DungeonNode",
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "RewardTier": "Standard",
+  "ExpectedValueBand": { "Min": 180, "Max": 420 },
+  "RiskBudgetTag": "ExplorationFind",
+  "MemoryRefs": ["room_memory_miner_lamp_gift"],
+  "ValidationTags": ["Layer1Reward", "L1EventReward", "MinerPackEvent"],
+  "SeedSampleRefs": ["V-L1-SEED-1101-EVENT-01"],
+  "AuditNotes": "Miner pack event reward. Supports the first-layer exploration route and room-memory lamp hook.",
+  "Guaranteed": [
+    { "Type": "Item", "ItemID": "trade_miner_lamp", "Count": 1 }
+  ],
+  "WeightedPools": [
+    {
+      "PoolID": "supplies",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        { "Type": "Item", "ItemID": "con_cheap_sedative", "Weight": 35, "Count": 1 },
+        { "Type": "Item", "ItemID": "loot_gear_scrap", "Weight": 30, "Count": 1 },
+        { "Type": "Money", "Money": 16, "Weight": 20, "Count": 1 },
+        { "Type": "Nothing", "Weight": 15 }
+      ]
+    }
+  ]
+}

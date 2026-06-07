@@ -5,6 +5,9 @@
   "Rarity": "Rare",
   "BaseValue": 800,
   "IconID": "item_loot_toxic_filter_icon",
+  "DescriptionKey": "item.loot_toxic_filter.desc",
+  "ItemRole": ["RiskObject", "Material", "Trade"],
+  "LayerTags": ["Layer1", "ContentPack19"],
   "Grid": {
     "Shape": [
       [
@@ -18,15 +21,14 @@
       [
         1,
         0
-      ],
-      [
-        1,
-        1
       ]
     ],
-    "CanRotate": false,
-    "RotationSteps": 1,
-    "GridCost": 4
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 3,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0, 90, 180, 270],
+    "PlacementTags": ["Backpack", "RiskObject"]
   },
   "Combat": {
     "TriggerType": "Passive",
@@ -48,7 +50,49 @@
     ]
   },
   "Tags": [
+    "Material",
     "Toxic",
     "Mechanical"
-  ]
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "Ingredient"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["mob_acid_slime"],
+    "RewardRefs": ["reward_monster_mob_acid_slime_l1"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": ["maint_purification_flush"],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Toxic", "Mechanical", "RiskPremium"],
+    "RumorRefs": ["rumor_corrosion_sample_premium"],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": ["Toxic"],
+    "PollutionProfile": "l1_toxic_filter_san_move_cost",
+    "CorruptionProfile": "l1_toxic_filter_low_corruption",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_loot_toxic_filter_icon",
+    "GridPreviewStyle": "RiskObject",
+    "RiskIconRefs": ["ui_combat_status_corrosion"],
+    "PickupHintKey": "pickup.loot_toxic_filter"
+  }
 }

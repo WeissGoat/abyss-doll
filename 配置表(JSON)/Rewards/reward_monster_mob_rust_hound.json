@@ -1,0 +1,29 @@
+{
+  "RewardID": "reward_monster_mob_rust_hound",
+  "Name": "Layer 1 Rust Hound Drop",
+  "Tags": ["Monster", "Layer1", "Mob"],
+  "RewardRole": "MobDrop",
+  "SourceType": "Monster",
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "RewardTier": "Minor",
+  "ExpectedValueBand": { "Min": 90, "Max": 210 },
+  "RiskBudgetTag": "LowRisk",
+  "ValidationTags": ["Layer1Reward", "L1MobReward"],
+  "SeedSampleRefs": ["V-L1-SEED-1024-ROUTE-01"],
+  "AuditNotes": "AP and charge-attack teaching mob reward. Favors coil and starter combat pickups.",
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "main",
+      "RollCount": 1,
+      "AllowDuplicate": true,
+      "Entries": [
+        { "Type": "Item", "ItemID": "loot_rusty_coil", "Weight": 45, "Count": 1 },
+        { "Type": "Item", "ItemID": "loot_gear_scrap", "Weight": 35, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_rusty_dagger", "Weight": 12, "Count": 1 },
+        { "Type": "Money", "Money": 10, "Weight": 8, "Count": 1 }
+      ]
+    }
+  ]
+}

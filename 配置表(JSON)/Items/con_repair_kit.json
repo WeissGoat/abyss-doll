@@ -5,11 +5,17 @@
   "Rarity": "Common",
   "BaseValue": 50,
   "IconID": "item_con_repair_kit_icon",
+  "DescriptionKey": "item.con_repair_kit.desc",
+  "ItemRole": ["Recovery", "Tutorial"],
+  "LayerTags": ["Layer1", "ContentPack19"],
   "Grid": {
-    "Shape": [[0,0]],
-    "CanRotate": false,
-    "RotationSteps": 1,
-    "GridCost": 1
+    "Shape": [[0,0], [0,1]],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0, 90],
+    "PlacementTags": ["Backpack"]
   },
   "Combat": {
     "TriggerType": "Manual",
@@ -18,5 +24,46 @@
     "BaseValue": 30,
     "Effects": []
   },
-  "Tags": ["Medical"]
+  "Tags": ["Medical", "Repair"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "Consumable"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["mob_scavenger_bug"],
+    "RewardRefs": ["reward_monster_mob_scavenger_bug", "reward_node_treasure_layer1"],
+    "CraftingRefs": [],
+    "ShopRefs": ["starter_shop"],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Medical", "Repair"],
+    "RumorRefs": ["rumor_faction_medical_request"],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_con_repair_kit_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.con_repair_kit"
+  }
 }

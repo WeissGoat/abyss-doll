@@ -1,18 +1,18 @@
 {
-  "ConfigID": "gear_iron_armor",
-  "Name": "铁片装甲",
+  "ConfigID": "gear_cracked_iron_armor",
+  "Name": "裂铁胸甲",
   "ItemType": "Armor",
   "Rarity": "Uncommon",
-  "BaseValue": 400,
+  "BaseValue": 520,
   "IconID": "item_gear_iron_armor_icon",
-  "DescriptionKey": "item.gear_iron_armor.desc",
-  "ItemRole": ["Defense", "BuildCore"],
-  "LayerTags": ["Layer1", "ContentPack19", "LegacyCombatTest"],
+  "DescriptionKey": "item.gear_cracked_iron_armor.desc",
+  "ItemRole": ["Defense", "BossKey"],
+  "LayerTags": ["Layer1", "ContentPack19", "FormalVariant"],
   "Grid": {
-    "Shape": [[0,0], [0,1], [1,0], [1,1]],
+    "Shape": [[0,0], [0,1], [0,2], [1,0], [1,1], [1,2]],
     "CanRotate": false,
     "RotationSteps": 1,
-    "GridCost": 4,
+    "GridCost": 6,
     "DefaultRotation": 0,
     "AllowedRotations": [0],
     "PlacementTags": ["Backpack"]
@@ -27,11 +27,11 @@
         "EffectID": "AddRuntimeShieldOnTurnStart",
         "Level": 0,
         "Target": "Self",
-        "Params": [15.0]
+        "Params": [18.0]
       }
     ]
   },
-  "Tags": ["Defense", "Heavy"],
+  "Tags": ["Defense", "Heavy", "Mechanical"],
   "Lifecycle": {
     "CanSell": true,
     "SellChannel": "Shop",
@@ -41,22 +41,22 @@
     "CraftingConsumeRule": "ToolKept"
   },
   "SourceRefs": {
-    "DropPoolRefs": ["elite_scrap_guard"],
-    "RewardRefs": ["reward_monster_elite_scrap_guard"],
+    "DropPoolRefs": ["elite_scrap_guard", "boss_gatekeeper_mk1"],
+    "RewardRefs": ["reward_monster_elite_scrap_guard", "reward_boss_gatekeeper_mk1"],
     "CraftingRefs": [],
     "ShopRefs": [],
     "OrderRefs": []
   },
   "SinkRefs": {
     "SellOutcomeRefs": [],
-    "CraftingAsIngredientRefs": [],
+    "CraftingAsIngredientRefs": ["recipe_chassis_bulwark_carrier"],
     "OrderSubmitRefs": [],
     "RoomMemoryRefs": [],
     "ScenarioEventRefs": []
   },
   "Economy": {
-    "ValueTags": ["Armor", "HeavyScrap"],
-    "RumorRefs": [],
+    "ValueTags": ["Armor", "HeavyScrap", "BossKey"],
+    "RumorRefs": ["rumor_weapon_collector_visit"],
     "ContrabandRule": "None",
     "DismantleProfile": "dismantle_heavy_armor_scrap"
   },
@@ -71,6 +71,6 @@
     "IconVisualID": "item_gear_iron_armor_icon",
     "GridPreviewStyle": "LargeGear",
     "RiskIconRefs": [],
-    "PickupHintKey": "pickup.gear_iron_armor"
+    "PickupHintKey": "pickup.gear_cracked_iron_armor"
   }
 }

@@ -1,0 +1,79 @@
+{
+  "ConfigID": "trade_cracked_relic",
+  "Name": "裂纹圣牌",
+  "ItemType": "Loot",
+  "Rarity": "Rare",
+  "BaseValue": 520,
+  "IconID": "item_loot_toxic_filter_icon",
+  "DescriptionKey": "item.trade_cracked_relic.desc",
+  "ItemRole": ["Trade", "RiskObject", "RoomMemory"],
+  "LayerTags": ["Layer1", "ContentPack19"],
+  "Grid": {
+    "Shape": [[0,0], [0,1], [1,0], [1,1]],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 4,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0],
+    "PlacementTags": ["Backpack", "RiskObject"]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "ModifyResourceCost",
+        "Level": 0,
+        "Target": "Self",
+        "Trigger": "OnDungeonMoveCost",
+        "Resource": "SAN",
+        "Operation": "AddFlat",
+        "Params": [1]
+      }
+    ]
+  },
+  "Tags": ["TradeGood", "Relic", "Cursed"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "BlackMarket",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "Ingredient"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["elite_scrap_guard", "boss_gatekeeper_mk1"],
+    "RewardRefs": ["reward_monster_elite_scrap_guard", "reward_boss_gatekeeper_mk1", "reward_node_event_layer1_cracked_relic"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": ["black_market_relic_sale"],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": ["memento_return_mark"],
+    "ScenarioEventRefs": ["event_layer1_cracked_relic_memory"]
+  },
+  "Economy": {
+    "ValueTags": ["Relic", "RiskPremium", "Contraband"],
+    "RumorRefs": ["rumor_contraband_night_channel", "rumor_origin_stone_demand"],
+    "ContrabandRule": "BlackMarketOnly",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": ["Cursed", "Contraband"],
+    "PollutionProfile": "l1_cracked_relic_san_move_cost",
+    "CorruptionProfile": "",
+    "OvernightRule": "TriggerEvent",
+    "OrderConflictGroup": "relic_low_layer"
+  },
+  "Visual": {
+    "IconVisualID": "item_loot_toxic_filter_icon",
+    "GridPreviewStyle": "RiskObject",
+    "RiskIconRefs": ["ui_combat_status_curse"],
+    "PickupHintKey": "pickup.trade_cracked_relic"
+  }
+}

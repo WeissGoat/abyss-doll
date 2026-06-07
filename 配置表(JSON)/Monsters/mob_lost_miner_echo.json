@@ -1,0 +1,95 @@
+{
+  "MonsterID": "mob_lost_miner_echo",
+  "Name": "迷失矿工回声",
+  "DisplayNameKey": "monster.mob_lost_miner_echo.name",
+  "MonsterRole": ["Narrative", "SanPressure", "Pressure"],
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "LoreTags": ["LostMiner", "Echo", "Layer1Memory"],
+  "Layer": 1,
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "EncounterTags": ["Combat", "Layer1", "SanPressure", "EventBranch"],
+  "DifficultyBudget": { "Base": 42, "Variance": 8 },
+  "SpawnWeightTags": ["Layer1Common", "NarrativeBranch", "LowSanPressure"],
+  "HP": 48,
+  "PortraitID": "monster_mob_lost_miner_echo_portrait",
+  "CombatVisualID": "monster_mob_lost_miner_echo_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "lost_miner_san_pressure_small",
+      "IntentType": "SanPressure",
+      "PowerPreview": "low",
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.low_san_pressure",
+      "IntentIconRef": "ui_combat_intent_debuff"
+    },
+    {
+      "IntentID": "lost_miner_attack_small",
+      "IntentType": "Attack",
+      "PowerPreview": 10,
+      "TargetPreview": "Doll",
+      "Reliability": "High",
+      "CounterHintKey": "hint.intent.block_or_finish",
+      "IntentIconRef": "ui_combat_intent_attack"
+    }
+  ],
+  "IntentSequence": ["lost_miner_san_pressure_small", "lost_miner_attack_small"],
+  "ActionPattern": {
+    "Selector": "WeightedRandom",
+    "CooldownPolicy": "PerAction",
+    "FallbackAction": "lost_miner_echo_strike",
+    "FormalIntentNote": "SanPressureSmall is metadata-only until SanPressure ActionType exists; executable baseline uses low damage narrative pressure."
+  },
+  "PhaseRules": [],
+  "TargetRule": {
+    "CharacterTarget": "LowestHpPlayer",
+    "RetargetPolicy": "UseBasicAttack"
+  },
+  "RewardID": "reward_monster_mob_lost_miner_echo",
+  "DropThemeTags": ["Memory", "Trade", "Layer1"],
+  "BossGuaranteedRefs": [],
+  "MemoryRewardRefs": ["room_memory_lost_miner_lamp"],
+  "ActionVfxRef": {
+    "lost_miner_echo_strike": "vfx_monster_echo_hit",
+    "lost_miner_whisper": "vfx_monster_san_hint"
+  },
+  "HitFeedbackRef": "ui_combat_feedback_hit",
+  "DefeatFeedbackRef": "ui_combat_feedback_echo_fade",
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "lost_miner_echo_strike",
+        "ActionType": "DamageTarget",
+        "Target": "LowestHpPlayer",
+        "Weight": 70,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 10,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "lost_miner_whisper",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 30,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 2,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 6,
+          "RepeatCount": 1
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {"ItemID": "trade_miner_lamp", "Weight": 45},
+    {"ItemID": "con_cheap_sedative", "Weight": 30},
+    {"ItemID": "loot_gear_scrap", "Weight": 25}
+  ]
+}

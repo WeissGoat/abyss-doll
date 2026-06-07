@@ -1,0 +1,30 @@
+{
+  "RewardID": "reward_monster_mob_lost_miner_echo",
+  "Name": "Layer 1 Lost Miner Echo Drop",
+  "Tags": ["Monster", "Layer1", "Mob", "Narrative"],
+  "RewardRole": "MobDrop",
+  "SourceType": "Monster",
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "RewardTier": "Standard",
+  "ExpectedValueBand": { "Min": 120, "Max": 300 },
+  "RiskBudgetTag": "NarrativeFind",
+  "MemoryRefs": ["room_memory_miner_lamp_gift"],
+  "ValidationTags": ["Layer1Reward", "L1MobReward", "NarrativeReward"],
+  "SeedSampleRefs": ["V-L1-SEED-1101-EVENT-01"],
+  "AuditNotes": "Narrative route mob reward. Introduces miner lamp and low-pressure SAN recovery choice.",
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "main",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        { "Type": "Item", "ItemID": "trade_miner_lamp", "Weight": 35, "Count": 1 },
+        { "Type": "Item", "ItemID": "con_cheap_sedative", "Weight": 30, "Count": 1 },
+        { "Type": "Item", "ItemID": "loot_gear_scrap", "Weight": 20, "Count": 1 },
+        { "Type": "Money", "Money": 14, "Weight": 15, "Count": 1 }
+      ]
+    }
+  ]
+}

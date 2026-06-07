@@ -1,9 +1,30 @@
 {
   "RewardID": "reward_node_event_layer1",
-  "Name": "第1层未知事件奖励",
+  "Name": "Layer 1 Generic Event Reward",
   "Tags": ["Node", "Event", "Layer1"],
+  "RewardRole": "EventNode",
+  "SourceType": "DungeonNode",
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "RewardTier": "Standard",
+  "ExpectedValueBand": { "Min": 80, "Max": 360 },
+  "RiskBudgetTag": "EventChoice",
+  "ValidationTags": ["Layer1Reward", "L1EventReward", "LegacyEventCompat"],
+  "SeedSampleRefs": ["V-L1-SEED-1101-EVENT-01"],
+  "AuditNotes": "Compatibility event reward for the current layer_1 node reference. Formal event-specific rewards are split into miner_pack and cracked_relic reward tables.",
   "Guaranteed": [
     { "Type": "Money", "Money": 12 }
   ],
-  "WeightedPools": []
+  "WeightedPools": [
+    {
+      "PoolID": "event_bonus",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        { "Type": "RewardRef", "RewardID": "reward_node_event_layer1_miner_pack", "Weight": 45, "Count": 1 },
+        { "Type": "RewardRef", "RewardID": "reward_node_event_layer1_cracked_relic", "Weight": 20, "Count": 1 },
+        { "Type": "Nothing", "Weight": 35 }
+      ]
+    }
+  ]
 }

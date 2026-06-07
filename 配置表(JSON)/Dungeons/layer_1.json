@@ -1,10 +1,21 @@
 {
   "LayerID": 1,
-  "Name": "浅层区域",
+  "LayerKey": "layer_01_shallow_corridor",
+  "Name": "浅渊回廊",
+  "DisplayNameKey": "dungeon.layer1.shallow_corridor.name",
+  "LayerThemeTags": [
+    "Tutorial",
+    "LowPressure",
+    "RouteChoice",
+    "ContentPack19"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer1_formal_core"
+  ],
   "SANCostPerNode": 1,
   "ExpectedNodeCount": 6,
-  "MapProfileID": "layer_1_tutorial_branching",
-  "MapSeed": 1001,
+  "MapProfileID": "layer1_tutorial_branching",
+  "MapSeed": 1024,
   "RowCount": 5,
   "MinWidth": 2,
   "MaxWidth": 3,
@@ -13,35 +24,326 @@
   "FogProfile": "tutorial_reveal_1_preview_1",
   "NodeRevealDepth": 1,
   "NodePreviewDepth": 1,
+  "MapProfiles": [
+    {
+      "ProfileID": "layer1_tutorial_branching",
+      "ProfileRole": "Tutorial",
+      "DisplayName": "浅渊教学分支",
+      "RowCount": 5,
+      "MinWidth": 2,
+      "MaxWidth": 3,
+      "ValidationSeed": 1024,
+      "RouteThemeWeights": {
+        "SafeRoute": 35,
+        "RiskReward": 30,
+        "Attrition": 20,
+        "EventRoute": 15
+      },
+      "RequiredNodes": [
+        {
+          "NodeType": "CombatNode",
+          "MinCountPerRoute": 2,
+          "PoolRef": "Minor"
+        },
+        {
+          "NodeType": "TreasureNode",
+          "MinCountPerMap": 1,
+          "RewardID": "reward_node_treasure_layer1"
+        },
+        {
+          "NodeType": "CombatNode",
+          "RuntimeRole": "EliteNode",
+          "MinCountPerMap": 1,
+          "MonsterIDs": [
+            "elite_scrap_guard"
+          ],
+          "BypassRequired": true
+        },
+        {
+          "NodeType": "CombatNode",
+          "RuntimeRole": "BossNode",
+          "MonsterIDs": [
+            "boss_gatekeeper_mk1"
+          ],
+          "FixedRow": "Boss"
+        },
+        {
+          "NodeType": "StairsNode",
+          "RuntimeRole": "PostBossSafeZone",
+          "FixedRow": "PostBoss"
+        }
+      ]
+    },
+    {
+      "ProfileID": "layer1_event_miner_remains",
+      "ProfileRole": "RiskReward",
+      "DisplayName": "矿工遗迹事件分支",
+      "RowCount": 6,
+      "MinWidth": 2,
+      "MaxWidth": 3,
+      "ValidationSeed": 1101,
+      "RouteThemeWeights": {
+        "SafeRoute": 20,
+        "RiskReward": 35,
+        "Attrition": 15,
+        "EventRoute": 30
+      },
+      "RequiredNodes": [
+        {
+          "NodeType": "CombatNode",
+          "MinCountPerRoute": 2,
+          "PoolRef": "Minor"
+        },
+        {
+          "NodeType": "EventNode",
+          "MinCountPerMap": 2,
+          "RewardIDs": [
+            "reward_node_event_layer1_miner_pack",
+            "reward_node_event_layer1_cracked_relic"
+          ]
+        },
+        {
+          "NodeType": "TreasureNode",
+          "MinCountPerMap": 1,
+          "RewardID": "reward_node_treasure_layer1"
+        },
+        {
+          "NodeType": "CombatNode",
+          "RuntimeRole": "EliteNode",
+          "MinCountPerMap": 1,
+          "MonsterIDs": [
+            "elite_scrap_guard"
+          ],
+          "BypassRequired": true
+        },
+        {
+          "NodeType": "CombatNode",
+          "RuntimeRole": "BossNode",
+          "MonsterIDs": [
+            "boss_gatekeeper_mk1"
+          ],
+          "FixedRow": "Boss"
+        },
+        {
+          "NodeType": "StairsNode",
+          "RuntimeRole": "PostBossSafeZone",
+          "FixedRow": "PostBoss"
+        }
+      ]
+    }
+  ],
+  "RouteThemeWeights": {
+    "SafeRoute": 30,
+    "RiskReward": 30,
+    "Attrition": 20,
+    "EventRoute": 20
+  },
+  "NodeTypeWeights": {
+    "CombatNode": 50,
+    "TreasureNode": 12,
+    "EventNode": 16,
+    "RestStopNode": 8,
+    "HazardNode": 6,
+    "SafeRoomNode": 8
+  },
+  "RequiredNodes": [
+    {
+      "NodeType": "CombatNode",
+      "RuntimeRole": "EliteNode",
+      "MonsterIDs": [
+        "elite_scrap_guard"
+      ],
+      "BypassRequired": true
+    },
+    {
+      "NodeType": "CombatNode",
+      "RuntimeRole": "BossNode",
+      "MonsterIDs": [
+        "boss_gatekeeper_mk1"
+      ],
+      "FixedRow": "Boss"
+    },
+    {
+      "NodeType": "StairsNode",
+      "RuntimeRole": "PostBossSafeZone",
+      "FixedRow": "PostBoss"
+    }
+  ],
+  "Constraints": {
+    "MinEffectiveRouteCount": 2,
+    "EliteBypassRequired": true,
+    "BossBufferRequired": true,
+    "MaxSameTypeStreak": 2,
+    "MinCombatPerRoute": 2,
+    "MaxRestStopPerRoute": 1
+  },
+  "EncounterPools": {
+    "Minor": [
+      {
+        "EncounterID": "enc_l1_scavenger_bug",
+        "MonsterIDs": [
+          "mob_scavenger_bug"
+        ],
+        "EncounterTags": [
+          "Tutorial",
+          "SingleTarget"
+        ],
+        "Weight": 34
+      },
+      {
+        "EncounterID": "enc_l1_rust_hound",
+        "MonsterIDs": [
+          "mob_rust_hound"
+        ],
+        "EncounterTags": [
+          "CounterCheck",
+          "AttackPressure"
+        ],
+        "Weight": 24
+      },
+      {
+        "EncounterID": "enc_l1_acid_slime",
+        "MonsterIDs": [
+          "mob_acid_slime"
+        ],
+        "EncounterTags": [
+          "BagPressure",
+          "RiskObjectIntro"
+        ],
+        "Weight": 20
+      },
+      {
+        "EncounterID": "enc_l1_lost_miner_echo",
+        "MonsterIDs": [
+          "mob_lost_miner_echo"
+        ],
+        "EncounterTags": [
+          "SanPressure",
+          "Narrative"
+        ],
+        "Weight": 16
+      },
+      {
+        "EncounterID": "enc_l1_double_scavenger",
+        "MonsterIDs": [
+          "mob_scavenger_bug",
+          "mob_rust_hound"
+        ],
+        "EncounterTags": [
+          "RiskReward"
+        ],
+        "Weight": 6
+      }
+    ],
+    "Elite": [
+      {
+        "EncounterID": "enc_l1_elite_scrap_guard",
+        "MonsterIDs": [
+          "elite_scrap_guard"
+        ],
+        "EncounterTags": [
+          "Elite",
+          "Bypassable",
+          "HighReward"
+        ],
+        "Weight": 100,
+        "BypassRequired": true
+      }
+    ],
+    "BossEncounterID": "boss_gatekeeper_mk1",
+    "EncounterTags": [
+      "Layer1",
+      "Tutorial",
+      "LowPressure"
+    ]
+  },
+  "TreasureRewardPoolRefs": [
+    "reward_node_treasure_layer1"
+  ],
+  "EventPoolRefs": [
+    "reward_node_event_layer1",
+    "reward_node_event_layer1_miner_pack",
+    "reward_node_event_layer1_cracked_relic"
+  ],
+  "HazardPoolRefs": [
+    "hazard_l1_loose_support"
+  ],
+  "NodeRewardRefs": [
+    "reward_node_treasure_layer1",
+    "reward_node_event_layer1",
+    "reward_node_event_layer1_miner_pack",
+    "reward_node_event_layer1_cracked_relic"
+  ],
   "NodePool": [
     {
       "NodeType": "CombatNode",
       "NodeIconID": "node_combat_icon",
+      "Title": "拾荒虫群",
+      "Description": "浅层最常见的金属虫群，适合验证基础攻击和掉落。",
       "RiskLevel": "Medium",
       "RiskHint": "基础战斗节点，会消耗 HP 和 SAN。",
       "MonsterIDs": [
         "mob_scavenger_bug"
       ],
-      "Weight": 60
+      "Weight": 32
     },
     {
       "NodeType": "CombatNode",
       "NodeIconID": "node_combat_icon",
-      "RiskLevel": "High",
-      "RiskHint": "双怪战斗，收益略高但损耗更明显。",
+      "Title": "锈牙巡游",
+      "Description": "锈牙猎犬会迫使玩家观察攻击预兆并保留防御手段。",
+      "RiskLevel": "Medium",
+      "RiskHint": "中等战斗节点，强调反击和防御取舍。",
       "MonsterIDs": [
-        "mob_scavenger_bug",
-        "mob_scavenger_bug"
+        "mob_rust_hound"
       ],
-      "Weight": 30
+      "Weight": 22
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "酸液残池",
+      "Description": "低层酸液软体会带来轻量背包污染压力。",
+      "RiskLevel": "Medium",
+      "RiskHint": "背包压力教学节点，可能产生难摆放的风险掉落。",
+      "MonsterIDs": [
+        "mob_acid_slime"
+      ],
+      "Weight": 18
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "矿工回响",
+      "Description": "迷失矿工的残响会制造轻微 SAN 压力，并引出矿工遗物事件。",
+      "RiskLevel": "Medium",
+      "RiskHint": "叙事战斗节点，带少量 SAN 压力。",
+      "MonsterIDs": [
+        "mob_lost_miner_echo"
+      ],
+      "Weight": 14
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "废料守卫",
+      "Description": "废料守卫看守着高价值残骸，但路线必须允许玩家绕开。",
+      "RiskLevel": "High",
+      "RiskHint": "可绕精英节点，收益更高但不承担通关 Boss 职责。",
+      "MonsterIDs": [
+        "elite_scrap_guard"
+      ],
+      "Weight": 6
     },
     {
       "NodeType": "SafeRoomNode",
       "NodeIconID": "node_safe_room_icon",
+      "Title": "低压岔路",
+      "Description": "矿道暂时稳定，玩家可以观察后续路线但不能撤离。",
       "RiskLevel": "Safe",
-      "RiskHint": "安全休整节点，不产生战斗压力。",
+      "RiskHint": "层内安全观察点，不是 Boss 后安全区。",
       "MonsterIDs": [],
-      "Weight": 10
+      "Weight": 8
     },
     {
       "NodeType": "TreasureNode",
@@ -56,11 +358,11 @@
     {
       "NodeType": "EventNode",
       "NodeIconID": "node_eventnode_icon",
-      "Title": "微光裂隙",
-      "Description": "裂隙中传来微弱回响，换来一小笔可带走的深渊回收金。",
-      "RewardID": "reward_node_event_layer1",
+      "Title": "矿工遗包",
+      "Description": "破损背包里留下矿灯和镇静剂，但翻找会消耗少量 SAN。",
+      "RewardID": "reward_node_event_layer1_miner_pack",
       "RiskLevel": "Medium",
-      "RiskHint": "事件节点，可能交换少量 SAN 换取收益。",
+      "RiskHint": "事件节点，以少量 SAN 压力换取可带走物资。",
       "OutcomeEffects": [
         {
           "Type": "ModifyResource",
@@ -68,7 +370,24 @@
           "Amount": -1
         }
       ],
-      "Weight": 10
+      "Weight": 8
+    },
+    {
+      "NodeType": "EventNode",
+      "NodeIconID": "node_eventnode_icon",
+      "Title": "裂纹圣牌",
+      "Description": "石缝中的圣牌仍有微弱回响，带走它会提高背包取舍压力。",
+      "RewardID": "reward_node_event_layer1_cracked_relic",
+      "RiskLevel": "Medium",
+      "RiskHint": "高价值事件节点，可能带来大件战利品。",
+      "OutcomeEffects": [
+        {
+          "Type": "ModifyResource",
+          "Resource": "SAN",
+          "Amount": -1
+        }
+      ],
+      "Weight": 6
     },
     {
       "NodeType": "RestStopNode",
@@ -105,15 +424,225 @@
           "Amount": -5
         }
       ],
-      "Weight": 6
+      "Weight": 5
     }
   ],
-  "BossNode": "elite_scrap_guard",
+  "BossNode": "boss_gatekeeper_mk1",
   "BossNodeIconID": "node_boss_icon",
+  "PostBossNode": {
+    "NodeType": "StairsNode",
+    "RuntimeRole": "PostBossSafeZone",
+    "NodeIconID": "node_stairs_icon",
+    "RiskLevel": "Safe",
+    "RiskHint": "Boss 后安全区，免费恢复并选择撤离或继续深入。"
+  },
+  "SafeZoneRules": {
+    "FreeRecoverHP": true,
+    "FreeRecoverSAN": true,
+    "ClearItemPollution": false,
+    "ClearOrderState": false,
+    "AllowExtract": true,
+    "AllowDescend": true,
+    "PreserveRunLedger": true
+  },
   "EndNode": {
     "NodeType": "StairsNode",
     "NodeIconID": "node_stairs_icon",
     "RiskLevel": "Safe",
-    "RiskHint": "层终点，可选择深入下一层或返回小镇。"
+    "RiskHint": "Boss 后安全区，免费恢复 HP / SAN，可选择深入下一层或返回小镇。"
+  },
+  "UnlockRule": {
+    "UnlocksLayerID": 2,
+    "RequiresBossDefeated": true,
+    "RequiresEndNodeReached": true
+  },
+  "DirectStartAllowed": true,
+  "PreviousLayerRequired": 0,
+  "NextLayerID": 2,
+  "FixedSeedSamples": [
+    {
+      "SeedID": "V-L1-SEED-1024-ROUTE-01",
+      "LayerID": 1,
+      "MapProfileID": "layer1_tutorial_branching",
+      "RunSeed": 1024,
+      "RouteSummary": "入口至少 2 条有效路线；普通战斗后分叉到宝箱 / 事件或可绕精英；Boss 行固定为 boss_gatekeeper_mk1；Boss 后进入 StairsNode 承载 SafeZone 语义。",
+      "EncounterSummary": "普通遭遇覆盖 mob_scavenger_bug、mob_rust_hound、mob_acid_slime、mob_lost_miner_echo；elite_scrap_guard 只作为可绕精英；boss_gatekeeper_mk1 承担第一层终点 Boss。",
+      "RewardSummary": "宝箱引用 reward_node_treasure_layer1；事件引用 reward_node_event_layer1_miner_pack；Boss 引用 reward_boss_gatekeeper_mk1 并保底 mat_core_tier1。",
+      "ExpectedEffectiveRouteCount": 2,
+      "ExpectedNodeTypeCoverage": [
+        "CombatNode",
+        "TreasureNode",
+        "EventNode",
+        "EliteNode",
+        "BossNode",
+        "SafeZoneNode"
+      ],
+      "ExpectedBossID": "boss_gatekeeper_mk1",
+      "ExpectedEliteIDs": [
+        "elite_scrap_guard"
+      ],
+      "ExpectedRewardRefs": [
+        "reward_node_treasure_layer1",
+        "reward_node_event_layer1_miner_pack",
+        "reward_boss_gatekeeper_mk1"
+      ],
+      "ExpectedPlayerChoice": "低风险路线可绕开精英，风险路线可挑战精英换更高收益。",
+      "PassCriteria": "至少 2 条有效路线，精英可绕，Boss 可达，Boss 后安全区允许撤离或深入。",
+      "FailureSignals": [
+        "同 seed 重跑路线摘要变化",
+        "Boss 不可达或 BossNode 不是 boss_gatekeeper_mk1",
+        "elite_scrap_guard 变成必经 Boss",
+        "Boss 后没有 StairsNode / SafeZone 语义"
+      ]
+    },
+    {
+      "SeedID": "V-L1-PACK-RUN-01",
+      "LayerID": 1,
+      "MapProfileID": "layer1_tutorial_branching",
+      "RunSeed": 1024,
+      "RouteSummary": "沿低风险路线完成普通战斗与宝箱 / 事件节点，拾取至少 1 件 1x2 或异形战利品后继续推进到 Boss 前。",
+      "EncounterSummary": "至少经历 1 次普通战斗和 1 次宝箱或事件拾取，不要求挑战精英。",
+      "RewardSummary": "拾取路径优先覆盖 loot_rusty_coil、con_repair_kit、trade_miner_lamp 或 loot_toxic_filter；物品具备形状、旋转、来源和撤离 / 出售 / 材料去向。",
+      "ExpectedEffectiveRouteCount": 2,
+      "ExpectedNodeTypeCoverage": [
+        "CombatNode",
+        "TreasureNode",
+        "EventNode",
+        "BossNode",
+        "SafeZoneNode"
+      ],
+      "ExpectedBossID": "boss_gatekeeper_mk1",
+      "ExpectedRewardRefs": [
+        "reward_monster_mob_scavenger_bug",
+        "reward_node_treasure_layer1",
+        "reward_node_event_layer1_miner_pack"
+      ],
+      "ExpectedItemRefs": [
+        "loot_rusty_coil",
+        "con_repair_kit",
+        "trade_miner_lamp",
+        "loot_toxic_filter"
+      ],
+      "ExpectedPlayerChoice": "玩家在有限背包空间内至少处理一次旋转、放置、舍弃或保留低价物 / 高价值物的取舍。",
+      "PassCriteria": "战斗或节点奖励能进入拾取流程；至少一个掉落物需要背包放置判断；撤离后可作为出售或材料回流对象。",
+      "FailureSignals": [
+        "掉落物没有形状或旋转配置",
+        "拾取无需背包空间判断",
+        "确认拾取后物品去向不可追踪",
+        "撤离后物品不能进入出售或材料回流"
+      ]
+    },
+    {
+      "SeedID": "V-L1-PACK-FAIL-01",
+      "LayerID": 1,
+      "MapProfileID": "layer1_event_miner_remains",
+      "RunSeed": 1101,
+      "RouteSummary": "选择矿工遗迹事件路线，获得高价值大件或风险物后，在撤离 / 战败 / 继续深入之间做取舍。",
+      "EncounterSummary": "事件路线覆盖 reward_node_event_layer1_miner_pack 与 reward_node_event_layer1_cracked_relic，并保留普通战斗和 Boss 可达性。",
+      "RewardSummary": "事件奖励重点覆盖 trade_miner_lamp、trade_cracked_relic、loot_toxic_filter；用于验证大件 / 异形战利品的生命周期分流。",
+      "ExpectedEffectiveRouteCount": 2,
+      "ExpectedNodeTypeCoverage": [
+        "CombatNode",
+        "EventNode",
+        "TreasureNode",
+        "EliteNode",
+        "BossNode",
+        "SafeZoneNode"
+      ],
+      "ExpectedBossID": "boss_gatekeeper_mk1",
+      "ExpectedEliteIDs": [
+        "elite_scrap_guard"
+      ],
+      "ExpectedRewardRefs": [
+        "reward_node_event_layer1_miner_pack",
+        "reward_node_event_layer1_cracked_relic",
+        "reward_node_treasure_layer1"
+      ],
+      "ExpectedPlayerChoice": "事件路线更容易获得大件遗物，玩家需要在撤离、战败风险和继续深入之间取舍。",
+      "PassCriteria": "事件奖励可解析，背包压力物出现，撤离或战败后的生命周期分流可人工复核。",
+      "FailureSignals": [
+        "事件奖励引用缺失",
+        "高价值物没有生命周期字段",
+        "撤离与战败对新获物没有差异",
+        "事件物无法进入出售 / 房间记忆 / 材料去向"
+      ]
+    },
+    {
+      "SeedID": "V-L1-BOSS-REWARD-01",
+      "LayerID": 1,
+      "MapProfileID": "layer1_tutorial_branching",
+      "RunSeed": 1024,
+      "RouteSummary": "沿任一有效路线击败 boss_gatekeeper_mk1 后进入 Boss 后 SafeZone / Stairs。",
+      "EncounterSummary": "Boss 遭遇固定为 boss_gatekeeper_mk1，elite_scrap_guard 不承担 Boss 终点或一阶核心保底职责。",
+      "RewardSummary": "reward_boss_gatekeeper_mk1 保底 mat_core_tier1；精英奖励 reward_monster_elite_scrap_guard 不保底 mat_core_tier1。",
+      "ExpectedBossID": "boss_gatekeeper_mk1",
+      "ExpectedRewardRefs": [
+        "reward_boss_gatekeeper_mk1"
+      ],
+      "ExpectedGuaranteedItemRefs": [
+        "mat_core_tier1"
+      ],
+      "PassCriteria": "击败 boss_gatekeeper_mk1 后保底获得 mat_core_tier1，并进入 Boss 后安全区。",
+      "FailureSignals": [
+        "mat_core_tier1 仍由 elite_scrap_guard 保底",
+        "Boss 奖励空池或缺 reward_boss_gatekeeper_mk1",
+        "Boss 后没有 SafeZone / Stairs",
+        "Boss 后安全区不免费恢复 HP / SAN"
+      ]
+    },
+    {
+      "SeedID": "V-L1-PACK-PRESSURE-01",
+      "LayerID": 1,
+      "MapProfileID": "layer1_event_miner_remains",
+      "RunSeed": 1101,
+      "RouteSummary": "事件路线在背包剩余空间有限时提供 trade_cracked_relic、loot_toxic_filter 或宝箱奖励，形成大件 / 异形物取舍。",
+      "EncounterSummary": "普通战斗与事件节点组合制造轻量资源压力，不要求永久污染或二层腐蚀。",
+      "RewardSummary": "reward_node_event_layer1_cracked_relic 与 reward_node_treasure_layer1 共同覆盖 2x2 大件、L 形 3 格风险物和基础材料。",
+      "ExpectedRewardRefs": [
+        "reward_node_event_layer1_cracked_relic",
+        "reward_node_treasure_layer1"
+      ],
+      "ExpectedItemRefs": [
+        "loot_toxic_filter",
+        "trade_cracked_relic"
+      ],
+      "ExpectedPlayerChoice": "玩家需要在保留战斗装备、带走高价值大件、携带风险异形物和舍弃低价物之间做选择。",
+      "PassCriteria": "玩家背包剩余 3-4 格时，至少一次出现异形或大件战利品取舍。",
+      "FailureSignals": [
+        "loot_toxic_filter 不是异形或不可旋转",
+        "trade_cracked_relic 不形成 2x2 大件压力",
+        "高价值物可无成本携带",
+        "取舍结果不能进入撤离 / 战败生命周期"
+      ]
+    }
+  ],
+  "ExpectedRouteSummary": {
+    "MinEffectiveRouteCount": 2,
+    "MinCombatPerRoute": 2,
+    "EliteBypassRequired": true,
+    "BossBufferRequired": true,
+    "BossID": "boss_gatekeeper_mk1",
+    "EliteIDs": [
+      "elite_scrap_guard"
+    ],
+    "PostBossSafeZone": true
+  },
+  "ValidationScenarioRefs": [
+    "CFG-DUNGEON-REF-001",
+    "CFG-DUNGEON-ROUTE-001",
+    "CFG-DUNGEON-SAFEZONE-001",
+    "CFG-SEED-001",
+    "V-L1-SEED-1024-ROUTE-01",
+    "V-L1-PACK-RUN-01",
+    "V-L1-PACK-FAIL-01",
+    "V-L1-BOSS-REWARD-01",
+    "V-L1-PACK-PRESSURE-01"
+  ],
+  "NodeIconSet": "layer1_default_node_icons",
+  "RouteThemeVisuals": {
+    "SafeRoute": "route_theme_safe_green",
+    "RiskReward": "route_theme_reward_gold",
+    "Attrition": "route_theme_attrition_red",
+    "EventRoute": "route_theme_event_blue"
   }
 }

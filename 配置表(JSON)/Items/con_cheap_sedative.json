@@ -5,11 +5,17 @@
   "Rarity": "Common",
   "BaseValue": 80,
   "IconID": "item_con_cheap_sedative_icon",
+  "DescriptionKey": "item.con_cheap_sedative.desc",
+  "ItemRole": ["Recovery"],
+  "LayerTags": ["Layer1", "ContentPack19"],
   "Grid": {
     "Shape": [[0,0]],
     "CanRotate": false,
     "RotationSteps": 1,
-    "GridCost": 1
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0],
+    "PlacementTags": ["Backpack"]
   },
   "Combat": {
     "TriggerType": "Manual",
@@ -18,5 +24,46 @@
     "BaseValue": 20,
     "Effects": []
   },
-  "Tags": ["Medical", "Mental"]
+  "Tags": ["Medical", "Mental"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "Consumable"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["mob_lost_miner_echo"],
+    "RewardRefs": ["reward_monster_mob_lost_miner_echo", "reward_node_event_layer1_miner_pack"],
+    "CraftingRefs": [],
+    "ShopRefs": ["starter_shop"],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Medical", "Mental"],
+    "RumorRefs": ["rumor_faction_medical_request"],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_con_cheap_sedative_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.con_cheap_sedative"
+  }
 }

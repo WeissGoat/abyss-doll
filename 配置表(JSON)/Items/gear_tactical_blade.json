@@ -5,6 +5,9 @@
   "Rarity": "Uncommon",
   "BaseValue": 350,
   "IconID": "item_gear_tactical_blade_icon",
+  "DescriptionKey": "item.gear_tactical_blade.desc",
+  "ItemRole": ["BuildCore", "Trade"],
+  "LayerTags": ["Layer1", "ContentPack19"],
   "Grid": {
     "Shape": [
       [
@@ -22,7 +25,10 @@
     ],
     "CanRotate": true,
     "RotationSteps": 2,
-    "GridCost": 3
+    "GridCost": 3,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0, 90],
+    "PlacementTags": ["Backpack"]
   },
   "Combat": {
     "TriggerType": "Manual",
@@ -34,5 +40,46 @@
   "Tags": [
     "Melee",
     "Sharp"
-  ]
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["elite_scrap_guard"],
+    "RewardRefs": ["reward_monster_elite_scrap_guard", "reward_node_treasure_layer1"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Weapon", "Sharp"],
+    "RumorRefs": ["rumor_weapon_collector_visit"],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_tactical_blade_icon",
+    "GridPreviewStyle": "LargeGear",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_tactical_blade"
+  }
 }

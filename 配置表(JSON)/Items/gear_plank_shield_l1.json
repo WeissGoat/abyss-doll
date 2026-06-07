@@ -1,20 +1,20 @@
 {
-  "ConfigID": "gear_wooden_shield",
-  "Name": "木制小盾",
+  "ConfigID": "gear_plank_shield_l1",
+  "Name": "拼板护盾",
   "ItemType": "Armor",
   "Rarity": "Common",
-  "BaseValue": 100,
+  "BaseValue": 180,
   "IconID": "item_gear_wooden_shield_icon",
-  "DescriptionKey": "item.gear_wooden_shield.desc",
+  "DescriptionKey": "item.gear_plank_shield_l1.desc",
   "ItemRole": ["Tutorial", "Defense"],
-  "LayerTags": ["Layer1", "ContentPack19", "LegacyStarter"],
+  "LayerTags": ["Layer1", "ContentPack19", "FormalVariant"],
   "Grid": {
-    "Shape": [[0,0], [0,1]],
-    "CanRotate": true,
-    "RotationSteps": 2,
-    "GridCost": 2,
+    "Shape": [[0,0], [0,1], [1,0], [1,1]],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 4,
     "DefaultRotation": 0,
-    "AllowedRotations": [0, 90],
+    "AllowedRotations": [0],
     "PlacementTags": ["Backpack"]
   },
   "Combat": {
@@ -27,11 +27,11 @@
         "EffectID": "AddRuntimeShield",
         "Level": 0,
         "Target": "Self",
-        "Params": [10.0]
+        "Params": [16.0]
       }
     ]
   },
-  "Tags": ["Defense", "Fragile", "Starter"],
+  "Tags": ["Defense", "Fragile", "Wooden"],
   "Lifecycle": {
     "CanSell": true,
     "SellChannel": "Shop",
@@ -44,7 +44,7 @@
     "DropPoolRefs": ["mob_scavenger_bug"],
     "RewardRefs": ["reward_monster_mob_scavenger_bug"],
     "CraftingRefs": [],
-    "ShopRefs": ["starter_loadout"],
+    "ShopRefs": ["starter_shop"],
     "OrderRefs": []
   },
   "SinkRefs": {
@@ -69,8 +69,8 @@
   },
   "Visual": {
     "IconVisualID": "item_gear_wooden_shield_icon",
-    "GridPreviewStyle": "Normal",
+    "GridPreviewStyle": "LargeGear",
     "RiskIconRefs": [],
-    "PickupHintKey": "pickup.gear_wooden_shield"
+    "PickupHintKey": "pickup.gear_plank_shield_l1"
   }
 }

@@ -5,11 +5,17 @@
   "Rarity": "Common",
   "BaseValue": 150,
   "IconID": "item_gear_rusty_dagger_icon",
+  "DescriptionKey": "item.gear_rusty_dagger.desc",
+  "ItemRole": ["Tutorial", "BuildCore"],
+  "LayerTags": ["Layer1", "ContentPack19"],
   "Grid": {
     "Shape": [[0,0], [0,1]],
     "CanRotate": true,
     "RotationSteps": 2,
-    "GridCost": 2
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0, 90],
+    "PlacementTags": ["Backpack"]
   },
   "Combat": {
     "TriggerType": "Manual",
@@ -18,5 +24,46 @@
     "BaseValue": 15,
     "Effects": []
   },
-  "Tags": ["Melee"]
+  "Tags": ["Melee", "Starter"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["mob_rust_hound"],
+    "RewardRefs": ["reward_monster_mob_rust_hound"],
+    "CraftingRefs": [],
+    "ShopRefs": ["starter_loadout"],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Weapon", "Scrap"],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_rusty_dagger_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_rusty_dagger"
+  }
 }

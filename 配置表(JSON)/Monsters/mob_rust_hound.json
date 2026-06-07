@@ -1,0 +1,95 @@
+{
+  "MonsterID": "mob_rust_hound",
+  "Name": "锈蚀猎犬",
+  "DisplayNameKey": "monster.mob_rust_hound.name",
+  "MonsterRole": ["Tutorial", "Pressure", "CounterCheck"],
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "LoreTags": ["RustPack", "MechanicalBeast"],
+  "Layer": 1,
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "EncounterTags": ["Combat", "Layer1", "ChargeIntro", "SafeRoute"],
+  "DifficultyBudget": { "Base": 45, "Variance": 10 },
+  "SpawnWeightTags": ["Layer1Common", "ChargeTeaching", "LowRisk"],
+  "HP": 52,
+  "PortraitID": "monster_mob_rust_hound_portrait",
+  "CombatVisualID": "monster_mob_rust_hound_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "rust_hound_attack_small",
+      "IntentType": "Attack",
+      "PowerPreview": 11,
+      "TargetPreview": "Doll",
+      "Reliability": "High",
+      "CounterHintKey": "hint.intent.block_or_finish",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "rust_hound_charge_attack",
+      "IntentType": "Charge",
+      "PowerPreview": 20,
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.charge_window",
+      "IntentIconRef": "ui_combat_intent_buff"
+    }
+  ],
+  "IntentSequence": ["rust_hound_attack_small", "rust_hound_charge_attack"],
+  "ActionPattern": {
+    "Selector": "WeightedRandom",
+    "CooldownPolicy": "PerAction",
+    "FallbackAction": "rust_hound_bite",
+    "FormalIntentNote": "ChargeAttack is represented by a heavier cooldown attack until Charge ActionType exists."
+  },
+  "PhaseRules": [],
+  "TargetRule": {
+    "CharacterTarget": "FirstAlivePlayer",
+    "RetargetPolicy": "UseBasicAttack"
+  },
+  "RewardID": "reward_monster_mob_rust_hound",
+  "DropThemeTags": ["Scrap", "Mechanical", "Layer1"],
+  "BossGuaranteedRefs": [],
+  "MemoryRewardRefs": [],
+  "ActionVfxRef": {
+    "rust_hound_bite": "vfx_monster_small_hit",
+    "rust_hound_rush": "vfx_monster_charge_hit"
+  },
+  "HitFeedbackRef": "ui_combat_feedback_hit",
+  "DefeatFeedbackRef": "ui_combat_feedback_scrap_break",
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "rust_hound_bite",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 75,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 11,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "rust_hound_rush",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 25,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 20,
+          "RepeatCount": 1
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {"ItemID": "loot_gear_scrap", "Weight": 55},
+    {"ItemID": "loot_rusty_coil", "Weight": 30},
+    {"ItemID": "gear_plank_shield_l1", "Weight": 15}
+  ]
+}

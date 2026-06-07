@@ -1,0 +1,31 @@
+{
+  "RewardID": "reward_node_event_layer1_cracked_relic",
+  "Name": "Layer 1 Cracked Relic Event Reward",
+  "Tags": ["Node", "Event", "Layer1", "RiskObject"],
+  "RewardRole": "EventNode",
+  "SourceType": "DungeonNode",
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "RewardTier": "Elite",
+  "ExpectedValueBand": { "Min": 300, "Max": 620 },
+  "RiskBudgetTag": "RiskReward",
+  "MemoryRefs": ["room_memory_cracked_relic_first"],
+  "ValidationTags": ["Layer1Reward", "L1EventReward", "CrackedRelicEvent", "PackPressureReward"],
+  "SeedSampleRefs": ["V-L1-PACK-PRESSURE-01", "V-L1-SEED-1101-EVENT-01"],
+  "AuditNotes": "Risk event reward. Creates a high-value 2x2 pack-pressure decision before boss or extraction.",
+  "Guaranteed": [
+    { "Type": "Item", "ItemID": "trade_cracked_relic", "Count": 1 }
+  ],
+  "WeightedPools": [
+    {
+      "PoolID": "aftertaste",
+      "RollCount": 1,
+      "AllowDuplicate": false,
+      "Entries": [
+        { "Type": "Money", "Money": 20, "Weight": 35, "Count": 1 },
+        { "Type": "Item", "ItemID": "con_cheap_sedative", "Weight": 25, "Count": 1 },
+        { "Type": "Nothing", "Weight": 40 }
+      ]
+    }
+  ]
+}

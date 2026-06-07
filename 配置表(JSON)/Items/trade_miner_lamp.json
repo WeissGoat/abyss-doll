@@ -1,24 +1,15 @@
 {
-  "ConfigID": "loot_rusty_coil",
-  "Name": "生锈线圈",
+  "ConfigID": "trade_miner_lamp",
+  "Name": "矿工提灯",
   "ItemType": "Loot",
   "Rarity": "Uncommon",
-  "BaseValue": 250,
+  "BaseValue": 260,
   "IconID": "item_loot_rusty_coil_icon",
-  "DescriptionKey": "item.loot_rusty_coil.desc",
-  "ItemRole": ["Material", "Trade"],
+  "DescriptionKey": "item.trade_miner_lamp.desc",
+  "ItemRole": ["Trade", "RoomMemory"],
   "LayerTags": ["Layer1", "ContentPack19"],
   "Grid": {
-    "Shape": [
-      [
-        0,
-        0
-      ],
-      [
-        0,
-        1
-      ]
-    ],
+    "Shape": [[0,0], [0,1]],
     "CanRotate": true,
     "RotationSteps": 2,
     "GridCost": 2,
@@ -26,10 +17,7 @@
     "AllowedRotations": [0, 90],
     "PlacementTags": ["Backpack"]
   },
-  "Tags": [
-    "Material",
-    "Mechanical"
-  ],
+  "Tags": ["TradeGood", "Mechanical", "Memory"],
   "Lifecycle": {
     "CanSell": true,
     "SellChannel": "Shop",
@@ -39,22 +27,22 @@
     "CraftingConsumeRule": "Ingredient"
   },
   "SourceRefs": {
-    "DropPoolRefs": ["mob_rust_hound", "elite_scrap_guard"],
-    "RewardRefs": ["reward_monster_mob_rust_hound", "reward_monster_elite_scrap_guard", "reward_node_treasure_layer1"],
+    "DropPoolRefs": ["mob_lost_miner_echo"],
+    "RewardRefs": ["reward_monster_mob_lost_miner_echo", "reward_node_treasure_layer1", "reward_node_event_layer1_miner_pack"],
     "CraftingRefs": [],
     "ShopRefs": [],
-    "OrderRefs": ["order_mechanic_scrap_drive"]
+    "OrderRefs": []
   },
   "SinkRefs": {
     "SellOutcomeRefs": [],
-    "CraftingAsIngredientRefs": ["recipe_prosthetic_charge_coil_arm"],
-    "OrderSubmitRefs": ["order_mechanic_scrap_drive"],
-    "RoomMemoryRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": ["memento_boss1_lamp"],
     "ScenarioEventRefs": []
   },
   "Economy": {
-    "ValueTags": ["Scrap", "Mechanical", "Coil"],
-    "RumorRefs": ["rumor_scrap_workshop_shortage", "rumor_mechanical_price_up"],
+    "ValueTags": ["Relic", "Mechanical", "Memory"],
+    "RumorRefs": ["rumor_low_layer_bulk_buy"],
     "ContrabandRule": "None",
     "DismantleProfile": ""
   },
@@ -69,6 +57,6 @@
     "IconVisualID": "item_loot_rusty_coil_icon",
     "GridPreviewStyle": "Material",
     "RiskIconRefs": [],
-    "PickupHintKey": "pickup.loot_rusty_coil"
+    "PickupHintKey": "pickup.trade_miner_lamp"
   }
 }

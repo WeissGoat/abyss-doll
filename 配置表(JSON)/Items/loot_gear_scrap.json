@@ -5,6 +5,9 @@
   "Rarity": "Common",
   "BaseValue": 100,
   "IconID": "item_loot_gear_scrap_icon",
+  "DescriptionKey": "item.loot_gear_scrap.desc",
+  "ItemRole": ["Material", "Trade"],
+  "LayerTags": ["Layer1", "ContentPack19"],
   "Grid": {
     "Shape": [
       [
@@ -14,10 +17,54 @@
     ],
     "CanRotate": false,
     "RotationSteps": 1,
-    "GridCost": 1
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0],
+    "PlacementTags": ["Backpack"]
   },
   "Tags": [
     "Material",
     "Mechanical"
-  ]
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "Ingredient"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["mob_scavenger_bug", "mob_rust_hound"],
+    "RewardRefs": ["reward_monster_mob_scavenger_bug", "reward_monster_mob_rust_hound"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": ["order_mechanic_scrap_drive"]
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": ["recipe_prosthetic_focus_lens", "recipe_prosthetic_salvage_fingertips"],
+    "OrderSubmitRefs": ["order_mechanic_scrap_drive"],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Scrap", "Mechanical"],
+    "RumorRefs": ["rumor_scrap_workshop_shortage", "rumor_mechanical_price_up"],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_loot_gear_scrap_icon",
+    "GridPreviewStyle": "Material",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.loot_gear_scrap"
+  }
 }

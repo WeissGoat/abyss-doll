@@ -1,0 +1,29 @@
+{
+  "RewardID": "reward_monster_mob_acid_slime_l1",
+  "Name": "Layer 1 Acid Slime Drop",
+  "Tags": ["Monster", "Layer1", "Mob", "PackInterference"],
+  "RewardRole": "MobDrop",
+  "SourceType": "Monster",
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "RewardTier": "Standard",
+  "ExpectedValueBand": { "Min": 120, "Max": 260 },
+  "RiskBudgetTag": "Attrition",
+  "ValidationTags": ["Layer1Reward", "L1MobReward", "PackPressureReward"],
+  "SeedSampleRefs": ["V-L1-PACK-PRESSURE-01"],
+  "AuditNotes": "Layer-1 light pack-pressure reward split from the legacy acid slime reward.",
+  "Guaranteed": [],
+  "WeightedPools": [
+    {
+      "PoolID": "main",
+      "RollCount": 1,
+      "AllowDuplicate": true,
+      "Entries": [
+        { "Type": "Item", "ItemID": "loot_toxic_filter", "Weight": 45, "Count": 1 },
+        { "Type": "Item", "ItemID": "loot_gear_scrap", "Weight": 30, "Count": 1 },
+        { "Type": "Item", "ItemID": "con_cheap_sedative", "Weight": 15, "Count": 1 },
+        { "Type": "Money", "Money": 12, "Weight": 10, "Count": 1 }
+      ]
+    }
+  ]
+}
