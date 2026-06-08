@@ -250,7 +250,7 @@
       "VisualID": "bg_dungeon_layer_3",
       "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_dungeon_layer_3.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表深渊层：菌脉深庭。层级 3，每节点 SAN 消耗 3，期望节点数 8。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, single readable game asset, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
@@ -287,12 +287,12 @@
           "PreviewSize": 320
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/bg_dungeon_layer_3/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/bg_dungeon_layer_3/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_dungeon_layer_3.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/bg_dungeon_layer_3/contact_sheet/bg_dungeon_layer_3_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/bg_dungeon_layer_3/processed/20260608_001.png"
     },
     {
       "Domain": "background",
@@ -1423,7 +1423,7 @@
       "VisualID": "item_con_anchor_charm_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_anchor_charm_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：锚定符坠。类型 Anchor，稀有度 Rare，占格 2，标签 Consumable, Anchor, Layer3, RouteTool。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -1460,12 +1460,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_con_anchor_charm_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_con_anchor_charm_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_anchor_charm_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_con_anchor_charm_icon/contact_sheet/item_con_anchor_charm_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_con_anchor_charm_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -1533,7 +1533,7 @@
       "VisualID": "item_con_purifying_salt_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_purifying_salt_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：净化盐。类型 Consumable，稀有度 Uncommon，占格 1，标签 Consumable, Purify, Layer3。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -1570,12 +1570,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_purifying_salt_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/contact_sheet/item_con_purifying_salt_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -1643,7 +1643,7 @@
       "VisualID": "item_con_solvent_spray_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_solvent_spray_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：溶剂喷雾。类型 Consumable，稀有度 Uncommon，占格 2，标签 Consumable, CounterTool, Solvent, Layer2。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -1680,12 +1680,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_con_solvent_spray_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_con_solvent_spray_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_solvent_spray_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_con_solvent_spray_icon/contact_sheet/item_con_solvent_spray_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_con_solvent_spray_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -1698,7 +1698,7 @@
       "VisualID": "item_con_stabilizer_ampoule_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_stabilizer_ampoule_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：稳定安瓿。类型 Consumable，稀有度 Uncommon，占格 1，标签 Consumable, SAN, CounterTool, Layer2。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -1735,12 +1735,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_con_stabilizer_ampoule_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_con_stabilizer_ampoule_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_stabilizer_ampoule_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_con_stabilizer_ampoule_icon/contact_sheet/item_con_stabilizer_ampoule_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_con_stabilizer_ampoule_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -1753,7 +1753,7 @@
       "VisualID": "item_gear_chain_hook_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_chain_hook_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：链钩短枪。类型 Weapon，稀有度 Rare，占格 4，标签 Weapon, Mechanical, Layer2, Bulky。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -1790,12 +1790,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_chain_hook_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_chain_hook_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_chain_hook_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_chain_hook_icon/contact_sheet/item_gear_chain_hook_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_gear_chain_hook_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -1918,7 +1918,7 @@
       "VisualID": "item_gear_corroded_bulwark_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_corroded_bulwark_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：腐蚀壁盾。类型 Armor，稀有度 Epic，占格 6，标签 Armor, Heavy, Corroded, Layer2。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -1955,12 +1955,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_corroded_bulwark_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/contact_sheet/item_gear_corroded_bulwark_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -2083,7 +2083,7 @@
       "VisualID": "item_gear_mycelium_cloak_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_mycelium_cloak_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：菌丝披覆。类型 Armor，稀有度 Epic，占格 6，标签 Armor, Layer3, Spore, PollutionResist。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -2120,12 +2120,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_mycelium_cloak_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/contact_sheet/item_gear_mycelium_cloak_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -2248,7 +2248,7 @@
       "VisualID": "item_gear_spore_lance_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_spore_lance_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：孢刺长枪。类型 Weapon，稀有度 Rare，占格 4，标签 Weapon, Layer3, Spore, Long。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -2285,12 +2285,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_spore_lance_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/contact_sheet/item_gear_spore_lance_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -2358,7 +2358,7 @@
       "VisualID": "item_gear_vein_sickle_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_vein_sickle_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：菌脉弯镰。类型 Weapon，稀有度 Rare，占格 4，标签 Weapon, Layer3, Vein, OddShape。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -2395,12 +2395,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_vein_sickle_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_vein_sickle_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_vein_sickle_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_vein_sickle_icon/contact_sheet/item_gear_vein_sickle_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_gear_vein_sickle_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -2468,7 +2468,7 @@
       "VisualID": "item_loot_acid_gland_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_acid_gland_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：酸腺囊。类型 Loot，稀有度 Rare，占格 4，标签 Material, Toxic, Corroded, Layer2, OddShape。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -2505,12 +2505,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_acid_gland_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/contact_sheet/item_loot_acid_gland_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -2523,7 +2523,7 @@
       "VisualID": "item_loot_corroded_nerve_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_corroded_nerve_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：腐蚀神经束。类型 Loot，稀有度 Rare，占格 3，标签 Loot, Material, Layer3, SanPressure, CorruptionMid。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -2560,12 +2560,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_corroded_nerve_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/contact_sheet/item_loot_corroded_nerve_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -2578,7 +2578,7 @@
       "VisualID": "item_loot_crystal_scale_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_crystal_scale_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：晶化鳞片。类型 Loot，稀有度 Uncommon，占格 2，标签 Material, Crystal, Layer2, Mechanical。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -2615,12 +2615,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_crystal_scale_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_crystal_scale_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_crystal_scale_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_crystal_scale_icon/contact_sheet/item_loot_crystal_scale_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_crystal_scale_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -2688,7 +2688,7 @@
       "VisualID": "item_loot_living_mycelium_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_living_mycelium_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：活性菌丝。类型 Loot，稀有度 Rare，占格 4，标签 Loot, Material, Layer3, SporeDormant, CorruptionMid。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -2725,12 +2725,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_living_mycelium_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_living_mycelium_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_living_mycelium_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_living_mycelium_icon/contact_sheet/item_loot_living_mycelium_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_living_mycelium_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -2798,7 +2798,7 @@
       "VisualID": "item_loot_spore_amber_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_spore_amber_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：孢晶琥珀。类型 Loot，稀有度 Rare，占格 2，标签 Loot, Trade, Layer3, SporeAmber。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -2835,12 +2835,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_spore_amber_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_spore_amber_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_spore_amber_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_spore_amber_icon/contact_sheet/item_loot_spore_amber_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_spore_amber_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -2908,7 +2908,7 @@
       "VisualID": "item_loot_vein_plate_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_vein_plate_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：菌脉甲片。类型 Loot，稀有度 Uncommon，占格 4，标签 Loot, Material, Layer3, Vein。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -2945,12 +2945,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_vein_plate_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_vein_plate_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_vein_plate_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_vein_plate_icon/contact_sheet/item_loot_vein_plate_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_vein_plate_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -2963,7 +2963,7 @@
       "VisualID": "item_loot_warped_plate_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_warped_plate_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：扭曲装甲片。类型 Loot，稀有度 Rare，占格 4，标签 Material, ArmorPlate, Layer2, Heavy。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -3000,12 +3000,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_warped_plate_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/contact_sheet/item_loot_warped_plate_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -3128,7 +3128,7 @@
       "VisualID": "item_mat_core_tier2_fragment_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier2_fragment_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：二阶机核碎片。类型 QuestItem，稀有度 Epic，占格 4，标签 CoreMaterial, BossKey, Layer2, Mechanical。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -3165,12 +3165,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier2_fragment_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/contact_sheet/item_mat_core_tier2_fragment_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -3183,7 +3183,7 @@
       "VisualID": "item_mat_core_tier3_seed_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier3_seed_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：三阶机核种。类型 QuestItem，稀有度 Epic，占格 6，标签 CoreMaterial, BossKey, Layer3, Tier3Core。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -3220,12 +3220,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier3_seed_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier3_seed_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier3_seed_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier3_seed_icon/contact_sheet/item_mat_core_tier3_seed_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier3_seed_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -3238,7 +3238,7 @@
       "VisualID": "item_order_contested_spore_core_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_contested_spore_core_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：争夺孢核。类型 QuestItem，稀有度 Epic，占格 9，标签 OrderBound, Layer3, FactionConflict, LargeCargo。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -3275,12 +3275,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_order_contested_spore_core_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_order_contested_spore_core_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_contested_spore_core_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_order_contested_spore_core_icon/contact_sheet/item_order_contested_spore_core_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_order_contested_spore_core_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -3293,7 +3293,7 @@
       "VisualID": "item_order_live_spore_cage_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_live_spore_cage_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：活孢子笼。类型 QuestItem，稀有度 Rare，占格 6，标签 OrderBound, LiveCargo, Layer2, Bulky。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -3330,12 +3330,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_live_spore_cage_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/contact_sheet/item_order_live_spore_cage_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -3403,7 +3403,7 @@
       "VisualID": "item_trade_luminous_fungus_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_luminous_fungus_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：夜光菌簇。类型 Loot，稀有度 Uncommon，占格 2，标签 Trade, Fungus, Layer2, Material。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -3440,12 +3440,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_luminous_fungus_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/contact_sheet/item_trade_luminous_fungus_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -3513,7 +3513,7 @@
       "VisualID": "item_trade_sealed_relic_box_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_sealed_relic_box_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：封存遗物匣。类型 Loot，稀有度 Epic，占格 6，标签 Trade, AbyssRelic, ContrabandLow, Layer2, Bulky。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -3550,12 +3550,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_sealed_relic_box_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/contact_sheet/item_trade_sealed_relic_box_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/processed/20260608_001.png"
     },
     {
       "Domain": "item",
@@ -3568,7 +3568,7 @@
       "VisualID": "item_trade_singing_fossil_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_singing_fossil_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：低唱化石。类型 Loot，稀有度 Epic，占格 4，标签 Trade, AbyssRelic, Whispering, Layer3。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
@@ -3605,12 +3605,12 @@
           "PreviewSize": 64
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_singing_fossil_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_singing_fossil_icon/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_singing_fossil_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_trade_singing_fossil_icon/contact_sheet/item_trade_singing_fossil_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_trade_singing_fossil_icon/processed/20260608_001.png"
     },
     {
       "Domain": "memento",
@@ -4103,7 +4103,7 @@
       "VisualID": "monster_boss_gatekeeper_mk1_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_gatekeeper_mk1_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：一层守门机 MK1。层级 1，生命 175，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -4141,12 +4141,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_gatekeeper_mk1_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_combat/contact_sheet/monster_boss_gatekeeper_mk1_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -4159,7 +4159,7 @@
       "VisualID": "monster_boss_gatekeeper_mk1_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_gatekeeper_mk1_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：一层守门机 MK1。层级 1，生命 175，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -4195,12 +4195,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_gatekeeper_mk1_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_portrait/contact_sheet/monster_boss_gatekeeper_mk1_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_boss_gatekeeper_mk1_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -4213,7 +4213,7 @@
       "VisualID": "monster_boss_mycelium_oracle_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_mycelium_oracle_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：菌脉神谕体。层级 3，生命 310，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -4251,12 +4251,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_mycelium_oracle_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_mycelium_oracle_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_mycelium_oracle_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_boss_mycelium_oracle_combat/contact_sheet/monster_boss_mycelium_oracle_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_boss_mycelium_oracle_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -4269,7 +4269,7 @@
       "VisualID": "monster_boss_mycelium_oracle_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_mycelium_oracle_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：菌脉神谕体。层级 3，生命 310，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -4305,12 +4305,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_mycelium_oracle_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_mycelium_oracle_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_mycelium_oracle_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_boss_mycelium_oracle_portrait/contact_sheet/monster_boss_mycelium_oracle_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_boss_mycelium_oracle_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -4323,7 +4323,7 @@
       "VisualID": "monster_boss_spore_foundry_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_spore_foundry_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：孢殖熔炉。层级 2，生命 230，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -4361,12 +4361,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_spore_foundry_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_combat/contact_sheet/monster_boss_spore_foundry_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -4379,7 +4379,7 @@
       "VisualID": "monster_boss_spore_foundry_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_spore_foundry_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：孢殖熔炉。层级 2，生命 230，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -4415,12 +4415,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_spore_foundry_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/contact_sheet/monster_boss_spore_foundry_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -4433,7 +4433,7 @@
       "VisualID": "monster_elite_crystal_bulwark_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_crystal_bulwark_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：晶壁守卫。层级 2，生命 165，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -4471,12 +4471,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_crystal_bulwark_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_combat/contact_sheet/monster_elite_crystal_bulwark_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -4489,7 +4489,7 @@
       "VisualID": "monster_elite_crystal_bulwark_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_crystal_bulwark_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：晶壁守卫。层级 2，生命 165，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -4525,12 +4525,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_crystal_bulwark_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_portrait/contact_sheet/monster_elite_crystal_bulwark_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_elite_crystal_bulwark_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -4763,7 +4763,7 @@
       "VisualID": "monster_elite_spore_matriarch_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_spore_matriarch_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：孢巢母体。层级 3，生命 178，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -4801,12 +4801,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_spore_matriarch_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_spore_matriarch_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_spore_matriarch_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_elite_spore_matriarch_combat/contact_sheet/monster_elite_spore_matriarch_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_elite_spore_matriarch_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -4819,7 +4819,7 @@
       "VisualID": "monster_elite_spore_matriarch_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_spore_matriarch_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：孢巢母体。层级 3，生命 178，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -4855,12 +4855,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_spore_matriarch_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_spore_matriarch_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_spore_matriarch_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_elite_spore_matriarch_portrait/contact_sheet/monster_elite_spore_matriarch_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_elite_spore_matriarch_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -4873,7 +4873,7 @@
       "VisualID": "monster_elite_vein_knight_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_vein_knight_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：菌脉骑士。层级 3，生命 190，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -4911,12 +4911,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_vein_knight_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_vein_knight_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_vein_knight_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_elite_vein_knight_combat/contact_sheet/monster_elite_vein_knight_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_elite_vein_knight_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -4929,7 +4929,7 @@
       "VisualID": "monster_elite_vein_knight_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_vein_knight_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：菌脉骑士。层级 3，生命 190，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -4965,12 +4965,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_vein_knight_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_elite_vein_knight_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_vein_knight_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_elite_vein_knight_portrait/contact_sheet/monster_elite_vein_knight_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_elite_vein_knight_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5093,7 +5093,7 @@
       "VisualID": "monster_mob_acid_slime_mature_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_acid_slime_mature_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：成熟酸液软体。层级 2，生命 82，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -5131,12 +5131,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_acid_slime_mature_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_combat/contact_sheet/monster_mob_acid_slime_mature_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5149,7 +5149,7 @@
       "VisualID": "monster_mob_acid_slime_mature_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_acid_slime_mature_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：成熟酸液软体。层级 2，生命 82，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -5185,12 +5185,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_acid_slime_mature_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/contact_sheet/monster_mob_acid_slime_mature_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5203,7 +5203,7 @@
       "VisualID": "monster_mob_crystal_guard_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_crystal_guard_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：结晶守卫。层级 2，生命 96，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -5241,12 +5241,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_crystal_guard_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_combat/contact_sheet/monster_mob_crystal_guard_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5259,7 +5259,7 @@
       "VisualID": "monster_mob_crystal_guard_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_crystal_guard_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：结晶守卫。层级 2，生命 96，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -5295,12 +5295,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_crystal_guard_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_portrait/contact_sheet/monster_mob_crystal_guard_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_crystal_guard_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5313,7 +5313,7 @@
       "VisualID": "monster_mob_echo_pilgrim_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_echo_pilgrim_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：回声朝圣者。层级 3，生命 98，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -5351,12 +5351,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_echo_pilgrim_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_combat/contact_sheet/monster_mob_echo_pilgrim_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5369,7 +5369,7 @@
       "VisualID": "monster_mob_echo_pilgrim_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_echo_pilgrim_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：回声朝圣者。层级 3，生命 98，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -5405,12 +5405,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_echo_pilgrim_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/contact_sheet/monster_mob_echo_pilgrim_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5423,7 +5423,7 @@
       "VisualID": "monster_mob_lost_miner_echo_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_lost_miner_echo_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：迷失矿工回声。层级 1，生命 48，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -5461,12 +5461,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_lost_miner_echo_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_combat/contact_sheet/monster_mob_lost_miner_echo_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5479,7 +5479,7 @@
       "VisualID": "monster_mob_lost_miner_echo_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_lost_miner_echo_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：迷失矿工回声。层级 1，生命 48，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -5515,12 +5515,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_lost_miner_echo_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_portrait/contact_sheet/monster_mob_lost_miner_echo_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_lost_miner_echo_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5533,7 +5533,7 @@
       "VisualID": "monster_mob_mycelium_crawler_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_mycelium_crawler_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：菌丝爬行体。层级 3，生命 92，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -5571,12 +5571,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_mycelium_crawler_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_mycelium_crawler_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_mycelium_crawler_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_mycelium_crawler_combat/contact_sheet/monster_mob_mycelium_crawler_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_mycelium_crawler_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5589,7 +5589,7 @@
       "VisualID": "monster_mob_mycelium_crawler_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_mycelium_crawler_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：菌丝爬行体。层级 3，生命 92，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -5625,12 +5625,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_mycelium_crawler_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_mycelium_crawler_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_mycelium_crawler_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_mycelium_crawler_portrait/contact_sheet/monster_mob_mycelium_crawler_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_mycelium_crawler_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5643,7 +5643,7 @@
       "VisualID": "monster_mob_nerve_midge_swarm_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_nerve_midge_swarm_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：神经虫群。层级 3，生命 86，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -5681,12 +5681,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_nerve_midge_swarm_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_nerve_midge_swarm_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_nerve_midge_swarm_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_nerve_midge_swarm_combat/contact_sheet/monster_mob_nerve_midge_swarm_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_nerve_midge_swarm_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5699,7 +5699,7 @@
       "VisualID": "monster_mob_nerve_midge_swarm_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_nerve_midge_swarm_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：神经虫群。层级 3，生命 86，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -5735,12 +5735,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_nerve_midge_swarm_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_nerve_midge_swarm_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_nerve_midge_swarm_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_nerve_midge_swarm_portrait/contact_sheet/monster_mob_nerve_midge_swarm_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_nerve_midge_swarm_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5753,7 +5753,7 @@
       "VisualID": "monster_mob_rust_cultivator_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_cultivator_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：锈蚀培植者。层级 2，生命 108，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -5791,12 +5791,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_cultivator_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_combat/contact_sheet/monster_mob_rust_cultivator_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5809,7 +5809,7 @@
       "VisualID": "monster_mob_rust_cultivator_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_cultivator_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：锈蚀培植者。层级 2，生命 108，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -5845,12 +5845,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_cultivator_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_portrait/contact_sheet/monster_mob_rust_cultivator_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_cultivator_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5863,7 +5863,7 @@
       "VisualID": "monster_mob_rust_hound_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_hound_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：锈蚀猎犬。层级 1，生命 52，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -5901,12 +5901,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_hound_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_combat/contact_sheet/monster_mob_rust_hound_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -5919,7 +5919,7 @@
       "VisualID": "monster_mob_rust_hound_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_hound_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：锈蚀猎犬。层级 1，生命 52，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -5955,12 +5955,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_hound_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_portrait/contact_sheet/monster_mob_rust_hound_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_rust_hound_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -6083,7 +6083,7 @@
       "VisualID": "monster_mob_shell_grafter_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_shell_grafter_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：壳层嫁接者。层级 3，生命 132，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -6121,12 +6121,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_shell_grafter_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_shell_grafter_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_shell_grafter_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_shell_grafter_combat/contact_sheet/monster_mob_shell_grafter_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_shell_grafter_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -6139,7 +6139,7 @@
       "VisualID": "monster_mob_shell_grafter_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_shell_grafter_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：壳层嫁接者。层级 3，生命 132，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -6175,12 +6175,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_shell_grafter_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_shell_grafter_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_shell_grafter_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_shell_grafter_portrait/contact_sheet/monster_mob_shell_grafter_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_shell_grafter_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -6193,7 +6193,7 @@
       "VisualID": "monster_mob_soul_midge_swarm_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_soul_midge_swarm_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：窃魂虫群。层级 2，生命 68，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -6231,12 +6231,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_soul_midge_swarm_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_combat/contact_sheet/monster_mob_soul_midge_swarm_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -6249,7 +6249,7 @@
       "VisualID": "monster_mob_soul_midge_swarm_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_soul_midge_swarm_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：窃魂虫群。层级 2，生命 68，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -6285,12 +6285,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_soul_midge_swarm_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_portrait/contact_sheet/monster_mob_soul_midge_swarm_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_soul_midge_swarm_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -6303,7 +6303,7 @@
       "VisualID": "monster_mob_spore_archer_combat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_spore_archer_combat.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：孢刺射手。层级 3，生命 104，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
@@ -6341,12 +6341,12 @@
           "PreviewSize": 220
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_spore_archer_combat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_spore_archer_combat/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_spore_archer_combat.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_spore_archer_combat/contact_sheet/monster_mob_spore_archer_combat_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_spore_archer_combat/processed/20260608_001.png"
     },
     {
       "Domain": "monster",
@@ -6359,7 +6359,7 @@
       "VisualID": "monster_mob_spore_archer_portrait",
       "OutputPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_spore_archer_portrait.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表怪物：孢刺射手。层级 3，生命 104，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
@@ -6395,12 +6395,12 @@
           "PreviewSize": 160
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_missing_20260608_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_spore_archer_portrait/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_spore_archer_portrait/processed/20260608_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_spore_archer_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": ""
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_spore_archer_portrait/contact_sheet/monster_mob_spore_archer_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_spore_archer_portrait/processed/20260608_001.png"
     },
     {
       "Domain": "node",
@@ -10193,16 +10193,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_add_junk.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_add_junk/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_add_junk/processed/20260608_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_add_junk.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_add_junk.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_add_junk.png; formal AI replacement remains required.\n[2026-06-08T23:49:33+08:00] generated candidate batch nai_formalv2_quality_20260608_01_p1_combat_readability; preserved Status=approved.\n[2026-06-08T23:52:15+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_add_junk/contact_sheet/ui_combat_intent_add_junk_contact_sheet.png\n[2026-06-08T23:52:55+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_add_junk/processed/20260608_001.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "怪物向背包塞入垃圾或污染物的意图，形状提示由程序叠加",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-08T23:52:55+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260608_01_p1_combat_readability"
     },
     {
       "Domain": "ui",
@@ -10375,16 +10376,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_charge.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_charge/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_charge/processed/20260608_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_charge.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_charge.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_charge.png; formal AI replacement remains required.\n[2026-06-08T23:49:33+08:00] generated candidate batch nai_formalv2_quality_20260608_01_p1_combat_readability; preserved Status=approved.\n[2026-06-08T23:52:15+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_charge/contact_sheet/ui_combat_intent_charge_contact_sheet.png\n[2026-06-08T23:52:55+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_charge/processed/20260608_001.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "怪物蓄力或倒计时大招意图",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-08T23:52:55+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260608_01_p1_combat_readability"
     },
     {
       "Domain": "ui",
@@ -10557,16 +10559,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_grid_lock.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_grid_lock/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_grid_lock/processed/20260608_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_grid_lock.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_grid_lock.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_grid_lock.png; formal AI replacement remains required.\n[2026-06-08T23:49:33+08:00] generated candidate batch nai_formalv2_quality_20260608_01_p1_combat_readability; preserved Status=approved.\n[2026-06-08T23:52:15+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_grid_lock/contact_sheet/ui_combat_intent_grid_lock_contact_sheet.png\n[2026-06-08T23:52:55+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_grid_lock/processed/20260608_001.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "怪物封锁背包格子的意图，数量由 Unity Text 叠加",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-08T23:52:55+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260608_01_p1_combat_readability"
     },
     {
       "Domain": "ui",
@@ -10617,16 +10620,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_move_item.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_move_item/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_move_item/processed/20260608_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_move_item.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_move_item.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_move_item.png; formal AI replacement remains required.\n[2026-06-08T23:49:33+08:00] generated candidate batch nai_formalv2_quality_20260608_01_p1_combat_readability; preserved Status=approved.\n[2026-06-08T23:52:15+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_move_item/contact_sheet/ui_combat_intent_move_item_contact_sheet.png\n[2026-06-08T23:52:55+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_move_item/processed/20260608_001.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "怪物推移、交换或扰乱背包物品的意图",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-08T23:52:55+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260608_01_p1_combat_readability"
     },
     {
       "Domain": "ui",
@@ -10677,16 +10681,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_san_pressure.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_san_pressure/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_san_pressure/processed/20260608_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_san_pressure.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_san_pressure.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_san_pressure.png; formal AI replacement remains required.\n[2026-06-08T23:49:33+08:00] generated candidate batch nai_formalv2_quality_20260608_01_p1_combat_readability; preserved Status=approved.\n[2026-06-08T23:52:15+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_san_pressure/contact_sheet/ui_combat_intent_san_pressure_contact_sheet.png\n[2026-06-08T23:52:55+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_san_pressure/processed/20260608_001.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "怪物直接造成 SAN 压力或理智损耗的意图",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-08T23:52:55+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260608_01_p1_combat_readability"
     },
     {
       "Domain": "ui",
@@ -10737,16 +10742,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_unknown.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_unknown/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_unknown/processed/20260608_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_intent_unknown.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_unknown.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_intent_unknown.png; formal AI replacement remains required.\n[2026-06-08T23:49:33+08:00] generated candidate batch nai_formalv2_quality_20260608_01_p1_combat_readability; preserved Status=approved.\n[2026-06-08T23:52:15+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_unknown/contact_sheet/ui_combat_intent_unknown_contact_sheet.png\n[2026-06-08T23:52:55+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/ui_combat_intent_unknown/processed/20260608_001.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "少数特殊怪物或特殊状态使用的未知意图",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-08T23:52:55+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260608_01_p1_combat_readability"
     },
     {
       "Domain": "ui",
@@ -10796,16 +10802,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_junk_preview_marker.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_junk_preview_marker/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_junk_preview_marker/processed/20260608_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_junk_preview_marker.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_junk_preview_marker.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_junk_preview_marker.png; formal AI replacement remains required.\n[2026-06-08T23:49:33+08:00] generated candidate batch nai_formalv2_quality_20260608_01_p1_combat_readability; preserved Status=approved.\n[2026-06-08T23:52:15+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_junk_preview_marker/contact_sheet/ui_combat_junk_preview_marker_contact_sheet.png\n[2026-06-08T23:52:55+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/ui_combat_junk_preview_marker/processed/20260608_001.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "怪物即将塞入垃圾、毒液或污染物的背包落点预告",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-08T23:52:55+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260608_01_p1_combat_readability"
     },
     {
       "Domain": "ui",
@@ -10990,16 +10997,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_corrosion.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_status_corrosion/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_status_corrosion/processed/20260608_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_corrosion.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_status_corrosion.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_status_corrosion.png; formal AI replacement remains required.\n[2026-06-08T23:49:33+08:00] generated candidate batch nai_formalv2_quality_20260608_01_p1_combat_readability; preserved Status=approved.\n[2026-06-08T23:52:15+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_status_corrosion/contact_sheet/ui_combat_status_corrosion_contact_sheet.png\n[2026-06-08T23:52:55+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/ui_combat_status_corrosion/processed/20260608_001.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "怪物、玩家或背包物品的腐蚀状态提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-08T23:52:55+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260608_01_p1_combat_readability"
     },
     {
       "Domain": "ui",
@@ -11050,16 +11058,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_curse.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_status_curse/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_status_curse/processed/20260608_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_curse.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_status_curse.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_status_curse.png; formal AI replacement remains required.\n[2026-06-08T23:49:33+08:00] generated candidate batch nai_formalv2_quality_20260608_01_p1_combat_readability; preserved Status=approved.\n[2026-06-08T23:52:15+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_status_curse/contact_sheet/ui_combat_status_curse_contact_sheet.png\n[2026-06-08T23:52:55+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/ui_combat_status_curse/processed/20260608_001.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "诅咒、深渊污染和负面辐射状态提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-08T23:52:55+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260608_01_p1_combat_readability"
     },
     {
       "Domain": "ui",
@@ -11110,16 +11119,17 @@
         }
       },
       "BatchID": "local_v0_missing_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_stun.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_status_stun/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_status_stun/processed/20260608_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_stun.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_status_stun.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T02:36:07+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_combat_status_stun.png; formal AI replacement remains required.\n[2026-06-08T23:49:33+08:00] generated candidate batch nai_formalv2_quality_20260608_01_p1_combat_readability; preserved Status=approved.\n[2026-06-08T23:52:15+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_status_stun/contact_sheet/ui_combat_status_stun_contact_sheet.png\n[2026-06-08T23:52:55+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/ui_combat_status_stun/processed/20260608_001.png",
       "PresetCategory": "ui_combat_readability",
       "Screen": "combat_hud",
       "Usage": "眩晕、冻结或跳过行动状态提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T02:36:07+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-08T23:52:55+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260608_01_p1_combat_readability"
     },
     {
       "Domain": "ui",
