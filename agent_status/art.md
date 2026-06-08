@@ -50,7 +50,7 @@ PM 版本节点中，美术线当前 21 个界面都已具备 Formal V1 active �
 
 2026-06-08 已执行 V2-A active 后的生成物刷新：`Update-ArtManifest.ps1` 后 Manifest 为 226 条，`Generate-ArtPrompts.ps1` 更新 29 条提示词，`Generate-ArtIntegrationCandidates.ps1` 输出 `program_integrate=0`、`generate_needed=29`、`acceptance_needed=191`；`Generate-FormalV1AcceptanceQueue.ps1` 现在只统计 16 个仍为 FormalV1 的 active 屏，`Generate-ArtProgramHandoff.ps1` 输出 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=16`。
 
-2026-06-08 已按 FormalV2 全量素材实际生产口径推进 NovelAI 批次，而不是停留在规划：缺图批次 `nai_formalv2_missing_20260608_01` 已以 NovelAI 串行方式生成 `58/58` 张真实图片，预处理 `58/58`，并同步到 Approved；latest 清单刷新为 `program_integrate=58`、`generate_needed=0`。其中新增运行时资源包含 23 个物品图标、34 个怪物 combat / portrait 资源和 `bg_dungeon_layer_3`。首批质量替换批次 `nai_formalv2_quality_20260608_01_p1_combat_readability` 已以 `concurrency=1`、`delay=1` 串行生成 10 张候选图，预处理后用 `meta_guard=strict` 同名替换 Approved，10 个战斗可读性 UI 资源已标为 `QualityTier=formal_ai_v2`，程序侧无需重新登记这些同名替换项。
+2026-06-08 已按 FormalV2 全量素材实际生产口径推进 NovelAI 批次，而不是停留在规划：缺图批次 `nai_formalv2_missing_20260608_01` 已以 NovelAI 串行方式生成 `58/58` 张真实图片，预处理 `58/58`，并同步到 Approved；latest 清单刷新为 `program_integrate=58`、`generate_needed=0`。其中新增运行时资源包含 23 个物品图标、34 个怪物 combat / portrait 资源和 `bg_dungeon_layer_3`。2026-06-09 已补齐这 58 个新缺图正式资产的 Manifest 质量账：全部标为 `QualityTier=formal_ai_v2`、`ReplacementBatchID=nai_formalv2_missing_20260608_01`，程序交接清单中 58 项质量列均为 `formal_ai_v2`。首批质量替换批次 `nai_formalv2_quality_20260608_01_p1_combat_readability` 已以 `concurrency=1`、`delay=1` 串行生成 10 张候选图，预处理后用 `meta_guard=strict` 同名替换 Approved，10 个战斗可读性 UI 资源已标为 `QualityTier=formal_ai_v2`，程序侧无需重新登记这些同名替换项。
 
 2026-06-09 已完成 P1 核心背景质量替换批次 `nai_formalv2_quality_20260608_02_p1_core_backgrounds`：`bg_safe_room` 和 `bg_stairs_room` 各生成 4 张 NovelAI 候选，筛选后分别选用 `20260609_004.png` 与 `20260609_002.png`，预处理后以 `meta_guard=strict` 同名同步到 Approved，均为 `1920x1080` 且 alpha 全为 255，修复旧背景透明 / 半透明导致黑底穿透的技术风险。
 
@@ -84,7 +84,7 @@ Visual V2 工具链已补齐安全替换流程：已接入素材可用 `Run-ArtG
 
 美术文档已收敛为四层入口：`README.md` 只做导航，`10_正式版核心纵切美术路线.md` 作为当前规划入口，`00_美术流水线总览.md` 作为端到端资产生产工作流入口，`ui_design/README.md` 作为 UI 版本和 active 规格入口。`archive/` 保存 MVP 记录和旧批次交付快照。
 
-Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` 会从 active `screen_layouts.json`、Manifest、latest ArtAcceptance 和 Registry 快照生成 `美术文档/ui_design/_generated/FormalV1验收队列.md/json`。程序侧交接已进一步收敛到 `美术文档/_generated/程序接入交接清单.md/json`，该清单合并 `program_integrate`、截图覆盖和 ArtAcceptance 重跑队列。当前 latest 为 `FormalV1ScreenCount=21`、`CapturedScreenCount=21`、`art_review_ready=21`，程序侧交接为 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=0`。
+Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` 会从 active `screen_layouts.json`、Manifest、latest ArtAcceptance 和 Registry 快照生成 `美术文档/ui_design/_generated/FormalV1验收队列.md/json`。程序侧交接已进一步收敛到 `美术文档/_generated/程序接入交接清单.md/json`，该清单合并 `program_integrate`、截图覆盖和 ArtAcceptance 重跑队列。当前 latest 程序交接为 `program_integrate=58`、`add_capture=0`、`rerun_acceptance=16`；58 个待登记 VisualID 全部为 `formal_ai_v2`，分布为 P0=57、P1=1，domain 为 item=23、monster=34、background=1。
 
 ## 必读文件
 
@@ -255,6 +255,7 @@ Formal V1 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` �
 - 已完成 P2 economy / order / rumor / faction icons 正式替换：42 个经济、订单、传闻和势力图标均已同步为 `QualityTier=formal_ai_v2`，保持原 VisualID / Approved 路径 / `.meta`；本批次已通过 512x512 尺寸、Manifest 字段和队列刷新验证。
 - 已完成 P2 growth / chassis / prosthetic / room memento assets 正式替换：17 个成长、底盘、义体和房间纪念物资源均已同步为 `QualityTier=formal_ai_v2`，保持原 VisualID / Approved 路径 / `.meta`；提交为 `0cfc13c art: replace FormalV2 growth room assets`。
 - 已完成怪物 portrait alpha 技术修复：新增并执行 `tools/美术工具/fix_opaque_art_alpha.py`，将 17 张 `monster_*_portrait` 的 alpha 修为全 255；刷新 `可接入素材清单`、`素材质量替换清单` 和 `VisualV2生成计划` 后，当前 `generate_needed=0`、`technical_fix=0`、`visual_v2_replace=0`、`spec_review=0`、`planned=0`。
+- 已补齐 `nai_formalv2_missing_20260608_01` 58 个新缺图正式资产的 Manifest 质量字段，并刷新 `程序接入交接清单`：当前程序侧应登记 58 个 `formal_ai_v2` VisualID，且机器核对 PNG / `.meta` / QualityTiers 全通过。
 
 ## 下一步建议
 

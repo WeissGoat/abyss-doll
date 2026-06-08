@@ -148,7 +148,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - Formal V1 工坊面板只读数据绑定第一版已落地：新增 `WorkshopFormalV1PanelBindingService`，`WorkshopFormalV1PanelController` 改为从成长、人偶、经济和交互只读快照服务取文案，不在 UI Controller 内持有玩法规则或改写状态；`WorkshopFormalV1PanelBindingSmokeTest.Run` 已通过，覆盖维护面板和日账单面板真实绑定与经济状态不变性。
 - 已补充视觉 / UI 接入完成口径：`program_integrate=0` 和 ArtAcceptance 截图通过只代表资源登记与运行时截图覆盖，不等于玩家可玩接入；Formal V1 界面后续必须同时满足玩家主流程可达和真实后端 / 领域服务操作闭环，才能标记为可玩接入完成。
 - Formal V1 工坊可玩接入第一段已落地：`WorkshopUIController` 新增玩家主流程入口区，可打开维护、账单、商店、订单、传闻、经营结算、底盘、人偶互动、人偶房间、势力商店和剧情事件面板；新增 `WorkshopFormalV1PanelActionService`，维护按钮调用 `MaintenanceService`，人偶互动按钮调用 `DollInteractionService`，账单 / 经营按钮仅做真实导航或关闭，不伪造未完成业务结果；`WorkshopFormalV1PanelBindingSmokeTest.Run`、`MaintenanceServiceSmokeTest.Run`、`DollInteractionServiceSmokeTest.Run` 已通过。
-- 美术侧已把 V2-A 五个核心流程界面迁移为 active FormalV2 规格：`workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。程序侧下一轮 UI 表现工作可直接读取 `美术文档/ui_design/screen_layouts.json`，不要再按 `formal_v2/*.md` 草案接入。FormalV2 最新美术 handoff 已刷新：缺图批次 `nai_formalv2_missing_20260608_01` 已真实 NovelAI 生成并同步 58 个新增 Approved VisualID，当前 `program_integrate=58`，程序侧需要按 `美术文档/_generated/可接入素材清单.md` 登记 / 接入；质量替换批次 `nai_formalv2_quality_20260608_01_p1_combat_readability` 已同名替换 10 个既有 UI 资源，保持同 VisualID / 同路径 / 同 `.meta`，程序侧无需重新登记这些同名替换项。剩余 VisualV2 质量替换为 111 项。
+- 美术侧已把 V2-A 五个核心流程界面迁移为 active FormalV2 规格：`workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。程序侧下一轮 UI 表现工作可直接读取 `美术文档/ui_design/screen_layouts.json`，不要再按 `formal_v2/*.md` 草案接入。FormalV2 最新美术 handoff 已刷新：缺图批次 `nai_formalv2_missing_20260608_01` 已真实 NovelAI 生成并同步 58 个新增 Approved VisualID，且 Manifest 质量字段已补齐为 `QualityTier=formal_ai_v2`；当前程序侧需要按 `美术文档/_generated/程序接入交接清单.md` 或 `美术文档/_generated/可接入素材清单.md` 登记 / 接入 `program_integrate=58`，分布为 P0=57、P1=1，item=23、monster=34、background=1。全部 58 项 PNG 和 `.meta` 已存在。VisualV2 质量替换、technical_fix 和缺图生成队列均已清空；同名替换项保持原 VisualID / 路径 / `.meta`，程序侧无需重新登记。
 
 ## 下一步建议
 
@@ -162,7 +162,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 
 - 当前工作区仍有未纳入本次提交的无关改动：`tools/ai-image-gateway` 子模块内部 `implementation_plan.md` 已修改，`tools/ComfyUI_NAIDGenerator/` 为未跟踪本地工具目录；后续提交前继续严格收窄暂存范围。
 - 当前环境 Unity Editor 未运行，`Invoke-P0Validation.ps1` 中 ConfigValidator 和 Unity smoke 只能记录为 `validation_limited:UnityEditorNotRunning`；这不是 C1-C3 JSON 硬断链或 `FLOW-05` 代码运行失败证据，后续打开 Unity 后应补跑 runtime 验证。
-- 当前 ArtAcceptance latest `20260606_230523` 失败且早于 active UI / art specs：缺 `monster_boss_gatekeeper_mk1_combat`、`monster_mob_lost_miner_echo_combat`、`monster_mob_rust_hound_combat` 等战斗图，以及 `combat_hud` 层级截图缺失；该问题属于 UI / 美术验收跟进，不作为 `CFG-01` 配置源失败证据。
+- 当前 ArtAcceptance latest `20260606_230523` 失败且早于 active UI / art specs；先前缺失的 `monster_boss_gatekeeper_mk1_combat`、`monster_mob_lost_miner_echo_combat`、`monster_mob_rust_hound_combat` 等战斗图已经由美术侧生成并进入 `program_integrate=58`，但尚未由程序登记进最新 Registry。程序登记后需要重跑 ArtAcceptance / VisualAsset 验收；旧失败不再代表当前 Approved 素材缺失事实。
 - `FLOW-03` / `FLOW-04` / `FLOW-07` 新增或扩展的 `CombatLootDropTest.Run`、`DungeonNodeTypesSmokeTest.Run`、`DungeonStairsProgressionTest.Run` 与 `MainFlowGoldenPathSmokeTest.Run` 已接入 P0 默认 smoke 列表，但当前环境没有 Unity Editor，尚未取得运行态通过证据；后续打开 Unity 后需补跑 P0 或单独触发这些测试。
 - 美术验收发现 latest ArtAcceptance 虽然工具层 `PASSED`，但部分截图存在跨界面残留和空列表状态，不能作为 Formal V1 画面通过证据；程序侧需按 `美术文档/09_运行时美术验收记录.md` 的 2026-05-27 条目返修并重跑。
 - `tools/ai-image-gateway` 子模块内部有未提交改动。
