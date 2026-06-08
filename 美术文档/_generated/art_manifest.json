@@ -343,16 +343,17 @@
         }
       },
       "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_safe_room.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/bg_safe_room/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/bg_safe_room/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_safe_room.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:06:38+08:00] generated candidate batch nai_formalv2_quality_20260608_02_p1_core_backgrounds; preserved Status=approved.\n[2026-06-09T00:10:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/bg_safe_room/contact_sheet/bg_safe_room_contact_sheet.png\n[2026-06-09T00:12:24+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/bg_safe_room/selected/20260609_004.png",
       "PresetCategory": "screen_background",
       "Screen": "safe_room",
       "Usage": "安全屋/休整节点界面背景或插图",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T00:12:24+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260608_02_p1_core_backgrounds"
     },
     {
       "Domain": "background",
@@ -403,16 +404,17 @@
         }
       },
       "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_stairs_room.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/bg_stairs_room/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/bg_stairs_room/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_stairs_room.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:06:38+08:00] generated candidate batch nai_formalv2_quality_20260608_02_p1_core_backgrounds; preserved Status=approved.\n[2026-06-09T00:10:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/bg_stairs_room/contact_sheet/bg_stairs_room_contact_sheet.png\n[2026-06-09T00:12:24+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/bg_stairs_room/selected/20260609_002.png",
       "PresetCategory": "screen_background",
       "Screen": "stairs_room",
       "Usage": "进入下一层/撤离选择界面背景或插图",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T00:12:24+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260608_02_p1_core_backgrounds"
     },
     {
       "Domain": "background",
