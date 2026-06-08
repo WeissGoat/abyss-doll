@@ -721,4 +721,3 @@ Per-batch command examples:
 # Review selected/contact_sheet before syncing.
 .\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID rumor_weapon_collector_visit_icon -CandidateBatchID nai_formalv2_quality_20260609_03 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
 ```
-

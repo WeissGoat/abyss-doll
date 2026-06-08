@@ -11295,16 +11295,17 @@
         }
       },
       "BatchID": "local_v0_maintenance_readability_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_corruption_purify.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_corruption_purify/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_corruption_purify/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_corruption_purify.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T04:08:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_corruption_purify.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T04:08:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_corruption_purify.png; formal AI replacement remains required.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_corruption_purify/contact_sheet/ui_icon_corruption_purify_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_corruption_purify/selected/20260609_001.png",
       "PresetCategory": "ui_status_icon",
       "Screen": "maintenance_panel",
       "Usage": "维护界面侵蚀清理、污染净化、SAN 风险处理",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T04:08:11+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -11354,16 +11355,17 @@
         }
       },
       "BatchID": "local_v0_daily_bill_readability_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_debt_rent.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_debt_rent/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_debt_rent/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_debt_rent.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T04:27:50+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_debt_rent.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T04:27:50+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_debt_rent.png; formal AI replacement remains required.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_debt_rent/contact_sheet/ui_icon_debt_rent_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_debt_rent/selected/20260609_002.png",
       "PresetCategory": "ui_status_icon",
       "Screen": "daily_bill_report",
       "Usage": "每日账单月租进度、欠债压力、到期账单和不可支付风险",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T04:27:50+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -11413,16 +11415,17 @@
         }
       },
       "BatchID": "local_v0_maintenance_readability_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_dive_permit.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_dive_permit/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_dive_permit/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_dive_permit.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T04:08:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_dive_permit.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T04:08:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_dive_permit.png; formal AI replacement remains required.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_dive_permit/contact_sheet/ui_icon_dive_permit_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_dive_permit/selected/20260609_004.png",
       "PresetCategory": "ui_status_icon",
       "Screen": "maintenance_panel",
       "Usage": "维护界面下潜许可、出发前检查、允许下潜状态恢复",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T04:08:11+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -11472,16 +11475,17 @@
         }
       },
       "BatchID": "local_v0_daily_bill_readability_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_expense/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_expense/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T04:27:50+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T04:27:50+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_expense.png; formal AI replacement remains required.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_expense/contact_sheet/ui_icon_expense_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_expense/selected/20260609_004.png",
       "PresetCategory": "ui_status_icon",
       "Screen": "daily_bill_report",
       "Usage": "每日账单总支出、维护费、材料费和经营成本",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T04:27:50+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -11531,16 +11535,17 @@
         }
       },
       "BatchID": "local_v0_daily_bill_readability_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_income.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_income/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_income/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_income.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T04:27:50+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_income.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T04:27:50+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_income.png; formal AI replacement remains required.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_income/contact_sheet/ui_icon_income_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_income/selected/20260609_001.png",
       "PresetCategory": "ui_status_icon",
       "Screen": "daily_bill_report",
       "Usage": "每日账单总收入、出售收入、订单收入和当日进账",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T04:27:50+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -11704,16 +11709,17 @@
         }
       },
       "BatchID": "local_v0_maintenance_readability_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_wear_repair.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_wear_repair/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_wear_repair/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_wear_repair.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T04:08:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_wear_repair.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T04:08:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_wear_repair.png; formal AI replacement remains required.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_wear_repair/contact_sheet/ui_icon_wear_repair_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_wear_repair/selected/20260609_002.png",
       "PresetCategory": "ui_status_icon",
       "Screen": "maintenance_panel",
       "Usage": "维护界面磨损修复、结构补强、修复后变化预览",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T04:08:11+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -12927,15 +12933,16 @@
       },
       "BatchID": "local_v0_a4_ui_icons_20260524_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_black_market/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_black_market/selected/20260524_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_black_market/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_black_market.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_black_market/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_black_market/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_black_market/contact_sheet/ui_icon_black_market_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_black_market/selected/20260609_004.png",
       "PresetCategory": "ui_a4_icon",
       "Screen": "shop_staging",
       "Usage": "黑市、高风险收益、违禁品和背叛渠道",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -12985,16 +12992,17 @@
         }
       },
       "BatchID": "local_v0_chassis_upgrade_panel_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_blueprint.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_blueprint/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_blueprint/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_blueprint.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T03:13:25+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_blueprint.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T03:13:25+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_blueprint.png; formal AI replacement remains required.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_blueprint/contact_sheet/ui_icon_blueprint_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_blueprint/selected/20260609_004.png",
       "PresetCategory": "ui_growth_icon",
       "Screen": "chassis_upgrade_panel",
       "Usage": "底盘图纸、阶段解锁、工坊工程线和升级前置条件",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T03:13:25+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13044,16 +13052,17 @@
         }
       },
       "BatchID": "local_v0_business_settlement_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_business_settlement/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_business_settlement/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T03:45:27+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T03:45:27+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_business_settlement.png; formal AI replacement remains required.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_business_settlement/contact_sheet/ui_icon_business_settlement_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_business_settlement/selected/20260609_002.png",
       "PresetCategory": "ui_business_icon",
       "Screen": "business_settlement",
       "Usage": "开始营业、阶段结算、经营反馈和进入账单前的标题标识",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T03:45:27+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13103,16 +13112,17 @@
         }
       },
       "BatchID": "local_v0_chassis_upgrade_panel_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_chassis_upgrade.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_chassis_upgrade/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_chassis_upgrade/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_chassis_upgrade.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T03:13:25+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_chassis_upgrade.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T03:13:25+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_chassis_upgrade.png; formal AI replacement remains required.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_chassis_upgrade/contact_sheet/ui_icon_chassis_upgrade_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_chassis_upgrade/selected/20260609_003.png",
       "PresetCategory": "ui_growth_icon",
       "Screen": "chassis_upgrade_panel",
       "Usage": "底盘升级、容量扩展、下一阶段底盘预览和升级主行动",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T03:13:25+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13162,16 +13172,17 @@
         }
       },
       "BatchID": "local_v0_business_settlement_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_customer.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_customer/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_customer/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_customer.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T03:45:27+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_customer.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T03:45:27+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_customer.png; formal AI replacement remains required.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_customer/contact_sheet/ui_icon_customer_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_customer/selected/20260609_004.png",
       "PresetCategory": "ui_business_icon",
       "Screen": "business_settlement",
       "Usage": "营业顾客、顾客流、顾客偏好和成交对象提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T03:45:27+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13222,15 +13233,16 @@
       },
       "BatchID": "local_v0_a4_ui_icons_20260524_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_deadline/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_deadline/selected/20260524_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_deadline/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_deadline.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_deadline/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_deadline/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_deadline/contact_sheet/ui_icon_deadline_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_deadline/selected/20260609_003.png",
       "PresetCategory": "ui_a4_icon",
       "Screen": "order_board",
       "Usage": "订单截止日、剩余天数和时间压力",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13280,16 +13292,17 @@
         }
       },
       "BatchID": "local_v0_doll_room_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_diary/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_diary/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T00:00:00+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png\n[2026-05-25T01:21:05+08:00] generation failed: no images returned\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "[2026-05-25T00:00:00+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_diary.png\n[2026-05-25T01:21:05+08:00] generation failed: no images returned\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_diary/contact_sheet/ui_icon_diary_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_diary/selected/20260609_004.png",
       "PresetCategory": "ui_doll_room",
       "Screen": "doll_room",
       "Usage": "日记本、房间记忆和记录入口",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13339,16 +13352,17 @@
         }
       },
       "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_equipped.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_equipped/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_equipped/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_equipped.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_equipped/contact_sheet/ui_icon_equipped_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_equipped/selected/20260609_001.png",
       "PresetCategory": "ui_skin",
       "Screen": "prosthetic_panel",
       "Usage": "义体制造列表已装备状态",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13398,16 +13412,17 @@
         }
       },
       "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_event/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_event/selected/20260609_002.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_event.png",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_event/contact_sheet/ui_icon_event_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_event/selected/20260609_002.png",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "scenario_event",
       "Usage": "剧本事件、系统弹窗、AVG 事件和事件来源",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13458,15 +13473,16 @@
       },
       "BatchID": "local_v0_a4_ui_icons_20260524_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_faction/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_faction/selected/20260524_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_faction/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_faction.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_faction/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_faction/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_faction/contact_sheet/ui_icon_faction_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_faction/selected/20260609_004.png",
       "PresetCategory": "ui_a4_icon",
       "Screen": "order_board",
       "Usage": "势力来源、声望变化和委托方",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13516,16 +13532,17 @@
         }
       },
       "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_gift/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_gift/selected/20260609_002.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_gift.png",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_gift/contact_sheet/ui_icon_gift_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_gift/selected/20260609_002.png",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "doll_interaction",
       "Usage": "人偶赠礼、礼物列表和偏好反馈",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13575,16 +13592,17 @@
         }
       },
       "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_locked.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_locked/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_locked/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_locked.png",
       "RegistryStatus": "unregistered",
-      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "Second batch approved asset generated locally on 2026-05-17.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_locked/contact_sheet/ui_icon_locked_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_locked/selected/20260609_004.png",
       "PresetCategory": "ui_skin",
       "Screen": "global",
       "Usage": "层选择、未解锁功能",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13634,16 +13652,17 @@
         }
       },
       "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_lore/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_lore/selected/20260609_004.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_lore.png",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_lore/contact_sheet/ui_icon_lore_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_lore/selected/20260609_004.png",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "scenario_event",
       "Usage": "LorePanel、世界观档案、记录文本和图鉴入口",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13693,16 +13712,17 @@
         }
       },
       "BatchID": "local_v0_chassis_upgrade_panel_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_material_need.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_material_need/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_material_need/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_material_need.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T03:13:25+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_material_need.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T03:13:25+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/UI/ui_icon_material_need.png; formal AI replacement remains required.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_material_need/contact_sheet/ui_icon_material_need_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_material_need/selected/20260609_003.png",
       "PresetCategory": "ui_growth_icon",
       "Screen": "chassis_upgrade_panel",
       "Usage": "底盘升级材料不足、缺件、金币或核心材料缺口提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T03:13:25+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13752,16 +13772,17 @@
         }
       },
       "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_memento/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_memento/selected/20260609_004.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_memento.png",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_memento/contact_sheet/ui_icon_memento_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_memento/selected/20260609_004.png",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "doll_interaction",
       "Usage": "特殊交互、记忆反馈、纪念物和情绪回声",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13869,15 +13890,16 @@
       },
       "BatchID": "local_v0_a4_ui_icons_20260524_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_order/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_order/selected/20260524_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_order/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_order.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_order/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_order/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_order/contact_sheet/ui_icon_order_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_order/selected/20260609_003.png",
       "PresetCategory": "ui_a4_icon",
       "Screen": "global",
       "Usage": "订单、委托、交付目标和订单槽位",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13928,15 +13950,16 @@
       },
       "BatchID": "local_v0_a4_ui_icons_20260524_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_price_down/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_price_down/selected/20260524_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_price_down/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_price_down.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_price_down/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_price_down/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_price_down/contact_sheet/ui_icon_price_down_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_price_down/selected/20260609_001.png",
       "PresetCategory": "ui_a4_icon",
       "Screen": "rumor_board",
       "Usage": "价格下跌、需求降低和收益衰减",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -13987,15 +14010,16 @@
       },
       "BatchID": "local_v0_a4_ui_icons_20260524_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_price_up/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_price_up/selected/20260524_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_price_up/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_price_up.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_price_up/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_price_up/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_price_up/contact_sheet/ui_icon_price_up_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_price_up/selected/20260609_002.png",
       "PresetCategory": "ui_a4_icon",
       "Screen": "rumor_board",
       "Usage": "价格上涨、需求增加和收益提升",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -14045,16 +14069,17 @@
         }
       },
       "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_reputation/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_reputation/selected/20260609_003.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_reputation.png",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_reputation/contact_sheet/ui_icon_reputation_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_reputation/selected/20260609_003.png",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "faction_shop",
       "Usage": "正规势力声望、等级、解锁进度和奖励门槛",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -14105,15 +14130,16 @@
       },
       "BatchID": "local_v0_a4_ui_icons_20260524_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_rumor/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_rumor/selected/20260524_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_rumor/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_rumor.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_rumor/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_rumor/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_rumor/contact_sheet/ui_icon_rumor_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_rumor/selected/20260609_003.png",
       "PresetCategory": "ui_a4_icon",
       "Screen": "rumor_board",
       "Usage": "每日传闻、深渊情报和市场消息",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -14224,15 +14250,16 @@
       },
       "BatchID": "local_v0_a4_ui_icons_20260524_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_shop_channel/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_shop_channel/selected/20260524_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_shop_channel/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_shop_channel.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_shop_channel/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "[2026-05-24T08:42:24+08:00] generation failed: no images returned\n[2026-05-24T08:49:43+08:00] NovelAI HTTP 402: Not enough Anlas. local_v0 generated for integration unblock.\n[2026-05-24T08:51:25+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_shop_channel/selected/20260524_001.png\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_shop_channel/contact_sheet/ui_icon_shop_channel_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_shop_channel/selected/20260609_003.png",
       "PresetCategory": "ui_a4_icon",
       "Screen": "shop_staging",
       "Usage": "普通柜台、寄售槽、营业出货渠道和分配入口",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -14282,16 +14309,17 @@
         }
       },
       "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_skip/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_skip/selected/20260609_003.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_skip.png",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_skip/contact_sheet/ui_icon_skip_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_skip/selected/20260609_003.png",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "scenario_event",
       "Usage": "事件跳过、摘要、快进和状态变化回顾",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -14341,16 +14369,17 @@
         }
       },
       "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_talk/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_talk/selected/20260609_002.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_talk.png",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_talk/contact_sheet/ui_icon_talk_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_talk/selected/20260609_002.png",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "doll_interaction",
       "Usage": "人偶对话、话题和交流入口",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -14400,16 +14429,17 @@
         }
       },
       "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_touch/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_touch/selected/20260609_004.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_touch.png",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_touch/contact_sheet/ui_icon_touch_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_touch/selected/20260609_004.png",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "doll_interaction",
       "Usage": "人偶触摸、安抚和轻交互入口",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
@@ -14459,16 +14489,17 @@
         }
       },
       "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_trust/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_icon_trust/selected/20260609_004.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_trust.png",
       "RegistryStatus": "missing",
-      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.",
+      "Notes": "local_v0 placeholder approved for program integration; replace with formal AI art version later.\n[2026-05-25T23:57:41+08:00] normalized QualityTier=local_v0 from legacy local generation markers.\n[2026-06-09T00:45:30+08:00] generated candidate batch nai_formalv2_quality_20260609_02_p2_shared_ui_icons; preserved Status=approved.\n[2026-06-09T01:03:48+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_icon_trust/contact_sheet/ui_icon_trust_contact_sheet.png\n[2026-06-09T01:07:05+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_icon_trust/selected/20260609_004.png",
       "PresetCategory": "ui_current_dependency_icon",
       "Screen": "faction_shop",
       "Usage": "黑市信任、隐秘交易和高风险渠道信任度",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T23:57:41+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T01:07:05+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_02_p2_shared_ui_icons"
     },
     {
       "Domain": "ui",
