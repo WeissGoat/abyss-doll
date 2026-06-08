@@ -257,18 +257,19 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 已完成怪物 portrait alpha 技术修复：新增并执行 `tools/美术工具/fix_opaque_art_alpha.py`，将 17 张 `monster_*_portrait` 的 alpha 修为全 255；刷新 `可接入素材清单`、`素材质量替换清单` 和 `VisualV2生成计划` 后，当前 `generate_needed=0`、`technical_fix=0`、`visual_v2_replace=0`、`spec_review=0`、`planned=0`。
 - 已补齐 `nai_formalv2_missing_20260608_01` 58 个新缺图正式资产的 Manifest 质量字段，并刷新 `程序接入交接清单`：当前程序侧应登记 58 个 `formal_ai_v2` VisualID，且机器核对 PNG / `.meta` / QualityTiers 全通过。
 
+- 已新增并执行 `Generate-FormalV2AssetReview.ps1` / `generate_formal_v2_asset_review.py`，对 latest `program_integrate=58` 的 Formal V2 Approved 素材做程序登记前静态预验收；输出位于 `美术文档/_generated/formal_v2_asset_review/`，快照为 `美术文档/_generated/formal_v2_asset_review_snapshots/20260609_041011_formalv2_program_integrate_58_precheck/`。结论：`reviewed=58`、`pass=58`、`fail=0`、`warn=0`，其中 item=23、monster=34、background=1，PNG / `.meta` / `formal_ai_v2` / 尺寸 / alpha 均符合 Manifest SourceSpec。
 ## 下一步建议
 
-1. 程序侧可按 `美术文档/_generated/可接入素材清单.md` 的 `program_integrate=58` 登记 / 接入本轮新增 Approved VisualID；这 58 个是新资源，需要程序处理。
+1. 程序侧可按 `美术文档/_generated/可接入素材清单.md` 或 `美术文档/_generated/程序接入交接清单.md` 的 `program_integrate=58` 登记 / 接入本轮新增 Approved VisualID；美术侧静态预验收已证明 58 个 Approved 文件可交接。
 2. 程序完成 58 个新资源登记后，需要重跑 ArtAcceptance / VisualAsset 相关验收，美术再做截图验收。
-3. 美术侧下一步进入运行时截图复验：重点看 FormalV2 核心界面的构图、控件遮挡、图标小尺寸可读性、背景 cover / contain 适配，以及新增怪物 / 物品 / 经济图标是否与日系地底奇幻风格统一。
+3. 美术侧下一步进入运行时截图复验：重点看 FormalV2 核心界面的构图、控件遮挡、图标小尺寸可读性、背景 cover / contain 适配，以及新增怪物 / 物品 / 经济图标是否与日系地底奇幻风格统一。程序未登记前，美术侧可继续做 `formal_v2_asset_review/contact_sheets` 的人工风格抽查。
 
 ## 问题 / 阻塞
 
 - 当前工作区仍有大量程序、策划、Unity 资产和知识库生成物处于脏状态；美术侧提交时只纳入本轮美术流水线相关文件。
 - P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 正式结构已通过；本轮 latest `20260527_002436` 已确认资源接入通过，但 `combat_hud` 等 6 个界面仍需程序返修后复验。
 - NovelAI token / 单图生成链路当前已恢复可用，本轮已完成 58 张缺图和 121 个质量替换资源的真实 NovelAI 生成；后续仍需关注 NovelAI 余额和单图串行限制，不能并发跑图，也不能把 mock / local_v0 冒充为正式图。
-- latest `program_integrate=58` 表示有 58 个新增 Approved VisualID 需要程序登记；Visual V2 同名替换队列和 technical_fix 队列均已清空。正式验收仍依赖程序登记后重跑 ArtAcceptance / VisualAsset 验收截图。
+- latest `program_integrate=58` 表示有 58 个新增 Approved VisualID 需要程序登记；美术侧静态预验收已通过，Visual V2 同名替换队列和 technical_fix 队列均已清空。正式运行时验收仍依赖程序登记后重跑 ArtAcceptance / VisualAsset 验收截图。
 - Formal V2 目前只是 draft 设计层；如果程序侧需要接入，必须等待用户确认并由美术侧更新 active `screen_layouts.json`。
 - Formal V2 概念图含 AI 伪文字和局部装饰噪声，只能作为结构参考；正式接入前仍需将控件、文本、图标和面板皮肤拆回可实现规格。
 - Formal V2 结构设计图是确定性 layout board，只用于评审结构和迁移顺序；不能被当作最终视觉稿或程序接入规格。

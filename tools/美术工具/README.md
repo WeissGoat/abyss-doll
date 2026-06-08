@@ -537,3 +537,37 @@ Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec、
 * `AddArtAcceptanceCaptureScreens`：程序补 ArtAcceptance 截图覆盖。
 * `RerunArtAcceptanceScreens`：程序登记或补截图后重跑验收。
 * `ArtReviewAfterRerunScreens`：重跑后交给美术侧逐屏验收。
+
+## Generate-FormalV2AssetReview.ps1
+
+读取当前程序接入交接清单中的 `ProgramIntegrateVisuals`，对待程序登记的 Formal V2 Approved 素材做美术侧静态预验收。它不替代 Unity 运行时截图验收，只用于在程序登记前确认 PNG、`.meta`、质量层级、尺寸和 alpha 与 Manifest `SourceSpec` 是否一致，并生成可快速扫看的 contact sheet。
+
+输出：
+
+* `美术文档/_generated/formal_v2_asset_review/formal_v2_asset_review.json`
+* `美术文档/_generated/formal_v2_asset_review/formal_v2_asset_review.md`
+* `美术文档/_generated/formal_v2_asset_review/contact_sheets/*.png`
+
+使用 `-Snapshot` 时额外输出：
+
+* `美术文档/_generated/formal_v2_asset_review_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>/`
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Generate-FormalV2AssetReview.ps1 -Snapshot -SnapshotTag formalv2_program_integrate_58_precheck
+```
+
+主要检查：
+
+* Approved PNG 是否存在。
+* Unity `.meta` 是否存在。
+* `QualityTiers` 是否包含 `formal_ai_v2` / `final` / `production`。
+* PNG 格式、宽高是否匹配 Manifest `SourceSpec`。
+* `AlphaRequired=false` 的素材是否存在透明或半透明像素。
+
+结果口径：
+
+* `pass`：可以交给程序登记；仍需登记后跑 ArtAcceptance 做运行时构图和可读性验收。
+* `warn`：可以继续交接，但需要运行时截图重点复核。
+* `fail`：先由美术侧修复，不建议交给程序登记。

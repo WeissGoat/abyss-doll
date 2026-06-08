@@ -1,0 +1,2476 @@
+{
+  "GeneratedAt": "2026-06-09T04:10:11+08:00",
+  "SnapshotTag": "formalv2_program_integrate_58_precheck",
+  "Inputs": {
+    "HandoffPath": "美术文档/_generated/程序接入交接清单.json",
+    "ManifestPath": "美术文档/_generated/art_manifest.json"
+  },
+  "Outputs": {
+    "OutputDir": "美术文档/_generated/formal_v2_asset_review",
+    "ContactSheets": {
+      "all": "美术文档/_generated/formal_v2_asset_review/contact_sheets/all.png",
+      "background": "美术文档/_generated/formal_v2_asset_review/contact_sheets/background.png",
+      "item": "美术文档/_generated/formal_v2_asset_review/contact_sheets/item.png",
+      "monster": "美术文档/_generated/formal_v2_asset_review/contact_sheets/monster.png"
+    }
+  },
+  "Summary": {
+    "ReviewedVisualCount": 58,
+    "ReviewStatusCounts": {
+      "pass": 58
+    },
+    "DomainCounts": {
+      "background": 1,
+      "item": 23,
+      "monster": 34
+    },
+    "AssetTypeCounts": {
+      "background": 1,
+      "combat_sprite": 17,
+      "icon": 23,
+      "portrait": 17
+    },
+    "IssueCounts": {},
+    "WarningCounts": {},
+    "AllPass": true,
+    "ProgramIntegrateVisualCountFromHandoff": 58
+  },
+  "Items": [
+    {
+      "VisualID": "item_con_anchor_charm_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "锚定符坠",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_anchor_charm_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_anchor_charm_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 208317,
+        "SemiTransparentPixelCount": 4564
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/con_anchor_charm.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_con_purifying_salt_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "净化盐",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_purifying_salt_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_purifying_salt_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 210878,
+        "SemiTransparentPixelCount": 3159
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/con_purifying_salt.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_con_solvent_spray_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "溶剂喷雾",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_solvent_spray_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_solvent_spray_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 208171,
+        "SemiTransparentPixelCount": 3376
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/con_solvent_spray.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_con_stabilizer_ampoule_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "稳定安瓿",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_stabilizer_ampoule_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_stabilizer_ampoule_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 203346,
+        "SemiTransparentPixelCount": 4554
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/con_stabilizer_ampoule.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_gear_chain_hook_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "链钩短枪",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_chain_hook_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_chain_hook_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 214734,
+        "SemiTransparentPixelCount": 3513
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_chain_hook.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_gear_corroded_bulwark_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "腐蚀壁盾",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_corroded_bulwark_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_corroded_bulwark_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 203385,
+        "SemiTransparentPixelCount": 5291
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_corroded_bulwark.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_gear_mycelium_cloak_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "菌丝披覆",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_mycelium_cloak_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_mycelium_cloak_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 200628,
+        "SemiTransparentPixelCount": 3761
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_mycelium_cloak.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_gear_spore_lance_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "孢刺长枪",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_spore_lance_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_spore_lance_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 202508,
+        "SemiTransparentPixelCount": 4126
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_spore_lance.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_gear_vein_sickle_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "菌脉弯镰",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_vein_sickle_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_vein_sickle_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 214681,
+        "SemiTransparentPixelCount": 3428
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_vein_sickle.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_loot_acid_gland_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "酸腺囊",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_acid_gland_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_acid_gland_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 206656,
+        "SemiTransparentPixelCount": 3539
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_acid_gland.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_loot_corroded_nerve_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "腐蚀神经束",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_corroded_nerve_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_corroded_nerve_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 196588,
+        "SemiTransparentPixelCount": 6768
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_corroded_nerve.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_loot_crystal_scale_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "晶化鳞片",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_crystal_scale_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_crystal_scale_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 215018,
+        "SemiTransparentPixelCount": 8277
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_crystal_scale.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_loot_living_mycelium_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "活性菌丝",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_living_mycelium_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_living_mycelium_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 214330,
+        "SemiTransparentPixelCount": 3586
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_living_mycelium.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_loot_spore_amber_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "孢晶琥珀",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_spore_amber_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_spore_amber_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 198214,
+        "SemiTransparentPixelCount": 2938
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_spore_amber.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_loot_vein_plate_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "菌脉甲片",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_vein_plate_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_vein_plate_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 209158,
+        "SemiTransparentPixelCount": 2853
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_vein_plate.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_loot_warped_plate_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "扭曲装甲片",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_warped_plate_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_warped_plate_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 196711,
+        "SemiTransparentPixelCount": 3837
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_warped_plate.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_mat_core_tier2_fragment_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "二阶机核碎片",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier2_fragment_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier2_fragment_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 216128,
+        "SemiTransparentPixelCount": 2831
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/mat_core_tier2_fragment.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_mat_core_tier3_seed_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "三阶机核种",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier3_seed_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier3_seed_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 201341,
+        "SemiTransparentPixelCount": 5168
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/mat_core_tier3_seed.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_order_contested_spore_core_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "争夺孢核",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_contested_spore_core_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_contested_spore_core_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 218646,
+        "SemiTransparentPixelCount": 3015
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/order_contested_spore_core.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_order_live_spore_cage_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "活孢子笼",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_live_spore_cage_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_live_spore_cage_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 214062,
+        "SemiTransparentPixelCount": 3875
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/order_live_spore_cage.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_trade_luminous_fungus_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "夜光菌簇",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_luminous_fungus_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_luminous_fungus_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 166332,
+        "SemiTransparentPixelCount": 4146
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_luminous_fungus.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_trade_sealed_relic_box_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "封存遗物匣",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_sealed_relic_box_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_sealed_relic_box_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 188803,
+        "SemiTransparentPixelCount": 2757
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_sealed_relic_box.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "item_trade_singing_fossil_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "低唱化石",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_singing_fossil_icon.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_singing_fossil_icon.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 512,
+        "Height": 512,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 512,
+        "Height": 512,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 195243,
+        "SemiTransparentPixelCount": 3944
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_singing_fossil.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_boss_gatekeeper_mk1_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "一层守门机 MK1战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_gatekeeper_mk1_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_gatekeeper_mk1_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 575204,
+        "SemiTransparentPixelCount": 27711
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_gatekeeper_mk1.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_boss_mycelium_oracle_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "菌脉神谕体战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_mycelium_oracle_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_mycelium_oracle_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 645387,
+        "SemiTransparentPixelCount": 19656
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_mycelium_oracle.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_boss_spore_foundry_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "孢殖熔炉战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_spore_foundry_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_spore_foundry_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 691275,
+        "SemiTransparentPixelCount": 14370
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_spore_foundry.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_elite_crystal_bulwark_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "晶壁守卫战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_crystal_bulwark_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_crystal_bulwark_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 795100,
+        "SemiTransparentPixelCount": 10361
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_crystal_bulwark.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_elite_spore_matriarch_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "孢巢母体战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_spore_matriarch_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_spore_matriarch_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 663167,
+        "SemiTransparentPixelCount": 12843
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_spore_matriarch.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_elite_vein_knight_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "菌脉骑士战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_vein_knight_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_vein_knight_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 489444,
+        "SemiTransparentPixelCount": 13553
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_vein_knight.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_acid_slime_mature_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "成熟酸液软体战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_acid_slime_mature_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_acid_slime_mature_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 741848,
+        "SemiTransparentPixelCount": 15832
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_acid_slime_mature.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_crystal_guard_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "结晶守卫战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_crystal_guard_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_crystal_guard_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 661452,
+        "SemiTransparentPixelCount": 11797
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_crystal_guard.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_echo_pilgrim_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "回声朝圣者战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_echo_pilgrim_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_echo_pilgrim_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 639510,
+        "SemiTransparentPixelCount": 12798
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_echo_pilgrim.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_lost_miner_echo_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "迷失矿工回声战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_lost_miner_echo_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_lost_miner_echo_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 595955,
+        "SemiTransparentPixelCount": 12670
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_lost_miner_echo.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_mycelium_crawler_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "菌丝爬行体战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_mycelium_crawler_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_mycelium_crawler_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 761480,
+        "SemiTransparentPixelCount": 16569
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_mycelium_crawler.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_nerve_midge_swarm_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "神经虫群战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_nerve_midge_swarm_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_nerve_midge_swarm_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 588962,
+        "SemiTransparentPixelCount": 23617
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_nerve_midge_swarm.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_rust_cultivator_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "锈蚀培植者战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_cultivator_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_cultivator_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 583743,
+        "SemiTransparentPixelCount": 14521
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_cultivator.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_rust_hound_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "锈蚀猎犬战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_hound_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_hound_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 618747,
+        "SemiTransparentPixelCount": 13231
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_hound.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_shell_grafter_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "壳层嫁接者战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_shell_grafter_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_shell_grafter_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 591878,
+        "SemiTransparentPixelCount": 17470
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_shell_grafter.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_soul_midge_swarm_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "窃魂虫群战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_soul_midge_swarm_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_soul_midge_swarm_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 633238,
+        "SemiTransparentPixelCount": 16883
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_soul_midge_swarm.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_spore_archer_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "孢刺射手战斗实体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_spore_archer_combat.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_spore_archer_combat.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": true,
+        "Background": "transparent"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 0,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 713979,
+        "SemiTransparentPixelCount": 14215
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_spore_archer.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_boss_gatekeeper_mk1_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "一层守门机 MK1",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_gatekeeper_mk1_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_gatekeeper_mk1_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_gatekeeper_mk1.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_boss_mycelium_oracle_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "菌脉神谕体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_mycelium_oracle_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_mycelium_oracle_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_mycelium_oracle.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_boss_spore_foundry_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "孢殖熔炉",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_spore_foundry_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_spore_foundry_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_spore_foundry.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_elite_crystal_bulwark_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "晶壁守卫",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_crystal_bulwark_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_crystal_bulwark_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_crystal_bulwark.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_elite_spore_matriarch_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "孢巢母体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_spore_matriarch_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_spore_matriarch_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_spore_matriarch.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_elite_vein_knight_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "菌脉骑士",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_vein_knight_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_vein_knight_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_vein_knight.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_acid_slime_mature_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "成熟酸液软体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_acid_slime_mature_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_acid_slime_mature_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_acid_slime_mature.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_crystal_guard_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "结晶守卫",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_crystal_guard_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_crystal_guard_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_crystal_guard.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_echo_pilgrim_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "回声朝圣者",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_echo_pilgrim_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_echo_pilgrim_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_echo_pilgrim.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_lost_miner_echo_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "迷失矿工回声",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_lost_miner_echo_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_lost_miner_echo_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_lost_miner_echo.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_mycelium_crawler_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "菌丝爬行体",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_mycelium_crawler_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_mycelium_crawler_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_mycelium_crawler.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_nerve_midge_swarm_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "神经虫群",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_nerve_midge_swarm_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_nerve_midge_swarm_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_nerve_midge_swarm.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_rust_cultivator_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "锈蚀培植者",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_cultivator_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_cultivator_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_cultivator.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_rust_hound_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "锈蚀猎犬",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_hound_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_hound_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_hound.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_shell_grafter_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "壳层嫁接者",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_shell_grafter_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_shell_grafter_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_shell_grafter.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_soul_midge_swarm_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "窃魂虫群",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_soul_midge_swarm_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_soul_midge_swarm_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_soul_midge_swarm.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "monster_mob_spore_archer_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "孢刺射手",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_spore_archer_portrait.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_spore_archer_portrait.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1024,
+        "Height": 1024,
+        "AlphaRequired": false,
+        "Background": "transparent_or_simple_dark"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1024,
+        "Height": 1024,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_spore_archer.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    },
+    {
+      "VisualID": "bg_dungeon_layer_3",
+      "Priority": "P1",
+      "Domain": "background",
+      "AssetType": "background",
+      "DisplayName": "菌脉深庭",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_dungeon_layer_3.png",
+      "MetaPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_dungeon_layer_3.png.meta",
+      "MetaFileExists": true,
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "RegistryHasSprite": false,
+      "ExpectedSpec": {
+        "Format": "png",
+        "Width": 1920,
+        "Height": 1080,
+        "AlphaRequired": false,
+        "Background": "opaque_environment"
+      },
+      "ImageFacts": {
+        "Exists": true,
+        "Width": 1920,
+        "Height": 1080,
+        "Mode": "RGBA",
+        "HasAlpha": true,
+        "AlphaMin": 255,
+        "AlphaMax": 255,
+        "TransparentPixelCount": 0,
+        "SemiTransparentPixelCount": 0
+      },
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons/layer_3.json"
+      ],
+      "ReviewStatus": "pass",
+      "Issues": [],
+      "Warnings": []
+    }
+  ]
+}
