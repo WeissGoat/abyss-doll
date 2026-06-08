@@ -143,6 +143,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 已完成 FormalV2 全量美术迭代 mission `ART-FV2-01`：`00_formal_v2_ux_ui_overview.md` 新增 Formal V2 美术系统标准、`local_v0` / `formal_ai_v2` / `final_polish` 质量层级，以及概念图 / 结构图 / 运行时素材边界；`formal_v2/README.md` 已指向该总规范。已用 `py tools/docs/validate_docs.py --index docs_index.json` 验证通过。
 - 已完成 FormalV2 语义高风险素材二次替换的提示词准备：针对 `item_con_purifying_salt_icon`、`item_gear_corroded_bulwark_icon`、`item_gear_mycelium_cloak_icon`、`item_gear_spore_lance_icon`、`item_loot_acid_gland_icon`、`item_mat_core_tier2_fragment_icon`、`monster_boss_spore_foundry_portrait`、`monster_mob_acid_slime_mature_portrait`、`monster_mob_echo_pilgrim_portrait` 补入明确英文视觉描述和专用负面词，避免继续生成灯具 / 黄铜容器 / 黑底小主体。`Run-ArtGeneration.ps1 -Status approved -PreserveStatus -DryRun` 已确认批次 `nai_formalv2_semantic_fix_20260609_01` 可选中 9 项，尺寸为 6 个 `512x512` 图标和 3 个 `1024x1024` 头像；当前未实际调用 NovelAI。
 - 已完成 58 个 FormalV2 `program_integrate` 待接入资产的提示词具体化：Manifest 中这 58 项的 `PromptEN` 不再含 `single readable game asset` 通用模板，已覆盖 1 个 layer3 背景、23 个物品图标和 34 个怪物战斗 / 头像资源。`Run-ArtGeneration.ps1 -Status approved -PreserveStatus -DryRun` 已确认批次 `nai_formalv2_program_integrate_prompt_specific_20260609_01` 可选中 58 项；当前仍未实际调用 NovelAI。
+- 已新增 FormalV2 Prompt Readiness 门禁报告：`美术文档/_generated/formal_v2_prompt_readiness/formal_v2_prompt_readiness.md/json`，当前结论为 `ProgramIntegrateVisuals=58`、`PromptReady=58`、`PromptBlocked=0`、`GenericPromptRemaining=0`、`CjkPromptViolations=0`。报告内按 `background` / `item` / `monster` 输出不含中文路径的可复制 NovelAI 串行重跑命令。
 - 已整理本轮待提交美术工作区变更：Approved 图标 / 纪念物 / 势力 / 订单 / 传闻 `.meta` 导入上限按运行时用途提升到 1024 或 2048；补提交美术流水线历史快照与 `美术风格参考/` 参考图，并为参考图补 LFS 规则；同步收口 `dungeon_map` Formal V2 为“可推进大地图 + 独立生态层”方向。`tools/ComfyUI_NAIDGenerator/` 仍按第三方工具候选留在未跟踪状态，待确认 vendor / submodule / 本地工具口径。
 - 已完成 P0 UI 运行时验收：`workshop_main`、`combat_hud`、`inventory_loot` 当前 MVP Baseline 为 `validated`。
 - 已建立 Formal V1 UI 结构设计层：`combat_hud`、`workshop_main`、`inventory_loot`、`dungeon_map`、`settlement`。
@@ -269,6 +270,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 3. 美术侧下一步进入运行时截图复验：重点看 FormalV2 核心界面的构图、控件遮挡、图标小尺寸可读性、背景 cover / contain 适配，以及新增怪物 / 物品 / 经济图标是否与日系地底奇幻风格统一。程序未登记前，美术侧可继续做 `formal_v2_asset_review/contact_sheets` 的人工风格抽查。
 4. NovelAI token 设置后，优先执行二次语义修复批次：`Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID item_con_purifying_salt_icon,item_gear_corroded_bulwark_icon,item_gear_mycelium_cloak_icon,item_gear_spore_lance_icon,item_loot_acid_gland_icon,item_mat_core_tier2_fragment_icon,monster_boss_spore_foundry_portrait,monster_mob_acid_slime_mature_portrait,monster_mob_echo_pilgrim_portrait -Variants 4 -Concurrency 1 -DelaySeconds 1 -BatchID nai_formalv2_semantic_fix_20260609_01 -PreserveStatus`，之后再预处理、人工筛选并用 strict meta guard 同名替换 Approved。
 5. 如果后续 NovelAI 额度充足，也可以把 58 个 `program_integrate` 资产按 domain 分批做 FormalV2 全量质量重跑；当前 prompt 源头已支持 `-Status approved -PreserveStatus` 同名替换流程，仍必须串行生成并在筛选后用 strict meta guard 替换 Approved PNG。
+6. 后续每次程序接入清单或 Manifest 刷新后，可运行 `Generate-FormalV2PromptReadiness.ps1` 复核待接入资产是否仍满足 PromptEN 具体化门禁，再决定是否进入 NovelAI 重跑。
 
 ## 问题 / 阻塞
 
