@@ -277,6 +277,20 @@ Visual V2 同名替换使用 `-CandidateBatchID` 和 `-QualityTier formal_ai_v2`
 * `visual_v2_replace`：当前图可用于程序接入和验收，但只是 local_v0 / placeholder，后续用同名 VisualID 替换正式版。
 * `spec_review`：素材尺寸与 Manifest SourceSpec 不一致，需要确认是素材错误还是规格要调整。
 
+### fix_opaque_art_alpha.py
+
+处理 `Generate-ArtQualityBacklog.ps1` 输出中的 `technical_fix` 队列。它只针对 `AlphaRequired=false` 的 Approved PNG，把 alpha 通道统一设为 255；不改 RGB 内容、尺寸、Approved 路径或 Unity `.meta`。
+
+使用方式：
+
+```powershell
+python .\tools\美术工具\fix_opaque_art_alpha.py --dry-run
+python .\tools\美术工具\fix_opaque_art_alpha.py
+.\tools\美术工具\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag opaque_alpha_fixed
+```
+
+可用 `--visual-id <VisualID>` 限定单个或少量素材；处理后应重新刷新质量清单，确认 `technical_fix=0`。
+
 ## Normalize-ArtQualityTier.ps1
 
 把早期本地生成但没有显式 `QualityTier` 的历史 Approved 素材规范化为 `QualityTier=local_v0`。该脚本只处理带有本地生成证据的 Manifest 条目，不会把 `formal_ai_v2`、`final` 或 `production` 降级。
