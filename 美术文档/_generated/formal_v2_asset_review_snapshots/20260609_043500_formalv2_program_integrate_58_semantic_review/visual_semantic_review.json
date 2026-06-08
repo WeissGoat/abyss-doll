@@ -1,0 +1,120 @@
+{
+  "GeneratedAt": "2026-06-09T04:35:00+08:00",
+  "ReviewScope": {
+    "SourceReport": "美术文档/_generated/formal_v2_asset_review/formal_v2_asset_review.json",
+    "ReviewedVisualCount": 58,
+    "ProgramIntegrateStillAllowed": true
+  },
+  "Summary": {
+    "TechnicalPrecheck": "pass_58_of_58",
+    "ProgramIntegrationDecision": "allow_program_integrate",
+    "VisualSemanticRiskCounts": {
+      "watch_runtime_readability": 19,
+      "secondary_replacement_candidate": 13,
+      "ok_for_current_v2": 26
+    },
+    "PrimaryRisks": [
+      "item icon silhouettes are too similar: many read as glowing lanterns or brass vessels",
+      "monster portraits are technically correct but several are too dark or too small for small UI slots",
+      "combat sprites are generally stronger than portraits and can enter runtime validation first"
+    ]
+  },
+  "ReviewItems": [
+    {
+      "VisualID": "item_con_purifying_salt_icon",
+      "RiskLevel": "secondary_replacement_candidate",
+      "ReasonCN": "语义像灯具或矿灯，不像净化盐；与其他消耗品图标差异不足。",
+      "RecommendationCN": "后续重出为白色盐晶、玻璃小瓶、符纸封口或散落晶盐组合。"
+    },
+    {
+      "VisualID": "item_con_solvent_spray_icon",
+      "RiskLevel": "watch_runtime_readability",
+      "ReasonCN": "圆形黄铜容器可用，但喷雾语义不够明显。",
+      "RecommendationCN": "运行时小尺寸复核；如不清晰，重出为带喷嘴的手持雾化瓶。"
+    },
+    {
+      "VisualID": "item_gear_corroded_bulwark_icon",
+      "RiskLevel": "secondary_replacement_candidate",
+      "ReasonCN": "更像发光灯筒，不像被腐蚀的盾墙 / 防具。",
+      "RecommendationCN": "后续重出为锈蚀盾牌、厚重护甲片或带腐蚀孔洞的防御装置。"
+    },
+    {
+      "VisualID": "item_gear_mycelium_cloak_icon",
+      "RiskLevel": "secondary_replacement_candidate",
+      "ReasonCN": "轮廓仍像灯具或袋子，斗篷 / 菌丝披覆语义弱。",
+      "RecommendationCN": "后续重出为布料披风、菌丝边缘、孢子纤维和肩扣轮廓。"
+    },
+    {
+      "VisualID": "item_gear_spore_lance_icon",
+      "RiskLevel": "secondary_replacement_candidate",
+      "ReasonCN": "不像长枪，更像带光容器；武器方向不明确。",
+      "RecommendationCN": "后续重出为细长枪尖、孢子囊刃、杆柄和侧向武器构图。"
+    },
+    {
+      "VisualID": "item_loot_acid_gland_icon",
+      "RiskLevel": "secondary_replacement_candidate",
+      "ReasonCN": "更像灯笼或容器，不像酸腺。",
+      "RecommendationCN": "后续重出为半透明腺体、酸液泡、绿色 / 黄色腐蚀液滴。"
+    },
+    {
+      "VisualID": "item_loot_spore_amber_icon",
+      "RiskLevel": "watch_runtime_readability",
+      "ReasonCN": "琥珀发光感可用，但仍偏灯具。",
+      "RecommendationCN": "小尺寸复核；必要时加强树脂块 / 孢子封存纹理。"
+    },
+    {
+      "VisualID": "item_mat_core_tier2_fragment_icon",
+      "RiskLevel": "secondary_replacement_candidate",
+      "ReasonCN": "核心碎片语义弱，像小台灯。",
+      "RecommendationCN": "后续重出为破裂核心碎片、机械内核残片和缺口边缘。"
+    },
+    {
+      "VisualID": "item_mat_core_tier3_seed_icon",
+      "RiskLevel": "watch_runtime_readability",
+      "ReasonCN": "核心种子可用但与灯具族群太接近。",
+      "RecommendationCN": "运行时复核；后续可强化种子 / 胚芽 / 核心纹路。"
+    },
+    {
+      "VisualID": "item_trade_luminous_fungus_icon",
+      "RiskLevel": "watch_runtime_readability",
+      "ReasonCN": "轮廓有蘑菇帽但仍偏黑，发光菌语义在小尺寸可能尚可。",
+      "RecommendationCN": "运行时复核小图标；如不清晰，增加菌褶和多朵菌群。"
+    },
+    {
+      "VisualID": "monster_boss_spore_foundry_portrait",
+      "RiskLevel": "secondary_replacement_candidate",
+      "ReasonCN": "头像几乎是黑底光圈，角色识别度不足。",
+      "RecommendationCN": "后续重出半身头部 / 工厂孢子熔炉结构，保留暗底但增加可读轮廓。"
+    },
+    {
+      "VisualID": "monster_mob_acid_slime_mature_portrait",
+      "RiskLevel": "secondary_replacement_candidate",
+      "ReasonCN": "主体过小且像单个灯点，不像成熟酸液史莱姆。",
+      "RecommendationCN": "后续重出胶质半透明主体、酸泡和流动轮廓。"
+    },
+    {
+      "VisualID": "monster_mob_echo_pilgrim_portrait",
+      "RiskLevel": "secondary_replacement_candidate",
+      "ReasonCN": "主体太小，黑底占比过大。",
+      "RecommendationCN": "后续重出更大的朝圣者头肩剪影和提灯结构。"
+    },
+    {
+      "VisualID": "monster_mob_shell_grafter_portrait",
+      "RiskLevel": "watch_runtime_readability",
+      "ReasonCN": "轮廓有趣但主体偏小，可能在头像框里读不清。",
+      "RecommendationCN": "运行时头像框复核；必要时放大主体并增加壳体边缘光。"
+    },
+    {
+      "VisualID": "monster_mob_soul_midge_swarm_portrait",
+      "RiskLevel": "watch_runtime_readability",
+      "ReasonCN": "氛围合适，但黑底和小光点可能导致小尺寸辨识弱。",
+      "RecommendationCN": "运行时复核；必要时增加群体飞虫轮廓。"
+    },
+    {
+      "VisualID": "monster_mob_spore_archer_portrait",
+      "RiskLevel": "watch_runtime_readability",
+      "ReasonCN": "主体靠下且偏小，职业 / 弓箭语义不明显。",
+      "RecommendationCN": "运行时复核；必要时重出带弓形剪影的半身头像。"
+    }
+  ]
+}
