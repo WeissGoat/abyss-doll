@@ -31,6 +31,12 @@ ITEM_EN: Dict[str, str] = {
     "loot_rusty_coil": "rusty copper coil with iron core, loose wire ends, corroded casing, vertical mechanical component silhouette",
     "loot_toxic_filter": "polluted industrial filter cartridge, cracked casing, purple-green toxic residue, corroded metal, square silhouette",
     "mat_core_tier1": "small power core module, metal casing, stable blue-gold glowing core, heavy valuable machine part, strong centered silhouette",
+    "con_purifying_salt": "purifying salt icon, small clear glass vial filled with coarse white salt crystals, a few loose salt grains, paper seal and thin red cord, cool blue cleansing sparkle, not a lantern, not a lamp, clean compact silhouette",
+    "gear_corroded_bulwark": "corroded bulwark shield icon, thick rusted tower shield plate, pitted holes, green corrosion stains, reinforced brass rim, battered defensive silhouette, no handle lamp shape",
+    "gear_mycelium_cloak": "mycelium cloak icon, folded cloth cloak with pale fungal fiber edges, mushroom-thread embroidery, small shoulder clasp, soft cream and moss colors, flowing fabric silhouette",
+    "gear_spore_lance": "spore lance weapon icon, long slender spear shaft with sharp lance tip, swollen spore pod below the blade, fungal thorns, diagonal weapon silhouette, clearly a spear",
+    "loot_acid_gland": "acid gland loot icon, translucent organic gland sac filled with yellow-green acid bubbles, dripping corrosive liquid, soft membrane veins, biological pouch silhouette",
+    "mat_core_tier2_fragment": "tier two broken machine-core fragment icon, cracked blue-gold energy core shard, jagged mechanical casing pieces, exposed tiny gears and wires, broken angular fragment silhouette",
 }
 
 ITEM_CN: Dict[str, str] = {
@@ -53,6 +59,9 @@ MONSTER_EN: Dict[str, str] = {
     "elite_scrap_guard": "heavy scrap-metal guardian, bulky welded helmet and shoulder armor, single red sensor eye, defensive intimidating silhouette",
     "mob_acid_slime": "acidic slime creature, semi-transparent corrosive body, trapped metal debris and bubbles inside, purple-green glow, readable blob silhouette",
     "elite_mutant_amalgam": "mutant amalgam creature, fused organic mass and broken machinery, multiple asymmetrical limbs, purple-green contamination marks, exposed metal bones",
+    "boss_spore_foundry": "large spore-forge monster portrait, upper body fills most of the frame, fungal furnace body, glowing molten core in the chest, heavy brass vents, mushroom growths, clear head-and-shoulder silhouette, readable face-like focal point",
+    "mob_acid_slime_mature": "mature acid slime portrait, large semi-transparent gelatinous body fills the frame, visible acid bubbles, suspended corroded metal scraps, sagging slime folds, yellow-green glow, clear blob silhouette",
+    "mob_echo_pilgrim": "echo pilgrim monster portrait, hooded cave wanderer upper body fills the frame, faceless dark hood, small warm lantern held close to the chest, torn cloth, brass charms, clear head-and-shoulder silhouette",
 }
 
 MONSTER_CN: Dict[str, str] = {
@@ -1363,6 +1372,42 @@ STALE_PROMPT_FRAGMENTS = [
 ]
 
 NEGATIVE_BY_CONFIG = {
+    "con_purifying_salt": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, torch, candle, oil lamp, glowing brass vessel, potion bottle only, empty bottle, weapon, shield"
+    ),
+    "gear_corroded_bulwark": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, torch, glowing brass vessel, bottle, spear, sword, clean polished shield, round coin"
+    ),
+    "gear_mycelium_cloak": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, brass vessel, bottle, armor plate, weapon, human model, full character, clean plastic raincoat"
+    ),
+    "gear_spore_lance": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, glowing brass vessel, bottle, shield, cloak, short dagger, staff only, blunt club"
+    ),
+    "loot_acid_gland": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, torch, brass vessel, glass lantern, potion bottle only, clean fruit, jewel, mechanical core"
+    ),
+    "mat_core_tier2_fragment": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, torch, glowing brass vessel, intact round core, coin, gem only, potion bottle"
+    ),
+    "boss_spore_foundry": (
+        "text, letters, numbers, watermark, logo, signature, busy background, tiny subject, mostly black image, "
+        "empty dark background, single light ring, full environment scene, cute mascot, friendly smile, cropped head, excessive gore"
+    ),
+    "mob_acid_slime_mature": (
+        "text, letters, numbers, watermark, logo, signature, busy background, tiny subject, mostly black image, "
+        "single glowing dot, lantern, lamp, empty dark background, cute mascot, friendly smile, cropped creature, photorealistic animal photo"
+    ),
+    "mob_echo_pilgrim": (
+        "text, letters, numbers, watermark, logo, signature, busy background, tiny subject, mostly black image, "
+        "single glowing dot, empty dark background, full body far away, human portrait, cute mascot, friendly smile, cropped head"
+    ),
     "combat_intent_debuff": (
         "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, "
         "upward arrow, arrowhead pointing up, triangle only, purple triangle, diamond shape, rhombus, bottle, flask, torch, staff, wand, spear, flame, lantern"

@@ -141,6 +141,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 已完成 P3 mission `ART-V2-04` / `ART-V2-05` 的交接整理：`美术文档/13_正式纵切UI与素材覆盖矩阵.md` 已记录 V2-A 五屏 active、`generate_needed=29` 构成和程序侧交接口径；`agent_status/program.md` 和 `PROJECT_STATUS.md` 已同步 `program_integrate=0`、`rerun_acceptance=16` 的当前判断。
 - 已完成 P3 mission `ART-V2-06` 的首批运行时素材规划：缺图跑图批次为 `nai_v2a_runtime_missing_20260608_01`，包含 29 个已具备 Prompt / Spec 的运行时内容素材；Visual V2 质量替换批次为 `nai_v2a_runtime_quality_20260608_01`，包含 121 个已接入 local_v0 / placeholder 的同名替换项。本轮只完成批次计划和文档交接，尚未实际调用 NovelAI 跑图。
 - 已完成 FormalV2 全量美术迭代 mission `ART-FV2-01`：`00_formal_v2_ux_ui_overview.md` 新增 Formal V2 美术系统标准、`local_v0` / `formal_ai_v2` / `final_polish` 质量层级，以及概念图 / 结构图 / 运行时素材边界；`formal_v2/README.md` 已指向该总规范。已用 `py tools/docs/validate_docs.py --index docs_index.json` 验证通过。
+- 已完成 FormalV2 语义高风险素材二次替换的提示词准备：针对 `item_con_purifying_salt_icon`、`item_gear_corroded_bulwark_icon`、`item_gear_mycelium_cloak_icon`、`item_gear_spore_lance_icon`、`item_loot_acid_gland_icon`、`item_mat_core_tier2_fragment_icon`、`monster_boss_spore_foundry_portrait`、`monster_mob_acid_slime_mature_portrait`、`monster_mob_echo_pilgrim_portrait` 补入明确英文视觉描述和专用负面词，避免继续生成灯具 / 黄铜容器 / 黑底小主体。`Run-ArtGeneration.ps1 -Status approved -PreserveStatus -DryRun` 已确认批次 `nai_formalv2_semantic_fix_20260609_01` 可选中 9 项，尺寸为 6 个 `512x512` 图标和 3 个 `1024x1024` 头像；当前未实际调用 NovelAI。
 - 已整理本轮待提交美术工作区变更：Approved 图标 / 纪念物 / 势力 / 订单 / 传闻 `.meta` 导入上限按运行时用途提升到 1024 或 2048；补提交美术流水线历史快照与 `美术风格参考/` 参考图，并为参考图补 LFS 规则；同步收口 `dungeon_map` Formal V2 为“可推进大地图 + 独立生态层”方向。`tools/ComfyUI_NAIDGenerator/` 仍按第三方工具候选留在未跟踪状态，待确认 vendor / submodule / 本地工具口径。
 - 已完成 P0 UI 运行时验收：`workshop_main`、`combat_hud`、`inventory_loot` 当前 MVP Baseline 为 `validated`。
 - 已建立 Formal V1 UI 结构设计层：`combat_hud`、`workshop_main`、`inventory_loot`、`dungeon_map`、`settlement`。
@@ -265,12 +266,13 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 1. 程序侧可按 `美术文档/_generated/可接入素材清单.md` 或 `美术文档/_generated/程序接入交接清单.md` 的 `program_integrate=58` 登记 / 接入本轮新增 Approved VisualID；美术侧静态预验收已证明 58 个 Approved 文件可交接。
 2. 程序完成 58 个新资源登记后，需要重跑 ArtAcceptance / VisualAsset 相关验收，美术再做截图验收。
 3. 美术侧下一步进入运行时截图复验：重点看 FormalV2 核心界面的构图、控件遮挡、图标小尺寸可读性、背景 cover / contain 适配，以及新增怪物 / 物品 / 经济图标是否与日系地底奇幻风格统一。程序未登记前，美术侧可继续做 `formal_v2_asset_review/contact_sheets` 的人工风格抽查。
+4. NovelAI token 设置后，优先执行二次语义修复批次：`Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID item_con_purifying_salt_icon,item_gear_corroded_bulwark_icon,item_gear_mycelium_cloak_icon,item_gear_spore_lance_icon,item_loot_acid_gland_icon,item_mat_core_tier2_fragment_icon,monster_boss_spore_foundry_portrait,monster_mob_acid_slime_mature_portrait,monster_mob_echo_pilgrim_portrait -Variants 4 -Concurrency 1 -DelaySeconds 1 -BatchID nai_formalv2_semantic_fix_20260609_01 -PreserveStatus`，之后再预处理、人工筛选并用 strict meta guard 同名替换 Approved。
 
 ## 问题 / 阻塞
 
 - 当前工作区仍有大量程序、策划、Unity 资产和知识库生成物处于脏状态；美术侧提交时只纳入本轮美术流水线相关文件。
 - P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 正式结构已通过；本轮 latest `20260527_002436` 已确认资源接入通过，但 `combat_hud` 等 6 个界面仍需程序返修后复验。
-- NovelAI token / 单图生成链路当前已恢复可用，本轮已完成 58 张缺图和 121 个质量替换资源的真实 NovelAI 生成；后续仍需关注 NovelAI 余额和单图串行限制，不能并发跑图，也不能把 mock / local_v0 冒充为正式图。
+- 当前会话环境变量 `NAI_ACCESS_TOKEN` 未设置；本轮只完成二次替换提示词和 dry-run 验证，没有实际调用 NovelAI，也没有改用 mock / local_v0 冒充正式图。后续跑图仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`。
 - latest `program_integrate=58` 表示有 58 个新增 Approved VisualID 需要程序登记；美术侧静态预验收已通过，Visual V2 同名替换队列和 technical_fix 队列均已清空。正式运行时验收仍依赖程序登记后重跑 ArtAcceptance / VisualAsset 验收截图。
 - Formal V2 目前只是 draft 设计层；如果程序侧需要接入，必须等待用户确认并由美术侧更新 active `screen_layouts.json`。
 - Formal V2 概念图含 AI 伪文字和局部装饰噪声，只能作为结构参考；正式接入前仍需将控件、文本、图标和面板皮肤拆回可实现规格。

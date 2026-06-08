@@ -1,13 +1,13 @@
 {
-  "GeneratedAt": "2026-06-09T03:26:39+08:00",
-  "SnapshotTag": "formalv2_missing_batch_quality_marked_after",
+  "GeneratedAt": "2026-06-09T04:52:45+08:00",
+  "SnapshotTag": "",
   "Inputs": {
     "QualityBacklogPath": "美术文档/_generated/素材质量替换清单.json",
     "ManifestPath": "美术文档/_generated/art_manifest.json"
   },
   "RunConfig": {
     "Provider": "novelai",
-    "BatchID": "nai_visual_v2_20260525_01",
+    "BatchID": "nai_formalv2_semantic_fix_20260609_01",
     "Variants": 4,
     "DelaySeconds": 1.0,
     "QualityTierAfterSync": "formal_ai_v2",
@@ -24,10 +24,10 @@
   },
   "BatchCommands": {
     "RunAllGeneration": "",
-    "OptimizeAllAfterGeneration": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite",
-    "RefreshIntegration": ".\\tools\\美术工具\\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01",
-    "RefreshQuality": ".\\tools\\美术工具\\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01",
-    "RefreshPlan": ".\\tools\\美术工具\\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01_after -BatchID nai_visual_v2_20260525_01"
+    "OptimizeAllAfterGeneration": ".\\tools\\美术工具\\Optimize-ArtAssets.ps1 -Status approved -CandidateBatchID nai_formalv2_semantic_fix_20260609_01 -Overwrite",
+    "RefreshIntegration": ".\\tools\\美术工具\\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag nai_formalv2_semantic_fix_20260609_01",
+    "RefreshQuality": ".\\tools\\美术工具\\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag nai_formalv2_semantic_fix_20260609_01",
+    "RefreshPlan": ".\\tools\\美术工具\\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag nai_formalv2_semantic_fix_20260609_01_after -BatchID nai_formalv2_semantic_fix_20260609_01"
   },
   "RecommendedBatches": [],
   "Items": []

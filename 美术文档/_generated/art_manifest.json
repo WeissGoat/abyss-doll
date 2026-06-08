@@ -1556,8 +1556,8 @@
       "Status": "approved",
       "SourceFactsCN": "配置表物品：净化盐。类型 Consumable，稀有度 Uncommon，占格 1，标签 Consumable, Purify, Layer3。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, purifying salt icon, small clear glass vial filled with coarse white salt crystals, a few loose salt grains, paper seal and thin red cord, cool blue cleansing sparkle, not a lantern, not a lamp, clean compact silhouette, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, torch, candle, oil lamp, glowing brass vessel, potion bottle only, empty bottle, weapon, shield",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -1953,8 +1953,8 @@
       "Status": "approved",
       "SourceFactsCN": "配置表物品：腐蚀壁盾。类型 Armor，稀有度 Epic，占格 6，标签 Armor, Heavy, Corroded, Layer2。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, corroded bulwark shield icon, thick rusted tower shield plate, pitted holes, green corrosion stains, reinforced brass rim, battered defensive silhouette, no handle lamp shape, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, torch, glowing brass vessel, bottle, spear, sword, clean polished shield, round coin",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -2121,8 +2121,8 @@
       "Status": "approved",
       "SourceFactsCN": "配置表物品：菌丝披覆。类型 Armor，稀有度 Epic，占格 6，标签 Armor, Layer3, Spore, PollutionResist。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, mycelium cloak icon, folded cloth cloak with pale fungal fiber edges, mushroom-thread embroidery, small shoulder clasp, soft cream and moss colors, flowing fabric silhouette, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, brass vessel, bottle, armor plate, weapon, human model, full character, clean plastic raincoat",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -2289,8 +2289,8 @@
       "Status": "approved",
       "SourceFactsCN": "配置表物品：孢刺长枪。类型 Weapon，稀有度 Rare，占格 4，标签 Weapon, Layer3, Spore, Long。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, spore lance weapon icon, long slender spear shaft with sharp lance tip, swollen spore pod below the blade, fungal thorns, diagonal weapon silhouette, clearly a spear, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, glowing brass vessel, bottle, shield, cloak, short dagger, staff only, blunt club",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -2515,8 +2515,8 @@
       "Status": "approved",
       "SourceFactsCN": "配置表物品：酸腺囊。类型 Loot，稀有度 Rare，占格 4，标签 Material, Toxic, Corroded, Layer2, OddShape。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, acid gland loot icon, translucent organic gland sac filled with yellow-green acid bubbles, dripping corrosive liquid, soft membrane veins, biological pouch silhouette, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, torch, brass vessel, glass lantern, potion bottle only, clean fruit, jewel, mechanical core",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3196,8 +3196,8 @@
       "Status": "approved",
       "SourceFactsCN": "配置表物品：二阶机核碎片。类型 QuestItem，稀有度 Epic，占格 4，标签 CoreMaterial, BossKey, Layer2, Mechanical。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, tier two broken machine-core fragment icon, cracked blue-gold energy core shard, jagged mechanical casing pieces, exposed tiny gears and wires, broken angular fragment silhouette, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, torch, glowing brass vessel, intact round core, coin, gem only, potion bottle",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -4432,7 +4432,7 @@
       "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：孢殖熔炉。层级 2，生命 230，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, large spore-forge monster portrait, upper body fills most of the frame, fungal furnace body, glowing molten core in the chest, heavy brass vents, mushroom growths, clear head-and-shoulder silhouette, readable face-like focal point, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
       "Spec": {
         "SourceSpec": {
@@ -4491,8 +4491,8 @@
       "Status": "approved",
       "SourceFactsCN": "配置表怪物：孢殖熔炉。层级 2，生命 230，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, large spore-forge monster portrait, upper body fills most of the frame, fungal furnace body, glowing molten core in the chest, heavy brass vents, mushroom growths, clear head-and-shoulder silhouette, readable face-like focal point, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, tiny subject, mostly black image, empty dark background, single light ring, full environment scene, cute mascot, friendly smile, cropped head, excessive gore",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -5226,7 +5226,7 @@
       "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：成熟酸液软体。层级 2，生命 82，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, mature acid slime portrait, large semi-transparent gelatinous body fills the frame, visible acid bubbles, suspended corroded metal scraps, sagging slime folds, yellow-green glow, clear blob silhouette, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
       "Spec": {
         "SourceSpec": {
@@ -5285,8 +5285,8 @@
       "Status": "approved",
       "SourceFactsCN": "配置表怪物：成熟酸液软体。层级 2，生命 82，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, mature acid slime portrait, large semi-transparent gelatinous body fills the frame, visible acid bubbles, suspended corroded metal scraps, sagging slime folds, yellow-green glow, clear blob silhouette, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, tiny subject, mostly black image, single glowing dot, lantern, lamp, empty dark background, cute mascot, friendly smile, cropped creature, photorealistic animal photo",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -5458,7 +5458,7 @@
       "Status": "approved",
       "SourceFactsCN": "配置表怪物战斗实体：回声朝圣者。层级 3，生命 98，用于 Formal V1 战斗舞台站位。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, single readable game asset, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, full-body creature illustration, echo pilgrim monster portrait, hooded cave wanderer upper body fills the frame, faceless dark hood, small warm lantern held close to the chest, torn cloth, brass charms, clear head-and-shoulder silhouette, side or three-quarter side view, grounded stance, full figure visible, clear silhouette, transparent background, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, cropped feet, portrait crop, bust portrait, full environment scene, photorealistic animal photo",
       "Spec": {
         "SourceSpec": {
@@ -5517,8 +5517,8 @@
       "Status": "approved",
       "SourceFactsCN": "配置表怪物：回声朝圣者。层级 3，生命 98，背包干涉 None。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, single readable game asset, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, creature portrait, echo pilgrim monster portrait, hooded cave wanderer upper body fills the frame, faceless dark hood, small warm lantern held close to the chest, torn cloth, brass charms, clear head-and-shoulder silhouette, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, tiny subject, mostly black image, single glowing dot, empty dark background, full body far away, human portrait, cute mascot, friendly smile, cropped head",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
