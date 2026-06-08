@@ -23,7 +23,7 @@ update_rule: 版本路线、里程碑、优先级、跨职能拆分或交付节�
 
 ## 最后更新
 
-2026-06-07
+2026-06-08
 
 ## 当前关注
 
@@ -59,6 +59,7 @@ update_rule: 版本路线、里程碑、优先级、跨职能拆分或交付节�
 
 ## 最近完成
 
+- 已将 `misc/Missions` 的可用机制按标准 Codex skill 规范合并进 `p3-mission`：`p3-mission` 现在是唯一维护的 mission 核心，新增 source intake / approved queue 路由、required_tools / 证据等级 / 受限验收参考页；`misc/Missions` 后续仅作为归档上游参考，不再作为 active skill 或第二套路由维护。
 - 已按 `superpowers:writing-skills` 的触发描述、精简正文、渐进披露和 UI 元数据规范完善 `p3-mission`；同时吸收 `misc/Missions` 的恢复、REVIEW、claim/evidence 对齐和反暂停规则，并保留 P3 的 `.mission` / `missions`、状态页回写和非 Trellis hook 边界。
 - 已将 `p3-mission` 放入项目内 Codex 可识别目录 `.codex/skills/p3-mission/`；`tools/p3-mission` 保持为独立工具源码仓库，`.codex` 目录不纳入 P3 知识库索引。
 - 已新增非侵入式 `tools/p3-mission` 长任务协议：支持目标创建、CSV 任务规划、逐行执行、验证证据、状态回写和恢复继续；`.mission/*.csv` 作为本地恢复工件，`missions/*.csv` 可作为用户批准的正式执行队列。该协议不接入 Trellis hooks，也不替代 P3 现有事实来源和职能状态页。
@@ -80,7 +81,7 @@ update_rule: 版本路线、里程碑、优先级、跨职能拆分或交付节�
 ## 下一步建议
 
 1. 后续派发任何 P0-P5 工作前，先查对应职能状态页，确认最新证据、真实缺口和后续批次位置。
-2. 多步骤或跨会话工作优先触发 `.codex/skills/p3-mission/`；如当前会话未加载该 skill，再读取 `tools/p3-mission` 生成 `.mission/*.csv` 并逐行执行。每条任务必须保留 `read_before`、`verify`、`status_writeback` 和证据，不因 mission 存在而跳过 `AGENTS.md` 完成协议。
+2. 多步骤或跨会话工作优先触发 `.codex/skills/p3-mission/`；如当前会话未加载该 skill，再读取 `tools/p3-mission` 生成 `.mission/*.csv` 并逐行执行。每条任务必须保留 `read_before`、`verify`、`required_tools`、`status_writeback` 和证据，不因 mission 存在而跳过 `AGENTS.md` 完成协议；不要再启用或维护归档的 `misc/Missions` 子 skill。
 3. 新增需求先走 `11` 查详细文档承接；新增长期节点、节点门禁、职能入口或状态标记规则才更新 `09`。
 4. 下一轮 PM 拆任务时，应先按 `09` 的 `5.1 程序近期推进计划`、`5.2 下一轮程序工作包`、`5.3 下一步程序执行顺序与切换条件` 和 `agent_status/program.md` 确认真实缺口：先排除 P0 阻断项，再收口 P1 战斗玩家可见闭环，随后推进 P4 小镇经济真实操作、P3 工坊成长真实操作、P2 前三层正式配置与 Validator；P5 美术资源随功能接入。
 5. 每次开发、配置、美术或验收完成后，先回写对应职能状态页；同一系统的策划、程序、美术工作拆开记录，详细方案回到对应职能文档；通用状态口径按 `09` 执行。

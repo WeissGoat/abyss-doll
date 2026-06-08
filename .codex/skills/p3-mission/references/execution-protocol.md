@@ -4,6 +4,8 @@ This reference is loaded when the agent is creating, executing, reviewing, or re
 
 ## 1. Create Or Locate A Mission
 
+Route inputs with `references/route-and-source-intake.md`.
+
 If the user gives a long goal, create a local mission:
 
 ```powershell
@@ -18,6 +20,8 @@ If the user asks to continue or resume:
 
 If multiple unfinished missions exist, choose the most recently modified one unless the user clearly names another file.
 
+Do not scan or revive archived `misc/Missions` skills. Their content has been absorbed into `p3-mission`.
+
 ## 2. Plan Rows
 
 Replace `PLAN-01` with 3-12 concrete `TASK` rows plus one final `REVIEW-01`.
@@ -28,6 +32,8 @@ Each `TASK` row must be:
 - Small enough to finish without swallowing unrelated refactors.
 - Explicit about `read_before`, `scope`, `out_of_scope`, `verify`, `required_tools`, and `status_writeback`.
 - Assigned to the closest P3 role: `PM`, `策划`, `程序`, `UI程序`, `美术`, `知识库`, or `全局`.
+
+When planning from a Markdown source, keep approved formal queues in `missions/*.csv` only if the source is current and user-approved; otherwise use `.mission/*.csv`.
 
 Before execution:
 
@@ -79,6 +85,8 @@ Never use the mission CSV as the final project fact source.
 
 Be honest about evidence. Static inspection, README edits, dry runs, mock data, fixtures, and string checks do not prove runtime integration.
 
+Use `references/verification-and-evidence.md` when choosing `required_tools`, writing `verify`, or judging limited validation.
+
 Use these tags when validation is limited:
 
 - `validation_limited:<objective reason>`
@@ -88,12 +96,15 @@ Use these tags when validation is limited:
 
 If Unity, browser, or external validation cannot run, record why and finish every reachable alternative check.
 
+Do not claim "passed", "integrated", "playable", or "complete" beyond the evidence level recorded in the row.
+
 ## 6. Review Row
 
 `REVIEW-*` rows do not implement features. They test whether the mission's claims match evidence.
 
 Before closing review, check:
 
+- The review compares against the original user/source goal, not only the current row titles.
 - All prior `TASK` rows are `DONE` or explicitly `BLOCKED`.
 - `DONE` rows have evidence and status writeback.
 - Delivery claims do not overstate evidence level.
@@ -107,6 +118,8 @@ If review finds gaps:
 2. Append a new `REVIEW-(N+1)` row.
 3. Mark the current review `DONE` with evidence describing the gap conversion.
 4. Continue to the new follow-up rows.
+
+If same-model sub-agent review is unavailable in the current environment, do an independent-context self-review and record `validation_limited:same-model review unavailable`; do not claim a sub-agent review happened.
 
 ## 7. Resume Rules
 
@@ -145,3 +158,4 @@ Stop only when:
 | "The status page is updated, so the work is complete." | Status writeback records evidence; it does not replace implementation or validation. |
 | "A review found gaps, so I should ask the user." | Convert actionable gaps into rows. Ask only for human-required decisions. |
 | "The worktree is dirty, so I should stop." | Scope carefully, avoid unrelated changes, and keep moving unless the dirty state makes the row impossible. |
+| "Missions upstream used four CSV states, so P3 should too." | P3 uses one `status` field plus evidence/status writeback. Do not reintroduce upstream schema. |

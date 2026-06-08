@@ -33,6 +33,8 @@ The header order is fixed. All fields are written as quoted CSV values by the to
 | `evidence` | Verification summary. Required for `DONE`. |
 | `notes` | Completion date, blockers, risks, assumptions, and recovery notes. |
 
+For source intake and evidence mapping, see `route-and-source-intake.md` and `verification-and-evidence.md`.
+
 ## Status Values
 
 | Status | Meaning |
@@ -65,6 +67,7 @@ When review finds a gap, append concrete follow-up `TASK` rows and a new `REVIEW
 - `.mission/*.csv`: local recovery artifact, not committed by default.
 - `missions/*.csv`: user-approved formal mission queue, can be committed.
 - `tools/p3-mission/`: tool and protocol source only; never store project mission CSVs here.
+- `misc/_archive/Missions_*/`: archived upstream reference only; never use as an active queue or skill source.
 
 ## Notes Tags
 
@@ -73,6 +76,8 @@ When review finds a gap, append concrete follow-up `TASK` rows and a new `REVIEW
 | `done_at:<date>` | Completion date. |
 | `blocked:<reason>` | Blocker reason. |
 | `validation_limited:<reason>` | Why requested validation could not be fully run. |
+| `manual_test:<steps>` | Steps a user can run when external validation becomes available. |
+| `evidence:<check>` | Extra evidence note when the `evidence` field needs a tagged summary. |
 | `status_writeback:<path>` | Status page or fact doc that was updated. |
 | `risk:<low|medium|high> <note>` | Residual risk. |
 | `assumption:<note>` | Assumption used to keep work moving. |

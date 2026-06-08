@@ -65,6 +65,7 @@ related:
   - 知识库/views/design.md
   - 知识库/views/program.md
   - tools/agent/README.md
+  - tools/p3-mission/README.md
 last_verified: 2026-06-08
 update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。
 ---
@@ -115,6 +116,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 ## 最近完成
 
+- PM / 工具侧已将 `misc/Missions` 的长期任务机制按 P3 规范收敛进 `p3-mission`：项目只维护 `.codex/skills/p3-mission/` 和 `tools/p3-mission`，旧 `misc/Missions` 已归档为上游参考，不再作为 active skill 或第二套路由。
 - 策划侧已完成 C3 第三层路线侵蚀配置源落地：`L3-ITEMS`、`L3-REWARDS`、`L3-MONSTERS`、`L3-DUNGEONS`、`L3-ORDERS-RUMORS-EVENTS`、`L3-SEED` 均已在 `设计文档/config/26_正式配置设计与填充推进计划.md` 标记为 `配置完成`。本轮新增第三层 12 件物品、15 个奖励、8 个怪物、4 个订单、3 条传闻、1 个新 Faction 和 `配置表(JSON)/Dungeons/layer_3.json`；`layer_3.json` 已具备 `DirectStartAllowed=true`、`PreviousLayerRequired=2`、Boss `boss_mycelium_oracle`、Boss 后免费恢复 HP / SAN 的 SafeZone、路线侵蚀 / 订单冲突 MapProfile 和 5 条固定样例。已通过 C3 静态交叉引用检查（error / warning 为 0）和 `./tools/config/Sync-Configs.ps1 -Clean`；P0 入口已运行，`ConfigValidator` / Unity smoke 因 Unity Editor 未运行阻塞，ArtAcceptance 为既有 UI / 美术验收问题，未作为 C3 配置失败证据。C4 已解锁为 `待开始`，当前子项为 `GROWTH-ID-LOCK`。
 - 策划侧已完成 C2 第二层直达与背包压力配置源落地，并完成 C2 收尾 / C3 开工口径同步：`L2-ITEMS`、`L2-REWARDS`、`L2-MONSTERS`、`L2-DUNGEONS`、`L2-ORDERS`、`L2-SEED` 均已在 `设计文档/config/26_正式配置设计与填充推进计划.md` 标记为 `配置完成`。本轮新增 / 补强第二层 12 件物品、14 个奖励、7 个怪物、3 个订单、2 个必要 Faction 引用和 `配置表(JSON)/Dungeons/layer_2.json`；`layer_2.json` 已具备 `DirectStartAllowed=true`、`PreviousLayerRequired=1`、Boss `boss_spore_foundry`、Boss 后免费恢复 HP / SAN 的 `StairsNode + SafeZoneRules`，并补 5 条固定样例。已通过 C2 静态 Validator 等价检查和 `./tools/config/Sync-Configs.ps1 -Clean`；`ConfigValidationSmokeTest.Run` / P0 Unity 步骤因 Unity Editor 未运行被工具阻塞，未作为通过证据。C3 已解锁为 `待开始`，当前子项为 `L3-ITEMS`；后续只按缺口修复处理 C1 / C2，不重复派发基础配置。
 - 策划侧已完成 C1 第一层正式配置源收口：`L1-ITEMS`、`L1-REWARDS`、`L1-MONSTERS`、`L1-DUNGEONS`、`L1-SEED` 均已在 `设计文档/config/26_正式配置设计与填充推进计划.md` 标记为 `配置完成`。`layer_1.json` 已补 2 个 MapProfile、11 个 NodePool、5 条 FixedSeedSamples 和 9 条 ValidationScenarioRefs；Boss 指向 `boss_gatekeeper_mk1`，`elite_scrap_guard` 只作为可绕精英；Boss 后 `StairsNode + SafeZoneRules` 为免费恢复 HP / SAN、允许撤离 / 深入、不清污染 / 订单 / 探索账本。已通过 L1-SEED 静态证据检查、`Sync-Configs.ps1 -Clean`、`ConfigValidationSmokeTest.Run`、`DungeonSeedAcceptanceSmokeTest.Run`、`RewardSystemSmokeTest.Run`、`ItemLifecycleServiceSmokeTest.Run` 和 Boss 保底结构检查。该历史记录已被 C2 完成记录推进；当前下一项为 C3 `L3-ITEMS`。
@@ -221,6 +223,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 当前 latest `program_integrate=0`、`add_capture=0`、`rerun_acceptance=16`。`program_integrate=0` 表示没有新增 Approved VisualID 需要程序登记；`rerun_acceptance=16` 是仍为 FormalV1 的非 V2-A 屏截图早于当前 active 规格日期，不代表 V2-A 五屏已完成运行时接入。V2-A 五屏需要程序侧按 active FormalV2 规格重排运行时 UI；`generate_needed=58` 是美术侧缺图队列，包含 23 个物品图标、34 个怪物战斗 / 头像素材和 1 个背景，当前缺图批次为 `nai_formalv2_missing_20260608_01`。local_v0 只用于结构接入和截图验收，不作为最终视觉质量。美术侧后续按 `美术文档/_generated/VisualV2生成计划.md` 的 `nai_formalv2_quality_20260608_01` 串行同名替换 121 项正式 AI 版，并已拆成 7 个推荐小批次。已接入素材做正式图替换时，必须保持同 `VisualID`、同 Approved 路径、同 Unity `.meta` / GUID；`Sync-ApprovedArt.ps1 -CandidateBatchID` 默认强校验该规则，满足时程序侧无需重新登记资源。
 - Formal V1 UI 的“资源登记完成”和“运行时截图覆盖完成”不等于“玩家可玩接入完成”。后续程序侧声明某界面可玩完成前，必须同时补齐玩家主流程可达入口，以及关键按钮 / 操作调用真实后端或领域服务的闭环证据；ArtAcceptance、debug 入口、验收专用 preview 对象或只读快照只能作为资源 / 截图接入证据。
 - `program_integrate` 17 个 Approved VisualID 曾完成 UI 程序接入记录；按当前正式版本完成口径，该记录只作为历史接入事实，不计为 P5 表现支撑正式版本完成。美术侧如继续推进，应基于 ArtAcceptance 截图验收后回写 `agent_status/art.md`，如影响长期节点门禁再通知 PM 更新 `09`。
+- 长任务、恢复继续、跨会话拆分和 mission 请求统一使用 `.codex/skills/p3-mission/`；`tools/p3-mission` 是独立工具源码仓库。`misc/Missions` 已归档，不再作为 active skill、任务路由或第二套 CSV 执行系统。
 - 任意智能体修改系统规则时，必须更新对应 GDD 或开发文档，不能只改代码或配置。
 - 任意智能体新增或调整文档关联时，必须维护 `related` 双向互链，并运行 `.\tools\docs\Validate-Docs.ps1`。
 - 复制智能体需要快速定位上下文时，优先读取 `知识库/views/` 下对应职能入口，再进入事实来源文档。

@@ -21,7 +21,7 @@ related:
   - 版本规划/09_正式版核心纵切开发路线.md
   - 版本规划/README.md
   - 版本规划/11_纵切批次与需求文档承接矩阵.md
-last_verified: 2026-06-07
+last_verified: 2026-06-08
 update_rule: 修改智能体分工、开工流程或完成协议时同步本文件。
 ---
 
@@ -75,6 +75,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 
 当用户要求长期任务、拆任务执行、持续执行、`mission` 或恢复继续时，优先使用项目内 Codex 可识别 skill：`.codex/skills/p3-mission/SKILL.md`。
 `tools/p3-mission` 是独立工具源码仓库；如果当前会话没有自动加载 skill，再读取 `tools/p3-mission/README.md` 和 `tools/p3-mission/SKILL.md` 作为 fallback。
+`misc/Missions` 只是已归档的上游参考，不再作为 active skill、路由入口或第二套 mission 系统维护。
 
 P3 mission 是非侵入式本地任务队列：用 `.mission/*.csv` 或 `missions/*.csv` 记录目标、任务拆分、执行状态、验证证据和状态回写；不启用 Trellis hooks，不替代 `AGENTS.md`、`PROJECT_STATUS.md`、`agent_status/*` 或各职能事实文档。
 

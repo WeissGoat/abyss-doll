@@ -7,15 +7,19 @@ description: Use when a Project P3 request is a long task, mission request, resu
 
 ## Overview
 
-P3 Mission is Project P3's local long-task protocol: a resumable CSV queue plus evidence-backed status writeback.
+P3 Mission is Project P3's only maintained mission workflow: a resumable CSV queue plus evidence-backed status writeback.
 
 It is not Trellis, does not install hooks, and does not replace `AGENTS.md`, `PROJECT_STATUS.md`, `agent_status/*`, GDD, development docs, art docs, or configuration sources.
 
-## When To Use
+`misc/Missions` is an archived upstream reference only. Do not route work into its separate skills or maintain a second mission system.
 
-Use this skill when the user says `p3-mission`, `mission`, `long task`, `continue mission`, `resume mission`, or `继续上次的 mission`; or when the task likely takes more than one hour, has three or more independently verifiable steps, may be interrupted, or crosses multiple P3 status/fact sources.
+## Core Rules
 
-Do not create a mission for a short one-turn fix. Execute directly and follow `AGENTS.md`.
+- Read `AGENTS.md` and the relevant P3 status/fact sources before changing project files.
+- Use `.mission/*.csv` for local recovery artifacts and `missions/*.csv` only when the user approves a formal queue.
+- Keep the CSV as execution state, not project truth. Meaningful work must write back to `agent_status/*` or the relevant fact document.
+- Every mission needs concrete `TASK` rows and a final `REVIEW-*` row that checks the original goal against evidence.
+- Do not stop at setup, checkpoints, partial completion, or limited validation while reachable rows remain.
 
 ## Quick Reference
 
@@ -30,6 +34,14 @@ Do not create a mission for a short one-turn fix. Execute directly and follow `A
 Codex discovery copy: `.codex/skills/p3-mission/`.
 Source/tool repository: `tools/p3-mission/`.
 
+## Input Routing
+
+- Existing CSV: validate it, then execute the first active row.
+- Markdown document: read `references/route-and-source-intake.md` to decide whether it is an approved formal queue source or long-task context.
+- Natural-language long goal: create `.mission/*.csv`, replace the placeholder with 3-12 rows, validate, then execute.
+- Resume request: use `Get-P3NextIssue.ps1 -Latest`.
+- Short one-turn fix: skip mission and follow `AGENTS.md` directly.
+
 ## Workflow
 
 1. Read `AGENTS.md`, `PROJECT_STATUS.md`, relevant `agent_status/*`, and row `read_before`.
@@ -40,14 +52,16 @@ Source/tool repository: `tools/p3-mission/`.
 6. Mark `DOING`, work inside `scope`, avoid `out_of_scope`, verify, write evidence, update P3 status, then mark `DONE`.
 7. Continue until review proves the original goal is met or every remaining row is genuinely blocked.
 
+Read `references/route-and-source-intake.md` for routing, approved-source handling, and queue location rules.
 Read `references/execution-protocol.md` for execution, recovery, review, and anti-pause rules.
+Read `references/verification-and-evidence.md` for validation tool mapping, limited validation, and claim/evidence alignment.
 Read `references/csv-schema.md` for fields and allowed values.
 
 ## P3 Adaptation
 
-Borrow from `misc/Missions`: durable CSV state, recovery, explicit review rows, claim/evidence alignment, and anti-pause discipline.
+Absorbed from `misc/Missions`: durable CSV state, source routing, recovery, explicit review rows, claim/evidence alignment, limited validation discipline, and anti-pause rules.
 
-Do not copy its multi-skill router, `issues/*.csv` model, or mandatory per-row commit behavior. P3 uses `.mission/*.csv` for local recovery and `missions/*.csv` only when the user approves a formal queue.
+Do not copy its multi-skill router, `issues/*.csv` model, four-status CSV schema, or mandatory per-row commit behavior. P3 uses one skill, one schema, P3 status writeback, and normal scoped git commits.
 
 ## Common Mistakes
 
@@ -58,3 +72,4 @@ Do not copy its multi-skill router, `issues/*.csv` model, or mandatory per-row c
 | Stop after checkpoint | Continue unless stop conditions in `execution-protocol.md` are met. |
 | Replan completed rows | Resume from the first active row. |
 | Commit `.mission/*.csv` | Keep local missions untracked by default. |
+| Reuse `misc/Missions` skills | Use `p3-mission`; archived Missions is reference material only. |

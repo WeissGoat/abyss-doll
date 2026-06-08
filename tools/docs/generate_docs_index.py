@@ -35,6 +35,7 @@ EXCLUDED_PARTS = {
 
 EXCLUDED_PATH_PREFIXES = {
     ("misc", "Missions"),
+    ("misc", "_archive"),
 }
 
 
