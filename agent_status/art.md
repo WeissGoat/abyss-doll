@@ -263,6 +263,8 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 已新增并执行 `Generate-FormalV2AssetReview.ps1` / `generate_formal_v2_asset_review.py`，对 latest `program_integrate=58` 的 Formal V2 Approved 素材做程序登记前静态预验收；输出位于 `美术文档/_generated/formal_v2_asset_review/`，快照为 `美术文档/_generated/formal_v2_asset_review_snapshots/20260609_041011_formalv2_program_integrate_58_precheck/`。结论：`reviewed=58`、`pass=58`、`fail=0`、`warn=0`，其中 item=23、monster=34、background=1，PNG / `.meta` / `formal_ai_v2` / 尺寸 / alpha 均符合 Manifest SourceSpec。
 - 已补充 `美术文档/_generated/formal_v2_asset_review/visual_semantic_review.md/json` 和快照 `formalv2_program_integrate_58_semantic_review`：技术预检仍允许程序接入 58 个 VisualID，但美术侧标出物品图标同质化和怪物 portrait 小尺寸可读性风险；当前记录 `secondary_replacement_candidate=13`、`watch_runtime_readability=19`、`ok_for_current_v2=26`，后续二次 NovelAI 替换应以运行时截图证明为准。
 
+2026-06-09 added FormalV2 prompt-ready generation executor: `Run-FormalV2PromptReadyGeneration.ps1` / `run_formal_v2_prompt_ready_generation.py`. Verification: `python -m py_compile` passed; dry-run passed for `item` limit 2 and full 58 prompt-ready `program_integrate` assets, split as item=23, monster=34, background=1, all routed through `Run-ArtGeneration.ps1 -Provider novelai -Status approved -PreserveStatus -Concurrency 1 -DelaySeconds 1 -DryRun`. Current shell still has `NAI_ACCESS_TOKEN=NOT_SET`, so this round did not call NovelAI and did not replace Approved PNGs.
+
 ## 下一步建议
 
 1. 程序侧可按 `美术文档/_generated/可接入素材清单.md` 或 `美术文档/_generated/程序接入交接清单.md` 的 `program_integrate=58` 登记 / 接入本轮新增 Approved VisualID；美术侧静态预验收已证明 58 个 Approved 文件可交接。

@@ -417,6 +417,26 @@ Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec、
 .\tools\美术工具\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01_anlas_blocked -BatchID nai_visual_v2_20260525_01 -LastProbeBatchID nai_visual_v2_probe_20260525_01 -LastProbeNote "NovelAI HTTP 402: Not enough Anlas."
 ```
 
+## Run-FormalV2PromptReadyGeneration.ps1
+
+Reads `formal_v2_prompt_readiness.json` and runs the prompt-ready `program_integrate` assets through `Run-ArtGeneration.ps1` in domain batches. This is a convenience executor for Formal V2 full-quality reruns after prompts have passed the readiness gate.
+
+Important rules:
+
+* It always calls NovelAI with `-Concurrency 1`.
+* Keep `-DelaySeconds 1` or higher; NovelAI should not be run in parallel.
+* Use `-DryRun` first to verify the selected VisualIDs and generated commands.
+* Use `-RequireToken` for real runs so missing `NAI_ACCESS_TOKEN` fails before any batch starts.
+* It uses `-Status approved -PreserveStatus`, so outputs are candidates for same-path replacement and still need preprocessing, review, and strict meta guarded `Sync-ApprovedArt.ps1` before Approved PNGs are replaced.
+
+Examples:
+
+```powershell
+.\tools\美术工具\Generate-FormalV2PromptReadiness.ps1 -Snapshot -SnapshotTag formalv2_prompt_ready_before_run
+.\tools\美术工具\Run-FormalV2PromptReadyGeneration.ps1 -DryRun -Variants 1 -DelaySeconds 1
+.\tools\美术工具\Run-FormalV2PromptReadyGeneration.ps1 -Domain item -Variants 1 -DelaySeconds 1 -RequireToken
+```
+
 ## Validate-UIDesign.ps1
 
 校验 UI 设计系统的结构化文件，并生成程序交付摘要：
