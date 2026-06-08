@@ -875,16 +875,17 @@
         }
       },
       "BatchID": "local_v0_formal_growth_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_bulwark_carrier_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/chassis_bulwark_carrier_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/chassis_bulwark_carrier_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_bulwark_carrier_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Chassis/chassis_bulwark_carrier_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Chassis/chassis_bulwark_carrier_icon.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/chassis_bulwark_carrier_icon/contact_sheet/chassis_bulwark_carrier_icon_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/chassis_bulwark_carrier_icon/selected/20260609_003.png",
       "PresetCategory": "formal_growth_chassis",
       "Screen": "chassis_upgrade_panel",
       "Usage": "正式局外成长重载订单承载底盘、抗干涉构筑和底盘升级列表",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "chassis",
@@ -935,16 +936,17 @@
         }
       },
       "BatchID": "local_v0_formal_growth_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_compact_raider_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/chassis_compact_raider_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/chassis_compact_raider_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_compact_raider_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Chassis/chassis_compact_raider_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Chassis/chassis_compact_raider_icon.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/chassis_compact_raider_icon/contact_sheet/chassis_compact_raider_icon_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/chassis_compact_raider_icon/selected/20260609_004.png",
       "PresetCategory": "formal_growth_chassis",
       "Screen": "chassis_upgrade_panel",
       "Usage": "正式局外成长轻装路线预览底盘、撤离构筑和底盘升级列表",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "chassis",
@@ -995,16 +997,17 @@
         }
       },
       "BatchID": "local_v0_formal_growth_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_standard_frame_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/chassis_standard_frame_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/chassis_standard_frame_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Chassis/chassis_standard_frame_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Chassis/chassis_standard_frame_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Chassis/chassis_standard_frame_icon.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/chassis_standard_frame_icon/contact_sheet/chassis_standard_frame_icon_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/chassis_standard_frame_icon/selected/20260609_004.png",
       "PresetCategory": "formal_growth_chassis",
       "Screen": "chassis_upgrade_panel",
       "Usage": "正式局外成长标准底盘、默认底盘和底盘升级列表",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "doll",
@@ -3672,16 +3675,17 @@
         }
       },
       "BatchID": "local_v0_room_mementos_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_boss1_lamp.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_boss1_lamp/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_boss1_lamp/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_boss1_lamp.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_boss1_lamp.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_boss1_lamp.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_boss1_lamp/contact_sheet/memento_boss1_lamp_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/memento_boss1_lamp/selected/20260609_003.png",
       "PresetCategory": "formal_growth_room_memento",
       "Screen": "doll_room",
       "Usage": "人偶房间纪念物槽位、第一层首领后房间光源、房间观察反馈",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "memento",
@@ -3732,16 +3736,17 @@
         }
       },
       "BatchID": "local_v0_room_mementos_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_chassis_frame.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_first_chassis_frame/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_first_chassis_frame/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_chassis_frame.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_chassis_frame.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_chassis_frame.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_first_chassis_frame/contact_sheet/memento_first_chassis_frame_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/memento_first_chassis_frame/selected/20260609_001.png",
       "PresetCategory": "formal_growth_room_memento",
       "Screen": "doll_room",
       "Usage": "人偶房间纪念物槽位、默认底盘记录、房间观察反馈",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "memento",
@@ -3792,16 +3797,17 @@
         }
       },
       "BatchID": "local_v0_room_mementos_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_prosthetic_case.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_first_prosthetic_case/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_first_prosthetic_case/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_prosthetic_case.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_prosthetic_case.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_prosthetic_case.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_first_prosthetic_case/contact_sheet/memento_first_prosthetic_case_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/memento_first_prosthetic_case/selected/20260609_003.png",
       "PresetCategory": "formal_growth_room_memento",
       "Screen": "doll_room",
       "Usage": "人偶房间纪念物槽位、首次义体制造或安装记录、房间观察反馈",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "memento",
@@ -3852,16 +3858,17 @@
         }
       },
       "BatchID": "local_v0_room_mementos_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_repair_patch.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_first_repair_patch/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_first_repair_patch/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_repair_patch.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_repair_patch.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_first_repair_patch.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 3 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_first_repair_patch/contact_sheet/memento_first_repair_patch_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/memento_first_repair_patch/selected/20260609_003.png",
       "PresetCategory": "formal_growth_room_memento",
       "Screen": "doll_room",
       "Usage": "人偶房间纪念物槽位、首次维修记录、房间观察反馈",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "memento",
@@ -3912,16 +3919,17 @@
         }
       },
       "BatchID": "local_v0_room_mementos_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_layer2_corrosion_vial.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_layer2_corrosion_vial/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_layer2_corrosion_vial/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_layer2_corrosion_vial.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_layer2_corrosion_vial.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_layer2_corrosion_vial.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_layer2_corrosion_vial/contact_sheet/memento_layer2_corrosion_vial_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/memento_layer2_corrosion_vial/selected/20260609_004.png",
       "PresetCategory": "formal_growth_room_memento",
       "Screen": "doll_room",
       "Usage": "人偶房间纪念物槽位、第二层腐蚀路线和净化记录、房间观察反馈",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "memento",
@@ -3972,16 +3980,17 @@
         }
       },
       "BatchID": "local_v0_room_mementos_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_miracle_burn_mark.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_miracle_burn_mark/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_miracle_burn_mark/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_miracle_burn_mark.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_miracle_burn_mark.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_miracle_burn_mark.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_miracle_burn_mark/contact_sheet/memento_miracle_burn_mark_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/memento_miracle_burn_mark/selected/20260609_001.png",
       "PresetCategory": "formal_growth_room_memento",
       "Screen": "doll_room",
       "Usage": "人偶房间纪念物槽位、首次奇迹触发记录、房间观察反馈",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "memento",
@@ -4032,16 +4041,17 @@
         }
       },
       "BatchID": "local_v0_room_mementos_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_return_mark.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_return_mark/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_return_mark/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_return_mark.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_return_mark.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_return_mark.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_return_mark/contact_sheet/memento_return_mark_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/memento_return_mark/selected/20260609_001.png",
       "PresetCategory": "formal_growth_room_memento",
       "Screen": "doll_room",
       "Usage": "人偶房间纪念物槽位、高压路线撤离与修复记录、房间观察反馈",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "memento",
@@ -4092,16 +4102,17 @@
         }
       },
       "BatchID": "local_v0_room_mementos_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_san_collapse_blanket.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_san_collapse_blanket/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_san_collapse_blanket/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_san_collapse_blanket.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_san_collapse_blanket.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:41:11+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Dolls/Mementos/memento_san_collapse_blanket.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 3 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_san_collapse_blanket/contact_sheet/memento_san_collapse_blanket_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/memento_san_collapse_blanket/selected/20260609_003.png",
       "PresetCategory": "formal_growth_room_memento",
       "Screen": "doll_room",
       "Usage": "人偶房间纪念物槽位、首次 SAN 崩溃恢复记录、房间观察反馈",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:41:11+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "monster",
@@ -8793,16 +8804,17 @@
         }
       },
       "BatchID": "local_v0_formal_growth_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_anchor_left_arm_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/prosthetic_anchor_left_arm_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/prosthetic_anchor_left_arm_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_anchor_left_arm_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_anchor_left_arm_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_anchor_left_arm_icon.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/prosthetic_anchor_left_arm_icon/contact_sheet/prosthetic_anchor_left_arm_icon_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/prosthetic_anchor_left_arm_icon/selected/20260609_003.png",
       "PresetCategory": "formal_growth_prosthetic",
       "Screen": "prosthetic_panel",
       "Usage": "正式局外成长背包干涉抵抗义体、封格反制和义体制造列表",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "prosthetic",
@@ -8853,16 +8865,17 @@
         }
       },
       "BatchID": "local_v0_formal_growth_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_charge_coil_arm_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/prosthetic_charge_coil_arm_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/prosthetic_charge_coil_arm_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_charge_coil_arm_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_charge_coil_arm_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_charge_coil_arm_icon.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/prosthetic_charge_coil_arm_icon/contact_sheet/prosthetic_charge_coil_arm_icon_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/prosthetic_charge_coil_arm_icon/selected/20260609_003.png",
       "PresetCategory": "formal_growth_prosthetic",
       "Screen": "prosthetic_panel",
       "Usage": "正式局外成长充能武器爆发义体、战斗构筑和义体制造列表",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "prosthetic",
@@ -8913,16 +8926,17 @@
         }
       },
       "BatchID": "local_v0_formal_growth_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_focus_lens_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/prosthetic_focus_lens_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/prosthetic_focus_lens_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_focus_lens_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_focus_lens_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_focus_lens_icon.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/prosthetic_focus_lens_icon/contact_sheet/prosthetic_focus_lens_icon_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/prosthetic_focus_lens_icon/selected/20260609_003.png",
       "PresetCategory": "formal_growth_prosthetic",
       "Screen": "prosthetic_panel",
       "Usage": "正式局外成长地图阅读义体、路线预览和义体制造列表",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "prosthetic",
@@ -8973,16 +8987,17 @@
         }
       },
       "BatchID": "local_v0_formal_growth_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_mender_spine_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/prosthetic_mender_spine_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/prosthetic_mender_spine_icon/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_mender_spine_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_mender_spine_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_mender_spine_icon.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/prosthetic_mender_spine_icon/contact_sheet/prosthetic_mender_spine_icon_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/prosthetic_mender_spine_icon/selected/20260609_001.png",
       "PresetCategory": "formal_growth_prosthetic",
       "Screen": "prosthetic_panel",
       "Usage": "正式局外成长安全区后续修复义体、长线恢复和义体制造列表",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "prosthetic",
@@ -9033,16 +9048,17 @@
         }
       },
       "BatchID": "local_v0_formal_growth_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_salvage_fingertips_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/prosthetic_salvage_fingertips_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/prosthetic_salvage_fingertips_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_salvage_fingertips_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_salvage_fingertips_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_salvage_fingertips_icon.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/prosthetic_salvage_fingertips_icon/contact_sheet/prosthetic_salvage_fingertips_icon_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/prosthetic_salvage_fingertips_icon/selected/20260609_002.png",
       "PresetCategory": "formal_growth_prosthetic",
       "Screen": "prosthetic_panel",
       "Usage": "正式局外成长材料识别义体、撤离拆解收益和义体制造列表",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "prosthetic",
@@ -9093,16 +9109,17 @@
         }
       },
       "BatchID": "local_v0_formal_growth_assets_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_san_regulator_core_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/prosthetic_san_regulator_core_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/prosthetic_san_regulator_core_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_san_regulator_core_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_san_regulator_core_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T05:19:58+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Prosthetics/Icons/prosthetic_san_regulator_core_icon.png; formal AI replacement remains required.\n[2026-06-09T02:14:36+08:00] generated candidate batch nai_formalv2_quality_20260609_05_p2_growth_room_assets; preserved Status=approved.\n[2026-06-09T02:24:51+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/prosthetic_san_regulator_core_icon/contact_sheet/prosthetic_san_regulator_core_icon_contact_sheet.png\n[2026-06-09T02:31:36+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/prosthetic_san_regulator_core_icon/selected/20260609_002.png",
       "PresetCategory": "formal_growth_prosthetic",
       "Screen": "prosthetic_panel",
       "Usage": "正式局外成长 SAN 稳定义体、崩溃缓冲和义体制造列表",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T05:19:58+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:31:36+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_05_p2_growth_room_assets"
     },
     {
       "Domain": "rumor",
