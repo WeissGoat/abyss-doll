@@ -1,6 +1,6 @@
 ---
 name: p3-mission
-description: Use when a Project P3 request has an existing detailed spec/fact document, mission CSV, resume request, interrupted multi-step task, or cross-session workflow that needs durable progress tracking and evidence-backed status writeback.
+description: Use when a Project P3 request has existing detailed source material, a mission CSV, resume request, interrupted multi-step task, or cross-session workflow that needs durable progress tracking and evidence-backed status writeback.
 ---
 
 # P3 Mission
@@ -9,7 +9,7 @@ description: Use when a Project P3 request has an existing detailed spec/fact do
 
 P3 Mission is Project P3's only maintained mission workflow: a resumable CSV queue plus evidence-backed status writeback.
 
-P3 Mission requires an existing detailed spec, fact source, or approved plan before a new mission CSV is generated. It does not turn a one-sentence goal into a mission and does not write the missing spec itself.
+P3 Mission requires existing detailed source material before a new mission CSV is generated. The source can be a Markdown file, folder, non-Markdown document, active fact source, or approved plan. The agent judges whether it is detailed enough; the script only records the source reference and reminds the agent when no source is provided.
 
 It is not Trellis, does not install hooks, and does not replace `AGENTS.md`, `PROJECT_STATUS.md`, `agent_status/*`, GDD, development docs, art docs, or configuration sources.
 
@@ -18,7 +18,7 @@ It is not Trellis, does not install hooks, and does not replace `AGENTS.md`, `PR
 ## Core Rules
 
 - Read `AGENTS.md` and the relevant P3 status/fact sources before changing project files.
-- Generate a new mission only from a detailed source document; reject one-sentence mission requests until a spec/fact document exists.
+- Generate a new mission only from detailed source material that the agent has judged mission-ready; reject one-sentence mission requests until a spec/fact source or approved plan exists.
 - Use P3 Mission for stage progress planning, execution, evidence, status writeback, and recovery; do not use it as a knowledge base or requirement authoring tool.
 - Use `.mission/*.csv` for local recovery artifacts and `missions/*.csv` only when the user approves a formal queue.
 - Keep the CSV as execution state, not project truth. Meaningful work must write back to `agent_status/*` or the relevant fact document.
@@ -29,7 +29,7 @@ It is not Trellis, does not install hooks, and does not replace `AGENTS.md`, `PR
 
 | Need | Command |
 |---|---|
-| Create | `.\tools\p3-mission\New-P3Mission.ps1 -Goal "<goal>" -SourceSpec "<spec.md>" -Role "<role>"` |
+| Create | `.\tools\p3-mission\New-P3Mission.ps1 -Goal "<goal>" -Source "<source path or reference>" -Role "<role>"` |
 | Validate | `.\tools\p3-mission\Test-P3Mission.ps1 -Path "<mission.csv>"` |
 | Next row | `.\tools\p3-mission\Get-P3NextIssue.ps1 -Path "<mission.csv>"` |
 | Resume | `.\tools\p3-mission\Get-P3NextIssue.ps1 -Latest` |
@@ -41,15 +41,15 @@ Source/tool repository: `tools/p3-mission/`.
 ## Input Routing
 
 - Existing CSV: validate it, then execute the first active row.
-- Markdown document: read `references/route-and-source-intake.md` to decide whether it is detailed enough to generate a stage-progress mission.
-- Natural-language long goal without a detailed source document: do not create a mission; ask for or create the spec through the appropriate non-mission workflow first.
+- Source path or package: read `references/route-and-source-intake.md` to decide whether it is detailed enough to generate a stage-progress mission.
+- Natural-language long goal without detailed source material: do not create a mission; ask for or create the needed source through the appropriate non-mission workflow first.
 - Resume request: use `Get-P3NextIssue.ps1 -Latest`.
 - Short one-turn fix: skip mission and follow `AGENTS.md` directly.
 
 ## Workflow
 
 1. Read `AGENTS.md`, `PROJECT_STATUS.md`, relevant `agent_status/*`, and row `read_before`.
-2. Create or locate the mission CSV. New CSV creation requires `SourceSpec`.
+2. Create or locate the mission CSV. New CSV creation requires a source reference, but the script does not validate source shape or detail.
 3. Replace `PLAN-01` with 3-12 concrete `TASK` rows and one final `REVIEW-*` row.
 4. Validate before implementation.
 5. Execute only the first active row returned by `Get-P3NextIssue.ps1`.
@@ -77,4 +77,4 @@ Do not copy its multi-skill router, `issues/*.csv` model, four-status CSV schema
 | Replan completed rows | Resume from the first active row. |
 | Commit `.mission/*.csv` | Keep local missions untracked by default. |
 | Reuse `misc/Missions` skills | Use `p3-mission`; archived Missions is reference material only. |
-| Generate mission from one sentence | First obtain a detailed spec/fact document; mission only plans and executes stage progress. |
+| Generate mission from one sentence | First obtain detailed source material; mission only plans and executes stage progress. |

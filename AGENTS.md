@@ -78,7 +78,7 @@ update_rule: 修改智能体分工、开工流程或完成协议时同步本文�
 `misc/Missions` 只是已归档的上游参考，不再作为 active skill、路由入口或第二套 mission 系统维护。
 
 P3 mission 是非侵入式本地任务队列：用 `.mission/*.csv` 或 `missions/*.csv` 记录目标、任务拆分、执行状态、验证证据和状态回写；不启用 Trellis hooks，不替代 `AGENTS.md`、`PROJECT_STATUS.md`、`agent_status/*` 或各职能事实文档。
-新建 P3 mission 必须基于已有详细 spec / 事实来源 / 已批准计划文档，并通过 `New-P3Mission.ps1 -SourceSpec <spec.md>` 生成；不得从一句话目标、聊天结论或模糊 TODO 直接生成 mission。缺少 spec 时，先由对应职能补齐详细需求 / 计划文档，再进入 p3-mission。
+新建 P3 mission 必须基于已有详细来源材料，并通过 `New-P3Mission.ps1 -Source <来源路径或引用>` 生成（兼容 `-SourceSpec`）。来源可以是 Markdown、目录、非 Markdown 文档、事实来源或已批准计划；脚本只记录 `source_ref` 并在缺来源时提醒，是否足够详细由 agent 按 skill 判断。不得从一句话目标、聊天结论或模糊 TODO 直接生成 mission；缺少来源时，先由对应职能补齐详细需求 / 计划文档，再进入 p3-mission。
 
 ## 角色
 

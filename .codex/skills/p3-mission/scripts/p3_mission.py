@@ -242,37 +242,28 @@ def append_note(existing: str, note: str):
     return existing.rstrip() + "; " + note
 
 
-def resolve_source_spec(value: str) -> Path:
-    source = Path(value)
-    if not source.is_absolute():
-        source = repo_root() / source
+def normalize_source_ref(value: str) -> str:
+    source = (value or "").strip()
+    if not source:
+        return ""
+    path = Path(source)
+    if not path.is_absolute():
+        path = repo_root() / path
+    if path.exists():
+        return to_repo_path(path)
     return source
 
 
-def validate_source_spec(path: Path):
-    if not path.exists():
-        return f"source spec does not exist: {to_repo_path(path)}"
-    if not path.is_file():
-        return f"source spec is not a file: {to_repo_path(path)}"
-    if path.suffix.lower() != ".md":
-        return f"source spec must be a Markdown file: {to_repo_path(path)}"
-    text = path.read_text(encoding="utf-8-sig")
-    non_empty_lines = [line for line in text.splitlines() if line.strip()]
-    if len(text.strip()) < 400 or len(non_empty_lines) < 8:
-        return (
-            "source spec is too short for p3-mission; write a detailed spec/fact document "
-            "before generating a mission"
-        )
-    return ""
-
-
 def cmd_new(args):
-    source_spec = resolve_source_spec(args.source_spec)
-    source_error = validate_source_spec(source_spec)
-    if source_error:
-        print(f"[p3-mission] ERROR: {source_error}", file=sys.stderr)
+    source_ref = normalize_source_ref(args.source_spec)
+    if not source_ref:
+        print(
+            "[p3-mission] ERROR: missing source. Provide -Source/-SourceSpec with a "
+            "detailed source path or reference after confirming it is mission-ready; "
+            "do not generate a mission from a one-sentence goal.",
+            file=sys.stderr,
+        )
         return 1
-    source_spec_path = to_repo_path(source_spec)
 
     title = args.title or args.goal
     slug = slugify(title)
@@ -297,17 +288,17 @@ def cmd_new(args):
             "phase": "1",
             "title": "Plan mission issues",
             "goal": args.goal,
-            "scope": "Read the source spec and P3 status, then split the approved phase progress into 3-12 independently verifiable mission rows.",
+            "scope": "Read the source reference and P3 status, then split the approved phase progress into 3-12 independently verifiable mission rows.",
             "out_of_scope": "Do not invent missing requirements, write a spec, or implement feature work before replacing this planning placeholder with concrete task rows.",
-            "read_before": f"{source_spec_path}; AGENTS.md; PROJECT_STATUS.md; agent_status/pm.md; agent_status/program.md; agent_status/design.md; agent_status/art.md",
-            "files": f"{source_spec_path}; .codex/skills/p3-mission/SKILL.md; tools/p3-mission/SKILL.md",
+            "read_before": f"{source_ref}; AGENTS.md; PROJECT_STATUS.md; agent_status/pm.md; agent_status/program.md; agent_status/design.md; agent_status/art.md",
+            "files": f"{source_ref}; .codex/skills/p3-mission/SKILL.md; tools/p3-mission/SKILL.md",
             "commands": ".\\tools\\p3-mission\\Test-P3Mission.ps1 -Path <mission.csv>",
             "verify": "Mission CSV has concrete TASK rows, one final REVIEW row, required read_before/status_writeback/verify fields, and no placeholder-only implementation rows.",
             "required_tools": "shell",
             "status": "TODO",
             "status_writeback": "Update the status page listed by each concrete task row after meaningful work is done.",
             "evidence": "",
-            "notes": f"created_by:New-P3Mission; source_spec:{source_spec_path}",
+            "notes": f"created_by:New-P3Mission; source_ref:{source_ref}",
         },
         {
             "id": "REVIEW-01",
@@ -317,17 +308,17 @@ def cmd_new(args):
             "phase": "99",
             "title": "Review mission outcome against original goal",
             "goal": args.goal,
-            "scope": "Compare completed rows, evidence, status writebacks, and remaining risks against the source spec and original goal.",
+            "scope": "Compare completed rows, evidence, status writebacks, and remaining risks against the source reference and original goal.",
             "out_of_scope": "Do not introduce new scope unless a gap is converted into a follow-up TASK row.",
-            "read_before": f"{source_spec_path}; AGENTS.md; PROJECT_STATUS.md; .codex/skills/p3-mission/SKILL.md; .codex/skills/p3-mission/references/execution-protocol.md",
+            "read_before": f"{source_ref}; AGENTS.md; PROJECT_STATUS.md; .codex/skills/p3-mission/SKILL.md; .codex/skills/p3-mission/references/execution-protocol.md",
             "files": "<mission.csv>",
             "commands": ".\\tools\\p3-mission\\Test-P3Mission.ps1 -Path <mission.csv> -Strict",
-            "verify": "All non-review TASK rows are DONE or explicitly BLOCKED with blocked:<reason>; DONE rows have evidence and status writeback; claims match the source spec and do not overstate evidence level.",
+            "verify": "All non-review TASK rows are DONE or explicitly BLOCKED with blocked:<reason>; DONE rows have evidence and status writeback; claims match the source reference and do not overstate evidence level.",
             "required_tools": "shell",
             "status": "TODO",
             "status_writeback": "If the mission changed project priorities, cross-functional handoff, or blockers, update PROJECT_STATUS.md; otherwise confirm task-level status pages are updated.",
             "evidence": "",
-            "notes": f"review_kind:mission_outcome; source_spec:{source_spec_path}",
+            "notes": f"review_kind:mission_outcome; source_ref:{source_ref}",
         },
     ]
     write_rows(output, rows)
@@ -418,7 +409,7 @@ def main():
 
     new_parser = subparsers.add_parser("new")
     new_parser.add_argument("--goal", required=True)
-    new_parser.add_argument("--source-spec", required=True)
+    new_parser.add_argument("--source-spec", "--source", dest="source_spec", default="")
     new_parser.add_argument("--title", default="")
     new_parser.add_argument("--role", default="global")
     new_parser.add_argument("--output", default="")
