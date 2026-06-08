@@ -1167,16 +1167,17 @@
         }
       },
       "BatchID": "local_v0_p4_economy_rumor_faction_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_adventurer_guild_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/faction_adventurer_guild_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/faction_adventurer_guild_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_adventurer_guild_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Factions/Icons/faction_adventurer_guild_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Factions/Icons/faction_adventurer_guild_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/faction_adventurer_guild_icon/contact_sheet/faction_adventurer_guild_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/faction_adventurer_guild_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_faction",
       "Screen": "faction_shop",
       "Usage": "势力商店、订单板、声望列表、势力详情",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:01:35+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "faction",
@@ -1227,16 +1228,17 @@
         }
       },
       "BatchID": "local_v0_p4_economy_rumor_faction_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_alchemy_guild_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/faction_alchemy_guild_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/faction_alchemy_guild_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_alchemy_guild_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Factions/Icons/faction_alchemy_guild_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Factions/Icons/faction_alchemy_guild_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/faction_alchemy_guild_icon/contact_sheet/faction_alchemy_guild_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/faction_alchemy_guild_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_faction",
       "Screen": "faction_shop",
       "Usage": "势力商店、订单板、声望列表、势力详情",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:01:35+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "faction",
@@ -1287,16 +1289,17 @@
         }
       },
       "BatchID": "local_v0_p4_economy_rumor_faction_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_black_market_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/faction_black_market_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/faction_black_market_icon/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_black_market_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Factions/Icons/faction_black_market_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Factions/Icons/faction_black_market_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/faction_black_market_icon/contact_sheet/faction_black_market_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/faction_black_market_icon/selected/20260609_001.png",
       "PresetCategory": "formal_economy_faction",
       "Screen": "faction_shop",
       "Usage": "势力商店、订单板、黑市信任、风险确认和势力详情",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:01:35+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "faction",
@@ -1347,16 +1350,17 @@
         }
       },
       "BatchID": "local_v0_p4_economy_rumor_faction_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_mage_tower_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/faction_mage_tower_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/faction_mage_tower_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_mage_tower_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Factions/Icons/faction_mage_tower_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Factions/Icons/faction_mage_tower_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/faction_mage_tower_icon/contact_sheet/faction_mage_tower_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/faction_mage_tower_icon/selected/20260609_003.png",
       "PresetCategory": "formal_economy_faction",
       "Screen": "faction_shop",
       "Usage": "势力商店、订单板、声望列表、势力详情",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:01:35+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "faction",
@@ -1407,16 +1411,17 @@
         }
       },
       "BatchID": "local_v0_p4_economy_rumor_faction_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_mechanic_workshop_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/faction_mechanic_workshop_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/faction_mechanic_workshop_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Factions/Icons/faction_mechanic_workshop_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Factions/Icons/faction_mechanic_workshop_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Factions/Icons/faction_mechanic_workshop_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/faction_mechanic_workshop_icon/contact_sheet/faction_mechanic_workshop_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/faction_mechanic_workshop_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_faction",
       "Screen": "faction_shop",
       "Usage": "势力商店、订单板、声望列表、势力详情",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:01:35+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "item",
@@ -6909,16 +6914,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_antitoxin_contract_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_alchemy_antitoxin_contract_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_alchemy_antitoxin_contract_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_antitoxin_contract_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_antitoxin_contract_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_antitoxin_contract_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_alchemy_antitoxin_contract_icon/contact_sheet/order_alchemy_antitoxin_contract_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_alchemy_antitoxin_contract_icon/selected/20260609_002.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、抗毒供应目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -6969,16 +6975,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_market_forecast_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_alchemy_market_forecast_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_alchemy_market_forecast_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_market_forecast_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_market_forecast_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_market_forecast_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_alchemy_market_forecast_icon/contact_sheet/order_alchemy_market_forecast_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_alchemy_market_forecast_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、市场预测探索目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7029,16 +7036,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_purification_batch_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_alchemy_purification_batch_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_alchemy_purification_batch_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_purification_batch_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_purification_batch_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_purification_batch_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_alchemy_purification_batch_icon/contact_sheet/order_alchemy_purification_batch_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_alchemy_purification_batch_icon/selected/20260609_002.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、净化采购目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7089,16 +7097,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_spore_sample_fast_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_alchemy_spore_sample_fast_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_alchemy_spore_sample_fast_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_spore_sample_fast_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_spore_sample_fast_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_alchemy_spore_sample_fast_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_alchemy_spore_sample_fast_icon/contact_sheet/order_alchemy_spore_sample_fast_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_alchemy_spore_sample_fast_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、易腐限时目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7149,16 +7158,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_bound_core_betrayal_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_black_bound_core_betrayal_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_black_bound_core_betrayal_icon/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_bound_core_betrayal_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_black_bound_core_betrayal_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_black_bound_core_betrayal_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_black_bound_core_betrayal_icon/contact_sheet/order_black_bound_core_betrayal_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_black_bound_core_betrayal_icon/selected/20260609_001.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、黑市背叛确认提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7209,16 +7219,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_forbidden_relic_buyout_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_black_forbidden_relic_buyout_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_black_forbidden_relic_buyout_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_forbidden_relic_buyout_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_black_forbidden_relic_buyout_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_black_forbidden_relic_buyout_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_black_forbidden_relic_buyout_icon/contact_sheet/order_black_forbidden_relic_buyout_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_black_forbidden_relic_buyout_icon/selected/20260609_002.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、黑市收购目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7269,16 +7280,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_live_sample_no_questions_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_black_live_sample_no_questions_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_black_live_sample_no_questions_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_live_sample_no_questions_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_black_live_sample_no_questions_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_black_live_sample_no_questions_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_black_live_sample_no_questions_icon/contact_sheet/order_black_live_sample_no_questions_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_black_live_sample_no_questions_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、黑市活体收购与背叛风险提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7329,16 +7341,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_smuggled_route_key_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_black_smuggled_route_key_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_black_smuggled_route_key_icon/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_smuggled_route_key_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_black_smuggled_route_key_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_black_smuggled_route_key_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_black_smuggled_route_key_icon/contact_sheet/order_black_smuggled_route_key_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_black_smuggled_route_key_icon/selected/20260609_001.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、黑市路线奖励目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7389,16 +7402,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_layer1_map_rubbing_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_guild_layer1_map_rubbing_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_guild_layer1_map_rubbing_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_layer1_map_rubbing_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_layer1_map_rubbing_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_layer1_map_rubbing_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_guild_layer1_map_rubbing_icon/contact_sheet/order_guild_layer1_map_rubbing_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_guild_layer1_map_rubbing_icon/selected/20260609_002.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、探索报告目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7449,16 +7463,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_layer2_route_report_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_guild_layer2_route_report_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_guild_layer2_route_report_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_layer2_route_report_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_layer2_route_report_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_layer2_route_report_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_guild_layer2_route_report_icon/contact_sheet/order_guild_layer2_route_report_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_guild_layer2_route_report_icon/selected/20260609_003.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、路线探索目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7509,16 +7524,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_safezone_signal_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_guild_safezone_signal_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_guild_safezone_signal_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_safezone_signal_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_safezone_signal_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_guild_safezone_signal_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_guild_safezone_signal_icon/contact_sheet/order_guild_safezone_signal_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_guild_safezone_signal_icon/selected/20260609_002.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、安全区目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7569,16 +7585,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_boss_core_research_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_mage_boss_core_research_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_mage_boss_core_research_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_boss_core_research_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_boss_core_research_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_boss_core_research_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_mage_boss_core_research_icon/contact_sheet/order_mage_boss_core_research_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_mage_boss_core_research_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、Boss 核心研究与互斥提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7629,16 +7646,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_corroded_memory_stone_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_mage_corroded_memory_stone_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_mage_corroded_memory_stone_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_corroded_memory_stone_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_corroded_memory_stone_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_corroded_memory_stone_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_mage_corroded_memory_stone_icon/contact_sheet/order_mage_corroded_memory_stone_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_mage_corroded_memory_stone_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、腐蚀/记忆目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7689,16 +7707,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_live_slime_sample_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_mage_live_slime_sample_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_mage_live_slime_sample_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_live_slime_sample_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_live_slime_sample_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_live_slime_sample_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_mage_live_slime_sample_icon/contact_sheet/order_mage_live_slime_sample_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_mage_live_slime_sample_icon/selected/20260609_002.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、活体捕获目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7749,16 +7768,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_unidentified_relic_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_mage_unidentified_relic_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_mage_unidentified_relic_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_unidentified_relic_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_unidentified_relic_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_unidentified_relic_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_mage_unidentified_relic_icon/contact_sheet/order_mage_unidentified_relic_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_mage_unidentified_relic_icon/selected/20260609_002.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、研究采购目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7809,16 +7829,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_status_boss_core_mutex_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_status_boss_core_mutex_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_status_boss_core_mutex_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_status_boss_core_mutex_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_status_boss_core_mutex_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_status_boss_core_mutex_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_status_boss_core_mutex_icon/contact_sheet/order_status_boss_core_mutex_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_status_boss_core_mutex_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_order_status",
       "Screen": "order_board",
       "Usage": "订单详情、Boss 核心交付裁决、互斥提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7869,16 +7890,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_status_deadline_warning_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_status_deadline_warning_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_status_deadline_warning_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_status_deadline_warning_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_status_deadline_warning_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_status_deadline_warning_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_status_deadline_warning_icon/contact_sheet/order_status_deadline_warning_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_status_deadline_warning_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_order_status",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、日程与账单中的期限警告",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7929,16 +7951,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_status_order_bound_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_status_order_bound_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_status_order_bound_icon/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_status_order_bound_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_status_order_bound_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_status_order_bound_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_status_order_bound_icon/contact_sheet/order_status_order_bound_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_status_order_bound_icon/selected/20260609_001.png",
       "PresetCategory": "formal_economy_order_status",
       "Screen": "order_board",
       "Usage": "订单详情、背包物品 overlay、出售/制造保护提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -7989,16 +8012,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_status_perishable_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_status_perishable_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_status_perishable_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_status_perishable_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_status_perishable_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_status_perishable_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_status_perishable_icon/contact_sheet/order_status_perishable_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_status_perishable_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_order_status",
       "Screen": "order_board",
       "Usage": "订单详情、背包物品 overlay、超期腐坏提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -8049,16 +8073,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_black_market_betrayal_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_type_black_market_betrayal_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_type_black_market_betrayal_icon/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_black_market_betrayal_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_type_black_market_betrayal_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_type_black_market_betrayal_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_type_black_market_betrayal_icon/contact_sheet/order_type_black_market_betrayal_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_type_black_market_betrayal_icon/selected/20260609_001.png",
       "PresetCategory": "formal_economy_order_status",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、黑市背叛风险标签",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -8109,16 +8134,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_exploration_report_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_type_exploration_report_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_type_exploration_report_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_exploration_report_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_type_exploration_report_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_type_exploration_report_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_type_exploration_report_icon/contact_sheet/order_type_exploration_report_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_type_exploration_report_icon/selected/20260609_003.png",
       "PresetCategory": "formal_economy_order_status",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、订单类型标签",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -8169,16 +8195,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_large_cargo_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_type_large_cargo_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_type_large_cargo_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_large_cargo_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_type_large_cargo_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_type_large_cargo_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_type_large_cargo_icon/contact_sheet/order_type_large_cargo_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_type_large_cargo_icon/selected/20260609_002.png",
       "PresetCategory": "formal_economy_order_status",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、背包占用风险标签",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -8229,16 +8256,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_live_capture_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_type_live_capture_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_type_live_capture_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_live_capture_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_type_live_capture_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_type_live_capture_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_type_live_capture_icon/contact_sheet/order_type_live_capture_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_type_live_capture_icon/selected/20260609_002.png",
       "PresetCategory": "formal_economy_order_status",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、活体捕获风险标签",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -8289,16 +8317,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_procurement_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_type_procurement_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_type_procurement_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_procurement_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_type_procurement_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_type_procurement_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_type_procurement_icon/contact_sheet/order_type_procurement_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_type_procurement_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_order_status",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、订单类型标签",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -8349,16 +8378,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_target_item_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_type_target_item_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_type_target_item_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_type_target_item_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_type_target_item_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_type_target_item_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_type_target_item_icon/contact_sheet/order_type_target_item_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_type_target_item_icon/selected/20260609_002.png",
       "PresetCategory": "formal_economy_order_status",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、订单类型标签",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -8409,16 +8439,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_boss_core_claim_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_workshop_boss_core_claim_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_workshop_boss_core_claim_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_boss_core_claim_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_boss_core_claim_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_boss_core_claim_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_workshop_boss_core_claim_icon/contact_sheet/order_workshop_boss_core_claim_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_workshop_boss_core_claim_icon/selected/20260609_003.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、Boss 核心交付目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -8469,16 +8500,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_furnace_core_large_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_workshop_furnace_core_large_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_workshop_furnace_core_large_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_furnace_core_large_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_furnace_core_large_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_furnace_core_large_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_workshop_furnace_core_large_icon/contact_sheet/order_workshop_furnace_core_large_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_workshop_furnace_core_large_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、大型委托物与背包压力提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -8529,16 +8561,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_layer2_ore_batch_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_workshop_layer2_ore_batch_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_workshop_layer2_ore_batch_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_layer2_ore_batch_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_layer2_ore_batch_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_layer2_ore_batch_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_workshop_layer2_ore_batch_icon/contact_sheet/order_workshop_layer2_ore_batch_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_workshop_layer2_ore_batch_icon/selected/20260609_003.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、工坊采购目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "order",
@@ -8589,16 +8622,17 @@
         }
       },
       "BatchID": "local_v0_economy_orders_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_scrap_guard_plate_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_workshop_scrap_guard_plate_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_workshop_scrap_guard_plate_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_scrap_guard_plate_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_scrap_guard_plate_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:35:43+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_scrap_guard_plate_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_workshop_scrap_guard_plate_icon/contact_sheet/order_workshop_scrap_guard_plate_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_workshop_scrap_guard_plate_icon/selected/20260609_003.png",
       "PresetCategory": "formal_economy_order",
       "Screen": "order_board",
       "Usage": "订单板、订单详情、指定怪物掉落目标提示",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:35:43+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "prosthetic",
@@ -9119,16 +9153,17 @@
         }
       },
       "BatchID": "local_v0_p4_economy_rumor_faction_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_contraband_night_channel_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_contraband_night_channel_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_contraband_night_channel_icon/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_contraband_night_channel_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_contraband_night_channel_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_contraband_night_channel_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_contraband_night_channel_icon/contact_sheet/rumor_contraband_night_channel_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/rumor_contraband_night_channel_icon/selected/20260609_001.png",
       "PresetCategory": "formal_economy_rumor",
       "Screen": "rumor_board",
       "Usage": "传闻板、周报、黑市窗口、出货风险和传闻详情",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:01:35+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "rumor",
@@ -9179,16 +9214,17 @@
         }
       },
       "BatchID": "local_v0_p4_economy_rumor_faction_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_corrosion_sample_premium_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_corrosion_sample_premium_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_corrosion_sample_premium_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_corrosion_sample_premium_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_corrosion_sample_premium_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_corrosion_sample_premium_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_corrosion_sample_premium_icon/contact_sheet/rumor_corrosion_sample_premium_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/rumor_corrosion_sample_premium_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_rumor",
       "Screen": "rumor_board",
       "Usage": "传闻板、周报、出货收益来源和传闻详情",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:01:35+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "rumor",
@@ -9239,16 +9275,17 @@
         }
       },
       "BatchID": "local_v0_p4_economy_rumor_faction_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_faction_medical_request_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_faction_medical_request_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_faction_medical_request_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_faction_medical_request_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_faction_medical_request_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_faction_medical_request_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_faction_medical_request_icon/contact_sheet/rumor_faction_medical_request_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/rumor_faction_medical_request_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_rumor",
       "Screen": "rumor_board",
       "Usage": "传闻板、周报、订单权重提示和传闻详情",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:01:35+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "rumor",
@@ -9299,16 +9336,17 @@
         }
       },
       "BatchID": "local_v0_p4_economy_rumor_faction_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_low_layer_bulk_buy_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_low_layer_bulk_buy_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_low_layer_bulk_buy_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_low_layer_bulk_buy_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_low_layer_bulk_buy_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_low_layer_bulk_buy_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_low_layer_bulk_buy_icon/contact_sheet/rumor_low_layer_bulk_buy_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/rumor_low_layer_bulk_buy_icon/selected/20260609_002.png",
       "PresetCategory": "formal_economy_rumor",
       "Screen": "rumor_board",
       "Usage": "传闻板、周报、低层回刷目标和传闻详情",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:01:35+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "rumor",
@@ -9359,16 +9397,17 @@
         }
       },
       "BatchID": "local_v0_p4_economy_rumor_faction_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_origin_stone_demand_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_origin_stone_demand_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_origin_stone_demand_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_origin_stone_demand_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_origin_stone_demand_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_origin_stone_demand_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_origin_stone_demand_icon/contact_sheet/rumor_origin_stone_demand_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/rumor_origin_stone_demand_icon/selected/20260609_003.png",
       "PresetCategory": "formal_economy_rumor",
       "Screen": "rumor_board",
       "Usage": "传闻板、周报、出货收益来源和传闻详情",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:01:35+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "rumor",
@@ -9419,16 +9458,17 @@
         }
       },
       "BatchID": "local_v0_p4_economy_rumor_faction_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_scrap_workshop_shortage_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_scrap_workshop_shortage_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_scrap_workshop_shortage_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_scrap_workshop_shortage_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_scrap_workshop_shortage_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_scrap_workshop_shortage_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_scrap_workshop_shortage_icon/contact_sheet/rumor_scrap_workshop_shortage_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/rumor_scrap_workshop_shortage_icon/selected/20260609_002.png",
       "PresetCategory": "formal_economy_rumor",
       "Screen": "rumor_board",
       "Usage": "传闻板、周报、出货收益来源和传闻详情",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:01:35+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "rumor",
@@ -9479,16 +9519,17 @@
         }
       },
       "BatchID": "local_v0_p4_economy_rumor_faction_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_slime_crash_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_slime_crash_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_slime_crash_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_slime_crash_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_slime_crash_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_slime_crash_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_slime_crash_icon/contact_sheet/rumor_slime_crash_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/rumor_slime_crash_icon/selected/20260609_003.png",
       "PresetCategory": "formal_economy_rumor",
       "Screen": "rumor_board",
       "Usage": "传闻板、周报、出货收益来源和传闻详情",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:01:35+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "rumor",
@@ -9539,16 +9580,17 @@
         }
       },
       "BatchID": "local_v0_p4_economy_rumor_faction_20260525_01",
-      "RawPath": "",
-      "SelectedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_weapon_collector_visit_icon.png",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_weapon_collector_visit_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_weapon_collector_visit_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_weapon_collector_visit_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_weapon_collector_visit_icon.png; formal AI replacement remains required.",
+      "Notes": "[2026-05-25T06:01:35+08:00] local_v0 approved directly in Approved: UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_weapon_collector_visit_icon.png; formal AI replacement remains required.\n[2026-06-09T01:32:53+08:00] generated candidate batch nai_formalv2_quality_20260609_04_p2_economy_social_icons; preserved Status=approved.\n[2026-06-09T01:53:19+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_weapon_collector_visit_icon/contact_sheet/rumor_weapon_collector_visit_icon_contact_sheet.png\n[2026-06-09T02:01:06+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/rumor_weapon_collector_visit_icon/selected/20260609_004.png",
       "PresetCategory": "formal_economy_rumor",
       "Screen": "rumor_board",
       "Usage": "传闻板、周报、橱窗顾客提示和传闻详情",
-      "QualityTier": "local_v0",
-      "QualityUpdatedAt": "2026-05-25T06:01:35+08:00"
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T02:01:06+08:00",
+      "ReplacementBatchID": "nai_formalv2_quality_20260609_04_p2_economy_social_icons"
     },
     {
       "Domain": "ui",
