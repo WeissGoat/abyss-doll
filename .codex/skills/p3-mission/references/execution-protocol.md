@@ -6,11 +6,13 @@ This reference is loaded when the agent is creating, executing, reviewing, or re
 
 Route inputs with `references/route-and-source-intake.md`.
 
-If the user gives a long goal, create a local mission:
+If the user gives a detailed source spec/fact document and asks to generate a mission, create a local mission:
 
 ```powershell
-.\tools\p3-mission\New-P3Mission.ps1 -Goal "<goal>" -Role "<role>"
+.\tools\p3-mission\New-P3Mission.ps1 -Goal "<goal>" -SourceSpec "<spec.md>" -Role "<role>"
 ```
+
+If the user gives only a one-sentence goal or vague long-task request, do not run `New-P3Mission`. Ask for or create the missing detailed spec through the appropriate non-mission workflow first. P3 Mission starts after the spec exists.
 
 If the user asks to continue or resume:
 
@@ -33,7 +35,7 @@ Each `TASK` row must be:
 - Explicit about `read_before`, `scope`, `out_of_scope`, `verify`, `required_tools`, and `status_writeback`.
 - Assigned to the closest P3 role: `PM`, `策划`, `程序`, `UI程序`, `美术`, `知识库`, or `全局`.
 
-When planning from a Markdown source, keep approved formal queues in `missions/*.csv` only if the source is current and user-approved; otherwise use `.mission/*.csv`.
+When planning from a Markdown source, keep approved formal queues in `missions/*.csv` only if the source is current and user-approved; otherwise use `.mission/*.csv`. If the source is too thin to define rows without inventing requirements, stop mission creation.
 
 Before execution:
 
@@ -154,6 +156,7 @@ Stop only when:
 | Rationalization | Reality |
 |---|---|
 | "I created the CSV, so this turn can end." | CSV creation is setup. Validate it and start execution unless the user asked only for a plan. |
+| "The user gave one sentence, so I can draft rows from inference." | No. Create or request the detailed spec first; p3-mission only handles stage progress planning/execution after source docs exist. |
 | "This row has static evidence, so it is done." | Static evidence must be labeled as such; do not claim runtime or end-to-end completion. |
 | "The status page is updated, so the work is complete." | Status writeback records evidence; it does not replace implementation or validation. |
 | "A review found gaps, so I should ask the user." | Convert actionable gaps into rows. Ask only for human-required decisions. |

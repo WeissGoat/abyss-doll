@@ -2,6 +2,9 @@ param(
     [Parameter(Mandatory = $true)]
     [string]$Goal,
 
+    [Parameter(Mandatory = $true)]
+    [string]$SourceSpec,
+
     [string]$Title = "",
 
     [string]$Role = "global",
@@ -16,7 +19,7 @@ $ErrorActionPreference = "Stop"
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $pythonScript = Join-Path $scriptDir "scripts\p3_mission.py"
 
-$argsList = @("new", "--goal", $Goal, "--role", $Role)
+$argsList = @("new", "--goal", $Goal, "--source-spec", $SourceSpec, "--role", $Role)
 if ($Title) {
     $argsList += @("--title", $Title)
 }
