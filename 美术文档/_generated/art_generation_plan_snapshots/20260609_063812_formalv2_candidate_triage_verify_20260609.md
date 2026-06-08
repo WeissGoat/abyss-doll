@@ -342,4 +342,3 @@ After generation succeeds:
 # Review selected/contact_sheet before syncing.
 .\tools\美术工具\Sync-ApprovedArt.ps1 -Status generated -VisualID rumor_spore_amber_jeweler_icon -BatchID nai_formalv2_candidate_triage_20260609_01 -AllowProcessedFallback -Overwrite
 ```
-

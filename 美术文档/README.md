@@ -12,6 +12,7 @@ related:
   - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
+  - 美术文档/14_FormalV2素材候选审查记录.md
   - 美术文档/00_美术流水线总览.md
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/formal_v2/README.md
@@ -40,6 +41,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | Formal V2 UX/UI 怎么推进 | [ui_design/formal_v2/00_formal_v2_ux_ui_overview.md](ui_design/formal_v2/00_formal_v2_ux_ui_overview.md) | 当前 Formal V2 总方案，解决按钮堆叠和正式感不足。 |
 | 程序下一步接入 / 验收要做什么 | [_generated/程序接入交接清单.md](_generated/程序接入交接清单.md) | 程序侧一站式入口，汇总 VisualID 登记、截图覆盖和 ArtAcceptance 重跑队列。 |
 | 最新文档 / 配置里可能新增了哪些美术需求 | [_generated/美术需求候选清单.md](_generated/美术需求候选清单.md) | 美术侧审查入口，只提示候选，不自动写 Manifest 或 seed。 |
+| FormalV2 候选哪些准入 / 暂缓 | [14_FormalV2素材候选审查记录.md](14_FormalV2素材候选审查记录.md) | 人工审查候选素材，记录哪些进入 seed / Manifest，哪些是误报或暂缓。 |
 | 程序当前应接入哪些素材 | [_generated/可接入素材清单.md](_generated/可接入素材清单.md) | 程序侧素材来源清单，只处理 `program_integrate` 队列。 |
 | 当前哪些缺图素材可直接跑图 | [_generated/缺图生成计划.md](_generated/缺图生成计划.md) | 美术侧处理 `generate_needed` 队列。 |
 | 当前哪些素材只是临时质量 | [_generated/素材质量替换清单.md](_generated/素材质量替换清单.md) | 美术侧处理 `technical_fix` 和 `visual_v2_replace` 队列。 |
@@ -142,7 +144,7 @@ design / config / ui active
 
 * active Formal V1 UI 已覆盖 21 个界面，详见 [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md)。
 * Formal V2 UX/UI 重构已建立 draft 设计层，当前总方案见 [ui_design/formal_v2/00_formal_v2_ux_ui_overview.md](ui_design/formal_v2/00_formal_v2_ux_ui_overview.md)；V2-A 优先重审 `workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。
-* 最新美术需求候选清单显示 `new_candidate=36`、`approved_without_manifest=0`、`seed_only=0`；这些是后续美术人工审查入口，不自动进入 Manifest。
+* 最新美术需求候选清单显示 `new_candidate=55`、`approved_without_manifest=0`、`seed_only=0`、`manifest_managed=244`；本轮已从候选中准入 29 个 FormalV2 新素材需求，详见 [14_FormalV2素材候选审查记录.md](14_FormalV2素材候选审查记录.md)。
 * 最新可接入素材清单显示 `program_integrate=0`、`acceptance_needed=191`，当前没有新的 Approved 素材登记队列，重点转为运行时截图验收和 Manifest 状态回填。
 * 最新程序接入交接清单显示 `program_integrate=0`、`Screens needing ArtAcceptance capture coverage=6`、`Screens needing ArtAcceptance rerun=15`，程序侧优先按该清单补截图和重跑验收。
 * 最新缺图生成计划显示 `generate_needed=0`；当前没有阻塞程序接入的新缺图项。

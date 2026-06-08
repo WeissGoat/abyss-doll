@@ -72,9 +72,9 @@ V2-B 七个局外功能界面已补齐详细草案，并按最新反馈修正语
 
 Formal V2 数量账：active UI 规格共有 21 个界面；21 个 active 界面的 V2 草案已全部补齐，并额外保留 `workshop_studio` 作为 `workshop_main` 的拆分方案。结构设计图已生成 22 张，位于 `美术文档/ui_design/formal_v2/design_boards/`，覆盖 21 个 active 界面和 `workshop_studio`；AI 概念参考图也已补齐 22 张，位于 `美术文档/ui_design/formal_v2/concepts/`。概念图评审索引和 4 张 contact sheet 已补到 `美术文档/ui_design/formal_v2/concepts/review_index.md` 与 `concepts/contact_sheets/`。这些设计图都不进入 Approved、Manifest 或程序交接清单。
 
-美术侧已把“可接入覆盖”、“缺图生成”和“视觉质量替换”拆开：`可接入素材清单.md` 给程序看，`缺图生成计划.md` 给美术侧执行 `generate_needed` 新素材跑图，`素材质量替换清单.md` 给美术侧执行 local_v0 / placeholder 同名替换和技术修复。当前 `generate_needed=0`，新增资源交接为 `program_integrate=58`；质量清单为 `technical_fix=0`、`visual_v2_replace=0`、`spec_review=0`。历史本地生成 Approved 的 Visual V2 同名替换和怪物头像 alpha 技术修复均已完成，后续转入程序登记后的运行时截图验收。
+美术侧已把“可接入覆盖”、“缺图生成”和“视觉质量替换”拆开：`可接入素材清单.md` 给程序看，`缺图生成计划.md` 给美术侧执行 `generate_needed` 新素材跑图，`素材质量替换清单.md` 给美术侧执行 local_v0 / placeholder 同名替换和技术修复。当前 `generate_needed=29`，新增资源交接为 `program_integrate=48`；质量清单为 `technical_fix=0`、`visual_v2_replace=0`、`spec_review=0`。历史本地生成 Approved 的 Visual V2 同名替换和怪物头像 alpha 技术修复均已完成，后续转入程序登记后的运行时截图验收。
 
-美术侧已新增“需求候选扫描”前哨：`Scan-ArtRequirementCandidates.ps1` 会扫描最新设计文档、配置表、版本规划和 active UI 文档，生成 `美术文档/_generated/美术需求候选清单.md/json`。当前 latest 为 `new_candidate=36`、`approved_without_manifest=0`、`seed_only=0`、`manifest_managed=158`；这些候选只用于人工审查，确认后才写入 `art_requirements_seed.json` 或等待正式配置字段落地，不自动进入 Manifest。
+美术侧已新增“需求候选扫描”前哨：`Scan-ArtRequirementCandidates.ps1` 会扫描最新设计文档、配置表、版本规划和 active UI 文档，生成 `美术文档/_generated/美术需求候选清单.md/json`。当前 latest 为 `new_candidate=55`、`approved_without_manifest=0`、`seed_only=0`、`manifest_managed=244`；本轮已从候选中准入 29 个 FormalV2 新素材需求，裁决见 `美术文档/14_FormalV2素材候选审查记录.md`。这些候选只用于人工审查，确认后才写入 `art_requirements_seed.json` 或等待正式配置字段落地，不自动进入 Manifest。
 
 P1 战斗可读性 active 合同已补齐：`combat_hud` 现在包含怪物意图图标、战斗状态图标、命中 / 破盾反馈、封格 / 塞包 overlay。P1 结算结果 active 合同已补齐：`settlement` 现在包含胜利、HP 战败、SAN 崩溃、HP+SAN 复合战败和队伍溃败五态结果徽记。P3 底盘升级 active 合同已补齐：`chassis_upgrade_panel` 包含当前底盘、下一底盘、容量变化、材料缺口、蓝图前置和升级确认。P3 维护可读性 active 合同已补齐：`maintenance_panel` 现在把磨损修复、侵蚀净化和下潜许可拆成独立 VisualID。P3 Room Memento 已按 `44_局外成长人偶特质房间正式配置落地设计.md` 前置补齐 8 个房间纪念物 VisualID。P4 营业结算 active 合同已补齐：`business_settlement` 位于 `shop_staging` 和 `daily_bill_report` 之间，承接顾客流、成交反馈、未售出 / 黑市风险摘要和进入账单动作。P4 每日账单 active 合同已补齐：`daily_bill_report` 现在把收入、支出和月租债务拆成独立 VisualID。P4 经济压力传闻 / 势力 / 订单已按 `48_经济压力传闻正式配置落地设计.md`、`49_经济压力势力正式配置落地设计.md` 和 `50_经济压力订单正式配置落地设计.md` 前置补齐 42 个 VisualID。latest 可接入清单当前为 `program_integrate=58`、`acceptance_needed=191`、`generate_needed=0`；本轮 58 个缺图项已生成 Approved PNG，构成为 23 个物品图标、34 个怪物战斗 / 头像资源和 1 个背景。既有多数已接入素材质量层级仍为 `local_v0`，不视为最终美术。
 
@@ -84,7 +84,7 @@ Visual V2 工具链已补齐安全替换流程：已接入素材可用 `Run-ArtG
 
 美术文档已收敛为四层入口：`README.md` 只做导航，`10_正式版核心纵切美术路线.md` 作为当前规划入口，`00_美术流水线总览.md` 作为端到端资产生产工作流入口，`ui_design/README.md` 作为 UI 版本和 active 规格入口。`archive/` 保存 MVP 记录和旧批次交付快照。
 
-Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` 会从 active `screen_layouts.json`、Manifest、latest ArtAcceptance 和 Registry 快照生成 `美术文档/ui_design/_generated/FormalV1验收队列.md/json`。程序侧交接已进一步收敛到 `美术文档/_generated/程序接入交接清单.md/json`，该清单合并 `program_integrate`、截图覆盖和 ArtAcceptance 重跑队列。当前 latest 程序交接为 `program_integrate=58`、`add_capture=0`、`rerun_acceptance=16`；58 个待登记 VisualID 全部为 `formal_ai_v2`，分布为 P0=57、P1=1，domain 为 item=23、monster=34、background=1。
+Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQueue.ps1` 会从 active `screen_layouts.json`、Manifest、latest ArtAcceptance 和 Registry 快照生成 `美术文档/ui_design/_generated/FormalV1验收队列.md/json`。程序侧交接已进一步收敛到 `美术文档/_generated/程序接入交接清单.md/json`，该清单合并 `program_integrate`、截图覆盖和 ArtAcceptance 重跑队列。当前 latest 程序交接为 `program_integrate=48`、`add_capture=0`、`rerun_acceptance=16`；29 个新准入素材仍在 `generate_needed` 缺图计划中，需 NovelAI 生成 / Approved 同步后再进入程序登记队列。
 
 ## 必读文件
 
@@ -264,12 +264,14 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 已补充 `美术文档/_generated/formal_v2_asset_review/visual_semantic_review.md/json` 和快照 `formalv2_program_integrate_58_semantic_review`：技术预检仍允许程序接入 58 个 VisualID，但美术侧标出物品图标同质化和怪物 portrait 小尺寸可读性风险；当前记录 `secondary_replacement_candidate=13`、`watch_runtime_readability=19`、`ok_for_current_v2=26`，后续二次 NovelAI 替换应以运行时截图证明为准。
 
 2026-06-09 added FormalV2 prompt-ready generation executor: `Run-FormalV2PromptReadyGeneration.ps1` / `run_formal_v2_prompt_ready_generation.py`. Verification: `python -m py_compile` passed; dry-run passed for `item` limit 2 and full 58 prompt-ready `program_integrate` assets, split as item=23, monster=34, background=1, all routed through `Run-ArtGeneration.ps1 -Provider novelai -Status approved -PreserveStatus -Concurrency 1 -DelaySeconds 1 -DryRun`. Current shell still has `NAI_ACCESS_TOKEN=NOT_SET`, so this round did not call NovelAI and did not replace Approved PNGs.
+2026-06-09 已完成 FormalV2 新一轮素材候选准入审查：基于候选快照 `formalv2_goal_resume_20260609` 从 `new_candidate=84` 中确认 29 个正式需求写入 `art_requirements_seed.json`，包括 5 个 FormalV2 场景背景、3 个配置直引战斗反馈、7 个房间纪念物、6 个订单图标和 8 个传闻图标；已新增 `美术文档/14_FormalV2素材候选审查记录.md` 记录准入 / 暂缓 / 误报裁决。刷新后 Manifest `Entries=284`，候选清单为 `new_candidate=55`、`seed_only=0`、`manifest_managed=244`，缺图生成计划为 `planned=29`、`prompt_ready=29`，批次 `nai_formalv2_candidate_triage_20260609_01`。当前 `NAI_ACCESS_TOKEN=NOT_SET`，本轮未调用 NovelAI，也未生成 mock / local_v0 冒充正式图。
 
 ## 下一步建议
 
-1. 程序侧可按 `美术文档/_generated/可接入素材清单.md` 或 `美术文档/_generated/程序接入交接清单.md` 的 `program_integrate=58` 登记 / 接入本轮新增 Approved VisualID；美术侧静态预验收已证明 58 个 Approved 文件可交接。
-2. 程序完成 58 个新资源登记后，需要重跑 ArtAcceptance / VisualAsset 相关验收，美术再做截图验收。
+1. 程序侧可按 `美术文档/_generated/可接入素材清单.md` 或 `美术文档/_generated/程序接入交接清单.md` 的 latest `program_integrate=48` 登记 / 接入当前仍待登记的 Approved VisualID；美术侧静态预验收已证明此前 58 个 Approved 文件可交接。
+2. 程序完成当前待登记新资源后，需要重跑 ArtAcceptance / VisualAsset 相关验收，美术再做截图验收。
 3. 美术侧下一步进入运行时截图复验：重点看 FormalV2 核心界面的构图、控件遮挡、图标小尺寸可读性、背景 cover / contain 适配，以及新增怪物 / 物品 / 经济图标是否与日系地底奇幻风格统一。程序未登记前，美术侧可继续做 `formal_v2_asset_review/contact_sheets` 的人工风格抽查。
+4. NovelAI token 和额度可用后，先执行 `nai_formalv2_candidate_triage_20260609_01` 缺图批次的 29 个 prompt-ready 新准入素材，仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`；生成 / 预处理 / 筛选 / Approved 同步后刷新可接入清单和程序交接清单。
 4. NovelAI token 设置后，优先执行二次语义修复批次：`Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Status approved -VisualID item_con_purifying_salt_icon,item_gear_corroded_bulwark_icon,item_gear_mycelium_cloak_icon,item_gear_spore_lance_icon,item_loot_acid_gland_icon,item_mat_core_tier2_fragment_icon,monster_boss_spore_foundry_portrait,monster_mob_acid_slime_mature_portrait,monster_mob_echo_pilgrim_portrait -Variants 4 -Concurrency 1 -DelaySeconds 1 -BatchID nai_formalv2_semantic_fix_20260609_01 -PreserveStatus`，之后再预处理、人工筛选并用 strict meta guard 同名替换 Approved。
 5. 如果后续 NovelAI 额度充足，也可以把 58 个 `program_integrate` 资产按 domain 分批做 FormalV2 全量质量重跑；当前 prompt 源头已支持 `-Status approved -PreserveStatus` 同名替换流程，仍必须串行生成并在筛选后用 strict meta guard 替换 Approved PNG。
 6. 后续每次程序接入清单或 Manifest 刷新后，可运行 `Generate-FormalV2PromptReadiness.ps1` 复核待接入资产是否仍满足 PromptEN 具体化门禁，再决定是否进入 NovelAI 重跑。
@@ -279,7 +281,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 当前工作区仍有大量程序、策划、Unity 资产和知识库生成物处于脏状态；美术侧提交时只纳入本轮美术流水线相关文件。
 - P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 正式结构已通过；本轮 latest `20260527_002436` 已确认资源接入通过，但 `combat_hud` 等 6 个界面仍需程序返修后复验。
 - 当前会话环境变量 `NAI_ACCESS_TOKEN` 未设置；本轮只完成二次替换提示词和 dry-run 验证，没有实际调用 NovelAI，也没有改用 mock / local_v0 冒充正式图。后续跑图仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`。
-- latest `program_integrate=58` 表示有 58 个新增 Approved VisualID 需要程序登记；美术侧静态预验收已通过，Visual V2 同名替换队列和 technical_fix 队列均已清空。正式运行时验收仍依赖程序登记后重跑 ArtAcceptance / VisualAsset 验收截图。
+- latest `program_integrate=48` 表示仍有 48 个 Approved VisualID 需要程序登记；美术侧静态预验收已通过，Visual V2 同名替换队列和 technical_fix 队列均已清空。正式运行时验收仍依赖程序登记后重跑 ArtAcceptance / VisualAsset 验收截图。
 - Formal V2 目前只是 draft 设计层；如果程序侧需要接入，必须等待用户确认并由美术侧更新 active `screen_layouts.json`。
 - Formal V2 概念图含 AI 伪文字和局部装饰噪声，只能作为结构参考；正式接入前仍需将控件、文本、图标和面板皮肤拆回可实现规格。
 - Formal V2 结构设计图是确定性 layout board，只用于评审结构和迁移顺序；不能被当作最终视觉稿或程序接入规格。
@@ -292,4 +294,3 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 如有变化，刷新 `当前关注`、`下一步建议` 和阻塞项。
 - 如果需要程序或策划跟进，在 `PROJECT_STATUS.md` 增加跨职能交接。
 - 美术侧每轮实际交付完成后，提交本轮美术相关改动；提交范围必须排除程序、策划、子模块或本地工具无关改动。
-

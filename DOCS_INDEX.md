@@ -18,11 +18,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：218
-- 已补元数据：218
+- 文档总数：219
+- 已补元数据：219
 - 缺少元数据：0
-- 事实来源文档：165
-- 关联边数：1294
+- 事实来源文档：166
+- 关联边数：1295
 - 跨职能关联：204
 
 ## 事实来源
@@ -77,6 +77,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [运行时美术验收记录](美术文档/09_运行时美术验收记录.md) - `art` / `runtime_art_validation`
 - [正式版核心纵切美术路线](美术文档/10_正式版核心纵切美术路线.md) - `art` / `formal_art_route`
 - [正式纵切 UI 与素材覆盖矩阵](美术文档/13_正式纵切UI与素材覆盖矩阵.md) - `art` / `ui_design`
+- [FormalV2 素材候选审查记录](美术文档/14_FormalV2素材候选审查记录.md) - `art` / `art_pipeline`
 - [美术归档文档](美术文档/archive/README.md) - `art` / `art_archive`
 - [美术文档索引](美术文档/README.md) - `art` / `art_pipeline`
 - [营业结算演出界面 Formal V1](美术文档/ui_design/formal_v1/business_settlement_v1.md) - `art` / `ui_design`
@@ -399,7 +400,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [运行时美术验收记录](美术文档/09_运行时美术验收记录.md) | `art` | `active` | `runtime_art_validation` | 7 | 完整 |
 | [正式版核心纵切美术路线](美术文档/10_正式版核心纵切美术路线.md) | `art` | `active` | `formal_art_route` | 19 | 完整 |
 | [正式纵切 UI 与素材覆盖矩阵](美术文档/13_正式纵切UI与素材覆盖矩阵.md) | `art` | `active` | `ui_design` | 24 | 完整 |
-| [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 13 | 完整 |
+| [FormalV2 素材候选审查记录](美术文档/14_FormalV2素材候选审查记录.md) | `art` | `active` | `art_pipeline` | 1 | 完整 |
+| [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 14 | 完整 |
 | [MVP 素材接入状态同步](美术文档/archive/06_MVP素材接入状态同步.md) | `art` | `historical` | `mvp_art_archive` | 2 | 完整 |
 | [MVP UI 重新设计同步](美术文档/archive/07_MVP_UI重新设计同步.md) | `art` | `historical` | `mvp_ui_archive` | 2 | 完整 |
 | [P0 UI 骨架接入交付](美术文档/archive/11_P0_UI骨架接入交付.md) | `art` | `historical` | `ui_handoff` | 7 | 完整 |

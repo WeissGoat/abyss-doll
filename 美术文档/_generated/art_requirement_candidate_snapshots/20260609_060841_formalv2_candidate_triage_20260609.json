@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-06-09T06:37:56+08:00",
-  "SnapshotTag": "formalv2_candidate_triage_verify_20260609",
+  "GeneratedAt": "2026-06-09T06:08:41+08:00",
+  "SnapshotTag": "formalv2_candidate_triage_20260609",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "SeedPath": "美术文档/art_requirements_seed.json",
@@ -16,8 +16,9 @@
     "ScannedFiles": 281,
     "UniqueVisualIDs": 299,
     "StatusCounts": {
-      "manifest_managed": 244,
-      "new_candidate": 55
+      "manifest_managed": 215,
+      "new_candidate": 55,
+      "seed_only": 29
     },
     "DomainCounts": {
       "background": 17,
@@ -1684,6 +1685,986 @@
       "SourcesTruncated": 0
     },
     {
+      "VisualID": "bg_daily_bill",
+      "SourceID": "bg_daily_bill",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "background",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 1,
+      "Sources": [
+        {
+          "File": "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+          "Line": 335,
+          "Kind": "visual_id_token",
+          "SourceID": "bg_daily_bill",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| 经营链路 | `shop_staging`、`business_settlement`、`daily_bill_report` | 可复用商店 / 账本背景，必要时新增 `bg_shop_staging`、`bg_daily_bill` | 1920x1080 或面板式背景 | false | FormalV1 active + V2 draft | 出货陈列台、营业演出、每日账本分开表达；金币增长和月租压力不能只靠文字。 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "bg_shop_staging",
+      "SourceID": "bg_shop_staging",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "background",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 1,
+      "Sources": [
+        {
+          "File": "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+          "Line": 335,
+          "Kind": "visual_id_token",
+          "SourceID": "bg_shop_staging",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| 经营链路 | `shop_staging`、`business_settlement`、`daily_bill_report` | 可复用商店 / 账本背景，必要时新增 `bg_shop_staging`、`bg_daily_bill` | 1920x1080 或面板式背景 | false | FormalV1 active + V2 draft | 出货陈列台、营业演出、每日账本分开表达；金币增长和月租压力不能只靠文字。 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "bg_town_shop",
+      "SourceID": "bg_town_shop",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "background",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 3,
+      "Sources": [
+        {
+          "File": "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+          "Line": 334,
+          "Kind": "visual_id_token",
+          "SourceID": "bg_town_shop",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| 小镇商店 / 市场 | `sell_panel`、`faction_shop` | 待定 `bg_town_shop` / `bg_faction_shop`，未 active 前仅规划 | 1920x1080，cover，柜台与货架分区 | false | FormalV1 active + V2 draft | 温暖小镇店铺、柜台、货架、账本；`sell_panel` 不再是工坊估价柜台。 |"
+        },
+        {
+          "File": "美术文档/ui_design/formal_v2/09_sell_panel_v2.md",
+          "Line": 182,
+          "Kind": "visual_id_token",
+          "SourceID": "bg_town_shop",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `bg_town_shop` / `bg_workshop_day` | 小镇商店背景；临时阶段可复用工坊背景，但正式图应区分。 |"
+        },
+        {
+          "File": "美术文档/ui_design/formal_v2/09_sell_panel_v2.md",
+          "Line": 193,
+          "Kind": "visual_id_token",
+          "SourceID": "bg_town_shop",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `bg_town_shop` | 小镇商店 / 市场柜台背景。 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "bg_workshop_home_room",
+      "SourceID": "bg_workshop_home_room",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "background",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 1,
+      "Sources": [
+        {
+          "File": "美术文档/ui_design/formal_v2/01_workshop_main_v2.md",
+          "Line": 227,
+          "Kind": "visual_id_token",
+          "SourceID": "bg_workshop_home_room",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `bg_workshop_home_room` | 更正式的安心房间主界面背景。 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "bg_workshop_studio",
+      "SourceID": "bg_workshop_studio",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "background",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 5,
+      "Sources": [
+        {
+          "File": "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+          "Line": 326,
+          "Kind": "visual_id_token",
+          "SourceID": "bg_workshop_studio",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| 工坊改造室 | `workshop_studio`、`maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel` | 待定 `bg_workshop_studio`，未 active 前仅规划 | 1920x1080，cover，右侧改造椅和左侧工具/背包区需留空间 | false | draft planning | 机械感更强但仍温暖；魔偶坐在改造椅上，维护 / 义"
+        },
+        {
+          "File": "美术文档/ui_design/formal_v2/01_workshop_main_v2.md",
+          "Line": 228,
+          "Kind": "visual_id_token",
+          "SourceID": "bg_workshop_studio",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `bg_workshop_studio` | 专门的改造工作室背景。 |"
+        },
+        {
+          "File": "美术文档/ui_design/formal_v2/06_maintenance_panel_v2.md",
+          "Line": 185,
+          "Kind": "visual_id_token",
+          "SourceID": "bg_workshop_studio",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `bg_workshop_studio` / `bg_workshop_day` | 工作室背景，优先复用 `workshop_studio`。 |"
+        },
+        {
+          "File": "美术文档/ui_design/formal_v2/07_prosthetic_panel_v2.md",
+          "Line": 183,
+          "Kind": "visual_id_token",
+          "SourceID": "bg_workshop_studio",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `bg_workshop_studio` / `bg_workshop_day` | 工作室背景，优先复用 `workshop_studio`。 |"
+        },
+        {
+          "File": "美术文档/ui_design/formal_v2/08_chassis_upgrade_panel_v2.md",
+          "Line": 190,
+          "Kind": "visual_id_token",
+          "SourceID": "bg_workshop_studio",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `bg_workshop_studio` / `bg_workshop_day` | 工作室背景，优先复用 `workshop_studio`。 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "memento_blackmarket_letter",
+      "SourceID": "memento_blackmarket_letter",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "memento",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 1,
+      "Sources": [
+        {
+          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
+          "Line": 179,
+          "Kind": "visual_id_token",
+          "SourceID": "memento_blackmarket_letter",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `memento_blackmarket_letter` | 黑市纸条 | 首次黑市交易 / 背叛 | 书桌抽屉 | `diary_blackmarket_letter` | 不自动触发再次交易。 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "memento_debt_shadow_window",
+      "SourceID": "memento_debt_shadow_window",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "memento",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 1,
+      "Sources": [
+        {
+          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
+          "Line": 180,
+          "Kind": "visual_id_token",
+          "SourceID": "memento_debt_shadow_window",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `memento_debt_shadow_window` | 债主窗影 | 连续重度违约 | 窗外覆盖 | `diary_debt_collector` | 是视觉状态，不改变账单规则。 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "memento_first_return_tag",
+      "SourceID": "memento_first_return_tag",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "memento",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 2,
+      "Sources": [
+        {
+          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
+          "Line": 75,
+          "Kind": "visual_id_token",
+          "SourceID": "memento_first_return_tag",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `evt_main_first_dive_return` | 第一次带她回来 | 首次撤离成功 | 700 / `AVG` | `AddBond small`、`SetFlag first_return_seen` | 纪念物候选 `memento_first_return_tag` | 把搜打撤结果接到人偶关系。 |"
+        },
+        {
+          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
+          "Line": 173,
+          "Kind": "visual_id_token",
+          "SourceID": "memento_first_return_tag",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `memento_first_return_tag` | 第一次归还标签 | 首次撤离成功 | 门边挂钩 | `diary_first_return` | 不提供收益。 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "memento_low_san_blanket",
+      "SourceID": "memento_low_san_blanket",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "memento",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 1,
+      "Sources": [
+        {
+          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
+          "Line": 181,
+          "Kind": "visual_id_token",
+          "SourceID": "memento_low_san_blanket",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `memento_low_san_blanket` | 低 SAN 毯子 | 首次 Broken 后修复 | 床边 | `diary_broken_recovery` | 不美化崩溃，只记录恢复。 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "memento_pawn_empty_tag",
+      "SourceID": "memento_pawn_empty_tag",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "memento",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 2,
+      "Sources": [
+        {
+          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
+          "Line": 125,
+          "Kind": "visual_id_token",
+          "SourceID": "memento_pawn_empty_tag",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `evt_debt_pawn_aftertaste` | 典当后的空位 | 首次典当成功 | 650 / `RoomMemory` | `AddRoomMemory pawn_empty_slot` | `memento_pawn_empty_tag` | 让典当刺痛但不误伤核心物。 |"
+        },
+        {
+          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
+          "Line": 178,
+          "Kind": "visual_id_token",
+          "SourceID": "memento_pawn_empty_tag",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `memento_pawn_empty_tag` | 典当空签 | 首次典当 | 展柜空位 | `diary_first_pawn` | 不阻止典当普通物。 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "memento_truth_red_thread",
+      "SourceID": "memento_truth_red_thread",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "memento",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 1,
+      "Sources": [
+        {
+          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
+          "Line": 182,
+          "Kind": "visual_id_token",
+          "SourceID": "memento_truth_red_thread",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| `memento_truth_red_thread` | 红线结 | 真相低语事件 | 书桌 / 窗边 | `diary_truth_whisper` | 只作为后续真相线钩子。 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "memento_wall_crack_first_defeat",
+      "SourceID": "memento_wall_crack_first_defeat",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "memento",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 1,
+      "Sources": [
+        {
+          "File": "设计文档/rules/11_人偶房间布局与视觉叙事规则卡.md",
+          "Line": 299,
+          "Kind": "visual_id_token",
+          "SourceID": "memento_wall_crack_first_defeat",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "",
+          "Text": "| 纪念物 | `memento_wall_crack_first_defeat` |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "order_black_contested_core_buyout_icon",
+      "SourceID": "order_black_contested_core_buyout",
+      "CandidateKind": "derived_visual_candidate",
+      "Status": "seed_only",
+      "Domain": "order",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 5,
+      "Sources": [
+        {
+          "File": "设计文档/config/designs/33_第三层正式配置落地设计.md",
+          "Line": 306,
+          "Kind": "visual_id_token",
+          "SourceID": "order_black_contested_core_buyout",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `order_black_contested_core_buyout` | 黑市 | `order_contested_spore_core` 或污染三阶材料 | `reward_order_black_contested_core_buyout` | 高金币和黑市信任，正规订单转背叛 / 怀疑。 |"
+        },
+        {
+          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
+          "Line": 636,
+          "Kind": "visual_id_token",
+          "SourceID": "order_black_contested_core_buyout",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 输出 ID | `order_workshop_spore_core_frame`、`order_mage_oracle_sample`、`order_black_contested_core_buyout` 或等价正式 ID。 |"
+        },
+        {
+          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
+          "Line": 247,
+          "Kind": "visual_id_token",
+          "SourceID": "order_black_contested_core_buyout",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 内容钩子 | `order_workshop_spore_core_frame`、`order_mage_oracle_sample`、`order_black_contested_core_buyout`。 |"
+        },
+        {
+          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
+          "Line": 259,
+          "Kind": "visual_id_token",
+          "SourceID": "order_black_contested_core_buyout",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `order_black_contested_core_buyout` | 黑市 | 收购争夺孢核或污染三阶材料。 | 高价背叛与正规势力怀疑。 | 3 天 | 极高金币、黑市信任、违禁材料。 |"
+        },
+        {
+          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
+          "Line": 281,
+          "Kind": "visual_id_token",
+          "SourceID": "order_black_contested_core_buyout",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "### 6.3 `order_black_contested_core_buyout` 黑市孢核买断"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "order_blackmarket_relic_box_icon",
+      "SourceID": "order_blackmarket_relic_box",
+      "CandidateKind": "derived_visual_candidate",
+      "Status": "seed_only",
+      "Domain": "order",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 7,
+      "Sources": [
+        {
+          "File": "设计文档/config/26_正式配置设计与填充推进计划.md",
+          "Line": 384,
+          "Kind": "visual_id_token",
+          "SourceID": "order_blackmarket_relic_box",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `L2-ORDERS` | C2 | 配置完成 | `配置表(JSON)/Orders`、必要 `Rewards` / `Factions` 引用 | `20`、`32`、`34`、`56` | 已完成：新增 `order_spore_cage_procurement`、`order_crystal_scale_batch`、`order_blackmarket_relic_box`，补 `faction_alchemy_guild"
+        },
+        {
+          "File": "设计文档/config/designs/32_第二层正式配置落地设计.md",
+          "Line": 280,
+          "Kind": "visual_id_token",
+          "SourceID": "order_blackmarket_relic_box",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `order_blackmarket_relic_box` | 新增 | `trade_sealed_relic_box` | `reward_order_blackmarket_relic_box` | 高金币，黑市信任，公开势力怀疑。 |"
+        },
+        {
+          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
+          "Line": 510,
+          "Kind": "visual_id_token",
+          "SourceID": "order_blackmarket_relic_box",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 输出 ID | `order_spore_cage_procurement`、`order_crystal_scale_batch`、`order_blackmarket_relic_box` 或等价正式 ID。 |"
+        },
+        {
+          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
+          "Line": 522,
+          "Kind": "visual_id_token",
+          "SourceID": "order_blackmarket_relic_box",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 必补目标 ID | `order_spore_cage_procurement`、`order_crystal_scale_batch`、`order_blackmarket_relic_box`。 | 开工前不再需要额外设计决策。 |"
+        },
+        {
+          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
+          "Line": 533,
+          "Kind": "visual_id_token",
+          "SourceID": "order_blackmarket_relic_box",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 黑市订单 | `order_blackmarket_relic_box` 需求 `trade_sealed_relic_box`，高金币 / 黑市信任，同时打公开势力怀疑或背叛预告标记。 |"
+        }
+      ],
+      "SourcesTruncated": 2
+    },
+    {
+      "VisualID": "order_crystal_scale_batch_icon",
+      "SourceID": "order_crystal_scale_batch",
+      "CandidateKind": "derived_visual_candidate",
+      "Status": "seed_only",
+      "Domain": "order",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 7,
+      "Sources": [
+        {
+          "File": "设计文档/config/26_正式配置设计与填充推进计划.md",
+          "Line": 384,
+          "Kind": "visual_id_token",
+          "SourceID": "order_crystal_scale_batch",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `L2-ORDERS` | C2 | 配置完成 | `配置表(JSON)/Orders`、必要 `Rewards` / `Factions` 引用 | `20`、`32`、`34`、`56` | 已完成：新增 `order_spore_cage_procurement`、`order_crystal_scale_batch`、`order_blackmarket_relic_box`，补 `faction_alchemy_guild"
+        },
+        {
+          "File": "设计文档/config/designs/32_第二层正式配置落地设计.md",
+          "Line": 279,
+          "Kind": "visual_id_token",
+          "SourceID": "order_crystal_scale_batch",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `order_crystal_scale_batch` | 新增 | 3 个 `loot_crystal_scale` | `reward_order_crystal_scale_batch` | 引导结晶路线，低风险经济目标。 |"
+        },
+        {
+          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
+          "Line": 510,
+          "Kind": "visual_id_token",
+          "SourceID": "order_crystal_scale_batch",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 输出 ID | `order_spore_cage_procurement`、`order_crystal_scale_batch`、`order_blackmarket_relic_box` 或等价正式 ID。 |"
+        },
+        {
+          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
+          "Line": 522,
+          "Kind": "visual_id_token",
+          "SourceID": "order_crystal_scale_batch",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 必补目标 ID | `order_spore_cage_procurement`、`order_crystal_scale_batch`、`order_blackmarket_relic_box`。 | 开工前不再需要额外设计决策。 |"
+        },
+        {
+          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
+          "Line": 524,
+          "Kind": "visual_id_token",
+          "SourceID": "order_crystal_scale_batch",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 奖励依赖 | `reward_order_spore_cage_procurement`、`reward_order_blackmarket_relic_box` 必须存在；`order_crystal_scale_batch` 可新增对应奖励或引用经济压力正式奖励池。 | 若奖励未落地，不能标记配置完成。 |"
+        }
+      ],
+      "SourcesTruncated": 2
+    },
+    {
+      "VisualID": "order_mage_oracle_sample_icon",
+      "SourceID": "order_mage_oracle_sample",
+      "CandidateKind": "derived_visual_candidate",
+      "Status": "seed_only",
+      "Domain": "order",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 6,
+      "Sources": [
+        {
+          "File": "设计文档/config/designs/33_第三层正式配置落地设计.md",
+          "Line": 304,
+          "Kind": "visual_id_token",
+          "SourceID": "order_mage_oracle_sample",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `order_mage_oracle_sample` | 法师塔 | `trade_singing_fossil` 或 `OracleSample` 标签物 | `reward_order_mage_oracle_sample` | 低金币、高长期解锁；可触发剧情旗标。 |"
+        },
+        {
+          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
+          "Line": 636,
+          "Kind": "visual_id_token",
+          "SourceID": "order_mage_oracle_sample",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 输出 ID | `order_workshop_spore_core_frame`、`order_mage_oracle_sample`、`order_black_contested_core_buyout` 或等价正式 ID。 |"
+        },
+        {
+          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
+          "Line": 247,
+          "Kind": "visual_id_token",
+          "SourceID": "order_mage_oracle_sample",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 内容钩子 | `order_workshop_spore_core_frame`、`order_mage_oracle_sample`、`order_black_contested_core_buyout`。 |"
+        },
+        {
+          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
+          "Line": 257,
+          "Kind": "visual_id_token",
+          "SourceID": "order_mage_oracle_sample",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `order_mage_oracle_sample` | 法师塔 | 交付低唱化石或神谕体样本 | 连接心智催化和深渊真相。 | 10 天 | 法师塔声望、心智催化、剧情旗标。 |"
+        },
+        {
+          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
+          "Line": 267,
+          "Kind": "visual_id_token",
+          "SourceID": "order_mage_oracle_sample",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 互斥 | 与 `order_mage_oracle_sample` 的核心样本分支互斥；与黑市收购构成背叛。 |"
+        }
+      ],
+      "SourcesTruncated": 1
+    },
+    {
+      "VisualID": "order_spore_cage_procurement_icon",
+      "SourceID": "order_spore_cage_procurement",
+      "CandidateKind": "derived_visual_candidate",
+      "Status": "seed_only",
+      "Domain": "order",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 14,
+      "Sources": [
+        {
+          "File": "设计文档/config/26_正式配置设计与填充推进计划.md",
+          "Line": 384,
+          "Kind": "visual_id_token",
+          "SourceID": "order_spore_cage_procurement",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `L2-ORDERS` | C2 | 配置完成 | `配置表(JSON)/Orders`、必要 `Rewards` / `Factions` 引用 | `20`、`32`、`34`、`56` | 已完成：新增 `order_spore_cage_procurement`、`order_crystal_scale_batch`、`order_blackmarket_relic_box`，补 `faction_alchemy_guild"
+        },
+        {
+          "File": "设计文档/config/designs/32_第二层正式配置落地设计.md",
+          "Line": 125,
+          "Kind": "visual_id_token",
+          "SourceID": "order_spore_cage_procurement",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "\"OrderRefs\": [\"order_spore_cage_procurement\"],"
+        },
+        {
+          "File": "设计文档/config/designs/32_第二层正式配置落地设计.md",
+          "Line": 129,
+          "Kind": "visual_id_token",
+          "SourceID": "order_spore_cage_procurement",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "\"OrderSubmitRefs\": [\"order_spore_cage_procurement\"],"
+        },
+        {
+          "File": "设计文档/config/designs/32_第二层正式配置落地设计.md",
+          "Line": 253,
+          "Kind": "visual_id_token",
+          "SourceID": "order_spore_cage_procurement",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `OrderTarget` | `OrderTargetNode` 或 `EventNode` | `order_spore_cage_procurement` 目标事件 | 接订单后权重提高。 |"
+        },
+        {
+          "File": "设计文档/config/designs/32_第二层正式配置落地设计.md",
+          "Line": 278,
+          "Kind": "visual_id_token",
+          "SourceID": "order_spore_cage_procurement",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `order_spore_cage_procurement` | 新增 | `order_live_spore_cage` 或活体孢子样本 | `reward_order_spore_cage_procurement` | 委托物 2x3，占格，不可普通出售，可黑市背叛。 |"
+        }
+      ],
+      "SourcesTruncated": 9
+    },
+    {
+      "VisualID": "order_workshop_spore_core_frame_icon",
+      "SourceID": "order_workshop_spore_core_frame",
+      "CandidateKind": "derived_visual_candidate",
+      "Status": "seed_only",
+      "Domain": "order",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 6,
+      "Sources": [
+        {
+          "File": "设计文档/config/designs/33_第三层正式配置落地设计.md",
+          "Line": 303,
+          "Kind": "visual_id_token",
+          "SourceID": "order_workshop_spore_core_frame",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `order_workshop_spore_core_frame` | 机械工坊 | `order_contested_spore_core` 或 `mat_core_tier3_seed` | `reward_order_workshop_spore_core_frame` | 解锁底盘二阶段工程线；与法师塔核心样本分支互斥。 |"
+        },
+        {
+          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
+          "Line": 636,
+          "Kind": "visual_id_token",
+          "SourceID": "order_workshop_spore_core_frame",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 输出 ID | `order_workshop_spore_core_frame`、`order_mage_oracle_sample`、`order_black_contested_core_buyout` 或等价正式 ID。 |"
+        },
+        {
+          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
+          "Line": 247,
+          "Kind": "visual_id_token",
+          "SourceID": "order_workshop_spore_core_frame",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 内容钩子 | `order_workshop_spore_core_frame`、`order_mage_oracle_sample`、`order_black_contested_core_buyout`。 |"
+        },
+        {
+          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
+          "Line": 256,
+          "Kind": "visual_id_token",
+          "SourceID": "order_workshop_spore_core_frame",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `order_workshop_spore_core_frame` | 机械工坊 | 交付 `order_contested_spore_core` 或 `mat_core_tier3_seed` | 解锁底盘二阶段工程线。 | 10 天 | 工坊声望、底盘图纸、金币。 |"
+        },
+        {
+          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
+          "Line": 261,
+          "Kind": "visual_id_token",
+          "SourceID": "order_workshop_spore_core_frame",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "### 6.1 `order_workshop_spore_core_frame` 工坊孢核框架"
+        }
+      ],
+      "SourcesTruncated": 1
+    },
+    {
+      "VisualID": "rumor_acid_gland_shortage_icon",
+      "SourceID": "rumor_acid_gland_shortage",
+      "CandidateKind": "derived_visual_candidate",
+      "Status": "seed_only",
+      "Domain": "rumor",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 1,
+      "Sources": [
+        {
+          "File": "设计文档/content_packs/20_第二层背包压力内容包.md",
+          "Line": 338,
+          "Kind": "visual_id_token",
+          "SourceID": "rumor_acid_gland_shortage",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `rumor_acid_gland_shortage` | 酸腺囊短缺 | `ItemID=loot_acid_gland` | 引导玩家面对酸液系怪物和污染风险。 | 7 天 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "rumor_crystal_scale_contract_icon",
+      "SourceID": "rumor_crystal_scale_contract",
+      "CandidateKind": "derived_visual_candidate",
+      "Status": "seed_only",
+      "Domain": "rumor",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 1,
+      "Sources": [
+        {
+          "File": "设计文档/content_packs/20_第二层背包压力内容包.md",
+          "Line": 336,
+          "Kind": "visual_id_token",
+          "SourceID": "rumor_crystal_scale_contract",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `rumor_crystal_scale_contract` | 晶鳞采购令 | `ItemID=loot_crystal_scale` | 鼓励玩家走结晶怪路线。 | 7 天 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "rumor_filter_shortage_icon",
+      "SourceID": "rumor_filter_shortage",
+      "CandidateKind": "derived_visual_candidate",
+      "Status": "seed_only",
+      "Domain": "rumor",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 2,
+      "Sources": [
+        {
+          "File": "设计文档/content_packs/19_第一层正式核心内容包.md",
+          "Line": 112,
+          "Kind": "visual_id_token",
+          "SourceID": "rumor_filter_shortage",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 经济承诺 | 在 `rumor_filter_shortage` 下价值上浮，是玩家追逐特定怪物的诱因。 |"
+        },
+        {
+          "File": "设计文档/content_packs/19_第一层正式核心内容包.md",
+          "Line": 249,
+          "Kind": "visual_id_token",
+          "SourceID": "rumor_filter_shortage",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `rumor_filter_shortage` | 滤芯短缺 | `ItemTag:ToxicFilter` | 鼓励玩家挑战酸液软体或事件路线。 | 7 天 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "rumor_living_mycelium_shortage_icon",
+      "SourceID": "rumor_living_mycelium_shortage",
+      "CandidateKind": "derived_visual_candidate",
+      "Status": "seed_only",
+      "Domain": "rumor",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 2,
+      "Sources": [
+        {
+          "File": "设计文档/config/designs/33_第三层正式配置落地设计.md",
+          "Line": 336,
+          "Kind": "visual_id_token",
+          "SourceID": "rumor_living_mycelium_shortage",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `rumor_living_mycelium_shortage` | `loot_living_mycelium` | 新增。 | 鼓励玩家处理污染材料的收益与成本。 |"
+        },
+        {
+          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
+          "Line": 339,
+          "Kind": "visual_id_token",
+          "SourceID": "rumor_living_mycelium_shortage",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `rumor_living_mycelium_shortage` | 活性菌丝短缺 | `ItemID=loot_living_mycelium` | 鼓励玩家面对污染材料的处理成本。 | 5 天 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "rumor_miner_lamps_icon",
+      "SourceID": "rumor_miner_lamps",
+      "CandidateKind": "derived_visual_candidate",
+      "Status": "seed_only",
+      "Domain": "rumor",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 1,
+      "Sources": [
+        {
+          "File": "设计文档/content_packs/19_第一层正式核心内容包.md",
+          "Line": 251,
+          "Kind": "visual_id_token",
+          "SourceID": "rumor_miner_lamps",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `rumor_miner_lamps` | 矿灯收藏热 | `ItemID:trade_miner_lamp` 或 `ItemTag:MinerRelic` | 引导玩家走探索路线和宝箱路线。 | 7 天 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "rumor_old_blades_icon",
+      "SourceID": "rumor_old_blades",
+      "CandidateKind": "derived_visual_candidate",
+      "Status": "seed_only",
+      "Domain": "rumor",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 2,
+      "Sources": [
+        {
+          "File": "设计文档/content_packs/19_第一层正式核心内容包.md",
+          "Line": 100,
+          "Kind": "visual_id_token",
+          "SourceID": "rumor_old_blades",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| 经济承诺 | 作为武器标签可受 `rumor_old_blades` 影响涨价，但通常比不上战斗价值。 |"
+        },
+        {
+          "File": "设计文档/content_packs/19_第一层正式核心内容包.md",
+          "Line": 250,
+          "Kind": "visual_id_token",
+          "SourceID": "rumor_old_blades",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `rumor_old_blades` | 旧刃回收价上涨 | `ItemTag:Weapon AND Layer:1` | 让玩家在出售武器和保留构筑之间取舍。 | 3 天 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "rumor_oracle_fossil_collector_icon",
+      "SourceID": "rumor_oracle_fossil_collector",
+      "CandidateKind": "derived_visual_candidate",
+      "Status": "seed_only",
+      "Domain": "rumor",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 2,
+      "Sources": [
+        {
+          "File": "设计文档/config/designs/33_第三层正式配置落地设计.md",
+          "Line": 338,
+          "Kind": "visual_id_token",
+          "SourceID": "rumor_oracle_fossil_collector",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `rumor_oracle_fossil_collector` | `trade_singing_fossil` | 新增。 | 放大出售、法师塔研究和房间展示取舍。 |"
+        },
+        {
+          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
+          "Line": 341,
+          "Kind": "visual_id_token",
+          "SourceID": "rumor_oracle_fossil_collector",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `rumor_oracle_fossil_collector` | 神谕化石收藏家 | `ItemID=trade_singing_fossil` | 放大遗物出售、法师塔研究、房间展示之间的取舍。 | 3 天 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "rumor_spore_amber_jeweler_icon",
+      "SourceID": "rumor_spore_amber_jeweler",
+      "CandidateKind": "derived_visual_candidate",
+      "Status": "seed_only",
+      "Domain": "rumor",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 2,
+      "Sources": [
+        {
+          "File": "设计文档/config/designs/33_第三层正式配置落地设计.md",
+          "Line": 337,
+          "Kind": "visual_id_token",
+          "SourceID": "rumor_spore_amber_jeweler",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `rumor_spore_amber_jeweler` | `loot_spore_amber` | 新增。 | 鼓励小件高价物路线。 |"
+        },
+        {
+          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
+          "Line": 340,
+          "Kind": "visual_id_token",
+          "SourceID": "rumor_spore_amber_jeweler",
+          "CandidateKind": "derived_visual_candidate",
+          "JsonPointer": "",
+          "Text": "| `rumor_spore_amber_jeweler` | 孢晶琥珀珠宝热 | `ItemID=loot_spore_amber` | 让玩家追逐小件高价物而非只拿大件。 | 7 天 |"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "ui_combat_feedback_echo_fade",
+      "SourceID": "ui_combat_feedback_echo_fade",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "ui",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 1,
+      "Sources": [
+        {
+          "File": "配置表(JSON)/Monsters/mob_lost_miner_echo.json",
+          "Line": 0,
+          "Kind": "json_field",
+          "SourceID": "ui_combat_feedback_echo_fade",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "/DefeatFeedbackRef",
+          "Text": "DefeatFeedbackRef: ui_combat_feedback_echo_fade"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "ui_combat_feedback_scrap_break",
+      "SourceID": "ui_combat_feedback_scrap_break",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "ui",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 2,
+      "Sources": [
+        {
+          "File": "配置表(JSON)/Monsters/mob_rust_hound.json",
+          "Line": 0,
+          "Kind": "json_field",
+          "SourceID": "ui_combat_feedback_scrap_break",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "/DefeatFeedbackRef",
+          "Text": "DefeatFeedbackRef: ui_combat_feedback_scrap_break"
+        },
+        {
+          "File": "配置表(JSON)/Monsters/mob_scavenger_bug.json",
+          "Line": 0,
+          "Kind": "json_field",
+          "SourceID": "ui_combat_feedback_scrap_break",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "/DefeatFeedbackRef",
+          "Text": "DefeatFeedbackRef: ui_combat_feedback_scrap_break"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
+      "VisualID": "ui_combat_feedback_slime_pop",
+      "SourceID": "ui_combat_feedback_slime_pop",
+      "CandidateKind": "explicit_visual_id",
+      "Status": "seed_only",
+      "Domain": "ui",
+      "Priority": "review",
+      "Confidence": "medium",
+      "MentionCount": 1,
+      "Sources": [
+        {
+          "File": "配置表(JSON)/Monsters/mob_acid_slime.json",
+          "Line": 0,
+          "Kind": "json_field",
+          "SourceID": "ui_combat_feedback_slime_pop",
+          "CandidateKind": "explicit_visual_id",
+          "JsonPointer": "/DefeatFeedbackRef",
+          "Text": "DefeatFeedbackRef: ui_combat_feedback_slime_pop"
+        }
+      ],
+      "SourcesTruncated": 0
+    },
+    {
       "VisualID": "ui_button_danger",
       "SourceID": "ui_button_danger",
       "CandidateKind": "explicit_visual_id",
@@ -3308,28 +4289,6 @@
       "SourcesTruncated": 8
     },
     {
-      "VisualID": "bg_daily_bill",
-      "SourceID": "bg_daily_bill",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "background",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 1,
-      "Sources": [
-        {
-          "File": "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
-          "Line": 335,
-          "Kind": "visual_id_token",
-          "SourceID": "bg_daily_bill",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| 经营链路 | `shop_staging`、`business_settlement`、`daily_bill_report` | 可复用商店 / 账本背景，必要时新增 `bg_shop_staging`、`bg_daily_bill` | 1920x1080 或面板式背景 | false | FormalV1 active + V2 draft | 出货陈列台、营业演出、每日账本分开表达；金币增长和月租压力不能只靠文字。 |"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
       "VisualID": "bg_doll_room_attic",
       "SourceID": "bg_doll_room_attic",
       "CandidateKind": "explicit_visual_id",
@@ -3678,28 +4637,6 @@
       "SourcesTruncated": 4
     },
     {
-      "VisualID": "bg_shop_staging",
-      "SourceID": "bg_shop_staging",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "background",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 1,
-      "Sources": [
-        {
-          "File": "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
-          "Line": 335,
-          "Kind": "visual_id_token",
-          "SourceID": "bg_shop_staging",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| 经营链路 | `shop_staging`、`business_settlement`、`daily_bill_report` | 可复用商店 / 账本背景，必要时新增 `bg_shop_staging`、`bg_daily_bill` | 1920x1080 或面板式背景 | false | FormalV1 active + V2 draft | 出货陈列台、营业演出、每日账本分开表达；金币增长和月租压力不能只靠文字。 |"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
       "VisualID": "bg_stairs_room",
       "SourceID": "bg_stairs_room",
       "CandidateKind": "explicit_visual_id",
@@ -3758,46 +4695,6 @@
       "SourcesTruncated": 3
     },
     {
-      "VisualID": "bg_town_shop",
-      "SourceID": "bg_town_shop",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "background",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 3,
-      "Sources": [
-        {
-          "File": "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
-          "Line": 334,
-          "Kind": "visual_id_token",
-          "SourceID": "bg_town_shop",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| 小镇商店 / 市场 | `sell_panel`、`faction_shop` | 待定 `bg_town_shop` / `bg_faction_shop`，未 active 前仅规划 | 1920x1080，cover，柜台与货架分区 | false | FormalV1 active + V2 draft | 温暖小镇店铺、柜台、货架、账本；`sell_panel` 不再是工坊估价柜台。 |"
-        },
-        {
-          "File": "美术文档/ui_design/formal_v2/09_sell_panel_v2.md",
-          "Line": 182,
-          "Kind": "visual_id_token",
-          "SourceID": "bg_town_shop",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `bg_town_shop` / `bg_workshop_day` | 小镇商店背景；临时阶段可复用工坊背景，但正式图应区分。 |"
-        },
-        {
-          "File": "美术文档/ui_design/formal_v2/09_sell_panel_v2.md",
-          "Line": 193,
-          "Kind": "visual_id_token",
-          "SourceID": "bg_town_shop",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `bg_town_shop` | 小镇商店 / 市场柜台背景。 |"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
       "VisualID": "bg_workshop_day",
       "SourceID": "bg_workshop_day",
       "CandidateKind": "explicit_visual_id",
@@ -3854,86 +4751,6 @@
         }
       ],
       "SourcesTruncated": 59
-    },
-    {
-      "VisualID": "bg_workshop_home_room",
-      "SourceID": "bg_workshop_home_room",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "background",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 1,
-      "Sources": [
-        {
-          "File": "美术文档/ui_design/formal_v2/01_workshop_main_v2.md",
-          "Line": 227,
-          "Kind": "visual_id_token",
-          "SourceID": "bg_workshop_home_room",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `bg_workshop_home_room` | 更正式的安心房间主界面背景。 |"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
-      "VisualID": "bg_workshop_studio",
-      "SourceID": "bg_workshop_studio",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "background",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 5,
-      "Sources": [
-        {
-          "File": "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
-          "Line": 326,
-          "Kind": "visual_id_token",
-          "SourceID": "bg_workshop_studio",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| 工坊改造室 | `workshop_studio`、`maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel` | 待定 `bg_workshop_studio`，未 active 前仅规划 | 1920x1080，cover，右侧改造椅和左侧工具/背包区需留空间 | false | draft planning | 机械感更强但仍温暖；魔偶坐在改造椅上，维护 / 义"
-        },
-        {
-          "File": "美术文档/ui_design/formal_v2/01_workshop_main_v2.md",
-          "Line": 228,
-          "Kind": "visual_id_token",
-          "SourceID": "bg_workshop_studio",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `bg_workshop_studio` | 专门的改造工作室背景。 |"
-        },
-        {
-          "File": "美术文档/ui_design/formal_v2/06_maintenance_panel_v2.md",
-          "Line": 185,
-          "Kind": "visual_id_token",
-          "SourceID": "bg_workshop_studio",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `bg_workshop_studio` / `bg_workshop_day` | 工作室背景，优先复用 `workshop_studio`。 |"
-        },
-        {
-          "File": "美术文档/ui_design/formal_v2/07_prosthetic_panel_v2.md",
-          "Line": 183,
-          "Kind": "visual_id_token",
-          "SourceID": "bg_workshop_studio",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `bg_workshop_studio` / `bg_workshop_day` | 工作室背景，优先复用 `workshop_studio`。 |"
-        },
-        {
-          "File": "美术文档/ui_design/formal_v2/08_chassis_upgrade_panel_v2.md",
-          "Line": 190,
-          "Kind": "visual_id_token",
-          "SourceID": "bg_workshop_studio",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `bg_workshop_studio` / `bg_workshop_day` | 工作室背景，优先复用 `workshop_studio`。 |"
-        }
-      ],
-      "SourcesTruncated": 0
     },
     {
       "VisualID": "chassis_bulwark_carrier_icon",
@@ -5722,28 +6539,6 @@
       "SourcesTruncated": 0
     },
     {
-      "VisualID": "memento_blackmarket_letter",
-      "SourceID": "memento_blackmarket_letter",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "memento",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 1,
-      "Sources": [
-        {
-          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
-          "Line": 179,
-          "Kind": "visual_id_token",
-          "SourceID": "memento_blackmarket_letter",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `memento_blackmarket_letter` | 黑市纸条 | 首次黑市交易 / 背叛 | 书桌抽屉 | `diary_blackmarket_letter` | 不自动触发再次交易。 |"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
       "VisualID": "memento_boss1_lamp",
       "SourceID": "memento_boss1_lamp",
       "CandidateKind": "explicit_visual_id",
@@ -5800,28 +6595,6 @@
         }
       ],
       "SourcesTruncated": 7
-    },
-    {
-      "VisualID": "memento_debt_shadow_window",
-      "SourceID": "memento_debt_shadow_window",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "memento",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 1,
-      "Sources": [
-        {
-          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
-          "Line": 180,
-          "Kind": "visual_id_token",
-          "SourceID": "memento_debt_shadow_window",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `memento_debt_shadow_window` | 债主窗影 | 连续重度违约 | 窗外覆盖 | `diary_debt_collector` | 是视觉状态，不改变账单规则。 |"
-        }
-      ],
-      "SourcesTruncated": 0
     },
     {
       "VisualID": "memento_first_chassis_frame",
@@ -5998,37 +6771,6 @@
       "SourcesTruncated": 2
     },
     {
-      "VisualID": "memento_first_return_tag",
-      "SourceID": "memento_first_return_tag",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "memento",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 2,
-      "Sources": [
-        {
-          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
-          "Line": 75,
-          "Kind": "visual_id_token",
-          "SourceID": "memento_first_return_tag",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `evt_main_first_dive_return` | 第一次带她回来 | 首次撤离成功 | 700 / `AVG` | `AddBond small`、`SetFlag first_return_seen` | 纪念物候选 `memento_first_return_tag` | 把搜打撤结果接到人偶关系。 |"
-        },
-        {
-          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
-          "Line": 173,
-          "Kind": "visual_id_token",
-          "SourceID": "memento_first_return_tag",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `memento_first_return_tag` | 第一次归还标签 | 首次撤离成功 | 门边挂钩 | `diary_first_return` | 不提供收益。 |"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
       "VisualID": "memento_layer2_corrosion_vial",
       "SourceID": "memento_layer2_corrosion_vial",
       "CandidateKind": "explicit_visual_id",
@@ -6087,28 +6829,6 @@
       "SourcesTruncated": 1
     },
     {
-      "VisualID": "memento_low_san_blanket",
-      "SourceID": "memento_low_san_blanket",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "memento",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 1,
-      "Sources": [
-        {
-          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
-          "Line": 181,
-          "Kind": "visual_id_token",
-          "SourceID": "memento_low_san_blanket",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `memento_low_san_blanket` | 低 SAN 毯子 | 首次 Broken 后修复 | 床边 | `diary_broken_recovery` | 不美化崩溃，只记录恢复。 |"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
       "VisualID": "memento_miracle_burn_mark",
       "SourceID": "memento_miracle_burn_mark",
       "CandidateKind": "explicit_visual_id",
@@ -6165,37 +6885,6 @@
         }
       ],
       "SourcesTruncated": 2
-    },
-    {
-      "VisualID": "memento_pawn_empty_tag",
-      "SourceID": "memento_pawn_empty_tag",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "memento",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 2,
-      "Sources": [
-        {
-          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
-          "Line": 125,
-          "Kind": "visual_id_token",
-          "SourceID": "memento_pawn_empty_tag",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `evt_debt_pawn_aftertaste` | 典当后的空位 | 首次典当成功 | 650 / `RoomMemory` | `AddRoomMemory pawn_empty_slot` | `memento_pawn_empty_tag` | 让典当刺痛但不误伤核心物。 |"
-        },
-        {
-          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
-          "Line": 178,
-          "Kind": "visual_id_token",
-          "SourceID": "memento_pawn_empty_tag",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `memento_pawn_empty_tag` | 典当空签 | 首次典当 | 展柜空位 | `diary_first_pawn` | 不阻止典当普通物。 |"
-        }
-      ],
-      "SourcesTruncated": 0
     },
     {
       "VisualID": "memento_return_mark",
@@ -6312,50 +7001,6 @@
         }
       ],
       "SourcesTruncated": 1
-    },
-    {
-      "VisualID": "memento_truth_red_thread",
-      "SourceID": "memento_truth_red_thread",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "memento",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 1,
-      "Sources": [
-        {
-          "File": "设计文档/content_packs/23_长期记忆剧情内容包.md",
-          "Line": 182,
-          "Kind": "visual_id_token",
-          "SourceID": "memento_truth_red_thread",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| `memento_truth_red_thread` | 红线结 | 真相低语事件 | 书桌 / 窗边 | `diary_truth_whisper` | 只作为后续真相线钩子。 |"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
-      "VisualID": "memento_wall_crack_first_defeat",
-      "SourceID": "memento_wall_crack_first_defeat",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "memento",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 1,
-      "Sources": [
-        {
-          "File": "设计文档/rules/11_人偶房间布局与视觉叙事规则卡.md",
-          "Line": 299,
-          "Kind": "visual_id_token",
-          "SourceID": "memento_wall_crack_first_defeat",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "",
-          "Text": "| 纪念物 | `memento_wall_crack_first_defeat` |"
-        }
-      ],
-      "SourcesTruncated": 0
     },
     {
       "VisualID": "monster_boss_gatekeeper_mk1_combat",
@@ -7662,64 +8307,6 @@
       "SourcesTruncated": 1
     },
     {
-      "VisualID": "order_black_contested_core_buyout_icon",
-      "SourceID": "order_black_contested_core_buyout",
-      "CandidateKind": "derived_visual_candidate",
-      "Status": "manifest_managed",
-      "Domain": "order",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 5,
-      "Sources": [
-        {
-          "File": "设计文档/config/designs/33_第三层正式配置落地设计.md",
-          "Line": 306,
-          "Kind": "visual_id_token",
-          "SourceID": "order_black_contested_core_buyout",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `order_black_contested_core_buyout` | 黑市 | `order_contested_spore_core` 或污染三阶材料 | `reward_order_black_contested_core_buyout` | 高金币和黑市信任，正规订单转背叛 / 怀疑。 |"
-        },
-        {
-          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
-          "Line": 636,
-          "Kind": "visual_id_token",
-          "SourceID": "order_black_contested_core_buyout",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 输出 ID | `order_workshop_spore_core_frame`、`order_mage_oracle_sample`、`order_black_contested_core_buyout` 或等价正式 ID。 |"
-        },
-        {
-          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
-          "Line": 247,
-          "Kind": "visual_id_token",
-          "SourceID": "order_black_contested_core_buyout",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 内容钩子 | `order_workshop_spore_core_frame`、`order_mage_oracle_sample`、`order_black_contested_core_buyout`。 |"
-        },
-        {
-          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
-          "Line": 259,
-          "Kind": "visual_id_token",
-          "SourceID": "order_black_contested_core_buyout",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `order_black_contested_core_buyout` | 黑市 | 收购争夺孢核或污染三阶材料。 | 高价背叛与正规势力怀疑。 | 3 天 | 极高金币、黑市信任、违禁材料。 |"
-        },
-        {
-          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
-          "Line": 281,
-          "Kind": "visual_id_token",
-          "SourceID": "order_black_contested_core_buyout",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "### 6.3 `order_black_contested_core_buyout` 黑市孢核买断"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
       "VisualID": "order_black_forbidden_relic_buyout_icon",
       "SourceID": "order_black_forbidden_relic_buyout",
       "CandidateKind": "derived_visual_candidate",
@@ -7874,122 +8461,6 @@
         }
       ],
       "SourcesTruncated": 0
-    },
-    {
-      "VisualID": "order_blackmarket_relic_box_icon",
-      "SourceID": "order_blackmarket_relic_box",
-      "CandidateKind": "derived_visual_candidate",
-      "Status": "manifest_managed",
-      "Domain": "order",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 7,
-      "Sources": [
-        {
-          "File": "设计文档/config/26_正式配置设计与填充推进计划.md",
-          "Line": 384,
-          "Kind": "visual_id_token",
-          "SourceID": "order_blackmarket_relic_box",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `L2-ORDERS` | C2 | 配置完成 | `配置表(JSON)/Orders`、必要 `Rewards` / `Factions` 引用 | `20`、`32`、`34`、`56` | 已完成：新增 `order_spore_cage_procurement`、`order_crystal_scale_batch`、`order_blackmarket_relic_box`，补 `faction_alchemy_guild"
-        },
-        {
-          "File": "设计文档/config/designs/32_第二层正式配置落地设计.md",
-          "Line": 280,
-          "Kind": "visual_id_token",
-          "SourceID": "order_blackmarket_relic_box",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `order_blackmarket_relic_box` | 新增 | `trade_sealed_relic_box` | `reward_order_blackmarket_relic_box` | 高金币，黑市信任，公开势力怀疑。 |"
-        },
-        {
-          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
-          "Line": 510,
-          "Kind": "visual_id_token",
-          "SourceID": "order_blackmarket_relic_box",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 输出 ID | `order_spore_cage_procurement`、`order_crystal_scale_batch`、`order_blackmarket_relic_box` 或等价正式 ID。 |"
-        },
-        {
-          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
-          "Line": 522,
-          "Kind": "visual_id_token",
-          "SourceID": "order_blackmarket_relic_box",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 必补目标 ID | `order_spore_cage_procurement`、`order_crystal_scale_batch`、`order_blackmarket_relic_box`。 | 开工前不再需要额外设计决策。 |"
-        },
-        {
-          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
-          "Line": 533,
-          "Kind": "visual_id_token",
-          "SourceID": "order_blackmarket_relic_box",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 黑市订单 | `order_blackmarket_relic_box` 需求 `trade_sealed_relic_box`，高金币 / 黑市信任，同时打公开势力怀疑或背叛预告标记。 |"
-        }
-      ],
-      "SourcesTruncated": 2
-    },
-    {
-      "VisualID": "order_crystal_scale_batch_icon",
-      "SourceID": "order_crystal_scale_batch",
-      "CandidateKind": "derived_visual_candidate",
-      "Status": "manifest_managed",
-      "Domain": "order",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 7,
-      "Sources": [
-        {
-          "File": "设计文档/config/26_正式配置设计与填充推进计划.md",
-          "Line": 384,
-          "Kind": "visual_id_token",
-          "SourceID": "order_crystal_scale_batch",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `L2-ORDERS` | C2 | 配置完成 | `配置表(JSON)/Orders`、必要 `Rewards` / `Factions` 引用 | `20`、`32`、`34`、`56` | 已完成：新增 `order_spore_cage_procurement`、`order_crystal_scale_batch`、`order_blackmarket_relic_box`，补 `faction_alchemy_guild"
-        },
-        {
-          "File": "设计文档/config/designs/32_第二层正式配置落地设计.md",
-          "Line": 279,
-          "Kind": "visual_id_token",
-          "SourceID": "order_crystal_scale_batch",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `order_crystal_scale_batch` | 新增 | 3 个 `loot_crystal_scale` | `reward_order_crystal_scale_batch` | 引导结晶路线，低风险经济目标。 |"
-        },
-        {
-          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
-          "Line": 510,
-          "Kind": "visual_id_token",
-          "SourceID": "order_crystal_scale_batch",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 输出 ID | `order_spore_cage_procurement`、`order_crystal_scale_batch`、`order_blackmarket_relic_box` 或等价正式 ID。 |"
-        },
-        {
-          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
-          "Line": 522,
-          "Kind": "visual_id_token",
-          "SourceID": "order_crystal_scale_batch",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 必补目标 ID | `order_spore_cage_procurement`、`order_crystal_scale_batch`、`order_blackmarket_relic_box`。 | 开工前不再需要额外设计决策。 |"
-        },
-        {
-          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
-          "Line": 524,
-          "Kind": "visual_id_token",
-          "SourceID": "order_crystal_scale_batch",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 奖励依赖 | `reward_order_spore_cage_procurement`、`reward_order_blackmarket_relic_box` 必须存在；`order_crystal_scale_batch` 可新增对应奖励或引用经济压力正式奖励池。 | 若奖励未落地，不能标记配置完成。 |"
-        }
-      ],
-      "SourcesTruncated": 2
     },
     {
       "VisualID": "order_guild_layer1_map_rubbing_icon",
@@ -8322,64 +8793,6 @@
       "SourcesTruncated": 1
     },
     {
-      "VisualID": "order_mage_oracle_sample_icon",
-      "SourceID": "order_mage_oracle_sample",
-      "CandidateKind": "derived_visual_candidate",
-      "Status": "manifest_managed",
-      "Domain": "order",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 6,
-      "Sources": [
-        {
-          "File": "设计文档/config/designs/33_第三层正式配置落地设计.md",
-          "Line": 304,
-          "Kind": "visual_id_token",
-          "SourceID": "order_mage_oracle_sample",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `order_mage_oracle_sample` | 法师塔 | `trade_singing_fossil` 或 `OracleSample` 标签物 | `reward_order_mage_oracle_sample` | 低金币、高长期解锁；可触发剧情旗标。 |"
-        },
-        {
-          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
-          "Line": 636,
-          "Kind": "visual_id_token",
-          "SourceID": "order_mage_oracle_sample",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 输出 ID | `order_workshop_spore_core_frame`、`order_mage_oracle_sample`、`order_black_contested_core_buyout` 或等价正式 ID。 |"
-        },
-        {
-          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
-          "Line": 247,
-          "Kind": "visual_id_token",
-          "SourceID": "order_mage_oracle_sample",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 内容钩子 | `order_workshop_spore_core_frame`、`order_mage_oracle_sample`、`order_black_contested_core_buyout`。 |"
-        },
-        {
-          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
-          "Line": 257,
-          "Kind": "visual_id_token",
-          "SourceID": "order_mage_oracle_sample",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `order_mage_oracle_sample` | 法师塔 | 交付低唱化石或神谕体样本 | 连接心智催化和深渊真相。 | 10 天 | 法师塔声望、心智催化、剧情旗标。 |"
-        },
-        {
-          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
-          "Line": 267,
-          "Kind": "visual_id_token",
-          "SourceID": "order_mage_oracle_sample",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 互斥 | 与 `order_mage_oracle_sample` 的核心样本分支互斥；与黑市收购构成背叛。 |"
-        }
-      ],
-      "SourcesTruncated": 1
-    },
-    {
       "VisualID": "order_mage_unidentified_relic_icon",
       "SourceID": "order_mage_unidentified_relic",
       "CandidateKind": "derived_visual_candidate",
@@ -8436,64 +8849,6 @@
         }
       ],
       "SourcesTruncated": 1
-    },
-    {
-      "VisualID": "order_spore_cage_procurement_icon",
-      "SourceID": "order_spore_cage_procurement",
-      "CandidateKind": "derived_visual_candidate",
-      "Status": "manifest_managed",
-      "Domain": "order",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 14,
-      "Sources": [
-        {
-          "File": "设计文档/config/26_正式配置设计与填充推进计划.md",
-          "Line": 384,
-          "Kind": "visual_id_token",
-          "SourceID": "order_spore_cage_procurement",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `L2-ORDERS` | C2 | 配置完成 | `配置表(JSON)/Orders`、必要 `Rewards` / `Factions` 引用 | `20`、`32`、`34`、`56` | 已完成：新增 `order_spore_cage_procurement`、`order_crystal_scale_batch`、`order_blackmarket_relic_box`，补 `faction_alchemy_guild"
-        },
-        {
-          "File": "设计文档/config/designs/32_第二层正式配置落地设计.md",
-          "Line": 125,
-          "Kind": "visual_id_token",
-          "SourceID": "order_spore_cage_procurement",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "\"OrderRefs\": [\"order_spore_cage_procurement\"],"
-        },
-        {
-          "File": "设计文档/config/designs/32_第二层正式配置落地设计.md",
-          "Line": 129,
-          "Kind": "visual_id_token",
-          "SourceID": "order_spore_cage_procurement",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "\"OrderSubmitRefs\": [\"order_spore_cage_procurement\"],"
-        },
-        {
-          "File": "设计文档/config/designs/32_第二层正式配置落地设计.md",
-          "Line": 253,
-          "Kind": "visual_id_token",
-          "SourceID": "order_spore_cage_procurement",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `OrderTarget` | `OrderTargetNode` 或 `EventNode` | `order_spore_cage_procurement` 目标事件 | 接订单后权重提高。 |"
-        },
-        {
-          "File": "设计文档/config/designs/32_第二层正式配置落地设计.md",
-          "Line": 278,
-          "Kind": "visual_id_token",
-          "SourceID": "order_spore_cage_procurement",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `order_spore_cage_procurement` | 新增 | `order_live_spore_cage` 或活体孢子样本 | `reward_order_spore_cage_procurement` | 委托物 2x3，占格，不可普通出售，可黑市背叛。 |"
-        }
-      ],
-      "SourcesTruncated": 9
     },
     {
       "VisualID": "order_workshop_boss_core_claim_icon",
@@ -8708,64 +9063,6 @@
         }
       ],
       "SourcesTruncated": 0
-    },
-    {
-      "VisualID": "order_workshop_spore_core_frame_icon",
-      "SourceID": "order_workshop_spore_core_frame",
-      "CandidateKind": "derived_visual_candidate",
-      "Status": "manifest_managed",
-      "Domain": "order",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 6,
-      "Sources": [
-        {
-          "File": "设计文档/config/designs/33_第三层正式配置落地设计.md",
-          "Line": 303,
-          "Kind": "visual_id_token",
-          "SourceID": "order_workshop_spore_core_frame",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `order_workshop_spore_core_frame` | 机械工坊 | `order_contested_spore_core` 或 `mat_core_tier3_seed` | `reward_order_workshop_spore_core_frame` | 解锁底盘二阶段工程线；与法师塔核心样本分支互斥。 |"
-        },
-        {
-          "File": "设计文档/config/tasks/34_前三层正式配置实现任务拆分.md",
-          "Line": 636,
-          "Kind": "visual_id_token",
-          "SourceID": "order_workshop_spore_core_frame",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 输出 ID | `order_workshop_spore_core_frame`、`order_mage_oracle_sample`、`order_black_contested_core_buyout` 或等价正式 ID。 |"
-        },
-        {
-          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
-          "Line": 247,
-          "Kind": "visual_id_token",
-          "SourceID": "order_workshop_spore_core_frame",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 内容钩子 | `order_workshop_spore_core_frame`、`order_mage_oracle_sample`、`order_black_contested_core_buyout`。 |"
-        },
-        {
-          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
-          "Line": 256,
-          "Kind": "visual_id_token",
-          "SourceID": "order_workshop_spore_core_frame",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `order_workshop_spore_core_frame` | 机械工坊 | 交付 `order_contested_spore_core` 或 `mat_core_tier3_seed` | 解锁底盘二阶段工程线。 | 10 天 | 工坊声望、底盘图纸、金币。 |"
-        },
-        {
-          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
-          "Line": 261,
-          "Kind": "visual_id_token",
-          "SourceID": "order_workshop_spore_core_frame",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "### 6.1 `order_workshop_spore_core_frame` 工坊孢核框架"
-        }
-      ],
-      "SourcesTruncated": 1
     },
     {
       "VisualID": "prosthetic_anchor_left_arm_icon",
@@ -9116,28 +9413,6 @@
       "SourcesTruncated": 14
     },
     {
-      "VisualID": "rumor_acid_gland_shortage_icon",
-      "SourceID": "rumor_acid_gland_shortage",
-      "CandidateKind": "derived_visual_candidate",
-      "Status": "manifest_managed",
-      "Domain": "rumor",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 1,
-      "Sources": [
-        {
-          "File": "设计文档/content_packs/20_第二层背包压力内容包.md",
-          "Line": 338,
-          "Kind": "visual_id_token",
-          "SourceID": "rumor_acid_gland_shortage",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `rumor_acid_gland_shortage` | 酸腺囊短缺 | `ItemID=loot_acid_gland` | 引导玩家面对酸液系怪物和污染风险。 | 7 天 |"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
       "VisualID": "rumor_contraband_night_channel_icon",
       "SourceID": "rumor_contraband_night_channel",
       "CandidateKind": "derived_visual_candidate",
@@ -9254,28 +9529,6 @@
       "SourcesTruncated": 4
     },
     {
-      "VisualID": "rumor_crystal_scale_contract_icon",
-      "SourceID": "rumor_crystal_scale_contract",
-      "CandidateKind": "derived_visual_candidate",
-      "Status": "manifest_managed",
-      "Domain": "rumor",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 1,
-      "Sources": [
-        {
-          "File": "设计文档/content_packs/20_第二层背包压力内容包.md",
-          "Line": 336,
-          "Kind": "visual_id_token",
-          "SourceID": "rumor_crystal_scale_contract",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `rumor_crystal_scale_contract` | 晶鳞采购令 | `ItemID=loot_crystal_scale` | 鼓励玩家走结晶怪路线。 | 7 天 |"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
       "VisualID": "rumor_faction_medical_request_icon",
       "SourceID": "rumor_faction_medical_request",
       "CandidateKind": "derived_visual_candidate",
@@ -9334,68 +9587,6 @@
       "SourcesTruncated": 5
     },
     {
-      "VisualID": "rumor_filter_shortage_icon",
-      "SourceID": "rumor_filter_shortage",
-      "CandidateKind": "derived_visual_candidate",
-      "Status": "manifest_managed",
-      "Domain": "rumor",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 2,
-      "Sources": [
-        {
-          "File": "设计文档/content_packs/19_第一层正式核心内容包.md",
-          "Line": 112,
-          "Kind": "visual_id_token",
-          "SourceID": "rumor_filter_shortage",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 经济承诺 | 在 `rumor_filter_shortage` 下价值上浮，是玩家追逐特定怪物的诱因。 |"
-        },
-        {
-          "File": "设计文档/content_packs/19_第一层正式核心内容包.md",
-          "Line": 249,
-          "Kind": "visual_id_token",
-          "SourceID": "rumor_filter_shortage",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `rumor_filter_shortage` | 滤芯短缺 | `ItemTag:ToxicFilter` | 鼓励玩家挑战酸液软体或事件路线。 | 7 天 |"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
-      "VisualID": "rumor_living_mycelium_shortage_icon",
-      "SourceID": "rumor_living_mycelium_shortage",
-      "CandidateKind": "derived_visual_candidate",
-      "Status": "manifest_managed",
-      "Domain": "rumor",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 2,
-      "Sources": [
-        {
-          "File": "设计文档/config/designs/33_第三层正式配置落地设计.md",
-          "Line": 336,
-          "Kind": "visual_id_token",
-          "SourceID": "rumor_living_mycelium_shortage",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `rumor_living_mycelium_shortage` | `loot_living_mycelium` | 新增。 | 鼓励玩家处理污染材料的收益与成本。 |"
-        },
-        {
-          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
-          "Line": 339,
-          "Kind": "visual_id_token",
-          "SourceID": "rumor_living_mycelium_shortage",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `rumor_living_mycelium_shortage` | 活性菌丝短缺 | `ItemID=loot_living_mycelium` | 鼓励玩家面对污染材料的处理成本。 | 5 天 |"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
       "VisualID": "rumor_low_layer_bulk_buy_icon",
       "SourceID": "rumor_low_layer_bulk_buy",
       "CandidateKind": "derived_visual_candidate",
@@ -9452,90 +9643,6 @@
         }
       ],
       "SourcesTruncated": 5
-    },
-    {
-      "VisualID": "rumor_miner_lamps_icon",
-      "SourceID": "rumor_miner_lamps",
-      "CandidateKind": "derived_visual_candidate",
-      "Status": "manifest_managed",
-      "Domain": "rumor",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 1,
-      "Sources": [
-        {
-          "File": "设计文档/content_packs/19_第一层正式核心内容包.md",
-          "Line": 251,
-          "Kind": "visual_id_token",
-          "SourceID": "rumor_miner_lamps",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `rumor_miner_lamps` | 矿灯收藏热 | `ItemID:trade_miner_lamp` 或 `ItemTag:MinerRelic` | 引导玩家走探索路线和宝箱路线。 | 7 天 |"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
-      "VisualID": "rumor_old_blades_icon",
-      "SourceID": "rumor_old_blades",
-      "CandidateKind": "derived_visual_candidate",
-      "Status": "manifest_managed",
-      "Domain": "rumor",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 2,
-      "Sources": [
-        {
-          "File": "设计文档/content_packs/19_第一层正式核心内容包.md",
-          "Line": 100,
-          "Kind": "visual_id_token",
-          "SourceID": "rumor_old_blades",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| 经济承诺 | 作为武器标签可受 `rumor_old_blades` 影响涨价，但通常比不上战斗价值。 |"
-        },
-        {
-          "File": "设计文档/content_packs/19_第一层正式核心内容包.md",
-          "Line": 250,
-          "Kind": "visual_id_token",
-          "SourceID": "rumor_old_blades",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `rumor_old_blades` | 旧刃回收价上涨 | `ItemTag:Weapon AND Layer:1` | 让玩家在出售武器和保留构筑之间取舍。 | 3 天 |"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
-      "VisualID": "rumor_oracle_fossil_collector_icon",
-      "SourceID": "rumor_oracle_fossil_collector",
-      "CandidateKind": "derived_visual_candidate",
-      "Status": "manifest_managed",
-      "Domain": "rumor",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 2,
-      "Sources": [
-        {
-          "File": "设计文档/config/designs/33_第三层正式配置落地设计.md",
-          "Line": 338,
-          "Kind": "visual_id_token",
-          "SourceID": "rumor_oracle_fossil_collector",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `rumor_oracle_fossil_collector` | `trade_singing_fossil` | 新增。 | 放大出售、法师塔研究和房间展示取舍。 |"
-        },
-        {
-          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
-          "Line": 341,
-          "Kind": "visual_id_token",
-          "SourceID": "rumor_oracle_fossil_collector",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `rumor_oracle_fossil_collector` | 神谕化石收藏家 | `ItemID=trade_singing_fossil` | 放大遗物出售、法师塔研究、房间展示之间的取舍。 | 3 天 |"
-        }
-      ],
-      "SourcesTruncated": 0
     },
     {
       "VisualID": "rumor_origin_stone_demand_icon",
@@ -9710,37 +9817,6 @@
         }
       ],
       "SourcesTruncated": 5
-    },
-    {
-      "VisualID": "rumor_spore_amber_jeweler_icon",
-      "SourceID": "rumor_spore_amber_jeweler",
-      "CandidateKind": "derived_visual_candidate",
-      "Status": "manifest_managed",
-      "Domain": "rumor",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 2,
-      "Sources": [
-        {
-          "File": "设计文档/config/designs/33_第三层正式配置落地设计.md",
-          "Line": 337,
-          "Kind": "visual_id_token",
-          "SourceID": "rumor_spore_amber_jeweler",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `rumor_spore_amber_jeweler` | `loot_spore_amber` | 新增。 | 鼓励小件高价物路线。 |"
-        },
-        {
-          "File": "设计文档/content_packs/25_第三层路线侵蚀内容包.md",
-          "Line": 340,
-          "Kind": "visual_id_token",
-          "SourceID": "rumor_spore_amber_jeweler",
-          "CandidateKind": "derived_visual_candidate",
-          "JsonPointer": "",
-          "Text": "| `rumor_spore_amber_jeweler` | 孢晶琥珀珠宝热 | `ItemID=loot_spore_amber` | 让玩家追逐小件高价物而非只拿大件。 | 7 天 |"
-        }
-      ],
-      "SourcesTruncated": 0
     },
     {
       "VisualID": "rumor_weapon_collector_visit_icon",
@@ -9977,81 +10053,6 @@
         }
       ],
       "SourcesTruncated": 3
-    },
-    {
-      "VisualID": "ui_combat_feedback_echo_fade",
-      "SourceID": "ui_combat_feedback_echo_fade",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "ui",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 1,
-      "Sources": [
-        {
-          "File": "配置表(JSON)/Monsters/mob_lost_miner_echo.json",
-          "Line": 0,
-          "Kind": "json_field",
-          "SourceID": "ui_combat_feedback_echo_fade",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "/DefeatFeedbackRef",
-          "Text": "DefeatFeedbackRef: ui_combat_feedback_echo_fade"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
-      "VisualID": "ui_combat_feedback_scrap_break",
-      "SourceID": "ui_combat_feedback_scrap_break",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "ui",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 2,
-      "Sources": [
-        {
-          "File": "配置表(JSON)/Monsters/mob_rust_hound.json",
-          "Line": 0,
-          "Kind": "json_field",
-          "SourceID": "ui_combat_feedback_scrap_break",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "/DefeatFeedbackRef",
-          "Text": "DefeatFeedbackRef: ui_combat_feedback_scrap_break"
-        },
-        {
-          "File": "配置表(JSON)/Monsters/mob_scavenger_bug.json",
-          "Line": 0,
-          "Kind": "json_field",
-          "SourceID": "ui_combat_feedback_scrap_break",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "/DefeatFeedbackRef",
-          "Text": "DefeatFeedbackRef: ui_combat_feedback_scrap_break"
-        }
-      ],
-      "SourcesTruncated": 0
-    },
-    {
-      "VisualID": "ui_combat_feedback_slime_pop",
-      "SourceID": "ui_combat_feedback_slime_pop",
-      "CandidateKind": "explicit_visual_id",
-      "Status": "manifest_managed",
-      "Domain": "ui",
-      "Priority": "review",
-      "Confidence": "medium",
-      "MentionCount": 1,
-      "Sources": [
-        {
-          "File": "配置表(JSON)/Monsters/mob_acid_slime.json",
-          "Line": 0,
-          "Kind": "json_field",
-          "SourceID": "ui_combat_feedback_slime_pop",
-          "CandidateKind": "explicit_visual_id",
-          "JsonPointer": "/DefeatFeedbackRef",
-          "Text": "DefeatFeedbackRef: ui_combat_feedback_slime_pop"
-        }
-      ],
-      "SourcesTruncated": 0
     },
     {
       "VisualID": "ui_combat_intent_attack",

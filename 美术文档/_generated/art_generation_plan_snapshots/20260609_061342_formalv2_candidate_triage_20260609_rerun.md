@@ -4,7 +4,7 @@
 
 ## Summary
 
-* GeneratedAt: `2026-06-09T06:38:12+08:00`
+* GeneratedAt: `2026-06-09T06:13:42+08:00`
 * Provider: `novelai`
 * BatchID: `nai_formalv2_candidate_triage_20260609_01`
 * Action filter: `generate_needed`
@@ -342,4 +342,3 @@ After generation succeeds:
 # Review selected/contact_sheet before syncing.
 .\tools\美术工具\Sync-ApprovedArt.ps1 -Status generated -VisualID rumor_spore_amber_jeweler_icon -BatchID nai_formalv2_candidate_triage_20260609_01 -AllowProcessedFallback -Overwrite
 ```
-

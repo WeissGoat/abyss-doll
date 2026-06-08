@@ -5,7 +5,7 @@
 
 ## Summary
 
-* GeneratedAt: `2026-06-09T06:37:56+08:00`
+* GeneratedAt: `2026-06-09T06:14:28+08:00`
 * Scanned files: `281`
 * Unique VisualID mentions: `299`
 * New candidates: `55`

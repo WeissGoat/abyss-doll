@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-06-09T06:37:56+08:00",
-  "SnapshotTag": "formalv2_candidate_triage_verify_20260609",
+  "GeneratedAt": "2026-06-09T06:14:28+08:00",
+  "SnapshotTag": "formalv2_candidate_triage_20260609_after_manifest",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "SeedPath": "美术文档/art_requirements_seed.json",

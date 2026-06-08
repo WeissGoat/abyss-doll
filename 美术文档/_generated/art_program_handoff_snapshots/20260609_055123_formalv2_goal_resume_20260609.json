@@ -1,17 +1,16 @@
 {
-  "GeneratedAt": "2026-06-09T06:38:11+08:00",
-  "SnapshotTag": "formalv2_candidate_triage_verify_20260609",
+  "GeneratedAt": "2026-06-09T05:51:23+08:00",
+  "SnapshotTag": "formalv2_goal_resume_20260609",
   "Inputs": {
     "IntegrationCandidatesPath": "美术文档/_generated/可接入素材清单.json",
     "AcceptanceQueuePath": "美术文档/ui_design/_generated/FormalV1验收队列.json",
     "ManifestPath": "美术文档/_generated/art_manifest.json"
   },
   "SourceSummaries": {
-    "IntegrationGeneratedAt": "2026-06-09T06:37:53+08:00",
+    "IntegrationGeneratedAt": "2026-06-09T05:07:58+08:00",
     "IntegrationActionCounts": {
-      "acceptance_needed": 188,
-      "generate_needed": 29,
-      "program_integrate": 48
+      "acceptance_needed": 191,
+      "program_integrate": 58
     },
     "AcceptanceGeneratedAt": "2026-06-08T00:39:05+08:00",
     "AcceptanceRunID": "20260606_230523",
@@ -20,15 +19,15 @@
     "AcceptanceIsOlderThanSpec": true
   },
   "Summary": {
-    "ProgramIntegrateVisualCount": 48,
+    "ProgramIntegrateVisualCount": 58,
     "ProgramIntegrateLocalV0Count": 0,
     "ProgramIntegratePriorityCounts": {
-      "P0": 47,
+      "P0": 57,
       "P1": 1
     },
     "ProgramIntegrateDomainCounts": {
       "background": 1,
-      "item": 13,
+      "item": 23,
       "monster": 34
     },
     "FormalV1ScreenCount": 16,
@@ -59,6 +58,16 @@
       "item_loot_corroded_nerve_icon",
       "item_loot_crystal_scale_icon",
       "item_loot_living_mycelium_icon",
+      "item_loot_spore_amber_icon",
+      "item_loot_vein_plate_icon",
+      "item_loot_warped_plate_icon",
+      "item_mat_core_tier2_fragment_icon",
+      "item_mat_core_tier3_seed_icon",
+      "item_order_contested_spore_core_icon",
+      "item_order_live_spore_cage_icon",
+      "item_trade_luminous_fungus_icon",
+      "item_trade_sealed_relic_box_icon",
+      "item_trade_singing_fossil_icon",
       "monster_boss_gatekeeper_mk1_combat",
       "monster_boss_gatekeeper_mk1_portrait",
       "monster_boss_mycelium_oracle_combat",
@@ -417,6 +426,226 @@
       "ReferencedScreens": [],
       "OtherReferences": [
         "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_living_mycelium.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_loot_spore_amber_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "孢晶琥珀",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_spore_amber_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_spore_amber.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_loot_vein_plate_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "菌脉甲片",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_vein_plate_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_vein_plate.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_loot_warped_plate_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "扭曲装甲片",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_warped_plate_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_warped_plate.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_mat_core_tier2_fragment_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "二阶机核碎片",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier2_fragment_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/mat_core_tier2_fragment.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_mat_core_tier3_seed_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "三阶机核种",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier3_seed_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/mat_core_tier3_seed.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_order_contested_spore_core_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "争夺孢核",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_contested_spore_core_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/order_contested_spore_core.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_order_live_spore_cage_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "活孢子笼",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_live_spore_cage_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/order_live_spore_cage.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_trade_luminous_fungus_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "夜光菌簇",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_luminous_fungus_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_luminous_fungus.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_trade_sealed_relic_box_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "封存遗物匣",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_sealed_relic_box_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_sealed_relic_box.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_trade_singing_fossil_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "低唱化石",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_singing_fossil_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_singing_fossil.json"
       ],
       "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
