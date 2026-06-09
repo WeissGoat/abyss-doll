@@ -558,6 +558,27 @@ Examples:
 * `RerunArtAcceptanceScreens`：程序登记或补截图后重跑验收。
 * `ArtReviewAfterRerunScreens`：重跑后交给美术侧逐屏验收。
 
+## Validate-ArtGeneratedJson.ps1
+
+读取美术流水线的关键 `_generated/*.json` 输出，并强制按 UTF-8 / UTF-8 BOM 解析，避免 PowerShell 默认编码导致中文路径或中文字段被误判为 JSON 损坏。该工具不生成新内容，只校验程序交接和美术验收所依赖的关键 JSON 是否可读，并输出核心计数。
+
+覆盖报告：
+
+* `美术文档/_generated/可接入素材清单.json`
+* `美术文档/_generated/程序接入交接清单.json`
+* `美术文档/_generated/素材质量替换清单.json`
+* `美术文档/_generated/美术需求候选清单.json`
+* `美术文档/_generated/formal_v2_asset_review/formal_v2_asset_review.json`
+* `美术文档/_generated/formal_v2_prompt_readiness/formal_v2_prompt_readiness.json`
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Validate-ArtGeneratedJson.ps1 -Strict
+```
+
+当前 FormalV2 交接门禁中，推荐在刷新 handoff、asset review 或 prompt readiness 后运行一次；输出应至少确认 `program_integrate`、`generate_needed`、`technical_fix`、`visual_v2_replace`、`new_candidate`、`reviewed/pass` 和 `prompt_ready/prompt_blocked`。
+
 ## Generate-FormalV2AssetReview.ps1
 
 读取当前程序接入交接清单中的 `ProgramIntegrateVisuals`，对待程序登记的 Formal V2 Approved 素材做美术侧静态预验收。它不替代 Unity 运行时截图验收，只用于在程序登记前确认 PNG、`.meta`、质量层级、尺寸和 alpha 与 Manifest `SourceSpec` 是否一致，并生成可快速扫看的 contact sheet。
