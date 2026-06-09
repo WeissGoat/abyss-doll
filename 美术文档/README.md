@@ -21,6 +21,7 @@ related:
   - agent_status/art.md
   - tools/美术工具/README.md
   - 知识库/views/art.md
+  - 美术文档/15_FormalV2运行时验收待办清单.md
 last_verified: 2026-05-29
 update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。
 ---

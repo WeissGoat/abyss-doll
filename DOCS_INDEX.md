@@ -18,12 +18,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：219
-- 已补元数据：219
+- 文档总数：220
+- 已补元数据：220
 - 缺少元数据：0
-- 事实来源文档：166
-- 关联边数：1295
-- 跨职能关联：204
+- 事实来源文档：167
+- 关联边数：1300
+- 跨职能关联：205
 
 ## 事实来源
 
@@ -78,6 +78,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [正式版核心纵切美术路线](美术文档/10_正式版核心纵切美术路线.md) - `art` / `formal_art_route`
 - [正式纵切 UI 与素材覆盖矩阵](美术文档/13_正式纵切UI与素材覆盖矩阵.md) - `art` / `ui_design`
 - [FormalV2 素材候选审查记录](美术文档/14_FormalV2素材候选审查记录.md) - `art` / `art_pipeline`
+- [FormalV2 Runtime Acceptance Checklist](美术文档/15_FormalV2运行时验收待办清单.md) - `art` / `art_acceptance`
 - [美术归档文档](美术文档/archive/README.md) - `art` / `art_archive`
 - [美术文档索引](美术文档/README.md) - `art` / `art_pipeline`
 - [营业结算演出界面 Formal V1](美术文档/ui_design/formal_v1/business_settlement_v1.md) - `art` / `ui_design`
@@ -209,7 +210,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - `知识库 <-> 策划`：1 条
 - `知识库 <-> 美术`：1 条
 - `程序 <-> 策划`：55 条
-- `程序 <-> 美术`：29 条
+- `程序 <-> 美术`：30 条
 - `策划 <-> 美术`：6 条
 
 ## 按职能分组
@@ -252,7 +253,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [程序 / Unity 状态](agent_status/program.md) | `status` | `active` | `unity_programming` | 13 | 完整 |
+| [程序 / Unity 状态](agent_status/program.md) | `status` | `active` | `unity_programming` | 14 | 完整 |
 | [Config Tools](tools/config/README.md) | `tool` | `active` | `config_tooling` | 5 | 完整 |
 | [程序开发大纲与系统索引](开发文档/00_程序开发大纲.md) | `dev` | `active` | `program_architecture` | 21 | 完整 |
 | [核心数据容器系统 (Core Data System)](开发文档/01_核心数据与实体容器(CoreData).md) | `dev` | `active` | `core_data` | 10 | 完整 |
@@ -386,7 +387,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 17 | 完整 |
+| [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 18 | 完整 |
 | [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 9 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 17 | 完整 |
@@ -397,11 +398,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [美术风格基准](美术文档/04_美术风格基准.md) | `art` | `active` | `art_style` | 6 | 完整 |
 | [AI 图片网关接入方案](美术文档/05_AI图片网关接入方案.md) | `art` | `active` | `ai_image_gateway` | 6 | 完整 |
 | [Unity 运行时美术验收工具需求与交付状态](美术文档/08_Unity运行时美术验收工具需求.md) | `art` | `historical` | `runtime_art_validation` | 3 | 完整 |
-| [运行时美术验收记录](美术文档/09_运行时美术验收记录.md) | `art` | `active` | `runtime_art_validation` | 7 | 完整 |
-| [正式版核心纵切美术路线](美术文档/10_正式版核心纵切美术路线.md) | `art` | `active` | `formal_art_route` | 19 | 完整 |
+| [运行时美术验收记录](美术文档/09_运行时美术验收记录.md) | `art` | `active` | `runtime_art_validation` | 8 | 完整 |
+| [正式版核心纵切美术路线](美术文档/10_正式版核心纵切美术路线.md) | `art` | `active` | `formal_art_route` | 20 | 完整 |
 | [正式纵切 UI 与素材覆盖矩阵](美术文档/13_正式纵切UI与素材覆盖矩阵.md) | `art` | `active` | `ui_design` | 24 | 完整 |
 | [FormalV2 素材候选审查记录](美术文档/14_FormalV2素材候选审查记录.md) | `art` | `active` | `art_pipeline` | 1 | 完整 |
-| [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 14 | 完整 |
+| [FormalV2 Runtime Acceptance Checklist](美术文档/15_FormalV2运行时验收待办清单.md) | `art` | `active` | `art_acceptance` | 5 | 完整 |
+| [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 15 | 完整 |
 | [MVP 素材接入状态同步](美术文档/archive/06_MVP素材接入状态同步.md) | `art` | `historical` | `mvp_art_archive` | 2 | 完整 |
 | [MVP UI 重新设计同步](美术文档/archive/07_MVP_UI重新设计同步.md) | `art` | `historical` | `mvp_ui_archive` | 2 | 完整 |
 | [P0 UI 骨架接入交付](美术文档/archive/11_P0_UI骨架接入交付.md) | `art` | `historical` | `ui_handoff` | 7 | 完整 |

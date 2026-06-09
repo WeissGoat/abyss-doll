@@ -24,7 +24,8 @@ related:
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/README.md
   - 知识库/views/art.md
-last_verified: 2026-06-07
+  - 美术文档/15_FormalV2运行时验收待办清单.md
+last_verified: 2026-06-09
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
 
@@ -266,11 +267,12 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 2026-06-09 added FormalV2 prompt-ready generation executor: `Run-FormalV2PromptReadyGeneration.ps1` / `run_formal_v2_prompt_ready_generation.py`. Verification: `python -m py_compile` passed; dry-run passed for `item` limit 2 and full 58 prompt-ready `program_integrate` assets, split as item=23, monster=34, background=1, all routed through `Run-ArtGeneration.ps1 -Provider novelai -Status approved -PreserveStatus -Concurrency 1 -DelaySeconds 1 -DryRun`. Current shell still has `NAI_ACCESS_TOKEN=NOT_SET`, so this round did not call NovelAI and did not replace Approved PNGs.
 2026-06-09 已完成 FormalV2 新一轮素材候选准入审查：基于候选快照 `formalv2_goal_resume_20260609` 从 `new_candidate=84` 中确认 29 个正式需求写入 `art_requirements_seed.json`，包括 5 个 FormalV2 场景背景、3 个配置直引战斗反馈、7 个房间纪念物、6 个订单图标和 8 个传闻图标；已新增 `美术文档/14_FormalV2素材候选审查记录.md` 记录准入 / 暂缓 / 误报裁决。刷新后 Manifest `Entries=284`，候选清单为 `new_candidate=55`、`seed_only=0`、`manifest_managed=244`，缺图生成计划曾为 `planned=29`、`prompt_ready=29`，批次 `nai_formalv2_candidate_triage_20260609_01`。
 2026-06-09 已完成 FormalV2 候选准入 29 个新素材的真实 NovelAI 入库：先补强 `generate_art_prompts.py` 中 29 个新增 ID 的具体 PromptEN，针对 6 个语义跑偏风险项执行二次修复批次 `nai_formalv2_candidate_semantic_fix_20260609_01`，串行生成 `24/24` 张候选并人工筛选 6 张；随后将原批次剩余 23 项以 processed fallback 同步 Approved。新增 29 个 PNG 均已补齐 Unity `.meta`，Manifest 均为 `QualityTier=formal_ai_v2`；最终 `Generate-FormalV2AssetReview.ps1 -SnapshotTag formalv2_candidate_triage_after_meta_fix` 结果为 `reviewed=77`、`pass=77`、`fail=0`、`warn=0`。latest 队列为 `program_integrate=77`、`generate_needed=0`、`art_select=0`、`technical_fix=0`、`visual_v2_replace=0`、`spec_review=0`。
+- 已新增 `美术文档/15_FormalV2运行时验收待办清单.md`，把当前 FormalV2 运行时验收门禁从聊天结论收敛为文档：当前必须等待程序登记 latest `program_integrate=77` 并产出晚于 `20260606_230523` 的 ArtAcceptance RunID；美术侧后续按该清单复核 `report.json`、`registry_snapshot.json`、`ui_snapshot.json`、contact sheet 和 16 个需重跑截图，再决定是否发起二次 NovelAI 替换。
 
 ## 下一步建议
 
 1. 程序侧可按 `美术文档/_generated/可接入素材清单.md` 或 `美术文档/_generated/程序接入交接清单.md` 的 latest `program_integrate=77` 登记 / 接入当前待登记的 Approved VisualID；美术侧静态预验收已证明 77 个 Approved 文件的 PNG / `.meta` / QualityTier / 尺寸 / alpha 均可交接。
-2. 程序完成当前待登记新资源后，需要重跑 VisualAsset / ArtAcceptance 相关验收，美术再做截图验收。
+2. 程序完成当前待登记新资源后，需要重跑 VisualAsset / ArtAcceptance 相关验收；验收证据以 `美术文档/15_FormalV2运行时验收待办清单.md` 中的 RunID、Registry、截图和 missing VisualID 门禁为准。
 3. 美术侧下一步进入运行时截图复验：重点看 FormalV2 核心界面的构图、控件遮挡、图标小尺寸可读性、背景 cover / contain 适配，以及新增怪物 / 物品 / 经济 / 订单 / 传闻 / 纪念物图标是否与日系地底奇幻风格统一。
 4. 如果后续运行时截图暴露语义或小尺寸可读性问题，再按具体 VisualID 做二次 NovelAI 质量替换；仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`，已接入同名替换必须使用 strict meta guard。
 6. 后续每次程序接入清单或 Manifest 刷新后，可运行 `Generate-FormalV2PromptReadiness.ps1` 复核待接入资产是否仍满足 PromptEN 具体化门禁，再决定是否进入 NovelAI 重跑。

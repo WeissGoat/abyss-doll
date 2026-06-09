@@ -20,6 +20,7 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - agent_status/art.md
   - 知识库/views/program.md
+  - 美术文档/15_FormalV2运行时验收待办清单.md
 last_verified: 2026-05-27
 update_rule: 程序、Unity、验证或工程边界任务完成后更新本文件。
 ---

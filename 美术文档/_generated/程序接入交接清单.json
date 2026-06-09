@@ -1,13 +1,13 @@
 {
-  "GeneratedAt": "2026-06-09T07:48:04+08:00",
-  "SnapshotTag": "formalv2_candidate_triage_after_meta_fix",
+  "GeneratedAt": "2026-06-09T08:43:32+08:00",
+  "SnapshotTag": "",
   "Inputs": {
     "IntegrationCandidatesPath": "美术文档/_generated/可接入素材清单.json",
     "AcceptanceQueuePath": "美术文档/ui_design/_generated/FormalV1验收队列.json",
     "ManifestPath": "美术文档/_generated/art_manifest.json"
   },
   "SourceSummaries": {
-    "IntegrationGeneratedAt": "2026-06-09T07:43:00+08:00",
+    "IntegrationGeneratedAt": "2026-06-09T08:43:11+08:00",
     "IntegrationActionCounts": {
       "acceptance_needed": 188,
       "program_integrate": 77
@@ -1237,13 +1237,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Workshop/bg_workshop_home_room.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "bg_workshop_studio",
@@ -1259,13 +1259,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Workshop/bg_workshop_studio.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "ui_combat_feedback_echo_fade",
@@ -1281,13 +1281,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_echo_fade.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "ui_combat_feedback_scrap_break",
@@ -1303,13 +1303,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_scrap_break.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "ui_combat_feedback_slime_pop",
@@ -1325,13 +1325,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_slime_pop.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "bg_daily_bill",
@@ -1347,13 +1347,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Town/bg_daily_bill.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "bg_shop_staging",
@@ -1369,13 +1369,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Town/bg_shop_staging.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "bg_town_shop",
@@ -1391,13 +1391,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Town/bg_town_shop.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "memento_blackmarket_letter",
@@ -1413,13 +1413,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_blackmarket_letter.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "memento_debt_shadow_window",
@@ -1435,13 +1435,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_debt_shadow_window.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "memento_first_return_tag",
@@ -1457,13 +1457,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_first_return_tag.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "memento_low_san_blanket",
@@ -1479,13 +1479,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_low_san_blanket.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "memento_pawn_empty_tag",
@@ -1501,13 +1501,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_pawn_empty_tag.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "memento_truth_red_thread",
@@ -1523,13 +1523,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_truth_red_thread.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "memento_wall_crack_first_defeat",
@@ -1545,13 +1545,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_wall_crack_first_defeat.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "order_black_contested_core_buyout_icon",
@@ -1567,13 +1567,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_contested_core_buyout_icon.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "order_blackmarket_relic_box_icon",
@@ -1589,13 +1589,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_blackmarket_relic_box_icon.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "order_crystal_scale_batch_icon",
@@ -1611,13 +1611,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_crystal_scale_batch_icon.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "order_mage_oracle_sample_icon",
@@ -1633,13 +1633,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_oracle_sample_icon.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "order_spore_cage_procurement_icon",
@@ -1655,13 +1655,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_spore_cage_procurement_icon.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "order_workshop_spore_core_frame_icon",
@@ -1677,13 +1677,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_spore_core_frame_icon.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "rumor_acid_gland_shortage_icon",
@@ -1699,13 +1699,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_acid_gland_shortage_icon.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "rumor_crystal_scale_contract_icon",
@@ -1721,13 +1721,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_crystal_scale_contract_icon.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "rumor_filter_shortage_icon",
@@ -1743,13 +1743,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_filter_shortage_icon.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "rumor_living_mycelium_shortage_icon",
@@ -1765,13 +1765,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_living_mycelium_shortage_icon.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "rumor_miner_lamps_icon",
@@ -1787,13 +1787,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_miner_lamps_icon.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "rumor_old_blades_icon",
@@ -1809,13 +1809,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_old_blades_icon.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "rumor_oracle_fossil_collector_icon",
@@ -1831,13 +1831,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_oracle_fossil_collector_icon.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     },
     {
       "VisualID": "rumor_spore_amber_jeweler_icon",
@@ -1853,13 +1853,13 @@
       ],
       "IsLocalV0": false,
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_spore_amber_jeweler_icon.png",
-      "MetaFileExists": false,
+      "MetaFileExists": true,
       "RegistryHasSprite": false,
       "ReferencedScreens": [],
       "OtherReferences": [
         "preset:美术文档/art_requirements_seed.json"
       ],
-      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
     }
   ],
   "FormalV1AcceptanceActions": [

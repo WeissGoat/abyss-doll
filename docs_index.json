@@ -10,9 +10,9 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 2590,
-    "relation_edges": 1295,
-    "cross_role_edges": 204,
+    "directed_edges": 2600,
+    "relation_edges": 1300,
+    "cross_role_edges": 205,
     "role_pairs": {
       "PM <-> 全局": 12,
       "PM <-> 知识库": 1,
@@ -27,7 +27,7 @@
       "知识库 <-> 策划": 1,
       "知识库 <-> 美术": 1,
       "程序 <-> 策划": 55,
-      "程序 <-> 美术": 29,
+      "程序 <-> 美术": 30,
       "策划 <-> 美术": 6
     }
   },
@@ -58,13 +58,14 @@
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
         "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
         "美术文档/README.md",
-        "知识库/views/art.md"
+        "知识库/views/art.md",
+        "美术文档/15_FormalV2运行时验收待办清单.md"
       ],
       "last_verified": "2026-06-07",
       "update_rule": "美术或 UI 视觉流水线任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 17,
+      "relation_count": 18,
       "cross_role_relation_count": 10
     },
     {
@@ -204,14 +205,15 @@
         "agent_status/design.md",
         "美术文档/10_正式版核心纵切美术路线.md",
         "agent_status/art.md",
-        "知识库/views/program.md"
+        "知识库/views/program.md",
+        "美术文档/15_FormalV2运行时验收待办清单.md"
       ],
       "last_verified": "2026-05-27",
       "update_rule": "程序、Unity、验证或工程边界任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 13,
-      "cross_role_relation_count": 7
+      "relation_count": 14,
+      "cross_role_relation_count": 8
     },
     {
       "path": "agent_status/README.md",
@@ -1888,13 +1890,14 @@
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
         "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
         "美术文档/10_美术验收截图优化与真实数据驱动演进方案.md",
-        "美术文档/ui_design/versions/mvp_baseline_2026-05-22/README.md"
+        "美术文档/ui_design/versions/mvp_baseline_2026-05-22/README.md",
+        "美术文档/15_FormalV2运行时验收待办清单.md"
       ],
       "last_verified": "2026-06-07",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 7,
+      "relation_count": 8,
       "cross_role_relation_count": 3
     },
     {
@@ -1925,13 +1928,14 @@
         "美术文档/ui_design/formal_v1/screen_structure_review.md",
         "美术文档/ui_design/formal_v2/README.md",
         "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
-        "美术文档/13_正式纵切UI与素材覆盖矩阵.md"
+        "美术文档/13_正式纵切UI与素材覆盖矩阵.md",
+        "美术文档/15_FormalV2运行时验收待办清单.md"
       ],
       "last_verified": "2026-05-29",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 19,
+      "relation_count": 20,
       "cross_role_relation_count": 7
     },
     {
@@ -2017,6 +2021,31 @@
       "missing_fields": [],
       "relation_count": 1,
       "cross_role_relation_count": 0
+    },
+    {
+      "path": "美术文档/15_FormalV2运行时验收待办清单.md",
+      "title": "FormalV2 Runtime Acceptance Checklist",
+      "id": "art_formal_v2_runtime_acceptance_checklist",
+      "type": "art",
+      "role": "美术",
+      "domain": "art_acceptance",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "美术文档/README.md",
+        "美术文档/10_正式版核心纵切美术路线.md",
+        "美术文档/09_运行时美术验收记录.md",
+        "美术文档/_generated/程序接入交接清单.md",
+        "美术文档/_generated/可接入素材清单.md",
+        "agent_status/art.md",
+        "agent_status/program.md"
+      ],
+      "last_verified": "2026-06-09",
+      "update_rule": "FormalV2 runtime acceptance gate, evidence, or review focus changes should update this file.",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 5,
+      "cross_role_relation_count": 1
     },
     {
       "path": "美术文档/archive/06_MVP素材接入状态同步.md",
@@ -2152,13 +2181,14 @@
         "美术文档/archive/README.md",
         "agent_status/art.md",
         "tools/美术工具/README.md",
-        "知识库/views/art.md"
+        "知识库/views/art.md",
+        "美术文档/15_FormalV2运行时验收待办清单.md"
       ],
       "last_verified": "2026-05-29",
       "update_rule": "美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 14,
+      "relation_count": 15,
       "cross_role_relation_count": 3
     },
     {
