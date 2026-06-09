@@ -23,6 +23,7 @@ PROJECT_ROOT = SCRIPT_DIR.parents[1]
 DEFAULT_MANIFEST = "美术文档/_generated/art_manifest.json"
 DEFAULT_SEED = "美术文档/art_requirements_seed.json"
 DEFAULT_APPROVED_ROOT = "UnityClient/Assets/Art/Approved"
+DEFAULT_DECISION_PATH = "美术文档/art_requirement_candidate_decisions.json"
 DEFAULT_OUTPUT_JSON = "美术文档/_generated/美术需求候选清单.json"
 DEFAULT_OUTPUT_MARKDOWN = "美术文档/_generated/美术需求候选清单.md"
 DEFAULT_SNAPSHOT_DIR = "美术文档/_generated/art_requirement_candidate_snapshots"
@@ -89,7 +90,15 @@ STATUS_ORDER = {
     "new_candidate": 0,
     "approved_without_manifest": 1,
     "seed_only": 2,
-    "manifest_managed": 3,
+    "deferred_candidate": 3,
+    "ignored_candidate": 4,
+    "manifest_managed": 5,
+}
+DECISION_STATUS = {
+    "defer": "deferred_candidate",
+    "deferred": "deferred_candidate",
+    "ignore": "ignored_candidate",
+    "ignored": "ignored_candidate",
 }
 DIRECT_VISUAL_PREFIXES = ("bg_", "vfx_", "fx_", "sfx_", "memento_")
 DIRECT_VISUAL_SUFFIXES = (
@@ -188,6 +197,49 @@ def read_json(path: Path, default: Any) -> Any:
 def write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def load_candidate_decisions(path: Path) -> dict[str, dict[str, Any]]:
+    payload = read_json(path, {})
+    entries = payload.get("Entries") if isinstance(payload, dict) else None
+    if not isinstance(entries, list):
+        return {}
+
+    decisions: dict[str, dict[str, Any]] = {}
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        visual_id = str(entry.get("VisualID", "")).strip()
+        decision = str(entry.get("Decision", "")).strip().lower()
+        if not visual_id or decision not in DECISION_STATUS:
+            continue
+        decisions[visual_id] = entry
+    return decisions
+
+
+def apply_candidate_decisions(
+    visual_items: list[dict[str, Any]],
+    decisions: dict[str, dict[str, Any]],
+) -> None:
+    for item in visual_items:
+        if item.get("Status") != "new_candidate":
+            continue
+        decision = decisions.get(str(item.get("VisualID", "")))
+        if not decision:
+            continue
+
+        decision_value = str(decision.get("Decision", "")).strip().lower()
+        status = DECISION_STATUS.get(decision_value)
+        if not status:
+            continue
+
+        item["Status"] = status
+        item["Decision"] = {
+            "Decision": decision_value,
+            "Reason": str(decision.get("Reason", "")).strip(),
+            "ReviewedAt": str(decision.get("ReviewedAt", "")).strip(),
+            "ReplacementVisualID": str(decision.get("ReplacementVisualID", "")).strip(),
+        }
 
 
 def timestamp_text() -> str:
@@ -577,7 +629,10 @@ def make_markdown(payload: dict[str, Any]) -> str:
         f"* New candidates: `{summary['StatusCounts'].get('new_candidate', 0)}`",
         f"* Approved without Manifest: `{summary['StatusCounts'].get('approved_without_manifest', 0)}`",
         f"* Seed only: `{summary['StatusCounts'].get('seed_only', 0)}`",
+        f"* Deferred candidates: `{summary['StatusCounts'].get('deferred_candidate', 0)}`",
+        f"* Ignored candidates: `{summary['StatusCounts'].get('ignored_candidate', 0)}`",
         f"* Manifest managed: `{summary['StatusCounts'].get('manifest_managed', 0)}`",
+        f"* Candidate decisions: `{summary.get('DecisionCount', 0)}`",
         f"* Text review items: `{len(payload['TextReviewItems'])}`",
         "",
         "## Review Queue",
@@ -642,6 +697,8 @@ def make_markdown(payload: dict[str, Any]) -> str:
             "- `new_candidate`: 文档或配置中出现了像 VisualID 的资源 ID，但当前 Manifest / seed / Approved 都没有纳管；需要美术判断是否补 seed 或等待配置落地。",
             "- `approved_without_manifest`: Approved 目录已有同名 PNG，但 Manifest 未纳管；需要判断是历史残留还是应补 Manifest。",
             "- `seed_only`: seed 中已有但 Manifest 未出现；通常需要重新运行 `Update-ArtManifest.ps1`。",
+            "- `deferred_candidate`: 美术侧已审查，但当前阶段先不纳入 Manifest；后续 active UI 或配置明确需要时再准入。",
+            "- `ignored_candidate`: 美术侧已审查为误报、概念图文件名、布局区域名、旧 ID 或已有替代 VisualID，不进入素材生产。",
             "- `manifest_managed`: 已纳入 Manifest，本报告不要求处理。",
             "",
             "## Recommended Flow",
@@ -659,9 +716,11 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
     manifest_path = resolve_project_path(args.manifest_path)
     seed_path = resolve_project_path(args.seed_path)
     approved_root = resolve_project_path(args.approved_root)
+    decision_path = resolve_project_path(args.decision_path)
     manifest_ids = collect_manifest_ids(manifest_path)
     seed_ids = collect_seed_ids(seed_path)
     approved_ids = collect_approved_ids(approved_root)
+    candidate_decisions = load_candidate_decisions(decision_path)
     scan_files = iter_scan_files(args.scan_root)
 
     mentions: dict[str, dict[str, Any]] = {}
@@ -672,7 +731,9 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
         else:
             scan_markdown(path, mentions, text_reviews, manifest_ids, seed_ids, approved_ids, args.max_text_reviews)
 
-    visual_items = sorted(mentions.values(), key=sort_visual_item)
+    visual_items = list(mentions.values())
+    apply_candidate_decisions(visual_items, candidate_decisions)
+    visual_items = sorted(visual_items, key=sort_visual_item)
     for item in visual_items:
         trim_sources(item, args.max_sources_per_item)
 
@@ -686,6 +747,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
             "ManifestPath": repo_path(manifest_path),
             "SeedPath": repo_path(seed_path),
             "ApprovedRoot": repo_path(approved_root),
+            "DecisionPath": repo_path(decision_path),
             "ScanRoots": [repo_path(resolve_project_path(root)) for root in args.scan_root],
         },
         "Summary": {
@@ -694,6 +756,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
             "StatusCounts": dict(sorted(status_counts.items())),
             "DomainCounts": dict(sorted(domain_counts.items())),
             "PriorityCounts": dict(sorted(priority_counts.items())),
+            "DecisionCount": len(candidate_decisions),
         },
         "VisualIDItems": visual_items,
         "TextReviewItems": text_reviews,
@@ -705,6 +768,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--manifest-path", default=DEFAULT_MANIFEST)
     parser.add_argument("--seed-path", default=DEFAULT_SEED)
     parser.add_argument("--approved-root", default=DEFAULT_APPROVED_ROOT)
+    parser.add_argument("--decision-path", default=DEFAULT_DECISION_PATH)
     parser.add_argument("--output-json", default=DEFAULT_OUTPUT_JSON)
     parser.add_argument("--output-markdown", default=DEFAULT_OUTPUT_MARKDOWN)
     parser.add_argument("--snapshot-dir", default=DEFAULT_SNAPSHOT_DIR)
@@ -755,6 +819,8 @@ def main() -> int:
         f"new_candidate={counts.get('new_candidate', 0)}, "
         f"approved_without_manifest={counts.get('approved_without_manifest', 0)}, "
         f"seed_only={counts.get('seed_only', 0)}, "
+        f"deferred_candidate={counts.get('deferred_candidate', 0)}, "
+        f"ignored_candidate={counts.get('ignored_candidate', 0)}, "
         f"manifest_managed={counts.get('manifest_managed', 0)}, "
         f"text_review={len(payload['TextReviewItems'])}"
     )

@@ -293,3 +293,10 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 如有变化，刷新 `当前关注`、`下一步建议` 和阻塞项。
 - 如果需要程序或策划跟进，在 `PROJECT_STATUS.md` 增加跨职能交接。
 - 美术侧每轮实际交付完成后，提交本轮美术相关改动；提交范围必须排除程序、策划、子模块或本地工具无关改动。
+
+## 2026-06-09 FormalV2 Requirement Candidate Decisions
+
+- Added machine-readable candidate review decisions at `美术文档/art_requirement_candidate_decisions.json` and wired them into `Scan-ArtRequirementCandidates.ps1` / `scan_art_requirement_candidates.py`.
+- Latest requirement scan snapshot `formalv2_candidate_decisions_20260609`: `new_candidate=0`, `deferred_candidate=29`, `ignored_candidate=26`, `manifest_managed=244`, `approved_without_manifest=0`, `seed_only=0`.
+- Refreshed current art queues after decisions: `program_integrate=77`, `generate_needed=0`, `art_select=0`, `art_process=0`; quality backlog remains `technical_fix=0`, `visual_v2_replace=0`, `spec_review=0`; FormalV2 static asset review remains `reviewed=77`, `pass=77`.
+- Verification passed: `python -m py_compile tools\美术工具\scan_art_requirement_candidates.py`; `Validate-UIDesign.ps1`; `python tools\docs\validate_docs.py --index docs_index.json`; `git diff --check` reported only line-ending warnings on unrelated dirty files and touched art scripts.

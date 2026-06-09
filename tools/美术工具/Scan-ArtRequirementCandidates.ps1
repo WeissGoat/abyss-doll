@@ -2,6 +2,7 @@ param(
     [string]$ManifestPath = "",
     [string]$SeedPath = "",
     [string]$ApprovedRoot = "",
+    [string]$DecisionPath = "",
     [string]$OutputJson = "",
     [string]$OutputMarkdown = "",
     [string]$SnapshotDir = "",
@@ -29,6 +30,10 @@ if ($SeedPath -ne "") {
 
 if ($ApprovedRoot -ne "") {
     $argsList += @("--approved-root", $ApprovedRoot)
+}
+
+if ($DecisionPath -ne "") {
+    $argsList += @("--decision-path", $DecisionPath)
 }
 
 if ($OutputJson -ne "") {

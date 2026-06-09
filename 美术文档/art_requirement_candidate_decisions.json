@@ -1,0 +1,351 @@
+{
+  "UpdatedAt": "2026-06-09",
+  "Purpose": "Machine-readable review decisions for Scan-ArtRequirementCandidates. These decisions only suppress already-reviewed new_candidate noise; they do not create Manifest entries.",
+  "DecisionValues": {
+    "ignore": "False positive, old ID, layout token, concept/design-board filename, or already covered by a replacement VisualID.",
+    "defer": "Potential future art need, but not admitted to Manifest until active UI/config explicitly requires it."
+  },
+  "Entries": [
+    {
+      "VisualID": "order_contested_spore_core_icon",
+      "Decision": "ignore",
+      "ReplacementVisualID": "item_order_contested_spore_core_icon",
+      "Reason": "Order target already has the runtime item icon; do not create a duplicate order-prefixed icon.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "order_live_spore_cage_icon",
+      "Decision": "ignore",
+      "ReplacementVisualID": "item_order_live_spore_cage_icon",
+      "Reason": "Order target already has the runtime item icon; do not create a duplicate order-prefixed icon.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "faction_shop_icon",
+      "Decision": "defer",
+      "Reason": "Current UI can use shared faction/shop icons and scene background; admit only if active UI requests a dedicated entrance icon.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "order_board_icon",
+      "Decision": "defer",
+      "Reason": "Current UI can use shared order icons; admit only if active UI requests a dedicated entrance icon.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "rumor_board_icon",
+      "Decision": "defer",
+      "Reason": "Current UI can use shared rumor icons; admit only if active UI requests a dedicated entrance icon.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "bg_faction_shop",
+      "Decision": "defer",
+      "ReplacementVisualID": "bg_town_shop",
+      "Reason": "Shared town shop background covers the current faction shop flow until a dedicated faction counter scene is confirmed.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "bg_faction_shop_counter",
+      "Decision": "defer",
+      "ReplacementVisualID": "bg_town_shop",
+      "Reason": "Shared town shop background covers the current faction counter flow until a dedicated counter scene is confirmed.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "bg_workshop_night_desk",
+      "Decision": "defer",
+      "ReplacementVisualID": "bg_daily_bill",
+      "Reason": "Daily bill background is already admitted; split a night desk background only if the active bill screen needs a distinct scene.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "chassis_cost_tokens_icon",
+      "Decision": "ignore",
+      "Reason": "Layout token for cost display; costs should use existing material/currency icons and runtime text.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "chassis_delta_strip_icon",
+      "Decision": "ignore",
+      "Reason": "Layout strip token, not an independent PNG asset.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "chassis_lv1_basic_icon",
+      "Decision": "defer",
+      "ReplacementVisualID": "chassis_standard_frame_icon",
+      "Reason": "Old chassis ID path; current formal chassis visuals use the standard/compact/bulwark IDs.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "chassis_lv2_expanded_icon",
+      "Decision": "defer",
+      "ReplacementVisualID": "chassis_compact_raider_icon",
+      "Reason": "Old chassis ID path; current formal chassis visuals use the standard/compact/bulwark IDs.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "chassis_upgrade_panel_formal_v2_concept_icon",
+      "Decision": "ignore",
+      "Reason": "Concept image filename false positive; concepts are not runtime assets.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "chassis_upgrade_panel_formal_v2_design_board_icon",
+      "Decision": "ignore",
+      "Reason": "Design board filename false positive; design boards are not runtime assets.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "faction_counter_icon",
+      "Decision": "ignore",
+      "Reason": "FormalV2 layout area name for a counter block, not an independent icon.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "faction_request_icon",
+      "Decision": "ignore",
+      "Reason": "RefreshGroup value, not a runtime VisualID requirement.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "faction_shop_formal_v2_concept_icon",
+      "Decision": "ignore",
+      "Reason": "Concept image filename false positive; concepts are not runtime assets.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "faction_shop_formal_v2_design_board_icon",
+      "Decision": "ignore",
+      "Reason": "Design board filename false positive; design boards are not runtime assets.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "faction_workshop_icon",
+      "Decision": "ignore",
+      "ReplacementVisualID": "faction_mechanic_workshop_icon",
+      "Reason": "Legacy/short faction ID; current formal faction visual is faction_mechanic_workshop_icon.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "memento_shelf",
+      "Decision": "ignore",
+      "Reason": "Room layout area for memento placement, not an individual memento asset.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "order_alchemy_living_mycelium_batch_icon",
+      "Decision": "defer",
+      "ReplacementVisualID": "item_loot_living_mycelium_icon",
+      "Reason": "Potential future dedicated order icon; current order can be represented by the target item icon and shared order UI.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "order_board_formal_v2_concept_icon",
+      "Decision": "ignore",
+      "Reason": "Concept image filename false positive; concepts are not runtime assets.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "order_board_formal_v2_design_board_icon",
+      "Decision": "ignore",
+      "Reason": "Design board filename false positive; design boards are not runtime assets.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "order_mechanic_scrap_drive_icon",
+      "Decision": "ignore",
+      "Reason": "Old sample order ID; design docs say it should be migrated or deprecated and not treated as formal content.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "order_risk_strip_icon",
+      "Decision": "ignore",
+      "Reason": "Layout strip token, not an independent PNG asset.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "prosthetic_cabinet_icon",
+      "Decision": "ignore",
+      "Reason": "Layout area name for the prosthetic list/cabinet, not an independent icon.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "prosthetic_list_icon",
+      "Decision": "ignore",
+      "Reason": "Layout/list area name, not an independent icon.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "prosthetic_material_row_icon",
+      "Decision": "ignore",
+      "Reason": "Layout row token; material display should use existing material icons and runtime text.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "prosthetic_panel_formal_v2_concept_icon",
+      "Decision": "ignore",
+      "Reason": "Concept image filename false positive; concepts are not runtime assets.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "prosthetic_panel_formal_v2_design_board_icon",
+      "Decision": "ignore",
+      "Reason": "Design board filename false positive; design boards are not runtime assets.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "rumor_board_formal_v2_concept_icon",
+      "Decision": "ignore",
+      "Reason": "Concept image filename false positive; concepts are not runtime assets.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "rumor_board_formal_v2_design_board_icon",
+      "Decision": "ignore",
+      "Reason": "Design board filename false positive; design boards are not runtime assets.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "rumor_bottom_hint_icon",
+      "Decision": "ignore",
+      "Reason": "Layout hint area from old screen design, not an independent icon.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "rumor_mechanical_price_up_icon",
+      "Decision": "ignore",
+      "ReplacementVisualID": "ui_icon_price_up",
+      "Reason": "Old sample rumor ID; design docs say it should be migrated or deprecated, and the current generic price-up icon covers the sample.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "rumor_notes_area_icon",
+      "Decision": "ignore",
+      "Reason": "Layout notes/list area, not an independent icon.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "rumor_relic_box_buyer_icon",
+      "Decision": "defer",
+      "ReplacementVisualID": "item_trade_sealed_relic_box_icon",
+      "Reason": "Potential future dedicated rumor icon; current rumor can be represented by the target item icon and shared rumor UI.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_chassis_upgrade_arrow_plate",
+      "Decision": "defer",
+      "Reason": "Optional FormalV2 micro-skin. Admit only after active UI confirms a dedicated arrow plate image instead of UGUI/vector composition.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_combat_command_strip",
+      "Decision": "defer",
+      "Reason": "Optional FormalV2 micro-skin. Current UI can compose this from ui_panel_main/list rows until a dedicated strip is required.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_combat_enemy_intent_bubble",
+      "Decision": "defer",
+      "Reason": "Optional combat HUD micro-skin; admit only if runtime layout needs a dedicated image behind intent icons.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_combat_player_risk_plate",
+      "Decision": "defer",
+      "Reason": "Optional combat HUD micro-skin; current risk display can use panel skin and runtime tint/text.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_doll_feedback_bubble",
+      "Decision": "defer",
+      "Reason": "Optional doll interaction micro-skin; admit when the interaction panel is active and needs a dedicated speech bubble asset.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_doll_interaction_tool_ring",
+      "Decision": "defer",
+      "Reason": "Optional doll interaction micro-skin; can be composed in UGUI until a dedicated ring is required.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_dungeon_current_node_marker",
+      "Decision": "defer",
+      "Reason": "Optional dungeon map marker; admit when active map implementation confirms a dedicated current-node overlay.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_dungeon_fog_overlay",
+      "Decision": "defer",
+      "Reason": "Optional dungeon map overlay; admit when map fog-of-war is implemented as image asset instead of shader/tint.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_dungeon_risk_badge",
+      "Decision": "defer",
+      "Reason": "Optional dungeon map badge; current node icons and runtime text/tint can carry risk until a dedicated badge is confirmed.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_loot_loss_warning_plate",
+      "Decision": "defer",
+      "Reason": "Optional inventory-loot micro-skin; admit if the active loot screen requires a dedicated warning plate image.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_loot_value_badge",
+      "Decision": "defer",
+      "Reason": "Optional inventory-loot micro-skin; current item icon/tint/text can carry value until a dedicated badge is required.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_prosthetic_slot_marker",
+      "Decision": "defer",
+      "Reason": "Optional prosthetic panel marker; admit if body-slot UI needs a bespoke marker image.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_safe_room_rest_badge",
+      "Decision": "defer",
+      "Reason": "Optional safe-room result badge; admit when safe-room result presentation requires a dedicated badge asset.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_settlement_loss_badge",
+      "Decision": "defer",
+      "Reason": "Optional settlement badge; current settlement outcome icons and runtime text can carry losses.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_settlement_timeline_plate",
+      "Decision": "defer",
+      "Reason": "Optional settlement micro-skin; admit if the active settlement timeline uses a dedicated image plate.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_shop_display_slot",
+      "Decision": "defer",
+      "Reason": "Optional shop staging slot skin; current UI slot/panel skins can carry the first implementation.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_stairs_gate_marker",
+      "Decision": "defer",
+      "Reason": "Optional stairs-room focus marker; admit if the active stairs screen requires a dedicated gate overlay.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "ui_workshop_hotspot_marker",
+      "Decision": "defer",
+      "Reason": "Optional workshop hotspot marker; admit when formal workshop navigation chooses image markers over UGUI icons/tint.",
+      "ReviewedAt": "2026-06-09"
+    },
+    {
+      "VisualID": "vfx_corridor",
+      "Decision": "defer",
+      "Reason": "VFX lane is a combat layout/effect channel, not a single static asset yet; admit when concrete VFX specs are split.",
+      "ReviewedAt": "2026-06-09"
+    }
+  ]
+}
