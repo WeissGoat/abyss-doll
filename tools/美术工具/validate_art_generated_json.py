@@ -69,6 +69,16 @@ CHECKS = [
             ("generic_remaining", ("Summary", "GenericPromptRemainingCount")),
         ],
     },
+    {
+        "name": "registry_gap_checklist",
+        "path": "美术文档/_generated/VisualAssetRegistry登记缺口清单.json",
+        "summary": [
+            ("program_integrate", ("Summary", "ProgramIntegrateVisualCount")),
+            ("missing_registry", ("Summary", "MissingRegistryCount")),
+            ("missing_approved", ("Summary", "MissingApprovedFileCount")),
+            ("missing_meta", ("Summary", "MissingMetaFileCount")),
+        ],
+    },
 ]
 
 

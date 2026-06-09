@@ -558,6 +558,32 @@ Examples:
 * `RerunArtAcceptanceScreens`：程序登记或补截图后重跑验收。
 * `ArtReviewAfterRerunScreens`：重跑后交给美术侧逐屏验收。
 
+## Generate-ArtRegistryGapChecklist.ps1
+
+读取 `程序接入交接清单.json` 和当前 `UnityClient/Assets/Resources/VisualAssetRegistry.asset`，生成更直接的 VisualAssetRegistry 登记缺口核对表。该工具只读 Unity 资产，不修改 Registry；它用于让程序侧确认哪些 Approved VisualID 仍未登记，以及 Approved PNG / `.meta` 是否已经齐全。
+
+输出：
+
+* `美术文档/_generated/VisualAssetRegistry登记缺口清单.json`
+* `美术文档/_generated/VisualAssetRegistry登记缺口清单.md`
+
+使用 `-Snapshot` 时额外输出：
+
+* `美术文档/_generated/art_registry_gap_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.json`
+* `美术文档/_generated/art_registry_gap_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.md`
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Generate-ArtRegistryGapChecklist.ps1 -Snapshot -SnapshotTag formalv2_registry_gap
+```
+
+程序侧处理口径：
+
+1. 在 Unity Editor 中执行 `Tools/P3 Art/Rebuild Approved Sprite Registry`。
+2. 保存 `UnityClient/Assets/Resources/VisualAssetRegistry.asset`。
+3. 重跑 VisualAsset / ArtAcceptance 验收，并将新的 `UnityClient/Logs/ArtAcceptance/latest` 交回美术侧验收。
+
 ## Validate-ArtGeneratedJson.ps1
 
 读取美术流水线的关键 `_generated/*.json` 输出，并强制按 UTF-8 / UTF-8 BOM 解析，避免 PowerShell 默认编码导致中文路径或中文字段被误判为 JSON 损坏。该工具不生成新内容，只校验程序交接和美术验收所依赖的关键 JSON 是否可读，并输出核心计数。
@@ -570,6 +596,7 @@ Examples:
 * `美术文档/_generated/美术需求候选清单.json`
 * `美术文档/_generated/formal_v2_asset_review/formal_v2_asset_review.json`
 * `美术文档/_generated/formal_v2_prompt_readiness/formal_v2_prompt_readiness.json`
+* `美术文档/_generated/VisualAssetRegistry登记缺口清单.json`
 
 使用方式：
 
