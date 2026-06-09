@@ -1,0 +1,43 @@
+# FormalV2 运行时验收状态
+
+> 美术侧自动汇总门禁。它不替代人工看图，只判断当前是否具备进入 FormalV2 运行时美术验收的证据。
+
+- GeneratedAt: `2026-06-09T09:51:55+08:00`
+- Gate: `waiting_registry`
+- RequiredNextAction: Program: run Tools/P3 Art/Rebuild Approved Sprite Registry in Unity, save VisualAssetRegistry.asset, then rerun ArtAcceptance.
+
+## Summary
+
+- ProgramIntegrateVisualCount: `77`
+- MissingRegistryCount: `77`
+- MissingApprovedFileCount: `0`
+- MissingMetaFileCount: `0`
+- RerunAcceptanceScreenCount: `16`
+- ExistingRerunScreenshotCount: `16`
+- ReportRunID: `20260606_230523`
+- ReportStatus: `FAILED`
+- ReportEntryCount: `191`
+- ReportMissingRequiredVisualIDCount: `3`
+
+## Gate Reasons
+
+- VisualAssetRegistry still misses 77 handed-off VisualIDs.
+
+## Rerun Acceptance Screens
+
+- `daily_bill_report`
+- `layer_select`
+- `maintenance_panel`
+- `prosthetic_panel`
+- `safe_room`
+- `sell_panel`
+- `stairs_room`
+- `business_settlement`
+- `chassis_upgrade_panel`
+- `doll_interaction`
+- `doll_room`
+- `faction_shop`
+- `order_board`
+- `rumor_board`
+- `scenario_event`
+- `shop_staging`

@@ -79,6 +79,17 @@ CHECKS = [
             ("missing_meta", ("Summary", "MissingMetaFileCount")),
         ],
     },
+    {
+        "name": "formal_v2_runtime_acceptance_status",
+        "path": "美术文档/_generated/FormalV2运行时验收状态.json",
+        "summary": [
+            ("gate", ("Gate",)),
+            ("program_integrate", ("Summary", "ProgramIntegrateVisualCount")),
+            ("missing_registry", ("Summary", "MissingRegistryCount")),
+            ("run_id", ("Summary", "ReportRunID")),
+            ("status", ("Summary", "ReportStatus")),
+        ],
+    },
 ]
 
 

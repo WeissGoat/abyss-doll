@@ -271,6 +271,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 已完成一轮 FormalV2 运行时验收前复查：本地 latest ArtAcceptance 仍为旧 RunID `20260606_230523` 且 `FAILED`，早于当前 77 个待登记素材，不能作为当前 V2 通过 / 失败证据；已刷新 latest 队列和快照，当前仍为 `program_integrate=77`、`rerun_acceptance=16`、`generate_needed=0`、`technical_fix=0`、`visual_v2_replace=0`、`spec_review=0`、`new_candidate=0`，`FormalV2AssetReview reviewed=77/pass=77`，`PromptReadiness prompt_ready=77/prompt_blocked=0`。
 - 已新增 `Validate-ArtGeneratedJson.ps1` / `validate_art_generated_json.py`，作为 FormalV2 美术交接的 UTF-8 JSON 可读性门禁；当前严格校验通过，确认 `可接入素材清单`、`程序接入交接清单`、`素材质量替换清单`、`美术需求候选清单`、`formal_v2_asset_review` 和 `formal_v2_prompt_readiness` 均能按 UTF-8 解析，关键计数为 `program_integrate=77`、`generate_needed=0`、`technical_fix=0`、`visual_v2_replace=0`、`new_candidate=0`、`reviewed=77/pass=77`、`prompt_ready=77/prompt_blocked=0`。
 - 已新增 `Generate-ArtRegistryGapChecklist.ps1` / `generate_art_registry_gap_checklist.py`，将当前 FormalV2 程序接入队列进一步压成 `VisualAssetRegistry登记缺口清单.md/json`；本轮核对 `UnityClient/Assets/Resources/VisualAssetRegistry.asset` 后确认 `program_integrate=77`、`missing_registry=77`、`missing_approved=0`、`missing_meta=0`。程序侧可直接在 Unity Editor 执行 `Tools/P3 Art/Rebuild Approved Sprite Registry`，保存 Registry 后重跑 ArtAcceptance。
+- 已新增 `Generate-FormalV2RuntimeAcceptanceStatus.ps1` / `generate_formal_v2_runtime_acceptance_status.py`，把 latest ArtAcceptance、Registry 缺口和程序 handoff 聚合为 `FormalV2运行时验收状态.md/json`；当前 gate 为 `waiting_registry`，证据为 `program_integrate=77`、`missing_registry=77`、latest ArtAcceptance `RunID=20260606_230523` / `Status=FAILED`。该状态报告用于后续自动判断何时进入美术侧逐屏截图验收。
 
 ## 下一步建议
 
@@ -281,6 +282,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 6. 后续每次程序接入清单或 Manifest 刷新后，可运行 `Generate-FormalV2PromptReadiness.ps1` 复核待接入资产是否仍满足 PromptEN 具体化门禁，再决定是否进入 NovelAI 重跑。
 7. 后续每次刷新美术 `_generated` 关键 JSON 后，运行 `Validate-ArtGeneratedJson.ps1 -Strict`，确认程序交接和美术验收依赖的 JSON 在 UTF-8 读取下可解析；PowerShell 手动读取这些中文路径 JSON 时应显式使用 `-Encoding UTF8`。
 8. 后续每次程序登记前后，可运行 `Generate-ArtRegistryGapChecklist.ps1 -Snapshot` 对比 handoff 与 `VisualAssetRegistry.asset`，确认 `missing_registry` 是否归零。
+9. 后续每次程序重建 Registry 或重跑 ArtAcceptance 后，运行 `Generate-FormalV2RuntimeAcceptanceStatus.ps1 -Snapshot`；只有 gate 变为 `ready_for_art_review` 后，美术侧再更新 `09_运行时美术验收记录.md` 做正式逐屏结论。
 
 ## 问题 / 阻塞
 

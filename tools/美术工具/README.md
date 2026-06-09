@@ -584,6 +584,33 @@ Examples:
 2. 保存 `UnityClient/Assets/Resources/VisualAssetRegistry.asset`。
 3. 重跑 VisualAsset / ArtAcceptance 验收，并将新的 `UnityClient/Logs/ArtAcceptance/latest` 交回美术侧验收。
 
+## Generate-FormalV2RuntimeAcceptanceStatus.ps1
+
+读取 latest ArtAcceptance、`VisualAssetRegistry登记缺口清单.json` 和 `程序接入交接清单.json`，生成 FormalV2 运行时美术验收门禁状态。它不替代人工截图验收，只判断当前证据是否足够进入美术侧逐屏评审。
+
+输出：
+
+* `美术文档/_generated/FormalV2运行时验收状态.json`
+* `美术文档/_generated/FormalV2运行时验收状态.md`
+
+使用 `-Snapshot` 时额外输出：
+
+* `美术文档/_generated/formal_v2_runtime_acceptance_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.json`
+* `美术文档/_generated/formal_v2_runtime_acceptance_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.md`
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Generate-FormalV2RuntimeAcceptanceStatus.ps1 -Snapshot -SnapshotTag formalv2_runtime_status
+```
+
+主要 Gate：
+
+* `waiting_registry`：当前 handoff 资产仍未登记到 `VisualAssetRegistry.asset`。
+* `waiting_art_acceptance_rerun`：Registry 已无缺口，但 latest ArtAcceptance 仍不是新 RunID。
+* `runtime_failed_needs_fix`：已有新 ArtAcceptance，但报告仍失败或有 missing VisualID。
+* `ready_for_art_review`：具备进入美术侧逐屏截图验收的证据。
+
 ## Validate-ArtGeneratedJson.ps1
 
 读取美术流水线的关键 `_generated/*.json` 输出，并强制按 UTF-8 / UTF-8 BOM 解析，避免 PowerShell 默认编码导致中文路径或中文字段被误判为 JSON 损坏。该工具不生成新内容，只校验程序交接和美术验收所依赖的关键 JSON 是否可读，并输出核心计数。
@@ -597,6 +624,7 @@ Examples:
 * `美术文档/_generated/formal_v2_asset_review/formal_v2_asset_review.json`
 * `美术文档/_generated/formal_v2_prompt_readiness/formal_v2_prompt_readiness.json`
 * `美术文档/_generated/VisualAssetRegistry登记缺口清单.json`
+* `美术文档/_generated/FormalV2运行时验收状态.json`
 
 使用方式：
 
