@@ -1,5 +1,5 @@
 {
-  "GeneratedAt": "2026-06-08T00:39:05+08:00",
+  "GeneratedAt": "2026-06-10T00:52:28+08:00",
   "SnapshotTag": "",
   "Inputs": {
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",
@@ -10,18 +10,17 @@
   },
   "Summary": {
     "ScreenSpecUpdatedAt": "2026-06-08",
-    "AcceptanceRunID": "20260606_230523",
-    "AcceptanceStatus": "FAILED",
-    "AcceptanceFinishedAt": "2026-06-06T23:05:41.4448072+08:00",
-    "AcceptanceIsOlderThanSpec": true,
+    "AcceptanceRunID": "20260610_003347",
+    "AcceptanceStatus": "PASSED",
+    "AcceptanceFinishedAt": "2026-06-10T00:34:02.2020370+08:00",
+    "AcceptanceIsOlderThanSpec": false,
     "FormalV1ScreenCount": 16,
     "CapturedScreenCount": 16,
     "BucketCounts": {
-      "review_previous_screenshot": 16
+      "art_review_ready": 16
     },
     "ActionCounts": {
-      "art_review_screenshot": 16,
-      "program_rerun_art_acceptance": 16
+      "art_review_screenshot": 16
     }
   },
   "Queue": [
@@ -40,25 +39,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "ui_list_row_normal",
-        "ui_list_row_selected",
-        "ui_icon_income",
-        "ui_icon_expense",
-        "ui_icon_debt_rent",
-        "ui_title_divider"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/daily_bill_report.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -91,24 +81,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "ui_list_row_normal",
-        "ui_list_row_selected",
-        "ui_icon_locked",
-        "ui_title_divider",
-        "bg_layer_select"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/layer_select.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -140,24 +122,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "ui_list_row_normal",
-        "ui_icon_wear_repair",
-        "ui_icon_corruption_purify",
-        "ui_icon_dive_permit",
-        "ui_title_divider"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/maintenance_panel.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -190,23 +164,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "ui_list_row_normal",
-        "ui_list_row_selected",
-        "ui_icon_equipped",
-        "ui_title_divider"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/prosthetic_panel.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -237,20 +204,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "bg_safe_room"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/safe_room.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -283,22 +246,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "ui_list_row_normal",
-        "ui_list_row_selected",
-        "ui_title_divider"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/sell_panel.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -329,20 +286,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "bg_stairs_room"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/stairs_room.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -375,24 +328,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "ui_list_row_normal",
-        "ui_title_divider",
-        "ui_icon_customer",
-        "ui_icon_sale_spark",
-        "ui_icon_business_settlement"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/business_settlement.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -424,25 +369,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "ui_list_row_normal",
-        "ui_list_row_selected",
-        "ui_title_divider",
-        "ui_icon_chassis_upgrade",
-        "ui_icon_blueprint",
-        "ui_icon_material_need"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/chassis_upgrade_panel.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -474,26 +410,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "ui_list_row_normal",
-        "ui_list_row_selected",
-        "ui_icon_touch",
-        "ui_icon_talk",
-        "ui_icon_gift",
-        "ui_icon_memento",
-        "ui_title_divider"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_interaction.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -524,24 +450,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_list_row_normal",
-        "ui_list_row_selected",
-        "ui_icon_diary",
-        "ui_icon_memento",
-        "ui_room_memento_slot",
-        "bg_doll_room_attic"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_room.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -573,26 +491,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "ui_list_row_normal",
-        "ui_list_row_selected",
-        "ui_icon_faction",
-        "ui_icon_reputation",
-        "ui_icon_trust",
-        "ui_icon_black_market",
-        "ui_title_divider"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/faction_shop.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -623,25 +531,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "ui_list_row_normal",
-        "ui_list_row_selected",
-        "ui_icon_order",
-        "ui_icon_faction",
-        "ui_icon_deadline",
-        "ui_title_divider"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/order_board.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -673,25 +572,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "ui_list_row_normal",
-        "ui_list_row_selected",
-        "ui_icon_rumor",
-        "ui_icon_price_up",
-        "ui_icon_price_down",
-        "ui_title_divider"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/rumor_board.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -723,25 +613,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "ui_list_row_normal",
-        "ui_list_row_selected",
-        "ui_icon_event",
-        "ui_icon_lore",
-        "ui_icon_skip",
-        "ui_title_divider"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/scenario_event.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [
@@ -771,25 +652,16 @@
       "MissingApprovedVisualIDs": [],
       "ApprovedButMissingMetaVisualIDs": [],
       "ApprovedButNotInLatestRegistryVisualIDs": [],
-      "LocalV0VisualIDs": [
-        "ui_panel_main",
-        "ui_list_row_normal",
-        "ui_list_row_selected",
-        "ui_icon_shop_channel",
-        "ui_icon_black_market",
-        "ui_icon_order",
-        "ui_title_divider"
-      ],
+      "LocalV0VisualIDs": [],
       "CaptureConfiguredInLatestTool": true,
       "HasScreenshot": true,
       "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/shop_staging.png",
       "CaptureStatus": "captured",
       "CaptureWarnings": [],
       "CaptureErrors": [],
-      "ScreenshotStaleAgainstSpec": true,
-      "QueueBucket": "review_previous_screenshot",
+      "ScreenshotStaleAgainstSpec": false,
+      "QueueBucket": "art_review_ready",
       "RequiredActions": [
-        "program_rerun_art_acceptance",
         "art_review_screenshot"
       ],
       "ReviewChecklist": [

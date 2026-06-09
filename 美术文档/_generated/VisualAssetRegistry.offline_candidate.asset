@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a79cc34d76707e41a5e2cb1d7d28f55, type: 3}
   m_Name: VisualAssetRegistry
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   Entries:
   - VisualID: bg_combat_abyss
     Sprite: {fileID: 21300000, guid: 9f676444d813871408a98a32295d2790, type: 3}

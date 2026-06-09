@@ -2,11 +2,11 @@
 
 > 美术侧生成的程序登记核对清单。它不修改 Unity 资产，只对比 `程序接入交接清单` 和当前 `VisualAssetRegistry.asset`。
 
-- GeneratedAt: `2026-06-10T00:52:29+08:00`
-- ProgramIntegrateVisualCount: `0`
+- GeneratedAt: `2026-06-10T00:19:53+08:00`
+- ProgramIntegrateVisualCount: `87`
 - RegistryExistingCount: `278`
 - MissingRegistryCount: `0`
-- AlreadyRegisteredCount: `0`
+- AlreadyRegisteredCount: `87`
 - MissingApprovedFileCount: `0`
 - MissingMetaFileCount: `0`
 

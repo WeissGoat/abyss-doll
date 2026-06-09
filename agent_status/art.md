@@ -25,7 +25,7 @@ related:
   - 美术文档/README.md
   - 知识库/views/art.md
   - 美术文档/15_FormalV2运行时验收待办清单.md
-last_verified: 2026-06-09
+last_verified: 2026-06-10
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
 
@@ -33,7 +33,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 最后更新
 
-2026-06-09
+2026-06-10
 
 ## 当前关注
 
@@ -277,23 +277,19 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 
 ## 下一步建议
 
-1. 程序侧可按 `美术文档/_generated/VisualAssetRegistry登记缺口清单.md` 处理当前 87 个待登记 Approved VisualID；当前核对结论是 `missing_registry=87`、`missing_approved=0`、`missing_meta=0`，优先在 Unity Editor 执行 `Tools/P3 Art/Rebuild Approved Sprite Registry` 并保存 `VisualAssetRegistry.asset`。
-2. 程序完成当前待登记新资源后，需要重跑 VisualAsset / ArtAcceptance 相关验收；验收证据以 `美术文档/15_FormalV2运行时验收待办清单.md` 中的 RunID、Registry、截图和 missing VisualID 门禁为准。
-3. 美术侧下一步进入运行时截图复验：重点看 FormalV2 核心界面的构图、控件遮挡、图标小尺寸可读性、背景 cover / contain 适配，以及新增怪物 / 物品 / 经济 / 订单 / 传闻 / 纪念物图标是否与日系地底奇幻风格统一；复验时优先对照 `美术文档/_generated/formal_v2_asset_review/visual_semantic_review.md/json` 的 `watch_runtime_readability` 和 `style_mismatch_watch` 条目，当前已无 `secondary_replacement_candidate`。
-4. 如果后续运行时截图暴露语义或小尺寸可读性问题，再按具体 VisualID 做二次 NovelAI 质量替换；仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`，已接入同名替换必须使用 strict meta guard。
-6. 后续每次程序接入清单或 Manifest 刷新后，可运行 `Generate-FormalV2PromptReadiness.ps1` 复核待接入资产是否仍满足 PromptEN 具体化门禁，再决定是否进入 NovelAI 重跑。
-7. 后续每次刷新美术 `_generated` 关键 JSON 后，运行 `Validate-ArtGeneratedJson.ps1 -Strict`，确认程序交接和美术验收依赖的 JSON 在 UTF-8 读取下可解析；PowerShell 手动读取这些中文路径 JSON 时应显式使用 `-Encoding UTF8`。
-8. 后续每次程序登记前后，可运行 `Generate-ArtRegistryGapChecklist.ps1 -Snapshot` 对比 handoff 与 `VisualAssetRegistry.asset`，确认 `missing_registry` 是否归零。
-9. 后续每次程序重建 Registry 或重跑 ArtAcceptance 后，运行 `Generate-FormalV2RuntimeAcceptanceStatus.ps1 -Snapshot`；只有 gate 变为 `ready_for_art_review` 后，美术侧再更新 `09_运行时美术验收记录.md` 做正式逐屏结论。
+1. 程序/UI 侧下一步不再是登记资源：latest `program_integrate=0`、`missing_registry=0`、ArtAcceptance `20260610_003347 PASSED`、Registry 278。下一步应按 active FormalV2 规格重排运行时 UI。
+2. 优先返修 `workshop_main`、`prosthetic_panel`、`sell_panel` 和旧三栏模板界面；`combat_hud`、`dungeon_map`、`inventory_loot`、`settlement` 进入布局精修，不需要美术先批量补图。
+3. 美术侧等待程序/UI 布局返修后重跑 ArtAcceptance，再按 `美术文档/09_运行时美术验收记录.md` 和 `美术文档/_generated/FormalV2运行时复验优先级清单.md/json` 做下一轮逐屏复验。
+4. 如果下一轮截图证明某个 VisualID 在真实尺寸下语义或可读性不足，再做单项 NovelAI 同名替换；仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`，已接入同名替换必须使用 strict meta guard。
+5. 后续每次刷新美术 `_generated` 关键 JSON 后，运行 `Validate-ArtGeneratedJson.ps1 -Strict`，确认程序交接和美术验收依赖的 JSON 在 UTF-8 读取下可解析。
 
 ## 问题 / 阻塞
 
 - 当前工作区仍有大量程序、策划、Unity 资产和知识库生成物处于脏状态；美术侧提交时只纳入本轮美术流水线相关文件。
 - P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 正式结构已通过；本轮 latest `20260527_002436` 已确认资源接入通过，但 `combat_hud` 等 6 个界面仍需程序返修后复验。
 - 本轮已从外部 `F:\my_project\new\tags_machine\novelai\client.py` 只读提取 NovelAI token 到当前进程并真实调用 NovelAI；未提交 token，未使用 mock / local_v0 冒充正式图。后续跑图仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`。
-- latest `program_integrate=87` 表示仍有 87 个 Approved VisualID 需要程序登记；美术侧静态预验收已通过，缺图生成队列、Visual V2 同名替换队列和 technical_fix 队列均已清空。正式运行时验收仍依赖程序登记后重跑 ArtAcceptance / VisualAsset 验收截图。
-- 当前 latest ArtAcceptance 仍是 `20260606_230523`，早于 FormalV2 87 个待登记素材；除非程序侧产出新的 `UnityClient/Logs/ArtAcceptance/latest`，美术侧不能把 FormalV2 运行时验收标记为通过。
-- Formal V2 目前只是 draft 设计层；如果程序侧需要接入，必须等待用户确认并由美术侧更新 active `screen_layouts.json`。
+- FormalV2 资源登记门禁已清空，但运行时画面没有整体通过。当前阻塞是程序/UI 侧仍使用旧三栏模板、按钮堆叠、空数据面板或调试式标题；不能把 ArtAcceptance 工具层 `PASSED` 等同于 FormalV2 UI 完成。
+- FormalV2 V2-A 已进入 active 规格；V2-B / V2-C 仍按 draft 管理，未写入 active 前不作为程序接入口。
 - Formal V2 概念图含 AI 伪文字和局部装饰噪声，只能作为结构参考；正式接入前仍需将控件、文本、图标和面板皮肤拆回可实现规格。
 - Formal V2 结构设计图是确定性 layout board，只用于评审结构和迁移顺序；不能被当作最终视觉稿或程序接入规格。
 - `tools/ComfyUI_NAIDGenerator/` 未跟踪，需要决定是否纳入正式美术流水线。
@@ -336,3 +332,23 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - The queue groups the 30 non-blocking watch items into `item_icon_semantics=7`, `monster_portrait_readability=15`, `memento_icon_semantics=2`, `order_icon_semantics=1`, `rumor_icon_semantics=3`, and `ui_feedback_readability=2`; primary review screens are `combat_hud`, `order_board`, `rumor_board`, `inventory_loot`, `safe_room`, and `stairs_room`.
 - Updated `美术文档/15_FormalV2运行时验收待办清单.md` from 77 to 87 current program-integrate VisualIDs and linked the generated runtime review priority queue as the next art review entrance.
 - Extended `Validate-ArtGeneratedJson.ps1 -Strict` coverage to include the runtime review queue. Verification passed: `python -m py_compile tools\美术工具\generate_formal_v2_runtime_review_queue.py tools\美术工具\validate_art_generated_json.py`; `Validate-ArtGeneratedJson.ps1 -Strict`; `Validate-UIDesign.ps1`; `python tools\docs\validate_docs.py --index docs_index.json`.
+
+## 2026-06-09 FormalV2 Registry Rebuild Attempt
+
+- Art-side attempted to unblock `waiting_registry` directly by running Unity `2022.3.60f1` batchmode with `-executeMethod VisualAssetRegistryEditorTools.RebuildApprovedSpriteRegistryFromApprovedFolder`.
+- Unity exited before project load with code `199`: `UnityClient/Logs/rebuild_registry_batch.log` shows `LicensingClient` IPC timeout after 60 seconds. `UnityClient/Assets/Resources/VisualAssetRegistry.asset` remained unchanged at `2026-05-26 00:11:19`, and latest ArtAcceptance remained `RunID=20260606_230523 / FAILED`.
+- Updated `美术文档/15_FormalV2运行时验收待办清单.md` with this evidence and clarified that program side should run the Registry rebuild from a licensed Unity Editor session if batchmode is unavailable. Gate remains `waiting_registry`.
+
+## 2026-06-09 FormalV2 Offline Registry Candidate
+
+- Added `tools/美术工具/Generate-VisualAssetRegistryOfflineCandidate.ps1` as a conservative fallback aid for the current Unity licensing blocker. It reads `VisualAssetRegistry.asset`, `VisualAssetRegistry登记缺口清单.json`, and each Approved PNG `.meta`, then writes an offline candidate instead of touching the live Unity registry.
+- Generated `美术文档/_generated/VisualAssetRegistry.offline_candidate.asset` and `美术文档/_generated/VisualAssetRegistry离线候选报告.md`. Verification: candidate has `278` unique entries, adds the current `87` missing VisualIDs, preserves `MissingSprite`, and leaves `UnityClient/Assets/Resources/VisualAssetRegistry.asset` unchanged.
+- This candidate is only a program-side review/diff aid. FormalV2 runtime gate remains `waiting_registry` until the real Unity `VisualAssetRegistry.asset` is rebuilt/saved and ArtAcceptance produces a fresh run.
+
+## 2026-06-10 FormalV2 Registry Applied and Runtime Review
+
+- Art side applied `美术文档/_generated/VisualAssetRegistry.offline_candidate.asset` to `UnityClient/Assets/Resources/VisualAssetRegistry.asset`, preserving `ui_missing_sprite` and expanding the runtime registry to `EntryCount=278`.
+- Refreshed registry, handoff, FormalV2 runtime status and review queues. Current generated evidence: `program_integrate=0`, `missing_registry=0`, `missing_approved=0`, `missing_meta=0`, `add_capture=0`, `rerun_acceptance=0`, `generate_needed=0`.
+- Added batchmode support for ArtAcceptance follow-through: `ArtAcceptanceRunner.CompleteRun()` exits the Editor in batchmode when `autoExitPlayMode=true`; `ArtAcceptanceEditorDaemon.RunFromBatchmode()` opens `Assets/Scenes/SampleScene.unity` before PlayMode.
+- Ran Unity ArtAcceptance batchmode successfully. Latest evidence: `RunID=20260610_003347`, `Status=PASSED`, 21/21 captured, `RegistryEntryCount=278`, `MissingRequiredVisualIDs=0`, warnings/errors=0. Contact sheet: `UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260610.png`.
+- Updated `美术文档/09_运行时美术验收记录.md` and `美术文档/15_FormalV2运行时验收待办清单.md`. Art conclusion: resource/registry/tool gates pass, but FormalV2 runtime UI is not visually accepted. Most remaining issues are program/UI layout realization: `workshop_main` remains button-heavy, `prosthetic_panel` / `sell_panel` are empty black-panel states, and many V2-B/V2-C screens still use the old three-column template.

@@ -4,48 +4,46 @@
 
 ## Summary
 
-* GeneratedAt: `2026-06-08T00:39:05+08:00`
+* GeneratedAt: `2026-06-10T00:52:28+08:00`
 * Active Formal V1 screens: `16`
-* Latest ArtAcceptance: `20260606_230523` / `FAILED` / `2026-06-06T23:05:41.4448072+08:00`
+* Latest ArtAcceptance: `20260610_003347` / `PASSED` / `2026-06-10T00:34:02.2020370+08:00`
 * Captured in latest: `16`
 * Capture coverage needed: `0`
 * Program register visuals: `0`
 * Program add capture action: `0`
-* Program rerun action: `16`
+* Program rerun action: `0`
 * Art review action: `16`
 * Rerun needed: `0`
-* Review previous screenshot: `16`
-* Art review ready: `0`
-
-> Latest ArtAcceptance is older than active UI spec. Existing screenshots can be used for rough review, but current Formal V1 validation requires a rerun.
+* Review previous screenshot: `0`
+* Art review ready: `16`
 
 ## Queue
 
 | Priority | Screen | Bucket | Screenshot | Required actions | Registry gaps | Local V0 | Checklist items |
 |---|---|---|---|---|---|---|---:|
-| P1 | `daily_bill_report` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/daily_bill_report.png) | program_rerun_art_acceptance, art_review_screenshot | - | 7 | 12 |
-| P1 | `layer_select` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/layer_select.png) | program_rerun_art_acceptance, art_review_screenshot | - | 6 | 11 |
-| P1 | `maintenance_panel` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/maintenance_panel.png) | program_rerun_art_acceptance, art_review_screenshot | - | 6 | 12 |
-| P1 | `prosthetic_panel` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/prosthetic_panel.png) | program_rerun_art_acceptance, art_review_screenshot | - | 5 | 10 |
-| P1 | `safe_room` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/safe_room.png) | program_rerun_art_acceptance, art_review_screenshot | - | 2 | 12 |
-| P1 | `sell_panel` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/sell_panel.png) | program_rerun_art_acceptance, art_review_screenshot | - | 4 | 10 |
-| P1 | `stairs_room` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/stairs_room.png) | program_rerun_art_acceptance, art_review_screenshot | - | 2 | 12 |
-| P2 | `business_settlement` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/business_settlement.png) | program_rerun_art_acceptance, art_review_screenshot | - | 6 | 11 |
-| P2 | `chassis_upgrade_panel` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/chassis_upgrade_panel.png) | program_rerun_art_acceptance, art_review_screenshot | - | 7 | 11 |
-| P2 | `doll_interaction` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_interaction.png) | program_rerun_art_acceptance, art_review_screenshot | - | 8 | 10 |
-| P2 | `doll_room` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_room.png) | program_rerun_art_acceptance, art_review_screenshot | - | 6 | 11 |
-| P2 | `faction_shop` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/faction_shop.png) | program_rerun_art_acceptance, art_review_screenshot | - | 8 | 10 |
-| P2 | `order_board` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/order_board.png) | program_rerun_art_acceptance, art_review_screenshot | - | 7 | 11 |
-| P2 | `rumor_board` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/rumor_board.png) | program_rerun_art_acceptance, art_review_screenshot | - | 7 | 11 |
-| P2 | `scenario_event` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/scenario_event.png) | program_rerun_art_acceptance, art_review_screenshot | - | 7 | 9 |
-| P2 | `shop_staging` | `review_previous_screenshot` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/shop_staging.png) | program_rerun_art_acceptance, art_review_screenshot | - | 7 | 11 |
+| P1 | `daily_bill_report` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/daily_bill_report.png) | art_review_screenshot | - | 0 | 12 |
+| P1 | `layer_select` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/layer_select.png) | art_review_screenshot | - | 0 | 11 |
+| P1 | `maintenance_panel` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/maintenance_panel.png) | art_review_screenshot | - | 0 | 12 |
+| P1 | `prosthetic_panel` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/prosthetic_panel.png) | art_review_screenshot | - | 0 | 10 |
+| P1 | `safe_room` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/safe_room.png) | art_review_screenshot | - | 0 | 12 |
+| P1 | `sell_panel` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/sell_panel.png) | art_review_screenshot | - | 0 | 10 |
+| P1 | `stairs_room` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/stairs_room.png) | art_review_screenshot | - | 0 | 12 |
+| P2 | `business_settlement` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/business_settlement.png) | art_review_screenshot | - | 0 | 11 |
+| P2 | `chassis_upgrade_panel` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/chassis_upgrade_panel.png) | art_review_screenshot | - | 0 | 11 |
+| P2 | `doll_interaction` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_interaction.png) | art_review_screenshot | - | 0 | 10 |
+| P2 | `doll_room` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_room.png) | art_review_screenshot | - | 0 | 11 |
+| P2 | `faction_shop` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/faction_shop.png) | art_review_screenshot | - | 0 | 10 |
+| P2 | `order_board` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/order_board.png) | art_review_screenshot | - | 0 | 11 |
+| P2 | `rumor_board` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/rumor_board.png) | art_review_screenshot | - | 0 | 11 |
+| P2 | `scenario_event` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/scenario_event.png) | art_review_screenshot | - | 0 | 9 |
+| P2 | `shop_staging` | `art_review_ready` | [open](UnityClient/Logs/ArtAcceptance/latest/screenshots/shop_staging.png) | art_review_screenshot | - | 0 | 11 |
 
 ## Per-Screen Checklist
 
 ### `daily_bill_report`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/daily_bill_report.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -63,8 +61,8 @@
 
 ### `layer_select`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/layer_select.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -81,8 +79,8 @@
 
 ### `maintenance_panel`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/maintenance_panel.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -100,8 +98,8 @@
 
 ### `prosthetic_panel`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/prosthetic_panel.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -117,8 +115,8 @@
 
 ### `safe_room`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/safe_room.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -136,8 +134,8 @@
 
 ### `sell_panel`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/sell_panel.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -153,8 +151,8 @@
 
 ### `stairs_room`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/stairs_room.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -172,8 +170,8 @@
 
 ### `business_settlement`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/business_settlement.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -190,8 +188,8 @@
 
 ### `chassis_upgrade_panel`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/chassis_upgrade_panel.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -208,8 +206,8 @@
 
 ### `doll_interaction`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_interaction.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -225,8 +223,8 @@
 
 ### `doll_room`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_room.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -243,8 +241,8 @@
 
 ### `faction_shop`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/faction_shop.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -260,8 +258,8 @@
 
 ### `order_board`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/order_board.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -278,8 +276,8 @@
 
 ### `rumor_board`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/rumor_board.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -296,8 +294,8 @@
 
 ### `scenario_event`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/scenario_event.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。
@@ -312,8 +310,8 @@
 
 ### `shop_staging`
 
-* Bucket: `review_previous_screenshot`
-* Required actions: `program_rerun_art_acceptance, art_review_screenshot`
+* Bucket: `art_review_ready`
+* Required actions: `art_review_screenshot`
 * Screenshot: `UnityClient/Logs/ArtAcceptance/latest/screenshots/shop_staging.png`
 
 - [ ] 截图分辨率为 1920x1080，CanvasScaler 使用 1920x1080 参考分辨率。

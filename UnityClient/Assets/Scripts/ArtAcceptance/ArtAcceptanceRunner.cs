@@ -371,6 +371,9 @@ public partial class ArtAcceptanceRunner : MonoBehaviour {
 #if UNITY_EDITOR
         if (_autoExitPlayMode) {
             EditorApplication.isPlaying = false;
+            if (Application.isBatchMode) {
+                EditorApplication.Exit(0);
+            }
         }
 #endif
     }

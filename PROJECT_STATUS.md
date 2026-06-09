@@ -76,7 +76,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 ## 最后更新
 
-2026-06-08
+2026-06-10
 
 ## 当前阶段
 
@@ -216,12 +216,13 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 - 美术/UI 与程序智能体都应以纯 UGUI 作为运行时 UI 目标。
 - 策划与程序智能体做运行时验证前应先同步配置：`.\tools\config\Sync-Configs.ps1 -Clean`。
+- FormalV2 美术资源登记门禁已由美术侧直接处理：`UnityClient/Assets/Resources/VisualAssetRegistry.asset` 已扩展到 278 条，latest ArtAcceptance `20260610_003347` 为 `PASSED`、21/21 captured、`MissingRequiredVisualIDs=0`。当前不再需要程序侧登记这批 87 个 VisualID。
 - 程序侧需要修正 `CombatLootDropTest.Run` 的旧奖励断言：当前正式配置要求 `boss_gatekeeper_mk1` 保底 `mat_core_tier1`，`elite_scrap_guard` 只作为可绕精英；该测试仍断言精英奖励包含 `mat_core_tier1`。策划侧已用结构检查确认 Boss 保底和精英非保底成立，程序侧后续应把测试改为 Boss 保底口径。
 - 美术智能体刷新 Manifest 前应先同步配置，确保视觉需求跟随当前配置源。
 - 美术 / UI 的程序接入只以 `美术文档/ui_design/screen_layouts.json` 当前 active 规格为准；`versions/` baseline 和 candidate 不作为程序接入口。
 - Formal V1 / Formal V2 UI 文档由美术侧先提出，用户确认后再更新 active 规格、生成素材并交给程序接入；`formal_v2/*.md` 在确认前只是 UX/UI draft，程序侧不得直接按 draft 接入。当前 V2-A 五屏已经完成 active 迁移，程序侧可按 active `screen_layouts.json` 接入；V2-B / V2-C 仍是 draft。
 - 美术侧每次生成或同步 Approved 素材后会刷新 `美术文档/_generated/可接入素材清单.md/json`；程序侧接入新素材前优先查看其中 `program_integrate` 条目。
-- 当前 latest `program_integrate=77`、`generate_needed=0`、`rerun_acceptance=16`。`program_integrate=77` 表示美术侧已完成并入库当前待程序登记的新增 Approved VisualID：其中 `nai_formalv2_missing_20260608_01` 缺图批次交付 58 项，后续 FormalV2 候选准入批次再交付 29 项，期间已有部分历史待登记项被程序侧接入，因此 latest 队列合计为 77 项。美术侧已完成 `Generate-FormalV2AssetReview.ps1` 静态预验收，结果为 `reviewed=77`、`pass=77`、`fail=0`、`warn=0`，PNG / `.meta` / `formal_ai_v2` / 尺寸 / alpha 均可交接。最新 `VisualAssetRegistry登记缺口清单.md` 显示 `missing_registry=77`、`missing_approved=0`、`missing_meta=0`，`FormalV2运行时验收状态.md` 显示 gate=`waiting_registry`；程序侧需要优先在 Unity Editor 执行 `Tools/P3 Art/Rebuild Approved Sprite Registry`，保存 `VisualAssetRegistry.asset` 后重跑 VisualAsset / ArtAcceptance。`rerun_acceptance=16` 是仍为 FormalV1 的非 V2-A 屏截图早于当前 active 规格日期，不代表 V2-A 五屏已完成运行时接入。V2-A 五屏需要程序侧按 active FormalV2 规格重排运行时 UI；同名质量替换项保持原 `VisualID`、Approved 路径和 Unity `.meta` / GUID，程序侧无需重新登记。
+- 当前 latest 美术交接为 `program_integrate=0`、`generate_needed=0`、`add_capture=0`、`rerun_acceptance=0`，`VisualAssetRegistry登记缺口清单.md` 显示 `missing_registry=0`、`missing_approved=0`、`missing_meta=0`。美术人工验收结论为：资源/Registry/ArtAcceptance 工具层通过，但 FormalV2 运行时画面不完全通过；程序/UI 侧下一步应按 active FormalV2 规格重排 `workshop_main`、`combat_hud`、`dungeon_map`、`inventory_loot`、`settlement`，并替换 `prosthetic_panel`、`sell_panel` 和旧三栏模板界面的运行时结构。
 - Formal V1 UI 的“资源登记完成”和“运行时截图覆盖完成”不等于“玩家可玩接入完成”。后续程序侧声明某界面可玩完成前，必须同时补齐玩家主流程可达入口，以及关键按钮 / 操作调用真实后端或领域服务的闭环证据；ArtAcceptance、debug 入口、验收专用 preview 对象或只读快照只能作为资源 / 截图接入证据。
 - `program_integrate` 17 个 Approved VisualID 曾完成 UI 程序接入记录；按当前正式版本完成口径，该记录只作为历史接入事实，不计为 P5 表现支撑正式版本完成。美术侧如继续推进，应基于 ArtAcceptance 截图验收后回写 `agent_status/art.md`，如影响长期节点门禁再通知 PM 更新 `09`。
 - 长任务、恢复继续、跨会话拆分和 mission 请求统一使用 `.codex/skills/p3-mission/`；`tools/p3-mission` 是独立工具源码仓库。新建 mission 必须有详细来源材料，可通过 `-Source` / `-SourceSpec` 记录为 `source_ref`，一句话目标不能直接进入 mission；`misc/Missions` 已归档，不再作为 active skill、任务路由或第二套 CSV 执行系统。

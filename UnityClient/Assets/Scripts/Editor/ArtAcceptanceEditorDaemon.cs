@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using System.IO;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [InitializeOnLoad]
@@ -9,6 +10,7 @@ public static class ArtAcceptanceEditorDaemon {
     private const string DoneMarker = "DONE";
     private const string PendingCommandKey = "ArtAcceptance_PendingCommand";
     private const string AutoExitKey = "ArtAcceptance_AutoExitPlayMode";
+    private const string AcceptanceScenePath = "Assets/Scenes/SampleScene.unity";
 
     private static readonly string LogsDir;
     private static readonly string TriggerFile;
@@ -46,6 +48,24 @@ public static class ArtAcceptanceEditorDaemon {
     [MenuItem("Tools/P3 Art/Run Automated Art Acceptance")]
     public static void RunFromMenu() {
         QueueRun(autoExitPlayMode: false);
+    }
+
+    public static void RunFromBatchmode() {
+        EnsureAcceptanceSceneOpen();
+        QueueRun(autoExitPlayMode: true);
+    }
+
+    private static void EnsureAcceptanceSceneOpen() {
+        if (!Application.isBatchMode) {
+            return;
+        }
+
+        if (!File.Exists(AcceptanceScenePath)) {
+            Debug.LogWarning($"[ArtAcceptanceEditorDaemon] Acceptance scene not found: {AcceptanceScenePath}");
+            return;
+        }
+
+        EditorSceneManager.OpenScene(AcceptanceScenePath, OpenSceneMode.Single);
     }
 
     private static void OnTriggerFileChanged(object source, FileSystemEventArgs e) {

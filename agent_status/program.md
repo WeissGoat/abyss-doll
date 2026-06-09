@@ -21,7 +21,7 @@ related:
   - agent_status/art.md
   - 知识库/views/program.md
   - 美术文档/15_FormalV2运行时验收待办清单.md
-last_verified: 2026-05-27
+last_verified: 2026-06-10
 update_rule: 程序、Unity、验证或工程边界任务完成后更新本文件。
 ---
 
@@ -29,7 +29,7 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 ## 最后更新
 
-2026-06-09
+2026-06-10
 
 ## 当前关注
 
@@ -65,6 +65,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 ```
 
 ## 最近完成
+- 美术侧已直接完成 FormalV2 当前新增资源登记与运行时工具验收：`VisualAssetRegistry.asset` 为 278 条，ArtAcceptance latest `20260610_003347` 为 `PASSED`、21/21 captured、`MissingRequiredVisualIDs=0`；美术交接队列已清为 `program_integrate=0`、`missing_registry=0`、`missing_approved=0`、`missing_meta=0`。美术人工验收结论见 `美术文档/09_运行时美术验收记录.md`：资源 / Registry / 工具层通过，但 FormalV2 运行时 UI 结构不完全通过，下一步程序/UI 侧应重排 `workshop_main`、`combat_hud`、`dungeon_map`、`inventory_loot`、`settlement`，并替换 `prosthetic_panel`、`sell_panel` 和旧三栏模板界面。
 - `REVIEW-01` mission outcome 审查已完成：`.mission/20260608_012621-Program-C1-C3-MainLoop-Architecture.csv` 的 14 个 TASK 均为 `DONE`，strict 校验通过；本轮原始目标“三段推进”已有对应证据：`CFG-01..02` 覆盖 C1-C3 配置程序支持，`FLOW-01..07` 覆盖主流程可玩闭环一轮补强，`ARCH-01..05` 覆盖架构审计、服务化、快照 / 操作配对、P0 报告契约和防重复派发规则。剩余风险不改写为完成：Unity Editor 未运行导致 runtime smoke 仍是 `validation_limited:UnityEditorNotRunning`，ArtAcceptance latest 仍有既有 combat HUD / 怪物战斗图失败。
 - `ARCH-05` 文档和状态防重复派发收口已完成：`开发文档/16_程序主流程闭环与架构收口推进计划.md` 新增程序完成状态标签和防重复派发规则，统一区分 `服务完成`、`UI可达`、`展示已接入`、`可操作闭环完成`、`验收受限`、`未开放` 和 `架构收口`；`版本规划/09_正式版核心纵切开发路线.md` 同步宏观派发口径。后续已标为 `可操作闭环完成` 的基础能力不得以同名功能重开，只能按 bug、验收补强、表现补强或配置补齐处理；`validation_limited:*` 只能说明验证受限，不能当作通过证据。验证证据：`.\tools\docs\Validate-Docs.ps1` 通过；mission strict 通过，`tasks=14/14 done`。
 - `ARCH-04` Validator / P0 / smoke 报告契约首批收口已完成：`tools/agent/Invoke-P0Validation.ps1` 新增 `BlockedCount`、`LimitationCount`、`ValidationLimitations`、`SmokeTestRegistry`、`MainFlowSmokeTests` 和 step 级 `StatusCode`，让 `Failed`、`Blocked`、warning 与 `validation_limited:*` 不再混在同一个错误口径里。Unity Editor 未运行时，`ConfigValidator` / `UnitySmokeTests` 现在记录为 `Blocked` 和 `validation_limited:UnityEditorNotRunning`，不再混入 `ErrorCount`；ArtAcceptance latest 的真实失败仍保留为 `Failed`。`开发文档/15_P0配置Validator与自动验收底座需求.md`、`开发文档/16_程序主流程闭环与架构收口推进计划.md`、`开发文档/rules/04_自动化测试与验收流程规范.md` 和 `tools/agent/README.md` 已同步字段与状态语义。验证证据：`.\tools\agent\Invoke-P0Validation.ps1 -TimeoutSeconds 180` 产出 RunID=`20260608_044305`，报告为 `Failed`，其中 `ErrorCount=17` 来自既有 ArtAcceptance latest 失败，`BlockedCount=2` / `LimitationCount=2` 来自 Unity Editor 未运行，`MainFlowSmokeTests` 列出 9 个主流程 smoke；`git diff --check` 通过；`.\tools\docs\Validate-Docs.ps1` 通过。
@@ -149,7 +150,7 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - Formal V1 工坊面板只读数据绑定第一版已落地：新增 `WorkshopFormalV1PanelBindingService`，`WorkshopFormalV1PanelController` 改为从成长、人偶、经济和交互只读快照服务取文案，不在 UI Controller 内持有玩法规则或改写状态；`WorkshopFormalV1PanelBindingSmokeTest.Run` 已通过，覆盖维护面板和日账单面板真实绑定与经济状态不变性。
 - 已补充视觉 / UI 接入完成口径：`program_integrate=0` 和 ArtAcceptance 截图通过只代表资源登记与运行时截图覆盖，不等于玩家可玩接入；Formal V1 界面后续必须同时满足玩家主流程可达和真实后端 / 领域服务操作闭环，才能标记为可玩接入完成。
 - Formal V1 工坊可玩接入第一段已落地：`WorkshopUIController` 新增玩家主流程入口区，可打开维护、账单、商店、订单、传闻、经营结算、底盘、人偶互动、人偶房间、势力商店和剧情事件面板；新增 `WorkshopFormalV1PanelActionService`，维护按钮调用 `MaintenanceService`，人偶互动按钮调用 `DollInteractionService`，账单 / 经营按钮仅做真实导航或关闭，不伪造未完成业务结果；`WorkshopFormalV1PanelBindingSmokeTest.Run`、`MaintenanceServiceSmokeTest.Run`、`DollInteractionServiceSmokeTest.Run` 已通过。
-- 美术侧已把 V2-A 五个核心流程界面迁移为 active FormalV2 规格：`workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。程序侧下一轮 UI 表现工作可直接读取 `美术文档/ui_design/screen_layouts.json`，不要再按 `formal_v2/*.md` 草案接入。FormalV2 最新美术 handoff 已刷新：缺图批次 `nai_formalv2_missing_20260608_01` 已真实 NovelAI 生成并同步 58 个新增 Approved VisualID，后续 FormalV2 候选准入批次再同步 29 个新增 Approved VisualID；当前程序侧需要按 `美术文档/_generated/VisualAssetRegistry登记缺口清单.md` 登记 / 接入 latest `program_integrate=77`。美术侧已补齐全部新增 PNG 的 Unity `.meta`，并通过 `Generate-FormalV2AssetReview.ps1` 静态预验收：`reviewed=77`、`pass=77`、`fail=0`、`warn=0`。最新 Registry 缺口核对为 `missing_registry=77`、`missing_approved=0`、`missing_meta=0`，FormalV2 运行时 gate 为 `waiting_registry`；程序侧优先在 Unity Editor 执行 `Tools/P3 Art/Rebuild Approved Sprite Registry`，保存 `VisualAssetRegistry.asset` 后重跑 VisualAsset / ArtAcceptance。VisualV2 质量替换、technical_fix 和缺图生成队列均已清空；同名替换项保持原 VisualID / 路径 / `.meta`，程序侧无需重新登记。
+- 美术侧已把 V2-A 五个核心流程界面迁移为 active FormalV2 规格：`workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。程序侧下一轮 UI 表现工作可直接读取 `美术文档/ui_design/screen_layouts.json`，不要再按 `formal_v2/*.md` 草案接入。当前 FormalV2 新增资源已完成登记和 ArtAcceptance 工具验收：`program_integrate=0`、Registry 278、`MissingRequiredVisualIDs=0`。后续重点不是登记资源，而是把运行时界面从 MVP/FormalV1 模板切到 FormalV2 结构；同名质量替换项保持原 VisualID / 路径 / `.meta`，程序侧无需重新登记。
 
 ## 下一步建议
 
@@ -157,15 +158,15 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 2. 第二优先级主流程可玩闭环已完成一轮程序补强批次：`FLOW-01..FLOW-07` 覆盖玩家路径缺口审计、层选择 / 下潜、地图节点、战斗 / 非战斗节点、战利品、阶梯 / 撤离、小镇出售、工坊维护和黄金路径 smoke / P0 摘要。后续重点不是重开基础线，而是做 Unity runtime / 人工体验复核；若发现正常 UI 不可达、按钮未调用真实服务或状态未回写，按对应 `FLOW-*` 追加 bug 修复或验收补强。
 3. 主流程闭环的完成口径是“玩家正常 UI 可达 + 调用真实领域服务 + 状态真实变化 + 有 smoke / P0 证据”，不能用只读快照、debug preview、ArtAcceptance 截图或静态面板代替；服务已存在但 UI 不可达，仍然只能算“功能未开放完”。
 4. 第三优先级程序架构优化 / 收口已完成 `ARCH-01..ARCH-05` 当前批次收口；`REVIEW-01` 已确认本轮 mission 的 TASK 证据完整。后续若继续处理 `GameFlowController` fallback UI、`DungeonManager` 结算职责或测试入口夹具，应作为新一轮架构任务单独派发，不重开已完成基础能力。
-5. UI / 美术接入跟随上述功能闭环推进：有 Approved 资源和 active UI 规格时一起接入；没有资源或规格不适配时记录清楚缺口，不让美术返修压过 C1-C3 程序支持和主流程开放。
+5. UI / 美术接入跟随上述功能闭环推进：当前 Approved 资源和 active FormalV2 规格已具备，程序/UI 侧应优先处理运行时结构重排。重点是 `workshop_main` 从按钮堆叠改为房间/魔偶中心，`prosthetic_panel` 和 `sell_panel` 补真实面板与数据，旧三栏模板屏逐步替换为 FormalV2 对应结构。
 
 ## 问题 / 阻塞
 
 - 当前工作区仍有未纳入本次提交的无关改动：`tools/ai-image-gateway` 子模块内部 `implementation_plan.md` 已修改，`tools/ComfyUI_NAIDGenerator/` 为未跟踪本地工具目录；后续提交前继续严格收窄暂存范围。
 - 当前环境 Unity Editor 未运行，`Invoke-P0Validation.ps1` 中 ConfigValidator 和 Unity smoke 只能记录为 `validation_limited:UnityEditorNotRunning`；这不是 C1-C3 JSON 硬断链或 `FLOW-05` 代码运行失败证据，后续打开 Unity 后应补跑 runtime 验证。
-- 当前 ArtAcceptance latest `20260606_230523` 失败且早于 active UI / art specs；先前缺失的 `monster_boss_gatekeeper_mk1_combat`、`monster_mob_lost_miner_echo_combat`、`monster_mob_rust_hound_combat` 等战斗图已经由美术侧生成并进入 latest `program_integrate=77` 待登记队列。最新美术侧门禁显示 `missing_registry=77`、`missing_approved=0`、`missing_meta=0`、`gate=waiting_registry`，即缺口是 `VisualAssetRegistry.asset` 尚未登记这 77 个 Approved VisualID。程序登记后需要重跑 ArtAcceptance / VisualAsset 验收；旧失败不再代表当前 Approved 素材缺失事实。
+- 当前 ArtAcceptance latest 已更新为 `20260610_003347` 且工具层 `PASSED`；先前缺失战斗图和 87 个 FormalV2 新增 VisualID 均已登记。旧 `20260606_230523` 失败不再代表当前 Approved 素材缺失事实。
 - `FLOW-03` / `FLOW-04` / `FLOW-07` 新增或扩展的 `CombatLootDropTest.Run`、`DungeonNodeTypesSmokeTest.Run`、`DungeonStairsProgressionTest.Run` 与 `MainFlowGoldenPathSmokeTest.Run` 已接入 P0 默认 smoke 列表，但当前环境没有 Unity Editor，尚未取得运行态通过证据；后续打开 Unity 后需补跑 P0 或单独触发这些测试。
-- 美术验收发现 latest ArtAcceptance 虽然工具层 `PASSED`，但部分截图存在跨界面残留和空列表状态，不能作为 Formal V1 画面通过证据；程序侧需按 `美术文档/09_运行时美术验收记录.md` 的 2026-05-27 条目返修并重跑。
+- 美术验收发现 latest ArtAcceptance 虽然工具层 `PASSED`，但 FormalV2 画面没有整体通过：`workshop_main` 仍是按钮堆叠，`prosthetic_panel` / `sell_panel` 为空黑底状态，许多 V2-B/V2-C 屏仍是旧三栏模板。程序侧需按 `美术文档/09_运行时美术验收记录.md` 的 2026-06-10 条目返修并重跑。
 - `tools/ai-image-gateway` 子模块内部有未提交改动。
 
 ## 完成回写清单

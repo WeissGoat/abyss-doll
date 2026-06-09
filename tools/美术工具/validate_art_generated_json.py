@@ -19,7 +19,7 @@ CHECKS = [
         "name": "integration_candidates",
         "path": "美术文档/_generated/可接入素材清单.json",
         "summary": [
-            ("program_integrate", ("Summary", "ActionCounts", "program_integrate")),
+            ("program_integrate", ("Summary", "ActionCounts", "program_integrate"), 0),
             ("generate_needed", ("Summary", "ActionCounts", "generate_needed"), 0),
         ],
     },
@@ -113,6 +113,11 @@ CHECKS = [
 ]
 
 
+OFFLINE_REGISTRY_CANDIDATE = "美术文档/_generated/VisualAssetRegistry.offline_candidate.asset"
+REGISTRY_GAP_CHECKLIST = "美术文档/_generated/VisualAssetRegistry登记缺口清单.json"
+LIVE_REGISTRY_ASSET = "UnityClient/Assets/Resources/VisualAssetRegistry.asset"
+
+
 def read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
@@ -156,6 +161,88 @@ def validate_one(check: dict[str, Any], strict: bool) -> tuple[bool, str]:
     return ok, f"[{status}] {check['name']}: " + ", ".join(values)
 
 
+def parse_candidate_visual_ids(text: str) -> list[str]:
+    visual_ids: list[str] = []
+    for line in text.splitlines():
+        marker = "  - VisualID:"
+        if line.startswith(marker):
+            visual_ids.append(line[len(marker) :].strip())
+    return visual_ids
+
+
+def parse_registry_sprite_entries(text: str) -> dict[str, str]:
+    entries: dict[str, str] = {}
+    lines = text.splitlines()
+    for index, line in enumerate(lines[:-1]):
+        marker = "  - VisualID:"
+        if not line.startswith(marker):
+            continue
+        visual_id = line[len(marker) :].strip()
+        sprite_line = lines[index + 1].strip()
+        guid_marker = "guid:"
+        if guid_marker not in sprite_line:
+            continue
+        guid = sprite_line.split(guid_marker, 1)[1].split(",", 1)[0].strip().lower()
+        entries[visual_id] = guid
+    return entries
+
+
+def validate_offline_registry_candidate(strict: bool) -> tuple[bool, str]:
+    candidate_path = PROJECT_ROOT / OFFLINE_REGISTRY_CANDIDATE
+    gap_path = PROJECT_ROOT / REGISTRY_GAP_CHECKLIST
+    live_registry_path = PROJECT_ROOT / LIVE_REGISTRY_ASSET
+    if not candidate_path.exists():
+        message = f"[MISS] offline_registry_candidate: {OFFLINE_REGISTRY_CANDIDATE}"
+        return (not strict, message)
+    if not gap_path.exists():
+        message = f"[MISS] offline_registry_candidate_gap: {REGISTRY_GAP_CHECKLIST}"
+        return (not strict, message)
+
+    try:
+        candidate_text = candidate_path.read_text(encoding="utf-8-sig")
+        gap = read_json(gap_path)
+        live_registry_text = live_registry_path.read_text(encoding="utf-8-sig")
+    except Exception as exc:  # noqa: BLE001 - CLI should report exact parser failure.
+        return False, f"[FAIL] offline_registry_candidate: parse failed: {exc}"
+
+    visual_ids = parse_candidate_visual_ids(candidate_text)
+    unique_ids = set(visual_ids)
+    gap_items = gap.get("Items", []) if isinstance(gap, dict) else []
+    gap_ids = {str(item.get("VisualID", "")) for item in gap_items if isinstance(item, dict)}
+    missing_gap_ids = sorted(gap_ids - unique_ids)
+    has_missing_sprite = "  MissingSprite: {fileID: 21300000," in candidate_text
+    candidate_entries = parse_registry_sprite_entries(candidate_text)
+    live_entries = parse_registry_sprite_entries(live_registry_text)
+    changed_existing = [
+        visual_id
+        for visual_id, guid in live_entries.items()
+        if candidate_entries.get(visual_id) != guid
+    ]
+
+    ok = True
+    values = [
+        f"candidate_entries={len(visual_ids)}",
+        f"unique_entries={len(unique_ids)}",
+        f"gap_ids={len(gap_ids)}",
+        f"missing_gap_ids={len(missing_gap_ids)}",
+        f"has_missing_sprite={has_missing_sprite}",
+        f"live_entries={len(live_entries)}",
+        f"changed_existing={len(changed_existing)}",
+    ]
+
+    if len(visual_ids) != len(unique_ids):
+        ok = False
+    if missing_gap_ids:
+        ok = False
+    if not has_missing_sprite:
+        ok = False
+    if changed_existing:
+        ok = False
+
+    status = "OK" if ok else "FAIL"
+    return ok, f"[{status}] offline_registry_candidate: " + ", ".join(values)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--strict", action="store_true", help="Treat missing optional outputs as failures.")
@@ -166,6 +253,9 @@ def main() -> int:
         ok, message = validate_one(check, strict=args.strict)
         print(message)
         failed = failed or not ok
+    ok, message = validate_offline_registry_candidate(strict=args.strict)
+    print(message)
+    failed = failed or not ok
     return 1 if failed else 0
 
 
