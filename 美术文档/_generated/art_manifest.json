@@ -488,10 +488,10 @@
       "VisualID": "bg_workshop_home_room",
       "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Workshop/bg_workshop_home_room.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "FormalV2 用户确认方向：workshop_main 是像家一样的安心房间，和 workshop_studio 改造室拆分；见 ui_design/formal_v2/01_workshop_main_v2.md。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, single readable game asset, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, peaceful mechanical doll home room background, cozy bed nook, memento shelf, warm repair lamp, brass pipes, soft underground window glow, open floor around the doll, low visual noise, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
       "Spec": {
         "SourceSpec": {
@@ -525,15 +525,18 @@
           "PreviewSize": 320
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/bg_workshop_home_room/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/bg_workshop_home_room/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Workshop/bg_workshop_home_room.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/bg_workshop_home_room/contact_sheet/bg_workshop_home_room_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/bg_workshop_home_room/processed/20260609_001.png",
       "PresetCategory": "formal_v2_screen_background",
       "Screen": "workshop_main",
-      "Usage": "FormalV2 工坊主界面安心房间背景，魔偶居中，低信息密度"
+      "Usage": "FormalV2 工坊主界面安心房间背景，魔偶居中，低信息密度",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "background",
@@ -546,10 +549,10 @@
       "VisualID": "bg_workshop_studio",
       "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Workshop/bg_workshop_studio.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "FormalV2 规划：maintenance_panel / prosthetic_panel / chassis_upgrade_panel 都是 workshop_studio 内的子面板或弹窗；见 ui_design/formal_v2/00_formal_v2_ux_ui_overview.md。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, single readable game asset, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, mechanical doll modification studio background, sturdy repair chair at center-right, brass tool arms, workbench and parts drawers, clean left inventory area, warm safe workshop lighting, low visual noise, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
       "Spec": {
         "SourceSpec": {
@@ -583,15 +586,18 @@
           "PreviewSize": 320
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/bg_workshop_studio/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/bg_workshop_studio/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Workshop/bg_workshop_studio.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/bg_workshop_studio/contact_sheet/bg_workshop_studio_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/bg_workshop_studio/processed/20260609_001.png",
       "PresetCategory": "formal_v2_screen_background",
       "Screen": "workshop_studio",
-      "Usage": "维护、义体、底盘升级共享的改造工作室背景，右侧改造椅，左侧工具和背包区"
+      "Usage": "维护、义体、底盘升级共享的改造工作室背景，右侧改造椅，左侧工具和背包区",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "background",
@@ -604,10 +610,10 @@
       "VisualID": "bg_daily_bill",
       "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Town/bg_daily_bill.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "FormalV2 经营链路要求金币增长、支出和月租压力不能只靠文字；见 ui_design/formal_v2/12_daily_bill_report_v2.md。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, single readable game asset, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, quiet town accounting desk background, brass ledger frame, coin trays, rent notice board without readable text, warm shop lamplight, clean center area for bill panels, low visual noise, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
       "Spec": {
         "SourceSpec": {
@@ -641,15 +647,18 @@
           "PreviewSize": 320
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/bg_daily_bill/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/bg_daily_bill/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Town/bg_daily_bill.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/bg_daily_bill/contact_sheet/bg_daily_bill_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/bg_daily_bill/processed/20260609_001.png",
       "PresetCategory": "formal_v2_screen_background",
       "Screen": "daily_bill_report",
-      "Usage": "每日账本 / 收支结算背景，夜间桌面、账本和月租压力表达"
+      "Usage": "每日账本 / 收支结算背景，夜间桌面、账本和月租压力表达",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "background",
@@ -906,10 +915,10 @@
       "VisualID": "bg_shop_staging",
       "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Town/bg_shop_staging.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "FormalV2 经营链路要求 shop_staging / business_settlement / daily_bill_report 分开表达；见 ui_design/formal_v2/10_shop_staging_v2.md。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, single readable game asset, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, small town shipping counter background, wooden-and-brass sorting table, empty item staging trays, soft market window light, cozy underground shop atmosphere, low visual noise, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
       "Spec": {
         "SourceSpec": {
@@ -943,15 +952,18 @@
           "PreviewSize": 320
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/bg_shop_staging/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/bg_shop_staging/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Town/bg_shop_staging.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/bg_shop_staging/contact_sheet/bg_shop_staging_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/bg_shop_staging/processed/20260609_001.png",
       "PresetCategory": "formal_v2_screen_background",
       "Screen": "shop_staging",
-      "Usage": "出货分配和商品陈列界面背景，突出货架、陈列槽和可售物"
+      "Usage": "出货分配和商品陈列界面背景，突出货架、陈列槽和可售物",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "background",
@@ -964,10 +976,10 @@
       "VisualID": "bg_town_shop",
       "OutputPath": "UnityClient/Assets/Art/Approved/Backgrounds/Town/bg_town_shop.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "FormalV2 语义修正：sell_panel 不再表示工坊卖出，而是小镇商店 / 市场交易；见 ui_design/formal_v2/09_sell_panel_v2.md。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, single readable game asset, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, environment background, cozy underground town shop interior background, shelves of wrapped goods, brass scales, warm counter lamp, soft fantasy market colors, clean central counter area, low visual noise, wide composition, atmospheric depth, low visual noise, balanced lighting, no characters, no text",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
       "Spec": {
         "SourceSpec": {
@@ -1001,15 +1013,18 @@
           "PreviewSize": 320
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/bg_town_shop/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/bg_town_shop/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Town/bg_town_shop.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/bg_town_shop/contact_sheet/bg_town_shop_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/bg_town_shop/processed/20260609_001.png",
       "PresetCategory": "formal_v2_screen_background",
       "Screen": "sell_panel",
-      "Usage": "小镇商店 / 市场交易背景，可供 sell_panel 与 faction_shop 早期复用"
+      "Usage": "小镇商店 / 市场交易背景，可供 sell_panel 与 faction_shop 早期复用",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "chassis",
@@ -3999,10 +4014,10 @@
       "VisualID": "memento_blackmarket_letter",
       "OutputPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_blackmarket_letter.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "设计文档/content_packs/23_长期记忆剧情内容包.md 已定义 memento_blackmarket_letter。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, single readable game asset, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, sealed black-market letter keepsake, folded dark parchment packet, red wax seal, brass corner clip, no readable writing, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
       "Spec": {
         "SourceSpec": {
@@ -4036,15 +4051,18 @@
           "PreviewSize": 120
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_blackmarket_letter/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_blackmarket_letter/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_blackmarket_letter.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 3 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_blackmarket_letter/contact_sheet/memento_blackmarket_letter_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/memento_blackmarket_letter/processed/20260609_001.png",
       "PresetCategory": "room_memento",
       "Screen": "doll_room",
-      "Usage": "首次黑市交易或背叛后的房间纪念物"
+      "Usage": "首次黑市交易或背叛后的房间纪念物",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "memento",
@@ -4118,10 +4136,10 @@
       "VisualID": "memento_debt_shadow_window",
       "OutputPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_debt_shadow_window.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "设计文档/content_packs/23_长期记忆剧情内容包.md 已定义 memento_debt_shadow_window。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, single readable game asset, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, small cracked window-frame keepsake, dark debt notice shadow behind frosted glass, red wax pin, brass nail corners, no readable writing, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
       "Spec": {
         "SourceSpec": {
@@ -4155,15 +4173,18 @@
           "PreviewSize": 120
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_debt_shadow_window/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_debt_shadow_window/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_debt_shadow_window.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_debt_shadow_window/contact_sheet/memento_debt_shadow_window_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/memento_debt_shadow_window/processed/20260609_001.png",
       "PresetCategory": "room_memento",
       "Screen": "doll_room",
-      "Usage": "连续重度违约后的窗边视觉状态纪念物"
+      "Usage": "连续重度违约后的窗边视觉状态纪念物",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "memento",
@@ -4359,10 +4380,10 @@
       "VisualID": "memento_first_return_tag",
       "OutputPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_first_return_tag.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "设计文档/content_packs/23_长期记忆剧情内容包.md 已定义 memento_first_return_tag。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, single readable game asset, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, first return luggage tag keepsake, worn brass tag, repaired red cord loop, tiny stitched cloth strip, no readable writing, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
       "Spec": {
         "SourceSpec": {
@@ -4396,15 +4417,18 @@
           "PreviewSize": 120
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_first_return_tag/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_first_return_tag/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_first_return_tag.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_first_return_tag/contact_sheet/memento_first_return_tag_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/memento_first_return_tag/processed/20260609_001.png",
       "PresetCategory": "room_memento",
       "Screen": "doll_room",
-      "Usage": "首次撤离成功后连接人偶关系的房间纪念物"
+      "Usage": "首次撤离成功后连接人偶关系的房间纪念物",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "memento",
@@ -4478,10 +4502,10 @@
       "VisualID": "memento_low_san_blanket",
       "OutputPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_low_san_blanket.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "设计文档/content_packs/23_长期记忆剧情内容包.md 已定义 memento_low_san_blanket。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, single readable game asset, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, folded calming blanket keepsake, soft muted cloth roll, pale blue stitched patch, small brass safety pin, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
       "Spec": {
         "SourceSpec": {
@@ -4515,15 +4539,18 @@
           "PreviewSize": 120
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_low_san_blanket/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_low_san_blanket/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_low_san_blanket.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_low_san_blanket/contact_sheet/memento_low_san_blanket_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/memento_low_san_blanket/processed/20260609_001.png",
       "PresetCategory": "room_memento",
       "Screen": "doll_room",
-      "Usage": "首次 Broken 后修复的床边纪念物"
+      "Usage": "首次 Broken 后修复的床边纪念物",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "memento",
@@ -4597,10 +4624,10 @@
       "VisualID": "memento_pawn_empty_tag",
       "OutputPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_pawn_empty_tag.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "设计文档/content_packs/23_长期记忆剧情内容包.md 已定义 memento_pawn_empty_tag。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, single readable game asset, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, empty pawn-shop tag keepsake, blank brass price tag, snapped string loop, tiny coin dent, no readable writing, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
       "Spec": {
         "SourceSpec": {
@@ -4634,15 +4661,18 @@
           "PreviewSize": 120
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_pawn_empty_tag/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_pawn_empty_tag/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_pawn_empty_tag.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_pawn_empty_tag/contact_sheet/memento_pawn_empty_tag_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/memento_pawn_empty_tag/processed/20260609_001.png",
       "PresetCategory": "room_memento",
       "Screen": "doll_room",
-      "Usage": "首次典当成功后的空位纪念物"
+      "Usage": "首次典当成功后的空位纪念物",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "memento",
@@ -4777,11 +4807,11 @@
       "VisualID": "memento_truth_red_thread",
       "OutputPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_truth_red_thread.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "设计文档/content_packs/23_长期记忆剧情内容包.md 已定义 memento_truth_red_thread。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, single readable game asset, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, truth clue keepsake, bright red thread stretched between three brass evidence pins on a small cork-backed plate, clear red thread focus, no readable writing, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, lantern, lamp, torch, candle, bottle, vase, jar, loose random rope, no red thread, readable paper",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -4814,15 +4844,18 @@
           "PreviewSize": 120
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_semantic_fix_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_truth_red_thread/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_truth_red_thread/selected/memento_truth_red_thread.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_truth_red_thread.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_truth_red_thread/contact_sheet/memento_truth_red_thread_contact_sheet.png\n[2026-06-09T07:38:40+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_truth_red_thread/contact_sheet/memento_truth_red_thread_contact_sheet.png\n[2026-06-09T07:40:45+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/memento_truth_red_thread/selected/memento_truth_red_thread.png",
       "PresetCategory": "room_memento",
       "Screen": "doll_room",
-      "Usage": "真相低语事件后的书桌 / 窗边纪念物"
+      "Usage": "真相低语事件后的书桌 / 窗边纪念物",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:45+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_semantic_fix_20260609_01"
     },
     {
       "Domain": "memento",
@@ -4835,10 +4868,10 @@
       "VisualID": "memento_wall_crack_first_defeat",
       "OutputPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_wall_crack_first_defeat.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "设计文档/rules/11_人偶房间布局与视觉叙事规则卡.md 已定义 memento_wall_crack_first_defeat。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, single readable game asset, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small room keepsake prop, first defeat wall-crack keepsake, small broken plaster shard, jagged dark crack, brass repair staple, muted red warning dust, clean readable silhouette, centered single object, clean silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, inventory icon frame, UI panel, multiple copies",
       "Spec": {
         "SourceSpec": {
@@ -4872,15 +4905,18 @@
           "PreviewSize": 120
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/memento_wall_crack_first_defeat/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/memento_wall_crack_first_defeat/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_wall_crack_first_defeat.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/memento_wall_crack_first_defeat/contact_sheet/memento_wall_crack_first_defeat_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/memento_wall_crack_first_defeat/processed/20260609_001.png",
       "PresetCategory": "room_memento",
       "Screen": "doll_room",
-      "Usage": "首次失败后房间墙面视觉记忆"
+      "Usage": "首次失败后房间墙面视觉记忆",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "monster",
@@ -8062,10 +8098,10 @@
       "VisualID": "order_black_contested_core_buyout_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_contested_core_buyout_icon.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "第三层配置设计定义 order_black_contested_core_buyout，用于正规订单与黑市背叛分支。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, compact contract emblem, single readable game asset, centered single symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, compact contract emblem, contested core buyout contract emblem, one cracked glowing mechanical core gripped by two opposing brass claim hooks, muted red risk seal, clean readable silhouette, centered single symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, readable paperwork, multiple copies, photorealistic product shot, human hands",
       "Spec": {
         "SourceSpec": {
@@ -8099,15 +8135,18 @@
           "PreviewSize": 72
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_black_contested_core_buyout_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_black_contested_core_buyout_icon/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_contested_core_buyout_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_black_contested_core_buyout_icon/contact_sheet/order_black_contested_core_buyout_icon_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/order_black_contested_core_buyout_icon/processed/20260609_001.png",
       "PresetCategory": "formal_layer3_order",
       "Screen": "order_board",
-      "Usage": "第三层黑市争夺核心收买订单图标"
+      "Usage": "第三层黑市争夺核心收买订单图标",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "order",
@@ -8303,11 +8342,11 @@
       "VisualID": "order_blackmarket_relic_box_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_blackmarket_relic_box_icon.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "C2 配置已完成 order_blackmarket_relic_box；候选扫描多次命中，纳入订单板素材。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, compact contract emblem, single readable game asset, centered single symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, readable paperwork, multiple copies, photorealistic product shot, human hands",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, compact contract emblem, black-market relic box contract emblem, small locked blackened brass relic chest with reinforced corners, red wax risk seal, no paper, no lamp, clean readable silhouette, centered single symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, readable paperwork, multiple copies, lantern, lamp, torch, candle, bottle, vase, jar, open empty box, treasure pile, human hands",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -8340,15 +8379,18 @@
           "PreviewSize": 72
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_semantic_fix_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_blackmarket_relic_box_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_blackmarket_relic_box_icon/selected/order_blackmarket_relic_box_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_blackmarket_relic_box_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_blackmarket_relic_box_icon/contact_sheet/order_blackmarket_relic_box_icon_contact_sheet.png\n[2026-06-09T07:38:40+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_blackmarket_relic_box_icon/contact_sheet/order_blackmarket_relic_box_icon_contact_sheet.png\n[2026-06-09T07:40:45+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/order_blackmarket_relic_box_icon/selected/order_blackmarket_relic_box_icon.png",
       "PresetCategory": "formal_layer2_order",
       "Screen": "order_board",
-      "Usage": "第二层黑市遗物盒订单图标"
+      "Usage": "第二层黑市遗物盒订单图标",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:45+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_semantic_fix_20260609_01"
     },
     {
       "Domain": "order",
@@ -8361,10 +8403,10 @@
       "VisualID": "order_crystal_scale_batch_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_crystal_scale_batch_icon.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "C2 配置已完成 order_crystal_scale_batch；候选扫描多次命中，纳入订单板素材。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, compact contract emblem, single readable game asset, centered single symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, compact contract emblem, crystal scale batch contract emblem, several blue crystal scales stacked in a shallow brass tray, tiny supply clasp, clean readable silhouette, centered single symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, readable paperwork, multiple copies, photorealistic product shot, human hands",
       "Spec": {
         "SourceSpec": {
@@ -8398,15 +8440,18 @@
           "PreviewSize": 72
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_crystal_scale_batch_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_crystal_scale_batch_icon/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_crystal_scale_batch_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_crystal_scale_batch_icon/contact_sheet/order_crystal_scale_batch_icon_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/order_crystal_scale_batch_icon/processed/20260609_001.png",
       "PresetCategory": "formal_layer2_order",
       "Screen": "order_board",
-      "Usage": "第二层晶鳞批量采购订单图标"
+      "Usage": "第二层晶鳞批量采购订单图标",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "order",
@@ -8785,10 +8830,10 @@
       "VisualID": "order_mage_oracle_sample_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_oracle_sample_icon.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "第三层配置设计定义 order_mage_oracle_sample，用于法师塔长期解锁分支。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, compact contract emblem, single readable game asset, centered single symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, compact contract emblem, oracle sample contract emblem, blue-purple fossil shard floating inside a brass research clamp ring, small measuring lens, clean readable silhouette, centered single symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, readable paperwork, multiple copies, photorealistic product shot, human hands",
       "Spec": {
         "SourceSpec": {
@@ -8822,15 +8867,18 @@
           "PreviewSize": 72
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_mage_oracle_sample_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_mage_oracle_sample_icon/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_oracle_sample_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_mage_oracle_sample_icon/contact_sheet/order_mage_oracle_sample_icon_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/order_mage_oracle_sample_icon/processed/20260609_001.png",
       "PresetCategory": "formal_layer3_order",
       "Screen": "order_board",
-      "Usage": "第三层法师塔样本研究订单图标"
+      "Usage": "第三层法师塔样本研究订单图标",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "order",
@@ -8904,10 +8952,10 @@
       "VisualID": "order_spore_cage_procurement_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_spore_cage_procurement_icon.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "C2 配置已完成 order_spore_cage_procurement；候选扫描多次命中，纳入订单板素材。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, compact contract emblem, single readable game asset, centered single symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, compact contract emblem, spore cage procurement contract emblem, small brass specimen cage containing glowing fungal spores, locked latch, green bioluminescent mist, clean readable silhouette, centered single symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, readable paperwork, multiple copies, photorealistic product shot, human hands",
       "Spec": {
         "SourceSpec": {
@@ -8941,15 +8989,18 @@
           "PreviewSize": 72
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_spore_cage_procurement_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_spore_cage_procurement_icon/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_spore_cage_procurement_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_spore_cage_procurement_icon/contact_sheet/order_spore_cage_procurement_icon_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/order_spore_cage_procurement_icon/processed/20260609_001.png",
       "PresetCategory": "formal_layer2_order",
       "Screen": "order_board",
-      "Usage": "第二层孢子笼采购订单图标"
+      "Usage": "第二层孢子笼采购订单图标",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "order",
@@ -9816,10 +9867,10 @@
       "VisualID": "order_workshop_spore_core_frame_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_spore_core_frame_icon.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "第三层配置设计定义 order_workshop_spore_core_frame，用于底盘二阶段工程线。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, compact contract emblem, single readable game asset, centered single symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, compact contract emblem, workshop spore-core frame contract emblem, rectangular brass machine frame holding a green glowing spore core, gear clamps, clean readable silhouette, centered single symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, readable paperwork, multiple copies, photorealistic product shot, human hands",
       "Spec": {
         "SourceSpec": {
@@ -9853,15 +9904,18 @@
           "PreviewSize": 72
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/order_workshop_spore_core_frame_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/order_workshop_spore_core_frame_icon/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_spore_core_frame_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/order_workshop_spore_core_frame_icon/contact_sheet/order_workshop_spore_core_frame_icon_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/order_workshop_spore_core_frame_icon/processed/20260609_001.png",
       "PresetCategory": "formal_layer3_order",
       "Screen": "order_board",
-      "Usage": "第三层工坊核心分支订单图标"
+      "Usage": "第三层工坊核心分支订单图标",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "prosthetic",
@@ -10350,10 +10404,10 @@
       "VisualID": "rumor_acid_gland_shortage_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_acid_gland_shortage_icon.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "第二层背包压力内容包定义 rumor_acid_gland_shortage，用于引导酸液系怪物和污染风险。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, single readable game asset, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, acid gland shortage rumor emblem, translucent green acid gland sac beside a cracked brass supply marker, small shortage notch, clean readable silhouette, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, paper with readable writing, multiple copies, photorealistic product shot",
       "Spec": {
         "SourceSpec": {
@@ -10387,15 +10441,18 @@
           "PreviewSize": 72
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_acid_gland_shortage_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_acid_gland_shortage_icon/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_acid_gland_shortage_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_acid_gland_shortage_icon/contact_sheet/rumor_acid_gland_shortage_icon_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/rumor_acid_gland_shortage_icon/processed/20260609_001.png",
       "PresetCategory": "formal_market_rumor",
       "Screen": "rumor_board",
-      "Usage": "第二层酸腺囊短缺行情传闻图标"
+      "Usage": "第二层酸腺囊短缺行情传闻图标",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "rumor",
@@ -10530,10 +10587,10 @@
       "VisualID": "rumor_crystal_scale_contract_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_crystal_scale_contract_icon.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "第二层背包压力内容包定义 rumor_crystal_scale_contract，用于鼓励结晶怪路线。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, single readable game asset, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, crystal scale contract rumor emblem, blue iridescent scale shards stacked beside a brass contract clamp, tiny coin sparkle, no readable paper, clean readable silhouette, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, paper with readable writing, multiple copies, photorealistic product shot",
       "Spec": {
         "SourceSpec": {
@@ -10567,15 +10624,18 @@
           "PreviewSize": 72
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_crystal_scale_contract_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_crystal_scale_contract_icon/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_crystal_scale_contract_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_crystal_scale_contract_icon/contact_sheet/rumor_crystal_scale_contract_icon_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/rumor_crystal_scale_contract_icon/processed/20260609_001.png",
       "PresetCategory": "formal_market_rumor",
       "Screen": "rumor_board",
-      "Usage": "第二层晶鳞采购行情传闻图标"
+      "Usage": "第二层晶鳞采购行情传闻图标",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "rumor",
@@ -10649,11 +10709,11 @@
       "VisualID": "rumor_filter_shortage_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_filter_shortage_icon.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "第一层正式核心内容包定义 rumor_filter_shortage，用于引导玩家追逐特定怪物和出售路线。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, single readable game asset, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, paper with readable writing, multiple copies, photorealistic product shot",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, filter shortage rumor emblem, cracked round air-filter cartridge with pleated dark mesh, brass warning triangle, missing filter slot silhouette, clean readable silhouette, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, paper with readable writing, multiple copies, lantern, lamp, torch, candle, bottle, flask, vase, jar, mask, coin only, full machine",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -10686,15 +10746,18 @@
           "PreviewSize": 72
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_semantic_fix_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_filter_shortage_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_filter_shortage_icon/selected/rumor_filter_shortage_icon.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_filter_shortage_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 3 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_filter_shortage_icon/contact_sheet/rumor_filter_shortage_icon_contact_sheet.png\n[2026-06-09T07:38:40+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_filter_shortage_icon/contact_sheet/rumor_filter_shortage_icon_contact_sheet.png\n[2026-06-09T07:40:45+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/rumor_filter_shortage_icon/selected/rumor_filter_shortage_icon.png",
       "PresetCategory": "formal_market_rumor",
       "Screen": "rumor_board",
-      "Usage": "第一层滤芯短缺行情传闻图标"
+      "Usage": "第一层滤芯短缺行情传闻图标",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:45+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_semantic_fix_20260609_01"
     },
     {
       "Domain": "rumor",
@@ -10707,10 +10770,10 @@
       "VisualID": "rumor_living_mycelium_shortage_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_living_mycelium_shortage_icon.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "第三层配置设计定义 rumor_living_mycelium_shortage，用于污染材料收益与成本取舍。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, single readable game asset, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, living mycelium shortage rumor emblem, pale glowing fungal root bundle in a small brass tray, dry broken strands, small shortage marker, clean readable silhouette, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, paper with readable writing, multiple copies, photorealistic product shot",
       "Spec": {
         "SourceSpec": {
@@ -10744,15 +10807,18 @@
           "PreviewSize": 72
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_living_mycelium_shortage_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_living_mycelium_shortage_icon/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_living_mycelium_shortage_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_living_mycelium_shortage_icon/contact_sheet/rumor_living_mycelium_shortage_icon_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/rumor_living_mycelium_shortage_icon/processed/20260609_001.png",
       "PresetCategory": "formal_market_rumor",
       "Screen": "rumor_board",
-      "Usage": "第三层活体菌丝短缺行情传闻图标"
+      "Usage": "第三层活体菌丝短缺行情传闻图标",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "rumor",
@@ -10826,10 +10892,10 @@
       "VisualID": "rumor_miner_lamps_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_miner_lamps_icon.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "第一层正式核心内容包定义 rumor_miner_lamps，用于探索路线和宝箱路线。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, single readable game asset, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, miner lamp demand rumor emblem, three tiny mining lamp silhouettes grouped on a brass supply tray, one lamp unlit, clean readable silhouette, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, paper with readable writing, multiple copies, photorealistic product shot",
       "Spec": {
         "SourceSpec": {
@@ -10863,15 +10929,18 @@
           "PreviewSize": 72
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_miner_lamps_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_miner_lamps_icon/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_miner_lamps_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_miner_lamps_icon/contact_sheet/rumor_miner_lamps_icon_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/rumor_miner_lamps_icon/processed/20260609_001.png",
       "PresetCategory": "formal_market_rumor",
       "Screen": "rumor_board",
-      "Usage": "第一层矿灯收藏行情传闻图标"
+      "Usage": "第一层矿灯收藏行情传闻图标",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "rumor",
@@ -10884,10 +10953,10 @@
       "VisualID": "rumor_old_blades_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_old_blades_icon.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "第一层正式核心内容包定义 rumor_old_blades，用于武器标签出售价格变化。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, single readable game asset, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, old blades demand rumor emblem, crossed worn short blades on a brass rack, chipped edges, muted collector coin, clean readable silhouette, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, paper with readable writing, multiple copies, photorealistic product shot",
       "Spec": {
         "SourceSpec": {
@@ -10921,15 +10990,18 @@
           "PreviewSize": 72
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_old_blades_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_old_blades_icon/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_old_blades_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_old_blades_icon/contact_sheet/rumor_old_blades_icon_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/rumor_old_blades_icon/processed/20260609_001.png",
       "PresetCategory": "formal_market_rumor",
       "Screen": "rumor_board",
-      "Usage": "第一层旧武器标签涨价传闻图标"
+      "Usage": "第一层旧武器标签涨价传闻图标",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "rumor",
@@ -10942,10 +11014,10 @@
       "VisualID": "rumor_oracle_fossil_collector_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_oracle_fossil_collector_icon.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "第三层配置设计定义 rumor_oracle_fossil_collector，用于出售、法师塔研究和房间展示取舍。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, single readable game asset, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, oracle fossil collector rumor emblem, spiral fossil stone held by brass research calipers, blue-purple oracle spark, clean readable silhouette, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, paper with readable writing, multiple copies, photorealistic product shot",
       "Spec": {
         "SourceSpec": {
@@ -10979,15 +11051,18 @@
           "PreviewSize": 72
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_oracle_fossil_collector_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_oracle_fossil_collector_icon/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_oracle_fossil_collector_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_oracle_fossil_collector_icon/contact_sheet/rumor_oracle_fossil_collector_icon_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/rumor_oracle_fossil_collector_icon/processed/20260609_001.png",
       "PresetCategory": "formal_market_rumor",
       "Screen": "rumor_board",
-      "Usage": "第三层歌唱化石行情传闻图标"
+      "Usage": "第三层歌唱化石行情传闻图标",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "rumor",
@@ -11183,10 +11258,10 @@
       "VisualID": "rumor_spore_amber_jeweler_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_spore_amber_jeweler_icon.png",
       "Priority": "P2",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "第三层配置设计定义 rumor_spore_amber_jeweler，用于小件高价物路线。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, single readable game asset, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small market rumor emblem, spore amber jeweler rumor emblem, honey-colored amber nugget with trapped glowing spores, brass jeweler loupe ring, clean readable silhouette, centered symbol, bold readable silhouette, transparent background, no text, no letters, no numbers",
       "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, paper with readable writing, multiple copies, photorealistic product shot",
       "Spec": {
         "SourceSpec": {
@@ -11220,15 +11295,18 @@
           "PreviewSize": 72
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_triage_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/rumor_spore_amber_jeweler_icon/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/rumor_spore_amber_jeweler_icon/processed/20260609_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_spore_amber_jeweler_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/rumor_spore_amber_jeweler_icon/contact_sheet/rumor_spore_amber_jeweler_icon_contact_sheet.png\n[2026-06-09T07:40:57+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/rumor_spore_amber_jeweler_icon/processed/20260609_001.png",
       "PresetCategory": "formal_market_rumor",
       "Screen": "rumor_board",
-      "Usage": "第三层孢子琥珀行情传闻图标"
+      "Usage": "第三层孢子琥珀行情传闻图标",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:57+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_triage_20260609_01"
     },
     {
       "Domain": "rumor",
@@ -11722,11 +11800,11 @@
       "VisualID": "ui_combat_feedback_echo_fade",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_echo_fade.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表(JSON)/Monsters/mob_lost_miner_echo.json 已引用 DefeatFeedbackRef=ui_combat_feedback_echo_fade。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, single readable game asset, transparent background, clean silhouette, no text, no letters, no numbers",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, echo fade feedback overlay, pale blue ghostly afterimage silhouette dissolving into small transparent particles, no lamp, no object body, clean readable effect shape, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, lantern, lamp, torch, candle, bottle, vase, jar, full character, portrait, solid opaque object, UI panel",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -11737,36 +11815,39 @@
         },
         "DisplaySpec": {
           "ReferenceResolution": "1920x1080",
-          "DisplayWidth": 64,
-          "DisplayHeight": 64,
+          "DisplayWidth": 140,
+          "DisplayHeight": 140,
           "Unit": "ui_px",
           "FitMode": "contain",
           "Pivot": "center"
         },
         "CompositionSpec": {
-          "SafePaddingPercent": 12,
-          "SubjectOccupancyMin": 0.68,
-          "SubjectOccupancyMax": 0.8,
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.62,
+          "SubjectOccupancyMax": 0.9,
           "Anchor": "center",
-          "Composition": "centered placeholder symbol"
+          "Composition": "centered transient combat feedback burst with transparent gaps"
         },
         "ProcessSpec": {
           "PostProcess": [
             "resize",
-            "fit_safe_padding"
+            "preserve_transparency"
           ],
-          "PreviewSize": 64
+          "PreviewSize": 128
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_semantic_fix_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_echo_fade/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_echo_fade/selected/ui_combat_feedback_echo_fade.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_echo_fade.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_echo_fade/contact_sheet/ui_combat_feedback_echo_fade_contact_sheet.png\n[2026-06-09T07:38:40+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_echo_fade/contact_sheet/ui_combat_feedback_echo_fade_contact_sheet.png\n[2026-06-09T07:40:45+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_echo_fade/selected/ui_combat_feedback_echo_fade.png",
       "PresetCategory": "combat_feedback",
       "Screen": "combat_hud",
-      "Usage": "迷失矿工回声死亡 / 消散反馈图标或短暂特效贴片"
+      "Usage": "迷失矿工回声死亡 / 消散反馈图标或短暂特效贴片",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:45+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_semantic_fix_20260609_01"
     },
     {
       "Domain": "ui",
@@ -11839,11 +11920,11 @@
       "VisualID": "ui_combat_feedback_scrap_break",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_scrap_break.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表(JSON)/Monsters/mob_rust_hound.json 已引用 DefeatFeedbackRef=ui_combat_feedback_scrap_break。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, single readable game asset, transparent background, clean silhouette, no text, no letters, no numbers",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, scrap break feedback overlay, cracked rusty armor plate bursting into angular metal shards and small brass sparks, transparent gaps, no lamp, clean readable effect shape, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, lantern, lamp, torch, candle, bottle, vase, jar, intact shield, full weapon, UI panel, paper",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -11854,36 +11935,39 @@
         },
         "DisplaySpec": {
           "ReferenceResolution": "1920x1080",
-          "DisplayWidth": 64,
-          "DisplayHeight": 64,
+          "DisplayWidth": 140,
+          "DisplayHeight": 140,
           "Unit": "ui_px",
           "FitMode": "contain",
           "Pivot": "center"
         },
         "CompositionSpec": {
-          "SafePaddingPercent": 12,
-          "SubjectOccupancyMin": 0.68,
-          "SubjectOccupancyMax": 0.8,
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.62,
+          "SubjectOccupancyMax": 0.9,
           "Anchor": "center",
-          "Composition": "centered placeholder symbol"
+          "Composition": "centered transient combat feedback burst with transparent gaps"
         },
         "ProcessSpec": {
           "PostProcess": [
             "resize",
-            "fit_safe_padding"
+            "preserve_transparency"
           ],
-          "PreviewSize": 64
+          "PreviewSize": 128
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_semantic_fix_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_scrap_break/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_scrap_break/selected/ui_combat_feedback_scrap_break.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_scrap_break.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_scrap_break/contact_sheet/ui_combat_feedback_scrap_break_contact_sheet.png\n[2026-06-09T07:38:40+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_scrap_break/contact_sheet/ui_combat_feedback_scrap_break_contact_sheet.png\n[2026-06-09T07:40:45+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_scrap_break/selected/ui_combat_feedback_scrap_break.png",
       "PresetCategory": "combat_feedback",
       "Screen": "combat_hud",
-      "Usage": "锈蚀猎犬死亡 / 装甲破裂反馈图标或短暂特效贴片"
+      "Usage": "锈蚀猎犬死亡 / 装甲破裂反馈图标或短暂特效贴片",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:45+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_semantic_fix_20260609_01"
     },
     {
       "Domain": "ui",
@@ -11956,11 +12040,11 @@
       "VisualID": "ui_combat_feedback_slime_pop",
       "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_slime_pop.png",
       "Priority": "P1",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表(JSON)/Monsters/mob_acid_slime.json 已引用 DefeatFeedbackRef=ui_combat_feedback_slime_pop。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, single readable game asset, transparent background, clean silhouette, no text, no letters, no numbers",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, slime pop feedback overlay, translucent green acid slime bubble bursting into splash droplets, soft toxic glow, transparent center gaps, no bottle, no lamp, clean readable effect shape, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, lantern, lamp, torch, candle, bottle, flask, potion bottle, vase, jar, full creature body, UI panel",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -11971,36 +12055,39 @@
         },
         "DisplaySpec": {
           "ReferenceResolution": "1920x1080",
-          "DisplayWidth": 64,
-          "DisplayHeight": 64,
+          "DisplayWidth": 140,
+          "DisplayHeight": 140,
           "Unit": "ui_px",
           "FitMode": "contain",
           "Pivot": "center"
         },
         "CompositionSpec": {
-          "SafePaddingPercent": 12,
-          "SubjectOccupancyMin": 0.68,
-          "SubjectOccupancyMax": 0.8,
+          "SafePaddingPercent": 8,
+          "SubjectOccupancyMin": 0.62,
+          "SubjectOccupancyMax": 0.9,
           "Anchor": "center",
-          "Composition": "centered placeholder symbol"
+          "Composition": "centered transient combat feedback burst with transparent gaps"
         },
         "ProcessSpec": {
           "PostProcess": [
             "resize",
-            "fit_safe_padding"
+            "preserve_transparency"
           ],
-          "PreviewSize": 64
+          "PreviewSize": 128
         }
       },
-      "BatchID": "",
-      "RawPath": "",
-      "SelectedPath": "",
-      "ApprovedPath": "",
+      "BatchID": "nai_formalv2_candidate_semantic_fix_20260609_01",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_slime_pop/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_slime_pop/selected/ui_combat_feedback_slime_pop.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_slime_pop.png",
       "RegistryStatus": "unregistered",
-      "Notes": "",
+      "Notes": "[2026-06-09T07:08:15+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_slime_pop/contact_sheet/ui_combat_feedback_slime_pop_contact_sheet.png\n[2026-06-09T07:38:40+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_slime_pop/contact_sheet/ui_combat_feedback_slime_pop_contact_sheet.png\n[2026-06-09T07:40:45+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/ui_combat_feedback_slime_pop/selected/ui_combat_feedback_slime_pop.png",
       "PresetCategory": "combat_feedback",
       "Screen": "combat_hud",
-      "Usage": "酸液史莱姆死亡 / 泡沫破裂反馈图标或短暂特效贴片"
+      "Usage": "酸液史莱姆死亡 / 泡沫破裂反馈图标或短暂特效贴片",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T07:40:45+08:00",
+      "ReplacementBatchID": "nai_formalv2_candidate_semantic_fix_20260609_01"
     },
     {
       "Domain": "ui",

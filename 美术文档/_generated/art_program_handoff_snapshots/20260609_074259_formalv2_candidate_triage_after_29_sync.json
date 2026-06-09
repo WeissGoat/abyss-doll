@@ -1,0 +1,2234 @@
+{
+  "GeneratedAt": "2026-06-09T07:42:59+08:00",
+  "SnapshotTag": "formalv2_candidate_triage_after_29_sync",
+  "Inputs": {
+    "IntegrationCandidatesPath": "美术文档/_generated/可接入素材清单.json",
+    "AcceptanceQueuePath": "美术文档/ui_design/_generated/FormalV1验收队列.json",
+    "ManifestPath": "美术文档/_generated/art_manifest.json"
+  },
+  "SourceSummaries": {
+    "IntegrationGeneratedAt": "2026-06-09T07:40:59+08:00",
+    "IntegrationActionCounts": {
+      "acceptance_needed": 188,
+      "program_integrate": 77
+    },
+    "AcceptanceGeneratedAt": "2026-06-08T00:39:05+08:00",
+    "AcceptanceRunID": "20260606_230523",
+    "AcceptanceStatus": "FAILED",
+    "AcceptanceFinishedAt": "2026-06-06T23:05:41.4448072+08:00",
+    "AcceptanceIsOlderThanSpec": true
+  },
+  "Summary": {
+    "ProgramIntegrateVisualCount": 77,
+    "ProgramIntegrateLocalV0Count": 0,
+    "ProgramIntegratePriorityCounts": {
+      "P0": 47,
+      "P1": 6,
+      "P2": 24
+    },
+    "ProgramIntegrateDomainCounts": {
+      "background": 6,
+      "item": 13,
+      "memento": 7,
+      "monster": 34,
+      "order": 6,
+      "rumor": 8,
+      "ui": 3
+    },
+    "FormalV1ScreenCount": 16,
+    "ProgramRegisterScreenCount": 0,
+    "ProgramAddCaptureScreenCount": 0,
+    "ProgramRerunAcceptanceScreenCount": 16,
+    "ArtReviewScreenshotScreenCount": 16,
+    "AcceptanceQueueBucketCounts": {
+      "review_previous_screenshot": 16
+    },
+    "AcceptanceActionCounts": {
+      "art_review_screenshot": 16,
+      "program_rerun_art_acceptance": 16
+    }
+  },
+  "ProgramActions": {
+    "RegisterVisualIDs": [
+      "item_con_anchor_charm_icon",
+      "item_con_purifying_salt_icon",
+      "item_con_solvent_spray_icon",
+      "item_con_stabilizer_ampoule_icon",
+      "item_gear_chain_hook_icon",
+      "item_gear_corroded_bulwark_icon",
+      "item_gear_mycelium_cloak_icon",
+      "item_gear_spore_lance_icon",
+      "item_gear_vein_sickle_icon",
+      "item_loot_acid_gland_icon",
+      "item_loot_corroded_nerve_icon",
+      "item_loot_crystal_scale_icon",
+      "item_loot_living_mycelium_icon",
+      "monster_boss_gatekeeper_mk1_combat",
+      "monster_boss_gatekeeper_mk1_portrait",
+      "monster_boss_mycelium_oracle_combat",
+      "monster_boss_mycelium_oracle_portrait",
+      "monster_boss_spore_foundry_combat",
+      "monster_boss_spore_foundry_portrait",
+      "monster_elite_crystal_bulwark_combat",
+      "monster_elite_crystal_bulwark_portrait",
+      "monster_elite_spore_matriarch_combat",
+      "monster_elite_spore_matriarch_portrait",
+      "monster_elite_vein_knight_combat",
+      "monster_elite_vein_knight_portrait",
+      "monster_mob_acid_slime_mature_combat",
+      "monster_mob_acid_slime_mature_portrait",
+      "monster_mob_crystal_guard_combat",
+      "monster_mob_crystal_guard_portrait",
+      "monster_mob_echo_pilgrim_combat",
+      "monster_mob_echo_pilgrim_portrait",
+      "monster_mob_lost_miner_echo_combat",
+      "monster_mob_lost_miner_echo_portrait",
+      "monster_mob_mycelium_crawler_combat",
+      "monster_mob_mycelium_crawler_portrait",
+      "monster_mob_nerve_midge_swarm_combat",
+      "monster_mob_nerve_midge_swarm_portrait",
+      "monster_mob_rust_cultivator_combat",
+      "monster_mob_rust_cultivator_portrait",
+      "monster_mob_rust_hound_combat",
+      "monster_mob_rust_hound_portrait",
+      "monster_mob_shell_grafter_combat",
+      "monster_mob_shell_grafter_portrait",
+      "monster_mob_soul_midge_swarm_combat",
+      "monster_mob_soul_midge_swarm_portrait",
+      "monster_mob_spore_archer_combat",
+      "monster_mob_spore_archer_portrait",
+      "bg_dungeon_layer_3",
+      "bg_workshop_home_room",
+      "bg_workshop_studio",
+      "ui_combat_feedback_echo_fade",
+      "ui_combat_feedback_scrap_break",
+      "ui_combat_feedback_slime_pop",
+      "bg_daily_bill",
+      "bg_shop_staging",
+      "bg_town_shop",
+      "memento_blackmarket_letter",
+      "memento_debt_shadow_window",
+      "memento_first_return_tag",
+      "memento_low_san_blanket",
+      "memento_pawn_empty_tag",
+      "memento_truth_red_thread",
+      "memento_wall_crack_first_defeat",
+      "order_black_contested_core_buyout_icon",
+      "order_blackmarket_relic_box_icon",
+      "order_crystal_scale_batch_icon",
+      "order_mage_oracle_sample_icon",
+      "order_spore_cage_procurement_icon",
+      "order_workshop_spore_core_frame_icon",
+      "rumor_acid_gland_shortage_icon",
+      "rumor_crystal_scale_contract_icon",
+      "rumor_filter_shortage_icon",
+      "rumor_living_mycelium_shortage_icon",
+      "rumor_miner_lamps_icon",
+      "rumor_old_blades_icon",
+      "rumor_oracle_fossil_collector_icon",
+      "rumor_spore_amber_jeweler_icon"
+    ],
+    "AddArtAcceptanceCaptureScreens": [],
+    "RerunArtAcceptanceScreens": [
+      "daily_bill_report",
+      "layer_select",
+      "maintenance_panel",
+      "prosthetic_panel",
+      "safe_room",
+      "sell_panel",
+      "stairs_room",
+      "business_settlement",
+      "chassis_upgrade_panel",
+      "doll_interaction",
+      "doll_room",
+      "faction_shop",
+      "order_board",
+      "rumor_board",
+      "scenario_event",
+      "shop_staging"
+    ],
+    "ArtReviewAfterRerunScreens": [
+      "daily_bill_report",
+      "layer_select",
+      "maintenance_panel",
+      "prosthetic_panel",
+      "safe_room",
+      "sell_panel",
+      "stairs_room",
+      "business_settlement",
+      "chassis_upgrade_panel",
+      "doll_interaction",
+      "doll_room",
+      "faction_shop",
+      "order_board",
+      "rumor_board",
+      "scenario_event",
+      "shop_staging"
+    ]
+  },
+  "ProgramIntegrateVisuals": [
+    {
+      "VisualID": "item_con_anchor_charm_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "锚定符坠",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_anchor_charm_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/con_anchor_charm.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_con_purifying_salt_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "净化盐",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_purifying_salt_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/con_purifying_salt.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_con_solvent_spray_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "溶剂喷雾",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_solvent_spray_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/con_solvent_spray.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_con_stabilizer_ampoule_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "稳定安瓿",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_stabilizer_ampoule_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/con_stabilizer_ampoule.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_gear_chain_hook_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "链钩短枪",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_chain_hook_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_chain_hook.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_gear_corroded_bulwark_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "腐蚀壁盾",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_corroded_bulwark_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_corroded_bulwark.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_gear_mycelium_cloak_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "菌丝披覆",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_mycelium_cloak_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_mycelium_cloak.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_gear_spore_lance_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "孢刺长枪",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_spore_lance_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_spore_lance.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_gear_vein_sickle_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "菌脉弯镰",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_vein_sickle_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/gear_vein_sickle.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_loot_acid_gland_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "酸腺囊",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_acid_gland_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_acid_gland.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_loot_corroded_nerve_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "腐蚀神经束",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_corroded_nerve_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_corroded_nerve.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_loot_crystal_scale_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "晶化鳞片",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_crystal_scale_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_crystal_scale.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "item_loot_living_mycelium_icon",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "DisplayName": "活性菌丝",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_living_mycelium_icon.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_living_mycelium.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_boss_gatekeeper_mk1_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "一层守门机 MK1战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_gatekeeper_mk1_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_gatekeeper_mk1.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_boss_gatekeeper_mk1_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "一层守门机 MK1",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_gatekeeper_mk1_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_gatekeeper_mk1.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_boss_mycelium_oracle_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "菌脉神谕体战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_mycelium_oracle_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_mycelium_oracle.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_boss_mycelium_oracle_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "菌脉神谕体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_mycelium_oracle_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_mycelium_oracle.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_boss_spore_foundry_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "孢殖熔炉战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_spore_foundry_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_spore_foundry.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_boss_spore_foundry_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "孢殖熔炉",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_spore_foundry_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_spore_foundry.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_elite_crystal_bulwark_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "晶壁守卫战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_crystal_bulwark_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_crystal_bulwark.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_elite_crystal_bulwark_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "晶壁守卫",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_crystal_bulwark_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_crystal_bulwark.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_elite_spore_matriarch_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "孢巢母体战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_spore_matriarch_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_spore_matriarch.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_elite_spore_matriarch_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "孢巢母体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_spore_matriarch_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_spore_matriarch.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_elite_vein_knight_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "菌脉骑士战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_elite_vein_knight_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_vein_knight.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_elite_vein_knight_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "菌脉骑士",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_elite_vein_knight_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/elite_vein_knight.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_acid_slime_mature_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "成熟酸液软体战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_acid_slime_mature_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_acid_slime_mature.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_acid_slime_mature_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "成熟酸液软体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_acid_slime_mature_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_acid_slime_mature.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_crystal_guard_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "结晶守卫战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_crystal_guard_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_crystal_guard.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_crystal_guard_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "结晶守卫",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_crystal_guard_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_crystal_guard.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_echo_pilgrim_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "回声朝圣者战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_echo_pilgrim_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_echo_pilgrim.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_echo_pilgrim_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "回声朝圣者",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_echo_pilgrim_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_echo_pilgrim.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_lost_miner_echo_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "迷失矿工回声战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_lost_miner_echo_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_lost_miner_echo.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_lost_miner_echo_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "迷失矿工回声",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_lost_miner_echo_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_lost_miner_echo.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_mycelium_crawler_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "菌丝爬行体战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_mycelium_crawler_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_mycelium_crawler.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_mycelium_crawler_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "菌丝爬行体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_mycelium_crawler_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_mycelium_crawler.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_nerve_midge_swarm_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "神经虫群战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_nerve_midge_swarm_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_nerve_midge_swarm.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_nerve_midge_swarm_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "神经虫群",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_nerve_midge_swarm_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_nerve_midge_swarm.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_rust_cultivator_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "锈蚀培植者战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_cultivator_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_cultivator.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_rust_cultivator_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "锈蚀培植者",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_cultivator_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_cultivator.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_rust_hound_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "锈蚀猎犬战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_hound_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_hound.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_rust_hound_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "锈蚀猎犬",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_rust_hound_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_rust_hound.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_shell_grafter_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "壳层嫁接者战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_shell_grafter_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_shell_grafter.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_shell_grafter_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "壳层嫁接者",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_shell_grafter_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_shell_grafter.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_soul_midge_swarm_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "窃魂虫群战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_soul_midge_swarm_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_soul_midge_swarm.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_soul_midge_swarm_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "窃魂虫群",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_soul_midge_swarm_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_soul_midge_swarm.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_spore_archer_combat",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "combat_sprite",
+      "DisplayName": "孢刺射手战斗实体",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_spore_archer_combat.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_spore_archer.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "monster_mob_spore_archer_portrait",
+      "Priority": "P0",
+      "Domain": "monster",
+      "AssetType": "portrait",
+      "DisplayName": "孢刺射手",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_spore_archer_portrait.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Monsters/mob_spore_archer.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "bg_dungeon_layer_3",
+      "Priority": "P1",
+      "Domain": "background",
+      "AssetType": "background",
+      "DisplayName": "菌脉深庭",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_dungeon_layer_3.png",
+      "MetaFileExists": true,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "derived:UnityClient/Assets/StreamingAssets/Configs/Dungeons/layer_3.json"
+      ],
+      "Reason": "Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。"
+    },
+    {
+      "VisualID": "bg_workshop_home_room",
+      "Priority": "P1",
+      "Domain": "background",
+      "AssetType": "background",
+      "DisplayName": "FormalV2 工坊安心房间背景",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Workshop/bg_workshop_home_room.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "bg_workshop_studio",
+      "Priority": "P1",
+      "Domain": "background",
+      "AssetType": "background",
+      "DisplayName": "FormalV2 工坊改造室背景",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Workshop/bg_workshop_studio.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "ui_combat_feedback_echo_fade",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "战斗反馈-回声消散",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_echo_fade.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "ui_combat_feedback_scrap_break",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "战斗反馈-废铁破裂",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_scrap_break.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "ui_combat_feedback_slime_pop",
+      "Priority": "P1",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "DisplayName": "战斗反馈-酸液泡破裂",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_slime_pop.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "bg_daily_bill",
+      "Priority": "P2",
+      "Domain": "background",
+      "AssetType": "background",
+      "DisplayName": "FormalV2 每日账本背景",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Town/bg_daily_bill.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "bg_shop_staging",
+      "Priority": "P2",
+      "Domain": "background",
+      "AssetType": "background",
+      "DisplayName": "FormalV2 出货陈列背景",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Town/bg_shop_staging.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "bg_town_shop",
+      "Priority": "P2",
+      "Domain": "background",
+      "AssetType": "background",
+      "DisplayName": "FormalV2 小镇商店背景",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Town/bg_town_shop.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "memento_blackmarket_letter",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "icon",
+      "DisplayName": "房间纪念物-黑市纸条",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_blackmarket_letter.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "memento_debt_shadow_window",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "icon",
+      "DisplayName": "房间纪念物-债主窗影",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_debt_shadow_window.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "memento_first_return_tag",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "icon",
+      "DisplayName": "房间纪念物-首次归还标签",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_first_return_tag.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "memento_low_san_blanket",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "icon",
+      "DisplayName": "房间纪念物-低 SAN 毯子",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_low_san_blanket.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "memento_pawn_empty_tag",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "icon",
+      "DisplayName": "房间纪念物-典当空位标签",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_pawn_empty_tag.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "memento_truth_red_thread",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "icon",
+      "DisplayName": "房间纪念物-真相红线结",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_truth_red_thread.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "memento_wall_crack_first_defeat",
+      "Priority": "P2",
+      "Domain": "memento",
+      "AssetType": "icon",
+      "DisplayName": "房间纪念物-首次失败墙裂",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Room/Mementos/memento_wall_crack_first_defeat.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "order_black_contested_core_buyout_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单-黑市争夺核心收买",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_black_contested_core_buyout_icon.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "order_blackmarket_relic_box_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单-黑市遗物盒",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_blackmarket_relic_box_icon.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "order_crystal_scale_batch_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单-晶鳞批量采购",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_crystal_scale_batch_icon.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "order_mage_oracle_sample_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单-法师塔神谕样本",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_mage_oracle_sample_icon.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "order_spore_cage_procurement_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单-孢子笼采购",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_spore_cage_procurement_icon.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "order_workshop_spore_core_frame_icon",
+      "Priority": "P2",
+      "Domain": "order",
+      "AssetType": "icon",
+      "DisplayName": "订单-工坊孢子核心框架",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Orders/Icons/order_workshop_spore_core_frame_icon.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "rumor_acid_gland_shortage_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "传闻-酸腺囊短缺",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_acid_gland_shortage_icon.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "rumor_crystal_scale_contract_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "传闻-晶鳞采购令",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_crystal_scale_contract_icon.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "rumor_filter_shortage_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "传闻-滤芯短缺",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_filter_shortage_icon.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "rumor_living_mycelium_shortage_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "传闻-活体菌丝短缺",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_living_mycelium_shortage_icon.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "rumor_miner_lamps_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "传闻-矿灯收藏热",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_miner_lamps_icon.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "rumor_old_blades_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "传闻-旧刃涨价",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_old_blades_icon.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "rumor_oracle_fossil_collector_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "传闻-神谕化石收藏家",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_oracle_fossil_collector_icon.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    },
+    {
+      "VisualID": "rumor_spore_amber_jeweler_icon",
+      "Priority": "P2",
+      "Domain": "rumor",
+      "AssetType": "icon",
+      "DisplayName": "传闻-孢子琥珀珠宝商",
+      "QualityTiers": [
+        "formal_ai_v2"
+      ],
+      "ManifestStatuses": [
+        "approved"
+      ],
+      "IsLocalV0": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Rumors/Icons/rumor_spore_amber_jeweler_icon.png",
+      "MetaFileExists": false,
+      "RegistryHasSprite": false,
+      "ReferencedScreens": [],
+      "OtherReferences": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "Reason": "Approved PNG 已存在，但缺少 Unity .meta，需要先导入或补齐。"
+    }
+  ],
+  "FormalV1AcceptanceActions": [
+    {
+      "ScreenID": "daily_bill_report",
+      "DisplayName": "每日账单报告界面",
+      "Priority": "P1",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_income",
+        "ui_icon_expense",
+        "ui_icon_debt_rent",
+        "ui_title_divider"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/daily_bill_report.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "layer_select",
+      "DisplayName": "出发层选择界面",
+      "Priority": "P1",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_locked",
+        "ui_title_divider",
+        "bg_layer_select"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/layer_select.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "maintenance_panel",
+      "DisplayName": "机体维护整备界面",
+      "Priority": "P1",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "ui_list_row_normal",
+        "ui_icon_wear_repair",
+        "ui_icon_corruption_purify",
+        "ui_icon_dive_permit",
+        "ui_title_divider"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/maintenance_panel.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "prosthetic_panel",
+      "DisplayName": "义体制造界面",
+      "Priority": "P1",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_equipped",
+        "ui_title_divider"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/prosthetic_panel.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "safe_room",
+      "DisplayName": "深渊安全区界面",
+      "Priority": "P1",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "bg_safe_room"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/safe_room.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "sell_panel",
+      "DisplayName": "工坊出售界面",
+      "Priority": "P1",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_title_divider"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/sell_panel.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "stairs_room",
+      "DisplayName": "深渊阶梯房间界面",
+      "Priority": "P1",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "bg_stairs_room"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/stairs_room.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "business_settlement",
+      "DisplayName": "营业结算演出界面",
+      "Priority": "P2",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "ui_list_row_normal",
+        "ui_title_divider",
+        "ui_icon_customer",
+        "ui_icon_sale_spark",
+        "ui_icon_business_settlement"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/business_settlement.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "chassis_upgrade_panel",
+      "DisplayName": "底盘升级界面",
+      "Priority": "P2",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_title_divider",
+        "ui_icon_chassis_upgrade",
+        "ui_icon_blueprint",
+        "ui_icon_material_need"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/chassis_upgrade_panel.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "doll_interaction",
+      "DisplayName": "人偶交互界面",
+      "Priority": "P2",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_touch",
+        "ui_icon_talk",
+        "ui_icon_gift",
+        "ui_icon_memento",
+        "ui_title_divider"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_interaction.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "doll_room",
+      "DisplayName": "人偶房间界面",
+      "Priority": "P2",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_diary",
+        "ui_icon_memento",
+        "ui_room_memento_slot",
+        "bg_doll_room_attic"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_room.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "faction_shop",
+      "DisplayName": "势力商店界面",
+      "Priority": "P2",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_faction",
+        "ui_icon_reputation",
+        "ui_icon_trust",
+        "ui_icon_black_market",
+        "ui_title_divider"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/faction_shop.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "order_board",
+      "DisplayName": "势力订单板界面",
+      "Priority": "P2",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_order",
+        "ui_icon_faction",
+        "ui_icon_deadline",
+        "ui_title_divider"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/order_board.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "rumor_board",
+      "DisplayName": "传闻情报板界面",
+      "Priority": "P2",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_rumor",
+        "ui_icon_price_up",
+        "ui_icon_price_down",
+        "ui_title_divider"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/rumor_board.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "scenario_event",
+      "DisplayName": "剧本事件界面",
+      "Priority": "P2",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_event",
+        "ui_icon_lore",
+        "ui_icon_skip",
+        "ui_title_divider"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/scenario_event.png",
+      "ScreenshotStaleAgainstSpec": true
+    },
+    {
+      "ScreenID": "shop_staging",
+      "DisplayName": "出货分配界面",
+      "Priority": "P2",
+      "QueueBucket": "review_previous_screenshot",
+      "RequiredActions": [
+        "program_rerun_art_acceptance",
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [
+        "ui_panel_main",
+        "ui_list_row_normal",
+        "ui_list_row_selected",
+        "ui_icon_shop_channel",
+        "ui_icon_black_market",
+        "ui_icon_order",
+        "ui_title_divider"
+      ],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/shop_staging.png",
+      "ScreenshotStaleAgainstSpec": true
+    }
+  ]
+}

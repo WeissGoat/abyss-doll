@@ -171,6 +171,13 @@ MEMENTO_EN: Dict[str, str] = {
     "memento_miracle_burn_mark": "small charred brass token keepsake, circular scorch mark, faint blue-gold afterglow, cracked rim, clean readable silhouette",
     "memento_return_mark": "homecoming mark keepsake, small worn brass tag with repaired red thread and soft warm glow, clean readable silhouette",
     "memento_san_collapse_blanket": "folded recovery blanket keepsake, muted fabric roll with brass pin, pale blue calming glow, clean readable silhouette",
+    "memento_blackmarket_letter": "sealed black-market letter keepsake, folded dark parchment packet, red wax seal, brass corner clip, no readable writing, clean readable silhouette",
+    "memento_debt_shadow_window": "small cracked window-frame keepsake, dark debt notice shadow behind frosted glass, red wax pin, brass nail corners, no readable writing, clean readable silhouette",
+    "memento_first_return_tag": "first return luggage tag keepsake, worn brass tag, repaired red cord loop, tiny stitched cloth strip, no readable writing, clean readable silhouette",
+    "memento_low_san_blanket": "folded calming blanket keepsake, soft muted cloth roll, pale blue stitched patch, small brass safety pin, clean readable silhouette",
+    "memento_pawn_empty_tag": "empty pawn-shop tag keepsake, blank brass price tag, snapped string loop, tiny coin dent, no readable writing, clean readable silhouette",
+    "memento_truth_red_thread": "truth clue keepsake, bright red thread stretched between three brass evidence pins on a small cork-backed plate, clear red thread focus, no readable writing, clean readable silhouette",
+    "memento_wall_crack_first_defeat": "first defeat wall-crack keepsake, small broken plaster shard, jagged dark crack, brass repair staple, muted red warning dust, clean readable silhouette",
 }
 
 MEMENTO_CN: Dict[str, str] = {
@@ -185,13 +192,21 @@ MEMENTO_CN: Dict[str, str] = {
 }
 
 RUMOR_EN: Dict[str, str] = {
+    "rumor_acid_gland_shortage": "acid gland shortage rumor emblem, translucent green acid gland sac beside a cracked brass supply marker, small shortage notch, clean readable silhouette",
     "rumor_contraband_night_channel": "black-market night-channel rumor emblem, dark brass mask, hidden contraband crate, tiny crescent moon shape, muted red risk seal, clean readable silhouette",
     "rumor_corrosion_sample_premium": "corrosion sample premium rumor emblem, sealed purple-green vial beside stacked brass coins, small danger glow, clean readable silhouette",
+    "rumor_crystal_scale_contract": "crystal scale contract rumor emblem, blue iridescent scale shards stacked beside a brass contract clamp, tiny coin sparkle, no readable paper, clean readable silhouette",
     "rumor_faction_medical_request": "medical faction request rumor emblem, brass medical supply case, pale blue purification droplet, small green signal spark, clean readable silhouette",
+    "rumor_filter_shortage": "filter shortage rumor emblem, cracked round air-filter cartridge with pleated dark mesh, brass warning triangle, missing filter slot silhouette, clean readable silhouette",
+    "rumor_living_mycelium_shortage": "living mycelium shortage rumor emblem, pale glowing fungal root bundle in a small brass tray, dry broken strands, small shortage marker, clean readable silhouette",
     "rumor_low_layer_bulk_buy": "low-layer bulk purchase rumor emblem, small brass cargo crate filled with common stones and coins, warm market glow, clean readable silhouette",
+    "rumor_miner_lamps": "miner lamp demand rumor emblem, three tiny mining lamp silhouettes grouped on a brass supply tray, one lamp unlit, clean readable silhouette",
+    "rumor_old_blades": "old blades demand rumor emblem, crossed worn short blades on a brass rack, chipped edges, muted collector coin, clean readable silhouette",
+    "rumor_oracle_fossil_collector": "oracle fossil collector rumor emblem, spiral fossil stone held by brass research calipers, blue-purple oracle spark, clean readable silhouette",
     "rumor_origin_stone_demand": "origin stone demand rumor emblem, blue-gold crystal above stacked brass coins, small upward market arrow, clean readable silhouette",
     "rumor_scrap_workshop_shortage": "workshop scrap shortage rumor emblem, cracked brass gear and loose screws beside a small warning marker, clean readable silhouette",
     "rumor_slime_crash": "slime price crash rumor emblem, green slime droplet above a brass coin with a red downward marker, clean readable silhouette",
+    "rumor_spore_amber_jeweler": "spore amber jeweler rumor emblem, honey-colored amber nugget with trapped glowing spores, brass jeweler loupe ring, clean readable silhouette",
     "rumor_weapon_collector_visit": "weapon collector visit rumor emblem, polished blade on a small brass display stand with collector coin sparkle, clean readable silhouette",
 }
 
@@ -228,16 +243,21 @@ ORDER_EN: Dict[str, str] = {
     "order_alchemy_purification_batch": "purification batch contract emblem, grouped glass vials in a brass rack, blue-green cleansing glow, clean readable silhouette",
     "order_alchemy_spore_sample_fast": "urgent spore sample contract emblem, sealed spore vial, small hourglass, fragile green glow, clean readable silhouette",
     "order_black_bound_core_betrayal": "secret-market betrayal contract emblem, dark brass mask, broken red wax seal, unique glowing core, clean readable silhouette",
+    "order_black_contested_core_buyout": "contested core buyout contract emblem, one cracked glowing mechanical core gripped by two opposing brass claim hooks, muted red risk seal, clean readable silhouette",
     "order_black_forbidden_relic_buyout": "forbidden relic buyout contract emblem, locked dark relic box, red risk seal, stacked brass coins, clean readable silhouette",
     "order_black_live_sample_no_questions": "secret live-sample buyout emblem, dark capture jar, hidden mask mark, muted red trust token, clean readable silhouette",
     "order_black_smuggled_route_key": "smuggled route key contract emblem, dark brass route key, hidden map notch, red warning spark, clean readable silhouette",
+    "order_blackmarket_relic_box": "black-market relic box contract emblem, small locked blackened brass relic chest with reinforced corners, red wax risk seal, no paper, no lamp, clean readable silhouette",
+    "order_crystal_scale_batch": "crystal scale batch contract emblem, several blue crystal scales stacked in a shallow brass tray, tiny supply clasp, clean readable silhouette",
     "order_guild_layer1_map_rubbing": "exploration report contract emblem, charcoal map rubbing sheet, brass compass pin, warm lantern spark, clean readable silhouette",
     "order_guild_layer2_route_report": "route report contract emblem, folded cavern route map, three brass node pins, small blue path glow, clean readable silhouette",
     "order_guild_safezone_signal": "safe-zone signal contract emblem, brass signal flare canister, shelter lamp, green beacon spark, clean readable silhouette",
     "order_mage_boss_core_research": "rare core research contract emblem, blue-purple crystal core held by brass lens rings, clean readable silhouette",
     "order_mage_corroded_memory_stone": "corroded memory stone contract emblem, purple-green cracked stone, brass research clamp, faint echo glow, clean readable silhouette",
     "order_mage_live_slime_sample": "live slime sample contract emblem, glass capture jar with green slime inside, brass lid, blue research glow, clean readable silhouette",
+    "order_mage_oracle_sample": "oracle sample contract emblem, blue-purple fossil shard floating inside a brass research clamp ring, small measuring lens, clean readable silhouette",
     "order_mage_unidentified_relic": "unidentified relic contract emblem, wrapped unknown relic, brass magnifying lens, blue-purple question glow without any text, clean readable silhouette",
+    "order_spore_cage_procurement": "spore cage procurement contract emblem, small brass specimen cage containing glowing fungal spores, locked latch, green bioluminescent mist, clean readable silhouette",
     "order_status_boss_core_mutex": "unique core exclusivity status emblem, one glowing core between two crossed brass claim hooks, clean readable silhouette",
     "order_status_deadline_warning": "deadline warning status emblem, brass hourglass, red warning spark, small fading sand glow, clean readable silhouette",
     "order_status_order_bound": "bound item status emblem, brass chain clasp around a sealed parcel, blue lock glow, clean readable silhouette",
@@ -252,6 +272,7 @@ ORDER_EN: Dict[str, str] = {
     "order_workshop_furnace_core_large": "large furnace core contract emblem, reinforced 3-by-3 brass cargo crate, hot orange engine core, clean readable silhouette",
     "order_workshop_layer2_ore_batch": "ore batch contract emblem, three dark ore chunks in a brass tray, amber workshop stamp without text, clean readable silhouette",
     "order_workshop_scrap_guard_plate": "scrap guard plate contract emblem, dented armor plate, gear teeth, repair sparks, clean readable silhouette",
+    "order_workshop_spore_core_frame": "workshop spore-core frame contract emblem, rectangular brass machine frame holding a green glowing spore core, gear clamps, clean readable silhouette",
 }
 
 ORDER_CN: Dict[str, str] = {
@@ -298,7 +319,12 @@ BACKGROUND_EN: Dict[str, str] = {
     "settlement_victory": "successful evacuation result backdrop, underground lift exit, warm town-side lamps, brass cargo scale, recovered supply crates, empty central area, calm relief mood",
     "stairs_room": "deep stairwell chamber, descending stone stairs and metal ladder rails, round hatch opening, old warning lamps, cavern darkness below, empty foreground floor",
     "workshop": "small mechanical repair workshop, workbench, hanging crane arm, tool wall, parts boxes, old fluorescent lamps, brass pipes, large negative space on both sides",
+    "daily_bill": "quiet town accounting desk background, brass ledger frame, coin trays, rent notice board without readable text, warm shop lamplight, clean center area for bill panels, low visual noise",
     "doll_room_attic": "small attic room for a mechanical doll, warm repair lamp, narrow bed, old wooden floor, brass pipes, diary desk, memento shelf, window to a deep underground town glow, calm empty center floor, low visual noise",
+    "shop_staging": "small town shipping counter background, wooden-and-brass sorting table, empty item staging trays, soft market window light, cozy underground shop atmosphere, low visual noise",
+    "town_shop": "cozy underground town shop interior background, shelves of wrapped goods, brass scales, warm counter lamp, soft fantasy market colors, clean central counter area, low visual noise",
+    "workshop_home_room": "peaceful mechanical doll home room background, cozy bed nook, memento shelf, warm repair lamp, brass pipes, soft underground window glow, open floor around the doll, low visual noise",
+    "workshop_studio": "mechanical doll modification studio background, sturdy repair chair at center-right, brass tool arms, workbench and parts drawers, clean left inventory area, warm safe workshop lighting, low visual noise",
 }
 
 BACKGROUND_CN: Dict[str, str] = {
@@ -391,8 +417,11 @@ UI_EN = {
     "combat_status_corrosion": "corrosion status emblem, green acid droplet eating into a brass plate, clean silhouette",
     "combat_status_curse": "curse status emblem, dark purple cracked talisman plate wrapped by small brass wires, clean silhouette",
     "combat_status_stun": "stun status emblem, tilted brass gear with blue spark burst, clean silhouette",
+    "combat_feedback_echo_fade": "echo fade feedback overlay, pale blue ghostly afterimage silhouette dissolving into small transparent particles, no lamp, no object body, clean readable effect shape",
     "combat_feedback_hit": "hit feedback overlay, sharp translucent red-orange impact burst with brass spark fragments, transparent center gaps",
+    "combat_feedback_scrap_break": "scrap break feedback overlay, cracked rusty armor plate bursting into angular metal shards and small brass sparks, transparent gaps, no lamp, clean readable effect shape",
     "combat_feedback_shield_break": "shield break feedback overlay, cracked blue shield shards with brass spark fragments, transparent gaps",
+    "combat_feedback_slime_pop": "slime pop feedback overlay, translucent green acid slime bubble bursting into splash droplets, soft toxic glow, transparent center gaps, no bottle, no lamp, clean readable effect shape",
     "combat_grid_lock_marker": "square cell overlay marker, crossed brass clamp frame with muted red warning glow, transparent center",
     "combat_junk_preview_marker": "square cell preview marker, faint green toxic stain and small scrap warning outline, transparent center",
     "dungeon_node_plate": "round map node backing plate, dark metal disk, brass ring, small screw marks, empty center",
@@ -1313,8 +1342,11 @@ UI_SPEC_BY_CONFIG: Dict[str, Dict[str, Any]] = {
     "combat_status_corrosion": COMBAT_STATUS_ICON_SPEC,
     "combat_status_curse": COMBAT_STATUS_ICON_SPEC,
     "combat_status_stun": COMBAT_STATUS_ICON_SPEC,
+    "combat_feedback_echo_fade": COMBAT_FEEDBACK_OVERLAY_SPEC,
     "combat_feedback_hit": COMBAT_FEEDBACK_OVERLAY_SPEC,
+    "combat_feedback_scrap_break": COMBAT_FEEDBACK_OVERLAY_SPEC,
     "combat_feedback_shield_break": COMBAT_FEEDBACK_OVERLAY_SPEC,
+    "combat_feedback_slime_pop": COMBAT_FEEDBACK_OVERLAY_SPEC,
     "combat_grid_lock_marker": COMBAT_GRID_MARKER_SPEC,
     "combat_junk_preview_marker": COMBAT_GRID_MARKER_SPEC,
     "dungeon_node_plate": make_spec(
@@ -1404,6 +1436,30 @@ STALE_PROMPT_FRAGMENTS = [
 ]
 
 NEGATIVE_BY_CONFIG = {
+    "combat_feedback_echo_fade": (
+        "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, "
+        "lantern, lamp, torch, candle, bottle, vase, jar, full character, portrait, solid opaque object, UI panel"
+    ),
+    "combat_feedback_scrap_break": (
+        "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, "
+        "lantern, lamp, torch, candle, bottle, vase, jar, intact shield, full weapon, UI panel, paper"
+    ),
+    "combat_feedback_slime_pop": (
+        "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, "
+        "lantern, lamp, torch, candle, bottle, flask, potion bottle, vase, jar, full creature body, UI panel"
+    ),
+    "memento_truth_red_thread": (
+        "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, "
+        "lantern, lamp, torch, candle, bottle, vase, jar, loose random rope, no red thread, readable paper"
+    ),
+    "order_blackmarket_relic_box": (
+        "text, letters, numbers, watermark, logo, signature, busy background, UI panel, readable paperwork, multiple copies, "
+        "lantern, lamp, torch, candle, bottle, vase, jar, open empty box, treasure pile, human hands"
+    ),
+    "rumor_filter_shortage": (
+        "text, letters, numbers, watermark, logo, signature, busy background, UI panel, paper with readable writing, multiple copies, "
+        "lantern, lamp, torch, candle, bottle, flask, vase, jar, mask, coin only, full machine"
+    ),
     "con_purifying_salt": (
         "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
         "lantern, lamp, torch, candle, oil lamp, glowing brass vessel, potion bottle only, empty bottle, weapon, shield"
