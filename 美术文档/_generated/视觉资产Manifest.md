@@ -36,15 +36,15 @@
 | `background` | `safe_room` | 安全屋房间背景 | `background` | `bg_safe_room` | P1 | `approved` |
 | `background` | `stairs_room` | 阶梯房间背景 | `background` | `bg_stairs_room` | P1 | `approved` |
 | `background` | `workshop` | 工坊整备背景 | `background` | `bg_workshop_day` | P1 | `approved` |
-| `background` | `workshop_home_room` | FormalV2 工坊安心房间背景 | `background` | `bg_workshop_home_room` | P1 | `prompted` |
-| `background` | `workshop_studio` | FormalV2 工坊改造室背景 | `background` | `bg_workshop_studio` | P1 | `prompted` |
-| `background` | `daily_bill` | FormalV2 每日账本背景 | `background` | `bg_daily_bill` | P2 | `prompted` |
+| `background` | `workshop_home_room` | FormalV2 工坊安心房间背景 | `background` | `bg_workshop_home_room` | P1 | `approved` |
+| `background` | `workshop_studio` | FormalV2 工坊改造室背景 | `background` | `bg_workshop_studio` | P1 | `approved` |
+| `background` | `daily_bill` | FormalV2 每日账本背景 | `background` | `bg_daily_bill` | P2 | `approved` |
 | `background` | `doll_room_attic` | 人偶阁楼房间背景 | `background` | `bg_doll_room_attic` | P2 | `approved` |
 | `background` | `layer_select` | 层选择入口背景 | `background` | `bg_layer_select` | P2 | `approved` |
 | `background` | `settlement_defeat` | 战败结算背景 | `background` | `bg_settlement_defeat` | P2 | `approved` |
 | `background` | `settlement_victory` | 撤离成功结算背景 | `background` | `bg_settlement_victory` | P2 | `approved` |
-| `background` | `shop_staging` | FormalV2 出货陈列背景 | `background` | `bg_shop_staging` | P2 | `prompted` |
-| `background` | `town_shop` | FormalV2 小镇商店背景 | `background` | `bg_town_shop` | P2 | `prompted` |
+| `background` | `shop_staging` | FormalV2 出货陈列背景 | `background` | `bg_shop_staging` | P2 | `approved` |
+| `background` | `town_shop` | FormalV2 小镇商店背景 | `background` | `bg_town_shop` | P2 | `approved` |
 | `chassis` | `chassis_lv1_basic` | chassis_lv1_basic | `frame` | `chassis_chassis_lv1_basic_frame` | P1 | `approved` |
 | `chassis` | `chassis_lv2_expanded` | chassis_lv2_expanded | `frame` | `chassis_chassis_lv2_expanded_frame` | P1 | `approved` |
 | `chassis` | `chassis_bulwark_carrier` | 重载承运底盘图标 | `icon` | `chassis_bulwark_carrier_icon` | P2 | `approved` |
@@ -81,37 +81,37 @@
 | `item` | `loot_crystal_scale` | 晶化鳞片 | `icon` | `item_loot_crystal_scale_icon` | P0 | `approved` |
 | `item` | `loot_gear_scrap` | 废旧齿轮 | `icon` | `item_loot_gear_scrap_icon` | P0 | `approved` |
 | `item` | `loot_living_mycelium` | 活性菌丝 | `icon` | `item_loot_living_mycelium_icon` | P0 | `approved` |
-| `item` | `loot_rusty_coil` | 生锈线圈 | `icon` | `item_loot_rusty_coil_icon` | P0 | `deprecated` |
-| `item` | `loot_spore_amber` | 孢晶琥珀 | `icon` | `item_loot_spore_amber_icon` | P0 | `deprecated` |
-| `item` | `loot_toxic_filter` | 污染滤芯 | `icon` | `item_loot_toxic_filter_icon` | P0 | `deprecated` |
-| `item` | `loot_vein_plate` | 菌脉甲片 | `icon` | `item_loot_vein_plate_icon` | P0 | `deprecated` |
-| `item` | `loot_warped_plate` | 扭曲装甲片 | `icon` | `item_loot_warped_plate_icon` | P0 | `deprecated` |
-| `item` | `mat_core_tier1` | 一阶动力核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `deprecated` |
-| `item` | `mat_core_tier2` | 二阶污染核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `deprecated` |
-| `item` | `mat_core_tier2_fragment` | 二阶机核碎片 | `icon` | `item_mat_core_tier2_fragment_icon` | P0 | `deprecated` |
-| `item` | `mat_core_tier3_seed` | 三阶机核种 | `icon` | `item_mat_core_tier3_seed_icon` | P0 | `deprecated` |
-| `item` | `order_contested_spore_core` | 争夺孢核 | `icon` | `item_order_contested_spore_core_icon` | P0 | `deprecated` |
-| `item` | `order_live_spore_cage` | 活孢子笼 | `icon` | `item_order_live_spore_cage_icon` | P0 | `deprecated` |
-| `item` | `trade_cracked_relic` | 裂纹圣牌 | `icon` | `item_loot_toxic_filter_icon` | P0 | `deprecated` |
-| `item` | `trade_luminous_fungus` | 夜光菌簇 | `icon` | `item_trade_luminous_fungus_icon` | P0 | `deprecated` |
-| `item` | `trade_miner_lamp` | 矿工提灯 | `icon` | `item_loot_rusty_coil_icon` | P0 | `deprecated` |
-| `item` | `trade_sealed_relic_box` | 封存遗物匣 | `icon` | `item_trade_sealed_relic_box_icon` | P0 | `deprecated` |
-| `item` | `trade_singing_fossil` | 低唱化石 | `icon` | `item_trade_singing_fossil_icon` | P0 | `deprecated` |
-| `memento` | `memento_blackmarket_letter` | 房间纪念物-黑市纸条 | `icon` | `memento_blackmarket_letter` | P2 | `prompted` |
+| `item` | `loot_rusty_coil` | 生锈线圈 | `icon` | `item_loot_rusty_coil_icon` | P0 | `prompted` |
+| `item` | `loot_spore_amber` | 孢晶琥珀 | `icon` | `item_loot_spore_amber_icon` | P0 | `prompted` |
+| `item` | `loot_toxic_filter` | 污染滤芯 | `icon` | `item_loot_toxic_filter_icon` | P0 | `prompted` |
+| `item` | `loot_vein_plate` | 菌脉甲片 | `icon` | `item_loot_vein_plate_icon` | P0 | `prompted` |
+| `item` | `loot_warped_plate` | 扭曲装甲片 | `icon` | `item_loot_warped_plate_icon` | P0 | `prompted` |
+| `item` | `mat_core_tier1` | 一阶动力核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `prompted` |
+| `item` | `mat_core_tier2` | 二阶污染核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `prompted` |
+| `item` | `mat_core_tier2_fragment` | 二阶机核碎片 | `icon` | `item_mat_core_tier2_fragment_icon` | P0 | `prompted` |
+| `item` | `mat_core_tier3_seed` | 三阶机核种 | `icon` | `item_mat_core_tier3_seed_icon` | P0 | `prompted` |
+| `item` | `order_contested_spore_core` | 争夺孢核 | `icon` | `item_order_contested_spore_core_icon` | P0 | `prompted` |
+| `item` | `order_live_spore_cage` | 活孢子笼 | `icon` | `item_order_live_spore_cage_icon` | P0 | `prompted` |
+| `item` | `trade_cracked_relic` | 裂纹圣牌 | `icon` | `item_loot_toxic_filter_icon` | P0 | `prompted` |
+| `item` | `trade_luminous_fungus` | 夜光菌簇 | `icon` | `item_trade_luminous_fungus_icon` | P0 | `prompted` |
+| `item` | `trade_miner_lamp` | 矿工提灯 | `icon` | `item_loot_rusty_coil_icon` | P0 | `prompted` |
+| `item` | `trade_sealed_relic_box` | 封存遗物匣 | `icon` | `item_trade_sealed_relic_box_icon` | P0 | `prompted` |
+| `item` | `trade_singing_fossil` | 低唱化石 | `icon` | `item_trade_singing_fossil_icon` | P0 | `prompted` |
+| `memento` | `memento_blackmarket_letter` | 房间纪念物-黑市纸条 | `icon` | `memento_blackmarket_letter` | P2 | `approved` |
 | `memento` | `memento_boss1_lamp` | 第一层矿灯纪念物 | `prop` | `memento_boss1_lamp` | P2 | `approved` |
-| `memento` | `memento_debt_shadow_window` | 房间纪念物-债主窗影 | `icon` | `memento_debt_shadow_window` | P2 | `prompted` |
+| `memento` | `memento_debt_shadow_window` | 房间纪念物-债主窗影 | `icon` | `memento_debt_shadow_window` | P2 | `approved` |
 | `memento` | `memento_first_chassis_frame` | 首次底盘纪念物 | `prop` | `memento_first_chassis_frame` | P2 | `approved` |
 | `memento` | `memento_first_prosthetic_case` | 首次义体纪念物 | `prop` | `memento_first_prosthetic_case` | P2 | `approved` |
 | `memento` | `memento_first_repair_patch` | 首次修补纪念物 | `prop` | `memento_first_repair_patch` | P2 | `approved` |
-| `memento` | `memento_first_return_tag` | 房间纪念物-首次归还标签 | `icon` | `memento_first_return_tag` | P2 | `prompted` |
+| `memento` | `memento_first_return_tag` | 房间纪念物-首次归还标签 | `icon` | `memento_first_return_tag` | P2 | `approved` |
 | `memento` | `memento_layer2_corrosion_vial` | 第二层腐蚀样本纪念物 | `prop` | `memento_layer2_corrosion_vial` | P2 | `approved` |
-| `memento` | `memento_low_san_blanket` | 房间纪念物-低 SAN 毯子 | `icon` | `memento_low_san_blanket` | P2 | `prompted` |
+| `memento` | `memento_low_san_blanket` | 房间纪念物-低 SAN 毯子 | `icon` | `memento_low_san_blanket` | P2 | `approved` |
 | `memento` | `memento_miracle_burn_mark` | 奇迹灼痕纪念物 | `prop` | `memento_miracle_burn_mark` | P2 | `approved` |
-| `memento` | `memento_pawn_empty_tag` | 房间纪念物-典当空位标签 | `icon` | `memento_pawn_empty_tag` | P2 | `prompted` |
+| `memento` | `memento_pawn_empty_tag` | 房间纪念物-典当空位标签 | `icon` | `memento_pawn_empty_tag` | P2 | `approved` |
 | `memento` | `memento_return_mark` | 归还痕迹纪念物 | `prop` | `memento_return_mark` | P2 | `approved` |
 | `memento` | `memento_san_collapse_blanket` | SAN崩溃安抚纪念物 | `prop` | `memento_san_collapse_blanket` | P2 | `approved` |
-| `memento` | `memento_truth_red_thread` | 房间纪念物-真相红线结 | `icon` | `memento_truth_red_thread` | P2 | `prompted` |
-| `memento` | `memento_wall_crack_first_defeat` | 房间纪念物-首次失败墙裂 | `icon` | `memento_wall_crack_first_defeat` | P2 | `prompted` |
+| `memento` | `memento_truth_red_thread` | 房间纪念物-真相红线结 | `icon` | `memento_truth_red_thread` | P2 | `approved` |
+| `memento` | `memento_wall_crack_first_defeat` | 房间纪念物-首次失败墙裂 | `icon` | `memento_wall_crack_first_defeat` | P2 | `approved` |
 | `monster` | `boss_gatekeeper_mk1` | 一层守门机 MK1战斗实体 | `combat_sprite` | `monster_boss_gatekeeper_mk1_combat` | P0 | `approved` |
 | `monster` | `boss_gatekeeper_mk1` | 一层守门机 MK1 | `portrait` | `monster_boss_gatekeeper_mk1_portrait` | P0 | `approved` |
 | `monster` | `boss_mycelium_oracle` | 菌脉神谕体战斗实体 | `combat_sprite` | `monster_boss_mycelium_oracle_combat` | P0 | `approved` |
@@ -167,21 +167,21 @@
 | `order` | `order_alchemy_purification_batch` | 炼金净化批量订单图标 | `icon` | `order_alchemy_purification_batch_icon` | P2 | `approved` |
 | `order` | `order_alchemy_spore_sample_fast` | 限时孢子样本订单图标 | `icon` | `order_alchemy_spore_sample_fast_icon` | P2 | `approved` |
 | `order` | `order_black_bound_core_betrayal` | 黑市绑定核心背叛订单图标 | `icon` | `order_black_bound_core_betrayal_icon` | P2 | `approved` |
-| `order` | `order_black_contested_core_buyout` | 订单-黑市争夺核心收买 | `icon` | `order_black_contested_core_buyout_icon` | P2 | `prompted` |
+| `order` | `order_black_contested_core_buyout` | 订单-黑市争夺核心收买 | `icon` | `order_black_contested_core_buyout_icon` | P2 | `approved` |
 | `order` | `order_black_forbidden_relic_buyout` | 黑市违禁遗物收购订单图标 | `icon` | `order_black_forbidden_relic_buyout_icon` | P2 | `approved` |
 | `order` | `order_black_live_sample_no_questions` | 黑市活体样本收购订单图标 | `icon` | `order_black_live_sample_no_questions_icon` | P2 | `approved` |
 | `order` | `order_black_smuggled_route_key` | 黑市走私路线钥匙订单图标 | `icon` | `order_black_smuggled_route_key_icon` | P2 | `approved` |
-| `order` | `order_blackmarket_relic_box` | 订单-黑市遗物盒 | `icon` | `order_blackmarket_relic_box_icon` | P2 | `prompted` |
-| `order` | `order_crystal_scale_batch` | 订单-晶鳞批量采购 | `icon` | `order_crystal_scale_batch_icon` | P2 | `prompted` |
+| `order` | `order_blackmarket_relic_box` | 订单-黑市遗物盒 | `icon` | `order_blackmarket_relic_box_icon` | P2 | `approved` |
+| `order` | `order_crystal_scale_batch` | 订单-晶鳞批量采购 | `icon` | `order_crystal_scale_batch_icon` | P2 | `approved` |
 | `order` | `order_guild_layer1_map_rubbing` | 第一层拓图报告订单图标 | `icon` | `order_guild_layer1_map_rubbing_icon` | P2 | `approved` |
 | `order` | `order_guild_layer2_route_report` | 第二层路线报告订单图标 | `icon` | `order_guild_layer2_route_report_icon` | P2 | `approved` |
 | `order` | `order_guild_safezone_signal` | 安全区信号订单图标 | `icon` | `order_guild_safezone_signal_icon` | P2 | `approved` |
 | `order` | `order_mage_boss_core_research` | 法师塔 Boss 核心研究订单图标 | `icon` | `order_mage_boss_core_research_icon` | P2 | `approved` |
 | `order` | `order_mage_corroded_memory_stone` | 腐蚀记忆石订单图标 | `icon` | `order_mage_corroded_memory_stone_icon` | P2 | `approved` |
 | `order` | `order_mage_live_slime_sample` | 活体史莱姆样本订单图标 | `icon` | `order_mage_live_slime_sample_icon` | P2 | `approved` |
-| `order` | `order_mage_oracle_sample` | 订单-法师塔神谕样本 | `icon` | `order_mage_oracle_sample_icon` | P2 | `prompted` |
+| `order` | `order_mage_oracle_sample` | 订单-法师塔神谕样本 | `icon` | `order_mage_oracle_sample_icon` | P2 | `approved` |
 | `order` | `order_mage_unidentified_relic` | 未鉴定遗物订单图标 | `icon` | `order_mage_unidentified_relic_icon` | P2 | `approved` |
-| `order` | `order_spore_cage_procurement` | 订单-孢子笼采购 | `icon` | `order_spore_cage_procurement_icon` | P2 | `prompted` |
+| `order` | `order_spore_cage_procurement` | 订单-孢子笼采购 | `icon` | `order_spore_cage_procurement_icon` | P2 | `approved` |
 | `order` | `order_status_boss_core_mutex` | 订单状态-Boss 核心互斥图标 | `icon` | `order_status_boss_core_mutex_icon` | P2 | `approved` |
 | `order` | `order_status_deadline_warning` | 订单状态-期限警告图标 | `icon` | `order_status_deadline_warning_icon` | P2 | `approved` |
 | `order` | `order_status_order_bound` | 订单状态-绑定物图标 | `icon` | `order_status_order_bound_icon` | P2 | `approved` |
@@ -196,7 +196,7 @@
 | `order` | `order_workshop_furnace_core_large` | 大型炉芯订单图标 | `icon` | `order_workshop_furnace_core_large_icon` | P2 | `approved` |
 | `order` | `order_workshop_layer2_ore_batch` | 第二层矿石批量订单图标 | `icon` | `order_workshop_layer2_ore_batch_icon` | P2 | `approved` |
 | `order` | `order_workshop_scrap_guard_plate` | 废料守卫装甲板订单图标 | `icon` | `order_workshop_scrap_guard_plate_icon` | P2 | `approved` |
-| `order` | `order_workshop_spore_core_frame` | 订单-工坊孢子核心框架 | `icon` | `order_workshop_spore_core_frame_icon` | P2 | `prompted` |
+| `order` | `order_workshop_spore_core_frame` | 订单-工坊孢子核心框架 | `icon` | `order_workshop_spore_core_frame_icon` | P2 | `approved` |
 | `prosthetic` | `pros_cooling_system` | 稳压散热插件 | `icon` | `prosthetic_pros_cooling_system_icon` | P1 | `approved` |
 | `prosthetic` | `pros_power_arm` | 动力臂增幅插件 | `icon` | `prosthetic_pros_power_arm_icon` | P1 | `approved` |
 | `prosthetic` | `prosthetic_anchor_left_arm` | 锚定左臂图标 | `icon` | `prosthetic_anchor_left_arm_icon` | P2 | `approved` |
@@ -205,21 +205,21 @@
 | `prosthetic` | `prosthetic_mender_spine` | 修复脊索图标 | `icon` | `prosthetic_mender_spine_icon` | P2 | `approved` |
 | `prosthetic` | `prosthetic_salvage_fingertips` | 精密拾荒指图标 | `icon` | `prosthetic_salvage_fingertips_icon` | P2 | `approved` |
 | `prosthetic` | `prosthetic_san_regulator_core` | SAN稳态调节核图标 | `icon` | `prosthetic_san_regulator_core_icon` | P2 | `approved` |
-| `rumor` | `rumor_acid_gland_shortage` | 传闻-酸腺囊短缺 | `icon` | `rumor_acid_gland_shortage_icon` | P2 | `prompted` |
+| `rumor` | `rumor_acid_gland_shortage` | 传闻-酸腺囊短缺 | `icon` | `rumor_acid_gland_shortage_icon` | P2 | `approved` |
 | `rumor` | `rumor_contraband_night_channel` | 黑市夜间窗口传闻图标 | `icon` | `rumor_contraband_night_channel_icon` | P2 | `approved` |
 | `rumor` | `rumor_corrosion_sample_premium` | 腐蚀样本溢价传闻图标 | `icon` | `rumor_corrosion_sample_premium_icon` | P2 | `approved` |
-| `rumor` | `rumor_crystal_scale_contract` | 传闻-晶鳞采购令 | `icon` | `rumor_crystal_scale_contract_icon` | P2 | `prompted` |
+| `rumor` | `rumor_crystal_scale_contract` | 传闻-晶鳞采购令 | `icon` | `rumor_crystal_scale_contract_icon` | P2 | `approved` |
 | `rumor` | `rumor_faction_medical_request` | 医疗势力需求传闻图标 | `icon` | `rumor_faction_medical_request_icon` | P2 | `approved` |
-| `rumor` | `rumor_filter_shortage` | 传闻-滤芯短缺 | `icon` | `rumor_filter_shortage_icon` | P2 | `prompted` |
-| `rumor` | `rumor_living_mycelium_shortage` | 传闻-活体菌丝短缺 | `icon` | `rumor_living_mycelium_shortage_icon` | P2 | `prompted` |
+| `rumor` | `rumor_filter_shortage` | 传闻-滤芯短缺 | `icon` | `rumor_filter_shortage_icon` | P2 | `approved` |
+| `rumor` | `rumor_living_mycelium_shortage` | 传闻-活体菌丝短缺 | `icon` | `rumor_living_mycelium_shortage_icon` | P2 | `approved` |
 | `rumor` | `rumor_low_layer_bulk_buy` | 低层统购传闻图标 | `icon` | `rumor_low_layer_bulk_buy_icon` | P2 | `approved` |
-| `rumor` | `rumor_miner_lamps` | 传闻-矿灯收藏热 | `icon` | `rumor_miner_lamps_icon` | P2 | `prompted` |
-| `rumor` | `rumor_old_blades` | 传闻-旧刃涨价 | `icon` | `rumor_old_blades_icon` | P2 | `prompted` |
-| `rumor` | `rumor_oracle_fossil_collector` | 传闻-神谕化石收藏家 | `icon` | `rumor_oracle_fossil_collector_icon` | P2 | `prompted` |
+| `rumor` | `rumor_miner_lamps` | 传闻-矿灯收藏热 | `icon` | `rumor_miner_lamps_icon` | P2 | `approved` |
+| `rumor` | `rumor_old_blades` | 传闻-旧刃涨价 | `icon` | `rumor_old_blades_icon` | P2 | `approved` |
+| `rumor` | `rumor_oracle_fossil_collector` | 传闻-神谕化石收藏家 | `icon` | `rumor_oracle_fossil_collector_icon` | P2 | `approved` |
 | `rumor` | `rumor_origin_stone_demand` | 源石需求传闻图标 | `icon` | `rumor_origin_stone_demand_icon` | P2 | `approved` |
 | `rumor` | `rumor_scrap_workshop_shortage` | 工坊废料短缺传闻图标 | `icon` | `rumor_scrap_workshop_shortage_icon` | P2 | `approved` |
 | `rumor` | `rumor_slime_crash` | 史莱姆跌价传闻图标 | `icon` | `rumor_slime_crash_icon` | P2 | `approved` |
-| `rumor` | `rumor_spore_amber_jeweler` | 传闻-孢子琥珀珠宝商 | `icon` | `rumor_spore_amber_jeweler_icon` | P2 | `prompted` |
+| `rumor` | `rumor_spore_amber_jeweler` | 传闻-孢子琥珀珠宝商 | `icon` | `rumor_spore_amber_jeweler_icon` | P2 | `approved` |
 | `rumor` | `rumor_weapon_collector_visit` | 武器藏家到访传闻图标 | `icon` | `rumor_weapon_collector_visit_icon` | P2 | `approved` |
 | `ui` | `missing_sprite` | 缺失占位图 | `icon` | `ui_missing_sprite` | P0 | `approved` |
 | `ui` | `button_primary` | 主按钮 | `button` | `ui_button_primary` | P1 | `approved` |
@@ -228,11 +228,11 @@
 | `ui` | `combat_enemy_card` | 敌人卡片框 | `frame` | `ui_combat_enemy_card` | P1 | `approved` |
 | `ui` | `combat_enemy_card_selected` | 敌人选中卡片框 | `frame` | `ui_combat_enemy_card_selected` | P1 | `approved` |
 | `ui` | `combat_entity_shadow` | 战斗实体脚底阴影 | `shadow` | `ui_combat_entity_shadow` | P1 | `approved` |
-| `ui` | `combat_feedback_echo_fade` | 战斗反馈-回声消散 | `icon` | `ui_combat_feedback_echo_fade` | P1 | `prompted` |
+| `ui` | `combat_feedback_echo_fade` | 战斗反馈-回声消散 | `icon` | `ui_combat_feedback_echo_fade` | P1 | `approved` |
 | `ui` | `combat_feedback_hit` | 命中反馈符号 | `effect_overlay` | `ui_combat_feedback_hit` | P1 | `approved` |
-| `ui` | `combat_feedback_scrap_break` | 战斗反馈-废铁破裂 | `icon` | `ui_combat_feedback_scrap_break` | P1 | `prompted` |
+| `ui` | `combat_feedback_scrap_break` | 战斗反馈-废铁破裂 | `icon` | `ui_combat_feedback_scrap_break` | P1 | `approved` |
 | `ui` | `combat_feedback_shield_break` | 破盾反馈符号 | `effect_overlay` | `ui_combat_feedback_shield_break` | P1 | `approved` |
-| `ui` | `combat_feedback_slime_pop` | 战斗反馈-酸液泡破裂 | `icon` | `ui_combat_feedback_slime_pop` | P1 | `prompted` |
+| `ui` | `combat_feedback_slime_pop` | 战斗反馈-酸液泡破裂 | `icon` | `ui_combat_feedback_slime_pop` | P1 | `approved` |
 | `ui` | `combat_grid_lock_marker` | 封格覆盖标记 | `marker` | `ui_combat_grid_lock_marker` | P1 | `approved` |
 | `ui` | `combat_intent_add_junk` | 塞包意图图标 | `icon` | `ui_combat_intent_add_junk` | P1 | `approved` |
 | `ui` | `combat_intent_attack` | 攻击意图图标 | `icon` | `ui_combat_intent_attack` | P1 | `approved` |

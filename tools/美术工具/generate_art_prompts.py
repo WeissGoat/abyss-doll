@@ -417,11 +417,11 @@ UI_EN = {
     "combat_status_corrosion": "corrosion status emblem, green acid droplet eating into a brass plate, clean silhouette",
     "combat_status_curse": "curse status emblem, dark purple cracked talisman plate wrapped by small brass wires, clean silhouette",
     "combat_status_stun": "stun status emblem, tilted brass gear with blue spark burst, clean silhouette",
-    "combat_feedback_echo_fade": "echo fade feedback overlay, pale blue ghostly afterimage silhouette dissolving into small transparent particles, no lamp, no object body, clean readable effect shape",
+    "combat_feedback_echo_fade": "echo fade feedback overlay, warm ivory and antique gold spirit afterimage arc dissolving into sparse dust motes, soft amber rim light, sepia translucent glow, low saturation, absolutely no blue or cyan color, no lamp, no object body, clean readable effect shape",
     "combat_feedback_hit": "hit feedback overlay, sharp translucent red-orange impact burst with brass spark fragments, transparent center gaps",
     "combat_feedback_scrap_break": "scrap break feedback overlay, cracked rusty armor plate bursting into angular metal shards and small brass sparks, transparent gaps, no lamp, clean readable effect shape",
     "combat_feedback_shield_break": "shield break feedback overlay, cracked blue shield shards with brass spark fragments, transparent gaps",
-    "combat_feedback_slime_pop": "slime pop feedback overlay, translucent green acid slime bubble bursting into splash droplets, soft toxic glow, transparent center gaps, no bottle, no lamp, clean readable effect shape",
+    "combat_feedback_slime_pop": "slime pop feedback overlay, desaturated olive yellow acid bubble bursting into rounded splash droplets, honey amber highlights, murky transparent liquid, low saturation, absolutely no lime green or neon color, transparent center gaps, no bottle, no lamp, clean readable effect shape",
     "combat_grid_lock_marker": "square cell overlay marker, crossed brass clamp frame with muted red warning glow, transparent center",
     "combat_junk_preview_marker": "square cell preview marker, faint green toxic stain and small scrap warning outline, transparent center",
     "dungeon_node_plate": "round map node backing plate, dark metal disk, brass ring, small screw marks, empty center",
@@ -1438,7 +1438,8 @@ STALE_PROMPT_FRAGMENTS = [
 NEGATIVE_BY_CONFIG = {
     "combat_feedback_echo_fade": (
         "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, "
-        "lantern, lamp, torch, candle, bottle, vase, jar, full character, portrait, solid opaque object, UI panel"
+        "lantern, lamp, torch, candle, bottle, vase, jar, full character, portrait, solid opaque object, UI panel, "
+        "electric blue, cyan, blue neon, blue flame, turquoise, aqua, cold blue glow, dense particle cloud"
     ),
     "combat_feedback_scrap_break": (
         "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, "
@@ -1446,7 +1447,8 @@ NEGATIVE_BY_CONFIG = {
     ),
     "combat_feedback_slime_pop": (
         "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, "
-        "lantern, lamp, torch, candle, bottle, flask, potion bottle, vase, jar, full creature body, UI panel"
+        "lantern, lamp, torch, candle, bottle, flask, potion bottle, vase, jar, full creature body, UI panel, "
+        "neon green, fluorescent green, lime green, bright green, radioactive glow, cyan, blue, slime monster body"
     ),
     "memento_truth_red_thread": (
         "text, letters, numbers, watermark, logo, signature, busy background, human hand, full room scene, "

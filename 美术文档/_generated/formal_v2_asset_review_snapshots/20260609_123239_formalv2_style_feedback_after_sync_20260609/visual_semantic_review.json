@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-06-09T12:37:44+08:00",
-  "SnapshotTag": "formalv2_style_feedback_primary_risk_fix_20260609",
+  "GeneratedAt": "2026-06-09T12:32:39+08:00",
+  "SnapshotTag": "formalv2_style_feedback_after_sync_20260609",
   "ReviewScope": {
     "SourceReport": "美术文档/_generated/formal_v2_asset_review/formal_v2_asset_review.json",
     "ReviewedVisualCount": 77,
@@ -19,7 +19,7 @@
     "PrimaryRisks": [
       "部分物品图标仍有黄铜灯具/容器同质化风险",
       "部分怪物头像在小头像槽中可能过暗或主体过小",
-      "战斗反馈图标已完成色系统一，后续只需在运行时复核小尺寸可读性"
+      "少量战斗反馈图标颜色可能和日系地底奇幻主风格割裂"
     ]
   },
   "ReviewItems": [

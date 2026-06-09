@@ -174,14 +174,14 @@ RISK_OVERRIDES: dict[str, dict[str, str]] = {
         "RecommendationCN": "运行时复核；必要时重出带弓形剪影的半身头像。",
     },
     "ui_combat_feedback_echo_fade": {
-        "RiskLevel": "style_mismatch_watch",
-        "ReasonCN": "浅蓝粒子和当前琥珀/地底奇幻主色差异较大，可能在战斗 HUD 中突兀。",
-        "RecommendationCN": "运行时复核；若割裂明显，改为淡金或冷白回声残影并降低散点噪声。",
+        "RiskLevel": "watch_runtime_readability",
+        "ReasonCN": "同名替换后已改为暖白 / 淡金回声残影，原浅蓝风格割裂风险已收敛；仍需在战斗 HUD 小尺寸中确认亮度和透明边界。",
+        "RecommendationCN": "允许程序登记；运行时复核 140px 反馈贴片是否足够可读，必要时再提高轮廓对比。",
     },
     "ui_combat_feedback_slime_pop": {
-        "RiskLevel": "style_mismatch_watch",
-        "ReasonCN": "荧光绿色过亮，和整体日系地底奇幻 + 轻蒸汽工艺风格有色彩割裂。",
-        "RecommendationCN": "运行时复核；必要时改为半透明酸液泡破裂，降低霓虹饱和度。",
+        "RiskLevel": "watch_runtime_readability",
+        "ReasonCN": "同名替换后已从荧光绿压到低饱和橄榄金酸液泡，原霓虹风格割裂风险已收敛；仍需在战斗 HUD 中确认泡破裂语义。",
+        "RecommendationCN": "允许程序登记；运行时复核酸液泡 / 液滴是否能读成击败反馈，必要时再强化破裂飞溅形状。",
     },
     "memento_debt_shadow_window": {
         "RiskLevel": "watch_runtime_readability",
@@ -422,15 +422,23 @@ def build_payload(args: argparse.Namespace) -> tuple[dict[str, Any], str]:
             "TechnicalStatusCounts": dict(sorted(technical_counts.items())),
             "ProgramIntegrationDecision": program_decision,
             "VisualSemanticRiskCounts": dict(sorted(risk_counts.items())),
-            "PrimaryRisks": [
-                "部分物品图标仍有黄铜灯具/容器同质化风险",
-                "部分怪物头像在小头像槽中可能过暗或主体过小",
-                "少量战斗反馈图标颜色可能和日系地底奇幻主风格割裂",
-            ],
+            "PrimaryRisks": primary_risks(risk_counts),
         },
         "ReviewItems": sorted(review_items, key=lambda item: str(item["VisualID"])),
     }
     return payload, make_markdown(payload)
+
+
+def primary_risks(risk_counts: Counter[str]) -> list[str]:
+    risks = [
+        "部分物品图标仍有黄铜灯具/容器同质化风险",
+        "部分怪物头像在小头像槽中可能过暗或主体过小",
+    ]
+    if risk_counts.get("style_mismatch_watch", 0) > 0:
+        risks.append("少量战斗反馈图标颜色可能和日系地底奇幻主风格割裂")
+    else:
+        risks.append("战斗反馈图标已完成色系统一，后续只需在运行时复核小尺寸可读性")
+    return risks
 
 
 def write_outputs(args: argparse.Namespace, payload: dict[str, Any], markdown: str) -> tuple[Path, Path]:
