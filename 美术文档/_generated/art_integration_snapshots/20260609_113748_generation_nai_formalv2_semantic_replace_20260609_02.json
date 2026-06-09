@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-06-09T11:44:25+08:00",
-  "SnapshotTag": "approved_sync_candidate_nai_formalv2_semantic_replace_20260609_02",
+  "GeneratedAt": "2026-06-09T11:37:48+08:00",
+  "SnapshotTag": "generation_nai_formalv2_semantic_replace_20260609_02",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",
@@ -76,7 +76,7 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_purifying_salt_icon.png",
       "ApprovedFileExists": true,
       "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/selected/20260609_001.png",
+      "SelectedCandidate": "",
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/processed/20260608_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/raw/20260608_001.png",
       "ReferencedBy": [
@@ -172,7 +172,7 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_corroded_bulwark_icon.png",
       "ApprovedFileExists": true,
       "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/selected/20260609_002.png",
+      "SelectedCandidate": "",
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/processed/20260608_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/raw/20260608_001.png",
       "ReferencedBy": [
@@ -196,7 +196,7 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_mycelium_cloak_icon.png",
       "ApprovedFileExists": true,
       "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/selected/20260609_001.png",
+      "SelectedCandidate": "",
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/processed/20260608_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/raw/20260608_001.png",
       "ReferencedBy": [
@@ -220,7 +220,7 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_spore_lance_icon.png",
       "ApprovedFileExists": true,
       "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/selected/20260609_002.png",
+      "SelectedCandidate": "",
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/processed/20260608_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/raw/20260608_001.png",
       "ReferencedBy": [
@@ -268,7 +268,7 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_acid_gland_icon.png",
       "ApprovedFileExists": true,
       "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/selected/20260609_004.png",
+      "SelectedCandidate": "",
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/processed/20260608_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/raw/20260608_001.png",
       "ReferencedBy": [
@@ -292,7 +292,7 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_corroded_nerve_icon.png",
       "ApprovedFileExists": true,
       "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/selected/20260609_002.png",
+      "SelectedCandidate": "",
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/processed/20260608_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/raw/20260608_001.png",
       "ReferencedBy": [
@@ -484,7 +484,7 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_spore_foundry_portrait.png",
       "ApprovedFileExists": true,
       "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/selected/20260609_002.png",
+      "SelectedCandidate": "",
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/processed/20260608_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/raw/20260608_001.png",
       "ReferencedBy": [
@@ -676,7 +676,7 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_acid_slime_mature_portrait.png",
       "ApprovedFileExists": true,
       "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/selected/20260609_003.png",
+      "SelectedCandidate": "",
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/processed/20260608_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/raw/20260608_001.png",
       "ReferencedBy": [
@@ -772,7 +772,7 @@
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_echo_pilgrim_portrait.png",
       "ApprovedFileExists": true,
       "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/selected/20260609_003.png",
+      "SelectedCandidate": "",
       "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/processed/20260608_001.png",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/raw/20260608_001.png",
       "ReferencedBy": [

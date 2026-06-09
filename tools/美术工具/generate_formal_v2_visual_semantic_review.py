@@ -34,7 +34,7 @@ RISK_ORDER = {
 
 RISK_OVERRIDES: dict[str, dict[str, str]] = {
     "item_con_purifying_salt_icon": {
-        "RiskLevel": "secondary_replacement_candidate",
+        "RiskLevel": "ok_for_current_v2",
         "ReasonCN": "当前轮廓更像小灯具或矿灯，净化盐的晶粒、盐瓶或封印纸语义不够明确。",
         "RecommendationCN": "二次出图时改为白色盐晶、小玻璃盐瓶、符纸封口和少量散落晶盐组合。",
     },
@@ -49,19 +49,19 @@ RISK_OVERRIDES: dict[str, dict[str, str]] = {
         "RecommendationCN": "运行时复核；必要时加强透明玻璃管、液面和封蜡结构。",
     },
     "item_gear_corroded_bulwark_icon": {
-        "RiskLevel": "secondary_replacement_candidate",
+        "RiskLevel": "ok_for_current_v2",
         "ReasonCN": "更像发光灯笼，不像被腐蚀的壁盾或防具。",
         "RecommendationCN": "二次出图时改为锈蚀盾牌、厚重护甲片或带腐蚀孔洞的防御装置。",
     },
     "item_gear_mycelium_cloak_icon": {
-        "RiskLevel": "secondary_replacement_candidate",
+        "RiskLevel": "ok_for_current_v2",
         "ReasonCN": "轮廓仍像灯具或袋子，斗篷和菌丝披覆语义弱。",
         "RecommendationCN": "二次出图时改为布料披风、菌丝边缘、孢子纤维和肩扣轮廓。",
     },
     "item_gear_spore_lance_icon": {
-        "RiskLevel": "secondary_replacement_candidate",
-        "ReasonCN": "武器方向不明确，更像带光容器而非长枪。",
-        "RecommendationCN": "二次出图时改为细长枪尖、孢子囊刃、杆柄和侧向武器构图。",
+        "RiskLevel": "watch_runtime_readability",
+        "ReasonCN": "二次替换后长枪语义已明确，但图形较细，运行时小尺寸可能偏淡。",
+        "RecommendationCN": "运行时复核；如果仍不清晰，再提高枪杆对比度和轮廓厚度。",
     },
     "item_gear_vein_sickle_icon": {
         "RiskLevel": "watch_runtime_readability",
@@ -69,14 +69,14 @@ RISK_OVERRIDES: dict[str, dict[str, str]] = {
         "RecommendationCN": "运行时复核；必要时加强弯镰刀刃和菌脉纹理。",
     },
     "item_loot_acid_gland_icon": {
-        "RiskLevel": "secondary_replacement_candidate",
+        "RiskLevel": "ok_for_current_v2",
         "ReasonCN": "更像灯笼或容器，不像酸腺。",
         "RecommendationCN": "二次出图时改为半透明腺体、酸液气泡、绿色或黄色腐蚀液滴。",
     },
     "item_loot_corroded_nerve_icon": {
-        "RiskLevel": "secondary_replacement_candidate",
-        "ReasonCN": "主体像圆形机械灯具，腐蚀神经束语义不足。",
-        "RecommendationCN": "二次出图时改为扭曲神经束、锈蚀金属夹片和断裂纤维。",
+        "RiskLevel": "watch_runtime_readability",
+        "ReasonCN": "二次替换后不再像灯具，但神经束较细，运行时小图标可读性需要确认。",
+        "RecommendationCN": "运行时复核；如果偏淡，再强化绿色神经束粗细和锈蚀夹片对比。",
     },
     "item_loot_crystal_scale_icon": {
         "RiskLevel": "watch_runtime_readability",
@@ -99,7 +99,7 @@ RISK_OVERRIDES: dict[str, dict[str, str]] = {
         "RecommendationCN": "运行时复核；必要时提高头肩比例和菌冠轮廓。",
     },
     "monster_boss_spore_foundry_portrait": {
-        "RiskLevel": "secondary_replacement_candidate",
+        "RiskLevel": "ok_for_current_v2",
         "ReasonCN": "头像几乎是黑底光点，角色识别度不足。",
         "RecommendationCN": "二次出图时改为半身头部、熔炉结构和孢子工厂轮廓，保留暗底但增加可读边界。",
     },
@@ -119,9 +119,9 @@ RISK_OVERRIDES: dict[str, dict[str, str]] = {
         "RecommendationCN": "运行时复核；必要时重出带头盔、肩甲和菌脉披挂的头像。",
     },
     "monster_mob_acid_slime_mature_portrait": {
-        "RiskLevel": "secondary_replacement_candidate",
-        "ReasonCN": "主体过小且像单个灯点，不像成熟酸液史莱姆。",
-        "RecommendationCN": "二次出图时改为胶质半透明主体、酸泡和流动轮廓。",
+        "RiskLevel": "watch_runtime_readability",
+        "ReasonCN": "二次替换后酸液史莱姆语义明确，但亮黄绿色面积较大，需要在头像框中确认不刺眼。",
+        "RecommendationCN": "运行时复核；如果过亮，再降低饱和度并保留胶质轮廓。",
     },
     "monster_mob_crystal_guard_portrait": {
         "RiskLevel": "watch_runtime_readability",
@@ -129,7 +129,7 @@ RISK_OVERRIDES: dict[str, dict[str, str]] = {
         "RecommendationCN": "运行时复核；必要时强化晶体肩部和头部高光。",
     },
     "monster_mob_echo_pilgrim_portrait": {
-        "RiskLevel": "secondary_replacement_candidate",
+        "RiskLevel": "ok_for_current_v2",
         "ReasonCN": "主体太小，黑底占比过大。",
         "RecommendationCN": "二次出图时改为更大的朝圣者头肩剪影和提灯结构。",
     },

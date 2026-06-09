@@ -1897,13 +1897,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_con_purifying_salt_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/contact_sheet/item_con_purifying_salt_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/contact_sheet/item_con_purifying_salt_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T11:32:55+08:00] generated candidate batch nai_formalv2_semantic_replace_20260609_02; preserved Status=approved.\n[2026-06-09T11:38:36+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/contact_sheet/item_con_purifying_salt_icon_contact_sheet.png\n[2026-06-09T11:44:23+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_con_purifying_salt_icon/selected/20260609_001.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T11:44:23+08:00",
+      "ReplacementBatchID": "nai_formalv2_semantic_replace_20260609_02"
     },
     {
       "Domain": "item",
@@ -2294,13 +2294,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_corroded_bulwark_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/contact_sheet/item_gear_corroded_bulwark_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/contact_sheet/item_gear_corroded_bulwark_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T11:32:55+08:00] generated candidate batch nai_formalv2_semantic_replace_20260609_02; preserved Status=approved.\n[2026-06-09T11:38:36+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/contact_sheet/item_gear_corroded_bulwark_icon_contact_sheet.png\n[2026-06-09T11:44:23+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_gear_corroded_bulwark_icon/selected/20260609_002.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T11:44:23+08:00",
+      "ReplacementBatchID": "nai_formalv2_semantic_replace_20260609_02"
     },
     {
       "Domain": "item",
@@ -2462,13 +2462,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_mycelium_cloak_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/contact_sheet/item_gear_mycelium_cloak_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/contact_sheet/item_gear_mycelium_cloak_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T11:32:55+08:00] generated candidate batch nai_formalv2_semantic_replace_20260609_02; preserved Status=approved.\n[2026-06-09T11:38:36+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/contact_sheet/item_gear_mycelium_cloak_icon_contact_sheet.png\n[2026-06-09T11:44:23+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_gear_mycelium_cloak_icon/selected/20260609_001.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T11:44:23+08:00",
+      "ReplacementBatchID": "nai_formalv2_semantic_replace_20260609_02"
     },
     {
       "Domain": "item",
@@ -2630,13 +2630,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_gear_spore_lance_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/contact_sheet/item_gear_spore_lance_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/contact_sheet/item_gear_spore_lance_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T11:32:55+08:00] generated candidate batch nai_formalv2_semantic_replace_20260609_02; preserved Status=approved.\n[2026-06-09T11:38:36+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/contact_sheet/item_gear_spore_lance_icon_contact_sheet.png\n[2026-06-09T11:44:23+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_gear_spore_lance_icon/selected/20260609_002.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T11:44:23+08:00",
+      "ReplacementBatchID": "nai_formalv2_semantic_replace_20260609_02"
     },
     {
       "Domain": "item",
@@ -2856,13 +2856,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_acid_gland_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/contact_sheet/item_loot_acid_gland_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/contact_sheet/item_loot_acid_gland_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T11:32:55+08:00] generated candidate batch nai_formalv2_semantic_replace_20260609_02; preserved Status=approved.\n[2026-06-09T11:38:36+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/contact_sheet/item_loot_acid_gland_icon_contact_sheet.png\n[2026-06-09T11:44:23+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_acid_gland_icon/selected/20260609_004.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T11:44:23+08:00",
+      "ReplacementBatchID": "nai_formalv2_semantic_replace_20260609_02"
     },
     {
       "Domain": "item",
@@ -2879,7 +2879,7 @@
       "SourceFactsCN": "配置表物品：腐蚀神经束。类型 Loot，稀有度 Rare，占格 3，标签 Loot, Material, Layer3, SanPressure, CorruptionMid。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, corroded nerve loot icon, twisted organic nerve strand threaded with green corrosion crystals, wet fibrous texture, small brass sample clamp, readable coiled strand silhouette, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies, lantern, lamp, torch, brass vessel, glass lantern, potion bottle, mechanical core, round glowing container, clean fruit, jewel",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -2914,13 +2914,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_corroded_nerve_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/contact_sheet/item_loot_corroded_nerve_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/contact_sheet/item_loot_corroded_nerve_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T11:32:55+08:00] generated candidate batch nai_formalv2_semantic_replace_20260609_02; preserved Status=approved.\n[2026-06-09T11:38:36+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/contact_sheet/item_loot_corroded_nerve_icon_contact_sheet.png\n[2026-06-09T11:44:23+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_corroded_nerve_icon/selected/20260609_002.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T11:44:23+08:00",
+      "ReplacementBatchID": "nai_formalv2_semantic_replace_20260609_02"
     },
     {
       "Domain": "item",
@@ -5258,13 +5258,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/selected/20260609_002.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_spore_foundry_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/contact_sheet/monster_boss_spore_foundry_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/contact_sheet/monster_boss_spore_foundry_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T11:32:55+08:00] generated candidate batch nai_formalv2_semantic_replace_20260609_02; preserved Status=approved.\n[2026-06-09T11:38:36+08:00] processed 3 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/contact_sheet/monster_boss_spore_foundry_portrait_contact_sheet.png\n[2026-06-09T11:44:23+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/monster_boss_spore_foundry_portrait/selected/20260609_002.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T11:44:23+08:00",
+      "ReplacementBatchID": "nai_formalv2_semantic_replace_20260609_02"
     },
     {
       "Domain": "monster",
@@ -6052,13 +6052,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_acid_slime_mature_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/contact_sheet/monster_mob_acid_slime_mature_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/contact_sheet/monster_mob_acid_slime_mature_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T11:32:55+08:00] generated candidate batch nai_formalv2_semantic_replace_20260609_02; preserved Status=approved.\n[2026-06-09T11:38:36+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/contact_sheet/monster_mob_acid_slime_mature_portrait_contact_sheet.png\n[2026-06-09T11:44:23+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/monster_mob_acid_slime_mature_portrait/selected/20260609_003.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T11:44:23+08:00",
+      "ReplacementBatchID": "nai_formalv2_semantic_replace_20260609_02"
     },
     {
       "Domain": "monster",
@@ -6284,13 +6284,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_mob_echo_pilgrim_portrait.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/contact_sheet/monster_mob_echo_pilgrim_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/contact_sheet/monster_mob_echo_pilgrim_portrait_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T11:32:55+08:00] generated candidate batch nai_formalv2_semantic_replace_20260609_02; preserved Status=approved.\n[2026-06-09T11:38:36+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/contact_sheet/monster_mob_echo_pilgrim_portrait_contact_sheet.png\n[2026-06-09T11:44:23+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/monster_mob_echo_pilgrim_portrait/selected/20260609_003.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T11:44:23+08:00",
+      "ReplacementBatchID": "nai_formalv2_semantic_replace_20260609_02"
     },
     {
       "Domain": "monster",
