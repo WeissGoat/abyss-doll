@@ -3104,11 +3104,11 @@
       "VisualID": "item_loot_rusty_coil_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_rusty_coil_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：生锈线圈。类型 Loot，稀有度 Uncommon，占格 2，标签 Material, Mechanical。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。生锈线圈材料图标，铜线圈、铁芯、断线和锈蚀外壳。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, rusty copper coil with iron core, loose wire ends, corroded casing, vertical mechanical component silhouette, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, rusty copper electromagnetic coil icon, stacked copper windings around a dark iron rod, two loose wire ends, corroded ceramic insulator base, clearly a machine part, not a lantern, not a lamp, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, oil lamp, miner lamp, torch, candle, glowing brass vessel, vase, jar, bottle, teapot, coin, gem, intact power core, helmet, full machine, decorative ornament",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3143,10 +3143,13 @@
       },
       "BatchID": "nai_p0_item_20260510_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/item_loot_rusty_coil_icon.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_rusty_coil_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/contact_sheet/item_loot_rusty_coil_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/item_loot_rusty_coil_icon.png"
+      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/contact_sheet/item_loot_rusty_coil_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/item_loot_rusty_coil_icon.png\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/contact_sheet/item_loot_rusty_coil_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/20260609_001.png",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
+      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
     },
     {
       "Domain": "item",
@@ -3159,11 +3162,11 @@
       "VisualID": "item_loot_spore_amber_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_spore_amber_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：孢晶琥珀。类型 Loot，稀有度 Rare，占格 2，标签 Loot, Trade, Layer3, SporeAmber。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, spore amber loot icon, warm amber resin chunk with visible trapped spores inside, irregular polished edges, tiny moss flecks, glowing fossil-resin silhouette, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, spore amber loot icon, irregular honey amber resin shard with visible trapped spores inside, chipped fossil-resin edges, tiny moss flecks, clearly a gemstone-like amber chunk, not a lantern, not a lamp, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, mushroom cluster only, coin, full fossil shell, decorative lamp, intact container",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3198,13 +3201,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_spore_amber_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_spore_amber_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_spore_amber_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_spore_amber_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_spore_amber_icon/contact_sheet/item_loot_spore_amber_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_spore_amber_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_spore_amber_icon/contact_sheet/item_loot_spore_amber_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_spore_amber_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_spore_amber_icon/contact_sheet/item_loot_spore_amber_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_spore_amber_icon/selected/20260609_004.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
+      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
     },
     {
       "Domain": "item",
@@ -3217,11 +3220,11 @@
       "VisualID": "item_loot_toxic_filter_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_toxic_filter_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：污染滤芯。类型 Loot，稀有度 Rare，占格 3，标签 Material, Toxic, Mechanical。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。污染滤芯图标，工业滤芯破裂外壳、紫绿色污染残留和腐蚀金属。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, polluted industrial filter cartridge, cracked casing, purple-green toxic residue, corroded metal, square silhouette, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, polluted industrial filter cartridge icon, cracked square metal filter frame, dark pleated mesh, purple-green toxic residue leaking from the grid, clearly a replaceable filter part, not a jar, not a lamp, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, gas mask, helmet, coin, gem, intact machine core, decorative container",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3256,10 +3259,13 @@
       },
       "BatchID": "nai_p0_item_20260510_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/item_loot_toxic_filter_icon.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_toxic_filter_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/contact_sheet/item_loot_toxic_filter_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/item_loot_toxic_filter_icon.png"
+      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/contact_sheet/item_loot_toxic_filter_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/item_loot_toxic_filter_icon.png\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/contact_sheet/item_loot_toxic_filter_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/20260609_004.png",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
+      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
     },
     {
       "Domain": "item",
@@ -3272,11 +3278,11 @@
       "VisualID": "item_loot_vein_plate_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_vein_plate_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：菌脉甲片。类型 Loot，稀有度 Uncommon，占格 4，标签 Loot, Material, Layer3, Vein。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, vein plate loot icon, flat biological armor plate crossed by red vein channels, chipped brass mounting pins, dark organic surface, readable plate silhouette, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, vein plate loot icon, flat broken biological armor plate, red vein channels crossing the surface, chipped brass mounting pins, dark organic shell texture, clearly a plate shard, not a lantern, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, round shield, full armor suit, coin, gem, mushroom, decorative lamp",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3311,13 +3317,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_vein_plate_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_vein_plate_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_vein_plate_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_vein_plate_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_vein_plate_icon/contact_sheet/item_loot_vein_plate_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_vein_plate_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_vein_plate_icon/contact_sheet/item_loot_vein_plate_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_vein_plate_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_vein_plate_icon/contact_sheet/item_loot_vein_plate_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_vein_plate_icon/selected/20260609_003.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
+      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
     },
     {
       "Domain": "item",
@@ -3330,11 +3336,11 @@
       "VisualID": "item_loot_warped_plate_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_warped_plate_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：扭曲装甲片。类型 Loot，稀有度 Rare，占格 4，标签 Material, ArmorPlate, Layer2, Heavy。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, warped plate loot icon, bent corroded metal armor plate, twisted edge, purple-green stains, broken rivets, readable damaged metal plate silhouette, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, warped plate loot icon, bent corroded metal armor plate, twisted torn edge, purple-green stains, broken rivets, flattened damaged metal silhouette, not a lantern, not a vessel, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, round shield, full armor suit, coin, gem, decorative container, polished clean plate",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3369,13 +3375,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_warped_plate_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/contact_sheet/item_loot_warped_plate_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/contact_sheet/item_loot_warped_plate_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/contact_sheet/item_loot_warped_plate_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/selected/20260609_001.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
+      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
     },
     {
       "Domain": "item",
@@ -3388,11 +3394,11 @@
       "VisualID": "item_mat_core_tier1_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier1_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：一阶动力核心。类型 QuestItem，稀有度 Epic，占格 4，标签 Material, CoreMaterial, Heavy。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。一阶动力核心图标，小型金属核心装置，内部有稳定蓝金色发光核心。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, small power core module, metal casing, stable blue-gold glowing core, heavy valuable machine part, strong centered silhouette, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, small power core module icon, compact oval metal casing, exposed gear ring, stable blue-gold glowing energy cell in the center, heavy valuable machine part, not a lantern, not a lamp, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, coin only, gem only, helmet lamp, decorative pendant, full machine",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3427,10 +3433,13 @@
       },
       "BatchID": "nai_p0_item_20260510_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/item_mat_core_tier1_icon.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier1_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/contact_sheet/item_mat_core_tier1_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/item_mat_core_tier1_icon.png"
+      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/contact_sheet/item_mat_core_tier1_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/item_mat_core_tier1_icon.png\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/contact_sheet/item_mat_core_tier1_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/20260609_003.png",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
+      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
     },
     {
       "Domain": "item",
@@ -3446,8 +3455,8 @@
       "Status": "prompted",
       "SourceFactsCN": "配置表物品：二阶污染核心。类型 QuestItem，稀有度 Epic，占格 4，标签 CoreMaterial, Toxic, Heavy, LegacyCompat。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, polluted tier two power core icon, compact cracked metal core module, purple-green corruption veins around a blue-gold energy cell, heavy machine part silhouette, not a lantern, not a lamp, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, coin only, gem only, helmet lamp, decorative pendant, clean pristine core",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3498,7 +3507,7 @@
       "VisualID": "item_mat_core_tier2_fragment_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier2_fragment_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：二阶机核碎片。类型 QuestItem，稀有度 Epic，占格 4，标签 CoreMaterial, BossKey, Layer2, Mechanical。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, tier two broken machine-core fragment icon, cracked blue-gold energy core shard, jagged mechanical casing pieces, exposed tiny gears and wires, broken angular fragment silhouette, centered single object, clean readable silhouette, transparent background, no text",
@@ -3537,13 +3546,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier2_fragment_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/contact_sheet/item_mat_core_tier2_fragment_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/contact_sheet/item_mat_core_tier2_fragment_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/contact_sheet/item_mat_core_tier2_fragment_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/selected/20260609_004.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
+      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
     },
     {
       "Domain": "item",
@@ -3556,11 +3565,11 @@
       "VisualID": "item_mat_core_tier3_seed_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier3_seed_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：三阶机核种。类型 QuestItem，稀有度 Epic，占格 6，标签 CoreMaterial, BossKey, Layer3, Tier3Core。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, tier three machine-core seed icon, seed-shaped blue-gold mechanical core embryo, tiny root-like wires, crystal shell seams, compact valuable core silhouette, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, tier three machine-core seed icon, seed-shaped mechanical core embryo inside a translucent crystal shell, tiny root-like wires, blue-gold energy seams, compact valuable core silhouette, not a lantern, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, plant seed only, mushroom, coin, gem only, decorative pendant, full machine",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3595,13 +3604,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier3_seed_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier3_seed_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier3_seed_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier3_seed_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier3_seed_icon/contact_sheet/item_mat_core_tier3_seed_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier3_seed_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier3_seed_icon/contact_sheet/item_mat_core_tier3_seed_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier3_seed_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier3_seed_icon/contact_sheet/item_mat_core_tier3_seed_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier3_seed_icon/selected/20260609_003.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
+      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
     },
     {
       "Domain": "item",
@@ -3614,11 +3623,11 @@
       "VisualID": "item_order_contested_spore_core_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_contested_spore_core_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：争夺孢核。类型 QuestItem，稀有度 Epic，占格 9，标签 OrderBound, Layer3, FactionConflict, LargeCargo。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, contested spore core item icon, glowing fungal core trapped between two small brass claim hooks, red wax risk seal, spores suspended inside, readable unique core silhouette, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, contested spore core item icon, glowing fungal core clamped between two brass claim hooks, red wax risk seal on the side, spores suspended inside the core, unique round core silhouette, not a lantern, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, mushroom cluster only, coin pile, full contract paper, decorative ornament",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3653,13 +3662,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_order_contested_spore_core_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_order_contested_spore_core_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_order_contested_spore_core_icon/selected/20260609_001.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_contested_spore_core_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_order_contested_spore_core_icon/contact_sheet/item_order_contested_spore_core_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_order_contested_spore_core_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_order_contested_spore_core_icon/contact_sheet/item_order_contested_spore_core_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_order_contested_spore_core_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_order_contested_spore_core_icon/contact_sheet/item_order_contested_spore_core_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_order_contested_spore_core_icon/selected/20260609_001.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
+      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
     },
     {
       "Domain": "item",
@@ -3672,11 +3681,11 @@
       "VisualID": "item_order_live_spore_cage_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_live_spore_cage_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：活孢子笼。类型 QuestItem，稀有度 Rare，占格 6，标签 OrderBound, LiveCargo, Layer2, Bulky。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, live spore cage item icon, small brass capture cage containing floating green spores, glass safety tube, tiny latch, readable containment silhouette, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, live spore cage item icon, small square brass capture cage with visible bars, floating green spores inside, glass safety tube on one side, tiny latch, clearly a containment cage, not a teapot, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, bird cage, animal, full contract paper, open empty cage, decorative lamp",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3711,13 +3720,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_order_live_spore_cage_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/contact_sheet/item_order_live_spore_cage_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/contact_sheet/item_order_live_spore_cage_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/contact_sheet/item_order_live_spore_cage_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/selected/20260609_003.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
+      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
     },
     {
       "Domain": "item",
@@ -3733,8 +3742,8 @@
       "Status": "prompted",
       "SourceFactsCN": "配置表物品：裂纹圣牌。类型 Loot，稀有度 Rare，占格 4，标签 TradeGood, Relic, Cursed。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, cracked relic medallion trade item icon, broken stone holy medallion with a visible central crack, brass rim, faint purple curse glow from the crack, flat relic silhouette, not a filter jar, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, filter cartridge, coil, mushroom, coin pile, full statue, readable paper",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3785,11 +3794,11 @@
       "VisualID": "item_trade_luminous_fungus_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_luminous_fungus_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：夜光菌簇。类型 Loot，稀有度 Uncommon，占格 2，标签 Trade, Fungus, Layer2, Material。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, luminous fungus trade item icon, cluster of small glowing cave mushrooms, pale blue-green caps, short root base, soft spores, readable mushroom cluster silhouette, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, luminous fungus trade item icon, cluster of small glowing cave mushrooms growing from a short root base, pale blue-green caps, soft spores, readable mushroom cluster silhouette, not a lamp, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, single light bulb, crystal lamp, full cave scene, coin pile, mechanical part",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3824,13 +3833,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/selected/20260609_004.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_luminous_fungus_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/contact_sheet/item_trade_luminous_fungus_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/contact_sheet/item_trade_luminous_fungus_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/contact_sheet/item_trade_luminous_fungus_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/selected/20260609_004.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
+      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
     },
     {
       "Domain": "item",
@@ -3846,8 +3855,8 @@
       "Status": "prompted",
       "SourceFactsCN": "配置表物品：矿工提灯。类型 Loot，稀有度 Uncommon，占格 2，标签 TradeGood, Mechanical, Memory。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, single readable game asset, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, old miner headlamp trade item icon, compact worn brass helmet lamp with cracked glass lens and short leather strap, mining tool silhouette, not a tall lantern, not a coil, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, tall lantern, oil lantern, candle, torch, vase, jar, bottle, teapot, coil, filter, mushroom, full helmet, full character",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3898,11 +3907,11 @@
       "VisualID": "item_trade_sealed_relic_box_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_sealed_relic_box_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：封存遗物匣。类型 Loot，稀有度 Epic，占格 6，标签 Trade, AbyssRelic, ContrabandLow, Layer2, Bulky。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, sealed relic box trade item icon, small dark brass lockbox wrapped with red cord and wax seal, old corner plates, mysterious relic glow leaking from seams, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, sealed relic box trade item icon, small dark brass lockbox wrapped with red cord and wax seal, old corner plates, square chest silhouette, mysterious relic glow leaking from seams, not a lantern, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, open treasure chest, coin pile, full contract paper, suitcase, decorative lamp",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3937,13 +3946,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_sealed_relic_box_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/contact_sheet/item_trade_sealed_relic_box_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/contact_sheet/item_trade_sealed_relic_box_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/contact_sheet/item_trade_sealed_relic_box_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/selected/20260609_003.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
+      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
     },
     {
       "Domain": "item",
@@ -3956,11 +3965,11 @@
       "VisualID": "item_trade_singing_fossil_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_singing_fossil_icon.png",
       "Priority": "P0",
-      "Status": "prompted",
+      "Status": "approved",
       "SourceFactsCN": "配置表物品：低唱化石。类型 Loot，稀有度 Epic，占格 4，标签 Trade, AbyssRelic, Whispering, Layer3。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, singing fossil trade item icon, spiral shell fossil with brass tuning fork charm, faint blue sound-wave glow, chipped stone texture, readable fossil silhouette, centered single object, clean readable silhouette, transparent background, no text",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, game item icon, singing fossil trade item icon, spiral shell fossil stone with brass tuning fork charm, faint blue sound-wave rings around the shell, chipped stone texture, readable fossil silhouette, not a lamp, centered single object, clean readable silhouette, transparent background, no text",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, mushroom, coin, full musical instrument, microphone, decorative lamp, readable paper",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -3995,13 +4004,13 @@
       },
       "BatchID": "nai_formalv2_missing_20260608_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_singing_fossil_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_singing_fossil_icon/processed/20260608_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_trade_singing_fossil_icon/selected/20260609_003.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_trade_singing_fossil_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_trade_singing_fossil_icon/contact_sheet/item_trade_singing_fossil_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_trade_singing_fossil_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.",
+      "Notes": "[2026-06-08T23:41:33+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_trade_singing_fossil_icon/contact_sheet/item_trade_singing_fossil_icon_contact_sheet.png\n[2026-06-08T23:43:45+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/item_trade_singing_fossil_icon/processed/20260608_001.png\n[2026-06-09T03:24:34+08:00] marked QualityTier=formal_ai_v2 for NovelAI missing-asset batch nai_formalv2_missing_20260608_01.\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_trade_singing_fossil_icon/contact_sheet/item_trade_singing_fossil_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_trade_singing_fossil_icon/selected/20260609_003.png",
       "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
-      "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
+      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
     },
     {
       "Domain": "memento",
@@ -11803,8 +11812,8 @@
       "Status": "approved",
       "SourceFactsCN": "配置表(JSON)/Monsters/mob_lost_miner_echo.json 已引用 DefeatFeedbackRef=ui_combat_feedback_echo_fade。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, echo fade feedback overlay, pale blue ghostly afterimage silhouette dissolving into small transparent particles, no lamp, no object body, clean readable effect shape, transparent background, clean silhouette, no text, no letters, no numbers",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, lantern, lamp, torch, candle, bottle, vase, jar, full character, portrait, solid opaque object, UI panel",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, echo fade feedback overlay, warm ivory and antique gold spirit afterimage arc dissolving into sparse dust motes, soft amber rim light, sepia translucent glow, low saturation, absolutely no blue or cyan color, no lamp, no object body, clean readable effect shape, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, lantern, lamp, torch, candle, bottle, vase, jar, full character, portrait, solid opaque object, UI panel, electric blue, cyan, blue neon, blue flame, turquoise, aqua, cold blue glow, dense particle cloud",
       "Spec": {
         "SourceSpec": {
           "Format": "png",
@@ -12043,8 +12052,8 @@
       "Status": "approved",
       "SourceFactsCN": "配置表(JSON)/Monsters/mob_acid_slime.json 已引用 DefeatFeedbackRef=ui_combat_feedback_slime_pop。",
       "PromptCN": "地底奇幻冒险感，童话式好奇与深渊危险并存，结合蒸汽朋克机械、黄铜铜件、磨损金属、暖色灯光和微弱生物荧光。单个清晰可读的美术资产。",
-      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, slime pop feedback overlay, translucent green acid slime bubble bursting into splash droplets, soft toxic glow, transparent center gaps, no bottle, no lamp, clean readable effect shape, transparent background, clean silhouette, no text, no letters, no numbers",
-      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, lantern, lamp, torch, candle, bottle, flask, potion bottle, vase, jar, full creature body, UI panel",
+      "PromptEN": "subterranean fantasy adventure, whimsical yet ominous, steampunk machinery, brass and copper details, worn metal, soft painterly 2D game asset, warm lamplight, subtle bioluminescent glow, small 2D interface icon sprite, slime pop feedback overlay, desaturated olive yellow acid bubble bursting into rounded splash droplets, honey amber highlights, murky transparent liquid, low saturation, absolutely no lime green or neon color, transparent center gaps, no bottle, no lamp, clean readable effect shape, transparent background, clean silhouette, no text, no letters, no numbers",
+      "NegativePromptEN": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details, lantern, lamp, torch, candle, bottle, flask, potion bottle, vase, jar, full creature body, UI panel, neon green, fluorescent green, lime green, bright green, radioactive glow, cyan, blue, slime monster body",
       "Spec": {
         "SourceSpec": {
           "Format": "png",

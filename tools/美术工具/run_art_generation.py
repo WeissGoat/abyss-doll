@@ -124,6 +124,7 @@ def validate_entry(entry: dict[str, Any]) -> list[str]:
 def select_entries(entries: list[dict[str, Any]], args: argparse.Namespace) -> tuple[list[dict[str, Any]], list[str]]:
     domains = split_filters(args.domain)
     visual_ids = split_filters(args.visual_id)
+    config_ids = split_filters(args.config_id)
     priorities = split_filters(args.priority)
     selected: list[dict[str, Any]] = []
     skipped: list[str] = []
@@ -135,6 +136,8 @@ def select_entries(entries: list[dict[str, Any]], args: argparse.Namespace) -> t
         if domains and str(entry.get("Domain", "")) not in domains:
             continue
         if visual_ids and visual_id not in visual_ids:
+            continue
+        if config_ids and str(entry.get("ConfigID", "")) not in config_ids:
             continue
         if priorities and str(entry.get("Priority", "")) not in priorities:
             continue
@@ -291,7 +294,7 @@ async def run_generation(args: argparse.Namespace) -> int:
     for entry in selected:
         spec = source_spec(entry["Spec"])
         print(
-            f"[ITEM] {entry['VisualID']} domain={entry.get('Domain', '')} "
+            f"[ITEM] {entry['VisualID']} config={entry.get('ConfigID', '')} domain={entry.get('Domain', '')} "
             f"size={spec['Width']}x{spec['Height']} format={spec.get('Format', 'png')}"
         )
     if args.dry_run:
@@ -425,6 +428,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--status", default="prompted")
     parser.add_argument("--domain", action="append", default=[])
     parser.add_argument("--visual-id", action="append", default=[])
+    parser.add_argument("--config-id", action="append", default=[])
     parser.add_argument("--priority", action="append", default=[])
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--variants", type=int, default=4)

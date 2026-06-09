@@ -277,7 +277,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 
 ## 下一步建议
 
-1. 程序侧可按 `美术文档/_generated/VisualAssetRegistry登记缺口清单.md` 处理当前 77 个待登记 Approved VisualID；当前核对结论是 `missing_registry=77`、`missing_approved=0`、`missing_meta=0`，优先在 Unity Editor 执行 `Tools/P3 Art/Rebuild Approved Sprite Registry` 并保存 `VisualAssetRegistry.asset`。
+1. 程序侧可按 `美术文档/_generated/VisualAssetRegistry登记缺口清单.md` 处理当前 87 个待登记 Approved VisualID；当前核对结论是 `missing_registry=87`、`missing_approved=0`、`missing_meta=0`，优先在 Unity Editor 执行 `Tools/P3 Art/Rebuild Approved Sprite Registry` 并保存 `VisualAssetRegistry.asset`。
 2. 程序完成当前待登记新资源后，需要重跑 VisualAsset / ArtAcceptance 相关验收；验收证据以 `美术文档/15_FormalV2运行时验收待办清单.md` 中的 RunID、Registry、截图和 missing VisualID 门禁为准。
 3. 美术侧下一步进入运行时截图复验：重点看 FormalV2 核心界面的构图、控件遮挡、图标小尺寸可读性、背景 cover / contain 适配，以及新增怪物 / 物品 / 经济 / 订单 / 传闻 / 纪念物图标是否与日系地底奇幻风格统一；复验时优先对照 `美术文档/_generated/formal_v2_asset_review/visual_semantic_review.md/json` 的 `watch_runtime_readability` 和 `style_mismatch_watch` 条目，当前已无 `secondary_replacement_candidate`。
 4. 如果后续运行时截图暴露语义或小尺寸可读性问题，再按具体 VisualID 做二次 NovelAI 质量替换；仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`，已接入同名替换必须使用 strict meta guard。
@@ -291,8 +291,8 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 当前工作区仍有大量程序、策划、Unity 资产和知识库生成物处于脏状态；美术侧提交时只纳入本轮美术流水线相关文件。
 - P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 正式结构已通过；本轮 latest `20260527_002436` 已确认资源接入通过，但 `combat_hud` 等 6 个界面仍需程序返修后复验。
 - 本轮已从外部 `F:\my_project\new\tags_machine\novelai\client.py` 只读提取 NovelAI token 到当前进程并真实调用 NovelAI；未提交 token，未使用 mock / local_v0 冒充正式图。后续跑图仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`。
-- latest `program_integrate=77` 表示仍有 77 个 Approved VisualID 需要程序登记；美术侧静态预验收已通过，缺图生成队列、Visual V2 同名替换队列和 technical_fix 队列均已清空。正式运行时验收仍依赖程序登记后重跑 ArtAcceptance / VisualAsset 验收截图。
-- 当前 latest ArtAcceptance 仍是 `20260606_230523`，早于 FormalV2 77 个待登记素材；除非程序侧产出新的 `UnityClient/Logs/ArtAcceptance/latest`，美术侧不能把 FormalV2 运行时验收标记为通过。
+- latest `program_integrate=87` 表示仍有 87 个 Approved VisualID 需要程序登记；美术侧静态预验收已通过，缺图生成队列、Visual V2 同名替换队列和 technical_fix 队列均已清空。正式运行时验收仍依赖程序登记后重跑 ArtAcceptance / VisualAsset 验收截图。
+- 当前 latest ArtAcceptance 仍是 `20260606_230523`，早于 FormalV2 87 个待登记素材；除非程序侧产出新的 `UnityClient/Logs/ArtAcceptance/latest`，美术侧不能把 FormalV2 运行时验收标记为通过。
 - Formal V2 目前只是 draft 设计层；如果程序侧需要接入，必须等待用户确认并由美术侧更新 active `screen_layouts.json`。
 - Formal V2 概念图含 AI 伪文字和局部装饰噪声，只能作为结构参考；正式接入前仍需将控件、文本、图标和面板皮肤拆回可实现规格。
 - Formal V2 结构设计图是确定性 layout board，只用于评审结构和迁移顺序；不能被当作最终视觉稿或程序接入规格。
@@ -319,3 +319,12 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - Synced both replacements with strict meta guard and preserved VisualID / Approved path / Unity `.meta` GUID: `UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_echo_fade.png` and `UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_slime_pop.png`. Both are `512x512` RGBA with transparent alpha.
 - Refreshed handoff, registry gap, FormalV2 static review, semantic review, quality backlog, runtime acceptance status and snapshots. Current gate remains `waiting_registry`: `program_integrate=77`, `missing_registry=77`, `missing_approved=0`, `missing_meta=0`, latest ArtAcceptance still `RunID=20260606_230523 / FAILED`.
 - Verification passed: image size / alpha inspection; `Validate-ArtGeneratedJson.ps1 -Strict`; `Validate-UIDesign.ps1`; `python tools\docs\validate_docs.py --index docs_index.json`; `git diff --check` reported only CRLF warnings on existing dirty p3-mission files and touched art scripts.
+
+## 2026-06-09 FormalV2 Remaining Item Icon Replacement
+
+- Added `-ConfigID` filtering to `Run-ArtGeneration.ps1` / `run_art_generation.py` so art generation can target a specific config row when several config entries share one VisualID; dry-run confirmed the remaining item pass selects 13 config entries instead of 16 mixed shared-VisualID entries.
+- Strengthened `generate_art_prompts.py` for the remaining item icons with concrete English visual descriptions and config-specific negative prompts that exclude lantern / lamp / jar / bottle / vessel drift. `Generate-ArtPrompts.ps1` refreshed the affected Manifest prompt fields.
+- Ran real NovelAI batch `nai_formalv2_remaining_items_20260609_01` serially with `-Concurrency 1 -DelaySeconds 1`: 13 entries, 52 generated candidates, 52 raw images, no generation errors. Manually selected one candidate each for `item_loot_rusty_coil_icon`, `item_loot_toxic_filter_icon`, `item_mat_core_tier1_icon`, `item_loot_spore_amber_icon`, `item_loot_vein_plate_icon`, `item_loot_warped_plate_icon`, `item_mat_core_tier2_fragment_icon`, `item_mat_core_tier3_seed_icon`, `item_order_contested_spore_core_icon`, `item_order_live_spore_cage_icon`, `item_trade_luminous_fungus_icon`, `item_trade_sealed_relic_box_icon`, and `item_trade_singing_fossil_icon`.
+- Synced the 13 selected candidates into `UnityClient/Assets/Art/Approved/Items/Icons/` with strict `.meta` guard and `QualityTier=formal_ai_v2`; VisualID, Approved path and Unity `.meta` GUIDs were preserved. Image inspection confirmed all 13 Approved PNGs are `512x512` RGBA with valid transparent alpha and existing `.meta`.
+- Refreshed handoff, registry gap, FormalV2 asset review, visual semantic review, prompt readiness and runtime acceptance status. Current evidence: `program_integrate=87`, `missing_registry=87`, `missing_approved=0`, `missing_meta=0`, `FormalV2AssetReview reviewed=87/pass=87`, `visual_semantic_review secondary_replacement_candidate=0`, `decision=allow_program_integrate`, gate remains `waiting_registry` until Unity registry rebuild and a fresh ArtAcceptance run.
+- Verification passed: `python -m py_compile tools\美术工具\generate_art_prompts.py`; `python -m py_compile tools\美术工具\run_art_generation.py`; `Validate-ArtGeneratedJson.ps1 -Strict`; `Validate-UIDesign.ps1`; `python tools\docs\validate_docs.py --index docs_index.json`; `git diff --check` reported only CRLF warnings on unrelated dirty p3-mission files and touched art scripts.

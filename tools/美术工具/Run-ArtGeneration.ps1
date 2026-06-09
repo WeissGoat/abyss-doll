@@ -6,6 +6,7 @@ param(
     [string]$Status = "",
     [string[]]$Domain = @(),
     [string[]]$VisualID = @(),
+    [string[]]$ConfigID = @(),
     [string[]]$Priority = @(),
     [int]$Limit = 0,
     [int]$Variants = 4,
@@ -53,6 +54,10 @@ foreach ($item in $Domain) {
 
 foreach ($item in $VisualID) {
     $argsList += @("--visual-id", $item)
+}
+
+foreach ($item in $ConfigID) {
+    $argsList += @("--config-id", $item)
 }
 
 foreach ($item in $Priority) {

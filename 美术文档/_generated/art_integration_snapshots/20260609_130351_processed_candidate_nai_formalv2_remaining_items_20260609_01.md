@@ -4,14 +4,14 @@
 
 ## Summary
 
-* GeneratedAt: `2026-06-09T13:09:24+08:00`
+* GeneratedAt: `2026-06-09T13:03:51+08:00`
 * Manifest entries: `284`
 * Unique VisualIDs: `279`
 * Candidate entries: `278`
-* Program integrate: `87`
-* Acceptance needed: `191`
-* Art approve: `0`
-* Art select: `0`
+* Program integrate: `77`
+* Acceptance needed: `188`
+* Art approve: `3`
+* Art select: `10`
 * Art process: `0`
 * Generate needed: `0`
 
@@ -32,16 +32,6 @@
 | P0 | `item_loot_corroded_nerve_icon` | item | 腐蚀神经束 | config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_corroded_nerve.json | UnityClient/Assets/Art/Approved/Items/Icons/item_loot_corroded_nerve_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P0 | `item_loot_crystal_scale_icon` | item | 晶化鳞片 | config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_crystal_scale.json | UnityClient/Assets/Art/Approved/Items/Icons/item_loot_crystal_scale_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P0 | `item_loot_living_mycelium_icon` | item | 活性菌丝 | config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_living_mycelium.json | UnityClient/Assets/Art/Approved/Items/Icons/item_loot_living_mycelium_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P0 | `item_loot_spore_amber_icon` | item | 孢晶琥珀 | config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_spore_amber.json | UnityClient/Assets/Art/Approved/Items/Icons/item_loot_spore_amber_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P0 | `item_loot_vein_plate_icon` | item | 菌脉甲片 | config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_vein_plate.json | UnityClient/Assets/Art/Approved/Items/Icons/item_loot_vein_plate_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P0 | `item_loot_warped_plate_icon` | item | 扭曲装甲片 | config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_warped_plate.json | UnityClient/Assets/Art/Approved/Items/Icons/item_loot_warped_plate_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P0 | `item_mat_core_tier2_fragment_icon` | item | 二阶机核碎片 | config:UnityClient/Assets/StreamingAssets/Configs/Items/mat_core_tier2_fragment.json | UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier2_fragment_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P0 | `item_mat_core_tier3_seed_icon` | item | 三阶机核种 | config:UnityClient/Assets/StreamingAssets/Configs/Items/mat_core_tier3_seed.json | UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier3_seed_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P0 | `item_order_contested_spore_core_icon` | item | 争夺孢核 | config:UnityClient/Assets/StreamingAssets/Configs/Items/order_contested_spore_core.json | UnityClient/Assets/Art/Approved/Items/Icons/item_order_contested_spore_core_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P0 | `item_order_live_spore_cage_icon` | item | 活孢子笼 | config:UnityClient/Assets/StreamingAssets/Configs/Items/order_live_spore_cage.json | UnityClient/Assets/Art/Approved/Items/Icons/item_order_live_spore_cage_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P0 | `item_trade_luminous_fungus_icon` | item | 夜光菌簇 | config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_luminous_fungus.json | UnityClient/Assets/Art/Approved/Items/Icons/item_trade_luminous_fungus_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P0 | `item_trade_sealed_relic_box_icon` | item | 封存遗物匣 | config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_sealed_relic_box.json | UnityClient/Assets/Art/Approved/Items/Icons/item_trade_sealed_relic_box_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
-| P0 | `item_trade_singing_fossil_icon` | item | 低唱化石 | config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_singing_fossil.json | UnityClient/Assets/Art/Approved/Items/Icons/item_trade_singing_fossil_icon.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P0 | `monster_boss_gatekeeper_mk1_combat` | monster | 一层守门机 MK1战斗实体 | config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_gatekeeper_mk1.json | UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_gatekeeper_mk1_combat.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P0 | `monster_boss_gatekeeper_mk1_portrait` | monster | 一层守门机 MK1 | config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_gatekeeper_mk1.json | UnityClient/Assets/Art/Approved/Monsters/Portraits/monster_boss_gatekeeper_mk1_portrait.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
 | P0 | `monster_boss_mycelium_oracle_combat` | monster | 菌脉神谕体战斗实体 | config:UnityClient/Assets/StreamingAssets/Configs/Monsters/boss_mycelium_oracle.json | UnityClient/Assets/Art/Approved/Monsters/Combat/monster_boss_mycelium_oracle_combat.png | missing | Approved PNG 和 .meta 已存在，但 VisualAssetRegistry 尚未登记。 |
@@ -120,9 +110,6 @@
 | `acceptance_needed` | P0 | `item_gear_tactical_blade_icon` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/item_gear_tactical_blade_icon/selected/item_gear_tactical_blade_icon.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P0 | `item_gear_wooden_shield_icon` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/item_gear_wooden_shield_icon/selected/item_gear_wooden_shield_icon.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 已合并 2 个 Manifest 来源。 |
 | `acceptance_needed` | P0 | `item_loot_gear_scrap_icon` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/item_loot_gear_scrap_icon/selected/item_loot_gear_scrap_icon.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
-| `acceptance_needed` | P0 | `item_loot_rusty_coil_icon` | `approved, prompted` | registered | UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/20260609_001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 已合并 2 个 Manifest 来源。 |
-| `acceptance_needed` | P0 | `item_loot_toxic_filter_icon` | `approved, prompted` | registered | UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/20260609_004.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 已合并 2 个 Manifest 来源。 |
-| `acceptance_needed` | P0 | `item_mat_core_tier1_icon` | `approved, prompted` | registered | UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/20260609_003.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 已合并 2 个 Manifest 来源。 |
 | `acceptance_needed` | P0 | `monster_elite_mutant_amalgam_combat` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/monster_elite_mutant_amalgam_combat/selected/monster_elite_mutant_amalgam_combat.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P0 | `monster_elite_mutant_amalgam_portrait` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/monster_elite_mutant_amalgam_portrait/selected/monster_elite_mutant_amalgam_portrait.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P0 | `monster_elite_scrap_guard_combat` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/monster_elite_scrap_guard_combat/selected/monster_elite_scrap_guard_combat.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
@@ -302,6 +289,19 @@
 | `acceptance_needed` | P2 | `ui_settlement_defeat_panel` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/ui_settlement_defeat_panel/selected/20260609_003.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_settlement_victory_panel` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/ui_settlement_victory_panel/selected/20260609_004.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_title_divider` | `approved` | registered | UnityClient/Assets/Art/_IncomingAI/ui_title_divider/selected/20260609_001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
+| `art_approve` | P0 | `item_loot_rusty_coil_icon` | `prompted` | registered | UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/item_loot_rusty_coil_icon.png | Incoming selected 已有候选，等待同步到 Approved。 已合并 2 个 Manifest 来源。 |
+| `art_approve` | P0 | `item_loot_toxic_filter_icon` | `prompted` | registered | UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/item_loot_toxic_filter_icon.png | Incoming selected 已有候选，等待同步到 Approved。 已合并 2 个 Manifest 来源。 |
+| `art_approve` | P0 | `item_mat_core_tier1_icon` | `prompted` | registered | UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/item_mat_core_tier1_icon.png | Incoming selected 已有候选，等待同步到 Approved。 已合并 2 个 Manifest 来源。 |
+| `art_select` | P0 | `item_loot_spore_amber_icon` | `prompted` | missing | UnityClient/Assets/Art/_IncomingAI/item_loot_spore_amber_icon/processed/20260608_001.png | Incoming processed 已有候选，等待美术筛选 selected。 |
+| `art_select` | P0 | `item_loot_vein_plate_icon` | `prompted` | missing | UnityClient/Assets/Art/_IncomingAI/item_loot_vein_plate_icon/processed/20260608_001.png | Incoming processed 已有候选，等待美术筛选 selected。 |
+| `art_select` | P0 | `item_loot_warped_plate_icon` | `prompted` | missing | UnityClient/Assets/Art/_IncomingAI/item_loot_warped_plate_icon/processed/20260608_001.png | Incoming processed 已有候选，等待美术筛选 selected。 |
+| `art_select` | P0 | `item_mat_core_tier2_fragment_icon` | `prompted` | missing | UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier2_fragment_icon/processed/20260608_001.png | Incoming processed 已有候选，等待美术筛选 selected。 |
+| `art_select` | P0 | `item_mat_core_tier3_seed_icon` | `prompted` | missing | UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier3_seed_icon/processed/20260608_001.png | Incoming processed 已有候选，等待美术筛选 selected。 |
+| `art_select` | P0 | `item_order_contested_spore_core_icon` | `prompted` | missing | UnityClient/Assets/Art/_IncomingAI/item_order_contested_spore_core_icon/processed/20260608_001.png | Incoming processed 已有候选，等待美术筛选 selected。 |
+| `art_select` | P0 | `item_order_live_spore_cage_icon` | `prompted` | missing | UnityClient/Assets/Art/_IncomingAI/item_order_live_spore_cage_icon/processed/20260608_001.png | Incoming processed 已有候选，等待美术筛选 selected。 |
+| `art_select` | P0 | `item_trade_luminous_fungus_icon` | `prompted` | missing | UnityClient/Assets/Art/_IncomingAI/item_trade_luminous_fungus_icon/processed/20260608_001.png | Incoming processed 已有候选，等待美术筛选 selected。 |
+| `art_select` | P0 | `item_trade_sealed_relic_box_icon` | `prompted` | missing | UnityClient/Assets/Art/_IncomingAI/item_trade_sealed_relic_box_icon/processed/20260608_001.png | Incoming processed 已有候选，等待美术筛选 selected。 |
+| `art_select` | P0 | `item_trade_singing_fossil_icon` | `prompted` | missing | UnityClient/Assets/Art/_IncomingAI/item_trade_singing_fossil_icon/processed/20260608_001.png | Incoming processed 已有候选，等待美术筛选 selected。 |
 
 ## Action Meanings
 

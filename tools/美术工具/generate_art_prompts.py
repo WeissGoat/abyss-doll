@@ -28,9 +28,10 @@ ITEM_EN: Dict[str, str] = {
     "gear_tactical_blade": "long tactical blade, narrow sharp blade, black handle, worn industrial metal, subtle cold-blue energy grooves, vertical silhouette",
     "gear_wooden_shield": "small makeshift wooden shield, old planks, metal rim, rivets, broken straps, fragile defensive silhouette",
     "loot_gear_scrap": "broken gear with loose screws and small metal scraps, ordinary mechanical salvage, simple single-object silhouette",
-    "loot_rusty_coil": "rusty copper coil with iron core, loose wire ends, corroded casing, vertical mechanical component silhouette",
-    "loot_toxic_filter": "polluted industrial filter cartridge, cracked casing, purple-green toxic residue, corroded metal, square silhouette",
-    "mat_core_tier1": "small power core module, metal casing, stable blue-gold glowing core, heavy valuable machine part, strong centered silhouette",
+    "loot_rusty_coil": "rusty copper electromagnetic coil icon, stacked copper windings around a dark iron rod, two loose wire ends, corroded ceramic insulator base, clearly a machine part, not a lantern, not a lamp",
+    "loot_toxic_filter": "polluted industrial filter cartridge icon, cracked square metal filter frame, dark pleated mesh, purple-green toxic residue leaking from the grid, clearly a replaceable filter part, not a jar, not a lamp",
+    "mat_core_tier1": "small power core module icon, compact oval metal casing, exposed gear ring, stable blue-gold glowing energy cell in the center, heavy valuable machine part, not a lantern, not a lamp",
+    "mat_core_tier2": "polluted tier two power core icon, compact cracked metal core module, purple-green corruption veins around a blue-gold energy cell, heavy machine part silhouette, not a lantern, not a lamp",
     "con_anchor_charm": "anchor charm consumable icon, small brass anchor-shaped talisman tied with worn red cord, protective seal paper, tiny blue stabilizing glow, compact readable silhouette",
     "con_purifying_salt": "purifying salt icon, small clear glass vial filled with coarse white salt crystals, a few loose salt grains, paper seal and thin red cord, cool blue cleansing sparkle, not a lantern, not a lamp, clean compact silhouette",
     "con_solvent_spray": "solvent spray consumable icon, handheld brass spray bottle with clear nozzle, small pressure gauge, pale cleaning mist plume, blue-green solvent liquid, clear spray-can silhouette",
@@ -44,16 +45,18 @@ ITEM_EN: Dict[str, str] = {
     "loot_corroded_nerve": "corroded nerve loot icon, twisted organic nerve strand threaded with green corrosion crystals, wet fibrous texture, small brass sample clamp, readable coiled strand silhouette",
     "loot_crystal_scale": "crystal scale loot icon, single translucent blue-violet scale shard, chipped mineral edge, faint inner glow, small brass sample tag, clean angular silhouette",
     "loot_living_mycelium": "living mycelium loot icon, pale fungal root bundle curling around a tiny brass ring, soft spores, threadlike fibers, readable organic bundle silhouette",
-    "loot_spore_amber": "spore amber loot icon, warm amber resin chunk with visible trapped spores inside, irregular polished edges, tiny moss flecks, glowing fossil-resin silhouette",
-    "loot_vein_plate": "vein plate loot icon, flat biological armor plate crossed by red vein channels, chipped brass mounting pins, dark organic surface, readable plate silhouette",
-    "loot_warped_plate": "warped plate loot icon, bent corroded metal armor plate, twisted edge, purple-green stains, broken rivets, readable damaged metal plate silhouette",
-    "mat_core_tier2_fragment": "tier two broken machine-core fragment icon, cracked blue-gold energy core shard, jagged mechanical casing pieces, exposed tiny gears and wires, broken angular fragment silhouette",
-    "mat_core_tier3_seed": "tier three machine-core seed icon, seed-shaped blue-gold mechanical core embryo, tiny root-like wires, crystal shell seams, compact valuable core silhouette",
-    "order_contested_spore_core": "contested spore core item icon, glowing fungal core trapped between two small brass claim hooks, red wax risk seal, spores suspended inside, readable unique core silhouette",
-    "order_live_spore_cage": "live spore cage item icon, small brass capture cage containing floating green spores, glass safety tube, tiny latch, readable containment silhouette",
-    "trade_luminous_fungus": "luminous fungus trade item icon, cluster of small glowing cave mushrooms, pale blue-green caps, short root base, soft spores, readable mushroom cluster silhouette",
-    "trade_sealed_relic_box": "sealed relic box trade item icon, small dark brass lockbox wrapped with red cord and wax seal, old corner plates, mysterious relic glow leaking from seams",
-    "trade_singing_fossil": "singing fossil trade item icon, spiral shell fossil with brass tuning fork charm, faint blue sound-wave glow, chipped stone texture, readable fossil silhouette",
+    "loot_spore_amber": "spore amber loot icon, irregular honey amber resin shard with visible trapped spores inside, chipped fossil-resin edges, tiny moss flecks, clearly a gemstone-like amber chunk, not a lantern, not a lamp",
+    "loot_vein_plate": "vein plate loot icon, flat broken biological armor plate, red vein channels crossing the surface, chipped brass mounting pins, dark organic shell texture, clearly a plate shard, not a lantern",
+    "loot_warped_plate": "warped plate loot icon, bent corroded metal armor plate, twisted torn edge, purple-green stains, broken rivets, flattened damaged metal silhouette, not a lantern, not a vessel",
+    "mat_core_tier2_fragment": "tier two broken machine-core fragment icon, jagged cracked blue-gold energy core shard, angular mechanical casing pieces, exposed tiny gears and wires, clearly a broken core fragment, not an intact lamp",
+    "mat_core_tier3_seed": "tier three machine-core seed icon, seed-shaped mechanical core embryo inside a translucent crystal shell, tiny root-like wires, blue-gold energy seams, compact valuable core silhouette, not a lantern",
+    "order_contested_spore_core": "contested spore core item icon, glowing fungal core clamped between two brass claim hooks, red wax risk seal on the side, spores suspended inside the core, unique round core silhouette, not a lantern",
+    "order_live_spore_cage": "live spore cage item icon, small square brass capture cage with visible bars, floating green spores inside, glass safety tube on one side, tiny latch, clearly a containment cage, not a teapot",
+    "trade_luminous_fungus": "luminous fungus trade item icon, cluster of small glowing cave mushrooms growing from a short root base, pale blue-green caps, soft spores, readable mushroom cluster silhouette, not a lamp",
+    "trade_miner_lamp": "old miner headlamp trade item icon, compact worn brass helmet lamp with cracked glass lens and short leather strap, mining tool silhouette, not a tall lantern, not a coil",
+    "trade_cracked_relic": "cracked relic medallion trade item icon, broken stone holy medallion with a visible central crack, brass rim, faint purple curse glow from the crack, flat relic silhouette, not a filter jar",
+    "trade_sealed_relic_box": "sealed relic box trade item icon, small dark brass lockbox wrapped with red cord and wax seal, old corner plates, square chest silhouette, mysterious relic glow leaking from seams, not a lantern",
+    "trade_singing_fossil": "singing fossil trade item icon, spiral shell fossil stone with brass tuning fork charm, faint blue sound-wave rings around the shell, chipped stone texture, readable fossil silhouette, not a lamp",
 }
 
 ITEM_CN: Dict[str, str] = {
@@ -1482,9 +1485,83 @@ NEGATIVE_BY_CONFIG = {
         "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
         "lantern, lamp, torch, brass vessel, glass lantern, potion bottle only, clean fruit, jewel, mechanical core"
     ),
+    "loot_rusty_coil": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, oil lamp, miner lamp, torch, candle, glowing brass vessel, vase, jar, bottle, teapot, "
+        "coin, gem, intact power core, helmet, full machine, decorative ornament"
+    ),
+    "loot_toxic_filter": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, "
+        "gas mask, helmet, coin, gem, intact machine core, decorative container"
+    ),
+    "mat_core_tier1": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, "
+        "coin only, gem only, helmet lamp, decorative pendant, full machine"
+    ),
+    "mat_core_tier2": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, "
+        "coin only, gem only, helmet lamp, decorative pendant, clean pristine core"
+    ),
+    "loot_spore_amber": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, "
+        "mushroom cluster only, coin, full fossil shell, decorative lamp, intact container"
+    ),
+    "loot_vein_plate": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, "
+        "round shield, full armor suit, coin, gem, mushroom, decorative lamp"
+    ),
+    "loot_warped_plate": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, "
+        "round shield, full armor suit, coin, gem, decorative container, polished clean plate"
+    ),
     "mat_core_tier2_fragment": (
         "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
         "lantern, lamp, torch, glowing brass vessel, intact round core, coin, gem only, potion bottle"
+    ),
+    "mat_core_tier3_seed": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, "
+        "plant seed only, mushroom, coin, gem only, decorative pendant, full machine"
+    ),
+    "order_contested_spore_core": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, "
+        "mushroom cluster only, coin pile, full contract paper, decorative ornament"
+    ),
+    "order_live_spore_cage": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, "
+        "bird cage, animal, full contract paper, open empty cage, decorative lamp"
+    ),
+    "trade_luminous_fungus": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, "
+        "single light bulb, crystal lamp, full cave scene, coin pile, mechanical part"
+    ),
+    "trade_miner_lamp": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "tall lantern, oil lantern, candle, torch, vase, jar, bottle, teapot, coil, filter, mushroom, full helmet, full character"
+    ),
+    "trade_cracked_relic": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, "
+        "filter cartridge, coil, mushroom, coin pile, full statue, readable paper"
+    ),
+    "trade_sealed_relic_box": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, "
+        "open treasure chest, coin pile, full contract paper, suitcase, decorative lamp"
+    ),
+    "trade_singing_fossil": (
+        "text, letters, numbers, watermark, logo, signature, busy background, multiple copies, cropped object, "
+        "lantern, lamp, oil lamp, torch, candle, glowing brass vessel, vase, jar, bottle, flask, teapot, "
+        "mushroom, coin, full musical instrument, microphone, decorative lamp, readable paper"
     ),
     "boss_spore_foundry": (
         "text, letters, numbers, watermark, logo, signature, busy background, tiny subject, mostly black image, "
@@ -1636,11 +1713,14 @@ def should_fill(entry: Dict[str, Any], overwrite: bool) -> bool:
     if overwrite:
         return True
     prompt_en = str(entry.get("PromptEN", ""))
+    config_id = str(entry.get("ConfigID", ""))
+    has_stale_negative = config_id in NEGATIVE_BY_CONFIG and str(entry.get("NegativePromptEN", "")) != NEGATIVE_BY_CONFIG[config_id]
     return (
         entry.get("Status") == "todo"
         or not entry.get("PromptCN")
         or not entry.get("PromptEN")
         or not entry.get("NegativePromptEN")
+        or has_stale_negative
         or spec_is_legacy(entry.get("Spec"))
         or "single readable game asset" in prompt_en
         or any(fragment in prompt_en for fragment in STALE_PROMPT_FRAGMENTS)
