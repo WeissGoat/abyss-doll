@@ -16,7 +16,7 @@ related:
   - 美术文档/04_美术风格基准.md
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/design_boards/README.md
-last_verified: 2026-06-02
+last_verified: 2026-06-09
 update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
 ---
 
@@ -611,6 +611,32 @@ Examples:
 * `runtime_failed_needs_fix`：已有新 ArtAcceptance，但报告仍失败或有 missing VisualID。
 * `ready_for_art_review`：具备进入美术侧逐屏截图验收的证据。
 
+## Generate-FormalV2VisualSemanticReview.ps1
+
+Reads `formal_v2_asset_review.json` and generates the Formal V2 visual-semantic review ledger. This is separate from the static technical asset review: `Generate-FormalV2AssetReview.ps1` checks PNG / `.meta` / size / alpha / quality tier; this tool records semantic, style, and small-size readability risks that should be revisited after runtime screenshots exist.
+
+Outputs:
+
+* `美术文档/_generated/formal_v2_asset_review/visual_semantic_review.json`
+* `美术文档/_generated/formal_v2_asset_review/visual_semantic_review.md`
+
+With `-Snapshot`, it also writes:
+
+* `美术文档/_generated/formal_v2_asset_review_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>/`
+
+Example:
+
+```powershell
+.\tools\美术工具\Generate-FormalV2VisualSemanticReview.ps1 -Snapshot -SnapshotTag formalv2_semantic_review
+```
+
+Risk levels:
+
+* `ok_for_current_v2`: usable for current V2 and ready for normal runtime screenshot review.
+* `watch_runtime_readability`: does not block registration, but runtime screenshots should verify small-size readability.
+* `style_mismatch_watch`: does not block registration, but runtime screenshots should verify it does not clash with the overall style.
+* `secondary_replacement_candidate`: does not block registration; if runtime screenshots prove it hurts recognition or mood, prioritize a second-pass NovelAI same-VisualID replacement.
+
 ## Validate-ArtGeneratedJson.ps1
 
 读取美术流水线的关键 `_generated/*.json` 输出，并强制按 UTF-8 / UTF-8 BOM 解析，避免 PowerShell 默认编码导致中文路径或中文字段被误判为 JSON 损坏。该工具不生成新内容，只校验程序交接和美术验收所依赖的关键 JSON 是否可读，并输出核心计数。
@@ -622,6 +648,7 @@ Examples:
 * `美术文档/_generated/素材质量替换清单.json`
 * `美术文档/_generated/美术需求候选清单.json`
 * `美术文档/_generated/formal_v2_asset_review/formal_v2_asset_review.json`
+* `美术文档/_generated/formal_v2_asset_review/visual_semantic_review.json`
 * `美术文档/_generated/formal_v2_prompt_readiness/formal_v2_prompt_readiness.json`
 * `美术文档/_generated/VisualAssetRegistry登记缺口清单.json`
 * `美术文档/_generated/FormalV2运行时验收状态.json`

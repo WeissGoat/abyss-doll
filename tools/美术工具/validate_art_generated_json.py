@@ -60,6 +60,16 @@ CHECKS = [
         ],
     },
     {
+        "name": "formal_v2_visual_semantic_review",
+        "path": "美术文档/_generated/formal_v2_asset_review/visual_semantic_review.json",
+        "summary": [
+            ("reviewed", ("ReviewScope", "ReviewedVisualCount")),
+            ("decision", ("Summary", "ProgramIntegrationDecision")),
+            ("secondary_replacement_candidate", ("Summary", "VisualSemanticRiskCounts", "secondary_replacement_candidate"), 0),
+            ("watch_runtime_readability", ("Summary", "VisualSemanticRiskCounts", "watch_runtime_readability"), 0),
+        ],
+    },
+    {
         "name": "formal_v2_prompt_readiness",
         "path": "美术文档/_generated/formal_v2_prompt_readiness/formal_v2_prompt_readiness.json",
         "summary": [
