@@ -1,5 +1,5 @@
 {
-  "GeneratedAt": "2026-06-09T08:43:32+08:00",
+  "GeneratedAt": "2026-06-09T09:00:42+08:00",
   "SnapshotTag": "",
   "Inputs": {
     "IntegrationCandidatesPath": "美术文档/_generated/可接入素材清单.json",
@@ -7,7 +7,7 @@
     "ManifestPath": "美术文档/_generated/art_manifest.json"
   },
   "SourceSummaries": {
-    "IntegrationGeneratedAt": "2026-06-09T08:43:11+08:00",
+    "IntegrationGeneratedAt": "2026-06-09T09:00:21+08:00",
     "IntegrationActionCounts": {
       "acceptance_needed": 188,
       "program_integrate": 77

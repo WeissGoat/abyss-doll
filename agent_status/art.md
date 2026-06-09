@@ -268,6 +268,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 2026-06-09 已完成 FormalV2 新一轮素材候选准入审查：基于候选快照 `formalv2_goal_resume_20260609` 从 `new_candidate=84` 中确认 29 个正式需求写入 `art_requirements_seed.json`，包括 5 个 FormalV2 场景背景、3 个配置直引战斗反馈、7 个房间纪念物、6 个订单图标和 8 个传闻图标；已新增 `美术文档/14_FormalV2素材候选审查记录.md` 记录准入 / 暂缓 / 误报裁决。刷新后 Manifest `Entries=284`，候选清单为 `new_candidate=55`、`seed_only=0`、`manifest_managed=244`，缺图生成计划曾为 `planned=29`、`prompt_ready=29`，批次 `nai_formalv2_candidate_triage_20260609_01`。
 2026-06-09 已完成 FormalV2 候选准入 29 个新素材的真实 NovelAI 入库：先补强 `generate_art_prompts.py` 中 29 个新增 ID 的具体 PromptEN，针对 6 个语义跑偏风险项执行二次修复批次 `nai_formalv2_candidate_semantic_fix_20260609_01`，串行生成 `24/24` 张候选并人工筛选 6 张；随后将原批次剩余 23 项以 processed fallback 同步 Approved。新增 29 个 PNG 均已补齐 Unity `.meta`，Manifest 均为 `QualityTier=formal_ai_v2`；最终 `Generate-FormalV2AssetReview.ps1 -SnapshotTag formalv2_candidate_triage_after_meta_fix` 结果为 `reviewed=77`、`pass=77`、`fail=0`、`warn=0`。latest 队列为 `program_integrate=77`、`generate_needed=0`、`art_select=0`、`technical_fix=0`、`visual_v2_replace=0`、`spec_review=0`。
 - 已新增 `美术文档/15_FormalV2运行时验收待办清单.md`，把当前 FormalV2 运行时验收门禁从聊天结论收敛为文档：当前必须等待程序登记 latest `program_integrate=77` 并产出晚于 `20260606_230523` 的 ArtAcceptance RunID；美术侧后续按该清单复核 `report.json`、`registry_snapshot.json`、`ui_snapshot.json`、contact sheet 和 16 个需重跑截图，再决定是否发起二次 NovelAI 替换。
+- 已完成一轮 FormalV2 运行时验收前复查：本地 latest ArtAcceptance 仍为旧 RunID `20260606_230523` 且 `FAILED`，早于当前 77 个待登记素材，不能作为当前 V2 通过 / 失败证据；已刷新 latest 队列和快照，当前仍为 `program_integrate=77`、`rerun_acceptance=16`、`generate_needed=0`、`technical_fix=0`、`visual_v2_replace=0`、`spec_review=0`、`new_candidate=0`，`FormalV2AssetReview reviewed=77/pass=77`，`PromptReadiness prompt_ready=77/prompt_blocked=0`。
 
 ## 下一步建议
 
@@ -283,6 +284,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 正式结构已通过；本轮 latest `20260527_002436` 已确认资源接入通过，但 `combat_hud` 等 6 个界面仍需程序返修后复验。
 - 本轮已从外部 `F:\my_project\new\tags_machine\novelai\client.py` 只读提取 NovelAI token 到当前进程并真实调用 NovelAI；未提交 token，未使用 mock / local_v0 冒充正式图。后续跑图仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`。
 - latest `program_integrate=77` 表示仍有 77 个 Approved VisualID 需要程序登记；美术侧静态预验收已通过，缺图生成队列、Visual V2 同名替换队列和 technical_fix 队列均已清空。正式运行时验收仍依赖程序登记后重跑 ArtAcceptance / VisualAsset 验收截图。
+- 当前 latest ArtAcceptance 仍是 `20260606_230523`，早于 FormalV2 77 个待登记素材；除非程序侧产出新的 `UnityClient/Logs/ArtAcceptance/latest`，美术侧不能把 FormalV2 运行时验收标记为通过。
 - Formal V2 目前只是 draft 设计层；如果程序侧需要接入，必须等待用户确认并由美术侧更新 active `screen_layouts.json`。
 - Formal V2 概念图含 AI 伪文字和局部装饰噪声，只能作为结构参考；正式接入前仍需将控件、文本、图标和面板皮肤拆回可实现规格。
 - Formal V2 结构设计图是确定性 layout board，只用于评审结构和迁移顺序；不能被当作最终视觉稿或程序接入规格。
