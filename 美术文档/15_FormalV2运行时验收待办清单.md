@@ -12,6 +12,7 @@ related:
   - 美术文档/09_运行时美术验收记录.md
   - 美术文档/_generated/程序接入交接清单.md
   - 美术文档/_generated/可接入素材清单.md
+  - 美术文档/_generated/FormalV2运行时复验优先级清单.md
   - agent_status/art.md
   - agent_status/program.md
 last_verified: 2026-06-09
@@ -24,13 +25,14 @@ update_rule: FormalV2 runtime acceptance gate, evidence, or review focus changes
 ## Current Gate
 
 - Latest generated handoff: `美术文档/_generated/程序接入交接清单.md`
-- Current program queue: `program_integrate=77`
+- Current program queue: `program_integrate=87`
 - Current missing art generation queue: `generate_needed=0`
 - Current quality backlog: `technical_fix=0`, `visual_v2_replace=0`, `spec_review=0`
 - Current requirement candidate scan: `new_candidate=0`, `deferred_candidate=29`, `ignored_candidate=26`
 - Latest ArtAcceptance available locally: `20260606_230523`, status `FAILED`, older than current FormalV2 asset queue.
+- Runtime review priority queue: `美术文档/_generated/FormalV2运行时复验优先级清单.md`, current `review_queue=30`, all non-blocking watch items.
 
-Art-side runtime acceptance must wait until program registers the current 77 VisualIDs and reruns ArtAcceptance / VisualAsset checks.
+Art-side runtime acceptance must wait until program registers the current 87 VisualIDs and reruns ArtAcceptance / VisualAsset checks.
 
 ## Required Program Evidence
 
@@ -51,10 +53,11 @@ Art-side runtime acceptance must wait until program registers the current 77 Vis
 
 ## Known Watch Items
 
-- `program_integrate=77` currently includes 13 item icons, 34 monster combat/portrait assets, 6 backgrounds, 7 mementos, 6 order icons, 8 rumor icons, and 3 combat feedback UI assets.
+- `program_integrate=87` currently includes 23 item icons, 34 monster combat/portrait assets, 6 backgrounds, 7 mementos, 6 order icons, 8 rumor icons, and 3 combat feedback UI assets.
+- The runtime review priority queue currently contains 30 watch items, mainly item icon semantics, monster portrait small-size readability, memento readability, order/rumor icon semantics, and two combat feedback overlays.
 - Monster combat sprites and portraits passed static checks, but runtime scale and small-size readability still need screenshot review.
 - Item/order/rumor icons passed static checks, but semantic distinction must be judged in actual list/grid usage.
-- Existing latest ArtAcceptance failure still mentions old missing combat VisualIDs and missing combat HUD structure; do not use it as current FormalV2 pass/fail evidence after the 77 assets are registered.
+- Existing latest ArtAcceptance failure still mentions old missing combat VisualIDs and missing combat HUD structure; do not use it as current FormalV2 pass/fail evidence after the 87 assets are registered.
 
 ## Pass Criteria
 
