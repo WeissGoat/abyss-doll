@@ -79,13 +79,13 @@ public class WorkshopUIController : MonoBehaviour {
         }
 
         if (stashHeaderText != null) {
-            stashHeaderText.text = "Town Market Preview";
+            stashHeaderText.text = "Town Market";
         }
 
         if (sellSummaryText != null) {
             sellSummaryText.text = sellableCount > 0
-                ? $"Backpack {backpackCount} / Stash {stashCount}\nMarket preview {sellableEstimatedValue}G. Allocate and confirm sales in shop staging."
-                : "Town market preview. Shop staging handles selling and allocation.";
+                ? $"Backpack {backpackCount} / Stash {stashCount}\nPreview value {sellableEstimatedValue}G. Final pricing and channels happen in shop staging."
+                : "No staged goods yet. Shop staging handles allocation and final sale confirmation.";
         }
 
         if (openSellPanelBtn != null) {
@@ -373,36 +373,32 @@ public class WorkshopUIController : MonoBehaviour {
 
         GameObject row = new GameObject($"SellRow_{item.InstanceID}");
         row.transform.SetParent(stashListParent, false);
-        ConfigureGeneratedRow(row, 760f, 104f);
+        ConfigureGeneratedRow(row, 680f, 92f);
         Image rowBg = row.AddComponent<Image>();
-        VisualUIHelper.ApplySlicedSprite(
-            rowBg,
-            VisualAssetService.UIListRowNormalID,
-            Color.white,
-            new Color(0.11f, 0.105f, 0.095f, 0.94f),
-            false);
+        ApplyRuntimeSolidPanelSkin(rowBg, new Color(0.055f, 0.074f, 0.064f, 0.96f), new Color(0.22f, 0.34f, 0.28f, 0.26f), false);
         HorizontalLayoutGroup rowLayout = row.AddComponent<HorizontalLayoutGroup>();
         rowLayout.childAlignment = TextAnchor.MiddleLeft;
         rowLayout.childControlWidth = false;
         rowLayout.childControlHeight = false;
         rowLayout.childForceExpandWidth = false;
         rowLayout.childForceExpandHeight = false;
-        rowLayout.padding = new RectOffset(14, 14, 8, 8);
+        rowLayout.padding = new RectOffset(16, 16, 10, 10);
         rowLayout.spacing = 12f;
         GameObject iconObj = new GameObject("ItemIcon_Image");
         iconObj.transform.SetParent(row.transform, false);
         Image icon = iconObj.AddComponent<Image>();
         string iconID = VisualAssetService.ResolveItemIconID(item);
-        VisualUIHelper.ApplyContainSprite(icon, iconID, VisualDisplaySpecs.ItemIcon, Color.white, ResolveItemTint(item));
+        VisualUIHelper.ApplyContainSprite(icon, iconID, new Vector2(68f, 68f), Color.white, ResolveItemTint(item));
 
         GameObject labelObj = new GameObject("ItemLabel_Text");
         labelObj.transform.SetParent(row.transform, false);
         Text label = labelObj.AddComponent<Text>();
         label.font = defaultFont;
-        label.fontSize = 24;
-        label.color = Color.white;
+        label.fontSize = 21;
+        label.color = new Color(0.96f, 0.94f, 0.86f, 1f);
         label.alignment = TextAnchor.MiddleLeft;
         label.raycastTarget = false;
+        ConfigureReadableText(label, 15, 21);
         EconomySellLine sellLine = TownEconomyService.CalculateItemSellValue(
             GameRoot.Core.CurrentPlayer,
             item,
@@ -410,21 +406,29 @@ public class WorkshopUIController : MonoBehaviour {
         string valueText = sellLine.FinalValue == item.BaseValue
             ? $"{sellLine.FinalValue}G"
             : $"{item.BaseValue}G -> {sellLine.FinalValue}G";
-        label.text = $"[{sourceLabel}] {item.Name}  [{valueText}]";
+        label.text = $"{item.Name}\n{sourceLabel}";
         RectTransform labelRect = labelObj.GetComponent<RectTransform>();
-        labelRect.sizeDelta = new Vector2(420f, 76f);
+        labelRect.sizeDelta = new Vector2(300f, 68f);
 
-        GameObject routeObj = new GameObject("ShopStagingRoute_Text");
-        routeObj.transform.SetParent(row.transform, false);
-        Text routeText = routeObj.AddComponent<Text>();
-        routeText.font = defaultFont;
-        routeText.fontSize = 18;
-        routeText.color = new Color(0.92f, 0.82f, 0.58f, 1f);
-        routeText.alignment = TextAnchor.MiddleCenter;
-        routeText.raycastTarget = false;
-        routeText.text = "Shop staging";
-        RectTransform routeRect = routeObj.GetComponent<RectTransform>();
-        routeRect.sizeDelta = new Vector2(150f, 58f);
+        CreateInlinePill(
+            row.transform,
+            "ValuePill",
+            valueText,
+            new Vector2(114f, 48f),
+            new Color(0.16f, 0.13f, 0.08f, 0.95f),
+            new Color(0.96f, 0.82f, 0.54f, 1f),
+            defaultFont,
+            18);
+
+        CreateInlinePill(
+            row.transform,
+            "RoutePill",
+            "Staging",
+            new Vector2(118f, 48f),
+            new Color(0.18f, 0.23f, 0.19f, 0.95f),
+            new Color(0.86f, 0.92f, 0.76f, 1f),
+            defaultFont,
+            18);
     }
 
     private void CreateMarketPreviewPlaceholderRow(Font defaultFont) {
@@ -434,14 +438,9 @@ public class WorkshopUIController : MonoBehaviour {
 
         GameObject row = new GameObject("MarketPreviewRow_Empty");
         row.transform.SetParent(stashListParent, false);
-        ConfigureGeneratedRow(row, 760f, 132f);
+        ConfigureGeneratedRow(row, 680f, 118f);
         Image rowBg = row.AddComponent<Image>();
-        VisualUIHelper.ApplySlicedSprite(
-            rowBg,
-            VisualAssetService.UIListRowSelectedID,
-            Color.white,
-            new Color(0.14f, 0.12f, 0.09f, 0.96f),
-            false);
+        ApplyRuntimeSolidPanelSkin(rowBg, new Color(0.085f, 0.073f, 0.052f, 0.96f), new Color(0.34f, 0.28f, 0.16f, 0.28f), false);
 
         HorizontalLayoutGroup rowLayout = row.AddComponent<HorizontalLayoutGroup>();
         rowLayout.childAlignment = TextAnchor.MiddleLeft;
@@ -466,25 +465,24 @@ public class WorkshopUIController : MonoBehaviour {
         labelObj.transform.SetParent(row.transform, false);
         Text label = labelObj.AddComponent<Text>();
         label.font = defaultFont;
-        label.fontSize = 23;
+        label.fontSize = 21;
         label.color = new Color(0.96f, 0.88f, 0.7f, 1f);
         label.alignment = TextAnchor.MiddleLeft;
         label.raycastTarget = false;
-        label.text = "No goods staged here.\nUse shop staging to allocate inventory, channels, and final sale confirmation.";
+        ConfigureReadableText(label, 15, 21);
+        label.text = "No goods staged here.\nUse shop staging for channel allocation and final sale.";
         RectTransform labelRect = labelObj.GetComponent<RectTransform>();
-        labelRect.sizeDelta = new Vector2(540f, 96f);
+        labelRect.sizeDelta = new Vector2(430f, 88f);
 
-        GameObject routeObj = new GameObject("ShopStagingRoute_Text");
-        routeObj.transform.SetParent(row.transform, false);
-        Text routeText = routeObj.AddComponent<Text>();
-        routeText.font = defaultFont;
-        routeText.fontSize = 18;
-        routeText.color = new Color(0.92f, 0.82f, 0.58f, 1f);
-        routeText.alignment = TextAnchor.MiddleCenter;
-        routeText.raycastTarget = false;
-        routeText.text = "Shop staging";
-        RectTransform routeRect = routeObj.GetComponent<RectTransform>();
-        routeRect.sizeDelta = new Vector2(150f, 58f);
+        CreateInlinePill(
+            row.transform,
+            "RoutePill",
+            "Staging",
+            new Vector2(118f, 52f),
+            new Color(0.18f, 0.23f, 0.19f, 0.95f),
+            new Color(0.86f, 0.92f, 0.76f, 1f),
+            defaultFont,
+            18);
     }
 
     private Color ResolveItemTint(ItemEntity item) {
@@ -653,17 +651,16 @@ public class WorkshopUIController : MonoBehaviour {
     private void CreateProstheticRow(CraftingRecipeConfig recipe, ProstheticEntity prosthetic, Font defaultFont) {
         GameObject row = new GameObject($"ProstheticRow_{prosthetic.ProstheticID}");
         row.transform.SetParent(prostheticListParent, false);
-        ConfigureGeneratedRow(row, 860f, 132f);
+        ConfigureGeneratedRow(row, 720f, 126f);
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
         DollEntity doll = player?.ActiveDoll;
         bool isEquipped = doll?.EquippedProsthetics?.Contains(prosthetic.ProstheticID) == true;
         bool canCraft = ProstheticCraftingService.CanCraftAndEquip(player, doll, recipe.RecipeID, out string craftReason);
         Image rowBg = row.AddComponent<Image>();
-        VisualUIHelper.ApplySlicedSprite(
+        ApplyRuntimeSolidPanelSkin(
             rowBg,
-            isEquipped ? VisualAssetService.UIListRowSelectedID : VisualAssetService.UIListRowNormalID,
-            Color.white,
-            isEquipped ? new Color(0.14f, 0.18f, 0.13f, 0.96f) : new Color(0.065f, 0.085f, 0.1f, 0.94f),
+            isEquipped ? new Color(0.07f, 0.1f, 0.08f, 0.96f) : new Color(0.045f, 0.067f, 0.076f, 0.96f),
+            isEquipped ? new Color(0.28f, 0.44f, 0.3f, 0.3f) : new Color(0.22f, 0.36f, 0.42f, 0.28f),
             false);
         HorizontalLayoutGroup rowLayout = row.AddComponent<HorizontalLayoutGroup>();
         rowLayout.childAlignment = TextAnchor.MiddleLeft;
@@ -671,74 +668,64 @@ public class WorkshopUIController : MonoBehaviour {
         rowLayout.childControlHeight = false;
         rowLayout.childForceExpandWidth = false;
         rowLayout.childForceExpandHeight = false;
-        rowLayout.padding = new RectOffset(14, 14, 8, 8);
+        rowLayout.padding = new RectOffset(16, 16, 12, 12);
         rowLayout.spacing = 12f;
         GameObject iconObj = new GameObject("ProstheticIcon_Image");
         iconObj.transform.SetParent(row.transform, false);
         Image icon = iconObj.AddComponent<Image>();
         string iconID = VisualAssetService.ResolveProstheticIconID(prosthetic);
-        VisualUIHelper.ApplyContainSprite(icon, iconID, VisualDisplaySpecs.ProstheticIcon, Color.white, new Color(0.34f, 0.62f, 0.76f, 1f));
-
-        GameObject materialIconObj = new GameObject("MaterialNeedIcon_Image");
-        materialIconObj.transform.SetParent(row.transform, false);
-        Image materialIcon = materialIconObj.AddComponent<Image>();
-        VisualUIHelper.ApplyContainSprite(
-            materialIcon,
-            VisualAssetService.UIIconMaterialNeedID,
-            new Vector2(42f, 42f),
-            Color.white,
-            new Color(0.72f, 0.58f, 0.32f, 1f));
+        VisualUIHelper.ApplyContainSprite(icon, iconID, new Vector2(76f, 76f), Color.white, new Color(0.34f, 0.62f, 0.76f, 1f));
 
         GameObject labelObj = new GameObject("ProstheticLabel_Text");
         labelObj.transform.SetParent(row.transform, false);
         Text label = labelObj.AddComponent<Text>();
         label.font = defaultFont;
-        label.fontSize = 22;
-        label.color = Color.white;
+        label.fontSize = 21;
+        label.color = new Color(0.94f, 0.98f, 1f, 1f);
         label.alignment = TextAnchor.MiddleLeft;
         label.raycastTarget = false;
+        ConfigureReadableText(label, 14, 21);
         string craftStateText = isEquipped
-            ? "  Equipped"
+            ? "Equipped"
             : canCraft
-                ? string.Empty
-                : $"  {craftReason}";
-        label.text = $"{prosthetic.Name} [{prosthetic.SlotType}]\nMaterials: {BuildCostText(recipe.Cost)}{craftStateText}";
+                ? "Ready"
+                : "Locked";
+        label.text = $"{prosthetic.Name} [{prosthetic.SlotType}]\n{BuildCostText(recipe.Cost)}";
         RectTransform labelRect = labelObj.GetComponent<RectTransform>();
-        labelRect.sizeDelta = new Vector2(isEquipped ? 330f : 390f, 94f);
+        labelRect.sizeDelta = new Vector2(356f, 96f);
 
-        if (isEquipped) {
-            GameObject equippedObj = new GameObject("EquippedIcon_Image");
-            equippedObj.transform.SetParent(row.transform, false);
-            Image equippedIcon = equippedObj.AddComponent<Image>();
-            VisualUIHelper.ApplyContainSprite(
-                equippedIcon,
-                VisualAssetService.UIIconEquippedID,
-                new Vector2(48f, 48f),
-                Color.white,
-                new Color(0.46f, 0.72f, 0.46f, 1f));
-        }
-
-        if (!isEquipped && !canCraft) {
-            GameObject lockedObj = new GameObject("LockedIcon_Image");
-            lockedObj.transform.SetParent(row.transform, false);
-            Image lockedIcon = lockedObj.AddComponent<Image>();
-            VisualUIHelper.ApplyContainSprite(
-                lockedIcon,
-                VisualAssetService.UIIconLockedID,
-                new Vector2(48f, 48f),
-                Color.white,
-                new Color(0.52f, 0.56f, 0.62f, 1f));
-        }
+        string stateIconVisualID = isEquipped
+            ? VisualAssetService.UIIconEquippedID
+            : canCraft
+                ? VisualAssetService.UIIconMaterialNeedID
+                : VisualAssetService.UIIconLockedID;
+        Color stateIconTint = isEquipped
+            ? new Color(0.46f, 0.72f, 0.46f, 1f)
+            : canCraft
+                ? new Color(0.72f, 0.58f, 0.32f, 1f)
+                : new Color(0.52f, 0.56f, 0.62f, 1f);
+        GameObject stateIconObj = new GameObject("StateIcon_Image");
+        stateIconObj.transform.SetParent(row.transform, false);
+        Image stateIcon = stateIconObj.AddComponent<Image>();
+        VisualUIHelper.ApplyContainSprite(
+            stateIcon,
+            stateIconVisualID,
+            new Vector2(42f, 42f),
+            Color.white,
+            stateIconTint);
 
         Button craftBtn = CreateInlineButton(
             "Craft_Button",
-            isEquipped ? "Equipped" : canCraft ? "Craft" : "Locked",
+            craftStateText,
             row.transform,
-            new Vector2(132f, 54f),
+            new Vector2(120f, 52f),
             isEquipped ? new Color(0.25f, 0.35f, 0.28f) : canCraft ? new Color(0.25f, 0.52f, 0.7f) : new Color(0.28f, 0.3f, 0.34f),
             defaultFont,
-            20);
+            18);
         craftBtn.interactable = !isEquipped && canCraft;
+        craftBtn.gameObject.name = canCraft || isEquipped
+            ? "Craft_Button"
+            : $"Locked_Button_{craftReason}";
         craftBtn.onClick.AddListener(() => {
             ExecuteProstheticCraftFromButton(recipe.RecipeID);
         });
@@ -751,14 +738,9 @@ public class WorkshopUIController : MonoBehaviour {
 
         GameObject row = new GameObject("StudioRecipeRow_Empty");
         row.transform.SetParent(prostheticListParent, false);
-        ConfigureGeneratedRow(row, 860f, 132f);
+        ConfigureGeneratedRow(row, 720f, 118f);
         Image rowBg = row.AddComponent<Image>();
-        VisualUIHelper.ApplySlicedSprite(
-            rowBg,
-            VisualAssetService.UIListRowNormalID,
-            Color.white,
-            new Color(0.065f, 0.085f, 0.1f, 0.94f),
-            false);
+        ApplyRuntimeSolidPanelSkin(rowBg, new Color(0.045f, 0.067f, 0.076f, 0.96f), new Color(0.22f, 0.36f, 0.42f, 0.28f), false);
 
         HorizontalLayoutGroup rowLayout = row.AddComponent<HorizontalLayoutGroup>();
         rowLayout.childAlignment = TextAnchor.MiddleLeft;
@@ -783,13 +765,14 @@ public class WorkshopUIController : MonoBehaviour {
         labelObj.transform.SetParent(row.transform, false);
         Text label = labelObj.AddComponent<Text>();
         label.font = defaultFont;
-        label.fontSize = 23;
+        label.fontSize = 21;
         label.color = new Color(0.9f, 0.95f, 1f, 1f);
         label.alignment = TextAnchor.MiddleLeft;
         label.raycastTarget = false;
-        label.text = "No prosthetic recipes are unlocked.\nMaintenance and chassis controls remain available from the studio tabs.";
+        ConfigureReadableText(label, 15, 21);
+        label.text = "No prosthetic recipes are unlocked.\nMaintenance and chassis remain available from studio tabs.";
         RectTransform labelRect = labelObj.GetComponent<RectTransform>();
-        labelRect.sizeDelta = new Vector2(660f, 96f);
+        labelRect.sizeDelta = new Vector2(540f, 88f);
     }
 
     private string BuildCostText(CraftingCost cost) {
@@ -801,12 +784,27 @@ public class WorkshopUIController : MonoBehaviour {
         if (cost.RequiredItems != null) {
             foreach (var item in cost.RequiredItems) {
                 if (item != null) {
-                    text += $" + {item.ConfigID} x{item.Count}";
+                    text += $" + {ResolveCostItemDisplayName(item.ConfigID)} x{item.Count}";
                 }
             }
         }
 
         return text;
+    }
+
+    private string ResolveCostItemDisplayName(string configID) {
+        if (string.IsNullOrEmpty(configID)) {
+            return "Unknown item";
+        }
+
+        if (ConfigManager.Items != null
+            && ConfigManager.Items.TryGetValue(configID, out ItemEntity item)
+            && item != null
+            && !string.IsNullOrEmpty(item.Name)) {
+            return item.Name;
+        }
+
+        return configID;
     }
 
     private bool HasProstheticRecipes() {
@@ -837,7 +835,7 @@ public class WorkshopUIController : MonoBehaviour {
 
         int equippedCount = doll?.EquippedProsthetics?.Count ?? 0;
         return recipeCount > 0
-            ? $"Studio recipes: {recipeCount}   Craftable: {craftableCount}   Equipped: {equippedCount}\nMaintenance and chassis are available as studio subpanels."
+            ? $"Recipes {recipeCount} / Craftable {craftableCount} / Equipped {equippedCount}\nChoose a module, then craft when materials are ready."
             : "No prosthetic recipes are available.";
     }
 
@@ -996,7 +994,7 @@ public class WorkshopUIController : MonoBehaviour {
         cardRect.anchorMax = new Vector2(0.5f, 0.5f);
         cardRect.pivot = new Vector2(0.5f, 0.5f);
         cardRect.anchoredPosition = Vector2.zero;
-        cardRect.sizeDelta = new Vector2(1180f, 720f);
+        cardRect.sizeDelta = new Vector2(1240f, 760f);
         Image cardBg = cardObj.AddComponent<Image>();
         ApplyRuntimeSolidPanelSkin(cardBg, new Color(0.045f, 0.06f, 0.055f, 0.98f), new Color(0.35f, 0.42f, 0.35f, 0.36f), false);
 
@@ -1014,7 +1012,7 @@ public class WorkshopUIController : MonoBehaviour {
         titleRect.anchorMax = new Vector2(0f, 1f);
         titleRect.pivot = new Vector2(0f, 1f);
         titleRect.anchoredPosition = new Vector2(40f, -30f);
-        titleRect.sizeDelta = new Vector2(440f, 56f);
+        titleRect.sizeDelta = new Vector2(500f, 56f);
         stashHeaderText = title;
 
         CreateTitleDivider(cardObj.transform, new Vector2(40f, -86f), new Vector2(520f, 32f));
@@ -1033,7 +1031,7 @@ public class WorkshopUIController : MonoBehaviour {
         summaryRect.anchorMax = new Vector2(0f, 1f);
         summaryRect.pivot = new Vector2(0f, 1f);
         summaryRect.anchoredPosition = new Vector2(40f, -92f);
-        summaryRect.sizeDelta = new Vector2(760f, 76f);
+        summaryRect.sizeDelta = new Vector2(690f, 76f);
         sellSummaryText = summary;
 
         sellAllBtn = CreateAnchoredButton(
@@ -1043,8 +1041,8 @@ public class WorkshopUIController : MonoBehaviour {
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
-            new Vector2(-238f, -36f),
-            new Vector2(210f, 54f),
+            new Vector2(-260f, -36f),
+            new Vector2(190f, 54f),
             new Color(0.72f, 0.36f, 0.16f),
             defaultFont,
             20);
@@ -1056,7 +1054,7 @@ public class WorkshopUIController : MonoBehaviour {
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
-            new Vector2(-56f, -36f),
+            new Vector2(-64f, -36f),
             new Vector2(112f, 54f),
             new Color(0.28f, 0.3f, 0.34f),
             defaultFont,
@@ -1068,8 +1066,8 @@ public class WorkshopUIController : MonoBehaviour {
         scrollRect.anchorMin = new Vector2(0.5f, 0.5f);
         scrollRect.anchorMax = new Vector2(0.5f, 0.5f);
         scrollRect.pivot = new Vector2(0.5f, 0.5f);
-        scrollRect.anchoredPosition = new Vector2(-120f, -92f);
-        scrollRect.sizeDelta = new Vector2(820f, 430f);
+        scrollRect.anchoredPosition = new Vector2(-220f, -110f);
+        scrollRect.sizeDelta = new Vector2(732f, 470f);
         Image scrollBg = scrollObj.AddComponent<Image>();
         ApplyRuntimeSolidPanelSkin(scrollBg, new Color(0.02f, 0.028f, 0.026f, 0.98f), new Color(0.24f, 0.34f, 0.3f, 0.26f), false);
         ScrollRect scroll = scrollObj.AddComponent<ScrollRect>();
@@ -1105,6 +1103,49 @@ public class WorkshopUIController : MonoBehaviour {
         contentFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
         scroll.content = contentRect;
         stashListParent = contentObj.transform;
+
+        GameObject routeObj = new GameObject("MarketRoutePanel");
+        routeObj.transform.SetParent(cardObj.transform, false);
+        RectTransform routeRect = routeObj.AddComponent<RectTransform>();
+        routeRect.anchorMin = new Vector2(0.5f, 0.5f);
+        routeRect.anchorMax = new Vector2(0.5f, 0.5f);
+        routeRect.pivot = new Vector2(0.5f, 0.5f);
+        routeRect.anchoredPosition = new Vector2(410f, -110f);
+        routeRect.sizeDelta = new Vector2(330f, 470f);
+        Image routeBg = routeObj.AddComponent<Image>();
+        ApplyRuntimeSolidPanelSkin(routeBg, new Color(0.08f, 0.065f, 0.045f, 0.96f), new Color(0.42f, 0.32f, 0.18f, 0.36f), false);
+        CreateAnchoredText(
+            "MarketRouteTitle_Text",
+            routeObj.transform,
+            "Market Route",
+            new Vector2(24f, -24f),
+            new Vector2(280f, 42f),
+            defaultFont,
+            24,
+            new Color(0.96f, 0.82f, 0.56f, 1f),
+            TextAnchor.MiddleLeft);
+        CreateAnchoredIcon("MarketRouteIcon_Image", routeObj.transform, VisualAssetService.UIIconShopChannelID, new Vector2(26f, -92f), new Vector2(58f, 58f), new Color(0.92f, 0.76f, 0.46f, 1f));
+        CreateAnchoredText(
+            "MarketRouteBody_Text",
+            routeObj.transform,
+            "Preview only. Use shop staging to place goods, pick channels, and confirm the final sale.",
+            new Vector2(100f, -88f),
+            new Vector2(198f, 158f),
+            defaultFont,
+            18,
+            new Color(0.92f, 0.9f, 0.78f, 1f),
+            TextAnchor.UpperLeft);
+        CreateAnchoredIcon("OrderRouteIcon_Image", routeObj.transform, VisualAssetService.UIIconOrderID, new Vector2(26f, -282f), new Vector2(50f, 50f), new Color(0.78f, 0.86f, 0.72f, 1f));
+        CreateAnchoredText(
+            "MarketRouteHint_Text",
+            routeObj.transform,
+            "Orders and black-market risk are handled after staging, not from this preview.",
+            new Vector2(100f, -276f),
+            new Vector2(198f, 112f),
+            defaultFont,
+            17,
+            new Color(0.82f, 0.86f, 0.78f, 1f),
+            TextAnchor.UpperLeft);
 
         sellPanel.SetActive(_sellPanelOpen);
     }
@@ -1158,7 +1199,7 @@ public class WorkshopUIController : MonoBehaviour {
         cardRect.anchorMax = new Vector2(0.5f, 0.5f);
         cardRect.pivot = new Vector2(0.5f, 0.5f);
         cardRect.anchoredPosition = Vector2.zero;
-        cardRect.sizeDelta = new Vector2(1180f, 720f);
+        cardRect.sizeDelta = new Vector2(1240f, 760f);
         Image cardBg = cardObj.AddComponent<Image>();
         ApplyRuntimeSolidPanelSkin(cardBg, new Color(0.035f, 0.055f, 0.065f, 0.98f), new Color(0.28f, 0.42f, 0.48f, 0.36f), false);
 
@@ -1195,7 +1236,7 @@ public class WorkshopUIController : MonoBehaviour {
         summaryRect.anchorMax = new Vector2(0f, 1f);
         summaryRect.pivot = new Vector2(0f, 1f);
         summaryRect.anchoredPosition = new Vector2(40f, -92f);
-        summaryRect.sizeDelta = new Vector2(760f, 76f);
+        summaryRect.sizeDelta = new Vector2(690f, 76f);
         prostheticSummaryText = summary;
 
         closeProstheticPanelBtn = CreateAnchoredButton(
@@ -1205,7 +1246,7 @@ public class WorkshopUIController : MonoBehaviour {
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
-            new Vector2(-56f, -36f),
+            new Vector2(-64f, -36f),
             new Vector2(112f, 54f),
             new Color(0.28f, 0.3f, 0.34f),
             defaultFont,
@@ -1218,8 +1259,8 @@ public class WorkshopUIController : MonoBehaviour {
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
-            new Vector2(-428f, -36f),
-            new Vector2(172f, 54f),
+            new Vector2(-424f, -36f),
+            new Vector2(168f, 54f),
             new Color(0.22f, 0.44f, 0.42f),
             defaultFont,
             19);
@@ -1233,7 +1274,7 @@ public class WorkshopUIController : MonoBehaviour {
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
             new Vector2(-242f, -36f),
-            new Vector2(154f, 54f),
+            new Vector2(150f, 54f),
             new Color(0.2f, 0.36f, 0.52f),
             defaultFont,
             19);
@@ -1245,8 +1286,8 @@ public class WorkshopUIController : MonoBehaviour {
         scrollRect.anchorMin = new Vector2(0.5f, 0.5f);
         scrollRect.anchorMax = new Vector2(0.5f, 0.5f);
         scrollRect.pivot = new Vector2(0.5f, 0.5f);
-        scrollRect.anchoredPosition = new Vector2(-80f, -92f);
-        scrollRect.sizeDelta = new Vector2(920f, 430f);
+        scrollRect.anchoredPosition = new Vector2(-210f, -110f);
+        scrollRect.sizeDelta = new Vector2(772f, 470f);
         Image scrollBg = scrollObj.AddComponent<Image>();
         ApplyRuntimeSolidPanelSkin(scrollBg, new Color(0.018f, 0.03f, 0.036f, 0.98f), new Color(0.22f, 0.36f, 0.42f, 0.26f), false);
         ScrollRect scroll = scrollObj.AddComponent<ScrollRect>();
@@ -1282,6 +1323,39 @@ public class WorkshopUIController : MonoBehaviour {
         contentFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
         scroll.content = contentRect;
         prostheticListParent = contentObj.transform;
+
+        GameObject benchObj = new GameObject("StudioBenchPanel");
+        benchObj.transform.SetParent(cardObj.transform, false);
+        RectTransform benchRect = benchObj.AddComponent<RectTransform>();
+        benchRect.anchorMin = new Vector2(0.5f, 0.5f);
+        benchRect.anchorMax = new Vector2(0.5f, 0.5f);
+        benchRect.pivot = new Vector2(0.5f, 0.5f);
+        benchRect.anchoredPosition = new Vector2(420f, -110f);
+        benchRect.sizeDelta = new Vector2(330f, 470f);
+        Image benchBg = benchObj.AddComponent<Image>();
+        ApplyRuntimeSolidPanelSkin(benchBg, new Color(0.045f, 0.065f, 0.072f, 0.96f), new Color(0.25f, 0.46f, 0.52f, 0.34f), false);
+        CreateAnchoredText(
+            "StudioBenchTitle_Text",
+            benchObj.transform,
+            "Studio Bench",
+            new Vector2(24f, -24f),
+            new Vector2(280f, 42f),
+            defaultFont,
+            24,
+            new Color(0.74f, 0.9f, 0.92f, 1f),
+            TextAnchor.MiddleLeft);
+        CreateAnchoredIcon("StudioBenchDoll_Image", benchObj.transform, "doll_proto_0_stand", new Vector2(92f, -84f), new Vector2(150f, 250f), Color.white);
+        CreateAnchoredIcon("StudioBenchMaterial_Image", benchObj.transform, VisualAssetService.UIIconMaterialNeedID, new Vector2(28f, -354f), new Vector2(52f, 52f), new Color(0.72f, 0.58f, 0.32f, 1f));
+        CreateAnchoredText(
+            "StudioBenchHint_Text",
+            benchObj.transform,
+            "Locked rows mean the doll can preview the fitting, but materials or money are still missing.",
+            new Vector2(100f, -348f),
+            new Vector2(198f, 96f),
+            defaultFont,
+            17,
+            new Color(0.82f, 0.9f, 0.92f, 1f),
+            TextAnchor.UpperLeft);
 
         prostheticPanel.SetActive(_prostheticPanelOpen);
     }
@@ -1459,6 +1533,89 @@ public class WorkshopUIController : MonoBehaviour {
         return button;
     }
 
+    private Text CreateInlinePill(
+        Transform parent,
+        string objectName,
+        string label,
+        Vector2 size,
+        Color fillColor,
+        Color textColor,
+        Font font,
+        int fontSize) {
+        GameObject pillObj = new GameObject(objectName);
+        pillObj.transform.SetParent(parent, false);
+        Image pillBg = pillObj.AddComponent<Image>();
+        ApplyRuntimeSolidPanelSkin(pillBg, fillColor, new Color(fillColor.r + 0.12f, fillColor.g + 0.12f, fillColor.b + 0.12f, 0.24f), false);
+        RectTransform pillRect = pillObj.GetComponent<RectTransform>();
+        pillRect.sizeDelta = size;
+
+        GameObject textObj = new GameObject("Text");
+        textObj.transform.SetParent(pillObj.transform, false);
+        Text text = textObj.AddComponent<Text>();
+        text.font = font;
+        text.fontSize = fontSize;
+        text.color = textColor;
+        text.alignment = TextAnchor.MiddleCenter;
+        text.text = label;
+        text.raycastTarget = false;
+        ConfigureReadableText(text, Mathf.Max(12, fontSize - 5), fontSize);
+        RectTransform textRect = textObj.GetComponent<RectTransform>();
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.offsetMin = new Vector2(8f, 4f);
+        textRect.offsetMax = new Vector2(-8f, -4f);
+        return text;
+    }
+
+    private Text CreateAnchoredText(
+        string objectName,
+        Transform parent,
+        string label,
+        Vector2 topLeft,
+        Vector2 size,
+        Font font,
+        int fontSize,
+        Color color,
+        TextAnchor alignment) {
+        GameObject textObj = new GameObject(objectName);
+        textObj.transform.SetParent(parent, false);
+        Text text = textObj.AddComponent<Text>();
+        text.font = font;
+        text.fontSize = fontSize;
+        text.color = color;
+        text.alignment = alignment;
+        text.text = label;
+        text.raycastTarget = false;
+        ConfigureReadableText(text, Mathf.Max(12, fontSize - 6), fontSize);
+        RectTransform textRect = textObj.GetComponent<RectTransform>();
+        textRect.anchorMin = new Vector2(0f, 1f);
+        textRect.anchorMax = new Vector2(0f, 1f);
+        textRect.pivot = new Vector2(0f, 1f);
+        textRect.anchoredPosition = topLeft;
+        textRect.sizeDelta = size;
+        return text;
+    }
+
+    private Image CreateAnchoredIcon(
+        string objectName,
+        Transform parent,
+        string visualID,
+        Vector2 topLeft,
+        Vector2 size,
+        Color tint) {
+        GameObject iconObj = new GameObject(objectName);
+        iconObj.transform.SetParent(parent, false);
+        Image icon = iconObj.AddComponent<Image>();
+        RectTransform iconRect = iconObj.GetComponent<RectTransform>();
+        iconRect.anchorMin = new Vector2(0f, 1f);
+        iconRect.anchorMax = new Vector2(0f, 1f);
+        iconRect.pivot = new Vector2(0f, 1f);
+        iconRect.anchoredPosition = topLeft;
+        iconRect.sizeDelta = size;
+        VisualUIHelper.ApplyContainSprite(icon, visualID, size, tint, tint, false);
+        return icon;
+    }
+
     private Button CreateAnchoredButton(
         string objectName,
         string label,
@@ -1492,6 +1649,7 @@ public class WorkshopUIController : MonoBehaviour {
         buttonText.alignment = TextAnchor.MiddleCenter;
         buttonText.text = label;
         buttonText.raycastTarget = false;
+        ConfigureReadableText(buttonText, Mathf.Max(12, fontSize - 6), fontSize);
         RectTransform textRect = textObj.GetComponent<RectTransform>();
         textRect.anchorMin = Vector2.zero;
         textRect.anchorMax = Vector2.one;

@@ -460,4 +460,10 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 最近完成：美术 / UI 侧直接处理 FormalV2 运行时 UI 剩余视觉阻塞：11 个旧 FormalV1 模板屏改为逐屏 FormalV2 运行时结构，`sell_panel` / `prosthetic_panel` 改为独立 modal，`dungeon_map` 节点 / 路线降低悬浮 UI 感；同时确认后续纯 UGUI 表现层 polish 由美术侧直接闭环。
 - 当前关注：资源 / Registry / ArtAcceptance 工具门禁通过，本轮直接精修通过；最新证据为 ArtAcceptance `RunID=20260613_020257`、`PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0、`RealGameplay=21`、`FormalV1Template=0`。FormalV2 runtime UI visual seal 已通过当前纵切基线。
 - 下一步建议：继续由美术 / UI 侧直接做质量迭代，优先把共享工坊子面板按界面簇区分为更明确的 FormalV2 专屏结构；资源登记、批量补图、modal 隔离、地图节点融合和旧 `formal_v1_template` 降级路径不再是当前阻塞。
-- 验证证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 0 warning / 0 error；`Validate-UIDesign.ps1` 通过；`Validate-ArtGeneratedJson.ps1 -Strict` 通过；`python tools\docs\validate_docs.py --index docs_index.json` 通过。
+
+## 2026-06-13 FormalV2 Town Market / Workshop Studio polish
+
+- 最近完成：美术 / UI 侧继续直接处理纯 UGUI 运行时表现，聚焦 `sell_panel` 与 `prosthetic_panel`。`sell_panel` 已改成 `Town Market` 两栏结构：左侧货物列表，右侧 `Market Route` 引导；行内拆出图标、物品 / 来源、价格 pill 和 staging pill。`prosthetic_panel` 已改成 `Workshop Studio` 两栏结构：左侧义体配方，右侧 `Studio Bench` 人偶预览 / 状态说明；行内拆出义体图标、成本、状态图标和动作按钮。配方成本现在优先从 `ConfigManager.Items` 解析显示名，避免继续暴露 `loot_gear_scrap` 这类配置 ID。
+- 当前关注：这轮不新增 Approved、Manifest、Registry 或 `screen_layouts.json`，只处理 Unity 运行时 UI 表现层；最新证据为 ArtAcceptance `RunID=20260613_024312`、`PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0、`RealGameplay=20`、`AcceptancePreview=1`、`FormalV1Template=0`。`sell_panel` / `prosthetic_panel` 通过当前纵切基线，后续仍可做更高品质插画化 / 动效化。
+- 下一步建议：UI 直管流程继续有效。下一批优先按玩家流程看 `maintenance_panel`、`chassis_upgrade_panel`、`shop_staging` / `daily_bill_report` 等共享子面板是否需要从“可用结构”提升为更有场景语义的专屏结构；只有玩法服务、测试底座或 Unity 工程约束问题再交给程序侧。
+- 验证证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 0 warning / 0 error；`Validate-UIDesign.ps1` 通过；`Validate-ArtGeneratedJson.ps1 -Strict` 通过；`Invoke-P0Validation.ps1 -SkipUnity -SkipArtAcceptance:$false -ArtAcceptanceTimeoutSeconds 240` 通过。限制：本轮 P0 wrapper 使用 `-SkipUnity`，因此 ConfigValidator 与 Unity smoke tests 未执行，ArtAcceptance 已重新运行并通过。
