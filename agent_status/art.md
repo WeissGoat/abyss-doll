@@ -138,7 +138,8 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 
 ## 最近完成
 
-- 2026-06-13 美术 / UI 侧继续直接处理 FormalV2 运行时 UGUI 精修：`dungeon_map` 节点缩小、标签缩短、路线降噪并按纵深重新布局；`sell_panel` / `prosthetic_panel` modal tint 和遮罩层级更干净；11 个 `formal_v1_template` 屏从高噪金框模板降为低噪暗色信息面板。最终 ArtAcceptance `RunID=20260613_005848` 工具层 `PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0；本轮直接精修通过，FormalV2 runtime visual seal 已作为当前纵切 UI 基线通过；11 个 template 屏后续按专屏结构重构，属于质量迭代，不再作为当前 UI 接入阻塞。证据入口：`UnityClient/Logs/ArtAcceptance/latest/report.json`、`UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260613_005848_codex.png`、`美术文档/09_运行时美术验收记录.md`。
+- 2026-06-13 美术 / UI 侧确认后续涉及纯 UGUI 的布局、视觉层级、皮肤绑定、VisualID 表现、截图验收和非玩法 UI polish 默认由美术侧直接闭环；只有领域服务、后端规则、Unity 工程约束、自动验收工具或 UGUI 底层能力阻断时再交给程序侧。
+- 2026-06-13 美术 / UI 侧继续直接处理 FormalV2 运行时 UGUI 精修：`dungeon_map` 节点缩小、标签缩短、路线降噪并按纵深重新布局；`sell_panel` / `prosthetic_panel` modal tint 和遮罩层级更干净；11 个 `formal_v1_template` 屏从高噪金框模板降为低噪暗色信息面板。最终 ArtAcceptance `RunID=20260613_005848` 工具层 `PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0；本轮直接精修通过，可作为当前纵切玩家流程 UI 基线继续开发；但完整 FormalV2 runtime visual seal 尚未封版，11 个 template 屏仍需后续按专屏 FormalV2 结构重构。证据入口：`UnityClient/Logs/ArtAcceptance/latest/report.json`、`UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260613_005848_codex.png`、`美术文档/09_运行时美术验收记录.md`。
 - 2026-06-12 美术 / UI 侧已直接完成一轮 FormalV2 运行时 UGUI 精修和验收工具修复：ArtAcceptance `RunID=20260612_231356` 工具层 `PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0；`ScenarioEventPanel_Runtime` 跨截图污染已清除，只保留在 `scenario_event` 自身截图。核心 P0 UI 结构条件通过：`workshop_main` 不再常驻背包格，`inventory_loot` 改为战斗场景半透明拾取叠层，`combat_hud` 状态文字与条形控件不再明显压叠，`settlement` 标题 / 摘要 / 三列结构可读。证据入口：`UnityClient/Logs/ArtAcceptance/latest/report.json`、`UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260612_231356_codex.png`、`美术文档/09_运行时美术验收记录.md`。
 - 已完成美术全局方向纠偏：`美术文档/04_美术风格基准.md`、`美术文档/03_AI生成与筛选规范.md`、Formal V2 总览 / README / concepts 评审说明、`formal_v2/01..21` active 界面草案、`美术文档/ui_design/design_tokens.json`、`美术文档/ui_design/screen_layouts.json` 和 `tools/美术工具/generate_art_prompts.py` 已同步：全局主轴为日系二次元地底奇幻冒险，active UI 与正向素材提示词不再默认使用黄铜 / 铜件 / 暖灯 / 蒸汽朋克；旧词只允许出现在历史纠偏说明、禁止项、负面词或明确物品语义中。本轮不重跑概念图，不改 Approved 运行时图片。
 - 程序/UI 侧已完成 FormalV2 运行时结构重排后的截图缺口修复，并产出美术侧下一轮人工复验入口：latest ArtAcceptance `RunID=20260611_014057`、`Status=PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0；证据入口为 `UnityClient/Logs/ArtAcceptance/latest/report.json`、`UnityClient/Logs/ArtAcceptance/latest/screenshots/` 和 `UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260611_014057.png`。本轮程序侧自查结论：`sell_panel` / `prosthetic_panel` 不再是空黑框，`workshop_main`、`combat_hud`、`dungeon_map`、`inventory_loot`、`settlement` 均有最新截图覆盖；但 FormalV2 UI 画面是否通过仍待美术侧按截图人工复验，不得仅凭 ArtAcceptance `PASSED` 标记为视觉通过。
@@ -285,7 +286,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 
 1. 程序侧不再需要登记资源：latest `program_integrate=0`、`missing_registry=0`、ArtAcceptance `20260613_005848 PASSED`、Registry 278、`MissingRequiredVisualIDs=0`。
 2. FormalV2 UI 后续运行时视觉 / 布局精修由美术 / UI 侧直接处理，仍遵守纯 UGUI、active `screen_layouts.json`、真实玩家流程和 ArtAcceptance 证据口径；只有领域服务、工具链、Unity 工程约束或测试底座问题再交给程序侧。
-3. FormalV2 运行时 UI 当前已通过纵切基线视觉封版；下一轮美术 / UI 侧只做质量迭代：专屏重构、背景候选替换、动画 / VFX、图标语义和真实玩家流程中的小尺寸可读性复查。
+3. FormalV2 运行时 UI 当前已通过资源 / Registry / ArtAcceptance 工具门禁，本轮直接精修通过，可作为当前纵切玩家流程 UI 基线；下一轮美术 / UI 侧优先做 11 个 `formal_v1_template` 屏的专屏结构替换，其次再处理背景候选、动画 / VFX、图标语义和真实玩家流程中的小尺寸可读性复查。
 4. 当前不要重开批量资源登记或批量 NovelAI 补图；如果下一轮截图证明某个 VisualID 在真实尺寸下语义或可读性不足，再做单项 NovelAI 同名替换。仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`，已接入同名替换必须使用 strict meta guard。
 5. 后续每次刷新美术 `_generated` 关键 JSON 后，运行 `Validate-ArtGeneratedJson.ps1 -Strict`，确认程序交接和美术验收依赖的 JSON 在 UTF-8 读取下可解析。
 
@@ -294,7 +295,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 当前工作区仍有大量程序、策划、Unity 资产和知识库生成物处于脏状态；美术侧提交时只纳入本轮美术流水线相关文件。
 - P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 / FormalV2 正式视觉完成；当前必须以 latest ArtAcceptance、逐屏截图复验和本状态页结论为准。
 - 本轮已从外部 `F:\my_project\new\tags_machine\novelai\client.py` 只读提取 NovelAI token 到当前进程并真实调用 NovelAI；未提交 token，未使用 mock / local_v0 冒充正式图。后续跑图仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`。
-- FormalV2 资源登记门禁已清空，最新 ArtAcceptance `20260613_005848` 工具层通过，核心 P0 UI 结构与运行时视觉均可作为当前纵切 UI 基线；后续画面优化按质量迭代处理，不再作为当前 UI 接入阻塞。
+- FormalV2 资源登记门禁已清空，最新 ArtAcceptance `20260613_005848` 工具层通过；核心 P0 UI 结构与本轮直接精修可作为当前纵切玩家流程 UI 基线，但完整 FormalV2 runtime visual seal 仍待 11 个 `formal_v1_template` 屏替换为专屏结构后再判断。
 - FormalV2 V2-A 已进入 active 规格；V2-B / V2-C 仍按 draft 管理，未写入 active 前不作为程序接入口。
 - Formal V2 概念图含 AI 伪文字和局部装饰噪声，只能作为结构参考；正式接入前仍需将控件、文本、图标和面板皮肤拆回可实现规格。
 - Formal V2 结构设计图是确定性 layout board，只用于评审结构和迁移顺序；不能被当作最终视觉稿或程序接入规格。
@@ -427,9 +428,9 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 下一步建议：先完成真实分层源、遮罩、inpaint / 表情候选和人工清理，再由 Cubism / Spine 绑定工具产出 Runtime、motions、expressions、physics 和 Prefab。
 - 问题 / 阻塞：`blocked:missing_layered_source_and_cubism_binding_output`。该阻塞不影响 FormalV2 静态 UI / ArtAcceptance，静态 fallback 仍使用 `doll_proto_0_stand`。
 
-## 2026-06-13 FormalV2运行时UI视觉封版
+## 2026-06-13 FormalV2运行时UI直管精修
 
-- 最近完成：美术 / UI 侧直接处理 FormalV2 运行时 UI 剩余视觉阻塞：旧 FormalV1 模板屏改为纯色正式信息面板，`sell_panel` / `prosthetic_panel` 改为独立 modal，`dungeon_map` 节点 / 路线降低悬浮 UI 感。
-- 当前关注：FormalV2 当前运行时 UI 已通过纵切基线视觉封版；最新证据为 ArtAcceptance `RunID=20260613_005848`、`PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0。
-- 下一步建议：后续只按真实玩家流程反馈做质量迭代，不再把资源登记、旧模板替换、modal 隔离或地图节点融合列为当前阻塞。
+- 最近完成：美术 / UI 侧直接处理 FormalV2 运行时 UI 剩余视觉阻塞：旧 FormalV1 模板屏改为纯色正式信息面板，`sell_panel` / `prosthetic_panel` 改为独立 modal，`dungeon_map` 节点 / 路线降低悬浮 UI 感；同时确认后续纯 UGUI 表现层 polish 由美术侧直接闭环。
+- 当前关注：资源 / Registry / ArtAcceptance 工具门禁通过，本轮直接精修通过；最新证据为 ArtAcceptance `RunID=20260613_005848`、`PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0。完整 FormalV2 runtime visual seal 尚未封版。
+- 下一步建议：继续按界面簇替换 11 个 `formal_v1_template` 屏为专屏 FormalV2 结构；资源登记、批量补图、modal 隔离和地图节点融合不再是当前阻塞。
 - 验证证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 0 warning / 0 error；`Validate-UIDesign.ps1` 通过；`Validate-ArtGeneratedJson.ps1 -Strict` 通过；`python tools\docs\validate_docs.py --index docs_index.json` 通过。

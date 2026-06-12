@@ -21,7 +21,7 @@ related:
   - 版本规划/09_正式版核心纵切开发路线.md
   - 版本规划/README.md
   - 版本规划/11_纵切批次与需求文档承接矩阵.md
-last_verified: 2026-06-08
+last_verified: 2026-06-13
 update_rule: 修改智能体分工、开工流程或完成协议时同步本文件。
 ---
 
@@ -134,7 +134,7 @@ P3 mission 是非侵入式本地任务队列：用 `.mission/*.csv` 或 `mission
 主要关注：
 
 - 视觉流水线、Manifest、AI 素材生成、正式入库资源、UI 设计交付、运行时美术验收。
-- 负责 UI 从 MVP Baseline 到 Formal V1 / 后续版本的结构设计、版本冻结、active 规格更新和美术验收，不直接接管 Unity UI 程序实现。
+- 负责 UI 从 MVP Baseline 到 Formal V1 / 后续版本的结构设计、版本冻结、active 规格更新和美术验收；涉及纯 UGUI 的布局、视觉层级、皮肤绑定、VisualID 表现、截图验收和非玩法 UI polish，默认由美术 / UI 智能体直接闭环。只有领域服务、后端规则、Unity 工程约束、自动验收工具或 UGUI 底层能力阻断时，再交由程序侧处理。
 
 必读：
 
