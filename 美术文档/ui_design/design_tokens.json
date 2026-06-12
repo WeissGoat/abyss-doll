@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "UpdatedAt": "2026-05-21",
+  "UpdatedAt": "2026-06-12",
   "ProductionStage": "FormalVerticalSlice",
   "DesignPolicy": {
     "UISkeleton": "formal_first",
@@ -61,11 +61,11 @@
     }
   },
   "ColorRoles": {
-    "PanelBase": "#1D2028",
-    "PanelInset": "#11141B",
-    "BrassTrim": "#B88945",
-    "CopperAccent": "#A8613D",
-    "AmberActive": "#E1B45A",
+    "PanelBase": "#27243A",
+    "PanelInset": "#171827",
+    "FantasyTrim": "#D8C47A",
+    "CoralAccent": "#E78A7A",
+    "RuneActive": "#8FD3FF",
     "BlueEnergy": "#67B7D8",
     "GreenValid": "#65B88A",
     "RedDanger": "#B64A45",

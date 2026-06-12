@@ -121,12 +121,23 @@ public static class VisualAssetService {
     }
 
     public static GameObject GetPrefab(string visualID) {
-        VisualAssetRegistry registry = ResolveRegistry();
-        if (registry != null && registry.TryGetEntry(visualID, out var entry) && entry.Prefab != null) {
-            return entry.Prefab;
+        if (TryGetPrefab(visualID, out GameObject prefab)) {
+            return prefab;
         }
 
+        VisualAssetRegistry registry = ResolveRegistry();
         return registry != null ? registry.MissingPrefab : null;
+    }
+
+    public static bool TryGetPrefab(string visualID, out GameObject prefab) {
+        prefab = null;
+        VisualAssetRegistry registry = ResolveRegistry();
+        if (registry != null && registry.TryGetEntry(visualID, out var entry) && entry.Prefab != null) {
+            prefab = entry.Prefab;
+            return true;
+        }
+
+        return false;
     }
 
     public static AudioClip GetAudioClip(string visualID) {
@@ -329,11 +340,11 @@ public static class VisualUIHelper {
         }
 
         RectTransform rect = image.GetComponent<RectTransform>();
-        rect.anchorMin = new Vector2(0.5f, 0.5f);
-        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
         rect.pivot = new Vector2(0.5f, 0.5f);
-        rect.anchoredPosition = Vector2.zero;
-        rect.sizeDelta = VisualDisplaySpecs.BackgroundReferenceViewport;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
 
         image.raycastTarget = false;
         image.type = Image.Type.Simple;

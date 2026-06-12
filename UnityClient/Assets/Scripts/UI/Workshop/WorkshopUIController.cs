@@ -934,12 +934,35 @@ public class WorkshopUIController : MonoBehaviour {
 
     private void EnsureFormalV1PanelController() {
         if (_formalV1PanelController != null) {
+            EnsureFormalV2PanelControllers();
             return;
         }
 
         _formalV1PanelController = GetComponent<WorkshopFormalV1PanelController>();
         if (_formalV1PanelController == null) {
             _formalV1PanelController = gameObject.AddComponent<WorkshopFormalV1PanelController>();
+        }
+
+        EnsureFormalV2PanelControllers();
+    }
+
+    private void EnsureFormalV2PanelControllers() {
+        EnsureFormalV2PanelController<MaintenancePanelController>();
+        EnsureFormalV2PanelController<DailyBillReportController>();
+        EnsureFormalV2PanelController<ShopStagingController>();
+        EnsureFormalV2PanelController<OrderBoardController>();
+        EnsureFormalV2PanelController<RumorBoardController>();
+        EnsureFormalV2PanelController<BusinessSettlementController>();
+        EnsureFormalV2PanelController<ChassisUpgradeController>();
+        EnsureFormalV2PanelController<DollInteractionController>();
+        EnsureFormalV2PanelController<DollRoomController>();
+        EnsureFormalV2PanelController<FactionShopController>();
+        EnsureFormalV2PanelController<ScenarioEventController>();
+    }
+
+    private void EnsureFormalV2PanelController<T>() where T : WorkshopFormalV2PanelControllerBase {
+        if (GetComponent<T>() == null) {
+            gameObject.AddComponent<T>();
         }
     }
 

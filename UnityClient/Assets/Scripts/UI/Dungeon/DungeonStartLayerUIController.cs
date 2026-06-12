@@ -122,7 +122,7 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         });
 
         RectTransform rowRect = row.GetComponent<RectTransform>();
-        rowRect.sizeDelta = new Vector2(760f, 72f);
+        rowRect.sizeDelta = new Vector2(800f, 86f);
 
         HorizontalLayoutGroup layout = row.AddComponent<HorizontalLayoutGroup>();
         layout.childAlignment = TextAnchor.MiddleLeft;
@@ -130,29 +130,32 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         layout.childControlHeight = true;
         layout.childForceExpandWidth = false;
         layout.childForceExpandHeight = false;
-        layout.padding = new RectOffset(22, 22, 8, 8);
-        layout.spacing = 18f;
+        layout.padding = new RectOffset(24, 24, 10, 10);
+        layout.spacing = 16f;
 
         if (!canStart) {
             Image lockedIcon = CreateImage("LockedIcon_Image", row.transform);
             VisualUIHelper.ApplyContainSprite(
                 lockedIcon,
                 VisualAssetService.UIIconLockedID,
-                new Vector2(48f, 48f),
+                new Vector2(44f, 44f),
                 Color.white,
                 new Color(0.65f, 0.65f, 0.65f, 1f));
         }
 
-        Text layerText = CreateText("Layer_Text", row.transform, font, 26, canStart ? Color.white : new Color(0.68f, 0.68f, 0.68f));
+        Text layerText = CreateText("Layer_Text", row.transform, font, 24, canStart ? Color.white : new Color(0.68f, 0.68f, 0.68f));
         layerText.text = $"第 {layerID} 层  {config.Name}";
-        layerText.rectTransform.sizeDelta = new Vector2(300f, 60f);
+        layerText.rectTransform.sizeDelta = new Vector2(330f, 66f);
 
-        Text stateText = CreateText("State_Text", row.transform, font, 22, canStart ? new Color(0.78f, 1f, 0.82f) : new Color(1f, 0.68f, 0.58f));
+        Text stateText = CreateText("State_Text", row.transform, font, 20, canStart ? new Color(0.78f, 1f, 0.82f) : new Color(1f, 0.68f, 0.58f));
         stateText.text = BuildLayerStateText(readiness, selected);
         stateText.alignment = TextAnchor.MiddleRight;
         stateText.horizontalOverflow = HorizontalWrapMode.Wrap;
         stateText.verticalOverflow = VerticalWrapMode.Truncate;
-        stateText.rectTransform.sizeDelta = new Vector2(canStart ? 370f : 330f, 60f);
+        stateText.resizeTextForBestFit = true;
+        stateText.resizeTextMinSize = 14;
+        stateText.resizeTextMaxSize = 20;
+        stateText.rectTransform.sizeDelta = new Vector2(canStart ? 360f : 330f, 66f);
     }
 
     private Image CreateImage(string objectName, Transform parent) {

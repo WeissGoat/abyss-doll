@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class WorkshopFormalV1PanelController : MonoBehaviour {
-    private static readonly Color BackdropColor = new Color(0.004f, 0.006f, 0.008f, 0.9f);
+    private static readonly Color BackdropColor = new Color(0.004f, 0.006f, 0.008f, 1f);
     private static readonly Color BackgroundColor = new Color(0.64f, 0.58f, 0.46f, 0.44f);
     private static readonly Color BackgroundVeilColor = new Color(0.006f, 0.008f, 0.01f, 0.48f);
     private static readonly Color MainCardColor = new Color(0.2f, 0.22f, 0.2f, 0.74f);
@@ -90,29 +90,25 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
         Stretch(veil.rectTransform);
         VisualUIHelper.ApplySolidColor(veil, BackgroundVeilColor, false);
 
+        WorkshopFormalV1PanelBinding binding = WorkshopFormalV1PanelBindingService.Build(spec.ScreenID, GameRoot.Core?.CurrentPlayer);
+        if (TryBuildFormalV2SpecialPanel(spec, binding)) {
+            FinalizeRootPanel();
+            return;
+        }
+
         Image card = CreateImage(spec.CardName, _rootPanel.transform);
         ConfigureCenterRect(card.rectTransform, Vector2.zero, new Vector2(1360f, 815f));
         ApplyPanelFill(card, MainCardColor, new Color(0.2f, 0.42f, 0.38f, 0.36f), new Vector2(2f, -2f));
 
-        Image header = CreateImage("HeaderPanel", card.transform);
-        ConfigureTopLeftRect(header.rectTransform, 70f, 38f, 1220f, 88f);
-        ApplyPanelFill(header, HeaderColor, new Color(0.28f, 0.6f, 0.52f, 0.32f), new Vector2(1.5f, -1.5f));
-
-        CreateIcon(spec.PrimaryIconName, header.transform, new Vector2(30f, 14f), spec.PrimaryIconVisualID);
-        CreateText("Title_Text", header.transform, spec.Title, new Vector2(104f, 16f), new Vector2(590f, 52f), 30, spec.AccentColor, TextAnchor.MiddleLeft);
-        CreateTitleDivider(header.transform, new Vector2(710f, 33f), new Vector2(455f, 18f));
-
-        float iconX = 750f;
-        for (int i = 0; i < spec.HeaderIcons.Length; i++) {
-            IconSpec icon = spec.HeaderIcons[i];
-            CreateIcon(icon.Name, header.transform, new Vector2(iconX + i * 72f, 20f), icon.VisualID);
-        }
-
-        WorkshopFormalV1PanelBinding binding = WorkshopFormalV1PanelBindingService.Build(spec.ScreenID, GameRoot.Core?.CurrentPlayer);
+        BuildScreenHeader(card.transform, spec, new Vector2(70f, 38f), new Vector2(1220f, 88f));
         BuildContentPanels(card.transform, spec, binding);
         BuildRows(card.transform, spec, binding);
         BuildButtons(card.transform, spec);
 
+        FinalizeRootPanel();
+    }
+
+    private void FinalizeRootPanel() {
         CanvasGroup group = _rootPanel.GetComponent<CanvasGroup>();
         if (group == null) {
             group = _rootPanel.AddComponent<CanvasGroup>();
@@ -122,6 +118,25 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
         group.blocksRaycasts = true;
 
         _rootPanel.transform.SetAsLastSibling();
+    }
+
+    private bool TryBuildFormalV2SpecialPanel(PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
+        switch (spec.ScreenID) {
+            case "maintenance_panel":
+                BuildMaintenancePanelV2(spec, binding);
+                return true;
+            case "chassis_upgrade_panel":
+                BuildChassisUpgradePanelV2(spec, binding);
+                return true;
+            case "doll_interaction":
+                BuildDollInteractionPanelV2(spec, binding);
+                return true;
+            case "doll_room":
+                BuildDollRoomPanelV2(spec, binding);
+                return true;
+            default:
+                return false;
+        }
     }
 
     private void BuildContentPanels(Transform card, PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
@@ -187,6 +202,271 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
                 new Color(0.94f, 0.82f, 0.5f, 1f),
                 TextAnchor.MiddleLeft);
         }
+    }
+
+    private void BuildScreenHeader(Transform parent, PanelSpec spec, Vector2 topLeft, Vector2 size) {
+        Image header = CreateSlicedPanel("HeaderPanel", parent, topLeft.x, topLeft.y, size.x, size.y, VisualAssetService.UIPanelInfoID, HeaderColor);
+        CreateIcon(spec.PrimaryIconName, header.transform, new Vector2(30f, 14f), spec.PrimaryIconVisualID);
+        CreateText("Title_Text", header.transform, spec.Title, new Vector2(104f, 16f), new Vector2(Mathf.Max(320f, size.x * 0.48f), 52f), 30, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateTitleDivider(header.transform, new Vector2(size.x * 0.58f, 33f), new Vector2(size.x * 0.32f, 18f));
+
+        float iconX = size.x * 0.63f;
+        for (int i = 0; i < spec.HeaderIcons.Length; i++) {
+            IconSpec icon = spec.HeaderIcons[i];
+            CreateIcon(icon.Name, header.transform, new Vector2(iconX + i * 72f, 20f), icon.VisualID);
+        }
+    }
+
+    private void BuildMaintenancePanelV2(PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
+        RectTransform stage = CreateReferenceStage(spec.CardName);
+        BuildScreenHeader(stage, spec, new Vector2(130f, 42f), new Vector2(1660f, 86f));
+
+        Image careBay = CreateSlicedPanel("CareBay", stage, 170f, 165f, 610f, 635f, VisualAssetService.UIPanelMainID, new Color(0.86f, 0.92f, 0.86f, 0.92f));
+        CreateText("CareBayTitle_Text", careBay.transform, "Care Bay", new Vector2(28f, 22f), new Vector2(260f, 42f), 25, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateContainSprite("DollCare_Image", careBay.transform, "doll_proto_0_stand", new Vector2(150f, 82f), new Vector2(330f, 460f), VisualDisplaySpecs.DollStand, new Color(1f, 1f, 1f, 0.98f), new Color(0.42f, 0.32f, 0.24f, 0.92f));
+        Image conditionPlate = CreateSlicedPanel("DollConditionPanel", careBay.transform, 28f, 494f, 554f, 112f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.15f, 0.13f, 0.86f));
+        CreatePanelText(conditionPlate.transform, ResolvePanelText(binding, "DollConditionPanel", "Doll condition"), 18);
+
+        Image diagnosis = CreateSlicedPanel("DiagnosisBoard", stage, 850f, 165f, 515f, 360f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.13f, 0.12f, 0.9f));
+        CreateIcon("DivePermitBadge_Image", diagnosis.transform, new Vector2(24f, 24f), VisualAssetService.UIIconDivePermitID);
+        CreateText("DiagnosisTitle_Text", diagnosis.transform, "Diagnosis", new Vector2(104f, 32f), new Vector2(350f, 36f), 25, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateText("DiveReadinessPanel_Text", diagnosis.transform, ResolvePanelText(binding, "DiveReadinessPanel", "Dive readiness"), new Vector2(28f, 94f), new Vector2(460f, 116f), 18, BodyTextColor, TextAnchor.UpperLeft);
+        CreateText("WearCorrosionPanel_Text", diagnosis.transform, ResolvePanelText(binding, "WearCorrosionPanel", "Wear and corrosion"), new Vector2(28f, 222f), new Vector2(460f, 108f), 17, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image tray = CreateSlicedPanel("TreatmentTray", stage, 835f, 548f, 790f, 230f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.13f, 0.12f, 0.9f));
+        CreateText("TreatmentTrayTitle_Text", tray.transform, "Treatment Tray", new Vector2(24f, 16f), new Vector2(290f, 34f), 23, new Color(0.94f, 0.82f, 0.58f, 1f), TextAnchor.MiddleLeft);
+        CreateToolCard(tray.transform, "WearPlanCard", new Vector2(28f, 66f), VisualAssetService.UIIconWearRepairID, "Wear repair", ResolveRowText(binding, "CostRow_Template", "Repair parts"));
+        CreateToolCard(tray.transform, "PurifyPlanCard", new Vector2(276f, 66f), VisualAssetService.UIIconCorruptionPurifyID, "Purify", ResolveRowText(binding, "StatusRow_Template", "Warning status"));
+        CreateToolCard(tray.transform, "PermitPlanCard", new Vector2(524f, 66f), VisualAssetService.UIIconDivePermitID, "Dive check", "Permit gate");
+
+        Image cost = CreateSlicedPanel("CostTokenRow", stage, 850f, 800f, 420f, 125f, VisualAssetService.UIPanelInfoID, new Color(0.11f, 0.13f, 0.12f, 0.88f));
+        CreateIcon("CostMoneyIcon_Image", cost.transform, new Vector2(20f, 28f), VisualAssetService.UIIconMoneyID);
+        CreateText("MaterialCostListPanel_Text", cost.transform, ResolvePanelText(binding, "MaterialCostListPanel", "Material cost"), new Vector2(96f, 18f), new Vector2(300f, 92f), 17, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image action = CreateSlicedPanel("MaintenanceActionPanel", stage, 1295f, 775f, 315f, 170f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.16f, 0.13f, 0.92f));
+        CreateText("RepairActionPanel_Text", action.transform, ResolvePanelText(binding, "RepairActionPanel", "Repair action"), new Vector2(20f, 14f), new Vector2(275f, 48f), 17, BodyTextColor, TextAnchor.UpperLeft);
+        CreateBoundButton(spec, "FullRepair_Button", action.transform, 20f, 76f, 130f, 50f, VisualAssetService.UIButtonPrimaryID);
+        CreateBoundButton(spec, "UseRepairKit_Button", action.transform, 166f, 76f, 126f, 50f, VisualAssetService.UIButtonSecondaryID);
+        CreateBoundButton(spec, "Postpone_Button", action.transform, 20f, 132f, 130f, 34f, VisualAssetService.UIButtonDangerID);
+        CreateBoundButton(spec, "Close_Button", action.transform, 166f, 132f, 126f, 34f, VisualAssetService.UIButtonSecondaryID);
+
+        CreateActionFeedback(stage, spec, new Vector2(850f, 945f), new Vector2(760f, 54f));
+    }
+
+    private void BuildChassisUpgradePanelV2(PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
+        RectTransform stage = CreateReferenceStage(spec.CardName);
+        BuildScreenHeader(stage, spec, new Vector2(130f, 42f), new Vector2(1660f, 86f));
+
+        Image table = CreateSlicedPanel("BlueprintTable", stage, 150f, 130f, 1620f, 835f, VisualAssetService.UIPanelMainID, new Color(0.88f, 0.9f, 0.82f, 0.9f));
+        CreateText("BlueprintTableTitle_Text", table.transform, "Blueprint Table", new Vector2(34f, 26f), new Vector2(360f, 42f), 26, spec.AccentColor, TextAnchor.MiddleLeft);
+
+        Image current = CreateSlicedPanel("CurrentChassisBlueprint", table.transform, 90f, 120f, 530f, 440f, VisualAssetService.UIInventoryChassisPanelID, new Color(0.12f, 0.16f, 0.18f, 0.92f));
+        CreateText("CurrentTitle_Text", current.transform, "Current", new Vector2(26f, 22f), new Vector2(220f, 36f), 24, new Color(0.76f, 0.9f, 1f, 1f), TextAnchor.MiddleLeft);
+        CreateContainSprite("CurrentChassis_Image", current.transform, "chassis_chassis_lv1_basic_frame", new Vector2(138f, 76f), new Vector2(260f, 250f), VisualDisplaySpecs.ChassisFrame, Color.white, new Color(0.26f, 0.34f, 0.42f, 0.92f));
+        CreateText("CurrentChassisPanel_Text", current.transform, ResolvePanelText(binding, "CurrentChassisPanel", "Current chassis"), new Vector2(30f, 326f), new Vector2(470f, 90f), 15, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image arrow = CreateSlicedPanel("UpgradeArrowPlate", table.transform, 670f, 198f, 280f, 250f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.18f, 0.2f, 0.9f));
+        CreateIcon("ArrowIcon_Image", arrow.transform, new Vector2(108f, 26f), VisualAssetService.UIIconChassisUpgradeID);
+        CreateText("ArrowGlyph_Text", arrow.transform, ">", new Vector2(98f, 86f), new Vector2(86f, 70f), 48, spec.AccentColor, TextAnchor.MiddleCenter);
+        CreateText("CapacityDeltaPanel_Text", arrow.transform, ResolvePanelText(binding, "CapacityDeltaPanel", "Capacity change"), new Vector2(24f, 164f), new Vector2(232f, 62f), 16, BodyTextColor, TextAnchor.UpperCenter);
+
+        Image next = CreateSlicedPanel("NextChassisBlueprint", table.transform, 1000f, 120f, 530f, 440f, VisualAssetService.UIInventoryChassisPanelID, new Color(0.12f, 0.16f, 0.18f, 0.92f));
+        CreateText("NextTitle_Text", next.transform, "Next", new Vector2(26f, 22f), new Vector2(220f, 36f), 24, new Color(0.96f, 0.86f, 0.54f, 1f), TextAnchor.MiddleLeft);
+        CreateContainSprite("NextChassis_Image", next.transform, "chassis_chassis_lv2_expanded_frame", new Vector2(138f, 76f), new Vector2(260f, 250f), VisualDisplaySpecs.ChassisFrame, Color.white, new Color(0.38f, 0.32f, 0.22f, 0.92f));
+        CreateText("NextChassisPanel_Text", next.transform, ResolvePanelText(binding, "NextChassisPanel", "Next chassis"), new Vector2(30f, 326f), new Vector2(470f, 90f), 15, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image delta = CreateSlicedPanel("ChassisDeltaStrip", table.transform, 90f, 610f, 900f, 120f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.13f, 0.14f, 0.9f));
+        CreateText("ChassisDeltaStrip_Text", delta.transform, ResolveRowText(binding, "CurrentChassisRow", "Current grid") + "\n" + ResolveRowText(binding, "NextChassisRow", "Upgrade target"), new Vector2(24f, 18f), new Vector2(840f, 82f), 19, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image costs = CreateSlicedPanel("ChassisCostTokens", table.transform, 1010f, 592f, 305f, 156f, VisualAssetService.UIPanelInfoID, new Color(0.11f, 0.13f, 0.12f, 0.88f));
+        CreateIcon("MaterialNeedIcon_Image", costs.transform, new Vector2(18f, 34f), VisualAssetService.UIIconMaterialNeedID);
+        CreateText("MaterialNeedPanel_Text", costs.transform, ResolvePanelText(binding, "MaterialNeedPanel", ResolveRowText(binding, "MaterialNeedRow_Template", "Material needs")), new Vector2(92f, 18f), new Vector2(190f, 116f), 14, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image action = CreateSlicedPanel("ChassisActionPanel", table.transform, 1320f, 600f, 210f, 140f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.16f, 0.18f, 0.9f));
+        CreateBoundButton(spec, "Upgrade_Button", action.transform, 22f, 24f, 166f, 58f, VisualAssetService.UIButtonPrimaryID);
+        CreateBoundButton(spec, "Blueprint_Button", action.transform, 22f, 92f, 78f, 36f, VisualAssetService.UIButtonSecondaryID);
+        CreateBoundButton(spec, "Close_Button", action.transform, 110f, 92f, 78f, 36f, VisualAssetService.UIButtonSecondaryID);
+
+        CreateActionFeedback(stage, spec, new Vector2(240f, 980f), new Vector2(1440f, 46f));
+    }
+
+    private void BuildDollInteractionPanelV2(PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
+        RectTransform stage = CreateReferenceStage(spec.CardName);
+        BuildScreenHeader(stage, spec, new Vector2(130f, 42f), new Vector2(1660f, 86f));
+
+        Image condition = CreateSlicedPanel("ConditionRibbon", stage, 170f, 142f, 1580f, 116f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.12f, 0.16f, 0.88f));
+        CreateIcon("ConditionMementoIcon_Image", condition.transform, new Vector2(26f, 14f), VisualAssetService.UIIconMementoID);
+        CreateText("DollStagePanel_Text", condition.transform, ResolvePanelText(binding, "DollStagePanel", "Doll stage"), new Vector2(106f, 18f), new Vector2(1380f, 78f), 18, BodyTextColor, TextAnchor.MiddleLeft);
+
+        Image tools = CreateSlicedPanel("InteractionTools", stage, 180f, 260f, 330f, 540f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.14f, 0.15f, 0.88f));
+        CreateText("InteractionToolsTitle_Text", tools.transform, "Tools", new Vector2(24f, 22f), new Vector2(210f, 34f), 24, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateBoundIconButton(spec, "Touch_Button", tools.transform, 34f, 82f, VisualAssetService.UIIconTouchID, VisualAssetService.UIButtonPrimaryID);
+        CreateBoundIconButton(spec, "Talk_Button", tools.transform, 34f, 178f, VisualAssetService.UIIconTalkID, VisualAssetService.UIButtonSecondaryID);
+        CreateStaticIconCard("GiftModeCard", tools.transform, new Vector2(34f, 274f), VisualAssetService.UIIconGiftID, "Gift");
+        CreateStaticIconCard("CareModeCard", tools.transform, new Vector2(34f, 370f), VisualAssetService.UIIconMaintenanceID, "Care");
+
+        Image dollStage = CreateSlicedPanel("DollStage", stage, 610f, 245f, 650f, 565f, VisualAssetService.UIPanelMainID, new Color(0.9f, 0.88f, 0.82f, 0.86f));
+        CreateContainSprite("DollInteractionDoll_Image", dollStage.transform, "doll_proto_0_stand", new Vector2(110f, 18f), new Vector2(430f, 520f), VisualDisplaySpecs.DollStand, Color.white, new Color(0.42f, 0.32f, 0.24f, 0.92f));
+
+        Image tray = CreateSlicedPanel("GiftTopicTray", stage, 1320f, 260f, 420f, 540f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.13f, 0.14f, 0.88f));
+        CreateText("GiftTopicTitle_Text", tray.transform, "Gift / Topic", new Vector2(24f, 22f), new Vector2(250f, 34f), 24, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateText("GiftTopicListPanel_Text", tray.transform, ResolvePanelText(binding, "GiftTopicListPanel", "Gift and topic list"), new Vector2(24f, 76f), new Vector2(372f, 180f), 18, BodyTextColor, TextAnchor.UpperLeft);
+        Image talkRow = CreateSlicedPanel("TalkOptionRow_Template", tray.transform, 24f, 288f, 372f, 72f, VisualAssetService.UIPanelInfoID, new Color(0.16f, 0.18f, 0.17f, 0.9f));
+        CreateText("TalkOptionRow_Text", talkRow.transform, ResolveRowText(binding, "TalkOptionRow_Template", "Talk"), new Vector2(16f, 10f), new Vector2(340f, 48f), 17, BodyTextColor, TextAnchor.MiddleLeft);
+        Image giftRow = CreateSlicedPanel("GiftOptionRow_Template", tray.transform, 24f, 374f, 372f, 72f, VisualAssetService.UIPanelInfoID, new Color(0.18f, 0.17f, 0.2f, 0.9f));
+        CreateText("GiftOptionRow_Text", giftRow.transform, ResolveRowText(binding, "GiftOptionRow_Template", "Gift"), new Vector2(16f, 10f), new Vector2(340f, 48f), 17, BodyTextColor, TextAnchor.MiddleLeft);
+
+        Image feedback = CreateSlicedPanel("FeedbackDialogue", stage, 420f, 842f, 1080f, 150f, VisualAssetService.UIPanelMainID, new Color(0.14f, 0.12f, 0.14f, 0.92f));
+        CreateText("FeedbackPanel_Text", feedback.transform, ResolvePanelText(binding, "FeedbackPanel", "Interaction feedback"), new Vector2(34f, 26f), new Vector2(1010f, 88f), 20, BodyTextColor, TextAnchor.UpperLeft);
+        CreateBoundButton(spec, "Close_Button", stage, 1550f, 892f, 150f, 58f, VisualAssetService.UIButtonSecondaryID);
+
+        CreateActionFeedback(stage, spec, new Vector2(420f, 1002f), new Vector2(1080f, 44f));
+    }
+
+    private void BuildDollRoomPanelV2(PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
+        RectTransform stage = CreateReferenceStage(spec.CardName);
+        BuildScreenHeader(stage, spec, new Vector2(130f, 42f), new Vector2(1660f, 78f));
+
+        Image window = CreateSlicedPanel("WindowStateArea", stage, 110f, 140f, 480f, 330f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.12f, 0.14f, 0.72f));
+        CreateIcon("WindowWarningIcon_Image", window.transform, new Vector2(24f, 24f), VisualAssetService.UIIconWarningID);
+        CreateText("ObservationPanel_Text", window.transform, ResolvePanelText(binding, "ObservationPanel", "Observation"), new Vector2(102f, 26f), new Vector2(340f, 252f), 18, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image diary = CreateSlicedPanel("DiaryDesk", stage, 170f, 535f, 480f, 310f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.12f, 0.13f, 0.76f));
+        CreateIcon("DiaryDeskIcon_Image", diary.transform, new Vector2(24f, 22f), VisualAssetService.UIIconDiaryID);
+        CreateText("DiaryPanel_Text", diary.transform, ResolvePanelText(binding, "DiaryPanel", "Diary"), new Vector2(102f, 28f), new Vector2(340f, 220f), 18, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image dollStage = CreateSlicedPanel("DollIdleStage", stage, 650f, 185f, 540f, 645f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.1f, 0.12f, 0.42f));
+        CreateContainSprite("DollRoomDoll_Image", dollStage.transform, "doll_proto_0_stand", new Vector2(72f, 18f), new Vector2(396f, 590f), VisualDisplaySpecs.DollStand, Color.white, new Color(0.42f, 0.32f, 0.24f, 0.92f));
+
+        Image shelf = CreateSlicedPanel("MementoShelf", stage, 1200f, 160f, 500f, 470f, VisualAssetService.UIPanelInfoID, new Color(0.11f, 0.12f, 0.1f, 0.78f));
+        CreateText("MementoShelfTitle_Text", shelf.transform, "Mementos", new Vector2(26f, 20f), new Vector2(250f, 36f), 24, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateMementoSlot(shelf.transform, 34f, 82f, ResolveRowText(binding, "MementoSlotRow_0", "Memento slot"));
+        CreateMementoSlot(shelf.transform, 252f, 82f, "Memory");
+        CreateMementoSlot(shelf.transform, 34f, 232f, "Gift");
+        CreateMementoSlot(shelf.transform, 252f, 232f, "Empty");
+        CreateText("MementoDisplayPanel_Text", shelf.transform, ResolvePanelText(binding, "MementoDisplayPanel", "Memento display"), new Vector2(28f, 372f), new Vector2(440f, 70f), 16, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image whisper = CreateSlicedPanel("RoomDetailWhisper", stage, 760f, 850f, 700f, 125f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.11f, 0.12f, 0.76f));
+        CreateText("RoomStagePanel_Text", whisper.transform, ResolvePanelText(binding, "RoomStagePanel", "Room stage") + "\n" + ResolveRowText(binding, "DiaryRow_Template", "Diary entry"), new Vector2(24f, 18f), new Vector2(650f, 84f), 18, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image actions = CreateSlicedPanel("RoomActionStrip", stage, 1480f, 840f, 300f, 140f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.12f, 0.13f, 0.7f));
+        CreateBoundButton(spec, "Observe_Button", actions.transform, 24f, 26f, 252f, 48f, VisualAssetService.UIButtonSecondaryID);
+        CreateBoundButton(spec, "Close_Button", actions.transform, 24f, 84f, 252f, 38f, VisualAssetService.UIButtonSecondaryID);
+
+        CreateActionFeedback(stage, spec, new Vector2(760f, 982f), new Vector2(700f, 44f));
+    }
+
+    private RectTransform CreateReferenceStage(string name) {
+        Image stageImage = CreateImage(name, _rootPanel.transform);
+        VisualUIHelper.ApplySolidColor(stageImage, new Color(0f, 0f, 0f, 0.01f), false);
+        RectTransform stage = stageImage.rectTransform;
+        ConfigureCenterRect(stage, Vector2.zero, new Vector2(1920f, 1080f));
+        return stage;
+    }
+
+    private Image CreateSlicedPanel(string name, Transform parent, float x, float y, float width, float height, string visualID, Color fallbackColor) {
+        Image image = CreateImage(name, parent);
+        ConfigureTopLeftRect(image.rectTransform, x, y, width, height);
+        VisualUIHelper.ApplySlicedSprite(image, visualID, new Color(1f, 1f, 1f, Mathf.Clamp01(fallbackColor.a)), fallbackColor, false);
+        return image;
+    }
+
+    private void CreatePanelText(Transform parent, string content, int fontSize) {
+        CreateText("Text", parent, content, new Vector2(18f, 14f), new Vector2(520f, 82f), fontSize, BodyTextColor, TextAnchor.UpperLeft);
+    }
+
+    private Image CreateContainSprite(string name, Transform parent, string visualID, Vector2 topLeft, Vector2 size, Vector2 displaySpec, Color registeredColor, Color missingColor) {
+        Image image = CreateImage(name, parent);
+        ConfigureTopLeftRect(image.rectTransform, topLeft.x, topLeft.y, size.x, size.y);
+        VisualUIHelper.ApplyContainSprite(image, visualID, displaySpec, registeredColor, missingColor, false);
+        image.rectTransform.sizeDelta = size;
+        return image;
+    }
+
+    private void CreateToolCard(Transform parent, string name, Vector2 topLeft, string iconVisualID, string title, string body) {
+        Image card = CreateSlicedPanel(name, parent, topLeft.x, topLeft.y, 220f, 124f, VisualAssetService.UIListRowNormalID, new Color(0.15f, 0.17f, 0.15f, 0.9f));
+        CreateIcon(name + "_Icon", card.transform, new Vector2(16f, 30f), iconVisualID);
+        CreateText(name + "_Title", card.transform, title, new Vector2(88f, 16f), new Vector2(112f, 28f), 17, new Color(0.96f, 0.86f, 0.58f, 1f), TextAnchor.MiddleLeft);
+        CreateText(name + "_Body", card.transform, body, new Vector2(88f, 48f), new Vector2(112f, 62f), 14, BodyTextColor, TextAnchor.UpperLeft);
+    }
+
+    private void CreateBoundIconButton(PanelSpec spec, string buttonName, Transform parent, float x, float y, string iconVisualID, string buttonVisualID) {
+        ButtonSpec buttonSpec = FindButton(spec, buttonName);
+        if (buttonSpec == null) {
+            return;
+        }
+
+        Button button = CreateButton(buttonSpec.Name, buttonSpec.Label, parent, x, y, 262f, 76f, buttonVisualID);
+        CreateIcon(buttonName + "_Icon", button.transform, new Vector2(18f, 6f), iconVisualID);
+        if (buttonSpec.ClosesPanel) {
+            button.onClick.AddListener(Hide);
+        } else {
+            string capturedScreenID = spec.ScreenID;
+            string capturedButtonName = buttonSpec.Name;
+            button.onClick.AddListener(() => ExecutePanelAction(capturedScreenID, capturedButtonName));
+        }
+    }
+
+    private void CreateStaticIconCard(string name, Transform parent, Vector2 topLeft, string iconVisualID, string label) {
+        Image card = CreateSlicedPanel(name, parent, topLeft.x, topLeft.y, 262f, 76f, VisualAssetService.UIListRowNormalID, new Color(0.12f, 0.14f, 0.15f, 0.62f));
+        CreateIcon(name + "_Icon", card.transform, new Vector2(18f, 6f), iconVisualID);
+        CreateText(name + "_Text", card.transform, label, new Vector2(96f, 12f), new Vector2(140f, 46f), 20, BodyTextColor, TextAnchor.MiddleLeft);
+    }
+
+    private void CreateMementoSlot(Transform parent, float x, float y, string label) {
+        Image slot = CreateSlicedPanel("MementoSlot", parent, x, y, 190f, 118f, VisualAssetService.UIRoomMementoSlotID, new Color(0.14f, 0.13f, 0.1f, 0.8f));
+        CreateIcon("MementoSlotIcon_Image", slot.transform, new Vector2(64f, 12f), VisualAssetService.UIIconMementoID);
+        CreateText("MementoSlot_Text", slot.transform, label, new Vector2(14f, 78f), new Vector2(162f, 28f), 15, BodyTextColor, TextAnchor.MiddleCenter);
+    }
+
+    private void CreateBoundButton(PanelSpec spec, string buttonName, Transform parent, float x, float y, float width, float height, string visualID) {
+        ButtonSpec buttonSpec = FindButton(spec, buttonName);
+        if (buttonSpec == null) {
+            return;
+        }
+
+        Button button = CreateButton(buttonSpec.Name, buttonSpec.Label, parent, x, y, width, height, visualID);
+        if (buttonSpec.ClosesPanel) {
+            button.onClick.AddListener(Hide);
+        } else {
+            string capturedScreenID = spec.ScreenID;
+            string capturedButtonName = buttonSpec.Name;
+            button.onClick.AddListener(() => ExecutePanelAction(capturedScreenID, capturedButtonName));
+        }
+    }
+
+    private ButtonSpec FindButton(PanelSpec spec, string buttonName) {
+        for (int i = 0; i < spec.Buttons.Length; i++) {
+            if (spec.Buttons[i].Name == buttonName) {
+                return spec.Buttons[i];
+            }
+        }
+
+        return null;
+    }
+
+    private string ResolvePanelText(WorkshopFormalV1PanelBinding binding, string key, string fallback) {
+        return WorkshopFormalV1PanelBindingService.ResolveText(binding.PanelTexts, key, fallback);
+    }
+
+    private string ResolveRowText(WorkshopFormalV1PanelBinding binding, string key, string fallback) {
+        return WorkshopFormalV1PanelBindingService.ResolveText(binding.RowTexts, key, fallback);
+    }
+
+    private void CreateActionFeedback(Transform parent, PanelSpec spec, Vector2 topLeft, Vector2 size) {
+        if (string.IsNullOrEmpty(_lastActionFeedback) || _lastActionScreenID != spec.ScreenID) {
+            return;
+        }
+
+        CreateText(
+            "ActionFeedback_Text",
+            parent,
+            _lastActionFeedback,
+            topLeft,
+            size,
+            17,
+            new Color(0.94f, 0.82f, 0.5f, 1f),
+            TextAnchor.MiddleLeft);
     }
 
     private void ExecutePanelAction(string screenID, string buttonName) {
@@ -341,6 +621,7 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
                     ScreenID = "maintenance_panel",
                     RootName = "MaintenancePanel_Runtime",
                     BackgroundName = "MaintenanceBackground_Image",
+                    BackgroundVisualID = "bg_workshop_studio",
                     CardName = "MaintenanceCard_Image",
                     Title = "Workshop Studio / Maintenance",
                     PrimaryIconName = "MaintenanceIcon_Image",
@@ -543,6 +824,7 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
                     ScreenID = "chassis_upgrade_panel",
                     RootName = "ChassisUpgradePanel_Runtime",
                     BackgroundName = "ChassisUpgradeBackground_Image",
+                    BackgroundVisualID = "bg_workshop_studio",
                     CardName = "ChassisUpgradeCard_Image",
                     Title = "Workshop Studio / Chassis",
                     PrimaryIconName = "ChassisUpgradeIcon_Image",
@@ -577,6 +859,7 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
                     ScreenID = "doll_interaction",
                     RootName = "DollInteractionPanel_Runtime",
                     BackgroundName = "DollInteractionBackground_Image",
+                    BackgroundVisualID = VisualAssetService.DollRoomAtticBackgroundID,
                     CardName = "DollInteractionCard_Image",
                     Title = "Doll Interaction",
                     PrimaryIconName = "TouchIcon_Image",

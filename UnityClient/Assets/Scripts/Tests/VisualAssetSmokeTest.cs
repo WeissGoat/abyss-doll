@@ -237,7 +237,10 @@ public static class VisualAssetSmokeTest {
         Image background = VisualUIHelper.EnsurePanelBackground(backgroundParent.transform, null, "Background_Image");
         VisualUIHelper.ApplyCoverSprite(background, VisualAssetService.DefaultDungeonMapBackgroundID, Color.white, Color.black);
         AspectRatioFitter fitter = background.GetComponent<AspectRatioFitter>();
-        if (fitter != null && fitter.aspectMode == AspectRatioFitter.AspectMode.EnvelopeParent && !background.raycastTarget) {
+        RectTransform backgroundRect = background.rectTransform;
+        bool backgroundStretchesParent = backgroundRect.anchorMin == Vector2.zero
+            && backgroundRect.anchorMax == Vector2.one;
+        if (fitter != null && fitter.aspectMode == AspectRatioFitter.AspectMode.EnvelopeParent && !background.raycastTarget && backgroundStretchesParent) {
             Debug.Log("DisplaySpec Background Cover Container PASSED.");
         } else {
             Debug.LogError("DisplaySpec Background Cover Container FAILED.");

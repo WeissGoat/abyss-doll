@@ -67,11 +67,11 @@ public static class InventoryDisplaySpec {
     public static InventoryLayoutProfile ResolveLayoutProfile(InventoryPresentationMode mode) {
         switch (mode) {
             case InventoryPresentationMode.Workshop:
-                return new InventoryLayoutProfile(new Vector2(-120f, -290f), 1f);
+                return new InventoryLayoutProfile(new Vector2(-650f, -320f), 0.62f);
             case InventoryPresentationMode.Combat:
                 return new InventoryLayoutProfile(new Vector2(0f, -290f), 1f);
             case InventoryPresentationMode.CombatLoot:
-                return new InventoryLayoutProfile(new Vector2(-380f, 0f), 1f);
+                return new InventoryLayoutProfile(new Vector2(0f, -30f), 1f);
             case InventoryPresentationMode.SafeRoom:
             case InventoryPresentationMode.Stairs:
                 return new InventoryLayoutProfile(new Vector2(500f, -150f), 0.78f);
