@@ -3,11 +3,11 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class DungeonMapUIController : MonoBehaviour {
-    private const float NodeButtonWidth = 160f;
-    private const float NodeButtonHeight = 150f;
-    private const float NodeColumnSpacing = 230f;
-    private const float NodeRowSpacing = 190f;
-    private const float RouteLineHeight = 24f;
+    private const float NodeButtonWidth = 132f;
+    private const float NodeButtonHeight = 122f;
+    private const float NodeColumnSpacing = 205f;
+    private const float NodeRowSpacing = 150f;
+    private const float RouteLineHeight = 14f;
 
     public GameObject nodeButtonPrefab;
     public Transform contentParent;
@@ -15,6 +15,9 @@ public class DungeonMapUIController : MonoBehaviour {
     public Button closeBackpackBtn;
     public Text backpackHintText;
     public Image backgroundImage;
+    private Image mapDepthVeilImage;
+    private float mapPathMinX;
+    private float mapPathMaxX;
 
     public void RefreshMap() {
         EnsureInventoryControls();
@@ -130,22 +133,45 @@ public class DungeonMapUIController : MonoBehaviour {
 
     private string BuildNodeLabel(NodeBase node, DungeonMapNodePresentation presentation) {
         if (presentation != null && presentation.IsHidden) {
-            return "迷雾\n(未知)";
+            return "未知";
         }
 
-        string visibilityPrefix = presentation != null && presentation.IsPreview ? "预览 " : string.Empty;
-        string riskLabel = presentation?.RiskLabel ?? "未知风险";
+        string riskLabel = CompactRiskLabel(presentation?.RiskLabel);
         string nodeLabel = BuildNodeTypeLabel(node);
-        return $"{visibilityPrefix}{nodeLabel}\n[{riskLabel}]";
+        if (presentation != null && presentation.IsPreview) {
+            return string.IsNullOrEmpty(riskLabel) ? $"{nodeLabel}\n预览" : $"{nodeLabel}\n{riskLabel}";
+        }
+
+        return string.IsNullOrEmpty(riskLabel) ? nodeLabel : $"{nodeLabel}\n{riskLabel}";
+    }
+
+    private string CompactRiskLabel(string riskLabel) {
+        if (string.IsNullOrEmpty(riskLabel) || riskLabel == "未知风险") {
+            return string.Empty;
+        }
+
+        if (riskLabel.Contains("安全") || riskLabel.Contains("低")) {
+            return "低险";
+        }
+
+        if (riskLabel.Contains("中")) {
+            return "中险";
+        }
+
+        if (riskLabel.Contains("高") || riskLabel.Contains("危险")) {
+            return "高险";
+        }
+
+        return riskLabel.Length > 4 ? riskLabel.Substring(0, 4) : riskLabel;
     }
 
     private string BuildNodeTypeLabel(NodeBase node) {
         if (node is CombatNode) {
             if (VisualAssetService.ResolveNodeIconID(node) == VisualAssetService.BossNodeIconID) {
-                return "首领节点";
+                return "首领";
             }
 
-            return "战斗节点";
+            return "战斗";
         }
 
         if (node is SafeRoomNode) {
@@ -157,7 +183,7 @@ public class DungeonMapUIController : MonoBehaviour {
         }
 
         if (node is TreasureNode) {
-            return "宝箱";
+            return "宝藏";
         }
 
         if (node is RestStopNode) {
@@ -172,7 +198,7 @@ public class DungeonMapUIController : MonoBehaviour {
             return "危险";
         }
 
-        return "未知节点";
+        return "未知";
     }
 
     private void ApplyNodeIcon(Transform buttonTransform, NodeBase node, DungeonMapNodePresentation presentation) {
@@ -183,47 +209,96 @@ public class DungeonMapUIController : MonoBehaviour {
         Transform existing = buttonTransform.Find("NodeIcon_Image");
         Image icon = existing != null ? existing.GetComponent<Image>() : null;
         if (icon == null) {
-            GameObject iconObj = new GameObject("NodeIcon_Image");
-            iconObj.transform.SetParent(buttonTransform, false);
-            icon = iconObj.AddComponent<Image>();
-
-            RectTransform iconRect = iconObj.GetComponent<RectTransform>();
-            iconRect.anchorMin = new Vector2(0.5f, 1f);
-            iconRect.anchorMax = new Vector2(0.5f, 1f);
-            iconRect.pivot = new Vector2(0.5f, 1f);
-            iconRect.anchoredPosition = new Vector2(0f, -10f);
+            icon = CreateNodeChildImage(buttonTransform, "NodeIcon_Image");
         }
+
+        Image fogVeil = EnsureNodeChildImage(buttonTransform, "NodeFogVeil_Image");
+        Image labelPlate = EnsureNodeChildImage(buttonTransform, "NodeLabelPlate_Image");
+        RectTransform fogRect = fogVeil.rectTransform;
+        fogRect.anchorMin = new Vector2(0.5f, 1f);
+        fogRect.anchorMax = new Vector2(0.5f, 1f);
+        fogRect.pivot = new Vector2(0.5f, 1f);
+        fogRect.anchoredPosition = new Vector2(0f, -7f);
+        fogRect.sizeDelta = new Vector2(98f, 88f);
+
+        RectTransform iconRect = icon.rectTransform;
+        iconRect.anchorMin = new Vector2(0.5f, 1f);
+        iconRect.anchorMax = new Vector2(0.5f, 1f);
+        iconRect.pivot = new Vector2(0.5f, 1f);
+        iconRect.anchoredPosition = new Vector2(0f, -18f);
+
+        RectTransform labelPlateRect = labelPlate.rectTransform;
+        labelPlateRect.anchorMin = new Vector2(0.5f, 0f);
+        labelPlateRect.anchorMax = new Vector2(0.5f, 0f);
+        labelPlateRect.pivot = new Vector2(0.5f, 0f);
+        labelPlateRect.anchoredPosition = new Vector2(0f, 7f);
+        labelPlateRect.sizeDelta = new Vector2(112f, 38f);
 
         bool isHidden = presentation != null && presentation.IsHidden;
         bool isPreview = presentation != null && presentation.IsPreview;
         if (isHidden) {
-            VisualUIHelper.ApplyFixedContainer(icon.rectTransform, VisualDisplaySpecs.NodeIcon, false);
-            VisualUIHelper.ApplySolidColor(icon, new Color(0.15f, 0.17f, 0.2f, 0.95f));
+            fogVeil.gameObject.SetActive(true);
+            VisualUIHelper.ApplySlicedSprite(
+                fogVeil,
+                VisualAssetService.UIDungeonNodePlateID,
+                new Color(1f, 1f, 1f, 0.32f),
+                new Color(0.18f, 0.22f, 0.25f, 0.28f),
+                false);
+            fogVeil.transform.SetAsFirstSibling();
+            VisualUIHelper.ApplyContainSprite(
+                icon,
+                VisualAssetService.UIIconLockedID,
+                new Vector2(62f, 62f),
+                new Color(0.78f, 0.82f, 0.86f, 0.62f),
+                new Color(0.38f, 0.44f, 0.5f, 0.72f),
+                false);
         } else {
+            fogVeil.gameObject.SetActive(false);
             string visualID = VisualAssetService.ResolveNodeIconID(node);
-            Color registeredColor = isPreview ? new Color(1f, 1f, 1f, 0.55f) : Color.white;
-            VisualUIHelper.ApplyContainSprite(icon, visualID, VisualDisplaySpecs.NodeIcon, registeredColor, ResolveNodeFallbackTint(node, presentation), false);
+            Color registeredColor = isPreview ? new Color(1f, 1f, 1f, 0.58f) : new Color(1f, 1f, 1f, 0.86f);
+            VisualUIHelper.ApplyContainSprite(icon, visualID, new Vector2(68f, 68f), registeredColor, ResolveNodeFallbackTint(node, presentation), false);
         }
+
+        Color labelPlateColor = isHidden
+            ? new Color(0.07f, 0.1f, 0.12f, 0.56f)
+            : isPreview ? new Color(0.1f, 0.14f, 0.14f, 0.58f) : new Color(0.08f, 0.12f, 0.11f, 0.66f);
+        VisualUIHelper.ApplySlicedSprite(
+            labelPlate,
+            VisualAssetService.UIListRowNormalID,
+            labelPlateColor,
+            labelPlateColor,
+            false);
+        labelPlate.transform.SetAsLastSibling();
 
         Text label = buttonTransform.GetComponentInChildren<Text>();
         if (label != null) {
             RectTransform textRect = label.GetComponent<RectTransform>();
-            textRect.anchorMin = Vector2.zero;
-            textRect.anchorMax = Vector2.one;
-            textRect.offsetMin = new Vector2(6f, 8f);
-            textRect.offsetMax = new Vector2(-6f, -96f);
-            label.alignment = TextAnchor.LowerCenter;
+            textRect.anchorMin = new Vector2(0f, 0f);
+            textRect.anchorMax = new Vector2(1f, 0f);
+            textRect.offsetMin = new Vector2(9f, 8f);
+            textRect.offsetMax = new Vector2(-9f, 42f);
+            label.alignment = TextAnchor.MiddleCenter;
+            label.fontSize = 15;
+            label.resizeTextForBestFit = true;
+            label.resizeTextMinSize = 10;
+            label.resizeTextMaxSize = 15;
+            label.horizontalOverflow = HorizontalWrapMode.Wrap;
+            label.verticalOverflow = VerticalWrapMode.Truncate;
             label.raycastTarget = false;
+            label.color = isHidden
+                ? new Color(0.72f, 0.78f, 0.84f, 0.82f)
+                : isPreview ? new Color(0.86f, 0.88f, 0.9f, 0.88f) : Color.white;
+            label.transform.SetAsLastSibling();
         }
     }
 
     private Color ResolveNodeFallbackTint(NodeBase node, DungeonMapNodePresentation presentation = null) {
         if (presentation != null && presentation.IsHidden) {
-            return new Color(0.15f, 0.17f, 0.2f, 0.95f);
+            return new Color(0.18f, 0.22f, 0.25f, 0.52f);
         }
 
         if (presentation != null && presentation.IsPreview) {
-            return new Color(0.32f, 0.34f, 0.38f, 0.82f);
+            return new Color(0.32f, 0.34f, 0.38f, 0.7f);
         }
 
         if (node is CombatNode) {
@@ -280,11 +355,13 @@ public class DungeonMapUIController : MonoBehaviour {
 
         RectTransform contentRect = contentParent as RectTransform;
         if (contentRect != null) {
-            float width = Mathf.Max(720f, NodeButtonWidth + Mathf.Max(0, rowCount - 1) * NodeColumnSpacing);
-            float height = Mathf.Max(360f, NodeButtonHeight + Mathf.Max(0, maxNodesInRow - 1) * NodeRowSpacing);
+            float width = Mathf.Max(960f, NodeButtonWidth + Mathf.Max(0, rowCount - 1) * NodeColumnSpacing + 220f);
+            float height = Mathf.Max(540f, NodeButtonHeight + Mathf.Max(0, maxNodesInRow - 1) * NodeRowSpacing + 220f);
             contentRect.anchorMin = new Vector2(0.5f, 0.5f);
             contentRect.anchorMax = new Vector2(0.5f, 0.5f);
             contentRect.pivot = new Vector2(0.5f, 0.5f);
+            contentRect.anchoredPosition = new Vector2(0f, -150f);
+            contentRect.localScale = Vector3.one;
             contentRect.sizeDelta = new Vector2(width, height);
         }
 
@@ -308,21 +385,27 @@ public class DungeonMapUIController : MonoBehaviour {
 
         float totalWidth = Mathf.Max(0, rows.Count - 1) * NodeColumnSpacing;
         float startX = -totalWidth * 0.5f;
+        mapPathMinX = startX;
+        mapPathMaxX = startX + totalWidth;
         for (int rowIndex = 0; rowIndex < rows.Count; rowIndex++) {
             List<NodeBase> row = rows[rowIndex];
             if (row == null || row.Count == 0) {
                 continue;
             }
 
-            float rowHeight = Mathf.Max(0, row.Count - 1) * NodeRowSpacing;
+            float depth01 = rows.Count <= 1 ? 0f : rowIndex / (float)(rows.Count - 1);
+            float rowSpacing = NodeRowSpacing * Mathf.Lerp(1f, 0.56f, depth01);
+            float rowHeight = Mathf.Max(0, row.Count - 1) * rowSpacing;
             float startY = rowHeight * 0.5f;
+            float centerY = Mathf.Lerp(42f, -86f, depth01) + Mathf.Sin(depth01 * Mathf.PI * 1.25f) * 34f;
+            float curveX = Mathf.Sin(depth01 * Mathf.PI) * 34f;
             for (int columnIndex = 0; columnIndex < row.Count; columnIndex++) {
                 NodeBase node = row[columnIndex];
                 if (node == null) {
                     continue;
                 }
 
-                positions[node] = new Vector2(startX + rowIndex * NodeColumnSpacing, startY - columnIndex * NodeRowSpacing);
+                positions[node] = new Vector2(startX + rowIndex * NodeColumnSpacing + curveX, centerY + startY - columnIndex * rowSpacing);
             }
         }
 
@@ -341,6 +424,8 @@ public class DungeonMapUIController : MonoBehaviour {
             rect.pivot = new Vector2(0.5f, 0.5f);
             rect.anchoredPosition = anchoredPosition;
             rect.sizeDelta = new Vector2(NodeButtonWidth, NodeButtonHeight);
+            float depthScale = Mathf.Lerp(1.02f, 0.76f, ResolveNodeDepth01(anchoredPosition.x));
+            rect.localScale = new Vector3(depthScale, depthScale, 1f);
         }
 
         LayoutElement layoutElement = buttonObject.GetComponent<LayoutElement>();
@@ -354,6 +439,14 @@ public class DungeonMapUIController : MonoBehaviour {
         layoutElement.minHeight = NodeButtonHeight;
         layoutElement.preferredHeight = NodeButtonHeight;
         layoutElement.flexibleHeight = 0f;
+    }
+
+    private float ResolveNodeDepth01(float x) {
+        if (Mathf.Abs(mapPathMaxX - mapPathMinX) < 0.01f) {
+            return 0f;
+        }
+
+        return Mathf.Clamp01((x - mapPathMinX) / (mapPathMaxX - mapPathMinX));
     }
 
     private bool IsNodeSelectable(DungeonLayer layer, NodeBase node) {
@@ -463,40 +556,59 @@ public class DungeonMapUIController : MonoBehaviour {
             return;
         }
 
-        Color fallback = ResolveNodeFallbackTint(node, presentation);
-        if (dimmed) {
-            fallback = new Color(fallback.r * 0.35f, fallback.g * 0.35f, fallback.b * 0.35f, 0.92f);
-        }
-
         Image image = button.GetComponent<Image>();
         if (image == null) {
             image = button.gameObject.AddComponent<Image>();
         }
 
+        Color fallback = ResolveNodeFallbackTint(node, presentation);
+        Color plateColor = BuildNodePlateColor(fallback, 0.5f);
+        if (dimmed) {
+            fallback = new Color(fallback.r * 0.45f, fallback.g * 0.45f, fallback.b * 0.45f, 0.48f);
+            plateColor = BuildNodePlateColor(fallback, 0.42f);
+        }
+
+        if (presentation != null && presentation.IsHidden) {
+            plateColor = new Color(0.08f, 0.12f, 0.14f, 0.34f);
+        } else if (presentation != null && presentation.IsPreview) {
+            plateColor = new Color(0.18f, 0.24f, 0.26f, 0.44f);
+        }
+
         VisualUIHelper.ApplySimpleSprite(
             image,
             VisualAssetService.UIDungeonNodePlateID,
-            Color.white,
+            plateColor,
             fallback,
             true,
             false);
         button.targetGraphic = image;
+    }
 
-        if (dimmed) {
-            image.color = new Color(0.28f, 0.28f, 0.28f, 0.92f);
-        }
-
-        if (presentation != null && presentation.IsHidden) {
-            image.color = new Color(0.12f, 0.14f, 0.17f, 0.92f);
-        } else if (presentation != null && presentation.IsPreview) {
-            image.color = new Color(0.38f, 0.4f, 0.44f, 0.86f);
-        }
+    private Color BuildNodePlateColor(Color fallback, float alpha) {
+        return new Color(
+            Mathf.Clamp01(fallback.r * 0.52f + 0.08f),
+            Mathf.Clamp01(fallback.g * 0.52f + 0.1f),
+            Mathf.Clamp01(fallback.b * 0.52f + 0.1f),
+            alpha);
     }
 
     private void ApplyMapBackground() {
+        RectTransform rootRect = transform as RectTransform;
+        if (rootRect != null) {
+            rootRect.anchorMin = Vector2.zero;
+            rootRect.anchorMax = Vector2.one;
+            rootRect.offsetMin = Vector2.zero;
+            rootRect.offsetMax = Vector2.zero;
+        }
+
         backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "DungeonMapBackground_Image");
         string visualID = VisualAssetService.ResolveDungeonMapBackgroundID(GameRoot.Core?.Dungeon?.CurrentLayer);
-        VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, Color.white, new Color(0.05f, 0.08f, 0.1f, 0.92f));
+        VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, new Color(0.9f, 0.94f, 0.88f, 1f), new Color(0.05f, 0.08f, 0.1f, 0.92f));
+
+        mapDepthVeilImage = VisualUIHelper.EnsurePanelBackground(transform, mapDepthVeilImage, "DungeonMapDepthVeil_Image");
+        VisualUIHelper.ApplySolidColor(mapDepthVeilImage, new Color(0.012f, 0.018f, 0.016f, 0.18f));
+        backgroundImage.transform.SetAsFirstSibling();
+        mapDepthVeilImage.transform.SetSiblingIndex(Mathf.Min(1, transform.childCount - 1));
     }
 
     private void CreateRouteLines(DungeonLayer layer, List<List<NodeBase>> rows, Dictionary<NodeBase, Vector2> nodePositions) {
@@ -543,13 +655,15 @@ public class DungeonMapUIController : MonoBehaviour {
         routeRect.sizeDelta = new Vector2(Mathf.Max(16f, delta.magnitude), RouteLineHeight);
         routeRect.localEulerAngles = new Vector3(0f, 0f, Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
 
+        Color routeColor = ResolveRouteLineFallbackColor(layer, fromNode, toNode);
         VisualUIHelper.ApplySimpleSprite(
             routeImage,
             VisualAssetService.UIDungeonRouteLineID,
-            Color.white,
-            ResolveRouteLineFallbackColor(layer, fromNode, toNode),
+            routeColor,
+            routeColor,
             false,
             false);
+        routeObj.transform.SetAsFirstSibling();
 
         LayoutElement layoutElement = routeObj.GetComponent<LayoutElement>();
         if (layoutElement == null) {
@@ -568,13 +682,27 @@ public class DungeonMapUIController : MonoBehaviour {
         DungeonNodeVisibilityState fromVisibility = DungeonMapVisibilityService.ResolveVisibility(layer, fromNode);
         DungeonNodeVisibilityState toVisibility = DungeonMapVisibilityService.ResolveVisibility(layer, toNode);
         if (fromVisibility == DungeonNodeVisibilityState.Hidden || toVisibility == DungeonNodeVisibilityState.Hidden) {
-            return new Color(0.2f, 0.23f, 0.28f, 0.35f);
+            return new Color(0.18f, 0.22f, 0.25f, 0.22f);
         }
 
         if (fromVisibility == DungeonNodeVisibilityState.Preview || toVisibility == DungeonNodeVisibilityState.Preview) {
-            return new Color(0.45f, 0.48f, 0.55f, 0.55f);
+            return new Color(0.42f, 0.5f, 0.48f, 0.34f);
         }
 
-        return new Color(0.7f, 0.58f, 0.32f, 0.75f);
+        return new Color(0.58f, 0.68f, 0.56f, 0.48f);
+    }
+
+    private Image EnsureNodeChildImage(Transform parent, string objectName) {
+        Transform existing = parent.Find(objectName);
+        Image image = existing != null ? existing.GetComponent<Image>() : null;
+        return image != null ? image : CreateNodeChildImage(parent, objectName);
+    }
+
+    private Image CreateNodeChildImage(Transform parent, string objectName) {
+        GameObject imageObj = new GameObject(objectName, typeof(RectTransform));
+        imageObj.transform.SetParent(parent, false);
+        Image image = imageObj.AddComponent<Image>();
+        image.raycastTarget = false;
+        return image;
     }
 }

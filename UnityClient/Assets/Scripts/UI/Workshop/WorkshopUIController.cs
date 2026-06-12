@@ -975,16 +975,17 @@ public class WorkshopUIController : MonoBehaviour {
         cardRect.anchoredPosition = Vector2.zero;
         cardRect.sizeDelta = new Vector2(1180f, 720f);
         Image cardBg = cardObj.AddComponent<Image>();
-        ApplyRuntimePanelSkin(cardBg, VisualAssetService.UIPanelMainID, new Color(0.12f, 0.11f, 0.095f, 0.98f), false);
+        ApplyRuntimeSolidPanelSkin(cardBg, new Color(0.045f, 0.06f, 0.055f, 0.98f), new Color(0.35f, 0.42f, 0.35f, 0.36f), false);
 
         GameObject titleObj = new GameObject("Title_Text");
         titleObj.transform.SetParent(cardObj.transform, false);
         Text title = titleObj.AddComponent<Text>();
         title.font = defaultFont;
         title.fontSize = 34;
-        title.color = new Color(1f, 0.88f, 0.48f);
+        title.color = new Color(0.92f, 0.88f, 0.7f);
         title.alignment = TextAnchor.MiddleLeft;
         title.raycastTarget = false;
+        ConfigureReadableText(title, 22, 34);
         RectTransform titleRect = titleObj.GetComponent<RectTransform>();
         titleRect.anchorMin = new Vector2(0f, 1f);
         titleRect.anchorMax = new Vector2(0f, 1f);
@@ -999,10 +1000,11 @@ public class WorkshopUIController : MonoBehaviour {
         summaryObj.transform.SetParent(cardObj.transform, false);
         Text summary = summaryObj.AddComponent<Text>();
         summary.font = defaultFont;
-        summary.fontSize = 22;
-        summary.color = new Color(0.9f, 0.9f, 0.84f);
+        summary.fontSize = 20;
+        summary.color = new Color(0.88f, 0.9f, 0.84f);
         summary.alignment = TextAnchor.UpperLeft;
         summary.raycastTarget = false;
+        ConfigureReadableText(summary, 14, 20);
         RectTransform summaryRect = summaryObj.GetComponent<RectTransform>();
         summaryRect.anchorMin = new Vector2(0f, 1f);
         summaryRect.anchorMax = new Vector2(0f, 1f);
@@ -1046,7 +1048,7 @@ public class WorkshopUIController : MonoBehaviour {
         scrollRect.anchoredPosition = new Vector2(-120f, -92f);
         scrollRect.sizeDelta = new Vector2(820f, 430f);
         Image scrollBg = scrollObj.AddComponent<Image>();
-        ApplyRuntimePanelSkin(scrollBg, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.095f, 0.065f, 0.98f), false);
+        ApplyRuntimeSolidPanelSkin(scrollBg, new Color(0.02f, 0.028f, 0.026f, 0.98f), new Color(0.24f, 0.34f, 0.3f, 0.26f), false);
         ScrollRect scroll = scrollObj.AddComponent<ScrollRect>();
         scroll.horizontal = false;
 
@@ -1135,16 +1137,17 @@ public class WorkshopUIController : MonoBehaviour {
         cardRect.anchoredPosition = Vector2.zero;
         cardRect.sizeDelta = new Vector2(1180f, 720f);
         Image cardBg = cardObj.AddComponent<Image>();
-        ApplyRuntimePanelSkin(cardBg, VisualAssetService.UIPanelMainID, new Color(0.07f, 0.095f, 0.12f, 0.98f), false);
+        ApplyRuntimeSolidPanelSkin(cardBg, new Color(0.035f, 0.055f, 0.065f, 0.98f), new Color(0.28f, 0.42f, 0.48f, 0.36f), false);
 
         GameObject titleObj = new GameObject("Title_Text");
         titleObj.transform.SetParent(cardObj.transform, false);
         Text title = titleObj.AddComponent<Text>();
         title.font = defaultFont;
         title.fontSize = 34;
-        title.color = new Color(0.72f, 0.9f, 1f);
+        title.color = new Color(0.74f, 0.9f, 0.92f);
         title.alignment = TextAnchor.MiddleLeft;
         title.raycastTarget = false;
+        ConfigureReadableText(title, 22, 34);
         RectTransform titleRect = titleObj.GetComponent<RectTransform>();
         titleRect.anchorMin = new Vector2(0f, 1f);
         titleRect.anchorMax = new Vector2(0f, 1f);
@@ -1159,10 +1162,11 @@ public class WorkshopUIController : MonoBehaviour {
         summaryObj.transform.SetParent(cardObj.transform, false);
         Text summary = summaryObj.AddComponent<Text>();
         summary.font = defaultFont;
-        summary.fontSize = 22;
-        summary.color = new Color(0.86f, 0.92f, 0.96f);
+        summary.fontSize = 20;
+        summary.color = new Color(0.84f, 0.92f, 0.92f);
         summary.alignment = TextAnchor.UpperLeft;
         summary.raycastTarget = false;
+        ConfigureReadableText(summary, 14, 20);
         RectTransform summaryRect = summaryObj.GetComponent<RectTransform>();
         summaryRect.anchorMin = new Vector2(0f, 1f);
         summaryRect.anchorMax = new Vector2(0f, 1f);
@@ -1221,7 +1225,7 @@ public class WorkshopUIController : MonoBehaviour {
         scrollRect.anchoredPosition = new Vector2(-80f, -92f);
         scrollRect.sizeDelta = new Vector2(920f, 430f);
         Image scrollBg = scrollObj.AddComponent<Image>();
-        ApplyRuntimePanelSkin(scrollBg, VisualAssetService.UIPanelInfoID, new Color(0.055f, 0.085f, 0.105f, 0.98f), false);
+        ApplyRuntimeSolidPanelSkin(scrollBg, new Color(0.018f, 0.03f, 0.036f, 0.98f), new Color(0.22f, 0.36f, 0.42f, 0.26f), false);
         ScrollRect scroll = scrollObj.AddComponent<ScrollRect>();
         scroll.horizontal = false;
 
@@ -1410,6 +1414,7 @@ public class WorkshopUIController : MonoBehaviour {
         buttonObj.AddComponent<Image>();
         Button button = buttonObj.AddComponent<Button>();
         VisualUIHelper.ApplyButtonSkin(button, VisualAssetService.UIButtonSecondaryID, color);
+        ApplyButtonTint(button, color);
         RectTransform buttonRect = buttonObj.GetComponent<RectTransform>();
         buttonRect.sizeDelta = size;
 
@@ -1422,6 +1427,7 @@ public class WorkshopUIController : MonoBehaviour {
         buttonText.alignment = TextAnchor.MiddleCenter;
         buttonText.text = label;
         buttonText.raycastTarget = false;
+        ConfigureReadableText(buttonText, Mathf.Max(12, fontSize - 6), fontSize);
         RectTransform textRect = textObj.GetComponent<RectTransform>();
         textRect.anchorMin = Vector2.zero;
         textRect.anchorMax = Vector2.one;
@@ -1476,12 +1482,37 @@ public class WorkshopUIController : MonoBehaviour {
     }
 
     private void ApplyRuntimePanelSkin(Image image, string visualID, Color tint, bool raycastTarget) {
-        VisualUIHelper.ApplySlicedSprite(image, visualID, Color.white, tint, raycastTarget);
+        VisualUIHelper.ApplySlicedSprite(image, visualID, tint, tint, raycastTarget);
+    }
+
+    private void ApplyRuntimeSolidPanelSkin(Image image, Color fillColor, Color outlineColor, bool raycastTarget) {
+        VisualUIHelper.ApplySolidColor(image, fillColor, raycastTarget);
+        Outline outline = image.GetComponent<Outline>();
+        if (outline == null) {
+            outline = image.gameObject.AddComponent<Outline>();
+        }
+
+        outline.effectColor = outlineColor;
+        outline.effectDistance = new Vector2(2f, -2f);
+        outline.useGraphicAlpha = true;
     }
 
     private void ApplyModalBackdropSkin(Image image) {
-        VisualUIHelper.ApplySolidColor(image, new Color(0.012f, 0.014f, 0.013f, 0.9f));
+        VisualUIHelper.ApplySolidColor(image, new Color(0.004f, 0.006f, 0.008f, 1f));
         image.raycastTarget = true;
+    }
+
+    private void ConfigureReadableText(Text text, int minSize, int maxSize) {
+        if (text == null) {
+            return;
+        }
+
+        text.horizontalOverflow = HorizontalWrapMode.Wrap;
+        text.verticalOverflow = VerticalWrapMode.Truncate;
+        text.resizeTextForBestFit = true;
+        text.resizeTextMinSize = minSize;
+        text.resizeTextMaxSize = maxSize;
+        text.lineSpacing = 0.94f;
     }
 
     private void ConfigureGeneratedRow(GameObject row, float preferredWidth, float preferredHeight) {
@@ -1687,6 +1718,7 @@ public class WorkshopUIController : MonoBehaviour {
         text.alignment = alignment;
         text.raycastTarget = false;
         text.text = value;
+        ConfigureReadableText(text, Mathf.Max(12, fontSize - 6), fontSize);
 
         RectTransform rect = text.rectTransform;
         rect.anchorMin = anchor;
@@ -1750,8 +1782,8 @@ public class WorkshopUIController : MonoBehaviour {
         VisualUIHelper.ApplySimpleSprite(
             divider,
             VisualAssetService.UITitleDividerID,
-            Color.white,
-            new Color(0.72f, 0.58f, 0.32f, 0.9f),
+            new Color(0.62f, 0.76f, 0.72f, 0.32f),
+            new Color(0.32f, 0.42f, 0.4f, 0.36f),
             false,
             false);
         return divider;
@@ -1798,10 +1830,10 @@ public class WorkshopUIController : MonoBehaviour {
     }
 
     private void ApplyMainButtonSkin() {
-        VisualUIHelper.ApplyButtonSkin(departBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.8f, 0.4f, 0.2f));
-        VisualUIHelper.ApplyButtonSkin(upgradeBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.2f, 0.6f, 0.2f));
-        VisualUIHelper.ApplyButtonSkin(openSellPanelBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.72f, 0.36f, 0.16f));
-        VisualUIHelper.ApplyButtonSkin(openProstheticPanelBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.18f, 0.42f, 0.58f));
+        ApplyTintedButtonSkin(departBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.42f, 0.58f, 0.5f, 0.86f));
+        ApplyTintedButtonSkin(upgradeBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.26f, 0.42f, 0.36f, 0.82f));
+        ApplyTintedButtonSkin(openSellPanelBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.38f, 0.34f, 0.25f, 0.82f));
+        ApplyTintedButtonSkin(openProstheticPanelBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.22f, 0.38f, 0.44f, 0.82f));
         ApplyFormalV1EntryButtonSkin(openMaintenancePanelBtn);
         ApplyFormalV1EntryButtonSkin(openDailyBillPanelBtn);
         ApplyFormalV1EntryButtonSkin(openShopStagingPanelBtn);
@@ -1816,7 +1848,23 @@ public class WorkshopUIController : MonoBehaviour {
     }
 
     private void ApplyFormalV1EntryButtonSkin(Button button) {
-        VisualUIHelper.ApplyButtonSkin(button, VisualAssetService.UIButtonSecondaryID, new Color(0.28f, 0.34f, 0.34f));
+        ApplyTintedButtonSkin(button, VisualAssetService.UIButtonSecondaryID, new Color(0.24f, 0.32f, 0.32f, 0.78f));
+    }
+
+    private void ApplyTintedButtonSkin(Button button, string visualID, Color tint) {
+        VisualUIHelper.ApplyButtonSkin(button, visualID, tint);
+        ApplyButtonTint(button, tint);
+    }
+
+    private void ApplyButtonTint(Button button, Color tint) {
+        if (button == null) {
+            return;
+        }
+
+        Image image = button.GetComponent<Image>();
+        if (image != null) {
+            image.color = tint;
+        }
     }
 
     private void MoveIntoPanel(Text text, Transform parent, Vector2 topLeftOffset, Vector2 size, int fontSize) {

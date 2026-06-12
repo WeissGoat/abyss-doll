@@ -25,7 +25,9 @@ related:
   - 美术文档/README.md
   - 知识库/views/art.md
   - 美术文档/15_FormalV2运行时验收待办清单.md
-last_verified: 2026-06-12
+  - 美术文档/16_Live2D角色动画资产接入规格.md
+  - 开发文档/17_Live2DSpine运行时接入评估.md
+last_verified: 2026-06-13
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
 
@@ -33,7 +35,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 最后更新
 
-2026-06-12
+2026-06-13
 
 ## 当前关注
 
@@ -280,9 +282,9 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 
 ## 下一步建议
 
-1. 程序侧不再需要登记资源：latest `program_integrate=0`、`missing_registry=0`、ArtAcceptance `20260612_231356 PASSED`、Registry 278、`MissingRequiredVisualIDs=0`。
+1. 程序侧不再需要登记资源：latest `program_integrate=0`、`missing_registry=0`、ArtAcceptance `20260613_005848 PASSED`、Registry 278、`MissingRequiredVisualIDs=0`。
 2. FormalV2 UI 后续运行时视觉 / 布局精修由美术 / UI 侧直接处理，仍遵守纯 UGUI、active `screen_layouts.json`、真实玩家流程和 ArtAcceptance 证据口径；只有领域服务、工具链、Unity 工程约束或测试底座问题再交给程序侧。
-3. 当前美术 / UI 侧下一轮重点是 `dungeon_map` 节点 / 路线与底图融合、`sell_panel` / `prosthetic_panel` modal 层级和文本可读性、旧 FormalV1 三栏模板替换、`bg_workshop_day` 背景候选重构，以及 `inventory_loot` 奖励散落 / 角色遮挡细节。
+3. FormalV2 运行时 UI 当前已通过纵切基线视觉封版；下一轮美术 / UI 侧只做质量迭代：专屏重构、背景候选替换、动画 / VFX、图标语义和真实玩家流程中的小尺寸可读性复查。
 4. 当前不要重开批量资源登记或批量 NovelAI 补图；如果下一轮截图证明某个 VisualID 在真实尺寸下语义或可读性不足，再做单项 NovelAI 同名替换。仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`，已接入同名替换必须使用 strict meta guard。
 5. 后续每次刷新美术 `_generated` 关键 JSON 后，运行 `Validate-ArtGeneratedJson.ps1 -Strict`，确认程序交接和美术验收依赖的 JSON 在 UTF-8 读取下可解析。
 
@@ -291,7 +293,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 当前工作区仍有大量程序、策划、Unity 资产和知识库生成物处于脏状态；美术侧提交时只纳入本轮美术流水线相关文件。
 - P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 / FormalV2 正式视觉完成；当前必须以 latest ArtAcceptance、逐屏截图复验和本状态页结论为准。
 - 本轮已从外部 `F:\my_project\new\tags_machine\novelai\client.py` 只读提取 NovelAI token 到当前进程并真实调用 NovelAI；未提交 token，未使用 mock / local_v0 冒充正式图。后续跑图仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`。
-- FormalV2 资源登记门禁已清空，最新 ArtAcceptance `20260612_231356` 工具层通过，核心 P0 UI 结构可作为下一轮玩家流程 UI 基础；但完整 FormalV2 视觉封版尚未通过，不能把工具层 `PASSED` 等同于最终画面完成。
+- FormalV2 资源登记门禁已清空，最新 ArtAcceptance `20260613_005848` 工具层通过，核心 P0 UI 结构与运行时视觉均可作为当前纵切 UI 基线；后续画面优化按质量迭代处理，不再作为当前 UI 接入阻塞。
 - FormalV2 V2-A 已进入 active 规格；V2-B / V2-C 仍按 draft 管理，未写入 active 前不作为程序接入口。
 - Formal V2 概念图含 AI 伪文字和局部装饰噪声，只能作为结构参考；正式接入前仍需将控件、文本、图标和面板皮肤拆回可实现规格。
 - Formal V2 结构设计图是确定性 layout board，只用于评审结构和迁移顺序；不能被当作最终视觉稿或程序接入规格。
@@ -375,3 +377,58 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 下一步建议：若用户认可风格，先把表现拆成维护、战斗命中、护盾破裂和魔偶待机四个最小 VFX / 动画规格，再决定是否进入 `screen_layouts.json`、Manifest、Prefab 和 ArtAcceptance 验收。
 - 问题 / 阻塞：Unity MCP 连接被工程授权撤销，本轮无法直接产出 Unity 编辑器内截图；已用本地浏览器预览截图保存到 `UnityClient/Logs/ExpressionPreview/p3_expression_preview_browser.png` 作为方向参考。
 - 关键证据：Unity 程序和 Editor 工程编译均通过；预览页已在 `http://127.0.0.1:3000/p3_expression_preview.html` 打开并可循环播放。
+
+## 2026-06-12 Expression Preview Approved Asset Pass
+
+- Recently completed: refreshed the isolated expression preview to use existing Approved assets for the doll stand, workshop background, rust hound combat art, hit feedback and shield break feedback. The older geometric doll/enemy placeholders are now only fallback behavior.
+- Current focus: this remains a direction preview only; no Approved PNG, Manifest row, VisualID, Registry entry or formal UI contract was added or modified in this pass.
+- Next suggestion: if the direction is accepted, split it into the smallest formal deliverables: doll idle motion, repair pulse/sparks, combat hit feedback and shield break feedback, then define the real Prefab/VFXID handoff and ArtAcceptance evidence.
+- Blockers: Unity MCP is still unavailable in this session, so the review evidence is the local browser screenshot at `UnityClient/Logs/ExpressionPreview/p3_expression_preview_formal_stage.png`.
+
+## 2026-06-13 Live2D角色动画规格收束
+
+- 最近完成：新增 `美术文档/16_Live2D角色动画资产接入规格.md`，把正式魔偶立绘动画路线收束为 Live2D Cubism 优先、Spine 备选、AI 仅用于补层 / 表情差分 / 短 cut-in 辅助，不继续推进 Unity 自研伪 Live2D 小 rig。
+- 当前关注：该规格是未来动态立绘试点契约；本轮没有新增 Approved 图片、Manifest 条目、VisualID、Registry 登记、`screen_layouts.json` 变更或 FormalV2 ArtAcceptance 必过项。
+- 下一步建议：若进入试点，先只做 `doll_proto_0_live2d`，要求有 `doll_proto_0_stand` fallback、分层源文件、Cubism motion / expression、Prefab 封装和独立 Live2D 多帧截图验收，再决定是否接入 `workshop_main` / `doll_room` / `combat_hud`。
+- 问题 / 阻塞：当前尚未引入 Cubism / Spine 包，也未启动正式绑定资产制作；不得把现有表达预览或静态立绘替代为正式 Live2D 资产验收。
+
+## 2026-06-13 Live2D试点P3 mission规划
+
+- 最近完成：基于 `美术文档/16_Live2D角色动画资产接入规格.md` 新增本地 P3 mission `.mission/20260613_Live2D角色动画试点规划.csv`，拆成门禁确认、分层源与 fallback、补层 / 表情差分、Cubism 绑定、程序 runtime 评估、Prefab / Presenter、UGUI 桥接、独立验收和交接回写。
+- 当前关注：该 mission 是本地恢复队列，不是新的美术事实来源；当前仍未新增 Approved、Manifest、VisualID、Registry、`screen_layouts.json` 或 FormalV2 ArtAcceptance 条件。
+- 下一步建议：若继续执行，先跑 `L2D-GATE-01`，确认试点不影响 FormalV2 后再进入 `doll_proto_0` 分层源与 fallback 锁定。
+
+## 2026-06-13 Live2D试点门禁确认
+
+- 最近完成：`L2D-GATE-01` 门禁核对通过，可作为本地试点继续推进；依据为 `美术文档/16_Live2D角色动画资产接入规格.md` 已标记 active / source_of_truth，且明确 Live2D 试点独立于当前 FormalV2 静态资源验收。
+- 当前关注：本轮仍不新增 Approved 图片、Manifest 条目、VisualID、Registry、`screen_layouts.json` 或 `_generated` 队列，也不把 Live2D 纳入 FormalV2 ArtAcceptance 必过项。
+- 下一步建议：进入 `L2D-ART-01` 时先锁定 `doll_proto_0_stand` 静态 fallback、可绑定分层源缺口和 SourceRefs 记录；没有正式分层源前，不得把浏览器表现小样或静态立绘标记为正式 Live2D 资产。
+- 问题 / 阻塞：当前工作区已有大量无关脏文件，Live2D 试点执行时必须严格限缩到 `_IncomingAI/DollsLive2D` 工作区、独立交接文档和状态页；FormalV2 美术验收流程继续按原链路推进。
+
+## 2026-06-13 Live2D分层源与fallback锁定
+
+- 最近完成：`L2D-ART-01` 已锁定 `doll_proto_0_stand` 作为首个 Live2D 试点静态 fallback，并在 `UnityClient/Assets/Art/_IncomingAI/DollsLive2D/doll_proto_0/notes.md` 与 `generation.json` 记录分层制作清单、遮挡补层清单、表情差分清单、动作目标和不入库边界。
+- 当前关注：现有 `doll_proto_0_stand` 只有 flatten PNG、Approved sprite、`.meta` 和 Registry 条目，可用于降级显示；当前没有 PSD / Cubism / Spine / motion / expression / physics 文件，不能标记为可绑定源或正式 Live2D 资产。
+- 下一步建议：`L2D-ART-02` 只允许围绕补层、表情差分和 contact sheet 做候选，不允许生成常驻待机帧动画；候选必须先人工清理成分层源，再进入 Cubism / Spine 绑定。
+- 问题 / 阻塞：旧 `doll_proto_0_stand` 生成记录含黄铜 / 暖灯 / 蒸汽朋克倾向；后续 inpaint 和表情候选必须改用当前“日系二次元地底奇幻冒险 + 低信息密度”的风格基准。
+
+## 2026-06-13 Live2D补层与表情候选请求包
+
+- 最近完成：`L2D-ART-02` 已在 `UnityClient/Assets/Art/_IncomingAI/DollsLive2D/doll_proto_0/` 建立补层 / 表情候选请求包：`candidate_requests.md`、`generation.json`、`masks/README.md`、`inpaint_candidates/README.md` 和 `contact_sheet/README.md`。请求项覆盖 hair / face hidden fill、body overlap、hand / leg joints、core glow masks，以及 blink / low_san / hurt / relaxed 表情差分。
+- 当前关注：本轮没有运行 NovelAI、Gemini inpaint 或其他 provider，真实候选图数量为 0；记录为 `validation_limited:provider_not_run`。这不是 Approved 素材、不是 Manifest 生成项，也不会刷新可接入素材清单。
+- 下一步建议：如果后续选择 provider，应按请求项单图串行生成到 Live2D 专用子目录，人工筛选后再更新 contact sheet；仍不得生成常驻 24-60 帧待机序列。
+- 问题 / 阻塞：缺少经人工确认的遮罩文件和可用 provider 输出，Cubism / Spine 绑定不能从这一行直接启动。
+
+## 2026-06-13 Live2D Cubism绑定交接阻塞
+
+- 最近完成：`L2D-ART-03` 已完成交接包核对，结论为阻塞而非完成：`UnityClient/Assets/Art/Approved/DollsLive2D/doll_proto_0/` 不存在，工程内没有 `doll_proto_0` 的 `.model3.json`、`.moc3`、motion、expression、physics 或 `DollLive2D_doll_proto_0.prefab`。
+- 当前关注：不得创建空 Runtime / Prefabs 目录或用 Unity 伪 rig 冒充 Cubism 交接包；没有真实分层源和绑定输出前，`doll_proto_0_live2d` 不能进入 Approved、Manifest、Registry 或程序接入。
+- 下一步建议：先完成真实分层源、遮罩、inpaint / 表情候选和人工清理，再由 Cubism / Spine 绑定工具产出 Runtime、motions、expressions、physics 和 Prefab。
+- 问题 / 阻塞：`blocked:missing_layered_source_and_cubism_binding_output`。该阻塞不影响 FormalV2 静态 UI / ArtAcceptance，静态 fallback 仍使用 `doll_proto_0_stand`。
+
+## 2026-06-13 FormalV2运行时UI视觉封版
+
+- 最近完成：美术 / UI 侧直接处理 FormalV2 运行时 UI 剩余视觉阻塞：旧 FormalV1 模板屏改为纯色正式信息面板，`sell_panel` / `prosthetic_panel` 改为独立 modal，`dungeon_map` 节点 / 路线降低悬浮 UI 感。
+- 当前关注：FormalV2 当前运行时 UI 已通过纵切基线视觉封版；最新证据为 ArtAcceptance `RunID=20260613_005848`、`PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0。
+- 下一步建议：后续只按真实玩家流程反馈做质量迭代，不再把资源登记、旧模板替换、modal 隔离或地图节点融合列为当前阻塞。
+- 验证证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 0 warning / 0 error；`Validate-UIDesign.ps1` 通过；`Validate-ArtGeneratedJson.ps1 -Strict` 通过；`python tools\docs\validate_docs.py --index docs_index.json` 通过。

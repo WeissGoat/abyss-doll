@@ -15,7 +15,7 @@ related:
   - 美术文档/_generated/FormalV2运行时复验优先级清单.md
   - agent_status/art.md
   - agent_status/program.md
-last_verified: 2026-06-12
+last_verified: 2026-06-13
 update_rule: FormalV2 runtime acceptance gate, evidence, or review focus changes should update this file.
 ---
 # FormalV2 Runtime Acceptance Checklist
@@ -29,25 +29,25 @@ update_rule: FormalV2 runtime acceptance gate, evidence, or review focus changes
 - Current missing art generation queue: `generate_needed=0`
 - Current quality backlog: `technical_fix=0`, `visual_v2_replace=0`, `spec_review=0`
 - Current requirement candidate scan: `new_candidate=0`, `deferred_candidate=29`, `ignored_candidate=26`
-- Latest ArtAcceptance available locally after art/UI direct runtime polish: `20260612_231356`, status `PASSED`, 21/21 captured.
+- Latest ArtAcceptance available locally after art/UI direct runtime polish: `20260613_005848`, status `PASSED`, 21/21 captured.
 - Latest Registry evidence: `EntryCount=278`, `MissingRequiredVisualIDs=0`, `missing_registry=0`, `missing_approved=0`, `missing_meta=0`.
 - Current FormalV2 runtime status: `美术文档/_generated/FormalV2运行时验收状态.md`, gate=`no_program_integrate`. This means the asset registration queue is clear; it does not mean FormalV2 UI layout is visually accepted.
 - Runtime review priority queue: `美术文档/_generated/FormalV2运行时复验优先级清单.md`, current `review_queue=30`, all non-blocking watch items.
-- Latest runtime contact sheet for art review: `UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260612_231356_codex.png`.
+- Latest runtime screenshots for art review: `UnityClient/Logs/ArtAcceptance/latest/screenshots/`.
 - Art-side registry action: the offline candidate `美术文档/_generated/VisualAssetRegistry.offline_candidate.asset` was copied into `UnityClient/Assets/Resources/VisualAssetRegistry.asset`, then ArtAcceptance was rerun successfully.
 
-Art-side resource acceptance is complete for the current FormalV2 asset queue. Art/UI side has directly fixed the latest runtime screenshot contamination and P0 composition issues. Manual screenshot review of `20260612_231356` is complete: core FormalV2 P0 structure is **conditionally passed**, while full FormalV2 visual acceptance is **not sealed**. Remaining work is UI layout / hierarchy polish and selected background replacement, not resource registration.
+Art-side resource acceptance is complete for the current FormalV2 asset queue. Art/UI side has directly fixed the latest runtime screenshot contamination, P0 composition issues, old template presentation, modal isolation, and dungeon map node/route integration. Manual screenshot review of `20260613_005848` is complete: this direct polish batch **passes**, while full FormalV2 runtime UI visual seal is **not sealed**. The remaining blocker is the 11 `formal_v1_template` screens still using one shared template instead of per-screen FormalV2 structures.
 
 ## Current Evidence
 
-1. `UnityClient/Logs/ArtAcceptance/latest/report.json`: `RunID=20260612_231356`, `Status=PASSED`, `Registry.EntryCount=278`, `MissingRequiredVisualIDs=[]`, warnings/errors=0.
+1. `UnityClient/Logs/ArtAcceptance/latest/report.json`: `RunID=20260613_005848`, `Status=PASSED`, `Registry.EntryCount=278`, `MissingRequiredVisualIDs=[]`, warnings/errors=0.
 2. `美术文档/_generated/VisualAssetRegistry登记缺口清单.md/json`: `program_integrate=0`, `missing_registry=0`, `missing_approved=0`, `missing_meta=0`.
 3. `美术文档/_generated/程序接入交接清单.md/json`: `program_integrate=0`, `add_capture=0`, `rerun_acceptance=0`.
 4. Latest screenshots: `UnityClient/Logs/ArtAcceptance/latest/screenshots/`.
-5. Latest contact sheet: `UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260612_231356_codex.png`.
-6. `美术文档/09_运行时美术验收记录.md`: 2026-06-12 美术侧直接运行时精修验收已记录; resource / Registry / tool gates pass, core FormalV2 P0 structure conditionally passes, full FormalV2 visual seal remains pending.
+5. Latest screenshot directory: `UnityClient/Logs/ArtAcceptance/latest/screenshots/`.
+6. `美术文档/09_运行时美术验收记录.md`: 2026-06-13 美术侧直接运行时精修二轮验收已记录; resource / Registry / tool gates pass, this polish batch passes, full FormalV2 runtime UI visual seal remains pending.
 
-Follow-up now focuses on art/UI direct runtime polish, not registry. `workshop_main`, `combat_hud`, `inventory_loot`, and `settlement` can serve as the current player-flow UI base; `dungeon_map`, modal hierarchy, old FormalV1 template replacement, and `bg_workshop_day` background quality remain open.
+Follow-up now focuses on per-screen FormalV2 structure replacement, not registry. `workshop_main`, `combat_hud`, `inventory_loot`, `settlement`, `dungeon_map`, and modal panels can serve as the current player-flow UI baseline; the old FormalV1-template screens are lower-noise but still not final FormalV2 structures.
 
 ## Art Review Focus
 
@@ -66,7 +66,7 @@ Follow-up now focuses on art/UI direct runtime polish, not registry. `workshop_m
 - Monster combat sprites and portraits passed static checks, but runtime scale and small-size readability still need screenshot review.
 - Item/order/rumor icons passed static checks, but semantic distinction must be judged in actual list/grid usage.
 - Latest ArtAcceptance no longer has old missing combat VisualID errors or cross-capture `ScenarioEventPanel_Runtime` pollution.
-- Art-side manual judgment is now complete for `20260612_231356`: no new bulk asset generation is required; remaining issues are P1/P2 UI polish and selected same-path background replacement.
+- Art-side manual judgment is now complete for `20260613_005848`: no new bulk asset generation is required; remaining issues are per-screen FormalV2 structure replacement and P1/P2 UI polish.
 
 ## Pass Criteria
 
@@ -78,4 +78,13 @@ Follow-up now focuses on art/UI direct runtime polish, not registry. `workshop_m
 
 ## Next Art Action
 
-Do not start another bulk NovelAI pass. Continue direct art/UI runtime polish on `dungeon_map`, modal panels and old FormalV1 template screens. Only create single-VisualID replacement tasks when a runtime screenshot proves the asset itself is weak after layout is fixed.
+Do not start another bulk NovelAI pass. Continue direct art/UI runtime work by replacing the 11 `formal_v1_template` screens with their FormalV2 structures one cluster at a time. Single-VisualID replacement remains allowed only when a runtime screenshot proves the asset itself is weak after layout is fixed.
+
+## 2026-06-13 Runtime UI Direct Polish
+
+- Art/UI side directly handled the remaining runtime UI visual blockers in pure UGUI.
+- `WorkshopFormalV1PanelController` now renders the 11 old-template screens as lower-noise isolated information panels: stronger backdrop, neutral dark cards, subtler outlines, lower-density text and real best-fit / wrap behavior.
+- `WorkshopUIController` now gives `sell_panel` and `prosthetic_panel` independent modal isolation, solid runtime cards and real tinting for buttons.
+- `DungeonMapUIController` now uses smaller map markers, shorter labels, depth-based node placement, route layering behind nodes and lower-saturation route / plate colors.
+- Verification evidence: `dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` passed with 0 warnings / 0 errors; `Validate-UIDesign.ps1` passed; latest ArtAcceptance `RunID=20260613_005848` passed with 21/21 captures, Registry 278, `MissingRequiredVisualIDs=0`, warnings/errors=0.
+- Art decision: this direct polish batch passes, but full FormalV2 runtime UI visual seal is not sealed until the 11 `formal_v1_template` screens are replaced by per-screen FormalV2 structures.

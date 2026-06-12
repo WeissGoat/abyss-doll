@@ -2,6 +2,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class WorkshopFormalV1PanelController : MonoBehaviour {
+    private static readonly Color BackdropColor = new Color(0.004f, 0.006f, 0.008f, 0.9f);
+    private static readonly Color BackgroundColor = new Color(0.64f, 0.58f, 0.46f, 0.44f);
+    private static readonly Color BackgroundVeilColor = new Color(0.006f, 0.008f, 0.01f, 0.48f);
+    private static readonly Color MainCardColor = new Color(0.2f, 0.22f, 0.2f, 0.74f);
+    private static readonly Color HeaderColor = new Color(0.28f, 0.36f, 0.33f, 0.72f);
+    private static readonly Color InfoPanelColor = new Color(0.16f, 0.18f, 0.17f, 0.62f);
+    private static readonly Color EmphasisPanelColor = new Color(0.22f, 0.27f, 0.24f, 0.7f);
+    private static readonly Color RowColor = new Color(0.22f, 0.25f, 0.22f, 0.66f);
+    private static readonly Color BodyTextColor = new Color(0.9f, 0.92f, 0.88f, 0.94f);
+    private static readonly Color IconColor = new Color(0.86f, 0.82f, 0.62f, 0.72f);
+
     private GameObject _rootPanel;
     private Font _defaultFont;
     private string _lastActionFeedback;
@@ -65,32 +76,36 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
         rootRect.offsetMax = Vector2.zero;
 
         Image backdrop = _rootPanel.AddComponent<Image>();
-        VisualUIHelper.ApplySolidColor(backdrop, new Color(0.012f, 0.014f, 0.013f, 1f), true);
+        VisualUIHelper.ApplySolidColor(backdrop, BackdropColor, true);
 
         Image background = CreateImage(spec.BackgroundName, _rootPanel.transform);
         Stretch(background.rectTransform);
         VisualUIHelper.ApplyCoverSprite(
             background,
             string.IsNullOrEmpty(spec.BackgroundVisualID) ? VisualAssetService.WorkshopBackgroundID : spec.BackgroundVisualID,
-            Color.white,
+            BackgroundColor,
             new Color(0.08f, 0.07f, 0.055f, 0.94f));
 
+        Image veil = CreateImage("FormalV2BackgroundVeil_Image", _rootPanel.transform);
+        Stretch(veil.rectTransform);
+        VisualUIHelper.ApplySolidColor(veil, BackgroundVeilColor, false);
+
         Image card = CreateImage(spec.CardName, _rootPanel.transform);
-        ConfigureCenterRect(card.rectTransform, Vector2.zero, new Vector2(1360f, 900f));
-        VisualUIHelper.ApplySlicedSprite(card, VisualAssetService.UIPanelMainID, Color.white, new Color(0.08f, 0.075f, 0.065f, 0.98f), false);
+        ConfigureCenterRect(card.rectTransform, Vector2.zero, new Vector2(1360f, 815f));
+        ApplyPanelFill(card, MainCardColor, new Color(0.2f, 0.42f, 0.38f, 0.36f), new Vector2(2f, -2f));
 
         Image header = CreateImage("HeaderPanel", card.transform);
-        ConfigureTopLeftRect(header.rectTransform, 60f, 40f, 1240f, 110f);
-        VisualUIHelper.ApplySlicedSprite(header, VisualAssetService.UIPanelInfoID, Color.white, new Color(0.08f, 0.085f, 0.08f, 0.92f), false);
+        ConfigureTopLeftRect(header.rectTransform, 70f, 38f, 1220f, 88f);
+        ApplyPanelFill(header, HeaderColor, new Color(0.28f, 0.6f, 0.52f, 0.32f), new Vector2(1.5f, -1.5f));
 
-        CreateIcon(spec.PrimaryIconName, header.transform, new Vector2(32f, 23f), spec.PrimaryIconVisualID);
-        CreateText("Title_Text", header.transform, spec.Title, new Vector2(112f, 24f), new Vector2(560f, 60f), 38, spec.AccentColor, TextAnchor.MiddleLeft);
-        CreateTitleDivider(header.transform, new Vector2(680f, 41f), new Vector2(500f, 28f));
+        CreateIcon(spec.PrimaryIconName, header.transform, new Vector2(30f, 14f), spec.PrimaryIconVisualID);
+        CreateText("Title_Text", header.transform, spec.Title, new Vector2(104f, 16f), new Vector2(590f, 52f), 30, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateTitleDivider(header.transform, new Vector2(710f, 33f), new Vector2(455f, 18f));
 
-        float iconX = 700f;
+        float iconX = 750f;
         for (int i = 0; i < spec.HeaderIcons.Length; i++) {
             IconSpec icon = spec.HeaderIcons[i];
-            CreateIcon(icon.Name, header.transform, new Vector2(iconX + i * 78f, 25f), icon.VisualID);
+            CreateIcon(icon.Name, header.transform, new Vector2(iconX + i * 72f, 20f), icon.VisualID);
         }
 
         WorkshopFormalV1PanelBinding binding = WorkshopFormalV1PanelBindingService.Build(spec.ScreenID, GameRoot.Core?.CurrentPlayer);
@@ -114,8 +129,8 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
             NamedRect panel = spec.InfoPanels[i];
             Image image = CreateImage(panel.Name, card);
             ConfigureTopLeftRect(image.rectTransform, panel.X, panel.Y, panel.Width, panel.Height);
-            string visualID = panel.UseMainPanel ? VisualAssetService.UIPanelMainID : VisualAssetService.UIPanelInfoID;
-            VisualUIHelper.ApplySlicedSprite(image, visualID, Color.white, new Color(0.07f, 0.075f, 0.07f, 0.9f), false);
+            Color panelColor = panel.UseMainPanel ? EmphasisPanelColor : InfoPanelColor;
+            ApplyPanelFill(image, panelColor, new Color(0.2f, 0.42f, 0.38f, 0.24f), new Vector2(1f, -1f));
             string panelText = WorkshopFormalV1PanelBindingService.ResolveText(binding.PanelTexts, panel.Name, panel.Label);
             CreateText(
                 $"{panel.Name}_Text",
@@ -123,8 +138,8 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
                 panelText,
                 new Vector2(18f, 14f),
                 new Vector2(Mathf.Max(120f, panel.Width - 36f), Mathf.Max(40f, panel.Height - 28f)),
-                22,
-                new Color(0.86f, 0.86f, 0.8f, 1f),
+                18,
+                BodyTextColor,
                 TextAnchor.UpperLeft);
         }
     }
@@ -134,7 +149,7 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
             RowSpec row = spec.Rows[i];
             Image rowImage = CreateImage(row.Name, card);
             ConfigureTopLeftRect(rowImage.rectTransform, row.X, row.Y, row.Width, row.Height);
-            VisualUIHelper.ApplySlicedSprite(rowImage, row.VisualID, Color.white, new Color(0.1f, 0.105f, 0.095f, 0.94f), false);
+            ApplyPanelFill(rowImage, RowColor, new Color(0.24f, 0.52f, 0.46f, 0.2f), new Vector2(1f, -1f));
             string rowText = WorkshopFormalV1PanelBindingService.ResolveText(binding.RowTexts, row.Name, row.Label);
             CreateText(
                 $"{row.Name}_Text",
@@ -142,8 +157,8 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
                 rowText,
                 new Vector2(16f, 8f),
                 new Vector2(Mathf.Max(100f, row.Width - 32f), Mathf.Max(30f, row.Height - 16f)),
-                20,
-                Color.white,
+                17,
+                BodyTextColor,
                 TextAnchor.MiddleLeft);
         }
     }
@@ -168,7 +183,7 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
                 _lastActionFeedback,
                 new Vector2(60f, 820f),
                 new Vector2(1240f, 46f),
-                20,
+                17,
                 new Color(0.94f, 0.82f, 0.5f, 1f),
                 TextAnchor.MiddleLeft);
         }
@@ -224,13 +239,25 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
     private void CreateIcon(string name, Transform parent, Vector2 topLeft, string visualID) {
         Image icon = CreateImage(name, parent);
         ConfigureTopLeftRect(icon.rectTransform, topLeft.x, topLeft.y, VisualDisplaySpecs.UIIcon.x, VisualDisplaySpecs.UIIcon.y);
-        VisualUIHelper.ApplyContainSprite(icon, visualID, VisualDisplaySpecs.UIIcon, Color.white, new Color(0.82f, 0.42f, 0.18f, 1f), false);
+        VisualUIHelper.ApplyContainSprite(icon, visualID, VisualDisplaySpecs.UIIcon, IconColor, new Color(0.82f, 0.42f, 0.18f, 1f), false);
     }
 
     private void CreateTitleDivider(Transform parent, Vector2 topLeft, Vector2 size) {
         Image divider = CreateImage("TitleDivider_Image", parent);
         ConfigureTopLeftRect(divider.rectTransform, topLeft.x, topLeft.y, size.x, size.y);
-        VisualUIHelper.ApplySimpleSprite(divider, VisualAssetService.UITitleDividerID, Color.white, new Color(0.7f, 0.56f, 0.32f, 1f), false, false);
+        VisualUIHelper.ApplySimpleSprite(divider, VisualAssetService.UITitleDividerID, new Color(0.64f, 0.78f, 0.76f, 0.28f), new Color(0.32f, 0.42f, 0.4f, 0.34f), false, false);
+    }
+
+    private void ApplyPanelFill(Image image, Color fillColor, Color outlineColor, Vector2 outlineDistance) {
+        VisualUIHelper.ApplySolidColor(image, fillColor, false);
+        Outline outline = image.GetComponent<Outline>();
+        if (outline == null) {
+            outline = image.gameObject.AddComponent<Outline>();
+        }
+
+        outline.effectColor = outlineColor;
+        outline.effectDistance = outlineDistance;
+        outline.useGraphicAlpha = true;
     }
 
     private Text CreateText(string name, Transform parent, string content, Vector2 topLeft, Vector2 size, int fontSize, Color color, TextAnchor alignment) {
@@ -241,6 +268,12 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
         text.fontSize = fontSize;
         text.color = color;
         text.alignment = alignment;
+        text.horizontalOverflow = HorizontalWrapMode.Wrap;
+        text.verticalOverflow = VerticalWrapMode.Truncate;
+        text.resizeTextForBestFit = true;
+        text.resizeTextMinSize = Mathf.Max(11, fontSize - 7);
+        text.resizeTextMaxSize = fontSize;
+        text.lineSpacing = 0.92f;
         text.raycastTarget = false;
         ConfigureTopLeftRect(text.rectTransform, topLeft.x, topLeft.y, size.x, size.y);
         return text;
@@ -252,9 +285,24 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
         Button button = obj.AddComponent<Button>();
         button.targetGraphic = image;
         ConfigureTopLeftRect(obj.GetComponent<RectTransform>(), x, y, width, height);
-        VisualUIHelper.ApplyButtonSkin(button, visualID, new Color(0.34f, 0.3f, 0.24f, 1f));
-        CreateText("Text", obj.transform, label, Vector2.zero, new Vector2(width, height), 24, Color.white, TextAnchor.MiddleCenter);
+        VisualUIHelper.ApplyButtonSkin(button, visualID, new Color(0.2f, 0.22f, 0.22f, 0.86f));
+        if (image != null) {
+            image.color = ResolveButtonColor(visualID);
+        }
+        CreateText("Text", obj.transform, label, Vector2.zero, new Vector2(width, height), 19, Color.white, TextAnchor.MiddleCenter);
         return button;
+    }
+
+    private Color ResolveButtonColor(string visualID) {
+        if (visualID == VisualAssetService.UIButtonPrimaryID) {
+            return new Color(0.42f, 0.58f, 0.5f, 0.82f);
+        }
+
+        if (visualID == VisualAssetService.UIButtonDangerID) {
+            return new Color(0.55f, 0.28f, 0.28f, 0.78f);
+        }
+
+        return new Color(0.28f, 0.36f, 0.38f, 0.72f);
     }
 
     private GameObject CreateRectObject(string name, Transform parent) {
