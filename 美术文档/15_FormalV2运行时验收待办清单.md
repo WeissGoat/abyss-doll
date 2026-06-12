@@ -29,18 +29,18 @@ update_rule: FormalV2 runtime acceptance gate, evidence, or review focus changes
 - Current missing art generation queue: `generate_needed=0`
 - Current quality backlog: `technical_fix=0`, `visual_v2_replace=0`, `spec_review=0`
 - Current requirement candidate scan: `new_candidate=0`, `deferred_candidate=29`, `ignored_candidate=26`
-- Latest ArtAcceptance available locally after art/UI direct runtime seal: `20260613_012421`, status `PASSED`, 21/21 captured.
+- Latest ArtAcceptance available locally after art/UI direct runtime seal: `20260613_020257`, status `PASSED`, 21/21 captured.
 - Latest Registry evidence: `EntryCount=278`, `MissingRequiredVisualIDs=0`, `missing_registry=0`, `missing_approved=0`, `missing_meta=0`.
-- Current FormalV2 runtime status: `美术文档/_generated/FormalV2运行时验收状态.md`, gate=`no_program_integrate`, `ReportRunID=20260613_012421`.
+- Current FormalV2 runtime status: `美术文档/_generated/FormalV2运行时验收状态.md`, gate=`no_program_integrate`, `ReportRunID=20260613_020257`.
 - Runtime review priority queue: `美术文档/_generated/FormalV2运行时复验优先级清单.md`, current `review_queue=30`, all non-blocking watch items.
 - Latest runtime screenshots for art review: `UnityClient/Logs/ArtAcceptance/latest/screenshots/`.
 - Art-side registry action: the offline candidate `美术文档/_generated/VisualAssetRegistry.offline_candidate.asset` was copied into `UnityClient/Assets/Resources/VisualAssetRegistry.asset`, then ArtAcceptance was rerun successfully.
 
-Art-side resource acceptance is complete for the current FormalV2 asset queue. Art/UI side has directly fixed the latest runtime screenshot contamination, P0 composition issues, modal isolation and dungeon map node/route integration. `20260613_012421` is the current FormalV2 runtime UI seal evidence: ArtAcceptance `PASSED`, 21/21 captured, `DataSourceSummary.RealGameplay=21`, `AcceptancePreview=0`, `FormalV1Template=0`. Manual screenshot review passes the current vertical-slice baseline. The shared workshop sub-panel treatment is still a quality iteration target, but it is no longer a FormalV2 runtime seal blocker.
+Art-side resource acceptance is complete for the current FormalV2 asset queue. Art/UI side has directly fixed the latest runtime screenshot contamination, P0 composition issues, modal isolation and dungeon map node/route integration. `20260613_020257` is the current FormalV2 runtime UI seal evidence: ArtAcceptance `PASSED`, 21/21 captured, `DataSourceSummary.RealGameplay=21`, `AcceptancePreview=0`, `FormalV1Template=0`. Manual screenshot review passes the current vertical-slice baseline. The shared workshop sub-panel treatment is still a quality iteration target, but it is no longer a FormalV2 runtime seal blocker.
 
 ## Current Evidence
 
-1. `UnityClient/Logs/ArtAcceptance/latest/report.json`: `RunID=20260613_012421`, `Status=PASSED`, `Registry.EntryCount=278`, `MissingRequiredVisualIDs=[]`, warnings/errors=0, `DataSourceSummary.RealGameplay=21`, `FormalV1Template=0`.
+1. `UnityClient/Logs/ArtAcceptance/latest/report.json`: `RunID=20260613_020257`, `Status=PASSED`, `Registry.EntryCount=278`, `MissingRequiredVisualIDs=[]`, warnings/errors=0, `DataSourceSummary.RealGameplay=21`, `FormalV1Template=0`.
 2. `美术文档/_generated/VisualAssetRegistry登记缺口清单.md/json`: `program_integrate=0`, `missing_registry=0`, `missing_approved=0`, `missing_meta=0`.
 3. `美术文档/_generated/程序接入交接清单.md/json`: `program_integrate=0`, `add_capture=0`, `rerun_acceptance=0`.
 4. Latest screenshots: `UnityClient/Logs/ArtAcceptance/latest/screenshots/`.
@@ -66,7 +66,7 @@ Follow-up now focuses on quality iteration, not registry or current seal blocker
 - Monster combat sprites and portraits passed static checks, but runtime scale and small-size readability still need screenshot review.
 - Item/order/rumor icons passed static checks, but semantic distinction must be judged in actual list/grid usage.
 - Latest ArtAcceptance no longer has old missing combat VisualID errors, cross-capture `ScenarioEventPanel_Runtime` pollution or `formal_v1_template` captures.
-- Art-side manual judgment is now complete for `20260613_012421`: no new bulk asset generation is required; remaining issues are quality iteration items, not current runtime seal blockers.
+- Art-side manual judgment is now complete for `20260613_020257`: no new bulk asset generation is required; remaining issues are quality iteration items, not current runtime seal blockers.
 
 ## Pass Criteria
 
@@ -86,5 +86,5 @@ Do not start another bulk NovelAI pass. Continue direct art/UI runtime work in p
 - `WorkshopFormalV1PanelController` now renders the 11 old-template screens as lower-noise isolated information panels: stronger backdrop, neutral dark cards, subtler outlines, lower-density text and real best-fit / wrap behavior.
 - `WorkshopUIController` now gives `sell_panel` and `prosthetic_panel` independent modal isolation, solid runtime cards and real tinting for buttons.
 - `DungeonMapUIController` now uses smaller map markers, shorter labels, depth-based node placement, route layering behind nodes and lower-saturation route / plate colors.
-- Verification evidence: `dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` passed with 0 warnings / 0 errors; `Validate-UIDesign.ps1` passed; latest ArtAcceptance `RunID=20260613_012421` passed with 21/21 captures, Registry 278, `MissingRequiredVisualIDs=0`, warnings/errors=0, `RealGameplay=21`, `FormalV1Template=0`.
+- Verification evidence: `dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` passed with 0 warnings / 0 errors; `Validate-UIDesign.ps1` passed; latest ArtAcceptance `RunID=20260613_020257` passed with 21/21 captures, Registry 278, `MissingRequiredVisualIDs=0`, warnings/errors=0, `RealGameplay=21`, `FormalV1Template=0`.
 - Art decision: FormalV2 runtime UI visual seal passes the current vertical-slice baseline. Shared workshop sub-panel differentiation remains a later quality iteration item.

@@ -384,10 +384,10 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
     }
 
     private void CreateToolCard(Transform parent, string name, Vector2 topLeft, string iconVisualID, string title, string body) {
-        Image card = CreateSlicedPanel(name, parent, topLeft.x, topLeft.y, 220f, 124f, VisualAssetService.UIListRowNormalID, new Color(0.15f, 0.17f, 0.15f, 0.9f));
+        Image card = CreateSlicedPanel(name, parent, topLeft.x, topLeft.y, 228f, 132f, VisualAssetService.UIPanelInfoID, new Color(0.15f, 0.17f, 0.15f, 0.9f));
         CreateIcon(name + "_Icon", card.transform, new Vector2(16f, 30f), iconVisualID);
-        CreateText(name + "_Title", card.transform, title, new Vector2(88f, 16f), new Vector2(112f, 28f), 17, new Color(0.96f, 0.86f, 0.58f, 1f), TextAnchor.MiddleLeft);
-        CreateText(name + "_Body", card.transform, body, new Vector2(88f, 48f), new Vector2(112f, 62f), 14, BodyTextColor, TextAnchor.UpperLeft);
+        CreateText(name + "_Title", card.transform, title, new Vector2(88f, 16f), new Vector2(122f, 28f), 17, new Color(0.96f, 0.86f, 0.58f, 1f), TextAnchor.MiddleLeft);
+        CreateText(name + "_Body", card.transform, body, new Vector2(88f, 48f), new Vector2(122f, 68f), 13, BodyTextColor, TextAnchor.UpperLeft);
     }
 
     private void CreateBoundIconButton(PanelSpec spec, string buttonName, Transform parent, float x, float y, string iconVisualID, string buttonVisualID) {
@@ -408,7 +408,7 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
     }
 
     private void CreateStaticIconCard(string name, Transform parent, Vector2 topLeft, string iconVisualID, string label) {
-        Image card = CreateSlicedPanel(name, parent, topLeft.x, topLeft.y, 262f, 76f, VisualAssetService.UIListRowNormalID, new Color(0.12f, 0.14f, 0.15f, 0.62f));
+        Image card = CreateSlicedPanel(name, parent, topLeft.x, topLeft.y, 262f, 76f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.14f, 0.15f, 0.62f));
         CreateIcon(name + "_Icon", card.transform, new Vector2(18f, 6f), iconVisualID);
         CreateText(name + "_Text", card.transform, label, new Vector2(96f, 12f), new Vector2(140f, 46f), 20, BodyTextColor, TextAnchor.MiddleLeft);
     }
