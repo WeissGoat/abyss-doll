@@ -125,6 +125,21 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
             case "maintenance_panel":
                 BuildMaintenancePanelV2(spec, binding);
                 return true;
+            case "shop_staging":
+                BuildShopStagingPanelV2(spec, binding);
+                return true;
+            case "business_settlement":
+                BuildBusinessSettlementPanelV2(spec, binding);
+                return true;
+            case "daily_bill_report":
+                BuildDailyBillPanelV2(spec, binding);
+                return true;
+            case "order_board":
+                BuildOrderBoardPanelV2(spec, binding);
+                return true;
+            case "rumor_board":
+                BuildRumorBoardPanelV2(spec, binding);
+                return true;
             case "chassis_upgrade_panel":
                 BuildChassisUpgradePanelV2(spec, binding);
                 return true;
@@ -133,6 +148,12 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
                 return true;
             case "doll_room":
                 BuildDollRoomPanelV2(spec, binding);
+                return true;
+            case "faction_shop":
+                BuildFactionShopPanelV2(spec, binding);
+                return true;
+            case "scenario_event":
+                BuildScenarioEventPanelV2(spec, binding);
                 return true;
             default:
                 return false;
@@ -253,6 +274,178 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
         CreateActionFeedback(stage, spec, new Vector2(850f, 945f), new Vector2(760f, 54f));
     }
 
+    private void BuildShopStagingPanelV2(PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
+        RectTransform stage = CreateReferenceStage(spec.CardName);
+        BuildScreenHeader(stage, spec, new Vector2(130f, 42f), new Vector2(1660f, 86f));
+
+        Image storage = CreateSlicedPanel("StorageShelf", stage, 150f, 170f, 430f, 700f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.14f, 0.12f, 0.88f));
+        CreateText("StorageShelfTitle_Text", storage.transform, "Storage Shelf", new Vector2(26f, 22f), new Vector2(250f, 36f), 24, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateText("ItemListPanel_Text", storage.transform, ResolvePanelText(binding, "ItemListPanel", "Items for sale"), new Vector2(26f, 74f), new Vector2(378f, 258f), 17, BodyTextColor, TextAnchor.UpperLeft);
+        CreateListRowCard("ItemRow_Template", storage.transform, 26f, 360f, 378f, VisualAssetService.UIListRowNormalID, VisualAssetService.UIIconShopChannelID, ResolveRowText(binding, "ItemRow_Template", "Inventory item"));
+        CreateListRowCard("SelectedItemRow", storage.transform, 26f, 446f, 378f, VisualAssetService.UIListRowSelectedID, VisualAssetService.UIIconMoneyID, ResolveRowText(binding, "SelectedItemRow", "Selected item"));
+
+        Image counter = CreateSlicedPanel("DisplayCounter", stage, 620f, 200f, 760f, 520f, VisualAssetService.UIPanelMainID, new Color(0.86f, 0.84f, 0.74f, 0.88f));
+        CreateText("DisplayCounterTitle_Text", counter.transform, "Display Counter", new Vector2(32f, 24f), new Vector2(360f, 42f), 28, spec.AccentColor, TextAnchor.MiddleLeft);
+        for (int i = 0; i < 6; i++) {
+            float x = 54f + (i % 3) * 220f;
+            float y = 102f + (i / 3) * 158f;
+            Image slot = CreateSlicedPanel("DisplaySlot", counter.transform, x, y, 174f, 118f, VisualAssetService.UIListRowNormalID, new Color(0.12f, 0.14f, 0.12f, 0.68f));
+            CreateIcon("DisplaySlotIcon_Image", slot.transform, new Vector2(54f, 16f), i == 0 ? VisualAssetService.UIIconMoneyID : VisualAssetService.UIIconShopChannelID);
+            CreateText("DisplaySlot_Text", slot.transform, i == 0 ? "Selected" : "Open", new Vector2(16f, 80f), new Vector2(142f, 24f), 14, BodyTextColor, TextAnchor.MiddleCenter);
+        }
+        CreateText("ChannelPanel_Text", counter.transform, ResolvePanelText(binding, "ChannelPanel", "Shop channels"), new Vector2(38f, 408f), new Vector2(684f, 78f), 17, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image side = CreateSlicedPanel("ChannelSideBox", stage, 1420f, 210f, 330f, 360f, VisualAssetService.UIPanelInfoID, new Color(0.11f, 0.13f, 0.13f, 0.9f));
+        CreateText("ChannelSideBoxTitle_Text", side.transform, "Side Channels", new Vector2(22f, 22f), new Vector2(230f, 34f), 23, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateIcon("OrderLaneIcon_Image", side.transform, new Vector2(24f, 78f), VisualAssetService.UIIconOrderID);
+        CreateText("OrderLanePanel_Text", side.transform, ResolvePanelText(binding, "OrderLanePanel", "Order lane"), new Vector2(104f, 72f), new Vector2(194f, 92f), 15, BodyTextColor, TextAnchor.UpperLeft);
+        CreateIcon("BlackMarketLaneIcon_Image", side.transform, new Vector2(24f, 212f), VisualAssetService.UIIconBlackMarketID);
+        CreateText("BlackMarketLanePanel_Text", side.transform, ResolvePanelText(binding, "BlackMarketLanePanel", "Black market"), new Vector2(104f, 202f), new Vector2(194f, 112f), 15, new Color(0.96f, 0.72f, 0.66f, 1f), TextAnchor.UpperLeft);
+
+        Image preview = CreateSlicedPanel("TodayPreviewStrip", stage, 620f, 750f, 760f, 130f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.13f, 0.12f, 0.9f));
+        CreateIcon("PreviewMoneyIcon_Image", preview.transform, new Vector2(24f, 32f), VisualAssetService.UIIconMoneyID);
+        CreateText("ActionPanel_Text", preview.transform, ResolvePanelText(binding, "ActionPanel", "Staging actions"), new Vector2(106f, 22f), new Vector2(620f, 84f), 18, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image actions = CreateSlicedPanel("ShopStagingActionPanel", stage, 1420f, 630f, 330f, 250f, VisualAssetService.UIPanelInfoID, new Color(0.11f, 0.14f, 0.13f, 0.92f));
+        CreateBoundButton(spec, "Confirm_Button", actions.transform, 28f, 26f, 274f, 62f, VisualAssetService.UIButtonPrimaryID);
+        CreateBoundButton(spec, "Reset_Button", actions.transform, 28f, 108f, 130f, 46f, VisualAssetService.UIButtonSecondaryID);
+        CreateBoundButton(spec, "Close_Button", actions.transform, 172f, 108f, 130f, 46f, VisualAssetService.UIButtonSecondaryID);
+        CreateBoundButton(spec, "BlackMarket_Button", actions.transform, 28f, 172f, 274f, 48f, VisualAssetService.UIButtonDangerID);
+
+        CreateActionFeedback(stage, spec, new Vector2(620f, 900f), new Vector2(760f, 48f));
+    }
+
+    private void BuildBusinessSettlementPanelV2(PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
+        RectTransform stage = CreateReferenceStage(spec.CardName);
+        BuildScreenHeader(stage, spec, new Vector2(130f, 42f), new Vector2(1660f, 86f));
+
+        Image customerLane = CreateSlicedPanel("CustomerLane", stage, 220f, 220f, 520f, 440f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.13f, 0.15f, 0.86f));
+        CreateText("CustomerLaneTitle_Text", customerLane.transform, "Customer Lane", new Vector2(28f, 24f), new Vector2(260f, 36f), 24, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateIcon("CustomerIcon_Image", customerLane.transform, new Vector2(36f, 86f), VisualAssetService.UIIconCustomerID);
+        CreateText("CustomerFlowPanel_Text", customerLane.transform, ResolvePanelText(binding, "CustomerFlowPanel", "Customer flow"), new Vector2(120f, 78f), new Vector2(360f, 122f), 18, BodyTextColor, TextAnchor.UpperLeft);
+        CreateListRowCard("CustomerRow_Template", customerLane.transform, 36f, 238f, 440f, VisualAssetService.UIListRowNormalID, VisualAssetService.UIIconOrderID, ResolveRowText(binding, "CustomerRow_Template", "Workshop visitor"));
+
+        Image revenue = CreateSlicedPanel("RevenueMoment", stage, 780f, 210f, 500f, 460f, VisualAssetService.UIPanelMainID, new Color(0.84f, 0.78f, 0.58f, 0.88f));
+        CreateText("RevenueMomentTitle_Text", revenue.transform, "Revenue Moment", new Vector2(30f, 24f), new Vector2(300f, 40f), 26, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateIcon("SaleSparkIcon_Image", revenue.transform, new Vector2(206f, 86f), VisualAssetService.UIIconSaleSparkID);
+        CreateIcon("RevenueMoneyIcon_Image", revenue.transform, new Vector2(112f, 162f), VisualAssetService.UIIconMoneyID);
+        CreateText("RevenuePanel_Text", revenue.transform, ResolvePanelText(binding, "RevenuePanel", "Revenue summary"), new Vector2(42f, 242f), new Vector2(416f, 150f), 19, new Color(0.12f, 0.15f, 0.12f, 1f), TextAnchor.UpperCenter);
+
+        Image unsold = CreateSlicedPanel("UnsoldRiskTray", stage, 1320f, 220f, 360f, 330f, VisualAssetService.UIPanelInfoID, new Color(0.13f, 0.12f, 0.12f, 0.9f));
+        CreateIcon("RiskWarningIcon_Image", unsold.transform, new Vector2(22f, 22f), VisualAssetService.UIIconWarningID);
+        CreateText("RiskSummaryPanel_Text", unsold.transform, ResolvePanelText(binding, "RiskSummaryPanel", "Unsold and risk summary"), new Vector2(102f, 24f), new Vector2(228f, 250f), 17, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image feed = CreateSlicedPanel("ShortTransactionFeed", stage, 260f, 700f, 820f, 160f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.13f, 0.12f, 0.88f));
+        CreateText("ShortTransactionFeedTitle_Text", feed.transform, "Short Feed", new Vector2(24f, 16f), new Vector2(220f, 32f), 22, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateListRowCard("SaleRow_Template", feed.transform, 24f, 64f, 360f, VisualAssetService.UIListRowSelectedID, VisualAssetService.UIIconSaleSparkID, ResolveRowText(binding, "SaleRow_Template", "Sold item"));
+        CreateText("SaleHighlightPanel_Text", feed.transform, ResolvePanelText(binding, "SaleHighlightPanel", "Sale highlights"), new Vector2(414f, 58f), new Vector2(374f, 78f), 17, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image next = CreateSlicedPanel("BusinessNextAction", stage, 1180f, 690f, 500f, 180f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.15f, 0.13f, 0.92f));
+        CreateText("NextBillPanel_Text", next.transform, ResolvePanelText(binding, "NextBillPanel", "Proceed to daily bill"), new Vector2(24f, 18f), new Vector2(452f, 58f), 17, BodyTextColor, TextAnchor.UpperLeft);
+        CreateBoundButton(spec, "ContinueToBill_Button", next.transform, 24f, 96f, 242f, 58f, VisualAssetService.UIButtonPrimaryID);
+        CreateBoundButton(spec, "ReviewRisk_Button", next.transform, 282f, 96f, 112f, 58f, VisualAssetService.UIButtonDangerID);
+        CreateBoundButton(spec, "Close_Button", next.transform, 406f, 96f, 70f, 58f, VisualAssetService.UIButtonSecondaryID);
+
+        CreateActionFeedback(stage, spec, new Vector2(260f, 882f), new Vector2(1420f, 48f));
+    }
+
+    private void BuildDailyBillPanelV2(PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
+        RectTransform stage = CreateReferenceStage(spec.CardName);
+        BuildScreenHeader(stage, spec, new Vector2(130f, 42f), new Vector2(1660f, 86f));
+
+        Image ledger = CreateSlicedPanel("OpenLedger", stage, 360f, 150f, 1200f, 660f, VisualAssetService.UIPanelMainID, new Color(0.9f, 0.86f, 0.74f, 0.92f));
+        CreateText("OpenLedgerTitle_Text", ledger.transform, "Open Ledger", new Vector2(40f, 26f), new Vector2(320f, 40f), 28, spec.AccentColor, TextAnchor.MiddleLeft);
+
+        Image income = CreateSlicedPanel("IncomePage", ledger.transform, 70f, 92f, 500f, 420f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.15f, 0.12f, 0.88f));
+        CreateIcon("IncomeIcon_Image", income.transform, new Vector2(24f, 24f), VisualAssetService.UIIconIncomeID);
+        CreateText("SummaryPanel_Text", income.transform, ResolvePanelText(binding, "SummaryPanel", "Income summary"), new Vector2(104f, 24f), new Vector2(354f, 190f), 18, BodyTextColor, TextAnchor.UpperLeft);
+        CreateListRowCard("UnsoldRow_Template", income.transform, 30f, 270f, 430f, VisualAssetService.UIListRowSelectedID, VisualAssetService.UIIconShopChannelID, ResolveRowText(binding, "UnsoldRow_Template", "Unsold gear"));
+
+        Image expense = CreateSlicedPanel("ExpensePage", ledger.transform, 630f, 92f, 500f, 420f, VisualAssetService.UIPanelInfoID, new Color(0.14f, 0.13f, 0.12f, 0.88f));
+        CreateIcon("ExpenseIcon_Image", expense.transform, new Vector2(24f, 24f), VisualAssetService.UIIconExpenseID);
+        CreateText("IncomeExpenseListPanel_Text", expense.transform, ResolvePanelText(binding, "IncomeExpenseListPanel", "Income and expense"), new Vector2(104f, 24f), new Vector2(354f, 170f), 17, BodyTextColor, TextAnchor.UpperLeft);
+        CreateText("PressureWarningPanel_Text", expense.transform, ResolvePanelText(binding, "PressureWarningPanel", "Pressure warning"), new Vector2(32f, 230f), new Vector2(432f, 142f), 17, new Color(0.96f, 0.78f, 0.64f, 1f), TextAnchor.UpperLeft);
+
+        Image pressure = CreateSlicedPanel("PressureRail", stage, 430f, 680f, 1060f, 100f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.12f, 0.12f, 0.9f));
+        CreateIcon("DebtRentIcon_Image", pressure.transform, new Vector2(24f, 18f), VisualAssetService.UIIconDebtRentID);
+        CreateText("BillRow_Template_Text", pressure.transform, ResolveRowText(binding, "BillRow_Template", "Rent due"), new Vector2(104f, 18f), new Vector2(910f, 58f), 19, BodyTextColor, TextAnchor.MiddleLeft);
+
+        Image tomorrow = CreateSlicedPanel("TomorrowHint", stage, 420f, 820f, 620f, 110f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.13f, 0.12f, 0.86f));
+        CreateText("UnsoldGoodsPanel_Text", tomorrow.transform, ResolvePanelText(binding, "UnsoldGoodsPanel", "Unsold goods"), new Vector2(24f, 16f), new Vector2(572f, 72f), 17, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image actions = CreateSlicedPanel("BillActionPanel", stage, 1120f, 810f, 380f, 130f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.14f, 0.13f, 0.92f));
+        CreateBoundButton(spec, "Continue_Button", actions.transform, 20f, 22f, 164f, 54f, VisualAssetService.UIButtonPrimaryID);
+        CreateBoundButton(spec, "ReviewSell_Button", actions.transform, 200f, 22f, 160f, 54f, VisualAssetService.UIButtonSecondaryID);
+        CreateBoundButton(spec, "DeferPayment_Button", actions.transform, 20f, 86f, 164f, 34f, VisualAssetService.UIButtonDangerID);
+        CreateBoundButton(spec, "Close_Button", actions.transform, 200f, 86f, 160f, 34f, VisualAssetService.UIButtonSecondaryID);
+
+        CreateActionFeedback(stage, spec, new Vector2(420f, 950f), new Vector2(1080f, 48f));
+    }
+
+    private void BuildOrderBoardPanelV2(PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
+        RectTransform stage = CreateReferenceStage(spec.CardName);
+        BuildScreenHeader(stage, spec, new Vector2(130f, 42f), new Vector2(1660f, 86f));
+
+        Image board = CreateSlicedPanel("NoticeBoardPapers", stage, 170f, 150f, 650f, 760f, VisualAssetService.UIPanelMainID, new Color(0.8f, 0.72f, 0.58f, 0.9f));
+        CreateText("NoticeBoardTitle_Text", board.transform, "Notice Board", new Vector2(34f, 24f), new Vector2(320f, 40f), 27, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateText("OrderListPanel_Text", board.transform, ResolvePanelText(binding, "OrderListPanel", "Available orders"), new Vector2(34f, 82f), new Vector2(582f, 222f), 17, new Color(0.12f, 0.13f, 0.1f, 1f), TextAnchor.UpperLeft);
+        CreateListRowCard("OrderRow_Template", board.transform, 40f, 345f, 560f, VisualAssetService.UIListRowNormalID, VisualAssetService.UIIconOrderID, ResolveRowText(binding, "OrderRow_Template", "Open order"));
+        CreateListRowCard("SelectedOrderRow_Template", board.transform, 40f, 440f, 560f, VisualAssetService.UIListRowSelectedID, VisualAssetService.UIIconDeadlineID, ResolveRowText(binding, "SelectedOrderRow_Template", "Selected order"));
+
+        Image contract = CreateSlicedPanel("SelectedContract", stage, 880f, 170f, 600f, 470f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.14f, 0.13f, 0.9f));
+        CreateIcon("ContractFactionIcon_Image", contract.transform, new Vector2(28f, 28f), VisualAssetService.UIIconFactionID);
+        CreateText("OrderDetailPanel_Text", contract.transform, ResolvePanelText(binding, "OrderDetailPanel", "Order detail"), new Vector2(112f, 28f), new Vector2(448f, 260f), 19, BodyTextColor, TextAnchor.UpperLeft);
+        CreateText("DeadlinePanel_Text", contract.transform, ResolvePanelText(binding, "DeadlinePanel", "Deadline"), new Vector2(36f, 326f), new Vector2(528f, 96f), 18, new Color(0.96f, 0.78f, 0.64f, 1f), TextAnchor.UpperLeft);
+
+        Image rewards = CreateSlicedPanel("RewardSealPanel", stage, 880f, 690f, 600f, 180f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.13f, 0.12f, 0.88f));
+        CreateIcon("RewardMoneyIcon_Image", rewards.transform, new Vector2(30f, 46f), VisualAssetService.UIIconMoneyID);
+        CreateText("RewardPreviewPanel_Text", rewards.transform, ResolvePanelText(binding, "RewardPreviewPanel", "Reward preview"), new Vector2(112f, 28f), new Vector2(452f, 120f), 18, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image actions = CreateSlicedPanel("OrderActionPanel", stage, 1520f, 230f, 250f, 560f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.12f, 0.13f, 0.92f));
+        CreateBoundButton(spec, "Accept_Button", actions.transform, 24f, 42f, 202f, 58f, VisualAssetService.UIButtonPrimaryID);
+        CreateBoundButton(spec, "Submit_Button", actions.transform, 24f, 118f, 202f, 58f, VisualAssetService.UIButtonPrimaryID);
+        CreateBoundButton(spec, "Abandon_Button", actions.transform, 24f, 344f, 202f, 58f, VisualAssetService.UIButtonDangerID);
+        CreateBoundButton(spec, "Close_Button", actions.transform, 24f, 432f, 202f, 48f, VisualAssetService.UIButtonSecondaryID);
+
+        Image risk = CreateSlicedPanel("OrderRiskStrip", stage, 170f, 910f, 1310f, 90f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.1f, 0.1f, 0.88f));
+        CreateIcon("OrderRiskWarningIcon_Image", risk.transform, new Vector2(22f, 14f), VisualAssetService.UIIconWarningID);
+        CreateText("ActionPanel_Text", risk.transform, ResolvePanelText(binding, "ActionPanel", "Order actions"), new Vector2(104f, 14f), new Vector2(1160f, 58f), 18, BodyTextColor, TextAnchor.MiddleLeft);
+
+        CreateActionFeedback(stage, spec, new Vector2(880f, 884f), new Vector2(890f, 48f));
+    }
+
+    private void BuildRumorBoardPanelV2(PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
+        RectTransform stage = CreateReferenceStage(spec.CardName);
+        BuildScreenHeader(stage, spec, new Vector2(130f, 42f), new Vector2(1660f, 86f));
+
+        Image notes = CreateSlicedPanel("RumorNotesArea", stage, 170f, 160f, 580f, 650f, VisualAssetService.UIPanelMainID, new Color(0.82f, 0.76f, 0.62f, 0.88f));
+        CreateText("RumorNotesTitle_Text", notes.transform, "Rumor Notes", new Vector2(30f, 24f), new Vector2(280f, 38f), 26, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateText("TodayRumorListPanel_Text", notes.transform, ResolvePanelText(binding, "TodayRumorListPanel", "Today's rumors"), new Vector2(34f, 84f), new Vector2(512f, 222f), 17, new Color(0.13f, 0.1f, 0.14f, 1f), TextAnchor.UpperLeft);
+        CreateListRowCard("RumorRow_Template", notes.transform, 34f, 336f, 512f, VisualAssetService.UIListRowNormalID, VisualAssetService.UIIconRumorID, ResolveRowText(binding, "RumorRow_Template", "Rumor"));
+        CreateListRowCard("SelectedRumorRow_Template", notes.transform, 34f, 426f, 512f, VisualAssetService.UIListRowSelectedID, VisualAssetService.UIIconWarningID, ResolveRowText(binding, "SelectedRumorRow_Template", "Selected rumor"));
+
+        Image price = CreateSlicedPanel("PriceWaveTags", stage, 790f, 180f, 420f, 610f, VisualAssetService.UIPanelInfoID, new Color(0.11f, 0.13f, 0.14f, 0.9f));
+        CreateText("PriceWaveTitle_Text", price.transform, "Price Waves", new Vector2(24f, 22f), new Vector2(220f, 34f), 24, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateIcon("PriceUpIcon_Image", price.transform, new Vector2(34f, 86f), VisualAssetService.UIIconPriceUpID);
+        CreateIcon("PriceDownIcon_Image", price.transform, new Vector2(34f, 196f), VisualAssetService.UIIconPriceDownID);
+        CreateText("PriceWavePanel_Text", price.transform, ResolvePanelText(binding, "PriceWavePanel", "Price waves"), new Vector2(118f, 78f), new Vector2(258f, 260f), 18, BodyTextColor, TextAnchor.UpperLeft);
+        CreateText("BottomHintPanel_Text", price.transform, ResolvePanelText(binding, "BottomHintPanel", "Risk notes"), new Vector2(34f, 404f), new Vector2(342f, 140f), 16, new Color(0.96f, 0.78f, 0.64f, 1f), TextAnchor.UpperLeft);
+
+        Image detail = CreateSlicedPanel("RumorDetailCard", stage, 1260f, 180f, 430f, 400f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.11f, 0.15f, 0.9f));
+        CreateIcon("RumorDetailIcon_Image", detail.transform, new Vector2(26f, 24f), VisualAssetService.UIIconRumorID);
+        CreateText("RumorDetailPanel_Text", detail.transform, ResolvePanelText(binding, "RumorDetailPanel", "Rumor detail"), new Vector2(108f, 26f), new Vector2(282f, 308f), 18, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image recommendation = CreateSlicedPanel("RecommendationMapCard", stage, 1260f, 620f, 430f, 220f, VisualAssetService.UIPanelMainID, new Color(0.8f, 0.76f, 0.66f, 0.86f));
+        CreateIcon("RecommendationMoneyIcon_Image", recommendation.transform, new Vector2(26f, 32f), VisualAssetService.UIIconMoneyID);
+        CreateText("RecommendationPanel_Text", recommendation.transform, ResolvePanelText(binding, "RecommendationPanel", "Recommended action"), new Vector2(108f, 26f), new Vector2(282f, 138f), 18, new Color(0.12f, 0.13f, 0.1f, 1f), TextAnchor.UpperLeft);
+
+        Image actions = CreateSlicedPanel("RumorActionPanel", stage, 1260f, 870f, 430f, 100f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.12f, 0.13f, 0.9f));
+        CreateBoundButton(spec, "PlanExpedition_Button", actions.transform, 24f, 22f, 260f, 56f, VisualAssetService.UIButtonPrimaryID);
+        CreateBoundButton(spec, "Close_Button", actions.transform, 302f, 22f, 104f, 56f, VisualAssetService.UIButtonSecondaryID);
+
+        CreateActionFeedback(stage, spec, new Vector2(170f, 832f), new Vector2(1040f, 48f));
+    }
+
     private void BuildChassisUpgradePanelV2(PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
         RectTransform stage = CreateReferenceStage(spec.CardName);
         BuildScreenHeader(stage, spec, new Vector2(130f, 42f), new Vector2(1660f, 86f));
@@ -356,6 +549,78 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
         CreateActionFeedback(stage, spec, new Vector2(760f, 982f), new Vector2(700f, 44f));
     }
 
+    private void BuildFactionShopPanelV2(PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
+        RectTransform stage = CreateReferenceStage(spec.CardName);
+        BuildScreenHeader(stage, spec, new Vector2(130f, 42f), new Vector2(1660f, 86f));
+
+        Image counter = CreateSlicedPanel("FactionCounter", stage, 120f, 150f, 460f, 520f, VisualAssetService.UIPanelMainID, new Color(0.78f, 0.82f, 0.72f, 0.9f));
+        CreateIcon("FactionCounterIcon_Image", counter.transform, new Vector2(184f, 42f), VisualAssetService.UIIconFactionID);
+        CreateText("FactionCounterTitle_Text", counter.transform, "Faction Counter", new Vector2(30f, 128f), new Vector2(400f, 36f), 25, spec.AccentColor, TextAnchor.MiddleCenter);
+        CreateText("FactionListPanel_Text", counter.transform, ResolvePanelText(binding, "FactionListPanel", "Factions"), new Vector2(34f, 190f), new Vector2(392f, 180f), 18, new Color(0.12f, 0.13f, 0.1f, 1f), TextAnchor.UpperCenter);
+        CreateListRowCard("FactionRow_Template", counter.transform, 34f, 398f, 392f, VisualAssetService.UIListRowNormalID, VisualAssetService.UIIconReputationID, ResolveRowText(binding, "FactionRow_Template", "Faction"));
+
+        Image reputation = CreateSlicedPanel("ReputationBook", stage, 120f, 700f, 460f, 190f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.14f, 0.13f, 0.9f));
+        CreateIcon("ReputationIcon_Image", reputation.transform, new Vector2(24f, 24f), VisualAssetService.UIIconReputationID);
+        CreateIcon("TrustIcon_Image", reputation.transform, new Vector2(92f, 24f), VisualAssetService.UIIconTrustID);
+        CreateText("StandingPanel_Text", reputation.transform, ResolvePanelText(binding, "StandingPanel", "Reputation and trust"), new Vector2(174f, 20f), new Vector2(252f, 126f), 17, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image goods = CreateSlicedPanel("GoodsShelf", stage, 630f, 160f, 560f, 700f, VisualAssetService.UIPanelInfoID, new Color(0.11f, 0.13f, 0.12f, 0.9f));
+        CreateText("GoodsShelfTitle_Text", goods.transform, "Goods Shelf", new Vector2(28f, 24f), new Vector2(260f, 36f), 24, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateText("GoodsListPanel_Text", goods.transform, ResolvePanelText(binding, "GoodsListPanel", "Goods"), new Vector2(30f, 80f), new Vector2(500f, 280f), 18, BodyTextColor, TextAnchor.UpperLeft);
+        CreateListRowCard("GoodsRow_Template", goods.transform, 30f, 392f, 500f, VisualAssetService.UIListRowSelectedID, VisualAssetService.UIIconMoneyID, ResolveRowText(binding, "GoodsRow_Template", "Locked goods"));
+
+        Image tray = CreateSlicedPanel("SelectedGoodsTray", stage, 1230f, 180f, 500f, 430f, VisualAssetService.UIPanelMainID, new Color(0.82f, 0.78f, 0.66f, 0.9f));
+        CreateText("SelectedGoodsTitle_Text", tray.transform, "Selected Goods", new Vector2(30f, 24f), new Vector2(300f, 38f), 25, spec.AccentColor, TextAnchor.MiddleLeft);
+        CreateIcon("SelectedGoodsIcon_Image", tray.transform, new Vector2(216f, 88f), VisualAssetService.UIIconMoneyID);
+        CreateText("SelectedGoodsPanel_Text", tray.transform, ResolvePanelText(binding, "SelectedGoodsPanel", "Detail"), new Vector2(42f, 190f), new Vector2(416f, 176f), 18, new Color(0.12f, 0.13f, 0.1f, 1f), TextAnchor.UpperCenter);
+
+        Image risk = CreateSlicedPanel("BlackMarketRisk", stage, 1230f, 640f, 500f, 130f, VisualAssetService.UIPanelInfoID, new Color(0.15f, 0.1f, 0.11f, 0.92f));
+        CreateIcon("BlackMarketIcon_Image", risk.transform, new Vector2(24f, 32f), VisualAssetService.UIIconBlackMarketID);
+        CreateText("BlackMarketRisk_Text", risk.transform, "Black market is a side curtain, not the main counter.", new Vector2(106f, 28f), new Vector2(354f, 62f), 17, new Color(0.96f, 0.72f, 0.66f, 1f), TextAnchor.UpperLeft);
+
+        Image actions = CreateSlicedPanel("FactionShopActionPanel", stage, 1230f, 810f, 500f, 120f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.12f, 0.13f, 0.92f));
+        CreateBoundButton(spec, "Buy_Button", actions.transform, 24f, 24f, 180f, 58f, VisualAssetService.UIButtonPrimaryID);
+        CreateBoundButton(spec, "BlackMarket_Button", actions.transform, 220f, 24f, 170f, 58f, VisualAssetService.UIButtonDangerID);
+        CreateBoundButton(spec, "Close_Button", actions.transform, 404f, 24f, 72f, 58f, VisualAssetService.UIButtonSecondaryID);
+
+        CreateActionFeedback(stage, spec, new Vector2(630f, 884f), new Vector2(1100f, 48f));
+    }
+
+    private void BuildScenarioEventPanelV2(PanelSpec spec, WorkshopFormalV1PanelBinding binding) {
+        RectTransform stage = CreateReferenceStage(spec.CardName);
+        Image overlay = CreateImage("ScenarioEventOverlay", stage);
+        Stretch(overlay.rectTransform);
+        VisualUIHelper.ApplySolidColor(overlay, new Color(0f, 0f, 0f, 0.38f), false);
+        BuildScreenHeader(stage, spec, new Vector2(240f, 72f), new Vector2(1440f, 76f));
+
+        Image focus = CreateSlicedPanel("EventFocusSlot", stage, 260f, 190f, 430f, 520f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.11f, 0.13f, 0.88f));
+        CreateContainSprite("EventFocusDoll_Image", focus.transform, "doll_proto_0_stand", new Vector2(84f, 28f), new Vector2(260f, 338f), VisualDisplaySpecs.DollStand, Color.white, new Color(0.42f, 0.32f, 0.24f, 0.92f));
+        CreateText("SpeakerPanel_Text", focus.transform, ResolvePanelText(binding, "SpeakerPanel", "Speaker"), new Vector2(34f, 382f), new Vector2(362f, 88f), 18, BodyTextColor, TextAnchor.UpperCenter);
+
+        Image text = CreateSlicedPanel("EventTextPanel", stage, 740f, 190f, 860f, 310f, VisualAssetService.UIPanelMainID, new Color(0.86f, 0.82f, 0.7f, 0.92f));
+        CreateIcon("LoreIcon_Image", text.transform, new Vector2(26f, 24f), VisualAssetService.UIIconLoreID);
+        CreateText("EventTextPanel_Text", text.transform, ResolvePanelText(binding, "EventTextPanel", "Event text"), new Vector2(112f, 34f), new Vector2(700f, 220f), 22, new Color(0.12f, 0.13f, 0.1f, 1f), TextAnchor.UpperLeft);
+
+        Image choices = CreateSlicedPanel("EventChoiceCards", stage, 740f, 540f, 860f, 240f, VisualAssetService.UIPanelInfoID, new Color(0.11f, 0.12f, 0.14f, 0.88f));
+        CreateText("ChoiceListPanel_Text", choices.transform, ResolvePanelText(binding, "ChoiceListPanel", "Choices"), new Vector2(24f, 18f), new Vector2(812f, 50f), 18, BodyTextColor, TextAnchor.UpperLeft);
+        CreateListRowCard("ChoiceRow_Template", choices.transform, 28f, 86f, 382f, VisualAssetService.UIListRowNormalID, VisualAssetService.UIIconEventID, ResolveRowText(binding, "ChoiceRow_Template", "Choice"));
+        CreateListRowCard("SelectedChoiceRow_Template", choices.transform, 450f, 86f, 382f, VisualAssetService.UIListRowSelectedID, VisualAssetService.UIIconWarningID, ResolveRowText(binding, "SelectedChoiceRow_Template", "Selected choice"));
+
+        Image summary = CreateSlicedPanel("EventSummaryStrip", stage, 300f, 820f, 760f, 120f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.12f, 0.13f, 0.9f));
+        CreateIcon("SkipIcon_Image", summary.transform, new Vector2(24f, 26f), VisualAssetService.UIIconSkipID);
+        CreateText("ActionSummaryPanel_Text", summary.transform, ResolvePanelText(binding, "ActionSummaryPanel", "Action summary"), new Vector2(104f, 22f), new Vector2(620f, 72f), 18, BodyTextColor, TextAnchor.UpperLeft);
+
+        Image lore = CreateSlicedPanel("LorePanel", stage, 300f, 950f, 760f, 58f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.11f, 0.13f, 0.76f));
+        CreateText("LorePanel_Text", lore.transform, ResolvePanelText(binding, "LorePanel", "Lore"), new Vector2(22f, 8f), new Vector2(716f, 38f), 16, BodyTextColor, TextAnchor.MiddleLeft);
+
+        Image actions = CreateSlicedPanel("EventActionBar", stage, 1120f, 820f, 480f, 120f, VisualAssetService.UIPanelInfoID, new Color(0.1f, 0.12f, 0.13f, 0.92f));
+        CreateBoundButton(spec, "ConfirmChoice_Button", actions.transform, 24f, 26f, 180f, 58f, VisualAssetService.UIButtonPrimaryID);
+        CreateBoundButton(spec, "Skip_Button", actions.transform, 222f, 26f, 122f, 58f, VisualAssetService.UIButtonSecondaryID);
+        CreateBoundButton(spec, "Close_Button", actions.transform, 362f, 26f, 92f, 58f, VisualAssetService.UIButtonSecondaryID);
+
+        CreateActionFeedback(stage, spec, new Vector2(1120f, 952f), new Vector2(480f, 46f));
+    }
+
     private RectTransform CreateReferenceStage(string name) {
         Image stageImage = CreateImage(name, _rootPanel.transform);
         VisualUIHelper.ApplySolidColor(stageImage, new Color(0f, 0f, 0f, 0.01f), false);
@@ -367,7 +632,12 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
     private Image CreateSlicedPanel(string name, Transform parent, float x, float y, float width, float height, string visualID, Color fallbackColor) {
         Image image = CreateImage(name, parent);
         ConfigureTopLeftRect(image.rectTransform, x, y, width, height);
-        VisualUIHelper.ApplySlicedSprite(image, visualID, new Color(1f, 1f, 1f, Mathf.Clamp01(fallbackColor.a)), fallbackColor, false);
+        Color outlineColor = new Color(
+            Mathf.Clamp01(fallbackColor.r + 0.14f),
+            Mathf.Clamp01(fallbackColor.g + 0.18f),
+            Mathf.Clamp01(fallbackColor.b + 0.16f),
+            Mathf.Clamp01(Mathf.Max(0.18f, fallbackColor.a * 0.42f)));
+        ApplyPanelFill(image, fallbackColor, outlineColor, new Vector2(1.5f, -1.5f));
         return image;
     }
 
@@ -411,6 +681,12 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
         Image card = CreateSlicedPanel(name, parent, topLeft.x, topLeft.y, 262f, 76f, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.14f, 0.15f, 0.62f));
         CreateIcon(name + "_Icon", card.transform, new Vector2(18f, 6f), iconVisualID);
         CreateText(name + "_Text", card.transform, label, new Vector2(96f, 12f), new Vector2(140f, 46f), 20, BodyTextColor, TextAnchor.MiddleLeft);
+    }
+
+    private void CreateListRowCard(string name, Transform parent, float x, float y, float width, string rowVisualID, string iconVisualID, string label) {
+        Image row = CreateSlicedPanel(name, parent, x, y, width, 70f, rowVisualID, new Color(0.14f, 0.16f, 0.15f, 0.84f));
+        CreateIcon(name + "_Icon", row.transform, new Vector2(14f, 3f), iconVisualID);
+        CreateText(name + "_Text", row.transform, label, new Vector2(92f, 10f), new Vector2(Mathf.Max(120f, width - 112f), 48f), 16, BodyTextColor, TextAnchor.MiddleLeft);
     }
 
     private void CreateMementoSlot(Transform parent, float x, float y, string label) {

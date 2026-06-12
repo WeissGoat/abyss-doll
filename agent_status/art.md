@@ -428,6 +428,27 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 下一步建议：先完成真实分层源、遮罩、inpaint / 表情候选和人工清理，再由 Cubism / Spine 绑定工具产出 Runtime、motions、expressions、physics 和 Prefab。
 - 问题 / 阻塞：`blocked:missing_layered_source_and_cubism_binding_output`。该阻塞不影响 FormalV2 静态 UI / ArtAcceptance，静态 fallback 仍使用 `doll_proto_0_stand`。
 
+## 2026-06-13 Live2D绑定阻塞复核
+
+- 最近完成：复核 `L2D-ART-03` 阻塞仍成立：`Approved/DollsLive2D` 不存在，`_IncomingAI/DollsLive2D/doll_proto_0/source` 与 `layered_psd` 为空，仓库内未找到 `.psd` / `.psb` / `.cmo3` / `.can3` / `.model3.json` / `.moc3` / `.motion3.json` / `.exp3.json` / `.physics3.json` / Spine `.skel` / `.atlas` 等源或运行时文件。
+- 当前关注：本机未发现 Cubism Editor 或 Spine 可执行工具；当前只能保留补层 / 表情候选请求包和静态 fallback，不能推进正式绑定交接。
+- 下一步建议：外部补齐经人工清理的分层源、遮罩、候选筛选结论和 Cubism / Spine 绑定输出后，再重新打开 `L2D-ART-03`。
+- 问题 / 阻塞：仍为 `blocked:missing_layered_source_and_cubism_binding_output`；不得用空目录、静态图、浏览器预览或 Unity 伪 rig 关闭该阻塞。
+
+## 2026-06-13 Live2D试点交接收口
+
+- 最近完成：本轮试点已把路线、限制和程序接入基础设施收口：`美术文档/16_Live2D角色动画资产接入规格.md` 定义 Cubism first / Spine fallback 和 AI 辅助边界；`_IncomingAI/DollsLive2D/doll_proto_0/` 记录 fallback、补层 / 表情候选请求包；程序侧完成 Prefab fallback、Presenter、UGUI bridge 和独立验收 runner。
+- 当前关注：当前没有正式分层 PSD、Cubism / Spine Runtime、motion、expression、physics 或 `DollLive2D_doll_proto_0.prefab`；`doll_proto_0_stand` 只是静态 fallback，不得标记为正式 Live2D 资产。
+- 下一步建议：美术侧后续先产出正式角色定稿或确认现有立绘可用，再做遮挡补层、表情差分、人工清理和 Cubism / Spine 绑定输出；绑定包完整后再交给程序跑独立 Live2D 多帧验收。
+- 问题 / 阻塞：`blocked:missing_layered_source_and_cubism_binding_output` 仍成立；该阻塞不影响当前 FormalV2 静态资源验收链路。
+
+## 2026-06-13 Live2D独立验收runner美术口径
+
+- 最近完成：`L2D-VAL-01` 已新增独立 Live2D 验收 runner；预期输出为 `UnityClient/Logs/Live2DAcceptance/latest/report.json` 和 7 张截图：`idle_0s`、`idle_1s`、`expression_2s`、`low_san_idle_3s`、`repair_react`、`hit_react`、`fallback`。
+- 当前关注：该 runner 不进入 FormalV2 ArtAcceptance 必过项，不修改 Approved、Manifest、Registry、`screen_layouts.json` 或 `_generated` 美术队列；当前没有真实 `doll_proto_0_live2d` 绑定包，合理结果应是 `FALLBACK_ONLY` / 受限验证，而非动态资产通过。
+- 下一步建议：待 Cubism / Spine 绑定包和 Prefab 交付后，美术验收再看多帧截图中的身份稳定、表情差分、低 SAN 状态、受击 / 维护反馈和 fallback 切换。
+- 问题 / 阻塞：不得把静态 fallback 截图、组件编译通过、浏览器预览或 Unity 自研伪 rig 当作正式 Live2D 动态立绘验收。
+
 ## 2026-06-13 Live2D UGUI桥接美术边界
 
 - 最近完成：程序侧已补独立 `DollLive2DUGUIBridge`，后续可用 `RenderTexture + RawImage` 显示动态魔偶，缺动态源时显示静态 fallback。
@@ -436,7 +457,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 
 ## 2026-06-13 FormalV2运行时UI直管精修
 
-- 最近完成：美术 / UI 侧直接处理 FormalV2 运行时 UI 剩余视觉阻塞：旧 FormalV1 模板屏改为纯色正式信息面板，`sell_panel` / `prosthetic_panel` 改为独立 modal，`dungeon_map` 节点 / 路线降低悬浮 UI 感；同时确认后续纯 UGUI 表现层 polish 由美术侧直接闭环。
+- 最近完成：美术 / UI 侧直接处理 FormalV2 运行时 UI 剩余视觉阻塞：11 个旧 FormalV1 模板屏改为逐屏 FormalV2 运行时结构，`sell_panel` / `prosthetic_panel` 改为独立 modal，`dungeon_map` 节点 / 路线降低悬浮 UI 感；同时确认后续纯 UGUI 表现层 polish 由美术侧直接闭环。
 - 当前关注：资源 / Registry / ArtAcceptance 工具门禁通过，本轮直接精修通过；最新证据为 ArtAcceptance `RunID=20260613_020257`、`PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0、`RealGameplay=21`、`FormalV1Template=0`。FormalV2 runtime UI visual seal 已通过当前纵切基线。
 - 下一步建议：继续由美术 / UI 侧直接做质量迭代，优先把共享工坊子面板按界面簇区分为更明确的 FormalV2 专屏结构；资源登记、批量补图、modal 隔离、地图节点融合和旧 `formal_v1_template` 降级路径不再是当前阻塞。
 - 验证证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 0 warning / 0 error；`Validate-UIDesign.ps1` 通过；`Validate-ArtGeneratedJson.ps1 -Strict` 通过；`python tools\docs\validate_docs.py --index docs_index.json` 通过。

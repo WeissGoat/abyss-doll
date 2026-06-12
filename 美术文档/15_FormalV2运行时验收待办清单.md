@@ -83,7 +83,7 @@ Do not start another bulk NovelAI pass. Continue direct art/UI runtime work in p
 ## 2026-06-13 Runtime UI Direct Polish
 
 - Art/UI side directly handled the remaining runtime UI visual blockers in pure UGUI.
-- `WorkshopFormalV1PanelController` now renders the 11 old-template screens as lower-noise isolated information panels: stronger backdrop, neutral dark cards, subtler outlines, lower-density text and real best-fit / wrap behavior.
+- `WorkshopFormalV1PanelController` now renders the 11 old-template screens through per-screen FormalV2 runtime structures: stronger backdrop, neutral cards, subtler outlines, lower-density text and real best-fit / wrap behavior.
 - `WorkshopUIController` now gives `sell_panel` and `prosthetic_panel` independent modal isolation, solid runtime cards and real tinting for buttons.
 - `DungeonMapUIController` now uses smaller map markers, shorter labels, depth-based node placement, route layering behind nodes and lower-saturation route / plate colors.
 - Verification evidence: `dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` passed with 0 warnings / 0 errors; `Validate-UIDesign.ps1` passed; latest ArtAcceptance `RunID=20260613_020257` passed with 21/21 captures, Registry 278, `MissingRequiredVisualIDs=0`, warnings/errors=0, `RealGameplay=21`, `FormalV1Template=0`.
