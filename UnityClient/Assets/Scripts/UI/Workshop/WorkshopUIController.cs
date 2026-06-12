@@ -42,7 +42,12 @@ public class WorkshopUIController : MonoBehaviour {
     private Image _leftActionPanel;
     private Image _formalV1EntryPanel;
     private Image _bottomHintPanel;
+    private Image _dollStatusPanel;
     private Image _dollStandImage;
+    private Text _abyssHintText;
+    private Text _studioHintText;
+    private Text _ledgerHintText;
+    private Text _dollCaptionText;
     private WorkshopFormalV1PanelController _formalV1PanelController;
 
     void Start() {
@@ -64,32 +69,31 @@ public class WorkshopUIController : MonoBehaviour {
 
         if (moneyText != null) {
             moneyText.text =
-                $"Money: {player.Money}G\n" +
-                $"Sellable Items: {sellableCount}  Backpack {backpackCount} / Stash {stashCount}\n" +
-                $"Estimated Value: {sellableEstimatedValue}G";
+                $"Day {player.CurrentDay} / M{player.CurrentMonth}.{player.CurrentMonthDay}   {player.Money}G\n" +
+                $"{BuildRentPressureText(player)}   Sellable {sellableCount} ({sellableEstimatedValue}G)";
         }
 
         var chassis = player.ActiveDoll.Chassis;
         if (chassisInfoText != null) {
-            chassisInfoText.text = $"Current Chassis: {chassis.ChassisID}\nCapacity: {chassis.GridWidth}x{chassis.GridHeight}";
+            chassisInfoText.text = $"Chassis {chassis.ChassisID}  Grid {chassis.GridWidth}x{chassis.GridHeight}";
         }
 
         if (stashHeaderText != null) {
-            stashHeaderText.text = "Sell Items";
+            stashHeaderText.text = "Town Market Preview";
         }
 
         if (sellSummaryText != null) {
             sellSummaryText.text = sellableCount > 0
-                ? $"Backpack {backpackCount} / Stash {stashCount}\nEstimated Value: {sellableEstimatedValue}G"
-                : "No items available to sell.";
+                ? $"Backpack {backpackCount} / Stash {stashCount}\nMarket preview {sellableEstimatedValue}G. Allocate and confirm sales in shop staging."
+                : "Town market preview. Shop staging handles selling and allocation.";
         }
 
         if (openSellPanelBtn != null) {
-            openSellPanelBtn.interactable = sellableCount > 0;
+            openSellPanelBtn.interactable = true;
         }
 
         if (sellAllBtn != null) {
-            sellAllBtn.interactable = sellableCount > 0;
+            sellAllBtn.interactable = true;
         }
 
         if (openProstheticPanelBtn != null) {
@@ -140,7 +144,7 @@ public class WorkshopUIController : MonoBehaviour {
 
         if (sellAllBtn != null) {
             sellAllBtn.onClick.RemoveAllListeners();
-            sellAllBtn.onClick.AddListener(SellAllVisibleItems);
+            sellAllBtn.onClick.AddListener(() => OpenFormalV1Panel("shop_staging"));
         }
 
         if (openProstheticPanelBtn != null) {
@@ -225,6 +229,7 @@ public class WorkshopUIController : MonoBehaviour {
 
     public void OpenSellPanel() {
         EnsureSellControls();
+        BindButtons();
         CloseFormalV1Panel();
         CloseProstheticPanel(false);
         _sellPanelOpen = true;
@@ -255,6 +260,7 @@ public class WorkshopUIController : MonoBehaviour {
 
     public void OpenProstheticPanel() {
         EnsureSellControls();
+        BindButtons();
         CloseFormalV1Panel();
         CloseSellPanel(false);
         _prostheticPanelOpen = true;
@@ -339,16 +345,25 @@ public class WorkshopUIController : MonoBehaviour {
         var player = GameRoot.Core.CurrentPlayer;
         BackpackGrid grid = player.ActiveDoll?.RuntimeGrid as BackpackGrid;
         Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        int visibleRows = 0;
 
         if (grid != null) {
             foreach (var item in grid.ContainedItems) {
                 CreateSellRow(item, defaultFont, "Backpack");
+                visibleRows++;
             }
         }
 
         foreach (var item in player.StashInventory) {
             CreateSellRow(item, defaultFont, "Stash");
+            visibleRows++;
         }
+
+        if (visibleRows == 0) {
+            CreateMarketPreviewPlaceholderRow(defaultFont);
+        }
+
+        ForceRebuildGeneratedList(stashListParent);
     }
 
     private void CreateSellRow(ItemEntity item, Font defaultFont, string sourceLabel) {
@@ -358,6 +373,7 @@ public class WorkshopUIController : MonoBehaviour {
 
         GameObject row = new GameObject($"SellRow_{item.InstanceID}");
         row.transform.SetParent(stashListParent, false);
+        ConfigureGeneratedRow(row, 760f, 104f);
         Image rowBg = row.AddComponent<Image>();
         VisualUIHelper.ApplySlicedSprite(
             rowBg,
@@ -373,10 +389,6 @@ public class WorkshopUIController : MonoBehaviour {
         rowLayout.childForceExpandHeight = false;
         rowLayout.padding = new RectOffset(14, 14, 8, 8);
         rowLayout.spacing = 12f;
-        ContentSizeFitter rowFitter = row.AddComponent<ContentSizeFitter>();
-        rowFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
-        rowFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
         GameObject iconObj = new GameObject("ItemIcon_Image");
         iconObj.transform.SetParent(row.transform, false);
         Image icon = iconObj.AddComponent<Image>();
@@ -400,32 +412,79 @@ public class WorkshopUIController : MonoBehaviour {
             : $"{item.BaseValue}G -> {sellLine.FinalValue}G";
         label.text = $"[{sourceLabel}] {item.Name}  [{valueText}]";
         RectTransform labelRect = labelObj.GetComponent<RectTransform>();
-        labelRect.sizeDelta = new Vector2(420f, 64f);
+        labelRect.sizeDelta = new Vector2(420f, 76f);
 
-        GameObject sellBtnObj = new GameObject("Sell_Button");
-        sellBtnObj.transform.SetParent(row.transform, false);
-        sellBtnObj.AddComponent<Image>();
-        Button sellBtn = sellBtnObj.AddComponent<Button>();
-        VisualUIHelper.ApplyButtonSkin(sellBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.86f, 0.45f, 0.18f));
-        RectTransform sellBtnRect = sellBtnObj.GetComponent<RectTransform>();
-        sellBtnRect.sizeDelta = new Vector2(140f, 52f);
+        GameObject routeObj = new GameObject("ShopStagingRoute_Text");
+        routeObj.transform.SetParent(row.transform, false);
+        Text routeText = routeObj.AddComponent<Text>();
+        routeText.font = defaultFont;
+        routeText.fontSize = 18;
+        routeText.color = new Color(0.92f, 0.82f, 0.58f, 1f);
+        routeText.alignment = TextAnchor.MiddleCenter;
+        routeText.raycastTarget = false;
+        routeText.text = "Shop staging";
+        RectTransform routeRect = routeObj.GetComponent<RectTransform>();
+        routeRect.sizeDelta = new Vector2(150f, 58f);
+    }
 
-        ItemEntity capturedItem = item;
-        sellBtn.onClick.AddListener(() => SellSingleItem(capturedItem));
+    private void CreateMarketPreviewPlaceholderRow(Font defaultFont) {
+        if (stashListParent == null) {
+            return;
+        }
 
-        GameObject sellTextObj = new GameObject("Text");
-        sellTextObj.transform.SetParent(sellBtnObj.transform, false);
-        Text sellText = sellTextObj.AddComponent<Text>();
-        sellText.font = defaultFont;
-        sellText.fontSize = 22;
-        sellText.color = Color.white;
-        sellText.alignment = TextAnchor.MiddleCenter;
-        sellText.raycastTarget = false;
-        sellText.text = "Sell";
-        RectTransform sellTextRect = sellTextObj.GetComponent<RectTransform>();
-        sellTextRect.anchorMin = Vector2.zero;
-        sellTextRect.anchorMax = Vector2.one;
-        sellTextRect.sizeDelta = Vector2.zero;
+        GameObject row = new GameObject("MarketPreviewRow_Empty");
+        row.transform.SetParent(stashListParent, false);
+        ConfigureGeneratedRow(row, 760f, 132f);
+        Image rowBg = row.AddComponent<Image>();
+        VisualUIHelper.ApplySlicedSprite(
+            rowBg,
+            VisualAssetService.UIListRowSelectedID,
+            Color.white,
+            new Color(0.14f, 0.12f, 0.09f, 0.96f),
+            false);
+
+        HorizontalLayoutGroup rowLayout = row.AddComponent<HorizontalLayoutGroup>();
+        rowLayout.childAlignment = TextAnchor.MiddleLeft;
+        rowLayout.childControlWidth = false;
+        rowLayout.childControlHeight = false;
+        rowLayout.childForceExpandWidth = false;
+        rowLayout.childForceExpandHeight = false;
+        rowLayout.padding = new RectOffset(18, 18, 12, 12);
+        rowLayout.spacing = 14f;
+
+        GameObject iconObj = new GameObject("MarketPreviewIcon_Image");
+        iconObj.transform.SetParent(row.transform, false);
+        Image icon = iconObj.AddComponent<Image>();
+        VisualUIHelper.ApplyContainSprite(
+            icon,
+            VisualAssetService.UIIconShopChannelID,
+            VisualDisplaySpecs.UIIcon,
+            Color.white,
+            new Color(0.72f, 0.46f, 0.22f, 1f));
+
+        GameObject labelObj = new GameObject("MarketPreviewLabel_Text");
+        labelObj.transform.SetParent(row.transform, false);
+        Text label = labelObj.AddComponent<Text>();
+        label.font = defaultFont;
+        label.fontSize = 23;
+        label.color = new Color(0.96f, 0.88f, 0.7f, 1f);
+        label.alignment = TextAnchor.MiddleLeft;
+        label.raycastTarget = false;
+        label.text = "No goods staged here.\nUse shop staging to allocate inventory, channels, and final sale confirmation.";
+        RectTransform labelRect = labelObj.GetComponent<RectTransform>();
+        labelRect.sizeDelta = new Vector2(540f, 96f);
+
+        GameObject routeObj = new GameObject("ShopStagingRoute_Text");
+        routeObj.transform.SetParent(row.transform, false);
+        Text routeText = routeObj.AddComponent<Text>();
+        routeText.font = defaultFont;
+        routeText.fontSize = 18;
+        routeText.color = new Color(0.92f, 0.82f, 0.58f, 1f);
+        routeText.alignment = TextAnchor.MiddleCenter;
+        routeText.raycastTarget = false;
+        routeText.text = "Shop staging";
+        RectTransform routeRect = routeObj.GetComponent<RectTransform>();
+        routeRect.sizeDelta = new Vector2(150f, 58f);
     }
 
     private Color ResolveItemTint(ItemEntity item) {
@@ -470,6 +529,22 @@ public class WorkshopUIController : MonoBehaviour {
                 sellableEstimatedValue += value;
             }
         }
+    }
+
+    private string BuildRentPressureText(PlayerProfile player) {
+        if (player == null) {
+            return "Rent unknown";
+        }
+
+        if (player.HasPendingMonthlyRent) {
+            return $"Rent due {player.PendingMonthlyBillAmount}G";
+        }
+
+        int rentCountdown = Mathf.Max(0, 28 - Mathf.Max(1, player.CurrentMonthDay));
+        string debtText = player.EconomyDebtAmount > 0
+            ? $"Debt {player.EconomyDebtAmount}G"
+            : "No debt";
+        return $"Rent {rentCountdown}d / {debtText}";
     }
 
     private void SellSingleItem(ItemEntity item) {
@@ -549,10 +624,11 @@ public class WorkshopUIController : MonoBehaviour {
         }
 
         if (prostheticHeaderText != null) {
-            prostheticHeaderText.text = "Prosthetic Workshop";
+            prostheticHeaderText.text = "Workshop Studio";
         }
 
         Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        int visibleRows = 0;
         foreach (var kvp in ConfigManager.CraftingRecipes) {
             CraftingRecipeConfig recipe = kvp.Value;
             if (recipe == null || string.IsNullOrEmpty(recipe.TargetProstheticID)) {
@@ -564,12 +640,20 @@ public class WorkshopUIController : MonoBehaviour {
             }
 
             CreateProstheticRow(recipe, prosthetic, defaultFont);
+            visibleRows++;
         }
+
+        if (visibleRows == 0) {
+            CreateStudioPlaceholderRow(defaultFont);
+        }
+
+        ForceRebuildGeneratedList(prostheticListParent);
     }
 
     private void CreateProstheticRow(CraftingRecipeConfig recipe, ProstheticEntity prosthetic, Font defaultFont) {
         GameObject row = new GameObject($"ProstheticRow_{prosthetic.ProstheticID}");
         row.transform.SetParent(prostheticListParent, false);
+        ConfigureGeneratedRow(row, 860f, 132f);
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
         DollEntity doll = player?.ActiveDoll;
         bool isEquipped = doll?.EquippedProsthetics?.Contains(prosthetic.ProstheticID) == true;
@@ -589,15 +673,21 @@ public class WorkshopUIController : MonoBehaviour {
         rowLayout.childForceExpandHeight = false;
         rowLayout.padding = new RectOffset(14, 14, 8, 8);
         rowLayout.spacing = 12f;
-        ContentSizeFitter rowFitter = row.AddComponent<ContentSizeFitter>();
-        rowFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
-        rowFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
         GameObject iconObj = new GameObject("ProstheticIcon_Image");
         iconObj.transform.SetParent(row.transform, false);
         Image icon = iconObj.AddComponent<Image>();
         string iconID = VisualAssetService.ResolveProstheticIconID(prosthetic);
         VisualUIHelper.ApplyContainSprite(icon, iconID, VisualDisplaySpecs.ProstheticIcon, Color.white, new Color(0.34f, 0.62f, 0.76f, 1f));
+
+        GameObject materialIconObj = new GameObject("MaterialNeedIcon_Image");
+        materialIconObj.transform.SetParent(row.transform, false);
+        Image materialIcon = materialIconObj.AddComponent<Image>();
+        VisualUIHelper.ApplyContainSprite(
+            materialIcon,
+            VisualAssetService.UIIconMaterialNeedID,
+            new Vector2(42f, 42f),
+            Color.white,
+            new Color(0.72f, 0.58f, 0.32f, 1f));
 
         GameObject labelObj = new GameObject("ProstheticLabel_Text");
         labelObj.transform.SetParent(row.transform, false);
@@ -612,9 +702,9 @@ public class WorkshopUIController : MonoBehaviour {
             : canCraft
                 ? string.Empty
                 : $"  {craftReason}";
-        label.text = $"{prosthetic.Name} [{prosthetic.SlotType}]\n{BuildCostText(recipe.Cost)}{craftStateText}";
+        label.text = $"{prosthetic.Name} [{prosthetic.SlotType}]\nMaterials: {BuildCostText(recipe.Cost)}{craftStateText}";
         RectTransform labelRect = labelObj.GetComponent<RectTransform>();
-        labelRect.sizeDelta = new Vector2(isEquipped ? 438f : 500f, 80f);
+        labelRect.sizeDelta = new Vector2(isEquipped ? 330f : 390f, 94f);
 
         if (isEquipped) {
             GameObject equippedObj = new GameObject("EquippedIcon_Image");
@@ -628,18 +718,78 @@ public class WorkshopUIController : MonoBehaviour {
                 new Color(0.46f, 0.72f, 0.46f, 1f));
         }
 
+        if (!isEquipped && !canCraft) {
+            GameObject lockedObj = new GameObject("LockedIcon_Image");
+            lockedObj.transform.SetParent(row.transform, false);
+            Image lockedIcon = lockedObj.AddComponent<Image>();
+            VisualUIHelper.ApplyContainSprite(
+                lockedIcon,
+                VisualAssetService.UIIconLockedID,
+                new Vector2(48f, 48f),
+                Color.white,
+                new Color(0.52f, 0.56f, 0.62f, 1f));
+        }
+
         Button craftBtn = CreateInlineButton(
             "Craft_Button",
-            isEquipped ? "Equipped" : "Craft",
+            isEquipped ? "Equipped" : canCraft ? "Craft" : "Locked",
             row.transform,
-            new Vector2(150f, 54f),
-            isEquipped ? new Color(0.25f, 0.35f, 0.28f) : new Color(0.25f, 0.52f, 0.7f),
+            new Vector2(132f, 54f),
+            isEquipped ? new Color(0.25f, 0.35f, 0.28f) : canCraft ? new Color(0.25f, 0.52f, 0.7f) : new Color(0.28f, 0.3f, 0.34f),
             defaultFont,
-            22);
+            20);
         craftBtn.interactable = !isEquipped && canCraft;
         craftBtn.onClick.AddListener(() => {
             ExecuteProstheticCraftFromButton(recipe.RecipeID);
         });
+    }
+
+    private void CreateStudioPlaceholderRow(Font defaultFont) {
+        if (prostheticListParent == null) {
+            return;
+        }
+
+        GameObject row = new GameObject("StudioRecipeRow_Empty");
+        row.transform.SetParent(prostheticListParent, false);
+        ConfigureGeneratedRow(row, 860f, 132f);
+        Image rowBg = row.AddComponent<Image>();
+        VisualUIHelper.ApplySlicedSprite(
+            rowBg,
+            VisualAssetService.UIListRowNormalID,
+            Color.white,
+            new Color(0.065f, 0.085f, 0.1f, 0.94f),
+            false);
+
+        HorizontalLayoutGroup rowLayout = row.AddComponent<HorizontalLayoutGroup>();
+        rowLayout.childAlignment = TextAnchor.MiddleLeft;
+        rowLayout.childControlWidth = false;
+        rowLayout.childControlHeight = false;
+        rowLayout.childForceExpandWidth = false;
+        rowLayout.childForceExpandHeight = false;
+        rowLayout.padding = new RectOffset(18, 18, 12, 12);
+        rowLayout.spacing = 14f;
+
+        GameObject iconObj = new GameObject("MaterialNeedIcon_Image");
+        iconObj.transform.SetParent(row.transform, false);
+        Image icon = iconObj.AddComponent<Image>();
+        VisualUIHelper.ApplyContainSprite(
+            icon,
+            VisualAssetService.UIIconMaterialNeedID,
+            VisualDisplaySpecs.UIIcon,
+            Color.white,
+            new Color(0.72f, 0.58f, 0.32f, 1f));
+
+        GameObject labelObj = new GameObject("StudioPlaceholder_Text");
+        labelObj.transform.SetParent(row.transform, false);
+        Text label = labelObj.AddComponent<Text>();
+        label.font = defaultFont;
+        label.fontSize = 23;
+        label.color = new Color(0.9f, 0.95f, 1f, 1f);
+        label.alignment = TextAnchor.MiddleLeft;
+        label.raycastTarget = false;
+        label.text = "No prosthetic recipes are unlocked.\nMaintenance and chassis controls remain available from the studio tabs.";
+        RectTransform labelRect = labelObj.GetComponent<RectTransform>();
+        labelRect.sizeDelta = new Vector2(660f, 96f);
     }
 
     private string BuildCostText(CraftingCost cost) {
@@ -687,7 +837,7 @@ public class WorkshopUIController : MonoBehaviour {
 
         int equippedCount = doll?.EquippedProsthetics?.Count ?? 0;
         return recipeCount > 0
-            ? $"Recipes: {recipeCount}   Craftable: {craftableCount}   Equipped: {equippedCount}\nCrafted prosthetics are equipped immediately."
+            ? $"Studio recipes: {recipeCount}   Craftable: {craftableCount}   Equipped: {equippedCount}\nMaintenance and chassis are available as studio subpanels."
             : "No prosthetic recipes are available.";
     }
 
@@ -712,16 +862,16 @@ public class WorkshopUIController : MonoBehaviour {
         if (openSellPanelBtn == null) {
             openSellPanelBtn = CreateAnchoredButton(
                 "OpenSellPanel_Button",
-                "Sell Items",
-                _leftActionPanel != null ? _leftActionPanel.transform : transform,
+                "Market",
+                _bottomHintPanel != null ? _bottomHintPanel.transform : transform,
                 new Vector2(0.5f, 1f),
                 new Vector2(0.5f, 1f),
                 new Vector2(0.5f, 1f),
-                new Vector2(0f, -190f),
-                new Vector2(250f, 70f),
+                new Vector2(0f, -118f),
+                new Vector2(220f, 54f),
                 new Color(0.72f, 0.36f, 0.16f),
                 defaultFont,
-                28);
+                22);
         }
 
         EnsureSellPanel(defaultFont);
@@ -729,6 +879,7 @@ public class WorkshopUIController : MonoBehaviour {
         EnsureDungeonStartLayerPanel(defaultFont);
         EnsureFormalV1PanelController();
         EnsureFormalV1EntryButtons(defaultFont);
+        EnsureWorkshopMainSkin();
         ApplyMainButtonSkin();
     }
 
@@ -810,7 +961,8 @@ public class WorkshopUIController : MonoBehaviour {
         RectTransform panelRect = sellPanel.AddComponent<RectTransform>();
         panelRect.anchorMin = Vector2.zero;
         panelRect.anchorMax = Vector2.one;
-        panelRect.sizeDelta = Vector2.zero;
+        panelRect.offsetMin = Vector2.zero;
+        panelRect.offsetMax = Vector2.zero;
         Image panelBg = sellPanel.AddComponent<Image>();
         ApplyModalBackdropSkin(panelBg);
 
@@ -821,7 +973,7 @@ public class WorkshopUIController : MonoBehaviour {
         cardRect.anchorMax = new Vector2(0.5f, 0.5f);
         cardRect.pivot = new Vector2(0.5f, 0.5f);
         cardRect.anchoredPosition = Vector2.zero;
-        cardRect.sizeDelta = new Vector2(1160f, 780f);
+        cardRect.sizeDelta = new Vector2(1180f, 720f);
         Image cardBg = cardObj.AddComponent<Image>();
         ApplyRuntimePanelSkin(cardBg, VisualAssetService.UIPanelMainID, new Color(0.12f, 0.11f, 0.095f, 0.98f), false);
 
@@ -829,7 +981,7 @@ public class WorkshopUIController : MonoBehaviour {
         titleObj.transform.SetParent(cardObj.transform, false);
         Text title = titleObj.AddComponent<Text>();
         title.font = defaultFont;
-        title.fontSize = 40;
+        title.fontSize = 34;
         title.color = new Color(1f, 0.88f, 0.48f);
         title.alignment = TextAnchor.MiddleLeft;
         title.raycastTarget = false;
@@ -838,7 +990,7 @@ public class WorkshopUIController : MonoBehaviour {
         titleRect.anchorMax = new Vector2(0f, 1f);
         titleRect.pivot = new Vector2(0f, 1f);
         titleRect.anchoredPosition = new Vector2(40f, -30f);
-        titleRect.sizeDelta = new Vector2(360f, 64f);
+        titleRect.sizeDelta = new Vector2(440f, 56f);
         stashHeaderText = title;
 
         CreateTitleDivider(cardObj.transform, new Vector2(40f, -86f), new Vector2(520f, 32f));
@@ -847,7 +999,7 @@ public class WorkshopUIController : MonoBehaviour {
         summaryObj.transform.SetParent(cardObj.transform, false);
         Text summary = summaryObj.AddComponent<Text>();
         summary.font = defaultFont;
-        summary.fontSize = 24;
+        summary.fontSize = 22;
         summary.color = new Color(0.9f, 0.9f, 0.84f);
         summary.alignment = TextAnchor.UpperLeft;
         summary.raycastTarget = false;
@@ -855,22 +1007,22 @@ public class WorkshopUIController : MonoBehaviour {
         summaryRect.anchorMin = new Vector2(0f, 1f);
         summaryRect.anchorMax = new Vector2(0f, 1f);
         summaryRect.pivot = new Vector2(0f, 1f);
-        summaryRect.anchoredPosition = new Vector2(40f, -96f);
-        summaryRect.sizeDelta = new Vector2(560f, 80f);
+        summaryRect.anchoredPosition = new Vector2(40f, -92f);
+        summaryRect.sizeDelta = new Vector2(760f, 76f);
         sellSummaryText = summary;
 
         sellAllBtn = CreateAnchoredButton(
-            "SellAll_Button",
-            "Sell All",
+            "OpenShopStaging_Button",
+            "Shop Staging",
             cardObj.transform,
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
-            new Vector2(-210f, -36f),
-            new Vector2(160f, 56f),
-            new Color(0.7f, 0.2f, 0.18f),
+            new Vector2(-238f, -36f),
+            new Vector2(210f, 54f),
+            new Color(0.72f, 0.36f, 0.16f),
             defaultFont,
-            24);
+            20);
 
         closeSellPanelBtn = CreateAnchoredButton(
             "Close_Button",
@@ -879,8 +1031,8 @@ public class WorkshopUIController : MonoBehaviour {
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
-            new Vector2(-40f, -36f),
-            new Vector2(140f, 56f),
+            new Vector2(-56f, -36f),
+            new Vector2(112f, 54f),
             new Color(0.28f, 0.3f, 0.34f),
             defaultFont,
             24);
@@ -891,10 +1043,10 @@ public class WorkshopUIController : MonoBehaviour {
         scrollRect.anchorMin = new Vector2(0.5f, 0.5f);
         scrollRect.anchorMax = new Vector2(0.5f, 0.5f);
         scrollRect.pivot = new Vector2(0.5f, 0.5f);
-        scrollRect.anchoredPosition = new Vector2(0f, -85f);
-        scrollRect.sizeDelta = new Vector2(1060f, 560f);
+        scrollRect.anchoredPosition = new Vector2(-120f, -92f);
+        scrollRect.sizeDelta = new Vector2(820f, 430f);
         Image scrollBg = scrollObj.AddComponent<Image>();
-        ApplyRuntimePanelSkin(scrollBg, VisualAssetService.UIPanelMainID, new Color(0.055f, 0.055f, 0.055f, 0.92f), false);
+        ApplyRuntimePanelSkin(scrollBg, VisualAssetService.UIPanelInfoID, new Color(0.12f, 0.095f, 0.065f, 0.98f), false);
         ScrollRect scroll = scrollObj.AddComponent<ScrollRect>();
         scroll.horizontal = false;
 
@@ -905,10 +1057,7 @@ public class WorkshopUIController : MonoBehaviour {
         viewportRect.anchorMax = Vector2.one;
         viewportRect.sizeDelta = new Vector2(-24f, -24f);
         viewportRect.anchoredPosition = Vector2.zero;
-        Image viewportImage = viewportObj.AddComponent<Image>();
-        ApplyViewportMaskSkin(viewportImage);
-        Mask viewportMask = viewportObj.AddComponent<Mask>();
-        viewportMask.showMaskGraphic = false;
+        viewportObj.AddComponent<RectMask2D>();
         scroll.viewport = viewportRect;
 
         GameObject contentObj = new GameObject("Content");
@@ -921,7 +1070,7 @@ public class WorkshopUIController : MonoBehaviour {
         contentRect.sizeDelta = new Vector2(0f, 0f);
         VerticalLayoutGroup contentLayout = contentObj.AddComponent<VerticalLayoutGroup>();
         contentLayout.childAlignment = TextAnchor.UpperLeft;
-        contentLayout.childControlWidth = false;
+        contentLayout.childControlWidth = true;
         contentLayout.childControlHeight = false;
         contentLayout.childForceExpandWidth = false;
         contentLayout.childForceExpandHeight = false;
@@ -939,16 +1088,16 @@ public class WorkshopUIController : MonoBehaviour {
         if (openProstheticPanelBtn == null) {
             openProstheticPanelBtn = CreateAnchoredButton(
                 "OpenProstheticPanel_Button",
-                "Prosthetics",
-                _leftActionPanel != null ? _leftActionPanel.transform : transform,
+                "Studio",
+                _formalV1EntryPanel != null ? _formalV1EntryPanel.transform : transform,
                 new Vector2(0.5f, 1f),
                 new Vector2(0.5f, 1f),
                 new Vector2(0.5f, 1f),
-                new Vector2(0f, -280f),
-                new Vector2(250f, 70f),
+                new Vector2(0f, -118f),
+                new Vector2(220f, 52f),
                 new Color(0.18f, 0.42f, 0.58f),
                 defaultFont,
-                28);
+                23);
         }
 
         EnsureProstheticPanel(defaultFont);
@@ -972,7 +1121,8 @@ public class WorkshopUIController : MonoBehaviour {
         RectTransform panelRect = prostheticPanel.AddComponent<RectTransform>();
         panelRect.anchorMin = Vector2.zero;
         panelRect.anchorMax = Vector2.one;
-        panelRect.sizeDelta = Vector2.zero;
+        panelRect.offsetMin = Vector2.zero;
+        panelRect.offsetMax = Vector2.zero;
         Image panelBg = prostheticPanel.AddComponent<Image>();
         ApplyModalBackdropSkin(panelBg);
 
@@ -983,7 +1133,7 @@ public class WorkshopUIController : MonoBehaviour {
         cardRect.anchorMax = new Vector2(0.5f, 0.5f);
         cardRect.pivot = new Vector2(0.5f, 0.5f);
         cardRect.anchoredPosition = Vector2.zero;
-        cardRect.sizeDelta = new Vector2(1160f, 780f);
+        cardRect.sizeDelta = new Vector2(1180f, 720f);
         Image cardBg = cardObj.AddComponent<Image>();
         ApplyRuntimePanelSkin(cardBg, VisualAssetService.UIPanelMainID, new Color(0.07f, 0.095f, 0.12f, 0.98f), false);
 
@@ -991,7 +1141,7 @@ public class WorkshopUIController : MonoBehaviour {
         titleObj.transform.SetParent(cardObj.transform, false);
         Text title = titleObj.AddComponent<Text>();
         title.font = defaultFont;
-        title.fontSize = 40;
+        title.fontSize = 34;
         title.color = new Color(0.72f, 0.9f, 1f);
         title.alignment = TextAnchor.MiddleLeft;
         title.raycastTarget = false;
@@ -1000,7 +1150,7 @@ public class WorkshopUIController : MonoBehaviour {
         titleRect.anchorMax = new Vector2(0f, 1f);
         titleRect.pivot = new Vector2(0f, 1f);
         titleRect.anchoredPosition = new Vector2(40f, -30f);
-        titleRect.sizeDelta = new Vector2(460f, 64f);
+        titleRect.sizeDelta = new Vector2(500f, 56f);
         prostheticHeaderText = title;
 
         CreateTitleDivider(cardObj.transform, new Vector2(40f, -86f), new Vector2(560f, 32f));
@@ -1009,7 +1159,7 @@ public class WorkshopUIController : MonoBehaviour {
         summaryObj.transform.SetParent(cardObj.transform, false);
         Text summary = summaryObj.AddComponent<Text>();
         summary.font = defaultFont;
-        summary.fontSize = 24;
+        summary.fontSize = 22;
         summary.color = new Color(0.86f, 0.92f, 0.96f);
         summary.alignment = TextAnchor.UpperLeft;
         summary.raycastTarget = false;
@@ -1017,8 +1167,8 @@ public class WorkshopUIController : MonoBehaviour {
         summaryRect.anchorMin = new Vector2(0f, 1f);
         summaryRect.anchorMax = new Vector2(0f, 1f);
         summaryRect.pivot = new Vector2(0f, 1f);
-        summaryRect.anchoredPosition = new Vector2(40f, -96f);
-        summaryRect.sizeDelta = new Vector2(700f, 80f);
+        summaryRect.anchoredPosition = new Vector2(40f, -92f);
+        summaryRect.sizeDelta = new Vector2(760f, 76f);
         prostheticSummaryText = summary;
 
         closeProstheticPanelBtn = CreateAnchoredButton(
@@ -1028,11 +1178,39 @@ public class WorkshopUIController : MonoBehaviour {
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
-            new Vector2(-40f, -36f),
-            new Vector2(140f, 56f),
+            new Vector2(-56f, -36f),
+            new Vector2(112f, 54f),
             new Color(0.28f, 0.3f, 0.34f),
             defaultFont,
-            24);
+            22);
+
+        Button maintenanceStudioBtn = CreateAnchoredButton(
+            "StudioMaintenance_Button",
+            "Maintenance",
+            cardObj.transform,
+            new Vector2(1f, 1f),
+            new Vector2(1f, 1f),
+            new Vector2(1f, 1f),
+            new Vector2(-428f, -36f),
+            new Vector2(172f, 54f),
+            new Color(0.22f, 0.44f, 0.42f),
+            defaultFont,
+            19);
+        maintenanceStudioBtn.onClick.AddListener(() => OpenFormalV1Panel("maintenance_panel"));
+
+        Button chassisStudioBtn = CreateAnchoredButton(
+            "StudioChassis_Button",
+            "Chassis",
+            cardObj.transform,
+            new Vector2(1f, 1f),
+            new Vector2(1f, 1f),
+            new Vector2(1f, 1f),
+            new Vector2(-242f, -36f),
+            new Vector2(154f, 54f),
+            new Color(0.2f, 0.36f, 0.52f),
+            defaultFont,
+            19);
+        chassisStudioBtn.onClick.AddListener(() => OpenFormalV1Panel("chassis_upgrade_panel"));
 
         GameObject scrollObj = new GameObject("ProstheticList_Scroll");
         scrollObj.transform.SetParent(cardObj.transform, false);
@@ -1040,10 +1218,10 @@ public class WorkshopUIController : MonoBehaviour {
         scrollRect.anchorMin = new Vector2(0.5f, 0.5f);
         scrollRect.anchorMax = new Vector2(0.5f, 0.5f);
         scrollRect.pivot = new Vector2(0.5f, 0.5f);
-        scrollRect.anchoredPosition = new Vector2(0f, -85f);
-        scrollRect.sizeDelta = new Vector2(1060f, 560f);
+        scrollRect.anchoredPosition = new Vector2(-80f, -92f);
+        scrollRect.sizeDelta = new Vector2(920f, 430f);
         Image scrollBg = scrollObj.AddComponent<Image>();
-        ApplyRuntimePanelSkin(scrollBg, VisualAssetService.UIPanelMainID, new Color(0.045f, 0.06f, 0.075f, 0.92f), false);
+        ApplyRuntimePanelSkin(scrollBg, VisualAssetService.UIPanelInfoID, new Color(0.055f, 0.085f, 0.105f, 0.98f), false);
         ScrollRect scroll = scrollObj.AddComponent<ScrollRect>();
         scroll.horizontal = false;
 
@@ -1054,10 +1232,7 @@ public class WorkshopUIController : MonoBehaviour {
         viewportRect.anchorMax = Vector2.one;
         viewportRect.sizeDelta = new Vector2(-24f, -24f);
         viewportRect.anchoredPosition = Vector2.zero;
-        Image viewportImage = viewportObj.AddComponent<Image>();
-        ApplyViewportMaskSkin(viewportImage);
-        Mask viewportMask = viewportObj.AddComponent<Mask>();
-        viewportMask.showMaskGraphic = false;
+        viewportObj.AddComponent<RectMask2D>();
         scroll.viewport = viewportRect;
 
         GameObject contentObj = new GameObject("Content");
@@ -1070,7 +1245,7 @@ public class WorkshopUIController : MonoBehaviour {
         contentRect.sizeDelta = new Vector2(0f, 0f);
         VerticalLayoutGroup contentLayout = contentObj.AddComponent<VerticalLayoutGroup>();
         contentLayout.childAlignment = TextAnchor.UpperLeft;
-        contentLayout.childControlWidth = false;
+        contentLayout.childControlWidth = true;
         contentLayout.childControlHeight = false;
         contentLayout.childForceExpandWidth = false;
         contentLayout.childForceExpandHeight = false;
@@ -1098,7 +1273,8 @@ public class WorkshopUIController : MonoBehaviour {
         RectTransform panelRect = dungeonStartLayerPanel.AddComponent<RectTransform>();
         panelRect.anchorMin = Vector2.zero;
         panelRect.anchorMax = Vector2.one;
-        panelRect.sizeDelta = Vector2.zero;
+        panelRect.offsetMin = Vector2.zero;
+        panelRect.offsetMax = Vector2.zero;
 
         Image backdropImage = dungeonStartLayerPanel.AddComponent<Image>();
         VisualUIHelper.ApplySolidColor(backdropImage, new Color(0.012f, 0.014f, 0.013f, 1f), true);
@@ -1127,7 +1303,7 @@ public class WorkshopUIController : MonoBehaviour {
         cardRect.anchorMax = new Vector2(0.5f, 0.5f);
         cardRect.pivot = new Vector2(0.5f, 0.5f);
         cardRect.anchoredPosition = Vector2.zero;
-        cardRect.sizeDelta = new Vector2(960f, 720f);
+        cardRect.sizeDelta = new Vector2(1040f, 760f);
         Image cardBg = cardObj.AddComponent<Image>();
         ApplyRuntimePanelSkin(cardBg, VisualAssetService.UIPanelMainID, new Color(0.08f, 0.1f, 0.11f, 0.98f), false);
 
@@ -1135,7 +1311,7 @@ public class WorkshopUIController : MonoBehaviour {
         titleObj.transform.SetParent(cardObj.transform, false);
         Text title = titleObj.AddComponent<Text>();
         title.font = defaultFont;
-        title.fontSize = 42;
+        title.fontSize = 36;
         title.color = new Color(1f, 0.84f, 0.46f);
         title.alignment = TextAnchor.MiddleLeft;
         title.raycastTarget = false;
@@ -1143,17 +1319,17 @@ public class WorkshopUIController : MonoBehaviour {
         titleRect.anchorMin = new Vector2(0f, 1f);
         titleRect.anchorMax = new Vector2(0f, 1f);
         titleRect.pivot = new Vector2(0f, 1f);
-        titleRect.anchoredPosition = new Vector2(48f, -36f);
-        titleRect.sizeDelta = new Vector2(480f, 70f);
+        titleRect.anchoredPosition = new Vector2(48f, -34f);
+        titleRect.sizeDelta = new Vector2(520f, 58f);
         _dungeonStartLayerController.titleText = title;
 
-        _dungeonStartLayerController.titleDividerImage = CreateTitleDivider(cardObj.transform, new Vector2(48f, -92f), new Vector2(560f, 32f));
+        _dungeonStartLayerController.titleDividerImage = CreateTitleDivider(cardObj.transform, new Vector2(48f, -86f), new Vector2(620f, 30f));
 
         GameObject summaryObj = new GameObject("Summary_Text");
         summaryObj.transform.SetParent(cardObj.transform, false);
         Text summary = summaryObj.AddComponent<Text>();
         summary.font = defaultFont;
-        summary.fontSize = 24;
+        summary.fontSize = 21;
         summary.color = new Color(0.86f, 0.9f, 0.86f);
         summary.alignment = TextAnchor.UpperLeft;
         summary.raycastTarget = false;
@@ -1161,8 +1337,8 @@ public class WorkshopUIController : MonoBehaviour {
         summaryRect.anchorMin = new Vector2(0f, 1f);
         summaryRect.anchorMax = new Vector2(0f, 1f);
         summaryRect.pivot = new Vector2(0f, 1f);
-        summaryRect.anchoredPosition = new Vector2(48f, -110f);
-        summaryRect.sizeDelta = new Vector2(760f, 82f);
+        summaryRect.anchoredPosition = new Vector2(48f, -104f);
+        summaryRect.sizeDelta = new Vector2(820f, 76f);
         _dungeonStartLayerController.summaryText = summary;
 
         GameObject listObj = new GameObject("LayerList");
@@ -1171,8 +1347,8 @@ public class WorkshopUIController : MonoBehaviour {
         listRect.anchorMin = new Vector2(0.5f, 0.5f);
         listRect.anchorMax = new Vector2(0.5f, 0.5f);
         listRect.pivot = new Vector2(0.5f, 0.5f);
-        listRect.anchoredPosition = new Vector2(0f, -34f);
-        listRect.sizeDelta = new Vector2(800f, 390f);
+        listRect.anchoredPosition = new Vector2(0f, -26f);
+        listRect.sizeDelta = new Vector2(840f, 410f);
         VerticalLayoutGroup listLayout = listObj.AddComponent<VerticalLayoutGroup>();
         listLayout.childAlignment = TextAnchor.UpperCenter;
         listLayout.childControlWidth = false;
@@ -1304,7 +1480,39 @@ public class WorkshopUIController : MonoBehaviour {
     }
 
     private void ApplyModalBackdropSkin(Image image) {
-        VisualUIHelper.ApplySolidColor(image, new Color(0.012f, 0.014f, 0.013f, 1f), true);
+        VisualUIHelper.ApplySolidColor(image, new Color(0.012f, 0.014f, 0.013f, 0.9f));
+        image.raycastTarget = true;
+    }
+
+    private void ConfigureGeneratedRow(GameObject row, float preferredWidth, float preferredHeight) {
+        if (row == null) {
+            return;
+        }
+
+        RectTransform rect = row.GetComponent<RectTransform>();
+        if (rect == null) {
+            rect = row.AddComponent<RectTransform>();
+        }
+
+        rect.sizeDelta = new Vector2(preferredWidth, preferredHeight);
+        LayoutElement layoutElement = row.GetComponent<LayoutElement>();
+        if (layoutElement == null) {
+            layoutElement = row.AddComponent<LayoutElement>();
+        }
+
+        layoutElement.minWidth = preferredWidth;
+        layoutElement.preferredWidth = preferredWidth;
+        layoutElement.minHeight = preferredHeight;
+        layoutElement.preferredHeight = preferredHeight;
+    }
+
+    private void ForceRebuildGeneratedList(Transform listParent) {
+        RectTransform rect = listParent as RectTransform;
+        if (rect != null) {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(rect);
+        }
+
+        Canvas.ForceUpdateCanvases();
     }
 
     private void ApplyViewportMaskSkin(Image image) {
@@ -1314,39 +1522,97 @@ public class WorkshopUIController : MonoBehaviour {
     private void EnsureWorkshopMainSkin() {
         _topStatusPanel = EnsureDecorPanel(
             _topStatusPanel,
-            "TopStatusPanel",
-            new Vector2(0.5f, 1f),
-            new Vector2(0f, -68f),
-            new Vector2(1792f, 72f));
+            "LightStatusStrip",
+            new Vector2(0f, 1f),
+            new Vector2(48f, -28f),
+            new Vector2(620f, 108f));
 
         _leftActionPanel = EnsureDecorPanel(
             _leftActionPanel,
-            "LeftActionPanel",
-            new Vector2(0f, 0.5f),
-            new Vector2(306f, 0f),
-            new Vector2(420f, 520f));
+            "AbyssDoorPanel",
+            new Vector2(1f, 0.5f),
+            new Vector2(-170f, 40f),
+            new Vector2(440f, 360f));
 
         _formalV1EntryPanel = EnsureDecorPanel(
             _formalV1EntryPanel,
-            "FormalV1EntryPanel",
+            "WorkshopEntryPanel",
             new Vector2(0f, 0.5f),
-            new Vector2(760f, 0f),
-            new Vector2(440f, 520f));
+            new Vector2(44f, -12f),
+            new Vector2(310f, 190f));
 
         _bottomHintPanel = EnsureDecorPanel(
             _bottomHintPanel,
-            "BottomHintArea",
-            new Vector2(0f, 0f),
-            new Vector2(306f, 180f),
-            new Vector2(420f, 180f));
+            "LedgerCornerPanel",
+            new Vector2(1f, 0f),
+            new Vector2(-170f, 170f),
+            new Vector2(360f, 210f));
+
+        _dollStatusPanel = EnsureDecorPanel(
+            _dollStatusPanel,
+            "DollStatusPlate",
+            new Vector2(0.5f, 0f),
+            new Vector2(0f, 42f),
+            new Vector2(520f, 112f));
+
+        _abyssHintText = EnsureDecorText(
+            _abyssHintText,
+            "AbyssHint_Text",
+            _leftActionPanel != null ? _leftActionPanel.transform : transform,
+            "Abyss lift\nRoute and readiness check",
+            new Vector2(0.5f, 1f),
+            new Vector2(0f, -44f),
+            new Vector2(360f, 112f),
+            24,
+            new Color(0.96f, 0.86f, 0.64f, 1f),
+            TextAnchor.UpperCenter);
+
+        _studioHintText = EnsureDecorText(
+            _studioHintText,
+            "StudioHint_Text",
+            _formalV1EntryPanel != null ? _formalV1EntryPanel.transform : transform,
+            "Studio\nMaintenance, chassis, prosthetics",
+            new Vector2(0.5f, 1f),
+            new Vector2(0f, -26f),
+            new Vector2(260f, 72f),
+            20,
+            new Color(0.9f, 0.88f, 0.78f, 1f),
+            TextAnchor.UpperCenter);
+
+        _ledgerHintText = EnsureDecorText(
+            _ledgerHintText,
+            "LedgerHint_Text",
+            _bottomHintPanel != null ? _bottomHintPanel.transform : transform,
+            "Ledger\nMarket, orders, bills",
+            new Vector2(0.5f, 1f),
+            new Vector2(0f, -32f),
+            new Vector2(300f, 82f),
+            22,
+            new Color(0.92f, 0.86f, 0.72f, 1f),
+            TextAnchor.UpperCenter);
+
+        _dollCaptionText = EnsureDecorText(
+            _dollCaptionText,
+            "DollCaption_Text",
+            _dollStatusPanel != null ? _dollStatusPanel.transform : transform,
+            "Doll status",
+            new Vector2(0.5f, 1f),
+            new Vector2(0f, -14f),
+            new Vector2(430f, 34f),
+            18,
+            new Color(0.95f, 0.88f, 0.72f, 1f),
+            TextAnchor.UpperCenter);
 
         EnsureDollStandImage();
-        MoveIntoPanel(moneyText, _topStatusPanel != null ? _topStatusPanel.transform : transform, new Vector2(28f, -10f), new Vector2(820f, 58f), 26);
-        MoveIntoPanel(chassisInfoText, _bottomHintPanel != null ? _bottomHintPanel.transform : transform, new Vector2(24f, -18f), new Vector2(372f, 138f), 24);
-        RepositionButton(upgradeBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -100f), new Vector2(250f, 70f));
-        RepositionButton(departBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -20f), new Vector2(250f, 70f));
-        RepositionButton(openSellPanelBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -190f), new Vector2(250f, 70f));
-        RepositionButton(openProstheticPanelBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -280f), new Vector2(250f, 70f));
+        MoveIntoPanel(moneyText, _topStatusPanel != null ? _topStatusPanel.transform : transform, new Vector2(24f, -14f), new Vector2(560f, 78f), 20);
+        MoveIntoPanel(chassisInfoText, _dollStatusPanel != null ? _dollStatusPanel.transform : transform, new Vector2(34f, -54f), new Vector2(452f, 34f), 15);
+        SetButtonVisible(upgradeBtn, false);
+        RepositionButton(departBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -230f), new Vector2(300f, 72f));
+        RepositionButton(openSellPanelBtn, _bottomHintPanel != null ? _bottomHintPanel.transform : transform, new Vector2(0f, -132f), new Vector2(220f, 54f));
+        RepositionButton(openProstheticPanelBtn, _formalV1EntryPanel != null ? _formalV1EntryPanel.transform : transform, new Vector2(0f, -118f), new Vector2(220f, 52f));
+        SetButtonLabel(departBtn, "Descend", 28);
+        SetButtonLabel(openSellPanelBtn, "Market", 22);
+        SetButtonLabel(openProstheticPanelBtn, "Studio", 23);
         Transform formalParent = _formalV1EntryPanel != null ? _formalV1EntryPanel.transform : transform;
         RepositionButton(openMaintenancePanelBtn, formalParent, ResolveFormalV1EntryPosition(0, 0), new Vector2(190f, 48f));
         RepositionButton(openDailyBillPanelBtn, formalParent, ResolveFormalV1EntryPosition(1, 0), new Vector2(190f, 48f));
@@ -1359,6 +1625,7 @@ public class WorkshopUIController : MonoBehaviour {
         RepositionButton(openDollRoomPanelBtn, formalParent, ResolveFormalV1EntryPosition(0, 4), new Vector2(190f, 48f));
         RepositionButton(openFactionShopPanelBtn, formalParent, ResolveFormalV1EntryPosition(1, 4), new Vector2(190f, 48f));
         RepositionButton(openScenarioEventPanelBtn, formalParent, ResolveFormalV1EntryPosition(0, 5), new Vector2(190f, 48f));
+        SetFormalEntryButtonsVisible(false);
     }
 
     private Image EnsureDecorPanel(Image current, string objectName, Vector2 anchor, Vector2 position, Vector2 size) {
@@ -1383,6 +1650,87 @@ public class WorkshopUIController : MonoBehaviour {
         VisualUIHelper.ApplySlicedSprite(image, VisualAssetService.UIPanelInfoID, Color.white, new Color(0.08f, 0.08f, 0.07f, 0.92f), false);
         image.transform.SetAsLastSibling();
         return image;
+    }
+
+    private Text EnsureDecorText(
+        Text current,
+        string objectName,
+        Transform parent,
+        string value,
+        Vector2 anchor,
+        Vector2 position,
+        Vector2 size,
+        int fontSize,
+        Color color,
+        TextAnchor alignment) {
+        if (parent == null) {
+            parent = transform;
+        }
+
+        Text text = current;
+        if (text == null) {
+            Transform existing = parent.Find(objectName);
+            text = existing != null ? existing.GetComponent<Text>() : null;
+        }
+
+        if (text == null) {
+            GameObject textObj = new GameObject(objectName);
+            textObj.transform.SetParent(parent, false);
+            text = textObj.AddComponent<Text>();
+        } else if (text.transform.parent != parent) {
+            text.transform.SetParent(parent, false);
+        }
+
+        text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        text.fontSize = fontSize;
+        text.color = color;
+        text.alignment = alignment;
+        text.raycastTarget = false;
+        text.text = value;
+
+        RectTransform rect = text.rectTransform;
+        rect.anchorMin = anchor;
+        rect.anchorMax = anchor;
+        rect.pivot = anchor;
+        rect.anchoredPosition = position;
+        rect.sizeDelta = size;
+        return text;
+    }
+
+    private void SetFormalEntryButtonsVisible(bool visible) {
+        SetButtonVisible(openMaintenancePanelBtn, visible);
+        SetButtonVisible(openDailyBillPanelBtn, visible);
+        SetButtonVisible(openShopStagingPanelBtn, visible);
+        SetButtonVisible(openOrderBoardPanelBtn, visible);
+        SetButtonVisible(openRumorBoardPanelBtn, visible);
+        SetButtonVisible(openBusinessSettlementPanelBtn, visible);
+        SetButtonVisible(openChassisUpgradePanelBtn, visible);
+        SetButtonVisible(openDollInteractionPanelBtn, visible);
+        SetButtonVisible(openDollRoomPanelBtn, visible);
+        SetButtonVisible(openFactionShopPanelBtn, visible);
+        SetButtonVisible(openScenarioEventPanelBtn, visible);
+    }
+
+    private void SetButtonVisible(Button button, bool visible) {
+        if (button == null) {
+            return;
+        }
+
+        button.gameObject.SetActive(visible);
+    }
+
+    private void SetButtonLabel(Button button, string label, int fontSize) {
+        if (button == null) {
+            return;
+        }
+
+        Text text = button.GetComponentInChildren<Text>(true);
+        if (text == null) {
+            return;
+        }
+
+        text.text = label;
+        text.fontSize = fontSize;
     }
 
     private Image CreateTitleDivider(Transform parent, Vector2 anchoredPosition, Vector2 size) {
@@ -1419,15 +1767,19 @@ public class WorkshopUIController : MonoBehaviour {
             GameObject displayObj = new GameObject("DollDisplay");
             displayObj.transform.SetParent(transform, false);
             RectTransform displayRect = displayObj.AddComponent<RectTransform>();
-            displayRect.anchorMin = new Vector2(1f, 0f);
-            displayRect.anchorMax = new Vector2(1f, 0f);
-            displayRect.pivot = new Vector2(1f, 0f);
-            displayRect.anchoredPosition = new Vector2(-220f, 90f);
-            displayRect.sizeDelta = new Vector2(520f, 820f);
 
             GameObject imageObj = new GameObject("DollImage");
             imageObj.transform.SetParent(displayObj.transform, false);
             _dollStandImage = imageObj.AddComponent<Image>();
+        }
+
+        RectTransform display = _dollStandImage.transform.parent as RectTransform;
+        if (display != null) {
+            display.anchorMin = new Vector2(0.5f, 0.5f);
+            display.anchorMax = new Vector2(0.5f, 0.5f);
+            display.pivot = new Vector2(0.5f, 0.5f);
+            display.anchoredPosition = new Vector2(0f, -40f);
+            display.sizeDelta = new Vector2(620f, 760f);
         }
 
         RectTransform rect = _dollStandImage.rectTransform;
@@ -1476,6 +1828,11 @@ public class WorkshopUIController : MonoBehaviour {
         text.fontSize = fontSize;
         text.color = new Color(1f, 0.9f, 0.62f, 1f);
         text.raycastTarget = false;
+        text.horizontalOverflow = HorizontalWrapMode.Wrap;
+        text.verticalOverflow = VerticalWrapMode.Truncate;
+        text.resizeTextForBestFit = true;
+        text.resizeTextMinSize = Mathf.Max(12, fontSize - 6);
+        text.resizeTextMaxSize = fontSize;
 
         RectTransform rect = text.rectTransform;
         rect.anchorMin = new Vector2(0f, 1f);
@@ -1500,6 +1857,14 @@ public class WorkshopUIController : MonoBehaviour {
     }
 
     private void ApplyWorkshopBackground() {
+        RectTransform rootRect = transform as RectTransform;
+        if (rootRect != null) {
+            rootRect.anchorMin = Vector2.zero;
+            rootRect.anchorMax = Vector2.one;
+            rootRect.offsetMin = Vector2.zero;
+            rootRect.offsetMax = Vector2.zero;
+        }
+
         backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "WorkshopBackground_Image");
         string visualID = VisualAssetService.ResolveWorkshopBackgroundID();
         VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, Color.white, new Color(0.1f, 0.085f, 0.065f, 0.92f));

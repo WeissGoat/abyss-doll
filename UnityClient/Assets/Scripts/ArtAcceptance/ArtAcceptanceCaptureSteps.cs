@@ -549,6 +549,7 @@ public partial class ArtAcceptanceRunner {
 
                 yield return WaitForVisualStable();
                 yield return CaptureCurrentScreen(capture);
+                CleanupWorkshopFormalV1AcceptancePanels();
                 usedFormalController = true;
             }
         }
@@ -567,7 +568,7 @@ public partial class ArtAcceptanceRunner {
             workshopController.OpenFormalV1Panel(screenTag);
             yield return WaitForVisualStable();
             yield return CaptureCurrentScreen(capture);
-            CloseWorkshopAcceptanceOverlays(workshopController);
+            CleanupWorkshopFormalV1AcceptancePanels(workshopController);
         }
     }
 

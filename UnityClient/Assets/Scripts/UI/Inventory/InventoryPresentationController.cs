@@ -242,8 +242,7 @@ public class InventoryPresentationController : MonoBehaviour {
     }
 
     private bool ShouldShowBackpack() {
-        return _mode == InventoryPresentationMode.Workshop
-            || _mode == InventoryPresentationMode.Combat
+        return _mode == InventoryPresentationMode.Combat
             || _mode == InventoryPresentationMode.CombatLoot
             || _mode == InventoryPresentationMode.SafeRoom
             || _mode == InventoryPresentationMode.Stairs

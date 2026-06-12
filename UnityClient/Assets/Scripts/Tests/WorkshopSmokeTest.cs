@@ -93,6 +93,8 @@ public static class WorkshopSmokeTest {
             RunProstheticCraftAndEffectTest(core);
             RunWorkshopSellPanelUITest(core);
             RunWorkshopProstheticPanelUITest(core);
+            RunWorkshopProstheticLockedRowsUITest(core);
+            RunWorkshopFormalV2HubLayoutTest(core);
 
             Debug.Log("=== Workshop Smoke Test Finished ===");
         } catch (System.Exception ex) {
@@ -119,7 +121,6 @@ public static class WorkshopSmokeTest {
         ItemEntity sellTarget = ConfigManager.CreateItem("loot_gear_scrap");
         ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).PlaceItem(sellTarget, 0, 0);
         TownEconomyService.RefreshWeeklyEconomy(core.CurrentPlayer, 42);
-        EconomySellLine expectedSellLine = TownEconomyService.CalculateItemSellValue(core.CurrentPlayer, sellTarget, EconomySellChannel.DumpBox);
 
         controller.RefreshUI();
         controller.OpenSellPanel();
@@ -127,23 +128,29 @@ public static class WorkshopSmokeTest {
         bool panelIsSeparate = controller.sellPanel != null && controller.sellPanel.transform.parent == canvasObj.transform;
         bool panelOpened = controller.sellPanel != null && controller.sellPanel.activeSelf;
         bool listBuilt = controller.stashListParent != null && controller.stashListParent.childCount > 0;
+        bool readableBackdrop = HasReadableModalBackdrop(controller.sellPanel);
+        bool stableRowLayout = listBuilt && HasPreferredRowHeight(controller.stashListParent.GetChild(0), 100f);
+        bool compactListLane = HasCompactRectMaskedListLane(controller.sellPanel, "SellList_Scroll", 900f, 500f);
         bool prostheticPanelClosed = controller.prostheticPanel != null && !controller.prostheticPanel.activeSelf;
-        Button sellButton = listBuilt
-            ? controller.stashListParent.GetChild(0).Find("Sell_Button")?.GetComponent<Button>()
-            : null;
+        Button directSellButton = controller.sellPanel != null ? FindButton(controller.sellPanel, "Sell_Button") : null;
+        Button shopStagingButton = controller.sellAllBtn;
+        string marketText = CollectText(canvasObj);
 
         int beforeMoney = core.CurrentPlayer.Money;
         int beforeBackpackCount = ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).ContainedItems.Count;
-        sellButton?.onClick.Invoke();
-        bool economySellApplied = expectedSellLine.FinalValue > sellTarget.BaseValue
-            && core.CurrentPlayer.Money == beforeMoney + expectedSellLine.FinalValue
-            && !((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).ContainedItems.Contains(sellTarget)
-            && ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).ContainedItems.Count == beforeBackpackCount - 1;
+        shopStagingButton?.onClick.Invoke();
+        WorkshopFormalV1PanelController formalController = controller.GetComponent<WorkshopFormalV1PanelController>();
+        bool shopStagingOpened = formalController != null && formalController.CurrentScreenID == "shop_staging";
+        bool economySellNotApplied = core.CurrentPlayer.Money == beforeMoney
+            && ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).ContainedItems.Contains(sellTarget)
+            && ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).ContainedItems.Count == beforeBackpackCount;
+        bool marketPreviewText = marketText.Contains("Town Market Preview")
+            && marketText.Contains("Shop staging");
 
-        if (panelIsSeparate && panelOpened && listBuilt && prostheticPanelClosed && economySellApplied) {
-            Debug.Log("Workshop Sell Panel UI PASSED.");
+        if (panelIsSeparate && panelOpened && listBuilt && readableBackdrop && stableRowLayout && compactListLane && prostheticPanelClosed && directSellButton == null && shopStagingOpened && economySellNotApplied && marketPreviewText) {
+            Debug.Log("Workshop Market Preview Panel UI PASSED.");
         } else {
-            Debug.LogError($"Workshop Sell Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, SellRows={controller.stashListParent?.childCount ?? 0}, ProstheticPanelClosed={prostheticPanelClosed}, EconomySell={economySellApplied}, ExpectedIncome={expectedSellLine.FinalValue}, Money={core.CurrentPlayer.Money}");
+            Debug.LogError($"Workshop Market Preview Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, Rows={controller.stashListParent?.childCount ?? 0}, Backdrop={readableBackdrop}, RowLayout={stableRowLayout}, CompactLane={compactListLane}, ProstheticPanelClosed={prostheticPanelClosed}, DirectSellButton={directSellButton != null}, ShopStagingOpened={shopStagingOpened}, EconomyUnchanged={economySellNotApplied}, Text={marketPreviewText}, Money={core.CurrentPlayer.Money}");
         }
 
         controller.CloseSellPanel();
@@ -173,16 +180,25 @@ public static class WorkshopSmokeTest {
         bool panelIsSeparate = controller.prostheticPanel != null && controller.prostheticPanel.transform.parent == canvasObj.transform;
         bool panelOpened = controller.prostheticPanel != null && controller.prostheticPanel.activeSelf;
         bool listBuilt = controller.prostheticListParent != null && controller.prostheticListParent.childCount > 0;
+        bool readableBackdrop = HasReadableModalBackdrop(controller.prostheticPanel);
+        bool stableRowLayout = listBuilt && HasPreferredRowHeight(controller.prostheticListParent.GetChild(0), 120f);
+        bool compactListLane = HasCompactRectMaskedListLane(controller.prostheticPanel, "ProstheticList_Scroll", 980f, 500f);
         bool sellPanelClosed = controller.sellPanel != null && !controller.sellPanel.activeSelf;
+        bool studioSwitchesPresent = controller.prostheticPanel != null
+            && FindButton(controller.prostheticPanel, "StudioMaintenance_Button") != null
+            && FindButton(controller.prostheticPanel, "StudioChassis_Button") != null;
+        bool recipeRowsHaveMaterialIcon = listBuilt
+            && controller.prostheticListParent.GetChild(0).Find("MaterialNeedIcon_Image") != null;
         Button craftButton = listBuilt
             ? controller.prostheticListParent.GetChild(0).Find("Craft_Button")?.GetComponent<Button>()
             : null;
-        bool craftButtonInteractable = craftButton != null && craftButton.interactable;
+        bool craftButtonWasPresent = craftButton != null;
+        bool craftButtonInteractable = craftButtonWasPresent && craftButton.interactable;
 
         int beforeMoney = core.CurrentPlayer.Money;
         int beforeStashCount = core.CurrentPlayer.StashInventory.Count;
         craftButton?.onClick.Invoke();
-        bool craftApplied = craftButton != null
+        bool craftApplied = craftButtonWasPresent
             && craftButtonInteractable
             && core.CurrentPlayer.ActiveDoll.EquippedProsthetics.Count == 1
             && core.CurrentPlayer.Money < beforeMoney
@@ -190,13 +206,118 @@ public static class WorkshopSmokeTest {
             && controller.prostheticSummaryText != null
             && controller.prostheticSummaryText.text.Contains("Crafted and equipped");
 
-        if (panelIsSeparate && panelOpened && listBuilt && sellPanelClosed && craftApplied) {
+        if (panelIsSeparate && panelOpened && listBuilt && readableBackdrop && stableRowLayout && compactListLane && sellPanelClosed && studioSwitchesPresent && recipeRowsHaveMaterialIcon && craftApplied) {
             Debug.Log("Workshop Prosthetic Panel UI PASSED.");
         } else {
-            Debug.LogError($"Workshop Prosthetic Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, ProstheticRows={controller.prostheticListParent?.childCount ?? 0}, SellPanelClosed={sellPanelClosed}, CraftButton={craftButton != null}, Interactable={craftButtonInteractable}, CraftApplied={craftApplied}, Money={core.CurrentPlayer.Money}, Stash={core.CurrentPlayer.StashInventory.Count}, Summary={controller.prostheticSummaryText?.text}");
+            Debug.LogError($"Workshop Prosthetic Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, ProstheticRows={controller.prostheticListParent?.childCount ?? 0}, Backdrop={readableBackdrop}, RowLayout={stableRowLayout}, CompactLane={compactListLane}, SellPanelClosed={sellPanelClosed}, StudioSwitches={studioSwitchesPresent}, MaterialIcon={recipeRowsHaveMaterialIcon}, CraftButton={craftButtonWasPresent}, Interactable={craftButtonInteractable}, CraftApplied={craftApplied}, Money={core.CurrentPlayer.Money}, Stash={core.CurrentPlayer.StashInventory.Count}, Summary={controller.prostheticSummaryText?.text}");
         }
 
         controller.CloseProstheticPanel();
+        Object.DestroyImmediate(canvasObj);
+    }
+
+    private static void RunWorkshopProstheticLockedRowsUITest(CoreBackend core) {
+        GameObject canvasObj = new GameObject("WorkshopProstheticLockedUITestCanvas");
+        canvasObj.AddComponent<Canvas>();
+        canvasObj.AddComponent<GraphicRaycaster>();
+
+        GameObject workshopObj = new GameObject("WorkshopPanel");
+        workshopObj.transform.SetParent(canvasObj.transform, false);
+        workshopObj.AddComponent<RectTransform>();
+        WorkshopUIController controller = workshopObj.AddComponent<WorkshopUIController>();
+        controller.moneyText = CreateTestText(workshopObj.transform);
+        controller.chassisInfoText = CreateTestText(workshopObj.transform);
+
+        core.CurrentPlayer.ActiveDoll.EquippedProsthetics.Clear();
+        core.CurrentPlayer.StashInventory.Clear();
+        core.CurrentPlayer.Money = 0;
+
+        controller.RefreshUI();
+        controller.OpenProstheticPanel();
+
+        bool listBuilt = controller.prostheticListParent != null && controller.prostheticListParent.childCount > 0;
+        Transform firstRow = listBuilt ? controller.prostheticListParent.GetChild(0) : null;
+        Button craftButton = firstRow != null ? firstRow.Find("Craft_Button")?.GetComponent<Button>() : null;
+        bool passed = controller.prostheticPanel != null
+            && controller.prostheticPanel.activeSelf
+            && firstRow != null
+            && HasPreferredRowHeight(firstRow, 120f)
+            && firstRow.Find("LockedIcon_Image") != null
+            && firstRow.Find("MaterialNeedIcon_Image") != null
+            && craftButton != null
+            && !craftButton.interactable
+            && CollectText(canvasObj).Contains("Locked");
+
+        if (passed) {
+            Debug.Log("Workshop Prosthetic Locked Row UI PASSED.");
+        } else {
+            Debug.LogError($"Workshop Prosthetic Locked Row UI FAILED. Rows={controller.prostheticListParent?.childCount ?? 0}, LockedIcon={firstRow?.Find("LockedIcon_Image") != null}, MaterialIcon={firstRow?.Find("MaterialNeedIcon_Image") != null}, Button={craftButton != null}, Interactable={craftButton?.interactable}, Text={CollectText(canvasObj)}");
+        }
+
+        controller.CloseProstheticPanel();
+        Object.DestroyImmediate(canvasObj);
+    }
+
+    private static void RunWorkshopFormalV2HubLayoutTest(CoreBackend core) {
+        GameObject canvasObj = new GameObject("WorkshopFormalV2HubCanvas");
+        canvasObj.AddComponent<Canvas>();
+        canvasObj.AddComponent<GraphicRaycaster>();
+
+        GameObject workshopObj = new GameObject("WorkshopPanel");
+        workshopObj.transform.SetParent(canvasObj.transform, false);
+        workshopObj.AddComponent<RectTransform>();
+        WorkshopUIController controller = workshopObj.AddComponent<WorkshopUIController>();
+        controller.moneyText = CreateTestText(workshopObj.transform);
+        controller.chassisInfoText = CreateTestText(workshopObj.transform);
+        controller.departBtn = CreateTestButton(workshopObj.transform, "Depart_Button");
+        controller.upgradeBtn = CreateTestButton(workshopObj.transform, "Upgrade_Button");
+
+        core.CurrentPlayer.CurrentDay = 5;
+        core.CurrentPlayer.CurrentMonth = 1;
+        core.CurrentPlayer.CurrentMonthDay = 5;
+        core.CurrentPlayer.Money = 345;
+
+        controller.RefreshUI();
+
+        Transform status = workshopObj.transform.Find("LightStatusStrip");
+        Transform doll = workshopObj.transform.Find("DollDisplay");
+        Transform abyss = workshopObj.transform.Find("AbyssDoorPanel");
+        Transform studio = workshopObj.transform.Find("WorkshopEntryPanel");
+        Transform ledger = workshopObj.transform.Find("LedgerCornerPanel");
+        RectTransform background = FindRectTransform(workshopObj, "WorkshopBackground_Image");
+        RectTransform studioRect = studio as RectTransform;
+        RectTransform dollStatus = workshopObj.transform.Find("DollStatusPlate") as RectTransform;
+        Button[] activeButtons = canvasObj.GetComponentsInChildren<Button>(false);
+        bool compactStatus = controller.moneyText != null
+            && controller.moneyText.transform.parent == status
+            && controller.moneyText.rectTransform.sizeDelta.x <= 620f;
+        bool oldBulkHidden = controller.upgradeBtn != null
+            && !controller.upgradeBtn.gameObject.activeSelf
+            && controller.openMaintenancePanelBtn != null
+            && !controller.openMaintenancePanelBtn.gameObject.activeSelf
+            && controller.openOrderBoardPanelBtn != null
+            && !controller.openOrderBoardPanelBtn.gameObject.activeSelf;
+        bool hubButtonsReduced = activeButtons.Length <= 3;
+        bool backgroundStretches = background != null
+            && background.anchorMin == Vector2.zero
+            && background.anchorMax == Vector2.one;
+        bool workshopMainKeepsBackpackOutOfHub = !CollectText(canvasObj).Contains("Backpack");
+        bool studioIsOffBackpackLane = studioRect != null
+            && studioRect.anchorMin.y >= 0.45f
+            && studioRect.sizeDelta.x <= 330f;
+        bool dollStatusBelowDollLegs = dollStatus != null
+            && dollStatus.anchoredPosition.y <= 50f
+            && dollStatus.sizeDelta.y <= 120f;
+        bool labelsUpdated = CollectText(canvasObj).Contains("Descend")
+            && CollectText(canvasObj).Contains("Studio")
+            && CollectText(canvasObj).Contains("Market");
+
+        if (status != null && doll != null && abyss != null && studio != null && ledger != null && compactStatus && oldBulkHidden && hubButtonsReduced && backgroundStretches && workshopMainKeepsBackpackOutOfHub && studioIsOffBackpackLane && dollStatusBelowDollLegs && labelsUpdated) {
+            Debug.Log("Workshop FormalV2 Hub Layout PASSED.");
+        } else {
+            Debug.LogError($"Workshop FormalV2 Hub Layout FAILED. Status={status != null}, Doll={doll != null}, Abyss={abyss != null}, Studio={studio != null}, Ledger={ledger != null}, Compact={compactStatus}, OldBulkHidden={oldBulkHidden}, ActiveButtons={activeButtons.Length}, Background={backgroundStretches}, BackpackHidden={workshopMainKeepsBackpackOutOfHub}, StudioLane={studioIsOffBackpackLane}, DollStatus={dollStatusBelowDollLegs}, Text={CollectText(canvasObj)}");
+        }
+
         Object.DestroyImmediate(canvasObj);
     }
 
@@ -257,5 +378,115 @@ public static class WorkshopSmokeTest {
         GameObject obj = new GameObject("TestText");
         obj.transform.SetParent(parent, false);
         return obj.AddComponent<Text>();
+    }
+
+    private static Button CreateTestButton(Transform parent, string objectName) {
+        GameObject obj = new GameObject(objectName);
+        obj.transform.SetParent(parent, false);
+        obj.AddComponent<Image>();
+        GameObject textObj = new GameObject("Text");
+        textObj.transform.SetParent(obj.transform, false);
+        Text label = textObj.AddComponent<Text>();
+        label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        label.text = objectName;
+        label.alignment = TextAnchor.MiddleCenter;
+        RectTransform textRect = textObj.GetComponent<RectTransform>();
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.sizeDelta = Vector2.zero;
+        return obj.AddComponent<Button>();
+    }
+
+    private static Button FindButton(GameObject root, string buttonName) {
+        if (root == null) {
+            return null;
+        }
+
+        Button[] buttons = root.GetComponentsInChildren<Button>(true);
+        for (int i = 0; i < buttons.Length; i++) {
+            Button button = buttons[i];
+            if (button != null && button.name == buttonName) {
+                return button;
+            }
+        }
+
+        return null;
+    }
+
+    private static bool HasReadableModalBackdrop(GameObject panel) {
+        Image image = panel != null ? panel.GetComponent<Image>() : null;
+        if (image == null) {
+            return false;
+        }
+
+        Color color = image.color;
+        return color.a >= 0.82f
+            && color.a <= 0.96f
+            && color.r <= 0.08f
+            && color.g <= 0.08f
+            && color.b <= 0.08f;
+    }
+
+    private static bool HasPreferredRowHeight(Transform row, float minHeight) {
+        if (row == null) {
+            return false;
+        }
+
+        LayoutElement layoutElement = row.GetComponent<LayoutElement>();
+        RectTransform rect = row as RectTransform;
+        return layoutElement != null
+            && rect != null
+            && layoutElement.preferredHeight >= minHeight
+            && rect.sizeDelta.y >= minHeight;
+    }
+
+    private static bool HasCompactRectMaskedListLane(GameObject panel, string scrollName, float maxWidth, float maxHeight) {
+        RectTransform scrollRect = FindRectTransform(panel, scrollName);
+        if (scrollRect == null) {
+            return false;
+        }
+
+        RectTransform viewport = FindRectTransform(scrollRect.gameObject, "Viewport");
+        return scrollRect.sizeDelta.x <= maxWidth
+            && scrollRect.sizeDelta.y <= maxHeight
+            && viewport != null
+            && viewport.GetComponent<RectMask2D>() != null;
+    }
+
+    private static RectTransform FindRectTransform(GameObject root, string objectName) {
+        if (root == null) {
+            return null;
+        }
+
+        RectTransform[] rects = root.GetComponentsInChildren<RectTransform>(true);
+        for (int i = 0; i < rects.Length; i++) {
+            if (rects[i] != null && rects[i].name == objectName) {
+                return rects[i];
+            }
+        }
+
+        return null;
+    }
+
+    private static string CollectText(GameObject root) {
+        if (root == null) {
+            return string.Empty;
+        }
+
+        Text[] texts = root.GetComponentsInChildren<Text>(true);
+        string combined = string.Empty;
+        for (int i = 0; i < texts.Length; i++) {
+            if (texts[i] == null) {
+                continue;
+            }
+
+            if (!string.IsNullOrEmpty(combined)) {
+                combined += "\n";
+            }
+
+            combined += texts[i].text;
+        }
+
+        return combined;
     }
 }

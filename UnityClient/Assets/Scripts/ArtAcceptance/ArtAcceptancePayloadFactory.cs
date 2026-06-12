@@ -25,6 +25,7 @@ public partial class ArtAcceptanceRunner {
     };
 
     private IEnumerator PrepareForCaptureStep(string stepName) {
+        int rootsBeforeClean = CountFormalV1RuntimePanelRoots();
         CloseWorkshopAcceptanceOverlays();
         HideAllWorkshopFormalV1Panels();
         DestroyLooseFormalV1PanelRoots();
@@ -34,7 +35,12 @@ public partial class ArtAcceptanceRunner {
 
         yield return WaitFrames(2);
         Canvas.ForceUpdateCanvases();
-        Debug.Log($"[ArtAcceptance] Capture pre-clean completed for {stepName}.");
+        int rootsAfterClean = CountFormalV1RuntimePanelRoots();
+        if (rootsAfterClean > 0) {
+            Debug.LogWarning($"[ArtAcceptance] Capture pre-clean for {stepName} left {rootsAfterClean} FormalV1 runtime panel root(s).");
+        } else {
+            Debug.Log($"[ArtAcceptance] Capture pre-clean completed for {stepName}. FormalV1RootsBefore={rootsBeforeClean}, After=0.");
+        }
     }
 
     private int ResolveAcceptanceLayerID() {
@@ -67,11 +73,18 @@ public partial class ArtAcceptanceRunner {
         controller.CloseFormalV1Panel();
     }
 
+    private void CleanupWorkshopFormalV1AcceptancePanels(WorkshopUIController workshopController = null) {
+        CloseWorkshopAcceptanceOverlays(workshopController);
+        HideAllWorkshopFormalV1Panels();
+        DestroyLooseFormalV1PanelRoots();
+        Canvas.ForceUpdateCanvases();
+    }
+
     private void HideAllWorkshopFormalV1Panels() {
         WorkshopFormalV1PanelController[] controllers = FindObjectsOfType<WorkshopFormalV1PanelController>();
         foreach (WorkshopFormalV1PanelController controller in controllers) {
             if (controller != null) {
-                controller.Hide();
+                controller.HideImmediateForAcceptance();
             }
         }
     }
@@ -83,14 +96,27 @@ public partial class ArtAcceptanceRunner {
                 continue;
             }
 
-            for (int i = canvas.transform.childCount - 1; i >= 0; i--) {
-                Transform child = canvas.transform.GetChild(i);
-                if (child == null || !IsFormalV1RuntimePanelRoot(child.name)) {
-                    continue;
-                }
+            DestroyFormalV1RuntimeRootsUnder(canvas.transform);
+        }
+    }
 
-                DestroyAcceptanceRuntimeObject(child.gameObject);
+    private void DestroyFormalV1RuntimeRootsUnder(Transform parent) {
+        if (parent == null) {
+            return;
+        }
+
+        for (int i = parent.childCount - 1; i >= 0; i--) {
+            Transform child = parent.GetChild(i);
+            if (child == null) {
+                continue;
             }
+
+            if (IsFormalV1RuntimePanelRoot(child.name)) {
+                DestroyAcceptanceRuntimeObject(child.gameObject);
+                continue;
+            }
+
+            DestroyFormalV1RuntimeRootsUnder(child);
         }
     }
 
@@ -106,6 +132,42 @@ public partial class ArtAcceptanceRunner {
         }
 
         return false;
+    }
+
+    private int CountFormalV1RuntimePanelRoots() {
+        int count = 0;
+        Canvas[] canvases = FindObjectsOfType<Canvas>();
+        foreach (Canvas canvas in canvases) {
+            if (canvas == null) {
+                continue;
+            }
+
+            count += CountFormalV1RuntimePanelRootsUnder(canvas.transform);
+        }
+
+        return count;
+    }
+
+    private int CountFormalV1RuntimePanelRootsUnder(Transform parent) {
+        if (parent == null) {
+            return 0;
+        }
+
+        int count = 0;
+        for (int i = 0; i < parent.childCount; i++) {
+            Transform child = parent.GetChild(i);
+            if (child == null) {
+                continue;
+            }
+
+            if (IsFormalV1RuntimePanelRoot(child.name)) {
+                count++;
+            }
+
+            count += CountFormalV1RuntimePanelRootsUnder(child);
+        }
+
+        return count;
     }
 
     private void HideTransientRuntimePanels() {
@@ -130,11 +192,7 @@ public partial class ArtAcceptanceRunner {
             return;
         }
 
-        if (Application.isPlaying) {
-            Destroy(obj);
-        } else {
-            DestroyImmediate(obj);
-        }
+        DestroyImmediate(obj);
     }
 
     private void UnlockConfiguredLayersForAcceptance() {

@@ -34,15 +34,23 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
     }
 
     public void Hide() {
+        HideInternal(false);
+    }
+
+    public void HideImmediateForAcceptance() {
+        HideInternal(true);
+    }
+
+    private void HideInternal(bool immediate) {
         CurrentScreenID = string.Empty;
         if (_rootPanel == null) {
             return;
         }
 
-        if (Application.isPlaying) {
-            Destroy(_rootPanel);
-        } else {
+        if (immediate || !Application.isPlaying) {
             DestroyImmediate(_rootPanel);
+        } else {
+            Destroy(_rootPanel);
         }
         _rootPanel = null;
     }
@@ -286,7 +294,7 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
                     RootName = "MaintenancePanel_Runtime",
                     BackgroundName = "MaintenanceBackground_Image",
                     CardName = "MaintenanceCard_Image",
-                    Title = "Maintenance",
+                    Title = "Workshop Studio / Maintenance",
                     PrimaryIconName = "MaintenanceIcon_Image",
                     PrimaryIconVisualID = VisualAssetService.UIIconMaintenanceID,
                     AccentColor = new Color(0.62f, 0.92f, 0.82f, 1f),
@@ -488,7 +496,7 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
                     RootName = "ChassisUpgradePanel_Runtime",
                     BackgroundName = "ChassisUpgradeBackground_Image",
                     CardName = "ChassisUpgradeCard_Image",
-                    Title = "Chassis Upgrade",
+                    Title = "Workshop Studio / Chassis",
                     PrimaryIconName = "ChassisUpgradeIcon_Image",
                     PrimaryIconVisualID = VisualAssetService.UIIconChassisUpgradeID,
                     AccentColor = new Color(0.72f, 0.9f, 1f, 1f),

@@ -31,6 +31,13 @@ public class HUDController : MonoBehaviour {
     private Transform _apPipParent;
     private CombatIntentReadabilitySnapshot _intentSnapshot;
 
+    public void SetLootOverlayMode(bool active) {
+        SetActiveIfPresent(_turnBannerImage, !active);
+        SetActiveIfPresent(_targetHintPanel, !active);
+        SetActiveIfPresent(_actionStrip, !active);
+        SetActiveIfPresent(_playerStatusPanel, !active);
+    }
+
     private void OnEnable() {
         _defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         EnsureRuntimeWidgets();
@@ -133,9 +140,10 @@ public class HUDController : MonoBehaviour {
             Debug.LogWarning("[HUDController] Failed to create EnemyStageRoot. Combat enemy widgets will be skipped.");
             return;
         }
-        ConfigureTopLeftRect(EnsureRect(_enemyStageRoot), 1240f, 160f, 600f, 500f);
+        ConfigureTopLeftRect(EnsureRect(_enemyStageRoot), 1260f, 150f, 560f, 500f);
         enemyListParent = _enemyStageRoot;
         RemoveLayoutComponents(_enemyStageRoot.gameObject);
+        StripEnemyStageBacking(_enemyStageRoot);
 
         _vfxLayer = EnsureTransform(_stageRoot, "VfxLayer");
         if (_vfxLayer == null) {
@@ -177,17 +185,30 @@ public class HUDController : MonoBehaviour {
         return EnsureTransform(_stageRoot, "EnemyStageRoot");
     }
 
+    private void StripEnemyStageBacking(Transform root) {
+        if (!IsValidTransform(root)) {
+            return;
+        }
+
+        Image image = root.GetComponent<Image>();
+        if (image != null) {
+            image.sprite = null;
+            image.color = Color.clear;
+            image.raycastTarget = false;
+        }
+    }
+
     private void EnsureCombatMainSkin() {
         _turnBannerImage = EnsureSkinImage(
             transform,
             _turnBannerImage,
             "TurnBanner",
-            660f,
-            32f,
-            600f,
-            84f,
+            760f,
+            28f,
+            400f,
+            58f,
             VisualAssetService.UICombatTurnBannerID,
-            new Color(0.08f, 0.07f, 0.065f, 0.92f),
+            new Color(0.08f, 0.07f, 0.065f, 0.68f),
             false);
 
         _turnBannerLabel = EnsureChildLabel(
@@ -195,33 +216,33 @@ public class HUDController : MonoBehaviour {
             _turnBannerLabel,
             "TurnBanner_Text",
             "玩家回合",
-            28,
+            24,
             Color.white,
             TextAnchor.MiddleCenter);
-        StretchToParent(_turnBannerLabel.rectTransform, 36f, 10f);
+        StretchToParent(_turnBannerLabel.rectTransform, 28f, 8f);
 
         _targetHintPanel = EnsureSkinImage(
             transform,
             _targetHintPanel,
             "TargetHintPanel",
-            680f,
-            430f,
-            560f,
-            68f,
+            720f,
+            424f,
+            480f,
+            54f,
             VisualAssetService.UIPanelInfoID,
-            new Color(0.08f, 0.075f, 0.065f, 0.86f),
+            new Color(0.08f, 0.075f, 0.065f, 0.56f),
             false);
 
         _actionStrip = EnsureSkinImage(
             transform,
             _actionStrip,
             "ActionStrip",
-            680f,
-            510f,
-            560f,
-            84f,
+            720f,
+            498f,
+            480f,
+            68f,
             VisualAssetService.UIPanelInfoID,
-            new Color(0.06f, 0.055f, 0.05f, 0.72f),
+            new Color(0.06f, 0.055f, 0.05f, 0.48f),
             false);
 
         _playerStatusPanel = EnsureSkinImage(
@@ -229,11 +250,11 @@ public class HUDController : MonoBehaviour {
             _playerStatusPanel,
             "PlayerStatusCluster",
             120f,
-            830f,
-            500f,
-            150f,
+            774f,
+            560f,
+            214f,
             VisualAssetService.UIPanelInfoID,
-            new Color(0.08f, 0.075f, 0.065f, 0.92f),
+            new Color(0.08f, 0.075f, 0.065f, 0.88f),
             false);
 
         _hpBarTrack = EnsureStatusTrack(
@@ -241,8 +262,8 @@ public class HUDController : MonoBehaviour {
             _hpBarTrack,
             ref _hpBarFill,
             "HpBar",
-            new Vector2(172f, -28f),
-            new Vector2(250f, 24f),
+            new Vector2(250f, -28f),
+            new Vector2(270f, 22f),
             VisualAssetService.UICombatStatusBarHpID,
             new Color(0.92f, 0.18f, 0.14f, 0.92f));
 
@@ -251,8 +272,8 @@ public class HUDController : MonoBehaviour {
             _shieldBarTrack,
             ref _shieldBarFill,
             "ShieldBar",
-            new Vector2(172f, -68f),
-            new Vector2(250f, 20f),
+            new Vector2(250f, -76f),
+            new Vector2(270f, 20f),
             VisualAssetService.UICombatStatusBarShieldID,
             new Color(0.52f, 0.68f, 0.95f, 0.92f));
 
@@ -278,7 +299,7 @@ public class HUDController : MonoBehaviour {
             _playerShadowImage,
             VisualAssetService.UICombatEntityShadowID,
             Color.white,
-            new Color(0f, 0f, 0f, 0.42f),
+            new Color(0f, 0f, 0f, 0.24f),
             false,
             false);
 
@@ -322,9 +343,9 @@ public class HUDController : MonoBehaviour {
         endRect.anchorMin = new Vector2(0.5f, 0.5f);
         endRect.anchorMax = new Vector2(0.5f, 0.5f);
         endRect.pivot = new Vector2(0.5f, 0.5f);
-        endRect.anchoredPosition = new Vector2(120f, 0f);
-        endRect.sizeDelta = new Vector2(210f, 56f);
-        ConfigureButtonText(endTurnBtn, "结束回合", 24, Color.white);
+        endRect.anchoredPosition = new Vector2(100f, 0f);
+        endRect.sizeDelta = new Vector2(180f, 48f);
+        ConfigureButtonText(endTurnBtn, "结束回合", 21, Color.white);
 
         if (_cancelSelectionBtn == null) {
             Transform existing = _actionStrip.transform.Find("CancelSelection_Button");
@@ -341,9 +362,9 @@ public class HUDController : MonoBehaviour {
         cancelRect.anchorMin = new Vector2(0.5f, 0.5f);
         cancelRect.anchorMax = new Vector2(0.5f, 0.5f);
         cancelRect.pivot = new Vector2(0.5f, 0.5f);
-        cancelRect.anchoredPosition = new Vector2(-120f, 0f);
-        cancelRect.sizeDelta = new Vector2(210f, 56f);
-        ConfigureButtonText(_cancelSelectionBtn, "取消选择", 24, Color.white);
+        cancelRect.anchoredPosition = new Vector2(-100f, 0f);
+        cancelRect.sizeDelta = new Vector2(180f, 48f);
+        ConfigureButtonText(_cancelSelectionBtn, "取消选择", 21, Color.white);
     }
 
     private void EnsureTargetHintLabel() {
@@ -487,7 +508,7 @@ public class HUDController : MonoBehaviour {
             shadow,
             VisualAssetService.UICombatEntityShadowID,
             Color.white,
-            new Color(0f, 0f, 0f, 0.42f),
+            new Color(0f, 0f, 0f, 0.18f),
             false,
             false);
 
@@ -496,8 +517,8 @@ public class HUDController : MonoBehaviour {
         VisualUIHelper.ApplySimpleSprite(
             targetRing,
             VisualAssetService.UICombatTargetRingID,
-            targetable ? Color.white : new Color(1f, 1f, 1f, 0.38f),
-            targetable ? new Color(1f, 0.86f, 0.26f, 0.86f) : new Color(0.86f, 0.62f, 0.2f, 0.35f),
+            targetable ? Color.white : new Color(1f, 1f, 1f, 0.16f),
+            targetable ? new Color(1f, 0.86f, 0.26f, 0.66f) : new Color(0.86f, 0.62f, 0.2f, 0.16f),
             false,
             false);
         targetRing.gameObject.SetActive(isAlive);
@@ -513,7 +534,7 @@ public class HUDController : MonoBehaviour {
             "EnemyFootHpBar",
             VisualAssetService.UICombatStatusBarHpID,
             new Vector2(0f, 36f),
-            new Vector2(220f, 20f),
+            new Vector2(200f, 16f),
             hpRatio,
             new Color(0.92f, 0.16f, 0.12f, 0.95f));
 
@@ -523,7 +544,7 @@ public class HUDController : MonoBehaviour {
             "EnemyFootShieldBar",
             VisualAssetService.UICombatStatusBarShieldID,
             new Vector2(0f, 14f),
-            new Vector2(220f, 16f),
+            new Vector2(200f, 12f),
             shieldRatio,
             new Color(0.52f, 0.68f, 0.95f, 0.92f));
 
@@ -535,10 +556,11 @@ public class HUDController : MonoBehaviour {
         GameObject buttonObj = CreateRectGameObject("EnemyClickHotspot_Button");
         buttonObj.transform.SetParent(parent, false);
         Image image = buttonObj.AddComponent<Image>();
-        VisualUIHelper.ApplySolidColor(image, new Color(1f, 1f, 1f, 0.01f), true);
+        VisualUIHelper.ApplySolidColor(image, Color.clear, true);
 
         Button button = buttonObj.AddComponent<Button>();
         button.targetGraphic = image;
+        button.transition = Selectable.Transition.None;
         button.interactable = isAlive && ItemUseService.HasPendingEnemyTargetSelection;
 
         RectTransform rect = buttonObj.GetComponent<RectTransform>();
@@ -602,8 +624,8 @@ public class HUDController : MonoBehaviour {
         rect.pivot = new Vector2(0.5f, 0.5f);
         rect.anchoredPosition = bottomPosition;
         rect.sizeDelta = size;
-        VisualUIHelper.ApplySlicedSprite(track, visualID, Color.white, new Color(0.16f, 0.1f, 0.09f, 0.74f), false);
-        track.color = ratio > 0f ? track.color : new Color(track.color.r, track.color.g, track.color.b, 0.46f);
+        VisualUIHelper.ApplySlicedSprite(track, visualID, new Color(1f, 1f, 1f, 0.68f), new Color(0.16f, 0.1f, 0.09f, 0.36f), false);
+        track.color = ratio > 0f ? track.color : new Color(track.color.r, track.color.g, track.color.b, 0.24f);
 
         Image fill = EnsureBarFill(track.transform, null, "Fill", fillColor);
         SetBarFill(fill, ratio);
@@ -630,7 +652,7 @@ public class HUDController : MonoBehaviour {
         intentObj.transform.SetParent(parent, false);
         Text intentLabel = intentObj.AddComponent<Text>();
         intentLabel.font = _defaultFont;
-        intentLabel.fontSize = 16;
+        intentLabel.fontSize = 15;
         intentLabel.alignment = TextAnchor.MiddleCenter;
         intentLabel.color = targetable ? new Color(1f, 0.86f, 0.36f) : new Color(0.84f, 0.84f, 0.84f, 0.86f);
         intentLabel.raycastTarget = false;
@@ -641,8 +663,8 @@ public class HUDController : MonoBehaviour {
         intentRect.anchorMin = new Vector2(0.5f, 0f);
         intentRect.anchorMax = new Vector2(0.5f, 0f);
         intentRect.pivot = new Vector2(0.5f, 0.5f);
-        intentRect.anchoredPosition = new Vector2(0f, -26f);
-        intentRect.sizeDelta = new Vector2(320f, 54f);
+        intentRect.anchoredPosition = new Vector2(0f, -30f);
+        intentRect.sizeDelta = new Vector2(300f, 50f);
     }
 
     private string ResolveEnemyCombatVisualID(FighterEntity fighter) {
@@ -972,8 +994,8 @@ public class HUDController : MonoBehaviour {
         rect.anchorMin = new Vector2(0f, 1f);
         rect.anchorMax = new Vector2(0f, 1f);
         rect.pivot = new Vector2(0f, 1f);
-        rect.anchoredPosition = new Vector2(172f, -104f);
-        rect.sizeDelta = new Vector2(250f, 32f);
+        rect.anchoredPosition = new Vector2(250f, -152f);
+        rect.sizeDelta = new Vector2(270f, 28f);
         HorizontalLayoutGroup layout = pipRoot.AddComponent<HorizontalLayoutGroup>();
         layout.childAlignment = TextAnchor.MiddleLeft;
         layout.childControlWidth = false;
@@ -985,14 +1007,14 @@ public class HUDController : MonoBehaviour {
     }
 
     private void PositionCombatTexts() {
-        MoveTextToPanel(hpLabel, new Vector2(24f, -20f), new Vector2(140f, 30f), 22, new Color(1f, 0.56f, 0.48f));
-        MoveTextToPanel(shieldLabel, new Vector2(24f, -60f), new Vector2(140f, 28f), 20, new Color(0.72f, 0.86f, 1f));
-        MoveTextToPanel(sanLabel, new Vector2(24f, -96f), new Vector2(140f, 28f), 20, new Color(0.74f, 0.56f, 1f));
-        MoveTextToPanel(apLabel, new Vector2(24f, -124f), new Vector2(140f, 28f), 20, new Color(0.72f, 0.95f, 1f));
+        MoveTextToPanel(hpLabel, new Vector2(24f, -18f), new Vector2(210f, 28f), 19, new Color(1f, 0.56f, 0.48f));
+        MoveTextToPanel(shieldLabel, new Vector2(24f, -66f), new Vector2(210f, 28f), 18, new Color(0.72f, 0.86f, 1f));
+        MoveTextToPanel(sanLabel, new Vector2(24f, -112f), new Vector2(210f, 28f), 18, new Color(0.74f, 0.56f, 1f));
+        MoveTextToPanel(apLabel, new Vector2(24f, -154f), new Vector2(210f, 28f), 18, new Color(0.72f, 0.95f, 1f));
 
         if (targetHintLabel != null && _targetHintPanel != null) {
             targetHintLabel.transform.SetParent(_targetHintPanel.transform, false);
-            targetHintLabel.fontSize = 22;
+            targetHintLabel.fontSize = 19;
             targetHintLabel.alignment = TextAnchor.MiddleCenter;
             targetHintLabel.raycastTarget = false;
             StretchToParent(targetHintLabel.rectTransform, 24f, 8f);
@@ -1035,7 +1057,7 @@ public class HUDController : MonoBehaviour {
             pipObj.transform.SetParent(_apPipParent, false);
             Image pip = pipObj.AddComponent<Image>();
             RectTransform rect = pip.rectTransform;
-            rect.sizeDelta = new Vector2(28f, 28f);
+            rect.sizeDelta = new Vector2(24f, 24f);
             VisualUIHelper.ApplySimpleSprite(
                 pip,
                 VisualAssetService.UICombatApPipID,
@@ -1053,6 +1075,12 @@ public class HUDController : MonoBehaviour {
         }
 
         return combat.PlayerFaction.Fighters[0] as DollFighter;
+    }
+
+    private void SetActiveIfPresent(Component component, bool active) {
+        if (component != null) {
+            component.gameObject.SetActive(active);
+        }
     }
 
     private Button CreateButton(Transform parent, string objectName, string labelText) {

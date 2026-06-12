@@ -21,7 +21,7 @@ related:
   - agent_status/art.md
   - 知识库/views/program.md
   - 美术文档/15_FormalV2运行时验收待办清单.md
-last_verified: 2026-06-10
+last_verified: 2026-06-12
 update_rule: 程序、Unity、验证或工程边界任务完成后更新本文件。
 ---
 
@@ -29,7 +29,7 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 ## 最后更新
 
-2026-06-10
+2026-06-12
 
 ## 当前关注
 
@@ -65,6 +65,14 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 ```
 
 ## 最近完成
+
+- 美术 / UI 侧已直接接管 FormalV2 运行时视觉精修，并完成一轮 UGUI 返修与 ArtAcceptance 清场修复：latest ArtAcceptance `RunID=20260612_231356`、`Status=PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0；`ScenarioEventPanel_Runtime` 跨截图污染已清除。当前结论：资源 / Registry / 工具层通过，核心 P0 UI 结构可作为下一轮玩家流程 UI 基础，但完整 FormalV2 视觉封版仍未通过。程序侧后续只在领域服务、Unity 工程约束、测试工具或 UGUI 底层能力出现问题时介入。
+- UI 程序侧已完成 FormalV2 截图缺口修复后的最终复验：`sell_panel` 现在作为 `Town Market Preview` 展示真实可售物行并路由 `shop_staging`，`prosthetic_panel` 作为 `Workshop Studio` 展示真实配方行、义体图标、材料需求、锁定 / 装备状态与制作入口；`workshop_main` 继续保持房间 / 魔偶为视觉中心，背包退到底部左侧，`combat_hud` 保留左人偶 / 右敌人 / 底部背包且敌人不再压在黑色卡底上。验证证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 通过，0 warning / 0 error；`WorkshopSmokeTest.Run` batchmode 通过，日志 `UnityClient/Logs/workshop_smoke_codex_20260611_013953.log` 覆盖 Market Preview、Prosthetic Panel、Locked Row 和 FormalV2 Hub Layout；当前工作区 batchmode ArtAcceptance `RunID=20260611_014057`、`Status=PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0。证据入口：`UnityClient/Logs/ArtAcceptance/latest/report.json`、`UnityClient/Logs/ArtAcceptance/latest/screenshots/`、`UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260611_014057.png`。该结论只代表程序侧截图缺口修复与工具层通过；FormalV2 UI 画面通过仍需美术侧人工截图复验。
+- UI 程序侧已完成 FormalV2 运行时结构重排首轮收口并补跑工具验收：`workshop_main` 改为房间 / 魔偶中心的低按钮密度主界面，`combat_hud` 保留左人偶 / 右敌人 / 底部背包并降低顶部提示和操作权重，`dungeon_map` 改用雾层 / 锁定图标和低权重路线，`inventory_loot` 改为半透明战斗覆盖 + 中央背包 + 周边奖励散落，`settlement` 改为收益 / 带出 / 损失三列并保留可见 `Loot_Text` 验收锚点；`prosthetic_panel` / `maintenance_panel` / `chassis_upgrade_panel` 已归入 Workshop Studio 语义，`sell_panel` 改为 Town Market Preview 并路由 `shop_staging`，不再直接卖出或改写金币 / 背包。验证证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 通过，当前有 33 个既有 Unity API deprecation warning / 0 error；`.\tools\docs\Validate-Docs.ps1` 通过；`Invoke-P0Validation.ps1 -TimeoutSeconds 180` 在当前环境未产出总报告，`config_validation.json` 记录 `validation_limited:UnityTestReportMissing`，触发式 Unity Editor 实例实际指向 `F:\design\game\project\P3_Unity6\UnityClient` 而非本工作区；随后用当前工作区 batchmode 直接执行 `ArtAcceptanceEditorDaemon.RunFromBatchmode`，latest ArtAcceptance `RunID=20260611_001542`、`Status=PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0。证据入口：`UnityClient/Logs/ArtAcceptance/latest/report.json`、`UnityClient/Logs/ArtAcceptance/latest/screenshots/`、`UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260611_001542.png`。该结论只代表程序侧重排后工具层通过；FormalV2 UI 画面通过仍需美术侧人工截图复验。
+- UI 程序侧已完成 FormalV2 `workshop_studio` / `sell_panel` 语义修正第一轮：`sell_panel` 不再作为工坊直接卖出流程，改为 `Town Market Preview`，列表仅展示背包 / 仓库可售物与估值并路由到 `shop_staging`，不再生成行内 `Sell_Button` 或直接改写金币 / 背包；`prosthetic_panel` 改为 `Workshop Studio` 入口，新增 Maintenance / Chassis 子面板切换按钮，义体配方行保留真实图标、材料需求图标、Craft / Equipped / Locked 状态和 `ProstheticCraftingService` 制作链路；`maintenance_panel` 与 `chassis_upgrade_panel` 标题同步到 Workshop Studio 语义。新增 / 更新 `WorkshopSmokeTest` 覆盖 market preview 不直接售卖、shop_staging 路由、studio 子面板按钮、材料图标和 locked recipe 行。验证证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 通过，0 warning / 0 error；`git diff --check -- UnityClient/Assets/Scripts/UI/Workshop/WorkshopUIController.cs UnityClient/Assets/Scripts/UI/Workshop/WorkshopFormalV1PanelController.cs UnityClient/Assets/Scripts/Tests/WorkshopSmokeTest.cs` 仅提示 LF/CRLF 转换 warning。运行时截图 / ArtAcceptance 重跑归入本轮 `UIV2-05`，当前不声明 FormalV2 画面通过。
+- UI 程序侧已完成 FormalV2 `inventory_loot` / `settlement` 运行时结构重排第一轮：`InventoryDisplaySpec` 将 `CombatLoot` 背包展示改为居中，`CombatLootUIController` 保持半透明战斗覆盖层，奖励物改为围绕中心背包区域的左右 / 顶部散落点位并进行边界夹取，继续按钮回到底部中心；`SettlementUIController` 将最终结算从单块拥挤文本改为拾取 / 带出 / 损失三列结果区，结果标题与摘要层级上移，按钮与列表分离。新增 `CombatLootDropTest` 的 FormalV2 loot layout 断言与 `CombatOutcomeReportSmokeTest` 的 FormalV2 settlement columns 断言。验证证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 通过，0 warning / 0 error；`git diff --check -- UnityClient/Assets/Scripts/UI/Dungeon/SettlementUIController.cs UnityClient/Assets/Scripts/UI/Inventory/InventoryDisplaySpec.cs UnityClient/Assets/Scripts/Tests/CombatOutcomeReportSmokeTest.cs UnityClient/Assets/Scripts/Tests/CombatLootDropTest.cs` 仅提示 LF/CRLF 转换 warning。运行时截图 / ArtAcceptance 重跑归入本轮 `UIV2-05`，当前不声明 FormalV2 画面通过。
+- UI 程序侧已完成 FormalV2 `combat_hud` / `dungeon_map` 运行时结构重排第一轮：`HUDController` 保留左人偶 / 右敌人 / 底部背包结构，但降低顶部提示条与操作条权重，扩大并重排玩家 HP / Shield / SAN / AP 状态区，减弱敌人脚下卡底、阴影和脚底条；`DungeonMapUIController` 将隐藏节点从纯灰黑方块改为 `ui_icon_locked` + `NodeFogVeil_Image` 的正式雾层 / 锁定表达，路线线段改为更细、更低透明度并置于节点后方。新增 `CombatHUDIntentBindingSmokeTest` 状态布局断言与 `DungeonStairsProgressionTest` 雾层 / 路线权重断言。验证证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 通过，0 warning / 0 error；`git diff --check -- UnityClient/Assets/Scripts/UI/Combat/HUDController.cs UnityClient/Assets/Scripts/UI/Dungeon/DungeonMapUIController.cs UnityClient/Assets/Scripts/Tests/CombatHUDIntentBindingSmokeTest.cs UnityClient/Assets/Scripts/Tests/DungeonStairsProgressionTest.cs` 仅提示 LF/CRLF 转换 warning。运行时截图 / ArtAcceptance 重跑归入本轮 `UIV2-05`，当前不声明 FormalV2 画面通过。
+- UI 程序侧已完成 FormalV2 `workshop_main` 第一段运行时结构重排：`WorkshopUIController` 的首屏从左侧按钮堆叠 + 全屏 Money 条改为紧凑状态条、居中魔偶展示、右侧深渊入口、左下 Studio 入口和右下 Ledger / Market 入口；旧 maintenance / order / doll 等 FormalV1 入口按钮仍保留引用和监听，但默认不再作为首屏按钮网格显示。新增 `WorkshopSmokeTest` 的 FormalV2 Hub Layout 断言，防止回退为首屏按钮堆叠。验证证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 通过，0 warning / 0 error；`git diff --check -- UnityClient/Assets/Scripts/UI/Workshop/WorkshopUIController.cs UnityClient/Assets/Scripts/Tests/WorkshopSmokeTest.cs` 仅提示既有 LF/CRLF 转换 warning。
 - 美术侧已直接完成 FormalV2 当前新增资源登记与运行时工具验收：`VisualAssetRegistry.asset` 为 278 条，ArtAcceptance latest `20260610_003347` 为 `PASSED`、21/21 captured、`MissingRequiredVisualIDs=0`；美术交接队列已清为 `program_integrate=0`、`missing_registry=0`、`missing_approved=0`、`missing_meta=0`。美术人工验收结论见 `美术文档/09_运行时美术验收记录.md`：资源 / Registry / 工具层通过，但 FormalV2 运行时 UI 结构不完全通过，下一步程序/UI 侧应重排 `workshop_main`、`combat_hud`、`dungeon_map`、`inventory_loot`、`settlement`，并替换 `prosthetic_panel`、`sell_panel` 和旧三栏模板界面。
 - `REVIEW-01` mission outcome 审查已完成：`.mission/20260608_012621-Program-C1-C3-MainLoop-Architecture.csv` 的 14 个 TASK 均为 `DONE`，strict 校验通过；本轮原始目标“三段推进”已有对应证据：`CFG-01..02` 覆盖 C1-C3 配置程序支持，`FLOW-01..07` 覆盖主流程可玩闭环一轮补强，`ARCH-01..05` 覆盖架构审计、服务化、快照 / 操作配对、P0 报告契约和防重复派发规则。剩余风险不改写为完成：Unity Editor 未运行导致 runtime smoke 仍是 `validation_limited:UnityEditorNotRunning`，ArtAcceptance latest 仍有既有 combat HUD / 怪物战斗图失败。
 - `ARCH-05` 文档和状态防重复派发收口已完成：`开发文档/16_程序主流程闭环与架构收口推进计划.md` 新增程序完成状态标签和防重复派发规则，统一区分 `服务完成`、`UI可达`、`展示已接入`、`可操作闭环完成`、`验收受限`、`未开放` 和 `架构收口`；`版本规划/09_正式版核心纵切开发路线.md` 同步宏观派发口径。后续已标为 `可操作闭环完成` 的基础能力不得以同名功能重开，只能按 bug、验收补强、表现补强或配置补齐处理；`validation_limited:*` 只能说明验证受限，不能当作通过证据。验证证据：`.\tools\docs\Validate-Docs.ps1` 通过；mission strict 通过，`tasks=14/14 done`。
@@ -158,15 +166,16 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 2. 第二优先级主流程可玩闭环已完成一轮程序补强批次：`FLOW-01..FLOW-07` 覆盖玩家路径缺口审计、层选择 / 下潜、地图节点、战斗 / 非战斗节点、战利品、阶梯 / 撤离、小镇出售、工坊维护和黄金路径 smoke / P0 摘要。后续重点不是重开基础线，而是做 Unity runtime / 人工体验复核；若发现正常 UI 不可达、按钮未调用真实服务或状态未回写，按对应 `FLOW-*` 追加 bug 修复或验收补强。
 3. 主流程闭环的完成口径是“玩家正常 UI 可达 + 调用真实领域服务 + 状态真实变化 + 有 smoke / P0 证据”，不能用只读快照、debug preview、ArtAcceptance 截图或静态面板代替；服务已存在但 UI 不可达，仍然只能算“功能未开放完”。
 4. 第三优先级程序架构优化 / 收口已完成 `ARCH-01..ARCH-05` 当前批次收口；`REVIEW-01` 已确认本轮 mission 的 TASK 证据完整。后续若继续处理 `GameFlowController` fallback UI、`DungeonManager` 结算职责或测试入口夹具，应作为新一轮架构任务单独派发，不重开已完成基础能力。
-5. UI / 美术接入跟随上述功能闭环推进：当前 Approved 资源和 active FormalV2 规格已具备，程序/UI 侧应优先处理运行时结构重排。重点是 `workshop_main` 从按钮堆叠改为房间/魔偶中心，`prosthetic_panel` 和 `sell_panel` 补真实面板与数据，旧三栏模板屏逐步替换为 FormalV2 对应结构。
+5. FormalV2 UI 运行时结构重排和截图缺口修复已取得最新 ArtAcceptance 工具层通过；后续视觉 / 布局精修由美术 / UI 侧直接处理。程序侧不再默认承接 UI 返修，只在真实领域服务、Unity 工程约束、自动验收工具或 UGUI 底层能力出现阻断时按 bug 或工具任务介入。
 
 ## 问题 / 阻塞
 
 - 当前工作区仍有未纳入本次提交的无关改动：`tools/ai-image-gateway` 子模块内部 `implementation_plan.md` 已修改，`tools/ComfyUI_NAIDGenerator/` 为未跟踪本地工具目录；后续提交前继续严格收窄暂存范围。
-- 当前环境 Unity Editor 未运行，`Invoke-P0Validation.ps1` 中 ConfigValidator 和 Unity smoke 只能记录为 `validation_limited:UnityEditorNotRunning`；这不是 C1-C3 JSON 硬断链或 `FLOW-05` 代码运行失败证据，后续打开 Unity 后应补跑 runtime 验证。
-- 当前 ArtAcceptance latest 已更新为 `20260610_003347` 且工具层 `PASSED`；先前缺失战斗图和 87 个 FormalV2 新增 VisualID 均已登记。旧 `20260606_230523` 失败不再代表当前 Approved 素材缺失事实。
-- `FLOW-03` / `FLOW-04` / `FLOW-07` 新增或扩展的 `CombatLootDropTest.Run`、`DungeonNodeTypesSmokeTest.Run`、`DungeonStairsProgressionTest.Run` 与 `MainFlowGoldenPathSmokeTest.Run` 已接入 P0 默认 smoke 列表，但当前环境没有 Unity Editor，尚未取得运行态通过证据；后续打开 Unity 后需补跑 P0 或单独触发这些测试。
-- 美术验收发现 latest ArtAcceptance 虽然工具层 `PASSED`，但 FormalV2 画面没有整体通过：`workshop_main` 仍是按钮堆叠，`prosthetic_panel` / `sell_panel` 为空黑底状态，许多 V2-B/V2-C 屏仍是旧三栏模板。程序侧需按 `美术文档/09_运行时美术验收记录.md` 的 2026-06-10 条目返修并重跑。
+- 当前触发式 Unity 验证入口存在路径错位：正在运行的桌面 Unity Editor 指向 `F:\design\game\project\P3_Unity6\UnityClient`，不会消费本工作区 `F:\design\game\project\p3\UnityClient\Logs` 下的 `.test_trigger` / `.art_acceptance_trigger`；因此 `Invoke-P0Validation.ps1 -TimeoutSeconds 180` 未产出总报告，`config_validation.json` 记录为 `validation_limited:UnityTestReportMissing`。本轮已用当前工作区 batchmode 直接执行 ArtAcceptance 作为替代运行时截图证据。
+- 当前 ArtAcceptance latest 已更新为 `20260612_231356` 且工具层 `PASSED`；21/21 captured，Registry 278，`MissingRequiredVisualIDs=0`，warnings/errors=0。证据入口为 `UnityClient/Logs/ArtAcceptance/latest/report.json`、`UnityClient/Logs/ArtAcceptance/latest/screenshots/` 和 `UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260612_231356_codex.png`；旧 `20260611_014057` 只代表美术 / UI 直接精修前的截图证据，旧 `20260610_003347` / `20260606_230523` 不再代表当前 Approved 素材缺失事实。
+- 美术 / UI 侧已确认 FormalV2 核心 P0 结构可作为下一轮玩家流程 UI 基础，但完整视觉封版仍未通过：`dungeon_map` 节点和路线融合、`sell_panel` / `prosthetic_panel` modal 层级、旧 FormalV1 三栏模板替换、`bg_workshop_day` 背景候选和 `inventory_loot` 奖励散落细节仍需继续精修。当前不是资源登记或批量补图问题。
+- `FLOW-03` / `FLOW-04` / `FLOW-07` 新增或扩展的 `CombatLootDropTest.Run`、`DungeonNodeTypesSmokeTest.Run`、`DungeonStairsProgressionTest.Run` 与 `MainFlowGoldenPathSmokeTest.Run` 已接入 P0 默认 smoke 列表，但本轮 P0 触发式总入口未取得运行态通过证据；后续可在当前工作区 Unity Editor 会话中补跑 P0 或单独触发这些测试。
+- FormalV2 工具层截图已经通过，但完整视觉封版尚未通过；不得仅凭 ArtAcceptance `PASSED` 标记为画面完成。
 - `tools/ai-image-gateway` 子模块内部有未提交改动。
 
 ## 完成回写清单
@@ -175,3 +184,11 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - 在 `最近完成` 记录简短事实。
 - 如有变化，刷新 `当前关注`、`下一步建议` 和阻塞项。
 - 如果需要美术或策划跟进，在 `PROJECT_STATUS.md` 增加跨职能交接。
+
+## 2026-06-12 表现小样包
+
+- 最近完成：新增独立运行时原型 `P3ExpressionPreviewController`，用纯 UGUI 运行时生成魔偶呼吸 / SAN veil / 核心灯脉冲、维护修复脉冲 / 火花、战斗斩击 / 碎片 / 伤害数字等表现，不接入正式主流程、不修改 Approved / Manifest / Registry。
+- 当前关注：该原型只作为特效、轻量动画和伪 Live2D 制作路线验证；正式接入仍需后续按 `VisualID -> Prefab/VFX` 契约拆分配置字段、Prefab 资源和 ArtAcceptance 录像 / 截图验收。
+- 下一步建议：如果用户认可方向，下一轮把原型拆成 `vfx_repair_spark`、`vfx_weapon_slash_use`、`vfx_shield_break`、`doll_idle_preview` 四个可登记表现 Prefab，并为 `UseVFXID` / `HitVFXID` / `DeathVFXID` 增加最小运行时播放入口。
+- 问题 / 阻塞：Unity MCP 连接被工程授权撤销，当前无法通过 MCP 直接创建场景或抓 Unity 编辑器截图；已提供 Editor 菜单 `Tools/P3 Preview/Create Expression Preview Scene`，待授权或本地 Unity 会话可用时可生成 `Assets/Scenes/P3ExpressionPreview.unity`。
+- 关键证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 通过，`dotnet build UnityClient/Assembly-CSharp-Editor.csproj --no-restore` 通过；浏览器预览页位于 `tools/p3_expression_preview.html`，本地截图证据位于 `UnityClient/Logs/ExpressionPreview/p3_expression_preview_browser.png`。

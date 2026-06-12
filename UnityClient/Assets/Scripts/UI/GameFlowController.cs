@@ -235,7 +235,7 @@ public class GameFlowController : MonoBehaviour {
 
         if (workshopPanel) workshopPanel.SetActive(nextScreen == GameScreenState.Workshop);
         if (dungeonMapPanel) dungeonMapPanel.SetActive(nextScreen == GameScreenState.DungeonMap);
-        if (combatPanel) combatPanel.SetActive(nextScreen == GameScreenState.Combat);
+        if (combatPanel) combatPanel.SetActive(nextScreen == GameScreenState.Combat || nextScreen == GameScreenState.CombatLoot);
         if (combatLootPanel) combatLootPanel.SetActive(nextScreen == GameScreenState.CombatLoot);
         if (dungeonNodeResultPanel) dungeonNodeResultPanel.SetActive(nextScreen == GameScreenState.NodeResolution);
         if (safeRoomPanel) safeRoomPanel.SetActive(nextScreen == GameScreenState.SafeRoom || nextScreen == GameScreenState.Stairs);
@@ -322,6 +322,7 @@ public class GameFlowController : MonoBehaviour {
 
     private void OnEnterCombatScreen() {
         Debug.Log("[GameFlow] 进入战斗！");
+        SetCombatLootOverlayMode(false);
         SyncInventoryItemUI();
     }
 
@@ -333,6 +334,7 @@ public class GameFlowController : MonoBehaviour {
         }
 
         Debug.Log($"[GameFlow] 展示战利品拾取界面, OfferedCount={result.OfferedItems.Count}, EstimatedValue={result.TotalEstimatedValue}");
+        SetCombatLootOverlayMode(true);
         SyncInventoryItemUI();
 
         EnsureCombatLootPanel();
@@ -364,6 +366,13 @@ public class GameFlowController : MonoBehaviour {
             } else {
                 DungeonEventBus.PublishNodeSettlementCompleted();
             }
+        }
+    }
+
+    private void SetCombatLootOverlayMode(bool active) {
+        HUDController hud = combatPanel != null ? combatPanel.GetComponent<HUDController>() : null;
+        if (hud != null) {
+            hud.SetLootOverlayMode(active);
         }
     }
 

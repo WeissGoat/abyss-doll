@@ -13,6 +13,13 @@ public class SettlementUIController : MonoBehaviour {
     public Image settlementPanelImage;
     public Image titleDividerImage;
 
+    private Image _pickedColumnImage;
+    private Image _broughtColumnImage;
+    private Image _lostColumnImage;
+    private Text _pickedColumnText;
+    private Text _broughtColumnText;
+    private Text _lostColumnText;
+
     public void Present(CombatOutcomeReport report, Action onContinue) {
         if (report == null) {
             return;
@@ -34,6 +41,8 @@ public class SettlementUIController : MonoBehaviour {
         if (lootText != null) {
             lootText.text = BuildCombatOutcomeDetails(report);
         }
+
+        SetSettlementColumnsVisible(false);
 
         if (continueBtn != null) {
             continueBtn.onClick.RemoveAllListeners();
@@ -58,9 +67,8 @@ public class SettlementUIController : MonoBehaviour {
                 : $"本次深入失败，背包内物资已丢失。\n本次拾取 {result.PickedUpCount} / 带出 {result.BroughtOutCount} / 损失 {result.LostCount}\n当前仓库库存: {result.StashCountAfterSettlement}";
         }
 
-        if (lootText != null) {
-            lootText.text = BuildSettlementDetails(result);
-        }
+        PopulateSettlementColumns(result);
+        ConfigureLootTextForSettlementColumns(result);
 
         if (continueBtn != null) {
             continueBtn.onClick.RemoveAllListeners();
@@ -69,6 +77,14 @@ public class SettlementUIController : MonoBehaviour {
     }
 
     private void ApplySettlementSkin(bool isVictory) {
+        RectTransform rootRect = transform as RectTransform;
+        if (rootRect != null) {
+            rootRect.anchorMin = Vector2.zero;
+            rootRect.anchorMax = Vector2.one;
+            rootRect.offsetMin = Vector2.zero;
+            rootRect.offsetMax = Vector2.zero;
+        }
+
         Image rootImage = GetComponent<Image>();
         if (rootImage != null) {
             rootImage.color = Color.clear;
@@ -93,7 +109,7 @@ public class SettlementUIController : MonoBehaviour {
             "SettlementCard_Image",
             transform,
             Vector2.zero,
-            new Vector2(900f, 700f),
+            new Vector2(1240f, 760f),
             VisualAssetService.ResolveSettlementPanelID(isVictory));
 
         Transform contentParent = settlementPanelImage != null ? settlementPanelImage.transform : transform;
@@ -101,13 +117,14 @@ public class SettlementUIController : MonoBehaviour {
             titleDividerImage,
             "TitleDivider_Image",
             contentParent,
-            new Vector2(0f, 238f),
-            new Vector2(640f, 36f));
+            new Vector2(0f, 176f),
+            new Vector2(820f, 32f));
 
-        MoveText(titleText, contentParent, new Vector2(0f, 270f), new Vector2(700f, 68f), 44, TextAnchor.MiddleCenter, Color.white);
-        MoveText(summaryText, contentParent, new Vector2(0f, 148f), new Vector2(700f, 132f), 24, TextAnchor.UpperCenter, new Color(0.92f, 0.91f, 0.84f, 1f));
-        MoveText(lootText, contentParent, new Vector2(0f, -78f), new Vector2(700f, 300f), 22, TextAnchor.UpperLeft, new Color(1f, 0.92f, 0.58f, 1f));
-        MoveButton(continueBtn, contentParent, new Vector2(0f, -286f), new Vector2(280f, 72f));
+        MoveText(titleText, contentParent, new Vector2(0f, 214f), new Vector2(840f, 50f), 34, TextAnchor.MiddleCenter, Color.white);
+        MoveText(summaryText, contentParent, new Vector2(0f, 118f), new Vector2(920f, 78f), 19, TextAnchor.UpperCenter, new Color(0.92f, 0.91f, 0.84f, 1f));
+        MoveText(lootText, contentParent, new Vector2(0f, -72f), new Vector2(900f, 300f), 19, TextAnchor.UpperLeft, new Color(1f, 0.92f, 0.58f, 1f));
+        EnsureSettlementColumns(contentParent);
+        MoveButton(continueBtn, contentParent, new Vector2(0f, -328f), new Vector2(320f, 68f));
         VisualUIHelper.ApplyButtonSkin(continueBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.85f, 0.48f, 0.18f));
 
         if (settlementPanelImage != null) {
@@ -175,6 +192,9 @@ public class SettlementUIController : MonoBehaviour {
         text.color = color;
         text.alignment = alignment;
         text.raycastTarget = false;
+        text.resizeTextForBestFit = true;
+        text.resizeTextMinSize = Mathf.Max(12, fontSize - 6);
+        text.resizeTextMaxSize = fontSize;
 
         RectTransform rect = text.rectTransform;
         rect.anchorMin = new Vector2(0.5f, 0.5f);
@@ -182,6 +202,150 @@ public class SettlementUIController : MonoBehaviour {
         rect.pivot = new Vector2(0.5f, 0.5f);
         rect.anchoredPosition = position;
         rect.sizeDelta = size;
+    }
+
+    private void EnsureSettlementColumns(Transform parent) {
+        _pickedColumnImage = EnsureSettlementColumn(
+            _pickedColumnImage,
+            "PickedLootColumn",
+            parent,
+            new Vector2(-380f, -128f),
+            out _pickedColumnText);
+        _broughtColumnImage = EnsureSettlementColumn(
+            _broughtColumnImage,
+            "BroughtLootColumn",
+            parent,
+            new Vector2(0f, -128f),
+            out _broughtColumnText);
+        _lostColumnImage = EnsureSettlementColumn(
+            _lostColumnImage,
+            "LostLootColumn",
+            parent,
+            new Vector2(380f, -128f),
+            out _lostColumnText);
+    }
+
+    private Image EnsureSettlementColumn(Image current, string objectName, Transform parent, Vector2 position, out Text text) {
+        Image image = EnsureSkinImage(
+            current,
+            objectName,
+            parent,
+            position,
+            new Vector2(340f, 260f),
+            VisualAssetService.UIPanelInfoID);
+        if (image != null) {
+            image.color = new Color(1f, 1f, 1f, 0.72f);
+        }
+
+        Transform textTransform = image != null ? image.transform.Find("ColumnText") : null;
+        text = textTransform != null ? textTransform.GetComponent<Text>() : null;
+        if (text == null && image != null) {
+            GameObject textObj = new GameObject("ColumnText");
+            textObj.transform.SetParent(image.transform, false);
+            text = textObj.AddComponent<Text>();
+        }
+
+        if (text != null) {
+            text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            text.fontSize = 19;
+            text.resizeTextForBestFit = true;
+            text.resizeTextMinSize = 13;
+            text.resizeTextMaxSize = 19;
+            text.color = new Color(0.96f, 0.91f, 0.78f, 1f);
+            text.alignment = TextAnchor.UpperLeft;
+            text.raycastTarget = false;
+            RectTransform textRect = text.rectTransform;
+            textRect.anchorMin = Vector2.zero;
+            textRect.anchorMax = Vector2.one;
+            textRect.offsetMin = new Vector2(24f, 20f);
+            textRect.offsetMax = new Vector2(-24f, -20f);
+        }
+
+        return image;
+    }
+
+    private void PopulateSettlementColumns(DungeonSettlementResult result) {
+        Transform parent = settlementPanelImage != null ? settlementPanelImage.transform : transform;
+        EnsureSettlementColumns(parent);
+
+        if (_pickedColumnText != null) {
+            _pickedColumnText.text = BuildSettlementColumn("本次拾取", result.PickedUpNames, result.PickedUpEstimatedValue, result.PickedUpCount, "本次没有拾取战利品。");
+        }
+
+        if (_broughtColumnText != null) {
+            _broughtColumnText.text = BuildSettlementColumn("最终带出", result.BroughtOutNames, result.BroughtOutEstimatedValue, result.BroughtOutCount, result.IsVictory ? "本次没有带出战利品。" : "战败时未能带出战利品。");
+        }
+
+        if (_lostColumnText != null) {
+            _lostColumnText.text = BuildSettlementColumn("本次损失", result.LostNames, result.LostEstimatedValue, result.LostCount, "本次没有损失已拾取战利品。");
+        }
+
+        SetSettlementColumnsVisible(true);
+    }
+
+    private void SetSettlementColumnsVisible(bool visible) {
+        SetActiveIfPresent(_pickedColumnImage, visible);
+        SetActiveIfPresent(_broughtColumnImage, visible);
+        SetActiveIfPresent(_lostColumnImage, visible);
+        if (lootText != null) {
+            lootText.gameObject.SetActive(true);
+        }
+    }
+
+    private void ConfigureLootTextForSettlementColumns(DungeonSettlementResult result) {
+        if (lootText == null) {
+            return;
+        }
+
+        Transform parent = settlementPanelImage != null ? settlementPanelImage.transform : transform;
+        MoveText(
+            lootText,
+            parent,
+            new Vector2(0f, 34f),
+            new Vector2(880f, 34f),
+            18,
+            TextAnchor.MiddleCenter,
+            new Color(1f, 0.92f, 0.58f, 1f));
+        lootText.text = result != null
+            ? $"拾取 {result.PickedUpCount} 件 / 带出 {result.BroughtOutCount} 件 / 损失 {result.LostCount} 件"
+            : "收益 / 带出 / 损失";
+        lootText.gameObject.SetActive(true);
+    }
+
+    private void SetActiveIfPresent(Image image, bool visible) {
+        if (image != null) {
+            image.gameObject.SetActive(visible);
+        }
+    }
+
+    private string BuildSettlementColumn(string title, System.Collections.Generic.List<string> names, int estimatedValue, int count, string emptyText) {
+        StringBuilder builder = new StringBuilder();
+        builder.AppendLine(title);
+        builder.Append(count);
+        builder.Append(" 件 / ");
+        builder.Append(estimatedValue);
+        builder.AppendLine("G");
+        builder.AppendLine();
+
+        if (names != null && names.Count > 0) {
+            int maxRows = Mathf.Min(names.Count, 8);
+            for (int i = 0; i < maxRows; i++) {
+                builder.Append("- ");
+                builder.AppendLine(names[i]);
+            }
+
+            if (names.Count > maxRows) {
+                builder.Append("+ ");
+                builder.Append(names.Count - maxRows);
+                builder.AppendLine(" more");
+            }
+
+            return builder.ToString().TrimEnd();
+        }
+
+        builder.Append("- ");
+        builder.Append(emptyText);
+        return builder.ToString();
     }
 
     private void MoveButton(Button button, Transform parent, Vector2 position, Vector2 size) {
@@ -312,15 +476,15 @@ public class CombatLootUIController : MonoBehaviour {
     public Image itemDetailPanelImage;
 
     private static readonly Vector2[] BaseSpawnOffsets = {
-        new Vector2(-190f, 120f),
-        new Vector2(0f, 120f),
-        new Vector2(190f, 120f),
-        new Vector2(-190f, -30f),
-        new Vector2(0f, -30f),
-        new Vector2(190f, -30f),
-        new Vector2(-190f, -180f),
-        new Vector2(0f, -180f),
-        new Vector2(190f, -180f)
+        new Vector2(-620f, 190f),
+        new Vector2(620f, 190f),
+        new Vector2(-620f, 30f),
+        new Vector2(620f, 30f),
+        new Vector2(-620f, -130f),
+        new Vector2(620f, -130f),
+        new Vector2(-300f, 300f),
+        new Vector2(0f, 318f),
+        new Vector2(300f, 300f)
     };
 
     public void Present(CombatLootPickupResult result, GameObject itemPrefab, Action onContinue) {
@@ -375,12 +539,7 @@ public class CombatLootUIController : MonoBehaviour {
     private void PrepareOverlayForPickup() {
         Image panelImage = GetComponent<Image>();
         if (panelImage != null) {
-            VisualUIHelper.ApplyCoverSprite(
-                panelImage,
-                VisualAssetService.CombatBackgroundID,
-                new Color(0.42f, 0.38f, 0.32f, 0.96f),
-                new Color(0.012f, 0.014f, 0.013f, 0.96f));
-            panelImage.raycastTarget = false;
+            VisualUIHelper.ApplySolidColor(panelImage, new Color(0.006f, 0.008f, 0.012f, 0.46f), true);
         }
 
         if (lootParent == null) {
@@ -397,8 +556,8 @@ public class CombatLootUIController : MonoBehaviour {
             lootRect.anchorMin = new Vector2(0.5f, 0.5f);
             lootRect.anchorMax = new Vector2(0.5f, 0.5f);
             lootRect.pivot = new Vector2(0.5f, 0.5f);
-            lootRect.anchoredPosition = new Vector2(470f, 90f);
-            lootRect.sizeDelta = new Vector2(560f, 420f);
+            lootRect.anchoredPosition = Vector2.zero;
+            lootRect.sizeDelta = new Vector2(1480f, 720f);
         }
     }
 
@@ -412,7 +571,7 @@ public class CombatLootUIController : MonoBehaviour {
             return;
         }
 
-        Vector2 spawnOffset = GetSpawnOffset(index);
+        Vector2 spawnOffset = ClampLootSpawnOffset(GetSpawnOffset(index), itemRect);
         itemRect.anchorMin = new Vector2(0.5f, 0.5f);
         itemRect.anchorMax = new Vector2(0.5f, 0.5f);
         itemRect.anchoredPosition = spawnOffset;
@@ -427,9 +586,24 @@ public class CombatLootUIController : MonoBehaviour {
         }
 
         int overflowIndex = index - BaseSpawnOffsets.Length;
-        int column = overflowIndex % 3;
-        int row = overflowIndex / 3;
-        return new Vector2(-190f + column * 190f, -300f - row * 140f);
+        int side = overflowIndex % 2 == 0 ? -1 : 1;
+        int row = overflowIndex / 2;
+        float y = 250f - row * 120f;
+        return new Vector2(side * 735f, y);
+    }
+
+    private Vector2 ClampLootSpawnOffset(Vector2 offset, RectTransform itemRect) {
+        RectTransform parentRect = lootParent as RectTransform;
+        if (parentRect == null || itemRect == null) {
+            return offset;
+        }
+
+        Vector2 itemSize = itemRect.sizeDelta;
+        float halfWidth = Mathf.Max(0f, parentRect.sizeDelta.x * 0.5f - Mathf.Max(70f, itemSize.x * 0.5f));
+        float halfHeight = Mathf.Max(0f, parentRect.sizeDelta.y * 0.5f - Mathf.Max(70f, itemSize.y * 0.5f));
+        return new Vector2(
+            Mathf.Clamp(offset.x, -halfWidth, halfWidth),
+            Mathf.Clamp(offset.y, -halfHeight, halfHeight));
     }
 
     private void EnsureLootPickupSkin() {
@@ -437,7 +611,8 @@ public class CombatLootUIController : MonoBehaviour {
         if (rootRect != null) {
             rootRect.anchorMin = Vector2.zero;
             rootRect.anchorMax = Vector2.one;
-            rootRect.sizeDelta = Vector2.zero;
+            rootRect.offsetMin = Vector2.zero;
+            rootRect.offsetMax = Vector2.zero;
         }
 
         pickupPanelImage = EnsureSkinImage(
@@ -446,8 +621,11 @@ public class CombatLootUIController : MonoBehaviour {
             transform,
             new Vector2(0.5f, 0.5f),
             Vector2.zero,
-            new Vector2(1600f, 888f),
+            new Vector2(1120f, 760f),
             VisualAssetService.UILootPickupPanelID);
+        if (pickupPanelImage != null) {
+            pickupPanelImage.color = new Color(1f, 1f, 1f, 0.2f);
+        }
 
         Transform panelTransform = pickupPanelImage != null ? pickupPanelImage.transform : transform;
         lootDropZoneImage = EnsureSkinImage(
@@ -455,21 +633,27 @@ public class CombatLootUIController : MonoBehaviour {
             "LootDropZone",
             panelTransform,
             new Vector2(0.5f, 0.5f),
-            new Vector2(470f, 90f),
-            new Vector2(560f, 420f),
+            new Vector2(0f, -28f),
+            new Vector2(720f, 500f),
             VisualAssetService.UILootDropZoneID);
+        if (lootDropZoneImage != null) {
+            lootDropZoneImage.color = new Color(1f, 1f, 1f, 0.18f);
+        }
 
         itemDetailPanelImage = EnsureSkinImage(
             itemDetailPanelImage,
             "ItemDetailPanel",
             panelTransform,
             new Vector2(0.5f, 0.5f),
-            new Vector2(470f, -270f),
-            new Vector2(560f, 160f),
+            new Vector2(0f, 266f),
+            new Vector2(740f, 118f),
             VisualAssetService.UIPanelInfoID);
+        if (itemDetailPanelImage != null) {
+            itemDetailPanelImage.color = new Color(1f, 1f, 1f, 0.52f);
+        }
 
-        MoveText(titleText, panelTransform, new Vector2(0f, 354f), new Vector2(760f, 76f), 42, TextAnchor.MiddleCenter);
-        MoveText(summaryText, itemDetailPanelImage != null ? itemDetailPanelImage.transform : panelTransform, Vector2.zero, new Vector2(500f, 124f), 22, TextAnchor.MiddleCenter);
+        MoveText(titleText, panelTransform, new Vector2(0f, 342f), new Vector2(740f, 58f), 34, TextAnchor.MiddleCenter);
+        MoveText(summaryText, itemDetailPanelImage != null ? itemDetailPanelImage.transform : panelTransform, Vector2.zero, new Vector2(680f, 96f), 18, TextAnchor.MiddleCenter);
 
         if (lootParent != null) {
             lootParent.SetParent(panelTransform, false);
@@ -482,8 +666,8 @@ public class CombatLootUIController : MonoBehaviour {
             btnRect.anchorMin = new Vector2(0.5f, 0.5f);
             btnRect.anchorMax = new Vector2(0.5f, 0.5f);
             btnRect.pivot = new Vector2(0.5f, 0.5f);
-            btnRect.anchoredPosition = new Vector2(470f, -388f);
-            btnRect.sizeDelta = new Vector2(320f, 72f);
+            btnRect.anchoredPosition = new Vector2(0f, -342f);
+            btnRect.sizeDelta = new Vector2(320f, 62f);
         }
 
         if (pickupPanelImage != null) {

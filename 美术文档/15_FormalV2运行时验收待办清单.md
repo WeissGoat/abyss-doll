@@ -15,7 +15,7 @@ related:
   - 美术文档/_generated/FormalV2运行时复验优先级清单.md
   - agent_status/art.md
   - agent_status/program.md
-last_verified: 2026-06-10
+last_verified: 2026-06-12
 update_rule: FormalV2 runtime acceptance gate, evidence, or review focus changes should update this file.
 ---
 # FormalV2 Runtime Acceptance Checklist
@@ -29,23 +29,25 @@ update_rule: FormalV2 runtime acceptance gate, evidence, or review focus changes
 - Current missing art generation queue: `generate_needed=0`
 - Current quality backlog: `technical_fix=0`, `visual_v2_replace=0`, `spec_review=0`
 - Current requirement candidate scan: `new_candidate=0`, `deferred_candidate=29`, `ignored_candidate=26`
-- Latest ArtAcceptance available locally: `20260610_003347`, status `PASSED`, 21/21 captured.
+- Latest ArtAcceptance available locally after art/UI direct runtime polish: `20260612_231356`, status `PASSED`, 21/21 captured.
 - Latest Registry evidence: `EntryCount=278`, `MissingRequiredVisualIDs=0`, `missing_registry=0`, `missing_approved=0`, `missing_meta=0`.
 - Current FormalV2 runtime status: `美术文档/_generated/FormalV2运行时验收状态.md`, gate=`no_program_integrate`. This means the asset registration queue is clear; it does not mean FormalV2 UI layout is visually accepted.
 - Runtime review priority queue: `美术文档/_generated/FormalV2运行时复验优先级清单.md`, current `review_queue=30`, all non-blocking watch items.
-- Runtime contact sheet reviewed by art side: `UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260610.png`.
+- Latest runtime contact sheet for art review: `UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260612_231356_codex.png`.
 - Art-side registry action: the offline candidate `美术文档/_generated/VisualAssetRegistry.offline_candidate.asset` was copied into `UnityClient/Assets/Resources/VisualAssetRegistry.asset`, then ArtAcceptance was rerun successfully.
 
-Art-side resource acceptance is complete for the current FormalV2 asset queue. Runtime visual acceptance is not complete: most remaining issues are program/UI layout realization and missing live display data.
+Art-side resource acceptance is complete for the current FormalV2 asset queue. Art/UI side has directly fixed the latest runtime screenshot contamination and P0 composition issues. Manual screenshot review of `20260612_231356` is complete: core FormalV2 P0 structure is **conditionally passed**, while full FormalV2 visual acceptance is **not sealed**. Remaining work is UI layout / hierarchy polish and selected background replacement, not resource registration.
 
 ## Current Evidence
 
-1. `UnityClient/Logs/ArtAcceptance/latest/report.json`: `RunID=20260610_003347`, `Status=PASSED`, `Registry.EntryCount=278`, `MissingRequiredVisualIDs=[]`.
+1. `UnityClient/Logs/ArtAcceptance/latest/report.json`: `RunID=20260612_231356`, `Status=PASSED`, `Registry.EntryCount=278`, `MissingRequiredVisualIDs=[]`, warnings/errors=0.
 2. `美术文档/_generated/VisualAssetRegistry登记缺口清单.md/json`: `program_integrate=0`, `missing_registry=0`, `missing_approved=0`, `missing_meta=0`.
 3. `美术文档/_generated/程序接入交接清单.md/json`: `program_integrate=0`, `add_capture=0`, `rerun_acceptance=0`.
-4. `美术文档/09_运行时美术验收记录.md`: 2026-06-10 人工逐屏结论已记录。
+4. Latest screenshots: `UnityClient/Logs/ArtAcceptance/latest/screenshots/`.
+5. Latest contact sheet: `UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260612_231356_codex.png`.
+6. `美术文档/09_运行时美术验收记录.md`: 2026-06-12 美术侧直接运行时精修验收已记录; resource / Registry / tool gates pass, core FormalV2 P0 structure conditionally passes, full FormalV2 visual seal remains pending.
 
-Program-side follow-up evidence should now focus on FormalV2 UI structure, not registry: after runtime UI layout fixes, rerun ArtAcceptance and provide refreshed screenshots / contact sheet for art review.
+Follow-up now focuses on art/UI direct runtime polish, not registry. `workshop_main`, `combat_hud`, `inventory_loot`, and `settlement` can serve as the current player-flow UI base; `dungeon_map`, modal hierarchy, old FormalV1 template replacement, and `bg_workshop_day` background quality remain open.
 
 ## Art Review Focus
 
@@ -63,7 +65,8 @@ Program-side follow-up evidence should now focus on FormalV2 UI structure, not r
 - The runtime review priority queue currently contains 30 watch items, mainly item icon semantics, monster portrait small-size readability, memento readability, order/rumor icon semantics, and two combat feedback overlays.
 - Monster combat sprites and portraits passed static checks, but runtime scale and small-size readability still need screenshot review.
 - Item/order/rumor icons passed static checks, but semantic distinction must be judged in actual list/grid usage.
-- Latest ArtAcceptance no longer has old missing combat VisualID errors. The current blocker is UI composition and live data presentation.
+- Latest ArtAcceptance no longer has old missing combat VisualID errors or cross-capture `ScenarioEventPanel_Runtime` pollution.
+- Art-side manual judgment is now complete for `20260612_231356`: no new bulk asset generation is required; remaining issues are P1/P2 UI polish and selected same-path background replacement.
 
 ## Pass Criteria
 
@@ -75,4 +78,4 @@ Program-side follow-up evidence should now focus on FormalV2 UI structure, not r
 
 ## Next Art Action
 
-Do not start another bulk NovelAI pass yet. Wait for program/UI to replace the remaining FormalV1-style runtime layouts with active FormalV2 structures, then rerun ArtAcceptance and review the new screenshots. Only create second-pass NovelAI replacement tasks for specific VisualIDs proven weak after the layout is correct.
+Do not start another bulk NovelAI pass. Continue direct art/UI runtime polish on `dungeon_map`, modal panels and old FormalV1 template screens. Only create single-VisualID replacement tasks when a runtime screenshot proves the asset itself is weak after layout is fixed.

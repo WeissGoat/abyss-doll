@@ -25,7 +25,7 @@ related:
   - 美术文档/README.md
   - 知识库/views/art.md
   - 美术文档/15_FormalV2运行时验收待办清单.md
-last_verified: 2026-06-10
+last_verified: 2026-06-12
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
 
@@ -33,7 +33,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 最后更新
 
-2026-06-10
+2026-06-12
 
 ## 当前关注
 
@@ -67,7 +67,7 @@ PM 版本节点中，美术线当前 21 个界面都已具备 Formal V1 active �
 
 2026-06-09 已完成 FormalV2 怪物头像 alpha 技术修复：新增 `tools/美术工具/fix_opaque_art_alpha.py`，按 `素材质量替换清单.json` 处理 `technical_fix` 队列，将 17 张 `AlphaRequired=false` 的 monster portrait Approved PNG alpha 通道统一修为 255，保持尺寸、Approved 路径和 Unity `.meta` 不变。刷新后 `素材质量替换清单` 为 `technical_fix=0`、`visual_v2_replace=0`、`spec_review=0`，`VisualV2生成计划` 为 `planned=0`、`prompt_ready=0`。
 
-截至 2026-06-07，V2-A 五个核心界面已全部补齐可评审草案，并生成对应概念参考图。用户最新反馈后，美术侧已把 Formal V2 风格从“温暖奇幻 + 轻蒸汽工艺”进一步收束为“日系二次元地底奇幻 + 轻蒸汽工艺 + 低信息密度”：`workshop_main` 保持魔偶中心安心房间，`combat_hud` 保持左人偶 / 右敌方 / 底部背包结构，`dungeon_map` 额外要求底图、路线和节点融合，避免海面底图或悬浮节点。2026-06-07 已用 Codex 内置 `image_gen` 重出 `workshop_main`、`combat_hud`、`dungeon_map` 三张概念图，并进一步按“可推进大地图 + 镜头前移 + 每层独立生态”规则重出 `dungeon_map` 代表图；当前地图采用地底草原 / 地下森林层，路线从前景延伸到远景，节点嵌入道路、树根、遗迹和草甸。四张 contact sheet 已刷新；旧图分别归档到 `concepts/archive/2026-06-07_anime_style_regen/` 和 `concepts/archive/2026-06-07_layer_map_depth_regen/`。概念图位于 `美术文档/ui_design/formal_v2/concepts/`，只用于结构和氛围评审，不作为 Approved 运行时素材、Manifest 条目或程序接入口。设计图 / 概念图默认必须用 Codex 内置 `image_gen`；若当前工具环境没有暴露 `image_gen`，美术智能体必须先提醒用户并等待确认，不能自动切到 NovelAI、AI 图片网关、mock 或本地脚本。
+截至 2026-06-12，Formal V2 全局风格口径已纠偏为“日系二次元地底奇幻冒险 + 低信息密度”。机械、工坊和旧工具只作为维护、义体、底盘等局部系统语义；黄铜、铜件、暖灯和蒸汽朋克不再作为全局风格关键词，也不作为 active UI 或正向生图提示词的默认材料 / 灯光方向。2026-06-07 重出的概念图暂保留为结构和氛围参考，但其中棕金机械和黄铜暖灯倾向不再作为后续全局美术依据。`workshop_main` 仍保持魔偶中心安心房间，`combat_hud` 保持左人偶 / 右敌方 / 底部背包结构，`dungeon_map` 继续要求底图、路线和节点融合，避免海面底图或悬浮节点。概念图位于 `美术文档/ui_design/formal_v2/concepts/`，只用于结构和氛围评审，不作为 Approved 运行时素材、Manifest 条目或程序接入口。设计图 / 概念图默认必须用 Codex 内置 `image_gen`；若当前工具环境没有暴露 `image_gen`，美术智能体必须先提醒用户并等待确认，不能自动切到 NovelAI、AI 图片网关、mock 或本地脚本。
 
 V2-B 七个局外功能界面已补齐详细草案，并按最新反馈修正语义：`maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel` 归入 `workshop_studio` 内的可切换子面板或弹出窗口，不再作为独立大场景；`sell_panel` 改作小镇商店 / 市场交易界面，工坊卖出和出货分配由 `shop_staging` 承接。旧维护、义体、底盘升级和旧 `sell_panel` 概念图已归档到 `concepts/archive/2026-06-01_workshop_studio_and_shop_semantics/`；2026-06-06 已用内置 imagegen 按新语义重出 4 张概念图。
 
@@ -136,6 +136,9 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 
 ## 最近完成
 
+- 2026-06-12 美术 / UI 侧已直接完成一轮 FormalV2 运行时 UGUI 精修和验收工具修复：ArtAcceptance `RunID=20260612_231356` 工具层 `PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0；`ScenarioEventPanel_Runtime` 跨截图污染已清除，只保留在 `scenario_event` 自身截图。核心 P0 UI 结构条件通过：`workshop_main` 不再常驻背包格，`inventory_loot` 改为战斗场景半透明拾取叠层，`combat_hud` 状态文字与条形控件不再明显压叠，`settlement` 标题 / 摘要 / 三列结构可读。证据入口：`UnityClient/Logs/ArtAcceptance/latest/report.json`、`UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260612_231356_codex.png`、`美术文档/09_运行时美术验收记录.md`。
+- 已完成美术全局方向纠偏：`美术文档/04_美术风格基准.md`、`美术文档/03_AI生成与筛选规范.md`、Formal V2 总览 / README / concepts 评审说明、`formal_v2/01..21` active 界面草案、`美术文档/ui_design/design_tokens.json`、`美术文档/ui_design/screen_layouts.json` 和 `tools/美术工具/generate_art_prompts.py` 已同步：全局主轴为日系二次元地底奇幻冒险，active UI 与正向素材提示词不再默认使用黄铜 / 铜件 / 暖灯 / 蒸汽朋克；旧词只允许出现在历史纠偏说明、禁止项、负面词或明确物品语义中。本轮不重跑概念图，不改 Approved 运行时图片。
+- 程序/UI 侧已完成 FormalV2 运行时结构重排后的截图缺口修复，并产出美术侧下一轮人工复验入口：latest ArtAcceptance `RunID=20260611_014057`、`Status=PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0；证据入口为 `UnityClient/Logs/ArtAcceptance/latest/report.json`、`UnityClient/Logs/ArtAcceptance/latest/screenshots/` 和 `UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260611_014057.png`。本轮程序侧自查结论：`sell_panel` / `prosthetic_panel` 不再是空黑框，`workshop_main`、`combat_hud`、`dungeon_map`、`inventory_loot`、`settlement` 均有最新截图覆盖；但 FormalV2 UI 画面是否通过仍待美术侧按截图人工复验，不得仅凭 ArtAcceptance `PASSED` 标记为视觉通过。
 - 已按用户要求创建本地 P3 mission：`.mission/20260608_002315-Formal-V2-UI-active规格迁移与美术交接落地.csv`，并拆分为 V2 评审冻结、V2-A active 迁移、Manifest / handoff 刷新、素材缺口拆分、程序交接和首批运行时素材批次规划 6 个任务。`ART-V2-01` 已记录用户认可 `concepts/review_index.md`，Formal V2 当前进入 V2-A active 迁移阶段。
 - 已完成 P3 mission `ART-V2-02`：V2-A 五个核心屏幕 active 规格已迁移到 FormalV2；同步调整 `component_catalog.json` 的屏幕组件适用关系；`Validate-UIDesign.ps1` 通过并刷新 `美术文档/ui_design/_generated/ui_design_handoff.md`。
 - 已执行 P3 mission `ART-V2-03` 的生成链路：同步配置、刷新 Manifest、Prompt、UI handoff、FormalV1 验收队列、程序交接清单和可接入素材清单；当前 V2-A 相关新增缺口集中体现为 `generate_needed=29`，程序登记队列仍为 0。
@@ -246,7 +249,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 已新增 `Generate-FormalV2DesignBoards.ps1` / `generate_formal_v2_design_boards.py`，生成确定性 Formal V2 结构设计图；当前 `design_boards/` 已覆盖 21 个 active 界面和 `workshop_studio`，共 22 张 PNG，并生成 `formal_v2_design_boards.json` 和目录说明。
 - 已明确区分 `concepts/` 与 `design_boards/`：前者是 AI 氛围概念图，后者是结构 layout board；两者都不是 Approved 运行时素材、Manifest 条目或程序接入口。2026-06-06 已用内置 imagegen 补齐 13 张缺口概念图，当前 AI 概念图总数为 22 张。
 - 已新增 Formal V2 概念图评审索引和 contact sheet：`concepts/review_index.md` 记录评审顺序与口径，`concepts/contact_sheets/` 生成 V2-A、V2-B、V2-C 和全部 22 张概念图总览，方便用户横向审风格统一性和信息密度。
-- 已按用户最新要求更新 Formal V2 风格与概念图生成规则：`04_美术风格基准.md`、`00_formal_v2_ux_ui_overview.md`、`01_workshop_main_v2.md`、`02_combat_hud_v2.md`、`04_dungeon_map_v2.md` 已收束到“日系二次元地底奇幻 + 轻蒸汽工艺”；`formal_v2/README.md` 和 `concepts/README.md` 已明确设计图 / 概念图默认用 Codex 内置 `image_gen`，无 `image_gen` 时必须先提醒用户，不能自动切换到 NovelAI 或其他生图渠道。先前误生成的 NovelAI 临时概念图目录已清理，未进入正式 `concepts/`。
+- 历史 2026-06-07 曾按“日系二次元地底奇幻 + 轻蒸汽工艺”重出 `workshop_main`、`combat_hud`、`dungeon_map` 概念图；该口径现已被 2026-06-12 纠偏覆盖。设计图 / 概念图默认仍用 Codex 内置 `image_gen`，无 `image_gen` 时必须先提醒用户，不能自动切换到 NovelAI 或其他生图渠道。先前误生成的 NovelAI 临时概念图目录已清理，未进入正式 `concepts/`。
 - 已在当前工具环境试通 Codex 内置 `image_gen`，并按新风格同名替换 `workshop_main_formal_v2_concept.png`、`combat_hud_formal_v2_concept.png`、`dungeon_map_formal_v2_concept.png`；旧图归档到 `concepts/archive/2026-06-07_anime_style_regen/`，四张 contact sheet 已刷新。
 - 已补充层地图设计规则：`dungeon_map` 不是单屏静态节点板，而是可推进大地图；地图需要前景 / 中景 / 远景纵深，支持玩家沿路线前进和镜头前移；每层可以有独立生态主题，例如地底草原、地下森林、晶洞、遗迹、雾谷、矿坑或湿地。新版 `dungeon_map_formal_v2_concept.png` 已按该规则重出，旧图归档到 `concepts/archive/2026-06-07_layer_map_depth_regen/`。
 - 已直接处理程序侧 ArtAcceptance 验收工具问题并提交 `771149e`：截图点前清理跨界面残留，`combat_hud` 进入独立战斗状态，`ui_snapshot` 过滤不可见残留元素；下一轮需要 Unity 重跑验收确认截图和报告。
@@ -277,18 +280,18 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 
 ## 下一步建议
 
-1. 程序/UI 侧下一步不再是登记资源：latest `program_integrate=0`、`missing_registry=0`、ArtAcceptance `20260610_003347 PASSED`、Registry 278。下一步应按 active FormalV2 规格重排运行时 UI。
-2. 优先返修 `workshop_main`、`prosthetic_panel`、`sell_panel` 和旧三栏模板界面；`combat_hud`、`dungeon_map`、`inventory_loot`、`settlement` 进入布局精修，不需要美术先批量补图。
-3. 美术侧等待程序/UI 布局返修后重跑 ArtAcceptance，再按 `美术文档/09_运行时美术验收记录.md` 和 `美术文档/_generated/FormalV2运行时复验优先级清单.md/json` 做下一轮逐屏复验。
-4. 如果下一轮截图证明某个 VisualID 在真实尺寸下语义或可读性不足，再做单项 NovelAI 同名替换；仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`，已接入同名替换必须使用 strict meta guard。
+1. 程序侧不再需要登记资源：latest `program_integrate=0`、`missing_registry=0`、ArtAcceptance `20260612_231356 PASSED`、Registry 278、`MissingRequiredVisualIDs=0`。
+2. FormalV2 UI 后续运行时视觉 / 布局精修由美术 / UI 侧直接处理，仍遵守纯 UGUI、active `screen_layouts.json`、真实玩家流程和 ArtAcceptance 证据口径；只有领域服务、工具链、Unity 工程约束或测试底座问题再交给程序侧。
+3. 当前美术 / UI 侧下一轮重点是 `dungeon_map` 节点 / 路线与底图融合、`sell_panel` / `prosthetic_panel` modal 层级和文本可读性、旧 FormalV1 三栏模板替换、`bg_workshop_day` 背景候选重构，以及 `inventory_loot` 奖励散落 / 角色遮挡细节。
+4. 当前不要重开批量资源登记或批量 NovelAI 补图；如果下一轮截图证明某个 VisualID 在真实尺寸下语义或可读性不足，再做单项 NovelAI 同名替换。仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`，已接入同名替换必须使用 strict meta guard。
 5. 后续每次刷新美术 `_generated` 关键 JSON 后，运行 `Validate-ArtGeneratedJson.ps1 -Strict`，确认程序交接和美术验收依赖的 JSON 在 UTF-8 读取下可解析。
 
 ## 问题 / 阻塞
 
 - 当前工作区仍有大量程序、策划、Unity 资产和知识库生成物处于脏状态；美术侧提交时只纳入本轮美术流水线相关文件。
-- P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 正式结构已通过；本轮 latest `20260527_002436` 已确认资源接入通过，但 `combat_hud` 等 6 个界面仍需程序返修后复验。
+- P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 / FormalV2 正式视觉完成；当前必须以 latest ArtAcceptance、逐屏截图复验和本状态页结论为准。
 - 本轮已从外部 `F:\my_project\new\tags_machine\novelai\client.py` 只读提取 NovelAI token 到当前进程并真实调用 NovelAI；未提交 token，未使用 mock / local_v0 冒充正式图。后续跑图仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`。
-- FormalV2 资源登记门禁已清空，但运行时画面没有整体通过。当前阻塞是程序/UI 侧仍使用旧三栏模板、按钮堆叠、空数据面板或调试式标题；不能把 ArtAcceptance 工具层 `PASSED` 等同于 FormalV2 UI 完成。
+- FormalV2 资源登记门禁已清空，最新 ArtAcceptance `20260612_231356` 工具层通过，核心 P0 UI 结构可作为下一轮玩家流程 UI 基础；但完整 FormalV2 视觉封版尚未通过，不能把工具层 `PASSED` 等同于最终画面完成。
 - FormalV2 V2-A 已进入 active 规格；V2-B / V2-C 仍按 draft 管理，未写入 active 前不作为程序接入口。
 - Formal V2 概念图含 AI 伪文字和局部装饰噪声，只能作为结构参考；正式接入前仍需将控件、文本、图标和面板皮肤拆回可实现规格。
 - Formal V2 结构设计图是确定性 layout board，只用于评审结构和迁移顺序；不能被当作最终视觉稿或程序接入规格。
@@ -311,7 +314,7 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 
 ## 2026-06-09 FormalV2 Style Feedback Replacement
 
-- Completed the remaining `style_mismatch_watch` cleanup for `ui_combat_feedback_echo_fade` and `ui_combat_feedback_slime_pop`: refreshed prompt rules, generated two serial NovelAI candidate batches with `-Concurrency 1 -DelaySeconds 1`, then applied controlled color postprocess so the final Approved sprites fit the Japanese subterranean fantasy / warm brass V2 palette.
+- Completed the remaining `style_mismatch_watch` cleanup for `ui_combat_feedback_echo_fade` and `ui_combat_feedback_slime_pop`: refreshed prompt rules, generated two serial NovelAI candidate batches with `-Concurrency 1 -DelaySeconds 1`, then applied controlled color postprocess so the final Approved sprites fit the Japanese subterranean fantasy V2 palette.
 - Synced both replacements with strict meta guard and preserved VisualID / Approved path / Unity `.meta` GUID: `UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_echo_fade.png` and `UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_slime_pop.png`. Both are `512x512` RGBA with transparent alpha.
 - Refreshed handoff, registry gap, FormalV2 static review, semantic review, quality backlog, runtime acceptance status and snapshots. Current gate remains `waiting_registry`: `program_integrate=77`, `missing_registry=77`, `missing_approved=0`, `missing_meta=0`, latest ArtAcceptance still `RunID=20260606_230523 / FAILED`.
 - Verification passed: image size / alpha inspection; `Validate-ArtGeneratedJson.ps1 -Strict`; `Validate-UIDesign.ps1`; `python tools\docs\validate_docs.py --index docs_index.json`; `git diff --check` reported only CRLF warnings on existing dirty p3-mission files and touched art scripts.
@@ -352,3 +355,23 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - Added batchmode support for ArtAcceptance follow-through: `ArtAcceptanceRunner.CompleteRun()` exits the Editor in batchmode when `autoExitPlayMode=true`; `ArtAcceptanceEditorDaemon.RunFromBatchmode()` opens `Assets/Scenes/SampleScene.unity` before PlayMode.
 - Ran Unity ArtAcceptance batchmode successfully. Latest evidence: `RunID=20260610_003347`, `Status=PASSED`, 21/21 captured, `RegistryEntryCount=278`, `MissingRequiredVisualIDs=0`, warnings/errors=0. Contact sheet: `UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260610.png`.
 - Updated `美术文档/09_运行时美术验收记录.md` and `美术文档/15_FormalV2运行时验收待办清单.md`. Art conclusion: resource/registry/tool gates pass, but FormalV2 runtime UI is not visually accepted. Most remaining issues are program/UI layout realization: `workshop_main` remains button-heavy, `prosthetic_panel` / `sell_panel` are empty black-panel states, and many V2-B/V2-C screens still use the old three-column template.
+
+## 2026-06-11 FormalV2 Program Reflow Handoff
+
+- Program/UI side repaired the post-tool-pass screenshot gaps and reran current-workspace ArtAcceptance. Latest evidence: `RunID=20260611_014057`, `Status=PASSED`, 21/21 captured, `RegistryEntryCount=278`, `MissingRequiredVisualIDs=0`, warnings/errors=0.
+- Final evidence bundle for art review: `UnityClient/Logs/ArtAcceptance/latest/report.json`, `UnityClient/Logs/ArtAcceptance/latest/screenshots/`, and `UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260611_014057.png`.
+- Program-side screenshot self-review confirms `sell_panel` and `prosthetic_panel` now show real rows/icons/states rather than empty black frames, while `workshop_main`, `combat_hud`, `dungeon_map`, `inventory_loot`, and `settlement` have fresh screenshots after the FormalV2 reflow. Art-side manual screenshot acceptance is still required before marking FormalV2 UI visuals as passed.
+
+## 2026-06-11 FormalV2 Program Reflow Art Acceptance
+
+- Art-side reviewed `UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260611_014057.png` and key screenshots. Resource / Registry / ArtAcceptance tool gates pass: 21/21 captured, Registry 278, `MissingRequiredVisualIDs=0`, warnings/errors=0.
+- FormalV2 runtime visual acceptance does not pass. Main issues: `workshop_main` has non-cover background, overlapping backpack / status UI and clipped text; `inventory_loot` is a blue standalone panel instead of a translucent combat overlay; `settlement` title / summary / columns overlap; `dungeon_map` nodes float over the background and labels are unreadable; `sell_panel` / `prosthetic_panel` now contain rows but modal masking, frame alignment and text hierarchy are still insufficient; V2-B / V2-C screens still mostly read as old three-column templates.
+- Current art-side decision: no bulk NovelAI pass and no resource registration task. Route the next step to program/UI layout polish, then rerun ArtAcceptance for another art manual review.
+
+## 2026-06-12 Expression Preview Prototype
+
+- 最近完成：新增一个不进入正式美术流水线的表现小样：Unity 运行时原型 `P3ExpressionPreviewController` 和本地浏览器预览 `tools/p3_expression_preview.html`，用于验证“伪 Live2D 魔偶呼吸 / SAN veil / 核心灯 + 维护火花 + 战斗命中特效”的风格方向。
+- 当前关注：本轮没有新增 Approved 图片、Manifest 条目、VisualID 或资源登记队列；浏览器预览只服务方向评审，不能替代正式 UI / VFX / Live2D 接入规格。
+- 下一步建议：若用户认可风格，先把表现拆成维护、战斗命中、护盾破裂和魔偶待机四个最小 VFX / 动画规格，再决定是否进入 `screen_layouts.json`、Manifest、Prefab 和 ArtAcceptance 验收。
+- 问题 / 阻塞：Unity MCP 连接被工程授权撤销，本轮无法直接产出 Unity 编辑器内截图；已用本地浏览器预览截图保存到 `UnityClient/Logs/ExpressionPreview/p3_expression_preview_browser.png` 作为方向参考。
+- 关键证据：Unity 程序和 Editor 工程编译均通过；预览页已在 `http://127.0.0.1:3000/p3_expression_preview.html` 打开并可循环播放。
