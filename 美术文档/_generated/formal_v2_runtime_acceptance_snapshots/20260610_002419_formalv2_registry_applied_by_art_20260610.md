@@ -1,0 +1,43 @@
+# FormalV2 运行时验收状态
+
+> 美术侧自动汇总门禁。它不替代人工看图，只判断当前是否具备进入 FormalV2 运行时美术验收的证据。
+
+- GeneratedAt: `2026-06-10T00:24:19+08:00`
+- Gate: `waiting_art_acceptance_rerun`
+- RequiredNextAction: Program: rerun ArtAcceptance / VisualAsset validation and provide a new latest RunID.
+
+## Summary
+
+- ProgramIntegrateVisualCount: `87`
+- MissingRegistryCount: `0`
+- MissingApprovedFileCount: `0`
+- MissingMetaFileCount: `0`
+- RerunAcceptanceScreenCount: `16`
+- ExistingRerunScreenshotCount: `16`
+- ReportRunID: `20260606_230523`
+- ReportStatus: `FAILED`
+- ReportEntryCount: `191`
+- ReportMissingRequiredVisualIDCount: `3`
+
+## Gate Reasons
+
+- ArtAcceptance RunID is `20260606_230523`, not newer than `20260606_230523`.
+
+## Rerun Acceptance Screens
+
+- `daily_bill_report`
+- `layer_select`
+- `maintenance_panel`
+- `prosthetic_panel`
+- `safe_room`
+- `sell_panel`
+- `stairs_room`
+- `business_settlement`
+- `chassis_upgrade_panel`
+- `doll_interaction`
+- `doll_room`
+- `faction_shop`
+- `order_board`
+- `rumor_board`
+- `scenario_event`
+- `shop_staging`

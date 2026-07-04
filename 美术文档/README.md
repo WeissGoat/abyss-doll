@@ -13,6 +13,8 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 美术文档/14_FormalV2素材候选审查记录.md
+  - 美术文档/16_Live2D角色动画资产接入规格.md
+  - 美术文档/17_Agent原生动态立绘资产接入规格.md
   - 美术文档/00_美术流水线总览.md
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/formal_v2/README.md
@@ -22,14 +24,14 @@ related:
   - tools/美术工具/README.md
   - 知识库/views/art.md
   - 美术文档/15_FormalV2运行时验收待办清单.md
-last_verified: 2026-05-29
+last_verified: 2026-06-13
 update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。
 ---
 
 # 美术文档索引
 
 > **定位：** Project P3 美术 / UI 文档入口。本文件只负责导航和职责边界，不承载详细规格。
-> **更新时间：** 2026-05-29
+> **更新时间：** 2026-06-13
 
 ## 先看哪里
 
@@ -47,6 +49,8 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | 当前哪些缺图素材可直接跑图 | [_generated/缺图生成计划.md](_generated/缺图生成计划.md) | 美术侧处理 `generate_needed` 队列。 |
 | 当前哪些素材只是临时质量 | [_generated/素材质量替换清单.md](_generated/素材质量替换清单.md) | 美术侧处理 `technical_fix` 和 `visual_v2_replace` 队列。 |
 | Formal V1 运行时验收怎么统一排队 | [ui_design/_generated/FormalV1验收队列.md](ui_design/_generated/FormalV1验收队列.md) | 美术侧按该队列等待程序登记、补截图或逐屏验收。 |
+| 首版动态魔偶立绘怎么做 | [17_Agent原生动态立绘资产接入规格.md](17_Agent原生动态立绘资产接入规格.md) | 当前首版主线：Agent 生成分层图、rig JSON、motion JSON、expression JSON，Unity importer / runtime 生成 Prefab 和独立验收。 |
+| Cubism / Spine 外部导出怎么接入 | [16_Live2D角色动画资产接入规格.md](16_Live2D角色动画资产接入规格.md) | 只定义获得 Cubism / Spine 工具链或外部 rigger 交付后的兼容接入，不作为首版阻塞项。 |
 | 当前美术状态和下一步 | [../agent_status/art.md](../agent_status/art.md) | 智能体交接状态页。 |
 
 ## 文档分层
@@ -66,6 +70,8 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | 资产生产流水线 | [00_美术流水线总览.md](00_美术流水线总览.md) | [01_Manifest规范.md](01_Manifest规范.md)、[02_资源规格与接入规范.md](02_资源规格与接入规范.md)、[03_AI生成与筛选规范.md](03_AI生成与筛选规范.md)、[04_美术风格基准.md](04_美术风格基准.md)、[05_AI图片网关接入方案.md](05_AI图片网关接入方案.md) |
 | UI 设计版本流水线 | [ui_design/README.md](ui_design/README.md) | [ui_design/ui_iteration_process.md](ui_design/ui_iteration_process.md)、[ui_design/formal_v1/screen_structure_review.md](ui_design/formal_v1/screen_structure_review.md)、[ui_design/formal_v2/00_formal_v2_ux_ui_overview.md](ui_design/formal_v2/00_formal_v2_ux_ui_overview.md)、[ui_design/versions/migration_log.md](ui_design/versions/migration_log.md) |
 | 运行时验收流水线 | [08_Unity运行时美术验收工具需求.md](08_Unity运行时美术验收工具需求.md) | [09_运行时美术验收记录.md](09_运行时美术验收记录.md)、[../开发文档/14_Unity运行时美术自动验收方案.md](../开发文档/14_Unity运行时美术自动验收方案.md) |
+| Agent 原生动态立绘流水线 | [17_Agent原生动态立绘资产接入规格.md](17_Agent原生动态立绘资产接入规格.md) | 首版 DollPuppet 包、JSON rig / motion / expression、Unity Prefab、fallback sprite 和独立多帧验收。 |
+| Cubism / Spine 兼容流水线 | [16_Live2D角色动画资产接入规格.md](16_Live2D角色动画资产接入规格.md) | 外部工具链或 rigger 交付后的 Cubism / Spine runtime 包接入。 |
 
 ### 契约与数据层
 

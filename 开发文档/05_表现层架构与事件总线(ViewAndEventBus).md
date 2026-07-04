@@ -14,6 +14,7 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/handoff_checklist.md
+  - 开发文档/18_全局叙事播放系统开发方案.md
   - 美术文档/archive/11_P0_UI骨架接入交付.md
   - 美术文档/archive/12_P1_UI骨架接入准备.md
 last_verified: 2026-05-23

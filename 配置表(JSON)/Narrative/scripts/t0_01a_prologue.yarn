@@ -1,0 +1,105 @@
+title: T0_01A_Opening_CG
+---
+<<play_visual cg_t0_01a_black_wake>>
+protagonist: 又到早上了。 #line:prologue.t0_01a.black_wake.line_01
+<<play_visual cg_t0_01a_debt_notice>>
+protagonist: 他们连坏掉的东西也收。 #line:prologue.t0_01a.debt_notice.line_01
+protagonist: 不，他们最喜欢收坏掉的东西。 #line:prologue.t0_01a.debt_notice.line_02
+<<play_visual cg_t0_01a_repair_note>>
+protagonist: 父亲写字从不写“也许”。 #line:prologue.t0_01a.repair_note.line_01
+protagonist: 所以浅层至少还有一点办法。 #line:prologue.t0_01a.repair_note.line_02
+<<play_visual cg_t0_01a_core_shard>>
+protagonist: 卖掉它，够一天。 #line:prologue.t0_01a.core_shard.line_01
+protagonist: 用掉它，也许够她醒一次。 #line:prologue.t0_01a.core_shard.line_02
+<<set_flag DebtNoticeSeen>>
+<<set_flag RepairNoteSeen>>
+<<set_flag LastCoreShardSeen>>
+===
+title: T0_01A_FindNo0
+---
+<<play_visual cg_t0_01a_find_no0>>
+protagonist: 没有第二台了。 #line:prologue.t0_01a.find_no0.line_01
+protagonist: 也没有第二个早上。 #line:prologue.t0_01a.find_no0.line_02
+<<set_flag No0Found>>
+// ui_text: 启动人偶 #line:prologue.t0_01a.button.start_doll
+<<show_prologue_action start_doll prologue.t0_01a.button.start_doll>>
+===
+title: T0_01A_StartDoll
+---
+<<play_visual vfx_no0_core_start>>
+<<set_flag No0Started>>
+===
+title: T0_01A_No0Wake
+---
+<<show_character no0 expression=weak pose=sitting>>
+no0: ……这里…… #line:prologue.t0_01a.no0_wake.line_01
+no0: 不是下面。 #line:prologue.t0_01a.no0_wake.line_02
+protagonist: 你醒了？ #line:prologue.t0_01a.no0_wake.line_03
+no0: 我还……能动。 #line:prologue.t0_01a.no0_wake.line_04
+no0: 不要拆掉我。 #line:prologue.t0_01a.no0_wake.line_05
+protagonist: 没人会拆你。 #line:prologue.t0_01a.no0_wake.line_06
+no0: 他们会。 #line:prologue.t0_01a.no0_wake.line_07
+no0: 你也会。等你没钱的时候。 #line:prologue.t0_01a.no0_wake.line_08
+protagonist: 那就先别走到那一步。 #line:prologue.t0_01a.no0_wake.line_09
+no0: 下面……有一段声音。 #line:prologue.t0_01a.no0_wake.line_10
+no0: 很浅。 #line:prologue.t0_01a.no0_wake.line_11
+no0: 像我的。 #line:prologue.t0_01a.no0_wake.line_12
+<<set_flag No0WakeDialogueSeen>>
+===
+title: T0_01A_FirstStatusCard
+---
+// ui_text: 零号 #line:prologue.t0_01a.status.initial.title
+// ui_text: 核心：不稳定 #line:prologue.t0_01a.status.initial.core
+// ui_text: 身体：多处裂纹 #line:prologue.t0_01a.status.initial.body
+// ui_text: 意识：断续 #line:prologue.t0_01a.status.initial.consciousness
+// ui_text: 判断：无法长时间行动 #line:prologue.t0_01a.status.initial.judgement
+// ui_text: 擦去核心仓灰尘 #line:prologue.t0_01a.button.wipe_core
+<<show_status_card first_status_unstable>>
+<<show_prologue_action wipe_core prologue.t0_01a.button.wipe_core>>
+<<set_flag FirstStatusShown>>
+===
+title: T0_01A_FirstCoreWipe
+---
+// ui_text: 零号 #line:prologue.t0_01a.status.stable.title
+// ui_text: 核心：短时稳定 #line:prologue.t0_01a.status.stable.core
+// ui_text: 身体：多处裂纹 #line:prologue.t0_01a.status.stable.body
+// ui_text: 意识：断续 #line:prologue.t0_01a.status.stable.consciousness
+// ui_text: 判断：可进行一次浅层下潜，返回后需要照看 #line:prologue.t0_01a.status.stable.judgement
+<<show_status_card first_status_stable>>
+no0: 你手在抖。 #line:prologue.t0_01a.core_wipe.line_01
+protagonist: 灰太多。 #line:prologue.t0_01a.core_wipe.line_02
+no0: 你说谎的声音……很明显。 #line:prologue.t0_01a.core_wipe.line_03
+<<set_flag FirstCoreWiped>>
+===
+title: T0_01A_FirstDiveUnlock
+---
+protagonist: 浅层有稳定材料。 #line:prologue.t0_01a.first_dive.line_01
+protagonist: 带回来，能让你撑过今晚，也能让他们暂时闭嘴。 #line:prologue.t0_01a.first_dive.line_02
+no0: 如果带不回来？ #line:prologue.t0_01a.first_dive.line_03
+protagonist: 那就先带你回来。 #line:prologue.t0_01a.first_dive.line_04
+// ui_text: 浅层入口 #line:prologue.t0_01a.action.layer1.title
+// ui_text: 她还能撑一次。 #line:prologue.t0_01a.action.layer1.subtitle
+<<unlock_ui shallow_gate>>
+<<set_flag FirstDiveUnlocked>>
+===
+title: T0_01A_Layer1Confirm
+---
+// ui_text: 第一层：旧矿井浅缝 #line:prologue.t0_01a.layer_confirm.title
+// ui_text: 状态：可抵达 #line:prologue.t0_01a.layer_confirm.status
+// ui_text: 稳定核心碎屑 #line:prologue.t0_01a.layer_confirm.loot.core_shard
+// ui_text: 可售废料 #line:prologue.t0_01a.layer_confirm.loot.scrap
+// ui_text: 记忆噪声 #line:prologue.t0_01a.layer_confirm.loot.memory_echo
+// ui_text: 零号可行动一次，返回后需要照看。 #line:prologue.t0_01a.layer_confirm.companion
+// ui_text: 出发 #line:prologue.t0_01a.layer_confirm.primary
+// ui_text: 再看她一眼 #line:prologue.t0_01a.layer_confirm.secondary
+<<set_flag Layer1ConfirmOpened>>
+<<open_layer_confirm 1>>
+===
+title: T0_01A_FirstDepart
+---
+no0: 下面比这里安静。 #line:prologue.t0_01a.depart.line_01
+protagonist: 那不是好事。 #line:prologue.t0_01a.depart.line_02
+no0: 我知道。 #line:prologue.t0_01a.depart.line_03
+<<play_visual cg_t0_01a_depart_black ui_black_screen>>
+<<set_flag Layer1FirstDeparted>>
+===

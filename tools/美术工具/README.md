@@ -16,7 +16,7 @@ related:
   - 美术文档/04_美术风格基准.md
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/design_boards/README.md
-last_verified: 2026-06-09
+last_verified: 2026-06-14
 update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
 ---
 
@@ -143,9 +143,10 @@ UnityClient/Assets/Art/_IncomingAI/<VisualID>/
 
 NovelAI 实跑建议使用本地配置。脚本会把 `-Variants` 拆成多次 `count=1` 请求，并默认每张图间隔 1 秒。
 
+凭证优先级：先读 `NAI_ACCESS_TOKEN`；如果当前机器没有设置该环境变量，网关会尝试从 `F:\my_project\new\tags_machine\novelai\client.py` 的 `NAIClient.get_access_token()` 解析 token。不要把真实 token 写入命令、文档或提交记录；需要换路径时设置 `NAI_CLIENT_PY`。
+
 ```powershell
 Copy-Item .\tools\美术工具\ai_image_gateway.example.yaml .\tools\美术工具\ai_image_gateway.local.yaml
-$env:NAI_ACCESS_TOKEN = "<token>"
 .\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Domain item -Limit 5 -Variants 4 -DelaySeconds 1
 ```
 

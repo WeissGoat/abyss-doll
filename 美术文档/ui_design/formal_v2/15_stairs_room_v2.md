@@ -204,10 +204,10 @@ StairsRoomPanel
 ```text
 Use case: ui-mockup
 Asset type: Formal V2 game UI concept art for stairs_room
-Primary request: A cozy fantasy and light steampunk abyss stair room interface for deciding whether to descend deeper.
-Scene/backdrop: underground stone stairwell and brass lift gate, cold mist below, warm lanterns near the player, loot bags near the edge.
+Primary request: A Japanese anime subterranean fantasy abyss stair room interface for deciding whether to descend deeper.
+Scene/backdrop: underground stone stairwell and carved lift gate, cold mist below, soft rune lights near the player, loot bags near the edge.
 Subject: central stairs or shaft gate as visual focus, left next-layer briefing card, right carry risk panel, bottom inventory workbench, one clear descend button and a smaller extract option.
-Style: warm hand-painted fantasy UI with subtle danger, parchment panels, brass details, low information density.
+Style: soft hand-painted fantasy UI with subtle danger, parchment panels, stone and cloth details, luminous cave accents, low information density, no brass palette, no steampunk machinery.
 Composition: 16:9 landscape, central vertical descent path, decision panel at bottom-right.
 Avoid: safe cozy camp feeling, modern sci-fi elevator, dense spreadsheet UI, real readable text, logos, watermark, transparent holes.
 ```

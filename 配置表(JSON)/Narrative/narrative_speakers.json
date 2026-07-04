@@ -1,0 +1,16 @@
+[
+  {
+    "SpeakerID": "protagonist",
+    "DisplayNameKey": "speaker.protagonist",
+    "DefaultPortraitVisualID": "portrait_protagonist_neutral",
+    "FallbackVisualID": "ui_dialogue_speaker_fallback",
+    "TextStyle": "protagonist"
+  },
+  {
+    "SpeakerID": "no0",
+    "DisplayNameKey": "speaker.no0",
+    "DefaultPortraitVisualID": "portrait_no0_neutral",
+    "FallbackVisualID": "doll_proto_0_stand",
+    "TextStyle": "doll"
+  }
+]

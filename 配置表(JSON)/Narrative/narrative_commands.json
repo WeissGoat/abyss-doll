@@ -1,0 +1,51 @@
+[
+  {
+    "CommandName": "play_visual",
+    "MinArgs": 1,
+    "MaxArgs": 4,
+    "AllowedContexts": ["prologue", "workshop", "layer_confirm"],
+    "Description": "播放过程 CG、遮罩、核心微光或入口亮起等 VisualID。"
+  },
+  {
+    "CommandName": "show_character",
+    "MinArgs": 1,
+    "MaxArgs": 6,
+    "AllowedContexts": ["prologue", "workshop", "layer_confirm"],
+    "Description": "显示零号静态立绘 / 动态立绘表现意图和 fallback。"
+  },
+  {
+    "CommandName": "show_prologue_action",
+    "MinArgs": 2,
+    "MaxArgs": 4,
+    "AllowedContexts": ["prologue", "workshop"],
+    "Description": "显示启动人偶、擦灰或浅层入口等序章动作。"
+  },
+  {
+    "CommandName": "show_status_card",
+    "MinArgs": 1,
+    "MaxArgs": 2,
+    "AllowedContexts": ["prologue", "workshop"],
+    "Description": "打开或刷新状态小卡。"
+  },
+  {
+    "CommandName": "unlock_ui",
+    "MinArgs": 1,
+    "MaxArgs": 2,
+    "AllowedContexts": ["workshop"],
+    "Description": "开放浅层入口或首潜确认入口。"
+  },
+  {
+    "CommandName": "open_layer_confirm",
+    "MinArgs": 1,
+    "MaxArgs": 1,
+    "AllowedContexts": ["layer_confirm"],
+    "Description": "打开 DungeonStartLayerUIController 的第一层确认态。"
+  },
+  {
+    "CommandName": "set_flag",
+    "MinArgs": 1,
+    "MaxArgs": 1,
+    "AllowedContexts": ["prologue", "workshop", "layer_confirm"],
+    "Description": "写入叙事旗标。"
+  }
+]

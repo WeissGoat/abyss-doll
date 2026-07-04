@@ -63,7 +63,7 @@ workshop_studio
 
 * 复用 `workshop_studio` 的工作室底图和魔偶改造椅，只把中央工作台切换为蓝图桌。
 * 玩家一眼看到从当前底盘到下一底盘的方向。
-* 蓝图、黄铜尺、格局轮廓和材料 token 形成工程感。
+* 蓝图、刻度尺、格局轮廓、符文章和材料 token 形成手作工程感。
 * 信息密度低，优先突出升级收益和首个阻塞项。
 * 不显示完整可拖拽背包，只显示底盘预览。
 
@@ -144,7 +144,7 @@ workshop_studio
 
 底盘升级界面像同一个工作室里切换出的蓝图桌：
 
-* 当前底盘在左，下一底盘在右，中间有黄铜尺和箭头。
+* 当前底盘在左，下一底盘在右，中间有刻度尺、符文章和方向箭头。
 * 桌面有少量材料、核心、螺丝、蓝图章。
 * 底盘格局是可读轮廓，不是可操作背包。
 * 魔偶改造椅可以保留在右后方或弱化为背景，保持与 `workshop_studio` 的空间连续性。
@@ -211,7 +211,7 @@ ChassisUpgradePanel
 
 后续重新出图时，提示词必须明确：
 
-* same cozy fantasy steampunk workshop studio as workshop_studio
+* same cozy Japanese anime subterranean fantasy workshop studio as workshop_studio
 * chassis blueprint mode overlay
 * shared workshop background and doll modification chair
 * central blueprint table with current and next chassis

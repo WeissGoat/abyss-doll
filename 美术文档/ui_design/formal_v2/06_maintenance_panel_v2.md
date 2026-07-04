@@ -143,7 +143,7 @@ workshop_studio
 维护界面像同一个工作室里切换出的安静护理台：
 
 * 魔偶继续位于 `workshop_studio` 的改造椅 / 护理位，不切换到完全不同房间。
-* 桌面上有布、黄铜工具、玻璃药剂和修补材料。
+* 桌面上有布、旧工具、玻璃药剂、修补材料和柔和净化微光。
 * 侵蚀以暗色污渍、裂纹或薄雾表现。
 * 下潜许可像盖章的检查牌，而不是系统状态字段。
 
@@ -206,7 +206,7 @@ MaintenancePanel
 
 后续重新出图时，提示词必须明确：
 
-* same cozy fantasy steampunk workshop studio as the doll modification room
+* same cozy Japanese anime subterranean fantasy workshop studio as the doll modification room
 * maintenance mode overlay
 * shared doll chair and shared room background
 * no separate room, no standalone clinic scene

@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WorkshopUIController : MonoBehaviour {
+    public const string PrologueOpenLayer1ConfirmActionID = "open_layer1_confirm";
+
     public Text moneyText;
     public Text chassisInfoText;
     public Button upgradeBtn;
@@ -49,6 +52,30 @@ public class WorkshopUIController : MonoBehaviour {
     private Text _ledgerHintText;
     private Text _dollCaptionText;
     private WorkshopFormalV1PanelController _formalV1PanelController;
+    private bool _prologueHalfOpen;
+    private bool _prologueShallowGateUnlocked;
+
+    public event Action<string> PrologueActionRequested;
+
+    public bool IsPrologueHalfOpen {
+        get { return _prologueHalfOpen; }
+    }
+
+    public bool IsPrologueShallowGateAvailable {
+        get {
+            return _prologueHalfOpen
+                && _prologueShallowGateUnlocked
+                && departBtn != null
+                && departBtn.gameObject.activeSelf
+                && departBtn.interactable;
+        }
+    }
+
+    public string LastPrologueActionRequested { get; private set; }
+
+    public bool IsDungeonStartLayerPanelOpen {
+        get { return _dungeonStartLayerPanelOpen; }
+    }
 
     void Start() {
         ApplyWorkshopBackground();
@@ -112,8 +139,14 @@ public class WorkshopUIController : MonoBehaviour {
             RefreshProstheticList();
         }
 
-        if (dungeonStartLayerPanel != null && dungeonStartLayerPanel.activeSelf) {
+        if (dungeonStartLayerPanel != null
+            && dungeonStartLayerPanel.activeSelf
+            && (_dungeonStartLayerController == null || !_dungeonStartLayerController.IsFirstDiveMode)) {
             _dungeonStartLayerController?.Present(CloseDungeonStartLayerPanel);
+        }
+
+        if (_prologueHalfOpen) {
+            ApplyPrologueHalfOpenState();
         }
     }
 
@@ -126,6 +159,11 @@ public class WorkshopUIController : MonoBehaviour {
         if (departBtn != null) {
             departBtn.onClick.RemoveAllListeners();
             departBtn.onClick.AddListener(() => {
+                if (_prologueHalfOpen) {
+                    HandlePrologueShallowGateClicked();
+                    return;
+                }
+
                 CloseSellPanel(false);
                 CloseProstheticPanel(false);
                 OpenDungeonStartLayerPanel();
@@ -304,6 +342,21 @@ public class WorkshopUIController : MonoBehaviour {
         _dungeonStartLayerController?.Present(CloseDungeonStartLayerPanel);
     }
 
+    public void OpenFirstDiveLayerConfirmPanel(Action onDepartRequested = null) {
+        EnsureSellControls();
+        CloseSellPanel(false);
+        CloseProstheticPanel(false);
+        CloseFormalV1Panel();
+        _dungeonStartLayerPanelOpen = true;
+
+        if (dungeonStartLayerPanel != null) {
+            dungeonStartLayerPanel.SetActive(true);
+            dungeonStartLayerPanel.transform.SetAsLastSibling();
+        }
+
+        _dungeonStartLayerController?.PresentFirstDive(CloseDungeonStartLayerPanel, onDepartRequested);
+    }
+
     public void CloseDungeonStartLayerPanel() {
         CloseDungeonStartLayerPanel(true);
     }
@@ -364,6 +417,82 @@ public class WorkshopUIController : MonoBehaviour {
         }
 
         ForceRebuildGeneratedList(stashListParent);
+    }
+
+    public void EnterPrologueHalfOpen(Action<string> actionRequested = null) {
+        if (actionRequested != null) {
+            PrologueActionRequested += actionRequested;
+        }
+
+        _prologueHalfOpen = true;
+        _prologueShallowGateUnlocked = true;
+        EnsureSellControls();
+        BindButtons();
+        CloseSellPanel(false);
+        CloseProstheticPanel(false);
+        CloseDungeonStartLayerPanel(false);
+        CloseFormalV1Panel();
+        ApplyPrologueHalfOpenState();
+    }
+
+    public void ExitPrologueHalfOpen() {
+        _prologueHalfOpen = false;
+        _prologueShallowGateUnlocked = false;
+        EnsureSellControls();
+        BindButtons();
+        RefreshUI();
+    }
+
+    private void HandlePrologueShallowGateClicked() {
+        if (!_prologueHalfOpen || !_prologueShallowGateUnlocked) {
+            return;
+        }
+
+        CloseSellPanel(false);
+        CloseProstheticPanel(false);
+        CloseDungeonStartLayerPanel(false);
+        CloseFormalV1Panel();
+        LastPrologueActionRequested = PrologueOpenLayer1ConfirmActionID;
+        PrologueActionRequested?.Invoke(PrologueOpenLayer1ConfirmActionID);
+    }
+
+    private void ApplyPrologueHalfOpenState() {
+        SetButtonVisible(departBtn, true);
+        if (departBtn != null) {
+            departBtn.interactable = _prologueShallowGateUnlocked;
+        }
+
+        SetButtonVisible(openSellPanelBtn, false);
+        SetButtonVisible(openProstheticPanelBtn, false);
+        SetButtonVisible(upgradeBtn, false);
+        SetFormalEntryButtonsVisible(false);
+
+        if (_formalV1EntryPanel != null) {
+            _formalV1EntryPanel.gameObject.SetActive(true);
+        }
+
+        SetButtonLabel(departBtn, "浅层入口", 28);
+        if (_abyssHintText != null) {
+            _abyssHintText.text = "浅层入口\n压力稳定，零号还能撑一次";
+        }
+
+        if (_studioHintText != null) {
+            _studioHintText.text = "工坊还没醒透\n维护、义体和底盘稍后再整理";
+            _studioHintText.color = new Color(0.58f, 0.62f, 0.62f, 0.86f);
+        }
+
+        if (_ledgerHintText != null) {
+            _ledgerHintText.text = "账单和市场暂时压在桌角\n现在只有一次下潜理由";
+            _ledgerHintText.color = new Color(0.62f, 0.58f, 0.52f, 0.86f);
+        }
+
+        if (_dollCaptionText != null) {
+            _dollCaptionText.text = "零号：核心仓已清理，行动余量一次";
+        }
+
+        if (chassisInfoText != null) {
+            chassisInfoText.text = "核心仓灰尘已擦去\n下潜许可：浅层一次";
+        }
     }
 
     private void CreateSellRow(ItemEntity item, Font defaultFont, string sourceLabel) {

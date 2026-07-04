@@ -1,4 +1,4 @@
-﻿---
+---
 id: config_effects_readme
 title: 效果配置字典说明 (EffectEnums Config)
 type: config
@@ -13,8 +13,8 @@ related:
   - 设计文档/GDD/GDD_08_人偶养成子模块全案.md
   - 设计文档/GDD/GDD_03_人偶实体对象与好感双轨机制.md
   - 设计文档/GDD/GDD_09_标签与特质系统.md
-  - 设计文档/rules/06_标签与特质规则卡.md
-  - 设计文档/rules/08_人偶核心状态与好感双轨规则卡.md
+  - 设计文档/规则卡/06_标签与特质规则卡.md
+  - 设计文档/规则卡/08_人偶核心状态与好感双轨规则卡.md
   - 设计文档/config/audits/36_局外成长正式配置承接审计.md
   - 设计文档/config/designs/37_局外成长正式配置落地设计.md
   - 设计文档/config/tasks/38_局外成长正式配置实现任务拆分.md

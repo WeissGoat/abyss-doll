@@ -1,0 +1,155 @@
+[
+  {
+    "TriggerID": "t0_01a_new_game_opening",
+    "EventType": "PrologueStarted",
+    "YarnNode": "T0_01A_Opening_CG",
+    "Priority": 100,
+    "BlockingMode": "modal",
+    "IfBusyPolicy": "queue_once",
+    "Context": "prologue",
+    "Once": true,
+    "Chance": 1.0,
+    "RequiredFlags": [],
+    "ForbiddenFlags": ["PrologueStarted"],
+    "Conditions": [
+      { "Type": "FlagNotSet", "Key": "PrologueStarted" }
+    ],
+    "SetFlagsOnComplete": ["PrologueStarted", "DebtNoticeSeen", "RepairNoteSeen", "LastCoreShardSeen"]
+  },
+  {
+    "TriggerID": "t0_01a_find_no0",
+    "EventType": "NarrativeNodeCompleted",
+    "YarnNode": "T0_01A_FindNo0",
+    "Priority": 95,
+    "BlockingMode": "modal",
+    "IfBusyPolicy": "queue_once",
+    "Context": "prologue",
+    "Once": true,
+    "Chance": 1.0,
+    "RequiredFlags": ["LastCoreShardSeen"],
+    "ForbiddenFlags": ["No0Found"],
+    "Conditions": [
+      { "Type": "FlagEquals", "Key": "LastCoreShardSeen", "Value": "true" }
+    ],
+    "SetFlagsOnComplete": ["No0Found"]
+  },
+  {
+    "TriggerID": "t0_01a_start_doll_button",
+    "EventType": "PrologueActionClicked",
+    "YarnNode": "T0_01A_StartDoll",
+    "Priority": 95,
+    "BlockingMode": "modal",
+    "IfBusyPolicy": "drop",
+    "Context": "prologue",
+    "Once": true,
+    "Chance": 1.0,
+    "RequiredFlags": ["No0Found"],
+    "ForbiddenFlags": ["No0Started"],
+    "Conditions": [
+      { "Type": "ActionEquals", "Key": "action", "Value": "start_doll" }
+    ],
+    "SetFlagsOnComplete": ["No0Started"]
+  },
+  {
+    "TriggerID": "t0_01a_no0_wake",
+    "EventType": "NarrativeFlagSet",
+    "YarnNode": "T0_01A_No0Wake",
+    "Priority": 90,
+    "BlockingMode": "modal",
+    "IfBusyPolicy": "queue_once",
+    "Context": "prologue",
+    "Once": true,
+    "Chance": 1.0,
+    "RequiredFlags": ["No0Started"],
+    "ForbiddenFlags": ["No0WakeDialogueSeen"],
+    "Conditions": [
+      { "Type": "FlagEquals", "Key": "No0Started", "Value": "true" }
+    ],
+    "SetFlagsOnComplete": ["No0WakeDialogueSeen"]
+  },
+  {
+    "TriggerID": "t0_01a_first_status_card",
+    "EventType": "NarrativeFlagSet",
+    "YarnNode": "T0_01A_FirstStatusCard",
+    "Priority": 85,
+    "BlockingMode": "modal_light",
+    "IfBusyPolicy": "queue_once",
+    "Context": "workshop",
+    "Once": true,
+    "Chance": 1.0,
+    "RequiredFlags": ["No0WakeDialogueSeen"],
+    "ForbiddenFlags": ["FirstStatusShown"],
+    "Conditions": [
+      { "Type": "FlagEquals", "Key": "No0WakeDialogueSeen", "Value": "true" }
+    ],
+    "SetFlagsOnComplete": ["FirstStatusShown"]
+  },
+  {
+    "TriggerID": "t0_01a_first_core_wipe",
+    "EventType": "PrologueActionClicked",
+    "YarnNode": "T0_01A_FirstCoreWipe",
+    "Priority": 80,
+    "BlockingMode": "modal_light",
+    "IfBusyPolicy": "drop",
+    "Context": "workshop",
+    "Once": true,
+    "Chance": 1.0,
+    "RequiredFlags": ["FirstStatusShown"],
+    "ForbiddenFlags": ["FirstCoreWiped"],
+    "Conditions": [
+      { "Type": "ActionEquals", "Key": "action", "Value": "wipe_core" }
+    ],
+    "SetFlagsOnComplete": ["FirstCoreWiped"]
+  },
+  {
+    "TriggerID": "t0_01a_first_dive_unlock",
+    "EventType": "NarrativeFlagSet",
+    "YarnNode": "T0_01A_FirstDiveUnlock",
+    "Priority": 75,
+    "BlockingMode": "modal_light",
+    "IfBusyPolicy": "queue_once",
+    "Context": "workshop",
+    "Once": true,
+    "Chance": 1.0,
+    "RequiredFlags": ["FirstCoreWiped"],
+    "ForbiddenFlags": ["FirstDiveUnlocked"],
+    "Conditions": [
+      { "Type": "FlagEquals", "Key": "FirstCoreWiped", "Value": "true" }
+    ],
+    "SetFlagsOnComplete": ["FirstDiveUnlocked"]
+  },
+  {
+    "TriggerID": "t0_01a_layer1_confirm",
+    "EventType": "PrologueActionClicked",
+    "YarnNode": "T0_01A_Layer1Confirm",
+    "Priority": 80,
+    "BlockingMode": "modal_light",
+    "IfBusyPolicy": "queue_once",
+    "Context": "layer_confirm",
+    "Once": true,
+    "Chance": 1.0,
+    "RequiredFlags": ["FirstDiveUnlocked"],
+    "ForbiddenFlags": ["Layer1ConfirmOpened"],
+    "Conditions": [
+      { "Type": "ActionEquals", "Key": "action", "Value": "open_layer1_confirm" }
+    ],
+    "SetFlagsOnComplete": ["Layer1ConfirmOpened"]
+  },
+  {
+    "TriggerID": "t0_01a_first_depart",
+    "EventType": "PrologueActionClicked",
+    "YarnNode": "T0_01A_FirstDepart",
+    "Priority": 85,
+    "BlockingMode": "modal",
+    "IfBusyPolicy": "drop",
+    "Context": "layer_confirm",
+    "Once": false,
+    "Chance": 1.0,
+    "RequiredFlags": ["Layer1ConfirmOpened"],
+    "ForbiddenFlags": ["Layer1FirstDeparted"],
+    "Conditions": [
+      { "Type": "ActionEquals", "Key": "action", "Value": "first_dive_depart" }
+    ],
+    "SetFlagsOnComplete": ["Layer1FirstDeparted"]
+  }
+]

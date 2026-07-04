@@ -10,7 +10,7 @@ related:
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/design_boards/README.md
   - 美术文档/ui_design/formal_v2/concepts/review_index.md
-last_verified: 2026-06-07
+last_verified: 2026-06-12
 update_rule: 新增、替换或废弃 Formal V2 概念参考图时同步本文件。
 ---
 
@@ -89,7 +89,9 @@ NovelAI 和 `tools/ai-image-gateway` 默认只用于运行时正式资产、Visu
 
 2026-06-07 层地图纵深重出结果：已按“可推进大地图 + 镜头前移 + 每层独立生态”方向，用 Codex 内置 `image_gen` 再次重出 `dungeon_map`。新版代表性地图采用地底草原 / 地下森林层，路线从前景延伸到远景，节点嵌入道路、树根、遗迹和草甸。上一版已归档到 `archive/2026-06-07_layer_map_depth_regen/`，V2-A / V2-B / V2-C / 全量 contact sheet 已刷新。
 
-2026-06-07 风格重出结果：已按“日系二次元地底奇幻 + 轻蒸汽工艺”方向，用 Codex 内置 `image_gen` 重出 `workshop_main`、`combat_hud`、`dungeon_map` 三张概念图，并刷新 V2-A / V2-B / V2-C / 全量 contact sheet。旧三张已归档到 `archive/2026-06-07_anime_style_regen/`。
+2026-06-12 口径纠偏：Formal V2 全局方向改为“日系二次元地底奇幻冒险 + 低信息密度”；2026-06-07 重出的概念图暂作为结构和氛围参考保留，但其中棕金机械、黄铜暖灯和蒸汽朋克倾向不再作为后续全局风格依据。后续若重出概念图，应按新的全局风格基准处理。
+
+2026-06-07 风格重出结果：当时按“日系二次元地底奇幻 + 轻蒸汽工艺”方向，用 Codex 内置 `image_gen` 重出 `workshop_main`、`combat_hud`、`dungeon_map` 三张概念图，并刷新 V2-A / V2-B / V2-C / 全量 contact sheet。旧三张已归档到 `archive/2026-06-07_anime_style_regen/`；该旧口径现已被 2026-06-12 纠偏口径覆盖。
 
 2026-06-06 补齐结果：已改用内置 imagegen 生成并保存 13 张缺口概念图，覆盖维护 / 义体 / 底盘子面板、小镇商店和 V2-C 九个界面。新增图片分辨率统一为 `1672x941`，只作为结构、氛围和视觉重心评审参考，不进入 Approved、Manifest 或程序接入清单。
 

@@ -207,10 +207,10 @@ ScenarioEventPanel
 ```text
 Use case: ui-mockup
 Asset type: Formal V2 game UI concept art for scenario_event
-Primary request: A warm fantasy and light steampunk story event overlay interface.
-Scene/backdrop: dimmed current game scene behind a parchment story overlay, soft lantern focus, subtle magical particles.
+Primary request: A warm Japanese anime subterranean fantasy story event overlay interface.
+Scene/backdrop: dimmed current game scene behind a parchment story overlay, soft magical focus light, subtle particles.
 Subject: left event focus slot with doll portrait or faction emblem, right large clean dialogue panel, choice cards below, result summary stamp strip, one clear continue button and small skip option.
-Style: warm hand-painted fantasy UI, parchment scrolls, brass corners, low information density, clean reading area.
+Style: soft hand-painted fantasy UI, parchment scrolls, illustrated trim, low information density, clean reading area, no brass palette, no steampunk machinery.
 Composition: 16:9 landscape, current scene dimmed behind, story card centered.
 Avoid: mobile pop-up ad, visual novel text wall covering everything, dense system log, real readable words, logos, watermark.
 ```

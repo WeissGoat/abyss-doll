@@ -204,10 +204,10 @@ SafeRoomPanel
 ```text
 Use case: ui-mockup
 Asset type: Formal V2 game UI concept art for safe_room
-Primary request: A cozy fantasy and light steampunk safe room interface inside an abyss cave.
-Scene/backdrop: small warm camp in a dangerous underground abyss, lantern firelight, cloth mat, supply crates, mossy stone walls, rope marks.
+Primary request: A cozy Japanese anime subterranean fantasy safe room interface inside an abyss cave.
+Scene/backdrop: small protected camp in a dangerous underground abyss, soft magic glow, cloth mat, supply crates, mossy stone walls, rope marks.
 Subject: central safe camp scene, bottom-left inventory mat with grid-like bag area, right decision panel with continue or extract, small doll signal feedback panel, rest status strip.
-Style: warm hand-painted fantasy UI, soft parchment panels, brass details, low information density, gentle safe atmosphere.
+Style: soft hand-painted fantasy UI, parchment panels, cloth and stone details, luminous cave accents, low information density, gentle safe atmosphere, no brass palette, no steampunk machinery.
 Composition: 16:9 landscape, camp light as visual center, UI panels integrated into the room.
 Avoid: modern sci-fi bunker, dense menu buttons, spreadsheet layout, unreadable tiny text, real readable words, logos, watermark, transparent holes.
 ```

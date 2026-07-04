@@ -1,0 +1,192 @@
+[
+  {
+    "NodeID": "T0_01A_Opening_CG",
+    "ScriptFile": "scripts/t0_01a_prologue.yarn",
+    "SourceTable": "source_tables/t0_01a_prologue.dialogue.csv",
+    "Context": "prologue",
+    "ContentType": "modal",
+    "ImplementationState": "locked_for_implementation",
+    "SpeakerIDs": ["protagonist"],
+    "LineKeys": [
+      "prologue.t0_01a.black_wake.line_01",
+      "prologue.t0_01a.debt_notice.line_01",
+      "prologue.t0_01a.debt_notice.line_02",
+      "prologue.t0_01a.repair_note.line_01",
+      "prologue.t0_01a.repair_note.line_02",
+      "prologue.t0_01a.core_shard.line_01",
+      "prologue.t0_01a.core_shard.line_02"
+    ],
+    "CommandNames": ["play_visual", "set_flag"],
+    "VisualIntents": [
+      { "VisualID": "cg_t0_01a_black_wake", "FallbackVisualID": "ui_black_screen", "Required": true },
+      { "VisualID": "cg_t0_01a_debt_notice", "FallbackVisualID": "ui_paper_panel", "Required": true },
+      { "VisualID": "cg_t0_01a_repair_note", "FallbackVisualID": "ui_paper_panel", "Required": true },
+      { "VisualID": "cg_t0_01a_core_shard", "FallbackVisualID": "ui_item_panel", "Required": true }
+    ]
+  },
+  {
+    "NodeID": "T0_01A_FindNo0",
+    "ScriptFile": "scripts/t0_01a_prologue.yarn",
+    "SourceTable": "source_tables/t0_01a_prologue.dialogue.csv",
+    "Context": "prologue",
+    "ContentType": "modal",
+    "ImplementationState": "locked_for_implementation",
+    "SpeakerIDs": ["protagonist"],
+    "LineKeys": [
+      "prologue.t0_01a.find_no0.line_01",
+      "prologue.t0_01a.find_no0.line_02",
+      "prologue.t0_01a.button.start_doll"
+    ],
+    "CommandNames": ["play_visual", "set_flag", "show_prologue_action"],
+    "VisualIntents": [
+      { "VisualID": "cg_t0_01a_find_no0", "FallbackVisualID": "doll_proto_0_stand", "Required": true }
+    ]
+  },
+  {
+    "NodeID": "T0_01A_StartDoll",
+    "ScriptFile": "scripts/t0_01a_prologue.yarn",
+    "SourceTable": "source_tables/t0_01a_prologue.dialogue.csv",
+    "Context": "prologue",
+    "ContentType": "modal",
+    "ImplementationState": "locked_for_implementation",
+    "SpeakerIDs": [],
+    "LineKeys": [],
+    "CommandNames": ["play_visual", "set_flag"],
+    "VisualIntents": [
+      { "VisualID": "vfx_no0_core_start", "FallbackVisualID": "ui_core_glow", "Required": true }
+    ]
+  },
+  {
+    "NodeID": "T0_01A_No0Wake",
+    "ScriptFile": "scripts/t0_01a_prologue.yarn",
+    "SourceTable": "source_tables/t0_01a_prologue.dialogue.csv",
+    "Context": "prologue",
+    "ContentType": "modal",
+    "ImplementationState": "locked_for_implementation",
+    "SpeakerIDs": ["no0", "protagonist"],
+    "LineKeys": [
+      "prologue.t0_01a.no0_wake.line_01",
+      "prologue.t0_01a.no0_wake.line_02",
+      "prologue.t0_01a.no0_wake.line_03",
+      "prologue.t0_01a.no0_wake.line_04",
+      "prologue.t0_01a.no0_wake.line_05",
+      "prologue.t0_01a.no0_wake.line_06",
+      "prologue.t0_01a.no0_wake.line_07",
+      "prologue.t0_01a.no0_wake.line_08",
+      "prologue.t0_01a.no0_wake.line_09",
+      "prologue.t0_01a.no0_wake.line_10",
+      "prologue.t0_01a.no0_wake.line_11",
+      "prologue.t0_01a.no0_wake.line_12"
+    ],
+    "CommandNames": ["show_character", "set_flag"],
+    "VisualIntents": [
+      { "VisualID": "stand_no0_weak_sitting", "FallbackVisualID": "doll_proto_0_stand", "Required": true }
+    ]
+  },
+  {
+    "NodeID": "T0_01A_FirstStatusCard",
+    "ScriptFile": "scripts/t0_01a_prologue.yarn",
+    "SourceTable": "source_tables/t0_01a_prologue.dialogue.csv",
+    "Context": "workshop",
+    "ContentType": "modal_light",
+    "ImplementationState": "locked_for_implementation",
+    "SpeakerIDs": [],
+    "LineKeys": [
+      "prologue.t0_01a.status.initial.title",
+      "prologue.t0_01a.status.initial.core",
+      "prologue.t0_01a.status.initial.body",
+      "prologue.t0_01a.status.initial.consciousness",
+      "prologue.t0_01a.status.initial.judgement",
+      "prologue.t0_01a.button.wipe_core"
+    ],
+    "CommandNames": ["show_status_card", "show_prologue_action", "set_flag"],
+    "VisualIntents": [
+      { "VisualID": "ui_status_card_prologue", "FallbackVisualID": "ui_panel_main", "Required": true }
+    ]
+  },
+  {
+    "NodeID": "T0_01A_FirstCoreWipe",
+    "ScriptFile": "scripts/t0_01a_prologue.yarn",
+    "SourceTable": "source_tables/t0_01a_prologue.dialogue.csv",
+    "Context": "workshop",
+    "ContentType": "modal_light",
+    "ImplementationState": "locked_for_implementation",
+    "SpeakerIDs": ["no0", "protagonist"],
+    "LineKeys": [
+      "prologue.t0_01a.status.stable.title",
+      "prologue.t0_01a.status.stable.core",
+      "prologue.t0_01a.status.stable.body",
+      "prologue.t0_01a.status.stable.consciousness",
+      "prologue.t0_01a.status.stable.judgement",
+      "prologue.t0_01a.core_wipe.line_01",
+      "prologue.t0_01a.core_wipe.line_02",
+      "prologue.t0_01a.core_wipe.line_03"
+    ],
+    "CommandNames": ["show_status_card", "set_flag"],
+    "VisualIntents": [
+      { "VisualID": "ui_status_card_prologue", "FallbackVisualID": "ui_panel_main", "Required": true }
+    ]
+  },
+  {
+    "NodeID": "T0_01A_FirstDiveUnlock",
+    "ScriptFile": "scripts/t0_01a_prologue.yarn",
+    "SourceTable": "source_tables/t0_01a_prologue.dialogue.csv",
+    "Context": "workshop",
+    "ContentType": "modal_light",
+    "ImplementationState": "locked_for_implementation",
+    "SpeakerIDs": ["protagonist", "no0"],
+    "LineKeys": [
+      "prologue.t0_01a.first_dive.line_01",
+      "prologue.t0_01a.first_dive.line_02",
+      "prologue.t0_01a.first_dive.line_03",
+      "prologue.t0_01a.first_dive.line_04",
+      "prologue.t0_01a.action.layer1.title",
+      "prologue.t0_01a.action.layer1.subtitle"
+    ],
+    "CommandNames": ["unlock_ui", "set_flag"],
+    "VisualIntents": [
+      { "VisualID": "vfx_shallow_gate_wake", "FallbackVisualID": "ui_icon_dungeon", "Required": true }
+    ]
+  },
+  {
+    "NodeID": "T0_01A_Layer1Confirm",
+    "ScriptFile": "scripts/t0_01a_prologue.yarn",
+    "SourceTable": "source_tables/t0_01a_prologue.dialogue.csv",
+    "Context": "layer_confirm",
+    "ContentType": "modal_light",
+    "ImplementationState": "locked_for_implementation",
+    "SpeakerIDs": ["no0", "protagonist"],
+    "LineKeys": [
+      "prologue.t0_01a.layer_confirm.title",
+      "prologue.t0_01a.layer_confirm.status",
+      "prologue.t0_01a.layer_confirm.loot.core_shard",
+      "prologue.t0_01a.layer_confirm.loot.scrap",
+      "prologue.t0_01a.layer_confirm.loot.memory_echo",
+      "prologue.t0_01a.layer_confirm.companion",
+      "prologue.t0_01a.layer_confirm.primary",
+      "prologue.t0_01a.layer_confirm.secondary"
+    ],
+    "CommandNames": ["set_flag", "open_layer_confirm"],
+    "VisualIntents": [
+      { "VisualID": "bg_layer_select_first_dive", "FallbackVisualID": "bg_layer_select", "Required": true }
+    ]
+  },
+  {
+    "NodeID": "T0_01A_FirstDepart",
+    "ScriptFile": "scripts/t0_01a_prologue.yarn",
+    "SourceTable": "source_tables/t0_01a_prologue.dialogue.csv",
+    "Context": "layer_confirm",
+    "ContentType": "modal",
+    "ImplementationState": "locked_for_implementation",
+    "SpeakerIDs": ["no0", "protagonist"],
+    "LineKeys": [
+      "prologue.t0_01a.depart.line_01",
+      "prologue.t0_01a.depart.line_02",
+      "prologue.t0_01a.depart.line_03"
+    ],
+    "CommandNames": ["play_visual", "set_flag"],
+    "VisualIntents": [
+      { "VisualID": "cg_t0_01a_depart_black", "FallbackVisualID": "ui_black_screen", "Required": true }
+    ]
+  }
+]

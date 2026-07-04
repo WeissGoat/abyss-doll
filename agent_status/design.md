@@ -12,23 +12,27 @@ related:
   - agent_status/README.md
   - PROJECT_STATUS.md
   - 开发文档/00_程序开发大纲.md
+  - 开发文档/18_全局叙事播放系统开发方案.md
   - agent_status/program.md
   - 数值模型设计/00_基准价值与空间本位模型.md
   - 配置表(JSON)/README.md
+  - 配置表(JSON)/Narrative/README.md
   - 设计文档/README.md
+  - 设计文档/剧情/README.md
+  - 设计文档/剧情/00_剧情大纲.md
   - 设计文档/GDD/GDD_00_系统关联总图.md
   - 设计文档/delivery/00_策划文档开发交付审计.md
-  - 设计文档/rules/01_局外时间与日程口径规则卡.md
-  - 设计文档/rules/02_物品背包旋转与生命周期规则卡.md
-  - 设计文档/rules/03_战斗回合与怪物意图规则卡.md
-  - 设计文档/rules/04_小镇经济结算与压力链规则卡.md
-  - 设计文档/rules/05_局外成长与维护规则卡.md
-  - 设计文档/rules/06_标签与特质规则卡.md
-  - 设计文档/rules/07_势力声望与订单规则卡.md
-  - 设计文档/rules/08_人偶核心状态与好感双轨规则卡.md
-  - 设计文档/rules/09_人偶交互事件与反馈规则卡.md
-  - 设计文档/rules/10_剧本调度与事件队列规则卡.md
-  - 设计文档/rules/11_人偶房间布局与视觉叙事规则卡.md
+  - 设计文档/规则卡/01_局外时间与日程口径规则卡.md
+  - 设计文档/规则卡/02_物品背包旋转与生命周期规则卡.md
+  - 设计文档/规则卡/03_战斗回合与怪物意图规则卡.md
+  - 设计文档/规则卡/04_小镇经济结算与压力链规则卡.md
+  - 设计文档/规则卡/05_局外成长与维护规则卡.md
+  - 设计文档/规则卡/06_标签与特质规则卡.md
+  - 设计文档/规则卡/07_势力声望与订单规则卡.md
+  - 设计文档/规则卡/08_人偶核心状态与好感双轨规则卡.md
+  - 设计文档/规则卡/09_人偶交互事件与反馈规则卡.md
+  - 设计文档/规则卡/10_剧本调度与事件队列规则卡.md
+  - 设计文档/规则卡/11_人偶房间布局与视觉叙事规则卡.md
   - 设计文档/delivery/12_策划交付落地矩阵.md
   - 设计文档/delivery/13_策划跨系统验收场景矩阵.md
   - 设计文档/delivery/14_策划配置表现验收承接规格.md
@@ -78,7 +82,7 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - agent_status/art.md
   - 知识库/views/design.md
-last_verified: 2026-06-07
+last_verified: 2026-07-03
 update_rule: 策划、数值、GDD 或配置意图任务完成后更新本文件。
 ---
 
@@ -86,19 +90,21 @@ update_rule: 策划、数值、GDD 或配置意图任务完成后更新本文件
 
 ## 最后更新
 
-2026-06-08
+2026-07-03
 
 ## 当前关注
 
 保持正式版核心纵切的规则、GDD、数值模型和配置意图一致。优先推进纵向系统闭环，不横向铺大量内容。纵切只代表开发顺序，不代表质量降级；被选中的系统按正式版标准完整处理。
 
-`设计文档/` 已按文档用途完成分区：`GDD/`、`rules/`、`delivery/`、`content_packs/`、`config/` 和 `_archive/`。策划 agent 后续先读 `设计文档/README.md` 判断文档类型，再进入具体事实来源。
+`设计文档/` 已按文档用途完成分区：`GDD/`、`规则卡/`、`剧情/`、`delivery/`、`content_packs/`、`config/` 和 `_archive/`。策划 agent 后续先读 `设计文档/README.md` 判断文档类型，再进入具体事实来源。项目根目录 `rules/` 专指全局 agent 必读规则，不再用于策划业务规则卡。
 
 PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正式纵切先输出规则卡、配置影响、运行时预期和验证需求。
 
 新增策划交付门禁：所有进入开发、配置、表现或自动验收的系统需求，都必须有详细需求文档承接；不能只用路线文档、优先级列表或聊天结论中的一句话替代。
 
 下一阶段策划工作已从“继续补设计文档”切换为“配置源 JSON 落地”。`设计文档/config/26_正式配置设计与填充推进计划.md` 已作为执行方案入口，按 `C1 第一层正式配置落地 -> C2 第二层直达与背包压力配置 -> C3 第三层路线侵蚀配置 -> C4 局外成长配置落地 -> C5 经济压力与订单配置落地` 推进。C1、C2 与 C3 均已配置完成；当前策划配置执行批次切到 C4 局外成长配置源落地，下一项为 `GROWTH-ID-LOCK` 复核，再进入底盘、义体、制造、维护、人偶状态和成长效果源 JSON。C4 只处理局外成长配置链，不扩经济压力、美术 UI 或第四层副本内容。
+
+T0-01A 叙事配置源已进入 `配置表(JSON)/Narrative/` 并完成首轮复核补强：当前只覆盖序章到首潜许可的 node、trigger、speaker、flag、command、对白表、UI 文案 key 和 Yarn 脚本源。该项可作为全局叙事播放系统的配置契约证据，不代表 UGUI 对白层、调度运行时或序章玩家路径已完成。
 
 防重复策划 / 配置开发状态已挂到 `设计文档/config/26_正式配置设计与填充推进计划.md`：`8.3 策划侧完整执行规划与状态总览` 是策划 agent 的完整工作规划入口，按需求 / 规则、配置设计准入、配置源落地、验收 / 校准、后续内容池分层记录；`8.4 策划配置执行状态表` 是配置源 JSON 落地的最小防重复台账，包含 C1-C5 批次总状态和子项级状态。后续完成任一策划工作项、配置批次或配置子项后，必须同步更新 `26` 和本状态页；没有源 JSON、同步和校验证据时，不得把状态标为 `配置完成`。
 
@@ -137,7 +143,7 @@ PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正
 - 系统规则写入 `设计文档/`。
 - 程序边界和实现契约写入 `开发文档/`。
 - 数值假设写入 `数值模型设计/` 或对应配置 README。
-- `设计文档/GDD/` 是系统设计母文档；`设计文档/rules/` 是规则卡；`设计文档/delivery/` 是交付 / 验收承接；`设计文档/content_packs/` 是内容生产规格与具体内容包；`设计文档/config/` 是正式配置设计、审计、任务、验收和准入链路。
+- `设计文档/GDD/` 是系统设计母文档；`设计文档/规则卡/` 是规则卡；`设计文档/剧情/` 是叙事母版；`设计文档/delivery/` 是交付 / 验收承接；`设计文档/content_packs/` 是内容生产规格与具体内容包；`设计文档/config/` 是正式配置设计、审计、任务、验收和准入链路。
 - 内容包是内容填充层，不是顶层开发路线。第四层及以后内容草案已归入 `设计文档/_archive/content_backlog/`，不列入当前优先推进范围。
 
 ## 当前策划优先级
@@ -151,6 +157,18 @@ PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正
 
 ## 最近完成
 
+- `T0-VAL-01` 已把 T0-01A Narrative 配置源消费到“进入第一层”的 Owner 级证据链：现有 node / trigger / flag / line key / command 契约已被 `T0-FLOW-01..05` 与既有 clean batchmode / AutoTest 日志追溯到第一层进入，本轮不新增正文、不改 trigger 方向，只补状态回写与声明边界。当前仍缺连续画面截图和主职能外部验收，因此不能把它写成“整个序章完成”。
+- 已完成 `T0-CONTENT-01` 的 T0-01A Narrative 内容源复核与补强：`source_tables/t0_01a_prologue.dialogue.csv` 补到 74 行，覆盖对白、按钮、状态卡、浅层入口和首潜确认 UI 文案；`scripts/t0_01a_prologue.yarn` 补完整零号苏醒 12 句对白，并用注释型 `#line:` 保留 UI 文案 key，运行时不额外播放；`narrative_nodes.json` 补齐 8 个节点的 line / UI key 清单。已通过 Narrative 静态交叉审计（8 nodes、8 triggers、12 flags、7 commands、2 speakers、53 keys）、`Sync-Configs.ps1 -Clean`、`Validate-Docs.ps1` 和 C# 编译；本记录不声明 Unity runtime smoke、UGUI 对白层或 T0-01A 玩家路径已通过。
+- 已完成 `NARR-01` 的 T0-01A Narrative 配置源首批落地：新增 `配置表(JSON)/Narrative/` 下 `source_tables/t0_01a_prologue.dialogue.csv`、`scripts/t0_01a_prologue.yarn`、`narrative_nodes.json`、`narrative_triggers.json`、`narrative_speakers.json`、`narrative_flags.json`、`narrative_commands.json` 和 README。当前覆盖 8 个 T0-01A node、8 个 trigger、2 个 speaker、12 个 flag、7 个白名单命令；已通过 `Sync-Configs.ps1 -Clean`、Narrative 静态交叉引用审计和 C# 编译。Unity smoke 因项目已有 Unity 实例 / batchmode executeMethod 未消费目标方法，记录为受限验证；本记录不声明序章运行时 UI 或调度系统已完成。
+- 已迭代 `T0-01A_开局人偶状态到首次下潜许可开发方案.md` 的策划 / 文案落地口径：T0-01A 正式按 `开发文档/18_全局叙事播放系统开发方案.md` 承接，要求落地 `source_tables/t0_01a_prologue.dialogue.csv`、`scripts/t0_01a_prologue.yarn`、`narrative_nodes.json`、`narrative_triggers.json`、`narrative_speakers.json`、`narrative_flags.json` 和 `narrative_commands.json` 的最小源数据；如导出工具未完成，可先手写 Yarn 与 JSON，但必须保留 `source_table`、`line_key`、`node_id`、`trigger_id` 和白名单命令口径。本轮只更新开发方案，不代表 T0-01A Yarn、对白表或 Narrative JSON 已落地。
+- 已继续补强 `开发文档/18_全局叙事播放系统开发方案.md` 的对白 / 文案生产口径：剧情母版不直接导出 Yarn；正式长文本优先由对白表 / 剧本表维护正文、说话人、情绪、演出动作、line key、choice_id、表现意图和审校字段，再导出 Yarn 作为可运行脚本；长段多人对话按同一 `beat_id` 下多个 node 组织，trigger 只指向入口 node；触发条件、概率、冷却、优先级和完成 flag 独立写入 JSON 配置，不从对白表自动生成。该记录只锁定文案与配置生产规则，不代表 T0-01A Yarn、对白表或 Narrative JSON 已落地。
+- 已补强 `开发文档/18_全局叙事播放系统开发方案.md` 的策划 / 文案配置口径：叙事内容现在按“剧情母版 -> Yarn 脚本源 -> JSON 配置源”三层维护，明确对白正文写入 `scripts/*.yarn`，节点资产 / 审校写入 `narrative_nodes.json`，触发条件 / 优先级 / 冷却 / 旗标写入 `narrative_triggers.json`，并补充 line tag、choice_id、speaker、VisualID、交付流程和 Validator 检查。该记录只锁定文案与配置生产规则，不代表 T0-01A Yarn 脚本或 Narrative JSON 已落地。
+- 已在 `设计文档/` 下新增 `参考/` 目录，并补 `01_This_Is_the_Police_演出参考.md`，明确它只作为演出方法论参考：序章优先采用“短剧情段 -> 可玩操作段 -> 结果回声段”，先建立处境与情绪，再逐步开放系统。
+- 已按用户反馈重写 `设计文档/剧情/01_序章演出与对话节奏.md`，把 T0 序章前半段全部改为过程 CG、镜头和短对白推进：债务、手记、工具匣和发现零号均不提供玩家输入，玩家第一次交互只在发现零号后出现单按钮 `启动人偶`；零号苏醒后再逐步开放状态小卡、擦灰整理、浅层入口和第一层出发确认。
+- 已补强 `设计文档/剧情/00_剧情大纲.md` 的序章口径：T0 现在明确是对话式序章开场，不允许用完整工坊功能页替代剧情开场；`This Is the Police` 的借鉴点已写成正式参考并反向约束剧情节奏。
+- 已新增 `T0-01A_开局人偶状态到首次下潜许可开发方案.md`，其中策划侧按玩家流程拆黑屏醒来、工坊过程 CG、发现零号、启动人偶、苏醒、状态小卡、擦灰、浅层入口、第一层确认和出发文案，并给出稳定 key 建议、序章状态旗标和阻断文案口径。该记录不代表剧本表、对白树、配置源或 Unity 实现完成。
+- 已新增 `设计文档/剧情/` 剧情目录，并建立 `README.md` 与 `00_剧情大纲.md`：本轮把草稿中的没落工匠世家、失踪家人、零号魔偶、晶化病、记忆拼图、债务压力和 A/B/C 多结局整理为 active 剧情母版；该文档只作为叙事设计源头，不代表剧本表、对话树或配置源完成。
+- 已同步策划业务规则卡命名口径：`设计文档/规则卡/` 是策划规则卡目录，项目根目录 `rules/` 专指全局 agent 必读规则；相关 active 文档引用已从旧规则卡目录迁移到 `设计文档/规则卡/`。
 - 已完成 C3 第三层路线侵蚀配置源落地：`L3-ITEMS`、`L3-REWARDS`、`L3-MONSTERS`、`L3-DUNGEONS`、`L3-ORDERS-RUMORS-EVENTS`、`L3-SEED` 均已在 `设计文档/config/26_正式配置设计与填充推进计划.md` 标记为 `配置完成`。本轮新增第三层 12 件物品、15 个奖励、8 个怪物、4 个订单、3 条传闻、1 个新 Faction 和 `配置表(JSON)/Dungeons/layer_3.json`；`layer_3.json` 已具备 `DirectStartAllowed=true`、`PreviousLayerRequired=2`、Boss `boss_mycelium_oracle`、Boss 后免费恢复 HP / SAN 的 SafeZone、路线侵蚀 / 订单冲突 MapProfile 和 5 条固定样例。已通过 C3 静态交叉引用检查（error / warning 为 0）和 `./tools/config/Sync-Configs.ps1 -Clean`；P0 入口已运行，`ConfigValidator` / Unity smoke 因 Unity Editor 未运行阻塞，ArtAcceptance 为既有 UI / 美术验收问题，未作为 C3 配置失败证据。C4 已解锁为 `待开始`，当前子项为 `GROWTH-ID-LOCK`。
 - 已完成 C1 第一层正式配置源工作区收尾：确认当前未提交配置表变更均属于第一层正式配置落地范围，并完成 14 个 Items、10 个 Rewards、6 个 Monsters、`layer_1.json`、5 条 FixedSeedSamples、Boss / 精英保底归属和 Boss 后 SafeZone 的静态复核；`./tools/config/Sync-Configs.ps1 -Clean` 已通过。本次收尾只处理 C1 配置源提交，不改变 C3 下一步仍从 `L3-ITEMS` 开始的计划。
 - 已完成 C2 第二层直达与背包压力配置源落地：`L2-ITEMS`、`L2-REWARDS`、`L2-MONSTERS`、`L2-DUNGEONS`、`L2-ORDERS`、`L2-SEED` 均已在 `设计文档/config/26_正式配置设计与填充推进计划.md` 标记为 `配置完成`。本轮新增 / 补强第二层 12 件物品、14 个奖励、7 个怪物、3 个订单、2 个必要 Faction 引用和 `配置表(JSON)/Dungeons/layer_2.json`；`layer_2.json` 已具备 `DirectStartAllowed=true`、`PreviousLayerRequired=1`、Boss `boss_spore_foundry`、Boss 后免费恢复 HP / SAN 的 `StairsNode + SafeZoneRules`，并补 `V-L2-DIRECT-2048-ROUTE-01`、`V-L2-PACK-RUN-01`、`V-L2-PACK-ORDER-01`、`V-L2-PACK-ELITE-01`、`V-L2-PACK-BOSS-01` 五条固定样例。已通过 C2 静态 Validator 等价检查和 `./tools/config/Sync-Configs.ps1 -Clean`；`ConfigValidationSmokeTest.Run` / P0 Unity 步骤因 Unity Editor 未运行被工具阻塞，未作为通过证据。C3 已解锁为 `待开始`，当前子项为 `L3-ITEMS`。
@@ -164,7 +182,7 @@ PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正
 - 已完成 C1 的 `L1-MONSTERS` 配置源落地：`配置表(JSON)/Monsters` 补强 `mob_scavenger_bug`、`mob_acid_slime`、`elite_scrap_guard`，新增 `mob_rust_hound`、`mob_lost_miner_echo`、`boss_gatekeeper_mk1`；`mob_acid_slime` 已切到 Layer1 与 `reward_monster_mob_acid_slime_l1`，`elite_scrap_guard` 回归精英职责并移除一阶机核保底，`boss_gatekeeper_mk1` 承担第一层 Boss / RouteGate 与 `reward_boss_gatekeeper_mk1`。已运行 7 个 Monsters JSON 解析检查、RewardID / AddCursedItem / LootPool 引用检查、Boss / 精英拆分检查、`./tools/config/Sync-Configs.ps1 -Clean`、`ConfigValidationSmokeTest.Run` 和 `MonsterActionAITest.Run` 单项验证；早期完整 P0 `20260527_012751` 曾被 P0 包装器报告匹配问题阻塞，不是怪物配置引用错误；最新阶段性收尾 P0 已通过。`26` 的 C1 当前子项已推进到 `L1-DUNGEONS`。
 - 已完成 C1 的 `L1-REWARDS` 配置源落地：`配置表(JSON)/Rewards` 保留并补强 `reward_monster_mob_scavenger_bug`、`reward_monster_elite_scrap_guard`、`reward_node_treasure_layer1`、`reward_node_event_layer1`，新增 `reward_monster_mob_rust_hound`、`reward_monster_mob_acid_slime_l1`、`reward_monster_mob_lost_miner_echo`、`reward_boss_gatekeeper_mk1`、`reward_node_event_layer1_miner_pack`、`reward_node_event_layer1_cracked_relic`；`mat_core_tier1` 已从精英保底迁移到 `reward_boss_gatekeeper_mk1`。已运行 Rewards JSON UTF-8 解析检查、Reward ItemID / RewardRef 引用检查、Boss 保底迁移检查、`./tools/config/Sync-Configs.ps1 -Clean` 和 `.\tools\agent\Invoke-P0Validation.ps1 -TimeoutSeconds 180`；ConfigSync、ConfigValidator、UI 规格和 ArtAcceptance latest 通过；早期完整 P0 报告 `20260527_010158` 曾被程序 smoke 旧口径和无关布局测试超时阻塞，最新阶段性收尾 P0 已通过，报告见 `UnityClient/Logs/P0Validation/latest/report.json`。
 - 已完成 C1 的 `L1-ITEMS` 配置源落地：`配置表(JSON)/Items` 中 10 个既有第一层相关 ItemID 已补正式字段，新增 `gear_plank_shield_l1`、`gear_cracked_iron_armor`、`trade_miner_lamp`、`trade_cracked_relic`；`loot_toxic_filter` 改为 L 形 3 格四向旋转，`con_repair_kit` 改为 1x2 两向旋转。已运行 JSON 解析检查、`./tools/config/Sync-Configs.ps1 -Clean`、`.\tools\agent\Invoke-P0Validation.ps1 -TimeoutSeconds 180` 和 `.\tools\docs\Validate-Docs.ps1`；P0 验证状态为 `Passed`、Errors=0，报告见 `UnityClient/Logs/P0Validation/latest/report.json`，剩余 warning 为 metadata-only 标签和既有 smoke warning。
-- 已完成 `设计文档/` 结构重构：系统 GDD 迁入 `设计文档/GDD/`，规则卡迁入 `rules/`，交付 / 验收承接迁入 `delivery/`，内容生产规格与内容包迁入 `content_packs/`，正式配置审计 / 设计 / 任务 / 验收 / 门禁迁入 `config/` 分区。
+- 已完成 `设计文档/` 结构重构：系统 GDD 迁入 `设计文档/GDD/`，规则卡迁入 `设计文档/规则卡/`，交付 / 验收承接迁入 `delivery/`，内容生产规格与内容包迁入 `content_packs/`，正式配置审计 / 设计 / 任务 / 验收 / 门禁迁入 `config/` 分区。
 - 已重写 `设计文档/README.md`：新增目录地图、文档类型词典、正式配置链路说明和 active 文件地图；明确 `配置承接审计` 是配置源现状与正式设计之间的缺口审计，`正式配置落地设计` 是 JSON 修改前配置设计清单，不等于配置完成。
 - 已同步 `AGENTS.md`、`GEMINI.md`、`PROJECT_STATUS.md`、`知识库/views/design.md`、`版本规划/11_纵切批次与需求文档承接矩阵.md`、`tools/docs/validate_docs.py` 和 active 文档内的设计文档路径引用；重新生成 `DOCS_INDEX.md` / `docs_index.json` 并通过知识库校验。
 - 已创建复制策划智能体使用的状态页。
@@ -173,18 +191,18 @@ PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正
 - 已将版本规划批次口径并入 `版本规划/11_纵切批次与需求文档承接矩阵.md`，明确 `GDD_00` 到 `GDD_12` 的系统批次、当前依赖、正式完成口径和需求文档承接状态。
 - 已将 `设计文档/GDD/GDD_02_深渊地图遍历与搜打撤抉择.md` 的地图生成规则改为正式版节点网络：多行节点、连线生成、路线主题、战争迷雾和 seed 可复现验收。
 - 已新增 `设计文档/delivery/00_策划文档开发交付审计.md`，按开发交付标准审计 `GDD_00` 到 `GDD_12`，明确当前 P0 缺口是局外时间口径统一、物品背包规则卡、战斗怪物意图规则卡和深渊地图生成开发规则卡。
-- 已新增 `设计文档/rules/01_局外时间与日程口径规则卡.md`，统一局外 Day / Week / Month 与局内 AP 的边界，并同步修正 `GDD_00`、`GDD_03`、`GDD_07`、`GDD_08`、`GDD_09`、`GDD_11`、`GDD_12` 的旧 AP 日程口径。
+- 已新增 `设计文档/规则卡/01_局外时间与日程口径规则卡.md`，统一局外 Day / Week / Month 与局内 AP 的边界，并同步修正 `GDD_00`、`GDD_03`、`GDD_07`、`GDD_08`、`GDD_09`、`GDD_11`、`GDD_12` 的旧 AP 日程口径。
 - 已更新策划交付审计：局外时间 P0-1 标记为已完成正式统一；深渊地图生成 P0-4 已并入 `GDD_02`，可作为地图生成器当前纵切开发依据，后续重点转为配置 README 与 Validator 对齐。
-- 已新增 `设计文档/rules/02_物品背包旋转与生命周期规则卡.md`，把物品定义、实例状态、容器、旋转放置、战败 / 撤离 / 出售 / 制造和怪物对包干涉统一为正式规则。
-- 已新增 `设计文档/rules/03_战斗回合与怪物意图规则卡.md`，把战斗回合状态机、局内 AP、护盾、怪物意图、目标选择、多怪行动顺序和胜负结算统一为正式规则；`GDD_01` 已调整为可开发。
-- 已新增 `设计文档/rules/04_小镇经济结算与压力链规则卡.md`，把每日营业结算、售价公式、传闻价格波、违禁品隔夜代价、月租账单和欠债裁决统一为正式规则；`GDD_04` 已调整为可开发。
-- 已新增 `设计文档/rules/05_局外成长与维护规则卡.md`，把底盘、义体、心智天赋、维护、换装、成长实例字段和下潜许可检查统一为正式规则；`GDD_08` 已调整为可开发。
-- 已新增 `设计文档/rules/06_标签与特质规则卡.md`，把标签命名、动态标签生命周期、查询表达、特质触发器、事件监听白名单、互斥 / 优先级 / 叠加、消除转化和持久化规则统一为正式规则；`GDD_09` 已调整为可开发。
-- 已新增 `设计文档/rules/07_势力声望与订单规则卡.md`，把势力字段、订单定义 / 实例字段、订单刷新算法、截止日状态机、奖励引用、声望阈值、黑市背叛和委托物绑定统一为正式规则；`GDD_10` 已调整为可开发。
-- 已新增 `设计文档/rules/08_人偶核心状态与好感双轨规则卡.md`，把人偶实例字段、SAN / Bond 阈值、情绪状态机、奇迹裁决、崩溃处置、特质输入事件和与交互系统的分工统一为正式规则；`GDD_03` 已调整为可开发。
-- 已新增 `设计文档/rules/09_人偶交互事件与反馈规则卡.md`，把交互事件结构、触摸 / 对话 / 赠礼 / 保养 / 特殊交互、每日上限、偏好、反馈选择、对话池抽取和验收样例统一为正式规则；`GDD_12` 已调整为可开发。
-- 已新增 `设计文档/rules/10_剧本调度与事件队列规则卡.md`，把剧本事件字段、触发器表达式、事件队列优先级、对话节点结构、系统指令、跳过 / 重入和存档旗标统一为正式规则；`GDD_05` 已调整为可开发。
-- 已新增 `设计文档/rules/11_人偶房间布局与视觉叙事规则卡.md`，把房间布局数据、家具槽、展示品、纪念物、窗外状态、待机表现、资源 fallback、Validator 和验收样例统一为正式规则；`GDD_11` 已调整为可开发。
+- 已新增 `设计文档/规则卡/02_物品背包旋转与生命周期规则卡.md`，把物品定义、实例状态、容器、旋转放置、战败 / 撤离 / 出售 / 制造和怪物对包干涉统一为正式规则。
+- 已新增 `设计文档/规则卡/03_战斗回合与怪物意图规则卡.md`，把战斗回合状态机、局内 AP、护盾、怪物意图、目标选择、多怪行动顺序和胜负结算统一为正式规则；`GDD_01` 已调整为可开发。
+- 已新增 `设计文档/规则卡/04_小镇经济结算与压力链规则卡.md`，把每日营业结算、售价公式、传闻价格波、违禁品隔夜代价、月租账单和欠债裁决统一为正式规则；`GDD_04` 已调整为可开发。
+- 已新增 `设计文档/规则卡/05_局外成长与维护规则卡.md`，把底盘、义体、心智天赋、维护、换装、成长实例字段和下潜许可检查统一为正式规则；`GDD_08` 已调整为可开发。
+- 已新增 `设计文档/规则卡/06_标签与特质规则卡.md`，把标签命名、动态标签生命周期、查询表达、特质触发器、事件监听白名单、互斥 / 优先级 / 叠加、消除转化和持久化规则统一为正式规则；`GDD_09` 已调整为可开发。
+- 已新增 `设计文档/规则卡/07_势力声望与订单规则卡.md`，把势力字段、订单定义 / 实例字段、订单刷新算法、截止日状态机、奖励引用、声望阈值、黑市背叛和委托物绑定统一为正式规则；`GDD_10` 已调整为可开发。
+- 已新增 `设计文档/规则卡/08_人偶核心状态与好感双轨规则卡.md`，把人偶实例字段、SAN / Bond 阈值、情绪状态机、奇迹裁决、崩溃处置、特质输入事件和与交互系统的分工统一为正式规则；`GDD_03` 已调整为可开发。
+- 已新增 `设计文档/规则卡/09_人偶交互事件与反馈规则卡.md`，把交互事件结构、触摸 / 对话 / 赠礼 / 保养 / 特殊交互、每日上限、偏好、反馈选择、对话池抽取和验收样例统一为正式规则；`GDD_12` 已调整为可开发。
+- 已新增 `设计文档/规则卡/10_剧本调度与事件队列规则卡.md`，把剧本事件字段、触发器表达式、事件队列优先级、对话节点结构、系统指令、跳过 / 重入和存档旗标统一为正式规则；`GDD_05` 已调整为可开发。
+- 已新增 `设计文档/规则卡/11_人偶房间布局与视觉叙事规则卡.md`，把房间布局数据、家具槽、展示品、纪念物、窗外状态、待机表现、资源 fallback、Validator 和验收样例统一为正式规则；`GDD_11` 已调整为可开发。
 - 已清理 `设计文档/delivery/00_策划文档开发交付审计.md`、`GDD_09` 和 `GDD_12` 中容易误导开发的旧阶段措辞：局外交互不再写成 AP 消耗，审计表述已调整为正式纵切口径。
 - 已新增 `设计文档/delivery/12_策划交付落地矩阵.md`，把 `GDD_00` 到 `GDD_12` 的规则事实来源、配置承接、表现承接、验收证据和后续补强优先级串成策划交付导航。
 - 已新增 `设计文档/delivery/13_策划跨系统验收场景矩阵.md`，从玩家路径定义备战下潜、战斗拾取、撤离回流、战败创伤、地图路线、经济压力、成长再挑战、人偶修复、订单、剧情和房间视觉日记的跨系统验收场景。
@@ -257,29 +275,31 @@ PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正
 
 ## 下一步建议
 
-1. 先以 `设计文档/README.md` 作为策划文档阅读入口，避免把 GDD、规则卡、交付矩阵和内容包混成同一层级。
-2. 派发任何系统开发、配置、表现或验收任务前，先检查是否已有详细需求文档；若只有一句功能项，先补文档再交接。
-3. 按 `26_正式配置设计与填充推进计划.md` 的 `配置源落地执行方案` 进入 C4：局外成长配置源落地。下一步执行 `GROWTH-ID-LOCK` 复核，再按 `GROWTH-CHASSIS -> GROWTH-EFFECTS-TRAITS -> GROWTH-PROSTHETICS -> GROWTH-CRAFT-MAINT -> GROWTH-DOLL-TRAIT-ROOM -> GROWTH-VALIDATION` 推进；C1-C3 只按真实缺口做补齐、验收修复、字段迁移或数值校准，不重复派发基础配置。
-4. 策划工作项、C1-C5 任一批次或子项开始、完成或阻塞时，同步更新 `26` 的 `8.3 策划侧完整执行规划与状态总览`、必要时更新 `8.4 策划配置执行状态表` 和本状态页；需求 / 规则、配置设计准入、配置源落地、验收 / 校准、后续内容池要分层记录，已完成或进行中的同名配置批次 / 子项不得重复派发，只能按真实缺口做补齐、验收修复、字段迁移或数值校准。
-5. 以交付审计 2.0 的完整交付包为单位派发开发任务：GDD 负责体验定位，规则卡负责硬规则，承接清单负责配置 / 表现 / 验收粒度，`19` 到 `25` 中已进入优先级的内容包负责首批正式内容。
-6. 按 `27_Items正式配置承接审计.md` 继续处理第一层关键物品差异、第二层反制 / 订单物和 Validator 建议；不要把 README 字段口径视为物品 JSON 已完成。
-7. 按 `28_Monsters正式配置承接审计.md` 继续处理 Boss / 精英职责拆分、前三层怪物内容缺口和 Validator 建议；不要把 README 字段口径视为怪物 JSON 已完成。
-8. 按 `29_Dungeons正式配置承接审计.md` 继续处理 MapProfile、NodePool、BossNode、SafeZone / Stairs 和 seed 验收建议；不要把 README 字段口径视为层级 JSON 已完成。
-9. 按 `30_Rewards正式配置承接审计.md` 处理 `Rewards` 字段口径、Boss 奖励、第三层奖励、订单 / 成长 / 节点奖励引用和 Validator 建议；不要直接把审计结论视为配置已完成。
-10. 按 `15_P0主干配置表现验收承接清单.md` 将 P0 主干落到 `配置表(JSON)/Items/README.md`、`配置表(JSON)/Monsters/README.md`、`配置表(JSON)/Dungeons/README.md`、`配置表(JSON)/Rewards/README.md`。
-11. 按 `16_P1人偶成长情感承接清单.md` 和 `21_人偶成长修复内容包.md` 将 P1 主干落到 `Dolls`、`Effects`、`Chassis`、`Prosthetics`、`CraftingRecipes` 和房间 / 交互配置 README。
-12. 按 `17_P2长期循环叙事承接清单.md` 将 P2 主干落到经济、Factions / Orders / Rewards、ScenarioEvents / DialogueTrees、RoomMemory / Mementos 等配置 README。
-13. 按 `19_第一层正式核心内容包.md`、`20_第二层背包压力内容包.md` 和 `25_第三层路线侵蚀内容包.md` 将前三层内容包落到 `Items`、`Monsters`、`Dungeons`、`Rewards`、Orders、经济传闻、事件、房间记忆和路线侵蚀验收。
-14. 按 `22_小镇经济月租内容包.md`、`23_长期记忆剧情内容包.md` 和 `24_势力订单声望内容包.md` 将经济、长期剧情、势力订单主干落到对应配置 README、UI / 美术规格和验收清单。
-15. 将 `02_物品背包旋转与生命周期规则卡.md` 同步到 `配置表(JSON)/Items/README.md` 和物品 / 背包 Validator。
-16. 将 `03_战斗回合与怪物意图规则卡.md` 同步到 `配置表(JSON)/Monsters/README.md`、怪物配置、意图 UI 和战斗 Validator。
-17. 将 `GDD_02` 的 `LayerConfig` / `MapProfile` 同步到 `配置表(JSON)/Dungeons/README.md`，并补地图生成 seed 验收样例与 Validator 规则。
-18. 将 `11_人偶房间布局与视觉叙事规则卡.md` 同步到 `配置表(JSON)/Dolls/README.md`、房间资源清单、UI / 美术规格和 Validator。
-19. 清点各规则卡剩余配置 README / Validator 对接项，按当前开发优先级拆到配置与开发文档。
-20. 若设计变更影响配置，同时更新 GDD 和对应 `配置表(JSON)` README 或样例配置。
+1. `T0-01A` Narrative 配置源本轮已被程序主链消费到第一层进入；后续不再把它当“待开始”配置项，只有在视觉验收或玩家体验复盘发现真实缺口时才补节点、trigger 或玩家文案。
+2. 先以 `设计文档/README.md` 作为策划文档阅读入口，避免把 GDD、规则卡、交付矩阵和内容包混成同一层级。
+3. 派发任何系统开发、配置、表现或验收任务前，先检查是否已有详细需求文档；若只有一句功能项，先补文档再交接。
+4. 按 `26_正式配置设计与填充推进计划.md` 的 `配置源落地执行方案` 进入 C4：局外成长配置源落地。下一步执行 `GROWTH-ID-LOCK` 复核，再按 `GROWTH-CHASSIS -> GROWTH-EFFECTS-TRAITS -> GROWTH-PROSTHETICS -> GROWTH-CRAFT-MAINT -> GROWTH-DOLL-TRAIT-ROOM -> GROWTH-VALIDATION` 推进；C1-C3 只按真实缺口做补齐、验收修复、字段迁移或数值校准，不重复派发基础配置。
+5. 策划工作项、C1-C5 任一批次或子项开始、完成或阻塞时，同步更新 `26` 的 `8.3 策划侧完整执行规划与状态总览`、必要时更新 `8.4 策划配置执行状态表` 和本状态页；需求 / 规则、配置设计准入、配置源落地、验收 / 校准、后续内容池要分层记录，已完成或进行中的同名配置批次 / 子项不得重复派发，只能按真实缺口做补齐、验收修复、字段迁移或数值校准。
+6. 以交付审计 2.0 的完整交付包为单位派发开发任务：GDD 负责体验定位，规则卡负责硬规则，承接清单负责配置 / 表现 / 验收粒度，`19` 到 `25` 中已进入优先级的内容包负责首批正式内容。
+7. 按 `27_Items正式配置承接审计.md` 继续处理第一层关键物品差异、第二层反制 / 订单物和 Validator 建议；不要把 README 字段口径视为物品 JSON 已完成。
+8. 按 `28_Monsters正式配置承接审计.md` 继续处理 Boss / 精英职责拆分、前三层怪物内容缺口和 Validator 建议；不要把 README 字段口径视为怪物 JSON 已完成。
+9. 按 `29_Dungeons正式配置承接审计.md` 继续处理 MapProfile、NodePool、BossNode、SafeZone / Stairs 和 seed 验收建议；不要把 README 字段口径视为层级 JSON 已完成。
+10. 按 `30_Rewards正式配置承接审计.md` 处理 `Rewards` 字段口径、Boss 奖励、第三层奖励、订单 / 成长 / 节点奖励引用和 Validator 建议；不要直接把审计结论视为配置已完成。
+11. 按 `15_P0主干配置表现验收承接清单.md` 将 P0 主干落到 `配置表(JSON)/Items/README.md`、`配置表(JSON)/Monsters/README.md`、`配置表(JSON)/Dungeons/README.md`、`配置表(JSON)/Rewards/README.md`。
+12. 按 `16_P1人偶成长情感承接清单.md` 和 `21_人偶成长修复内容包.md` 将 P1 主干落到 `Dolls`、`Effects`、`Chassis`、`Prosthetics`、`CraftingRecipes` 和房间 / 交互配置 README。
+13. 按 `17_P2长期循环叙事承接清单.md` 将 P2 主干落到经济、Factions / Orders / Rewards、ScenarioEvents / DialogueTrees、RoomMemory / Mementos 等配置 README。
+14. 按 `19_第一层正式核心内容包.md`、`20_第二层背包压力内容包.md` 和 `25_第三层路线侵蚀内容包.md` 将前三层内容包落到 `Items`、`Monsters`、`Dungeons`、`Rewards`、Orders、经济传闻、事件、房间记忆和路线侵蚀验收。
+15. 按 `22_小镇经济月租内容包.md`、`23_长期记忆剧情内容包.md` 和 `24_势力订单声望内容包.md` 将经济、长期剧情、势力订单主干落到对应配置 README、UI / 美术规格和验收清单。
+16. 将 `02_物品背包旋转与生命周期规则卡.md` 同步到 `配置表(JSON)/Items/README.md` 和物品 / 背包 Validator。
+17. 将 `03_战斗回合与怪物意图规则卡.md` 同步到 `配置表(JSON)/Monsters/README.md`、怪物配置、意图 UI 和战斗 Validator。
+18. 将 `GDD_02` 的 `LayerConfig` / `MapProfile` 同步到 `配置表(JSON)/Dungeons/README.md`，并补地图生成 seed 验收样例与 Validator 规则。
+19. 将 `11_人偶房间布局与视觉叙事规则卡.md` 同步到 `配置表(JSON)/Dolls/README.md`、房间资源清单、UI / 美术规格和 Validator。
+20. 清点各规则卡剩余配置 README / Validator 对接项，按当前开发优先级拆到配置与开发文档。
+21. 若设计变更影响配置，同时更新 GDD 和对应 `配置表(JSON)` README 或样例配置。
 
 ## 问题 / 阻塞
 
+- T0-01A Narrative 配置源已通过同步、静态审计和 C# 编译；Unity batchmode smoke 本轮未能执行到 `NarrativeConfigValidationSmokeTest.Run`，一次日志停在 AssetDatabase refresh，第二次日志显示已有 Unity 实例打开，记录为 `validation_limited:UnityBatchmodeExecuteMethodNotConsumingNarrativeConfigSmoke`。
 - ConfigValidationSmokeTest.Run / P0 Unity 步骤当前因 Unity Editor 未运行被工具阻塞；C3 已用静态交叉引用检查和配置同步作为配置侧证据，后续 Unity 打开后可补跑运行时 smoke。
 - 当前工作区已有前序设计 / 美术文档 / 程序 / 生成物脏文件，提交时必须严格收窄范围，避免覆盖其他 agent 的改动。
 - 需要更强的配置校验层，让策划改动可以被机械检查。

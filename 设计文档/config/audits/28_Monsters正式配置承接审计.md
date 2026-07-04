@@ -9,7 +9,7 @@ source_of_truth: true
 related:
   - 设计文档/README.md
   - 设计文档/config/26_正式配置设计与填充推进计划.md
-  - 设计文档/rules/03_战斗回合与怪物意图规则卡.md
+  - 设计文档/规则卡/03_战斗回合与怪物意图规则卡.md
   - 设计文档/delivery/15_P0主干配置表现验收承接清单.md
   - 设计文档/content_packs/19_第一层正式核心内容包.md
   - 设计文档/content_packs/20_第二层背包压力内容包.md

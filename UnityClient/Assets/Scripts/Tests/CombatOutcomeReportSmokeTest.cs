@@ -14,6 +14,7 @@ public static class CombatOutcomeReportSmokeTest {
         TestHpDefeatOutcomeReport();
         TestSanCollapseOutcomeReport();
         TestSettlementUIConsumesCombatOutcomeReport();
+        TestDungeonSettlementFormalV2Columns();
         TestGameFlowSettlementUsesCombatOutcomeReportForDefeat();
 
         Debug.Log("=== Combat Outcome Report Smoke Test Finished ===");
@@ -215,6 +216,77 @@ public static class CombatOutcomeReportSmokeTest {
         }
     }
 
+    private static void TestDungeonSettlementFormalV2Columns() {
+        GameObject canvasObj = CreateCanvas();
+        GameObject settlementObj = new GameObject("DungeonSettlementFormalV2LayoutPanel");
+        settlementObj.transform.SetParent(canvasObj.transform, false);
+        settlementObj.AddComponent<RectTransform>();
+        SettlementUIController controller = settlementObj.AddComponent<SettlementUIController>();
+        controller.titleText = CreateText(settlementObj.transform, "TitleText");
+        controller.summaryText = CreateText(settlementObj.transform, "SummaryText");
+        controller.lootText = CreateText(settlementObj.transform, "LootText");
+        controller.continueBtn = CreateButton(settlementObj.transform, "ContinueButton");
+
+        DungeonSettlementResult result = new DungeonSettlementResult {
+            IsVictory = true,
+            LootTransferredCount = 2,
+            LootEstimatedValue = 32,
+            StashCountAfterSettlement = 5,
+            PickedUpCount = 3,
+            PickedUpEstimatedValue = 42,
+            BroughtOutCount = 2,
+            BroughtOutEstimatedValue = 32,
+            LostCount = 1,
+            LostEstimatedValue = 10
+        };
+        result.PickedUpNames.Add("Scrap Gear");
+        result.PickedUpNames.Add("Toxic Filter");
+        result.PickedUpNames.Add("Core Shard");
+        result.BroughtOutNames.Add("Scrap Gear");
+        result.BroughtOutNames.Add("Core Shard");
+        result.LostNames.Add("Toxic Filter");
+
+        try {
+            controller.Present(result, null);
+            RectTransform pickedColumn = FindRectRecursive(settlementObj.transform, "PickedLootColumn");
+            RectTransform broughtColumn = FindRectRecursive(settlementObj.transform, "BroughtLootColumn");
+            RectTransform lostColumn = FindRectRecursive(settlementObj.transform, "LostLootColumn");
+            RectTransform lootRect = FindRectRecursive(settlementObj.transform, "Loot_Text");
+            RectTransform continueRect = controller.continueBtn.GetComponent<RectTransform>();
+            string allText = CollectText(canvasObj);
+
+            bool columnsPresent = pickedColumn != null
+                && broughtColumn != null
+                && lostColumn != null
+                && pickedColumn.gameObject.activeSelf
+                && broughtColumn.gameObject.activeSelf
+                && lostColumn.gameObject.activeSelf;
+            bool columnsSeparated = columnsPresent
+                && pickedColumn.anchoredPosition.x < broughtColumn.anchoredPosition.x
+                && broughtColumn.anchoredPosition.x < lostColumn.anchoredPosition.x
+                && Mathf.Abs(pickedColumn.anchoredPosition.y - lostColumn.anchoredPosition.y) < 0.1f;
+            bool resultTextVisible = allText.Contains("本次拾取")
+                && allText.Contains("最终带出")
+                && allText.Contains("本次损失")
+                && allText.Contains("Scrap Gear")
+                && allText.Contains("Toxic Filter");
+            bool buttonBelowColumns = continueRect != null && continueRect.anchoredPosition.y < pickedColumn.anchoredPosition.y - 180f;
+            bool columnsLowerAndCompact = columnsPresent
+                && pickedColumn.anchoredPosition.y <= -120f
+                && pickedColumn.sizeDelta.y <= 270f
+                && lootRect != null
+                && lootRect.anchoredPosition.y >= 50f;
+
+            if (columnsPresent && columnsSeparated && resultTextVisible && buttonBelowColumns && columnsLowerAndCompact) {
+                Debug.Log("Dungeon Settlement FormalV2 Columns PASSED.");
+            } else {
+                Debug.LogError($"Dungeon Settlement FormalV2 Columns FAILED. Present={columnsPresent}, Separated={columnsSeparated}, Text={resultTextVisible}, ButtonBelow={buttonBelowColumns}, ColumnsLower={columnsLowerAndCompact}, AllText={allText}");
+            }
+        } finally {
+            Object.DestroyImmediate(canvasObj);
+        }
+    }
+
     private static GameObject CreateCanvas() {
         GameObject canvasObj = new GameObject("CombatOutcomeSettlementBindingTestCanvas");
         Canvas canvas = canvasObj.AddComponent<Canvas>();
@@ -241,6 +313,25 @@ public static class CombatOutcomeReportSmokeTest {
     private static string CollectText(GameObject root) {
         Text[] texts = root.GetComponentsInChildren<Text>(true);
         return string.Join("\n", texts.Select(text => text != null ? text.text : string.Empty));
+    }
+
+    private static RectTransform FindRectRecursive(Transform root, string objectName) {
+        if (root == null || string.IsNullOrEmpty(objectName)) {
+            return null;
+        }
+
+        if (root.name == objectName) {
+            return root as RectTransform;
+        }
+
+        for (int i = 0; i < root.childCount; i++) {
+            RectTransform match = FindRectRecursive(root.GetChild(i), objectName);
+            if (match != null) {
+                return match;
+            }
+        }
+
+        return null;
     }
 
     private static void TestGameFlowSettlementUsesCombatOutcomeReportForDefeat() {

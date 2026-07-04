@@ -106,8 +106,86 @@ public static class CombatLootDropTest {
         DungeonEventBus.OnNodeSettlementCompleted -= HandleNodeSettlementCompleted;
 
         RunCombatLootBackpackDiscardUITest(core);
+        RunCombatLootFormalV2LayoutTest(core);
 
         Debug.Log("=== Combat Loot Drop Test Finished ===");
+    }
+
+    private static void RunCombatLootFormalV2LayoutTest(CoreBackend core) {
+        GameObject canvasObj = new GameObject("CombatLootFormalV2LayoutTestCanvas");
+        canvasObj.AddComponent<Canvas>();
+        canvasObj.AddComponent<GraphicRaycaster>();
+
+        GameObject panelObj = new GameObject("CombatLootFormalV2LayoutPanel");
+        panelObj.transform.SetParent(canvasObj.transform, false);
+        panelObj.AddComponent<RectTransform>();
+        panelObj.AddComponent<Image>();
+        CombatLootUIController controller = panelObj.AddComponent<CombatLootUIController>();
+
+        Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        controller.titleText = CreateTestText("Title_Text", panelObj.transform, font);
+        controller.summaryText = CreateTestText("Summary_Text", panelObj.transform, font);
+        GameObject lootArea = new GameObject("LootArea");
+        lootArea.transform.SetParent(panelObj.transform, false);
+        lootArea.AddComponent<RectTransform>();
+        controller.lootParent = lootArea.transform;
+        controller.continueBtn = CreateTestButton("Continue_Button", panelObj.transform, font);
+
+        GameObject itemPrefab = CreateLootItemPrefab();
+        CombatLootPickupResult result = new CombatLootPickupResult {
+            NodeID = "formal_v2_layout",
+            TotalEstimatedValue = 42
+        };
+        result.OfferedItems.Add(ConfigManager.CreateItem("loot_gear_scrap"));
+        result.OfferedItems.Add(ConfigManager.CreateItem("loot_toxic_filter"));
+        result.OfferedItems.Add(ConfigManager.CreateItem("mat_core_tier1"));
+
+        controller.Present(result, itemPrefab, null);
+
+        RectTransform lootRect = controller.lootParent as RectTransform;
+        RectTransform buttonRect = controller.continueBtn.GetComponent<RectTransform>();
+        RectTransform pickupPanelRect = FindRectRecursive(panelObj.transform, "PickupPanel");
+        RectTransform dropZoneRect = FindRectRecursive(panelObj.transform, "LootDropZone");
+        InventoryLayoutProfile combatLootProfile = InventoryDisplaySpec.ResolveLayoutProfile(InventoryPresentationMode.CombatLoot);
+        Image pickupPanelImage = pickupPanelRect != null ? pickupPanelRect.GetComponent<Image>() : null;
+
+        int lootVisualCount = 0;
+        bool rewardsAvoidBackpackCenter = true;
+        foreach (Transform child in controller.lootParent) {
+            RectTransform itemRect = child as RectTransform;
+            if (itemRect == null) {
+                continue;
+            }
+
+            lootVisualCount++;
+            Vector2 position = itemRect.anchoredPosition;
+            bool inBackpackCenter = Mathf.Abs(position.x) < 360f && Mathf.Abs(position.y) < 250f;
+            rewardsAvoidBackpackCenter &= !inBackpackCenter;
+        }
+
+        bool passed = lootRect != null
+            && lootRect.sizeDelta.x >= 1400f
+            && lootRect.sizeDelta.y >= 700f
+            && Mathf.Abs(lootRect.anchoredPosition.x) < 0.1f
+            && Mathf.Abs(combatLootProfile.AnchoredPosition.x) < 0.1f
+            && Mathf.Abs(buttonRect.anchoredPosition.x) < 0.1f
+            && pickupPanelRect != null
+            && pickupPanelRect.sizeDelta.x <= 1300f
+            && pickupPanelImage != null
+            && pickupPanelImage.color.a <= 0.4f
+            && dropZoneRect != null
+            && Mathf.Abs(dropZoneRect.anchoredPosition.x) < 0.1f
+            && lootVisualCount == result.OfferedItems.Count
+            && rewardsAvoidBackpackCenter;
+
+        if (passed) {
+            Debug.Log("Combat Loot FormalV2 Layout PASSED.");
+        } else {
+            Debug.LogError($"Combat Loot FormalV2 Layout FAILED. LootArea={lootRect?.sizeDelta.ToString() ?? "null"} Pos={lootRect?.anchoredPosition.ToString() ?? "null"}, Profile={combatLootProfile.AnchoredPosition}, ButtonX={buttonRect.anchoredPosition.x}, Pickup={pickupPanelRect?.sizeDelta.ToString() ?? "null"} Alpha={pickupPanelImage?.color.a ?? -1f}, DropZone={dropZoneRect?.anchoredPosition.ToString() ?? "null"}, LootVisuals={lootVisualCount}/{result.OfferedItems.Count}, AvoidCenter={rewardsAvoidBackpackCenter}");
+        }
+
+        UnityEngine.Object.DestroyImmediate(itemPrefab);
+        UnityEngine.Object.DestroyImmediate(canvasObj);
     }
 
     private static void RunCombatLootBackpackDiscardUITest(CoreBackend core) {
@@ -238,6 +316,55 @@ public static class CombatLootDropTest {
         typeof(GameFlowController)
             .GetMethod("DiscardDetachedBackpackItems", BindingFlags.Instance | BindingFlags.NonPublic)
             .Invoke(controller, null);
+    }
+
+    private static Text CreateTestText(string objectName, Transform parent, Font font) {
+        GameObject textObj = new GameObject(objectName);
+        textObj.transform.SetParent(parent, false);
+        textObj.AddComponent<RectTransform>();
+        Text text = textObj.AddComponent<Text>();
+        text.font = font;
+        return text;
+    }
+
+    private static Button CreateTestButton(string objectName, Transform parent, Font font) {
+        GameObject buttonObj = new GameObject(objectName);
+        buttonObj.transform.SetParent(parent, false);
+        buttonObj.AddComponent<RectTransform>();
+        buttonObj.AddComponent<Image>();
+        Button button = buttonObj.AddComponent<Button>();
+        Text label = CreateTestText("Text", buttonObj.transform, font);
+        label.text = objectName;
+        return button;
+    }
+
+    private static GameObject CreateLootItemPrefab() {
+        GameObject prefab = new GameObject("LootItemPrefab_Test");
+        RectTransform rect = prefab.AddComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(96f, 96f);
+        prefab.AddComponent<Image>();
+        prefab.AddComponent<CanvasGroup>();
+        prefab.AddComponent<DraggableItemUI>();
+        return prefab;
+    }
+
+    private static RectTransform FindRectRecursive(Transform root, string objectName) {
+        if (root == null) {
+            return null;
+        }
+
+        if (root.name == objectName) {
+            return root as RectTransform;
+        }
+
+        for (int i = 0; i < root.childCount; i++) {
+            RectTransform match = FindRectRecursive(root.GetChild(i), objectName);
+            if (match != null) {
+                return match;
+            }
+        }
+
+        return null;
     }
 
     private static bool PlaceViaInventoryService(ItemEntity item, int x, int y, string source, out string reason) {

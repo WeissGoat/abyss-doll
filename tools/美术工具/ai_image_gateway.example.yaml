@@ -1,5 +1,6 @@
 # Project P3 AI image gateway config template.
-# Copy to ai_image_gateway.local.yaml and fill credentials through environment variables.
+# Copy to ai_image_gateway.local.yaml and keep credentials out of the file.
+# NovelAI auth resolves NAI_ACCESS_TOKEN first, then the local client.py fallback.
 
 default_provider:
   generate: novelai
@@ -16,8 +17,10 @@ providers:
   novelai:
     enabled: true
     auth:
-      # Prefer access token for local runs.
+      # Prefer NAI_ACCESS_TOKEN for local runs.
       access_token: ${NAI_ACCESS_TOKEN}
+      # This workstation fallback is parsed without printing or committing the token.
+      # client_py_path: F:\my_project\new\tags_machine\novelai\client.py
       # Alternative auth options supported by the gateway:
       # access_key: ${NAI_ACCESS_KEY}
       # username: ${NAI_USERNAME}

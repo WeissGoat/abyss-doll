@@ -1,4 +1,4 @@
-﻿---
+---
 id: config_items_readme
 title: 局内物品与网格实体字段说明 (Items Config)
 type: config
@@ -14,7 +14,7 @@ related:
   - 配置表(JSON)/Rumors/README.md
   - 设计文档/GDD/GDD_01_背包战斗与局内网格机制.md
   - 设计文档/GDD/GDD_06_物品系统与物品生命周期.md
-  - 设计文档/rules/06_标签与特质规则卡.md
+  - 设计文档/规则卡/06_标签与特质规则卡.md
   - 设计文档/config/audits/27_Items正式配置承接审计.md
   - 设计文档/config/audits/30_Rewards正式配置承接审计.md
   - 设计文档/config/designs/31_第一层正式配置落地设计.md

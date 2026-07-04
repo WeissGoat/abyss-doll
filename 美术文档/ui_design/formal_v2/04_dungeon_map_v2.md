@@ -58,7 +58,7 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 * 可走、预览、未知、锁定的节点状态一眼可辨。
 * 暂时不做常驻选中节点详情；需要的信息用小型 tooltip 或节点图标状态表达。
 * 背包整理、撤离、层级信息是辅助，不抢地图和节点的权重。
-* 地图底图和节点必须融合：节点应嵌在岩台、地层、羊皮纸剖面或铜质地图牌上，不能像漂浮按钮贴在海面背景上。
+* 地图底图和节点必须融合：节点应嵌在岩台、地层、羊皮纸剖面、石质路标或符文地图牌上，不能像漂浮按钮贴在海面背景上。
 * 层地图是一张可推进的大地图，不是一屏静态节点板；玩家沿路线前进时，镜头应能向当前节点和更深处持续推进。
 * 地图需要足够纵深：前景、中景、远景都要有可读路线或地貌线索，让玩家感觉还有未抵达区域。
 * 每一层可以有独立生态主题，不必都画成洞窟或深渊视觉；地底草原、地下森林、晶洞、遗迹、雾谷、矿坑、湿地都可以成为某一层的主视觉。
@@ -146,15 +146,15 @@ update_rule: 编写或确认 dungeon_map Formal V2 详细方案时同步本文�
 * 边角只保留少量必要按钮。
 * 底图可以是深渊纵剖、洞窟地层、羊皮纸地图、机械测绘图，也可以是某一层的独立生态地貌，例如地底草原、地下森林、晶洞、遗迹、雾谷、矿坑或湿地。
 * 不使用海面、水域地平线或纯天空背景；如果某层确实有水边湿地，也必须让路线和节点长在岸线、栈道、岩台或遗迹结构上。
-* 节点和路线要长在地貌上：铜质节点牌固定在岩层、树根、草甸道路、遗迹平台或羊皮纸路径上，路线像刻线、绳桥、轨迹、发光矿脉或被踩出的道路。
+* 节点和路线要长在地貌上：符文节点牌、石质路标或纸质标记固定在岩层、树根、草甸道路、遗迹平台或羊皮纸路径上，路线像刻线、绳桥、轨迹、发光矿脉或被踩出的道路。
 * 一张层地图可以大于单屏。概念图和后续实现都应预留镜头推进感：当前节点在前 / 中景，远处能看到下一个区域和更深路线。
 
-AI 或后续美术提示应描述 large scrollable route map, foreground-to-background depth, camera-travel feeling, branching route, fogged nodes, brass markers, parchment/mechanical chart, distinct layer biome 等可视概念。
+AI 或后续美术提示应描述 large scrollable route map, foreground-to-background depth, camera-travel feeling, branching route, fogged nodes, rune markers, parchment route chart, distinct layer biome 等可视概念。
 
 Formal V2 概念图提示还应追加：
 
 ```text
-Japanese anime fantasy game UI concept art, large scrollable layer route map, strong foreground-to-background depth, camera-travel feeling, distinct subterranean biome for this layer, route nodes embedded into roads, terraces, trees, ruins or brass map plates, paths carved into terrain, warm hand-painted 2D background, soft cel shading, clean low-density interface, no ocean horizon, no floating disconnected nodes, no western realistic tactical map
+Japanese anime subterranean fantasy game UI concept art, large scrollable layer route map, strong foreground-to-background depth, camera-travel feeling, distinct subterranean biome for this layer, route nodes embedded into roads, terraces, trees, ruins, rune stones or parchment markers, paths carved into terrain, soft hand-painted 2D background, cel shading, clean low-density interface, no brass map plates, no ocean horizon, no floating disconnected nodes, no western realistic tactical map
 ```
 
 ---

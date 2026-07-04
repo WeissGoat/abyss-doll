@@ -1,4 +1,4 @@
-﻿---
+---
 id: art_ui_formal_v1_business_settlement
 title: 营业结算演出界面 Formal V1
 type: art
@@ -12,7 +12,7 @@ related:
   - 美术文档/ui_design/formal_v2/11_business_settlement_v2.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 美术文档/ui_design/versions/migration_log.md
-  - 设计文档/rules/04_小镇经济结算与压力链规则卡.md
+  - 设计文档/规则卡/04_小镇经济结算与压力链规则卡.md
   - 设计文档/GDD/GDD_04_小镇循环与经济物价波浪模型.md
 last_verified: 2026-05-25
 update_rule: 修改营业结算演出界面正式结构、资源槽位或程序迁移要求时同步本文件。

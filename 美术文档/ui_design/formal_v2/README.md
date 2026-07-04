@@ -40,7 +40,7 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 知识库/views/art.md
-last_verified: 2026-06-08
+last_verified: 2026-06-12
 update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档时同步本文件。
 ---
 
@@ -55,7 +55,7 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 3. 2026-06-08 用户已评审并认可 `concepts/review_index.md` 当前 Formal V2 概念方向；下一阶段允许先迁移 V2-A 核心流程到 active，但 V2-B / V2-C 仍保持 draft，等待后续批次确认。
 4. 每个界面先完成详细方案，再按确认顺序迁移到 active。
 5. Formal V2 的核心目标是重建玩家流程、主次行动、场景隐喻和信息层级，不是简单换按钮皮肤。`00_formal_v2_ux_ui_overview.md` 的 `3.0.1` 到 `3.0.3` 是当前 Formal V2 美术系统标准，统一规定风格、低信息密度、质量层级、概念图 / 结构图 / 运行时素材边界和生图渠道。
-6. Formal V2 默认风格为日系二次元地底奇幻 + 轻蒸汽工艺 + 低信息密度，避免欧美暗黑写实、硬核工业控制台和密集按钮墙。
+6. Formal V2 默认风格为日系二次元地底奇幻冒险 + 低信息密度，避免欧美暗黑写实、硬核工业控制台、密集按钮墙和棕金机械 UI；机械、工坊和旧工具只作为局部系统语义。
 7. Formal V2 允许继续复用已稳定 VisualID；新增 VisualID 必须等 active 更新后再进入 Manifest。
 8. Figma、Unity MCP 或额外自动化工具只作为设计 / 验收辅助；任何正式接入口仍必须回到 active `screen_layouts.json`、Manifest 和 ArtAcceptance。
 9. `concepts/` 只存放 Formal V2 概念参考图；这些图片不进入 Approved、Manifest 或程序接入队列。

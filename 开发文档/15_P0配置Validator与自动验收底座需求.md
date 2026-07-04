@@ -23,7 +23,6 @@ related:
   - tools/agent/README.md
   - agent_status/program.md
   - agent_status/design.md
-  - agent_status/pm.md
   - PROJECT_STATUS.md
 last_verified: 2026-06-08
 update_rule: 调整 P0 配置校验范围、自动验收命令、报告格式、通过标准或门禁等级时同步本文件。

@@ -164,7 +164,7 @@ V2 建议：
 Formal V2 概念图提示还应追加：
 
 ```text
-Japanese anime fantasy game UI concept art, side-view subterranean battle stage, player doll on the left, monster on the right, centered bottom backpack command grid, soft cel shading, clean silhouettes, warm cave light and subtle bioluminescence, light brass UI frames, low information density, no enemy cards, no western grimdark realism
+Japanese anime subterranean fantasy game UI concept art, side-view subterranean battle stage, player doll on the left, monster on the right, centered bottom backpack command grid, soft cel shading, clean silhouettes, cave bioluminescence and readable fantasy interface trim, low information density, no heavy industrial dashboard, no brass UI frames, no enemy cards, no western grimdark realism
 ```
 
 ---

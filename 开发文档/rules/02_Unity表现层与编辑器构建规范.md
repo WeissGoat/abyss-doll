@@ -13,6 +13,9 @@ related:
   - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - 开发文档/05_表现层架构与事件总线(ViewAndEventBus).md
   - 美术文档/02_资源规格与接入规范.md
+  - 美术文档/16_Live2D角色动画资产接入规格.md
+  - 美术文档/17_Agent原生动态立绘资产接入规格.md
+  - 开发文档/17_Live2DSpine运行时接入评估.md
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/handoff_checklist.md
   - 知识库/views/program.md
@@ -21,7 +24,7 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/archive/11_P0_UI骨架接入交付.md
   - 美术文档/archive/12_P1_UI骨架接入准备.md
-last_verified: 2026-06-07
+last_verified: 2026-06-13
 update_rule: 修改运行时 UGUI、Prefab/场景/Editor 构建、表现层交互边界或射线/层级规范时同步本文档。
 ---
 
@@ -49,6 +52,7 @@ update_rule: 修改运行时 UGUI、Prefab/场景/Editor 构建、表现层交�
 *   **全面采用纯 UGUI 架构**：
     *   为避免射线检测（Raycast）被不可预见的事件拦截面板遮挡，项目**已明确废弃 UI Toolkit 方案**。
     *   无论是复杂的战斗 HUD、深渊探索面板还是网格交互，均采用 UGUI 开发。
+    *   动态魔偶立绘接入时仍不得改变运行时 UI 技术栈；首版 `DollPuppet` 优先使用独立角色相机渲染到 `RenderTexture`，再由 UGUI `RawImage` 展示，具体边界见 `美术文档/17_Agent原生动态立绘资产接入规格.md`，Cubism / Spine 外部导出兼容边界见 `美术文档/16_Live2D角色动画资产接入规格.md`。
 *   **数据驱动的动态实例化 (Data-Driven Instantiation)**：
     *   场景中不预先放置任何实体格或武器图标。
     *   **网格生成**：`GridGenerator` 需根据后端模型 `ChassisComponent` 提供的二维数组与死格掩码（GridMask），在 `Start()` 阶段动态双层遍历生成 `GridSlotUI`。

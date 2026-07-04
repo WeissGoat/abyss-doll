@@ -206,10 +206,10 @@ OrderBoardPanel
 ```text
 Use case: ui-mockup
 Asset type: Formal V2 game UI concept art for order_board
-Primary request: A cozy fantasy and light steampunk faction order board interface.
-Scene/backdrop: warm workshop or town guild corner with a large wooden notice board, pinned parchment contracts, wax seals, small brass lamps.
+Primary request: A cozy Japanese anime subterranean fantasy faction order board interface.
+Scene/backdrop: workshop or town guild corner with a large wooden notice board, pinned parchment contracts, wax seals, small magical desk lights.
 Subject: left side pinned order papers list, center-right selected contract sheet with target item icons and deadline stamps, reward seals, one clear accept or submit button, danger abandon action as small red sealed option.
-Style: warm hand-painted fantasy UI, parchment, wood, brass, low information density, readable hierarchy without real text.
+Style: soft hand-painted fantasy UI, parchment, wood, cloth ribbons and subtle rune marks, low information density, readable hierarchy without real text, no brass palette, no steampunk machinery.
 Composition: 16:9 landscape, notice board as main visual, selected contract prominent.
 Avoid: modern task management app, spreadsheet rows, dense buttons, real readable words, logos, watermark.
 ```

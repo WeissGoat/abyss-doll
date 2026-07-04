@@ -1,4 +1,4 @@
-﻿---
+---
 id: config_rewards_readme
 title: 奖励表配置字段说明 (Rewards Config)
 type: config
@@ -17,7 +17,7 @@ related:
   - 配置表(JSON)/Prosthetics/README.md
   - 设计文档/GDD/GDD_02_深渊地图遍历与搜打撤抉择.md
   - 设计文档/GDD/GDD_10_势力声望与订单系统.md
-  - 设计文档/rules/07_势力声望与订单规则卡.md
+  - 设计文档/规则卡/07_势力声望与订单规则卡.md
   - 设计文档/GDD/GDD_04_小镇循环与经济物价波浪模型.md
   - 设计文档/config/audits/28_Monsters正式配置承接审计.md
   - 设计文档/config/audits/29_Dungeons正式配置承接审计.md

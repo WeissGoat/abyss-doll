@@ -1,4 +1,4 @@
-﻿---
+---
 id: config_rumors_readme
 title: 传闻配置字段说明 (Rumors Config)
 type: config
@@ -10,7 +10,7 @@ related:
   - 配置表(JSON)/README.md
   - 配置表(JSON)/Items/README.md
   - 配置表(JSON)/Orders/README.md
-  - 设计文档/rules/04_小镇经济结算与压力链规则卡.md
+  - 设计文档/规则卡/04_小镇经济结算与压力链规则卡.md
   - 设计文档/content_packs/22_小镇经济月租内容包.md
   - 设计文档/config/audits/46_经济压力正式配置承接审计.md
   - 设计文档/config/designs/48_经济压力传闻正式配置落地设计.md

@@ -18,22 +18,24 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：220
-- 已补元数据：220
+- 文档总数：243
+- 已补元数据：243
 - 缺少元数据：0
-- 事实来源文档：167
-- 关联边数：1300
-- 跨职能关联：205
+- 事实来源文档：185
+- 关联边数：1419
+- 跨职能关联：285
 
 ## 事实来源
 
 - [美术 / UI 状态](agent_status/art.md) - `status` / `art_pipeline`
 - [策划 / 数值 状态](agent_status/design.md) - `status` / `design_balance`
-- [PM / 版本规划 状态](agent_status/pm.md) - `status` / `version_planning`
+- [游戏导演 / 制作人 状态](agent_status/director.md) - `status` / `game_direction_production`
 - [程序 / Unity 状态](agent_status/program.md) - `status` / `unity_programming`
 - [Project P3 智能体入口](AGENTS.md) - `entry` / `agent_workflow`
 - [魔偶深渊 AI 核心知识库](GEMINI.md) - `entry` / `project_context`
 - [项目状态](PROJECT_STATUS.md) - `status` / `project_status`
+- [文档维护与新增控制规则](rules/01_文档维护与新增控制规则.md) - `rule` / `document_governance`
+- [全局 Agent Rules 入口](rules/README.md) - `entry` / `agent_rules`
 - [智能体开工健康检查](tools/agent/README.md) - `tool` / `agent_workflow`
 - [程序开发大纲与系统索引](开发文档/00_程序开发大纲.md) - `dev` / `program_architecture`
 - [核心数据容器系统 (Core Data System)](开发文档/01_核心数据与实体容器(CoreData).md) - `dev` / `core_data`
@@ -47,6 +49,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [Unity 运行时美术自动验收方案](开发文档/14_Unity运行时美术自动验收方案.md) - `dev` / `runtime_art_validation`
 - [P0配置Validator与自动验收底座需求](开发文档/15_P0配置Validator与自动验收底座需求.md) - `dev` / `config_validation`
 - [程序主流程闭环与架构收口推进计划](开发文档/16_程序主流程闭环与架构收口推进计划.md) - `dev` / `main_flow_architecture`
+- [Live2D / Spine 运行时接入评估](开发文档/17_Live2DSpine运行时接入评估.md) - `dev` / `live2d_character_animation`
+- [全局叙事播放系统开发方案](开发文档/18_全局叙事播放系统开发方案.md) - `dev` / `narrative_playback`
 - [开发文档归档目录入口](开发文档/archive/README.md) - `dev` / `program_docs_archive`
 - [开发文档目录入口](开发文档/README.md) - `dev` / `program_docs_index`
 - [程序开发总规则](开发文档/rules/00_程序开发总规则.md) - `dev` / `program_general_rules`
@@ -64,8 +68,14 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [经济循环与通缩模型 (Economy & Deflation Model)](数值模型设计/01_经济循环与通缩模型.md) - `balance` / `balance_economy`
 - [战斗伤害与生存公式 (Combat & Survival Formulas)](数值模型设计/02_战斗伤害与生存公式.md) - `balance` / `balance_combat`
 - [深渊产出与掉落期望 (Loot Generation & Expectation)](数值模型设计/03_深渊产出与掉落期望.md) - `balance` / `balance_loot`
+- [T0-01 序章首次循环](版本规划/0-12小时细案/T0-01_序章首次循环.md) - `plan` / `candidate_loop_detail_design`
+- [T0-01A 开局人偶状态到首次下潜许可实现设计](版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可实现设计.md) - `implementation_design` / `prologue_first_loop_implementation`
+- [T0-01A 开局人偶状态到首次下潜许可开发方案](版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可开发方案.md) - `development_plan` / `prologue_first_loop_development`
+- [T1 第一层搜打撤成形](版本规划/0-12小时细案/T1_第一层搜打撤成形.md) - `plan` / `candidate_loop_detail_design`
 - [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) - `plan` / `formal_vertical_slice`
 - [纵切批次与需求文档承接矩阵](版本规划/11_纵切批次与需求文档承接矩阵.md) - `plan` / `vertical_batch_requirement_coverage`
+- [正式版全局体验总线与全系统宏观大纲](版本规划/13_正式版全局体验总线与开放节奏.md) - `plan` / `global_experience_spine`
+- [0-12 小时候选主循环细案设计](版本规划/14_0-12小时候选主循环细案设计.md) - `plan` / `candidate_loop_detail_design`
 - [版本规划阅读入口](版本规划/README.md) - `entry` / `version_planning`
 - [知识库规范](知识库/README.md) - `kb` / `knowledge_base`
 - [美术流水线总览](美术文档/00_美术流水线总览.md) - `art` / `art_pipeline`
@@ -79,6 +89,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [正式纵切 UI 与素材覆盖矩阵](美术文档/13_正式纵切UI与素材覆盖矩阵.md) - `art` / `ui_design`
 - [FormalV2 素材候选审查记录](美术文档/14_FormalV2素材候选审查记录.md) - `art` / `art_pipeline`
 - [FormalV2 Runtime Acceptance Checklist](美术文档/15_FormalV2运行时验收待办清单.md) - `art` / `art_acceptance`
+- [Live2D角色动画资产接入规格](美术文档/16_Live2D角色动画资产接入规格.md) - `art` / `live2d_character_animation`
+- [Agent原生动态立绘资产接入规格](美术文档/17_Agent原生动态立绘资产接入规格.md) - `art` / `dynamic_doll_puppet`
 - [美术归档文档](美术文档/archive/README.md) - `art` / `art_archive`
 - [美术文档索引](美术文档/README.md) - `art` / `art_pipeline`
 - [营业结算演出界面 Formal V1](美术文档/ui_design/formal_v1/business_settlement_v1.md) - `art` / `ui_design`
@@ -169,17 +181,22 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [详案_11：人偶房间与视觉叙事系统 (GDD_11)](设计文档/GDD/GDD_11_人偶房间与视觉叙事系统.md) - `gdd` / `doll_room`
 - [详案_12：人偶交互管理器 (GDD_12)](设计文档/GDD/GDD_12_人偶交互管理器.md) - `gdd` / `doll_interaction`
 - [设计文档阅读入口](设计文档/README.md) - `entry` / `design_delivery`
-- [局外时间与日程口径规则卡](设计文档/rules/01_局外时间与日程口径规则卡.md) - `rule_card` / `time_schedule`
-- [物品、背包、旋转与生命周期规则卡](设计文档/rules/02_物品背包旋转与生命周期规则卡.md) - `rule_card` / `item_inventory_lifecycle`
-- [战斗回合与怪物意图规则卡](设计文档/rules/03_战斗回合与怪物意图规则卡.md) - `rule_card` / `combat_turn_intent`
-- [小镇经济结算与压力链规则卡](设计文档/rules/04_小镇经济结算与压力链规则卡.md) - `rule_card` / `town_economy_settlement`
-- [局外成长与维护规则卡](设计文档/rules/05_局外成长与维护规则卡.md) - `rule_card` / `outgame_growth_maintenance`
-- [标签与特质规则卡](设计文档/rules/06_标签与特质规则卡.md) - `rule_card` / `tag_trait_rules`
-- [势力声望与订单规则卡](设计文档/rules/07_势力声望与订单规则卡.md) - `rule_card` / `faction_order_rules`
-- [人偶核心状态与好感双轨规则卡](设计文档/rules/08_人偶核心状态与好感双轨规则卡.md) - `rule_card` / `doll_core_state_affection`
-- [人偶交互事件与反馈规则卡](设计文档/rules/09_人偶交互事件与反馈规则卡.md) - `rule_card` / `doll_interaction_rules`
-- [剧本调度与事件队列规则卡](设计文档/rules/10_剧本调度与事件队列规则卡.md) - `rule_card` / `scenario_event_queue`
-- [人偶房间布局与视觉叙事规则卡](设计文档/rules/11_人偶房间布局与视觉叙事规则卡.md) - `rule_card` / `doll_room_rules`
+- [剧情大纲](设计文档/剧情/00_剧情大纲.md) - `narrative_design` / `narrative_design`
+- [序章演出与对话节奏](设计文档/剧情/01_序章演出与对话节奏.md) - `narrative_design` / `narrative_design`
+- [剧情设计阅读入口](设计文档/剧情/README.md) - `entry` / `narrative_design`
+- [This Is the Police 演出参考](设计文档/参考/01_This_Is_the_Police_演出参考.md) - `reference` / `design_reference`
+- [设计参考阅读入口](设计文档/参考/README.md) - `entry` / `design_reference`
+- [局外时间与日程口径规则卡](设计文档/规则卡/01_局外时间与日程口径规则卡.md) - `rule_card` / `time_schedule`
+- [物品、背包、旋转与生命周期规则卡](设计文档/规则卡/02_物品背包旋转与生命周期规则卡.md) - `rule_card` / `item_inventory_lifecycle`
+- [战斗回合与怪物意图规则卡](设计文档/规则卡/03_战斗回合与怪物意图规则卡.md) - `rule_card` / `combat_turn_intent`
+- [小镇经济结算与压力链规则卡](设计文档/规则卡/04_小镇经济结算与压力链规则卡.md) - `rule_card` / `town_economy_settlement`
+- [局外成长与维护规则卡](设计文档/规则卡/05_局外成长与维护规则卡.md) - `rule_card` / `outgame_growth_maintenance`
+- [标签与特质规则卡](设计文档/规则卡/06_标签与特质规则卡.md) - `rule_card` / `tag_trait_rules`
+- [势力声望与订单规则卡](设计文档/规则卡/07_势力声望与订单规则卡.md) - `rule_card` / `faction_order_rules`
+- [人偶核心状态与好感双轨规则卡](设计文档/规则卡/08_人偶核心状态与好感双轨规则卡.md) - `rule_card` / `doll_core_state_affection`
+- [人偶交互事件与反馈规则卡](设计文档/规则卡/09_人偶交互事件与反馈规则卡.md) - `rule_card` / `doll_interaction_rules`
+- [剧本调度与事件队列规则卡](设计文档/规则卡/10_剧本调度与事件队列规则卡.md) - `rule_card` / `scenario_event_queue`
+- [人偶房间布局与视觉叙事规则卡](设计文档/规则卡/11_人偶房间布局与视觉叙事规则卡.md) - `rule_card` / `doll_room_rules`
 - [局外底盘配置字段说明 (Chassis Config)](配置表(JSON)/Chassis/README.md) - `config` / `config_chassis`
 - [工坊制造配方字段说明 (Crafting Recipes Config)](配置表(JSON)/CraftingRecipes/README.md) - `config` / `config_crafting`
 - [人偶基础档案配置字段说明 (Dolls Config)](配置表(JSON)/Dolls/README.md) - `config` / `config_dolls`
@@ -189,6 +206,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [势力配置字段说明 (Factions Config)](配置表(JSON)/Factions/README.md) - `config` / `config_factions`
 - [局内物品与网格实体字段说明 (Items Config)](配置表(JSON)/Items/README.md) - `config` / `config_items`
 - [深渊怪物配置字段说明 (Monsters Config)](配置表(JSON)/Monsters/README.md) - `config` / `config_monsters`
+- [Narrative 配置说明](配置表(JSON)/Narrative/README.md) - `config_readme` / `narrative_config`
 - [订单配置字段说明 (Orders Config)](配置表(JSON)/Orders/README.md) - `config` / `config_orders`
 - [义体插件配置字段说明 (Prosthetics Config)](配置表(JSON)/Prosthetics/README.md) - `config` / `config_prosthetics`
 - [配置表数据总览说明 (Configuration Overview)](配置表(JSON)/README.md) - `config` / `config_data`
@@ -197,45 +215,69 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 关联网络
 
-- `PM <-> 全局`：12 条
-- `PM <-> 知识库`：1 条
-- `PM <-> 程序`：2 条
-- `PM <-> 策划`：16 条
-- `PM <-> 美术`：2 条
-- `全局 <-> 知识库`：4 条
+- `0-12 小时细案 Owner <-> 全局`：3 条
+- `0-12 小时细案 Owner <-> 剧情 Owner`：3 条
+- `0-12 小时细案 Owner <-> 实现 Owner`：4 条
+- `0-12 小时细案 Owner <-> 游戏导演`：5 条
+- `0-12 小时细案 Owner <-> 策划`：4 条
+- `全局 <-> 兼容`：5 条
+- `全局 <-> 游戏导演`：18 条
+- `全局 <-> 知识库`：6 条
 - `全局 <-> 程序`：12 条
-- `全局 <-> 策划`：53 条
+- `全局 <-> 策划`：54 条
 - `全局 <-> 美术`：9 条
+- `兼容 <-> 游戏导演`：5 条
+- `兼容 <-> 知识库`：1 条
+- `剧情 Owner <-> 实现 Owner`：1 条
+- `剧情 Owner <-> 游戏导演`：4 条
+- `剧情 Owner <-> 程序`：1 条
+- `剧情 Owner <-> 策划`：12 条
+- `实现 Owner <-> 游戏导演`：1 条
+- `实现 Owner <-> 程序`：2 条
+- `实现 Owner <-> 策划`：3 条
+- `游戏导演 <-> 知识库`：1 条
+- `游戏导演 <-> 程序`：2 条
+- `游戏导演 <-> 策划`：16 条
+- `游戏导演 <-> 美术`：2 条
 - `知识库 <-> 程序`：1 条
 - `知识库 <-> 策划`：1 条
 - `知识库 <-> 美术`：1 条
-- `程序 <-> 策划`：55 条
-- `程序 <-> 美术`：30 条
+- `程序 <-> 策划`：62 条
+- `程序 <-> 美术`：40 条
 - `策划 <-> 美术`：6 条
 
 ## 按职能分组
+
+### 0-12 小时细案 Owner
+
+| 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
+|---|---|---|---|---|---|
+| [T0-01 序章首次循环](版本规划/0-12小时细案/T0-01_序章首次循环.md) | `plan` | `active` | `candidate_loop_detail_design` | 9 | 完整 |
+| [T1 第一层搜打撤成形](版本规划/0-12小时细案/T1_第一层搜打撤成形.md) | `plan` | `active` | `candidate_loop_detail_design` | 6 | 完整 |
+| [0-12 小时候选主循环细案设计](版本规划/14_0-12小时候选主循环细案设计.md) | `plan` | `active` | `candidate_loop_detail_design` | 13 | 完整 |
+| [T0-01 开局人偶状态到首次下潜许可](版本规划/_archive/0-12小时细案_2026-06-14_拆分稿/T0-01_开局人偶状态到首次下潜许可.md) | `plan` | `historical` | `candidate_loop_detail_design` | 1 | 完整 |
+| [T0-02 首次下潜到第一笔战利品](版本规划/_archive/0-12小时细案_2026-06-14_拆分稿/T0-02_首次下潜到第一笔战利品.md) | `plan` | `historical` | `candidate_loop_detail_design` | 1 | 完整 |
+| [T0-03 回城出售到维护 / 休整闭环](版本规划/_archive/0-12小时细案_2026-06-14_拆分稿/T0-03_回城出售到维护休整闭环.md) | `plan` | `historical` | `candidate_loop_detail_design` | 1 | 完整 |
 
 ### PM
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [PM / 版本规划 状态](agent_status/pm.md) | `status` | `active` | `version_planning` | 8 | 完整 |
-| [纵切批次与需求文档承接矩阵](版本规划/11_纵切批次与需求文档承接矩阵.md) | `plan` | `active` | `vertical_batch_requirement_coverage` | 24 | 完整 |
 | [正式版长期版本节点规划](版本规划/12_正式版长期版本节点规划.md) | `archive_notice` | `archived` | `formal_version_milestones` | 0 | 完整 |
-| [版本规划阅读入口](版本规划/README.md) | `entry` | `active` | `version_planning` | 6 | 完整 |
-| [PM 智能体阅读入口](知识库/views/pm.md) | `view` | `active` | `agent_context_view` | 7 | 完整 |
 
 ### 全局
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 13 | 完整 |
+| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 19 | 完整 |
 | [文档索引](DOCS_INDEX.md) | `index` | `generated` | `knowledge_base` | 1 | 完整 |
-| [魔偶深渊 AI 核心知识库](GEMINI.md) | `entry` | `active` | `project_context` | 7 | 完整 |
-| [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 58 | 完整 |
-| [智能体状态页说明](agent_status/README.md) | `status` | `active` | `agent_status` | 5 | 完整 |
+| [魔偶深渊 AI 核心知识库](GEMINI.md) | `entry` | `active` | `project_context` | 10 | 完整 |
+| [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 64 | 完整 |
+| [智能体状态页说明](agent_status/README.md) | `status` | `active` | `agent_status` | 6 | 完整 |
+| [文档维护与新增控制规则](rules/01_文档维护与新增控制规则.md) | `rule` | `active` | `document_governance` | 5 | 完整 |
+| [全局 Agent Rules 入口](rules/README.md) | `entry` | `active` | `agent_rules` | 4 | 完整 |
 | [智能体开工健康检查](tools/agent/README.md) | `tool` | `active` | `agent_workflow` | 4 | 完整 |
-| [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `formal_vertical_slice` | 18 | 完整 |
+| [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `formal_vertical_slice` | 20 | 完整 |
 | [最小可玩版本 (MVP) 核心闭环内容清单](版本规划/_archive/mvp_2026-05/00_最小MVP体验闭环内容清单.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 客户端开发里程碑与节点规划](版本规划/_archive/mvp_2026-05/02_开发里程碑与节点规划.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 验证需要补充的功能开发](版本规划/_archive/mvp_2026-05/04_MVP验证需要补充的功能开发.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
@@ -243,37 +285,71 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [MVP 自动化试玩验收方案](版本规划/_archive/mvp_2026-05/07_MVP自动化试玩验收方案.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [MVP 自动化试玩首轮报告](版本规划/_archive/mvp_2026-05/08_MVP自动化试玩首轮报告.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 
+### 兼容
+
+| 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
+|---|---|---|---|---|---|
+| [PM / 版本规划 兼容入口](agent_status/pm.md) | `status` | `archived` | `legacy_pm_route` | 7 | 完整 |
+| [PM 智能体兼容入口](知识库/views/pm.md) | `view` | `archived` | `legacy_pm_route` | 6 | 完整 |
+
+### 剧情 Owner
+
+| 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
+|---|---|---|---|---|---|
+| [剧情大纲](设计文档/剧情/00_剧情大纲.md) | `narrative_design` | `active` | `narrative_design` | 10 | 完整 |
+| [序章演出与对话节奏](设计文档/剧情/01_序章演出与对话节奏.md) | `narrative_design` | `active` | `narrative_design` | 6 | 完整 |
+| [剧情设计阅读入口](设计文档/剧情/README.md) | `entry` | `active` | `narrative_design` | 11 | 完整 |
+
+### 实现 Owner
+
+| 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
+|---|---|---|---|---|---|
+| [T0-01A 开局人偶状态到首次下潜许可实现设计](版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可实现设计.md) | `implementation_design` | `active` | `prologue_first_loop_implementation` | 5 | 完整 |
+| [T0-01A 开局人偶状态到首次下潜许可开发方案](版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可开发方案.md) | `development_plan` | `active` | `prologue_first_loop_development` | 8 | 完整 |
+
+### 游戏导演
+
+| 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
+|---|---|---|---|---|---|
+| [游戏导演 / 制作人 状态](agent_status/director.md) | `status` | `active` | `game_direction_production` | 16 | 完整 |
+| [纵切批次与需求文档承接矩阵](版本规划/11_纵切批次与需求文档承接矩阵.md) | `plan` | `active` | `vertical_batch_requirement_coverage` | 25 | 完整 |
+| [正式版全局体验总线与全系统宏观大纲](版本规划/13_正式版全局体验总线与开放节奏.md) | `plan` | `active` | `global_experience_spine` | 12 | 完整 |
+| [版本规划阅读入口](版本规划/README.md) | `entry` | `active` | `version_planning` | 9 | 完整 |
+| [游戏导演 / 制作人阅读入口](知识库/views/director.md) | `view` | `active` | `agent_context_view` | 12 | 完整 |
+
 ### 知识库
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [知识库规范](知识库/README.md) | `kb` | `active` | `knowledge_base` | 8 | 完整 |
+| [知识库规范](知识库/README.md) | `kb` | `active` | `knowledge_base` | 11 | 完整 |
 
 ### 程序
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [程序 / Unity 状态](agent_status/program.md) | `status` | `active` | `unity_programming` | 14 | 完整 |
+| [程序 / Unity 状态](agent_status/program.md) | `status` | `active` | `unity_programming` | 20 | 完整 |
 | [Config Tools](tools/config/README.md) | `tool` | `active` | `config_tooling` | 5 | 完整 |
-| [程序开发大纲与系统索引](开发文档/00_程序开发大纲.md) | `dev` | `active` | `program_architecture` | 21 | 完整 |
+| [程序开发大纲与系统索引](开发文档/00_程序开发大纲.md) | `dev` | `active` | `program_architecture` | 22 | 完整 |
 | [核心数据容器系统 (Core Data System)](开发文档/01_核心数据与实体容器(CoreData).md) | `dev` | `active` | `core_data` | 10 | 完整 |
 | [网格背包与计算系统 (Grid System)](开发文档/02_网格背包与计算系统(GridSystem).md) | `dev` | `active` | `grid_inventory` | 5 | 完整 |
 | [深渊与战斗循环系统 (Dungeon & Combat System)](开发文档/03_深渊与战斗循环(DungeonCombat).md) | `dev` | `active` | `dungeon_combat` | 10 | 完整 |
 | [工坊与养成逻辑 (Workshop & Crafting System)](开发文档/04_工坊与养成逻辑(WorkshopSystem).md) | `dev` | `active` | `workshop` | 6 | 完整 |
-| [表现层架构与事件总线 (View & EventBus System)](开发文档/05_表现层架构与事件总线(ViewAndEventBus).md) | `dev` | `active` | `presentation_layer` | 9 | 完整 |
+| [表现层架构与事件总线 (View & EventBus System)](开发文档/05_表现层架构与事件总线(ViewAndEventBus).md) | `dev` | `active` | `presentation_layer` | 10 | 完整 |
 | [奖励与掉落系统 (RewardSystem)](开发文档/10_奖励与掉落系统(RewardSystem).md) | `dev` | `active` | `reward_loot` | 6 | 完整 |
 | [怪物 AI 与行动系统 (MonsterActionAI)](开发文档/11_怪物AI与行动系统(MonsterActionAI).md) | `dev` | `active` | `monster_ai` | 3 | 完整 |
 | [程序开发优化建议与重构路线](开发文档/12_程序开发优化建议与重构路线.md) | `dev` | `active` | `program_refactor` | 6 | 完整 |
 | [Unity 运行时美术自动验收方案](开发文档/14_Unity运行时美术自动验收方案.md) | `dev` | `active` | `runtime_art_validation` | 10 | 完整 |
-| [P0配置Validator与自动验收底座需求](开发文档/15_P0配置Validator与自动验收底座需求.md) | `dev` | `active` | `config_validation` | 18 | 完整 |
-| [程序主流程闭环与架构收口推进计划](开发文档/16_程序主流程闭环与架构收口推进计划.md) | `dev` | `active` | `main_flow_architecture` | 6 | 完整 |
-| [开发文档目录入口](开发文档/README.md) | `dev` | `active` | `program_docs_index` | 4 | 完整 |
+| [P0配置Validator与自动验收底座需求](开发文档/15_P0配置Validator与自动验收底座需求.md) | `dev` | `active` | `config_validation` | 17 | 完整 |
+| [程序主流程闭环与架构收口推进计划](开发文档/16_程序主流程闭环与架构收口推进计划.md) | `dev` | `active` | `main_flow_architecture` | 7 | 完整 |
+| [Live2D / Spine 运行时接入评估](开发文档/17_Live2DSpine运行时接入评估.md) | `dev` | `active` | `live2d_character_animation` | 6 | 完整 |
+| [全局叙事播放系统开发方案](开发文档/18_全局叙事播放系统开发方案.md) | `dev` | `active` | `narrative_playback` | 15 | 完整 |
+| [开发文档目录入口](开发文档/README.md) | `dev` | `active` | `program_docs_index` | 5 | 完整 |
 | [架构评估与收口建议](开发文档/archive/06_架构评估与收口建议.md) | `dev` | `archived` | `architecture_review` | 5 | 完整 |
 | [开发文档归档目录入口](开发文档/archive/README.md) | `dev` | `active` | `program_docs_archive` | 2 | 完整 |
 | [程序开发总规则](开发文档/rules/00_程序开发总规则.md) | `dev` | `active` | `program_general_rules` | 14 | 完整 |
 | [客户端分层与领域架构规范](开发文档/rules/01_客户端分层与领域架构规范.md) | `dev` | `active` | `client_architecture` | 8 | 完整 |
-| [Unity 表现层与编辑器构建规范](开发文档/rules/02_Unity表现层与编辑器构建规范.md) | `dev` | `active` | `unity_presentation` | 14 | 完整 |
-| [视觉资源系统程序开发规范](开发文档/rules/03_视觉资源系统程序开发规范.md) | `dev` | `active` | `visual_asset_system` | 12 | 完整 |
+| [Unity 表现层与编辑器构建规范](开发文档/rules/02_Unity表现层与编辑器构建规范.md) | `dev` | `active` | `unity_presentation` | 17 | 完整 |
+| [视觉资源系统程序开发规范](开发文档/rules/03_视觉资源系统程序开发规范.md) | `dev` | `active` | `visual_asset_system` | 15 | 完整 |
 | [自动化测试与验收流程规范](开发文档/rules/04_自动化测试与验收流程规范.md) | `dev` | `active` | `test_automation` | 10 | 完整 |
 | [程序开发规范目录入口](开发文档/rules/README.md) | `dev` | `active` | `program_rules_index` | 7 | 完整 |
 | [全局与玩家实体定义 (Player & Global Entities)](开发文档/数据与实体定义/01_全局与玩家实体.md) | `dev` | `active` | `program_architecture` | 1 | 完整 |
@@ -288,7 +364,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [策划 / 数值 状态](agent_status/design.md) | `status` | `active` | `design_balance` | 71 | 完整 |
+| [策划 / 数值 状态](agent_status/design.md) | `status` | `active` | `design_balance` | 75 | 完整 |
 | [基准价值与空间本位模型 (Space-Value Standard)](数值模型设计/00_基准价值与空间本位模型.md) | `balance` | `active` | `balance_space_value` | 16 | 完整 |
 | [经济循环与通缩模型 (Economy & Deflation Model)](数值模型设计/01_经济循环与通缩模型.md) | `balance` | `active` | `balance_economy` | 8 | 完整 |
 | [战斗伤害与生存公式 (Combat & Survival Formulas)](数值模型设计/02_战斗伤害与生存公式.md) | `balance` | `active` | `balance_combat` | 7 | 完整 |
@@ -297,21 +373,21 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [MVP 需要补充的配置调整](版本规划/_archive/mvp_2026-05/05_MVP需要补充的配置调整.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [策划智能体阅读入口](知识库/views/design.md) | `view` | `active` | `agent_context_view` | 11 | 完整 |
 | [系统关联总图：全系统内在关联与数据流向](设计文档/GDD/GDD_00_系统关联总图.md) | `gdd` | `active` | `system_overview` | 38 | 完整 |
-| [详案_01：背包战斗与局内网格机制 (GDD_01)](设计文档/GDD/GDD_01_背包战斗与局内网格机制.md) | `gdd` | `active` | `grid_inventory` | 17 | 完整 |
-| [详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)](设计文档/GDD/GDD_02_深渊地图遍历与搜打撤抉择.md) | `gdd` | `active` | `dungeon_exploration` | 15 | 完整 |
+| [详案_01：背包战斗与局内网格机制 (GDD_01)](设计文档/GDD/GDD_01_背包战斗与局内网格机制.md) | `gdd` | `active` | `grid_inventory` | 18 | 完整 |
+| [详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)](设计文档/GDD/GDD_02_深渊地图遍历与搜打撤抉择.md) | `gdd` | `active` | `dungeon_exploration` | 16 | 完整 |
 | [详案_03：人偶实体对象与好感双轨机制 (GDD_03)](设计文档/GDD/GDD_03_人偶实体对象与好感双轨机制.md) | `gdd` | `active` | `doll_relationship` | 19 | 完整 |
 | [详案_04：小镇循环与经济物价波浪模型 (GDD_04)](设计文档/GDD/GDD_04_小镇循环与经济物价波浪模型.md) | `gdd` | `active` | `town_economy` | 19 | 完整 |
-| [详案_05：剧本调度引擎与世界观封装逻辑 (GDD_05)](设计文档/GDD/GDD_05_剧本调度引擎与世界观封装逻辑.md) | `gdd` | `active` | `scenario_worldview` | 9 | 完整 |
+| [详案_05：剧本调度引擎与世界观封装逻辑 (GDD_05)](设计文档/GDD/GDD_05_剧本调度引擎与世界观封装逻辑.md) | `gdd` | `active` | `scenario_worldview` | 12 | 完整 |
 | [详案_06：物品系统与物品生命周期 (GDD_06)](设计文档/GDD/GDD_06_物品系统与物品生命周期.md) | `gdd` | `active` | `item_lifecycle` | 14 | 完整 |
-| [详案_07：时间日程系统与天数轮转机制 (GDD_07)](设计文档/GDD/GDD_07_时间日程系统与天数轮转机制.md) | `gdd` | `active` | `time_schedule` | 15 | 完整 |
+| [详案_07：时间日程系统与天数轮转机制 (GDD_07)](设计文档/GDD/GDD_07_时间日程系统与天数轮转机制.md) | `gdd` | `active` | `time_schedule` | 16 | 完整 |
 | [详案_08：人偶养成子模块全案 (GDD_08)](设计文档/GDD/GDD_08_人偶养成子模块全案.md) | `gdd` | `active` | `doll_growth` | 23 | 完整 |
 | [详案_09：标签与特质系统 (GDD_09)](设计文档/GDD/GDD_09_标签与特质系统.md) | `gdd` | `active` | `tag_trait` | 11 | 完整 |
 | [详案_10：势力声望与订单系统 (GDD_10)](设计文档/GDD/GDD_10_势力声望与订单系统.md) | `gdd` | `active` | `faction_order` | 18 | 完整 |
 | [详案_11：人偶房间与视觉叙事系统 (GDD_11)](设计文档/GDD/GDD_11_人偶房间与视觉叙事系统.md) | `gdd` | `active` | `doll_room` | 14 | 完整 |
-| [详案_12：人偶交互管理器 (GDD_12)](设计文档/GDD/GDD_12_人偶交互管理器.md) | `gdd` | `active` | `doll_interaction` | 15 | 完整 |
-| [设计文档阅读入口](设计文档/README.md) | `entry` | `active` | `design_delivery` | 41 | 完整 |
+| [详案_12：人偶交互管理器 (GDD_12)](设计文档/GDD/GDD_12_人偶交互管理器.md) | `gdd` | `active` | `doll_interaction` | 16 | 完整 |
+| [设计文档阅读入口](设计文档/README.md) | `entry` | `active` | `design_delivery` | 47 | 完整 |
 | [第四层组合压力内容包](设计文档/_archive/content_backlog/26_第四层组合压力内容包.md) | `content_pack` | `draft` | `content_authoring` | 1 | 完整 |
-| [正式配置设计与填充推进计划](设计文档/config/26_正式配置设计与填充推进计划.md) | `plan` | `active` | `formal_config_authoring` | 32 | 完整 |
+| [正式配置设计与填充推进计划](设计文档/config/26_正式配置设计与填充推进计划.md) | `plan` | `active` | `formal_config_authoring` | 34 | 完整 |
 | [Items正式配置承接审计](设计文档/config/audits/27_Items正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 13 | 完整 |
 | [Monsters正式配置承接审计](设计文档/config/audits/28_Monsters正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 15 | 完整 |
 | [Dungeons正式配置承接审计](设计文档/config/audits/29_Dungeons正式配置承接审计.md) | `audit` | `active` | `formal_config_authoring` | 15 | 完整 |
@@ -343,11 +419,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [局外成长正式配置Validator与固定验收样例](设计文档/config/validation/45_局外成长正式配置Validator与固定验收样例.md) | `acceptance_spec` | `active` | `formal_config_acceptance` | 21 | 完整 |
 | [经济压力正式配置Validator与固定验收样例](设计文档/config/validation/51_经济压力正式配置Validator与固定验收样例.md) | `acceptance_spec` | `active` | `formal_config_acceptance` | 16 | 完整 |
 | [正式版内容生产规格](设计文档/content_packs/18_正式版内容生产规格.md) | `spec` | `active` | `content_authoring` | 15 | 完整 |
-| [第一层正式核心内容包](设计文档/content_packs/19_第一层正式核心内容包.md) | `content_pack` | `active` | `content_authoring` | 23 | 完整 |
+| [第一层正式核心内容包](设计文档/content_packs/19_第一层正式核心内容包.md) | `content_pack` | `active` | `content_authoring` | 24 | 完整 |
 | [第二层背包压力内容包](设计文档/content_packs/20_第二层背包压力内容包.md) | `content_pack` | `active` | `content_authoring` | 25 | 完整 |
 | [人偶成长修复内容包](设计文档/content_packs/21_人偶成长修复内容包.md) | `content_pack` | `active` | `content_authoring` | 28 | 完整 |
 | [小镇经济月租内容包](设计文档/content_packs/22_小镇经济月租内容包.md) | `content_pack` | `active` | `content_authoring` | 25 | 完整 |
-| [长期记忆剧情内容包](设计文档/content_packs/23_长期记忆剧情内容包.md) | `content_pack` | `active` | `content_authoring` | 19 | 完整 |
+| [长期记忆剧情内容包](设计文档/content_packs/23_长期记忆剧情内容包.md) | `content_pack` | `active` | `content_authoring` | 21 | 完整 |
 | [势力订单声望内容包](设计文档/content_packs/24_势力订单声望内容包.md) | `content_pack` | `active` | `content_authoring` | 25 | 完整 |
 | [第三层路线侵蚀内容包](设计文档/content_packs/25_第三层路线侵蚀内容包.md) | `content_pack` | `active` | `content_authoring` | 25 | 完整 |
 | [策划文档开发交付审计](设计文档/delivery/00_策划文档开发交付审计.md) | `audit` | `active` | `design_delivery` | 31 | 完整 |
@@ -357,17 +433,19 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [P0主干配置表现验收承接清单](设计文档/delivery/15_P0主干配置表现验收承接清单.md) | `checklist` | `active` | `design_delivery` | 18 | 完整 |
 | [P1人偶成长情感承接清单](设计文档/delivery/16_P1人偶成长情感承接清单.md) | `checklist` | `active` | `design_delivery` | 17 | 完整 |
 | [P2长期循环叙事承接清单](设计文档/delivery/17_P2长期循环叙事承接清单.md) | `checklist` | `active` | `design_delivery` | 20 | 完整 |
-| [局外时间与日程口径规则卡](设计文档/rules/01_局外时间与日程口径规则卡.md) | `rule_card` | `active` | `time_schedule` | 14 | 完整 |
-| [物品、背包、旋转与生命周期规则卡](设计文档/rules/02_物品背包旋转与生命周期规则卡.md) | `rule_card` | `active` | `item_inventory_lifecycle` | 14 | 完整 |
-| [战斗回合与怪物意图规则卡](设计文档/rules/03_战斗回合与怪物意图规则卡.md) | `rule_card` | `active` | `combat_turn_intent` | 12 | 完整 |
-| [小镇经济结算与压力链规则卡](设计文档/rules/04_小镇经济结算与压力链规则卡.md) | `rule_card` | `active` | `town_economy_settlement` | 26 | 完整 |
-| [局外成长与维护规则卡](设计文档/rules/05_局外成长与维护规则卡.md) | `rule_card` | `active` | `outgame_growth_maintenance` | 27 | 完整 |
-| [标签与特质规则卡](设计文档/rules/06_标签与特质规则卡.md) | `rule_card` | `active` | `tag_trait_rules` | 26 | 完整 |
-| [势力声望与订单规则卡](设计文档/rules/07_势力声望与订单规则卡.md) | `rule_card` | `active` | `faction_order_rules` | 24 | 完整 |
-| [人偶核心状态与好感双轨规则卡](设计文档/rules/08_人偶核心状态与好感双轨规则卡.md) | `rule_card` | `active` | `doll_core_state_affection` | 23 | 完整 |
-| [人偶交互事件与反馈规则卡](设计文档/rules/09_人偶交互事件与反馈规则卡.md) | `rule_card` | `active` | `doll_interaction_rules` | 20 | 完整 |
-| [剧本调度与事件队列规则卡](设计文档/rules/10_剧本调度与事件队列规则卡.md) | `rule_card` | `active` | `scenario_event_queue` | 15 | 完整 |
-| [人偶房间布局与视觉叙事规则卡](设计文档/rules/11_人偶房间布局与视觉叙事规则卡.md) | `rule_card` | `active` | `doll_room_rules` | 22 | 完整 |
+| [This Is the Police 演出参考](设计文档/参考/01_This_Is_the_Police_演出参考.md) | `reference` | `active` | `design_reference` | 7 | 完整 |
+| [设计参考阅读入口](设计文档/参考/README.md) | `entry` | `active` | `design_reference` | 2 | 完整 |
+| [局外时间与日程口径规则卡](设计文档/规则卡/01_局外时间与日程口径规则卡.md) | `rule_card` | `active` | `time_schedule` | 14 | 完整 |
+| [物品、背包、旋转与生命周期规则卡](设计文档/规则卡/02_物品背包旋转与生命周期规则卡.md) | `rule_card` | `active` | `item_inventory_lifecycle` | 14 | 完整 |
+| [战斗回合与怪物意图规则卡](设计文档/规则卡/03_战斗回合与怪物意图规则卡.md) | `rule_card` | `active` | `combat_turn_intent` | 12 | 完整 |
+| [小镇经济结算与压力链规则卡](设计文档/规则卡/04_小镇经济结算与压力链规则卡.md) | `rule_card` | `active` | `town_economy_settlement` | 26 | 完整 |
+| [局外成长与维护规则卡](设计文档/规则卡/05_局外成长与维护规则卡.md) | `rule_card` | `active` | `outgame_growth_maintenance` | 27 | 完整 |
+| [标签与特质规则卡](设计文档/规则卡/06_标签与特质规则卡.md) | `rule_card` | `active` | `tag_trait_rules` | 26 | 完整 |
+| [势力声望与订单规则卡](设计文档/规则卡/07_势力声望与订单规则卡.md) | `rule_card` | `active` | `faction_order_rules` | 24 | 完整 |
+| [人偶核心状态与好感双轨规则卡](设计文档/规则卡/08_人偶核心状态与好感双轨规则卡.md) | `rule_card` | `active` | `doll_core_state_affection` | 23 | 完整 |
+| [人偶交互事件与反馈规则卡](设计文档/规则卡/09_人偶交互事件与反馈规则卡.md) | `rule_card` | `active` | `doll_interaction_rules` | 20 | 完整 |
+| [剧本调度与事件队列规则卡](设计文档/规则卡/10_剧本调度与事件队列规则卡.md) | `rule_card` | `active` | `scenario_event_queue` | 15 | 完整 |
+| [人偶房间布局与视觉叙事规则卡](设计文档/规则卡/11_人偶房间布局与视觉叙事规则卡.md) | `rule_card` | `active` | `doll_room_rules` | 22 | 完整 |
 | [局外底盘配置字段说明 (Chassis Config)](配置表(JSON)/Chassis/README.md) | `config` | `active` | `config_chassis` | 16 | 完整 |
 | [工坊制造配方字段说明 (Crafting Recipes Config)](配置表(JSON)/CraftingRecipes/README.md) | `config` | `active` | `config_crafting` | 21 | 完整 |
 | [人偶基础档案配置字段说明 (Dolls Config)](配置表(JSON)/Dolls/README.md) | `config` | `active` | `config_dolls` | 21 | 完整 |
@@ -377,6 +455,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [势力配置字段说明 (Factions Config)](配置表(JSON)/Factions/README.md) | `config` | `active` | `config_factions` | 11 | 完整 |
 | [局内物品与网格实体字段说明 (Items Config)](配置表(JSON)/Items/README.md) | `config` | `active` | `config_items` | 17 | 完整 |
 | [深渊怪物配置字段说明 (Monsters Config)](配置表(JSON)/Monsters/README.md) | `config` | `active` | `config_monsters` | 10 | 完整 |
+| [Narrative 配置说明](配置表(JSON)/Narrative/README.md) | `config_readme` | `active` | `narrative_config` | 4 | 完整 |
 | [订单配置字段说明 (Orders Config)](配置表(JSON)/Orders/README.md) | `config` | `active` | `config_orders` | 15 | 完整 |
 | [义体插件配置字段说明 (Prosthetics Config)](配置表(JSON)/Prosthetics/README.md) | `config` | `active` | `config_prosthetics` | 16 | 完整 |
 | [配置表数据总览说明 (Configuration Overview)](配置表(JSON)/README.md) | `config` | `active` | `config_data` | 23 | 完整 |
@@ -387,13 +466,13 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 18 | 完整 |
+| [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 22 | 完整 |
 | [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 9 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 17 | 完整 |
-| [美术流水线总览](美术文档/00_美术流水线总览.md) | `art` | `active` | `art_pipeline` | 8 | 完整 |
+| [美术流水线总览](美术文档/00_美术流水线总览.md) | `art` | `active` | `art_pipeline` | 9 | 完整 |
 | [Manifest 规范](美术文档/01_Manifest规范.md) | `art` | `active` | `art_manifest` | 6 | 完整 |
-| [资源规格与接入规范](美术文档/02_资源规格与接入规范.md) | `art` | `active` | `art_asset_spec` | 9 | 完整 |
+| [资源规格与接入规范](美术文档/02_资源规格与接入规范.md) | `art` | `active` | `art_asset_spec` | 10 | 完整 |
 | [AI 生成与筛选规范](美术文档/03_AI生成与筛选规范.md) | `art` | `active` | `ai_art_generation` | 6 | 完整 |
 | [美术风格基准](美术文档/04_美术风格基准.md) | `art` | `active` | `art_style` | 6 | 完整 |
 | [AI 图片网关接入方案](美术文档/05_AI图片网关接入方案.md) | `art` | `active` | `ai_image_gateway` | 6 | 完整 |
@@ -403,7 +482,9 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [正式纵切 UI 与素材覆盖矩阵](美术文档/13_正式纵切UI与素材覆盖矩阵.md) | `art` | `active` | `ui_design` | 24 | 完整 |
 | [FormalV2 素材候选审查记录](美术文档/14_FormalV2素材候选审查记录.md) | `art` | `active` | `art_pipeline` | 1 | 完整 |
 | [FormalV2 Runtime Acceptance Checklist](美术文档/15_FormalV2运行时验收待办清单.md) | `art` | `active` | `art_acceptance` | 5 | 完整 |
-| [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 15 | 完整 |
+| [Live2D角色动画资产接入规格](美术文档/16_Live2D角色动画资产接入规格.md) | `art` | `active` | `live2d_character_animation` | 9 | 完整 |
+| [Agent原生动态立绘资产接入规格](美术文档/17_Agent原生动态立绘资产接入规格.md) | `art` | `active` | `dynamic_doll_puppet` | 7 | 完整 |
+| [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 17 | 完整 |
 | [MVP 素材接入状态同步](美术文档/archive/06_MVP素材接入状态同步.md) | `art` | `historical` | `mvp_art_archive` | 2 | 完整 |
 | [MVP UI 重新设计同步](美术文档/archive/07_MVP_UI重新设计同步.md) | `art` | `historical` | `mvp_ui_archive` | 2 | 完整 |
 | [P0 UI 骨架接入交付](美术文档/archive/11_P0_UI骨架接入交付.md) | `art` | `historical` | `ui_handoff` | 7 | 完整 |

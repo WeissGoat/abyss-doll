@@ -27,23 +27,50 @@ public class GameFlowController : MonoBehaviour {
     [SerializeField] private bool grantDebugStartResources = false;
     [SerializeField] private int debugStartMoney = 1500;
     [SerializeField] private string debugStartItemID = "mat_core_tier1";
+    private bool playPrologueOnStartup = true;
     
     private GameScreenState _currentScreen;
     private CombatLootPickupResult _pendingCombatLootResult;
     private DungeonSettlementResult _pendingSettlementResult;
     private bool _isDungeonMapInventoryOpen;
     private InventoryPresentationController _inventoryPresentation;
+    private PrologueFirstDiveController _prologueFirstDiveController;
+    private bool _initialized;
 
     void Awake() {
-        Instance = this;
+        BindInstance();
+    }
+
+    void OnEnable() {
+        BindInstance();
     }
 
     void Start() {
-        // 延迟初始化，等待 GameRoot 和 Configs 加载完毕
-        Invoke("InitGame", 1.0f);
+        BindInstance();
+        if (GameRoot.IsCoreReady()) {
+            InitGame();
+        } else {
+            Invoke(nameof(InitGame), 1.0f);
+        }
+    }
+
+    private void BindInstance() {
+        if (Instance != this) {
+            Instance = this;
+        }
     }
 
     void InitGame() {
+        if (_initialized) {
+            return;
+        }
+
+        if (!GameRoot.IsCoreReady()) {
+            Invoke(nameof(InitGame), 0.25f);
+            return;
+        }
+
+        _initialized = true;
         Debug.Log("[GameFlow] Initializing MVP Game Loop...");
 
         if (grantDebugStartResources) {
@@ -75,6 +102,7 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnStairsEntered += HandleStairsEntered;
 
         EnterWorkshop();
+        StartPrologueOpeningIfNeeded();
     }
 
     public void EnterWorkshop() {
@@ -112,6 +140,10 @@ public class GameFlowController : MonoBehaviour {
     public void DepartToDungeon() {
         Debug.Log("[GameFlow] 玩家启程，加载深渊...");
         GameRoot.Core.Dungeon.LoadLayer(1);
+    }
+
+    public void EnsurePrologueOpeningForRuntime() {
+        StartPrologueOpeningIfNeeded();
     }
 
     public void OpenDungeonMapInventory() {
@@ -153,6 +185,53 @@ public class GameFlowController : MonoBehaviour {
         _inventoryPresentation.ItemPresentationChanged += HandleInventoryPresentationChanged;
         _inventoryPresentation.Configure(testItemPrefab, inventoryItemLayer);
         inventoryItemLayer = _inventoryPresentation.GetItemLayer();
+    }
+
+    private void StartPrologueOpeningIfNeeded() {
+        Debug.Log($"[GameFlow] Prologue startup check. enabled={playPrologueOnStartup}");
+        if (!playPrologueOnStartup) {
+            return;
+        }
+
+        PrologueFirstDiveController controller = EnsurePrologueFirstDiveController();
+        if (controller == null) {
+            Debug.LogWarning("[GameFlow] Prologue startup requested, but PrologueFirstDiveController could not be created.");
+            return;
+        }
+
+        PrologueFirstDiveReentryStage reentryStage = controller.ApplyReentryState();
+        Debug.Log($"[GameFlow] Prologue startup controller ready. reentry={reentryStage}, object={controller.gameObject.name}");
+        if (reentryStage == PrologueFirstDiveReentryStage.OpeningBlackScreen) {
+            controller.PlayOpeningToNo0Found();
+        }
+    }
+
+    private PrologueFirstDiveController EnsurePrologueFirstDiveController() {
+        if (_prologueFirstDiveController == null) {
+            _prologueFirstDiveController = GetComponent<PrologueFirstDiveController>();
+        }
+
+        if (_prologueFirstDiveController == null) {
+            _prologueFirstDiveController = gameObject.AddComponent<PrologueFirstDiveController>();
+            Debug.Log("[GameFlow] Runtime PrologueFirstDiveController attached to GameManager.");
+        }
+
+        if (_prologueFirstDiveController.targetCanvas == null) {
+            Canvas canvas = workshopPanel != null
+                ? workshopPanel.GetComponentInParent<Canvas>()
+                : FindObjectOfType<Canvas>();
+            _prologueFirstDiveController.targetCanvas = canvas;
+        }
+
+        if (_prologueFirstDiveController.workshopController == null) {
+            _prologueFirstDiveController.workshopController = workshopPanel != null
+                ? workshopPanel.GetComponent<WorkshopUIController>()
+                : FindObjectOfType<WorkshopUIController>();
+        }
+
+        _prologueFirstDiveController.playOpeningOnStart = false;
+        _prologueFirstDiveController.presentDepartureWithRuntimeOverlay = true;
+        return _prologueFirstDiveController;
     }
 
     private void HandleDungeonSettled(bool isVictory) {
@@ -879,6 +958,10 @@ public class GameFlowController : MonoBehaviour {
     }
 
     void OnDestroy() {
+        if (Instance == this) {
+            Instance = null;
+        }
+
         if (_inventoryPresentation != null) {
             _inventoryPresentation.ItemPresentationChanged -= HandleInventoryPresentationChanged;
         }

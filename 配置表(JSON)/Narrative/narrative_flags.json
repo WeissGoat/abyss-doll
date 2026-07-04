@@ -1,0 +1,62 @@
+[
+  {
+    "FlagID": "PrologueStarted",
+    "Scope": "Save",
+    "Description": "T0-01A 序章已开始。"
+  },
+  {
+    "FlagID": "DebtNoticeSeen",
+    "Scope": "Save",
+    "Description": "债务纸过程 CG 已播放。"
+  },
+  {
+    "FlagID": "RepairNoteSeen",
+    "Scope": "Save",
+    "Description": "修复手记过程 CG 已播放。"
+  },
+  {
+    "FlagID": "LastCoreShardSeen",
+    "Scope": "Save",
+    "Description": "最后一枚核心碎片过程 CG 已播放。"
+  },
+  {
+    "FlagID": "No0Found",
+    "Scope": "Save",
+    "Description": "玩家已发现零号魔偶。"
+  },
+  {
+    "FlagID": "No0Started",
+    "Scope": "Save",
+    "Description": "玩家点击启动人偶。"
+  },
+  {
+    "FlagID": "No0WakeDialogueSeen",
+    "Scope": "Save",
+    "Description": "零号苏醒对白已播放。"
+  },
+  {
+    "FlagID": "FirstStatusShown",
+    "Scope": "Save",
+    "Description": "首次状态小卡已展示。"
+  },
+  {
+    "FlagID": "FirstCoreWiped",
+    "Scope": "Save",
+    "Description": "首次擦去核心仓灰尘动作已完成。"
+  },
+  {
+    "FlagID": "FirstDiveUnlocked",
+    "Scope": "Save",
+    "Description": "首次浅层入口已开放。"
+  },
+  {
+    "FlagID": "Layer1ConfirmOpened",
+    "Scope": "Save",
+    "Description": "第一层首潜确认已打开。"
+  },
+  {
+    "FlagID": "Layer1FirstDeparted",
+    "Scope": "Save",
+    "Description": "首次第一层出发已确认。"
+  }
+]

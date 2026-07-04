@@ -1,4 +1,4 @@
-﻿---
+---
 id: config_chassis_readme
 title: 局外底盘配置字段说明 (Chassis Config)
 type: config
@@ -14,7 +14,7 @@ related:
   - 配置表(JSON)/Rewards/README.md
   - 设计文档/GDD/GDD_08_人偶养成子模块全案.md
   - 设计文档/GDD/GDD_04_小镇循环与经济物价波浪模型.md
-  - 设计文档/rules/05_局外成长与维护规则卡.md
+  - 设计文档/规则卡/05_局外成长与维护规则卡.md
   - 设计文档/config/audits/36_局外成长正式配置承接审计.md
   - 设计文档/config/designs/37_局外成长正式配置落地设计.md
   - 设计文档/config/tasks/38_局外成长正式配置实现任务拆分.md

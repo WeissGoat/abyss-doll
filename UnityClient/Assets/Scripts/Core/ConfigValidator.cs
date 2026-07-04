@@ -58,6 +58,7 @@ public static class ConfigValidator {
         ValidateRewards(report);
         ValidateMonsters(report);
         ValidateDungeons(report);
+        NarrativeConfigValidator.Validate(ConfigManager.Narrative, report);
 
         if (includeVisualAssets) {
             ValidateVisualAssets(report);

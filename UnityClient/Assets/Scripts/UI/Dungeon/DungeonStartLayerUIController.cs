@@ -14,9 +14,21 @@ public class DungeonStartLayerUIController : MonoBehaviour {
     private readonly List<GameObject> _rows = new List<GameObject>();
     private int _selectedLayerID = 1;
     private Action _onClose;
+    private Action _onFirstDiveDepart;
     private string _lastStartFailureReason;
+    private bool _firstDiveMode;
+
+    public bool IsFirstDiveMode {
+        get { return _firstDiveMode; }
+    }
+
+    public int SelectedLayerID {
+        get { return _selectedLayerID; }
+    }
 
     public void Present(Action onClose) {
+        _firstDiveMode = false;
+        _onFirstDiveDepart = null;
         _onClose = onClose;
 
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
@@ -30,7 +42,29 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         BindButtons();
     }
 
+    public void PresentFirstDive(Action onClose, Action onDepartRequested = null) {
+        _firstDiveMode = true;
+        _onClose = onClose;
+        _onFirstDiveDepart = onDepartRequested;
+        _lastStartFailureReason = string.Empty;
+
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        if (player == null) {
+            return;
+        }
+
+        _selectedLayerID = 1;
+        RefreshTexts(player);
+        RefreshLayerRows(player);
+        BindButtons();
+    }
+
     private void NormalizeSelection(PlayerProfile player) {
+        if (_firstDiveMode) {
+            _selectedLayerID = 1;
+            return;
+        }
+
         int preferredLayer = player.LastSelectedDungeonStartLayer;
         if (!GameRoot.Core.Dungeon.CanStartAtLayer(preferredLayer)) {
             preferredLayer = FindDeepestStartableLayer(player);
@@ -57,6 +91,11 @@ public class DungeonStartLayerUIController : MonoBehaviour {
     }
 
     private void RefreshTexts(PlayerProfile player) {
+        if (_firstDiveMode) {
+            RefreshFirstDiveTexts(player);
+            return;
+        }
+
         if (titleText != null) {
             titleText.text = "选择深渊入口";
         }
@@ -75,6 +114,23 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         }
     }
 
+    private void RefreshFirstDiveTexts(PlayerProfile player) {
+        DiveReadinessResult readiness = BuildReadiness(player, 1);
+
+        if (titleText != null) {
+            titleText.text = "第一层：旧矿井浅缝";
+        }
+
+        if (summaryText != null) {
+            string state = readiness != null && readiness.CanDive ? "状态：可抵达" : "状态：暂缓出发";
+            summaryText.text =
+                $"{state}\n" +
+                $"{BuildFirstDiveReadinessLine(readiness)}\n" +
+                "可能带回：稳定核心碎屑 / 可售废料 / 记忆噪声\n" +
+                "同行状态：零号可行动一次，返回后需要照看。";
+        }
+    }
+
     private void RefreshLayerRows(PlayerProfile player) {
         ClearRows();
         if (listParent == null) {
@@ -86,6 +142,10 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         layerIDs.Sort();
 
         foreach (int layerID in layerIDs) {
+            if (_firstDiveMode && layerID != 1) {
+                continue;
+            }
+
             if (!ConfigManager.Dungeons.TryGetValue(layerID, out DungeonConfig config)) {
                 continue;
             }
@@ -144,11 +204,11 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         }
 
         Text layerText = CreateText("Layer_Text", row.transform, font, 24, canStart ? Color.white : new Color(0.68f, 0.68f, 0.68f));
-        layerText.text = $"第 {layerID} 层  {config.Name}";
+        layerText.text = _firstDiveMode ? "第一层  旧矿井浅缝" : $"第 {layerID} 层  {config.Name}";
         layerText.rectTransform.sizeDelta = new Vector2(330f, 66f);
 
         Text stateText = CreateText("State_Text", row.transform, font, 20, canStart ? new Color(0.78f, 1f, 0.82f) : new Color(1f, 0.68f, 0.58f));
-        stateText.text = BuildLayerStateText(readiness, selected);
+        stateText.text = _firstDiveMode ? BuildFirstDiveRowStateText(readiness) : BuildLayerStateText(readiness, selected);
         stateText.alignment = TextAnchor.MiddleRight;
         stateText.horizontalOverflow = HorizontalWrapMode.Wrap;
         stateText.verticalOverflow = VerticalWrapMode.Truncate;
@@ -182,6 +242,84 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         }
 
         return $"无法出发\n{summary}";
+    }
+
+    private string BuildFirstDiveReadinessLine(DiveReadinessResult readiness) {
+        if (readiness == null) {
+            return "许可：还没有读到她的状态。";
+        }
+
+        DiveReadinessIssue blocker = FindFirstIssue(readiness, DiveReadinessIssueSeverity.Blocker);
+        if (blocker != null) {
+            return $"许可：{MapFirstDiveIssue(blocker)}";
+        }
+
+        DiveReadinessIssue warning = FindFirstIssue(readiness, DiveReadinessIssueSeverity.Warning);
+        if (warning != null) {
+            return $"许可：可以出发。{MapFirstDiveIssue(warning)}";
+        }
+
+        return "许可：入口稳定，零号还能撑一次。";
+    }
+
+    private string BuildFirstDiveRowStateText(DiveReadinessResult readiness) {
+        if (readiness == null) {
+            return "暂缓\n状态未读取";
+        }
+
+        DiveReadinessIssue blocker = FindFirstIssue(readiness, DiveReadinessIssueSeverity.Blocker);
+        if (blocker != null) {
+            return $"暂缓\n{MapFirstDiveIssue(blocker)}";
+        }
+
+        DiveReadinessIssue warning = FindFirstIssue(readiness, DiveReadinessIssueSeverity.Warning);
+        if (warning != null) {
+            return $"可出发\n{MapFirstDiveIssue(warning)}";
+        }
+
+        return "可出发\n入口稳定";
+    }
+
+    private string MapFirstDiveIssue(DiveReadinessIssue issue) {
+        if (issue == null) {
+            return "状态有异常，先整理工坊。";
+        }
+
+        switch (issue.Code) {
+            case DiveReadinessIssueCode.LayerLocked:
+                return "浅层入口还没稳定。";
+            case DiveReadinessIssueCode.LayerConfigMissing:
+                return "浅层入口记录缺失。";
+            case DiveReadinessIssueCode.MissingPlayer:
+                return "工坊记录还没恢复。";
+            case DiveReadinessIssueCode.InvalidLayer:
+                return "入口坐标不稳定。";
+            case DiveReadinessIssueCode.MissingActiveDoll:
+                return "零号还没有准备好。";
+            case DiveReadinessIssueCode.ExtremeWear:
+                return "磨损太高，先做维护。";
+            case DiveReadinessIssueCode.ExtremeCorruption:
+                return "侵蚀太高，先做净化。";
+            case DiveReadinessIssueCode.MissingChassis:
+            case DiveReadinessIssueCode.InvalidChassisID:
+            case DiveReadinessIssueCode.InvalidChassisDimensions:
+            case DiveReadinessIssueCode.InvalidChassisMask:
+                return "底盘未安装，不能下潜。";
+            case DiveReadinessIssueCode.MissingRuntimeGrid:
+            case DiveReadinessIssueCode.RuntimeGridMismatch:
+                return "背包底盘还没整理好。";
+            case DiveReadinessIssueCode.InvalidProstheticReference:
+            case DiveReadinessIssueCode.InvalidProstheticSlot:
+            case DiveReadinessIssueCode.DuplicateProstheticSlot:
+            case DiveReadinessIssueCode.AutoUnequippedProsthetic:
+                return "义体连接异常，先卸下或调整。";
+            case DiveReadinessIssueCode.HeavyWearWarning:
+                return "磨损偏高，回来后要维护。";
+            case DiveReadinessIssueCode.HighCorruptionWarning:
+                return "侵蚀偏高，风险会上升。";
+            default:
+                return "状态有异常，先整理工坊。";
+        }
     }
 
     private string BuildCompactReadinessSummary(DiveReadinessResult readiness) {
@@ -271,19 +409,59 @@ public class DungeonStartLayerUIController : MonoBehaviour {
 
         if (confirmBtn != null) {
             confirmBtn.onClick.RemoveAllListeners();
-            confirmBtn.onClick.AddListener(ConfirmStart);
+            if (_firstDiveMode) {
+                confirmBtn.onClick.AddListener(ConfirmFirstDive);
+            } else {
+                confirmBtn.onClick.AddListener(ConfirmStart);
+            }
+
+            SetButtonLabel(confirmBtn, _firstDiveMode ? "出发" : "开始下潜", 26);
         }
 
         if (closeBtn != null) {
             closeBtn.onClick.RemoveAllListeners();
             closeBtn.onClick.AddListener(() => _onClose?.Invoke());
+            SetButtonLabel(closeBtn, _firstDiveMode ? "再看她一眼" : "返回", 26);
         }
     }
 
     private void RefreshConfirmButton() {
         if (confirmBtn != null) {
+            if (_firstDiveMode) {
+                DiveReadinessResult readiness = BuildReadiness(GameRoot.Core?.CurrentPlayer, 1);
+                confirmBtn.interactable = readiness != null && readiness.CanDive;
+                return;
+            }
+
             confirmBtn.interactable = GameRoot.Core?.Dungeon != null && GameRoot.Core.Dungeon.CanStartAtLayer(_selectedLayerID);
         }
+    }
+
+    private void SetButtonLabel(Button button, string label, int fontSize) {
+        Text text = button != null ? button.GetComponentInChildren<Text>(true) : null;
+        if (text == null) {
+            return;
+        }
+
+        text.text = label;
+        text.fontSize = fontSize;
+    }
+
+    private void ConfirmFirstDive() {
+        DiveReadinessResult readiness = BuildReadiness(GameRoot.Core?.CurrentPlayer, 1);
+        if (readiness == null || !readiness.CanDive) {
+            PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+            if (player != null) {
+                RefreshTexts(player);
+                RefreshLayerRows(player);
+            }
+
+            RefreshConfirmButton();
+            return;
+        }
+
+        _selectedLayerID = 1;
+        _onFirstDiveDepart?.Invoke();
     }
 
     private void ConfirmStart() {

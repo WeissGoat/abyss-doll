@@ -17,6 +17,7 @@ public static class ConfigManager {
     public static Dictionary<string, FactionConfig> Factions = new Dictionary<string, FactionConfig>();
     public static Dictionary<string, OrderConfig> Orders = new Dictionary<string, OrderConfig>();
     public static Dictionary<string, RumorConfig> Rumors = new Dictionary<string, RumorConfig>();
+    public static NarrativeConfigDatabase Narrative = new NarrativeConfigDatabase();
 
     public static void LoadAllConfigs() {
         ResetAllCaches();
@@ -54,8 +55,10 @@ public static class ConfigManager {
         LoadConfigsIntoDict(Path.Combine(basePath, "Orders"), Orders, o => o.OrderID);
         // 13. Rumors
         LoadConfigsIntoDict(Path.Combine(basePath, "Rumors"), Rumors, r => r.RumorID);
+        // 14. Narrative
+        Narrative = NarrativeConfigDatabase.LoadFromDirectory(Path.Combine(basePath, "Narrative"));
 
-        Debug.Log($"[ConfigManager] Configs loaded successfully! Items: {Items.Count}, Monsters: {Monsters.Count}, Dungeons: {Dungeons.Count}, Rewards: {Rewards.Count}, Maintenance: {MaintenanceConfigs.Count}, Economy: {EconomyConfigs.Count}, Factions: {Factions.Count}, Orders: {Orders.Count}, Rumors: {Rumors.Count}");
+        Debug.Log($"[ConfigManager] Configs loaded successfully! Items: {Items.Count}, Monsters: {Monsters.Count}, Dungeons: {Dungeons.Count}, Rewards: {Rewards.Count}, Maintenance: {MaintenanceConfigs.Count}, Economy: {EconomyConfigs.Count}, Factions: {Factions.Count}, Orders: {Orders.Count}, Rumors: {Rumors.Count}, NarrativeNodes: {Narrative.NodeCount}, NarrativeTriggers: {Narrative.TriggerCount}");
     }
 
     public static void ResetAllCaches() {
@@ -72,6 +75,7 @@ public static class ConfigManager {
         Factions.Clear();
         Orders.Clear();
         Rumors.Clear();
+        Narrative = new NarrativeConfigDatabase();
     }
 
     private static void LoadConfigsIntoDict<K, T>(string dirPath, Dictionary<K, T> dict, System.Func<T, K> keySelector) {

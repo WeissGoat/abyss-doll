@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P3 Expression Preview</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --brass: #d69a45;
+      --blue: #73d7ff;
+      --ink: #101019;
+      --violet: #351f45;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #07070c;
+      font-family: "Segoe UI", Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .stage {
+      position: relative;
+      width: min(100vw, 177.78vh);
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(10, 9, 16, .26), rgba(5, 5, 9, .72)),
+        radial-gradient(circle at 24% 34%, rgba(204, 130, 48, .20), transparent 28%),
+        radial-gradient(circle at 72% 46%, rgba(76, 189, 240, .15), transparent 31%),
+        url("/UnityClient/Assets/Art/Approved/Backgrounds/Workshop/bg_workshop_home_room.png");
+      background-size: cover;
+      background-position: center;
+      border: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .title {
+      position: absolute;
+      top: 4.8%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: #eee3cf;
+      font-size: clamp(15px, 1.8vw, 31px);
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      position: absolute;
+      top: 10%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: rgba(190, 220, 230, .72);
+      font-size: clamp(11px, 1.1vw, 18px);
+      letter-spacing: 0;
+    }
+
+    .floor {
+      position: absolute;
+      left: 15%;
+      right: 15%;
+      bottom: 10%;
+      height: 8%;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, .34);
+      filter: blur(4px);
+    }
+
+    .doll {
+      position: absolute;
+      left: 27%;
+      top: 54%;
+      width: 24%;
+      height: 74%;
+      transform: translate(-50%, -50%);
+      animation: dollFlinch 6.5s infinite, dollSway 4.8s ease-in-out infinite;
+      transform-origin: 50% 78%;
+    }
+
+    .doll-shadow {
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      bottom: 3%;
+      height: 8%;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, .42);
+      filter: blur(2px);
+    }
+
+    .formal-doll {
+      position: absolute;
+      left: 50%;
+      bottom: 1%;
+      width: 92%;
+      height: 98%;
+      object-fit: contain;
+      object-position: center bottom;
+      transform: translateX(-50%);
+      filter: drop-shadow(0 28px 24px rgba(0, 0, 0, .62));
+      animation: formalBreath 2.8s ease-in-out infinite;
+    }
+
+    .doll > :not(.formal-doll):not(.doll-shadow):not(.san-veil):not(.core) {
+      display: none;
+    }
+
+    .body {
+      position: absolute;
+      left: 30%;
+      top: 28%;
+      width: 40%;
+      height: 58%;
+      border-radius: 24% 24% 18% 18%;
+      background: linear-gradient(90deg, #6c6458, #2f2929 38%, #574837 72%, #201b1c);
+      box-shadow: inset 0 0 22px rgba(0, 0, 0, .42);
+      animation: breathe 2.8s ease-in-out infinite;
+    }
+
+    .coat {
+      position: absolute;
+      left: 22%;
+      top: 34%;
+      width: 56%;
+      height: 49%;
+      border-radius: 14% 14% 8% 8%;
+      background: linear-gradient(90deg, #241b1e, #463328 50%, #17151a);
+      opacity: .94;
+      clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
+    }
+
+    .arm {
+      position: absolute;
+      top: 36%;
+      width: 13%;
+      height: 43%;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #8d7d65, #3e342b);
+    }
+
+    .arm.left {
+      left: 13%;
+      transform: rotate(-8deg);
+    }
+
+    .arm.right {
+      right: 13%;
+      transform: rotate(8deg);
+    }
+
+    .head {
+      position: absolute;
+      left: 34%;
+      top: 9%;
+      width: 32%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #d0bca0, #847565);
+      box-shadow: inset -12px -16px 20px rgba(0, 0, 0, .22);
+      animation: headMove 3.6s ease-in-out infinite;
+    }
+
+    .hair {
+      position: absolute;
+      left: -8%;
+      top: -4%;
+      width: 116%;
+      height: 66%;
+      border-radius: 50% 50% 42% 42%;
+      background: #2d2730;
+    }
+
+    .eye {
+      position: absolute;
+      top: 48%;
+      width: 10%;
+      height: 15%;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 16px rgba(115, 215, 255, .9);
+      animation: eyeFollow 2.6s ease-in-out infinite;
+    }
+
+    .eye.left { left: 31%; }
+    .eye.right { right: 31%; }
+
+    .core {
+      position: absolute;
+      left: 49%;
+      top: 36%;
+      width: 13%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #67e4ff;
+      box-shadow: 0 0 20px #67e4ff, 0 0 48px rgba(103, 228, 255, .55);
+      animation: corePulse 1.3s ease-in-out infinite;
+    }
+
+    .san-veil {
+      position: absolute;
+      inset: 14% 7% 7%;
+      background:
+        repeating-linear-gradient(110deg, rgba(48, 15, 72, .18), rgba(48, 15, 72, .18) 10px, transparent 11px, transparent 28px),
+        radial-gradient(circle at 50% 55%, rgba(80, 12, 96, .24), transparent 58%);
+      mix-blend-mode: screen;
+      animation: sanNoise 1.1s steps(3) infinite;
+    }
+
+    @keyframes formalBreath {
+      0%, 100% { transform: translateX(-50%) scaleY(1); }
+      50% { transform: translateX(-50%) scaleY(1.018); }
+    }
+
+    .enemy {
+      position: absolute;
+      right: 12%;
+      top: 55%;
+      width: 31%;
+      height: 60%;
+      transform: translateY(-50%);
+      background: none;
+      border-radius: 0;
+      box-shadow: none;
+      animation: enemyHit 6.5s infinite;
+    }
+
+    .enemy::before {
+      content: none;
+    }
+
+    .enemy::after {
+      content: none;
+    }
+
+    .formal-enemy {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+      filter: drop-shadow(0 34px 32px rgba(0, 0, 0, .72));
+    }
+
+    .target-ring {
+      position: absolute;
+      right: 13%;
+      top: 55%;
+      width: 28%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 190, 76, .22);
+      transform: translateY(-50%);
+      animation: ringPulse 2.4s ease-in-out infinite;
+    }
+
+    .repair-arm {
+      position: absolute;
+      display: none;
+      top: 26%;
+      width: 2.4%;
+      height: 31%;
+      border-radius: 999px;
+      background: linear-gradient(#9c6d32, #44301b);
+      transform-origin: 50% 0;
+    }
+
+    .repair-arm.left {
+      left: 14%;
+      transform: rotate(-22deg);
+    }
+
+    .repair-arm.right {
+      left: 35%;
+      transform: rotate(24deg);
+    }
+
+    .repair-table {
+      position: absolute;
+      display: none;
+      left: 11%;
+      bottom: 13%;
+      width: 28%;
+      height: 4%;
+      background: rgba(143, 86, 29, .72);
+      border-radius: 16px;
+    }
+
+    .pulse {
+      position: absolute;
+      left: 24%;
+      top: 52%;
+      width: 5%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 4px solid rgba(115, 215, 255, .72);
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      animation: repairPulse 6.5s infinite;
+    }
+
+    .spark {
+      position: absolute;
+      width: .75%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #ffb33e;
+      box-shadow: 0 0 10px #ffb33e;
+      opacity: 0;
+      animation: sparkFly 6.5s infinite;
+    }
+
+    .spark.s1 { left: 22%; top: 50%; --dx: -95px; --dy: -110px; animation-delay: .18s; }
+    .spark.s2 { left: 25%; top: 47%; --dx: 130px; --dy: -82px; animation-delay: .24s; }
+    .spark.s3 { left: 27%; top: 53%; --dx: 70px; --dy: -138px; animation-delay: .31s; }
+    .spark.s4 { left: 21%; top: 56%; --dx: -120px; --dy: -60px; animation-delay: .39s; }
+    .spark.s5 { left: 24%; top: 45%; --dx: 20px; --dy: -150px; animation-delay: .47s; }
+
+    .slash {
+      position: absolute;
+      right: 23%;
+      top: 41%;
+      width: 15%;
+      aspect-ratio: 1;
+      background: url("/UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_hit.png") center / contain no-repeat;
+      filter: drop-shadow(0 0 22px rgba(255, 118, 46, .72));
+      transform: scale(.2);
+      opacity: 0;
+      animation: slashStrike 6.5s infinite;
+    }
+
+    .fragment {
+      position: absolute;
+      right: 23%;
+      top: 40%;
+      width: 14%;
+      aspect-ratio: 1;
+      background: url("/UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_shield_break.png") center / contain no-repeat;
+      filter: drop-shadow(0 0 20px rgba(119, 221, 255, .72));
+      opacity: 0;
+      animation: fragmentFly 6.5s infinite;
+    }
+
+    .fragment.f2 { --fx: -120px; --fy: 80px; animation-delay: .04s; }
+    .fragment.f3 { --fx: 92px; --fy: -95px; animation-delay: .08s; }
+    .fragment.f4 { --fx: 130px; --fy: 54px; animation-delay: .12s; }
+
+    .damage {
+      position: absolute;
+      right: 25%;
+      top: 30%;
+      color: #ffdf63;
+      font-size: clamp(24px, 4vw, 62px);
+      font-weight: 700;
+      opacity: 0;
+      text-shadow: 0 0 18px rgba(255, 176, 55, .8);
+      animation: damagePop 6.5s infinite;
+    }
+
+    .flash {
+      position: absolute;
+      inset: 0;
+      background: #fff2d8;
+      opacity: 0;
+      pointer-events: none;
+      animation: screenFlash 6.5s infinite;
+    }
+
+    .status {
+      position: absolute;
+      left: 25%;
+      right: 25%;
+      bottom: 4%;
+      min-height: 6.6%;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .08);
+      background: rgba(11, 9, 13, .78);
+      color: #ece1c8;
+      font-size: clamp(12px, 1.4vw, 23px);
+      text-align: center;
+      animation: statusText 6.5s infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(1.035); }
+    }
+
+    @keyframes headMove {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(6px, -3px); }
+    }
+
+    @keyframes eyeFollow {
+      0%, 100% { transform: translateX(-1px); }
+      50% { transform: translateX(4px); }
+    }
+
+    @keyframes corePulse {
+      0%, 100% { transform: scale(.92); opacity: .82; }
+      50% { transform: scale(1.16); opacity: 1; }
+    }
+
+    @keyframes sanNoise {
+      0%, 100% { opacity: .55; transform: translate(0, 0); }
+      50% { opacity: .88; transform: translate(3px, -2px); }
+    }
+
+    @keyframes dollSway {
+      0%, 100% { rotate: -.7deg; }
+      50% { rotate: .7deg; }
+    }
+
+    @keyframes dollFlinch {
+      0%, 61%, 67%, 100% { translate: 0 0; }
+      63% { translate: -18px 0; }
+      65% { translate: 12px 0; }
+    }
+
+    @keyframes enemyHit {
+      0%, 61%, 68%, 100% { transform: translateY(-50%) translateX(0); filter: brightness(1); }
+      63% { transform: translateY(-50%) translateX(18px); filter: brightness(1.9); }
+      65% { transform: translateY(-50%) translateX(-10px); }
+    }
+
+    @keyframes ringPulse {
+      0%, 100% { transform: translateY(-50%) scale(.96); opacity: .48; }
+      50% { transform: translateY(-50%) scale(1.04); opacity: .9; }
+    }
+
+    @keyframes repairPulse {
+      0%, 17%, 28%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(.25); }
+      20% { opacity: .78; }
+      27% { opacity: 0; transform: translate(-50%, -50%) scale(4.2); }
+    }
+
+    @keyframes sparkFly {
+      0%, 17%, 30%, 100% { opacity: 0; transform: translate(0, 0) scale(.6); }
+      19% { opacity: 1; }
+      28% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(.2); }
+    }
+
+    @keyframes slashStrike {
+      0%, 58%, 68%, 100% { opacity: 0; transform: rotate(-15deg) scaleX(0); }
+      61% { opacity: 1; transform: rotate(-15deg) scaleX(1); }
+      66% { opacity: 0; transform: rotate(-15deg) scaleX(2.4); }
+    }
+
+    @keyframes fragmentFly {
+      0%, 60%, 70%, 100% { opacity: 0; transform: translate(0, 0) rotate(0); }
+      62% { opacity: 1; }
+      69% { opacity: 0; transform: translate(var(--fx, 88px), var(--fy, -72px)) rotate(48deg); }
+    }
+
+    @keyframes damagePop {
+      0%, 60%, 70%, 100% { opacity: 0; transform: translateY(20px) scale(.85); }
+      62% { opacity: 1; transform: translateY(0) scale(1.1); }
+      69% { opacity: 0; transform: translateY(-78px) scale(1); }
+    }
+
+    @keyframes screenFlash {
+      0%, 60%, 65%, 100% { opacity: 0; }
+      61% { opacity: .23; }
+    }
+
+    @keyframes statusText {
+      0%, 17% { color: transparent; }
+      1%, 16% { color: #ece1c8; }
+      18%, 43% { color: #74e1ff; }
+      44%, 58% { color: #ece1c8; }
+      59%, 74% { color: #ffd870; }
+      75%, 100% { color: #ece1c8; }
+    }
+
+    .status::before {
+      content: "Idle: breathing, gaze, unstable SAN veil";
+      animation: statusCopy 6.5s infinite;
+    }
+
+    @keyframes statusCopy {
+      0%, 17% { content: "Idle: breathing, gaze, unstable SAN veil"; }
+      18%, 43% { content: "Care: repair spark and pulse sweep"; }
+      44%, 58% { content: "Recover: return to controllable UI"; }
+      59%, 74% { content: "Combat: slash, impact shake, shield fragments"; }
+      75%, 100% { content: "Idle: breathing, gaze, unstable SAN veil"; }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage" aria-label="P3 expression preview animation">
+    <div class="title">P3 expression preview: pseudo Live2D + repair sparks + combat VFX</div>
+    <div class="subtitle">Browser mock mirrors the Unity runtime prototype. No main flow binding changed.</div>
+    <div class="floor"></div>
+    <div class="repair-table"></div>
+    <div class="repair-arm left"></div>
+    <div class="repair-arm right"></div>
+    <section class="doll" aria-label="doll">
+      <div class="doll-shadow"></div>
+      <img class="formal-doll" src="/UnityClient/Assets/Art/Approved/Dolls/doll_proto_0_stand.png" alt="">
+      <div class="arm left"></div>
+      <div class="arm right"></div>
+      <div class="body"></div>
+      <div class="coat"></div>
+      <div class="head">
+        <div class="hair"></div>
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+      </div>
+      <div class="core"></div>
+      <div class="san-veil"></div>
+    </section>
+    <div class="pulse"></div>
+    <div class="spark s1"></div>
+    <div class="spark s2"></div>
+    <div class="spark s3"></div>
+    <div class="spark s4"></div>
+    <div class="spark s5"></div>
+    <section class="enemy" aria-label="enemy">
+      <img class="formal-enemy" src="/UnityClient/Assets/Art/Approved/Monsters/Combat/monster_mob_rust_hound_combat.png" alt="">
+    </section>
+    <div class="target-ring"></div>
+    <div class="slash"></div>
+    <div class="fragment f1"></div>
+    <div class="fragment f2"></div>
+    <div class="fragment f3"></div>
+    <div class="fragment f4"></div>
+    <div class="damage">-37</div>
+    <div class="status"></div>
+    <div class="flash"></div>
+  </main>
+</body>
+</html>

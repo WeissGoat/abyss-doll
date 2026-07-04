@@ -1,0 +1,44 @@
+{
+  "GeneratedAt": "2026-06-10T00:43:18+08:00",
+  "Gate": "ready_for_art_review",
+  "GateReasons": [
+    "New ArtAcceptance evidence exists and registry gate is clear."
+  ],
+  "Inputs": {
+    "ReportPath": "UnityClient/Logs/ArtAcceptance/latest/report.json",
+    "RegistryGapPath": "美术文档/_generated/VisualAssetRegistry登记缺口清单.json",
+    "HandoffPath": "美术文档/_generated/程序接入交接清单.json",
+    "BaselineRunID": "20260606_230523"
+  },
+  "Summary": {
+    "ProgramIntegrateVisualCount": 87,
+    "MissingRegistryCount": 0,
+    "MissingApprovedFileCount": 0,
+    "MissingMetaFileCount": 0,
+    "RerunAcceptanceScreenCount": 16,
+    "ExistingRerunScreenshotCount": 16,
+    "ReportRunID": "20260610_003347",
+    "ReportStatus": "PASSED",
+    "ReportEntryCount": 278,
+    "ReportMissingRequiredVisualIDCount": 0
+  },
+  "RequiredNextAction": "Art: review latest screenshots/contact sheet and update runtime art acceptance record.",
+  "RerunAcceptanceScreens": [
+    "daily_bill_report",
+    "layer_select",
+    "maintenance_panel",
+    "prosthetic_panel",
+    "safe_room",
+    "sell_panel",
+    "stairs_room",
+    "business_settlement",
+    "chassis_upgrade_panel",
+    "doll_interaction",
+    "doll_room",
+    "faction_shop",
+    "order_board",
+    "rumor_board",
+    "scenario_event",
+    "shop_staging"
+  ]
+}

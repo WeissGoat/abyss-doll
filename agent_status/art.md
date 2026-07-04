@@ -26,8 +26,10 @@ related:
   - 知识库/views/art.md
   - 美术文档/15_FormalV2运行时验收待办清单.md
   - 美术文档/16_Live2D角色动画资产接入规格.md
+  - 美术文档/17_Agent原生动态立绘资产接入规格.md
   - 开发文档/17_Live2DSpine运行时接入评估.md
-last_verified: 2026-06-13
+  - 开发文档/18_全局叙事播放系统开发方案.md
+last_verified: 2026-07-04
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
 
@@ -35,11 +37,18 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 最后更新
 
-2026-06-13
+2026-07-04
 
 ## 当前关注
 
 支撑正式版核心纵切。按最新 `09` 路线，美术 / UI 作为 P5 表现支撑，只围绕当前 P0-P4 功能纵切补表达、资源和截图验收，不继续横向铺所有界面。
+
+T0-01A 叙事播放 UI 当前已有 `NARR-03` 纯 UGUI 对白层代码入口，并已补第一版演出合成层：缺正式 `cg_t0_01a_*` CG 时，运行时可用现有 Approved 工坊背景、债务纸 / 核心碎片 / 维修图标和 `doll_proto_0_stand` 合成过程 CG 画面。当前已有 Unity runtime smoke 与 PlayMode 状态证据，但仍缺连续截图或 ArtAcceptance 旁路证据，因此不能标记为画面验收通过。
+`T0-FLOW-01` 开场前半段已由程序侧接入 Narrative 自动推进：黑屏、债务纸、修复手记、核心碎片和发现零号通过 VisualID / fallback 表现意图进入播放链路。当前未新增 Approved 素材、Manifest、Registry 或 active `screen_layouts.json`，也未产出黑屏 / 工坊特写 / 发现零号截图，因此美术侧仍不能标记序章画面验收通过。
+`T0-FLOW-02` 程序侧已接入 `启动人偶` 单按钮、零号苏醒、状态小卡和 `擦去核心仓灰尘` 的 Narrative 表现命令链路：状态卡仍复用 `ui_status_card_prologue` / `ui_panel_main` fallback，启动 VFX 复用 `vfx_no0_core_start` / `ui_core_glow` fallback。本轮没有新增 Approved 素材、Manifest、Registry 或 active `screen_layouts.json`，也未产出启动按钮态 / 状态小卡截图，因此美术侧仍只记录程序可达，不标记画面验收通过。
+`T0-FLOW-03` 程序侧已接入半开放工坊与浅层入口主行动：工坊使用现有 UGUI 面板和按钮皮肤进入 `PrologueHalfOpen` 状态，隐藏市场、完整维护、义体、底盘、订单、传闻、势力等入口，只保留 `浅层入口` 主行动、零号状态提示和压力文案。本轮没有新增 Approved 素材、Manifest、Registry 或 active `screen_layouts.json`，也未产出半开放工坊截图，因此美术侧仍只记录程序可达，不标记画面验收通过。
+
+`T0-FLOW-04` 程序侧已接入首潜第一层确认态：复用现有 `layer_select` / `DungeonStartLayerUIController` UGUI 面板，只显示第一层，按钮改为 `出发 / 再看她一眼`，并显示许可通过或阻断的玩家可读中文文案。本轮没有新增 Approved 素材、Manifest、Registry 或 active `screen_layouts.json`，也未产出首潜确认面板截图，因此美术侧仍只记录程序可达，不标记画面验收通过。
 
 PM 版本节点中，美术线当前 21 个界面都已具备 Formal V1 active 规格。美术侧已主动触发 latest ArtAcceptance `20260527_002436`，工具层 21/21 captured、`PASSED`、Registry 191、MissingRequiredVisualIDs=0、UI snapshot risks=0；latest 程序交接清单为 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=0`。本轮人工验收结论是“资源接入通过、画面不完全通过”：`combat_hud`、`dungeon_map`、`safe_room`、`stairs_room`、`sell_panel`、`prosthetic_panel` 需要程序侧清理截图状态或补有效展示数据后重跑；其余界面多为通过或条件通过，后续继续 Visual V2 同名替换。
 
@@ -138,6 +147,17 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 
 ## 最近完成
 
+- 2026-07-04 `T0-01A` 序章演出合成 MVP 已由程序侧接入到 `P3DialogueOverlayController`：`cg_t0_01a_debt_notice`、`cg_t0_01a_repair_note`、`cg_t0_01a_core_shard`、`cg_t0_01a_find_no0`、`vfx_no0_core_start`、`stand_no0_weak_sitting` 和 `ui_status_card_prologue` 会在缺正式 CG 时映射到现有 Approved 工坊背景、道具卡和零号静态立绘；`NarrativeOverlaySmokeTest` 已新增工坊背景、债务纸和人偶显示断言。验证证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 0 warning / 0 error；`dotnet build UnityClient/Assembly-CSharp-Editor.csproj --no-restore` 0 warning / 0 error；`UnityClient/Logs/TestReport.json` 中 `PrologueFirstDivePermissionSmokeSuite.Run` 为 `PASSED`；`PlayModeRecoveryTools.ReportRuntimeState` 显示 `visual=cg_t0_01a_debt_notice` 且 stage 为 `bg_workshop_home_room` + `memento_debt_shadow_window`。本轮未新增 Approved、Manifest、Registry 或 `screen_layouts.json`，也未产出连续截图 / ArtAcceptance，因此只承认“可运行演出合成 MVP”，不承认最终视觉通过。
+- `T0-VAL-01` 已完成美术 / UI 侧状态回写：T0-01A 从黑屏、过程 CG、启动单按钮、状态小卡、半开放工坊、首潜确认到第一层进入的程序主链已具备 Owner 级 smoke 证据，但本轮仍未补到黑屏字幕、过程 CG、`启动人偶`、状态小卡、半开放工坊、第一层确认允许态 / 阻断态、出发切黑和第一层进入的连续截图；因此美术侧当前只承认“画面入口可达 / 程序链已通”，不承认“序章画面验收通过”。
+- `T0-FLOW-04` 首潜第一层确认 UI 程序侧已新增：`DungeonStartLayerUIController.PresentFirstDive()` 复用现有层选择面板，固定 `layerID=1`，只展示 `第一层  旧矿井浅缝`，按钮为 `出发 / 再看她一眼`，许可通过和磨损等阻断态都以中文玩家文案显示；`再看她一眼` 返回半开放工坊。该状态由 Narrative `open_layer_confirm` 的 FirstDive 请求或工坊 `OpenFirstDiveLayerConfirmPanel()` 打开，不新增素材、不改 Manifest / Registry / `screen_layouts.json`。
+- `T0-FLOW-04` 美术 / UI 验证限制：Unity AutoTest smoke `PrologueFirstDiveLayerConfirmSmokeTest.Run` 已通过，日志 `UnityClient/Logs/prologue_first_dive_layer_confirm_autotest_codex_20260701.log` 显示 `Prologue First Dive Layer Confirm Smoke PASSED`；半开放工坊回归 `UnityClient/Logs/prologue_half_open_autotest_codex_20260701_t0flow04_regression.log` 显示 `Prologue Half Open Narrative Flow Smoke PASSED`。但本轮未生成首潜确认允许态 / 阻断态截图或 ArtAcceptance 旁路证据，记录 `validation_limited:screenshots_not_captured_for_T0_FLOW_04`。
+- `T0-FLOW-03` 半开放工坊 UI 程序侧已新增：`WorkshopUIController.EnterPrologueHalfOpen()` 复用当前 `workshop_main` UGUI 结构，将主按钮改为 `浅层入口`，灰态表达未开放系统，并保留零号状态提示。该状态由 Narrative `unlock_ui shallow_gate` 驱动，不新增素材、不改 Manifest / Registry / `screen_layouts.json`。
+- `T0-FLOW-03` 美术 / UI 验证限制：Unity batchmode smoke `PrologueHalfOpenFlowEditorRunner.RunFromBatchmode` 已通过，日志 `UnityClient/Logs/prologue_half_open_flow_editor_runner_codex_20260701_rerun.log` 显示 `Prologue Half Open Narrative Flow Smoke PASSED`；但本轮未生成半开放工坊截图或 ArtAcceptance 旁路证据，记录 `validation_limited:screenshots_not_captured_for_T0_FLOW_03`。
+- `NARR-03` 纯 UGUI 叙事 overlay 程序侧已新增：`P3DialogueOverlayController` 使用 UGUI 构建黑屏层、VisualID 表现容器、对白框、说话人 / 正文、继续按钮和单按钮动作；VisualID 只通过 `VisualAssetService` / fallback 解析，不在对白表或 UI 代码中写资源路径。本轮未新增 Approved 素材、未修改 Manifest / Registry / `screen_layouts.json`，也未生成截图。
+- `NARR-03` 美术 / UI 验证限制：当前已补 Unity runtime smoke 和 PlayMode 状态证据，`NarrativeOverlaySmokeTest` 覆盖债务镜头与发现零号镜头的工坊背景 / 道具 / 人偶 staging；但黑屏字幕、过程 CG 容器、`启动人偶` 单按钮态、状态小卡、半开放工坊、首潜确认和第一层进入仍缺连续截图或 ArtAcceptance 旁路，因此记录 `validation_limited:continuous_screenshots_not_captured_for_T0_01A_staging`。
+
+- 已迭代 `T0-01A_开局人偶状态到首次下潜许可开发方案.md` 的美术 / UI 交付口径：T0-01A 现在明确对白表 / Yarn / Narrative JSON 不写真实资源路径，只写 VisualID、角色表现参数或表现意图；首版建议复用或登记 `cg_t0_01a_black_wake`、`cg_t0_01a_debt_notice`、`cg_t0_01a_repair_note`、`cg_t0_01a_core_shard`、`cg_t0_01a_find_no0`、`no0 expression=weak pose=sitting`、`vfx_no0_core_start`、`vfx_shallow_gate_wake` 等表现意图，并要求 `locked_for_implementation` 前关键项有 Approved 素材、动态 Prefab 映射或明确 fallback。本轮只更新开发方案，未新增素材需求、未改 Approved、未刷新 Manifest。
+- 已同步全局叙事播放系统的美术素材绑定口径到 `开发文档/18_全局叙事播放系统开发方案.md`：对白表 / Yarn 不写真实资源路径，只写 VisualID、角色表现参数或表现意图；`narrative_nodes.json.visual_intents` 汇总 CG、静态立绘 / 头像、Live2D / Spine / DollPuppet、VFX / 音效、对话 UI 皮肤和 fallback 需求；`locked_for_implementation` 前关键 VisualID 必须有 Approved 素材、动态 Prefab 映射或明确 fallback。本轮只补开发方案口径，未新增素材需求、未改 Approved、未刷新 Manifest。
 - 2026-06-13 美术 / UI 侧确认后续涉及纯 UGUI 的布局、视觉层级、皮肤绑定、VisualID 表现、截图验收和非玩法 UI polish 默认由美术侧直接闭环；只有领域服务、后端规则、Unity 工程约束、自动验收工具或 UGUI 底层能力阻断时再交给程序侧。
 - 2026-06-13 美术 / UI 侧继续直接处理 FormalV2 运行时 UGUI 精修并完成当前纵切基线封版：`dungeon_map` 节点缩小、标签缩短、路线降噪并按纵深重新布局；`sell_panel` / `prosthetic_panel` modal tint 和遮罩层级更干净；11 个旧模板屏已补独立薄 Controller 路径并不再走 `formal_v1_template` 降级截图。最终 ArtAcceptance `RunID=20260613_020257` 工具层 `PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0、`RealGameplay=21`、`FormalV1Template=0`；当前 FormalV2 runtime UI visual seal 通过纵切基线，后续共享子面板差异化属于质量迭代。证据入口：`UnityClient/Logs/ArtAcceptance/latest/report.json`、`UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260613_020257_codex.png`、`美术文档/09_运行时美术验收记录.md`。
 - 2026-06-12 美术 / UI 侧已直接完成一轮 FormalV2 运行时 UGUI 精修和验收工具修复：ArtAcceptance `RunID=20260612_231356` 工具层 `PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0；`ScenarioEventPanel_Runtime` 跨截图污染已清除，只保留在 `scenario_event` 自身截图。核心 P0 UI 结构条件通过：`workshop_main` 不再常驻背包格，`inventory_loot` 改为战斗场景半透明拾取叠层，`combat_hud` 状态文字与条形控件不再明显压叠，`settlement` 标题 / 摘要 / 三列结构可读。证据入口：`UnityClient/Logs/ArtAcceptance/latest/report.json`、`UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260612_231356_codex.png`、`美术文档/09_运行时美术验收记录.md`。
@@ -286,14 +306,19 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 
 1. 程序侧不再需要登记资源：latest `program_integrate=0`、`missing_registry=0`、ArtAcceptance `20260613_020257 PASSED`、Registry 278、`MissingRequiredVisualIDs=0`、`RealGameplay=21`、`FormalV1Template=0`。
 2. FormalV2 UI 后续运行时视觉 / 布局精修由美术 / UI 侧直接处理，仍遵守纯 UGUI、active `screen_layouts.json`、真实玩家流程和 ArtAcceptance 证据口径；只有领域服务、工具链、Unity 工程约束或测试底座问题再交给程序侧。
-3. FormalV2 运行时 UI 当前已通过资源 / Registry / ArtAcceptance 工具门禁和当前纵切基线封版；下一轮美术 / UI 侧按玩家流程继续做质量迭代，优先区分共享工坊子面板的专屏结构，其次再处理背景候选、动画 / VFX、图标语义和真实玩家流程中的小尺寸可读性复查。
+3. `T0-01A` 后续只补关键画面截图或 ArtAcceptance 旁路：至少覆盖黑屏字幕、过程 CG 容器、`启动人偶` 单按钮、状态小卡、半开放工坊、第一层确认允许态 / 阻断态、出发切黑和第一层进入；在这些证据出现前，只能记录为程序主链可达，不能记录为画面通过。
+4. FormalV2 运行时 UI 当前已通过资源 / Registry / ArtAcceptance 工具门禁和当前纵切基线封版；下一轮美术 / UI 侧按玩家流程继续做质量迭代，优先区分共享工坊子面板的专屏结构，其次再处理背景候选、动画 / VFX、图标语义和真实玩家流程中的小尺寸可读性复查。
 4. 当前不要重开批量资源登记或批量 NovelAI 补图；如果下一轮截图证明某个 VisualID 在真实尺寸下语义或可读性不足，再做单项 NovelAI 同名替换。仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`，已接入同名替换必须使用 strict meta guard。
 5. 后续每次刷新美术 `_generated` 关键 JSON 后，运行 `Validate-ArtGeneratedJson.ps1 -Strict`，确认程序交接和美术验收依赖的 JSON 在 UTF-8 读取下可解析。
 
 ## 问题 / 阻塞
 
+- `T0-VAL-01` 视觉验收仍受限：当前工作区 clean batchmode 因项目已被另一 Unity 实例占用，无法直接补新截图；打开中的 Unity 会话虽可消费测试触发，但 `PrologueFirstDiveLayerConfirmSmokeTest.Run` / `PrologueFirstDiveDepartureSmokeTest.Run` 与 `2026-07-02` clean batchmode 结果不一致，因此本轮不以 live-editor smoke 反推画面通过。
 - 当前工作区仍有大量程序、策划、Unity 资产和知识库生成物处于脏状态；美术侧提交时只纳入本轮美术流水线相关文件。
 - P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 / FormalV2 正式视觉完成；当前必须以 latest ArtAcceptance、逐屏截图复验和本状态页结论为准。
+- `NARR-03` 已有 Unity runtime smoke 和 PlayMode 状态证据，但仍缺黑屏字幕、过程 CG 容器、`启动人偶` 单按钮、状态小卡、半开放工坊、首潜确认和第一层进入的连续截图 / ArtAcceptance 旁路；当前只能证明演出合成层可运行，不能证明最终画面质量通过。
+- `T0-FLOW-03` 缺半开放工坊截图 / ArtAcceptance 证据；当前只能证明程序侧状态和按钮链路可达，不能证明画面验收通过。
+- `T0-FLOW-04` 缺首潜第一层确认允许态 / 阻断态截图或 ArtAcceptance 旁路证据；当前只能证明程序侧 UGUI 状态、文案和按钮链路可达，不能证明画面验收通过。
 - 本轮已从外部 `F:\my_project\new\tags_machine\novelai\client.py` 只读提取 NovelAI token 到当前进程并真实调用 NovelAI；未提交 token，未使用 mock / local_v0 冒充正式图。后续跑图仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`。
 - FormalV2 资源登记门禁已清空，最新 ArtAcceptance `20260613_020257` 工具层通过且 `FormalV1Template=0`；当前 FormalV2 runtime UI visual seal 已通过纵切基线。共享工坊子面板仍需后续专屏差异化，但不再作为当前封版阻塞。
 - FormalV2 V2-A 已进入 active 规格；V2-B / V2-C 仍按 draft 管理，未写入 active 前不作为程序接入口。
@@ -435,6 +460,13 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 下一步建议：外部补齐经人工清理的分层源、遮罩、候选筛选结论和 Cubism / Spine 绑定输出后，再重新打开 `L2D-ART-03`。
 - 问题 / 阻塞：仍为 `blocked:missing_layered_source_and_cubism_binding_output`；不得用空目录、静态图、浏览器预览或 Unity 伪 rig 关闭该阻塞。
 
+## 2026-06-13 Agent原生动态立绘规格迭代
+
+- 最近完成：新增 `美术文档/17_Agent原生动态立绘资产接入规格.md`，将首版动态魔偶立绘主线调整为 `Agent-native DollPuppet first`：分层 PNG、rig JSON、motion JSON、expression JSON、Unity importer / runtime、Prefab、fallback 和独立验收。
+- 当前关注：`美术文档/16_Live2D角色动画资产接入规格.md` 已转为 Cubism / Spine 外部导出兼容路线，不再把 `.moc3` / `.skel` 作为首版阻塞项；Spine JSON 只作为授权与 runtime 兼容确认后的实验支线。
+- 下一步建议：后续重新拆 DollPuppet 任务时，先做 `doll_proto_0` 正式立绘 / 分层源 / 表情差分，再产出 Approved DollPuppet 包与独立多帧验收，不把 AI 视频或静态 fallback 写成动态通过。
+- 问题 / 阻塞：当前仍未制作 `doll_proto_0` DollPuppet Approved 包；本轮是规格迭代，不代表动态立绘资产已交付。
+
 ## 2026-06-13 Live2D试点交接收口
 
 - 最近完成：本轮试点已把路线、限制和程序接入基础设施收口：`美术文档/16_Live2D角色动画资产接入规格.md` 定义 Cubism first / Spine fallback 和 AI 辅助边界；`_IncomingAI/DollsLive2D/doll_proto_0/` 记录 fallback、补层 / 表情候选请求包；程序侧完成 Prefab fallback、Presenter、UGUI bridge 和独立验收 runner。
@@ -467,3 +499,191 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 当前关注：这轮不新增 Approved、Manifest、Registry 或 `screen_layouts.json`，只处理 Unity 运行时 UI 表现层；最新证据为 ArtAcceptance `RunID=20260613_024312`、`PASSED`、21/21 captured、Registry 278、`MissingRequiredVisualIDs=0`、warnings/errors=0、`RealGameplay=20`、`AcceptancePreview=1`、`FormalV1Template=0`。`sell_panel` / `prosthetic_panel` 通过当前纵切基线，后续仍可做更高品质插画化 / 动效化。
 - 下一步建议：UI 直管流程继续有效。下一批优先按玩家流程看 `maintenance_panel`、`chassis_upgrade_panel`、`shop_staging` / `daily_bill_report` 等共享子面板是否需要从“可用结构”提升为更有场景语义的专屏结构；只有玩法服务、测试底座或 Unity 工程约束问题再交给程序侧。
 - 验证证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 0 warning / 0 error；`Validate-UIDesign.ps1` 通过；`Validate-ArtGeneratedJson.ps1 -Strict` 通过；`Invoke-P0Validation.ps1 -SkipUnity -SkipArtAcceptance:$false -ArtAcceptanceTimeoutSeconds 240` 通过。限制：本轮 P0 wrapper 使用 `-SkipUnity`，因此 ConfigValidator 与 Unity smoke tests 未执行，ArtAcceptance 已重新运行并通过。
+
+## 2026-06-13 AI图片网关NovelAI inpaint候选闭环
+
+- 最近完成：`tools/ai-image-gateway` 已补 NovelAI inpaint 多候选能力、固定 seed、P3 Live2D 候选 runner 和 mock dry-run；runner 只写 `UnityClient/Assets/Art/_IncomingAI/DollsLive2D/<DollID>/inpaint_candidates/` 与对应 `generation.json` 证据字段，不同步 Approved、Manifest、Registry 或 FormalV2 队列。
+- 当前关注：`doll_proto_0` 请求包 dry-run 可读到 `doll_proto_0_stand` fallback，但 8 个候选请求仍因缺 mask 或缺 `MaskTarget` 被阻塞；真实候选图数量仍为 0，不能进入 Cubism / Spine 绑定。
+- 下一步建议：先人工补齐 `masks/hair_face_hidden_fill.png`、`body_overlap_fill.png`、`hand_leg_joint_fill.png`、`core_glow_masks.png`，并为表情差分请求补 MaskTarget 后，再用 NovelAI provider 串行生成候选和 contact sheet。
+- 验证证据：`pytest tests -q` 于 `tools/ai-image-gateway` 通过，60 passed；P3 dry-run 报告 processed=8、blocked=8、failed=0，未写入候选图。
+
+## 2026-06-13 DollPuppet试点P3 mission设计
+
+- 最近完成：基于 `美术文档/17_Agent原生动态立绘资产接入规格.md` 新增本地 P3 mission `.mission/20260613_232104-基于-Agent-native-DollPuppet-规格推进-doll-proto-0-首版动.csv`，拆成门禁、正式立绘与 fallback、分层 / 表情候选、Approved DollPuppet 包、程序 schema / importer / runtime、UGUI 桥接、独立验收和交接复核。
+- 当前关注：该 mission 只是本地执行队列，不是新的美术事实来源；当前仍未制作 `UnityClient/Assets/Art/Approved/DollPuppets/doll_proto_0/`，也没有 DollPuppet Prefab、Manifest / Registry 登记或 FormalV2 ArtAcceptance 条件变更。
+- 下一步建议：若继续执行，先跑 `DP-GATE-01` 核对 `16` / `17` / 程序评估和状态页口径一致，再进入 `DP-ART-01` 正式立绘源与 fallback 锁定；不得复用旧 Cubism 阻塞项作为 DollPuppet 主线阻塞。
+- 验证证据：`Test-P3Mission.ps1 -Strict` 通过，mission 当前 `tasks=0/10 done`，下一行是 `DP-GATE-01`。
+
+## 2026-06-13 DollPuppet主路线门禁确认
+
+- 最近完成：`DP-GATE-01` 已完成门禁核对：`美术文档/17_Agent原生动态立绘资产接入规格.md` 是首版动态魔偶立绘主线，`美术文档/16_Live2D角色动画资产接入规格.md` 只保留 Cubism / Spine 外部导出兼容边界，程序评估也明确首版优先 `Agent-native DollPuppet`。
+- 当前关注：本行没有新增 Approved 图片、Manifest 条目、Registry、`screen_layouts.json`、DollPuppet Prefab 或 FormalV2 ArtAcceptance 必过项；旧 `L2D-ART-03` 的 Cubism 绑定阻塞不再阻断 DollPuppet 主线，但仍不代表 DollPuppet 资产已交付。
+- 下一步建议：进入 `DP-ART-01` 时应在 `_IncomingAI/DollPuppets/doll_proto_0/` 建立正式立绘源 / fallback 记录，而不是继续写入旧 `_IncomingAI/DollsLive2D` 工作区。
+- 验证证据：`Test-P3Mission.ps1 -Strict` 通过；门禁源文档、程序评估和 art/program 状态页口径一致。
+
+## 2026-06-13 DollPuppet正式立绘与fallback源锁定
+
+- 最近完成：`DP-ART-01` 已建立 `UnityClient/Assets/Art/_IncomingAI/DollPuppets/doll_proto_0/` 工作区，并将现有 `doll_proto_0_stand` 复制为 `source/base_flat.png`，同时新增 `notes.md`、`generation.json` 和 `contact_sheet/README.md` 记录 DynamicVisualID、ModelKind、fallback、风格修正、正式 repaint prompt 草案和 provider 限制。
+- 当前关注：本行没有生成新 AI 图；当前 Codex 工具环境未暴露内置 `image_gen`，且未获授权切到 NovelAI / AI 图片网关 / CLI fallback / mock。本行证据等级为 `validation_limited:provider_unavailable`，不能标记为正式新立绘或可分层源已完成。
+- 下一步建议：`DP-ART-02` 可以在该 DollPuppet 工作区继续补 masks、layer candidate requests、expression candidate requests 和 contact sheet 结构；真正产出候选图前仍需要可用 provider 或人工绘制 / 清理输入。
+- 验证证据：`generation.json` 可被 `ConvertFrom-Json` 解析；`base_flat.png` 为 `1024x1536`；`Validate-Docs.ps1` 通过，且未修改 Approved、Manifest、Registry、`screen_layouts.json` 或 FormalV2 ArtAcceptance。
+
+## 2026-06-13 DollPuppet分层与表情候选包阻塞
+
+- 最近完成：`DP-ART-02` 已补齐 DollPuppet 候选请求包结构：`masks/README.md`、`layer_candidates/README.md`、`expression_candidates/README.md`、`contact_sheet/README.md` 和 `generation.json` 的 `candidatePackage`，覆盖 body / head / hair / arms / legs / core / accessory 以及 `blink`、`low_san`、`hurt`、`relaxed` 表情差分请求。
+- 当前关注：该行按规格标记为阻塞而非完成：当前没有真实 mask PNG、没有 provider 输出、没有 layer candidate 图、没有 expression candidate 图，也没有 contact sheet 缩略图；不能进入 Approved DollPuppet 包或 schema / rig 资产制作。
+- 下一步建议：先补 `masks/hair_face_hidden_fill.png`、`body_overlap_fill.png`、`hand_leg_joint_fill.png`、`core_glow_masks.png`，并在可用 `image_gen` 或用户明确批准的 provider 下串行生成候选，再更新 contact sheet 和人工筛选结论。
+- 问题 / 阻塞：`blocked:missing_provider_and_masks`。这不影响 FormalV2 静态 UI / ArtAcceptance，也不要求回到 Cubism / Spine 路线。
+
+## 2026-06-14 DollPuppet Approved包组装阻塞
+
+- 最近完成：`DP-ART-03` 已完成入库前核对，结论为阻塞而非完成：`UnityClient/Assets/Art/Approved/DollPuppets/doll_proto_0/` 不存在，`_IncomingAI/DollPuppets/doll_proto_0/` 目前只有静态 `source/base_flat.png`、请求包 README 和 `generation.json`，没有真实 mask PNG、分层候选、表情候选、人工清理后的层图、rig / mesh / motion / expression JSON。
+- 当前关注：不得创建空 Approved 包、不得把 raw request / README 当成正式层图，也不得刷新 Manifest、Registry、`screen_layouts.json` 或 FormalV2 ArtAcceptance 条件来“通过”动态立绘。
+- 下一步建议：先补真实 masks 和 provider / 人工绘制输出，完成分层候选筛选与边缘清理后，再重新组装 `SourceRefs`、`Textures/layers`、`Rig`、`Motions` 和 `Expressions`。
+- 问题 / 阻塞：`blocked:missing_cleaned_layered_source_and_candidate_outputs`。静态 fallback 仍使用 `doll_proto_0_stand`，当前阻塞不影响 FormalV2 静态 UI / ArtAcceptance。
+
+## 2026-06-14 DollPuppet UGUI桥接美术边界
+
+- 最近完成：同步 `DP-UI-01` 程序侧核对结论：现有 UGUI 桥接底座可继续作为 `DollDynamic` / DollPuppet 显示基础，但当前没有动态 Prefab、正式界面接入截图或 Unity 射线验证。
+- 当前关注：美术验收仍不能把静态 fallback、独立桥接组件、编译通过或旧 Live2D 命名兼容写成 `doll_proto_0_live2d` 动态画面已通过；FormalV2 静态 UI / ArtAcceptance 条件不因该试点扩大。
+- 下一步建议：先补齐 Approved DollPuppet 包和程序生成 Prefab，再看 `workshop_main` / `doll_room` 多帧动态截图、fallback 切换和 UI 遮挡 / 射线证据。
+- 问题 / 阻塞：`blocked:missing_dynamic_prefab_and_unity_ui_evidence`。当前动态立绘美术验收仍停在制作输入和运行态证据缺失。
+
+## 2026-06-14 AI图片网关NovelAI真实inpaint业务测试
+
+- 最近完成：已补 `UnityClient/Assets/Art/_IncomingAI/DollsLive2D/doll_proto_0/masks/hair_face_hidden_fill.png`，并用 AI 图片网关 NovelAI provider 对 `l2d_fill_hair_face_01` 跑真实 inpaint 出图 1 张：`UnityClient/Assets/Art/_IncomingAI/DollsLive2D/doll_proto_0/inpaint_candidates/hair_face/l2d_fill_hair_face_01_00_seed20260614.png`。`generation.json` 已记录 `GeneratedCount=1`、provider=`novelai`、model=`nai-diffusion-4-5-full-inpainting`。
+- 当前关注：该输出是真实 provider 业务链路证据，但画面 mask 区域出现大块灰色填充，不能作为可清理分层源、不能进入 Approved、Manifest、Registry、FormalV2 队列或 Cubism / Spine / DollPuppet 绑定。
+- 下一步建议：后续先缩小 / 重画 face-only mask，并在限流窗口外继续串行试跑；同时补齐 `body_overlap_fill.png`、`hand_leg_joint_fill.png`、`core_glow_masks.png` 与表情差分 `MaskTarget` 后再生成 contact sheet 和人工筛选结论。
+- 问题 / 阻塞：真实出图链路已验证，但候选质量未通过；第二次 `--no-add-original-image` 参数试跑被 NovelAI 429 限流，没有第二张输出。动态立绘资产仍是 `blocked:missing_cleaned_layered_source_and_candidate_outputs`。
+- 验证证据：`tools/ai-image-gateway` 执行 `python -m pytest tests -q` 通过，65 passed；`git diff --check` 仅输出既有 CRLF 提示，无 whitespace error；`generation.json` 可解析，mask 为 `1024x1536`，真实输出为 `832x1216`。
+
+## 2026-06-14 NovelAI 4.5 inpaint gateway fix
+
+- Recently completed: fixed `tools/ai-image-gateway` NovelAI inpaint payload sizing for 4.5. The provider now applies the free-tier size limit before encoding `parameters.image` and `parameters.mask`, flattens RGBA source images to RGB for inpaint upload, avoids double `-inpainting` model suffixes, and passes V4/V4.5 `strength`.
+- Current focus: a real NovelAI 4.5 run for `l2d_fill_hair_face_01` produced `UnityClient/Assets/Art/_IncomingAI/DollsLive2D/doll_proto_0/inpaint_candidates/hair_face/l2d_fill_hair_face_01_00_seed20260631.png`. The previous broad gray block regression is fixed, but the result is still `reviewed_not_approved` because the face area becomes a large pale cyan visor-like patch.
+- Next suggestion: keep using narrower masks or a cleaner formal source repaint before assembling Live2D / DollPuppet layers; do not sync either raw output to Approved, Manifest, Registry, FormalV2 queues, Cubism, Spine or DollPuppet packages.
+- Evidence: `tools/ai-image-gateway` `python -m pytest tests -q` passed with 68 tests; real NovelAI output was generated with model `nai-diffusion-4-5-full-inpainting`; comparison image is `UnityClient/Assets/Art/_IncomingAI/DollsLive2D/doll_proto_0/inpaint_candidates/hair_face/compare_old_fixed_seed20260631.png`. Face-crop grayish ratio dropped from about `0.474` to `0.047`.
+
+## 2026-06-14 NovelAI 4.5 ANR-style inpaint reconnect
+
+- Recently completed: reconnected `tools/ai-image-gateway` NovelAI 4.5 inpaint to the `F:\my_project\Auto-NovelAI-Refactor` request shape: img2img base parameters plus `action=infill`, full-size binary mask PNG, `inpaintImg2ImgStrength`, `strength`, `noise`, `extra_noise_seed`, `color_correct=false`, and default `add_original_image=false`; the Live2D runner now keeps manual-cleanup outputs in `generated_with_review_required` instead of plain `generated`.
+- Current focus: real outputs `UnityClient/Assets/Art/_IncomingAI/DollsLive2D/doll_proto_0/inpaint_candidates/hair_face/l2d_fill_hair_face_01_00_seed20260632.png` and `UnityClient/Assets/Art/_IncomingAI/DollsLive2D/doll_proto_0/inpaint_candidates/hair_face/l2d_fill_hair_face_01_00_seed20260633.png` now behave as local inpaint rather than full mask repaint. They still remain raw candidates / `reviewed_not_approved`; do not sync to Approved, Manifest, Registry, FormalV2 queues, Cubism, Spine, or DollPuppet packages.
+- Next suggestion: continue art-side screening with tighter masks or a cleaner formal source repaint before layer extraction; keep raw NovelAI candidates in `_IncomingAI` only.
+- Evidence: comparison images `UnityClient/Assets/Art/_IncomingAI/DollsLive2D/doll_proto_0/inpaint_candidates/hair_face/compare_old_wrong_anr_seed20260632.png` and `UnityClient/Assets/Art/_IncomingAI/DollsLive2D/doll_proto_0/inpaint_candidates/hair_face/compare_anr_seed20260633.png`; `generation.json` records seed `20260633`, provider `novelai`, model `nai-diffusion-4-5-full-inpainting`, `AddOriginalImage=false`, provider mask white ratio `0.042839`, and review-required status.
+
+## 2026-06-14 DollPuppet独立验收runner美术边界
+
+- 最近完成：同步 `DP-VAL-01` 核对结论：已写入 `UnityClient/Logs/.doll_puppet_acceptance_trigger = RUN_DOLL_PUPPET_ACCEPTANCE`，但当前没有 `DollPuppetAcceptance/latest/report.json`、没有 7 张截图，也没有动态 Prefab。
+- 当前关注：美术侧验收必须等待真实 `DollPuppetAcceptance` 报告；不能把触发文件、旧 Live2D runner、fallback-only 预期或编译通过写成 DollPuppet 多帧动态验收通过。
+- 下一步建议：动态 Prefab 可用后，验收截图至少覆盖 `idle_0s`、`idle_1s`、`expression_2s`、`low_san_idle_3s`、`repair_react`、`hit_react` 和 `fallback`，并明确区分 `PASSED` / `FALLBACK_ONLY` / `FAILED`。
+- 问题 / 阻塞：`blocked:missing_dollpuppet_acceptance_runner_output_and_unity_runtime`。该独立验收不进入 FormalV2 21 屏 ArtAcceptance 必过条件。
+
+## 2026-06-14 DollPuppet试点交接收口
+
+- 最近完成：本轮已把 DollPuppet 首版试点的 VisualID、路径、fallback、程序合同、验收限制和 FormalV2 不受影响边界收口到 `美术文档/17_Agent原生动态立绘资产接入规格.md`、`开发文档/17_Live2DSpine运行时接入评估.md`、`agent_status/program.md` 和本状态页。
+- 当前关注：美术侧真正缺口仍是正式 masks、分层候选、表情候选、人工清理后的层图、SourceRefs 和 Approved DollPuppet 包；当前 `_IncomingAI/DollPuppets/doll_proto_0/` 的请求包与静态 fallback 不等于动态资产。
+- 下一步建议：先完成 DollPuppet 专用工作区的真实候选与人工筛选，再进入 Approved 包组装；程序侧随后才能生成 Prefab、接 UI 和跑 `DollPuppetAcceptance`。
+- 验证证据：`Validate-Docs.ps1` 通过；mission strict 通过，当前为 `tasks=5/10 done, blocked=5`。FormalV2 静态 UI / ArtAcceptance 不因本试点改变。
+
+## 2026-06-14 DollPuppet NovelAI请求入口准备
+
+- 最近完成：用户已明确批准使用 NovelAI / inpaint 补 DollPuppet 素材；本轮在 `UnityClient/Assets/Art/_IncomingAI/DollPuppets/doll_proto_0/` 下补齐 4 张专用 mask：`hair_face_hidden_fill.png`、`body_overlap_fill.png`、`hand_leg_joint_fill.png`、`core_glow_masks.png`，并新增 `source/inpaint_source_opaque.png` 作为 NovelAI inpaint 输入，避免继续复用旧 Live2D 工作区作为主线。
+- 当前关注：`generation.json` 已从旧 `provider_unavailable` 更新为本轮 `approved_for_this_followup`，并补齐 7 个 DollPuppet `CandidateRequests`，覆盖 body/head/hair、body overlap、arms/legs/joints、core glow、blink、low_san、relaxed。网关 dry-run 结果为 `processed=7`、`blocked=0`、`failed=0`、`outputs=7 planned`。
+- 下一步建议：继续执行 `DP-ART-05`，用 NovelAI 串行生成真实候选；如遇 429 或灰块 / 身份漂移，应保留失败证据并进入参数 / mask 调整，而不是把 raw 输出写入 Approved。
+- 问题 / 阻塞：当前只完成 mask 与请求入口，真实候选图数量仍为 0；`Approved/DollPuppets/doll_proto_0/`、Prefab、DollPuppetAcceptance 和 FormalV2 条件仍未改变。
+- 验证证据：`generation.json` 可解析，`CandidateRequests=7`、`MaskPackage.masks=4`；`python tools/ai-image-gateway/examples/p3_live2d_inpaint.py --generation-json UnityClient/Assets/Art/_IncomingAI/DollPuppets/doll_proto_0/generation.json --provider novelai --source-image UnityClient/Assets/Art/_IncomingAI/DollPuppets/doll_proto_0/source/inpaint_source_opaque.png --dry-run` 返回 planned 且无 blocked / failed。
+
+## 2026-06-14 DollPuppet NovelAI真实候选与质检
+
+- 最近完成：`DP-ART-05` 已对 DollPuppet 专用工作区运行 NovelAI inpaint。第一轮 broad mask 生成 `6/7`，`dp_layer_hair_face_01` 因 429 限流失败；第二轮 tight mask 生成 `7/7`。当前共有 13 张真实 NovelAI 候选，路径位于 `layer_candidates/` 与 `expression_candidates/`，并生成 contact sheet：`contact_sheet/dollpuppet_novelai_candidates_20260614_round1_round2.png`。
+- 当前关注：`DP-ART-06` 质检结论为 `reviewed_not_approved`：`dp_layer_core_glow_02` 和 `dp_expr_relaxed_02` 可作为参考，`dp_expr_low_san_02` 与 `dp_expr_relaxed_01` 仅部分可参考；身体补层、手脚关节、眨眼、头脸补层候选存在灰块、身份漂移、发光误生成或局部破坏，不能进入 Approved。
+- 下一步建议：不要从这批 raw inpaint 图直接组装 `Approved/DollPuppets/doll_proto_0/`。下一步应补一个正式源图重绘 / img2img 候选批次，先得到更干净的全身中性源图，再重新做分层补区和人工清理。
+- 问题 / 阻塞：`Approved/DollPuppets/doll_proto_0/`、清理后的 layer PNG、rig / motion / expression JSON、Prefab 和 `DollPuppetAcceptance` 仍未解锁；当前只是“NovelAI 真实候选已生成并质检完成”，不是动态立绘资产完成。
+- 验证证据：`generation.json` 可被 `ConvertFrom-Json` 解析；`GeneratedAssets=13`、`CandidateRequests=14`、`ApprovedReadyCount=0`、`ReferenceOnlyCount=4`、`RejectedCount=9`；contact sheet README 已记录候选决策。
+## 2026-06-14 DollPuppet NovelAI 4.5 local inpaint rerun
+
+- Recently completed: ran real NovelAI 4.5 inpaint through `tools/ai-image-gateway` for DollPuppet expression deltas in `UnityClient/Assets/Art/_IncomingAI/DollPuppets/doll_proto_0/`. `_05` broad/feature masks generated real outputs but still pasted visible face-material patches after local composite; `_06` line-mask rerun generated `dp_expr_blink_06`, `dp_expr_low_san_06`, `dp_expr_relieved_06`, and `dp_expr_angry_06`.
+- Current focus: `_06` is the current business evidence for local inpaint, not an Approved-ready art package. Pixel audit passed for all four `_06` outputs (`outside_changed=False`), but visual review still shows unnatural eyelid/brow/eye-line fragments, especially low_san and angry.
+- Next suggestion: keep `_06` as cleanup/reference material only. Do not sync raw candidates to Approved, Manifest, Registry, FormalV2 queues, or a final DollPuppet package; next art pass should hand-clean the line deltas or use a cleaner source face and tighter masks.
+- Evidence: `generation.json` now records `LatestBusinessAcceptance.status=generated_with_review_required`, `approvedReadyCount=0`; contact sheets are `contact_sheet/dollpuppet_expression_line_mask_06_20260614.png` and `contact_sheet/dollpuppet_expression_line_mask_06_head_20260614.png`. `dp_expr_relieved_06` hit NovelAI rate limit on the first pass and succeeded after one bounded retry; token source remains local `F:\my_project\new\tags_machine\novelai\client.py` with no token persisted.
+
+## 2026-06-21 T0-01A 首次下潜许可 UI / 美术承接回退
+
+- 最近完成：已新增 `T0-01A_开局人偶状态到首次下潜许可开发方案.md`，其中美术 / UI 侧明确首版用 UGUI 分层和轻 CG 合成黑屏、工坊全景、债务纸、手记、工具匣、发现零号、核心启动、状态小卡、半开放工坊和第一层确认；新增 VisualID 不是硬前置。当前未生成新图、未改 Approved、Manifest、Registry 或 `screen_layouts.json`。
+- 当前关注：后续进入落地时，先按开发方案复用 `workshop_main`、`layer_select`、`doll_proto_0_stand`、现有按钮和信息面板皮肤；缺图只记录为后续补强。
+- 下一步建议：开发落地后补关键截图：过程 CG 合成态、`启动人偶` 单按钮态、状态小卡、半开放工坊、第一层确认允许态 / 阻断态。
+
+## 2026-07-01 T0-FLOW-01 开场前半段程序接入
+
+- 最近完成：程序侧已新增 `PrologueOpeningNarrativeFlow` 与 `PrologueFirstDiveController`，按 Narrative 节点播放黑屏、债务纸、修复手记、核心碎片和发现零号；当前只消费 VisualID / fallback，不新增或替换正式素材。
+- 当前关注：本轮证据是 Unity batchmode smoke，不是截图验收。黑屏、工坊特写和发现零号画面仍需要后续 ArtAcceptance / 人工截图复核。
+- 下一步建议：后续 `T0-FLOW` 继续推进到 `启动人偶` 单按钮与状态小卡时，一并补过程 CG 合成态、发现零号、单按钮态和状态小卡截图。
+- 验证证据：`UnityClient/Logs/prologue_opening_flow_editor_runner_codex_20260701.log` 显示 `Prologue Opening Narrative Flow Smoke PASSED`；受限项为 `validation_limited:screenshots_not_captured_for_T0_FLOW_01`。
+
+## 2026-06-14 DollPuppet inpaint art-direction correction
+
+- Feedback recorded: the current expression and action diff outputs should be treated as basically unusable for production DollPuppet diff work. They prove the NovelAI 4.5 gateway path and mask containment, but they do not satisfy the art goal.
+- Current focus: do not continue hard-running batches on the same source/mask setup. The failure mode is visual/art-direction quality: face material patches, eye/glow artifacts, black-frame motion output, and expression deltas that are either too subtle or require manual repaint.
+- Next suggestion: stop before further batch generation unless the source repaint, mask strategy, or manual cleanup plan changes. Current outputs remain failure/reference evidence only.
+
+## 2026-06-21 AI图片网关OpenAI兼容中转接入
+
+- 最近完成：`tools/ai-image-gateway` 已新增并补强 OpenAI-compatible 接入：`openai_images` 走 `/v1/images/generations`；`openai_chat_image` / `gemini_chat_image` / `grok_chat_image` 走 `/v1/chat/completions`。配置样例和 README 已补 `base_url`、`api_key`、`model`、`response_format`、`edit_endpoint`、`quality`、`output_format`、`temperature`、`timeout` 和 `retry`，并记录不跨 endpoint fallback 的规则。初版曾将 `/v1/images/edits` 误写为 masked edit / inpaint，已在 2026-06-22 修正为独立 `image_to_image` 语义。
+- 当前关注：本轮只新增网关 provider、路由注册、配置样例、README 和单元测试；没有真实出图，没有写入 `_IncomingAI`、Approved、Manifest、Registry、`screen_layouts.json` 或 FormalV2 ArtAcceptance 队列。
+- 下一步建议：接入真实中转站前先配置 `AI_IMAGE_PROXY_KEY` 与目标 `base_url/model`，分别用 `openai_images` 生图、`openai_images` 图生图 / reference edit、`gemini_chat_image` 生图、`grok_chat_image` 生图做单张 smoke test 确认返回格式；通过后再接入美术候选 runner。
+- 问题 / 阻塞：当前尚未获得中转站真实请求 / 响应样例和密钥，不能声明 GPT / Gemini / Grok 真实 provider 出图链路已通过；只完成标准 OpenAI-compatible 适配层与 mock HTTP 验证。
+- 验证证据：`tools/ai-image-gateway` 执行 `python -m pytest tests/test_openai_compatible_provider.py -q` 通过，7 passed；执行 `python -m pytest tests -q` 通过，82 passed。
+
+## 2026-06-22 AI图片网关图生图语义拆分
+
+- 最近完成：`tools/ai-image-gateway` 已新增 `Capability.IMAGE_TO_IMAGE`、`ImageToImageRequest`、`ImageService.image_to_image()` 和 `batch_image_to_image()`；`openai_images` 将 `/v1/images/edits` 映射为参考图编辑 / 图生图，不再声明 `Capability.INPAINT`；chat 兼容 provider 支持 text + `image_url` content array 的参考图请求。
+- 当前关注：`InpaintRequest` / `Capability.INPAINT` 继续只代表带 mask 的局部重绘，当前由 NovelAI / Live2D inpaint 工作流使用；本轮没有真实出图，没有写入 `_IncomingAI`、Approved、Manifest、Registry、`screen_layouts.json` 或 FormalV2 ArtAcceptance 队列。
+- 下一步建议：真实中转站 smoke test 按 `generate`、`image_to_image`、chat `generate`、chat `image_to_image` 分开验证；只有显式 mask 局部重绘流程才走 `inpaint`。
+- 问题 / 阻塞：仍缺少中转站真实密钥和响应样例，不能声明 GPT / Gemini / Grok 真实出图链路已通过。
+- 验证证据：`tools/ai-image-gateway` 执行 `python -m pytest tests/test_openai_compatible_provider.py tests/test_schema.py tests/test_mock_provider.py tests/test_config.py -q` 通过，38 passed；执行 `python -m pytest tests -q` 通过，90 passed。
+
+## 2026-06-22 AI图片网关OpenAI兼容稳健性增强
+
+- 最近完成：继续参考 `F:\my_project\image-gen`、`F:\my_project\infinite-canvas` 和 `F:\my_project\gpt-image-linux`，为 `tools/ai-image-gateway` 增强 OpenAI-compatible 适配稳健性：chat 响应现在可解析嵌套 JSON、SSE `data:` 事件、Markdown 图片、data URL 和裸 HTTP(S) 图片 URL；新增 `image_inputs` 工具用于把 bytes、本地路径、HTTP(S) URL 和 `data:image/...` 归一化为参考图 bytes 与 MIME 元数据。
+- 当前关注：本轮只提升网关解析和 runner 输入前处理能力，没有真实出图，没有写入 `_IncomingAI`、Approved、Manifest、Registry、`screen_layouts.json` 或 FormalV2 ArtAcceptance 队列。
+- 下一步建议：接入真实中转站时优先收集每个渠道的原始响应样例；若返回格式仍不匹配，再补解析 fixture，而不是改 provider endpoint 语义。
+- 问题 / 阻塞：仍缺少真实中转站密钥和响应样例，不能声明 GPT / Gemini / Grok 真实出图链路已通过。
+- 验证证据：`tools/ai-image-gateway` 执行 `python -m pytest tests/test_openai_compatible_provider.py tests/test_image_inputs.py -q` 通过，19 passed；执行 `python -m pytest tests -q` 通过，99 passed。
+
+## 2026-06-22 AI图片网关中转站真实smoke
+
+- 最近完成：使用用户提供的中转站凭据做临时内存 smoke，未写入仓库配置。`/v1/models` 返回 3 个模型：`gpt-image-2`、`gemini-3.1-flash-image`、`grok-imagine-image-lite`。文生图通路验证通过：`gpt-image-2` 走 `/v1/images/generations` 返回 1 张图；`gemini-3.1-flash-image` 走 `/v1/chat/completions` 返回 1 张图；`grok-imagine-image-lite` 走 `/v1/chat/completions` 返回 1 张图。
+- 当前关注：本轮没有保存 smoke 输出图片，没有写入 `_IncomingAI`、Approved、Manifest、Registry、`screen_layouts.json` 或 FormalV2 ArtAcceptance 队列。为适配该中转站，chat provider 已改为默认不发送 `n`，也不转发 Images API 字符串 `response_format=b64_json`；否则 Grok / chat relay 会返回服务端错误。
+- 下一步建议：当前可用路由应配置为：`generate: openai_images` 用 `gpt-image-2`，Gemini / Grok 单独用 `gemini_chat_image`、`grok_chat_image`。图生图当前只把 `gemini_chat_image` 标为已验证可用；`openai_images` 的 `/v1/images/edits` 在标准 multipart `image` / `image[]` 下均返回上游文件名过长错误，`image_data_url[]` 返回缺 `image`；`grok_chat_image` 参考图请求返回 SSE server_error。
+- 问题 / 阻塞：该中转站 GPT 图生图 `/v1/images/edits` 和 Grok 参考图模式暂不可标记为可用；若要启用，需要中转站提供实际支持的 edits / 参考图请求格式或修复上游兼容。
+- 验证证据：`tools/ai-image-gateway` 执行 `python -m pytest tests/test_openai_compatible_provider.py tests/test_image_inputs.py -q` 通过，22 passed；执行 `python -m pytest tests -q` 通过，102 passed。
+## 2026-06-25 OpenAI-compatible relay disk smoke rerun
+
+- Recently completed: reran the OpenAI-compatible relay routes with disk output enabled. Added a local smoke runner at `tools/ai-image-gateway/examples/smoke_openai_relay_to_disk.py` and fixed `openai_images` provider error extraction so provider JSON error payloads no longer become `AttributeError`.
+- Current focus: all six relay routes were actually requested and wrote evidence under `UnityClient/Assets/Art/_IncomingAI/OpenAICompatibleRelaySmoke/20260625_232449/`: `gpt_images_generate`, `gemini_chat_generate`, `grok_chat_generate`, `gpt_images_image_to_image`, `gemini_chat_image_to_image`, and `grok_chat_image_to_image`. No provider-generated image was returned this run. Only `reference_fallback.png` was locally created so image-to-image routes could still be exercised.
+- Blocking / issue: `/v1/models` currently returned only `gpt-image-2`; Gemini and Grok routes returned HTTP 503 "no available channel / distributor". GPT Images minimal requests also returned `openai_error / bad_response_status_code` after about 300 seconds, including minimal payloads without `response_format`, with `response_format=b64_json`, and with `n=1`.
+- Evidence: manifest and raw response evidence are in `UnityClient/Assets/Art/_IncomingAI/OpenAICompatibleRelaySmoke/20260625_232449/manifest.json` and `raw_minimal/*.json`; targeted gateway tests passed with `python -m pytest tests/test_openai_compatible_provider.py tests/test_image_inputs.py -q` -> `23 passed`.
+
+## 2026-06-26 AI image gateway local credential config
+
+- Recently completed: added local-only `tools/ai-image-gateway/config.local.yaml` for the relay key and NovelAI provider settings, and ignored it via the submodule `.gitignore`; the config uses `openai_images` / `gemini_chat_image` / `grok_chat_image` for relay routes and `novelai` for true masked inpaint.
+- Current focus: `examples/smoke_openai_relay_to_disk.py` now supports `--config config.local.yaml` and `--out-dir`, so smoke tests no longer depend on manually setting environment variables in the active shell.
+- Evidence: `load_config('config.local.yaml')` resolves all enabled providers and `resolve_novelai_access_token(client_py_path=...)` returns a token; `python -m pytest tests/test_openai_compatible_provider.py tests/test_image_inputs.py -q` passed with `23 passed`; `config.local.yaml` is ignored and must not be committed.
+
+## 2026-06-26 GPT image2 relay compare smoke
+
+- Recently completed: tested `gpt-image-2` only against both relay bases. `https://jiuuij.de5.net/v1` is currently usable for `/v1/images/generations` and returned one real image saved at `UnityClient/Assets/Art/_IncomingAI/OpenAICompatibleRelaySmoke/gpt_image2_compare_20260626_223403/jiuuij_de5/gpt_image2_generation_00.png`.
+- Current focus: `https://api.7r.fit/v1` can list models and includes `gpt-image-2`, `gpt-image-1`, and `gpt-image-1.5`, but `/v1/images/generations` returned HTTP 403 `Image generation is not enabled for this group`; do not route generation to this provider until the account/group permission changes.
+- Evidence: comparison manifest and raw responses are in `UnityClient/Assets/Art/_IncomingAI/OpenAICompatibleRelaySmoke/gpt_image2_compare_20260626_223403/manifest.json`; the saved `jiuuij_de5` output was visually inspected as a valid blue crystal compass icon.
+
+## 2026-06-26 Folder batch image-to-image template
+
+- Recently completed: added `tools/ai-image-gateway/examples/batch_image_to_image_folder.py` and `tools/ai-image-gateway/docs/batch_image_to_image_folder_template.md` so a shared prompt can be applied to every image in a folder through `ImageService.image_to_image()`.
+- Current focus: default usage targets `openai_images` / `gpt-image-2` because the old relay now passes `/v1/images/edits`; `examples/run_batch_i2i_folder.py` provides an edit-at-top Python runner for artists who prefer changing script variables instead of command-line arguments.
+- Evidence: `python -m py_compile examples/batch_image_to_image_folder.py` passed; `python -m py_compile examples/run_batch_i2i_folder.py` passed; dry-run wrote `UnityClient/Assets/Art/_IncomingAI/OpenAICompatibleRelaySmoke/batch_i2i_template_dryrun/manifest.json`; targeted provider tests passed with `23 passed`.
+
+## 2026-07-01 Batch text-to-image template
+
+- Recently completed: added `tools/ai-image-gateway/examples/run_batch_generate.py` and `tools/ai-image-gateway/docs/batch_generate_template.md` for edit-at-top text-to-image batches where the user changes `PROMPT`, `COUNT`, `WIDTH`, `HEIGHT`, `PROVIDER`, and `OUTPUT_ROOT` directly in Python.
+- Current focus: default usage targets `openai_images` / `gpt-image-2`; each run writes generated images, per-image metadata JSON, and a root `manifest.json` under `UnityClient/Assets/Art/_IncomingAI/TextToImageRuns/batch_generate_<timestamp>/`.
+- Evidence: `python -m py_compile examples/run_batch_generate.py` passed; targeted provider tests passed with `python -m pytest tests/test_openai_compatible_provider.py tests/test_image_inputs.py -q` -> `23 passed`.

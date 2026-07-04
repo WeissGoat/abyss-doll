@@ -1,62 +1,39 @@
 ---
-id: kb_view_pm
-title: PM 智能体阅读入口
+id: kb_view_pm_legacy
+title: PM 智能体兼容入口
 type: view
-role: PM
-domain: agent_context_view
-status: active
+role: 兼容
+domain: legacy_pm_route
+status: archived
 source_of_truth: false
 related:
   - AGENTS.md
-  - PROJECT_STATUS.md
-  - agent_status/pm.md
   - 知识库/README.md
-  - 版本规划/README.md
-  - 版本规划/09_正式版核心纵切开发路线.md
-  - 版本规划/11_纵切批次与需求文档承接矩阵.md
-last_verified: 2026-05-25
-update_rule: PM 入口文档、版本路线、里程碑或跨职能交接口径变化时同步本文件。
+  - agent_status/pm.md
+  - agent_status/director.md
+  - PROJECT_STATUS.md
+  - 知识库/views/director.md
+last_verified: 2026-06-10
+update_rule: 仅在旧 PM 阅读入口兼容说明变化时同步本文件。
 ---
 
-# PM 智能体阅读入口
+# PM 智能体兼容入口
 
-> 本页是 PM / 版本规划智能体的开工导航，不替代路线、GDD、开发文档、美术文档或状态页。
+> 旧 PM / 版本规划智能体不再作为 active 工作角色。本页只保留给历史链接和旧文档迁移使用。
 
-## 开工顺序
+## 当前路由
 
-1. `PROJECT_STATUS.md`：确认当前阶段、顶层目标、总优先级、跨职能交接和阻塞项。
-2. `agent_status/pm.md`：确认 PM 侧当前判断、最近完成和下一步建议。
-3. `版本规划/README.md`：确认版本规划目录中哪些文档是 active，哪些是归档。
-4. `版本规划/09_正式版核心纵切开发路线.md`：确认正式版核心纵切的宏观路线、系统优先级、长期节点、职能进度入口和防重复派发规则。
-5. `版本规划/11_纵切批次与需求文档承接矩阵.md`：确认 GDD / 功能优先级的批次、完成口径和需求文档承接。
-6. 按当前工作包读取 `agent_status/design.md`、`agent_status/program.md`、`agent_status/art.md`。
-7. 进入具体系统事实来源：GDD、开发文档、美术路线、配置 README 或数值模型。
+新任务请读取：
 
-## 常用事实来源
+```text
+知识库/views/director.md
+agent_status/director.md
+版本规划/13_正式版全局体验总线与开放节奏.md
+```
 
-| 任务类型 | 优先读取 |
-|---|---|
-| 项目阶段 / 总优先级 | `PROJECT_STATUS.md` |
-| PM 状态 / 下一步建议 | `agent_status/pm.md` |
-| 版本规划目录导航 | `版本规划/README.md` |
-| 顶层路线 / 功能优先级 / 长期节点 / 职能入口 | `版本规划/09_正式版核心纵切开发路线.md` |
-| GDD 批次 / 需求文档门禁 | `版本规划/11_纵切批次与需求文档承接矩阵.md` |
-| 系统规则落点 | `设计文档/GDD/GDD_00_系统关联总图.md` 和对应 `GDD_*.md` |
-| 程序落地边界 | `开发文档/00_程序开发大纲.md` 和对应系统开发文档 |
-| 美术 / UI 交付 | `美术文档/10_正式版核心纵切美术路线.md`、`美术文档/ui_design/README.md` |
-| 配置源和数值假设 | `配置表(JSON)/README.md`、`数值模型设计/00_基准价值与空间本位模型.md` |
+## 迁移说明
 
-## 边界提醒
-
-- PM 管理版本规划，不直接替代策划规则、程序实现或美术交付。
-- 阶段目标、系统优先级或宏观路线变化，必须同步 `09` 路线和 `PROJECT_STATUS.md`。
-- 具体系统规则变化，必须同步对应 GDD；实现契约变化同步开发文档；视觉交付变化同步美术文档。
-- 每个纵切工作包都应写清目标、范围外、涉及事实来源、职能交接和验收方式。
-- `09` / `11` 中出现的新需求必须能在 `11` 中追到详细文档；如果只有一句话，先补需求文档再进入当前范围。
-- `11` 只记录需求承接，不记录实现进度；实现状态、完成证据入口和防重复派发判断统一回到对应职能状态页和事实文档。
-- 派发具体工作项前先查对应职能状态页：PM 查 `agent_status/pm.md`，策划 / 配置查 `agent_status/design.md` 与 `设计文档/config/26_正式配置设计与填充推进计划.md`，程序查 `agent_status/program.md` 与开发文档，美术 / UI 查 `agent_status/art.md` 与美术文档。已完成或进行中的同名工作不得作为新功能重复派发。
-- `09` 不维护各职能详细工作表。策划配置计划、程序实现和美术交付必须按职能分开记录：策划 / 配置写 `26`、`56`、配置 README 和 `agent_status/design.md`；程序写开发文档和 `agent_status/program.md`；美术 / UI 写美术文档和 `agent_status/art.md`；PM 只维护里程碑、节点门禁和交接口径。
-- 字段说明、README、审计结论、任务拆分和 JSON 修改前设计不等于 `配置完成`。
-- 完成开发、配置、美术、UI、策划或验收工作后，必须同步更新对应职能状态页；只有影响长期节点、节点门禁、职能入口、状态标记规则或防重复派发规则时才同步 `09`。
-- 当前旧 MVP 文档是历史资料；如果与当前 GDD 或 `09` 路线冲突，以当前 GDD 和 `09` 路线为准。
-
+- PM 原本承担的阶段判断、里程碑、优先级、跨职能交接和完成口径，已并入游戏导演 / 制作人角色。
+- 后续 active 任务不再派发给 PM agent。
+- 版本规划仍保留 `09` 和 `11` 的原有职责；新增 `13` 负责玩家体验主线、系统开放节奏和任务 Owner 工作流。
+- 本页如被旧文档引用，只说明“请迁移到 director 入口”，不再维护独立 PM 事实。

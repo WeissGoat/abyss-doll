@@ -64,7 +64,7 @@ workshop_studio
 * 义体像陈列在柜子中的手工器械。
 * 魔偶继续坐在同一张机械感但不冷硬的改造椅上。
 * 玩家一次只评估一个义体，减少列表噪声。
-* 蒸汽工艺只作为黄铜、玻璃、齿轮、皮革细节存在。
+* 机械感只作为玻璃、皮革、旧工具、齿轮小件和符文刻痕等局部系统语义存在，不作为蒸汽朋克或黄铜主风格。
 
 ---
 
@@ -142,7 +142,7 @@ workshop_studio
 义体界面像同一个工作室里切换出的义体改造模式：
 
 * 左边是带玻璃门的义体柜，义体像工具或收藏物摆放。
-* 中间是木质 / 黄铜工作托盘，展示当前选中部件。
+* 中间是木质 / 旧工艺工作托盘，展示当前选中部件。
 * 右边沿用 `workshop_studio` 的魔偶机械改造椅，槽位用柔和光点标注。
 * 整体应有手工维修与奇幻器械感，不做科幻实验室。
 
@@ -205,7 +205,7 @@ ProstheticPanel
 
 后续重新出图时，提示词必须明确：
 
-* same cozy fantasy steampunk workshop studio as workshop_studio
+* same cozy Japanese anime subterranean fantasy workshop studio as workshop_studio
 * prosthetic mode overlay
 * shared doll modification chair
 * left prosthetic cabinet, center selected part tray

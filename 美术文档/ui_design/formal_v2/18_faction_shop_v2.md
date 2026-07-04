@@ -209,10 +209,10 @@ FactionShopPanel
 ```text
 Use case: ui-mockup
 Asset type: Formal V2 game UI concept art for faction_shop
-Primary request: A cozy fantasy and light steampunk faction shop interface in a town market.
-Scene/backdrop: small town faction counter with wooden shelves, faction emblem, stamp book, brass lamps, a shadowed black market side curtain.
+Primary request: A cozy Japanese anime subterranean fantasy faction shop interface in a town market.
+Scene/backdrop: small town faction counter with wooden shelves, faction emblem, stamp book, crystal lamps, a shadowed black market side curtain.
 Subject: left faction counter and reputation stamp book, center goods shelf, right selected goods tray with price tags and conditions, black market risk strip, one clear purchase button.
-Style: warm hand-painted fantasy UI, parchment panels, wood and brass, low information density, clear contrast between official shop and black market.
+Style: soft hand-painted fantasy UI, parchment panels, wood, cloth and emblem details, low information density, clear contrast between official shop and black market, no brass palette, no steampunk machinery.
 Composition: 16:9 landscape, faction counter and selected goods tray as main visual.
 Avoid: modern e-commerce screen, spreadsheet, sci-fi store, dense text, real readable words, logos, watermark.
 ```

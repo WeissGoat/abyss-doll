@@ -10,7 +10,7 @@ related:
   - 美术文档/ui_design/formal_v2/concepts/README.md
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/design_boards/README.md
-last_verified: 2026-06-07
+last_verified: 2026-06-12
 update_rule: 新增、替换或废弃 Formal V2 概念图总览时同步本文件。
 ---
 
@@ -22,7 +22,7 @@ update_rule: 新增、替换或废弃 Formal V2 概念图总览时同步本文�
 
 | 分组 | Contact Sheet | 评审重点 |
 |---|---|---|
-| 全部界面 | `contact_sheets/formal_v2_all_concepts.png` | 整体风格是否统一、信息密度是否偏高、是否偏离日系二次元地底奇幻 + 轻蒸汽工艺。 |
+| 全部界面 | `contact_sheets/formal_v2_all_concepts.png` | 整体风格是否统一、信息密度是否偏高、是否偏离日系二次元地底奇幻冒险；重点避免棕金机械、黄铜暖灯和蒸汽朋克成为全局气质。 |
 | V2-A 核心流程 | `contact_sheets/formal_v2_a_core_flow.png` | 工坊、战斗、拾取、地图、结算是否建立正式主流程。 |
 | V2-B 局外功能 | `contact_sheets/formal_v2_b_outgame.png` | 工作室子面板、商店和经营链路是否从按钮菜单转成清晰场景。 |
 | V2-C 长期 / 叙事 | `contact_sheets/formal_v2_c_longterm.png` | 深渊房间、小镇信息板、魔偶互动和剧情事件是否有稳定视觉容器。 |

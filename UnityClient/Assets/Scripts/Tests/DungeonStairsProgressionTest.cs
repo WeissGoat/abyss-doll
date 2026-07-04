@@ -150,17 +150,30 @@ public static class DungeonStairsProgressionTest {
         int expectedRouteLineCount = CountRenderableEdges(layer);
         int nodeButtonCount = 0;
         int routeLineCount = 0;
+        int fogMarkerCount = 0;
+        int labelPlateCount = 0;
         int interactableNodeButtons = 0;
+        bool routeLinesHaveFormalWeight = true;
         float expectedLayoutWidth = Mathf.Max(720f, 160f + Mathf.Max(0, layer.NodeRows.Count - 1) * 230f);
         foreach (Transform child in contentObj.transform) {
             Button button = child.GetComponent<Button>();
             if (button != null) {
                 nodeButtonCount++;
+                if (child.Find("NodeFogVeil_Image") != null) {
+                    fogMarkerCount++;
+                }
+
+                if (child.Find("NodeLabelPlate_Image") != null) {
+                    labelPlateCount++;
+                }
+
                 if (button.interactable) {
                     interactableNodeButtons++;
                 }
             } else if (child.name == "DungeonRouteLine_Image") {
                 routeLineCount++;
+                RectTransform routeRect = child as RectTransform;
+                routeLinesHaveFormalWeight &= routeRect != null && routeRect.sizeDelta.y >= 18.5f && routeRect.sizeDelta.y <= 21.5f;
             }
         }
 
@@ -170,6 +183,8 @@ public static class DungeonStairsProgressionTest {
         bool layoutWidthExpanded = contentRect.sizeDelta.x >= expectedLayoutWidth;
         bool layoutNoLongerCompresses = !layout.enabled && !layout.childControlWidth && !layout.childForceExpandWidth;
         bool onlyEntryNodesInteractable = interactableNodeButtons == layer.EntryNodes.Count;
+        bool hiddenNodesUseFogMarkers = fogMarkerCount > 0;
+        bool nodeLabelsHaveBackplates = labelPlateCount == expectedNodeCount;
         bool buttonsHavePreferredWidth = true;
         foreach (Transform child in contentObj.transform) {
             if (child.GetComponent<Button>() == null) {
@@ -180,10 +195,10 @@ public static class DungeonStairsProgressionTest {
             buttonsHavePreferredWidth &= element != null && element.preferredWidth >= 160f;
         }
 
-        if (childCountMatches && layoutWidthExpanded && layoutNoLongerCompresses && onlyEntryNodesInteractable && buttonsHavePreferredWidth) {
+        if (childCountMatches && layoutWidthExpanded && layoutNoLongerCompresses && onlyEntryNodesInteractable && hiddenNodesUseFogMarkers && nodeLabelsHaveBackplates && routeLinesHaveFormalWeight && buttonsHavePreferredWidth) {
             Debug.Log("Dungeon Map Layer 2 Layout PASSED.");
         } else {
-            Debug.LogError($"Dungeon Map Layer 2 Layout FAILED. Nodes={nodeButtonCount}/{expectedNodeCount}, Routes={routeLineCount}/{expectedRouteLineCount}, ChildCount={contentObj.transform.childCount}, Width={contentRect.sizeDelta.x}/{expectedLayoutWidth}, LayoutEnabled={layout.enabled}, Compress={layout.childControlWidth}, ForceExpand={layout.childForceExpandWidth}, Interactable={interactableNodeButtons}/{layer.EntryNodes.Count}, PreferredWidth={buttonsHavePreferredWidth}");
+            Debug.LogError($"Dungeon Map Layer 2 Layout FAILED. Nodes={nodeButtonCount}/{expectedNodeCount}, Routes={routeLineCount}/{expectedRouteLineCount}, FogMarkers={fogMarkerCount}, LabelPlates={labelPlateCount}, RouteWeight={routeLinesHaveFormalWeight}, ChildCount={contentObj.transform.childCount}, Width={contentRect.sizeDelta.x}/{expectedLayoutWidth}, LayoutEnabled={layout.enabled}, Compress={layout.childControlWidth}, ForceExpand={layout.childForceExpandWidth}, Interactable={interactableNodeButtons}/{layer.EntryNodes.Count}, PreferredWidth={buttonsHavePreferredWidth}");
         }
 
         Object.DestroyImmediate(canvasObj);

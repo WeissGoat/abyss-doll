@@ -204,10 +204,10 @@ DollInteractionPanel
 ```text
 Use case: ui-mockup
 Asset type: Formal V2 game UI concept art for doll_interaction
-Primary request: A warm fantasy and light steampunk doll interaction interface.
-Scene/backdrop: cozy workshop room or doll room with soft lantern light, small gifts, tea cup, care tools, cloth and wood.
+Primary request: A warm Japanese anime subterranean fantasy doll interaction interface.
+Scene/backdrop: cozy workshop room or doll room with soft interior glow, small gifts, tea cup, care tools, cloth and wood.
 Subject: central doll sitting calmly as visual focus, left ring of interaction tools for touch talk gift care, right gift and topic tray, top condition ribbon, bottom soft feedback dialogue bubble.
-Style: warm hand-painted fantasy UI, gentle emotional atmosphere, brass and cloth details, low information density.
+Style: soft hand-painted fantasy UI, gentle emotional atmosphere, cloth, wood and small keepsake details, low information density, no brass palette, no steampunk machinery.
 Composition: 16:9 landscape, doll stage centered, UI surrounding but not covering the character.
 Avoid: dating sim text wall, debug stats panel, dense buttons, cold lab scene, real readable words, logos, watermark.
 ```

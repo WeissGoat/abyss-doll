@@ -1,0 +1,27 @@
+{
+  "GeneratedAt": "2026-06-13T02:05:38+08:00",
+  "Gate": "no_program_integrate",
+  "GateReasons": [
+    "No current FormalV2 program_integrate queue remains."
+  ],
+  "Inputs": {
+    "ReportPath": "UnityClient/Logs/ArtAcceptance/latest/report.json",
+    "RegistryGapPath": "美术文档/_generated/VisualAssetRegistry登记缺口清单.json",
+    "HandoffPath": "美术文档/_generated/程序接入交接清单.json",
+    "BaselineRunID": "20260606_230523"
+  },
+  "Summary": {
+    "ProgramIntegrateVisualCount": 0,
+    "MissingRegistryCount": 0,
+    "MissingApprovedFileCount": 0,
+    "MissingMetaFileCount": 0,
+    "RerunAcceptanceScreenCount": 0,
+    "ExistingRerunScreenshotCount": 0,
+    "ReportRunID": "20260613_020257",
+    "ReportStatus": "PASSED",
+    "ReportEntryCount": 278,
+    "ReportMissingRequiredVisualIDCount": 0
+  },
+  "RequiredNextAction": "Art/program: no pending program_integrate queue; inspect acceptance_needed or runtime screenshots if visual validation is still required.",
+  "RerunAcceptanceScreens": []
+}

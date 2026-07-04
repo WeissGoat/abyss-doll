@@ -10,12 +10,15 @@ related:
   - AGENTS.md
   - GEMINI.md
   - DOCS_INDEX.md
+  - rules/README.md
+  - rules/01_文档维护与新增控制规则.md
+  - 知识库/views/director.md
   - 知识库/views/pm.md
   - 知识库/views/art.md
   - 知识库/views/design.md
   - 知识库/views/program.md
   - tools/agent/README.md
-last_verified: 2026-05-24
+last_verified: 2026-06-13
 update_rule: 调整元数据字段、索引策略或文档治理规则时更新本文件。
 ---
 
@@ -109,6 +112,7 @@ update_rule: 修改系统关系、资源流向或优先级时同步本文件。
 4. 生成物目录默认不纳入索引，避免把脚本产物误当作事实来源。
 5. `UnityClient/Assets/StreamingAssets/Configs` 是 `配置表(JSON)` 同步出来的运行时副本，不纳入索引、不手写维护。
 6. 后续各职能智能体在修改文档时，必须同步检查相关文档元数据和双向关联。
+7. 新增、重写、拆分或归档文档前，必须先按 `rules/01_文档维护与新增控制规则.md` 判断是否应补充已有文档、是否需要归档旧文档，以及是否会造成重复事实来源。
 
 ## 关联网络规则
 

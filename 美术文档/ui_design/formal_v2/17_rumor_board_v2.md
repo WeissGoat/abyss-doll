@@ -205,10 +205,10 @@ RumorBoardPanel
 ```text
 Use case: ui-mockup
 Asset type: Formal V2 game UI concept art for rumor_board
-Primary request: A cozy fantasy and light steampunk market rumor board interface.
-Scene/backdrop: warm workshop intelligence desk with parchment notes, market receipts, small map, brass lamp, pinned strings.
+Primary request: A cozy Japanese anime subterranean fantasy market rumor board interface.
+Scene/backdrop: workshop intelligence desk with parchment notes, market receipts, small map, glowing crystal desk light, pinned strings.
 Subject: left area with pinned rumor notes, center price up and price down item tags, right selected rumor detail card, small recommendation map card, one clear planning button.
-Style: warm hand-painted fantasy UI, parchment and wood, soft brass details, low information density, no real readable text.
+Style: soft hand-painted fantasy UI, parchment and wood, cloth strings and rune pins, low information density, no real readable text, no brass palette, no steampunk machinery.
 Composition: 16:9 landscape, rumor notes and price tags as visual center.
 Avoid: stock market terminal, spreadsheet, modern analytics dashboard, dense text, real readable words, logos, watermark.
 ```

@@ -16,13 +16,14 @@ related:
   - 配置表(JSON)/Rewards/README.md
   - 设计文档/GDD/GDD_01_背包战斗与局内网格机制.md
   - 设计文档/GDD/GDD_00_系统关联总图.md
+  - 版本规划/0-12小时细案/T1_第一层搜打撤成形.md
   - 设计文档/delivery/00_策划文档开发交付审计.md
   - 设计文档/delivery/15_P0主干配置表现验收承接清单.md
   - 设计文档/content_packs/19_第一层正式核心内容包.md
   - 设计文档/content_packs/20_第二层背包压力内容包.md
   - 设计文档/content_packs/25_第三层路线侵蚀内容包.md
   - 设计文档/config/audits/29_Dungeons正式配置承接审计.md
-last_verified: 2026-05-25
+last_verified: 2026-06-15
 update_rule: 修改对应玩法规则、系统边界或配置意图时同步本文件。
 ---
 

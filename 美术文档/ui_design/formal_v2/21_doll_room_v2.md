@@ -211,10 +211,10 @@ DollRoomPanel
 ```text
 Use case: ui-mockup
 Asset type: Formal V2 game UI concept art for doll_room
-Primary request: A warm fantasy and light steampunk doll room interface, a quiet visual diary room.
-Scene/backdrop: cozy attic-like doll room, soft window light, wooden floor, fabric, plants, small brass objects, memory shelf, diary desk.
+Primary request: A warm Japanese anime subterranean fantasy doll room interface, a quiet visual diary room.
+Scene/backdrop: cozy attic-like doll room, soft window light, wooden floor, fabric, plants, small handmade objects, memory shelf, diary desk.
 Subject: central doll idle stage, left window state area and diary desk, right memento shelf with small keepsakes, bottom soft detail whisper panel, tiny low-weight action strip.
-Style: warm hand-painted fantasy UI, gentle emotional tone, low information density, lived-in room, subtle steampunk details.
+Style: soft hand-painted fantasy UI, gentle emotional tone, low information density, lived-in room, cloth, wood, plants and keepsake details, no brass palette, no steampunk machinery.
 Composition: 16:9 landscape, room itself as main visual, doll centered, UI hotspots integrated naturally.
 Avoid: warehouse inventory slots, dense status dashboard, hard industrial lab, real readable text, logos, watermark, transparent holes.
 ```

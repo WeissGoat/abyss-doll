@@ -154,13 +154,13 @@ update_rule: 编写或确认 workshop_main Formal V2 详细方案时同步本文
 * 一侧是通向深渊的门或升降机，承担主行动。
 * 另一侧是工作室门、工具角或楼梯，承担改造入口。
 * 角落保留账本 / 委托板 / 出货箱，承担经济压力。
-* 木质、布艺、植物、暖光和小收藏物应多于硬冷机械。
+* 木质、布艺、植物、柔和魔法微光和小收藏物应多于硬冷机械。
 * 线条和阴影应偏干净、柔和、二次元；机械细节是生活化的手作器具，不是冷硬工业机器。
 
 `workshop_studio` 的视觉隐喻是“专门的改造工作室”：
 
 * 左侧是打开的背包和物品格。
-* 右侧是魔偶坐在带黄铜机械臂的改造椅上。
+* 右侧是魔偶坐在带手作机械臂和符文刻痕的改造椅上。
 * 中间是少量选中部件对比和确认操作。
 
 AI 或后续美术资产提示词应使用这些可视描述，不使用“功能菜单”“UGUI 可读性”等程序词。
@@ -168,7 +168,7 @@ AI 或后续美术资产提示词应使用这些可视描述，不使用“功�
 Formal V2 概念图提示还应追加：
 
 ```text
-Japanese anime fantasy game UI concept art, cozy room at the edge of a vertical abyss, warm hand-painted 2D background, soft cel shading, gentle storybook mood, young doll-like girl centered in a safe home, light brass gadgets and handmade tools, low information density, no western dark fantasy, no gritty realistic workshop
+Japanese anime subterranean fantasy game UI concept art, cozy room at the edge of a vertical abyss, soft hand-painted 2D background, gentle cel shading, storybook adventure mood, young doll-like girl centered in a safe home, handmade tools, cave plants, rune glows and small keepsakes, low information density, no steampunk machinery, no brass palette, no western dark fantasy, no gritty realistic workshop
 ```
 
 ---

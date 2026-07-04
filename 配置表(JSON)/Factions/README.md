@@ -1,4 +1,4 @@
-﻿---
+---
 id: config_factions_readme
 title: 势力配置字段说明 (Factions Config)
 type: config
@@ -9,7 +9,7 @@ source_of_truth: true
 related:
   - 配置表(JSON)/README.md
   - 配置表(JSON)/Orders/README.md
-  - 设计文档/rules/07_势力声望与订单规则卡.md
+  - 设计文档/规则卡/07_势力声望与订单规则卡.md
   - 设计文档/content_packs/24_势力订单声望内容包.md
   - 设计文档/config/audits/46_经济压力正式配置承接审计.md
   - 设计文档/config/designs/49_经济压力势力正式配置落地设计.md

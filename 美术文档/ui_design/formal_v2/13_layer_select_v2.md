@@ -206,10 +206,10 @@ LayerSelectPanel
 ```text
 Use case: ui-mockup
 Asset type: Formal V2 game UI concept art for layer_select
-Primary request: A cozy fantasy and light steampunk game interface showing an abyss entrance layer selection screen.
-Scene/backdrop: warm workshop threshold opening into a deep vertical abyss shaft, brass lift frame, lantern light, misty depth.
+Primary request: A Japanese anime subterranean fantasy game interface showing an abyss entrance layer selection screen.
+Scene/backdrop: cozy workshop threshold opening into a deep vertical abyss shaft, carved lift frame, rune guide light, misty depth.
 Subject: a vertical abyss cross-section map with glowing selectable layer stops on the left, locked lower layers covered by mist and small lock charms, selected layer briefing panel on the right, readiness check strip, one large start dive button.
-Style: warm hand-painted fantasy UI, soft parchment panels, brass and wood details, low information density, clear visual hierarchy.
+Style: soft hand-painted fantasy UI, parchment and wood details, luminous cave accents, low information density, clear visual hierarchy, no brass palette, no steampunk machinery.
 Composition: 16:9 landscape, central-left abyss shaft as main visual, right side briefing card, bottom-right primary action.
 Avoid: dense spreadsheet UI, sci-fi control room, hard industrial dashboard, unreadable tiny text, real readable words, logos, watermark.
 ```

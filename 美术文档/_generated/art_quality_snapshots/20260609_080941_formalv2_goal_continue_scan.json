@@ -1,0 +1,15 @@
+{
+  "GeneratedAt": "2026-06-09T08:09:41+08:00",
+  "SnapshotTag": "formalv2_goal_continue_scan",
+  "Inputs": {
+    "ManifestPath": "美术文档/_generated/art_manifest.json"
+  },
+  "Summary": {
+    "TotalManifestEntries": 284,
+    "TotalBacklogItems": 0,
+    "ActionCounts": {},
+    "DomainCounts": {},
+    "PriorityCounts": {}
+  },
+  "Items": []
+}
