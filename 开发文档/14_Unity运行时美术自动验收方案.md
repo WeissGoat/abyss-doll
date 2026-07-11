@@ -11,6 +11,7 @@ related:
   - 开发文档/15_P0配置Validator与自动验收底座需求.md
   - 开发文档/rules/04_自动化测试与验收流程规范.md
   - 开发文档/19_UnityMCP验收编排层设计.md
+  - 开发文档/20_UnityMCP验收编排层实现计划.md
   - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - 美术文档/README.md
   - 美术文档/08_Unity运行时美术验收工具需求.md

@@ -15,6 +15,7 @@ related:
   - 开发文档/14_Unity运行时美术自动验收方案.md
   - 开发文档/16_程序主流程闭环与架构收口推进计划.md
   - 开发文档/19_UnityMCP验收编排层设计.md
+  - 开发文档/20_UnityMCP验收编排层实现计划.md
   - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - 设计文档/delivery/15_P0主干配置表现验收承接清单.md
   - 设计文档/config/validation/35_前三层正式配置Validator与固定Seed验收样例.md

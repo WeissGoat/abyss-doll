@@ -11,6 +11,7 @@ related:
   - 开发文档/00_程序开发大纲.md
   - 开发文档/14_Unity运行时美术自动验收方案.md
   - 开发文档/15_P0配置Validator与自动验收底座需求.md
+  - 开发文档/20_UnityMCP验收编排层实现计划.md
   - tools/agent/README.md
   - 知识库/views/program.md
 last_verified: 2026-07-12

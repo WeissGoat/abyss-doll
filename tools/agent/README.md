@@ -11,6 +11,7 @@ related:
   - PROJECT_STATUS.md
   - 开发文档/15_P0配置Validator与自动验收底座需求.md
   - 开发文档/19_UnityMCP验收编排层设计.md
+  - 开发文档/20_UnityMCP验收编排层实现计划.md
   - 知识库/README.md
 last_verified: 2026-06-08
 update_rule: 调整复制智能体开工检查项、风险路径或提交前检查流程时同步本文件。
