@@ -1,0 +1,1 @@
+{"schema_version":"p3-validation/step-result@1","run_id":"fixture_limited","profile_id":"art_runtime","step_id":"capture","required":true,"status":"Limited","limitation_code":"screenshot_unavailable","message":"fixture limited","artifacts":[]}
