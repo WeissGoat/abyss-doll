@@ -57,3 +57,6 @@ update_rule: 程序入口文档、Unity 工程边界、配置同步或验证流�
 - `配置表(JSON)` 是配置源；`UnityClient/Assets/StreamingAssets/Configs` 是生成副本，运行前先同步。
 - 移动 Unity 资产时必须同步处理 `.meta` 文件，保留 GUID。
 - 修改系统契约时优先补 Validator、测试和对应开发文档。
+# 2026-07-12 验收入口
+
+程序验收入口已切换为 `.codex/skills/p3-program-validation` 与 `tools/agent/p3-validation-core`；旧混合入口已删除。

@@ -450,3 +450,6 @@ p3_art_compare_iteration
 - 本设计已由用户确认采用方案 B。
 - 旧 `p3-validation` 首版实现存在，但尚未成为正式工作流，也没有需要兼容的正式证据。
 - 下一步先生成直接拆分的详细实现计划，再执行代码、Profile、Skill 和证据格式重构。
+# 2026-07-12 实现状态
+
+已按分离架构落地 `p3-program-validation`、`p3-art-validation`、`p3-release-validation` 与共享 `P3ValidationCore`。程序路径不启动 ArtAcceptance；美术路径只允许注册目标和强类型 UGUI/Approved VisualID 边界；发布路径只读聚合两个完成的 RunID。证据根分别为 `program-runs`、`art-runs`、`release-runs`。

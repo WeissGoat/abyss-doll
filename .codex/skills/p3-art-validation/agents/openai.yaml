@@ -1,0 +1,4 @@
+interface:
+  display_name: "P3 Art Validation"
+  short_description: "Diagnose, capture, iterate, and review P3 runtime art."
+  default_prompt: "Run Project P3 art validation with registered targets, bounded UI changes, and external review."

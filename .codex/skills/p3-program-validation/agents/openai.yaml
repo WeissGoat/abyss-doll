@@ -1,0 +1,4 @@
+interface:
+  display_name: "P3 Program Validation"
+  short_description: "Run P3 compile, Smoke, T0 functional, and P0 program validation."
+  default_prompt: "Validate Project P3 program behavior with a registered program profile and bounded evidence claims."

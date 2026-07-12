@@ -1,0 +1,4 @@
+interface:
+  display_name: "P3 Release Validation"
+  short_description: "Aggregate completed P3 program and art evidence."
+  default_prompt: "Aggregate a ProgramRunID and ArtRunID into a read-only P3 release decision."

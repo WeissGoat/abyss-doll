@@ -1,1 +1,0 @@
-{"schema_version":"p3-validation/step-result@1","run_id":"fixture_blocked","profile_id":"t0_seal","step_id":"readiness","required":true,"status":"Blocked","limitation_code":"unity_dirty_scene","message":"fixture blocked","artifacts":[]}

@@ -68,3 +68,6 @@ update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约�
 - `combat_hud` Formal V1 已完成程序接入和 ArtAcceptance；当前程序侧优先按 `美术文档/_generated/可接入素材清单.md` 的 `program_integrate` 队列登记剩余 Approved 素材，美术侧随后做截图验收。
 - 如果美术交付影响程序接入或策划规则，需要同步 `PROJECT_STATUS.md` 和对应职能状态页。
 
+# 2026-07-12 验收入口
+
+运行时美术诊断、截图和受限迭代入口为 `.codex/skills/p3-art-validation`。所有 Art Profile 均要求外部主美复核，机器结果不能直接封板。
