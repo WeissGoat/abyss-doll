@@ -4,8 +4,8 @@ title: Unity MCP 验收编排层实现计划
 type: dev
 role: 程序
 domain: test_automation
-status: active
-source_of_truth: true
+status: historical
+source_of_truth: false
 related:
   - 开发文档/README.md
   - 开发文档/00_程序开发大纲.md
@@ -19,6 +19,8 @@ update_rule: 调整 Unity MCP 验收编排实现任务、文件边界、测试�
 ---
 
 # Unity MCP Validation Orchestration Implementation Plan
+
+> 历史说明：本计划对应旧的单一 `p3-validation` 混合入口，已完成首版实现，但不再作为后续重构执行依据。当前事实来源为 `开发文档/19_UnityMCP验收编排层设计.md` 中批准的“程序验收 / 美术迭代验收 / 发布聚合”直接拆分方案；新的实现计划需据此重新生成。
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 

@@ -12,725 +12,441 @@ related:
   - 开发文档/14_Unity运行时美术自动验收方案.md
   - 开发文档/15_P0配置Validator与自动验收底座需求.md
   - 开发文档/20_UnityMCP验收编排层实现计划.md
+  - 开发文档/rules/04_自动化测试与验收流程规范.md
   - tools/agent/README.md
   - 知识库/views/program.md
 last_verified: 2026-07-12
-update_rule: 修改 P3 validation Skill、Unity MCP 自定义工具、Validation Profile、证据契约、状态判定或 MCP 默认验收入口时同步本文档。
+update_rule: 修改程序验收、美术迭代验收、发布聚合、共享证据契约或 Unity MCP 验收边界时同步本文件。
 ---
 
 # Unity MCP 验收编排层设计
 
-> 定位：本文定义 P3 如何使用 Codex 项目 Skill、现有 PowerShell / Python 自动化脚本和 Unity MCP，形成一个可追踪、可轮询、可恢复、不会误报完成的统一验收编排层。
->
-> 本文不重写 `AutoTestDaemon`、`ArtAcceptanceRunner`、`T0ValidationFinalCaptureRunner` 或 `Invoke-P0Validation.ps1` 已有业务逻辑；它定义这些能力怎样被 MCP-first 工作流调用、关联和汇总。
+> 本文是 P3 MCP 验收架构的事实来源。日常程序自动化测试与美术运行时迭代验收必须分开；二者只共享 RunID、Unity readiness、Console、截图、JobState、证据 Schema 和确定性合并能力。
 
-## 1. 背景
+## 1. 设计结论
 
-项目当前已经具备以下验收能力：
-
-- PowerShell / Python 负责配置同步、JSON / Manifest / UI Spec 静态校验、批量扫描和报告聚合。
-- `AutoTestDaemon` 负责执行项目现有的静态 `SmokeTest.Run()` 体系。
-- `ArtAcceptanceRunner` 负责运行时界面、VisualID、UI 层级和截图验收。
-- `T0ValidationFinalCaptureRunner` 负责 T0 语义节点和固定截图集。
-- `Invoke-P0Validation.ps1` 负责 P0 配置、Smoke、UI 和 ArtAcceptance 摘要的统一入口。
-- Unity MCP v10.0.0 已连接项目 Unity 2022.3.60f1 实例，可以读取 Editor 状态、Console、场景、测试资源并控制 PlayMode。
-
-当前主要问题不是缺少 Runner，而是 Unity 交互仍具有明显黑盒特征：
-
-1. 外部智能体依赖写触发文件并轮询报告，不知道 Unity 是否已消费命令。
-2. 编译、Domain Reload、PlayMode、Console 和截图生成之间缺少统一可观测状态。
-3. `latest` 报告可能属于旧代码、旧配置或旧 UI，容易被误当成本轮证据。
-4. 自动化通过、Owner 自验和主职能外部验收容易被混写成一个“完成”。
-5. Unity MCP 当前开放的通用工具面过宽，不适合作为项目验收的稳定业务接口。
-
-## 2. 目标
-
-### 2.1 核心目标
-
-建立一个 MCP-first、脚本与 Unity 各司其职的验收编排层：
+采用三个独立入口和一个共享核心：
 
 ```text
-p3-validation Codex Skill
-  -> 确定性脚本执行面
-  -> Unity MCP 执行面
-  -> 统一证据契约
-  -> 唯一确定性总判定
-  -> 受 ClaimCeiling 限制的用户回复
+p3-program-validation   程序自动化测试
+p3-art-validation       美术 / UI 运行时迭代与验收
+p3-release-validation   发布级证据聚合
+            ↓
+      P3ValidationCore
 ```
 
-完成后，智能体日常验证不再需要手工完成以下工作：
+核心规则：
 
-- 手写 `.test_trigger`、`.art_acceptance_trigger`。
-- 反复切回 Unity 确认编译是否开始。
-- 人工查看 PlayMode 是否进入或退出。
-- 手工筛选本轮新增 Console error。
-- 在多个 `latest` 目录中判断哪个报告属于本轮。
-- 手工寻找本轮截图、报告和语义失败节点。
+- 程序写代码后的日常验收只跑程序自动化测试，不自动启动 ArtAcceptance。
+- 美术 / UI 日常工作只处理界面、布局、素材绑定、截图、视觉诊断和受控迭代，不运行完整 P0，也不修改领域规则。
+- 发布聚合只读取已经完成的 ProgramRunID 和 ArtRunID，不重新执行测试。
+- 程序通过不代表美术通过；美术截图通过不代表功能正确。
+- 当前 `p3-validation` 尚未成为正式工作流入口，没有需要兼容的历史调用或正式证据，因此本轮采用直接拆分，不维护旧混合 Profile 兼容层。
 
-### 2.2 成功标准
-
-- 首次返回 Unity 当前状态不超过 2 秒。
-- 长任务能持续返回步骤、进度和阻塞原因，不需要人工读 Console。
-- 每个证据都能追溯到唯一 `RunID`、来源 Runner 和输入指纹。
-- `Blocked`、`Limited`、旧报告或缺失截图误报为 `Passed` 的次数为 0。
-- Domain Reload 后 Unity 验收 Job 能恢复或诚实失败。
-- 自动化报告不能越过项目外部验收门禁声明功能或美术封板完成。
-
-## 3. 范围外
-
-首轮明确不做：
-
-- 不修改玩法规则、领域服务或正式玩家流程。
-- 不改变纯 UGUI 运行时 UI 约束。
-- 不使用 MCP `manage_ui` 引入 UI Toolkit、UXML、USS 或 `UIDocument`。
-- 不接管 AI 出图、Manifest、Approved 筛选或 Visual V2 生产流程。
-- 不把全部静态 Smoke 迁移到 NUnit。
-- 不建设远程 MCP CI 服务。
-- 不自动批准主策、主程、主美或游戏导演验收。
-- 不在首轮删除现有 Runner、PowerShell 自动化或文件触发入口。
-- 不允许 Unity MCP 自定义工具启动 PowerShell、Python 或任意外部进程。
-
-## 4. 总体架构
-
-### 4.1 一个总入口、两个执行面
+## 2. 总体架构
 
 ```text
-用户 / 实现 Owner
-  -> p3-validation Skill
-      -> 选择 Validation Profile
-      -> 创建 RunID 与 EvidenceRoot
-      -> 执行静态验证子流程
-      -> 执行 p3_run_unity_profile
-      -> Merge-P3ValidationEvidence.ps1
-      -> validation-summary.json / .md
-      -> 按 ClaimCeiling 回复
+共享基础设施：P3ValidationCore
+  ├─ RunID / EvidenceRoot
+  ├─ Unity instance pinning
+  ├─ readiness / compile / PlayMode
+  ├─ Console baseline / delta
+  ├─ screenshot / report collection
+  ├─ JobState / instance lock
+  ├─ step-result schema
+  └─ deterministic merger
+
+程序入口：p3-program-validation
+  ├─ smoke_focus
+  ├─ t0_functional
+  └─ p0_full
+
+美术入口：p3-art-validation
+  ├─ art_focus
+  ├─ art_runtime
+  ├─ art_iteration
+  └─ t0_art_seal
+
+发布入口：p3-release-validation
+  ├─ ProgramRunID
+  ├─ ArtRunID
+  └─ ReleaseSummary
 ```
 
-确定性脚本执行面负责：
+共享核心不是用户 Skill，不负责选择职能目标。它只提供两边都需要的确定性能力。
 
-- `Sync-Configs.ps1`。
-- JSON、Manifest、UI Spec、文档和工作区校验。
-- 文件到文件的确定性转换和批量扫描。
-- CI 可重复执行的无 Unity 检查。
-- 证据索引和最终报告的确定性合并。
+## 3. 程序自动化测试
 
-Unity MCP 执行面负责：
+### 3.1 入口与职责
 
-- Unity 实例发现和固定路由。
-- Editor readiness、编译、Domain Reload、AssetDatabase、PlayMode 状态。
-- Unity Console baseline 和 delta。
-- 项目 Smoke、ArtAcceptance、T0 Capture Runner。
-- 运行时截图、UI / Registry snapshot 和原始报告快照。
-- Unity 长任务的轮询、取消和 Editor 状态恢复。
+入口为 `p3-program-validation`。
 
-### 4.2 单一事实原则
+标准链路：
 
-允许脚本和 MCP 分别产生原始证据，但禁止：
+```text
+读取程序事实与任务范围
+→ 选择程序 Profile
+→ 创建 ProgramRunID
+→ 静态校验
+→ Unity readiness
+→ 编译门禁
+→ 注册 Smoke
+→ Console delta
+→ 程序证据合并
+→ ProgramValidationSummary
+```
 
-- 两边各自维护一份总步骤状态表。
-- 两边各自输出整个切片的最终 `Passed`。
-- MCP 重新实现已有静态 Validator 算法。
-- PowerShell 通过旧 `latest` 推测 Unity 本轮是否执行。
+程序侧负责：
 
-最终总判定只由确定性合并器输出。
+- 编译、配置结构和引用合法性。
+- 领域规则、服务调用和状态变化。
+- Smoke、P0、T0 功能路径。
+- UI 的程序契约：对象存在、交互可达、Controller 调用真实服务、VisualID 可解析、状态能回写。
 
-## 5. 组件设计
+程序侧不负责：
 
-### 5.1 `p3-validation` Codex Skill
+- 布局、颜色、留白、视觉层级和素材审美。
+- 截图封板和主美复核。
+- 自动启动 ArtAcceptance。
+- 声明 UI 或美术完成。
 
-职责：
+### 3.2 程序 Profile
 
-1. 读取项目状态、相关事实来源和 Validation Profile。
-2. 解析用户目标，选择允许的 Profile，不临时拼装任意命令。
-3. 读取 `mcpforunity://instances` 并固定精确 Unity 实例 ID。
-4. 创建统一 `RunID` 和证据根目录。
-5. 调用静态脚本执行面。
-6. 调用 Unity MCP 子编排器。
-7. 调用确定性证据合并器。
-8. 根据 `ClaimCeiling` 组织最终回复。
-
-Skill 不负责：
-
-- 在自然语言中自行决定业务测试通过。
-- 修改 Runner 生成的原始报告。
-- 把 warning、blocked 或 limited 隐藏成成功。
-- 在报告要求外自动扩大验证范围。
-
-### 5.2 静态验证子流程
-
-静态子流程继续复用项目现有脚本。每个步骤必须输出统一的 `step-result@1`，或由轻量适配脚本把旧输出转换为该格式。
-
-首轮步骤注册表：
-
-| StepID | 现有能力 | 说明 |
+| Profile | 用途 | 必需内容 |
 |---|---|---|
-| `config_sync` | `tools/config/Sync-Configs.ps1 -Clean` | 配置源同步。 |
-| `config_static_validate` | `Invoke-P0Validation.ps1` 的非 Unity 部分 | 配置结构、引用和固定样例。 |
-| `ui_spec_validate` | `Validate-UIDesign.ps1` | active UI 规格校验。 |
-| `art_manifest_check` | 现有美术生成物校验 | 只校验，不出图或同步 Approved。 |
-| `docs_validate` | `Generate-DocsIndex.ps1` / `Validate-Docs.ps1` | 仅文档任务或 Profile 要求时执行。 |
-| `workspace_health` | `Invoke-AgentHealthCheck.ps1` | 输出风险，不自动清理。 |
+| `smoke_focus` | 单功能快速回归 | 编译、指定白名单 Smoke、Console delta |
+| `t0_functional` | T0 功能纵切 | 配置、T0 状态、功能 Smoke、玩家路径 |
+| `p0_full` | 完整程序门禁 | ConfigValidator、P0 Smoke、程序 UI 契约 |
 
-### 5.3 Unity MCP 子编排器
+`p0_full` 不包含 `art_acceptance_report`、截图或主美验收字段。
 
-`p3_run_unity_profile` 是 Unity 执行面的总入口。它只组合 Unity 内部能力，不调用外部脚本，也不输出项目总判定。
+## 4. 美术迭代与验收
 
-内部原子能力：
+### 4.1 入口与职责
 
-| 工具 | 职责 |
-|---|---|
-| `p3_unity_readiness` | 读取实例、编译、Domain Reload、PlayMode、未保存场景和可接管性。 |
-| `p3_run_smoke_profile` | 执行注册表中的静态 Smoke 集合，不接受任意反射方法名。 |
-| `p3_run_art_acceptance` | 复用 `ArtAcceptanceRunner`，支持登记的全量或聚焦 ScreenTag 集。 |
-| `p3_capture_t0` | 复用 T0 截图 Runner 和语义断言。 |
-| `p3_collect_unity_evidence` | 收集 Console delta、Editor 状态、截图和原始报告索引。 |
-| `p3_run_unity_profile` | 组合上述原子能力，维护 Job、进度、超时、排他锁和恢复。 |
+入口为 `p3-art-validation`。
 
-### 5.4 确定性合并器
-
-建议入口：
+标准链路：
 
 ```text
-tools/agent/p3-validation/Merge-P3ValidationEvidence.ps1
+读取 active UI / 美术规格
+→ 选择界面或 ScreenTag
+→ 创建 ArtRunID
+→ Unity readiness
+→ 进入目标运行时状态
+→ 截图与层级快照
+→ 视觉诊断
+→ 可选受控迭代
+→ 重载 / 编译 / PlayMode
+→ 重新截图和前后对比
+→ ArtValidationSummary
+→ 主美复核
 ```
 
-职责：
+美术侧负责：
 
-- 验证所有必需步骤的 Schema 和 `RunID`。
-- 校验 artifact 时间、哈希和输入指纹。
-- 按固定优先级计算总状态。
-- 生成机器可读 JSON 和人工可读 Markdown。
-- 计算 `ClaimCeiling`。
+- UGUI 结构、RectTransform、布局和视觉层级。
+- Approved Sprite、VisualID 和运行时素材绑定。
+- 遮罩、射线、CanvasGroup、文本和表现动效。
+- ScreenTag、截图、UI snapshot、Registry snapshot 和视觉诊断。
+- MCP 辅助的 before/after 迭代闭环。
 
-合并器不调用 Unity，不重新运行任何测试，也不使用 LLM 解释结果。
+美术侧不负责：
 
-## 6. Validation Profile
+- HP、SAN、金币、战斗、掉落、经济和领域规则。
+- 修改配置事实或领域服务。
+- 用 `manage_ui` 引入 UI Toolkit。
+- 自动批准 AI 素材或擅自改变 active UI 设计方向。
+- 用截图成功替代程序功能通过。
 
-### 6.1 Profile 原则
+### 4.2 美术 Profile
 
-Profile 是白名单步骤的声明式组合，不是任意命令列表。
+| Profile | 用途 | 是否允许修改 |
+|---|---|---:|
+| `art_focus` | 单界面或单 ScreenTag 聚焦诊断 | 否 |
+| `art_runtime` | 一组运行时界面验收 | 否 |
+| `art_iteration` | UI / 美术受控修正循环 | 是 |
+| `t0_art_seal` | T0 固定画面和语义截图封板 | 否 |
 
-最低字段：
+### 4.3 Art iteration 修改白名单
+
+允许：
+
+- 调整注册目标的 RectTransform、锚点、间距和层级。
+- 修改 Image、Text、颜色、透明度、CanvasGroup、遮罩和射线。
+- 切换到已 Approved 且已登记的 VisualID。
+- 执行注册的 UI rebuild 和指定 ScreenTag 重跑。
+
+禁止：
+
+- 任意 C#、任意菜单、任意资产路径或任意反射方法。
+- 修改领域逻辑、游戏配置、Approved 素材内容或 active 设计方向。
+- 绕过程序接口直接伪造玩家状态。
+
+每轮迭代保留：
 
 ```text
-id
-version
-static_steps[]
-unity_profile_id
-required_evidence[]
-timeout_seconds
-strict_warnings
-editor_control
-external_review_required[]
+iterations/<iteration-id>/
+  before.png
+  diagnosis.json
+  changes.json
+  after.png
+  console-delta.json
+  result.json
 ```
 
-Profile 和步骤注册表变更必须版本化。报告必须记录 `profile_id` 和 `profile_version`。
+## 5. 共享证据契约
 
-### 6.2 首轮 Profile
-
-#### `smoke_focus`
-
-用于程序修改后的快速回归：
-
-- Unity readiness。
-- AssetDatabase refresh 和编译门禁。
-- 指定的已登记 Smoke 集合。
-- Console baseline / delta。
-
-#### `art_runtime`
-
-用于运行时美术和 UI 验收：
-
-- active UI Spec 静态校验。
-- 指定 ArtAcceptance ScreenTag 集。
-- UI / Registry snapshot。
-- 必需 GameView 截图和 Console delta。
-- 外部主美验收标记为 `Required`。
-
-#### `t0_seal`
-
-用于 T0-01A / 后续 T0 封板候选：
-
-- T0 相关配置、UI 和资源静态校验。
-- T0 聚焦 Smoke 集合。
-- T0 固定语义截图集。
-- Profile 指定的 FormalV2 ArtAcceptance 画面。
-- 外部主美和游戏导演验收标记为 `Required`。
-
-#### `p0_full`
-
-用于完整 P0 门禁：
-
-- 配置同步和 ConfigValidator。
-- P0 Smoke registry。
-- UI Spec 校验。
-- ArtAcceptance freshness；Profile 要求时重跑。
-- 完整统一报告。
-
-## 7. 运行状态机
+程序和美术使用不同 RunID：
 
 ```text
-CREATED
-  -> PREFLIGHT
-  -> PREPARE
-  -> EXECUTE_STATIC / EXECUTE_UNITY
-  -> COLLECT_EVIDENCE
-  -> MERGE_AND_DECIDE
-  -> PASSED | FAILED | BLOCKED | LIMITED | CANCELLED
+ProgramRunID = <timestamp>_program_<profile>
+ArtRunID     = <timestamp>_art_<profile>
 ```
 
-### 7.1 `PREFLIGHT`
-
-检查：
-
-- Profile 存在且版本可用。
-- Unity 实例唯一或已固定。
-- 没有其他修改型 P3 Validation Job 占用实例。
-- Scene / Prefab Stage 没有未保存修改。
-- EvidenceRoot 可写。
-- 不存在相同 `RunID` 的已完成证据包。
-
-### 7.2 `PREPARE`
-
-顺序：
-
-1. 按 Profile 同步配置。
-2. 记录 Unity Editor 初始状态和 Console baseline。
-3. Refresh AssetDatabase。
-4. 等待编译和 Domain Reload 完成。
-5. 编译错误直接记为 `Blocked`，不进入业务 Smoke。
-
-### 7.3 `EXECUTE`
-
-静态步骤可以在无共享写入冲突时并行。Unity 修改型步骤在同一实例内串行执行。
-
-基础设施失败可以限次重试；业务断言失败不得自动重跑到通过。
-
-### 7.4 `COLLECT_EVIDENCE`
-
-所有报告、截图和 Console delta 必须快照到本 `RunID` 目录。只存在于旧 `latest` 的文件不计入本轮证据。
-
-### 7.5 `MERGE_AND_DECIDE`
-
-总状态优先级：
-
-1. 必需业务断言失败：`Failed`。
-2. 必需步骤无法执行：`Blocked`。
-3. 必需范围只有受限证据：`Limited`。
-4. 全部必需步骤执行并通过：`Passed`。
-
-`Cancelled` 单独表达用户或系统取消，不等同于失败。
-
-## 8. Unity 会话控制
-
-默认策略：`exclusive_restore`。
-
-执行前记录：
-
-- Unity 实例 ID。
-- PlayMode / Pause 状态。
-- 活动 Scene。
-- Prefab Stage。
-- 当前选择对象。
-- 是否处于编译 / 更新。
-
-行为：
-
-- 有未保存 Scene 或 Prefab Stage 时默认阻塞，不自动保存或丢弃。
-- Unity 修改型验证 Job 使用实例级排他锁。
-- 已有 Job 时返回 `blocked:unity_validation_job_active` 和占用 RunID。
-- 运行结束后只恢复可安全恢复的 Editor 状态。
-- 如果恢复失败，验证结果保持原业务状态，但增加 `validation_limited:editor_state_restore_failed`。
-
-## 9. 异步 Job 协议
-
-修改型自定义工具使用 MCP polling：
-
-```text
-start  -> PendingResponse(job_id, current_step, progress)
-status -> pending | complete | error | cancelled
-cancel -> 在当前原子步骤的安全点退出
-```
-
-Job 状态持久化到 `Library/P3ValidationJobs/` 或 `McpJobStateStore` 对应的 Library 路径，至少保存：
-
-- `RunID`。
-- 当前步骤和进度。
-- EvidenceRoot。
-- 原 Editor 状态。
-- 当前 Runner source RunID。
-- 最后错误和恢复动作。
-- Job lock 所属 Unity instance。
-
-Domain Reload 后必须从持久化状态恢复；不能仅依赖静态字段。
-
-## 10. 证据目录
+目录：
 
 ```text
 UnityClient/Logs/P3Validation/
-  latest_run.json
-  runs/<RunID>/
-    request.json
-    inputs.json
-    steps/
-    unity/
-      editor_before.json
-      console_baseline.json
-      console_delta.json
-      editor_after.json
-    screenshots/
-    source_reports/
-    evidence-index.json
-    mcp-invocations.jsonl
-    validation-summary.json
-    validation-summary.md
+  program-runs/<ProgramRunID>/
+  art-runs/<ArtRunID>/
+  release-runs/<ReleaseRunID>/
 ```
 
-`latest_run.json` 只指向最新 RunID，不复制或改写结论。
-
-## 11. 统一步骤结果契约
-
-Schema：`p3-validation/step-result@1`。
-
-最低字段：
+统一 `step-result` 增加：
 
 ```json
 {
-  "schema_version": "p3-validation/step-result@1",
-  "run_id": "20260712_120000_t0_seal",
-  "profile_id": "t0_seal",
-  "profile_version": "1",
-  "step_id": "unity_t0_capture",
-  "executor": "unity_mcp",
+  "schema_version": "p3-validation/step-result@2",
+  "validation_domain": "program",
+  "run_id": "...",
+  "profile_id": "...",
+  "step_id": "...",
   "required": true,
-  "attempt": 1,
   "status": "Passed",
-  "started_at": "",
-  "finished_at": "",
-  "duration_ms": 0,
-  "error_count": 0,
-  "warning_count": 0,
-  "blocked_count": 0,
-  "limitation_count": 0,
-  "errors": [],
-  "warnings": [],
-  "validation_limitations": [],
-  "artifacts": [],
-  "input_fingerprint": "",
-  "source_run_id": "",
-  "next_action": ""
+  "artifacts": []
 }
 ```
 
-Artifact 最低字段：
+`validation_domain` 只允许：
 
 ```text
-kind
-path
-source_path
-sha256
-size
-captured_at
-mime_type
+program | art | release | infrastructure
 ```
 
-## 12. 输入指纹
+ProgramRunID 不接受 art 步骤；ArtRunID 不接受 program 步骤。共享 readiness、Console、恢复和锁步骤使用 `infrastructure`。
 
-`inputs.json` 至少记录：
+## 6. 失败归属
 
-- 当前 Git HEAD。
-- 相关工作区文件摘要；不把整个脏工作区文本写进报告。
-- Unity 版本和目标平台。
-- Profile ID / version。
-- active `screen_layouts.json` 哈希。
-- 配置源相关目录哈希。
-- 目标程序集 / 脚本输入哈希。
-- 目标 Approved / Registry 输入哈希，仅在相关 Profile 中记录。
-
-后续如果支持断点续跑，只有输入指纹未变化的 `Passed` 步骤才允许复用。
-
-## 13. Console 证据
-
-### 13.1 Baseline / Delta
-
-- 默认不清空 Console。
-- 运行前保存 baseline。
-- 每条日志使用类型、消息、堆栈和出现序号形成稳定指纹。
-- 运行后只把新增或再次出现的日志计入 delta。
-- 原始 baseline 和 delta 都进入证据包。
-
-### 13.2 判定
-
-- 新增编译 error：`Blocked`。
-- Smoke / Runner 明确产生的 `LogError` 或 Exception：对应步骤 `Failed`。
-- 运行前已有但本轮未再次出现的 error：保留在 baseline，不自动归为本轮失败。
-- warning 是否阻塞由 Profile 的 `strict_warnings` 和允许清单决定。
-- 不允许通过 Clear Console 隐藏错误。
-
-## 14. 截图证据
-
-每个必需截图声明：
-
-- `ScreenTag`。
-- 来源 Runner。
-- 期望分辨率。
-- 本轮最早生成时间。
-- 必需语义断言。
-- 是否需要外部人工复核。
-
-有效截图必须：
-
-- 在本 RunID 开始后生成。
-- 非空且尺寸合法。
-- 被复制进本轮 `screenshots/`。
-- 写入 SHA-256 和原始来源路径。
-- 通过对应 Runner 的语义断言。
-
-MCP `manage_camera` 的通用 GameView 截图可以作为诊断或补充证据，但不能替代 T0 语义截图或 ArtAcceptance 指定 ScreenTag。
-
-## 15. 三层结论与声明上限
-
-最终报告分离三个维度。
-
-### 15.1 `AutomationStatus`
-
-表达工具是否完整执行：
+程序错误：
 
 ```text
-Passed | Failed | Blocked | Limited | Cancelled
+program_failed:compile_error
+program_failed:config_validation
+program_failed:smoke_assertion
+program_failed:runtime_exception
+program_blocked:unity_unavailable
+program_limited:console_delta_unavailable
 ```
 
-### 15.2 `OwnerValidation`
-
-表达自动证据是否支持实现 Owner 自验：
+美术错误：
 
 ```text
-NotRun | Passed | Failed | Limited
+art_failed:missing_visual
+art_failed:layout_contract
+art_failed:semantic_screenshot
+art_failed:runtime_binding
+art_blocked:target_screen_unreachable
+art_limited:screenshot_unavailable
+art_review_required:visual_quality
 ```
 
-### 15.3 `ExternalReview`
-
-按职能分别记录：
+共享基础设施错误：
 
 ```text
-NotRequired | Required | Approved | Rejected
+infra_blocked:validation_job_active
+infra_limited:domain_reload_recovery
+infra_limited:editor_restore_failed
+infra_limited:custom_mcp_tools_unavailable
 ```
 
-### 15.4 `ClaimCeiling`
+目标界面因程序问题不可达时，美术验收标记 `Blocked` 并生成程序交接，不自行修玩法逻辑。程序修复和美术复验分别创建新的 RunID。
+
+## 7. 三层结论与声明上限
+
+程序结果：
+
+```text
+ProgramAutomationStatus
+ProgramOwnerValidation
+ProgramClaimCeiling
+```
+
+美术结果：
+
+```text
+ArtAutomationStatus
+ArtOwnerValidation
+ArtExternalReview
+ArtClaimCeiling
+```
+
+状态优先级：
+
+```text
+Failed > Blocked > Limited > Cancelled > Passed
+```
+
+`ClaimCeiling`：
 
 ```text
 evidence_collected
 automation_passed
-owner_self_validation_passed
-eligible_for_external_review
-externally_accepted
+owner_validated
+externally_reviewed
 ```
 
-Skill 最终回复必须遵守报告的 `ClaimCeiling`。例如：
-
-- `AutomationStatus=Passed` 只能声明自动化通过。
-- 主美 `ExternalReview=Required` 时不能声明美术封板。
-- 游戏导演未验收 T0 时不能声明完整序章完成。
-
-## 16. MCP 工具安全边界
-
-### 16.1 输入白名单
-
-项目自定义工具只接受：
-
-- 已登记的 Profile ID。
-- 已登记的 Smoke Profile ID。
-- 已登记的 Acceptance Profile ID。
-- 已登记的 Capture Profile ID。
-- 合法 RunID。
-- 枚举化 Editor control policy。
-
-不接受：
-
-- 任意 C# 代码。
-- 任意反射方法名。
-- 任意菜单路径。
-- 任意磁盘输出路径。
-- 任意外部进程命令。
-
-### 16.2 允许写入
-
-- Refresh AssetDatabase。
-- 等待编译和 Domain Reload。
-- 受控进入 / 退出 PlayMode。
-- 调用已登记 Runner。
-- 写 `UnityClient/Logs/P3Validation/` 和 Library Job 状态。
-- 生成验收截图和结构化报告。
-
-### 16.3 禁止写入
-
-- 正式 Scene、Prefab、脚本、配置或 Approved 资源。
-- 项目根目录外文件。
-- Unity Package 或 MCP 配置。
-- 运行时 UI Toolkit 资产。
-
-### 16.4 工具组
-
-日常验证常开：
+自动截图和规则检查通过后，主美未复核时仍必须保持：
 
 ```text
-core + testing + docs + P3 custom tools
+ArtExternalReview = Required
+ArtClaimCeiling = owner_validated
 ```
 
-默认关闭：
+## 8. 发布聚合
 
-- `ui`：只处理 UI Toolkit，与项目纯 UGUI 约束冲突。
-- `asset_gen`：不属于验收编排范围。
-- `vfx`、`profiling`：仅在对应任务显式开启。
-- `scripting_ext/execute_code`：验收 Skill 不使用任意代码执行。
+入口为 `p3-release-validation`。首轮 Profile：
 
-## 17. 自动恢复和禁止掩盖
+```text
+vertical_slice_release
+t0_release
+```
 
-允许自动恢复：
+输入：
 
-- Editor 状态短暂 stale：限次重试。
-- AssetDatabase 正在更新：等待完成。
-- Domain Reload：从 JobState 恢复。
-- 截图首帧空白：重新等待布局稳定后重截一次。
-- 原始报告仍在写入：等待原子完成标记。
+```text
+ProgramRunID
+ArtRunID
+```
 
-禁止自动掩盖：
+发布聚合器只读取证据，检查：
 
-- 业务 Smoke 失败后循环重跑到绿。
-- 缺图后使用 fallback 并判正式通过。
-- 旧 `latest` 冒充本 RunID 证据。
-- 清空 Console 后忽略旧错误。
-- 缺少外部验收时标记最终完成。
+- 两侧 Profile 是否满足发布要求。
+- Git HEAD、配置、UI Spec、Registry 和 Approved 输入指纹是否兼容。
+- Program、Art Owner 和外部 Reviewer 状态是否满足门禁。
 
-## 18. 分阶段迁移
+规则：
 
-### Phase 0：基线冻结
+```text
+程序失败 → Release Failed
+美术失败 → Release Failed
+任一侧 Blocked → Release Blocked
+任一侧 Limited → Release Limited
+自动化均通过但外审未完成 → Release ReviewRequired
+全部门禁与外审通过 → Release Passed
+```
 
-工作：
+发布聚合器不运行测试、不修改 Unity、不覆盖两侧原始结论。
 
-- 固定当前 P0、Smoke、ArtAcceptance 和 T0 的成功 / 失败报告样例。
-- 锁定 Schema v1、Profile v1 和状态优先级。
-- 建立失败注入样例。
+## 9. Skill 与 MCP 工具
 
-出口：现有结果口径可被自动比较。
+### 9.1 Skills
 
-### Phase 1：只读可观测
+```text
+.codex/skills/p3-program-validation/
+.codex/skills/p3-art-validation/
+.codex/skills/p3-release-validation/
+```
 
-工作：
+删除旧 `.codex/skills/p3-validation/`，不提供兼容路由。
 
-- 实现 `p3_unity_readiness`。
-- 实现实例固定、Console baseline / delta、Editor before / after。
-- 不进入 PlayMode，不调用 Runner。
+### 9.2 共享 MCP 工具
 
-出口：连续 10 次状态和 Console 采集无误关联，不修改 Editor 状态。
+```text
+p3_validation_readiness
+p3_validation_collect_console
+p3_validation_collect_evidence
+```
 
-### Phase 2：原子 MCP 适配
+### 9.3 程序 MCP 工具
 
-工作：
+```text
+p3_program_run_smoke
+p3_program_run_profile
+```
 
-- 包装 Smoke、ArtAcceptance、T0 Capture。
-- 增加 polling、RunID 快照和 JobState。
-- 保持相同 Runner 和业务判定。
+### 9.4 美术 MCP 工具
 
-出口：MCP 和旧入口调用同一 Runner 时，核心结果、截图数量和失败断言一致；旧 `latest` 不会混入。
+```text
+p3_art_open_target
+p3_art_capture
+p3_art_run_acceptance
+p3_art_run_profile
+p3_art_compare_iteration
+```
 
-### Phase 3：Unity 子编排器
+所有工具只接收白名单 Profile、Smoke set、ScreenTag、目标 ID 和修改动作，不接收任意 C#、菜单或文件系统路径。
 
-工作：
+## 10. 测试门禁
 
-- 实现 `p3_run_unity_profile`。
-- 增加实例排他锁、`exclusive_restore`、超时和取消。
-- 落地首轮 Unity Profile 注册表。
+### 10.1 程序侧
 
-出口：Domain Reload、编译等待、截图空白、任务冲突、取消和恢复均输出正确状态。
+- 不会启动 ArtAcceptance。
+- 不要求截图或主美验收。
+- Smoke 失败输出 `ProgramAutomationStatus=Failed`。
+- 编译不可用输出 `Blocked`。
+- 程序通过不能声明视觉通过。
 
-### Phase 4：`p3-validation` Skill
+### 10.2 美术侧
 
-工作：
+- 不运行完整 P0，不修改领域状态。
+- `art_focus` 只诊断。
+- `art_iteration` 必须记录 before/after。
+- 目标不可达时转交程序。
+- 自动检查通过后仍保持主美外审要求。
+- 只使用 Approved 素材。
 
-- 编排静态脚本和 Unity MCP。
-- 实现确定性合并器。
-- 落地四个首轮 Profile。
-- 生成三层结论和 `ClaimCeiling`。
+### 10.3 发布侧
 
-出口：每个 Profile 都有成功与失败样例；Skill 回复不扩大声明。
+- Program Pass + Art Fail → Release Fail。
+- Program Fail + Art Pass → Release Fail。
+- 两边 Pass + 主美未验收 → Release ReviewRequired。
+- 输入指纹不一致 → Release Blocked。
+- 两边及外审全部通过 → Release Pass。
+- 聚合器不会重新运行两侧验收。
 
-### Phase 5：默认入口切换
+## 11. 直接替换与清理
 
-工作：
+由于旧 `p3-validation` 没有正式使用记录，本次不做兼容迁移：
 
-- Agent 日常验证默认使用 `p3-validation` Skill。
-- 手工触发文件和通用 `execute_menu_item` 降级为兼容 / 诊断入口。
-- PowerShell 静态检查和 CI 继续保留。
+- 删除旧混合 Skill 和四个混合 Profile。
+- 删除本轮测试生成的 `e2e_*` RunID。
+- 删除旧混合 Profile 的 golden fixtures。
+- 不保留 deprecated 周期、旧 RunID 读取层或双格式报告。
 
-出口：连续日常使用不需要人工清场、读 Console 或寻找报告。
+保留并重构：
 
-## 19. 失败注入与测试策略
+- RunID、EvidenceRoot 和 Artifact hash。
+- Editor readiness、Console delta、JobState 和实例锁。
+- Smoke 执行服务、ArtAcceptance/T0 adapter。
+- 确定性状态优先级和 ClaimCeiling。
 
-必须覆盖：
+## 12. 完成口径
 
-- Unity 状态 stale。
-- Unity 实例断开或多实例未固定。
-- 编译 error 和编译超时。
-- Domain Reload 中断。
-- 已有修改型 Job 占用实例。
-- 未保存 Scene / Prefab Stage。
-- Smoke 业务断言失败。
-- ArtAcceptance / T0 截图缺失、空白或语义失败。
-- 旧 `latest` 时间较新但 source RunID 不匹配。
-- 运行中 cancel。
-- Editor 状态恢复失败。
+实现完成必须同时满足：
 
-测试分层：
+1. 三个新 Skill 可被 Codex 识别，旧 Skill 已删除。
+2. 程序和美术 Profile 使用独立事实来源和独立 RunID 根目录。
+3. `step-result@2` 强制校验 `validation_domain`。
+4. Program Merger 拒绝 art 步骤，Art Merger 拒绝 program 步骤。
+5. 程序 Profile 不启动 ArtAcceptance。
+6. `art_iteration` 只允许白名单 UGUI / VisualID 修改，并保留 before/after。
+7. 发布聚合只读取两侧证据和输入指纹。
+8. 程序、美术、发布三类成功与受控失败测试均通过。
+9. 当前文档、开发规则、Skill、状态页和知识库索引已同步。
 
-1. Schema 和合并器单元测试。
-2. Profile 白名单和参数校验测试。
-3. JobState、Domain Reload 和排他锁 EditMode 测试。
-4. 使用假 Runner 的工具契约测试。
-5. 使用真实 Unity 的 Smoke / ArtAcceptance / T0 集成测试。
-6. 四个 Profile 的 golden report 回归。
+## 13. 当前状态
 
-## 20. 旧入口替换策略
-
-| 旧能力 | MCP 稳定后的定位 |
-|---|---|
-| 人工写 `.test_trigger` / `.art_acceptance_trigger` | Agent 默认停用；脚本自动化和故障回退保留。 |
-| `execute_menu_item` 启动 Runner | 自定义工具不可用时的诊断入口。 |
-| `AutoTestDaemon` / ArtAcceptance / T0 Runner | 继续作为执行核心，首轮不重写。 |
-| PowerShell 静态验证和 CI | 继续保留。 |
-| 手工读 Console、等待 PlayMode、找截图 | 由 MCP 完全替代。 |
-
-后续只有在 MCP 原生实现具备明确更好效果、相同或更强证据以及完整失败注入覆盖时，才替换对应旧执行核心。
-
-## 21. 回滚
-
-本设计的回滚不要求回退游戏业务代码：
-
-- 关闭 Unity MCP 的 Project Scoped Tools。
-- 禁用或移除 `p3-validation` Skill。
-- 恢复现有脚本、菜单和触发文件路径。
-
-MCP 证据目录位于 `Logs`，Job 状态位于 `Library`，不改变项目玩法、配置、美术或 UI 事实来源。
-
-## 22. 完成口径
-
-本设计进入“实现完成”至少需要：
-
-1. `p3-validation` Skill 可被 Codex 识别。
-2. 六个 P3 Unity MCP 工具可发现，且 Project Scoped Tools 已显式开启。
-3. 四个首轮 Profile 可运行。
-4. Schema、合并器、JobState 和失败注入测试通过。
-5. `smoke_focus`、`art_runtime`、`t0_seal`、`p0_full` 均有成功和失败证据包。
-6. Console delta、截图归属、旧 `latest` 排除和 ClaimCeiling 有聚焦测试。
-7. 文档、工具 README 和 `agent_status/program.md` 已回写。
-8. Owner 自验完成；外部验收按 Profile 要求分别记录，未验收时不得标记最终完成。
-
-## 23. 当前状态
-
-截至 2026-07-12：
-
-- 本文设计已完成并经用户逐段确认。
-- Unity MCP v10.0.0 已安装并能发现当前 Unity 实例。
-- 项目现有 Runner、PowerShell 和报告体系继续作为实现输入。
-- 尚未创建 `p3-validation` Skill、自定义 MCP 工具、Profile 注册表、统一 Schema 或合并器。
-- 因此当前只能声明“设计完成，等待实现计划”，不能声明 MCP 验收编排层已经落地。
+- 本设计已由用户确认采用方案 B。
+- 旧 `p3-validation` 首版实现存在，但尚未成为正式工作流，也没有需要兼容的正式证据。
+- 下一步先生成直接拆分的详细实现计划，再执行代码、Profile、Skill 和证据格式重构。
