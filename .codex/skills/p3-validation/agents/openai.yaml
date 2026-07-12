@@ -1,4 +1,4 @@
 interface:
   display_name: "P3 Validation"
-  short_description: "Run P3 hybrid script and Unity MCP validation"
-  default_prompt: "Use $p3-validation to run the appropriate P3 validation profile and report only within its ClaimCeiling."
+  short_description: "Orchestrate P3 script and Unity MCP validation"
+  default_prompt: "Use $p3-validation to run the correct P3 validation profile and report only within its ClaimCeiling."

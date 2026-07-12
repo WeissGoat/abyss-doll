@@ -8,3 +8,12 @@
 | Full P0 automation | `p0_full` | Config report, Console delta, smoke, ArtAcceptance summary | As reported |
 
 Do not combine Profiles to hide a failed required step. Start separate RunIDs when two Profiles are genuinely required.
+
+Pass these merge defaults unless stronger evidence exists:
+
+| Profile | OwnerValidation | ExternalReview |
+|---|---|---|
+| `smoke_focus` | `NotStarted` | `NotRequired` |
+| `art_runtime` | `NotStarted` | `Required` |
+| `t0_seal` | `NotStarted` | `Required` |
+| `p0_full` | `NotStarted` | `NotRequired` unless the produced report requires review |

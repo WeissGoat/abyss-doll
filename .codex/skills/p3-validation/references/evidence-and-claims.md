@@ -13,4 +13,6 @@ Claim meanings:
 
 An ArtAcceptance or T0 machine pass never means visual seal, complete T0, or production approval while external review is `Required`.
 
+Do not promote `OwnerValidation` or `ExternalReview` from free text, a machine status, or the existence of screenshots. Promote them only from explicit review evidence and retain its path in the task handoff.
+
 Every artifact must retain destination path, source path, SHA-256, size, capture time, and MIME type. Evidence from `latest` is valid only when its timestamp is after the RunID job start and the adapter copies it into that RunID root.

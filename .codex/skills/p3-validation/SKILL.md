@@ -12,12 +12,30 @@ Use one registered Profile and preserve its evidence and claim boundaries.
 1. Read `AGENTS.md`, `PROJECT_STATUS.md`, `agent_status/program.md`, and affected role status pages.
 2. Select exactly one Profile using [profile-routing.md](references/profile-routing.md).
 3. Pin the intended Unity instance; never rely on an ambiguous active instance.
-4. Create the RunID with `tools/agent/p3-validation/New-P3ValidationRun.ps1`.
-5. Run `Invoke-P3StaticValidation.ps1` for registered static steps.
+4. Create the RunID:
+
+   ```powershell
+   $run = .\tools\agent\p3-validation\New-P3ValidationRun.ps1 -ProfileId <profile> -PassThru
+   ```
+
+5. Run registered static steps:
+
+   ```powershell
+   .\tools\agent\p3-validation\Invoke-P3StaticValidation.ps1 -RunId $run.RunId -ProfileId <profile>
+   ```
+
 6. Call `p3_unity_readiness`; stop on a dirty Scene or dirty Prefab Stage.
 7. Call `p3_run_unity_profile` or the registered atomic MCP tool. Poll with the same RunID.
 8. Call `p3_collect_unity_evidence`.
-9. Run `Merge-P3ValidationEvidence.ps1`.
+9. Merge evidence. Keep Owner validation at `NotStarted` until the Owner has produced explicit evidence. Use `ExternalReview Required` for `art_runtime` and `t0_seal` until every required reviewer has approved:
+
+   ```powershell
+   .\tools\agent\p3-validation\Merge-P3ValidationEvidence.ps1 `
+     -RunId $run.RunId `
+     -OwnerValidation NotStarted `
+     -ExternalReview <NotRequired|Required|Passed|Failed>
+   ```
+
 10. Read `validation-summary.json` and report no claim above `claim_ceiling`.
 
 Read [evidence-and-claims.md](references/evidence-and-claims.md) before reporting completion.
@@ -31,7 +49,8 @@ Read [evidence-and-claims.md](references/evidence-and-claims.md) before reportin
 - Do not clear the Unity Console. Use RunID baseline/delta evidence.
 - Do not auto-save dirty scenes or Prefab Stages.
 - Treat a business `Failed` result as terminal; do not automatically rerun it.
+- Never set Owner validation or external review to `Passed` without a concrete evidence path.
 
 ## Fallback
 
-If project-scoped MCP tools are unavailable, record `validation_limited:P3CustomMcpToolsUnavailable`. Offer the existing script, trigger, or menu path as a fallback, but never label the weaker substitute as the MCP Profile passing.
+If project-scoped MCP tools are unavailable, record `validation_limited:P3CustomMcpToolsUnavailable`. First verify the intended Unity instance and reconnect a session started with project-scoped tools enabled. If reconnection is unavailable, offer the existing script, trigger, or registered menu path as a fallback, but never label the weaker substitute as the MCP Profile passing.
