@@ -1,6 +1,7 @@
 {
   "schema_version": "p3-validation/profiles@1",
   "smoke_sets": {
+    "foundation": ["P3ValidationFoundationSmokeSuite.Run"],
     "t0_core": ["PrologueFirstDivePermissionSmokeSuite.Run"],
     "p0_core": ["ConfigValidationSmokeTest.Run", "MainFlowGoldenPathSmokeTest.Run"]
   },

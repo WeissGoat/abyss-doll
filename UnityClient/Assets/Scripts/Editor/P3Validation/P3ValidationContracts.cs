@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
+[JsonConverter(typeof(StringEnumConverter))]
 public enum P3ValidationStepStatus { Passed, Failed, Blocked, Limited, Cancelled }
 
 [Serializable]

@@ -14,8 +14,17 @@ if (-not (Test-Path $requestPath)) { throw "request missing: $RunId" }
 $request = Get-Content $requestPath -Raw -Encoding UTF8 | ConvertFrom-Json
 $steps = @(Get-ChildItem (Join-Path $root "steps") -Recurse -Filter result.json -ErrorAction SilentlyContinue | ForEach-Object { Get-Content $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json })
 $required = @($steps | Where-Object { $_.required -eq $true })
-if ($required.Count -eq 0) { $automation = "Blocked" }
-elseif ($required.status -contains "Failed") { $automation = "Failed" }
+$expectedByProfile = @{
+    smoke_focus = @("smoke")
+    art_runtime = @("ui_spec_validate", "art_acceptance")
+    t0_seal = @("config_sync", "ui_spec_validate", "art_manifest_check", "smoke", "t0_capture")
+    p0_full = @("config_sync", "config_static_validate", "ui_spec_validate", "smoke")
+}
+$expected = @($expectedByProfile[$request.profile_id])
+$missing = @($expected | Where-Object { $_ -notin @($required.step_id) })
+if ($required.status -contains "Failed") { $automation = "Failed" }
+elseif ($missing.Count -gt 0) { $automation = "Blocked" }
+elseif ($required.Count -eq 0) { $automation = "Blocked" }
 elseif ($required.status -contains "Blocked") { $automation = "Blocked" }
 elseif ($required.status -contains "Limited") { $automation = "Limited" }
 elseif ($required.status -contains "Cancelled") { $automation = "Cancelled" }
@@ -24,7 +33,7 @@ if ($automation -ne "Passed") { $ceiling = "evidence_collected" }
 elseif ($OwnerValidation -notin @("Passed")) { $ceiling = "automation_passed" }
 elseif ($ExternalReview -eq "Passed" -or $ExternalReview -eq "NotRequired") { $ceiling = if ($ExternalReview -eq "Passed") { "externally_reviewed" } else { "owner_validated" } }
 else { $ceiling = "owner_validated" }
-$summary = [ordered]@{ schema_version="p3-validation/summary@1"; run_id=$RunId; profile_id=$request.profile_id; generated_at=(Get-Date).ToUniversalTime().ToString("o"); automation_status=$automation; owner_validation=$OwnerValidation; external_review=$ExternalReview; claim_ceiling=$ceiling; steps=$steps }
+$summary = [ordered]@{ schema_version="p3-validation/summary@1"; run_id=$RunId; profile_id=$request.profile_id; generated_at=(Get-Date).ToUniversalTime().ToString("o"); automation_status=$automation; owner_validation=$OwnerValidation; external_review=$ExternalReview; claim_ceiling=$ceiling; missing_required_steps=$missing; steps=$steps }
 $jsonPath = Join-Path $root "validation-summary.json"
 $tmp = "$jsonPath.tmp"
 $summary | ConvertTo-Json -Depth 20 | Set-Content $tmp -Encoding UTF8
