@@ -59,4 +59,4 @@ update_rule: 程序入口文档、Unity 工程边界、配置同步或验证流�
 - 修改系统契约时优先补 Validator、测试和对应开发文档。
 # 2026-07-12 验收入口
 
-程序验收入口已切换为 `.codex/skills/p3-program-validation` 与 `tools/agent/p3-validation-core`；旧混合入口已删除。
+程序验收入口已切换为 `.codex/skills/p3-program-validation` 与 `tools/agent/p3-validation-core`；旧混合入口已删除。美术 lane 的标准工具为注册目标检查、bounded UGUI inspection、MCP capture ticket 和独立 ArtRunID，不得进入程序 Profile。

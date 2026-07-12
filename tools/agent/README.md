@@ -111,3 +111,12 @@ P0 配置 Validator 与自动验收底座的目标命令、报告格式和门禁
 - `ERROR`：存在必须处理的问题，例如知识库校验失败。
 
 默认模式下，`WARN` 返回成功退出码，避免阻断已有脏工作区中的正常任务。`-Strict` 模式下，`WARN` 也会返回失败退出码。
+# P3 Unity MCP 验收入口
+
+交互式验收已按职能拆分为 `.codex/skills/p3-program-validation`、`.codex/skills/p3-art-validation`、`.codex/skills/p3-release-validation`，共享核心脚本位于 `tools/agent/p3-validation-core/`。`.test_trigger`、`Invoke-P0Validation.ps1` 和旧菜单仍保留为自动化兼容/故障回退入口。
+# P3 分职能验收入口（2026-07-12）
+
+- 程序自动化：`tools/agent/p3-validation-core/New-P3ValidationRun.ps1 -Domain program`，随后使用 `p3_program_run_profile`。
+- 美术验收与迭代：创建 `ArtRunID`，使用 `p3_art_open_target`、`p3_art_inspect_target`、`p3_art_prepare_capture`、标准 `manage_camera`、`p3_art_finalize_capture`、`p3_art_compare_iteration`、`p3_art_run_profile`；全量回归另用 `p3_art_run_regression`。
+- 发布聚合：`Merge-P3ReleaseEvidence.ps1` 只读取 ProgramRunID 与 ArtRunID。
+- 旧混合 `p3-validation`、`p3_run_unity_profile` 和混合 Profile 已移除。

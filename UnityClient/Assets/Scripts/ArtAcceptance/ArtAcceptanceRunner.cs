@@ -19,6 +19,7 @@ using UnityEditor;
 /// UI 层级扫描见 ArtAcceptanceUiScanner.cs (partial class)
 /// </summary>
 public partial class ArtAcceptanceRunner : MonoBehaviour {
+    public static event Action<string, string> AutomatedRunCompleted;
     private const string SchemaVersion = "1.0";
     private const string ProjectName = "P3";
     private const string ModeAuto = "auto";
@@ -35,6 +36,7 @@ public partial class ArtAcceptanceRunner : MonoBehaviour {
     private string _outputRoot;
     private string _screenshotsRoot;
     private bool _autoExitPlayMode;
+    private bool _completionNotified;
     private bool _runtimeCoreReady;
     private bool _manualRunActive;
     private bool _isAdvancingManualRun;
@@ -52,10 +54,10 @@ public partial class ArtAcceptanceRunner : MonoBehaviour {
     // 入口与生命周期
     // ──────────────────────────────────────────
 
-    public static void BeginAutomatedRun(bool autoExitPlayMode) {
+    public static string BeginAutomatedRun(bool autoExitPlayMode) {
         if (_activeRunner != null && _activeRunner._report.IsRunning) {
             Debug.LogWarning("[ArtAcceptance] A run is already active.");
-            return;
+            return null;
         }
 
         GameObject runnerObject = new GameObject("ArtAcceptanceRunner_Auto");
@@ -64,6 +66,7 @@ public partial class ArtAcceptanceRunner : MonoBehaviour {
         runner._autoExitPlayMode = autoExitPlayMode;
         _activeRunner = runner;
         runner.BeginManualRun();
+        return runner._runID;
     }
 
     public static void EditorTickActiveRun() {
@@ -362,6 +365,10 @@ public partial class ArtAcceptanceRunner : MonoBehaviour {
     }
 
     private void CompleteRun() {
+        if (!_completionNotified && !string.IsNullOrEmpty(_runID) && !string.IsNullOrEmpty(_outputRoot)) {
+            _completionNotified = true;
+            AutomatedRunCompleted?.Invoke(_runID, _outputRoot);
+        }
         _manualRunActive = false;
         _manualYieldPending = false;
         _manualYieldUntilTime = 0f;

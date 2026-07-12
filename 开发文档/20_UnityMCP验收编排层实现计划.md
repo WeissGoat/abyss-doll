@@ -902,3 +902,12 @@ Implementation is complete only when:
 - `art_regression` imports the exact legacy runner output into ArtRunID.
 - All formal Profile summaries keep `ExternalReview=Required` until actual main-art review.
 - Focused tests, both builds, Skill validation, document validation and scoped status writeback pass.
+
+## 2026-07-12 执行结果
+
+- 已实现 7 个项目工具：`p3_art_open_target`、`p3_art_inspect_target`、`p3_art_prepare_capture`、`p3_art_finalize_capture`、`p3_art_compare_iteration`、`p3_art_run_profile`、`p3_art_run_regression`。
+- `art_v2_focus_final_20260712` 已在 `UnityClient@c0741596` 通过 MCP 完成 `workshop_main` live inspection、标准 Game View capture ticket、1920x1080 finalize 和 Profile complete；证据根为 `UnityClient/Logs/P3Validation/art-runs/art_v2_focus_final_20260712/`，ticket staging 已清理。
+- `art_v2_regression_final_20260712` 已直接启动旧 Runner，锁定 source RunID `20260712_164511` 并导入本轮 report/UI/Registry/checklist 与 21 张 `latest/screenshots/`；证据根为 `UnityClient/Logs/P3Validation/art-runs/art_v2_regression_final_20260712/`。
+- `art_v2_runtime_final_20260712` 和 `art_v2_t0_seal_final_20260712` 已分别完成 final/seal ticket。`art_v2_iteration_blocked_final_20260712` 已完成真实目标 inspect，并以 `art_blocked:persist_adapter_missing` 记录当前业务 adapter 限制。
+- 实机校正了注册根：`WorkshopPanel`、`DungeonMapPanel`、`P3DialogueOverlay_Runtime`。capture staging 在 finalize 后清理；iteration 请求以原始值 DTO 落盘，并要求持久化后的新 PlayMode generation 重新 inspect。
+- `validation_limited:subagent forward-testing prohibited by user`。当前注册目标没有安全业务 persist adapter；因此框架、拒绝路径与 reload 门禁已完成，但没有用任意 C# 或资产路径伪造真实 `art_iteration` before/after 修改包。

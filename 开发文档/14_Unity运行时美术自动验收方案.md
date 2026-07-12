@@ -838,3 +838,5 @@ art_regression
 ```
 
 旧 runner 的截图步骤和报告结构继续有效，但不得再把“运行完整 runner”作为每次美术验收的默认前置条件。Runner 的 `PASSED` 只表示机器技术检查通过，不代表视觉质量或主美验收通过。
+
+正式 MCP 截图按 `p3_art_prepare_capture -> manage_camera(game_view, camera omitted) -> p3_art_finalize_capture` 执行。实时浏览图可直接由 `manage_camera` 返回，但只有票据图能进入 ArtRunID。`art_regression` 适配器必须匹配本次启动返回的 source RunID，并只导入 `latest/screenshots/` 的本轮图片，避免 `latest` 根目录历史 contact sheet 污染证据。

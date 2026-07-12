@@ -496,17 +496,15 @@ Created
 
 ### 14.4 MCP 截图契约
 
-`p3_art_capture` V2 不接受任意 `source_path`，只接受：
+V2 使用两阶段票据，不再存在接受截图路径的 `p3_art_capture`：
 
-```json
-{
-  "run_id": "art_...",
-  "target_id": "workshop_main",
-  "capture_role": "final",
-  "iteration_id": null,
-  "wait_for_stable_frames": 2
-}
+```text
+p3_art_prepare_capture
+-> 使用返回的精确参数调用标准 Unity MCP manage_camera
+-> p3_art_finalize_capture(run_id, capture_ticket_id)
 ```
+
+标准截图调用必须为 `action=screenshot`、`capture_source=game_view`、`include_image=true`，并省略 `camera`，以便 Screen Space Overlay UGUI 进入画面。正式目标固定为 `1920x1080`；Game View 未选择 Full HD 时只能作为实时诊断图，不能 finalize 为正式证据。
 
 `capture_role` 只允许：
 
@@ -514,7 +512,7 @@ Created
 issue | before | after | final | seal | regression
 ```
 
-项目工具验证 RunID、Profile、TargetID 和 ScreenTag 后调用 Unity MCP 获取 Game View；agent 不提供任意文件路径。
+项目工具只生成当前 ArtRunID 内的 staging 票据和精确文件名；agent 不提供任意文件路径。finalize 校验 PNG、尺寸、大小和 SHA-256，归档后删除票据 staging 图。
 
 ### 14.5 截图数量原则
 
@@ -592,5 +590,5 @@ ArtClaimCeiling = evidence_collected
 5. 单界面正常验收默认只保留一张最终截图。
 6. 发生修改时保留 before/after，持久化后重新进入 PlayMode 复验。
 7. 目标不可达时生成程序交接。
-8. `art_regression` 可以导入旧 ArtAcceptance 完整证据。
+8. `art_regression` 锁定本次 runner source RunID，只导入本次被清空后重新生成的 `latest/screenshots/` 与 report/UI/Registry/checklist，不能递归混入旧 contact sheet。
 9. 所有正式结果继续要求外部主美复核。

@@ -1,9 +1,20 @@
 ---
 name: p3-art-validation
-description: Diagnose, capture, iterate, and externally review Project P3 runtime UI and art through registered Unity targets and allowlisted UGUI or Approved VisualID changes. Use for ArtAcceptance, runtime screenshots, UI polish, art iteration, and T0 visual seals; never use for full P0 or domain-rule mutation.
+description: Use when Project P3 needs runtime UI or art diagnosis, live Game View inspection, focused visual acceptance, bounded presentation iteration, T0 visual sealing, or full visual regression.
 ---
+
 # P3 Art Validation
 
-Read `agent_status/art.md`, select a Profile using [profile-routing.md](references/profile-routing.md), create an ArtRunID, check readiness, open only a registered target, capture before evidence, diagnose, optionally apply one typed allowlisted change, capture after evidence, collect Console delta, merge, then request external art review.
+Use MCP live inspection as the default; capture only decision evidence.
 
-If a target is unreachable, stop visual mutation and hand off `art_blocked:target_screen_unreachable` to program. Follow [iteration-boundaries.md](references/iteration-boundaries.md).
+1. Read `agent_status/art.md`, active UI/art facts, and choose a registered TargetID and Profile.
+2. Create an ArtRunID and pin the Unity instance with `set_active_instance`.
+3. Call `p3_validation_readiness`, `p3_art_open_target`, and `p3_art_inspect_target`.
+4. View the current Game View with `manage_camera(action="screenshot", capture_source="game_view", include_image=true)`; omit `camera` so Screen Space Overlay UGUI is included. Before formal capture, select the registered target's `1920x1080` Game View size.
+5. Diagnose from the live image plus the bounded UGUI snapshot.
+6. When evidence is needed, call `p3_art_prepare_capture`, execute the returned exact `manage_camera` arguments, then call `p3_art_finalize_capture`. A live image with other dimensions is diagnosis only.
+7. Complete `p3_art_run_profile`, merge the ArtRunID, and request external review.
+
+Read [profile-routing.md](references/profile-routing.md), [mcp-live-inspection.md](references/mcp-live-inspection.md), [evidence-policy.md](references/evidence-policy.md), and [iteration-boundaries.md](references/iteration-boundaries.md).
+
+Never accept arbitrary screenshot paths, fabricate player state, run full P0, mutate domain rules, or claim external art approval. Only `art_regression` may start the legacy ArtAcceptance runner.
