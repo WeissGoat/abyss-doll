@@ -1,0 +1,1 @@
+{"schema_version":"p3-validation/step-result@2","validation_domain":"art","run_id":"fixture_art_blocked","profile_id":"art_focus","step_id":"target_open","required":true,"status":"Blocked","code":"art_blocked:target_screen_unreachable","artifacts":[]}

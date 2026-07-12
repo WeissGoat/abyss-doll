@@ -1,0 +1,1 @@
+{"schema_version":"p3-validation/step-result@2","validation_domain":"art","run_id":"fixture_art","profile_id":"art_runtime","step_id":"art_acceptance","required":true,"status":"Failed","code":"art_failed:layout_contract","artifacts":[]}

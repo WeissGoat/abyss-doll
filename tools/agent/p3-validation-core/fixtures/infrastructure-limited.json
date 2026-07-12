@@ -1,0 +1,1 @@
+{"schema_version":"p3-validation/step-result@2","validation_domain":"infrastructure","run_id":"fixture_infra","profile_id":"art_runtime","step_id":"console_delta","required":true,"status":"Limited","code":"infra_limited:console_delta_unavailable","artifacts":[]}
