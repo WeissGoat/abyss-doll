@@ -453,3 +453,144 @@ p3_art_compare_iteration
 # 2026-07-12 实现状态
 
 已按分离架构落地 `p3-program-validation`、`p3-art-validation`、`p3-release-validation` 与共享 `P3ValidationCore`。程序路径不启动 ArtAcceptance；美术路径只允许注册目标和强类型 UGUI/Approved VisualID 边界；发布路径只读聚合两个完成的 RunID。证据根分别为 `program-runs`、`art-runs`、`release-runs`。
+
+## 14. p3-art-validation V2：MCP 实时优先
+
+### 14.1 核心原则
+
+`p3-art-validation` V2 采用 `live-first, capture-on-decision`：
+
+- 日常美术验收默认通过 MCP 直接查看当前锁定 Unity 实例的 Game View。
+- MCP 同步读取注册目标的 Hierarchy、RectTransform、CanvasScaler、Image、Text/TMP、CanvasGroup、Mask、Raycast、SiblingIndex、VisualID 和 Console delta。
+- 截图不再作为发现问题的主要手段，只作为问题、迭代前后、最终结论和封板画面的持久证据。
+- 正式截图默认通过 Unity MCP 的 Game View 截图能力获取，再由 `P3ValidationCore` 校验尺寸、时间、大小和 SHA-256 并归档。
+- 旧 `ArtAcceptanceRunner` 降为全量视觉回归后端，不再是日常单界面验收默认入口。
+
+### 14.2 V2 Profile
+
+| Profile | 默认用途 | 截图规则 |
+|---|---|---|
+| `art_focus` | 单个注册 TargetID / ScreenTag 的实时诊断 | 无问题只保存 `final`；发现问题保存 `issue` |
+| `art_runtime` | 一组注册运行时目标的实时巡检 | 每个失败状态和最终候选状态留证 |
+| `art_iteration` | 实时诊断、白名单表现调整、重新加载和复验 | 发生修改时必须保存 `before/after` |
+| `t0_art_seal` | T0 固定语义画面封板 | 固定语义画面全部保存为 `seal` |
+| `art_regression` | 大范围 UI 变更或发布前全量回归 | 导入旧 ArtAcceptance 的完整截图和快照 |
+
+### 14.3 标准状态机
+
+```text
+Created
+-> Preflight
+-> TargetNavigation
+-> LiveInspection
+-> Diagnosis
+-> CaptureDecision
+-> OptionalIteration
+-> FinalCapture
+-> EvidenceValidation
+-> ExternalReviewRequired
+-> Complete
+```
+
+目标不可达时进入 `ProgramHandoff`；MCP 不得伪造玩家状态或修改玩法规则绕过不可达问题。
+
+### 14.4 MCP 截图契约
+
+`p3_art_capture` V2 不接受任意 `source_path`，只接受：
+
+```json
+{
+  "run_id": "art_...",
+  "target_id": "workshop_main",
+  "capture_role": "final",
+  "iteration_id": null,
+  "wait_for_stable_frames": 2
+}
+```
+
+`capture_role` 只允许：
+
+```text
+issue | before | after | final | seal | regression
+```
+
+项目工具验证 RunID、Profile、TargetID 和 ScreenTag 后调用 Unity MCP 获取 Game View；agent 不提供任意文件路径。
+
+### 14.5 截图数量原则
+
+- 正常单界面通过：一张 `final`。
+- 发现问题但本轮不修改：一张 `issue`。
+- 发生修改：一组 `before/after`。
+- T0 封板：每个固定语义目标一张 `seal`。
+- 全量回归：完整 `regression` 集合。
+- 诊断过程中无结论价值的重复画面不保存。
+
+### 14.6 迭代与正式结论
+
+PlayMode 临时调整只用于快速验证方向，不能支持正式通过。发生正式修改后必须：
+
+```text
+持久化到注册 Prefab / UGUI 构建配置 / VisualID adapter
+-> 重新加载或重新进入 PlayMode
+-> MCP 查看正式运行效果
+-> MCP 重新截图
+-> 检查 Console delta
+-> 生成 after/final 证据
+```
+
+没有发生修改时不强制生成 `before/after`。
+
+### 14.7 证据结构
+
+```text
+art-runs/<ArtRunID>/
+  request.json
+  session.json
+  summary.json
+  targets/<target-id>/
+    target-state.json
+    hierarchy.json
+    components.json
+    diagnosis.json
+    console-delta.json
+  screenshots/<target-id>/
+    issue.png
+    final.png
+  iterations/<iteration-id>/
+    before.png
+    diagnosis.json
+    preview-changes.json
+    persisted-changes.json
+    after.png
+    console-delta.json
+    result.json
+  regression/
+    source-report.json
+    ui-snapshot.json
+    registry-snapshot.json
+    screenshots/
+```
+
+### 14.8 声明边界
+
+机器自动化通过后仍保持：
+
+```text
+ArtAutomationStatus = Passed
+ArtExternalReview = Required
+ArtClaimCeiling = evidence_collected
+```
+
+只有主美复核通过后，`ArtClaimCeiling` 才能进入 `externally_reviewed`。MCP 不得自行声明商业化效果通过、美术封板完成或主美已批准。
+
+### 14.9 V2 完成口径
+
+1. 日常 Profile 不再默认启动完整 ArtAcceptance。
+2. Game View 实时查看成为默认诊断手段。
+3. 正式截图全部从当前锁定 Unity 实例通过 MCP 获取。
+4. `p3_art_capture` 不再接受任意文件路径。
+5. 单界面正常验收默认只保留一张最终截图。
+6. 发生修改时保留 before/after，持久化后重新进入 PlayMode 复验。
+7. 目标不可达时生成程序交接。
+8. `art_regression` 可以导入旧 ArtAcceptance 完整证据。
+9. 所有正式结果继续要求外部主美复核。

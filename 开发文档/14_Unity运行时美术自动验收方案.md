@@ -19,7 +19,7 @@ related:
   - 美术文档/10_美术验收截图优化与真实数据驱动演进方案.md
   - agent_status/art.md
   - 知识库/views/art.md
-last_verified: 2026-05-26
+last_verified: 2026-07-12
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---
 
@@ -810,3 +810,31 @@ ArtAcceptance 是运行时视觉验收工具，只回答“Unity 运行时能否
 * 真实操作闭环需要另有服务绑定证据：按钮必须调用后端 / 领域服务，失败原因、状态变化、回滚和 UI 刷新需要由 smoke test 或人工流程验证。
 
 截至 2026-05-26，latest Formal V1 队列已覆盖 21 个 active 界面并完成截图覆盖；该结论只代表“运行时截图覆盖完成”。后续程序侧若要声明某界面“可玩接入完成”，还必须补齐玩家主流程入口和真实服务操作闭环。
+
+## 0. 2026-07-12 V2 入口与旧 Runner 定位
+
+日常验收入口切换为 `p3-art-validation` V2 的 MCP 实时优先流程。本文原有 `ArtAcceptanceRunner` 自动截图链继续保留，但定位调整为全量视觉回归后端；MCP 编排、按需截图、ArtRunID 和外部复核契约以 `开发文档/19_UnityMCP验收编排层设计.md` 第 14 节为准。
+
+日常单界面或小范围验收：
+
+```text
+注册目标
+-> MCP 进入并查看实时 Game View
+-> MCP 读取 UI 层级和组件
+-> 诊断
+-> 按结论截图
+-> ArtRunID 归档
+-> 主美复核
+```
+
+全量回归：
+
+```text
+art_regression
+-> ArtAcceptanceRunner
+-> 完整截图集 / UI snapshot / Registry snapshot / report
+-> 导入 ArtRunID
+-> 主美复核
+```
+
+旧 runner 的截图步骤和报告结构继续有效，但不得再把“运行完整 runner”作为每次美术验收的默认前置条件。Runner 的 `PASSED` 只表示机器技术检查通过，不代表视觉质量或主美验收通过。
