@@ -1,0 +1,58 @@
+{
+  "created_at": "20260712_151651",
+  "config": "tools\\ai-image-gateway\\config.local.yaml",
+  "provider": "gemini_chat_image",
+  "input_dir": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\input",
+  "output_dir": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_dialogue_thoughtful_retry",
+  "patterns": [
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.webp"
+  ],
+  "recursive": false,
+  "prompt": "Edit the supplied Project P3 character Zero portrait into a restrained thoughtful pause difference.\n\nPreserve exactly: Zero's identity and face, petite non-childlike build, three-quarter standing camera, fully loose long silver-white hair, closed soft white blindfold, separate short gray shoulder cloak covering both shoulders and chest, separate ivory-gray short inner dress, bare legs, bare feet, fine doll seams, pure white background, full-body framing, and the same clean anime game rendering.\n\nChange only the performance: lower the chin slightly, keep the mouth closed but relaxed, angle the torso inward by a very small amount, and let one hand rest lightly near the cloak collar or beneath the chin without touching or lifting the blindfold. The pose should read as silent calculation and listening before answering.\n\nNo red glow, no visible eyes, no activation gesture, no chest ornament, no exposed shoulder, no long cloak tails, no shoes, no text, no scenery, no blush, no sexualized pose, and no child proportions.",
+  "negative_prompt": "",
+  "width": 1024,
+  "height": 1536,
+  "count": 1,
+  "provider_request_count": 1,
+  "inputs": [
+    "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\input\\zero_dialogue_neutral_master.png"
+  ],
+  "results": [
+    {
+      "source": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\input\\zero_dialogue_neutral_master.png",
+      "source_mime": "image/png",
+      "provider": "gemini_chat_image",
+      "prompt": "Edit the supplied Project P3 character Zero portrait into a restrained thoughtful pause difference.\n\nPreserve exactly: Zero's identity and face, petite non-childlike build, three-quarter standing camera, fully loose long silver-white hair, closed soft white blindfold, separate short gray shoulder cloak covering both shoulders and chest, separate ivory-gray short inner dress, bare legs, bare feet, fine doll seams, pure white background, full-body framing, and the same clean anime game rendering.\n\nChange only the performance: lower the chin slightly, keep the mouth closed but relaxed, angle the torso inward by a very small amount, and let one hand rest lightly near the cloak collar or beneath the chin without touching or lifting the blindfold. The pose should read as silent calculation and listening before answering.\n\nNo red glow, no visible eyes, no activation gesture, no chest ornament, no exposed shoulder, no long cloak tails, no shoes, no text, no scenery, no blush, no sexualized pose, and no child proportions.",
+      "negative_prompt": "",
+      "width": 1024,
+      "height": 1536,
+      "count": 1,
+      "provider_request_count": 1,
+      "delay_seconds": 2.0,
+      "success_count": 1,
+      "errors": [],
+      "files": [
+        {
+          "image": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_dialogue_thoughtful_retry\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.jpg",
+          "metadata": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_dialogue_thoughtful_retry\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.json"
+        }
+      ],
+      "runs": [
+        {
+          "run_index": 0,
+          "success_count": 1,
+          "errors": [],
+          "files": [
+            {
+              "image": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_dialogue_thoughtful_retry\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.jpg",
+              "metadata": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_dialogue_thoughtful_retry\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.json"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

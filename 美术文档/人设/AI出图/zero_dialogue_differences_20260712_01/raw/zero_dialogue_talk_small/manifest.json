@@ -1,0 +1,58 @@
+{
+  "created_at": "20260712_145142",
+  "config": "tools\\ai-image-gateway\\config.local.yaml",
+  "provider": "gemini_chat_image",
+  "input_dir": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\input",
+  "output_dir": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_dialogue_talk_small",
+  "patterns": [
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.webp"
+  ],
+  "recursive": false,
+  "prompt": "Edit the supplied Project P3 character Zero portrait into a subtle speaking dialogue difference.\n\nPreserve exactly: the same girl and face identity, petite non-childlike proportions, three-quarter standing camera angle, fully loose long silver-white hair, soft white cloth blindfold, complete short gray shoulder cloak covering both shoulders and chest, separate simple ivory-gray short inner dress, bare legs, bare feet, fine doll-joint seams, dust level, pure white background, full-body framing, and restrained Japanese anime game rendering.\n\nChange only the dialogue performance: open her mouth slightly in a small natural speaking shape, lift the chin by a very small amount, and let one hand make a restrained low gesture near the cloak edge. The gesture must remain compact and calm, as if delivering a short factual response. No smile and no strong emotion.\n\nThe red eyes remain completely hidden and there is no red glow. Core chamber remains hidden. No chest ornament, no exposed shoulder, no cape dress, no shoes, no text, no UI, no second character, no scenery, no sexualized pose, and no child proportions.",
+  "negative_prompt": "",
+  "width": 1024,
+  "height": 1536,
+  "count": 1,
+  "provider_request_count": 1,
+  "inputs": [
+    "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\input\\zero_dialogue_neutral_master.png"
+  ],
+  "results": [
+    {
+      "source": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\input\\zero_dialogue_neutral_master.png",
+      "source_mime": "image/png",
+      "provider": "gemini_chat_image",
+      "prompt": "Edit the supplied Project P3 character Zero portrait into a subtle speaking dialogue difference.\n\nPreserve exactly: the same girl and face identity, petite non-childlike proportions, three-quarter standing camera angle, fully loose long silver-white hair, soft white cloth blindfold, complete short gray shoulder cloak covering both shoulders and chest, separate simple ivory-gray short inner dress, bare legs, bare feet, fine doll-joint seams, dust level, pure white background, full-body framing, and restrained Japanese anime game rendering.\n\nChange only the dialogue performance: open her mouth slightly in a small natural speaking shape, lift the chin by a very small amount, and let one hand make a restrained low gesture near the cloak edge. The gesture must remain compact and calm, as if delivering a short factual response. No smile and no strong emotion.\n\nThe red eyes remain completely hidden and there is no red glow. Core chamber remains hidden. No chest ornament, no exposed shoulder, no cape dress, no shoes, no text, no UI, no second character, no scenery, no sexualized pose, and no child proportions.",
+      "negative_prompt": "",
+      "width": 1024,
+      "height": 1536,
+      "count": 1,
+      "provider_request_count": 1,
+      "delay_seconds": 2.0,
+      "success_count": 1,
+      "errors": [],
+      "files": [
+        {
+          "image": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_dialogue_talk_small\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.jpg",
+          "metadata": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_dialogue_talk_small\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.json"
+        }
+      ],
+      "runs": [
+        {
+          "run_index": 0,
+          "success_count": 1,
+          "errors": [],
+          "files": [
+            {
+              "image": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_dialogue_talk_small\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.jpg",
+              "metadata": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_dialogue_talk_small\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.json"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

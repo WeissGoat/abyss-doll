@@ -1,0 +1,33 @@
+{
+  "source": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\input\\zero_dialogue_neutral_master.png",
+  "source_mime": "image/png",
+  "provider": "gemini_chat_image",
+  "prompt": "Edit the supplied Project P3 character Zero portrait into a cold and emotionally distant dialogue difference.\n\nPreserve exactly: the same identity and face, petite non-childlike build, three-quarter standing base, fully loose long silver-white hair, closed white cloth blindfold, complete short gray shoulder cloak, separate ivory-gray inner dress, bare legs and feet, fine doll seams, pure white background, full-body framing, and the same anime game style.\n\nChange only the performance: make the posture more rigid, turn the torso and covered face a few degrees away from the viewer, tighten the closed mouth line, keep the shoulders controlled, and bring the hands closer to the body under or beside the cloak. The result should feel distant and withholding, not angry or villainous.\n\nNo visible eyes, no red glow, no crossed arms that hide the costume, no sneer, no chest ornament, no exposed shoulder, no cape dress, no shoes, no text, no scenery, no sexualized pose, and no child proportions.",
+  "negative_prompt": "",
+  "width": 1024,
+  "height": 1536,
+  "count": 1,
+  "provider_request_count": 1,
+  "delay_seconds": 2.0,
+  "success_count": 1,
+  "errors": [],
+  "files": [
+    {
+      "image": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_cold\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.jpg",
+      "metadata": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_cold\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.json"
+    }
+  ],
+  "runs": [
+    {
+      "run_index": 0,
+      "success_count": 1,
+      "errors": [],
+      "files": [
+        {
+          "image": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_cold\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.jpg",
+          "metadata": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_cold\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.json"
+        }
+      ]
+    }
+  ]
+}

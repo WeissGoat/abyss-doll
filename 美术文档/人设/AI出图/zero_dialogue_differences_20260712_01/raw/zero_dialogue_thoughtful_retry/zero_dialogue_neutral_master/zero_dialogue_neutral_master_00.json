@@ -1,0 +1,23 @@
+{
+  "source": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\input\\zero_dialogue_neutral_master.png",
+  "image": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_dialogue_thoughtful_retry\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.jpg",
+  "run_index": 0,
+  "result_index": 0,
+  "provider": "gemini_chat_image",
+  "model": "gemini-3.1-flash-image",
+  "seed": null,
+  "generation_params": {
+    "api_surface": "chat/completions",
+    "mode": "image_to_image",
+    "model": "gemini-3.1-flash-image",
+    "prompt": "Edit the supplied Project P3 character Zero portrait into a restrained thoughtful pause difference.\n\nPreserve exactly: Zero's identity and face, petite non-childlike build, three-quarter standing camera, fully loose long silver-white hair, closed soft white blindfold, separate short gray shoulder cloak covering both shoulders and chest, separate ivory-gray short inner dress, bare legs, bare feet, fine doll seams, pure white background, full-body framing, and the same clean anime game rendering.\n\nChange only the performance: lower the chin slightly, keep the mouth closed but relaxed, angle the torso inward by a very small amount, and let one hand rest lightly near the cloak collar or beneath the chin without touching or lifting the blindfold. The pose should read as silent calculation and listening before answering.\n\nNo red glow, no visible eyes, no activation gesture, no chest ornament, no exposed shoulder, no long cloak tails, no shoes, no text, no scenery, no blush, no sexualized pose, and no child proportions.",
+    "negative_prompt": "",
+    "width": 1024,
+    "height": 1536,
+    "count": 1,
+    "reference_image_count": 1,
+    "result_index": 0
+  },
+  "cost": 0.0,
+  "bytes": 122617
+}

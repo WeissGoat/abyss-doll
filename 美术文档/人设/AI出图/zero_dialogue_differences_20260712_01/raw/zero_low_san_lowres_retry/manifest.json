@@ -1,0 +1,52 @@
+{
+  "created_at": "20260712_155903",
+  "config": "tools\\ai-image-gateway\\config.local.yaml",
+  "provider": "gemini_chat_image",
+  "input_dir": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\input_lowres",
+  "output_dir": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_low_san_lowres_retry",
+  "patterns": [
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.webp"
+  ],
+  "recursive": false,
+  "prompt": "Preserve the supplied Project P3 character Zero exactly: same identity, face, petite non-childlike body, three-quarter full-body pose, loose long silver-white hair, white cloth blindfold, short gray shoulder cloak covering both shoulders and chest, separate short ivory dress, bare legs and bare feet.\n\nCreate a low-SAN dialogue difference only. Lower her head and shoulders, draw the body inward, and let both hands tense close to the cloak. Add a little more dust and tiny non-bloody joint cracks. Show only a faint irregular red light leaking through the still-white blindfold. Never reveal the eyes and never turn the whole blindfold red.\n\nPure white background. No blood, tears, gore, exposed eyes, open core, shoes, text, scenery, sexualized pose, or child proportions.",
+  "negative_prompt": "",
+  "width": 1024,
+  "height": 1536,
+  "count": 1,
+  "provider_request_count": 1,
+  "inputs": [
+    "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\input_lowres\\zero_dialogue_neutral_master_lowres.jpg"
+  ],
+  "results": [
+    {
+      "source": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\input_lowres\\zero_dialogue_neutral_master_lowres.jpg",
+      "source_mime": "image/jpeg",
+      "provider": "gemini_chat_image",
+      "prompt": "Preserve the supplied Project P3 character Zero exactly: same identity, face, petite non-childlike body, three-quarter full-body pose, loose long silver-white hair, white cloth blindfold, short gray shoulder cloak covering both shoulders and chest, separate short ivory dress, bare legs and bare feet.\n\nCreate a low-SAN dialogue difference only. Lower her head and shoulders, draw the body inward, and let both hands tense close to the cloak. Add a little more dust and tiny non-bloody joint cracks. Show only a faint irregular red light leaking through the still-white blindfold. Never reveal the eyes and never turn the whole blindfold red.\n\nPure white background. No blood, tears, gore, exposed eyes, open core, shoes, text, scenery, sexualized pose, or child proportions.",
+      "negative_prompt": "",
+      "width": 1024,
+      "height": 1536,
+      "count": 1,
+      "provider_request_count": 1,
+      "delay_seconds": 2.0,
+      "success_count": 0,
+      "errors": [
+        "run 0: [gemini_chat_image] HTTP 524: <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]-->\n<head>\n\n<title>whitesgoat.xyz | 524: A timeout occurred</title>\n<meta charset=\"UTF-8\" />\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n<meta http-equiv=\"X-UA-Com"
+      ],
+      "files": [],
+      "runs": [
+        {
+          "run_index": 0,
+          "success_count": 0,
+          "errors": [
+            "[gemini_chat_image] HTTP 524: <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]-->\n<head>\n\n<title>whitesgoat.xyz | 524: A timeout occurred</title>\n<meta charset=\"UTF-8\" />\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n<meta http-equiv=\"X-UA-Com"
+          ],
+          "files": []
+        }
+      ]
+    }
+  ]
+}

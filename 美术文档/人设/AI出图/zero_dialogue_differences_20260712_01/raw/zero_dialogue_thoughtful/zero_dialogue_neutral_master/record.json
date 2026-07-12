@@ -1,0 +1,27 @@
+{
+  "source": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\input\\zero_dialogue_neutral_master.png",
+  "source_mime": "image/png",
+  "provider": "gemini_chat_image",
+  "prompt": "Edit the supplied Project P3 character Zero portrait into a restrained thoughtful pause difference.\n\nPreserve exactly: Zero's identity and face, petite non-childlike build, three-quarter standing camera, fully loose long silver-white hair, closed soft white blindfold, separate short gray shoulder cloak covering both shoulders and chest, separate ivory-gray short inner dress, bare legs, bare feet, fine doll seams, pure white background, full-body framing, and the same clean anime game rendering.\n\nChange only the performance: lower the chin slightly, keep the mouth closed but relaxed, angle the torso inward by a very small amount, and let one hand rest lightly near the cloak collar or beneath the chin without touching or lifting the blindfold. The pose should read as silent calculation and listening before answering.\n\nNo red glow, no visible eyes, no activation gesture, no chest ornament, no exposed shoulder, no long cloak tails, no shoes, no text, no scenery, no blush, no sexualized pose, and no child proportions.",
+  "negative_prompt": "",
+  "width": 1024,
+  "height": 1536,
+  "count": 1,
+  "provider_request_count": 1,
+  "delay_seconds": 2.0,
+  "success_count": 0,
+  "errors": [
+    "run 0: [gemini_chat_image] HTTP 524: <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]-->\n<head>\n\n<title>whitesgoat.xyz | 524: A timeout occurred</title>\n<meta charset=\"UTF-8\" />\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n<meta http-equiv=\"X-UA-Com"
+  ],
+  "files": [],
+  "runs": [
+    {
+      "run_index": 0,
+      "success_count": 0,
+      "errors": [
+        "[gemini_chat_image] HTTP 524: <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]-->\n<head>\n\n<title>whitesgoat.xyz | 524: A timeout occurred</title>\n<meta charset=\"UTF-8\" />\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n<meta http-equiv=\"X-UA-Com"
+      ],
+      "files": []
+    }
+  ]
+}

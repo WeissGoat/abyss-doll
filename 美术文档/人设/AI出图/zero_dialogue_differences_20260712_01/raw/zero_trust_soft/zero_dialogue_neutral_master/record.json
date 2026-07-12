@@ -1,0 +1,33 @@
+{
+  "source": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\input\\zero_dialogue_neutral_master.png",
+  "source_mime": "image/png",
+  "provider": "gemini_chat_image",
+  "prompt": "Edit the supplied Project P3 character Zero portrait into a subtle high-trust soft dialogue difference.\n\nPreserve exactly: the same Zero identity and face, petite non-childlike proportions, three-quarter standing composition, fully loose long silver-white hair, closed white cloth blindfold, short separate gray shoulder cloak covering both shoulders and chest, separate short ivory-gray inner dress, bare legs, bare feet, fine doll seams, pure white background, full body, and restrained Japanese anime game style.\n\nChange only the performance: relax the shoulders, lean the upper body toward the viewer by a barely noticeable amount, soften the closed mouth into the faintest warm curve, and let both hands rest openly and naturally rather than tense. This is quiet trust from a kuudere character, not a broad smile, blush, shyness, romance, or childlike cuteness.\n\nNo visible eyes, no red glow, no blush, no open-mouth smile, no heart symbols, no chest ornament, no exposed shoulder, no shoes, no scenery, no sexualized pose, and no child proportions.",
+  "negative_prompt": "",
+  "width": 1024,
+  "height": 1536,
+  "count": 1,
+  "provider_request_count": 1,
+  "delay_seconds": 2.0,
+  "success_count": 1,
+  "errors": [],
+  "files": [
+    {
+      "image": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_trust_soft\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.jpg",
+      "metadata": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_trust_soft\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.json"
+    }
+  ],
+  "runs": [
+    {
+      "run_index": 0,
+      "success_count": 1,
+      "errors": [],
+      "files": [
+        {
+          "image": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_trust_soft\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.jpg",
+          "metadata": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_trust_soft\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.json"
+        }
+      ]
+    }
+  ]
+}

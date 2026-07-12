@@ -1,0 +1,23 @@
+{
+  "source": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\input\\zero_dialogue_neutral_master.png",
+  "image": "美术文档\\人设\\AI出图\\zero_dialogue_differences_20260712_01\\raw\\zero_tired\\zero_dialogue_neutral_master\\zero_dialogue_neutral_master_00.jpg",
+  "run_index": 0,
+  "result_index": 0,
+  "provider": "gemini_chat_image",
+  "model": "gemini-3.1-flash-image",
+  "seed": null,
+  "generation_params": {
+    "api_surface": "chat/completions",
+    "mode": "image_to_image",
+    "model": "gemini-3.1-flash-image",
+    "prompt": "Edit the supplied Project P3 character Zero portrait into a visibly tired but stable dialogue difference.\n\nPreserve exactly: Zero's identity, face shape, petite non-childlike proportions, three-quarter standing camera, fully loose long silver-white hair, closed white cloth blindfold, short separate gray shoulder cloak covering both shoulders and chest, separate ivory-gray short inner dress, bare legs and feet, subtle doll seams, pure white background, full body, and restrained anime game rendering.\n\nChange only the performance: lower the head, drop the shoulders slightly, let the upper body soften forward, keep the mouth closed with a faintly weakened line, and loosely clasp or overlap the hands low in front of the body. Increase fabric creasing and dust only slightly. She remains standing and conscious.\n\nNo red glow, no visible eyes, no sleep symbols, no yawning comedy, no collapse, no exposed shoulder, no long cloak tails, no shoes, no text, no scenery, no sexualized pose, and no child proportions.",
+    "negative_prompt": "",
+    "width": 1024,
+    "height": 1536,
+    "count": 1,
+    "reference_image_count": 1,
+    "result_index": 0
+  },
+  "cost": 0.0,
+  "bytes": 122284
+}
