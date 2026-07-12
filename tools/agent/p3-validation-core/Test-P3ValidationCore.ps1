@@ -20,7 +20,13 @@ foreach($profile in @($art.profiles)){
     if($profile.version-ne"3"){throw "wrong profile version: $($profile.id)"}
     if(-not $profile.required_steps -or $profile.required_steps.Count-eq 0){throw "required_steps missing: $($profile.id)"}
     if($profile.id-ne"art_regression" -and $profile.required_steps -contains "art_acceptance"){throw "legacy runner leaked into daily art profile: $($profile.id)"}
+    if($null-ne$profile.external_review_required){throw "human review state leaked into art profile: $($profile.id)"}
 }
+foreach($profile in @($release.profiles)){if($null-ne$profile.external_review_required){throw "human review state leaked into release profile: $($profile.id)"}}
+$mergeValidation=Get-Content (Join-Path $PSScriptRoot "Merge-P3ValidationEvidence.ps1") -Raw -Encoding UTF8
+$mergeRelease=Get-Content (Join-Path $PSScriptRoot "Merge-P3ReleaseEvidence.ps1") -Raw -Encoding UTF8
+if($mergeValidation -match "ExternalReview|externally_reviewed"){throw "human art review state leaked into validation merger"}
+if($mergeRelease -match "ExternalReview|external_review|ReviewRequired"){throw "human art review state leaked into release merger"}
 if((@($art.profiles|Where-Object {$_.required_steps -contains "art_acceptance"})).Count-ne1){throw "art_acceptance must be exclusive to art_regression"}
 $expectedRoots=@{workshop_main="WorkshopPanel";dungeon_map="DungeonMapPanel";dialogue_overlay="P3DialogueOverlay_Runtime";t0_prologue="P3DialogueOverlay_Runtime"}
 foreach($id in $expectedRoots.Keys){$target=@($targets.targets|Where-Object {$_.target_id -eq $id});if($target.Count -ne 1){throw "missing or duplicate art target: $id"};if($target[0].expected_roots[0] -ne $expectedRoots[$id]){throw "wrong runtime root: $id"};if($target[0].reference_width -ne 1920 -or $target[0].reference_height -ne 1080){throw "wrong art target reference resolution: $id"}}

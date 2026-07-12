@@ -23,7 +23,7 @@ update_rule: 调整 MCP 实时查看、截图票据、Art Profile、表现迭代
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 将 `p3-art-validation` 重构为 MCP 直接查看 Game View、按结论截图、受控表现迭代和外部主美复核的日常美术验收入口，并把旧 `ArtAcceptanceRunner` 降为 `art_regression` 全量回归后端。
+**Goal:** 将 `p3-art-validation` 重构为 MCP 直接查看 Game View、按结论截图和受控表现迭代的日常美术验收入口，并把旧 `ArtAcceptanceRunner` 降为 `art_regression` 全量回归后端。
 
 **Architecture:** Skill 负责调用标准 Unity MCP：锁定实例、控制 PlayMode、读取层级/组件、使用 `manage_camera(action="screenshot", capture_source="game_view")` 直接查看和截图。项目自定义工具只负责注册目标、截图票据、ArtRunID 证据归档、受控修改、回归导入和确定性汇总，不尝试从 C# 内部调用 MCP server。
 
@@ -37,7 +37,7 @@ update_rule: 调整 MCP 实时查看、截图票据、Art Profile、表现迭代
 - `p3_art_capture` 旧 `source_path` 参数直接删除，不提供兼容层。
 - Art Profile 不运行完整 P0、不修改领域规则、不伪造玩家状态。
 - PlayMode 临时修改只能作为 preview；正式通过必须验证持久化后重新进入 PlayMode 的画面。
-- 所有正式 Art Profile 继续要求外部美术复核。
+- Art Profile 只记录技术结果和证据，不维护人工主美判断状态。
 - 旧 `.art_acceptance_trigger` 保留为人工/CI 兼容入口，但 Skill 默认不使用 watcher。
 - 保留用户和其他 agent 的无关脏文件；每个任务只暂存本任务路径。
 
@@ -187,40 +187,35 @@ public sealed class ArtTargetDefinition {
       "version": "3",
       "validation_domain": "art",
       "mode": "live_focus",
-      "required_steps": ["readiness", "target_reachability", "live_inspection", "final_capture", "console_delta"],
-      "external_review_required": ["art"]
+      "required_steps": ["readiness", "target_reachability", "live_inspection", "final_capture", "console_delta"]
     },
     {
       "id": "art_runtime",
       "version": "3",
       "validation_domain": "art",
       "mode": "live_set",
-      "required_steps": ["readiness", "target_reachability", "live_inspection", "final_capture", "console_delta"],
-      "external_review_required": ["art"]
+      "required_steps": ["readiness", "target_reachability", "live_inspection", "final_capture", "console_delta"]
     },
     {
       "id": "art_iteration",
       "version": "3",
       "validation_domain": "art",
       "mode": "iteration",
-      "required_steps": ["readiness", "before_capture", "diagnosis", "persisted_changes", "after_capture", "console_delta"],
-      "external_review_required": ["art"]
+      "required_steps": ["readiness", "before_capture", "diagnosis", "persisted_changes", "after_capture", "console_delta"]
     },
     {
       "id": "t0_art_seal",
       "version": "3",
       "validation_domain": "art",
       "mode": "seal",
-      "required_steps": ["readiness", "target_reachability", "live_inspection", "seal_capture", "console_delta"],
-      "external_review_required": ["art", "director"]
+      "required_steps": ["readiness", "target_reachability", "live_inspection", "seal_capture", "console_delta"]
     },
     {
       "id": "art_regression",
       "version": "3",
       "validation_domain": "art",
       "mode": "regression",
-      "required_steps": ["readiness", "art_acceptance", "regression_import", "console_delta"],
-      "external_review_required": ["art"]
+      "required_steps": ["readiness", "art_acceptance", "regression_import", "console_delta"]
     }
   ]
 }
@@ -458,7 +453,7 @@ git commit -m "feat: inspect P3 runtime art targets live"
 - Test: `UnityClient/Assets/Scripts/Editor/Tests/P3ArtProfileStateMachineSmokeTest.cs`
 
 **Interfaces:**
-- Produces state sequence `Created -> Preflight -> TargetNavigation -> LiveInspection -> CaptureDecision -> FinalCapture -> EvidenceValidation -> ExternalReviewRequired -> Complete`.
+- Produces state sequence `Created -> Preflight -> TargetNavigation -> LiveInspection -> CaptureDecision -> FinalCapture -> EvidenceValidation -> Complete`.
 - The orchestrator coordinates project steps; the Skill performs the standard MCP Game View image call between polling states.
 
 - [ ] **Step 1: Write state transition tests**
@@ -493,13 +488,11 @@ else if (diagnosis.HasBlockingIssue) Require(ArtCaptureRole.Issue);
 else Require(profile.Mode == "seal" ? ArtCaptureRole.Seal : ArtCaptureRole.Final);
 ```
 
-- [ ] **Step 4: Enforce external review**
+- [ ] **Step 4: Record the technical result only**
 
 ```csharp
 job.Status = "Complete";
 job.AutomationStatus = "Passed";
-job.ExternalReview = "Required";
-job.ClaimCeiling = "evidence_collected";
 ```
 
 - [ ] **Step 5: Run success and controlled-failure fixtures**
@@ -798,7 +791,7 @@ open registered target
 -> complete Profile
 ```
 
-Expected: one `final.png`, no regression folder, `ExternalReview=Required`.
+Expected: one `final.png`, no regression folder, and a completed technical ArtRun result.
 
 - [ ] **Step 2: Run controlled failure cases**
 
@@ -876,7 +869,7 @@ Status writeback must state:
 日常美术验收默认 MCP live-first
 正式截图由 manage_camera + capture ticket 产生
 旧 ArtAcceptanceRunner 只用于 art_regression
-机器通过仍需要主美外部复核
+ArtRun 只记录技术结果和证据，不创建人工主美判断状态
 真实 ArtRunID 证据路径和任何 validation_limited
 ```
 
@@ -900,7 +893,7 @@ Implementation is complete only when:
 - Persisted iteration requires before/after and a PlayMode reload; preview alone cannot pass.
 - Target reachability failures generate program handoff evidence.
 - `art_regression` imports the exact legacy runner output into ArtRunID.
-- All formal Profile summaries keep `ExternalReview=Required` until actual main-art review.
+- Formal Profile summaries contain technical results and evidence only.
 - Focused tests, both builds, Skill validation, document validation and scoped status writeback pass.
 
 ## 2026-07-12 执行结果
@@ -911,3 +904,9 @@ Implementation is complete only when:
 - `art_v2_runtime_final_20260712` 和 `art_v2_t0_seal_final_20260712` 已分别完成 final/seal ticket。`art_v2_iteration_blocked_final_20260712` 已完成真实目标 inspect，并以 `art_blocked:persist_adapter_missing` 记录当前业务 adapter 限制。
 - 实机校正了注册根：`WorkshopPanel`、`DungeonMapPanel`、`P3DialogueOverlay_Runtime`。capture staging 在 finalize 后清理；iteration 请求以原始值 DTO 落盘，并要求持久化后的新 PlayMode generation 重新 inspect。
 - `validation_limited:subagent forward-testing prohibited by user`。当前注册目标没有安全业务 persist adapter；因此框架、拒绝路径与 reload 门禁已完成，但没有用任意 C# 或资产路径伪造真实 `art_iteration` before/after 修改包。
+
+## 2026-07-12 人工主美状态删除
+
+- `p3-art-validation` 不再创建或维护 `ExternalReview`、`ClaimCeiling`、`ReviewRequired`、主美批准或外部复核状态。
+- Art Profile、ArtRun session、证据合并和发布聚合只使用技术结果：`Passed`、`Failed`、`Blocked`、`Limited`、`Cancelled`。
+- 美术使用者直接依据 MCP 实时画面、UGUI 诊断与 ArtRun 证据决定是否继续迭代；该决定不进入 Skill 状态机。

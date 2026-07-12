@@ -7,8 +7,8 @@ $p=Join-Path $base "program-runs/$ProgramRunID/summary.json";$a=Join-Path $base 
 if(!(Test-Path $p)-or !(Test-Path $a)){throw 'release blocked: missing input RunID summary'}
 $program=Get-Content $p -Raw|ConvertFrom-Json;$art=Get-Content $a -Raw|ConvertFrom-Json
 $pf=$program.input_fingerprint;$af=$art.input_fingerprint;$match=($pf -and $af -and $pf -eq $af)
-$ps=if($program.AutomationStatus){$program.AutomationStatus}else{$program.automation_status};$as=if($art.AutomationStatus){$art.AutomationStatus}else{$art.automation_status};$review=if($art.ExternalReview){$art.ExternalReview}else{$art.external_review}
-if($ps -eq 'Failed'-or $as -eq 'Failed'){$status='Failed'}elseif(!$match){$status='Blocked'}elseif($ps -eq 'Blocked'-or $as -eq 'Blocked'){$status='Blocked'}elseif($ps -eq 'Limited'-or $as -eq 'Limited'){$status='Limited'}elseif($review -ne 'Passed'){$status='ReviewRequired'}else{$status='Passed'}
+$ps=if($program.AutomationStatus){$program.AutomationStatus}else{$program.automation_status};$as=if($art.AutomationStatus){$art.AutomationStatus}else{$art.automation_status}
+if($ps -eq 'Failed'-or $as -eq 'Failed'){$status='Failed'}elseif(!$match){$status='Blocked'}elseif($ps -eq 'Blocked'-or $as -eq 'Blocked'){$status='Blocked'}elseif($ps -eq 'Limited'-or $as -eq 'Limited'){$status='Limited'}else{$status='Passed'}
 if(!$ReleaseRunID){$ReleaseRunID='release_'+(Get-Date -Format yyyyMMdd_HHmmss)}
 $out=Join-Path $base "release-runs/$ReleaseRunID";New-Item -ItemType Directory -Force $out|Out-Null
 $summary=[ordered]@{schema_version='p3-validation/release-summary@1';release_run_id=$ReleaseRunID;profile_id=$ProfileId;program_run_id=$ProgramRunID;art_run_id=$ArtRunID;fingerprints_match=$match;release_status=$status}

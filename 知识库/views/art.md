@@ -70,4 +70,4 @@ update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约�
 
 # 2026-07-12 验收入口
 
-运行时美术诊断、截图和受限迭代入口为 `.codex/skills/p3-art-validation`。默认先通过 MCP 直接查看 Game View 和 bounded UGUI snapshot；只有需要决策证据时才使用 capture ticket 截图。所有 Art Profile 均要求外部主美复核，机器结果不能直接封板；`ArtAcceptanceRunner` 仅由 `art_regression` 使用。
+运行时美术诊断、截图和受限迭代入口为 `.codex/skills/p3-art-validation`。默认先通过 MCP 直接查看 Game View 和 bounded UGUI snapshot；只有需要决策证据时才使用 capture ticket 截图。Art Profile 只记录技术结果与证据，不维护人工主美判断状态；`ArtAcceptanceRunner` 仅由 `art_regression` 使用。

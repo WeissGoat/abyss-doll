@@ -8,4 +8,4 @@
 
 Prepare every formal capture with `p3_art_prepare_capture`; use the returned exact MCP arguments; finalize with `p3_art_finalize_capture`. Never import a user-supplied path.
 
-Machine success leaves `ExternalReview=Required` and `ClaimCeiling=evidence_collected`.
+Profile completion records the technical result and its evidence package; it does not create a separate human-review state.

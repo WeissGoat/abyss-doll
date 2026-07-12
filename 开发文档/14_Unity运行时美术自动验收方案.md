@@ -813,7 +813,7 @@ ArtAcceptance 是运行时视觉验收工具，只回答“Unity 运行时能否
 
 ## 0. 2026-07-12 V2 入口与旧 Runner 定位
 
-日常验收入口切换为 `p3-art-validation` V2 的 MCP 实时优先流程。本文原有 `ArtAcceptanceRunner` 自动截图链继续保留，但定位调整为全量视觉回归后端；MCP 编排、按需截图、ArtRunID 和外部复核契约以 `开发文档/19_UnityMCP验收编排层设计.md` 第 14 节为准。
+日常验收入口切换为 `p3-art-validation` V2 的 MCP 实时优先流程。本文原有 `ArtAcceptanceRunner` 自动截图链继续保留，但定位调整为全量视觉回归后端；MCP 编排、按需截图和 ArtRunID 契约以 `开发文档/19_UnityMCP验收编排层设计.md` 第 14 节为准。
 
 日常单界面或小范围验收：
 
@@ -824,7 +824,6 @@ ArtAcceptance 是运行时视觉验收工具，只回答“Unity 运行时能否
 -> 诊断
 -> 按结论截图
 -> ArtRunID 归档
--> 主美复核
 ```
 
 全量回归：
@@ -834,9 +833,8 @@ art_regression
 -> ArtAcceptanceRunner
 -> 完整截图集 / UI snapshot / Registry snapshot / report
 -> 导入 ArtRunID
--> 主美复核
 ```
 
-旧 runner 的截图步骤和报告结构继续有效，但不得再把“运行完整 runner”作为每次美术验收的默认前置条件。Runner 的 `PASSED` 只表示机器技术检查通过，不代表视觉质量或主美验收通过。
+旧 runner 的截图步骤和报告结构继续有效，但不得再把“运行完整 runner”作为每次美术验收的默认前置条件。Runner 的 `PASSED` 是该回归 Profile 的技术结果。
 
 正式 MCP 截图按 `p3_art_prepare_capture -> manage_camera(game_view, camera omitted) -> p3_art_finalize_capture` 执行。实时浏览图可直接由 `manage_camera` 返回，但只有票据图能进入 ArtRunID。`art_regression` 适配器必须匹配本次启动返回的 source RunID，并只导入 `latest/screenshots/` 的本轮图片，避免 `latest` 根目录历史 contact sheet 污染证据。

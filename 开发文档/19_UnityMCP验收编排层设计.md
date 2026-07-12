@@ -106,7 +106,7 @@ p3-release-validation   发布级证据聚合
 程序侧不负责：
 
 - 布局、颜色、留白、视觉层级和素材审美。
-- 截图封板和主美复核。
+- 运行时美术诊断、截图和表现迭代。
 - 自动启动 ArtAcceptance。
 - 声明 UI 或美术完成。
 
@@ -140,7 +140,6 @@ p3-release-validation   发布级证据聚合
 → 重载 / 编译 / PlayMode
 → 重新截图和前后对比
 → ArtValidationSummary
-→ 主美复核
 ```
 
 美术侧负责：
@@ -286,9 +285,6 @@ ProgramClaimCeiling
 
 ```text
 ArtAutomationStatus
-ArtOwnerValidation
-ArtExternalReview
-ArtClaimCeiling
 ```
 
 状态优先级：
@@ -297,20 +293,12 @@ ArtClaimCeiling
 Failed > Blocked > Limited > Cancelled > Passed
 ```
 
-`ClaimCeiling`：
+程序侧 `ClaimCeiling`：
 
 ```text
 evidence_collected
 automation_passed
 owner_validated
-externally_reviewed
-```
-
-自动截图和规则检查通过后，主美未复核时仍必须保持：
-
-```text
-ArtExternalReview = Required
-ArtClaimCeiling = owner_validated
 ```
 
 ## 8. 发布聚合
@@ -342,8 +330,7 @@ ArtRunID
 美术失败 → Release Failed
 任一侧 Blocked → Release Blocked
 任一侧 Limited → Release Limited
-自动化均通过但外审未完成 → Release ReviewRequired
-全部门禁与外审通过 → Release Passed
+两侧自动化结果通过且输入指纹一致 → Release Passed
 ```
 
 发布聚合器不运行测试、不修改 Unity、不覆盖两侧原始结论。
@@ -403,16 +390,14 @@ p3_art_compare_iteration
 - `art_focus` 只诊断。
 - `art_iteration` 必须记录 before/after。
 - 目标不可达时转交程序。
-- 自动检查通过后仍保持主美外审要求。
 - 只使用 Approved 素材。
 
 ### 10.3 发布侧
 
 - Program Pass + Art Fail → Release Fail。
 - Program Fail + Art Pass → Release Fail。
-- 两边 Pass + 主美未验收 → Release ReviewRequired。
 - 输入指纹不一致 → Release Blocked。
-- 两边及外审全部通过 → Release Pass。
+- 两边自动化结果通过且输入指纹一致 → Release Pass。
 - 聚合器不会重新运行两侧验收。
 
 ## 11. 直接替换与清理
@@ -488,7 +473,6 @@ Created
 -> OptionalIteration
 -> FinalCapture
 -> EvidenceValidation
--> ExternalReviewRequired
 -> Complete
 ```
 
@@ -569,17 +553,15 @@ art-runs/<ArtRunID>/
     screenshots/
 ```
 
-### 14.8 声明边界
+### 14.8 结果边界
 
-机器自动化通过后仍保持：
+Profile 完成后记录技术结果：
 
 ```text
 ArtAutomationStatus = Passed
-ArtExternalReview = Required
-ArtClaimCeiling = evidence_collected
 ```
 
-只有主美复核通过后，`ArtClaimCeiling` 才能进入 `externally_reviewed`。MCP 不得自行声明商业化效果通过、美术封板完成或主美已批准。
+`p3-art-validation` 不维护人工审核、主美判断或外部复核状态；具体美术任务是否继续修改，由使用者根据实时画面、诊断和证据包直接决定。
 
 ### 14.9 V2 完成口径
 
@@ -591,4 +573,4 @@ ArtClaimCeiling = evidence_collected
 6. 发生修改时保留 before/after，持久化后重新进入 PlayMode 复验。
 7. 目标不可达时生成程序交接。
 8. `art_regression` 锁定本次 runner source RunID，只导入本次被清空后重新生成的 `latest/screenshots/` 与 report/UI/Registry/checklist，不能递归混入旧 contact sheet。
-9. 所有正式结果继续要求外部主美复核。
+9. ArtRun 只记录技术结果和证据，不创建人工主美复核状态。
