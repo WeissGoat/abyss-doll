@@ -1,9 +1,13 @@
 {
   "schema_version": "p3-validation/profiles@1",
+  "smoke_sets": {
+    "t0_core": ["PrologueFirstDivePermissionSmokeSuite.Run"],
+    "p0_core": ["ConfigValidationSmokeTest.Run", "MainFlowGoldenPathSmokeTest.Run"]
+  },
   "profiles": [
-    { "id": "smoke_focus", "version": "1", "static_steps": [], "unity_profile_id": "smoke_focus", "required_evidence": ["console_delta", "smoke_report"], "timeout_seconds": 300, "strict_warnings": false, "editor_control": "exclusive_restore", "external_review_required": [] },
+    { "id": "smoke_focus", "version": "1", "static_steps": [], "unity_profile_id": "smoke_focus", "smoke_set": "t0_core", "required_evidence": ["console_delta", "smoke_report"], "timeout_seconds": 300, "strict_warnings": false, "editor_control": "exclusive_restore", "external_review_required": [] },
     { "id": "art_runtime", "version": "1", "static_steps": ["ui_spec_validate"], "unity_profile_id": "art_runtime", "required_evidence": ["console_delta", "art_acceptance_report", "screenshots"], "timeout_seconds": 600, "strict_warnings": false, "editor_control": "exclusive_restore", "external_review_required": ["art"] },
-    { "id": "t0_seal", "version": "1", "static_steps": ["config_sync", "ui_spec_validate", "art_manifest_check"], "unity_profile_id": "t0_seal", "required_evidence": ["console_delta", "smoke_report", "t0_capture_report", "screenshots"], "timeout_seconds": 900, "strict_warnings": false, "editor_control": "exclusive_restore", "external_review_required": ["art", "director"] },
-    { "id": "p0_full", "version": "1", "static_steps": ["config_sync", "config_static_validate", "ui_spec_validate"], "unity_profile_id": "p0_full", "required_evidence": ["config_report", "console_delta", "smoke_report", "art_acceptance_summary"], "timeout_seconds": 900, "strict_warnings": false, "editor_control": "exclusive_restore", "external_review_required": [] }
+    { "id": "t0_seal", "version": "1", "static_steps": ["config_sync", "ui_spec_validate", "art_manifest_check"], "unity_profile_id": "t0_seal", "smoke_set": "t0_core", "required_evidence": ["console_delta", "smoke_report", "t0_capture_report", "screenshots"], "timeout_seconds": 900, "strict_warnings": false, "editor_control": "exclusive_restore", "external_review_required": ["art", "director"] },
+    { "id": "p0_full", "version": "1", "static_steps": ["config_sync", "config_static_validate", "ui_spec_validate"], "unity_profile_id": "p0_full", "smoke_set": "p0_core", "required_evidence": ["config_report", "console_delta", "smoke_report", "art_acceptance_summary"], "timeout_seconds": 900, "strict_warnings": false, "editor_control": "exclusive_restore", "external_review_required": [] }
   ]
 }

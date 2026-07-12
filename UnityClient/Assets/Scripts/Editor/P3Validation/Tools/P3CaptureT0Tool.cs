@@ -1,0 +1,7 @@
+using System;
+using MCPForUnity.Editor.Helpers;
+using MCPForUnity.Editor.Tools;
+using Newtonsoft.Json.Linq;
+
+[McpForUnityTool("p3_capture_t0",Description="Run P3 T0 validation capture",RequiresPolling=true,PollAction="status",MaxPollSeconds=900)]
+public static class P3CaptureT0Tool { public static object HandleCommand(JObject p){var run=p?.Value<string>("run_id");var profile=p?.Value<string>("capture_profile_id")??"t0_seal";var action=(p?.Value<string>("action")??"start").ToLowerInvariant();if(string.IsNullOrWhiteSpace(run))return new ErrorResponse("run_id is required");var state=P3ValidationJobStore.Load(run);if(action=="start"){state=new P3ValidationJobState{RunId=run,ProfileId=profile,StartedAt=DateTime.UtcNow.ToString("o"),Status="Running",CurrentStep="t0_capture"};P3ValidationJobStore.Save(state);P3T0CaptureAdapter.Start();return new PendingResponse("T0 capture started",2,new{run_id=run});}if(state==null)return new ErrorResponse("Unknown run_id");if(action=="cancel"){state.Status="Cancelled";P3ValidationJobStore.Save(state);return new SuccessResponse("Cancellation recorded");}var result=P3T0CaptureAdapter.Collect(run,profile,DateTime.Parse(state.StartedAt).ToUniversalTime());if(result.Status==P3ValidationStepStatus.Limited)return new PendingResponse(result.Message,2,new{run_id=run});state.Status=result.Status==P3ValidationStepStatus.Passed?"Complete":"Failed";P3ValidationJobStore.Save(state);return new SuccessResponse("T0 capture completed",new{status=result.Status.ToString()});} }
