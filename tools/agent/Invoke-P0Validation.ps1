@@ -6,13 +6,18 @@ param(
     [switch]$History,
     [string]$SeedProfile = "p0_core",
     [int]$TimeoutSeconds = 180,
-    [int]$ArtAcceptanceTimeoutSeconds = 240
+    [int]$ArtAcceptanceTimeoutSeconds = 240,
+    [string]$ParentRunId = "",
+    [string]$EvidenceRoot = "",
+    [switch]$StaticOnly
 )
 
 $ErrorActionPreference = "Stop"
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).ProviderPath
+if (-not [string]::IsNullOrWhiteSpace($EvidenceRoot)) { $OutputRoot = Join-Path $EvidenceRoot "source_reports/p0" }
+if ($StaticOnly) { $SkipUnity = $true; $SkipArtAcceptance = $true }
 $runId = Get-Date -Format "yyyyMMdd_HHmmss"
 $startedAt = [DateTimeOffset]::Now
 $steps = New-Object System.Collections.Generic.List[object]
