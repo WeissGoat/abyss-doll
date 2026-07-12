@@ -1,830 +1,642 @@
 ---
 id: dev_20_unity_mcp_validation_implementation_plan
-title: Unity MCP 验收编排层实现计划
+title: P3 程序与美术分离验收实现计划
 type: dev
 role: 程序
 domain: test_automation
-status: historical
-source_of_truth: false
+status: active
+source_of_truth: true
 related:
   - 开发文档/README.md
   - 开发文档/00_程序开发大纲.md
   - 开发文档/19_UnityMCP验收编排层设计.md
   - 开发文档/15_P0配置Validator与自动验收底座需求.md
   - 开发文档/14_Unity运行时美术自动验收方案.md
+  - 开发文档/rules/04_自动化测试与验收流程规范.md
   - tools/agent/README.md
   - 知识库/views/program.md
 last_verified: 2026-07-12
-update_rule: 调整 Unity MCP 验收编排实现任务、文件边界、测试命令、阶段门禁或提交顺序时同步本文档。
+update_rule: 调整程序验收、美术迭代验收、发布聚合、文件边界、测试门禁或提交顺序时同步本文件。
 ---
 
-# Unity MCP Validation Orchestration Implementation Plan
-
-> 历史说明：本计划对应旧的单一 `p3-validation` 混合入口，已完成首版实现，但不再作为后续重构执行依据。当前事实来源为 `开发文档/19_UnityMCP验收编排层设计.md` 中批准的“程序验收 / 美术迭代验收 / 发布聚合”直接拆分方案；新的实现计划需据此重新生成。
+# P3 Program and Art Validation Split Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build the `p3-validation` Codex Skill and project-scoped Unity MCP tools that combine deterministic P3 scripts with observable Unity validation jobs and RunID-scoped evidence.
+**Goal:** Replace the unused mixed `p3-validation` entry with independent program automation, art iteration/acceptance, and release aggregation workflows sharing one domain-aware validation core.
 
-**Architecture:** The Codex Skill is the only top-level agent entry. PowerShell keeps deterministic file validation and report merging; Unity Editor custom MCP tools own readiness, compilation, Console deltas, Smoke, ArtAcceptance and T0 capture. Both lanes write `p3-validation/step-result@1`, and only the merge script calculates the final status and `ClaimCeiling`.
+**Architecture:** `P3ValidationCore` owns RunID paths, Editor readiness, Console deltas, JobState, artifact copying, `step-result@2`, and deterministic merging. `p3-program-validation` may run static validators and registered Smoke sets but never ArtAcceptance; `p3-art-validation` may inspect and modify allowlisted UGUI/VisualID presentation but never domain rules; `p3-release-validation` only combines completed ProgramRunID and ArtRunID evidence.
 
-**Tech Stack:** Unity 2022.3.60f1, C# Editor scripts, MCP for Unity v10.0.0, Newtonsoft.Json, PowerShell 5.1+, Codex project skills, existing P3 AutoTestDaemon / ArtAcceptance / T0 runners.
+**Tech Stack:** Unity 2022.3.60f1, C# Editor scripts, MCP for Unity v10.0.0, Newtonsoft.Json, PowerShell 5.1+, pure UGUI, existing AutoTestDaemon / ArtAcceptanceRunner / T0ValidationFinalCaptureRunner.
 
 ## Global Constraints
 
 - Runtime UI remains pure UGUI; do not introduce UI Toolkit, UXML, USS or `UIDocument`.
-- Do not change gameplay rules, domain services, configuration facts, Approved assets or active UI specifications.
-- Unity MCP tools must not execute arbitrary C#, arbitrary reflection method names, arbitrary menu paths or external processes.
-- All writable evidence stays under `UnityClient/Logs/P3Validation/`; persistent job state stays under `UnityClient/Library/`.
-- Static automation continues through PowerShell / Python; Unity-dependent work goes through project-scoped MCP tools.
-- Existing `AutoTestDaemon`, `ArtAcceptanceRunner` and `T0ValidationFinalCaptureRunner` remain the execution core until parity gates pass.
-- A machine `Passed` result cannot exceed the report's `ClaimCeiling` or replace required external review.
-- Preserve unrelated dirty workspace changes and stage only files owned by the current task.
+- Delete the old mixed Skill and Profiles directly; there is no compatibility or historical evidence migration requirement.
+- Program validation must never start ArtAcceptance or claim visual completion.
+- Art validation must never run full P0, modify domain rules, fabricate player state or approve AI assets.
+- Art iteration may modify only registered UGUI presentation fields and Approved VisualID bindings.
+- No project MCP tool may execute arbitrary C#, arbitrary reflection names, arbitrary menus, arbitrary filesystem paths or external processes.
+- ProgramRunID, ArtRunID and ReleaseRunID use separate roots and reject cross-domain step results.
+- Machine success never bypasses Owner or external review requirements.
+- Preserve unrelated dirty-worktree changes and stage only task-owned files.
 
 ---
 
-## File Structure
+## Target File Structure
 
-### Codex orchestration
+### Shared core
 
-- Create `.codex/skills/p3-validation/SKILL.md`: routing, Profile selection, MCP/script sequencing and claim rules.
-- Create `.codex/skills/p3-validation/agents/openai.yaml`: discovery metadata.
-- Create `.codex/skills/p3-validation/references/profile-routing.md`: user intent to Profile mapping.
-- Create `.codex/skills/p3-validation/references/evidence-and-claims.md`: report reading and `ClaimCeiling` rules.
+- `UnityClient/Assets/Editor/P3Validation/program_validation_profiles.json`
+- `UnityClient/Assets/Editor/P3Validation/art_validation_profiles.json`
+- `UnityClient/Assets/Editor/P3Validation/release_validation_profiles.json`
+- `UnityClient/Assets/Scripts/Editor/P3ValidationCore/`
+- `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/`
+- `tools/agent/p3-validation-core/`
 
-### Shared Profile and schema source
+### Skills
 
-- Create `UnityClient/Assets/Editor/P3Validation/p3_validation_profiles.json`: single Profile source read by Unity and PowerShell.
-- Create `tools/agent/p3-validation/schemas/step-result.schema.json`.
-- Create `tools/agent/p3-validation/schemas/validation-summary.schema.json`.
-- Create `tools/agent/p3-validation/fixtures/`: golden success/failure reports.
+- `.codex/skills/p3-program-validation/`
+- `.codex/skills/p3-art-validation/`
+- `.codex/skills/p3-release-validation/`
 
-### Deterministic scripts
+### Evidence roots
 
-- Create `tools/agent/p3-validation/New-P3ValidationRun.ps1`.
-- Create `tools/agent/p3-validation/Invoke-P3StaticValidation.ps1`.
-- Create `tools/agent/p3-validation/Merge-P3ValidationEvidence.ps1`.
-- Create `tools/agent/p3-validation/Test-P3Validation.ps1`.
-
-### Unity Editor validation module
-
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/P3ValidationContracts.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/P3ValidationProfileRegistry.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/P3ValidationEvidencePaths.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/P3ValidationJobStore.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/P3ValidationInstanceLock.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/P3ValidationEditorSnapshot.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/P3ValidationConsoleTracker.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/P3SmokeExecutionService.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/P3ArtAcceptanceAdapter.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/P3T0CaptureAdapter.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/P3UnityValidationOrchestrator.cs`.
-
-### Project-scoped MCP tools
-
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/Tools/P3UnityReadinessTool.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/Tools/P3RunSmokeProfileTool.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/Tools/P3RunArtAcceptanceTool.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/Tools/P3CaptureT0Tool.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/Tools/P3CollectUnityEvidenceTool.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/P3Validation/Tools/P3RunUnityProfileTool.cs`.
-
-### Tests and existing integrations
-
-- Create `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationContractsSmokeTest.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationProfileRegistrySmokeTest.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationJobStateSmokeTest.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationConsoleDeltaSmokeTest.cs`.
-- Create `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationMcpToolsSmokeTest.cs`.
-- Modify `UnityClient/Assets/Scripts/Editor/AutoTestDaemon.cs`: delegate reflection execution to `P3SmokeExecutionService` while preserving trigger behavior.
-- Modify `tools/agent/Invoke-P0Validation.ps1`: optional RunID/evidence adapter only; preserve current CLI behavior.
+```text
+UnityClient/Logs/P3Validation/program-runs/<ProgramRunID>/
+UnityClient/Logs/P3Validation/art-runs/<ArtRunID>/
+UnityClient/Logs/P3Validation/release-runs/<ReleaseRunID>/
+```
 
 ---
 
-### Task 1: Freeze Profiles, Schemas and Golden Fixtures
+### Task 1: Freeze Domain-Aware Profiles and `step-result@2`
 
 **Files:**
-- Create: `UnityClient/Assets/Editor/P3Validation/p3_validation_profiles.json`
-- Create: `tools/agent/p3-validation/schemas/step-result.schema.json`
-- Create: `tools/agent/p3-validation/schemas/validation-summary.schema.json`
-- Create: `tools/agent/p3-validation/fixtures/step-passed.json`
-- Create: `tools/agent/p3-validation/fixtures/step-failed.json`
-- Create: `tools/agent/p3-validation/fixtures/step-blocked.json`
-- Create: `tools/agent/p3-validation/fixtures/summary-limited.json`
-- Create: `tools/agent/p3-validation/Test-P3Validation.ps1`
+- Create: `UnityClient/Assets/Editor/P3Validation/program_validation_profiles.json`
+- Create: `UnityClient/Assets/Editor/P3Validation/art_validation_profiles.json`
+- Create: `UnityClient/Assets/Editor/P3Validation/release_validation_profiles.json`
+- Create: `tools/agent/p3-validation-core/schemas/step-result.schema.json`
+- Create: `tools/agent/p3-validation-core/schemas/validation-summary.schema.json`
+- Create: `tools/agent/p3-validation-core/fixtures/`
+- Create: `tools/agent/p3-validation-core/Test-P3ValidationCore.ps1`
 
 **Interfaces:**
-- Produces: Profile IDs `smoke_focus`, `art_runtime`, `t0_seal`, `p0_full`.
-- Produces: Schema identifiers `p3-validation/step-result@1` and `p3-validation/summary@1`.
-- Consumed by: all later C#, PowerShell and Skill tasks.
+- Produces program Profiles: `smoke_focus`, `t0_functional`, `p0_full`.
+- Produces art Profiles: `art_focus`, `art_runtime`, `art_iteration`, `t0_art_seal`.
+- Produces release Profiles: `vertical_slice_release`, `t0_release`.
+- Produces domains: `program`, `art`, `release`, `infrastructure`.
 
-- [ ] **Step 1: Write the failing schema/profile test**
-
-Create `Test-P3Validation.ps1` with these exact assertions:
-
-```powershell
-param([string]$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..\..")).ProviderPath)
-$ErrorActionPreference = "Stop"
-
-$profilePath = Join-Path $RepoRoot "UnityClient/Assets/Editor/P3Validation/p3_validation_profiles.json"
-$profiles = Get-Content -LiteralPath $profilePath -Raw -Encoding UTF8 | ConvertFrom-Json
-$expected = @("smoke_focus", "art_runtime", "t0_seal", "p0_full")
-
-foreach ($id in $expected) {
-    if (-not ($profiles.profiles.id -contains $id)) { throw "missing profile: $id" }
-}
-foreach ($profile in $profiles.profiles) {
-    if ([string]::IsNullOrWhiteSpace($profile.version)) { throw "profile version missing: $($profile.id)" }
-    if ($profile.editor_control -ne "exclusive_restore") { throw "invalid editor_control: $($profile.id)" }
-}
-
-$fixtures = Get-ChildItem (Join-Path $PSScriptRoot "fixtures") -Filter "*.json"
-foreach ($fixture in $fixtures) {
-    $data = Get-Content $fixture.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
-    if ($data.schema_version -notmatch '^p3-validation/') { throw "schema missing: $($fixture.Name)" }
-    if ([string]::IsNullOrWhiteSpace($data.run_id)) { throw "run_id missing: $($fixture.Name)" }
-}
-Write-Output "[p3-validation] profile/schema fixtures passed"
-```
-
-- [ ] **Step 2: Run the test and verify it fails**
-
-Run:
+- [ ] **Step 1: Write the failing contract test**
 
 ```powershell
-.\tools\agent\p3-validation\Test-P3Validation.ps1
+$program = Get-Content $programProfilePath -Raw | ConvertFrom-Json
+$art = Get-Content $artProfilePath -Raw | ConvertFrom-Json
+if ($program.profiles.id -contains "art_runtime") { throw "art profile leaked into program registry" }
+if ($art.profiles.id -contains "p0_full") { throw "program profile leaked into art registry" }
+foreach ($fixture in Get-ChildItem $fixtureRoot -Filter *.json) {
+    $data = Get-Content $fixture.FullName -Raw | ConvertFrom-Json
+    if ($data.schema_version -ne "p3-validation/step-result@2") { throw "wrong schema" }
+    if ($data.validation_domain -notin @("program","art","release","infrastructure")) { throw "wrong domain" }
+}
 ```
 
-Expected: FAIL because `p3_validation_profiles.json` and fixtures do not exist.
+- [ ] **Step 2: Run the test and verify it fails because the split registries do not exist**
 
-- [ ] **Step 3: Add the four Profile definitions**
+Run: `./tools/agent/p3-validation-core/Test-P3ValidationCore.ps1`
 
-Create JSON with this top-level structure and no arbitrary command fields:
+Expected: non-zero exit with `program_validation_profiles.json` missing.
+
+- [ ] **Step 3: Create the three registries**
+
+Program Profile example:
 
 ```json
 {
-  "schema_version": "p3-validation/profiles@1",
-  "profiles": [
-    {
-      "id": "smoke_focus",
-      "version": "1",
-      "static_steps": [],
-      "unity_profile_id": "smoke_focus",
-      "required_evidence": ["console_delta", "smoke_report"],
-      "timeout_seconds": 300,
-      "strict_warnings": false,
-      "editor_control": "exclusive_restore",
-      "external_review_required": []
-    },
-    {
-      "id": "art_runtime",
-      "version": "1",
-      "static_steps": ["ui_spec_validate"],
-      "unity_profile_id": "art_runtime",
-      "required_evidence": ["console_delta", "art_acceptance_report", "screenshots"],
-      "timeout_seconds": 600,
-      "strict_warnings": false,
-      "editor_control": "exclusive_restore",
-      "external_review_required": ["art"]
-    },
-    {
-      "id": "t0_seal",
-      "version": "1",
-      "static_steps": ["config_sync", "ui_spec_validate", "art_manifest_check"],
-      "unity_profile_id": "t0_seal",
-      "required_evidence": ["console_delta", "smoke_report", "t0_capture_report", "screenshots"],
-      "timeout_seconds": 900,
-      "strict_warnings": false,
-      "editor_control": "exclusive_restore",
-      "external_review_required": ["art", "director"]
-    },
-    {
-      "id": "p0_full",
-      "version": "1",
-      "static_steps": ["config_sync", "config_static_validate", "ui_spec_validate"],
-      "unity_profile_id": "p0_full",
-      "required_evidence": ["config_report", "console_delta", "smoke_report", "art_acceptance_summary"],
-      "timeout_seconds": 900,
-      "strict_warnings": false,
-      "editor_control": "exclusive_restore",
-      "external_review_required": []
-    }
-  ]
+  "id": "p0_full",
+  "version": "2",
+  "validation_domain": "program",
+  "static_steps": ["config_sync", "config_static_validate", "ui_spec_validate"],
+  "smoke_set": "p0_core",
+  "required_steps": ["config_sync", "config_static_validate", "ui_spec_validate", "compile_gate", "smoke", "console_delta"],
+  "external_review_required": []
 }
 ```
 
-- [ ] **Step 4: Add JSON schemas and golden fixtures**
+Art Profile example:
 
-Schemas must require the exact status enums from the design. Golden fixtures must include one artifact with `path`, `source_path`, `sha256`, `size`, `captured_at` and `mime_type`.
+```json
+{
+  "id": "art_iteration",
+  "version": "2",
+  "validation_domain": "art",
+  "mode": "iteration",
+  "required_steps": ["readiness", "before_capture", "diagnosis", "allowlisted_changes", "after_capture", "console_delta"],
+  "external_review_required": ["art"]
+}
+```
 
-- [ ] **Step 5: Run the fixture test**
+- [ ] **Step 4: Add success, failure, blocked, cross-domain and review-required fixtures**
+
+Every artifact fixture must contain `path`, `source_path`, `sha256`, `size`, `captured_at` and `mime_type`.
+
+- [ ] **Step 5: Run the contract test**
+
+Expected: `[p3-validation-core] profiles and schemas passed`.
+
+- [ ] **Step 6: Commit**
+
+```powershell
+git add -- UnityClient/Assets/Editor/P3Validation tools/agent/p3-validation-core
+git commit -m "test: freeze split P3 validation contracts"
+```
+
+---
+
+### Task 2: Refactor Shared C# Contracts, Paths and Profile Registry
+
+**Files:**
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/P3ValidationDomain.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/P3ValidationContracts.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/P3ValidationProfileRegistry.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/P3ValidationEvidencePaths.cs`
+- Test: `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationCoreContractsSmokeTest.cs`
+
+**Interfaces:**
+- Produces `P3ValidationDomain.Program|Art|Release|Infrastructure`.
+- Produces `P3ValidationProfileRegistry.GetProgram/GetArt/GetRelease`.
+- Produces `P3ValidationEvidencePaths.ForProgramRun/ForArtRun/ForReleaseRun`.
+
+- [ ] **Step 1: Write failing domain-isolation tests**
+
+```csharp
+var program = P3ValidationProfileRegistry.GetProgram("p0_full");
+if (program.ValidationDomain != P3ValidationDomain.Program) throw new Exception("wrong domain");
+AssertThrows(() => P3ValidationProfileRegistry.GetProgram("art_runtime"));
+AssertThrows(() => P3ValidationEvidencePaths.ForProgramRun("20260712_art_runtime"));
+```
+
+- [ ] **Step 2: Run `P3ValidationCoreContractsSmokeTest.Run` and confirm compilation failure**
+
+- [ ] **Step 3: Implement the domain enum and v2 contract**
+
+```csharp
+[JsonConverter(typeof(StringEnumConverter))]
+public enum P3ValidationDomain { Program, Art, Release, Infrastructure }
+
+public sealed class P3ValidationStepResult {
+    [JsonProperty("schema_version")] public string SchemaVersion = "p3-validation/step-result@2";
+    [JsonProperty("validation_domain")] public P3ValidationDomain ValidationDomain;
+    [JsonProperty("run_id")] public string RunId;
+    [JsonProperty("profile_id")] public string ProfileId;
+    [JsonProperty("step_id")] public string StepId;
+    [JsonProperty("required")] public bool Required;
+    [JsonProperty("status")] public P3ValidationStepStatus Status;
+}
+```
+
+- [ ] **Step 4: Implement separate registries and RunID roots**
+
+Reject path separators, `..`, and a RunID prefix that does not match its requested domain.
+
+- [ ] **Step 5: Run focused Unity smoke and Editor build**
 
 Run:
 
 ```powershell
-.\tools\agent\p3-validation\Test-P3Validation.ps1
-```
-
-Expected: `[p3-validation] profile/schema fixtures passed` and exit code 0.
-
-- [ ] **Step 6: Commit**
-
-```powershell
-git add -- UnityClient/Assets/Editor/P3Validation tools/agent/p3-validation
-git commit -m "test: freeze P3 validation profiles and schemas"
-```
-
----
-
-### Task 2: Create RunID and Deterministic Evidence Merge Scripts
-
-**Files:**
-- Create: `tools/agent/p3-validation/New-P3ValidationRun.ps1`
-- Create: `tools/agent/p3-validation/Merge-P3ValidationEvidence.ps1`
-- Modify: `tools/agent/p3-validation/Test-P3Validation.ps1`
-
-**Interfaces:**
-- Produces: `New-P3ValidationRun -ProfileId <id>` returning `RunId`, `EvidenceRoot`, `RequestPath`.
-- Produces: `Merge-P3ValidationEvidence -RunId <id>` writing `validation-summary.json` and `.md`.
-
-- [ ] **Step 1: Add failing merge precedence tests**
-
-Extend the PowerShell test to copy fixture steps into a temporary run and assert:
-
-```powershell
-$summary = & $mergeScript -RunId $runId -RepoRoot $RepoRoot -PassThru
-if ($summary.AutomationStatus -ne "Failed") { throw "Failed must outrank Blocked/Limited" }
-if ($summary.ClaimCeiling -ne "evidence_collected") { throw "failed run claim ceiling is too high" }
-```
-
-Add separate cases verifying `Blocked > Limited > Passed` when no required step failed.
-
-- [ ] **Step 2: Run the tests and verify failure**
-
-Expected: FAIL because run creation and merge scripts are absent.
-
-- [ ] **Step 3: Implement run creation**
-
-`New-P3ValidationRun.ps1` must:
-
-```powershell
-param(
-    [Parameter(Mandatory)][string]$ProfileId,
-    [string]$RunId = "",
-    [string]$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..\..")).ProviderPath,
-    [switch]$PassThru
-)
-
-if ([string]::IsNullOrWhiteSpace($RunId)) {
-    $RunId = "{0}_{1}" -f (Get-Date -Format "yyyyMMdd_HHmmss"), $ProfileId
-}
-if ($RunId -notmatch '^[A-Za-z0-9_-]+$') { throw "invalid RunId: $RunId" }
-
-$root = Join-Path $RepoRoot "UnityClient/Logs/P3Validation/runs/$RunId"
-foreach ($child in @("steps", "unity", "screenshots", "source_reports")) {
-    New-Item -ItemType Directory -Force -Path (Join-Path $root $child) | Out-Null
-}
-```
-
-It must reject an already completed RunID and write `request.json` atomically through a temporary file and `Move-Item`.
-
-- [ ] **Step 4: Implement deterministic status and claim merging**
-
-`Merge-P3ValidationEvidence.ps1` must use this precedence:
-
-```powershell
-if ($required.Status -contains "Failed") { $automation = "Failed" }
-elseif ($required.Status -contains "Blocked") { $automation = "Blocked" }
-elseif ($required.Status -contains "Limited") { $automation = "Limited" }
-elseif ($required.Status -contains "Cancelled") { $automation = "Cancelled" }
-else { $automation = "Passed" }
-```
-
-`ClaimCeiling` must be derived only from `AutomationStatus`, `OwnerValidation` and `ExternalReview`; never from free text.
-
-- [ ] **Step 5: Run tests**
-
-Expected: all precedence, duplicate RunID and atomic write cases pass.
-
-- [ ] **Step 6: Commit**
-
-```powershell
-git add -- tools/agent/p3-validation
-git commit -m "feat: add P3 validation evidence merger"
-```
-
----
-
-### Task 3: Add Shared C# Contracts and Profile Registry
-
-**Files:**
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/P3ValidationContracts.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/P3ValidationProfileRegistry.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/P3ValidationEvidencePaths.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationContractsSmokeTest.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationProfileRegistrySmokeTest.cs`
-
-**Interfaces:**
-- Produces: `P3ValidationStepStatus`, `P3ValidationStepResult`, `P3ValidationArtifact`, `P3ValidationProfile`.
-- Produces: `P3ValidationProfileRegistry.GetRequired(string id)`.
-- Produces: `P3ValidationEvidencePaths.ForRun(string runId)`.
-
-- [ ] **Step 1: Write failing static Smoke tests**
-
-```csharp
-public static class P3ValidationContractsSmokeTest
-{
-    public static void Run()
-    {
-        var result = P3ValidationStepResult.Passed("run_1", "smoke_focus", "compile_gate", true);
-        if (result.SchemaVersion != "p3-validation/step-result@1")
-            UnityEngine.Debug.LogError("P3 Validation Contracts FAILED: schema");
-        if (result.Status != P3ValidationStepStatus.Passed)
-            UnityEngine.Debug.LogError("P3 Validation Contracts FAILED: status");
-        UnityEngine.Debug.Log("P3 Validation Contracts PASSED");
-    }
-}
-```
-
-Registry test must assert the four IDs, version `1`, `exclusive_restore`, and rejection of an unknown ID.
-
-- [ ] **Step 2: Trigger tests and confirm failure**
-
-```powershell
-Set-Content UnityClient/Logs/.test_trigger "P3ValidationContractsSmokeTest.Run"
-```
-
-Expected: compilation failure because contract types do not exist.
-
-- [ ] **Step 3: Implement contracts**
-
-Use serializable fields matching snake_case through `JsonProperty` attributes. Provide factory methods:
-
-```csharp
-public static P3ValidationStepResult Passed(string runId, string profileId, string stepId, bool required);
-public static P3ValidationStepResult Failed(string runId, string profileId, string stepId, bool required, string code, string message);
-public static P3ValidationStepResult Blocked(string runId, string profileId, string stepId, bool required, string limitationCode, string message);
-```
-
-- [ ] **Step 4: Implement profile loading and evidence path validation**
-
-The registry must load only:
-
-```text
-Assets/Editor/P3Validation/p3_validation_profiles.json
-```
-
-`ForRun` must reject path separators and resolve only under `UnityClient/Logs/P3Validation/runs/`.
-
-- [ ] **Step 5: Run focused tests and builds**
-
-```powershell
-Set-Content UnityClient/Logs/.test_trigger "P3ValidationContractsSmokeTest.Run"
-Set-Content UnityClient/Logs/.test_trigger "P3ValidationProfileRegistrySmokeTest.Run"
+Set-Content UnityClient/Logs/.test_trigger "P3ValidationCoreContractsSmokeTest.Run"
 dotnet build UnityClient/Assembly-CSharp-Editor.csproj --no-restore
 ```
 
-Expected: both reports `PASSED`; build 0 errors.
+Expected: smoke `PASSED`; build 0 errors.
 
 - [ ] **Step 6: Commit**
 
 ```powershell
-git add -- UnityClient/Assets/Editor/P3Validation UnityClient/Assets/Scripts/Editor/P3Validation UnityClient/Assets/Scripts/Editor/Tests
-git commit -m "feat: add P3 validation contracts and profiles"
+git add -- UnityClient/Assets/Scripts/Editor/P3ValidationCore UnityClient/Assets/Scripts/Editor/Tests/P3ValidationCoreContractsSmokeTest.cs*
+git commit -m "refactor: split P3 validation core domains"
 ```
 
 ---
 
-### Task 4: Extract Shared Smoke Execution Without Breaking AutoTestDaemon
+### Task 3: Implement Domain-Aware Run Creation and Merger
 
 **Files:**
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/P3SmokeExecutionService.cs`
-- Modify: `UnityClient/Assets/Scripts/Editor/AutoTestDaemon.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/Tests/P3SmokeExecutionServiceSmokeTest.cs`
+- Create: `tools/agent/p3-validation-core/New-P3ValidationRun.ps1`
+- Create: `tools/agent/p3-validation-core/Merge-P3ValidationEvidence.ps1`
+- Modify: `tools/agent/p3-validation-core/Test-P3ValidationCore.ps1`
 
 **Interfaces:**
-- Produces: `P3SmokeExecutionResult Execute(IEnumerable<string> testNames)`.
-- Consumed by: `AutoTestDaemon` and `p3_run_smoke_profile`.
+- Produces `New-P3ValidationRun -Domain program|art|release -ProfileId`.
+- Produces summaries with domain-specific status fields.
 
-- [ ] **Step 1: Write a characterization test around current reflection semantics**
-
-The test must cover a passing method, a method logging `LogError`, a missing method and an exception. It must assert that only the passing method yields `Passed=true`.
-
-- [ ] **Step 2: Run the characterization test before refactor**
-
-Expected: FAIL because `P3SmokeExecutionService` does not exist.
-
-- [ ] **Step 3: Move reflection execution into the service**
-
-Expose:
-
-```csharp
-public sealed class P3SmokeExecutionResult
-{
-    public bool Passed;
-    public List<string> Tests = new List<string>();
-    public List<string> Logs = new List<string>();
-    public List<string> Errors = new List<string>();
-}
-
-public static P3SmokeExecutionResult Execute(IEnumerable<string> testNames)
-```
-
-The service must subscribe/unsubscribe `Application.logMessageReceived` in `try/finally` and restore `GameRoot.Core` / global test state exactly as current tests require.
-
-- [ ] **Step 4: Delegate AutoTestDaemon to the service**
-
-Preserve `.test_trigger`, `RUN_ALL_TESTS` and `Logs/TestReport.json`. Do not change CLI output fields in this task.
-
-- [ ] **Step 5: Run parity verification**
+- [ ] **Step 1: Add failing cross-domain and required-step tests**
 
 ```powershell
-Set-Content UnityClient/Logs/.test_trigger "RUN_ALL_TESTS"
+$programRun = & $newRun -Domain program -ProfileId p0_full -PassThru
+Copy-Item $artFixture "$($programRun.EvidenceRoot)/steps/art/result.json"
+{ & $merge -RunId $programRun.RunId -Domain program } | Should -Throw "cross-domain"
 ```
 
-Expected: same discovered test count and all previously passing tests remain passing.
+Also assert that Profile `required_steps` comes from JSON and is not duplicated in the merger.
+
+- [ ] **Step 2: Implement domain roots and atomic request writes**
+
+Map domain to `program-runs`, `art-runs`, or `release-runs`; reject completed duplicate RunIDs.
+
+- [ ] **Step 3: Implement deterministic merge from `required_steps`**
+
+```powershell
+if ($required.status -contains "Failed") { $automation = "Failed" }
+elseif ($missing.Count -gt 0 -or $required.status -contains "Blocked") { $automation = "Blocked" }
+elseif ($required.status -contains "Limited") { $automation = "Limited" }
+elseif ($required.status -contains "Cancelled") { $automation = "Cancelled" }
+else { $automation = "Passed" }
+```
+
+Infer art external review from `external_review_required`; never default an art Profile to `NotRequired`.
+
+- [ ] **Step 4: Validate artifact existence, size and SHA-256 before counting required evidence**
+
+- [ ] **Step 5: Run all PowerShell tests**
+
+Expected: cross-domain rejection, missing step, hash mismatch and review inference cases pass.
 
 - [ ] **Step 6: Commit**
 
 ```powershell
-git add -- UnityClient/Assets/Scripts/Editor/AutoTestDaemon.cs UnityClient/Assets/Scripts/Editor/P3Validation UnityClient/Assets/Scripts/Editor/Tests
-git commit -m "refactor: share P3 smoke execution service"
+git add -- tools/agent/p3-validation-core
+git commit -m "feat: add domain-aware P3 validation merger"
 ```
 
 ---
 
-### Task 5: Implement Readiness, Editor Snapshot and Console Delta
+### Task 4: Complete Shared Unity Readiness, Console and Job Infrastructure
 
 **Files:**
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/P3ValidationEditorSnapshot.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/P3ValidationConsoleTracker.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/Tools/P3UnityReadinessTool.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/Tools/P3CollectUnityEvidenceTool.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationConsoleDeltaSmokeTest.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationMcpToolsSmokeTest.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/P3ValidationEditorSnapshot.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/P3ValidationConsoleTracker.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/P3ValidationJobStore.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/P3ValidationInstanceLock.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/P3ValidationReadinessTool.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/P3ValidationCollectConsoleTool.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/P3ValidationCollectEvidenceTool.cs`
+- Test: `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationInfrastructureSmokeTest.cs`
 
 **Interfaces:**
-- Produces: `P3ValidationEditorSnapshot Capture()`.
-- Produces: `P3ConsoleMarker Begin(string runId)` and `P3ConsoleDelta Complete(P3ConsoleMarker marker)`.
-- MCP tools: `p3_unity_readiness`, `p3_collect_unity_evidence`.
+- MCP: `p3_validation_readiness`, `p3_validation_collect_console`, `p3_validation_collect_evidence`.
+- Job lock includes `validation_domain` and RunID.
 
-- [ ] **Step 1: Write failing Console delta test**
+- [ ] **Step 1: Write failing tests for dirty Scene, Console delta, lock collision and stale recovery**
 
-The test must create a baseline, log one warning and one error with unique tokens, complete the delta, and assert both new entries exist while a pre-baseline token does not.
+- [ ] **Step 2: Capture PlayMode, pause, active Scene, selection, Prefab Stage and dirty state**
 
-- [ ] **Step 2: Implement snapshot and delta fingerprinting**
+- [ ] **Step 3: Persist Console baseline/delta without clearing Console**
 
-Fingerprint fields:
+Fingerprint: `log_type + condition + stack_trace + occurrence_index`.
+
+- [ ] **Step 4: Persist domain-aware JobState through `McpJobStateStore`**
+
+- [ ] **Step 5: Run Unity infrastructure suite and build**
+
+Expected: no Editor mutation from readiness; second RunID is blocked; Console delta excludes pre-baseline entries.
+
+- [ ] **Step 6: Commit**
+
+```powershell
+git add -- UnityClient/Assets/Scripts/Editor/P3ValidationCore UnityClient/Assets/Scripts/Editor/Tests/P3ValidationInfrastructureSmokeTest.cs*
+git commit -m "feat: add shared P3 validation infrastructure"
+```
+
+---
+
+### Task 5: Build the Program Validation Lane
+
+**Files:**
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Program/P3ProgramValidationOrchestrator.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Program/P3ProgramSmokeRegistry.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/P3ProgramRunSmokeTool.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/P3ProgramRunProfileTool.cs`
+- Create: `tools/agent/p3-validation-core/Invoke-P3ProgramStaticValidation.ps1`
+- Test: `UnityClient/Assets/Scripts/Editor/Tests/P3ProgramValidationSmokeTest.cs`
+
+**Interfaces:**
+- MCP: `p3_program_run_smoke`, `p3_program_run_profile`.
+- Produces only `program` and `infrastructure` step results.
+
+- [ ] **Step 1: Write a failing test that records whether `ArtAcceptanceRunner.BeginAutomatedRun` was invoked**
+
+Assert it remains false for all three program Profiles.
+
+- [ ] **Step 2: Implement allowlisted Smoke sets and compile gate**
+
+No raw method names are accepted from MCP parameters.
+
+- [ ] **Step 3: Implement static dispatch with a PowerShell `switch`**
+
+Registered steps only: `config_sync`, `config_static_validate`, `ui_spec_validate`.
+
+- [ ] **Step 4: Implement polling orchestration**
+
+State sequence: `Preflight -> Compile -> Smoke -> Console -> Complete`.
+
+- [ ] **Step 5: Run `smoke_focus`, `t0_functional`, and `p0_full` success/failure fixtures**
+
+Expected: no screenshot requirement and no `ArtExternalReview` field.
+
+- [ ] **Step 6: Commit**
+
+```powershell
+git add -- UnityClient/Assets/Scripts/Editor/P3ValidationCore/Program UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/P3Program* UnityClient/Assets/Scripts/Editor/Tests/P3ProgramValidationSmokeTest.cs* tools/agent/p3-validation-core
+git commit -m "feat: add P3 program validation lane"
+```
+
+---
+
+### Task 6: Create the Program Validation Skill
+
+**Files:**
+- Create: `.codex/skills/p3-program-validation/SKILL.md`
+- Create: `.codex/skills/p3-program-validation/agents/openai.yaml`
+- Create: `.codex/skills/p3-program-validation/references/profile-routing.md`
+- Create: `.codex/skills/p3-program-validation/references/claims.md`
+
+**Interfaces:**
+- Triggers on P3 compile, Smoke, functional T0, P0, program regression and code acceptance requests.
+
+- [ ] **Step 1: Initialize with `skill-creator/scripts/init_skill.py`**
+
+- [ ] **Step 2: Write the exact program workflow**
 
 ```text
-log_type + condition + stack_trace + occurrence_index
-```
-
-Do not clear Unity Console. Persist baseline and delta JSON under the run's `unity/` directory.
-
-- [ ] **Step 3: Implement readiness tool**
-
-Use:
-
-```csharp
-[McpForUnityTool("p3_unity_readiness", Description = "Read-only P3 Unity validation readiness")]
-public static class P3UnityReadinessTool
-```
-
-Return compile/update/play/prefab-stage/dirty-scene/job-lock fields and stable blocking codes.
-
-- [ ] **Step 4: Run tests and inspect live MCP result**
-
-Expected: static tests pass; MCP call returns `success=true` without changing PlayMode or selection.
-
-- [ ] **Step 5: Commit**
-
-```powershell
-git add -- UnityClient/Assets/Scripts/Editor/P3Validation UnityClient/Assets/Scripts/Editor/Tests
-git commit -m "feat: add P3 Unity readiness and console evidence"
-```
-
----
-
-### Task 6: Add Job Store, Instance Lock and Domain Reload Recovery
-
-**Files:**
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/P3ValidationJobStore.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/P3ValidationInstanceLock.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationJobStateSmokeTest.cs`
-
-**Interfaces:**
-- Produces: `Load(runId)`, `Save(state)`, `Clear(runId)`.
-- Produces: `TryAcquire(instanceId, runId, out activeRunId)` and `Release(instanceId, runId)`.
-
-- [ ] **Step 1: Write failing persistence and collision tests**
-
-Assert state survives serialize/load and that a second RunID cannot acquire the same instance lock.
-
-- [ ] **Step 2: Implement RunID-scoped state on top of `McpJobStateStore`**
-
-Use a sanitized key:
-
-```csharp
-private static string Key(string runId) => "p3_validation_" + runId;
-```
-
-State must include current step, progress, evidence root, original Editor state, source Runner ID, last error and restore action.
-
-- [ ] **Step 3: Implement stale lock recovery**
-
-A lock can be reclaimed only when its JobState is terminal or older than the configured infrastructure timeout. Record reclaim as a warning artifact.
-
-- [ ] **Step 4: Run focused tests**
-
-Expected: persistence, collision, owner-only release and stale recovery tests pass.
-
-- [ ] **Step 5: Commit**
-
-```powershell
-git add -- UnityClient/Assets/Scripts/Editor/P3Validation UnityClient/Assets/Scripts/Editor/Tests
-git commit -m "feat: persist P3 validation jobs and locks"
-```
-
----
-
-### Task 7: Add Atomic Smoke MCP Tool
-
-**Files:**
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/Tools/P3RunSmokeProfileTool.cs`
-- Modify: `UnityClient/Assets/Editor/P3Validation/p3_validation_profiles.json`
-- Modify: `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationMcpToolsSmokeTest.cs`
-
-**Interfaces:**
-- MCP tool: `p3_run_smoke_profile(run_id, smoke_profile_id, action=start|status|cancel)`.
-- Consumes: `P3SmokeExecutionService`, Profile registry, Job store and evidence paths.
-
-- [ ] **Step 1: Add a registered smoke set and rejection tests**
-
-Profiles JSON must name exact registered sets such as `t0_core` and `p0_core`; the tool must reject a raw method name and unknown set.
-
-- [ ] **Step 2: Implement polling tool attribute**
-
-```csharp
-[McpForUnityTool(
-    "p3_run_smoke_profile",
-    Description = "Run an allowlisted P3 smoke profile",
-    RequiresPolling = true,
-    PollAction = "status",
-    MaxPollSeconds = 900)]
-```
-
-Return `PendingResponse` while queued/running and `_mcp_status=complete` only after the step result is atomically written.
-
-- [ ] **Step 3: Verify passing and failing profiles**
-
-Use a fixture Smoke method that intentionally logs an error. Expected: passing set returns `Passed`; failing set returns tool completion with step `Failed`, not transport error.
-
-- [ ] **Step 4: Commit**
-
-```powershell
-git add -- UnityClient/Assets/Editor/P3Validation UnityClient/Assets/Scripts/Editor/P3Validation UnityClient/Assets/Scripts/Editor/Tests
-git commit -m "feat: expose allowlisted smoke profiles over MCP"
-```
-
----
-
-### Task 8: Add ArtAcceptance and T0 Atomic Adapters
-
-**Files:**
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/P3ArtAcceptanceAdapter.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/P3T0CaptureAdapter.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/Tools/P3RunArtAcceptanceTool.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/Tools/P3CaptureT0Tool.cs`
-- Modify: `UnityClient/Assets/Editor/P3Validation/p3_validation_profiles.json`
-- Modify: `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationMcpToolsSmokeTest.cs`
-
-**Interfaces:**
-- MCP tool: `p3_run_art_acceptance(run_id, acceptance_profile_id, action)`.
-- MCP tool: `p3_capture_t0(run_id, capture_profile_id, action)`.
-
-- [ ] **Step 1: Write adapter tests with fixture report directories**
-
-Cover: matching source RunID, stale `latest`, missing screenshot, semantic failure and atomic copy into EvidenceRoot.
-
-- [ ] **Step 2: Implement ArtAcceptance adapter**
-
-Start through `ArtAcceptanceRunner.BeginAutomatedRun`, poll `report.json` until `IsRunning=false`, validate required ScreenTags, then copy report, UI snapshot, Registry snapshot and required screenshots.
-
-- [ ] **Step 3: Implement T0 adapter**
-
-Start `T0ValidationFinalCaptureRunner.StartCapture()`, wait for a report written after Job start, parse `semantic_failed`, copy the report and registered screenshot set, and reject stale files.
-
-- [ ] **Step 4: Verify real success and injected failure**
-
-Expected: real run produces RunID-scoped artifacts; deleting one copied fixture screenshot makes the adapter step fail with a stable code.
-
-- [ ] **Step 5: Commit**
-
-```powershell
-git add -- UnityClient/Assets/Editor/P3Validation UnityClient/Assets/Scripts/Editor/P3Validation UnityClient/Assets/Scripts/Editor/Tests
-git commit -m "feat: adapt ArtAcceptance and T0 capture to MCP"
-```
-
----
-
-### Task 9: Build the Unity Profile Orchestrator
-
-**Files:**
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/P3UnityValidationOrchestrator.cs`
-- Create: `UnityClient/Assets/Scripts/Editor/P3Validation/Tools/P3RunUnityProfileTool.cs`
-- Modify: `UnityClient/Assets/Scripts/Editor/Tests/P3ValidationMcpToolsSmokeTest.cs`
-
-**Interfaces:**
-- MCP tool: `p3_run_unity_profile(run_id, unity_profile_id, control_policy, action)`.
-- Sequences readiness, baseline, refresh/compile, registered atomic steps, evidence collection and Editor restoration.
-
-- [ ] **Step 1: Write state-machine and cancellation tests**
-
-Test transitions:
-
-```text
-Created -> Preflight -> Prepare -> Execute -> CollectEvidence -> Complete
-```
-
-Also cover compile blocked, job collision, cancellation at a safe point and restore limitation.
-
-- [ ] **Step 2: Implement `exclusive_restore` preflight**
-
-Block on dirty Scene or open dirty Prefab Stage. Capture original PlayMode, active Scene and selection. Do not auto-save.
-
-- [ ] **Step 3: Implement orchestration and status polling**
-
-Infrastructure retries are bounded. A business `Failed` step is terminal and must not be rerun automatically.
-
-- [ ] **Step 4: Run failure injection suite**
-
-Expected codes include:
-
-```text
-blocked:unity_validation_job_active
-validation_limited:UnityEditorStateStale
-validation_limited:CompilationTimeout
-validation_limited:editor_state_restore_failed
-```
-
-- [ ] **Step 5: Commit**
-
-```powershell
-git add -- UnityClient/Assets/Scripts/Editor/P3Validation UnityClient/Assets/Scripts/Editor/Tests
-git commit -m "feat: orchestrate P3 Unity validation profiles"
-```
-
----
-
-### Task 10: Add Static Lane Adapter and P0 Integration
-
-**Files:**
-- Create: `tools/agent/p3-validation/Invoke-P3StaticValidation.ps1`
-- Modify: `tools/agent/Invoke-P0Validation.ps1`
-- Modify: `tools/agent/p3-validation/Test-P3Validation.ps1`
-
-**Interfaces:**
-- Produces: `Invoke-P3StaticValidation -RunId -ProfileId`.
-- Adds optional parameters to P0 without changing defaults: `-ParentRunId`, `-EvidenceRoot`, `-StaticOnly`.
-
-- [ ] **Step 1: Write compatibility tests**
-
-Run current P0 command with no new parameters and assert its existing output paths and status fields remain unchanged.
-
-- [ ] **Step 2: Implement Profile step dispatch**
-
-Dispatch only registered step IDs with a PowerShell `switch`; never execute a command string from JSON.
-
-- [ ] **Step 3: Convert child results to `step-result@1`**
-
-Preserve original report paths as artifacts and write each converted result to `steps/<step-id>/result.json`.
-
-- [ ] **Step 4: Run static profiles and compatibility command**
-
-Expected: `t0_seal` static lane and existing `Invoke-P0Validation.ps1` both run; no default behavior regression.
-
-- [ ] **Step 5: Commit**
-
-```powershell
-git add -- tools/agent/p3-validation tools/agent/Invoke-P0Validation.ps1
-git commit -m "feat: add P3 static validation lane"
-```
-
----
-
-### Task 11: Create the `p3-validation` Codex Skill
-
-**Files:**
-- Create: `.codex/skills/p3-validation/SKILL.md`
-- Create: `.codex/skills/p3-validation/agents/openai.yaml`
-- Create: `.codex/skills/p3-validation/references/profile-routing.md`
-- Create: `.codex/skills/p3-validation/references/evidence-and-claims.md`
-
-**Interfaces:**
-- User entry: requests containing P3 validation, smoke, ArtAcceptance, T0 capture, P0 validation or MCP validation orchestration.
-- Consumes: PowerShell run/static/merge scripts and the six Unity MCP tools.
-
-- [ ] **Step 1: Write the Skill routing contract**
-
-`SKILL.md` must require this order:
-
-```text
-read P3 facts
--> select one registered Profile
--> pin exact Unity instance
--> create RunID
+read program facts
+-> select program Profile
+-> create ProgramRunID
 -> run static lane
--> run Unity profile
--> merge evidence
--> read ClaimCeiling
--> report without expanding claims
+-> pin Unity
+-> run p3_program_run_profile
+-> merge program evidence
+-> report ProgramClaimCeiling
 ```
 
-- [ ] **Step 2: Add hard safety rules**
+- [ ] **Step 3: Add explicit prohibition of ArtAcceptance, visual seal and art review claims**
 
-The Skill must forbid `manage_ui`, `execute_code`, arbitrary `execute_menu_item`, direct asset changes and unregistered Smoke methods during validation.
-
-- [ ] **Step 3: Add exact fallback behavior**
-
-If custom MCP tools are unavailable, return `validation_limited:P3CustomMcpToolsUnavailable` and offer the existing script/menu path; do not silently substitute a weaker check and call it passed.
-
-- [ ] **Step 4: Validate Skill discovery**
-
-Restart/reload Codex project skills and confirm `p3-validation` appears with the intended description.
+- [ ] **Step 4: Run `quick_validate.py` and placeholder/link checks**
 
 - [ ] **Step 5: Commit**
 
 ```powershell
-git add -- .codex/skills/p3-validation
-git commit -m "feat: add P3 validation orchestration skill"
+git add -- .codex/skills/p3-program-validation
+git commit -m "feat: add P3 program validation skill"
 ```
 
 ---
 
-### Task 12: End-to-End Profiles, Default Switch and Documentation
+### Task 7: Build Art Diagnosis and Capture Without Mutation
+
+**Files:**
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Art/P3ArtTargetRegistry.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Art/P3ArtCaptureService.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Art/P3ArtAcceptanceAdapter.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/P3ArtOpenTargetTool.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/P3ArtCaptureTool.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/P3ArtRunAcceptanceTool.cs`
+- Test: `UnityClient/Assets/Scripts/Editor/Tests/P3ArtDiagnosisSmokeTest.cs`
+
+**Interfaces:**
+- MCP: `p3_art_open_target`, `p3_art_capture`, `p3_art_run_acceptance`.
+- Accepts registered target ID or ScreenTag, never arbitrary state methods.
+
+- [ ] **Step 1: Write failing tests for unknown target, stale report, missing screenshot and unreachable screen**
+
+- [ ] **Step 2: Implement target registry and read-only target navigation**
+
+Return `art_blocked:target_screen_unreachable` with program handoff evidence when navigation fails.
+
+- [ ] **Step 3: Copy report, required screenshots, UI snapshot and Registry snapshot into ArtRunID**
+
+- [ ] **Step 4: Validate timestamp, size, dimensions and SHA-256**
+
+- [ ] **Step 5: Run art diagnosis success and controlled-failure tests**
+
+- [ ] **Step 6: Commit**
+
+```powershell
+git add -- UnityClient/Assets/Scripts/Editor/P3ValidationCore/Art UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/P3Art* UnityClient/Assets/Scripts/Editor/Tests/P3ArtDiagnosisSmokeTest.cs*
+git commit -m "feat: add P3 art diagnosis and capture"
+```
+
+---
+
+### Task 8: Add Allowlisted Art Iteration
+
+**Files:**
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Art/P3ArtIterationContracts.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Art/P3ArtIterationService.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Art/P3ArtIterationRegistry.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/P3ArtCompareIterationTool.cs`
+- Test: `UnityClient/Assets/Scripts/Editor/Tests/P3ArtIterationSmokeTest.cs`
+
+**Interfaces:**
+- MCP: `p3_art_compare_iteration`.
+- Mutation request contains `target_id`, `action`, and typed values only.
+
+- [ ] **Step 1: Write rejection tests for arbitrary property, asset path, C#, menu and non-Approved VisualID**
+
+- [ ] **Step 2: Define the mutation enum**
+
+```csharp
+public enum P3ArtIterationAction {
+    SetAnchoredPosition, SetSizeDelta, SetAnchorMin, SetAnchorMax,
+    SetSiblingIndex, SetColor, SetAlpha, SetTextStyle,
+    SetCanvasGroup, SetRaycastTarget, BindApprovedVisualId
+}
+```
+
+- [ ] **Step 3: Implement registry-scoped target resolution and Approved VisualID validation**
+
+- [ ] **Step 4: Write `before.png`, `diagnosis.json`, `changes.json`, `after.png`, Console delta and result atomically**
+
+- [ ] **Step 5: Run a successful layout iteration and all rejection tests**
+
+- [ ] **Step 6: Commit**
+
+```powershell
+git add -- UnityClient/Assets/Scripts/Editor/P3ValidationCore/Art UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/P3ArtCompareIterationTool.cs* UnityClient/Assets/Scripts/Editor/Tests/P3ArtIterationSmokeTest.cs*
+git commit -m "feat: add allowlisted P3 art iteration"
+```
+
+---
+
+### Task 9: Build the Art Profile Orchestrator and Skill
+
+**Files:**
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Art/P3ArtValidationOrchestrator.cs`
+- Create: `UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/P3ArtRunProfileTool.cs`
+- Create: `.codex/skills/p3-art-validation/SKILL.md`
+- Create: `.codex/skills/p3-art-validation/agents/openai.yaml`
+- Create: `.codex/skills/p3-art-validation/references/profile-routing.md`
+- Create: `.codex/skills/p3-art-validation/references/iteration-boundaries.md`
+- Test: `UnityClient/Assets/Scripts/Editor/Tests/P3ArtValidationProfileSmokeTest.cs`
+
+**Interfaces:**
+- MCP: `p3_art_run_profile`.
+- Supports `art_focus`, `art_runtime`, `art_iteration`, `t0_art_seal`.
+
+- [ ] **Step 1: Write state tests for diagnosis-only, acceptance, iteration and T0 seal modes**
+
+- [ ] **Step 2: Implement `exclusive_restore` PlayMode and Editor restoration**
+
+- [ ] **Step 3: Ensure every art Profile defaults external review to `Required`**
+
+- [ ] **Step 4: Initialize and write the Skill with exact MCP/script sequence and program handoff rule**
+
+- [ ] **Step 5: Validate Skill and run four Profile success/failure fixtures**
+
+- [ ] **Step 6: Commit**
+
+```powershell
+git add -- UnityClient/Assets/Scripts/Editor/P3ValidationCore/Art UnityClient/Assets/Scripts/Editor/P3ValidationCore/Tools/P3ArtRunProfileTool.cs* UnityClient/Assets/Scripts/Editor/Tests/P3ArtValidationProfileSmokeTest.cs* .codex/skills/p3-art-validation
+git commit -m "feat: add P3 art validation skill and profiles"
+```
+
+---
+
+### Task 10: Implement Release-Only Evidence Aggregation
+
+**Files:**
+- Create: `tools/agent/p3-validation-core/Merge-P3ReleaseEvidence.ps1`
+- Create: `.codex/skills/p3-release-validation/SKILL.md`
+- Create: `.codex/skills/p3-release-validation/agents/openai.yaml`
+- Create: `.codex/skills/p3-release-validation/references/release-profiles.md`
+- Modify: `tools/agent/p3-validation-core/Test-P3ValidationCore.ps1`
+
+**Interfaces:**
+- Consumes completed `ProgramRunID` and `ArtRunID`.
+- Produces `p3-validation/release-summary@1`.
+
+- [ ] **Step 1: Add failing release matrix tests**
+
+Cover Program/Art pass/fail, external review required, fingerprint mismatch and missing RunID.
+
+- [ ] **Step 2: Implement read-only aggregation**
+
+```powershell
+if ($program.AutomationStatus -eq "Failed" -or $art.AutomationStatus -eq "Failed") { $release = "Failed" }
+elseif ($fingerprintsMatch -eq $false) { $release = "Blocked" }
+elseif ($program.AutomationStatus -eq "Blocked" -or $art.AutomationStatus -eq "Blocked") { $release = "Blocked" }
+elseif ($program.AutomationStatus -eq "Limited" -or $art.AutomationStatus -eq "Limited") { $release = "Limited" }
+elseif ($art.ExternalReview -ne "Passed") { $release = "ReviewRequired" }
+else { $release = "Passed" }
+```
+
+- [ ] **Step 3: Reject any parameter that requests test execution or Unity mutation**
+
+- [ ] **Step 4: Create and validate the release Skill**
+
+- [ ] **Step 5: Run the complete release matrix**
+
+- [ ] **Step 6: Commit**
+
+```powershell
+git add -- tools/agent/p3-validation-core .codex/skills/p3-release-validation
+git commit -m "feat: add P3 release evidence aggregation"
+```
+
+---
+
+### Task 11: Remove the Old Mixed Entry and Test Evidence
+
+**Files:**
+- Delete: `.codex/skills/p3-validation/`
+- Delete: `UnityClient/Assets/Editor/P3Validation/p3_validation_profiles.json*`
+- Delete: `tools/agent/p3-validation/`
+- Delete or move into core: `UnityClient/Assets/Scripts/Editor/P3Validation/`
+- Delete runtime evidence: `UnityClient/Logs/P3Validation/runs/e2e_*`
+- Modify: `UnityClient/Assets/Scripts/Editor/AutoTestDaemon.cs`
+
+**Interfaces:**
+- Leaves AutoTestDaemon compatibility triggers intact.
+- Removes all new creation paths for mixed RunIDs.
+
+- [ ] **Step 1: Add a repository scan test that fails while mixed entry names exist**
+
+```powershell
+$forbidden = @(".codex/skills/p3-validation", "p3_run_unity_profile", "p3_validation_profiles.json")
+foreach ($item in $forbidden) { if (Test-Path $item -or (rg -l $item .)) { throw "legacy mixed entry remains: $item" } }
+```
+
+- [ ] **Step 2: Move reusable classes into `P3ValidationCore` and update namespaces/references**
+
+- [ ] **Step 3: Delete old Skill, Profiles, scripts, tools and generated `e2e_*` evidence**
+
+- [ ] **Step 4: Keep `.test_trigger`, existing P0 CLI and Runner compatibility paths functional**
+
+- [ ] **Step 5: Run repository scan, builds and focused AutoTestDaemon parity test**
+
+- [ ] **Step 6: Commit**
+
+```powershell
+git add -A -- .codex/skills/p3-validation UnityClient/Assets/Editor/P3Validation UnityClient/Assets/Scripts/Editor/P3Validation UnityClient/Assets/Scripts/Editor/P3ValidationCore tools/agent/p3-validation tools/agent/p3-validation-core UnityClient/Assets/Scripts/Editor/AutoTestDaemon.cs
+git commit -m "refactor: remove mixed P3 validation entry"
+```
+
+---
+
+### Task 12: End-to-End Gates, Documentation and Status Writeback
 
 **Files:**
 - Modify: `tools/agent/README.md`
 - Modify: `开发文档/19_UnityMCP验收编排层设计.md`
 - Modify: `开发文档/rules/04_自动化测试与验收流程规范.md`
 - Modify: `agent_status/program.md`
+- Modify: `agent_status/art.md`
 - Modify: `知识库/views/program.md`
+- Modify: `知识库/views/art.md`
 - Generate: `DOCS_INDEX.md`
 - Generate: `docs_index.json`
 
 **Interfaces:**
-- Produces: verified evidence packages for all four Profiles, each with one success and one controlled failure sample.
+- Produces one successful and one controlled-failure package per program/art Profile.
+- Produces release matrix evidence.
 
-- [ ] **Step 1: Run Phase gate G1**
+- [ ] **Step 1: Run program Profile gates**
 
-Call readiness and Console collection 10 times. Expected: no Editor mutations and no evidence misassociation.
+Expected: no ArtAcceptance process, screenshot requirement or art review field appears.
 
-- [ ] **Step 2: Run Phase gate G2**
+- [ ] **Step 2: Run art Profile gates**
 
-For Smoke, ArtAcceptance and T0, run the legacy entry and MCP adapter against the same code/input. Compare status, test/capture counts and semantic failures.
+Expected: no full P0 execution or domain mutation; iteration packages contain before/after evidence.
 
-- [ ] **Step 3: Run Phase gate G3 failure injection**
+- [ ] **Step 3: Run release matrix and fingerprint mismatch injection**
 
-Exercise stale state, compile error, timeout, Domain Reload, collision, dirty Scene, business failure, missing screenshot and cancel. Expected: exact `Failed/Blocked/Limited/Cancelled` results.
+- [ ] **Step 4: Verify project-scoped MCP discovery after reconnect**
 
-- [ ] **Step 4: Run all four Profiles end to end**
+Expected tools: three shared, two program and five art tools; old mixed tools absent.
 
-Expected evidence roots:
+- [ ] **Step 5: Update docs and both status pages with actual evidence paths and remaining limitations**
 
-```text
-UnityClient/Logs/P3Validation/runs/<run>_smoke_focus/
-UnityClient/Logs/P3Validation/runs/<run>_art_runtime/
-UnityClient/Logs/P3Validation/runs/<run>_t0_seal/
-UnityClient/Logs/P3Validation/runs/<run>_p0_full/
-```
-
-- [ ] **Step 5: Verify ClaimCeiling**
-
-`art_runtime` and `t0_seal` automated success must still show external review `Required`; the Skill must not say “美术封板完成” or “完整 T0 完成”.
-
-- [ ] **Step 6: Update default workflow docs**
-
-Document MCP Skill as the default agent entry. Keep file triggers and generic menus as automation/fallback paths, not the primary interactive path.
-
-- [ ] **Step 7: Run final verification**
+- [ ] **Step 6: Run final verification**
 
 ```powershell
-.\tools\agent\p3-validation\Test-P3Validation.ps1
+.\tools\agent\p3-validation-core\Test-P3ValidationCore.ps1
 dotnet build UnityClient/Assembly-CSharp.csproj --no-restore
 dotnet build UnityClient/Assembly-CSharp-Editor.csproj --no-restore
+python C:\Users\WhiteSheep\.codex\skills\.system\skill-creator\scripts\quick_validate.py .codex/skills/p3-program-validation
+python C:\Users\WhiteSheep\.codex\skills\.system\skill-creator\scripts\quick_validate.py .codex/skills/p3-art-validation
+python C:\Users\WhiteSheep\.codex\skills\.system\skill-creator\scripts\quick_validate.py .codex/skills/p3-release-validation
 .\tools\docs\Generate-DocsIndex.ps1
 .\tools\docs\Validate-Docs.ps1
 .\tools\agent\Invoke-AgentHealthCheck.ps1 -Strict
 ```
 
-Expected: schema/profile tests pass, both builds have 0 errors, docs validation passes, health check contains no task-owned risk.
+Expected: contract tests and Skills pass; both builds have 0 errors; docs validation passes; health check contains no task-owned risk.
 
-- [ ] **Step 8: Commit**
+- [ ] **Step 7: Commit**
 
 ```powershell
-git add -- tools/agent/README.md 开发文档/19_UnityMCP验收编排层设计.md 开发文档/rules/04_自动化测试与验收流程规范.md agent_status/program.md 知识库/views/program.md DOCS_INDEX.md docs_index.json
-git commit -m "docs: make MCP the default P3 validation entry"
+git add -- tools/agent/README.md 开发文档/19_UnityMCP验收编排层设计.md 开发文档/rules/04_自动化测试与验收流程规范.md agent_status/program.md agent_status/art.md 知识库/views/program.md 知识库/views/art.md DOCS_INDEX.md docs_index.json
+git commit -m "docs: switch P3 validation to role-specific entries"
 ```
 
 ---
@@ -833,9 +645,12 @@ git commit -m "docs: make MCP the default P3 validation entry"
 
 Implementation is complete only when:
 
-- All 12 tasks have their focused tests and commits.
-- Four Profiles each have success and controlled failure evidence.
-- Legacy/MCP parity is proven before the default switch.
-- No Unity MCP validation tool can mutate gameplay, UI assets, configuration or Approved art.
-- `Blocked`, `Limited`, stale evidence and external review requirements are represented without false success.
-- Program status and fact documents contain the actual evidence paths and remaining limitations.
+- All 12 tasks have focused tests and commits.
+- The old mixed Skill, Profiles, MCP tools and `e2e_*` evidence are absent.
+- Program Profiles cannot start ArtAcceptance or claim visual completion.
+- Art Profiles cannot run full P0 or mutate domain rules.
+- `art_iteration` accepts only typed allowlisted UGUI/VisualID changes and records before/after evidence.
+- Domain-aware mergers reject cross-domain steps and validate required artifact hashes.
+- Release aggregation is read-only and enforces matching input fingerprints.
+- Each program/art Profile has success and controlled-failure evidence.
+- Program, art and release status pages and fact documents contain actual evidence paths.
