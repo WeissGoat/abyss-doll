@@ -59,6 +59,8 @@ public class GridGenerator : MonoBehaviour {
     // [新增] 提供给 DraggableItemUI 吸附的辅助方法
     public Transform GetSlot(int x, int y) {
         if (x < 0 || x >= _width || y < 0 || y >= _height) return null;
+        if (_uiSlots == null) return null;
+        if (_uiSlots[x, y] == null) return null;
         return _uiSlots[x, y].transform;
     }
 }

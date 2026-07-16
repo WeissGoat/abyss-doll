@@ -42,7 +42,7 @@ public static class NarrativeOverlaySmokeTest {
             BlockingMode = "modal_light",
             SpeakerName = "零号",
             Text = "你手在抖。",
-            ContinueLabel = "继续",
+            ContinueLabel = string.Empty,
             ActionID = "start_doll",
             ActionLabel = "启动人偶",
             VisualRequest = new NarrativeVisualRequest {
@@ -53,23 +53,25 @@ public static class NarrativeOverlaySmokeTest {
             }
         });
 
-        bool prologueDollStaging = overlay.StageBackgroundSpriteName == "bg_workshop_home_room"
-            && overlay.IsStageDollVisible
-            && overlay.StageDollSpriteName == "doll_proto_0_stand"
-            && !overlay.IsStagePropVisible;
+        bool prologueDollStaging = overlay.IsStageDollVisible
+            && !overlay.IsStagePropVisible
+            && overlay.HasComicPageVisible
+            && overlay.VisibleComicPanelCount == 3
+            && overlay.HasStandaloneActionVisible
+            && !overlay.HasAutoLogControlsVisible;
+        string dollStageDiagnostics = $"sprite={overlay.StageBackgroundSpriteName},comic={overlay.HasComicPageVisible}/{overlay.VisibleComicPanelCount},doll={overlay.IsStageDollVisible},action={overlay.HasActionVisible}/{overlay.HasStandaloneActionVisible},continue={overlay.HasContinueVisible},autoLog={overlay.HasAutoLogControlsVisible}";
 
-        overlay.continueButton.onClick.Invoke();
         overlay.actionButton.onClick.Invoke();
         bool modalLightLine = overlay.IsShowing
             && overlay.IsInputBlocking
             && overlay.CurrentSpeaker == "零号"
             && overlay.CurrentText == "你手在抖。"
             && overlay.LastVisualID == "cg_t0_01a_find_no0"
-            && overlay.visualImage.gameObject.activeSelf
+            && !overlay.visualImage.gameObject.activeSelf
             && !overlay.visualImage.raycastTarget
-            && overlay.continueButton.gameObject.activeSelf
+            && !overlay.continueButton.gameObject.activeSelf
             && overlay.HasActionVisible
-            && continued
+            && !continued
             && actionID == "start_doll";
 
         overlay.PresentLine(new NarrativeOverlayPayload {
@@ -84,24 +86,43 @@ public static class NarrativeOverlaySmokeTest {
             }
         });
 
-        bool prologueDebtStaging = overlay.StageBackgroundSpriteName == "bg_workshop_home_room"
-            && overlay.IsStagePropVisible
-            && overlay.StagePropSpriteName == "memento_debt_shadow_window"
-            && !overlay.IsStageDollVisible;
+        bool prologueDebtStaging = overlay.HasComicPageVisible
+            && overlay.VisibleComicPanelCount == 3
+            && !overlay.IsStagePropVisible
+            && overlay.IsLargeStageFocusVisible
+            && !overlay.IsStageDollVisible
+            && !overlay.HasAutoLogControlsVisible;
+        string debtStageDiagnostics = $"sprite={overlay.StageBackgroundSpriteName},comic={overlay.HasComicPageVisible}/{overlay.VisibleComicPanelCount},prop={overlay.IsStagePropVisible},large={overlay.IsLargeStageFocusVisible},doll={overlay.IsStageDollVisible},autoLog={overlay.HasAutoLogControlsVisible}";
+
+        overlay.PresentLine(new NarrativeOverlayPayload {
+            BlockingMode = "modal",
+            SpeakerName = "零号",
+            Text = "……这里……",
+            ContinueLabel = "继续",
+            VisualRequest = new NarrativeVisualRequest {
+                VisualID = "stand_no0_weak_sitting",
+                FallbackVisualID = "doll_proto_0_stand",
+                UseCover = false
+            }
+        });
+        bool wakeDialogueUtilities = overlay.HasAutoLogControlsVisible;
 
         overlay.Hide();
         bool hiddenUnlocks = !overlay.IsShowing
             && !overlay.IsInputBlocking
             && !overlay.rootGroup.interactable;
 
-        if (constructed && blackoutSubtitle && modalLightLine && prologueDollStaging && prologueDebtStaging && hiddenUnlocks) {
+        if (constructed && blackoutSubtitle && modalLightLine && prologueDollStaging && prologueDebtStaging && wakeDialogueUtilities && hiddenUnlocks) {
             Debug.Log("Narrative Overlay Smoke PASSED.");
         } else {
             Debug.LogError(
                 "Narrative Overlay Smoke FAILED. "
                 + $"Constructed={constructed}, Blackout={blackoutSubtitle}, Line={modalLightLine}, "
                 + $"DollStaging={prologueDollStaging}, DebtStaging={prologueDebtStaging}, "
-                + $"Stage=[{overlay.StageDebugSummary}], Hidden={hiddenUnlocks}");
+                + $"DollDiag=[{dollStageDiagnostics}], DebtDiag=[{debtStageDiagnostics}], "
+                + $"Comic={overlay.HasComicPageVisible}/{overlay.VisibleComicPanelCount}, Action={overlay.HasActionVisible}/{overlay.HasStandaloneActionVisible}, "
+                + $"Continue={overlay.HasContinueVisible}, AutoLog={overlay.HasAutoLogControlsVisible}, DollFocus={overlay.IsStageDollVisible}, "
+                + $"WakeUtilities={wakeDialogueUtilities}, Stage=[{overlay.StageDebugSummary}], Hidden={hiddenUnlocks}");
         }
 
         Object.DestroyImmediate(canvasObj);

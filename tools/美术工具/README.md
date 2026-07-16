@@ -14,15 +14,150 @@ related:
   - 美术文档/00_美术流水线总览.md
   - 美术文档/README.md
   - 美术文档/04_美术风格基准.md
+  - 美术文档/人设/README.md
+  - 美术文档/人设/01_人设参考获取规则.md
+  - 美术文档/人设/04_零号AI后端出图提示词对比.md
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/design_boards/README.md
-last_verified: 2026-06-14
+last_verified: 2026-07-11
 update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
 ---
 
 # 美术工具
 
 > **定位：** 存放 Project P3 美术流水线脚本。脚本优先服务于“配置表扫描、Manifest 增量更新、批量生成、预处理和验收记录”。
+
+Agent 执行纯图片生成、图生图、差分或 inpaint 前，先读取 `.codex/skills/p3-generate-image/SKILL.md`（Skill 名 `generate-image`）；正式资产从需求准入到 Approved、Unity 和验收由 `.codex/skills/p3-art-asset-production/SKILL.md` 编排。本文件只负责具体脚本参数。
+
+## Generate-DanbooruCharacterReference.ps1
+
+拉取 Danbooru 公开 tag / post 元数据，生成零号人设参考研究报告，不下载图片，不写入 Approved、Manifest、Registry 或 DollPuppet 包。
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Generate-DanbooruCharacterReference.ps1 -Fast
+```
+
+输出：
+
+* `美术文档/_generated/danbooru_character_reference/zero_doll_reference_report.md`
+* `美术文档/_generated/danbooru_character_reference/zero_doll_reference_raw.json`
+
+执行规则以 [美术文档/人设/01_人设参考获取规则.md](../../美术文档/人设/01_人设参考获取规则.md) 为准：默认搜索组必须包含 `1girl rating:g`，候选角色榜需要二次过滤男性 / 非目标对象并归并同角色变体，报告必须包含中文角色名、中文作品名和中文 tag 语义。
+
+## Generate-ZeroPrototypeBackendBatch.ps1
+
+使用 `tools/ai-image-gateway/config.local.yaml` 中已配置的 `openai_images`、`gemini_chat_image` 和 `novelai` 三个后端，为零号初版人设各生成 3 张候选图。输出只进入 `_IncomingAI` 工作区，不进入 Approved / Manifest / Registry。
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Generate-ZeroPrototypeBackendBatch.ps1
+```
+
+可只跑某个后端：
+
+```powershell
+.\tools\美术工具\Generate-ZeroPrototypeBackendBatch.ps1 -Only chatgpt -Count 1
+.\tools\美术工具\Generate-ZeroPrototypeBackendBatch.ps1 -Only gemini_nanobanana -Count 1
+.\tools\美术工具\Generate-ZeroPrototypeBackendBatch.ps1 -Only novelai -Count 1
+```
+
+提示词与批次口径见 [美术文档/人设/04_零号AI后端出图提示词对比.md](../../美术文档/人设/04_零号AI后端出图提示词对比.md)。
+
+需要把图片直接放入人设目录时，使用 `-OutputDir`：
+
+```powershell
+.\tools\美术工具\Generate-ZeroPrototypeBackendBatch.ps1 -OutputDir "F:\design\game\project\p3\美术文档\人设\AI出图\zero_v1_rerun_20260707_01"
+```
+
+## Test-AIImageBackends.ps1
+
+使用 `tools/ai-image-gateway/config.local.yaml` 对 `chatgpt` / `openai_images`、`gemini` / `gemini_chat_image`、`novelai` 三个配置后端做最小真实出图 smoke。默认输出到系统临时目录 `P3BackendSmoke`，不进入 `_IncomingAI`、Approved、Manifest 或 Registry。
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Test-AIImageBackends.ps1
+```
+
+只检查配置解析与凭证字段是否存在，不实际请求 API：
+
+```powershell
+.\tools\美术工具\Test-AIImageBackends.ps1 -CheckConfigOnly
+```
+
+可只测某个后端或指定证据目录：
+
+```powershell
+.\tools\美术工具\Test-AIImageBackends.ps1 -Backend chatgpt -Attempts 1
+.\tools\美术工具\Test-AIImageBackends.ps1 -Backend gemini,novelai -Attempts 2 -OutputDir "C:\Users\WhiteSheep\AppData\Local\Temp\P3BackendSmoke\manual_retest"
+```
+
+输出：
+
+* `summary.json`：每个后端的尝试次数、成功 / 失败、模型、字节数、样图路径和错误信息。
+* `config_summary.json`：脱敏后的配置摘要，只记录 provider、model、endpoint 和凭证字段是否存在。
+* `provider.log`：网关和 provider 的详细日志，用于确认限流、HTTP 错误或 transport 错误。
+* `*_attempt*.png|jpg|webp`：每个成功后端的一张最小 smoke 样图。
+
+NovelAI 限流时可拉长外层重试间隔：
+
+```powershell
+.\tools\美术工具\Test-AIImageBackends.ps1 -Backend novelai -Attempts 3 -RetryDelaySeconds 30
+```
+
+## Generate-ZeroPrototypeTurnaroundBatch.ps1
+
+使用 `tools/ai-image-gateway/config.local.yaml` 中已配置的 `openai_images`、`gemini_chat_image` 和 `novelai` 三个后端，为零号初版人设生成三视图候选图。每张候选图本身应包含正面 / 侧面 / 背面三视图，输出只进入 `美术文档/人设/AI出图/`，不进入 Approved / Manifest / Registry。
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Generate-ZeroPrototypeTurnaroundBatch.ps1 -OutputDir "F:\design\game\project\p3\美术文档\人设\AI出图\zero_v1_turnaround_20260708_01"
+```
+
+可只跑某个后端：
+
+```powershell
+.\tools\美术工具\Generate-ZeroPrototypeTurnaroundBatch.ps1 -Only chatgpt -Count 1
+.\tools\美术工具\Generate-ZeroPrototypeTurnaroundBatch.ps1 -Only gemini_nanobanana -Count 1
+.\tools\美术工具\Generate-ZeroPrototypeTurnaroundBatch.ps1 -Only novelai -Count 1
+```
+
+只刷新已有图片的总汇总和 contact sheet：
+
+```powershell
+.\tools\美术工具\Generate-ZeroPrototypeTurnaroundBatch.ps1 -RefreshOnly -OutputDir "F:\design\game\project\p3\美术文档\人设\AI出图\zero_v1_turnaround_20260708_01"
+```
+
+三视图提示词与批次结论见 [美术文档/人设/04_零号AI后端出图提示词对比.md](../../美术文档/人设/04_零号AI后端出图提示词对比.md)。
+
+## Generate-ZeroPrototypePoseActionBatch.ps1
+
+为零号生成单张单视角 / 单动作人设图，不生成三视图拼图。默认使用 Gemini 后端逐张生成 8 个动作：正面待机、3/4 斜侧、侧身行走、背面回头、维护坐姿、启动准备、低 SAN 红眼透布、受损跪撑。输出只进入 `美术文档/人设/AI出图/`，不进入 Approved / Manifest / Registry。
+
+当前三后端汇总固定按 ChatGPT / Gemini / NovelAI 三列刷新，即使只补跑一个后端也不会丢失其他后端的已有统计。ChatGPT 动作草稿使用 `832x1216`、`quality=medium` 以降低长图中转超时；Gemini / NovelAI 使用 `1024x1536`。NovelAI 常态动作禁止红光透布，只有启动、低 SAN 和受损动作允许红光。
+
+使用方式：
+
+```powershell
+.\tools\美术工具\Generate-ZeroPrototypePoseActionBatch.ps1 -OutputDir "F:\design\game\project\p3\美术文档\人设\AI出图\zero_v1_pose_actions_20260710_01"
+```
+
+可指定后端或动作：
+
+```powershell
+.\tools\美术工具\Generate-ZeroPrototypePoseActionBatch.ps1 -Backend novelai -Pose pose_06_activation_ready -OutputDir "F:\design\game\project\p3\美术文档\人设\AI出图\zero_v1_pose_actions_20260710_01"
+.\tools\美术工具\Generate-ZeroPrototypePoseActionBatch.ps1 -Backend gemini_nanobanana,novelai -Count 1
+```
+
+只刷新已有图片的总汇总和 contact sheet：
+
+```powershell
+.\tools\美术工具\Generate-ZeroPrototypePoseActionBatch.ps1 -RefreshOnly -OutputDir "F:\design\game\project\p3\美术文档\人设\AI出图\zero_v1_pose_actions_20260710_01"
+```
 
 ## Update-ArtManifest.ps1
 
@@ -141,13 +276,13 @@ UnityClient/Assets/Art/_IncomingAI/<VisualID>/
 .\tools\美术工具\Run-ArtGeneration.ps1 -Provider mock -Limit 1 -Variants 2
 ```
 
-NovelAI 实跑建议使用本地配置。脚本会把 `-Variants` 拆成多次 `count=1` 请求，并默认每张图间隔 1 秒。
+真实后端建议使用 `tools/ai-image-gateway/config.local.yaml`。脚本会把 `-Variants` 拆成多次 `count=1` 请求，并默认每张图间隔 1 秒。通用文生图默认选择 `openai_images`；需要 NovelAI 二次元 tag 和原生 negative prompt 时显式使用 `novelai`。
 
 凭证优先级：先读 `NAI_ACCESS_TOKEN`；如果当前机器没有设置该环境变量，网关会尝试从 `F:\my_project\new\tags_machine\novelai\client.py` 的 `NAIClient.get_access_token()` 解析 token。不要把真实 token 写入命令、文档或提交记录；需要换路径时设置 `NAI_CLIENT_PY`。
 
 ```powershell
-Copy-Item .\tools\美术工具\ai_image_gateway.example.yaml .\tools\美术工具\ai_image_gateway.local.yaml
-.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\美术工具\ai_image_gateway.local.yaml -Provider novelai -Domain item -Limit 5 -Variants 4 -DelaySeconds 1
+Copy-Item .\tools\美术工具\ai_image_gateway.example.yaml .\tools\ai-image-gateway\config.local.yaml
+.\tools\美术工具\Run-ArtGeneration.ps1 -Config .\tools\ai-image-gateway\config.local.yaml -Provider openai_images -Domain item -Limit 5 -Variants 4 -DelaySeconds 2
 ```
 
 常用参数：

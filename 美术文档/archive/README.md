@@ -10,7 +10,10 @@ related:
   - 美术文档/README.md
   - 美术文档/10_正式版核心纵切美术路线.md
   - 美术文档/ui_design/README.md
-last_verified: 2026-05-24
+  - 美术文档/archive/08_Unity运行时美术验收工具需求.md
+  - 美术文档/archive/10_美术验收截图优化与真实数据驱动演进方案.md
+  - 美术文档/archive/15_FormalV2运行时验收待办清单.md
+last_verified: 2026-07-14
 update_rule: 新增、恢复或移动归档文档时同步本文件。
 ---
 
@@ -26,6 +29,9 @@ update_rule: 新增、恢复或移动归档文档时同步本文件。
 | [07_MVP_UI重新设计同步.md](07_MVP_UI重新设计同步.md) | MVP UI 重设计同步，已被 Formal V1 UI 版本流替代。 | [../ui_design/README.md](../ui_design/README.md) |
 | [11_P0_UI骨架接入交付.md](11_P0_UI骨架接入交付.md) | P0 批次交付快照，当前接入以 active JSON 和 handoff 为准。 | [../ui_design/screen_layouts.json](../ui_design/screen_layouts.json)、[../ui_design/_generated/ui_design_handoff.md](../ui_design/_generated/ui_design_handoff.md) |
 | [12_P1_UI骨架接入准备.md](12_P1_UI骨架接入准备.md) | P1 批次交付快照，当前接入以 active JSON 和 handoff 为准。 | [../ui_design/screen_layouts.json](../ui_design/screen_layouts.json)、[../ui_design/_generated/ui_design_handoff.md](../ui_design/_generated/ui_design_handoff.md) |
+| [08_Unity运行时美术验收工具需求.md](08_Unity运行时美术验收工具需求.md) | 旧 ArtAcceptance 工具需求和交付说明，日常验收已改为 MCP live-first。 | [../../开发文档/19_UnityMCP验收编排层设计.md](../../开发文档/19_UnityMCP验收编排层设计.md)、[../../开发文档/14_Unity运行时美术自动验收方案.md](../../开发文档/14_Unity运行时美术自动验收方案.md) |
+| [10_美术验收截图优化与真实数据驱动演进方案.md](10_美术验收截图优化与真实数据驱动演进方案.md) | 已完成的一次性截图真实数据驱动演进方案，旧 Runner 现只作全量回归后端。 | [../../开发文档/19_UnityMCP验收编排层设计.md](../../开发文档/19_UnityMCP验收编排层设计.md) |
+| [15_FormalV2运行时验收待办清单.md](15_FormalV2运行时验收待办清单.md) | 2026-06-13 FormalV2 批次门禁快照，继续 active 会形成第二套状态表。 | [../ui_design/ui_iteration_process.md](../ui_design/ui_iteration_process.md)、[../../agent_status/art.md](../../agent_status/art.md) |
 
 ## 归档规则
 

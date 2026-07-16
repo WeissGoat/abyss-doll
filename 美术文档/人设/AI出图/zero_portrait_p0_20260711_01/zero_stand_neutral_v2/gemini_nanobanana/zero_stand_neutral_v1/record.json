@@ -1,0 +1,33 @@
+{
+  "source": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\inputs\\zero_stand_neutral_v2\\zero_stand_neutral_v1.jpg",
+  "source_mime": "image/jpeg",
+  "provider": "gemini_chat_image",
+  "prompt": "Edit the supplied Zero character image while preserving her identity, face, body proportions, white cloth blindfold, gray-white palette, neutral front-facing pose, bare legs, and bare feet.\n\nRequired production correction: output a true vertical 2:3 portrait composition, not a horizontal canvas and not a landscape image. Exactly one centered full-body character. The character must occupy about 88 percent of the vertical image height, with the hair tip and bare toes fully visible and narrow white margins on both sides.\n\nChange the costume so the gray shoulder cloak has no bow, knot, clasp, pendant, cord, brooch, or chest ornament. It is a plain separate cloak with a clean uninterrupted front opening and a clearly readable lower hem, fully covering both shoulders, chest, upper arms, and the hidden core chamber. Keep the separate simple ivory-gray ultra-short inner dress visible below the cloak.\n\nExtend the naturally loose silver-white hair so the back and side strands reach from below the waist to the upper thighs. Keep it unbound, straight to slightly tousled, and light in volume. Add subtle fine doll-joint seams at both wrists, both knees, and both ankles. Preserve the light dust and tiny worn edges.\n\nThe soft white cloth blindfold remains fully closed. Her red eyes and red glow are completely invisible in this neutral state. The core chamber remains fully hidden.\n\nMaintain polished Japanese anime game standing-portrait rendering with clean thin linework and soft cel shading. Petite and cute but non-childlike and non-sexualized.\n\nDo not add a landscape canvas, extra views, text, UI, floor shadow, scenery, chest fastener, chest decoration, visible eyes, red glow, exposed shoulder, cape dress, shoes, socks, armor, mechanical limbs, large ball joints, sexualized pose, exaggerated curves, child or toddler proportions.",
+  "negative_prompt": "",
+  "width": 1024,
+  "height": 1536,
+  "count": 1,
+  "provider_request_count": 1,
+  "delay_seconds": 2.0,
+  "success_count": 1,
+  "errors": [],
+  "files": [
+    {
+      "image": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_stand_neutral_v2\\gemini_nanobanana\\zero_stand_neutral_v1\\zero_stand_neutral_v1_00.jpg",
+      "metadata": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_stand_neutral_v2\\gemini_nanobanana\\zero_stand_neutral_v1\\zero_stand_neutral_v1_00.json"
+    }
+  ],
+  "runs": [
+    {
+      "run_index": 0,
+      "success_count": 1,
+      "errors": [],
+      "files": [
+        {
+          "image": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_stand_neutral_v2\\gemini_nanobanana\\zero_stand_neutral_v1\\zero_stand_neutral_v1_00.jpg",
+          "metadata": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_stand_neutral_v2\\gemini_nanobanana\\zero_stand_neutral_v1\\zero_stand_neutral_v1_00.json"
+        }
+      ]
+    }
+  ]
+}

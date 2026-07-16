@@ -1,0 +1,33 @@
+{
+  "source": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\inputs\\zero_maintenance_sit_v3\\zero_maintenance_sit_v2.jpg",
+  "source_mime": "image/jpeg",
+  "provider": "gemini_chat_image",
+  "prompt": "Edit the supplied image while preserving Zero's exact front-facing seated pose, body proportions, hand placement, knees-together position, lower-leg position, bare feet, face identity, blindfold, and fully loose long silver-white hair.\n\nMake only two corrections.\n\nFirst, remove the visible pink blush and flushed cheeks. Her skin tone should be quiet and neutral, with a restrained tired kuudere expression, no embarrassment and no romantic mood.\n\nSecond, remove every dark gray cloak tail or long gray side panel extending below the waist or hanging behind the knees. The gray shoulder cloak must end cleanly around the upper torso or waist. Below it, only the separate short ivory-gray inner dress, uncovered legs, bare feet, and loose silver-white hair may remain. Do not shorten the hair: preserve the long hair framing the seated body. Keep both shoulders, chest, upper arms, and hidden core chamber covered by the short cloak.\n\nKeep the white cloth blindfold fully closed with no red glow. Keep fine wrist, knee, and ankle joint seams and subtle dust. Exactly one character on pure white, no support object, no scenery, no text, no UI. Maintain polished Japanese anime game character rendering, non-childlike and non-sexualized.",
+  "negative_prompt": "",
+  "width": 1024,
+  "height": 1536,
+  "count": 1,
+  "provider_request_count": 1,
+  "delay_seconds": 2.0,
+  "success_count": 1,
+  "errors": [],
+  "files": [
+    {
+      "image": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_maintenance_sit_v3\\gemini_nanobanana\\zero_maintenance_sit_v2\\zero_maintenance_sit_v2_00.jpg",
+      "metadata": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_maintenance_sit_v3\\gemini_nanobanana\\zero_maintenance_sit_v2\\zero_maintenance_sit_v2_00.json"
+    }
+  ],
+  "runs": [
+    {
+      "run_index": 0,
+      "success_count": 1,
+      "errors": [],
+      "files": [
+        {
+          "image": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_maintenance_sit_v3\\gemini_nanobanana\\zero_maintenance_sit_v2\\zero_maintenance_sit_v2_00.jpg",
+          "metadata": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_maintenance_sit_v3\\gemini_nanobanana\\zero_maintenance_sit_v2\\zero_maintenance_sit_v2_00.json"
+        }
+      ]
+    }
+  ]
+}

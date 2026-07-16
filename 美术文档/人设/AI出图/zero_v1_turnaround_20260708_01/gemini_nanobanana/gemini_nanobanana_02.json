@@ -1,0 +1,18 @@
+{
+  "backend_id": "gemini_nanobanana",
+  "provider": "gemini_chat_image",
+  "model": "gemini-3.1-flash-image",
+  "seed": null,
+  "generation_params": {
+    "api_surface": "chat/completions",
+    "model": "gemini-3.1-flash-image",
+    "prompt": "Design a clean anime game character turnaround sheet for Zero on a pure white background.\n\nOutput a single landscape production model sheet containing exactly three aligned full-body views of the same stylized doll heroine: front, side, and back. Keep the character large in frame. All three views must share the same height, costume, hair, cloak shape, and proportions. No environment, no furniture, no workshop, no props, no captions, no labels, no text.\n\nZero is a quiet compact doll-like heroine with a slim non-sexualized model-sheet body. She has long loose silver-white hair worn down naturally; the hair is unbound, lightly scattered, and falls around the shoulders and down the back. No ponytail, no twintails, no braid, no bun, no short hair. Her eyes are hidden by a soft white cloth blindfold that wraps around her head.\n\nShe wears a complete plain gray cloak that covers both shoulders, chest, upper arms, and the hidden core chamber. Do not expose either shoulder. Beneath the cloak is a very simple short inner underdress with no decoration. The lower body is sparse and neutral, with uncovered legs and unshod feet drawn like a plain character model reference, not a pinup. Add subtle doll-joint seams at wrists, knees, and ankles with a little dust and worn fabric edges. The hidden core chamber must remain covered by the cloak and must not be visible.\n\nMood and style: cold, restrained, emotionless, quiet beauty; clean thin linework, soft cel shading, gentle gray-white palette, readable silhouette, elegant but not ornate.\n\nAvoid: complex background, room, furniture, extra characters, black blindfold, 2B outfit, pink cape, purple dress, begging sign, chest tag, necklace, visible chest core, bare shoulder, half-exposed shoulder, mature tall body, pinup pose, erotic pose, boots, shoes, high heels, armor, heavy machinery, gore, text, watermark.",
+    "negative_prompt": "",
+    "width": 1536,
+    "height": 1024,
+    "count": 1,
+    "result_index": 0
+  },
+  "cost": 0.0,
+  "bytes": 378967
+}

@@ -1,0 +1,65 @@
+{
+  "run_id": "20260708_003911",
+  "task": "zero_prototype_turnaround",
+  "source_design_doc": "美术文档/人设/03_零号初版人设方案.md",
+  "config": "tools/ai-image-gateway/config.local.yaml",
+  "count_per_backend": 3,
+  "backends": {
+    "chatgpt": {
+      "backend_id": "chatgpt",
+      "provider": "openai_images",
+      "prompt": "Create a polished anime game character turnaround sheet for Project P3 character \"Zero\".\n\nCanvas and layout: one clean white-background model sheet, landscape composition, three full-body views of the same character aligned left to right: front view, side view, back view. Keep the same body scale, same costume, same hair length, same cloak shape, and same proportions across all three views. No text labels, no UI, no room, no props.\n\nCharacter identity: Zero is a petite cute quiet doll girl, small-frame but not childlike, with a cold emotionless kuudere expression. She has pale silver-white long loose hair worn down naturally, unbound and scattered softly around the shoulders and back. The hair is long, straight to lightly messy, with separate front and back hair masses readable in the side and back views. Do not tie the hair.\n\nCostume: soft white cloth blindfold covering the eyes and wrapping around the head; complete plain gray shoulder cloak covering both shoulders, chest, upper arms, and the hidden core chamber; very simple ultra-short inner dress under the cloak; bare legs and bare feet. Add subtle small doll joints at wrists, knees, and ankles, plus light dust, tiny scratches, and slightly worn cloth edges. The chest core chamber exists under the cloak but must not be visible in this normal turnaround.\n\nTurnaround requirements: front view must clearly show the white blindfold, gray cloak mass, short inner dress, bare legs, bare feet, and doll joints. Side view must show cloak thickness, blindfold wrapping around the head, long loose hair falling behind the shoulder, and ankle/knee joint seams. Back view must show the long loose hair falling down the back, the back hem of the gray cloak, blindfold wrap or knot, and subtle back-body seam hints only if naturally visible.\n\nArt direction: refined Japanese anime 2D game character design, clean linework, soft cel-shaded rendering, delicate doll silhouette, understated subterranean fantasy, low visual noise, production reference clarity.\n\nMust avoid: black blindfold, tied hair, ponytail, twintails, braids, buns, short hair, heavy curls, 2B cosplay, NieR Automata outfit, pink cape, purple dress, begging sign, chest pendant, necklace, large chest ornament, visible exposed core on chest, half-exposed shoulder, one bare shoulder, off-shoulder cloak, mature tall woman, adult sexy body, erotic pose, toddler or child proportions, boots, high heels, heavy armor, mecha limbs, gothic lolita, maid dress, military uniform, complex background, room background, text, watermark.",
+      "negative_prompt": "",
+      "width": 1536,
+      "height": 1024,
+      "count": 3,
+      "success_count": 0,
+      "errors": [
+        "[openai_images] HTTP 401: Invalid token (request id: 202607071630382711270638268d9d6c08lEArO)"
+      ],
+      "files": []
+    },
+    "gemini_nanobanana": {
+      "backend_id": "gemini_nanobanana",
+      "provider": "gemini_chat_image",
+      "prompt": "Design a clean anime game character turnaround sheet for Zero on a pure white background.\n\nOutput a single landscape production model sheet containing exactly three aligned full-body views of the same stylized doll heroine: front, side, and back. Keep the character large in frame. All three views must share the same height, costume, hair, cloak shape, and proportions. No environment, no furniture, no workshop, no props, no captions, no labels, no text.\n\nZero is a quiet compact doll-like heroine with a slim non-sexualized model-sheet body. She has long loose silver-white hair worn down naturally; the hair is unbound, lightly scattered, and falls around the shoulders and down the back. No ponytail, no twintails, no braid, no bun, no short hair. Her eyes are hidden by a soft white cloth blindfold that wraps around her head.\n\nShe wears a complete plain gray cloak that covers both shoulders, chest, upper arms, and the hidden core chamber. Do not expose either shoulder. Beneath the cloak is a very simple short inner underdress with no decoration. The lower body is sparse and neutral, with uncovered legs and unshod feet drawn like a plain character model reference, not a pinup. Add subtle doll-joint seams at wrists, knees, and ankles with a little dust and worn fabric edges. The hidden core chamber must remain covered by the cloak and must not be visible.\n\nMood and style: cold, restrained, emotionless, quiet beauty; clean thin linework, soft cel shading, gentle gray-white palette, readable silhouette, elegant but not ornate.\n\nAvoid: complex background, room, furniture, extra characters, black blindfold, 2B outfit, pink cape, purple dress, begging sign, chest tag, necklace, visible chest core, bare shoulder, half-exposed shoulder, mature tall body, pinup pose, erotic pose, boots, shoes, high heels, armor, heavy machinery, gore, text, watermark.",
+      "negative_prompt": "",
+      "width": 1536,
+      "height": 1024,
+      "count": 1,
+      "success_count": 1,
+      "errors": [],
+      "files": [
+        {
+          "image": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\gemini_nanobanana\\gemini_nanobanana_02.jpg",
+          "metadata": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\gemini_nanobanana\\gemini_nanobanana_02.json"
+        }
+      ]
+    },
+    "novelai": {
+      "backend_id": "novelai",
+      "provider": "novelai",
+      "prompt": "1girl turnaround sheet, character sheet, multiple views, front view, side view, back view, same character, three views, full body, anime game character design, petite, small frame, cute doll girl, quiet doll girl, expressionless, kuudere, emotionless, long hair, very long hair, loose hair, hair down, unbound hair, pale silver hair, white hair, white cloth blindfold, blindfold over eyes, blindfold wrap, complete gray cloak, gray shoulder cloak, cloak covering both shoulders, covered shoulders, covered chest, covered upper arms, simple ultra short inner dress, bare legs, bare feet, subtle doll joints, wrist joints, knee joints, ankle joints, light dust, worn fabric, small scratches, fragile body, clean white background, landscape model sheet, clean lineart, soft cel shading, delicate silhouette, muted gray palette, no text",
+      "negative_prompt": "lowres, bad anatomy, bad hands, extra fingers, missing fingers, extra legs, extra arms, deformed, disfigured, inconsistent views, different outfits, different character, toddler, child, explicit loli, chibi, old, mature female, adult woman, tall woman, sexy, erotic, male, black blindfold, 2b, yorha, nier automata, cosplay, ponytail, twintails, braid, braided hair, bun, tied hair, short hair, drill hair, heavy curls, pink cape, purple dress, begging sign, signboard, chest tag, necklace, pendant, large chest ornament, exposed chest core, visible core chamber, bare shoulder, one shoulder exposed, off shoulder, asymmetrical cloak, armor, mecha, robot body, mechanical arms, boots, shoes, high heels, gothic lolita, maid, military uniform, complex background, room, furniture, blood, gore, injury fetish, crying, smile, open mouth, text, watermark, logo",
+      "width": 1536,
+      "height": 1024,
+      "count": 3,
+      "success_count": 3,
+      "errors": [],
+      "files": [
+        {
+          "image": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\novelai\\novelai_00.png",
+          "metadata": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\novelai\\novelai_00.json"
+        },
+        {
+          "image": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\novelai\\novelai_01.png",
+          "metadata": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\novelai\\novelai_01.json"
+        },
+        {
+          "image": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\novelai\\novelai_02.png",
+          "metadata": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\novelai\\novelai_02.json"
+        }
+      ]
+    }
+  }
+}

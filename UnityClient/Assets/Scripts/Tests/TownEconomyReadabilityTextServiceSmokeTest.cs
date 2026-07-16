@@ -20,6 +20,7 @@ public static class TownEconomyReadabilityTextServiceSmokeTest {
         AddStashItem(player, "loot_gear_scrap");
 
         WeeklyEconomyRefreshReport refresh = TownEconomyService.RefreshWeeklyEconomy(player, 42);
+        EnsureMechanicalPriceRumor(player, refresh);
         TownEconomyReadabilitySnapshot snapshot = TownEconomyReadabilityTextService.BuildSnapshot(player);
         TownEconomyReadabilitySellLine sellLine = snapshot.SellLines.FirstOrDefault(line => line.ItemID == "loot_gear_scrap");
         TownEconomyReadabilityRumorLine rumorLine = snapshot.RumorLines.FirstOrDefault(line => line.RumorID == "rumor_mechanical_price_up");
@@ -132,5 +133,25 @@ public static class TownEconomyReadabilityTextServiceSmokeTest {
         }
 
         return item;
+    }
+
+    private static void EnsureMechanicalPriceRumor(PlayerProfile player, WeeklyEconomyRefreshReport refresh) {
+        const string rumorID = "rumor_mechanical_price_up";
+        if (player == null || !ConfigManager.Rumors.ContainsKey(rumorID)) {
+            return;
+        }
+
+        if (player.ActiveRumors.Any(rumor => rumor != null && rumor.RumorID == rumorID)) {
+            return;
+        }
+
+        ActiveRumorState forcedRumor = new ActiveRumorState {
+            RumorID = rumorID,
+            StartDay = Mathf.Max(1, player.CurrentDay),
+            ExpireDay = Mathf.Max(1, player.CurrentDay) + Mathf.Max(1, ConfigManager.Rumors[rumorID].DurationDays) - 1,
+            LogSeed = 0
+        };
+        player.ActiveRumors.Add(forcedRumor);
+        refresh?.ActiveRumors.Add(forcedRumor);
     }
 }

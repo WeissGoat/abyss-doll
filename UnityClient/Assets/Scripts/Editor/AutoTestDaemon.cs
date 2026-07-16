@@ -10,6 +10,8 @@ public static class AutoTestDaemon {
     private static string _triggerFile;
     private static string _reportFile;
     private static bool _needsRefresh = false;
+    private static System.DateTime _lastTriggerWriteUtc = System.DateTime.MinValue;
+    private static double _nextTriggerPollTime = 0;
 
     static AutoTestDaemon() {
         string logsDir = Path.GetFullPath(Path.Combine(Application.dataPath, "../Logs"));
@@ -19,6 +21,7 @@ public static class AutoTestDaemon {
         _reportFile = Path.Combine(logsDir, "TestReport.json");
 
         if (!File.Exists(_triggerFile)) File.WriteAllText(_triggerFile, "");
+        _lastTriggerWriteUtc = File.GetLastWriteTimeUtc(_triggerFile);
 
         // Initialize Watcher
         _watcher = new FileSystemWatcher(logsDir, ".test_trigger");
@@ -34,6 +37,8 @@ public static class AutoTestDaemon {
     }
 
     private static void OnEditorUpdate() {
+        PollTriggerFileIfNeeded();
+
         if (_needsRefresh) {
             _needsRefresh = false;
             // Wait slightly for file write lock to clear
@@ -46,7 +51,10 @@ public static class AutoTestDaemon {
                 Debug.Log($"[AutoTestDaemon] Received command: {content}. Triggering compilation...");
                 
                 // Clear trigger to prevent looping
-                try { File.WriteAllText(_triggerFile, "DONE"); } catch {}
+                try {
+                    File.WriteAllText(_triggerFile, "DONE");
+                    _lastTriggerWriteUtc = File.GetLastWriteTimeUtc(_triggerFile);
+                } catch {}
                 
                 EditorPrefs.SetString("AutoTestDaemon_PendingCommand", content);
                 
@@ -58,6 +66,29 @@ public static class AutoTestDaemon {
                     RunPendingTest();
                 }
             }
+        }
+    }
+
+    private static void PollTriggerFileIfNeeded() {
+        double now = EditorApplication.timeSinceStartup;
+        if (_needsRefresh || now < _nextTriggerPollTime) {
+            return;
+        }
+
+        _nextTriggerPollTime = now + 0.5d;
+
+        try {
+            System.DateTime writeUtc = File.GetLastWriteTimeUtc(_triggerFile);
+            if (writeUtc <= _lastTriggerWriteUtc) {
+                return;
+            }
+
+            string content = File.ReadAllText(_triggerFile).Trim();
+            _lastTriggerWriteUtc = writeUtc;
+            if (!string.IsNullOrEmpty(content) && content != "DONE") {
+                _needsRefresh = true;
+            }
+        } catch {
         }
     }
 
@@ -73,7 +104,13 @@ public static class AutoTestDaemon {
         EditorPrefs.SetString("AutoTestDaemon_PendingCommand", "");
         Debug.Log($"[AutoTestDaemon] Executing test command: {command}");
 
-        TestReport report = new TestReport { Command = command, Status = "PASSED", Logs = new List<string>() };
+        System.DateTimeOffset startedAt = System.DateTimeOffset.Now;
+        TestReport report = new TestReport {
+            Command = command,
+            Status = "PASSED",
+            StartedAt = startedAt.ToString("o"),
+            Logs = new List<string>()
+        };
         
         Application.LogCallback logHandler = (condition, stackTrace, type) => {
             report.Logs.Add($"[{type}] {condition}");
@@ -89,33 +126,10 @@ public static class AutoTestDaemon {
             if (command.ToUpper() == "RUN_ALL_TESTS") {
                 RunAllTests(report);
             } else {
-                string[] parts = command.Split('.');
-                if (parts.Length >= 2) {
-                    string methodName = parts[parts.Length - 1];
-                    string className = command.Substring(0, command.LastIndexOf('.'));
-                    
-                    System.Type targetType = null;
-                    foreach (var assembly in System.AppDomain.CurrentDomain.GetAssemblies()) {
-                        targetType = assembly.GetType(className);
-                        if (targetType != null) break;
-                    }
-
-                    if (targetType != null) {
-                        MethodInfo method = targetType.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
-                        if (method != null) {
-                            method.Invoke(null, null);
-                        } else {
-                            report.Logs.Add($"[Error] Method {methodName} not found on {className}");
-                            report.Status = "FAILED";
-                        }
-                    } else {
-                        report.Logs.Add($"[Error] Type {className} not found");
-                        report.Status = "FAILED";
-                    }
-                } else {
-                    report.Logs.Add("[Error] Invalid command format. Use Namespace.ClassName.MethodName or RUN_ALL_TESTS");
-                    report.Status = "FAILED";
-                }
+                P3SmokeExecutionResult execution = P3SmokeExecutionService.Execute(new[] { command });
+                report.Logs.AddRange(execution.Logs);
+                report.Logs.AddRange(execution.Errors.ConvertAll(error => "[Error] " + error));
+                if (!execution.Passed) report.Status = "FAILED";
             }
         } catch (System.Exception ex) {
             report.Status = "FAILED";
@@ -123,6 +137,10 @@ public static class AutoTestDaemon {
         } finally {
             Application.logMessageReceived -= logHandler;
         }
+
+        System.DateTimeOffset finishedAt = System.DateTimeOffset.Now;
+        report.FinishedAt = finishedAt.ToString("o");
+        report.DurationMs = (int)System.Math.Round((finishedAt - startedAt).TotalMilliseconds);
 
         File.WriteAllText(_reportFile, JsonUtility.ToJson(report, true));
         Debug.Log($"[AutoTestDaemon] Test finished with status {report.Status}. Report saved to {_reportFile}");
@@ -167,5 +185,8 @@ public static class AutoTestDaemon {
 public class TestReport {
     public string Status;
     public string Command;
+    public string StartedAt;
+    public string FinishedAt;
+    public int DurationMs;
     public List<string> Logs;
 }

@@ -8,14 +8,19 @@ status: active
 source_of_truth: true
 related:
   - 美术文档/README.md
+  - 美术文档/人设/README.md
+  - 美术文档/人设/01_人设参考获取规则.md
+  - 美术文档/人设/02_零号原型参考_失明少女.md
+  - 美术文档/人设/03_零号初版人设方案.md
+  - 美术文档/人设/05_零号立绘素材设计与交付清单.md
   - 美术文档/16_Live2D角色动画资产接入规格.md
   - 开发文档/17_Live2DSpine运行时接入评估.md
   - 开发文档/rules/02_Unity表现层与编辑器构建规范.md
   - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - agent_status/art.md
   - agent_status/program.md
-last_verified: 2026-06-14
-update_rule: 修改动态立绘主路线、DollPuppet目录结构、JSON契约、Unity接入边界或验收口径时同步本文档。
+last_verified: 2026-07-11
+update_rule: 修改动态立绘主路线、人设交付包前置规则、DollPuppet目录结构、JSON契约、Unity接入边界或验收口径时同步本文档。
 ---
 
 # Agent原生动态立绘资产接入规格
@@ -49,6 +54,8 @@ PrimaryScreens:
 ```
 
 `DynamicVisualID` 暂沿用 `doll_proto_0_live2d`，因为程序侧已有 fallback resolver 和验收 runner 合同；但其 `ModelKind` 变更为 `DollPuppet`，不再表示必须是 Cubism `.moc3` 模型。
+
+DollPuppet 母图和分层图开工前，应先承接 [人设参考获取规则](人设/01_人设参考获取规则.md)、[零号初版人设方案](人设/03_零号初版人设方案.md) 与 [零号立绘素材设计与交付清单](人设/05_零号立绘素材设计与交付清单.md)。当前零号立绘以 Gemini 版本为视觉母版，要求白布遮眼、红眼默认隐藏、灰披肩、简单超短内衬裙、裸腿裸足、轻微人偶关节与磨损，核心仓默认被披肩遮住，仅维护或演出时可见。Danbooru 榜单、raw JSON 和参考报告只作为研究证据，不等于母图定稿、Approved 素材或 DollPuppet 包完成。
 
 首批动作集合：
 

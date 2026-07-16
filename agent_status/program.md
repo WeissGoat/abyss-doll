@@ -1,40 +1,80 @@
-﻿---
+---
 id: agent_status_program
-title: 绋嬪簭 / Unity 鐘舵€?
+title: 程序 / Unity 状态
 type: status
-role: 绋嬪簭
+role: 程序
 domain: unity_programming
 status: active
 source_of_truth: true
 related:
-  - 鐗堟湰瑙勫垝/0-12灏忔椂缁嗘/T0-01A_寮€灞€浜哄伓鐘舵€佸埌棣栨涓嬫綔璁稿彲寮€鍙戞柟妗?md
-  - 鐗堟湰瑙勫垝/09_姝ｅ紡鐗堟牳蹇冪旱鍒囧紑鍙戣矾绾?md
+  - 版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md
+  - 版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可开发方案.md
+  - 版本规划/09_正式版核心纵切开发路线.md
   - agent_status/README.md
   - PROJECT_STATUS.md
-  - 寮€鍙戞枃妗?rules/01_瀹㈡埛绔垎灞備笌棰嗗煙鏋舵瀯瑙勮寖.md
-  - 寮€鍙戞枃妗?rules/00_绋嬪簭寮€鍙戞€昏鍒?md
-  - 寮€鍙戞枃妗?00_绋嬪簭寮€鍙戝ぇ绾?md
-  - 寮€鍙戞枃妗?15_P0閰嶇疆Validator涓庤嚜鍔ㄩ獙鏀跺簳搴ч渶姹?md
-  - 寮€鍙戞枃妗?16_绋嬪簭涓绘祦绋嬮棴鐜笌鏋舵瀯鏀跺彛鎺ㄨ繘璁″垝.md
-  - 璁捐鏂囨。/GDD/GDD_00_绯荤粺鍏宠仈鎬诲浘.md
+  - 开发文档/rules/01_客户端分层与领域架构规范.md
+  - 开发文档/rules/00_程序开发总规则.md
+  - 开发文档/00_程序开发大纲.md
+  - 开发文档/15_P0配置Validator与自动验收底座需求.md
+  - 开发文档/16_程序主流程闭环与架构收口推进计划.md
+  - 设计文档/GDD/GDD_00_系统关联总图.md
   - agent_status/design.md
-  - 缇庢湳鏂囨。/10_姝ｅ紡鐗堟牳蹇冪旱鍒囩編鏈矾绾?md
+  - 美术文档/10_正式版核心纵切美术路线.md
   - agent_status/art.md
-  - 鐭ヨ瘑搴?views/program.md
-  - 缇庢湳鏂囨。/15_FormalV2杩愯鏃堕獙鏀跺緟鍔炴竻鍗?md
-  - 缇庢湳鏂囨。/16_Live2D瑙掕壊鍔ㄧ敾璧勪骇鎺ュ叆瑙勬牸.md
-  - 缇庢湳鏂囨。/17_Agent鍘熺敓鍔ㄦ€佺珛缁樿祫浜ф帴鍏ヨ鏍?md
-  - 寮€鍙戞枃妗?17_Live2DSpine杩愯鏃舵帴鍏ヨ瘎浼?md
-  - 寮€鍙戞枃妗?18_鍏ㄥ眬鍙欎簨鎾斁绯荤粺寮€鍙戞柟妗?md
-  - 閰嶇疆琛?JSON)/Narrative/README.md
-last_verified: 2026-07-04
-update_rule: 绋嬪簭銆乁nity銆侀獙璇佹垨宸ョ▼杈圭晫浠诲姟瀹屾垚鍚庢洿鏂版湰鏂囦欢銆?---
+  - 知识库/views/program.md
+  - 美术文档/16_Live2D角色动画资产接入规格.md
+  - 美术文档/17_Agent原生动态立绘资产接入规格.md
+  - 开发文档/17_Live2DSpine运行时接入评估.md
+  - 开发文档/18_全局叙事播放系统开发方案.md
+  - 配置表(JSON)/Narrative/README.md
+last_verified: 2026-07-12
+update_rule: 程序、Unity、验证或工程边界任务完成后更新本文档。
+---
+
+## 2026-07-12 P3 美术验收人工状态移除
+
+- 最近完成：删除 Art Profile、ArtRun session、证据合并和发布聚合中的 `ExternalReview`、`ReviewRequired` 与美术 `ClaimCeiling`；ArtRun 现在只保留 `AutomationStatus`、流程状态和证据。
+- 当前关注：发布聚合只按 ProgramRunID、ArtRunID 的技术结果与输入指纹生成 `Passed/Failed/Blocked/Limited`，不等待人工主美字段。
+- 下一步建议：继续保持程序验证与美术验证分离；后续仅在具体界面需要 MCP 永久保存表现修改时增加安全 persist adapter。
+- 问题 / 阻塞：无代码设计阻塞；现有 MCPForUnity 依赖版本 warning 仍为既有问题。
+
+## 2026-07-12 p3-art-validation V2 MCP 实时优先实现
+
+- 最近完成：已落地 Art Profile v3、4 个运行时 TargetID、bounded UGUI inspection、prepare/finalize capture ticket、Profile 状态机、preview/persist 分离、PlayMode reload + re-inspect 门禁，以及 `art_regression` 旧 Runner 适配器。旧 `ArtAcceptanceRunner` 只允许由 `art_regression` 启动。
+- 验证：`art_v2_focus_final_20260712` 已通过真实 Unity MCP 完成 `workshop_main` live inspection、Full HD Game View ticket 截图和 finalize，证据为 `UnityClient/Logs/P3Validation/art-runs/art_v2_focus_final_20260712/`；原图为 1920x1080、SHA-256 `f0f637a2c43774e00a6014459d2392b15a12f7f814c2cfe1f85482cb92279a73`，且 ticket staging 已清理。ArtRun 只记录技术结果与证据。`art_v2_regression_final_20260712` 已通过直接 adapter 导入 source RunID `20260712_164511` 的 21 张本轮截图。
+- 当前关注：注册目标根已按真实运行层级修正为 `WorkshopPanel`、`DungeonMapPanel`、`P3DialogueOverlay_Runtime`。回归适配器已拒绝 source RunID 不匹配和无效 PNG，并收紧为只导入本轮 `latest/screenshots/`，不再递归混入历史 contact sheet。
+- 下一步建议：各实际界面若需要正式 `art_iteration` 持久化，应由对应 UI Owner 注册明确的 Prefab/builder adapter；在没有安全 adapter 时返回 `art_blocked:persist_adapter_missing`，不得用任意 C#、资产路径或 PlayMode preview 冒充持久化完成。
+- 补充证据：`art_v2_runtime_final_20260712` 与 `art_v2_t0_seal_final_20260712` 已分别完成 `art_runtime` final 和 `t0_art_seal` seal ticket；`art_v2_iteration_blocked_final_20260712` 在真实 PlayMode inspect 后按设计返回 `art_blocked:persist_adapter_missing`。
+- 问题 / 阻塞：`validation_limited:subagent forward-testing prohibited by user`；当前 4 个目标尚无业务持久化 adapter，因此已完成框架、拒绝路径和明确受限 ArtRun，未伪造实际素材/UI 持久化 before/after 包。现有 2 条 MCPForUnity 程序集版本 warning 为项目既有问题。
+
+## 2026-07-12 Unity MCP 验收编排层设计
+- 最近完成：已依据批准后的分离架构重写 `开发文档/20_UnityMCP验收编排层实现计划.md`，拆为共享 core、程序 lane/Skill、美术诊断与迭代 lane/Skill、发布聚合、旧混合入口清理和端到端门禁 12 个 TDD 任务。
+- 下一步建议：执行时从 `step-result@2`、独立 Profile Registry 和 domain-aware merger 开始；程序 lane 完成前不得启动 ArtAcceptance，美术 iteration 白名单完成前不得开放修改能力。
+- 最近完成：用户批准将旧混合 `p3-validation` 直接拆分为 `p3-program-validation`、`p3-art-validation`、`p3-release-validation`，共享 `P3ValidationCore`。程序侧只做编译、配置、Smoke、P0/T0 功能路径；不再自动启动 ArtAcceptance。设计事实已重写到 `开发文档/19_UnityMCP验收编排层设计.md`。
+- 当前关注：旧首版尚未成为正式工作流且无兼容数据，后续按 breaking replacement 处理；旧 `20` 实现计划已标记 historical，需基于新设计重新生成计划后再改代码。
+- 最近完成：已实现首版 Unity MCP 验收编排层。新增四个 Profile、统一 Schema/fixture、RunID 与确定性合并脚本、静态 lane、共享 Smoke 服务、Editor readiness/Console delta、JobState 与实例锁、ArtAcceptance/T0 adapter、六个 project-scoped MCP 工具和 `.codex/skills/p3-validation`。`P3ValidationFoundationSmokeSuite.Run` 于 2026-07-12 11:20 通过，两个 C# 工程保持 0 error。
+- 当前关注：MCP for Unity 已识别并启用六个自定义工具，Project Scoped Tools 开关已打开；当前早于开关启动的 stdio 会话仍需重连后才能把自定义工具暴露给 Codex。未重连时按 `validation_limited:P3CustomMcpToolsUnavailable`，不得虚报 MCP Profile 通过。
+- 下一步建议：重连 MCP 会话后优先用 `$p3-validation` 执行 `smoke_focus`，再按需求运行 `art_runtime`、`t0_seal` 或 `p0_full`；旧 `.test_trigger` / P0 脚本只保留为兼容与自动化路径。
+
+- 最近完成：已新增 `开发文档/19_UnityMCP验收编排层设计.md`，经用户逐段确认后锁定 `p3-validation` Codex Skill 顶层编排、脚本 / Unity MCP 双执行面、四个首轮 Validation Profile、RunID 证据包、Console baseline/delta、三层验收结论和 `ClaimCeiling`；用户批准设计后，已新增 `开发文档/20_UnityMCP验收编排层实现计划.md`，拆为 12 个带 TDD、文件落点、命令和提交边界的实现任务。
+- 当前关注：本轮只完成设计规格和文档互链；尚未创建项目 Skill、自定义 MCP 工具、Profile 注册表、统一 Schema、JobState 或证据合并器，不能声明 MCP 验收编排层已实现。
+- 下一步建议：进入实现计划时按 `Phase 0 基线冻结 -> Phase 1 只读可观测 -> Phase 2 原子适配 -> Phase 3 Unity 子编排 -> Phase 4 Skill / 合并器 -> Phase 5 默认入口切换` 拆分，并优先证明 Console 差量、RunID 证据归属和 Domain Reload 恢复。
+- 问题 / 阻塞：当前工作区存在大量用户和其他任务改动；后续实现必须严格收窄暂存范围。Unity MCP Project Scoped Tools 当前尚未作为 P3 自定义工具入口正式启用。
+
+## 2026-07-11 T0-01A 封板候选程序承接
+
+- 最近完成：已落地 `SEAL-FLOW-01 / SEAL-UI-01` 首轮行为收紧。`P3DialogueOverlayController` 在黑屏、漫画页、状态卡和独立动作页隐藏自动/记录控件；启动零号页隐藏解释性提示，只保留独立动作按钮；正式苏醒对白才显示 `自动 / 记录`。漫画格边框已从青色 staging 框改为 12px 近黑 gutter。
+- 验证：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 通过，0 error；`NarrativeOverlaySmokeTest.Run` 于 `2026-07-11 14:45:46` 通过，报告为 `UnityClient/Logs/TestReport.json`。现有 2 个 MCPForUnity 引用版本冲突 warning 未新增。
+- 最近完成：`T0-01A` Owner 设计已按 `T0-PRE-01..11` 升级为封板候选 V5，开发方案新增第 17 节封板增量总线。本轮未修改 Unity 代码、Prefab、测试或配置源。
+- 当前关注：保留已完成的 NARR/T0-FLOW 主链，只按 `SEAL-FLOW-01`、`SEAL-UI-01..03`、`SEAL-VAL-01` 补独立启动 Action Layer、对白框皮肤与点击语义、FormalV2 工坊 zone、首潜许可仪式布局和 11 阶段截图防回归。
+- 下一步建议：美术/UI 锁定相应皮肤与页型后，按开发方案第 17.2 节顺序接入，不另建序章播放器、临时工坊页或通用多层确认回退。
+- 问题 / 阻塞：当前只完成文档承接，还没有新的 Unity Play、smoke、截图或 ArtAcceptance 证据；不得宣称 A 段运行时封板通过。
 
 # 绋嬪簭 / Unity 鐘舵€?
 
 ## 鏈€鍚庢洿鏂?
 
-2026-07-04
+2026-07-11
 
 ## 褰撳墠鍏虫敞
 
@@ -73,6 +113,17 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 ```
 
 ## 鏈€杩戝畬鎴?
+- 2026-07-11：`T0-PRE` 商业化基线已写入 `版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md` 第 3.1 节。程序侧后续 T0 验收 runner 和运行时接入应按 16 张目标截图拆阶段：A 段覆盖黑屏、工坊过程 CG、启动零号、状态 / 擦灰、半开放工坊和首潜许可；B 段覆盖浅层入口转场、旧矿井浅缘、短遭遇和首件带回物；C 段覆盖回城照看与下一轮目标。本轮未修改 Unity 代码、配置或自动化 runner。
+- 2026-07-11：`T0-01` 文档体系已新增完整开发总入口 `版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md`。程序侧后续按 `T0-PRE / T0-01A / T0-01B / T0-01C / T0-VAL-02` 承接；`T0-VAL-01` 只保留为 A 段运行时效果验收记录，不能再作为完整 T0 验收依据。本轮仅调整文档口径与互链，未修改 Unity 代码或运行验证。
+- 2026-07-08：`T0-VAL-01` 正式版重做后的程序 / 验收口径改为 `conditional_pass:t0_val_01_formal_v2_runtime_slice`。本轮修复 `P3DialogueOverlayController` 的漫画页解析顺序并新增 `HasLargeVisualFocus`，强化 `WorkshopUIController` 的 T0 半开放 FormalV2 结构，强化 `DungeonStartLayerUIController` 的 `FirstDivePermitCard`，并将 `T0ValidationFinalCaptureRunner` 升级到 10 张截图和更强语义断言。最新 report `UnityClient/Logs/T0Validation/t0_val_01_final_capture_report.txt` 为 `captured_at=2026-07-08 00:46:12`、`count=10`、`semantic_failed=False`；contact sheet 为 `UnityClient/Logs/T0Validation/t0_val_01_final_contact_sheet_latest.png`。验证边界：构建、配置同步、文档校验和 Unity Console 均已复核；当前只声明运行时纵切条件通过，不声明最终 CG / Live2D / ArtAcceptance 美术封版完成。
+- 2026-07-06：用户人工验收与独立 subagent 复核均否决 `T0-VAL-01`，程序侧当前口径改为 `validation_failed:t0_val_01_commercial_prologue_not_passed`。最新 final capture report `UnityClient/Logs/T0Validation/t0_val_01_final_capture_report.txt` 的 `semantic_failed=False` 只保留为技术证据：8 个阶段状态存在、截图非空、主链可到 `DungeonMap`；它不能证明序章、美术适配或 FormalV2 工坊商业化通过。下一轮程序侧重点是补正式分镜承接、仪式交互反馈、FormalV2 工坊运行时布局和更强的画面级验收断言。
+- 2026-07-05：`T0-VAL-01` 正式版优化方案已重设并写入 `版本规划/0-12小时细案/T0-VAL-01_最终实际效果优化文档.md` 第 13 节。程序侧下一轮不再做最小 overlay 修补，而要按正式方案补：对白默认手动点击推进、`AUTO` 默认关闭、`启动零号` / `擦去核心仓灰尘` 独立行动按钮、`WorkshopUIController` 的 `PrologueHalfOpenWorkshop` FormalV2 工坊模式、`DungeonStartLayerUIController` 的固定第一层 `FirstDivePermit`、出发短转场，以及 `T0ValidationFinalCaptureRunner` 的阶段 / 文本 / 按钮 / 相邻截图语义断言。当前状态仍为 `validation_failed:t0_val_01_commercial_effect_not_passed`。
+- 2026-07-05：用户人工验收否决 `T0-VAL-01`，程序侧同步撤回“最终实际效果完成”口径。当前代码与 smoke 仍能证明主链可跑到第一层，但 `T0ValidationFinalCaptureRunner` 的验收断言不足：`t0_val_01_final_06_half_open_workshop.png` 实际与首潜确认重复，说明 runner 没有校验截图语义状态。下一轮程序侧必须补语义验收：每张 final 截图除尺寸 / 非蓝屏外，还要校验当前阶段、关键 UI 存在 / 不存在和相邻截图不可重复。当前状态为 `validation_failed:t0_val_01_commercial_effect_not_passed`。
+- 2026-07-05：`T0-VAL-01` 最终实际效果验收已完成程序侧收口。新增 `T0ValidationFinalCaptureRunner` 和 `Tools/P3/T0 Validation/Capture Final Screenshot Set` 编辑器入口，固定生成 8 张 `1366x768` 验收截图与 `UnityClient/Logs/T0Validation/t0_val_01_final_capture_report.txt`；最终报告 `captured_at=2026-07-05 20:42:49`、`count=8`，8 张 `t0_val_01_final_*.png` 均为 `1366x768` 且 `blueLikeSamples=0`。`NarrativeOverlaySmokeTest.Run` 与 `PrologueFirstDivePermissionSmokeSuite.Run` 通过，Unity Console error=0；`Assembly-CSharp.csproj` 与 `Assembly-CSharp-Editor.csproj` 构建均 0 error，仅保留既有 MCP 包 warning。独立 subagent 复验结论为 `通过`。边界：本轮通过的是 staging 纵切验收，不是正式 CG / ArtAcceptance 封版；债务纸可读文本与首潜许可卡视觉为 P2 后续优化。
+- 2026-07-05：`T0-VAL-01` 后续 P0 总入口已通过。最新报告 `UnityClient/Logs/P0Validation/latest/report.md`：RunID=`20260705_150220`，`Status=Passed`，Errors=0，Blocked=0，Limitations=0，Warnings=33；`ConfigSync`、`ConfigValidator`、`UnitySmokeTests`、`UIDesignValidation`、`ArtAcceptanceLatest` 均通过。程序修复范围包括：`DungeonNodeTypesSmokeTest` 按移动 SAN 成本后再结算 outcome，`DungeonMapUIController` 地图节点 / 连线尺寸对齐 Formal 验收，`MainFlowGoldenPathSmokeTest` 修正 EventBus 订阅时机并允许无物品战斗节点但要求全程至少接受一次战斗掉落，经济 smoke 固定补入 `rumor_mechanical_price_up`，`CombatLootDropTest` 恢复临时 `GameFlowController.Instance`，`AutoTestDaemon` 增加触发兜底与 `StartedAt/FinishedAt/DurationMs` 报告字段，`Invoke-UnitySmokeTests.ps1` 改为 UTF-8 / LiteralPath / raw command 预匹配并保留 late report 回收。当前 Codex shell 阻塞等待时 Unity Editor 需要 MCP 主动驱动 pending `.test_trigger`；本轮验收使用 `mcp__unityMCP` 的 `scripting_ext` 驱动 AutoTestDaemon，未把 MCP 替代为项目长期唯一验收入口。
+- 2026-07-05：补强 `T0-VAL-01` 后续 P0 收敛项。Unity MCP 连接保持可用，期间 `refresh_unity` 曾短暂断连但自动恢复为 ready；已修复 `gear_mycelium_cloak` 的 `ModifyResourceCost` 配置字段缺失并同步到 StreamingAssets；工坊 UGUI smoke 收敛完成：`WorkshopSmokeTest.Run` 与 `WorkshopFormalV1PanelBindingSmokeTest.Run` 均已单项通过。具体修复包括工坊 modal backdrop 透明度、市场预览文案、义体行 `MaterialNeedIcon_Image` / `LockedIcon_Image` / `Craft_Button` 稳定对象名、FormalV2 hub 尺寸回到验收约束，以及 smoke 测试只采集活跃 UI 文本并在点击前记录按钮存在性。`ConfigValidationSmokeTest.Run` 单项通过；P0 总入口从 `Failed Errors=9` 收敛为 `Blocked Errors=4`，剩余阻塞不属于 T0 序章主链：`DungeonNodeTypesSmokeTest` 节点返回、`DungeonStairsProgressionTest` 二层地图布局、`MainFlowGoldenPathSmokeTest` 首个战斗掉落、`TownEconomyServiceSmokeTest` 订单 / 传闻，以及 `CombatLootDropTest.Run` 未产出 TestReport。
+- 2026-07-05：`T0-VAL-01` live Unity MCP 玩家路径已调通并通过 Owner 自验。修复点包括：`DungeonStartLayerUIController` 首潜确认在回调丢失时可恢复到 `PrologueFirstDiveController.RequestFirstDiveDeparture()`，`PrologueFirstDiveController` 在 `StartRunAtLayer(1)` 成功后关闭叙事 Overlay，避免出发黑幕继续阻塞第一层地图；`PlayModeRecoveryTools.ReportRuntimeState` 增加首潜面板状态 / 回调诊断。验证证据：MCP 连续执行 `EnterPlayModeNow -> Click Visible Overlay Action -> Click Visible Overlay Action -> Click Workshop Shallow Gate -> Click First Dive Confirm` 后 Console 出现 `Layer1FirstDeparted`、`DungeonManager Starting new dungeon run at Layer 1`、`GameFlow 切换屏幕状态 -> DungeonMap`；最终状态 `overlay=isShowing=False, blocks=False`。15:12-15:20 复核确认旧的纯色截图是截图时机问题，并补抓有效截图 `UnityClient/Logs/T0Validation/t0_val_01_livefix_01_start_doll_action.png`、`_02_wipe_action.png`、`_03_half_open_workshop.png`、`_04_layer_confirm.png`、`_05_final_dungeon_map.png`。阻断态用 `Set First Doll Extreme Wear` 验证，首潜确认 `confirmInteractable=False`，强制点击后未触发 `StartRunAtLayer`，截图 `t0_val_01_rerun_07_blocked_extreme_wear.png`。`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore -v:minimal /p:OutDir=Temp\Bin\Debug\Assembly-CSharp\` 与 `Assembly-CSharp-Editor.csproj` 均 0 error，仅保留 MCP 包相关既有 `System.Net.Http` / `System.IO.Compression` warning。
+- 2026-07-04：按 `T0-VAL-01` 进行 live Unity 复验，结论为未通过而非通过。复验使用 Unity MCP 进入 PlayMode、清空 Console 后重新截图和读取运行时组件：`UnityClient/Logs/T0Validation/t0_val_01_recheck_01_opening.png` 与 `t0_val_01_recheck_02_after_wait.png` 均停在 `cg_t0_01a_debt_notice`；`P3DialogueOverlay_Runtime` 为 `IsShowing=true`、`IsInputBlocking=true`、`HasActionVisible=false`，`Continue_Button` / `Action_Button` 均 inactive。Console 显示 `DebtNoticeSeen`、`RepairNoteSeen`、`LastCoreShardSeen`、`No0Found` 和 `show_prologue_action` 已执行，说明配置 / 命令链推进到了动作暴露，但 Overlay 玩家可见状态停在早期对白。程序结论：当前是 timeline / Overlay 表现推进不同步的 P0 玩家路径缺陷，不能用 `PrologueFirstDivePermissionSmokeSuite.Run` 或历史 batchmode 证据声明 live 玩家路径通过。本地 mission `T0-VAL-01` 已改为 `FIX`。
 - 2026-07-04：完成 CoplayDev `MCP for Unity` 在当前 Codex 线程的工具层验证。`mcp__unityMCP` 已可读取 `mcpforunity://instances`、`editor/state`、`project/info`，当前实例为 `UnityClient@c0741596` / Unity `2022.3.60f1` / port `15555`；`refresh_unity` 后 `ready_for_tools=true`，`manage_scene get_hierarchy` 可读取 `SampleScene` 的 `Main Camera`、`EventSystem`、`[GameRoot]`、`GameManager`、`InventoryCanvas`。短 Play/Stop 验证通过：`manage_editor play` 进入 PlayMode，运行时可通过 `find_gameobjects` 找到 `GameFlowController`，Play 后 Console error=0；`manage_editor stop` 后回到编辑模式，场景 `isDirty=false`。保留边界：MCP 仍只作为本机 Unity Editor 辅助桥，脚本、包、场景写入类工具默认视为受控高风险操作，不替代 P0 / AutoTestDaemon / 状态回写流程。
 - 2026-07-04：接入 CoplayDev `MCP for Unity` 最小工程侧依赖。`UnityClient/Packages/manifest.json` 固定 `com.coplaydev.unity-mcp` 到 `https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#v10.0.0`，`packages-lock.json` 已由 Unity 2022.3.60f1 batchmode 解析为 git 包 hash `d49ae2953580f3481beb1e084a1da2682f0b5610`。本机 Codex 全局配置中已有 `unityMCP` stdio server，且 `uvx --from mcpforunityserver==10.0.0 mcp-for-unity --help` 与 `uvx --offline --from mcpforunityserver==10.0.0 ...` 可用；当前 Unity 侧端口已改为 `15555` 以避开 Windows excluded port range。验证证据：Unity batchmode package resolve 日志 `UnityClient/Logs/unity_mcp_package_resolve_codex_20260704.log` 显示注册 `com.coplaydev.unity-mcp@...#v10.0.0`。
 - 2026-07-04：补齐 T0-01A 序章 Overlay 基础演出层。`P3DialogueOverlayController` 从单图 / 底部对白扩展为纯 UGUI 分层舞台，新增背景、暗幕、道具卡、人偶立绘层，并为 `cg_t0_01a_debt_notice`、`cg_t0_01a_repair_note`、`cg_t0_01a_core_shard`、`cg_t0_01a_find_no0`、`vfx_no0_core_start`、`stand_no0_weak_sitting`、`ui_status_card_prologue` 建立运行时组合映射，优先复用已登记的 `bg_workshop_home_room`、`bg_workshop_studio`、`doll_proto_0_stand`、`memento_debt_shadow_window`、`item_mat_core_tier1_icon` 等素材；同时修正 VisualID 缺失时优先落到可用 fallback。`NarrativeOverlaySmokeTest` 已加入债务镜头与发现零号镜头的 staging 断言，`PlayModeRecoveryTools.ReportRuntimeState` 增加 stage 摘要。验证证据：两个 C# 工程 build 均 0 warning / 0 error，`PrologueFirstDivePermissionSmokeSuite.Run` 通过且包含新的 Overlay staging smoke。受限项：本轮仍未产出 Unity 截图或 ArtAcceptance 旁路，Play 状态下 `ReportRuntimeState` 触发器有一次未消费，不能据此声明 T0 序章画面正式验收通过。
@@ -169,12 +220,19 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 
 1. Unity MCP 已完成 Codex 会话级联通验证；后续可优先用于实例 / Console / 场景 / 截图等只读或验收辅助。写脚本、改包、改场景、生成资产等 MCP 操作仍需按受控高风险处理，不替代 P0 / AutoTestDaemon。
 
-1. `T0-01A` 涓婚摼鍒扳€滆繘鍏ョ涓€灞傗€濆凡瀹屾垚 Owner 绾ц瘉鎹洖鍐欙紱鍚庣画鑻ョ户缁敹鍙ｏ紝鍙ˉ褰撳墠宸ヤ綔鍖?Unity 浼氳瘽涓嬬殑鍏抽敭鎴浘 / ArtAcceptance 鏃佽矾锛屾垨鍗曠嫭瀹氫綅 live-editor 涓?clean batchmode 鐨?smoke 宸紓锛屼笉鍐嶉噸寮€ `NARR-00..T0-FLOW-05`銆?2. 绗竴浼樺厛绾?C1-C3 閰嶇疆绋嬪簭鏀寔宸插畬鎴愬綋鍓嶅彲鍋氬璁″拰鏃犻樆鏂敹鍙ｏ紱鍚庣画鍙湪 Unity runtime 琛ヨ窇鎴栦汉宸ヤ綋楠屽彂鐜扮湡瀹為樆鏂椂鎸?bug 淇杩藉姞澶勭悊锛屼笉缁х画鍗犵敤涓荤嚎銆?3. 绗簩浼樺厛绾т富娴佺▼鍙帺闂幆宸插畬鎴愪竴杞▼搴忚ˉ寮烘壒娆★細`FLOW-01..FLOW-07` 瑕嗙洊鐜╁璺緞缂哄彛瀹¤銆佸眰閫夋嫨 / 涓嬫綔銆佸湴鍥捐妭鐐广€佹垬鏂?/ 闈炴垬鏂楄妭鐐广€佹垬鍒╁搧銆侀樁姊?/ 鎾ょ銆佸皬闀囧嚭鍞€佸伐鍧婄淮鎶ゅ拰榛勯噾璺緞 smoke / P0 鎽樿銆傚悗缁噸鐐逛笉鏄噸寮€鍩虹绾匡紝鑰屾槸鍋?Unity runtime / 浜哄伐浣撻獙澶嶆牳锛涜嫢鍙戠幇姝ｅ父 UI 涓嶅彲杈俱€佹寜閽湭璋冪敤鐪熷疄鏈嶅姟鎴栫姸鎬佹湭鍥炲啓锛屾寜瀵瑰簲 `FLOW-*` 杩藉姞 bug 淇鎴栭獙鏀惰ˉ寮恒€?4. 涓绘祦绋嬮棴鐜殑瀹屾垚鍙ｅ緞鏄€滅帺瀹舵甯?UI 鍙揪 + 璋冪敤鐪熷疄棰嗗煙鏈嶅姟 + 鐘舵€佺湡瀹炲彉鍖?+ 鏈?smoke / P0 璇佹嵁鈥濓紝涓嶈兘鐢ㄥ彧璇诲揩鐓с€乨ebug preview銆丄rtAcceptance 鎴浘鎴栭潤鎬侀潰鏉夸唬鏇匡紱鏈嶅姟宸插瓨鍦ㄤ絾 UI 涓嶅彲杈撅紝浠嶇劧鍙兘绠椻€滃姛鑳芥湭寮€鏀惧畬鈥濄€?5. 绗笁浼樺厛绾х▼搴忔灦鏋勪紭鍖?/ 鏀跺彛宸插畬鎴?`ARCH-01..ARCH-05` 褰撳墠鎵规鏀跺彛锛沗REVIEW-01` 宸茬‘璁ゆ湰杞?mission 鐨?TASK 璇佹嵁瀹屾暣銆傚悗缁嫢缁х画澶勭悊 `GameFlowController` fallback UI銆乣DungeonManager` 缁撶畻鑱岃矗鎴栨祴璇曞叆鍙ｅす鍏凤紝搴斾綔涓烘柊涓€杞灦鏋勪换鍔″崟鐙淳鍙戯紝涓嶉噸寮€宸插畬鎴愬熀纭€鑳藉姏銆?6. FormalV2 UI 杩愯鏃剁粨鏋勯噸鎺掑拰鎴浘缂哄彛淇宸插彇寰楁渶鏂?ArtAcceptance 宸ュ叿灞傞€氳繃锛涘悗缁瑙?/ 甯冨眬绮句慨鐢辩編鏈?/ UI 渚х洿鎺ュ鐞嗐€傜▼搴忎晶涓嶅啀榛樿鎵挎帴 UI 杩斾慨锛屽彧鍦ㄧ湡瀹為鍩熸湇鍔°€乁nity 宸ョ▼绾︽潫銆佽嚜鍔ㄩ獙鏀跺伐鍏锋垨 UGUI 搴曞眰鑳藉姏鍑虹幇闃绘柇鏃舵寜 bug 鎴栧伐鍏蜂换鍔′粙鍏ャ€?
-## 闂 / 闃诲
+1. `T0-VAL-01` 当前以条件通过作为运行时纵切证据收口。程序侧下一步只在回归、截图 runner、UGUI 底层或领域服务调用出现真实缺口时介入；最终漫画页排版、对白 UI 皮肤、半开放工坊视觉和首潜许可卡封版主要进入美术 / UI 质量收口。
+2. 第一优先级 C1-C3 配置程序支持已完成当前可做审计和无阻断收口；后续只在 Unity runtime 补跑或人工体验发现真实阻断时按 bug 修复追加处理，不继续占用主线。
+3. 第二优先级主流程可玩闭环已完成一轮程序补强批次：`FLOW-01..FLOW-07` 覆盖玩家路径缺口审计、层选择 / 下潜、地图节点、战斗 / 非战斗节点、战利品、阶梯 / 撤离、小镇出售、工坊维护和黄金路径 smoke / P0 摘要。后续重点不是重开基础线，而是做 Unity runtime / 人工体验复核；若发现正常 UI 不可达、按钮未调用真实服务或状态未回写，按对应 `FLOW-*` 追加 bug 修复或验收补强。
+4. 主流程闭环的完成口径是“玩家正常 UI 可达 + 调用真实领域服务 + 状态真实变化 + 有 smoke / P0 证据”，不能用只读快照、debug preview、ArtAcceptance 截图或静态面板替代；服务已存在但 UI 不可达，仍然只能算“功能未开放完”。
+5. 第三优先级程序架构优化 / 收口已完成 `ARCH-01..ARCH-05` 当前批次收口；后续若继续处理 `GameFlowController` fallback UI、`DungeonManager` 结算职责或测试入口夹杂，应作为新一轮架构任务单独派发，不重开已完成基础能力。
+6. FormalV2 UI 运行时结构重排和截图缺口修复已取得最新 ArtAcceptance 工具层通过；后续视觉 / 布局精修由美术 / UI 侧直接处理。程序侧不再默认承接 UI 返修，只在真实领域服务、Unity 工程约束、自动验收工具或 UGUI 底层能力出现阻断时按 bug 或工具任务介入。
+## 问题 / 阻塞
 
 - Unity MCP 当前工具层已可用；剩余风险不在连接本身，而在写入类 MCP 操作可能绕过项目既有 P0 / AutoTestDaemon / 状态回写流程，因此默认仅把 MCP 作为现场验证和辅助执行桥使用。
-- `T0-VAL-01` 鏂板楠岃瘉闄愬埗锛歚PrologueFirstDivePermissionEditorRunner.RunFromBatchmode` 鍦ㄥ綋鍓嶅伐浣滃尯浼氳 `HandleProjectAlreadyOpenInAnotherInstance` 鎷︿笅锛屾湭杩涘叆鐩爣鏂规硶锛涘綋鍓嶆墦寮€鐨?Unity 浼氳瘽閫氳繃 AutoTestDaemon 瑙﹀彂 `PrologueFirstDiveLayerConfirmSmokeTest.Run` / `PrologueFirstDiveDepartureSmokeTest.Run` 鏃讹紝鍙堜笌 `2026-07-02` clean batchmode runner 鏃ュ織涓嶄竴鑷淬€傚綋鍓嶄互鏃㈡湁 clean batchmode 閫氳繃鏃ュ織浣滀负 T0-01A 涓婚摼璇佹嵁锛屽苟璁板綍 `validation_limited:live_editor_smoke_inconsistent_with_clean_batchmode`锛屽緟褰撳墠宸ヤ綔鍖虹嫭绔?Unity 浼氳瘽澶嶆牳銆?- 褰撳墠宸ヤ綔鍖轰粛鏈夋湭绾冲叆鏈鎻愪氦鐨勬棤鍏虫敼鍔細`tools/ai-image-gateway` 瀛愭ā鍧楀唴閮?`implementation_plan.md` 宸蹭慨鏀癸紝`tools/ComfyUI_NAIDGenerator/` 涓烘湭璺熻釜鏈湴宸ュ叿鐩綍锛涘悗缁彁浜ゅ墠缁х画涓ユ牸鏀剁獎鏆傚瓨鑼冨洿銆?- `NARR-04` Unity 杩愯鎬侀獙璇佸彈闄愶細`Unity.exe -batchmode -executeMethod NarrativeCommandBridgeSmokeTest.Run` 鏃ュ織鍋滃湪 Licensing / Package Manager / AssetDatabase refresh锛屾湭鍑虹幇鐩爣 smoke 鐨?PASSED / FAILED锛涘綋鍓嶈瘉鎹彧鏀寔 C# 缂栬瘧鍜屽懡浠ゆˉ / smoke 鍏ュ彛灏辩华锛屼笉鏀寔 Unity runtime smoke 閫氳繃銆?- `NARR-03` Unity 杩愯鎬?/ 鎴浘楠岃瘉鍙楅檺锛氬綋鍓嶄細璇濇湭鎵惧埌鍙敤 `Unity.exe`锛宍NarrativeOverlaySmokeTest.Run` 鍜屽叧閿敾闈㈡埅鍥惧皻鏈幏寰?Unity runtime 璇佹嵁锛涘綋鍓嶈瘉鎹彧鏀寔 C# 缂栬瘧鍜?UGUI overlay 浠ｇ爜灏辩华锛屼笉鏀寔鐢婚潰楠屾敹閫氳繃銆?- `T0-FLOW-03` 鍗婂紑鏀惧伐鍧婂凡閫氳繃 Unity smoke锛屼絾鏈疆娌℃湁 ArtAcceptance 鎴栧疄闄呮埅鍥撅紱涓嶈兘澹版槑鍗婂紑鏀惧伐鍧婄敾闈㈤獙鏀堕€氳繃銆?- `T0-FLOW-04` 棣栨綔纭鎬佸凡閫氳繃 Unity AutoTest smoke锛屼絾鏈疆娌℃湁棣栨綔纭闈㈡澘鎴浘鎴?ArtAcceptance 鏃佽矾锛涗笉鑳藉０鏄庣涓€灞傜‘璁ょ敾闈㈤獙鏀堕€氳繃銆?- `T0-FLOW-05` 棣栨綔鍑哄彂閾捐矾宸查€氳繃 Unity batchmode smoke锛屼絾鏈疆娌℃湁鍑哄彂 / 鍒囬粦 / 绗竴灞傝繘鍏ユ埅鍥炬垨 ArtAcceptance 鏃佽矾锛涗笉鑳藉０鏄庤娈电敾闈㈤獙鏀堕€氳繃銆侫utoTestDaemon 鏈疆鏈秷璐?`.test_trigger`锛屽悗缁埅鍥?/ 鏃佽矾楠屾敹鍙湪 `T0-VAL-01` 澶勭悊銆?- `NARR-02` Unity 杩愯鎬侀獙璇佸彈闄愶細褰撳墠浼氳瘽鏈壘鍒板彲鐢?`Unity.exe`锛宍NarrativeSchedulerSmokeTest.Run` 灏氭湭鑾峰緱 Unity runtime 鏃ュ織璇佹嵁锛涘綋鍓嶈瘉鎹彧鏀寔 C# 缂栬瘧鍜?headless 璋冨害 / 鐘舵€佷唬鐮佸氨缁紝涓嶆敮鎸?Unity runtime smoke 閫氳繃銆?- `NARR-00` Unity 杩愯鎬侀獙璇佸彈闄愶細褰撳墠宸ヤ綔鍖?batchmode `-executeMethod NarrativeRuntimeSpikeEditorRunner.RunFromBatchmode` 涓ゆ鍧囧仠鍦?AssetDatabase refresh锛屾湭杩涘叆鐩爣鏂规硶锛沗.test_trigger = NarrativeRuntimeSpikeSmokeTest.Run` 鍦?batchmode 浼氳瘽涓湭琚?AutoTestDaemon 娑堣垂锛宍TestReport.json` 浠嶆槸鏃?`RUN_ALL_TESTS` 鎶ュ憡銆傚洜姝ゅ綋鍓嶈瘉鎹彧鏀寔 C# 缂栬瘧鍜?headless 婧愮爜 harness 閫氳繃锛屼笉鏀寔 Unity runtime smoke 閫氳繃銆?- 褰撳墠瑙﹀彂寮?Unity 楠岃瘉鍏ュ彛瀛樺湪璺緞閿欎綅锛氭鍦ㄨ繍琛岀殑妗岄潰 Unity Editor 鎸囧悜 `F:\design\game\project\P3_Unity6\UnityClient`锛屼笉浼氭秷璐规湰宸ヤ綔鍖?`F:\design\game\project\p3\UnityClient\Logs` 涓嬬殑 `.test_trigger` / `.art_acceptance_trigger`锛涘洜姝?`Invoke-P0Validation.ps1 -TimeoutSeconds 180` 鏈骇鍑烘€绘姤鍛婏紝`config_validation.json` 璁板綍涓?`validation_limited:UnityTestReportMissing`銆傛湰杞凡鐢ㄥ綋鍓嶅伐浣滃尯 batchmode 鐩存帴鎵ц ArtAcceptance 浣滀负鏇夸唬杩愯鏃舵埅鍥捐瘉鎹€?- 褰撳墠 ArtAcceptance latest 宸叉洿鏂颁负 `20260612_231356` 涓斿伐鍏峰眰 `PASSED`锛?1/21 captured锛孯egistry 278锛宍MissingRequiredVisualIDs=0`锛寃arnings/errors=0銆傝瘉鎹叆鍙ｄ负 `UnityClient/Logs/ArtAcceptance/latest/report.json`銆乣UnityClient/Logs/ArtAcceptance/latest/screenshots/` 鍜?`UnityClient/Logs/ArtAcceptance/latest/contact_sheet_formalv2_20260612_231356_codex.png`锛涙棫 `20260611_014057` 鍙唬琛ㄧ編鏈?/ UI 鐩存帴绮句慨鍓嶇殑鎴浘璇佹嵁锛屾棫 `20260610_003347` / `20260606_230523` 涓嶅啀浠ｈ〃褰撳墠 Approved 绱犳潗缂哄け浜嬪疄銆?- 缇庢湳 / UI 渚у凡纭 FormalV2 鏍稿績 P0 缁撴瀯鍙綔涓轰笅涓€杞帺瀹舵祦绋?UI 鍩虹锛屼絾瀹屾暣瑙嗚灏佺増浠嶆湭閫氳繃锛歚dungeon_map` 鑺傜偣鍜岃矾绾胯瀺鍚堛€乣sell_panel` / `prosthetic_panel` modal 灞傜骇銆佹棫 FormalV1 涓夋爮妯℃澘鏇挎崲銆乣bg_workshop_day` 鑳屾櫙鍊欓€夊拰 `inventory_loot` 濂栧姳鏁ｈ惤缁嗚妭浠嶉渶缁х画绮句慨銆傚綋鍓嶄笉鏄祫婧愮櫥璁版垨鎵归噺琛ュ浘闂銆?- `FLOW-03` / `FLOW-04` / `FLOW-07` 鏂板鎴栨墿灞曠殑 `CombatLootDropTest.Run`銆乣DungeonNodeTypesSmokeTest.Run`銆乣DungeonStairsProgressionTest.Run` 涓?`MainFlowGoldenPathSmokeTest.Run` 宸叉帴鍏?P0 榛樿 smoke 鍒楄〃锛屼絾鏈疆 P0 瑙﹀彂寮忔€诲叆鍙ｆ湭鍙栧緱杩愯鎬侀€氳繃璇佹嵁锛涘悗缁彲鍦ㄥ綋鍓嶅伐浣滃尯 Unity Editor 浼氳瘽涓ˉ璺?P0 鎴栧崟鐙Е鍙戣繖浜涙祴璇曘€?- FormalV2 宸ュ叿灞傛埅鍥惧凡缁忛€氳繃锛屼絾瀹屾暣瑙嗚灏佺増灏氭湭閫氳繃锛涗笉寰椾粎鍑?ArtAcceptance `PASSED` 鏍囪涓虹敾闈㈠畬鎴愩€?- `tools/ai-image-gateway` 瀛愭ā鍧楀唴閮ㄦ湁鏈彁浜ゆ敼鍔ㄣ€?
-
+- `T0-VAL-01` 当前项目结论为 `conditional_pass:t0_val_01_formal_v2_runtime_slice`。程序侧 P0 主链不再阻塞；剩余风险是美术 / UI 封版质量和人工商业化截图验收，不得把本轮条件通过扩大为完整 T0 序章完成。
+- 当前 P0 总入口无阻塞项；保留 33 条 warning，主要来自 metadata-only tag / smoke 业务提示，不作为本轮阻断。当前 Codex shell 下 `.test_trigger` 等待需要 MCP 主动驱动 Unity Editor，后续如果脱离 MCP 跑自动化，需复核 AutoTestDaemon 后台唤醒是否稳定。
+- 当前工作区仍有未纳入本次提交的无关改动和本地目录：`tools/ai-image-gateway` 子模块内部改动、`tools/ComfyUI_NAIDGenerator/` 未跟踪目录以及 `?? ~/`，后续提交前继续严格收窄暂存范围。
+- FormalV2 工具层截图已通过，但完整视觉封版仍以美术状态页和 ArtAcceptance / 人工复核为准；不得仅凭 ArtAcceptance `PASSED` 标记所有画面完成。
 ## 瀹屾垚鍥炲啓娓呭崟
 
 - 鏇存柊鏈枃浠剁殑 `鏈€鍚庢洿鏂癭銆?- 鍦?`鏈€杩戝畬鎴恅 璁板綍绠€鐭簨瀹炪€?- 濡傛湁鍙樺寲锛屽埛鏂?`褰撳墠鍏虫敞`銆乣涓嬩竴姝ュ缓璁甡 鍜岄樆濉為」銆?- 濡傛灉闇€瑕佺編鏈垨绛栧垝璺熻繘锛屽湪 `PROJECT_STATUS.md` 澧炲姞璺ㄨ亴鑳戒氦鎺ャ€?
@@ -280,3 +338,10 @@ Set-Content -Path "UnityClient/Logs/.test_trigger" -Value "RUN_ALL_TESTS"
 - Feedback recorded: gateway/provider tests passing only means the NovelAI 4.5 inpaint path works technically. It does not mean the generated expression/action diff images are usable business assets.
 - Current focus: current DollPuppet expression/action outputs are marked business-unusable in `generation.json`; program side must not consume them as Approved inputs, prefab sources, runtime motion/expression assets, or acceptance fixtures.
 - Next suggestion: preserve tests for the gateway contract, but require a new art-side source/mask/cleanup plan before any further generated outputs can unblock DollPuppet importer, prefab, or runtime acceptance work.
+# 2026-07-12 P3 分离验收
+
+- 最近完成：共享 P3ValidationCore、程序 Profile/Smoke lane、程序 MCP tools、发布只读聚合以及旧混合入口移除。
+- 当前关注：程序自动化只覆盖 compile/config/Smoke/P0/T0 功能，不再承载截图或美术复核。
+- 下一步建议：Unity 当前实例刷新后，用 `p3_program_run_profile` 生成真实项目 ProgramRunID。
+- 问题 / 阻塞：无代码构建阻塞；批处理 Unity 刷新被已打开实例阻止，Editor csproj 通过受控刷新后构建 0 error。
+- 关键证据：`UnityClient/Logs/P3Validation/release-runs/release_e2e_failed/summary.json`；`tools/agent/p3-validation-core/Test-P3ValidationCore.ps1`。

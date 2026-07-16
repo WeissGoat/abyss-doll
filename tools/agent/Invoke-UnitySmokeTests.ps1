@@ -5,6 +5,7 @@ param(
         "InventoryGridLayoutAssetValidatorTest.Run"
     ),
     [int]$TimeoutSeconds = 90,
+    [int]$PostTimeoutReportGraceSeconds = 90,
     [string]$UnityClientPath = "UnityClient",
     [string]$ReportOutputPath = ""
 )
@@ -28,7 +29,18 @@ function Read-MatchedReport {
     }
 
     try {
-        $report = Get-Content -Raw -Path $ReportFile | ConvertFrom-Json
+        $rawReport = Get-Content -Raw -Encoding UTF8 -LiteralPath $ReportFile
+    } catch {
+        return $null
+    }
+
+    $escapedTest = [System.Text.RegularExpressions.Regex]::Escape($Test)
+    if ($rawReport -notmatch ('"Command"\s*:\s*"' + $escapedTest + '"')) {
+        return $null
+    }
+
+    try {
+        $report = $rawReport | ConvertFrom-Json
     } catch {
         return $null
     }
@@ -82,11 +94,12 @@ foreach ($test in $Tests) {
     }
 
     if ($null -eq $matchedReport) {
-        $graceDeadline = (Get-Date).AddSeconds(10)
+        $graceDeadline = (Get-Date).AddSeconds($PostTimeoutReportGraceSeconds)
         while ((Get-Date) -lt $graceDeadline) {
             Start-Sleep -Seconds 1
             $matchedReport = Read-MatchedReport -ReportFile $reportFile -Test $test
             if ($null -ne $matchedReport) {
+                Write-Host "[UnitySmoke] Accepted late report for $test"
                 break
             }
         }

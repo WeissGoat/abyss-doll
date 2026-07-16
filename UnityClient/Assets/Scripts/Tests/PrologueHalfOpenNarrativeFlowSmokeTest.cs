@@ -52,10 +52,16 @@ public static class PrologueHalfOpenNarrativeFlowSmokeTest {
         bool layerConfirmRequested = result.LayerConfirmRequests == 1
             && result.State.GetFlag("Layer1ConfirmOpened");
         string text = CollectText(canvasObj);
-        bool playerReadablePressureHint = text.Contains("压力稳定")
-            && text.Contains("零号还能撑一次")
-            && text.Contains("维护")
-            && text.Contains("稍后");
+        bool playerReadablePressureHint = controller.ProloguePrimaryActionText == "浅层入口"
+            && controller.PrologueGoalText.Contains("零号")
+            && controller.PrologueGoalText.Contains("一次")
+            && text.Contains("第 1 日");
+        bool formalV2Zones = workshopObj.transform.Find("LightStatusStrip") != null
+            && workshopObj.transform.Find("AbyssDoorPanel") != null
+            && workshopObj.transform.Find("WorkshopEntryPanel") != null
+            && workshopObj.transform.Find("LedgerCornerPanel") != null
+            && workshopObj.transform.Find("DollDisplay/DollImage") != null
+            && workshopObj.transform.Find("AbyssDoorPanel/AbyssDoorIcon_Image") != null;
 
         if (result.Success
             && nodesPlayed
@@ -64,14 +70,15 @@ public static class PrologueHalfOpenNarrativeFlowSmokeTest {
             && noGenericLayerPanel
             && actionPublished
             && layerConfirmRequested
-            && playerReadablePressureHint) {
+            && playerReadablePressureHint
+            && formalV2Zones) {
             Debug.Log("Prologue Half Open Narrative Flow Smoke PASSED.");
         } else {
             Debug.LogError(
                 "Prologue Half Open Narrative Flow Smoke FAILED. "
                 + $"Success={result.Success}, Nodes={nodesPlayed}, HalfOpenUI={halfOpenUi}, HiddenSystems={hiddenSystems}, "
                 + $"NoGenericPanel={noGenericLayerPanel}, Action={actionPublished}, LayerConfirm={layerConfirmRequested}, "
-                + $"Hint={playerReadablePressureHint}, ActionsSeen={string.Join("|", result.WorkshopActionIDs)}, "
+                + $"Hint={playerReadablePressureHint}, FormalV2Zones={formalV2Zones}, ActionsSeen={string.Join("|", result.WorkshopActionIDs)}, "
                 + $"Unlocks={string.Join("|", result.UnlockGateIDs)}, Text={text}, Errors={string.Join("|", result.Errors)}");
         }
 

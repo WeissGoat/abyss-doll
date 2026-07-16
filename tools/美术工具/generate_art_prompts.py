@@ -11,6 +11,12 @@ from pathlib import Path
 from typing import Any, Dict, Tuple
 
 
+NARRATIVE_CG_STYLE_EN = (
+    "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, "
+    "hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, "
+    "restrained cinematic lighting, clear silhouette, one readable focal point"
+)
+
 STYLE_EN = (
     "Japanese anime-inspired 2D game art, subterranean fantasy adventure, whimsical yet ominous, "
     "soft cel-shaded painterly rendering, clean linework, clear saturated accents, "
@@ -538,6 +544,42 @@ DOLL_CN = {
     "doll_proto_0": "原型机·零立绘，人形机械魔偶，纤细但坚固，外露机械关节、维修痕迹、旧工坊零件和冷色核心灯，安静中性站姿。",
 }
 
+NARRATIVE_CG_EN = {
+    "t0_01a_p02_panel01_workshop_wide": "wide cinematic comic panel of a cramped ruined underground workshop room, workshop-first not cave-first, patched shelves, repair tools, damp stone floor, one old workbench on the right, a dust cloth covering a fragile doll-shaped silhouette as the focal point, one rain-damp debt notice near the left door crack, faint shallow-gate outline in the back, cool gray-blue light, quiet pressure, no readable text",
+    "t0_01a_p02_panel02_debt_notice_door": "cinematic close comic panel of a damp paper notice sliding through a workshop door crack, cold rain light, wet paper edge, simple stamp-like shapes and blank blocks suggesting debt pressure, no readable text, no letters, no numbers",
+    "t0_01a_p02_panel03_no0_hand_cloth": "intimate comic panel close-up of a delicate mechanical doll hand emerging from under a dust cloth, fragile fingers slightly curled as if holding a lost memory, old workshop table surface, soft dust, cool muted light",
+    "t0_01a_p03_panel01_debt_notice_close": "close comic panel of a debt notice on a worn workshop floor, only abstract seal shapes and rough blocks implying foreclosure tonight and collateral, wet paper fibers, cold shadow, no readable writing, no UI card framing",
+    "t0_01a_p03_panel02_collateral_shadow": "quiet comic panel of old workshop machinery in deep silhouette, worn gears and covered repair tools, gray-blue rain light from the doorway, restrained still-life composition, no brass steampunk warmth",
+    "t0_01a_p03_panel03_broken_parts": "comic panel of broken doll parts on an old workbench, severed mechanical arm, burned core socket fragment, old chassis plate, loose wires, understated despair, cool workshop light, clear single focal cluster",
+    "t0_01a_p04_panel01_repair_note_close": "comic panel close-up of an old repair notebook page with circles and diagram shapes suggesting shallow-layer core clues, no readable text, worn paper, small tool marks, cool blue-white reflected light",
+    "t0_01a_p04_panel02_shallow_gate_glow": "wide comic panel of a dark workshop hatch or hidden shallow gate with a thin cold glow leaking through the seam, damp stone and old wood, subterranean air, quiet mysterious mood, no character",
+    "t0_01a_p04_panel03_core_shard_box": "cinematic comic panel of a half-open toolbox containing one final glowing core shard, old insulating tape and key nearby, the shard casts faint cold light toward a dust cloth silhouette, clear prop focus",
+    "t0_01a_p05_panel01_broken_doll_parts": "vertical comic panel scanning broken spare doll remains, severed arm, burned core chamber, old base plate, dark cloth scraps, workshop dust, showing there is no second usable doll, restrained and non-horror",
+    "t0_01a_p05_panel02_no0_half_reveal": "cinematic comic panel of No.0 half revealed after the dust cloth is lifted, fragile anime mechanical doll girl but not childlike, upper body and knees visible, white cloth blindfold, gray shawl over both shoulders, simple short inner dress, bare legs, subtle doll joints, quiet emotion, cool workshop light",
+    "t0_01a_p05_panel03_no0_core_dim": "close comic panel of No.0's upper torso repair hatch under a gray shawl, small dim core chamber partly hidden by cloak fabric and cracked inner cloth, faint cold white light leaking through mechanical seams, partial neck and shawl visible for identity, understated repair detail, not a standalone orb, not a circular jewel, not a necklace, not a chest pendant, not a cave relic, no sensual framing, no horror doll mood",
+    "t0_01a_p06_panel01_no0_close": "close comic panel of No.0's face and upper body before activation, fragile anime mechanical doll girl but not childlike, pale silver long loose hair visible around her face and shoulders, wide white cloth blindfold fully covering both eyes, no visible eyes, soft gray shawl over both shoulders, calm emotionless expression, delicate anime face rather than mannequin face, muted mature proportions, cool gray-blue poor workshop lighting, clear face focus",
+    "t0_01a_p06_panel02_core_insert": "action comic panel close-up of a final core shard being inserted into No.0's chest core chamber under her gray shawl, No.0's upper torso edge visible, protagonist hand only partially visible and not the focus, cold blue-white glow, delicate mechanical socket connection, ritual-like quiet moment, not a door, not a gate, not a cave shrine",
+    "t0_01a_p06_panel03_core_wake": "wide comic panel of No.0's upper body as her chest core wakes from darkness into weak cold white light, white cloth blindfold and gray shawl silhouette visible, workshop lamp briefly flickering behind her, dust particles in the air, fragile hope, cinematic low-noise composition, not a cave crystal, not an empty cave scene",
+}
+
+NARRATIVE_CG_CN = {
+    "t0_01a_p02_panel01_workshop_wide": "狭窄破败地底工坊远景，以工坊房间而不是洞穴为主；有修补架、维修工具、潮湿石地，旧工作台偏右，防尘布下的人偶轮廓是焦点，左侧门缝附近只有一张被雨打湿的催缴纸，后方有浅层暗门轮廓，冷灰蓝光和安静压力。",
+    "t0_01a_p02_panel02_debt_notice_door": "门缝纸张滑入的特写，雨水湿边、冷光、抽象印章和空白块表达债务压力，不出现可读文字。",
+    "t0_01a_p02_panel03_no0_hand_cloth": "防尘布下露出精细机械人偶手部的近景，手指微微蜷曲，像抓着一段失去的记忆，旧工坊桌面、灰尘和冷光。",
+    "t0_01a_p03_panel01_debt_notice_close": "催缴纸近景，用抽象封印和粗线块表达今晚封存、抵扣和债务压力，不是 UI 小卡，不出现可读文字。",
+    "t0_01a_p03_panel02_collateral_shadow": "旧工坊机械的深色剪影静物，旧齿轮和盖布维修工具在灰蓝雨光里，克制安静，不走黄铜暖灯。",
+    "t0_01a_p03_panel03_broken_parts": "工作台上的坏掉人偶残件，断臂、烧坏核心仓、旧底盘和断线，表达没有第二台可用人偶。",
+    "t0_01a_p04_panel01_repair_note_close": "旧修复手记特写，用圈线和图形暗示浅层晶核线索，不出现 AI 乱码或可读文字。",
+    "t0_01a_p04_panel02_shallow_gate_glow": "工坊暗门或浅层入口缝隙透出细冷光，潮湿石面和旧木结构，地下空间像在呼吸。",
+    "t0_01a_p04_panel03_core_shard_box": "半开的工具匣中只有最后一枚核心碎片，绝缘带和旧钥匙在旁，碎片微光照向防尘布轮廓。",
+    "t0_01a_p05_panel01_broken_doll_parts": "竖向分格扫过坏掉的人偶备件，断臂、烧坏核心仓、旧底盘和布片，克制表达资源见底，不做恐怖感。",
+    "t0_01a_p05_panel02_no0_half_reveal": "掀开防尘布后的零号半身，脆弱但不幼态，能看到上半身到膝部，白布遮眼、灰披肩覆盖双肩、简单短内衬、裸腿、轻微人偶关节，安静冷光。",
+    "t0_01a_p05_panel03_no0_core_dim": "零号上半身核心仓弱光近景，核心嵌在胸腔内，被灰披肩和破损布料边缘半遮住，能看见局部颈部和披肩以确认身份；冷白微光、细机械缝隙，不是独立球体或洞穴遗物，不性感化、不恐怖化。",
+    "t0_01a_p06_panel01_no0_close": "启动前零号脸部和上半身近景，脆弱但不幼态，白布遮眼、灰披肩覆盖双肩、冷感三无表情、克制的成熟比例，冷灰蓝工坊光。",
+    "t0_01a_p06_panel02_core_insert": "最后核心碎片接入零号胸腔核心仓的近景动作分格，灰披肩下能看到零号上半身边缘，主角手部只部分入镜，冷白微光和精细机械插槽，像仪式而不是普通道具使用；不是门、不是机关、不是洞穴祭坛。",
+    "t0_01a_p06_panel03_core_wake": "零号上半身宽分格，白布遮眼和灰披肩剪影可见，胸腔核心从熄灭到微弱冷白亮起，背后工坊灯短暂闪烁，空气中有灰尘，脆弱希望感；不是洞穴晶体或空洞场景。",
+}
+
 NEGATIVE = {
     "item": "text, letters, numbers, watermark, logo, signature, busy background, cropped object, photorealistic hand, real person, clean plastic toy, multiple copies",
     "monster": "text, letters, numbers, watermark, logo, signature, busy background, cute mascot, friendly smile, excessive gore, cropped head, full environment scene, photorealistic animal photo",
@@ -549,6 +591,7 @@ NEGATIVE = {
     "faction": "text, letters, numbers, watermark, logo, signature, busy background, national flag, real-world heraldry, photorealistic medal, multiple copies",
     "order": "text, letters, numbers, watermark, logo, signature, busy background, UI panel, readable paperwork, multiple copies, photorealistic product shot, human hands",
     "doll": "text, letters, numbers, watermark, logo, signature, photorealistic human, sexy pose, exaggerated expression, cropped feet, cropped head, busy background",
+    "narrative_cg": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
     "background": "text, letters, numbers, watermark, logo, signature, main character, large foreground creature, UI panels, buttons, high contrast noise, bright daylight",
     "ui": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
 }
@@ -817,6 +860,22 @@ SPEC = {
         safe_area="center_4_3",
         composition="wide environment with negative space",
         post_process=["crop_16_9", "resize"],
+        preview_size=320,
+    ),
+    "narrative_cg": make_spec(
+        width=1920,
+        height=1080,
+        background="opaque_environment",
+        alpha_required=False,
+        display_width=1920,
+        display_height=1080,
+        fit_mode="cover",
+        safe_padding=0,
+        subject_min=0.0,
+        subject_max=1.0,
+        safe_area="center_4_3",
+        composition="cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+        post_process=["crop_16_9", "resize", "contact_sheet"],
         preview_size=320,
     ),
     "ui": make_spec(
@@ -1437,6 +1496,7 @@ FORBIDDEN_PATTERNS = [
 STALE_PROMPT_FRAGMENTS = [
     "downward broken dark arrow with cold purple haze",
     "cracked downward dark arrow combined with a purple falling triangle",
+    "heavy collateral shadow",
 ]
 
 NEGATIVE_BY_CONFIG = {
@@ -1605,6 +1665,8 @@ def lookup(domain: str, config_id: str, english: bool) -> str:
         ("order", False): ORDER_CN,
         ("background", True): BACKGROUND_EN,
         ("background", False): BACKGROUND_CN,
+        ("narrative_cg", True): NARRATIVE_CG_EN,
+        ("narrative_cg", False): NARRATIVE_CG_CN,
         ("ui", True): UI_EN,
         ("ui", False): UI_CN,
         ("doll", True): DOLL_EN,
@@ -1633,6 +1695,12 @@ def prompt_for(entry: Dict[str, Any]) -> tuple[str, str, str, Dict[str, Any]]:
             prompt_en = f"{STYLE_EN}, creature portrait, {detail_en}, front or three-quarter view, head and upper body, strong silhouette, simple background, dramatic rim light, no text"
     elif domain == "doll":
         prompt_en = f"{STYLE_EN}, full-body character concept art, {detail_en}, neutral standing pose, full figure, clear silhouette, transparent background, no text"
+    elif domain == "narrative_cg":
+        prompt_en = (
+            f"{NARRATIVE_CG_STYLE_EN}, cinematic narrative comic panel, {detail_en}, "
+            "single clear focal point, strong readable composition, key subject inside center 4:3 safe area, "
+            "opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text"
+        )
     elif domain == "node":
         prompt_en = f"{STYLE_EN}, minimal map icon, {detail_en}, centered symbol, bold silhouette, high contrast, transparent background, no text"
     elif domain == "chassis":

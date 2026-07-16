@@ -15,6 +15,10 @@ related:
   - 开发文档/rules/04_自动化测试与验收流程规范.md
   - tools/agent/README.md
   - 知识库/views/program.md
+  - 美术文档/README.md
+  - 美术文档/00_美术流水线总览.md
+  - 美术文档/09_运行时美术验收记录.md
+  - 美术文档/10_正式版核心纵切美术路线.md
 last_verified: 2026-07-12
 update_rule: 修改程序验收、美术迭代验收、发布聚合、共享证据契约或 Unity MCP 验收边界时同步本文件。
 ---
@@ -366,10 +370,12 @@ p3_program_run_profile
 
 ```text
 p3_art_open_target
-p3_art_capture
-p3_art_run_acceptance
+p3_art_inspect_target
+p3_art_prepare_capture
+p3_art_finalize_capture
 p3_art_run_profile
 p3_art_compare_iteration
+p3_art_run_regression
 ```
 
 所有工具只接收白名单 Profile、Smoke set、ScreenTag、目标 ID 和修改动作，不接收任意 C#、菜单或文件系统路径。
@@ -432,12 +438,9 @@ p3_art_compare_iteration
 
 ## 13. 当前状态
 
-- 本设计已由用户确认采用方案 B。
-- 旧 `p3-validation` 首版实现存在，但尚未成为正式工作流，也没有需要兼容的正式证据。
-- 下一步先生成直接拆分的详细实现计划，再执行代码、Profile、Skill 和证据格式重构。
-# 2026-07-12 实现状态
+截至 2026-07-12，已按分离架构落地 `p3-program-validation`、`p3-art-validation`、`p3-release-validation` 与共享 `P3ValidationCore`。程序路径不启动 ArtAcceptance；美术路径只允许注册目标和强类型 UGUI / Approved VisualID 边界；发布路径只读聚合两个完成的 RunID。证据根分别为 `program-runs`、`art-runs`、`release-runs`。
 
-已按分离架构落地 `p3-program-validation`、`p3-art-validation`、`p3-release-validation` 与共享 `P3ValidationCore`。程序路径不启动 ArtAcceptance；美术路径只允许注册目标和强类型 UGUI/Approved VisualID 边界；发布路径只读聚合两个完成的 RunID。证据根分别为 `program-runs`、`art-runs`、`release-runs`。
+旧混合 `p3-validation` 不再是 active 入口；日常美术验收按第 14 节 MCP live-first 执行，旧 ArtAcceptance Runner 只由 `art_regression` 调用。
 
 ## 14. p3-art-validation V2：MCP 实时优先
 

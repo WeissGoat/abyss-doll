@@ -193,63 +193,65 @@ public static class CombatLootDropTest {
         canvasObj.AddComponent<Canvas>();
         canvasObj.AddComponent<GraphicRaycaster>();
 
+        GameFlowController previousFlow = GameFlowController.Instance;
         GameObject flowObj = new GameObject("GameFlowController");
         GameFlowController flow = flowObj.AddComponent<GameFlowController>();
         SetGameFlowInstance(flow);
-        SetGameFlowScreen(flow, "CombatLoot");
-        InventoryPresentationController presentation = flowObj.AddComponent<InventoryPresentationController>();
-        presentation.SetContext(InventoryPresentationMode.CombatLoot);
+        try {
+            SetGameFlowScreen(flow, "CombatLoot");
+            InventoryPresentationController presentation = flowObj.AddComponent<InventoryPresentationController>();
+            presentation.SetContext(InventoryPresentationMode.CombatLoot);
 
-        var doll = core.CurrentPlayer.ActiveDoll;
-        doll.RuntimeGrid = new BackpackGrid(doll.Chassis);
-        BackpackGrid grid = doll.RuntimeGrid as BackpackGrid;
-        ItemEntity backpackItem = ConfigManager.CreateItem("loot_gear_scrap");
-        string placeReason = string.Empty;
-        bool placed = grid != null
-            && backpackItem != null
-            && PlaceViaInventoryService(backpackItem, 0, 0, "CombatLootDiscardUITestSetup", out placeReason);
-        if (!placed) {
-            Debug.LogError($"Combat Loot Backpack Discard UI FAILED. Could not place test backpack item through InventoryInteractionService: {placeReason}");
+            var doll = core.CurrentPlayer.ActiveDoll;
+            doll.RuntimeGrid = new BackpackGrid(doll.Chassis);
+            BackpackGrid grid = doll.RuntimeGrid as BackpackGrid;
+            ItemEntity backpackItem = ConfigManager.CreateItem("loot_gear_scrap");
+            string placeReason = string.Empty;
+            bool placed = grid != null
+                && backpackItem != null
+                && PlaceViaInventoryService(backpackItem, 0, 0, "CombatLootDiscardUITestSetup", out placeReason);
+            if (!placed) {
+                Debug.LogError($"Combat Loot Backpack Discard UI FAILED. Could not place test backpack item through InventoryInteractionService: {placeReason}");
+                return;
+            }
+
+            GameObject slotObj = new GameObject("Slot_0_0");
+            slotObj.transform.SetParent(canvasObj.transform, false);
+            slotObj.AddComponent<RectTransform>();
+
+            GameObject itemObj = new GameObject("BackpackItemUI");
+            itemObj.transform.SetParent(canvasObj.transform, false);
+            itemObj.AddComponent<RectTransform>();
+            itemObj.AddComponent<Image>();
+            itemObj.AddComponent<CanvasGroup>();
+            DraggableItemUI itemUI = itemObj.AddComponent<DraggableItemUI>();
+            itemUI.SetupData(backpackItem);
+            itemUI.SnapToSlot(slotObj.transform, 0, 0);
+
+            PointerEventData eventData = new PointerEventData(null) {
+                position = new Vector2(32f, 32f)
+            };
+
+            itemUI.OnBeginDrag(eventData);
+            itemUI.OnEndDrag(eventData);
+
+            bool canStage = flow.CanStageRemovedBackpackItems();
+            bool stagedForDiscard = itemUI != null && itemUI.IsPendingDiscard;
+            bool removedFromGrid = placed && grid != null && !grid.ContainedItems.Contains(backpackItem);
+
+            InvokeDiscardDetachedBackpackItems(flow);
+            bool queuedOrDestroyedAfterDiscard = Application.isPlaying || itemUI == null;
+
+            if (canStage && stagedForDiscard && removedFromGrid && queuedOrDestroyedAfterDiscard) {
+                Debug.Log("Combat Loot Backpack Discard UI PASSED.");
+            } else {
+                Debug.LogError($"Combat Loot Backpack Discard UI FAILED. CanStage={canStage}, Pending={stagedForDiscard}, RemovedFromGrid={removedFromGrid}, QueuedOrDestroyed={queuedOrDestroyedAfterDiscard}");
+            }
+        } finally {
+            SetGameFlowInstance(previousFlow);
             UnityEngine.Object.DestroyImmediate(canvasObj);
             UnityEngine.Object.DestroyImmediate(flowObj);
-            return;
         }
-
-        GameObject slotObj = new GameObject("Slot_0_0");
-        slotObj.transform.SetParent(canvasObj.transform, false);
-        slotObj.AddComponent<RectTransform>();
-
-        GameObject itemObj = new GameObject("BackpackItemUI");
-        itemObj.transform.SetParent(canvasObj.transform, false);
-        itemObj.AddComponent<RectTransform>();
-        itemObj.AddComponent<Image>();
-        itemObj.AddComponent<CanvasGroup>();
-        DraggableItemUI itemUI = itemObj.AddComponent<DraggableItemUI>();
-        itemUI.SetupData(backpackItem);
-        itemUI.SnapToSlot(slotObj.transform, 0, 0);
-
-        PointerEventData eventData = new PointerEventData(null) {
-            position = new Vector2(32f, 32f)
-        };
-
-        itemUI.OnBeginDrag(eventData);
-        itemUI.OnEndDrag(eventData);
-
-        bool canStage = flow.CanStageRemovedBackpackItems();
-        bool stagedForDiscard = itemUI != null && itemUI.IsPendingDiscard;
-        bool removedFromGrid = placed && grid != null && !grid.ContainedItems.Contains(backpackItem);
-
-        InvokeDiscardDetachedBackpackItems(flow);
-        bool queuedOrDestroyedAfterDiscard = Application.isPlaying || itemUI == null;
-
-        if (canStage && stagedForDiscard && removedFromGrid && queuedOrDestroyedAfterDiscard) {
-            Debug.Log("Combat Loot Backpack Discard UI PASSED.");
-        } else {
-            Debug.LogError($"Combat Loot Backpack Discard UI FAILED. CanStage={canStage}, Pending={stagedForDiscard}, RemovedFromGrid={removedFromGrid}, QueuedOrDestroyed={queuedOrDestroyedAfterDiscard}");
-        }
-
-        UnityEngine.Object.DestroyImmediate(canvasObj);
-        UnityEngine.Object.DestroyImmediate(flowObj);
     }
 
     private static void RunCombatLootConfirmationRequiresBackpackPlacement(CoreBackend core) {

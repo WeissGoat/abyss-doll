@@ -17,7 +17,7 @@ related:
   - 开发文档/00_程序开发大纲.md
   - 设计文档/GDD/GDD_00_系统关联总图.md
   - 美术文档/README.md
-last_verified: 2026-05-23
+last_verified: 2026-07-11
 update_rule: 项目阶段、核心目录、AI 路由或工作准则变化时同步本文件。
 ---
 
@@ -65,6 +65,8 @@ update_rule: 项目阶段、核心目录、AI 路由或工作准则变化时同�
 *   **数值基准规范**：`数值模型设计/00_基准价值与空间本位模型.md` 
 
 ### 美术 (Art & UI)
+*   **美术资产生产工作流 skill**：`.codex/skills/p3-art-asset-production/SKILL.md`
+*   **图片生成 / 编辑能力 skill**：`.codex/skills/p3-generate-image/SKILL.md`（`generate-image`）
 *   **美术流水线总览**：`美术文档/00_美术流水线总览.md`
 *   **Manifest 规范**：`美术文档/01_Manifest规范.md`
 *   **资源规格与接入规范**：`美术文档/02_资源规格与接入规范.md`

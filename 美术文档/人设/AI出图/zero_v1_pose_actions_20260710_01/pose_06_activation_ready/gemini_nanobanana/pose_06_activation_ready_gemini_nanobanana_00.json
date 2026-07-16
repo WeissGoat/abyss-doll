@@ -1,0 +1,20 @@
+{
+  "pose_id": "pose_06_activation_ready",
+  "pose_name": "activation ready",
+  "backend_id": "gemini_nanobanana",
+  "provider": "gemini_chat_image",
+  "model": "gemini-3.1-flash-image",
+  "seed": null,
+  "generation_params": {
+    "api_surface": "chat/completions",
+    "model": "gemini-3.1-flash-image",
+    "prompt": "Create one single full-body anime game character reference image of Project P3 character \"Zero\".\n\nThis must be one image with one character only, not a turnaround sheet, not multiple views, not a collage. Clean white background. No text, no labels, no UI, no props, no room scene.\n\nPose and camera: activation-ready pose, feet planted, one hand lightly touching the white blindfold, a faint red glow visible behind the cloth.\n\nCharacter identity: Zero is a quiet compact doll-like heroine with a slim non-sexualized model-sheet body. She has silver-white long loose hair worn down naturally, unbound and lightly messy, falling around her shoulders and down her back. Her eyes are normally hidden by a soft white cloth blindfold. Behind the blindfold her real eyes are red; in normal poses they stay covered, and in activation or unstable poses only a faint red glow may show through the cloth.\n\nCostume and body: complete plain gray shoulder cloak covering both shoulders, chest, upper arms, and the hidden core chamber; very simple short inner underdress with no decoration; uncovered legs and unshod feet drawn as neutral character design reference; subtle doll-joint seams at wrists, knees, and ankles; light dust, small scratches, and worn fabric edges. The core chamber stays hidden under the cloak in this image.\n\nMood and style: cold, restrained, emotionless, kuudere, quiet beauty; clean thin linework, soft cel shading, gentle gray-white palette, readable silhouette, elegant but not ornate.\n\nAvoid: multiple characters, multiple views, turnaround sheet, collage, complex background, room, furniture, black blindfold, visible exposed eyes unless red glow through cloth is requested by the pose, blue eyes, 2B outfit, pink cape, purple dress, begging sign, chest tag, necklace, visible chest core, bare shoulder, half-exposed shoulder, mature tall body, pinup pose, erotic pose, boots, shoes, high heels, armor, heavy machinery, blood, gore, text, watermark.",
+    "negative_prompt": "",
+    "width": 1024,
+    "height": 1536,
+    "count": 1,
+    "result_index": 0
+  },
+  "cost": 0.0,
+  "bytes": 110641
+}

@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-06-10T00:19:56+08:00",
-  "SnapshotTag": "",
+  "GeneratedAt": "2026-07-12T16:17:46+08:00",
+  "SnapshotTag": "zero_dialogue_differences_20260712",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",
@@ -8,11 +8,12 @@
     "IncomingRoot": "UnityClient/Assets/Art/_IncomingAI"
   },
   "Summary": {
-    "TotalManifestEntries": 284,
-    "TotalVisualIDs": 279,
-    "TotalCandidates": 278,
+    "TotalManifestEntries": 299,
+    "TotalVisualIDs": 294,
+    "TotalCandidates": 293,
     "ActionCounts": {
-      "acceptance_needed": 278
+      "acceptance_needed": 290,
+      "art_approve": 3
     },
     "DomainCounts": {
       "background": 17,
@@ -22,6 +23,7 @@
       "item": 35,
       "memento": 15,
       "monster": 42,
+      "narrative_cg": 15,
       "node": 8,
       "order": 35,
       "prosthetic": 8,
@@ -29,8 +31,8 @@
       "ui": 91
     },
     "PriorityCounts": {
-      "P0": 86,
-      "P1": 68,
+      "P0": 98,
+      "P1": 71,
       "P2": 124
     }
   },
@@ -566,31 +568,6 @@
       "ManifestEntryCount": 1
     },
     {
-      "VisualID": "item_loot_rusty_coil_icon",
-      "Action": "acceptance_needed",
-      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 已合并 2 个 Manifest 来源。",
-      "Confidence": "medium",
-      "Priority": "P0",
-      "Domain": "item",
-      "AssetType": "icon",
-      "ConfigID": "loot_rusty_coil, trade_miner_lamp",
-      "DisplayName": "生锈线圈 / 矿工提灯",
-      "Status": "approved, prompted",
-      "RegistryStatus": "unregistered",
-      "RegistryHasSprite": true,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_rusty_coil_icon.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/20260609_001.png",
-      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/processed/20260510_001.png",
-      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/raw/20260510_001.png",
-      "ReferencedBy": [
-        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_rusty_coil.json",
-        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_miner_lamp.json"
-      ],
-      "ManifestEntryCount": 2
-    },
-    {
       "VisualID": "item_loot_spore_amber_icon",
       "Action": "acceptance_needed",
       "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
@@ -613,31 +590,6 @@
         "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_spore_amber.json"
       ],
       "ManifestEntryCount": 1
-    },
-    {
-      "VisualID": "item_loot_toxic_filter_icon",
-      "Action": "acceptance_needed",
-      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 已合并 2 个 Manifest 来源。",
-      "Confidence": "medium",
-      "Priority": "P0",
-      "Domain": "item",
-      "AssetType": "icon",
-      "ConfigID": "loot_toxic_filter, trade_cracked_relic",
-      "DisplayName": "污染滤芯 / 裂纹圣牌",
-      "Status": "approved, prompted",
-      "RegistryStatus": "unregistered",
-      "RegistryHasSprite": true,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_toxic_filter_icon.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/20260609_004.png",
-      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/processed/20260510_001.png",
-      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/raw/20260510_001.png",
-      "ReferencedBy": [
-        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_toxic_filter.json",
-        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_cracked_relic.json"
-      ],
-      "ManifestEntryCount": 2
     },
     {
       "VisualID": "item_loot_vein_plate_icon",
@@ -686,31 +638,6 @@
         "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_warped_plate.json"
       ],
       "ManifestEntryCount": 1
-    },
-    {
-      "VisualID": "item_mat_core_tier1_icon",
-      "Action": "acceptance_needed",
-      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 已合并 2 个 Manifest 来源。",
-      "Confidence": "medium",
-      "Priority": "P0",
-      "Domain": "item",
-      "AssetType": "icon",
-      "ConfigID": "mat_core_tier1, mat_core_tier2",
-      "DisplayName": "一阶动力核心 / 二阶污染核心",
-      "Status": "approved, prompted",
-      "RegistryStatus": "unregistered",
-      "RegistryHasSprite": true,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier1_icon.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/20260609_003.png",
-      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/processed/20260510_001.png",
-      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/raw/20260510_001.png",
-      "ReferencedBy": [
-        "config:UnityClient/Assets/StreamingAssets/Configs/Items/mat_core_tier1.json",
-        "config:UnityClient/Assets/StreamingAssets/Configs/Items/mat_core_tier2.json"
-      ],
-      "ManifestEntryCount": 2
     },
     {
       "VisualID": "item_mat_core_tier2_fragment_icon",
@@ -1889,6 +1816,294 @@
       "ManifestEntryCount": 1
     },
     {
+      "VisualID": "cg_t0_01a_p02_panel01_workshop_wide",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p02_panel01_workshop_wide",
+      "DisplayName": "T0序章-工坊远景",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p02_panel01_workshop_wide.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/selected/20260710_001.png",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "cg_t0_01a_p02_panel02_debt_notice_door",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p02_panel02_debt_notice_door",
+      "DisplayName": "T0序章-门缝催缴纸",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p02_panel02_debt_notice_door.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel02_debt_notice_door/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel02_debt_notice_door/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "cg_t0_01a_p02_panel03_no0_hand_cloth",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p02_panel03_no0_hand_cloth",
+      "DisplayName": "T0序章-布下零号手部",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p02_panel03_no0_hand_cloth.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel03_no0_hand_cloth/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel03_no0_hand_cloth/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "cg_t0_01a_p03_panel01_debt_notice_close",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p03_panel01_debt_notice_close",
+      "DisplayName": "T0序章-债务纸特写",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p03_panel01_debt_notice_close.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel01_debt_notice_close/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel01_debt_notice_close/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "cg_t0_01a_p04_panel01_repair_note_close",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p04_panel01_repair_note_close",
+      "DisplayName": "T0序章-修复手记",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p04_panel01_repair_note_close.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel01_repair_note_close/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel01_repair_note_close/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "cg_t0_01a_p04_panel02_shallow_gate_glow",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p04_panel02_shallow_gate_glow",
+      "DisplayName": "T0序章-浅层暗门冷光",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p04_panel02_shallow_gate_glow.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel02_shallow_gate_glow/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel02_shallow_gate_glow/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "cg_t0_01a_p04_panel03_core_shard_box",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p04_panel03_core_shard_box",
+      "DisplayName": "T0序章-工具匣核心碎片",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p04_panel03_core_shard_box.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel03_core_shard_box/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel03_core_shard_box/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "cg_t0_01a_p05_panel02_no0_half_reveal",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p05_panel02_no0_half_reveal",
+      "DisplayName": "T0序章-零号半身揭示",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p05_panel02_no0_half_reveal.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel02_no0_half_reveal/selected/20260710_001.png",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel02_no0_half_reveal/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel02_no0_half_reveal/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "cg_t0_01a_p05_panel03_no0_core_dim",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p05_panel03_no0_core_dim",
+      "DisplayName": "T0序章-零号核心仓弱光",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p05_panel03_no0_core_dim.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel03_no0_core_dim/selected/20260710_003.png",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel03_no0_core_dim/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel03_no0_core_dim/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "cg_t0_01a_p06_panel01_no0_close",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p06_panel01_no0_close",
+      "DisplayName": "T0序章-启动前零号近景",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p06_panel01_no0_close.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel01_no0_close/selected/20260710_004.png",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel01_no0_close/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel01_no0_close/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "cg_t0_01a_p06_panel02_core_insert",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p06_panel02_core_insert",
+      "DisplayName": "T0序章-核心碎片接入",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p06_panel02_core_insert.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel02_core_insert/selected/20260710_001.png",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel02_core_insert/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel02_core_insert/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "cg_t0_01a_p06_panel03_core_wake",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p06_panel03_core_wake",
+      "DisplayName": "T0序章-核心仓微光启动",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p06_panel03_core_wake.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel03_core_wake/selected/20260710_001.png",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel03_core_wake/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel03_core_wake/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
       "VisualID": "node_boss_icon",
       "Action": "acceptance_needed",
       "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
@@ -2435,6 +2650,78 @@
         "screen:doll_room",
         "screen:scenario_event",
         "screen:workshop_main"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "cg_t0_01a_p03_panel02_collateral_shadow",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P1",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p03_panel02_collateral_shadow",
+      "DisplayName": "T0序章-抵扣机械阴影",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p03_panel02_collateral_shadow.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel02_collateral_shadow/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel02_collateral_shadow/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "cg_t0_01a_p03_panel03_broken_parts",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P1",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p03_panel03_broken_parts",
+      "DisplayName": "T0序章-工作台残件",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p03_panel03_broken_parts.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel03_broken_parts/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel03_broken_parts/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "cg_t0_01a_p05_panel01_broken_doll_parts",
+      "Action": "acceptance_needed",
+      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
+      "Confidence": "medium",
+      "Priority": "P1",
+      "Domain": "narrative_cg",
+      "AssetType": "cg_panel",
+      "ConfigID": "t0_01a_p05_panel01_broken_doll_parts",
+      "DisplayName": "T0序章-坏掉的人偶残件",
+      "Status": "approved",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p05_panel01_broken_doll_parts.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel01_broken_doll_parts/processed/20260707_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel01_broken_doll_parts/raw/20260707_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
       ],
       "ManifestEntryCount": 1
     },
@@ -6989,6 +7276,81 @@
         "screen:shop_staging"
       ],
       "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "item_loot_rusty_coil_icon",
+      "Action": "art_approve",
+      "Reason": "Incoming selected 已有候选，等待同步到 Approved。 已合并 2 个 Manifest 来源。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "ConfigID": "loot_rusty_coil, trade_miner_lamp",
+      "DisplayName": "生锈线圈 / 矿工提灯",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_rusty_coil_icon.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/20260609_001.png",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/processed/20260510_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/raw/20260510_001.png",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_rusty_coil.json",
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_miner_lamp.json"
+      ],
+      "ManifestEntryCount": 2
+    },
+    {
+      "VisualID": "item_loot_toxic_filter_icon",
+      "Action": "art_approve",
+      "Reason": "Incoming selected 已有候选，等待同步到 Approved。 已合并 2 个 Manifest 来源。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "ConfigID": "loot_toxic_filter, trade_cracked_relic",
+      "DisplayName": "污染滤芯 / 裂纹圣牌",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_toxic_filter_icon.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/20260609_004.png",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/processed/20260510_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/raw/20260510_001.png",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/loot_toxic_filter.json",
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/trade_cracked_relic.json"
+      ],
+      "ManifestEntryCount": 2
+    },
+    {
+      "VisualID": "item_mat_core_tier1_icon",
+      "Action": "art_approve",
+      "Reason": "Incoming selected 已有候选，等待同步到 Approved。 已合并 2 个 Manifest 来源。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "item",
+      "AssetType": "icon",
+      "ConfigID": "mat_core_tier1, mat_core_tier2",
+      "DisplayName": "一阶动力核心 / 二阶污染核心",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": true,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier1_icon.png",
+      "ApprovedFileExists": true,
+      "MetaFileExists": true,
+      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/20260609_003.png",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/processed/20260510_001.png",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/raw/20260510_001.png",
+      "ReferencedBy": [
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/mat_core_tier1.json",
+        "config:UnityClient/Assets/StreamingAssets/Configs/Items/mat_core_tier2.json"
+      ],
+      "ManifestEntryCount": 2
     }
   ]
 }

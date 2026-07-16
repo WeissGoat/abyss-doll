@@ -1,0 +1,33 @@
+{
+  "source": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\inputs\\zero_maintenance_sit\\gemini_maintenance_sit_identity_reference.jpg",
+  "source_mime": "image/jpeg",
+  "provider": "gemini_chat_image",
+  "prompt": "Use the supplied Gemini image as the primary identity and pose reference for Project P3 character Zero. Create one refined production-ready maintenance seated portrait while preserving the same recognizable girl, face shape, petite non-childlike body proportions, long loose silver-white hair, soft white cloth blindfold, and quiet restrained doll-like presence.\n\nPose: exactly one character seated in a compact calm maintenance posture on an invisible neutral support. Knees close together and angled naturally forward, lower legs relaxed, both bare feet fully visible and resting naturally. Hands rest quietly near the cloak edge or on the upper thighs without covering the whole costume. The pose should communicate fatigue, trust, and passive maintenance, never pinup or erotic display. Full body visible from hair tip to toes. Pure flat white background, no visible chair or maintenance machine.\n\nCostume: a separate plain gray shoulder cloak ending around the upper torso or waist, fully covering both shoulders, chest, upper arms, and the hidden core chamber. No knot, clasp, cord, pendant, brooch, or chest ornament. Under it is a separate simple ivory-gray ultra-short inner dress. Keep the cloak closed enough that the core chamber is completely concealed. Both legs uncovered and both feet completely bare.\n\nIdentity details: naturally loose unbound silver-white hair reaching below the waist toward the upper thighs, falling around the seated silhouette. White cloth blindfold fully closed; red eyes and red glow completely invisible. Add fine doll-joint seams at wrists, knees, and ankles only, plus light dust, tiny scratches, and gently worn cloth edges.\n\nStyle: polished Japanese anime game maintenance portrait, clean thin linework, soft cel shading, restrained gray-white palette, delicate readable silhouette, low visual noise. Petite and cute but explicitly non-childlike and non-sexualized.\n\nDo not add: extra views, collage, second character, chair, table, machine, tools, room, scenery, floor shadow, text, UI, watermark, visible eyes, red glow, exposed shoulder, open core chamber, cape dress, long coat panels, shoes, socks, boots, armor, mechanical limbs, large ball joints, spread legs, crossed legs, pinup pose, erotic camera angle, exaggerated curves, child or toddler proportions.",
+  "negative_prompt": "",
+  "width": 1024,
+  "height": 1536,
+  "count": 1,
+  "provider_request_count": 1,
+  "delay_seconds": 2.0,
+  "success_count": 1,
+  "errors": [],
+  "files": [
+    {
+      "image": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_maintenance_sit\\gemini_nanobanana\\gemini_maintenance_sit_identity_reference\\gemini_maintenance_sit_identity_reference_00.jpg",
+      "metadata": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_maintenance_sit\\gemini_nanobanana\\gemini_maintenance_sit_identity_reference\\gemini_maintenance_sit_identity_reference_00.json"
+    }
+  ],
+  "runs": [
+    {
+      "run_index": 0,
+      "success_count": 1,
+      "errors": [],
+      "files": [
+        {
+          "image": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_maintenance_sit\\gemini_nanobanana\\gemini_maintenance_sit_identity_reference\\gemini_maintenance_sit_identity_reference_00.jpg",
+          "metadata": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_maintenance_sit\\gemini_nanobanana\\gemini_maintenance_sit_identity_reference\\gemini_maintenance_sit_identity_reference_00.json"
+        }
+      ]
+    }
+  ]
+}

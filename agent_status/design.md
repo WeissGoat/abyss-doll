@@ -20,6 +20,7 @@ related:
   - 设计文档/README.md
   - 设计文档/剧情/README.md
   - 设计文档/剧情/00_剧情大纲.md
+  - 版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md
   - 设计文档/GDD/GDD_00_系统关联总图.md
   - 设计文档/delivery/00_策划文档开发交付审计.md
   - 设计文档/规则卡/01_局外时间与日程口径规则卡.md
@@ -82,7 +83,7 @@ related:
   - 美术文档/10_正式版核心纵切美术路线.md
   - agent_status/art.md
   - 知识库/views/design.md
-last_verified: 2026-07-03
+last_verified: 2026-07-11
 update_rule: 策划、数值、GDD 或配置意图任务完成后更新本文件。
 ---
 
@@ -90,7 +91,7 @@ update_rule: 策划、数值、GDD 或配置意图任务完成后更新本文件
 
 ## 最后更新
 
-2026-07-03
+2026-07-11
 
 ## 当前关注
 
@@ -104,7 +105,9 @@ PM 版本节点中，策划线当前落在 A1 前置：为 A2 背包与战斗正
 
 下一阶段策划工作已从“继续补设计文档”切换为“配置源 JSON 落地”。`设计文档/config/26_正式配置设计与填充推进计划.md` 已作为执行方案入口，按 `C1 第一层正式配置落地 -> C2 第二层直达与背包压力配置 -> C3 第三层路线侵蚀配置 -> C4 局外成长配置落地 -> C5 经济压力与订单配置落地` 推进。C1、C2 与 C3 均已配置完成；当前策划配置执行批次切到 C4 局外成长配置源落地，下一项为 `GROWTH-ID-LOCK` 复核，再进入底盘、义体、制造、维护、人偶状态和成长效果源 JSON。C4 只处理局外成长配置链，不扩经济压力、美术 UI 或第四层副本内容。
 
-T0-01A 叙事配置源已进入 `配置表(JSON)/Narrative/` 并完成首轮复核补强：当前只覆盖序章到首潜许可的 node、trigger、speaker、flag、command、对白表、UI 文案 key 和 Yarn 脚本源。该项可作为全局叙事播放系统的配置契约证据，不代表 UGUI 对白层、调度运行时或序章玩家路径已完成。
+T0-01A 叙事配置源已进入 `配置表(JSON)/Narrative/` 并完成首轮复核补强：当前只覆盖序章到首潜许可的 node、trigger、speaker、flag、command、对白表、UI 文案 key 和 Yarn 脚本源。2026-07-08 `T0-VAL-01` 已以 `conditional_pass:t0_val_01_formal_v2_runtime_slice` 收口到运行时纵切证据，证明该配置 / 文案链可以被玩家路径消费到首次下潜许可并进入第一层；但这不等于完整 T0 序章剧本、最终商业化逐屏文案或主策外部验收封板完成。2026-07-10 `T0-01` 已重规划为 V2，策划 / 文案侧后续应补 `T0-01B / T0-01C` 的浅层遭遇、首件带回物、回城照看和下一轮目标文案方案；本轮未修改 Narrative 配置源。
+
+2026-07-11 A 段封板候选已锁定策划 / 文案交付：校对 `T0-PRE-01..11` 的 line key、每屏 1-2 句和单句不超过 22 个中文字；黑屏为唯一自动离开镜头，其余关键句默认手动推进；`启动人偶`、`擦去核心仓灰尘`、`出发` 前必须等待玩家输入。本轮未修改 Narrative 配置源，后续实施时只做对齐和差异修正。
 
 防重复策划 / 配置开发状态已挂到 `设计文档/config/26_正式配置设计与填充推进计划.md`：`8.3 策划侧完整执行规划与状态总览` 是策划 agent 的完整工作规划入口，按需求 / 规则、配置设计准入、配置源落地、验收 / 校准、后续内容池分层记录；`8.4 策划配置执行状态表` 是配置源 JSON 落地的最小防重复台账，包含 C1-C5 批次总状态和子项级状态。后续完成任一策划工作项、配置批次或配置子项后，必须同步更新 `26` 和本状态页；没有源 JSON、同步和校验证据时，不得把状态标为 `配置完成`。
 
@@ -157,6 +160,15 @@ T0-01A 叙事配置源已进入 `配置表(JSON)/Narrative/` 并完成首轮复�
 
 ## 最近完成
 
+- 2026-07-11：`T0-PRE` 商业化基线已写入 `版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md` 第 3.1 节。策划 / 文案侧后续按 16 张目标截图承接 T0：A 段锁定黑屏、债务 / 手记 / 核心碎片、启动零号、苏醒照看、半开放工坊和首潜许可；B 段补浅缘短遭遇、轻消耗和首件带回物；C 段补回城照看、抵债 / 照看轻选择和下一轮目标。本轮未新增 Narrative 配置源、Yarn、trigger 或 line key。
+- 2026-07-11：`T0-01` 文档体系已收束出完整开发总入口 `版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md`。策划 / 文案侧后续不再把浅层遭遇、首件带回物、回城照看或下一轮目标补进 `T0-01A`；对应文案、Yarn node、trigger 和 line key 应按 `T0-01B / T0-01C` 单独承接。`T0-VAL-01` 只作为 A 段运行时验收记录，不代表完整 T0 主策验收。
+- 2026-07-10：`T0-01 序章首次循环` 已重规划为 V2，策划 / 文案侧口径改为完整 T0 必须覆盖“启动零号 -> 第一次浅层行动 -> 带回结果 -> 回城照看 -> 下一轮理由”，不再把进入第一层视为序章终点。后续建议新增 `T0-01B` 和 `T0-01C` Owner 具体设计，分别补浅层短遭遇 / 首件带回物与回城照看 / 下一轮目标；本轮没有新增配置源、没有调整 node / trigger / line key，也不声明主策外部验收封板完成。
+- 2026-07-08：`T0-VAL-01` 在第 15 节人工否决后完成正式版运行时重做，策划 / 文案侧当前口径改为 `conditional_pass:t0_val_01_formal_v2_runtime_slice`。最新证据为 `UnityClient/Logs/T0Validation/t0_val_01_final_capture_report.txt`：`captured_at=2026-07-08 00:46:12`、`count=10`、`semantic_failed=False`，contact sheet 为 `UnityClient/Logs/T0Validation/t0_val_01_final_contact_sheet_latest.png`。本轮未新增配置源或改动 Narrative key 口径；可声明现有序章配置 / 文案链支撑运行时纵切，不可声明完整 T0 序章剧本、最终商业化文案或主策验收封板完成。
+- 2026-07-06：用户人工验收再次否决 `T0-VAL-01`，策划 / 文案侧当前口径改为 `validation_failed:t0_val_01_commercial_prologue_not_passed`。最新 final report 的 `semantic_failed=False` 只能证明 8 个阶段状态存在，不能证明序章成立；当前缺口包括开场分镜没有形成“简单交代背景 -> 发现零号 -> 唯一启动交互 -> 苏醒后逐步解锁”的商业化节奏，部分文本更像功能说明。下一轮需要先锁定商业化分镜表、每屏 1-2 句对白、启动 / 擦灰 / 首潜许可关键行动文案，再改运行时。
+- 2026-07-05：`T0-VAL-01` 正式版优化方案已重设并写入 `版本规划/0-12小时细案/T0-VAL-01_最终实际效果优化文档.md` 第 13 节。策划 / 文案侧下一轮不是扩写世界观或新增分支，而是锁定正式分镜文案、默认手动对白推进策略、`启动零号` / `擦去核心仓灰尘` 行动文案、FormalV2 半开放工坊短文案和首次下潜许可卡文案。现有 T0-01A Narrative 配置源仍是基础契约证据，但不能替代第 13 节要求的商业化演出和玩家体验验收。
+- 2026-07-05：P0 总入口已补跑通过，最新 `UnityClient/Logs/P0Validation/latest/report.md` 为 RunID=`20260705_150220`，`Status=Passed`，Errors=0，Blocked=0，ValidationLimitations=0。策划 / 配置侧本轮未新增配置源；经济相关 smoke 只补固定验收夹具，确保 `rumor_mechanical_price_up` 在售价、概览和可读性文本测试中稳定存在，避免把 seed 42 的传闻池随机结果当成配置事实。`ConfigValidator` 仍保留 27 条 metadata-only tag warning，不作为配置阻塞。
+- 2026-07-05：补齐 `gear_mycelium_cloak` 的 `ModifyResourceCost` 必填字段，新增 `Trigger=OnDungeonMoveCost`、`Resource=SAN`、`Operation=AddPercent`，保留 `Params=-0.1` 作为移动 SAN 成本百分比减免语义；已运行 `.\tools\config\Sync-Configs.ps1 -Clean`，并通过 `ConfigValidationSmokeTest.Run` 单项验证（Errors=0，保留 27 条 metadata-only tag warning）。P0 总入口当前已不再因配置校验失败阻塞，剩余失败属于地下城 / 经济 / 测试报告产出链路，见 `agent_status/program.md`。
+- 2026-07-05：`T0-VAL-01` live Unity MCP Owner 自验已证明现有 T0-01A Narrative 配置 / 文案链可被玩家路径消费到第一层进入；本轮不新增正文、不改 trigger / node / flag / line key 方向，不改变配置源完成口径。证据入口回到 `agent_status/program.md`、`agent_status/art.md` 和 `PROJECT_STATUS.md` 的 2026-07-05 记录；策划侧只记录“配置 / 文案链未产生新缺口”，不声明整个 T0 序章完成。
 - `T0-VAL-01` 已把 T0-01A Narrative 配置源消费到“进入第一层”的 Owner 级证据链：现有 node / trigger / flag / line key / command 契约已被 `T0-FLOW-01..05` 与既有 clean batchmode / AutoTest 日志追溯到第一层进入，本轮不新增正文、不改 trigger 方向，只补状态回写与声明边界。当前仍缺连续画面截图和主职能外部验收，因此不能把它写成“整个序章完成”。
 - 已完成 `T0-CONTENT-01` 的 T0-01A Narrative 内容源复核与补强：`source_tables/t0_01a_prologue.dialogue.csv` 补到 74 行，覆盖对白、按钮、状态卡、浅层入口和首潜确认 UI 文案；`scripts/t0_01a_prologue.yarn` 补完整零号苏醒 12 句对白，并用注释型 `#line:` 保留 UI 文案 key，运行时不额外播放；`narrative_nodes.json` 补齐 8 个节点的 line / UI key 清单。已通过 Narrative 静态交叉审计（8 nodes、8 triggers、12 flags、7 commands、2 speakers、53 keys）、`Sync-Configs.ps1 -Clean`、`Validate-Docs.ps1` 和 C# 编译；本记录不声明 Unity runtime smoke、UGUI 对白层或 T0-01A 玩家路径已通过。
 - 已完成 `NARR-01` 的 T0-01A Narrative 配置源首批落地：新增 `配置表(JSON)/Narrative/` 下 `source_tables/t0_01a_prologue.dialogue.csv`、`scripts/t0_01a_prologue.yarn`、`narrative_nodes.json`、`narrative_triggers.json`、`narrative_speakers.json`、`narrative_flags.json`、`narrative_commands.json` 和 README。当前覆盖 8 个 T0-01A node、8 个 trigger、2 个 speaker、12 个 flag、7 个白名单命令；已通过 `Sync-Configs.ps1 -Clean`、Narrative 静态交叉引用审计和 C# 编译。Unity smoke 因项目已有 Unity 实例 / batchmode executeMethod 未消费目标方法，记录为受限验证；本记录不声明序章运行时 UI 或调度系统已完成。
@@ -275,10 +287,11 @@ T0-01A 叙事配置源已进入 `配置表(JSON)/Narrative/` 并完成首轮复�
 
 ## 下一步建议
 
-1. `T0-01A` Narrative 配置源本轮已被程序主链消费到第一层进入；后续不再把它当“待开始”配置项，只有在视觉验收或玩家体验复盘发现真实缺口时才补节点、trigger 或玩家文案。
-2. 先以 `设计文档/README.md` 作为策划文档阅读入口，避免把 GDD、规则卡、交付矩阵和内容包混成同一层级。
-3. 派发任何系统开发、配置、表现或验收任务前，先检查是否已有详细需求文档；若只有一句功能项，先补文档再交接。
-4. 按 `26_正式配置设计与填充推进计划.md` 的 `配置源落地执行方案` 进入 C4：局外成长配置源落地。下一步执行 `GROWTH-ID-LOCK` 复核，再按 `GROWTH-CHASSIS -> GROWTH-EFFECTS-TRAITS -> GROWTH-PROSTHETICS -> GROWTH-CRAFT-MAINT -> GROWTH-DOLL-TRAIT-ROOM -> GROWTH-VALIDATION` 推进；C1-C3 只按真实缺口做补齐、验收修复、字段迁移或数值校准，不重复派发基础配置。
+1. 按已补齐的 `T0-PRE` 16 张目标截图推进后续文案口径：先让 `T0-01A` 对齐 A 段封板候选，再补 `T0-01B / T0-01C` 的 Owner 具体设计文案口径：浅层短遭遇、首件带回物、回城照看、抵债 / 照看轻选择和 T1 钩子；确认后再决定是否新增或调整 Narrative 配置源。
+2. `T0-VAL-01` 当前以条件通过作为运行时纵切证据收口。若继续追最终商业化封板，策划 / 文案侧下一轮应按 T0 V2 链路聚焦漫画页字幕条、每屏 1-2 句对白、启动 / 擦灰 / 首潜许可 / 回城照看关键行动文案和主策人工复核；新增或调整 line key、node、trigger、command、UI text key 后必须重新同步 / 审计。
+3. 先以 `设计文档/README.md` 作为策划文档阅读入口，避免把 GDD、规则卡、交付矩阵和内容包混成同一层级。
+4. 派发任何系统开发、配置、表现或验收任务前，先检查是否已有详细需求文档；若只有一句功能项，先补文档再交接。
+5. 按 `26_正式配置设计与填充推进计划.md` 的 `配置源落地执行方案` 进入 C4：局外成长配置源落地。下一步执行 `GROWTH-ID-LOCK` 复核，再按 `GROWTH-CHASSIS -> GROWTH-EFFECTS-TRAITS -> GROWTH-PROSTHETICS -> GROWTH-CRAFT-MAINT -> GROWTH-DOLL-TRAIT-ROOM -> GROWTH-VALIDATION` 推进；C1-C3 只按真实缺口做补齐、验收修复、字段迁移或数值校准，不重复派发基础配置。
 5. 策划工作项、C1-C5 任一批次或子项开始、完成或阻塞时，同步更新 `26` 的 `8.3 策划侧完整执行规划与状态总览`、必要时更新 `8.4 策划配置执行状态表` 和本状态页；需求 / 规则、配置设计准入、配置源落地、验收 / 校准、后续内容池要分层记录，已完成或进行中的同名配置批次 / 子项不得重复派发，只能按真实缺口做补齐、验收修复、字段迁移或数值校准。
 6. 以交付审计 2.0 的完整交付包为单位派发开发任务：GDD 负责体验定位，规则卡负责硬规则，承接清单负责配置 / 表现 / 验收粒度，`19` 到 `25` 中已进入优先级的内容包负责首批正式内容。
 7. 按 `27_Items正式配置承接审计.md` 继续处理第一层关键物品差异、第二层反制 / 订单物和 Validator 建议；不要把 README 字段口径视为物品 JSON 已完成。
@@ -300,7 +313,8 @@ T0-01A 叙事配置源已进入 `配置表(JSON)/Narrative/` 并完成首轮复�
 ## 问题 / 阻塞
 
 - T0-01A Narrative 配置源已通过同步、静态审计和 C# 编译；Unity batchmode smoke 本轮未能执行到 `NarrativeConfigValidationSmokeTest.Run`，一次日志停在 AssetDatabase refresh，第二次日志显示已有 Unity 实例打开，记录为 `validation_limited:UnityBatchmodeExecuteMethodNotConsumingNarrativeConfigSmoke`。
-- ConfigValidationSmokeTest.Run / P0 Unity 步骤当前因 Unity Editor 未运行被工具阻塞；C3 已用静态交叉引用检查和配置同步作为配置侧证据，后续 Unity 打开后可补跑运行时 smoke。
+- `T0-VAL-01` 当前项目结论为 `conditional_pass:t0_val_01_formal_v2_runtime_slice`。策划 / 文案侧不再把它记为“没有真正序章”的 P0 主链阻塞，但必须保留边界：这不是完整 T0 序章剧本、最终逐屏文案或主策外部验收封板。
+- `ConfigValidationSmokeTest.Run` 与 P0 总入口均已于 2026-07-05 补跑通过；最新 RunID=`20260705_150220`，Errors=0，Blocked=0。当前配置侧无 P0 阻塞项，剩余 warning 仍为 metadata-only tag 等非阻断提示。
 - 当前工作区已有前序设计 / 美术文档 / 程序 / 生成物脏文件，提交时必须严格收窄范围，避免覆盖其他 agent 的改动。
 - 需要更强的配置校验层，让策划改动可以被机械检查。
 - `L1-ITEMS` P0 验证仍有非阻塞 warning：`Material`、`CoreMaterial`、`Cursed` 等标签当前在程序侧仍是 metadata-only；后续 Validator 强化或规则接入时需要决定是否继续 warning、转为可执行标签，或从 `Tags` 迁移到纯策划字段。

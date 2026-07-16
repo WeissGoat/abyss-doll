@@ -473,7 +473,7 @@ public static class WorkshopSmokeTest {
             return string.Empty;
         }
 
-        Text[] texts = root.GetComponentsInChildren<Text>(true);
+        Text[] texts = root.GetComponentsInChildren<Text>(false);
         string combined = string.Empty;
         for (int i = 0; i < texts.Length; i++) {
             if (texts[i] == null) {

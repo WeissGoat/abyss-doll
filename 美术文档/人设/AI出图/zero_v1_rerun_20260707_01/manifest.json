@@ -1,0 +1,36 @@
+{
+  "run_id": "20260708_000331",
+  "task": "zero_prototype_ai_backend_compare",
+  "source_design_doc": "美术文档/人设/03_零号初版人设方案.md",
+  "config": "tools/ai-image-gateway/config.local.yaml",
+  "width": 832,
+  "height": 1216,
+  "count_per_backend": 3,
+  "backends": {
+    "novelai": {
+      "backend_id": "novelai",
+      "provider": "novelai",
+      "prompt": "1girl, solo, full body, anime game character design, petite, small frame, cute doll girl, quiet doll girl, expressionless, kuudere, emotionless, white cloth blindfold, blindfold over eyes, pale silver long hair, complete gray cloak, cloak covering both shoulders, covered shoulders, covered chest, shoulder cloak, simple ultra short inner dress, bare legs, bare feet, subtle doll joints, wrist joints, knee joints, ankle joints, light dust, worn fabric, small scratches, fragile body, clean white background, concept art, character sheet, centered composition, clean lineart, soft cel shading, delicate silhouette, muted gray palette, no text",
+      "negative_prompt": "lowres, bad anatomy, bad hands, extra fingers, missing fingers, extra legs, extra arms, deformed, disfigured, toddler, child, explicit loli, chibi, old, mature female, adult woman, tall woman, sexy, erotic, male, multiple girls, black blindfold, 2b, yorha, nier automata, cosplay, pink cape, purple dress, begging sign, signboard, chest tag, necklace, pendant, large chest ornament, exposed chest core, visible core chamber, bare shoulder, one shoulder exposed, off shoulder, asymmetrical cloak, armor, mecha, robot body, mechanical arms, boots, shoes, high heels, gothic lolita, maid, military uniform, complex background, room, furniture, blood, gore, injury fetish, crying, smile, open mouth, text, watermark, logo",
+      "width": 832,
+      "height": 1216,
+      "count": 3,
+      "success_count": 3,
+      "errors": [],
+      "files": [
+        {
+          "image": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\novelai\\novelai_00.png",
+          "metadata": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\novelai\\novelai_00.json"
+        },
+        {
+          "image": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\novelai\\novelai_01.png",
+          "metadata": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\novelai\\novelai_01.json"
+        },
+        {
+          "image": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\novelai\\novelai_02.png",
+          "metadata": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\novelai\\novelai_02.json"
+        }
+      ]
+    }
+  }
+}

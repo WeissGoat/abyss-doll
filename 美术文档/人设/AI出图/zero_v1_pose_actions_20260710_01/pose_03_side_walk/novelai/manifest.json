@@ -1,0 +1,19 @@
+{
+  "pose_id": "pose_03_side_walk",
+  "pose_name": "side walking",
+  "backend_id": "novelai",
+  "provider": "novelai",
+  "prompt": "1girl, solo, single character, full body, side view, walking, one foot forward, hair trailing behind, anime game character design, petite, small frame, quiet doll girl, expressionless, kuudere, emotionless, long hair, very long hair, loose hair, hair down, unbound hair, pale silver hair, white hair, white cloth blindfold, blindfold over eyes, red eyes fully hidden behind blindfold, no visible eye glow, complete gray cloak, gray shoulder cloak, cloak covering both shoulders, covered shoulders, covered chest, covered upper arms, simple short inner dress, uncovered legs, unshod feet, subtle doll joints, wrist joints, knee joints, ankle joints, light dust, worn fabric, small scratches, fragile body, clean white background, character reference, clean lineart, soft cel shading, delicate silhouette, muted gray palette, no text",
+  "negative_prompt": "lowres, bad anatomy, bad hands, extra fingers, missing fingers, extra legs, extra arms, deformed, disfigured, toddler, child, explicit loli, chibi, old, mature female, adult woman, tall woman, sexy, erotic, pinup, male, multiple girls, black blindfold, visible bare eyes in normal pose, blue eyes, 2b, yorha, nier automata, cosplay, ponytail, twintails, braid, braided hair, bun, tied hair, short hair, heavy curls, pink cape, purple dress, begging sign, signboard, chest tag, necklace, pendant, large chest ornament, exposed chest core, visible core chamber, bare shoulder, one shoulder exposed, off shoulder, asymmetrical cloak, armor, mecha, robot body, mechanical arms, boots, shoes, high heels, gothic lolita, maid, military uniform, complex background, room, furniture, blood, gore, injury fetish, smile, open mouth, text, watermark, logo, multi-view, turnaround sheet, split view",
+  "width": 1024,
+  "height": 1536,
+  "count": 1,
+  "success_count": 1,
+  "errors": [],
+  "files": [
+    {
+      "image": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_03_side_walk\\novelai\\pose_03_side_walk_novelai_00.png",
+      "metadata": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_03_side_walk\\novelai\\pose_03_side_walk_novelai_00.json"
+    }
+  ]
+}

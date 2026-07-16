@@ -1,0 +1,18 @@
+{
+  "backend_id": "chatgpt",
+  "provider": "openai_images",
+  "model": "gpt-image-2",
+  "seed": null,
+  "generation_params": {
+    "api_surface": "images/generations",
+    "model": "gpt-image-2",
+    "prompt": "Create a polished full-body anime game character concept sheet for Project P3 character \"Zero\", using the previous ChatGPT concept-art direction as the visual baseline: refined concept-art polish, gray cloak mass, white cloth blindfold, quiet underground-doll atmosphere.\n\nSubject: a petite cute quiet doll girl, small-frame but not childlike, newly awakened as a prototype doll. She has a white cloth blindfold covering the eyes, pale silver long hair, a complete plain gray shoulder cloak that covers both shoulders, chest, upper arms, and the hidden core chamber. Under the cloak is a very simple ultra-short inner dress. She has bare legs and bare feet, subtle small doll joints at wrists, knees and ankles, light dust and small scratches from long storage. The chest core chamber exists under the cloak but must not be visible in this normal state.\n\nPersonality read: initial kuudere / emotionless / mission-ready, restrained like an android soldier, calm and cold rather than sweet. No smile, no crying, no begging. The pose is quiet and slightly unstable, as if she just stepped off a repair table.\n\nArt direction: Japanese anime-inspired 2D game character design, clean linework, soft cel-shaded rendering, delicate body silhouette, understated subterranean fantasy doll design, low visual noise, design-reference clarity.\n\nComposition: vertical portrait, near full-body character centered, clean white or very light neutral background, no room scene, no props, enough empty space around limbs, no text.\n\nMust include: white cloth blindfold, complete gray cloak covering both shoulders, ultra-short simple inner dress, bare legs, bare feet, subtle doll joints, light dust and wear, petite cute proportions.\n\nMust avoid: black blindfold, 2B cosplay, NieR Automata outfit, pink cape, purple dress, begging sign, chest pendant, necklace, large chest ornament, visible exposed core on chest, half-exposed shoulder, one bare shoulder, asymmetrical off-shoulder cloak, mature tall woman, adult sexy body, erotic pose, heavy armor, mecha arms, boots, high heels, gothic lolita, maid dress, military uniform, complex background, room background, blood, gore, toddler or child proportions, copied anime screenshot, watermark, readable text.",
+    "negative_prompt": "",
+    "size": "1024x1024",
+    "count": 3,
+    "response_format": "b64_json",
+    "result_index": 0
+  },
+  "cost": 0.0,
+  "bytes": 1119232
+}

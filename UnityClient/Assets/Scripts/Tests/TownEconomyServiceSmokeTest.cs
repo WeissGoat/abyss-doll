@@ -167,6 +167,7 @@ public static class TownEconomyServiceSmokeTest {
         ItemEntity coil = AddStashItem(player, "loot_rusty_coil");
 
         WeeklyEconomyRefreshReport refresh = TownEconomyService.RefreshWeeklyEconomy(player, 42);
+        EnsureMechanicalPriceRumor(player, refresh);
         OrderInstanceState order = refresh.AvailableOrders.FirstOrDefault(instance => instance.OrderID == "order_mechanic_scrap_drive");
         OrderAcceptReport accepted = TownEconomyService.AcceptOrder(player, order?.InstanceID);
         OrderDeliveryReport delivered = TownEconomyService.DeliverOrder(player, order?.InstanceID, new[] { scrap, coil });
@@ -204,6 +205,7 @@ public static class TownEconomyServiceSmokeTest {
         ItemEntity scrap = AddStashItem(player, "loot_gear_scrap");
 
         WeeklyEconomyRefreshReport refresh = TownEconomyService.RefreshWeeklyEconomy(player, 42);
+        EnsureMechanicalPriceRumor(player, refresh);
         EconomySellLine value = TownEconomyService.CalculateItemSellValue(player, scrap, EconomySellChannel.DumpBox);
         EconomySellReport sell = TownEconomyService.SellItems(player, new[] { scrap }, EconomySellChannel.DumpBox);
 
@@ -236,5 +238,25 @@ public static class TownEconomyServiceSmokeTest {
         }
 
         return item;
+    }
+
+    private static void EnsureMechanicalPriceRumor(PlayerProfile player, WeeklyEconomyRefreshReport refresh) {
+        const string rumorID = "rumor_mechanical_price_up";
+        if (player == null || !ConfigManager.Rumors.ContainsKey(rumorID)) {
+            return;
+        }
+
+        if (player.ActiveRumors.Any(rumor => rumor != null && rumor.RumorID == rumorID)) {
+            return;
+        }
+
+        ActiveRumorState forcedRumor = new ActiveRumorState {
+            RumorID = rumorID,
+            StartDay = Mathf.Max(1, player.CurrentDay),
+            ExpireDay = Mathf.Max(1, player.CurrentDay) + Mathf.Max(1, ConfigManager.Rumors[rumorID].DurationDays) - 1,
+            LogSeed = 0
+        };
+        player.ActiveRumors.Add(forcedRumor);
+        refresh?.ActiveRumors.Add(forcedRumor);
     }
 }

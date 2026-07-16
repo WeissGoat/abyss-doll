@@ -1,0 +1,33 @@
+{
+  "source": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\inputs\\zero_dialogue_neutral_v2\\zero_dialogue_neutral_v1.jpg",
+  "source_mime": "image/jpeg",
+  "provider": "gemini_chat_image",
+  "prompt": "Edit the supplied image while preserving Zero's identity, face, blindfold, long loose silver-white hair, body proportions, exact three-quarter standing pose, hand positions, bare legs, and bare feet.\n\nChange only the garment construction and framing. The gray garment must become a short separate shoulder cloak, ending around the upper torso or natural waist. Remove the long gray side panels that currently hang beside the thighs. The cloak must not resemble a coat, poncho dress, cape dress, overskirt, or long tunic. It fully covers both shoulders, chest, upper arms, and hidden core chamber, with a clean lower hem and no clasp, knot, cord, pendant, or chest ornament.\n\nBelow the short cloak, show one separate minimal ivory-gray ultra-short inner dress with a simple straight or slight A-line hem. The uncovered legs must begin directly below that inner dress, leaving the lower body visually sparse. Keep both feet completely bare.\n\nOutput exactly one full-body character on pure white. Prefer a true vertical 2:3 portrait canvas; if the rendering system cannot do so, keep enough clean white space for a centered 2:3 crop without cutting hair or feet. Keep the character large and centered.\n\nWhite cloth blindfold remains fully closed with no visible red eyes or red glow. Fine doll-joint seams at wrists, knees, and ankles only. Light dust and worn edges remain subtle. Petite and cute but non-childlike and non-sexualized.\n\nDo not change the pose or identity. Do not add long cloak panels, coat tails, overskirt, cape dress, chest fastener, scenery, text, UI, visible eyes, shoes, socks, armor, mechanical limbs, sexualized pose, or child proportions.",
+  "negative_prompt": "",
+  "width": 1024,
+  "height": 1536,
+  "count": 1,
+  "provider_request_count": 1,
+  "delay_seconds": 2.0,
+  "success_count": 1,
+  "errors": [],
+  "files": [
+    {
+      "image": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_dialogue_neutral_v2\\gemini_nanobanana\\zero_dialogue_neutral_v1\\zero_dialogue_neutral_v1_00.jpg",
+      "metadata": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_dialogue_neutral_v2\\gemini_nanobanana\\zero_dialogue_neutral_v1\\zero_dialogue_neutral_v1_00.json"
+    }
+  ],
+  "runs": [
+    {
+      "run_index": 0,
+      "success_count": 1,
+      "errors": [],
+      "files": [
+        {
+          "image": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_dialogue_neutral_v2\\gemini_nanobanana\\zero_dialogue_neutral_v1\\zero_dialogue_neutral_v1_00.jpg",
+          "metadata": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_dialogue_neutral_v2\\gemini_nanobanana\\zero_dialogue_neutral_v1\\zero_dialogue_neutral_v1_00.json"
+        }
+      ]
+    }
+  ]
+}

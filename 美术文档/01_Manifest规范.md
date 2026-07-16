@@ -13,7 +13,7 @@ related:
   - 美术文档/00_美术流水线总览.md
   - 美术文档/04_美术风格基准.md
   - tools/美术工具/README.md
-last_verified: 2026-05-25
+last_verified: 2026-07-14
 update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
 ---
 
@@ -94,6 +94,8 @@ Manifest 是美术生产台账，不是玩法配置表，也不是 Unity 运行�
 | `ui_skin` | 通用 UI 皮肤，如面板、按钮、列表行。 |
 | `ui_inventory` | 背包、战利品拾取专项 UI。 |
 | `ui_combat` | 战斗 HUD 专项 UI。 |
+
+`same_visualid_replacement`、`new_asset`、`character_difference` 等属于生产 `Operation`，不是新的 `SourceType`。Operation 写入 ProductionRun / `production_decision.json`；在脚本正式支持前，不向 Manifest 临时增加无契约字段。
 | `ui_dungeon_map` | 深渊地图路线、节点底板等 UI。 |
 | `ui_settlement` | 胜利、战败、撤离结算 UI。 |
 | `program_gap` | 程序侧反馈的临时缺图或临时色块资产。 |
@@ -112,6 +114,14 @@ Manifest 是美术生产台账，不是玩法配置表，也不是 Unity 运行�
   "Entries": []
 }
 ```
+
+当前 `StatusFlow` 为旧脚本兼容字段。事实语义按三轴理解：
+
+1. 生产轴：`todo -> prompted -> generated -> selected -> approved`；
+2. 接入轴：Unity 导入和 `RegistryStatus`；
+3. 验收轴：ArtRun / 玩家路径证据。
+
+旧脚本可能继续把主 `Status` 推进到 `registered / validated`，但接入和验收结论不得只依赖该值；应同时核对 `RegistryStatus`、live Unity 和运行时证据。后续脚本字段迁移完成后再删除兼容值。
 
 ---
 
@@ -164,6 +174,14 @@ Step 2 完成后，将 `Status` 改为 `prompted`。
 | `ApprovedPath` | Step 5 | 规格整理后的正式素材路径。 |
 | `RegistryStatus` | Step 5 | `unregistered`、`registered`、`validated` 等。 |
 | `Notes` | 任意 | 备注、返工原因、筛选结论。 |
+
+Asset Contract 字段归属：
+
+- `VisualID`、`OutputPath`、`SourceSpec`、`DisplaySpec`、`CompositionSpec`、`ProcessSpec`、`QualityTier` 来自 Manifest；
+- 角色身份、场景 / 风格锚点、must-preserve、allowed-changes、forbidden 等来自专项事实文档；
+- ProductionRunID、候选评分、交互决定、文件 hash 和恢复状态写入运行证据与 `_IncomingAI/<VisualID>/production_decision.json`，在脚本正式支持前不塞入 Manifest。
+
+正式 `SelectedPath` 必须绑定本次采用候选。选择证据至少能追溯 CandidateBatchID / ProductionRunID、文件 hash 和选择结论；不得仅依赖 `selected/` 中文件名字典序推断当前候选。
 
 ### Visual V2 质量替换字段
 

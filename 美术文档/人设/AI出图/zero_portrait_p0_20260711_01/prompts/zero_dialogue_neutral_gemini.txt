@@ -1,0 +1,11 @@
+Use the supplied Gemini image as the primary identity and pose reference for Project P3 character Zero. Create one refined production-ready full-body 3/4 dialogue portrait while preserving the same recognizable face, petite non-childlike proportions, long loose silver-white hair, soft white cloth blindfold, restrained kuudere expression, and quiet doll-like presence.
+
+Pose: exactly one standing character in a gentle three-quarter front view, body turned slightly left while the covered face subtly addresses the viewer. Calm balanced posture, shoulders level, arms relaxed, hands visible, no dramatic action. Show the complete body from hair tip to bare toes. Keep the character centered and large enough for dialogue UI use. Pure flat white background.
+
+Costume: a separate plain gray shoulder cloak with no knot, clasp, cord, pendant, brooch, or chest ornament. The cloak fully covers both shoulders, chest, upper arms, and hidden core chamber. Its lower edge and front opening must be clearly distinct from the separate minimal ivory-gray ultra-short inner dress. Both legs are uncovered and both feet completely bare.
+
+Identity details: naturally loose unbound silver-white hair reaching below the waist toward the upper thighs, soft and lightly tousled. White cloth blindfold fully closed, with red eyes and red glow completely invisible. Fine doll-joint seams only at wrists, knees, and ankles. Light dust, tiny scratches, gently worn cloth edges. Core chamber fully concealed.
+
+Style: polished Japanese anime game dialogue standing portrait, clean thin linework, soft cel shading, restrained gray-white palette, delicate readable silhouette, low visual noise. Petite and cute but non-childlike and non-sexualized.
+
+Do not add: alternate view, duplicate body, collage, scenery, room, props, floor shadow, text, UI, watermark, visible eyes, red glow, black or red blindfold, chest fastener, exposed shoulder, cape dress, shoes, socks, boots, armor, mechanical limbs, large ball joints, erotic pose, exaggerated curves, child or toddler proportions.

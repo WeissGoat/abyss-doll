@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,7 +52,9 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
         GameObject canvasObj = CreateCanvas();
         WorkshopUIController workshop = CreateWorkshopUI(canvasObj.transform);
 
-        workshop.SendMessage("Start");
+        typeof(WorkshopUIController)
+            .GetMethod("Start", BindingFlags.Instance | BindingFlags.NonPublic)
+            ?.Invoke(workshop, null);
         bool buttonsCreated = workshop.openMaintenancePanelBtn != null
             && workshop.openDollInteractionPanelBtn != null
             && workshop.openOrderBoardPanelBtn != null;
@@ -90,10 +93,11 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
         controller.Show("maintenance_panel");
 
         Button repairButton = FindButton(canvasObj, "FullRepair_Button");
+        bool repairButtonFound = repairButton != null;
         repairButton?.onClick.Invoke();
         DiveReadinessResult afterReadiness = DiveReadinessService.Evaluate(player, 1);
 
-        bool passed = repairButton != null
+        bool passed = repairButtonFound
             && controller.CurrentScreenID == "maintenance_panel"
             && !beforeReadiness.CanDive
             && player.Money == 200
@@ -106,7 +110,7 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
         if (passed) {
             Debug.Log("Workshop Formal V1 Maintenance Button Backend Action PASSED.");
         } else {
-            Debug.LogError($"Workshop Formal V1 Maintenance Button Backend Action FAILED. Button={repairButton != null}, Screen={controller.CurrentScreenID}, Money={player.Money}, StashContains={player.StashInventory.Contains(scrap)}, Wear={doll.Status.WearAndTear}, HP={doll.Status.HP_Current}/{doll.Status.HP_Max}, BeforeDive={beforeReadiness.CanDive}, AfterDive={afterReadiness.CanDive}, Text={CollectText(canvasObj)}");
+            Debug.LogError($"Workshop Formal V1 Maintenance Button Backend Action FAILED. Button={repairButtonFound}, Screen={controller.CurrentScreenID}, Money={player.Money}, StashContains={player.StashInventory.Contains(scrap)}, Wear={doll.Status.WearAndTear}, HP={doll.Status.HP_Current}/{doll.Status.HP_Max}, BeforeDive={beforeReadiness.CanDive}, AfterDive={afterReadiness.CanDive}, Text={CollectText(canvasObj)}");
         }
 
         controller.Hide();
@@ -128,9 +132,10 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
 
         string textBeforeClick = CollectText(canvasObj);
         Button upgradeButton = FindButton(canvasObj, "Upgrade_Button");
+        bool upgradeButtonFound = upgradeButton != null;
         upgradeButton?.onClick.Invoke();
 
-        bool passed = upgradeButton != null
+        bool passed = upgradeButtonFound
             && controller.CurrentScreenID == "chassis_upgrade_panel"
             && textBeforeClick.Contains("底盘升级已接入 ChassisUpgradeService")
             && doll.Chassis.ChassisID == "chassis_lv2_expanded"
@@ -142,7 +147,7 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
         if (passed) {
             Debug.Log("Workshop Formal V1 Chassis Upgrade Button Backend Action PASSED.");
         } else {
-            Debug.LogError($"Workshop Formal V1 Chassis Upgrade Button Backend Action FAILED. Button={upgradeButton != null}, Screen={controller.CurrentScreenID}, Chassis={doll.Chassis?.ChassisID}, Grid={doll.RuntimeGrid?.GetType().Name}, Money={player.Money}, StashContains={player.StashInventory.Contains(coreMaterial)}, Text={CollectText(canvasObj)}");
+            Debug.LogError($"Workshop Formal V1 Chassis Upgrade Button Backend Action FAILED. Button={upgradeButtonFound}, Screen={controller.CurrentScreenID}, Chassis={doll.Chassis?.ChassisID}, Grid={doll.RuntimeGrid?.GetType().Name}, Money={player.Money}, StashContains={player.StashInventory.Contains(coreMaterial)}, Text={CollectText(canvasObj)}");
         }
 
         controller.Hide();
@@ -162,15 +167,17 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
         controller.Show("doll_interaction");
 
         Button touchButton = FindButton(canvasObj, "Touch_Button");
+        bool touchButtonFound = touchButton != null;
         touchButton?.onClick.Invoke();
         int bondAfterTouch = doll.Bond.AffectionLevel;
 
         Button talkButton = FindButton(canvasObj, "Talk_Button");
+        bool talkButtonFound = talkButton != null;
         talkButton?.onClick.Invoke();
 
         var dailyState = player.DollInteractionState.GetOrCreateDailyState(player.CurrentDay);
-        bool passed = touchButton != null
-            && talkButton != null
+        bool passed = touchButtonFound
+            && talkButtonFound
             && controller.CurrentScreenID == "doll_interaction"
             && bondAfterTouch == 1
             && doll.Bond.AffectionLevel == 2
@@ -181,7 +188,7 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
         if (passed) {
             Debug.Log("Workshop Formal V1 Doll Interaction Button Backend Action PASSED.");
         } else {
-            Debug.LogError($"Workshop Formal V1 Doll Interaction Button Backend Action FAILED. TouchButton={touchButton != null}, TalkButton={talkButton != null}, Screen={controller.CurrentScreenID}, BondAfterTouch={bondAfterTouch}, Bond={doll.Bond.AffectionLevel}, TouchCount={dailyState.TotalTouchCount}, TalkCount={dailyState.TotalTalkCount}, Text={CollectText(canvasObj)}");
+            Debug.LogError($"Workshop Formal V1 Doll Interaction Button Backend Action FAILED. TouchButton={touchButtonFound}, TalkButton={talkButtonFound}, Screen={controller.CurrentScreenID}, BondAfterTouch={bondAfterTouch}, Bond={doll.Bond.AffectionLevel}, TouchCount={dailyState.TotalTouchCount}, TalkCount={dailyState.TotalTalkCount}, Text={CollectText(canvasObj)}");
         }
 
         controller.Hide();
@@ -257,12 +264,12 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
     }
 
     private static Button FindButton(GameObject root, string buttonName) {
-        Button[] buttons = root.GetComponentsInChildren<Button>(true);
+        Button[] buttons = root.GetComponentsInChildren<Button>(false);
         return buttons.FirstOrDefault(button => button != null && button.name == buttonName);
     }
 
     private static string CollectText(GameObject root) {
-        Text[] texts = root.GetComponentsInChildren<Text>(true);
+        Text[] texts = root.GetComponentsInChildren<Text>(false);
         return string.Join("\n", texts.Select(text => text != null ? text.text : string.Empty));
     }
 }

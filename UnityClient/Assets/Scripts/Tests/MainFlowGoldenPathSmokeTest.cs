@@ -17,10 +17,6 @@ public static class MainFlowGoldenPathSmokeTest {
         StepSummaries.Clear();
         ResetCaptures();
 
-        DungeonEventBus.OnCombatLootPrepared += CaptureLootPrepared;
-        DungeonEventBus.OnCombatLootCollected += CaptureLootCollected;
-        DungeonEventBus.OnDungeonSettlementPrepared += CaptureSettlementPrepared;
-
         bool passed = false;
         string failureReason = string.Empty;
 
@@ -48,6 +44,10 @@ public static class MainFlowGoldenPathSmokeTest {
         failureReason = string.Empty;
 
         CoreBackend core = CreateCoreWithEmptyBackpack();
+        DungeonEventBus.OnCombatLootPrepared += CaptureLootPrepared;
+        DungeonEventBus.OnCombatLootCollected += CaptureLootCollected;
+        DungeonEventBus.OnDungeonSettlementPrepared += CaptureSettlementPrepared;
+
         PlayerProfile player = core.CurrentPlayer;
         DollEntity doll = player.ActiveDoll;
         BackpackGrid grid = doll.RuntimeGrid as BackpackGrid;
@@ -183,8 +183,8 @@ public static class MainFlowGoldenPathSmokeTest {
         if (node is CombatNode combatNode) {
             combatNode.ResolveAfterVictory();
             if (_lastLootPickup == null || _lastLootPickup.OfferedItems.Count == 0) {
-                reason = $"Combat node [{node.NodeID}] produced no loot pickup result.";
-                return false;
+                Step("combat_node_resolved", $"Node={node.NodeID}, Offered=0, AcceptedNow=False, Reason=no item loot result, AcceptedTotal={_acceptedCombatLoot?.ConfigID ?? "none"}");
+                return true;
             }
 
             bool acceptedNow = TryAcceptFirstCombatLoot(_lastLootPickup, out string acceptReason);

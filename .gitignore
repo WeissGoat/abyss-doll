@@ -73,3 +73,14 @@ tools/美术工具/ai_image_gateway.local.yaml
 # Art pipeline workspace: keep only final approved assets in Git.
 UnityClient/Assets/Art/_IncomingAI/
 UnityClient/Assets/Art/_IncomingAI.meta
+
+# Character-design generation evidence: keep prompts/reviews/metadata, ignore raw images.
+# Curated files under a batch's selected/ directory remain versionable.
+美术文档/人设/AI出图/**/*.png
+美术文档/人设/AI出图/**/*.jpg
+美术文档/人设/AI出图/**/*.jpeg
+美术文档/人设/AI出图/**/*.webp
+!美术文档/人设/AI出图/**/selected/*.png
+!美术文档/人设/AI出图/**/selected/*.jpg
+!美术文档/人设/AI出图/**/selected/*.jpeg
+!美术文档/人设/AI出图/**/selected/*.webp

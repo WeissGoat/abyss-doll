@@ -15,7 +15,8 @@ related:
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/ui_design/versions/README.md
   - 美术文档/ui_design/versions/migration_log.md
-last_verified: 2026-05-29
+  - 美术文档/archive/15_FormalV2运行时验收待办清单.md
+last_verified: 2026-07-14
 update_rule: 修改 UI 版本迭代、active/candidate/baseline 关系或美术素材生成入口时同步本文件。
 ---
 
@@ -257,3 +258,28 @@ workshop_main
 ```
 
 Figma、Unity MCP、截图标注和 PlayMode 布局扫描都属于辅助工具。它们可以提高设计评审和运行时验收效率，但不能替代 active `screen_layouts.json`、Manifest、程序交接清单和 ArtAcceptance 记录。
+
+## 10. 运行时视觉检查簇与长期通过标准
+
+FormalV2 历史批次清单已经归档，后续运行时 UI 评估长期按以下屏幕簇检查：
+
+| 区域 | 屏幕 | 长期检查重点 |
+|---|---|---|
+| 核心战斗流 | `combat_hud`、`inventory_loot`、`settlement` | 玩家左 / 敌人右的舞台关系、敌人轮廓、底部背包可读、奖励散布和结算结果层级。 |
+| 地牢导航 | `dungeon_map`、`layer_select`、`safe_room`、`stairs_room` | 地图纵深、节点与路线融合、背景 cover、安全屋 / 阶梯房间遮罩和节点点击可读。 |
+| 工坊与成长 | `workshop_main`、`maintenance_panel`、`prosthetic_panel`、`chassis_upgrade_panel`、`doll_room`、`doll_interaction` | 家园安静感、工作台框架、魔偶 / 义体 / 底盘图标、小物陈列和共享子面板差异。 |
+| 小镇经济 | `shop_staging`、`business_settlement`、`daily_bill_report`、`order_board`、`rumor_board`、`faction_shop`、`sell_panel` | 列表密度、订单 / 传闻 / 势力图标语义、背景复用和减少按钮堆叠。 |
+| 事件层 | `scenario_event`、叙事 Overlay | 背景与内容分离、面板皮肤、字幕安全区和关键动作唯一性。 |
+
+长期技术通过标准：
+
+1. 当前 required VisualID 在 live Registry 中无缺失、重复和类型不匹配；
+2. 运行时目标显示 Approved 资源，不显示 fallback / missing sprite；
+3. 背景 cover 无透明洞、拉伸或关键主体裁切；
+4. 图标和头像在实际容器尺寸下可读；
+5. Mask、CanvasGroup、层级和 raycast 不阻断核心操作；
+6. active FormalV2 核心构图与玩家主次行动保持成立；
+7. 发生修改时有持久化 before/after、重进 PlayMode、Console delta 和 after/final 证据；
+8. Runner 构造界面不得替代正常玩家路径可达证明。
+
+日常检查使用 `p3-art-validation` 的 `art_focus / art_runtime / art_iteration`；只有大范围 UI / 资源变化或发布前才运行 `art_regression`。

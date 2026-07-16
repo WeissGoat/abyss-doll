@@ -65,6 +65,9 @@
         "EffectID": "ModifyResourceCost",
         "Level": 0,
         "Target": "Global",
+        "Trigger": "OnDungeonMoveCost",
+        "Resource": "SAN",
+        "Operation": "AddPercent",
         "Params": [
           -0.1
         ]

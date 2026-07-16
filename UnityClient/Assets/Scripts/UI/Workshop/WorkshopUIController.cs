@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class WorkshopUIController : MonoBehaviour {
     public const string PrologueOpenLayer1ConfirmActionID = "open_layer1_confirm";
+    private const string T0PrologueWorkshopBackgroundVisualID = "bg_t0_prologue_half_open_workshop";
+    private const string T0PrologueDollVisualID = "doll_proto_0_t0_stand";
+    private const string T0PrologueGateVisualID = "cg_t0_01a_p04_panel02_shallow_gate_glow";
 
     public Text moneyText;
     public Text chassisInfoText;
@@ -47,10 +50,20 @@ public class WorkshopUIController : MonoBehaviour {
     private Image _bottomHintPanel;
     private Image _dollStatusPanel;
     private Image _dollStandImage;
+    private Image _prologueFormalSceneImage;
+    private Image _prologueSceneVeil;
+    private Image _abyssDoorIconImage;
+    private Image _workshopEntryIconImage;
+    private Image _ledgerIconImage;
+    private Image _dollGlowImage;
+    private Image _abyssDoorSceneImage;
+    private Image _prologueObjectiveRibbon;
+    private Image _prologuePrimaryGlowImage;
     private Text _abyssHintText;
     private Text _studioHintText;
     private Text _ledgerHintText;
     private Text _dollCaptionText;
+    private Text _prologueObjectiveText;
     private WorkshopFormalV1PanelController _formalV1PanelController;
     private bool _prologueHalfOpen;
     private bool _prologueShallowGateUnlocked;
@@ -72,6 +85,22 @@ public class WorkshopUIController : MonoBehaviour {
     }
 
     public string LastPrologueActionRequested { get; private set; }
+
+    public string PrologueSemanticState {
+        get { return _prologueHalfOpen ? "PrologueHalfOpenWorkshop" : string.Empty; }
+    }
+
+    public string ProloguePrimaryActionText {
+        get { return departBtn != null ? GetButtonLabel(departBtn) : string.Empty; }
+    }
+
+    public string PrologueGoalText {
+        get { return _dollCaptionText != null ? _dollCaptionText.text : string.Empty; }
+    }
+
+    public bool HasPrologueFormalScene {
+        get { return _prologueFormalSceneImage != null && _prologueFormalSceneImage.gameObject.activeSelf; }
+    }
 
     public bool IsDungeonStartLayerPanelOpen {
         get { return _dungeonStartLayerPanelOpen; }
@@ -95,23 +124,31 @@ public class WorkshopUIController : MonoBehaviour {
         CollectSellStats(out int backpackCount, out int stashCount, out int sellableCount, out int sellableEstimatedValue);
 
         if (moneyText != null) {
-            moneyText.text =
-                $"Day {player.CurrentDay} / M{player.CurrentMonth}.{player.CurrentMonthDay}   {player.Money}G\n" +
-                $"{BuildRentPressureText(player)}   Sellable {sellableCount} ({sellableEstimatedValue}G)";
+            if (_prologueHalfOpen) {
+                moneyText.text =
+                    $"第 {player.CurrentDay} 天 / 债务催缴中 / 资金 {player.Money}G\n" +
+                    "零号：短时可行动";
+            } else {
+                moneyText.text =
+                    $"Day {player.CurrentDay} / M{player.CurrentMonth}.{player.CurrentMonthDay}   {player.Money}G\n" +
+                    $"{BuildRentPressureText(player)}   Sellable {sellableCount} ({sellableEstimatedValue}G)";
+            }
         }
 
         var chassis = player.ActiveDoll.Chassis;
         if (chassisInfoText != null) {
-            chassisInfoText.text = $"Chassis {chassis.ChassisID}  Grid {chassis.GridWidth}x{chassis.GridHeight}";
+            chassisInfoText.text = _prologueHalfOpen
+                ? "核心仓已清理\n下潜许可：浅层一次"
+                : $"Chassis {chassis.ChassisID}  Grid {chassis.GridWidth}x{chassis.GridHeight}";
         }
 
         if (stashHeaderText != null) {
-            stashHeaderText.text = "Town Market";
+            stashHeaderText.text = "Town Market Preview";
         }
 
         if (sellSummaryText != null) {
             sellSummaryText.text = sellableCount > 0
-                ? $"Backpack {backpackCount} / Stash {stashCount}\nPreview value {sellableEstimatedValue}G. Final pricing and channels happen in shop staging."
+                ? $"Backpack {backpackCount} / Stash {stashCount}\nPreview value {sellableEstimatedValue}G. Shop staging handles final pricing and channels."
                 : "No staged goods yet. Shop staging handles allocation and final sale confirmation.";
         }
 
@@ -368,6 +405,8 @@ public class WorkshopUIController : MonoBehaviour {
             dungeonStartLayerPanel.SetActive(false);
         }
 
+        _dungeonStartLayerController?.ResetFirstDivePermitState();
+
         if (refresh) {
             RefreshUI();
         }
@@ -426,6 +465,7 @@ public class WorkshopUIController : MonoBehaviour {
 
         _prologueHalfOpen = true;
         _prologueShallowGateUnlocked = true;
+        ApplyWorkshopBackground();
         EnsureSellControls();
         BindButtons();
         CloseSellPanel(false);
@@ -457,6 +497,7 @@ public class WorkshopUIController : MonoBehaviour {
     }
 
     private void ApplyPrologueHalfOpenState() {
+        ApplyPrologueHalfOpenVisualTuning();
         SetButtonVisible(departBtn, true);
         if (departBtn != null) {
             departBtn.interactable = _prologueShallowGateUnlocked;
@@ -471,19 +512,19 @@ public class WorkshopUIController : MonoBehaviour {
             _formalV1EntryPanel.gameObject.SetActive(true);
         }
 
-        SetButtonLabel(departBtn, "浅层入口", 28);
+        SetButtonLabel(departBtn, "浅层入口", 26);
         if (_abyssHintText != null) {
             _abyssHintText.text = "浅层入口\n压力稳定，零号还能撑一次";
         }
 
         if (_studioHintText != null) {
-            _studioHintText.text = "工坊还没醒透\n维护、义体和底盘稍后再整理";
-            _studioHintText.color = new Color(0.58f, 0.62f, 0.62f, 0.86f);
+            _studioHintText.text = "维护稍后处理\n先确认零号能否行动";
+            _studioHintText.color = new Color(0.68f, 0.78f, 0.82f, 0.92f);
         }
 
         if (_ledgerHintText != null) {
-            _ledgerHintText.text = "账单和市场暂时压在桌角\n现在只有一次下潜理由";
-            _ledgerHintText.color = new Color(0.62f, 0.58f, 0.52f, 0.86f);
+            _ledgerHintText.text = "账单 / 市场暂缓\n当前目标：带零号下潜一次";
+            _ledgerHintText.color = new Color(0.74f, 0.76f, 0.72f, 0.92f);
         }
 
         if (_dollCaptionText != null) {
@@ -492,6 +533,160 @@ public class WorkshopUIController : MonoBehaviour {
 
         if (chassisInfoText != null) {
             chassisInfoText.text = "核心仓灰尘已擦去\n下潜许可：浅层一次";
+        }
+
+        if (moneyText != null) {
+            PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+            moneyText.text = player == null
+                ? "第 1 天   工坊账本未恢复\n当前目标：带零号下潜一次"
+                : $"第 {player.CurrentDay} 天   资金 {player.Money}G\n{BuildPrologueRentPressureText(player)}   当前目标：带零号下潜一次";
+        }
+
+        ApplyFormalT0PrologueCopy();
+    }
+
+    private void ApplyPrologueHalfOpenVisualTuning() {
+        if (backgroundImage != null) {
+            backgroundImage.color = Color.white;
+            VisualUIHelper.ApplyCoverSprite(backgroundImage, T0PrologueWorkshopBackgroundVisualID, Color.white, new Color(0.018f, 0.034f, 0.044f, 1f));
+            AspectRatioFitter fitter = backgroundImage.GetComponent<AspectRatioFitter>();
+            if (fitter != null) {
+                Destroy(fitter);
+            }
+            backgroundImage.preserveAspect = false;
+            RectTransform bgRect = backgroundImage.rectTransform;
+            bgRect.anchorMin = Vector2.zero;
+            bgRect.anchorMax = Vector2.one;
+            bgRect.offsetMin = Vector2.zero;
+            bgRect.offsetMax = Vector2.zero;
+            backgroundImage.transform.SetAsFirstSibling();
+        }
+
+        EnsurePrologueFormalSceneImage();
+        if (_prologueFormalSceneImage != null) {
+            _prologueFormalSceneImage.gameObject.SetActive(true);
+            int targetIndex = backgroundImage != null ? backgroundImage.transform.GetSiblingIndex() + 1 : 0;
+            _prologueFormalSceneImage.transform.SetSiblingIndex(Mathf.Clamp(targetIndex, 0, transform.childCount - 1));
+        }
+
+        EnsurePrologueSceneVeil();
+        if (_prologueSceneVeil != null) {
+            _prologueSceneVeil.gameObject.SetActive(true);
+            int baseIndex = _prologueFormalSceneImage != null
+                ? _prologueFormalSceneImage.transform.GetSiblingIndex()
+                : (backgroundImage != null ? backgroundImage.transform.GetSiblingIndex() : -1);
+            int targetIndex = baseIndex + 1;
+            _prologueSceneVeil.transform.SetSiblingIndex(Mathf.Clamp(targetIndex, 0, transform.childCount - 1));
+        }
+
+        ApplyProloguePanelSkin(_topStatusPanel, new Color(0.006f, 0.022f, 0.03f, 0.22f));
+        ApplyProloguePanelSkin(_leftActionPanel, new Color(0.006f, 0.040f, 0.056f, 0.16f));
+        ApplyProloguePanelSkin(_formalV1EntryPanel, new Color(0.012f, 0.026f, 0.032f, 0.075f));
+        ApplyProloguePanelSkin(_bottomHintPanel, new Color(0.014f, 0.024f, 0.026f, 0.07f));
+        ApplyProloguePanelSkin(_dollStatusPanel, new Color(0.006f, 0.026f, 0.036f, 0.14f));
+        ApplyProloguePanelSkin(_prologueObjectiveRibbon, new Color(0.004f, 0.030f, 0.038f, 0.24f));
+        ResizeProloguePanel(_leftActionPanel, new Vector2(0.80f, 0.52f), new Vector2(0f, -6f), new Vector2(420f, 600f));
+        ResizeProloguePanel(_formalV1EntryPanel, new Vector2(0.17f, 0.48f), Vector2.zero, new Vector2(310f, 126f));
+        ResizeProloguePanel(_bottomHintPanel, new Vector2(0.80f, 0.15f), Vector2.zero, new Vector2(340f, 104f));
+        ResizeProloguePanel(_dollStatusPanel, new Vector2(0.5f, 0f), new Vector2(0f, 18f), new Vector2(660f, 66f));
+        ResizeProloguePanel(_prologueObjectiveRibbon, new Vector2(0.5f, 0f), new Vector2(0f, 94f), new Vector2(760f, 54f));
+        if (_prologuePrimaryGlowImage != null) {
+            _prologuePrimaryGlowImage.gameObject.SetActive(true);
+            RectTransform glowRect = _prologuePrimaryGlowImage.rectTransform;
+            glowRect.anchorMin = new Vector2(0.5f, 0.42f);
+            glowRect.anchorMax = new Vector2(0.5f, 0.42f);
+            glowRect.pivot = new Vector2(0.5f, 0.5f);
+            glowRect.anchoredPosition = new Vector2(0f, -42f);
+            glowRect.sizeDelta = new Vector2(300f, 230f);
+            VisualUIHelper.ApplySolidColor(_prologuePrimaryGlowImage, new Color(0.35f, 0.95f, 1f, 0.028f), false);
+            int glowIndex = _leftActionPanel != null ? _leftActionPanel.transform.GetSiblingIndex() + 1 : transform.childCount - 1;
+            _prologuePrimaryGlowImage.transform.SetSiblingIndex(Mathf.Clamp(glowIndex, 0, transform.childCount - 1));
+        }
+        if (_dollGlowImage != null) {
+            _dollGlowImage.gameObject.SetActive(false);
+        }
+        if (_dollStandImage != null) {
+            _dollStandImage.gameObject.SetActive(true);
+            Transform display = _dollStandImage.transform.parent;
+            if (display != null) {
+                display.gameObject.SetActive(true);
+                RectTransform displayRect = display as RectTransform;
+                if (displayRect != null) {
+                    displayRect.anchorMin = new Vector2(0.5f, 0.5f);
+                    displayRect.anchorMax = new Vector2(0.5f, 0.5f);
+                    displayRect.pivot = new Vector2(0.5f, 0.5f);
+                    displayRect.anchoredPosition = new Vector2(-118f, -56f);
+                    displayRect.sizeDelta = new Vector2(560f, 840f);
+                }
+            }
+            RectTransform dollRect = _dollStandImage.rectTransform;
+            dollRect.sizeDelta = new Vector2(520f, 820f);
+            VisualUIHelper.ApplyContainSprite(
+                _dollStandImage,
+                T0PrologueDollVisualID,
+                new Vector2(520f, 820f),
+                new Color(1f, 1f, 1f, 0.98f),
+                new Color(0.5f, 0.68f, 0.72f, 0.94f),
+                false);
+        }
+        if (_abyssDoorSceneImage != null) {
+            _abyssDoorSceneImage.gameObject.SetActive(true);
+            RectTransform gateRect = _abyssDoorSceneImage.rectTransform;
+            gateRect.anchorMin = new Vector2(0.5f, 1f);
+            gateRect.anchorMax = new Vector2(0.5f, 1f);
+            gateRect.pivot = new Vector2(0.5f, 1f);
+            gateRect.anchoredPosition = new Vector2(0f, -104f);
+            gateRect.sizeDelta = new Vector2(370f, 300f);
+            _abyssDoorSceneImage.color = new Color(0.92f, 1f, 1f, 0.88f);
+        }
+
+        RepositionButton(departBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -252f), new Vector2(300f, 68f));
+        RepositionButton(openSellPanelBtn, _bottomHintPanel != null ? _bottomHintPanel.transform : transform, new Vector2(42f, -70f), new Vector2(154f, 28f));
+        RepositionButton(openProstheticPanelBtn, _formalV1EntryPanel != null ? _formalV1EntryPanel.transform : transform, new Vector2(42f, -72f), new Vector2(154f, 28f));
+        if (openSellPanelBtn != null) { openSellPanelBtn.interactable = false; }
+        if (openProstheticPanelBtn != null) { openProstheticPanelBtn.interactable = false; }
+        ApplyPrologueButtonSkin(departBtn, new Color(0.020f, 0.47f, 0.56f, 0.96f), true);
+        ApplyPrologueButtonSkin(openSellPanelBtn, new Color(0.05f, 0.11f, 0.12f, 0.16f), false);
+        ApplyPrologueButtonSkin(openProstheticPanelBtn, new Color(0.05f, 0.12f, 0.14f, 0.16f), false);
+    }
+
+    private void ApplyFormalT0PrologueCopy() {
+        SetButtonLabel(departBtn, "\u6d45\u5c42\u5165\u53e3", 28);
+
+        if (_abyssHintText != null) {
+            _abyssHintText.text = "\u6d45\u5c42\u5165\u53e3\n\u5165\u53e3\u7a33\u5b9a\n\u96f6\u53f7\u8fd8\u80fd\u6491\u4e00\u6b21";
+            _abyssHintText.color = new Color(0.78f, 0.96f, 1f, 1f);
+        }
+
+        if (_studioHintText != null) {
+            _studioHintText.text = "\u5de5\u4f5c\u5ba4\u6682\u9501\n\u5148\u786e\u8ba4\u96f6\u53f7\u80fd\u5426\u884c\u52a8";
+            _studioHintText.color = new Color(0.50f, 0.66f, 0.70f, 0.58f);
+        }
+
+        if (_ledgerHintText != null) {
+            _ledgerHintText.text = "\u8d26\u672c\u6682\u7f13\n\u5f53\u524d\u76ee\u6807\uff1a\u5e26\u96f6\u53f7\u4e0b\u6f5c\u4e00\u6b21";
+            _ledgerHintText.color = new Color(0.54f, 0.64f, 0.64f, 0.58f);
+        }
+
+        if (_dollCaptionText != null) {
+            _dollCaptionText.text = "\u96f6\u53f7\uff1a\u6838\u5fc3\u4ed3\u5df2\u6e05\u7406\uff0c\u884c\u52a8\u4f59\u91cf\u4e00\u6b21";
+        }
+
+        if (_prologueObjectiveText != null) {
+            _prologueObjectiveText.text = "\u5f53\u524d\u76ee\u6807\uff1a\u5e26\u96f6\u53f7\u4ece\u6d45\u5c42\u5165\u53e3\u4e0b\u6f5c\u4e00\u6b21";
+        }
+
+        if (chassisInfoText != null) {
+            chassisInfoText.text = "\u6838\u5fc3\u4ed3\u5df2\u6e05\u7406\n\u4e0b\u6f5c\u8bb8\u53ef\uff1a\u6d45\u5c42\u4e00\u6b21";
+            chassisInfoText.color = new Color(0.78f, 0.94f, 0.98f, 0.96f);
+        }
+
+        if (moneyText != null) {
+            PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+            string day = player == null ? "\u7b2c 1 \u65e5" : $"\u7b2c {player.CurrentDay} \u65e5";
+            string money = player == null ? "\u8d44\u91d1\u4e0d\u8db3" : $"\u8d44\u91d1 {player.Money}G";
+            moneyText.text = $"{day} / \u503a\u52a1\u50ac\u7f34\u4e2d / {money}\n\u96f6\u53f7\uff1a\u77ed\u65f6\u53ef\u884c\u52a8";
+            moneyText.color = new Color(0.82f, 0.94f, 0.96f, 0.96f);
         }
     }
 
@@ -502,7 +697,7 @@ public class WorkshopUIController : MonoBehaviour {
 
         GameObject row = new GameObject($"SellRow_{item.InstanceID}");
         row.transform.SetParent(stashListParent, false);
-        ConfigureGeneratedRow(row, 680f, 92f);
+        ConfigureGeneratedRow(row, 680f, 104f);
         Image rowBg = row.AddComponent<Image>();
         ApplyRuntimeSolidPanelSkin(rowBg, new Color(0.055f, 0.074f, 0.064f, 0.96f), new Color(0.22f, 0.34f, 0.28f, 0.26f), false);
         HorizontalLayoutGroup rowLayout = row.AddComponent<HorizontalLayoutGroup>();
@@ -674,6 +869,22 @@ public class WorkshopUIController : MonoBehaviour {
         return $"Rent {rentCountdown}d / {debtText}";
     }
 
+    private string BuildPrologueRentPressureText(PlayerProfile player) {
+        if (player == null) {
+            return "租金状态未知";
+        }
+
+        if (player.HasPendingMonthlyRent) {
+            return $"本月租金待缴 {player.PendingMonthlyBillAmount}G";
+        }
+
+        int rentCountdown = Mathf.Max(0, 28 - Mathf.Max(1, player.CurrentMonthDay));
+        string debtText = player.EconomyDebtAmount > 0
+            ? $"债务 {player.EconomyDebtAmount}G"
+            : "暂无债务";
+        return $"租金剩余 {rentCountdown} 天 / {debtText}";
+    }
+
     private void SellSingleItem(ItemEntity item) {
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
         EconomySellReport report = TownEconomyService.SellItems(
@@ -833,7 +1044,12 @@ public class WorkshopUIController : MonoBehaviour {
             : canCraft
                 ? new Color(0.72f, 0.58f, 0.32f, 1f)
                 : new Color(0.52f, 0.56f, 0.62f, 1f);
-        GameObject stateIconObj = new GameObject("StateIcon_Image");
+        string stateIconName = isEquipped
+            ? "EquippedIcon_Image"
+            : canCraft
+                ? "MaterialNeedIcon_Image"
+                : "LockedIcon_Image";
+        GameObject stateIconObj = new GameObject(stateIconName);
         stateIconObj.transform.SetParent(row.transform, false);
         Image stateIcon = stateIconObj.AddComponent<Image>();
         VisualUIHelper.ApplyContainSprite(
@@ -842,6 +1058,18 @@ public class WorkshopUIController : MonoBehaviour {
             new Vector2(42f, 42f),
             Color.white,
             stateIconTint);
+
+        if (!isEquipped && !canCraft) {
+            GameObject materialIconObj = new GameObject("MaterialNeedIcon_Image");
+            materialIconObj.transform.SetParent(row.transform, false);
+            Image materialIcon = materialIconObj.AddComponent<Image>();
+            VisualUIHelper.ApplyContainSprite(
+                materialIcon,
+                VisualAssetService.UIIconMaterialNeedID,
+                new Vector2(42f, 42f),
+                Color.white,
+                new Color(0.72f, 0.58f, 0.32f, 1f));
+        }
 
         Button craftBtn = CreateInlineButton(
             "Craft_Button",
@@ -852,9 +1080,7 @@ public class WorkshopUIController : MonoBehaviour {
             defaultFont,
             18);
         craftBtn.interactable = !isEquipped && canCraft;
-        craftBtn.gameObject.name = canCraft || isEquipped
-            ? "Craft_Button"
-            : $"Locked_Button_{craftReason}";
+        craftBtn.gameObject.name = "Craft_Button";
         craftBtn.onClick.AddListener(() => {
             ExecuteProstheticCraftFromButton(recipe.RecipeID);
         });
@@ -1525,6 +1751,7 @@ public class WorkshopUIController : MonoBehaviour {
         panelBg.raycastTarget = false;
 
         _dungeonStartLayerController = dungeonStartLayerPanel.AddComponent<DungeonStartLayerUIController>();
+        _dungeonStartLayerController.backgroundImage = panelBg;
 
         GameObject cardObj = new GameObject("DungeonStartLayer_Card");
         cardObj.transform.SetParent(dungeonStartLayerPanel.transform, false);
@@ -1808,7 +2035,7 @@ public class WorkshopUIController : MonoBehaviour {
     }
 
     private void ApplyModalBackdropSkin(Image image) {
-        VisualUIHelper.ApplySolidColor(image, new Color(0.004f, 0.006f, 0.008f, 1f));
+        VisualUIHelper.ApplySolidColor(image, new Color(0.004f, 0.006f, 0.008f, 0.92f));
         image.raycastTarget = true;
     }
 
@@ -1864,72 +2091,86 @@ public class WorkshopUIController : MonoBehaviour {
         _topStatusPanel = EnsureDecorPanel(
             _topStatusPanel,
             "LightStatusStrip",
-            new Vector2(0f, 1f),
-            new Vector2(48f, -28f),
-            new Vector2(620f, 108f));
+            new Vector2(0.5f, 1f),
+            new Vector2(0f, -16f),
+            new Vector2(1160f, 42f));
 
         _leftActionPanel = EnsureDecorPanel(
             _leftActionPanel,
             "AbyssDoorPanel",
-            new Vector2(1f, 0.5f),
-            new Vector2(-170f, 40f),
-            new Vector2(440f, 360f));
+            new Vector2(0.82f, 0.54f),
+            new Vector2(0f, -8f),
+            new Vector2(410f, 520f));
 
         _formalV1EntryPanel = EnsureDecorPanel(
             _formalV1EntryPanel,
             "WorkshopEntryPanel",
-            new Vector2(0f, 0.5f),
-            new Vector2(44f, -12f),
-            new Vector2(310f, 190f));
+            new Vector2(0.18f, 0.28f),
+            new Vector2(0f, 0f),
+            new Vector2(270f, 98f));
 
         _bottomHintPanel = EnsureDecorPanel(
             _bottomHintPanel,
             "LedgerCornerPanel",
-            new Vector2(1f, 0f),
-            new Vector2(-170f, 170f),
-            new Vector2(360f, 210f));
+            new Vector2(0.78f, 0.16f),
+            new Vector2(0f, 0f),
+            new Vector2(270f, 92f));
 
         _dollStatusPanel = EnsureDecorPanel(
             _dollStatusPanel,
             "DollStatusPlate",
             new Vector2(0.5f, 0f),
-            new Vector2(0f, 42f),
-            new Vector2(520f, 112f));
+            new Vector2(0f, 22f),
+            new Vector2(560f, 58f));
+
+        _prologueObjectiveRibbon = EnsureDecorPanel(
+            _prologueObjectiveRibbon,
+            "PrologueObjectiveRibbon",
+            new Vector2(0.5f, 0f),
+            new Vector2(0f, 94f),
+            new Vector2(760f, 54f));
+
+        _prologuePrimaryGlowImage = EnsureDecorPanel(
+            _prologuePrimaryGlowImage,
+            "PrimaryActionGlow",
+            new Vector2(0.80f, 0.52f),
+            new Vector2(0f, -6f),
+            new Vector2(360f, 390f));
 
         _abyssHintText = EnsureDecorText(
             _abyssHintText,
             "AbyssHint_Text",
             _leftActionPanel != null ? _leftActionPanel.transform : transform,
-            "Abyss lift\nRoute and readiness check",
+            "\u6d45\u5c42\u5165\u53e3\n\u8def\u7ebf\u4e0e\u72b6\u6001\u786e\u8ba4",
             new Vector2(0.5f, 1f),
-            new Vector2(0f, -44f),
-            new Vector2(360f, 112f),
-            24,
-            new Color(0.96f, 0.86f, 0.64f, 1f),
+            new Vector2(0f, -24f),
+            new Vector2(318f, 80f),
+            19,
+            new Color(0.86f, 0.96f, 1f, 1f),
             TextAnchor.UpperCenter);
 
         _studioHintText = EnsureDecorText(
             _studioHintText,
             "StudioHint_Text",
             _formalV1EntryPanel != null ? _formalV1EntryPanel.transform : transform,
-            "Studio\nMaintenance, chassis, prosthetics",
-            new Vector2(0.5f, 1f),
-            new Vector2(0f, -26f),
-            new Vector2(260f, 72f),
-            20,
-            new Color(0.9f, 0.88f, 0.78f, 1f),
+            "\u5de5\u4f5c\u5ba4\n\u7ef4\u62a4\u7a0d\u540e\u5904\u7406",
+            new Vector2(0.5f, 0.5f),
+            new Vector2(34f, -2f),
+            new Vector2(172f, 58f),
+            14,
+            new Color(0.76f, 0.86f, 0.9f, 1f),
             TextAnchor.UpperCenter);
 
         _ledgerHintText = EnsureDecorText(
             _ledgerHintText,
             "LedgerHint_Text",
             _bottomHintPanel != null ? _bottomHintPanel.transform : transform,
-            "Ledger\nMarket, orders, bills",
-            new Vector2(0.5f, 1f),
-            new Vector2(0f, -32f),
-            new Vector2(300f, 82f),
-            22,
-            new Color(0.92f, 0.86f, 0.72f, 1f),
+            "\u8d26\u672c\n\u4eca\u5929\u5148\u4e0d\u7ffb\u5f00",
+            new Vector2(0.5f, 0.5f),
+            new Vector2(30f, -2f),
+            new Vector2(184f, 54f),
+            14,
+            new Color(0.82f, 0.86f, 0.82f, 1f),
             TextAnchor.UpperCenter);
 
         _dollCaptionText = EnsureDecorText(
@@ -1938,22 +2179,41 @@ public class WorkshopUIController : MonoBehaviour {
             _dollStatusPanel != null ? _dollStatusPanel.transform : transform,
             "Doll status",
             new Vector2(0.5f, 1f),
-            new Vector2(0f, -14f),
-            new Vector2(430f, 34f),
+            new Vector2(0f, -12f),
+            new Vector2(430f, 26f),
             18,
-            new Color(0.95f, 0.88f, 0.72f, 1f),
+            new Color(0.78f, 0.96f, 1f, 1f),
             TextAnchor.UpperCenter);
 
+        _prologueObjectiveText = EnsureDecorText(
+            _prologueObjectiveText,
+            "PrologueObjective_Text",
+            _prologueObjectiveRibbon != null ? _prologueObjectiveRibbon.transform : transform,
+            "\u5f53\u524d\u76ee\u6807\uff1a\u5e26\u96f6\u53f7\u4e0b\u6f5c\u4e00\u6b21",
+            new Vector2(0.5f, 0.5f),
+            Vector2.zero,
+            new Vector2(700f, 32f),
+            19,
+            new Color(0.86f, 0.98f, 1f, 0.96f),
+            TextAnchor.MiddleCenter);
+
         EnsureDollStandImage();
-        MoveIntoPanel(moneyText, _topStatusPanel != null ? _topStatusPanel.transform : transform, new Vector2(24f, -14f), new Vector2(560f, 78f), 20);
-        MoveIntoPanel(chassisInfoText, _dollStatusPanel != null ? _dollStatusPanel.transform : transform, new Vector2(34f, -54f), new Vector2(452f, 34f), 15);
+        _abyssDoorSceneImage = EnsureDecorIcon(_abyssDoorSceneImage, "AbyssDoorScene_Image", _leftActionPanel != null ? _leftActionPanel.transform : transform, T0PrologueGateVisualID, new Vector2(0.5f, 1f), new Vector2(0f, -106f), new Vector2(318f, 212f), new Color(0.9f, 1f, 1f, 0.0f));
+        if (_abyssDoorSceneImage != null) {
+            _abyssDoorSceneImage.gameObject.SetActive(false);
+        }
+        _abyssDoorIconImage = EnsureDecorIcon(_abyssDoorIconImage, "AbyssDoorIcon_Image", _leftActionPanel != null ? _leftActionPanel.transform : transform, VisualAssetService.UIIconDivePermitID, new Vector2(0.5f, 1f), new Vector2(0f, -116f), new Vector2(46f, 46f), new Color(0.72f, 0.98f, 1f, 0.58f));
+        _workshopEntryIconImage = EnsureDecorIcon(_workshopEntryIconImage, "WorkshopEntryIcon_Image", _formalV1EntryPanel != null ? _formalV1EntryPanel.transform : transform, VisualAssetService.UIIconMaintenanceID, new Vector2(0f, 0.5f), new Vector2(16f, 0f), new Vector2(42f, 42f), new Color(0.42f, 0.62f, 0.62f, 0.42f));
+        _ledgerIconImage = EnsureDecorIcon(_ledgerIconImage, "LedgerCornerIcon_Image", _bottomHintPanel != null ? _bottomHintPanel.transform : transform, VisualAssetService.UIIconDebtRentID, new Vector2(0f, 0.5f), new Vector2(16f, 0f), new Vector2(42f, 42f), new Color(0.54f, 0.58f, 0.48f, 0.42f));
+        MoveIntoPanel(moneyText, _topStatusPanel != null ? _topStatusPanel.transform : transform, new Vector2(24f, -7f), new Vector2(1040f, 32f), 14);
+        MoveIntoPanel(chassisInfoText, _dollStatusPanel != null ? _dollStatusPanel.transform : transform, new Vector2(40f, -36f), new Vector2(470f, 26f), 14);
         SetButtonVisible(upgradeBtn, false);
-        RepositionButton(departBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -230f), new Vector2(300f, 72f));
-        RepositionButton(openSellPanelBtn, _bottomHintPanel != null ? _bottomHintPanel.transform : transform, new Vector2(0f, -132f), new Vector2(220f, 54f));
-        RepositionButton(openProstheticPanelBtn, _formalV1EntryPanel != null ? _formalV1EntryPanel.transform : transform, new Vector2(0f, -118f), new Vector2(220f, 52f));
-        SetButtonLabel(departBtn, "Descend", 28);
-        SetButtonLabel(openSellPanelBtn, "Market", 22);
-        SetButtonLabel(openProstheticPanelBtn, "Studio", 23);
+        RepositionButton(departBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -380f), new Vector2(250f, 54f));
+        RepositionButton(openSellPanelBtn, _bottomHintPanel != null ? _bottomHintPanel.transform : transform, new Vector2(38f, -70f), new Vector2(164f, 30f));
+        RepositionButton(openProstheticPanelBtn, _formalV1EntryPanel != null ? _formalV1EntryPanel.transform : transform, new Vector2(38f, -72f), new Vector2(164f, 30f));
+        SetButtonLabel(departBtn, "\u6d45\u5c42\u5165\u53e3", 26);
+        SetButtonLabel(openSellPanelBtn, "\u8d26\u672c", 20);
+        SetButtonLabel(openProstheticPanelBtn, "\u5de5\u4f5c\u5ba4", 20);
         Transform formalParent = _formalV1EntryPanel != null ? _formalV1EntryPanel.transform : transform;
         RepositionButton(openMaintenancePanelBtn, formalParent, ResolveFormalV1EntryPosition(0, 0), new Vector2(190f, 48f));
         RepositionButton(openDailyBillPanelBtn, formalParent, ResolveFormalV1EntryPosition(1, 0), new Vector2(190f, 48f));
@@ -1988,9 +2248,116 @@ public class WorkshopUIController : MonoBehaviour {
         rect.pivot = anchor;
         rect.anchoredPosition = position;
         rect.sizeDelta = size;
-        VisualUIHelper.ApplySlicedSprite(image, VisualAssetService.UIPanelInfoID, Color.white, new Color(0.08f, 0.08f, 0.07f, 0.92f), false);
+        ApplyRuntimeSolidPanelSkin(image, new Color(0.01f, 0.03f, 0.038f, 0.62f), new Color(0.66f, 0.9f, 1f, 0.1f), false);
+        image.raycastTarget = false;
         image.transform.SetAsLastSibling();
         return image;
+    }
+
+    private void EnsurePrologueSceneVeil() {
+        if (_prologueSceneVeil == null) {
+            Transform existing = transform.Find("PrologueCoolSceneVeil_Image");
+            _prologueSceneVeil = existing != null ? existing.GetComponent<Image>() : null;
+        }
+
+        if (_prologueSceneVeil == null) {
+            GameObject veilObj = new GameObject("PrologueCoolSceneVeil_Image");
+            veilObj.transform.SetParent(transform, false);
+            _prologueSceneVeil = veilObj.AddComponent<Image>();
+        }
+
+        RectTransform rect = _prologueSceneVeil.rectTransform;
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+        VisualUIHelper.ApplySolidColor(_prologueSceneVeil, new Color(0.02f, 0.05f, 0.075f, 0.34f), false);
+        _prologueSceneVeil.raycastTarget = false;
+    }
+
+    private void EnsurePrologueFormalSceneImage() {
+        if (_prologueFormalSceneImage == null) {
+            Transform existing = transform.Find("PrologueFormalScene_Image");
+            _prologueFormalSceneImage = existing != null ? existing.GetComponent<Image>() : null;
+        }
+
+        if (_prologueFormalSceneImage == null) {
+            GameObject sceneObj = new GameObject("PrologueFormalScene_Image");
+            sceneObj.transform.SetParent(transform, false);
+            _prologueFormalSceneImage = sceneObj.AddComponent<Image>();
+        }
+
+        RectTransform rect = _prologueFormalSceneImage.rectTransform;
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+        _prologueFormalSceneImage.preserveAspect = false;
+        _prologueFormalSceneImage.raycastTarget = false;
+        VisualUIHelper.ApplyCoverSprite(_prologueFormalSceneImage, T0PrologueWorkshopBackgroundVisualID, Color.white, new Color(0.014f, 0.04f, 0.054f, 1f));
+    }
+
+    private void ApplyProloguePanelSkin(Image image, Color fillColor) {
+        if (image == null) {
+            return;
+        }
+
+        ApplyRuntimeSolidPanelSkin(image, fillColor, new Color(0.74f, 0.96f, 1f, 0.055f), false);
+        Outline outline = image.GetComponent<Outline>();
+        if (outline != null) {
+            outline.effectDistance = new Vector2(0.45f, -0.45f);
+        }
+    }
+
+    private static void ResizeProloguePanel(Image image, Vector2 anchor, Vector2 position, Vector2 size) {
+        if (image == null) {
+            return;
+        }
+
+        RectTransform rect = image.rectTransform;
+        rect.anchorMin = anchor;
+        rect.anchorMax = anchor;
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = position;
+        rect.sizeDelta = size;
+    }
+
+    private Image EnsureDecorIcon(
+        Image current,
+        string objectName,
+        Transform parent,
+        string visualID,
+        Vector2 anchor,
+        Vector2 position,
+        Vector2 size,
+        Color tint) {
+        if (parent == null) {
+            parent = transform;
+        }
+
+        Image icon = current;
+        if (icon == null) {
+            Transform existing = parent.Find(objectName);
+            icon = existing != null ? existing.GetComponent<Image>() : null;
+        }
+
+        if (icon == null) {
+            GameObject iconObj = new GameObject(objectName);
+            iconObj.transform.SetParent(parent, false);
+            icon = iconObj.AddComponent<Image>();
+        } else if (icon.transform.parent != parent) {
+            icon.transform.SetParent(parent, false);
+        }
+
+        RectTransform rect = icon.rectTransform;
+        rect.anchorMin = anchor;
+        rect.anchorMax = anchor;
+        rect.pivot = anchor;
+        rect.anchoredPosition = position;
+        rect.sizeDelta = size;
+        VisualUIHelper.ApplyContainSprite(icon, visualID, size, tint, tint, false);
+        icon.raycastTarget = false;
+        return icon;
     }
 
     private Text EnsureDecorText(
@@ -2075,6 +2442,11 @@ public class WorkshopUIController : MonoBehaviour {
         text.fontSize = fontSize;
     }
 
+    private string GetButtonLabel(Button button) {
+        Text text = button != null ? button.GetComponentInChildren<Text>(true) : null;
+        return text != null ? text.text : string.Empty;
+    }
+
     private Image CreateTitleDivider(Transform parent, Vector2 anchoredPosition, Vector2 size) {
         if (parent == null) {
             return null;
@@ -2120,8 +2492,9 @@ public class WorkshopUIController : MonoBehaviour {
             display.anchorMin = new Vector2(0.5f, 0.5f);
             display.anchorMax = new Vector2(0.5f, 0.5f);
             display.pivot = new Vector2(0.5f, 0.5f);
-            display.anchoredPosition = new Vector2(0f, -40f);
-            display.sizeDelta = new Vector2(620f, 760f);
+            display.anchoredPosition = _prologueHalfOpen ? new Vector2(-64f, -82f) : new Vector2(-170f, -38f);
+            display.sizeDelta = _prologueHalfOpen ? new Vector2(360f, 620f) : new Vector2(560f, 720f);
+            _dollGlowImage = EnsureDollGlow(display);
         }
 
         RectTransform rect = _dollStandImage.rectTransform;
@@ -2131,12 +2504,46 @@ public class WorkshopUIController : MonoBehaviour {
         rect.anchoredPosition = Vector2.zero;
         VisualUIHelper.ApplyContainSprite(
             _dollStandImage,
-            "doll_proto_0_stand",
-            VisualDisplaySpecs.DollStand,
-            Color.white,
-            new Color(0.42f, 0.32f, 0.24f, 0.92f),
+            _prologueHalfOpen ? T0PrologueDollVisualID : "cg_t0_01a_p06_panel01_no0_close",
+            _prologueHalfOpen ? new Vector2(340f, 610f) : new Vector2(520f, 690f),
+            _prologueHalfOpen ? new Color(1f, 1f, 1f, 0.93f) : new Color(1f, 1f, 1f, 0.92f),
+            new Color(0.48f, 0.68f, 0.72f, 0.94f),
             false);
-        _dollStandImage.transform.parent.SetAsLastSibling();
+        if (_dollStandImage.transform.parent != null) {
+            int targetIndex = backgroundImage != null ? backgroundImage.transform.GetSiblingIndex() + 2 : 1;
+            _dollStandImage.transform.parent.SetSiblingIndex(Mathf.Clamp(targetIndex, 0, transform.childCount - 1));
+        }
+        _dollStandImage.gameObject.SetActive(true);
+    }
+
+    private Image EnsureDollGlow(RectTransform display) {
+        if (display == null) {
+            return _dollGlowImage;
+        }
+
+        Image glow = _dollGlowImage;
+        if (glow == null) {
+            Transform existing = display.Find("DollCenterGlow_Image");
+            glow = existing != null ? existing.GetComponent<Image>() : null;
+        }
+
+        if (glow == null) {
+            GameObject glowObj = new GameObject("DollCenterGlow_Image");
+            glowObj.transform.SetParent(display, false);
+            glow = glowObj.AddComponent<Image>();
+        } else if (glow.transform.parent != display) {
+            glow.transform.SetParent(display, false);
+        }
+
+        RectTransform rect = glow.rectTransform;
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = new Vector2(0f, -18f);
+        rect.sizeDelta = new Vector2(430f, 650f);
+        VisualUIHelper.ApplySolidColor(glow, new Color(0.55f, 0.9f, 1f, 0.065f), false);
+        glow.transform.SetAsFirstSibling();
+        return glow;
     }
 
     private void ApplyMainButtonSkin() {
@@ -2166,6 +2573,29 @@ public class WorkshopUIController : MonoBehaviour {
         ApplyButtonTint(button, tint);
     }
 
+    private void ApplyPrologueButtonSkin(Button button, Color fillColor, bool primary) {
+        if (button == null) {
+            return;
+        }
+
+        Image image = button.GetComponent<Image>();
+        if (image == null) {
+            image = button.gameObject.AddComponent<Image>();
+        }
+
+        VisualUIHelper.ApplySolidColor(image, fillColor, true);
+        button.targetGraphic = image;
+        Outline outline = button.GetComponent<Outline>();
+        if (outline == null) {
+            outline = button.gameObject.AddComponent<Outline>();
+        }
+
+        outline.effectColor = primary
+            ? new Color(0.78f, 1f, 1f, 0.26f)
+            : new Color(0.62f, 0.86f, 0.9f, 0.08f);
+        outline.effectDistance = primary ? new Vector2(1f, -1f) : new Vector2(0.5f, -0.5f);
+    }
+
     private void ApplyButtonTint(Button button, Color tint) {
         if (button == null) {
             return;
@@ -2184,7 +2614,7 @@ public class WorkshopUIController : MonoBehaviour {
 
         text.transform.SetParent(parent, false);
         text.fontSize = fontSize;
-        text.color = new Color(1f, 0.9f, 0.62f, 1f);
+        text.color = new Color(0.82f, 0.95f, 0.98f, 0.96f);
         text.raycastTarget = false;
         text.horizontalOverflow = HorizontalWrapMode.Wrap;
         text.verticalOverflow = VerticalWrapMode.Truncate;
@@ -2224,7 +2654,14 @@ public class WorkshopUIController : MonoBehaviour {
         }
 
         backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "WorkshopBackground_Image");
-        string visualID = VisualAssetService.ResolveWorkshopBackgroundID();
-        VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, Color.white, new Color(0.1f, 0.085f, 0.065f, 0.92f));
+        string visualID = _prologueHalfOpen ? T0PrologueWorkshopBackgroundVisualID : VisualAssetService.ResolveWorkshopBackgroundID();
+        VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, Color.white, new Color(0.03f, 0.055f, 0.064f, 1f));
+        backgroundImage.transform.SetAsFirstSibling();
+        if (!_prologueHalfOpen && _prologueFormalSceneImage != null) {
+            _prologueFormalSceneImage.gameObject.SetActive(false);
+        }
+        if (!_prologueHalfOpen && _prologueSceneVeil != null) {
+            _prologueSceneVeil.gameObject.SetActive(false);
+        }
     }
 }

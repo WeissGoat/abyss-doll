@@ -1,0 +1,33 @@
+{
+  "source": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\inputs\\zero_maintenance_sit_v2\\zero_maintenance_sit_v1.jpg",
+  "source_mime": "image/jpeg",
+  "provider": "gemini_chat_image",
+  "prompt": "Edit the supplied Zero image while preserving her recognizable face, white cloth blindfold, silver-white color palette, petite non-childlike body proportions, and calm maintenance mood.\n\nReplace the current side-sitting leg pose with a strict front-facing compact seated pose on an invisible low stool: torso upright with a slight tired forward softness, both knees together directly in front, thighs parallel and close, both lower legs descending naturally, and both bare feet placed side by side beneath or slightly ahead of the knees. Do not cross, fold, spread, tuck, or sweep the legs sideways. Show both knees, both ankles, all toes, and the complete seated silhouette clearly.\n\nRemove every hair tie, clip, ribbon, band, braid, ponytail, or half-up section. All silver-white hair must be fully loose and unbound, falling naturally around the shoulders and behind the body to below the waist and upper thighs.\n\nCorrect the cloak: it is one short separate gray shoulder cloak that ends around the upper torso or waist. Remove all long trailing side panels and any fabric lying on the ground. It fully covers both shoulders, chest, upper arms, and hidden core chamber. No knot, clasp, cord, pendant, brooch, or chest ornament. Under it is a separate minimal ivory-gray ultra-short inner dress. The core chamber remains fully hidden.\n\nPlace both hands quietly on the upper thighs or cloak edge, symmetrical or nearly symmetrical. Keep the pose modest, practical, tired, and non-sexualized. White cloth blindfold fully closed; no visible red eyes and no red glow. Fine doll-joint seams at wrists, knees, and ankles only. Add subtle dust and wear.\n\nExactly one character on a pure white background. Keep enough clean white space for a centered vertical 2:3 crop without cutting hair or toes. Polished Japanese anime game character portrait, clean thin linework, soft cel shading, low visual noise.\n\nDo not add: side sitting, crossed legs, folded legs, kneeling, spread knees, reclining pose, pinup pose, erotic camera angle, hair accessory, tied hair, long cloak tails, ground fabric, chair, visible support, room, props, text, UI, visible eyes, red glow, shoes, socks, armor, mechanical limbs, exaggerated curves, child or toddler proportions.",
+  "negative_prompt": "",
+  "width": 1024,
+  "height": 1536,
+  "count": 1,
+  "provider_request_count": 1,
+  "delay_seconds": 2.0,
+  "success_count": 1,
+  "errors": [],
+  "files": [
+    {
+      "image": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_maintenance_sit_v2\\gemini_nanobanana\\zero_maintenance_sit_v1\\zero_maintenance_sit_v1_00.jpg",
+      "metadata": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_maintenance_sit_v2\\gemini_nanobanana\\zero_maintenance_sit_v1\\zero_maintenance_sit_v1_00.json"
+    }
+  ],
+  "runs": [
+    {
+      "run_index": 0,
+      "success_count": 1,
+      "errors": [],
+      "files": [
+        {
+          "image": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_maintenance_sit_v2\\gemini_nanobanana\\zero_maintenance_sit_v1\\zero_maintenance_sit_v1_00.jpg",
+          "metadata": "美术文档\\人设\\AI出图\\zero_portrait_p0_20260711_01\\zero_maintenance_sit_v2\\gemini_nanobanana\\zero_maintenance_sit_v1\\zero_maintenance_sit_v1_00.json"
+        }
+      ]
+    }
+  ]
+}

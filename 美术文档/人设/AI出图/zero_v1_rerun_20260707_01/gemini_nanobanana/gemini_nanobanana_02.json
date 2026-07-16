@@ -1,0 +1,18 @@
+{
+  "backend_id": "gemini_nanobanana",
+  "provider": "gemini_chat_image",
+  "model": "gemini-3.1-flash-image",
+  "seed": null,
+  "generation_params": {
+    "api_surface": "chat/completions",
+    "model": "gemini-3.1-flash-image",
+    "prompt": "Design a vertical anime character design sheet for a game heroine named Zero on a pure white background.\n\nThe image must be a clean white-background character reference, not an environment illustration. One near full-body girl only, readable silhouette, no UI, no captions, no room, no furniture, no workshop background. Zero is a petite cute doll-like girl, small-frame but not childlike. Her eyes are hidden by a soft white cloth blindfold. She wears a complete plain gray cloak that covers both shoulders, chest, upper arms, and the hidden core chamber; do not expose one shoulder. Beneath the cloak is a minimal ultra-short inner dress. Her legs are bare and her feet are bare, leaving the lower body visually sparse and fragile. Add only subtle doll-joint seams on wrists, knees and ankles, with a little dust and worn fabric edges. Her hidden core chamber is covered by the cloak and should not be visible.\n\nMood: cold, restrained, emotionless, kuudere, mission-ready. She should not look warm, smiling, pleading, crying, or helpless. The appeal comes from quiet beauty, controlled posture, and the contrast between covered upper body and empty lower silhouette.\n\nVisual style: Japanese anime game character sheet, clean thin linework, soft cel shading, gentle gray-white palette with restrained accents, elegant but not ornate, white background.\n\nAvoid all direct cosplay or source copying: no black blindfold, no 2B outfit, no pink cape, no begging sign, no purple dress, no chest tag, no necklace, no visible chest core, no bare shoulder, no half-exposed shoulder, no mature tall body, no erotic pose, no boots, no high heels, no heavy machinery, no armor, no background scene, no furniture, no gore, no text, no watermark.",
+    "negative_prompt": "",
+    "width": 832,
+    "height": 1216,
+    "count": 1,
+    "result_index": 0
+  },
+  "cost": 0.0,
+  "bytes": 116253
+}

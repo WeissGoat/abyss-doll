@@ -1,0 +1,305 @@
+{
+  "GeneratedAt": "2026-07-07T00:46:02+08:00",
+  "SnapshotTag": "t0_01a_cg_seed_20260707",
+  "Inputs": {
+    "IntegrationCandidatesPath": "美术文档/_generated/可接入素材清单.json",
+    "AcceptanceQueuePath": "美术文档/ui_design/_generated/FormalV1验收队列.json",
+    "ManifestPath": "美术文档/_generated/art_manifest.json"
+  },
+  "SourceSummaries": {
+    "IntegrationGeneratedAt": "2026-07-07T00:44:41+08:00",
+    "IntegrationActionCounts": {
+      "acceptance_needed": 275,
+      "art_approve": 3,
+      "generate_needed": 15
+    },
+    "AcceptanceGeneratedAt": "2026-06-10T00:52:28+08:00",
+    "AcceptanceRunID": "20260610_003347",
+    "AcceptanceStatus": "PASSED",
+    "AcceptanceFinishedAt": "2026-06-10T00:34:02.2020370+08:00",
+    "AcceptanceIsOlderThanSpec": false
+  },
+  "Summary": {
+    "ProgramIntegrateVisualCount": 0,
+    "ProgramIntegrateLocalV0Count": 0,
+    "ProgramIntegratePriorityCounts": {},
+    "ProgramIntegrateDomainCounts": {},
+    "FormalV1ScreenCount": 16,
+    "ProgramRegisterScreenCount": 0,
+    "ProgramAddCaptureScreenCount": 0,
+    "ProgramRerunAcceptanceScreenCount": 0,
+    "ArtReviewScreenshotScreenCount": 16,
+    "AcceptanceQueueBucketCounts": {
+      "art_review_ready": 16
+    },
+    "AcceptanceActionCounts": {
+      "art_review_screenshot": 16
+    }
+  },
+  "ProgramActions": {
+    "RegisterVisualIDs": [],
+    "AddArtAcceptanceCaptureScreens": [],
+    "RerunArtAcceptanceScreens": [],
+    "ArtReviewAfterRerunScreens": [
+      "daily_bill_report",
+      "layer_select",
+      "maintenance_panel",
+      "prosthetic_panel",
+      "safe_room",
+      "sell_panel",
+      "stairs_room",
+      "business_settlement",
+      "chassis_upgrade_panel",
+      "doll_interaction",
+      "doll_room",
+      "faction_shop",
+      "order_board",
+      "rumor_board",
+      "scenario_event",
+      "shop_staging"
+    ]
+  },
+  "ProgramIntegrateVisuals": [],
+  "FormalV1AcceptanceActions": [
+    {
+      "ScreenID": "daily_bill_report",
+      "DisplayName": "每日账单报告界面",
+      "Priority": "P1",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/daily_bill_report.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "layer_select",
+      "DisplayName": "出发层选择界面",
+      "Priority": "P1",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/layer_select.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "maintenance_panel",
+      "DisplayName": "机体维护整备界面",
+      "Priority": "P1",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/maintenance_panel.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "prosthetic_panel",
+      "DisplayName": "义体制造界面",
+      "Priority": "P1",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/prosthetic_panel.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "safe_room",
+      "DisplayName": "深渊安全区界面",
+      "Priority": "P1",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/safe_room.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "sell_panel",
+      "DisplayName": "工坊出售界面",
+      "Priority": "P1",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/sell_panel.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "stairs_room",
+      "DisplayName": "深渊阶梯房间界面",
+      "Priority": "P1",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/stairs_room.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "business_settlement",
+      "DisplayName": "营业结算演出界面",
+      "Priority": "P2",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/business_settlement.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "chassis_upgrade_panel",
+      "DisplayName": "底盘升级界面",
+      "Priority": "P2",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/chassis_upgrade_panel.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "doll_interaction",
+      "DisplayName": "人偶交互界面",
+      "Priority": "P2",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_interaction.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "doll_room",
+      "DisplayName": "人偶房间界面",
+      "Priority": "P2",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/doll_room.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "faction_shop",
+      "DisplayName": "势力商店界面",
+      "Priority": "P2",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/faction_shop.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "order_board",
+      "DisplayName": "势力订单板界面",
+      "Priority": "P2",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/order_board.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "rumor_board",
+      "DisplayName": "传闻情报板界面",
+      "Priority": "P2",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/rumor_board.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "scenario_event",
+      "DisplayName": "剧本事件界面",
+      "Priority": "P2",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/scenario_event.png",
+      "ScreenshotStaleAgainstSpec": false
+    },
+    {
+      "ScreenID": "shop_staging",
+      "DisplayName": "出货分配界面",
+      "Priority": "P2",
+      "QueueBucket": "art_review_ready",
+      "RequiredActions": [
+        "art_review_screenshot"
+      ],
+      "RegistryGaps": [],
+      "LocalV0VisualIDs": [],
+      "CaptureConfiguredInLatestTool": true,
+      "HasScreenshot": true,
+      "ScreenshotPath": "UnityClient/Logs/ArtAcceptance/latest/screenshots/shop_staging.png",
+      "ScreenshotStaleAgainstSpec": false
+    }
+  ]
+}

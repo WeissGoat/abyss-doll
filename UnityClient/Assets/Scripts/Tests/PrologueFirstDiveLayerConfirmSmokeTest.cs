@@ -31,8 +31,12 @@ public static class PrologueFirstDiveLayerConfirmSmokeTest {
         bool firstDiveMode = layerController != null
             && layerController.IsFirstDiveMode
             && layerController.SelectedLayerID == 1;
-        bool oneLayerOnly = CountLayerRows(layerController) == 1
-            && FindChild(layerController?.listParent, "DungeonStartLayer_1") != null;
+        bool onePermitCardOnly = layerController != null
+            && layerController.HasFirstDivePermitCard
+            && CountPermitCards(layerController) == 1
+            && CountLayerRows(layerController) == 0
+            && layerController.PermitTitleText.Contains("第一层")
+            && layerController.PermitSummaryText.Contains("许可");
         bool buttonLabels = ButtonText(layerController?.confirmBtn) == "出发"
             && ButtonText(layerController?.closeBtn) == "再看她一眼";
         bool canDepart = layerController?.confirmBtn != null && layerController.confirmBtn.interactable;
@@ -97,7 +101,7 @@ public static class PrologueFirstDiveLayerConfirmSmokeTest {
             && core.Dungeon.CurrentLayer.LayerID == 1;
 
         if (firstDiveMode
-            && oneLayerOnly
+            && onePermitCardOnly
             && buttonLabels
             && canDepart
             && departIsRequestOnly
@@ -110,7 +114,7 @@ public static class PrologueFirstDiveLayerConfirmSmokeTest {
         } else {
             Debug.LogError(
                 "Prologue First Dive Layer Confirm Smoke FAILED. "
-                + $"FirstDive={firstDiveMode}, OneLayer={oneLayerOnly}, Buttons={buttonLabels}, CanDepart={canDepart}, "
+                + $"FirstDive={firstDiveMode}, PermitCard={onePermitCardOnly}, Buttons={buttonLabels}, CanDepart={canDepart}, "
                 + $"DepartRequestOnly={departIsRequestOnly}, Returned={returnedToWorkshop}, Blocked={blockedState}, "
                 + $"BlockedNoDepart={blockedDoesNotDepart}, NarrativeOpen={narrativeOpensFirstDive}, NarrativeDepartStart={narrativeDepartStartsFirstDive}, "
                 + $"Rows={CountLayerRows(layerController)}, Confirm={ButtonText(layerController?.confirmBtn)}, Close={ButtonText(layerController?.closeBtn)}, "
@@ -159,19 +163,20 @@ public static class PrologueFirstDiveLayerConfirmSmokeTest {
         return count;
     }
 
-    private static Transform FindChild(Transform parent, string objectName) {
-        if (parent == null) {
-            return null;
+    private static int CountPermitCards(DungeonStartLayerUIController controller) {
+        if (controller?.listParent == null) {
+            return 0;
         }
 
-        for (int i = 0; i < parent.childCount; i++) {
-            Transform child = parent.GetChild(i);
-            if (child != null && child.name == objectName) {
-                return child;
+        int count = 0;
+        for (int i = 0; i < controller.listParent.childCount; i++) {
+            Transform child = controller.listParent.GetChild(i);
+            if (child != null && child.name == "FirstDivePermitCard") {
+                count++;
             }
         }
 
-        return null;
+        return count;
     }
 
     private static string ButtonText(Button button) {

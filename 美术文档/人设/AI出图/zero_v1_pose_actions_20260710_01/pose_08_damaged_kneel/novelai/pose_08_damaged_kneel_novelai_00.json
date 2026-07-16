@@ -1,0 +1,23 @@
+{
+  "pose_id": "pose_08_damaged_kneel",
+  "pose_name": "damaged kneel",
+  "backend_id": "novelai",
+  "provider": "novelai",
+  "model": "nai-diffusion-4-5-full",
+  "seed": 532211788,
+  "generation_params": {
+    "prompt": "1girl, solo, single character, full body, kneeling, one hand on ground, dusty cloak, dim red glow behind blindfold, no blood, anime game character design, petite, small frame, quiet doll girl, expressionless, kuudere, emotionless, long hair, very long hair, loose hair, hair down, unbound hair, pale silver hair, white hair, white cloth blindfold, blindfold over eyes, red eyes hidden behind blindfold, dim red glow through white cloth, complete gray cloak, gray shoulder cloak, cloak covering both shoulders, covered shoulders, covered chest, covered upper arms, simple short inner dress, uncovered legs, unshod feet, subtle doll joints, wrist joints, knee joints, ankle joints, light dust, worn fabric, small scratches, fragile body, clean white background, character reference, clean lineart, soft cel shading, delicate silhouette, muted gray palette, no text",
+    "negative_prompt": "lowres, bad anatomy, bad hands, extra fingers, missing fingers, extra legs, extra arms, deformed, disfigured, toddler, child, explicit loli, chibi, old, mature female, adult woman, tall woman, sexy, erotic, pinup, male, multiple girls, black blindfold, visible bare eyes in normal pose, blue eyes, 2b, yorha, nier automata, cosplay, ponytail, twintails, braid, braided hair, bun, tied hair, short hair, heavy curls, pink cape, purple dress, begging sign, signboard, chest tag, necklace, pendant, large chest ornament, exposed chest core, visible core chamber, bare shoulder, one shoulder exposed, off shoulder, asymmetrical cloak, armor, mecha, robot body, mechanical arms, boots, shoes, high heels, gothic lolita, maid, military uniform, complex background, room, furniture, blood, gore, injury fetish, smile, open mouth, text, watermark, logo, multi-view, turnaround sheet, split view",
+    "width": 1024,
+    "height": 1536,
+    "seed": 532211788,
+    "steps": 28,
+    "cfg": 5.5,
+    "sampler": "k_euler",
+    "scheduler": "native",
+    "model": "nai-diffusion-4-5-full",
+    "action": "generate"
+  },
+  "cost": 0.0,
+  "bytes": 548688
+}

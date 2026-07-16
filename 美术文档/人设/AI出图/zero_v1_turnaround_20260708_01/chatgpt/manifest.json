@@ -1,0 +1,14 @@
+{
+  "backend_id": "chatgpt",
+  "provider": "openai_images",
+  "prompt": "Create a polished anime game character turnaround sheet for Project P3 character \"Zero\".\n\nCanvas and layout: one clean white-background model sheet, landscape composition, three full-body views of the same character aligned left to right: front view, side view, back view. Keep the same body scale, same costume, same hair length, same cloak shape, and same proportions across all three views. No text labels, no UI, no room, no props.\n\nCharacter identity: Zero is a petite cute quiet doll girl, small-frame but not childlike, with a cold emotionless kuudere expression. She has pale silver-white long loose hair worn down naturally, unbound and scattered softly around the shoulders and back. The hair is long, straight to lightly messy, with separate front and back hair masses readable in the side and back views. Do not tie the hair.\n\nCostume: soft white cloth blindfold covering the eyes and wrapping around the head; complete plain gray shoulder cloak covering both shoulders, chest, upper arms, and the hidden core chamber; very simple ultra-short inner dress under the cloak; bare legs and bare feet. Add subtle small doll joints at wrists, knees, and ankles, plus light dust, tiny scratches, and slightly worn cloth edges. The chest core chamber exists under the cloak but must not be visible in this normal turnaround.\n\nTurnaround requirements: front view must clearly show the white blindfold, gray cloak mass, short inner dress, bare legs, bare feet, and doll joints. Side view must show cloak thickness, blindfold wrapping around the head, long loose hair falling behind the shoulder, and ankle/knee joint seams. Back view must show the long loose hair falling down the back, the back hem of the gray cloak, blindfold wrap or knot, and subtle back-body seam hints only if naturally visible.\n\nArt direction: refined Japanese anime 2D game character design, clean linework, soft cel-shaded rendering, delicate doll silhouette, understated subterranean fantasy, low visual noise, production reference clarity.\n\nMust avoid: black blindfold, tied hair, ponytail, twintails, braids, buns, short hair, heavy curls, 2B cosplay, NieR Automata outfit, pink cape, purple dress, begging sign, chest pendant, necklace, large chest ornament, visible exposed core on chest, half-exposed shoulder, one bare shoulder, off-shoulder cloak, mature tall woman, adult sexy body, erotic pose, toddler or child proportions, boots, high heels, heavy armor, mecha limbs, gothic lolita, maid dress, military uniform, complex background, room background, text, watermark.",
+  "negative_prompt": "",
+  "width": 1536,
+  "height": 1024,
+  "count": 3,
+  "success_count": 0,
+  "errors": [
+    "[openai_images] HTTP 401: Invalid token (request id: 202607071630382711270638268d9d6c08lEArO)"
+  ],
+  "files": []
+}

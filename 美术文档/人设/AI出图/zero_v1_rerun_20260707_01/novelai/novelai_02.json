@@ -1,0 +1,21 @@
+{
+  "backend_id": "novelai",
+  "provider": "novelai",
+  "model": "nai-diffusion-4-5-full",
+  "seed": 1010720999,
+  "generation_params": {
+    "prompt": "1girl, solo, full body, anime game character design, petite, small frame, cute doll girl, quiet doll girl, expressionless, kuudere, emotionless, white cloth blindfold, blindfold over eyes, pale silver long hair, complete gray cloak, cloak covering both shoulders, covered shoulders, covered chest, shoulder cloak, simple ultra short inner dress, bare legs, bare feet, subtle doll joints, wrist joints, knee joints, ankle joints, light dust, worn fabric, small scratches, fragile body, clean white background, concept art, character sheet, centered composition, clean lineart, soft cel shading, delicate silhouette, muted gray palette, no text",
+    "negative_prompt": "lowres, bad anatomy, bad hands, extra fingers, missing fingers, extra legs, extra arms, deformed, disfigured, toddler, child, explicit loli, chibi, old, mature female, adult woman, tall woman, sexy, erotic, male, multiple girls, black blindfold, 2b, yorha, nier automata, cosplay, pink cape, purple dress, begging sign, signboard, chest tag, necklace, pendant, large chest ornament, exposed chest core, visible core chamber, bare shoulder, one shoulder exposed, off shoulder, asymmetrical cloak, armor, mecha, robot body, mechanical arms, boots, shoes, high heels, gothic lolita, maid, military uniform, complex background, room, furniture, blood, gore, injury fetish, crying, smile, open mouth, text, watermark, logo",
+    "width": 832,
+    "height": 1216,
+    "seed": 1010720999,
+    "steps": 28,
+    "cfg": 5.5,
+    "sampler": "k_euler",
+    "scheduler": "native",
+    "model": "nai-diffusion-4-5-full",
+    "action": "generate"
+  },
+  "cost": 0.0,
+  "bytes": 523132
+}

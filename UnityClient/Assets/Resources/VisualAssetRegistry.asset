@@ -78,6 +78,11 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+  - VisualID: bg_t0_prologue_half_open_workshop
+    Sprite: {fileID: 21300000, guid: 028f196eba867cb48bc02877f3be4690, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
   - VisualID: bg_town_shop
     Sprite: {fileID: 21300000, guid: 445644656d112b8d89012881573081ab, type: 3}
     Prefab: {fileID: 0}
@@ -95,6 +100,86 @@ MonoBehaviour:
     Material: {fileID: 0}
   - VisualID: bg_workshop_studio
     Sprite: {fileID: 21300000, guid: f53fe1ddb68511d98133fd33134c4b8e, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p01_wake_pov
+    Sprite: {fileID: 21300000, guid: d39388fb2be76344389872657642c5a1, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p02_panel01_workshop_wide
+    Sprite: {fileID: 21300000, guid: ebbc95f99fe904745aa9cacfb697dd03, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p02_panel02_debt_notice_door
+    Sprite: {fileID: 21300000, guid: 46dc88b1db846d44a9554e986a3c166c, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p02_panel03_no0_hand_cloth
+    Sprite: {fileID: 21300000, guid: f9e614380a5484747b5aa325722a592f, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p03_panel01_debt_notice_close
+    Sprite: {fileID: 21300000, guid: 9cc55387fe1889a4f81863e6f18eba45, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p03_panel02_collateral_shadow
+    Sprite: {fileID: 21300000, guid: d82f6c598dafe204ca7d73026e9697ed, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p03_panel03_broken_parts
+    Sprite: {fileID: 21300000, guid: 1926ef1305d9554438c4187a380927fa, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p04_panel01_repair_note_close
+    Sprite: {fileID: 21300000, guid: a1765807e8eb4fe41a88c72683001944, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p04_panel02_shallow_gate_glow
+    Sprite: {fileID: 21300000, guid: bd6c67d0a98310d41bbc1c0f5ccf5932, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p04_panel03_core_shard_box
+    Sprite: {fileID: 21300000, guid: c581eea449fc15340a2bfcbfd7b02ed9, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p05_panel01_broken_doll_parts
+    Sprite: {fileID: 21300000, guid: 66a26b6e84492a44e9e13a6bf1f849e9, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p05_panel02_no0_half_reveal
+    Sprite: {fileID: 21300000, guid: 5aaea4b0488f75f4f87a1b356f3241ba, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p05_panel03_no0_core_dim
+    Sprite: {fileID: 21300000, guid: 05ce462e3e309e649a30ea5127b36a50, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p06_panel01_no0_close
+    Sprite: {fileID: 21300000, guid: 74aa9367ec30f994da81305b294ff404, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p06_panel02_core_insert
+    Sprite: {fileID: 21300000, guid: a359e6da1a2fe8241ab84e156ec84cb9, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: cg_t0_01a_p06_panel03_core_wake
+    Sprite: {fileID: 21300000, guid: 7e555ff8da73850418567d71ba53f1fa, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -125,6 +210,11 @@ MonoBehaviour:
     Material: {fileID: 0}
   - VisualID: doll_proto_0_stand
     Sprite: {fileID: 21300000, guid: 7c5cb18a26d36fb43aacd951755c2c42, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: doll_proto_0_t0_stand
+    Sprite: {fileID: 21300000, guid: a3454647d76794c4ba18cee4c0185589, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}

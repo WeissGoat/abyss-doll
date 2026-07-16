@@ -1,0 +1,40 @@
+# Raw 生成证据
+
+## 工作区
+
+P3 上游生产工作流指定的 raw 工作区：
+
+```text
+UnityClient/Assets/Art/_IncomingAI/<VisualID>/
+  raw/
+  manifest_snapshot.json
+  generation.json
+```
+
+探索性人设、三后端对比或专项试验可使用任务文档指定目录，但必须明确“不进入 Approved / Manifest / Registry”。
+
+## generation.json 最低证据
+
+记录：
+
+- provider、model、capability。
+- prompt 格式和 negative prompt。
+- 参考图 / mask 来源。
+- 请求次数、每次 `count=1`、seed、尺寸和输出格式。
+- 每张输出路径、实际尺寸、错误和时间。
+
+## 能力状态声明
+
+| 证据 | 最多可声明 |
+|---|---|
+| provider 请求与错误记录 | 请求已执行 |
+| 可解码 raw 图片 + generation.json | 图片候选生成 / 编辑完成 |
+
+本 Skill 不声明 processed、selected、Approved、registered、runtime validated 或 player-path complete。
+
+## 安全边界
+
+- 不在日志、文档、状态页或提交中写真实 token。
+- `config.local.yaml` 和 smoke 输出保持忽略。
+- `_IncomingAI` 默认不提交。
+- 图片含随机文字、水印、签名、错误角色数量或身份漂移时，应如实返回给上游评估，不能由本 Skill 推进正式状态。

@@ -3104,7 +3104,7 @@
       "VisualID": "item_loot_rusty_coil_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_rusty_coil_icon.png",
       "Priority": "P0",
-      "Status": "approved",
+      "Status": "prompted",
       "SourceFactsCN": "配置表物品：生锈线圈。类型 Loot，稀有度 Uncommon，占格 2，标签 Material, Mechanical。",
       "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。生锈线圈材料图标，红褐旧导线线圈、铁芯、断线和锈蚀外壳。",
       "PromptEN": "Japanese anime-inspired 2D game art, subterranean fantasy adventure, whimsical yet ominous, soft cel-shaded painterly rendering, clean linework, clear saturated accents, airy fantasy atmosphere, luminous cave flora, low visual noise, game item icon, rusty electromagnetic coil icon, stacked reddish old wire windings around a dark iron rod, two loose wire ends, corroded ceramic insulator base, clearly a machine part, not a lantern, not a lamp, centered single object, clean readable silhouette, transparent background, no text",
@@ -3143,13 +3143,10 @@
       },
       "BatchID": "nai_p0_item_20260510_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/20260609_001.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/item_loot_rusty_coil_icon.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_rusty_coil_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/contact_sheet/item_loot_rusty_coil_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/item_loot_rusty_coil_icon.png\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/contact_sheet/item_loot_rusty_coil_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/20260609_001.png",
-      "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
-      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
+      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/contact_sheet/item_loot_rusty_coil_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_rusty_coil_icon/selected/item_loot_rusty_coil_icon.png"
     },
     {
       "Domain": "item",
@@ -3220,7 +3217,7 @@
       "VisualID": "item_loot_toxic_filter_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_toxic_filter_icon.png",
       "Priority": "P0",
-      "Status": "approved",
+      "Status": "prompted",
       "SourceFactsCN": "配置表物品：污染滤芯。类型 Loot，稀有度 Rare，占格 3，标签 Material, Toxic, Mechanical。",
       "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。污染滤芯图标，工业滤芯破裂外壳、紫绿色污染残留和腐蚀金属。",
       "PromptEN": "Japanese anime-inspired 2D game art, subterranean fantasy adventure, whimsical yet ominous, soft cel-shaded painterly rendering, clean linework, clear saturated accents, airy fantasy atmosphere, luminous cave flora, low visual noise, game item icon, polluted industrial filter cartridge icon, cracked square metal filter frame, dark pleated mesh, purple-green toxic residue leaking from the grid, clearly a replaceable filter part, not a jar, not a lamp, centered single object, clean readable silhouette, transparent background, no text",
@@ -3259,13 +3256,10 @@
       },
       "BatchID": "nai_p0_item_20260510_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/20260609_004.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/item_loot_toxic_filter_icon.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_loot_toxic_filter_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/contact_sheet/item_loot_toxic_filter_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/item_loot_toxic_filter_icon.png\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/contact_sheet/item_loot_toxic_filter_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/20260609_004.png",
-      "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
-      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
+      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/contact_sheet/item_loot_toxic_filter_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_loot_toxic_filter_icon/selected/item_loot_toxic_filter_icon.png"
     },
     {
       "Domain": "item",
@@ -3394,7 +3388,7 @@
       "VisualID": "item_mat_core_tier1_icon",
       "OutputPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier1_icon.png",
       "Priority": "P0",
-      "Status": "approved",
+      "Status": "prompted",
       "SourceFactsCN": "配置表物品：一阶动力核心。类型 QuestItem，稀有度 Epic，占格 4，标签 Material, CoreMaterial, Heavy。",
       "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。一阶动力核心图标，小型金属核心装置，内部有稳定蓝金色发光核心。",
       "PromptEN": "Japanese anime-inspired 2D game art, subterranean fantasy adventure, whimsical yet ominous, soft cel-shaded painterly rendering, clean linework, clear saturated accents, airy fantasy atmosphere, luminous cave flora, low visual noise, game item icon, small power core module icon, compact oval metal casing, exposed gear ring, stable blue-gold glowing energy cell in the center, heavy valuable machine part, not a lantern, not a lamp, centered single object, clean readable silhouette, transparent background, no text",
@@ -3433,13 +3427,10 @@
       },
       "BatchID": "nai_p0_item_20260510_01",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/raw",
-      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/20260609_003.png",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/item_mat_core_tier1_icon.png",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Items/Icons/item_mat_core_tier1_icon.png",
       "RegistryStatus": "unregistered",
-      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/contact_sheet/item_mat_core_tier1_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/item_mat_core_tier1_icon.png\n[2026-06-09T12:58:12+08:00] generated candidate batch nai_formalv2_remaining_items_20260609_01; preserved Status=prompted.\n[2026-06-09T13:03:33+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/contact_sheet/item_mat_core_tier1_icon_contact_sheet.png\n[2026-06-09T13:09:22+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/20260609_003.png",
-      "QualityTier": "formal_ai_v2",
-      "QualityUpdatedAt": "2026-06-09T13:09:22+08:00",
-      "ReplacementBatchID": "nai_formalv2_remaining_items_20260609_01"
+      "Notes": "[2026-05-10T00:22:52+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/contact_sheet/item_mat_core_tier1_icon_contact_sheet.png\n[2026-05-10T00:24:01+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/item_mat_core_tier1_icon/selected/item_mat_core_tier1_icon.png"
     },
     {
       "Domain": "item",
@@ -7338,6 +7329,993 @@
       "QualityTier": "formal_ai_v2",
       "QualityUpdatedAt": "2026-06-09T03:24:34+08:00",
       "ReplacementBatchID": "nai_formalv2_missing_20260608_01"
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p02_panel01_workshop_wide",
+      "DisplayName": "T0序章-工坊远景",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p02_panel01_workshop_wide",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p02_panel01_workshop_wide.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P0 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。狭窄破败地底工坊远景，以工坊房间而不是洞穴为主；有修补架、维修工具、潮湿石地，旧工作台偏右，防尘布下的人偶轮廓是焦点，左侧门缝附近只有一张被雨打湿的催缴纸，后方有浅层暗门轮廓，冷灰蓝光和安静压力。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, wide cinematic comic panel of a cramped ruined underground workshop room, workshop-first not cave-first, patched shelves, repair tools, damp stone floor, one old workbench on the right, a dust cloth covering a fragile doll-shaped silhouette as the focal point, one rain-damp debt notice near the left door crack, faint shallow-gate outline in the back, cool gray-blue light, quiet pressure, no readable text, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/selected/20260710_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p02_panel01_workshop_wide.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:50:55+08:00] generated candidate batch t0_01a_comic_gemini_probe_local_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/contact_sheet/cg_t0_01a_p02_panel01_workshop_wide_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/processed/20260707_001.png\n[2026-07-08T00:26:12+08:00] generated candidate batch t0_01a_cg_fix_gemini_20260708_01; preserved Status=approved.\n[2026-07-08T00:37:57+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/contact_sheet/cg_t0_01a_p02_panel01_workshop_wide_contact_sheet.png\n[2026-07-08T00:38:23+08:00] generated candidate batch t0_01a_cg_fix_gemini_20260708_02; preserved Status=approved.\n[2026-07-08T00:41:41+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/contact_sheet/cg_t0_01a_p02_panel01_workshop_wide_contact_sheet.png\n[2026-07-08T00:43:51+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/processed/20260708_003.png\n[2026-07-10T00:36:00+08:00] generation failed: [openai_images] HTTP 504: <!DOCTYPE html>\n<html lang=\"zh-CN\">\n\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>504 Gateway Timeout</title>\n  <style>\n    :root {\n      --primary-color: #3b82f6;\n      --error-color: #ef4444;\n      --background-color: #f9fafb;\n      --card-color: #ffffff;\n      --text-color: #1f2937;\n      --text-secondary: #6b7280;\n      --border-radius: 8px;\n    }\n\n    * {\n      margin: 0;\n      padding: 0;\n      box-sizing: border-box;\n[2026-07-10T00:45:18+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_gemini; preserved Status=approved.\n[2026-07-10T00:51:26+08:00] generation failed: [grok_chat_image] HTTP 503: 分组 生图 下模型 grok-imagine-image-lite 无可用渠道（distributor） (request id: 20260709165134920322190EbckTCXY)\n[2026-07-10T00:51:46+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_novelai; preserved Status=approved.\n[2026-07-10T00:53:18+08:00] processed 6 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/contact_sheet/cg_t0_01a_p02_panel01_workshop_wide_contact_sheet.png\n[2026-07-10T01:15:21+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/selected/20260710_001.png\n[2026-07-11T13:13:09+08:00] generation failed: [gemini_chat_image] Missing auth.api_key; [gemini_chat_image] Missing auth.api_key; [gemini_chat_image] Missing auth.api_key\n[2026-07-11T13:19:39+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-11T13:26:33+08:00] generated candidate batch t0_01a_seal_p02_gemini_configfix_20260711; preserved Status=approved.\n[2026-07-11T13:29:08+08:00] generated candidate batch t0_01a_seal_p02_gemini_v1_20260711; preserved Status=approved.\n[2026-07-11T13:37:35+08:00] processed 3 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/contact_sheet/cg_t0_01a_p02_panel01_workshop_wide_contact_sheet.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p02 工坊远景，建立破败工坊和零号轮廓。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-10T01:15:21+08:00",
+      "CandidateBatchID": "t0_01a_seal_p02_gemini_v1_20260711",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/raw/20260711_002.png",
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/raw/20260711_003.png",
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel01_workshop_wide/raw/20260711_004.png"
+      ],
+      "ReplacementBatchID": ""
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p02_panel02_debt_notice_door",
+      "DisplayName": "T0序章-门缝催缴纸",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p02_panel02_debt_notice_door",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p02_panel02_debt_notice_door.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P0 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。门缝纸张滑入的特写，雨水湿边、冷光、抽象印章和空白块表达债务压力，不出现可读文字。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, cinematic close comic panel of a damp paper notice sliding through a workshop door crack, cold rain light, wet paper edge, simple stamp-like shapes and blank blocks suggesting debt pressure, no readable text, no letters, no numbers, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel02_debt_notice_door/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel02_debt_notice_door/processed/20260707_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p02_panel02_debt_notice_door.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:52:48+08:00] generated candidate batch t0_01a_comic_gemini_v1_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel02_debt_notice_door/contact_sheet/cg_t0_01a_p02_panel02_debt_notice_door_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel02_debt_notice_door/processed/20260707_001.png\n[2026-07-11T13:13:09+08:00] generation failed: [gemini_chat_image] Missing auth.api_key; [gemini_chat_image] Missing auth.api_key; [gemini_chat_image] Missing auth.api_key\n[2026-07-11T13:29:08+08:00] generated candidate batch t0_01a_seal_p02_gemini_v1_20260711; preserved Status=approved.\n[2026-07-11T13:37:35+08:00] processed 3 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel02_debt_notice_door/contact_sheet/cg_t0_01a_p02_panel02_debt_notice_door_contact_sheet.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p02 门缝纸张滑入。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-07T01:13:31+08:00",
+      "CandidateBatchID": "t0_01a_seal_p02_gemini_v1_20260711",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel02_debt_notice_door/raw/20260711_001.png",
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel02_debt_notice_door/raw/20260711_002.png",
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel02_debt_notice_door/raw/20260711_003.png"
+      ]
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p02_panel03_no0_hand_cloth",
+      "DisplayName": "T0序章-布下零号手部",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p02_panel03_no0_hand_cloth",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p02_panel03_no0_hand_cloth.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P0 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。防尘布下露出精细机械人偶手部的近景，手指微微蜷曲，像抓着一段失去的记忆，旧工坊桌面、灰尘和冷光。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, intimate comic panel close-up of a delicate mechanical doll hand emerging from under a dust cloth, fragile fingers slightly curled as if holding a lost memory, old workshop table surface, soft dust, cool muted light, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel03_no0_hand_cloth/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel03_no0_hand_cloth/processed/20260707_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p02_panel03_no0_hand_cloth.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:52:48+08:00] generated candidate batch t0_01a_comic_gemini_v1_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel03_no0_hand_cloth/contact_sheet/cg_t0_01a_p02_panel03_no0_hand_cloth_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel03_no0_hand_cloth/processed/20260707_001.png\n[2026-07-11T13:13:09+08:00] generation failed: [gemini_chat_image] Missing auth.api_key; [gemini_chat_image] Missing auth.api_key; [gemini_chat_image] Missing auth.api_key\n[2026-07-11T13:15:06+08:00] generated candidate batch t0_01a_seal_p02_nai_smoke_20260711; preserved Status=approved.\n[2026-07-11T13:18:03+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel03_no0_hand_cloth/contact_sheet/cg_t0_01a_p02_panel03_no0_hand_cloth_contact_sheet.png\n[2026-07-11T13:29:08+08:00] generated candidate batch t0_01a_seal_p02_gemini_v1_20260711; preserved Status=approved.\n[2026-07-11T13:37:35+08:00] processed 3 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel03_no0_hand_cloth/contact_sheet/cg_t0_01a_p02_panel03_no0_hand_cloth_contact_sheet.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p02 防尘布下露出零号手部。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-07T01:13:31+08:00",
+      "CandidateBatchID": "t0_01a_seal_p02_gemini_v1_20260711",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel03_no0_hand_cloth/raw/20260711_002.png",
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel03_no0_hand_cloth/raw/20260711_003.png",
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p02_panel03_no0_hand_cloth/raw/20260711_004.png"
+      ]
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p03_panel01_debt_notice_close",
+      "DisplayName": "T0序章-债务纸特写",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p03_panel01_debt_notice_close",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p03_panel01_debt_notice_close.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P0 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。催缴纸近景，用抽象封印和粗线块表达今晚封存、抵扣和债务压力，不是 UI 小卡，不出现可读文字。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, close comic panel of a debt notice on a worn workshop floor, only abstract seal shapes and rough blocks implying foreclosure tonight and collateral, wet paper fibers, cold shadow, no readable writing, no UI card framing, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel01_debt_notice_close/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel01_debt_notice_close/processed/20260707_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p03_panel01_debt_notice_close.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:52:48+08:00] generated candidate batch t0_01a_comic_gemini_v1_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel01_debt_notice_close/contact_sheet/cg_t0_01a_p03_panel01_debt_notice_close_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel01_debt_notice_close/processed/20260707_001.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p03 催缴纸语义特写，不烘焙长文字。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-07T01:13:31+08:00",
+      "CandidateBatchID": "t0_01a_comic_gemini_v1_20260707",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel01_debt_notice_close/raw/20260707_001.png"
+      ]
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p04_panel01_repair_note_close",
+      "DisplayName": "T0序章-修复手记",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p04_panel01_repair_note_close",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p04_panel01_repair_note_close.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P0 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。旧修复手记特写，用圈线和图形暗示浅层晶核线索，不出现 AI 乱码或可读文字。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, comic panel close-up of an old repair notebook page with circles and diagram shapes suggesting shallow-layer core clues, no readable text, worn paper, small tool marks, cool blue-white reflected light, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel01_repair_note_close/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel01_repair_note_close/processed/20260707_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p04_panel01_repair_note_close.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:52:48+08:00] generated candidate batch t0_01a_comic_gemini_v1_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel01_repair_note_close/contact_sheet/cg_t0_01a_p04_panel01_repair_note_close_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel01_repair_note_close/processed/20260707_001.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p04 旧手记页和浅层晶核线索。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-07T01:13:31+08:00",
+      "CandidateBatchID": "t0_01a_comic_gemini_v1_20260707",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel01_repair_note_close/raw/20260707_001.png"
+      ]
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p04_panel02_shallow_gate_glow",
+      "DisplayName": "T0序章-浅层暗门冷光",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p04_panel02_shallow_gate_glow",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p04_panel02_shallow_gate_glow.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P0 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。工坊暗门或浅层入口缝隙透出细冷光，潮湿石面和旧木结构，地下空间像在呼吸。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, wide comic panel of a dark workshop hatch or hidden shallow gate with a thin cold glow leaking through the seam, damp stone and old wood, subterranean air, quiet mysterious mood, no character, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel02_shallow_gate_glow/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel02_shallow_gate_glow/processed/20260707_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p04_panel02_shallow_gate_glow.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:52:48+08:00] generated candidate batch t0_01a_comic_gemini_v1_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel02_shallow_gate_glow/contact_sheet/cg_t0_01a_p04_panel02_shallow_gate_glow_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel02_shallow_gate_glow/processed/20260707_001.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p04 工坊暗门缝隙冷光。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-07T01:13:31+08:00",
+      "CandidateBatchID": "t0_01a_comic_gemini_v1_20260707",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel02_shallow_gate_glow/raw/20260707_001.png"
+      ]
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p04_panel03_core_shard_box",
+      "DisplayName": "T0序章-工具匣核心碎片",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p04_panel03_core_shard_box",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p04_panel03_core_shard_box.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P0 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。半开的工具匣中只有最后一枚核心碎片，绝缘带和旧钥匙在旁，碎片微光照向防尘布轮廓。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, cinematic comic panel of a half-open toolbox containing one final glowing core shard, old insulating tape and key nearby, the shard casts faint cold light toward a dust cloth silhouette, clear prop focus, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel03_core_shard_box/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel03_core_shard_box/processed/20260707_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p04_panel03_core_shard_box.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:52:48+08:00] generated candidate batch t0_01a_comic_gemini_v1_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel03_core_shard_box/contact_sheet/cg_t0_01a_p04_panel03_core_shard_box_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel03_core_shard_box/processed/20260707_001.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p04 工具匣中的最后一枚核心碎片。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-07T01:13:31+08:00",
+      "CandidateBatchID": "t0_01a_comic_gemini_v1_20260707",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p04_panel03_core_shard_box/raw/20260707_001.png"
+      ]
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p05_panel02_no0_half_reveal",
+      "DisplayName": "T0序章-零号半身揭示",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p05_panel02_no0_half_reveal",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p05_panel02_no0_half_reveal.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P0 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。掀开防尘布后的零号半身，脆弱但不幼态，能看到上半身到膝部，白布遮眼、灰披肩覆盖双肩、简单短内衬、裸腿、轻微人偶关节，安静冷光。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, cinematic comic panel of No.0 half revealed after the dust cloth is lifted, fragile anime mechanical doll girl but not childlike, upper body and knees visible, white cloth blindfold, gray shawl over both shoulders, simple short inner dress, bare legs, subtle doll joints, quiet emotion, cool workshop light, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel02_no0_half_reveal/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel02_no0_half_reveal/selected/20260710_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p05_panel02_no0_half_reveal.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:52:48+08:00] generated candidate batch t0_01a_comic_gemini_v1_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel02_no0_half_reveal/contact_sheet/cg_t0_01a_p05_panel02_no0_half_reveal_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel02_no0_half_reveal/processed/20260707_001.png\n[2026-07-08T00:26:12+08:00] generated candidate batch t0_01a_cg_fix_gemini_20260708_01; preserved Status=approved.\n[2026-07-08T00:37:57+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel02_no0_half_reveal/contact_sheet/cg_t0_01a_p05_panel02_no0_half_reveal_contact_sheet.png\n[2026-07-08T00:45:43+08:00] generated candidate batch t0_01a_cg_fix_gemini_20260708_03; preserved Status=approved.\n[2026-07-08T00:47:36+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel02_no0_half_reveal/contact_sheet/cg_t0_01a_p05_panel02_no0_half_reveal_contact_sheet.png\n[2026-07-08T00:48:12+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel02_no0_half_reveal/processed/20260708_003.png\n[2026-07-10T00:36:00+08:00] generation failed: [openai_images] HTTP 504: <!DOCTYPE html>\n<html lang=\"zh-CN\">\n\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>504 Gateway Timeout</title>\n  <style>\n    :root {\n      --primary-color: #3b82f6;\n      --error-color: #ef4444;\n      --background-color: #f9fafb;\n      --card-color: #ffffff;\n      --text-color: #1f2937;\n      --text-secondary: #6b7280;\n      --border-radius: 8px;\n    }\n\n    * {\n      margin: 0;\n      padding: 0;\n      box-sizing: border-box;\n[2026-07-10T00:45:18+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_gemini; preserved Status=approved.\n[2026-07-10T00:51:26+08:00] generation failed: [grok_chat_image] HTTP 503: 分组 生图 下模型 grok-imagine-image-lite 无可用渠道（distributor） (request id: 20260709165136171231761NftNFui8)\n[2026-07-10T00:51:46+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_novelai; preserved Status=approved.\n[2026-07-10T00:53:18+08:00] processed 6 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel02_no0_half_reveal/contact_sheet/cg_t0_01a_p05_panel02_no0_half_reveal_contact_sheet.png\n[2026-07-10T01:15:21+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel02_no0_half_reveal/selected/20260710_001.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p05 掀布后零号半身。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-10T01:15:21+08:00",
+      "CandidateBatchID": "t0_01a_cg_style_fix_20260710_novelai",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel02_no0_half_reveal/raw/20260710_002.png"
+      ],
+      "ReplacementBatchID": ""
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p05_panel03_no0_core_dim",
+      "DisplayName": "T0序章-零号核心仓弱光",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p05_panel03_no0_core_dim",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p05_panel03_no0_core_dim.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P0 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。零号上半身核心仓弱光近景，核心嵌在胸腔内，被灰披肩和破损布料边缘半遮住，能看见局部颈部和披肩以确认身份；冷白微光、细机械缝隙，不是独立球体或洞穴遗物，不性感化、不恐怖化。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, close comic panel of No.0's upper torso repair hatch under a gray shawl, small dim core chamber partly hidden by cloak fabric and cracked inner cloth, faint cold white light leaking through mechanical seams, partial neck and shawl visible for identity, understated repair detail, not a standalone orb, not a circular jewel, not a necklace, not a chest pendant, not a cave relic, no sensual framing, no horror doll mood, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel03_no0_core_dim/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel03_no0_core_dim/selected/20260710_003.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p05_panel03_no0_core_dim.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:52:48+08:00] generated candidate batch t0_01a_comic_gemini_v1_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel03_no0_core_dim/contact_sheet/cg_t0_01a_p05_panel03_no0_core_dim_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel03_no0_core_dim/processed/20260707_001.png\n[2026-07-08T00:26:12+08:00] generated candidate batch t0_01a_cg_fix_gemini_20260708_01; preserved Status=approved.\n[2026-07-08T00:37:57+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel03_no0_core_dim/contact_sheet/cg_t0_01a_p05_panel03_no0_core_dim_contact_sheet.png\n[2026-07-08T00:38:23+08:00] generated candidate batch t0_01a_cg_fix_gemini_20260708_02; preserved Status=approved.\n[2026-07-08T00:41:41+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel03_no0_core_dim/contact_sheet/cg_t0_01a_p05_panel03_no0_core_dim_contact_sheet.png\n[2026-07-08T00:43:51+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel03_no0_core_dim/processed/20260708_003.png\n[2026-07-10T00:36:00+08:00] generation failed: [openai_images] HTTP 504: <!DOCTYPE html>\n<html lang=\"zh-CN\">\n\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>504 Gateway Timeout</title>\n  <style>\n    :root {\n      --primary-color: #3b82f6;\n      --error-color: #ef4444;\n      --background-color: #f9fafb;\n      --card-color: #ffffff;\n      --text-color: #1f2937;\n      --text-secondary: #6b7280;\n      --border-radius: 8px;\n    }\n\n    * {\n      margin: 0;\n      padding: 0;\n      box-sizing: border-box;\n[2026-07-10T00:45:18+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_gemini; preserved Status=approved.\n[2026-07-10T00:51:26+08:00] generation failed: [grok_chat_image] HTTP 503: 分组 生图 下模型 grok-imagine-image-lite 无可用渠道（distributor） (request id: 20260709165137420580024tnMGRpYq)\n[2026-07-10T00:51:46+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_novelai; preserved Status=approved.\n[2026-07-10T00:53:18+08:00] processed 6 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel03_no0_core_dim/contact_sheet/cg_t0_01a_p05_panel03_no0_core_dim_contact_sheet.png\n[2026-07-10T00:56:15+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_gemini_refine01; preserved Status=approved.\n[2026-07-10T00:58:07+08:00] processed 7 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel03_no0_core_dim/contact_sheet/cg_t0_01a_p05_panel03_no0_core_dim_contact_sheet.png\n[2026-07-10T01:15:21+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel03_no0_core_dim/selected/20260710_003.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p05 零号核心仓弱光近景。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-10T01:15:21+08:00",
+      "CandidateBatchID": "t0_01a_cg_style_fix_20260710_gemini_refine01",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel03_no0_core_dim/raw/20260710_003.png"
+      ],
+      "ReplacementBatchID": ""
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p06_panel01_no0_close",
+      "DisplayName": "T0序章-启动前零号近景",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p06_panel01_no0_close",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p06_panel01_no0_close.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P0 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。启动前零号脸部和上半身近景，脆弱但不幼态，白布遮眼、灰披肩覆盖双肩、冷感三无表情、克制的成熟比例，冷灰蓝工坊光。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, close comic panel of No.0's face and upper body before activation, fragile anime mechanical doll girl but not childlike, pale silver long loose hair visible around her face and shoulders, wide white cloth blindfold fully covering both eyes, no visible eyes, soft gray shawl over both shoulders, calm emotionless expression, delicate anime face rather than mannequin face, muted mature proportions, cool gray-blue poor workshop lighting, clear face focus, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel01_no0_close/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel01_no0_close/selected/20260710_004.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p06_panel01_no0_close.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:52:48+08:00] generated candidate batch t0_01a_comic_gemini_v1_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel01_no0_close/contact_sheet/cg_t0_01a_p06_panel01_no0_close_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel01_no0_close/processed/20260707_001.png\n[2026-07-08T00:45:43+08:00] generated candidate batch t0_01a_cg_fix_gemini_20260708_03; preserved Status=approved.\n[2026-07-08T00:47:36+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel01_no0_close/contact_sheet/cg_t0_01a_p06_panel01_no0_close_contact_sheet.png\n[2026-07-08T00:48:12+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel01_no0_close/processed/20260708_001.png\n[2026-07-10T00:36:00+08:00] generation failed: [openai_images] HTTP 504: <!DOCTYPE html>\n<html lang=\"zh-CN\">\n\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>504 Gateway Timeout</title>\n  <style>\n    :root {\n      --primary-color: #3b82f6;\n      --error-color: #ef4444;\n      --background-color: #f9fafb;\n      --card-color: #ffffff;\n      --text-color: #1f2937;\n      --text-secondary: #6b7280;\n      --border-radius: 8px;\n    }\n\n    * {\n      margin: 0;\n      padding: 0;\n      box-sizing: border-box;\n[2026-07-10T00:45:18+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_gemini; preserved Status=approved.\n[2026-07-10T00:51:26+08:00] generation failed: [grok_chat_image] HTTP 503: 分组 生图 下模型 grok-imagine-image-lite 无可用渠道（distributor） (request id: 20260709165138678990837EaCsttkq)\n[2026-07-10T00:51:46+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_novelai; preserved Status=approved.\n[2026-07-10T00:53:18+08:00] processed 4 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel01_no0_close/contact_sheet/cg_t0_01a_p06_panel01_no0_close_contact_sheet.png\n[2026-07-10T00:56:15+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_gemini_refine01; preserved Status=approved.\n[2026-07-10T00:58:07+08:00] processed 5 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel01_no0_close/contact_sheet/cg_t0_01a_p06_panel01_no0_close_contact_sheet.png\n[2026-07-10T01:00:07+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_gemini_refine02; preserved Status=approved.\n[2026-07-10T01:01:17+08:00] processed 6 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel01_no0_close/contact_sheet/cg_t0_01a_p06_panel01_no0_close_contact_sheet.png\n[2026-07-10T01:15:21+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel01_no0_close/selected/20260710_004.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p06 零号脸部和上半身近景。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-10T01:15:21+08:00",
+      "CandidateBatchID": "t0_01a_cg_style_fix_20260710_gemini_refine02",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel01_no0_close/raw/20260710_004.png"
+      ],
+      "ReplacementBatchID": ""
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p06_panel02_core_insert",
+      "DisplayName": "T0序章-核心碎片接入",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p06_panel02_core_insert",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p06_panel02_core_insert.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P0 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。最后核心碎片接入零号胸腔核心仓的近景动作分格，灰披肩下能看到零号上半身边缘，主角手部只部分入镜，冷白微光和精细机械插槽，像仪式而不是普通道具使用；不是门、不是机关、不是洞穴祭坛。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, action comic panel close-up of a final core shard being inserted into No.0's chest core chamber under her gray shawl, No.0's upper torso edge visible, protagonist hand only partially visible and not the focus, cold blue-white glow, delicate mechanical socket connection, ritual-like quiet moment, not a door, not a gate, not a cave shrine, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel02_core_insert/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel02_core_insert/selected/20260710_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p06_panel02_core_insert.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:52:48+08:00] generated candidate batch t0_01a_comic_gemini_v1_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel02_core_insert/contact_sheet/cg_t0_01a_p06_panel02_core_insert_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel02_core_insert/processed/20260707_001.png\n[2026-07-08T00:26:12+08:00] generated candidate batch t0_01a_cg_fix_gemini_20260708_01; preserved Status=approved.\n[2026-07-08T00:37:57+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel02_core_insert/contact_sheet/cg_t0_01a_p06_panel02_core_insert_contact_sheet.png\n[2026-07-08T00:38:23+08:00] generated candidate batch t0_01a_cg_fix_gemini_20260708_02; preserved Status=approved.\n[2026-07-08T00:41:41+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel02_core_insert/contact_sheet/cg_t0_01a_p06_panel02_core_insert_contact_sheet.png\n[2026-07-08T00:43:51+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel02_core_insert/processed/20260708_003.png\n[2026-07-10T00:36:00+08:00] generation failed: [openai_images] HTTP 504: <!DOCTYPE html>\n<html lang=\"zh-CN\">\n\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>504 Gateway Timeout</title>\n  <style>\n    :root {\n      --primary-color: #3b82f6;\n      --error-color: #ef4444;\n      --background-color: #f9fafb;\n      --card-color: #ffffff;\n      --text-color: #1f2937;\n      --text-secondary: #6b7280;\n      --border-radius: 8px;\n    }\n\n    * {\n      margin: 0;\n      padding: 0;\n      box-sizing: border-box;\n[2026-07-10T00:45:18+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_gemini; preserved Status=approved.\n[2026-07-10T00:51:26+08:00] generation failed: [grok_chat_image] HTTP 503: 分组 生图 下模型 grok-imagine-image-lite 无可用渠道（distributor） (request id: 20260709165139940185570ToV8ozts)\n[2026-07-10T00:51:46+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_novelai; preserved Status=approved.\n[2026-07-10T00:53:18+08:00] processed 6 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel02_core_insert/contact_sheet/cg_t0_01a_p06_panel02_core_insert_contact_sheet.png\n[2026-07-10T01:15:21+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel02_core_insert/selected/20260710_001.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p06 核心碎片接入核心仓。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-10T01:15:21+08:00",
+      "CandidateBatchID": "t0_01a_cg_style_fix_20260710_novelai",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel02_core_insert/raw/20260710_002.png"
+      ],
+      "ReplacementBatchID": ""
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p06_panel03_core_wake",
+      "DisplayName": "T0序章-核心仓微光启动",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p06_panel03_core_wake",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p06_panel03_core_wake.png",
+      "Priority": "P0",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P0 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。零号上半身宽分格，白布遮眼和灰披肩剪影可见，胸腔核心从熄灭到微弱冷白亮起，背后工坊灯短暂闪烁，空气中有灰尘，脆弱希望感；不是洞穴晶体或空洞场景。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, wide comic panel of No.0's upper body as her chest core wakes from darkness into weak cold white light, white cloth blindfold and gray shawl silhouette visible, workshop lamp briefly flickering behind her, dust particles in the air, fragile hope, cinematic low-noise composition, not a cave crystal, not an empty cave scene, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel03_core_wake/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel03_core_wake/selected/20260710_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p06_panel03_core_wake.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:52:48+08:00] generated candidate batch t0_01a_comic_gemini_v1_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel03_core_wake/contact_sheet/cg_t0_01a_p06_panel03_core_wake_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel03_core_wake/processed/20260707_001.png\n[2026-07-08T00:26:12+08:00] generated candidate batch t0_01a_cg_fix_gemini_20260708_01; preserved Status=approved.\n[2026-07-08T00:37:57+08:00] processed 2 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel03_core_wake/contact_sheet/cg_t0_01a_p06_panel03_core_wake_contact_sheet.png\n[2026-07-08T00:38:23+08:00] generated candidate batch t0_01a_cg_fix_gemini_20260708_02; preserved Status=approved.\n[2026-07-08T00:41:41+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel03_core_wake/contact_sheet/cg_t0_01a_p06_panel03_core_wake_contact_sheet.png\n[2026-07-08T00:43:51+08:00] approved from candidate_processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel03_core_wake/processed/20260708_003.png\n[2026-07-10T00:36:00+08:00] generation failed: [openai_images] HTTP 504: <!DOCTYPE html>\n<html lang=\"zh-CN\">\n\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>504 Gateway Timeout</title>\n  <style>\n    :root {\n      --primary-color: #3b82f6;\n      --error-color: #ef4444;\n      --background-color: #f9fafb;\n      --card-color: #ffffff;\n      --text-color: #1f2937;\n      --text-secondary: #6b7280;\n      --border-radius: 8px;\n    }\n\n    * {\n      margin: 0;\n      padding: 0;\n      box-sizing: border-box;\n[2026-07-10T00:45:18+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_gemini; preserved Status=approved.\n[2026-07-10T00:51:26+08:00] generation failed: [grok_chat_image] HTTP 503: 分组 生图 下模型 grok-imagine-image-lite 无可用渠道（distributor） (request id: 20260709165141194355099uRgSaFzB)\n[2026-07-10T00:51:46+08:00] generated candidate batch t0_01a_cg_style_fix_20260710_novelai; preserved Status=approved.\n[2026-07-10T00:53:18+08:00] processed 6 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel03_core_wake/contact_sheet/cg_t0_01a_p06_panel03_core_wake_contact_sheet.png\n[2026-07-10T01:15:21+08:00] approved from selected: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel03_core_wake/selected/20260710_001.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p06 核心仓微光启动反馈。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-10T01:15:21+08:00",
+      "CandidateBatchID": "t0_01a_cg_style_fix_20260710_novelai",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p06_panel03_core_wake/raw/20260710_002.png"
+      ],
+      "ReplacementBatchID": ""
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p03_panel02_collateral_shadow",
+      "DisplayName": "T0序章-抵扣机械阴影",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p03_panel02_collateral_shadow",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p03_panel02_collateral_shadow.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P1 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。旧工坊机械的深色剪影静物，旧齿轮和盖布维修工具在灰蓝雨光里，克制安静，不走黄铜暖灯。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, quiet comic panel of old workshop machinery in deep silhouette, worn gears and covered repair tools, gray-blue rain light from the doorway, restrained still-life composition, no brass steampunk warmth, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel02_collateral_shadow/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel02_collateral_shadow/processed/20260707_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p03_panel02_collateral_shadow.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:52:48+08:00] generation failed: [gemini_chat_image] HTTP 500: 生成失败: Flow API request failed: PUBLIC_ERROR_UNSAFE_GENERATION: Request contains an invalid argument.\n[2026-07-07T01:04:30+08:00] generation failed: [openai_images] HTTP 524: <!DOCTYPE html>\n<!--[if lt IE 7]> <html class=\"no-js ie6 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 7]>    <html class=\"no-js ie7 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if IE 8]>    <html class=\"no-js ie8 oldie\" lang=\"en-US\"> <![endif]-->\n<!--[if gt IE 8]><!--> <html class=\"no-js\" lang=\"en-US\"> <!--<![endif]-->\n<head>\n\n<title>codexakihito.xyz | 524: A timeout occurred</title>\n<meta charset=\"UTF-8\" />\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n<meta http-equiv=\"X-UA-C\n[2026-07-07T01:07:10+08:00] generation failed: [gemini_chat_image] HTTP 500: 生成失败: Flow API request failed: PUBLIC_ERROR_UNSAFE_GENERATION: Request contains an invalid argument.\n[2026-07-07T01:08:07+08:00] generated candidate batch t0_01a_comic_novelai_collateral_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel02_collateral_shadow/contact_sheet/cg_t0_01a_p03_panel02_collateral_shadow_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel02_collateral_shadow/processed/20260707_001.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p03 可被抵扣的旧机器阴影。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-07T01:13:31+08:00",
+      "CandidateBatchID": "t0_01a_comic_novelai_collateral_20260707",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel02_collateral_shadow/raw/20260707_001.png"
+      ]
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p03_panel03_broken_parts",
+      "DisplayName": "T0序章-工作台残件",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p03_panel03_broken_parts",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p03_panel03_broken_parts.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P1 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。工作台上的坏掉人偶残件，断臂、烧坏核心仓、旧底盘和断线，表达没有第二台可用人偶。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, comic panel of broken doll parts on an old workbench, severed mechanical arm, burned core socket fragment, old chassis plate, loose wires, understated despair, cool workshop light, clear single focal cluster, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel03_broken_parts/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel03_broken_parts/processed/20260707_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p03_panel03_broken_parts.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:52:48+08:00] generated candidate batch t0_01a_comic_gemini_v1_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel03_broken_parts/contact_sheet/cg_t0_01a_p03_panel03_broken_parts_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel03_broken_parts/processed/20260707_001.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p03 工作台残件和断线。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-07T01:13:31+08:00",
+      "CandidateBatchID": "t0_01a_comic_gemini_v1_20260707",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p03_panel03_broken_parts/raw/20260707_001.png"
+      ]
+    },
+    {
+      "Domain": "narrative_cg",
+      "SourceType": "preset",
+      "DeriveRule": "art requirements seed preset",
+      "ConfigSource": "美术文档/art_requirements_seed.json",
+      "ConfigID": "t0_01a_p05_panel01_broken_doll_parts",
+      "DisplayName": "T0序章-坏掉的人偶残件",
+      "AssetType": "cg_panel",
+      "VisualID": "cg_t0_01a_p05_panel01_broken_doll_parts",
+      "OutputPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p05_panel01_broken_doll_parts.png",
+      "Priority": "P1",
+      "Status": "approved",
+      "SourceFactsCN": "美术文档/19_T0-01序章CG细案.md 定义的 T0-01A P1 Panel。",
+      "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。竖向分格扫过坏掉的人偶备件，断臂、烧坏核心仓、旧底盘和布片，克制表达资源见底，不做恐怖感。",
+      "PromptEN": "Japanese anime-inspired 2D game story panel, clean linework, soft cel shading, hand-painted storybook anime background, low visual noise, cold gray-blue poor workshop mood, restrained cinematic lighting, clear silhouette, one readable focal point, cinematic narrative comic panel, vertical comic panel scanning broken spare doll remains, severed arm, burned core chamber, old base plate, dark cloth scraps, workshop dust, showing there is no second usable doll, restrained and non-horror, single clear focal point, strong readable composition, key subject inside center 4:3 safe area, opaque full-frame 16:9 illustration, no subtitles, no speech bubbles, no UI, no readable text",
+      "NegativePromptEN": "readable text, letters, numbers, Chinese characters, watermark, logo, signature, speech bubble, subtitle, UI button, UI panel, tutorial overlay, manga page border baked into image, photorealistic photo, 3D render, low poly, noir police scene, generic cave shrine, empty cave scene, western dark fantasy, heavy oil painting, brass steampunk, warm brass lamp, thick golden frame, black blindfold, necklace, chest pendant, large exposed chest jewel, horror doll, sexy robot girl, mecha armor, random symbols",
+      "Spec": {
+        "SourceSpec": {
+          "Format": "png",
+          "Width": 1920,
+          "Height": 1080,
+          "Background": "opaque_environment",
+          "AlphaRequired": false
+        },
+        "DisplaySpec": {
+          "ReferenceResolution": "1920x1080",
+          "DisplayWidth": 1920,
+          "DisplayHeight": 1080,
+          "Unit": "ui_px",
+          "FitMode": "cover",
+          "Pivot": "center"
+        },
+        "CompositionSpec": {
+          "SafePaddingPercent": 0,
+          "SubjectOccupancyMin": 0.0,
+          "SubjectOccupancyMax": 1.0,
+          "Anchor": "center",
+          "Composition": "cinematic comic panel, one clear visual question, key subject inside center 4:3 safe area",
+          "SafeArea": "center_4_3"
+        },
+        "ProcessSpec": {
+          "PostProcess": [
+            "crop_16_9",
+            "resize",
+            "contact_sheet"
+          ],
+          "PreviewSize": 320
+        }
+      },
+      "BatchID": "",
+      "RawPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel01_broken_doll_parts/raw",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel01_broken_doll_parts/processed/20260707_001.png",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/NarrativeCG/T0/cg_t0_01a_p05_panel01_broken_doll_parts.png",
+      "RegistryStatus": "unregistered",
+      "Notes": "[2026-07-07T00:50:24+08:00] generation failed: [openai_images] Missing auth.api_key\n[2026-07-07T00:52:48+08:00] generated candidate batch t0_01a_comic_gemini_v1_20260707; preserved Status=prompted.\n[2026-07-07T01:11:59+08:00] processed 1 raw images; contact sheet: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel01_broken_doll_parts/contact_sheet/cg_t0_01a_p05_panel01_broken_doll_parts_contact_sheet.png\n[2026-07-07T01:13:31+08:00] approved from processed: UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel01_broken_doll_parts/processed/20260707_001.png",
+      "PresetCategory": "narrative_cg_panel",
+      "Screen": "t0_prologue_comic",
+      "Usage": "序章漫画页 p05 断臂、旧底盘和烧坏核心仓残件。",
+      "QualityTier": "formal_ai_v2",
+      "QualityUpdatedAt": "2026-07-07T01:13:31+08:00",
+      "CandidateBatchID": "t0_01a_comic_gemini_v1_20260707",
+      "CandidateRawFiles": [
+        "UnityClient/Assets/Art/_IncomingAI/cg_t0_01a_p05_panel01_broken_doll_parts/raw/20260707_001.png"
+      ]
     },
     {
       "Domain": "node",

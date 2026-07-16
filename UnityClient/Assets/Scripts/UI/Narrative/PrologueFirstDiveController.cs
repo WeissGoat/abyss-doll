@@ -4,12 +4,14 @@ using System.Collections;
 using UnityEngine;
 
 public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeCommandSink {
+    private const string ContinueText = "\u7ee7\u7eed";
+
     public Canvas targetCanvas;
     public P3DialogueOverlayController dialogueOverlay;
     public WorkshopUIController workshopController;
     public bool playOpeningOnStart;
     public bool presentDepartureWithRuntimeOverlay;
-    public float autoAdvanceSeconds = 1.15f;
+    public float autoAdvanceSeconds = 3.8f;
 
     public PrologueOpeningFlowResult LastOpeningResult { get; private set; }
     public PrologueFirstDiveDepartureFlowResult LastDepartureResult { get; private set; }
@@ -22,6 +24,34 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
     public NarrativeStateStore NarrativeState {
         get { return _state; }
     }
+    public bool IsPresentingTimelineForDebug {
+        get { return _isPresentingTimeline; }
+    }
+
+    public int ActiveTimelineNodeIndexForDebug {
+        get { return _activeTimelineNodeIndex; }
+    }
+
+    public int ActiveTimelineStepIndexForDebug {
+        get { return _activeTimelineStepIndex; }
+    }
+
+    public float NextTimelineAdvanceAtForDebug {
+        get { return _nextTimelineAdvanceAt; }
+    }
+
+    public int UpdateTickCountForDebug {
+        get { return _updateTickCount; }
+    }
+
+    public string TimelineDebugSummary {
+        get {
+            int nodeCount = _activeTimelineNodes != null ? _activeTimelineNodes.Count : 0;
+            return $"presenting={_isPresentingTimeline}, nodes={nodeCount}, nodeIndex={_activeTimelineNodeIndex}, "
+                + $"stepIndex={_activeTimelineStepIndex}, next={_nextTimelineAdvanceAt:0.000}, "
+                + $"now={Time.unscaledTime:0.000}, frame={Time.frameCount}, updateTicks={_updateTickCount}";
+        }
+    }
 
     public event Action FirstDiveDepartRequested;
     public event Action BeforeFirstDiveStartRun;
@@ -29,27 +59,46 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
 
     private string _currentVisualID = string.Empty;
     private string _currentFallbackVisualID = string.Empty;
+    private string _currentStatusCardText = string.Empty;
     private readonly NarrativeStateStore _state = new NarrativeStateStore();
     private bool _isPresentingTimeline;
     private List<PrologueOpeningNodePlayback> _activeTimelineNodes;
     private int _activeTimelineNodeIndex;
     private int _activeTimelineStepIndex;
     private float _nextTimelineAdvanceAt;
+    private int _updateTickCount;
 
     private void Start() {
-        EnsureOverlay();
-        EnsureWorkshopBinding();
+        EnsureRuntimeBindings();
         if (playOpeningOnStart) {
             PlayOpeningToNo0Found();
         }
     }
 
+    private void OnEnable() {
+        EnsureRuntimeBindings();
+    }
+
+    public void EnsureRuntimeBindings() {
+        EnsureOverlay();
+        EnsureWorkshopBinding();
+    }
+
+    public void RequestPrologueActionForRuntime(string actionID) {
+        HandleOverlayActionRequested(actionID);
+    }
+
+    public void RequestContinueForRuntime() {
+        HandleOverlayContinueRequested();
+    }
+
     private void Update() {
+        _updateTickCount++;
         if (!_isPresentingTimeline || _activeTimelineNodes == null) {
             return;
         }
 
-        if (Time.unscaledTime >= _nextTimelineAdvanceAt) {
+        if (dialogueOverlay != null && dialogueOverlay.IsAutoEnabled && Time.unscaledTime >= _nextTimelineAdvanceAt) {
             AdvanceActiveTimeline();
         }
     }
@@ -186,7 +235,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
 
                 if (step.StepType == NarrativePlaybackStepType.Command && step.Command != null) {
                     if (ApplyTimelineCommand(step.Command)) {
-                        _isPresentingTimeline = false;
+                        EndActiveTimeline(false);
                         yield break;
                     }
 
@@ -198,7 +247,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
                         BlockingMode = "modal",
                         SpeakerName = ResolveSpeakerName(step.Line.SpeakerID),
                         Text = step.Line.Text,
-                        ContinueLabel = string.Empty,
+                        ContinueLabel = ContinueText,
                         UseBlackout = _currentVisualID == "cg_t0_01a_black_wake",
                         VisualRequest = BuildCurrentVisualRequest()
                     });
@@ -208,7 +257,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
             }
         }
 
-        _isPresentingTimeline = false;
+        EndActiveTimeline(true);
     }
 
     private IEnumerator PresentTimeline(List<PrologueOpeningNodePlayback> nodes) {
@@ -228,7 +277,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
 
                 if (step.StepType == NarrativePlaybackStepType.Command && step.Command != null) {
                     if (ApplyTimelineCommand(step.Command)) {
-                        _isPresentingTimeline = false;
+                        EndActiveTimeline(false);
                         yield break;
                     }
 
@@ -240,7 +289,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
                         BlockingMode = "modal",
                         SpeakerName = ResolveSpeakerName(step.Line.SpeakerID),
                         Text = step.Line.Text,
-                        ContinueLabel = string.Empty,
+                        ContinueLabel = ContinueText,
                         UseBlackout = _currentVisualID == "cg_t0_01a_black_wake",
                         VisualRequest = BuildCurrentVisualRequest()
                     });
@@ -250,7 +299,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
             }
         }
 
-        _isPresentingTimeline = false;
+        EndActiveTimeline(true);
     }
 
     private IEnumerator PresentFirstDiveDepartureAndStart() {
@@ -293,6 +342,8 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
         if (started) {
             LastFirstDiveStartFailure = string.Empty;
             workshopController?.CloseDungeonStartLayerPanel();
+            dialogueOverlay?.Hide();
+            GameFlowController.Instance?.EnterDungeonMap();
             return true;
         }
 
@@ -332,7 +383,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
                         BlockingMode = "modal",
                         SpeakerName = ResolveSpeakerName(step.Line.SpeakerID),
                         Text = step.Line.Text,
-                        ContinueLabel = string.Empty,
+                        ContinueLabel = ContinueText,
                         UseBlackout = currentVisualID == PrologueFirstDiveDepartureFlow.DepartBlackVisualID,
                         VisualRequest = BuildVisualRequest(currentVisualID, currentFallbackVisualID)
                     });
@@ -367,9 +418,10 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
             _currentVisualID = command.Arguments[0];
             _currentFallbackVisualID = command.Arguments.Count > 1 ? command.Arguments[1] : string.Empty;
         } else if (command.CommandName == "show_character") {
-            _currentVisualID = command.Arguments.Count > 4 ? command.Arguments[4] : string.Empty;
-            _currentFallbackVisualID = command.Arguments.Count > 5 ? command.Arguments[5] : "doll_proto_0_stand";
+            ResolveCharacterVisual(command, out _currentVisualID, out _currentFallbackVisualID);
         } else if (command.CommandName == "show_status_card") {
+            _currentVisualID = "ui_status_card_prologue";
+            _currentFallbackVisualID = "ui_panel_main";
             PresentStatusCard(command.Arguments[0]);
         } else if (command.CommandName == "show_prologue_action") {
             PresentPrologueAction(command);
@@ -388,8 +440,31 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
             currentVisualID = command.Arguments[0];
             currentFallbackVisualID = command.Arguments.Count > 1 ? command.Arguments[1] : string.Empty;
         } else if (command.CommandName == "show_character") {
-            currentVisualID = command.Arguments.Count > 4 ? command.Arguments[4] : string.Empty;
-            currentFallbackVisualID = command.Arguments.Count > 5 ? command.Arguments[5] : "doll_proto_0_stand";
+            ResolveCharacterVisual(command, out currentVisualID, out currentFallbackVisualID);
+        }
+    }
+
+    private static void ResolveCharacterVisual(NarrativeCommandOutput command, out string visualID, out string fallbackVisualID) {
+        visualID = string.Empty;
+        fallbackVisualID = "doll_proto_0_stand";
+
+        if (command == null || command.Arguments == null || command.Arguments.Count == 0) {
+            return;
+        }
+
+        string characterID = command.Arguments[0];
+        if (characterID == "no0") {
+            visualID = "stand_no0_weak_sitting";
+            fallbackVisualID = "doll_proto_0_stand";
+            return;
+        }
+
+        if (command.Arguments.Count > 4) {
+            visualID = command.Arguments[4];
+        }
+
+        if (command.Arguments.Count > 5) {
+            fallbackVisualID = command.Arguments[5];
         }
     }
 
@@ -418,15 +493,56 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
     }
 
     private void HandleOverlayActionRequested(string actionID) {
-        if (string.IsNullOrEmpty(actionID) || _isPresentingTimeline) {
+        if (string.IsNullOrEmpty(actionID)) {
             return;
         }
 
         if (actionID == PrologueDollWakeNarrativeFlow.StartDollActionID) {
+            PrepareStateForStartDollAction();
+            if (_isPresentingTimeline) {
+                EndActiveTimeline(false);
+            }
+
+            StopAllCoroutines();
             PlayStartDollAction();
         } else if (actionID == PrologueDollWakeNarrativeFlow.WipeCoreActionID) {
+            PrepareStateForWipeCoreAction();
+            if (_isPresentingTimeline) {
+                return;
+            }
+
             PlayCoreWipeAction();
         }
+    }
+
+    private void PrepareStateForStartDollAction() {
+        _state.SetFlag("PrologueStarted");
+        _state.SetFlag("DebtNoticeSeen");
+        _state.SetFlag("RepairNoteSeen");
+        _state.SetFlag("LastCoreShardSeen");
+        _state.SetFlag("No0Found");
+        _state.SetFlag("No0Started", false);
+        _state.SetFlag("No0WakeDialogueSeen", false);
+        _state.SetFlag("FirstStatusShown", false);
+        _state.SetFlag("FirstCoreWiped", false);
+        _state.SetFlag("FirstDiveUnlocked", false);
+        _state.SetFlag("Layer1ConfirmOpened", false);
+        _state.SetFlag("Layer1FirstDeparted", false);
+    }
+
+    private void PrepareStateForWipeCoreAction() {
+        _state.SetFlag("PrologueStarted");
+        _state.SetFlag("DebtNoticeSeen");
+        _state.SetFlag("RepairNoteSeen");
+        _state.SetFlag("LastCoreShardSeen");
+        _state.SetFlag("No0Found");
+        _state.SetFlag("No0Started");
+        _state.SetFlag("No0WakeDialogueSeen");
+        _state.SetFlag("FirstStatusShown");
+        _state.SetFlag("FirstCoreWiped", false);
+        _state.SetFlag("FirstDiveUnlocked", false);
+        _state.SetFlag("Layer1ConfirmOpened", false);
+        _state.SetFlag("Layer1FirstDeparted", false);
     }
 
     private void HandleWorkshopPrologueActionRequested(string actionID) {
@@ -445,6 +561,16 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
         if (nodes.Count > 0 && Application.isPlaying) {
             StopAllCoroutines();
             BeginTimeline(nodes);
+            return;
+        }
+
+        if (_state.GetFlag("FirstDiveUnlocked") && _state.GetFlag("Layer1ConfirmOpened")) {
+            if (workshopController == null) {
+                workshopController = FindObjectOfType<WorkshopUIController>();
+            }
+
+            workshopController?.OpenFirstDiveLayerConfirmPanel(RequestFirstDiveDeparture);
+            FirstDiveLayerConfirmOpened = workshopController != null && workshopController.IsDungeonStartLayerPanelOpen;
         }
     }
 
@@ -503,6 +629,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
         _nextTimelineAdvanceAt = Time.unscaledTime;
         _currentVisualID = string.Empty;
         _currentFallbackVisualID = string.Empty;
+        _currentStatusCardText = string.Empty;
         _isPresentingTimeline = true;
         AdvanceActiveTimeline();
     }
@@ -525,7 +652,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
 
                 if (step.StepType == NarrativePlaybackStepType.Command && step.Command != null) {
                     if (ApplyTimelineCommand(step.Command)) {
-                        _isPresentingTimeline = false;
+                        EndActiveTimeline(false);
                         return;
                     }
 
@@ -537,7 +664,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
                         BlockingMode = "modal",
                         SpeakerName = ResolveSpeakerName(step.Line.SpeakerID),
                         Text = step.Line.Text,
-                        ContinueLabel = string.Empty,
+                        ContinueLabel = ContinueText,
                         UseBlackout = _currentVisualID == "cg_t0_01a_black_wake",
                         VisualRequest = BuildCurrentVisualRequest()
                     });
@@ -550,7 +677,19 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
             _activeTimelineStepIndex = 0;
         }
 
+        EndActiveTimeline(true);
+    }
+
+    private void EndActiveTimeline(bool hideOverlay) {
         _isPresentingTimeline = false;
+        _activeTimelineNodes = null;
+        _activeTimelineNodeIndex = 0;
+        _activeTimelineStepIndex = 0;
+        _nextTimelineAdvanceAt = 0f;
+
+        if (hideOverlay) {
+            dialogueOverlay?.Hide();
+        }
     }
 
     private void AppendTriggeredNodes(List<PrologueOpeningNodePlayback> nodes, NarrativeEventContext eventContext) {
@@ -591,10 +730,11 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
             return;
         }
 
+        _currentStatusCardText = BuildStatusCardText(cardID);
         dialogueOverlay.PresentLine(new NarrativeOverlayPayload {
             BlockingMode = "modal_light",
             SpeakerName = "零号",
-            Text = BuildStatusCardText(cardID),
+            Text = _currentStatusCardText,
             ContinueLabel = string.Empty,
             VisualRequest = new NarrativeVisualRequest {
                 VisualID = "ui_status_card_prologue",
@@ -611,10 +751,17 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
 
         string actionID = command.Arguments[0];
         string labelKey = command.Arguments[1];
+        string prompt = ResolveActionPrompt(actionID);
+        if (actionID == PrologueDollWakeNarrativeFlow.WipeCoreActionID && !string.IsNullOrEmpty(_currentStatusCardText)) {
+            prompt = _currentStatusCardText + "\n\n" + prompt;
+            _currentVisualID = "ui_status_card_prologue";
+            _currentFallbackVisualID = "ui_panel_main";
+        }
+
         dialogueOverlay.PresentLine(new NarrativeOverlayPayload {
             BlockingMode = "modal",
             SpeakerName = string.Empty,
-            Text = ResolveActionPrompt(actionID),
+            Text = prompt,
             ContinueLabel = string.Empty,
             ActionID = actionID,
             ActionLabel = ResolveActionLabel(actionID, labelKey),
@@ -624,6 +771,14 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
     }
 
     private static string ResolveActionPrompt(string actionID) {
+        if (actionID == PrologueDollWakeNarrativeFlow.StartDollActionID) {
+            return "\u7070\u5c18\u4e0b\u9732\u51fa\u4e00\u679a\u6ca1\u6709\u7f16\u53f7\u7684\u6838\u5fc3\u4ed3\u3002\u73b0\u5728\uff0c\u53ea\u5269\u4e0b\u628a\u5979\u53eb\u9192\u3002";
+        }
+
+        if (actionID == PrologueDollWakeNarrativeFlow.WipeCoreActionID) {
+            return "\u6838\u5fc3\u4ed3\u8fd8\u6709\u7070\u3002\u5148\u64e6\u5e72\u51c0\uff0c\u786e\u8ba4\u5979\u8fd8\u80fd\u6491\u591a\u4e45\u3002";
+        }
+
         switch (actionID) {
             case PrologueDollWakeNarrativeFlow.StartDollActionID:
                 return "灰尘下露出一枚没有编号的核心仓。现在，只剩下把她从废墟里叫醒。";
@@ -635,6 +790,14 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
     }
 
     private static string ResolveActionLabel(string actionID, string labelKey) {
+        if (actionID == PrologueDollWakeNarrativeFlow.StartDollActionID) {
+            return "\u542f\u52a8\u96f6\u53f7";
+        }
+
+        if (actionID == PrologueDollWakeNarrativeFlow.WipeCoreActionID) {
+            return "\u64e6\u53bb\u6838\u5fc3\u4ed3\u7070\u5c18";
+        }
+
         switch (actionID) {
             case PrologueDollWakeNarrativeFlow.StartDollActionID:
                 return "启动人偶";
@@ -646,11 +809,19 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
     }
 
     private static string BuildStatusCardText(string cardID) {
+        if (cardID == "first_status_unstable") {
+            return "\u6838\u5fc3\uff1a\u4e0d\u7a33\n\u884c\u52a8\u4f59\u91cf\uff1a\u4e00\u6b21\n\u6682\u7a33\u65b9\u5f0f\uff1a\u6d45\u5c42\u6676\u6838";
+        }
+
+        if (cardID == "first_status_stable") {
+            return "\u6838\u5fc3\uff1a\u77ed\u65f6\u7a33\u5b9a\n\u884c\u52a8\u4f59\u91cf\uff1a\u4e00\u6b21\n\u4e0b\u6f5c\u8bb8\u53ef\uff1a\u6d45\u5c42\u4e00\u6b21";
+        }
+
         switch (cardID) {
             case "first_status_unstable":
-                return "核心：不稳定\n身体：多处裂纹\n意识：断续\n判断：无法长时间行动";
+                return "核心：不稳定\n行动余量：不足一次\n浅层晶核：可暂时稳定";
             case "first_status_stable":
-                return "核心：短时稳定\n身体：多处裂纹\n意识：断续\n判断：可进行一次浅层下潜，返回后需要照看";
+                return "核心：短时稳定\n行动余量：一次\n下潜许可：浅层一次";
             default:
                 return cardID;
         }
@@ -682,6 +853,8 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
             dialogueOverlay.EnsureBuilt();
             dialogueOverlay.ActionRequested -= HandleOverlayActionRequested;
             dialogueOverlay.ActionRequested += HandleOverlayActionRequested;
+            dialogueOverlay.ContinueRequested -= HandleOverlayContinueRequested;
+            dialogueOverlay.ContinueRequested += HandleOverlayContinueRequested;
             return;
         }
 
@@ -693,6 +866,8 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
             dialogueOverlay = P3DialogueOverlayController.CreateUnder(targetCanvas);
             dialogueOverlay.ActionRequested -= HandleOverlayActionRequested;
             dialogueOverlay.ActionRequested += HandleOverlayActionRequested;
+            dialogueOverlay.ContinueRequested -= HandleOverlayContinueRequested;
+            dialogueOverlay.ContinueRequested += HandleOverlayContinueRequested;
         }
     }
 
@@ -708,6 +883,14 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
     }
 
     private static string ResolveSpeakerName(string speakerID) {
+        if (speakerID == "protagonist") {
+            return "\u4e3b\u89d2";
+        }
+
+        if (speakerID == "no0") {
+            return "\u96f6\u53f7";
+        }
+
         switch (speakerID) {
             case "protagonist":
                 return "主角";
@@ -727,10 +910,20 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
     private void OnDestroy() {
         if (dialogueOverlay != null) {
             dialogueOverlay.ActionRequested -= HandleOverlayActionRequested;
+            dialogueOverlay.ContinueRequested -= HandleOverlayContinueRequested;
         }
 
         if (workshopController != null) {
             workshopController.PrologueActionRequested -= HandleWorkshopPrologueActionRequested;
         }
+    }
+
+    private void HandleOverlayContinueRequested() {
+        if (!_isPresentingTimeline || _activeTimelineNodes == null) {
+            return;
+        }
+
+        _nextTimelineAdvanceAt = Time.unscaledTime;
+        AdvanceActiveTimeline();
     }
 }

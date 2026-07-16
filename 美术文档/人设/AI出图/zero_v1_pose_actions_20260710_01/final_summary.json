@@ -1,0 +1,237 @@
+{
+  "run_dir": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01",
+  "source_design_doc": "美术文档/人设/03_零号初版人设方案.md",
+  "pose_ids": [
+    "pose_01_front_idle",
+    "pose_02_three_quarter",
+    "pose_03_side_walk",
+    "pose_04_back_turn",
+    "pose_05_maintenance_sit",
+    "pose_06_activation_ready",
+    "pose_07_low_san_red_eye",
+    "pose_08_damaged_kneel"
+  ],
+  "backend_ids": [
+    "chatgpt",
+    "gemini_nanobanana",
+    "novelai"
+  ],
+  "contact_sheet": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\contact_sheet_zero_v1_pose_actions.jpg",
+  "poses": {
+    "pose_01_front_idle": {
+      "name": "front idle",
+      "backends": {
+        "chatgpt": {
+          "count": 2,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_01_front_idle\\chatgpt\\pose_01_front_idle_chatgpt_00.png",
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_01_front_idle\\chatgpt\\pose_01_front_idle_chatgpt_01.png"
+          ],
+          "errors": []
+        },
+        "gemini_nanobanana": {
+          "count": 2,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_01_front_idle\\gemini_nanobanana\\pose_01_front_idle_gemini_nanobanana_00.jpg",
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_01_front_idle\\gemini_nanobanana\\pose_01_front_idle_gemini_nanobanana_01.jpg"
+          ],
+          "errors": []
+        },
+        "novelai": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_01_front_idle\\novelai\\pose_01_front_idle_novelai_00.png"
+          ],
+          "errors": []
+        }
+      }
+    },
+    "pose_02_three_quarter": {
+      "name": "three-quarter view",
+      "backends": {
+        "chatgpt": {
+          "count": 2,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_02_three_quarter\\chatgpt\\pose_02_three_quarter_chatgpt_00.png",
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_02_three_quarter\\chatgpt\\pose_02_three_quarter_chatgpt_01.png"
+          ],
+          "errors": []
+        },
+        "gemini_nanobanana": {
+          "count": 2,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_02_three_quarter\\gemini_nanobanana\\pose_02_three_quarter_gemini_nanobanana_00.jpg",
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_02_three_quarter\\gemini_nanobanana\\pose_02_three_quarter_gemini_nanobanana_01.jpg"
+          ],
+          "errors": []
+        },
+        "novelai": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_02_three_quarter\\novelai\\pose_02_three_quarter_novelai_00.png"
+          ],
+          "errors": []
+        }
+      }
+    },
+    "pose_03_side_walk": {
+      "name": "side walking",
+      "backends": {
+        "chatgpt": {
+          "count": 2,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_03_side_walk\\chatgpt\\pose_03_side_walk_chatgpt_00.png",
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_03_side_walk\\chatgpt\\pose_03_side_walk_chatgpt_01.png"
+          ],
+          "errors": []
+        },
+        "gemini_nanobanana": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_03_side_walk\\gemini_nanobanana\\pose_03_side_walk_gemini_nanobanana_00.jpg"
+          ],
+          "errors": []
+        },
+        "novelai": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_03_side_walk\\novelai\\pose_03_side_walk_novelai_00.png"
+          ],
+          "errors": []
+        }
+      }
+    },
+    "pose_04_back_turn": {
+      "name": "back turn",
+      "backends": {
+        "chatgpt": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_04_back_turn\\chatgpt\\pose_04_back_turn_chatgpt_00.png"
+          ],
+          "errors": []
+        },
+        "gemini_nanobanana": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_04_back_turn\\gemini_nanobanana\\pose_04_back_turn_gemini_nanobanana_00.jpg"
+          ],
+          "errors": []
+        },
+        "novelai": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_04_back_turn\\novelai\\pose_04_back_turn_novelai_00.png"
+          ],
+          "errors": []
+        }
+      }
+    },
+    "pose_05_maintenance_sit": {
+      "name": "maintenance seated",
+      "backends": {
+        "chatgpt": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_05_maintenance_sit\\chatgpt\\pose_05_maintenance_sit_chatgpt_00.png"
+          ],
+          "errors": []
+        },
+        "gemini_nanobanana": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_05_maintenance_sit\\gemini_nanobanana\\pose_05_maintenance_sit_gemini_nanobanana_00.jpg"
+          ],
+          "errors": []
+        },
+        "novelai": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_05_maintenance_sit\\novelai\\pose_05_maintenance_sit_novelai_00.png"
+          ],
+          "errors": []
+        }
+      }
+    },
+    "pose_06_activation_ready": {
+      "name": "activation ready",
+      "backends": {
+        "chatgpt": {
+          "count": 0,
+          "files": [],
+          "errors": [
+            "[openai_images] HTTP 502: <html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n"
+          ]
+        },
+        "gemini_nanobanana": {
+          "count": 2,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_06_activation_ready\\gemini_nanobanana\\pose_06_activation_ready_gemini_nanobanana_00.jpg",
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_06_activation_ready\\gemini_nanobanana\\pose_06_activation_ready_gemini_nanobanana_01.jpg"
+          ],
+          "errors": []
+        },
+        "novelai": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_06_activation_ready\\novelai\\pose_06_activation_ready_novelai_00.png"
+          ],
+          "errors": []
+        }
+      }
+    },
+    "pose_07_low_san_red_eye": {
+      "name": "low SAN red-eye",
+      "backends": {
+        "chatgpt": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_07_low_san_red_eye\\chatgpt\\pose_07_low_san_red_eye_chatgpt_00.png"
+          ],
+          "errors": []
+        },
+        "gemini_nanobanana": {
+          "count": 2,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_07_low_san_red_eye\\gemini_nanobanana\\pose_07_low_san_red_eye_gemini_nanobanana_00.jpg",
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_07_low_san_red_eye\\gemini_nanobanana\\pose_07_low_san_red_eye_gemini_nanobanana_01.jpg"
+          ],
+          "errors": []
+        },
+        "novelai": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_07_low_san_red_eye\\novelai\\pose_07_low_san_red_eye_novelai_00.png"
+          ],
+          "errors": []
+        }
+      }
+    },
+    "pose_08_damaged_kneel": {
+      "name": "damaged kneel",
+      "backends": {
+        "chatgpt": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_08_damaged_kneel\\chatgpt\\pose_08_damaged_kneel_chatgpt_00.png"
+          ],
+          "errors": []
+        },
+        "gemini_nanobanana": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_08_damaged_kneel\\gemini_nanobanana\\pose_08_damaged_kneel_gemini_nanobanana_00.jpg"
+          ],
+          "errors": []
+        },
+        "novelai": {
+          "count": 1,
+          "files": [
+            "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_08_damaged_kneel\\novelai\\pose_08_damaged_kneel_novelai_00.png"
+          ],
+          "errors": []
+        }
+      }
+    }
+  }
+}

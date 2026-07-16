@@ -14,9 +14,9 @@ related:
   - 开发文档/20_UnityMCP验收编排层实现计划.md
   - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - 美术文档/README.md
-  - 美术文档/08_Unity运行时美术验收工具需求.md
+  - 美术文档/archive/08_Unity运行时美术验收工具需求.md
   - 美术文档/09_运行时美术验收记录.md
-  - 美术文档/10_美术验收截图优化与真实数据驱动演进方案.md
+  - 美术文档/archive/10_美术验收截图优化与真实数据驱动演进方案.md
   - agent_status/art.md
   - 知识库/views/art.md
 last_verified: 2026-07-12

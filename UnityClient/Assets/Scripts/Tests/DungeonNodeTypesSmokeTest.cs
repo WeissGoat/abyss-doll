@@ -289,11 +289,15 @@ public static class DungeonNodeTypesSmokeTest {
         bool canEnter = core.Dungeon.CanMoveToNode(restNode);
         core.Dungeon.MoveToNode(restNode);
         bool entered = core.Dungeon.CurrentLayer.CurrentNode == restNode && restNode.IsVisited;
+        int expectedSanAfterMoveAndOutcome = Mathf.Clamp(
+            50 - ConfigManager.Dungeons[1].SANCostPerNode + 4,
+            0,
+            doll.Status.SAN_Max);
         bool resultPrepared = _lastNodeResult != null
             && _lastNodeResult.NodeID == restNode.NodeID
             && _lastNodeResult.Summary.Contains("HP: 60 -> 65")
-            && _lastNodeResult.Summary.Contains("SAN: 50 -> 54");
-        bool stateChanged = doll.Status.HP_Current == 65 && doll.Status.SAN_Current == 54;
+            && _lastNodeResult.Summary.Contains($"SAN: {50 - ConfigManager.Dungeons[1].SANCostPerNode} -> {expectedSanAfterMoveAndOutcome}");
+        bool stateChanged = doll.Status.HP_Current == 65 && doll.Status.SAN_Current == expectedSanAfterMoveAndOutcome;
 
         DungeonEventBus.PublishNodeSettlementCompleted();
         bool returnedToMap = _nodeResolutionFinishedCount >= 1 && core.Dungeon.CanMoveToNode(nextNode);

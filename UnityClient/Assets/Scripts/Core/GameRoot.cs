@@ -28,6 +28,8 @@ public class GameRoot : MonoBehaviour {
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        Application.runInBackground = true;
+
         EnsureComponent<FileLogger>();
         EnsureComponent<VisualQueueRunner>();
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "P3 叙事 CG 漫画播放"
+  short_description: "按锚点、页级候选和运行时截图验收制作 P3 叙事 CG"
+  default_prompt: "Use $p3-narrative-cg-comic to plan, produce, or validate a Project P3 narrative CG/comic-page sequence with anchor-based consistency and acceptance evidence."

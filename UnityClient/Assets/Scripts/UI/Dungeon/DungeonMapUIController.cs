@@ -3,11 +3,11 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class DungeonMapUIController : MonoBehaviour {
-    private const float NodeButtonWidth = 132f;
+    private const float NodeButtonWidth = 160f;
     private const float NodeButtonHeight = 122f;
-    private const float NodeColumnSpacing = 205f;
+    private const float NodeColumnSpacing = 230f;
     private const float NodeRowSpacing = 150f;
-    private const float RouteLineHeight = 14f;
+    private const float RouteLineHeight = 20f;
 
     public GameObject nodeButtonPrefab;
     public Transform contentParent;
@@ -16,6 +16,8 @@ public class DungeonMapUIController : MonoBehaviour {
     public Text backpackHintText;
     public Image backgroundImage;
     private Image mapDepthVeilImage;
+    private Image firstDiveGuideImage;
+    private Text firstDiveGuideText;
     private float mapPathMinX;
     private float mapPathMaxX;
 
@@ -355,7 +357,7 @@ public class DungeonMapUIController : MonoBehaviour {
 
         RectTransform contentRect = contentParent as RectTransform;
         if (contentRect != null) {
-            float width = Mathf.Max(960f, NodeButtonWidth + Mathf.Max(0, rowCount - 1) * NodeColumnSpacing + 220f);
+            float width = Mathf.Max(720f, NodeButtonWidth + Mathf.Max(0, rowCount - 1) * NodeColumnSpacing);
             float height = Mathf.Max(540f, NodeButtonHeight + Mathf.Max(0, maxNodesInRow - 1) * NodeRowSpacing + 220f);
             contentRect.anchorMin = new Vector2(0.5f, 0.5f);
             contentRect.anchorMax = new Vector2(0.5f, 0.5f);
@@ -602,13 +604,75 @@ public class DungeonMapUIController : MonoBehaviour {
         }
 
         backgroundImage = VisualUIHelper.EnsurePanelBackground(transform, backgroundImage, "DungeonMapBackground_Image");
-        string visualID = VisualAssetService.ResolveDungeonMapBackgroundID(GameRoot.Core?.Dungeon?.CurrentLayer);
+        DungeonLayer currentLayer = GameRoot.Core?.Dungeon?.CurrentLayer;
+        bool isT0FirstLayer = currentLayer != null && currentLayer.LayerID == NarrativeCommandBridge.T0FirstDiveLayerID;
+        string visualID = isT0FirstLayer
+            ? "cg_t0_01a_p04_panel02_shallow_gate_glow"
+            : VisualAssetService.ResolveDungeonMapBackgroundID(currentLayer);
         VisualUIHelper.ApplyCoverSprite(backgroundImage, visualID, new Color(0.9f, 0.94f, 0.88f, 1f), new Color(0.05f, 0.08f, 0.1f, 0.92f));
 
         mapDepthVeilImage = VisualUIHelper.EnsurePanelBackground(transform, mapDepthVeilImage, "DungeonMapDepthVeil_Image");
-        VisualUIHelper.ApplySolidColor(mapDepthVeilImage, new Color(0.012f, 0.018f, 0.016f, 0.18f));
+        VisualUIHelper.ApplySolidColor(mapDepthVeilImage, new Color(0.006f, 0.022f, 0.032f, isT0FirstLayer ? 0.20f : 0.18f));
         backgroundImage.transform.SetAsFirstSibling();
         mapDepthVeilImage.transform.SetSiblingIndex(Mathf.Min(1, transform.childCount - 1));
+        ApplyFirstDiveMapGuide(isT0FirstLayer);
+    }
+
+    private void ApplyFirstDiveMapGuide(bool visible) {
+        if (firstDiveGuideImage == null) {
+            Transform existing = transform.Find("FirstDiveMapGuide_Image");
+            firstDiveGuideImage = existing != null ? existing.GetComponent<Image>() : null;
+        }
+
+        if (firstDiveGuideImage == null) {
+            GameObject guideObj = new GameObject("FirstDiveMapGuide_Image");
+            guideObj.transform.SetParent(transform, false);
+            firstDiveGuideImage = guideObj.AddComponent<Image>();
+        }
+
+        firstDiveGuideImage.gameObject.SetActive(visible);
+        if (!visible) {
+            if (firstDiveGuideText != null) {
+                firstDiveGuideText.gameObject.SetActive(false);
+            }
+            return;
+        }
+
+        RectTransform guideRect = firstDiveGuideImage.rectTransform;
+        guideRect.anchorMin = new Vector2(0f, 1f);
+        guideRect.anchorMax = new Vector2(0f, 1f);
+        guideRect.pivot = new Vector2(0f, 1f);
+        guideRect.anchoredPosition = new Vector2(36f, -36f);
+        guideRect.sizeDelta = new Vector2(520f, 86f);
+        VisualUIHelper.ApplySolidColor(firstDiveGuideImage, new Color(0.004f, 0.018f, 0.026f, 0.58f), true);
+        firstDiveGuideImage.transform.SetAsLastSibling();
+
+        if (firstDiveGuideText == null) {
+            Transform existingText = firstDiveGuideImage.transform.Find("FirstDiveMapGuide_Text");
+            firstDiveGuideText = existingText != null ? existingText.GetComponent<Text>() : null;
+        }
+
+        if (firstDiveGuideText == null) {
+            GameObject textObj = new GameObject("FirstDiveMapGuide_Text");
+            textObj.transform.SetParent(firstDiveGuideImage.transform, false);
+            firstDiveGuideText = textObj.AddComponent<Text>();
+        }
+
+        Font defaultFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        firstDiveGuideText.gameObject.SetActive(true);
+        firstDiveGuideText.font = defaultFont;
+        firstDiveGuideText.fontSize = 22;
+        firstDiveGuideText.color = new Color(0.82f, 0.96f, 1f, 0.96f);
+        firstDiveGuideText.alignment = TextAnchor.MiddleLeft;
+        firstDiveGuideText.horizontalOverflow = HorizontalWrapMode.Wrap;
+        firstDiveGuideText.verticalOverflow = VerticalWrapMode.Truncate;
+        firstDiveGuideText.raycastTarget = false;
+        firstDiveGuideText.text = "\u9996\u6b21\u4e0b\u6f5c\uff1a\u65e7\u77ff\u4e95\u6d45\u7f1d\n\u53ea\u8d70\u5230\u7b2c\u4e00\u5904\u8def\u6807\uff0c\u96f6\u53f7\u5f02\u5e38\u5c31\u64a4\u56de\u3002";
+        RectTransform textRect = firstDiveGuideText.rectTransform;
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.offsetMin = new Vector2(24f, 10f);
+        textRect.offsetMax = new Vector2(-24f, -10f);
     }
 
     private void CreateRouteLines(DungeonLayer layer, List<List<NodeBase>> rows, Dictionary<NodeBase, Vector2> nodePositions) {

@@ -27,7 +27,7 @@ related:
   - 版本规划/09_正式版核心纵切开发路线.md
   - 版本规划/README.md
   - 版本规划/11_纵切批次与需求文档承接矩阵.md
-last_verified: 2026-06-14
+last_verified: 2026-07-14
 update_rule: 修改智能体分工、开工流程或完成协议时同步本文件。
 ---
 
@@ -211,7 +211,11 @@ UI 版本规则：
 - `formal_v1/*.md` 是正式结构设计文档；用户确认后，美术智能体逐界面修改 active `screen_layouts.json`。
 - `formal_v2/*.md` 是 UX/UI 重构设计草案，用于解决按钮堆叠、主次行动不清和正式感不足；用户确认并写入 active 前，不作为程序接入口，也不触发素材生成。
 - `versions/formal_v1_candidate/` 只是复杂界面的可选暂存区，不是必经流程，也不是程序接入口。
-- 设计图 / 概念图默认使用 Codex 内置 `image_gen` 生成；若当前工具环境没有暴露 `image_gen`，必须先提醒用户并等待确认，不能自动改用 NovelAI、AI 图片网关、mock 或本地脚本。
+- 从正式需求准入、Manifest、候选生产、Agent 筛选、Approved、Unity 导入、Registry 到运行时验收的端到端美术资产生产优先使用项目 skill：`.codex/skills/p3-art-asset-production/SKILL.md`。默认采用交互模式，只在方向变化、低置信度、核心资产准入或未授权正式替换时停下询问；用户提前声明全自动后，可在锁定事实和授权范围内自动执行到验收与状态回写。
+- 纯图片生成 / 编辑能力，包括文生图、图生图、差分、inpaint、后端选择、Prompt 格式和后端排障，使用项目 skill：`.codex/skills/p3-generate-image/SKILL.md`（Skill 名 `generate-image`）；正式资产的 Manifest、筛选、Approved、Unity 接入和验收仍由 `p3-art-asset-production` 负责。
+- 叙事 CG、CG 底图、漫画页分格播放、Panel VisualID、一致性修复或运行时漫画截图验收优先使用项目 skill：`.codex/skills/p3-narrative-cg-comic/SKILL.md`；不得在未锁定角色 / 场景 / 风格锚点时直接全量独立文生图。
+- 设计图 / 概念图默认使用 Codex 内置 `image_gen` 生成；若当前工具环境没有暴露 `image_gen`，自动改用 AI 图片网关的 `openai_images` 后端。不得自动改用 NovelAI、Gemini 图生图、Grok 或 mock 代替新概念图默认路由。
+- 图片整体满足要求但局部有问题，或需要角色 / 状态 / 姿态差分时，优先使用 `gemini_chat_image` 图生图；只有存在明确 mask、允许一定随机性且指向性要求不强时，才使用 NovelAI inpaint。
 - 素材生成、Manifest 回填和程序交接必须发生在 active 规格更新并通过 `Validate-UIDesign.ps1` 之后。
 - 每次 AI 出图、预处理或同步 Approved 素材后，必须刷新 `美术文档/_generated/可接入素材清单.md` 和 `.json`，并在 `美术文档/_generated/art_integration_snapshots/` 留快照；程序侧优先读取 latest 中的 `program_integrate` 条目自助接入。
 - 美术侧每轮实际交付完成后，必须更新 `agent_status/art.md`，并将本轮美术相关改动单独提交；不要混入程序、策划、子模块或本地工具无关改动。

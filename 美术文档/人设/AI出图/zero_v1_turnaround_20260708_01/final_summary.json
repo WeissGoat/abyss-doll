@@ -1,0 +1,38 @@
+{
+  "run_dir": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01",
+  "source_design_doc": "美术文档/人设/03_零号初版人设方案.md",
+  "prompt_doc": "美术文档/人设/04_零号AI后端出图提示词对比.md",
+  "contact_sheet": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\contact_sheet_zero_v1_turnaround.jpg",
+  "backends": {
+    "chatgpt": {
+      "count": 0,
+      "files": [],
+      "errors": [
+        "[openai_images] HTTP 401: Invalid token (request id: 202607071630382711270638268d9d6c08lEArO)"
+      ]
+    },
+    "gemini_nanobanana": {
+      "count": 3,
+      "files": [
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\gemini_nanobanana\\gemini_nanobanana_00.jpg",
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\gemini_nanobanana\\gemini_nanobanana_01.jpg",
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\gemini_nanobanana\\gemini_nanobanana_02.jpg"
+      ],
+      "errors": []
+    },
+    "novelai": {
+      "count": 3,
+      "files": [
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\novelai\\novelai_00.png",
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\novelai\\novelai_01.png",
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_turnaround_20260708_01\\novelai\\novelai_02.png"
+      ],
+      "errors": []
+    }
+  },
+  "notes": {
+    "chatgpt": "Three-view prompt emphasizes polished concept-art consistency, long loose hair, gray cloak structure, and production model-sheet clarity.",
+    "gemini_nanobanana": "Three-view prompt emphasizes pure white background, large readable character, consistent front/side/back model-sheet layout, and no scene elements.",
+    "novelai": "Tag prompt emphasizes multiple views, loose long hair, white blindfold, covered shoulders, doll joints, and negative tags against tied hair or exposed shoulders."
+  }
+}

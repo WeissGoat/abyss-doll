@@ -1,0 +1,37 @@
+{
+  "run_dir": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01",
+  "source_design_doc": "美术文档/人设/03_零号初版人设方案.md",
+  "prompt_doc": "美术文档/人设/04_零号AI后端出图提示词对比.md",
+  "contact_sheet": "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\contact_sheet_zero_v1_rerun_20260707_01.jpg",
+  "backends": {
+    "chatgpt": {
+      "count": 3,
+      "files": [
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\chatgpt\\chatgpt_00.png",
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\chatgpt\\chatgpt_01.png",
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\chatgpt\\chatgpt_02.png"
+      ]
+    },
+    "gemini_nanobanana": {
+      "count": 3,
+      "files": [
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\gemini_nanobanana\\gemini_nanobanana_00.jpg",
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\gemini_nanobanana\\gemini_nanobanana_01.jpg",
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\gemini_nanobanana\\gemini_nanobanana_02.jpg"
+      ]
+    },
+    "novelai": {
+      "count": 3,
+      "files": [
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\novelai\\novelai_00.png",
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\novelai\\novelai_01.png",
+        "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_rerun_20260707_01\\novelai\\novelai_02.png"
+      ]
+    }
+  },
+  "notes": {
+    "chatgpt": "Adjusted prompt rerun succeeded, 3 images. Used previous ChatGPT concept-art direction as baseline.",
+    "gemini_nanobanana": "Adjusted white-background character-sheet prompt rerun succeeded, 3 images; character is clean but somewhat small in frame.",
+    "novelai": "2026-07-08 retry succeeded, 3 adjusted images generated after previous NovelAI rate-limit attempts on 2026-07-07."
+  }
+}

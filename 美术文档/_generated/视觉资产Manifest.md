@@ -18,6 +18,7 @@
 | `item` | 40 |
 | `memento` | 15 |
 | `monster` | 42 |
+| `narrative_cg` | 15 |
 | `node` | 8 |
 | `order` | 35 |
 | `prosthetic` | 8 |
@@ -82,21 +83,21 @@
 | `item` | `loot_gear_scrap` | 废旧齿轮 | `icon` | `item_loot_gear_scrap_icon` | P0 | `approved` |
 | `item` | `loot_living_mycelium` | 活性菌丝 | `icon` | `item_loot_living_mycelium_icon` | P0 | `approved` |
 | `item` | `loot_rusty_coil` | 生锈线圈 | `icon` | `item_loot_rusty_coil_icon` | P0 | `prompted` |
-| `item` | `loot_spore_amber` | 孢晶琥珀 | `icon` | `item_loot_spore_amber_icon` | P0 | `prompted` |
+| `item` | `loot_spore_amber` | 孢晶琥珀 | `icon` | `item_loot_spore_amber_icon` | P0 | `approved` |
 | `item` | `loot_toxic_filter` | 污染滤芯 | `icon` | `item_loot_toxic_filter_icon` | P0 | `prompted` |
-| `item` | `loot_vein_plate` | 菌脉甲片 | `icon` | `item_loot_vein_plate_icon` | P0 | `prompted` |
-| `item` | `loot_warped_plate` | 扭曲装甲片 | `icon` | `item_loot_warped_plate_icon` | P0 | `prompted` |
+| `item` | `loot_vein_plate` | 菌脉甲片 | `icon` | `item_loot_vein_plate_icon` | P0 | `approved` |
+| `item` | `loot_warped_plate` | 扭曲装甲片 | `icon` | `item_loot_warped_plate_icon` | P0 | `approved` |
 | `item` | `mat_core_tier1` | 一阶动力核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `prompted` |
 | `item` | `mat_core_tier2` | 二阶污染核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `prompted` |
-| `item` | `mat_core_tier2_fragment` | 二阶机核碎片 | `icon` | `item_mat_core_tier2_fragment_icon` | P0 | `prompted` |
-| `item` | `mat_core_tier3_seed` | 三阶机核种 | `icon` | `item_mat_core_tier3_seed_icon` | P0 | `prompted` |
-| `item` | `order_contested_spore_core` | 争夺孢核 | `icon` | `item_order_contested_spore_core_icon` | P0 | `prompted` |
-| `item` | `order_live_spore_cage` | 活孢子笼 | `icon` | `item_order_live_spore_cage_icon` | P0 | `prompted` |
+| `item` | `mat_core_tier2_fragment` | 二阶机核碎片 | `icon` | `item_mat_core_tier2_fragment_icon` | P0 | `approved` |
+| `item` | `mat_core_tier3_seed` | 三阶机核种 | `icon` | `item_mat_core_tier3_seed_icon` | P0 | `approved` |
+| `item` | `order_contested_spore_core` | 争夺孢核 | `icon` | `item_order_contested_spore_core_icon` | P0 | `approved` |
+| `item` | `order_live_spore_cage` | 活孢子笼 | `icon` | `item_order_live_spore_cage_icon` | P0 | `approved` |
 | `item` | `trade_cracked_relic` | 裂纹圣牌 | `icon` | `item_loot_toxic_filter_icon` | P0 | `prompted` |
-| `item` | `trade_luminous_fungus` | 夜光菌簇 | `icon` | `item_trade_luminous_fungus_icon` | P0 | `prompted` |
+| `item` | `trade_luminous_fungus` | 夜光菌簇 | `icon` | `item_trade_luminous_fungus_icon` | P0 | `approved` |
 | `item` | `trade_miner_lamp` | 矿工提灯 | `icon` | `item_loot_rusty_coil_icon` | P0 | `prompted` |
-| `item` | `trade_sealed_relic_box` | 封存遗物匣 | `icon` | `item_trade_sealed_relic_box_icon` | P0 | `prompted` |
-| `item` | `trade_singing_fossil` | 低唱化石 | `icon` | `item_trade_singing_fossil_icon` | P0 | `prompted` |
+| `item` | `trade_sealed_relic_box` | 封存遗物匣 | `icon` | `item_trade_sealed_relic_box_icon` | P0 | `approved` |
+| `item` | `trade_singing_fossil` | 低唱化石 | `icon` | `item_trade_singing_fossil_icon` | P0 | `approved` |
 | `memento` | `memento_blackmarket_letter` | 房间纪念物-黑市纸条 | `icon` | `memento_blackmarket_letter` | P2 | `approved` |
 | `memento` | `memento_boss1_lamp` | 第一层矿灯纪念物 | `prop` | `memento_boss1_lamp` | P2 | `approved` |
 | `memento` | `memento_debt_shadow_window` | 房间纪念物-债主窗影 | `icon` | `memento_debt_shadow_window` | P2 | `approved` |
@@ -154,6 +155,21 @@
 | `monster` | `mob_soul_midge_swarm` | 窃魂虫群 | `portrait` | `monster_mob_soul_midge_swarm_portrait` | P0 | `approved` |
 | `monster` | `mob_spore_archer` | 孢刺射手战斗实体 | `combat_sprite` | `monster_mob_spore_archer_combat` | P0 | `approved` |
 | `monster` | `mob_spore_archer` | 孢刺射手 | `portrait` | `monster_mob_spore_archer_portrait` | P0 | `approved` |
+| `narrative_cg` | `t0_01a_p02_panel01_workshop_wide` | T0序章-工坊远景 | `cg_panel` | `cg_t0_01a_p02_panel01_workshop_wide` | P0 | `approved` |
+| `narrative_cg` | `t0_01a_p02_panel02_debt_notice_door` | T0序章-门缝催缴纸 | `cg_panel` | `cg_t0_01a_p02_panel02_debt_notice_door` | P0 | `approved` |
+| `narrative_cg` | `t0_01a_p02_panel03_no0_hand_cloth` | T0序章-布下零号手部 | `cg_panel` | `cg_t0_01a_p02_panel03_no0_hand_cloth` | P0 | `approved` |
+| `narrative_cg` | `t0_01a_p03_panel01_debt_notice_close` | T0序章-债务纸特写 | `cg_panel` | `cg_t0_01a_p03_panel01_debt_notice_close` | P0 | `approved` |
+| `narrative_cg` | `t0_01a_p04_panel01_repair_note_close` | T0序章-修复手记 | `cg_panel` | `cg_t0_01a_p04_panel01_repair_note_close` | P0 | `approved` |
+| `narrative_cg` | `t0_01a_p04_panel02_shallow_gate_glow` | T0序章-浅层暗门冷光 | `cg_panel` | `cg_t0_01a_p04_panel02_shallow_gate_glow` | P0 | `approved` |
+| `narrative_cg` | `t0_01a_p04_panel03_core_shard_box` | T0序章-工具匣核心碎片 | `cg_panel` | `cg_t0_01a_p04_panel03_core_shard_box` | P0 | `approved` |
+| `narrative_cg` | `t0_01a_p05_panel02_no0_half_reveal` | T0序章-零号半身揭示 | `cg_panel` | `cg_t0_01a_p05_panel02_no0_half_reveal` | P0 | `approved` |
+| `narrative_cg` | `t0_01a_p05_panel03_no0_core_dim` | T0序章-零号核心仓弱光 | `cg_panel` | `cg_t0_01a_p05_panel03_no0_core_dim` | P0 | `approved` |
+| `narrative_cg` | `t0_01a_p06_panel01_no0_close` | T0序章-启动前零号近景 | `cg_panel` | `cg_t0_01a_p06_panel01_no0_close` | P0 | `approved` |
+| `narrative_cg` | `t0_01a_p06_panel02_core_insert` | T0序章-核心碎片接入 | `cg_panel` | `cg_t0_01a_p06_panel02_core_insert` | P0 | `approved` |
+| `narrative_cg` | `t0_01a_p06_panel03_core_wake` | T0序章-核心仓微光启动 | `cg_panel` | `cg_t0_01a_p06_panel03_core_wake` | P0 | `approved` |
+| `narrative_cg` | `t0_01a_p03_panel02_collateral_shadow` | T0序章-抵扣机械阴影 | `cg_panel` | `cg_t0_01a_p03_panel02_collateral_shadow` | P1 | `approved` |
+| `narrative_cg` | `t0_01a_p03_panel03_broken_parts` | T0序章-工作台残件 | `cg_panel` | `cg_t0_01a_p03_panel03_broken_parts` | P1 | `approved` |
+| `narrative_cg` | `t0_01a_p05_panel01_broken_doll_parts` | T0序章-坏掉的人偶残件 | `cg_panel` | `cg_t0_01a_p05_panel01_broken_doll_parts` | P1 | `approved` |
 | `node` | `BossNode` | 首领节点 | `icon` | `node_boss_icon` | P0 | `approved` |
 | `node` | `CombatNode` | 战斗节点 | `icon` | `node_combat_icon` | P0 | `approved` |
 | `node` | `EventNode` | EventNode | `icon` | `node_eventnode_icon` | P0 | `approved` |

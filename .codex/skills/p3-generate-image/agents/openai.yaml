@@ -1,0 +1,4 @@
+interface:
+  display_name: "P3 AI 美术生成"
+  short_description: "为 P3 选择图片后端并执行生图、图生图和交付证据流程"
+  default_prompt: "Use $generate-image to create or adjust images with the correct backend, provider-specific prompt format, raw output, and generation evidence."

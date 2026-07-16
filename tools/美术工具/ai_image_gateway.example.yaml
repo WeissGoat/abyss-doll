@@ -1,10 +1,10 @@
-# Project P3 AI image gateway config template.
-# Copy to ai_image_gateway.local.yaml and keep credentials out of the file.
-# NovelAI auth resolves NAI_ACCESS_TOKEN first, then the local client.py fallback.
+# Project P3 AI 图片网关配置模板。
+# 复制到 tools/ai-image-gateway/config.local.yaml，并保持该文件不提交。
 
 default_provider:
-  generate: novelai
-  inpaint: mock
+  generate: openai_images
+  image_to_image: gemini_chat_image
+  inpaint: novelai
   upscale: mock
 
 providers:
@@ -14,17 +14,39 @@ providers:
       bg_color: "#222533"
       text_color: "#e7d28a"
 
+  openai_images:
+    enabled: true
+    auth:
+      api_key: ${OPENAI_IMAGE_API_KEY}
+    settings:
+      base_url: ${OPENAI_IMAGE_BASE_URL}
+      endpoint: /images/generations
+      edit_endpoint: /images/edits
+      model: gpt-image-2
+      response_format: b64_json
+      size: 1024x1024
+      quality: high
+      output_format: png
+      timeout: 360
+      retry: 1
+
+  gemini_chat_image:
+    enabled: true
+    auth:
+      api_key: ${GEMINI_IMAGE_API_KEY}
+    settings:
+      base_url: ${GEMINI_IMAGE_BASE_URL}
+      endpoint: /chat/completions
+      model: gemini-3.1-flash-image
+      temperature: 0.2
+      timeout: 180
+      retry: 1
+
   novelai:
     enabled: true
     auth:
-      # Prefer NAI_ACCESS_TOKEN for local runs.
       access_token: ${NAI_ACCESS_TOKEN}
-      # This workstation fallback is parsed without printing or committing the token.
       # client_py_path: F:\my_project\new\tags_machine\novelai\client.py
-      # Alternative auth options supported by the gateway:
-      # access_key: ${NAI_ACCESS_KEY}
-      # username: ${NAI_USERNAME}
-      # password: ${NAI_PASSWORD}
     settings:
       model: nai-diffusion-4-5-full
       sampler: k_euler

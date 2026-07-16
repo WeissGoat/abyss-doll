@@ -1,0 +1,16 @@
+{
+  "pose_id": "pose_06_activation_ready",
+  "pose_name": "activation ready",
+  "backend_id": "chatgpt",
+  "provider": "openai_images",
+  "prompt": "Create one single full-body Japanese anime game character reference on a pure white background. Exactly one character, no alternate views, no collage, no text.\n\nZero is a petite but non-childlike doll heroine with long loose silver-white hair, a soft white cloth blindfold, and real red eyes hidden behind it. She wears a complete plain gray shoulder cloak covering both shoulders, chest and upper arms, a simple short ivory-gray inner dress, uncovered legs, unshod feet, and subtle doll joints at wrists, knees and ankles. The chest core stays hidden under the cloak.\n\nPose: activation-ready pose, feet planted, one hand lightly touching the white blindfold, a clear but subtle red glow visible behind the cloth.\n\nUse clean linework, soft cel shading, low visual noise and a restrained cold expression. Keep the entire body large and centered. No exposed eyes; for activation or unstable states, show only red light through the white cloth. No bare shoulder, boots, shoes, armor, machinery, blood, gore, pinup pose or watermark.",
+  "negative_prompt": "",
+  "width": 832,
+  "height": 1216,
+  "count": 1,
+  "success_count": 0,
+  "errors": [
+    "[openai_images] HTTP 502: <html>\r\n<head><title>502 Bad Gateway</title></head>\r\n<body>\r\n<center><h1>502 Bad Gateway</h1></center>\r\n<hr><center>nginx</center>\r\n</body>\r\n</html>\r\n"
+  ],
+  "files": []
+}

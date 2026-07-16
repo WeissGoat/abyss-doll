@@ -1,0 +1,18 @@
+{
+  "asset_id": "zero_stand_neutral",
+  "asset_name": "front neutral portrait master",
+  "provider": "gemini_chat_image",
+  "mode": "image_to_image",
+  "width": 1024,
+  "height": 1536,
+  "count": 1,
+  "success_count": 0,
+  "errors": [
+    "[gemini_chat_image] HTTP 503: 没有可用的Token进行图片生成。所有Token都处于禁用、冷却、锁定或已过期状态。"
+  ],
+  "references": [
+    "F:\\design\\game\\project\\p3\\美术文档\\人设\\AI出图\\zero_v1_pose_actions_20260710_01\\pose_01_front_idle\\gemini_nanobanana\\pose_01_front_idle_gemini_nanobanana_01.jpg"
+  ],
+  "prompt": "Use the supplied images only as identity, costume, hairstyle, and pose references. Redraw one polished production-ready Japanese anime game character portrait of Project P3 character Zero. Preserve the same recognizable character identity across the batch.\n\nOutput contract: exactly one character, one view, vertical 2:3 canvas, clean perfectly white background, no floor line, no cast shadow, no scenery, no props, no text, no border, no UI. Keep the complete body visible from hair tip to bare toes. The character must occupy 85 to 90 percent of the canvas height and be centered with narrow even margins.\n\nPose: strict front-facing orthographic full-body standing pose, feet parallel, arms relaxed naturally at both sides, quiet command-ready posture.\n\nIdentity: a petite and cute but clearly non-childlike young doll heroine, slim compact proportions, quiet restrained kuudere expression, small closed mouth. Long loose silver-white hair worn fully down and unbound, naturally scattered, extending below the waist toward the upper thighs. Keep the face shape and understated anime design close to the supplied Gemini reference.\n\nEyes and blindfold: both real eyes are red but completely hidden in this normal state. Cover the eye area with one soft aged white cloth blindfold. No visible pupils, no red glow, no colored eye slit, no metal mask, no black blindfold.\n\nCostume: one independent plain medium-gray shoulder cape, clearly separate from the inner dress. The cape fully covers both shoulders, upper chest, hidden core chamber, and upper arms. It must read as a short cape with two front panels, not a poncho dress and not a long cloak. Under it is a minimal light gray-white ultra-short inner dress with a simple loose silhouette and no ornament. Bare legs and fully bare feet. No shoes, socks, stockings, anklets, gloves, necklace, brooch, chest tag, chest ornament, armor, or exposed core.\n\nDoll details: only tiny subtle seam lines at wrists, knees, and ankles. Add light dust, faint scratches, and slightly worn fabric edges. Do not use large ball joints, skeletal robot limbs, exposed machinery, blood, wounds, or gore.\n\nRendering: refined 2D anime game character concept art, clean thin linework, soft cel shading, muted gray-white palette with natural pale skin, low visual noise, readable silhouette, professional standing-portrait finish. Neutral eye-level camera. Avoid pinup framing, erotic emphasis, exaggerated breasts, exaggerated thighs, mature tall fashion-model proportions, chibi proportions, toddler traits, or child coding.\n\nCritical invariants: complete gray cape covering both shoulders; white cloth blindfold; long loose hair; normal state has no red light; no chest ornament; core hidden; bare legs; bare feet; one character only; portrait orientation; character fills most of the canvas.",
+  "outputs": []
+}

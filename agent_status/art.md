@@ -17,38 +17,161 @@ related:
   - 设计文档/GDD/GDD_00_系统关联总图.md
   - agent_status/design.md
   - 美术文档/10_正式版核心纵切美术路线.md
-  - 美术文档/10_美术验收截图优化与真实数据驱动演进方案.md
+  - 美术文档/05_AI图片网关接入方案.md
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - 美术文档/ui_design/ui_iteration_process.md
   - 美术文档/ui_design/formal_v1/screen_structure_review.md
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 美术文档/README.md
   - 知识库/views/art.md
-  - 美术文档/15_FormalV2运行时验收待办清单.md
   - 美术文档/16_Live2D角色动画资产接入规格.md
   - 美术文档/17_Agent原生动态立绘资产接入规格.md
+  - 美术文档/18_CG底图与漫画式播放演出工作流.md
+  - 美术文档/19_T0-01序章CG细案.md
+  - .codex/skills/p3-generate-image/SKILL.md
+  - .codex/skills/p3-art-asset-production/SKILL.md
+  - .codex/skills/p3-narrative-cg-comic/SKILL.md
+  - 版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md
+  - 美术文档/人设/README.md
+  - 美术文档/人设/01_人设参考获取规则.md
+  - 美术文档/人设/02_零号原型参考_失明少女.md
+  - 美术文档/人设/03_零号初版人设方案.md
+  - 美术文档/人设/04_零号AI后端出图提示词对比.md
+  - 美术文档/人设/05_零号立绘素材设计与交付清单.md
   - 开发文档/17_Live2DSpine运行时接入评估.md
   - 开发文档/18_全局叙事播放系统开发方案.md
-last_verified: 2026-07-04
+last_verified: 2026-07-12
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
 
 # 美术 / UI 状态
 
+## 2026-07-14 p3-art-asset-production 新 Skill
+
+- 最近完成：新增 `.codex/skills/p3-art-asset-production/`，并完成美术生产文档职责重构：`00` 保留端到端阶段与三轴完成状态，`03` 改为稳定质量 / 筛选准入事实，`05` 收窄为图片生成能力与网关契约，`01/02/04` 补齐 SourceType / Operation、Asset Contract、正式 SelectedPath、`.meta` / GUID、Unity live import 和 provider 语义边界；图片能力 Skill 已以 `generate-image` 收口。
+- 当前关注：正式美术生产由 `p3-art-asset-production` 编排并调用 `generate-image` 和 `p3-art-validation`。默认 `interactive + auto_until_decision`；用户明确授权全自动后，可在锁定事实和权限范围内自动 selected、同步 Approved、接入 Unity并完成运行时证据。
+- 下一步建议：用一个低风险图标或同 VisualID 替换任务试跑新 Skill，验证 ProductionRun、评分决策、正式 SelectedPath、Approved 门禁、Unity 导入和 focused ArtRun 证据是否按文档闭环；不要直接从核心角色母版开始首跑。
+- 问题 / 阻塞：本轮只迭代 Skill 与事实文档并归档旧验收入口，没有执行具体资产生产、修改 Manifest / Approved / Registry 或产生新的运行时验收结论。
+
+## 2026-07-12 p3-art-validation 删除人工主美状态
+
+- 最近完成：按用户决定删除 Art Profile、ArtRun、Skill 和发布聚合中的 `ExternalReview`、`ReviewRequired`、主美批准与外部复核状态；美术验收只输出运行时技术结果和证据。
+- 当前关注：保留 MCP live inspection、bounded UGUI 诊断、capture ticket、before/after、seal 和 regression，不建立人工审核状态机。
+- 下一步建议：直接根据实时画面和 ArtRun 证据继续修改或结束本次美术任务；需要永久修改 UI 时再由程序补目标 persist adapter。
+- 问题 / 阻塞：当前无人工状态阻塞；具体 TargetID 仍未注册业务持久化 adapter。
+
+## 2026-07-12 零号高频对话差分 Gemini 首批
+
+- 最近完成：以既有 `zero_dialogue_neutral` 作为唯一参考母版，使用 `gemini_chat_image` 串行生成高频对话差分；新增说话、接受指令、疑惑、思考、信任柔和、冷淡、疲惫 `7` 张成功候选，与中性母版组成 `8` 格对话对照。采用文件、提示词和 contact sheet 位于 `美术文档/人设/AI出图/zero_dialogue_differences_20260712_01/`，筛选证据为同批次 `selection_review.md`。
+- 当前关注：八格差分已经能区分基本对话节奏，但仍是白底 RGB 候选；`trust_soft` 手指需要清理，`cold` 与中性差异偏弱，所有图仍需统一头部尺寸、披肩下摆和人物占比。Gemini 成功输出为 `1376x768` 横图，selected 版本仅中心裁切并缩放到 `1024x1536`。
+- 下一步建议：先修复 `trust_soft` 手部并增强 `cold` 疏离朝向；通道恢复后单图补跑 `zero_low_san`，再补 `zero_alert` 与 `zero_hurt`。日常对话差分通过主美筛选后再进入透明底、嘴型 / 手势分层和实际 UI 容器检查。
+- 问题 / 阻塞：`zero_low_san` 使用完整提示词两次、低分辨率参考图加短提示词一次，三次均在约 125 秒返回 Gemini 中转站 `HTTP 524`，本轮记录为 `validation_limited:gemini_524`。本批未修改 Approved / Manifest / Registry，也没有 ArtAcceptance 或 DollPuppetAcceptance 证据。
+
+## 2026-07-12 叙事 CG / 漫画页生产 skill
+
+- 最近完成：新增 `.codex/skills/p3-narrative-cg-comic/SKILL.md`，把 `美术文档/18_CG底图与漫画式播放演出工作流.md` 的执行部分收敛为项目级 skill：先锁角色 / 场景 / 风格三类锚点，再按页生成候选、做 page contact sheet、一致性检查、Approved 同步和运行时漫画截图验收；同时在 `AGENTS.md` 美术 / UI 路由中登记该 skill。
+- 当前关注：该 skill 明确禁止未锁锚点时直接全量独立文生图，并要求记录每张图是纯文生图、图生图、inpaint 还是同 VisualID 替换；实际出图仍调用 `.codex/skills/p3-generate-art/SKILL.md`，运行时截图验收仍调用 `.codex/skills/p3-validation/SKILL.md`。
+- 下一步建议：后续继续 T0-01A 封板 CG 时，先按新 skill 建立零号角色锚点、破败工坊场景锚点和漫画页风格锚点，再重做 p02-p05 页级候选；不要直接用散点 Panel 批量覆盖 Approved。
+- 问题 / 阻塞：本轮只新增 skill 和路由口径，没有生成新图片、修改 Approved / Manifest / Registry、刷新 `_generated` 或产生 ArtAcceptance / 运行时验收结论。
+
+## 2026-07-11 零号 P0 身份锚点 Gemini 首批
+
+- 最近完成：使用 `gemini_chat_image` 与既有 Gemini 动作候选逐张图生图，完成 `zero_stand_neutral`、`zero_dialogue_neutral`、`zero_maintenance_sit` 三张身份锚点首批筛选；最终采用文件和对照图位于 `美术文档/人设/AI出图/zero_portrait_p0_20260711_01/selected/`，筛选证据为同批次 `selection_review.md`。
+- 当前关注：三张采用图已修正胸前系结、披肩罩裙化、维护侧坐 / 腮红 / 披肩长尾等明显漂移，但仍是白底候选。Gemini 网关请求 `1024x1536` 时连续返回 `1536x768` 横图，selected 版本仅中心裁切并缩放为 `1024x1536`，不等于原生竖版透明母图。
+- 下一步建议：先对三张候选做同脸、披肩剪裁和脚部比例复核，再生产透明母图；通过实际 UI 容器尺寸检查后，继续制作 `zero_dialogue_command_ready`、`zero_low_san` 和 `zero_hurt`，最后进入 DollPuppet 分层。
+- 问题 / 阻塞：尚未生成透明底、未去除 JPEG 痕迹、未进入 Approved / Manifest / Registry，也没有 Unity ArtAcceptance 或 DollPuppetAcceptance 证据。
+
+## 2026-07-11 P3 AI 生图统一 skill 与规范 V2
+
+- 最近完成：新增 `.codex/skills/p3-generate-art/`，将设计图 / 概念图、Manifest 文生图、Gemini 图生图差分、NovelAI inpaint、三后端提示词格式、单图循环和证据边界收敛为统一 Agent 入口；`美术文档/05_AI图片网关接入方案.md` 已升级为 V2，并同步 `00`、`02`、`03`、美术 README、Formal V2 总方案 / README / concepts 入口、`AGENTS.md`、`GEMINI.md`、美术工具 README 和三后端配置模板。
+- 当前关注：设计图 / 概念图默认优先 Codex `image_gen`，不可用时自动转 `openai_images`；已有图整体成立但局部有问题或需要差分时优先 `gemini_chat_image` 图生图；NovelAI inpaint 只用于有 mask、允许一定随机性且指向性要求不强的局部重绘。
+- 下一步建议：后续 AI 美术任务先触发 `$p3-generate-art`，按 skill 读取目标资产事实来源、执行配置检查 / smoke，并按 `raw -> processed -> selected -> Approved -> Registry -> ArtAcceptance` 留证据。
+- 问题 / 阻塞：本轮只迭代 skill、规范和配置模板，没有生成新图片、修改 Approved / Manifest / Registry 或产生运行时验收结论。
+
+## 2026-07-11 零号 Gemini 母版立绘素材设计
+
+- 最近完成：按用户确认将零号后续立绘改为以 Gemini 版本为视觉母版；新增 `美术文档/人设/05_零号立绘素材设计与交付清单.md`，定义 3 个基础姿势、P0 六态静态立绘、P1 关系 / 恢复差分、P2 特殊 cut-in、状态组合矩阵、DollPuppet 分层和生产验收顺序。
+- 当前关注：现有 Gemini 图只锁身份与轮廓，不直接入库；正式母图必须放大到画布高度 `85%–90%`，修正披肩罩裙化风险，并输出 `1024x1536` 透明立绘。现有 `doll_proto_0_stand` 继续作为 fallback VisualID，不在本轮新增 Manifest 条目。
+- 下一步建议：先重绘 Gemini 正面母版、3/4 对话母版和维护坐姿母版，再补 P0 六态；静态尺寸验收后才进入 DollPuppet 分层，不从当前 AI JPG raw 直接拆层。
+- 问题 / 阻塞：当前只是素材设计完成，未生成新的透明母图、Approved 素材、Manifest / Registry 条目、DollPuppet 包或运行时验收证据。
+
+## 2026-07-11 AI 后端连通性复测工具
+
+- 最近完成：新增 `tools/美术工具/Test-AIImageBackends.ps1` 与 `tools/美术工具/test_ai_image_backends.py`，用于按 `tools/ai-image-gateway/config.local.yaml` 对 `chatgpt` / `openai_images`、`gemini` / `gemini_chat_image`、`novelai` 三个后端做最小真实出图 smoke；同步更新 `tools/美术工具/README.md` 用法。
+- 当前关注：工具默认输出到系统临时目录 `P3BackendSmoke`，生成 `summary.json`、`config_summary.json`、`provider.log` 和最小样图，不写入 `_IncomingAI`、Approved、Manifest、Registry、`screen_layouts.json` 或 ArtAcceptance 结论。
+- 下一步建议：更换 token、代理地址或模型名后，先运行 `.\tools\美术工具\Test-AIImageBackends.ps1 -CheckConfigOnly` 确认配置脱敏摘要，再运行完整 smoke；NovelAI 限流时使用 `-Backend novelai -Attempts 3 -RetryDelaySeconds 30` 单独复测。
+- 问题 / 阻塞：新工具实跑时 ChatGPT 与 Gemini 通过；NovelAI 当前连续限流，工具正确返回失败码并把 provider 详细日志写入 `provider.log`。
+
+## 2026-07-11 AI 出图三后端可用性复测
+
+- 最近完成：按用户更换 ChatGPT token 后的要求，重新实测 `novelai`、`openai_images` / ChatGPT 和 `gemini_chat_image` 三个 AI 出图后端。`openai_images` 使用 `gpt-image-2` 首次生成成功；`gemini_chat_image` 使用 `gemini-3.1-flash-image` 首次生成成功；`novelai` 使用 `nai-diffusion-4-5-full` 首次遇到限流，第二次重试生成成功。
+- 当前关注：三后端当前均可用，但 NovelAI 仍有明显限流波动，批量任务需要保留重试、串行节流或更长 backoff；本轮只做后端 smoke，不新增 Approved 素材、Manifest、Registry、`screen_layouts.json` 或 ArtAcceptance 结论。
+- 下一步建议：后续大批量角色 / CG 出图优先把 ChatGPT 与 Gemini 作为稳定通道，NovelAI 用于风格补充或小批量重试；若 NovelAI 连续限流，先降并发与单批数量，再决定是否更换 token / 账号。
+- 问题 / 阻塞：无 ChatGPT token 阻塞；NovelAI 当前状态为 `usable_with_rate_limit_risk`。
+- 关键证据：复测摘要 `C:\Users\WhiteSheep\AppData\Local\Temp\P3BackendSmoke\20260711_113054_full_retest\summary.json`；输出样例 `chatgpt_attempt1.png`、`gemini_attempt1.jpg`、`novelai_attempt2.png` 位于同目录。
+
+## 2026-07-11 T0-01A 封板 CG Panel 审计与后端 smoke
+
+- 最近完成：已按 `18_CG底图与漫画式播放演出工作流.md`、`19_T0-01序章CG细案.md` 和 `T0-PRE-02..06` 重审 15 个 Approved Panel。结论为 10 个需重制、5 个保留候选；逐 Panel 原因已写入 `美术文档/19_T0-01序章CG细案.md` 第 11 节。
+- 当前关注：按页重制 `p02 -> p03 -> p04 -> p05_panel01`，每页先进 `_IncomingAI`、预处理和 contact sheet，人工选定后才允许同 VisualID 覆盖 Approved。
+- 问题 / 阻塞：已确认美术流水线必须显式使用 `tools/ai-image-gateway/config.local.yaml`；指定该配置后 Gemini 生成成功。p02 首批 9 张候选已完成，但债务纸仍有伪文字，零号手部仍过度骨架机械化，因此本批 `0/3` Panel 可覆盖 Approved。
+- 关键证据：`art_integration_snapshots/20260711_133613_generation_t0_01a_seal_p02_gemini_v1_20260711.md`、`20260711_133744_processed_candidate_t0_01a_seal_p02_gemini_v1_20260711.md`；页级审核结论见 `美术文档/19_T0-01序章CG细案.md` 第 11.1 节。
+
+## 2026-07-11 T0-PRE 商业化基线设计补齐
+
+- 最近完成：`T0-PRE` 商业化基线已写入 `版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md` 第 3.1 节。美术 / UI 后续承接完整 T0 时，以 16 张目标截图作为画面基线：黑屏醒来、破败工坊、债务 / 手记 / 核心碎片、发现并启动零号、苏醒照看、半开放工坊、首潜许可、浅缘短遭遇、首件带回物、回城照看和下一轮目标。
+- 当前关注：本轮只完成目标画面设计，不新增 Approved 素材、Manifest、Registry、`screen_layouts.json` 或 ArtAcceptance 证据。后续 A 段封板候选仍需处理漫画页排版、对白 UI 皮肤、启动仪式画面、半开放工坊和首潜许可卡；B/C 段需新增浅缘场景、带回物和回城照看画面。
+- 下一步建议：美术 / UI 承接 T0 时先按 `T0-PRE-01..16` 判断每张画面的主视觉、允许 UI 和禁止 UI，再决定是否补 CG、背景、结果卡、许可卡或 FormalV2 工坊子态。
+- 问题 / 阻塞：无新增素材阻塞；但不能把现有 T0-01A 条件通过截图视为完整 T0 商业化美术封板。
+
+## 2026-07-11 T0-01A 序章 CG 按 18/19 验收复核
+
+- 最近完成：按 `美术文档/18_CG底图与漫画式播放演出工作流.md` 与 `美术文档/19_T0-01序章CG细案.md` 复核当前 T0-01A 序章 CG。结论：`规格完成=通过`；`素材完成=通过`，p02-p06 共 15 张 Panel 已入 `UnityClient/Assets/Art/Approved/NarrativeCG/T0/`，p02-p06 均为 `1920x1080`，p01 为 `1376x768` 临时醒来底图；`接入完成=条件通过`，VisualID 已登记且 `P3DialogueOverlayController` 有 p02-p06 漫画页定义；`验收通过=未通过/未完成`。
+- 当前关注：7 月 8 日 `UnityClient/Logs/T0Validation/t0_val_01_final_contact_sheet_latest.png` 可证明旧版本 10 个语义节点能走完，但它早于 7 月 10 日风格纠偏覆盖，不能证明当前最新 Approved 面板的最终播放效果。`UnityClient/Logs/T0Validation/` 仍缺少 19 第 8 节要求的 `t0_comic_p01_black_wake.png` 到 `t0_comic_p06_start_no0.png` 六张专门漫画页验收截图。
+- 下一步建议：优先重跑当前 Approved 版本的运行时漫画页截图，逐张检查黑色 gutter、多格排版、逐格 reveal、字幕安全区、p06 单一 `启动人偶` 动作，以及播放结束是否回到真实 T0 流程；通过后再标记 `验收通过`。
+- 问题 / 阻塞：当前画面质量仍有美术风险，p03/p04 的债务、手记、浅层暗门和核心碎片仍偏地底洞窟奇幻插画，弱于“破败但干净的手作工坊 + 安静压力”；p05/p06 零号风格已明显纠偏，但最终人设未完全锁定，仍只能作为 T0 序章 CG 纠偏素材，不是最终角色母版。
+- 关键证据：Approved 汇总图 `UnityClient/Assets/Art/_IncomingAI/_page_reviews/t0_01a_acceptance_current_approved_contact_20260710.png`；风格纠偏 review `UnityClient/Assets/Art/_IncomingAI/_page_reviews/t0_01a_style_correction_review_20260710.md`；接入快照 `美术文档/_generated/art_integration_snapshots/20260710_235213_t0_01a_cg_acceptance_20260710.md`；旧运行时条件截图 `UnityClient/Logs/T0Validation/t0_val_01_final_contact_sheet_latest.png`。
+
+## 2026-07-08 T0-VAL-01 FormalV2 运行时纵切条件通过
+
+- 最近完成：`T0-VAL-01` 在第 15 节人工否决后完成正式版运行时重做，当前美术 / UI 口径为 `conditional_pass:t0_val_01_formal_v2_runtime_slice`。最新 final capture report 为 `UnityClient/Logs/T0Validation/t0_val_01_final_capture_report.txt`，`captured_at=2026-07-08 00:46:12`、`count=10`、`semantic_failed=False`；contact sheet 为 `UnityClient/Logs/T0Validation/t0_val_01_final_contact_sheet_latest.png`。
+- 当前关注：本结论只证明从开局人偶状态、过程 CG / 对白、发现并启动零号、苏醒、半开放工坊、首潜许可卡到第一层地图的运行时纵切已可见；不等于完整 T0 序章、最终 CG / Live2D、ArtAcceptance 或主美商业化封板完成。
+- 下一步建议：若继续追最终商业化封板，优先处理漫画页黑场 / 多格排版、对白框 `AUTO / LOG` 旧 UI 感、半开放工坊最终视觉、首潜许可卡仪式感，以及 ArtAcceptance / 主美人工截图验收。
+- 问题 / 阻塞：当前不再是“无序章 / 无工坊 / 无许可”的 P0 主链阻塞；剩余风险集中在美术 polish 与最终验收封板，不能把条件通过扩大为美术最终通过。
+
+## 2026-07-08 T0-01A 序章 CG Approved 首版素材完成
+
+- 最近完成：在用户确认允许使用项目 AI 图片网关与 fallback provider 后，恢复 T0-01A 序章 CG 制作；已用 `gemini_chat_image` 追加修正版候选，并将 p02-p06 共 15 张漫画 Panel 以及 p01 醒来底图整理到 `UnityClient/Assets/Art/Approved/NarrativeCG/T0/`。本轮重点替换了 p02 工坊远景、p05 零号半身 / 核心近景、p06 零号近景 / 核心接入 / 核心唤醒等弱格，严格保留 Unity `.meta`。
+- 当前关注：该成果可标记为 `素材完成`，不等于 `接入完成` 或 `运行时验收通过`；当前 `Generate-ArtIntegrationCandidates` 仍显示 `program_integrate=0`、`acceptance_needed=290`，后续需要程序 / UI 侧把漫画页 Page、VisualID、逐格显现和字幕条接入运行时。
+- 下一步建议：进入 T0-01A 漫画式播放接入任务，按 `美术文档/19_T0-01序章CG细案.md` 第 8 节生成 `t0_comic_p01_black_wake.png` 到 `t0_comic_p06_start_no0.png` 六张运行时截图，并检查 `启动人偶` 页是否只有单一动作按钮。
+- 问题 / 阻塞：无美术出图阻塞；剩余风险是 p03 抵扣器械阴影较抽象、零号最终人设未完全锁死，后续角色定稿后可能需要同 VisualID 质量替换。
+- 关键证据：最终总览图 `UnityClient/Assets/Art/_IncomingAI/_page_reviews/t0_01a_approved_contact_20260708.png`；美术 review `UnityClient/Assets/Art/_IncomingAI/_page_reviews/t0_01a_prologue_cg_approved_review_20260708.md`；快照 `美术文档/_generated/art_integration_snapshots/20260708_004354_approved_sync_candidate_t0_01a_cg_fix_gemini_20260708_02.md` 与 `20260708_004816_approved_sync_candidate_t0_01a_cg_fix_gemini_20260708_03.md`。
+
+## 2026-07-07 T0-01A 序章 CG p02 页级候选筛选
+
+- 最近完成：按 B 方案运行时漫画页口径，复核了 p02 三个现有 `_IncomingAI` Gemini 候选：`cg_t0_01a_p02_panel01_workshop_wide`、`cg_t0_01a_p02_panel02_debt_notice_door`、`cg_t0_01a_p02_panel03_no0_hand_cloth`。页级 review 已写入 `UnityClient/Assets/Art/_IncomingAI/_page_reviews/t0_01a_p02_workshop_establish_review_20260707.md`。
+- 当前关注：p02 三格阅读顺序成立，债务纸和零号手部为强候选；工坊远景可作临时气氛候选，但更像洞穴工坊，生活压力和破败室内感不足，进入 Approved 前需要同 VisualID 追加变体。
+- 下一步建议：如用户确认允许 fallback 出图后端，优先补 `cg_t0_01a_p02_panel01_workshop_wide` 的 2-3 张变体，并补 p03-p06 剩余 11 个 Panel 候选；之后再做页级 contact sheet、selected 拷贝和 Approved 同步。
+- 问题 / 阻塞：当前 Codex 未暴露内置 `image_gen`；按项目美术规则，未获用户确认前不能自动切到 NovelAI / AI 图片网关 / mock。`ART-CG-04` 与 `ART-CG-05` 已在本地 mission 记录为 blocked；没有新增 Approved、Registry 或运行时验收结论。
+- 关键证据：`美术文档/_generated/art_generation_plan_snapshots/20260707_010311_t0_01a_cg_followup_candidates_20260707.md` 显示剩余候选计划 `planned=11`、`prompt_ready=11`；p02 review 文件记录三格保留/重跑判断。
+
 ## 最后更新
 
-2026-07-04
+2026-07-12
 
 ## 当前关注
 
 支撑正式版核心纵切。按最新 `09` 路线，美术 / UI 作为 P5 表现支撑，只围绕当前 P0-P4 功能纵切补表达、资源和截图验收，不继续横向铺所有界面。
 
-T0-01A 叙事播放 UI 当前已有 `NARR-03` 纯 UGUI 对白层代码入口，并已补第一版演出合成层：缺正式 `cg_t0_01a_*` CG 时，运行时可用现有 Approved 工坊背景、债务纸 / 核心碎片 / 维修图标和 `doll_proto_0_stand` 合成过程 CG 画面。当前已有 Unity runtime smoke 与 PlayMode 状态证据，但仍缺连续截图或 ArtAcceptance 旁路证据，因此不能标记为画面验收通过。
-`T0-FLOW-01` 开场前半段已由程序侧接入 Narrative 自动推进：黑屏、债务纸、修复手记、核心碎片和发现零号通过 VisualID / fallback 表现意图进入播放链路。当前未新增 Approved 素材、Manifest、Registry 或 active `screen_layouts.json`，也未产出黑屏 / 工坊特写 / 发现零号截图，因此美术侧仍不能标记序章画面验收通过。
-`T0-FLOW-02` 程序侧已接入 `启动人偶` 单按钮、零号苏醒、状态小卡和 `擦去核心仓灰尘` 的 Narrative 表现命令链路：状态卡仍复用 `ui_status_card_prologue` / `ui_panel_main` fallback，启动 VFX 复用 `vfx_no0_core_start` / `ui_core_glow` fallback。本轮没有新增 Approved 素材、Manifest、Registry 或 active `screen_layouts.json`，也未产出启动按钮态 / 状态小卡截图，因此美术侧仍只记录程序可达，不标记画面验收通过。
-`T0-FLOW-03` 程序侧已接入半开放工坊与浅层入口主行动：工坊使用现有 UGUI 面板和按钮皮肤进入 `PrologueHalfOpen` 状态，隐藏市场、完整维护、义体、底盘、订单、传闻、势力等入口，只保留 `浅层入口` 主行动、零号状态提示和压力文案。本轮没有新增 Approved 素材、Manifest、Registry 或 active `screen_layouts.json`，也未产出半开放工坊截图，因此美术侧仍只记录程序可达，不标记画面验收通过。
+T0-01A 叙事播放 UI 当前已有 `NARR-03` 纯 UGUI 对白层代码入口，并已补第一版演出合成层。2026-07-08 美术侧已完成 T0-01A 序章 CG 首版 Approved 素材：p01 醒来底图与 p02-p06 共 15 张漫画 Panel 已位于 `UnityClient/Assets/Art/Approved/NarrativeCG/T0/`，最终总览图与美术 review 已写入 `_IncomingAI/_page_reviews/`。当前可声明 `素材完成`；`T0-VAL-01` 运行时纵切则已进入 `conditional_pass:t0_val_01_formal_v2_runtime_slice`，证据为 10 张 final capture 与 contact sheet。该条件通过不等于完整 T0 序章、最终 CG / Live2D、ArtAcceptance 或主美商业化封板完成。
 
-`T0-FLOW-04` 程序侧已接入首潜第一层确认态：复用现有 `layer_select` / `DungeonStartLayerUIController` UGUI 面板，只显示第一层，按钮改为 `出发 / 再看她一眼`，并显示许可通过或阻断的玩家可读中文文案。本轮没有新增 Approved 素材、Manifest、Registry 或 active `screen_layouts.json`，也未产出首潜确认面板截图，因此美术侧仍只记录程序可达，不标记画面验收通过。
+2026-07-11 `T0-01A` Owner 设计已升级为封板候选 V5。美术 / UI 下一轮不是继续做散点 polish，而是按 `T0-PRE-01..11` 整体交付：重排 p02-p05 漫画页，制作启动零号近景仪式，收敛正式对白皮肤，将半开放工坊落到 FormalV2 `workshop_main` 同一房间，并把许可文件、暗门/井口和零号组成首潜许可仪式画面。
+2026-07-07 已按用户确认的 B 方案新增 `美术文档/18_CG底图与漫画式播放演出工作流.md`，并新增 `美术文档/19_T0-01序章CG细案.md`。2026-07-08 的新增变化是素材层已从 `规格完成` 推进到 `素材完成`，运行时纵切已从第 15 节硬失败修复到条件通过；后续仍需按最终商业化封板要求继续处理漫画页排版、字幕条、专属对白 UI 皮肤和 ArtAcceptance / 主美验收。
+`T0-FLOW-01` 开场前半段已由程序侧接入 Narrative 自动推进：黑屏、债务纸、修复手记、核心碎片和发现零号通过 VisualID / fallback 表现意图进入播放链路。当前已有正式 T0-01A CG Approved 素材可供继续替换和 polish；最新 T0-VAL-01 只证明运行时纵切成立，不把序章画面质量标记为最终通过。
+`T0-FLOW-02` 程序侧已接入 `启动人偶` 单按钮、零号苏醒、状态小卡和 `擦去核心仓灰尘` 的 Narrative 表现命令链路：状态卡仍复用 `ui_status_card_prologue` / `ui_panel_main` fallback，启动 VFX 复用 `vfx_no0_core_start` / `ui_core_glow` fallback。2026-07-05 已产出启动按钮与擦灰动作 live 截图；本轮没有新增 Approved 素材、Manifest、Registry 或 active `screen_layouts.json`，因此美术侧只记录 staging 可见，不标记商业画面验收通过。
+`T0-FLOW-03` 程序侧已接入半开放工坊与浅层入口主行动：工坊使用现有 UGUI 面板和按钮皮肤进入 `PrologueHalfOpen` 状态，隐藏市场、完整维护、义体、底盘、订单、传闻、势力等入口，只保留 `浅层入口` 主行动、零号状态提示和压力文案。2026-07-05 已产出半开放工坊 live 截图；本轮没有新增 Approved 素材、Manifest、Registry 或 active `screen_layouts.json`，因此美术侧只记录 staging 可见，不标记商业画面验收通过。
+
+`T0-FLOW-04` 程序侧已接入首潜第一层确认态：复用现有 `layer_select` / `DungeonStartLayerUIController` UGUI 面板，只显示第一层，按钮改为 `出发 / 再看她一眼`，并显示许可通过或阻断的玩家可读中文文案。2026-07-05 已产出允许态与磨损极高阻断态 live 截图；本轮没有新增 Approved 素材、Manifest、Registry 或 active `screen_layouts.json`，因此美术侧只记录 staging 可见，不标记商业画面验收通过。
 
 PM 版本节点中，美术线当前 21 个界面都已具备 Formal V1 active 规格。美术侧已主动触发 latest ArtAcceptance `20260527_002436`，工具层 21/21 captured、`PASSED`、Registry 191、MissingRequiredVisualIDs=0、UI snapshot risks=0；latest 程序交接清单为 `program_integrate=0`、`add_capture=0`、`rerun_acceptance=0`。本轮人工验收结论是“资源接入通过、画面不完全通过”：`combat_hud`、`dungeon_map`、`safe_room`、`stairs_room`、`sell_panel`、`prosthetic_panel` 需要程序侧清理截图状态或补有效展示数据后重跑；其余界面多为通过或条件通过，后续继续 Visual V2 同名替换。
 
@@ -147,14 +270,27 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 
 ## 最近完成
 
+- 2026-07-11：`T0-01` 文档体系已新增完整开发总入口 `版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md`。美术 / UI 侧后续按 A/B/C 分段承接：A 段继续处理漫画页、对白皮肤、启动仪式、半开放工坊和许可卡；B 段另行承接浅缘场景、短遭遇和首件带回物；C 段另行承接回城照看、结果三行结构和下一轮目标画面。`T0-VAL-01` 只作为 A 段运行时验收记录，本轮不新增 Approved、Manifest、Registry 或 ArtAcceptance 结论。
+- 2026-07-08：`T0-VAL-01` 已从第 15 节人工否决后的硬失败修复到 `conditional_pass:t0_val_01_formal_v2_runtime_slice`。最新 `UnityClient/Logs/T0Validation/t0_val_01_final_capture_report.txt` 为 `captured_at=2026-07-08 00:46:12`、`count=10`、`semantic_failed=False`，contact sheet 为 `UnityClient/Logs/T0Validation/t0_val_01_final_contact_sheet_latest.png`。美术 / UI 当前可承认运行时纵切已可见：过程 CG / 对白、启动零号、半开放工坊、首潜许可和进入第一层均有截图链；但不能声明完整 T0 序章、最终 CG / Live2D、ArtAcceptance 或主美商业化封板完成。
+- 2026-07-07：`T0-01A` 序章 CG 已整理出首批真实候选：`cg_t0_01a_p02_panel01_workshop_wide`、`cg_t0_01a_p02_panel02_debt_notice_door`、`cg_t0_01a_p02_panel03_no0_hand_cloth`、`cg_t0_01a_p03_panel01_debt_notice_close` 各有 1 张 raw / processed / contact sheet。粗审结论：门缝催缴纸、零号手部和债务纸特写可保留为候选；工坊远景气氛可用但洞穴感偏强、工坊生活感偏弱，需补更多备选。当前没有同步 Approved，也没有程序可接入素材。
+- 2026-07-07：`T0-01A` 序章 CG Panel 提示词 / Spec 已补到可真实出图状态：`generate_art_prompts.py` 新增 `narrative_cg` 专用提示词分支、15 个 Panel 的中英文视觉描述、负面词和 `1920x1080 / opaque_environment / center_4_3 safe area` 规格；`Generate-ArtPrompts.ps1` 更新后 15 个 Panel 均为 `prompted` 且不再使用 `single readable game asset` / 图标规格。缺图计划显示 `planned=15`、`prompt_ready=15`、`Size counts={"1920x1080":15}`。
+- 2026-07-07：`T0-01A` 序章 CG Panel 已进入 seed / Manifest 准入：`art_requirements_seed.json` 当前包含 15 个 `cg_t0_01a_p*_panel*` 条目，Manifest 已刷新为 299 条；15 个 Panel 均为 `SourceType=preset`、`PresetCategory=narrative_cg_panel`、`AssetType=cg_panel`，缺图计划显示 `planned=15`、可接入清单显示 `generate_needed=15`、程序交接仍为 `program_integrate=0`。当前只是素材需求准入，不代表图片已生成或可接入。
+- 2026-07-07：新增 `美术文档/19_T0-01序章CG细案.md`，把 T0-01A 序章从通用 CG 工作流落到美术侧具体分镜：6 个漫画页、15 个 Panel VisualID、零号表现要求、构图 / 风格禁区、出图规格和 6 张运行时截图验收清单。本文只声明 `规格完成`，未新增 `_IncomingAI`、Approved、Manifest、Registry、`screen_layouts.json` 或运行时截图证据。
+- 2026-07-07：新增 `美术文档/18_CG底图与漫画式播放演出工作流.md`，把用户确认的 B 方案沉淀为正式规格：采用运行时漫画页拼装，不做整页带字烘焙；定义 Page / Panel / LayoutPreset / Caption / Action 数据口径、Panel VisualID 命名、Manifest `narrative_cg_panel` 分类、美术生产 8 步、T0-01A 首批 6 页样板和 15 个初始 Panel VisualID。本文只声明规格完成，未新增 `_IncomingAI`、Approved、Manifest、Registry、`screen_layouts.json` 或运行时截图证据。
+- 2026-07-06：用户人工验收再次否决 `T0-VAL-01`，美术 / UI 侧当前口径改为 `validation_failed:t0_val_01_commercial_prologue_not_passed`。最新 `UnityClient/Logs/T0Validation/t0_val_01_final_capture_report.txt` 虽为 `semantic_failed=False`，但只能证明 8 个状态截图存在；画面仍被判定为半成品：没有真正序章、启动零号缺少仪式感、半开放工坊像调试 UI、整体棕金机械 / 厚金边旧 RPG 感不适配 FormalV2 和当前日系二次元地底奇幻方向。复核记录见 `版本规划/0-12小时细案/T0-VAL-01_最终实际效果优化文档.md` 第 15 节。
+- 2026-07-05：`T0-VAL-01` 正式版视觉 / UI 优化方案已重设并写入 `版本规划/0-12小时细案/T0-VAL-01_最终实际效果优化文档.md` 第 13 节。美术 / UI 侧下一轮按正式版处理：对白框参考用户图一的“角色居中 + 底部对白 + AUTO/LOG 辅助但默认手动点击”体验；半开放工坊直接接入 FormalV2 `workshop_main` 的 `home_room_scene`、`light_status_strip`、`doll_center`、`abyss_door`、`workshop_entry`、`ledger_corner`；过程 CG、启动零号仪式、状态小卡、首潜许可卡都按正式分镜和低信息密度重做。当前仍是 `validation_failed:t0_val_01_commercial_effect_not_passed`，不是美术 / UI 通过。
+- 2026-07-05：用户人工验收否决 `T0-VAL-01`，美术 / UI 侧同步撤回“staging 纵切验收通过”口径。当前不是 P2 小修，而是 P0 商业化序章效果不成立：开场过程 CG 像背景 + 道具卡 + 对白框，`启动人偶` 缺少仪式感，半开放工坊证据缺失，首潜确认仍像通用层列表 / 调试面板，整体棕金机械 / 暖灯 / 厚金边 UI 也偏离当前日系二次元地底奇幻冒险方向。详细问题写入 `版本规划/0-12小时细案/T0-VAL-01_最终实际效果优化文档.md` 第 12 节。
+- 2026-07-05：`T0-VAL-01` 最终实际效果验收已完成两轮通过。美术 / UI 口径：当前 staging 纵切版本的 8 张固定截图已能覆盖黑屏醒来、债务纸特写、发现零号与 `启动人偶`、零号苏醒、状态卡与擦灰、半开放工坊、首潜确认和第一层地图；subagent 未发现阻断完成的问题。后续保留两个 P2 优化项：债务纸需要补可读的催缴 / 债务 / 抵押文本，首潜确认需要从通用列表感继续强化为“首次下潜许可卡”。这两项不阻断当前 T0-VAL-01 staging 验收，也不代表正式 CG / 动态立绘 / ArtAcceptance 封版已完成。
+- 2026-07-05：`T0-VAL-01` live Unity MCP 连续画面证据已补齐到 Owner 自验层级，并在 15:12-15:20 重新抓取有效截图，避免旧截图误截纯色过渡帧。允许路径截图覆盖 `启动人偶`、`擦去核心仓灰尘`、半开放工坊、第一层确认和进入 `DungeonMap`：`UnityClient/Logs/T0Validation/t0_val_01_livefix_01_start_doll_action.png`、`_02_wipe_action.png`、`_03_half_open_workshop.png`、`_04_layer_confirm.png`、`_05_final_dungeon_map.png`；阻断态截图 `t0_val_01_rerun_07_blocked_extreme_wear.png` 显示磨损极高时首潜确认不可点击，强制点击也未触发 `StartRunAtLayer`。美术 / UI 结论：序章关键玩家路径画面已可见，但仍是复用素材与 UGUI staging 合成，不是正式 CG / Live2D / 商业演出验收通过。
+- 2026-07-04：按 `T0-VAL-01` 复验 live Unity 玩家画面，结论为美术 / UI 验收未通过。证据截图 `UnityClient/Logs/T0Validation/t0_val_01_recheck_01_opening.png` 与 `UnityClient/Logs/T0Validation/t0_val_01_recheck_02_after_wait.png` 均停在 `cg_t0_01a_debt_notice` 债务纸对白；画面没有可见 `继续`、`启动人偶` 或其他动作按钮，Overlay 仍阻塞输入。开发方案要求的 `启动人偶` 单按钮态、状态小卡、半开放工坊、第一层确认允许态 / 阻断态截图均未出现，因此不能把当前 T0-01A 记为序章画面或玩家体验验收通过。
 - 2026-07-04 `T0-01A` 序章演出合成 MVP 已由程序侧接入到 `P3DialogueOverlayController`：`cg_t0_01a_debt_notice`、`cg_t0_01a_repair_note`、`cg_t0_01a_core_shard`、`cg_t0_01a_find_no0`、`vfx_no0_core_start`、`stand_no0_weak_sitting` 和 `ui_status_card_prologue` 会在缺正式 CG 时映射到现有 Approved 工坊背景、道具卡和零号静态立绘；`NarrativeOverlaySmokeTest` 已新增工坊背景、债务纸和人偶显示断言。验证证据：`dotnet build UnityClient/Assembly-CSharp.csproj --no-restore` 0 warning / 0 error；`dotnet build UnityClient/Assembly-CSharp-Editor.csproj --no-restore` 0 warning / 0 error；`UnityClient/Logs/TestReport.json` 中 `PrologueFirstDivePermissionSmokeSuite.Run` 为 `PASSED`；`PlayModeRecoveryTools.ReportRuntimeState` 显示 `visual=cg_t0_01a_debt_notice` 且 stage 为 `bg_workshop_home_room` + `memento_debt_shadow_window`。本轮未新增 Approved、Manifest、Registry 或 `screen_layouts.json`，也未产出连续截图 / ArtAcceptance，因此只承认“可运行演出合成 MVP”，不承认最终视觉通过。
-- `T0-VAL-01` 已完成美术 / UI 侧状态回写：T0-01A 从黑屏、过程 CG、启动单按钮、状态小卡、半开放工坊、首潜确认到第一层进入的程序主链已具备 Owner 级 smoke 证据，但本轮仍未补到黑屏字幕、过程 CG、`启动人偶`、状态小卡、半开放工坊、第一层确认允许态 / 阻断态、出发切黑和第一层进入的连续截图；因此美术侧当前只承认“画面入口可达 / 程序链已通”，不承认“序章画面验收通过”。
+- `T0-VAL-01` 美术 / UI 侧状态回写已更新：7 月 5 日截图已补到 `启动人偶`、擦灰、半开放工坊、首潜确认允许态 / 阻断态和第一层进入；仍缺的是正式黑屏字幕 / 过程 CG 资产、出发切黑专门截图、ArtAcceptance 旁路和主美人工复核。因此美术侧当前承认“staging 画面可见 / 玩家路径可验证”，不承认“商业序章画面验收通过”。
 - `T0-FLOW-04` 首潜第一层确认 UI 程序侧已新增：`DungeonStartLayerUIController.PresentFirstDive()` 复用现有层选择面板，固定 `layerID=1`，只展示 `第一层  旧矿井浅缝`，按钮为 `出发 / 再看她一眼`，许可通过和磨损等阻断态都以中文玩家文案显示；`再看她一眼` 返回半开放工坊。该状态由 Narrative `open_layer_confirm` 的 FirstDive 请求或工坊 `OpenFirstDiveLayerConfirmPanel()` 打开，不新增素材、不改 Manifest / Registry / `screen_layouts.json`。
-- `T0-FLOW-04` 美术 / UI 验证限制：Unity AutoTest smoke `PrologueFirstDiveLayerConfirmSmokeTest.Run` 已通过，日志 `UnityClient/Logs/prologue_first_dive_layer_confirm_autotest_codex_20260701.log` 显示 `Prologue First Dive Layer Confirm Smoke PASSED`；半开放工坊回归 `UnityClient/Logs/prologue_half_open_autotest_codex_20260701_t0flow04_regression.log` 显示 `Prologue Half Open Narrative Flow Smoke PASSED`。但本轮未生成首潜确认允许态 / 阻断态截图或 ArtAcceptance 旁路证据，记录 `validation_limited:screenshots_not_captured_for_T0_FLOW_04`。
+- `T0-FLOW-04` 美术 / UI 验证限制已被 7 月 5 日补强：Unity AutoTest smoke `PrologueFirstDiveLayerConfirmSmokeTest.Run` 已通过，且 T0-VAL-01 已补首潜确认允许态 / 阻断态 live 截图；剩余限制是缺正式美术规格和 ArtAcceptance 旁路。
 - `T0-FLOW-03` 半开放工坊 UI 程序侧已新增：`WorkshopUIController.EnterPrologueHalfOpen()` 复用当前 `workshop_main` UGUI 结构，将主按钮改为 `浅层入口`，灰态表达未开放系统，并保留零号状态提示。该状态由 Narrative `unlock_ui shallow_gate` 驱动，不新增素材、不改 Manifest / Registry / `screen_layouts.json`。
-- `T0-FLOW-03` 美术 / UI 验证限制：Unity batchmode smoke `PrologueHalfOpenFlowEditorRunner.RunFromBatchmode` 已通过，日志 `UnityClient/Logs/prologue_half_open_flow_editor_runner_codex_20260701_rerun.log` 显示 `Prologue Half Open Narrative Flow Smoke PASSED`；但本轮未生成半开放工坊截图或 ArtAcceptance 旁路证据，记录 `validation_limited:screenshots_not_captured_for_T0_FLOW_03`。
+- `T0-FLOW-03` 美术 / UI 验证限制已被 7 月 5 日补强：Unity batchmode smoke `PrologueHalfOpenFlowEditorRunner.RunFromBatchmode` 已通过，且 T0-VAL-01 已补半开放工坊 live 截图；剩余限制是缺正式美术规格和 ArtAcceptance 旁路。
 - `NARR-03` 纯 UGUI 叙事 overlay 程序侧已新增：`P3DialogueOverlayController` 使用 UGUI 构建黑屏层、VisualID 表现容器、对白框、说话人 / 正文、继续按钮和单按钮动作；VisualID 只通过 `VisualAssetService` / fallback 解析，不在对白表或 UI 代码中写资源路径。本轮未新增 Approved 素材、未修改 Manifest / Registry / `screen_layouts.json`，也未生成截图。
-- `NARR-03` 美术 / UI 验证限制：当前已补 Unity runtime smoke 和 PlayMode 状态证据，`NarrativeOverlaySmokeTest` 覆盖债务镜头与发现零号镜头的工坊背景 / 道具 / 人偶 staging；但黑屏字幕、过程 CG 容器、`启动人偶` 单按钮态、状态小卡、半开放工坊、首潜确认和第一层进入仍缺连续截图或 ArtAcceptance 旁路，因此记录 `validation_limited:continuous_screenshots_not_captured_for_T0_01A_staging`。
+- `NARR-03` 美术 / UI 验证限制已被 7 月 5 日补强：当前已有 Unity runtime smoke、PlayMode 状态和 T0-VAL-01 连续截图证据；剩余限制是正式黑屏字幕 / 过程 CG 资产、ArtAcceptance 旁路和主美人工复核尚未完成，因此仍不能声明最终画面质量通过。
 
 - 已迭代 `T0-01A_开局人偶状态到首次下潜许可开发方案.md` 的美术 / UI 交付口径：T0-01A 现在明确对白表 / Yarn / Narrative JSON 不写真实资源路径，只写 VisualID、角色表现参数或表现意图；首版建议复用或登记 `cg_t0_01a_black_wake`、`cg_t0_01a_debt_notice`、`cg_t0_01a_repair_note`、`cg_t0_01a_core_shard`、`cg_t0_01a_find_no0`、`no0 expression=weak pose=sitting`、`vfx_no0_core_start`、`vfx_shallow_gate_wake` 等表现意图，并要求 `locked_for_implementation` 前关键项有 Approved 素材、动态 Prefab 映射或明确 fallback。本轮只更新开发方案，未新增素材需求、未改 Approved、未刷新 Manifest。
 - 已同步全局叙事播放系统的美术素材绑定口径到 `开发文档/18_全局叙事播放系统开发方案.md`：对白表 / Yarn 不写真实资源路径，只写 VisualID、角色表现参数或表现意图；`narrative_nodes.json.visual_intents` 汇总 CG、静态立绘 / 头像、Live2D / Spine / DollPuppet、VFX / 音效、对话 UI 皮肤和 fallback 需求；`locked_for_implementation` 前关键 VisualID 必须有 Approved 素材、动态 Prefab 映射或明确 fallback。本轮只补开发方案口径，未新增素材需求、未改 Approved、未刷新 Manifest。
@@ -306,19 +442,19 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 
 1. 程序侧不再需要登记资源：latest `program_integrate=0`、`missing_registry=0`、ArtAcceptance `20260613_020257 PASSED`、Registry 278、`MissingRequiredVisualIDs=0`、`RealGameplay=21`、`FormalV1Template=0`。
 2. FormalV2 UI 后续运行时视觉 / 布局精修由美术 / UI 侧直接处理，仍遵守纯 UGUI、active `screen_layouts.json`、真实玩家流程和 ArtAcceptance 证据口径；只有领域服务、工具链、Unity 工程约束或测试底座问题再交给程序侧。
-3. `T0-01A` 后续只补关键画面截图或 ArtAcceptance 旁路：至少覆盖黑屏字幕、过程 CG 容器、`启动人偶` 单按钮、状态小卡、半开放工坊、第一层确认允许态 / 阻断态、出发切黑和第一层进入；在这些证据出现前，只能记录为程序主链可达，不能记录为画面通过。
+3. `T0-VAL-01` 当前以条件通过作为运行时纵切证据收口；若继续追最终商业化封板，下一步聚焦漫画页排版 / 字幕条、对白 UI 皮肤、半开放工坊最终视觉、首潜许可卡专属视觉，以及 ArtAcceptance / 主美人工截图验收。
 4. FormalV2 运行时 UI 当前已通过资源 / Registry / ArtAcceptance 工具门禁和当前纵切基线封版；下一轮美术 / UI 侧按玩家流程继续做质量迭代，优先区分共享工坊子面板的专屏结构，其次再处理背景候选、动画 / VFX、图标语义和真实玩家流程中的小尺寸可读性复查。
 4. 当前不要重开批量资源登记或批量 NovelAI 补图；如果下一轮截图证明某个 VisualID 在真实尺寸下语义或可读性不足，再做单项 NovelAI 同名替换。仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`，已接入同名替换必须使用 strict meta guard。
 5. 后续每次刷新美术 `_generated` 关键 JSON 后，运行 `Validate-ArtGeneratedJson.ps1 -Strict`，确认程序交接和美术验收依赖的 JSON 在 UTF-8 读取下可解析。
 
 ## 问题 / 阻塞
 
-- `T0-VAL-01` 视觉验收仍受限：当前工作区 clean batchmode 因项目已被另一 Unity 实例占用，无法直接补新截图；打开中的 Unity 会话虽可消费测试触发，但 `PrologueFirstDiveLayerConfirmSmokeTest.Run` / `PrologueFirstDiveDepartureSmokeTest.Run` 与 `2026-07-02` clean batchmode 结果不一致，因此本轮不以 live-editor smoke 反推画面通过。
+- `T0-VAL-01` 当前项目结论为 `conditional_pass:t0_val_01_formal_v2_runtime_slice`。美术 / UI 侧不再把它记为“没有序章 / 美术不适配 / 工坊像调试 UI”的 P0 主链阻塞，但必须保留边界：这不是完整 T0 序章、最终 CG / Live2D、ArtAcceptance 或主美商业化封板。
 - 当前工作区仍有大量程序、策划、Unity 资产和知识库生成物处于脏状态；美术侧提交时只纳入本轮美术流水线相关文件。
 - P0 的 `validated` 是 MVP Baseline 骨架验收通过，不代表 Formal V1 / FormalV2 正式视觉完成；当前必须以 latest ArtAcceptance、逐屏截图复验和本状态页结论为准。
-- `NARR-03` 已有 Unity runtime smoke 和 PlayMode 状态证据，但仍缺黑屏字幕、过程 CG 容器、`启动人偶` 单按钮、状态小卡、半开放工坊、首潜确认和第一层进入的连续截图 / ArtAcceptance 旁路；当前只能证明演出合成层可运行，不能证明最终画面质量通过。
-- `T0-FLOW-03` 缺半开放工坊截图 / ArtAcceptance 证据；当前只能证明程序侧状态和按钮链路可达，不能证明画面验收通过。
-- `T0-FLOW-04` 缺首潜第一层确认允许态 / 阻断态截图或 ArtAcceptance 旁路证据；当前只能证明程序侧 UGUI 状态、文案和按钮链路可达，不能证明画面验收通过。
+- `NARR-03` 已有 Unity runtime smoke、PlayMode 状态和 T0-VAL-01 连续截图证据；T0-01A 序章 CG 首版 Approved Panel 也已完成。当前仍缺最终画面级 ArtAcceptance 旁路、主美人工复核和必要的同 VisualID polish，因此不能证明最终画面质量通过。
+- `T0-FLOW-03` 已有半开放工坊 live 截图；当前仍缺正式 Panel / 工坊过渡素材、Manifest / Registry 接入和 ArtAcceptance 旁路，因此只能证明 staging 画面可见，不能证明商业画面验收通过。
+- `T0-FLOW-04` 已有首潜第一层确认允许态 / 阻断态 live 截图；当前仍缺正式首潜许可卡视觉补强、Manifest / Registry 接入和 ArtAcceptance 旁路，因此只能证明 staging 画面可见，不能证明商业画面验收通过。
 - 本轮已从外部 `F:\my_project\new\tags_machine\novelai\client.py` 只读提取 NovelAI token 到当前进程并真实调用 NovelAI；未提交 token，未使用 mock / local_v0 冒充正式图。后续跑图仍必须单图串行：`-Concurrency 1 -DelaySeconds 1`。
 - FormalV2 资源登记门禁已清空，最新 ArtAcceptance `20260613_020257` 工具层通过且 `FormalV1Template=0`；当前 FormalV2 runtime UI visual seal 已通过纵切基线。共享工坊子面板仍需后续专屏差异化，但不再作为当前封版阻塞。
 - FormalV2 V2-A 已进入 active 规格；V2-B / V2-C 仍按 draft 管理，未写入 active 前不作为程序接入口。
@@ -687,3 +823,95 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - Recently completed: added `tools/ai-image-gateway/examples/run_batch_generate.py` and `tools/ai-image-gateway/docs/batch_generate_template.md` for edit-at-top text-to-image batches where the user changes `PROMPT`, `COUNT`, `WIDTH`, `HEIGHT`, `PROVIDER`, and `OUTPUT_ROOT` directly in Python.
 - Current focus: default usage targets `openai_images` / `gpt-image-2`; each run writes generated images, per-image metadata JSON, and a root `manifest.json` under `UnityClient/Assets/Art/_IncomingAI/TextToImageRuns/batch_generate_<timestamp>/`.
 - Evidence: `python -m py_compile examples/run_batch_generate.py` passed; targeted provider tests passed with `python -m pytest tests/test_openai_compatible_provider.py tests/test_image_inputs.py -q` -> `23 passed`.
+
+## 2026-07-05 零号人设 Danbooru 参考榜单工具与报告
+
+- 最近完成：新增 `tools/美术工具/danbooru_character_reference.py` 与 `tools/美术工具/Generate-DanbooruCharacterReference.ps1`，参考 `F:\ThreeState\scrapu_db.py` 的 Danbooru tag / posts 拉取思路，改为只抓公开元数据、不下载图片的角色参考研究流水线；已生成 `美术文档/_generated/danbooru_character_reference/zero_doll_reference_report.md` 与 raw JSON。
+- 当前关注：报告覆盖 `doll_joints`、`android`、`robot_girl`、`joints`、`mechanical_halo`、`mechanical_arms` 等零号重构关键词，包含关键词体量、总角色投稿榜、主题搜索组、角色 / 作品共现和 prompt 慎用项；所有默认主题搜索组均带 `1girl rating:g`，并已对可参考角色候选榜做二次过滤：已知男性 / 非少女对象排除，服装、形态和机器人 / 人类形态变体归并到 canonical 角色。
+- 下一步建议：基于该报告再整理正式 `零号完整人设交付包 V1`，把参考榜单转成母图 prompt、三视图要求、表情差分、DollPuppet 分层清单和禁止照搬规则。
+- 问题 / 阻塞：本轮未下载 Danbooru 图片，未新增 Approved 素材、Manifest、Registry、`screen_layouts.json`、DollPuppet 包或 ArtAcceptance 条件；报告是参考资料，不是素材交付或商业画面验收。
+- 关键证据：脚本运行输出 `tag_counts=12`、`top_character_tags=40`、`search_groups=6`、`aggregate_characters=201`；报告与 raw JSON 已包含中文角色名 / 中文作品名字段，候选榜含 `合并来源` 列，生成物位于 `美术文档/_generated/danbooru_character_reference/`。
+
+## 2026-07-05 人设 Owner 文档入口与参考获取规则
+
+- 最近完成：新增 `美术文档/人设/README.md` 与 `美术文档/人设/01_人设参考获取规则.md`，把零号参考人设获取规则沉淀为人设 Owner 事实文档，并接入 `美术文档/README.md`、`04_美术风格基准.md`、`17_Agent原生动态立绘资产接入规格.md` 和 `tools/美术工具/README.md`。
+- 当前关注：该规则只定义“怎么找参考、怎么过滤、怎么解释报告”，不定义零号最终造型；默认要求 `1girl rating:g`，去除 `blue_eyes`、`white_hair`、`white_dress` 等强外观预设，候选榜必须做男性 / 非目标对象过滤、同角色变体归并和中文角色名 / 作品名字段补全。
+- 下一步建议：在该规则基础上整理 `零号完整人设交付包 V1`，明确母图方向稿、三视图、表情差分、DollPuppet 分层清单、可转译参考和禁止照搬项。
+- 问题 / 阻塞：当前仍是规则文档与参考报告阶段，未产生人设定稿、Approved 素材、Manifest、Registry、DollPuppet 包或 ArtAcceptance 证据。
+
+## 2026-07-05 零号指定原型参考：失明少女
+
+- 最近完成：按用户指定，新增 `美术文档/人设/02_零号原型参考_失明少女.md`，整理《漆黑的子弹》失明少女的中文 / 英文资料、外部图片链接、外观与性格符号、转译到零号的方向和禁止照搬项。
+- 当前关注：根据用户修正，该角色仅作为零号人物外貌原型，不继承性格；保留遮眼、披肩、轻薄脆弱轮廓等外观参考，外部图片只保存链接与描述，未下载、未复制、未进入 Approved、Manifest、Registry、`_IncomingAI` 或 DollPuppet 包。
+- 下一步建议：基于该原型文档进入 `零号完整人设交付包 V1`，先出 2-3 个方向稿，测试银发 / 非银发、遮眼方式、维修标签、核心仓和临时罩布的原创组合。
+- 问题 / 阻塞：当前仍是外部参考收集与转译规则阶段，不能声明零号人设定稿或商业素材可用；后续 prompt 必须显式禁止 `Black Bullet`、`Blind Girl`、`pink cape`、`begging sign` 等照搬词。
+
+## 2026-07-05 零号初版人设方案
+
+- 最近完成：新增 `美术文档/人设/03_零号初版人设方案.md`，按用户最新口径确定零号初版：外貌参考失明少女，性格不参考；眼部遮挡参考 2B 式识别度但改为白布，服装为灰披肩 + 简单超短内衬裙 + 裸腿 + 裸足，下半身留白，胸前无装饰。
+- 当前关注：方案已明确轻微灰尘、磨损和细小人偶关节；核心仓平时被披肩遮住，只有维护、受损、启动或特殊演出时才可见；性格初始为三无 / 冷感，接近 2B 式克制，后续随养成变化。
+- 下一步建议：基于该方案生成 2-3 张母图方向候选，再由用户 / 主美确认发型、灰披肩剪裁、内衬裙比例、遮眼白布固定方式和裸足下半身留白是否成立。
+- 问题 / 阻塞：当前仍是人设方案文档，尚未生成母图、三视图、表情差分、DollPuppet 分层图、Approved 素材、Manifest、Registry 或 ArtAcceptance 证据。
+
+## 2026-07-05 零号三后端 AI 出图批次
+
+- 最近完成：新增 `美术文档/人设/04_零号AI后端出图提示词对比.md`、`tools/美术工具/zero_prototype_backend_batch.py` 和 `Generate-ZeroPrototypeBackendBatch.ps1`，分别针对 ChatGPT / Gemini(nanobanana) / NovelAI 编写差异化提示词，并已通过 `tools/ai-image-gateway/config.local.yaml` 实跑出图。
+- 当前关注：实跑输出位于 `UnityClient/Assets/Art/_IncomingAI/CharacterDesign/zero_prototype_ai_backend_compare/zero_v1_backend_compare_20260705_234834/`；最终数量为 ChatGPT 3 张、Gemini 3 张、NovelAI 3 张，并生成 `contact_sheet_zero_v1_backend_compare.jpg` 与 `final_summary.json`。
+- 下一步建议：优先从 NovelAI 组提取白布遮眼、裸足、人偶关节和简洁轮廓结构，从 ChatGPT 组提取灰披肩和工坊氛围；Gemini 组作为构图和场景参考，暂不直接作为母图首选。
+- 问题 / 阻塞：本批次仍是 `_IncomingAI` 候选图，未进入 Approved、Manifest、Registry、DollPuppet 包或 ArtAcceptance；首次批量请求中 ChatGPT / Gemini 未足量返回，已通过单张补跑补齐。
+
+## 2026-07-07 零号三后端提示词调整重跑
+
+- 最近完成：按用户反馈更新零号人设要求和三后端提示词：以第一轮 ChatGPT 组立绘为概念图基准；NovelAI 提示词修正为完整灰披肩覆盖双肩、娇小可爱小体型、非儿童化、禁止露肩和成熟高挑；Gemini 提示词改为白背景纯人设图。新图已按要求输出到 `美术文档/人设/AI出图/zero_v1_rerun_20260707_01/`。
+- 当前关注：本轮 ChatGPT 成功 3 张，Gemini 成功 3 张，NovelAI 于 2026-07-08 00:03 补跑成功 3 张，并已刷新 `contact_sheet_zero_v1_rerun_20260707_01.jpg` 与 `final_summary.json`；Gemini 背景干净但角色偏小，NovelAI 更小体型但灰披肩更像一体式罩裙。
+- 下一步建议：先从新 ChatGPT 组选择母图概念基准；Gemini 若继续使用，下一轮应追加“larger character, fills most of canvas”；NovelAI 可作为小体型、白布遮眼和简化轮廓参考，但披肩剪裁仍需以 ChatGPT 组为准继续收束。
+- 问题 / 阻塞：NovelAI 昨日曾在首次 `-Count 3`、两次单张补跑和 2026-07-07 00:23 追加 `-Count 3` 中返回 `[novelai] Rate limited`；2026-07-08 重试已解除限流并生成 3 张。本批仍是人设候选图，不是 Approved、Manifest、Registry、DollPuppet 包或 ArtAcceptance 证据。
+
+## 2026-07-08 零号三视图三后端批次
+
+- 最近完成：按用户要求将零号发型锁为银白 / 灰白长发散发，不扎发；新增 `Generate-ZeroPrototypeTurnaroundBatch.ps1` / `zero_prototype_turnaround_batch.py`，三后端分别设计三视图 prompt。输出目录为 `美术文档/人设/AI出图/zero_v1_turnaround_20260708_01/`，并生成 `contact_sheet_zero_v1_turnaround.jpg` 与 `final_summary.json`。
+- 当前关注：Gemini 三视图成功 3 张，长发散发、正侧背关系和白背景模型表最清楚；NovelAI 三视图成功 3 张，但披肩偏罩裙化，脚部和比例有漂移。ChatGPT 组当前 0 张。
+- 下一步建议：先以 Gemini 三视图作为结构主参考，继续要求灰披肩按 ChatGPT 母图的披肩体块收束；待 `openai_images` 凭证修复后只补跑 ChatGPT 三视图。
+- 问题 / 阻塞：ChatGPT / `openai_images` 返回 `HTTP 401: Invalid token`，本机无 `OPENAI_API_KEY` 可绕过；本批仍是人设候选图，不是 Approved、Manifest、Registry、DollPuppet 包或 ArtAcceptance 证据。
+
+## 2026-07-10 零号红眼设定与单张动作图批次
+
+- 最近完成：按用户补充设定，将零号眼罩后方真实眼部锁为红眼；常态仍由白布遮眼，启动、低 SAN、受损或维护半掀时才允许红光透布或短暂露出。新增并继续完善 `Generate-ZeroPrototypePoseActionBatch.ps1` / `zero_prototype_pose_action_batch.py`，用于生成单张单视角 / 单动作人设图；2026-07-11 已继续补跑 ChatGPT 与 NovelAI，并恢复三后端总览。
+- 当前关注：`zero_v1_pose_actions_20260710_01` 当前共有 30 张候选文件：ChatGPT 10 张 / 7 个动作，Gemini 12 张 / 8 个动作，NovelAI 8 张 / 8 个动作。ChatGPT 是当前审美主线；Gemini 人物偏小；NovelAI 罩裙化、橙红眼罩和动作精度偏差明显，只作结构备选。
+- 下一步建议：停止整批铺量，先由用户 / 主美从 ChatGPT 组确认灰披肩剪裁、体型和长发轮廓；启动准备可暂用 Gemini / NovelAI 候选表达动作，再在 ChatGPT 网关稳定时单张补图。
+- 问题 / 阻塞：ChatGPT `pose_06_activation_ready` 在原 prompt、降质量、降尺寸和短 prompt 下多次于约 120 秒返回 `HTTP 502 Bad Gateway`；最小 512 smoke 第二次可成功，说明 token 可用但竖图链路波动。本批仍只是人设候选图，不是 Approved、Manifest、Registry、DollPuppet 包或 ArtAcceptance 证据。`Validate-ArtGeneratedJson.ps1 -Strict` 的唯一失败是既有 `offline_registry_candidate`（`has_missing_sprite=True`、`changed_existing=18`），记录为 `validation_limited:existing_offline_registry_candidate`，与本批无关。
+- 关键证据：`美术文档/人设/AI出图/zero_v1_pose_actions_20260710_01/contact_sheet_zero_v1_pose_actions.jpg`、同目录 `final_summary.json`；可接入快照 `美术文档/_generated/art_integration_snapshots/20260711_143616_zero_pose_actions_20260711.md` 显示 `program_integrate=0`、`generate_needed=0`，本批未进入正式接入队列。
+## 2026-07-10 T0-01A 序章 CG 风格纠偏启动
+
+- 最近完成：根据用户反馈“美术风格不对”，已新增本轮风格纠偏执行清单 `UnityClient/Assets/Art/_IncomingAI/_page_reviews/t0_01a_style_correction_plan_20260710.md`。本轮判断上一版主要偏差不是素材数量，而是风格锚点偏向通用洞穴冒险插画，工坊生活压力、日系二次元故事面板低噪声、零号一致性和启动仪式感不足。
+- 当前关注：先不全量重跑 15 张，优先重做六个风格锚点：`cg_t0_01a_p02_panel01_workshop_wide`、`cg_t0_01a_p05_panel02_no0_half_reveal`、`cg_t0_01a_p05_panel03_no0_core_dim`、`cg_t0_01a_p06_panel01_no0_close`、`cg_t0_01a_p06_panel02_core_insert`、`cg_t0_01a_p06_panel03_core_wake`。三后端策略为 OpenAI / Gemini / Grok 都尝试，NovelAI 仅作为必要备选或风格补充。
+- 下一步建议：先完成三后端 smoke，再以 `t0_01a_cg_style_fix_20260710` 批次生成候选；筛选通过后才允许同 VisualID 覆盖 Approved，并继续只声明 `风格纠偏素材完成`，不声明运行时漫画页验收。
+- 问题 / 阻塞：暂无美术决策阻塞；剩余风险是三后端输出稳定性和零号最终人设仍未完全锁死。
+## 2026-07-10 T0-01A 序章 CG 风格纠偏素材替换完成
+
+- 最近完成：根据用户反馈“美术风格不对”，已将 `narrative_cg` 生成口径从通用地底洞穴风格改为专用的日式 2D 故事漫画面板风格，并重跑 6 个 T0-01A 风格锚点候选。
+- 当前关注：有效产出为 `gemini_chat_image` 6 张、`novelai` 6 张、Gemini 追加细化 3 张；`openai_images` 全部返回 HTTP 504，`grok_chat_image` 全部返回 HTTP 503 无可用渠道。筛选替换建议为 p02 `20260710_001`、p05 半揭示 `20260710_001`、p05 核心 `20260710_003`、p06 近景 `20260710_004`、p06 接入 `20260710_001`、p06 唤醒 `20260710_001`。评审证据为 `UnityClient/Assets/Art/_IncomingAI/_page_reviews/t0_01a_style_correction_review_20260710.md`、`t0_01a_style_correction_contact_20260710.png` 和 `美术文档/_generated/art_integration_snapshots/20260710_012453_t0_01a_style_fix_20260710_verify.md`。
+- 下一步建议：后续进入运行时漫画页播放截图验收时，继续使用 `美术文档/19_T0-01序章CG细案.md` 的 6 张截图清单；本轮只声明 `风格纠偏素材替换完成`，不声明运行时漫画播放、VisualAssetRegistry 新登记或最终商业验收通过。
+- 问题 / 阻塞：OpenAI / Grok 仍不可作为本轮稳定生产后端；NovelAI 本轮多张输出为纯色/无效图，筛选时只采用有效 Gemini 候选。`Validate-ArtGeneratedJson.ps1` 当前失败仅来自既有 `offline_registry_candidate`：`has_missing_sprite=True`、`changed_existing=18`，因此本轮不声明 Registry / 运行时漫画播放验收通过。
+# 2026-07-12 MCP 美术验收 V2 已落地
+
+- 最近完成：日常美术验收已切换为 `live-first, capture-on-decision`。默认通过 MCP 直接查看当前 Game View，并结合注册目标的 RectTransform / Graphic / CanvasGroup / CanvasScaler 等 bounded snapshot 诊断；截图只在问题、before/after、final 或 seal 决策时生成。
+- 关键证据：`UnityClient/Logs/P3Validation/art-runs/art_v2_focus_final_20260712/screenshots/workshop_main/final.png` 为标准 `manage_camera(capture_source=game_view, camera omitted)` 经 ticket finalize 的 1920x1080 正式图，SHA-256 为 `f0f637a2c43774e00a6014459d2392b15a12f7f814c2cfe1f85482cb92279a73`；该 ArtRun 记录技术结果与证据。
+- 最近完成：`art_regression` 已直接运行旧 `ArtAcceptanceRunner` 并导入 `art_v2_regression_final_20260712`。适配器锁定本次 source RunID `20260712_164511`，只接收本次 `latest/screenshots/` 的 21 张图、report、UI snapshot、Registry snapshot 和 checklist；日常 `art_focus/art_runtime/art_iteration/t0_art_seal` 不启动完整 runner。
+- 补充证据：`art_v2_runtime_final_20260712` 已产出日常巡检 final；`art_v2_t0_seal_final_20260712` 已产出 `t0_prologue` seal；`art_v2_iteration_blocked_final_20260712` 已证明无注册 adapter 时会阻断，而不是借用测试 Fake、任意 C# 或资产路径继续。
+- 当前关注：美术可以用 preview 快速试方向，但 preview 永远不能满足正式验收。正式 iteration 必须有注册 persist adapter、before/after、退出重进 PlayMode 和持久化后重新 inspect；当前目标尚未注册安全业务 adapter，因此缺 adapter 时明确阻断，不绕过。
+- 下一步建议：需要迭代的具体界面先锁定可持久化事实来源，再由 UI Owner 增加对应 adapter；不需要持久化修改时可直接使用 live inspection 与 capture ticket。
+- 问题 / 阻塞：`validation_limited:subagent forward-testing prohibited by user`；当前具体 TargetID 尚无业务持久化 adapter。
+
+## 设计来源（已执行）
+
+- 最近完成：用户批准美术验收与程序自动化测试完全分开。后续由 `p3-art-validation` 承接 `art_focus`、`art_runtime`、`art_iteration`、`t0_art_seal`，支持 MCP 驱动的运行时截图、层级诊断、Approved VisualID 接入和受控 UGUI before/after 迭代。
+- 最近完成：新的 `开发文档/20_UnityMCP验收编排层实现计划.md` 已为美术侧拆出只读诊断、截图与 ArtAcceptance、受控 iteration 白名单、Profile orchestrator 和 Skill 任务；美术修改能力只有在拒绝任意 C#/菜单/资产路径的测试通过后才允许启用。
+- 当前关注：美术 Skill 不运行完整 P0、不修改领域规则，也不维护人工主美判断状态。设计事实来源为 `开发文档/19_UnityMCP验收编排层设计.md`。
+# 2026-07-12 P3 美术验收与迭代分离
+
+- 最近完成：独立 ArtRunID、注册目标诊断/截图、受限 UGUI 迭代包与仅含技术结果的 Art Profile。
+- 当前关注：美术只判断界面和表现，可在 MCP 下迭代；不执行全量 P0、不修改玩法规则。
+- 下一步建议：真实 `art_focus` 与 `art_regression` 已产出；后续针对具体界面先注册安全 persist adapter，再生成 `art_iteration` before/after 包。
+- 问题 / 阻塞：运行时截图链已验证；当前剩余限制是具体 TargetID 尚无业务持久化 adapter，不能把 preview 作为正式修改证据。
+- 关键证据：真实 ArtRun 位于 `UnityClient/Logs/P3Validation/art-runs/`；发布聚合改为按两侧技术结果与输入指纹生成 `Passed/Failed/Blocked/Limited`。
