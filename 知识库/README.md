@@ -12,14 +12,15 @@ related:
   - DOCS_INDEX.md
   - rules/README.md
   - rules/01_文档维护与新增控制规则.md
+  - rules/02_智能体任务路由与完成协议.md
   - 知识库/views/director.md
   - 知识库/views/pm.md
   - 知识库/views/art.md
   - 知识库/views/design.md
   - 知识库/views/program.md
   - tools/agent/README.md
-last_verified: 2026-06-13
-update_rule: 调整元数据字段、索引策略或文档治理规则时更新本文件。
+last_verified: 2026-07-17
+update_rule: 调整元数据字段、索引策略、文档治理规则或职责入口归属时更新本文件。
 ---
 
 # 知识库规范
@@ -36,6 +37,14 @@ update_rule: 调整元数据字段、索引策略或文档治理规则时更新�
 - 修改某类内容后需要同步哪些文档。
 - 文档之间如何形成双向网状关联，尤其是美术、程序、策划之间的交接关系。
 - 哪些文档缺少元数据或断开关联，后续需要治理。
+
+## 职责入口唯一归属
+
+- `AGENTS.md`：根职责路由和所有 Agent 都必须遵守的全局硬边界。
+- `rules/`：稳定的跨职能工作协议；任务角色、Owner 流水和完成要求统一见 `rules/02_智能体任务路由与完成协议.md`。
+- `知识库/views/`：按职能提供阅读顺序和上下文导航，不是专业事实来源，也不记录当前进度。
+- `agent_status/`：记录当前关注、最近完成、下一步建议、阻塞和证据入口，不承接稳定规则。
+- GDD、配置、开发与美术文档：记录对应领域的专业事实。
 
 ## 元数据头格式
 

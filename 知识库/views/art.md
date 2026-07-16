@@ -9,6 +9,7 @@ source_of_truth: false
 related:
   - AGENTS.md
   - PROJECT_STATUS.md
+  - rules/02_智能体任务路由与完成协议.md
   - 版本规划/09_正式版核心纵切开发路线.md
   - 版本规划/11_纵切批次与需求文档承接矩阵.md
   - agent_status/art.md
@@ -24,13 +25,13 @@ related:
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - 开发文档/14_Unity运行时美术自动验收方案.md
-last_verified: 2026-05-29
+last_verified: 2026-07-17
 update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约变化时同步本文件。
 ---
 
 # 美术智能体阅读入口
 
-> 本页是美术 / UI 智能体的开工导航，不替代事实来源文档。具体规则以被链接文档为准。
+> 本页只负责美术 / UI 职能的阅读顺序和上下文导航；稳定跨职能协议见 `rules/02_智能体任务路由与完成协议.md`，当前进度见 `agent_status/art.md`，专业事实以目标美术文档为准。
 
 ## 开工顺序
 
@@ -62,10 +63,7 @@ update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约�
 - 刷新 Manifest 前先同步配置：`.\tools\config\Sync-Configs.ps1 -Clean`。
 - 新增策划 / 配置 / UI 文档后，先运行 `.\tools\美术工具\Scan-ArtRequirementCandidates.ps1` 审查候选；确认后再写 `art_requirements_seed.json` 或等待正式配置字段落地。
 - UI 结构迭代时，`screen_layouts.json` 是 active；`formal_v1/`、`formal_v2/` 和 `versions/` 都不是程序接入口。
-- P5 UI / 美术只服务当前 P0-P4 功能纵切，不以横向铺满所有界面为近期目标。
-- 当前 active Formal V1 已覆盖 21 个界面；Formal V2 已进入 UX/UI draft 设计层，V2-A 五个核心界面 `workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement` 已有可评审草案。程序侧仍只按 active `screen_layouts.json` 接入。
 - Figma、Unity MCP、截图标注和 PlayMode 布局扫描只是 Formal V2 的辅助工具；正式接入口仍必须回到 active `screen_layouts.json`、Manifest、程序交接清单和 ArtAcceptance。
-- `combat_hud` Formal V1 已完成程序接入和 ArtAcceptance；当前程序侧优先按 `美术文档/_generated/可接入素材清单.md` 的 `program_integrate` 队列登记剩余 Approved 素材，美术侧随后做截图验收。
 - 如果美术交付影响程序接入或策划规则，需要同步 `PROJECT_STATUS.md` 和对应职能状态页。
 
 # 2026-07-12 验收入口

@@ -9,6 +9,7 @@ source_of_truth: false
 related:
   - AGENTS.md
   - PROJECT_STATUS.md
+  - rules/02_智能体任务路由与完成协议.md
   - agent_status/program.md
   - 知识库/README.md
   - 开发文档/00_程序开发大纲.md
@@ -20,13 +21,13 @@ related:
   - 开发文档/rules/00_程序开发总规则.md
   - tools/config/README.md
   - 配置表(JSON)/README.md
-last_verified: 2026-07-12
+last_verified: 2026-07-17
 update_rule: 程序入口文档、Unity 工程边界、配置同步或验证流程变化时同步本文件。
 ---
 
 # 程序智能体阅读入口
 
-> 本页是程序 / Unity 智能体的开工导航，不替代开发文档、代码或测试结果。
+> 本页只负责程序 / Unity 职能的阅读顺序和上下文导航；稳定跨职能协议见 `rules/02_智能体任务路由与完成协议.md`，当前进度见 `agent_status/program.md`，专业事实以开发文档、代码和测试结果为准。
 
 ## 开工顺序
 

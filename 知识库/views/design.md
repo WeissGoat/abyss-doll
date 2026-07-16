@@ -9,6 +9,7 @@ source_of_truth: false
 related:
   - AGENTS.md
   - PROJECT_STATUS.md
+  - rules/02_智能体任务路由与完成协议.md
   - agent_status/design.md
   - 知识库/README.md
   - 设计文档/README.md
@@ -18,13 +19,13 @@ related:
   - 数值模型设计/00_基准价值与空间本位模型.md
   - 配置表(JSON)/README.md
   - 开发文档/00_程序开发大纲.md
-last_verified: 2026-05-25
+last_verified: 2026-07-17
 update_rule: 策划入口文档、GDD、配置源、数值模型或路线变化时同步本文件。
 ---
 
 # 策划智能体阅读入口
 
-> 本页是策划 / 数值智能体的开工导航，不替代 GDD、配置源或数值模型。
+> 本页只负责策划 / 数值职能的阅读顺序和上下文导航；稳定跨职能协议见 `rules/02_智能体任务路由与完成协议.md`，当前进度见 `agent_status/design.md`，专业事实以目标 GDD、配置源和数值模型为准。
 
 ## 开工顺序
 
