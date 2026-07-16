@@ -10,9 +10,9 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 3004,
-    "relation_edges": 1502,
-    "cross_role_edges": 304,
+    "directed_edges": 3026,
+    "relation_edges": 1513,
+    "cross_role_edges": 310,
     "role_pairs": {
       "0-12 小时细案 Owner <-> 全局": 3,
       "0-12 小时细案 Owner <-> 剧情 Owner": 4,
@@ -21,11 +21,11 @@
       "0-12 小时细案 Owner <-> 策划": 4,
       "0-12 小时细案 Owner <-> 美术": 1,
       "全局 <-> 兼容": 5,
-      "全局 <-> 游戏导演": 18,
-      "全局 <-> 知识库": 6,
-      "全局 <-> 程序": 14,
-      "全局 <-> 策划": 54,
-      "全局 <-> 美术": 9,
+      "全局 <-> 游戏导演": 20,
+      "全局 <-> 知识库": 7,
+      "全局 <-> 程序": 15,
+      "全局 <-> 策划": 55,
+      "全局 <-> 美术": 10,
       "兼容 <-> 游戏导演": 5,
       "兼容 <-> 知识库": 1,
       "剧情 Owner <-> 实现 Owner": 3,
@@ -206,6 +206,7 @@
       "related": [
         "AGENTS.md",
         "GEMINI.md",
+        "rules/02_智能体任务路由与完成协议.md",
         "agent_status/README.md",
         "agent_status/pm.md",
         "PROJECT_STATUS.md",
@@ -222,12 +223,12 @@
         "知识库/views/director.md",
         "知识库/views/pm.md"
       ],
-      "last_verified": "2026-07-11",
+      "last_verified": "2026-07-17",
       "update_rule": "全局体验目标、系统开放节奏、任务 Owner 工作流、阶段优先级或跨职能验收口径变化后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 17,
-      "cross_role_relation_count": 13
+      "relation_count": 18,
+      "cross_role_relation_count": 14
     },
     {
       "path": "agent_status/pm.md",
@@ -303,17 +304,18 @@
       "source_of_truth": false,
       "related": [
         "AGENTS.md",
+        "rules/02_智能体任务路由与完成协议.md",
         "agent_status/director.md",
         "agent_status/pm.md",
         "agent_status/program.md",
         "agent_status/design.md",
         "agent_status/art.md"
       ],
-      "last_verified": "2026-05-23",
-      "update_rule": "新增或调整职能状态页时同步本文件。",
+      "last_verified": "2026-07-17",
+      "update_rule": "新增或调整职能状态页、状态记录字段或状态与稳定规则边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 6,
+      "relation_count": 7,
       "cross_role_relation_count": 5
     },
     {
@@ -333,6 +335,7 @@
         "PROJECT_STATUS.md",
         "rules/README.md",
         "rules/01_文档维护与新增控制规则.md",
+        "rules/02_智能体任务路由与完成协议.md",
         "知识库/README.md",
         "知识库/views/director.md",
         "知识库/views/pm.md",
@@ -347,11 +350,11 @@
         "版本规划/README.md",
         "版本规划/11_纵切批次与需求文档承接矩阵.md"
       ],
-      "last_verified": "2026-07-14",
-      "update_rule": "修改智能体分工、开工流程或完成协议时同步本文件。",
+      "last_verified": "2026-07-17",
+      "update_rule": "修改根职责路由、全局硬边界、开工入口或完成摘要时同步本文件；详细执行协议同步 rules/02。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 19,
+      "relation_count": 20,
       "cross_role_relation_count": 12
     },
     {
@@ -384,6 +387,7 @@
       "source_of_truth": true,
       "related": [
         "AGENTS.md",
+        "rules/02_智能体任务路由与完成协议.md",
         "agent_status/director.md",
         "版本规划/13_正式版全局体验总线与开放节奏.md",
         "版本规划/09_正式版核心纵切开发路线.md",
@@ -394,11 +398,11 @@
         "设计文档/GDD/GDD_00_系统关联总图.md",
         "美术文档/README.md"
       ],
-      "last_verified": "2026-07-11",
+      "last_verified": "2026-07-17",
       "update_rule": "项目阶段、核心目录、AI 路由或工作准则变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 10,
+      "relation_count": 11,
       "cross_role_relation_count": 7
     },
     {
@@ -415,6 +419,7 @@
         "GEMINI.md",
         "rules/README.md",
         "rules/01_文档维护与新增控制规则.md",
+        "rules/02_智能体任务路由与完成协议.md",
         "版本规划/README.md",
         "版本规划/13_正式版全局体验总线与开放节奏.md",
         "版本规划/14_0-12小时候选主循环细案设计.md",
@@ -477,11 +482,11 @@
         "tools/agent/README.md",
         "tools/p3-mission/README.md"
       ],
-      "last_verified": "2026-07-11",
+      "last_verified": "2026-07-17",
       "update_rule": "项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 64,
+      "relation_count": 65,
       "cross_role_relation_count": 58
     },
     {
@@ -508,6 +513,35 @@
       "cross_role_relation_count": 2
     },
     {
+      "path": "rules/02_智能体任务路由与完成协议.md",
+      "title": "智能体任务路由与完成协议",
+      "id": "rule_agent_task_routing_and_completion_protocol",
+      "type": "rule",
+      "role": "全局",
+      "domain": "agent_workflow",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "AGENTS.md",
+        "GEMINI.md",
+        "PROJECT_STATUS.md",
+        "rules/README.md",
+        "知识库/README.md",
+        "知识库/views/director.md",
+        "知识库/views/art.md",
+        "知识库/views/design.md",
+        "知识库/views/program.md",
+        "agent_status/README.md",
+        "agent_status/director.md"
+      ],
+      "last_verified": "2026-07-17",
+      "update_rule": "调整任务角色选择、Owner 责任流水、自验与外部验收、状态回写或 Git 完成要求时同步本文件与 AGENTS.md 摘要。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 11,
+      "cross_role_relation_count": 6
+    },
+    {
       "path": "rules/README.md",
       "title": "全局 Agent Rules 入口",
       "id": "agent_rules_readme",
@@ -520,13 +554,14 @@
         "AGENTS.md",
         "PROJECT_STATUS.md",
         "知识库/README.md",
-        "rules/01_文档维护与新增控制规则.md"
+        "rules/01_文档维护与新增控制规则.md",
+        "rules/02_智能体任务路由与完成协议.md"
       ],
-      "last_verified": "2026-06-13",
-      "update_rule": "新增、归档或调整全局 agent 必读规则时同步本文件。",
+      "last_verified": "2026-07-17",
+      "update_rule": "新增、归档或调整全局 agent 必读规则、任务路由或完成协议时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 4,
+      "relation_count": 5,
       "cross_role_relation_count": 1
     },
     {
@@ -2139,6 +2174,7 @@
         "DOCS_INDEX.md",
         "rules/README.md",
         "rules/01_文档维护与新增控制规则.md",
+        "rules/02_智能体任务路由与完成协议.md",
         "知识库/views/director.md",
         "知识库/views/pm.md",
         "知识库/views/art.md",
@@ -2146,12 +2182,12 @@
         "知识库/views/program.md",
         "tools/agent/README.md"
       ],
-      "last_verified": "2026-06-13",
-      "update_rule": "调整元数据字段、索引策略或文档治理规则时更新本文件。",
+      "last_verified": "2026-07-17",
+      "update_rule": "调整元数据字段、索引策略、文档治理规则或职责入口归属时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 11,
-      "cross_role_relation_count": 11
+      "relation_count": 12,
+      "cross_role_relation_count": 12
     },
     {
       "path": "知识库/views/art.md",
@@ -2165,6 +2201,7 @@
       "related": [
         "AGENTS.md",
         "PROJECT_STATUS.md",
+        "rules/02_智能体任务路由与完成协议.md",
         "版本规划/09_正式版核心纵切开发路线.md",
         "版本规划/11_纵切批次与需求文档承接矩阵.md",
         "agent_status/art.md",
@@ -2181,12 +2218,12 @@
         "开发文档/rules/03_视觉资源系统程序开发规范.md",
         "开发文档/14_Unity运行时美术自动验收方案.md"
       ],
-      "last_verified": "2026-05-29",
+      "last_verified": "2026-07-17",
       "update_rule": "美术入口文档、流水线、UI 交付或程序侧视觉契约变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 17,
-      "cross_role_relation_count": 7
+      "relation_count": 18,
+      "cross_role_relation_count": 8
     },
     {
       "path": "知识库/views/design.md",
@@ -2200,6 +2237,7 @@
       "related": [
         "AGENTS.md",
         "PROJECT_STATUS.md",
+        "rules/02_智能体任务路由与完成协议.md",
         "agent_status/design.md",
         "知识库/README.md",
         "设计文档/README.md",
@@ -2210,12 +2248,12 @@
         "配置表(JSON)/README.md",
         "开发文档/00_程序开发大纲.md"
       ],
-      "last_verified": "2026-05-25",
+      "last_verified": "2026-07-17",
       "update_rule": "策划入口文档、GDD、配置源、数值模型或路线变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 11,
-      "cross_role_relation_count": 6
+      "relation_count": 12,
+      "cross_role_relation_count": 7
     },
     {
       "path": "知识库/views/director.md",
@@ -2230,6 +2268,7 @@
         "AGENTS.md",
         "GEMINI.md",
         "PROJECT_STATUS.md",
+        "rules/02_智能体任务路由与完成协议.md",
         "知识库/README.md",
         "agent_status/director.md",
         "agent_status/pm.md",
@@ -2240,12 +2279,12 @@
         "版本规划/09_正式版核心纵切开发路线.md",
         "版本规划/11_纵切批次与需求文档承接矩阵.md"
       ],
-      "last_verified": "2026-06-14",
+      "last_verified": "2026-07-17",
       "update_rule": "游戏导演入口、全局体验总线、任务 Owner 工作流或跨职能验收口径变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 12,
-      "cross_role_relation_count": 8
+      "relation_count": 13,
+      "cross_role_relation_count": 9
     },
     {
       "path": "知识库/views/pm.md",
@@ -2283,6 +2322,7 @@
       "related": [
         "AGENTS.md",
         "PROJECT_STATUS.md",
+        "rules/02_智能体任务路由与完成协议.md",
         "agent_status/program.md",
         "知识库/README.md",
         "开发文档/00_程序开发大纲.md",
@@ -2295,12 +2335,12 @@
         "tools/config/README.md",
         "配置表(JSON)/README.md"
       ],
-      "last_verified": "2026-07-12",
+      "last_verified": "2026-07-17",
       "update_rule": "程序入口文档、Unity 工程边界、配置同步或验证流程变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 13,
-      "cross_role_relation_count": 4
+      "relation_count": 14,
+      "cross_role_relation_count": 5
     },
     {
       "path": "美术文档/00_美术流水线总览.md",

@@ -18,12 +18,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：257
-- 已补元数据：257
+- 文档总数：258
+- 已补元数据：258
 - 缺少元数据：0
-- 事实来源文档：196
-- 关联边数：1502
-- 跨职能关联：304
+- 事实来源文档：197
+- 关联边数：1513
+- 跨职能关联：310
 
 ## 事实来源
 
@@ -35,6 +35,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [魔偶深渊 AI 核心知识库](GEMINI.md) - `entry` / `project_context`
 - [项目状态](PROJECT_STATUS.md) - `status` / `project_status`
 - [文档维护与新增控制规则](rules/01_文档维护与新增控制规则.md) - `rule` / `document_governance`
+- [智能体任务路由与完成协议](rules/02_智能体任务路由与完成协议.md) - `rule` / `agent_workflow`
 - [全局 Agent Rules 入口](rules/README.md) - `entry` / `agent_rules`
 - [智能体开工健康检查](tools/agent/README.md) - `tool` / `agent_workflow`
 - [程序开发大纲与系统索引](开发文档/00_程序开发大纲.md) - `dev` / `program_architecture`
@@ -233,11 +234,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - `0-12 小时细案 Owner <-> 策划`：4 条
 - `0-12 小时细案 Owner <-> 美术`：1 条
 - `全局 <-> 兼容`：5 条
-- `全局 <-> 游戏导演`：18 条
-- `全局 <-> 知识库`：6 条
-- `全局 <-> 程序`：14 条
-- `全局 <-> 策划`：54 条
-- `全局 <-> 美术`：9 条
+- `全局 <-> 游戏导演`：20 条
+- `全局 <-> 知识库`：7 条
+- `全局 <-> 程序`：15 条
+- `全局 <-> 策划`：55 条
+- `全局 <-> 美术`：10 条
 - `兼容 <-> 游戏导演`：5 条
 - `兼容 <-> 知识库`：1 条
 - `剧情 Owner <-> 实现 Owner`：3 条
@@ -282,13 +283,14 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 19 | 完整 |
+| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 20 | 完整 |
 | [文档索引](DOCS_INDEX.md) | `index` | `generated` | `knowledge_base` | 1 | 完整 |
-| [魔偶深渊 AI 核心知识库](GEMINI.md) | `entry` | `active` | `project_context` | 10 | 完整 |
-| [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 64 | 完整 |
-| [智能体状态页说明](agent_status/README.md) | `status` | `active` | `agent_status` | 6 | 完整 |
+| [魔偶深渊 AI 核心知识库](GEMINI.md) | `entry` | `active` | `project_context` | 11 | 完整 |
+| [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 65 | 完整 |
+| [智能体状态页说明](agent_status/README.md) | `status` | `active` | `agent_status` | 7 | 完整 |
 | [文档维护与新增控制规则](rules/01_文档维护与新增控制规则.md) | `rule` | `active` | `document_governance` | 5 | 完整 |
-| [全局 Agent Rules 入口](rules/README.md) | `entry` | `active` | `agent_rules` | 4 | 完整 |
+| [智能体任务路由与完成协议](rules/02_智能体任务路由与完成协议.md) | `rule` | `active` | `agent_workflow` | 11 | 完整 |
+| [全局 Agent Rules 入口](rules/README.md) | `entry` | `active` | `agent_rules` | 5 | 完整 |
 | [智能体开工健康检查](tools/agent/README.md) | `tool` | `active` | `agent_workflow` | 6 | 完整 |
 | [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `formal_vertical_slice` | 20 | 完整 |
 | [最小可玩版本 (MVP) 核心闭环内容清单](版本规划/_archive/mvp_2026-05/00_最小MVP体验闭环内容清单.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
@@ -326,17 +328,17 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [游戏导演 / 制作人 状态](agent_status/director.md) | `status` | `active` | `game_direction_production` | 17 | 完整 |
+| [游戏导演 / 制作人 状态](agent_status/director.md) | `status` | `active` | `game_direction_production` | 18 | 完整 |
 | [纵切批次与需求文档承接矩阵](版本规划/11_纵切批次与需求文档承接矩阵.md) | `plan` | `active` | `vertical_batch_requirement_coverage` | 25 | 完整 |
 | [正式版全局体验总线与全系统宏观大纲](版本规划/13_正式版全局体验总线与开放节奏.md) | `plan` | `active` | `global_experience_spine` | 12 | 完整 |
 | [版本规划阅读入口](版本规划/README.md) | `entry` | `active` | `version_planning` | 9 | 完整 |
-| [游戏导演 / 制作人阅读入口](知识库/views/director.md) | `view` | `active` | `agent_context_view` | 12 | 完整 |
+| [游戏导演 / 制作人阅读入口](知识库/views/director.md) | `view` | `active` | `agent_context_view` | 13 | 完整 |
 
 ### 知识库
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [知识库规范](知识库/README.md) | `kb` | `active` | `knowledge_base` | 11 | 完整 |
+| [知识库规范](知识库/README.md) | `kb` | `active` | `knowledge_base` | 12 | 完整 |
 
 ### 程序
 
@@ -374,7 +376,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [物品与网格实体定义 (Item & Inventory Entities)](开发文档/数据与实体定义/03_物品与网格实体.md) | `dev` | `active` | `program_architecture` | 6 | 完整 |
 | [深渊与战斗实体定义 (Dungeon & Combat Entities)](开发文档/数据与实体定义/04_深渊与战斗实体.md) | `dev` | `active` | `dungeon_combat` | 6 | 完整 |
 | [经济与社会实体定义 (Economy & Social Entities)](开发文档/数据与实体定义/05_经济与社会实体.md) | `dev` | `active` | `program_architecture` | 6 | 完整 |
-| [程序智能体阅读入口](知识库/views/program.md) | `view` | `active` | `agent_context_view` | 13 | 完整 |
+| [程序智能体阅读入口](知识库/views/program.md) | `view` | `active` | `agent_context_view` | 14 | 完整 |
 | [Project P3 美术自动验收（截图）流程优化与真实数据驱动演进方案](美术文档/archive/10_美术验收截图优化与真实数据驱动演进方案.md) | `other` | `historical` | `runtime_art_validation` | 3 | 完整 |
 
 ### 策划
@@ -388,7 +390,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [深渊产出与掉落期望 (Loot Generation & Expectation)](数值模型设计/03_深渊产出与掉落期望.md) | `balance` | `active` | `balance_loot` | 8 | 完整 |
 | [数值模型沙盘推演方法论 (Numerical Sandboxing)](版本规划/_archive/mvp_2026-05/03_mvp数值要求.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 需要补充的配置调整](版本规划/_archive/mvp_2026-05/05_MVP需要补充的配置调整.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
-| [策划智能体阅读入口](知识库/views/design.md) | `view` | `active` | `agent_context_view` | 11 | 完整 |
+| [策划智能体阅读入口](知识库/views/design.md) | `view` | `active` | `agent_context_view` | 12 | 完整 |
 | [系统关联总图：全系统内在关联与数据流向](设计文档/GDD/GDD_00_系统关联总图.md) | `gdd` | `active` | `system_overview` | 38 | 完整 |
 | [详案_01：背包战斗与局内网格机制 (GDD_01)](设计文档/GDD/GDD_01_背包战斗与局内网格机制.md) | `gdd` | `active` | `grid_inventory` | 18 | 完整 |
 | [详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)](设计文档/GDD/GDD_02_深渊地图遍历与搜打撤抉择.md) | `gdd` | `active` | `dungeon_exploration` | 16 | 完整 |
@@ -486,7 +488,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 30 | 完整 |
 | [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 12 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
-| [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 17 | 完整 |
+| [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 18 | 完整 |
 | [美术流水线总览](美术文档/00_美术流水线总览.md) | `art` | `active` | `art_pipeline` | 12 | 完整 |
 | [Manifest 规范](美术文档/01_Manifest规范.md) | `art` | `active` | `art_manifest` | 6 | 完整 |
 | [资源规格与接入规范](美术文档/02_资源规格与接入规范.md) | `art` | `active` | `art_asset_spec` | 10 | 完整 |
