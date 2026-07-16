@@ -11,8 +11,9 @@ related:
   - PROJECT_STATUS.md
   - 知识库/README.md
   - rules/01_文档维护与新增控制规则.md
-last_verified: 2026-06-13
-update_rule: 新增、归档或调整全局 agent 必读规则时同步本文件。
+  - rules/02_智能体任务路由与完成协议.md
+last_verified: 2026-07-17
+update_rule: 新增、归档或调整全局 agent 必读规则、任务路由或完成协议时同步本文件。
 ---
 
 # 全局 Agent Rules 入口
@@ -28,6 +29,7 @@ update_rule: 新增、归档或调整全局 agent 必读规则时同步本文件
 ## 当前规则
 
 - `rules/01_文档维护与新增控制规则.md`：新增、重写、拆分、归档或调整项目文档前必读。
+- `rules/02_智能体任务路由与完成协议.md`：定义任务角色选择、Owner 责任流水、自验 / 外部验收、状态回写和 Git 完成要求。
 
 ## 使用规则
 
