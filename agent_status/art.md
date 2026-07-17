@@ -40,11 +40,18 @@ related:
   - 美术文档/人设/05_零号立绘素材设计与交付清单.md
   - 开发文档/17_Live2DSpine运行时接入评估.md
   - 开发文档/18_全局叙事播放系统开发方案.md
-last_verified: 2026-07-12
+last_verified: 2026-07-18
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
 
 # 美术 / UI 状态
+
+## 2026-07-18 GIF 小循环人物替换流水线设计
+
+- 最近完成：用户已批准 `8-30` 帧小循环 GIF 人物替换流程，设计已写入 `美术文档/05_AI图片网关接入方案.md` 第 10 节。首版采用 `0-N` 张参考图 + 必填文字描述，文字优先级最高；默认用 `gemini_chat_image` 整帧图生图，各帧完全独立生成，通过身份帧 / 动作帧双预审后才运行完整批次，并保留拆帧、请求、重试、质量风险和 GIF 重编码证据。
+- 当前关注：当前仅完成设计，尚未新增 `Invoke-GifCharacterReplace.ps1`、时间轴解析、独立逐帧生成、风险检测或编码实现，也未执行真实 GIF smoke。
+- 下一步建议：用户复核设计文档后，按 `superpowers:writing-plans` 拆出实现计划；实现应位于 `tools/美术工具/`，复用图片网关而不把 P3 工作区和 GIF 编排逻辑写入 `tools/ai-image-gateway` 子模块。
+- 问题 / 阻塞：无实现阻塞；透明 GIF 的新人物轮廓可能超出原 alpha，首版只能报告 `transparent_silhouette_limited`，不能保证复杂遮挡下的像素级轮廓。
 
 ## 2026-07-14 p3-art-asset-production 新 Skill
 

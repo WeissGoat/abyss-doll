@@ -93,7 +93,7 @@
         "开发文档/17_Live2DSpine运行时接入评估.md",
         "开发文档/18_全局叙事播放系统开发方案.md"
       ],
-      "last_verified": "2026-07-12",
+      "last_verified": "2026-07-18",
       "update_rule": "美术或 UI 视觉流水线任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2495,7 +2495,7 @@
         "tools/美术工具/README.md",
         "agent_status/art.md"
       ],
-      "last_verified": "2026-07-14",
+      "last_verified": "2026-07-18",
       "update_rule": "修改图片生成后端、能力路由、Prompt 格式、请求协议、凭据安全、错误重试或 raw 生成证据时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
