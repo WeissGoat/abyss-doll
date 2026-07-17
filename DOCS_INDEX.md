@@ -18,11 +18,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：258
-- 已补元数据：258
+- 文档总数：259
+- 已补元数据：259
 - 缺少元数据：0
-- 事实来源文档：197
-- 关联边数：1513
+- 事实来源文档：198
+- 关联边数：1517
 - 跨职能关联：310
 
 ## 事实来源
@@ -97,6 +97,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [Agent原生动态立绘资产接入规格](美术文档/17_Agent原生动态立绘资产接入规格.md) - `art` / `dynamic_doll_puppet`
 - [CG底图与漫画式播放演出工作流](美术文档/18_CG底图与漫画式播放演出工作流.md) - `art` / `narrative_cg_art_pipeline`
 - [T0-01 序章 CG 细案](美术文档/19_T0-01序章CG细案.md) - `art` / `narrative_cg_art_pipeline`
+- [GIF 小循环人物替换工作流](美术文档/20_GIF小循环人物替换工作流.md) - `art` / `gif_character_replacement`
 - [美术归档文档](美术文档/archive/README.md) - `art` / `art_archive`
 - [美术文档索引](美术文档/README.md) - `art` / `art_pipeline`
 - [营业结算演出界面 Formal V1](美术文档/ui_design/formal_v1/business_settlement_v1.md) - `art` / `ui_design`
@@ -485,8 +486,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 30 | 完整 |
-| [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 12 | 完整 |
+| [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 31 | 完整 |
+| [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 13 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 18 | 完整 |
 | [美术流水线总览](美术文档/00_美术流水线总览.md) | `art` | `active` | `art_pipeline` | 12 | 完整 |
@@ -494,7 +495,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [资源规格与接入规范](美术文档/02_资源规格与接入规范.md) | `art` | `active` | `art_asset_spec` | 10 | 完整 |
 | [AI 美术资产质量与筛选准入规范](美术文档/03_AI生成与筛选规范.md) | `art` | `active` | `ai_art_quality` | 6 | 完整 |
 | [美术风格基准](美术文档/04_美术风格基准.md) | `art` | `active` | `art_style` | 11 | 完整 |
-| [AI 图片生成能力与网关契约](美术文档/05_AI图片网关接入方案.md) | `art` | `active` | `ai_image_gateway` | 7 | 完整 |
+| [AI 图片生成能力与网关契约](美术文档/05_AI图片网关接入方案.md) | `art` | `active` | `ai_image_gateway` | 8 | 完整 |
 | [运行时美术验收记录](美术文档/09_运行时美术验收记录.md) | `art` | `active` | `runtime_art_validation` | 9 | 完整 |
 | [正式版核心纵切美术路线](美术文档/10_正式版核心纵切美术路线.md) | `art` | `active` | `formal_art_route` | 20 | 完整 |
 | [正式纵切 UI 与素材覆盖矩阵](美术文档/13_正式纵切UI与素材覆盖矩阵.md) | `art` | `active` | `ui_design` | 24 | 完整 |
@@ -503,7 +504,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Agent原生动态立绘资产接入规格](美术文档/17_Agent原生动态立绘资产接入规格.md) | `art` | `active` | `dynamic_doll_puppet` | 12 | 完整 |
 | [CG底图与漫画式播放演出工作流](美术文档/18_CG底图与漫画式播放演出工作流.md) | `art` | `active` | `narrative_cg_art_pipeline` | 4 | 完整 |
 | [T0-01 序章 CG 细案](美术文档/19_T0-01序章CG细案.md) | `art` | `active` | `narrative_cg_art_pipeline` | 6 | 完整 |
-| [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 24 | 完整 |
+| [GIF 小循环人物替换工作流](美术文档/20_GIF小循环人物替换工作流.md) | `art` | `active` | `gif_character_replacement` | 4 | 完整 |
+| [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 25 | 完整 |
 | [MVP 素材接入状态同步](美术文档/archive/06_MVP素材接入状态同步.md) | `art` | `historical` | `mvp_art_archive` | 2 | 完整 |
 | [MVP UI 重新设计同步](美术文档/archive/07_MVP_UI重新设计同步.md) | `art` | `historical` | `mvp_ui_archive` | 2 | 完整 |
 | [Unity 运行时美术验收工具需求与交付状态](美术文档/archive/08_Unity运行时美术验收工具需求.md) | `art` | `historical` | `runtime_art_validation` | 4 | 完整 |

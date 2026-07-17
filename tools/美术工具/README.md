@@ -9,6 +9,7 @@ source_of_truth: false
 related:
   - 美术文档/03_AI生成与筛选规范.md
   - 美术文档/05_AI图片网关接入方案.md
+  - 美术文档/20_GIF小循环人物替换工作流.md
   - 美术文档/02_资源规格与接入规范.md
   - 美术文档/01_Manifest规范.md
   - 美术文档/00_美术流水线总览.md
@@ -19,7 +20,7 @@ related:
   - 美术文档/人设/04_零号AI后端出图提示词对比.md
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/design_boards/README.md
-last_verified: 2026-07-11
+last_verified: 2026-07-18
 update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
 ---
 

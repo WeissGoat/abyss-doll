@@ -10,8 +10,8 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 3026,
-    "relation_edges": 1513,
+    "directed_edges": 3034,
+    "relation_edges": 1517,
     "cross_role_edges": 310,
     "role_pairs": {
       "0-12 小时细案 Owner <-> 全局": 3,
@@ -80,6 +80,7 @@
         "美术文档/17_Agent原生动态立绘资产接入规格.md",
         "美术文档/18_CG底图与漫画式播放演出工作流.md",
         "美术文档/19_T0-01序章CG细案.md",
+        "美术文档/20_GIF小循环人物替换工作流.md",
         ".codex/skills/p3-generate-image/SKILL.md",
         ".codex/skills/p3-art-asset-production/SKILL.md",
         ".codex/skills/p3-narrative-cg-comic/SKILL.md",
@@ -97,7 +98,7 @@
       "update_rule": "美术或 UI 视觉流水线任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 30,
+      "relation_count": 31,
       "cross_role_relation_count": 12
     },
     {
@@ -623,6 +624,7 @@
       "related": [
         "美术文档/03_AI生成与筛选规范.md",
         "美术文档/05_AI图片网关接入方案.md",
+        "美术文档/20_GIF小循环人物替换工作流.md",
         "美术文档/02_资源规格与接入规范.md",
         "美术文档/01_Manifest规范.md",
         "美术文档/00_美术流水线总览.md",
@@ -634,11 +636,11 @@
         "美术文档/ui_design/formal_v2/README.md",
         "美术文档/ui_design/formal_v2/design_boards/README.md"
       ],
-      "last_verified": "2026-07-11",
+      "last_verified": "2026-07-18",
       "update_rule": "修改对应工具入口、参数或执行流程时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 12,
+      "relation_count": 13,
       "cross_role_relation_count": 0
     },
     {
@@ -2492,6 +2494,7 @@
         "美术文档/02_资源规格与接入规范.md",
         "美术文档/03_AI生成与筛选规范.md",
         "美术文档/04_美术风格基准.md",
+        "美术文档/20_GIF小循环人物替换工作流.md",
         "tools/美术工具/README.md",
         "agent_status/art.md"
       ],
@@ -2499,7 +2502,7 @@
       "update_rule": "修改图片生成后端、能力路由、Prompt 格式、请求协议、凭据安全、错误重试或 raw 生成证据时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 7,
+      "relation_count": 8,
       "cross_role_relation_count": 0
     },
     {
@@ -2734,6 +2737,29 @@
       "cross_role_relation_count": 2
     },
     {
+      "path": "美术文档/20_GIF小循环人物替换工作流.md",
+      "title": "GIF 小循环人物替换工作流",
+      "id": "art_gif_character_replacement_workflow",
+      "type": "art",
+      "role": "美术",
+      "domain": "gif_character_replacement",
+      "status": "active",
+      "source_of_truth": true,
+      "related": [
+        "美术文档/README.md",
+        "美术文档/05_AI图片网关接入方案.md",
+        "tools/美术工具/README.md",
+        "agent_status/art.md",
+        ".codex/skills/p3-generate-image/SKILL.md"
+      ],
+      "last_verified": "2026-07-18",
+      "update_rule": "修改 GIF 适用范围、输入契约、拆帧、人物替换、预审、质量检查、重试、重编码、运行状态或实现验收口径时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 4,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "美术文档/archive/06_MVP素材接入状态同步.md",
       "title": "MVP 素材接入状态同步",
       "id": "art_mvp_asset_intake_status",
@@ -2932,6 +2958,7 @@
         "美术文档/17_Agent原生动态立绘资产接入规格.md",
         "美术文档/18_CG底图与漫画式播放演出工作流.md",
         "美术文档/19_T0-01序章CG细案.md",
+        "美术文档/20_GIF小循环人物替换工作流.md",
         "美术文档/人设/README.md",
         "美术文档/人设/01_人设参考获取规则.md",
         "美术文档/人设/02_零号原型参考_失明少女.md",
@@ -2946,11 +2973,11 @@
         "tools/美术工具/README.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-07-14",
+      "last_verified": "2026-07-18",
       "update_rule": "美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 24,
+      "relation_count": 25,
       "cross_role_relation_count": 4
     },
     {

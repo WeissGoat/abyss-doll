@@ -18,6 +18,7 @@ related:
   - 美术文档/17_Agent原生动态立绘资产接入规格.md
   - 美术文档/18_CG底图与漫画式播放演出工作流.md
   - 美术文档/19_T0-01序章CG细案.md
+  - 美术文档/20_GIF小循环人物替换工作流.md
   - 美术文档/人设/README.md
   - 美术文档/人设/01_人设参考获取规则.md
   - 美术文档/人设/02_零号原型参考_失明少女.md
@@ -31,14 +32,14 @@ related:
   - agent_status/art.md
   - tools/美术工具/README.md
   - 知识库/views/art.md
-last_verified: 2026-07-14
+last_verified: 2026-07-18
 update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。
 ---
 
 # 美术文档索引
 
 > **定位：** Project P3 美术 / UI 文档入口。本文件只负责导航和职责边界，不承载详细规格。
-> **更新时间：** 2026-07-11
+> **更新时间：** 2026-07-18
 
 ## 先看哪里
 
@@ -49,6 +50,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | 端到端美术生产怎么走 | [00_美术流水线总览.md](00_美术流水线总览.md) | 只讲流程：需求发现、Manifest、提示词、出图、预处理、Approved、交接。 |
 | Agent 如何端到端生产正式美术资产 | [../.codex/skills/p3-art-asset-production/SKILL.md](../.codex/skills/p3-art-asset-production/SKILL.md) | 从需求准入、Asset Contract、候选生成与 Agent 评分推进到 Approved、Unity 接入、运行时验收和状态回写；支持交互与全自动模式。 |
 | Agent 如何生成或调整图片 | [../.codex/skills/p3-generate-image/SKILL.md](../.codex/skills/p3-generate-image/SKILL.md) | `generate-image` 只负责文生图、图生图、差分、inpaint、后端和 raw 生成证据；不负责 Approved 或 Unity 接入。 |
+| 小循环 GIF 如何逐帧替换人物 | [20_GIF小循环人物替换工作流.md](20_GIF小循环人物替换工作流.md) | 独立工具工作流，定义拆帧、身份包、两帧预审、独立逐帧图生图、风险检查和 GIF 重编码；当前为已批准设计、尚未实现。 |
 | UI 结构版本怎么管理 | [ui_design/README.md](ui_design/README.md) | UI 设计系统入口，说明 active / baseline / draft / handoff。 |
 | Formal V2 UX/UI 怎么推进 | [ui_design/formal_v2/00_formal_v2_ux_ui_overview.md](ui_design/formal_v2/00_formal_v2_ux_ui_overview.md) | 当前 Formal V2 总方案，解决按钮堆叠和正式感不足。 |
 | 程序下一步接入 / 验收要做什么 | [_generated/程序接入交接清单.md](_generated/程序接入交接清单.md) | 程序侧一站式入口，汇总 VisualID 登记、截图覆盖和 ArtAcceptance 重跑队列。 |
@@ -84,6 +86,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | 工作流 | 主入口 | 细节文档 |
 |---|---|---|
 | 资产生产流水线 | [00_美术流水线总览.md](00_美术流水线总览.md) | [01_Manifest规范.md](01_Manifest规范.md)、[02_资源规格与接入规范.md](02_资源规格与接入规范.md)、[03_AI生成与筛选规范.md](03_AI生成与筛选规范.md)、[04_美术风格基准.md](04_美术风格基准.md)、[05_AI图片网关接入方案.md](05_AI图片网关接入方案.md) |
+| GIF 小循环人物替换 | [20_GIF小循环人物替换工作流.md](20_GIF小循环人物替换工作流.md) | 独立于图片网关契约，调用 `generate-image` 能力，首版只覆盖 8-30 帧小循环。 |
 | 人设参考研究流水线 | [人设/README.md](人设/README.md) | [人设/01_人设参考获取规则.md](人设/01_人设参考获取规则.md)、[_generated/danbooru_character_reference/zero_doll_reference_report.md](_generated/danbooru_character_reference/zero_doll_reference_report.md) |
 | UI 设计版本流水线 | [ui_design/README.md](ui_design/README.md) | [ui_design/ui_iteration_process.md](ui_design/ui_iteration_process.md)、[ui_design/formal_v1/screen_structure_review.md](ui_design/formal_v1/screen_structure_review.md)、[ui_design/formal_v2/00_formal_v2_ux_ui_overview.md](ui_design/formal_v2/00_formal_v2_ux_ui_overview.md)、[ui_design/versions/migration_log.md](ui_design/versions/migration_log.md) |
 | 运行时验收流水线 | [../.codex/skills/p3-art-validation/SKILL.md](../.codex/skills/p3-art-validation/SKILL.md) | [../开发文档/19_UnityMCP验收编排层设计.md](../开发文档/19_UnityMCP验收编排层设计.md)、[09_运行时美术验收记录.md](09_运行时美术验收记录.md)；旧 Runner 契约见 `开发文档/14`。 |
