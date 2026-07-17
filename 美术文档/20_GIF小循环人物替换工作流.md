@@ -9,6 +9,7 @@ source_of_truth: true
 related:
   - 美术文档/README.md
   - 美术文档/05_AI图片网关接入方案.md
+  - docs/superpowers/plans/2026-07-18-gif-character-replacement.md
   - tools/美术工具/README.md
   - agent_status/art.md
   - .codex/skills/p3-generate-image/SKILL.md

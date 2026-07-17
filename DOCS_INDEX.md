@@ -18,11 +18,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：259
-- 已补元数据：259
+- 文档总数：260
+- 已补元数据：260
 - 缺少元数据：0
 - 事实来源文档：198
-- 关联边数：1517
+- 关联边数：1518
 - 跨职能关联：310
 
 ## 事实来源
@@ -487,6 +487,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
 | [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 31 | 完整 |
+| [GIF 小循环人物替换实现计划](docs/superpowers/plans/2026-07-18-gif-character-replacement.md) | `plan` | `planned` | `gif_character_replacement` | 1 | 完整 |
 | [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 13 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 18 | 完整 |
@@ -504,7 +505,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Agent原生动态立绘资产接入规格](美术文档/17_Agent原生动态立绘资产接入规格.md) | `art` | `active` | `dynamic_doll_puppet` | 12 | 完整 |
 | [CG底图与漫画式播放演出工作流](美术文档/18_CG底图与漫画式播放演出工作流.md) | `art` | `active` | `narrative_cg_art_pipeline` | 4 | 完整 |
 | [T0-01 序章 CG 细案](美术文档/19_T0-01序章CG细案.md) | `art` | `active` | `narrative_cg_art_pipeline` | 6 | 完整 |
-| [GIF 小循环人物替换工作流](美术文档/20_GIF小循环人物替换工作流.md) | `art` | `active` | `gif_character_replacement` | 4 | 完整 |
+| [GIF 小循环人物替换工作流](美术文档/20_GIF小循环人物替换工作流.md) | `art` | `active` | `gif_character_replacement` | 5 | 完整 |
 | [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 25 | 完整 |
 | [MVP 素材接入状态同步](美术文档/archive/06_MVP素材接入状态同步.md) | `art` | `historical` | `mvp_art_archive` | 2 | 完整 |
 | [MVP UI 重新设计同步](美术文档/archive/07_MVP_UI重新设计同步.md) | `art` | `historical` | `mvp_ui_archive` | 2 | 完整 |
