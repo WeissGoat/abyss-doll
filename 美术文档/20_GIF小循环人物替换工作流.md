@@ -19,7 +19,7 @@ update_rule: 修改 GIF 适用范围、输入契约、拆帧、人物替换、�
 
 # GIF 小循环人物替换工作流
 
-> **状态：** `design_approved`。本文定义首版工具契约和实现边界；截至 2026-07-18 尚未实现脚本、执行真实 GIF 转换或产生正式资产验收证据。
+> **状态：** `implemented_offline`。首版工具已在 `tools/美术工具/gif_character_replace/` 实现并通过离线测试；真实 Gemini 两帧预审 smoke 在当前中转链路超过 120 秒未完成，因此不能声明真实 provider 预审通过，也不能声明正式资产验收。
 
 ## 1 目标与范围
 
@@ -290,3 +290,19 @@ gif_character_replace/<RunID>/
 - FFmpeg 不可用时可以降级 Pillow；
 - 风险帧进入报告和 contact sheet；
 - 未进入正式资产链时不会修改 Manifest、Approved、Registry 或 Unity。
+
+## 15 当前实现与证据边界
+
+已实现的入口：
+
+```powershell
+.\tools\美术工具\Invoke-GifCharacterReplace.ps1 `
+  -InputGif "F:\input\source.gif" `
+  -Prompt "替换为银发机械师，保持动作、背景和构图" `
+  -Reference "F:\refs\front.png" `
+  -OutputRoot "F:\output"
+```
+
+实现覆盖：运行目录与不可变配置、8-30 帧 disposal-aware RGBA 拆帧、0-N 参考图身份包、用户文字最高优先级、三张零参考身份锚点、身份帧 / 动作帧双预审、独立逐帧 Gemini 图生图、恢复与定向重跑、技术硬门禁、视觉风险标记、contact sheet、Pillow 共享调色板编码和 FFmpeg 模拟分支。离线 unittest 当前为 `41/41` 通过；`Test-AIImageBackends.ps1 -CheckConfigOnly` 使用现有配置检查通过。
+
+真实 provider smoke 仅在临时目录运行，当前 Gemini 预审请求链路在 120 秒内未完成，记录为 `validation_limited:provider_timeout`。这不影响离线实现结论，但不构成真实图片生成成功、视觉一致性通过或 P3 正式资产验收证据。运行结果仍只写用户指定的 GIF 工作区，不进入 Manifest、Approved、Registry、Unity 或 `tools/ai-image-gateway` 子模块。

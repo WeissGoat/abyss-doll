@@ -47,12 +47,13 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 # 美术 / UI 状态
 
-## 2026-07-18 GIF 小循环人物替换流水线设计
+## 2026-07-18 GIF 小循环人物替换流水线实现
 
-- 最近完成：用户已批准 `8-30` 帧小循环 GIF 人物替换流程，独立设计文档为 `美术文档/20_GIF小循环人物替换工作流.md`。首版采用 `0-N` 张参考图 + 必填文字描述，文字优先级最高；默认用 `gemini_chat_image` 整帧图生图，各帧完全独立生成，通过身份帧 / 动作帧双预审后才运行完整批次，并保留拆帧、请求、重试、质量风险和 GIF 重编码证据。
-- 当前关注：设计已通过复核，逐任务 TDD 实现计划位于 `docs/superpowers/plans/2026-07-18-gif-character-replacement.md`；尚未新增 `Invoke-GifCharacterReplace.ps1`、时间轴解析、独立逐帧生成、风险检测或编码实现，也未执行真实 GIF smoke。
-- 下一步建议：按实现计划选择 subagent-driven 或 inline execution；实现应位于 `tools/美术工具/`，复用图片网关而不把 P3 工作区和 GIF 编排逻辑写入 `tools/ai-image-gateway` 子模块。
-- 问题 / 阻塞：无实现阻塞；透明 GIF 的新人物轮廓可能超出原 alpha，首版只能报告 `transparent_silhouette_limited`，不能保证复杂遮挡下的像素级轮廓。
+- 最近完成：已在 `tools/美术工具/gif_character_replace/` 和 `tools/美术工具/gif_character_replace_cli.py` 落地 `8-30` 帧 GIF 人物替换工作流，并新增 `Invoke-GifCharacterReplace.ps1`。覆盖运行状态、不可变配置、完整 RGBA 拆帧、身份契约、0-N 参考图、Gemini 独立逐帧请求、双帧预审、恢复 / 定向重跑、风险复核、contact sheet、Pillow 编码和 FFmpeg 模拟分支。
+- 关键证据：离线 unittest `41/41` 通过；`python -m py_compile` 与 `git diff --check` 通过；使用现有网关配置执行 `Test-AIImageBackends.ps1 -CheckConfigOnly` 通过；未修改 Manifest、Approved、Registry、Unity 或 `tools/ai-image-gateway` 子模块。
+- 当前关注：真实 Gemini 两帧预审 smoke 已在临时目录启动，但中转链路在 120 秒内未完成，记录为 `validation_limited:provider_timeout`；因此当前只声明离线实现可用和配置可解析，不声明真实 provider 成功、视觉一致性通过或正式资产验收。
+- 下一步建议：有稳定 Gemini 通道后，仅对临时目录重跑两帧预审；通过用户确认后再运行完整批次。透明 GIF 仍保留 `transparent_silhouette_limited` 能力边界，复杂遮挡不提供像素级轮廓保证。
+- 问题 / 阻塞：实现无代码阻塞；外部 provider smoke 受当前中转响应时延限制，且不应通过延长等待绕过双帧预审门禁。
 
 ## 2026-07-14 p3-art-asset-production 新 Skill
 
