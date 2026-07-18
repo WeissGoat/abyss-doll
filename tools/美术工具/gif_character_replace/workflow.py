@@ -6,6 +6,7 @@ import asyncio
 import json
 import shutil
 from dataclasses import replace
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Sequence
 
@@ -25,6 +26,10 @@ STRICT_REPAIR_SENTENCE = (
     "STRICT REPAIR: preserve every non-character pixel, background edge, camera crop, "
     "and object placement from the current source frame."
 )
+
+
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat()
 
 
 class GifReplacementWorkflow:
@@ -281,6 +286,7 @@ class GifReplacementWorkflow:
             request_number += 1
             source_path = Path(current.source_path)
             destination = store.paths.generated_raw_dir / f"frame_{index:04d}.png"
+            request_started_at = _utc_now()
             try:
                 generated = await self.backend.replace_frame(
                     identity_images,
@@ -305,6 +311,8 @@ class GifReplacementWorkflow:
                     "generation_params": generated.generation_params,
                     "cost": generated.cost,
                     "byte_length": len(generated.image_bytes),
+                    "request_started_at": request_started_at,
+                    "request_finished_at": _utc_now(),
                     "identity_paths": identity_path_records,
                     "source_path": str(source_path.resolve()),
                 }
@@ -322,6 +330,8 @@ class GifReplacementWorkflow:
                     "prompt": prompt,
                     "source_path": str(source_path.resolve()),
                     "error": str(exc),
+                    "request_started_at": request_started_at,
+                    "request_finished_at": _utc_now(),
                 }
                 updated = replace(
                     current,

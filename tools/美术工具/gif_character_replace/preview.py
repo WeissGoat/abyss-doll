@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import json
 from dataclasses import dataclass, replace
+from datetime import datetime, timezone
 from pathlib import Path
 from statistics import mean
 from typing import Sequence
@@ -66,7 +67,17 @@ def select_preview_frames(frame_paths: Sequence[Path]) -> PreviewSelection:
     return PreviewSelection(identity_index, action_index)
 
 
-def _write_generated(path: Path, generated, source_index: int) -> None:
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _write_generated(
+    path: Path,
+    generated,
+    source_index: int,
+    request_started_at: str,
+    request_finished_at: str,
+) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(generated.image_bytes)
     atomic_write_json(
@@ -79,6 +90,8 @@ def _write_generated(path: Path, generated, source_index: int) -> None:
             "generation_params": generated.generation_params,
             "cost": generated.cost,
             "byte_length": len(generated.image_bytes),
+            "request_started_at": request_started_at,
+            "request_finished_at": request_finished_at,
         },
     )
 
@@ -107,10 +120,17 @@ async def generate_identity_candidates(
     for index in range(3):
         if index > 0 and store.config.delay_seconds > 0:
             await asyncio.sleep(store.config.delay_seconds)
+        request_started_at = _utc_now()
         generated = await backend.generate_anchor(
             contract.provider_prompt, state.timeline.width, state.timeline.height
         )
-        _write_generated(candidate_dir / f"anchor_{index:02d}.png", generated, -1)
+        _write_generated(
+            candidate_dir / f"anchor_{index:02d}.png",
+            generated,
+            -1,
+            request_started_at,
+            _utc_now(),
+        )
     return store.update_state(
         lambda current: replace(
             current,
@@ -168,6 +188,7 @@ async def generate_preview(
     )):
         if request_index > 0 and store.config.delay_seconds > 0:
             await asyncio.sleep(store.config.delay_seconds)
+        request_started_at = _utc_now()
         generated = await backend.replace_frame(
             identity_images,
             frame_paths[index].read_bytes(),
@@ -179,6 +200,8 @@ async def generate_preview(
             store.paths.preview_dir / label / f"frame_{index:04d}.png",
             generated,
             index,
+            request_started_at,
+            _utc_now(),
         )
 
     return store.update_state(
