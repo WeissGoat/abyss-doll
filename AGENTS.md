@@ -17,6 +17,8 @@ related:
   - rules/02_智能体任务路由与完成协议.md
   - 知识库/README.md
   - 知识库/views/director.md
+  - 知识库/views/owner.md
+  - 知识库/views/narrative.md
   - 知识库/views/pm.md
   - 知识库/views/art.md
   - 知识库/views/design.md
@@ -54,19 +56,29 @@ update_rule: 修改根职责路由、全局硬边界、开工入口或完成摘�
 
 ## 30 秒开工流程
 
-1. 读取 `PROJECT_STATUS.md` 和 `agent_status/director.md`，确认当前阶段、全局优先级、跨职能交接和阻塞。
+1. 读取 `PROJECT_STATUS.md` 的当前阶段、全局优先级、跨职能交接和阻塞快照；只有游戏导演、Owner 或明确涉及全局体验 / 跨职能交接的任务才读取 `agent_status/director.md`。
 2. 根据下方任务职责路由选择一个主责任 Role。
-3. 读取对应 `知识库/views/*.md` 和 `agent_status/*.md`，确认该职能的阅读顺序与当前状态。
+3. 读取对应 `知识库/views/*.md`（剧情使用 `narrative.md`，Owner 使用 `owner.md`）和受影响 Role 的状态页当前快照，确认阅读顺序与当前状态。
 4. 读取目标细案、GDD、配置 README、开发文档、美术规格或专项规则；不要用聊天结论替代事实文档。
 5. 实际改动前运行 `./tools/agent/Invoke-AgentHealthCheck.ps1`；长期或恢复任务按 P3 Mission 路由。
+
+默认按以下层级渐进读取，不因 `related` 关联边自动展开全部文档：
+
+```text
+L0 AGENTS.md：根路由和全局硬边界
+L1 PROJECT_STATUS.md：当前阶段、优先级、阻塞和交接快照
+L2 Role View + 受影响状态页：职责上下文和当前快照
+L3 目标事实文档：模块、剧情、GDD、配置、开发或美术事实
+L4 条件展开：跨职能 View、rules/02、专项 Skill、验收证据或恢复记录
+```
 
 ## 任务职责路由
 
 | 任务特征 | 默认主责任 | 首读入口 | 进一步读取 |
 |---|---|---|---|
 | 玩家体验主线、系统开放节奏、深渊包装、全局优先级 | 游戏导演 | `知识库/views/director.md` | `13`、`14`、目标细案、`09`、`11` |
-| 完整模块或玩家结果的跨职能整体负责 | Owner | 目标模块文档 + 受影响 Role 入口 | 对应剧情、策划、程序、美术事实文档 |
-| 剧情大纲、叙事结构、角色关系、对白、CG / 漫画一致性 | 剧情 | `设计文档/剧情/README.md` | 剧情大纲、目标叙事文档、相关细案与演出规格 |
+| 完整模块或玩家结果的跨职能整体负责 | Owner | `知识库/views/owner.md` + 目标模块入口 | 按实际影响展开剧情、策划、程序、美术 View 和事实文档 |
+| 剧情大纲、叙事结构、角色关系、对白、CG / 漫画一致性 | 剧情 | `知识库/views/narrative.md` + `设计文档/剧情/README.md` | 剧情大纲、目标叙事文档、相关细案与演出规格 |
 | GDD、规则卡、数值、配置意图或配置源 | 策划 | `知识库/views/design.md` | `agent_status/design.md` 和目标设计 / 配置事实 |
 | Unity、领域服务、架构、纯 UGUI、Validator、自动测试 | 程序 | `知识库/views/program.md` | `agent_status/program.md` 和开发规则 |
 | UI 视觉、素材生产、Manifest、VisualID、运行时美术验收 | 美术 | `知识库/views/art.md` | `agent_status/art.md` 和美术事实文档 |

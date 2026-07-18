@@ -33,13 +33,26 @@ update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约�
 
 > 本页只负责美术 Role 的阅读顺序和上下文导航；稳定跨职能协议见 `rules/02_智能体任务路由与完成协议.md`，当前进度见 `agent_status/art.md`，专业事实以目标美术文档为准。
 
-## 开工顺序
+## 必读
 
-1. `PROJECT_STATUS.md`：确认当前阶段、总优先级、跨职能交接和阻塞项。
-2. `agent_status/art.md`：确认美术侧当前关注、最近完成和下一步建议。
-3. `美术文档/README.md`：确认美术文档目录、推荐阅读顺序和生成物边界。
-4. `美术文档/10_正式版核心纵切美术路线.md`：确认正式版纵切美术和 UI 路线。
-5. 当前任务涉及的 UI、Manifest、资源规格或运行时验收文档。
+1. `PROJECT_STATUS.md` 当前阶段、总优先级、跨职能交接和阻塞快照。
+2. `agent_status/art.md` 当前关注、最近完成、下一步和阻塞。
+3. `美术文档/README.md`。
+4. `美术文档/10_正式版核心纵切美术路线.md`。
+
+## 按任务读取
+
+- 正式资产准入：读取 `p3-art-asset-production`、Manifest、资源规格、Approved 和目标 Asset Contract。
+- 纯生成 / 差分：读取 `generate-image` 和目标角色 / 场景 / 风格事实。
+- 叙事 CG / 漫画页：读取 `p3-narrative-cg-comic`、`美术文档/18_CG底图与漫画式播放演出工作流.md` 和目标 CG 细案。
+- UI / 运行时验收：读取 active `screen_layouts.json`、程序交接清单和 `p3-art-validation`；不把静态预览当作运行时证据。
+- Owner 统筹任务：只读取实际受影响的策划、程序或剧情入口。
+
+## 验收 / 恢复时
+
+- 正式资产准入使用 `p3-art-asset-production`；运行时视觉诊断使用 `p3-art-validation`；发布聚合使用 `p3-release-validation`。
+- Owner 外部验收、状态回写或跨职能交接时读取 `rules/02_智能体任务路由与完成协议.md`。
+- 恢复历史候选或旧 ArtRun 时只读取目标 Asset / RunID 证据，不通读美术状态历史。
 
 ## 常用事实来源
 

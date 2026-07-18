@@ -14,6 +14,8 @@ related:
   - rules/01_文档维护与新增控制规则.md
   - rules/02_智能体任务路由与完成协议.md
   - 知识库/views/director.md
+  - 知识库/views/owner.md
+  - 知识库/views/narrative.md
   - 知识库/views/pm.md
   - 知识库/views/art.md
   - 知识库/views/design.md
@@ -107,7 +109,9 @@ update_rule: 修改系统关系、资源流向或优先级时同步本文件。
 - `DOCS_INDEX.md`：给人阅读的文档索引。
 - `docs_index.json`：给智能体和工具读取的机器索引。
 - `知识库/views/`：按职能整理的阅读入口，只做上下文导航，不替代事实来源文档。
-- `知识库/views/pm.md`：PM / 版本规划阅读入口，负责快速定位阶段路线、里程碑和跨职能交接。
+- `知识库/views/owner.md`：Owner 模块阅读入口，负责按受影响 Role 条件展开。
+- `知识库/views/narrative.md`：剧情 Role 阅读入口，负责叙事事实、系统事件和演出规格的条件展开。
+- `知识库/views/pm.md`：PM / 版本规划兼容入口，只负责迁移旧链接。
 - `tools/agent/README.md`：复制智能体开工前健康检查入口，用于发现工作区和知识库风险。
 - 索引会统计文档关联数、跨职能关联数和职能之间的关联边。
 
@@ -132,6 +136,23 @@ update_rule: 修改系统关系、资源流向或优先级时同步本文件。
 5. `UnityClient/Assets/StreamingAssets/Configs` 是 `配置表(JSON)` 同步出来的运行时副本，不纳入索引、不手写维护。
 6. 后续各职能智能体在修改文档时，必须同步检查相关文档元数据和双向关联。
 7. 新增、重写、拆分或归档文档前，必须先按 `rules/01_文档维护与新增控制规则.md` 判断是否应补充已有文档、是否需要归档旧文档，以及是否会造成重复事实来源。
+
+## 渐进式阅读层级
+
+复制出来的智能体默认按以下层级读取：
+
+```text
+L0 AGENTS.md：选择主责任 Role 和全局硬边界
+L1 PROJECT_STATUS.md：读取当前阶段、优先级、阻塞和交接快照
+L2 Role View + 受影响状态页：读取职责导航和当前快照
+L3 目标事实文档：读取本任务唯一主要事实入口
+L4 条件展开：读取受影响职能、rules/02、专项 Skill、验收或恢复材料
+```
+
+- `related` 表示文档关系，不表示默认必读。
+- `agent_status/*.md` 默认只读当前快照，不通读历史日期日志。
+- `agent_status/director.md` 只对游戏导演、Owner 和明确跨职能任务默认展开。
+- Owner 使用 `知识库/views/owner.md`；剧情使用 `知识库/views/narrative.md`。两者均为导航入口，不建立新的事实来源或进度表。
 
 ## 关联网络规则
 

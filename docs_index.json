@@ -10,18 +10,20 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 3040,
-    "relation_edges": 1520,
-    "cross_role_edges": 309,
+    "directed_edges": 3052,
+    "relation_edges": 1526,
+    "cross_role_edges": 315,
     "role_pairs": {
       "0-12 小时细案 Owner <-> Owner": 3,
+      "Owner <-> 全局": 1,
       "Owner <-> 剧情": 5,
-      "Owner <-> 游戏导演": 8,
+      "Owner <-> 游戏导演": 9,
+      "Owner <-> 知识库": 1,
       "Owner <-> 程序": 5,
       "Owner <-> 策划": 8,
       "Owner <-> 美术": 3,
       "全局 <-> 兼容": 5,
-      "全局 <-> 剧情": 1,
+      "全局 <-> 剧情": 2,
       "全局 <-> 游戏导演": 23,
       "全局 <-> 知识库": 7,
       "全局 <-> 程序": 15,
@@ -29,7 +31,8 @@
       "全局 <-> 美术": 10,
       "兼容 <-> 游戏导演": 5,
       "兼容 <-> 知识库": 1,
-      "剧情 <-> 游戏导演": 7,
+      "剧情 <-> 游戏导演": 8,
+      "剧情 <-> 知识库": 1,
       "剧情 <-> 程序": 1,
       "剧情 <-> 策划": 12,
       "游戏导演 <-> 知识库": 1,
@@ -184,7 +187,7 @@
         "agent_status/art.md",
         "知识库/views/design.md"
       ],
-      "last_verified": "2026-07-11",
+      "last_verified": "2026-07-18",
       "update_rule": "策划、数值、GDD 或配置意图任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -283,7 +286,7 @@
         "开发文档/18_全局叙事播放系统开发方案.md",
         "配置表(JSON)/Narrative/README.md"
       ],
-      "last_verified": "2026-07-12",
+      "last_verified": "2026-07-18",
       "update_rule": "程序、Unity、验证或工程边界任务完成后更新本文档。",
       "has_metadata": true,
       "missing_fields": [],
@@ -335,6 +338,8 @@
         "rules/02_智能体任务路由与完成协议.md",
         "知识库/README.md",
         "知识库/views/director.md",
+        "知识库/views/owner.md",
+        "知识库/views/narrative.md",
         "知识库/views/pm.md",
         "知识库/views/art.md",
         "知识库/views/design.md",
@@ -352,8 +357,8 @@
       "update_rule": "修改根职责路由、全局硬边界、开工入口或完成摘要时同步本文件；详细执行协议同步 rules/02。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 21,
-      "cross_role_relation_count": 13
+      "relation_count": 23,
+      "cross_role_relation_count": 15
     },
     {
       "path": "docs/superpowers/plans/2026-07-18-agent-status-and-role-disclosure.md",
@@ -2310,6 +2315,8 @@
         "rules/01_文档维护与新增控制规则.md",
         "rules/02_智能体任务路由与完成协议.md",
         "知识库/views/director.md",
+        "知识库/views/owner.md",
+        "知识库/views/narrative.md",
         "知识库/views/pm.md",
         "知识库/views/art.md",
         "知识库/views/design.md",
@@ -2320,8 +2327,8 @@
       "update_rule": "调整元数据字段、索引策略、文档治理规则或职责入口归属时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 12,
-      "cross_role_relation_count": 12
+      "relation_count": 14,
+      "cross_role_relation_count": 14
     },
     {
       "path": "知识库/views/art.md",
@@ -2407,6 +2414,8 @@
         "agent_status/director.md",
         "agent_status/pm.md",
         "知识库/views/pm.md",
+        "知识库/views/owner.md",
+        "知识库/views/narrative.md",
         "设计文档/剧情/README.md",
         "版本规划/README.md",
         "版本规划/13_正式版全局体验总线与开放节奏.md",
@@ -2418,8 +2427,50 @@
       "update_rule": "游戏导演入口、全局体验总线、任务 Owner 工作流或跨职能验收口径变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 14,
-      "cross_role_relation_count": 9
+      "relation_count": 16,
+      "cross_role_relation_count": 11
+    },
+    {
+      "path": "知识库/views/narrative.md",
+      "title": "剧情智能体阅读入口",
+      "id": "kb_view_narrative",
+      "type": "view",
+      "role": "剧情",
+      "domain": "agent_context_view",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "知识库/README.md",
+        "知识库/views/director.md"
+      ],
+      "last_verified": "2026-07-18",
+      "update_rule": "剧情 Role 入口、叙事事实边界或条件阅读范围变化时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 3
+    },
+    {
+      "path": "知识库/views/owner.md",
+      "title": "Owner 智能体阅读入口",
+      "id": "kb_view_owner",
+      "type": "view",
+      "role": "Owner",
+      "domain": "agent_context_view",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "知识库/README.md",
+        "知识库/views/director.md"
+      ],
+      "last_verified": "2026-07-18",
+      "update_rule": "Owner 模块入口、跨职能阅读顺序或条件展开规则变化时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 3,
+      "cross_role_relation_count": 3
     },
     {
       "path": "知识库/views/pm.md",
