@@ -1,5 +1,6 @@
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -9,7 +10,7 @@ REPO_ROOT = SCRIPT_DIR.parent.parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from generate_docs_index import collect_docs, should_skip
+from generate_docs_index import collect_docs, parse_front_matter, read_text, should_skip
 
 
 CORE_DOCS = {
@@ -37,6 +38,113 @@ ACTIVE_ROLES = {
     "美术",
     "知识库",
 }
+
+ACTIVE_STATUS_DOCS = {
+    "agent_status/director.md",
+    "agent_status/design.md",
+    "agent_status/program.md",
+    "agent_status/art.md",
+}
+
+ACTIVE_ROLE_VIEWS = {
+    "知识库/views/director.md",
+    "知识库/views/owner.md",
+    "知识库/views/narrative.md",
+    "知识库/views/design.md",
+    "知识库/views/program.md",
+    "知识库/views/art.md",
+}
+
+STATUS_REQUIRED_HEADINGS = {
+    "最后更新",
+    "当前关注",
+    "最近完成",
+    "下一步建议",
+    "问题 / 阻塞",
+    "关键证据入口",
+}
+
+PROJECT_STATUS_REQUIRED_HEADINGS = {
+    "最后更新",
+    "当前阶段",
+    "当前顶层目标",
+    "当前优先级",
+    "跨职能交接",
+    "问题 / 阻塞",
+    "下一步总建议",
+    "关键入口",
+}
+
+BODY_LINE_LIMIT = 80
+DATED_LOG_HEADING = re.compile(r"^## \d{4}-\d{2}-\d{2}(?:\s|$)")
+DATED_LOG_ENTRY = re.compile(r"^- \d{4}-\d{2}-\d{2}(?:\s|$)")
+
+
+def second_level_headings(body):
+    return [line[3:].strip() for line in body.splitlines() if line.startswith("## ")]
+
+
+def validate_required_headings(path, body, required):
+    headings = set(second_level_headings(body))
+    return [
+        f"{path} missing required heading: {heading}"
+        for heading in sorted(required)
+        if heading not in headings
+    ]
+
+
+def validate_body_line_limit(path, body, limit):
+    line_count = len(body.splitlines())
+    if line_count <= limit:
+        return []
+    return [f"{path} body exceeds {limit} lines: {line_count}"]
+
+
+def validate_no_dated_logs(path, body):
+    errors = []
+    for line in body.splitlines():
+        if DATED_LOG_HEADING.match(line):
+            errors.append(f"{path} contains dated log heading: {line}")
+        elif DATED_LOG_ENTRY.match(line):
+            errors.append(f"{path} contains dated log entry: {line}")
+    return errors
+
+
+def document_body(path):
+    _, body = parse_front_matter(read_text(REPO_ROOT / Path(path)))
+    return body
+
+
+def validate_progressive_disclosure_structure():
+    errors = []
+
+    project_body = document_body("PROJECT_STATUS.md")
+    errors.extend(
+        validate_required_headings(
+            "PROJECT_STATUS.md", project_body, PROJECT_STATUS_REQUIRED_HEADINGS
+        )
+    )
+    errors.extend(
+        validate_body_line_limit("PROJECT_STATUS.md", project_body, BODY_LINE_LIMIT)
+    )
+    errors.extend(validate_no_dated_logs("PROJECT_STATUS.md", project_body))
+
+    for path in sorted(ACTIVE_STATUS_DOCS):
+        body = document_body(path)
+        errors.extend(validate_required_headings(path, body, STATUS_REQUIRED_HEADINGS))
+        errors.extend(validate_body_line_limit(path, body, BODY_LINE_LIMIT))
+        errors.extend(validate_no_dated_logs(path, body))
+
+    for path in sorted(ACTIVE_ROLE_VIEWS):
+        body = document_body(path)
+        errors.extend(validate_required_headings(path, body, {"必读", "按任务读取"}))
+        if not any(
+            heading.startswith("验收 / 恢复时")
+            for heading in second_level_headings(body)
+        ):
+            errors.append(f"{path} missing required heading: 验收 / 恢复时")
+
+    return errors
 
 
 def main():
@@ -109,6 +217,8 @@ def main():
                 continue
             if path not in target_doc.get("related", []):
                 errors.append(f"related doc is not bidirectional: {path} -> {target}")
+
+    errors.extend(validate_progressive_disclosure_structure())
 
     if errors:
         for error in errors:

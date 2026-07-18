@@ -1,3 +1,15 @@
+---
+id: unified_art_processing_rounds_plan
+title: Unified Art Processing Rounds Implementation Plan
+type: plan
+role: 美术
+domain: art_processing_pipeline
+status: active
+source_of_truth: false
+last_verified: 2026-07-18
+update_rule: 数字处理轮次模型、背景策略、候选解析或迁移实施范围变化时更新本计划。
+---
+
 # Unified Art Processing Rounds Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.

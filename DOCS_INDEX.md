@@ -19,8 +19,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 ## 概览
 
 - 文档总数：272
-- 已补元数据：270
-- 缺少元数据：2
+- 已补元数据：272
+- 缺少元数据：0
 - 事实来源文档：198
 - 关联边数：1526
 - 跨职能关联：315
@@ -327,13 +327,6 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [序章演出与对话节奏](设计文档/剧情/01_序章演出与对话节奏.md) | `narrative_design` | `active` | `narrative_design` | 7 | 完整 |
 | [剧情设计阅读入口](设计文档/剧情/README.md) | `entry` | `active` | `narrative_design` | 13 | 完整 |
 
-### 未分类
-
-| 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
-|---|---|---|---|---|---|
-| [Unified Art Processing Rounds Implementation Plan](docs/superpowers/plans/2026-07-18-unified-art-processing-rounds.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
-| [Zero Dialogue Neutral Character Portrait Pilot Implementation Plan](docs/superpowers/plans/2026-07-18-zero-dialogue-neutral-character-portrait-pilot.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
-
 ### 游戏导演
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
@@ -502,6 +495,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 |---|---|---|---|---|---|
 | [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 31 | 完整 |
 | [GIF 小循环人物替换实现计划](docs/superpowers/plans/2026-07-18-gif-character-replacement.md) | `plan` | `planned` | `gif_character_replacement` | 1 | 完整 |
+| [Unified Art Processing Rounds Implementation Plan](docs/superpowers/plans/2026-07-18-unified-art-processing-rounds.md) | `plan` | `active` | `art_processing_pipeline` | 0 | 完整 |
+| [Zero Dialogue Neutral Character Portrait Pilot Implementation Plan](docs/superpowers/plans/2026-07-18-zero-dialogue-neutral-character-portrait-pilot.md) | `plan` | `active` | `character_portrait_asset_production` | 0 | 完整 |
 | [美术资产统一数字轮次加工与安全背景处理设计](docs/superpowers/specs/2026-07-18-unified-art-processing-rounds-design.md) | `design` | `active` | `art_asset_processing` | 0 | 完整 |
 | [零号对话中性立绘首轮流程试跑设计](docs/superpowers/specs/2026-07-18-zero-dialogue-neutral-character-portrait-pilot-design.md) | `design` | `active` | `character_portrait_production` | 0 | 完整 |
 | [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 13 | 完整 |
@@ -596,5 +591,4 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 元数据缺口
 
-- [Unified Art Processing Rounds Implementation Plan](docs/superpowers/plans/2026-07-18-unified-art-processing-rounds.md)：缺少 `id, title, type, role, domain, status`
-- [Zero Dialogue Neutral Character Portrait Pilot Implementation Plan](docs/superpowers/plans/2026-07-18-zero-dialogue-neutral-character-portrait-pilot.md)：缺少 `id, title, type, role, domain, status`
+- 暂无。

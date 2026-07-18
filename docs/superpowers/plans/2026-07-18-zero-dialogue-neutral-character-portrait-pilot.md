@@ -1,3 +1,15 @@
+---
+id: zero_dialogue_neutral_character_portrait_pilot_plan
+title: Zero Dialogue Neutral Character Portrait Pilot Implementation Plan
+type: plan
+role: 美术
+domain: character_portrait_asset_production
+status: active
+source_of_truth: false
+last_verified: 2026-07-18
+update_rule: Zero 对话中性立绘试跑范围、生产契约或停止边界变化时更新本计划。
+---
+
 # Zero Dialogue Neutral Character Portrait Pilot Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
