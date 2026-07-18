@@ -143,6 +143,7 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
             with self.assertRaisesRegex(ValueError, "approval"):
                 await workflow.resume_after_preview(store.paths.root)
 
+            Path(store.config.references[0]).unlink()
             approve_preview(store)
             completed = await workflow.resume_after_preview(store.paths.root)
 
@@ -154,8 +155,23 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
                 for frame in completed.frames
             }
             self.assertEqual(set(backend.frame_hashes), source_hashes)
+            self.assertEqual(
+                len((store.paths.reports_dir / "requests.jsonl").read_text(encoding="utf-8").splitlines()),
+                len(completed.frames),
+            )
             self.assertTrue(
                 all(frame.status in (FrameStatus.GENERATED, FrameStatus.ACCEPTED) for frame in completed.frames)
+            )
+            generated_record = next(
+                frame.request_records[-1]
+                for frame in completed.frames
+                if frame.status == FrameStatus.GENERATED
+            )
+            self.assertTrue(
+                all(
+                    str(store.paths.input_dir / "references") in path
+                    for path in generated_record["identity_paths"]
+                )
             )
 
     async def test_resume_skips_existing_outputs_after_interruption(self) -> None:
@@ -214,6 +230,42 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
             self.assertGreater(len(batch_backend.frame_hashes), 1)
             later = [frame for frame in completed.frames[fail_index + 1 :] if frame.index not in state.preview_indices]
             self.assertTrue(any(frame.status == FrameStatus.GENERATED for frame in later))
+
+    async def test_failed_targeted_rerun_clears_previous_result(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            backend = RecordingBackend()
+            workflow, store, _ = await self._prepared_with_reference(root, backend)
+            approve_preview(store)
+            completed = await workflow.resume_after_preview(store.paths.root)
+            self.assertTrue(Path(completed.result_gif or "").is_file())
+            target = 4
+            fail_hash = hashlib.sha256(Path(completed.frames[target].source_path).read_bytes()).hexdigest()
+
+            failed = await GifReplacementWorkflow(RecordingBackend({fail_hash})).rerun_frames(
+                store.paths.root, [target], strict=True
+            )
+
+            self.assertEqual(failed.status, RunStatus.FAILED)
+            self.assertIsNone(failed.result_gif)
+
+    async def test_invalid_preflight_is_persisted(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source, reference = self._input(root, frame_count=7)
+            config = RunConfig.new(
+                input_gif=source,
+                output_root=root / "runs",
+                prompt="replacement mechanic",
+                references=(reference,),
+            )
+            config = dataclasses.replace(config, delay_seconds=0)
+            with self.assertRaisesRegex(ValueError, "outside"):
+                await GifReplacementWorkflow(RecordingBackend()).prepare(config)
+            run_root = Path(config.output_root) / "gif_character_replace" / config.run_id
+            store = RunStore.load(run_root)
+            self.assertEqual(store.load_state().status, RunStatus.FAILED)
+            self.assertTrue((store.paths.reports_dir / "preflight.json").is_file())
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Awaitable, Callable, Protocol, Sequence
 
@@ -29,8 +29,9 @@ TERMINAL_ERROR_CODES = ("401", "403")
 class BackendCallError(RuntimeError):
     """Raised when an image gateway call cannot produce one image."""
 
-    def __init__(self, errors: Sequence[str]) -> None:
+    def __init__(self, errors: Sequence[str], attempts: int = 1) -> None:
         self.errors = tuple(errors)
+        self.attempts = attempts
         super().__init__("image backend call failed: " + " | ".join(self.errors))
 
 
@@ -91,19 +92,23 @@ async def call_with_retry(
                 raise BackendCallError(
                     [f"expected exactly one image, received {len(batch.results)}"]
                 )
-            return _generated_image(batch.results[0])
+            generated = _generated_image(batch.results[0])
+            params = dict(generated.generation_params)
+            params["gateway_attempt_count"] = attempt + 1
+            params["gateway_retry_errors"] = list(collected_errors)
+            return replace(generated, generation_params=params)
 
         errors = list(batch.errors) or ["provider returned no image and no error"]
         collected_errors.extend(errors)
         if _contains_code(errors, TERMINAL_ERROR_CODES):
-            raise BackendCallError(collected_errors)
+            raise BackendCallError(collected_errors, attempt + 1)
         transient = _contains_code(errors, TRANSIENT_ERROR_CODES)
         if not transient or attempt + 1 >= retry_count:
-            raise BackendCallError(collected_errors)
+            raise BackendCallError(collected_errors, attempt + 1)
         if delay_seconds > 0:
             await asyncio.sleep(delay_seconds * (attempt + 1))
 
-    raise BackendCallError(collected_errors)
+    raise BackendCallError(collected_errors, retry_count)
 
 
 class GatewayImageBackend:

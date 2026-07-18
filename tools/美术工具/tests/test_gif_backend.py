@@ -58,7 +58,9 @@ class GatewayImageBackendTests(unittest.IsolatedAsyncioTestCase):
         )
         self.assertEqual(results[0].provider, "openai_images")
         self.assertEqual(results[0].model, "fake-model")
-        self.assertEqual(results[0].generation_params, {"quality": "test"})
+        self.assertEqual(results[0].generation_params["quality"], "test")
+        self.assertEqual(results[0].generation_params["gateway_attempt_count"], 1)
+        self.assertEqual(results[0].generation_params["gateway_retry_errors"], [])
 
     async def test_frame_request_orders_identity_images_before_current_frame(self) -> None:
         service = FakeService(
@@ -92,6 +94,8 @@ class GatewayImageBackendTests(unittest.IsolatedAsyncioTestCase):
 
         self.assertEqual(len(service.generate_requests), 2)
         self.assertEqual(result.provider, "openai_images")
+        self.assertEqual(result.generation_params["gateway_attempt_count"], 2)
+        self.assertEqual(result.generation_params["gateway_retry_errors"], ["HTTP 524 timeout"])
 
     async def test_auth_errors_stop_after_one_call(self) -> None:
         for error in ("HTTP 401 invalid token", "HTTP 403 forbidden"):

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import dataclasses
+import json
 import sys
 import tempfile
 import unittest
@@ -14,6 +16,15 @@ if str(TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_DIR))
 
 from gif_character_replace.encoder import encode_gif  # noqa: E402
+from gif_character_replace.models import (  # noqa: E402
+    FrameRecord,
+    FrameStatus,
+    RunConfig,
+    RunStatus,
+)
+from gif_character_replace.store import RunStore, atomic_write_json  # noqa: E402
+from gif_character_replace.timeline import extract_timeline  # noqa: E402
+from gif_character_replace.workflow import GifReplacementWorkflow  # noqa: E402
 
 
 class GifEncoderTests(unittest.TestCase):
@@ -119,6 +130,80 @@ class GifEncoderTests(unittest.TestCase):
             self.assertIn("paletteuse=dither=sierra2_4a", commands[1])
             self.assertEqual(captured_concat["text"].count("duration "), 8)
             self.assertEqual(captured_concat["text"].count("file '"), 9)
+
+    def test_repeated_encode_only_keeps_clean_run_ready_and_records_encoder(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            frames, _ = self._frames(root)
+            source = root / "source.gif"
+            images = [Image.open(path).convert("RGBA") for path in frames]
+            images[0].save(
+                source,
+                save_all=True,
+                append_images=images[1:],
+                duration=[80] * 8,
+                loop=0,
+                disposal=2,
+            )
+            config = RunConfig.new(
+                input_gif=source,
+                output_root=root / "runs",
+                prompt="character",
+                references=(),
+            )
+            config = dataclasses.replace(config, encoder="pillow")
+            store = RunStore.create(config)
+            timeline = extract_timeline(source, store.paths.original_frames_dir, 8, 30)
+            records = []
+            for index, source_path in enumerate(timeline.frame_paths):
+                output = store.paths.generated_raw_dir / f"frame_{index:04d}.png"
+                output.parent.mkdir(parents=True, exist_ok=True)
+                output.write_bytes(frames[index].read_bytes())
+                records.append(
+                    FrameRecord(
+                        index,
+                        str((store.paths.timeline_dir / source_path).resolve()),
+                        str(output.resolve()),
+                        FrameStatus.GENERATED,
+                        1,
+                        (),
+                        (),
+                        (),
+                    )
+                )
+            review_path = store.paths.reports_dir / "frame_review.json"
+            atomic_write_json(
+                review_path,
+                {
+                    "frame_risks": [
+                        {"frame_index": index, "codes": [], "hard_failure": False}
+                        for index in range(8)
+                    ],
+                    "sequence_codes": [],
+                    "hard_failure": False,
+                    "contact_sheet_path": "",
+                },
+            )
+            store.update_state(
+                lambda state: dataclasses.replace(
+                    state,
+                    status=RunStatus.RUNNING,
+                    timeline=timeline,
+                    frames=tuple(records),
+                    review_report=str(review_path.resolve()),
+                )
+            )
+            workflow = GifReplacementWorkflow(object())
+
+            first = workflow.encode_only(store.paths.root)
+            second = workflow.encode_only(store.paths.root)
+
+            self.assertEqual(first.status, RunStatus.READY)
+            self.assertEqual(second.status, RunStatus.READY)
+            summary = json.loads(
+                (store.paths.reports_dir / "run_summary.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(summary["actual_encoder"], "pillow")
 
 
 if __name__ == "__main__":

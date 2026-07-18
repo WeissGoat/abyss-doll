@@ -18,6 +18,13 @@ def atomic_write_json(path: Path, payload: dict) -> None:
     temporary.replace(path)
 
 
+def append_jsonl(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    line = json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n"
+    with path.open("a", encoding="utf-8", newline="") as stream:
+        stream.write(line)
+
+
 def atomic_copy(source: Path, destination: Path) -> None:
     destination.parent.mkdir(parents=True, exist_ok=True)
     temporary = destination.with_suffix(destination.suffix + ".tmp")
@@ -136,6 +143,13 @@ class RunStore:
 
     def load_config(self) -> RunConfig:
         return RunConfig.from_dict(json.loads(self.config_path.read_text(encoding="utf-8")))
+
+    def copied_reference_paths(self) -> tuple[Path, ...]:
+        references_dir = self.paths.input_dir / "references"
+        return tuple(
+            references_dir / f"reference_{index:02d}{Path(reference).suffix.lower()}"
+            for index, reference in enumerate(self.config.references)
+        )
 
     def load_state(self) -> RunState:
         return RunState.from_dict(json.loads(self.state_path.read_text(encoding="utf-8")))

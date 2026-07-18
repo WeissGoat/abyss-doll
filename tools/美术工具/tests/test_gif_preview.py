@@ -149,6 +149,10 @@ class GifPreviewTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(identity_state.status, RunStatus.PREFLIGHT)
             self.assertEqual(len(backend.frame_calls), 2)
             self.assertEqual(backend.identity_counts, [3, 3])
+            self.assertEqual(
+                len((store.paths.reports_dir / "requests.jsonl").read_text(encoding="utf-8").splitlines()),
+                2,
+            )
             self.assertEqual(preview_state.status, RunStatus.AWAITING_PREVIEW_APPROVAL)
             self.assertFalse(preview_state.preview_approved)
 

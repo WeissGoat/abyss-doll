@@ -18,7 +18,7 @@ from .identity import (
 )
 from .models import FrameRecord, FrameStatus, RunConfig, RunState, RunStatus
 from .preview import generate_identity_candidates, generate_preview
-from .store import RunStore, atomic_write_json
+from .store import RunStore, append_jsonl, atomic_write_json
 from .timeline import extract_timeline
 
 
@@ -38,12 +38,26 @@ class GifReplacementWorkflow:
 
     async def prepare(self, config: RunConfig) -> RunState:
         store = RunStore.create(config)
-        timeline = extract_timeline(
-            Path(config.input_gif),
-            store.paths.original_frames_dir,
-            config.min_frames,
-            config.max_frames,
-        )
+        try:
+            timeline = extract_timeline(
+                Path(config.input_gif),
+                store.paths.original_frames_dir,
+                config.min_frames,
+                config.max_frames,
+            )
+        except Exception as exc:
+            atomic_write_json(
+                store.paths.reports_dir / "preflight.json",
+                {"status": "failed", "error": str(exc), "input_gif": config.input_gif},
+            )
+            store.update_state(
+                lambda state: replace(
+                    state,
+                    status=RunStatus.FAILED,
+                    errors=(*state.errors, str(exc)),
+                )
+            )
+            raise
         frames = tuple(
             FrameRecord(
                 index=index,
@@ -66,7 +80,7 @@ class GifReplacementWorkflow:
             )
         )
         contract = build_identity_contract(
-            config.prompt, [Path(path) for path in config.references]
+            config.prompt, store.copied_reference_paths()
         )
         identity_state = await generate_identity_candidates(store, self.backend, contract)
         if identity_state.status == RunStatus.AWAITING_IDENTITY_SELECTION:
@@ -100,6 +114,7 @@ class GifReplacementWorkflow:
         for index in unique_indices:
             if index < 0 or index >= len(state.frames):
                 raise IndexError(f"frame index out of range: {index}")
+        store.update_state(lambda current: replace(current, result_gif=None))
         await self._generate_indices(store, unique_indices, strict=strict, force=True)
         reviewed = self._review(store)
         if reviewed.status == RunStatus.FAILED:
@@ -137,11 +152,13 @@ class GifReplacementWorkflow:
             store.config.encoder,
             store.config.preserve_transparency,
         )
-        visual_risks = set(state.warnings)
-        for frame in state.frames:
-            visual_risks.update(frame.risks)
+        review_payload = json.loads(Path(state.review_report).read_text(encoding="utf-8"))
+        visual_risks = set(review_payload.get("sequence_codes", ()))
+        for frame_risk in review_payload.get("frame_risks", ()):
+            if not frame_risk.get("hard_failure", False):
+                visual_risks.update(frame_risk.get("codes", ()))
         final_status = RunStatus.REVIEW_REQUIRED if visual_risks else RunStatus.READY
-        return store.update_state(
+        final_state = store.update_state(
             lambda current: replace(
                 current,
                 status=final_status,
@@ -149,6 +166,8 @@ class GifReplacementWorkflow:
                 warnings=tuple(dict.fromkeys((*current.warnings, *result.warnings))),
             )
         )
+        self._write_run_summary(store, result.encoder)
+        return final_state
 
     @staticmethod
     def _review(store: RunStore) -> RunState:
@@ -186,10 +205,37 @@ class GifReplacementWorkflow:
                 frames=frames,
                 review_report=str(report_path.resolve()),
                 contact_sheet=review.contact_sheet_path,
-                warnings=tuple(dict.fromkeys((*current.warnings, *review.sequence_codes))),
+                warnings=review.sequence_codes,
+                result_gif=None if review.hard_failure else current.result_gif,
             )
 
-        return store.update_state(mutator)
+        reviewed = store.update_state(mutator)
+        if review.hard_failure:
+            GifReplacementWorkflow._write_run_summary(store, None)
+        return reviewed
+
+    @staticmethod
+    def _write_run_summary(store: RunStore, actual_encoder: str | None) -> None:
+        state = store.load_state()
+        atomic_write_json(
+            store.paths.reports_dir / "run_summary.json",
+            {
+                "run_id": store.config.run_id,
+                "status": state.status.value,
+                "frame_count": state.timeline.frame_count if state.timeline else 0,
+                "frame_status_counts": {
+                    status.value: sum(1 for frame in state.frames if frame.status == status)
+                    for status in FrameStatus
+                },
+                "actual_encoder": actual_encoder,
+                "result_gif": state.result_gif,
+                "review_report": state.review_report,
+                "contact_sheet": state.contact_sheet,
+                "warnings": list(state.warnings),
+                "errors": list(state.errors),
+                "updated_at": _utc_now(),
+            },
+        )
 
     def _load_identity_inputs(self, store: RunStore) -> tuple[IdentityInputs, str]:
         contract_path = store.paths.identity_dir / "identity_contract.json"
@@ -309,6 +355,12 @@ class GifReplacementWorkflow:
                     "model": generated.model,
                     "seed": generated.seed,
                     "generation_params": generated.generation_params,
+                    "gateway_attempt_count": int(
+                        generated.generation_params.get("gateway_attempt_count", 1)
+                    ),
+                    "gateway_retry_errors": list(
+                        generated.generation_params.get("gateway_retry_errors", ())
+                    ),
                     "cost": generated.cost,
                     "byte_length": len(generated.image_bytes),
                     "request_started_at": request_started_at,
@@ -317,6 +369,7 @@ class GifReplacementWorkflow:
                     "source_path": str(source_path.resolve()),
                 }
                 atomic_write_json(destination.with_suffix(".json"), request_record)
+                append_jsonl(store.paths.reports_dir / "requests.jsonl", request_record)
                 updated = replace(
                     current,
                     output_path=str(destination.resolve()),
@@ -332,6 +385,8 @@ class GifReplacementWorkflow:
                     "error": str(exc),
                     "request_started_at": request_started_at,
                     "request_finished_at": _utc_now(),
+                    "gateway_attempt_count": int(getattr(exc, "attempts", 1)),
+                    "gateway_errors": list(getattr(exc, "errors", (str(exc),))),
                 }
                 updated = replace(
                     current,
@@ -341,6 +396,7 @@ class GifReplacementWorkflow:
                     request_records=(*current.request_records, request_record),
                     errors=(*current.errors, str(exc)),
                 )
+                append_jsonl(store.paths.reports_dir / "requests.jsonl", request_record)
             self._replace_record(store, updated)
 
         return store.update_state(lambda current: replace(current, status=RunStatus.RUNNING))

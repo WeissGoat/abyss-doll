@@ -16,7 +16,7 @@ from PIL import Image, ImageFilter
 from .backend import ImageBackend
 from .identity import IdentityContract, IdentityInputs, prepare_identity_inputs
 from .models import RunState, RunStatus
-from .store import RunStore, atomic_write_json
+from .store import RunStore, append_jsonl, atomic_write_json
 
 
 @dataclass(frozen=True)
@@ -131,6 +131,10 @@ async def generate_identity_candidates(
             request_started_at,
             _utc_now(),
         )
+        append_jsonl(
+            store.paths.reports_dir / "requests.jsonl",
+            json.loads((candidate_dir / f"anchor_{index:02d}.json").read_text(encoding="utf-8")),
+        )
     return store.update_state(
         lambda current: replace(
             current,
@@ -202,6 +206,14 @@ async def generate_preview(
             index,
             request_started_at,
             _utc_now(),
+        )
+        append_jsonl(
+            store.paths.reports_dir / "requests.jsonl",
+            json.loads(
+                (
+                    store.paths.preview_dir / label / f"frame_{index:04d}.json"
+                ).read_text(encoding="utf-8")
+            ),
         )
 
     return store.update_state(
