@@ -196,3 +196,9 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 6. UI / 美术侧已接管 FormalV2 运行时视觉 / 布局精修，并完成 ArtAcceptance `20260613_020257` 复验。本轮资源 / Registry / 工具门禁和当前纵切 UI 基线通过；下一步继续由美术 Role 直接做共享子面板差异化、背景候选、动效 / VFX 和小尺寸可读性复查；程序 Role 只在真实领域服务、自动验收工具或 Unity 工程阻断时介入。Owner 接入时仍必须同时满足玩家主流程入口和真实领域服务操作闭环，不能只做截图覆盖。
 7. 策划 / 配置侧继续推进 C4 及后续配置；C1-C3 已配置完成并完成当前程序侧可做审计，后续只按真实缺口补齐、验收修复、字段迁移或数值校准。
 
+## 2026-07-18 美术处理轮次基础设施
+
+- 美术生产已统一为 `raw -> processed/<正整数> -> selected -> Approved`；普通 standard asset 保持一命令处理，角色立绘使用 `agent_required` staging + 数字轮次登记。
+- 旧 flat processed 已迁移为数字轮次，flat 图片为 0；Zero 当前为 `processed/1` 失败证据，下一步是 Agent-owned `processed/2` 前景保护处理。
+- 本轮未修改 Approved、Registry、Unity `.meta`/GUID 或运行时资源；Unity 验证留作后续，当前记为 `validation_limited:unity_not_run`。
+

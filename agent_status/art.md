@@ -47,6 +47,22 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 # 美术 / UI 状态
 
+## 2026-07-18 首个 character_portrait_set 正式试跑
+
+- 最近完成：已将 `doll_zero_dialogue_neutral` 作为首个 `character_portrait_set` Manifest 成员准入，建立 `AssetSetID=zero_dialogue_portrait_v1`、`AssetID=zero_dialogue_neutral`、`SetRole=neutral_dialogue_master`、Asset Contract 和交互式 ProductionRun；复用既有白底候选导入 `character_portraits/<VisualID>/raw/r01_001.png`，源图与 raw SHA-256 一致，并完成一次预处理与 contact sheet。
+- 当前关注：本轮状态为 `decision_required`。预处理后的尺寸、主体高度占比 `87.96%` 和脚底基线 `93.95%` 符合立绘画布目标，但自动去白底把白布眼罩、浅色皮肤 / 裙面和肢体区域抠除为大面积透明洞，触发 `failed:transparent_background_contract_failed`；诊断评分 `77/100`，不得进入 selected。
+- 下一步建议：推荐保留现有候选，改用显式前景 mask / 分割的保白去底方式，确保白发、白布眼罩、皮肤和浅色裙面不被误删，然后从 `SELECTION_DECISION` 恢复并重跑 PREPROCESS / TECHNICAL_REVIEW；备选是换另一种透明化工具或更换候选。
+- 问题 / 阻塞：当前只阻塞透明底技术门禁；原图身份、服装和全身完整性基本成立，但姿势接近正面，3/4 对话感偏弱。Approved、`.meta`、Registry、Prefab、运行时和 Unity 均未修改。
+- 关键证据：`UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_neutral/production_decision.json`；Run 摘要 `UnityClient/Logs/P3ArtProduction/zero_dialogue_neutral_pilot_20260718_01/summary.json`。
+
+## 2026-07-18 美术生产工作区 Profile 迁移完成
+
+- 最近完成：已将 `UnityClient/Assets/Art/_IncomingAI` 一次性迁移为 `standard_assets/<VisualID>/`、`character_portraits/<VisualID>/`、`_legacy_runs/` 三入口；293 个现有 Manifest VisualID 工作区及原目录 `.meta` 进入 `standard_assets/`，10 个非 VisualID 历史目录进入 `_legacy_runs/`，30 个根部散落评审文件进入 `_legacy_runs/_root_files/`。新增统一 `art_workspace.py` Resolver，生成、预处理、Approved 同步、接入清单、缺图计划和 Manifest 更新脚本均按 `ProductionProfile + VisualID` 定位，不再回退旧平坦路径。
+- 当前关注：`art_manifest.json` 已归一为合法 `ProductionProfile`，当前 299 条 entry 全部为 `standard_asset`；`character_portraits/` 入口已就绪但尚无正式 Manifest 成员。角色立绘 Profile 仍保持方法中立，由 Agent 根据需求、角色事实、来源图和当前工具选择文生图、图生图、编辑、导入或其他能力。
+- 下一步建议：首个角色立绘正式任务先在详细角色事实和运行时成员清单中写入 `ProductionProfile=character_portrait_set`、`AssetSetID / AssetID / SetRole / SourceAssets`，再用 `p3-art-asset-production` 验证单成员与套组一致性门禁；普通批量资产继续使用 `standard_asset`。
+- 问题 / 阻塞：`blocked:art_workspace_profile_migration_required` 已解除。本轮没有修改 Approved 图片、`.meta`、Registry 或运行时绑定；623 个 Approved/Registry 文件迁移前后 SHA-256 全部一致，也没有新增 Unity ArtRun 或运行时验收结论。
+- 关键证据：工作区、预处理边界和 Manifest 来源优先级测试 13 项通过，覆盖 Profile 路由、旧路径改写、路径穿越拒绝、`CandidateRawFiles` 工作区外输入拒绝，以及 preset 显式 Profile / 套组字段覆盖与省略时保留；相关 Python `py_compile` 通过；迁移 DryRun 为 293 个标准目录、10 个历史目录、303 份目录 `.meta`、30 个 loose files、636 次移动且无冲突；迁移后 `_IncomingAI` 根目录只保留三个 Profile 目录及其 `.meta`，旧平坦 VisualID 目录为 0。
+
 ## 2026-07-18 GIF 小循环人物替换流水线实现
 
 - 最近完成：已在 `tools/美术工具/gif_character_replace/` 和 `tools/美术工具/gif_character_replace_cli.py` 落地 `8-30` 帧 GIF 人物替换工作流，并新增 `Invoke-GifCharacterReplace.ps1`。覆盖运行状态、不可变配置、完整 RGBA 拆帧、身份契约、0-N 参考图、Gemini 独立逐帧请求、双帧预审、恢复 / 定向重跑、风险复核、contact sheet、Pillow 编码和 FFmpeg 模拟分支。
@@ -54,6 +70,13 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 - 当前关注：真实 Gemini 两帧预审 smoke 已在临时目录启动，但中转链路在 120 秒内未完成，记录为 `validation_limited:provider_timeout`；因此当前只声明离线实现可用和配置可解析，不声明真实 provider 成功、视觉一致性通过或正式资产验收。
 - 下一步建议：有稳定 Gemini 通道后，仅对临时目录重跑两帧预审；通过用户确认后再运行完整批次。透明 GIF 仍保留 `transparent_silhouette_limited` 能力边界，复杂遮挡不提供像素级轮廓保证。
 - 问题 / 阻塞：实现无代码阻塞；外部 provider smoke 受当前中转响应时延限制，且不应通过延长等待绕过双帧预审门禁。
+
+## 2026-07-17 p3-art-asset-production 工作区 Profile 与角色立绘套组
+
+- 最近完成：更新 `.codex/skills/p3-art-asset-production/`，将第二层工作区收敛为 `standard_asset -> _IncomingAI/standard_assets/<VisualID>/`、`character_portrait_set -> _IncomingAI/character_portraits/<VisualID>/`，并规定非 VisualID 历史工作区只进入 `_legacy_runs/`。角色立绘 Profile 只负责角色事实、可选套组关系、交互、一致性和验收，不按文生图、图生图、inpaint、provider 或封闭工具清单定义；需求与 Asset Contract 保持方法中立，Agent 按当前工具和证据逐轮决策并记录实际执行。
+- 当前关注：Skill 已加入 `AssetID / VisualID / AssetSetID / ProductionRunID` 边界、非运行时母版使用 `AssetID + anchor role`、角色成员单项与套组一致性双层门禁，以及新目录的 readiness gate。当前美术规范和工具仍使用旧 `_IncomingAI/<VisualID>/` 路径，因此正式生产会返回 `blocked:art_workspace_profile_migration_required`，不得静默回退。
+- 下一步建议：单独执行工作区迁移与工具适配任务：把现有 Manifest VisualID 工作区一次性迁入 `standard_assets/`，把非 VisualID 历史目录迁入 `_legacy_runs/`，统一路径 resolver，并同步 `00/01/02`、生成 / 预处理 / Approved / 接入清单脚本后再解除 readiness gate。
+- 问题 / 阻塞：本轮只更新 Skill 和状态页，没有移动 `_IncomingAI`、修改 Manifest / Approved / Registry、运行图片生成或产生 Unity 运行时验收结论。Skill 结构校验通过，前后独立压力测试证明旧版会使用平坦目录并预设生成路线，新版会使用 Profile 目录、保持方法中立并在工具迁移缺失时阻断。
 
 ## 2026-07-14 p3-art-asset-production 新 Skill
 
@@ -166,7 +189,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 最后更新
 
-2026-07-12
+2026-07-18
 
 ## 当前关注
 
@@ -924,3 +947,11 @@ Formal V1 / FormalV2 运行时验收已工具化：`Generate-FormalV1AcceptanceQ
 - 下一步建议：真实 `art_focus` 与 `art_regression` 已产出；后续针对具体界面先注册安全 persist adapter，再生成 `art_iteration` before/after 包。
 - 问题 / 阻塞：运行时截图链已验证；当前剩余限制是具体 TargetID 尚无业务持久化 adapter，不能把 preview 作为正式修改证据。
 - 关键证据：真实 ArtRun 位于 `UnityClient/Logs/P3Validation/art-runs/`；发布聚合改为按两侧技术结果与输入指纹生成 `Passed/Failed/Blocked/Limited`。
+
+# 2026-07-18 统一美术数字处理轮次落地
+
+- 最近完成：新增共享数字轮次 Resolver、显式 `BackgroundPolicy`、边界连通去底与技术审查、标准资产一命令轮次发布、Agent staging 登记入口、Approved/CandidateBatch 统一来源解析、集成报告字段和一次性 flat processed 迁移工具。
+- 迁移证据：dry-run 初始统计 290 个工作区、999 张 flat 图片、998 个 `.meta`、92 条 SelectedPath 改写、0 冲突；执行中发现 Manifest 重复条目导致的同工作区重复，已按 workspace 去重后恢复。最终 flat 图片为 0，数字轮次为 285，Protected Approved/Registry/Zero 原图哈希未变。
+- Zero 当前状态：`character_portraits/doll_zero_dialogue_neutral/processed/1/decision.json` 为 `failed`，原因 `transparent_background_contract_failed`；Manifest 仍为 `Status=generated`、Selected/Approved 为空、Registry 未注册。下一次安全处理只能分配 `processed/2/`，由 Agent 选择保留白发、白布、皮肤和浅色服装的前景处理能力。
+- 当前边界：没有修改 Approved、Unity Registry、Prefab、`.meta` GUID 或运行时资源；本轮只完成生产基础设施和迁移，未开始 Zero round 2 生图或 Unity 验收。
+- 验证状态：工具全量 `109` 项测试通过，关键模块 `py_compile` 通过；Unity 未运行，记录 `validation_limited:unity_not_run`。

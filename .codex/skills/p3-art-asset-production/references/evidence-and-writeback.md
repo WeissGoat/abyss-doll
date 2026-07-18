@@ -23,7 +23,45 @@ UnityClient/Logs/P3ArtProduction/<ProductionRunID>/
 
 This is evidence, not a second project progress table.
 
-Per VisualID, keep working evidence in the existing `_IncomingAI/<VisualID>/` structure, including `generation.json`, `process_report.json`, contact sheets, and `production_decision.json`.
+Per VisualID, keep working evidence in the profile workspace:
+
+```text
+UnityClient/Assets/Art/_IncomingAI/
+  standard_assets/<VisualID>/
+    raw/
+    processed/
+      1/
+        decision.json
+      2/
+    selected/
+    contact_sheet/
+    generation.json
+    process_report.json
+    production_decision.json
+
+  character_portraits/<VisualID>/
+    raw/
+    processed/
+      1/
+        decision.json
+      2/
+    selected/
+    contact_sheet/
+    asset_contract.json
+    production_plan.json
+    reference_inputs.json
+    generation.json
+    process_report.json
+    production_decision.json
+
+  _legacy_runs/
+```
+
+The immediate children of `standard_assets/` and `character_portraits/` are VisualIDs. `_legacy_runs/` is historical only and must never feed Manifest production, preprocessing, Approved sync, or integration queues.
+
+Use generic candidate filenames such as `raw/r01_001.png` and `processed/2/001.png`. Each published round records the actual tool, capability, provider if applicable, inputs, reason, outputs, errors, timestamps, hashes, dimensions, formats, and decision state. Do not encode a generation-method taxonomy into stable directories, AssetIDs, VisualIDs, or required contract fields.
+
+For character sets, store set-level request, member plan, relationship graph, consistency review, contact sheet, and runtime sequence evidence under the ProductionRunID directory. Do not add an `AssetSetID` directory level between `character_portraits/` and `<VisualID>`.
 
 ## Freshness gate
 
@@ -53,10 +91,9 @@ After meaningful work:
 ## Claim limits
 
 - raw exists: candidate generation complete;
-- processed/contact sheet: ready for selection;
+- latest processed round with decision evidence: ready for selection or explicit repair/decision;
 - selected: candidate selection complete;
 - Approved + stable `.meta`: asset complete;
 - live Registry/UI binding: integration complete;
 - runtime evidence: runtime art validation complete;
 - normal player-path evidence: player-path integration complete.
-

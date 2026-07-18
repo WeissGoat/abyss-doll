@@ -34,6 +34,18 @@ Adjust weights by asset type:
 - comic panel: increase narrative semantics, identity continuity, and reading composition;
 - UI skin: increase stretchability, empty content area, and engineering usability.
 
+## Character set consistency
+
+For related `character_portrait_set` members, do not stop at isolated candidate scores. Compare the selected candidates against active character facts, design-layer anchors, their declared source relationships, and one another. Check at least:
+
+- recognizable identity, face structure, hair, costume, and body proportions;
+- head size, eye line, baseline, canvas position, and expected runtime crop;
+- lighting, palette, rendering language, and outline treatment;
+- whether the requested state is readable without unintended identity or direction change;
+- whether rapid runtime switching produces visible jumps not required by the performance.
+
+A member can pass its individual score and still fail set consistency. Return only the affected member to review or adjustment unless the shared anchor or art direction is invalid.
+
 ## Decision thresholds
 
 - `>= 88`, no hard failure, and lead over second place `>= 5`: auto-select.
@@ -49,7 +61,7 @@ Record for every valid candidate:
 
 ```json
 {
-  "path": "processed/example.png",
+  "path": "processed/2/001.png",
   "hard_gate": "passed",
   "scores": {
     "semantic": 23,
@@ -67,3 +79,4 @@ Record for every valid candidate:
 
 Use actual image inspection, contact sheets, small-size previews, and relevant identity/style anchors. Do not score from filenames or prompts alone.
 
+The latest numeric round is authoritative. A single valid `passed` candidate may be resolved for downstream selection; multiple passed candidates require an explicit selection. A latest failed, decision-required, or legacy-unverified round blocks fallback to earlier rounds.

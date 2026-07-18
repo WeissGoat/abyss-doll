@@ -13,7 +13,7 @@ related:
   - 美术文档/00_美术流水线总览.md
   - 美术文档/04_美术风格基准.md
   - tools/美术工具/README.md
-last_verified: 2026-07-14
+last_verified: 2026-07-18
 update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
 ---
 
@@ -139,6 +139,7 @@ Manifest 是美术生产台账，不是玩法配置表，也不是 Unity 运行�
 | `DisplayName` | `战术长刀` | 中文名。 |
 | `AssetType` | `icon` | `icon`、`portrait`、`background`、`frame`、`stand` 等。 |
 | `VisualID` | `item_gear_tactical_blade_icon` | 程序侧稳定引用 ID。 |
+| `ProductionProfile` | `standard_asset` | 工作区与编排 Profile：`standard_asset` 或 `character_portrait_set`；不表示生成方法。缺省归一为 `standard_asset`。 |
 | `OutputPath` | `UnityClient/Assets/Art/Approved/...png` | Approved 后目标路径。 |
 | `Priority` | `P0` | 优先级。 |
 | `Status` | `todo` | 新扫出的资产默认 `todo`。 |
@@ -169,8 +170,8 @@ Step 2 完成后，将 `Status` 改为 `prompted`。
 | 字段 | 步骤 | 说明 |
 |---|---|---|
 | `BatchID` | Step 3 | AI 生成批次 ID，只作记录，不作为 `_IncomingAI` 目录层级。 |
-| `RawPath` | Step 3 | 原始生成图路径，指向 `_IncomingAI/<VisualID>/raw`。 |
-| `SelectedPath` | Step 5 | 初筛通过的候选图路径，通常位于 `_IncomingAI/<VisualID>/selected`。 |
+| `RawPath` | Step 3 | 原始生成图路径，指向当前 Profile 工作区的 `raw/`。 |
+| `SelectedPath` | Step 5 | 初筛通过的候选图路径，通常位于当前 Profile 工作区的 `selected/`。 |
 | `ApprovedPath` | Step 5 | 规格整理后的正式素材路径。 |
 | `RegistryStatus` | Step 5 | `unregistered`、`registered`、`validated` 等。 |
 | `Notes` | 任意 | 备注、返工原因、筛选结论。 |
@@ -179,7 +180,9 @@ Asset Contract 字段归属：
 
 - `VisualID`、`OutputPath`、`SourceSpec`、`DisplaySpec`、`CompositionSpec`、`ProcessSpec`、`QualityTier` 来自 Manifest；
 - 角色身份、场景 / 风格锚点、must-preserve、allowed-changes、forbidden 等来自专项事实文档；
-- ProductionRunID、候选评分、交互决定、文件 hash 和恢复状态写入运行证据与 `_IncomingAI/<VisualID>/production_decision.json`，在脚本正式支持前不塞入 Manifest。
+- ProductionRunID、候选评分、交互决定、文件 hash 和恢复状态写入运行证据与当前 Profile 工作区的 `production_decision.json`，在脚本正式支持前不塞入 Manifest。
+
+工作区映射固定为：`standard_asset -> _IncomingAI/standard_assets/<VisualID>/`，`character_portrait_set -> _IncomingAI/character_portraits/<VisualID>/`。角色 Profile 可额外使用 `AssetSetID`、`AssetID`、`SetRole` 和 `SourceAssets` 描述套组与来源关系，但这些字段不要求任何特定生图方式，也不增加 `AssetSetID` 物理目录层级。
 
 正式 `SelectedPath` 必须绑定本次采用候选。选择证据至少能追溯 CandidateBatchID / ProductionRunID、文件 hash 和选择结论；不得仅依赖 `selected/` 中文件名字典序推断当前候选。
 
@@ -214,6 +217,10 @@ Asset Contract 字段归属：
 ## 6. Spec 结构
 
 `Spec` 必须是对象，不是自然语言字符串。它用于连接美术生产、AI 生成、预处理脚本和 Unity 显示验证。
+
+`Spec.ProcessSpec.BackgroundPolicy` 为必填字段，合法值仅限 `preserve`、`already_transparent`、`auto_simple`、`agent_required`。`AlphaRequired` 只描述最终 alpha 契约，不隐式选择去底方式。
+
+处理候选位于当前 Profile 工作区的 `processed/<正整数>/`。Manifest `SelectedPath` 可明确指向 `selected/` 或某个数字轮次中的候选；自动解析优先级为 `SelectedPath -> selected/ -> 最新数字轮次中唯一且通过的候选`。最新轮次失败、待决策、未验证或多候选时禁止回退旧轮次。
 
 从 2026-05-10 起，`Spec` 分为四组：
 

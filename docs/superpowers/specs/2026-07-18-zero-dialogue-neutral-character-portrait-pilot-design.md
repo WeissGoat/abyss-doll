@@ -13,6 +13,8 @@ update_rule: 首轮角色立绘试跑的 Asset Contract、生产边界、候选�
 
 # 零号对话中性立绘首轮流程试跑设计
 
+> **已被后续统一方案替代：** 本文保留首轮试跑的历史设计与失败事实，但其中平坦 `processed/r01_001.png` 和隐式白底去除不再是 active 流程。当前证据已迁移到 `processed/1/r01_001.png`，`decision.json` 为 `State=failed`；下一次安全修复必须进入 `processed/2/`，并按 `BackgroundPolicy=agent_required` 由 Agent 选择前景保护处理能力。
+
 ## 1. 目标与边界
 
 用一个低风险、已有候选的角色立绘成员验证 `character_portrait_set` 的正式前半段链路：需求准入、Manifest、Profile 工作区、候选导入、预处理、技术门禁、视觉决策和证据写回。
@@ -134,7 +136,7 @@ forbidden:
 1. Add one `SourceType=preset` entry to `美术文档/art_requirements_seed.json` with the fields above and `ProductionProfile=character_portrait_set`.
 2. Run `Update-ArtManifest.ps1`; verify the entry resolves to `character_portraits/doll_zero_dialogue_neutral/` and does not alter existing entries.
 3. Copy the existing selected PNG into that member's `raw/` with a `reference_inputs.json` record containing source path, hash, dimensions, and provenance.
-4. Run `Optimize-ArtAssets.ps1` for this VisualID. Expected deterministic processing: white-background removal, 1024x1536 RGBA PNG, safe padding, processed output and contact sheet.
+4. Historical expectation: run `Optimize-ArtAssets.ps1` for deterministic white-background removal. This expectation failed and is superseded by explicit `BackgroundPolicy` plus numeric rounds; current character processing requires Agent-owned staging and guarded registration.
 5. Inspect processed pixels and contact sheet at full size and dialogue-scale preview. Record hard gate, score, risks and recommendation in `production_decision.json`.
 6. Stop at `SELECTION_DECISION` if alpha extraction damages hair/feet, the candidate is not visibly a 3/4 dialogue pose, or identity/scale cannot be compared reliably. Ask for a concrete repair or source decision.
 7. Do not run `Sync-ApprovedArt.ps1` in this pilot. The maximum claim is `processed_candidate`; `Approved`, `registered` and `runtime_validated` remain false.
@@ -144,7 +146,8 @@ Expected workspace:
 ```text
 UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_neutral/
   raw/r01_001.png
-  processed/r01_001.png
+  processed/1/r01_001.png
+  processed/1/decision.json
   contact_sheet/doll_zero_dialogue_neutral_contact_sheet.png
   asset_contract.json
   production_plan.json
