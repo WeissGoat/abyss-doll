@@ -18,6 +18,20 @@ def atomic_write_json(path: Path, payload: dict) -> None:
     temporary.replace(path)
 
 
+def atomic_copy(source: Path, destination: Path) -> None:
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    temporary = destination.with_suffix(destination.suffix + ".tmp")
+    shutil.copy2(source, temporary)
+    temporary.replace(destination)
+
+
+def atomic_write_text(path: Path, content: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(content, encoding="utf-8")
+    temporary.replace(path)
+
+
 class RunStore:
     def __init__(self, config: RunConfig, paths: RunPaths) -> None:
         self.config = config
@@ -49,25 +63,52 @@ class RunStore:
             existing = json.loads(config_path.read_text(encoding="utf-8"))
             if existing != config.to_dict():
                 raise ValueError("run configuration is immutable")
-            return cls(config, paths)
-        if paths.root.exists() and any(paths.root.iterdir()):
-            raise ValueError(f"run directory is not empty: {paths.root}")
-        if not Path(config.input_gif).is_file():
-            raise FileNotFoundError(config.input_gif)
-        for reference in config.references:
-            if not Path(reference).is_file():
-                raise FileNotFoundError(reference)
-        paths.create_directories()
-        shutil.copy2(config.input_gif, paths.input_dir / "source.gif")
-        (paths.input_dir / "character_prompt.txt").write_text(config.prompt + "\n", encoding="utf-8")
-        references_dir = paths.input_dir / "references"
+        else:
+            if paths.root.exists() and any(paths.root.iterdir()):
+                raise ValueError(f"run directory is not empty: {paths.root}")
+            cls._validate_sources(config)
+            atomic_write_json(config_path, config.to_dict())
+
+        store = cls(config, paths)
+        store._ensure_initial_evidence()
+        return store
+
+    @staticmethod
+    def _validate_sources(config: RunConfig) -> None:
+        sources = (config.input_gif, *config.references)
+        for source in sources:
+            if not Path(source).is_file():
+                raise FileNotFoundError(source)
+
+    def _ensure_initial_evidence(self) -> None:
+        self.paths.create_directories()
+
+        source_gif = self.paths.input_dir / "source.gif"
+        if not source_gif.exists():
+            self._restore_input_file(Path(self.config.input_gif), source_gif)
+
+        prompt_path = self.paths.input_dir / "character_prompt.txt"
+        if not prompt_path.exists():
+            atomic_write_text(prompt_path, self.config.prompt + "\n")
+
+        references_dir = self.paths.input_dir / "references"
         references_dir.mkdir(parents=True, exist_ok=True)
-        for index, reference in enumerate(config.references):
+        for index, reference in enumerate(self.config.references):
             source = Path(reference)
-            shutil.copy2(source, references_dir / f"reference_{index:02d}{source.suffix.lower()}")
-        atomic_write_json(config_path, config.to_dict())
-        atomic_write_json(paths.root / "run_state.json", RunState.initial().to_dict())
-        return cls(config, paths)
+            destination = references_dir / f"reference_{index:02d}{source.suffix.lower()}"
+            if not destination.exists():
+                self._restore_input_file(source, destination)
+
+        if not self.state_path.exists():
+            atomic_write_json(self.state_path, RunState.initial().to_dict())
+
+    @staticmethod
+    def _restore_input_file(source: Path, destination: Path) -> None:
+        if not source.is_file():
+            raise FileNotFoundError(
+                f"cannot restore missing run evidence {destination}: source is unavailable: {source}"
+            )
+        atomic_copy(source, destination)
 
     @classmethod
     def load(cls, run_root: Path) -> "RunStore":
