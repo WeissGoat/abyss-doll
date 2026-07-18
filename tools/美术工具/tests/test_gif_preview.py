@@ -96,6 +96,7 @@ class GifPreviewTests(unittest.IsolatedAsyncioTestCase):
             prompt="silver-haired mechanic",
             references=references,
         )
+        config = dataclasses.replace(config, delay_seconds=0)
         store = RunStore.create(config)
         timeline = extract_timeline(source, store.paths.original_frames_dir, 8, 30)
         store.update_state(lambda state: dataclasses.replace(state, timeline=timeline))

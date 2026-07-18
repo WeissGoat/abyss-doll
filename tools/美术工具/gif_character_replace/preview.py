@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 from dataclasses import dataclass, replace
 from pathlib import Path
@@ -104,6 +105,8 @@ async def generate_identity_candidates(
         raise ValueError("timeline is required before identity generation")
     candidate_dir = store.paths.identity_dir / "anchor_candidates"
     for index in range(3):
+        if index > 0 and store.config.delay_seconds > 0:
+            await asyncio.sleep(store.config.delay_seconds)
         generated = await backend.generate_anchor(
             contract.provider_prompt, state.timeline.width, state.timeline.height
         )
@@ -159,10 +162,12 @@ async def generate_preview(
     identity_images = [path.read_bytes() for path in identity_paths]
     prompt = _contract_prompt(identity_inputs)
 
-    for label, index in (
+    for request_index, (label, index) in enumerate((
         ("identity_frame", selection.identity_index),
         ("action_frame", selection.action_index),
-    ):
+    )):
+        if request_index > 0 and store.config.delay_seconds > 0:
+            await asyncio.sleep(store.config.delay_seconds)
         generated = await backend.replace_frame(
             identity_images,
             frame_paths[index].read_bytes(),
