@@ -4,7 +4,7 @@ title: AI 图片网关透明流式模式设计
 type: design
 role: 程序
 domain: ai_image_gateway
-status: draft
+status: implemented
 source_of_truth: false
 last_verified: 2026-07-18
 update_rule: 透明流式接口、SSE 解析、fallback、错误语义、证据字段或验收范围变化时更新本设计。
@@ -227,7 +227,7 @@ stream_completed_by_done
 新增 `tests/test_sse_transport.py`，覆盖：
 
 1. 多行 `data:` 合并。
-2. 注释心跳和空行忽略与计数。
+2. 注释心跳和空行忽略。
 3. `[DONE]` 正常结束。
 4. 无 `[DONE]` 的正常 EOF。
 5. provider error event。
@@ -276,6 +276,36 @@ examples/smoke_streaming_chat_image.py
 - `ImageService` 返回接口是否与非流式一致。
 
 如果服务端未发送任何早期事件，记录 `validation_limited:upstream_no_early_sse_event`；该结果说明客户端流式支持已成立，但不能由客户端单独解决服务端或 Cloudflare 超时。
+
+## 实施与验证结果
+
+2026-07-18 已在 `tools/ai-image-gateway` 实现并提交：
+
+- `78962f4`：`httpx-sse` 依赖、`sse_transport.py` 和基础传输测试。
+- `9c23672`：chat image provider 透明流式接入。
+- `88b4d55`：错误、断流和无 buffered 二次请求回归。
+- `51fe7f8`：真实服务 streaming smoke CLI。
+- `c2610b6`：子模块 README 与中转事实文档。
+- `2b2da58`：注释心跳与 `image_to_image(stream=true)` 补充覆盖。
+
+自动验证：
+
+```text
+targeted streaming tests: 35 passed
+full gateway suite: 121 passed
+compileall: passed
+```
+
+真实 Gemini 证据：
+
+- 文生图通过：总耗时 `109.672s`，首个业务事件 `0.0s`，事件数 `5`，收到
+  `[DONE]`，输出 `113200` 字节 JPEG 且可解码。
+- 双参考图图生图未通过：连接保持到 `292.906s` 后，上游关闭不完整 chunked
+  response，错误为 `incomplete chunked read`，没有返回可解码图片；记录
+  `validation_limited:stream_request_failed_before_success_evidence`。
+
+因此客户端增量 SSE 能力与文生图长耗时路径已经获得真实证据，双图图生图仍受上游
+响应完整性限制，不能声明端到端稳定或完整解决所有代理超时。
 
 ## 文档与状态回写
 

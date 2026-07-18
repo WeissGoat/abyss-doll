@@ -57,12 +57,13 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 - 首个 `character_portrait_set` 试跑当前停在 `decision_required`：候选身份和尺寸基本成立，但自动去白底误删白布、皮肤和浅色裙面，尚未进入 selected / Approved。
 - 正式 UI / 素材接入仍以 active `screen_layouts.json`、Manifest、程序交接清单和 ArtAcceptance 为准；静态预览、contact sheet 或生成物不能替代运行时证据。
 - T0-01A 的 CG / 漫画页和 FormalV2 工坊素材继续按锚点、一致性、Approved、Unity 接入和运行时验收顺序推进。
+- GIF 小循环人物替换继续使用 Gemini 图生图；客户端已具备透明 SSE，但双参考图仍需观察上游长响应完整性。
 
 ## 最近完成
 
 - `_IncomingAI` 已迁移为 Profile 目录，现有 standard asset 工作区和历史目录均保留可追溯路径，Approved / Registry 文件哈希未改变。
 - `p3-art-asset-production`、`generate-image`、`p3-narrative-cg-comic` 和 `p3-art-validation` 已完成职责分工；美术验收不再维护人工主美审批状态机。
-- GIF 小循环人物替换工具已完成离线测试；外部 provider smoke 受超时 / 限流影响时只记录 `validation_limited:*`。
+- GIF 小循环人物替换工具已完成离线测试；图片网关透明 SSE 已实现，真实 Gemini 文生图在 `109.672s` 成功并于 `0.0s` 收到首事件，双参考图仍按受限证据处理。
 
 ## 下一步建议
 
@@ -74,12 +75,14 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 - 当前角色立绘阻塞为 `failed:transparent_background_contract_failed`；自动去白底不能直接处理白色服饰和眼罩。
 - 外部图片 provider 仍可能出现超时或限流；受限时不得声明生成成功、视觉一致性通过或正式资产验收完成。
+- 双参考图流式 smoke 在 `292.906s` 后由上游关闭不完整 chunked response，记录 `validation_limited:stream_request_failed_before_success_evidence`；未生成可解码图片，不推进 GIF 预审或正式资产状态。
 - T0-01A 最终运行时漫画播放、ArtAcceptance 和外部美术验收仍未封板。
 
 ## 关键证据入口
 
 - `UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_neutral/production_decision.json`
 - `UnityClient/Logs/P3ArtProduction/zero_dialogue_neutral_pilot_20260718_01/summary.json`
+- `docs/superpowers/specs/2026-07-18-ai-image-gateway-transparent-streaming-design.md`
 - `美术文档/00_美术流水线总览.md`
 - `美术文档/10_正式版核心纵切美术路线.md`
 - `美术文档/18_CG底图与漫画式播放演出工作流.md`

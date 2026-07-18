@@ -485,7 +485,7 @@
       "type": "design",
       "role": "程序",
       "domain": "ai_image_gateway",
-      "status": "draft",
+      "status": "implemented",
       "source_of_truth": false,
       "related": [],
       "last_verified": "2026-07-18",
