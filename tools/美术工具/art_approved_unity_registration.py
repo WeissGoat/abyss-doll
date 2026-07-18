@@ -284,6 +284,9 @@ def create_plan(
             "exclude": ["runtime_binding", "playmode", "art_acceptance", "program_regression"],
         },
         "manifest_path": repo_relative(manifest_path, project_root),
+        "incoming_root": repo_relative(incoming_root, project_root),
+        "approved_root": repo_relative(approved_root, project_root),
+        "evidence_root": repo_relative(evidence_root, project_root),
         "created_at": now_iso(),
     }
     request_fingerprint = sha256_json({
@@ -316,6 +319,130 @@ def create_plan(
     return plan
 
 
+def _run_project_root(plan: dict[str, Any]) -> Path:
+    value = plan.get("project_root")
+    if not isinstance(value, str) or not value:
+        raise ArtImportError("approved-plan.json lacks project_root")
+    return Path(value).resolve(strict=False)
+
+
+def _manifest_entry_by_visual_id(manifest_path: Path, visual_id: str) -> dict[str, Any]:
+    matches = [entry for entry in _load_entries(manifest_path) if entry.get("VisualID") == visual_id]
+    if len(matches) != 1:
+        raise ArtImportError(f"duplicate Manifest VisualID: {visual_id}")
+    return matches[0]
+
+
+def verify_sync_authorization(
+    run_path: Path,
+    *,
+    authorize_approved_sync: bool,
+    allow_existing_target_overwrite: bool = False,
+    allow_new_approved_target: bool = False,
+) -> dict[str, Any]:
+    request = load_run_document(run_path, "request.json", REQUEST_SCHEMA)
+    plan = load_run_document(run_path, "approved-plan.json", PLAN_SCHEMA)
+    if request.get("request_fingerprint") != plan.get("request_fingerprint"):
+        raise ArtImportError("failed:approved_sync request fingerprint mismatch")
+    blocking_errors = plan.get("blocking_errors")
+    if isinstance(blocking_errors, list) and blocking_errors:
+        first = blocking_errors[0]
+        code = first.get("code") if isinstance(first, dict) else str(first)
+        raise ArtImportError(str(code))
+    permissions = request.get("permissions")
+    if not isinstance(permissions, dict):
+        raise ArtImportError("request permissions are missing")
+    if not authorize_approved_sync:
+        raise ArtImportError("blocked:approved_authorization_required")
+
+    project_root = _run_project_root(plan)
+    manifest_path = resolve_path(str(request.get("manifest_path", "")), project_root)
+    incoming_root = resolve_path(str(request.get("incoming_root", DEFAULT_INCOMING_ROOT)), project_root)
+    for planned in plan.get("items", []):
+        if not isinstance(planned, dict):
+            raise ArtImportError("approved-plan items must be objects")
+        visual_id = str(planned.get("visual_id", ""))
+        action = planned.get("action")
+        allow_new = bool(permissions.get("allow_new_approved_target")) or allow_new_approved_target
+        allow_overwrite = bool(permissions.get("allow_existing_target_overwrite")) or allow_existing_target_overwrite
+        if action == "create" and not allow_new:
+            raise ArtImportError(f"blocked: new Approved target requires permission: {visual_id}")
+        if action == "overwrite" and not allow_overwrite:
+            raise ArtImportError(f"blocked: existing Approved target overwrite requires permission: {visual_id}")
+
+        entry = _manifest_entry_by_visual_id(manifest_path, visual_id)
+        if sha256_json(entry) != planned.get("manifest_entry_sha256"):
+            raise ArtImportError(f"failed:approved_sync Manifest entry changed: {visual_id}")
+        workspace = workspace_path(incoming_root, entry)
+        source, _ = _entry_source(workspace, entry, project_root)
+        if source is None or not source.exists() or sha256_file(source) != planned.get("selected_sha256"):
+            raise ArtImportError(f"failed:approved_sync selected source changed: {visual_id}")
+
+        target = resolve_path(str(planned.get("output_path", "")), project_root)
+        if target.exists():
+            current_hash = sha256_file(target)
+            allowed_hashes = {str(planned.get("target_sha256", "")), str(planned.get("selected_sha256", ""))}
+            if current_hash not in allowed_hashes:
+                raise ArtImportError(f"failed:approved_sync Approved target changed: {visual_id}")
+        meta_path = target.with_name(target.name + ".meta")
+        planned_meta_hash = str(planned.get("target_meta_sha256", ""))
+        if planned_meta_hash:
+            if not meta_path.exists() or sha256_file(meta_path) != planned_meta_hash:
+                raise ArtImportError(f"failed:approved_sync meta changed: {visual_id}")
+            if parse_meta_guid(meta_path) != planned.get("target_meta_guid"):
+                raise ArtImportError(f"failed:approved_sync GUID changed: {visual_id}")
+    return plan
+
+
+def record_approved_sync(run_path: Path) -> dict[str, Any]:
+    request = load_run_document(run_path, "request.json", REQUEST_SCHEMA)
+    plan = load_run_document(run_path, "approved-plan.json", PLAN_SCHEMA)
+    project_root = _run_project_root(plan)
+    items: list[dict[str, Any]] = []
+    for planned in plan.get("items", []):
+        if not isinstance(planned, dict):
+            raise ArtImportError("approved-plan items must be objects")
+        visual_id = str(planned.get("visual_id", ""))
+        target = resolve_path(str(planned.get("output_path", "")), project_root)
+        if not target.exists():
+            raise ArtImportError(f"failed:approved_sync target missing: {visual_id}")
+        approved_sha = sha256_file(target)
+        if approved_sha != planned.get("selected_sha256"):
+            raise ArtImportError(f"failed:approved_sync hash mismatch: {visual_id}")
+        meta_path = target.with_name(target.name + ".meta")
+        planned_meta_hash = str(planned.get("target_meta_sha256", ""))
+        meta_guid = ""
+        meta_status = "awaiting_unity_import"
+        if meta_path.exists():
+            meta_guid = parse_meta_guid(meta_path)
+            meta_status = "generated" if not planned_meta_hash else "preserved"
+        if planned_meta_hash:
+            if not meta_path.exists() or sha256_file(meta_path) != planned_meta_hash:
+                raise ArtImportError(f"failed:approved_sync meta changed: {visual_id}")
+            if meta_guid != planned.get("target_meta_guid"):
+                raise ArtImportError(f"failed:approved_sync GUID changed: {visual_id}")
+        items.append({
+            "visual_id": visual_id,
+            "output_path": planned["output_path"],
+            "unity_asset_path": planned["unity_asset_path"],
+            "approved_sha256": approved_sha,
+            "meta_sha256": sha256_file(meta_path) if meta_path.exists() else "",
+            "meta_guid": meta_guid,
+            "meta_status": meta_status,
+            "status": "passed",
+        })
+    result = {
+        "schema": SYNC_SCHEMA,
+        "art_import_run_id": request["art_import_run_id"],
+        "unity_instance": request["unity_instance"],
+        "request_fingerprint": request["request_fingerprint"],
+        "items": items,
+        "completed_at": now_iso(),
+    }
+    write_json_atomic(run_path / "approved-sync.json", result)
+    return result
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -331,6 +458,15 @@ def build_parser() -> argparse.ArgumentParser:
     plan_parser.add_argument("--allow-approved-sync", action="store_true")
     plan_parser.add_argument("--allow-existing-target-overwrite", action="store_true")
     plan_parser.add_argument("--allow-new-approved-target", action="store_true")
+    verify_parser = subparsers.add_parser("verify-sync")
+    verify_parser.add_argument("--evidence-root", default=DEFAULT_EVIDENCE_ROOT)
+    verify_parser.add_argument("--art-import-run-id", required=True)
+    verify_parser.add_argument("--authorize-approved-sync", action="store_true")
+    verify_parser.add_argument("--allow-existing-target-overwrite", action="store_true")
+    verify_parser.add_argument("--allow-new-approved-target", action="store_true")
+    record_parser = subparsers.add_parser("record-sync")
+    record_parser.add_argument("--evidence-root", default=DEFAULT_EVIDENCE_ROOT)
+    record_parser.add_argument("--art-import-run-id", required=True)
     return parser
 
 
@@ -353,6 +489,21 @@ def main(argv: list[str] | None = None) -> int:
             },
         )
         print(json.dumps(plan, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "verify-sync":
+        result = verify_sync_authorization(
+            run_dir(resolve_path(args.evidence_root, PROJECT_ROOT), args.art_import_run_id),
+            authorize_approved_sync=args.authorize_approved_sync,
+            allow_existing_target_overwrite=args.allow_existing_target_overwrite,
+            allow_new_approved_target=args.allow_new_approved_target,
+        )
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "record-sync":
+        result = record_approved_sync(
+            run_dir(resolve_path(args.evidence_root, PROJECT_ROOT), args.art_import_run_id)
+        )
+        print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
     raise ArtImportError(f"unsupported command: {args.command}")
 

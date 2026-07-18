@@ -20,7 +20,9 @@ from art_approved_unity_registration import (  # noqa: E402
     create_plan,
     find_approved_basename_collisions,
     parse_meta_guid,
+    record_approved_sync,
     sha256_file,
+    verify_sync_authorization,
 )
 
 
@@ -143,6 +145,73 @@ class ArtApprovedUnityRegistrationTests(unittest.TestCase):
         second = create_plan(**kwargs)
         self.assertEqual(first["request_fingerprint"], second["request_fingerprint"])
         self.assertEqual(first["items"], second["items"])
+
+    def test_verify_sync_requires_explicit_gate_and_new_target_permission(self) -> None:
+        create_plan(
+            manifest_path=self.manifest_path,
+            incoming_root=self.incoming_root,
+            approved_root=self.approved_root,
+            evidence_root=self.evidence_root,
+            art_import_run_id="art_import_test_04",
+            visual_ids=["doll_zero_dialogue_neutral"],
+            mode="interactive",
+            unity_instance="UnityClient@test1234",
+            permissions={"allow_approved_sync": True},
+        )
+        run_path = self.evidence_root / "art_import_test_04"
+        with self.assertRaisesRegex(ArtImportError, "approved_authorization_required"):
+            verify_sync_authorization(run_path, authorize_approved_sync=False)
+        with self.assertRaisesRegex(ArtImportError, "new Approved target"):
+            verify_sync_authorization(run_path, authorize_approved_sync=True)
+
+    def test_record_approved_sync_accepts_new_target_without_meta(self) -> None:
+        create_plan(
+            manifest_path=self.manifest_path,
+            incoming_root=self.incoming_root,
+            approved_root=self.approved_root,
+            evidence_root=self.evidence_root,
+            art_import_run_id="art_import_test_05",
+            visual_ids=["doll_zero_dialogue_neutral"],
+            mode="interactive",
+            unity_instance="UnityClient@test1234",
+            permissions={
+                "allow_approved_sync": True,
+                "allow_new_approved_target": True,
+            },
+        )
+        run_path = self.evidence_root / "art_import_test_05"
+        verify_sync_authorization(run_path, authorize_approved_sync=True)
+        self.output_path.parent.mkdir(parents=True, exist_ok=True)
+        self.output_path.write_bytes(self.selected_path.read_bytes())
+        result = record_approved_sync(run_path)
+        self.assertEqual(result["items"][0]["meta_status"], "awaiting_unity_import")
+        self.assertEqual(result["items"][0]["approved_sha256"], sha256_file(self.selected_path))
+
+    def test_record_approved_sync_preserves_existing_meta(self) -> None:
+        self.output_path.parent.mkdir(parents=True, exist_ok=True)
+        self.write_image(self.output_path, (1024, 1536), (1, 2, 3, 255))
+        meta_path = self.output_path.with_name(self.output_path.name + ".meta")
+        meta_path.write_text("fileFormatVersion: 2\nguid: 0123456789abcdef0123456789abcdef\n", encoding="utf-8")
+        create_plan(
+            manifest_path=self.manifest_path,
+            incoming_root=self.incoming_root,
+            approved_root=self.approved_root,
+            evidence_root=self.evidence_root,
+            art_import_run_id="art_import_test_06",
+            visual_ids=["doll_zero_dialogue_neutral"],
+            mode="interactive",
+            unity_instance="UnityClient@test1234",
+            permissions={
+                "allow_approved_sync": True,
+                "allow_existing_target_overwrite": True,
+            },
+        )
+        run_path = self.evidence_root / "art_import_test_06"
+        verify_sync_authorization(run_path, authorize_approved_sync=True)
+        self.output_path.write_bytes(self.selected_path.read_bytes())
+        result = record_approved_sync(run_path)
+        self.assertEqual(result["items"][0]["meta_status"], "preserved")
+        self.assertEqual(result["items"][0]["meta_guid"], "0123456789abcdef0123456789abcdef")
 
 
 if __name__ == "__main__":
