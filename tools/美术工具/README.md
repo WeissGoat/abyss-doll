@@ -1,5 +1,16 @@
 ---
 
+## Migrate-ArtProcessedRounds.ps1
+
+一次性把旧的平坦 `processed/*.png` 迁移到 `processed/1/`，保留原文件名并同时迁移相邻 `.meta`。默认命令只生成迁移计划，确认没有冲突后才允许执行：
+
+```powershell
+.\tools\美术工具\Migrate-ArtProcessedRounds.ps1
+.\tools\美术工具\Migrate-ArtProcessedRounds.ps1 -Execute
+```
+
+如果已有 `processed/1/` 与平坦文件并存，工具会阻断迁移。旧候选默认登记为 `legacy_unverified`；已有生产决策硬失败的候选登记为 `failed`。只有 SelectedPath 精确指向被迁移文件时才改写路径；Approved、Registry 和运行时资源不会被触碰。
+
 ## Register-ArtProcessingRound.ps1
 
 将 Agent 产生的候选处理结果登记为下一个不可变的 `processed/<正整数>/` 轮次。staging 目录必须包含直接子级候选图片、`decision.json`、`process_report.json` 和 `technical_review.json`；角色立绘的 `passed` 轮次还必须包含 `visual_review.json`。
