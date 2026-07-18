@@ -246,13 +246,21 @@ def resolve_latest_processed_candidate(
 def _safe_manifest_selected_path(workspace: Path, path: Path) -> Path | None:
     candidate = path if path.is_absolute() else workspace / path
     resolved = candidate.resolve(strict=False)
-    try:
-        resolved.relative_to(workspace.resolve(strict=False))
-    except ValueError:
+    allowed = [workspace.resolve(strict=False) / "selected"]
+    allowed.extend(round_dir.resolve(strict=False) for _, round_dir in numeric_round_directories(workspace / "processed"))
+    if not any(_is_path_within(resolved, root) for root in allowed):
         return None
     if not candidate.is_file() or candidate.suffix.lower() not in IMAGE_EXTENSIONS:
         return None
     return candidate
+
+
+def _is_path_within(path: Path, directory: Path) -> bool:
+    try:
+        path.relative_to(directory)
+        return True
+    except ValueError:
+        return False
 
 
 def _first_selected_image(selected_dir: Path) -> Path | None:

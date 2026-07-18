@@ -10,6 +10,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from art_processing import resolve_selected_or_processed_candidate
+from art_workspace import normalize_entry_workspace_paths, workspace_path
+
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[1]
@@ -88,70 +91,34 @@ def first_image(path: Path) -> Path | None:
     return images[0] if images else None
 
 
-def choose_source(workspace: Path, allow_processed_fallback: bool) -> tuple[Path | None, str]:
-    selected = first_image(workspace / "selected")
-    if selected:
-        return selected, "selected"
-    if allow_processed_fallback:
-        processed = first_image(workspace / "processed")
-        if processed:
-            return processed, "processed"
-    return None, ""
+def manifest_selected_path(entry: dict[str, Any]) -> Path | None:
+    value = str(entry.get("SelectedPath", "") or "").strip()
+    return resolve_project_path(value, value) if value else None
 
 
-def first_candidate_processed(workspace: Path, entry: dict[str, Any]) -> Path | None:
-    candidate_stems = candidate_raw_stems(entry)
-    if not candidate_stems:
-        return None
-    candidates = [
-        path
-        for path in (workspace / "processed").iterdir()
-        if path.is_file() and path.suffix.lower() in IMAGE_EXTENSIONS and path.stem in candidate_stems
-    ] if (workspace / "processed").exists() else []
-    return sorted(candidates)[0] if candidates else None
-
-
-def first_candidate_selected(workspace: Path, entry: dict[str, Any]) -> Path | None:
-    candidate_stems = candidate_raw_stems(entry)
-    if not candidate_stems:
-        return None
-    selected_dir = workspace / "selected"
-    if not selected_dir.exists():
-        return None
-    candidates = [
-        path
-        for path in selected_dir.iterdir()
-        if path.is_file() and path.suffix.lower() in IMAGE_EXTENSIONS and path.stem in candidate_stems
-    ]
-    return sorted(candidates)[0] if candidates else None
-
-
-def candidate_raw_stems(entry: dict[str, Any]) -> set[str]:
-    raw_files = entry.get("CandidateRawFiles")
-    if not isinstance(raw_files, list):
-        return set()
-    stems: set[str] = set()
-    for value in raw_files:
-        if not isinstance(value, str) or not value.strip():
-            continue
-        raw_path = resolve_project_path(value, value)
-        stems.add(raw_path.stem)
-    return stems
-
-
-def choose_candidate_source(
+def choose_source(
     workspace: Path,
     entry: dict[str, Any],
-    allow_processed_fallback: bool,
+    *,
+    candidate_batch: bool,
 ) -> tuple[Path | None, str]:
-    selected = first_candidate_selected(workspace, entry)
-    if selected:
-        return selected, "selected"
-    if allow_processed_fallback:
-        processed = first_candidate_processed(workspace, entry)
-        if processed:
-            return processed, "candidate_processed"
-    return None, ""
+    allowed_inputs: set[str] | None = None
+    if candidate_batch:
+        allowed_inputs = {
+            repo_path(resolve_project_path(value, value))
+            for value in entry.get("CandidateRawFiles", [])
+            if isinstance(value, str) and value.strip()
+        }
+    result = resolve_selected_or_processed_candidate(
+        workspace,
+        manifest_selected_path=manifest_selected_path(entry),
+        allowed_input_paths=allowed_inputs,
+    )
+    return result.path, result.source_kind if result.path is not None else ""
+
+
+def choose_candidate_source(workspace: Path, entry: dict[str, Any]) -> tuple[Path | None, str]:
+    return choose_source(workspace, entry, candidate_batch=True)
 
 
 def unity_meta_path(asset_path: Path) -> Path:
@@ -214,16 +181,21 @@ def main() -> int:
     entries = manifest.get("Entries", [])
     if not isinstance(entries, list):
         raise ValueError("Manifest Entries must be a list.")
+    entries = [normalize_entry_workspace_paths(entry) for entry in entries if isinstance(entry, dict)]
+    manifest["Entries"] = entries
 
     selected = select_entries(entries, args)
     print(f"[PLAN] selected_entries={len(selected)} batch={args.batch_id or '<any>'} status={args.status or '<any>'}")
+    if args.allow_processed_fallback:
+        print("[WARN] --allow-processed-fallback is deprecated; safe numeric-round fallback is automatic.")
     plan: list[tuple[dict[str, Any], Path, Path, str, bytes | None]] = []
     for entry in selected:
-        workspace = in_root / entry["VisualID"]
-        if args.candidate_batch_id:
-            source, source_kind = choose_candidate_source(workspace, entry, args.allow_processed_fallback)
-        else:
-            source, source_kind = choose_source(workspace, args.allow_processed_fallback)
+        workspace = workspace_path(in_root, entry)
+        source, source_kind = choose_source(
+            workspace,
+            entry,
+            candidate_batch=bool(args.candidate_batch_id),
+        )
         if source is None:
             print(f"[SKIP] {entry['VisualID']} no selected image")
             continue
