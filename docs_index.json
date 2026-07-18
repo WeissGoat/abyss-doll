@@ -423,6 +423,23 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/specs/2026-07-18-agent-status-and-role-disclosure-design.md",
+      "title": "Agent 状态页与 Role 阅读范围优化设计",
+      "id": "agent_status_and_role_disclosure_design",
+      "type": "design",
+      "role": "全局",
+      "domain": "agent_workflow",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "2026-07-18",
+      "update_rule": "状态页压缩边界、Role 阅读层级或本轮实施范围变化时更新本设计。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "docs/superpowers/specs/2026-07-18-unified-art-processing-rounds-design.md",
       "title": "美术资产统一数字轮次加工与安全背景处理设计",
       "id": "spec_unified_art_processing_rounds",
