@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import re
+import time
 import uuid
 from datetime import datetime
 from pathlib import Path
@@ -443,6 +444,222 @@ def record_approved_sync(run_path: Path) -> dict[str, Any]:
     return result
 
 
+def _parse_time(value: Any, label: str) -> datetime:
+    if not isinstance(value, str) or not value:
+        raise ArtImportError(f"{label} timestamp is missing")
+    try:
+        parsed = datetime.fromisoformat(value)
+    except ValueError as exc:
+        raise ArtImportError(f"{label} timestamp is invalid: {value}") from exc
+    if parsed.tzinfo is None:
+        raise ArtImportError(f"{label} timestamp must include a timezone")
+    return parsed
+
+
+def _document_items(document: dict[str, Any], expected_ids: set[str], label: str) -> dict[str, dict[str, Any]]:
+    raw_items = document.get("items")
+    if not isinstance(raw_items, list):
+        raise ArtImportError(f"{label} items must be a list")
+    items: dict[str, dict[str, Any]] = {}
+    for item in raw_items:
+        if not isinstance(item, dict):
+            raise ArtImportError(f"{label} item must be an object")
+        visual_id = str(item.get("visual_id", ""))
+        if not visual_id or visual_id in items:
+            raise ArtImportError(f"{label} contains a missing or duplicate VisualID")
+        items[visual_id] = item
+    if set(items) != expected_ids:
+        raise ArtImportError(f"{label} VisualID set does not match the request")
+    return items
+
+
+def _validate_document_identity(
+    document: dict[str, Any],
+    request: dict[str, Any],
+    label: str,
+    minimum_time: datetime,
+) -> None:
+    if document.get("art_import_run_id") != request.get("art_import_run_id"):
+        raise ArtImportError(f"{label} ArtImportRunID mismatch")
+    if document.get("unity_instance") != request.get("unity_instance"):
+        raise ArtImportError(f"{label} Unity instance mismatch")
+    if _parse_time(document.get("observed_at"), label) < minimum_time:
+        raise ArtImportError(f"{label} evidence is older than approved-sync")
+
+
+def _validate_import_item(
+    planned: dict[str, Any],
+    imported: dict[str, Any],
+    target_guid: str,
+) -> None:
+    visual_id = str(planned["visual_id"])
+    if imported.get("status") != "passed":
+        raise ArtImportError(f"failed:unity_import_mismatch status: {visual_id}")
+    if imported.get("asset_path") != planned.get("unity_asset_path"):
+        raise ArtImportError(f"failed:unity_import_mismatch path: {visual_id}")
+    if str(imported.get("asset_database_guid", "")).lower() != target_guid:
+        raise ArtImportError(f"failed:unity_import_mismatch GUID: {visual_id}")
+    if imported.get("main_asset_type") != "UnityEngine.Texture2D" or imported.get("sprite_loaded") is not True:
+        raise ArtImportError(f"failed:unity_import_mismatch asset type: {visual_id}")
+    expected = planned.get("expected_importer")
+    actual = imported.get("importer")
+    if not isinstance(expected, dict) or not isinstance(actual, dict):
+        raise ArtImportError(f"failed:unity_import_mismatch importer missing: {visual_id}")
+    for key, value in expected.items():
+        if actual.get(key) != value:
+            raise ArtImportError(f"failed:unity_import_mismatch importer.{key}: {visual_id}")
+
+
+def _validate_registry_item(
+    planned: dict[str, Any],
+    registered: dict[str, Any],
+    target_guid: str,
+) -> None:
+    visual_id = str(planned["visual_id"])
+    if registered.get("match_count") != 1:
+        raise ArtImportError(f"failed:registry_duplicate: {visual_id}")
+    if registered.get("try_get_entry") is not True:
+        raise ArtImportError(f"failed:registry_missing: {visual_id}")
+    if registered.get("sprite_loaded") is not True or registered.get("status") != "passed":
+        raise ArtImportError(f"failed:registry_missing: {visual_id}")
+    if registered.get("sprite_asset_path") != planned.get("unity_asset_path"):
+        raise ArtImportError(f"failed:registry_asset_mismatch path: {visual_id}")
+    if str(registered.get("sprite_guid", "")).lower() != target_guid:
+        raise ArtImportError(f"failed:registry_asset_mismatch GUID: {visual_id}")
+
+
+def mark_registry_status(manifest: dict[str, Any], visual_ids: set[str]) -> bool:
+    entries = manifest.get("Entries")
+    if not isinstance(entries, list):
+        raise ArtImportError("Manifest Entries must be a list")
+    counts = {visual_id: 0 for visual_id in visual_ids}
+    changed = False
+    for entry in entries:
+        if not isinstance(entry, dict):
+            continue
+        visual_id = entry.get("VisualID")
+        if visual_id not in visual_ids:
+            continue
+        counts[str(visual_id)] += 1
+        if entry.get("Status") != "approved":
+            raise ArtImportError(f"Manifest Status must be approved before registration: {visual_id}")
+        if entry.get("RegistryStatus") != "registered":
+            entry["RegistryStatus"] = "registered"
+            changed = True
+    missing = [visual_id for visual_id, count in counts.items() if count != 1]
+    if missing:
+        raise ArtImportError(f"Manifest VisualID set is missing or duplicated: {', '.join(sorted(missing))}")
+    return changed
+
+
+def stage_finalize(run_path: Path, *, manifest_path: Path) -> dict[str, Any]:
+    request = load_run_document(run_path, "request.json", REQUEST_SCHEMA)
+    plan = load_run_document(run_path, "approved-plan.json", PLAN_SCHEMA)
+    sync = load_run_document(run_path, "approved-sync.json", SYNC_SCHEMA)
+    unity_import = load_run_document(run_path, "unity-import.json", UNITY_IMPORT_SCHEMA)
+    registry = load_run_document(run_path, "registry-result.json", REGISTRY_SCHEMA)
+    console = load_run_document(run_path, "console-delta.json", CONSOLE_SCHEMA)
+    if request.get("request_fingerprint") != plan.get("request_fingerprint") or sync.get("request_fingerprint") != request.get("request_fingerprint"):
+        raise ArtImportError("Finalize request fingerprint mismatch")
+    minimum_time = _parse_time(sync.get("completed_at"), "approved-sync")
+    for document, label in (
+        (unity_import, "unity-import"),
+        (registry, "registry-result"),
+        (console, "console-delta"),
+    ):
+        _validate_document_identity(document, request, label, minimum_time)
+
+    expected_ids = set(str(value) for value in request.get("visual_ids", []))
+    planned_items = _document_items(plan, expected_ids, "approved-plan")
+    sync_items = _document_items(sync, expected_ids, "approved-sync")
+    import_items = _document_items(unity_import, expected_ids, "unity-import")
+    registry_items = _document_items(registry, expected_ids, "registry-result")
+    if registry.get("registry_asset_path") != "Assets/Resources/VisualAssetRegistry.asset":
+        raise ArtImportError("registry-result points to an unexpected Registry asset")
+    if console.get("status") != "passed":
+        raise ArtImportError("failed:console_delta status")
+    errors = console.get("errors")
+    target_warnings = console.get("target_warnings")
+    if not isinstance(errors, list) or errors:
+        raise ArtImportError("failed:console_delta errors")
+    if not isinstance(target_warnings, list) or target_warnings:
+        raise ArtImportError("failed:console_delta target warnings")
+
+    project_root = _run_project_root(plan)
+    for visual_id in sorted(expected_ids):
+        planned = planned_items[visual_id]
+        synced = sync_items[visual_id]
+        target = resolve_path(str(planned.get("output_path", "")), project_root)
+        meta_path = target.with_name(target.name + ".meta")
+        if not target.exists() or not meta_path.exists():
+            raise ArtImportError(f"failed:unity_import_mismatch asset or meta missing: {visual_id}")
+        if sha256_file(target) != synced.get("approved_sha256"):
+            raise ArtImportError(f"failed:unity_import_mismatch Approved hash changed: {visual_id}")
+        target_guid = parse_meta_guid(meta_path)
+        _validate_import_item(planned, import_items[visual_id], target_guid)
+        _validate_registry_item(planned, registry_items[visual_id], target_guid)
+
+    manifest_path = manifest_path.resolve(strict=False)
+    manifest = read_json(manifest_path)
+    manifest_before = sha256_file(manifest_path)
+    manifest_changed = mark_registry_status(manifest, expected_ids)
+    if manifest_changed:
+        write_json_atomic(manifest_path, manifest)
+    stage = {
+        "schema": "p3-art-import-finalize-stage@1",
+        "art_import_run_id": request["art_import_run_id"],
+        "unity_instance": request["unity_instance"],
+        "visual_ids": sorted(expected_ids),
+        "manifest_path": repo_relative(manifest_path, project_root),
+        "manifest_before_sha256": manifest_before,
+        "manifest_after_sha256": sha256_file(manifest_path),
+        "manifest_changed": manifest_changed,
+        "staged_at": now_iso(),
+        "staged_at_unix_ns": time.time_ns(),
+        "status": "passed",
+    }
+    write_json_atomic(run_path / "finalize-stage.json", stage)
+    return stage
+
+
+def complete_finalize(run_path: Path, *, generated_paths: list[Path]) -> dict[str, Any]:
+    request = load_run_document(run_path, "request.json", REQUEST_SCHEMA)
+    stage = load_run_document(run_path, "finalize-stage.json", "p3-art-import-finalize-stage@1")
+    staged_at_unix_ns = int(stage.get("staged_at_unix_ns", 0))
+    outputs: list[dict[str, Any]] = []
+    for path in generated_paths:
+        resolved = path.resolve(strict=False)
+        if not resolved.exists():
+            raise ArtImportError(f"generated writeback is missing: {resolved}")
+        if resolved.stat().st_mtime_ns < staged_at_unix_ns:
+            raise ArtImportError(f"generated writeback is stale: {resolved}")
+        outputs.append({
+            "path": resolved.as_posix(),
+            "sha256": sha256_file(resolved),
+            "modified_at_unix_ns": resolved.stat().st_mtime_ns,
+        })
+    writeback = {
+        "schema": "p3-art-generated-writeback@1",
+        "art_import_run_id": request["art_import_run_id"],
+        "outputs": outputs,
+        "completed_at": now_iso(),
+        "status": "passed",
+    }
+    write_json_atomic(run_path / "generated-writeback.json", writeback)
+    summary = {
+        "schema": SUMMARY_SCHEMA,
+        "art_import_run_id": request["art_import_run_id"],
+        "unity_instance": request["unity_instance"],
+        "visual_ids": request["visual_ids"],
+        "claim": "registered",
+        "scope": request["scope"],
+        "completed_at": now_iso(),
+        "status": "passed",
+    }
+    write_json_atomic(run_path / "summary.json", summary)
+    return summary
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -467,6 +684,14 @@ def build_parser() -> argparse.ArgumentParser:
     record_parser = subparsers.add_parser("record-sync")
     record_parser.add_argument("--evidence-root", default=DEFAULT_EVIDENCE_ROOT)
     record_parser.add_argument("--art-import-run-id", required=True)
+    stage_parser = subparsers.add_parser("stage-finalize")
+    stage_parser.add_argument("--manifest-path", default=DEFAULT_MANIFEST)
+    stage_parser.add_argument("--evidence-root", default=DEFAULT_EVIDENCE_ROOT)
+    stage_parser.add_argument("--art-import-run-id", required=True)
+    complete_parser = subparsers.add_parser("complete-finalize")
+    complete_parser.add_argument("--evidence-root", default=DEFAULT_EVIDENCE_ROOT)
+    complete_parser.add_argument("--art-import-run-id", required=True)
+    complete_parser.add_argument("--generated-path", action="append", required=True)
     return parser
 
 
@@ -502,6 +727,20 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "record-sync":
         result = record_approved_sync(
             run_dir(resolve_path(args.evidence_root, PROJECT_ROOT), args.art_import_run_id)
+        )
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "stage-finalize":
+        result = stage_finalize(
+            run_dir(resolve_path(args.evidence_root, PROJECT_ROOT), args.art_import_run_id),
+            manifest_path=resolve_path(args.manifest_path, PROJECT_ROOT),
+        )
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return 0
+    if args.command == "complete-finalize":
+        result = complete_finalize(
+            run_dir(resolve_path(args.evidence_root, PROJECT_ROOT), args.art_import_run_id),
+            generated_paths=[resolve_path(value, PROJECT_ROOT) for value in args.generated_path],
         )
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0

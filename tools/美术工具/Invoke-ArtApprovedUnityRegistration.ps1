@@ -14,8 +14,7 @@ param(
     [string]$EvidenceRoot = "",
     [switch]$AuthorizeApprovedSync,
     [switch]$AllowExistingTargetOverwrite,
-    [switch]$AllowNewApprovedTarget,
-    [switch]$RefreshProgramHandoff
+    [switch]$AllowNewApprovedTarget
 )
 
 $ErrorActionPreference = "Stop"
@@ -127,4 +126,47 @@ if ($Phase -eq "SyncApproved") {
     exit 0
 }
 
-throw "Finalize is not available until the live Unity evidence verifier is installed."
+if ($Phase -eq "Finalize") {
+    $stageArgs = @(
+        $pythonScript,
+        "stage-finalize",
+        "--art-import-run-id", $ArtImportRunID,
+        "--evidence-root", $effectiveEvidenceRoot
+    )
+    if ($ManifestPath -ne "") {
+        $stageArgs += @("--manifest-path", $ManifestPath)
+    }
+    Invoke-PythonPhase -Arguments $stageArgs
+
+    $snapshotTag = $ArtImportRunID
+    $integrationScript = Join-Path $scriptDir "Generate-ArtIntegrationCandidates.ps1"
+    $handoffScript = Join-Path $scriptDir "Generate-ArtProgramHandoff.ps1"
+    $gapScript = Join-Path $scriptDir "Generate-ArtRegistryGapChecklist.ps1"
+    & $integrationScript -Snapshot -SnapshotTag $snapshotTag
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
+    & $handoffScript -Snapshot -SnapshotTag $snapshotTag
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
+    & $gapScript -Snapshot -SnapshotTag $snapshotTag
+    if ($LASTEXITCODE -ne 0) {
+        exit $LASTEXITCODE
+    }
+
+    $generatedRoot = Join-Path $projectRoot "美术文档\_generated"
+    $completeArgs = @(
+        $pythonScript,
+        "complete-finalize",
+        "--art-import-run-id", $ArtImportRunID,
+        "--evidence-root", $effectiveEvidenceRoot,
+        "--generated-path", (Join-Path $generatedRoot "可接入素材清单.json"),
+        "--generated-path", (Join-Path $generatedRoot "程序接入交接清单.json"),
+        "--generated-path", (Join-Path $generatedRoot "VisualAssetRegistry登记缺口清单.json")
+    )
+    Invoke-PythonPhase -Arguments $completeArgs
+    exit 0
+}
+
+throw "Unsupported phase: $Phase"
