@@ -99,7 +99,7 @@ ai_image_gateway/sse_transport.py
 
 - 判断 SSE content type。
 - 通过 `httpx-sse` 增量消费事件。
-- 统计事件、心跳、首事件时间和结束方式。
+- 统计业务事件、首事件时间和结束方式；注释心跳由 `httpx-sse` 消费并维持连接，不通过其公开 API 计数。
 - 把事件聚合为现有 `{"_sse_events": [...]}` 兼容结构。
 - 对普通 JSON 响应进行同连接 fallback，不重新发送请求。
 
@@ -121,7 +121,6 @@ class StreamReadResult:
     payload: dict[str, Any]
     response_mode: Literal["sse", "json"]
     event_count: int
-    heartbeat_count: int
     first_event_elapsed_s: float | None
     completed_by_done: bool
 ```
@@ -174,7 +173,7 @@ gemini_chat_image:
 
 - 支持标准 `event`、`data`、`id`、`retry` 字段。
 - 支持多行 `data:` 合并。
-- 忽略空行和注释心跳，但统计心跳数量。
+- 忽略空行和注释心跳；显式 `event: ping` 仍作为标准 SSE 事件读取。
 - `[DONE]` 表示显式正常结束。
 - 允许正常 EOF 且已经收到合法图片事件的中转不发送 `[DONE]`。
 - 支持 `choices[].delta`、`choices[].message`、嵌套 JSON、`b64_json`、data URL、Markdown 图片 URL 和裸 HTTP(S) URL。
@@ -210,7 +209,6 @@ gemini_chat_image:
 stream_requested
 stream_response_mode
 stream_event_count
-stream_heartbeat_count
 stream_first_event_elapsed_s
 stream_completed_by_done
 ```

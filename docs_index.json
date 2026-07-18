@@ -378,6 +378,23 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/plans/2026-07-18-ai-image-gateway-transparent-streaming.md",
+      "title": "AI 图片网关透明流式模式实施计划",
+      "id": "ai_image_gateway_transparent_streaming_plan",
+      "type": "plan",
+      "role": "程序",
+      "domain": "ai_image_gateway",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "2026-07-18",
+      "update_rule": "实施任务、接口签名、验证命令或子模块提交边界变化时更新本计划。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "docs/superpowers/plans/2026-07-18-gif-character-replacement.md",
       "title": "GIF 小循环人物替换实现计划",
       "id": "plan_gif_character_replacement_implementation",

@@ -18,8 +18,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：269
-- 已补元数据：267
+- 文档总数：270
+- 已补元数据：268
 - 缺少元数据：2
 - 事实来源文档：198
 - 关联边数：1526
@@ -356,6 +356,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
 | [程序 / Unity 状态](agent_status/program.md) | `status` | `active` | `unity_programming` | 20 | 完整 |
+| [AI 图片网关透明流式模式实施计划](docs/superpowers/plans/2026-07-18-ai-image-gateway-transparent-streaming.md) | `plan` | `draft` | `ai_image_gateway` | 0 | 完整 |
 | [AI 图片网关透明流式模式设计](docs/superpowers/specs/2026-07-18-ai-image-gateway-transparent-streaming-design.md) | `design` | `draft` | `ai_image_gateway` | 0 | 完整 |
 | [Config Tools](tools/config/README.md) | `tool` | `active` | `config_tooling` | 5 | 完整 |
 | [程序开发大纲与系统索引](开发文档/00_程序开发大纲.md) | `dev` | `active` | `program_architecture` | 24 | 完整 |
