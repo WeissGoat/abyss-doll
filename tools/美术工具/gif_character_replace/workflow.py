@@ -76,7 +76,10 @@ class GifReplacementWorkflow:
             raise ValueError("preview approval is required before full batch generation")
         self._promote_preview_frames(store)
         await self._generate_indices(store, range(len(store.load_state().frames)), strict=False)
-        return self._review(store)
+        reviewed = self._review(store)
+        if reviewed.status == RunStatus.FAILED:
+            return reviewed
+        return self.encode_only(store.paths.root)
 
     async def rerun_frames(
         self,
@@ -93,7 +96,54 @@ class GifReplacementWorkflow:
             if index < 0 or index >= len(state.frames):
                 raise IndexError(f"frame index out of range: {index}")
         await self._generate_indices(store, unique_indices, strict=strict, force=True)
-        return self._review(store)
+        reviewed = self._review(store)
+        if reviewed.status == RunStatus.FAILED:
+            return reviewed
+        return self.encode_only(store.paths.root)
+
+    def encode_only(self, run_root: Path) -> RunState:
+        from .encoder import encode_gif
+
+        store = RunStore.load(run_root)
+        state = store.load_state()
+        if state.timeline is None:
+            raise ValueError("timeline is missing")
+        if state.status == RunStatus.FAILED:
+            raise ValueError("hard-failed runs cannot be encoded")
+        if any(
+            frame.status not in (FrameStatus.GENERATED, FrameStatus.ACCEPTED)
+            or not frame.output_path
+            or not Path(frame.output_path).is_file()
+            for frame in state.frames
+        ):
+            raise ValueError("all frames must have valid generated outputs before encoding")
+        if not state.review_report or not Path(state.review_report).is_file():
+            state = self._review(store)
+            if state.status == RunStatus.FAILED:
+                raise ValueError("review found hard failures; encoding refused")
+        frame_paths = [Path(frame.output_path or "") for frame in state.frames]
+        alpha_paths = [Path(frame.source_path) for frame in state.frames]
+        result = encode_gif(
+            frame_paths,
+            alpha_paths,
+            state.timeline.durations_ms,
+            state.timeline.loop,
+            store.paths.output_dir / "result.gif",
+            store.config.encoder,
+            store.config.preserve_transparency,
+        )
+        visual_risks = set(state.warnings)
+        for frame in state.frames:
+            visual_risks.update(frame.risks)
+        final_status = RunStatus.REVIEW_REQUIRED if visual_risks else RunStatus.READY
+        return store.update_state(
+            lambda current: replace(
+                current,
+                status=final_status,
+                result_gif=str(result.path.resolve()),
+                warnings=tuple(dict.fromkeys((*current.warnings, *result.warnings))),
+            )
+        )
 
     @staticmethod
     def _review(store: RunStore) -> RunState:

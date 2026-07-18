@@ -146,7 +146,8 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
             approve_preview(store)
             completed = await workflow.resume_after_preview(store.paths.root)
 
-            self.assertEqual(completed.status, RunStatus.RUNNING)
+            self.assertEqual(completed.status, RunStatus.REVIEW_REQUIRED)
+            self.assertTrue(Path(completed.result_gif or "").is_file())
             self.assertEqual(len(backend.frame_hashes), len(completed.frames))
             source_hashes = {
                 hashlib.sha256(Path(frame.source_path).read_bytes()).hexdigest()
