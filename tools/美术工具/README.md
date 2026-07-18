@@ -1,30 +1,4 @@
 ---
-
-## Migrate-ArtProcessedRounds.ps1
-
-一次性把旧的平坦 `processed/*.png` 迁移到 `processed/1/`，保留原文件名并同时迁移相邻 `.meta`。默认命令只生成迁移计划，确认没有冲突后才允许执行：
-
-```powershell
-.\tools\美术工具\Migrate-ArtProcessedRounds.ps1
-.\tools\美术工具\Migrate-ArtProcessedRounds.ps1 -Execute
-```
-
-如果已有 `processed/1/` 与平坦文件并存，工具会阻断迁移。旧候选默认登记为 `legacy_unverified`；已有生产决策硬失败的候选登记为 `failed`。只有 SelectedPath 精确指向被迁移文件时才改写路径；Approved、Registry 和运行时资源不会被触碰。
-
-## Register-ArtProcessingRound.ps1
-
-将 Agent 产生的候选处理结果登记为下一个不可变的 `processed/<正整数>/` 轮次。staging 目录必须包含直接子级候选图片、`decision.json`、`process_report.json` 和 `technical_review.json`；角色立绘的 `passed` 轮次还必须包含 `visual_review.json`。
-
-登记不会修改 Manifest 的主状态、`selected/`、Approved、Registry 或运行时绑定。正式登记前先执行 dry-run：
-
-```powershell
-.\tools\美术工具\Register-ArtProcessingRound.ps1 `
-  -VisualID doll_zero_dialogue_neutral `
-  -StagingDirectory F:\tmp\doll_round `
-  -DryRun
-```
-
-确认后去掉 `-DryRun` 登记。staging 中的候选必须通过 SHA-256、尺寸、格式和路径边界校验；`SelectedPath`、`ApprovedPath` 等正式资产状态字段会被拒绝。
 id: tools_art_readme
 title: 美术工具
 type: tool
@@ -53,6 +27,32 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 # 美术工具
 
 > **定位：** 存放 Project P3 美术流水线脚本。脚本优先服务于“配置表扫描、Manifest 增量更新、批量生成、预处理和验收记录”。
+
+## Migrate-ArtProcessedRounds.ps1
+
+一次性把旧的平坦 `processed/*.png` 迁移到 `processed/1/`，保留原文件名并同时迁移相邻 `.meta`。默认命令只生成迁移计划，确认没有冲突后才允许执行：
+
+```powershell
+.\tools\美术工具\Migrate-ArtProcessedRounds.ps1
+.\tools\美术工具\Migrate-ArtProcessedRounds.ps1 -Execute
+```
+
+如果已有 `processed/1/` 与平坦文件并存，工具会阻断迁移。旧候选默认登记为 `legacy_unverified`；已有生产决策硬失败的候选登记为 `failed`。只有 SelectedPath 精确指向被迁移文件时才改写路径；Approved、Registry 和运行时资源不会被触碰。
+
+## Register-ArtProcessingRound.ps1
+
+将 Agent 产生的候选处理结果登记为下一个不可变的 `processed/<正整数>/` 轮次。staging 目录必须包含直接子级候选图片、`decision.json`、`process_report.json` 和 `technical_review.json`；角色立绘的 `passed` 轮次还必须包含 `visual_review.json`。
+
+登记不会修改 Manifest 的主状态、`selected/`、Approved、Registry 或运行时绑定。正式登记前先执行 dry-run：
+
+```powershell
+.\tools\美术工具\Register-ArtProcessingRound.ps1 `
+  -VisualID doll_zero_dialogue_neutral `
+  -StagingDirectory F:\tmp\doll_round `
+  -DryRun
+```
+
+确认后去掉 `-DryRun` 登记。staging 中的候选必须通过 SHA-256、尺寸、格式和路径边界校验；`SelectedPath`、`ApprovedPath` 等正式资产状态字段会被拒绝。
 
 ## Invoke-GifCharacterReplace.ps1
 

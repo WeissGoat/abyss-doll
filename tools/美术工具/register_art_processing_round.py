@@ -18,7 +18,7 @@ from art_workspace import normalize_entry_workspace_paths, workspace_path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[1]
-DEFAULT_MANIFEST = "缇庢湳鏂囨。/_generated/art_manifest.json"
+DEFAULT_MANIFEST = "美术文档/_generated/art_manifest.json"
 DEFAULT_INCOMING_ROOT = "UnityClient/Assets/Art/_IncomingAI"
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp"}
 FORBIDDEN_KEYS = {"selectedpath", "approvedpath", "registrystatus", "runtimepath", "runtimestate"}
