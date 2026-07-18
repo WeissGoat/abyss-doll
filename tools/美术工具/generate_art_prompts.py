@@ -538,10 +538,12 @@ UI_CN = {
 
 DOLL_EN = {
     "doll_proto_0": "humanoid mechanical doll, slender but durable body, exposed mechanical joints, repair marks, old workshop parts, cool glowing core light, calm neutral stance",
+    "zero_dialogue_neutral": "No.0, a fragile but mature-proportioned anime mechanical doll girl, three-quarter dialogue standing pose, long loose silver-white hair, wide white cloth blindfold fully covering both eyes, soft gray shawl fully covering both shoulders and chest, separate pale short inner dress, bare legs and bare feet, subtle doll joints and light dust wear, calm neutral expression, no red glow",
 }
 
 DOLL_CN = {
     "doll_proto_0": "原型机·零立绘，人形机械魔偶，纤细但坚固，外露机械关节、维修痕迹、旧工坊零件和冷色核心灯，安静中性站姿。",
+    "zero_dialogue_neutral": "零号对话中性立绘，3/4 对话站姿，银白长发自然散开，宽白布完整遮住双眼，柔软灰披肩完整覆盖双肩和胸口，浅色独立短内衬裙，裸腿裸足，轻微人偶关节与灰尘磨损，常态安静中性且无红光。",
 }
 
 NARRATIVE_CG_EN = {
@@ -596,6 +598,13 @@ NEGATIVE = {
     "ui": "text, letters, numbers, watermark, logo, signature, busy background, photorealistic photo, tiny details",
 }
 
+BACKGROUND_POLICIES = {
+    "preserve",
+    "already_transparent",
+    "auto_simple",
+    "agent_required",
+}
+
 
 def make_spec(
     *,
@@ -603,6 +612,7 @@ def make_spec(
     height: int,
     background: str,
     alpha_required: bool,
+    background_policy: str = "auto_simple",
     display_width: int,
     display_height: int,
     safe_padding: int,
@@ -618,6 +628,8 @@ def make_spec(
     baseline_percent: int | None = None,
     nine_slice: Dict[str, Any] | None = None,
 ) -> Dict[str, Any]:
+    if background_policy not in BACKGROUND_POLICIES:
+        raise ValueError(f"Unsupported BackgroundPolicy: {background_policy}")
     composition_spec: Dict[str, Any] = {
         "SafePaddingPercent": safe_padding,
         "SubjectOccupancyMin": subject_min,
@@ -634,6 +646,7 @@ def make_spec(
     process_spec: Dict[str, Any] = {
         "PostProcess": post_process,
         "PreviewSize": preview_size,
+        "BackgroundPolicy": background_policy,
     }
     if nine_slice:
         process_spec["NineSlice"] = nine_slice
@@ -691,6 +704,7 @@ SPEC = {
         height=1024,
         background="transparent_or_simple_dark",
         alpha_required=False,
+        background_policy="preserve",
         display_width=320,
         display_height=320,
         safe_padding=8,
@@ -705,6 +719,7 @@ SPEC = {
         height=1024,
         background="transparent",
         alpha_required=True,
+        background_policy="preserve",
         display_width=360,
         display_height=420,
         safe_padding=6,
@@ -834,6 +849,7 @@ SPEC = {
         height=1536,
         background="transparent",
         alpha_required=True,
+        background_policy="agent_required",
         display_width=420,
         display_height=720,
         safe_padding=6,
@@ -851,6 +867,7 @@ SPEC = {
         height=1080,
         background="opaque_environment",
         alpha_required=False,
+        background_policy="preserve",
         display_width=1920,
         display_height=1080,
         fit_mode="cover",
@@ -867,6 +884,7 @@ SPEC = {
         height=1080,
         background="opaque_environment",
         alpha_required=False,
+        background_policy="preserve",
         display_width=1920,
         display_height=1080,
         fit_mode="cover",
@@ -1756,6 +1774,14 @@ def prompt_for(entry: Dict[str, Any]) -> tuple[str, str, str, Dict[str, Any]]:
     return prompt_cn, prompt_en, negative, copy.deepcopy(spec)
 
 
+def refresh_spec_only(entry: Dict[str, Any]) -> Dict[str, Any]:
+    """Return an entry with only its generated Spec refreshed."""
+
+    refreshed = copy.deepcopy(entry)
+    refreshed["Spec"] = prompt_for(entry)[3]
+    return refreshed
+
+
 def contains_forbidden_text(text: str, allow_cjk: bool = False) -> bool:
     lowered = text.lower()
     if not allow_cjk and re.search(r"[\u4e00-\u9fff]", text):
@@ -1804,6 +1830,17 @@ def format_spec(spec: Any) -> str:
     return json.dumps(spec, ensure_ascii=False, separators=(",", ":")).replace("|", "/")
 
 
+def split_filters(values: list[str] | None) -> set[str]:
+    selected: set[str] = set()
+    for value in values or []:
+        selected.update(part.strip() for part in value.split(",") if part.strip())
+    return selected
+
+
+def entry_matches_visual_ids(entry: Dict[str, Any], selected: set[str]) -> bool:
+    return not selected or str(entry.get("VisualID", "")) in selected
+
+
 def make_prompt_markdown(manifest: Dict[str, Any]) -> str:
     lines = [
         "# AI Image Prompt List",
@@ -1832,6 +1869,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--prompt-markdown-path", default="美术文档/_generated/AI绘图提示词清单.md")
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--refresh-spec", action="store_true", help="Refresh Spec for existing non-deprecated entries without changing their status.")
+    parser.add_argument(
+        "--refresh-spec-only",
+        action="store_true",
+        help="Refresh only Spec values; preserve all other entry fields.",
+    )
+    parser.add_argument("--visual-id", action="append", default=[], help="Limit updates to one or more VisualIDs; may be repeated or comma-separated.")
     return parser.parse_args()
 
 
@@ -1842,6 +1885,7 @@ def main() -> int:
     prompt_markdown_path = (root / args.prompt_markdown_path).resolve()
 
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    selected_visual_ids = split_filters(args.visual_id)
     manifest["ArtStyle"] = {
         "NameCN": "日系二次元地底奇幻冒险",
         "ReferenceCN": "类似来自深渊的奇幻探索感，但不在 AI 提示词中直接引用作品名。",
@@ -1854,7 +1898,17 @@ def main() -> int:
     skipped = 0
     violations = []
     for entry in manifest["Entries"]:
-        if should_fill(entry, args.overwrite):
+        if not entry_matches_visual_ids(entry, selected_visual_ids):
+            skipped += 1
+            continue
+        if args.refresh_spec_only:
+            if entry.get("Status") != "deprecated":
+                refreshed = refresh_spec_only(entry)
+                if entry.get("Spec") != refreshed["Spec"]:
+                    entry["Spec"] = refreshed["Spec"]
+                    spec_refreshed += 1
+            skipped += 1
+        elif should_fill(entry, args.overwrite):
             original_status = str(entry.get("Status", ""))
             prompt_cn, prompt_en, negative_en, spec = prompt_for(entry)
             entry["PromptCN"] = prompt_cn

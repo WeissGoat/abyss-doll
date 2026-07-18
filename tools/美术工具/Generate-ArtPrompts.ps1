@@ -1,8 +1,10 @@
 param(
     [string]$ManifestPath = "",
     [string]$PromptMarkdownPath = "",
+    [string[]]$VisualID = @(),
     [switch]$Overwrite,
-    [switch]$RefreshSpec
+    [switch]$RefreshSpec,
+    [switch]$RefreshSpecOnly
 )
 
 $ErrorActionPreference = "Stop"
@@ -20,12 +22,22 @@ if ($PromptMarkdownPath -ne "") {
     $argsList += @("--prompt-markdown-path", $PromptMarkdownPath)
 }
 
+foreach ($id in $VisualID) {
+    if ($id -ne "") {
+        $argsList += @("--visual-id", $id)
+    }
+}
+
 if ($Overwrite) {
     $argsList += "--overwrite"
 }
 
 if ($RefreshSpec) {
     $argsList += "--refresh-spec"
+}
+
+if ($RefreshSpecOnly) {
+    $argsList += "--refresh-spec-only"
 }
 
 python @argsList
