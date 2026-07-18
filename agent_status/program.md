@@ -49,7 +49,7 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 - 全局叙事播放系统已接入配置加载、触发调度、状态回写、UGUI 对白层、过程 CG 容器和命令桥，运行时仍需按场景补验证证据。
 - Unity MCP 验收编排已拆分为程序、美术和发布 lanes；程序 lane 不再自动启动 ArtAcceptance。
 - T0-01A 的启动零号、苏醒对白、首潜确认和真实 `DungeonManager.StartRunAtLayer(1)` 链路已有实现 / smoke 证据，但不等于完整 T0 验收完成。
-- `tools/ai-image-gateway` 已完成 `httpx-sse` 透明流式接入、同连接 JSON fallback、错误截断、断流无 buffered 二次请求和 secret-safe smoke CLI；目标测试 `35 passed`、全量 `121 passed`，真实 Gemini 文生图流式在 `109.672s` 成功。
+- `tools/ai-image-gateway` 已完成 `httpx-sse` 透明流式接入、同连接 JSON fallback、错误截断、断流无 buffered 二次请求和 secret-safe smoke CLI；目标测试 `35 passed`、全量 `121 passed`，真实 Gemini 文生图流式在 `49.859s` 成功，首事件从请求发起前计时为 `0.312s`。
 
 ## 下一步建议
 

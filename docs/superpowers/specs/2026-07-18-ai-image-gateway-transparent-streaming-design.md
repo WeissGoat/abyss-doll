@@ -287,6 +287,8 @@ examples/smoke_streaming_chat_image.py
 - `51fe7f8`：真实服务 streaming smoke CLI。
 - `c2610b6`：子模块 README 与中转事实文档。
 - `2b2da58`：注释心跳与 `image_to_image(stream=true)` 补充覆盖。
+- `d4db1a4`：把首事件计时起点前移到 HTTP 请求发起之前。
+- `10523bb`：按修正后的计时口径刷新真实 smoke 证据。
 
 自动验证：
 
@@ -298,8 +300,8 @@ compileall: passed
 
 真实 Gemini 证据：
 
-- 文生图通过：总耗时 `109.672s`，首个业务事件 `0.0s`，事件数 `5`，收到
-  `[DONE]`，输出 `113200` 字节 JPEG 且可解码。
+- 文生图通过：总耗时 `49.859s`，从 HTTP 请求发起前计时的首个业务事件
+  `0.312s`，事件数 `5`，收到 `[DONE]`，输出 `107560` 字节 JPEG 且可解码。
 - 双参考图图生图未通过：连接保持到 `292.906s` 后，上游关闭不完整 chunked
   response，错误为 `incomplete chunked read`，没有返回可解码图片；记录
   `validation_limited:stream_request_failed_before_success_evidence`。

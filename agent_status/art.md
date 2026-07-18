@@ -63,7 +63,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 - `_IncomingAI` 已迁移为 Profile 目录，现有 standard asset 工作区和历史目录均保留可追溯路径，Approved / Registry 文件哈希未改变。
 - `p3-art-asset-production`、`generate-image`、`p3-narrative-cg-comic` 和 `p3-art-validation` 已完成职责分工；美术验收不再维护人工主美审批状态机。
-- GIF 小循环人物替换工具已完成离线测试；图片网关透明 SSE 已实现，真实 Gemini 文生图在 `109.672s` 成功并于 `0.0s` 收到首事件，双参考图仍按受限证据处理。
+- GIF 小循环人物替换工具已完成离线测试；图片网关透明 SSE 已实现，真实 Gemini 文生图在 `49.859s` 成功，并从请求发起前计时于 `0.312s` 收到首事件；双参考图仍按受限证据处理。
 
 ## 下一步建议
 
