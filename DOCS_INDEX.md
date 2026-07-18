@@ -18,9 +18,9 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：261
+- 文档总数：262
 - 已补元数据：261
-- 缺少元数据：0
+- 缺少元数据：1
 - 事实来源文档：198
 - 关联边数：1518
 - 跨职能关联：310
@@ -325,6 +325,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [T0-01 序章首次循环开发总方案](版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md) | `development_plan` | `active` | `prologue_first_loop_development` | 13 | 完整 |
 | [T0-VAL-01 T0-01A 运行时效果验收记录](版本规划/0-12小时细案/T0-VAL-01_最终实际效果优化文档.md) | `validation_effect_optimization` | `active` | `prologue_first_loop_runtime_acceptance` | 5 | 完整 |
 
+### 未分类
+
+| 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
+|---|---|---|---|---|---|
+| [Zero Dialogue Neutral Character Portrait Pilot Implementation Plan](docs/superpowers/plans/2026-07-18-zero-dialogue-neutral-character-portrait-pilot.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
+
 ### 游戏导演
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
@@ -581,4 +587,4 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 元数据缺口
 
-- 暂无。
+- [Zero Dialogue Neutral Character Portrait Pilot Implementation Plan](docs/superpowers/plans/2026-07-18-zero-dialogue-neutral-character-portrait-pilot.md)：缺少 `id, title, type, role, domain, status`

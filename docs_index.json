@@ -378,6 +378,30 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/plans/2026-07-18-zero-dialogue-neutral-character-portrait-pilot.md",
+      "title": "Zero Dialogue Neutral Character Portrait Pilot Implementation Plan",
+      "id": "",
+      "type": "unclassified",
+      "role": "未分类",
+      "domain": "unclassified",
+      "status": "missing_metadata",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "",
+      "update_rule": "",
+      "has_metadata": false,
+      "missing_fields": [
+        "id",
+        "title",
+        "type",
+        "role",
+        "domain",
+        "status"
+      ],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "docs/superpowers/specs/2026-07-18-zero-dialogue-neutral-character-portrait-pilot-design.md",
       "title": "零号对话中性立绘首轮流程试跑设计",
       "id": "spec_zero_dialogue_neutral_character_portrait_pilot",
