@@ -27,6 +27,17 @@ CORE_DOCS = {
     "agent_status/program.md",
 }
 
+ACTIVE_ROLES = {
+    "全局",
+    "游戏导演",
+    "Owner",
+    "剧情",
+    "策划",
+    "程序",
+    "美术",
+    "知识库",
+}
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -73,6 +84,13 @@ def main():
         if doc_id in ids:
             errors.append(f"duplicate doc id '{doc_id}': {ids[doc_id]} and {doc['path']}")
         ids[doc_id] = doc["path"]
+
+    for doc in docs:
+        if doc.get("status") != "active":
+            continue
+        role = doc.get("role")
+        if role not in ACTIVE_ROLES:
+            errors.append(f"active doc uses unsupported role '{role}': {doc['path']}")
 
     for doc in docs:
         path = doc["path"]

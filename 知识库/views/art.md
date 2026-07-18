@@ -25,13 +25,13 @@ related:
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - 开发文档/14_Unity运行时美术自动验收方案.md
-last_verified: 2026-07-17
+last_verified: 2026-07-18
 update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约变化时同步本文件。
 ---
 
 # 美术智能体阅读入口
 
-> 本页只负责美术 / UI 职能的阅读顺序和上下文导航；稳定跨职能协议见 `rules/02_智能体任务路由与完成协议.md`，当前进度见 `agent_status/art.md`，专业事实以目标美术文档为准。
+> 本页只负责美术 Role 的阅读顺序和上下文导航；稳定跨职能协议见 `rules/02_智能体任务路由与完成协议.md`，当前进度见 `agent_status/art.md`，专业事实以目标美术文档为准。
 
 ## 开工顺序
 
@@ -68,4 +68,4 @@ update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约�
 
 # 2026-07-12 验收入口
 
-运行时美术诊断、截图和受限迭代入口为 `.codex/skills/p3-art-validation`。默认先通过 MCP 直接查看 Game View 和 bounded UGUI snapshot；只有需要决策证据时才使用 capture ticket 截图。Art Profile 只记录技术结果与证据，不维护人工主美判断状态；`ArtAcceptanceRunner` 仅由 `art_regression` 使用。
+运行时美术诊断、截图和受限迭代入口为 `.codex/skills/p3-art-validation`。默认先通过 MCP 直接查看 Game View 和 bounded UGUI snapshot；只有需要决策证据时才使用 capture ticket 截图。Art Profile 只记录技术结果与证据，不维护人工美术判断状态；`ArtAcceptanceRunner` 仅由 `art_regression` 使用。

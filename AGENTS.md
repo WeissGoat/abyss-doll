@@ -21,6 +21,7 @@ related:
   - 知识库/views/art.md
   - 知识库/views/design.md
   - 知识库/views/program.md
+  - 设计文档/剧情/README.md
   - tools/agent/README.md
   - tools/p3-mission/README.md
   - 版本规划/13_正式版全局体验总线与开放节奏.md
@@ -28,7 +29,7 @@ related:
   - 版本规划/09_正式版核心纵切开发路线.md
   - 版本规划/README.md
   - 版本规划/11_纵切批次与需求文档承接矩阵.md
-last_verified: 2026-07-17
+last_verified: 2026-07-18
 update_rule: 修改根职责路由、全局硬边界、开工入口或完成摘要时同步本文件；详细执行协议同步 rules/02。
 ---
 
@@ -54,7 +55,7 @@ update_rule: 修改根职责路由、全局硬边界、开工入口或完成摘�
 ## 30 秒开工流程
 
 1. 读取 `PROJECT_STATUS.md` 和 `agent_status/director.md`，确认当前阶段、全局优先级、跨职能交接和阻塞。
-2. 根据下方任务职责路由选择一个主责任角色。
+2. 根据下方任务职责路由选择一个主责任 Role。
 3. 读取对应 `知识库/views/*.md` 和 `agent_status/*.md`，确认该职能的阅读顺序与当前状态。
 4. 读取目标细案、GDD、配置 README、开发文档、美术规格或专项规则；不要用聊天结论替代事实文档。
 5. 实际改动前运行 `./tools/agent/Invoke-AgentHealthCheck.ps1`；长期或恢复任务按 P3 Mission 路由。
@@ -63,17 +64,15 @@ update_rule: 修改根职责路由、全局硬边界、开工入口或完成摘�
 
 | 任务特征 | 默认主责任 | 首读入口 | 进一步读取 |
 |---|---|---|---|
-| 玩家体验主线、系统开放节奏、深渊包装、全局优先级 | 游戏导演 / 制作人 | `知识库/views/director.md` | `13`、`14`、目标细案、`09`、`11` |
-| T0-T4 某个时长段的完整游戏设计 | 0-12 小时细案 Owner | `知识库/views/director.md` | `14`、目标细案、相关 GDD / 美术 / 开发事实 |
-| 已完成细案中的单一玩家结果落地 | 实现 Owner | 目标细案 + 受影响职能视图 | 对应设计、配置、开发、美术事实文档 |
-| GDD、规则卡、数值、配置意图或配置源 | 主策 / 数值 | `知识库/views/design.md` | `agent_status/design.md` 和目标设计 / 配置事实 |
-| Unity、领域服务、架构、Validator、自动测试 | 主程 / Unity | `知识库/views/program.md` | `agent_status/program.md` 和开发规则 |
-| UI、视觉规格、素材生产、运行时美术验收 | 主美 / UI | `知识库/views/art.md` | `agent_status/art.md` 和美术事实文档 |
-| 纯 UGUI 面板、Prefab、VisualID 与交互接入 | UI 程序职责 | 程序视图 + 美术视图 | 表现层、视觉资源、UI handoff 规范 |
-| 文档元数据、索引、双向关系网 | 知识库智能体 | `知识库/README.md` | `rules/01`、工具脚本和核心入口 |
-| 长期、拆分、恢复或持续执行 | P3 Mission | `p3-mission` skill | 已批准的详细来源材料 |
+| 玩家体验主线、系统开放节奏、深渊包装、全局优先级 | 游戏导演 | `知识库/views/director.md` | `13`、`14`、目标细案、`09`、`11` |
+| 完整模块或玩家结果的跨职能整体负责 | Owner | 目标模块文档 + 受影响 Role 入口 | 对应剧情、策划、程序、美术事实文档 |
+| 剧情大纲、叙事结构、角色关系、对白、CG / 漫画一致性 | 剧情 | `设计文档/剧情/README.md` | 剧情大纲、目标叙事文档、相关细案与演出规格 |
+| GDD、规则卡、数值、配置意图或配置源 | 策划 | `知识库/views/design.md` | `agent_status/design.md` 和目标设计 / 配置事实 |
+| Unity、领域服务、架构、纯 UGUI、Validator、自动测试 | 程序 | `知识库/views/program.md` | `agent_status/program.md` 和开发规则 |
+| UI 视觉、素材生产、Manifest、VisualID、运行时美术验收 | 美术 | `知识库/views/art.md` | `agent_status/art.md` 和美术事实文档 |
+| 文档元数据、索引、双向关系网 | 知识库 | `知识库/README.md` | `rules/01`、工具脚本和核心入口 |
 
-一个任务只能有一个主责任角色。多个职能同时受影响时，由实现 Owner 围绕同一玩家结果统筹，其他职能作为专业执行、专工或外部验收方。完整角色选择、Owner 流水、承接字段和验收边界见 `rules/02_智能体任务路由与完成协议.md`。
+正式 active Role 为 `全局`、`游戏导演`、`Owner`、`剧情`、`策划`、`程序`、`美术`、`知识库`。Owner 对完整模块或玩家结果进行跨职能整体负责，处理中可以切换剧情、策划、程序和美术 Role，但 Owner 定位不变化。专工是独立 Agent 处理某个 Role 工作的委派方式，P3 Mission 是长任务机制，执行 / 自验 / 验收 / 回写是任务环节，它们都不是 Role。完整 Role 选择和 Owner 协议见 `rules/02_智能体任务路由与完成协议.md`。
 
 旧 PM / 版本规划角色不再作为 active 路由；`agent_status/pm.md` 与 `知识库/views/pm.md` 只保留兼容入口。
 
@@ -88,7 +87,7 @@ update_rule: 修改根职责路由、全局硬边界、开工入口或完成摘�
 - 移动、复制或重命名 Unity 资产时必须同步处理 `.meta`，保留 GUID。
 - 工作区可能已有用户或其他 Agent 的改动；不得回滚、覆盖或顺带清理无关脏文件，只暂存当前任务相关文件。
 - 没有验收证据不得标记 `已完成`。字段说明、README、审计、任务拆分或修改前设计不能直接视为实现完成或配置完成。
-- 实现 Owner 必须更新所有受影响职能状态页和事实文档；Owner 自验不替代主策、主程、主美 / UI 或游戏导演的外部验收。
+- Owner 必须更新所有受影响职能状态页和事实文档；Owner 自验不替代剧情、策划、程序、美术或游戏导演的外部验收。
 
 ## 长任务与项目 Skill 路由
 

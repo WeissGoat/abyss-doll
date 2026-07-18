@@ -21,13 +21,13 @@ related:
   - 开发文档/rules/00_程序开发总规则.md
   - tools/config/README.md
   - 配置表(JSON)/README.md
-last_verified: 2026-07-17
+last_verified: 2026-07-18
 update_rule: 程序入口文档、Unity 工程边界、配置同步或验证流程变化时同步本文件。
 ---
 
 # 程序智能体阅读入口
 
-> 本页只负责程序 / Unity 职能的阅读顺序和上下文导航；稳定跨职能协议见 `rules/02_智能体任务路由与完成协议.md`，当前进度见 `agent_status/program.md`，专业事实以开发文档、代码和测试结果为准。
+> 本页只负责程序 Role 的阅读顺序和上下文导航；稳定跨职能协议见 `rules/02_智能体任务路由与完成协议.md`，当前进度见 `agent_status/program.md`，专业事实以开发文档、代码和测试结果为准。纯 UGUI 与 UI 程序接入属于程序专业范围。
 
 ## 开工顺序
 

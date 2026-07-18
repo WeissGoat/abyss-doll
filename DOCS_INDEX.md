@@ -22,8 +22,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - 已补元数据：262
 - 缺少元数据：2
 - 事实来源文档：198
-- 关联边数：1518
-- 跨职能关联：310
+- 关联边数：1520
+- 跨职能关联：309
 
 ## 事实来源
 
@@ -228,28 +228,24 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 关联网络
 
-- `0-12 小时细案 Owner <-> 全局`：3 条
-- `0-12 小时细案 Owner <-> 剧情 Owner`：4 条
-- `0-12 小时细案 Owner <-> 实现 Owner`：7 条
-- `0-12 小时细案 Owner <-> 游戏导演`：5 条
-- `0-12 小时细案 Owner <-> 策划`：4 条
-- `0-12 小时细案 Owner <-> 美术`：1 条
+- `0-12 小时细案 Owner <-> Owner`：3 条
+- `Owner <-> 剧情`：5 条
+- `Owner <-> 游戏导演`：8 条
+- `Owner <-> 程序`：5 条
+- `Owner <-> 策划`：8 条
+- `Owner <-> 美术`：3 条
 - `全局 <-> 兼容`：5 条
-- `全局 <-> 游戏导演`：20 条
+- `全局 <-> 剧情`：1 条
+- `全局 <-> 游戏导演`：23 条
 - `全局 <-> 知识库`：7 条
 - `全局 <-> 程序`：15 条
 - `全局 <-> 策划`：55 条
 - `全局 <-> 美术`：10 条
 - `兼容 <-> 游戏导演`：5 条
 - `兼容 <-> 知识库`：1 条
-- `剧情 Owner <-> 实现 Owner`：3 条
-- `剧情 Owner <-> 游戏导演`：4 条
-- `剧情 Owner <-> 程序`：1 条
-- `剧情 Owner <-> 策划`：12 条
-- `实现 Owner <-> 游戏导演`：2 条
-- `实现 Owner <-> 程序`：5 条
-- `实现 Owner <-> 策划`：4 条
-- `实现 Owner <-> 美术`：2 条
+- `剧情 <-> 游戏导演`：7 条
+- `剧情 <-> 程序`：1 条
+- `剧情 <-> 策划`：12 条
 - `游戏导演 <-> 知识库`：1 条
 - `游戏导演 <-> 程序`：2 条
 - `游戏导演 <-> 策划`：16 条
@@ -267,12 +263,20 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [T0-01 序章首次循环](版本规划/0-12小时细案/T0-01_序章首次循环.md) | `plan` | `active` | `candidate_loop_detail_design` | 13 | 完整 |
-| [T1 第一层搜打撤成形](版本规划/0-12小时细案/T1_第一层搜打撤成形.md) | `plan` | `active` | `candidate_loop_detail_design` | 6 | 完整 |
-| [0-12 小时候选主循环细案设计](版本规划/14_0-12小时候选主循环细案设计.md) | `plan` | `active` | `candidate_loop_detail_design` | 14 | 完整 |
 | [T0-01 开局人偶状态到首次下潜许可](版本规划/_archive/0-12小时细案_2026-06-14_拆分稿/T0-01_开局人偶状态到首次下潜许可.md) | `plan` | `historical` | `candidate_loop_detail_design` | 1 | 完整 |
 | [T0-02 首次下潜到第一笔战利品](版本规划/_archive/0-12小时细案_2026-06-14_拆分稿/T0-02_首次下潜到第一笔战利品.md) | `plan` | `historical` | `candidate_loop_detail_design` | 1 | 完整 |
 | [T0-03 回城出售到维护 / 休整闭环](版本规划/_archive/0-12小时细案_2026-06-14_拆分稿/T0-03_回城出售到维护休整闭环.md) | `plan` | `historical` | `candidate_loop_detail_design` | 1 | 完整 |
+
+### Owner
+
+| 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
+|---|---|---|---|---|---|
+| [T0-01A 开局人偶状态到首次下潜许可实现设计](版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可实现设计.md) | `implementation_design` | `active` | `prologue_first_loop_implementation` | 7 | 完整 |
+| [T0-01A 开局人偶状态到首次下潜许可开发方案](版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可开发方案.md) | `development_plan` | `active` | `prologue_first_loop_development` | 10 | 完整 |
+| [T0-01 序章首次循环](版本规划/0-12小时细案/T0-01_序章首次循环.md) | `plan` | `active` | `candidate_loop_detail_design` | 13 | 完整 |
+| [T0-01 序章首次循环开发总方案](版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md) | `development_plan` | `active` | `prologue_first_loop_development` | 13 | 完整 |
+| [T0-VAL-01 T0-01A 运行时效果验收记录](版本规划/0-12小时细案/T0-VAL-01_最终实际效果优化文档.md) | `validation_effect_optimization` | `active` | `prologue_first_loop_runtime_acceptance` | 5 | 完整 |
+| [T1 第一层搜打撤成形](版本规划/0-12小时细案/T1_第一层搜打撤成形.md) | `plan` | `active` | `candidate_loop_detail_design` | 6 | 完整 |
 
 ### PM
 
@@ -284,7 +288,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 20 | 完整 |
+| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 21 | 完整 |
 | [文档索引](DOCS_INDEX.md) | `index` | `generated` | `knowledge_base` | 1 | 完整 |
 | [魔偶深渊 AI 核心知识库](GEMINI.md) | `entry` | `active` | `project_context` | 11 | 完整 |
 | [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 65 | 完整 |
@@ -308,22 +312,13 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [PM / 版本规划 兼容入口](agent_status/pm.md) | `status` | `archived` | `legacy_pm_route` | 7 | 完整 |
 | [PM 智能体兼容入口](知识库/views/pm.md) | `view` | `archived` | `legacy_pm_route` | 6 | 完整 |
 
-### 剧情 Owner
+### 剧情
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
 | [剧情大纲](设计文档/剧情/00_剧情大纲.md) | `narrative_design` | `active` | `narrative_design` | 12 | 完整 |
 | [序章演出与对话节奏](设计文档/剧情/01_序章演出与对话节奏.md) | `narrative_design` | `active` | `narrative_design` | 7 | 完整 |
-| [剧情设计阅读入口](设计文档/剧情/README.md) | `entry` | `active` | `narrative_design` | 11 | 完整 |
-
-### 实现 Owner
-
-| 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
-|---|---|---|---|---|---|
-| [T0-01A 开局人偶状态到首次下潜许可实现设计](版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可实现设计.md) | `implementation_design` | `active` | `prologue_first_loop_implementation` | 7 | 完整 |
-| [T0-01A 开局人偶状态到首次下潜许可开发方案](版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可开发方案.md) | `development_plan` | `active` | `prologue_first_loop_development` | 10 | 完整 |
-| [T0-01 序章首次循环开发总方案](版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md) | `development_plan` | `active` | `prologue_first_loop_development` | 13 | 完整 |
-| [T0-VAL-01 T0-01A 运行时效果验收记录](版本规划/0-12小时细案/T0-VAL-01_最终实际效果优化文档.md) | `validation_effect_optimization` | `active` | `prologue_first_loop_runtime_acceptance` | 5 | 完整 |
+| [剧情设计阅读入口](设计文档/剧情/README.md) | `entry` | `active` | `narrative_design` | 13 | 完整 |
 
 ### 未分类
 
@@ -339,8 +334,9 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [游戏导演 / 制作人 状态](agent_status/director.md) | `status` | `active` | `game_direction_production` | 18 | 完整 |
 | [纵切批次与需求文档承接矩阵](版本规划/11_纵切批次与需求文档承接矩阵.md) | `plan` | `active` | `vertical_batch_requirement_coverage` | 25 | 完整 |
 | [正式版全局体验总线与全系统宏观大纲](版本规划/13_正式版全局体验总线与开放节奏.md) | `plan` | `active` | `global_experience_spine` | 12 | 完整 |
+| [0-12 小时候选主循环细案设计](版本规划/14_0-12小时候选主循环细案设计.md) | `plan` | `active` | `candidate_loop_detail_design` | 14 | 完整 |
 | [版本规划阅读入口](版本规划/README.md) | `entry` | `active` | `version_planning` | 9 | 完整 |
-| [游戏导演 / 制作人阅读入口](知识库/views/director.md) | `view` | `active` | `agent_context_view` | 13 | 完整 |
+| [游戏导演 / 制作人阅读入口](知识库/views/director.md) | `view` | `active` | `agent_context_view` | 14 | 完整 |
 
 ### 知识库
 

@@ -10,32 +10,28 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 3036,
-    "relation_edges": 1518,
-    "cross_role_edges": 310,
+    "directed_edges": 3040,
+    "relation_edges": 1520,
+    "cross_role_edges": 309,
     "role_pairs": {
-      "0-12 小时细案 Owner <-> 全局": 3,
-      "0-12 小时细案 Owner <-> 剧情 Owner": 4,
-      "0-12 小时细案 Owner <-> 实现 Owner": 7,
-      "0-12 小时细案 Owner <-> 游戏导演": 5,
-      "0-12 小时细案 Owner <-> 策划": 4,
-      "0-12 小时细案 Owner <-> 美术": 1,
+      "0-12 小时细案 Owner <-> Owner": 3,
+      "Owner <-> 剧情": 5,
+      "Owner <-> 游戏导演": 8,
+      "Owner <-> 程序": 5,
+      "Owner <-> 策划": 8,
+      "Owner <-> 美术": 3,
       "全局 <-> 兼容": 5,
-      "全局 <-> 游戏导演": 20,
+      "全局 <-> 剧情": 1,
+      "全局 <-> 游戏导演": 23,
       "全局 <-> 知识库": 7,
       "全局 <-> 程序": 15,
       "全局 <-> 策划": 55,
       "全局 <-> 美术": 10,
       "兼容 <-> 游戏导演": 5,
       "兼容 <-> 知识库": 1,
-      "剧情 Owner <-> 实现 Owner": 3,
-      "剧情 Owner <-> 游戏导演": 4,
-      "剧情 Owner <-> 程序": 1,
-      "剧情 Owner <-> 策划": 12,
-      "实现 Owner <-> 游戏导演": 2,
-      "实现 Owner <-> 程序": 5,
-      "实现 Owner <-> 策划": 4,
-      "实现 Owner <-> 美术": 2,
+      "剧情 <-> 游戏导演": 7,
+      "剧情 <-> 程序": 1,
+      "剧情 <-> 策划": 12,
       "游戏导演 <-> 知识库": 1,
       "游戏导演 <-> 程序": 2,
       "游戏导演 <-> 策划": 16,
@@ -224,12 +220,12 @@
         "知识库/views/director.md",
         "知识库/views/pm.md"
       ],
-      "last_verified": "2026-07-17",
+      "last_verified": "2026-07-18",
       "update_rule": "全局体验目标、系统开放节奏、任务 Owner 工作流、阶段优先级或跨职能验收口径变化后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 18,
-      "cross_role_relation_count": 14
+      "cross_role_relation_count": 13
     },
     {
       "path": "agent_status/pm.md",
@@ -312,7 +308,7 @@
         "agent_status/design.md",
         "agent_status/art.md"
       ],
-      "last_verified": "2026-07-17",
+      "last_verified": "2026-07-18",
       "update_rule": "新增或调整职能状态页、状态记录字段或状态与稳定规则边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -343,6 +339,7 @@
         "知识库/views/art.md",
         "知识库/views/design.md",
         "知识库/views/program.md",
+        "设计文档/剧情/README.md",
         "tools/agent/README.md",
         "tools/p3-mission/README.md",
         "版本规划/13_正式版全局体验总线与开放节奏.md",
@@ -351,12 +348,12 @@
         "版本规划/README.md",
         "版本规划/11_纵切批次与需求文档承接矩阵.md"
       ],
-      "last_verified": "2026-07-17",
+      "last_verified": "2026-07-18",
       "update_rule": "修改根职责路由、全局硬边界、开工入口或完成摘要时同步本文件；详细执行协议同步 rules/02。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 20,
-      "cross_role_relation_count": 12
+      "relation_count": 21,
+      "cross_role_relation_count": 13
     },
     {
       "path": "docs/superpowers/plans/2026-07-18-gif-character-replacement.md",
@@ -500,7 +497,7 @@
         "设计文档/GDD/GDD_00_系统关联总图.md",
         "美术文档/README.md"
       ],
-      "last_verified": "2026-07-17",
+      "last_verified": "2026-07-18",
       "update_rule": "项目阶段、核心目录、AI 路由或工作准则变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -584,7 +581,7 @@
         "tools/agent/README.md",
         "tools/p3-mission/README.md"
       ],
-      "last_verified": "2026-07-17",
+      "last_verified": "2026-07-18",
       "update_rule": "项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -636,7 +633,7 @@
         "agent_status/README.md",
         "agent_status/director.md"
       ],
-      "last_verified": "2026-07-17",
+      "last_verified": "2026-07-18",
       "update_rule": "调整任务角色选择、Owner 责任流水、自验与外部验收、状态回写或 Git 完成要求时同步本文件与 AGENTS.md 摘要。",
       "has_metadata": true,
       "missing_fields": [],
@@ -1675,7 +1672,7 @@
       "title": "T0-01 序章首次循环",
       "id": "detail_t0_01_prologue_first_loop",
       "type": "plan",
-      "role": "0-12 小时细案 Owner",
+      "role": "Owner",
       "domain": "candidate_loop_detail_design",
       "status": "active",
       "source_of_truth": true,
@@ -1694,7 +1691,7 @@
         "版本规划/_archive/0-12小时细案_2026-06-14_拆分稿/T0-02_首次下潜到第一笔战利品.md",
         "版本规划/_archive/0-12小时细案_2026-06-14_拆分稿/T0-03_回城出售到维护休整闭环.md"
       ],
-      "last_verified": "2026-07-10",
+      "last_verified": "2026-07-18",
       "update_rule": "调整 0-30 分钟序章首次循环、剧情包装、新手节奏、系统开放、段末钩子或实现承接边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -1706,7 +1703,7 @@
       "title": "T0-01 序章首次循环开发总方案",
       "id": "devplan_t0_01_prologue_first_loop_master",
       "type": "development_plan",
-      "role": "实现 Owner",
+      "role": "Owner",
       "domain": "prologue_first_loop_development",
       "status": "active",
       "source_of_truth": true,
@@ -1725,19 +1722,19 @@
         "agent_status/program.md",
         "agent_status/art.md"
       ],
-      "last_verified": "2026-07-11",
+      "last_verified": "2026-07-18",
       "update_rule": "调整 T0-01 完整序章开发拆分、分段 Owner 承接、商业化验收口径、跨职能开发顺序或状态边界时同步本文。",
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 13,
-      "cross_role_relation_count": 10
+      "cross_role_relation_count": 9
     },
     {
       "path": "版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可实现设计.md",
       "title": "T0-01A 开局人偶状态到首次下潜许可实现设计",
       "id": "impl_t0_01a_doll_state_to_first_descent_permission",
       "type": "implementation_design",
-      "role": "实现 Owner",
+      "role": "Owner",
       "domain": "prologue_first_loop_implementation",
       "status": "active",
       "source_of_truth": true,
@@ -1750,19 +1747,19 @@
         "设计文档/剧情/01_序章演出与对话节奏.md",
         "设计文档/参考/01_This_Is_the_Police_演出参考.md"
       ],
-      "last_verified": "2026-07-11",
+      "last_verified": "2026-07-18",
       "update_rule": "调整 T0 序章开局状态展示、首次下潜许可、工坊到第一层入口路径、阻断反馈、UI / 美术承接或 Owner 验收口径时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 7,
-      "cross_role_relation_count": 4
+      "cross_role_relation_count": 3
     },
     {
       "path": "版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可开发方案.md",
       "title": "T0-01A 开局人偶状态到首次下潜许可开发方案",
       "id": "devplan_t0_01a_doll_state_to_first_descent_permission",
       "type": "development_plan",
-      "role": "实现 Owner",
+      "role": "Owner",
       "domain": "prologue_first_loop_development",
       "status": "active",
       "source_of_truth": true,
@@ -1778,19 +1775,19 @@
         "agent_status/director.md",
         "agent_status/program.md"
       ],
-      "last_verified": "2026-07-11",
+      "last_verified": "2026-07-18",
       "update_rule": "调整 T0-01A 开发落地顺序、策划 / 美术 / UI / 程序 / 配置 / 文案任务、联调证据、验证口径或状态回写时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 10,
-      "cross_role_relation_count": 7
+      "cross_role_relation_count": 6
     },
     {
       "path": "版本规划/0-12小时细案/T0-VAL-01_最终实际效果优化文档.md",
       "title": "T0-VAL-01 T0-01A 运行时效果验收记录",
       "id": "t0_val_01_final_effect_optimization",
       "type": "validation_effect_optimization",
-      "role": "实现 Owner",
+      "role": "Owner",
       "domain": "prologue_first_loop_runtime_acceptance",
       "status": "active",
       "source_of_truth": true,
@@ -1801,19 +1798,19 @@
         "版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可开发方案.md",
         "开发文档/18_全局叙事播放系统开发方案.md"
       ],
-      "last_verified": "2026-07-11",
+      "last_verified": "2026-07-18",
       "update_rule": "T0-01A 运行时验收画面、序章演出节奏、半开放工坊、首潜确认、截图证据、历史否决或条件通过结论变化时同步本文；完整 T0 验收应另入 T0-VAL-02。",
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 5,
-      "cross_role_relation_count": 2
+      "cross_role_relation_count": 1
     },
     {
       "path": "版本规划/0-12小时细案/T1_第一层搜打撤成形.md",
       "title": "T1 第一层搜打撤成形",
       "id": "detail_t1_layer1_extract_loop",
       "type": "plan",
-      "role": "0-12 小时细案 Owner",
+      "role": "Owner",
       "domain": "candidate_loop_detail_design",
       "status": "active",
       "source_of_truth": true,
@@ -1825,12 +1822,12 @@
         "设计文档/GDD/GDD_02_深渊地图遍历与搜打撤抉择.md",
         "设计文档/content_packs/19_第一层正式核心内容包.md"
       ],
-      "last_verified": "2026-06-15",
+      "last_verified": "2026-07-18",
       "update_rule": "调整 30 分钟-2 小时第一层搜打撤体验、路线学习、战斗 / 背包学习、撤离 / 深入判断、第二层露出或实现承接边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 6,
-      "cross_role_relation_count": 4
+      "cross_role_relation_count": 5
     },
     {
       "path": "版本规划/09_正式版核心纵切开发路线.md",
@@ -1958,14 +1955,14 @@
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 12,
-      "cross_role_relation_count": 8
+      "cross_role_relation_count": 7
     },
     {
       "path": "版本规划/14_0-12小时候选主循环细案设计.md",
       "title": "0-12 小时候选主循环细案设计",
       "id": "plan_14_0_12h_candidate_loop_detail_design",
       "type": "plan",
-      "role": "0-12 小时细案 Owner",
+      "role": "游戏导演",
       "domain": "candidate_loop_detail_design",
       "status": "active",
       "source_of_truth": true,
@@ -1985,12 +1982,12 @@
         "版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可开发方案.md",
         "版本规划/0-12小时细案/T1_第一层搜打撤成形.md"
       ],
-      "last_verified": "2026-07-10",
+      "last_verified": "2026-07-18",
       "update_rule": "调整 0-12 小时按游戏时长的细案设计口径、时长段划分、细案索引、细案 Owner 工作流或实现承接关系时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 14,
-      "cross_role_relation_count": 12
+      "cross_role_relation_count": 10
     },
     {
       "path": "版本规划/_archive/0-12小时细案_2026-06-14_拆分稿/T0-01_开局人偶状态到首次下潜许可.md",
@@ -2009,7 +2006,7 @@
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 1,
-      "cross_role_relation_count": 0
+      "cross_role_relation_count": 1
     },
     {
       "path": "版本规划/_archive/0-12小时细案_2026-06-14_拆分稿/T0-02_首次下潜到第一笔战利品.md",
@@ -2028,7 +2025,7 @@
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 1,
-      "cross_role_relation_count": 0
+      "cross_role_relation_count": 1
     },
     {
       "path": "版本规划/_archive/0-12小时细案_2026-06-14_拆分稿/T0-03_回城出售到维护休整闭环.md",
@@ -2047,7 +2044,7 @@
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 1,
-      "cross_role_relation_count": 0
+      "cross_role_relation_count": 1
     },
     {
       "path": "版本规划/_archive/mvp_2026-05/00_最小MVP体验闭环内容清单.md",
@@ -2260,7 +2257,7 @@
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 9,
-      "cross_role_relation_count": 5
+      "cross_role_relation_count": 4
     },
     {
       "path": "知识库/README.md",
@@ -2285,7 +2282,7 @@
         "知识库/views/program.md",
         "tools/agent/README.md"
       ],
-      "last_verified": "2026-07-17",
+      "last_verified": "2026-07-18",
       "update_rule": "调整元数据字段、索引策略、文档治理规则或职责入口归属时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2321,7 +2318,7 @@
         "开发文档/rules/03_视觉资源系统程序开发规范.md",
         "开发文档/14_Unity运行时美术自动验收方案.md"
       ],
-      "last_verified": "2026-07-17",
+      "last_verified": "2026-07-18",
       "update_rule": "美术入口文档、流水线、UI 交付或程序侧视觉契约变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2351,7 +2348,7 @@
         "配置表(JSON)/README.md",
         "开发文档/00_程序开发大纲.md"
       ],
-      "last_verified": "2026-07-17",
+      "last_verified": "2026-07-18",
       "update_rule": "策划入口文档、GDD、配置源、数值模型或路线变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2376,17 +2373,18 @@
         "agent_status/director.md",
         "agent_status/pm.md",
         "知识库/views/pm.md",
+        "设计文档/剧情/README.md",
         "版本规划/README.md",
         "版本规划/13_正式版全局体验总线与开放节奏.md",
         "版本规划/14_0-12小时候选主循环细案设计.md",
         "版本规划/09_正式版核心纵切开发路线.md",
         "版本规划/11_纵切批次与需求文档承接矩阵.md"
       ],
-      "last_verified": "2026-07-17",
+      "last_verified": "2026-07-18",
       "update_rule": "游戏导演入口、全局体验总线、任务 Owner 工作流或跨职能验收口径变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 13,
+      "relation_count": 14,
       "cross_role_relation_count": 9
     },
     {
@@ -2438,7 +2436,7 @@
         "tools/config/README.md",
         "配置表(JSON)/README.md"
       ],
-      "last_verified": "2026-07-17",
+      "last_verified": "2026-07-18",
       "update_rule": "程序入口文档、Unity 工程边界、配置同步或验证流程变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -6806,7 +6804,7 @@
       "title": "剧情大纲",
       "id": "design_story_outline",
       "type": "narrative_design",
-      "role": "剧情 Owner",
+      "role": "剧情",
       "domain": "narrative_design",
       "status": "active",
       "source_of_truth": true,
@@ -6824,7 +6822,7 @@
         "agent_status/design.md",
         "agent_status/director.md"
       ],
-      "last_verified": "2026-07-11",
+      "last_verified": "2026-07-18",
       "update_rule": "调整主剧情核心、世界观基准、主角 / 零号魔偶关系、记忆拼图、结局线或系统触发承接时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -6836,7 +6834,7 @@
       "title": "序章演出与对话节奏",
       "id": "design_story_prologue_presentation_and_dialogue",
       "type": "narrative_design",
-      "role": "剧情 Owner",
+      "role": "剧情",
       "domain": "narrative_design",
       "status": "active",
       "source_of_truth": true,
@@ -6849,7 +6847,7 @@
         "版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md",
         "版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可实现设计.md"
       ],
-      "last_verified": "2026-07-11",
+      "last_verified": "2026-07-18",
       "update_rule": "调整序章开场顺序、对话密度、交互节奏、UI 逐步开放或首次下潜前的演出安排时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -6861,11 +6859,13 @@
       "title": "剧情设计阅读入口",
       "id": "design_story_readme",
       "type": "entry",
-      "role": "剧情 Owner",
+      "role": "剧情",
       "domain": "narrative_design",
       "status": "active",
       "source_of_truth": true,
       "related": [
+        "AGENTS.md",
+        "知识库/views/director.md",
         "设计文档/README.md",
         "设计文档/参考/01_This_Is_the_Police_演出参考.md",
         "设计文档/剧情/00_剧情大纲.md",
@@ -6878,12 +6878,12 @@
         "agent_status/design.md",
         "agent_status/director.md"
       ],
-      "last_verified": "2026-06-21",
+      "last_verified": "2026-07-18",
       "update_rule": "调整剧情目录结构、主线大纲、叙事源头或后续剧情填充入口时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 11,
-      "cross_role_relation_count": 9
+      "relation_count": 13,
+      "cross_role_relation_count": 11
     },
     {
       "path": "设计文档/参考/01_This_Is_the_Police_演出参考.md",

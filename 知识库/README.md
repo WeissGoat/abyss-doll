@@ -19,7 +19,7 @@ related:
   - 知识库/views/design.md
   - 知识库/views/program.md
   - tools/agent/README.md
-last_verified: 2026-07-17
+last_verified: 2026-07-18
 update_rule: 调整元数据字段、索引策略、文档治理规则或职责入口归属时更新本文件。
 ---
 
@@ -44,7 +44,17 @@ update_rule: 调整元数据字段、索引策略、文档治理规则或职责�
 - `rules/`：稳定的跨职能工作协议；任务角色、Owner 流水和完成要求统一见 `rules/02_智能体任务路由与完成协议.md`。
 - `知识库/views/`：按职能提供阅读顺序和上下文导航，不是专业事实来源，也不记录当前进度。
 - `agent_status/`：记录当前关注、最近完成、下一步建议、阻塞和证据入口，不承接稳定规则。
-- GDD、配置、开发与美术文档：记录对应领域的专业事实。
+- 剧情、GDD、配置、开发与美术文档：记录对应 Role 的专业事实。
+
+## Active Role 词表
+
+active 文档的 `role` 只允许使用：`全局`、`游戏导演`、`Owner`、`剧情`、`策划`、`程序`、`美术`、`知识库`。
+
+- `Owner` 表示文档由跨职能模块整体责任 Role 维护，例如 T0-01 / T0-01A；Owner 可以切换专业 Role，但 Owner 定位不变化。
+- `剧情` 是独立专业 Role，承接剧情大纲、叙事结构、角色关系、对白节奏和 CG / 漫画叙事一致性，不归入策划。
+- `策划`、`程序`、`美术` 表示对应专业事实归属；纯 UGUI 属于程序，UI 视觉属于美术。
+- `全局` 只用于项目级入口、状态、根规则和知识库规范，不用于代替跨职能模块 Owner。
+- 专工、执行者、验收者、自验、回写和 P3 Mission 不是 Role，不能写入 active 文档的 `role` 字段。
 
 ## 元数据头格式
 
@@ -74,7 +84,7 @@ update_rule: 修改系统关系、资源流向或优先级时同步本文件。
 | `id` | 是 | 全局稳定 ID，建议小写字母、数字和下划线。 |
 | `title` | 是 | 文档标题，优先使用正文 H1。 |
 | `type` | 是 | 文档类型，如 `entry`、`status`、`gdd`、`dev`、`art`、`plan`、`config`、`tool`。 |
-| `role` | 是 | 主要负责职能，如 `全局`、`策划`、`程序`、`美术`、`知识库`。 |
+| `role` | 是 | 文档的主要专业归属或整体模块责任归属；active 值必须来自正式 Role 词表。 |
 | `domain` | 是 | 领域标签，如 `agent_workflow`、`inventory_combat`、`art_pipeline`。 |
 | `status` | 是 | `active`、`historical`、`draft`、`generated`、`deprecated`。 |
 | `source_of_truth` | 否 | 是否当前事实来源，布尔值。 |

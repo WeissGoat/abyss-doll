@@ -2,11 +2,13 @@
 id: design_story_readme
 title: 剧情设计阅读入口
 type: entry
-role: 剧情 Owner
+role: 剧情
 domain: narrative_design
 status: active
 source_of_truth: true
 related:
+  - AGENTS.md
+  - 知识库/views/director.md
   - 设计文档/README.md
   - 设计文档/参考/01_This_Is_the_Police_演出参考.md
   - 设计文档/剧情/00_剧情大纲.md
@@ -18,13 +20,15 @@ related:
   - 版本规划/14_0-12小时候选主循环细案设计.md
   - agent_status/design.md
   - agent_status/director.md
-last_verified: 2026-06-21
+last_verified: 2026-07-18
 update_rule: 调整剧情目录结构、主线大纲、叙事源头或后续剧情填充入口时同步本文件。
 ---
 
 # 剧情设计阅读入口
 
 > 本目录承接剧情大纲、世界观叙事、主角 / 零号魔偶关系、记忆拼图、主线事件方向和结局线。它不替代 `GDD_05` 的剧本调度规则，不替代 `23_长期记忆剧情内容包` 的事件 / 房间记忆内容粒度，也不代表任何剧情配置或剧本表已经落地。
+
+`剧情` 是独立专业 Role，不归入策划。Owner 处理完整模块时可以切换到剧情 Role，但剧情事实仍以本目录为入口。
 
 ## 1. 目录定位
 

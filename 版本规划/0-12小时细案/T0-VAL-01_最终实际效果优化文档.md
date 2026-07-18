@@ -2,7 +2,7 @@
 id: t0_val_01_final_effect_optimization
 title: T0-VAL-01 T0-01A 运行时效果验收记录
 type: validation_effect_optimization
-role: 实现 Owner
+role: Owner
 domain: prologue_first_loop_runtime_acceptance
 status: active
 source_of_truth: true
@@ -12,7 +12,7 @@ related:
   - 版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可实现设计.md
   - 版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可开发方案.md
   - 开发文档/18_全局叙事播放系统开发方案.md
-last_verified: 2026-07-11
+last_verified: 2026-07-18
 update_rule: T0-01A 运行时验收画面、序章演出节奏、半开放工坊、首潜确认、截图证据、历史否决或条件通过结论变化时同步本文；完整 T0 验收应另入 T0-VAL-02。
 ---
 
