@@ -96,11 +96,16 @@ def collect_workspace_migrations(
     if not isinstance(entries, list):
         raise ValueError("Manifest Entries must be a list.")
     migrations: list[WorkspaceMigration] = []
+    seen_workspaces: set[Path] = set()
     for raw_entry in entries:
         if not isinstance(raw_entry, dict):
             continue
         entry = normalize_entry_workspace_paths(raw_entry)
         workspace = workspace_path(incoming_root, entry)
+        workspace_key = workspace.resolve(strict=False)
+        if workspace_key in seen_workspaces:
+            continue
+        seen_workspaces.add(workspace_key)
         processed = workspace / "processed"
         if not processed.exists():
             continue
