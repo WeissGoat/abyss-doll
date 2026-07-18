@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import dataclasses
+import json
 import sys
 import tempfile
 import unittest
@@ -191,6 +192,37 @@ class GifCliTests(unittest.TestCase):
                 self.assertEqual(gif.n_frames, 8)
                 self.assertEqual(gif.size, (32, 24))
                 self.assertEqual(gif.info.get("loop"), 0)
+
+    def test_invalid_dry_run_persists_preflight_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            frames = [Image.new("RGBA", (16, 16), (index * 30, 0, 0, 255)) for index in range(7)]
+            source = root / "short.gif"
+            frames[0].save(
+                source,
+                save_all=True,
+                append_images=frames[1:],
+                duration=[80] * 7,
+                loop=0,
+                disposal=2,
+            )
+            output_root = root / "out"
+            with self.assertRaises(SystemExit):
+                main(
+                    [
+                        "--input-gif",
+                        str(source),
+                        "--prompt",
+                        "replacement",
+                        "--output-root",
+                        str(output_root),
+                        "--dry-run",
+                    ]
+                )
+            run_dir = next((output_root / "gif_character_replace").iterdir())
+            self.assertTrue((run_dir / "reports/preflight.json").is_file())
+            state = json.loads((run_dir / "run_state.json").read_text(encoding="utf-8"))
+            self.assertEqual(state["status"], "failed")
 
 
 if __name__ == "__main__":

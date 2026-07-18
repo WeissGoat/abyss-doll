@@ -96,6 +96,36 @@ def _write_generated(
     )
 
 
+def _failure_record(
+    *,
+    source_index: int,
+    provider: str,
+    request_started_at: str,
+    exc: Exception,
+) -> dict:
+    return {
+        "source_index": source_index,
+        "provider": provider,
+        "error": str(exc),
+        "gateway_attempt_count": int(getattr(exc, "attempts", 1)),
+        "gateway_errors": list(getattr(exc, "errors", (str(exc),))),
+        "request_started_at": request_started_at,
+        "request_finished_at": _utc_now(),
+    }
+
+
+def _persist_request_failure(store: RunStore, metadata_path: Path, payload: dict) -> None:
+    atomic_write_json(metadata_path, payload)
+    append_jsonl(store.paths.reports_dir / "requests.jsonl", payload)
+    store.update_state(
+        lambda state: replace(
+            state,
+            status=RunStatus.FAILED,
+            errors=(*state.errors, str(payload["error"])),
+        )
+    )
+
+
 async def generate_identity_candidates(
     store: RunStore,
     backend: ImageBackend,
@@ -121,9 +151,21 @@ async def generate_identity_candidates(
         if index > 0 and store.config.delay_seconds > 0:
             await asyncio.sleep(store.config.delay_seconds)
         request_started_at = _utc_now()
-        generated = await backend.generate_anchor(
-            contract.provider_prompt, state.timeline.width, state.timeline.height
-        )
+        try:
+            generated = await backend.generate_anchor(
+                contract.provider_prompt, state.timeline.width, state.timeline.height
+            )
+        except Exception as exc:
+            payload = _failure_record(
+                source_index=-1,
+                provider=store.config.anchor_provider,
+                request_started_at=request_started_at,
+                exc=exc,
+            )
+            _persist_request_failure(
+                store, candidate_dir / f"anchor_{index:02d}.json", payload
+            )
+            raise
         _write_generated(
             candidate_dir / f"anchor_{index:02d}.png",
             generated,
@@ -193,13 +235,27 @@ async def generate_preview(
         if request_index > 0 and store.config.delay_seconds > 0:
             await asyncio.sleep(store.config.delay_seconds)
         request_started_at = _utc_now()
-        generated = await backend.replace_frame(
-            identity_images,
-            frame_paths[index].read_bytes(),
-            prompt,
-            state.timeline.width,
-            state.timeline.height,
-        )
+        try:
+            generated = await backend.replace_frame(
+                identity_images,
+                frame_paths[index].read_bytes(),
+                prompt,
+                state.timeline.width,
+                state.timeline.height,
+            )
+        except Exception as exc:
+            payload = _failure_record(
+                source_index=index,
+                provider=store.config.frame_provider,
+                request_started_at=request_started_at,
+                exc=exc,
+            )
+            _persist_request_failure(
+                store,
+                store.paths.preview_dir / label / f"frame_{index:04d}.json",
+                payload,
+            )
+            raise
         _write_generated(
             store.paths.preview_dir / label / f"frame_{index:04d}.png",
             generated,

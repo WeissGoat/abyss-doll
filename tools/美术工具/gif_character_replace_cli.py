@@ -16,6 +16,8 @@ from gif_character_replace.preview import approve_identity, approve_preview
 from gif_character_replace.preview import generate_preview
 from gif_character_replace.identity import IdentityInputs
 from gif_character_replace.store import RunStore
+from gif_character_replace.store import atomic_write_json
+from gif_character_replace.models import RunStatus
 from gif_character_replace.timeline import extract_timeline
 from gif_character_replace.workflow import GifReplacementWorkflow
 
@@ -80,12 +82,26 @@ def _production_backend_factory(config: RunConfig):
 
 def _dry_run(config: RunConfig):
     store = RunStore.create(config)
-    timeline = extract_timeline(
-        Path(config.input_gif),
-        store.paths.original_frames_dir,
-        config.min_frames,
-        config.max_frames,
-    )
+    try:
+        timeline = extract_timeline(
+            Path(config.input_gif),
+            store.paths.original_frames_dir,
+            config.min_frames,
+            config.max_frames,
+        )
+    except Exception as exc:
+        atomic_write_json(
+            store.paths.reports_dir / "preflight.json",
+            {"status": "failed", "error": str(exc), "input_gif": config.input_gif},
+        )
+        store.update_state(
+            lambda current: replace(
+                current,
+                status=RunStatus.FAILED,
+                errors=(*current.errors, str(exc)),
+            )
+        )
+        raise
     state = store.update_state(
         lambda current: replace(
             current,

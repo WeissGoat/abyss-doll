@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import dataclasses
+import json
 import sys
 import tempfile
 import unittest
@@ -32,10 +33,11 @@ from gif_character_replace.timeline import extract_timeline  # noqa: E402
 
 
 class FakeBackend:
-    def __init__(self) -> None:
+    def __init__(self, fail_frame_call: int | None = None) -> None:
         self.anchor_calls = 0
         self.frame_calls: list[bytes] = []
         self.identity_counts: list[int] = []
+        self.fail_frame_call = fail_frame_call
 
     async def generate_anchor(self, prompt: str, width: int, height: int) -> GeneratedImage:
         self.anchor_calls += 1
@@ -47,6 +49,8 @@ class FakeBackend:
     ) -> GeneratedImage:
         self.frame_calls.append(frame)
         self.identity_counts.append(len(identity_images))
+        if self.fail_frame_call == len(self.frame_calls):
+            raise RuntimeError("synthetic preview failure")
         from io import BytesIO
 
         with Image.open(BytesIO(frame)) as source:
@@ -178,6 +182,31 @@ class GifPreviewTests(unittest.IsolatedAsyncioTestCase):
             approved = approve_preview(store)
             self.assertTrue(approved.preview_approved)
             self.assertEqual(approved.status, RunStatus.RUNNING)
+
+    async def test_preview_failure_persists_request_evidence_and_failed_state(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            reference = root / "reference.png"
+            Image.new("RGBA", (32, 32), (200, 100, 50, 255)).save(reference)
+            store = self._store(root, (reference,))
+            backend = FakeBackend(fail_frame_call=2)
+            contract = build_identity_contract(store.config.prompt, [reference])
+            await generate_identity_candidates(store, backend, contract)
+            inputs = prepare_identity_inputs(contract, store.paths.identity_dir)
+
+            with self.assertRaisesRegex(RuntimeError, "synthetic preview failure"):
+                await generate_preview(store, backend, inputs)
+
+            self.assertEqual(store.load_state().status, RunStatus.FAILED)
+            records = [
+                json.loads(line)
+                for line in (store.paths.reports_dir / "requests.jsonl")
+                .read_text(encoding="utf-8")
+                .splitlines()
+            ]
+            self.assertEqual(len(records), 2)
+            self.assertEqual(records[-1]["error"], "synthetic preview failure")
+            self.assertIn("request_finished_at", records[-1])
 
 
 if __name__ == "__main__":
