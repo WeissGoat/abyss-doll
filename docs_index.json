@@ -462,6 +462,23 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/specs/2026-07-18-agent-routing-p0-hardening-design.md",
+      "title": "Agent 路由 P0 治理加固设计",
+      "id": "agent_routing_p0_hardening_design",
+      "type": "design",
+      "role": "知识库",
+      "domain": "agent_workflow",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "2026-07-18",
+      "update_rule": "PROJECT_STATUS 快照边界、状态 / View 校验规则或元数据补齐范围变化时更新本设计。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "docs/superpowers/specs/2026-07-18-agent-status-and-role-disclosure-design.md",
       "title": "Agent 状态页与 Role 阅读范围优化设计",
       "id": "agent_status_and_role_disclosure_design",

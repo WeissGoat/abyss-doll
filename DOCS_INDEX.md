@@ -18,8 +18,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：270
-- 已补元数据：268
+- 文档总数：271
+- 已补元数据：269
 - 缺少元数据：2
 - 事实来源文档：198
 - 关联边数：1526
@@ -349,6 +349,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
+| [Agent 路由 P0 治理加固设计](docs/superpowers/specs/2026-07-18-agent-routing-p0-hardening-design.md) | `design` | `draft` | `agent_workflow` | 0 | 完整 |
 | [知识库规范](知识库/README.md) | `kb` | `active` | `knowledge_base` | 14 | 完整 |
 
 ### 程序
