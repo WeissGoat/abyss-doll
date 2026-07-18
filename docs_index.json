@@ -378,6 +378,30 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/plans/2026-07-18-unified-art-processing-rounds.md",
+      "title": "Unified Art Processing Rounds Implementation Plan",
+      "id": "",
+      "type": "unclassified",
+      "role": "未分类",
+      "domain": "unclassified",
+      "status": "missing_metadata",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "",
+      "update_rule": "",
+      "has_metadata": false,
+      "missing_fields": [
+        "id",
+        "title",
+        "type",
+        "role",
+        "domain",
+        "status"
+      ],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "docs/superpowers/plans/2026-07-18-zero-dialogue-neutral-character-portrait-pilot.md",
       "title": "Zero Dialogue Neutral Character Portrait Pilot Implementation Plan",
       "id": "",
@@ -398,6 +422,23 @@
         "domain",
         "status"
       ],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "docs/superpowers/specs/2026-07-18-unified-art-processing-rounds-design.md",
+      "title": "美术资产统一数字轮次加工与安全背景处理设计",
+      "id": "spec_unified_art_processing_rounds",
+      "type": "design",
+      "role": "美术",
+      "domain": "art_asset_processing",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "2026-07-18",
+      "update_rule": "修改 processed 数字轮次结构、背景处理策略、候选解析优先级、Approved fallback、迁移或技术门禁时更新本文档。",
+      "has_metadata": true,
+      "missing_fields": [],
       "relation_count": 0,
       "cross_role_relation_count": 0
     },
