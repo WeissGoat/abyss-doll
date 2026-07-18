@@ -11,6 +11,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from art_processing import resolve_latest_processed_candidate
+from art_workspace import workspace_path
+
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[1]
@@ -171,9 +174,10 @@ def classify_entry(
     meta_exists = bool(meta_path and meta_path.exists())
     registry_entry = registry_entries.get(visual_id)
     registry_has_sprite = bool(registry_entry and registry_entry.get("HasSprite"))
-    workspace = incoming_root / visual_id
+    workspace = workspace_path(incoming_root, entry)
     selected_image = first_image(workspace / "selected")
-    processed_image = first_image(workspace / "processed")
+    latest_processed = resolve_latest_processed_candidate(workspace)
+    processed_image = latest_processed.path
     raw_image = first_image(workspace / "raw")
 
     if status == "validated":
@@ -194,9 +198,12 @@ def classify_entry(
     elif selected_image is not None:
         action = "art_approve"
         reason = "Incoming selected 已有候选，等待同步到 Approved。"
+    elif latest_processed.processing_state in {"failed", "decision_required", "legacy_unverified"}:
+        action = "art_select"
+        reason = f"processed 最新轮次状态为 {latest_processed.processing_state}，需要美术决策或修复。"
     elif processed_image is not None:
         action = "art_select"
-        reason = "Incoming processed 已有候选，等待美术筛选 selected。"
+        reason = "Incoming processed 最新数字轮次已有唯一通过候选，等待美术筛选 selected。"
     elif raw_image is not None:
         action = "art_process"
         reason = "Incoming raw 已有候选，等待预处理和 contact sheet。"
@@ -237,6 +244,8 @@ def classify_entry(
         "MetaFileExists": meta_exists,
         "SelectedCandidate": repo_path(selected_image),
         "ProcessedCandidate": repo_path(processed_image),
+        "ProcessedRound": latest_processed.round_number,
+        "ProcessingState": latest_processed.processing_state,
         "RawCandidate": repo_path(raw_image),
         "ReferencedBy": referenced_by,
     }
@@ -291,6 +300,11 @@ def merge_candidate_group(items: list[dict[str, Any]]) -> dict[str, Any]:
     base["ApprovedPath"] = first_non_empty([item.get("ApprovedPath") for item in items])
     base["SelectedCandidate"] = first_non_empty([item.get("SelectedCandidate") for item in items])
     base["ProcessedCandidate"] = first_non_empty([item.get("ProcessedCandidate") for item in items])
+    base["ProcessedRound"] = next(
+        (item.get("ProcessedRound") for item in items if item.get("ProcessedRound") is not None),
+        None,
+    )
+    base["ProcessingState"] = first_non_empty([item.get("ProcessingState") for item in items])
     base["RawCandidate"] = first_non_empty([item.get("RawCandidate") for item in items])
     base["Confidence"] = best_confidence([str(item.get("Confidence", "")) for item in items])
     base["ManifestEntryCount"] = len(items)
@@ -375,8 +389,8 @@ def make_markdown(payload: dict[str, Any]) -> str:
     if other_items:
         lines.extend(
             [
-                "| Action | Priority | VisualID | Status | Registry | Candidate | Reason |",
-                "|---|---|---|---|---|---|---|",
+                "| Action | Priority | VisualID | Status | Processing | Registry | Candidate | Reason |",
+                "|---|---|---|---|---|---|---|---|",
             ]
         )
         for item in other_items:
@@ -389,6 +403,7 @@ def make_markdown(payload: dict[str, Any]) -> str:
                         md_cell(item["Priority"]),
                         f"`{md_cell(item['VisualID'])}`",
                         f"`{md_cell(item['Status'])}`",
+                        f"{md_cell(item.get('ProcessedRound', '-'))} / {md_cell(item.get('ProcessingState', '-'))}",
                         "registered" if item["RegistryHasSprite"] else "missing",
                         md_cell(candidate),
                         md_cell(item["Reason"]),
@@ -406,7 +421,7 @@ def make_markdown(payload: dict[str, Any]) -> str:
             "",
             "- `program_integrate`: Approved PNG 已可用，程序侧应导入 / 重建 `VisualAssetRegistry` 并接入对应 UI 或配置引用。",
             "- `acceptance_needed`: Registry 已能找到素材，下一步是运行时截图验收或回填 Manifest 状态。",
-            "- `art_approve`: `_IncomingAI/<VisualID>/selected` 已有候选，等待同步到 Approved。",
+            "- `art_approve`: 当前 Manifest entry 的 Profile 工作区 `selected/` 已有候选，等待同步到 Approved。",
             "- `art_select`: processed 已有候选，等待美术筛选。",
             "- `art_process`: raw 已有候选，等待预处理、contact sheet 和筛选。",
             "- `generate_needed`: Manifest 有需求，但尚未生成可接入素材。",

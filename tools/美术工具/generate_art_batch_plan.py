@@ -11,6 +11,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from art_workspace import workspace_path
+
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[1]
@@ -21,6 +23,7 @@ DEFAULT_OUTPUT_JSON = "美术文档/_generated/缺图生成计划.json"
 DEFAULT_OUTPUT_MARKDOWN = "美术文档/_generated/缺图生成计划.md"
 DEFAULT_SNAPSHOT_DIR = "美术文档/_generated/art_generation_plan_snapshots"
 DEFAULT_BATCH_ID = "nai_missing_assets_20260525_01"
+DEFAULT_INCOMING_ROOT = "UnityClient/Assets/Art/_IncomingAI"
 
 DOMAIN_ORDER = {
     "node": 0,
@@ -123,7 +126,7 @@ def build_item(
 ) -> dict[str, Any]:
     visual_id = str(candidate.get("VisualID", "") or "")
     size = expected_size_from_manifest(manifest_entry)
-    incoming_base = resolve_project_path(f"UnityClient/Assets/Art/_IncomingAI/{visual_id}")
+    incoming_base = workspace_path(resolve_project_path(DEFAULT_INCOMING_ROOT), manifest_entry)
     prompt_ready = bool(
         str(manifest_entry.get("PromptEN", "") or "").strip()
         and str(manifest_entry.get("NegativePromptEN", "") or "").strip()
@@ -142,7 +145,7 @@ def build_item(
     )
     sync_command = (
         f"{tools}\\Sync-ApprovedArt.ps1 -Status generated -VisualID {visual_id} "
-        f"-BatchID {args.batch_id} -AllowProcessedFallback -Overwrite"
+        f"-BatchID {args.batch_id} -Overwrite"
     )
     return {
         "VisualID": visual_id,
@@ -257,7 +260,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
             ),
             "SyncAllAfterReviewOrFallback": (
                 f"{tools}\\Sync-ApprovedArt.ps1 -Status generated "
-                f"-BatchID {args.batch_id} -AllowProcessedFallback -Overwrite"
+                f"-BatchID {args.batch_id} -Overwrite"
             ),
             "RefreshIntegration": (
                 f"{tools}\\Generate-ArtIntegrationCandidates.ps1 -Snapshot "
@@ -346,8 +349,8 @@ def make_markdown(payload: dict[str, Any]) -> str:
             "",
             "```powershell",
             payload["BatchCommands"]["OptimizeAllAfterGeneration"],
-            "# Review contact sheets under UnityClient/Assets/Art/_IncomingAI/<VisualID>/contact_sheet.",
-            "# Put accepted image into selected/, or use processed fallback only for explicitly accepted first candidates.",
+            "# Review each item's Workspace.ContactSheet path from this plan.",
+            "# Review decision-backed candidates under Workspace.Processed/<numeric round>/ and put the accepted image into selected/.",
             payload["BatchCommands"]["SyncAllAfterReviewOrFallback"],
             payload["BatchCommands"]["RefreshIntegration"],
             payload["BatchCommands"]["RefreshQuality"],

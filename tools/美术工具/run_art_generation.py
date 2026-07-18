@@ -15,6 +15,8 @@ from typing import Any
 
 from PIL import Image
 
+from art_workspace import normalize_entry_workspace_paths, workspace_path
+
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[1]
@@ -152,8 +154,9 @@ def select_entries(entries: list[dict[str, Any]], args: argparse.Namespace) -> t
     return selected, skipped
 
 
-def ensure_workspace(out_root: Path, visual_id: str) -> dict[str, Path]:
-    base = out_root / visual_id
+def ensure_workspace(out_root: Path, entry: dict[str, Any]) -> dict[str, Path]:
+    visual_id = str(entry["VisualID"])
+    base = workspace_path(out_root, entry)
     paths = {
         "base": base,
         "raw": base / "raw",
@@ -165,7 +168,10 @@ def ensure_workspace(out_root: Path, visual_id: str) -> dict[str, Path]:
         path.mkdir(parents=True, exist_ok=True)
     notes = base / "notes.md"
     if not notes.exists():
-        notes.write_text(f"# {visual_id}\n\n", encoding="utf-8")
+        notes.write_text(
+            f"# {visual_id}\n\nGenerated candidates enter `raw/`; processing outputs are published only as decision-backed numeric `processed/<round>/` directories.\n",
+            encoding="utf-8",
+        )
     return paths
 
 
@@ -280,6 +286,8 @@ async def run_generation(args: argparse.Namespace) -> int:
     entries = manifest.get("Entries", [])
     if not isinstance(entries, list):
         raise ValueError("Manifest Entries must be a list.")
+    entries = [normalize_entry_workspace_paths(entry) for entry in entries if isinstance(entry, dict)]
+    manifest["Entries"] = entries
 
     selected, skipped = select_entries(entries, args)
     batch_id = args.batch_id or f"ai_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{args.provider or 'default'}"
@@ -318,7 +326,7 @@ async def run_generation(args: argparse.Namespace) -> int:
     async with ImageService(str(config_path) if config_path else None) as service:
         for entry_index, entry in enumerate(selected):
             visual_id = entry["VisualID"]
-            workspace = ensure_workspace(out_root, visual_id)
+            workspace = ensure_workspace(out_root, entry)
             write_json(workspace["base"] / "manifest_snapshot.json", entry)
 
             spec = source_spec(entry["Spec"])
