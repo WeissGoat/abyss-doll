@@ -17,7 +17,7 @@ from .identity import (
     prepare_identity_inputs,
 )
 from .models import FrameRecord, FrameStatus, RunConfig, RunState, RunStatus
-from .preview import generate_identity_candidates, generate_preview
+from .preview import generate_identity_candidates, generate_preview, rerun_preview_frame
 from .store import RunStore, append_jsonl, atomic_write_json
 from .timeline import extract_timeline
 
@@ -108,12 +108,28 @@ class GifReplacementWorkflow:
     ) -> RunState:
         store = RunStore.load(run_root)
         state = store.load_state()
-        if not state.preview_approved:
-            raise ValueError("preview approval is required before rerunning frames")
         unique_indices = tuple(dict.fromkeys(indices))
         for index in unique_indices:
             if index < 0 or index >= len(state.frames):
                 raise IndexError(f"frame index out of range: {index}")
+        if not state.preview_approved:
+            if state.preview_indices is None or any(
+                index not in state.preview_indices for index in unique_indices
+            ):
+                raise ValueError(
+                    "before approval, only selected preview frames can be rerun"
+                )
+            inputs, _ = self._load_identity_inputs(store)
+            latest = state
+            for index in unique_indices:
+                latest = await rerun_preview_frame(
+                    store,
+                    self.backend,
+                    inputs,
+                    index,
+                    STRICT_REPAIR_SENTENCE if strict else "",
+                )
+            return latest
         store.update_state(lambda current: replace(current, result_gif=None))
         await self._generate_indices(store, unique_indices, strict=strict, force=True)
         reviewed = self._review(store)

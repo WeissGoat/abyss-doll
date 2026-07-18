@@ -218,6 +218,13 @@ async def generate_preview(
         raise ValueError("timeline is required before preview generation")
     frame_paths = [store.paths.timeline_dir / path for path in state.timeline.frame_paths]
     selection = select_preview_frames(frame_paths)
+    store.update_state(
+        lambda current: replace(
+            current,
+            preview_indices=(selection.identity_index, selection.action_index),
+            preview_approved=False,
+        )
+    )
 
     if state.selected_identity and Path(state.selected_identity).is_file():
         identity_paths = (Path(state.selected_identity),)
@@ -278,6 +285,75 @@ async def generate_preview(
             status=RunStatus.AWAITING_PREVIEW_APPROVAL,
             preview_indices=(selection.identity_index, selection.action_index),
             preview_approved=False,
+        )
+    )
+
+
+async def rerun_preview_frame(
+    store: RunStore,
+    backend: ImageBackend,
+    identity_inputs: IdentityInputs,
+    frame_index: int,
+    extra_prompt: str = "",
+) -> RunState:
+    """Replace one selected preview frame without approving or running the batch."""
+
+    state = store.load_state()
+    if state.timeline is None or state.preview_indices is None:
+        raise ValueError("preview selection is not available")
+    if frame_index not in state.preview_indices:
+        raise ValueError(f"frame {frame_index} is not one of the selected preview frames")
+    label = "identity_frame" if frame_index == state.preview_indices[0] else "action_frame"
+    if state.selected_identity and Path(state.selected_identity).is_file():
+        identity_paths = (Path(state.selected_identity),)
+    else:
+        identity_paths = tuple(Path(path) for path in identity_inputs.provider_image_paths)
+    if not identity_paths:
+        raise ValueError("an approved identity or reference image is required")
+    prompt = _contract_prompt(identity_inputs)
+    if extra_prompt:
+        prompt = f"{prompt}\n\n{extra_prompt}"
+    frame_path = store.paths.timeline_dir / state.timeline.frame_paths[frame_index]
+    request_started_at = _utc_now()
+    try:
+        generated = await backend.replace_frame(
+            [path.read_bytes() for path in identity_paths],
+            frame_path.read_bytes(),
+            prompt,
+            state.timeline.width,
+            state.timeline.height,
+        )
+    except Exception as exc:
+        payload = _failure_record(
+            source_index=frame_index,
+            provider=store.config.frame_provider,
+            request_started_at=request_started_at,
+            exc=exc,
+        )
+        _persist_request_failure(
+            store,
+            store.paths.preview_dir / label / f"frame_{frame_index:04d}.json",
+            payload,
+        )
+        raise
+    output_path = store.paths.preview_dir / label / f"frame_{frame_index:04d}.png"
+    _write_generated(
+        output_path,
+        generated,
+        frame_index,
+        request_started_at,
+        _utc_now(),
+    )
+    append_jsonl(
+        store.paths.reports_dir / "requests.jsonl",
+        json.loads(output_path.with_suffix(".json").read_text(encoding="utf-8")),
+    )
+    return store.update_state(
+        lambda current: replace(
+            current,
+            status=RunStatus.AWAITING_PREVIEW_APPROVAL,
+            preview_approved=False,
+            errors=(),
         )
     )
 

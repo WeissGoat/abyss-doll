@@ -136,6 +136,28 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(state.status, RunStatus.AWAITING_PREVIEW_APPROVAL)
             self.assertEqual(len(backend.frame_hashes), 2)
 
+    async def test_selected_preview_frame_can_be_rerun_before_approval(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            backend = RecordingBackend()
+            workflow, store, state = await self._prepared_with_reference(Path(temp), backend)
+            identity_index = state.preview_indices[0]
+            identity_path = (
+                store.paths.preview_dir / "identity_frame" / f"frame_{identity_index:04d}.png"
+            )
+            previous_bytes = identity_path.read_bytes()
+            rerun_backend = RecordingBackend()
+
+            rerun_state = await GifReplacementWorkflow(rerun_backend).rerun_frames(
+                store.paths.root, [identity_index], strict=True
+            )
+
+            self.assertEqual(rerun_state.status, RunStatus.AWAITING_PREVIEW_APPROVAL)
+            self.assertFalse(rerun_state.preview_approved)
+            self.assertEqual(len(rerun_backend.frame_hashes), 1)
+            self.assertIn(STRICT_REPAIR_SENTENCE, rerun_backend.prompts[0])
+            self.assertTrue(identity_path.is_file())
+            self.assertEqual(identity_path.read_bytes(), previous_bytes)
+
     async def test_resume_requires_approval_and_each_source_frame_is_used_once(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             backend = RecordingBackend()

@@ -306,6 +306,6 @@ gif_character_replace/<RunID>/
   -OutputRoot "F:\output"
 ```
 
-实现覆盖：运行目录与不可变配置、8-30 帧 disposal-aware RGBA 拆帧、0-N 参考图身份包、用户文字最高优先级、三张零参考身份锚点、身份帧 / 动作帧双预审、独立逐帧 Gemini 图生图、恢复与定向重跑、技术硬门禁、视觉风险标记、contact sheet、Pillow 共享调色板编码和 FFmpeg 模拟分支。离线 unittest 当前为 `46/46` 通过；`Test-AIImageBackends.ps1 -CheckConfigOnly` 使用现有配置检查通过。
+实现覆盖：运行目录与不可变配置、8-30 帧 disposal-aware RGBA 拆帧、0-N 参考图身份包、用户文字最高优先级、三张零参考身份锚点、身份帧 / 动作帧双预审、独立逐帧 Gemini 图生图、恢复与定向重跑、技术硬门禁、视觉风险标记、contact sheet、Pillow 共享调色板编码和 FFmpeg 模拟分支。离线 unittest 当前为 `47/47` 通过；`Test-AIImageBackends.ps1 -CheckConfigOnly` 使用现有配置检查通过。
 
 真实 provider smoke 仅在临时目录运行，当前 Gemini 预审请求链路在 120 秒内未完成，记录为 `validation_limited:provider_timeout`。这不影响离线实现结论，但不构成真实图片生成成功、视觉一致性通过或 P3 正式资产验收证据。运行结果仍只写用户指定的 GIF 工作区，不进入 Manifest、Approved、Registry、Unity 或 `tools/ai-image-gateway` 子模块。
