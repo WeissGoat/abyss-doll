@@ -28,6 +28,31 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 
 > **定位：** 存放 Project P3 美术流水线脚本。脚本优先服务于“配置表扫描、Manifest 增量更新、批量生成、预处理和验收记录”。
 
+## Invoke-GifCharacterReplace.ps1
+
+对 `8-30` 帧小循环 GIF 做可恢复的人物替换工作流。输入为必填文字描述和 `0-N` 张可选参考图；用户文字优先于参考图，参考图优先于原人物外观。默认使用 Gemini 整帧图生图，每帧独立请求；在身份帧 / 动作帧双预审批准前不会运行完整批次。
+
+新建运行并先做 dry-run：
+
+```powershell
+.\tools\美术工具\Invoke-GifCharacterReplace.ps1 `
+  -InputGif "F:\input\source.gif" `
+  -Prompt "替换为银发机械师，保持原动作和背景" `
+  -Reference "F:\refs\front.png","F:\refs\side.png" `
+  -OutputRoot "F:\output" `
+  -DryRun
+```
+
+恢复、批准和编码：
+
+```powershell
+.\tools\美术工具\Invoke-GifCharacterReplace.ps1 -RunID "gif_replace_..." -OutputRoot "F:\output" -ApprovePreview -Resume
+.\tools\美术工具\Invoke-GifCharacterReplace.ps1 -RunID "gif_replace_..." -OutputRoot "F:\output" -RerunFrame 4,9 -RepairMode strict
+.\tools\美术工具\Invoke-GifCharacterReplace.ps1 -RunID "gif_replace_..." -OutputRoot "F:\output" -EncodeOnly
+```
+
+每个运行目录保存输入、完整 RGBA 原帧、身份契约、预审、raw 输出、请求元数据、风险报告、contact sheet 和结果 GIF。FFmpeg 可用时 `-Encoder auto` 优先使用 FFmpeg；当前工作区无 FFmpeg 时自动降级 Pillow，并保留原时长、帧数、画布和 loop。此工具只产生探索工作区证据，不修改 Manifest、Approved、Registry、Unity 或网关子模块；视觉风险是人工复核提示，不是正式美术验收。
+
 Agent 执行纯图片生成、图生图、差分或 inpaint 前，先读取 `.codex/skills/p3-generate-image/SKILL.md`（Skill 名 `generate-image`）；正式资产从需求准入到 Approved、Unity 和验收由 `.codex/skills/p3-art-asset-production/SKILL.md` 编排。本文件只负责具体脚本参数。
 
 ## Generate-DanbooruCharacterReference.ps1
