@@ -75,7 +75,8 @@ class GifReplacementWorkflow:
         if not state.preview_approved:
             raise ValueError("preview approval is required before full batch generation")
         self._promote_preview_frames(store)
-        return await self._generate_indices(store, range(len(store.load_state().frames)), strict=False)
+        await self._generate_indices(store, range(len(store.load_state().frames)), strict=False)
+        return self._review(store)
 
     async def rerun_frames(
         self,
@@ -91,7 +92,49 @@ class GifReplacementWorkflow:
         for index in unique_indices:
             if index < 0 or index >= len(state.frames):
                 raise IndexError(f"frame index out of range: {index}")
-        return await self._generate_indices(store, unique_indices, strict=strict, force=True)
+        await self._generate_indices(store, unique_indices, strict=strict, force=True)
+        return self._review(store)
+
+    @staticmethod
+    def _review(store: RunStore) -> RunState:
+        from .review import review_sequence
+
+        state = store.load_state()
+        if state.timeline is None:
+            raise ValueError("timeline is missing")
+        source_paths = [Path(frame.source_path) for frame in state.frames]
+        output_paths = [
+            Path(frame.output_path)
+            if frame.output_path
+            else store.paths.generated_raw_dir / f"missing_{frame.index:04d}.png"
+            for frame in state.frames
+        ]
+        review = review_sequence(
+            store.config,
+            state.timeline,
+            source_paths,
+            output_paths,
+            store.paths.reports_dir,
+            store.paths.output_dir,
+        )
+        report_path = store.paths.reports_dir / "frame_review.json"
+        risks_by_index = {risk.frame_index: risk.codes for risk in review.frame_risks}
+
+        def mutator(current: RunState) -> RunState:
+            frames = tuple(
+                replace(frame, risks=risks_by_index.get(frame.index, ()))
+                for frame in current.frames
+            )
+            return replace(
+                current,
+                status=RunStatus.FAILED if review.hard_failure else RunStatus.RUNNING,
+                frames=frames,
+                review_report=str(report_path.resolve()),
+                contact_sheet=review.contact_sheet_path,
+                warnings=tuple(dict.fromkeys((*current.warnings, *review.sequence_codes))),
+            )
+
+        return store.update_state(mutator)
 
     def _load_identity_inputs(self, store: RunStore) -> tuple[IdentityInputs, str]:
         contract_path = store.paths.identity_dir / "identity_contract.json"
