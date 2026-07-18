@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 from datetime import datetime
@@ -11,6 +12,10 @@ from pathlib import Path
 from typing import Any
 
 from PIL import Image, ImageDraw, ImageFont
+
+from art_background import background_policy, process_background, review_candidate
+from art_processing import numeric_round_directories, next_round_number, publish_round, reserve_round
+from art_workspace import normalize_entry_workspace_paths, validate_workspace_file, workspace_path
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -110,15 +115,17 @@ def append_note(entry: dict[str, Any], message: str) -> None:
     entry["Notes"] = f"{existing}\n{message}".strip() if existing else message
 
 
-def ensure_workspace(in_root: Path, visual_id: str) -> dict[str, Path]:
-    base = in_root / visual_id
+def ensure_workspace(in_root: Path, entry: dict[str, Any]) -> dict[str, Path]:
+    base = workspace_path(in_root, entry)
     paths = {
         "base": base,
         "raw": base / "raw",
         "processed": base / "processed",
         "contact_sheet": base / "contact_sheet",
     }
-    for path in paths.values():
+    for key, path in paths.items():
+        if key == "processed":
+            continue
         path.mkdir(parents=True, exist_ok=True)
     return paths
 
@@ -142,7 +149,7 @@ def candidate_raw_images(entry: dict[str, Any], raw_dir: Path, args: argparse.Na
     for value in raw_files:
         if not isinstance(value, str) or not value.strip():
             continue
-        path = resolve_project_path(value, value)
+        path = validate_workspace_file(resolve_project_path(value, value), raw_dir)
         if not path.exists():
             warnings.append(f"candidate raw file missing: {value}")
             continue
@@ -191,39 +198,16 @@ def fit_safe_padding(image: Image.Image, width: int, height: int, padding_percen
     return canvas
 
 
-def sample_corner_color(image: Image.Image) -> tuple[int, int, int]:
-    rgb = image.convert("RGB")
-    width, height = rgb.size
-    points = [(0, 0), (width - 1, 0), (0, height - 1), (width - 1, height - 1)]
-    colors = [rgb.getpixel(point) for point in points]
-    return tuple(sorted(channel)[len(channel) // 2] for channel in zip(*colors))
+def process_spec_background_policy(spec: Any) -> str:
+    return background_policy(spec)
 
 
-def remove_solid_background(image: Image.Image, threshold: int) -> Image.Image:
-    rgba = image.convert("RGBA")
-    background = sample_corner_color(rgba)
-    pixels = []
-    feather = max(8, threshold // 2)
-    pixel_source = rgba.get_flattened_data() if hasattr(rgba, "get_flattened_data") else rgba.getdata()
-    for red, green, blue, alpha in pixel_source:
-        distance = math.sqrt(
-            (red - background[0]) ** 2
-            + (green - background[1]) ** 2
-            + (blue - background[2]) ** 2
-        )
-        if distance <= threshold:
-            pixels.append((red, green, blue, 0))
-        elif distance <= threshold + feather:
-            factor = (distance - threshold) / feather
-            pixels.append((red, green, blue, int(alpha * factor)))
-        else:
-            pixels.append((red, green, blue, alpha))
-    rgba.putdata(pixels)
-    return rgba
+def round_candidate_name(index: int) -> str:
+    return f"{index:03d}.png"
 
 
-def process_image(raw_path: Path, spec: dict[str, Any], args: argparse.Namespace) -> Image.Image:
-    image = Image.open(raw_path)
+def process_image(image_or_path: Image.Image | Path, spec: dict[str, Any]) -> Image.Image:
+    image = Image.open(image_or_path) if isinstance(image_or_path, Path) else image_or_path.copy()
     src = source_spec(spec)
     comp = composition_spec(spec)
     proc = process_spec(spec)
@@ -236,14 +220,10 @@ def process_image(raw_path: Path, spec: dict[str, Any], args: argparse.Namespace
     if "crop_16_9" in post_process:
         image = crop_to_aspect(image, 16 / 9)
 
-    alpha_required = bool(src.get("AlphaRequired", False))
-    background = str(src.get("Background", ""))
-    if alpha_required or background == "transparent":
-        image = remove_solid_background(image, args.background_threshold)
-    elif image.mode not in ("RGB", "RGBA"):
+    if image.mode not in ("RGB", "RGBA"):
         image = image.convert("RGB")
 
-    if "trim_transparent_edges" in post_process and (alpha_required or image.mode == "RGBA"):
+    if "trim_transparent_edges" in post_process and image.mode == "RGBA":
         image = trim_transparent(image)
 
     if "fit_safe_padding" in post_process:
@@ -305,40 +285,148 @@ def make_contact_sheet(visual_id: str, images: list[Path], out_path: Path, conta
 
 def optimize_entry(entry: dict[str, Any], args: argparse.Namespace, in_root: Path) -> dict[str, Any]:
     visual_id = entry["VisualID"]
-    workspace = ensure_workspace(in_root, visual_id)
-    processed_outputs: list[dict[str, Any]] = []
+    workspace = ensure_workspace(in_root, entry)
     raw_images, warnings = candidate_raw_images(entry, workspace["raw"], args)
     if not raw_images:
         warnings.append("no raw images found")
+    policy = process_spec_background_policy(entry["Spec"])
+    if policy == "agent_required":
+        report = {
+            "VisualID": visual_id,
+            "CandidateBatchID": str(args.candidate_batch_id or ""),
+            "ProcessedPath": repo_path(workspace["processed"]),
+            "ContactSheet": "",
+            "Inputs": [repo_path(path) for path in raw_images],
+            "Outputs": [],
+            "Warnings": warnings,
+            "LatestRound": None,
+            "LatestState": "decision_required",
+            "Reason": "agent_processing_required",
+            "Policy": policy,
+        }
+        write_json(workspace["base"] / "process_report.json", report)
+        return report
 
-    for raw_path in raw_images:
-        out_path = workspace["processed"] / f"{raw_path.stem}.png"
-        if out_path.exists() and not args.overwrite:
-            processed_outputs.append({"Input": repo_path(raw_path), "Output": repo_path(out_path), "Skipped": True})
-            continue
-        processed = process_image(raw_path, entry["Spec"], args)
-        processed.save(out_path, format="PNG")
-        processed_outputs.append({"Input": repo_path(raw_path), "Output": repo_path(out_path), "Skipped": False})
+    if not raw_images:
+        report = {
+            "VisualID": visual_id,
+            "CandidateBatchID": str(args.candidate_batch_id or ""),
+            "ProcessedPath": repo_path(workspace["processed"]),
+            "ContactSheet": "",
+            "Inputs": [],
+            "Outputs": [],
+            "Warnings": warnings,
+            "LatestRound": None,
+            "LatestState": "failed",
+            "Reason": "no_raw_images",
+            "Policy": policy,
+        }
+        write_json(workspace["base"] / "process_report.json", report)
+        return report
 
-    contact_path = workspace["contact_sheet"] / f"{visual_id}_contact_sheet.png"
-    contact_inputs = [
-        resolve_project_path(str(item["Output"]), str(item["Output"]))
-        for item in processed_outputs
-        if item.get("Output")
-    ]
-    contact_inputs = sorted(path for path in contact_inputs if path.exists())
-    if contact_inputs:
-        make_contact_sheet(visual_id, contact_inputs, contact_path, args.contact_size)
+    reservation = reserve_round(workspace["processed"])
+    output_records: list[dict[str, Any]] = []
+    candidate_records: list[dict[str, Any]] = []
+    technical_reviews: list[dict[str, Any]] = []
+    round_blockers: list[str] = []
 
-    return {
+    try:
+        for index, raw_path in enumerate(raw_images, start=1):
+            with Image.open(raw_path) as source_image:
+                background_result = process_background(
+                    source_image,
+                    policy,
+                    threshold=args.background_threshold,
+                )
+                if background_result.state != "passed" or background_result.image is None:
+                    round_blockers.extend(background_result.reasons or [background_result.state])
+                    output_records.append(
+                        {
+                            "Input": repo_path(raw_path),
+                            "Output": "",
+                            "Skipped": True,
+                            "State": background_result.state,
+                            "Reasons": background_result.reasons,
+                        }
+                    )
+                    continue
+
+                processed = process_image(background_result.image, entry["Spec"])
+            output_path = reservation.temp_dir / round_candidate_name(index)
+            processed.save(output_path, format="PNG")
+            review = review_candidate(
+                processed,
+                source_spec=source_spec(entry["Spec"]),
+                composition_spec=composition_spec(entry["Spec"]),
+                production_profile=str(entry.get("ProductionProfile", "standard_asset")),
+                saved_path=output_path,
+            )
+            technical_reviews.append({"File": output_path.name, "Input": repo_path(raw_path), **review})
+            with Image.open(output_path) as saved_image:
+                width, height = saved_image.size
+                image_format = str(saved_image.format or "png").lower()
+            candidate_records.append(
+                {
+                    "File": output_path.name,
+                    "Input": repo_path(raw_path),
+                    "Status": review["Status"],
+                    "SHA256": hashlib.sha256(output_path.read_bytes()).hexdigest(),
+                    "Width": width,
+                    "Height": height,
+                    "Format": image_format,
+                    "Reasons": review["Reasons"],
+                }
+            )
+            output_records.append(
+                {
+                    "Input": repo_path(raw_path),
+                    "Output": repo_path(workspace["processed"] / str(reservation.number) / output_path.name),
+                    "Skipped": False,
+                    "Status": review["Status"],
+                    "Reasons": review["Reasons"],
+                }
+            )
+
+        passed_count = sum(1 for candidate in candidate_records if candidate["Status"] == "passed")
+        round_state = "passed" if passed_count and not round_blockers else "failed"
+        decision = {"State": round_state, "Candidates": candidate_records, "Reasons": sorted(set(round_blockers))}
+        write_json(reservation.temp_dir / "technical_review.json", {"Candidates": technical_reviews})
+        write_json(reservation.temp_dir / "process_report.json", {"VisualID": visual_id, "Policy": policy, "Outputs": output_records})
+        write_json(reservation.temp_dir / "decision.json", decision)
+
+        contact_path = reservation.temp_dir / "contact_sheet.png"
+        contact_inputs = sorted(path for path in reservation.temp_dir.glob("*.png") if path.name != contact_path.name)
+        if contact_inputs:
+            make_contact_sheet(visual_id, contact_inputs, contact_path, args.contact_size)
+        final_dir = publish_round(reservation)
+    except Exception:
+        from art_processing import abandon_round
+
+        abandon_round(reservation)
+        raise
+
+    published_contact = final_dir / "contact_sheet.png"
+    compatibility_contact = workspace["contact_sheet"] / f"{visual_id}_contact_sheet.png"
+    if published_contact.exists():
+        compatibility_contact.write_bytes(published_contact.read_bytes())
+
+    rounds = numeric_round_directories(workspace["processed"])
+    report = {
         "VisualID": visual_id,
         "CandidateBatchID": str(args.candidate_batch_id or ""),
         "ProcessedPath": repo_path(workspace["processed"]),
-        "ContactSheet": repo_path(contact_path) if contact_path.exists() else "",
+        "ContactSheet": repo_path(compatibility_contact) if compatibility_contact.exists() else "",
         "Inputs": [repo_path(path) for path in raw_images],
-        "Outputs": processed_outputs,
+        "Outputs": output_records,
         "Warnings": warnings,
+        "LatestRound": reservation.number,
+        "LatestState": round_state,
+        "Reason": ";".join(sorted(set(round_blockers))),
+        "Policy": policy,
+        "Rounds": [number for number, _ in rounds],
     }
+    write_json(workspace["base"] / "process_report.json", report)
+    return report
 
 
 def parse_args() -> argparse.Namespace:
@@ -367,14 +455,21 @@ def main() -> int:
     entries = manifest.get("Entries", [])
     if not isinstance(entries, list):
         raise ValueError("Manifest Entries must be a list.")
+    entries = [normalize_entry_workspace_paths(entry) for entry in entries if isinstance(entry, dict)]
+    manifest["Entries"] = entries
 
     selected = select_entries(entries, args)
     print(f"[PLAN] status={args.status} selected={len(selected)} batch={args.batch_id or '<any>'}")
     for entry in selected:
-        workspace = in_root / entry["VisualID"]
+        workspace = workspace_path(in_root, entry)
         raw_count = len(list_raw_images(workspace / "raw"))
         src = source_spec(entry.get("Spec"))
-        print(f"[ITEM] {entry['VisualID']} raw={raw_count} spec={src.get('Width')}x{src.get('Height')}")
+        policy = process_spec_background_policy(entry["Spec"])
+        next_round = next_round_number(workspace / "processed")
+        print(
+            f"[ITEM] {entry['VisualID']} policy={policy} raw={raw_count} "
+            f"next_round={next_round} spec={src.get('Width')}x{src.get('Height')}"
+        )
 
     if args.dry_run:
         print("[DONE] dry-run only; no files changed.")
@@ -386,7 +481,7 @@ def main() -> int:
     for entry in selected:
         report = optimize_entry(entry, args, in_root)
         reports.append(report)
-        report_path = in_root / entry["VisualID"] / "process_report.json"
+        report_path = workspace_path(in_root, entry) / "process_report.json"
         write_json(report_path, {"CreatedAt": created_at, **report, "Spec": entry.get("Spec", {})})
         if report["Outputs"]:
             success += 1
