@@ -147,6 +147,17 @@ def expected_importer(entry: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def expected_source_dimensions(entry: dict[str, Any]) -> dict[str, int]:
+    spec = entry.get("Spec")
+    source_spec = spec.get("SourceSpec") if isinstance(spec, dict) else None
+    if not isinstance(source_spec, dict):
+        raise ArtImportError(f"Manifest entry lacks Spec.SourceSpec: {entry.get('VisualID', '')}")
+    try:
+        return {"width": int(source_spec["Width"]), "height": int(source_spec["Height"])}
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ArtImportError(f"Manifest entry has invalid SourceSpec dimensions: {entry.get('VisualID', '')}") from exc
+
+
 def find_approved_basename_collisions(approved_root: Path) -> dict[str, list[str]]:
     by_visual_id: dict[str, list[str]] = {}
     if not approved_root.exists():
@@ -264,6 +275,7 @@ def create_plan(
             "selected_sha256": sha256_file(source),
             "manifest_entry_sha256": sha256_json(entry),
             "expected_importer": expected_importer(entry),
+            "expected_source_dimensions": expected_source_dimensions(entry),
             **target,
             "authorization_required": not bool(permissions.get("allow_approved_sync")) or action != "noop",
         }
@@ -501,6 +513,9 @@ def _validate_import_item(
         raise ArtImportError(f"failed:unity_import_mismatch GUID: {visual_id}")
     if imported.get("main_asset_type") != "UnityEngine.Texture2D" or imported.get("sprite_loaded") is not True:
         raise ArtImportError(f"failed:unity_import_mismatch asset type: {visual_id}")
+    dimensions = planned.get("expected_source_dimensions")
+    if not isinstance(dimensions, dict) or imported.get("source_width") != dimensions.get("width") or imported.get("source_height") != dimensions.get("height"):
+        raise ArtImportError(f"failed:unity_import_mismatch source dimensions: {visual_id}")
     expected = planned.get("expected_importer")
     actual = imported.get("importer")
     if not isinstance(expected, dict) or not isinstance(actual, dict):

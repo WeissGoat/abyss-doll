@@ -326,6 +326,16 @@ class ArtApprovedUnityRegistrationTests(unittest.TestCase):
         with self.assertRaisesRegex(ArtImportError, "registry_asset_mismatch"):
             stage_finalize(run_path, manifest_path=self.manifest_path)
 
+    def test_stage_finalize_rejects_source_dimension_mismatch(self) -> None:
+        run_path = self.prepare_synced_run("art_import_test_07b")
+        self.write_valid_mcp_evidence(run_path)
+        import_path = run_path / "unity-import.json"
+        data = json.loads(import_path.read_text(encoding="utf-8"))
+        data["items"][0]["source_width"] = 512
+        import_path.write_text(json.dumps(data), encoding="utf-8")
+        with self.assertRaisesRegex(ArtImportError, "source dimensions"):
+            stage_finalize(run_path, manifest_path=self.manifest_path)
+
     def test_stage_finalize_updates_registry_status_and_is_idempotent(self) -> None:
         run_path = self.prepare_synced_run("art_import_test_08")
         self.write_valid_mcp_evidence(run_path)
