@@ -1,4 +1,19 @@
 ---
+
+## Register-ArtProcessingRound.ps1
+
+将 Agent 产生的候选处理结果登记为下一个不可变的 `processed/<正整数>/` 轮次。staging 目录必须包含直接子级候选图片、`decision.json`、`process_report.json` 和 `technical_review.json`；角色立绘的 `passed` 轮次还必须包含 `visual_review.json`。
+
+登记不会修改 Manifest 的主状态、`selected/`、Approved、Registry 或运行时绑定。正式登记前先执行 dry-run：
+
+```powershell
+.\tools\美术工具\Register-ArtProcessingRound.ps1 `
+  -VisualID doll_zero_dialogue_neutral `
+  -StagingDirectory F:\tmp\doll_round `
+  -DryRun
+```
+
+确认后去掉 `-DryRun` 登记。staging 中的候选必须通过 SHA-256、尺寸、格式和路径边界校验；`SelectedPath`、`ApprovedPath` 等正式资产状态字段会被拒绝。
 id: tools_art_readme
 title: 美术工具
 type: tool
@@ -74,7 +89,7 @@ Agent 执行纯图片生成、图生图、差分或 inpaint 前，先读取 `.co
 
 ## Generate-ZeroPrototypeBackendBatch.ps1
 
-使用 `tools/ai-image-gateway/config.local.yaml` 中已配置的 `openai_images`、`gemini_chat_image` 和 `novelai` 三个后端，为零号初版人设各生成 3 张候选图。输出只进入 `_IncomingAI` 工作区，不进入 Approved / Manifest / Registry。
+使用 `tools/ai-image-gateway/config.local.yaml` 中已配置的 `openai_images`、`gemini_chat_image` 和 `novelai` 三个后端，为零号初版人设各生成 3 张候选图。默认输出到系统临时目录 `P3CharacterDesign`，不进入正式 `_IncomingAI` Profile、Approved / Manifest / Registry；需要保留到任务指定位置时显式传 `--output-dir`。
 
 使用方式：
 
@@ -281,10 +296,13 @@ NovelAI 限流时可拉长外层重试间隔：
 
 读取 Manifest 中 `Status=prompted` 的条目，按 `PromptEN`、`NegativePromptEN` 和结构化 `Spec` 调用 `tools/ai-image-gateway` 批量生成候选图。
 
-输出目录固定为：
+输出目录由 Manifest 的 `ProductionProfile` 解析：
 
 ```text
-UnityClient/Assets/Art/_IncomingAI/<VisualID>/
+standard_asset         -> UnityClient/Assets/Art/_IncomingAI/standard_assets/<VisualID>/
+character_portrait_set -> UnityClient/Assets/Art/_IncomingAI/character_portraits/<VisualID>/
+
+每个 VisualID 工作区：
   raw/
   processed/
   selected/
@@ -294,7 +312,7 @@ UnityClient/Assets/Art/_IncomingAI/<VisualID>/
   notes.md
 ```
 
-`BatchID` 只写入 Manifest 和 `generation.json`，不作为目录层级。
+缺少 `ProductionProfile` 的旧 Manifest entry 由 Resolver 归一为 `standard_asset`。`BatchID` 只写入 Manifest 和 `generation.json`，不作为目录层级；`_legacy_runs/` 只保存非 VisualID 历史工作，永不参与生产扫描。
 
 使用方式：
 
@@ -325,9 +343,30 @@ Copy-Item .\tools\美术工具\ai_image_gateway.example.yaml .\tools\ai-image-ga
 
 非 `-DryRun` 生成完成后，脚本会默认刷新 `美术文档/_generated/可接入素材清单.*`，并在 `美术文档/_generated/art_integration_snapshots/` 写入一份 `generation` 快照。刚生成的 raw 素材会在清单中标为 `art_process`，表示还需要预处理和筛选，不能交给程序接入。
 
+## Import-ArtCandidate.ps1
+
+把项目内已有图片作为“导入候选”放入 Manifest entry 的 Profile 工作区，用于复用已审阅概念图、外部绘制结果或历史候选。工具通过 `ProductionProfile + VisualID` Resolver 定位 `raw/`，写入 `reference_inputs.json` 与方法中立的 `generation.json`，并只把目标 entry 推进到 `Status=generated`。
+
+```powershell
+.\tools\美术工具\Import-ArtCandidate.ps1 `
+  -VisualID doll_zero_dialogue_neutral `
+  -SourcePath "美术文档/人设/AI出图/zero_dialogue_differences_20260712_01/selected/zero_dialogue_neutral.png" `
+  -DestinationName r01_001.png `
+  -BatchID imported_zero_dialogue_neutral_20260718_01 `
+  -SourceReview "美术文档/人设/AI出图/zero_dialogue_differences_20260712_01/selection_review.md" `
+  -DryRun
+```
+
+安全边界：
+
+* 要求 Manifest 中目标 VisualID 唯一；未知或重复条目直接失败。
+* 禁止从 `_IncomingAI/_legacy_runs` 导入。
+* 只接受可解码的 PNG / JPG / JPEG / WEBP，复制前后校验 SHA-256。
+* 不写 `SelectedPath`、Approved、Registry 或运行时状态；导入后仍必须执行预处理和候选决策。
+
 ## Optimize-ArtAssets.ps1
 
-读取 `_IncomingAI/<VisualID>/raw`，按 Manifest 的结构化 `Spec` 输出 `processed` 和 `contact_sheet`。
+读取 Manifest entry 的 Profile 工作区 `raw/`，按结构化 `Spec` 输出 `processed` 和 `contact_sheet`。
 
 使用方式：
 
@@ -345,11 +384,11 @@ Visual V2 候选批次使用 `-CandidateBatchID`，只处理 Manifest 中 `Candi
 
 ## Sync-ApprovedArt.ps1
 
-把 `_IncomingAI/<VisualID>/selected` 或 fallback 的 `processed` 中当前图片同步到 Manifest 的 `OutputPath`。
+把 Manifest entry 的 Profile 工作区 `selected/` 或显式允许 fallback 的 `processed/` 中当前图片同步到 Manifest 的 `OutputPath`。
 
 同步规则：
 
-* 用 `_IncomingAI` 下的一级目录名匹配 Manifest 的 `VisualID`。
+* 通过统一 Resolver 使用 `ProductionProfile + VisualID` 定位工作区，不扫描 `_IncomingAI` 根目录或 `_legacy_runs/` 猜测资产。
 * 优先取 `selected/` 下按文件名升序第一张图片。
 * 如果启用 fallback 且 `selected/` 为空，则取 `processed/` 下按文件名升序第一张图片。
 * 复制到 `Approved` 目标路径后，更新 `SelectedPath`、`ApprovedPath` 和 `Status=approved`。
@@ -407,7 +446,7 @@ Visual V2 同名替换使用 `-CandidateBatchID` 和 `-QualityTier formal_ai_v2`
 
 * `program_integrate`：Approved PNG 已存在，程序侧应导入 / 登记 `VisualAssetRegistry`。
 * `acceptance_needed`：Registry 已能找到素材，下一步是运行时截图验收或回填 Manifest 状态。
-* `art_approve`：`_IncomingAI/<VisualID>/selected` 已有候选，等待同步到 Approved。
+* `art_approve`：当前 Manifest entry 的 Profile 工作区 `selected/` 已有候选，等待同步到 Approved。
 * `art_select`：`processed` 已有候选，等待美术筛选。
 * `art_process`：`raw` 已有候选，等待预处理和 contact sheet。
 * `generate_needed`：Manifest 有需求，但还没有可接入素材。
