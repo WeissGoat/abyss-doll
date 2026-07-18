@@ -462,6 +462,23 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/specs/2026-07-18-ai-image-gateway-transparent-streaming-design.md",
+      "title": "AI 图片网关透明流式模式设计",
+      "id": "ai_image_gateway_transparent_streaming_design",
+      "type": "design",
+      "role": "程序",
+      "domain": "ai_image_gateway",
+      "status": "draft",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "2026-07-18",
+      "update_rule": "透明流式接口、SSE 解析、fallback、错误语义、证据字段或验收范围变化时更新本设计。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "docs/superpowers/specs/2026-07-18-unified-art-processing-rounds-design.md",
       "title": "美术资产统一数字轮次加工与安全背景处理设计",
       "id": "spec_unified_art_processing_rounds",
