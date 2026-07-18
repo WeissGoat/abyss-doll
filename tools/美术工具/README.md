@@ -395,13 +395,14 @@ Visual V2 候选批次使用 `-CandidateBatchID`，只处理 Manifest 中 `Candi
 
 ## Sync-ApprovedArt.ps1
 
-把 Manifest entry 的 Profile 工作区 `selected/` 或显式允许 fallback 的 `processed/` 中当前图片同步到 Manifest 的 `OutputPath`。
+把 Manifest entry 的 Profile 工作区中当前安全候选同步到 Manifest 的 `OutputPath`。
 
 同步规则：
 
 * 通过统一 Resolver 使用 `ProductionProfile + VisualID` 定位工作区，不扫描 `_IncomingAI` 根目录或 `_legacy_runs/` 猜测资产。
-* 优先取 `selected/` 下按文件名升序第一张图片。
-* 如果启用 fallback 且 `selected/` 为空，则取 `processed/` 下按文件名升序第一张图片。
+* 候选优先级固定为 Manifest `SelectedPath`、`selected/` 下按文件名升序第一张、最新数字 `processed/<number>/` 中唯一且通过的候选。
+* 最新数字轮次为 `failed`、`decision_required`、`legacy_unverified`、决策证据不完整或有多个通过候选时，禁止回退更早轮次或自动晋级 Approved。
+* `-AllowProcessedFallback` 只保留 CLI 兼容；安全数字轮次单候选解析已自动执行，不能绕过轮次决策。
 * 复制到 `Approved` 目标路径后，更新 `SelectedPath`、`ApprovedPath` 和 `Status=approved`。
 * 覆盖已有 PNG 时保留 Unity `.meta` 文件。
 * 使用 `-CandidateBatchID` 做 Visual V2 同名替换时，默认启用严格 `.meta` guard：目标 PNG 和目标 `.meta` 必须已经存在；同步前后 `.meta` 字节必须完全一致，否则脚本失败。
@@ -412,7 +413,7 @@ Visual V2 候选批次使用 `-CandidateBatchID`，只处理 Manifest 中 `Candi
 .\tools\美术工具\Sync-ApprovedArt.ps1 -BatchID nai_p0_item_20260508_01 -Overwrite
 ```
 
-Visual V2 同名替换使用 `-CandidateBatchID` 和 `-QualityTier formal_ai_v2`。若 `selected` 为空，可加 `-AllowProcessedFallback` 使用本批候选 processed 第一张；同步后可用 `-ClearCandidate` 清理候选字段：
+Visual V2 同名替换使用 `-CandidateBatchID` 和 `-QualityTier formal_ai_v2`。若 `selected` 为空，Resolver 只接受最新数字轮次中唯一且通过、且输入属于本 CandidateBatch 的候选；`-AllowProcessedFallback` 为 deprecated 兼容参数。同步后可用 `-ClearCandidate` 清理候选字段：
 
 ```powershell
 .\tools\美术工具\Sync-ApprovedArt.ps1 -Status approved -VisualID ui_icon_diary -CandidateBatchID nai_visual_v2_20260525_01 -AllowProcessedFallback -Overwrite -QualityTier formal_ai_v2 -ClearCandidate
@@ -421,6 +422,52 @@ Visual V2 同名替换使用 `-CandidateBatchID` 和 `-QualityTier formal_ai_v2`
 这条流程的目标是“替换图片内容，不让程序重新接入”。因此必须保持同一个 `VisualID`、同一个 Manifest `OutputPath`、同一个 Unity `.meta` / GUID。`-AllowNewTargetWithCandidate` 只允许在明确创建新资产路径时使用，不能用于已接入素材的正式图替换。
 
 非 `-DryRun` 同步完成后，脚本会默认刷新“可接入素材清单”，并写入一份 `approved_sync` 快照，方便程序侧直接查看当前哪些 Approved 素材已经可以接入。需要只做同步、不刷新清单时使用 `-SkipIntegrationCandidates`。
+
+## Invoke-ArtApprovedUnityRegistration.ps1
+
+把正式静态 Sprite 的后半段编排为 `selected -> approved -> unity_imported -> registered`。该入口不直接调用 MCP，也不复制 `Sync-ApprovedArt.ps1` 的文件逻辑；Agent 在三个脚本阶段之间调用 Unity MCP，并把 live evidence 写入同一 ArtImportRunID。
+
+只生成计划，不修改 Approved：
+
+```powershell
+.\tools\美术工具\Invoke-ArtApprovedUnityRegistration.ps1 `
+  -Phase Plan `
+  -ArtImportRunID art_import_example_01 `
+  -VisualID doll_zero_dialogue_neutral `
+  -UnityInstance UnityClient@c0741596
+```
+
+计划写入 `UnityClient/Logs/P3ArtImport/<ArtImportRunID>/request.json` 与 `approved-plan.json`。它记录 selected hash、OutputPath、现有 `.meta` / GUID、importer 预期、Approved basename 冲突和授权需求。
+
+用户通过门禁后同步 Approved：
+
+```powershell
+.\tools\美术工具\Invoke-ArtApprovedUnityRegistration.ps1 `
+  -Phase SyncApproved `
+  -ArtImportRunID art_import_example_01 `
+  -AuthorizeApprovedSync `
+  -AllowNewApprovedTarget
+```
+
+已有目标覆盖改用 `-AllowExistingTargetOverwrite`。`SyncApproved` 调用现有 `Sync-ApprovedArt.ps1`，随后写 `approved-sync.json`；同 VisualID 替换仍必须保留 `.meta` 字节和 GUID。
+
+Agent 随后通过 Unity MCP 锁定实例、刷新并等待 Editor 空闲、临时启用 `scripting_ext` 读取 importer/Registry、执行两个 P3 Art 菜单、采集 Console delta，并写：
+
+```text
+unity-import.json
+registry-result.json
+console-delta.json
+```
+
+证据完成后执行：
+
+```powershell
+.\tools\美术工具\Invoke-ArtApprovedUnityRegistration.ps1 `
+  -Phase Finalize `
+  -ArtImportRunID art_import_example_01
+```
+
+`Finalize` 深度核对 run ID、Unity 实例、时间、VisualID 集合、当前 `.meta` GUID、importer、Registry 唯一条目和 Console；通过后保持 Manifest `Status=approved`，写 `RegistryStatus=registered`，并刷新可接入、程序交接和 Registry 缺口清单。它不创建 Prefab / UGUI 绑定，不进入 PlayMode，也不运行 ArtAcceptance。
 
 ## Generate-ArtIntegrationCandidates.ps1
 

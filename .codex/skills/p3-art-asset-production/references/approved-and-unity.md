@@ -13,16 +13,32 @@ Require all:
 - current mode/permissions allow synchronization;
 - same-VisualID replacement passes strict `.meta` and GUID preservation.
 
-Use existing `Sync-ApprovedArt.ps1`. Do not manually copy around its guards.
+For a formal static-Sprite handoff, start with:
+
+```powershell
+.\tools\美术工具\Invoke-ArtApprovedUnityRegistration.ps1 `
+  -Phase Plan `
+  -ArtImportRunID <ArtImportRunID> `
+  -VisualID <VisualID> `
+  -UnityInstance <Name@hash>
+```
+
+Review `approved-plan.json` at the configured gate. After authorization, use the same entry with `-Phase SyncApproved -AuthorizeApprovedSync` plus the explicit new-target or overwrite permission. The entry delegates all formal file writes to `Sync-ApprovedArt.ps1`; do not manually copy around its guards.
 
 ## Unity import
 
-After Approved changes:
+After `SyncApproved`:
 
-1. Refresh Unity and wait for AssetDatabase/compilation readiness.
-2. Collect a Console baseline/delta.
-3. Verify asset type, import settings, path, `.meta`, and GUID.
-4. Run the appropriate display/import validator.
+1. Pin the exact Unity instance and collect the Console baseline.
+2. Refresh Unity and use an internal `Wait-UnityIdle`; this is infrastructure, not a production state.
+3. Temporarily enable `scripting_ext` and collect a target-bounded importer pre-snapshot.
+4. Execute `Tools/P3 Art/Rebuild Approved Sprite Registry` for static Approved sprites.
+5. Refresh and wait again, then collect the importer post-snapshot and live Registry target snapshot.
+6. Execute `Tools/P3 Art/Validate Approved Display Specs` and collect the Console delta.
+7. Restore `scripting_ext=false`.
+8. Write `unity-import.json`, `registry-result.json`, and `console-delta.json`, then call `-Phase Finalize`.
+
+The normal session tool policy remains `core + testing + docs`. `scripting_ext` is on-demand only because core asset tools cannot expose every TextureImporter field or ScriptableObject Registry entry.
 
 Approved on disk is not `unity_imported` until the live Editor recognizes the expected asset.
 
@@ -31,6 +47,10 @@ Approved on disk is not `unity_imported` until the live Editor recognizes the ex
 - Static Approved sprites may use `Tools/P3 Art/Rebuild Approved Sprite Registry` and `Validate Approved Display Specs`.
 - Prefab, dynamic portrait, Live2D, DollPuppet, audio, and VFX use their dedicated registry/import path; do not force them through sprite rebuild.
 - Menu execution success means only that the command was invoked. Read Console/result evidence and inspect the live Registry state.
+- A target is `registered` only when the raw Registry Entries contain exactly one matching VisualID, `TryGetEntry` succeeds, the Sprite is non-null, and its AssetPath/GUID match the Approved target.
+- The rebuild menu scans all Approved sprites and does not remove stale entries. Block Approved basename collisions before invoking it; keep unrelated stale-entry diagnostics separate from the target result.
+
+Finalize writes Manifest `RegistryStatus=registered` while keeping the production-axis `Status=approved`. It also refreshes integration candidates, program handoff, and Registry-gap reports. Do not add a `unity_available` field or set the main Manifest Status to `registered`.
 
 ## Runtime validation
 
@@ -49,4 +69,3 @@ approved -> unity_imported -> registered -> runtime_bound -> target_captured -> 
 ```
 
 Runner visibility proves neither normal player-path reachability nor correct domain behavior.
-

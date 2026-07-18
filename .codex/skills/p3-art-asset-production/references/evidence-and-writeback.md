@@ -23,6 +23,23 @@ UnityClient/Logs/P3ArtProduction/<ProductionRunID>/
 
 This is evidence, not a second project progress table.
 
+When Approved-to-Unity registration is executed as a separate resumable handoff, use an ArtImportRunID under:
+
+```text
+UnityClient/Logs/P3ArtImport/<ArtImportRunID>/
+  request.json
+  approved-plan.json
+  approved-sync.json
+  unity-import.json
+  registry-result.json
+  console-delta.json
+  finalize-stage.json
+  generated-writeback.json
+  summary.json
+```
+
+The ProductionRun summary references the ArtImportRunID and final claim; it does not copy the evidence or create another progress table. `unity_imported` is evidence-only. Successful finalization keeps Manifest `Status=approved` and writes the existing `RegistryStatus=registered`.
+
 Per VisualID, keep working evidence in the profile workspace:
 
 ```text
@@ -93,7 +110,9 @@ After meaningful work:
 - raw exists: candidate generation complete;
 - latest processed round with decision evidence: ready for selection or explicit repair/decision;
 - selected: candidate selection complete;
-- Approved + stable `.meta`: asset complete;
-- live Registry/UI binding: integration complete;
+- Approved + stable `.meta`: formal asset complete;
+- live AssetDatabase importer evidence: `unity_imported`;
+- live Registry target evidence: `registered` and usable by VisualID;
+- Prefab / UGUI consumption: `runtime_bound`;
 - runtime evidence: runtime art validation complete;
 - normal player-path evidence: player-path integration complete.
