@@ -16,7 +16,9 @@ param(
     [string]$Encoder = "auto",
     [switch]$DryRun,
     [string]$RunID,
+    [string]$SetActionTexts,
     [int]$SelectIdentity = -1,
+    [switch]$ApproveAppearanceAnchor,
     [switch]$ApprovePreview,
     [switch]$Resume,
     [int[]]$RerunFrame,
@@ -36,8 +38,10 @@ $arguments += @("--output-root", $OutputRoot, "--provider", $Provider, "--max-fr
 if ($Config) { $arguments += @("--config", $Config) }
 if ($DryRun) { $arguments += "--dry-run" }
 if ($RunID) { $arguments += @("--run-id", $RunID) }
-if ($SelectIdentity -ge 0) { $arguments += @("--select-identity", $SelectIdentity) }
-if ($ApprovePreview) { $arguments += "--approve-preview" }
+if ($SetActionTexts) { $arguments += @("--set-action-texts", $SetActionTexts) }
+    if ($SelectIdentity -ge 0) { $arguments += @("--select-identity", $SelectIdentity) }
+    if ($ApproveAppearanceAnchor) { $arguments += "--approve-appearance-anchor" }
+    if ($ApprovePreview) { $arguments += "--approve-preview" }
 if ($Resume) { $arguments += "--resume" }
 foreach ($item in $RerunFrame) { $arguments += @("--rerun-frame", $item) }
 if ($RepairMode -eq "strict") { $arguments += @("--repair-mode", "strict") }

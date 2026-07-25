@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import sys
 import unittest
+from io import BytesIO
 from pathlib import Path
+
+from PIL import Image
 
 
 TOOLS_DIR = Path(__file__).resolve().parents[1]
@@ -16,9 +19,17 @@ from gif_character_replace.backend import (  # noqa: E402
 )
 
 
-def fake_image_result(provider: str = "openai_images") -> ImageResult:
+def fake_png(width: int = 64, height: int = 80) -> bytes:
+    output = BytesIO()
+    Image.new("RGB", (width, height), (40, 80, 120)).save(output, format="PNG")
+    return output.getvalue()
+
+
+def fake_image_result(
+    provider: str = "openai_images", *, image_bytes: bytes | None = None
+) -> ImageResult:
     return ImageResult(
-        image_bytes=b"png-bytes",
+        image_bytes=image_bytes or fake_png(),
         seed=123,
         provider_name=provider,
         model_name="fake-model",
@@ -81,6 +92,40 @@ class GatewayImageBackendTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual((request.width, request.height), (64, 80))
         self.assertEqual(result.provider, "gemini_chat_image")
 
+    async def test_frame_request_explicitly_enables_streaming(self) -> None:
+        service = FakeService(
+            [BatchResult(results=[fake_image_result("gemini_chat_image")])]
+        )
+        backend = GatewayImageBackend(service, delay_seconds=0)
+
+        await backend.replace_frame([b"identity"], b"frame", "replace", 64, 80)
+
+        self.assertIs(service.image_to_image_requests[0].extra["stream"], True)
+
+    async def test_frame_response_is_normalized_to_requested_canvas(self) -> None:
+        service = FakeService(
+            [
+                BatchResult(
+                    results=[
+                        fake_image_result(
+                            "gemini_chat_image", image_bytes=fake_png(1376, 768)
+                        )
+                    ]
+                )
+            ]
+        )
+        backend = GatewayImageBackend(service, delay_seconds=0)
+
+        result = await backend.replace_frame(
+            [b"identity"], b"frame", "replace", 320, 180
+        )
+
+        with Image.open(BytesIO(result.image_bytes)) as image:
+            self.assertEqual(image.size, (320, 180))
+        self.assertEqual(result.generation_params["provider_output_size"], [1376, 768])
+        self.assertEqual(result.generation_params["normalized_output_size"], [320, 180])
+        self.assertIs(result.generation_params["output_resized"], True)
+
     async def test_transient_error_is_retried(self) -> None:
         service = FakeService(
             [
@@ -96,6 +141,26 @@ class GatewayImageBackendTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(result.provider, "openai_images")
         self.assertEqual(result.generation_params["gateway_attempt_count"], 2)
         self.assertEqual(result.generation_params["gateway_retry_errors"], ["HTTP 524 timeout"])
+
+    async def test_incomplete_chunked_read_is_retried(self) -> None:
+        service = FakeService(
+            [
+                BatchResult(errors=["HTTP transport error: incomplete chunked read"]),
+                BatchResult(results=[fake_image_result("gemini_chat_image")]),
+            ]
+        )
+        backend = GatewayImageBackend(service, retry_count=3, delay_seconds=0)
+
+        result = await backend.replace_frame(
+            [b"identity"], b"frame", "replace", 64, 80
+        )
+
+        self.assertEqual(len(service.image_to_image_requests), 2)
+        self.assertEqual(result.generation_params["gateway_attempt_count"], 2)
+        self.assertEqual(
+            result.generation_params["gateway_retry_errors"],
+            ["HTTP transport error: incomplete chunked read"],
+        )
 
     async def test_auth_errors_stop_after_one_call(self) -> None:
         for error in ("HTTP 401 invalid token", "HTTP 403 forbidden"):

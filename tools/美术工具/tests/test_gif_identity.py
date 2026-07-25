@@ -14,6 +14,7 @@ if str(TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_DIR))
 
 from gif_character_replace.identity import (  # noqa: E402
+    appearance_anchor_prompt,
     build_identity_contract,
     prepare_identity_inputs,
 )
@@ -32,24 +33,30 @@ class GifIdentityTests(unittest.TestCase):
             contract = build_identity_contract(
                 "red coat, watercolor character rendering", [reference]
             )
-            self.assertIn("User text has highest priority", contract.provider_prompt)
-            self.assertIn("red coat", contract.provider_prompt)
-            self.assertIn("preserve the original background exactly", contract.provider_prompt)
+            self.assertTrue(
+                contract.provider_prompt.startswith(
+                    "USER TEXT - HIGHEST PRIORITY\nred coat, watercolor character rendering"
+                )
+            )
+            self.assertEqual(contract.provider_prompt.count(contract.user_prompt), 1)
+            self.assertIn("last image is the current GIF frame", contract.provider_prompt)
             self.assertIn(
-                "apply watercolor rendering only to the replacement character",
+                "Preserve its action, expression, character position, background, camera, "
+                "composition, and canvas",
+                contract.provider_prompt,
+            )
+            self.assertIn(
+                "requested rendering style only to the replacement character",
                 contract.provider_prompt,
             )
             headings = [
-                "TASK",
                 "USER TEXT - HIGHEST PRIORITY",
-                "REFERENCE IMAGE ROLE",
-                "MUST PRESERVE FROM CURRENT GIF FRAME",
-                "MAY CHANGE",
-                "MUST NOT CHANGE",
-                "OUTPUT CONTRACT",
+                "IMAGE ORDER",
+                "EDIT RULE",
             ]
             positions = [contract.provider_prompt.index(heading) for heading in headings]
             self.assertEqual(positions, sorted(positions))
+            self.assertLess(len(contract.provider_prompt), 700)
 
     def test_blank_prompt_and_missing_reference_are_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -58,6 +65,31 @@ class GifIdentityTests(unittest.TestCase):
                 build_identity_contract("  ", [])
             with self.assertRaises(FileNotFoundError):
                 build_identity_contract("character", [root / "missing.png"])
+
+    def test_appearance_anchor_prompt_assigns_identity_and_source_roles(self) -> None:
+        appearance_request = "replace the character with a school-uniform heroine"
+        action_text = "眼睛半垂，一只手靠近嘴唇，另一只手位于胸前。"
+        prompt = appearance_anchor_prompt(appearance_request, action_text)
+
+        self.assertTrue(
+            prompt.startswith(
+                "USER TEXT - HIGHEST PRIORITY\n"
+                "replace the character with a school-uniform heroine"
+            )
+        )
+        self.assertIn(
+            "TASK\n把图一（identity_frame）中的人物改成图二（当前 GIF 帧）的动作。",
+            prompt,
+        )
+        self.assertEqual(prompt.count(appearance_request), 1)
+        self.assertIn("图一是唯一编辑底图", prompt)
+        self.assertIn("图二只是动作骨架参考", prompt)
+        self.assertIn("完整替换图一原本的动作和表情", prompt)
+        self.assertIn("动作和表情一律以图二为准", prompt)
+        self.assertIn("图二中的帽子、尖耳", prompt)
+        self.assertEqual(prompt.count("CURRENT FRAME ACTION"), 1)
+        self.assertEqual(prompt.count(action_text), 1)
+        self.assertLess(len(prompt), 800)
 
     def test_one_to_three_references_are_used_directly_and_contract_is_written(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

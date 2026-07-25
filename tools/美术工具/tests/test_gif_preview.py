@@ -16,16 +16,19 @@ if str(TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_DIR))
 
 from gif_character_replace.backend import GeneratedImage  # noqa: E402
+from gif_character_replace.action_text import install_action_texts  # noqa: E402
 from gif_character_replace.identity import (  # noqa: E402
     build_identity_contract,
     prepare_identity_inputs,
 )
 from gif_character_replace.models import RunConfig, RunStatus  # noqa: E402
 from gif_character_replace.preview import (  # noqa: E402
+    approve_appearance_anchor,
     approve_identity,
     approve_preview,
+    generate_action_preview,
     generate_identity_candidates,
-    generate_preview,
+    generate_identity_preview,
     select_preview_frames,
 )
 from gif_character_replace.store import RunStore  # noqa: E402
@@ -37,6 +40,8 @@ class FakeBackend:
         self.anchor_calls = 0
         self.frame_calls: list[bytes] = []
         self.identity_counts: list[int] = []
+        self.identity_payloads: list[list[bytes]] = []
+        self.prompts: list[str] = []
         self.fail_frame_call = fail_frame_call
 
     async def generate_anchor(self, prompt: str, width: int, height: int) -> GeneratedImage:
@@ -49,6 +54,8 @@ class FakeBackend:
     ) -> GeneratedImage:
         self.frame_calls.append(frame)
         self.identity_counts.append(len(identity_images))
+        self.identity_payloads.append(list(identity_images))
+        self.prompts.append(prompt)
         if self.fail_frame_call == len(self.frame_calls):
             raise RuntimeError("synthetic preview failure")
         from io import BytesIO
@@ -133,7 +140,7 @@ class GifPreviewTests(unittest.IsolatedAsyncioTestCase):
             approved = approve_identity(store, 1)
             self.assertTrue(Path(approved.selected_identity or "").is_file())
 
-    async def test_existing_reference_skips_anchor_and_generates_only_two_previews(self) -> None:
+    async def test_existing_reference_generates_identity_then_anchor_drives_action_preview(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             references = []
@@ -147,20 +154,67 @@ class GifPreviewTests(unittest.IsolatedAsyncioTestCase):
 
             identity_state = await generate_identity_candidates(store, backend, contract)
             inputs = prepare_identity_inputs(contract, store.paths.identity_dir)
-            preview_state = await generate_preview(store, backend, inputs)
+            identity_preview = await generate_identity_preview(store, backend, inputs)
 
             self.assertEqual(backend.anchor_calls, 0)
             self.assertEqual(identity_state.status, RunStatus.PREFLIGHT)
+            self.assertEqual(len(backend.frame_calls), 1)
+            self.assertEqual(backend.identity_counts, [3])
+            self.assertEqual(
+                identity_preview.status, RunStatus.AWAITING_APPEARANCE_APPROVAL
+            )
+
+            action_index = identity_preview.preview_indices[1]
+            action_map_path = root / "action_texts.json"
+            action_map_path.write_text(
+                json.dumps(
+                    {
+                        "source_sha256": identity_preview.timeline.source_sha256,
+                        "frame_count": identity_preview.timeline.frame_count,
+                        "actions": {
+                            str(index): f"frame {index} action description"
+                            for index in range(identity_preview.timeline.frame_count)
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            install_action_texts(store, action_map_path)
+
+            anchored = approve_appearance_anchor(store)
+            anchor_path = Path(anchored.appearance_anchor or "")
+            self.assertTrue(anchor_path.is_file())
+            self.assertTrue(anchored.appearance_anchor_sha256)
+            action_preview = await generate_action_preview(store, backend, inputs)
+
             self.assertEqual(len(backend.frame_calls), 2)
-            self.assertEqual(backend.identity_counts, [3, 3])
+            self.assertEqual(backend.identity_counts, [3, 1])
+            self.assertEqual(backend.identity_payloads[-1], [anchor_path.read_bytes()])
+            self.assertIn("图一是唯一编辑底图", backend.prompts[-1])
+            self.assertIn("动作和表情一律以图二为准", backend.prompts[-1])
+            self.assertIn("silver-haired mechanic", backend.prompts[-1])
+            self.assertIn(
+                f"frame {action_index} action description", backend.prompts[-1]
+            )
+            action_metadata = json.loads(
+                (
+                    store.paths.preview_dir
+                    / "action_frame"
+                    / f"frame_{action_index:04d}.json"
+                ).read_text(encoding="utf-8")
+            )
+            self.assertEqual(
+                action_metadata["action_text"],
+                f"frame {action_index} action description",
+            )
             self.assertEqual(
                 len((store.paths.reports_dir / "requests.jsonl").read_text(encoding="utf-8").splitlines()),
                 2,
             )
-            self.assertEqual(preview_state.status, RunStatus.AWAITING_PREVIEW_APPROVAL)
-            self.assertFalse(preview_state.preview_approved)
+            self.assertEqual(action_preview.status, RunStatus.AWAITING_PREVIEW_APPROVAL)
+            self.assertFalse(action_preview.preview_approved)
 
-    async def test_preview_approval_requires_both_decodable_expected_size_files(self) -> None:
+    async def test_preview_approval_requires_valid_anchor_and_action_frame(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             reference = root / "reference.png"
@@ -170,8 +224,12 @@ class GifPreviewTests(unittest.IsolatedAsyncioTestCase):
             contract = build_identity_contract(store.config.prompt, [reference])
             await generate_identity_candidates(store, backend, contract)
             inputs = prepare_identity_inputs(contract, store.paths.identity_dir)
-            state = await generate_preview(store, backend, inputs)
+            identity_state = await generate_identity_preview(store, backend, inputs)
+            approve_appearance_anchor(store)
+            state = await generate_action_preview(store, backend, inputs)
             action = store.paths.preview_dir / "action_frame" / f"frame_{state.preview_indices[1]:04d}.png"
+            anchor = Path(state.appearance_anchor or "")
+            anchor_bytes = anchor.read_bytes()
             action.unlink()
             with self.assertRaises(FileNotFoundError):
                 approve_preview(store)
@@ -179,6 +237,10 @@ class GifPreviewTests(unittest.IsolatedAsyncioTestCase):
             with self.assertRaisesRegex(ValueError, "does not match"):
                 approve_preview(store)
             Image.new("RGBA", (32, 32), (0, 0, 0, 255)).save(action)
+            anchor.write_bytes(b"modified")
+            with self.assertRaisesRegex(ValueError, "hash"):
+                approve_preview(store)
+            anchor.write_bytes(anchor_bytes)
             approved = approve_preview(store)
             self.assertTrue(approved.preview_approved)
             self.assertEqual(approved.status, RunStatus.RUNNING)
@@ -194,8 +256,10 @@ class GifPreviewTests(unittest.IsolatedAsyncioTestCase):
             await generate_identity_candidates(store, backend, contract)
             inputs = prepare_identity_inputs(contract, store.paths.identity_dir)
 
+            await generate_identity_preview(store, backend, inputs)
+            approve_appearance_anchor(store)
             with self.assertRaisesRegex(RuntimeError, "synthetic preview failure"):
-                await generate_preview(store, backend, inputs)
+                await generate_action_preview(store, backend, inputs)
 
             self.assertEqual(store.load_state().status, RunStatus.FAILED)
             records = [
@@ -207,6 +271,12 @@ class GifPreviewTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(len(records), 2)
             self.assertEqual(records[-1]["error"], "synthetic preview failure")
             self.assertIn("request_finished_at", records[-1])
+            anchor = store.load_state().appearance_anchor
+            self.assertEqual(records[-1]["identity_paths"], [anchor])
+            self.assertEqual(
+                records[-1]["appearance_anchor_sha256"],
+                store.load_state().appearance_anchor_sha256,
+            )
 
 
 if __name__ == "__main__":

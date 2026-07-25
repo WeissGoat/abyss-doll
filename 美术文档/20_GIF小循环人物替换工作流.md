@@ -13,13 +13,13 @@ related:
   - tools/美术工具/README.md
   - agent_status/art.md
   - .codex/skills/p3-generate-image/SKILL.md
-last_verified: 2026-07-18
+last_verified: 2026-07-19
 update_rule: 修改 GIF 适用范围、输入契约、拆帧、人物替换、预审、质量检查、重试、重编码、运行状态或实现验收口径时同步本文件。
 ---
 
 # GIF 小循环人物替换工作流
 
-> **状态：** `implemented_offline`。首版工具已在 `tools/美术工具/gif_character_replace/` 实现并通过离线测试；真实 Gemini 两帧预审 smoke 在当前中转链路超过 120 秒未完成，因此不能声明真实 provider 预审通过，也不能声明正式资产验收。
+> **状态：** `implemented_offline`。首版工具已在 `tools/美术工具/gif_character_replace/` 实现并通过离线测试；真实 Gemini 身份帧与动作帧预审均已取得可解码输出，但当前 Illya 动作预览仍处于 `awaiting_preview_approval`，不得声明完整 GIF 一致性通过或正式资产验收。
 
 ## 1 目标与范围
 
@@ -39,13 +39,16 @@ update_rule: 修改 GIF 适用范围、输入契约、拆帧、人物替换、�
 
 动作、构图、背景和时间轴属于必须保留项，不参与上述画风和人物身份优先级竞争。用户文字中的画风要求默认只作用于替换后的人物；首版不允许用画风描述隐式重绘背景或整个画面。
 
-首版选择“各帧完全独立生成”：每帧只依赖固定身份包与当前原始帧，不引用上一张生成结果。这样单帧失败或重跑不会传播到其他帧。
+当前版本选择“各帧完全独立生成”：每帧不引用上一张生成结果，避免单帧失败或重跑沿时间轴传播。为降低独立生成造成的身份与服装闪烁，先固化一个经过用户确认的外观锚点；锚点确认后，每帧只依赖该锚点与当前原始帧，仍不形成前后帧依赖链。
 
 ## 2 默认后端与编辑方式
 
 - 默认且首版唯一正式支持的编辑后端为 `gemini_chat_image.image_to_image`。
 - 默认执行整帧图生图，不要求人物蒙版。
-- Prompt 必须明确“保持 / 改变 / 禁止改变”，并要求只替换人物。
+- Prompt 使用简洁三段式契约：用户文字最高优先级、图片顺序、编辑规则；必须明确“保持 / 改变 / 禁止改变”，并要求只替换人物。避免重复同义约束导致双参考图请求异常变慢。
+- 外观锚点批准后的第二阶段必须继续携带 `identity_contract.json` 中的原始用户文字；不得用通用“图一改成图二动作”文案覆盖或丢弃用户指定的角色、服装和禁止项。
+- GIF 帧请求显式设置 `stream=true`；若完整图片 SSE 事件已到达但响应尾部断开，可保留已验证图片，未收到完整图片事件时仍按传输失败处理。
+- Provider 返回尺寸与原时间轴不一致时，本地解码后按原画布规范化一次，并在 generation params 记录 provider 尺寸、目标尺寸和是否缩放。
 - 背景漂移帧可以在修复阶段使用更严格 Prompt、本地差分合成或可选 mask；mask 不是正常批次前置条件。
 - 每帧每次请求固定 `count=1`，串行执行并保留合理间隔。
 - 输入整个 GIF 给 provider 不等于动画替换；必须先在本地解析时间轴并拆成完整合成帧。
@@ -57,9 +60,11 @@ GIF 输入
   -> 输入检查与时间轴解析
   -> 拆分完整 RGBA PNG 帧
   -> 建立固定角色身份包
-  -> 身份帧 + 动作帧预审
-  -> 用户批准
-  -> 所有帧独立 Gemini 图生图
+  -> 使用用户参考图生成身份预审帧
+  -> 用户批准身份预审帧作为固定外观锚点
+  -> 使用外观锚点生成动作预审帧
+  -> 用户批准动作迁移效果
+  -> 外观锚点 + 当前原始帧独立 Gemini 图生图
   -> 技术检查与视觉风险标记
   -> 仅重跑异常帧
   -> 使用原时间轴重新编码 GIF
@@ -106,25 +111,41 @@ GIF 可能只在部分帧保存局部差分块。拆帧器必须先按 disposal 
 1. `identity_frame`：人物正面、脸部或主要身份特征最清晰的帧；
 2. `action_frame`：姿势变化最大、侧身程度最高或遮挡最复杂的帧。
 
-两帧各生成一张预览。预审阶段允许用户：
+两帧按顺序生成，不再并列使用原始用户参考图：
+
+1. `identity_frame` 使用“用户参考图或零参考身份候选 + 身份清晰的原始 GIF 帧”生成；
+2. 用户批准后，将该输出复制为 `identity/appearance_anchor.png`，记录 SHA-256，并固化为本 Run 唯一的 `appearance_anchor`；
+3. `action_frame` 使用“appearance_anchor + 动作原始 GIF 帧”生成，不再发送用户参考图；
+4. 动作帧通过后，完整批次复用完全相同的双图输入规则。
+
+外观锚点只约束人物身份、脸部、发型、服装、主色和人物画风，不提供动作、表情、遮挡、背景、镜头或构图。当前原始 GIF 帧负责所有动作与场景结构。用户文字描述始终高于外观锚点和当前原始帧中的人物外观。
+
+预审阶段允许用户：
 
 - 批准并运行完整批次；
 - 修改文字后建立新批次；
 - 更换身份锚点或参考图后建立新批次；
 - 单独重跑其中一帧。
 
-两帧通过前状态为 `awaiting_preview_approval`，不得自动运行剩余帧。
+身份帧批准前状态为 `awaiting_appearance_approval`，不得生成动作预审帧；动作帧生成后状态为 `awaiting_preview_approval`，批准前不得运行剩余帧。普通重试和定向重跑必须校验并复用同一个已批准外观锚点及其哈希，不得静默重新生成或替换锚点。
 
 ## 7 独立逐帧生成
 
-每帧请求均使用相同的：
+身份锚点批准后的每帧请求均使用相同的：
 
 - provider、model 和输出规格；
 - 用户文字与结构化身份契约；
-- 参考图或统一参考板；
+- 已批准的 `appearance_anchor`，不再携带用户原始参考图或统一参考板；
 - Prompt 模板和参考图顺序。
 
-唯一变化输入是当前原始帧、帧编号和该帧尺寸。请求不得包含上一生成帧，避免单帧错误沿时间轴传播。
+固定图片顺序为：
+
+1. `appearance_anchor`：只提供身份、脸、发型、服装、主色和人物画风；
+2. 当前原始 GIF 帧：提供动作、表情、位置、遮挡、背景、镜头、构图和画布。
+
+动作迁移可选使用 Run 内的 `identity/frame_action_texts.json` 边车。边车必须记录原 GIF 的 `source_sha256`、完整 `frame_count`，以及覆盖每个帧索引的非空 `actions` 文本；导入时校验哈希、帧数和索引全集，预审批准后不得替换。存在边车时，预审、完整批次和定向重跑在固定双图输入之外，仅把当前帧对应的简短 `ACTION_TEXT` 注入 Prompt，并把最终文本写入请求证据；不存在边车时继续使用通用极简动作模板，兼容旧 Run。边车不携带用户参考图、不改变 `run_config.json`，也不建立前后帧依赖链。
+
+唯一变化输入是当前原始帧、帧编号和该帧尺寸。请求不得包含上一生成帧，避免单帧错误沿时间轴传播。只有显式严格修复模式且证据表明锚点没有展示所需身份特征时，才允许将用户参考图作为额外 fallback 输入；普通生成、普通重试和背景漂移修复不得自动恢复用户参考图。
 
 每完成一帧立即写入：
 
@@ -155,7 +176,7 @@ GIF 可能只在部分帧保存局部差分块。拆帧器必须先按 disposal 
 
 异常处理：
 
-- `429`、`502`、`503`、`504`、`524` 等临时错误最多重试三次并递增等待；
+- `429`、`502`、`503`、`504`、`524`、`incomplete chunked read` 等临时错误最多重试三次并递增等待；
 - 尺寸偏差可以本地规范化一次，严重比例错误必须重跑；
 - 背景或人物漂移使用更严格保留 Prompt 重跑，默认最多两次；
 - 单帧持续失败时标记 `manual_review` 并继续其他帧；
@@ -185,6 +206,8 @@ gif_character_replace/<RunID>/
 │  └─ frames_original/
 ├─ identity/
 │  ├─ identity_contract.json
+│  ├─ appearance_anchor.png
+│  ├─ appearance_anchor.json
 │  ├─ reference_board.png
 │  └─ anchor_candidates/
 ├─ preview/
@@ -225,6 +248,12 @@ gif_character_replace/<RunID>/
 .\tools\美术工具\Invoke-GifCharacterReplace.ps1 `
   -RunID "gif_replace_20260718_001" `
   -OutputRoot "F:\output" `
+  -ApproveAppearanceAnchor `
+  -Resume
+
+.\tools\美术工具\Invoke-GifCharacterReplace.ps1 `
+  -RunID "gif_replace_20260718_001" `
+  -OutputRoot "F:\output" `
   -ApprovePreview `
   -Resume
 ```
@@ -248,14 +277,15 @@ gif_character_replace/<RunID>/
   -EncodeOnly
 ```
 
-首版参数至少包括：`InputGif`、`Prompt` / `PromptFile`、`Reference`、`Provider`、`MaxFrames`、`DelaySeconds`、`RetryCount`、`VisualRetryCount`、`PreserveTransparency`、`Encoder`、`DryRun`、`RunID` 和 `Resume`。
+参数至少包括：`InputGif`、`Prompt` / `PromptFile`、`Reference`、`Provider`、`MaxFrames`、`DelaySeconds`、`RetryCount`、`VisualRetryCount`、`PreserveTransparency`、`Encoder`、`DryRun`、`RunID`、`Resume`、`ApproveAppearanceAnchor` 和 `ApprovePreview`。
 
 ## 12 运行状态与完成边界
 
 一次运行使用以下状态：
 
 - `awaiting_identity_selection`：无参考图，等待选择身份锚点；
-- `awaiting_preview_approval`：两帧预审已生成，等待批准；
+- `awaiting_appearance_approval`：身份预审帧已生成，等待固化为外观锚点；
+- `awaiting_preview_approval`：动作预审帧已使用固定外观锚点生成，等待批准；
 - `running`：完整批次进行中；
 - `ready`：时间轴完整、技术检查通过且没有高风险视觉异常；
 - `review_required`：已输出预览 GIF，但存在闪烁、背景漂移、透明轮廓或身份检查受限；
@@ -306,6 +336,12 @@ gif_character_replace/<RunID>/
   -OutputRoot "F:\output"
 ```
 
-实现覆盖：运行目录与不可变配置、8-30 帧 disposal-aware RGBA 拆帧、0-N 参考图身份包、用户文字最高优先级、三张零参考身份锚点、身份帧 / 动作帧双预审、独立逐帧 Gemini 图生图、恢复与定向重跑、技术硬门禁、视觉风险标记、contact sheet、Pillow 共享调色板编码和 FFmpeg 模拟分支。离线 unittest 当前为 `47/47` 通过；`Test-AIImageBackends.ps1 -CheckConfigOnly` 使用现有配置检查通过。
+实现覆盖：运行目录与不可变配置、8-30 帧 disposal-aware RGBA 拆帧、0-N 参考图身份包、用户文字最高优先级、简洁三段式 provider prompt、身份预审到外观锚点批准、锚点驱动动作预审、独立逐帧 Gemini 流式图生图、响应尾部断流保护、输出尺寸规范化、恢复与定向重跑、技术硬门禁、视觉风险标记、contact sheet、Pillow 共享调色板编码和 FFmpeg 模拟分支。GIF 工具离线测试当前为 `53 passed, 2 subtests passed`；AI 图片网关全量测试为 `123 passed`；`Test-AIImageBackends.ps1 -CheckConfigOnly` 使用现有配置检查通过。
 
-真实 provider smoke 仅在临时目录运行，当前 Gemini 预审请求链路在 120 秒内未完成，记录为 `validation_limited:provider_timeout`。这不影响离线实现结论，但不构成真实图片生成成功、视觉一致性通过或 P3 正式资产验收证据。运行结果仍只写用户指定的 GIF 工作区，不进入 Manifest、Approved、Registry、Unity 或 `tools/ai-image-gateway` 子模块。
+逐帧 `ACTION_TEXT` 边车核心已完成离线实现：完整映射校验、Run 内持久化、预审/批次/重跑逐帧注入和请求证据字段均有聚焦测试。真实 Illya Run `gif_replace_20260718_231923_234e76a6` 已导入完整 8 帧动作描述；请求证据确认每帧只发送 `appearance_anchor + current_original_frame`、`stream=true`、`count=1`，且包含当前帧 `action_text`。
+
+该实测同时暴露并修复了第二阶段 Prompt 丢弃原始用户文字的问题：修复前第 0 帧错误保留原角色的巫师帽、粉发和幻想服装；修复后请求重新包含“魔法少女伊莉雅、白色短袖水手校服、移除帽子与尖耳”等最高优先级要求，输出恢复白发校服身份并复刻手指靠近嘴唇的动作。用户批准动作预览后，工作流复用第 0、4 帧并串行生成其余 6 帧，最终得到 8 帧 `320x180`、原逐帧时长、无限循环的 Pillow 编码 GIF。
+
+完整批次的 6 个缺失帧共发生 13 次 provider 尝试，其中 7 次为 `incomplete chunked read` 后的自动重试；所有帧最终取得可解码图片，没有 `manual_review`、拒绝帧或缺失帧。离线 GIF 测试为 `58 passed, 7 subtests passed`，语法、文档校验和健康检查通过。自动报告状态为 `review_required`：无技术硬失败，但记录 `temporal_flicker`，并对各帧保守标记 `background_drift` 与 `identity_check_limited`；视觉上白发校服身份已明显稳定，第 4 帧的表情与头部比例仍形成可见跳变，因此不得声明视觉一致性完全通过或正式资产验收完成。
+
+真实双参考图 smoke 使用简洁提示词在 `66.688s` 返回可解码图片，首事件 `1.719s`、8 个 SSE 事件并收到 `[DONE]`。测试 Run `gif_replace_20260718_134808_25695b4b` 已完成 8 帧、`320x180`、原始逐帧时长与无限循环重编码，输出 `output/result.gif`；技术硬门禁无失败，但因 `temporal_flicker`、背景漂移和身份检查受限处于 `review_required`。该结果证明真实 GIF 链路可运行，不等于视觉一致性通过或 P3 正式资产验收；工作区仍位于用户临时目录，不进入 Manifest、Approved、Registry 或 Unity。

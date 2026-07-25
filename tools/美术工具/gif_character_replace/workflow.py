@@ -10,14 +10,22 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Sequence
 
+from .action_text import load_action_texts
 from .backend import ImageBackend
 from .identity import (
     IdentityInputs,
+    appearance_anchor_prompt,
     build_identity_contract,
     prepare_identity_inputs,
 )
 from .models import FrameRecord, FrameStatus, RunConfig, RunState, RunStatus
-from .preview import generate_identity_candidates, generate_preview, rerun_preview_frame
+from .preview import (
+    generate_action_preview as generate_action_preview_stage,
+    generate_identity_candidates,
+    generate_identity_preview,
+    rerun_preview_frame,
+    validate_appearance_anchor,
+)
 from .store import RunStore, append_jsonl, atomic_write_json
 from .timeline import extract_timeline
 
@@ -86,13 +94,21 @@ class GifReplacementWorkflow:
         if identity_state.status == RunStatus.AWAITING_IDENTITY_SELECTION:
             return identity_state
         inputs = prepare_identity_inputs(contract, store.paths.identity_dir)
-        return await generate_preview(store, self.backend, inputs)
+        return await generate_identity_preview(store, self.backend, inputs)
+
+    async def generate_action_preview(self, run_root: Path) -> RunState:
+        """Generate the action preview after the appearance anchor is approved."""
+
+        store = RunStore.load(run_root)
+        inputs, _ = self._load_identity_inputs(store)
+        return await generate_action_preview_stage(store, self.backend, inputs)
 
     async def resume_after_preview(self, run_root: Path) -> RunState:
         store = RunStore.load(run_root)
         state = store.load_state()
         if not state.preview_approved:
             raise ValueError("preview approval is required before full batch generation")
+        validate_appearance_anchor(store, state)
         self._promote_preview_frames(store)
         await self._generate_indices(store, range(len(store.load_state().frames)), strict=False)
         reviewed = self._review(store)
@@ -244,6 +260,8 @@ class GifReplacementWorkflow:
                     for status in FrameStatus
                 },
                 "actual_encoder": actual_encoder,
+                "appearance_anchor": state.appearance_anchor,
+                "appearance_anchor_sha256": state.appearance_anchor_sha256,
                 "result_gif": state.result_gif,
                 "review_report": state.review_report,
                 "contact_sheet": state.contact_sheet,
@@ -264,15 +282,10 @@ class GifReplacementWorkflow:
         return inputs, str(payload["provider_prompt"])
 
     @staticmethod
-    def _identity_bytes(store: RunStore, inputs: IdentityInputs) -> list[bytes]:
+    def _identity_bytes(store: RunStore) -> tuple[Path, bytes, str]:
         state = store.load_state()
-        if state.selected_identity:
-            paths = (Path(state.selected_identity),)
-        else:
-            paths = tuple(Path(path) for path in inputs.provider_image_paths)
-        if not paths:
-            raise ValueError("no selected identity or reference images are available")
-        return [path.read_bytes() for path in paths]
+        anchor = validate_appearance_anchor(store, state)
+        return anchor, anchor.read_bytes(), state.appearance_anchor_sha256 or ""
 
     @staticmethod
     def _replace_record(store: RunStore, updated: FrameRecord) -> RunState:
@@ -329,9 +342,13 @@ class GifReplacementWorkflow:
         state = store.load_state()
         if state.timeline is None:
             raise ValueError("timeline is missing")
-        inputs, base_prompt = self._load_identity_inputs(store)
-        prompt = f"{base_prompt}\n\n{STRICT_REPAIR_SENTENCE}" if strict else base_prompt
-        identity_images = self._identity_bytes(store, inputs)
+        inputs, _ = self._load_identity_inputs(store)
+        contract_payload = json.loads(
+            (store.paths.identity_dir / "identity_contract.json").read_text(encoding="utf-8")
+        )
+        user_prompt = str(contract_payload["user_prompt"])
+        action_texts = load_action_texts(store)
+        anchor_path, anchor_bytes, anchor_sha256 = self._identity_bytes(store)
         request_number = 0
 
         for index in indices:
@@ -348,10 +365,15 @@ class GifReplacementWorkflow:
             request_number += 1
             source_path = Path(current.source_path)
             destination = store.paths.generated_raw_dir / f"frame_{index:04d}.png"
+            action_text = action_texts.actions[index] if action_texts else None
+            base_prompt = appearance_anchor_prompt(user_prompt, action_text)
+            prompt = (
+                f"{base_prompt}\n\n{STRICT_REPAIR_SENTENCE}" if strict else base_prompt
+            )
             request_started_at = _utc_now()
             try:
                 generated = await self.backend.replace_frame(
-                    identity_images,
+                    [anchor_bytes],
                     source_path.read_bytes(),
                     prompt,
                     state.timeline.width,
@@ -359,11 +381,7 @@ class GifReplacementWorkflow:
                 )
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 destination.write_bytes(generated.image_bytes)
-                identity_path_records = (
-                    [state.selected_identity]
-                    if state.selected_identity
-                    else list(inputs.provider_image_paths)
-                )
+                identity_path_records = [str(anchor_path.resolve())]
                 request_record = {
                     "frame_index": index,
                     "prompt": prompt,
@@ -377,6 +395,8 @@ class GifReplacementWorkflow:
                     "gateway_retry_errors": list(
                         generated.generation_params.get("gateway_retry_errors", ())
                     ),
+                    "appearance_anchor_sha256": anchor_sha256,
+                    "action_text": action_text,
                     "cost": generated.cost,
                     "byte_length": len(generated.image_bytes),
                     "request_started_at": request_started_at,
@@ -403,6 +423,9 @@ class GifReplacementWorkflow:
                     "request_finished_at": _utc_now(),
                     "gateway_attempt_count": int(getattr(exc, "attempts", 1)),
                     "gateway_errors": list(getattr(exc, "errors", (str(exc),))),
+                    "identity_paths": [str(anchor_path.resolve())],
+                    "appearance_anchor_sha256": anchor_sha256,
+                    "action_text": action_text,
                 }
                 updated = replace(
                     current,

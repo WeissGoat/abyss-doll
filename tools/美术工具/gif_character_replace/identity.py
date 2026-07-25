@@ -56,43 +56,53 @@ def _validate_references(reference_paths: Sequence[Path]) -> tuple[Path, ...]:
 
 
 def _prompt_sections(user_prompt: str) -> dict[str, str]:
-    style_line = (
-        "apply watercolor rendering only to the replacement character."
-        if "watercolor" in user_prompt.lower()
-        else "apply any requested rendering style only to the replacement character."
-    )
     return {
-        "TASK": (
-            "Replace the character in the current GIF frame while preserving the original "
-            "animation frame and scene."
+        "USER TEXT - HIGHEST PRIORITY": user_prompt,
+        "IMAGE ORDER": (
+            "All images except the last are identity and clothing references only; the last "
+            "image is the current GIF frame to edit."
         ),
-        "USER TEXT - HIGHEST PRIORITY": (
-            f"User text has highest priority: {user_prompt}. Resolve any conflict in favor "
-            "of this text."
-        ),
-        "REFERENCE IMAGE ROLE": (
-            "Reference images are identity guidance only and have lower priority than user "
-            "text. Use them for character details; do not copy their background, pose, camera, "
-            "or composition."
-        ),
-        "MUST PRESERVE FROM CURRENT GIF FRAME": (
-            "Preserve the original action, character position, preserve the original background "
-            "exactly, camera, composition, canvas size, frame timing, frame order, and loop "
-            "count."
-        ),
-        "MAY CHANGE": (
-            "May change only the replacement character identity and the style details explicitly "
-            f"requested by the user. {style_line}"
-        ),
-        "MUST NOT CHANGE": (
-            "Do not add extra people, text, watermarks, costume drift, background replacement, "
-            "camera or framing changes, or canvas-size changes."
-        ),
-        "OUTPUT CONTRACT": (
-            "Output exactly one image at the original canvas size, with one replacement character "
-            "and no border, labels, or contact-sheet layout."
+        "EDIT RULE": (
+            "Preserve its action, expression, character position, background, camera, "
+            "composition, and canvas. Change only the character identity and clothing requested "
+            "by the user, and apply any requested rendering style only to the replacement "
+            "character. Do not add people, text, watermarks, borders, labels, or layouts. "
+            "Output exactly one image."
         ),
     }
+
+
+def appearance_anchor_prompt(user_prompt: str, action_text: str | None = None) -> str:
+    """Build the prompt used after the generated appearance anchor is approved."""
+
+    prompt = user_prompt.strip()
+    if not prompt:
+        raise ValueError("user_prompt must not be blank")
+    sections = {
+        "USER TEXT - HIGHEST PRIORITY": prompt,
+        "TASK": "把图一（identity_frame）中的人物改成图二（当前 GIF 帧）的动作。",
+        "IMAGE ORDER": (
+            "图一是唯一编辑底图，也是唯一的人物身份、脸、发型、服装、配色和画风来源。"
+            "图二只是动作骨架参考，提供动作、姿势、表情、头部角度、视线、手臂、双手、"
+            "手指、人物位置、画面裁切和遮挡关系。"
+        ),
+    }
+    if action_text is not None:
+        normalized_action = action_text.strip()
+        if not normalized_action:
+            raise ValueError("action_text must not be blank")
+        sections["CURRENT FRAME ACTION"] = normalized_action
+    sections["PRIORITY"] = (
+        "用户文字要求最高；人物身份和服装以图一为准；动作和表情一律以图二为准，"
+        "人物位置和遮挡也以图二为准。"
+        "图二中的帽子、尖耳、发色、发型、服装、配色、背景和画风都禁止复制。"
+    )
+    sections["EDIT RULE"] = (
+        "完整替换图一原本的动作和表情，不保留图一旧手势；使用图一的同一个人物完成图二动作。"
+        "保持图一背景、镜头、构图和画布尺寸。只输出一张修改后的图一，不增加人物、文字、"
+        "水印、边框、标签或拼图。"
+    )
+    return "\n\n".join(f"{heading}\n{body}" for heading, body in sections.items())
 
 
 def build_identity_contract(

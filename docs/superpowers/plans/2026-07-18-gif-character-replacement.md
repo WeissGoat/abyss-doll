@@ -843,6 +843,66 @@ git commit -m "docs: record gif replacement validation"
 
 Before committing, explicitly exclude temporary smoke images, `_IncomingAI`, generated candidates, unrelated art workspace migration changes, and `tools/ai-image-gateway` submodule changes.
 
+## Consistency Optimization Addendum (2026-07-18)
+
+The independent-frame design now uses a fixed generated appearance anchor after preview approval:
+
+- Add `RunStatus.AWAITING_APPEARANCE_APPROVAL`, `RunState.appearance_anchor`, and `RunState.appearance_anchor_sha256`, with legacy state keys defaulting to `None`.
+- Split preview generation into identity preview, `approve_appearance_anchor`, and anchor-only action preview stages.
+- Persist the approved frame at `identity/appearance_anchor.png` with `identity/appearance_anchor.json`; reject missing or modified anchors by SHA-256 before resume, approval, or targeted rerun.
+- Use user references only for the identity preview. Action preview and full-batch requests send exactly `[appearance_anchor, current_original_frame]` and use the anchor-specific prompt.
+- Add `--approve-appearance-anchor` and `-ApproveAppearanceAnchor`; keep `--approve-preview` for the action preview gate.
+- Record `identity_paths` and `appearance_anchor_sha256` in preview and frame request evidence.
+
+Focused verification: `python -m pytest 'tools/美术工具/tests' -k gif -q`.
+
+## Action Transfer Prompt Correction Addendum (2026-07-19)
+
+**Goal:** Replace the post-approval frame prompt with the compact two-image contract proven by the Illya action-transfer experiments, without adding a second gateway or sending user reference images after the appearance anchor is approved.
+
+**Architecture:** `appearance_anchor_prompt` becomes a stage-specific prompt: image one remains the sole editable base and appearance source; image two supplies action, pose, expression, gaze, hands, framing, and occlusion. The original character-replacement text remains authoritative during identity-frame generation, while the second-stage highest-priority instruction is the user's approved action request, `把图一修改成图二的动作`. No per-frame text analyzer is added because the configured Gemini image route did not return text in the capability smoke.
+
+### Task 11: Compact Anchor-Base Action Prompt
+
+**Files:**
+- Modify: `tools/美术工具/gif_character_replace/identity.py`
+- Modify: `tools/美术工具/tests/test_gif_identity.py`
+- Verify: `tools/美术工具/tests/test_gif_preview.py`
+- Verify: `tools/美术工具/tests/test_gif_workflow.py`
+
+**Interfaces:**
+- Produces: `appearance_anchor_prompt(user_prompt: str) -> str`, retaining the existing signature for preview, resume, and targeted rerun callers.
+- Preserves: request image order `[appearance_anchor, current_original_frame]`, `count=1`, `stream=true`, anchor SHA-256 checks, and independent-frame generation.
+
+- [ ] **Step 1: Tighten the prompt contract test**
+
+Assert that the prompt starts with `USER TEXT - HIGHEST PRIORITY\n把图一修改成图二的动作。`, assigns image one as the sole edit base, assigns image two as action-only guidance, explicitly replaces the anchor action and expression, excludes the original appearance request from the second-stage prompt, and remains below 500 characters.
+
+- [ ] **Step 2: Run the focused test and confirm the old prompt fails**
+
+```powershell
+python -m pytest "tools/美术工具/tests/test_gif_identity.py" -q
+```
+
+Expected: the action-prompt test fails because the old implementation starts with the original appearance request and describes transferring appearance onto the current frame.
+
+- [ ] **Step 3: Implement the compact prompt**
+
+Return a compact natural-language contract with exactly these responsibilities: image one is the sole editable base and supplies identity, face, hair, clothing, colors, character rendering, and background; image two supplies only action, pose, expression, head angle, gaze, arms, hands, fingers, character position, framing, and occlusion; conflicting action/expression always follows image two; image-two appearance and background must not be copied; output exactly one image with no text.
+
+- [ ] **Step 4: Run focused and full offline GIF tests**
+
+```powershell
+python -m pytest "tools/美术工具/tests/test_gif_identity.py" "tools/美术工具/tests/test_gif_preview.py" "tools/美术工具/tests/test_gif_workflow.py" -q
+python -m pytest "tools/美术工具/tests" -k gif -q
+```
+
+Expected: all tests pass with zero network calls.
+
+- [ ] **Step 5: Regenerate the existing Illya action preview**
+
+Use the approved anchor and original `frame_0000.png` from run `gif_replace_20260718_231923_234e76a6`, persist a new experimental result and request evidence in the run's temporary experiment directory, and compare it against the source action frame before approving or generating remaining frames.
+
 ## Final Acceptance Checklist
 
 - [ ] 8-30 frame preflight and disposal-aware full-frame extraction are proven by tests.

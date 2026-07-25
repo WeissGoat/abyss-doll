@@ -11,8 +11,13 @@ from pathlib import Path
 from typing import Callable, Sequence
 
 from gif_character_replace.backend import GatewayImageBackend, ImageBackend
+from gif_character_replace.action_text import install_action_texts
 from gif_character_replace.models import RunConfig
-from gif_character_replace.preview import approve_identity, approve_preview
+from gif_character_replace.preview import (
+    approve_appearance_anchor,
+    approve_identity,
+    approve_preview,
+)
 from gif_character_replace.preview import generate_preview
 from gif_character_replace.identity import IdentityInputs
 from gif_character_replace.store import RunStore
@@ -43,7 +48,9 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--encoder", choices=("auto", "ffmpeg", "pillow"), default="auto")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--run-id")
+    parser.add_argument("--set-action-texts")
     parser.add_argument("--select-identity", type=int)
+    parser.add_argument("--approve-appearance-anchor", action="store_true")
     parser.add_argument("--approve-preview", action="store_true")
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--rerun-frame", action="append", type=int, default=[])
@@ -115,7 +122,9 @@ def _dry_run(config: RunConfig):
 async def _main_async(args: argparse.Namespace, backend_factory: BackendFactory | None) -> int:
     existing_action = bool(
         args.run_id
+        or args.set_action_texts
         or args.select_identity is not None
+        or args.approve_appearance_anchor
         or args.approve_preview
         or args.resume
         or args.rerun_frame
@@ -126,6 +135,10 @@ async def _main_async(args: argparse.Namespace, backend_factory: BackendFactory 
             raise ValueError("existing-run actions cannot mutate input GIF, prompt, or references")
         run_root = _run_root(args)
         store = RunStore.load(run_root)
+        if args.set_action_texts:
+            install_action_texts(store, Path(args.set_action_texts))
+            if not (args.resume or args.rerun_frame or args.approve_preview):
+                _print_state(store.load_state())
         if args.select_identity is not None:
             approve_identity(store, args.select_identity)
             config = store.load_config()
@@ -139,6 +152,18 @@ async def _main_async(args: argparse.Namespace, backend_factory: BackendFactory 
             factory = backend_factory or _production_backend_factory
             async with factory(config) as backend:
                 preview_state = await generate_preview(store, backend, inputs)
+            _print_state(preview_state)
+        if args.approve_appearance_anchor:
+            appearance_state = approve_appearance_anchor(store)
+            if appearance_state.status == RunStatus.AWAITING_PREVIEW_APPROVAL:
+                preview_state = appearance_state
+            else:
+                config = store.load_config()
+                factory = backend_factory or _production_backend_factory
+                async with factory(config) as backend:
+                    preview_state = await GifReplacementWorkflow(backend).generate_action_preview(
+                        run_root
+                    )
             _print_state(preview_state)
         if args.approve_preview:
             _print_state(approve_preview(store))

@@ -13,7 +13,7 @@ import sys
 if str(TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_DIR))
 
-from gif_character_replace.models import RunConfig, RunStatus  # noqa: E402
+from gif_character_replace.models import RunConfig, RunState, RunStatus  # noqa: E402
 from gif_character_replace.store import RunStore  # noqa: E402
 
 
@@ -127,6 +127,24 @@ class RunStoreTests(unittest.TestCase):
             restored = RunStore.load(store.paths.root)
             self.assertEqual(updated.status, RunStatus.RUNNING)
             self.assertEqual(restored.load_state().status, RunStatus.RUNNING)
+
+    def test_appearance_anchor_state_round_trips_and_legacy_payloads_default_to_none(self) -> None:
+        state = dataclasses.replace(
+            RunState.initial(),
+            status=RunStatus.AWAITING_APPEARANCE_APPROVAL,
+            appearance_anchor="C:/run/identity/appearance_anchor.png",
+            appearance_anchor_sha256="abc123",
+        )
+
+        self.assertEqual(RunState.from_dict(state.to_dict()), state)
+
+        legacy_payload = RunState.initial().to_dict()
+        legacy_payload.pop("appearance_anchor")
+        legacy_payload.pop("appearance_anchor_sha256")
+        legacy_payload["status"] = RunStatus.AWAITING_PREVIEW_APPROVAL.value
+        restored = RunState.from_dict(legacy_payload)
+        self.assertIsNone(restored.appearance_anchor)
+        self.assertIsNone(restored.appearance_anchor_sha256)
 
 
 if __name__ == "__main__":

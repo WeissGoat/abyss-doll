@@ -14,6 +14,7 @@ from typing import Any, Sequence
 class RunStatus(str, Enum):
     PREFLIGHT = "preflight"
     AWAITING_IDENTITY_SELECTION = "awaiting_identity_selection"
+    AWAITING_APPEARANCE_APPROVAL = "awaiting_appearance_approval"
     AWAITING_PREVIEW_APPROVAL = "awaiting_preview_approval"
     RUNNING = "running"
     READY = "ready"
@@ -203,6 +204,8 @@ class RunState:
     status: RunStatus
     timeline: TimelineMetadata | None
     selected_identity: str | None
+    appearance_anchor: str | None
+    appearance_anchor_sha256: str | None
     preview_indices: tuple[int, int] | None
     preview_approved: bool
     frames: tuple[FrameRecord, ...]
@@ -218,6 +221,8 @@ class RunState:
             status=RunStatus.PREFLIGHT,
             timeline=None,
             selected_identity=None,
+            appearance_anchor=None,
+            appearance_anchor_sha256=None,
             preview_indices=None,
             preview_approved=False,
             frames=(),
@@ -233,6 +238,8 @@ class RunState:
             "status": self.status.value,
             "timeline": self.timeline.to_dict() if self.timeline else None,
             "selected_identity": self.selected_identity,
+            "appearance_anchor": self.appearance_anchor,
+            "appearance_anchor_sha256": self.appearance_anchor_sha256,
             "preview_indices": list(self.preview_indices) if self.preview_indices else None,
             "preview_approved": self.preview_approved,
             "frames": [frame.to_dict() for frame in self.frames],
@@ -250,6 +257,8 @@ class RunState:
             status=RunStatus(payload["status"]),
             timeline=TimelineMetadata.from_dict(payload["timeline"]) if payload.get("timeline") else None,
             selected_identity=payload.get("selected_identity"),
+            appearance_anchor=payload.get("appearance_anchor"),
+            appearance_anchor_sha256=payload.get("appearance_anchor_sha256"),
             preview_indices=tuple(preview_indices) if preview_indices else None,
             preview_approved=bool(payload.get("preview_approved", False)),
             frames=tuple(FrameRecord.from_dict(frame) for frame in payload.get("frames", ())),

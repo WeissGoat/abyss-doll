@@ -56,7 +56,7 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 
 ## Invoke-GifCharacterReplace.ps1
 
-对 `8-30` 帧小循环 GIF 做可恢复的人物替换工作流。输入为必填文字描述和 `0-N` 张可选参考图；用户文字优先于参考图，参考图优先于原人物外观。默认使用 Gemini 整帧图生图，每帧独立请求；在身份帧 / 动作帧双预审批准前不会运行完整批次。
+对 `8-30` 帧小循环 GIF 做可恢复的人物替换工作流。输入为必填文字描述和 `0-N` 张可选参考图；用户文字优先于参考图，参考图只用于生成身份预审帧。默认使用 Gemini 整帧图生图，每帧独立请求；用户批准外观锚点和动作预审前不会运行完整批次。
 
 新建运行并先做 dry-run：
 
@@ -72,6 +72,7 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 恢复、批准和编码：
 
 ```powershell
+.\tools\美术工具\Invoke-GifCharacterReplace.ps1 -RunID "gif_replace_..." -OutputRoot "F:\output" -ApproveAppearanceAnchor
 .\tools\美术工具\Invoke-GifCharacterReplace.ps1 -RunID "gif_replace_..." -OutputRoot "F:\output" -ApprovePreview -Resume
 .\tools\美术工具\Invoke-GifCharacterReplace.ps1 -RunID "gif_replace_..." -OutputRoot "F:\output" -RerunFrame 4,9 -RepairMode strict
 .\tools\美术工具\Invoke-GifCharacterReplace.ps1 -RunID "gif_replace_..." -OutputRoot "F:\output" -EncodeOnly
@@ -675,6 +676,83 @@ Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec、
 ```powershell
 .\tools\美术工具\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01_anlas_blocked -BatchID nai_visual_v2_20260525_01 -LastProbeBatchID nai_visual_v2_probe_20260525_01 -LastProbeNote "NovelAI HTTP 402: Not enough Anlas."
 ```
+
+## Generate-FormalV2ReplacementPlan.ps1
+
+读取 Formal V2 总方案中的 UI Skin 基准和标记为 `V2-A active` 的场景行，再与当前 Manifest、Approved 文件交叉核对，生成“已有 VisualID 主动质量迭代”计划。它和 `缺图生成计划` 分离：前者动作固定为 `visual_v2_replace`，后者只处理 `generate_needed`。
+
+输出：
+
+* `美术文档/_generated/FormalV2主动迭代计划.json`
+* `美术文档/_generated/FormalV2主动迭代计划.md`
+* 使用 `-Snapshot` 时写入 `美术文档/_generated/formal_v2_replacement_snapshots/<timestamp>_<tag>/`
+
+```powershell
+.\tools\美术工具\Generate-FormalV2ReplacementPlan.ps1 `
+  -Snapshot `
+  -SnapshotTag formalv2_v2a_active `
+  -BatchID formalv2_v2a_replacement_20260719_01 `
+  -Variants 2
+```
+
+计划不写死 provider 或生成方式，字段使用 `agent_selected`；Agent 应按 `AssetClass` 选择当前能力。`background` 可走普通文生图 / 图生图，`ui_skin` 必须优先参考图编辑、模板合成或确定性生成。计划不会修改 Manifest 主状态、Approved、Unity 或 Registry。
+
+## Run-ArtProductionBatch.ps1
+
+统一执行 `缺图生成计划.json` 或 `FormalV2主动迭代计划.json`，将计划推进到最新数字 `processed/<n>`。普通素材编排现有 `run_art_generation.py`；NineSlice UI Skin 可按本 Run 的 capability route 分流到专项适配器，再统一进入 `optimize_art_assets.py`。执行器不会选择候选、同步 Approved 或调用 Unity。
+
+Formal V2 计划保持 method-neutral；provider 只在本次运行参数中选择：
+
+```powershell
+.\tools\美术工具\Run-ArtProductionBatch.ps1 `
+  -PlanPath "美术文档/_generated/FormalV2主动迭代计划.json" `
+  -Route "background=openai_images","icon=openai_images","standard_asset=openai_images" `
+  -AssetClass "background","icon","standard_asset" `
+  -ProductionRunID formalv2_standard_batch_20260719_01 `
+  -DryRun
+```
+
+确认后去掉 `-DryRun`。执行器按 `AssetClass + provider + Manifest status` 隔离分组；每张图仍是串行 `count=1`。只有本批 `generation.json` 中存在可解码 raw 时才允许进入预处理，不能用子进程退出码或旧 `process_report.json` 冒充成功。UI Skin 未提供明确运行时 route 时保持 `route_required:ui_skin`，不会混入通用文生图组。
+
+NineSlice UI Skin 首个专项 capability 为 `deterministic_template`。它从 Manifest 合同读取源尺寸、透明、safe padding、AssetType 和 Border，生成两个无文字候选；能力名只出现在 Run 参数与 `generation.json`，不写入 Manifest、VisualID 或目录契约：
+
+```powershell
+.\tools\美术工具\Run-ArtProductionBatch.ps1 `
+  -PlanPath "美术文档/_generated/FormalV2主动迭代计划.json" `
+  -Route "ui_skin=deterministic_template" `
+  -VisualID ui_button_primary `
+  -ProductionRunID formalv2_ui_button_primary_skin_pilot_20260719_01 `
+  -DryRun
+```
+
+确认路由后去掉 `-DryRun`。真实 Run 仍只发布下一不可变 `processed/<n>`；Agent 必须查看原尺寸与 DisplaySpec 预览、写 `visual-review.json`，再通过 `Select-ArtCandidate.ps1` 晋级。
+
+Run evidence 写入 `UnityClient/Logs/P3ArtProduction/<ProductionRunID>/`。处理完成状态为 `review_required`、`processed_failed`、`decision_required` 或 `raw_failed`，仍需 Agent 查看原图、contact sheet 和 DisplaySpec 预览。
+
+## Select-ArtCandidate.ps1
+
+把 Agent 已写入 `visual-review.json` 的选择决定安全晋级到 Profile 工作区 `selected/`：
+
+```powershell
+.\tools\美术工具\Select-ArtCandidate.ps1 `
+  -VisualID bg_combat_abyss `
+  -ReviewPath "UnityClient/Logs/P3ArtProduction/<ProductionRunID>/visual-review.json" `
+  -AllowSelectedOverwrite `
+  -DryRun
+```
+
+命令只接受最新数字轮次中的候选，要求技术状态 `passed`、Agent `RecommendedAction=select`、总分至少 `88`，并重新校验文件 hash、尺寸和格式。去掉 `-DryRun` 后写入 `selected/`、Manifest `SelectedPath`、工作区 `production_decision.json` 和 Run `selection-decision.json`；已有 selected 内容不同必须显式使用 `-AllowSelectedOverwrite`。
+
+对已是 `approved / registered / validated` 的同 VisualID 替换，Manifest 主状态保持不变。命令不修改 Approved、`.meta`、GUID、Unity 或 Registry。Run 中所有目标完成选择后，`summary.json` 自动收敛为 `selection_complete`。
+
+## Nine-slice UI Skin 技术门禁
+
+`Optimize-ArtAssets.ps1` 读取 Manifest `ProcessSpec.NineSlice`。启用后除了原尺寸、Alpha 和安全画布检查，还会输出 `NineSliceMetrics` 并执行：
+
+* `nine_slice_many_components`：透明前景连通区域超过 `MaxConnectedComponents`，默认 `24`；通常表示漂浮粒子、碎花或脱离边框的装饰过多。
+* `nine_slice_edge_coverage_low`：配置的 top / bottom / left / right border band 任一方向 Alpha 覆盖率低于 `MinEdgeCoveragePercent`，默认 `35%`；表示拉伸边带不连续或只有中央孤立图形。
+
+这两项是技术硬失败，候选只能停在最新 `processed/<n>`，不得回退旧轮次或进入 selected。修复时发布下一数字轮次；普通非 nine-slice 图标仍只把连通区域过多作为 warning。
 
 ## Run-FormalV2PromptReadyGeneration.ps1
 

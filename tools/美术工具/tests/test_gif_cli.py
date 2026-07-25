@@ -167,6 +167,39 @@ class GifCliTests(unittest.TestCase):
                         run_dir.name,
                         "--output-root",
                         str(output_root),
+                        "--approve-appearance-anchor",
+                    ],
+                    factory_for(backend),
+                ),
+                0,
+            )
+            appearance_state = json.loads(
+                (run_dir / "run_state.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(appearance_state["status"], "awaiting_preview_approval")
+            self.assertTrue((run_dir / "identity/appearance_anchor.png").is_file())
+            calls_after_action_preview = backend.calls
+            self.assertEqual(
+                main(
+                    [
+                        "--run-id",
+                        run_dir.name,
+                        "--output-root",
+                        str(output_root),
+                        "--approve-appearance-anchor",
+                    ],
+                    factory_for(backend),
+                ),
+                0,
+            )
+            self.assertEqual(backend.calls, calls_after_action_preview)
+            self.assertEqual(
+                main(
+                    [
+                        "--run-id",
+                        run_dir.name,
+                        "--output-root",
+                        str(output_root),
                         "--approve-preview",
                     ],
                     factory_for(backend),
@@ -192,6 +225,75 @@ class GifCliTests(unittest.TestCase):
                 self.assertEqual(gif.n_frames, 8)
                 self.assertEqual(gif.size, (32, 24))
                 self.assertEqual(gif.info.get("loop"), 0)
+            completed_state = (run_dir / "run_state.json").read_bytes()
+            with self.assertRaises(SystemExit):
+                main(
+                    [
+                        "--run-id",
+                        run_dir.name,
+                        "--output-root",
+                        str(output_root),
+                        "--approve-appearance-anchor",
+                    ],
+                    factory_for(backend),
+                )
+            self.assertEqual((run_dir / "run_state.json").read_bytes(), completed_state)
+
+    def test_existing_run_imports_valid_action_text_sidecar(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = self._gif(root)
+            backend = FakeBackend()
+            output_root = root / "out"
+            self.assertEqual(
+                main(
+                    [
+                        "--input-gif",
+                        str(source),
+                        "--prompt",
+                        "replacement",
+                        "--output-root",
+                        str(output_root),
+                        "--dry-run",
+                    ],
+                    factory_for(backend),
+                ),
+                0,
+            )
+            run_dir = next((output_root / "gif_character_replace").iterdir())
+            state = json.loads((run_dir / "run_state.json").read_text(encoding="utf-8"))
+            sidecar = root / "action_texts.json"
+            sidecar.write_text(
+                json.dumps(
+                    {
+                        "source_sha256": state["timeline"]["source_sha256"],
+                        "frame_count": state["timeline"]["frame_count"],
+                        "actions": {
+                            str(index): f"action {index}"
+                            for index in range(state["timeline"]["frame_count"])
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+            self.assertEqual(
+                main(
+                    [
+                        "--run-id",
+                        run_dir.name,
+                        "--output-root",
+                        str(output_root),
+                        "--set-action-texts",
+                        str(sidecar),
+                    ],
+                    factory_for(backend),
+                ),
+                0,
+            )
+            stored = json.loads(
+                (run_dir / "identity/frame_action_texts.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(stored["actions"]["0"], "action 0")
 
     def test_invalid_dry_run_persists_preflight_failure(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

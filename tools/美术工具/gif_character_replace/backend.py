@@ -5,8 +5,11 @@ from __future__ import annotations
 import asyncio
 import sys
 from dataclasses import dataclass, replace
+from io import BytesIO
 from pathlib import Path
 from typing import Any, Awaitable, Callable, Protocol, Sequence
+
+from PIL import Image
 
 
 GATEWAY_ROOT = Path(__file__).resolve().parents[2] / "ai-image-gateway"
@@ -22,7 +25,15 @@ from ai_image_gateway.schema import (  # noqa: E402
 )
 
 
-TRANSIENT_ERROR_CODES = ("429", "502", "503", "504", "524")
+TRANSIENT_ERROR_CODES = (
+    "429",
+    "502",
+    "503",
+    "504",
+    "524",
+    "incomplete chunked read",
+    "peer closed connection",
+)
 TERMINAL_ERROR_CODES = ("401", "403")
 
 
@@ -73,6 +84,29 @@ def _generated_image(result: ImageResult) -> GeneratedImage:
 
 def _contains_code(errors: Sequence[str], codes: Sequence[str]) -> bool:
     return any(code in error for error in errors for code in codes)
+
+
+def _normalize_frame_image(
+    generated: GeneratedImage, width: int, height: int
+) -> GeneratedImage:
+    with Image.open(BytesIO(generated.image_bytes)) as image:
+        image.load()
+        provider_size = image.size
+        if provider_size == (width, height):
+            normalized_bytes = generated.image_bytes
+        else:
+            has_alpha = "A" in image.getbands() or "transparency" in image.info
+            normalized = image.convert("RGBA" if has_alpha else "RGB").resize(
+                (width, height), Image.Resampling.LANCZOS
+            )
+            output = BytesIO()
+            normalized.save(output, format="PNG")
+            normalized_bytes = output.getvalue()
+    params = dict(generated.generation_params)
+    params["provider_output_size"] = list(provider_size)
+    params["normalized_output_size"] = [width, height]
+    params["output_resized"] = provider_size != (width, height)
+    return replace(generated, image_bytes=normalized_bytes, generation_params=params)
 
 
 async def call_with_retry(
@@ -181,7 +215,9 @@ class GatewayImageBackend:
                 height=height,
                 count=1,
                 provider=self.frame_provider,
+                extra={"stream": True},
             )
             return await service.image_to_image(request)
 
-        return await call_with_retry(operation, self.retry_count, self.delay_seconds)
+        generated = await call_with_retry(operation, self.retry_count, self.delay_seconds)
+        return _normalize_frame_image(generated, width, height)

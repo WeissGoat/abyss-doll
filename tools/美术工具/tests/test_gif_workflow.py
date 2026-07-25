@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import dataclasses
 import hashlib
+import json
 import sys
 import tempfile
 import unittest
@@ -16,8 +17,12 @@ if str(TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_DIR))
 
 from gif_character_replace.backend import GeneratedImage  # noqa: E402
+from gif_character_replace.action_text import install_action_texts  # noqa: E402
 from gif_character_replace.models import FrameStatus, RunConfig, RunStatus  # noqa: E402
-from gif_character_replace.preview import approve_preview  # noqa: E402
+from gif_character_replace.preview import (  # noqa: E402
+    approve_appearance_anchor,
+    approve_preview,
+)
 from gif_character_replace.store import RunStore  # noqa: E402
 from gif_character_replace.workflow import (  # noqa: E402
     STRICT_REPAIR_SENTENCE,
@@ -29,6 +34,8 @@ class RecordingBackend:
     def __init__(self, fail_hashes=()) -> None:
         self.anchor_calls = 0
         self.frame_hashes: list[str] = []
+        self.identity_counts: list[int] = []
+        self.identity_payloads: list[list[bytes]] = []
         self.prompts: list[str] = []
         self.fail_hashes = set(fail_hashes)
 
@@ -54,6 +61,8 @@ class RecordingBackend:
     ) -> GeneratedImage:
         digest = hashlib.sha256(frame).hexdigest()
         self.frame_hashes.append(digest)
+        self.identity_counts.append(len(identity_images))
+        self.identity_payloads.append(list(identity_images))
         self.prompts.append(prompt)
         if digest in self.fail_hashes:
             raise RuntimeError("synthetic frame failure")
@@ -110,6 +119,13 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
         store = RunStore.load(Path(config.output_root) / "gif_character_replace" / config.run_id)
         return workflow, store, state
 
+    async def _approve_previews(
+        self, workflow: GifReplacementWorkflow, store: RunStore
+    ) -> None:
+        approve_appearance_anchor(store)
+        await workflow.generate_action_preview(store.paths.root)
+        approve_preview(store)
+
     async def test_prepare_stops_at_identity_selection_without_references(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
@@ -129,12 +145,12 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(backend.anchor_calls, 3)
             self.assertEqual(backend.frame_hashes, [])
 
-    async def test_prepare_with_reference_stops_at_preview_approval(self) -> None:
+    async def test_prepare_with_reference_stops_at_appearance_approval(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             backend = RecordingBackend()
             _, _, state = await self._prepared_with_reference(Path(temp), backend)
-            self.assertEqual(state.status, RunStatus.AWAITING_PREVIEW_APPROVAL)
-            self.assertEqual(len(backend.frame_hashes), 2)
+            self.assertEqual(state.status, RunStatus.AWAITING_APPEARANCE_APPROVAL)
+            self.assertEqual(len(backend.frame_hashes), 1)
 
     async def test_selected_preview_frame_can_be_rerun_before_approval(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -151,7 +167,7 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
                 store.paths.root, [identity_index], strict=True
             )
 
-            self.assertEqual(rerun_state.status, RunStatus.AWAITING_PREVIEW_APPROVAL)
+            self.assertEqual(rerun_state.status, RunStatus.AWAITING_APPEARANCE_APPROVAL)
             self.assertFalse(rerun_state.preview_approved)
             self.assertEqual(len(rerun_backend.frame_hashes), 1)
             self.assertIn(STRICT_REPAIR_SENTENCE, rerun_backend.prompts[0])
@@ -165,6 +181,8 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
             with self.assertRaisesRegex(ValueError, "approval"):
                 await workflow.resume_after_preview(store.paths.root)
 
+            approve_appearance_anchor(store)
+            await workflow.generate_action_preview(store.paths.root)
             Path(store.config.references[0]).unlink()
             approve_preview(store)
             completed = await workflow.resume_after_preview(store.paths.root)
@@ -189,18 +207,54 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
                 for frame in completed.frames
                 if frame.status == FrameStatus.GENERATED
             )
-            self.assertTrue(
-                all(
-                    str(store.paths.input_dir / "references") in path
-                    for path in generated_record["identity_paths"]
-                )
+            anchor_path = store.load_state().appearance_anchor
+            self.assertEqual(generated_record["identity_paths"], [anchor_path])
+            self.assertEqual(
+                generated_record["appearance_anchor_sha256"],
+                store.load_state().appearance_anchor_sha256,
             )
+            self.assertTrue(all(count == 1 for count in backend.identity_counts[1:]))
+            anchor_bytes = Path(anchor_path or "").read_bytes()
+            self.assertTrue(
+                all(payload == [anchor_bytes] for payload in backend.identity_payloads[1:])
+            )
+
+    async def test_action_text_sidecar_is_injected_per_frame(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            backend = RecordingBackend()
+            workflow, store, state = await self._prepared_with_reference(root, backend)
+            action_texts = {
+                index: f"unique action description for frame {index}"
+                for index in range(state.timeline.frame_count)
+            }
+            action_map = root / "action_texts.json"
+            action_map.write_text(
+                json.dumps(
+                    {
+                        "source_sha256": state.timeline.source_sha256,
+                        "frame_count": state.timeline.frame_count,
+                        "actions": {str(index): text for index, text in action_texts.items()},
+                    }
+                ),
+                encoding="utf-8",
+            )
+            install_action_texts(store, action_map)
+            await self._approve_previews(workflow, store)
+            await workflow.resume_after_preview(store.paths.root)
+
+            text_by_hash = {
+                hashlib.sha256(Path(frame.source_path).read_bytes()).hexdigest(): action_texts[frame.index]
+                for frame in store.load_state().frames
+            }
+            for frame_hash, prompt in zip(backend.frame_hashes[1:], backend.prompts[1:]):
+                self.assertIn(text_by_hash[frame_hash], prompt)
 
     async def test_resume_skips_existing_outputs_after_interruption(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             backend = RecordingBackend()
             workflow, store, _ = await self._prepared_with_reference(Path(temp), backend)
-            approve_preview(store)
+            await self._approve_previews(workflow, store)
             first = await workflow.resume_after_preview(store.paths.root)
             replacement_backend = RecordingBackend()
 
@@ -215,7 +269,7 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
         with tempfile.TemporaryDirectory() as temp:
             backend = RecordingBackend()
             workflow, store, _ = await self._prepared_with_reference(Path(temp), backend)
-            approve_preview(store)
+            await self._approve_previews(workflow, store)
             before = await workflow.resume_after_preview(store.paths.root)
             rerun_backend = RecordingBackend()
 
@@ -236,7 +290,7 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
         with tempfile.TemporaryDirectory() as temp:
             preview_backend = RecordingBackend()
             workflow, store, _ = await self._prepared_with_reference(Path(temp), preview_backend)
-            approve_preview(store)
+            await self._approve_previews(workflow, store)
             state = store.load_state()
             fail_index = next(
                 index for index in range(len(state.frames)) if index not in state.preview_indices
@@ -249,6 +303,15 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
             )
 
             self.assertEqual(completed.frames[fail_index].status, FrameStatus.MANUAL_REVIEW)
+            failed_record = completed.frames[fail_index].request_records[-1]
+            self.assertEqual(
+                failed_record["identity_paths"],
+                [completed.appearance_anchor],
+            )
+            self.assertEqual(
+                failed_record["appearance_anchor_sha256"],
+                completed.appearance_anchor_sha256,
+            )
             self.assertGreater(len(batch_backend.frame_hashes), 1)
             later = [frame for frame in completed.frames[fail_index + 1 :] if frame.index not in state.preview_indices]
             self.assertTrue(any(frame.status == FrameStatus.GENERATED for frame in later))
@@ -258,7 +321,7 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
             root = Path(temp)
             backend = RecordingBackend()
             workflow, store, _ = await self._prepared_with_reference(root, backend)
-            approve_preview(store)
+            await self._approve_previews(workflow, store)
             completed = await workflow.resume_after_preview(store.paths.root)
             self.assertTrue(Path(completed.result_gif or "").is_file())
             target = 4
@@ -270,6 +333,19 @@ class GifWorkflowTests(unittest.IsolatedAsyncioTestCase):
 
             self.assertEqual(failed.status, RunStatus.FAILED)
             self.assertIsNone(failed.result_gif)
+
+    async def test_resume_and_rerun_reject_modified_appearance_anchor(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            backend = RecordingBackend()
+            workflow, store, _ = await self._prepared_with_reference(Path(temp), backend)
+            await self._approve_previews(workflow, store)
+            anchor = Path(store.load_state().appearance_anchor or "")
+            anchor.write_bytes(b"modified")
+
+            with self.assertRaisesRegex(ValueError, "hash"):
+                await workflow.resume_after_preview(store.paths.root)
+            with self.assertRaisesRegex(ValueError, "hash"):
+                await workflow.rerun_frames(store.paths.root, [4], strict=True)
 
     async def test_invalid_preflight_is_persisted(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
