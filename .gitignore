@@ -54,6 +54,11 @@ __pycache__/
 # Local long-task recovery artifacts
 .mission/
 
+# Local agent/session artifacts and accidentally rooted tool output.
+.superpowers/
+~/
+UnityClient/UnityClient/
+
 # Mistaken mojibake output from PowerShell 5.1 reading non-ASCII script defaults.
 缇庢湳鏂囨。/
 
@@ -69,6 +74,9 @@ UnityClient/Assets/StreamingAssets/Configs.meta
 
 # Local AI image generation credentials/config
 tools/美术工具/ai_image_gateway.local.yaml
+
+# GIF character replacement exploratory runs; keep the example tooling itself versionable.
+tools/美术工具/examples/gif_character_replace/gif_replace_*/
 
 # Art pipeline workspace: keep only final approved assets in Git.
 UnityClient/Assets/Art/_IncomingAI/
