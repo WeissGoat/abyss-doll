@@ -18,12 +18,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：272
-- 已补元数据：272
-- 缺少元数据：0
-- 事实来源文档：198
-- 关联边数：1526
-- 跨职能关联：315
+- 文档总数：278
+- 已补元数据：275
+- 缺少元数据：3
+- 事实来源文档：197
+- 关联边数：1515
+- 跨职能关联：308
 
 ## 事实来源
 
@@ -32,7 +32,6 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [游戏导演 / 制作人 状态](agent_status/director.md) - `status` / `game_direction_production`
 - [程序 / Unity 状态](agent_status/program.md) - `status` / `unity_programming`
 - [Project P3 智能体入口](AGENTS.md) - `entry` / `agent_workflow`
-- [魔偶深渊 AI 核心知识库](GEMINI.md) - `entry` / `project_context`
 - [项目状态](PROJECT_STATUS.md) - `status` / `project_status`
 - [文档维护与新增控制规则](rules/01_文档维护与新增控制规则.md) - `rule` / `document_governance`
 - [智能体任务路由与完成协议](rules/02_智能体任务路由与完成协议.md) - `rule` / `agent_workflow`
@@ -238,11 +237,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - `Owner <-> 美术`：3 条
 - `全局 <-> 兼容`：5 条
 - `全局 <-> 剧情`：2 条
-- `全局 <-> 游戏导演`：23 条
-- `全局 <-> 知识库`：7 条
-- `全局 <-> 程序`：15 条
-- `全局 <-> 策划`：55 条
-- `全局 <-> 美术`：10 条
+- `全局 <-> 游戏导演`：20 条
+- `全局 <-> 知识库`：6 条
+- `全局 <-> 程序`：14 条
+- `全局 <-> 策划`：54 条
+- `全局 <-> 美术`：9 条
 - `兼容 <-> 游戏导演`：5 条
 - `兼容 <-> 知识库`：1 条
 - `剧情 <-> 游戏导演`：8 条
@@ -292,18 +291,17 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 23 | 完整 |
+| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 22 | 完整 |
 | [文档索引](DOCS_INDEX.md) | `index` | `generated` | `knowledge_base` | 1 | 完整 |
-| [魔偶深渊 AI 核心知识库](GEMINI.md) | `entry` | `active` | `project_context` | 11 | 完整 |
-| [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 65 | 完整 |
+| [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 64 | 完整 |
 | [智能体状态页说明](agent_status/README.md) | `status` | `active` | `agent_status` | 7 | 完整 |
 | [Agent 状态页与 Role 阅读范围优化实施计划](docs/superpowers/plans/2026-07-18-agent-status-and-role-disclosure.md) | `plan` | `draft` | `agent_workflow` | 0 | 完整 |
 | [Agent 状态页与 Role 阅读范围优化设计](docs/superpowers/specs/2026-07-18-agent-status-and-role-disclosure-design.md) | `design` | `draft` | `agent_workflow` | 0 | 完整 |
 | [文档维护与新增控制规则](rules/01_文档维护与新增控制规则.md) | `rule` | `active` | `document_governance` | 5 | 完整 |
-| [智能体任务路由与完成协议](rules/02_智能体任务路由与完成协议.md) | `rule` | `active` | `agent_workflow` | 11 | 完整 |
+| [智能体任务路由与完成协议](rules/02_智能体任务路由与完成协议.md) | `rule` | `active` | `agent_workflow` | 10 | 完整 |
 | [全局 Agent Rules 入口](rules/README.md) | `entry` | `active` | `agent_rules` | 5 | 完整 |
 | [智能体开工健康检查](tools/agent/README.md) | `tool` | `active` | `agent_workflow` | 6 | 完整 |
-| [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `formal_vertical_slice` | 20 | 完整 |
+| [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `formal_vertical_slice` | 19 | 完整 |
 | [最小可玩版本 (MVP) 核心闭环内容清单](版本规划/_archive/mvp_2026-05/00_最小MVP体验闭环内容清单.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 客户端开发里程碑与节点规划](版本规划/_archive/mvp_2026-05/02_开发里程碑与节点规划.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 验证需要补充的功能开发](版本规划/_archive/mvp_2026-05/04_MVP验证需要补充的功能开发.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
@@ -327,16 +325,24 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [序章演出与对话节奏](设计文档/剧情/01_序章演出与对话节奏.md) | `narrative_design` | `active` | `narrative_design` | 7 | 完整 |
 | [剧情设计阅读入口](设计文档/剧情/README.md) | `entry` | `active` | `narrative_design` | 13 | 完整 |
 
+### 未分类
+
+| 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
+|---|---|---|---|---|---|
+| [Art Runtime Validated State Implementation Plan](docs/superpowers/plans/2026-07-19-art-runtime-validated-state.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
+| [Formal V2 Replacement And UI Skin Implementation Plan](docs/superpowers/plans/2026-07-19-formal-v2-replacement-and-ui-skin.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
+| [美术风格目录与多格式生成请求编译 Implementation Plan](docs/superpowers/plans/2026-07-24-art-style-and-multi-format-prompt-compilation.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
+
 ### 游戏导演
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [游戏导演 / 制作人 状态](agent_status/director.md) | `status` | `active` | `game_direction_production` | 18 | 完整 |
+| [游戏导演 / 制作人 状态](agent_status/director.md) | `status` | `active` | `game_direction_production` | 17 | 完整 |
 | [纵切批次与需求文档承接矩阵](版本规划/11_纵切批次与需求文档承接矩阵.md) | `plan` | `active` | `vertical_batch_requirement_coverage` | 25 | 完整 |
-| [正式版全局体验总线与全系统宏观大纲](版本规划/13_正式版全局体验总线与开放节奏.md) | `plan` | `active` | `global_experience_spine` | 12 | 完整 |
+| [正式版全局体验总线与全系统宏观大纲](版本规划/13_正式版全局体验总线与开放节奏.md) | `plan` | `active` | `global_experience_spine` | 11 | 完整 |
 | [0-12 小时候选主循环细案设计](版本规划/14_0-12小时候选主循环细案设计.md) | `plan` | `active` | `candidate_loop_detail_design` | 14 | 完整 |
 | [版本规划阅读入口](版本规划/README.md) | `entry` | `active` | `version_planning` | 9 | 完整 |
-| [游戏导演 / 制作人阅读入口](知识库/views/director.md) | `view` | `active` | `agent_context_view` | 16 | 完整 |
+| [游戏导演 / 制作人阅读入口](知识库/views/director.md) | `view` | `active` | `agent_context_view` | 15 | 完整 |
 
 ### 知识库
 
@@ -344,7 +350,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 |---|---|---|---|---|---|
 | [Agent 路由 P0 治理加固实施计划](docs/superpowers/plans/2026-07-18-agent-routing-p0-hardening.md) | `plan` | `draft` | `agent_workflow` | 0 | 完整 |
 | [Agent 路由 P0 治理加固设计](docs/superpowers/specs/2026-07-18-agent-routing-p0-hardening-design.md) | `design` | `draft` | `agent_workflow` | 0 | 完整 |
-| [知识库规范](知识库/README.md) | `kb` | `active` | `knowledge_base` | 14 | 完整 |
+| [知识库规范](知识库/README.md) | `kb` | `active` | `knowledge_base` | 13 | 完整 |
 
 ### 程序
 
@@ -354,7 +360,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [AI 图片网关透明流式模式实施计划](docs/superpowers/plans/2026-07-18-ai-image-gateway-transparent-streaming.md) | `plan` | `draft` | `ai_image_gateway` | 0 | 完整 |
 | [AI 图片网关透明流式模式设计](docs/superpowers/specs/2026-07-18-ai-image-gateway-transparent-streaming-design.md) | `design` | `implemented` | `ai_image_gateway` | 0 | 完整 |
 | [Config Tools](tools/config/README.md) | `tool` | `active` | `config_tooling` | 5 | 完整 |
-| [程序开发大纲与系统索引](开发文档/00_程序开发大纲.md) | `dev` | `active` | `program_architecture` | 24 | 完整 |
+| [程序开发大纲与系统索引](开发文档/00_程序开发大纲.md) | `dev` | `active` | `program_architecture` | 23 | 完整 |
 | [核心数据容器系统 (Core Data System)](开发文档/01_核心数据与实体容器(CoreData).md) | `dev` | `active` | `core_data` | 10 | 完整 |
 | [网格背包与计算系统 (Grid System)](开发文档/02_网格背包与计算系统(GridSystem).md) | `dev` | `active` | `grid_inventory` | 5 | 完整 |
 | [深渊与战斗循环系统 (Dungeon & Combat System)](开发文档/03_深渊与战斗循环(DungeonCombat).md) | `dev` | `active` | `dungeon_combat` | 10 | 完整 |
@@ -399,7 +405,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [数值模型沙盘推演方法论 (Numerical Sandboxing)](版本规划/_archive/mvp_2026-05/03_mvp数值要求.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 需要补充的配置调整](版本规划/_archive/mvp_2026-05/05_MVP需要补充的配置调整.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [策划智能体阅读入口](知识库/views/design.md) | `view` | `active` | `agent_context_view` | 12 | 完整 |
-| [系统关联总图：全系统内在关联与数据流向](设计文档/GDD/GDD_00_系统关联总图.md) | `gdd` | `active` | `system_overview` | 38 | 完整 |
+| [系统关联总图：全系统内在关联与数据流向](设计文档/GDD/GDD_00_系统关联总图.md) | `gdd` | `active` | `system_overview` | 37 | 完整 |
 | [详案_01：背包战斗与局内网格机制 (GDD_01)](设计文档/GDD/GDD_01_背包战斗与局内网格机制.md) | `gdd` | `active` | `grid_inventory` | 18 | 完整 |
 | [详案_02：深渊地图遍历与搜打撤抉择 (GDD_02)](设计文档/GDD/GDD_02_深渊地图遍历与搜打撤抉择.md) | `gdd` | `active` | `dungeon_exploration` | 16 | 完整 |
 | [详案_03：人偶实体对象与好感双轨机制 (GDD_03)](设计文档/GDD/GDD_03_人偶实体对象与好感双轨机制.md) | `gdd` | `active` | `doll_relationship` | 19 | 完整 |
@@ -494,11 +500,15 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
 | [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 31 | 完整 |
+| [Approved 到 Unity 导入与 Registry 登记自动化实施计划](docs/superpowers/plans/2026-07-18-art-approved-unity-registry-automation.md) | `plan` | `active` | `art_asset_integration` | 0 | 完整 |
 | [GIF 小循环人物替换实现计划](docs/superpowers/plans/2026-07-18-gif-character-replacement.md) | `plan` | `planned` | `gif_character_replacement` | 1 | 完整 |
 | [Unified Art Processing Rounds Implementation Plan](docs/superpowers/plans/2026-07-18-unified-art-processing-rounds.md) | `plan` | `active` | `art_processing_pipeline` | 0 | 完整 |
 | [Zero Dialogue Neutral Character Portrait Pilot Implementation Plan](docs/superpowers/plans/2026-07-18-zero-dialogue-neutral-character-portrait-pilot.md) | `plan` | `active` | `character_portrait_asset_production` | 0 | 完整 |
+| [Approved 到 Unity 导入与 Registry 登记自动化设计](docs/superpowers/specs/2026-07-18-art-approved-unity-registry-automation-design.md) | `design` | `active` | `art_asset_integration` | 0 | 完整 |
 | [美术资产统一数字轮次加工与安全背景处理设计](docs/superpowers/specs/2026-07-18-unified-art-processing-rounds-design.md) | `design` | `active` | `art_asset_processing` | 0 | 完整 |
 | [零号对话中性立绘首轮流程试跑设计](docs/superpowers/specs/2026-07-18-zero-dialogue-neutral-character-portrait-pilot-design.md) | `design` | `active` | `character_portrait_production` | 0 | 完整 |
+| [美术素材 Runtime Validated 状态收敛设计](docs/superpowers/specs/2026-07-19-art-runtime-validated-state-design.md) | `design` | `active` | `runtime_art_validation` | 0 | 完整 |
+| [美术风格目录与多格式生成请求编译设计](docs/superpowers/specs/2026-07-23-art-style-and-multi-format-prompt-compilation-design.md) | `design` | `active` | `art_asset_production` | 0 | 完整 |
 | [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 13 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 18 | 完整 |
@@ -517,7 +527,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [CG底图与漫画式播放演出工作流](美术文档/18_CG底图与漫画式播放演出工作流.md) | `art` | `active` | `narrative_cg_art_pipeline` | 4 | 完整 |
 | [T0-01 序章 CG 细案](美术文档/19_T0-01序章CG细案.md) | `art` | `active` | `narrative_cg_art_pipeline` | 6 | 完整 |
 | [GIF 小循环人物替换工作流](美术文档/20_GIF小循环人物替换工作流.md) | `art` | `active` | `gif_character_replacement` | 5 | 完整 |
-| [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 25 | 完整 |
+| [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 24 | 完整 |
 | [MVP 素材接入状态同步](美术文档/archive/06_MVP素材接入状态同步.md) | `art` | `historical` | `mvp_art_archive` | 2 | 完整 |
 | [MVP UI 重新设计同步](美术文档/archive/07_MVP_UI重新设计同步.md) | `art` | `historical` | `mvp_ui_archive` | 2 | 完整 |
 | [Unity 运行时美术验收工具需求与交付状态](美术文档/archive/08_Unity运行时美术验收工具需求.md) | `art` | `historical` | `runtime_art_validation` | 4 | 完整 |
@@ -591,4 +601,6 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 元数据缺口
 
-- 暂无。
+- [Art Runtime Validated State Implementation Plan](docs/superpowers/plans/2026-07-19-art-runtime-validated-state.md)：缺少 `id, title, type, role, domain, status`
+- [Formal V2 Replacement And UI Skin Implementation Plan](docs/superpowers/plans/2026-07-19-formal-v2-replacement-and-ui-skin.md)：缺少 `id, title, type, role, domain, status`
+- [美术风格目录与多格式生成请求编译 Implementation Plan](docs/superpowers/plans/2026-07-24-art-style-and-multi-format-prompt-compilation.md)：缺少 `id, title, type, role, domain, status`

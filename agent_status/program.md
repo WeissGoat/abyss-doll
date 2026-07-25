@@ -27,7 +27,7 @@ related:
   - 开发文档/17_Live2DSpine运行时接入评估.md
   - 开发文档/18_全局叙事播放系统开发方案.md
   - 配置表(JSON)/Narrative/README.md
-last_verified: 2026-07-18
+last_verified: 2026-07-26
 update_rule: 程序、Unity、验证或工程边界任务完成后更新本文档。
 ---
 
@@ -35,21 +35,26 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 ## 最后更新
 
-2026-07-18
+2026-07-26
 
 ## 当前关注
 
 - 程序正式版按完整玩家结果推进，运行时 UI 保持纯 UGUI，游戏规则留在后端 / 领域服务，配置源来自 `配置表(JSON)`。
 - `p3-program-validation`、`p3-art-validation`、`p3-release-validation` 已分离；程序验证只负责编译、配置、Smoke、P0 / T0 功能路径，不替代美术验收或发布聚合。
 - T0-01A 的 NARR-00..04 和 T0-FLOW-01..05 已有程序承接与 headless / smoke 证据；当前重点是 `SEAL-FLOW`、`SEAL-UI`、FormalV2 工坊 zone、首潜许可卡和连续截图防回归。
-- AI 图片网关 chat image provider 已支持默认关闭、请求级可覆盖的透明 SSE 增量读取；当前继续观察 Gemini 双参考图长耗时响应的上游完整性。
+- AI 图片网关 chat image provider 已支持请求级透明 SSE、完整图片事件后的尾部断流保留和同连接 JSON fallback；GIF 客户端已显式启用 stream、规范化 provider 输出尺寸，并把 `incomplete chunked read` 纳入瞬时重试。
 
 ## 最近完成
 
+- `bg_combat_abyss` 与 `ui_icon_warning` 已通过 `art_import_formalv2_standard_stylebatch_20260725_01` 完成同 VisualID Approved 替换和 live Unity Registry 登记：Unity MCP 实例为 `UnityClient@c0741596`，两项 importer 的尺寸、Sprite/Single、alpha、MaxSize、Bilinear 和 mipmap 均符合 Manifest；Registry 原始匹配数均为 1、`TryGetEntry=true`，路径/GUID 分别保持 `9f676444d813871408a98a32295d2790` 与 `d39849aa2b024a80adabac006c44a720`；目标 Console error / warning 为 0。当前状态仅为 `registered`，不含 UGUI 绑定或 `runtime_validated`。
+- `doll_zero_dialogue_neutral` 已用 live Unity MCP 完成首次真实静态 Sprite 接入：AssetDatabase GUID `7d7b3a5d2f28634469b19bb5aa52664b`，Registry 原始匹配数为 1 且 `TryGetEntry=true`，目标 Console error / warning 为 0；当前程序边界仅为 VisualID 可登记，不含 Prefab / UGUI 消费。
+- Finalize 编排已修复 Windows PowerShell 5.1 中文生成物路径乱码：标准生成物路径移入 Python 默认值，失败 Run 可幂等重跑并完成 `summary.claim=registered`。
+- 静态 Approved Sprite 的 Unity 导入与 Registry 登记已增加脚本 + MCP 编排入口：live AssetDatabase / importer / Registry / Console 证据齐全后才写 `RegistryStatus=registered`；该能力不创建 Prefab / UGUI 绑定，也不扩大为程序功能或运行时美术通过。
+- `registered -> runtime_validated` 的 ArtRun 内部 binding gate 已接入 validation core：`p3_art_inspect_target` 记录实际 UGUI Sprite、Approved 路径/GUID 与 Registry 对照，`finalize_runtime_validated` 只在最终 capture 和 Agent review 通过后写运行时证据；程序仍负责真实 Prefab / UGUI 绑定，不新增 `runtime_bound` 状态。
 - 全局叙事播放系统已接入配置加载、触发调度、状态回写、UGUI 对白层、过程 CG 容器和命令桥，运行时仍需按场景补验证证据。
 - Unity MCP 验收编排已拆分为程序、美术和发布 lanes；程序 lane 不再自动启动 ArtAcceptance。
 - T0-01A 的启动零号、苏醒对白、首潜确认和真实 `DungeonManager.StartRunAtLayer(1)` 链路已有实现 / smoke 证据，但不等于完整 T0 验收完成。
-- `tools/ai-image-gateway` 已完成 `httpx-sse` 透明流式接入、同连接 JSON fallback、错误截断、断流无 buffered 二次请求和 secret-safe smoke CLI；目标测试 `35 passed`、全量 `121 passed`，真实 Gemini 文生图流式在 `49.859s` 成功，首事件从请求发起前计时为 `0.312s`。
+- `tools/ai-image-gateway` 已完成透明流式接入与尾部断流保护，全量测试 `123 passed`；GIF 工具测试 `50 passed, 2 subtests passed`。真实 Gemini 双参考图简洁提示词 smoke 在 `66.688s` 成功，8 个 SSE 事件、首事件 `1.719s`，并完成 8 帧 GIF Run 重编码。
 
 ## 下一步建议
 
@@ -61,7 +66,7 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 - Unity Editor / MCP 现场验证仍可能受环境和既有 MCPForUnity 版本 warning 限制；受限时必须记录 `validation_limited:*`。
 - T0-01A 的商业化连续画面、最终美术接入和专业 Role 外部验收仍未完成。
-- Gemini 双参考图流式 smoke 在 `292.906s` 后遭遇上游 `incomplete chunked read`，没有可解码图片；当前为 `validation_limited:stream_request_failed_before_success_evidence`，不能声明双图端到端稳定。
+- Gemini 双参考图在长提示词或生成超过约 300 秒时仍可能由上游关闭 chunked response；简洁提示词已取得端到端成功，但外部 provider 稳定性仍不应扩大声明。
 
 ## 关键证据入口
 
@@ -69,6 +74,8 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 - `开发文档/18_全局叙事播放系统开发方案.md`
 - `开发文档/19_UnityMCP验收编排层设计.md`
 - `开发文档/20_UnityMCP验收编排层实现计划.md`
+- `UnityClient/Logs/P3ArtImport/art_import_zero_dialogue_neutral_plan_20260718_02/summary.json`
+- `UnityClient/Logs/P3ArtImport/art_import_formalv2_standard_stylebatch_20260725_01/summary.json`
 - `docs/superpowers/specs/2026-07-18-ai-image-gateway-transparent-streaming-design.md`
 - `tools/ai-image-gateway/docs/openai_compatible_relay_integration.md`
 - `版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可开发方案.md`

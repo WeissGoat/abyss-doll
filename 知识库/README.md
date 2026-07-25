@@ -8,7 +8,6 @@ status: active
 source_of_truth: true
 related:
   - AGENTS.md
-  - GEMINI.md
   - DOCS_INDEX.md
   - rules/README.md
   - rules/01_文档维护与新增控制规则.md

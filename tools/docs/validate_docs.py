@@ -16,7 +16,6 @@ from generate_docs_index import collect_docs, parse_front_matter, read_text, sho
 CORE_DOCS = {
     "AGENTS.md",
     "PROJECT_STATUS.md",
-    "GEMINI.md",
     "DOCS_INDEX.md",
     "知识库/README.md",
     "版本规划/09_正式版核心纵切开发路线.md",

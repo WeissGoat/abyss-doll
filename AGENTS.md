@@ -7,7 +7,6 @@ domain: agent_workflow
 status: active
 source_of_truth: true
 related:
-  - GEMINI.md
   - agent_status/README.md
   - agent_status/director.md
   - agent_status/pm.md
@@ -54,6 +53,12 @@ update_rule: 修改根职责路由、全局硬边界、开工入口或完成摘�
   -> 11：批次与详细需求文档门禁
 ```
 
+## 共享术语与程序证据入口
+
+- **局内**：深渊探索 / 副本内行动。
+- **局外**：小镇、工坊与养成。
+- 程序任务按开发文档和 `p3-program-validation` 路由；`UnityClient/Logs/` 只作为运行时日志与验收证据入口。AutoTestDaemon、`.test_trigger` 和 headless smoke 的具体协议以 `开发文档/rules/04_自动化测试与验收流程规范.md` 为准。
+
 ## 30 秒开工流程
 
 1. 读取 `PROJECT_STATUS.md` 的当前阶段、全局优先级、跨职能交接和阻塞快照；只有游戏导演、Owner 或明确涉及全局体验 / 跨职能交接的任务才读取 `agent_status/director.md`。
@@ -80,7 +85,7 @@ L4 条件展开：跨职能 View、rules/02、专项 Skill、验收证据或恢�
 | 完整模块或玩家结果的跨职能整体负责 | Owner | `知识库/views/owner.md` + 目标模块入口 | 按实际影响展开剧情、策划、程序、美术 View 和事实文档 |
 | 剧情大纲、叙事结构、角色关系、对白、CG / 漫画一致性 | 剧情 | `知识库/views/narrative.md` + `设计文档/剧情/README.md` | 剧情大纲、目标叙事文档、相关细案与演出规格 |
 | GDD、规则卡、数值、配置意图或配置源 | 策划 | `知识库/views/design.md` | `agent_status/design.md` 和目标设计 / 配置事实 |
-| Unity、领域服务、架构、纯 UGUI、Validator、自动测试 | 程序 | `知识库/views/program.md` | `agent_status/program.md` 和开发规则 |
+| Unity、领域服务、架构、纯 UGUI、Validator、自动测试 | 程序 | `知识库/views/program.md` | `agent_status/program.md`、开发规则和 `开发文档/rules/04_自动化测试与验收流程规范.md` |
 | UI 视觉、素材生产、Manifest、VisualID、运行时美术验收 | 美术 | `知识库/views/art.md` | `agent_status/art.md` 和美术事实文档 |
 | 文档元数据、索引、双向关系网 | 知识库 | `知识库/README.md` | `rules/01`、工具脚本和核心入口 |
 

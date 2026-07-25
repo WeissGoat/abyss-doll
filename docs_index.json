@@ -10,9 +10,9 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 3052,
-    "relation_edges": 1526,
-    "cross_role_edges": 315,
+    "directed_edges": 3030,
+    "relation_edges": 1515,
+    "cross_role_edges": 308,
     "role_pairs": {
       "0-12 小时细案 Owner <-> Owner": 3,
       "Owner <-> 全局": 1,
@@ -24,11 +24,11 @@
       "Owner <-> 美术": 3,
       "全局 <-> 兼容": 5,
       "全局 <-> 剧情": 2,
-      "全局 <-> 游戏导演": 23,
-      "全局 <-> 知识库": 7,
-      "全局 <-> 程序": 15,
-      "全局 <-> 策划": 55,
-      "全局 <-> 美术": 10,
+      "全局 <-> 游戏导演": 20,
+      "全局 <-> 知识库": 6,
+      "全局 <-> 程序": 14,
+      "全局 <-> 策划": 54,
+      "全局 <-> 美术": 9,
       "兼容 <-> 游戏导演": 5,
       "兼容 <-> 知识库": 1,
       "剧情 <-> 游戏导演": 8,
@@ -93,7 +93,7 @@
         "开发文档/17_Live2DSpine运行时接入评估.md",
         "开发文档/18_全局叙事播放系统开发方案.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-07-26",
       "update_rule": "美术或 UI 视觉流水线任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -205,7 +205,6 @@
       "source_of_truth": true,
       "related": [
         "AGENTS.md",
-        "GEMINI.md",
         "rules/02_智能体任务路由与完成协议.md",
         "agent_status/README.md",
         "agent_status/pm.md",
@@ -227,8 +226,8 @@
       "update_rule": "全局体验目标、系统开放节奏、任务 Owner 工作流、阶段优先级或跨职能验收口径变化后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 18,
-      "cross_role_relation_count": 13
+      "relation_count": 17,
+      "cross_role_relation_count": 12
     },
     {
       "path": "agent_status/pm.md",
@@ -286,7 +285,7 @@
         "开发文档/18_全局叙事播放系统开发方案.md",
         "配置表(JSON)/Narrative/README.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-07-26",
       "update_rule": "程序、Unity、验证或工程边界任务完成后更新本文档。",
       "has_metadata": true,
       "missing_fields": [],
@@ -328,7 +327,6 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "GEMINI.md",
         "agent_status/README.md",
         "agent_status/director.md",
         "agent_status/pm.md",
@@ -357,7 +355,7 @@
       "update_rule": "修改根职责路由、全局硬边界、开工入口或完成摘要时同步本文件；详细执行协议同步 rules/02。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 23,
+      "relation_count": 22,
       "cross_role_relation_count": 15
     },
     {
@@ -406,6 +404,23 @@
       "related": [],
       "last_verified": "2026-07-18",
       "update_rule": "实施任务、接口签名、验证命令或子模块提交边界变化时更新本计划。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "docs/superpowers/plans/2026-07-18-art-approved-unity-registry-automation.md",
+      "title": "Approved 到 Unity 导入与 Registry 登记自动化实施计划",
+      "id": "plan_art_approved_unity_registry_automation",
+      "type": "plan",
+      "role": "美术",
+      "domain": "art_asset_integration",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "2026-07-18",
+      "update_rule": "修改 Approved 接入编排实现范围、文件结构、测试命令、Unity MCP 试点或完成口径时更新本文档。",
       "has_metadata": true,
       "missing_fields": [],
       "relation_count": 0,
@@ -465,6 +480,78 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/plans/2026-07-19-art-runtime-validated-state.md",
+      "title": "Art Runtime Validated State Implementation Plan",
+      "id": "",
+      "type": "unclassified",
+      "role": "未分类",
+      "domain": "unclassified",
+      "status": "missing_metadata",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "",
+      "update_rule": "",
+      "has_metadata": false,
+      "missing_fields": [
+        "id",
+        "title",
+        "type",
+        "role",
+        "domain",
+        "status"
+      ],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "docs/superpowers/plans/2026-07-19-formal-v2-replacement-and-ui-skin.md",
+      "title": "Formal V2 Replacement And UI Skin Implementation Plan",
+      "id": "",
+      "type": "unclassified",
+      "role": "未分类",
+      "domain": "unclassified",
+      "status": "missing_metadata",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "",
+      "update_rule": "",
+      "has_metadata": false,
+      "missing_fields": [
+        "id",
+        "title",
+        "type",
+        "role",
+        "domain",
+        "status"
+      ],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "docs/superpowers/plans/2026-07-24-art-style-and-multi-format-prompt-compilation.md",
+      "title": "美术风格目录与多格式生成请求编译 Implementation Plan",
+      "id": "",
+      "type": "unclassified",
+      "role": "未分类",
+      "domain": "unclassified",
+      "status": "missing_metadata",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "",
+      "update_rule": "",
+      "has_metadata": false,
+      "missing_fields": [
+        "id",
+        "title",
+        "type",
+        "role",
+        "domain",
+        "status"
+      ],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "docs/superpowers/specs/2026-07-18-agent-routing-p0-hardening-design.md",
       "title": "Agent 路由 P0 治理加固设计",
       "id": "agent_routing_p0_hardening_design",
@@ -516,6 +603,23 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/specs/2026-07-18-art-approved-unity-registry-automation-design.md",
+      "title": "Approved 到 Unity 导入与 Registry 登记自动化设计",
+      "id": "spec_art_approved_unity_registry_automation",
+      "type": "design",
+      "role": "美术",
+      "domain": "art_asset_integration",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "2026-07-18",
+      "update_rule": "修改 Approved 同步、Unity 导入事实、Registry 登记、MCP 工具组策略、接入证据或 registered 完成口径时更新本文档。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "docs/superpowers/specs/2026-07-18-unified-art-processing-rounds-design.md",
       "title": "美术资产统一数字轮次加工与安全背景处理设计",
       "id": "spec_unified_art_processing_rounds",
@@ -550,6 +654,40 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/specs/2026-07-19-art-runtime-validated-state-design.md",
+      "title": "美术素材 Runtime Validated 状态收敛设计",
+      "id": "spec_art_runtime_validated_state",
+      "type": "design",
+      "role": "美术",
+      "domain": "runtime_art_validation",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "2026-07-19",
+      "update_rule": "修改 registered 后的运行时绑定检查、美术验收完成口径、ArtRun 最终 claim、失败路由或用户可见状态时更新本文档。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "docs/superpowers/specs/2026-07-23-art-style-and-multi-format-prompt-compilation-design.md",
+      "title": "美术风格目录与多格式生成请求编译设计",
+      "id": "spec_art_style_and_multi_format_prompt_compilation",
+      "type": "design",
+      "role": "美术",
+      "domain": "art_asset_production",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "2026-07-23",
+      "update_rule": "修改美术风格继承、VisualIntent、生成请求编译、Prompt 格式、生产 Profile 路由、迁移或编译门禁时更新本文档。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "DOCS_INDEX.md",
       "title": "文档索引",
       "id": "docs_index",
@@ -569,35 +707,6 @@
       "cross_role_relation_count": 1
     },
     {
-      "path": "GEMINI.md",
-      "title": "魔偶深渊 AI 核心知识库",
-      "id": "gemini_context",
-      "type": "entry",
-      "role": "全局",
-      "domain": "project_context",
-      "status": "active",
-      "source_of_truth": true,
-      "related": [
-        "AGENTS.md",
-        "rules/02_智能体任务路由与完成协议.md",
-        "agent_status/director.md",
-        "版本规划/13_正式版全局体验总线与开放节奏.md",
-        "版本规划/09_正式版核心纵切开发路线.md",
-        "PROJECT_STATUS.md",
-        "知识库/README.md",
-        "知识库/views/director.md",
-        "开发文档/00_程序开发大纲.md",
-        "设计文档/GDD/GDD_00_系统关联总图.md",
-        "美术文档/README.md"
-      ],
-      "last_verified": "2026-07-18",
-      "update_rule": "项目阶段、核心目录、AI 路由或工作准则变化时同步本文件。",
-      "has_metadata": true,
-      "missing_fields": [],
-      "relation_count": 11,
-      "cross_role_relation_count": 7
-    },
-    {
       "path": "PROJECT_STATUS.md",
       "title": "项目状态",
       "id": "project_status",
@@ -608,7 +717,6 @@
       "source_of_truth": true,
       "related": [
         "AGENTS.md",
-        "GEMINI.md",
         "rules/README.md",
         "rules/01_文档维护与新增控制规则.md",
         "rules/02_智能体任务路由与完成协议.md",
@@ -674,11 +782,11 @@
         "tools/agent/README.md",
         "tools/p3-mission/README.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-07-26",
       "update_rule": "项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 65,
+      "relation_count": 64,
       "cross_role_relation_count": 58
     },
     {
@@ -715,7 +823,6 @@
       "source_of_truth": true,
       "related": [
         "AGENTS.md",
-        "GEMINI.md",
         "PROJECT_STATUS.md",
         "rules/README.md",
         "知识库/README.md",
@@ -730,7 +837,7 @@
       "update_rule": "调整任务角色选择、Owner 责任流水、自验与外部验收、状态回写或 Git 完成要求时同步本文件与 AGENTS.md 摘要。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 11,
+      "relation_count": 10,
       "cross_role_relation_count": 6
     },
     {
@@ -844,7 +951,6 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "GEMINI.md",
         "版本规划/09_正式版核心纵切开发路线.md",
         "开发文档/README.md",
         "开发文档/rules/README.md",
@@ -873,8 +979,8 @@
       "update_rule": "程序系统分类、开发口径或模块索引变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 24,
-      "cross_role_relation_count": 7
+      "relation_count": 23,
+      "cross_role_relation_count": 6
     },
     {
       "path": "开发文档/01_核心数据与实体容器(CoreData).md",
@@ -1933,7 +2039,6 @@
       "source_of_truth": true,
       "related": [
         "AGENTS.md",
-        "GEMINI.md",
         "PROJECT_STATUS.md",
         "版本规划/README.md",
         "版本规划/13_正式版全局体验总线与开放节奏.md",
@@ -1957,7 +2062,7 @@
       "update_rule": "调整正式版顶层目标、系统优先级、纵切顺序或阶段边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 20,
+      "relation_count": 19,
       "cross_role_relation_count": 17
     },
     {
@@ -2031,7 +2136,6 @@
       "source_of_truth": true,
       "related": [
         "AGENTS.md",
-        "GEMINI.md",
         "PROJECT_STATUS.md",
         "agent_status/director.md",
         "版本规划/README.md",
@@ -2047,8 +2151,8 @@
       "update_rule": "调整全游戏宏观大纲、玩家体验主线、系统保留 / 砍线判断、系统开放节奏、深渊包装、任务 Owner 工作流或阶段体验门禁时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 12,
-      "cross_role_relation_count": 7
+      "relation_count": 11,
+      "cross_role_relation_count": 6
     },
     {
       "path": "版本规划/14_0-12小时候选主循环细案设计.md",
@@ -2363,7 +2467,6 @@
       "source_of_truth": true,
       "related": [
         "AGENTS.md",
-        "GEMINI.md",
         "DOCS_INDEX.md",
         "rules/README.md",
         "rules/01_文档维护与新增控制规则.md",
@@ -2381,8 +2484,8 @@
       "update_rule": "调整元数据字段、索引策略、文档治理规则或职责入口归属时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 14,
-      "cross_role_relation_count": 14
+      "relation_count": 13,
+      "cross_role_relation_count": 13
     },
     {
       "path": "知识库/views/art.md",
@@ -2461,7 +2564,6 @@
       "source_of_truth": false,
       "related": [
         "AGENTS.md",
-        "GEMINI.md",
         "PROJECT_STATUS.md",
         "rules/02_智能体任务路由与完成协议.md",
         "知识库/README.md",
@@ -2481,8 +2583,8 @@
       "update_rule": "游戏导演入口、全局体验总线、任务 Owner 工作流或跨职能验收口径变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 16,
-      "cross_role_relation_count": 11
+      "relation_count": 15,
+      "cross_role_relation_count": 10
     },
     {
       "path": "知识库/views/narrative.md",
@@ -2605,7 +2707,7 @@
         "tools/美术工具/README.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-07-24",
       "update_rule": "修改美术资产生产阶段、职能边界、正式状态、交付门禁或 Skill 路由时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2991,7 +3093,7 @@
         "agent_status/art.md",
         ".codex/skills/p3-generate-image/SKILL.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-07-19",
       "update_rule": "修改 GIF 适用范围、输入契约、拆帧、人物替换、预审、质量检查、重试、重编码、运行状态或实现验收口径时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -3186,7 +3288,6 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "GEMINI.md",
         "开发文档/14_Unity运行时美术自动验收方案.md",
         "开发文档/19_UnityMCP验收编排层设计.md",
         "开发文档/rules/03_视觉资源系统程序开发规范.md",
@@ -3212,12 +3313,12 @@
         "tools/美术工具/README.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-07-24",
       "update_rule": "美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 25,
-      "cross_role_relation_count": 4
+      "relation_count": 24,
+      "cross_role_relation_count": 3
     },
     {
       "path": "美术文档/ui_design/formal_v1/business_settlement_v1.md",
@@ -4643,7 +4744,7 @@
         "美术文档/17_Agent原生动态立绘资产接入规格.md",
         "agent_status/art.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-07-19",
       "update_rule": "调整零号立绘母版、姿势集合、状态差分、分层清单、候选VisualID、生产批次或验收口径时同步本文档。",
       "has_metadata": true,
       "missing_fields": [],
@@ -6415,7 +6516,6 @@
       "status": "active",
       "source_of_truth": true,
       "related": [
-        "GEMINI.md",
         "设计文档/README.md",
         "版本规划/09_正式版核心纵切开发路线.md",
         "版本规划/11_纵切批次与需求文档承接矩阵.md",
@@ -6458,8 +6558,8 @@
       "update_rule": "修改系统关系、资源流向、循环健康度或系统优先级时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
-      "relation_count": 38,
-      "cross_role_relation_count": 7
+      "relation_count": 37,
+      "cross_role_relation_count": 6
     },
     {
       "path": "设计文档/GDD/GDD_01_背包战斗与局内网格机制.md",

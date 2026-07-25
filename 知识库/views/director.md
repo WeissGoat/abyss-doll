@@ -8,7 +8,6 @@ status: active
 source_of_truth: false
 related:
   - AGENTS.md
-  - GEMINI.md
   - PROJECT_STATUS.md
   - rules/02_智能体任务路由与完成协议.md
   - 知识库/README.md

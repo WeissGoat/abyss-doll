@@ -8,7 +8,6 @@ status: active
 source_of_truth: true
 related:
   - AGENTS.md
-  - GEMINI.md
   - rules/README.md
   - rules/01_文档维护与新增控制规则.md
   - rules/02_智能体任务路由与完成协议.md
@@ -73,7 +72,7 @@ related:
   - 知识库/views/program.md
   - tools/agent/README.md
   - tools/p3-mission/README.md
-last_verified: 2026-07-18
+last_verified: 2026-07-26
 update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。
 ---
 
@@ -83,7 +82,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 ## 最后更新
 
-2026-07-18
+2026-07-26
 
 ## 当前阶段
 
@@ -108,7 +107,8 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 3. T1 已有 30 分钟-2 小时设计稿；T2-T4 未完成详细设计前，不作为 Owner 正式实现依据。
 4. 策划 C1-C3 配置源和当前程序支持已收口；当前继续 C4 局外成长及后续配置，只按真实缺口补齐、校准或修复。
 5. 程序继续围绕正常 UI 可达、真实领域服务、状态真实变化和 Smoke / P0 证据处理缺口，不重复派发已通过的基础链路。
-6. 美术生产已统一为数字处理轮次；Zero 对话立绘当前保留 `processed/1` 失败证据，下一步是带前景保护的 `processed/2`，未修改 Approved、Registry、Unity GUID 或运行时资源。
+6. 美术生产已统一为数字处理轮次；Zero 的 `doll_zero_dialogue_neutral` 已完成 Approved、Unity 导入和 Registry 登记，其余 13 个静态立绘成员保持 selected，尚未获得 Approved 授权或运行时绑定。
+7. 美术 Manifest 编译层已完成 v3 迁移：313 个 Entry 的持久化 Request Catalog strict 校验通过；`formalv2_standard_stylebatch_20260725_01` 已把 `bg_combat_abyss` 与 `ui_icon_warning` 的新风格批量流真实推进到 Approved 同 VisualID 替换和 `registered`，GUID 保持不变，运行时绑定不在本批范围。
 
 ## 跨职能交接
 
@@ -116,21 +116,25 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 剧情、策划、程序和美术分别维护专业事实；Owner 自验不替代专业 Role 外部验收。
 - UI / 美术与程序统一使用纯 UGUI；程序只消费 active `screen_layouts.json`、Manifest 和正式交接入口。
 - 配置事实来源是 `配置表(JSON)`；运行时验证前同步配置，不手写维护 StreamingAssets 副本。
+- 美术执行交接统一使用 `RequestID + RequestFingerprint + PromptFormat`；`p3-art-asset-production` 负责编译、准入和 Approved/Unity 交接，`generate-image` 只消费已编译 Variant 并记录 ProviderRequest。
 - 长任务、恢复继续和跨会话拆分统一使用 P3 Mission；文档调整先遵守 `rules/01`。
 
 ## 问题 / 阻塞
 
 - T0-01A 的漫画页排版、对白皮肤、半开放工坊、首潜许可卡和最终连续截图仍需收口。
 - T0-01B / T0-01C 和 T2 详细设计尚未完成。
-- Zero 角色立绘仍受透明背景 / 前景保护门禁阻塞；Unity 尚未补跑，记录为 `validation_limited:unity_not_run`。
+- Zero neutral 的素材接入链已到 `registered`，当前未完成的是 Prefab / UGUI 运行时消费、容器裁切和美术验收；其余 13 个成员仍在 Approved 授权边界。`registered -> runtime_validated` 的 ArtRun binding/finalize 机制已实现，但尚未对 neutral 执行正式 TargetID 运行时验收。
 - 工作区存在并发美术、生成物和 submodule 改动；所有提交必须精确暂存。
+- 本轮已完成真实 provider smoke、背景/透明图标批量生成、逐项视觉评审、Approved 同名覆盖与 live Unity Registry 登记；后续扩大批次仍需逐批 smoke、技术门禁和 Agent 视觉评审，不能把 Catalog `ready`、raw 或 `selected` 解释为 Approved / registered / runtime_validated。
+- 严格美术生成物聚合校验中，Request Catalog 已通过；离线 Registry candidate 仍报告既有 `changed_existing=19`，不归因于本轮编译迁移，后续需单独收口。
 
 ## 下一步总建议
 
 1. 先完成 T0-01A 的 `SEAL-DES / ART / FLOW / UI / VAL`，再新增 B / C 段 Owner 具体设计。
 2. B / C 段收口后完善 T2，把出售、账单、维护、传闻 / 基础订单和成长目标组织成下一轮下潜理由。
 3. 策划继续 C4 配置源落地；程序和美术只围绕当前 Owner 玩家结果处理真实缺口。
-4. Zero 立绘按 `agent_required` 方式完成 `processed/2` 后重新技术复核，未通过前不进入 selected / Approved。
+4. 以 Zero neutral 的真实接入证据为模板，按用户授权逐个推进其余 13 个 selected 成员；运行时绑定和 ArtAcceptance 留给后续独立任务。
+5. 以已验证的 Request Catalog 和 `formalv2_standard_stylebatch_20260725_01` 为模板，继续扩大标准背景/图标小批次；UI nine-slice 与角色立绘继续使用各自独立 route，运行时绑定和 ArtAcceptance 单独安排。
 
 ## 关键入口
 

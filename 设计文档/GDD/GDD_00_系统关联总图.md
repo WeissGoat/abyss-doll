@@ -7,7 +7,6 @@ domain: system_overview
 status: active
 source_of_truth: true
 related:
-  - GEMINI.md
   - 设计文档/README.md
   - 版本规划/09_正式版核心纵切开发路线.md
   - 版本规划/11_纵切批次与需求文档承接矩阵.md
