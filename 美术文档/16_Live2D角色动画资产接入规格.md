@@ -16,7 +16,7 @@ related:
   - 开发文档/17_Live2DSpine运行时接入评估.md
   - agent_status/art.md
   - agent_status/program.md
-last_verified: 2026-06-13
+last_verified: 2026-07-18
 update_rule: 修改Live2D/Spine外部导出兼容路线、专有runtime导入门禁或与Agent原生DollPuppet关系时同步本文档。
 ---
 
@@ -122,22 +122,23 @@ AI 输出必须经过人工筛选和分层清理后才能进入绑定，不得�
 
 ### 5.1 工作区
 
-Live2D 工作区仍属于 `_IncomingAI`，但不进入现有静态图扫描队列：
+Live2D 生产使用 `character_portrait_set` Profile，以运行时 `DynamicVisualID` 作为 `_IncomingAI/character_portraits/` 的直接子目录；Live2D 专项文件放在成员工作区内部，不进入现有静态 Sprite 批量扫描队列：
 
 ```text
-UnityClient/Assets/Art/_IncomingAI/DollsLive2D/<DollID>/
-  source/
-    concept.png
-    source_layers.psd
-  masks/
-  inpaint_candidates/
-  layered_psd/
-  contact_sheet/
-  notes.md
-  generation.json
+UnityClient/Assets/Art/_IncomingAI/character_portraits/<DynamicVisualID>/
+  live2d/
+    source/
+      concept.png
+      source_layers.psd
+    masks/
+    inpaint_candidates/
+    layered_psd/
+    contact_sheet/
+    notes.md
+    generation.json
 ```
 
-`generation.json` 记录 provider、prompt、mask、候选路径、筛选结论和人工修复说明。该文件只作为美术制作证据，不代表 Approved 入库。
+`DynamicVisualID` 必须来自正式运行时契约，不使用 `<DollID>` 在 `_IncomingAI` 根建立旁路目录。`generation.json` 记录实际 provider / capability、prompt、mask、候选路径、筛选结论和人工修复说明；工作区和 Profile 不限定图片生成方法。该文件只作为美术制作证据，不代表 Approved 入库。
 
 ### 5.2 正式区
 

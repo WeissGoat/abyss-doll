@@ -358,6 +358,8 @@ def optimize_entry(entry: dict[str, Any], args: argparse.Namespace, in_root: Pat
                 processed,
                 source_spec=source_spec(entry["Spec"]),
                 composition_spec=composition_spec(entry["Spec"]),
+                process_spec=process_spec(entry["Spec"]),
+                asset_type=str(entry.get("AssetType", "") or ""),
                 production_profile=str(entry.get("ProductionProfile", "standard_asset")),
                 saved_path=output_path,
             )

@@ -36,14 +36,29 @@ description: Use for image generation or image editing capabilities, including t
 - `gemini_chat_image`：使用自然语言；图生图时明确哪些内容必须保持、哪些内容允许改变、输出仍需满足的构图和禁项。
 - `novelai`：使用 Danbooru tag 式正向 prompt 和独立 negative prompt；把关键身份、服装、姿态、画面类型拆成短 tag，避免长篇自然语言。
 
+## 后端可达性门禁
+
+选择外部图片网关后端后，先运行配置检查；真实批量任务前必须对目标后端做最小 smoke：
+
+```powershell
+.\tools\美术工具\Test-AIImageBackends.ps1 -CheckConfigOnly
+.\tools\美术工具\Test-AIImageBackends.ps1 -Backend chatgpt -Attempts 1
+```
+
+`openai_images` 对应 `chatgpt`，`gemini_chat_image` 对应 `gemini`，`novelai` 对应 `novelai`。完整参数、组合测试、输出证据和失败处理见 [provider-selection.md](references/provider-selection.md)。`image_gen` 与 `grok_chat_image` 不在该脚本支持范围内，分别以工具是否暴露、网关 provider 专项 smoke 判定。
+
+若目标 provider / model 出现配置错误、凭证错误、限流、超时、请求失败或返回 0 张可解码图片，必须显式告诉用户后端不可用、已执行的检查、错误摘要和可选备选方案，并记录 `validation_limited:provider_unavailable:<provider>`。不得静默 fallback，不得把请求已发送或日志存在声明为出图成功。
+
 ## 执行协议
 
 1. 先确认任务是探索候选、正式 Manifest 资产，还是对已有图做调整。
 2. 确认输出规格、参考图、允许变化、禁止变化和是否需要透明背景。
-3. 使用 `tools/美术工具/Test-AIImageBackends.ps1 -CheckConfigOnly` 检查配置；真实批量前做目标后端最小 smoke。
-4. 批量数量 `N` 一律拆成 N 次请求，每次 `count=1`，串行执行并保留间隔。
-5. 输出只进入任务指定目录或 `_IncomingAI/raw`，不得直接声明 selected、Approved、registered 或 validated。
-6. 返回 raw 图片、provider/model/prompt/seed/尺寸、参考图或 mask、错误与时间证据，然后把控制权交还上游工作流。
+3. 正式 Manifest 任务先读取上游提供的 `RequestID`、`RequestFingerprint`、`PromptFormat` 和 `RequestSnapshot`；不要在本 Skill 内重新编译 `VisualIntent`。
+4. 按“后端可达性门禁”完成配置检查和目标后端 smoke；未取得成功图片证据时停止批量生成。
+5. 批量数量 `N` 一律拆成 N 次请求，每次 `count=1`，串行执行并保留间隔。
+6. 根据持久化 Variant 选择 provider 适配：OpenAI/GPT image edit 和 Gemini 消费 `natural_language_v1`；NovelAI 消费 `danbooru_tags_v1`。结构化 tags 只在 adapter 序列化，不能把 provider 专用权重语法写回 Request Catalog。
+7. 探索任务只写任务指定目录；正式 P3 资产只写上游 `p3-art-asset-production` 通过 `ProductionProfile + VisualID` Resolver 提供的 `raw/` 工作区。不得在 `_IncomingAI` 根创建 loose `raw`，也不得直接声明 selected、Approved、registered 或 validated。
+8. 返回 raw 图片、provider/model/PromptFormat/RequestSnapshot/ProviderRequest/seed/尺寸、参考图或 mask、错误与时间证据，然后把控制权交还上游工作流。
 
 ## 常用入口
 

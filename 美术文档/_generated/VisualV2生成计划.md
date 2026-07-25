@@ -4,9 +4,9 @@
 
 ## Summary
 
-* GeneratedAt: `2026-06-09T04:52:45+08:00`
+* GeneratedAt: `2026-07-18T01:23:37+08:00`
 * Provider: `novelai`
-* BatchID: `nai_formalv2_semantic_fix_20260609_01`
+* BatchID: `nai_visual_v2_20260525_01`
 * Variants per asset: `4`
 * Planned items: `0`
 * Prompt ready: `0`
@@ -32,12 +32,12 @@ $env:NAI_ACCESS_TOKEN = '<set locally>'
 After generation succeeds:
 
 ```powershell
-.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -CandidateBatchID nai_formalv2_semantic_fix_20260609_01 -Overwrite
-# Review contact sheets under UnityClient/Assets/Art/_IncomingAI/<VisualID>/contact_sheet before syncing.
+.\tools\美术工具\Optimize-ArtAssets.ps1 -Status approved -CandidateBatchID nai_visual_v2_20260525_01 -Overwrite
+# Review contact sheets under each Manifest entry's resolved Profile workspace before syncing.
 # Then sync each accepted VisualID with its per-item SyncApproved command below.
-.\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag nai_formalv2_semantic_fix_20260609_01
-.\tools\美术工具\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag nai_formalv2_semantic_fix_20260609_01
-.\tools\美术工具\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag nai_formalv2_semantic_fix_20260609_01_after -BatchID nai_formalv2_semantic_fix_20260609_01
+.\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01
+.\tools\美术工具\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01
+.\tools\美术工具\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01_after -BatchID nai_visual_v2_20260525_01
 ```
 
 ## Recommended Execution Batches

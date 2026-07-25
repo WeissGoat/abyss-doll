@@ -242,11 +242,37 @@ def measure_candidate(image: Image.Image, saved_path: Path | None = None) -> dic
     }
 
 
+def _edge_band_coverage(alpha: Image.Image, border: Mapping[str, Any]) -> dict[str, float]:
+    width, height = alpha.size
+    pixels = alpha.load()
+    left = max(1, min(width, int(border.get("Left", 1) or 1)))
+    right = max(1, min(width, int(border.get("Right", 1) or 1)))
+    top = max(1, min(height, int(border.get("Top", 1) or 1)))
+    bottom = max(1, min(height, int(border.get("Bottom", 1) or 1)))
+
+    top_columns = sum(1 for x in range(width) if any(pixels[x, y] > 0 for y in range(top)))
+    bottom_columns = sum(
+        1 for x in range(width) if any(pixels[x, y] > 0 for y in range(height - bottom, height))
+    )
+    left_rows = sum(1 for y in range(height) if any(pixels[x, y] > 0 for x in range(left)))
+    right_rows = sum(
+        1 for y in range(height) if any(pixels[x, y] > 0 for x in range(width - right, width))
+    )
+    return {
+        "Top": top_columns / max(1, width),
+        "Bottom": bottom_columns / max(1, width),
+        "Left": left_rows / max(1, height),
+        "Right": right_rows / max(1, height),
+    }
+
+
 def review_candidate(
     image: Image.Image,
     *,
     source_spec: Mapping[str, Any],
     composition_spec: Mapping[str, Any],
+    process_spec: Mapping[str, Any] | None = None,
+    asset_type: str = "",
     production_profile: str,
     saved_path: Path | None = None,
 ) -> dict[str, Any]:
@@ -274,19 +300,42 @@ def review_candidate(
         if left < minimum_x or top < minimum_y or right > image.width - minimum_x or bottom > image.height - minimum_y:
             reasons.append("subject_outside_safe_canvas")
 
+    process_spec = process_spec or {}
+    nine_slice = process_spec.get("NineSlice")
+    nine_slice_metrics: dict[str, Any] | None = None
+    if isinstance(nine_slice, Mapping) and bool(nine_slice.get("Enabled")):
+        border = nine_slice.get("Border") if isinstance(nine_slice.get("Border"), Mapping) else {}
+        max_components = int(nine_slice.get("MaxConnectedComponents", 24) or 24)
+        minimum_edge_coverage = float(nine_slice.get("MinEdgeCoveragePercent", 35) or 35) / 100
+        edge_coverage = _edge_band_coverage(image.convert("RGBA").getchannel("A"), border)
+        nine_slice_metrics = {
+            "AssetType": asset_type,
+            "Border": dict(border),
+            "MaxConnectedComponents": max_components,
+            "MinEdgeCoveragePercent": minimum_edge_coverage * 100,
+            "EdgeCoverage": edge_coverage,
+        }
+        if int(metrics["ConnectedComponents"]) > max_components:
+            reasons.append("nine_slice_many_components")
+        if any(value < minimum_edge_coverage for value in edge_coverage.values()):
+            reasons.append("nine_slice_edge_coverage_low")
+
     if production_profile == "character_portrait_set":
         if (
             float(metrics["OccupiedBBoxTransparency"]) > 0.45
             or float(metrics["TransparentHoleRatio"]) > 0.05
         ):
             reasons.append("transparent_holes_detected")
-    elif int(metrics["ConnectedComponents"]) > 12:
+    elif nine_slice_metrics is None and int(metrics["ConnectedComponents"]) > 12:
         warnings.append("many_connected_components")
 
     status = "failed" if reasons else "warning" if warnings else "passed"
-    return {
+    result = {
         "Status": status,
         "Reasons": reasons,
         "Warnings": warnings,
         "Metrics": metrics,
     }
+    if nine_slice_metrics is not None:
+        result["NineSliceMetrics"] = nine_slice_metrics
+    return result

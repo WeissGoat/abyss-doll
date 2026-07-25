@@ -39,6 +39,35 @@ CATALOG = {
 
 
 class ArtStyleCatalogTests(unittest.TestCase):
+    def test_default_primary_style_has_explicit_palette_contract(self) -> None:
+        from art_style_catalog import DEFAULT_CATALOG, resolve_style_ref
+
+        resolved = resolve_style_ref(
+            DEFAULT_CATALOG,
+            {
+                "Profile": "ui_v1",
+                "Family": "ui_button_core_v1",
+                "Role": "primary",
+                "ContextAccent": "none",
+            },
+        )
+
+        positive = " | ".join(
+            resolved["Profile"]["PositiveEN"]
+            + resolved["Family"]["PositiveEN"]
+            + resolved["Role"]["PositiveEN"]
+        ).lower()
+        negative = " | ".join(
+            resolved["Profile"]["NegativeEN"]
+            + resolved["Family"]["NegativeEN"]
+            + resolved["Role"]["NegativeEN"]
+        ).lower()
+
+        self.assertIn("ink-gray", positive)
+        self.assertIn("moon-white", positive)
+        self.assertIn("coral-crimson", positive)
+        self.assertIn("blue-white", negative)
+
     def test_primary_role_resolves_to_crimson_semantic(self) -> None:
         from art_style_catalog import resolve_style_ref
 

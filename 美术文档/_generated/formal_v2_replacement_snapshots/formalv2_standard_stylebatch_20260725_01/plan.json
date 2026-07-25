@@ -1,0 +1,110 @@
+{
+  "GeneratedAt": "2026-07-25T23:50:51+08:00",
+  "Inputs": {
+    "FormalV2Overview": "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+    "Manifest": "美术文档/_generated/art_manifest.json"
+  },
+  "RunConfig": {
+    "BatchID": "formalv2_standard_stylebatch_20260725_01",
+    "Variants": 2,
+    "DelaySeconds": 2.0,
+    "Provider": "agent_selected",
+    "Method": "agent_selected",
+    "SerialRequired": true,
+    "Action": "visual_v2_replace"
+  },
+  "Summary": {
+    "RequestedVisualIDs": [
+      "bg_combat_abyss",
+      "ui_icon_warning"
+    ],
+    "ExtractedVisualCount": 2,
+    "PlannedItems": 2,
+    "PromptReadyItems": 2,
+    "SkippedItems": [],
+    "AssetClassCounts": {
+      "background": 1,
+      "icon": 1
+    }
+  },
+  "Items": [
+    {
+      "VisualID": "bg_combat_abyss",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "background",
+      "AssetClass": "background",
+      "Domain": "background",
+      "AssetType": "background",
+      "Priority": "P1",
+      "DisplayName": "通用战斗背景",
+      "PromptReady": true,
+      "ProductionProfile": "standard_asset",
+      "RequestID": "bg_combat_abyss@97e78c5ba917",
+      "RequestFingerprint": "97e78c5ba917b3302623d4d8ceeec2716b161984c2da3f9a5f2d6edb84fb74b6",
+      "PromptFormats": [
+        "natural_language_v1"
+      ],
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Combat/bg_combat_abyss.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_combat_abyss",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_combat_abyss/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_combat_abyss/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_combat_abyss/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_standard_stylebatch_20260725_01",
+        "Variants": 2,
+        "DelaySeconds": 2.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_icon_warning",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "icon",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "Priority": "P1",
+      "DisplayName": "警告图标",
+      "PromptReady": true,
+      "ProductionProfile": "standard_asset",
+      "RequestID": "ui_icon_warning@3c3998bd0c1e",
+      "RequestFingerprint": "3c3998bd0c1efd49720ab05f815535ecf1e1858740f4024e75057ac28bf3358d",
+      "PromptFormats": [
+        "natural_language_v1"
+      ],
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_warning.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_warning",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_warning/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_warning/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_warning/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_standard_stylebatch_20260725_01",
+        "Variants": 2,
+        "DelaySeconds": 2.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    }
+  ]
+}

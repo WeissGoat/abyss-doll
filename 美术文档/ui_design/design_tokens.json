@@ -73,6 +73,11 @@
     "TextSecondary": "#B9AD98",
     "Disabled": "#5D6068"
   },
+  "ColorRoleAliases": {
+    "MoonWhiteTrim": "TextPrimary",
+    "PrimaryActionCrimson": "CoralAccent",
+    "RuneActive": "RuneActive"
+  },
   "Typography": {
     "FontPolicy": "Unity Text renders all labels; UI sprites must not contain baked text.",
     "TitleSize": 32,

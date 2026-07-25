@@ -24,6 +24,11 @@ DEFAULT_MANIFEST = "美术文档/_generated/art_manifest.json"
 DEFAULT_INCOMING_ROOT = "UnityClient/Assets/Art/_IncomingAI"
 DEFAULT_APPROVED_ROOT = "UnityClient/Assets/Art/Approved"
 DEFAULT_EVIDENCE_ROOT = "UnityClient/Logs/P3ArtImport"
+DEFAULT_GENERATED_PATHS = [
+    "美术文档/_generated/可接入素材清单.json",
+    "美术文档/_generated/程序接入交接清单.json",
+    "美术文档/_generated/VisualAssetRegistry登记缺口清单.json",
+]
 
 REQUEST_SCHEMA = "p3-art-import-request@1"
 PLAN_SCHEMA = "p3-art-approved-plan@1"
@@ -706,7 +711,7 @@ def build_parser() -> argparse.ArgumentParser:
     complete_parser = subparsers.add_parser("complete-finalize")
     complete_parser.add_argument("--evidence-root", default=DEFAULT_EVIDENCE_ROOT)
     complete_parser.add_argument("--art-import-run-id", required=True)
-    complete_parser.add_argument("--generated-path", action="append", required=True)
+    complete_parser.add_argument("--generated-path", action="append")
     return parser
 
 
@@ -755,7 +760,10 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "complete-finalize":
         result = complete_finalize(
             run_dir(resolve_path(args.evidence_root, PROJECT_ROOT), args.art_import_run_id),
-            generated_paths=[resolve_path(value, PROJECT_ROOT) for value in args.generated_path],
+            generated_paths=[
+                resolve_path(value, PROJECT_ROOT)
+                for value in (args.generated_path or DEFAULT_GENERATED_PATHS)
+            ],
         )
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0

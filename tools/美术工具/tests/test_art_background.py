@@ -79,6 +79,54 @@ class CandidateTechnicalReviewTests(unittest.TestCase):
         self.assertEqual(review["Status"], "passed")
         self.assertIn("Width", review["Metrics"])
 
+    def test_nine_slice_rejects_fragmented_decoration(self) -> None:
+        image = Image.new("RGBA", (100, 40), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(image)
+        draw.rectangle((5, 5, 94, 34), outline=(255, 255, 255, 255), width=3)
+        for index in range(30):
+            x = 2 + (index * 3) % 96
+            y = 2 if index % 2 == 0 else 37
+            draw.point((x, y), fill=(255, 255, 255, 255))
+
+        review = review_candidate(
+            image,
+            source_spec={"Width": 100, "Height": 40, "AlphaRequired": True},
+            composition_spec={"SafePaddingPercent": 0},
+            process_spec={
+                "NineSlice": {
+                    "Enabled": True,
+                    "Border": {"Left": 10, "Right": 10, "Top": 8, "Bottom": 8},
+                }
+            },
+            asset_type="button",
+            production_profile="standard_asset",
+        )
+
+        self.assertEqual(review["Status"], "failed")
+        self.assertIn("nine_slice_many_components", review["Reasons"])
+        self.assertIn("NineSliceMetrics", review)
+
+    def test_nine_slice_rejects_empty_border_band(self) -> None:
+        image = Image.new("RGBA", (100, 40), (0, 0, 0, 0))
+        ImageDraw.Draw(image).rectangle((30, 12, 70, 28), fill=(255, 255, 255, 255))
+
+        review = review_candidate(
+            image,
+            source_spec={"Width": 100, "Height": 40, "AlphaRequired": True},
+            composition_spec={"SafePaddingPercent": 0},
+            process_spec={
+                "NineSlice": {
+                    "Enabled": True,
+                    "Border": {"Left": 10, "Right": 10, "Top": 8, "Bottom": 8},
+                }
+            },
+            asset_type="button",
+            production_profile="standard_asset",
+        )
+
+        self.assertEqual(review["Status"], "failed")
+        self.assertIn("nine_slice_edge_coverage_low", review["Reasons"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,22 @@
+{
+  "GeneratedAt": "2026-07-19T01:40:28+08:00",
+  "Inputs": {
+    "HandoffPath": "美术文档/_generated/程序接入交接清单.json",
+    "RegistryPath": "UnityClient/Assets/Resources/VisualAssetRegistry.asset"
+  },
+  "Summary": {
+    "ProgramIntegrateVisualCount": 0,
+    "RegistryExistingCount": 297,
+    "MissingRegistryCount": 0,
+    "AlreadyRegisteredCount": 0,
+    "MissingApprovedFileCount": 0,
+    "MissingMetaFileCount": 0,
+    "DomainCounts": {},
+    "PriorityCounts": {}
+  },
+  "ProgramAction": {
+    "UnityMenu": "Tools/P3 Art/Rebuild Approved Sprite Registry",
+    "ThenRun": "ArtAcceptance / VisualAsset validation after Unity imports sprites"
+  },
+  "Items": []
+}

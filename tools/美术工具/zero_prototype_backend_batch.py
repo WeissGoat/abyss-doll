@@ -6,6 +6,7 @@ import argparse
 import asyncio
 import json
 import sys
+import tempfile
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -19,15 +20,7 @@ if str(GATEWAY_ROOT) not in sys.path:
 from ai_image_gateway import GenerateRequest, ImageService  # noqa: E402
 
 
-OUTPUT_ROOT = (
-    PROJECT_ROOT
-    / "UnityClient"
-    / "Assets"
-    / "Art"
-    / "_IncomingAI"
-    / "CharacterDesign"
-    / "zero_prototype_ai_backend_compare"
-)
+OUTPUT_ROOT = Path(tempfile.gettempdir()) / "P3CharacterDesign" / "zero_prototype_ai_backend_compare"
 
 WIDTH = 832
 HEIGHT = 1216

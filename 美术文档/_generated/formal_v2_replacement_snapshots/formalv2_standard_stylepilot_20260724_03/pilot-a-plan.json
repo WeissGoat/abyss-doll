@@ -1,0 +1,69 @@
+{
+  "GeneratedAt": "2026-07-24T23:46:56+08:00",
+  "Inputs": {
+    "FormalV2Overview": "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+    "Manifest": "美术文档/_generated/art_manifest.json"
+  },
+  "RunConfig": {
+    "BatchID": "formalv2_standard_stylepilot_20260724_03",
+    "Variants": 2,
+    "DelaySeconds": 2.0,
+    "Provider": "agent_selected",
+    "Method": "agent_selected",
+    "SerialRequired": true,
+    "Action": "visual_v2_replace"
+  },
+  "Summary": {
+    "RequestedVisualIDs": [
+      "bg_workshop_day"
+    ],
+    "ExtractedVisualCount": 1,
+    "PlannedItems": 1,
+    "PromptReadyItems": 1,
+    "SkippedItems": [],
+    "AssetClassCounts": {
+      "background": 1
+    }
+  },
+  "Items": [
+    {
+      "VisualID": "bg_workshop_day",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "background",
+      "AssetClass": "background",
+      "Domain": "background",
+      "AssetType": "background",
+      "Priority": "P1",
+      "DisplayName": "工坊整备背景",
+      "PromptReady": true,
+      "ProductionProfile": "standard_asset",
+      "RequestID": "bg_workshop_day@c47ded3e1ced",
+      "RequestFingerprint": "c47ded3e1ced43e301e8c8547de56774cd75fdbb6eb94b7cf44fce8b59817861",
+      "PromptFormats": [
+        "natural_language_v1"
+      ],
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Workshop/bg_workshop_day.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_workshop_day",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_workshop_day/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_workshop_day/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_workshop_day/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_standard_stylepilot_20260724_03",
+        "Variants": 2,
+        "DelaySeconds": 2.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    }
+  ]
+}

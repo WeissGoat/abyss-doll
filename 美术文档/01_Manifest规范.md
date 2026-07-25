@@ -108,7 +108,7 @@ Manifest 是美术生产台账，不是玩法配置表，也不是 Unity 运行�
 
 ```json
 {
-  "Version": 1,
+  "Version": 3,
   "ConfigRoot": "UnityClient/Assets/StreamingAssets/Configs",
   "StatusFlow": ["todo", "prompted", "generated", "selected", "approved", "registered", "validated", "rejected", "deprecated"],
   "Entries": []
@@ -173,7 +173,7 @@ Step 2 完成后，将 `Status` 改为 `prompted`。
 | `RawPath` | Step 3 | 原始生成图路径，指向当前 Profile 工作区的 `raw/`。 |
 | `SelectedPath` | Step 5 | 初筛通过的候选图路径，通常位于当前 Profile 工作区的 `selected/`。 |
 | `ApprovedPath` | Step 5 | 规格整理后的正式素材路径。 |
-| `RegistryStatus` | Step 5 | `unregistered`、`registered`、`validated` 等。 |
+| `RegistryStatus` | Step 5 | `unregistered` 或 `registered`。运行时美术验收写入 ArtRun，不写入 Manifest。 |
 | `Notes` | 任意 | 备注、返工原因、筛选结论。 |
 
 Asset Contract 字段归属：
@@ -188,7 +188,7 @@ Asset Contract 字段归属：
 
 ### Visual V2 质量替换字段
 
-已进入 `approved` / `registered` / `validated` 的素材，如果只是要替换更高质量图片，不应把 `Status` 改回 `generated`。这类流程使用候选字段记录新批次：
+已进入 `approved` / `registered` 的素材，如果只是要替换更高质量图片，不应把 `Status` 改回 `generated`。运行时 `runtime_validated` 由 ArtRun 证据产生，不是 Manifest 状态。这类流程使用候选字段记录新批次：
 
 | 字段 | 步骤 | 说明 |
 |---|---|---|
@@ -219,6 +219,47 @@ Asset Contract 字段归属：
 `Spec` 必须是对象，不是自然语言字符串。它用于连接美术生产、AI 生成、预处理脚本和 Unity 显示验证。
 
 `Spec.ProcessSpec.BackgroundPolicy` 为必填字段，合法值仅限 `preserve`、`already_transparent`、`auto_simple`、`agent_required`。`AlphaRequired` 只描述最终 alpha 契约，不隐式选择去底方式。
+
+---
+
+## 7. 风格合同与编译请求
+
+### 7.1 顶层字段
+
+Manifest 顶层可以包含以下生成快照：
+
+| 字段 | 说明 |
+|---|---|
+| `ArtStyleCatalog` | 从美术风格基准、Token 和专项事实规范化的风格快照，包含 `CatalogFingerprint`。 |
+| `AssetSets` | 角色立绘等相关成员的身份来源、IdentityLocks、一致性规则和成员关系。 |
+| `Entries` | 单项资产需求、StyleRef、VisualIntent、Spec、状态和编译请求引用。 |
+
+### 7.2 Entry 新字段
+
+| 字段 | 说明 |
+|---|---|
+| `StyleRef` | `Profile`、可选 `Family`、可选 `Role` 和允许的 `ContextAccent`。不得从 VisualID 推断。 |
+| `VisualIntent` | 资产最终视觉需求，包括 Subject、Appearance、Mood、Composition、RequiredElements 和 ForbiddenElements。 |
+| `CompiledRequest` | `RequestID`、`RequestFingerprint` 和 `CompileStatus`，指向持久化生成请求。 |
+
+### 7.3 编译请求
+
+完整编译结果保存于：
+
+```text
+美术文档/_generated/art_generation_requests.json
+```
+
+请求包括 `CanonicalVisualBrief`、`PromptVariants`、`TechnicalRequest` 和 `PreservationContract`。默认生成两种格式：
+
+- `natural_language_v1`：OpenAI/GPT image edit 和 Gemini image/chat image。
+- `danbooru_tags_v1`：NovelAI；保存结构化 tag 和 weight，不写死 provider 专属权重语法。
+
+`PromptCN`、`PromptEN` 和 `NegativePromptEN` 在兼容期继续存在，其中英文字段由 `natural_language_v1` 派生。新批量脚本必须消费 Request Catalog，不得根据旧 Prompt 或 VisualID 重新猜测。
+
+### 7.4 编译门禁
+
+当 Catalog、StyleRef、VisualIntent、Spec、AssetSet 身份合同或编译器版本变化时，旧 Request 标记为 `stale`。`Status`、候选批次 / raw 列表、替换批次、质量时间戳以及 `Prompt*`、路径、Registry 等运行态证据不参与 Manifest fingerprint；这些字段在 `selected -> approved -> registered -> runtime_validated` 或新处理轮次中变化时，不要求重新编译。缺少 Request、fingerprint 不匹配、目标 Prompt Variant 不存在或 `SemanticCoverage` 不完整时，生成必须在 provider 调用前失败。
 
 处理候选位于当前 Profile 工作区的 `processed/<正整数>/`。Manifest `SelectedPath` 可明确指向 `selected/` 或某个数字轮次中的候选；自动解析优先级为 `SelectedPath -> selected/ -> 最新数字轮次中唯一且通过的候选`。最新轮次失败、待决策、未验证或多候选时禁止回退旧轮次。
 

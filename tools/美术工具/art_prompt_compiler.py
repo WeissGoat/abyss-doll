@@ -18,6 +18,9 @@ DANBOORU_TAGS_FORMAT = "danbooru_tags_v1"
 
 
 TAG_MAP: dict[str, list[tuple[str, float]]] = {
+    "modular 2d interface button sprite": [("button", 1.0), ("game ui", 1.0)],
+    "single readable game asset": [("single object", 1.0), ("simple background", 0.8)],
+    "clean interface silhouette with no baked text": [("simple background", 0.8), ("no text", 1.0)],
     "single horizontal button skin": [("button", 1.0), ("horizontal", 1.0)],
     "continuous outer frame": [("frame", 1.0), ("connected border", 1.0)],
     "clean stretchable center": [("empty center", 1.0), ("simple background", 0.8)],

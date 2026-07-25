@@ -1,5 +1,4 @@
 interface:
   display_name: "P3 美术资产生产"
-  short_description: "从正式需求、候选生成和 Agent 筛选推进到 Approved、Unity 接入与运行时验收"
-  default_prompt: "Use $p3-art-asset-production to produce a Project P3 art asset through the approved workflow, pausing only at configured human decision gates unless full automation was explicitly authorized."
-
+  short_description: "生产 P3 标准美术资产或角色立绘套组，并推进到 Approved、Unity 接入与运行时验收"
+  default_prompt: "Use $p3-art-asset-production to produce a Project P3 art asset with the correct workspace profile. Keep requirements tool-neutral, let the agent choose current capabilities from evidence, and pause only at configured decision gates unless full automation was explicitly authorized."

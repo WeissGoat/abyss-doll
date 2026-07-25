@@ -155,15 +155,11 @@ if ($Phase -eq "Finalize") {
         exit $LASTEXITCODE
     }
 
-    $generatedRoot = Join-Path $projectRoot "美术文档\_generated"
     $completeArgs = @(
         $pythonScript,
         "complete-finalize",
         "--art-import-run-id", $ArtImportRunID,
-        "--evidence-root", $effectiveEvidenceRoot,
-        "--generated-path", (Join-Path $generatedRoot "可接入素材清单.json"),
-        "--generated-path", (Join-Path $generatedRoot "程序接入交接清单.json"),
-        "--generated-path", (Join-Path $generatedRoot "VisualAssetRegistry登记缺口清单.json")
+        "--evidence-root", $effectiveEvidenceRoot
     )
     Invoke-PythonPhase -Arguments $completeArgs
     exit 0

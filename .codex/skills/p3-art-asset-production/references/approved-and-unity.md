@@ -65,7 +65,9 @@ Delegate to `p3-art-validation`:
 Track separately:
 
 ```text
-approved -> unity_imported -> registered -> runtime_bound -> target_captured -> player_path_verified -> regression_passed
+approved -> unity_imported -> registered -> runtime_validated -> player_path_verified -> regression_passed
 ```
+
+`runtime_validated` is produced by `p3-art-validation` ArtRun Finalize after the formal TargetID consumes the registered VisualID and binding, display, Console, capture, and Agent review checks pass. Do not create or expose a separate `runtime_bound` claim.
 
 Runner visibility proves neither normal player-path reachability nor correct domain behavior.

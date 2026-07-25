@@ -62,6 +62,18 @@ def make_entry(background_policy: str = "auto_simple") -> dict[str, object]:
     }
 
 
+def make_nine_slice_entry() -> dict[str, object]:
+    entry = make_entry(background_policy="already_transparent")
+    entry["AssetType"] = "button"
+    entry["Spec"]["CompositionSpec"] = {"SafePaddingPercent": 0}
+    entry["Spec"]["ProcessSpec"]["PostProcess"] = ["resize", "preserve_transparency"]
+    entry["Spec"]["ProcessSpec"]["NineSlice"] = {
+        "Enabled": True,
+        "Border": {"Left": 8, "Right": 8, "Top": 8, "Bottom": 8},
+    }
+    return entry
+
+
 class OptimizeArtAssetsWorkspaceTests(unittest.TestCase):
     def test_candidate_raw_files_rejects_file_outside_resolved_raw_workspace(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -112,6 +124,22 @@ class OptimizeArtAssetsRoundTests(unittest.TestCase):
             self.assertFalse((workspace / "processed").exists())
             self.assertEqual(report["LatestState"], "decision_required")
             self.assertEqual(report["Reason"], "agent_processing_required")
+
+    def test_nine_slice_failure_is_published_in_round_decision(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            incoming_root = Path(temp_dir) / "incoming"
+            entry = make_nine_slice_entry()
+            workspace = workspace_path(incoming_root, entry)
+            workspace.joinpath("raw").mkdir(parents=True)
+            image = Image.new("RGBA", (32, 32), (0, 0, 0, 0))
+            image.putpixel((16, 16), (255, 255, 255, 255))
+            image.save(workspace / "raw" / "r01_001.png")
+
+            report = optimize_entry(entry, make_args(), incoming_root)
+
+            decision = (workspace / "processed" / "1" / "decision.json").read_text(encoding="utf-8")
+            self.assertEqual(report["LatestState"], "failed")
+            self.assertIn("nine_slice_edge_coverage_low", decision)
 
 
 if __name__ == "__main__":

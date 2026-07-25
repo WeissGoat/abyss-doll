@@ -28,6 +28,7 @@ DEFAULT_CATALOG: dict[str, Any] = {
             "oil painting",
             "cyberpunk UI",
             "dominant steampunk machinery",
+            "blue-white UI wash",
         ],
     },
     "Profiles": {
@@ -36,8 +37,17 @@ DEFAULT_CATALOG: dict[str, Any] = {
                 "clean hand-painted fantasy game UI",
                 "low information density",
                 "readable 2D interface component",
+                "ink-gray and deep graphite panel base",
+                "warm moon-white structural trim",
+                "restrained coral-crimson action accents",
             ],
-            "NegativeEN": ["fake readable text", "dense button wall"],
+            "NegativeEN": [
+                "fake readable text",
+                "dense button wall",
+                "blue-white primary palette",
+                "neon cyan main surface",
+                "icy blue-white gradient",
+            ],
         },
         "character_portrait_v1": {
             "PositiveEN": [
@@ -52,8 +62,9 @@ DEFAULT_CATALOG: dict[str, Any] = {
                 "hand-painted anime environment",
                 "atmospheric depth",
                 "large readable negative space",
+                "storybook color balance with warm life and localized bioluminescence",
             ],
-            "NegativeEN": ["bright daylight", "busy foreground clutter"],
+            "NegativeEN": ["bright daylight", "busy foreground clutter", "blue-white UI wash"],
         },
         "icon_v1": {
             "PositiveEN": ["centered single object", "clean readable silhouette"],
@@ -67,12 +78,27 @@ DEFAULT_CATALOG: dict[str, Any] = {
                 "single horizontal button skin",
                 "continuous outer frame",
                 "clean stretchable center",
+                "ink-gray center plate",
+                "warm moon-white rim",
+                "label-free center area",
             ],
-            "NegativeEN": ["disconnected border", "fragmented ornaments"],
+            "NegativeEN": [
+                "disconnected border",
+                "fragmented ornaments",
+                "blue-white gradient",
+                "icy blue highlight",
+            ],
             "Roles": {
                 "primary": {
-                    "PositiveEN": ["crimson primary action surface"],
-                    "NegativeEN": ["dominant blue or cyan primary surface"],
+                    "PositiveEN": [
+                        "crimson primary action surface",
+                        "coral-crimson primary action accent",
+                        "warm moon-white edge highlight",
+                    ],
+                    "NegativeEN": [
+                        "dominant blue or cyan primary surface",
+                        "blue-white primary surface",
+                    ],
                 },
                 "secondary": {
                     "PositiveEN": ["quiet secondary action surface"],
@@ -251,8 +277,17 @@ def resolve_entry_layers(
     return resolved
 
 
-def build_catalog_snapshot(project_root: Path, existing: dict[str, Any] | None = None) -> dict[str, Any]:
-    existing_catalog = existing.get("ArtStyleCatalog") if isinstance(existing, dict) else None
+def build_catalog_snapshot(
+    project_root: Path,
+    existing: dict[str, Any] | None = None,
+    *,
+    refresh: bool = False,
+) -> dict[str, Any]:
+    existing_catalog = (
+        existing.get("ArtStyleCatalog")
+        if isinstance(existing, dict) and not refresh
+        else None
+    )
     catalog = copy.deepcopy(existing_catalog) if isinstance(existing_catalog, dict) else copy.deepcopy(DEFAULT_CATALOG)
     catalog.setdefault("Version", 1)
     source_paths = [

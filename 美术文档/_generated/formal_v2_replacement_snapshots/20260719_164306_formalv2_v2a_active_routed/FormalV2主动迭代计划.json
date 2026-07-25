@@ -1,0 +1,1099 @@
+{
+  "GeneratedAt": "2026-07-19T16:43:06+08:00",
+  "Inputs": {
+    "FormalV2Overview": "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
+    "Manifest": "美术文档/_generated/art_manifest.json"
+  },
+  "RunConfig": {
+    "BatchID": "formalv2_v2a_replacement_20260719_01",
+    "Variants": 2,
+    "DelaySeconds": 1.0,
+    "Provider": "agent_selected",
+    "Method": "agent_selected",
+    "SerialRequired": true,
+    "Action": "visual_v2_replace"
+  },
+  "Summary": {
+    "ExtractedVisualCount": 35,
+    "PlannedItems": 32,
+    "PromptReadyItems": 32,
+    "SkippedItems": [
+      {
+        "VisualID": "ui_inventory_cell",
+        "Reason": "manifest_missing"
+      },
+      {
+        "VisualID": "ui_inventory_cell_selected",
+        "Reason": "manifest_missing"
+      },
+      {
+        "VisualID": "ui_modal_frame",
+        "Reason": "manifest_missing"
+      }
+    ],
+    "AssetClassCounts": {
+      "background": 5,
+      "icon": 7,
+      "standard_asset": 8,
+      "ui_skin": 12
+    }
+  },
+  "Items": [
+    {
+      "VisualID": "bg_combat_abyss",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "background",
+      "AssetClass": "background",
+      "Domain": "background",
+      "AssetType": "background",
+      "Priority": "P1",
+      "DisplayName": "通用战斗背景",
+      "PromptReady": true,
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Combat/bg_combat_abyss.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_combat_abyss",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_combat_abyss/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_combat_abyss/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_combat_abyss/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "bg_dungeon_map",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "background",
+      "AssetClass": "background",
+      "Domain": "background",
+      "AssetType": "background",
+      "Priority": "P1",
+      "DisplayName": "深渊路线图背景",
+      "PromptReady": true,
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_dungeon_map.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_dungeon_map",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_dungeon_map/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_dungeon_map/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_dungeon_map/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "bg_settlement_defeat",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "background",
+      "AssetClass": "background",
+      "Domain": "background",
+      "AssetType": "background",
+      "Priority": "P2",
+      "DisplayName": "战败结算背景",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_defeat.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_settlement_defeat",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_settlement_defeat/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_settlement_defeat/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_settlement_defeat/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "bg_settlement_victory",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "background",
+      "AssetClass": "background",
+      "Domain": "background",
+      "AssetType": "background",
+      "Priority": "P2",
+      "DisplayName": "撤离成功结算背景",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_victory.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_settlement_victory",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_settlement_victory/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_settlement_victory/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_settlement_victory/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "bg_workshop_day",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "background",
+      "AssetClass": "background",
+      "Domain": "background",
+      "AssetType": "background",
+      "Priority": "P1",
+      "DisplayName": "工坊整备背景",
+      "PromptReady": true,
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Workshop/bg_workshop_day.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_workshop_day",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_workshop_day/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_workshop_day/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_workshop_day/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_button_danger",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "ui_skin",
+      "Domain": "ui",
+      "AssetType": "button",
+      "Priority": "P2",
+      "DisplayName": "危险按钮",
+      "PromptReady": true,
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_button_danger.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_button_danger",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_button_danger/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_button_danger/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_button_danger/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_button_primary",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "ui_skin",
+      "Domain": "ui",
+      "AssetType": "button",
+      "Priority": "P1",
+      "DisplayName": "主按钮",
+      "PromptReady": true,
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_button_primary.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_button_primary",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_button_primary/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_button_primary/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_button_primary/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_button_secondary",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "ui_skin",
+      "Domain": "ui",
+      "AssetType": "button",
+      "Priority": "P1",
+      "DisplayName": "次按钮",
+      "PromptReady": true,
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_button_secondary.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_button_secondary",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_button_secondary/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_button_secondary/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_button_secondary/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_combat_feedback_hit",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "standard_asset",
+      "Domain": "ui",
+      "AssetType": "effect_overlay",
+      "Priority": "P1",
+      "DisplayName": "命中反馈符号",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_hit.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_feedback_hit",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_feedback_hit/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_feedback_hit/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_feedback_hit/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_combat_feedback_shield_break",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "standard_asset",
+      "Domain": "ui",
+      "AssetType": "effect_overlay",
+      "Priority": "P1",
+      "DisplayName": "破盾反馈符号",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_shield_break.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_feedback_shield_break",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_feedback_shield_break/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_feedback_shield_break/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_feedback_shield_break/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_combat_grid_lock_marker",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "standard_asset",
+      "Domain": "ui",
+      "AssetType": "marker",
+      "Priority": "P1",
+      "DisplayName": "封格覆盖标记",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_grid_lock_marker.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_grid_lock_marker",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_grid_lock_marker/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_grid_lock_marker/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_grid_lock_marker/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_combat_junk_preview_marker",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "standard_asset",
+      "Domain": "ui",
+      "AssetType": "marker",
+      "Priority": "P1",
+      "DisplayName": "塞包预告标记",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_junk_preview_marker.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_junk_preview_marker",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_junk_preview_marker/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_junk_preview_marker/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_junk_preview_marker/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_combat_status_bar_hp",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "ui_skin",
+      "Domain": "ui",
+      "AssetType": "bar",
+      "Priority": "P1",
+      "DisplayName": "生命状态条",
+      "PromptReady": true,
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_bar_hp.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_status_bar_hp",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_status_bar_hp/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_status_bar_hp/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_status_bar_hp/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_combat_status_bar_shield",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "ui_skin",
+      "Domain": "ui",
+      "AssetType": "bar",
+      "Priority": "P1",
+      "DisplayName": "护盾状态条",
+      "PromptReady": true,
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_bar_shield.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_status_bar_shield",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_status_bar_shield/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_status_bar_shield/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_combat_status_bar_shield/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_dungeon_node_plate",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "standard_asset",
+      "Domain": "ui",
+      "AssetType": "frame",
+      "Priority": "P2",
+      "DisplayName": "地图节点底板",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_node_plate.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_dungeon_node_plate",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_dungeon_node_plate/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_dungeon_node_plate/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_dungeon_node_plate/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_dungeon_route_line",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "standard_asset",
+      "Domain": "ui",
+      "AssetType": "divider",
+      "Priority": "P2",
+      "DisplayName": "地图路线连接线",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_route_line.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_dungeon_route_line",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_dungeon_route_line/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_dungeon_route_line/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_dungeon_route_line/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_icon_equipped",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "icon",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "Priority": "P2",
+      "DisplayName": "已装备图标",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_equipped.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_equipped",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_equipped/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_equipped/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_equipped/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_icon_faction",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "icon",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "Priority": "P2",
+      "DisplayName": "势力图标",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_faction.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_faction",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_faction/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_faction/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_faction/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_icon_locked",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "icon",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "Priority": "P2",
+      "DisplayName": "锁定图标",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_locked.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_locked",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_locked/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_locked/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_locked/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_icon_money",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "icon",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "Priority": "P2",
+      "DisplayName": "金币图标",
+      "PromptReady": true,
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_money.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_money",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_money/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_money/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_money/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_icon_order",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "icon",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "Priority": "P2",
+      "DisplayName": "订单图标",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_order.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_order",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_order/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_order/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_order/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_icon_rumor",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "icon",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "Priority": "P2",
+      "DisplayName": "传闻图标",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_rumor.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_rumor",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_rumor/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_rumor/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_rumor/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_icon_warning",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "icon",
+      "Domain": "ui",
+      "AssetType": "icon",
+      "Priority": "P1",
+      "DisplayName": "警告图标",
+      "PromptReady": true,
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_warning.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_warning",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_warning/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_warning/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_warning/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_list_row_normal",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "ui_skin",
+      "Domain": "ui",
+      "AssetType": "panel",
+      "Priority": "P2",
+      "DisplayName": "列表行底板",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_normal.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_list_row_normal",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_list_row_normal/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_list_row_normal/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_list_row_normal/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_list_row_selected",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "ui_skin",
+      "Domain": "ui",
+      "AssetType": "panel",
+      "Priority": "P2",
+      "DisplayName": "选中列表行底板",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_selected.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_list_row_selected",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_list_row_selected/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_list_row_selected/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_list_row_selected/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_loot_drop_zone",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "standard_asset",
+      "Domain": "ui",
+      "AssetType": "panel",
+      "Priority": "P1",
+      "DisplayName": "战利品掉落区",
+      "PromptReady": true,
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_loot_drop_zone.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_loot_drop_zone",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_loot_drop_zone/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_loot_drop_zone/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_loot_drop_zone/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_loot_pickup_panel",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "ui_skin",
+      "Domain": "ui",
+      "AssetType": "panel",
+      "Priority": "P1",
+      "DisplayName": "战利品拾取面板",
+      "PromptReady": true,
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_loot_pickup_panel.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_loot_pickup_panel",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_loot_pickup_panel/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_loot_pickup_panel/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_loot_pickup_panel/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_panel_info",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "ui_skin",
+      "Domain": "ui",
+      "AssetType": "panel",
+      "Priority": "P1",
+      "DisplayName": "小信息面板",
+      "PromptReady": true,
+      "CurrentQuality": "approved",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_panel_info.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_panel_info",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_panel_info/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_panel_info/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_panel_info/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_panel_main",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "ui_skin",
+      "Domain": "ui",
+      "AssetType": "panel",
+      "Priority": "P1",
+      "DisplayName": "主弹窗面板",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_panel_main.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_panel_main",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_panel_main/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_panel_main/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_panel_main/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_settlement_defeat_panel",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "ui_skin",
+      "Domain": "ui",
+      "AssetType": "panel",
+      "Priority": "P2",
+      "DisplayName": "战败结算面板",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_defeat_panel.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_settlement_defeat_panel",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_settlement_defeat_panel/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_settlement_defeat_panel/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_settlement_defeat_panel/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_settlement_victory_panel",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "ui_skin",
+      "Domain": "ui",
+      "AssetType": "panel",
+      "Priority": "P2",
+      "DisplayName": "撤离成功结算面板",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_victory_panel.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_settlement_victory_panel",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_settlement_victory_panel/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_settlement_victory_panel/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_settlement_victory_panel/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    },
+    {
+      "VisualID": "ui_title_divider",
+      "Action": "visual_v2_replace",
+      "Source": "formal_v2_active",
+      "SourceClass": "ui_skin",
+      "AssetClass": "standard_asset",
+      "Domain": "ui",
+      "AssetType": "divider",
+      "Priority": "P2",
+      "DisplayName": "标题装饰线",
+      "PromptReady": true,
+      "CurrentQuality": "formal_ai_v2",
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_title_divider.png",
+      "Workspace": {
+        "Base": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_title_divider",
+        "Raw": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_title_divider/raw",
+        "Processed": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_title_divider/processed",
+        "Selected": "UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_title_divider/selected"
+      },
+      "RunConfig": {
+        "BatchID": "formalv2_v2a_replacement_20260719_01",
+        "Variants": 2,
+        "DelaySeconds": 1.0,
+        "Provider": "agent_selected",
+        "Method": "agent_selected"
+      },
+      "Constraints": [
+        "preserve VisualID and ApprovedPath",
+        "preserve DisplaySpec and Unity GUID",
+        "publish the next numeric processed round",
+        "do not sync Approved automatically"
+      ]
+    }
+  ]
+}

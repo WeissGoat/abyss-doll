@@ -39,7 +39,7 @@ related:
   - 美术文档/13_正式纵切UI与素材覆盖矩阵.md
   - agent_status/art.md
   - 知识库/views/art.md
-last_verified: 2026-07-11
+last_verified: 2026-07-18
 update_rule: 修改 Formal V2 总目标、批次、验收门槛或 active 迁移规则时同步本文件。
 ---
 
@@ -473,8 +473,8 @@ Formal V2 在要求程序接入或运行 ArtAcceptance 前，先由美术侧完�
 | 结构评审 | `design_boards/`、单屏 `*_v2.md` | 16:9 布局有明确视觉中心、主行动、信息层级和按钮降级策略。 | 可迁移 / 需修改 / 暂缓的屏幕结论。 | 不替代 active `screen_layouts.json`。 |
 | Active 合同 | `screen_layouts.json`、`component_catalog.json` | 用户确认后才写入 active；`Validate-UIDesign.ps1` 通过。 | UI handoff 刷新。 | 不证明 Unity prefab 已改。 |
 | Manifest / Prompt / Spec | `art_manifest.json`、`AI绘图提示词清单.md` | 每个运行时 VisualID 有英文 Prompt、负面词、结构化 Spec、尺寸、Alpha 和输出路径。 | 缺图 / 质量替换队列刷新。 | 不证明图已经生成。 |
-| PNG 技术检查 | `Approved` 或 `_IncomingAI/<VisualID>/processed` | 尺寸符合 SourceSpec；背景按要求不透明；图标有 alpha；主体不贴边；无需可读文字。 | 技术修复 / spec_review / 可筛选候选。 | 不证明风格最终达标。 |
-| Contact sheet 筛选 | `_IncomingAI/<VisualID>/contact_sheet`、`selected/` | 每个 VisualID 明确选中图；未选中时不得自动把 mock 当正式图。 | `selected/` 或人工备注。 | 不证明已同步 Approved。 |
+| PNG 技术检查 | `Approved` 或 Manifest Profile 工作区的 `processed/` | 尺寸符合 SourceSpec；背景按要求不透明；图标有 alpha；主体不贴边；无需可读文字。 | 技术修复 / spec_review / 可筛选候选。 | 不证明风格最终达标。 |
+| Contact sheet 筛选 | Manifest Profile 工作区的 `contact_sheet/`、`selected/` | 每个 VisualID 明确选中图；未选中时不得自动把 mock 当正式图。 | `selected/` 或人工备注。 | 不证明已同步 Approved。 |
 | Approved / QualityTier | `UnityClient/Assets/Art/Approved`、Manifest | 新缺图进入 Approved；同名替换保持 VisualID、路径、`.meta` / GUID；`QualityTier` 正确更新。 | 可接入素材清单、质量替换清单和快照。 | 不证明运行时绑定或截图通过。 |
 | Runtime ArtAcceptance | Unity 截图、Registry、验收记录 | 资源加载、missing sprite、截图覆盖、布局和 UX 人工验收通过。 | `09_运行时美术验收记录.md` 和状态页。 | 只有到此层才可说运行时美术验收通过。 |
 

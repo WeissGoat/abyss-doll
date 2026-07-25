@@ -51,15 +51,36 @@ Full automation never authorizes inventing missing requirements, resolving contr
 10. Run focused runtime art validation; use full regression only for broad changes or release evidence.
 11. Refresh generated handoffs and write all affected art/program status and evidence entries.
 
+## Persisted generation requests
+
+Manifest prose fields are migration inputs, not the execution source. Before a formal generation run, compile and validate the persisted catalog:
+
+```powershell
+.\tools\美术工具\Compile-ArtGenerationRequests.ps1 -ManifestPath 美术文档/_generated/art_manifest.json
+python tools/美术工具/validate_art_generation_requests.py `
+  --manifest 美术文档/_generated/art_manifest.json `
+  --request-catalog 美术文档/_generated/art_generation_requests.json `
+  --strict
+```
+
+Each Manifest entry points to `CompiledRequest.RequestID` and `RequestFingerprint`; the catalog stores `CanonicalVisualBrief`, `TechnicalRequest`, `PreservationContract`, and persistent prompt variants. The two stable formats are `natural_language_v1` for OpenAI/GPT image editing and Gemini, and `danbooru_tags_v1` for NovelAI. `auto` chooses the first ready variant compatible with the selected provider; an explicitly requested unavailable format is a gate failure.
+
+`Run-ArtProductionBatch.ps1`, `Run-CharacterPortraitSet.ps1`, and `Run-ArtGeneration.ps1` must consume the catalog and write `RequestSnapshot`, `PromptFormat`, and `ProviderRequest` to evidence. They must fail closed on missing, stale, fingerprint-mismatched, or semantically incomplete requests. Lifecycle and processing evidence (`Status`, candidate batch/raw lists, replacement batch, quality timestamps, prompt compatibility fields, paths, and Registry state) is excluded from the Manifest fingerprint, so normal state transitions and new numeric rounds do not stale an unchanged request; semantic contract changes still do. Do not ask the Agent to recompile a prompt inside a batch loop, and do not use legacy `PromptEN`/`NegativePromptEN` as a fallback when a catalog was supplied. A legacy prompt is permitted only through an explicit legacy flag and is recorded as `legacy_unverified`.
+
+The standard batch route rejects `character_portrait_set`; portrait members are planned and ordered by `AssetSetID`, `SetRole`, and explicit `SourceAssets` in the independent portrait-set executor. The profile remains method-neutral: the Agent chooses the current image capability after reading the compiled brief and records that choice in run evidence.
+
 ## Execution rules
 
 - Prefer existing project scripts and MCP tools; do not create a second Manifest, Registry, progress table, or acceptance system.
+- For Manifest batch plans, use `Run-ArtProductionBatch.ps1` to isolate runtime provider routes and advance only through the latest numeric processing round. The source plan remains method-neutral; a successful child exit code without current-batch decodable raw evidence is still a generation failure.
+- When a batch item is `ui_skin` with `ProcessSpec.NineSlice.Enabled=true`, require an explicit runtime capability route and use the specialized adapter selected for that Run before the common optimizer. Record the actual capability in generation/round evidence; keep the Manifest, Asset Contract, VisualID, and workspace method-neutral.
+- After Agent visual review, use `Select-ArtCandidate.ps1` for guarded promotion into `selected/`. Do not manually copy candidates around latest-round, hash, score, overwrite-permission, or status-preservation checks.
 - Require a detailed source before formal production. A chat-only idea may produce exploration candidates, but not a formal Manifest/Approved asset.
 - Route working files through exactly one active profile: `standard_asset` -> `_IncomingAI/standard_assets/<VisualID>/`, or `character_portrait_set` -> `_IncomingAI/character_portraits/<VisualID>/`. Keep non-VisualID historical work only under `_IncomingAI/_legacy_runs/` and never scan it as production input.
 - Treat `character_portrait_set` as a requirement, identity, interaction, set-consistency, and acceptance profile. Do not define it by text-to-image, image-to-image, inpaint, any provider, or any closed list of methods.
 - Keep requirement and Asset Contract fields method-neutral. Let the Agent inspect current tools and evidence, choose or combine appropriate capabilities per run and round, and record what actually happened in run evidence.
 - Use stable `AssetID` for production/design members, `VisualID` only for runtime-consumed assets, `AssetSetID` for related members, and `ProductionRunID` for one execution. Do not create a separate `AnchorID`; use `AssetID` with an anchor role for non-runtime design masters.
-- Treat `raw`, `processed`, `selected`, `approved`, `registered`, `runtime_bound`, `player_path_verified`, and `regression_passed` as different states.
+- Treat `raw`, `processed`, `selected`, `approved`, `registered`, `runtime_validated`, `player_path_verified`, and `regression_passed` as different public claims. Runtime binding remains an internal ArtRun check and is never exposed as a separate production state.
 - Treat `processed/<positive integer>/` as an immutable processing round. Read only the latest numeric round for processing state; repairs and complex edits must publish the next integer through `Optimize-ArtAssets.ps1` or `Register-ArtProcessingRound.ps1`.
 - Require an explicit `BackgroundPolicy`. `AlphaRequired=true` never authorizes implicit background removal.
 - Stop on a latest `failed`, `decision_required`, `legacy_unverified`, or multi-pass-candidate round. Never fall back to an older round or write complex edits directly into `selected/` or Approved.

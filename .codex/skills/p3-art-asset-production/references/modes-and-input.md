@@ -16,6 +16,11 @@ source_ref: []
 visual_ids: []
 asset_type: unknown
 operation: new_asset
+production_profile: standard_asset
+asset_set_id: null
+asset_id: null
+set_role: null
+source_assets: []
 target_tier: formal_ai_v2
 scope:
   include: [generation, preprocessing, selection, approved_sync, unity_import, registry, runtime_validation]
@@ -36,7 +41,22 @@ interaction:
   pause_on_direction_change: true
   pause_before_core_asset_approved: true
   pause_on_low_confidence: true
+execution:
+  request_catalog_path: 美术文档/_generated/art_generation_requests.json
+  request_id: null
+  prompt_format: auto
 ```
+
+`production_profile` controls workspace and orchestration only:
+
+- `standard_asset`: independent or Manifest-batch-oriented runtime assets;
+- `character_portrait_set`: runtime portrait members that require character facts, optional set relationships, identity consistency, richer interaction, or set-level review.
+
+Do not add a required `generation_mode`, provider, or closed `allowed_methods` field to the normalized request. State the desired result, inputs, constraints, permissions, limits, and claim ceiling. Choose current tools later in the run-scoped production plan.
+
+`execution.request_catalog_path` and `request_id` are pointers to persisted compiled work. They do not change the method-neutral requirement. `prompt_format=auto` selects a ready catalog variant at execution time; `natural_language_v1` and `danbooru_tags_v1` are explicit format requests and must fail if unavailable or semantically incomplete.
+
+For character portrait members, use `AssetSetID`, `AssetID`, `SetRole`, `SourceAssets`, and optional derivation relationships only when facts support them. A non-runtime identity master or turnaround belongs to the design layer as an `AssetID` with an anchor role and no `VisualID`. A difference that Unity consumes belongs to the production layer and requires a `VisualID` before formal production.
 
 ## Full-auto defaults
 
@@ -61,7 +81,6 @@ Lock the maximum claim before work starts:
 
 - exploration request: `candidate_generated`
 - production without Unity scope: `asset_approved`
-- integration scope: `runtime_bound`
-- runtime validation scope: `runtime_validated`
+- integration scope: `runtime_validated` only when the request includes formal runtime art validation evidence;
+- asset-only integration scope: `registered` when the request stops after Unity / Registry integration;
 - player-path scope with evidence: `player_path_verified`
-

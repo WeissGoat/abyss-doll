@@ -19,7 +19,7 @@ related:
   - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - agent_status/art.md
   - agent_status/program.md
-last_verified: 2026-07-11
+last_verified: 2026-07-18
 update_rule: 修改动态立绘主路线、人设交付包前置规则、DollPuppet目录结构、JSON契约、Unity接入边界或验收口径时同步本文档。
 ---
 
@@ -92,22 +92,23 @@ DollPuppet 母图和分层图开工前，应先承接 [人设参考获取规则]
 
 ### 4.1 工作区
 
-AI 生成、补层、候选筛选和分层清理都发生在 `_IncomingAI` 工作区，不进入 Manifest 或程序交接清单：
+Agent-native DollPuppet 生产使用 `character_portrait_set` Profile，以运行时 `DynamicVisualID` 作为 `_IncomingAI/character_portraits/` 的直接子目录；补层、候选筛选和分层清理放在成员工作区内部，不进入静态 Sprite 批量扫描或程序交接清单：
 
 ```text
-UnityClient/Assets/Art/_IncomingAI/DollPuppets/doll_proto_0/
-  source/
-    concept.png
-    base_flat.png
-  masks/
-  layer_candidates/
-  expression_candidates/
-  contact_sheet/
-  notes.md
-  generation.json
+UnityClient/Assets/Art/_IncomingAI/character_portraits/<DynamicVisualID>/
+  doll_puppet/
+    source/
+      concept.png
+      base_flat.png
+    masks/
+    layer_candidates/
+    expression_candidates/
+    contact_sheet/
+    notes.md
+    generation.json
 ```
 
-`generation.json` 必须记录 provider、prompt、seed、mask、候选路径、人工筛选结论和后续修复要求。它只作为制作证据，不代表 Approved 入库。
+`DynamicVisualID` 必须来自正式运行时契约，不使用 `<DollID>` 在 `_IncomingAI` 根建立旁路目录。`generation.json` 必须记录实际 capability / provider、prompt、seed、mask、候选路径、人工筛选结论和后续修复要求；Profile 不限定文生图、图生图、补层或其他实现方法。它只作为制作证据，不代表 Approved 入库。
 
 ### 4.2 正式区
 
@@ -410,7 +411,7 @@ AI 视频、LivePortrait、ToonCrafter 或同类工具只用于参考或短 cut-
 
 - 已确认主路线：首版采用 `Agent-native DollPuppet first`，Cubism / Spine 保留为外部兼容或实验支线。
 - 已锁定试点 ID：`DollID=doll_proto_0`、`DynamicVisualID=doll_proto_0_live2d`、`FallbackSpriteID=doll_proto_0_stand`、`ModelKind=DollPuppet`。
-- 已建立工作区：`UnityClient/Assets/Art/_IncomingAI/DollPuppets/doll_proto_0/`，当前只有静态 `source/base_flat.png`、请求包 README 和 `generation.json`，不等于可入库分层源。
+- 旧试点工作区已随 Profile 迁移归档到 `UnityClient/Assets/Art/_IncomingAI/_legacy_runs/DollPuppets/doll_proto_0/`，当前只有静态 `source/base_flat.png`、请求包 README 和 `generation.json`，不等于可入库分层源，也不得继续作为生产输入。恢复试点时应在 `character_portraits/doll_proto_0_live2d/doll_puppet/` 建立新的活动工作区，并显式记录采用的历史来源。
 - 已完成程序契约：`DollPuppetJsonContract`、`DollPuppetJsonValidator`、`DollDynamicVisualResolver`、`IDollDynamicPresenter` 和旧 `DollLive2D*` 兼容包装已编译通过。
 - 当前主要阻塞：缺真实 masks、分层候选、表情候选、人工清理后的层图、Approved DollPuppet 包、动态 Prefab、Unity UI 运行态证据和 `DollPuppetAcceptance` 多帧截图报告。
 - 验收边界：FormalV2 静态 UI / ArtAcceptance 条件不因本试点扩大；静态 fallback、触发文件、编译通过或旧 Live2D runner 都不能标记为 DollPuppet 动态资产通过。

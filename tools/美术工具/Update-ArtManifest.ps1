@@ -3,7 +3,8 @@ param(
     [string]$ManifestPath = "",
     [string]$MarkdownPath = "",
     [string]$PresetPath = "",
-    [switch]$NoSystemAssets
+    [switch]$NoSystemAssets,
+    [switch]$DryRun
 )
 
 $ErrorActionPreference = "Stop"
@@ -30,6 +31,10 @@ if ($PresetPath -ne "") {
 
 if ($NoSystemAssets) {
     $argsList += "--no-system-assets"
+}
+
+if ($DryRun) {
+    $argsList += "--dry-run"
 }
 
 python @argsList

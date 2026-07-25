@@ -8,6 +8,8 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
+from art_workspace import STANDARD_PROFILE, normalize_entry_workspace_paths
+
 
 STATUS_FLOW = [
     "todo",
@@ -39,6 +41,14 @@ PRESERVE_FIELDS = [
     "CandidateBatchID",
     "CandidateRawFiles",
     "CandidateRawPath",
+    "ProductionProfile",
+    "AssetSetID",
+    "AssetID",
+    "SetRole",
+    "SourceAssets",
+    "StyleRef",
+    "VisualIntent",
+    "CompiledRequest",
 ]
 
 
@@ -98,6 +108,7 @@ def new_entry(
         "DisplayName": display_name,
         "AssetType": asset_type,
         "VisualID": visual_id,
+        "ProductionProfile": STANDARD_PROFILE,
         "OutputPath": output_path,
         "Priority": priority,
         "Status": "todo",
@@ -106,6 +117,9 @@ def new_entry(
         "PromptEN": "",
         "NegativePromptEN": "",
         "Spec": {},
+        "StyleRef": {},
+        "VisualIntent": {},
+        "CompiledRequest": {},
         "BatchID": "",
         "RawPath": "",
         "SelectedPath": "",
@@ -120,12 +134,19 @@ def new_entry(
     return entry
 
 
-def preserve_entry_fields(entry: Dict[str, Any], existing: Dict[str, Any] | None) -> Dict[str, Any]:
+def preserve_entry_fields(
+    entry: Dict[str, Any],
+    existing: Dict[str, Any] | None,
+    source_owned_fields: set[str] | None = None,
+) -> Dict[str, Any]:
     if not existing:
-        return entry
+        return normalize_entry_workspace_paths(entry)
 
+    source_owned = source_owned_fields or set()
     existing_status = existing.get("Status", "")
     for field in PRESERVE_FIELDS:
+        if field in source_owned:
+            continue
         if existing_status == "todo" and field in ("PromptCN", "PromptEN", "NegativePromptEN", "Spec"):
             continue
         value = existing.get(field)
@@ -135,11 +156,22 @@ def preserve_entry_fields(entry: Dict[str, Any], existing: Dict[str, Any] | None
     if entry.get("Status") == "deprecated":
         entry["Status"] = "todo"
 
-    return entry
+    return normalize_entry_workspace_paths(entry)
 
 
-def add_entry(entries: List[Dict[str, Any]], existing_map: Dict[str, Dict[str, Any]], entry: Dict[str, Any]) -> None:
-    entries.append(preserve_entry_fields(entry, existing_map.get(entry["VisualID"])))
+def add_entry(
+    entries: List[Dict[str, Any]],
+    existing_map: Dict[str, Dict[str, Any]],
+    entry: Dict[str, Any],
+    source_owned_fields: set[str] | None = None,
+) -> None:
+    entries.append(
+        preserve_entry_fields(
+            entry,
+            existing_map.get(entry["VisualID"]),
+            source_owned_fields,
+        )
+    )
 
 
 def scan_items(config_root: Path, project_root: Path, existing_map: Dict[str, Dict[str, Any]], entries: List[Dict[str, Any]]) -> None:
@@ -456,7 +488,13 @@ def add_preset_assets(
             "Screen": data.get("Screen"),
             "Usage": data.get("Usage"),
             "ProgramReference": data.get("ProgramReference"),
+            "ProductionProfile": data.get("ProductionProfile"),
+            "AssetSetID": data.get("AssetSetID"),
+            "AssetID": data.get("AssetID"),
+            "SetRole": data.get("SetRole"),
+            "SourceAssets": data.get("SourceAssets"),
         }
+        source_owned_fields = {key for key in extra_fields if key in data}
         add_entry(
             entries,
             existing_map,
@@ -474,6 +512,7 @@ def add_preset_assets(
                 source_facts_cn=str(data.get("SourceFactsCN", f"预置资产：{visual_id}。")),
                 extra_fields=extra_fields,
             ),
+            source_owned_fields,
         )
 
 
@@ -546,6 +585,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--markdown-path", default="美术文档/_generated/视觉资产Manifest.md")
     parser.add_argument("--preset-path", default="美术文档/art_requirements_seed.json")
     parser.add_argument("--no-system-assets", action="store_true")
+    parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
 
@@ -588,17 +628,27 @@ def main() -> int:
         if visual_id and visual_id not in current_ids:
             stale = dict(old_entry)
             stale["Status"] = "deprecated"
-            entries.append(stale)
+            entries.append(normalize_entry_workspace_paths(stale))
 
     entries.sort(key=lambda item: (item["Domain"], item["Priority"], item["ConfigID"], item["AssetType"], item["VisualID"]))
     manifest = {
-        "Version": 1,
+        "Version": max(3, int(existing_manifest.get("Version", 1) or 1)),
         "ConfigRoot": repo_path(config_root, project_root),
         "StatusFlow": STATUS_FLOW,
         "Entries": entries,
     }
     if existing_manifest.get("ArtStyle"):
         manifest["ArtStyle"] = existing_manifest["ArtStyle"]
+    if existing_manifest.get("ArtStyleCatalog"):
+        manifest["ArtStyleCatalog"] = existing_manifest["ArtStyleCatalog"]
+    if existing_manifest.get("AssetSets"):
+        manifest["AssetSets"] = existing_manifest["AssetSets"]
+
+    if args.dry_run:
+        print(f"Manifest dry-run: {repo_path(manifest_path, project_root)}")
+        print(f"Entries: {len(entries)}")
+        print("No files changed.")
+        return 0
 
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

@@ -328,7 +328,7 @@ BACKGROUND_EN: Dict[str, str] = {
     "settlement_defeat": "failed expedition result backdrop, dim underground return bay, damaged gear crates, muted red warning glow, empty central area, somber mood",
     "settlement_victory": "successful evacuation result backdrop, underground lift exit, recovered supply crates, soft town-side light, empty central area, calm relief mood",
     "stairs_room": "deep stairwell chamber, descending stone stairs and simple railings, round hatch opening, warning marks, cavern darkness below, empty foreground floor",
-    "workshop": "small doll repair room, workbench, gentle handmade tools, shelves, cloth and parts boxes, soft underground window glow, large negative space on both sides",
+    "workshop": "empty small doll repair room background, workbench, gentle handmade tools, shelves, cloth and parts boxes, soft underground window glow, clean empty foreground and side staging areas, no visible people or character subjects",
     "daily_bill": "quiet town accounting desk background, illustrated ledger, coin trays, rent notice board without readable text, soft shop interior light, clean center area for bill panels, low visual noise",
     "doll_room_attic": "small attic room for a doll, soft window light, narrow bed, old wooden floor, diary desk, memento shelf, window to a deep underground town glow, calm empty center floor, low visual noise",
     "shop_staging": "small town shipping counter background, wooden sorting table, empty item staging trays, soft market window light, cozy underground shop atmosphere, low visual noise",
@@ -347,7 +347,7 @@ BACKGROUND_CN: Dict[str, str] = {
     "settlement_defeat": "战败结算背景，昏暗地下返回区、损坏装备箱、低饱和红色警示光和空的中心区域。",
     "settlement_victory": "撤离成功结算背景，地下升降出口、回收物资箱、柔和小镇侧光和空的中心区域。",
     "stairs_room": "阶梯房间背景，向下延伸的石阶和简洁栏杆、圆形舱口、警示标记和下方洞穴黑暗，前景留空。",
-    "workshop": "工坊整备背景，小型人偶修复房间，工作台、手作工具、置物架、布料和零件箱、地下窗光，两侧留负空间。",
+    "workshop": "空置的工坊整备背景，小型人偶修复房间、工作台、手作工具、置物架、布料和零件箱、地下窗光；前景与两侧保留干净叠加区域，不出现人物或角色主体。",
     "doll_room_attic": "人偶阁楼房间背景，柔和窗光、窄床、旧木地板、日记桌、纪念物架和地下小镇窗光，中间留空。",
 }
 
@@ -355,7 +355,7 @@ UI_EN = {
     "missing_sprite": "missing asset placeholder icon, simple broken-image symbol, dark base shape, red warning corner mark, clean readable silhouette",
     "panel_main": "large modular fantasy interface panel frame, soft dark body, illustrated rim, empty center area, subtle inner shadow",
     "panel_info": "small modular information panel frame, soft dark plate, fantasy trim, gentle inset surface, empty center area, compact shape",
-    "button_primary": "rectangular primary button skin, clear fantasy rim, dark center plate, bright cool highlight, empty label area",
+    "button_primary": "rectangular primary button skin, clear warm moon-white rim, ink-gray center plate, coral-crimson primary action accent, empty label area, no blue or cyan main surface",
     "button_secondary": "rectangular secondary button skin, subdued dark steel rim, cool blue-gray inset plate, empty label area",
     "button_danger": "rectangular warning button skin, soft dark plate, muted red accents, empty label area",
     "list_row_normal": "horizontal list row plate, thin fantasy slab, subtle light edge, empty center strip, low contrast",
@@ -449,7 +449,7 @@ UI_CN = {
     "missing_sprite": "缺失资源占位图，破损图片符号、暗色底形和红色警示角标，清楚但不刺眼。",
     "panel_main": "主弹窗面板皮肤，大型奇幻界面面板，柔和暗色主体、插画式边框和空的中心区域。",
     "panel_info": "小信息面板皮肤，柔和暗色板、奇幻细边、内凹表面和紧凑的空白内容区。",
-    "button_primary": "主按钮皮肤，清晰奇幻边框、暗色中心板、明亮冷色高光，中间不带文字。",
+    "button_primary": "主按钮皮肤，清晰月白暖白边线、墨灰中心板、珊瑚绯红主行动面，中间不带文字，不使用蓝青主色。",
     "button_secondary": "次按钮皮肤，低调深色边框、冷蓝灰内嵌板，中间不带文字。",
     "button_danger": "危险按钮皮肤，暗色界面板、低饱和红色警示细节和插画式边钉，中间不带文字。",
     "list_row_normal": "普通列表行底板，横向柔和暗色薄板、细奇幻边线、低对比空白条。",
@@ -1691,6 +1691,76 @@ def lookup(domain: str, config_id: str, english: bool) -> str:
         ("doll", False): DOLL_CN,
     }
     return maps.get((domain, english), {}).get(config_id, "single readable game asset" if english else "单个清晰可读的美术资产。")
+
+
+def visual_intent_for(entry: Dict[str, Any]) -> Dict[str, Any]:
+    """Return method-neutral asset semantics from the existing domain dictionaries."""
+
+    domain = str(entry.get("Domain", ""))
+    config_id = str(entry.get("ConfigID", ""))
+    asset_type = str(entry.get("AssetType", "asset"))
+    visual_id = str(entry.get("VisualID", ""))
+    detail_en = lookup(domain, config_id, True)
+    detail_cn = lookup(domain, config_id, False)
+    subject_en = {
+        "background": "environment background",
+        "monster": "full-body creature illustration" if visual_id.endswith("_combat") else "creature portrait",
+        "doll": "full-body character portrait",
+        "narrative_cg": "cinematic narrative comic panel",
+        "node": "minimal map icon",
+        "ui": f"modular 2D interface {asset_type} sprite",
+        "chassis": "mechanical chassis asset",
+        "prosthetic": "prosthetic machine module icon",
+        "item": "single game item icon",
+    }.get(domain, f"single {asset_type} game asset")
+    composition_en = {
+        "background": "wide composition with readable negative space",
+        "monster": "full figure visible with a clear silhouette" if visual_id.endswith("_combat") else "front or three-quarter portrait with a strong silhouette",
+        "doll": "full figure, neutral standing portrait composition",
+        "narrative_cg": "single clear focal point inside the safe area",
+        "node": "centered symbol with bold readable silhouette",
+        "ui": "clean interface silhouette with no baked text",
+    }.get(domain, "centered single readable asset")
+    required_elements: list[str] = []
+    required_changes: list[str] = []
+    forbidden: list[str] = []
+    if domain == "background" and visual_id == "bg_workshop_day":
+        required_elements.append("clean empty foreground and side staging areas")
+        forbidden.extend(
+            [
+                "visible people or characters",
+                "prominent dolls as subjects",
+                "dense foreground clutter",
+            ]
+        )
+    if entry.get("ProductionProfile") == "character_portrait_set" or domain == "doll":
+        source_facts = str(entry.get("SourceFactsCN", "")).strip()
+        set_role = str(entry.get("SetRole", "")).strip()
+        if set_role and set_role != "neutral_dialogue_master" and source_facts:
+            required_changes.append(source_facts)
+        for marker, value in (
+            ("无血", "blood or gore"),
+            ("不画血", "blood or gore"),
+            ("无断肢", "dismemberment"),
+            ("不露完整眼睛", "fully visible uncovered eyes"),
+            ("核心仓隐藏", "exposed core chamber"),
+            ("不暴露完整核心仓", "fully exposed core chamber"),
+            ("无怪物化", "monster transformation"),
+            ("非色情视角", "sexualized camera angle"),
+        ):
+            if marker in source_facts:
+                forbidden.append(value)
+    return {
+        "SubjectEN": [subject_en],
+        "SubjectCN": [str(entry.get("DisplayName", "单项美术资产"))],
+        "AppearanceEN": [detail_en],
+        "AppearanceCN": [detail_cn],
+        "CompositionEN": [composition_en],
+        "CompositionCN": [composition_en],
+        "RequiredElements": required_elements,
+        "ForbiddenElements": forbidden,
+        "RequiredChanges": required_changes,
+    }
 
 
 def prompt_for(entry: Dict[str, Any]) -> tuple[str, str, str, Dict[str, Any]]:

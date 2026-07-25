@@ -2,14 +2,16 @@
 
 ## 工作区
 
-P3 上游生产工作流指定的 raw 工作区：
+P3 上游生产工作流通过 Manifest `ProductionProfile` Resolver 指定 raw 工作区。本 Skill 不自行推断 Profile：
 
 ```text
-UnityClient/Assets/Art/_IncomingAI/<VisualID>/
+UnityClient/Assets/Art/_IncomingAI/<profile-directory>/<VisualID>/
   raw/
   manifest_snapshot.json
   generation.json
 ```
+
+`<profile-directory>` 当前为 `standard_assets` 或 `character_portraits`。它只表达生产 Profile，不限制文生图、图生图、inpaint、导入或其他当前 / 未来图片能力。
 
 探索性人设、三后端对比或专项试验可使用任务文档指定目录，但必须明确“不进入 Approved / Manifest / Registry”。
 

@@ -75,6 +75,24 @@ Critical invariants: complete gray cape covering both shoulders; white cloth bli
 """.strip()
 
 
+def load_compiled_prompt(catalog_path: Path, request_id: str) -> tuple[str, str]:
+    catalog = json.loads(catalog_path.read_text(encoding="utf-8-sig"))
+    request = next(
+        (
+            item
+            for item in catalog.get("Requests", [])
+            if isinstance(item, dict) and item.get("RequestID") == request_id
+        ),
+        None,
+    )
+    if request is None:
+        raise ValueError(f"compiled_request_missing:{request_id}")
+    variant = request.get("PromptVariants", {}).get("natural_language_v1")
+    if not isinstance(variant, dict) or variant.get("CompileStatus") != "ready":
+        raise ValueError(f"prompt_variant_not_ready:natural_language_v1:{request_id}")
+    return str(variant.get("Positive", "")), str(request.get("RequestFingerprint", ""))
+
+
 def image_extension(image_bytes: bytes) -> str:
     if image_bytes.startswith(b"\x89PNG\r\n\x1a\n"):
         return ".png"
@@ -133,6 +151,9 @@ async def main() -> int:
     parser.add_argument("--reference", action="append", required=True)
     parser.add_argument("--count", type=int, default=1)
     parser.add_argument("--output-dir")
+    parser.add_argument("--request-catalog")
+    parser.add_argument("--request-id", default="")
+    parser.add_argument("--legacy-prompt", action="store_true")
     args = parser.parse_args()
 
     references = [Path(path).resolve() for path in args.reference]
@@ -145,7 +166,15 @@ async def main() -> int:
     output_dir = root / args.asset / "gemini_nanobanana"
     output_dir.mkdir(parents=True, exist_ok=True)
     start_index = len(image_files(output_dir))
-    prompt = build_prompt(args.asset)
+    request_fingerprint = ""
+    if args.request_catalog:
+        if not args.request_id:
+            raise ValueError("request_id_required")
+        prompt, request_fingerprint = load_compiled_prompt(Path(args.request_catalog), args.request_id)
+    elif args.legacy_prompt:
+        prompt = build_prompt(args.asset)
+    else:
+        raise ValueError("compiled_request_required_or_use_legacy_prompt")
     request = ImageToImageRequest(
         provider=PROVIDER,
         images=[path.read_bytes() for path in references],
@@ -190,6 +219,9 @@ async def main() -> int:
         "errors": batch.errors,
         "references": [str(path) for path in references],
         "prompt": prompt,
+        "request_id": args.request_id,
+        "request_fingerprint": request_fingerprint,
+        "prompt_format": "natural_language_v1" if args.request_catalog else "legacy_unverified",
         "outputs": outputs,
     }
     (output_dir / "manifest.json").write_text(

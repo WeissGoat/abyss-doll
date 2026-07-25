@@ -9,6 +9,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from validate_art_generation_requests import validate_request_catalog
+
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[1]
@@ -39,6 +41,16 @@ CHECKS = [
             ("technical_fix", ("Summary", "ActionCounts", "technical_fix"), 0),
             ("visual_v2_replace", ("Summary", "ActionCounts", "visual_v2_replace"), 0),
             ("spec_review", ("Summary", "ActionCounts", "spec_review"), 0),
+        ],
+    },
+    {
+        "name": "formal_v2_replacement_plan",
+        "path": "美术文档/_generated/FormalV2主动迭代计划.json",
+        "summary": [
+            ("extracted", ("Summary", "ExtractedVisualCount")),
+            ("planned", ("Summary", "PlannedItems")),
+            ("prompt_ready", ("Summary", "PromptReadyItems")),
+            ("ui_skin", ("Summary", "AssetClassCounts", "ui_skin"), 0),
         ],
     },
     {
@@ -246,6 +258,8 @@ def validate_offline_registry_candidate(strict: bool) -> tuple[bool, str]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--strict", action="store_true", help="Treat missing optional outputs as failures.")
+    parser.add_argument("--manifest", default="")
+    parser.add_argument("--request-catalog", default="")
     args = parser.parse_args()
 
     failed = False
@@ -256,6 +270,25 @@ def main() -> int:
     ok, message = validate_offline_registry_candidate(strict=args.strict)
     print(message)
     failed = failed or not ok
+    if args.manifest or args.request_catalog:
+        if not args.manifest or not args.request_catalog:
+            print("[FAIL] compiled_request_catalog: --manifest and --request-catalog must be provided together")
+            failed = True
+        else:
+            try:
+                manifest = read_json(PROJECT_ROOT / args.manifest)
+                catalog = read_json(PROJECT_ROOT / args.request_catalog)
+                errors = validate_request_catalog(catalog, manifest, strict=True)
+            except Exception as exc:  # noqa: BLE001 - CLI reports exact input errors.
+                print(f"[FAIL] compiled_request_catalog: parse failed: {exc}")
+                failed = True
+            else:
+                if errors:
+                    for error in errors:
+                        print(f"[FAIL] compiled_request_catalog: {error}")
+                    failed = True
+                else:
+                    print("[OK] compiled_request_catalog: validated")
     return 1 if failed else 0
 
 

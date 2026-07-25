@@ -383,7 +383,7 @@ def make_markdown(payload: dict[str, Any]) -> str:
             "",
             "```powershell",
             payload["BatchCommands"]["OptimizeAllAfterGeneration"],
-            "# Review contact sheets under UnityClient/Assets/Art/_IncomingAI/<VisualID>/contact_sheet before syncing.",
+            "# Review contact sheets under each Manifest entry's resolved Profile workspace before syncing.",
             "# Then sync each accepted VisualID with its per-item SyncApproved command below.",
             payload["BatchCommands"]["RefreshIntegration"],
             payload["BatchCommands"]["RefreshQuality"],

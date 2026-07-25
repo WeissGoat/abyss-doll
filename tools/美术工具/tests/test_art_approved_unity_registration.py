@@ -19,6 +19,8 @@ if str(TOOLS_DIR) not in sys.path:
 
 from art_approved_unity_registration import (  # noqa: E402
     ArtImportError,
+    DEFAULT_GENERATED_PATHS,
+    build_parser,
     create_plan,
     find_approved_basename_collisions,
     parse_meta_guid,
@@ -359,6 +361,24 @@ class ArtApprovedUnityRegistrationTests(unittest.TestCase):
         self.assertEqual(summary["claim"], "registered")
         self.assertTrue((run_path / "generated-writeback.json").exists())
         self.assertTrue((run_path / "summary.json").exists())
+
+    def test_complete_finalize_cli_uses_internal_default_generated_paths(self) -> None:
+        args = build_parser().parse_args(
+            [
+                "complete-finalize",
+                "--art-import-run-id",
+                "art_import_test_defaults",
+            ]
+        )
+        self.assertIsNone(args.generated_path)
+        self.assertEqual(
+            args.generated_path or DEFAULT_GENERATED_PATHS,
+            [
+                "美术文档/_generated/可接入素材清单.json",
+                "美术文档/_generated/程序接入交接清单.json",
+                "美术文档/_generated/VisualAssetRegistry登记缺口清单.json",
+            ],
+        )
 
 
 if __name__ == "__main__":

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import copy
 import io
 import json
 import re
@@ -29,7 +30,14 @@ from ai_image_gateway import GenerateRequest, ImageFormat, ImageService  # noqa:
 
 DEFAULT_MANIFEST = "美术文档/_generated/art_manifest.json"
 DEFAULT_OUT_ROOT = "UnityClient/Assets/Art/_IncomingAI"
+DEFAULT_REQUEST_CATALOG = "美术文档/_generated/art_generation_requests.json"
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp"}
+PROMPT_FORMAT_BY_PROVIDER = {
+    "novelai": "danbooru_tags_v1",
+    "openai_images": "natural_language_v1",
+    "gemini_chat_image": "natural_language_v1",
+    "gemini_nanobanana": "natural_language_v1",
+}
 
 
 def repo_path(path: Path) -> str:
@@ -123,6 +131,51 @@ def validate_entry(entry: dict[str, Any]) -> list[str]:
     return errors
 
 
+def select_compiled_request(
+    catalog: dict[str, Any],
+    manifest_entry: dict[str, Any],
+    *,
+    request_id: str = "",
+    prompt_format: str = "auto",
+) -> tuple[dict[str, Any], str]:
+    pointer = manifest_entry.get("CompiledRequest")
+    if not isinstance(pointer, dict) or not pointer.get("RequestID"):
+        raise ValueError(f"compiled_request_missing:{manifest_entry.get('VisualID', '')}")
+    selected_id = request_id or str(pointer["RequestID"])
+    requests = catalog.get("Requests", []) if isinstance(catalog, dict) else []
+    request = next(
+        (item for item in requests if isinstance(item, dict) and item.get("RequestID") == selected_id),
+        None,
+    )
+    visual_id = str(manifest_entry.get("VisualID", ""))
+    if request is None:
+        raise ValueError(f"compiled_request_missing:{visual_id}")
+    if request.get("VisualID") != visual_id:
+        raise ValueError(f"compiled_request_visual_id_mismatch:{visual_id}")
+    if pointer.get("RequestFingerprint") != request.get("RequestFingerprint"):
+        raise ValueError(f"compiled_request_fingerprint_mismatch:{visual_id}")
+    if request.get("CompileStatus") != "ready":
+        raise ValueError(f"compiled_request_not_ready:{visual_id}:{request.get('CompileStatus', '')}")
+    selected_format = prompt_format
+    if selected_format == "auto":
+        selected_format = PROMPT_FORMAT_BY_PROVIDER.get("", "natural_language_v1")
+    variants = request.get("PromptVariants", {})
+    variant = variants.get(selected_format) if isinstance(variants, dict) else None
+    if not isinstance(variant, dict) or variant.get("CompileStatus") != "ready":
+        raise ValueError(f"prompt_variant_not_ready:{selected_format}:{visual_id}")
+    return request, selected_format
+
+
+def serialize_provider_prompt(variant: dict[str, Any], prompt_format: str) -> tuple[str, str]:
+    if prompt_format == "natural_language_v1":
+        return str(variant.get("Positive", "")), str(variant.get("Negative", ""))
+    if prompt_format == "danbooru_tags_v1":
+        positive = ", ".join(str(item.get("Tag", "")) for item in variant.get("PositiveTags", []) if item.get("Tag"))
+        negative = ", ".join(str(item.get("Tag", "")) for item in variant.get("NegativeTags", []) if item.get("Tag"))
+        return positive, negative
+    raise ValueError(f"prompt_format_unsupported:{prompt_format}")
+
+
 def select_entries(entries: list[dict[str, Any]], args: argparse.Namespace) -> tuple[list[dict[str, Any]], list[str]]:
     domains = split_filters(args.domain)
     visual_ids = split_filters(args.visual_id)
@@ -209,6 +262,8 @@ def make_request(
     seed: int | None,
     *,
     count: int,
+    compiled_request: dict[str, Any] | None = None,
+    prompt_format: str = "natural_language_v1",
 ) -> GenerateRequest:
     spec = source_spec(entry["Spec"])
     fmt = str(spec.get("Format", "png")).lower()
@@ -217,15 +272,25 @@ def make_request(
     except ValueError:
         output_format = ImageFormat.PNG
 
+    prompt = entry.get("PromptEN", "")
+    negative_prompt = entry.get("NegativePromptEN", "")
+    if compiled_request is not None:
+        variant = compiled_request["PromptVariants"][prompt_format]
+        prompt, negative_prompt = serialize_provider_prompt(variant, prompt_format)
+        technical = compiled_request.get("TechnicalRequest", {})
+        if isinstance(technical, dict):
+            spec = {**spec, **{key: technical.get(key) for key in ("Width", "Height", "Format") if technical.get(key)}}
     request_extra = {
         "domain": entry.get("Domain", ""),
         "visual_id": entry.get("VisualID", ""),
         "asset_type": entry.get("AssetType", ""),
+        "prompt_format": prompt_format,
+        "request_id": compiled_request.get("RequestID", "") if compiled_request else "",
         **extra,
     }
     return GenerateRequest(
-        prompt=entry["PromptEN"],
-        negative_prompt=entry.get("NegativePromptEN", ""),
+        prompt=prompt,
+        negative_prompt=negative_prompt,
         width=int(spec["Width"]),
         height=int(spec["Height"]),
         count=count,
@@ -249,6 +314,9 @@ def build_generation_record(
     outputs: list[dict[str, Any]],
     errors: list[str],
     created_at: str,
+    compiled_request: dict[str, Any] | None = None,
+    prompt_format: str = "",
+    provider_request: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     return {
         "VisualID": entry["VisualID"],
@@ -259,6 +327,10 @@ def build_generation_record(
         "Model": model,
         "PromptEN": entry.get("PromptEN", ""),
         "NegativePromptEN": entry.get("NegativePromptEN", ""),
+        "RequestFingerprint": compiled_request.get("RequestFingerprint", "") if compiled_request else "",
+        "PromptFormat": prompt_format,
+        "RequestSnapshot": copy.deepcopy(compiled_request) if compiled_request else {},
+        "ProviderRequest": provider_request or {},
         "Spec": entry.get("Spec", {}),
         "Requested": {
             "Width": requested_width,
@@ -283,6 +355,12 @@ async def run_generation(args: argparse.Namespace) -> int:
         raise FileNotFoundError(f"Gateway config not found: {config_path}")
 
     manifest = read_json(manifest_path)
+    request_catalog = None
+    if args.request_catalog:
+        request_catalog_path = resolve_project_path(args.request_catalog, DEFAULT_REQUEST_CATALOG)
+        if request_catalog_path is None or not request_catalog_path.exists():
+            raise FileNotFoundError(f"Request catalog not found: {request_catalog_path}")
+        request_catalog = read_json(request_catalog_path)
     entries = manifest.get("Entries", [])
     if not isinstance(entries, list):
         raise ValueError("Manifest Entries must be a list.")
@@ -290,6 +368,25 @@ async def run_generation(args: argparse.Namespace) -> int:
     manifest["Entries"] = entries
 
     selected, skipped = select_entries(entries, args)
+    compiled_by_visual: dict[str, tuple[dict[str, Any], str]] = {}
+    if request_catalog is not None:
+        ready_entries: list[dict[str, Any]] = []
+        for entry in selected:
+            try:
+                selected_format = args.prompt_format
+                if selected_format == "auto":
+                    selected_format = PROMPT_FORMAT_BY_PROVIDER.get(args.provider, "natural_language_v1")
+                compiled_by_visual[entry["VisualID"]] = select_compiled_request(
+                    request_catalog,
+                    entry,
+                    request_id=args.request_id,
+                    prompt_format=selected_format,
+                )
+            except ValueError as exc:
+                skipped.append(f"{entry.get('VisualID', '')}: {exc}")
+                continue
+            ready_entries.append(entry)
+        selected = ready_entries
     batch_id = args.batch_id or f"ai_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{args.provider or 'default'}"
     extra = parse_extra(args.extra)
 
@@ -342,6 +439,8 @@ async def run_generation(args: argparse.Namespace) -> int:
             model = "unknown"
             requested_width = int(spec["Width"])
             requested_height = int(spec["Height"])
+            compiled_request, prompt_format = compiled_by_visual.get(visual_id, (None, "natural_language_v1"))
+            provider_request_snapshot: dict[str, Any] = {}
 
             for variant_index in range(args.variants):
                 if current_request > 0 and args.delay_seconds > 0:
@@ -351,7 +450,26 @@ async def run_generation(args: argparse.Namespace) -> int:
                     if args.seed is not None
                     else None
                 )
-                request = make_request(entry, args, extra, seed, count=1)
+                request = make_request(
+                    entry,
+                    args,
+                    extra,
+                    seed,
+                    count=1,
+                    compiled_request=compiled_request,
+                    prompt_format=prompt_format,
+                )
+                provider_request_snapshot = {
+                    "Prompt": request.prompt,
+                    "NegativePrompt": request.negative_prompt,
+                    "Width": request.width,
+                    "Height": request.height,
+                    "Count": request.count,
+                    "Seed": request.seed,
+                    "Provider": request.provider,
+                    "OutputFormat": request.output_format.value,
+                    "Extra": request.extra,
+                }
                 requested_width = request.width
                 requested_height = request.height
                 batch = await service.generate(request)
@@ -399,6 +517,9 @@ async def run_generation(args: argparse.Namespace) -> int:
                 outputs=outputs,
                 errors=errors,
                 created_at=created_at,
+                compiled_request=compiled_request,
+                prompt_format=prompt_format,
+                provider_request=provider_request_snapshot,
             )
             write_json(workspace["base"] / "generation.json", record)
 
@@ -432,6 +553,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--config", default="")
     parser.add_argument("--manifest-path", default=DEFAULT_MANIFEST)
     parser.add_argument("--out-root", default=DEFAULT_OUT_ROOT)
+    parser.add_argument("--request-catalog", default="")
+    parser.add_argument("--request-id", default="")
+    parser.add_argument("--prompt-format", choices=["auto", "natural_language_v1", "danbooru_tags_v1"], default="auto")
     parser.add_argument("--provider", default="")
     parser.add_argument("--status", default="prompted")
     parser.add_argument("--domain", action="append", default=[])

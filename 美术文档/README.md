@@ -7,7 +7,6 @@ domain: art_pipeline
 status: active
 source_of_truth: true
 related:
-  - GEMINI.md
   - 开发文档/14_Unity运行时美术自动验收方案.md
   - 开发文档/19_UnityMCP验收编排层设计.md
   - 开发文档/rules/03_视觉资源系统程序开发规范.md
@@ -32,14 +31,14 @@ related:
   - agent_status/art.md
   - tools/美术工具/README.md
   - 知识库/views/art.md
-last_verified: 2026-07-18
+last_verified: 2026-07-24
 update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。
 ---
 
 # 美术文档索引
 
 > **定位：** Project P3 美术 / UI 文档入口。本文件只负责导航和职责边界，不承载详细规格。
-> **更新时间：** 2026-07-18
+> **更新时间：** 2026-07-24
 
 ## 先看哪里
 
@@ -48,6 +47,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | 当前美术规划和优先级 | [10_正式版核心纵切美术路线.md](10_正式版核心纵切美术路线.md) | 美术侧当前路线的唯一规划入口。 |
 | 当前哪些 UI 已覆盖、哪些还没进 active | [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md) | 把 `09` 路线和 `11` 批次矩阵翻译成美术覆盖表。 |
 | 端到端美术生产怎么走 | [00_美术流水线总览.md](00_美术流水线总览.md) | 只讲流程：需求发现、Manifest、提示词、出图、预处理、Approved、交接。 |
+| 持久化生成请求在哪里 | [_generated/art_generation_requests.json](_generated/art_generation_requests.json) | 由 `Compile-ArtGenerationRequests.ps1` 生成；保存 `RequestID`、fingerprint、CanonicalVisualBrief、TechnicalRequest 和自然语言 / Danbooru 两种 Prompt Variant。 |
 | Agent 如何端到端生产正式美术资产 | [../.codex/skills/p3-art-asset-production/SKILL.md](../.codex/skills/p3-art-asset-production/SKILL.md) | 从需求准入、Asset Contract、候选生成与 Agent 评分推进到 Approved、Unity 接入、运行时验收和状态回写；支持交互与全自动模式。 |
 | Agent 如何生成或调整图片 | [../.codex/skills/p3-generate-image/SKILL.md](../.codex/skills/p3-generate-image/SKILL.md) | `generate-image` 只负责文生图、图生图、差分、inpaint、后端和 raw 生成证据；不负责 Approved 或 Unity 接入。 |
 | 小循环 GIF 如何逐帧替换人物 | [20_GIF小循环人物替换工作流.md](20_GIF小循环人物替换工作流.md) | 独立工具工作流，定义拆帧、身份包、两帧预审、独立逐帧图生图、风险检查和 GIF 重编码；当前为已批准设计、尚未实现。 |

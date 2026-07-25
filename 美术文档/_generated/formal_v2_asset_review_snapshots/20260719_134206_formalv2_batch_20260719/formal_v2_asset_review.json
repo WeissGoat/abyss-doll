@@ -1,0 +1,25 @@
+{
+  "GeneratedAt": "2026-07-19T13:42:06+08:00",
+  "SnapshotTag": "formalv2_batch_20260719",
+  "Inputs": {
+    "HandoffPath": "美术文档/_generated/程序接入交接清单.json",
+    "ManifestPath": "美术文档/_generated/art_manifest.json"
+  },
+  "Outputs": {
+    "OutputDir": "美术文档/_generated/formal_v2_asset_review",
+    "ContactSheets": {
+      "all": "美术文档/_generated/formal_v2_asset_review/contact_sheets/all.png"
+    }
+  },
+  "Summary": {
+    "ReviewedVisualCount": 0,
+    "ReviewStatusCounts": {},
+    "DomainCounts": {},
+    "AssetTypeCounts": {},
+    "IssueCounts": {},
+    "WarningCounts": {},
+    "AllPass": false,
+    "ProgramIntegrateVisualCountFromHandoff": 0
+  },
+  "Items": []
+}

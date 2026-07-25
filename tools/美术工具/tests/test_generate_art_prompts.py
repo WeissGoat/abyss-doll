@@ -15,7 +15,7 @@ if str(TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_DIR))
 
 import generate_art_prompts  # noqa: E402
-from generate_art_prompts import entry_matches_visual_ids, split_filters  # noqa: E402
+from generate_art_prompts import entry_matches_visual_ids, split_filters, visual_intent_for  # noqa: E402
 
 
 class GenerateArtPromptsFilterTests(unittest.TestCase):
@@ -71,6 +71,51 @@ class GenerateArtPromptsFilterTests(unittest.TestCase):
 
 
 class GenerateArtPromptBackgroundPolicyTests(unittest.TestCase):
+    def test_primary_button_intent_uses_warm_project_palette(self) -> None:
+        intent = visual_intent_for(
+            {
+                "Domain": "ui",
+                "ConfigID": "button_primary",
+                "AssetType": "button",
+                "VisualID": "ui_button_primary",
+            }
+        )
+
+        appearance = " | ".join(intent["AppearanceEN"])
+        self.assertIn("warm moon-white rim", appearance)
+        self.assertIn("coral-crimson primary action accent", appearance)
+        self.assertNotIn("bright cool highlight", appearance)
+
+    def test_workshop_background_reserves_empty_runtime_staging_space(self) -> None:
+        intent = visual_intent_for(
+            {
+                "Domain": "background",
+                "ConfigID": "workshop",
+                "AssetType": "background",
+                "VisualID": "bg_workshop_day",
+            }
+        )
+
+        appearance = " | ".join(intent["AppearanceEN"])
+        self.assertIn("empty foreground and side staging areas", appearance)
+        self.assertIn("visible people or characters", intent["ForbiddenElements"])
+        self.assertIn("prominent dolls as subjects", intent["ForbiddenElements"])
+
+    def test_visual_intent_is_method_neutral(self) -> None:
+        intent = visual_intent_for(
+            {
+                "Domain": "item",
+                "ConfigID": "loot_gear_scrap",
+                "AssetType": "icon",
+                "VisualID": "item_loot_gear_scrap_icon",
+                "DisplayName": "废旧齿轮",
+            }
+        )
+
+        self.assertEqual(intent["SubjectEN"], ["single game item icon"])
+        self.assertNotIn("openai", str(intent).lower())
+        self.assertNotIn("novelai", str(intent).lower())
+
     def test_character_portrait_uses_agent_required(self) -> None:
         _, _, _, spec = generate_art_prompts.prompt_for(
             {
@@ -81,6 +126,24 @@ class GenerateArtPromptBackgroundPolicyTests(unittest.TestCase):
             }
         )
         self.assertEqual(spec["ProcessSpec"]["BackgroundPolicy"], "agent_required")
+
+    def test_character_portrait_difference_preserves_source_facts_as_required_changes(self) -> None:
+        intent = visual_intent_for(
+            {
+                "Domain": "doll",
+                "ConfigID": "zero_hurt",
+                "AssetType": "portrait",
+                "VisualID": "doll_zero_hurt",
+                "ProductionProfile": "character_portrait_set",
+                "SetRole": "hurt_state_difference",
+                "SourceFactsCN": "基于中性立绘，手腕膝踝出现细小裂痕；无血、无断肢。",
+            }
+        )
+
+        self.assertEqual(len(intent["RequiredChanges"]), 1)
+        self.assertIn("手腕膝踝", intent["RequiredChanges"][0])
+        self.assertIn("blood or gore", intent["ForbiddenElements"])
+        self.assertIn("dismemberment", intent["ForbiddenElements"])
 
     def test_item_uses_auto_simple(self) -> None:
         _, _, _, spec = generate_art_prompts.prompt_for(

@@ -243,6 +243,44 @@ def resolve_latest_processed_candidate(
     return CandidateResolution(None, "processed_round", number, state, "no_valid_passed_candidate")
 
 
+def resolve_latest_processed_candidate_file(
+    workspace: Path,
+    filename: str,
+    *,
+    allowed_input_paths: set[str] | None = None,
+) -> CandidateResolution:
+    """Resolve one explicitly reviewed file from the latest numeric round."""
+
+    processed_dir = workspace / "processed"
+    rounds = numeric_round_directories(processed_dir)
+    if not rounds:
+        return CandidateResolution(None, "processed_round", None, "missing", "no_processed_rounds")
+
+    number, round_dir = rounds[-1]
+    try:
+        decision = load_round_decision(round_dir)
+    except FileNotFoundError:
+        return CandidateResolution(None, "processed_round", number, "missing", "decision_missing")
+    except (OSError, json.JSONDecodeError, ValueError):
+        return CandidateResolution(None, "processed_round", number, "invalid", "decision_invalid")
+
+    state = str(decision["State"])
+    if state != "passed":
+        return CandidateResolution(None, "processed_round", number, state, f"round_state_{state}")
+
+    matches = [
+        candidate
+        for candidate in decision["Candidates"]
+        if isinstance(candidate, dict) and str(candidate.get("File", "")) == filename
+    ]
+    if len(matches) != 1:
+        return CandidateResolution(None, "processed_round", number, state, "reviewed_candidate_not_unique")
+    path = _candidate_matches(round_dir, matches[0], allowed_input_paths)
+    if path is None:
+        return CandidateResolution(None, "processed_round", number, state, "reviewed_candidate_invalid")
+    return CandidateResolution(path, "processed_round", number, state, "")
+
+
 def _safe_manifest_selected_path(workspace: Path, path: Path) -> Path | None:
     candidate = path if path.is_absolute() else workspace / path
     resolved = candidate.resolve(strict=False)
