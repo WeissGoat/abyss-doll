@@ -37,7 +37,7 @@ update_rule: 调整 MCP 实时查看、截图票据、Art Profile、表现迭代
 - `p3_art_capture` 旧 `source_path` 参数直接删除，不提供兼容层。
 - Art Profile 不运行完整 P0、不修改领域规则、不伪造玩家状态。
 - PlayMode 临时修改只能作为 preview；正式通过必须验证持久化后重新进入 PlayMode 的画面。
-- Art Profile 只记录技术结果和证据，不维护人工主美判断状态。
+- Art Profile 记录技术结果和证据，不维护人工主美判断状态；`runtime_validated` Finalize 使用的 Agent review 只是 ArtRun 内部检查，不是外部审批状态。
 - 旧 `.art_acceptance_trigger` 保留为人工/CI 兼容入口，但 Skill 默认不使用 watcher。
 - 保留用户和其他 agent 的无关脏文件；每个任务只暂存本任务路径。
 
@@ -869,7 +869,7 @@ Status writeback must state:
 日常美术验收默认 MCP live-first
 正式截图由 manage_camera + capture ticket 产生
 旧 ArtAcceptanceRunner 只用于 art_regression
-ArtRun 只记录技术结果和证据，不创建人工主美判断状态
+ArtRun 记录技术结果、内部 Agent review 和证据，不创建人工主美判断状态
 真实 ArtRunID 证据路径和任何 validation_limited
 ```
 
@@ -910,3 +910,10 @@ Implementation is complete only when:
 - `p3-art-validation` 不再创建或维护 `ExternalReview`、`ClaimCeiling`、`ReviewRequired`、主美批准或外部复核状态。
 - Art Profile、ArtRun session、证据合并和发布聚合只使用技术结果：`Passed`、`Failed`、`Blocked`、`Limited`、`Cancelled`。
 - 美术使用者直接依据 MCP 实时画面、UGUI 诊断与 ArtRun 证据决定是否继续迭代；该决定不进入 Skill 状态机。
+
+## 2026-07-19 `runtime_validated` 状态收敛
+
+- 对外状态收敛为 `registered -> runtime_validated`，不再暴露独立 `runtime_bound`。
+- `p3_art_inspect_target` 把 live UGUI inspection 直接记录到 ArtRun，并核对 Approved 路径/GUID 与 `VisualAssetRegistry`。
+- Finalize 要求 binding、正式 capture 和内部 Agent review 全部通过，写入 `runtime-validation.json`；该 review 不恢复已删除的人工主美 / 外部审批状态。
+- `player_path_verified` 与 `regression_passed` 保持独立，不由单目标 runtime validation 推导。

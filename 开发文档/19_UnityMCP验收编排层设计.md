@@ -558,13 +558,14 @@ art-runs/<ArtRunID>/
 
 ### 14.8 结果边界
 
-Profile 完成后记录技术结果：
+Profile 完成后记录技术结果；当任务要求把已登记素材晋级为运行时可用时，ArtRun 还可产生 target-scoped claim：
 
 ```text
 ArtAutomationStatus = Passed
+claim = runtime_validated
 ```
 
-`p3-art-validation` 不维护人工审核、主美判断或外部复核状态；具体美术任务是否继续修改，由使用者根据实时画面、诊断和证据包直接决定。
+`runtime_validated` 的 Finalize 必须包含显式 Agent review，它是当前 ArtRun 内部对 live 画面、bounded snapshot、binding 和 Console 的检查，不是人工主美、外部 Reviewer、Manifest 状态或独立 `runtime_bound` 进度。`p3-art-validation` 仍不维护人工主美或外部复核状态。
 
 ### 14.9 V2 完成口径
 
@@ -576,4 +577,5 @@ ArtAutomationStatus = Passed
 6. 发生修改时保留 before/after，持久化后重新进入 PlayMode 复验。
 7. 目标不可达时生成程序交接。
 8. `art_regression` 锁定本次 runner source RunID，只导入本次被清空后重新生成的 `latest/screenshots/` 与 report/UI/Registry/checklist，不能递归混入旧 contact sheet。
-9. ArtRun 只记录技术结果和证据，不创建人工主美复核状态。
+9. ArtRun 记录技术结果、内部 Agent review 和证据；不创建人工主美或外部复核状态。
+10. 对外运行时状态只使用 `registered -> runtime_validated`；binding 作为 ArtRun 内部检查，路径/GUID 必须与 live Registry 一致。
