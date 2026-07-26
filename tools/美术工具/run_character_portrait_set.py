@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from art_prompt_revision import DANBOORU_TAGS_FORMAT, NATURAL_LANGUAGE_FORMAT, select_prompt_variant
+from portrait_reference_resolver import resolve_portrait_references
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[1]
@@ -112,6 +113,7 @@ def build_portrait_set_plan(
     prompt_format: str = "auto",
     provider: str = "",
     visual_ids: set[str] | None = None,
+    project_root: Path = PROJECT_ROOT,
 ) -> dict[str, Any]:
     asset_set = load_asset_set(manifest, asset_set_id)
     members = [
@@ -160,6 +162,11 @@ def build_portrait_set_plan(
         except ValueError as exc:
             errors.append(str(exc))
             continue
+        try:
+            resolved_references = resolve_portrait_references(manifest, entry, project_root)
+        except ValueError as exc:
+            errors.append(str(exc))
+            continue
         items.append(
             {
                 "Order": order,
@@ -168,6 +175,7 @@ def build_portrait_set_plan(
                 "SetRole": entry.get("SetRole", ""),
                 "SourceAssets": entry.get("SourceAssets", []),
                 "ReferenceAssets": entry.get("SourceAssets", []),
+                "ResolvedReferenceAssets": resolved_references,
                 "RequestID": request["RequestID"],
                 "RequirementFingerprint": request["RequirementFingerprint"],
                 "PromptRevisionID": revision["PromptRevisionID"],

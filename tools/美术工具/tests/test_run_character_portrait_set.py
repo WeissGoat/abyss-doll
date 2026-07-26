@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+
+from PIL import Image
 
 
 TOOLS_DIR = Path(__file__).resolve().parents[1]
@@ -25,6 +28,12 @@ from run_character_portrait_set import (  # noqa: E402
 
 class CharacterPortraitSetTests(unittest.TestCase):
     def setUp(self) -> None:
+        self.temp_dir = tempfile.TemporaryDirectory()
+        self.project_root = Path(self.temp_dir.name)
+        approved_path = self.project_root / "UnityClient/Assets/Art/Approved/Dolls/doll_zero_dialogue_neutral.png"
+        approved_path.parent.mkdir(parents=True, exist_ok=True)
+        Image.new("RGBA", (1024, 1536), (220, 220, 220, 180)).save(approved_path, format="PNG")
+        self.approved_path = approved_path
         self.manifest = {
             "Version": 1,
             "Entries": [
@@ -39,6 +48,8 @@ class CharacterPortraitSetTests(unittest.TestCase):
                     "SetRole": "neutral_dialogue_master",
                     "SourceAssets": [],
                     "Status": "approved",
+                    "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_dialogue_neutral.png",
+                    "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_dialogue_neutral.png",
                     "Spec": {"SourceSpec": {"Format": "png", "Width": 1024, "Height": 1536, "AlphaRequired": True}},
                 },
                 {
@@ -101,6 +112,9 @@ class CharacterPortraitSetTests(unittest.TestCase):
             pointer["PromptAuthoringStatus"] = "prompt_ready"
             pointer["ActivePromptRevisionID"] = revision["PromptRevisionID"]
 
+    def tearDown(self) -> None:
+        self.temp_dir.cleanup()
+
     def test_powershell_wrapper_dry_run_uses_python_utf8_defaults(self) -> None:
         wrapper = TOOLS_DIR / "Run-CharacterPortraitSet.ps1"
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -114,7 +128,7 @@ class CharacterPortraitSetTests(unittest.TestCase):
                     "-AssetSetID", "zero_dialogue_portrait_v1",
                     "-ManifestPath", str(manifest_path),
                     "-RequestCatalogPath", str(catalog_path),
-                    "-VisualID", "doll_zero_dialogue_confused",
+                    "-VisualID", "doll_zero_dialogue_neutral",
                     "-PromptFormat", "natural_language_v2",
                     "-DryRun",
                 ],
@@ -123,7 +137,7 @@ class CharacterPortraitSetTests(unittest.TestCase):
             )
 
         self.assertEqual(completed.returncode, 0, completed.stderr or completed.stdout)
-        self.assertIn('"VisualID": "doll_zero_dialogue_confused"', completed.stdout)
+        self.assertIn('"VisualID": "doll_zero_dialogue_neutral"', completed.stdout)
 
     def test_missing_asset_set_is_rejected(self) -> None:
         with self.assertRaisesRegex(ValueError, "asset_set_missing"):
@@ -152,6 +166,7 @@ class CharacterPortraitSetTests(unittest.TestCase):
             self.compiled_manifest,
             self.catalog,
             "zero_dialogue_portrait_v1",
+            project_root=self.project_root,
         )
         self.assertEqual(plan["State"], "ready")
         self.assertEqual(plan["Items"][0]["VisualID"], "doll_zero_dialogue_neutral")
@@ -160,6 +175,13 @@ class CharacterPortraitSetTests(unittest.TestCase):
         self.assertEqual(plan["Items"][1]["PromptFormat"], "natural_language_v2")
         self.assertIn("Preserve", plan["Items"][1]["PreservationContract"])
         self.assertIn("ReferenceAssets", plan["Items"][1])
+        self.assertEqual(len(plan["Items"][1]["ResolvedReferenceAssets"]), 1)
+        reference = plan["Items"][1]["ResolvedReferenceAssets"][0]
+        self.assertEqual(reference["AssetID"], "zero_dialogue_neutral")
+        self.assertEqual(reference["State"], "approved")
+        self.assertEqual(
+            reference["SHA256"], hashlib.sha256(self.approved_path.read_bytes()).hexdigest()
+        )
 
     def test_novelai_selects_danbooru_revision_variant(self) -> None:
         plan = build_portrait_set_plan(
@@ -167,8 +189,38 @@ class CharacterPortraitSetTests(unittest.TestCase):
             self.catalog,
             "zero_dialogue_portrait_v1",
             provider="novelai",
+            project_root=self.project_root,
         )
         self.assertEqual(plan["Items"][0]["PromptFormat"], "danbooru_tags_v2")
+
+    def test_missing_real_reference_blocks_the_plan(self) -> None:
+        self.approved_path.unlink()
+        plan = build_portrait_set_plan(
+            self.compiled_manifest,
+            self.catalog,
+            "zero_dialogue_portrait_v1",
+            visual_ids={"doll_zero_dialogue_confused"},
+            project_root=self.project_root,
+        )
+
+        self.assertEqual(plan["State"], "decision_required")
+        self.assertEqual(plan["Items"], [])
+        self.assertTrue(
+            any(error.startswith("portrait_reference_file_missing:zero_dialogue_neutral") for error in plan["Errors"]),
+            plan["Errors"],
+        )
+
+    def test_member_without_sources_has_empty_resolved_references(self) -> None:
+        plan = build_portrait_set_plan(
+            self.compiled_manifest,
+            self.catalog,
+            "zero_dialogue_portrait_v1",
+            visual_ids={"doll_zero_dialogue_neutral"},
+            project_root=self.project_root,
+        )
+
+        self.assertEqual(plan["State"], "ready")
+        self.assertEqual(plan["Items"][0]["ResolvedReferenceAssets"], [])
 
     def test_missing_active_revision_is_rejected(self) -> None:
         catalog = copy.deepcopy(self.catalog)
@@ -185,7 +237,12 @@ class CharacterPortraitSetTests(unittest.TestCase):
         pointer["PromptAuthoringStatus"] = "prompt_authoring_required"
         pointer["ActivePromptRevisionID"] = ""
 
-        plan = build_portrait_set_plan(manifest, catalog, "zero_dialogue_portrait_v1")
+        plan = build_portrait_set_plan(
+            manifest,
+            catalog,
+            "zero_dialogue_portrait_v1",
+            project_root=self.project_root,
+        )
         self.assertIn(f"prompt_authoring_required:{request['VisualID']}", plan["Errors"])
 
 
