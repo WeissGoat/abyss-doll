@@ -16,6 +16,11 @@ from typing import Any
 
 from PIL import Image
 
+from art_prompt_revision import (
+    DANBOORU_TAGS_FORMAT,
+    NATURAL_LANGUAGE_FORMAT,
+    select_prompt_variant,
+)
 from art_workspace import normalize_entry_workspace_paths, workspace_path
 
 
@@ -32,12 +37,6 @@ DEFAULT_MANIFEST = "美术文档/_generated/art_manifest.json"
 DEFAULT_OUT_ROOT = "UnityClient/Assets/Art/_IncomingAI"
 DEFAULT_REQUEST_CATALOG = "美术文档/_generated/art_generation_requests.json"
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp"}
-PROMPT_FORMAT_BY_PROVIDER = {
-    "novelai": "danbooru_tags_v1",
-    "openai_images": "natural_language_v1",
-    "gemini_chat_image": "natural_language_v1",
-    "gemini_nanobanana": "natural_language_v1",
-}
 
 
 def repo_path(path: Path) -> str:
@@ -115,11 +114,14 @@ def source_spec(spec: Any) -> dict[str, Any]:
     return spec
 
 
-def validate_entry(entry: dict[str, Any]) -> list[str]:
+def validate_entry(entry: dict[str, Any], *, require_legacy_prompt: bool = False) -> list[str]:
     errors: list[str] = []
     spec = entry.get("Spec")
     src = source_spec(spec)
-    for field in ("VisualID", "PromptEN", "NegativePromptEN"):
+    required_fields = ["VisualID"]
+    if require_legacy_prompt:
+        required_fields.extend(("PromptEN", "NegativePromptEN"))
+    for field in required_fields:
         if not entry.get(field):
             errors.append(f"missing {field}")
     if not isinstance(spec, dict):
@@ -131,13 +133,15 @@ def validate_entry(entry: dict[str, Any]) -> list[str]:
     return errors
 
 
-def select_compiled_request(
+def select_generation_request(
     catalog: dict[str, Any],
     manifest_entry: dict[str, Any],
     *,
     request_id: str = "",
+    prompt_revision_id: str = "",
     prompt_format: str = "auto",
-) -> tuple[dict[str, Any], str]:
+    provider: str = "",
+) -> tuple[dict[str, Any], dict[str, Any], str, dict[str, Any]]:
     pointer = manifest_entry.get("CompiledRequest")
     if not isinstance(pointer, dict) or not pointer.get("RequestID"):
         raise ValueError(f"compiled_request_missing:{manifest_entry.get('VisualID', '')}")
@@ -152,26 +156,39 @@ def select_compiled_request(
         raise ValueError(f"compiled_request_missing:{visual_id}")
     if request.get("VisualID") != visual_id:
         raise ValueError(f"compiled_request_visual_id_mismatch:{visual_id}")
-    if pointer.get("RequestFingerprint") != request.get("RequestFingerprint"):
+    if pointer.get("RequirementFingerprint") != request.get("RequirementFingerprint"):
         raise ValueError(f"compiled_request_fingerprint_mismatch:{visual_id}")
-    if request.get("CompileStatus") != "ready":
-        raise ValueError(f"compiled_request_not_ready:{visual_id}:{request.get('CompileStatus', '')}")
-    selected_format = prompt_format
-    if selected_format == "auto":
-        selected_format = PROMPT_FORMAT_BY_PROVIDER.get("", "natural_language_v1")
-    variants = request.get("PromptVariants", {})
-    variant = variants.get(selected_format) if isinstance(variants, dict) else None
-    if not isinstance(variant, dict) or variant.get("CompileStatus") != "ready":
-        raise ValueError(f"prompt_variant_not_ready:{selected_format}:{visual_id}")
-    return request, selected_format
+    if pointer.get("PromptAuthoringStatus") != request.get("PromptAuthoringStatus"):
+        raise ValueError(f"prompt_authoring_status_mismatch:{visual_id}")
+    if str(pointer.get("ActivePromptRevisionID", "") or "") != str(request.get("ActivePromptRevisionID", "") or ""):
+        raise ValueError(f"prompt_revision_pointer_mismatch:{visual_id}")
+    revision, selected_format, variant = select_prompt_variant(
+        request,
+        prompt_revision_id=prompt_revision_id,
+        prompt_format=prompt_format,
+        provider=provider,
+    )
+    return request, revision, selected_format, variant
+
+
+def _serialize_weighted_tag(item: Any) -> str:
+    if not isinstance(item, dict):
+        return ""
+    tag = str(item.get("Tag", "")).strip()
+    if not tag:
+        return ""
+    weight = float(item.get("Weight", 1.0))
+    if weight == 1.0:
+        return tag
+    return f"{weight:g}::{tag}::"
 
 
 def serialize_provider_prompt(variant: dict[str, Any], prompt_format: str) -> tuple[str, str]:
-    if prompt_format == "natural_language_v1":
+    if prompt_format == NATURAL_LANGUAGE_FORMAT:
         return str(variant.get("Positive", "")), str(variant.get("Negative", ""))
-    if prompt_format == "danbooru_tags_v1":
-        positive = ", ".join(str(item.get("Tag", "")) for item in variant.get("PositiveTags", []) if item.get("Tag"))
-        negative = ", ".join(str(item.get("Tag", "")) for item in variant.get("NegativeTags", []) if item.get("Tag"))
+    if prompt_format == DANBOORU_TAGS_FORMAT:
+        positive = ", ".join(filter(None, (_serialize_weighted_tag(item) for item in variant.get("PositiveTags", []))))
+        negative = ", ".join(filter(None, (_serialize_weighted_tag(item) for item in variant.get("NegativeTags", []))))
         return positive, negative
     raise ValueError(f"prompt_format_unsupported:{prompt_format}")
 
@@ -196,7 +213,7 @@ def select_entries(entries: list[dict[str, Any]], args: argparse.Namespace) -> t
             continue
         if priorities and str(entry.get("Priority", "")) not in priorities:
             continue
-        errors = validate_entry(entry)
+        errors = validate_entry(entry, require_legacy_prompt=args.allow_legacy_prompt)
         if errors:
             skipped.append(f"{visual_id or '<missing VisualID>'}: {', '.join(errors)}")
             continue
@@ -262,8 +279,10 @@ def make_request(
     seed: int | None,
     *,
     count: int,
-    compiled_request: dict[str, Any] | None = None,
-    prompt_format: str = "natural_language_v1",
+    requirement_request: dict[str, Any] | None = None,
+    prompt_revision: dict[str, Any] | None = None,
+    prompt_variant: dict[str, Any] | None = None,
+    prompt_format: str = "legacy_unverified",
 ) -> GenerateRequest:
     spec = source_spec(entry["Spec"])
     fmt = str(spec.get("Format", "png")).lower()
@@ -274,10 +293,9 @@ def make_request(
 
     prompt = entry.get("PromptEN", "")
     negative_prompt = entry.get("NegativePromptEN", "")
-    if compiled_request is not None:
-        variant = compiled_request["PromptVariants"][prompt_format]
-        prompt, negative_prompt = serialize_provider_prompt(variant, prompt_format)
-        technical = compiled_request.get("TechnicalRequest", {})
+    if requirement_request is not None and prompt_revision is not None and prompt_variant is not None:
+        prompt, negative_prompt = serialize_provider_prompt(prompt_variant, prompt_format)
+        technical = requirement_request.get("TechnicalRequest", {})
         if isinstance(technical, dict):
             spec = {**spec, **{key: technical.get(key) for key in ("Width", "Height", "Format") if technical.get(key)}}
     request_extra = {
@@ -285,7 +303,8 @@ def make_request(
         "visual_id": entry.get("VisualID", ""),
         "asset_type": entry.get("AssetType", ""),
         "prompt_format": prompt_format,
-        "request_id": compiled_request.get("RequestID", "") if compiled_request else "",
+        "request_id": requirement_request.get("RequestID", "") if requirement_request else "",
+        "prompt_revision_id": prompt_revision.get("PromptRevisionID", "") if prompt_revision else "",
         **extra,
     }
     return GenerateRequest(
@@ -314,7 +333,8 @@ def build_generation_record(
     outputs: list[dict[str, Any]],
     errors: list[str],
     created_at: str,
-    compiled_request: dict[str, Any] | None = None,
+    requirement_request: dict[str, Any] | None = None,
+    prompt_revision: dict[str, Any] | None = None,
     prompt_format: str = "",
     provider_request: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
@@ -327,9 +347,13 @@ def build_generation_record(
         "Model": model,
         "PromptEN": entry.get("PromptEN", ""),
         "NegativePromptEN": entry.get("NegativePromptEN", ""),
-        "RequestFingerprint": compiled_request.get("RequestFingerprint", "") if compiled_request else "",
+        "RequirementRequestID": requirement_request.get("RequestID", "") if requirement_request else "",
+        "RequirementFingerprint": requirement_request.get("RequirementFingerprint", "") if requirement_request else "",
+        "PromptRevisionID": prompt_revision.get("PromptRevisionID", "") if prompt_revision else "",
+        "PromptRevisionFingerprint": prompt_revision.get("RevisionFingerprint", "") if prompt_revision else "",
         "PromptFormat": prompt_format,
-        "RequestSnapshot": copy.deepcopy(compiled_request) if compiled_request else {},
+        "RequirementSnapshot": copy.deepcopy(requirement_request) if requirement_request else {},
+        "PromptRevisionSnapshot": copy.deepcopy(prompt_revision) if prompt_revision else {},
         "ProviderRequest": provider_request or {},
         "Spec": entry.get("Spec", {}),
         "Requested": {
@@ -356,11 +380,16 @@ async def run_generation(args: argparse.Namespace) -> int:
 
     manifest = read_json(manifest_path)
     request_catalog = None
-    if args.request_catalog:
+    if args.allow_legacy_prompt:
+        if args.request_id or args.prompt_revision_id:
+            raise ValueError("legacy_prompt_cannot_select_request_or_revision")
+    elif args.request_catalog:
         request_catalog_path = resolve_project_path(args.request_catalog, DEFAULT_REQUEST_CATALOG)
         if request_catalog_path is None or not request_catalog_path.exists():
             raise FileNotFoundError(f"Request catalog not found: {request_catalog_path}")
         request_catalog = read_json(request_catalog_path)
+    else:
+        raise ValueError("request_catalog_required: use --allow-legacy-prompt only for non-formal recovery")
     entries = manifest.get("Entries", [])
     if not isinstance(entries, list):
         raise ValueError("Manifest Entries must be a list.")
@@ -368,19 +397,18 @@ async def run_generation(args: argparse.Namespace) -> int:
     manifest["Entries"] = entries
 
     selected, skipped = select_entries(entries, args)
-    compiled_by_visual: dict[str, tuple[dict[str, Any], str]] = {}
+    compiled_by_visual: dict[str, tuple[dict[str, Any], dict[str, Any], str, dict[str, Any]]] = {}
     if request_catalog is not None:
         ready_entries: list[dict[str, Any]] = []
         for entry in selected:
             try:
-                selected_format = args.prompt_format
-                if selected_format == "auto":
-                    selected_format = PROMPT_FORMAT_BY_PROVIDER.get(args.provider, "natural_language_v1")
-                compiled_by_visual[entry["VisualID"]] = select_compiled_request(
+                compiled_by_visual[entry["VisualID"]] = select_generation_request(
                     request_catalog,
                     entry,
                     request_id=args.request_id,
-                    prompt_format=selected_format,
+                    prompt_revision_id=args.prompt_revision_id,
+                    prompt_format=args.prompt_format,
+                    provider=args.provider,
                 )
             except ValueError as exc:
                 skipped.append(f"{entry.get('VisualID', '')}: {exc}")
@@ -439,7 +467,10 @@ async def run_generation(args: argparse.Namespace) -> int:
             model = "unknown"
             requested_width = int(spec["Width"])
             requested_height = int(spec["Height"])
-            compiled_request, prompt_format = compiled_by_visual.get(visual_id, (None, "natural_language_v1"))
+            requirement_request, prompt_revision, prompt_format, prompt_variant = compiled_by_visual.get(
+                visual_id,
+                (None, None, "legacy_unverified", None),
+            )
             provider_request_snapshot: dict[str, Any] = {}
 
             for variant_index in range(args.variants):
@@ -456,7 +487,9 @@ async def run_generation(args: argparse.Namespace) -> int:
                     extra,
                     seed,
                     count=1,
-                    compiled_request=compiled_request,
+                    requirement_request=requirement_request,
+                    prompt_revision=prompt_revision,
+                    prompt_variant=prompt_variant,
                     prompt_format=prompt_format,
                 )
                 provider_request_snapshot = {
@@ -517,7 +550,8 @@ async def run_generation(args: argparse.Namespace) -> int:
                 outputs=outputs,
                 errors=errors,
                 created_at=created_at,
-                compiled_request=compiled_request,
+                requirement_request=requirement_request,
+                prompt_revision=prompt_revision,
                 prompt_format=prompt_format,
                 provider_request=provider_request_snapshot,
             )
@@ -553,9 +587,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--config", default="")
     parser.add_argument("--manifest-path", default=DEFAULT_MANIFEST)
     parser.add_argument("--out-root", default=DEFAULT_OUT_ROOT)
-    parser.add_argument("--request-catalog", default="")
+    parser.add_argument("--request-catalog", default=DEFAULT_REQUEST_CATALOG)
     parser.add_argument("--request-id", default="")
-    parser.add_argument("--prompt-format", choices=["auto", "natural_language_v1", "danbooru_tags_v1"], default="auto")
+    parser.add_argument("--prompt-revision-id", default="")
+    parser.add_argument("--prompt-format", choices=["auto", NATURAL_LANGUAGE_FORMAT, DANBOORU_TAGS_FORMAT], default="auto")
+    parser.add_argument("--allow-legacy-prompt", action="store_true")
     parser.add_argument("--provider", default="")
     parser.add_argument("--status", default="prompted")
     parser.add_argument("--domain", action="append", default=[])

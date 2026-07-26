@@ -2,6 +2,11 @@ param(
     [string]$Config = "",
     [string]$ManifestPath = "",
     [string]$OutRoot = "",
+    [string]$RequestCatalog = "",
+    [string]$RequestID = "",
+    [string]$PromptRevisionID = "",
+    [ValidateSet("auto", "natural_language_v2", "danbooru_tags_v2")]
+    [string]$PromptFormat = "auto",
     [string]$Provider = "",
     [string]$Status = "",
     [string[]]$Domain = @(),
@@ -18,6 +23,7 @@ param(
     [switch]$DryRun,
     [switch]$Overwrite,
     [switch]$PreserveStatus,
+    [switch]$AllowLegacyPrompt,
     [switch]$SkipIntegrationCandidates
 )
 
@@ -39,6 +45,20 @@ if ($ManifestPath -ne "") {
 if ($OutRoot -ne "") {
     $argsList += @("--out-root", $OutRoot)
 }
+
+if ($RequestCatalog -ne "") {
+    $argsList += @("--request-catalog", $RequestCatalog)
+}
+
+if ($RequestID -ne "") {
+    $argsList += @("--request-id", $RequestID)
+}
+
+if ($PromptRevisionID -ne "") {
+    $argsList += @("--prompt-revision-id", $PromptRevisionID)
+}
+
+$argsList += @("--prompt-format", $PromptFormat)
 
 if ($Provider -ne "") {
     $argsList += @("--provider", $Provider)
@@ -100,6 +120,10 @@ if ($Overwrite) {
 
 if ($PreserveStatus) {
     $argsList += "--preserve-status"
+}
+
+if ($AllowLegacyPrompt) {
+    $argsList += "--allow-legacy-prompt"
 }
 
 python @argsList
