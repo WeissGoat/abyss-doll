@@ -3,59 +3,26 @@
 
 from __future__ import annotations
 
-import copy
 from typing import Any
 
-from art_prompt_compiler import compile_generation_request
+from art_prompt_compiler import compile_requirement_request, requirement_request_body
+from art_prompt_revision import validate_prompt_revision
 from art_style_catalog import sha256_json
 from compile_art_generation_requests import _input_manifest
 
 
-VALID_COMPILE_STATES = {"ready", "style_resolution_required", "unsupported", "invalid", "stale"}
-VALID_VARIANT_STATES = {"ready", "unsupported", "invalid"}
+VALID_REQUIREMENT_STATES = {"ready", "style_resolution_required", "invalid", "stale"}
+VALID_AUTHORING_STATES = {
+    "prompt_authoring_required",
+    "prompt_ready",
+    "prompt_stale",
+    "prompt_invalid",
+    "not_required",
+}
 
 
-def _request_body(request: dict[str, Any]) -> dict[str, Any]:
-    return {
-        key: copy.deepcopy(request.get(key))
-        for key in (
-            "CompilerVersion",
-            "InputFingerprint",
-            "ResolvedLayers",
-            "CanonicalVisualBrief",
-            "PromptVariants",
-            "TechnicalRequest",
-            "PreservationContract",
-        )
-    }
-
-
-def _validate_variant(variant: Any, expected_format: str, errors: list[str], visual_id: str) -> None:
-    if not isinstance(variant, dict):
-        errors.append(f"prompt_variant_missing:{expected_format}:{visual_id}")
-        return
-    state = str(variant.get("CompileStatus", ""))
-    if state not in VALID_VARIANT_STATES:
-        errors.append(f"prompt_variant_status_invalid:{expected_format}:{visual_id}")
-    coverage = variant.get("SemanticCoverage")
-    if not isinstance(coverage, dict):
-        errors.append(f"semantic_coverage_missing:{expected_format}:{visual_id}")
-    elif state == "ready" and (coverage.get("Coverage") != 1.0 or coverage.get("Unmapped")):
-        errors.append(f"semantic_coverage_incomplete:{expected_format}:{visual_id}")
-    if expected_format == "natural_language_v1" and state == "ready":
-        if not str(variant.get("Positive", "")).strip():
-            errors.append(f"prompt_positive_missing:{visual_id}")
-    if expected_format == "danbooru_tags_v1":
-        for field in ("PositiveTags", "NegativeTags"):
-            tags = variant.get(field, [])
-            if not isinstance(tags, list):
-                errors.append(f"tag_list_invalid:{field}:{visual_id}")
-                continue
-            for item in tags:
-                if not isinstance(item, dict) or not str(item.get("Tag", "")).strip():
-                    errors.append(f"tag_item_invalid:{visual_id}")
-                elif float(item.get("Weight", 0)) <= 0:
-                    errors.append(f"tag_weight_invalid:{visual_id}")
+def _append_revision_errors(errors: list[str], revision_errors: list[str], visual_id: str) -> None:
+    errors.extend(f"{error}:{visual_id}" for error in revision_errors)
 
 
 def validate_request_catalog(
@@ -106,32 +73,54 @@ def validate_request_catalog(
             continue
         if request.get("VisualID") != visual_id:
             errors.append(f"compiled_request_visual_id_mismatch:{visual_id}")
-        if pointer.get("RequestFingerprint") != request.get("RequestFingerprint"):
+        if pointer.get("RequirementFingerprint") != request.get("RequirementFingerprint"):
             errors.append(f"compiled_request_fingerprint_mismatch:{visual_id}")
-        state = str(request.get("CompileStatus", ""))
-        if state not in VALID_COMPILE_STATES:
+        requirement_state = str(request.get("RequirementStatus", ""))
+        if requirement_state not in VALID_REQUIREMENT_STATES:
             errors.append(f"compiled_request_status_invalid:{visual_id}")
-        expected_request_hash = sha256_json(_request_body(request)) if request.get("RequestFingerprint") else ""
-        if expected_request_hash and expected_request_hash != request.get("RequestFingerprint"):
+        authoring_state = str(request.get("PromptAuthoringStatus", ""))
+        if authoring_state not in VALID_AUTHORING_STATES:
+            errors.append(f"prompt_authoring_status_invalid:{visual_id}")
+        if pointer.get("PromptAuthoringStatus") != authoring_state:
+            errors.append(f"prompt_authoring_status_mismatch:{visual_id}")
+        active_revision_id = str(request.get("ActivePromptRevisionID", "") or "")
+        if str(pointer.get("ActivePromptRevisionID", "") or "") != active_revision_id:
+            errors.append(f"prompt_revision_pointer_mismatch:{visual_id}")
+
+        expected_request_hash = (
+            sha256_json(requirement_request_body(request))
+            if request.get("RequirementFingerprint")
+            else ""
+        )
+        if expected_request_hash and expected_request_hash != request.get("RequirementFingerprint"):
             errors.append(f"compiled_request_payload_hash_mismatch:{visual_id}")
-        variants = request.get("PromptVariants", {})
-        if not isinstance(variants, dict):
-            errors.append(f"prompt_variants_missing:{visual_id}")
-            continue
-        for format_id in ("natural_language_v1", "danbooru_tags_v1"):
-            _validate_variant(variants.get(format_id), format_id, errors, visual_id)
-        if state == "ready" and not any(
-            isinstance(variants.get(format_id), dict) and variants[format_id].get("CompileStatus") == "ready"
-            for format_id in ("natural_language_v1", "danbooru_tags_v1")
-        ):
-            errors.append(f"compiled_request_ready_without_variant:{visual_id}")
-        if state == "ready" and manifest_catalog:
+
+        revisions = request.get("PromptRevisions")
+        if not isinstance(revisions, list):
+            errors.append(f"prompt_revisions_missing:{visual_id}")
+            revisions = []
+        revision_ids: set[str] = set()
+        for revision in revisions:
+            if isinstance(revision, dict):
+                revision_id = str(revision.get("PromptRevisionID", "") or "")
+                if revision_id in revision_ids:
+                    errors.append(f"prompt_revision_duplicate:{visual_id}:{revision_id}")
+                revision_ids.add(revision_id)
+            _append_revision_errors(errors, validate_prompt_revision(request, revision), visual_id)
+
+        if authoring_state == "prompt_ready":
+            if not active_revision_id or active_revision_id not in revision_ids:
+                errors.append(f"prompt_revision_missing:{visual_id}:{active_revision_id}")
+        elif active_revision_id:
+            errors.append(f"prompt_revision_active_without_ready_status:{visual_id}")
+
+        if requirement_state == "ready" and manifest_catalog:
             try:
-                expected = compile_generation_request(entry, manifest_catalog, asset_sets)
+                expected = compile_requirement_request(entry, manifest_catalog, asset_sets)
             except ValueError as exc:
                 errors.append(f"compiled_request_recompile_failed:{visual_id}:{exc}")
             else:
-                if expected.get("RequestFingerprint") != request.get("RequestFingerprint"):
+                if expected.get("RequirementFingerprint") != request.get("RequirementFingerprint"):
                     errors.append(f"compiled_request_stale:{visual_id}")
 
     if strict and not requests:

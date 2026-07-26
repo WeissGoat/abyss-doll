@@ -12,6 +12,7 @@ TOOLS_DIR = Path(__file__).resolve().parents[1]
 if str(TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_DIR))
 
+from art_prompt_revision import publish_prompt_revision  # noqa: E402
 from compile_art_generation_requests import compile_manifest_requests  # noqa: E402
 from validate_art_generation_requests import validate_request_catalog  # noqa: E402
 
@@ -39,50 +40,110 @@ class ValidateArtGenerationRequestsTests(unittest.TestCase):
         self.compiled_manifest = result["Manifest"]
         self.catalog = result["Catalog"]
 
-    def test_valid_catalog_passes(self) -> None:
+    def _publish_revision(self, *, tags_ready: bool = False) -> tuple[dict, dict]:
+        catalog = copy.deepcopy(self.catalog)
+        manifest = copy.deepcopy(self.compiled_manifest)
+        request = catalog["Requests"][0]
+        hard_ids = []
+        for values in request["PromptAuthoringContext"]["HardConstraints"].values():
+            for item in values:
+                hard_ids.append(item["ID"])
+        mapping = {constraint_id: [f"covered:{constraint_id}"] for constraint_id in hard_ids}
+        tags = {
+            "Format": "danbooru_tags_v2",
+            "Status": "ready",
+            "PositiveTags": [{"Tag": "button", "Weight": 1.0}],
+            "NegativeTags": [{"Tag": "text", "Weight": 1.0}],
+            "ReferenceControls": {},
+            "ConstraintMapping": copy.deepcopy(mapping),
+        }
+        if not tags_ready:
+            tags = {
+                "Format": "danbooru_tags_v2",
+                "Status": "unsupported",
+                "UnsupportedReason": ["No reliable tag-only route for this deterministic UI skin."],
+            }
+        revision = {
+            "PromptRevisionID": f"{request['RequestID']}/prompt-001",
+            "RequirementFingerprint": request["RequirementFingerprint"],
+            "AuthoringMode": "agent_authored",
+            "Status": "ready",
+            "CommonStrategy": {"Operation": "standard_asset_generation"},
+            "Variants": {
+                "natural_language_v2": {
+                    "Format": "natural_language_v2",
+                    "Status": "ready",
+                    "Positive": "Create a restrained crimson primary action button skin.",
+                    "Negative": "text, blue-white wash",
+                    "OutputContract": {},
+                    "ConstraintMapping": copy.deepcopy(mapping),
+                },
+                "danbooru_tags_v2": tags,
+            },
+            "AuthorNotes": [],
+            "CreatedAt": "2026-07-26T12:00:00+08:00",
+        }
+        catalog["Requests"][0] = publish_prompt_revision(request, revision, activate=True)
+        pointer = manifest["Entries"][0]["CompiledRequest"]
+        pointer["PromptAuthoringStatus"] = "prompt_ready"
+        pointer["ActivePromptRevisionID"] = revision["PromptRevisionID"]
+        return catalog, manifest
+
+    def test_valid_authoring_required_catalog_passes(self) -> None:
         self.assertEqual(validate_request_catalog(self.catalog, self.compiled_manifest, strict=True), [])
+
+    def test_valid_active_revision_passes(self) -> None:
+        catalog, manifest = self._publish_revision()
+
+        self.assertEqual(validate_request_catalog(catalog, manifest, strict=True), [])
 
     def test_missing_request_is_reported(self) -> None:
         manifest = copy.deepcopy(self.compiled_manifest)
         manifest["Entries"][0]["CompiledRequest"]["RequestID"] = "missing"
         errors = validate_request_catalog(self.catalog, manifest, strict=True)
+
         self.assertIn("compiled_request_missing:ui_button_primary", errors)
 
-    def test_fingerprint_mismatch_is_reported(self) -> None:
+    def test_requirement_fingerprint_mismatch_is_reported(self) -> None:
         catalog = copy.deepcopy(self.catalog)
-        catalog["Requests"][0]["RequestFingerprint"] = "bad"
+        catalog["Requests"][0]["RequirementFingerprint"] = "bad"
         errors = validate_request_catalog(catalog, self.compiled_manifest, strict=True)
-        self.assertTrue(any(error.startswith("compiled_request_fingerprint_mismatch") for error in errors))
 
-    def test_unsupported_variant_is_allowed_when_request_has_ready_variant(self) -> None:
-        manifest = copy.deepcopy(self.manifest)
-        manifest["Entries"][0]["VisualIntent"] = {
-            "RequiredElements": ["unmapped impossible semantic"]
-        }
-        result = compile_manifest_requests(manifest, project_root=Path.cwd())
-        self.assertEqual(
-            result["Catalog"]["Requests"][0]["PromptVariants"]["natural_language_v1"]["CompileStatus"],
-            "ready",
+        self.assertIn("compiled_request_fingerprint_mismatch:ui_button_primary", errors)
+        self.assertIn("compiled_request_payload_hash_mismatch:ui_button_primary", errors)
+
+    def test_incomplete_constraint_mapping_is_reported(self) -> None:
+        catalog, manifest = self._publish_revision()
+        revision = catalog["Requests"][0]["PromptRevisions"][0]
+        missing_id = next(iter(revision["Variants"]["natural_language_v2"]["ConstraintMapping"]))
+        revision["Variants"]["natural_language_v2"]["ConstraintMapping"].pop(missing_id)
+        revision.pop("RevisionFingerprint", None)
+        errors = validate_request_catalog(catalog, manifest, strict=True)
+
+        self.assertIn(
+            f"constraint_mapping_incomplete:natural_language_v2:{missing_id}:ui_button_primary",
+            errors,
         )
-        self.assertEqual(
-            result["Catalog"]["Requests"][0]["PromptVariants"]["danbooru_tags_v1"]["CompileStatus"],
-            "unsupported",
-        )
-        self.assertEqual(validate_request_catalog(result["Catalog"], result["Manifest"], strict=True), [])
 
     def test_invalid_tag_weight_is_reported(self) -> None:
-        catalog = copy.deepcopy(self.catalog)
-        catalog["Requests"][0]["PromptVariants"]["danbooru_tags_v1"]["PositiveTags"] = [
-            {"Tag": "button", "Weight": 0}
-        ]
-        errors = validate_request_catalog(catalog, self.compiled_manifest, strict=True)
-        self.assertIn("tag_weight_invalid:ui_button_primary", errors)
+        catalog, manifest = self._publish_revision(tags_ready=True)
+        revision = catalog["Requests"][0]["PromptRevisions"][0]
+        revision["Variants"]["danbooru_tags_v2"]["PositiveTags"][0]["Weight"] = 0
+        revision.pop("RevisionFingerprint", None)
+        errors = validate_request_catalog(catalog, manifest, strict=True)
+
+        self.assertIn(
+            "prompt_tag_weight_invalid:danbooru_tags_v2:PositiveTags:0:ui_button_primary",
+            errors,
+        )
 
     def test_stale_request_is_reported(self) -> None:
         manifest = copy.deepcopy(self.compiled_manifest)
         manifest["Entries"][0]["VisualIntent"]["AppearanceEN"] = ["changed semantic"]
         errors = validate_request_catalog(self.catalog, manifest, strict=True)
+
         self.assertIn("compiled_request_manifest_fingerprint_mismatch", errors)
+        self.assertIn("compiled_request_stale:ui_button_primary", errors)
 
     def test_processing_state_changes_do_not_stale_request(self) -> None:
         manifest = copy.deepcopy(self.compiled_manifest)
@@ -98,7 +159,21 @@ class ValidateArtGenerationRequestsTests(unittest.TestCase):
                 "QualityUpdatedAt": "2026-07-25T00:00:00+08:00",
             }
         )
+
         self.assertEqual(validate_request_catalog(self.catalog, manifest, strict=True), [])
+
+    def test_active_legacy_prompt_is_rejected(self) -> None:
+        catalog = copy.deepcopy(self.catalog)
+        manifest = copy.deepcopy(self.compiled_manifest)
+        request = catalog["Requests"][0]
+        request["PromptAuthoringStatus"] = "prompt_ready"
+        request["ActivePromptRevisionID"] = "legacy:natural_language_v1"
+        pointer = manifest["Entries"][0]["CompiledRequest"]
+        pointer["PromptAuthoringStatus"] = "prompt_ready"
+        pointer["ActivePromptRevisionID"] = "legacy:natural_language_v1"
+        errors = validate_request_catalog(catalog, manifest, strict=True)
+
+        self.assertIn("prompt_revision_missing:ui_button_primary:legacy:natural_language_v1", errors)
 
 
 if __name__ == "__main__":
