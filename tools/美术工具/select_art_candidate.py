@@ -11,7 +11,7 @@ import uuid
 from pathlib import Path
 from typing import Any
 
-from art_processing import numeric_round_directories, resolve_latest_processed_candidate_file
+from art_processing import IMAGE_EXTENSIONS, numeric_round_directories, resolve_latest_processed_candidate_file
 from art_workspace import normalize_entry_workspace_paths, workspace_path
 
 
@@ -79,6 +79,17 @@ def selected_target(entry: dict[str, Any], workspace: Path, candidate: Path, pro
         existing = resolve_path(existing_value, project_root)
         if is_within(existing, selected_dir):
             return existing
+
+    legacy_images = sorted(
+        path
+        for path in selected_dir.iterdir()
+        if path.is_file() and path.suffix.lower() in IMAGE_EXTENSIONS
+    ) if selected_dir.is_dir() else []
+    if len(legacy_images) == 1:
+        return legacy_images[0]
+    if len(legacy_images) > 1:
+        candidates = ", ".join(path.name for path in legacy_images)
+        raise ValueError(f"selected_target_ambiguous: {candidates}")
     return selected_dir / f"{entry['VisualID']}{candidate.suffix.lower()}"
 
 

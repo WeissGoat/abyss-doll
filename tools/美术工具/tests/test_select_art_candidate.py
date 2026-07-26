@@ -201,6 +201,46 @@ class SelectArtCandidateTests(unittest.TestCase):
         self.assertEqual(self.manifest_path.read_bytes(), before)
         self.assertFalse((self.workspace / "selected").exists())
 
+    def test_reuses_unique_legacy_selected_image_when_manifest_path_is_empty(self) -> None:
+        target = self.workspace / "selected" / "001.png"
+        target.parent.mkdir(parents=True)
+        Image.new("RGBA", (8, 4), "red").save(target)
+        self.write_manifest(selected_path="")
+
+        result = select_art_candidate(
+            project_root=self.root,
+            manifest_path=self.manifest_path,
+            incoming_root=self.incoming_root,
+            visual_id="bg_workshop_day",
+            review_path=self.review_path,
+            allow_selected_overwrite=True,
+            dry_run=False,
+        )
+
+        self.assertEqual(result["SelectedPath"], repo_path(target, self.root))
+        self.assertEqual(target.read_bytes(), self.candidate.read_bytes())
+        self.assertFalse((target.parent / "bg_workshop_day.png").exists())
+        manifest = json.loads(self.manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(manifest["Entries"][0]["SelectedPath"], repo_path(target, self.root))
+
+    def test_rejects_ambiguous_legacy_selected_images_when_manifest_path_is_empty(self) -> None:
+        selected_dir = self.workspace / "selected"
+        selected_dir.mkdir(parents=True)
+        Image.new("RGBA", (8, 4), "red").save(selected_dir / "001.png")
+        Image.new("RGBA", (8, 4), "blue").save(selected_dir / "002.webp")
+        self.write_manifest(selected_path="")
+
+        with self.assertRaisesRegex(ValueError, "selected_target_ambiguous"):
+            select_art_candidate(
+                project_root=self.root,
+                manifest_path=self.manifest_path,
+                incoming_root=self.incoming_root,
+                visual_id="bg_workshop_day",
+                review_path=self.review_path,
+                allow_selected_overwrite=True,
+                dry_run=True,
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
