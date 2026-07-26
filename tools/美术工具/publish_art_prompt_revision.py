@@ -13,6 +13,7 @@ from art_prompt_revision import publish_prompt_revision
 
 
 DEFAULT_CATALOG = "美术文档/_generated/art_generation_requests.json"
+DEFAULT_MANIFEST = "美术文档/_generated/art_manifest.json"
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -24,6 +25,41 @@ def write_json(path: Path, payload: Any) -> None:
     temporary = path.with_name(f".{path.name}.tmp")
     temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temporary.replace(path)
+
+
+def _synchronize_manifest(
+    manifest: dict[str, Any],
+    catalog: dict[str, Any],
+    published_ids: list[str],
+) -> dict[str, Any]:
+    updated = copy.deepcopy(manifest)
+    requests = {
+        str(request.get("RequestID", "")): request
+        for request in catalog.get("Requests", [])
+        if isinstance(request, dict)
+    }
+    published_request_ids = {revision_id.rsplit("/prompt-", 1)[0] for revision_id in published_ids}
+    entries = {
+        str(entry.get("VisualID", "")): entry
+        for entry in updated.get("Entries", [])
+        if isinstance(entry, dict)
+    }
+    for request_id in published_request_ids:
+        request = requests.get(request_id)
+        if not isinstance(request, dict):
+            raise ValueError(f"compiled_request_missing:{request_id}")
+        visual_id = str(request.get("VisualID", ""))
+        entry = entries.get(visual_id)
+        if not isinstance(entry, dict):
+            raise ValueError(f"manifest_entry_missing:{visual_id}")
+        pointer = entry.get("CompiledRequest")
+        if not isinstance(pointer, dict) or pointer.get("RequestID") != request_id:
+            raise ValueError(f"compiled_request_pointer_mismatch:{visual_id}")
+        if pointer.get("RequirementFingerprint") != request.get("RequirementFingerprint"):
+            raise ValueError(f"compiled_request_fingerprint_mismatch:{visual_id}")
+        pointer["PromptAuthoringStatus"] = request.get("PromptAuthoringStatus", "")
+        pointer["ActivePromptRevisionID"] = request.get("ActivePromptRevisionID", "")
+    return updated
 
 
 def _revision_list(payload: dict[str, Any]) -> list[dict[str, Any]]:
@@ -45,6 +81,7 @@ def publish_revision_file(
     catalog_path: Path,
     revision_path: Path,
     *,
+    manifest_path: Path | None = None,
     activate: bool = True,
     dry_run: bool = False,
 ) -> dict[str, Any]:
@@ -70,14 +107,26 @@ def publish_revision_file(
             activate=activate,
         )
         published.append(revision["PromptRevisionID"])
+    updated_manifest = None
+    if manifest_path is not None:
+        updated_manifest = _synchronize_manifest(read_json(manifest_path), updated, published)
     if not dry_run:
+        if manifest_path is not None and updated_manifest is not None:
+            write_json(manifest_path, updated_manifest)
         write_json(catalog_path, updated)
-    return {"Catalog": updated, "Published": published, "Activated": activate, "DryRun": dry_run}
+    return {
+        "Catalog": updated,
+        "Manifest": updated_manifest,
+        "Published": published,
+        "Activated": activate,
+        "DryRun": dry_run,
+    }
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Publish P3 Agent-authored art PromptRevisions.")
     parser.add_argument("--request-catalog", default=DEFAULT_CATALOG)
+    parser.add_argument("--manifest-path", default=DEFAULT_MANIFEST)
     parser.add_argument("--revision-path", required=True)
     parser.add_argument("--no-activate", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
@@ -89,6 +138,7 @@ def main() -> int:
     result = publish_revision_file(
         Path(args.request_catalog).resolve(),
         Path(args.revision_path).resolve(),
+        manifest_path=Path(args.manifest_path).resolve(),
         activate=not args.no_activate,
         dry_run=args.dry_run,
     )

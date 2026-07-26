@@ -1,5 +1,6 @@
 param(
     [string]$RequestCatalogPath = "",
+    [string]$ManifestPath = "",
     [Parameter(Mandatory = $true)][string]$RevisionPath,
     [switch]$NoActivate,
     [switch]$DryRun
@@ -13,6 +14,9 @@ $argsList = @(
 )
 if (-not [string]::IsNullOrWhiteSpace($RequestCatalogPath)) {
     $argsList += @("--request-catalog", $RequestCatalogPath)
+}
+if (-not [string]::IsNullOrWhiteSpace($ManifestPath)) {
+    $argsList += @("--manifest-path", $ManifestPath)
 }
 if ($NoActivate) { $argsList += "--no-activate" }
 if ($DryRun) { $argsList += "--dry-run" }

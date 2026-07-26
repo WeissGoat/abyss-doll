@@ -120,6 +120,45 @@ class ArtPromptAuthoringToolsTests(unittest.TestCase):
             self.assertEqual(catalog_path.read_text(encoding="utf-8"), original)
             self.assertTrue(result["DryRun"])
 
+    def test_publish_synchronizes_manifest_active_pointer(self) -> None:
+        manifest = {
+            "Entries": [
+                {
+                    "VisualID": "doll_zero_cold",
+                    "Status": "selected",
+                    "CompiledRequest": {
+                        "RequestID": self.request["RequestID"],
+                        "RequirementFingerprint": self.request["RequirementFingerprint"],
+                        "RequirementStatus": "ready",
+                        "PromptAuthoringStatus": "prompt_authoring_required",
+                        "ActivePromptRevisionID": "",
+                    },
+                }
+            ]
+        }
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            catalog_path = root / "catalog.json"
+            manifest_path = root / "manifest.json"
+            revision_path = root / "revision.json"
+            catalog_path.write_text(json.dumps(self.catalog), encoding="utf-8")
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            revision_path.write_text(json.dumps(self.revision), encoding="utf-8")
+
+            publish_revision_file(
+                catalog_path,
+                revision_path,
+                manifest_path=manifest_path,
+                activate=True,
+                dry_run=False,
+            )
+            persisted = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+        pointer = persisted["Entries"][0]["CompiledRequest"]
+        self.assertEqual(pointer["PromptAuthoringStatus"], "prompt_ready")
+        self.assertEqual(pointer["ActivePromptRevisionID"], self.revision["PromptRevisionID"])
+        self.assertEqual(persisted["Entries"][0]["Status"], "selected")
+
     def test_powershell_export_wrapper_dry_run_is_utf8_safe(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
@@ -159,9 +198,26 @@ class ArtPromptAuthoringToolsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             catalog_path = root / "catalog.json"
+            manifest_path = root / "manifest.json"
             revision_path = root / "revision.json"
             original = json.dumps(self.catalog, ensure_ascii=False, indent=2) + "\n"
             catalog_path.write_text(original, encoding="utf-8")
+            manifest_path.write_text(
+                json.dumps(
+                    {
+                        "Entries": [
+                            {
+                                "VisualID": "doll_zero_cold",
+                                "CompiledRequest": {
+                                    "RequestID": self.request["RequestID"],
+                                    "RequirementFingerprint": self.request["RequirementFingerprint"],
+                                },
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
             revision_path.write_text(json.dumps(self.revision, ensure_ascii=False), encoding="utf-8")
             completed = subprocess.run(
                 [
@@ -173,6 +229,8 @@ class ArtPromptAuthoringToolsTests(unittest.TestCase):
                     str(TOOLS_DIR / "Publish-ArtPromptRevision.ps1"),
                     "-RequestCatalogPath",
                     str(catalog_path),
+                    "-ManifestPath",
+                    str(manifest_path),
                     "-RevisionPath",
                     str(revision_path),
                     "-DryRun",
