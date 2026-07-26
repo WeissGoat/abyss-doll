@@ -7881,7 +7881,7 @@
           "美术文档/人设/05_零号立绘素材设计与交付清单.md"
         ]
       },
-      "ActivePromptRevisionID": "doll_zero_cold@ead24f706617/prompt-001",
+      "ActivePromptRevisionID": "doll_zero_cold@ead24f706617/prompt-002",
       "PromptRevisions": [
         {
           "PromptRevisionID": "doll_zero_cold@ead24f706617/prompt-001",
@@ -8238,6 +8238,441 @@
           ],
           "CreatedAt": "2026-07-26T13:05:00+08:00",
           "RevisionFingerprint": "2d6398e721c79ce100c93b4c0a6cef34a868168496016aa2b1b75bf4b08752c2"
+        },
+        {
+          "PromptRevisionID": "doll_zero_cold@ead24f706617/prompt-002",
+          "RequirementFingerprint": "ead24f7066170bcc5bed9778db18e5b2f0e154b39cb46a71fa11e638c8048fc2",
+          "AuthoringMode": "agent_authored",
+          "Status": "ready",
+          "CommonStrategy": {
+            "Operation": "character_difference_controlled_edit",
+            "Intent": "Treat the approved neutral portrait as the visual source of truth and create a stronger but restrained cold relationship performance without redesigning No.0."
+          },
+          "Variants": {
+            "natural_language_v2": {
+              "Format": "natural_language_v2",
+              "Status": "ready",
+              "Positive": "Create No.0's cold relationship-state full-body portrait as a tightly controlled performance variation. When the supplied neutral portrait is available, use it as the visual source of truth and edit that established character rather than inventing or redesigning her. Preserve the same young-adult feminine doll identity, head and face proportions, long loose silver-white hair silhouette and strand grouping, wide opaque white cloth blindfold covering both eyes completely, gray shawl construction over both shoulders and chest, separate pale ivory short inner dress, slender bare legs, bare feet, line weight, soft cel-shaded rendering, palette, figure scale, canvas position and foot baseline. The blindfold must remain visibly present, white, opaque and unchanged in construction; no eye or eye-shaped light may be visible through or around it. Change only the acting: make the torso more upright and held, close the shoulders and elbows, angle the covered face and upper body slightly away from the viewer without turning into a side profile, draw both forearms subtly behind or close against the body silhouette, and compress the mouth into a short guarded horizontal line. The emotion is distant, inaccessible and deliberately withholding, not angry, frightened, sad or aggressive. Make the difference readable at dialogue size through the closed body language while retaining the neutral portrait's exact character design. Keep the entire figure from hair tips to toes at roughly the same large portrait occupancy; do not shrink the character or place her in a wide scene. Produce a 1024x1536 PNG. Use true transparency when the renderer supports alpha. If alpha is unavailable, use one perfectly uniform flat chroma-green segmentation matte with no texture, lighting, floor or shadow; never paint a checkerboard or transparency grid. Protect the pale hair, white blindfold, skin, ivory dress and toe edges for later background processing.",
+              "Negative": "character redesign, identity drift, different face, different hair shape, altered shawl, altered dress, missing blindfold, removed blindfold, transparent blindfold, see-through cloth, visible eyes, exposed eyes, red eyes, glowing eyes, red glow, eye-shaped light, black blindfold, metal visor, short hair, tied hair, ponytail, bare shoulders, missing shawl, merged shawl and dress, shoes, socks, boots, armor, mechanical body redesign, smile, blush, open mouth, anger, shouting, crying, fear, hunched sadness, combat stance, dramatic action pose, full side profile, tiny figure, wide landscape composition, cropped head, cropped hair, cropped feet, missing toes, busy background, scenery, floor, cast shadow, gradient background, textured matte, painted checkerboard, transparency grid, gray checker pattern, text, watermark, extra character, chibi, childlike proportions, sexualized pose",
+              "CompatibleProviders": [
+                "openai_images",
+                "gemini_chat_image",
+                "gemini_nanobanana"
+              ],
+              "OutputContract": {
+                "Width": 1024,
+                "Height": 1536,
+                "Format": "png",
+                "AlphaRequired": true,
+                "BackgroundPolicy": "agent_required",
+                "CapabilityRequirements": [
+                  "transparent_asset",
+                  "transparent_character_portrait"
+                ]
+              },
+              "ConstraintMapping": {
+                "brief:identity:0": [
+                  "Positive: preserve the long loose silver-white hair silhouette and strand grouping"
+                ],
+                "brief:identity:1": [
+                  "Positive: preserve the wide opaque white cloth blindfold covering both eyes completely",
+                  "Negative: missing, removed, transparent or altered blindfold and visible eyes"
+                ],
+                "brief:identity:2": [
+                  "Positive: preserve the gray shawl construction over both shoulders and chest"
+                ],
+                "brief:identity:3": [
+                  "Positive: preserve the separate pale ivory short inner dress"
+                ],
+                "brief:identity:4": [
+                  "Positive: preserve slender bare legs"
+                ],
+                "brief:identity:5": [
+                  "Positive: preserve bare feet and toe edges",
+                  "Negative: shoes, socks and boots"
+                ],
+                "brief:identity:6": [
+                  "Positive: no eye or eye-shaped light may be visible",
+                  "Negative: red eyes, glowing eyes, red glow and eye-shaped light"
+                ],
+                "brief:requiredchanges:0": [
+                  "Positive: upright held torso, closed shoulders and elbows, slightly turned-away face and upper body, forearms behind or close to the silhouette, guarded horizontal mouth, readable distant body language"
+                ],
+                "technical:width": [
+                  "OutputContract.Width=1024"
+                ],
+                "technical:height": [
+                  "OutputContract.Height=1536"
+                ],
+                "technical:format": [
+                  "OutputContract.Format=png"
+                ],
+                "technical:alpharequired": [
+                  "OutputContract.AlphaRequired=true",
+                  "Positive: true transparency when supported or a single uniform segmentation matte when alpha is unavailable"
+                ],
+                "technical:backgroundpolicy": [
+                  "OutputContract.BackgroundPolicy=agent_required",
+                  "Positive: background remains explicitly processable and pale edges are protected",
+                  "Negative: painted checkerboard, transparency grid, floor and cast shadow"
+                ],
+                "technical:capability:0": [
+                  "OutputContract.CapabilityRequirements contains transparent_asset"
+                ],
+                "technical:capability:1": [
+                  "OutputContract.CapabilityRequirements contains transparent_character_portrait"
+                ]
+              }
+            },
+            "danbooru_tags_v2": {
+              "Format": "danbooru_tags_v2",
+              "Status": "ready",
+              "CompatibleProviders": [
+                "novelai"
+              ],
+              "PositiveTags": [
+                {
+                  "Tag": "1girl",
+                  "Weight": 1.2
+                },
+                {
+                  "Tag": "solo",
+                  "Weight": 1.2
+                },
+                {
+                  "Tag": "young adult",
+                  "Weight": 1.0
+                },
+                {
+                  "Tag": "full body",
+                  "Weight": 1.35
+                },
+                {
+                  "Tag": "standing",
+                  "Weight": 1.1
+                },
+                {
+                  "Tag": "silver hair",
+                  "Weight": 1.35
+                },
+                {
+                  "Tag": "very long hair",
+                  "Weight": 1.25
+                },
+                {
+                  "Tag": "hair down",
+                  "Weight": 1.15
+                },
+                {
+                  "Tag": "blindfold",
+                  "Weight": 1.4
+                },
+                {
+                  "Tag": "white blindfold",
+                  "Weight": 1.4
+                },
+                {
+                  "Tag": "opaque blindfold",
+                  "Weight": 1.35
+                },
+                {
+                  "Tag": "shawl",
+                  "Weight": 1.25
+                },
+                {
+                  "Tag": "grey shawl",
+                  "Weight": 1.2
+                },
+                {
+                  "Tag": "white dress",
+                  "Weight": 1.15
+                },
+                {
+                  "Tag": "bare legs",
+                  "Weight": 1.15
+                },
+                {
+                  "Tag": "barefoot",
+                  "Weight": 1.25
+                },
+                {
+                  "Tag": "closed mouth",
+                  "Weight": 1.25
+                },
+                {
+                  "Tag": "expressionless",
+                  "Weight": 1.15
+                },
+                {
+                  "Tag": "looking away",
+                  "Weight": 1.15
+                },
+                {
+                  "Tag": "stiff posture",
+                  "Weight": 1.2
+                },
+                {
+                  "Tag": "arms behind back",
+                  "Weight": 1.2
+                },
+                {
+                  "Tag": "reserved",
+                  "Weight": 1.05
+                },
+                {
+                  "Tag": "distant expression",
+                  "Weight": 1.1
+                },
+                {
+                  "Tag": "game character portrait",
+                  "Weight": 1.1
+                },
+                {
+                  "Tag": "clean lineart",
+                  "Weight": 1.05
+                },
+                {
+                  "Tag": "cel shading",
+                  "Weight": 1.05
+                },
+                {
+                  "Tag": "transparent background",
+                  "Weight": 1.3
+                }
+              ],
+              "NegativeTags": [
+                {
+                  "Tag": "no blindfold",
+                  "Weight": 1.5
+                },
+                {
+                  "Tag": "visible eyes",
+                  "Weight": 1.5
+                },
+                {
+                  "Tag": "red eyes",
+                  "Weight": 1.45
+                },
+                {
+                  "Tag": "glowing eyes",
+                  "Weight": 1.45
+                },
+                {
+                  "Tag": "red glow",
+                  "Weight": 1.4
+                },
+                {
+                  "Tag": "black blindfold",
+                  "Weight": 1.35
+                },
+                {
+                  "Tag": "metal blindfold",
+                  "Weight": 1.3
+                },
+                {
+                  "Tag": "short hair",
+                  "Weight": 1.3
+                },
+                {
+                  "Tag": "ponytail",
+                  "Weight": 1.25
+                },
+                {
+                  "Tag": "bare shoulders",
+                  "Weight": 1.25
+                },
+                {
+                  "Tag": "shoes",
+                  "Weight": 1.3
+                },
+                {
+                  "Tag": "socks",
+                  "Weight": 1.2
+                },
+                {
+                  "Tag": "armor",
+                  "Weight": 1.25
+                },
+                {
+                  "Tag": "smile",
+                  "Weight": 1.25
+                },
+                {
+                  "Tag": "blush",
+                  "Weight": 1.2
+                },
+                {
+                  "Tag": "open mouth",
+                  "Weight": 1.2
+                },
+                {
+                  "Tag": "angry",
+                  "Weight": 1.25
+                },
+                {
+                  "Tag": "crying",
+                  "Weight": 1.2
+                },
+                {
+                  "Tag": "scared",
+                  "Weight": 1.2
+                },
+                {
+                  "Tag": "action pose",
+                  "Weight": 1.25
+                },
+                {
+                  "Tag": "side view",
+                  "Weight": 1.15
+                },
+                {
+                  "Tag": "profile",
+                  "Weight": 1.15
+                },
+                {
+                  "Tag": "chibi",
+                  "Weight": 1.4
+                },
+                {
+                  "Tag": "child",
+                  "Weight": 1.4
+                },
+                {
+                  "Tag": "cropped",
+                  "Weight": 1.4
+                },
+                {
+                  "Tag": "out of frame",
+                  "Weight": 1.35
+                },
+                {
+                  "Tag": "small person",
+                  "Weight": 1.25
+                },
+                {
+                  "Tag": "scenery",
+                  "Weight": 1.25
+                },
+                {
+                  "Tag": "checkerboard background",
+                  "Weight": 1.4
+                },
+                {
+                  "Tag": "patterned background",
+                  "Weight": 1.25
+                },
+                {
+                  "Tag": "shadow",
+                  "Weight": 1.15
+                },
+                {
+                  "Tag": "text",
+                  "Weight": 1.35
+                },
+                {
+                  "Tag": "watermark",
+                  "Weight": 1.35
+                },
+                {
+                  "Tag": "multiple girls",
+                  "Weight": 1.35
+                }
+              ],
+              "ReferenceControls": {
+                "IdentityReferenceAssetID": "zero_dialogue_neutral",
+                "IdentityReferenceRole": "identity_and_pose_reference",
+                "ReferenceIsVisualSourceOfTruth": true,
+                "PreserveIdentity": true,
+                "PreserveCostume": true,
+                "PreserveBlindfoldExactly": true,
+                "PreserveHairSilhouette": true,
+                "PreserveScaleAndBaseline": true,
+                "AllowedChanges": [
+                  "torso_tension",
+                  "slight_away_angle",
+                  "closed_shoulders_and_elbows",
+                  "arms_behind_or_close_to_body",
+                  "guarded_mouth_line"
+                ],
+                "RequiredDifference": "cold_relationship_difference_readable_at_dialogue_size",
+                "OutputWidth": 1024,
+                "OutputHeight": 1536,
+                "OutputFormat": "png",
+                "AlphaRequired": true,
+                "BackgroundPolicy": "agent_required",
+                "FallbackMatte": "single_uniform_chroma_green_no_checkerboard",
+                "CapabilityRequirements": [
+                  "transparent_asset",
+                  "transparent_character_portrait"
+                ]
+              },
+              "ConstraintMapping": {
+                "brief:identity:0": [
+                  "PositiveTags: silver hair, very long hair, hair down",
+                  "ReferenceControls.PreserveHairSilhouette=true"
+                ],
+                "brief:identity:1": [
+                  "PositiveTags: blindfold, white blindfold, opaque blindfold",
+                  "NegativeTags: no blindfold, visible eyes, black blindfold, metal blindfold",
+                  "ReferenceControls.PreserveBlindfoldExactly=true"
+                ],
+                "brief:identity:2": [
+                  "PositiveTags: shawl, grey shawl",
+                  "ReferenceControls.PreserveCostume=true"
+                ],
+                "brief:identity:3": [
+                  "PositiveTags: white dress",
+                  "ReferenceControls.PreserveCostume=true"
+                ],
+                "brief:identity:4": [
+                  "PositiveTags: bare legs"
+                ],
+                "brief:identity:5": [
+                  "PositiveTags: barefoot",
+                  "NegativeTags: shoes, socks"
+                ],
+                "brief:identity:6": [
+                  "NegativeTags: visible eyes, red eyes, glowing eyes, red glow"
+                ],
+                "brief:requiredchanges:0": [
+                  "PositiveTags: looking away, stiff posture, arms behind back, closed mouth, expressionless, reserved, distant expression",
+                  "ReferenceControls.AllowedChanges limits the edit to cold performance signals",
+                  "ReferenceControls.RequiredDifference=cold_relationship_difference_readable_at_dialogue_size"
+                ],
+                "technical:width": [
+                  "ReferenceControls.OutputWidth=1024"
+                ],
+                "technical:height": [
+                  "ReferenceControls.OutputHeight=1536"
+                ],
+                "technical:format": [
+                  "ReferenceControls.OutputFormat=png"
+                ],
+                "technical:alpharequired": [
+                  "PositiveTags: transparent background",
+                  "ReferenceControls.AlphaRequired=true"
+                ],
+                "technical:backgroundpolicy": [
+                  "ReferenceControls.BackgroundPolicy=agent_required",
+                  "ReferenceControls.FallbackMatte=single_uniform_chroma_green_no_checkerboard",
+                  "NegativeTags: checkerboard background, patterned background, shadow"
+                ],
+                "technical:capability:0": [
+                  "ReferenceControls.CapabilityRequirements contains transparent_asset"
+                ],
+                "technical:capability:1": [
+                  "ReferenceControls.CapabilityRequirements contains transparent_character_portrait"
+                ]
+              }
+            }
+          },
+          "AuthorNotes": [
+            "The natural-language variant is written as a controlled edit because the formal portrait route now supplies the approved neutral portrait; it remains understandable without naming a provider.",
+            "The Danbooru variant was authored independently around identity tags, cold-performance tags and explicit reference controls rather than translated mechanically from the natural-language prose.",
+            "Background fallback requests a single uniform segmentation matte only when true alpha is unavailable; background processing remains a separate guarded production step."
+          ],
+          "CreatedAt": "2026-07-26T17:15:00+08:00",
+          "RevisionFingerprint": "ef551c66c0453749011853c3870a718c28bddb7cf439860ae78719d5cb6c494c"
         }
       ],
       "RequirementFingerprint": "ead24f7066170bcc5bed9778db18e5b2f0e154b39cb46a71fa11e638c8048fc2",
