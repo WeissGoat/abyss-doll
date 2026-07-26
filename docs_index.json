@@ -552,6 +552,23 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/plans/2026-07-26-agent-authored-art-prompt-revisions.md",
+      "title": "Agent 主导双格式美术 PromptRevision 实施计划",
+      "id": "plan_agent_authored_art_prompt_revisions",
+      "type": "plan",
+      "role": "美术",
+      "domain": "art_asset_production",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "2026-07-26",
+      "update_rule": "修改 PromptAuthoringContext、PromptRevision、双格式 Variant、执行器迁移、测试或完成口径时更新本文档。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "docs/superpowers/specs/2026-07-18-agent-routing-p0-hardening-design.md",
       "title": "Agent 路由 P0 治理加固设计",
       "id": "agent_routing_p0_hardening_design",
