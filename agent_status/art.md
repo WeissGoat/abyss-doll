@@ -53,6 +53,8 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 当前关注
 
+- `zero_cold_portrait_chain_20260726_01` 已完成首个人物差分链路复测，但没有产生可替换候选：`Run-CharacterPortraitSet.ps1` 的 Windows PowerShell 5.1 中文默认路径回归已通过真实 wrapper 测试修复；套组 dry-run 与 Gemini smoke 通过。Gemini 初始 2 张和定向修复 2 张均返回 `1376x768 RGB JPEG` 并烘焙棋盘格，其中仅首张的身份与 cold 手臂后收语义接近可用；OpenAI Images 单参考与双参考各 1 张虽返回 RGBA PNG，但均移除白布眼罩、暴露眼睛，触发身份硬失败。本轮未发布 `processed/3`、未覆盖既有 90 分 selected，`doll_zero_cold` 继续以 `processed/2 -> selected` 为权威状态；下一步需补 `SourceAssets -> 实际参考图` Resolver 和独立前景/背景处理能力后再跑。证据：`UnityClient/Logs/P3ArtProduction/zero_cold_portrait_chain_20260726_01/summary.json`。
+
 - `formalv2_standard_stylebatch_20260725_01` 已完成首个新风格通用批量全自动闭环：`bg_combat_abyss` 与 `ui_icon_warning` 各有 1 张本批可解码 raw、各有 1 次 HTTP 504，均发布为不可变 `processed/4`，经 Agent 93 / 96 分 guarded selection 后完成同 VisualID Approved 替换。`art_import_formalv2_standard_stylebatch_20260725_01` 的 live Unity importer、Registry 唯一项、路径和 GUID 全部通过，两项 Manifest 均保持 `Status=approved` 并写 `RegistryStatus=registered`；Approved SHA-256 为 `880e6125f860712edecec1a943e6a2a8de79d9b64117b799631b5ceab7745477` / `a76de6477380f27a1a32dfbffdea7b08599e7812733eb2c15e725a5abfb46e19`，原 `.meta`/GUID 保持不变。该结论不包含 UGUI 绑定或 `runtime_validated`。预检同时修复了 `Compile-ArtGenerationRequests.ps1` 在 Windows PowerShell 5.1 下的中文默认路径失败，并增加 wrapper dry-run 回归测试。
 - `formalv2_standard_stylepilot_20260724_03` 已完成一次真实标准背景修复批次：`bg_workshop_day` 使用 `openai_images / gpt-image-2` 串行生成 2 张 raw，发布到不可变 `processed/4`；`001.png` 以 95 分通过 Agent 评审并 guarded selection，当前公开状态为 `selected`。Approved、Unity、Registry 均未改变。
 - 本轮验证发现并修复 Request Catalog fingerprint 误把运行态字段纳入输入的问题：`Status`、候选批次 / raw 列表、替换批次和质量时间戳现在不会使持久化 Request stale；VisualIntent、Spec、StyleRef 等语义字段变化仍会触发 strict stale。正式 Catalog 已重新编译并通过 `313/313 ready` strict 校验。
@@ -61,7 +63,6 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 - 首个 `character_portrait_set` 正式接入试跑已到 `registered`：`doll_zero_dialogue_neutral` 已同步到 Approved，Unity importer 与尺寸符合合同，Registry 唯一条目、路径和 GUID 均匹配；本轮明确不含 Prefab / UGUI 绑定和运行时验收。
 - 正式 UI / 素材接入仍以 active `screen_layouts.json`、Manifest、程序交接清单和 ArtAcceptance 为准；静态预览、contact sheet 或生成物不能替代运行时证据。
 - T0-01A 的 CG / 漫画页和 FormalV2 工坊素材继续按锚点、一致性、Approved、Unity 接入和运行时验收顺序推进。
-- GIF 小循环人物替换继续使用 Gemini 图生图；真实 8 帧 Run 已生成并重编码，当前为 `review_required`，主要视觉风险是跨帧发型、服装细节、人物缩放与背景漂移。
 - GIF 一致性优化已接入逐帧 `ACTION_TEXT` 边车；真实 Illya 8 帧 GIF 已完成生成与重编码，白发校服身份比旧流程稳定，当前因第 4 帧可见跳变和自动 `temporal_flicker` 标记处于 `review_required`。
 
 ## 最近完成
@@ -69,7 +70,6 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 - `formalv2_ui_button_primary_skin_pilot_20260719_01` 已打通 UI Skin 专项批次：两张 512x160 transparent raw 候选发布到不可变 `processed/3`，两者 NineSlice 技术门禁均通过、ConnectedComponents=1，四向边带覆盖为 top/bottom 90.23%、left/right 86.25%。Agent 对原尺寸和 220x64 预览评审后选择 `001.png`，评分 92、领先 6 分；selected SHA-256 为 `005bbbaa7ef2139d5d637e18f82dffc9b64b51aa8f3efdbeb044b5035df82ed4`，Approved 保持 `83ce19e0bbf22c628dff748f095ff9b23286b5c37dae3462687c0e85399cf8bd`，Run 为 `selection_complete`。
 - 通用批量流已补齐可恢复执行与 guarded selection：`Run-ArtProductionBatch.ps1` 可消费缺图或 Formal V2 主动替换计划，按运行时 `AssetClass -> provider` 分组执行现有生成 / 预处理工具，并以本批可解码 raw 阻断旧报告误判；`Select-ArtCandidate.ps1` 只允许最新通过轮次、Agent 评分至少 88 的候选进入 selected，保留 Approved 主状态。
 - `formalv2_standard_pipeline_pilot_20260719_02` 已真实打通两类素材到 selected：`bg_combat_abyss processed/2/001.png` 以 93 分替换工作区旧 selected，`ui_icon_warning processed/2/001.png` 以 89 分首次建立 selected；两者各生成 2 张 raw，OpenAI Images `gpt-image-2` 请求 4/4 成功，Run 最终为 `selection_complete`，Approved / Unity / Registry 均未变化。
-- 首次执行 Run `formalv2_standard_pipeline_pilot_20260719_01` 暴露配置路径和退出码误判：错误配置导致两项 `Missing auth.api_key` 且 raw=0，旧编排器仍读取历史 process report。现已改为核对当前 BatchID、generation outputs 和图片可解码性，失败证据修正为 `raw_failed`；成功重跑使用与 backend smoke 相同的 `tools/ai-image-gateway/config.local.yaml`。
 - `formalv2_standard_batch_20260719_01` 已完成 4 项标准素材的 smoke、串行 raw 生成、`processed/2` 发布与 Agent 筛选：`bg_workshop_day` 以 92 分进入 selected，processed / selected SHA-256 均为 `7e5ce09cd60375c10d5489bf27deca4fa6e2bfe2a3dd555cfa91b0ad10cc8b6f`；`ui_button_primary`、`ui_panel_main`、`ui_list_row_normal` 因 `subject_outside_safe_canvas` 和碎片化风险保持技术失败，未覆盖原 selected 或 Approved。
 - `doll_zero_dialogue_neutral` 已完成 `selected -> approved -> unity_imported -> registered`：Approved / selected SHA-256 均为 `fd1d68528e685fd9075b294bb9b0ca903e4eddcddd2deab2db323def29180284`，Unity GUID 为 `7d7b3a5d2f28634469b19bb5aa52664b`，Manifest 保持 `Status=approved` 并写入 `RegistryStatus=registered`；Console error 与目标 warning 均为 0。
 - `_IncomingAI` 已迁移为 Profile 目录，现有 standard asset 工作区和历史目录均保留可追溯路径，Approved / Registry 文件哈希未改变。

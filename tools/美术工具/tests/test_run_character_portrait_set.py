@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 import json
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -24,6 +25,36 @@ from zero_portrait_master_batch import load_compiled_prompt  # noqa: E402
 
 
 class CharacterPortraitSetTests(unittest.TestCase):
+    def test_powershell_wrapper_dry_run_uses_python_utf8_defaults(self) -> None:
+        wrapper = TOOLS_DIR / "Run-CharacterPortraitSet.ps1"
+        completed = subprocess.run(
+            [
+                "powershell",
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                str(wrapper),
+                "-AssetSetID",
+                "zero_dialogue_portrait_v1",
+                "-VisualID",
+                "doll_zero_cold",
+                "-PromptFormat",
+                "natural_language_v1",
+                "-DryRun",
+            ],
+            cwd=TOOLS_DIR.parents[1],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=30,
+            check=False,
+        )
+
+        self.assertEqual(completed.returncode, 0, completed.stderr or completed.stdout)
+        self.assertIn('"VisualID": "doll_zero_cold"', completed.stdout)
+
     def setUp(self) -> None:
         self.manifest = {
             "Version": 1,
