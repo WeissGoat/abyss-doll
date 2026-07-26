@@ -18,9 +18,9 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：279
-- 已补元数据：276
-- 缺少元数据：3
+- 文档总数：281
+- 已补元数据：277
+- 缺少元数据：4
 - 事实来源文档：197
 - 关联边数：1515
 - 跨职能关联：308
@@ -332,6 +332,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Art Runtime Validated State Implementation Plan](docs/superpowers/plans/2026-07-19-art-runtime-validated-state.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
 | [Formal V2 Replacement And UI Skin Implementation Plan](docs/superpowers/plans/2026-07-19-formal-v2-replacement-and-ui-skin.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
 | [美术风格目录与多格式生成请求编译 Implementation Plan](docs/superpowers/plans/2026-07-24-art-style-and-multi-format-prompt-compilation.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
+| [Character Portrait Reference And Background Processing Implementation Plan](docs/superpowers/plans/2026-07-26-character-portrait-reference-and-background-processing.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
 
 ### 游戏导演
 
@@ -510,6 +511,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [零号对话中性立绘首轮流程试跑设计](docs/superpowers/specs/2026-07-18-zero-dialogue-neutral-character-portrait-pilot-design.md) | `design` | `active` | `character_portrait_production` | 0 | 完整 |
 | [美术素材 Runtime Validated 状态收敛设计](docs/superpowers/specs/2026-07-19-art-runtime-validated-state-design.md) | `design` | `active` | `runtime_art_validation` | 0 | 完整 |
 | [美术风格目录与多格式生成请求编译设计](docs/superpowers/specs/2026-07-23-art-style-and-multi-format-prompt-compilation-design.md) | `design` | `active` | `art_asset_production` | 0 | 完整 |
+| [角色立绘参考资产解析与背景处理能力设计](docs/superpowers/specs/2026-07-26-character-portrait-reference-and-background-processing-design.md) | `design` | `active` | `character_portrait_production` | 0 | 完整 |
 | [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 13 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 18 | 完整 |
@@ -605,3 +607,4 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [Art Runtime Validated State Implementation Plan](docs/superpowers/plans/2026-07-19-art-runtime-validated-state.md)：缺少 `id, title, type, role, domain, status`
 - [Formal V2 Replacement And UI Skin Implementation Plan](docs/superpowers/plans/2026-07-19-formal-v2-replacement-and-ui-skin.md)：缺少 `id, title, type, role, domain, status`
 - [美术风格目录与多格式生成请求编译 Implementation Plan](docs/superpowers/plans/2026-07-24-art-style-and-multi-format-prompt-compilation.md)：缺少 `id, title, type, role, domain, status`
+- [Character Portrait Reference And Background Processing Implementation Plan](docs/superpowers/plans/2026-07-26-character-portrait-reference-and-background-processing.md)：缺少 `id, title, type, role, domain, status`
