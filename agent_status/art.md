@@ -57,8 +57,8 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 - `formalv2_standard_stylebatch_20260725_01` 已完成首个新风格通用批量全自动闭环：`bg_combat_abyss` 与 `ui_icon_warning` 各有 1 张本批可解码 raw、各有 1 次 HTTP 504，均发布为不可变 `processed/4`，经 Agent 93 / 96 分 guarded selection 后完成同 VisualID Approved 替换。`art_import_formalv2_standard_stylebatch_20260725_01` 的 live Unity importer、Registry 唯一项、路径和 GUID 全部通过，两项 Manifest 均保持 `Status=approved` 并写 `RegistryStatus=registered`；Approved SHA-256 为 `880e6125f860712edecec1a943e6a2a8de79d9b64117b799631b5ceab7745477` / `a76de6477380f27a1a32dfbffdea7b08599e7812733eb2c15e725a5abfb46e19`，原 `.meta`/GUID 保持不变。该结论不包含 UGUI 绑定或 `runtime_validated`。预检同时修复了 `Compile-ArtGenerationRequests.ps1` 在 Windows PowerShell 5.1 下的中文默认路径失败，并增加 wrapper dry-run 回归测试。
 - `formalv2_standard_stylepilot_20260724_03` 已完成一次真实标准背景修复批次：`bg_workshop_day` 使用 `openai_images / gpt-image-2` 串行生成 2 张 raw，发布到不可变 `processed/4`；`001.png` 以 95 分通过 Agent 评审并 guarded selection，当前公开状态为 `selected`。Approved、Unity、Registry 均未改变。
-- Agent 主导双格式 PromptRevision 改造正在执行：Task 1-7 已完成编译、不可变 Revision、authoring/publish 工具、strict validator、底层消费、通用批量/角色立绘双路由，以及真实 Catalog v2 迁移。当前 313 个 Requirement 全部 `ready`，其中 `bg_combat_abyss`、`ui_icon_warning`、`doll_zero_cold` 已发布独立 Agent-authored `prompt-001`，其余 310 项保持 `prompt_authoring_required`；旧 v1 仅保留为 `LegacyPromptVariants`。迁移前后 VisualID/OutputPath/公开状态及 Approved/`.meta`/Registry 哈希一致，未生图或修改运行时资产；当前只剩事实文档、Skills 和全量验证收口。
-- 美术生产按 `standard_asset`、`character_portrait_set`、`_legacy_runs` 分 Profile 管理；Manifest v3 已为 313 个 Entry 持久化 `RequestID + RequestFingerprint`，Catalog 保存两种 Prompt Variant，标准批量 / 角色套组共用门禁；标准批量已完成真实 provider 试跑并保留完整 raw / processed / review 证据。
+- Agent 主导双格式 PromptRevision v2 已落地：编译器只产出 Requirement context，Agent 独立发布不可变 `natural_language_v2` / `danbooru_tags_v2`，provider adapter 只做确定性序列化；通用批量和角色立绘都消费 exact active Revision。当前 313 个 Requirement 全部 `ready`，其中 `bg_combat_abyss`、`ui_icon_warning`、`doll_zero_cold` 已发布独立 Agent-authored `prompt-001`，其余 310 项保持 `prompt_authoring_required`；旧 v1 仅保留为 `LegacyPromptVariants`。迁移前后 VisualID/OutputPath/公开状态及 Approved/`.meta`/Registry 哈希一致，本轮未生图或修改运行时资产。
+- 美术生产按 `standard_asset`、`character_portrait_set`、`_legacy_runs` 分 Profile 管理；Manifest 为 313 个 Entry 持久化 `RequestID + RequirementFingerprint + PromptAuthoringStatus + ActivePromptRevisionID`，Catalog 保存 Requirement 与不可变双格式 PromptRevision，标准批量 / 角色套组共用门禁；标准批量已完成真实 provider 试跑并保留完整 raw / processed / review 证据。
 - Formal V2 UI Skin 专项 route 已通过首个真实 Pilot：`ui_skin=deterministic_template` 会由批量执行器分流到确定性 NineSlice 适配器；`ui_button_primary` 已发布 `processed/3` 并完成 Agent guarded selection，公开状态停在 `selected`，Approved / Unity / Registry 未变化。
 - 首个 `character_portrait_set` 正式接入试跑已到 `registered`：`doll_zero_dialogue_neutral` 已同步到 Approved，Unity importer 与尺寸符合合同，Registry 唯一条目、路径和 GUID 均匹配；本轮明确不含 Prefab / UGUI 绑定和运行时验收。
 - 正式 UI / 素材接入仍以 active `screen_layouts.json`、Manifest、程序交接清单和 ArtAcceptance 为准；静态预览、contact sheet 或生成物不能替代运行时证据。
@@ -66,7 +66,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 - GIF 一致性优化已接入逐帧 `ACTION_TEXT` 边车；真实 Illya 8 帧 GIF 已完成生成与重编码，白发校服身份比旧流程稳定，当前因第 4 帧可见跳变和自动 `temporal_flicker` 标记处于 `review_required`。
 
 ## 最近完成
-- Request Catalog 迁移与角色差分事实补齐已完成：`Version=3`、313/313 `ready`、14 成员 dry-run 无依赖错误；保护字段 / Approved / Registry 哈希不变。加入 PowerShell wrapper UTF-8 默认路径回归后，美术工具全量测试为 `192 passed`，Request strict、语法和文档校验均通过。
+- PromptRevision Catalog v2 迁移已完成：313/313 Requirement `ready`，3 个 Pilot `prompt_ready`、310 个 `prompt_authoring_required`，共 3 个已发布 Revision。美术工具全量 `215 tests passed`，Catalog strict 与文档校验通过；标准批量按 `PromptRevisionID` 隔离生成组，角色套组 dry-run 解析 exact Revision 和参考关系。保护字段 / Approved / `.meta` / Registry 哈希保持不变。
 - `formalv2_ui_button_primary_skin_pilot_20260719_01` 已打通 UI Skin 专项批次：两张 512x160 transparent raw 候选发布到不可变 `processed/3`，两者 NineSlice 技术门禁均通过、ConnectedComponents=1，四向边带覆盖为 top/bottom 90.23%、left/right 86.25%。Agent 对原尺寸和 220x64 预览评审后选择 `001.png`，评分 92、领先 6 分；selected SHA-256 为 `005bbbaa7ef2139d5d637e18f82dffc9b64b51aa8f3efdbeb044b5035df82ed4`，Approved 保持 `83ce19e0bbf22c628dff748f095ff9b23286b5c37dae3462687c0e85399cf8bd`，Run 为 `selection_complete`。
 - 通用批量流已补齐可恢复执行与 guarded selection：`Run-ArtProductionBatch.ps1` 可消费缺图或 Formal V2 主动替换计划，按运行时 `AssetClass -> provider` 分组执行现有生成 / 预处理工具，并以本批可解码 raw 阻断旧报告误判；`Select-ArtCandidate.ps1` 只允许最新通过轮次、Agent 评分至少 88 的候选进入 selected，保留 Approved 主状态。
 - `formalv2_standard_pipeline_pilot_20260719_02` 已真实打通两类素材到 selected：`bg_combat_abyss processed/2/001.png` 以 93 分替换工作区旧 selected，`ui_icon_warning processed/2/001.png` 以 89 分首次建立 selected；两者各生成 2 张 raw，OpenAI Images `gpt-image-2` 请求 4/4 成功，Run 最终为 `selection_complete`，Approved / Unity / Registry 均未变化。
@@ -84,7 +84,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ## 下一步建议
 
 - 继续按 `background / icon / standard_asset` 分组扩大 Formal V2 通用批次；每批先 dry-run 和 provider smoke，完成 Agent 评审后用 guarded selection 收敛到 selected。UI Skin 继续使用独立专项 route，并以 `ui_button_primary processed/3` 作为首个九宫格修复验证。
-- 正式出图前对实际 provider 做配置检查和最小 smoke；批量只消费 `natural_language_v1` / `danbooru_tags_v1`，角色差分不得静默 fallback。
+- 正式出图前对实际 provider 做配置检查和最小 smoke；批量只消费已发布 `natural_language_v2` / `danbooru_tags_v2`，provider adapter 不得改写 Prompt，角色差分不得静默 fallback。
 - Formal V2 active 主动迭代桥接已落地 `Generate-FormalV2ReplacementPlan.ps1`：从 UI Skin 基准和 `V2-A active` 场景提取已有 VisualID，输出独立 `visual_v2_replace` 计划，不伪装成 `generate_needed`，provider / method 保持 `agent_selected`。
 - UI panel、button、list row 等 nine-slice 素材已增加硬门禁：边带覆盖不足或透明碎片过多分别记录为 `nine_slice_edge_coverage_low`、`nine_slice_many_components`；下一步只用 `ui_button_primary` 验证参考图 / 模板修复到新数字轮次。
 - 以本次 neutral 试跑为模板，逐个评估其余 13 个零号立绘成员的 Approved 授权与接入顺序；不得把 neutral 的授权扩大为整套自动准入。

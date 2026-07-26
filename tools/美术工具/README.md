@@ -235,7 +235,7 @@ NovelAI 限流时可拉长外层重试间隔：
 
 配置表扫不出的需求由 `美术文档/art_requirements_seed.json` 提供，进入 Manifest 后仍统一标记为 `SourceType=preset`。这类需求包括背景、通用 UI 皮肤、背包格子、战斗 HUD、结算面板和程序侧反馈缺口。
 
-注意：第一步只负责资产需求发现与台账更新，不自动填写 `PromptEN`、`NegativePromptEN` 和 `Spec`。这些字段在第二步由美术 Agent 逐项补全。
+注意：第一步只负责资产需求发现与台账更新，不自动创作最终 Prompt。正式流程由 `Compile-ArtGenerationRequests.ps1` 编译 Requirement，再由 Agent 发布 PromptRevision。
 
 ## Scan-ArtRequirementCandidates.ps1
 
@@ -272,41 +272,26 @@ NovelAI 限流时可拉长外层重试间隔：
 
 确认要纳管的候选，应该人工写入 `美术文档/art_requirements_seed.json`，或等待配置 JSON 增加正式 `VisualID` / `IconVisualID` 字段后再运行 `Update-ArtManifest.ps1`。不要直接从候选报告生成图片。
 
-## Generate-ArtPrompts.ps1
+## Prompt Requirement 与 Revision 工具
 
-根据 Manifest 中的 `Status=todo` 条目补全第二步字段：
-
-* `PromptCN`
-* `PromptEN`
-* `NegativePromptEN`
-* `Spec`
-
-同时将状态推进到 `prompted`，并生成：
-
-* `美术文档/_generated/AI绘图提示词清单.md`
-
-使用方式：
+正式 Prompt 流程分三步：
 
 ```powershell
-.\tools\美术工具\Generate-ArtPrompts.ps1
+.\tools\美术工具\Compile-ArtGenerationRequests.ps1 -Overwrite
+.\tools\美术工具\Export-ArtPromptAuthoringPackage.ps1 `
+  -VisualID bg_combat_abyss,ui_icon_warning `
+  -OutputPath UnityClient/Logs/P3ArtProduction/<RunID>/authoring-package.json
+.\tools\美术工具\Publish-ArtPromptRevision.ps1 `
+  -RevisionPath UnityClient/Logs/P3ArtProduction/<RunID>/prompt-revisions.json
 ```
 
-默认只处理 `todo` 项；需要重写已有提示词时使用：
+`Compile-ArtGenerationRequests.ps1` 只生成 `PromptAuthoringContext`、`TechnicalRequest`、`PreservationContract` 和 `RequirementFingerprint`。当状态为 `prompt_authoring_required` 时，Agent 根据 authoring package 独立创作 `natural_language_v2` 与 `danbooru_tags_v2`；ready Variant 必须完整填写 `ConstraintMapping`。发布成功后 Catalog 和 Manifest pointer 同步为 `prompt_ready + ActivePromptRevisionID`。
 
-```powershell
-.\tools\美术工具\Generate-ArtPrompts.ps1 -Overwrite
-```
-
-提示词规范：
-
-* `PromptEN` 必须使用英文，只写视觉语言。
-* `PromptCN` 用于人工审阅。
-* `Spec` 是结构化对象，供后续预处理脚本读取。
-* `PromptEN` 禁止项目名、作品名、玩法黑话、`Unity`、`UGUI` 等绘图工具无法理解的词。
+`Generate-ArtPrompts.ps1` 仅保留旧 Manifest 的 `PromptCN / PromptEN / NegativePromptEN` 兼容和迁移用途。它生成的 v1 Prompt 不得作为新正式批次输入；Catalog 中只作为 `LegacyPromptVariants` 证据保留。
 
 ## Run-ArtGeneration.ps1
 
-读取 Manifest 中 `Status=prompted` 的条目，按 `PromptEN`、`NegativePromptEN` 和结构化 `Spec` 调用 `tools/ai-image-gateway` 批量生成候选图。
+读取 Manifest 目标条目和 Request Catalog，解析 exact active PromptRevision，再调用 `tools/ai-image-gateway` 生成候选图。默认正式格式为 `natural_language_v2` 或 `danbooru_tags_v2`；缺少 active Revision、fingerprint / pointer 不匹配或目标 Variant 未 ready 时，在 provider 调用前失败。
 
 输出目录由 Manifest 的 `ProductionProfile` 解析：
 
@@ -332,7 +317,7 @@ character_portrait_set -> UnityClient/Assets/Art/_IncomingAI/character_portraits
 .\tools\美术工具\Run-ArtGeneration.ps1 -Provider mock -Limit 1 -Variants 2
 ```
 
-真实后端建议使用 `tools/ai-image-gateway/config.local.yaml`。脚本会把 `-Variants` 拆成多次 `count=1` 请求，并默认每张图间隔 1 秒。通用文生图默认选择 `openai_images`；需要 NovelAI 二次元 tag 和原生 negative prompt 时显式使用 `novelai`。
+真实后端建议使用 `tools/ai-image-gateway/config.local.yaml`。脚本会把 `-Variants` 拆成多次 `count=1` 请求，并默认每张图间隔 1 秒。`auto` 为 OpenAI/Gemini 选择 `natural_language_v2`，为 NovelAI 选择 `danbooru_tags_v2`。adapter 只能序列化已发布内容，不能追加质量词、重写自然语言或重复保持 / 改变要求。
 
 凭证优先级：先读 `NAI_ACCESS_TOKEN`；如果当前机器没有设置该环境变量，网关会尝试从 `F:\my_project\new\tags_machine\novelai\client.py` 的 `NAIClient.get_access_token()` 解析 token。不要把真实 token 写入命令、文档或提交记录；需要换路径时设置 `NAI_CLIENT_PY`。
 
@@ -344,6 +329,9 @@ Copy-Item .\tools\美术工具\ai_image_gateway.example.yaml .\tools\ai-image-ga
 常用参数：
 
 * `-DryRun`：只打印计划，不生成图片、不改 Manifest。
+* `-RequestCatalog`、`-RequestID`、`-PromptRevisionID`：选择持久化 Requirement 与不可变 Revision；正常情况下使用 Manifest active pointer。
+* `-PromptFormat`：`auto`、`natural_language_v2` 或 `danbooru_tags_v2`。
+* `-AllowLegacyPrompt`：仅用于非正式恢复；输出证据固定标记 `legacy_unverified`，批量与角色套组执行器不会传入。
 * `-Domain`、`-VisualID`、`-Priority`：过滤资产。
 * `-Limit`：限制本次处理数量。
 * `-Seed`：固定基础 seed，便于复现。
@@ -353,7 +341,7 @@ Copy-Item .\tools\美术工具\ai_image_gateway.example.yaml .\tools\ai-image-ga
 * `-PreserveStatus`：用于已接入素材的 Visual V2 候选生成；保留原 `Status`，只写入 `CandidateBatchID` 和 `CandidateRawFiles`。
 * `-SkipIntegrationCandidates`：只生成图片，不刷新可接入素材清单。默认不要使用。
 
-非 `-DryRun` 生成完成后，脚本会默认刷新 `美术文档/_generated/可接入素材清单.*`，并在 `美术文档/_generated/art_integration_snapshots/` 写入一份 `generation` 快照。刚生成的 raw 素材会在清单中标为 `art_process`，表示还需要预处理和筛选，不能交给程序接入。
+每个 `generation.json` 保存 `RequirementSnapshot`、`PromptRevisionID`、`PromptRevisionFingerprint`、`PromptRevisionSnapshot`、`PromptFormat` 和精确 `ProviderRequest`。非 `-DryRun` 生成完成后，脚本会默认刷新 `美术文档/_generated/可接入素材清单.*`，并在 `美术文档/_generated/art_integration_snapshots/` 写入一份 `generation` 快照。刚生成的 raw 素材会在清单中标为 `art_process`，表示还需要预处理和筛选，不能交给程序接入。
 
 ## Import-ArtCandidate.ps1
 
@@ -646,7 +634,7 @@ Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec、
 
 约束：
 
-* 只处理 `缺图生成计划` 中 `PromptReady=true` 的条目。
+* 只处理 `缺图生成计划` 中 `PromptReady=true` 的条目。这里是旧 local_v0 计划的可生成标记，不等于 Catalog v2 的 `PromptAuthoringStatus=prompt_ready`，也不能替代 active PromptRevision 门禁。
 * 生成物必须保留 `QualityTier=local_v0`，并进入 `visual_v2_replace` 队列。
 * 不允许把 local_v0 当最终美术验收通过，只能用于程序接入、布局验证和可读性预验收。
 * 正式替换仍走 Visual V2 流程，不能改变同名 `VisualID`、Approved 路径或 DisplaySpec。
@@ -712,7 +700,7 @@ Formal V2 计划保持 method-neutral；provider 只在本次运行参数中选�
   -DryRun
 ```
 
-确认后去掉 `-DryRun`。执行器按 `AssetClass + provider + Manifest status` 隔离分组；每张图仍是串行 `count=1`。只有本批 `generation.json` 中存在可解码 raw 时才允许进入预处理，不能用子进程退出码或旧 `process_report.json` 冒充成功。UI Skin 未提供明确运行时 route 时保持 `route_required:ui_skin`，不会混入通用文生图组。
+确认后去掉 `-DryRun`。执行器按 `AssetClass + provider + Manifest status + PromptRevisionID` 隔离分组，避免同一 VisualID 的不同 Revision 共享生成组；每张图仍是串行 `count=1`。只有本批 `generation.json` 中存在可解码 raw 时才允许进入预处理，不能用子进程退出码或旧 `process_report.json` 冒充成功。UI Skin 未提供明确运行时 route 时保持 `route_required:ui_skin`，不会混入通用文生图组。
 
 NineSlice UI Skin 首个专项 capability 为 `deterministic_template`。它从 Manifest 合同读取源尺寸、透明、safe padding、AssetType 和 Border，生成两个无文字候选；能力名只出现在 Run 参数与 `generation.json`，不写入 Manifest、VisualID 或目录契约：
 
@@ -756,7 +744,7 @@ Run evidence 写入 `UnityClient/Logs/P3ArtProduction/<ProductionRunID>/`。处�
 
 ## Run-FormalV2PromptReadyGeneration.ps1
 
-Reads `formal_v2_prompt_readiness.json` and runs the prompt-ready `program_integrate` assets through `Run-ArtGeneration.ps1` in domain batches. This is a convenience executor for Formal V2 full-quality reruns after prompts have passed the readiness gate.
+Reads the legacy `formal_v2_prompt_readiness.json` selection report and runs its `program_integrate` assets through `Run-ArtGeneration.ps1` in domain batches. This is a compatibility convenience entry, not the Catalog v2 authoring gate: every selected asset must still resolve a current active PromptRevision, or generation fails before the provider call.
 
 Important rules:
 
@@ -764,6 +752,7 @@ Important rules:
 * Keep `-DelaySeconds 1` or higher; NovelAI should not be run in parallel.
 * Use `-DryRun` first to verify the selected VisualIDs and generated commands.
 * Use `-RequireToken` for real runs so missing `NAI_ACCESS_TOKEN` fails before any batch starts.
+* A readiness-report `prompt_ready` value only controls this legacy selection list; the executable prompt always comes from the exact active Catalog v2 Revision.
 * It uses `-Status approved -PreserveStatus`, so outputs are candidates for same-path replacement and still need preprocessing, review, and strict meta guarded `Sync-ApprovedArt.ps1` before Approved PNGs are replaced.
 
 Examples:

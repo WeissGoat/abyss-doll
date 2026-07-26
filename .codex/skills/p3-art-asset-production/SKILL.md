@@ -43,13 +43,14 @@ Full automation never authorizes inventing missing requirements, resolving contr
 2. Audit existing facts and state; reject duplicate work and stale evidence.
 3. Admit the requirement and lock the VisualID, operation, output path, method-neutral Asset Contract, quality tier, and claim ceiling.
 4. Resolve the profile workspace and create a bounded, run-scoped production plan from the currently available tools and evidence.
-5. Delegate image creation, editing, imported-source handling, or deterministic processing to the appropriate current capability without hard-coding a method in the requirement.
-6. Preprocess candidates and apply deterministic technical gates.
-7. Inspect and score valid candidates; select, adjust, retry with another current capability, request a decision, or block.
-8. Pass the Approved gate before copying or replacing any formal asset.
-9. Refresh Unity, validate import state, rebuild or inspect the appropriate Registry path, and check Console delta.
-10. Run focused runtime art validation; use full regression only for broad changes or release evidence.
-11. Refresh generated handoffs and write all affected art/program status and evidence entries.
+5. Compile the deterministic Requirement. When prompt authoring is required, export the authoring package and let the Agent publish an immutable dual-format PromptRevision before any provider call.
+6. Delegate image creation, editing, imported-source handling, or deterministic processing to the appropriate current capability without hard-coding a method in the requirement.
+7. Preprocess candidates and apply deterministic technical gates.
+8. Inspect and score valid candidates; select, adjust, retry with another current capability, request a decision, or block.
+9. Pass the Approved gate before copying or replacing any formal asset.
+10. Refresh Unity, validate import state, rebuild or inspect the appropriate Registry path, and check Console delta.
+11. Run focused runtime art validation; use full regression only for broad changes or release evidence.
+12. Refresh generated handoffs and write all affected art/program status and evidence entries.
 
 ## Persisted generation requests
 
@@ -63,9 +64,9 @@ python tools/美术工具/validate_art_generation_requests.py `
   --strict
 ```
 
-Each Manifest entry points to `CompiledRequest.RequestID` and `RequestFingerprint`; the catalog stores `CanonicalVisualBrief`, `TechnicalRequest`, `PreservationContract`, and persistent prompt variants. The two stable formats are `natural_language_v1` for OpenAI/GPT image editing and Gemini, and `danbooru_tags_v1` for NovelAI. `auto` chooses the first ready variant compatible with the selected provider; an explicitly requested unavailable format is a gate failure.
+Each Manifest entry points to `CompiledRequest.RequestID`, `RequirementFingerprint`, `PromptAuthoringStatus`, and `ActivePromptRevisionID`. The compiler stores `PromptAuthoringContext`, `TechnicalRequest`, and `PreservationContract`; it never writes an executable final Prompt. If authoring is required, use `Export-ArtPromptAuthoringPackage.ps1`, let the Agent independently author `natural_language_v2` and `danbooru_tags_v2`, then publish with `Publish-ArtPromptRevision.ps1`. A ready Variant must map every hard constraint; an honestly unavailable format is `unsupported` with a reason.
 
-`Run-ArtProductionBatch.ps1`, `Run-CharacterPortraitSet.ps1`, and `Run-ArtGeneration.ps1` must consume the catalog and write `RequestSnapshot`, `PromptFormat`, and `ProviderRequest` to evidence. They must fail closed on missing, stale, fingerprint-mismatched, or semantically incomplete requests. Lifecycle and processing evidence (`Status`, candidate batch/raw lists, replacement batch, quality timestamps, prompt compatibility fields, paths, and Registry state) is excluded from the Manifest fingerprint, so normal state transitions and new numeric rounds do not stale an unchanged request; semantic contract changes still do. Do not ask the Agent to recompile a prompt inside a batch loop, and do not use legacy `PromptEN`/`NegativePromptEN` as a fallback when a catalog was supplied. A legacy prompt is permitted only through an explicit legacy flag and is recorded as `legacy_unverified`.
+`Run-ArtProductionBatch.ps1`, `Run-CharacterPortraitSet.ps1`, and `Run-ArtGeneration.ps1` consume the exact active Revision and write `RequirementSnapshot`, `PromptRevisionID`, `PromptRevisionFingerprint`, `PromptRevisionSnapshot`, `PromptFormat`, and `ProviderRequest` to evidence. They fail closed on missing/stale Requirements, pointer mismatch, `prompt_authoring_required`, invalid Revision, unavailable Variant, or incomplete constraint mapping. Lifecycle and processing evidence is excluded from the Requirement fingerprint, so normal state transitions and numeric rounds do not stale an unchanged requirement; semantic contract changes do. Provider adapters may serialize only: they must not append quality phrases, rewrite natural language, duplicate Prompt text, or rebuild preservation/change instructions. Legacy v1 is non-formal recovery only through the explicit legacy flag and is recorded as `legacy_unverified`.
 
 The standard batch route rejects `character_portrait_set`; portrait members are planned and ordered by `AssetSetID`, `SetRole`, and explicit `SourceAssets` in the independent portrait-set executor. The profile remains method-neutral: the Agent chooses the current image capability after reading the compiled brief and records that choice in run evidence.
 

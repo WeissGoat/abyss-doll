@@ -53,12 +53,12 @@ description: Use for image generation or image editing capabilities, including t
 
 1. 先确认任务是探索候选、正式 Manifest 资产，还是对已有图做调整。
 2. 确认输出规格、参考图、允许变化、禁止变化和是否需要透明背景。
-3. 正式 Manifest 任务先读取上游提供的 `RequestID`、`RequestFingerprint`、`PromptFormat` 和 `RequestSnapshot`；不要在本 Skill 内重新编译 `VisualIntent`。
+3. 正式 Manifest 任务先读取上游提供的 `RequestID`、`RequirementFingerprint`、`PromptRevisionID`、`PromptRevisionFingerprint`、`PromptFormat`、`RequirementSnapshot` 和 `PromptRevisionSnapshot`；不要在本 Skill 内重新编译 `VisualIntent` 或创作替代 Prompt。
 4. 按“后端可达性门禁”完成配置检查和目标后端 smoke；未取得成功图片证据时停止批量生成。
 5. 批量数量 `N` 一律拆成 N 次请求，每次 `count=1`，串行执行并保留间隔。
-6. 根据持久化 Variant 选择 provider 适配：OpenAI/GPT image edit 和 Gemini 消费 `natural_language_v1`；NovelAI 消费 `danbooru_tags_v1`。结构化 tags 只在 adapter 序列化，不能把 provider 专用权重语法写回 Request Catalog。
+6. 根据已发布 Variant 选择 provider 适配：OpenAI/GPT image edit 和 Gemini 消费 `natural_language_v2`；NovelAI 消费 `danbooru_tags_v2`。adapter 只能确定性序列化，不能追加质量词、改写自然语言、重复 Prompt 或重新拼接保持 / 改变要求；结构化 tag 权重也不能写回 Catalog。
 7. 探索任务只写任务指定目录；正式 P3 资产只写上游 `p3-art-asset-production` 通过 `ProductionProfile + VisualID` Resolver 提供的 `raw/` 工作区。不得在 `_IncomingAI` 根创建 loose `raw`，也不得直接声明 selected、Approved、registered 或 validated。
-8. 返回 raw 图片、provider/model/PromptFormat/RequestSnapshot/ProviderRequest/seed/尺寸、参考图或 mask、错误与时间证据，然后把控制权交还上游工作流。
+8. 返回 raw 图片、provider/model/PromptFormat/RequirementSnapshot/PromptRevisionSnapshot/ProviderRequest/seed/尺寸、参考图或 mask、错误与时间证据，然后把控制权交还上游工作流。
 
 ## 常用入口
 

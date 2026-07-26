@@ -108,7 +108,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 4. 策划 C1-C3 配置源和当前程序支持已收口；当前继续 C4 局外成长及后续配置，只按真实缺口补齐、校准或修复。
 5. 程序继续围绕正常 UI 可达、真实领域服务、状态真实变化和 Smoke / P0 证据处理缺口，不重复派发已通过的基础链路。
 6. 美术生产已统一为数字处理轮次；Zero 的 `doll_zero_dialogue_neutral` 已完成 Approved、Unity 导入和 Registry 登记，其余 13 个静态立绘成员保持 selected，尚未获得 Approved 授权或运行时绑定。
-7. 美术 Manifest 编译层已完成 v3 迁移：313 个 Entry 的持久化 Request Catalog strict 校验通过；`formalv2_standard_stylebatch_20260725_01` 已把 `bg_combat_abyss` 与 `ui_icon_warning` 的新风格批量流真实推进到 Approved 同 VisualID 替换和 `registered`，GUID 保持不变，运行时绑定不在本批范围。
+7. 美术 Request Catalog 已完成 v2 PromptRevision 迁移：313 个 Requirement strict 通过，3 个 Pilot 为 `prompt_ready`、其余 310 个保持 `prompt_authoring_required`；`formalv2_standard_stylebatch_20260725_01` 已把 `bg_combat_abyss` 与 `ui_icon_warning` 的旧批量流真实推进到 Approved 同 VisualID 替换和 `registered`，本轮 PromptRevision 迁移本身未生图、未改 Approved / GUID / Registry。
 
 ## 跨职能交接
 
@@ -116,7 +116,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 剧情、策划、程序和美术分别维护专业事实；Owner 自验不替代专业 Role 外部验收。
 - UI / 美术与程序统一使用纯 UGUI；程序只消费 active `screen_layouts.json`、Manifest 和正式交接入口。
 - 配置事实来源是 `配置表(JSON)`；运行时验证前同步配置，不手写维护 StreamingAssets 副本。
-- 美术执行交接统一使用 `RequestID + RequestFingerprint + PromptFormat`；`p3-art-asset-production` 负责编译、准入和 Approved/Unity 交接，`generate-image` 只消费已编译 Variant 并记录 ProviderRequest。
+- 美术执行交接统一使用 `RequestID + RequirementFingerprint + PromptRevisionID + PromptFormat`；`p3-art-asset-production` 负责编译 Requirement、Agent authoring/发布、准入和 Approved/Unity 交接，`generate-image` 只消费已发布 Variant、确定性序列化并记录 ProviderRequest。
 - 长任务、恢复继续和跨会话拆分统一使用 P3 Mission；文档调整先遵守 `rules/01`。
 
 ## 问题 / 阻塞

@@ -42,15 +42,15 @@
 
 ## 持久化 Prompt Variant 消费
 
-正式 P3 任务的输入优先级固定为：`Request Catalog -> selected Prompt Variant -> provider adapter`。`natural_language_v1` 和 `danbooru_tags_v1` 是可审计的编译结果；Agent 不得根据同一份 `VisualIntent` 在调用 provider 前临时改写另一份 prompt。
+正式 P3 任务的输入优先级固定为：`Request Catalog Requirement -> active PromptRevision -> selected ready Variant -> provider adapter`。`natural_language_v2` 和 `danbooru_tags_v2` 是 Agent 独立创作并发布的不可变结果；本 Skill 不得根据同一份 `VisualIntent`、Requirement 或另一格式 Variant 临时改写新 Prompt。
 
 | provider | Catalog variant | adapter 行为 |
 |---|---|---|
-| `openai_images` / GPT image edit | `natural_language_v1` | 发送自然语言正负约束，并附带 `TechnicalRequest` 中的尺寸、参考图和 edit intent。 |
-| `gemini_chat_image` | `natural_language_v1` | 将 `PreservationContract` 拆成必须保持、允许改变和禁止改变。 |
-| `novelai` | `danbooru_tags_v1` | 将结构化 `PositiveTags` / `NegativeTags` 转成后端需要的字符串；权重只在 adapter 层表达。 |
+| `openai_images` / GPT image edit | `natural_language_v2` | 原样发送已发布自然语言正负 Prompt，并序列化尺寸、参考图等结构化参数。 |
+| `gemini_chat_image` | `natural_language_v2` | 原样发送已发布自然语言 Prompt；不得再次追加或重写 PreservationContract。 |
+| `novelai` | `danbooru_tags_v2` | 按原顺序把结构化 `PositiveTags` / `NegativeTags` 与 weight 序列化为后端字符串。 |
 
-每次调用都要把 `RequestID`、`RequestFingerprint`、`PromptFormat`、选中的 Variant fingerprint 和最终 `ProviderRequest` 写入 generation evidence。请求缺失、过期、fingerprint 不匹配或 Variant 语义覆盖不足时，在 provider 调用前失败。
+每次调用都要把 `RequestID`、`RequirementFingerprint`、`PromptRevisionID`、`PromptRevisionFingerprint`、`PromptFormat`、Requirement/Revision 快照和最终 `ProviderRequest` 写入 generation evidence。请求缺失、过期、pointer/fingerprint 不匹配、authoring 未完成、Revision 无效或 Variant 硬约束映射不足时，在 provider 调用前失败。
 
 ## 后端可达性测试
 

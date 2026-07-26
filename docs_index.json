@@ -2724,7 +2724,7 @@
         "tools/美术工具/README.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-07-24",
+      "last_verified": "2026-07-26",
       "update_rule": "修改美术资产生产阶段、职能边界、正式状态、交付门禁或 Skill 路由时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2748,7 +2748,7 @@
         "美术文档/04_美术风格基准.md",
         "tools/美术工具/README.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-07-26",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2829,7 +2829,7 @@
         "美术文档/人设/04_零号AI后端出图提示词对比.md",
         "tools/美术工具/README.md"
       ],
-      "last_verified": "2026-07-14",
+      "last_verified": "2026-07-26",
       "update_rule": "修改美术流水线、角色视觉方向、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],

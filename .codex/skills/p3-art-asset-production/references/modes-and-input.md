@@ -54,7 +54,7 @@ execution:
 
 Do not add a required `generation_mode`, provider, or closed `allowed_methods` field to the normalized request. State the desired result, inputs, constraints, permissions, limits, and claim ceiling. Choose current tools later in the run-scoped production plan.
 
-`execution.request_catalog_path` and `request_id` are pointers to persisted compiled work. They do not change the method-neutral requirement. `prompt_format=auto` selects a ready catalog variant at execution time; `natural_language_v1` and `danbooru_tags_v1` are explicit format requests and must fail if unavailable or semantically incomplete.
+`execution.request_catalog_path`, `request_id`, and optional `prompt_revision_id` point to persisted Requirement and PromptRevision work. They do not change the method-neutral requirement. `prompt_format=auto` selects a ready active Revision Variant at execution time; `natural_language_v2` and `danbooru_tags_v2` are explicit format requests and must fail if unavailable, stale, invalid, or missing hard-constraint mappings.
 
 For character portrait members, use `AssetSetID`, `AssetID`, `SetRole`, `SourceAssets`, and optional derivation relationships only when facts support them. A non-runtime identity master or turnaround belongs to the design layer as an `AssetID` with an anchor role and no `VisualID`. A difference that Unity consumes belongs to the production layer and requires a `VisualID` before formal production.
 

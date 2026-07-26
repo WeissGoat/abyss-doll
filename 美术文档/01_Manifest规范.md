@@ -13,7 +13,7 @@ related:
   - 美术文档/00_美术流水线总览.md
   - 美术文档/04_美术风格基准.md
   - tools/美术工具/README.md
-last_verified: 2026-07-18
+last_verified: 2026-07-26
 update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
 ---
 
@@ -154,16 +154,16 @@ Manifest 是美术生产台账，不是玩法配置表，也不是 Unity 运行�
 | `Usage` | `背包网格可用格子` | 具体用途，便于程序和美术对齐。 |
 | `ProgramReference` | `VisualAssetRegistry` | 可选，记录程序侧反馈来源或引用点。 |
 
-### Step 2 填充
+### Step 2 需求与 Prompt authoring
 
 | 字段 | 说明 |
 |---|---|
-| `PromptCN` | 中文审阅描述，供人类查看，不直接给绘图工具。 |
-| `PromptEN` | 正式 AI 绘图提示词，必须使用英文视觉语言。 |
-| `NegativePromptEN` | 英文负面提示词。 |
-| `Spec` | 结构化输出规格对象，供后续预处理脚本读取。 |
+| `StyleRef` | 引用标准化风格合同，不从 VisualID 或旧 Prompt 猜测。 |
+| `VisualIntent` | 单项资产最终视觉需求，只描述需要的结果。 |
+| `Spec` | 结构化输出、显示、构图与处理规格对象。 |
+| `CompiledRequest` | 指向已编译 Requirement 及当前 active PromptRevision。 |
 
-Step 2 完成后，将 `Status` 改为 `prompted`。
+`PromptCN`、`PromptEN`、`NegativePromptEN` 和 `Status=prompted` 只保留给旧 Manifest / local_v0 兼容流程。正式 v2 流程由 Requirement 的 `PromptAuthoringStatus` 表示是否还需 Agent authoring，不把旧 Prompt 字段当作执行来源。
 
 ### Step 3-5 填充
 
@@ -206,8 +206,8 @@ Asset Contract 字段归属：
 
 | 步骤 | 必填 | 不应填写 |
 |---|---|---|
-| Step 1：扫描 | 来源、配置事实、资产类型、VisualID、目标路径、状态 | `PromptCN`、`PromptEN`、`NegativePromptEN`、`Spec` |
-| Step 2：提示词 | `PromptCN`、`PromptEN`、`NegativePromptEN`、`Spec` | 玩法数值、Unity 对象引用、项目名、玩法黑话、引擎词 |
+| Step 1：扫描 | 来源、配置事实、资产类型、VisualID、目标路径、状态 | 最终 Prompt、未经事实支持的风格或生成方式 |
+| Step 2：需求与 authoring | `StyleRef`、`VisualIntent`、`Spec`、`CompiledRequest`；需要出图时发布 PromptRevision | 玩法数值、Unity 对象引用、项目名、玩法黑话、引擎词；把旧 Prompt 字段当正式执行源 |
 | Step 3：生成 | `BatchID`、`RawPath`；Visual V2 用 `CandidateBatchID`、`CandidateRawFiles` | `ApprovedPath` |
 | Step 4：预处理 | `Notes` 可记录处理结果 | 人工筛选结论 |
 | Step 5：筛选接入 | `SelectedPath`、`ApprovedPath`、`RegistryStatus`；Visual V2 用 `QualityTier`、`ReplacementBatchID`、`QualityUpdatedAt` | 改写配置事实、改写 `VisualID`、改写 DisplaySpec |
@@ -240,7 +240,7 @@ Manifest 顶层可以包含以下生成快照：
 |---|---|
 | `StyleRef` | `Profile`、可选 `Family`、可选 `Role` 和允许的 `ContextAccent`。不得从 VisualID 推断。 |
 | `VisualIntent` | 资产最终视觉需求，包括 Subject、Appearance、Mood、Composition、RequiredElements 和 ForbiddenElements。 |
-| `CompiledRequest` | `RequestID`、`RequestFingerprint` 和 `CompileStatus`，指向持久化生成请求。 |
+| `CompiledRequest` | `RequestID`、`RequirementFingerprint`、`RequirementStatus`、`PromptAuthoringStatus` 和 `ActivePromptRevisionID`，指向持久化需求与当前 PromptRevision。 |
 
 ### 7.3 编译请求
 
@@ -250,16 +250,18 @@ Manifest 顶层可以包含以下生成快照：
 美术文档/_generated/art_generation_requests.json
 ```
 
-请求包括 `CanonicalVisualBrief`、`PromptVariants`、`TechnicalRequest` 和 `PreservationContract`。默认生成两种格式：
+Request Catalog v2 把需求与 Prompt 分开：
 
-- `natural_language_v1`：OpenAI/GPT image edit 和 Gemini image/chat image。
-- `danbooru_tags_v1`：NovelAI；保存结构化 tag 和 weight，不写死 provider 专属权重语法。
+- Requirement 层：`PromptAuthoringContext`、`TechnicalRequest`、`PreservationContract` 和 `RequirementFingerprint`，由编译器确定性生成。
+- Prompt 层：Agent-authored、不可变的 `PromptRevisions`；active Revision 由 `ActivePromptRevisionID` 指向。
+- `natural_language_v2`：OpenAI/GPT image edit 和 Gemini image/chat image 使用的自然语言正负 Prompt。
+- `danbooru_tags_v2`：NovelAI 使用的结构化正负 tag 与 weight。
 
-`PromptCN`、`PromptEN` 和 `NegativePromptEN` 在兼容期继续存在，其中英文字段由 `natural_language_v1` 派生。新批量脚本必须消费 Request Catalog，不得根据旧 Prompt 或 VisualID 重新猜测。
+每个 ready Variant 必须包含全部硬约束的 `ConstraintMapping`；`unsupported` Variant 必须写明原因。`PromptCN`、`PromptEN`、`NegativePromptEN` 和 v1 Variant 只作为兼容迁移证据，统一保存在 `LegacyPromptVariants` 或旧 Manifest 字段中，不是正式执行来源。新批量脚本必须消费 active PromptRevision，不得根据旧 Prompt、VisualID 或同一份 VisualIntent 重新猜测。
 
 ### 7.4 编译门禁
 
-当 Catalog、StyleRef、VisualIntent、Spec、AssetSet 身份合同或编译器版本变化时，旧 Request 标记为 `stale`。`Status`、候选批次 / raw 列表、替换批次、质量时间戳以及 `Prompt*`、路径、Registry 等运行态证据不参与 Manifest fingerprint；这些字段在 `selected -> approved -> registered -> runtime_validated` 或新处理轮次中变化时，不要求重新编译。缺少 Request、fingerprint 不匹配、目标 Prompt Variant 不存在或 `SemanticCoverage` 不完整时，生成必须在 provider 调用前失败。
+当 Catalog、StyleRef、VisualIntent、Spec、AssetSet 身份合同或编译器版本变化时，`RequirementFingerprint` 变化，旧 PromptRevision 因绑定旧 fingerprint 自动 stale。`Status`、候选批次 / raw 列表、替换批次、质量时间戳、路径和 Registry 等运行态证据不参与 Manifest fingerprint；这些字段在 `selected -> approved -> registered -> runtime_validated` 或新处理轮次中变化时，不要求重新编译。缺少 Requirement、fingerprint / active pointer 不匹配、`prompt_authoring_required`、Revision 无效、目标 Variant 未 ready 或硬约束映射不完整时，生成必须在 provider 调用前失败。
 
 处理候选位于当前 Profile 工作区的 `processed/<正整数>/`。Manifest `SelectedPath` 可明确指向 `selected/` 或某个数字轮次中的候选；自动解析优先级为 `SelectedPath -> selected/ -> 最新数字轮次中唯一且通过的候选`。最新轮次失败、待决策、未验证或多候选时禁止回退旧轮次。
 
