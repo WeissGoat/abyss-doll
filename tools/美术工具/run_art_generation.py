@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import copy
+import hashlib
 import io
 import json
 import re
@@ -30,7 +31,7 @@ GATEWAY_ROOT = PROJECT_ROOT / "tools" / "ai-image-gateway"
 if str(GATEWAY_ROOT) not in sys.path:
     sys.path.insert(0, str(GATEWAY_ROOT))
 
-from ai_image_gateway import GenerateRequest, ImageFormat, ImageService  # noqa: E402
+from ai_image_gateway import GenerateRequest, ImageFormat, ImageService, ImageToImageRequest  # noqa: E402
 
 
 DEFAULT_MANIFEST = "美术文档/_generated/art_manifest.json"
@@ -267,6 +268,79 @@ def image_size(data: bytes) -> tuple[int | None, int | None]:
         return None, None
 
 
+def resolve_reference_images(
+    values: list[str],
+    *,
+    expected_hashes: list[str] | None = None,
+    roles: list[str] | None = None,
+) -> tuple[list[dict[str, Any]], list[bytes]]:
+    expected_hashes = expected_hashes or []
+    roles = roles or []
+    if expected_hashes and len(expected_hashes) != len(values):
+        raise ValueError("reference_image_hash_count_mismatch")
+    if roles and len(roles) != len(values):
+        raise ValueError("reference_image_role_count_mismatch")
+
+    evidence: list[dict[str, Any]] = []
+    image_bytes: list[bytes] = []
+    for index, value in enumerate(values):
+        path = resolve_project_path(value)
+        if path is None or not path.is_file():
+            raise ValueError(f"reference_image_missing:{value}")
+        data = path.read_bytes()
+        actual_hash = hashlib.sha256(data).hexdigest()
+        expected_hash = expected_hashes[index].strip().lower() if expected_hashes else ""
+        if expected_hash and actual_hash != expected_hash:
+            raise ValueError(f"reference_image_hash_mismatch:{repo_path(path)}")
+        try:
+            with Image.open(io.BytesIO(data)) as image:
+                image.load()
+                width, height = image.size
+                mode = image.mode
+        except (OSError, ValueError) as exc:
+            raise ValueError(f"reference_image_invalid:{repo_path(path)}") from exc
+        evidence.append(
+            {
+                "Path": repo_path(path),
+                "Role": roles[index] if roles else f"reference_{index + 1}",
+                "SHA256": actual_hash,
+                "Width": width,
+                "Height": height,
+                "Mode": mode,
+            }
+        )
+        image_bytes.append(data)
+    return evidence, image_bytes
+
+
+def make_image_to_image_request(
+    request: GenerateRequest,
+    reference_images: list[bytes],
+) -> ImageToImageRequest:
+    return ImageToImageRequest(
+        images=reference_images,
+        prompt=request.prompt,
+        negative_prompt=request.negative_prompt,
+        width=request.width,
+        height=request.height,
+        count=request.count,
+        seed=request.seed,
+        provider=request.provider,
+        output_format=request.output_format,
+        extra=request.extra,
+    )
+
+
+async def submit_generation_request(
+    service: Any,
+    request: GenerateRequest,
+    reference_images: list[bytes],
+) -> Any:
+    if reference_images:
+        return await service.image_to_image(make_image_to_image_request(request, reference_images))
+    return await service.generate(request)
+
+
 def append_note(entry: dict[str, Any], message: str) -> None:
     existing = str(entry.get("Notes", "") or "").strip()
     entry["Notes"] = f"{existing}\n{message}".strip() if existing else message
@@ -337,6 +411,7 @@ def build_generation_record(
     prompt_revision: dict[str, Any] | None = None,
     prompt_format: str = "",
     provider_request: dict[str, Any] | None = None,
+    reference_images: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     return {
         "VisualID": entry["VisualID"],
@@ -355,6 +430,7 @@ def build_generation_record(
         "RequirementSnapshot": copy.deepcopy(requirement_request) if requirement_request else {},
         "PromptRevisionSnapshot": copy.deepcopy(prompt_revision) if prompt_revision else {},
         "ProviderRequest": provider_request or {},
+        "ReferenceImages": copy.deepcopy(reference_images) if reference_images else [],
         "Spec": entry.get("Spec", {}),
         "Requested": {
             "Width": requested_width,
@@ -417,6 +493,11 @@ async def run_generation(args: argparse.Namespace) -> int:
         selected = ready_entries
     batch_id = args.batch_id or f"ai_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{args.provider or 'default'}"
     extra = parse_extra(args.extra)
+    reference_evidence, reference_image_bytes = resolve_reference_images(
+        args.reference_image,
+        expected_hashes=args.reference_image_sha256,
+        roles=args.reference_image_role,
+    )
 
     print(
         f"[PLAN] status={args.status} entries={len(entries)} selected={len(selected)} "
@@ -424,6 +505,11 @@ async def run_generation(args: argparse.Namespace) -> int:
     )
     for item in skipped:
         print(f"[SKIP] {item}")
+    for reference in reference_evidence:
+        print(
+            f"[REFERENCE] role={reference['Role']} path={reference['Path']} "
+            f"sha256={reference['SHA256']} size={reference['Width']}x{reference['Height']} mode={reference['Mode']}"
+        )
     for entry in selected:
         spec = source_spec(entry["Spec"])
         print(
@@ -493,6 +579,7 @@ async def run_generation(args: argparse.Namespace) -> int:
                     prompt_format=prompt_format,
                 )
                 provider_request_snapshot = {
+                    "Capability": "image_to_image" if reference_image_bytes else "generate",
                     "Prompt": request.prompt,
                     "NegativePrompt": request.negative_prompt,
                     "Width": request.width,
@@ -502,10 +589,11 @@ async def run_generation(args: argparse.Namespace) -> int:
                     "Provider": request.provider,
                     "OutputFormat": request.output_format.value,
                     "Extra": request.extra,
+                    "ReferenceImages": copy.deepcopy(reference_evidence),
                 }
                 requested_width = request.width
                 requested_height = request.height
-                batch = await service.generate(request)
+                batch = await submit_generation_request(service, request, reference_image_bytes)
                 request_ids.append(batch.request_id)
                 current_request += 1
                 print(
@@ -554,6 +642,7 @@ async def run_generation(args: argparse.Namespace) -> int:
                 prompt_revision=prompt_revision,
                 prompt_format=prompt_format,
                 provider_request=provider_request_snapshot,
+                reference_images=reference_evidence,
             )
             write_json(workspace["base"] / "generation.json", record)
 
@@ -605,6 +694,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--delay-seconds", type=float, default=1.0)
     parser.add_argument("--batch-id", default="")
     parser.add_argument("--extra", action="append", default=[])
+    parser.add_argument("--reference-image", action="append", default=[])
+    parser.add_argument("--reference-image-sha256", action="append", default=[])
+    parser.add_argument("--reference-image-role", action="append", default=[])
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--overwrite", action="store_true")
     parser.add_argument("--preserve-status", action="store_true")

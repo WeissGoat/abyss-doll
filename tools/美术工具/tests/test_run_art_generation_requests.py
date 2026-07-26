@@ -2,10 +2,15 @@
 
 from __future__ import annotations
 
+import asyncio
 import copy
+import hashlib
 import sys
+import tempfile
 import unittest
 from pathlib import Path
+
+from PIL import Image
 
 
 TOOLS_DIR = Path(__file__).resolve().parents[1]
@@ -15,9 +20,13 @@ if str(TOOLS_DIR) not in sys.path:
 from art_prompt_revision import publish_prompt_revision  # noqa: E402
 from compile_art_generation_requests import compile_manifest_requests  # noqa: E402
 from run_art_generation import (  # noqa: E402
+    GenerateRequest,
+    ImageFormat,
     build_generation_record,
+    resolve_reference_images,
     select_generation_request,
     serialize_provider_prompt,
+    submit_generation_request,
 )
 
 
@@ -163,6 +172,16 @@ class RunArtGenerationRequestTests(unittest.TestCase):
             prompt_revision=revision,
             prompt_format=prompt_format,
             provider_request={"Prompt": positive, "NegativePrompt": negative},
+            reference_images=[
+                {
+                    "Path": "UnityClient/Assets/Art/Approved/Dolls/reference.png",
+                    "Role": "identity_reference",
+                    "SHA256": "abc123",
+                    "Width": 1024,
+                    "Height": 1536,
+                    "Mode": "RGBA",
+                }
+            ],
         )
 
         self.assertEqual(record["RequirementFingerprint"], request["RequirementFingerprint"])
@@ -171,6 +190,89 @@ class RunArtGenerationRequestTests(unittest.TestCase):
         self.assertEqual(record["RequirementSnapshot"], request)
         self.assertEqual(record["PromptRevisionSnapshot"], revision)
         self.assertEqual(record["ProviderRequest"]["Prompt"], variant["Positive"])
+        self.assertEqual(record["ReferenceImages"][0]["Role"], "identity_reference")
+
+    def test_reference_images_select_image_to_image_without_rewriting_prompt(self) -> None:
+        class FakeService:
+            def __init__(self) -> None:
+                self.generate_requests = []
+                self.image_to_image_requests = []
+
+            async def generate(self, request):
+                self.generate_requests.append(request)
+                return "generated"
+
+            async def image_to_image(self, request):
+                self.image_to_image_requests.append(request)
+                return "edited"
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            reference_path = Path(temp_dir) / "reference.png"
+            Image.new("RGBA", (32, 48), (10, 20, 30, 255)).save(reference_path)
+            expected_hash = hashlib.sha256(reference_path.read_bytes()).hexdigest()
+            records, image_bytes = resolve_reference_images(
+                [str(reference_path)],
+                expected_hashes=[expected_hash],
+                roles=["identity_reference"],
+            )
+
+        request = GenerateRequest(
+            prompt="Exact published natural-language prompt.",
+            negative_prompt="Exact published negative prompt.",
+            width=1024,
+            height=1536,
+            count=1,
+            provider="gemini_chat_image",
+            output_format=ImageFormat.PNG,
+        )
+        service = FakeService()
+        result = asyncio.run(submit_generation_request(service, request, image_bytes))
+
+        self.assertEqual(result, "edited")
+        self.assertEqual(service.generate_requests, [])
+        self.assertEqual(len(service.image_to_image_requests), 1)
+        image_request = service.image_to_image_requests[0]
+        self.assertEqual(image_request.prompt, request.prompt)
+        self.assertEqual(image_request.negative_prompt, request.negative_prompt)
+        self.assertEqual(image_request.images, image_bytes)
+        self.assertEqual(records[0]["SHA256"], expected_hash)
+        self.assertEqual(records[0]["Role"], "identity_reference")
+
+    def test_no_reference_images_keep_generate_route(self) -> None:
+        class FakeService:
+            def __init__(self) -> None:
+                self.generate_requests = []
+                self.image_to_image_requests = []
+
+            async def generate(self, request):
+                self.generate_requests.append(request)
+                return "generated"
+
+            async def image_to_image(self, request):
+                self.image_to_image_requests.append(request)
+                return "edited"
+
+        request = GenerateRequest(prompt="Exact prompt.", count=1)
+        service = FakeService()
+        result = asyncio.run(submit_generation_request(service, request, []))
+
+        self.assertEqual(result, "generated")
+        self.assertEqual(service.generate_requests, [request])
+        self.assertEqual(service.image_to_image_requests, [])
+
+    def test_changed_reference_hash_fails_before_provider_call(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            reference_path = Path(temp_dir) / "reference.png"
+            Image.new("RGBA", (16, 16), (1, 2, 3, 255)).save(reference_path)
+            expected_hash = hashlib.sha256(reference_path.read_bytes()).hexdigest()
+            Image.new("RGBA", (16, 16), (4, 5, 6, 255)).save(reference_path)
+
+            with self.assertRaisesRegex(ValueError, "reference_image_hash_mismatch"):
+                resolve_reference_images(
+                    [str(reference_path)],
+                    expected_hashes=[expected_hash],
+                    roles=["identity_reference"],
+                )
 
 
 if __name__ == "__main__":

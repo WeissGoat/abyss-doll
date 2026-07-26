@@ -23,6 +23,7 @@ from run_character_portrait_set import (  # noqa: E402
     build_portrait_set_plan,
     load_asset_set,
     order_portrait_members,
+    reference_cli_arguments,
 )
 
 
@@ -221,6 +222,30 @@ class CharacterPortraitSetTests(unittest.TestCase):
 
         self.assertEqual(plan["State"], "ready")
         self.assertEqual(plan["Items"][0]["ResolvedReferenceAssets"], [])
+
+    def test_resolved_references_are_serialized_for_the_child_generator(self) -> None:
+        plan = build_portrait_set_plan(
+            self.compiled_manifest,
+            self.catalog,
+            "zero_dialogue_portrait_v1",
+            visual_ids={"doll_zero_dialogue_confused"},
+            project_root=self.project_root,
+        )
+        reference = plan["Items"][0]["ResolvedReferenceAssets"][0]
+
+        arguments = reference_cli_arguments(plan["Items"][0]["ResolvedReferenceAssets"])
+
+        self.assertEqual(
+            arguments,
+            [
+                "--reference-image",
+                reference["Path"],
+                "--reference-image-sha256",
+                reference["SHA256"],
+                "--reference-image-role",
+                "identity_reference",
+            ],
+        )
 
     def test_missing_active_revision_is_rejected(self) -> None:
         catalog = copy.deepcopy(self.catalog)

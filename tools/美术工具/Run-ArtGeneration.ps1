@@ -20,6 +20,9 @@ param(
     [double]$DelaySeconds = 1.0,
     [string]$BatchID = "",
     [string[]]$Extra = @(),
+    [string[]]$ReferenceImage = @(),
+    [string[]]$ReferenceImageSHA256 = @(),
+    [string[]]$ReferenceImageRole = @(),
     [switch]$DryRun,
     [switch]$Overwrite,
     [switch]$PreserveStatus,
@@ -108,6 +111,18 @@ if ($BatchID -ne "") {
 
 foreach ($item in $Extra) {
     $argsList += @("--extra", $item)
+}
+
+foreach ($item in $ReferenceImage) {
+    $argsList += @("--reference-image", $item)
+}
+
+foreach ($item in $ReferenceImageSHA256) {
+    $argsList += @("--reference-image-sha256", $item)
+}
+
+foreach ($item in $ReferenceImageRole) {
+    $argsList += @("--reference-image-role", $item)
 }
 
 if ($DryRun) {

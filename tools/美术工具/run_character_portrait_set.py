@@ -197,6 +197,27 @@ def build_portrait_set_plan(
     }
 
 
+def reference_cli_arguments(references: list[dict[str, Any]]) -> list[str]:
+    arguments: list[str] = []
+    for reference in references:
+        path = str(reference.get("Path", "") or "")
+        sha256 = str(reference.get("SHA256", "") or "")
+        role = str(reference.get("Role", "") or "")
+        if not path or not sha256:
+            raise ValueError("resolved_reference_evidence_incomplete")
+        arguments.extend(
+            [
+                "--reference-image",
+                path,
+                "--reference-image-sha256",
+                sha256,
+                "--reference-image-role",
+                role,
+            ]
+        )
+    return arguments
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Plan or execute a bounded P3 character portrait set.")
     parser.add_argument("--asset-set-id", required=True)
@@ -266,6 +287,7 @@ def main() -> int:
         ]
         if args.config:
             command.extend(["--config", args.config])
+        command.extend(reference_cli_arguments(item.get("ResolvedReferenceAssets", [])))
         if item["Status"] in {"approved", "registered", "runtime_validated"}:
             command.append("--preserve-status")
         completed = subprocess.run(command, cwd=PROJECT_ROOT)
