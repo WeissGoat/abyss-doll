@@ -15,6 +15,8 @@ from art_style_catalog import (
 
 NATURAL_LANGUAGE_FORMAT = "natural_language_v1"
 DANBOORU_TAGS_FORMAT = "danbooru_tags_v1"
+NATURAL_LANGUAGE_FORMAT_V2 = "natural_language_v2"
+DANBOORU_TAGS_FORMAT_V2 = "danbooru_tags_v2"
 
 
 TAG_MAP: dict[str, list[tuple[str, float]]] = {
@@ -149,6 +151,86 @@ def build_canonical_visual_brief(
     return brief
 
 
+def _context_items(values: Any, section: str, *, source: str) -> list[dict[str, Any]]:
+    return [
+        {
+            "ID": f"brief:{section.lower()}:{index}",
+            "Text": text,
+            "Source": source,
+        }
+        for index, text in enumerate(_dedupe(_list(values)))
+    ]
+
+
+def build_prompt_authoring_context(
+    entry: dict[str, Any],
+    catalog: dict[str, Any],
+    asset_sets: dict[str, Any],
+) -> dict[str, Any]:
+    """Build the deterministic context an Agent uses to author prompts.
+
+    This function intentionally produces no executable Positive/Negative prompt
+    and no generated Danbooru tags. It only resolves facts, constraints and
+    evidence references.
+    """
+
+    brief = build_canonical_visual_brief(entry, catalog, asset_sets)
+    evidence = entry.get("PromptEvidence") if isinstance(entry.get("PromptEvidence"), dict) else {}
+    return {
+        "HardConstraints": {
+            "Identity": _context_items(
+                brief.get("Preserve"),
+                "identity",
+                source="VisualIntent.Preserve+AssetSet.IdentityLocks",
+            ),
+            "RequiredChanges": _context_items(
+                brief.get("RequiredChanges"),
+                "requiredchanges",
+                source="VisualIntent.RequiredChanges",
+            ),
+            "ForbiddenChanges": _context_items(
+                brief.get("Forbidden"),
+                "forbidden",
+                source="VisualIntent.ForbiddenElements",
+            ),
+            "Required": _context_items(
+                brief.get("Required"),
+                "required",
+                source="VisualIntent.RequiredElements",
+            ),
+            "Technical": [],
+        },
+        "Guidance": {
+            "Style": _context_items(brief.get("Style"), "style", source="StyleRef"),
+            "StyleNegative": _context_items(
+                brief.get("StyleNegative"),
+                "stylenegative",
+                source="StyleRef.Negative",
+            ),
+            "Subject": _context_items(brief.get("Subject"), "subject", source="VisualIntent.Subject"),
+            "Appearance": _context_items(
+                brief.get("Appearance"),
+                "appearance",
+                source="VisualIntent.Appearance",
+            ),
+            "Mood": _context_items(brief.get("Mood"), "mood", source="VisualIntent.Mood"),
+            "Composition": _context_items(
+                brief.get("Composition"),
+                "composition",
+                source="VisualIntent.Composition",
+            ),
+        },
+        "Evidence": {
+            "IdentityDocuments": copy.deepcopy(brief.get("IdentitySources", [])),
+            "ReferenceAssets": copy.deepcopy(brief.get("SourceAssets", [])),
+            "PreviousSuccessfulPrompts": copy.deepcopy(evidence.get("PreviousSuccessfulPrompts", [])),
+            "PreviousFailures": copy.deepcopy(evidence.get("PreviousFailures", [])),
+        },
+        "ResolvedLayers": copy.deepcopy(brief.get("ResolvedLayers", [])),
+        "SetRole": brief.get("SetRole", ""),
+    }
+
+
 def _coverage(units: list[dict[str, Any]], unsupported: list[str]) -> dict[str, Any]:
     required = [unit for unit in units if unit.get("Required")]
     missing = _dedupe(unsupported)
@@ -266,6 +348,73 @@ def _technical_request(entry: dict[str, Any], brief: dict[str, Any]) -> dict[str
         "CapabilityRequirements": _dedupe(capabilities),
         "ReferenceAssets": copy.deepcopy(entry.get("SourceAssets", [])),
     }
+
+
+def _technical_context_items(technical: dict[str, Any]) -> list[dict[str, Any]]:
+    items: list[dict[str, Any]] = []
+    for key in ("Width", "Height", "Format", "AlphaRequired", "BackgroundPolicy"):
+        value = technical.get(key)
+        if value not in (None, ""):
+            items.append({"ID": f"technical:{key.lower()}", "Text": f"{key}={value}", "Source": "Spec"})
+    for index, capability in enumerate(_list(technical.get("CapabilityRequirements"))):
+        items.append(
+            {
+                "ID": f"technical:capability:{index}",
+                "Text": capability,
+                "Source": "Spec.CapabilityRequirements",
+            }
+        )
+    return items
+
+
+def requirement_request_body(request: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "CompilerVersion": request.get("CompilerVersion"),
+        "CatalogFingerprint": request.get("CatalogFingerprint", ""),
+        "VisualID": request.get("VisualID", ""),
+        "ProductionProfile": request.get("ProductionProfile", "standard_asset"),
+        "PromptAuthoringContext": copy.deepcopy(request.get("PromptAuthoringContext", {})),
+        "TechnicalRequest": copy.deepcopy(request.get("TechnicalRequest", {})),
+        "PreservationContract": copy.deepcopy(request.get("PreservationContract", {})),
+    }
+
+
+def compile_requirement_request(
+    entry: dict[str, Any],
+    catalog: dict[str, Any],
+    asset_sets: dict[str, Any],
+    *,
+    compiler_version: int = 2,
+) -> dict[str, Any]:
+    context = build_prompt_authoring_context(entry, catalog, asset_sets)
+    technical = _technical_request(entry, context)
+    context["HardConstraints"]["Technical"] = _technical_context_items(technical)
+    hard = context["HardConstraints"]
+    preservation = {
+        "Preserve": copy.deepcopy(hard.get("Identity", [])),
+        "RequiredChanges": copy.deepcopy(hard.get("RequiredChanges", [])),
+        "ForbiddenChanges": copy.deepcopy(hard.get("ForbiddenChanges", [])),
+        "Required": copy.deepcopy(hard.get("Required", [])),
+        "IdentitySources": copy.deepcopy(context.get("Evidence", {}).get("IdentityDocuments", [])),
+    }
+    visual_id = str(entry.get("VisualID", ""))
+    request: dict[str, Any] = {
+        "CompilerVersion": compiler_version,
+        "CatalogFingerprint": catalog.get("CatalogFingerprint", ""),
+        "VisualID": visual_id,
+        "ProductionProfile": entry.get("ProductionProfile", "standard_asset"),
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "PromptAuthoringContext": context,
+        "TechnicalRequest": technical,
+        "PreservationContract": preservation,
+        "ActivePromptRevisionID": "",
+        "PromptRevisions": [],
+    }
+    requirement_fingerprint = sha256_json(requirement_request_body(request))
+    request["RequirementFingerprint"] = requirement_fingerprint
+    request["RequestID"] = f"{visual_id}@{requirement_fingerprint[:12]}"
+    return request
 
 
 def compile_generation_request(

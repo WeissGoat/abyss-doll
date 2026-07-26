@@ -10,10 +10,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from art_prompt_compiler import (
-    NATURAL_LANGUAGE_FORMAT,
-    compile_generation_request,
-)
+from art_prompt_compiler import compile_requirement_request
 from art_style_catalog import build_catalog_snapshot, sha256_json
 from generate_art_prompts import visual_intent_for
 
@@ -21,7 +18,7 @@ from generate_art_prompts import visual_intent_for
 DEFAULT_MANIFEST = "美术文档/_generated/art_manifest.json"
 DEFAULT_OUTPUT = "美术文档/_generated/art_generation_requests.json"
 DEFAULT_REPORT = "美术文档/_generated/art_generation_request_migration.json"
-COMPILER_VERSION = 1
+COMPILER_VERSION = 2
 
 STYLE_REF_OVERRIDES: dict[str, dict[str, Any]] = {
     "ui_button_primary": {
@@ -155,6 +152,58 @@ def _prompt_cn(entry: dict[str, Any], intent: dict[str, Any]) -> str:
     return "".join(str(value).strip() for value in values if str(value).strip())
 
 
+def _requests_by_visual(catalog: dict[str, Any] | None) -> dict[str, dict[str, Any]]:
+    if not isinstance(catalog, dict):
+        return {}
+    return {
+        str(request.get("VisualID", "")): request
+        for request in catalog.get("Requests", [])
+        if isinstance(request, dict) and str(request.get("VisualID", ""))
+    }
+
+
+def _legacy_prompt_variants(entry: dict[str, Any], previous: dict[str, Any] | None) -> dict[str, Any]:
+    legacy = copy.deepcopy(previous.get("LegacyPromptVariants", {})) if isinstance(previous, dict) else {}
+    prompt = str(entry.get("PromptEN", "") or "").strip()
+    negative = str(entry.get("NegativePromptEN", "") or "").strip()
+    if prompt and "natural_language_v1" not in legacy:
+        legacy["natural_language_v1"] = {
+            "Format": "natural_language_v1",
+            "Status": "legacy_compiled",
+            "Positive": prompt,
+            "Negative": negative,
+        }
+    if isinstance(previous, dict):
+        old_variants = previous.get("PromptVariants", {})
+        if isinstance(old_variants, dict):
+            for format_id, variant in old_variants.items():
+                if not isinstance(variant, dict) or format_id in legacy:
+                    continue
+                migrated = copy.deepcopy(variant)
+                migrated["Status"] = "legacy_compiled"
+                migrated.pop("CompileStatus", None)
+                legacy[format_id] = migrated
+    return legacy
+
+
+def carry_forward_prompt_revisions(
+    request: dict[str, Any],
+    previous: dict[str, Any] | None,
+) -> dict[str, Any]:
+    result = copy.deepcopy(request)
+    if not isinstance(previous, dict):
+        return result
+    if previous.get("RequirementFingerprint") != result.get("RequirementFingerprint"):
+        return result
+    revisions = copy.deepcopy(previous.get("PromptRevisions", []))
+    active = str(previous.get("ActivePromptRevisionID", "") or "")
+    result["PromptRevisions"] = revisions
+    result["ActivePromptRevisionID"] = active
+    if revisions and active:
+        result["PromptAuthoringStatus"] = "prompt_ready"
+    return result
+
+
 def compile_manifest_requests(
     manifest: dict[str, Any],
     *,
@@ -163,6 +212,7 @@ def compile_manifest_requests(
     visual_ids: set[str] | None = None,
     refresh_style_catalog: bool = False,
     refresh_visual_intent_ids: set[str] | None = None,
+    previous_catalog: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     working = copy.deepcopy(manifest)
     working["Version"] = max(3, int(working.get("Version", 1) or 1))
@@ -174,6 +224,7 @@ def compile_manifest_requests(
     working["AssetSets"] = asset_sets
     selected = visual_ids or set()
     requests: list[dict[str, Any]] = []
+    previous_by_visual = _requests_by_visual(previous_catalog)
     report = {
         "CompilerVersion": compiler_version,
         "Ready": 0,
@@ -181,6 +232,8 @@ def compile_manifest_requests(
         "Unsupported": 0,
         "Invalid": 0,
         "UnchangedPublished": 0,
+        "PromptAuthoringRequired": 0,
+        "PromptReady": 0,
         "Items": [],
     }
 
@@ -203,33 +256,40 @@ def compile_manifest_requests(
                 if not entry["VisualIntent"].get(field) and derived_intent.get(field):
                     entry["VisualIntent"][field] = copy.deepcopy(derived_intent[field])
         try:
-            request = compile_generation_request(entry, catalog, asset_sets, compiler_version=compiler_version)
+            request = compile_requirement_request(entry, catalog, asset_sets, compiler_version=compiler_version)
+            previous_request = previous_by_visual.get(visual_id)
+            request = carry_forward_prompt_revisions(request, previous_request)
+            legacy = _legacy_prompt_variants(entry, previous_request)
+            if legacy:
+                request["LegacyPromptVariants"] = legacy
         except ValueError as exc:
             code = str(exc).split(":", 1)[0]
             request = {
                 "RequestID": f"{visual_id}@invalid",
                 "VisualID": visual_id,
                 "ProductionProfile": entry.get("ProductionProfile", "standard_asset"),
-                "InputFingerprint": "",
-                "RequestFingerprint": "",
-                "CompileStatus": "style_resolution_required" if code.startswith("style_") else "invalid",
+                "RequirementFingerprint": "",
+                "RequirementStatus": "style_resolution_required" if code.startswith("style_") else "invalid",
+                "PromptAuthoringStatus": "prompt_invalid",
+                "ActivePromptRevisionID": "",
+                "PromptRevisions": [],
                 "Error": str(exc),
             }
         entry["CompiledRequest"] = {
             "RequestID": request["RequestID"],
-            "RequestFingerprint": request.get("RequestFingerprint", ""),
-            "CompileStatus": request["CompileStatus"],
+            "RequirementFingerprint": request.get("RequirementFingerprint", ""),
+            "RequirementStatus": request["RequirementStatus"],
+            "PromptAuthoringStatus": request.get("PromptAuthoringStatus", "prompt_invalid"),
+            "ActivePromptRevisionID": request.get("ActivePromptRevisionID", ""),
         }
-        if request["CompileStatus"] == "ready":
-            natural = request["PromptVariants"][NATURAL_LANGUAGE_FORMAT]
-            entry["PromptCN"] = _prompt_cn(entry, entry["VisualIntent"])
-            entry["PromptEN"] = natural["Positive"]
-            entry["NegativePromptEN"] = natural["Negative"]
+        if request["RequirementStatus"] == "ready":
             report["Ready"] += 1
-        elif request["CompileStatus"] == "style_resolution_required":
+            if request.get("PromptAuthoringStatus") == "prompt_ready":
+                report["PromptReady"] += 1
+            elif request.get("PromptAuthoringStatus") == "prompt_authoring_required":
+                report["PromptAuthoringRequired"] += 1
+        elif request["RequirementStatus"] == "style_resolution_required":
             report["StyleResolutionRequired"] += 1
-        elif request["CompileStatus"] == "unsupported":
-            report["Unsupported"] += 1
         else:
             report["Invalid"] += 1
         if str(entry.get("Status", "")) in {"approved", "registered", "validated"}:
@@ -238,7 +298,8 @@ def compile_manifest_requests(
             {
                 "VisualID": visual_id,
                 "RequestID": request["RequestID"],
-                "CompileStatus": request["CompileStatus"],
+                "RequirementStatus": request["RequirementStatus"],
+                "PromptAuthoringStatus": request.get("PromptAuthoringStatus", "prompt_invalid"),
                 "Error": request.get("Error", ""),
             }
         )
@@ -246,7 +307,7 @@ def compile_manifest_requests(
 
     manifest_fingerprint = sha256_json(_input_manifest(working))
     request_catalog = {
-        "Version": 1,
+        "Version": 2,
         "GeneratedAt": datetime.now().astimezone().isoformat(timespec="seconds"),
         "CompilerVersion": compiler_version,
         "ManifestFingerprint": manifest_fingerprint,
@@ -254,7 +315,15 @@ def compile_manifest_requests(
         "Requests": requests,
         "Summary": {
             key: report[key]
-            for key in ("Ready", "StyleResolutionRequired", "Unsupported", "Invalid", "UnchangedPublished")
+            for key in (
+                "Ready",
+                "StyleResolutionRequired",
+                "Unsupported",
+                "Invalid",
+                "UnchangedPublished",
+                "PromptAuthoringRequired",
+                "PromptReady",
+            )
         },
     }
     return {"Manifest": working, "Catalog": request_catalog, "Report": report}
@@ -289,6 +358,7 @@ def main() -> int:
     output_path = (root / args.output_path).resolve()
     report_path = (root / args.report_path).resolve()
     manifest = read_json(manifest_path)
+    previous_catalog = read_json(output_path) if output_path.exists() else None
     visual_ids = {part.strip() for value in args.visual_id for part in value.split(",") if part.strip()}
     refresh_visual_intent_ids = {
         part.strip()
@@ -302,6 +372,7 @@ def main() -> int:
         visual_ids=visual_ids,
         refresh_style_catalog=args.refresh_style_catalog,
         refresh_visual_intent_ids=refresh_visual_intent_ids,
+        previous_catalog=previous_catalog,
     )
     if args.dry_run:
         print(json.dumps(result["Report"], ensure_ascii=False, indent=2))

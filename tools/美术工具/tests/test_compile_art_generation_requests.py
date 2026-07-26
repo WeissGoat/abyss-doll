@@ -142,6 +142,12 @@ class CompileArtGenerationRequestsTests(unittest.TestCase):
         self.assertEqual(compiled["ui_button_primary"]["RegistryStatus"], "registered")
         self.assertEqual(compiled["doll_zero_dialogue_confused"]["SelectedPath"], manifest["Entries"][1]["SelectedPath"])
         self.assertEqual(result["Catalog"]["Summary"]["Ready"], 2)
+        self.assertEqual(result["Catalog"]["Version"], 2)
+        self.assertEqual(
+            compiled["doll_zero_dialogue_confused"]["CompiledRequest"]["PromptAuthoringStatus"],
+            "prompt_authoring_required",
+        )
+        self.assertNotIn("PromptVariants", result["Catalog"]["Requests"][0])
         self.assertEqual(
             result["Manifest"]["AssetSets"]["zero_dialogue_portrait_v1"]["IdentityLocks"][0],
             "silver hair",
@@ -170,6 +176,45 @@ class CompileArtGenerationRequestsTests(unittest.TestCase):
 
         self.assertEqual(first["Catalog"]["Requests"][0]["RequestID"], second["Catalog"]["Requests"][0]["RequestID"])
         json.dumps(first, ensure_ascii=False)
+
+    def test_matching_requirement_preserves_published_prompt_revisions(self) -> None:
+        manifest = {
+            "Version": 3,
+            "Entries": [
+                {
+                    "VisualID": "item_demo_icon",
+                    "Domain": "item",
+                    "AssetType": "icon",
+                    "DisplayName": "演示物品",
+                    "ProductionProfile": "standard_asset",
+                    "Status": "todo",
+                    "Spec": {"SourceSpec": {"Format": "png", "Width": 128, "Height": 128}},
+                }
+            ],
+        }
+        first = compile_manifest_requests(copy.deepcopy(manifest), project_root=Path.cwd())
+        request = first["Catalog"]["Requests"][0]
+        revision = {
+            "PromptRevisionID": f"{request['RequestID']}/prompt-001",
+            "RequirementFingerprint": request["RequirementFingerprint"],
+            "RevisionFingerprint": "fixture",
+            "Status": "ready",
+            "Variants": {},
+        }
+        request["PromptRevisions"] = [revision]
+        request["ActivePromptRevisionID"] = revision["PromptRevisionID"]
+        first["Manifest"]["Entries"][0]["CompiledRequest"]["ActivePromptRevisionID"] = revision["PromptRevisionID"]
+
+        second = compile_manifest_requests(
+            copy.deepcopy(first["Manifest"]),
+            project_root=Path.cwd(),
+            previous_catalog=first["Catalog"],
+        )
+        carried = second["Catalog"]["Requests"][0]
+
+        self.assertEqual(carried["PromptRevisions"], [revision])
+        self.assertEqual(carried["ActivePromptRevisionID"], revision["PromptRevisionID"])
+        self.assertEqual(carried["PromptAuthoringStatus"], "prompt_ready")
 
 
 if __name__ == "__main__":

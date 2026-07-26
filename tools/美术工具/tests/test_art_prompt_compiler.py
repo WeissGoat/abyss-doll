@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -13,12 +14,8 @@ if str(TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_DIR))
 
 from art_prompt_compiler import (  # noqa: E402
-    DANBOORU_TAGS_FORMAT,
-    NATURAL_LANGUAGE_FORMAT,
-    build_canonical_visual_brief,
-    compile_generation_request,
-    serialize_danbooru_tags,
-    serialize_natural_language,
+    build_prompt_authoring_context,
+    compile_requirement_request,
 )
 from art_style_catalog import DEFAULT_CATALOG, build_catalog_snapshot  # noqa: E402
 
@@ -49,16 +46,15 @@ class ArtPromptCompilerTests(unittest.TestCase):
             },
         }
 
-    def test_button_compiles_natural_language_and_tags(self) -> None:
-        request = compile_generation_request(self.button_entry, self.catalog, {})
+    def test_button_compiles_authoring_context_without_executable_prompt(self) -> None:
+        request = compile_requirement_request(self.button_entry, self.catalog, {})
 
-        self.assertEqual(request["CompileStatus"], "ready")
-        self.assertEqual(
-            request["PromptVariants"][NATURAL_LANGUAGE_FORMAT]["CompileStatus"],
-            "ready",
-        )
-        tags = request["PromptVariants"][DANBOORU_TAGS_FORMAT]
-        self.assertIn({"Tag": "crimson", "Weight": 1.1}, tags["PositiveTags"])
+        self.assertEqual(request["RequirementStatus"], "ready")
+        self.assertEqual(request["PromptAuthoringStatus"], "prompt_authoring_required")
+        self.assertNotIn("PromptVariants", request)
+        self.assertNotIn('"Positive"', json.dumps(request, ensure_ascii=False))
+        guidance = request["PromptAuthoringContext"]["Guidance"]
+        self.assertTrue(any(item["Text"] == "crimson primary action surface" for item in guidance["Appearance"]))
         self.assertIn("nine_slice_safe_frame", request["TechnicalRequest"]["CapabilityRequirements"])
 
     def test_portrait_preserve_and_required_changes_are_structured(self) -> None:
@@ -83,34 +79,31 @@ class ArtPromptCompilerTests(unittest.TestCase):
             }
         }
 
-        request = compile_generation_request(entry, self.catalog, asset_sets)
+        request = compile_requirement_request(entry, self.catalog, asset_sets)
 
-        self.assertEqual(request["PreservationContract"]["RequiredChanges"], ["restrained confused expression"])
-        self.assertIn("silver hair", request["PreservationContract"]["Preserve"])
+        self.assertEqual(
+            [item["Text"] for item in request["PreservationContract"]["RequiredChanges"]],
+            ["restrained confused expression"],
+        )
+        self.assertIn("silver hair", [item["Text"] for item in request["PreservationContract"]["Preserve"]])
         self.assertEqual(request["TechnicalRequest"]["ReferenceAssets"], entry["SourceAssets"])
+        hard = request["PromptAuthoringContext"]["HardConstraints"]
+        self.assertTrue(any(item["Text"] == "white blindfold" for item in hard["Identity"]))
+        self.assertTrue(any(item["Text"] == "restrained confused expression" for item in hard["RequiredChanges"]))
 
-    def test_tag_weights_are_structured_not_provider_syntax(self) -> None:
-        variant = serialize_danbooru_tags(
-            {"SemanticUnits": [{"Text": "silver hair", "Section": "Appearance", "Required": True}]}
-        )
+    def test_context_contains_stable_constraint_ids(self) -> None:
+        context = build_prompt_authoring_context(self.button_entry, self.catalog, {})
+        required = context["HardConstraints"]["Required"]
 
-        self.assertEqual(variant["PositiveTags"], [{"Tag": "silver hair", "Weight": 1.2}])
-        self.assertNotIn("::", str(variant))
+        self.assertEqual(required[0]["ID"], "brief:required:0")
+        self.assertEqual(required[0]["Text"], "continuous outer frame")
 
-    def test_unsupported_semantic_marks_variant_not_ready(self) -> None:
-        variant = serialize_danbooru_tags(
-            {"SemanticUnits": [{"Text": "unmapped impossible semantic", "Section": "Required", "Required": True}]}
-        )
-
-        self.assertEqual(variant["CompileStatus"], "unsupported")
-        self.assertEqual(variant["SemanticCoverage"]["Unmapped"], ["unmapped impossible semantic"])
-
-    def test_same_input_produces_same_variant_fingerprint(self) -> None:
-        first = compile_generation_request(self.button_entry, self.catalog, {})
-        second = compile_generation_request(copy.deepcopy(self.button_entry), copy.deepcopy(self.catalog), {})
+    def test_same_input_produces_same_requirement_fingerprint(self) -> None:
+        first = compile_requirement_request(self.button_entry, self.catalog, {})
+        second = compile_requirement_request(copy.deepcopy(self.button_entry), copy.deepcopy(self.catalog), {})
 
         self.assertEqual(first["RequestID"], second["RequestID"])
-        self.assertEqual(first["RequestFingerprint"], second["RequestFingerprint"])
+        self.assertEqual(first["RequirementFingerprint"], second["RequirementFingerprint"])
 
 
 if __name__ == "__main__":
