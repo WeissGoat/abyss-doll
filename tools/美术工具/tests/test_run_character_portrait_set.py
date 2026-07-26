@@ -174,6 +174,14 @@ class CharacterPortraitSetTests(unittest.TestCase):
         self.assertTrue(plan["Items"][1]["RequestID"])
         self.assertTrue(plan["Items"][1]["PromptRevisionID"])
         self.assertEqual(plan["Items"][1]["PromptFormat"], "natural_language_v2")
+        self.assertEqual(
+            plan["Items"][1]["PromptVariantSnapshot"]["Positive"],
+            "Create doll_zero_dialogue_confused while preserving the locked identity.",
+        )
+        self.assertEqual(
+            plan["Items"][1]["PromptRevisionSnapshot"]["PromptRevisionID"],
+            plan["Items"][1]["PromptRevisionID"],
+        )
         self.assertIn("Preserve", plan["Items"][1]["PreservationContract"])
         self.assertIn("ReferenceAssets", plan["Items"][1])
         self.assertEqual(len(plan["Items"][1]["ResolvedReferenceAssets"]), 1)

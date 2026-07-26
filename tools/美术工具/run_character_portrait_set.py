@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import subprocess
 import sys
@@ -154,7 +155,7 @@ def build_portrait_set_plan(
             errors.append(f"prompt_revision_pointer_mismatch:{visual_id}")
             continue
         try:
-            revision, selected_format, _ = select_prompt_variant(
+            revision, selected_format, selected_variant = select_prompt_variant(
                 request,
                 prompt_format=prompt_format,
                 provider=provider,
@@ -181,6 +182,8 @@ def build_portrait_set_plan(
                 "PromptRevisionID": revision["PromptRevisionID"],
                 "PromptRevisionFingerprint": revision.get("RevisionFingerprint", ""),
                 "PromptFormat": selected_format,
+                "PromptRevisionSnapshot": copy.deepcopy(revision),
+                "PromptVariantSnapshot": copy.deepcopy(selected_variant),
                 "PreservationContract": request.get("PreservationContract", {}),
                 "Workspace": f"UnityClient/Assets/Art/_IncomingAI/character_portraits/{visual_id}",
                 "Status": entry.get("Status", ""),
