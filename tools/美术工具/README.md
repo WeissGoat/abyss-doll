@@ -20,7 +20,7 @@ related:
   - 美术文档/人设/04_零号AI后端出图提示词对比.md
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/design_boards/README.md
-last_verified: 2026-07-18
+last_verified: 2026-07-26
 update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
 ---
 
@@ -38,6 +38,21 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 ```
 
 如果已有 `processed/1/` 与平坦文件并存，工具会阻断迁移。旧候选默认登记为 `legacy_unverified`；已有生产决策硬失败的候选登记为 `failed`。只有 SelectedPath 精确指向被迁移文件时才改写路径；Approved、Registry 和运行时资源不会被触碰。
+
+## Prepare-ArtBackgroundCandidate.ps1
+
+为需要显式背景处理的候选生成 run-scoped staging 输出。工具支持保留已有 Alpha、连通边界背景移除和显式 mask 三种当前能力，但能力选择属于本轮 Agent 决策，不写入 Manifest 的稳定需求合同。
+
+```powershell
+.\tools\美术工具\Prepare-ArtBackgroundCandidate.ps1 `
+  -InputPath "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_cold/raw/20260726_002.png" `
+  -StagingDirectory "UnityClient/Logs/P3ArtProduction/<ProductionRunID>/background-staging" `
+  -Method connected_border `
+  -ExpectedInputSHA256 <sha256> `
+  -DryRun
+```
+
+`alpha_passthrough` 只接受已经具有有效透明度的图片；`connected_border` 只适合与画布边界连通且可稳定区分的简单背景；`explicit_mask` 必须提供同尺寸、非全黑且非全白的 mask。输出包含候选 PNG 与 `background-processing.json`，并拒绝把 staging 指向任何 `processed/`、`selected/` 或 Approved 路径。通过技术和视觉检查后，仍须使用 `Register-ArtProcessingRound.ps1` 发布下一不可变数字轮次。
 
 ## Register-ArtProcessingRound.ps1
 
@@ -319,6 +334,8 @@ character_portrait_set -> UnityClient/Assets/Art/_IncomingAI/character_portraits
 
 真实后端建议使用 `tools/ai-image-gateway/config.local.yaml`。脚本会把 `-Variants` 拆成多次 `count=1` 请求，并默认每张图间隔 1 秒。`auto` 为 OpenAI/Gemini 选择 `natural_language_v2`，为 NovelAI 选择 `danbooru_tags_v2`。adapter 只能序列化已发布内容，不能追加质量词、重写自然语言或重复保持 / 改变要求。
 
+角色差分等任务可重复传入 `-ReferenceImage`。每个引用必须是当前解析计划中的真实图片，生成前会重新校验文件 SHA-256；存在引用时使用网关 `image_to_image`，不存在引用时继续使用 `generate`。引用顺序、路径、角色、哈希、尺寸和模式会写入 `ProviderRequest.ReferenceImages` 与 `generation.json`，因此后续恢复不需要 Agent 重新猜测参考关系。
+
 凭证优先级：先读 `NAI_ACCESS_TOKEN`；如果当前机器没有设置该环境变量，网关会尝试从 `F:\my_project\new\tags_machine\novelai\client.py` 的 `NAIClient.get_access_token()` 解析 token。不要把真实 token 写入命令、文档或提交记录；需要换路径时设置 `NAI_CLIENT_PY`。
 
 ```powershell
@@ -331,6 +348,7 @@ Copy-Item .\tools\美术工具\ai_image_gateway.example.yaml .\tools\ai-image-ga
 * `-DryRun`：只打印计划，不生成图片、不改 Manifest。
 * `-RequestCatalog`、`-RequestID`、`-PromptRevisionID`：选择持久化 Requirement 与不可变 Revision；正常情况下使用 Manifest active pointer。
 * `-PromptFormat`：`auto`、`natural_language_v2` 或 `danbooru_tags_v2`。
+* `-ReferenceImage` / `-ReferenceImageSHA256` / `-ReferenceImageRole`：按相同顺序传入真实参考图片、计划时锁定的哈希和关系角色；适用于角色身份、姿势或其他明确视觉来源。
 * `-AllowLegacyPrompt`：仅用于非正式恢复；输出证据固定标记 `legacy_unverified`，批量与角色套组执行器不会传入。
 * `-Domain`、`-VisualID`、`-Priority`：过滤资产。
 * `-Limit`：限制本次处理数量。
@@ -342,6 +360,22 @@ Copy-Item .\tools\美术工具\ai_image_gateway.example.yaml .\tools\ai-image-ga
 * `-SkipIntegrationCandidates`：只生成图片，不刷新可接入素材清单。默认不要使用。
 
 每个 `generation.json` 保存 `RequirementSnapshot`、`PromptRevisionID`、`PromptRevisionFingerprint`、`PromptRevisionSnapshot`、`PromptFormat` 和精确 `ProviderRequest`。非 `-DryRun` 生成完成后，脚本会默认刷新 `美术文档/_generated/可接入素材清单.*`，并在 `美术文档/_generated/art_integration_snapshots/` 写入一份 `generation` 快照。刚生成的 raw 素材会在清单中标为 `art_process`，表示还需要预处理和筛选，不能交给程序接入。
+
+## Run-CharacterPortraitSet.ps1
+
+按 `AssetSetID` 和成员顺序执行角色立绘套组。执行器保留逻辑 `SourceAssets`，并通过 Manifest 中同一 `AssetID` 的成员解析真实 `ResolvedReferenceAssets`：优先 Approved，之后使用合法 Manifest `SelectedPath`，再使用工作区唯一 selected 图片；缺失、重复、损坏、越界或 `_legacy_runs` 引用会在 provider 调用前阻断。
+
+```powershell
+.\tools\美术工具\Run-CharacterPortraitSet.ps1 `
+  -AssetSetID zero_dialogue_portrait_v1 `
+  -VisualID doll_zero_cold `
+  -Provider gemini_chat_image `
+  -Variants 2 `
+  -ProductionRunID <ProductionRunID> `
+  -DryRun
+```
+
+dry-run 必须显示 exact active PromptRevision、Prompt Variant 以及每张真实参考图的路径、角色和 SHA-256。正式执行会把引用按相同顺序传给 `Run-ArtGeneration.ps1`。`character_portrait_set` 只规定工作区、身份一致性和验收方式，不把成员写死为图生图；没有 SourceAssets 的成员仍可由 Agent 根据当前工具选择其他合适能力。
 
 ## Import-ArtCandidate.ps1
 
@@ -730,6 +764,8 @@ Run evidence 写入 `UnityClient/Logs/P3ArtProduction/<ProductionRunID>/`。处�
 ```
 
 命令只接受最新数字轮次中的候选，要求技术状态 `passed`、Agent `RecommendedAction=select`、总分至少 `88`，并重新校验文件 hash、尺寸和格式。去掉 `-DryRun` 后写入 `selected/`、Manifest `SelectedPath`、工作区 `production_decision.json` 和 Run `selection-decision.json`；已有 selected 内容不同必须显式使用 `-AllowSelectedOverwrite`。
+
+目标路径优先使用 Manifest 中合法的 `SelectedPath`。旧 entry 未回写该字段时，如果 `selected/` 只有一张受支持图片，则复用该历史路径和相邻 `.meta`；存在多张图片时以 `selected_target_ambiguous` 失败，禁止创建第三种隐式目标。目录为空时才使用 `<VisualID>.<候选后缀>` 建立新 selected。
 
 对已是 `approved / registered / validated` 的同 VisualID 替换，Manifest 主状态保持不变。命令不修改 Approved、`.meta`、GUID、Unity 或 Registry。Run 中所有目标完成选择后，`summary.json` 自动收敛为 `selection_complete`。
 

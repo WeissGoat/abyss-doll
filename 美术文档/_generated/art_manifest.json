@@ -2941,7 +2941,7 @@
       "ProductionProfile": "character_portrait_set",
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_cold.png",
       "Priority": "P1",
-      "Status": "generated",
+      "Status": "selected",
       "SourceFactsCN": "基于对话中性立绘，身体直立僵硬、朝向疏离、嘴线收紧、手臂后收，无红光，差异必须在小尺寸可辨认。",
       "PromptCN": "日系二次元地底奇幻冒险感，童话式好奇与深渊危险并存，干净线条、柔和赛璐珞阴影、明亮但不轻飘的色彩和微弱生物荧光。单个清晰可读的美术资产。",
       "PromptEN": "Japanese anime-inspired 2D game art, subterranean fantasy adventure, whimsical yet ominous, soft cel-shaded painterly rendering, clean linework, airy fantasy atmosphere, full-body anime game character portrait, clear readable silhouette, transparent background, full-body character portrait, single readable game asset, full figure, neutral standing portrait composition, silver hair, white blindfold, gray shawl, pale inner dress, bare legs, bare feet, normal state no red glow, 基于对话中性立绘，身体直立僵硬、朝向疏离、嘴线收紧、手臂后收，无红光，差异必须在小尺寸可辨认。",
@@ -2980,9 +2980,9 @@
           "BackgroundPolicy": "agent_required"
         }
       },
-      "BatchID": "imported_doll_zero_cold_20260718_01",
+      "BatchID": "zero_cold_reference_pilot_20260726_02_generation",
       "RawPath": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_cold/raw",
-      "SelectedPath": "",
+      "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_cold/selected/001.png",
       "ApprovedPath": "",
       "RegistryStatus": "unregistered",
       "Notes": "[2026-07-18T16:45:30+08:00] imported candidate from 美术文档/人设/AI出图/zero_dialogue_differences_20260712_01/selected/zero_cold.png to UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_cold/raw/r01_001.png",
