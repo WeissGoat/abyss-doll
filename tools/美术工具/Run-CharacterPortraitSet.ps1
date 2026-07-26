@@ -2,7 +2,7 @@ param(
     [Parameter(Mandatory = $true)][string]$AssetSetID,
     [string]$ManifestPath = "",
     [string]$RequestCatalogPath = "",
-    [ValidateSet("auto", "natural_language_v1", "danbooru_tags_v1")][string]$PromptFormat = "auto",
+    [ValidateSet("auto", "natural_language_v2", "danbooru_tags_v2")][string]$PromptFormat = "auto",
     [string[]]$VisualID = @(),
     [string]$Provider = "",
     [string]$Config = "",

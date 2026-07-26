@@ -50,6 +50,61 @@ class ArtProductionBatchPlanTests(unittest.TestCase):
             ]
         }
 
+    def _attach_ready_request(self, visual_id: str, *, tags_ready: bool = True) -> dict:
+        entry = next(item for item in self.manifest["Entries"] if item["VisualID"] == visual_id)
+        request_id = f"{visual_id}@requirement"
+        requirement_fingerprint = f"requirement-{visual_id}"
+        revision_id = f"{request_id}/prompt-001"
+        tags = {
+            "Format": "danbooru_tags_v2",
+            "Status": "ready",
+            "PositiveTags": [{"Tag": visual_id, "Weight": 1.0}],
+            "NegativeTags": [],
+            "ReferenceControls": {},
+            "ConstraintMapping": {},
+        }
+        if not tags_ready:
+            tags = {
+                "Format": "danbooru_tags_v2",
+                "Status": "unsupported",
+                "UnsupportedReason": ["This route requires a natural-language provider."],
+            }
+        revision = {
+            "PromptRevisionID": revision_id,
+            "RequirementFingerprint": requirement_fingerprint,
+            "AuthoringMode": "agent_authored",
+            "Status": "ready",
+            "CommonStrategy": {},
+            "Variants": {
+                "natural_language_v2": {
+                    "Format": "natural_language_v2",
+                    "Status": "ready",
+                    "Positive": f"Create {visual_id}.",
+                    "Negative": "text",
+                    "OutputContract": {},
+                    "ConstraintMapping": {},
+                },
+                "danbooru_tags_v2": tags,
+            },
+        }
+        request = {
+            "RequestID": request_id,
+            "VisualID": visual_id,
+            "RequirementFingerprint": requirement_fingerprint,
+            "RequirementStatus": "ready",
+            "PromptAuthoringStatus": "prompt_ready",
+            "PromptAuthoringContext": {"HardConstraints": {}},
+            "ActivePromptRevisionID": revision_id,
+            "PromptRevisions": [revision],
+        }
+        entry["CompiledRequest"] = {
+            "RequestID": request_id,
+            "RequirementFingerprint": requirement_fingerprint,
+            "PromptAuthoringStatus": "prompt_ready",
+            "ActivePromptRevisionID": revision_id,
+        }
+        return request
+
     def test_parse_routes_requires_asset_class_and_provider(self) -> None:
         self.assertEqual(
             parse_routes(["background=openai_images", "icon=novelai"]),
@@ -81,6 +136,7 @@ class ArtProductionBatchPlanTests(unittest.TestCase):
             visual_ids=set(),
             asset_classes=set(),
             limit=0,
+            request_catalog={"Requests": [self._attach_ready_request("bg_workshop_day")]},
         )
 
         self.assertEqual([item["VisualID"] for item in result["Blocked"]], ["ui_button_primary"])
@@ -116,6 +172,7 @@ class ArtProductionBatchPlanTests(unittest.TestCase):
             visual_ids=set(),
             asset_classes=set(),
             limit=0,
+            request_catalog={"Requests": [self._attach_ready_request("item_new_icon")]},
         )
 
         self.assertEqual(result["Blocked"], [])
@@ -123,11 +180,12 @@ class ArtProductionBatchPlanTests(unittest.TestCase):
         self.assertFalse(group["PreserveStatus"])
         self.assertEqual(group["Status"], "prompted")
         self.assertEqual(group["Provider"], "novelai")
+        self.assertEqual(group["PromptFormat"], "danbooru_tags_v2")
         self.assertNotIn("--preserve-status", group["GenerationCommand"])
         self.assertIn("--batch-id", group["ProcessingCommand"])
         self.assertNotIn("--candidate-batch-id", group["ProcessingCommand"])
 
-    def test_prompt_blocked_item_never_enters_a_group(self) -> None:
+    def test_prompt_authoring_required_item_never_enters_a_group(self) -> None:
         payload = {
             "RunConfig": {
                 "Action": "visual_v2_replace",
@@ -135,9 +193,15 @@ class ArtProductionBatchPlanTests(unittest.TestCase):
                 "Provider": "agent_selected",
             },
             "Items": [
-                {"VisualID": "bg_workshop_day", "AssetClass": "background", "PromptReady": False},
+                {"VisualID": "bg_workshop_day", "AssetClass": "background"},
             ],
         }
+        request = self._attach_ready_request("bg_workshop_day")
+        request["PromptAuthoringStatus"] = "prompt_authoring_required"
+        request["ActivePromptRevisionID"] = ""
+        request["PromptRevisions"] = []
+        self.manifest["Entries"][0]["CompiledRequest"]["PromptAuthoringStatus"] = "prompt_authoring_required"
+        self.manifest["Entries"][0]["CompiledRequest"]["ActivePromptRevisionID"] = ""
 
         result = build_execution_plan(
             payload,
@@ -147,10 +211,11 @@ class ArtProductionBatchPlanTests(unittest.TestCase):
             visual_ids=set(),
             asset_classes=set(),
             limit=0,
+            request_catalog={"Requests": [request]},
         )
 
         self.assertEqual(result["Groups"], [])
-        self.assertEqual(result["Blocked"][0]["Reason"], "prompt_not_ready")
+        self.assertEqual(result["Blocked"][0]["Reason"], "prompt_authoring_required:bg_workshop_day")
 
     def test_ui_skin_capability_route_uses_specialized_adapter(self) -> None:
         payload = {
@@ -180,6 +245,8 @@ class ArtProductionBatchPlanTests(unittest.TestCase):
         group = result["Groups"][0]
         self.assertEqual(group["RouteKind"], "ui_skin_capability")
         self.assertEqual(group["Capability"], "deterministic_template")
+        self.assertEqual(group["PromptFormat"], "not_required")
+        self.assertEqual(group["PromptRevisionID"], "")
         self.assertIn("generate_ui_skin_candidate.py", " ".join(group["GenerationCommand"]))
         self.assertIn("--capability", group["GenerationCommand"])
         self.assertNotIn("--provider", group["GenerationCommand"])
@@ -223,7 +290,12 @@ class ArtProductionBatchPlanTests(unittest.TestCase):
                     "ProductionProfile": "standard_asset",
                     "Domain": "background",
                     "AssetType": "background",
-                    "CompiledRequest": {"RequestID": "bg@abc", "RequestFingerprint": "fingerprint"},
+                    "CompiledRequest": {
+                        "RequestID": "bg@abc",
+                        "RequirementFingerprint": "fingerprint",
+                        "PromptAuthoringStatus": "prompt_ready",
+                        "ActivePromptRevisionID": "bg@abc/prompt-001",
+                    },
                 }
             ]
         }
@@ -236,12 +308,35 @@ class ArtProductionBatchPlanTests(unittest.TestCase):
                 {
                     "RequestID": "bg@abc",
                     "VisualID": "bg_workshop_day",
-                    "RequestFingerprint": "fingerprint",
-                    "CompileStatus": "ready",
-                    "PromptVariants": {
-                        "natural_language_v1": {"CompileStatus": "ready"},
-                        "danbooru_tags_v1": {"CompileStatus": "unsupported"},
-                    },
+                    "RequirementFingerprint": "fingerprint",
+                    "RequirementStatus": "ready",
+                    "PromptAuthoringStatus": "prompt_ready",
+                    "PromptAuthoringContext": {"HardConstraints": {}},
+                    "ActivePromptRevisionID": "bg@abc/prompt-001",
+                    "PromptRevisions": [
+                        {
+                            "PromptRevisionID": "bg@abc/prompt-001",
+                            "RequirementFingerprint": "fingerprint",
+                            "AuthoringMode": "agent_authored",
+                            "Status": "ready",
+                            "CommonStrategy": {},
+                            "Variants": {
+                                "natural_language_v2": {
+                                    "Format": "natural_language_v2",
+                                    "Status": "ready",
+                                    "Positive": "Create a workshop background.",
+                                    "Negative": "text",
+                                    "OutputContract": {},
+                                    "ConstraintMapping": {},
+                                },
+                                "danbooru_tags_v2": {
+                                    "Format": "danbooru_tags_v2",
+                                    "Status": "unsupported",
+                                    "UnsupportedReason": ["Natural language required."],
+                                },
+                            },
+                        }
+                    ],
                 }
             ]
         }
@@ -259,9 +354,56 @@ class ArtProductionBatchPlanTests(unittest.TestCase):
         )
 
         group = result["Groups"][0]
-        self.assertEqual(group["PromptFormat"], "natural_language_v1")
+        self.assertEqual(group["PromptFormat"], "natural_language_v2")
+        self.assertEqual(group["PromptRevisionID"], "bg@abc/prompt-001")
         self.assertIn("--request-catalog", group["GenerationCommand"])
         self.assertIn("--prompt-format", group["GenerationCommand"])
+        self.assertIn("--prompt-revision-id", group["GenerationCommand"])
+
+    def test_distinct_prompt_revisions_are_not_grouped_together(self) -> None:
+        self.manifest["Entries"].append(
+            {
+                "VisualID": "bg_combat_abyss",
+                "Status": "approved",
+                "Domain": "background",
+                "AssetType": "background",
+                "ProductionProfile": "standard_asset",
+            }
+        )
+        catalog = {
+            "Requests": [
+                self._attach_ready_request("bg_workshop_day"),
+                self._attach_ready_request("bg_combat_abyss"),
+            ]
+        }
+        payload = {
+            "RunConfig": {
+                "Action": "visual_v2_replace",
+                "BatchID": "separate_revisions_01",
+                "Provider": "openai_images",
+                "Variants": 1,
+            },
+            "Items": [
+                {"VisualID": "bg_workshop_day", "AssetClass": "background"},
+                {"VisualID": "bg_combat_abyss", "AssetClass": "background"},
+            ],
+        }
+
+        result = build_execution_plan(
+            payload,
+            self.manifest,
+            routes={},
+            provider_override="",
+            visual_ids=set(),
+            asset_classes=set(),
+            limit=0,
+            request_catalog=catalog,
+        )
+
+        self.assertEqual(result["Blocked"], [])
+        self.assertEqual(len(result["Groups"]), 2)
+        self.assertEqual({len(group["VisualIDs"]) for group in result["Groups"]}, {1})
+        self.assertEqual(len({group["PromptRevisionID"] for group in result["Groups"]}), 2)
 
     def test_zero_output_generation_never_reuses_an_old_processing_report(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

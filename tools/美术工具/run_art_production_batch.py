@@ -15,6 +15,7 @@ from typing import Any
 
 from PIL import Image
 
+from art_prompt_revision import select_prompt_variant
 from art_workspace import normalize_entry_workspace_paths, workspace_path
 
 
@@ -134,6 +135,11 @@ def build_execution_plan(
         for entry in manifest.get("Entries", [])
         if isinstance(entry, dict) and entry.get("VisualID")
     }
+    request_map = {
+        str(request.get("RequestID", "")): request
+        for request in (request_catalog or {}).get("Requests", [])
+        if isinstance(request, dict) and request.get("RequestID")
+    }
     requested: list[dict[str, Any]] = []
     blocked: list[dict[str, str]] = []
     seen: set[str] = set()
@@ -158,26 +164,6 @@ def build_execution_plan(
             continue
         if asset_classes and asset_class not in asset_classes:
             continue
-        compiled = None
-        request_id = str(item.get("RequestID") or entry.get("CompiledRequest", {}).get("RequestID", ""))
-        request_fingerprint = str(item.get("RequestFingerprint") or entry.get("CompiledRequest", {}).get("RequestFingerprint", ""))
-        if request_catalog is not None:
-            compiled = next(
-                (request for request in request_catalog.get("Requests", []) if isinstance(request, dict) and request.get("RequestID") == request_id),
-                None,
-            )
-            if compiled is None:
-                blocked.append({"VisualID": visual_id, "Reason": "compiled_request_missing"})
-                continue
-            if compiled.get("RequestFingerprint") != request_fingerprint:
-                blocked.append({"VisualID": visual_id, "Reason": "compiled_request_fingerprint_mismatch"})
-                continue
-            if compiled.get("CompileStatus") != "ready":
-                blocked.append({"VisualID": visual_id, "Reason": f"compiled_request_not_ready:{compiled.get('CompileStatus', '')}"})
-                continue
-        elif not bool(item.get("PromptReady")):
-            blocked.append({"VisualID": visual_id, "Reason": "prompt_not_ready"})
-            continue
         route_target = str(provider_override or routes.get(asset_class) or default_provider)
         if not route_target:
             blocked.append({"VisualID": visual_id, "Reason": f"route_required:{asset_class}"})
@@ -192,11 +178,46 @@ def build_execution_plan(
             route_kind = "ui_skin_capability"
             provider = ""
             capability = route_target
-        prompt_format = str(item.get("PromptFormat", ""))
-        if not prompt_format:
-            prompt_format = "danbooru_tags_v1" if provider == "novelai" else "natural_language_v1"
+        pointer = entry.get("CompiledRequest") if isinstance(entry.get("CompiledRequest"), dict) else {}
+        request_id = str(item.get("RequestID") or pointer.get("RequestID", ""))
+        requirement_fingerprint = str(
+            item.get("RequirementFingerprint") or pointer.get("RequirementFingerprint", "")
+        )
+        prompt_revision_id = ""
+        revision_fingerprint = ""
+        if route_kind == "ui_skin_capability":
+            prompt_format = "not_required"
+        else:
+            request = request_map.get(request_id)
+            if request is None:
+                blocked.append({"VisualID": visual_id, "Reason": "compiled_request_missing"})
+                continue
+            if request.get("VisualID") != visual_id:
+                blocked.append({"VisualID": visual_id, "Reason": "compiled_request_visual_id_mismatch"})
+                continue
+            if request.get("RequirementFingerprint") != requirement_fingerprint:
+                blocked.append({"VisualID": visual_id, "Reason": "compiled_request_fingerprint_mismatch"})
+                continue
+            if pointer.get("PromptAuthoringStatus") != request.get("PromptAuthoringStatus"):
+                blocked.append({"VisualID": visual_id, "Reason": "prompt_authoring_status_mismatch"})
+                continue
+            if str(pointer.get("ActivePromptRevisionID", "") or "") != str(request.get("ActivePromptRevisionID", "") or ""):
+                blocked.append({"VisualID": visual_id, "Reason": "prompt_revision_pointer_mismatch"})
+                continue
+            try:
+                revision, prompt_format, _ = select_prompt_variant(
+                    request,
+                    prompt_revision_id=str(item.get("PromptRevisionID", "") or ""),
+                    prompt_format=str(item.get("PromptFormat", "auto") or "auto"),
+                    provider=provider,
+                )
+            except ValueError as exc:
+                blocked.append({"VisualID": visual_id, "Reason": str(exc)})
+                continue
+            prompt_revision_id = str(revision.get("PromptRevisionID", ""))
+            revision_fingerprint = str(revision.get("RevisionFingerprint", ""))
         status = str(entry.get("Status", "")) if replacement else default_status
-        if replacement and status not in {"approved", "registered", "validated"}:
+        if replacement and status not in {"approved", "registered", "runtime_validated"}:
             blocked.append({"VisualID": visual_id, "Reason": f"replacement_status_{status or 'missing'}"})
             continue
         item_run = item.get("RunConfig") if isinstance(item.get("RunConfig"), dict) else {}
@@ -212,7 +233,9 @@ def build_execution_plan(
                 "DelaySeconds": float(item_run.get("DelaySeconds") or default_delay),
                 "PreserveStatus": replacement,
                 "RequestID": request_id,
-                "RequestFingerprint": request_fingerprint,
+                "RequirementFingerprint": requirement_fingerprint,
+                "PromptRevisionID": prompt_revision_id,
+                "PromptRevisionFingerprint": revision_fingerprint,
                 "PromptFormat": prompt_format,
             }
         )
@@ -231,6 +254,7 @@ def build_execution_plan(
             item["DelaySeconds"],
             item["PreserveStatus"],
             item["PromptFormat"],
+            item["PromptRevisionID"],
         )
         grouped[key].append(item)
 
@@ -238,7 +262,18 @@ def build_execution_plan(
     ui_skin_script = str(SCRIPT_DIR / "generate_ui_skin_candidate.py")
     groups: list[dict[str, Any]] = []
     for key, group_items in sorted(grouped.items(), key=lambda pair: tuple(str(value) for value in pair[0])):
-        asset_class, route_kind, provider, capability, status, variants, delay_seconds, preserve_status, prompt_format = key
+        (
+            asset_class,
+            route_kind,
+            provider,
+            capability,
+            status,
+            variants,
+            delay_seconds,
+            preserve_status,
+            prompt_format,
+            prompt_revision_id,
+        ) = key
         visual_id_values = sorted(item["VisualID"] for item in group_items)
         route_name = capability or provider
         suffix = safe_id(f"{asset_class}_{route_name}_{status}")
@@ -285,6 +320,8 @@ def build_execution_plan(
                 "--prompt-format",
                 prompt_format,
             ]
+            if prompt_revision_id:
+                generation_command.extend(["--prompt-revision-id", prompt_revision_id])
             if config_path:
                 generation_command.extend(["--config", config_path])
             if preserve_status:
@@ -318,6 +355,11 @@ def build_execution_plan(
                 "DelaySeconds": delay_seconds,
                 "PreserveStatus": preserve_status,
                 "PromptFormat": prompt_format,
+                "PromptRevisionID": prompt_revision_id,
+                "PromptRevisionFingerprint": next(
+                    (item["PromptRevisionFingerprint"] for item in group_items if item["PromptRevisionFingerprint"]),
+                    "",
+                ),
                 "RequestIDs": sorted({item["RequestID"] for item in group_items if item["RequestID"]}),
                 "BatchID": group_batch_id,
                 "VisualIDs": visual_id_values,

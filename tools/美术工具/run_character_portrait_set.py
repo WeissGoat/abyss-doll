@@ -11,6 +11,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from art_prompt_revision import DANBOORU_TAGS_FORMAT, NATURAL_LANGUAGE_FORMAT, select_prompt_variant
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[1]
@@ -103,26 +104,13 @@ def order_portrait_members(
     return ordered
 
 
-def _select_format(request: dict[str, Any], prompt_format: str) -> str:
-    variants = request.get("PromptVariants", {}) if isinstance(request.get("PromptVariants"), dict) else {}
-    if prompt_format != "auto":
-        variant = variants.get(prompt_format)
-        if not isinstance(variant, dict) or variant.get("CompileStatus") != "ready":
-            raise ValueError(f"prompt_variant_not_ready:{prompt_format}:{request.get('VisualID', '')}")
-        return prompt_format
-    for format_id in ("natural_language_v1", "danbooru_tags_v1"):
-        variant = variants.get(format_id)
-        if isinstance(variant, dict) and variant.get("CompileStatus") == "ready":
-            return format_id
-    raise ValueError(f"prompt_variant_missing:{request.get('VisualID', '')}")
-
-
 def build_portrait_set_plan(
     manifest: dict[str, Any],
     request_catalog: dict[str, Any],
     asset_set_id: str,
     *,
     prompt_format: str = "auto",
+    provider: str = "",
     visual_ids: set[str] | None = None,
 ) -> dict[str, Any]:
     asset_set = load_asset_set(manifest, asset_set_id)
@@ -151,14 +139,24 @@ def build_portrait_set_plan(
         if request is None:
             errors.append(f"compiled_request_missing:{visual_id}")
             continue
-        if request.get("RequestFingerprint") != pointer.get("RequestFingerprint"):
+        if request.get("VisualID") != visual_id:
+            errors.append(f"compiled_request_visual_id_mismatch:{visual_id}")
+            continue
+        if request.get("RequirementFingerprint") != pointer.get("RequirementFingerprint"):
             errors.append(f"compiled_request_fingerprint_mismatch:{visual_id}")
             continue
-        if request.get("CompileStatus") != "ready":
-            errors.append(f"compiled_request_not_ready:{visual_id}")
+        if request.get("PromptAuthoringStatus") != pointer.get("PromptAuthoringStatus"):
+            errors.append(f"prompt_authoring_status_mismatch:{visual_id}")
+            continue
+        if str(request.get("ActivePromptRevisionID", "") or "") != str(pointer.get("ActivePromptRevisionID", "") or ""):
+            errors.append(f"prompt_revision_pointer_mismatch:{visual_id}")
             continue
         try:
-            selected_format = _select_format(request, prompt_format)
+            revision, selected_format, _ = select_prompt_variant(
+                request,
+                prompt_format=prompt_format,
+                provider=provider,
+            )
         except ValueError as exc:
             errors.append(str(exc))
             continue
@@ -169,8 +167,11 @@ def build_portrait_set_plan(
                 "VisualID": visual_id,
                 "SetRole": entry.get("SetRole", ""),
                 "SourceAssets": entry.get("SourceAssets", []),
+                "ReferenceAssets": entry.get("SourceAssets", []),
                 "RequestID": request["RequestID"],
-                "RequestFingerprint": request["RequestFingerprint"],
+                "RequirementFingerprint": request["RequirementFingerprint"],
+                "PromptRevisionID": revision["PromptRevisionID"],
+                "PromptRevisionFingerprint": revision.get("RevisionFingerprint", ""),
                 "PromptFormat": selected_format,
                 "PreservationContract": request.get("PreservationContract", {}),
                 "Workspace": f"UnityClient/Assets/Art/_IncomingAI/character_portraits/{visual_id}",
@@ -193,7 +194,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--asset-set-id", required=True)
     parser.add_argument("--manifest-path", default=DEFAULT_MANIFEST)
     parser.add_argument("--request-catalog-path", default=DEFAULT_REQUEST_CATALOG)
-    parser.add_argument("--prompt-format", choices=["auto", "natural_language_v1", "danbooru_tags_v1"], default="auto")
+    parser.add_argument("--prompt-format", choices=["auto", NATURAL_LANGUAGE_FORMAT, DANBOORU_TAGS_FORMAT], default="auto")
     parser.add_argument("--visual-id", action="append", default=[])
     parser.add_argument("--provider", default="")
     parser.add_argument("--config", default="")
@@ -216,6 +217,7 @@ def main() -> int:
         catalog,
         args.asset_set_id,
         prompt_format=args.prompt_format,
+        provider=args.provider,
         visual_ids=visual_ids,
     )
     print(json.dumps(plan, ensure_ascii=False, indent=2))
@@ -243,6 +245,8 @@ def main() -> int:
             args.provider,
             "--prompt-format",
             item["PromptFormat"],
+            "--prompt-revision-id",
+            item["PromptRevisionID"],
             "--visual-id",
             item["VisualID"],
             "--status",
@@ -254,7 +258,7 @@ def main() -> int:
         ]
         if args.config:
             command.extend(["--config", args.config])
-        if item["Status"] in {"approved", "registered", "validated"}:
+        if item["Status"] in {"approved", "registered", "runtime_validated"}:
             command.append("--preserve-status")
         completed = subprocess.run(command, cwd=PROJECT_ROOT)
         if completed.returncode != 0:
