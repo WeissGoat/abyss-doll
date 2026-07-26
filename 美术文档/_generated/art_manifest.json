@@ -104,9 +104,11 @@
         "RequiredChanges": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_combat_abyss@97e78c5ba917",
-        "RequestFingerprint": "97e78c5ba917b3302623d4d8ceeec2716b161984c2da3f9a5f2d6edb84fb74b6",
-        "CompileStatus": "ready"
+        "RequestID": "bg_combat_abyss@7fb71eadeaed",
+        "RequirementFingerprint": "7fb71eadeaed6b1de2f13a454957df51c58d85f87124d0decf474ff0e813c8cc",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_ready",
+        "ActivePromptRevisionID": "bg_combat_abyss@7fb71eadeaed/prompt-001"
       }
     },
     {
@@ -195,9 +197,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_dungeon_map@e71b6b2ba322",
-        "RequestFingerprint": "e71b6b2ba32278ea97e8f1bdbf1a0463eb7fb3c8264406c18e3586fc064c3936",
-        "CompileStatus": "ready"
+        "RequestID": "bg_dungeon_map@9e13c4b14b03",
+        "RequirementFingerprint": "9e13c4b14b0390074db65556ec3788e29d9dce7fff8f7d3393c4a7fd7efc91c3",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -283,9 +287,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_dungeon_layer_1@a5ccfdb1c985",
-        "RequestFingerprint": "a5ccfdb1c985bfb49ad325cf0b13d0d56a0b541e3baa5d973c4399ee5e44fbd8",
-        "CompileStatus": "ready"
+        "RequestID": "bg_dungeon_layer_1@e6e718375218",
+        "RequirementFingerprint": "e6e71837521860c53e23d3e44781e5a0e9683de9dcd113e773e523c6f4f5a73c",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -371,9 +377,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_dungeon_layer_2@c3ff16a88350",
-        "RequestFingerprint": "c3ff16a88350e648feff86a37834c3577fb2dfaf5a79fd80fd904c90f526b1b2",
-        "CompileStatus": "ready"
+        "RequestID": "bg_dungeon_layer_2@9f8b2b917098",
+        "RequirementFingerprint": "9f8b2b917098d4c67c4198a6f9f8fadcd18fc1bfc609becdfb53dd2b910f01ce",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -462,9 +470,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_dungeon_layer_3@b0edadbc257a",
-        "RequestFingerprint": "b0edadbc257a1189edcca3735db38f44b1ddcce704d669c22677ac37eb5e996c",
-        "CompileStatus": "ready"
+        "RequestID": "bg_dungeon_layer_3@c25e81ea33e1",
+        "RequirementFingerprint": "c25e81ea33e1bf66d431f0cb445137516395739cd53cda534bfcef269170795f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -556,9 +566,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_safe_room@fbce91c22845",
-        "RequestFingerprint": "fbce91c22845c485af8a420c75a4f041280b9dcbf50da8d701f05baaade563f3",
-        "CompileStatus": "ready"
+        "RequestID": "bg_safe_room@30e4a157bf71",
+        "RequirementFingerprint": "30e4a157bf71fc8c1ed7df76c77865a6a961be5b300c819b6fb91849d5ad258f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -650,9 +662,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_stairs_room@692326e6e172",
-        "RequestFingerprint": "692326e6e172d5f97b6a9c3f573b7314b77a7d65cd07c297a3082b50638c0bc5",
-        "CompileStatus": "ready"
+        "RequestID": "bg_stairs_room@cd39b7745362",
+        "RequirementFingerprint": "cd39b77453620bbcf17d6d44407b7747a38dac399e70bc18124af50fb6ca102d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -753,9 +767,11 @@
         "RequiredChanges": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_workshop_day@c47ded3e1ced",
-        "RequestFingerprint": "c47ded3e1ced43e301e8c8547de56774cd75fdbb6eb94b7cf44fce8b59817861",
-        "CompileStatus": "ready"
+        "RequestID": "bg_workshop_day@f2ae5939e312",
+        "RequirementFingerprint": "f2ae5939e312c65b08d5ecf5203c62b8816494cb7517420a5ab23aed647465eb",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -847,9 +863,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_workshop_home_room@ca3e2ca4b4ed",
-        "RequestFingerprint": "ca3e2ca4b4ed68a491b8dca9ff74ef9ed82ca0d5694ccb2d86e098b8f553f143",
-        "CompileStatus": "ready"
+        "RequestID": "bg_workshop_home_room@ee13cbbb0ccf",
+        "RequirementFingerprint": "ee13cbbb0ccf4f2615841c0b8bac23840a167b0a287078c1e5580b0255e9eb5d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -941,9 +959,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_workshop_studio@9ce6668c89ea",
-        "RequestFingerprint": "9ce6668c89ea8a83538189626014f57511be9a7a84639ca7216ece5631a6aed4",
-        "CompileStatus": "ready"
+        "RequestID": "bg_workshop_studio@503a0a962e6d",
+        "RequirementFingerprint": "503a0a962e6d1d5bec1d808eb71db4ff96af6da97f0a493bd57e222696249535",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -1035,9 +1055,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_daily_bill@e4f382f9983f",
-        "RequestFingerprint": "e4f382f9983ff7e1266ae6b8ff6562edbde77e52efc52b59a3244db13afbd503",
-        "CompileStatus": "ready"
+        "RequestID": "bg_daily_bill@f3d83abed522",
+        "RequirementFingerprint": "f3d83abed52299c0c549787e16e2beb0bcc8b241d017a2f17ca27aa2209051cd",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -1129,9 +1151,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_doll_room_attic@edd59cd3b478",
-        "RequestFingerprint": "edd59cd3b478e5cfe5a6268db20b972a7cbe6c3ab178677d6e111ce800dde323",
-        "CompileStatus": "ready"
+        "RequestID": "bg_doll_room_attic@263d33afe40f",
+        "RequirementFingerprint": "263d33afe40ff8d4fde91e435f14aed0f2578806e6217237c2edb3ea419442b8",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -1223,9 +1247,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_layer_select@d3c4a1de38d5",
-        "RequestFingerprint": "d3c4a1de38d56c24ddef6e0456bb4d4016d7908f382ede429dbc19f6887bcebd",
-        "CompileStatus": "ready"
+        "RequestID": "bg_layer_select@a5da16ec5eb1",
+        "RequirementFingerprint": "a5da16ec5eb1e3469f38e0e531be91732c9db5ddc6179abb3960e2a4c776f229",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -1317,9 +1343,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_settlement_defeat@d3fb29e7fbc5",
-        "RequestFingerprint": "d3fb29e7fbc5bd843c43df8c22410d553c61a223972d61026e49236a47ab9a39",
-        "CompileStatus": "ready"
+        "RequestID": "bg_settlement_defeat@350bf717085d",
+        "RequirementFingerprint": "350bf717085dfcd207d34c99c6062495505b07d267b40da1d05e5731dac9bfb8",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -1411,9 +1439,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_settlement_victory@d9e8552c6b61",
-        "RequestFingerprint": "d9e8552c6b61fdb65224c369650a04d6e5a2ff4080265b3b42073a0de3dfae03",
-        "CompileStatus": "ready"
+        "RequestID": "bg_settlement_victory@5812fc44d2f4",
+        "RequirementFingerprint": "5812fc44d2f4f0390eff41b0145a73f48b63c8d4d1ba9fca8619c4a42f437112",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -1505,9 +1535,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_shop_staging@f19048ffda71",
-        "RequestFingerprint": "f19048ffda71f45f5ed51492c5ea4417e3a7d56d69423dfb0116e7c1c3c316bd",
-        "CompileStatus": "ready"
+        "RequestID": "bg_shop_staging@f11da8a126aa",
+        "RequirementFingerprint": "f11da8a126aa0f7675b6f8f065c1e4ae533d3b9ff5835edb230beed25655750c",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -1599,9 +1631,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "bg_town_shop@bb702c4bf884",
-        "RequestFingerprint": "bb702c4bf88467e1dac7a32f6d242b655d2916e1fbdbb181857e48ec747e562a",
-        "CompileStatus": "ready"
+        "RequestID": "bg_town_shop@d102f807a2f0",
+        "RequirementFingerprint": "d102f807a2f0f7a4fb9bf6f25b04831982a4b0ba28e46a5fcd12cc9addcc2bad",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -1686,9 +1720,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "chassis_chassis_lv1_basic_frame@c8e8939f3f9e",
-        "RequestFingerprint": "c8e8939f3f9e652ffca2fa7d4410b9131dc9f5f82d4a15c3d2272e713e5e8975",
-        "CompileStatus": "ready"
+        "RequestID": "chassis_chassis_lv1_basic_frame@c78c82fd62e0",
+        "RequirementFingerprint": "c78c82fd62e0fc3f13abfa066aed1d9ad32200bb9d1d54a7eea8746a73ebdc3e",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -1773,9 +1809,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "chassis_chassis_lv2_expanded_frame@532997ad00a2",
-        "RequestFingerprint": "532997ad00a2e376b97ccd0a6251df0b3919eed3f7b54686fadc657e777731cb",
-        "CompileStatus": "ready"
+        "RequestID": "chassis_chassis_lv2_expanded_frame@77610791666f",
+        "RequirementFingerprint": "77610791666f2f8930d40e350e15c80ebff499b2d6061ee48908b4cd25784387",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -1867,9 +1905,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "chassis_bulwark_carrier_icon@d3a03a4c8a7c",
-        "RequestFingerprint": "d3a03a4c8a7ca629fdb58d543daad148a3ec44bdf977b5c866474a6ead8dd0b8",
-        "CompileStatus": "ready"
+        "RequestID": "chassis_bulwark_carrier_icon@433d69425377",
+        "RequirementFingerprint": "433d69425377aa9036651a7fb70cf3a03797768d89718d370a3075b0ed292944",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -1961,9 +2001,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "chassis_compact_raider_icon@a0bdbaf1d0ea",
-        "RequestFingerprint": "a0bdbaf1d0eace8876ad4b5284c7de712963e48f1e7fe569b051daecf07269cf",
-        "CompileStatus": "ready"
+        "RequestID": "chassis_compact_raider_icon@53757c47dde6",
+        "RequirementFingerprint": "53757c47dde6d7e1a013de825adb37fd835ab1cd710341d568b5530dfdf53c81",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -2055,9 +2097,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "chassis_standard_frame_icon@3b662001cda1",
-        "RequestFingerprint": "3b662001cda1994d7efb973029c5d047e4fe192171e04c1e0d7c05524a8d3cef",
-        "CompileStatus": "ready"
+        "RequestID": "chassis_standard_frame_icon@01e0171d7643",
+        "RequirementFingerprint": "01e0171d7643e665b582a05a362d63fa47efab55b93d509ab34f041491594093",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -2160,9 +2204,11 @@
         ]
       },
       "CompiledRequest": {
-        "RequestID": "doll_zero_dialogue_command_ready@8ea03962aeb8",
-        "RequestFingerprint": "8ea03962aeb8d23c5325419f8f372939be6f25e1573f163e52e5d73bf9ffc335",
-        "CompileStatus": "ready"
+        "RequestID": "doll_zero_dialogue_command_ready@12f7be81597d",
+        "RequirementFingerprint": "12f7be81597d6d2f376f398d291d1e7e1a8a273f6d867058f8575b2a9ca1f405",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -2257,9 +2303,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "doll_zero_dialogue_neutral@2a20d192a9a0",
-        "RequestFingerprint": "2a20d192a9a03a25a7c114d4b4b427213092f352beaff346a4be4f5bf9150795",
-        "CompileStatus": "ready"
+        "RequestID": "doll_zero_dialogue_neutral@bcf60939aec0",
+        "RequirementFingerprint": "bcf60939aec0eed0bfe7b7aa40fbd465f03c1af6ba46b982e196e36a698ca0f9",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -2366,9 +2414,11 @@
         ]
       },
       "CompiledRequest": {
-        "RequestID": "doll_zero_hurt@2b8c167214aa",
-        "RequestFingerprint": "2b8c167214aad3a39c0eaef556968d9f9bd096a886284e896ed3b8a816a765dd",
-        "CompileStatus": "ready"
+        "RequestID": "doll_zero_hurt@67c572c26ff5",
+        "RequirementFingerprint": "67c572c26ff5a87db199f83b2241dff416b7a952519d5bc50dd2ac2edf26d30f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -2474,9 +2524,11 @@
         ]
       },
       "CompiledRequest": {
-        "RequestID": "doll_zero_low_san@149087b66af5",
-        "RequestFingerprint": "149087b66af57df7bc0cbbf77f8159b2bcfc6f07d26cfd64c2fda1d17733f01d",
-        "CompileStatus": "ready"
+        "RequestID": "doll_zero_low_san@824fcc04b898",
+        "RequirementFingerprint": "824fcc04b89897f55604a0254fc106a431c45928087ac8d4ea4c5c5418983f6a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -2582,9 +2634,11 @@
         ]
       },
       "CompiledRequest": {
-        "RequestID": "doll_zero_maintenance_sit@444b12923e40",
-        "RequestFingerprint": "444b12923e401a8abe82c2a764add6e17cd4400ab5cd30788fbc4ae06e6a94bd",
-        "CompileStatus": "ready"
+        "RequestID": "doll_zero_maintenance_sit@dea981631af0",
+        "RequirementFingerprint": "dea981631af0a843bb21b4d516ae29309344e4844f284910c76b1fdc8df78d30",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -2687,9 +2741,11 @@
         ]
       },
       "CompiledRequest": {
-        "RequestID": "doll_zero_stand_neutral@4dc40a7cb8b0",
-        "RequestFingerprint": "4dc40a7cb8b098ff36a6c8815ee0c73af4d268c3ad2c7c77086d017b680d40c1",
-        "CompileStatus": "ready"
+        "RequestID": "doll_zero_stand_neutral@9e00a58597f5",
+        "RequirementFingerprint": "9e00a58597f549afa81d366a88bdc6575552d771839df75facd5c409ceca948b",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -2776,9 +2832,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "doll_proto_0_stand@67d3ada6ccd8",
-        "RequestFingerprint": "67d3ada6ccd8052aa33990dd6e61829acbea6452bccfbda7de241246088ddeda",
-        "CompileStatus": "ready"
+        "RequestID": "doll_proto_0_stand@39228a004cd5",
+        "RequirementFingerprint": "39228a004cd52ff2493a48fbead1d1e5e92a33b49cab09963dca88daf59bfbba",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -2864,9 +2922,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "doll_proto_0_test_stand@72a5520efe5e",
-        "RequestFingerprint": "72a5520efe5eacbb2c1af6968b1a3996240861cb54437718187b07cae78aba13",
-        "CompileStatus": "ready"
+        "RequestID": "doll_proto_0_test_stand@170f23419957",
+        "RequirementFingerprint": "170f23419957ec8d30a723106fbf45b8b261f192b9a33cdf34235cdf67521baf",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -2969,9 +3029,11 @@
         ]
       },
       "CompiledRequest": {
-        "RequestID": "doll_zero_cold@521c47f73d6e",
-        "RequestFingerprint": "521c47f73d6eb4fa9d5322157087a6428c939a086dc212f8d039667e1495bdc5",
-        "CompileStatus": "ready"
+        "RequestID": "doll_zero_cold@ead24f706617",
+        "RequirementFingerprint": "ead24f7066170bcc5bed9778db18e5b2f0e154b39cb46a71fa11e638c8048fc2",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_ready",
+        "ActivePromptRevisionID": "doll_zero_cold@ead24f706617/prompt-001"
       }
     },
     {
@@ -3077,9 +3139,11 @@
         ]
       },
       "CompiledRequest": {
-        "RequestID": "doll_zero_depressed@79d12276950a",
-        "RequestFingerprint": "79d12276950aa00fc258e561c84ab58dc4d739029c24bc66cfa5b4245634152d",
-        "CompileStatus": "ready"
+        "RequestID": "doll_zero_depressed@9fde8569b919",
+        "RequirementFingerprint": "9fde8569b9197ef1ba13944ee5a3e78954f3697886082d56a55385064f350343",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -3182,9 +3246,11 @@
         ]
       },
       "CompiledRequest": {
-        "RequestID": "doll_zero_dialogue_confused@e7c98688a58e",
-        "RequestFingerprint": "e7c98688a58e52193631d0fa01d2f71dca8b3ee8abd0028f215886cef9b44942",
-        "CompileStatus": "ready"
+        "RequestID": "doll_zero_dialogue_confused@ae3a0b85e0fc",
+        "RequirementFingerprint": "ae3a0b85e0fc753167000c5fcdd8772f2d063d38025fd645036aadb588b166a9",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -3287,9 +3353,11 @@
         ]
       },
       "CompiledRequest": {
-        "RequestID": "doll_zero_dialogue_talk_small@c3a66345034a",
-        "RequestFingerprint": "c3a66345034a699cbd66f9ce4b4fd161a2c81fabcbfe6b916a027cbae02e66cb",
-        "CompileStatus": "ready"
+        "RequestID": "doll_zero_dialogue_talk_small@f3fbc3c50cde",
+        "RequirementFingerprint": "f3fbc3c50cde56a7c50f94ecf237ef4c9866cde64e3ec7356924f96b6fbcee7f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -3392,9 +3460,11 @@
         ]
       },
       "CompiledRequest": {
-        "RequestID": "doll_zero_dialogue_thoughtful@08cc568e6c4c",
-        "RequestFingerprint": "08cc568e6c4c9ee47693f12383ce06cac4b811816e43d80fbb513adafceceee6",
-        "CompileStatus": "ready"
+        "RequestID": "doll_zero_dialogue_thoughtful@754ec73f60d9",
+        "RequirementFingerprint": "754ec73f60d9b9e482a1e365b22e0473874e2b73a4413eaef4e7654e25f1bcea",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -3497,9 +3567,11 @@
         ]
       },
       "CompiledRequest": {
-        "RequestID": "doll_zero_repair_relief@0482d80ae141",
-        "RequestFingerprint": "0482d80ae14100a7881bf759de1132662e8cac02ae1ea00486798966c277a90a",
-        "CompileStatus": "ready"
+        "RequestID": "doll_zero_repair_relief@70822be0f42d",
+        "RequirementFingerprint": "70822be0f42d247bb525734db6c97e0547bee49ebdf837df886b6cb09c5b4608",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -3602,9 +3674,11 @@
         ]
       },
       "CompiledRequest": {
-        "RequestID": "doll_zero_tired@18066bf29bf8",
-        "RequestFingerprint": "18066bf29bf842dd4931379c67dc8a039b98e543d64e756eb6fef8bd5abce809",
-        "CompileStatus": "ready"
+        "RequestID": "doll_zero_tired@8e84b2966db0",
+        "RequirementFingerprint": "8e84b2966db0afa56ef280bb719782fd7cdcaf4fcf6d070fa0b2213b62c3ab4a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -3707,9 +3781,11 @@
         ]
       },
       "CompiledRequest": {
-        "RequestID": "doll_zero_trust_soft@0dd118d6d1d7",
-        "RequestFingerprint": "0dd118d6d1d71f9e1bd67b1af6a1fe3e24b9ab73fbd5b3aec258dd9bcee25986",
-        "CompileStatus": "ready"
+        "RequestID": "doll_zero_trust_soft@f5f17d55af6f",
+        "RequirementFingerprint": "f5f17d55af6fff0ca8da815d0816c65645bb0381e893140dcd35415d1dbb2692",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -3801,9 +3877,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "faction_adventurer_guild_icon@feb819b0e428",
-        "RequestFingerprint": "feb819b0e42869a4f442c6e24093b1322ea847b94cd65f727169810f401e7b3c",
-        "CompileStatus": "ready"
+        "RequestID": "faction_adventurer_guild_icon@062fd9c281c4",
+        "RequirementFingerprint": "062fd9c281c47c76e8daab1194e1801d70ebcaedd95a1aad9d29d9d7ad02346f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -3895,9 +3973,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "faction_alchemy_guild_icon@ec6a973ba98a",
-        "RequestFingerprint": "ec6a973ba98a16e4dd0fe2991a053e5558e3e060baca70e43fc611055be83a19",
-        "CompileStatus": "ready"
+        "RequestID": "faction_alchemy_guild_icon@072685e0a8ea",
+        "RequirementFingerprint": "072685e0a8ea54b34efa3bdd6d1ea3be14aab6f9930b42a9284ef43163a3101b",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -3989,9 +4069,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "faction_black_market_icon@62c4377cb556",
-        "RequestFingerprint": "62c4377cb556bc5ab20adaef8514988ecadd66bfbc1204408a67f336a376d352",
-        "CompileStatus": "ready"
+        "RequestID": "faction_black_market_icon@eef69d053eaf",
+        "RequirementFingerprint": "eef69d053eaf60f4ab853fe7eaaab19dd5dfe25411df77ab1e33625b29a6d823",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -4083,9 +4165,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "faction_mage_tower_icon@f886ce7ff95c",
-        "RequestFingerprint": "f886ce7ff95cd04bac46d764a2f9b77b54fc01bed4cdc082b7ace1097fc99160",
-        "CompileStatus": "ready"
+        "RequestID": "faction_mage_tower_icon@72636a1228bb",
+        "RequirementFingerprint": "72636a1228bb458fcfb3fc2cc9ec0591ceeebb74e2cdfd4d7efdce1daca78f81",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -4177,9 +4261,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "faction_mechanic_workshop_icon@463b5094711a",
-        "RequestFingerprint": "463b5094711a82081df15b625bda88bf9cad17433256c59c33a18192be72bd11",
-        "CompileStatus": "ready"
+        "RequestID": "faction_mechanic_workshop_icon@81baf791046f",
+        "RequirementFingerprint": "81baf791046f34fa78ef1ac07d87fae880f7569aa48168b1f03739cabbec8806",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -4268,9 +4354,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_con_anchor_charm_icon@251ac0a4bb84",
-        "RequestFingerprint": "251ac0a4bb84496ade5ec9b65c7114ead1d85bcb08d6aa685961c438194ef87d",
-        "CompileStatus": "ready"
+        "RequestID": "item_con_anchor_charm_icon@25d301aef212",
+        "RequirementFingerprint": "25d301aef212078208e003fc0167e69f92c48615f80fee35de69d13fc2295728",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -4356,9 +4444,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_con_cheap_sedative_icon@5977787b4247",
-        "RequestFingerprint": "5977787b42472d0ccba424a23775be4aa1c0b0100d06e640a83748d4dfd9edf2",
-        "CompileStatus": "ready"
+        "RequestID": "item_con_cheap_sedative_icon@db9d5be507a4",
+        "RequirementFingerprint": "db9d5be507a4b593d274505c3ad40830ae6768f56d2cad554379c7b34a3d7cef",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -4447,9 +4537,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_con_purifying_salt_icon@2eeeb64668b3",
-        "RequestFingerprint": "2eeeb64668b3d83291bd6155c7b37ae5fcf3a461a7c59fe812d18f517ffcce0d",
-        "CompileStatus": "ready"
+        "RequestID": "item_con_purifying_salt_icon@ce777dd08389",
+        "RequirementFingerprint": "ce777dd08389ac4eac54c343f65cc15841e2c9e59632a05783e7b4a0619cb4d2",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -4535,9 +4627,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_con_repair_kit_icon@3ae4afa5681a",
-        "RequestFingerprint": "3ae4afa5681af8dd2d46a0166db2157635d8223f4ec6b638cc70300555926228",
-        "CompileStatus": "ready"
+        "RequestID": "item_con_repair_kit_icon@1fbcf86671dc",
+        "RequirementFingerprint": "1fbcf86671dc502947aff959ebbfa7d325a3f496450b13d9a0639200ff813205",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -4626,9 +4720,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_con_solvent_spray_icon@77d5afebe5d7",
-        "RequestFingerprint": "77d5afebe5d7d43bca838f3aae847ef77fd57c709b3260eeba9064827030713f",
-        "CompileStatus": "ready"
+        "RequestID": "item_con_solvent_spray_icon@a6d8425c198e",
+        "RequirementFingerprint": "a6d8425c198e9b0ce63275c5cfe0dd1e5aeca561d9c586737a5f02d3e5f08415",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -4717,9 +4813,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_con_stabilizer_ampoule_icon@1609b9f608c3",
-        "RequestFingerprint": "1609b9f608c32eeb99d1f49e52e483c357cd113a93a1f0de73e0d428f491ae0a",
-        "CompileStatus": "ready"
+        "RequestID": "item_con_stabilizer_ampoule_icon@85195b07bf9c",
+        "RequirementFingerprint": "85195b07bf9cdc066eed75805f917ba5065c37e70c7a3add2e7ff5a72500eb2e",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -4808,9 +4906,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_gear_chain_hook_icon@7dc2bc27f54c",
-        "RequestFingerprint": "7dc2bc27f54c6d71f015a23e3bbde22a18cd2c4ab5394b4c113e58d1c282c45e",
-        "CompileStatus": "ready"
+        "RequestID": "item_gear_chain_hook_icon@007f2b7cbf5c",
+        "RequirementFingerprint": "007f2b7cbf5c8112441864f117fc1898596f66360d61188a1647075a5f958e73",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -4896,9 +4996,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_gear_chainsaw_sword_icon@fd3a9d5183ef",
-        "RequestFingerprint": "fd3a9d5183efbe4267f83f68725d4a202b5f373fc73d0943c597a0e78624189c",
-        "CompileStatus": "ready"
+        "RequestID": "item_gear_chainsaw_sword_icon@d2cec1792805",
+        "RequirementFingerprint": "d2cec1792805b86ce87e93c68100413f7b97aa50320d679036d213263aa77a4f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -4984,9 +5086,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_gear_charge_pistol_icon@f901ad8e1f49",
-        "RequestFingerprint": "f901ad8e1f49584d91002a755d051b5d678b111e24a4da632d3cd9dca4829a57",
-        "CompileStatus": "ready"
+        "RequestID": "item_gear_charge_pistol_icon@24a927d5cb5e",
+        "RequirementFingerprint": "24a927d5cb5ee6bd21749b53478303d1c313cbc68bbc0c4b214de39f169b5d4d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -5075,9 +5179,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_gear_corroded_bulwark_icon@fcfb4f3303dc",
-        "RequestFingerprint": "fcfb4f3303dcfc40399b8604de0009869c0ce2dfa03ac60ee2e4853b398de580",
-        "CompileStatus": "ready"
+        "RequestID": "item_gear_corroded_bulwark_icon@f2fa310011c9",
+        "RequirementFingerprint": "f2fa310011c9dceb93ff1f84acf31ccdbd3151b42ec4fe15f2aa9dbbcb6b5f08",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -5163,9 +5269,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_gear_iron_armor_icon@25fe6fd9d345",
-        "RequestFingerprint": "25fe6fd9d34564f050f487374281f3a53762d1bef7974162d0432187674d6a9c",
-        "CompileStatus": "ready"
+        "RequestID": "item_gear_iron_armor_icon@c03ff888354a",
+        "RequirementFingerprint": "c03ff888354abe8c362ed51add74b31efb056f41c4d1c5b0e6ce5d67242cc8d7",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -5251,9 +5359,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_gear_iron_armor_icon@bd9242621d0f",
-        "RequestFingerprint": "bd9242621d0fa6a6581a03ba09aca0433672a40a01bc83efbf516d92d33c5aad",
-        "CompileStatus": "ready"
+        "RequestID": "item_gear_iron_armor_icon@bc893baf09d5",
+        "RequirementFingerprint": "bc893baf09d599e7af864a85e7ce819ecdec537bb87116852c50d4ef82bcb57d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -5342,9 +5452,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_gear_mycelium_cloak_icon@6c93ba5df92c",
-        "RequestFingerprint": "6c93ba5df92c3279795c546344f4bcdc0fd564316ed611ddef2195c9db813ff6",
-        "CompileStatus": "ready"
+        "RequestID": "item_gear_mycelium_cloak_icon@dca1fbe26b62",
+        "RequirementFingerprint": "dca1fbe26b629e6c20d817bbdece40d8863a7ca44fb54ff6a974407627c222c6",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -5430,9 +5542,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_gear_wooden_shield_icon@99b4eb31e64a",
-        "RequestFingerprint": "99b4eb31e64af9b974b721f54a19d98deab4b4476cd085b615355d1a905a7466",
-        "CompileStatus": "ready"
+        "RequestID": "item_gear_wooden_shield_icon@79131e339fbc",
+        "RequirementFingerprint": "79131e339fbccadd79dabe2e6e10a13f8a9cf5cd60f6daa6ece02140989eaeb7",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -5518,9 +5632,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_gear_rusty_dagger_icon@e904b55aa28d",
-        "RequestFingerprint": "e904b55aa28d33d7a3135884e3ea7274eb30b862b7a4a0e8b7bdc0e55999b1d0",
-        "CompileStatus": "ready"
+        "RequestID": "item_gear_rusty_dagger_icon@fe2987a3eaef",
+        "RequirementFingerprint": "fe2987a3eaeffb77b2eb02931790210bc8313c45d2b89ae579f0bdd85f66b404",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -5609,9 +5725,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_gear_spore_lance_icon@56abe5605493",
-        "RequestFingerprint": "56abe56054938eec05f721877c0b1e3440a7950eb68158ee0d741c1f304ba0d0",
-        "CompileStatus": "ready"
+        "RequestID": "item_gear_spore_lance_icon@bae563b79e16",
+        "RequirementFingerprint": "bae563b79e16fef34cf9c9614a40cc0cfb6a4bbe421f367bed9f9de200e1a6b8",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -5697,9 +5815,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_gear_tactical_blade_icon@0db0ca67d15b",
-        "RequestFingerprint": "0db0ca67d15bcd2ed0040a028da31bc6116e8e9a2e8f6aa69454a13e62fb047b",
-        "CompileStatus": "ready"
+        "RequestID": "item_gear_tactical_blade_icon@7689a3fbe98f",
+        "RequirementFingerprint": "7689a3fbe98f47ff147444fcb5c5b1210f032d9c4ecb19503a560196dff9a987",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -5788,9 +5908,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_gear_vein_sickle_icon@08158c5c6982",
-        "RequestFingerprint": "08158c5c69824297aef055bb329e1ceca612342ed23db561f10de2a92d00baa7",
-        "CompileStatus": "ready"
+        "RequestID": "item_gear_vein_sickle_icon@211f50c9594e",
+        "RequirementFingerprint": "211f50c9594e6da815fe1e685bf16cbab223f9819f5209ae8696dadd00215a62",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -5876,9 +5998,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_gear_wooden_shield_icon@ef96a6f55980",
-        "RequestFingerprint": "ef96a6f559802796dcc53a5e780726608476231de09551215f5e72a645bd803a",
-        "CompileStatus": "ready"
+        "RequestID": "item_gear_wooden_shield_icon@3301ebea05b4",
+        "RequirementFingerprint": "3301ebea05b4c054bdb948d88a6827eeaa2d5bd96f7a50cfad810b2693a5994a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -5967,9 +6091,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_loot_acid_gland_icon@594e4193dcd4",
-        "RequestFingerprint": "594e4193dcd4a4fd8d7d6345400e3541ec6000f127fe963a7d95d974f8b7fe43",
-        "CompileStatus": "ready"
+        "RequestID": "item_loot_acid_gland_icon@3a15a4d3b6d1",
+        "RequirementFingerprint": "3a15a4d3b6d1a8d43beb29a151e195f993f950c6afddcf7c58ec39161a1162e1",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -6058,9 +6184,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_loot_corroded_nerve_icon@50de5a1dd0db",
-        "RequestFingerprint": "50de5a1dd0db7d0d10348ac9b5a38f22337e84bb30517f46d6cfe353e24c5dc6",
-        "CompileStatus": "ready"
+        "RequestID": "item_loot_corroded_nerve_icon@59215463bdb3",
+        "RequirementFingerprint": "59215463bdb31d19b239564736b59842b6c9128dbd0d7ae0ee214f81592f2f16",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -6149,9 +6277,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_loot_crystal_scale_icon@5fa17ea447dc",
-        "RequestFingerprint": "5fa17ea447dcc9fc9635df520e6de5a23bac3a81252f7b758822dd5a0ad0d72d",
-        "CompileStatus": "ready"
+        "RequestID": "item_loot_crystal_scale_icon@9366b96380e3",
+        "RequirementFingerprint": "9366b96380e3551c8ddb5a335ee6098b402cf9dbfdf265ea69c10b4945e49165",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -6237,9 +6367,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_loot_gear_scrap_icon@2bad66da0480",
-        "RequestFingerprint": "2bad66da0480df6f6b99d2f6db7ba26e857105c317efa3b8e08ae15f84afe4c3",
-        "CompileStatus": "ready"
+        "RequestID": "item_loot_gear_scrap_icon@f896bd0adc95",
+        "RequirementFingerprint": "f896bd0adc95ef58ba7cf87a71b9e3e5f269e876be23aa994b9824e7c0bf6ea0",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -6328,9 +6460,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_loot_living_mycelium_icon@f861128ce0e8",
-        "RequestFingerprint": "f861128ce0e849a7f8569bf6d0f141406b6d96d05f54b43b3749026359a60379",
-        "CompileStatus": "ready"
+        "RequestID": "item_loot_living_mycelium_icon@e37c8583768f",
+        "RequirementFingerprint": "e37c8583768f2af9dc12f9df3059e807d5eb9565039b6f80c6b2ce9f11ad47a1",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -6416,9 +6550,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_loot_rusty_coil_icon@ebb0ed5e7ca6",
-        "RequestFingerprint": "ebb0ed5e7ca6a8c4875119528ba512683c3465c0ea350ec81277ac897b224b25",
-        "CompileStatus": "ready"
+        "RequestID": "item_loot_rusty_coil_icon@bf2936958b9a",
+        "RequirementFingerprint": "bf2936958b9a774527d9deb80586bd6d0cf61ebec5639c17c0b23e1b36618f04",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -6507,9 +6643,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_loot_spore_amber_icon@e57e34add681",
-        "RequestFingerprint": "e57e34add68193555e59888a46aaf4c3db51365f3cdf0ae71c57217590dddebc",
-        "CompileStatus": "ready"
+        "RequestID": "item_loot_spore_amber_icon@c694199ddafd",
+        "RequirementFingerprint": "c694199ddafd906d9f0535b28c64ed69116fb85db24f997e4593cd9d5b3fa90e",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -6595,9 +6733,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_loot_toxic_filter_icon@8ce0e8ec6eef",
-        "RequestFingerprint": "8ce0e8ec6eef402deef9d1dcb05844a3c1a92bd1cd01583fccad2c9f33a37213",
-        "CompileStatus": "ready"
+        "RequestID": "item_loot_toxic_filter_icon@df640f854bcf",
+        "RequirementFingerprint": "df640f854bcfc1c7f315bd2262062676ab7a0311fe1a8b07048b40cd6cedd8f7",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -6686,9 +6826,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_loot_vein_plate_icon@3c701baa91a8",
-        "RequestFingerprint": "3c701baa91a8ab0c68ff5a53fe5dccbc88d3ddd7aa68f750f0140072f21b98b5",
-        "CompileStatus": "ready"
+        "RequestID": "item_loot_vein_plate_icon@7ed1d80fb8a1",
+        "RequirementFingerprint": "7ed1d80fb8a1175749e3027a0f7f3c57a7e6cc1765f07e9433eef818bbf52612",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -6777,9 +6919,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_loot_warped_plate_icon@672e518e99b5",
-        "RequestFingerprint": "672e518e99b5f714aa81ea9516dd8e9cd31b79f487a2c46339e32f98bd6286fc",
-        "CompileStatus": "ready"
+        "RequestID": "item_loot_warped_plate_icon@ce4f5aedb592",
+        "RequirementFingerprint": "ce4f5aedb592c8a39fdeba2d893cd60bb890202a06cb2fec3ada57fd5241ee71",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -6865,9 +7009,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_mat_core_tier1_icon@8acfe96fc51a",
-        "RequestFingerprint": "8acfe96fc51a2a44aa42c905592175cde3a00beee03723b0083fe032c2c86304",
-        "CompileStatus": "ready"
+        "RequestID": "item_mat_core_tier1_icon@f44d6d2e0877",
+        "RequirementFingerprint": "f44d6d2e0877d9db8ce7261632b5f584e50541cb48575750e297d535304f5f29",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -6953,9 +7099,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_mat_core_tier1_icon@7174e9217e32",
-        "RequestFingerprint": "7174e9217e326b2edb103c55a05375145723e80b2f165ca0c46d5e70fe6dd9ab",
-        "CompileStatus": "ready"
+        "RequestID": "item_mat_core_tier1_icon@734a68c24455",
+        "RequirementFingerprint": "734a68c24455c2c047a494d0a84e5020b54e4899109b031f46493c5c724cdf24",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -7044,9 +7192,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_mat_core_tier2_fragment_icon@625844bebfe1",
-        "RequestFingerprint": "625844bebfe1e9c576ee2f285f96cd379acaecf57692015c0bd67fcb8b7ddfa5",
-        "CompileStatus": "ready"
+        "RequestID": "item_mat_core_tier2_fragment_icon@90f5f5950ff6",
+        "RequirementFingerprint": "90f5f5950ff61c53942fe6cc9a2fba935a90d7ff139fa10a57294694c61a6d0a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -7135,9 +7285,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_mat_core_tier3_seed_icon@b45dfd1657af",
-        "RequestFingerprint": "b45dfd1657af3dd3dfeb42bb5ffd6d78136059e26790dab8ac373d86c07320c1",
-        "CompileStatus": "ready"
+        "RequestID": "item_mat_core_tier3_seed_icon@35c97972888a",
+        "RequirementFingerprint": "35c97972888a5a020fdbc2dc27cdde114a9fd9b0ebfa9dea6e3414480451ac28",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -7226,9 +7378,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_order_contested_spore_core_icon@a16d96b768cf",
-        "RequestFingerprint": "a16d96b768cfbb532175ffaa9de1d0574e79d8726b4e1ffe2203fc0cae80e405",
-        "CompileStatus": "ready"
+        "RequestID": "item_order_contested_spore_core_icon@9a3664fad5a3",
+        "RequirementFingerprint": "9a3664fad5a3839df503db64b77e1ef8c46a6b871023b20333b98b6d1b04a3ea",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -7317,9 +7471,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_order_live_spore_cage_icon@dd41a20192b9",
-        "RequestFingerprint": "dd41a20192b927efee7ea847f64cc4845beb4634e8f9b8dde368359ca34d9c2a",
-        "CompileStatus": "ready"
+        "RequestID": "item_order_live_spore_cage_icon@7b5f5e44b80e",
+        "RequirementFingerprint": "7b5f5e44b80ec575eb6239a24c48cf7997aa6b08ec19f5d0748da8cc048b4546",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -7405,9 +7561,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_loot_toxic_filter_icon@2da3adc8dc08",
-        "RequestFingerprint": "2da3adc8dc080a0f1e5250c513cea09b9ee312336922757b30fbede7dd6b0f87",
-        "CompileStatus": "ready"
+        "RequestID": "item_loot_toxic_filter_icon@629b7d4ba813",
+        "RequirementFingerprint": "629b7d4ba81341f7eaf39c2971589e27b87e822302b0d015fbad8a9dd5212d97",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -7496,9 +7654,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_trade_luminous_fungus_icon@bdb93d07917f",
-        "RequestFingerprint": "bdb93d07917f49ec110524e2378eea325a890f45e074ae5a94fe57d0e3a30f2c",
-        "CompileStatus": "ready"
+        "RequestID": "item_trade_luminous_fungus_icon@f20ff164a8ae",
+        "RequirementFingerprint": "f20ff164a8ae7158a211bcf785be9d17c80aafe4626e4c11922190214c938155",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -7584,9 +7744,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_loot_rusty_coil_icon@92189fc9bfa4",
-        "RequestFingerprint": "92189fc9bfa47b99c79e31be9422b630c47d07e65c64cafec0e480bb501f01a6",
-        "CompileStatus": "ready"
+        "RequestID": "item_loot_rusty_coil_icon@ebb9c1f60ff8",
+        "RequirementFingerprint": "ebb9c1f60ff8e6d0feca3303827f06567030f78a90571df403a96ce181034a0f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -7675,9 +7837,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_trade_sealed_relic_box_icon@a9b0c2e7d3fe",
-        "RequestFingerprint": "a9b0c2e7d3fe4f7acbbf965467628ffff1b225af9b5c0c88d70ffcdb423e2479",
-        "CompileStatus": "ready"
+        "RequestID": "item_trade_sealed_relic_box_icon@d254010bd66f",
+        "RequirementFingerprint": "d254010bd66f6f4fd1d1542a7c98e5683f86d355c3d126e9d4f18ca97f141f66",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -7766,9 +7930,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "item_trade_singing_fossil_icon@58b78b3b7940",
-        "RequestFingerprint": "58b78b3b7940aafd4aaf0d39d961b1f852491435624202486dbbf1c05fe45ce0",
-        "CompileStatus": "ready"
+        "RequestID": "item_trade_singing_fossil_icon@dc35e8d475ea",
+        "RequirementFingerprint": "dc35e8d475ea313cf9eff5a18a4842e303ec794d06d7b97736d0d5053793af43",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -7860,9 +8026,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_blackmarket_letter@b24c9648f963",
-        "RequestFingerprint": "b24c9648f963f3c14f42c1d513f5f33623e6b055a750af09437658d1f3c731bc",
-        "CompileStatus": "ready"
+        "RequestID": "memento_blackmarket_letter@33cdc88315dd",
+        "RequirementFingerprint": "33cdc88315ddb6c7d691c52371f42b3198312d70d8e21e79f5eca4aee924a3eb",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -7954,9 +8122,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_boss1_lamp@38ba96c3c6b4",
-        "RequestFingerprint": "38ba96c3c6b46bbae2ac634a326c3333b7c1741e0fb4f4a6875846ffe5796cc9",
-        "CompileStatus": "ready"
+        "RequestID": "memento_boss1_lamp@2b375a592ce0",
+        "RequirementFingerprint": "2b375a592ce09be23daa07baa4fc60a4c395b6a1d71fb11e873ec03243337d16",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -8048,9 +8218,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_debt_shadow_window@1f2f1d5d1f60",
-        "RequestFingerprint": "1f2f1d5d1f6044b116041ae942e3afd4aed03237bfb980611990ec3f48190620",
-        "CompileStatus": "ready"
+        "RequestID": "memento_debt_shadow_window@132665d02810",
+        "RequirementFingerprint": "132665d02810c5e50e84c6cbe5588811e6986629f0e26867d9eb4f5f68c93f92",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -8142,9 +8314,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_first_chassis_frame@f70b6acc1b3b",
-        "RequestFingerprint": "f70b6acc1b3b5167c6e63685a49f40fc935595286923f05836557b589d8e5391",
-        "CompileStatus": "ready"
+        "RequestID": "memento_first_chassis_frame@f82565094f28",
+        "RequirementFingerprint": "f82565094f289154cd2349b19465c91dcd7767e9a6240875c88344178895e89f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -8236,9 +8410,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_first_prosthetic_case@df1ccc346833",
-        "RequestFingerprint": "df1ccc346833d9099a0f162a906ca9e0088dbae4bf65cfe11590953995f771fd",
-        "CompileStatus": "ready"
+        "RequestID": "memento_first_prosthetic_case@b09505907c2f",
+        "RequirementFingerprint": "b09505907c2f14202293580237175faa5cd19946b31a6ece394f5ede53852c68",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -8330,9 +8506,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_first_repair_patch@8353c4277eb2",
-        "RequestFingerprint": "8353c4277eb2d8b1a9750486c1762d72f4485d2399c5522ed785c5e718fee03e",
-        "CompileStatus": "ready"
+        "RequestID": "memento_first_repair_patch@413bc59caf1f",
+        "RequirementFingerprint": "413bc59caf1f17455a69619a3de79544eddd40994484521ed9d829127b476249",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -8424,9 +8602,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_first_return_tag@53bbb7371cc8",
-        "RequestFingerprint": "53bbb7371cc8c1bd15e29b64eccc615b70979c55250dcd2f6c2e7ac295974419",
-        "CompileStatus": "ready"
+        "RequestID": "memento_first_return_tag@baf36dee0cec",
+        "RequirementFingerprint": "baf36dee0cec0fe1ee40bbcbb0909d364e26b887de4691da1d4c4472140f817c",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -8518,9 +8698,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_layer2_corrosion_vial@c38ea45ddd29",
-        "RequestFingerprint": "c38ea45ddd29ce6f1de2b15200e78599eda1efae1c3d2da06564090d45dd2b12",
-        "CompileStatus": "ready"
+        "RequestID": "memento_layer2_corrosion_vial@cda7eeca7383",
+        "RequirementFingerprint": "cda7eeca738325cf261d39ad14f5ff0010b8a10865d1429196106246c3b45c43",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -8612,9 +8794,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_low_san_blanket@2f572404c2be",
-        "RequestFingerprint": "2f572404c2be1ab982a802b4e90717941350f026e894adf21d0fd1c3e8bbd85b",
-        "CompileStatus": "ready"
+        "RequestID": "memento_low_san_blanket@b969087e9dc3",
+        "RequirementFingerprint": "b969087e9dc3ec609ea599106be07687160c6f7af144cba5accbc056f62b3a30",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -8706,9 +8890,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_miracle_burn_mark@20460b8968c4",
-        "RequestFingerprint": "20460b8968c4dc4ecbae9f6d9339d13f17c26e180758168a7eee60b88ea574be",
-        "CompileStatus": "ready"
+        "RequestID": "memento_miracle_burn_mark@2bce5fd2186e",
+        "RequirementFingerprint": "2bce5fd2186ea13d45bde4d2e96c21145d8cece2d91245faa70559e8509f8fa4",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -8800,9 +8986,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_pawn_empty_tag@1d8fe79e6aed",
-        "RequestFingerprint": "1d8fe79e6aedbb490eb73823f5583701bb926e1410413e47dab621a1ff9621d9",
-        "CompileStatus": "ready"
+        "RequestID": "memento_pawn_empty_tag@3ece86195f7c",
+        "RequirementFingerprint": "3ece86195f7c58749e62ba49dc5088c31fb8352a56ccda56eceba40db3c68190",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -8894,9 +9082,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_return_mark@23254f614aaf",
-        "RequestFingerprint": "23254f614aafa2fef4517f9fd7cff83219d8e5a2d4cbaa850b26b00f494c4b5b",
-        "CompileStatus": "ready"
+        "RequestID": "memento_return_mark@7ff4f2fdd8c4",
+        "RequirementFingerprint": "7ff4f2fdd8c407a14613bf710b4f99dc2829af4a7cb2ba867dfe9ced97fbf167",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -8988,9 +9178,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_san_collapse_blanket@847f029b45d7",
-        "RequestFingerprint": "847f029b45d7a4da2d8bc6ed4c891cc225a4d0df3481086492a340e8bbbc6c24",
-        "CompileStatus": "ready"
+        "RequestID": "memento_san_collapse_blanket@bd5cf97fc237",
+        "RequirementFingerprint": "bd5cf97fc237b2cdc2242409b55cc85b606202a480887cd90a8dc48b5100d85f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -9082,9 +9274,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_truth_red_thread@3d403185f398",
-        "RequestFingerprint": "3d403185f3989e8fbbfc07d13b49e6791618fc7dd654d5a3b837fa31978607e1",
-        "CompileStatus": "ready"
+        "RequestID": "memento_truth_red_thread@af68c1fe4643",
+        "RequirementFingerprint": "af68c1fe46430c316f8d65c9cae4faf0de900a356ed1623029d4733d0e29cb5a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -9176,9 +9370,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "memento_wall_crack_first_defeat@901e7d1b3ebc",
-        "RequestFingerprint": "901e7d1b3ebcbddaee01d20c409fc5e76259087b9d1d96d441a475a0ceebc20f",
-        "CompileStatus": "ready"
+        "RequestID": "memento_wall_crack_first_defeat@64a00b7af6a7",
+        "RequirementFingerprint": "64a00b7af6a7855971cbbd3f6f9fa3a36f2e4ef075e023f04e254ef7a5dc51f3",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -9268,9 +9464,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_boss_gatekeeper_mk1_combat@237ae303d79c",
-        "RequestFingerprint": "237ae303d79c817a6dbe3d0600a644dd34012c5efbd4ad9c31465b0c2cb625ab",
-        "CompileStatus": "ready"
+        "RequestID": "monster_boss_gatekeeper_mk1_combat@935ecd1c4c24",
+        "RequirementFingerprint": "935ecd1c4c24a5bc353a6c8cceef0b73fa59a538777429df5bf79f616a05fe14",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -9358,9 +9556,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_boss_gatekeeper_mk1_portrait@abb8236a1454",
-        "RequestFingerprint": "abb8236a14548f245e7e0e234b7ca19c05f13db275f1fff3aff98990720c2dfe",
-        "CompileStatus": "ready"
+        "RequestID": "monster_boss_gatekeeper_mk1_portrait@9085531b2a27",
+        "RequirementFingerprint": "9085531b2a27012810b9c67f4e730bf9d15a44faa960e79b8df756cc700fa029",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -9450,9 +9650,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_boss_mycelium_oracle_combat@9faf74951fef",
-        "RequestFingerprint": "9faf74951fefbff5c8134bde519b7892da5d64dc444f998b2d4afc5a1696ef64",
-        "CompileStatus": "ready"
+        "RequestID": "monster_boss_mycelium_oracle_combat@91b30fbf701a",
+        "RequirementFingerprint": "91b30fbf701a04d692dda7e8e5adc959975e17c41014e309662f752b1595266e",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -9540,9 +9742,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_boss_mycelium_oracle_portrait@f498006f796d",
-        "RequestFingerprint": "f498006f796d00a3c59bc85a46bfa03dafcd40b62ed23d1f5c94080510497d76",
-        "CompileStatus": "ready"
+        "RequestID": "monster_boss_mycelium_oracle_portrait@bca9cc4a1ed8",
+        "RequirementFingerprint": "bca9cc4a1ed8e825bba46f21b0aed2ef658adc2cd1990c28bd244c96b1bcd897",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -9632,9 +9836,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_boss_spore_foundry_combat@acd9b917298b",
-        "RequestFingerprint": "acd9b917298b71b918ce0c62dea07e3a50fa5bb7f33220e793f4ea9ee9b1d4e4",
-        "CompileStatus": "ready"
+        "RequestID": "monster_boss_spore_foundry_combat@e163e6b77fe6",
+        "RequirementFingerprint": "e163e6b77fe6e594d085574c93a89a31e72d74bcfe913faf01e446ba296e6f14",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -9722,9 +9928,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_boss_spore_foundry_portrait@d821be051d3e",
-        "RequestFingerprint": "d821be051d3e46a7895824e59dc39d2a3409a9d1eed0b97f8598157a5832596f",
-        "CompileStatus": "ready"
+        "RequestID": "monster_boss_spore_foundry_portrait@e8ff0b3e1b8b",
+        "RequirementFingerprint": "e8ff0b3e1b8bc056a8a8c56797c3e1e22fc41bd162ec15a4698bdbb2925299f9",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -9814,9 +10022,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_elite_crystal_bulwark_combat@8e4f02c46c23",
-        "RequestFingerprint": "8e4f02c46c23103b5760c3740fae3599dea07c2ad0f9e1fa8fae6f2c1521c8ed",
-        "CompileStatus": "ready"
+        "RequestID": "monster_elite_crystal_bulwark_combat@c6017e47e25d",
+        "RequirementFingerprint": "c6017e47e25ddd1b96273d674508202688414e8fd11035ebb3dafb32b18e65cb",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -9904,9 +10114,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_elite_crystal_bulwark_portrait@ee3dd6c41251",
-        "RequestFingerprint": "ee3dd6c41251f6a19907b1d2959a195d25259629df1b04e2ed9116b31ba39298",
-        "CompileStatus": "ready"
+        "RequestID": "monster_elite_crystal_bulwark_portrait@9fbd97a3e5ae",
+        "RequirementFingerprint": "9fbd97a3e5ae2ade740f9b73025a6f7af2bae703207b976a5d24c1c9597cdf06",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -9993,9 +10205,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_elite_mutant_amalgam_combat@4c59276049df",
-        "RequestFingerprint": "4c59276049df45ea7e00db11f32c50fae6ae6f2cba2bde34d460d3222405a754",
-        "CompileStatus": "ready"
+        "RequestID": "monster_elite_mutant_amalgam_combat@16d431d59a01",
+        "RequirementFingerprint": "16d431d59a018531f00aff5bf1fb8fa9447151aedadc6e1c601e6f2b5648f326",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -10080,9 +10294,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_elite_mutant_amalgam_portrait@ebc4021f2fe7",
-        "RequestFingerprint": "ebc4021f2fe733595536ddbd3f8c3f1acdf2e7662224cadd04440595a40324e5",
-        "CompileStatus": "ready"
+        "RequestID": "monster_elite_mutant_amalgam_portrait@2790403f1fb7",
+        "RequirementFingerprint": "2790403f1fb7933602ba92ba8fb56830a105086082d43a86a7e381e81b1ad7d6",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -10169,9 +10385,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_elite_scrap_guard_combat@81e2e50a5a15",
-        "RequestFingerprint": "81e2e50a5a15dee9d419bc53ead59587509334a1be42291fb1235ef78e825854",
-        "CompileStatus": "ready"
+        "RequestID": "monster_elite_scrap_guard_combat@a3e9e65efad7",
+        "RequirementFingerprint": "a3e9e65efad79f61e17b427db47a5de6d8dbe408b056c344f79f65a55e8a0f4d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -10256,9 +10474,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_elite_scrap_guard_portrait@7fbae9828fe7",
-        "RequestFingerprint": "7fbae9828fe7d4c48c4ba4189d151f7c41fb6a76fb253b28d22bbd61b157af01",
-        "CompileStatus": "ready"
+        "RequestID": "monster_elite_scrap_guard_portrait@61f0f70eb75d",
+        "RequirementFingerprint": "61f0f70eb75dffefb30dbf3de91d0f4acfbad04066d487f943ee7acc4d8bc47e",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -10348,9 +10568,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_elite_spore_matriarch_combat@8ecba41b6d8c",
-        "RequestFingerprint": "8ecba41b6d8c787890ef76c77d855dd05a6dd921a3e6e8993277011864db832a",
-        "CompileStatus": "ready"
+        "RequestID": "monster_elite_spore_matriarch_combat@875cc7b736da",
+        "RequirementFingerprint": "875cc7b736da92b55dfd726eb322d62bad5c8ff5613cf16bc02113fd659cb812",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -10438,9 +10660,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_elite_spore_matriarch_portrait@01c71e90978e",
-        "RequestFingerprint": "01c71e90978ebda97f7431f5ac94243882a81487356fb70c38eabf958c2a3033",
-        "CompileStatus": "ready"
+        "RequestID": "monster_elite_spore_matriarch_portrait@e4540db455f5",
+        "RequirementFingerprint": "e4540db455f5c37ccd2a1fcc103ec4bd67fe406cb9e61229d0f4ff58de264042",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -10530,9 +10754,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_elite_vein_knight_combat@f7d33d9e03fb",
-        "RequestFingerprint": "f7d33d9e03fb0b5e78b89d284586cdcbf6faa508717a2467cc7c18c7e2bd1fef",
-        "CompileStatus": "ready"
+        "RequestID": "monster_elite_vein_knight_combat@275e7c34ff83",
+        "RequirementFingerprint": "275e7c34ff83668e7d678c74d05179ce712a0d0fe868c280c842668994c30640",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -10620,9 +10846,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_elite_vein_knight_portrait@ca913999cfa1",
-        "RequestFingerprint": "ca913999cfa1e95c96d348687508aab46e95fa3231721122ab6a5de08844f524",
-        "CompileStatus": "ready"
+        "RequestID": "monster_elite_vein_knight_portrait@ab5412735ea4",
+        "RequirementFingerprint": "ab5412735ea43e8e97c48db6140498a244c710c581192cd09c4742a083e8de32",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -10709,9 +10937,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_acid_slime_combat@f4643e90b813",
-        "RequestFingerprint": "f4643e90b8138f7f754d2319c7512c06c9093b57850131ac11cf28ed9c57c1a3",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_acid_slime_combat@80ccbdb7e401",
+        "RequirementFingerprint": "80ccbdb7e401d1636d11a11563650a725d21a81e7bd4b33937ef8261885c8383",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -10796,9 +11026,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_acid_slime_portrait@5c650596dc0b",
-        "RequestFingerprint": "5c650596dc0bfaeb94879f4598fc5817c032f38062cb34e4aa06cbbcf8222ac7",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_acid_slime_portrait@92f46751ae64",
+        "RequirementFingerprint": "92f46751ae6493a49d223b8454f31bfabd5007b8780fe108120cec42f4b3fe52",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -10888,9 +11120,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_acid_slime_mature_combat@84054ee11b37",
-        "RequestFingerprint": "84054ee11b37b30c2524d7e8b04c871e83730768909c1c04ab73d5bb9a7a6218",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_acid_slime_mature_combat@4782cc0c5ac7",
+        "RequirementFingerprint": "4782cc0c5ac77f05746a3ba4290768e50162aafaf77b4e80916585afecee3ef6",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -10978,9 +11212,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_acid_slime_mature_portrait@76b36f9df040",
-        "RequestFingerprint": "76b36f9df0404aa7c45a5e6ef6afed5388fb229ff95e80d569f73d5ff42da08d",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_acid_slime_mature_portrait@fcb54a6d74c5",
+        "RequirementFingerprint": "fcb54a6d74c5eb8e3d77c572479c4331ee16d719c8a47345776a41844943c007",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -11070,9 +11306,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_crystal_guard_combat@c1870c9212f5",
-        "RequestFingerprint": "c1870c9212f5c5d8765a464fce1d66e74acf733b8761cd842c4df3d693f1df81",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_crystal_guard_combat@f60b15f18426",
+        "RequirementFingerprint": "f60b15f1842664e3fac440ca766213aaddd231905c521555182338eeeb2b0348",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -11160,9 +11398,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_crystal_guard_portrait@69094f6b6b56",
-        "RequestFingerprint": "69094f6b6b5692ebba4b2a6d7d5163123bee4a6cfd3afc05c4590687aebdc3bb",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_crystal_guard_portrait@8daac943e2f9",
+        "RequirementFingerprint": "8daac943e2f9988d60273c6aea0618ab85ea61c52b1e0de511361fc005984c5a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -11252,9 +11492,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_echo_pilgrim_combat@a931570331bf",
-        "RequestFingerprint": "a931570331bff25d883745bbd6bfebfc7b8fd42992a8300c054cce0925a5d03d",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_echo_pilgrim_combat@e7470b268e99",
+        "RequirementFingerprint": "e7470b268e993df852a76b2052fda777a26f3ed7215b142b390b3b9d03a161fb",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -11342,9 +11584,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_echo_pilgrim_portrait@78b5375eb904",
-        "RequestFingerprint": "78b5375eb904d63c275f1330ae14863a776f41c316497e38914eae0b5a467872",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_echo_pilgrim_portrait@5665dd7b86c5",
+        "RequirementFingerprint": "5665dd7b86c553569946e561f0bda7f3ef4b5c8294a1f2e7d80534fe62fbe8a1",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -11434,9 +11678,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_lost_miner_echo_combat@154201001226",
-        "RequestFingerprint": "1542010012267b62a7175e34254d4bd132f5bcba831a371484b3d045a727f6b4",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_lost_miner_echo_combat@fe02252585b8",
+        "RequirementFingerprint": "fe02252585b84d8340447772725141f24fd62f06bc9d3f0a231d8c3ed27cf776",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -11524,9 +11770,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_lost_miner_echo_portrait@decf24e0b659",
-        "RequestFingerprint": "decf24e0b65927ad0a474a55feec3107da97e0e42682faa38b1abf713c2b32d6",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_lost_miner_echo_portrait@b35995ba5d8c",
+        "RequirementFingerprint": "b35995ba5d8c917f07ff4eb0068c4b14a87c049d7834cbf1a94c31462457161d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -11616,9 +11864,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_mycelium_crawler_combat@91cd0fbe411e",
-        "RequestFingerprint": "91cd0fbe411edb32063caec957ce0c1069a671caddfa47864a392e016e2eb23e",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_mycelium_crawler_combat@2a225cbece14",
+        "RequirementFingerprint": "2a225cbece1423cc5f3ade98e8f10422cbbc63078d7019be919f2fc98abb278b",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -11706,9 +11956,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_mycelium_crawler_portrait@fa908ca62384",
-        "RequestFingerprint": "fa908ca62384a47c8e7b41448d4bbdb923fc06769d5dc448d7d2bbd2193ccd7b",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_mycelium_crawler_portrait@5c7f02b40e30",
+        "RequirementFingerprint": "5c7f02b40e30856a56b98268c51251056e29bf8c6c84261148e86a1c9da32b08",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -11798,9 +12050,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_nerve_midge_swarm_combat@0079954fda74",
-        "RequestFingerprint": "0079954fda746313cba876aab5727ec7856a2ae02e232d96e8480340b9905916",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_nerve_midge_swarm_combat@15b21fc1b70d",
+        "RequirementFingerprint": "15b21fc1b70d240d4b9629c5b67bd25c0f9c851bd6e177290f2b9a4178b17bfd",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -11888,9 +12142,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_nerve_midge_swarm_portrait@3790fcb479f3",
-        "RequestFingerprint": "3790fcb479f37350896b7980a887957c6058cf49fa56b8a37c789d8ed007ce97",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_nerve_midge_swarm_portrait@39720d7e4f66",
+        "RequirementFingerprint": "39720d7e4f6653182a183dc42137c7d03c97fafa3028b81378bc1802ece057f1",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -11980,9 +12236,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_rust_cultivator_combat@370f69073fea",
-        "RequestFingerprint": "370f69073fea4438152b203040741e616a87f461efbe011eeb3eb4291a761c87",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_rust_cultivator_combat@ba2f59ddb79d",
+        "RequirementFingerprint": "ba2f59ddb79d10b0dfc642dc5f3b98ccfd2a61d81679fac432f7e55492c62e1a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -12070,9 +12328,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_rust_cultivator_portrait@b68103916e91",
-        "RequestFingerprint": "b68103916e913a7d87fa9df0ae75fe9341ae25d52a6a29a134651d8c2a15d49a",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_rust_cultivator_portrait@7f46bc70a4ce",
+        "RequirementFingerprint": "7f46bc70a4ce64cd11f7ae34058a78f0473f6742a196fb8b3ecc67cd94334895",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -12162,9 +12422,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_rust_hound_combat@4414e8109629",
-        "RequestFingerprint": "4414e810962992b9464a285e206fe103d166dd920e5aa32ca812aff2499355b8",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_rust_hound_combat@ea79a7cd76d1",
+        "RequirementFingerprint": "ea79a7cd76d103c70bcab5bb67fea2292802258373168273a342dbbd65155407",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -12252,9 +12514,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_rust_hound_portrait@2612e9df0abe",
-        "RequestFingerprint": "2612e9df0abe8542606e4c9386fa800d7d328f479dac04d83617a9033c99ca36",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_rust_hound_portrait@4b284ef85a47",
+        "RequirementFingerprint": "4b284ef85a472b2b08ac649f81bf88c18cc4d535a80eab7e0bafdd74dbc60574",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -12341,9 +12605,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_scavenger_bug_combat@7a99609a5ac5",
-        "RequestFingerprint": "7a99609a5ac53188113dba18f1555b7312cb2ab31d4d702ca3092ca7ecf719ef",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_scavenger_bug_combat@09cb53fe5482",
+        "RequirementFingerprint": "09cb53fe54825a0b8529b55fc94127de852c3e0c51d4c390fc7dd5e4afb9a7ba",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -12428,9 +12694,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_scavenger_bug_portrait@8f0407401e03",
-        "RequestFingerprint": "8f0407401e0368c4a3a26c4798aa63c06eb25ed924595da4db1fecd5293e4020",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_scavenger_bug_portrait@b719593ef200",
+        "RequirementFingerprint": "b719593ef200f4542e9f4801ea5516039dbe010fe2cb103c31376d1a4879750f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -12520,9 +12788,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_shell_grafter_combat@7a1d4e0dbe92",
-        "RequestFingerprint": "7a1d4e0dbe929d442c9519cc363f1eef378fb1a6fc35ab04c6e4eb698ac4988e",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_shell_grafter_combat@33edbdc77b62",
+        "RequirementFingerprint": "33edbdc77b62caa1212283d339fd4538a4abce8fccdfc6b5636b42b3fba1a358",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -12610,9 +12880,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_shell_grafter_portrait@2afa9bd30722",
-        "RequestFingerprint": "2afa9bd307223eb660073078fa528034682e419b238bea0bb10443b388ac0592",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_shell_grafter_portrait@63a5e4011cad",
+        "RequirementFingerprint": "63a5e4011cad7bfe551ca02ec0d4eade45eeab206746bda0435e1a944ef96b77",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -12702,9 +12974,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_soul_midge_swarm_combat@ec1ad6facf40",
-        "RequestFingerprint": "ec1ad6facf40d1c22a0eb403ec1033c525db50e10d8a60114c619f9678e1da0b",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_soul_midge_swarm_combat@7eece0bcbf87",
+        "RequirementFingerprint": "7eece0bcbf87771d9fd1f1dcff8facebb7efc77c98b4fdbcaaa013774ddedd29",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -12792,9 +13066,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_soul_midge_swarm_portrait@7d23ab321b6e",
-        "RequestFingerprint": "7d23ab321b6e66ce33aaf9de76dd1d2e94be9d1625b12cafa507634220f15263",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_soul_midge_swarm_portrait@be9f8bb23638",
+        "RequirementFingerprint": "be9f8bb236386c2f67137d5373d26a85cf2c373d30be43218aeff10e68883b17",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -12884,9 +13160,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_spore_archer_combat@aff5dd01c673",
-        "RequestFingerprint": "aff5dd01c673a6deebd1bc4a9aff9bd9ff3c0ce6764fbb92cef29427cc12217d",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_spore_archer_combat@dd8cc6a5c997",
+        "RequirementFingerprint": "dd8cc6a5c9977435e12ed466e38133ada774e0a530319924064f0a8961728142",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -12974,9 +13252,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "monster_mob_spore_archer_portrait@54b635be8e5e",
-        "RequestFingerprint": "54b635be8e5e790401c48bc428bf30882a350018deeccde64b1d8c4c7dedca12",
-        "CompileStatus": "ready"
+        "RequestID": "monster_mob_spore_archer_portrait@43afc10e9941",
+        "RequirementFingerprint": "43afc10e99419af025e7589b850ac9a25d21f00d225fffdd1a2382e2fb003e74",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -13074,9 +13354,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p02_panel01_workshop_wide@5571d5ba093b",
-        "RequestFingerprint": "5571d5ba093b458a4e3fa2fe82833099367003df3330c55b7e1827209fb97633",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p02_panel01_workshop_wide@c382026fcd0b",
+        "RequirementFingerprint": "c382026fcd0b678dd1c2eb26878176c8ec7048fcd224ac9efd3bcb693b72bba2",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -13174,9 +13456,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p02_panel02_debt_notice_door@30cac61054c9",
-        "RequestFingerprint": "30cac61054c91cd5169d89b5da84e60473f7bf73ff4da365011f3c478b29919b",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p02_panel02_debt_notice_door@342e37fd3711",
+        "RequirementFingerprint": "342e37fd37115d4463403d4794813786686733f9ca4f4d86d6f8e1078f66c9ac",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -13274,9 +13558,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p02_panel03_no0_hand_cloth@8495e9e5d646",
-        "RequestFingerprint": "8495e9e5d6466e950a7551b0251e4f8869a9171b7e7954a4e2e250123b33450f",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p02_panel03_no0_hand_cloth@7bcb1a3da363",
+        "RequirementFingerprint": "7bcb1a3da363a0f6d70f30a54df2ddd0ed8ef23753552e0ad200ddcffa5fe52b",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -13372,9 +13658,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p03_panel01_debt_notice_close@3982b8160b9f",
-        "RequestFingerprint": "3982b8160b9fa4fbc5990e8c1d04f1bc17f86491437ddbc89102624302f85e07",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p03_panel01_debt_notice_close@aa6cb2b96437",
+        "RequirementFingerprint": "aa6cb2b9643744879a0886566d82b102dc3a8d77f0c8cfe5c67f06d0b969c128",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -13470,9 +13758,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p04_panel01_repair_note_close@8ccf7a61393a",
-        "RequestFingerprint": "8ccf7a61393a5fd10a04fc3013f285c17b9a77a75add4bc21100803dea032841",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p04_panel01_repair_note_close@877f2a7a3e57",
+        "RequirementFingerprint": "877f2a7a3e57f2d8ce141b004efd1c32c160af2aada8764a9d491ea7d396eb14",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -13568,9 +13858,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p04_panel02_shallow_gate_glow@6d6fd66228f9",
-        "RequestFingerprint": "6d6fd66228f9eccc8acd03a77457638d40ae2ab5277f35e763e5ab103c066e5f",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p04_panel02_shallow_gate_glow@ddf610b9ca30",
+        "RequirementFingerprint": "ddf610b9ca304711705243d769b0d05351dd9004c69d258a1f20b5e36271f124",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -13666,9 +13958,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p04_panel03_core_shard_box@04c59dbefb04",
-        "RequestFingerprint": "04c59dbefb04a0cbf9e0574a0403edc1e485842f27500b7b6ee68ea7c693cc82",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p04_panel03_core_shard_box@b753ecc9df0c",
+        "RequirementFingerprint": "b753ecc9df0c79f019de927dfc54938d195108cf716b9775ee4bb536e8b1c81b",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -13764,9 +14058,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p05_panel02_no0_half_reveal@8f39ce7404db",
-        "RequestFingerprint": "8f39ce7404db7bbb28b1658321cb0ec59ce551293fe9824f93355e4fc467c139",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p05_panel02_no0_half_reveal@738d87a1e41e",
+        "RequirementFingerprint": "738d87a1e41edc1e73311a8d5ecb77107df9966911fec77daf11da57dd2ee99d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -13862,9 +14158,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p05_panel03_no0_core_dim@bc55714952af",
-        "RequestFingerprint": "bc55714952afd394ed82eb35fdba4f3d227bb1999126e662c4b1e073ba60001b",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p05_panel03_no0_core_dim@c6268699b44b",
+        "RequirementFingerprint": "c6268699b44b93904dfc17246a471b002b36e51279e778312f8f999d92ed273c",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -13960,9 +14258,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p06_panel01_no0_close@fb4587f8fc92",
-        "RequestFingerprint": "fb4587f8fc923c32617b8c45a02b491d8a4ace2f3dcf589548af695cc329970c",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p06_panel01_no0_close@c82c26647e57",
+        "RequirementFingerprint": "c82c26647e57a0cc0ef2d3d88d4199db9b2ad03546b588e3148e020665cc9f05",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -14058,9 +14358,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p06_panel02_core_insert@bd6893756bfd",
-        "RequestFingerprint": "bd6893756bfd371ca58f8f5a434bde04bd43ac8eddc6d429839088871412abbe",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p06_panel02_core_insert@b2dd0d36db65",
+        "RequirementFingerprint": "b2dd0d36db650fea9734a37a23d4306fcdfdd2ec0593caf5237427b8efa87cb2",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -14156,9 +14458,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p06_panel03_core_wake@b86c839a9b42",
-        "RequestFingerprint": "b86c839a9b42258089065df2ceb35e9228a94e3ee93d5ea26f8a2192e6bef114",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p06_panel03_core_wake@26bd7465624c",
+        "RequirementFingerprint": "26bd7465624cf0e2b76e411769ade56ac21bde5c752b3bb3a7cccc158fd2e4c2",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -14254,9 +14558,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p03_panel02_collateral_shadow@5232557acff2",
-        "RequestFingerprint": "5232557acff20c6d2a2205fa89f8d81e4e661f38e960305c5709455f9544416e",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p03_panel02_collateral_shadow@bd95cbb168a7",
+        "RequirementFingerprint": "bd95cbb168a77e727df1186082811614fb150703a44683e94d9023ab7b901a1f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -14352,9 +14658,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p03_panel03_broken_parts@65bed483a901",
-        "RequestFingerprint": "65bed483a90130aab08ccdac7cbd0ccccbb0bb6cf869a2fbae7cebd859567882",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p03_panel03_broken_parts@4e539b0e9347",
+        "RequirementFingerprint": "4e539b0e9347e193065880184c185bd6f27d8cc76f07d0455a49bab72c71338d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -14450,9 +14758,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "cg_t0_01a_p05_panel01_broken_doll_parts@773a0ec244b9",
-        "RequestFingerprint": "773a0ec244b950f91a7dda5c01d5541fbfda7d2fc4b8345328cac66bd7d91720",
-        "CompileStatus": "ready"
+        "RequestID": "cg_t0_01a_p05_panel01_broken_doll_parts@0c583321dc59",
+        "RequirementFingerprint": "0c583321dc59d2785a9f65cda03d161d51c5e6cc1656452e98cabfa4158ee1f7",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -14538,9 +14848,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "node_boss_icon@7f791b6dd6b3",
-        "RequestFingerprint": "7f791b6dd6b372ced0432e5bd10a0683fdee1f47e7266fdefb3e7dba4afbcae1",
-        "CompileStatus": "ready"
+        "RequestID": "node_boss_icon@25843114fd59",
+        "RequirementFingerprint": "25843114fd5996c27fa8ad054ce73823177b4c34d6459908eb8e534d5c670543",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -14626,9 +14938,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "node_combat_icon@ed33f459de1c",
-        "RequestFingerprint": "ed33f459de1c6d1f4bac73e448625c52dc1fa2db13f986512a8023deac214a7b",
-        "CompileStatus": "ready"
+        "RequestID": "node_combat_icon@d6f9bc5a508c",
+        "RequirementFingerprint": "d6f9bc5a508ca8f9682f466177f1bbf07f1e3a15e3bd353879e087c0f38e609d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -14717,9 +15031,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "node_eventnode_icon@83f3a23e265f",
-        "RequestFingerprint": "83f3a23e265f57fddf700a432ae45d9822b3a45dd9d8ac6e2cf9f509fb32c665",
-        "CompileStatus": "ready"
+        "RequestID": "node_eventnode_icon@11076386a35d",
+        "RequirementFingerprint": "11076386a35da4e8afbdd662dc5cf9ad13f51f22907543912ac0b4a7d6a7958d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -14808,9 +15124,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "node_hazardnode_icon@a945714467da",
-        "RequestFingerprint": "a945714467da56ae064c1335bf8dcbc891572ba0fe7e5d9f4803d733300dd906",
-        "CompileStatus": "ready"
+        "RequestID": "node_hazardnode_icon@156768df1a77",
+        "RequirementFingerprint": "156768df1a7701cac948fe0ae3b87dd4e7aa83750575b9be75a328da87fd773d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -14899,9 +15217,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "node_reststopnode_icon@03a3392122a8",
-        "RequestFingerprint": "03a3392122a82eb1650f76d8e5a95d97f1957128d348ebf5adb55dd7d35a94bc",
-        "CompileStatus": "ready"
+        "RequestID": "node_reststopnode_icon@a54d6761db8a",
+        "RequirementFingerprint": "a54d6761db8a5126d270962ec5d7ae91095ca198acc2d862acbfb1910d5de1f0",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -14987,9 +15307,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "node_safe_room_icon@f93668174654",
-        "RequestFingerprint": "f93668174654c22b47f74684754031eed1b4022a6d4ea5e12884c7c5d09e0f6f",
-        "CompileStatus": "ready"
+        "RequestID": "node_safe_room_icon@8747f77ee5bd",
+        "RequirementFingerprint": "8747f77ee5bdf60e06fcaf64604ae41ba3b688b366a6be51068c7936a5185661",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -15075,9 +15397,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "node_stairs_icon@b987cc419e66",
-        "RequestFingerprint": "b987cc419e6616b9129eae48dedd9742ccf14fd4efc613a10f893f740fdb4690",
-        "CompileStatus": "ready"
+        "RequestID": "node_stairs_icon@285a450fffba",
+        "RequirementFingerprint": "285a450fffba9355841fd1c12e7738d2132a08a7404df74147e841e236585ba4",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -15166,9 +15490,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "node_treasurenode_icon@869b8121e65b",
-        "RequestFingerprint": "869b8121e65b9dac5527b15485a61e5dc67113531fe5e45c56794fae9e0e4c59",
-        "CompileStatus": "ready"
+        "RequestID": "node_treasurenode_icon@0113e8f80b91",
+        "RequirementFingerprint": "0113e8f80b91c475529d1b1af6922314f6f00b3aca9d017371ce208aa5650643",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -15260,9 +15586,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_alchemy_antitoxin_contract_icon@3ff23ab7d387",
-        "RequestFingerprint": "3ff23ab7d387b96362a8ac51806c2e51944f475a04ccb55ae4a93d9a79388a5b",
-        "CompileStatus": "ready"
+        "RequestID": "order_alchemy_antitoxin_contract_icon@7edcda6e30f2",
+        "RequirementFingerprint": "7edcda6e30f2ba21d68702d156222a79fcd98d3c49d3f98689719d30eca74cef",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -15354,9 +15682,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_alchemy_market_forecast_icon@fc0e6800fbae",
-        "RequestFingerprint": "fc0e6800fbae18ac72444f905b02c9572d4f746b61a5f7be8421982a074fd984",
-        "CompileStatus": "ready"
+        "RequestID": "order_alchemy_market_forecast_icon@c6070447414f",
+        "RequirementFingerprint": "c6070447414fbe293fe401b6014b6373aeda017f366487cb325d640dbaab9c3a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -15448,9 +15778,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_alchemy_purification_batch_icon@df05bb34472b",
-        "RequestFingerprint": "df05bb34472bc5cb9b7a6caaaca4379dfaddcacd551eed13ec40c05fba6c9fc2",
-        "CompileStatus": "ready"
+        "RequestID": "order_alchemy_purification_batch_icon@2699bd8cc536",
+        "RequirementFingerprint": "2699bd8cc536918b2d393c67b8ff490f0ac844e34dcb86198a25ea09d2b520c5",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -15542,9 +15874,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_alchemy_spore_sample_fast_icon@79975743f94d",
-        "RequestFingerprint": "79975743f94d0a5dbf1dd761ad5c85407d470317a962400fd2306fef3f4ea140",
-        "CompileStatus": "ready"
+        "RequestID": "order_alchemy_spore_sample_fast_icon@823b600bdab6",
+        "RequirementFingerprint": "823b600bdab687f8bc11b4f2ce47db4f3a96cd0bc93c26f94c3fbfa6f80ab578",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -15636,9 +15970,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_black_bound_core_betrayal_icon@5ce2b69df725",
-        "RequestFingerprint": "5ce2b69df72537e44cb8b70682e67c49f55fc38e8f30dbe304fd2a3542a6b134",
-        "CompileStatus": "ready"
+        "RequestID": "order_black_bound_core_betrayal_icon@08dff95c982a",
+        "RequirementFingerprint": "08dff95c982a8fa800627fea5305604108725f3f6dd84262fcc212174362affd",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -15730,9 +16066,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_black_contested_core_buyout_icon@57c7e3945d4b",
-        "RequestFingerprint": "57c7e3945d4b80f3b04e70c32fcd334f5dbe9d1fcc78352bc6ec7d008b6641d6",
-        "CompileStatus": "ready"
+        "RequestID": "order_black_contested_core_buyout_icon@265df3eb6850",
+        "RequirementFingerprint": "265df3eb6850381e27ec56812780ef09aaa1159e580b19269619fe4811085595",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -15824,9 +16162,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_black_forbidden_relic_buyout_icon@4636a3db3850",
-        "RequestFingerprint": "4636a3db385075158860945f48b8cc31708a4af334a7f1789b9a8c9c5bce7d0f",
-        "CompileStatus": "ready"
+        "RequestID": "order_black_forbidden_relic_buyout_icon@5969c61aa6a2",
+        "RequirementFingerprint": "5969c61aa6a29d2b937a0224ed47df93403eda2e2e07610329df5f951f5195e9",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -15918,9 +16258,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_black_live_sample_no_questions_icon@e9f68128db4d",
-        "RequestFingerprint": "e9f68128db4de356f1cf950166f85fb7178a1ca1afa5ed042629e985f6b0a887",
-        "CompileStatus": "ready"
+        "RequestID": "order_black_live_sample_no_questions_icon@c2a0d3690565",
+        "RequirementFingerprint": "c2a0d36905653e98a4676921fe8051a969bac8896e55ae3c118279ad65f8fb8c",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -16012,9 +16354,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_black_smuggled_route_key_icon@c83a47a77c88",
-        "RequestFingerprint": "c83a47a77c88851c5e4b2568b9028b7735b0faa5ad870986456136e5cb94d506",
-        "CompileStatus": "ready"
+        "RequestID": "order_black_smuggled_route_key_icon@937d7887338e",
+        "RequirementFingerprint": "937d7887338e43b7570daff5dddc233256ae0895b80af620bd67354c89d22dfd",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -16106,9 +16450,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_blackmarket_relic_box_icon@65eb753ab3ef",
-        "RequestFingerprint": "65eb753ab3efaa69556d2a2d1678232f4b2da8b4d9652750c042f5ee95abfafa",
-        "CompileStatus": "ready"
+        "RequestID": "order_blackmarket_relic_box_icon@c2a3d1893274",
+        "RequirementFingerprint": "c2a3d1893274bda38afa84e048ab6ddb5cf9bfe453d664d7eb1b77b28b1e9303",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -16200,9 +16546,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_crystal_scale_batch_icon@e3b06fcff647",
-        "RequestFingerprint": "e3b06fcff647874d00325e02d9bd75e257373b0fc05b790cdb12e8ce963861e4",
-        "CompileStatus": "ready"
+        "RequestID": "order_crystal_scale_batch_icon@5376b582250f",
+        "RequirementFingerprint": "5376b582250fd72e460bcd5ebb7bf94b3533decd2ffaa9aab4504f5c3aaaa1ad",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -16294,9 +16642,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_guild_layer1_map_rubbing_icon@780044db7a14",
-        "RequestFingerprint": "780044db7a14242287700ea880ed7216adc25accd73b0e548d5e79705ef1f5a5",
-        "CompileStatus": "ready"
+        "RequestID": "order_guild_layer1_map_rubbing_icon@51726852a536",
+        "RequirementFingerprint": "51726852a5368d2939967947e6ff81a47a11e3d839d04b7dbedb439d7c4231e0",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -16388,9 +16738,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_guild_layer2_route_report_icon@bce8c3f098e9",
-        "RequestFingerprint": "bce8c3f098e9f86c8bd413948a85a705d90190e7e19264d0d30ecba98e9463a8",
-        "CompileStatus": "ready"
+        "RequestID": "order_guild_layer2_route_report_icon@2e6fae53fab0",
+        "RequirementFingerprint": "2e6fae53fab0d218ca0905ceecfbd626d0d3ab9783cdc82935e8e5ade3b0f28a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -16482,9 +16834,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_guild_safezone_signal_icon@6a9ad3a7cd51",
-        "RequestFingerprint": "6a9ad3a7cd51d6eabcc695ff241de26de1549c7a16c5d64407e47712138e31c1",
-        "CompileStatus": "ready"
+        "RequestID": "order_guild_safezone_signal_icon@ae45e0445146",
+        "RequirementFingerprint": "ae45e0445146ef95b3261c50b27736d33911d9669fb1fc5467c376bd9a3c832b",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -16576,9 +16930,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_mage_boss_core_research_icon@adac437178a1",
-        "RequestFingerprint": "adac437178a162f86834bca12048af92695056ce55a4b408c4163a6a4afd594d",
-        "CompileStatus": "ready"
+        "RequestID": "order_mage_boss_core_research_icon@a80d0a960f93",
+        "RequirementFingerprint": "a80d0a960f9306db7e9873f0b0e5a5bf41b194525bec8809025a9e74cf74054e",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -16670,9 +17026,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_mage_corroded_memory_stone_icon@aab2984f1860",
-        "RequestFingerprint": "aab2984f1860a70613852430e5259a06142b8fc728fdc23336697679b2f26df4",
-        "CompileStatus": "ready"
+        "RequestID": "order_mage_corroded_memory_stone_icon@50dc11164fe3",
+        "RequirementFingerprint": "50dc11164fe3039d0575606b51b3f455b92da397fda777eb238399c85d457360",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -16764,9 +17122,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_mage_live_slime_sample_icon@59b1994f43b4",
-        "RequestFingerprint": "59b1994f43b40ea1fb371f45c008e6533fed5b1f6f3da864ff5ad54009be2b56",
-        "CompileStatus": "ready"
+        "RequestID": "order_mage_live_slime_sample_icon@498b5deb1967",
+        "RequirementFingerprint": "498b5deb19679dccdeb8b9726b36f47bf0a664ba47bb5e52fffb2c0792e9ddb0",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -16858,9 +17218,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_mage_oracle_sample_icon@050e64f5ae1e",
-        "RequestFingerprint": "050e64f5ae1e298f8fb351e33a4dee11776c197733e98973415212ab12985232",
-        "CompileStatus": "ready"
+        "RequestID": "order_mage_oracle_sample_icon@fa3c8654d362",
+        "RequirementFingerprint": "fa3c8654d362f09a5b0e46c1f288cabf9784dd68849647fcf51c9a08a1bfc7b5",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -16952,9 +17314,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_mage_unidentified_relic_icon@304c00626bdf",
-        "RequestFingerprint": "304c00626bdf5ed83578273758bf45eda9cfbfd610f7564854a5f7f3ce289d8b",
-        "CompileStatus": "ready"
+        "RequestID": "order_mage_unidentified_relic_icon@af2e39e4da5b",
+        "RequirementFingerprint": "af2e39e4da5b9ebe50fedafc515ee1e21573df95f27100f04d565740d0d9c12e",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -17046,9 +17410,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_spore_cage_procurement_icon@e968ec811f99",
-        "RequestFingerprint": "e968ec811f99acc2b1c15f12cc597104ddfdf348680f600f12137b88010551f9",
-        "CompileStatus": "ready"
+        "RequestID": "order_spore_cage_procurement_icon@cb6d33db0bf8",
+        "RequirementFingerprint": "cb6d33db0bf8f1bd9228f1104f4a71a1c948e339cee04ced5cf90ad5d2f7eacc",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -17140,9 +17506,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_status_boss_core_mutex_icon@3dc7d4996e31",
-        "RequestFingerprint": "3dc7d4996e31397d12119db2450a1abcd0737d928f10afe3b8f806a1761b91c3",
-        "CompileStatus": "ready"
+        "RequestID": "order_status_boss_core_mutex_icon@30c547bbc45a",
+        "RequirementFingerprint": "30c547bbc45a58f1650c97c2fdfaf782670278384462968227bd44b746d2f0c2",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -17234,9 +17602,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_status_deadline_warning_icon@95b3454be89b",
-        "RequestFingerprint": "95b3454be89b9e784d576cb5d583c9ecd15155eec06531e2e7b247b335aca0f9",
-        "CompileStatus": "ready"
+        "RequestID": "order_status_deadline_warning_icon@b3f52a8e73a8",
+        "RequirementFingerprint": "b3f52a8e73a8c6c54689bde4a112a28d45f8f72d501c45433d29281bc8e4e8fe",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -17328,9 +17698,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_status_order_bound_icon@67e2ef753052",
-        "RequestFingerprint": "67e2ef753052a9fc4dd07ed87f0fbd8c265bab3eb7cff2de6036f5c1f39db3c0",
-        "CompileStatus": "ready"
+        "RequestID": "order_status_order_bound_icon@1932717d9e97",
+        "RequirementFingerprint": "1932717d9e970680b5e409e39f95cd17c1043ea95ea3eedab6243594a7b7411c",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -17422,9 +17794,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_status_perishable_icon@34e7363be9af",
-        "RequestFingerprint": "34e7363be9af3190b0360518e923a25c4731c11352bfae02147097a483fbe3e3",
-        "CompileStatus": "ready"
+        "RequestID": "order_status_perishable_icon@a83e83a49e7b",
+        "RequirementFingerprint": "a83e83a49e7bf095f2c700df6913a3f23beaa4b2b765e5aab44a7ce9a470f2a5",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -17516,9 +17890,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_type_black_market_betrayal_icon@c76f7f54c346",
-        "RequestFingerprint": "c76f7f54c3462dfda10e27a81561bc1b2e15b268ad1a95233c1366bf70c7fe5c",
-        "CompileStatus": "ready"
+        "RequestID": "order_type_black_market_betrayal_icon@b07ec15c2105",
+        "RequirementFingerprint": "b07ec15c2105f58f503ca40daee66b2b79036551d9f0d35c220fd233fac3181b",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -17610,9 +17986,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_type_exploration_report_icon@8afe0d38ac54",
-        "RequestFingerprint": "8afe0d38ac54494af002325487b4e2b7929b6789d4cc60e77bfecb329e4f2788",
-        "CompileStatus": "ready"
+        "RequestID": "order_type_exploration_report_icon@d7703b30d7b8",
+        "RequirementFingerprint": "d7703b30d7b8d09adef6bf772e564c7297b56832a00e2546b336f15dbb896923",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -17704,9 +18082,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_type_large_cargo_icon@c0a99d4bf0c6",
-        "RequestFingerprint": "c0a99d4bf0c6aa60bd4aa17ae4ee81192251c927bef2e0e4d4894a4f9c32eb0a",
-        "CompileStatus": "ready"
+        "RequestID": "order_type_large_cargo_icon@4c16bfae07f6",
+        "RequirementFingerprint": "4c16bfae07f66bb5aee4303e79f2a8063016f51d431b8683742c93ebae07fc98",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -17798,9 +18178,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_type_live_capture_icon@686fe39b02c8",
-        "RequestFingerprint": "686fe39b02c8caadbfbbdfd0980442fbca46459935e5892f1b61d5d3fe5900e5",
-        "CompileStatus": "ready"
+        "RequestID": "order_type_live_capture_icon@6928c3f69356",
+        "RequirementFingerprint": "6928c3f69356aa81c26341fcf0ed2601150f0986b0133bc2efe7aa29538f25df",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -17892,9 +18274,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_type_procurement_icon@1316f6ef4b38",
-        "RequestFingerprint": "1316f6ef4b383afddd6781fce67c23fe70718f55bb2fefa8383aa116c0a66ecd",
-        "CompileStatus": "ready"
+        "RequestID": "order_type_procurement_icon@3569321797eb",
+        "RequirementFingerprint": "3569321797eb53e099ba7fa1ebb9f324433c518b820bf9097066028bc50fdd6c",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -17986,9 +18370,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_type_target_item_icon@ccb6e9769057",
-        "RequestFingerprint": "ccb6e976905760f76c61e6f020bdbd0829932495a809c9e60028b5d0db03a69e",
-        "CompileStatus": "ready"
+        "RequestID": "order_type_target_item_icon@78edd355aae9",
+        "RequirementFingerprint": "78edd355aae94a42afa6abf31aca655bbdc300c27be019ecffc78b651cd7aa73",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -18080,9 +18466,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_workshop_boss_core_claim_icon@3a96a3325029",
-        "RequestFingerprint": "3a96a33250298720cc0303fcd88d1429c4a2b4dac74982627fba9ca76c3892ab",
-        "CompileStatus": "ready"
+        "RequestID": "order_workshop_boss_core_claim_icon@0dd3d397ab52",
+        "RequirementFingerprint": "0dd3d397ab52b93999d1d5ebe88c8754d311927af3bd663b003a3d6a62d4fa00",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -18174,9 +18562,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_workshop_furnace_core_large_icon@cdb3eb8f53fd",
-        "RequestFingerprint": "cdb3eb8f53fd3b6dae4842ca66ea3d925f4c5107d7bfdd74d529f5ded452917e",
-        "CompileStatus": "ready"
+        "RequestID": "order_workshop_furnace_core_large_icon@f83745faca73",
+        "RequirementFingerprint": "f83745faca73c6f5987073bff51cdfe51b5f86265b4d8c0c51ef2a4b909a5f00",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -18268,9 +18658,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_workshop_layer2_ore_batch_icon@287859bc694c",
-        "RequestFingerprint": "287859bc694ccb975a31883530e0fee77f58ac3146b3c3f7ad0be6994d73c17a",
-        "CompileStatus": "ready"
+        "RequestID": "order_workshop_layer2_ore_batch_icon@938bd045b082",
+        "RequirementFingerprint": "938bd045b082adb6e4167b75f96bf7b99f07b94646cd440906ab7d2f75f6bb26",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -18362,9 +18754,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_workshop_scrap_guard_plate_icon@09145778e944",
-        "RequestFingerprint": "09145778e944bd1df7ec82c516fbe5908059c5ba6f546cea56493753c0ce8e7e",
-        "CompileStatus": "ready"
+        "RequestID": "order_workshop_scrap_guard_plate_icon@f8d4a5930c83",
+        "RequirementFingerprint": "f8d4a5930c83e11ec560a02cde883d8e449a2bcba9d59985d52807a254b5189c",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -18456,9 +18850,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "order_workshop_spore_core_frame_icon@2eb6ec7dd05d",
-        "RequestFingerprint": "2eb6ec7dd05df2bf868e668c5703ea2a4d57703dca6b4c8cc28732c0c2621bf8",
-        "CompileStatus": "ready"
+        "RequestID": "order_workshop_spore_core_frame_icon@d611922cefea",
+        "RequirementFingerprint": "d611922cefea1b40bd65f899734528f6b751f20a6fe8bcd34426bd45d3b3359e",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -18544,9 +18940,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "prosthetic_pros_cooling_system_icon@47aa3beda795",
-        "RequestFingerprint": "47aa3beda7956b286122745ce9cc3f7598ef5db0c910eda1e0b563753233577e",
-        "CompileStatus": "ready"
+        "RequestID": "prosthetic_pros_cooling_system_icon@33f0520a84fe",
+        "RequirementFingerprint": "33f0520a84fe169dfd3fa5df806457c9fc4d1af6cecd19bb58a6258dd77065bd",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -18632,9 +19030,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "prosthetic_pros_power_arm_icon@cd35845a6ed6",
-        "RequestFingerprint": "cd35845a6ed614224e066aa3c94e83cb9b7a1b420c286d8ab68ca472c43484a8",
-        "CompileStatus": "ready"
+        "RequestID": "prosthetic_pros_power_arm_icon@f97960af370e",
+        "RequirementFingerprint": "f97960af370ece04e20121846506cebd2cb47ba9a7c3db16edc3a2bef423fac1",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -18726,9 +19126,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "prosthetic_anchor_left_arm_icon@cc36138f430e",
-        "RequestFingerprint": "cc36138f430e236a4b00f6ae4f51bb37727956b15133db77f126b123ccefc7d2",
-        "CompileStatus": "ready"
+        "RequestID": "prosthetic_anchor_left_arm_icon@73a510e9ba22",
+        "RequirementFingerprint": "73a510e9ba226d87ddb593e46bc8b6acf7551de6ee794ea3da036b6afeb53837",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -18820,9 +19222,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "prosthetic_charge_coil_arm_icon@0ba8c552a820",
-        "RequestFingerprint": "0ba8c552a82018c996fc6d6e515ca600e2de11ed5d1653239ff0808c37b87366",
-        "CompileStatus": "ready"
+        "RequestID": "prosthetic_charge_coil_arm_icon@185c3be6ce66",
+        "RequirementFingerprint": "185c3be6ce668e449319bac69d67281f9705150461a9a8c343ab8a977028e93d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -18914,9 +19318,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "prosthetic_focus_lens_icon@3350278bace7",
-        "RequestFingerprint": "3350278bace727facf29f4e9aec75efb9b3cc17c0dc3c7dda1479a086342100c",
-        "CompileStatus": "ready"
+        "RequestID": "prosthetic_focus_lens_icon@f8ed066743f7",
+        "RequirementFingerprint": "f8ed066743f7b821c083fd267f5d7f6aa3d5b7d2bf7031264a7f9c2c7f9937b8",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -19008,9 +19414,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "prosthetic_mender_spine_icon@7de5fa0d6fac",
-        "RequestFingerprint": "7de5fa0d6fac76e39892ff3b6156222f91fe2c247b34d5357ebe4b44e57050e9",
-        "CompileStatus": "ready"
+        "RequestID": "prosthetic_mender_spine_icon@041e0ff4d848",
+        "RequirementFingerprint": "041e0ff4d848d7ff0eafd13588f940d41b185ea28104f78127b3bab80e8347a1",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -19102,9 +19510,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "prosthetic_salvage_fingertips_icon@cecba268999e",
-        "RequestFingerprint": "cecba268999eab3a95dda4ac1aef24c17f74a328f781bc6fcb1e71a64f33368e",
-        "CompileStatus": "ready"
+        "RequestID": "prosthetic_salvage_fingertips_icon@42a70e8c04a0",
+        "RequirementFingerprint": "42a70e8c04a01ba2570caca2e97ad6d6e3bc6230d70c99c30fb063fa93fe18cf",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -19196,9 +19606,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "prosthetic_san_regulator_core_icon@c20beca3204c",
-        "RequestFingerprint": "c20beca3204ce037467a7237d4d3e5195f548b5e74996a7e2087f5fb79f0f0da",
-        "CompileStatus": "ready"
+        "RequestID": "prosthetic_san_regulator_core_icon@2f94fca50942",
+        "RequirementFingerprint": "2f94fca5094203d689d50de51f31d7f39c5ba724e73c6deb2168099fd337f3d7",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -19290,9 +19702,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_acid_gland_shortage_icon@bc6c15cb2920",
-        "RequestFingerprint": "bc6c15cb292028378d1c4325fa9afa888b7521ed7d1549ae3734c892919fb0a6",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_acid_gland_shortage_icon@ab6c60e1b21c",
+        "RequirementFingerprint": "ab6c60e1b21cab16ed41211556578a58c8011bbb3758f424884467e67140ec37",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -19384,9 +19798,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_contraband_night_channel_icon@a99142f67bd1",
-        "RequestFingerprint": "a99142f67bd1158c8e94609b56c33a96a33cad7ab784155b7daa0d1aa314b1e8",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_contraband_night_channel_icon@92924f241ed2",
+        "RequirementFingerprint": "92924f241ed20b37d82de63c5696d44f74a9c106b2470219cef4c6356b87927c",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -19478,9 +19894,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_corrosion_sample_premium_icon@9c6f2e8436b6",
-        "RequestFingerprint": "9c6f2e8436b6560e30060e0f4f771c69e1240db9b93440ca4f91bdc3bd781a96",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_corrosion_sample_premium_icon@a2e887cc4f24",
+        "RequirementFingerprint": "a2e887cc4f24202006446309aa8f53f11e268401bbe6c8e0e368b9a588d5fa64",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -19572,9 +19990,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_crystal_scale_contract_icon@7367f8d2e3b2",
-        "RequestFingerprint": "7367f8d2e3b24db70ef3800e18c61a903e7708b805fd787e7a471427bc63e1ec",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_crystal_scale_contract_icon@e4da9ba19f32",
+        "RequirementFingerprint": "e4da9ba19f32975dfe16bd961f03aa78f92bd7f5e26e153a80a0afc4e14acbed",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -19666,9 +20086,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_faction_medical_request_icon@b63bdb0b4387",
-        "RequestFingerprint": "b63bdb0b43879bd67a345a61899862e46765591cffb85c3e97e3e2d03e8920d6",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_faction_medical_request_icon@231ab785a178",
+        "RequirementFingerprint": "231ab785a178955b9e6aee02681794e8508dbf554547e8221dfe2311dffcb9f3",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -19760,9 +20182,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_filter_shortage_icon@5b97351c68c2",
-        "RequestFingerprint": "5b97351c68c2118005ad4076a044f154f15820ce4daed2b0544c092a505fccf9",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_filter_shortage_icon@095c150915be",
+        "RequirementFingerprint": "095c150915be53e69ffe8daf87d2f5ebe956876744066fbc010aeafe00b23558",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -19854,9 +20278,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_living_mycelium_shortage_icon@ff472d8acb0f",
-        "RequestFingerprint": "ff472d8acb0f75654187ec2fd8595e9c769dd6b7b3357e8e90fa681c2a7469a5",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_living_mycelium_shortage_icon@2185a58948e4",
+        "RequirementFingerprint": "2185a58948e43c6f10fde16ca76e6d38f8bc71d1ff572ac6ec3c1d11bc445ecf",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -19948,9 +20374,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_low_layer_bulk_buy_icon@42aa3d590a93",
-        "RequestFingerprint": "42aa3d590a93596adeb36f60e911281036810421129eddf4319bc75a761b5c8f",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_low_layer_bulk_buy_icon@20bf74831112",
+        "RequirementFingerprint": "20bf74831112e0a10526b9bf71b4f73ca3c15d25ab72f9f42910ea7cc21d529e",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -20042,9 +20470,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_miner_lamps_icon@4872ab3ccf6e",
-        "RequestFingerprint": "4872ab3ccf6ea5419276da26072a9347e7dfa12f6e5cb0a3167420547827a1f2",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_miner_lamps_icon@3b8fce76af11",
+        "RequirementFingerprint": "3b8fce76af11344364d270ee8a6c473b25b28982a00784e45c55c1db6319d0cb",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -20136,9 +20566,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_old_blades_icon@021af5ccd40f",
-        "RequestFingerprint": "021af5ccd40f7c6f4c9b1521224b3b1ec8eb7e9a4738f237c81235ec27580e41",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_old_blades_icon@f12fa0a2f6a7",
+        "RequirementFingerprint": "f12fa0a2f6a7de2803dbee130f41980cd9033d94bab3f8c91662b9677e74784a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -20230,9 +20662,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_oracle_fossil_collector_icon@2501242cbcdc",
-        "RequestFingerprint": "2501242cbcdcee590dc3789864ffc2097cda625f341f3155e38b18ab1113a8ee",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_oracle_fossil_collector_icon@8f8cbf244e6c",
+        "RequirementFingerprint": "8f8cbf244e6c42709f6d640a34a3879e54078a59572ff0af9b74f23b79d707e3",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -20324,9 +20758,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_origin_stone_demand_icon@fde33cf42827",
-        "RequestFingerprint": "fde33cf4282783a8b572279e15593133f7f2c21e2639a217735cab7d01b1a99b",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_origin_stone_demand_icon@8c81f4d91a85",
+        "RequirementFingerprint": "8c81f4d91a8554089360047e882e8706f4afe2a07420283b6e0eb2ce4d48a5ab",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -20418,9 +20854,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_scrap_workshop_shortage_icon@4b527b27a0f9",
-        "RequestFingerprint": "4b527b27a0f9d562933a61ac815777f8cf13bf2ff60099b16c697072db7d832c",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_scrap_workshop_shortage_icon@6cf74176133c",
+        "RequirementFingerprint": "6cf74176133c032346188348da1ff8dfd7ee4c4698ec6983e33c383a7f499c5a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -20512,9 +20950,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_slime_crash_icon@205f1ef820a1",
-        "RequestFingerprint": "205f1ef820a15cb1460294d6fd2c8984bbd462a690b5414f5dbcef3e660634d6",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_slime_crash_icon@3bc9aeaf9691",
+        "RequirementFingerprint": "3bc9aeaf969110e6c9cea6b63119ca609a07c0e68b2374d1c39b97a91151f8a1",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -20606,9 +21046,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_spore_amber_jeweler_icon@78bb11944246",
-        "RequestFingerprint": "78bb11944246991f5aa6548ed3ca1382243813a799e45773dc63d9cfb56c88af",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_spore_amber_jeweler_icon@ca08e9002985",
+        "RequirementFingerprint": "ca08e90029855472f6787ef6d0cf279e2718e1c1c3c775fd1ba537b8875b5db5",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -20700,9 +21142,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "rumor_weapon_collector_visit_icon@8c168c6cb651",
-        "RequestFingerprint": "8c168c6cb651eb359f99b319f553a188710e9f5f8dab1e97c0dbf06ad72cd598",
-        "CompileStatus": "ready"
+        "RequestID": "rumor_weapon_collector_visit_icon@dfce521431d1",
+        "RequirementFingerprint": "dfce521431d1ef311c7cd09291dc009ec6b6a666c37fc0c9015b956bc72be554",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -20790,9 +21234,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_missing_sprite@c3e5266f2f60",
-        "RequestFingerprint": "c3e5266f2f609df9231275004b6e70f89016d0a5e982d708b57f4a0f23491886",
-        "CompileStatus": "ready"
+        "RequestID": "ui_missing_sprite@e32054647069",
+        "RequirementFingerprint": "e320546470691f1780d593ceaded77d06a8f459611b7560bcaabe848fc42dad0",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -20898,9 +21344,11 @@
         "RequiredChanges": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_button_primary@1530c3de3cf4",
-        "RequestFingerprint": "1530c3de3cf4a891afe83c24238b2b72bcf6e863a79b613934369b792ae1134d",
-        "CompileStatus": "ready"
+        "RequestID": "ui_button_primary@db389d383658",
+        "RequirementFingerprint": "db389d38365803ea78a1f85883d708ac7adaccdd5be7d4efefcfbb8c9c64ee4f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -20998,9 +21446,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_button_secondary@5650c00667a4",
-        "RequestFingerprint": "5650c00667a4986f9564af084ac666f3864799f5fc58e501f8bc038dcfa729ab",
-        "CompileStatus": "ready"
+        "RequestID": "ui_button_secondary@11e9da03f20b",
+        "RequirementFingerprint": "11e9da03f20bd7f79f66fb6901ecec6916dc724520807cf35d481128e3299de0",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -21089,9 +21539,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_ap_pip@79e29ec3c863",
-        "RequestFingerprint": "79e29ec3c86341598101b147250442769b1489dbc2b4092b72b2d130ad5a2d3f",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_ap_pip@124720cb7889",
+        "RequirementFingerprint": "124720cb788911e5be712dd9fac7889d988b8444ac1ec3eb772d8417fc86bffb",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -21179,9 +21631,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_enemy_card@8c295678688e",
-        "RequestFingerprint": "8c295678688e5c2477dc67e7c6985e4edfe7c12d1fffef13991cc45bee57406a",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_enemy_card@e1c5bef4eb2a",
+        "RequirementFingerprint": "e1c5bef4eb2ab197065b49827f9223f495df70b9e5fd57c4ec618800351a4b7f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -21269,9 +21723,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_enemy_card_selected@77ea3dbb1518",
-        "RequestFingerprint": "77ea3dbb15185d682197c7d4e991eb924af26ce8b2428eb4798da417496f5d7d",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_enemy_card_selected@8db56ba281f3",
+        "RequirementFingerprint": "8db56ba281f38c25df21a2586f4f4a96cf240f10dab92a9b18c25040961b1d34",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -21359,9 +21815,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_entity_shadow@f77d169a7d92",
-        "RequestFingerprint": "f77d169a7d92eca1ab8abf597d9b42306e2ff28f74267cf4458638c26f531916",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_entity_shadow@875893996b0b",
+        "RequirementFingerprint": "875893996b0b7c53c80607943ebcc53c5fe23b721ddfecb00a3373573fd0aadf",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -21452,9 +21910,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_feedback_echo_fade@1d050c870c03",
-        "RequestFingerprint": "1d050c870c0377bdc5f7d479aa241333461f440cbf51f07aafe29bf330954733",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_feedback_echo_fade@ea8f9d4b75f6",
+        "RequirementFingerprint": "ea8f9d4b75f600eaa530cb2961768d9b00a4d9f5b5479a65b1f2daf5e64bc0ab",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -21545,9 +22005,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_feedback_hit@e33b75b73bef",
-        "RequestFingerprint": "e33b75b73bef10c513d3393366631ecf035f45404d018d091c753b91175ff5d1",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_feedback_hit@03c62461d955",
+        "RequirementFingerprint": "03c62461d9554c445c3b3669136dc30bac18b0cc7d020b1f8a0b8fbc6b7b7b58",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -21638,9 +22100,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_feedback_scrap_break@71c5086001f0",
-        "RequestFingerprint": "71c5086001f0d2f0f5e90a90f56d27d96feeee0da82cf6d2469eb05bd6e093f3",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_feedback_scrap_break@8ce26aae4c41",
+        "RequirementFingerprint": "8ce26aae4c419c3b4ee160fa9c1cf929fa84d664e84ba996eef698ec1174f60d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -21731,9 +22195,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_feedback_shield_break@f8092546933b",
-        "RequestFingerprint": "f8092546933bd1da547bdc953a5c8f083381b59caa4023b7aac42ddab0d55fe0",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_feedback_shield_break@4d350db72274",
+        "RequirementFingerprint": "4d350db722745c93f064be59e57f52fce48b7606e86387b4aa7afea8b2346d11",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -21824,9 +22290,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_feedback_slime_pop@6ecbeb3bb115",
-        "RequestFingerprint": "6ecbeb3bb115f0401efc960f3635fde1a885ebad33bbe2c8e2f06de15d12cc1f",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_feedback_slime_pop@22fe99c08739",
+        "RequirementFingerprint": "22fe99c08739ec99cd0899aff6486126b0c648611e4f67d0967a6917b79e49e0",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -21917,9 +22385,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_grid_lock_marker@26e31449456c",
-        "RequestFingerprint": "26e31449456cdd1b42e1e490d8d651e317d5b457965ea5b2a501b13c9afd54dc",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_grid_lock_marker@1b7670461c3d",
+        "RequirementFingerprint": "1b7670461c3d1437f76b5ce8e2ea54014d021c3eac3824abbc1abc75409f1634",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -22011,9 +22481,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_intent_add_junk@f8dc6657d37f",
-        "RequestFingerprint": "f8dc6657d37f1809dc4b0fdaf13e55afaeec2f6e419fc63b2973a7ba025915e5",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_intent_add_junk@02aaacf87d6f",
+        "RequirementFingerprint": "02aaacf87d6f17a1bd737d6d0342892427af7829b1e7734116495563d5d9c935",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -22105,9 +22577,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_intent_attack@3e1ae49c2113",
-        "RequestFingerprint": "3e1ae49c2113d6cd434cc484b09f57567ecbea5b5af1735b4071a793c661722b",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_intent_attack@e0f98f3bc740",
+        "RequirementFingerprint": "e0f98f3bc740f514522f1957afa5c6e116ff9af5dd6d21fedaad16adea1095b1",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -22199,9 +22673,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_intent_buff@c299c5b692e5",
-        "RequestFingerprint": "c299c5b692e5a6606caed92ee52977e2e9be6f0ad1407cf27b945eee9bcb95ac",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_intent_buff@1b761b5fb4ba",
+        "RequirementFingerprint": "1b761b5fb4ba7cb57ada8d40df076a3cae12397fd615d83f3566293fecdf3fc4",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -22293,9 +22769,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_intent_charge@3663e8f8e0a6",
-        "RequestFingerprint": "3663e8f8e0a6ec18bae75ab1ed0c97ca0db0fd129b5be800345e9412a09b0c73",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_intent_charge@0d6c62abaded",
+        "RequirementFingerprint": "0d6c62abaded84ae971067b9e33c07adde9501e8023b356485936c9035543480",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -22387,9 +22865,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_intent_debuff@e4b0dcca1d44",
-        "RequestFingerprint": "e4b0dcca1d44d405ab86998de8bcd6f90387c908b24d9be1dfd91e260a4420c0",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_intent_debuff@9c75bdc6d213",
+        "RequirementFingerprint": "9c75bdc6d21309ff1af786346e2a5b52a7495b67c7b6837bdd5bbb3161a6f8f4",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -22481,9 +22961,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_intent_defend@751d8ad1e791",
-        "RequestFingerprint": "751d8ad1e79115d53527f0c4a04b083d323e1bdcc45788d3dffb66dc926bbe2a",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_intent_defend@c1aaba36acfa",
+        "RequirementFingerprint": "c1aaba36acfa5fa0b5745274c325f30407d3265262da5ea411015a0a24814c38",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -22575,9 +23057,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_intent_grid_lock@0db4adc34ba7",
-        "RequestFingerprint": "0db4adc34ba7fc3b4b131a28c1cf3cc69c41eae1ad3be3e3f27e25b73c91d06e",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_intent_grid_lock@442d10f83854",
+        "RequirementFingerprint": "442d10f83854d33ee5e8a384c5b4fe1759a580ffa110db0074994895235cec9a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -22669,9 +23153,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_intent_move_item@f99028374ce4",
-        "RequestFingerprint": "f99028374ce48f7edc5e3f8f60e88ab4ee770c51612263fa465ec104c92866b1",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_intent_move_item@11165de61ee3",
+        "RequirementFingerprint": "11165de61ee33c2ff7731cae810052347b863adda199a9e117abe26e62ce14e1",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -22763,9 +23249,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_intent_san_pressure@1b445b0d0f37",
-        "RequestFingerprint": "1b445b0d0f37536f8a6ddee2a5180cba898a889eda27579ca30b9bfd989330fb",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_intent_san_pressure@7c3c3a3b53c4",
+        "RequirementFingerprint": "7c3c3a3b53c4501da6e56caa062c751edf136847af2b1be50b56d6df05d7eff2",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -22857,9 +23345,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_intent_unknown@82969c4666a2",
-        "RequestFingerprint": "82969c4666a2e1e2846274695dabdae916be56ca25075d26e68ffb0d804016c1",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_intent_unknown@6ff2a437686c",
+        "RequirementFingerprint": "6ff2a437686c9a867f590f4191c9d358d77012f8a46ceb2f5dd57e54eca5e9df",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -22950,9 +23440,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_junk_preview_marker@ec9c1c96016a",
-        "RequestFingerprint": "ec9c1c96016a1dcff3cab1ed04386195d72ef5b65368220c6c2b5287709c374d",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_junk_preview_marker@a620ad1baf74",
+        "RequirementFingerprint": "a620ad1baf74937838bb0dcf1d20872441d17d4241454fe1655466898c3b9a89",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -23050,9 +23542,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_status_bar_hp@51612d44c5ee",
-        "RequestFingerprint": "51612d44c5ee1a008dff452f795bc19940a9f26c7198ac6140bf6e2ff2dd56cf",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_status_bar_hp@7ed4b085aeef",
+        "RequirementFingerprint": "7ed4b085aeef1fe35d34b00f7d5cac86d412a6b55a5c88fde9955bfd31b5a1f8",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -23150,9 +23644,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_status_bar_shield@b31d9cba50d5",
-        "RequestFingerprint": "b31d9cba50d50958cb5ff8283d5f5cd82ea800f7aa70359e79ba634fad428fc5",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_status_bar_shield@8a3781730c81",
+        "RequirementFingerprint": "8a3781730c8196c9f451b46d7d93e16d54f0c21c5301e2fb2d8d49caa89887d8",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -23244,9 +23740,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_status_corrosion@899e62679b88",
-        "RequestFingerprint": "899e62679b88022cc6a3f0d9618ce9edf38ef5a23d484079327f81791fe4346e",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_status_corrosion@3a614015b0b2",
+        "RequirementFingerprint": "3a614015b0b2f2d592d81b9b31c84873e8d32a3d860571054a7a897086f7ab1e",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -23338,9 +23836,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_status_curse@9c1d0b29e2d4",
-        "RequestFingerprint": "9c1d0b29e2d4442a3577941c61ba6a96e2e83867b4c7a5067b7ecb8eba9a6517",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_status_curse@4b1c7bf2837e",
+        "RequirementFingerprint": "4b1c7bf2837ed1ecf92bb576f17898a61ef8e6a5176a8e7c4fb6e6715a594cc2",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -23432,9 +23932,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_status_stun@ecb51d46bd19",
-        "RequestFingerprint": "ecb51d46bd197f2e0993aa3ce59c537661a3cf7a3a9129adfd8606820693fc42",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_status_stun@4e08a15aa926",
+        "RequirementFingerprint": "4e08a15aa926f244687938d3493f74b3397445ae572689115d166abcb94b1287",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -23522,9 +24024,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_target_ring@41afdb8a3325",
-        "RequestFingerprint": "41afdb8a332503cd9fce23754e77cd785b4d72149d0fef6d919374b2a86fbc22",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_target_ring@7d29385ed813",
+        "RequirementFingerprint": "7d29385ed813d908f93a0c405a7a24a471deabaf8f835eda8db130498bb8752f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -23612,9 +24116,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_bill@c7adcb06d288",
-        "RequestFingerprint": "c7adcb06d2885f9e60f2f6aec7d5d78bdcfb26b54678b374a1db8d6ff032e921",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_bill@ca1b1ee8f201",
+        "RequirementFingerprint": "ca1b1ee8f201698910f3f17998d8ec01f5bc4f985823a5a7c66403301a3b21c8",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -23705,9 +24211,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_corruption_purify@439433bf4c54",
-        "RequestFingerprint": "439433bf4c54a9e4488de36b9afcb32824c3e4e353b50e44066c50f3e102ba56",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_corruption_purify@e942014b7768",
+        "RequirementFingerprint": "e942014b7768e4cd919ee4615851b43a14731c0f4cd209b2edca2899f36607b1",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -23798,9 +24306,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_debt_rent@6bf20302a02a",
-        "RequestFingerprint": "6bf20302a02a6dcd197678f9f002d3c2069ff0318cd34535a17db9996bb684ff",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_debt_rent@e033045eab7e",
+        "RequirementFingerprint": "e033045eab7e53e5879b8e64079b07a8a41ee84ab0e0cf8fd7d777c007b54288",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -23891,9 +24401,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_dive_permit@4735882c45b6",
-        "RequestFingerprint": "4735882c45b64b44a970e45b41a5eb37351775213991d832b76a5e6f15f4b135",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_dive_permit@2335060f49d7",
+        "RequirementFingerprint": "2335060f49d734e34cd49a304fd0670ede9eaedf604ef2a6a64f464d33c4ab60",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -23984,9 +24496,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_expense@dde4b4b50d05",
-        "RequestFingerprint": "dde4b4b50d05bf3d2f262f74c3d5ad59fe18bf64bfa2ec7d3a12f2a680301697",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_expense@c02b2612c68c",
+        "RequirementFingerprint": "c02b2612c68c0b9dec4fc16efd23fe5276dac928bffb6c47bff2ced72485520a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -24077,9 +24591,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_income@db9b0a15680e",
-        "RequestFingerprint": "db9b0a15680e45aac45fb67e81ed7a5d862114dd859baa571a7f139b2edb8d6e",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_income@c598d79ed6a4",
+        "RequirementFingerprint": "c598d79ed6a4a50c9c26487caea7e483d9402baae78b21a422404cfcf25ff32a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -24167,9 +24683,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_maintenance@80a7c3df906c",
-        "RequestFingerprint": "80a7c3df906c3b025e5454653cb8c5d634f929a3d3bee237074dd9d04ec31a31",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_maintenance@c298170146e0",
+        "RequirementFingerprint": "c298170146e0561f9067af547276682b00689f422edb433e53fac75e465a5f31",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -24262,9 +24780,11 @@
         "RequiredChanges": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_warning@3c3998bd0c1e",
-        "RequestFingerprint": "3c3998bd0c1efd49720ab05f815535ecf1e1858740f4024e75057ac28bf3358d",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_warning@46da1bf7fe6b",
+        "RequirementFingerprint": "46da1bf7fe6b8937731f96a9a2b9971b1a7b0ae0d3917bfecb20b9073d061ab0",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_ready",
+        "ActivePromptRevisionID": "ui_icon_warning@46da1bf7fe6b/prompt-001"
       }
     },
     {
@@ -24355,9 +24875,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_wear_repair@e74b6276beff",
-        "RequestFingerprint": "e74b6276beff899b5ac63954762c79922362f58bb19577ce62fbdfcdcab9799b",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_wear_repair@3873b5564818",
+        "RequirementFingerprint": "3873b5564818d9e1c47682c0976872ff30cf4b2a78cf49437bcc83345bc95de5",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -24445,9 +24967,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_inventory_chassis_panel@8efca8a2209f",
-        "RequestFingerprint": "8efca8a2209fbfeb68b2b9f7f892fa2342fd7605f49b8283576dd363da4f5dc4",
-        "CompileStatus": "ready"
+        "RequestID": "ui_inventory_chassis_panel@f075e49db609",
+        "RequirementFingerprint": "f075e49db6097ed80a434dc9437fb7b931f020a5b444b485b5bd0b2fae0aced5",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -24535,9 +25059,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_inventory_slot_available@e83901dd799f",
-        "RequestFingerprint": "e83901dd799fa11e877b304188c9d6304238b463e244217e9b59aac0947ad4c6",
-        "CompileStatus": "ready"
+        "RequestID": "ui_inventory_slot_available@9f9b5051118a",
+        "RequirementFingerprint": "9f9b5051118a9d95d89e118a5df108215c1e3818ff142840f7b5ad5b7b8ff787",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -24625,9 +25151,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_inventory_slot_hover@c82c2e9c5ec6",
-        "RequestFingerprint": "c82c2e9c5ec681d747f99e2a5259ebb2064ba1febdc09db836b40864383bfc69",
-        "CompileStatus": "ready"
+        "RequestID": "ui_inventory_slot_hover@d1b592a8fb2d",
+        "RequirementFingerprint": "d1b592a8fb2d1f34333ebd7eb43c142413ef3f247dcc6f520ff9fa7e27cea30e",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -24715,9 +25243,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_inventory_slot_invalid@3b6f073f2522",
-        "RequestFingerprint": "3b6f073f2522756d56a7f20c4daa699e3e7642a03dc3c64f87cab913df3ebdf8",
-        "CompileStatus": "ready"
+        "RequestID": "ui_inventory_slot_invalid@2534166e751a",
+        "RequirementFingerprint": "2534166e751a80633a8b586fbe5e8ab570d1a200254630ab34d9b6963e448989",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -24805,9 +25335,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_inventory_slot_locked@fd580c392114",
-        "RequestFingerprint": "fd580c39211483d9ac1f28126f963b98c5c2b2ef1e5f3179648a9c62e6fcf8cb",
-        "CompileStatus": "ready"
+        "RequestID": "ui_inventory_slot_locked@84d0ea20cd2a",
+        "RequirementFingerprint": "84d0ea20cd2a9d0613dc797d65b93c2d014f6c89b035076f8b50b97c72df9599",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -24895,9 +25427,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_inventory_slot_valid@a994818c8515",
-        "RequestFingerprint": "a994818c851546a917449995fe5f7b932d2b4e811d53e6acf625e591c49c124a",
-        "CompileStatus": "ready"
+        "RequestID": "ui_inventory_slot_valid@d20bdd7e6601",
+        "RequirementFingerprint": "d20bdd7e6601a4d4c02f5c95d171dd5803f72caec9f0bb1f40740a9223f92741",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -24985,9 +25519,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_loot_drop_zone@5d5c4f4633c3",
-        "RequestFingerprint": "5d5c4f4633c39bc5c38c0a07761529eb50a8331d8ddad292dbfe3b0373ad2244",
-        "CompileStatus": "ready"
+        "RequestID": "ui_loot_drop_zone@95b029a65add",
+        "RequirementFingerprint": "95b029a65addc0352270d53389db12072760022d426d34f93320bb2ea68f38b2",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -25085,9 +25621,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_loot_pickup_panel@d21a1b9ede4f",
-        "RequestFingerprint": "d21a1b9ede4f504face512d8bb3eedc869631d5b0c43e5c83510e1cb49b3e493",
-        "CompileStatus": "ready"
+        "RequestID": "ui_loot_pickup_panel@f16e3ef478f4",
+        "RequirementFingerprint": "f16e3ef478f44418b6693e332c121e22a69a2724defdb62e6145f18b3257c674",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -25185,9 +25723,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_panel_info@bd480626041e",
-        "RequestFingerprint": "bd480626041e446107b3260400aa7da2452f2100356bbf630a9882910aa700f6",
-        "CompileStatus": "ready"
+        "RequestID": "ui_panel_info@b353a84ec8f8",
+        "RequirementFingerprint": "b353a84ec8f8dee9cb7ad4bfb5c7be48d24d5493024c1678134886c350b744e3",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -25292,9 +25832,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_panel_main@54a77f48f55c",
-        "RequestFingerprint": "54a77f48f55c7893bec7382503e2c52531596579491da666360f873fe886abe6",
-        "CompileStatus": "ready"
+        "RequestID": "ui_panel_main@a6f98421581f",
+        "RequirementFingerprint": "a6f98421581f1770889925223fd5e983929f5db0df488410c58e2b2f6573685d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -25386,9 +25928,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_settlement_outcome_hp_defeat@8c6d6187d491",
-        "RequestFingerprint": "8c6d6187d491b433f21c512f84ec791b4f23845e28a64b66e72deaf9705d9c9c",
-        "CompileStatus": "ready"
+        "RequestID": "ui_settlement_outcome_hp_defeat@6d5fd8a2d79e",
+        "RequirementFingerprint": "6d5fd8a2d79ef7c69976199d869816b49c7c0332815c7d3caff6da055d81c768",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -25480,9 +26024,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_settlement_outcome_hp_san_defeat@8238bf77feb0",
-        "RequestFingerprint": "8238bf77feb028d90718b4b2031f1f86e350bea6d2d6b068c119d41988e16a7b",
-        "CompileStatus": "ready"
+        "RequestID": "ui_settlement_outcome_hp_san_defeat@f7af3aebcda9",
+        "RequirementFingerprint": "f7af3aebcda9f75a122730ceab80832fb61f4c0278c1af61aa7b25c2eef4c48a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -25574,9 +26120,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_settlement_outcome_party_wipe@c84765484b4b",
-        "RequestFingerprint": "c84765484b4be22382a09de9285aab38a96697ed85e10bd6f7b48b7e7d5437b4",
-        "CompileStatus": "ready"
+        "RequestID": "ui_settlement_outcome_party_wipe@0b333c6c0ff6",
+        "RequirementFingerprint": "0b333c6c0ff684db04d0ee531fc7bd750b8c64d4c960ab5dcec6f0f1e49394fc",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -25668,9 +26216,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_settlement_outcome_san_collapse@557ce88688fe",
-        "RequestFingerprint": "557ce88688fe38cf01dcfbd28b4ba097d893e1fe07fba77e60191451b19b6df6",
-        "CompileStatus": "ready"
+        "RequestID": "ui_settlement_outcome_san_collapse@82f03b4aa16c",
+        "RequirementFingerprint": "82f03b4aa16c981675d693b5b90c9cc9fcaf3fc73f20af32e1f5be164ae8c1aa",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -25762,9 +26312,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_settlement_outcome_victory@258dd7adc154",
-        "RequestFingerprint": "258dd7adc154659f50c9b612d05d988f274e8a56888c43028c6e45e482f37742",
-        "CompileStatus": "ready"
+        "RequestID": "ui_settlement_outcome_victory@aa09d5d58775",
+        "RequirementFingerprint": "aa09d5d5877568382a59941511f333eb0243a90832d53167e4b5ee381b29b4f3",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -25862,9 +26414,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_button_danger@cc52d32d3e79",
-        "RequestFingerprint": "cc52d32d3e793d6a47fa696758bf8a9396433a5c310ed4e2fa224ff485a99649",
-        "CompileStatus": "ready"
+        "RequestID": "ui_button_danger@67ed8d2f1417",
+        "RequirementFingerprint": "67ed8d2f1417af34f78150cd89e99428d0411ecb09de8a4aa46221b5b2b9162c",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -25962,9 +26516,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_combat_turn_banner@73bd8e224514",
-        "RequestFingerprint": "73bd8e224514074ba899b2cc9294650e686a7c9a2afca072b7d0e92640399645",
-        "CompileStatus": "ready"
+        "RequestID": "ui_combat_turn_banner@7e7458f4556b",
+        "RequirementFingerprint": "7e7458f4556b759af2e3396bf1983cf6c992250440e21eb9b6be0d8325c5b4cb",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -26056,9 +26612,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_dungeon_node_plate@07d74fe78941",
-        "RequestFingerprint": "07d74fe789415b11c48ebf33666be2e60c7663abca1a6759d389ae890a1980fc",
-        "CompileStatus": "ready"
+        "RequestID": "ui_dungeon_node_plate@91720034411f",
+        "RequirementFingerprint": "91720034411ffafe9dcfc73547c642a7c24bd2bc3f6647bca84edce88688ce1f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -26149,9 +26707,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_dungeon_route_line@b4dd513c088e",
-        "RequestFingerprint": "b4dd513c088ef0a08568b584250f971da78b1bd104f04f8714cca653dac7e1c2",
-        "CompileStatus": "ready"
+        "RequestID": "ui_dungeon_route_line@81a548a21397",
+        "RequirementFingerprint": "81a548a21397af60b8b9a28cc5ccc0871660d4b3d396f10306bd70a39fbff487",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -26242,9 +26802,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_black_market@d853cfc9a6ce",
-        "RequestFingerprint": "d853cfc9a6ce748f3b4f9edb6d52347529d1e635a5b29fdef919c5f57facbd7a",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_black_market@2a0da1ce024f",
+        "RequirementFingerprint": "2a0da1ce024fe6da1244041930a376be7c35f44130e352abfccc399ecd4322e5",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -26335,9 +26897,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_blueprint@a763e481c549",
-        "RequestFingerprint": "a763e481c5497a90744c178f2b946c7dc390e43819065877f46759b5658134ea",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_blueprint@4b31210884d0",
+        "RequirementFingerprint": "4b31210884d04f66f819ae980746a22c947fac5bfa52ab7027982b23ab47ee64",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -26428,9 +26992,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_business_settlement@e6a11c04e961",
-        "RequestFingerprint": "e6a11c04e9611ef67f2bad757b54529d252cd1eb97c39d21cbd22265a12763fb",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_business_settlement@00d78327577e",
+        "RequirementFingerprint": "00d78327577e1234c993c54aedc03d911fb99c7c40f3ba4c26443a997d5d7db0",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -26521,9 +27087,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_chassis_upgrade@1134b9f13414",
-        "RequestFingerprint": "1134b9f134141454ebe3860b43922edb9b0f3504d94dca1cb776cc9589d9093b",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_chassis_upgrade@ed7ea4807ff1",
+        "RequirementFingerprint": "ed7ea4807ff159915f945bad1dc1238bae87af100f9b8725b19c87c4beda1f2d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -26614,9 +27182,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_customer@73980726ff74",
-        "RequestFingerprint": "73980726ff74c6383ae9a2fd7b1c420cc155f31c62218a8f11ef5e511e1b492b",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_customer@c614cb761def",
+        "RequirementFingerprint": "c614cb761def9d52aa30e31e0efef2bfb70d50c04d4da09cda30bfa2eadbe2a4",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -26707,9 +27277,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_deadline@2d43ea907123",
-        "RequestFingerprint": "2d43ea9071238510d14662cbc9c81f7cb5c7d97c91615078c3fe757b386175e6",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_deadline@3439cbd9bf12",
+        "RequirementFingerprint": "3439cbd9bf12a0308a02a223d210a6fcf28410b0d8c41cb3547b85b2ea41668d",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -26800,9 +27372,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_diary@5dcd22672fce",
-        "RequestFingerprint": "5dcd22672fcebb18cf5621b71719d242ba44cf3b16646ee224b73a60421ee253",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_diary@2f18245987a0",
+        "RequirementFingerprint": "2f18245987a0624b2116687b0e9ec9c16a181e913718b0a609dbe437002f2475",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -26893,9 +27467,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_equipped@1e2a4a106010",
-        "RequestFingerprint": "1e2a4a106010f7119028f0570f3f6e8b093ed0383f4c004f9b23ac9264a28769",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_equipped@1020c6e9cdbb",
+        "RequirementFingerprint": "1020c6e9cdbba1597c95d4a895cbd689ea2c09cd585671dff2ab2d4ede36a9ed",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -26986,9 +27562,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_event@38fc330668dd",
-        "RequestFingerprint": "38fc330668ddfe957544a6780c0c2a5d47880ee9088a2e4173293b1dc191b6f1",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_event@77d898ee763a",
+        "RequirementFingerprint": "77d898ee763a10b9c3d270596144f43a7e5bf6586f6ae3ff7991beb72ca7a89b",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -27079,9 +27657,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_faction@d72c60aabf60",
-        "RequestFingerprint": "d72c60aabf60fb38bb67b7f2755617db83e93ce45fcd32179c5143bbc740648c",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_faction@ec9c33e099e5",
+        "RequirementFingerprint": "ec9c33e099e5f5912184c3cbb81ca923c270b9451980b1d08d6c6d8b7224dd21",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -27172,9 +27752,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_gift@052a80fcdc3f",
-        "RequestFingerprint": "052a80fcdc3ff07f4d63b7bbb9b249fadc4ad69a3b3adb47a01f22740275f070",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_gift@1b840a4747a2",
+        "RequirementFingerprint": "1b840a4747a215d402d14099807786ccfe5e62b85f5e670a6208492ecc58cbef",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -27265,9 +27847,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_locked@d2275f1035d1",
-        "RequestFingerprint": "d2275f1035d14a73496308aad4ae7f511a2f5661c76c1d4b1c9615e79d82a03e",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_locked@53baa95f325e",
+        "RequirementFingerprint": "53baa95f325e5abe02f8f48087f2087c13849ed0c592c5e7ddb578745b952f38",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -27358,9 +27942,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_lore@bd1d88947e3d",
-        "RequestFingerprint": "bd1d88947e3d7cc4aa0f1f7d3e64ea650e4e68e2333d218370d8e69480a552ee",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_lore@01d1fb46248d",
+        "RequirementFingerprint": "01d1fb46248dbb4b0f985696e72c3896434d6e904ad8a8112c37f7bd8c421386",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -27451,9 +28037,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_material_need@77f2d4db4f9b",
-        "RequestFingerprint": "77f2d4db4f9be85ba4b68e080f9ae86a8b669687021bcf9c4a4a83f104516920",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_material_need@c4502d65908f",
+        "RequirementFingerprint": "c4502d65908fee7b6168309afa718f32ccacb06b6437baa4d68a9750ee29b22e",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -27544,9 +28132,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_memento@d701ac0eb1b4",
-        "RequestFingerprint": "d701ac0eb1b440c7906f5ffd4c04cb7ea9b33a411df726acbe0c875e4fbed81a",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_memento@6271763f25ac",
+        "RequirementFingerprint": "6271763f25ac75ff933cb14014cb28f31c1934172de3227d2860b4a072cdcc27",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -27634,9 +28224,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_money@2b866d027700",
-        "RequestFingerprint": "2b866d027700390e043751f43a202f761b9ab123d94ca5bec6eb0de74e4b8c01",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_money@c8a3e7165290",
+        "RequirementFingerprint": "c8a3e7165290ff69081d01cdd3e9139996f0f8efb096c950aaa0611ee279cd71",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -27727,9 +28319,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_order@ceea59ca3ae8",
-        "RequestFingerprint": "ceea59ca3ae8348a7b01a0f357b336bfa55f804f03cd00576583076a19e05635",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_order@034a257b0838",
+        "RequirementFingerprint": "034a257b0838c7a57871f593a9ce13993fc2700c5e9d807605e4612cad64c84f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -27820,9 +28414,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_price_down@f8bb5a027867",
-        "RequestFingerprint": "f8bb5a0278678f6e615146428455bed946429578a0c81220d4b9a7bbdb1c4c48",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_price_down@0fd654e623fd",
+        "RequirementFingerprint": "0fd654e623fdfae8318a7548589abd52c38c40919218d89f223aa0bf2d3a891f",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -27913,9 +28509,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_price_up@938e2dd496ff",
-        "RequestFingerprint": "938e2dd496ff47bd01a55154187d20be9ea4cbd0251ae2b419a2c5e1b46738e7",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_price_up@802cbf218687",
+        "RequirementFingerprint": "802cbf2186871030d50a2b01400717943d4d2d242e4da7a7ad93eb8ed09a5c12",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -28006,9 +28604,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_reputation@096f238c590a",
-        "RequestFingerprint": "096f238c590a4c5239b53a232bf60fab6a70d75d649923be4b8b86d2532d82e2",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_reputation@47843e79a269",
+        "RequirementFingerprint": "47843e79a269779fb62559a50abc47566d30cd08d505b7510f5cce4c8042f9d0",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -28099,9 +28699,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_rumor@d4043d44a756",
-        "RequestFingerprint": "d4043d44a756a5f363ca3b2a1b4cfdd925391dcc89d83da64f2f9f8d87186c04",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_rumor@8610e1aeabaa",
+        "RequirementFingerprint": "8610e1aeabaaa16ce755e07636a5a15e5d57ce131cfe01590426122badc04824",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -28192,9 +28794,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_sale_spark@5bd4ef7c435a",
-        "RequestFingerprint": "5bd4ef7c435ad7820a5009c8bf523056924cc9a064a65fb6bcd1171bf5a27bd9",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_sale_spark@a116d649a250",
+        "RequirementFingerprint": "a116d649a250661c11a0ba7a345944974974f968d4dc1e455bf4304dfb1ea32a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -28285,9 +28889,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_shop_channel@1633811eb904",
-        "RequestFingerprint": "1633811eb9040b49e83938edbca7b71af3efbf958f2d455f8d176bb84b6a635f",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_shop_channel@1268670f343b",
+        "RequirementFingerprint": "1268670f343b643cc85c297a10e263216feb5258a3a0d70f70e142e11a114f0e",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -28378,9 +28984,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_skip@51ebe389e4f6",
-        "RequestFingerprint": "51ebe389e4f6fc2c7b4ca0f06e7737337a3e115a243d2ff64aaf303003af4575",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_skip@41471f9d5da4",
+        "RequirementFingerprint": "41471f9d5da4638497571ffaf6a4a409d8662dd0858efca7968fba23ccff315b",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -28471,9 +29079,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_talk@238d7e22dee0",
-        "RequestFingerprint": "238d7e22dee0924bb70a898c8ca5d97c33b13e214e36f415c4d616a2f07d5c15",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_talk@9880371ad0e7",
+        "RequirementFingerprint": "9880371ad0e76bc80623f681aaabd490c198d313fce404738034bd28a4b79320",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -28564,9 +29174,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_touch@6561232ed9ed",
-        "RequestFingerprint": "6561232ed9ed2e1d1ea7781deb3c92aa34f39b7ac04d742f4c08d2a53fbf4037",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_touch@dc5a46c016d1",
+        "RequirementFingerprint": "dc5a46c016d1649af57ce8b6d98a92b06cbe3fcffe94065f7fd4c60f72b8a9fd",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -28657,9 +29269,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_icon_trust@8cbf22ae4068",
-        "RequestFingerprint": "8cbf22ae4068fcf90b6d2ef1585127c613655573d01964a51d2e971581750fd4",
-        "CompileStatus": "ready"
+        "RequestID": "ui_icon_trust@ddce8f48d4ff",
+        "RequirementFingerprint": "ddce8f48d4ff85a3cbd9ef2d5094d3c3cd3eca6d9c0db55cfb7c3259aca4e91a",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -28764,9 +29378,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_list_row_normal@30d39057862b",
-        "RequestFingerprint": "30d39057862b2d27e0619d26fa398f1525596a19be0e1a55cba38774e3b9fbfd",
-        "CompileStatus": "ready"
+        "RequestID": "ui_list_row_normal@e1524d753fa0",
+        "RequirementFingerprint": "e1524d753fa06d525dab9c3259240f2ad339f6b5fe59289119552eeb8118fbb3",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -28867,9 +29483,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_list_row_selected@79f5998bf778",
-        "RequestFingerprint": "79f5998bf77880f82bfb309939284433e15cd57809beed327b1bec464d68285b",
-        "CompileStatus": "ready"
+        "RequestID": "ui_list_row_selected@aca4a48da98f",
+        "RequirementFingerprint": "aca4a48da98f964728c7596f7d588de233425f1dae2dea5f2b2dd78a86ed9875",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -28960,9 +29578,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_room_memento_slot@84797ff35e8e",
-        "RequestFingerprint": "84797ff35e8e19d039882c1aa61178c73f0b6aebeedb95efb3e8cc6e15bad2be",
-        "CompileStatus": "ready"
+        "RequestID": "ui_room_memento_slot@9b9550ba1f5c",
+        "RequirementFingerprint": "9b9550ba1f5c99316ac0dbf487fb36743796eade68727bf12203b484ac84d271",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -29063,9 +29683,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_settlement_defeat_panel@e3ee82db59fa",
-        "RequestFingerprint": "e3ee82db59fad827b62563ab0a9904c01443361e9ed69f277250ab3d558295cf",
-        "CompileStatus": "ready"
+        "RequestID": "ui_settlement_defeat_panel@8867e23792ef",
+        "RequirementFingerprint": "8867e23792ef85c73c89b34e14307edaa61b780ff513bb6dfcb06dcf3ae2d2e5",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -29166,9 +29788,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_settlement_victory_panel@5acaa6341cc0",
-        "RequestFingerprint": "5acaa6341cc0385c62e1a667ad7e382e670585a3b278fa00b4198c98b746043a",
-        "CompileStatus": "ready"
+        "RequestID": "ui_settlement_victory_panel@eef7d8acd79b",
+        "RequirementFingerprint": "eef7d8acd79bfebea87ddfe104a353f23113a0ceda77a400047f47517e247ca8",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     },
     {
@@ -29259,9 +29883,11 @@
         "ForbiddenElements": []
       },
       "CompiledRequest": {
-        "RequestID": "ui_title_divider@a782239ae346",
-        "RequestFingerprint": "a782239ae346a37841f8afbb5e22beb255a4d8b8692112bd6b665631d15bc049",
-        "CompileStatus": "ready"
+        "RequestID": "ui_title_divider@43a4aaff0cbe",
+        "RequirementFingerprint": "43a4aaff0cbe294f364f9df21333154c962f257f263473b3713314771e6f9c34",
+        "RequirementStatus": "ready",
+        "PromptAuthoringStatus": "prompt_authoring_required",
+        "ActivePromptRevisionID": ""
       }
     }
   ],

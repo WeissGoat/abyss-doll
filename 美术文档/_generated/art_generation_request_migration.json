@@ -1,1887 +1,2202 @@
 {
-  "CompilerVersion": 1,
+  "CompilerVersion": 2,
   "Ready": 313,
   "StyleResolutionRequired": 0,
   "Unsupported": 0,
   "Invalid": 0,
   "UnchangedPublished": 293,
+  "PromptAuthoringRequired": 310,
+  "PromptReady": 3,
   "Items": [
     {
       "VisualID": "bg_combat_abyss",
-      "RequestID": "bg_combat_abyss@97e78c5ba917",
-      "CompileStatus": "ready",
+      "RequestID": "bg_combat_abyss@7fb71eadeaed",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_ready",
       "Error": ""
     },
     {
       "VisualID": "bg_dungeon_map",
-      "RequestID": "bg_dungeon_map@e71b6b2ba322",
-      "CompileStatus": "ready",
+      "RequestID": "bg_dungeon_map@9e13c4b14b03",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_dungeon_layer_1",
-      "RequestID": "bg_dungeon_layer_1@a5ccfdb1c985",
-      "CompileStatus": "ready",
+      "RequestID": "bg_dungeon_layer_1@e6e718375218",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_dungeon_layer_2",
-      "RequestID": "bg_dungeon_layer_2@c3ff16a88350",
-      "CompileStatus": "ready",
+      "RequestID": "bg_dungeon_layer_2@9f8b2b917098",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_dungeon_layer_3",
-      "RequestID": "bg_dungeon_layer_3@b0edadbc257a",
-      "CompileStatus": "ready",
+      "RequestID": "bg_dungeon_layer_3@c25e81ea33e1",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_safe_room",
-      "RequestID": "bg_safe_room@fbce91c22845",
-      "CompileStatus": "ready",
+      "RequestID": "bg_safe_room@30e4a157bf71",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_stairs_room",
-      "RequestID": "bg_stairs_room@692326e6e172",
-      "CompileStatus": "ready",
+      "RequestID": "bg_stairs_room@cd39b7745362",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_workshop_day",
-      "RequestID": "bg_workshop_day@c47ded3e1ced",
-      "CompileStatus": "ready",
+      "RequestID": "bg_workshop_day@f2ae5939e312",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_workshop_home_room",
-      "RequestID": "bg_workshop_home_room@ca3e2ca4b4ed",
-      "CompileStatus": "ready",
+      "RequestID": "bg_workshop_home_room@ee13cbbb0ccf",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_workshop_studio",
-      "RequestID": "bg_workshop_studio@9ce6668c89ea",
-      "CompileStatus": "ready",
+      "RequestID": "bg_workshop_studio@503a0a962e6d",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_daily_bill",
-      "RequestID": "bg_daily_bill@e4f382f9983f",
-      "CompileStatus": "ready",
+      "RequestID": "bg_daily_bill@f3d83abed522",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_doll_room_attic",
-      "RequestID": "bg_doll_room_attic@edd59cd3b478",
-      "CompileStatus": "ready",
+      "RequestID": "bg_doll_room_attic@263d33afe40f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_layer_select",
-      "RequestID": "bg_layer_select@d3c4a1de38d5",
-      "CompileStatus": "ready",
+      "RequestID": "bg_layer_select@a5da16ec5eb1",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_settlement_defeat",
-      "RequestID": "bg_settlement_defeat@d3fb29e7fbc5",
-      "CompileStatus": "ready",
+      "RequestID": "bg_settlement_defeat@350bf717085d",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_settlement_victory",
-      "RequestID": "bg_settlement_victory@d9e8552c6b61",
-      "CompileStatus": "ready",
+      "RequestID": "bg_settlement_victory@5812fc44d2f4",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_shop_staging",
-      "RequestID": "bg_shop_staging@f19048ffda71",
-      "CompileStatus": "ready",
+      "RequestID": "bg_shop_staging@f11da8a126aa",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "bg_town_shop",
-      "RequestID": "bg_town_shop@bb702c4bf884",
-      "CompileStatus": "ready",
+      "RequestID": "bg_town_shop@d102f807a2f0",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "chassis_chassis_lv1_basic_frame",
-      "RequestID": "chassis_chassis_lv1_basic_frame@c8e8939f3f9e",
-      "CompileStatus": "ready",
+      "RequestID": "chassis_chassis_lv1_basic_frame@c78c82fd62e0",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "chassis_chassis_lv2_expanded_frame",
-      "RequestID": "chassis_chassis_lv2_expanded_frame@532997ad00a2",
-      "CompileStatus": "ready",
+      "RequestID": "chassis_chassis_lv2_expanded_frame@77610791666f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "chassis_bulwark_carrier_icon",
-      "RequestID": "chassis_bulwark_carrier_icon@d3a03a4c8a7c",
-      "CompileStatus": "ready",
+      "RequestID": "chassis_bulwark_carrier_icon@433d69425377",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "chassis_compact_raider_icon",
-      "RequestID": "chassis_compact_raider_icon@a0bdbaf1d0ea",
-      "CompileStatus": "ready",
+      "RequestID": "chassis_compact_raider_icon@53757c47dde6",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "chassis_standard_frame_icon",
-      "RequestID": "chassis_standard_frame_icon@3b662001cda1",
-      "CompileStatus": "ready",
+      "RequestID": "chassis_standard_frame_icon@01e0171d7643",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_zero_dialogue_command_ready",
-      "RequestID": "doll_zero_dialogue_command_ready@8ea03962aeb8",
-      "CompileStatus": "ready",
+      "RequestID": "doll_zero_dialogue_command_ready@12f7be81597d",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_zero_dialogue_neutral",
-      "RequestID": "doll_zero_dialogue_neutral@2a20d192a9a0",
-      "CompileStatus": "ready",
+      "RequestID": "doll_zero_dialogue_neutral@bcf60939aec0",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_zero_hurt",
-      "RequestID": "doll_zero_hurt@2b8c167214aa",
-      "CompileStatus": "ready",
+      "RequestID": "doll_zero_hurt@67c572c26ff5",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_zero_low_san",
-      "RequestID": "doll_zero_low_san@149087b66af5",
-      "CompileStatus": "ready",
+      "RequestID": "doll_zero_low_san@824fcc04b898",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_zero_maintenance_sit",
-      "RequestID": "doll_zero_maintenance_sit@444b12923e40",
-      "CompileStatus": "ready",
+      "RequestID": "doll_zero_maintenance_sit@dea981631af0",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_zero_stand_neutral",
-      "RequestID": "doll_zero_stand_neutral@4dc40a7cb8b0",
-      "CompileStatus": "ready",
+      "RequestID": "doll_zero_stand_neutral@9e00a58597f5",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_proto_0_stand",
-      "RequestID": "doll_proto_0_stand@67d3ada6ccd8",
-      "CompileStatus": "ready",
+      "RequestID": "doll_proto_0_stand@39228a004cd5",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_proto_0_test_stand",
-      "RequestID": "doll_proto_0_test_stand@72a5520efe5e",
-      "CompileStatus": "ready",
+      "RequestID": "doll_proto_0_test_stand@170f23419957",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_zero_cold",
-      "RequestID": "doll_zero_cold@521c47f73d6e",
-      "CompileStatus": "ready",
+      "RequestID": "doll_zero_cold@ead24f706617",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_ready",
       "Error": ""
     },
     {
       "VisualID": "doll_zero_depressed",
-      "RequestID": "doll_zero_depressed@79d12276950a",
-      "CompileStatus": "ready",
+      "RequestID": "doll_zero_depressed@9fde8569b919",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_zero_dialogue_confused",
-      "RequestID": "doll_zero_dialogue_confused@e7c98688a58e",
-      "CompileStatus": "ready",
+      "RequestID": "doll_zero_dialogue_confused@ae3a0b85e0fc",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_zero_dialogue_talk_small",
-      "RequestID": "doll_zero_dialogue_talk_small@c3a66345034a",
-      "CompileStatus": "ready",
+      "RequestID": "doll_zero_dialogue_talk_small@f3fbc3c50cde",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_zero_dialogue_thoughtful",
-      "RequestID": "doll_zero_dialogue_thoughtful@08cc568e6c4c",
-      "CompileStatus": "ready",
+      "RequestID": "doll_zero_dialogue_thoughtful@754ec73f60d9",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_zero_repair_relief",
-      "RequestID": "doll_zero_repair_relief@0482d80ae141",
-      "CompileStatus": "ready",
+      "RequestID": "doll_zero_repair_relief@70822be0f42d",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_zero_tired",
-      "RequestID": "doll_zero_tired@18066bf29bf8",
-      "CompileStatus": "ready",
+      "RequestID": "doll_zero_tired@8e84b2966db0",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "doll_zero_trust_soft",
-      "RequestID": "doll_zero_trust_soft@0dd118d6d1d7",
-      "CompileStatus": "ready",
+      "RequestID": "doll_zero_trust_soft@f5f17d55af6f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "faction_adventurer_guild_icon",
-      "RequestID": "faction_adventurer_guild_icon@feb819b0e428",
-      "CompileStatus": "ready",
+      "RequestID": "faction_adventurer_guild_icon@062fd9c281c4",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "faction_alchemy_guild_icon",
-      "RequestID": "faction_alchemy_guild_icon@ec6a973ba98a",
-      "CompileStatus": "ready",
+      "RequestID": "faction_alchemy_guild_icon@072685e0a8ea",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "faction_black_market_icon",
-      "RequestID": "faction_black_market_icon@62c4377cb556",
-      "CompileStatus": "ready",
+      "RequestID": "faction_black_market_icon@eef69d053eaf",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "faction_mage_tower_icon",
-      "RequestID": "faction_mage_tower_icon@f886ce7ff95c",
-      "CompileStatus": "ready",
+      "RequestID": "faction_mage_tower_icon@72636a1228bb",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "faction_mechanic_workshop_icon",
-      "RequestID": "faction_mechanic_workshop_icon@463b5094711a",
-      "CompileStatus": "ready",
+      "RequestID": "faction_mechanic_workshop_icon@81baf791046f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_con_anchor_charm_icon",
-      "RequestID": "item_con_anchor_charm_icon@251ac0a4bb84",
-      "CompileStatus": "ready",
+      "RequestID": "item_con_anchor_charm_icon@25d301aef212",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_con_cheap_sedative_icon",
-      "RequestID": "item_con_cheap_sedative_icon@5977787b4247",
-      "CompileStatus": "ready",
+      "RequestID": "item_con_cheap_sedative_icon@db9d5be507a4",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_con_purifying_salt_icon",
-      "RequestID": "item_con_purifying_salt_icon@2eeeb64668b3",
-      "CompileStatus": "ready",
+      "RequestID": "item_con_purifying_salt_icon@ce777dd08389",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_con_repair_kit_icon",
-      "RequestID": "item_con_repair_kit_icon@3ae4afa5681a",
-      "CompileStatus": "ready",
+      "RequestID": "item_con_repair_kit_icon@1fbcf86671dc",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_con_solvent_spray_icon",
-      "RequestID": "item_con_solvent_spray_icon@77d5afebe5d7",
-      "CompileStatus": "ready",
+      "RequestID": "item_con_solvent_spray_icon@a6d8425c198e",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_con_stabilizer_ampoule_icon",
-      "RequestID": "item_con_stabilizer_ampoule_icon@1609b9f608c3",
-      "CompileStatus": "ready",
+      "RequestID": "item_con_stabilizer_ampoule_icon@85195b07bf9c",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_gear_chain_hook_icon",
-      "RequestID": "item_gear_chain_hook_icon@7dc2bc27f54c",
-      "CompileStatus": "ready",
+      "RequestID": "item_gear_chain_hook_icon@007f2b7cbf5c",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_gear_chainsaw_sword_icon",
-      "RequestID": "item_gear_chainsaw_sword_icon@fd3a9d5183ef",
-      "CompileStatus": "ready",
+      "RequestID": "item_gear_chainsaw_sword_icon@d2cec1792805",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_gear_charge_pistol_icon",
-      "RequestID": "item_gear_charge_pistol_icon@f901ad8e1f49",
-      "CompileStatus": "ready",
+      "RequestID": "item_gear_charge_pistol_icon@24a927d5cb5e",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_gear_corroded_bulwark_icon",
-      "RequestID": "item_gear_corroded_bulwark_icon@fcfb4f3303dc",
-      "CompileStatus": "ready",
+      "RequestID": "item_gear_corroded_bulwark_icon@f2fa310011c9",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_gear_iron_armor_icon",
-      "RequestID": "item_gear_iron_armor_icon@25fe6fd9d345",
-      "CompileStatus": "ready",
+      "RequestID": "item_gear_iron_armor_icon@c03ff888354a",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_gear_iron_armor_icon",
-      "RequestID": "item_gear_iron_armor_icon@bd9242621d0f",
-      "CompileStatus": "ready",
+      "RequestID": "item_gear_iron_armor_icon@bc893baf09d5",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_gear_mycelium_cloak_icon",
-      "RequestID": "item_gear_mycelium_cloak_icon@6c93ba5df92c",
-      "CompileStatus": "ready",
+      "RequestID": "item_gear_mycelium_cloak_icon@dca1fbe26b62",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_gear_wooden_shield_icon",
-      "RequestID": "item_gear_wooden_shield_icon@99b4eb31e64a",
-      "CompileStatus": "ready",
+      "RequestID": "item_gear_wooden_shield_icon@79131e339fbc",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_gear_rusty_dagger_icon",
-      "RequestID": "item_gear_rusty_dagger_icon@e904b55aa28d",
-      "CompileStatus": "ready",
+      "RequestID": "item_gear_rusty_dagger_icon@fe2987a3eaef",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_gear_spore_lance_icon",
-      "RequestID": "item_gear_spore_lance_icon@56abe5605493",
-      "CompileStatus": "ready",
+      "RequestID": "item_gear_spore_lance_icon@bae563b79e16",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_gear_tactical_blade_icon",
-      "RequestID": "item_gear_tactical_blade_icon@0db0ca67d15b",
-      "CompileStatus": "ready",
+      "RequestID": "item_gear_tactical_blade_icon@7689a3fbe98f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_gear_vein_sickle_icon",
-      "RequestID": "item_gear_vein_sickle_icon@08158c5c6982",
-      "CompileStatus": "ready",
+      "RequestID": "item_gear_vein_sickle_icon@211f50c9594e",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_gear_wooden_shield_icon",
-      "RequestID": "item_gear_wooden_shield_icon@ef96a6f55980",
-      "CompileStatus": "ready",
+      "RequestID": "item_gear_wooden_shield_icon@3301ebea05b4",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_loot_acid_gland_icon",
-      "RequestID": "item_loot_acid_gland_icon@594e4193dcd4",
-      "CompileStatus": "ready",
+      "RequestID": "item_loot_acid_gland_icon@3a15a4d3b6d1",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_loot_corroded_nerve_icon",
-      "RequestID": "item_loot_corroded_nerve_icon@50de5a1dd0db",
-      "CompileStatus": "ready",
+      "RequestID": "item_loot_corroded_nerve_icon@59215463bdb3",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_loot_crystal_scale_icon",
-      "RequestID": "item_loot_crystal_scale_icon@5fa17ea447dc",
-      "CompileStatus": "ready",
+      "RequestID": "item_loot_crystal_scale_icon@9366b96380e3",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_loot_gear_scrap_icon",
-      "RequestID": "item_loot_gear_scrap_icon@2bad66da0480",
-      "CompileStatus": "ready",
+      "RequestID": "item_loot_gear_scrap_icon@f896bd0adc95",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_loot_living_mycelium_icon",
-      "RequestID": "item_loot_living_mycelium_icon@f861128ce0e8",
-      "CompileStatus": "ready",
+      "RequestID": "item_loot_living_mycelium_icon@e37c8583768f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_loot_rusty_coil_icon",
-      "RequestID": "item_loot_rusty_coil_icon@ebb0ed5e7ca6",
-      "CompileStatus": "ready",
+      "RequestID": "item_loot_rusty_coil_icon@bf2936958b9a",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_loot_spore_amber_icon",
-      "RequestID": "item_loot_spore_amber_icon@e57e34add681",
-      "CompileStatus": "ready",
+      "RequestID": "item_loot_spore_amber_icon@c694199ddafd",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_loot_toxic_filter_icon",
-      "RequestID": "item_loot_toxic_filter_icon@8ce0e8ec6eef",
-      "CompileStatus": "ready",
+      "RequestID": "item_loot_toxic_filter_icon@df640f854bcf",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_loot_vein_plate_icon",
-      "RequestID": "item_loot_vein_plate_icon@3c701baa91a8",
-      "CompileStatus": "ready",
+      "RequestID": "item_loot_vein_plate_icon@7ed1d80fb8a1",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_loot_warped_plate_icon",
-      "RequestID": "item_loot_warped_plate_icon@672e518e99b5",
-      "CompileStatus": "ready",
+      "RequestID": "item_loot_warped_plate_icon@ce4f5aedb592",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_mat_core_tier1_icon",
-      "RequestID": "item_mat_core_tier1_icon@8acfe96fc51a",
-      "CompileStatus": "ready",
+      "RequestID": "item_mat_core_tier1_icon@f44d6d2e0877",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_mat_core_tier1_icon",
-      "RequestID": "item_mat_core_tier1_icon@7174e9217e32",
-      "CompileStatus": "ready",
+      "RequestID": "item_mat_core_tier1_icon@734a68c24455",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_mat_core_tier2_fragment_icon",
-      "RequestID": "item_mat_core_tier2_fragment_icon@625844bebfe1",
-      "CompileStatus": "ready",
+      "RequestID": "item_mat_core_tier2_fragment_icon@90f5f5950ff6",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_mat_core_tier3_seed_icon",
-      "RequestID": "item_mat_core_tier3_seed_icon@b45dfd1657af",
-      "CompileStatus": "ready",
+      "RequestID": "item_mat_core_tier3_seed_icon@35c97972888a",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_order_contested_spore_core_icon",
-      "RequestID": "item_order_contested_spore_core_icon@a16d96b768cf",
-      "CompileStatus": "ready",
+      "RequestID": "item_order_contested_spore_core_icon@9a3664fad5a3",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_order_live_spore_cage_icon",
-      "RequestID": "item_order_live_spore_cage_icon@dd41a20192b9",
-      "CompileStatus": "ready",
+      "RequestID": "item_order_live_spore_cage_icon@7b5f5e44b80e",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_loot_toxic_filter_icon",
-      "RequestID": "item_loot_toxic_filter_icon@2da3adc8dc08",
-      "CompileStatus": "ready",
+      "RequestID": "item_loot_toxic_filter_icon@629b7d4ba813",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_trade_luminous_fungus_icon",
-      "RequestID": "item_trade_luminous_fungus_icon@bdb93d07917f",
-      "CompileStatus": "ready",
+      "RequestID": "item_trade_luminous_fungus_icon@f20ff164a8ae",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_loot_rusty_coil_icon",
-      "RequestID": "item_loot_rusty_coil_icon@92189fc9bfa4",
-      "CompileStatus": "ready",
+      "RequestID": "item_loot_rusty_coil_icon@ebb9c1f60ff8",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_trade_sealed_relic_box_icon",
-      "RequestID": "item_trade_sealed_relic_box_icon@a9b0c2e7d3fe",
-      "CompileStatus": "ready",
+      "RequestID": "item_trade_sealed_relic_box_icon@d254010bd66f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "item_trade_singing_fossil_icon",
-      "RequestID": "item_trade_singing_fossil_icon@58b78b3b7940",
-      "CompileStatus": "ready",
+      "RequestID": "item_trade_singing_fossil_icon@dc35e8d475ea",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_blackmarket_letter",
-      "RequestID": "memento_blackmarket_letter@b24c9648f963",
-      "CompileStatus": "ready",
+      "RequestID": "memento_blackmarket_letter@33cdc88315dd",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_boss1_lamp",
-      "RequestID": "memento_boss1_lamp@38ba96c3c6b4",
-      "CompileStatus": "ready",
+      "RequestID": "memento_boss1_lamp@2b375a592ce0",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_debt_shadow_window",
-      "RequestID": "memento_debt_shadow_window@1f2f1d5d1f60",
-      "CompileStatus": "ready",
+      "RequestID": "memento_debt_shadow_window@132665d02810",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_first_chassis_frame",
-      "RequestID": "memento_first_chassis_frame@f70b6acc1b3b",
-      "CompileStatus": "ready",
+      "RequestID": "memento_first_chassis_frame@f82565094f28",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_first_prosthetic_case",
-      "RequestID": "memento_first_prosthetic_case@df1ccc346833",
-      "CompileStatus": "ready",
+      "RequestID": "memento_first_prosthetic_case@b09505907c2f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_first_repair_patch",
-      "RequestID": "memento_first_repair_patch@8353c4277eb2",
-      "CompileStatus": "ready",
+      "RequestID": "memento_first_repair_patch@413bc59caf1f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_first_return_tag",
-      "RequestID": "memento_first_return_tag@53bbb7371cc8",
-      "CompileStatus": "ready",
+      "RequestID": "memento_first_return_tag@baf36dee0cec",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_layer2_corrosion_vial",
-      "RequestID": "memento_layer2_corrosion_vial@c38ea45ddd29",
-      "CompileStatus": "ready",
+      "RequestID": "memento_layer2_corrosion_vial@cda7eeca7383",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_low_san_blanket",
-      "RequestID": "memento_low_san_blanket@2f572404c2be",
-      "CompileStatus": "ready",
+      "RequestID": "memento_low_san_blanket@b969087e9dc3",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_miracle_burn_mark",
-      "RequestID": "memento_miracle_burn_mark@20460b8968c4",
-      "CompileStatus": "ready",
+      "RequestID": "memento_miracle_burn_mark@2bce5fd2186e",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_pawn_empty_tag",
-      "RequestID": "memento_pawn_empty_tag@1d8fe79e6aed",
-      "CompileStatus": "ready",
+      "RequestID": "memento_pawn_empty_tag@3ece86195f7c",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_return_mark",
-      "RequestID": "memento_return_mark@23254f614aaf",
-      "CompileStatus": "ready",
+      "RequestID": "memento_return_mark@7ff4f2fdd8c4",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_san_collapse_blanket",
-      "RequestID": "memento_san_collapse_blanket@847f029b45d7",
-      "CompileStatus": "ready",
+      "RequestID": "memento_san_collapse_blanket@bd5cf97fc237",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_truth_red_thread",
-      "RequestID": "memento_truth_red_thread@3d403185f398",
-      "CompileStatus": "ready",
+      "RequestID": "memento_truth_red_thread@af68c1fe4643",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "memento_wall_crack_first_defeat",
-      "RequestID": "memento_wall_crack_first_defeat@901e7d1b3ebc",
-      "CompileStatus": "ready",
+      "RequestID": "memento_wall_crack_first_defeat@64a00b7af6a7",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_boss_gatekeeper_mk1_combat",
-      "RequestID": "monster_boss_gatekeeper_mk1_combat@237ae303d79c",
-      "CompileStatus": "ready",
+      "RequestID": "monster_boss_gatekeeper_mk1_combat@935ecd1c4c24",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_boss_gatekeeper_mk1_portrait",
-      "RequestID": "monster_boss_gatekeeper_mk1_portrait@abb8236a1454",
-      "CompileStatus": "ready",
+      "RequestID": "monster_boss_gatekeeper_mk1_portrait@9085531b2a27",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_boss_mycelium_oracle_combat",
-      "RequestID": "monster_boss_mycelium_oracle_combat@9faf74951fef",
-      "CompileStatus": "ready",
+      "RequestID": "monster_boss_mycelium_oracle_combat@91b30fbf701a",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_boss_mycelium_oracle_portrait",
-      "RequestID": "monster_boss_mycelium_oracle_portrait@f498006f796d",
-      "CompileStatus": "ready",
+      "RequestID": "monster_boss_mycelium_oracle_portrait@bca9cc4a1ed8",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_boss_spore_foundry_combat",
-      "RequestID": "monster_boss_spore_foundry_combat@acd9b917298b",
-      "CompileStatus": "ready",
+      "RequestID": "monster_boss_spore_foundry_combat@e163e6b77fe6",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_boss_spore_foundry_portrait",
-      "RequestID": "monster_boss_spore_foundry_portrait@d821be051d3e",
-      "CompileStatus": "ready",
+      "RequestID": "monster_boss_spore_foundry_portrait@e8ff0b3e1b8b",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_elite_crystal_bulwark_combat",
-      "RequestID": "monster_elite_crystal_bulwark_combat@8e4f02c46c23",
-      "CompileStatus": "ready",
+      "RequestID": "monster_elite_crystal_bulwark_combat@c6017e47e25d",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_elite_crystal_bulwark_portrait",
-      "RequestID": "monster_elite_crystal_bulwark_portrait@ee3dd6c41251",
-      "CompileStatus": "ready",
+      "RequestID": "monster_elite_crystal_bulwark_portrait@9fbd97a3e5ae",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_elite_mutant_amalgam_combat",
-      "RequestID": "monster_elite_mutant_amalgam_combat@4c59276049df",
-      "CompileStatus": "ready",
+      "RequestID": "monster_elite_mutant_amalgam_combat@16d431d59a01",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_elite_mutant_amalgam_portrait",
-      "RequestID": "monster_elite_mutant_amalgam_portrait@ebc4021f2fe7",
-      "CompileStatus": "ready",
+      "RequestID": "monster_elite_mutant_amalgam_portrait@2790403f1fb7",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_elite_scrap_guard_combat",
-      "RequestID": "monster_elite_scrap_guard_combat@81e2e50a5a15",
-      "CompileStatus": "ready",
+      "RequestID": "monster_elite_scrap_guard_combat@a3e9e65efad7",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_elite_scrap_guard_portrait",
-      "RequestID": "monster_elite_scrap_guard_portrait@7fbae9828fe7",
-      "CompileStatus": "ready",
+      "RequestID": "monster_elite_scrap_guard_portrait@61f0f70eb75d",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_elite_spore_matriarch_combat",
-      "RequestID": "monster_elite_spore_matriarch_combat@8ecba41b6d8c",
-      "CompileStatus": "ready",
+      "RequestID": "monster_elite_spore_matriarch_combat@875cc7b736da",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_elite_spore_matriarch_portrait",
-      "RequestID": "monster_elite_spore_matriarch_portrait@01c71e90978e",
-      "CompileStatus": "ready",
+      "RequestID": "monster_elite_spore_matriarch_portrait@e4540db455f5",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_elite_vein_knight_combat",
-      "RequestID": "monster_elite_vein_knight_combat@f7d33d9e03fb",
-      "CompileStatus": "ready",
+      "RequestID": "monster_elite_vein_knight_combat@275e7c34ff83",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_elite_vein_knight_portrait",
-      "RequestID": "monster_elite_vein_knight_portrait@ca913999cfa1",
-      "CompileStatus": "ready",
+      "RequestID": "monster_elite_vein_knight_portrait@ab5412735ea4",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_acid_slime_combat",
-      "RequestID": "monster_mob_acid_slime_combat@f4643e90b813",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_acid_slime_combat@80ccbdb7e401",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_acid_slime_portrait",
-      "RequestID": "monster_mob_acid_slime_portrait@5c650596dc0b",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_acid_slime_portrait@92f46751ae64",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_acid_slime_mature_combat",
-      "RequestID": "monster_mob_acid_slime_mature_combat@84054ee11b37",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_acid_slime_mature_combat@4782cc0c5ac7",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_acid_slime_mature_portrait",
-      "RequestID": "monster_mob_acid_slime_mature_portrait@76b36f9df040",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_acid_slime_mature_portrait@fcb54a6d74c5",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_crystal_guard_combat",
-      "RequestID": "monster_mob_crystal_guard_combat@c1870c9212f5",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_crystal_guard_combat@f60b15f18426",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_crystal_guard_portrait",
-      "RequestID": "monster_mob_crystal_guard_portrait@69094f6b6b56",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_crystal_guard_portrait@8daac943e2f9",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_echo_pilgrim_combat",
-      "RequestID": "monster_mob_echo_pilgrim_combat@a931570331bf",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_echo_pilgrim_combat@e7470b268e99",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_echo_pilgrim_portrait",
-      "RequestID": "monster_mob_echo_pilgrim_portrait@78b5375eb904",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_echo_pilgrim_portrait@5665dd7b86c5",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_lost_miner_echo_combat",
-      "RequestID": "monster_mob_lost_miner_echo_combat@154201001226",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_lost_miner_echo_combat@fe02252585b8",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_lost_miner_echo_portrait",
-      "RequestID": "monster_mob_lost_miner_echo_portrait@decf24e0b659",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_lost_miner_echo_portrait@b35995ba5d8c",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_mycelium_crawler_combat",
-      "RequestID": "monster_mob_mycelium_crawler_combat@91cd0fbe411e",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_mycelium_crawler_combat@2a225cbece14",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_mycelium_crawler_portrait",
-      "RequestID": "monster_mob_mycelium_crawler_portrait@fa908ca62384",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_mycelium_crawler_portrait@5c7f02b40e30",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_nerve_midge_swarm_combat",
-      "RequestID": "monster_mob_nerve_midge_swarm_combat@0079954fda74",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_nerve_midge_swarm_combat@15b21fc1b70d",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_nerve_midge_swarm_portrait",
-      "RequestID": "monster_mob_nerve_midge_swarm_portrait@3790fcb479f3",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_nerve_midge_swarm_portrait@39720d7e4f66",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_rust_cultivator_combat",
-      "RequestID": "monster_mob_rust_cultivator_combat@370f69073fea",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_rust_cultivator_combat@ba2f59ddb79d",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_rust_cultivator_portrait",
-      "RequestID": "monster_mob_rust_cultivator_portrait@b68103916e91",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_rust_cultivator_portrait@7f46bc70a4ce",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_rust_hound_combat",
-      "RequestID": "monster_mob_rust_hound_combat@4414e8109629",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_rust_hound_combat@ea79a7cd76d1",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_rust_hound_portrait",
-      "RequestID": "monster_mob_rust_hound_portrait@2612e9df0abe",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_rust_hound_portrait@4b284ef85a47",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_scavenger_bug_combat",
-      "RequestID": "monster_mob_scavenger_bug_combat@7a99609a5ac5",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_scavenger_bug_combat@09cb53fe5482",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_scavenger_bug_portrait",
-      "RequestID": "monster_mob_scavenger_bug_portrait@8f0407401e03",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_scavenger_bug_portrait@b719593ef200",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_shell_grafter_combat",
-      "RequestID": "monster_mob_shell_grafter_combat@7a1d4e0dbe92",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_shell_grafter_combat@33edbdc77b62",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_shell_grafter_portrait",
-      "RequestID": "monster_mob_shell_grafter_portrait@2afa9bd30722",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_shell_grafter_portrait@63a5e4011cad",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_soul_midge_swarm_combat",
-      "RequestID": "monster_mob_soul_midge_swarm_combat@ec1ad6facf40",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_soul_midge_swarm_combat@7eece0bcbf87",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_soul_midge_swarm_portrait",
-      "RequestID": "monster_mob_soul_midge_swarm_portrait@7d23ab321b6e",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_soul_midge_swarm_portrait@be9f8bb23638",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_spore_archer_combat",
-      "RequestID": "monster_mob_spore_archer_combat@aff5dd01c673",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_spore_archer_combat@dd8cc6a5c997",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "monster_mob_spore_archer_portrait",
-      "RequestID": "monster_mob_spore_archer_portrait@54b635be8e5e",
-      "CompileStatus": "ready",
+      "RequestID": "monster_mob_spore_archer_portrait@43afc10e9941",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p02_panel01_workshop_wide",
-      "RequestID": "cg_t0_01a_p02_panel01_workshop_wide@5571d5ba093b",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p02_panel01_workshop_wide@c382026fcd0b",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p02_panel02_debt_notice_door",
-      "RequestID": "cg_t0_01a_p02_panel02_debt_notice_door@30cac61054c9",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p02_panel02_debt_notice_door@342e37fd3711",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p02_panel03_no0_hand_cloth",
-      "RequestID": "cg_t0_01a_p02_panel03_no0_hand_cloth@8495e9e5d646",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p02_panel03_no0_hand_cloth@7bcb1a3da363",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p03_panel01_debt_notice_close",
-      "RequestID": "cg_t0_01a_p03_panel01_debt_notice_close@3982b8160b9f",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p03_panel01_debt_notice_close@aa6cb2b96437",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p04_panel01_repair_note_close",
-      "RequestID": "cg_t0_01a_p04_panel01_repair_note_close@8ccf7a61393a",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p04_panel01_repair_note_close@877f2a7a3e57",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p04_panel02_shallow_gate_glow",
-      "RequestID": "cg_t0_01a_p04_panel02_shallow_gate_glow@6d6fd66228f9",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p04_panel02_shallow_gate_glow@ddf610b9ca30",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p04_panel03_core_shard_box",
-      "RequestID": "cg_t0_01a_p04_panel03_core_shard_box@04c59dbefb04",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p04_panel03_core_shard_box@b753ecc9df0c",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p05_panel02_no0_half_reveal",
-      "RequestID": "cg_t0_01a_p05_panel02_no0_half_reveal@8f39ce7404db",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p05_panel02_no0_half_reveal@738d87a1e41e",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p05_panel03_no0_core_dim",
-      "RequestID": "cg_t0_01a_p05_panel03_no0_core_dim@bc55714952af",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p05_panel03_no0_core_dim@c6268699b44b",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p06_panel01_no0_close",
-      "RequestID": "cg_t0_01a_p06_panel01_no0_close@fb4587f8fc92",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p06_panel01_no0_close@c82c26647e57",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p06_panel02_core_insert",
-      "RequestID": "cg_t0_01a_p06_panel02_core_insert@bd6893756bfd",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p06_panel02_core_insert@b2dd0d36db65",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p06_panel03_core_wake",
-      "RequestID": "cg_t0_01a_p06_panel03_core_wake@b86c839a9b42",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p06_panel03_core_wake@26bd7465624c",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p03_panel02_collateral_shadow",
-      "RequestID": "cg_t0_01a_p03_panel02_collateral_shadow@5232557acff2",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p03_panel02_collateral_shadow@bd95cbb168a7",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p03_panel03_broken_parts",
-      "RequestID": "cg_t0_01a_p03_panel03_broken_parts@65bed483a901",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p03_panel03_broken_parts@4e539b0e9347",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "cg_t0_01a_p05_panel01_broken_doll_parts",
-      "RequestID": "cg_t0_01a_p05_panel01_broken_doll_parts@773a0ec244b9",
-      "CompileStatus": "ready",
+      "RequestID": "cg_t0_01a_p05_panel01_broken_doll_parts@0c583321dc59",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "node_boss_icon",
-      "RequestID": "node_boss_icon@7f791b6dd6b3",
-      "CompileStatus": "ready",
+      "RequestID": "node_boss_icon@25843114fd59",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "node_combat_icon",
-      "RequestID": "node_combat_icon@ed33f459de1c",
-      "CompileStatus": "ready",
+      "RequestID": "node_combat_icon@d6f9bc5a508c",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "node_eventnode_icon",
-      "RequestID": "node_eventnode_icon@83f3a23e265f",
-      "CompileStatus": "ready",
+      "RequestID": "node_eventnode_icon@11076386a35d",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "node_hazardnode_icon",
-      "RequestID": "node_hazardnode_icon@a945714467da",
-      "CompileStatus": "ready",
+      "RequestID": "node_hazardnode_icon@156768df1a77",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "node_reststopnode_icon",
-      "RequestID": "node_reststopnode_icon@03a3392122a8",
-      "CompileStatus": "ready",
+      "RequestID": "node_reststopnode_icon@a54d6761db8a",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "node_safe_room_icon",
-      "RequestID": "node_safe_room_icon@f93668174654",
-      "CompileStatus": "ready",
+      "RequestID": "node_safe_room_icon@8747f77ee5bd",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "node_stairs_icon",
-      "RequestID": "node_stairs_icon@b987cc419e66",
-      "CompileStatus": "ready",
+      "RequestID": "node_stairs_icon@285a450fffba",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "node_treasurenode_icon",
-      "RequestID": "node_treasurenode_icon@869b8121e65b",
-      "CompileStatus": "ready",
+      "RequestID": "node_treasurenode_icon@0113e8f80b91",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_alchemy_antitoxin_contract_icon",
-      "RequestID": "order_alchemy_antitoxin_contract_icon@3ff23ab7d387",
-      "CompileStatus": "ready",
+      "RequestID": "order_alchemy_antitoxin_contract_icon@7edcda6e30f2",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_alchemy_market_forecast_icon",
-      "RequestID": "order_alchemy_market_forecast_icon@fc0e6800fbae",
-      "CompileStatus": "ready",
+      "RequestID": "order_alchemy_market_forecast_icon@c6070447414f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_alchemy_purification_batch_icon",
-      "RequestID": "order_alchemy_purification_batch_icon@df05bb34472b",
-      "CompileStatus": "ready",
+      "RequestID": "order_alchemy_purification_batch_icon@2699bd8cc536",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_alchemy_spore_sample_fast_icon",
-      "RequestID": "order_alchemy_spore_sample_fast_icon@79975743f94d",
-      "CompileStatus": "ready",
+      "RequestID": "order_alchemy_spore_sample_fast_icon@823b600bdab6",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_black_bound_core_betrayal_icon",
-      "RequestID": "order_black_bound_core_betrayal_icon@5ce2b69df725",
-      "CompileStatus": "ready",
+      "RequestID": "order_black_bound_core_betrayal_icon@08dff95c982a",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_black_contested_core_buyout_icon",
-      "RequestID": "order_black_contested_core_buyout_icon@57c7e3945d4b",
-      "CompileStatus": "ready",
+      "RequestID": "order_black_contested_core_buyout_icon@265df3eb6850",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_black_forbidden_relic_buyout_icon",
-      "RequestID": "order_black_forbidden_relic_buyout_icon@4636a3db3850",
-      "CompileStatus": "ready",
+      "RequestID": "order_black_forbidden_relic_buyout_icon@5969c61aa6a2",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_black_live_sample_no_questions_icon",
-      "RequestID": "order_black_live_sample_no_questions_icon@e9f68128db4d",
-      "CompileStatus": "ready",
+      "RequestID": "order_black_live_sample_no_questions_icon@c2a0d3690565",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_black_smuggled_route_key_icon",
-      "RequestID": "order_black_smuggled_route_key_icon@c83a47a77c88",
-      "CompileStatus": "ready",
+      "RequestID": "order_black_smuggled_route_key_icon@937d7887338e",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_blackmarket_relic_box_icon",
-      "RequestID": "order_blackmarket_relic_box_icon@65eb753ab3ef",
-      "CompileStatus": "ready",
+      "RequestID": "order_blackmarket_relic_box_icon@c2a3d1893274",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_crystal_scale_batch_icon",
-      "RequestID": "order_crystal_scale_batch_icon@e3b06fcff647",
-      "CompileStatus": "ready",
+      "RequestID": "order_crystal_scale_batch_icon@5376b582250f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_guild_layer1_map_rubbing_icon",
-      "RequestID": "order_guild_layer1_map_rubbing_icon@780044db7a14",
-      "CompileStatus": "ready",
+      "RequestID": "order_guild_layer1_map_rubbing_icon@51726852a536",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_guild_layer2_route_report_icon",
-      "RequestID": "order_guild_layer2_route_report_icon@bce8c3f098e9",
-      "CompileStatus": "ready",
+      "RequestID": "order_guild_layer2_route_report_icon@2e6fae53fab0",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_guild_safezone_signal_icon",
-      "RequestID": "order_guild_safezone_signal_icon@6a9ad3a7cd51",
-      "CompileStatus": "ready",
+      "RequestID": "order_guild_safezone_signal_icon@ae45e0445146",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_mage_boss_core_research_icon",
-      "RequestID": "order_mage_boss_core_research_icon@adac437178a1",
-      "CompileStatus": "ready",
+      "RequestID": "order_mage_boss_core_research_icon@a80d0a960f93",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_mage_corroded_memory_stone_icon",
-      "RequestID": "order_mage_corroded_memory_stone_icon@aab2984f1860",
-      "CompileStatus": "ready",
+      "RequestID": "order_mage_corroded_memory_stone_icon@50dc11164fe3",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_mage_live_slime_sample_icon",
-      "RequestID": "order_mage_live_slime_sample_icon@59b1994f43b4",
-      "CompileStatus": "ready",
+      "RequestID": "order_mage_live_slime_sample_icon@498b5deb1967",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_mage_oracle_sample_icon",
-      "RequestID": "order_mage_oracle_sample_icon@050e64f5ae1e",
-      "CompileStatus": "ready",
+      "RequestID": "order_mage_oracle_sample_icon@fa3c8654d362",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_mage_unidentified_relic_icon",
-      "RequestID": "order_mage_unidentified_relic_icon@304c00626bdf",
-      "CompileStatus": "ready",
+      "RequestID": "order_mage_unidentified_relic_icon@af2e39e4da5b",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_spore_cage_procurement_icon",
-      "RequestID": "order_spore_cage_procurement_icon@e968ec811f99",
-      "CompileStatus": "ready",
+      "RequestID": "order_spore_cage_procurement_icon@cb6d33db0bf8",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_status_boss_core_mutex_icon",
-      "RequestID": "order_status_boss_core_mutex_icon@3dc7d4996e31",
-      "CompileStatus": "ready",
+      "RequestID": "order_status_boss_core_mutex_icon@30c547bbc45a",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_status_deadline_warning_icon",
-      "RequestID": "order_status_deadline_warning_icon@95b3454be89b",
-      "CompileStatus": "ready",
+      "RequestID": "order_status_deadline_warning_icon@b3f52a8e73a8",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_status_order_bound_icon",
-      "RequestID": "order_status_order_bound_icon@67e2ef753052",
-      "CompileStatus": "ready",
+      "RequestID": "order_status_order_bound_icon@1932717d9e97",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_status_perishable_icon",
-      "RequestID": "order_status_perishable_icon@34e7363be9af",
-      "CompileStatus": "ready",
+      "RequestID": "order_status_perishable_icon@a83e83a49e7b",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_type_black_market_betrayal_icon",
-      "RequestID": "order_type_black_market_betrayal_icon@c76f7f54c346",
-      "CompileStatus": "ready",
+      "RequestID": "order_type_black_market_betrayal_icon@b07ec15c2105",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_type_exploration_report_icon",
-      "RequestID": "order_type_exploration_report_icon@8afe0d38ac54",
-      "CompileStatus": "ready",
+      "RequestID": "order_type_exploration_report_icon@d7703b30d7b8",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_type_large_cargo_icon",
-      "RequestID": "order_type_large_cargo_icon@c0a99d4bf0c6",
-      "CompileStatus": "ready",
+      "RequestID": "order_type_large_cargo_icon@4c16bfae07f6",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_type_live_capture_icon",
-      "RequestID": "order_type_live_capture_icon@686fe39b02c8",
-      "CompileStatus": "ready",
+      "RequestID": "order_type_live_capture_icon@6928c3f69356",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_type_procurement_icon",
-      "RequestID": "order_type_procurement_icon@1316f6ef4b38",
-      "CompileStatus": "ready",
+      "RequestID": "order_type_procurement_icon@3569321797eb",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_type_target_item_icon",
-      "RequestID": "order_type_target_item_icon@ccb6e9769057",
-      "CompileStatus": "ready",
+      "RequestID": "order_type_target_item_icon@78edd355aae9",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_workshop_boss_core_claim_icon",
-      "RequestID": "order_workshop_boss_core_claim_icon@3a96a3325029",
-      "CompileStatus": "ready",
+      "RequestID": "order_workshop_boss_core_claim_icon@0dd3d397ab52",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_workshop_furnace_core_large_icon",
-      "RequestID": "order_workshop_furnace_core_large_icon@cdb3eb8f53fd",
-      "CompileStatus": "ready",
+      "RequestID": "order_workshop_furnace_core_large_icon@f83745faca73",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_workshop_layer2_ore_batch_icon",
-      "RequestID": "order_workshop_layer2_ore_batch_icon@287859bc694c",
-      "CompileStatus": "ready",
+      "RequestID": "order_workshop_layer2_ore_batch_icon@938bd045b082",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_workshop_scrap_guard_plate_icon",
-      "RequestID": "order_workshop_scrap_guard_plate_icon@09145778e944",
-      "CompileStatus": "ready",
+      "RequestID": "order_workshop_scrap_guard_plate_icon@f8d4a5930c83",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "order_workshop_spore_core_frame_icon",
-      "RequestID": "order_workshop_spore_core_frame_icon@2eb6ec7dd05d",
-      "CompileStatus": "ready",
+      "RequestID": "order_workshop_spore_core_frame_icon@d611922cefea",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "prosthetic_pros_cooling_system_icon",
-      "RequestID": "prosthetic_pros_cooling_system_icon@47aa3beda795",
-      "CompileStatus": "ready",
+      "RequestID": "prosthetic_pros_cooling_system_icon@33f0520a84fe",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "prosthetic_pros_power_arm_icon",
-      "RequestID": "prosthetic_pros_power_arm_icon@cd35845a6ed6",
-      "CompileStatus": "ready",
+      "RequestID": "prosthetic_pros_power_arm_icon@f97960af370e",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "prosthetic_anchor_left_arm_icon",
-      "RequestID": "prosthetic_anchor_left_arm_icon@cc36138f430e",
-      "CompileStatus": "ready",
+      "RequestID": "prosthetic_anchor_left_arm_icon@73a510e9ba22",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "prosthetic_charge_coil_arm_icon",
-      "RequestID": "prosthetic_charge_coil_arm_icon@0ba8c552a820",
-      "CompileStatus": "ready",
+      "RequestID": "prosthetic_charge_coil_arm_icon@185c3be6ce66",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "prosthetic_focus_lens_icon",
-      "RequestID": "prosthetic_focus_lens_icon@3350278bace7",
-      "CompileStatus": "ready",
+      "RequestID": "prosthetic_focus_lens_icon@f8ed066743f7",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "prosthetic_mender_spine_icon",
-      "RequestID": "prosthetic_mender_spine_icon@7de5fa0d6fac",
-      "CompileStatus": "ready",
+      "RequestID": "prosthetic_mender_spine_icon@041e0ff4d848",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "prosthetic_salvage_fingertips_icon",
-      "RequestID": "prosthetic_salvage_fingertips_icon@cecba268999e",
-      "CompileStatus": "ready",
+      "RequestID": "prosthetic_salvage_fingertips_icon@42a70e8c04a0",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "prosthetic_san_regulator_core_icon",
-      "RequestID": "prosthetic_san_regulator_core_icon@c20beca3204c",
-      "CompileStatus": "ready",
+      "RequestID": "prosthetic_san_regulator_core_icon@2f94fca50942",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_acid_gland_shortage_icon",
-      "RequestID": "rumor_acid_gland_shortage_icon@bc6c15cb2920",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_acid_gland_shortage_icon@ab6c60e1b21c",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_contraband_night_channel_icon",
-      "RequestID": "rumor_contraband_night_channel_icon@a99142f67bd1",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_contraband_night_channel_icon@92924f241ed2",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_corrosion_sample_premium_icon",
-      "RequestID": "rumor_corrosion_sample_premium_icon@9c6f2e8436b6",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_corrosion_sample_premium_icon@a2e887cc4f24",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_crystal_scale_contract_icon",
-      "RequestID": "rumor_crystal_scale_contract_icon@7367f8d2e3b2",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_crystal_scale_contract_icon@e4da9ba19f32",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_faction_medical_request_icon",
-      "RequestID": "rumor_faction_medical_request_icon@b63bdb0b4387",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_faction_medical_request_icon@231ab785a178",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_filter_shortage_icon",
-      "RequestID": "rumor_filter_shortage_icon@5b97351c68c2",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_filter_shortage_icon@095c150915be",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_living_mycelium_shortage_icon",
-      "RequestID": "rumor_living_mycelium_shortage_icon@ff472d8acb0f",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_living_mycelium_shortage_icon@2185a58948e4",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_low_layer_bulk_buy_icon",
-      "RequestID": "rumor_low_layer_bulk_buy_icon@42aa3d590a93",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_low_layer_bulk_buy_icon@20bf74831112",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_miner_lamps_icon",
-      "RequestID": "rumor_miner_lamps_icon@4872ab3ccf6e",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_miner_lamps_icon@3b8fce76af11",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_old_blades_icon",
-      "RequestID": "rumor_old_blades_icon@021af5ccd40f",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_old_blades_icon@f12fa0a2f6a7",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_oracle_fossil_collector_icon",
-      "RequestID": "rumor_oracle_fossil_collector_icon@2501242cbcdc",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_oracle_fossil_collector_icon@8f8cbf244e6c",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_origin_stone_demand_icon",
-      "RequestID": "rumor_origin_stone_demand_icon@fde33cf42827",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_origin_stone_demand_icon@8c81f4d91a85",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_scrap_workshop_shortage_icon",
-      "RequestID": "rumor_scrap_workshop_shortage_icon@4b527b27a0f9",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_scrap_workshop_shortage_icon@6cf74176133c",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_slime_crash_icon",
-      "RequestID": "rumor_slime_crash_icon@205f1ef820a1",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_slime_crash_icon@3bc9aeaf9691",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_spore_amber_jeweler_icon",
-      "RequestID": "rumor_spore_amber_jeweler_icon@78bb11944246",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_spore_amber_jeweler_icon@ca08e9002985",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "rumor_weapon_collector_visit_icon",
-      "RequestID": "rumor_weapon_collector_visit_icon@8c168c6cb651",
-      "CompileStatus": "ready",
+      "RequestID": "rumor_weapon_collector_visit_icon@dfce521431d1",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_missing_sprite",
-      "RequestID": "ui_missing_sprite@c3e5266f2f60",
-      "CompileStatus": "ready",
+      "RequestID": "ui_missing_sprite@e32054647069",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_button_primary",
-      "RequestID": "ui_button_primary@1530c3de3cf4",
-      "CompileStatus": "ready",
+      "RequestID": "ui_button_primary@db389d383658",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_button_secondary",
-      "RequestID": "ui_button_secondary@5650c00667a4",
-      "CompileStatus": "ready",
+      "RequestID": "ui_button_secondary@11e9da03f20b",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_ap_pip",
-      "RequestID": "ui_combat_ap_pip@79e29ec3c863",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_ap_pip@124720cb7889",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_enemy_card",
-      "RequestID": "ui_combat_enemy_card@8c295678688e",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_enemy_card@e1c5bef4eb2a",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_enemy_card_selected",
-      "RequestID": "ui_combat_enemy_card_selected@77ea3dbb1518",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_enemy_card_selected@8db56ba281f3",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_entity_shadow",
-      "RequestID": "ui_combat_entity_shadow@f77d169a7d92",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_entity_shadow@875893996b0b",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_feedback_echo_fade",
-      "RequestID": "ui_combat_feedback_echo_fade@1d050c870c03",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_feedback_echo_fade@ea8f9d4b75f6",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_feedback_hit",
-      "RequestID": "ui_combat_feedback_hit@e33b75b73bef",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_feedback_hit@03c62461d955",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_feedback_scrap_break",
-      "RequestID": "ui_combat_feedback_scrap_break@71c5086001f0",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_feedback_scrap_break@8ce26aae4c41",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_feedback_shield_break",
-      "RequestID": "ui_combat_feedback_shield_break@f8092546933b",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_feedback_shield_break@4d350db72274",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_feedback_slime_pop",
-      "RequestID": "ui_combat_feedback_slime_pop@6ecbeb3bb115",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_feedback_slime_pop@22fe99c08739",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_grid_lock_marker",
-      "RequestID": "ui_combat_grid_lock_marker@26e31449456c",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_grid_lock_marker@1b7670461c3d",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_intent_add_junk",
-      "RequestID": "ui_combat_intent_add_junk@f8dc6657d37f",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_intent_add_junk@02aaacf87d6f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_intent_attack",
-      "RequestID": "ui_combat_intent_attack@3e1ae49c2113",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_intent_attack@e0f98f3bc740",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_intent_buff",
-      "RequestID": "ui_combat_intent_buff@c299c5b692e5",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_intent_buff@1b761b5fb4ba",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_intent_charge",
-      "RequestID": "ui_combat_intent_charge@3663e8f8e0a6",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_intent_charge@0d6c62abaded",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_intent_debuff",
-      "RequestID": "ui_combat_intent_debuff@e4b0dcca1d44",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_intent_debuff@9c75bdc6d213",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_intent_defend",
-      "RequestID": "ui_combat_intent_defend@751d8ad1e791",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_intent_defend@c1aaba36acfa",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_intent_grid_lock",
-      "RequestID": "ui_combat_intent_grid_lock@0db4adc34ba7",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_intent_grid_lock@442d10f83854",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_intent_move_item",
-      "RequestID": "ui_combat_intent_move_item@f99028374ce4",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_intent_move_item@11165de61ee3",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_intent_san_pressure",
-      "RequestID": "ui_combat_intent_san_pressure@1b445b0d0f37",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_intent_san_pressure@7c3c3a3b53c4",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_intent_unknown",
-      "RequestID": "ui_combat_intent_unknown@82969c4666a2",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_intent_unknown@6ff2a437686c",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_junk_preview_marker",
-      "RequestID": "ui_combat_junk_preview_marker@ec9c1c96016a",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_junk_preview_marker@a620ad1baf74",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_status_bar_hp",
-      "RequestID": "ui_combat_status_bar_hp@51612d44c5ee",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_status_bar_hp@7ed4b085aeef",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_status_bar_shield",
-      "RequestID": "ui_combat_status_bar_shield@b31d9cba50d5",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_status_bar_shield@8a3781730c81",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_status_corrosion",
-      "RequestID": "ui_combat_status_corrosion@899e62679b88",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_status_corrosion@3a614015b0b2",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_status_curse",
-      "RequestID": "ui_combat_status_curse@9c1d0b29e2d4",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_status_curse@4b1c7bf2837e",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_status_stun",
-      "RequestID": "ui_combat_status_stun@ecb51d46bd19",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_status_stun@4e08a15aa926",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_target_ring",
-      "RequestID": "ui_combat_target_ring@41afdb8a3325",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_target_ring@7d29385ed813",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_bill",
-      "RequestID": "ui_icon_bill@c7adcb06d288",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_bill@ca1b1ee8f201",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_corruption_purify",
-      "RequestID": "ui_icon_corruption_purify@439433bf4c54",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_corruption_purify@e942014b7768",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_debt_rent",
-      "RequestID": "ui_icon_debt_rent@6bf20302a02a",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_debt_rent@e033045eab7e",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_dive_permit",
-      "RequestID": "ui_icon_dive_permit@4735882c45b6",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_dive_permit@2335060f49d7",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_expense",
-      "RequestID": "ui_icon_expense@dde4b4b50d05",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_expense@c02b2612c68c",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_income",
-      "RequestID": "ui_icon_income@db9b0a15680e",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_income@c598d79ed6a4",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_maintenance",
-      "RequestID": "ui_icon_maintenance@80a7c3df906c",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_maintenance@c298170146e0",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_warning",
-      "RequestID": "ui_icon_warning@3c3998bd0c1e",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_warning@46da1bf7fe6b",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_ready",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_wear_repair",
-      "RequestID": "ui_icon_wear_repair@e74b6276beff",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_wear_repair@3873b5564818",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_inventory_chassis_panel",
-      "RequestID": "ui_inventory_chassis_panel@8efca8a2209f",
-      "CompileStatus": "ready",
+      "RequestID": "ui_inventory_chassis_panel@f075e49db609",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_inventory_slot_available",
-      "RequestID": "ui_inventory_slot_available@e83901dd799f",
-      "CompileStatus": "ready",
+      "RequestID": "ui_inventory_slot_available@9f9b5051118a",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_inventory_slot_hover",
-      "RequestID": "ui_inventory_slot_hover@c82c2e9c5ec6",
-      "CompileStatus": "ready",
+      "RequestID": "ui_inventory_slot_hover@d1b592a8fb2d",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_inventory_slot_invalid",
-      "RequestID": "ui_inventory_slot_invalid@3b6f073f2522",
-      "CompileStatus": "ready",
+      "RequestID": "ui_inventory_slot_invalid@2534166e751a",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_inventory_slot_locked",
-      "RequestID": "ui_inventory_slot_locked@fd580c392114",
-      "CompileStatus": "ready",
+      "RequestID": "ui_inventory_slot_locked@84d0ea20cd2a",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_inventory_slot_valid",
-      "RequestID": "ui_inventory_slot_valid@a994818c8515",
-      "CompileStatus": "ready",
+      "RequestID": "ui_inventory_slot_valid@d20bdd7e6601",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_loot_drop_zone",
-      "RequestID": "ui_loot_drop_zone@5d5c4f4633c3",
-      "CompileStatus": "ready",
+      "RequestID": "ui_loot_drop_zone@95b029a65add",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_loot_pickup_panel",
-      "RequestID": "ui_loot_pickup_panel@d21a1b9ede4f",
-      "CompileStatus": "ready",
+      "RequestID": "ui_loot_pickup_panel@f16e3ef478f4",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_panel_info",
-      "RequestID": "ui_panel_info@bd480626041e",
-      "CompileStatus": "ready",
+      "RequestID": "ui_panel_info@b353a84ec8f8",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_panel_main",
-      "RequestID": "ui_panel_main@54a77f48f55c",
-      "CompileStatus": "ready",
+      "RequestID": "ui_panel_main@a6f98421581f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_settlement_outcome_hp_defeat",
-      "RequestID": "ui_settlement_outcome_hp_defeat@8c6d6187d491",
-      "CompileStatus": "ready",
+      "RequestID": "ui_settlement_outcome_hp_defeat@6d5fd8a2d79e",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_settlement_outcome_hp_san_defeat",
-      "RequestID": "ui_settlement_outcome_hp_san_defeat@8238bf77feb0",
-      "CompileStatus": "ready",
+      "RequestID": "ui_settlement_outcome_hp_san_defeat@f7af3aebcda9",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_settlement_outcome_party_wipe",
-      "RequestID": "ui_settlement_outcome_party_wipe@c84765484b4b",
-      "CompileStatus": "ready",
+      "RequestID": "ui_settlement_outcome_party_wipe@0b333c6c0ff6",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_settlement_outcome_san_collapse",
-      "RequestID": "ui_settlement_outcome_san_collapse@557ce88688fe",
-      "CompileStatus": "ready",
+      "RequestID": "ui_settlement_outcome_san_collapse@82f03b4aa16c",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_settlement_outcome_victory",
-      "RequestID": "ui_settlement_outcome_victory@258dd7adc154",
-      "CompileStatus": "ready",
+      "RequestID": "ui_settlement_outcome_victory@aa09d5d58775",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_button_danger",
-      "RequestID": "ui_button_danger@cc52d32d3e79",
-      "CompileStatus": "ready",
+      "RequestID": "ui_button_danger@67ed8d2f1417",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_combat_turn_banner",
-      "RequestID": "ui_combat_turn_banner@73bd8e224514",
-      "CompileStatus": "ready",
+      "RequestID": "ui_combat_turn_banner@7e7458f4556b",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_dungeon_node_plate",
-      "RequestID": "ui_dungeon_node_plate@07d74fe78941",
-      "CompileStatus": "ready",
+      "RequestID": "ui_dungeon_node_plate@91720034411f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_dungeon_route_line",
-      "RequestID": "ui_dungeon_route_line@b4dd513c088e",
-      "CompileStatus": "ready",
+      "RequestID": "ui_dungeon_route_line@81a548a21397",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_black_market",
-      "RequestID": "ui_icon_black_market@d853cfc9a6ce",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_black_market@2a0da1ce024f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_blueprint",
-      "RequestID": "ui_icon_blueprint@a763e481c549",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_blueprint@4b31210884d0",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_business_settlement",
-      "RequestID": "ui_icon_business_settlement@e6a11c04e961",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_business_settlement@00d78327577e",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_chassis_upgrade",
-      "RequestID": "ui_icon_chassis_upgrade@1134b9f13414",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_chassis_upgrade@ed7ea4807ff1",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_customer",
-      "RequestID": "ui_icon_customer@73980726ff74",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_customer@c614cb761def",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_deadline",
-      "RequestID": "ui_icon_deadline@2d43ea907123",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_deadline@3439cbd9bf12",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_diary",
-      "RequestID": "ui_icon_diary@5dcd22672fce",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_diary@2f18245987a0",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_equipped",
-      "RequestID": "ui_icon_equipped@1e2a4a106010",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_equipped@1020c6e9cdbb",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_event",
-      "RequestID": "ui_icon_event@38fc330668dd",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_event@77d898ee763a",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_faction",
-      "RequestID": "ui_icon_faction@d72c60aabf60",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_faction@ec9c33e099e5",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_gift",
-      "RequestID": "ui_icon_gift@052a80fcdc3f",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_gift@1b840a4747a2",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_locked",
-      "RequestID": "ui_icon_locked@d2275f1035d1",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_locked@53baa95f325e",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_lore",
-      "RequestID": "ui_icon_lore@bd1d88947e3d",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_lore@01d1fb46248d",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_material_need",
-      "RequestID": "ui_icon_material_need@77f2d4db4f9b",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_material_need@c4502d65908f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_memento",
-      "RequestID": "ui_icon_memento@d701ac0eb1b4",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_memento@6271763f25ac",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_money",
-      "RequestID": "ui_icon_money@2b866d027700",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_money@c8a3e7165290",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_order",
-      "RequestID": "ui_icon_order@ceea59ca3ae8",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_order@034a257b0838",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_price_down",
-      "RequestID": "ui_icon_price_down@f8bb5a027867",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_price_down@0fd654e623fd",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_price_up",
-      "RequestID": "ui_icon_price_up@938e2dd496ff",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_price_up@802cbf218687",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_reputation",
-      "RequestID": "ui_icon_reputation@096f238c590a",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_reputation@47843e79a269",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_rumor",
-      "RequestID": "ui_icon_rumor@d4043d44a756",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_rumor@8610e1aeabaa",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_sale_spark",
-      "RequestID": "ui_icon_sale_spark@5bd4ef7c435a",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_sale_spark@a116d649a250",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_shop_channel",
-      "RequestID": "ui_icon_shop_channel@1633811eb904",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_shop_channel@1268670f343b",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_skip",
-      "RequestID": "ui_icon_skip@51ebe389e4f6",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_skip@41471f9d5da4",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_talk",
-      "RequestID": "ui_icon_talk@238d7e22dee0",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_talk@9880371ad0e7",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_touch",
-      "RequestID": "ui_icon_touch@6561232ed9ed",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_touch@dc5a46c016d1",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_icon_trust",
-      "RequestID": "ui_icon_trust@8cbf22ae4068",
-      "CompileStatus": "ready",
+      "RequestID": "ui_icon_trust@ddce8f48d4ff",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_list_row_normal",
-      "RequestID": "ui_list_row_normal@30d39057862b",
-      "CompileStatus": "ready",
+      "RequestID": "ui_list_row_normal@e1524d753fa0",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_list_row_selected",
-      "RequestID": "ui_list_row_selected@79f5998bf778",
-      "CompileStatus": "ready",
+      "RequestID": "ui_list_row_selected@aca4a48da98f",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_room_memento_slot",
-      "RequestID": "ui_room_memento_slot@84797ff35e8e",
-      "CompileStatus": "ready",
+      "RequestID": "ui_room_memento_slot@9b9550ba1f5c",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_settlement_defeat_panel",
-      "RequestID": "ui_settlement_defeat_panel@e3ee82db59fa",
-      "CompileStatus": "ready",
+      "RequestID": "ui_settlement_defeat_panel@8867e23792ef",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_settlement_victory_panel",
-      "RequestID": "ui_settlement_victory_panel@5acaa6341cc0",
-      "CompileStatus": "ready",
+      "RequestID": "ui_settlement_victory_panel@eef7d8acd79b",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     },
     {
       "VisualID": "ui_title_divider",
-      "RequestID": "ui_title_divider@a782239ae346",
-      "CompileStatus": "ready",
+      "RequestID": "ui_title_divider@43a4aaff0cbe",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
       "Error": ""
     }
   ]
