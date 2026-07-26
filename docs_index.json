@@ -680,7 +680,7 @@
       "status": "active",
       "source_of_truth": false,
       "related": [],
-      "last_verified": "2026-07-23",
+      "last_verified": "2026-07-26",
       "update_rule": "修改美术风格继承、VisualIntent、生成请求编译、Prompt 格式、生产 Profile 路由、迁移或编译门禁时更新本文档。",
       "has_metadata": true,
       "missing_fields": [],
