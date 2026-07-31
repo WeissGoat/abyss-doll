@@ -746,6 +746,23 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/specs/2026-07-30-art-production-evidence-gates-and-resume-design.md",
+      "title": "美术生产证据、质量门禁与人物立绘恢复设计",
+      "id": "spec_art_production_evidence_gates_and_resume",
+      "type": "design",
+      "role": "美术",
+      "domain": "art_asset_production",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "2026-07-31",
+      "update_rule": "正式生成证据、技术 override、selected 替换门禁或人物立绘断点恢复设计变化时更新本文档；实现完成后把稳定规则回写对应事实文档与 Skill。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "DOCS_INDEX.md",
       "title": "文档索引",
       "id": "docs_index",
@@ -992,7 +1009,7 @@
         "美术文档/ui_design/formal_v2/README.md",
         "美术文档/ui_design/formal_v2/design_boards/README.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-07-26",
       "update_rule": "修改对应工具入口、参数或执行流程时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
