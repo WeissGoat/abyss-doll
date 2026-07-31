@@ -774,7 +774,11 @@ Run evidence 写入 `UnityClient/Logs/P3ArtProduction/<ProductionRunID>/`。处�
   -DryRun
 ```
 
-命令只接受最新数字轮次中的候选，要求技术状态 `passed`、Agent `RecommendedAction=select`、总分至少 `88`，并重新校验文件 hash、尺寸和格式。去掉 `-DryRun` 后写入 `selected/`、Manifest `SelectedPath`、工作区 `production_decision.json` 和 Run `selection-decision.json`；已有 selected 内容不同必须显式使用 `-AllowSelectedOverwrite`。
+命令只接受最新数字轮次中的候选，要求技术状态 `passed`、Agent `RecommendedAction=select`、总分至少 `88`，并重新校验处理证据与 `CandidateSHA256`。去掉 `-DryRun` 后写入 `selected/`、Manifest `SelectedPath`、工作区 `production_decision.json` 和 Run `selection-decision.json`。
+
+已有 selected 内容不同时，评审项必须声明 `SelectionMode=replacement`，并同时提供 `ReviewRubricVersion`、当前 `ReplacementBaseline` 和 `ReplacementPolicy`。基线 `SelectedPath` / `SelectedSHA256` 必须仍与执行时目标一致；候选总分必须达到 `max(88, MinimumScore, baseline Total + MinimumScoreDelta)`，且每个 `ProtectedDimensions` 分数不得下降。质量门禁通过后仍须显式使用 `-AllowSelectedOverwrite`；该参数只授权覆盖文件，不能绕过基线、分数或保护维度检查。比较结果会写入 `PreviousSelected` 和 `PolicyResult`。
+
+候选与现有 selected 的 SHA 相同时返回 `already_selected`，不重复复制，也不要求伪造 replacement 基线；Manifest 的 `approved / registered / validated` 主状态保持不变。
 
 目标路径优先使用 Manifest 中合法的 `SelectedPath`。旧 entry 未回写该字段时，如果 `selected/` 只有一张受支持图片，则复用该历史路径和相邻 `.meta`；存在多张图片时以 `selected_target_ambiguous` 失败，禁止创建第三种隐式目标。目录为空时才使用 `<VisualID>.<候选后缀>` 建立新 selected。
 

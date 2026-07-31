@@ -72,6 +72,94 @@ def review_score(item: dict[str, Any]) -> int:
         raise ValueError("visual review score is missing") from exc
 
 
+def score_map(value: Any, *, label: str) -> dict[str, int]:
+    if not isinstance(value, dict):
+        raise ValueError(f"{label}_scores_missing")
+    result: dict[str, int] = {}
+    for key, score in value.items():
+        try:
+            result[str(key)] = int(score)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"{label}_score_invalid:{key}") from exc
+    if "Total" not in result:
+        raise ValueError(f"{label}_total_missing")
+    return result
+
+
+def validate_replacement(
+    *,
+    item: dict[str, Any],
+    target: Path,
+    target_hash: str,
+    source_hash: str,
+    project_root: Path,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    if item.get("SelectionMode") != "replacement":
+        raise ValueError("replacement_baseline_missing")
+    if not str(item.get("ReviewRubricVersion", "") or "").strip():
+        raise ValueError("replacement_review_rubric_missing")
+    baseline = item.get("ReplacementBaseline")
+    policy = item.get("ReplacementPolicy")
+    if not isinstance(baseline, dict) or not isinstance(policy, dict):
+        raise ValueError("replacement_baseline_missing")
+
+    baseline_path_value = str(baseline.get("SelectedPath", "") or "")
+    if not baseline_path_value or resolve_path(baseline_path_value, project_root).resolve() != target.resolve():
+        raise ValueError("replacement_baseline_path_mismatch")
+    baseline_hash = str(baseline.get("SelectedSHA256", "") or "").lower()
+    if not baseline_hash or baseline_hash != target_hash.lower():
+        raise ValueError("replacement_baseline_stale")
+    candidate_hash = str(item.get("CandidateSHA256", "") or "").lower()
+    if not candidate_hash or candidate_hash != source_hash.lower():
+        raise ValueError("replacement_candidate_sha_mismatch")
+
+    candidate_scores = score_map(item.get("Scores"), label="replacement_candidate")
+    baseline_scores = score_map(baseline.get("Scores"), label="replacement_baseline")
+    if policy.get("MustExceedExisting") is not True:
+        raise ValueError("replacement_must_exceed_existing_required")
+    try:
+        minimum_score = int(policy.get("MinimumScore", 88))
+        minimum_delta = int(policy.get("MinimumScoreDelta", 1))
+    except (TypeError, ValueError) as exc:
+        raise ValueError("replacement_policy_invalid") from exc
+    if minimum_delta < 1:
+        raise ValueError("replacement_minimum_delta_invalid")
+    required_score = max(88, minimum_score, baseline_scores["Total"] + minimum_delta)
+    if candidate_scores["Total"] < required_score:
+        raise ValueError(
+            f"replacement_not_better:candidate={candidate_scores['Total']}:required={required_score}"
+        )
+
+    protected = policy.get("ProtectedDimensions", [])
+    if not isinstance(protected, list):
+        raise ValueError("replacement_protected_dimensions_invalid")
+    for dimension in protected:
+        name = str(dimension)
+        if name not in candidate_scores or name not in baseline_scores:
+            raise ValueError(f"replacement_protected_dimension_missing:{name}")
+        if candidate_scores[name] < baseline_scores[name]:
+            raise ValueError(
+                f"replacement_protected_dimension_regression:{name}:"
+                f"candidate={candidate_scores[name]}:baseline={baseline_scores[name]}"
+            )
+
+    previous_selected = {
+        "Path": repo_path(target, project_root),
+        "SHA256": target_hash,
+        "Score": baseline_scores["Total"],
+        "Scores": baseline_scores,
+    }
+    policy_result = {
+        "ReviewRubricVersion": item["ReviewRubricVersion"],
+        "MinimumScorePassed": candidate_scores["Total"] >= max(88, minimum_score),
+        "StrictlyBetterPassed": candidate_scores["Total"] >= baseline_scores["Total"] + minimum_delta,
+        "ProtectedDimensionsPassed": True,
+        "BaselineStillCurrent": True,
+        "RequiredScore": required_score,
+    }
+    return previous_selected, policy_result
+
+
 def selected_target(entry: dict[str, Any], workspace: Path, candidate: Path, project_root: Path) -> Path:
     selected_dir = workspace / "selected"
     existing_value = str(entry.get("SelectedPath", "") or "")
@@ -167,16 +255,46 @@ def select_art_candidate(
     target = selected_target(entry, workspace, reviewed_candidate, project_root)
     source_hash = hashlib.sha256(reviewed_candidate.read_bytes()).hexdigest()
     target_hash = hashlib.sha256(target.read_bytes()).hexdigest() if target.exists() else ""
-    if target.exists() and target_hash != source_hash and not allow_selected_overwrite:
-        raise PermissionError(f"selected overwrite authorization required: {repo_path(target, project_root)}")
+    reviewed_hash = str(item.get("CandidateSHA256", "") or "").lower()
+    if reviewed_hash and reviewed_hash != source_hash.lower():
+        raise ValueError("reviewed_candidate_sha_mismatch")
+
+    selection_mode = "initial"
+    previous_selected: dict[str, Any] = {}
+    policy_result: dict[str, Any] = {
+        "MinimumScorePassed": score >= 88,
+        "RequiredScore": 88,
+    }
+    state = "planned" if dry_run else "selected"
+    if target.exists() and target_hash == source_hash:
+        state = "already_selected"
+        selection_mode = "idempotent"
+        policy_result = {
+            "CandidateStillCurrent": True,
+            "CopyRequired": False,
+        }
+    elif target.exists():
+        selection_mode = "replacement"
+        previous_selected, policy_result = validate_replacement(
+            item=item,
+            target=target,
+            target_hash=target_hash,
+            source_hash=source_hash,
+            project_root=project_root,
+        )
+        if not allow_selected_overwrite:
+            raise PermissionError(f"selected overwrite authorization required: {repo_path(target, project_root)}")
 
     decision = {
         "ProductionRunID": str(review.get("ProductionRunID", "") or ""),
-        "State": "planned" if dry_run else "selected",
+        "State": state,
         "VisualID": visual_id,
         "ProcessedRound": round_number,
         "Candidate": repo_path(reviewed_candidate, project_root),
         "SelectedPath": repo_path(target, project_root),
+        "SelectionMode": selection_mode,
+        "PreviousSelected": previous_selected,
+        "PolicyResult": policy_result,
         "Score": score,
         "SHA256": source_hash,
         "ReviewPath": repo_path(review_path, project_root),
@@ -185,7 +303,7 @@ def select_art_candidate(
     if dry_run:
         return decision
 
-    if not target.exists() or target_hash != source_hash:
+    if state != "already_selected":
         atomic_copy(reviewed_candidate, target)
     entry["SelectedPath"] = repo_path(target, project_root)
     if str(entry.get("Status", "")) not in PRESERVED_MAIN_STATUSES:
@@ -210,6 +328,10 @@ def select_art_candidate(
             "Source": decision["Candidate"],
             "Target": decision["SelectedPath"],
             "Score": score,
+            "SHA256": source_hash,
+            "SelectionMode": selection_mode,
+            "PreviousSelected": previous_selected,
+            "PolicyResult": policy_result,
             "Reason": str(item.get("Reason") or "Agent review passed selected threshold."),
         }
     )

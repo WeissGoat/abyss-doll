@@ -70,21 +70,50 @@ class SelectArtCandidateTests(unittest.TestCase):
             encoding="utf-8",
         )
 
-    def write_review(self, score: int, candidate: Path | None = None) -> None:
+    def write_review(
+        self,
+        score: int,
+        candidate: Path | None = None,
+        *,
+        replacement_target: Path | None = None,
+        baseline_score: int = 90,
+        candidate_dimensions: dict[str, int] | None = None,
+        baseline_dimensions: dict[str, int] | None = None,
+        protected_dimensions: list[str] | None = None,
+    ) -> None:
         selected = candidate or self.candidate
+        scores = {"Total": score, **(candidate_dimensions or {})}
+        item = {
+            "VisualID": "bg_workshop_day",
+            "Candidate": str(selected),
+            "CandidateSHA256": hashlib.sha256(selected.read_bytes()).hexdigest(),
+            "HardGate": "passed",
+            "Scores": scores,
+            "RecommendedAction": "select",
+        }
+        if replacement_target is not None:
+            item.update(
+                {
+                    "SelectionMode": "replacement",
+                    "ReviewRubricVersion": "standard_asset_review_002",
+                    "ReplacementBaseline": {
+                        "SelectedPath": str(replacement_target),
+                        "SelectedSHA256": hashlib.sha256(replacement_target.read_bytes()).hexdigest(),
+                        "Scores": {"Total": baseline_score, **(baseline_dimensions or {})},
+                    },
+                    "ReplacementPolicy": {
+                        "MinimumScore": 88,
+                        "MustExceedExisting": True,
+                        "MinimumScoreDelta": 1,
+                        "ProtectedDimensions": protected_dimensions or [],
+                    },
+                }
+            )
         self.review_path.write_text(
             json.dumps(
                 {
                     "ProductionRunID": "formalv2_batch_01",
-                    "Items": [
-                        {
-                            "VisualID": "bg_workshop_day",
-                            "Candidate": str(selected),
-                            "HardGate": "passed",
-                            "Scores": {"Total": score},
-                            "RecommendedAction": "select",
-                        }
-                    ],
+                    "Items": [item],
                 }
             ),
             encoding="utf-8",
@@ -131,6 +160,7 @@ class SelectArtCandidateTests(unittest.TestCase):
         target.parent.mkdir(parents=True)
         Image.new("RGBA", (8, 4), "red").save(target)
         self.write_manifest(status="approved", selected_path=repo_path(target, self.root))
+        self.write_review(score=92, replacement_target=target, baseline_score=90)
 
         with self.assertRaisesRegex(PermissionError, "selected overwrite"):
             select_art_candidate(
@@ -143,7 +173,7 @@ class SelectArtCandidateTests(unittest.TestCase):
                 dry_run=False,
             )
 
-        select_art_candidate(
+        result = select_art_candidate(
             project_root=self.root,
             manifest_path=self.manifest_path,
             incoming_root=self.incoming_root,
@@ -155,6 +185,14 @@ class SelectArtCandidateTests(unittest.TestCase):
         manifest = json.loads(self.manifest_path.read_text(encoding="utf-8"))
         self.assertEqual(manifest["Entries"][0]["Status"], "approved")
         self.assertEqual(target.read_bytes(), self.candidate.read_bytes())
+        self.assertEqual(result["SelectionMode"], "replacement")
+        self.assertEqual(result["PreviousSelected"]["Score"], 90)
+        self.assertTrue(result["PolicyResult"]["StrictlyBetterPassed"])
+        selection = json.loads((self.root / "selection-decision.json").read_text(encoding="utf-8"))
+        selected = selection["Selected"][0]
+        self.assertEqual(selected["SelectionMode"], "replacement")
+        self.assertEqual(selected["PreviousSelected"]["SHA256"], result["PreviousSelected"]["SHA256"])
+        self.assertEqual(selected["PolicyResult"], result["PolicyResult"])
 
     def test_rejects_below_threshold_or_older_round_candidate(self) -> None:
         self.write_manifest()
@@ -206,6 +244,7 @@ class SelectArtCandidateTests(unittest.TestCase):
         target.parent.mkdir(parents=True)
         Image.new("RGBA", (8, 4), "red").save(target)
         self.write_manifest(selected_path="")
+        self.write_review(score=92, replacement_target=target, baseline_score=90)
 
         result = select_art_candidate(
             project_root=self.root,
@@ -239,6 +278,123 @@ class SelectArtCandidateTests(unittest.TestCase):
                 review_path=self.review_path,
                 allow_selected_overwrite=True,
                 dry_run=True,
+            )
+
+    def test_replacement_requires_strictly_better_same_run_baseline(self) -> None:
+        target = self.workspace / "selected" / "bg_workshop_day.png"
+        target.parent.mkdir(parents=True)
+        Image.new("RGBA", (8, 4), "red").save(target)
+        self.write_manifest(selected_path=repo_path(target, self.root))
+        self.write_review(score=90, replacement_target=target, baseline_score=90)
+
+        with self.assertRaisesRegex(ValueError, "replacement_not_better"):
+            select_art_candidate(
+                project_root=self.root,
+                manifest_path=self.manifest_path,
+                incoming_root=self.incoming_root,
+                visual_id="bg_workshop_day",
+                review_path=self.review_path,
+                allow_selected_overwrite=True,
+                dry_run=False,
+            )
+
+    def test_replacement_rejects_protected_dimension_regression(self) -> None:
+        target = self.workspace / "selected" / "bg_workshop_day.png"
+        target.parent.mkdir(parents=True)
+        Image.new("RGBA", (8, 4), "red").save(target)
+        self.write_manifest(selected_path=repo_path(target, self.root))
+        self.write_review(
+            score=92,
+            replacement_target=target,
+            baseline_score=90,
+            candidate_dimensions={"SemanticFit": 89},
+            baseline_dimensions={"SemanticFit": 90},
+            protected_dimensions=["SemanticFit"],
+        )
+
+        with self.assertRaisesRegex(ValueError, "replacement_protected_dimension_regression"):
+            select_art_candidate(
+                project_root=self.root,
+                manifest_path=self.manifest_path,
+                incoming_root=self.incoming_root,
+                visual_id="bg_workshop_day",
+                review_path=self.review_path,
+                allow_selected_overwrite=True,
+                dry_run=False,
+            )
+
+    def test_replacement_rejects_stale_selected_sha(self) -> None:
+        target = self.workspace / "selected" / "bg_workshop_day.png"
+        target.parent.mkdir(parents=True)
+        Image.new("RGBA", (8, 4), "red").save(target)
+        self.write_manifest(selected_path=repo_path(target, self.root))
+        self.write_review(score=92, replacement_target=target, baseline_score=90)
+        Image.new("RGBA", (8, 4), "blue").save(target)
+
+        with self.assertRaisesRegex(ValueError, "replacement_baseline_stale"):
+            select_art_candidate(
+                project_root=self.root,
+                manifest_path=self.manifest_path,
+                incoming_root=self.incoming_root,
+                visual_id="bg_workshop_day",
+                review_path=self.review_path,
+                allow_selected_overwrite=True,
+                dry_run=False,
+            )
+
+    def test_identical_selected_sha_is_idempotent(self) -> None:
+        target = self.workspace / "selected" / "bg_workshop_day.png"
+        target.parent.mkdir(parents=True)
+        target.write_bytes(self.candidate.read_bytes())
+        self.write_manifest(status="approved", selected_path=repo_path(target, self.root))
+
+        result = select_art_candidate(
+            project_root=self.root,
+            manifest_path=self.manifest_path,
+            incoming_root=self.incoming_root,
+            visual_id="bg_workshop_day",
+            review_path=self.review_path,
+            allow_selected_overwrite=False,
+            dry_run=False,
+        )
+
+        self.assertEqual(result["State"], "already_selected")
+        self.assertEqual(result["SelectionMode"], "idempotent")
+        manifest = json.loads(self.manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(manifest["Entries"][0]["Status"], "approved")
+
+    def test_rejects_stale_reviewed_candidate_sha(self) -> None:
+        self.write_manifest()
+        review = json.loads(self.review_path.read_text(encoding="utf-8"))
+        review["Items"][0]["CandidateSHA256"] = "0" * 64
+        self.review_path.write_text(json.dumps(review), encoding="utf-8")
+
+        with self.assertRaisesRegex(ValueError, "reviewed_candidate_sha_mismatch"):
+            select_art_candidate(
+                project_root=self.root,
+                manifest_path=self.manifest_path,
+                incoming_root=self.incoming_root,
+                visual_id="bg_workshop_day",
+                review_path=self.review_path,
+                allow_selected_overwrite=False,
+                dry_run=False,
+            )
+
+    def test_replacement_requires_baseline_evidence(self) -> None:
+        target = self.workspace / "selected" / "bg_workshop_day.png"
+        target.parent.mkdir(parents=True)
+        Image.new("RGBA", (8, 4), "red").save(target)
+        self.write_manifest(selected_path=repo_path(target, self.root))
+
+        with self.assertRaisesRegex(ValueError, "replacement_baseline_missing"):
+            select_art_candidate(
+                project_root=self.root,
+                manifest_path=self.manifest_path,
+                incoming_root=self.incoming_root,
+                visual_id="bg_workshop_day",
+                review_path=self.review_path,
+                allow_selected_overwrite=True,
+                dry_run=False,
             )
 
 
