@@ -593,6 +593,23 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/plans/2026-07-31-art-production-evidence-gates-and-resume.md",
+      "title": "美术生产证据、质量门禁与人物立绘恢复实施计划",
+      "id": "plan_art_production_evidence_gates_and_resume",
+      "type": "plan",
+      "role": "美术",
+      "domain": "art_asset_production",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "2026-07-31",
+      "update_rule": "实现文件边界、测试命令、兼容策略或阶段提交发生变化时更新本文档。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "docs/superpowers/specs/2026-07-18-agent-routing-p0-hardening-design.md",
       "title": "Agent 路由 P0 治理加固设计",
       "id": "agent_routing_p0_hardening_design",
