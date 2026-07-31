@@ -4,13 +4,14 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import json
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageDraw
 
 
 TOOLS_DIR = Path(__file__).resolve().parents[1]
@@ -21,6 +22,7 @@ from art_prompt_revision import publish_prompt_revision  # noqa: E402
 from compile_art_generation_requests import compile_manifest_requests  # noqa: E402
 from run_character_portrait_set import (  # noqa: E402
     build_portrait_set_plan,
+    execute_portrait_set_run,
     load_asset_set,
     order_portrait_members,
     reference_cli_arguments,
@@ -112,6 +114,12 @@ class CharacterPortraitSetTests(unittest.TestCase):
             )
             pointer["PromptAuthoringStatus"] = "prompt_ready"
             pointer["ActivePromptRevisionID"] = revision["PromptRevisionID"]
+        self.manifest_path = self.project_root / "manifest.json"
+        self.catalog_path = self.project_root / "catalog.json"
+        self.incoming_root = self.project_root / "UnityClient/Assets/Art/_IncomingAI"
+        self.run_dir = self.project_root / "UnityClient/Logs/P3ArtProduction/portrait_test_001"
+        self.manifest_path.write_text(json.dumps(self.compiled_manifest), encoding="utf-8")
+        self.catalog_path.write_text(json.dumps(self.catalog), encoding="utf-8")
 
     def tearDown(self) -> None:
         self.temp_dir.cleanup()
@@ -277,6 +285,277 @@ class CharacterPortraitSetTests(unittest.TestCase):
             project_root=self.project_root,
         )
         self.assertIn(f"prompt_authoring_required:{request['VisualID']}", plan["Errors"])
+
+    def make_runner(self, plan: dict, calls: list[str], *, failures: set[str] | None = None):
+        items = {item["VisualID"]: item for item in plan["Items"]}
+        failures = failures or set()
+
+        def runner(command, cwd=None):
+            visual_id = command[command.index("--visual-id") + 1]
+            calls.append(visual_id)
+            if visual_id in failures:
+                return subprocess.CompletedProcess(command, 1)
+            item = items[visual_id]
+            workspace = self.project_root / item["Workspace"]
+            raw = workspace / "raw" / "fake.png"
+            raw.parent.mkdir(parents=True, exist_ok=True)
+            image = Image.new("RGBA", (1024, 1536), (0, 0, 0, 0))
+            ImageDraw.Draw(image).rectangle((40, 40, 984, 1496), fill=(80, 90, 100, 255))
+            image.save(raw)
+            generation = {
+                "EvidenceMode": "formal_v2",
+                "VisualID": visual_id,
+                "BatchID": "portrait_test_001",
+                "RequirementFingerprint": item["RequirementFingerprint"],
+                "PromptRevisionID": item["PromptRevisionID"],
+                "PromptRevisionFingerprint": item["PromptRevisionFingerprint"],
+                "PromptFormat": item["PromptFormat"],
+                "ReferenceImages": copy.deepcopy(item["ResolvedReferenceAssets"]),
+                "Outputs": [{"RepoPath": raw.relative_to(self.project_root).as_posix()}],
+                "Errors": [],
+            }
+            (workspace / "generation.json").write_text(json.dumps(generation), encoding="utf-8")
+            return subprocess.CompletedProcess(command, 0)
+
+        return runner
+
+    def execute_run(
+        self,
+        plan: dict,
+        *,
+        resume: bool = False,
+        provider: str = "fake",
+        runner=None,
+        processing_decisions_path: Path | None = None,
+        visual_review_path: Path | None = None,
+    ) -> dict:
+        return execute_portrait_set_run(
+            plan=plan,
+            manifest_path=self.manifest_path,
+            catalog_path=self.catalog_path,
+            incoming_root=self.incoming_root,
+            run_dir=self.run_dir,
+            production_run_id="portrait_test_001",
+            execution_mode="interactive",
+            resume=resume,
+            provider=provider,
+            config="",
+            variants=1,
+            execute_limit=10,
+            processing_decisions_path=processing_decisions_path,
+            visual_review_path=visual_review_path,
+            allow_selected_overwrite=False,
+            allowed_technical_overrides=set(),
+            project_root=self.project_root,
+            runner=runner or self.make_runner(plan, []),
+        )
+
+    def test_resume_skips_generation_when_snapshot_is_current(self) -> None:
+        plan = build_portrait_set_plan(
+            self.compiled_manifest,
+            self.catalog,
+            "zero_dialogue_portrait_v1",
+            visual_ids={"doll_zero_dialogue_neutral"},
+            project_root=self.project_root,
+        )
+        first_calls: list[str] = []
+        first = self.execute_run(plan, runner=self.make_runner(plan, first_calls))
+        self.assertEqual(first_calls, ["doll_zero_dialogue_neutral"])
+        self.assertEqual(first["Items"][0]["Stage"], "processing_decision")
+
+        resume_calls: list[str] = []
+        resumed = self.execute_run(plan, resume=True, runner=self.make_runner(plan, resume_calls))
+
+        self.assertEqual(resume_calls, [])
+        self.assertEqual(resumed["Items"][0]["Stage"], "processing_decision")
+
+    def test_existing_run_requires_resume(self) -> None:
+        plan = build_portrait_set_plan(
+            self.compiled_manifest,
+            self.catalog,
+            "zero_dialogue_portrait_v1",
+            visual_ids={"doll_zero_dialogue_neutral"},
+            project_root=self.project_root,
+        )
+        self.run_dir.mkdir(parents=True)
+        with self.assertRaisesRegex(FileExistsError, "resume_required"):
+            self.execute_run(plan)
+
+    def test_resume_rejects_stale_prompt_snapshot_without_provider_call(self) -> None:
+        plan = build_portrait_set_plan(
+            self.compiled_manifest,
+            self.catalog,
+            "zero_dialogue_portrait_v1",
+            visual_ids={"doll_zero_dialogue_neutral"},
+            project_root=self.project_root,
+        )
+        self.execute_run(plan)
+        changed = copy.deepcopy(plan)
+        changed["Items"][0]["PromptRevisionFingerprint"] = "changed"
+        calls: list[str] = []
+
+        resumed = self.execute_run(changed, resume=True, provider="", runner=self.make_runner(changed, calls))
+
+        self.assertEqual(calls, [])
+        self.assertEqual(resumed["Items"][0]["Result"], "prompt_stale")
+
+    def test_resume_rejects_changed_raw_output_sha(self) -> None:
+        plan = build_portrait_set_plan(
+            self.compiled_manifest,
+            self.catalog,
+            "zero_dialogue_portrait_v1",
+            visual_ids={"doll_zero_dialogue_neutral"},
+            project_root=self.project_root,
+        )
+        self.execute_run(plan)
+        raw = self.project_root / plan["Items"][0]["Workspace"] / "raw/fake.png"
+        Image.new("RGBA", (1024, 1536), (0, 0, 0, 0)).save(raw)
+        calls: list[str] = []
+
+        resumed = self.execute_run(plan, resume=True, provider="", runner=self.make_runner(plan, calls))
+
+        self.assertEqual(calls, [])
+        self.assertEqual(resumed["Items"][0]["Result"], "generation_stale")
+
+    def test_resume_marks_changed_reference_stale(self) -> None:
+        plan = build_portrait_set_plan(
+            self.compiled_manifest,
+            self.catalog,
+            "zero_dialogue_portrait_v1",
+            visual_ids={"doll_zero_dialogue_confused"},
+            project_root=self.project_root,
+        )
+        self.execute_run(plan)
+        Image.new("RGBA", (1024, 1536), (1, 2, 3, 0)).save(self.approved_path)
+        changed_plan = build_portrait_set_plan(
+            self.compiled_manifest,
+            self.catalog,
+            "zero_dialogue_portrait_v1",
+            visual_ids={"doll_zero_dialogue_confused"},
+            project_root=self.project_root,
+        )
+        calls: list[str] = []
+
+        resumed = self.execute_run(changed_plan, resume=True, provider="", runner=self.make_runner(changed_plan, calls))
+
+        self.assertEqual(calls, [])
+        self.assertEqual(resumed["Items"][0]["Result"], "reference_stale")
+
+    def test_generation_failure_blocks_explicit_dependency(self) -> None:
+        plan = build_portrait_set_plan(
+            self.compiled_manifest,
+            self.catalog,
+            "zero_dialogue_portrait_v1",
+            project_root=self.project_root,
+        )
+        calls: list[str] = []
+
+        state = self.execute_run(
+            plan,
+            runner=self.make_runner(plan, calls, failures={"doll_zero_dialogue_neutral"}),
+        )
+
+        by_id = {item["VisualID"]: item for item in state["Items"]}
+        self.assertEqual(by_id["doll_zero_dialogue_neutral"]["Result"], "generation_failed")
+        self.assertEqual(by_id["doll_zero_dialogue_confused"]["Result"], "blocked_by_dependency")
+        self.assertEqual(calls, ["doll_zero_dialogue_neutral"])
+        self.assertEqual(state["FinalState"], "selection_complete_with_failures")
+
+    def test_resume_skips_registered_round_and_existing_selection(self) -> None:
+        plan = build_portrait_set_plan(
+            self.compiled_manifest,
+            self.catalog,
+            "zero_dialogue_portrait_v1",
+            visual_ids={"doll_zero_dialogue_neutral"},
+            project_root=self.project_root,
+        )
+        state = self.execute_run(plan)
+        item = state["Items"][0]
+        candidate = self.incoming_root / "character_portraits/doll_zero_dialogue_neutral/processed/1/candidate.png"
+        candidate.parent.mkdir(parents=True, exist_ok=True)
+        Image.new("RGBA", (1024, 1536), (80, 90, 100, 255)).save(candidate)
+        digest = hashlib.sha256(candidate.read_bytes()).hexdigest()
+        (candidate.parent / "decision.json").write_text(
+            json.dumps({"State": "passed", "Candidates": [{"File": candidate.name, "SHA256": digest, "Status": "passed"}]}),
+            encoding="utf-8",
+        )
+        selected = candidate.parents[1] / "selected" / "doll_zero_dialogue_neutral.png"
+        selected.parent.mkdir(parents=True, exist_ok=True)
+        selected.write_bytes(candidate.read_bytes())
+        item["Processed"] = {"RoundNumber": 1, "CandidatePath": candidate.relative_to(self.project_root).as_posix(), "CandidateSHA256": digest}
+        item["Selection"] = {"State": "selected", "SelectedPath": selected.relative_to(self.project_root).as_posix(), "SHA256": digest}
+        item["Stage"] = "complete"
+        item["Result"] = "selected"
+        (self.run_dir / "portrait-set-run.json").write_text(json.dumps(state), encoding="utf-8")
+        calls: list[str] = []
+
+        resumed = self.execute_run(plan, resume=True, runner=self.make_runner(plan, calls))
+
+        self.assertEqual(calls, [])
+        self.assertEqual(resumed["Items"][0]["Result"], "selected")
+        self.assertEqual(resumed["FinalState"], "selection_complete")
+
+    def test_processing_decision_and_visual_review_complete_selected_route(self) -> None:
+        plan = build_portrait_set_plan(
+            self.compiled_manifest,
+            self.catalog,
+            "zero_dialogue_portrait_v1",
+            visual_ids={"doll_zero_dialogue_neutral"},
+            project_root=self.project_root,
+        )
+        calls: list[str] = []
+        first = self.execute_run(plan, runner=self.make_runner(plan, calls))
+        raw = self.project_root / plan["Items"][0]["Workspace"] / "raw/fake.png"
+        raw_hash = hashlib.sha256(raw.read_bytes()).hexdigest()
+        decisions_path = self.project_root / "processing-decisions.json"
+        decisions_path.write_text(
+            json.dumps(
+                {
+                    "ProductionRunID": "portrait_test_001",
+                    "Items": [
+                        {
+                            "VisualID": "doll_zero_dialogue_neutral",
+                            "Action": "already_usable",
+                            "InputPath": raw.relative_to(self.project_root).as_posix(),
+                            "InputSHA256": raw_hash,
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        review_path = self.project_root / "visual-review.json"
+        review_path.write_text(
+            json.dumps(
+                {
+                    "ProductionRunID": "portrait_test_001",
+                    "Items": [
+                        {
+                            "VisualID": "doll_zero_dialogue_neutral",
+                            "CandidateSHA256": raw_hash,
+                            "HardGate": "passed",
+                            "Scores": {"Total": 92},
+                            "RecommendedAction": "select",
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        completed = self.execute_run(
+            plan,
+            resume=True,
+            runner=self.make_runner(plan, calls),
+            processing_decisions_path=decisions_path,
+            visual_review_path=review_path,
+        )
+
+        self.assertEqual(calls, ["doll_zero_dialogue_neutral"])
+        self.assertEqual(completed["Items"][0]["Result"], "selected")
+        self.assertEqual(completed["FinalState"], "selection_complete")
+        self.assertTrue((self.incoming_root / "character_portraits/doll_zero_dialogue_neutral/processed/1/candidate.png").exists())
+        self.assertTrue((self.incoming_root / "character_portraits/doll_zero_dialogue_neutral/selected/doll_zero_dialogue_neutral.png").exists())
 
 
 if __name__ == "__main__":

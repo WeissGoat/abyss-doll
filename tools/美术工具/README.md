@@ -784,6 +784,34 @@ Run evidence 写入 `UnityClient/Logs/P3ArtProduction/<ProductionRunID>/`。处�
 
 对已是 `approved / registered / validated` 的同 VisualID 替换，Manifest 主状态保持不变。命令不修改 Approved、`.meta`、GUID、Unity 或 Registry。Run 中所有目标完成选择后，`summary.json` 自动收敛为 `selection_complete`。
 
+## Run-CharacterPortraitSet.ps1 Resume
+
+角色立绘套组继续使用现有 `Run-CharacterPortraitSet.ps1`，但正式执行会在 `UnityClient/Logs/P3ArtProduction/<ProductionRunID>/portrait-set-run.json` 保存 run-scoped checkpoint。它只记录 Requirement/PromptRevision/参考图 SHA、generation 快照、processed 轮次、visual review 和 selected 证据，不创建第二套 Manifest 或生命周期状态。
+
+```powershell
+.\tools\美术工具\Run-CharacterPortraitSet.ps1 `
+  -AssetSetID zero_dialogue_portrait_v1 `
+  -Provider gemini_chat_image `
+  -ExecutionMode Automatic `
+  -ProcessingDecisions "UnityClient/Logs/P3ArtProduction/portrait-zero-001/processing-decisions.json" `
+  -VisualReview "UnityClient/Logs/P3ArtProduction/portrait-zero-001/visual-review.json" `
+  -ProductionRunID portrait-zero-001
+```
+
+中断后使用同一入口恢复。Resume 会重新校验 PromptRevision、参考图、raw 输出和 processed/selected SHA；证据有效则跳过 provider、Registrar 或 selector，证据 stale 则从最早失效阶段继续，旧 raw 和数字轮次不会被覆盖。
+
+```powershell
+.\tools\美术工具\Run-CharacterPortraitSet.ps1 `
+  -AssetSetID zero_dialogue_portrait_v1 `
+  -ProductionRunID portrait-zero-001 `
+  -Resume `
+  -ExecutionMode Automatic `
+  -ProcessingDecisions "UnityClient/Logs/P3ArtProduction/portrait-zero-001/processing-decisions.json" `
+  -VisualReview "UnityClient/Logs/P3ArtProduction/portrait-zero-001/visual-review.json"
+```
+
+处理决策只允许 `already_usable`、`background_processing_required`、`manual_edit_required`、`regenerate_required`。没有 Agent 的 processing decision 或 visual review 时，Interactive/Automatic 都会停在对应阶段并写入 `PendingDecision`；Automatic 不会创作 Prompt、伪造评审或选择生成方式。角色立绘只有在显式 visual review 存在且候选 SHA 对应最新 processed 候选时，才允许 Registrar 发布数字轮次并继续 guarded selection。
+
 ## Nine-slice UI Skin 技术门禁
 
 `Optimize-ArtAssets.ps1` 读取 Manifest `ProcessSpec.NineSlice`。启用后除了原尺寸、Alpha 和安全画布检查，还会输出 `NineSliceMetrics` 并执行：

@@ -9,6 +9,12 @@ param(
     [int]$Variants = 2,
     [int]$ExecuteLimit = 1,
     [string]$ProductionRunID = "",
+    [ValidateSet("Interactive", "Automatic")][string]$ExecutionMode = "Interactive",
+    [switch]$Resume,
+    [string]$ProcessingDecisions = "",
+    [string]$VisualReview = "",
+    [switch]$AllowSelectedOverwrite,
+    [string[]]$AllowTechnicalOverride = @(),
     [switch]$DryRun
 )
 
@@ -27,6 +33,12 @@ foreach ($id in $VisualID) { $argsList += @("--visual-id", $id) }
 if ($Provider) { $argsList += @("--provider", $Provider) }
 if ($Config) { $argsList += @("--config", $Config) }
 if ($ProductionRunID) { $argsList += @("--production-run-id", $ProductionRunID) }
+if ($ExecutionMode) { $argsList += @("--execution-mode", $ExecutionMode.ToLowerInvariant()) }
+if ($Resume) { $argsList += "--resume" }
+if ($ProcessingDecisions) { $argsList += @("--processing-decisions", $ProcessingDecisions) }
+if ($VisualReview) { $argsList += @("--visual-review", $VisualReview) }
+if ($AllowSelectedOverwrite) { $argsList += "--allow-selected-overwrite" }
+foreach ($rule in $AllowTechnicalOverride) { $argsList += @("--allow-technical-override", $rule) }
 if ($DryRun) { $argsList += "--dry-run" }
 
 python @argsList
