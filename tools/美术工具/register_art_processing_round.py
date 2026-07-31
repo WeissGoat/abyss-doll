@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import shutil
@@ -12,6 +13,7 @@ from typing import Any
 
 from PIL import Image
 
+from art_background import review_candidate
 from art_processing import load_round_decision, next_round_number, publish_round, reserve_round
 from art_workspace import normalize_entry_workspace_paths, workspace_path
 
@@ -22,6 +24,10 @@ DEFAULT_MANIFEST = "美术文档/_generated/art_manifest.json"
 DEFAULT_INCOMING_ROOT = "UnityClient/Assets/Art/_IncomingAI"
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp"}
 FORBIDDEN_KEYS = {"selectedpath", "approvedpath", "registrystatus", "runtimepath", "runtimestate"}
+TECHNICAL_REVIEW_SCHEMA = "technical_review_v2"
+TECHNICAL_RULESET_VERSION = "p3_art_technical_rules_002"
+TECHNICAL_OVERRIDE_SCHEMA = "technical_override_v1"
+OVERRIDABLE_RULES = {"subject_outside_safe_canvas": "accept_as_warning"}
 
 
 def resolve_project_path(value: str | Path) -> Path:
@@ -36,6 +42,219 @@ def read_json(path: Path) -> Any:
 def write_json(path: Path, data: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def _technical_review_payload(review: dict[str, Any]) -> dict[str, Any]:
+    payload = {
+        key: copy.deepcopy(review[key])
+        for key in ("File", "SHA256", "Status", "Reasons", "Warnings", "Metrics", "NineSliceMetrics")
+        if key in review
+    }
+    return payload
+
+
+def review_fingerprint(review: dict[str, Any]) -> str:
+    encoded = json.dumps(
+        _technical_review_payload(review),
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+
+
+def _spec_section(entry: dict[str, Any], name: str) -> dict[str, Any]:
+    spec = entry.get("Spec") if isinstance(entry.get("Spec"), dict) else {}
+    value = spec.get(name)
+    return value if isinstance(value, dict) else {}
+
+
+def recalculate_candidate_review(entry: dict[str, Any], path: Path) -> dict[str, Any]:
+    with Image.open(path) as image:
+        image.load()
+        review = review_candidate(
+            image,
+            source_spec=_spec_section(entry, "SourceSpec"),
+            composition_spec=_spec_section(entry, "CompositionSpec"),
+            process_spec=_spec_section(entry, "ProcessSpec"),
+            asset_type=str(entry.get("AssetType", "") or ""),
+            production_profile=str(entry.get("ProductionProfile", "standard_asset") or "standard_asset"),
+            saved_path=path,
+        )
+    record = {
+        "File": path.name,
+        "SHA256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        **review,
+    }
+    record["ReviewFingerprint"] = review_fingerprint(record)
+    return record
+
+
+def _technical_review_map(report: dict[str, Any], visual_id: str, production_profile: str) -> dict[str, dict[str, Any]]:
+    if report.get("SchemaVersion") != TECHNICAL_REVIEW_SCHEMA:
+        raise ValueError("technical_review_schema_invalid")
+    if report.get("RuleSetVersion") != TECHNICAL_RULESET_VERSION:
+        raise ValueError("technical_review_ruleset_invalid")
+    if report.get("VisualID") != visual_id:
+        raise ValueError("technical_review_visual_id_mismatch")
+    if report.get("ProductionProfile") != production_profile:
+        raise ValueError("technical_review_profile_mismatch")
+    candidates = report.get("Candidates")
+    if not isinstance(candidates, list):
+        raise ValueError("technical_review_candidates_invalid")
+    result: dict[str, dict[str, Any]] = {}
+    for item in candidates:
+        if not isinstance(item, dict) or not str(item.get("File", "")):
+            raise ValueError("technical_review_candidate_invalid")
+        filename = str(item["File"])
+        if filename in result:
+            raise ValueError(f"technical_review_candidate_duplicate:{filename}")
+        result[filename] = item
+    return result
+
+
+def _load_technical_override(staging_dir: Path) -> dict[str, Any] | None:
+    path = staging_dir / "technical_override.json"
+    if not path.exists():
+        return None
+    payload = read_json(path)
+    if not isinstance(payload, dict) or payload.get("SchemaVersion") != TECHNICAL_OVERRIDE_SCHEMA:
+        raise ValueError("technical_override_schema_invalid")
+    for item in payload.get("Overrides", []):
+        if not isinstance(item, dict):
+            continue
+        for value in item.get("Evidence", []):
+            evidence_path = Path(str(value))
+            if evidence_path.name != str(value) or not (staging_dir / evidence_path.name).is_file():
+                raise ValueError(f"technical_override_evidence_invalid:{value}")
+    return payload
+
+
+def _apply_technical_override(
+    *,
+    automatic: dict[str, Any],
+    override: dict[str, Any] | None,
+    visual_id: str,
+    allowed_override_rules: set[str],
+) -> tuple[str, list[str], list[str]]:
+    reasons = [str(value) for value in automatic.get("Reasons", [])]
+    if override is None:
+        return str(automatic.get("Status", "failed")), [], reasons
+    if override.get("VisualID") != visual_id or override.get("Candidate") != automatic.get("File"):
+        raise ValueError("technical_override_candidate_mismatch")
+    if str(override.get("CandidateSHA256", "")).lower() != str(automatic.get("SHA256", "")).lower():
+        raise ValueError("technical_override_candidate_sha_mismatch")
+    if override.get("BaseReviewFingerprint") != automatic.get("ReviewFingerprint"):
+        raise ValueError("technical_override_base_review_mismatch")
+    overrides = override.get("Overrides")
+    if not isinstance(overrides, list) or not overrides:
+        raise ValueError("technical_override_rules_missing")
+
+    applied: list[str] = []
+    remaining = list(reasons)
+    for item in overrides:
+        if not isinstance(item, dict):
+            raise ValueError("technical_override_rule_invalid")
+        rule_id = str(item.get("RuleID", "") or "")
+        action = str(item.get("Action", "") or "")
+        if OVERRIDABLE_RULES.get(rule_id) != action:
+            raise ValueError(f"technical_override_not_allowed:{rule_id}:{action}")
+        if rule_id not in allowed_override_rules:
+            raise PermissionError(f"technical_override_authorization_required:{rule_id}")
+        if rule_id not in remaining:
+            raise ValueError(f"technical_override_rule_not_failed:{rule_id}")
+        if not str(item.get("Reason", "") or "").strip():
+            raise ValueError(f"technical_override_reason_missing:{rule_id}")
+        evidence = item.get("Evidence")
+        if not isinstance(evidence, list) or not any(str(value).strip() for value in evidence):
+            raise ValueError(f"technical_override_evidence_missing:{rule_id}")
+        remaining.remove(rule_id)
+        applied.append(rule_id)
+
+    status = "failed" if remaining else "passed"
+    return status, applied, remaining
+
+
+def validate_technical_evidence(
+    *,
+    staging_dir: Path,
+    entry: dict[str, Any],
+    decision: dict[str, Any],
+    allowed_override_rules: set[str],
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    visual_id = str(entry.get("VisualID", "") or "")
+    production_profile = str(entry.get("ProductionProfile", "standard_asset") or "standard_asset")
+    submitted_report = read_json(staging_dir / "technical_review.json")
+    submitted_by_file = _technical_review_map(submitted_report, visual_id, production_profile)
+    override = _load_technical_override(staging_dir)
+    if override is not None and len(decision["Candidates"]) != 1:
+        raise ValueError("technical_override_requires_single_candidate")
+    decision_files = {str(candidate.get("File", "")) for candidate in decision["Candidates"]}
+    if set(submitted_by_file) != decision_files:
+        raise ValueError("technical_review_candidate_set_mismatch")
+
+    canonical_report = {
+        "SchemaVersion": TECHNICAL_REVIEW_SCHEMA,
+        "RuleSetVersion": TECHNICAL_RULESET_VERSION,
+        "VisualID": visual_id,
+        "ProductionProfile": production_profile,
+        "Candidates": [],
+    }
+    canonical_decision = copy.deepcopy(decision)
+    has_visual_review = (staging_dir / "visual_review.json").is_file()
+    effective_statuses: list[str] = []
+    for candidate in canonical_decision["Candidates"]:
+        filename = str(candidate["File"])
+        submitted = submitted_by_file.get(filename)
+        if submitted is None:
+            raise ValueError(f"technical_review_candidate_missing:{filename}")
+        automatic = recalculate_candidate_review(entry, staging_dir / filename)
+        if (
+            _technical_review_payload(submitted) != _technical_review_payload(automatic)
+            or submitted.get("ReviewFingerprint") != automatic.get("ReviewFingerprint")
+        ):
+            raise ValueError(f"technical_review_mismatch:{filename}")
+
+        effective_status, applied, remaining_reasons = _apply_technical_override(
+            automatic=automatic,
+            override=override,
+            visual_id=visual_id,
+            allowed_override_rules=allowed_override_rules,
+        )
+        requested_status = str(candidate.get("Status", "") or "")
+        if automatic["Status"] == "warning" and requested_status == "passed":
+            if not has_visual_review:
+                raise ValueError(f"technical_warning_visual_review_required:{filename}")
+            effective_status = "passed"
+        if requested_status != effective_status:
+            raise ValueError(
+                f"technical_decision_mismatch:{filename}:requested={requested_status}:effective={effective_status}"
+            )
+        candidate["AutomaticStatus"] = automatic["Status"]
+        candidate["AppliedOverrides"] = applied
+        candidate["Reasons"] = remaining_reasons
+        candidate["Warnings"] = automatic.get("Warnings", [])
+        candidate["Status"] = effective_status
+        effective_statuses.append(effective_status)
+        canonical_report["Candidates"].append(automatic)
+
+    round_reasons = canonical_decision.get("Reasons")
+    has_round_blockers = isinstance(round_reasons, list) and any(str(value).strip() for value in round_reasons)
+    expected_state = (
+        "failed"
+        if has_round_blockers
+        else "passed"
+        if "passed" in effective_statuses
+        else "decision_required"
+        if "warning" in effective_statuses
+        else "failed"
+    )
+    if canonical_decision.get("State") != expected_state:
+        raise ValueError(
+            f"technical_round_state_mismatch:requested={canonical_decision.get('State')}:effective={expected_state}"
+        )
+    canonical_decision["State"] = expected_state
+    return canonical_decision, canonical_report
 
 
 def require_unique_manifest_entry(manifest_path: Path, visual_id: str) -> dict[str, Any]:
@@ -176,18 +395,32 @@ def register_processing_round(
     visual_id: str,
     staging_dir: Path,
     dry_run: bool,
+    allowed_override_rules: set[str] | None = None,
 ) -> dict[str, Any]:
     entry = require_unique_manifest_entry(manifest_path, visual_id)
     workspace = workspace_path(incoming_root, entry)
     decision = load_round_decision(staging_dir)
     validate_staging_files(staging_dir, decision, str(entry.get("ProductionProfile", "standard_asset")))
+    canonical_decision, canonical_review = validate_technical_evidence(
+        staging_dir=staging_dir,
+        entry=entry,
+        decision=decision,
+        allowed_override_rules=allowed_override_rules or set(),
+    )
     round_number = next_round_number(workspace / "processed")
     if dry_run:
-        return {"VisualID": visual_id, "RoundNumber": round_number, "State": decision["State"], "DryRun": True}
+        return {
+            "VisualID": visual_id,
+            "RoundNumber": round_number,
+            "State": canonical_decision["State"],
+            "DryRun": True,
+        }
 
     reservation = reserve_round(workspace / "processed")
     try:
         copy_staging_files(staging_dir, reservation.temp_dir)
+        write_json(reservation.temp_dir / "technical_review.json", canonical_review)
+        write_json(reservation.temp_dir / "decision.json", canonical_decision)
         final_dir = publish_round(reservation)
     except Exception:
         from art_processing import abandon_round
@@ -205,6 +438,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--incoming-root", default=DEFAULT_INCOMING_ROOT)
     parser.add_argument("--visual-id", required=True)
     parser.add_argument("--staging-directory", required=True)
+    parser.add_argument("--allow-technical-override", action="append", default=[])
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -217,6 +451,7 @@ def main() -> int:
         visual_id=args.visual_id,
         staging_dir=resolve_project_path(args.staging_directory),
         dry_run=args.dry_run,
+        allowed_override_rules={str(value).strip() for value in args.allow_technical_override if str(value).strip()},
     )
     print(f"[OK] VisualID={result['VisualID']} round={result['RoundNumber']} state={result['State']} dry_run={result['DryRun']}")
     return 0

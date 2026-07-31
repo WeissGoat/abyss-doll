@@ -65,7 +65,25 @@ class CandidateTechnicalReviewTests(unittest.TestCase):
         )
 
         self.assertEqual(review["Status"], "failed")
-        self.assertIn("transparent_holes_detected", review["Reasons"])
+        self.assertIn("unexpected_transparent_holes", review["Reasons"])
+
+    def test_character_negative_space_is_warning_not_hard_failure(self) -> None:
+        image = Image.new("RGBA", (100, 100), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(image)
+        draw.rectangle((10, 5, 22, 95), fill=(255, 255, 255, 255))
+        draw.rectangle((78, 5, 90, 95), fill=(255, 255, 255, 255))
+        draw.rectangle((10, 5, 90, 16), fill=(255, 255, 255, 255))
+
+        review = review_candidate(
+            image,
+            source_spec={"Width": 100, "Height": 100, "AlphaRequired": True},
+            composition_spec={"SafePaddingPercent": 0},
+            production_profile="character_portrait_set",
+        )
+
+        self.assertEqual(review["Status"], "warning")
+        self.assertIn("high_occupied_bbox_transparency", review["Warnings"])
+        self.assertNotIn("unexpected_transparent_holes", review["Reasons"])
 
     def test_agent_review_can_measure_a_valid_transparent_candidate(self) -> None:
         image = Image.new("RGBA", (32, 32), (0, 0, 0, 0))

@@ -321,11 +321,10 @@ def review_candidate(
             reasons.append("nine_slice_edge_coverage_low")
 
     if production_profile == "character_portrait_set":
-        if (
-            float(metrics["OccupiedBBoxTransparency"]) > 0.45
-            or float(metrics["TransparentHoleRatio"]) > 0.05
-        ):
-            reasons.append("transparent_holes_detected")
+        if float(metrics["OccupiedBBoxTransparency"]) > 0.45:
+            warnings.append("high_occupied_bbox_transparency")
+        if float(metrics["TransparentHoleRatio"]) > 0.05:
+            reasons.append("unexpected_transparent_holes")
     elif nine_slice_metrics is None and int(metrics["ConnectedComponents"]) > 12:
         warnings.append("many_connected_components")
 

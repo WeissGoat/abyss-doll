@@ -56,7 +56,7 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 
 ## Register-ArtProcessingRound.ps1
 
-将 Agent 产生的候选处理结果登记为下一个不可变的 `processed/<正整数>/` 轮次。staging 目录必须包含直接子级候选图片、`decision.json`、`process_report.json` 和 `technical_review.json`；角色立绘的 `passed` 轮次还必须包含 `visual_review.json`。
+将 Agent 产生的候选处理结果登记为下一个不可变的 `processed/<正整数>/` 轮次。staging 目录必须包含直接子级候选图片、`decision.json`、`process_report.json` 和 `technical_review.json`；角色立绘的 `passed` 轮次还必须包含 `visual_review.json`。`technical_review.json` 使用 `technical_review_v2`，Registrar 会根据当前 Manifest Spec 和真实候选重新计算结果并核对 `ReviewFingerprint`，不能靠手写 `Status=passed` 绕过技术门禁。
 
 登记不会修改 Manifest 的主状态、`selected/`、Approved、Registry 或运行时绑定。正式登记前先执行 dry-run：
 
@@ -68,6 +68,17 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 ```
 
 确认后去掉 `-DryRun` 登记。staging 中的候选必须通过 SHA-256、尺寸、格式和路径边界校验；`SelectedPath`、`ApprovedPath` 等正式资产状态字段会被拒绝。
+
+技术自动结论保存在 `technical_review.json`，最终有效状态保存在 `decision.json` 的 `Status`，并附带 `AutomaticStatus` 与 `AppliedOverrides`。例外必须放在独立 `technical_override.json`，同时通过命令显式授权对应 RuleID：
+
+```powershell
+.\tools\美术工具\Register-ArtProcessingRound.ps1 `
+  -VisualID doll_zero_dialogue_neutral `
+  -StagingDirectory F:\tmp\doll_round `
+  -AllowTechnicalOverride subject_outside_safe_canvas
+```
+
+当前只允许把白名单中的启发式规则降级；解码、SHA、尺寸、格式、Alpha 合同和 nine-slice 结构错误不可 override。角色 `OccupiedBBoxTransparency` 只产生 `high_occupied_bbox_transparency` warning，真实内部透明洞使用 `unexpected_transparent_holes` hard failure。
 
 ## Invoke-GifCharacterReplace.ps1
 

@@ -3,6 +3,7 @@ param(
     [string]$IncomingRoot = "",
     [Parameter(Mandatory=$true)][string]$VisualID,
     [Parameter(Mandatory=$true)][string]$StagingDirectory,
+    [string[]]$AllowTechnicalOverride = @(),
     [switch]$DryRun
 )
 
@@ -17,6 +18,11 @@ if ($ManifestPath -ne "") {
 }
 if ($IncomingRoot -ne "") {
     $argsList += @("--incoming-root", $IncomingRoot)
+}
+foreach ($ruleID in $AllowTechnicalOverride) {
+    if ($ruleID -ne "") {
+        $argsList += @("--allow-technical-override", $ruleID)
+    }
 }
 if ($DryRun) {
     $argsList += "--dry-run"
