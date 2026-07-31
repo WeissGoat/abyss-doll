@@ -184,6 +184,10 @@ class RunArtGenerationRequestTests(unittest.TestCase):
             ],
         )
 
+        self.assertEqual(record["EvidenceMode"], "formal_v2")
+        self.assertNotIn("PromptEN", record)
+        self.assertNotIn("NegativePromptEN", record)
+        self.assertNotIn("LegacyPromptInput", record)
         self.assertEqual(record["RequirementFingerprint"], request["RequirementFingerprint"])
         self.assertEqual(record["PromptRevisionID"], revision["PromptRevisionID"])
         self.assertEqual(record["PromptRevisionFingerprint"], revision["RevisionFingerprint"])
@@ -191,6 +195,36 @@ class RunArtGenerationRequestTests(unittest.TestCase):
         self.assertEqual(record["PromptRevisionSnapshot"], revision)
         self.assertEqual(record["ProviderRequest"]["Prompt"], variant["Positive"])
         self.assertEqual(record["ReferenceImages"][0]["Role"], "identity_reference")
+
+    def test_legacy_generation_record_is_explicitly_isolated(self) -> None:
+        entry = copy.deepcopy(self.entry)
+        entry["PromptEN"] = "legacy positive"
+        entry["NegativePromptEN"] = "legacy negative"
+
+        record = build_generation_record(
+            entry=entry,
+            batch_id="legacy-001",
+            request_ids=[],
+            provider="openai_images",
+            model="legacy",
+            requested_width=256,
+            requested_height=256,
+            requested_count=1,
+            outputs=[],
+            errors=[],
+            created_at="2026-07-31T12:00:00+08:00",
+        )
+
+        self.assertEqual(record["EvidenceMode"], "legacy_unverified")
+        self.assertEqual(
+            record["LegacyPromptInput"],
+            {
+                "PromptEN": "legacy positive",
+                "NegativePromptEN": "legacy negative",
+            },
+        )
+        self.assertNotIn("PromptEN", record)
+        self.assertNotIn("NegativePromptEN", record)
 
     def test_reference_images_select_image_to_image_without_rewriting_prompt(self) -> None:
         class FakeService:

@@ -413,15 +413,15 @@ def build_generation_record(
     provider_request: dict[str, Any] | None = None,
     reference_images: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    return {
+    formal_v2 = requirement_request is not None and prompt_revision is not None
+    record = {
+        "EvidenceMode": "formal_v2" if formal_v2 else "legacy_unverified",
         "VisualID": entry["VisualID"],
         "BatchID": batch_id,
         "RequestID": request_ids[0] if request_ids else "",
         "RequestIDs": request_ids,
         "Provider": provider,
         "Model": model,
-        "PromptEN": entry.get("PromptEN", ""),
-        "NegativePromptEN": entry.get("NegativePromptEN", ""),
         "RequirementRequestID": requirement_request.get("RequestID", "") if requirement_request else "",
         "RequirementFingerprint": requirement_request.get("RequirementFingerprint", "") if requirement_request else "",
         "PromptRevisionID": prompt_revision.get("PromptRevisionID", "") if prompt_revision else "",
@@ -441,6 +441,12 @@ def build_generation_record(
         "Errors": errors,
         "CreatedAt": created_at,
     }
+    if not formal_v2:
+        record["LegacyPromptInput"] = {
+            "PromptEN": str(entry.get("PromptEN", "") or ""),
+            "NegativePromptEN": str(entry.get("NegativePromptEN", "") or ""),
+        }
+    return record
 
 
 async def run_generation(args: argparse.Namespace) -> int:

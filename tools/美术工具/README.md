@@ -359,7 +359,7 @@ Copy-Item .\tools\美术工具\ai_image_gateway.example.yaml .\tools\ai-image-ga
 * `-PreserveStatus`：用于已接入素材的 Visual V2 候选生成；保留原 `Status`，只写入 `CandidateBatchID` 和 `CandidateRawFiles`。
 * `-SkipIntegrationCandidates`：只生成图片，不刷新可接入素材清单。默认不要使用。
 
-每个 `generation.json` 保存 `RequirementSnapshot`、`PromptRevisionID`、`PromptRevisionFingerprint`、`PromptRevisionSnapshot`、`PromptFormat` 和精确 `ProviderRequest`。非 `-DryRun` 生成完成后，脚本会默认刷新 `美术文档/_generated/可接入素材清单.*`，并在 `美术文档/_generated/art_integration_snapshots/` 写入一份 `generation` 快照。刚生成的 raw 素材会在清单中标为 `art_process`，表示还需要预处理和筛选，不能交给程序接入。
+每个正式 `generation.json` 使用 `EvidenceMode=formal_v2`，保存 `RequirementSnapshot`、`PromptRevisionID`、`PromptRevisionFingerprint`、`PromptRevisionSnapshot`、`PromptFormat` 和精确 `ProviderRequest`，不再顶层复制旧 `PromptEN / NegativePromptEN`。显式 `-AllowLegacyPrompt` 的非正式恢复使用 `EvidenceMode=legacy_unverified`，旧字段只保存在 `LegacyPromptInput`。非 `-DryRun` 生成完成后，脚本会默认刷新 `美术文档/_generated/可接入素材清单.*`，并在 `美术文档/_generated/art_integration_snapshots/` 写入一份 `generation` 快照。刚生成的 raw 素材会在清单中标为 `art_process`，表示还需要预处理和筛选，不能交给程序接入。
 
 ## Run-CharacterPortraitSet.ps1
 
