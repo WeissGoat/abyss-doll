@@ -137,7 +137,22 @@ class RegisterArtProcessingRoundTests(unittest.TestCase):
             ),
             encoding="utf-8",
         )
-        (staging / "visual_review.json").write_text(json.dumps({"Status": state}), encoding="utf-8")
+        if state == "passed" and decision_candidates:
+            (staging / "visual_review.json").write_text(
+                json.dumps(
+                    {
+                        "VisualID": "doll_zero_dialogue_neutral",
+                        "Candidate": decision_candidates[0]["File"],
+                        "CandidateSHA256": decision_candidates[0]["SHA256"],
+                        "HardGate": "passed",
+                        "Scores": {"Total": 92},
+                        "RecommendedAction": "select",
+                    }
+                ),
+                encoding="utf-8",
+            )
+        else:
+            (staging / "visual_review.json").write_text(json.dumps({"Status": state}), encoding="utf-8")
         return staging
 
     def test_registration_publishes_staging_as_next_numeric_round(self) -> None:
@@ -169,6 +184,24 @@ class RegisterArtProcessingRoundTests(unittest.TestCase):
         (staging / "technical_review.json").write_text(json.dumps(review), encoding="utf-8")
 
         with self.assertRaisesRegex(ValueError, "technical_review_mismatch"):
+            self.register(staging)
+
+    def test_registration_rejects_incomplete_portrait_visual_review(self) -> None:
+        staging = self.make_staging(state="passed", candidates=[("001.png", "passed", "red")])
+        (staging / "visual_review.json").write_text(
+            json.dumps(
+                {
+                    "VisualID": "doll_zero_dialogue_neutral",
+                    "Candidate": "001.png",
+                    "HardGate": "passed",
+                    "Scores": {"Total": 92},
+                    "RecommendedAction": "select",
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        with self.assertRaisesRegex(ValueError, "visual_review_candidate_sha_missing"):
             self.register(staging)
 
     def test_registration_requires_explicit_override_authorization(self) -> None:
@@ -235,6 +268,9 @@ class RegisterArtProcessingRoundTests(unittest.TestCase):
         decision = json.loads((staging / "decision.json").read_text(encoding="utf-8"))
         decision["Candidates"][0].update({"SHA256": candidate["SHA256"], "Width": 4})
         (staging / "decision.json").write_text(json.dumps(decision), encoding="utf-8")
+        visual_review = json.loads((staging / "visual_review.json").read_text(encoding="utf-8"))
+        visual_review["CandidateSHA256"] = candidate["SHA256"]
+        (staging / "visual_review.json").write_text(json.dumps(visual_review), encoding="utf-8")
         (staging / "technical_override.json").write_text(
             json.dumps(
                 {

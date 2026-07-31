@@ -13,14 +13,14 @@ related:
   - 美术文档/00_美术流水线总览.md
   - 美术文档/04_美术风格基准.md
   - tools/美术工具/README.md
-last_verified: 2026-07-26
+last_verified: 2026-07-31
 update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
 ---
 
 # Manifest 规范
 
 > **定位：** 规定 `art_manifest.json` 的字段结构、字段含义，以及美术流水线每一步应该填充哪些字段。
-> **更新时间：** 2026-05-13
+> **更新时间：** 2026-07-31
 
 ---
 
@@ -186,6 +186,8 @@ Asset Contract 字段归属：
 
 正式 `SelectedPath` 必须绑定本次采用候选。选择证据至少能追溯 CandidateBatchID / ProductionRunID、文件 hash 和选择结论；不得仅依赖 `selected/` 中文件名字典序推断当前候选。
 
+角色套组的 `portrait-set-run.json`、处理决策、visual review、数字轮次和 Resume checkpoint 都属于 ProductionRun 证据，不是 Manifest 生命周期字段。Manifest 只保存稳定需求、`SelectedPath`、Approved 目标和 `RegistryStatus`；Resume 必须重新核对这些证据的 SHA，不能用 checkpoint 直接覆盖当前事实。
+
 ### Visual V2 质量替换字段
 
 已进入 `approved` / `registered` 的素材，如果只是要替换更高质量图片，不应把 `Status` 改回 `generated`。运行时 `runtime_validated` 由 ArtRun 证据产生，不是 Manifest 状态。这类流程使用候选字段记录新批次：
@@ -259,11 +261,15 @@ Request Catalog v2 把需求与 Prompt 分开：
 
 每个 ready Variant 必须包含全部硬约束的 `ConstraintMapping`；`unsupported` Variant 必须写明原因。`PromptCN`、`PromptEN`、`NegativePromptEN` 和 v1 Variant 只作为兼容迁移证据，统一保存在 `LegacyPromptVariants` 或旧 Manifest 字段中，不是正式执行来源。新批量脚本必须消费 active PromptRevision，不得根据旧 Prompt、VisualID 或同一份 VisualIntent 重新猜测。
 
+正式 generation evidence 使用 `EvidenceMode=formal_v2`，保存精确 `PromptRevisionSnapshot` 和 `ProviderRequest`；显式 legacy 恢复使用 `EvidenceMode=legacy_unverified` 与 `LegacyPromptInput`，不能进入标准批量或角色套组正式执行。
+
 ### 7.4 编译门禁
 
 当 Catalog、StyleRef、VisualIntent、Spec、AssetSet 身份合同或编译器版本变化时，`RequirementFingerprint` 变化，旧 PromptRevision 因绑定旧 fingerprint 自动 stale。`Status`、候选批次 / raw 列表、替换批次、质量时间戳、路径和 Registry 等运行态证据不参与 Manifest fingerprint；这些字段在 `selected -> approved -> registered -> runtime_validated` 或新处理轮次中变化时，不要求重新编译。缺少 Requirement、fingerprint / active pointer 不匹配、`prompt_authoring_required`、Revision 无效、目标 Variant 未 ready 或硬约束映射不完整时，生成必须在 provider 调用前失败。
 
 处理候选位于当前 Profile 工作区的 `processed/<正整数>/`。Manifest `SelectedPath` 可明确指向 `selected/` 或某个数字轮次中的候选；自动解析优先级为 `SelectedPath -> selected/ -> 最新数字轮次中唯一且通过的候选`。最新轮次失败、待决策、未验证或多候选时禁止回退旧轮次。
+
+`technical_override.json`、`ReplacementBaseline`、`ReplacementPolicy` 和 `portrait-set-run.json` 不会改变 Manifest 的稳定 schema。override 必须由用户或上游调用方通过命令参数显式授权；替换候选必须基于执行时仍匹配的 `SelectedPath` / `SelectedSHA256`，且通过严格分数与保护维度门禁后才可写入 selected。
 
 从 2026-05-10 起，`Spec` 分为四组：
 

@@ -15,7 +15,7 @@ from pathlib import Path
 from typing import Any
 
 from art_prompt_revision import DANBOORU_TAGS_FORMAT, NATURAL_LANGUAGE_FORMAT, select_prompt_variant
-from register_art_processing_round import register_processing_round
+from register_art_processing_round import _apply_technical_override, register_processing_round
 from select_art_candidate import select_art_candidate
 from prepare_art_background_candidate import prepare_background_candidate
 from portrait_reference_resolver import resolve_portrait_references
@@ -411,8 +411,25 @@ def _load_visual_review(path: Path | None) -> dict[str, dict[str, Any]]:
         raise ValueError("visual_review_items_invalid")
     result: dict[str, dict[str, Any]] = {}
     for item in values:
-        if isinstance(item, dict) and str(item.get("VisualID", "")):
-            result[str(item["VisualID"])] = item
+        if not isinstance(item, dict) or not str(item.get("VisualID", "")):
+            raise ValueError("visual_review_item_invalid")
+        visual_id = str(item["VisualID"])
+        candidate_sha = str(item.get("CandidateSHA256", "") or "").lower()
+        if len(candidate_sha) != 64 or any(character not in "0123456789abcdef" for character in candidate_sha):
+            raise ValueError(f"visual_review_candidate_sha_missing:{visual_id}")
+        if str(item.get("HardGate", "")) != "passed":
+            raise ValueError(f"visual_review_hard_gate_invalid:{visual_id}")
+        scores = item.get("Scores") if isinstance(item.get("Scores"), dict) else {}
+        score_value = scores.get("Total", item.get("Score"))
+        try:
+            int(score_value)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"visual_review_score_missing:{visual_id}") from exc
+        if not str(item.get("RecommendedAction", "") or "").strip():
+            raise ValueError(f"visual_review_recommendation_missing:{visual_id}")
+        if visual_id in result:
+            raise ValueError(f"visual_review_duplicate:{visual_id}")
+        result[visual_id] = item
     return result
 
 
@@ -433,6 +450,7 @@ def _make_processing_staging(
     manifest_path: Path,
     project_root: Path,
     visual_review: dict[str, Any] | None,
+    allowed_override_rules: set[str],
 ) -> Path:
     visual_id = str(item["VisualID"])
     staging = run_dir / "processing" / visual_id
@@ -477,9 +495,27 @@ def _make_processing_staging(
 
     from register_art_processing_round import recalculate_candidate_review
 
+    override = decision.get("TechnicalOverride")
+    if not isinstance(override, dict):
+        override = None
+    override_path = str(decision.get("TechnicalOverridePath", "") or "")
+    if override_path:
+        source_override = Path(override_path)
+        source_override = source_override if source_override.is_absolute() else project_root / source_override
+        if not source_override.is_file():
+            raise ValueError(f"processing_technical_override_missing:{visual_id}")
+        override = read_json(source_override)
+    if override is not None:
+        (staging / "technical_override.json").write_text(json.dumps(override, ensure_ascii=False), encoding="utf-8")
+
     entry = _entry_for_visual(manifest_path, visual_id)
     technical = recalculate_candidate_review(entry, candidate)
-    candidate_status = str(technical.get("Status", "failed"))
+    candidate_status, applied_overrides, remaining_reasons = _apply_technical_override(
+        automatic=technical,
+        override=override,
+        visual_id=visual_id,
+        allowed_override_rules=allowed_override_rules,
+    )
     requested_status = "passed" if candidate_status == "warning" and visual_review is not None else candidate_status
     state = "passed" if requested_status == "passed" else "decision_required" if requested_status == "warning" else "failed"
     (staging / "process_report.json").write_text(
@@ -519,7 +555,9 @@ def _make_processing_staging(
                 "Width": technical.get("Metrics", {}).get("Width", 0),
                 "Height": technical.get("Metrics", {}).get("Height", 0),
                 "Format": "png",
-                "Reasons": technical.get("Reasons", []),
+                "Reasons": remaining_reasons,
+                "AutomaticStatus": technical.get("Status", "failed"),
+                "AppliedOverrides": applied_overrides,
             }
         ],
     }
@@ -533,16 +571,6 @@ def _make_processing_staging(
         review_copy["Candidate"] = candidate.name
         review_copy["CandidateSHA256"] = candidate_hash
         (staging / "visual_review.json").write_text(json.dumps(review_copy, ensure_ascii=False), encoding="utf-8")
-    override = decision.get("TechnicalOverride")
-    if isinstance(override, dict):
-        (staging / "technical_override.json").write_text(json.dumps(override, ensure_ascii=False), encoding="utf-8")
-    override_path = str(decision.get("TechnicalOverridePath", "") or "")
-    if override_path:
-        source_override = Path(override_path)
-        source_override = source_override if source_override.is_absolute() else project_root / source_override
-        if not source_override.is_file():
-            raise ValueError(f"processing_technical_override_missing:{visual_id}")
-        shutil.copy2(source_override, staging / "technical_override.json")
     return staging
 
 
@@ -556,13 +584,6 @@ def _summary_state(items: list[dict[str, Any]]) -> str:
 
 
 def _processed_evidence_current(item: dict[str, Any], project_root: Path) -> dict[str, Any] | None:
-    recorded = item.get("Processed")
-    if isinstance(recorded, dict):
-        candidate_value = str(recorded.get("CandidatePath", "") or "")
-        candidate = project_root / candidate_value if candidate_value and not Path(candidate_value).is_absolute() else Path(candidate_value)
-        if candidate.is_file() and str(recorded.get("CandidateSHA256", "")).lower() == file_sha256(candidate).lower():
-            return recorded
-
     generation = item.get("Generation") if isinstance(item.get("Generation"), dict) else {}
     expected_hashes = {str(value).lower() for value in generation.get("OutputSHA256", [])}
     workspace = project_root / str(item.get("Workspace", ""))
@@ -571,52 +592,111 @@ def _processed_evidence_current(item: dict[str, Any], project_root: Path) -> dic
         [path for path in processed.iterdir() if path.is_dir() and path.name.isdecimal() and int(path.name) > 0],
         key=lambda path: int(path.name),
     ) if processed.is_dir() else []
-    for round_dir in reversed(rounds):
-        decision_path = round_dir / "decision.json"
-        if not decision_path.is_file():
+    if not rounds:
+        return None
+    round_dir = rounds[-1]
+    decision_path = round_dir / "decision.json"
+    if not decision_path.is_file():
+        return None
+    decision = read_json(decision_path)
+    if decision.get("State") not in {"passed", "warning"}:
+        return None
+    process_report = read_json(round_dir / "process_report.json") if (round_dir / "process_report.json").is_file() else {}
+    input_hash = str(process_report.get("InputSHA256", "") or "").lower()
+    output_hashes = set()
+    if process_report.get("OutputSHA256"):
+        output_hashes.add(str(process_report["OutputSHA256"]).lower())
+    output_value = process_report.get("Output")
+    if isinstance(output_value, dict) and output_value.get("SHA256"):
+        output_hashes.add(str(output_value["SHA256"]).lower())
+    recorded = item.get("Processed")
+    recorded_round = int(recorded.get("RoundNumber", 0)) if isinstance(recorded, dict) and str(recorded.get("RoundNumber", "")).isdigit() else 0
+    for candidate in decision.get("Candidates", []):
+        if not isinstance(candidate, dict):
             continue
-        decision = read_json(decision_path)
-        if decision.get("State") not in {"passed", "warning"}:
+        filename = str(candidate.get("File", "") or "")
+        path = round_dir / filename
+        if not path.is_file():
             continue
-        process_report = read_json(round_dir / "process_report.json") if (round_dir / "process_report.json").is_file() else {}
-        input_hash = str(process_report.get("InputSHA256", "") or "").lower()
-        output_hashes = set()
-        if process_report.get("OutputSHA256"):
-            output_hashes.add(str(process_report["OutputSHA256"]).lower())
-        output_value = process_report.get("Output")
-        if isinstance(output_value, dict) and output_value.get("SHA256"):
-            output_hashes.add(str(output_value["SHA256"]).lower())
-        for candidate in decision.get("Candidates", []):
-            if not isinstance(candidate, dict):
-                continue
-            filename = str(candidate.get("File", "") or "")
-            path = round_dir / filename
-            if path.is_file() and (
-                (expected_hashes and file_sha256(path).lower() in expected_hashes)
-                or (input_hash and input_hash in expected_hashes)
-                or (output_hashes and file_sha256(path).lower() in output_hashes)
-                or (not expected_hashes and str(process_report.get("VisualID", "")) == str(item.get("VisualID", "")))
-            ):
+        candidate_hash = file_sha256(path).lower()
+        if isinstance(recorded, dict) and recorded_round == int(round_dir.name):
+            recorded_value = str(recorded.get("CandidateSHA256", "") or "").lower()
+            recorded_path = str(recorded.get("CandidatePath", "") or "")
+            if recorded_value == candidate_hash and recorded_path == path.relative_to(project_root).as_posix():
                 return {
                     "VisualID": item.get("VisualID", ""),
                     "RoundNumber": int(round_dir.name),
                     "State": decision.get("State"),
                     "CandidatePath": path.relative_to(project_root).as_posix(),
-                    "CandidateSHA256": file_sha256(path),
+                    "CandidateSHA256": candidate_hash,
                 }
+        matches_generation = (
+            (expected_hashes and candidate_hash in expected_hashes)
+            or (input_hash and input_hash in expected_hashes)
+            or (output_hashes and candidate_hash in output_hashes)
+            or (not expected_hashes and str(process_report.get("VisualID", "")) == str(item.get("VisualID", "")))
+        )
+        if not matches_generation:
+            continue
+        return {
+            "VisualID": item.get("VisualID", ""),
+            "RoundNumber": int(round_dir.name),
+            "State": decision.get("State"),
+            "CandidatePath": path.relative_to(project_root).as_posix(),
+            "CandidateSHA256": candidate_hash,
+        }
     return None
 
 
-def _selection_evidence_current(item: dict[str, Any], project_root: Path) -> dict[str, Any] | None:
+def _selection_evidence_current(item: dict[str, Any], project_root: Path, manifest_path: Path) -> dict[str, Any] | None:
     recorded = item.get("Selection")
     if not isinstance(recorded, dict):
         return None
+    if str(recorded.get("State", "")) not in {"selected", "already_selected"}:
+        return None
+    visual_id = str(item.get("VisualID", "") or "")
+    workspace = project_root / str(item.get("Workspace", ""))
+    selected_dir = workspace / "selected"
     selected_value = str(recorded.get("SelectedPath", "") or "")
     selected = project_root / selected_value if selected_value and not Path(selected_value).is_absolute() else Path(selected_value)
+    try:
+        selected.resolve().relative_to(selected_dir.resolve())
+    except ValueError:
+        return None
     expected_hash = str(recorded.get("SHA256", "") or "").lower()
-    if selected.is_file() and expected_hash and file_sha256(selected).lower() == expected_hash:
-        return recorded
-    return None
+    if not selected.is_file() or not expected_hash or file_sha256(selected).lower() != expected_hash:
+        return None
+
+    entry = _entry_for_visual(manifest_path, visual_id)
+    manifest_selected = str(entry.get("SelectedPath", "") or "")
+    if manifest_selected:
+        expected_path = project_root / manifest_selected if not Path(manifest_selected).is_absolute() else Path(manifest_selected)
+        if expected_path.resolve() != selected.resolve():
+            return None
+
+    rounds = sorted(
+        [path for path in (workspace / "processed").iterdir() if path.is_dir() and path.name.isdecimal() and int(path.name) > 0],
+        key=lambda path: int(path.name),
+    ) if (workspace / "processed").is_dir() else []
+    if not rounds:
+        return None
+    latest_round = rounds[-1]
+    latest_decision_path = latest_round / "decision.json"
+    if not latest_decision_path.is_file() or read_json(latest_decision_path).get("State") not in {"passed", "warning"}:
+        return None
+    processed = item.get("Processed") if isinstance(item.get("Processed"), dict) else {}
+    processed_round = recorded.get("ProcessedRound") or processed.get("RoundNumber")
+    if str(processed_round) != latest_round.name:
+        return None
+    candidate_value = str(processed.get("CandidatePath", "") or recorded.get("Candidate", "") or "")
+    candidate = project_root / candidate_value if candidate_value and not Path(candidate_value).is_absolute() else Path(candidate_value)
+    try:
+        candidate.resolve().relative_to(latest_round.resolve())
+    except ValueError:
+        return None
+    if not candidate.is_file() or file_sha256(candidate).lower() != expected_hash:
+        return None
+    return recorded
 
 
 def _record_processed_evidence(processed: dict[str, Any], item: dict[str, Any], project_root: Path) -> dict[str, Any]:
@@ -703,12 +783,6 @@ def execute_portrait_set_run(
     generation_dir = run_dir / "generation"
     for item in items[: max(1, execute_limit)]:
         visual_id = str(item["VisualID"])
-        existing_selection = _selection_evidence_current(item, project_root)
-        if existing_selection is not None:
-            item["Selection"] = existing_selection
-            item["Stage"] = "complete"
-            item["Result"] = "selected"
-            continue
         if any(by_visual.get(dep, {}).get("Result") in FAILURE_RESULTS for dep in item.get("Dependencies", [])):
             item["Stage"] = "complete"
             item["Result"] = "blocked_by_dependency"
@@ -805,6 +879,19 @@ def execute_portrait_set_run(
             item["Stage"] = "processing_decision"
             item["Result"] = "review_required"
 
+        existing_processed = _processed_evidence_current(item, project_root)
+        existing_selection = _selection_evidence_current(item, project_root, manifest_path)
+        if existing_selection is not None and existing_processed is not None:
+            item["Processed"] = existing_processed
+            item["Selection"] = existing_selection
+            item["Stage"] = "complete"
+            item["Result"] = "selected"
+            continue
+        if item.get("Selection") is not None:
+            item.pop("Selection", None)
+            if item.get("Result") in TERMINAL_RESULTS:
+                item["Result"] = "review_required"
+
         decision = decisions.get(visual_id)
         if decision is None:
             item["PendingDecision"] = "processing_decision"
@@ -836,6 +923,7 @@ def execute_portrait_set_run(
                     manifest_path=manifest_path,
                     project_root=project_root,
                     visual_review=reviews.get(visual_id),
+                    allowed_override_rules=allowed_technical_overrides,
                 )
                 processed = register_processing_round(
                     manifest_path=manifest_path,

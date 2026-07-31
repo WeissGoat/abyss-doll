@@ -202,6 +202,12 @@ def validate_technical_evidence(
     }
     canonical_decision = copy.deepcopy(decision)
     has_visual_review = (staging_dir / "visual_review.json").is_file()
+    if production_profile == "character_portrait_set" and canonical_decision.get("State") == "passed":
+        _validate_portrait_visual_review(
+            staging_dir=staging_dir,
+            visual_id=visual_id,
+            candidates=canonical_decision["Candidates"],
+        )
     effective_statuses: list[str] = []
     for candidate in canonical_decision["Candidates"]:
         filename = str(candidate["File"])
@@ -305,6 +311,47 @@ def _validate_report_paths(value: Any, staging_dir: Path, key: str = "") -> None
             raise ValueError(f"Report path escapes staging directory: {value}")
         if not path.is_absolute() and not _is_within(staging_dir / path, staging_dir):
             raise ValueError(f"Report path escapes staging directory: {value}")
+
+
+def _validate_portrait_visual_review(
+    *,
+    staging_dir: Path,
+    visual_id: str,
+    candidates: list[dict[str, Any]],
+) -> dict[str, Any]:
+    path = staging_dir / "visual_review.json"
+    if not path.is_file():
+        raise ValueError("Passed character_portrait_set registration requires visual_review.json")
+    payload = read_json(path)
+    item = payload
+    if isinstance(payload, dict) and isinstance(payload.get("Items"), list):
+        matches = [value for value in payload["Items"] if isinstance(value, dict) and value.get("VisualID") == visual_id]
+        if len(matches) != 1:
+            raise ValueError("visual_review_item_invalid")
+        item = matches[0]
+    if not isinstance(item, dict) or str(item.get("VisualID", "")) != visual_id:
+        raise ValueError("visual_review_visual_id_mismatch")
+    candidate_name = str(item.get("Candidate", "") or "")
+    candidate_names = {str(value.get("File", "")) for value in candidates if isinstance(value, dict)}
+    if not candidate_name or candidate_name not in candidate_names:
+        raise ValueError("visual_review_candidate_missing")
+    candidate_path = staging_dir / candidate_name
+    candidate_sha = str(item.get("CandidateSHA256", "") or "").lower()
+    if len(candidate_sha) != 64 or any(character not in "0123456789abcdef" for character in candidate_sha):
+        raise ValueError("visual_review_candidate_sha_missing")
+    if candidate_sha != hashlib.sha256(candidate_path.read_bytes()).hexdigest().lower():
+        raise ValueError("visual_review_candidate_sha_mismatch")
+    if str(item.get("HardGate", "")) != "passed":
+        raise ValueError("visual_review_hard_gate_invalid")
+    scores = item.get("Scores") if isinstance(item.get("Scores"), dict) else {}
+    score_value = scores.get("Total", item.get("Score"))
+    try:
+        int(score_value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("visual_review_score_missing") from exc
+    if not str(item.get("RecommendedAction", "") or "").strip():
+        raise ValueError("visual_review_recommendation_missing")
+    return item
 
 
 def validate_staging_files(staging_dir: Path, decision: dict[str, Any], production_profile: str) -> None:

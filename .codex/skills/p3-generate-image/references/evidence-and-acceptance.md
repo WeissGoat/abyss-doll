@@ -25,6 +25,8 @@ UnityClient/Assets/Art/_IncomingAI/<profile-directory>/<VisualID>/
 - 请求次数、每次 `count=1`、seed、尺寸和输出格式。
 - 每张输出路径、实际尺寸、错误和时间。
 
+正式 v2 证据还必须包含 `EvidenceMode=formal_v2`、`RequirementSnapshot`、`PromptRevisionID`、`PromptRevisionFingerprint`、`PromptRevisionSnapshot`、`PromptFormat` 和精确 `ProviderRequest`；不要复制旧的顶层 `PromptEN` / `NegativePromptEN`。仅在显式恢复授权下使用 `EvidenceMode=legacy_unverified`，并把旧输入隔离到 `LegacyPromptInput`。标准批量和角色套组不会消费 legacy evidence。
+
 ## 能力状态声明
 
 | 证据 | 最多可声明 |

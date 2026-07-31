@@ -60,6 +60,12 @@ description: Use for image generation or image editing capabilities, including t
 7. 探索任务只写任务指定目录；正式 P3 资产只写上游 `p3-art-asset-production` 通过 `ProductionProfile + VisualID` Resolver 提供的 `raw/` 工作区。不得在 `_IncomingAI` 根创建 loose `raw`，也不得直接声明 selected、Approved、registered 或 validated。
 8. 返回 raw 图片、provider/model/PromptFormat/RequirementSnapshot/PromptRevisionSnapshot/ProviderRequest/seed/尺寸、参考图或 mask、错误与时间证据，然后把控制权交还上游工作流。
 
+### Generation evidence modes
+
+正式 v2 请求必须写 `EvidenceMode=formal_v2`，并保存精确的 `RequirementSnapshot`、`PromptRevisionID`、`PromptRevisionFingerprint`、`PromptRevisionSnapshot`、`PromptFormat` 和 `ProviderRequest`。不要在 formal v2 evidence 顶层复制旧的 `PromptEN` / `NegativePromptEN`；最终文本只来自发布的 `natural_language_v2` 或 `danbooru_tags_v2` Variant。
+
+只有显式授权的非正式恢复才可使用 `EvidenceMode=legacy_unverified`，其旧输入放在 `LegacyPromptInput`，不能被标准批量或角色套组执行器传入。两种模式都只证明 raw 候选和生成请求，不证明处理、selected、Approved、Unity、Registry 或运行时验收。
+
 ## 常用入口
 
 - 三后端连通性：`.\tools\美术工具\Test-AIImageBackends.ps1`

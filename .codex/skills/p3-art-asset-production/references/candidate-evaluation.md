@@ -55,6 +55,14 @@ A member can pass its individual score and still fail set consistency. Return on
 
 In `auto` mode, break close ties by: active-fact consistency, identity, semantic correctness, engineering safety, style, composition, then decoration.
 
+## Technical evidence and replacement gates
+
+The Agent may recommend a candidate, but the Registrar is the source of truth for deterministic technical status. It recomputes the review from the actual file and current Manifest Spec, then compares the submitted `technical_review_v2` payload and `ReviewFingerprint`. Handwritten `Status=passed` or a stale report is rejected. Character full-body negative space may produce the `high_occupied_bbox_transparency` warning; an actual enclosed transparent hole is the separate `unexpected_transparent_holes` hard failure.
+
+Only an explicitly authorized heuristic override can change an automatic result. The current allow-list is `subject_outside_safe_canvas -> accept_as_warning`; decode, hash, dimensions, format, alpha-contract, and nine-slice structural failures remain hard failures. The effective decision records `AutomaticStatus` and `AppliedOverrides`.
+
+For a same-VisualID replacement, compare the candidate against the execution-time `selected/` baseline, not a score copied from an older review. Require `SelectionMode=replacement`, matching baseline path and SHA, a strictly higher total score by at least `MinimumScoreDelta`, and no regression in each `ProtectedDimensions` entry. `-AllowSelectedOverwrite` authorizes the file copy only after those checks. Identical candidate and selected SHA returns `already_selected` without another copy.
+
 ## Review record
 
 Record for every valid candidate:

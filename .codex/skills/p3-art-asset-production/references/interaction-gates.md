@@ -43,3 +43,14 @@ Do not ask “你喜欢哪张？” without analysis.
 ## Auto mode
 
 Auto mode does not pause for subjective ties when a conservative fact-aligned choice exists. It still stops for contradictory facts, unsafe overwrite/path changes, missing authority, hard-gate failure with no valid candidate, credentials with no usable fallback, or legal/IP ambiguity that cannot be resolved from project facts.
+
+## Portrait resume gates
+
+The character portrait executor treats processing and visual review as separate Agent decisions:
+
+- `already_usable` or `background_processing_required` may proceed to staging;
+- `manual_edit_required` and `regenerate_required` remain pending and require a new candidate;
+- a valid `visual_review.json` is required before a passed portrait processing round can be published;
+- the review must contain `HardGate=passed`, a numeric score, a recommendation, and a 64-character `CandidateSHA256`; that SHA must match the registered latest-round candidate before guarded selection.
+
+Missing or stale processing decisions, review evidence, PromptRevision snapshots, reference hashes, raw outputs, processed candidates, or selected files are resumable stops. `Automatic` changes who may make an already-authorized choice; it does not fabricate any of those evidence files.

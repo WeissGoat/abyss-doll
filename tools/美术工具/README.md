@@ -20,7 +20,7 @@ related:
   - 美术文档/人设/04_零号AI后端出图提示词对比.md
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/design_boards/README.md
-last_verified: 2026-07-26
+last_verified: 2026-07-31
 update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
 ---
 
@@ -56,7 +56,7 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 
 ## Register-ArtProcessingRound.ps1
 
-将 Agent 产生的候选处理结果登记为下一个不可变的 `processed/<正整数>/` 轮次。staging 目录必须包含直接子级候选图片、`decision.json`、`process_report.json` 和 `technical_review.json`；角色立绘的 `passed` 轮次还必须包含 `visual_review.json`。`technical_review.json` 使用 `technical_review_v2`，Registrar 会根据当前 Manifest Spec 和真实候选重新计算结果并核对 `ReviewFingerprint`，不能靠手写 `Status=passed` 绕过技术门禁。
+将 Agent 产生的候选处理结果登记为下一个不可变的 `processed/<正整数>/` 轮次。staging 目录必须包含直接子级候选图片、`decision.json`、`process_report.json` 和 `technical_review.json`；角色立绘的 `passed` 轮次还必须包含 `visual_review.json`，因此 `Run-CharacterPortraitSet.ps1` 会在缺少该证据时停在 `visual_review`，不会先发布轮次再补评审。`technical_review.json` 使用 `technical_review_v2`，Registrar 会根据当前 Manifest Spec 和真实候选重新计算结果并核对 `ReviewFingerprint`，不能靠手写 `Status=passed` 绕过技术门禁。
 
 登记不会修改 Manifest 的主状态、`selected/`、Approved、Registry 或运行时绑定。正式登记前先执行 dry-run：
 
@@ -69,7 +69,7 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 
 确认后去掉 `-DryRun` 登记。staging 中的候选必须通过 SHA-256、尺寸、格式和路径边界校验；`SelectedPath`、`ApprovedPath` 等正式资产状态字段会被拒绝。
 
-技术自动结论保存在 `technical_review.json`，最终有效状态保存在 `decision.json` 的 `Status`，并附带 `AutomaticStatus` 与 `AppliedOverrides`。例外必须放在独立 `technical_override.json`，同时通过命令显式授权对应 RuleID：
+技术自动结论保存在 `technical_review.json`，最终有效状态保存在 `decision.json` 的 `Status`，并附带 `AutomaticStatus` 与 `AppliedOverrides`。例外必须放在独立 `technical_override.json`，同时由用户或上游调用方显式授权对应 RuleID；JSON、processing decision 和 Automatic 模式都不能自行授权：
 
 ```powershell
 .\tools\美术工具\Register-ArtProcessingRound.ps1 `
@@ -78,7 +78,7 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
   -AllowTechnicalOverride subject_outside_safe_canvas
 ```
 
-当前只允许把白名单中的启发式规则降级；解码、SHA、尺寸、格式、Alpha 合同和 nine-slice 结构错误不可 override。角色 `OccupiedBBoxTransparency` 只产生 `high_occupied_bbox_transparency` warning，真实内部透明洞使用 `unexpected_transparent_holes` hard failure。
+当前只允许把白名单中的启发式规则降级；解码、SHA、尺寸、格式、Alpha 合同和 nine-slice 结构错误不可 override。角色 `OccupiedBBoxTransparency` 只产生 `high_occupied_bbox_transparency` warning，真实内部透明洞使用 `unexpected_transparent_holes` hard failure。角色立绘编排器也会在计算 `decision.json` 前应用已授权 override，保持自动状态与最终状态一致。
 
 ## Invoke-GifCharacterReplace.ps1
 
@@ -387,6 +387,21 @@ Copy-Item .\tools\美术工具\ai_image_gateway.example.yaml .\tools\ai-image-ga
 ```
 
 dry-run 必须显示 exact active PromptRevision、Prompt Variant 以及每张真实参考图的路径、角色和 SHA-256。正式执行会把引用按相同顺序传给 `Run-ArtGeneration.ps1`。`character_portrait_set` 只规定工作区、身份一致性和验收方式，不把成员写死为图生图；没有 SourceAssets 的成员仍可由 Agent 根据当前工具选择其他合适能力。
+
+正式执行支持 `-ExecutionMode Interactive|Automatic`、`-Resume`、`-ProcessingDecisions <json>`、`-VisualReview <json>`、`-AllowSelectedOverwrite` 和可重复的 `-AllowTechnicalOverride <RuleID>`。运行目录保存 `portrait-set-run.json`、`generation/<VisualID>.json` 快照和 `processing/<VisualID>/` staging；Resume 只复用 PromptRevision、参考图、raw、processed 和 selected SHA 仍匹配的证据。
+
+角色套组的实际编排顺序是：
+
+```text
+generation snapshot
+  -> processing decision
+  -> visual-review evidence
+  -> Registrar technical recomputation
+  -> processed/<n>
+  -> guarded selection
+```
+
+处理决策只允许 `already_usable`、`background_processing_required`、`manual_edit_required`、`regenerate_required`。后两者会保持 `PendingDecision`，没有 visual review 时 Automatic 也会停住；它不会创作 Prompt、选择生成方式或伪造评分。visual review 必须包含 `HardGate=passed`、数字评分、推荐动作和非空 `CandidateSHA256`，并在登记后再次与最新候选 SHA 对齐。Registrar 成功后仍只产生 `processed` 证据，不能直接改变 Approved、Unity 或 Registry。
 
 ## Import-ArtCandidate.ps1
 

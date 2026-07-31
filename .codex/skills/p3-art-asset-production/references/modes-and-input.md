@@ -31,6 +31,7 @@ permissions:
   allow_automatic_approved_sync: false
   allow_same_visualid_overwrite: false
   allow_new_approved_path: false
+  allow_technical_overrides: []
 limits:
   max_rounds: 3
   initial_variants: 4
@@ -56,6 +57,8 @@ Do not add a required `generation_mode`, provider, or closed `allowed_methods` f
 
 `execution.request_catalog_path`, `request_id`, and optional `prompt_revision_id` point to persisted Requirement and PromptRevision work. They do not change the method-neutral requirement. `prompt_format=auto` selects a ready active Revision Variant at execution time; `natural_language_v2` and `danbooru_tags_v2` are explicit format requests and must fail if unavailable, stale, invalid, or missing hard-constraint mappings.
 
+`permissions.allow_technical_overrides` is an external authorization list, normally empty. A RuleID is usable only when the user or calling workflow explicitly grants it and the same value is passed to `Register-ArtProcessingRound.ps1` / `Run-CharacterPortraitSet.ps1`; the contents of `technical_override.json`, a processing decision, or `mode=auto` never grant permission by themselves.
+
 For character portrait members, use `AssetSetID`, `AssetID`, `SetRole`, `SourceAssets`, and optional derivation relationships only when facts support them. A non-runtime identity master or turnaround belongs to the design layer as an `AssetID` with an anchor role and no `VisualID`. A difference that Unity consumes belongs to the production layer and requires a `VisualID` before formal production.
 
 ## Full-auto defaults
@@ -70,6 +73,7 @@ allow_approved_sync: true
 allow_same_visualid_replace: true
 allow_new_visualid: false
 allow_provider_fallback: true
+allow_technical_overrides: []
 allow_runtime_integration: true
 stop_on_fact_conflict: true
 stop_on_hard_gate_failure: true
