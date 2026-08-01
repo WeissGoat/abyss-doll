@@ -780,6 +780,23 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/specs/2026-08-01-formal-v2-replacement-plan-catalog-v2-bridge-design.md",
+      "title": "Formal V2 主动迭代计划 Catalog V2 桥接设计",
+      "id": "spec_formal_v2_replacement_plan_catalog_v2_bridge",
+      "type": "spec",
+      "role": "美术",
+      "domain": "art_asset_production",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "2026-08-01",
+      "update_rule": "Catalog schema、主动迭代计划字段或批量执行输入契约变化时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "DOCS_INDEX.md",
       "title": "文档索引",
       "id": "docs_index",
