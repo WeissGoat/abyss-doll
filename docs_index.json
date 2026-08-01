@@ -93,7 +93,7 @@
         "开发文档/17_Live2DSpine运行时接入评估.md",
         "开发文档/18_全局叙事播放系统开发方案.md"
       ],
-      "last_verified": "2026-07-31",
+      "last_verified": "2026-08-01",
       "update_rule": "美术或 UI 视觉流水线任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -1060,7 +1060,7 @@
         "美术文档/ui_design/formal_v2/README.md",
         "美术文档/ui_design/formal_v2/design_boards/README.md"
       ],
-      "last_verified": "2026-07-31",
+      "last_verified": "2026-08-01",
       "update_rule": "修改对应工具入口、参数或执行流程时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],

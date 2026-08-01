@@ -41,7 +41,7 @@ related:
   - 美术文档/人设/05_零号立绘素材设计与交付清单.md
   - 开发文档/17_Live2DSpine运行时接入评估.md
   - 开发文档/18_全局叙事播放系统开发方案.md
-last_verified: 2026-07-31
+last_verified: 2026-08-01
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
 
@@ -49,15 +49,15 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 最后更新
 
-2026-07-31
+2026-08-01
 
 ## 当前关注
 
-- 美术生产安全收口已完成实现：正式 v2 generation evidence 与 legacy recovery evidence 隔离；Registrar 重算 `technical_review_v2` 并要求外部授权的 override；selected replacement 使用当前基线、严格分数增量和保护维度门禁；角色立绘 `Run-CharacterPortraitSet.ps1` 已支持 `Automatic` / `Resume`、processing decision、visual review、不可变 generation snapshot 和依赖阻塞。压力审计后补上 Resume 旧 checkpoint 绕过、旧 processed 轮次回退和缺失 visual-review SHA 的回归保护，并闭合人物立绘 override 状态计算。全量美术工具回归为 262 tests passed，当前 claim ceiling 仍为 `selected`。
+- 美术生产安全收口已完成实现：正式 v2 generation evidence 与 legacy recovery evidence 隔离；Registrar 重算 `technical_review_v2` 并要求外部授权的 override；selected replacement 使用当前基线、严格分数增量和保护维度门禁；角色立绘 `Run-CharacterPortraitSet.ps1` 已支持 `Automatic` / `Resume`、processing decision、visual review、不可变 generation snapshot 和依赖阻塞。压力审计后补上 Resume 旧 checkpoint 绕过、旧 processed 轮次回退和缺失 visual-review SHA 的回归保护，并闭合人物立绘 override 状态计算。全量美术工具回归为 266 tests passed，当前 claim ceiling 仍为 `selected`。
 - `zero_cold_reference_pilot_20260726_02` 已打通首个正式角色差分参考图闭环：`SourceAssets` 解析到 neutral Approved 的真实路径、SHA-256、尺寸和模式，exact `prompt-002` 通过 Gemini `image_to_image` 串行生成 2 张可解码 raw；第二张经显式连通边界背景处理、1024x1536 RGBA 规范化和人工多背景边缘检查后发布为不可变 `processed/3/001.png`。新候选以 92 分通过 guarded selection，严格高于旧 selected 的 90 分，并复用 `selected/001.png` 及原 `.meta`；当前公开状态为 `selected`。cold Approved 仍不存在，neutral Approved、`.meta`、Registry 和 Registry `.meta` 哈希未变，本轮不声明 Unity、Registry 或运行时完成。证据：`UnityClient/Logs/P3ArtProduction/zero_cold_reference_pilot_20260726_02/{summary,visual-review,selection-decision}.json`。
 - `formalv2_standard_stylebatch_20260725_01` 已完成首个新风格通用批量全自动闭环：`bg_combat_abyss` 与 `ui_icon_warning` 各有 1 张本批可解码 raw、各有 1 次 HTTP 504，均发布为不可变 `processed/4`，经 Agent 93 / 96 分 guarded selection 后完成同 VisualID Approved 替换。`art_import_formalv2_standard_stylebatch_20260725_01` 的 live Unity importer、Registry 唯一项、路径和 GUID 全部通过，两项 Manifest 均保持 `Status=approved` 并写 `RegistryStatus=registered`；Approved SHA-256 为 `880e6125f860712edecec1a943e6a2a8de79d9b64117b799631b5ceab7745477` / `a76de6477380f27a1a32dfbffdea7b08599e7812733eb2c15e725a5abfb46e19`，原 `.meta`/GUID 保持不变。该结论不包含 UGUI 绑定或 `runtime_validated`。预检同时修复了 `Compile-ArtGenerationRequests.ps1` 在 Windows PowerShell 5.1 下的中文默认路径失败，并增加 wrapper dry-run 回归测试。
 - `formalv2_standard_stylepilot_20260724_03` 已完成一次真实标准背景修复批次：`bg_workshop_day` 使用 `openai_images / gpt-image-2` 串行生成 2 张 raw，发布到不可变 `processed/4`；`001.png` 以 95 分通过 Agent 评审并 guarded selection，当前公开状态为 `selected`。Approved、Unity、Registry 均未改变。
-- Agent 主导双格式 PromptRevision v2 已落地：编译器只产出 Requirement context，Agent 独立发布不可变 `natural_language_v2` / `danbooru_tags_v2`，provider adapter 只做确定性序列化；通用批量和角色立绘都消费 exact active Revision。当前 313 个 Requirement 全部 `ready`，其中 `bg_combat_abyss`、`ui_icon_warning`、`doll_zero_cold` 已发布独立 Agent-authored `prompt-001`，其余 310 项保持 `prompt_authoring_required`；旧 v1 仅保留为 `LegacyPromptVariants`。迁移前后 VisualID/OutputPath/公开状态及 Approved/`.meta`/Registry 哈希一致，本轮未生图或修改运行时资产。
+- Agent 主导双格式 PromptRevision v2 已落地：编译器只产出 Requirement context，Agent 独立发布不可变 `natural_language_v2` / `danbooru_tags_v2`，provider adapter 只做确定性序列化；通用批量和角色立绘都消费 exact active Revision。当前 313 个 Requirement 全部 `ready`，其中 `bg_combat_abyss`、`ui_icon_warning`、`doll_zero_cold` 已发布独立 Agent-authored `prompt-001`，其余 310 项保持 `prompt_authoring_required`；旧 v1 仅保留为 `LegacyPromptVariants`。`formalv2_catalog_v2_bridge_dryrun_20260801_01` 已验证主动替换 planner 严格解析 Catalog v2、校验 Manifest pointer，并为背景 / 图标分别编译 `openai_images + natural_language_v2 + exact prompt-001` 命令：2 planned、2 ready、2 groups、0 blocked、Catalog strict 通过，claim ceiling 为 `dry_run_planned`。证据位于 `UnityClient/Logs/P3ArtProduction/formalv2_catalog_v2_bridge_dryrun_20260801_01/`；本轮未调用 provider，未修改 raw、processed、selected、Approved、Unity、Registry 或运行时资产。
 - 美术生产按 `standard_asset`、`character_portrait_set`、`_legacy_runs` 分 Profile 管理；Manifest 为 313 个 Entry 持久化 `RequestID + RequirementFingerprint + PromptAuthoringStatus + ActivePromptRevisionID`，Catalog 保存 Requirement 与不可变双格式 PromptRevision，标准批量 / 角色套组共用门禁；标准批量已完成真实 provider 试跑并保留完整 raw / processed / review 证据。
 - Formal V2 UI Skin 专项 route 已通过首个真实 Pilot：`ui_skin=deterministic_template` 会由批量执行器分流到确定性 NineSlice 适配器；`ui_button_primary` 已发布 `processed/3` 并完成 Agent guarded selection，公开状态停在 `selected`，Approved / Unity / Registry 未变化。
 - 首个 `character_portrait_set` 正式接入试跑已到 `registered`：`doll_zero_dialogue_neutral` 已同步到 Approved，Unity importer 与尺寸符合合同，Registry 唯一条目、路径和 GUID 均匹配；本轮明确不含 Prefab / UGUI 绑定和运行时验收。

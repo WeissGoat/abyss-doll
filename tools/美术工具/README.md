@@ -20,7 +20,7 @@ related:
   - 美术文档/人设/04_零号AI后端出图提示词对比.md
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/design_boards/README.md
-last_verified: 2026-07-31
+last_verified: 2026-08-01
 update_rule: 修改对应工具入口、参数或执行流程时同步本文件。
 ---
 
@@ -727,7 +727,9 @@ Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec、
 
 ## Generate-FormalV2ReplacementPlan.ps1
 
-读取 Formal V2 总方案中的 UI Skin 基准和标记为 `V2-A active` 的场景行，再与当前 Manifest、Approved 文件交叉核对，生成“已有 VisualID 主动质量迭代”计划。它和 `缺图生成计划` 分离：前者动作固定为 `visual_v2_replace`，后者只处理 `generate_needed`。
+读取 Formal V2 总方案中的 UI Skin 基准和标记为 `V2-A active` 的场景行，再与当前 Manifest、Approved 文件和 Request Catalog v2 交叉核对，生成“已有 VisualID 主动质量迭代”计划。它和 `缺图生成计划` 分离：前者动作固定为 `visual_v2_replace`，后者只处理 `generate_needed`。
+
+正式计划只消费 Catalog v2 的 `RequirementStatus`、`RequirementFingerprint`、`PromptAuthoringStatus`、`ActivePromptRevisionID` 和 active `PromptRevisions[].Variants`。每个 Item 持久化 exact `RequestID + RequirementFingerprint + PromptRevisionID + PromptRevisionFingerprint + PromptFormats`，并校验 Manifest `CompiledRequest` 的四个 pointer 字段完全一致；缺少 Catalog Request、authoring 未完成、active Revision 缺失 / stale / 未 ready、pointer 不一致或没有 ready v2 Variant 时，Item 保留在审计计划中但写 `PromptReady=false + PromptBlockReason`。旧 `CompileStatus`、`PromptVariants` 和 v1 format 不再作为正式输入，也不会隐式 fallback。
 
 输出：
 
@@ -743,7 +745,7 @@ Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec、
   -Variants 2
 ```
 
-计划不写死 provider 或生成方式，字段使用 `agent_selected`；Agent 应按 `AssetClass` 选择当前能力。`background` 可走普通文生图 / 图生图，`ui_skin` 必须优先参考图编辑、模板合成或确定性生成。计划不会修改 Manifest 主状态、Approved、Unity 或 Registry。
+计划不写死 provider 或生成方式，字段使用 `agent_selected`；Agent 应按 `AssetClass` 选择当前能力。`background` 可走普通文生图 / 图生图，`ui_skin` 必须优先参考图编辑、模板合成或确定性生成。计划生成本身不会调用 provider，也不会修改 Manifest 主状态、raw、`processed/`、`selected/`、Approved、Unity 或 Registry；`Run-ArtProductionBatch.ps1 -DryRun` 只打印分组和命令，不写正式 ProductionRun evidence。
 
 ## Run-ArtProductionBatch.ps1
 
