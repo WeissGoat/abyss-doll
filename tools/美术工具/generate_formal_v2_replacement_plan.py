@@ -11,6 +11,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from art_prompt_revision import PROMPT_FORMATS
+
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[1]
@@ -130,25 +132,74 @@ def parse_formal_v2_overview(path: Path) -> dict[str, str]:
     return result
 
 
-def source_spec(entry: dict[str, Any]) -> dict[str, Any]:
-    spec = entry.get("Spec") if isinstance(entry.get("Spec"), dict) else {}
-    nested = spec.get("SourceSpec") if isinstance(spec.get("SourceSpec"), dict) else spec
-    return nested
+def resolve_prompt_evidence(
+    entry: dict[str, Any],
+    request: dict[str, Any] | None,
+) -> dict[str, Any]:
+    compiled = entry.get("CompiledRequest")
+    compiled = compiled if isinstance(compiled, dict) else {}
+    evidence = {
+        "RequestID": str((request or {}).get("RequestID", "")),
+        "RequirementFingerprint": str((request or {}).get("RequirementFingerprint", "")),
+        "PromptAuthoringStatus": str((request or {}).get("PromptAuthoringStatus", "")),
+        "PromptRevisionID": str((request or {}).get("ActivePromptRevisionID", "")),
+        "PromptRevisionFingerprint": "",
+        "PromptFormats": [],
+        "PromptReady": False,
+        "PromptBlockReason": "",
+    }
+    if request is None:
+        evidence["PromptBlockReason"] = "catalog_request_missing"
+        return evidence
+    if request.get("RequirementStatus") != "ready":
+        evidence["PromptBlockReason"] = "requirement_not_ready"
+        return evidence
+    if request.get("PromptAuthoringStatus") != "prompt_ready":
+        evidence["PromptBlockReason"] = "prompt_authoring_required"
+        return evidence
+    for field in (
+        "RequestID",
+        "RequirementFingerprint",
+        "PromptAuthoringStatus",
+        "ActivePromptRevisionID",
+    ):
+        if compiled.get(field) != request.get(field):
+            evidence["PromptBlockReason"] = f"manifest_pointer_mismatch:{field}"
+            return evidence
 
-
-def prompt_ready(entry: dict[str, Any], request: dict[str, Any] | None = None) -> bool:
-    if request is not None:
-        variants = request.get("PromptVariants", {})
-        return request.get("CompileStatus") == "ready" and any(
-            isinstance(variant, dict) and variant.get("CompileStatus") == "ready"
-            for variant in variants.values()
-        )
-    return bool(
-        str(entry.get("PromptEN", "") or "").strip()
-        and str(entry.get("NegativePromptEN", "") or "").strip()
-        and isinstance(entry.get("Spec"), dict)
-        and all(source_spec(entry).get(field) for field in ("Format", "Width", "Height"))
+    revision = next(
+        (
+            value
+            for value in request.get("PromptRevisions", [])
+            if isinstance(value, dict)
+            and value.get("PromptRevisionID") == request.get("ActivePromptRevisionID")
+        ),
+        None,
     )
+    if revision is None:
+        evidence["PromptBlockReason"] = "active_prompt_revision_missing"
+        return evidence
+    evidence["PromptRevisionFingerprint"] = str(revision.get("RevisionFingerprint", ""))
+    if revision.get("RequirementFingerprint") != request.get("RequirementFingerprint"):
+        evidence["PromptBlockReason"] = "prompt_revision_stale"
+        return evidence
+    if revision.get("Status") != "ready":
+        evidence["PromptBlockReason"] = "prompt_revision_not_ready"
+        return evidence
+
+    variants = revision.get("Variants")
+    variants = variants if isinstance(variants, dict) else {}
+    evidence["PromptFormats"] = [
+        format_id
+        for format_id in PROMPT_FORMATS
+        if isinstance(variants.get(format_id), dict)
+        and variants[format_id].get("Status") == "ready"
+    ]
+    if not evidence["PromptFormats"]:
+        evidence["PromptBlockReason"] = "prompt_revision_no_ready_v2_variant"
+        return evidence
+    evidence["PromptReady"] = True
+    return evidence
 
 
 def build_item(
@@ -163,14 +214,8 @@ def build_item(
     approved_value = str(entry.get("ApprovedPath") or entry.get("OutputPath") or "")
     profile_root = "character_portraits" if entry.get("ProductionProfile") == "character_portrait_set" else "standard_assets"
     workspace = f"UnityClient/Assets/Art/_IncomingAI/{profile_root}/{visual_id}"
-    request_id = str(request.get("RequestID", "")) if request else str(entry.get("CompiledRequest", {}).get("RequestID", ""))
-    request_fingerprint = str(request.get("RequestFingerprint", "")) if request else str(entry.get("CompiledRequest", {}).get("RequestFingerprint", ""))
-    prompt_formats = [
-        format_id
-        for format_id, variant in (request or {}).get("PromptVariants", {}).items()
-        if isinstance(variant, dict) and variant.get("CompileStatus") == "ready"
-    ]
-    return {
+    prompt_evidence = resolve_prompt_evidence(entry, request)
+    item = {
         "VisualID": visual_id,
         "Action": "visual_v2_replace",
         "Source": "formal_v2_active",
@@ -180,11 +225,7 @@ def build_item(
         "AssetType": str(entry.get("AssetType", "") or ""),
         "Priority": str(entry.get("Priority", "") or ""),
         "DisplayName": str(entry.get("DisplayName", "") or ""),
-        "PromptReady": prompt_ready(entry, request),
         "ProductionProfile": str(entry.get("ProductionProfile", "standard_asset")),
-        "RequestID": request_id,
-        "RequestFingerprint": request_fingerprint,
-        "PromptFormats": prompt_formats,
         "CurrentQuality": str(entry.get("QualityTier", "") or "approved"),
         "ApprovedPath": approved_value,
         "Workspace": {
@@ -207,6 +248,8 @@ def build_item(
             "do not sync Approved automatically",
         ],
     }
+    item.update(prompt_evidence)
+    return item
 
 
 def build_payload(
