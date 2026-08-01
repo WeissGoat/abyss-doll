@@ -610,6 +610,23 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/plans/2026-08-01-formal-v2-replacement-plan-catalog-v2-bridge.md",
+      "title": "Formal V2 主动迭代计划 Catalog V2 桥接实施计划",
+      "id": "plan_formal_v2_replacement_plan_catalog_v2_bridge",
+      "type": "plan",
+      "role": "美术",
+      "domain": "art_asset_production",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "2026-08-01",
+      "update_rule": "Catalog V2 bridge 的实现范围、验证命令或交付边界变化时同步本文件。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "docs/superpowers/specs/2026-07-18-agent-routing-p0-hardening-design.md",
       "title": "Agent 路由 P0 治理加固设计",
       "id": "agent_routing_p0_hardening_design",

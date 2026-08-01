@@ -18,8 +18,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：284
-- 已补元数据：280
+- 文档总数：285
+- 已补元数据：281
 - 缺少元数据：4
 - 事实来源文档：197
 - 关联边数：1515
@@ -507,6 +507,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Zero Dialogue Neutral Character Portrait Pilot Implementation Plan](docs/superpowers/plans/2026-07-18-zero-dialogue-neutral-character-portrait-pilot.md) | `plan` | `active` | `character_portrait_asset_production` | 0 | 完整 |
 | [Agent 主导双格式美术 PromptRevision 实施计划](docs/superpowers/plans/2026-07-26-agent-authored-art-prompt-revisions.md) | `plan` | `active` | `art_asset_production` | 0 | 完整 |
 | [美术生产证据、质量门禁与人物立绘恢复实施计划](docs/superpowers/plans/2026-07-31-art-production-evidence-gates-and-resume.md) | `plan` | `active` | `art_asset_production` | 0 | 完整 |
+| [Formal V2 主动迭代计划 Catalog V2 桥接实施计划](docs/superpowers/plans/2026-08-01-formal-v2-replacement-plan-catalog-v2-bridge.md) | `plan` | `active` | `art_asset_production` | 0 | 完整 |
 | [Approved 到 Unity 导入与 Registry 登记自动化设计](docs/superpowers/specs/2026-07-18-art-approved-unity-registry-automation-design.md) | `design` | `active` | `art_asset_integration` | 0 | 完整 |
 | [美术资产统一数字轮次加工与安全背景处理设计](docs/superpowers/specs/2026-07-18-unified-art-processing-rounds-design.md) | `design` | `active` | `art_asset_processing` | 0 | 完整 |
 | [零号对话中性立绘首轮流程试跑设计](docs/superpowers/specs/2026-07-18-zero-dialogue-neutral-character-portrait-pilot-design.md) | `design` | `active` | `character_portrait_production` | 0 | 完整 |
