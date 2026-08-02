@@ -96,6 +96,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 问题 / 阻塞
 
+- `art_validation_flow_probe_20260802_01` 已真实启动 `art_focus` 并停在 `AwaitingLiveInspection`。当前 `art_validation_targets.json` 只注册 `workshop_main / dungeon_map / dialogue_overlay / t0_prologue`，且四项 `required_visual_ids` 均为空；`combat_hud / maintenance_panel` 返回 `art_blocked:unknown_target`，现有目标即使完成截图也会在 Finalize 被 `art_blocked:runtime_binding_contract_missing` 拒绝。因此 `bg_combat_abyss / ui_icon_warning` 当前只能保持 `registered`。本轮随后发生 `validation_limited:unity_mcp_session_unavailable`：Unity 进程和 15555 端口仍正常，但 Codex MCP 会话未重新挂载，Run 可从现有 ID 恢复。
 - The initial `zero_pose_variation_20260801_01` attempt was blocked by checkerboard background removal, but the follow-up `segmentation_retry_20260801_02` used explicit `rembg` masks and completed a new immutable `processed/3` round. All three members passed visual review and guarded replacement selection; the old checkerboard failure remains historical evidence only.
 
 - `formalv2_catalog_v2_bridge_batch_20260801_01_exec` 当时记录的 `validation_limited:unity_editor_unavailable` 已由 `art_import_formalv2_catalog_v2_bridge_batch_20260802_01` 正式解除；最新 selected 已同步到 Approved 并完成 Unity / Registry 现场验证。当前仅保留运行时消费与 `runtime_validated` 的后续边界。

@@ -68,6 +68,7 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 ## 问题 / 阻塞
 
+- 美术运行时验收试跑发现 Target Registry 尚不能承接正式 `runtime_validated`：`combat_hud / maintenance_panel` 未注册，现有四个 TargetID 的 `required_visual_ids` 全为空，Finalize 必然缺少运行时绑定合同。另有 MCP 暴露问题：`p3_art_*` 第一类工具 schema 被生成为空对象，带参数直调会被客户端拒绝；通用 `execute_custom_tool` 可成功启动 ArtRun，说明 Unity C# 工具合同本身可用。需要在程序侧补目标/VisualID 合同并修复工具 schema 暴露后恢复 `art_validation_flow_probe_20260802_01`。
 - Unity Editor / MCP 现场验证仍可能受环境和既有 MCPForUnity 版本 warning 限制；受限时必须记录 `validation_limited:*`。
 - T0-01A 的商业化连续画面、最终美术接入和专业 Role 外部验收仍未完成。
 - Gemini 双参考图在长提示词或生成超过约 300 秒时仍可能由上游关闭 chunked response；简洁提示词已取得端到端成功，但外部 provider 稳定性仍不应扩大声明。

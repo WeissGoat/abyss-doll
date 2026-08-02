@@ -124,6 +124,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 ## 问题 / 阻塞
 
+- 美术验收 V2 试跑已启动 `art_validation_flow_probe_20260802_01`，但当前 Target Registry 未注册 `combat_hud / maintenance_panel`，现有 TargetID 也没有 `required_visual_ids` 绑定合同，因此无法把 `bg_combat_abyss / ui_icon_warning` 从 `registered` 推进到 `runtime_validated`。同时 P3 MCP 工具的第一类 schema 为空，只能经 `execute_custom_tool` 传参；随后 Codex MCP 会话脱离，而 Unity 进程/15555 端口仍正常。本轮记为 `validation_limited:unity_mcp_session_unavailable`，程序需先补目标合同和工具暴露，再恢复同一 ArtRun。
 - T0-01A 的漫画页排版、对白皮肤、半开放工坊、首潜许可卡和最终连续截图仍需收口。
 - T0-01B / T0-01C 和 T2 详细设计尚未完成。
 - Zero neutral 与三张姿势差分的素材接入链已到 `registered`，当前未完成的是 Prefab / UGUI 运行时消费、容器裁切和美术验收；其余 10 个成员仍在 Approved 授权边界。`registered -> runtime_validated` 的 ArtRun binding/finalize 机制已实现，但尚未对这些新增差分执行正式 TargetID 运行时验收。
