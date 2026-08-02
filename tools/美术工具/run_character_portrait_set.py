@@ -10,9 +10,12 @@ import json
 import shutil
 import subprocess
 import sys
+from collections import deque
 from datetime import datetime
 from pathlib import Path
 from typing import Any
+
+from PIL import Image
 
 from art_prompt_revision import DANBOORU_TAGS_FORMAT, NATURAL_LANGUAGE_FORMAT, select_prompt_variant
 from register_art_processing_round import _apply_technical_override, register_processing_round
@@ -68,10 +71,15 @@ def file_sha256(path: Path) -> str:
 
 
 def reference_fingerprint(references: list[dict[str, Any]]) -> str:
+    # Generation evidence is intentionally portable between the portrait
+    # planner and provider adapters.  The planner may carry AssetID/VisualID,
+    # but the persisted provider evidence is only required to carry the
+    # verifiable file identity and its semantic role.  Fingerprint the common
+    # evidence contract so resume does not treat the same reference as stale
+    # merely because provenance metadata was omitted by the adapter.
     return payload_fingerprint(
         [
             {
-                "AssetID": str(reference.get("AssetID", "")),
                 "Role": str(reference.get("Role", "")),
                 "Path": str(reference.get("Path", "")),
                 "SHA256": str(reference.get("SHA256", "")).lower(),
@@ -460,17 +468,20 @@ def _make_processing_staging(
     outputs = generation.get("Outputs", [])
     if not outputs:
         raise ValueError(f"generation_outputs_missing:{visual_id}")
-    source_value = str(outputs[0].get("RepoPath", "") or "")
+    output_paths = [str(output.get("RepoPath", "") or "") for output in outputs if isinstance(output, dict)]
+    decision_input = str(decision.get("InputPath", "") or "")
+    source_value = decision_input or (output_paths[0] if output_paths else "")
     source = Path(source_value)
     source = source if source.is_absolute() else project_root / source
     if not source.is_file():
         raise ValueError(f"generation_output_missing:{visual_id}")
-    decision_input = str(decision.get("InputPath", "") or "")
     if decision_input:
-        expected_input = Path(decision_input)
-        expected_input = expected_input if expected_input.is_absolute() else project_root / expected_input
-        if expected_input.resolve() != source.resolve():
-            raise ValueError(f"processing_input_path_mismatch:{visual_id}")
+        resolved_outputs = {
+            (path if Path(path).is_absolute() else str(project_root / path))
+            for path in output_paths
+        }
+        if str(source.resolve()) not in {str(Path(path).resolve()) for path in resolved_outputs}:
+            raise ValueError(f"processing_input_not_in_generation_outputs:{visual_id}")
     input_hash = file_sha256(source)
     expected_hash = str(decision.get("InputSHA256", "") or "").lower()
     if expected_hash and expected_hash != input_hash.lower():
@@ -478,6 +489,7 @@ def _make_processing_staging(
 
     action = str(decision.get("Action", ""))
     candidate = staging / "candidate.png"
+    entry = _entry_for_visual(manifest_path, visual_id)
     if action == "background_processing_required":
         method = str(decision.get("Method", "") or "")
         mask_value = str(decision.get("MaskPath", "") or "")
@@ -487,11 +499,14 @@ def _make_processing_staging(
             method=method,
             expected_input_sha256=input_hash,
             mask_path=(project_root / mask_value if mask_value and not Path(mask_value).is_absolute() else Path(mask_value) if mask_value else None),
+            threshold=int(decision.get("Threshold", 34) or 34),
         )
     elif action == "already_usable":
         shutil.copy2(source, candidate)
     else:
         raise ValueError(f"processing_decision_not_registrable:{visual_id}:{action}")
+
+    normalization = _normalize_portrait_candidate(candidate, entry)
 
     from register_art_processing_round import recalculate_candidate_review
 
@@ -508,7 +523,6 @@ def _make_processing_staging(
     if override is not None:
         (staging / "technical_override.json").write_text(json.dumps(override, ensure_ascii=False), encoding="utf-8")
 
-    entry = _entry_for_visual(manifest_path, visual_id)
     technical = recalculate_candidate_review(entry, candidate)
     candidate_status, applied_overrides, remaining_reasons = _apply_technical_override(
         automatic=technical,
@@ -527,6 +541,7 @@ def _make_processing_staging(
                 "InputSHA256": input_hash,
                 "Output": candidate.name,
                 "OutputSHA256": file_sha256(candidate),
+                "Normalization": normalization,
             },
             ensure_ascii=False,
         ),
@@ -572,6 +587,96 @@ def _make_processing_staging(
         review_copy["CandidateSHA256"] = candidate_hash
         (staging / "visual_review.json").write_text(json.dumps(review_copy, ensure_ascii=False), encoding="utf-8")
     return staging
+
+
+def _normalize_portrait_candidate(candidate: Path, entry: dict[str, Any]) -> dict[str, Any]:
+    """Convert provider output into the portrait contract after explicit processing."""
+
+    spec = entry.get("Spec") if isinstance(entry.get("Spec"), dict) else {}
+    source_spec = spec.get("SourceSpec") if isinstance(spec.get("SourceSpec"), dict) else {}
+    target_width = int(source_spec.get("Width", 0) or 0)
+    target_height = int(source_spec.get("Height", 0) or 0)
+    if target_width <= 0 or target_height <= 0:
+        raise ValueError("portrait_target_dimensions_missing")
+    with Image.open(candidate) as image:
+        image.load()
+        rgba = image.convert("RGBA")
+        rgba, removed_border_pixels = _strip_border_connected_alpha(rgba)
+        source_size = [rgba.width, rgba.height]
+        bbox = rgba.getchannel("A").getbbox()
+        if bbox is None:
+            raise ValueError("portrait_subject_missing_after_background_processing")
+        if rgba.size == (target_width, target_height):
+            return {"Applied": False, "SourceSize": source_size, "TargetSize": [target_width, target_height]}
+
+        subject = rgba.crop(bbox)
+        composition = spec.get("CompositionSpec") if isinstance(spec.get("CompositionSpec"), dict) else {}
+        safe_padding = max(0.0, min(0.49, float(composition.get("SafePaddingPercent", 6) or 6) / 100.0))
+        max_subject_height = max(1, int(target_height * (1.0 - 2.0 * safe_padding)))
+        max_subject_width = max(1, int(target_width * (1.0 - 2.0 * safe_padding)))
+        scale = min(max_subject_height / subject.height, max_subject_width / subject.width)
+        resized = subject.resize(
+            (max(1, int(round(subject.width * scale))), max(1, int(round(subject.height * scale)))),
+            Image.Resampling.LANCZOS,
+        )
+        canvas = Image.new("RGBA", (target_width, target_height), (0, 0, 0, 0))
+        bottom_margin = int(round(target_height * safe_padding))
+        x = (target_width - resized.width) // 2
+        y = max(0, target_height - bottom_margin - resized.height)
+        canvas.alpha_composite(resized, (x, y))
+        canvas.save(candidate, format="PNG")
+        return {
+            "Applied": True,
+            "SourceSize": source_size,
+            "TargetSize": [target_width, target_height],
+            "SourceAlphaBBox": list(bbox),
+            "OutputAlphaBBox": list(canvas.getchannel("A").getbbox() or ()),
+            "SafePaddingPercent": safe_padding * 100.0,
+            "RemovedBorderConnectedAlphaPixels": removed_border_pixels,
+        }
+
+
+def _strip_border_connected_alpha(image: Image.Image) -> tuple[Image.Image, int]:
+    """Drop residual alpha artifacts that still touch the canvas border."""
+
+    rgba = image.convert("RGBA")
+    alpha = rgba.getchannel("A")
+    width, height = rgba.size
+    pixels = alpha.load()
+    visited: set[tuple[int, int]] = set()
+    queue: deque[tuple[int, int]] = deque()
+    for x in range(width):
+        if pixels[x, 0] > 0:
+            visited.add((x, 0))
+            queue.append((x, 0))
+        if pixels[x, height - 1] > 0:
+            visited.add((x, height - 1))
+            queue.append((x, height - 1))
+    for y in range(height):
+        if pixels[0, y] > 0:
+            visited.add((0, y))
+            queue.append((0, y))
+        if pixels[width - 1, y] > 0:
+            visited.add((width - 1, y))
+            queue.append((width - 1, y))
+    while queue:
+        x, y = queue.popleft()
+        for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):
+            if 0 <= nx < width and 0 <= ny < height and (nx, ny) not in visited and pixels[nx, ny] > 0:
+                visited.add((nx, ny))
+                queue.append((nx, ny))
+    if not visited:
+        return rgba, 0
+    cleaned = rgba.copy()
+    cleaned_alpha = cleaned.getchannel("A")
+    cleaned_alpha_pixels = cleaned_alpha.load()
+    removed = 0
+    for x, y in visited:
+        if cleaned_alpha_pixels[x, y] > 0:
+            cleaned_alpha_pixels[x, y] = 0
+            removed += 1
+    cleaned.putalpha(cleaned_alpha)
+    return cleaned, removed
 
 
 def _summary_state(items: list[dict[str, Any]]) -> str:
@@ -796,25 +901,34 @@ def execute_portrait_set_run(
                 evidence = _validate_generation_evidence(item=item, generation=generation, project_root=project_root, run_id=production_run_id)
             except ValueError as exc:
                 reason = str(exc)
-                item["Stage"] = "prompt_resolution" if reason in {"prompt_stale", "reference_stale"} else "generation"
-                item["Result"] = reason
-                write_json_atomic(state_path, state)
-                continue
-            if item.get("Generation") and not _generation_record_matches(item, evidence):
-                item["Stage"] = "output_contract_audit"
-                item["Result"] = "generation_stale"
-                write_json_atomic(state_path, state)
-                continue
-            snapshot_path = _write_generation_snapshot(
-                generation_dir=generation_dir,
-                visual_id=visual_id,
-                generation=generation,
-                previous=item.get("Generation"),
-                project_root=project_root,
-            )
-            item["Generation"] = {**evidence, "SnapshotPath": snapshot_path.relative_to(project_root).as_posix()}
-            item["Stage"] = "processing_decision"
-            item["Result"] = "review_required"
+                if reason in {"generation_snapshot_mismatch", "generation_outputs_missing"} and provider:
+                    history_dir = workspace / "generation_history"
+                    history_dir.mkdir(parents=True, exist_ok=True)
+                    history_path = history_dir / f"generation_stale_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+                    shutil.copy2(generation_path, history_path)
+                    item["StaleGenerationEvidence"] = history_path.relative_to(project_root).as_posix()
+                    generation = None
+                else:
+                    item["Stage"] = "prompt_resolution" if reason in {"prompt_stale", "reference_stale"} else "generation"
+                    item["Result"] = reason
+                    write_json_atomic(state_path, state)
+                    continue
+            if generation is not None:
+                if item.get("Generation") and not _generation_record_matches(item, evidence):
+                    item["Stage"] = "output_contract_audit"
+                    item["Result"] = "generation_stale"
+                    write_json_atomic(state_path, state)
+                    continue
+                snapshot_path = _write_generation_snapshot(
+                    generation_dir=generation_dir,
+                    visual_id=visual_id,
+                    generation=generation,
+                    previous=item.get("Generation"),
+                    project_root=project_root,
+                )
+                item["Generation"] = {**evidence, "SnapshotPath": snapshot_path.relative_to(project_root).as_posix()}
+                item["Stage"] = "processing_decision"
+                item["Result"] = "review_required"
         elif item.get("Generation"):
             snapshot_path = project_root / str(item["Generation"].get("SnapshotPath", ""))
             if snapshot_path.exists():

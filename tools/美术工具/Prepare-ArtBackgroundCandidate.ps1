@@ -1,7 +1,7 @@
 param(
     [Parameter(Mandatory=$true)][string]$InputPath,
     [Parameter(Mandatory=$true)][string]$StagingDirectory,
-    [ValidateSet("alpha_passthrough", "connected_border", "explicit_mask")]
+    [ValidateSet("alpha_passthrough", "connected_border", "explicit_mask", "segmentation")]
     [Parameter(Mandatory=$true)][string]$Method,
     [Parameter(Mandatory=$true)][string]$ExpectedInputSHA256,
     [string]$MaskPath = "",

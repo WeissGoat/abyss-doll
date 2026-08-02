@@ -101,6 +101,7 @@ The portrait Registrar intentionally requires `visual_review.json` before publis
 - Treat `raw`, `processed`, `selected`, `approved`, `registered`, `runtime_validated`, `player_path_verified`, and `regression_passed` as different public claims. Runtime binding remains an internal ArtRun check and is never exposed as a separate production state.
 - Treat `processed/<positive integer>/` as an immutable processing round. Read only the latest numeric round for processing state; repairs and complex edits must publish the next integer through `Optimize-ArtAssets.ps1` or `Register-ArtProcessingRound.ps1`.
 - Require an explicit `BackgroundPolicy`. `AlphaRequired=true` never authorizes implicit background removal.
+- For RGB provider output with a baked checkerboard, prefer an explicit mask or the optional `segmentation` route; threshold-based `connected_border` processing is not a substitute when it can leave checker pixels or delete protected clothing/hair.
 - Stop on a latest `failed`, `decision_required`, `legacy_unverified`, or multi-pass-candidate round. Never fall back to an older round or write complex edits directly into `selected/` or Approved.
 - For `character_portrait_set`, stop before Registrar when the latest member lacks a valid processing decision or visual-review evidence; do not publish a passed round first and ask for review afterward.
 - Limit repair/regeneration loops according to the request. Default: 3 rounds, 4 initial variants, 2 repair variants, 2 provider switches.

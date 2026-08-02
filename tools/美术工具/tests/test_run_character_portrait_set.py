@@ -25,6 +25,7 @@ from run_character_portrait_set import (  # noqa: E402
     build_portrait_set_plan,
     execute_portrait_set_run,
     load_asset_set,
+    _normalize_portrait_candidate,
     order_portrait_members,
     reference_cli_arguments,
 )
@@ -124,6 +125,27 @@ class CharacterPortraitSetTests(unittest.TestCase):
 
     def tearDown(self) -> None:
         self.temp_dir.cleanup()
+
+    def test_portrait_normalization_keeps_top_and_bottom_safe_padding(self) -> None:
+        candidate = self.project_root / "candidate.png"
+        image = Image.new("RGBA", (1376, 768), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(image)
+        draw.rectangle((500, 5, 900, 762), fill=(220, 220, 220, 255))
+        image.save(candidate, format="PNG")
+        entry = {
+            "Spec": {
+                "SourceSpec": {"Width": 1024, "Height": 1536},
+                "CompositionSpec": {"SafePaddingPercent": 6},
+            }
+        }
+
+        result = _normalize_portrait_candidate(candidate, entry)
+
+        with Image.open(candidate) as normalized:
+            bbox = normalized.getchannel("A").getbbox()
+        self.assertGreaterEqual(bbox[1], 92)
+        self.assertLessEqual(bbox[3], 1444)
+        self.assertEqual(result["SafePaddingPercent"], 6.0)
 
     def test_powershell_wrapper_dry_run_uses_python_utf8_defaults(self) -> None:
         wrapper = TOOLS_DIR / "Run-CharacterPortraitSet.ps1"
@@ -652,6 +674,38 @@ class CharacterPortraitSetTests(unittest.TestCase):
 
         self.assertEqual(calls, [])
         self.assertEqual(resumed["Items"][0]["Result"], "reference_stale")
+
+    def test_resume_accepts_provider_reference_evidence_without_asset_id(self) -> None:
+        plan = build_portrait_set_plan(
+            self.compiled_manifest,
+            self.catalog,
+            "zero_dialogue_portrait_v1",
+            visual_ids={"doll_zero_dialogue_confused"},
+            project_root=self.project_root,
+        )
+        self.execute_run(plan)
+        generation_path = self.project_root / plan["Items"][0]["Workspace"] / "generation.json"
+        generation = json.loads(generation_path.read_text(encoding="utf-8"))
+        generation["ReferenceImages"] = [
+            {
+                "Path": reference["Path"],
+                "Role": reference["Role"],
+                "SHA256": reference["SHA256"],
+            }
+            for reference in generation["ReferenceImages"]
+        ]
+        generation_path.write_text(json.dumps(generation), encoding="utf-8")
+
+        calls: list[str] = []
+        resumed = self.execute_run(
+            plan,
+            resume=True,
+            provider="",
+            runner=self.make_runner(plan, calls),
+        )
+
+        self.assertEqual(calls, [])
+        self.assertNotEqual(resumed["Items"][0]["Result"], "reference_stale")
 
     def test_generation_failure_blocks_explicit_dependency(self) -> None:
         plan = build_portrait_set_plan(

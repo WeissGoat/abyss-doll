@@ -188,8 +188,30 @@ def atomic_copy(source: Path, target: Path) -> None:
     temporary.replace(target)
 
 
-def update_run_summary(summary_path: Path, visual_id: str) -> None:
-    if not summary_path.exists():
+def find_run_summary(review_path: Path, production_run_id: str) -> Path | None:
+    """Locate the batch summary even when the batch runner nests it under batch/<run>/."""
+    direct = review_path.parent / "summary.json"
+    candidates = [direct]
+    batch_root = review_path.parent / "batch"
+    if batch_root.is_dir():
+        candidates.extend(sorted(batch_root.glob("*/summary.json")))
+    matches: list[Path] = []
+    for candidate in candidates:
+        if not candidate.is_file():
+            continue
+        try:
+            payload = read_json(candidate)
+        except (OSError, json.JSONDecodeError):
+            continue
+        if not production_run_id or str(payload.get("ProductionRunID", "")) == production_run_id:
+            matches.append(candidate)
+    if len(matches) == 1:
+        return matches[0]
+    return direct if direct.is_file() else None
+
+
+def update_run_summary(summary_path: Path | None, visual_id: str) -> None:
+    if summary_path is None or not summary_path.exists():
         return
     summary = read_json(summary_path)
     claims = summary.get("Claims") if isinstance(summary.get("Claims"), dict) else {}
@@ -337,7 +359,10 @@ def select_art_candidate(
     )
     selection_payload["Selected"] = sorted(selected_items, key=lambda value: str(value.get("VisualID", "")))
     write_json(selection_path, selection_payload)
-    update_run_summary(review_path.parent / "summary.json", visual_id)
+    update_run_summary(
+        find_run_summary(review_path, str(review.get("ProductionRunID", "") or "")),
+        visual_id,
+    )
     return decision
 
 

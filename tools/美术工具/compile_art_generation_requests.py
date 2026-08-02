@@ -252,6 +252,10 @@ def compile_manifest_requests(
             entry["VisualIntent"] = visual_intent_for(entry)
         elif entry.get("ProductionProfile") == "character_portrait_set":
             derived_intent = visual_intent_for(entry)
+            if entry.get("PoseSpec"):
+                for field in ("CompositionEN", "CompositionCN", "RequiredChanges", "PoseSpec"):
+                    if derived_intent.get(field):
+                        entry["VisualIntent"][field] = copy.deepcopy(derived_intent[field])
             for field in ("RequiredChanges", "ForbiddenElements"):
                 if not entry["VisualIntent"].get(field) and derived_intent.get(field):
                     entry["VisualIntent"][field] = copy.deepcopy(derived_intent[field])

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import io
 import json
 from datetime import datetime
 from pathlib import Path
@@ -17,7 +18,7 @@ from art_background import measure_candidate, process_background
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[1]
-METHODS = {"alpha_passthrough", "connected_border", "explicit_mask"}
+METHODS = {"alpha_passthrough", "connected_border", "explicit_mask", "segmentation"}
 FORBIDDEN_STAGING_PARTS = {"approved", "processed", "selected"}
 
 
@@ -60,6 +61,46 @@ def _apply_explicit_mask(image: Image.Image, mask: Image.Image) -> Image.Image:
     return output
 
 
+def _apply_segmentation(image: Image.Image) -> tuple[Image.Image, Image.Image, str]:
+    """Run optional semantic foreground segmentation and return image, mask, provider."""
+
+    try:
+        from rembg import remove
+    except (ImportError, ModuleNotFoundError) as exc:
+        raise ValueError("background_segmentation_unavailable") from exc
+
+    source_buffer = io.BytesIO()
+    image.save(source_buffer, format="PNG")
+    try:
+        segmented = remove(source_buffer.getvalue(), only_mask=False, post_process_mask=True)
+    except Exception as exc:  # pragma: no cover - provider/runtime-specific failure
+        raise ValueError(f"background_segmentation_failed:{type(exc).__name__}") from exc
+
+    try:
+        if isinstance(segmented, Image.Image):
+            output = segmented.convert("RGBA")
+        else:
+            with Image.open(io.BytesIO(segmented)) as decoded:
+                decoded.load()
+                output = decoded.convert("RGBA")
+    except (OSError, TypeError, ValueError) as exc:
+        raise ValueError("background_segmentation_invalid_output") from exc
+    if output.size != image.size:
+        raise ValueError("background_segmentation_size_mismatch")
+    alpha = output.getchannel("A")
+    if alpha.getextrema() == (255, 255):
+        raise ValueError("background_segmentation_no_alpha")
+    if alpha.getbbox() is None:
+        raise ValueError("background_segmentation_empty")
+    return output, alpha, "rembg"
+
+
+def _encoded_png_bytes(image: Image.Image) -> bytes:
+    buffer = io.BytesIO()
+    image.save(buffer, format="PNG")
+    return buffer.getvalue()
+
+
 def _write_json_atomic(path: Path, payload: dict[str, Any]) -> None:
     temporary = path.with_name(f".{path.name}.tmp")
     temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -88,6 +129,7 @@ def prepare_background_candidate(
         raise ValueError(f"background_input_hash_mismatch:{input_path}")
 
     mask_evidence: dict[str, Any] = {}
+    generated_mask: Image.Image | None = None
     if method == "alpha_passthrough":
         result = process_background(source, "already_transparent", threshold=threshold)
         if result.state != "passed" or result.image is None:
@@ -99,18 +141,31 @@ def prepare_background_candidate(
             raise ValueError(f"background_processing_failed:{','.join(result.reasons)}")
         output = result.image
     else:
-        if mask_path is None:
-            raise ValueError("background_mask_required")
-        mask, mask_bytes, mask_hash = _load_image(mask_path, label="mask")
-        output = _apply_explicit_mask(source, mask)
-        mask_evidence = {
-            "Path": mask_path.as_posix(),
-            "SHA256": mask_hash,
-            "Width": mask.width,
-            "Height": mask.height,
-            "Mode": mask.mode,
-            "ByteLength": len(mask_bytes),
-        }
+        if method == "segmentation":
+            output, generated_mask, provider = _apply_segmentation(source)
+            mask_bytes = _encoded_png_bytes(generated_mask)
+            mask_evidence = {
+                "Path": "segmentation-mask.png",
+                "SHA256": hashlib.sha256(mask_bytes).hexdigest(),
+                "Width": generated_mask.width,
+                "Height": generated_mask.height,
+                "Mode": generated_mask.mode,
+                "ByteLength": len(mask_bytes),
+                "Provider": provider,
+            }
+        else:
+            if mask_path is None:
+                raise ValueError("background_mask_required")
+            mask, mask_bytes, mask_hash = _load_image(mask_path, label="mask")
+            output = _apply_explicit_mask(source, mask)
+            mask_evidence = {
+                "Path": mask_path.as_posix(),
+                "SHA256": mask_hash,
+                "Width": mask.width,
+                "Height": mask.height,
+                "Mode": mask.mode,
+                "ByteLength": len(mask_bytes),
+            }
 
     preview_metrics = measure_candidate(output)
     evidence: dict[str, Any] = {
@@ -140,6 +195,10 @@ def prepare_background_candidate(
     temporary_candidate = staging_dir / ".candidate.png.tmp"
     candidate_path = staging_dir / "candidate.png"
     try:
+        if generated_mask is not None:
+            temporary_mask = staging_dir / ".segmentation-mask.png.tmp"
+            generated_mask.save(temporary_mask, format="PNG")
+            temporary_mask.replace(staging_dir / "segmentation-mask.png")
         output.save(temporary_candidate, format="PNG")
         with Image.open(temporary_candidate) as decoded:
             decoded.load()
@@ -152,6 +211,9 @@ def prepare_background_candidate(
     except Exception:
         if temporary_candidate.exists():
             temporary_candidate.unlink()
+        temporary_mask = staging_dir / ".segmentation-mask.png.tmp"
+        if temporary_mask.exists():
+            temporary_mask.unlink()
         if candidate_path.exists() and not (staging_dir / "background-processing.json").exists():
             candidate_path.unlink()
         raise

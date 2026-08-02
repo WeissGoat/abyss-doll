@@ -1713,10 +1713,11 @@ def visual_intent_for(entry: Dict[str, Any]) -> Dict[str, Any]:
         "prosthetic": "prosthetic machine module icon",
         "item": "single game item icon",
     }.get(domain, f"single {asset_type} game asset")
+    pose_spec = entry.get("PoseSpec") if isinstance(entry.get("PoseSpec"), dict) else {}
     composition_en = {
         "background": "wide composition with readable negative space",
         "monster": "full figure visible with a clear silhouette" if visual_id.endswith("_combat") else "front or three-quarter portrait with a strong silhouette",
-        "doll": "full figure, neutral standing portrait composition",
+        "doll": "full-body portrait with a readable pose silhouette",
         "narrative_cg": "single clear focal point inside the safe area",
         "node": "centered symbol with bold readable silhouette",
         "ui": "clean interface silhouette with no baked text",
@@ -1738,6 +1739,30 @@ def visual_intent_for(entry: Dict[str, Any]) -> Dict[str, Any]:
         set_role = str(entry.get("SetRole", "")).strip()
         if set_role and set_role != "neutral_dialogue_master" and source_facts:
             required_changes.append(source_facts)
+        if pose_spec:
+            pose_class = str(pose_spec.get("PoseClass", "")).strip()
+            body_action = str(pose_spec.get("BodyAction", "")).strip()
+            gesture = str(pose_spec.get("Gesture", "")).strip()
+            weight_shift = str(pose_spec.get("WeightShift", "")).strip()
+            head_shoulders = str(pose_spec.get("HeadShoulder", "")).strip()
+            silhouette = str(pose_spec.get("SilhouetteChange", "")).strip()
+            if pose_class:
+                required_changes.append(f"Pose class: {pose_class}")
+            if body_action:
+                required_changes.append(f"Body action: {body_action}")
+            if gesture:
+                required_changes.append(f"Arm and hand action: {gesture}")
+            if weight_shift:
+                required_changes.append(f"Weight shift: {weight_shift}")
+            if head_shoulders:
+                required_changes.append(f"Head and shoulder relation: {head_shoulders}")
+            if silhouette:
+                required_changes.append(f"Silhouette change: {silhouette}")
+            pose_label = ", ".join(
+                value for value in (pose_class, body_action, gesture, weight_shift) if value
+            )
+            if pose_label:
+                composition_en = f"full-body portrait, {pose_label}, clear readable silhouette"
         for marker, value in (
             ("无血", "blood or gore"),
             ("不画血", "blood or gore"),
@@ -1760,6 +1785,7 @@ def visual_intent_for(entry: Dict[str, Any]) -> Dict[str, Any]:
         "RequiredElements": required_elements,
         "ForbiddenElements": forbidden,
         "RequiredChanges": required_changes,
+        "PoseSpec": copy.deepcopy(pose_spec),
     }
 
 

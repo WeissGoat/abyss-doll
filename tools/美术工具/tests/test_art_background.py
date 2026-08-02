@@ -33,6 +33,21 @@ class ConnectedBackgroundRemovalTests(unittest.TestCase):
         self.assertEqual(result.getpixel((32, 32))[3], 255)
         self.assertGreater(result.getpixel((15, 32))[3], 0)
 
+    def test_checkerboard_border_palette_is_removed_as_background(self) -> None:
+        image = Image.new("RGB", (96, 96))
+        pixels = image.load()
+        for y in range(96):
+            for x in range(96):
+                value = 18 if ((x // 12) + (y // 12)) % 2 == 0 else 104
+                pixels[x, y] = (value, value, value)
+        ImageDraw.Draw(image).ellipse((32, 12, 64, 84), fill=(210, 210, 210))
+
+        result = remove_connected_background(image, threshold=34)
+
+        self.assertEqual(result.getpixel((0, 0))[3], 0)
+        self.assertEqual(result.getpixel((20, 20))[3], 0)
+        self.assertEqual(result.getpixel((48, 48))[3], 255)
+
 
 class BackgroundPolicyTests(unittest.TestCase):
     def test_alpha_required_does_not_imply_auto_simple(self) -> None:

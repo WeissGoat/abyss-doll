@@ -194,6 +194,45 @@ class SelectArtCandidateTests(unittest.TestCase):
         self.assertEqual(selected["PreviousSelected"]["SHA256"], result["PreviousSelected"]["SHA256"])
         self.assertEqual(selected["PolicyResult"], result["PolicyResult"])
 
+    def test_updates_nested_batch_summary_by_production_run_id(self) -> None:
+        self.write_manifest()
+        nested_summary = self.root / "batch" / "formalv2_batch_01" / "summary.json"
+        nested_summary.parent.mkdir(parents=True)
+        nested_summary.write_text(
+            json.dumps(
+                {
+                    "ProductionRunID": "formalv2_batch_01",
+                    "FinalState": "review_required",
+                    "Claims": {"bg_workshop_day": "review_required"},
+                    "ApprovedChanged": False,
+                }
+            ),
+            encoding="utf-8",
+        )
+        self.review_path.write_text(
+            json.dumps(
+                {
+                    "ProductionRunID": "formalv2_batch_01",
+                    "Items": [json.loads(self.review_path.read_text(encoding="utf-8"))["Items"][0]],
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        select_art_candidate(
+            project_root=self.root,
+            manifest_path=self.manifest_path,
+            incoming_root=self.incoming_root,
+            visual_id="bg_workshop_day",
+            review_path=self.review_path,
+            allow_selected_overwrite=False,
+            dry_run=False,
+        )
+
+        summary = json.loads(nested_summary.read_text(encoding="utf-8"))
+        self.assertEqual(summary["FinalState"], "selection_complete")
+        self.assertEqual(summary["Claims"]["bg_workshop_day"], "selected")
+
     def test_rejects_below_threshold_or_older_round_candidate(self) -> None:
         self.write_manifest()
         self.write_review(score=87)

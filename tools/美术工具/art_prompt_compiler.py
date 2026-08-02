@@ -138,6 +138,7 @@ def build_canonical_visual_brief(
         "Forbidden": _list(intent.get("ForbiddenElements")),
         "Preserve": _list(intent.get("Preserve")) + _list(resolved.get("IdentityLocks")),
         "RequiredChanges": _list(intent.get("RequiredChanges")),
+        "PoseSpec": copy.deepcopy(intent.get("PoseSpec") or entry.get("PoseSpec") or {}),
         "ResolvedLayers": copy.deepcopy(resolved.get("ResolvedLayers", [])),
         "SetRole": resolved.get("SetRole", ""),
         "SourceAssets": copy.deepcopy(resolved.get("SourceAssets", [])),
@@ -188,6 +189,7 @@ def build_prompt_authoring_context(
                 "requiredchanges",
                 source="VisualIntent.RequiredChanges",
             ),
+            "PoseSpec": copy.deepcopy(brief.get("PoseSpec") or {}),
             "ForbiddenChanges": _context_items(
                 brief.get("Forbidden"),
                 "forbidden",
@@ -393,6 +395,7 @@ def compile_requirement_request(
     preservation = {
         "Preserve": copy.deepcopy(hard.get("Identity", [])),
         "RequiredChanges": copy.deepcopy(hard.get("RequiredChanges", [])),
+        "PoseSpec": copy.deepcopy(hard.get("PoseSpec", {})),
         "ForbiddenChanges": copy.deepcopy(hard.get("ForbiddenChanges", [])),
         "Required": copy.deepcopy(hard.get("Required", [])),
         "IdentitySources": copy.deepcopy(context.get("Evidence", {}).get("IdentityDocuments", [])),

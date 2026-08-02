@@ -46,6 +46,7 @@ PRESERVE_FIELDS = [
     "AssetID",
     "SetRole",
     "SourceAssets",
+    "PoseSpec",
     "StyleRef",
     "VisualIntent",
     "CompiledRequest",
@@ -493,6 +494,7 @@ def add_preset_assets(
             "AssetID": data.get("AssetID"),
             "SetRole": data.get("SetRole"),
             "SourceAssets": data.get("SourceAssets"),
+            "PoseSpec": data.get("PoseSpec"),
         }
         source_owned_fields = {key for key in extra_fields if key in data}
         add_entry(

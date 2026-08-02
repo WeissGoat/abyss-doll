@@ -6,6 +6,7 @@ from __future__ import annotations
 import hashlib
 import io
 import math
+from collections import Counter
 from collections import deque
 from dataclasses import dataclass
 from pathlib import Path
@@ -51,6 +52,32 @@ def _sample_border_color(image: Image.Image) -> tuple[int, int, int]:
     return tuple(sorted(channel)[len(channel) // 2] for channel in zip(*colors))
 
 
+def _sample_border_palette(image: Image.Image, *, max_colors: int = 4) -> list[tuple[int, int, int]]:
+    """Return dominant quantized border colors, including checkerboard pairs."""
+
+    rgb = image.convert("RGB")
+    width, height = rgb.size
+    stride = max(1, min(width, height) // 128)
+    samples: list[tuple[int, int, int]] = []
+    for x in range(0, width, stride):
+        samples.append(rgb.getpixel((x, 0)))
+        samples.append(rgb.getpixel((x, height - 1)))
+    for y in range(0, height, stride):
+        samples.append(rgb.getpixel((0, y)))
+        samples.append(rgb.getpixel((width - 1, y)))
+    buckets = Counter(
+        (round(red / 4) * 4, round(green / 4) * 4, round(blue / 4) * 4)
+        for red, green, blue in samples
+    )
+    palette: list[tuple[int, int, int]] = []
+    for color, _count in buckets.most_common():
+        if all(_rgb_distance(color, existing) > 18 for existing in palette):
+            palette.append(color)
+        if len(palette) >= max_colors:
+            break
+    return palette or [_sample_border_color(image)]
+
+
 def _rgb_distance(left: tuple[int, int, int], right: tuple[int, int, int]) -> float:
     return math.sqrt(sum((left[index] - right[index]) ** 2 for index in range(3)))
 
@@ -65,7 +92,7 @@ def remove_connected_background(image: Image.Image, threshold: int) -> Image.Ima
     if width == 0 or height == 0:
         return rgba
 
-    background = _sample_border_color(rgba)
+    background_palette = _sample_border_palette(rgba)
     pixels = rgba.load()
     visited: set[tuple[int, int]] = set()
     queue: deque[tuple[int, int]] = deque()
@@ -74,7 +101,7 @@ def remove_connected_background(image: Image.Image, threshold: int) -> Image.Ima
         if (x, y) in visited:
             return
         red, green, blue, _ = pixels[x, y]
-        if _rgb_distance((red, green, blue), background) <= threshold:
+        if min(_rgb_distance((red, green, blue), color) for color in background_palette) <= threshold:
             visited.add((x, y))
             queue.append((x, y))
 
@@ -105,7 +132,7 @@ def remove_connected_background(image: Image.Image, threshold: int) -> Image.Ima
                 boundary_neighbors.add((next_x, next_y))
     for x, y in boundary_neighbors:
         red, green, blue, alpha = output_pixels[x, y]
-        distance = _rgb_distance((red, green, blue), background)
+        distance = min(_rgb_distance((red, green, blue), color) for color in background_palette)
         if distance <= threshold + feather:
             factor = max(0.0, min(1.0, (distance - threshold) / feather))
             output_pixels[x, y] = (red, green, blue, int(alpha * factor))

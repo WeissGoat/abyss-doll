@@ -52,7 +52,7 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
   -DryRun
 ```
 
-`alpha_passthrough` 只接受已经具有有效透明度的图片；`connected_border` 只适合与画布边界连通且可稳定区分的简单背景；`explicit_mask` 必须提供同尺寸、非全黑且非全白的 mask。输出包含候选 PNG 与 `background-processing.json`，并拒绝把 staging 指向任何 `processed/`、`selected/` 或 Approved 路径。通过技术和视觉检查后，仍须使用 `Register-ArtProcessingRound.ps1` 发布下一不可变数字轮次。
+`alpha_passthrough` 只接受已经具有有效透明度的图片；`connected_border` 只适合与画布边界连通且可稳定区分的简单背景；`explicit_mask` 必须提供同尺寸、非全黑且非全白的 mask；`segmentation` 使用可选的 `rembg` 语义分割生成并保存显式 mask，后端缺失或输出无效时 fail-closed。输出包含候选 PNG、mask（如适用）与 `background-processing.json`，并拒绝把 staging 指向任何 `processed/`、`selected/` 或 Approved 路径。通过技术和视觉检查后，仍须使用 `Register-ArtProcessingRound.ps1` 发布下一不可变数字轮次。
 
 ## Register-ArtProcessingRound.ps1
 

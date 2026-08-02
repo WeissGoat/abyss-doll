@@ -8,6 +8,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 from PIL import Image
@@ -122,6 +123,19 @@ class PrepareArtBackgroundCandidateTests(unittest.TestCase):
                     staging_dir=self.root / "processing_candidates" / mask_path.stem,
                     method="explicit_mask",
                     mask_path=mask_path,
+                    expected_input_sha256=self.digest(source),
+                )
+
+    def test_segmentation_fails_closed_when_backend_is_unavailable(self) -> None:
+        source = self.make_image("checker.png", Image.new("RGB", (8, 8), (80, 80, 80)))
+        staging = self.root / "processing_candidates" / "segmentation_unavailable"
+
+        with patch.dict(sys.modules, {"rembg": None}):
+            with self.assertRaisesRegex(ValueError, "background_segmentation_unavailable"):
+                prepare_background_candidate(
+                    input_path=source,
+                    staging_dir=staging,
+                    method="segmentation",
                     expected_input_sha256=self.digest(source),
                 )
 
