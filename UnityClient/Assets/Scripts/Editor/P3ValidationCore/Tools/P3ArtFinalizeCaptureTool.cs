@@ -1,2 +1,28 @@
-using MCPForUnity.Editor.Helpers;using MCPForUnity.Editor.Tools;using Newtonsoft.Json.Linq;using P3.Validation;
-[McpForUnityTool("p3_art_finalize_capture",Description="Finalize an exact prepared MCP Game View capture ticket")] public static class P3ArtFinalizeCaptureTool{public static object HandleCommand(JObject p){try{var run=p.Value<string>("run_id");var ticket=p.Value<string>("capture_ticket_id");var a=ArtEvidenceService.Finalize(run,ticket);var t=ArtCaptureTicketStore.Load(run,ticket);ArtValidationOrchestrator.RecordCapture(run,t.Role,t.TargetId);return new SuccessResponse("MCP capture finalized",a);}catch(System.Exception e){return new ErrorResponse(e.Message);}}}
+using MCPForUnity.Editor.Helpers;
+using MCPForUnity.Editor.Tools;
+using Newtonsoft.Json.Linq;
+using P3.Validation;
+
+[McpForUnityTool("p3_art_finalize_capture", Description = "Finalize an exact prepared MCP Game View capture ticket")]
+public static class P3ArtFinalizeCaptureTool
+{
+    public sealed class Parameters
+    {
+        [ToolParameter("ArtRunID")] public string run_id { get; set; }
+        [ToolParameter("Prepared capture ticket ID")] public string capture_ticket_id { get; set; }
+    }
+
+    public static object HandleCommand(JObject p)
+    {
+        try
+        {
+            var run = p.Value<string>("run_id");
+            var ticket = p.Value<string>("capture_ticket_id");
+            var a = ArtEvidenceService.Finalize(run, ticket);
+            var t = ArtCaptureTicketStore.Load(run, ticket);
+            ArtValidationOrchestrator.RecordCapture(run, t.Role, t.TargetId);
+            return new SuccessResponse("MCP capture finalized", a);
+        }
+        catch (System.Exception e) { return new ErrorResponse(e.Message); }
+    }
+}

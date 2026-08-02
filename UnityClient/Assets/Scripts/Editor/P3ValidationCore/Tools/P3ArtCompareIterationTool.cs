@@ -1,2 +1,28 @@
-using MCPForUnity.Editor.Helpers;using MCPForUnity.Editor.Tools;using Newtonsoft.Json.Linq;using P3.Validation;
-[McpForUnityTool("p3_art_compare_iteration",Description="Preview, persist or complete one typed registered P3 art iteration")] public static class P3ArtCompareIterationTool{public static object HandleCommand(JObject p){try{var action=(p.Value<string>("action")??"preview").ToLowerInvariant();var r=p["change"].ToObject<ArtIterationRequest>();if(action=="preview")return new SuccessResponse("Art preview applied",ArtIterationServiceV2.Preview(r));if(action=="persist")return new SuccessResponse("Art change persisted",ArtIterationServiceV2.Persist(r));if(action=="complete")return new SuccessResponse("Art iteration evidence complete",ArtIterationServiceV2.Complete(r));return new ErrorResponse("unknown action");}catch(System.Exception e){return new ErrorResponse(e.Message);}}}
+using MCPForUnity.Editor.Helpers;
+using MCPForUnity.Editor.Tools;
+using Newtonsoft.Json.Linq;
+using P3.Validation;
+
+[McpForUnityTool("p3_art_compare_iteration", Description = "Preview, persist or complete one typed registered P3 art iteration")]
+public static class P3ArtCompareIterationTool
+{
+    public sealed class Parameters
+    {
+        [ToolParameter("Action: preview, persist, or complete", DefaultValue = "preview", Required = false)] public string action { get; set; }
+        [ToolParameter("Typed art iteration change object")] public object change { get; set; }
+    }
+
+    public static object HandleCommand(JObject p)
+    {
+        try
+        {
+            var action = (p.Value<string>("action") ?? "preview").ToLowerInvariant();
+            var r = p["change"].ToObject<ArtIterationRequest>();
+            if (action == "preview") return new SuccessResponse("Art preview applied", ArtIterationServiceV2.Preview(r));
+            if (action == "persist") return new SuccessResponse("Art change persisted", ArtIterationServiceV2.Persist(r));
+            if (action == "complete") return new SuccessResponse("Art iteration evidence complete", ArtIterationServiceV2.Complete(r));
+            return new ErrorResponse("unknown action");
+        }
+        catch (System.Exception e) { return new ErrorResponse(e.Message); }
+    }
+}

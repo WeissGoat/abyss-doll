@@ -1,3 +1,17 @@
+---
+id: p3_mcp_parameter_schema_design
+title: P3 MCP 参数 Schema 设计
+type: design
+role: 程序
+domain: mcp_validation
+status: implemented
+source_of_truth: false
+related:
+  - docs/superpowers/plans/2026-08-02-p3-mcp-parameter-schema.md
+last_verified: 2026-08-02
+update_rule: MCP 工具发现契约变化时同步更新，并通过 P3 MCP Schema Smoke 验证。
+---
+
 # P3 MCP Parameter Schema Design
 
 ## Goal

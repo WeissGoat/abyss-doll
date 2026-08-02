@@ -18,11 +18,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：285
-- 已补元数据：281
+- 文档总数：287
+- 已补元数据：283
 - 缺少元数据：4
 - 事实来源文档：196
-- 关联边数：1511
+- 关联边数：1512
 - 跨职能关联：308
 
 ## 事实来源
@@ -358,7 +358,9 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 |---|---|---|---|---|---|
 | [程序 / Unity 状态](agent_status/program.md) | `status` | `active` | `unity_programming` | 20 | 完整 |
 | [AI 图片网关透明流式模式实施计划](docs/superpowers/plans/2026-07-18-ai-image-gateway-transparent-streaming.md) | `plan` | `draft` | `ai_image_gateway` | 0 | 完整 |
+| [P3 MCP 参数 Schema 实现计划](docs/superpowers/plans/2026-08-02-p3-mcp-parameter-schema.md) | `plan` | `active` | `mcp_validation` | 1 | 完整 |
 | [AI 图片网关透明流式模式设计](docs/superpowers/specs/2026-07-18-ai-image-gateway-transparent-streaming-design.md) | `design` | `implemented` | `ai_image_gateway` | 0 | 完整 |
+| [P3 MCP 参数 Schema 设计](docs/superpowers/specs/2026-08-02-p3-mcp-parameter-schema-design.md) | `design` | `active` | `mcp_validation` | 1 | 完整 |
 | [Config Tools](tools/config/README.md) | `tool` | `active` | `config_tooling` | 5 | 完整 |
 | [程序开发大纲与系统索引](开发文档/00_程序开发大纲.md) | `dev` | `active` | `program_architecture` | 23 | 完整 |
 | [核心数据容器系统 (Core Data System)](开发文档/01_核心数据与实体容器(CoreData).md) | `dev` | `active` | `core_data` | 10 | 完整 |
