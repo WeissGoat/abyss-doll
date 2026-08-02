@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-08-02T11:34:10+08:00",
-  "SnapshotTag": "art_import_formalv2_catalog_v2_bridge_batch_20260802_01",
+  "GeneratedAt": "2026-08-02T11:24:24+08:00",
+  "SnapshotTag": "approved_sync",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",

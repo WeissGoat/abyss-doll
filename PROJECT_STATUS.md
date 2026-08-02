@@ -72,7 +72,7 @@ related:
   - 知识库/views/program.md
   - tools/agent/README.md
   - tools/p3-mission/README.md
-last_verified: 2026-08-01
+last_verified: 2026-08-02
 update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。
 ---
 
@@ -82,7 +82,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 ## 最后更新
 
-2026-08-01
+2026-08-02
 
 ## 当前阶段
 
@@ -108,11 +108,12 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 4. 策划 C1-C3 配置源和当前程序支持已收口；当前继续 C4 局外成长及后续配置，只按真实缺口补齐、校准或修复。
 5. 程序继续围绕正常 UI 可达、真实领域服务、状态真实变化和 Smoke / P0 证据处理缺口，不重复派发已通过的基础链路。
 6. 美术生产已统一为数字处理轮次；Zero 的 `doll_zero_dialogue_neutral` 与三张姿势差分已完成 Approved、Unity 导入和 Registry 登记，其余 10 个静态立绘成员保持 selected，尚未获得 Approved 授权或运行时绑定。
-7. 美术 Request Catalog 已完成 v2 PromptRevision 迁移：313 个 Requirement strict 通过，3 个 Pilot 为 `prompt_ready`、其余 310 个保持 `prompt_authoring_required`；`formalv2_catalog_v2_bridge_batch_20260801_01_exec` 已把 `bg_combat_abyss` 与 `ui_icon_warning` 的新批量流真实推进到 `processed/5 -> selected`，4/4 raw 与技术门禁通过。两项 Manifest 的既有 `approved / registered` 不代表本批最新 selected 已覆盖 Approved；后续需独立授权和 ArtImportRun。
+7. 美术 Request Catalog 已完成 v2 PromptRevision 迁移：313 个 Requirement strict 通过，3 个 Pilot 为 `prompt_ready`、其余 310 个保持 `prompt_authoring_required`；`formalv2_catalog_v2_bridge_batch_20260801_01_exec` 已把 `bg_combat_abyss` 与 `ui_icon_warning` 的新批量流真实推进到 `processed/5 -> selected`，4/4 raw 与技术门禁通过，随后 `art_import_formalv2_catalog_v2_bridge_batch_20260802_01` 已完成最新候选的 Approved、Unity 导入和 Registry 登记。两项当前公开状态为 `registered`，尚不包含运行时消费或 `runtime_validated`。
 
 ## 跨职能交接
 
 - `formalv2_standard_ui_batch_20260801_01` completed UI / standard-asset batch production and selection for `bg_dungeon_map`, `ui_icon_locked`, and `ui_icon_money`; raw, latest `processed` rounds, visual review, and `selected` evidence are present, with batch summary `selection_complete`. The independent Approved -> Unity import -> Registry run is also complete; the public state is `approved -> registered`, excluding UGUI runtime integration and `runtime_validated`. The nested batch-summary writeback bug was fixed and covered by 13/13 regression tests.
+- `formalv2_catalog_v2_bridge_batch_20260801_01_exec` 的 `bg_combat_abyss` 与 `ui_icon_warning` 最新 selected 已通过 `art_import_formalv2_catalog_v2_bridge_batch_20260802_01` 完成 Approved -> Unity import -> Registry；GUID 保持不变、Registry 无缺口，公开状态为 `registered`。程序后续只有在真实 UGUI / Prefab 消费任务中才进入运行时绑定和 ArtAcceptance。
 
 - 游戏导演维护 `13`、`14`、`09` 和全局完成口径；Owner 维护目标模块并按受影响 Role 条件展开。
 - 剧情、策划、程序和美术分别维护专业事实；Owner 自验不替代专业 Role 外部验收。
@@ -127,8 +128,8 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - T0-01B / T0-01C 和 T2 详细设计尚未完成。
 - Zero neutral 与三张姿势差分的素材接入链已到 `registered`，当前未完成的是 Prefab / UGUI 运行时消费、容器裁切和美术验收；其余 10 个成员仍在 Approved 授权边界。`registered -> runtime_validated` 的 ArtRun binding/finalize 机制已实现，但尚未对这些新增差分执行正式 TargetID 运行时验收。
 - 本轮已完成真实 provider smoke、背景/透明图标批量生成、逐项视觉评审、Approved 同名覆盖与 live Unity Registry 登记；后续扩大批次仍需逐批 smoke、技术门禁和 Agent 视觉评审，不能把 Catalog `ready`、raw 或 `selected` 解释为 Approved / registered / runtime_validated。
-- `formalv2_catalog_v2_bridge_batch_20260801_01_exec` 已完成真实 provider smoke、背景/图标 4/4 raw、`processed/5` 技术门禁和 guarded selection；两项当前只新增/更新 selected，最新候选尚未覆盖 Approved。运行当时的 `validation_limited:unity_editor_unavailable` 已被后续 Zero ArtImportRun 的成功连接解除为历史限制，当前剩余门禁是独立授权和 ArtImportRun。
-- 严格美术生成物聚合校验中，Request Catalog 已通过；离线 Registry candidate 仍报告既有 `changed_existing=19`，不归因于本轮编译迁移，后续需单独收口。
+- `formalv2_catalog_v2_bridge_batch_20260801_01_exec` 已完成真实 provider smoke、背景/图标 4/4 raw、`processed/5` 技术门禁和 guarded selection；最新候选也已在独立 ArtImportRun 中同步 Approved 并完成 Unity / Registry 现场验证。运行时绑定与 `runtime_validated` 仍属于后续程序消费和美术验收任务，不在本批声明范围内。
+- 严格美术生成物聚合校验中，Request Catalog 与本批 live Registry 证据均通过；离线 Registry candidate 仍报告既有 `changed_existing=22`，均为 candidate 缺少的 T0 CG / 工坊和 Zero 已登记条目，不包含本批两个 VisualID，后续需单独刷新收口。
 
 ## 下一步总建议
 
@@ -136,7 +137,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 2. B / C 段收口后完善 T2，把出售、账单、维护、传闻 / 基础订单和成长目标组织成下一轮下潜理由。
 3. 策划继续 C4 配置源落地；程序和美术只围绕当前 Owner 玩家结果处理真实缺口。
 4. 以 Zero neutral 的真实接入证据为模板，按用户授权逐个推进剩余 10 个 selected 成员；运行时绑定和 ArtAcceptance 留给后续独立任务。
-5. 以已验证的 Request Catalog 和 `formalv2_catalog_v2_bridge_batch_20260801_01_exec` 为模板，继续扩大标准背景/图标小批次；`zero_pose_variation_20260801_01` 已完成 selected -> Approved -> Unity import -> Registry target validation。UI nine-slice 与角色立绘继续使用各自独立 route，运行时绑定和 ArtAcceptance 单独安排。
+5. 以已验证并完成 `registered` 闭环的 Request Catalog 批次为模板，继续扩大标准背景/图标小批次；`zero_pose_variation_20260801_01` 也已完成 selected -> Approved -> Unity import -> Registry target validation。UI nine-slice 与角色立绘继续使用各自独立 route，运行时绑定和 ArtAcceptance 单独安排。
 
 ## 关键入口
 
