@@ -13,14 +13,14 @@ related:
   - 美术文档/00_美术流水线总览.md
   - 美术文档/04_美术风格基准.md
   - tools/美术工具/README.md
-last_verified: 2026-07-31
+last_verified: 2026-08-02
 update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
 ---
 
 # Manifest 规范
 
 > **定位：** 规定 `art_manifest.json` 的字段结构、字段含义，以及美术流水线每一步应该填充哪些字段。
-> **更新时间：** 2026-07-31
+> **更新时间：** 2026-08-02
 
 ---
 
@@ -233,7 +233,7 @@ Manifest 顶层可以包含以下生成快照：
 | 字段 | 说明 |
 |---|---|
 | `ArtStyleCatalog` | 从美术风格基准、Token 和专项事实规范化的风格快照，包含 `CatalogFingerprint`。 |
-| `AssetSets` | 角色立绘等相关成员的身份来源、IdentityLocks、一致性规则和成员关系。 |
+| `AssetSets` | 角色立绘等相关成员的身份来源、IdentityContract、PresentationGroup、一致性规则、成员关系和最新有效套组评审指针。 |
 | `Entries` | 单项资产需求、StyleRef、VisualIntent、Spec、状态和编译请求引用。 |
 
 ### 7.2 Entry 新字段
@@ -242,6 +242,8 @@ Manifest 顶层可以包含以下生成快照：
 |---|---|
 | `StyleRef` | `Profile`、可选 `Family`、可选 `Role` 和允许的 `ContextAccent`。不得从 VisualID 推断。 |
 | `VisualIntent` | 资产最终视觉需求，包括 Subject、Appearance、Mood、Composition、RequiredElements 和 ForbiddenElements。 |
+| `RequirementSources` | 同一正式视觉需求的一个或多个配置、推导或预置来源。多个来源只允许存在于单一 VisualID Entry 内。 |
+| `VisualReusePolicy` | 多来源共用视觉时的显式决策；`Mode=shared_visual` 必须有 Reason 和事实来源。不得根据 Prompt 相同自动推断。 |
 | `CompiledRequest` | `RequestID`、`RequirementFingerprint`、`RequirementStatus`、`PromptAuthoringStatus` 和 `ActivePromptRevisionID`，指向持久化需求与当前 PromptRevision。 |
 
 ### 7.3 编译请求
@@ -267,9 +269,34 @@ Request Catalog v2 把需求与 Prompt 分开：
 
 当 Catalog、StyleRef、VisualIntent、Spec、AssetSet 身份合同或编译器版本变化时，`RequirementFingerprint` 变化，旧 PromptRevision 因绑定旧 fingerprint 自动 stale。`Status`、候选批次 / raw 列表、替换批次、质量时间戳、路径和 Registry 等运行态证据不参与 Manifest fingerprint；这些字段在 `selected -> approved -> registered -> runtime_validated` 或新处理轮次中变化时，不要求重新编译。缺少 Requirement、fingerprint / active pointer 不匹配、`prompt_authoring_required`、Revision 无效、目标 Variant 未 ready 或硬约束映射不完整时，生成必须在 provider 调用前失败。
 
+Catalog 编译前必须检查 `VisualID`、`RequestID` 和 `OutputPath` 唯一性。相同 VisualID 的多个来源只有在已经归一为单一 Entry、且 `VisualReusePolicy=shared_visual` 明确成立时才允许继续；否则输出 collision report 并保持已有正式 Catalog 不变。局部 `--visual-id` 重编译只能按 VisualID 合并回完整 Catalog，不能用局部集合覆盖未参与本次编译的 Request。
+
+Catalog `Summary` 是 Requests 的派生值，不是独立事实。编译和 PromptRevision 发布都必须调用同一重算逻辑；strict validator 应从 Requests 独立重算，并在文件值不一致时报 `catalog_summary_stale`。Manifest、Catalog 和 migration report 只有在唯一性、pointer 和 Summary 校验全部通过后才能原子发布。
+
 处理候选位于当前 Profile 工作区的 `processed/<正整数>/`。Manifest `SelectedPath` 可明确指向 `selected/` 或某个数字轮次中的候选；自动解析优先级为 `SelectedPath -> selected/ -> 最新数字轮次中唯一且通过的候选`。最新轮次失败、待决策、未验证或多候选时禁止回退旧轮次。
 
 `technical_override.json`、`ReplacementBaseline`、`ReplacementPolicy` 和 `portrait-set-run.json` 不会改变 Manifest 的稳定 schema。override 必须由用户或上游调用方通过命令参数显式授权；替换候选必须基于执行时仍匹配的 `SelectedPath` / `SelectedSHA256`，且通过严格分数与保护维度门禁后才可写入 selected。
+
+### 7.5 角色 AssetSet 合同
+
+`character_portrait_set` 的稳定角色事实维护在结构化需求源的 `AssetSets` 中，Manifest 只保存生成快照；不得在编译器里硬编码具体角色的 IdentityLocks。每个角色合同保持轻量：
+
+```json
+{
+  "IdentityContract": {
+    "Version": 1,
+    "Required": ["角色必须保持的事实"],
+    "Forbidden": ["角色禁止出现的事实"],
+    "Conditional": ["仅在目标状态明确要求时允许的变化"]
+  }
+}
+```
+
+成员使用 `PresentationGroup` 表达运行时快速切换族，例如 `dialogue_standing`、`maintenance_seated`、`combat_cutin`、`narrative_cutin`。该字段只控制套组一致性检查范围，不限制生成方法或姿势设计。
+
+套组评审通过后，Manifest `AssetSets.<AssetSetID>.LatestConsistencyReview` 只保存 `State`、`SetSnapshotFingerprint`、`ProductionRunID` 和 `EvidencePath`。它是当前证据指针，不是第二套进度表；任一 selected 成员 SHA 改变后指纹不匹配，旧报告自动失效。
+
+> 2026-08-02 状态：本节为已确认目标 schema，当前工具和生成物尚未完成迁移，不能据此声明门禁已生效。
 
 从 2026-05-10 起，`Spec` 分为四组：
 
