@@ -223,7 +223,7 @@ def build_final_summary(run_dir: Path, selected: list[str], contact_sheet: Path)
     summary = {
         "run_dir": str(run_dir),
         "source_design_doc": "美术文档/人设/03_零号初版人设方案.md",
-        "prompt_doc": "美术文档/人设/04_零号AI后端出图提示词对比.md",
+        "prompt_doc": "美术文档/archive/04_零号AI后端出图提示词对比.md",
         "contact_sheet": str(contact_sheet),
         "backends": backends,
         "notes": {

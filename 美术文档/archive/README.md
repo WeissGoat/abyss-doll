@@ -13,7 +13,8 @@ related:
   - 美术文档/archive/08_Unity运行时美术验收工具需求.md
   - 美术文档/archive/10_美术验收截图优化与真实数据驱动演进方案.md
   - 美术文档/archive/15_FormalV2运行时验收待办清单.md
-last_verified: 2026-07-14
+  - 美术文档/archive/04_零号AI后端出图提示词对比.md
+last_verified: 2026-08-02
 update_rule: 新增、恢复或移动归档文档时同步本文件。
 ---
 
@@ -32,6 +33,7 @@ update_rule: 新增、恢复或移动归档文档时同步本文件。
 | [08_Unity运行时美术验收工具需求.md](08_Unity运行时美术验收工具需求.md) | 旧 ArtAcceptance 工具需求和交付说明，日常验收已改为 MCP live-first。 | [../../开发文档/19_UnityMCP验收编排层设计.md](../../开发文档/19_UnityMCP验收编排层设计.md)、[../../开发文档/14_Unity运行时美术自动验收方案.md](../../开发文档/14_Unity运行时美术自动验收方案.md) |
 | [10_美术验收截图优化与真实数据驱动演进方案.md](10_美术验收截图优化与真实数据驱动演进方案.md) | 已完成的一次性截图真实数据驱动演进方案，旧 Runner 现只作全量回归后端。 | [../../开发文档/19_UnityMCP验收编排层设计.md](../../开发文档/19_UnityMCP验收编排层设计.md) |
 | [15_FormalV2运行时验收待办清单.md](15_FormalV2运行时验收待办清单.md) | 2026-06-13 FormalV2 批次门禁快照，继续 active 会形成第二套状态表。 | [../ui_design/ui_iteration_process.md](../ui_design/ui_iteration_process.md)、[../../agent_status/art.md](../../agent_status/art.md) |
+| [04_零号AI后端出图提示词对比.md](04_零号AI后端出图提示词对比.md) | 2026-07 的三后端提示词实验与母版筛选记录；机械提示词和批次命令已不再是当前生产入口。 | [../../.codex/skills/p3-generate-image/SKILL.md](../../.codex/skills/p3-generate-image/SKILL.md)、[../人设/05_零号立绘素材设计与交付清单.md](../人设/05_零号立绘素材设计与交付清单.md) |
 
 ## 归档规则
 

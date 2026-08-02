@@ -21,8 +21,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - 文档总数：285
 - 已补元数据：281
 - 缺少元数据：4
-- 事实来源文档：197
-- 关联边数：1515
+- 事实来源文档：196
+- 关联边数：1511
 - 跨职能关联：308
 
 ## 事实来源
@@ -130,7 +130,6 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [人设参考获取规则](美术文档/人设/01_人设参考获取规则.md) - `art` / `character_design_reference`
 - [零号原型参考：失明少女（漆黑的子弹）](美术文档/人设/02_零号原型参考_失明少女.md) - `art` / `character_design_reference`
 - [零号初版人设方案](美术文档/人设/03_零号初版人设方案.md) - `art` / `character_design`
-- [零号AI后端出图提示词对比](美术文档/人设/04_零号AI后端出图提示词对比.md) - `art` / `character_design_generation`
 - [零号立绘素材设计与交付清单](美术文档/人设/05_零号立绘素材设计与交付清单.md) - `art` / `character_portrait_asset_design`
 - [人设文档入口](美术文档/人设/README.md) - `art` / `character_design`
 - [正式配置设计与填充推进计划](设计文档/config/26_正式配置设计与填充推进计划.md) - `plan` / `formal_config_authoring`
@@ -500,7 +499,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 31 | 完整 |
+| [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 30 | 完整 |
 | [Approved 到 Unity 导入与 Registry 登记自动化实施计划](docs/superpowers/plans/2026-07-18-art-approved-unity-registry-automation.md) | `plan` | `active` | `art_asset_integration` | 0 | 完整 |
 | [GIF 小循环人物替换实现计划](docs/superpowers/plans/2026-07-18-gif-character-replacement.md) | `plan` | `planned` | `gif_character_replacement` | 1 | 完整 |
 | [Unified Art Processing Rounds Implementation Plan](docs/superpowers/plans/2026-07-18-unified-art-processing-rounds.md) | `plan` | `active` | `art_processing_pipeline` | 0 | 完整 |
@@ -523,7 +522,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Manifest 规范](美术文档/01_Manifest规范.md) | `art` | `active` | `art_manifest` | 6 | 完整 |
 | [资源规格与接入规范](美术文档/02_资源规格与接入规范.md) | `art` | `active` | `art_asset_spec` | 10 | 完整 |
 | [AI 美术资产质量与筛选准入规范](美术文档/03_AI生成与筛选规范.md) | `art` | `active` | `ai_art_quality` | 6 | 完整 |
-| [美术风格基准](美术文档/04_美术风格基准.md) | `art` | `active` | `art_style` | 11 | 完整 |
+| [美术风格基准](美术文档/04_美术风格基准.md) | `art` | `active` | `art_style` | 10 | 完整 |
 | [AI 图片生成能力与网关契约](美术文档/05_AI图片网关接入方案.md) | `art` | `active` | `ai_image_gateway` | 8 | 完整 |
 | [运行时美术验收记录](美术文档/09_运行时美术验收记录.md) | `art` | `active` | `runtime_art_validation` | 9 | 完整 |
 | [正式版核心纵切美术路线](美术文档/10_正式版核心纵切美术路线.md) | `art` | `active` | `formal_art_route` | 20 | 完整 |
@@ -534,14 +533,15 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [CG底图与漫画式播放演出工作流](美术文档/18_CG底图与漫画式播放演出工作流.md) | `art` | `active` | `narrative_cg_art_pipeline` | 4 | 完整 |
 | [T0-01 序章 CG 细案](美术文档/19_T0-01序章CG细案.md) | `art` | `active` | `narrative_cg_art_pipeline` | 6 | 完整 |
 | [GIF 小循环人物替换工作流](美术文档/20_GIF小循环人物替换工作流.md) | `art` | `active` | `gif_character_replacement` | 5 | 完整 |
-| [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 24 | 完整 |
+| [美术文档索引](美术文档/README.md) | `art` | `active` | `art_pipeline` | 23 | 完整 |
+| [零号AI后端出图提示词对比](美术文档/archive/04_零号AI后端出图提示词对比.md) | `art` | `historical` | `character_design_generation` | 4 | 完整 |
 | [MVP 素材接入状态同步](美术文档/archive/06_MVP素材接入状态同步.md) | `art` | `historical` | `mvp_art_archive` | 2 | 完整 |
 | [MVP UI 重新设计同步](美术文档/archive/07_MVP_UI重新设计同步.md) | `art` | `historical` | `mvp_ui_archive` | 2 | 完整 |
 | [Unity 运行时美术验收工具需求与交付状态](美术文档/archive/08_Unity运行时美术验收工具需求.md) | `art` | `historical` | `runtime_art_validation` | 4 | 完整 |
 | [P0 UI 骨架接入交付](美术文档/archive/11_P0_UI骨架接入交付.md) | `art` | `historical` | `ui_handoff` | 7 | 完整 |
 | [P1 Formal V1 UI 接入准备](美术文档/archive/12_P1_UI骨架接入准备.md) | `art` | `historical` | `ui_handoff` | 7 | 完整 |
 | [FormalV2 Runtime Acceptance Checklist](美术文档/archive/15_FormalV2运行时验收待办清单.md) | `art` | `historical` | `art_acceptance` | 3 | 完整 |
-| [美术归档文档](美术文档/archive/README.md) | `art` | `active` | `art_archive` | 6 | 完整 |
+| [美术归档文档](美术文档/archive/README.md) | `art` | `active` | `art_archive` | 7 | 完整 |
 | [UI 设计流水线](美术文档/ui_design/README.md) | `art` | `active` | `art_pipeline` | 23 | 完整 |
 | [营业结算演出界面 Formal V1](美术文档/ui_design/formal_v1/business_settlement_v1.md) | `art` | `active` | `ui_design` | 7 | 完整 |
 | [底盘升级界面 Formal V1](美术文档/ui_design/formal_v1/chassis_upgrade_panel_v1.md) | `art` | `active` | `ui_design` | 4 | 完整 |
@@ -597,10 +597,9 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Formal V1 Candidate Optional Staging](美术文档/ui_design/versions/formal_v1_candidate/README.md) | `art` | `draft` | `ui_design` | 3 | 完整 |
 | [UI 设计版本迁移记录](美术文档/ui_design/versions/migration_log.md) | `art` | `active` | `ui_design` | 16 | 完整 |
 | [MVP UI Baseline 2026-05-22](美术文档/ui_design/versions/mvp_baseline_2026-05-22/README.md) | `art` | `frozen` | `ui_design` | 3 | 完整 |
-| [人设参考获取规则](美术文档/人设/01_人设参考获取规则.md) | `art` | `active` | `character_design_reference` | 9 | 完整 |
+| [人设参考获取规则](美术文档/人设/01_人设参考获取规则.md) | `art` | `active` | `character_design_reference` | 8 | 完整 |
 | [零号原型参考：失明少女（漆黑的子弹）](美术文档/人设/02_零号原型参考_失明少女.md) | `art` | `active` | `character_design_reference` | 7 | 完整 |
-| [零号初版人设方案](美术文档/人设/03_零号初版人设方案.md) | `art` | `active` | `character_design` | 9 | 完整 |
-| [零号AI后端出图提示词对比](美术文档/人设/04_零号AI后端出图提示词对比.md) | `art` | `active` | `character_design_generation` | 8 | 完整 |
+| [零号初版人设方案](美术文档/人设/03_零号初版人设方案.md) | `art` | `active` | `character_design` | 8 | 完整 |
 | [零号立绘素材设计与交付清单](美术文档/人设/05_零号立绘素材设计与交付清单.md) | `art` | `active` | `character_portrait_asset_design` | 7 | 完整 |
 | [零号高频对话差分Gemini首批筛选记录](美术文档/人设/AI出图/zero_dialogue_differences_20260712_01/selection_review.md) | `art` | `active` | `character_dialogue_portrait_review` | 1 | 完整 |
 | [零号P0身份锚点Gemini首批筛选记录](美术文档/人设/AI出图/zero_portrait_p0_20260711_01/selection_review.md) | `art` | `active` | `character_portrait_generation_review` | 1 | 完整 |

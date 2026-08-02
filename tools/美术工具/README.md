@@ -17,7 +17,7 @@ related:
   - 美术文档/04_美术风格基准.md
   - 美术文档/人设/README.md
   - 美术文档/人设/01_人设参考获取规则.md
-  - 美术文档/人设/04_零号AI后端出图提示词对比.md
+  - 美术文档/archive/04_零号AI后端出图提示词对比.md
   - 美术文档/ui_design/formal_v2/README.md
   - 美术文档/ui_design/formal_v2/design_boards/README.md
 last_verified: 2026-08-01
@@ -143,7 +143,7 @@ Agent 执行纯图片生成、图生图、差分或 inpaint 前，先读取 `.co
 .\tools\美术工具\Generate-ZeroPrototypeBackendBatch.ps1 -Only novelai -Count 1
 ```
 
-提示词与批次口径见 [美术文档/人设/04_零号AI后端出图提示词对比.md](../../美术文档/人设/04_零号AI后端出图提示词对比.md)。
+历史提示词与批次口径见 [美术文档/archive/04_零号AI后端出图提示词对比.md](../../美术文档/archive/04_零号AI后端出图提示词对比.md)；当前正式生成由 `generate-image` 与 `p3-art-asset-production` 决策。
 
 需要把图片直接放入人设目录时，使用 `-OutputDir`：
 
@@ -211,7 +211,7 @@ NovelAI 限流时可拉长外层重试间隔：
 .\tools\美术工具\Generate-ZeroPrototypeTurnaroundBatch.ps1 -RefreshOnly -OutputDir "F:\design\game\project\p3\美术文档\人设\AI出图\zero_v1_turnaround_20260708_01"
 ```
 
-三视图提示词与批次结论见 [美术文档/人设/04_零号AI后端出图提示词对比.md](../../美术文档/人设/04_零号AI后端出图提示词对比.md)。
+三视图历史批次结论见 [美术文档/archive/04_零号AI后端出图提示词对比.md](../../美术文档/archive/04_零号AI后端出图提示词对比.md)。
 
 ## Generate-ZeroPrototypePoseActionBatch.ps1
 

@@ -22,7 +22,6 @@ related:
   - 美术文档/人设/01_人设参考获取规则.md
   - 美术文档/人设/02_零号原型参考_失明少女.md
   - 美术文档/人设/03_零号初版人设方案.md
-  - 美术文档/人设/04_零号AI后端出图提示词对比.md
   - 美术文档/00_美术流水线总览.md
   - 美术文档/ui_design/README.md
   - 美术文档/ui_design/formal_v2/README.md
@@ -31,14 +30,14 @@ related:
   - agent_status/art.md
   - tools/美术工具/README.md
   - 知识库/views/art.md
-last_verified: 2026-07-24
+last_verified: 2026-08-02
 update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。
 ---
 
 # 美术文档索引
 
 > **定位：** Project P3 美术 / UI 文档入口。本文件只负责导航和职责边界，不承载详细规格。
-> **更新时间：** 2026-07-24
+> **更新时间：** 2026-08-02
 
 ## 先看哪里
 
@@ -46,7 +45,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 |---|---|---|
 | 当前美术规划和优先级 | [10_正式版核心纵切美术路线.md](10_正式版核心纵切美术路线.md) | 美术侧当前路线的唯一规划入口。 |
 | 当前哪些 UI 已覆盖、哪些还没进 active | [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md) | 把 `09` 路线和 `11` 批次矩阵翻译成美术覆盖表。 |
-| 端到端美术生产怎么走 | [00_美术流水线总览.md](00_美术流水线总览.md) | 只讲流程：需求发现、Manifest、提示词、出图、预处理、Approved、交接。 |
+| 端到端美术生产的事实边界 | [00_美术流水线总览.md](00_美术流水线总览.md) | 定义阶段、状态、Owner 和交付边界；具体执行、停问、重试和恢复由 Skill 维护。 |
 | 持久化生成请求在哪里 | [_generated/art_generation_requests.json](_generated/art_generation_requests.json) | 由 `Compile-ArtGenerationRequests.ps1` 生成；保存 `RequestID`、fingerprint、CanonicalVisualBrief、TechnicalRequest 和自然语言 / Danbooru 两种 Prompt Variant。 |
 | Agent 如何端到端生产正式美术资产 | [../.codex/skills/p3-art-asset-production/SKILL.md](../.codex/skills/p3-art-asset-production/SKILL.md) | 从需求准入、Asset Contract、候选生成与 Agent 评分推进到 Approved、Unity 接入、运行时验收和状态回写；支持交互与全自动模式。 |
 | Agent 如何生成或调整图片 | [../.codex/skills/p3-generate-image/SKILL.md](../.codex/skills/p3-generate-image/SKILL.md) | `generate-image` 只负责文生图、图生图、差分、inpaint、后端和 raw 生成证据；不负责 Approved 或 Unity 接入。 |
@@ -59,7 +58,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | 人设参考怎么获取和过滤 | [人设/01_人设参考获取规则.md](人设/01_人设参考获取规则.md) | 角色参考研究规则：`1girl rating:g`、二次过滤、重复角色归并、中文名字段和报告解释口径。 |
 | 零号当前指定原型是谁 | [人设/02_零号原型参考_失明少女.md](人设/02_零号原型参考_失明少女.md) | 用户指定以《漆黑的子弹》失明少女为原型，记录资料、图片链接、可转译设计点和禁止照搬项。 |
 | 零号初版人设是什么 | [人设/03_零号初版人设方案.md](人设/03_零号初版人设方案.md) | 当前初版方案：白布遮眼、灰披肩、超短内衬裙、裸腿裸足、核心仓隐藏和初始三无。 |
-| 零号三后端出图提示词 | [人设/04_零号AI后端出图提示词对比.md](人设/04_零号AI后端出图提示词对比.md) | ChatGPT / Gemini(nanobanana) / NovelAI 的差异化提示词、工具入口和候选图输出口径。 |
+| 零号历史三后端实验 | [archive/04_零号AI后端出图提示词对比.md](archive/04_零号AI后端出图提示词对比.md) | 仅用于追溯 2026-07 的候选与母版选择；当前提示词由 Agent 按 Skill 和实际工具能力编写。 |
 | 程序当前应接入哪些素材 | [_generated/可接入素材清单.md](_generated/可接入素材清单.md) | 程序侧素材来源清单，只处理 `program_integrate` 队列。 |
 | 当前哪些缺图素材可直接跑图 | [_generated/缺图生成计划.md](_generated/缺图生成计划.md) | 美术侧处理 `generate_needed` 队列。 |
 | 当前哪些素材只是临时质量 | [_generated/素材质量替换清单.md](_generated/素材质量替换清单.md) | 美术侧处理 `technical_fix` 和 `visual_v2_replace` 队列。 |
@@ -135,24 +134,9 @@ baseline / 当前截图问题
 
 ### 资产生产流
 
-```text
-design / config / ui active
-  -> requirement candidate scan
-  -> confirmed config / derived / preset
-  -> art_manifest.json
-  -> PromptCN / PromptEN / NegativePromptEN / Spec
-  -> AI 生成
-  -> 预处理
-  -> 筛选
-  -> Approved
-  -> 可接入素材清单
-```
+稳定事实和状态机见 [00_美术流水线总览.md](00_美术流水线总览.md)，Manifest / 规格 / 质量 / 风格 / 图片网关契约分别见 `01-05`。Agent 实际执行统一从 `p3-art-asset-production` 进入，纯图片能力委托给 `generate-image`；README 不再重复停问、后端选择、循环、恢复和命令细节。
 
-`_IncomingAI` 是工作区，不进程序接入；`Approved` 是正式区。每次生成、预处理或同步 Approved 后，都要刷新 latest 可接入清单并留 snapshot。
-
-`generate_needed` 缺图队列先生成 [_generated/缺图生成计划.md](_generated/缺图生成计划.md)，再由 `$p3-art-asset-production` 编排并调用 `$generate-image` 产生 raw 候选，之后继续完成预处理、Agent 筛选和 Approved 门禁。`visual_v2_replace` 质量替换队列看 [_generated/VisualV2生成计划.md](_generated/VisualV2生成计划.md)，两者不要混用。
-
-`美术需求候选清单` 是人工审查前哨：它扫描最新设计文档、配置 README / JSON、版本规划和 active UI 文档中出现的显式 VisualID 或可派生图标候选。确认后再写入 `art_requirements_seed.json` 或等待正式配置字段落地；不能把候选报告直接当成 Manifest。
+`_IncomingAI` 仍是忽略的工作区，`Approved` 才是正式运行时资源区。对外状态保持 `approved -> registered -> runtime_validated`；`selected`、`unity_imported` 和内部 binding evidence 不得冒充这三个公开状态。
 
 ### CG 底图 / 漫画式播放流
 
@@ -184,17 +168,9 @@ design / config / ui active
 
 ## 当前状态
 
-截至 2026-05-26：
+README 不维护易过期的批次数量和队列计数。当前进度看 [../agent_status/art.md](../agent_status/art.md)，可执行队列看 `_generated` 下的 latest 清单，历史批次看对应 snapshot。
 
-* active Formal V1 UI 已覆盖 21 个界面，详见 [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md)。
-* Formal V2 UX/UI 重构已建立 draft 设计层，当前总方案见 [ui_design/formal_v2/00_formal_v2_ux_ui_overview.md](ui_design/formal_v2/00_formal_v2_ux_ui_overview.md)；V2-A 优先重审 `workshop_main`、`combat_hud`、`inventory_loot`、`dungeon_map`、`settlement`。
-* 最新美术需求候选清单显示 `new_candidate=55`、`approved_without_manifest=0`、`seed_only=0`、`manifest_managed=244`；本轮已从候选中准入 29 个 FormalV2 新素材需求，详见 [14_FormalV2素材候选审查记录.md](14_FormalV2素材候选审查记录.md)。
-* 最新可接入素材清单显示 `program_integrate=0`、`acceptance_needed=191`，当前没有新的 Approved 素材登记队列，重点转为运行时截图验收和 Manifest 状态回填。
-* 最新程序接入交接清单显示 `program_integrate=0`、`Screens needing ArtAcceptance capture coverage=6`、`Screens needing ArtAcceptance rerun=15`，程序侧优先按该清单补截图和重跑验收。
-* 最新缺图生成计划显示 `generate_needed=0`；当前没有阻塞程序接入的新缺图项。
-* 最新素材质量替换清单显示 `technical_fix=0`、`visual_v2_replace=128`；历史本地生成图已统一补标 `QualityTier=local_v0`，这些素材不阻塞程序接入，但要在 Visual V2 批次同名替换。
-* Formal V1 验收队列已生成：21 个 active 界面纳入队列，15 个有 latest 旧截图可粗看，10 个仍需程序登记 VisualID 或补截图后重跑 ArtAcceptance。
-* NovelAI token 链路已通过 P0 新节点图标验证；`node_eventnode_icon`、`node_hazardnode_icon`、`node_reststopnode_icon`、`node_treasurenode_icon` 已同步为 `formal_ai_v2`，后续按 `nai_visual_v2_20260526_02` 队列继续串行替换。
+截至 2026-08-02，本轮通用背景 / 图标批次与零号姿势差分均已留下正式生成、筛选和接入证据；`doll_zero_dialogue_neutral`、`doll_zero_dialogue_command_ready`、`doll_zero_hurt`、`doll_zero_tired` 已到 `registered`。这些结论不包含 Prefab / UGUI 运行时消费、ArtAcceptance 或 `runtime_validated`。
 
 ## 机器生成文件
 

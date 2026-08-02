@@ -27,7 +27,7 @@ related:
   - 开发文档/17_Live2DSpine运行时接入评估.md
   - 开发文档/18_全局叙事播放系统开发方案.md
   - 配置表(JSON)/Narrative/README.md
-last_verified: 2026-07-26
+last_verified: 2026-08-02
 update_rule: 程序、Unity、验证或工程边界任务完成后更新本文档。
 ---
 
@@ -46,8 +46,12 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 ## 最近完成
 
+- `art_import_formalv2_standard_ui_batch_20260801_01` completed the protected integration of three standard art assets: Approved replacement preserved `.meta` / GUID, live Unity AssetDatabase import, Sprite DisplaySpec, Registry uniqueness, and Console delta all passed. The claim is `registered`; it does not include Prefab / UGUI binding, runtime consumption, or `runtime_validated`.
+- `Select-ArtCandidate.ps1` now updates nested batch summaries by `ProductionRunID`, preventing a stale `review_required` summary after `selection-decision.json` is complete; regression coverage is 13/13 passing.
+
 - `bg_combat_abyss` 与 `ui_icon_warning` 已通过 `art_import_formalv2_standard_stylebatch_20260725_01` 完成同 VisualID Approved 替换和 live Unity Registry 登记：Unity MCP 实例为 `UnityClient@c0741596`，两项 importer 的尺寸、Sprite/Single、alpha、MaxSize、Bilinear 和 mipmap 均符合 Manifest；Registry 原始匹配数均为 1、`TryGetEntry=true`，路径/GUID 分别保持 `9f676444d813871408a98a32295d2790` 与 `d39849aa2b024a80adabac006c44a720`；目标 Console error / warning 为 0。当前状态仅为 `registered`，不含 UGUI 绑定或 `runtime_validated`。
 - `doll_zero_dialogue_neutral` 已用 live Unity MCP 完成首次真实静态 Sprite 接入：AssetDatabase GUID `7d7b3a5d2f28634469b19bb5aa52664b`，Registry 原始匹配数为 1 且 `TryGetEntry=true`，目标 Console error / warning 为 0；当前程序边界仅为 VisualID 可登记，不含 Prefab / UGUI 消费。
+- `art_import_zero_pose_variation_20260801_03` 已完成三张 Zero 姿势差分的 Approved -> Unity import -> Registry：三项 Unity GUID 与 Registry Sprite 路径一致，`match_count=1` / `TryGetEntry=true`，importer 为 1024x1536 Sprite、透明、Bilinear、无 Mipmap，目标 Console error/warning 为 0。该 Run 仅声明 `registered`，不包含 Prefab / UGUI 绑定或 `runtime_validated`。
 - Finalize 编排已修复 Windows PowerShell 5.1 中文生成物路径乱码：标准生成物路径移入 Python 默认值，失败 Run 可幂等重跑并完成 `summary.claim=registered`。
 - 静态 Approved Sprite 的 Unity 导入与 Registry 登记已增加脚本 + MCP 编排入口：live AssetDatabase / importer / Registry / Console 证据齐全后才写 `RegistryStatus=registered`；该能力不创建 Prefab / UGUI 绑定，也不扩大为程序功能或运行时美术通过。
 - `registered -> runtime_validated` 的 ArtRun 内部 binding gate 已接入 validation core：`p3_art_inspect_target` 记录实际 UGUI Sprite、Approved 路径/GUID 与 Registry 对照，`finalize_runtime_validated` 只在最终 capture 和 Agent review 通过后写运行时证据；程序仍负责真实 Prefab / UGUI 绑定，不新增 `runtime_bound` 状态。

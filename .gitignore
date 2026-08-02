@@ -50,12 +50,14 @@ Thumbs.db
 # Python generated
 __pycache__/
 *.pyc
+.pytest_cache/
 
 # Local long-task recovery artifacts
 .mission/
 
 # Local agent/session artifacts and accidentally rooted tool output.
 .superpowers/
+tmp/
 ~/
 UnityClient/UnityClient/
 
