@@ -4,13 +4,13 @@
 
 ## Summary
 
-* GeneratedAt: `2026-08-02T00:10:05+08:00`
+* GeneratedAt: `2026-08-01T12:31:35+08:00`
 * Manifest entries: `313`
 * Unique VisualIDs: `308`
 * Candidate entries: `307`
 * Program integrate: `0`
-* Acceptance needed: `294`
-* Art approve: `13`
+* Acceptance needed: `291`
+* Art approve: `16`
 * Art select: `0`
 * Art process: `0`
 * Generate needed: `0`
@@ -23,9 +23,7 @@
 
 | Action | Priority | VisualID | Status | Processing | Registry | Candidate | Reason |
 |---|---|---|---|---|---|---|---|
-| `acceptance_needed` | P0 | `doll_zero_dialogue_command_ready` | `approved` | 3 / passed | registered | UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_command_ready/selected/001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P0 | `doll_zero_dialogue_neutral` | `approved` | 2 / passed | registered | UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_neutral/selected/001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
-| `acceptance_needed` | P0 | `doll_zero_hurt` | `approved` | 3 / passed | registered | UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_hurt/selected/001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P0 | `item_con_anchor_charm_icon` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/item_con_anchor_charm_icon/raw/20260608_001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P0 | `item_con_cheap_sedative_icon` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/item_con_cheap_sedative_icon/selected/item_con_cheap_sedative_icon.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P0 | `item_con_purifying_salt_icon` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/item_con_purifying_salt_icon/selected/20260609_001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
@@ -125,7 +123,7 @@
 | `acceptance_needed` | P1 | `bg_dungeon_layer_1` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_dungeon_layer_1/selected/bg_dungeon_layer_1.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `bg_dungeon_layer_2` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_dungeon_layer_2/selected/bg_dungeon_layer_2.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `bg_dungeon_layer_3` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_dungeon_layer_3/raw/20260608_001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
-| `acceptance_needed` | P1 | `bg_dungeon_map` | `approved` | 2 / passed | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_dungeon_map/selected/bg_dungeon_map.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
+| `acceptance_needed` | P1 | `bg_dungeon_map` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_dungeon_map/selected/bg_dungeon_map.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `bg_safe_room` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_safe_room/selected/20260609_004.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `bg_stairs_room` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_stairs_room/selected/20260609_002.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `bg_workshop_day` | `approved` | 4 / passed | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_workshop_day/selected/bg_workshop_day.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
@@ -134,7 +132,6 @@
 | `acceptance_needed` | P1 | `chassis_chassis_lv1_basic_frame` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/chassis_chassis_lv1_basic_frame/selected/chassis_chassis_lv1_basic_frame.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `chassis_chassis_lv2_expanded_frame` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/chassis_chassis_lv2_expanded_frame/selected/chassis_chassis_lv2_expanded_frame.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `doll_proto_0_stand` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/doll_proto_0_stand/selected/doll_proto_0_stand.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
-| `acceptance_needed` | P1 | `doll_zero_tired` | `approved` | 3 / passed | registered | UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_tired/selected/001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `cg_t0_01a_p03_panel02_collateral_shadow` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/cg_t0_01a_p03_panel02_collateral_shadow/raw/20260707_001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `cg_t0_01a_p03_panel03_broken_parts` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/cg_t0_01a_p03_panel03_broken_parts/raw/20260707_001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P1 | `cg_t0_01a_p05_panel01_broken_doll_parts` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/cg_t0_01a_p05_panel01_broken_doll_parts/raw/20260707_001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
@@ -295,11 +292,11 @@
 | `acceptance_needed` | P2 | `ui_icon_event` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_event/selected/20260609_002.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_icon_faction` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_faction/selected/20260609_004.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_icon_gift` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_gift/selected/20260609_002.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
-| `acceptance_needed` | P2 | `ui_icon_locked` | `approved` | 2 / passed | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_locked/selected/20260609_004.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
+| `acceptance_needed` | P2 | `ui_icon_locked` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_locked/selected/20260609_004.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_icon_lore` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_lore/selected/20260609_004.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_icon_material_need` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_material_need/selected/20260609_003.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_icon_memento` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_memento/selected/20260609_004.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
-| `acceptance_needed` | P2 | `ui_icon_money` | `approved` | 1 / passed | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_money/selected/ui_icon_money.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
+| `acceptance_needed` | P2 | `ui_icon_money` | `approved` |  / missing | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_money/selected/ui_icon_money.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_icon_order` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_order/selected/20260609_003.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_icon_price_down` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_price_down/selected/20260609_001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_icon_price_up` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_icon_price_up/selected/20260609_002.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
@@ -317,6 +314,8 @@
 | `acceptance_needed` | P2 | `ui_settlement_defeat_panel` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_settlement_defeat_panel/selected/20260609_003.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_settlement_victory_panel` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_settlement_victory_panel/selected/20260609_004.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
 | `acceptance_needed` | P2 | `ui_title_divider` | `approved` | 1 / legacy_unverified | registered | UnityClient/Assets/Art/_IncomingAI/standard_assets/ui_title_divider/selected/20260609_001.png | 素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。 |
+| `art_approve` | P0 | `doll_zero_dialogue_command_ready` | `generated` | 1 / passed | missing | UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_command_ready/selected/001.png | Incoming selected 已有候选，等待同步到 Approved。 |
+| `art_approve` | P0 | `doll_zero_hurt` | `prompted` | 1 / passed | missing | UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_hurt/selected/001.png | Incoming selected 已有候选，等待同步到 Approved。 |
 | `art_approve` | P0 | `doll_zero_low_san` | `prompted` | 1 / passed | missing | UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_low_san/selected/001.png | Incoming selected 已有候选，等待同步到 Approved。 |
 | `art_approve` | P0 | `doll_zero_maintenance_sit` | `generated` | 1 / passed | missing | UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_maintenance_sit/selected/001.png | Incoming selected 已有候选，等待同步到 Approved。 |
 | `art_approve` | P0 | `doll_zero_stand_neutral` | `generated` | 1 / passed | missing | UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_stand_neutral/selected/001.png | Incoming selected 已有候选，等待同步到 Approved。 |
@@ -329,6 +328,7 @@
 | `art_approve` | P1 | `doll_zero_dialogue_talk_small` | `generated` | 1 / passed | missing | UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_talk_small/selected/001.png | Incoming selected 已有候选，等待同步到 Approved。 |
 | `art_approve` | P1 | `doll_zero_dialogue_thoughtful` | `generated` | 2 / passed | missing | UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_thoughtful/selected/001.png | Incoming selected 已有候选，等待同步到 Approved。 |
 | `art_approve` | P1 | `doll_zero_repair_relief` | `prompted` | 1 / passed | missing | UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_repair_relief/selected/001.png | Incoming selected 已有候选，等待同步到 Approved。 |
+| `art_approve` | P1 | `doll_zero_tired` | `generated` | 1 / passed | missing | UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_tired/selected/001.png | Incoming selected 已有候选，等待同步到 Approved。 |
 | `art_approve` | P1 | `doll_zero_trust_soft` | `generated` | 2 / passed | missing | UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_trust_soft/selected/001.png | Incoming selected 已有候选，等待同步到 Approved。 |
 
 ## Action Meanings

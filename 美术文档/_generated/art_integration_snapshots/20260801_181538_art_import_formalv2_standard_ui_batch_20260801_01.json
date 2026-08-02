@@ -1,6 +1,6 @@
 {
-  "GeneratedAt": "2026-08-02T00:10:05+08:00",
-  "SnapshotTag": "art_import_zero_pose_variation_20260801_03",
+  "GeneratedAt": "2026-08-01T18:15:38+08:00",
+  "SnapshotTag": "art_import_formalv2_standard_ui_batch_20260801_01",
   "Inputs": {
     "ManifestPath": "美术文档/_generated/art_manifest.json",
     "ScreensPath": "美术文档/ui_design/screen_layouts.json",
@@ -12,8 +12,8 @@
     "TotalVisualIDs": 308,
     "TotalCandidates": 307,
     "ActionCounts": {
-      "acceptance_needed": 294,
-      "art_approve": 13
+      "acceptance_needed": 291,
+      "art_approve": 16
     },
     "DomainCounts": {
       "background": 17,
@@ -38,32 +38,6 @@
   },
   "Candidates": [
     {
-      "VisualID": "doll_zero_dialogue_command_ready",
-      "Action": "acceptance_needed",
-      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
-      "Confidence": "medium",
-      "Priority": "P0",
-      "Domain": "doll",
-      "AssetType": "portrait",
-      "ConfigID": "zero_dialogue_command_ready",
-      "DisplayName": "零号-接受指令立绘",
-      "Status": "approved",
-      "RegistryStatus": "registered",
-      "RegistryHasSprite": true,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_dialogue_command_ready.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_command_ready/selected/001.png",
-      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_command_ready/processed/3/candidate.png",
-      "ProcessedRound": 3,
-      "ProcessingState": "passed",
-      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_command_ready/raw/20260801_001.png",
-      "ReferencedBy": [
-        "preset:美术文档/art_requirements_seed.json"
-      ],
-      "ManifestEntryCount": 1
-    },
-    {
       "VisualID": "doll_zero_dialogue_neutral",
       "Action": "acceptance_needed",
       "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
@@ -84,32 +58,6 @@
       "ProcessedRound": 2,
       "ProcessingState": "passed",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_neutral/raw/r01_001.png",
-      "ReferencedBy": [
-        "preset:美术文档/art_requirements_seed.json"
-      ],
-      "ManifestEntryCount": 1
-    },
-    {
-      "VisualID": "doll_zero_hurt",
-      "Action": "acceptance_needed",
-      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
-      "Confidence": "medium",
-      "Priority": "P0",
-      "Domain": "doll",
-      "AssetType": "portrait",
-      "ConfigID": "zero_hurt",
-      "DisplayName": "零号-受损立绘",
-      "Status": "approved",
-      "RegistryStatus": "registered",
-      "RegistryHasSprite": true,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_hurt.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_hurt/selected/001.png",
-      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_hurt/processed/3/candidate.png",
-      "ProcessedRound": 3,
-      "ProcessingState": "passed",
-      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_hurt/raw/20260801_001.png",
       "ReferencedBy": [
         "preset:美术文档/art_requirements_seed.json"
       ],
@@ -2944,32 +2892,6 @@
         "screen:doll_room",
         "screen:scenario_event",
         "screen:workshop_main"
-      ],
-      "ManifestEntryCount": 1
-    },
-    {
-      "VisualID": "doll_zero_tired",
-      "Action": "acceptance_needed",
-      "Reason": "素材已入库且 Registry 已登记，等待运行时截图验收或 Manifest 状态回填。",
-      "Confidence": "medium",
-      "Priority": "P1",
-      "Domain": "doll",
-      "AssetType": "portrait",
-      "ConfigID": "zero_tired",
-      "DisplayName": "零号-疲惫立绘",
-      "Status": "approved",
-      "RegistryStatus": "registered",
-      "RegistryHasSprite": true,
-      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_tired.png",
-      "ApprovedFileExists": true,
-      "MetaFileExists": true,
-      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_tired/selected/001.png",
-      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_tired/processed/3/candidate.png",
-      "ProcessedRound": 3,
-      "ProcessingState": "passed",
-      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_tired/raw/20260801_001.png",
-      "ReferencedBy": [
-        "preset:美术文档/art_requirements_seed.json"
       ],
       "ManifestEntryCount": 1
     },
@@ -7962,6 +7884,58 @@
       "ManifestEntryCount": 1
     },
     {
+      "VisualID": "doll_zero_dialogue_command_ready",
+      "Action": "art_approve",
+      "Reason": "Incoming selected 已有候选，等待同步到 Approved。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "doll",
+      "AssetType": "portrait",
+      "ConfigID": "zero_dialogue_command_ready",
+      "DisplayName": "零号-接受指令立绘",
+      "Status": "generated",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_dialogue_command_ready.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_command_ready/selected/001.png",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_command_ready/processed/1/001.png",
+      "ProcessedRound": 1,
+      "ProcessingState": "passed",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_command_ready/raw/r01_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "doll_zero_hurt",
+      "Action": "art_approve",
+      "Reason": "Incoming selected 已有候选，等待同步到 Approved。",
+      "Confidence": "medium",
+      "Priority": "P0",
+      "Domain": "doll",
+      "AssetType": "portrait",
+      "ConfigID": "zero_hurt",
+      "DisplayName": "零号-受损立绘",
+      "Status": "prompted",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_hurt.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_hurt/selected/001.png",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_hurt/processed/1/001.png",
+      "ProcessedRound": 1,
+      "ProcessingState": "passed",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_hurt/raw/r01_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
       "VisualID": "doll_zero_low_san",
       "Action": "art_approve",
       "Reason": "Incoming selected 已有候选，等待同步到 Approved。",
@@ -8271,6 +8245,32 @@
       "ProcessedRound": 1,
       "ProcessingState": "passed",
       "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_repair_relief/raw/r01_001.png",
+      "ReferencedBy": [
+        "preset:美术文档/art_requirements_seed.json"
+      ],
+      "ManifestEntryCount": 1
+    },
+    {
+      "VisualID": "doll_zero_tired",
+      "Action": "art_approve",
+      "Reason": "Incoming selected 已有候选，等待同步到 Approved。",
+      "Confidence": "medium",
+      "Priority": "P1",
+      "Domain": "doll",
+      "AssetType": "portrait",
+      "ConfigID": "zero_tired",
+      "DisplayName": "零号-疲惫立绘",
+      "Status": "generated",
+      "RegistryStatus": "unregistered",
+      "RegistryHasSprite": false,
+      "ApprovedPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_tired.png",
+      "ApprovedFileExists": false,
+      "MetaFileExists": false,
+      "SelectedCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_tired/selected/001.png",
+      "ProcessedCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_tired/processed/1/001.png",
+      "ProcessedRound": 1,
+      "ProcessingState": "passed",
+      "RawCandidate": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_tired/raw/r01_001.png",
       "ReferencedBy": [
         "preset:美术文档/art_requirements_seed.json"
       ],

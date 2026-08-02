@@ -1,0 +1,1180 @@
+{
+  "Version": 1,
+  "GeneratedAt": "2026-08-01T18:59:15+08:00",
+  "CatalogVersion": 2,
+  "CompilerVersion": 2,
+  "Items": [
+    {
+      "RequestID": "doll_zero_dialogue_command_ready@0edfe75c79c0",
+      "VisualID": "doll_zero_dialogue_command_ready",
+      "ProductionProfile": "character_portrait_set",
+      "RequirementFingerprint": "0edfe75c79c0ac203555c3d839a0d8641138b2bcd395e593b60706e11a335972",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptAuthoringContext": {
+        "HardConstraints": {
+          "Identity": [
+            {
+              "ID": "brief:identity:0",
+              "Text": "silver hair",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:1",
+              "Text": "white blindfold",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:2",
+              "Text": "gray shawl",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:3",
+              "Text": "pale inner dress",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:4",
+              "Text": "bare legs",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:5",
+              "Text": "bare feet",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:6",
+              "Text": "normal state no red glow",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            }
+          ],
+          "RequiredChanges": [
+            {
+              "ID": "brief:requiredchanges:0",
+              "Text": "基于零号对话中性立绘，头部轻偏、嘴型收紧、手部轻收披肩，表达克制地接受指令；身份、服装、画布和常态无红光保持不变。",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:1",
+              "Text": "Pose class: command_ready_stance",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:2",
+              "Text": "Body action: torso turned slightly toward the viewer with the chest lifted and posture braced",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:3",
+              "Text": "Arm and hand action: one hand gathers the shawl at the collarbone while the other arm is held ready at the side",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:4",
+              "Text": "Weight shift: weight shifts onto the rear leg with the front foot placed forward",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:5",
+              "Text": "Head and shoulder relation: head turns toward the command source and one shoulder rises subtly",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:6",
+              "Text": "Silhouette change: elbow, forearm, and forward foot must visibly break the neutral standing contour",
+              "Source": "VisualIntent.RequiredChanges"
+            }
+          ],
+          "PoseSpec": {
+            "PoseClass": "command_ready_stance",
+            "BodyAction": "torso turned slightly toward the viewer with the chest lifted and posture braced",
+            "Gesture": "one hand gathers the shawl at the collarbone while the other arm is held ready at the side",
+            "WeightShift": "weight shifts onto the rear leg with the front foot placed forward",
+            "HeadShoulder": "head turns toward the command source and one shoulder rises subtly",
+            "SilhouetteChange": "elbow, forearm, and forward foot must visibly break the neutral standing contour"
+          },
+          "ForbiddenChanges": [],
+          "Required": [],
+          "Technical": [
+            {
+              "ID": "technical:width",
+              "Text": "Width=1024",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:height",
+              "Text": "Height=1536",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:format",
+              "Text": "Format=png",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:alpharequired",
+              "Text": "AlphaRequired=True",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:backgroundpolicy",
+              "Text": "BackgroundPolicy=agent_required",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:capability:0",
+              "Text": "transparent_asset",
+              "Source": "Spec.CapabilityRequirements"
+            },
+            {
+              "ID": "technical:capability:1",
+              "Text": "transparent_character_portrait",
+              "Source": "Spec.CapabilityRequirements"
+            }
+          ]
+        },
+        "Guidance": {
+          "Style": [
+            {
+              "ID": "brief:style:0",
+              "Text": "Japanese anime-inspired 2D game art",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:1",
+              "Text": "subterranean fantasy adventure",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:2",
+              "Text": "whimsical yet ominous",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:3",
+              "Text": "soft cel-shaded painterly rendering",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:4",
+              "Text": "clean linework",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:5",
+              "Text": "airy fantasy atmosphere",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:6",
+              "Text": "full-body anime game character portrait",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:7",
+              "Text": "clear readable silhouette",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:8",
+              "Text": "transparent background",
+              "Source": "StyleRef"
+            }
+          ],
+          "StyleNegative": [
+            {
+              "ID": "brief:stylenegative:0",
+              "Text": "western dark fantasy",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:1",
+              "Text": "photorealistic rendering",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:2",
+              "Text": "oil painting",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:3",
+              "Text": "cyberpunk UI",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:4",
+              "Text": "dominant steampunk machinery",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:5",
+              "Text": "blue-white UI wash",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:6",
+              "Text": "cropped head",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:7",
+              "Text": "cropped feet",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:8",
+              "Text": "busy background",
+              "Source": "StyleRef.Negative"
+            }
+          ],
+          "Subject": [
+            {
+              "ID": "brief:subject:0",
+              "Text": "full-body character portrait",
+              "Source": "VisualIntent.Subject"
+            }
+          ],
+          "Appearance": [
+            {
+              "ID": "brief:appearance:0",
+              "Text": "single readable game asset",
+              "Source": "VisualIntent.Appearance"
+            }
+          ],
+          "Mood": [],
+          "Composition": [
+            {
+              "ID": "brief:composition:0",
+              "Text": "full-body portrait, command_ready_stance, torso turned slightly toward the viewer with the chest lifted and posture braced, one hand gathers the shawl at the collarbone while the other arm is held ready at the side, weight shifts onto the rear leg with the front foot placed forward, clear readable silhouette",
+              "Source": "VisualIntent.Composition"
+            }
+          ]
+        },
+        "Evidence": {
+          "IdentityDocuments": [
+            "美术文档/人设/03_零号初版人设方案.md",
+            "美术文档/人设/05_零号立绘素材设计与交付清单.md"
+          ],
+          "ReferenceAssets": [
+            {
+              "asset_id": "zero_dialogue_neutral",
+              "role": "identity_and_pose_reference"
+            }
+          ],
+          "PreviousSuccessfulPrompts": [],
+          "PreviousFailures": []
+        },
+        "ResolvedLayers": [
+          "global:p3_global_v1",
+          "profile:character_portrait_v1",
+          "accent:none"
+        ],
+        "SetRole": "command_ready_difference"
+      },
+      "TechnicalRequest": {
+        "Width": 1024,
+        "Height": 1536,
+        "Format": "png",
+        "AlphaRequired": true,
+        "BackgroundPolicy": "agent_required",
+        "CapabilityRequirements": [
+          "transparent_asset",
+          "transparent_character_portrait"
+        ],
+        "ReferenceAssets": [
+          {
+            "asset_id": "zero_dialogue_neutral",
+            "role": "identity_and_pose_reference"
+          }
+        ]
+      },
+      "PreservationContract": {
+        "Preserve": [
+          {
+            "ID": "brief:identity:0",
+            "Text": "silver hair",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:1",
+            "Text": "white blindfold",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:2",
+            "Text": "gray shawl",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:3",
+            "Text": "pale inner dress",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:4",
+            "Text": "bare legs",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:5",
+            "Text": "bare feet",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:6",
+            "Text": "normal state no red glow",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          }
+        ],
+        "RequiredChanges": [
+          {
+            "ID": "brief:requiredchanges:0",
+            "Text": "基于零号对话中性立绘，头部轻偏、嘴型收紧、手部轻收披肩，表达克制地接受指令；身份、服装、画布和常态无红光保持不变。",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:1",
+            "Text": "Pose class: command_ready_stance",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:2",
+            "Text": "Body action: torso turned slightly toward the viewer with the chest lifted and posture braced",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:3",
+            "Text": "Arm and hand action: one hand gathers the shawl at the collarbone while the other arm is held ready at the side",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:4",
+            "Text": "Weight shift: weight shifts onto the rear leg with the front foot placed forward",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:5",
+            "Text": "Head and shoulder relation: head turns toward the command source and one shoulder rises subtly",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:6",
+            "Text": "Silhouette change: elbow, forearm, and forward foot must visibly break the neutral standing contour",
+            "Source": "VisualIntent.RequiredChanges"
+          }
+        ],
+        "PoseSpec": {
+          "PoseClass": "command_ready_stance",
+          "BodyAction": "torso turned slightly toward the viewer with the chest lifted and posture braced",
+          "Gesture": "one hand gathers the shawl at the collarbone while the other arm is held ready at the side",
+          "WeightShift": "weight shifts onto the rear leg with the front foot placed forward",
+          "HeadShoulder": "head turns toward the command source and one shoulder rises subtly",
+          "SilhouetteChange": "elbow, forearm, and forward foot must visibly break the neutral standing contour"
+        },
+        "ForbiddenChanges": [],
+        "Required": [],
+        "IdentitySources": [
+          "美术文档/人设/03_零号初版人设方案.md",
+          "美术文档/人设/05_零号立绘素材设计与交付清单.md"
+        ]
+      },
+      "ActivePromptRevisionID": "",
+      "ExistingPromptRevisions": []
+    },
+    {
+      "RequestID": "doll_zero_tired@85d2fbe14160",
+      "VisualID": "doll_zero_tired",
+      "ProductionProfile": "character_portrait_set",
+      "RequirementFingerprint": "85d2fbe14160d6db396ff7595fde9d00d899e18800a3e946b1993fc605cf5de5",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptAuthoringContext": {
+        "HardConstraints": {
+          "Identity": [
+            {
+              "ID": "brief:identity:0",
+              "Text": "silver hair",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:1",
+              "Text": "white blindfold",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:2",
+              "Text": "gray shawl",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:3",
+              "Text": "pale inner dress",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:4",
+              "Text": "bare legs",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:5",
+              "Text": "bare feet",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:6",
+              "Text": "normal state no red glow",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            }
+          ],
+          "RequiredChanges": [
+            {
+              "ID": "brief:requiredchanges:0",
+              "Text": "基于对话中性立绘，头部略低、肩部下沉、动作变慢、双手低位收束，无强红光，身份和服装保持不变。",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:1",
+              "Text": "Pose class: slumped_exhausted_stance",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:2",
+              "Text": "Body action: torso sinks slightly with softened knees and a slower, heavy posture",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:3",
+              "Text": "Arm and hand action: both hands gather low in front of the body instead of resting near the face",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:4",
+              "Text": "Weight shift: weight settles downward and slightly to one side as if standing takes effort",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:5",
+              "Text": "Head and shoulder relation: head drops and shoulders visibly sag",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:6",
+              "Text": "Silhouette change: lowered head, sagging shoulders, softened knees, and low hands must change the full outline",
+              "Source": "VisualIntent.RequiredChanges"
+            }
+          ],
+          "PoseSpec": {
+            "PoseClass": "slumped_exhausted_stance",
+            "BodyAction": "torso sinks slightly with softened knees and a slower, heavy posture",
+            "Gesture": "both hands gather low in front of the body instead of resting near the face",
+            "WeightShift": "weight settles downward and slightly to one side as if standing takes effort",
+            "HeadShoulder": "head drops and shoulders visibly sag",
+            "SilhouetteChange": "lowered head, sagging shoulders, softened knees, and low hands must change the full outline"
+          },
+          "ForbiddenChanges": [],
+          "Required": [],
+          "Technical": [
+            {
+              "ID": "technical:width",
+              "Text": "Width=1024",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:height",
+              "Text": "Height=1536",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:format",
+              "Text": "Format=png",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:alpharequired",
+              "Text": "AlphaRequired=True",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:backgroundpolicy",
+              "Text": "BackgroundPolicy=agent_required",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:capability:0",
+              "Text": "transparent_asset",
+              "Source": "Spec.CapabilityRequirements"
+            },
+            {
+              "ID": "technical:capability:1",
+              "Text": "transparent_character_portrait",
+              "Source": "Spec.CapabilityRequirements"
+            }
+          ]
+        },
+        "Guidance": {
+          "Style": [
+            {
+              "ID": "brief:style:0",
+              "Text": "Japanese anime-inspired 2D game art",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:1",
+              "Text": "subterranean fantasy adventure",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:2",
+              "Text": "whimsical yet ominous",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:3",
+              "Text": "soft cel-shaded painterly rendering",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:4",
+              "Text": "clean linework",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:5",
+              "Text": "airy fantasy atmosphere",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:6",
+              "Text": "full-body anime game character portrait",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:7",
+              "Text": "clear readable silhouette",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:8",
+              "Text": "transparent background",
+              "Source": "StyleRef"
+            }
+          ],
+          "StyleNegative": [
+            {
+              "ID": "brief:stylenegative:0",
+              "Text": "western dark fantasy",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:1",
+              "Text": "photorealistic rendering",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:2",
+              "Text": "oil painting",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:3",
+              "Text": "cyberpunk UI",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:4",
+              "Text": "dominant steampunk machinery",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:5",
+              "Text": "blue-white UI wash",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:6",
+              "Text": "cropped head",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:7",
+              "Text": "cropped feet",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:8",
+              "Text": "busy background",
+              "Source": "StyleRef.Negative"
+            }
+          ],
+          "Subject": [
+            {
+              "ID": "brief:subject:0",
+              "Text": "full-body character portrait",
+              "Source": "VisualIntent.Subject"
+            }
+          ],
+          "Appearance": [
+            {
+              "ID": "brief:appearance:0",
+              "Text": "single readable game asset",
+              "Source": "VisualIntent.Appearance"
+            }
+          ],
+          "Mood": [],
+          "Composition": [
+            {
+              "ID": "brief:composition:0",
+              "Text": "full-body portrait, slumped_exhausted_stance, torso sinks slightly with softened knees and a slower, heavy posture, both hands gather low in front of the body instead of resting near the face, weight settles downward and slightly to one side as if standing takes effort, clear readable silhouette",
+              "Source": "VisualIntent.Composition"
+            }
+          ]
+        },
+        "Evidence": {
+          "IdentityDocuments": [
+            "美术文档/人设/03_零号初版人设方案.md",
+            "美术文档/人设/05_零号立绘素材设计与交付清单.md"
+          ],
+          "ReferenceAssets": [
+            {
+              "asset_id": "zero_dialogue_neutral",
+              "role": "identity_and_pose_reference"
+            }
+          ],
+          "PreviousSuccessfulPrompts": [],
+          "PreviousFailures": []
+        },
+        "ResolvedLayers": [
+          "global:p3_global_v1",
+          "profile:character_portrait_v1",
+          "accent:none"
+        ],
+        "SetRole": "tired_state_difference"
+      },
+      "TechnicalRequest": {
+        "Width": 1024,
+        "Height": 1536,
+        "Format": "png",
+        "AlphaRequired": true,
+        "BackgroundPolicy": "agent_required",
+        "CapabilityRequirements": [
+          "transparent_asset",
+          "transparent_character_portrait"
+        ],
+        "ReferenceAssets": [
+          {
+            "asset_id": "zero_dialogue_neutral",
+            "role": "identity_and_pose_reference"
+          }
+        ]
+      },
+      "PreservationContract": {
+        "Preserve": [
+          {
+            "ID": "brief:identity:0",
+            "Text": "silver hair",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:1",
+            "Text": "white blindfold",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:2",
+            "Text": "gray shawl",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:3",
+            "Text": "pale inner dress",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:4",
+            "Text": "bare legs",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:5",
+            "Text": "bare feet",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:6",
+            "Text": "normal state no red glow",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          }
+        ],
+        "RequiredChanges": [
+          {
+            "ID": "brief:requiredchanges:0",
+            "Text": "基于对话中性立绘，头部略低、肩部下沉、动作变慢、双手低位收束，无强红光，身份和服装保持不变。",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:1",
+            "Text": "Pose class: slumped_exhausted_stance",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:2",
+            "Text": "Body action: torso sinks slightly with softened knees and a slower, heavy posture",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:3",
+            "Text": "Arm and hand action: both hands gather low in front of the body instead of resting near the face",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:4",
+            "Text": "Weight shift: weight settles downward and slightly to one side as if standing takes effort",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:5",
+            "Text": "Head and shoulder relation: head drops and shoulders visibly sag",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:6",
+            "Text": "Silhouette change: lowered head, sagging shoulders, softened knees, and low hands must change the full outline",
+            "Source": "VisualIntent.RequiredChanges"
+          }
+        ],
+        "PoseSpec": {
+          "PoseClass": "slumped_exhausted_stance",
+          "BodyAction": "torso sinks slightly with softened knees and a slower, heavy posture",
+          "Gesture": "both hands gather low in front of the body instead of resting near the face",
+          "WeightShift": "weight settles downward and slightly to one side as if standing takes effort",
+          "HeadShoulder": "head drops and shoulders visibly sag",
+          "SilhouetteChange": "lowered head, sagging shoulders, softened knees, and low hands must change the full outline"
+        },
+        "ForbiddenChanges": [],
+        "Required": [],
+        "IdentitySources": [
+          "美术文档/人设/03_零号初版人设方案.md",
+          "美术文档/人设/05_零号立绘素材设计与交付清单.md"
+        ]
+      },
+      "ActivePromptRevisionID": "",
+      "ExistingPromptRevisions": []
+    },
+    {
+      "RequestID": "doll_zero_hurt@234d1c60948e",
+      "VisualID": "doll_zero_hurt",
+      "ProductionProfile": "character_portrait_set",
+      "RequirementFingerprint": "234d1c60948e19e947a04f92199501f206129feaa8459bbddb1e743a7d3dda2e",
+      "RequirementStatus": "ready",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptAuthoringContext": {
+        "HardConstraints": {
+          "Identity": [
+            {
+              "ID": "brief:identity:0",
+              "Text": "silver hair",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:1",
+              "Text": "white blindfold",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:2",
+              "Text": "gray shawl",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:3",
+              "Text": "pale inner dress",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:4",
+              "Text": "bare legs",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:5",
+              "Text": "bare feet",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            },
+            {
+              "ID": "brief:identity:6",
+              "Text": "normal state no red glow",
+              "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+            }
+          ],
+          "RequiredChanges": [
+            {
+              "ID": "brief:requiredchanges:0",
+              "Text": "基于对话中性立绘，披肩轻微错位、手腕膝踝出现细小裂痕、白布下弱红光和磨损增强；无血、无断肢、不暴露完整核心仓。",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:1",
+              "Text": "Pose class: injured_unbalanced_stance",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:2",
+              "Text": "Body action: torso twists away from the damaged side with one knee buckling slightly",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:3",
+              "Text": "Arm and hand action: one hand protects the injured wrist while the other arm hangs lower and heavier",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:4",
+              "Text": "Weight shift: weight is forced onto the stronger leg with a visible sideways imbalance",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:5",
+              "Text": "Head and shoulder relation: head angles down toward the damaged side and one shoulder drops",
+              "Source": "VisualIntent.RequiredChanges"
+            },
+            {
+              "ID": "brief:requiredchanges:6",
+              "Text": "Silhouette change: asymmetrical shoulders, bent knee, and separated arms must create a visibly different silhouette",
+              "Source": "VisualIntent.RequiredChanges"
+            }
+          ],
+          "PoseSpec": {
+            "PoseClass": "injured_unbalanced_stance",
+            "BodyAction": "torso twists away from the damaged side with one knee buckling slightly",
+            "Gesture": "one hand protects the injured wrist while the other arm hangs lower and heavier",
+            "WeightShift": "weight is forced onto the stronger leg with a visible sideways imbalance",
+            "HeadShoulder": "head angles down toward the damaged side and one shoulder drops",
+            "SilhouetteChange": "asymmetrical shoulders, bent knee, and separated arms must create a visibly different silhouette"
+          },
+          "ForbiddenChanges": [
+            {
+              "ID": "brief:forbidden:0",
+              "Text": "blood or gore",
+              "Source": "VisualIntent.ForbiddenElements"
+            },
+            {
+              "ID": "brief:forbidden:1",
+              "Text": "dismemberment",
+              "Source": "VisualIntent.ForbiddenElements"
+            },
+            {
+              "ID": "brief:forbidden:2",
+              "Text": "fully exposed core chamber",
+              "Source": "VisualIntent.ForbiddenElements"
+            }
+          ],
+          "Required": [],
+          "Technical": [
+            {
+              "ID": "technical:width",
+              "Text": "Width=1024",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:height",
+              "Text": "Height=1536",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:format",
+              "Text": "Format=png",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:alpharequired",
+              "Text": "AlphaRequired=True",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:backgroundpolicy",
+              "Text": "BackgroundPolicy=agent_required",
+              "Source": "Spec"
+            },
+            {
+              "ID": "technical:capability:0",
+              "Text": "transparent_asset",
+              "Source": "Spec.CapabilityRequirements"
+            },
+            {
+              "ID": "technical:capability:1",
+              "Text": "transparent_character_portrait",
+              "Source": "Spec.CapabilityRequirements"
+            }
+          ]
+        },
+        "Guidance": {
+          "Style": [
+            {
+              "ID": "brief:style:0",
+              "Text": "Japanese anime-inspired 2D game art",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:1",
+              "Text": "subterranean fantasy adventure",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:2",
+              "Text": "whimsical yet ominous",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:3",
+              "Text": "soft cel-shaded painterly rendering",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:4",
+              "Text": "clean linework",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:5",
+              "Text": "airy fantasy atmosphere",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:6",
+              "Text": "full-body anime game character portrait",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:7",
+              "Text": "clear readable silhouette",
+              "Source": "StyleRef"
+            },
+            {
+              "ID": "brief:style:8",
+              "Text": "transparent background",
+              "Source": "StyleRef"
+            }
+          ],
+          "StyleNegative": [
+            {
+              "ID": "brief:stylenegative:0",
+              "Text": "western dark fantasy",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:1",
+              "Text": "photorealistic rendering",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:2",
+              "Text": "oil painting",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:3",
+              "Text": "cyberpunk UI",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:4",
+              "Text": "dominant steampunk machinery",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:5",
+              "Text": "blue-white UI wash",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:6",
+              "Text": "cropped head",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:7",
+              "Text": "cropped feet",
+              "Source": "StyleRef.Negative"
+            },
+            {
+              "ID": "brief:stylenegative:8",
+              "Text": "busy background",
+              "Source": "StyleRef.Negative"
+            }
+          ],
+          "Subject": [
+            {
+              "ID": "brief:subject:0",
+              "Text": "full-body character portrait",
+              "Source": "VisualIntent.Subject"
+            }
+          ],
+          "Appearance": [
+            {
+              "ID": "brief:appearance:0",
+              "Text": "single readable game asset",
+              "Source": "VisualIntent.Appearance"
+            }
+          ],
+          "Mood": [],
+          "Composition": [
+            {
+              "ID": "brief:composition:0",
+              "Text": "full-body portrait, injured_unbalanced_stance, torso twists away from the damaged side with one knee buckling slightly, one hand protects the injured wrist while the other arm hangs lower and heavier, weight is forced onto the stronger leg with a visible sideways imbalance, clear readable silhouette",
+              "Source": "VisualIntent.Composition"
+            }
+          ]
+        },
+        "Evidence": {
+          "IdentityDocuments": [
+            "美术文档/人设/03_零号初版人设方案.md",
+            "美术文档/人设/05_零号立绘素材设计与交付清单.md"
+          ],
+          "ReferenceAssets": [
+            {
+              "asset_id": "zero_dialogue_neutral",
+              "role": "identity_and_pose_reference"
+            }
+          ],
+          "PreviousSuccessfulPrompts": [],
+          "PreviousFailures": []
+        },
+        "ResolvedLayers": [
+          "global:p3_global_v1",
+          "profile:character_portrait_v1",
+          "accent:none"
+        ],
+        "SetRole": "hurt_state_difference"
+      },
+      "TechnicalRequest": {
+        "Width": 1024,
+        "Height": 1536,
+        "Format": "png",
+        "AlphaRequired": true,
+        "BackgroundPolicy": "agent_required",
+        "CapabilityRequirements": [
+          "transparent_asset",
+          "transparent_character_portrait"
+        ],
+        "ReferenceAssets": [
+          {
+            "asset_id": "zero_dialogue_neutral",
+            "role": "identity_and_pose_reference"
+          }
+        ]
+      },
+      "PreservationContract": {
+        "Preserve": [
+          {
+            "ID": "brief:identity:0",
+            "Text": "silver hair",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:1",
+            "Text": "white blindfold",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:2",
+            "Text": "gray shawl",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:3",
+            "Text": "pale inner dress",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:4",
+            "Text": "bare legs",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:5",
+            "Text": "bare feet",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          },
+          {
+            "ID": "brief:identity:6",
+            "Text": "normal state no red glow",
+            "Source": "VisualIntent.Preserve+AssetSet.IdentityLocks"
+          }
+        ],
+        "RequiredChanges": [
+          {
+            "ID": "brief:requiredchanges:0",
+            "Text": "基于对话中性立绘，披肩轻微错位、手腕膝踝出现细小裂痕、白布下弱红光和磨损增强；无血、无断肢、不暴露完整核心仓。",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:1",
+            "Text": "Pose class: injured_unbalanced_stance",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:2",
+            "Text": "Body action: torso twists away from the damaged side with one knee buckling slightly",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:3",
+            "Text": "Arm and hand action: one hand protects the injured wrist while the other arm hangs lower and heavier",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:4",
+            "Text": "Weight shift: weight is forced onto the stronger leg with a visible sideways imbalance",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:5",
+            "Text": "Head and shoulder relation: head angles down toward the damaged side and one shoulder drops",
+            "Source": "VisualIntent.RequiredChanges"
+          },
+          {
+            "ID": "brief:requiredchanges:6",
+            "Text": "Silhouette change: asymmetrical shoulders, bent knee, and separated arms must create a visibly different silhouette",
+            "Source": "VisualIntent.RequiredChanges"
+          }
+        ],
+        "PoseSpec": {
+          "PoseClass": "injured_unbalanced_stance",
+          "BodyAction": "torso twists away from the damaged side with one knee buckling slightly",
+          "Gesture": "one hand protects the injured wrist while the other arm hangs lower and heavier",
+          "WeightShift": "weight is forced onto the stronger leg with a visible sideways imbalance",
+          "HeadShoulder": "head angles down toward the damaged side and one shoulder drops",
+          "SilhouetteChange": "asymmetrical shoulders, bent knee, and separated arms must create a visibly different silhouette"
+        },
+        "ForbiddenChanges": [
+          {
+            "ID": "brief:forbidden:0",
+            "Text": "blood or gore",
+            "Source": "VisualIntent.ForbiddenElements"
+          },
+          {
+            "ID": "brief:forbidden:1",
+            "Text": "dismemberment",
+            "Source": "VisualIntent.ForbiddenElements"
+          },
+          {
+            "ID": "brief:forbidden:2",
+            "Text": "fully exposed core chamber",
+            "Source": "VisualIntent.ForbiddenElements"
+          }
+        ],
+        "Required": [],
+        "IdentitySources": [
+          "美术文档/人设/03_零号初版人设方案.md",
+          "美术文档/人设/05_零号立绘素材设计与交付清单.md"
+        ]
+      },
+      "ActivePromptRevisionID": "",
+      "ExistingPromptRevisions": []
+    }
+  ]
+}

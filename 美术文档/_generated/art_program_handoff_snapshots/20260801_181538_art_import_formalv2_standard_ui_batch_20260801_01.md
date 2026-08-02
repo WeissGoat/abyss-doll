@@ -4,8 +4,8 @@
 
 ## Summary
 
-* GeneratedAt: `2026-08-02T00:10:05+08:00`
-* Integration source: `美术文档/_generated/可接入素材清单.json` / `2026-08-02T00:10:05+08:00`
+* GeneratedAt: `2026-08-01T18:15:38+08:00`
+* Integration source: `美术文档/_generated/可接入素材清单.json` / `2026-08-01T18:15:38+08:00`
 * Acceptance source: `美术文档/ui_design/_generated/FormalV1验收队列.json` / `2026-06-10T00:52:28+08:00`
 * Latest ArtAcceptance: `20260610_003347` / `PASSED` / `2026-06-10T00:34:02.2020370+08:00`
 * Acceptance older than active spec: `False`

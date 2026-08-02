@@ -1,5 +1,5 @@
 {
-  "GeneratedAt": "2026-07-24T01:37:07+08:00",
+  "GeneratedAt": "2026-08-01T12:37:23+08:00",
   "Inputs": {
     "FormalV2Overview": "美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md",
     "Manifest": "美术文档/_generated/art_manifest.json"
@@ -17,7 +17,7 @@
     "RequestedVisualIDs": [],
     "ExtractedVisualCount": 35,
     "PlannedItems": 32,
-    "PromptReadyItems": 32,
+    "PromptReadyItems": 2,
     "SkippedItems": [
       {
         "VisualID": "ui_inventory_cell",
@@ -50,13 +50,7 @@
       "AssetType": "background",
       "Priority": "P1",
       "DisplayName": "通用战斗背景",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "bg_combat_abyss@e25cda55714b",
-      "RequestFingerprint": "e25cda55714b6934da101d8986d9f44754d0415b7372e273849b58856a19ee6f",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "approved",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Combat/bg_combat_abyss.png",
       "Workspace": {
@@ -77,7 +71,18 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "bg_combat_abyss@7fb71eadeaed",
+      "RequirementFingerprint": "7fb71eadeaed6b1de2f13a454957df51c58d85f87124d0decf474ff0e813c8cc",
+      "PromptAuthoringStatus": "prompt_ready",
+      "PromptRevisionID": "bg_combat_abyss@7fb71eadeaed/prompt-001",
+      "PromptRevisionFingerprint": "fa6b1aca25043fc8600d4c3d5c69f23fe95ca734eb81f0ef0a650d2259537f83",
+      "PromptFormats": [
+        "natural_language_v2",
+        "danbooru_tags_v2"
+      ],
+      "PromptReady": true,
+      "PromptBlockReason": ""
     },
     {
       "VisualID": "bg_dungeon_map",
@@ -89,13 +94,7 @@
       "AssetType": "background",
       "Priority": "P1",
       "DisplayName": "深渊路线图背景",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "bg_dungeon_map@32cd0c887366",
-      "RequestFingerprint": "32cd0c88736611255cca34a49d6185234b3fbe28660f7f1dc0275b98fd48ac10",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "approved",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Dungeon/bg_dungeon_map.png",
       "Workspace": {
@@ -116,7 +115,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "bg_dungeon_map@9e13c4b14b03",
+      "RequirementFingerprint": "9e13c4b14b0390074db65556ec3788e29d9dce7fff8f7d3393c4a7fd7efc91c3",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "bg_settlement_defeat",
@@ -128,13 +135,7 @@
       "AssetType": "background",
       "Priority": "P2",
       "DisplayName": "战败结算背景",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "bg_settlement_defeat@354e5083af89",
-      "RequestFingerprint": "354e5083af896f0e5f4f28ed42261ec2b5f9aa4440512115b413ebe008ef888e",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_defeat.png",
       "Workspace": {
@@ -155,7 +156,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "bg_settlement_defeat@350bf717085d",
+      "RequirementFingerprint": "350bf717085dfcd207d34c99c6062495505b07d267b40da1d05e5731dac9bfb8",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "bg_settlement_victory",
@@ -167,13 +176,7 @@
       "AssetType": "background",
       "Priority": "P2",
       "DisplayName": "撤离成功结算背景",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "bg_settlement_victory@2ec874a76bdf",
-      "RequestFingerprint": "2ec874a76bdfc581c6a4940343ecd1747451b88a24c799ad1e5c4ac4498dfe6f",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Settlement/bg_settlement_victory.png",
       "Workspace": {
@@ -194,7 +197,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "bg_settlement_victory@5812fc44d2f4",
+      "RequirementFingerprint": "5812fc44d2f4f0390eff41b0145a73f48b63c8d4d1ba9fca8619c4a42f437112",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "bg_workshop_day",
@@ -206,13 +217,7 @@
       "AssetType": "background",
       "Priority": "P1",
       "DisplayName": "工坊整备背景",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "bg_workshop_day@65f6e978c59d",
-      "RequestFingerprint": "65f6e978c59dfb86007a4df5c60f686f504144df6bf9651abc1fb3da9909936f",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "approved",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/Backgrounds/Workshop/bg_workshop_day.png",
       "Workspace": {
@@ -233,7 +238,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "bg_workshop_day@f2ae5939e312",
+      "RequirementFingerprint": "f2ae5939e312c65b08d5ecf5203c62b8816494cb7517420a5ab23aed647465eb",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_button_danger",
@@ -245,13 +258,7 @@
       "AssetType": "button",
       "Priority": "P2",
       "DisplayName": "危险按钮",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_button_danger@35bd4e2dff15",
-      "RequestFingerprint": "35bd4e2dff15bcc39a64c56521cf7fd747db2f2a502a6410ab13cabb9f3965e7",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "approved",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_button_danger.png",
       "Workspace": {
@@ -272,7 +279,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_button_danger@67ed8d2f1417",
+      "RequirementFingerprint": "67ed8d2f1417af34f78150cd89e99428d0411ecb09de8a4aa46221b5b2b9162c",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_button_primary",
@@ -284,13 +299,7 @@
       "AssetType": "button",
       "Priority": "P1",
       "DisplayName": "主按钮",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_button_primary@dd12436025a5",
-      "RequestFingerprint": "dd12436025a5ead6ad868bbeb06bcfbdb5a6fe4abd9b10541f54e42add196f22",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "approved",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_button_primary.png",
       "Workspace": {
@@ -311,7 +320,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_button_primary@db389d383658",
+      "RequirementFingerprint": "db389d38365803ea78a1f85883d708ac7adaccdd5be7d4efefcfbb8c9c64ee4f",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_button_secondary",
@@ -323,13 +340,7 @@
       "AssetType": "button",
       "Priority": "P1",
       "DisplayName": "次按钮",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_button_secondary@88d9b0b0cc04",
-      "RequestFingerprint": "88d9b0b0cc048b52219daead4f33f007ef4916a8c3852642e20d1d275873feeb",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "approved",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_button_secondary.png",
       "Workspace": {
@@ -350,7 +361,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_button_secondary@11e9da03f20b",
+      "RequirementFingerprint": "11e9da03f20bd7f79f66fb6901ecec6916dc724520807cf35d481128e3299de0",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_combat_feedback_hit",
@@ -362,13 +381,7 @@
       "AssetType": "effect_overlay",
       "Priority": "P1",
       "DisplayName": "命中反馈符号",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_combat_feedback_hit@8f5fd8dc093c",
-      "RequestFingerprint": "8f5fd8dc093cdf0e41108910b279e41637590cfd3c0639d78d51d17f416d9c52",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_hit.png",
       "Workspace": {
@@ -389,7 +402,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_combat_feedback_hit@03c62461d955",
+      "RequirementFingerprint": "03c62461d9554c445c3b3669136dc30bac18b0cc7d020b1f8a0b8fbc6b7b7b58",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_combat_feedback_shield_break",
@@ -401,13 +422,7 @@
       "AssetType": "effect_overlay",
       "Priority": "P1",
       "DisplayName": "破盾反馈符号",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_combat_feedback_shield_break@3f5b996f475d",
-      "RequestFingerprint": "3f5b996f475dbdf30d916ccfcb5baf996c091aae9824010afd420dc30a46af44",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_feedback_shield_break.png",
       "Workspace": {
@@ -428,7 +443,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_combat_feedback_shield_break@4d350db72274",
+      "RequirementFingerprint": "4d350db722745c93f064be59e57f52fce48b7606e86387b4aa7afea8b2346d11",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_combat_grid_lock_marker",
@@ -440,13 +463,7 @@
       "AssetType": "marker",
       "Priority": "P1",
       "DisplayName": "封格覆盖标记",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_combat_grid_lock_marker@9e52e3d4034b",
-      "RequestFingerprint": "9e52e3d4034b3dd6aa4fc42a4d54c802ff8f9c28831be65a1dda8de1ee01b72e",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_grid_lock_marker.png",
       "Workspace": {
@@ -467,7 +484,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_combat_grid_lock_marker@1b7670461c3d",
+      "RequirementFingerprint": "1b7670461c3d1437f76b5ce8e2ea54014d021c3eac3824abbc1abc75409f1634",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_combat_junk_preview_marker",
@@ -479,13 +504,7 @@
       "AssetType": "marker",
       "Priority": "P1",
       "DisplayName": "塞包预告标记",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_combat_junk_preview_marker@4674ddf60b7f",
-      "RequestFingerprint": "4674ddf60b7f7bf95b63d0ab3147fad14a98518f39170ca09ff7e19cf8c97fb1",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_junk_preview_marker.png",
       "Workspace": {
@@ -506,7 +525,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_combat_junk_preview_marker@a620ad1baf74",
+      "RequirementFingerprint": "a620ad1baf74937838bb0dcf1d20872441d17d4241454fe1655466898c3b9a89",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_combat_status_bar_hp",
@@ -518,13 +545,7 @@
       "AssetType": "bar",
       "Priority": "P1",
       "DisplayName": "生命状态条",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_combat_status_bar_hp@5175b9acb730",
-      "RequestFingerprint": "5175b9acb7309fa691cfc862f4af34672c024f8100cbc7d28bd1472f0aed8166",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "approved",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_bar_hp.png",
       "Workspace": {
@@ -545,7 +566,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_combat_status_bar_hp@7ed4b085aeef",
+      "RequirementFingerprint": "7ed4b085aeef1fe35d34b00f7d5cac86d412a6b55a5c88fde9955bfd31b5a1f8",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_combat_status_bar_shield",
@@ -557,13 +586,7 @@
       "AssetType": "bar",
       "Priority": "P1",
       "DisplayName": "护盾状态条",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_combat_status_bar_shield@27f7edff301b",
-      "RequestFingerprint": "27f7edff301be95e65723119de9abb9cfb81efc442bd8b96d8a7bd00ce05ca41",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "approved",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_combat_status_bar_shield.png",
       "Workspace": {
@@ -584,7 +607,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_combat_status_bar_shield@8a3781730c81",
+      "RequirementFingerprint": "8a3781730c8196c9f451b46d7d93e16d54f0c21c5301e2fb2d8d49caa89887d8",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_dungeon_node_plate",
@@ -596,13 +627,7 @@
       "AssetType": "frame",
       "Priority": "P2",
       "DisplayName": "地图节点底板",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_dungeon_node_plate@504d97f5dce9",
-      "RequestFingerprint": "504d97f5dce97b06a86be60c974df096f08cb2ff48b3b0dc49a525a60814c3fd",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_node_plate.png",
       "Workspace": {
@@ -623,7 +648,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_dungeon_node_plate@91720034411f",
+      "RequirementFingerprint": "91720034411ffafe9dcfc73547c642a7c24bd2bc3f6647bca84edce88688ce1f",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_dungeon_route_line",
@@ -635,13 +668,7 @@
       "AssetType": "divider",
       "Priority": "P2",
       "DisplayName": "地图路线连接线",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_dungeon_route_line@af34332b9a89",
-      "RequestFingerprint": "af34332b9a89ede59f6a6f3ad0978d2f5eb5836ac02237c0b7a20cb790c12efe",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_dungeon_route_line.png",
       "Workspace": {
@@ -662,7 +689,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_dungeon_route_line@81a548a21397",
+      "RequirementFingerprint": "81a548a21397af60b8b9a28cc5ccc0871660d4b3d396f10306bd70a39fbff487",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_icon_equipped",
@@ -674,13 +709,7 @@
       "AssetType": "icon",
       "Priority": "P2",
       "DisplayName": "已装备图标",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_icon_equipped@60cd6efd7fd8",
-      "RequestFingerprint": "60cd6efd7fd83f4579f05c2f6b89c02db49ca83907ce1b812570405f37db4d3b",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_equipped.png",
       "Workspace": {
@@ -701,7 +730,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_icon_equipped@1020c6e9cdbb",
+      "RequirementFingerprint": "1020c6e9cdbba1597c95d4a895cbd689ea2c09cd585671dff2ab2d4ede36a9ed",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_icon_faction",
@@ -713,13 +750,7 @@
       "AssetType": "icon",
       "Priority": "P2",
       "DisplayName": "势力图标",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_icon_faction@bb21d9f6b743",
-      "RequestFingerprint": "bb21d9f6b743c5782604abf03e6fef6184b0332fa4d34ec448fd00e881b1cb5f",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_faction.png",
       "Workspace": {
@@ -740,7 +771,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_icon_faction@ec9c33e099e5",
+      "RequirementFingerprint": "ec9c33e099e5f5912184c3cbb81ca923c270b9451980b1d08d6c6d8b7224dd21",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_icon_locked",
@@ -752,13 +791,7 @@
       "AssetType": "icon",
       "Priority": "P2",
       "DisplayName": "锁定图标",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_icon_locked@50d9ca328d88",
-      "RequestFingerprint": "50d9ca328d88d2020d97c8bd99bbbcbc17d22bf903b434186a0a4d38a8cf00f7",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_locked.png",
       "Workspace": {
@@ -779,7 +812,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_icon_locked@53baa95f325e",
+      "RequirementFingerprint": "53baa95f325e5abe02f8f48087f2087c13849ed0c592c5e7ddb578745b952f38",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_icon_money",
@@ -791,13 +832,7 @@
       "AssetType": "icon",
       "Priority": "P2",
       "DisplayName": "金币图标",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_icon_money@3ea0288e1c0a",
-      "RequestFingerprint": "3ea0288e1c0a725cdcae3036c16bb7d3e95b2dc99ba6e936824be3c7ea82b585",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "approved",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_money.png",
       "Workspace": {
@@ -818,7 +853,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_icon_money@c8a3e7165290",
+      "RequirementFingerprint": "c8a3e7165290ff69081d01cdd3e9139996f0f8efb096c950aaa0611ee279cd71",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_icon_order",
@@ -830,13 +873,7 @@
       "AssetType": "icon",
       "Priority": "P2",
       "DisplayName": "订单图标",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_icon_order@8704b9751a09",
-      "RequestFingerprint": "8704b9751a09f651053ff95651c0a5d8c131adc74d283db7f8e6f31b1bbb00ee",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_order.png",
       "Workspace": {
@@ -857,7 +894,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_icon_order@034a257b0838",
+      "RequirementFingerprint": "034a257b0838c7a57871f593a9ce13993fc2700c5e9d807605e4612cad64c84f",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_icon_rumor",
@@ -869,13 +914,7 @@
       "AssetType": "icon",
       "Priority": "P2",
       "DisplayName": "传闻图标",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_icon_rumor@a21eb270ad14",
-      "RequestFingerprint": "a21eb270ad140173609bfa4f8ce158fd3b1f717d5c5fd7373d524fff557bc9ea",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_rumor.png",
       "Workspace": {
@@ -896,7 +935,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_icon_rumor@8610e1aeabaa",
+      "RequirementFingerprint": "8610e1aeabaaa16ce755e07636a5a15e5d57ce131cfe01590426122badc04824",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_icon_warning",
@@ -908,13 +955,7 @@
       "AssetType": "icon",
       "Priority": "P1",
       "DisplayName": "警告图标",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_icon_warning@3df83ed57ff5",
-      "RequestFingerprint": "3df83ed57ff5b264ed6399edd90281838fceaf7efaab32ced80e8d57788afb89",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "approved",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_icon_warning.png",
       "Workspace": {
@@ -935,7 +976,18 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_icon_warning@46da1bf7fe6b",
+      "RequirementFingerprint": "46da1bf7fe6b8937731f96a9a2b9971b1a7b0ae0d3917bfecb20b9073d061ab0",
+      "PromptAuthoringStatus": "prompt_ready",
+      "PromptRevisionID": "ui_icon_warning@46da1bf7fe6b/prompt-001",
+      "PromptRevisionFingerprint": "b1d20bee7a7ca8c32ae803c23f4b9d16b69c6ac5b177bd8bb067118ab9b0a930",
+      "PromptFormats": [
+        "natural_language_v2",
+        "danbooru_tags_v2"
+      ],
+      "PromptReady": true,
+      "PromptBlockReason": ""
     },
     {
       "VisualID": "ui_list_row_normal",
@@ -947,13 +999,7 @@
       "AssetType": "panel",
       "Priority": "P2",
       "DisplayName": "列表行底板",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_list_row_normal@881a9ffd3386",
-      "RequestFingerprint": "881a9ffd3386d9413a8c0b4c343933dd4176fd1df83e3d5be64760a8f5a4b375",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_normal.png",
       "Workspace": {
@@ -974,7 +1020,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_list_row_normal@e1524d753fa0",
+      "RequirementFingerprint": "e1524d753fa06d525dab9c3259240f2ad339f6b5fe59289119552eeb8118fbb3",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_list_row_selected",
@@ -986,13 +1040,7 @@
       "AssetType": "panel",
       "Priority": "P2",
       "DisplayName": "选中列表行底板",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_list_row_selected@99e9148b58f8",
-      "RequestFingerprint": "99e9148b58f8522a4eb042053a6c5970fece07c0ccd426a99271b37bc0b51588",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_list_row_selected.png",
       "Workspace": {
@@ -1013,7 +1061,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_list_row_selected@aca4a48da98f",
+      "RequirementFingerprint": "aca4a48da98f964728c7596f7d588de233425f1dae2dea5f2b2dd78a86ed9875",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_loot_drop_zone",
@@ -1025,13 +1081,7 @@
       "AssetType": "panel",
       "Priority": "P1",
       "DisplayName": "战利品掉落区",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_loot_drop_zone@7f1e74347bc6",
-      "RequestFingerprint": "7f1e74347bc6ef19e051253e5fa4c486da271643d37ec8f45b740934198c981f",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "approved",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_loot_drop_zone.png",
       "Workspace": {
@@ -1052,7 +1102,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_loot_drop_zone@95b029a65add",
+      "RequirementFingerprint": "95b029a65addc0352270d53389db12072760022d426d34f93320bb2ea68f38b2",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_loot_pickup_panel",
@@ -1064,13 +1122,7 @@
       "AssetType": "panel",
       "Priority": "P1",
       "DisplayName": "战利品拾取面板",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_loot_pickup_panel@517fc17ac83c",
-      "RequestFingerprint": "517fc17ac83c9f0e20a6e08852a9cd98ce41cb944d55d8f89358b90dd0a33763",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "approved",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_loot_pickup_panel.png",
       "Workspace": {
@@ -1091,7 +1143,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_loot_pickup_panel@f16e3ef478f4",
+      "RequirementFingerprint": "f16e3ef478f44418b6693e332c121e22a69a2724defdb62e6145f18b3257c674",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_panel_info",
@@ -1103,13 +1163,7 @@
       "AssetType": "panel",
       "Priority": "P1",
       "DisplayName": "小信息面板",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_panel_info@b641c716fcf8",
-      "RequestFingerprint": "b641c716fcf84de18c4be479718986c60699c345d07ef07de37c9d7e4af76445",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "approved",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_panel_info.png",
       "Workspace": {
@@ -1130,7 +1184,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_panel_info@b353a84ec8f8",
+      "RequirementFingerprint": "b353a84ec8f8dee9cb7ad4bfb5c7be48d24d5493024c1678134886c350b744e3",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_panel_main",
@@ -1142,13 +1204,7 @@
       "AssetType": "panel",
       "Priority": "P1",
       "DisplayName": "主弹窗面板",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_panel_main@0755dd4760a5",
-      "RequestFingerprint": "0755dd4760a5614edc0b7e5a93f7d5e3af2b050cc5803310b21c86f6899a215a",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_panel_main.png",
       "Workspace": {
@@ -1169,7 +1225,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_panel_main@a6f98421581f",
+      "RequirementFingerprint": "a6f98421581f1770889925223fd5e983929f5db0df488410c58e2b2f6573685d",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_settlement_defeat_panel",
@@ -1181,13 +1245,7 @@
       "AssetType": "panel",
       "Priority": "P2",
       "DisplayName": "战败结算面板",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_settlement_defeat_panel@827695279503",
-      "RequestFingerprint": "827695279503025108e275473719a575daee1bc7afcafd5e057791877ade17b5",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_defeat_panel.png",
       "Workspace": {
@@ -1208,7 +1266,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_settlement_defeat_panel@8867e23792ef",
+      "RequirementFingerprint": "8867e23792ef85c73c89b34e14307edaa61b780ff513bb6dfcb06dcf3ae2d2e5",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_settlement_victory_panel",
@@ -1220,13 +1286,7 @@
       "AssetType": "panel",
       "Priority": "P2",
       "DisplayName": "撤离成功结算面板",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_settlement_victory_panel@43eb178786b2",
-      "RequestFingerprint": "43eb178786b2cb62745399d66f30da895a5275ce9d87cb03260d618c8e1ca85e",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_settlement_victory_panel.png",
       "Workspace": {
@@ -1247,7 +1307,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_settlement_victory_panel@eef7d8acd79b",
+      "RequirementFingerprint": "eef7d8acd79bfebea87ddfe104a353f23113a0ceda77a400047f47517e247ca8",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     },
     {
       "VisualID": "ui_title_divider",
@@ -1259,13 +1327,7 @@
       "AssetType": "divider",
       "Priority": "P2",
       "DisplayName": "标题装饰线",
-      "PromptReady": true,
       "ProductionProfile": "standard_asset",
-      "RequestID": "ui_title_divider@0c9a708f787c",
-      "RequestFingerprint": "0c9a708f787c0187efc67aed00d97aa7a0c8ec9b1e889959218750ceb7b2dde0",
-      "PromptFormats": [
-        "natural_language_v1"
-      ],
       "CurrentQuality": "formal_ai_v2",
       "ApprovedPath": "UnityClient/Assets/Art/Approved/UI/ui_title_divider.png",
       "Workspace": {
@@ -1286,7 +1348,15 @@
         "preserve DisplaySpec and Unity GUID",
         "publish the next numeric processed round",
         "do not sync Approved automatically"
-      ]
+      ],
+      "RequestID": "ui_title_divider@43a4aaff0cbe",
+      "RequirementFingerprint": "43a4aaff0cbe294f364f9df21333154c962f257f263473b3713314771e6f9c34",
+      "PromptAuthoringStatus": "prompt_authoring_required",
+      "PromptRevisionID": "",
+      "PromptRevisionFingerprint": "",
+      "PromptFormats": [],
+      "PromptReady": false,
+      "PromptBlockReason": "prompt_authoring_required"
     }
   ]
 }

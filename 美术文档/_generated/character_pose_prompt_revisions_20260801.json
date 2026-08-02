@@ -1,0 +1,127 @@
+{
+  "Version": 1,
+  "Revisions": [
+    {
+      "PromptRevisionID": "doll_zero_dialogue_command_ready@0edfe75c79c0/prompt-001",
+      "RequirementFingerprint": "0edfe75c79c0ac203555c3d839a0d8641138b2bcd395e593b60706e11a335972",
+      "AuthoringMode": "agent_authored",
+      "Status": "ready",
+      "CreatedAt": "2026-08-01T19:00:00+08:00",
+      "CommonStrategy": {
+        "Approach": "Use the neutral portrait only as an identity reference; redesign the entire body pose so the difference reads at dialogue scale.",
+        "IdentityPriority": "Keep silver hair, white blindfold, gray shawl, pale inner dress, bare legs and bare feet unchanged.",
+        "PosePriority": "The arm shape, front foot, torso turn, shoulder line and rear-leg weight must create a new silhouette.",
+        "BackgroundPolicy": "Transparent background is a technical output requirement; do not invent scenery."
+      },
+      "Variants": {
+        "natural_language_v2": {
+          "Format": "natural_language_v2",
+          "Status": "ready",
+          "CompatibleProviders": ["openai_images", "gemini_chat_image"],
+          "Positive": "Create a full-body transparent-background dialogue portrait of Zero, matching the supplied identity reference and the established P3 subterranean fantasy anime style. Preserve her silver hair, white cloth blindfold, soft gray shawl covering both shoulders and chest, pale short inner dress, bare legs, bare feet, restrained doll joints, and calm non-glowing state. This is a command-ready pose, not a neutral standing variation: turn the torso slightly toward the viewer, lift the chest and brace the posture, shift weight onto the rear leg, place the front foot forward, turn the head toward the command source, and raise one shoulder subtly. One hand gathers the shawl at the collarbone while the other arm stays ready at the side; the elbow, forearm, front foot and asymmetric shoulder line must visibly break the neutral silhouette. Keep the whole figure inside the canvas with readable hands and feet, centered for a bottom-center UI pivot, clean linework and soft cel-shaded painterly rendering.",
+          "Negative": "cropped head, cropped feet, hidden hands, fused arms, extra limbs, duplicate character, neutral symmetrical standing pose, stiff mannequin pose, seated pose, exaggerated action pose, exposed eyes, red glow, exposed core chamber, blood, gore, dismemberment, busy background, scenery, text, watermark, photorealistic rendering, western dark fantasy, cyberpunk UI",
+          "OutputContract": {"Format": "png", "Width": 1024, "Height": 1536, "AlphaRequired": true, "Background": "transparent", "FullFigure": true},
+          "ConstraintMapping": {
+            "brief:identity:0": "silver hair",
+            "brief:identity:1": "white cloth blindfold",
+            "brief:identity:2": "gray shawl",
+            "brief:identity:3": "pale inner dress",
+            "brief:identity:4": "bare legs",
+            "brief:identity:5": "bare feet",
+            "brief:identity:6": "non-glowing normal state",
+            "brief:requiredchanges:0": "same Zero dialogue portrait identity and requested command-ready state",
+            "brief:requiredchanges:1": "command-ready stance",
+            "brief:requiredchanges:2": "torso turn, lifted chest and braced posture",
+            "brief:requiredchanges:3": "one hand gathers shawl and the other arm is ready at the side",
+            "brief:requiredchanges:4": "rear-leg weight shift and front foot forward",
+            "brief:requiredchanges:5": "head turns toward the command source with one shoulder raised",
+            "brief:requiredchanges:6": "elbow, forearm, front foot and shoulder line break the neutral contour",
+            "technical:width": "1024 px",
+            "technical:height": "1536 px",
+            "technical:format": "PNG",
+            "technical:alpharequired": "transparent alpha",
+            "technical:backgroundpolicy": "transparent output without scenery",
+            "technical:capability:0": "transparent asset",
+            "technical:capability:1": "transparent character portrait"
+          }
+        },
+        "danbooru_tags_v2": {
+          "Format": "danbooru_tags_v2",
+          "Status": "ready",
+          "CompatibleProviders": ["novelai"],
+          "PositiveTags": [
+            {"Tag": "solo", "Weight": 1.0}, {"Tag": "full_body", "Weight": 1.0}, {"Tag": "transparent_background", "Weight": 1.0},
+            {"Tag": "silver_hair", "Weight": 1.0}, {"Tag": "blindfold", "Weight": 1.0}, {"Tag": "gray_shawl", "Weight": 1.0},
+            {"Tag": "pale_dress", "Weight": 1.0}, {"Tag": "bare_legs", "Weight": 1.0}, {"Tag": "barefoot", "Weight": 1.0},
+            {"Tag": "three_quarter_view", "Weight": 0.9}, {"Tag": "torso_twist", "Weight": 1.15}, {"Tag": "contrapposto", "Weight": 1.1},
+            {"Tag": "one_foot_forward", "Weight": 1.1}, {"Tag": "asymmetrical_shoulders", "Weight": 1.05}, {"Tag": "hand_on_collarbone", "Weight": 1.1},
+            {"Tag": "ready_stance", "Weight": 1.1}, {"Tag": "full_figure", "Weight": 1.0}, {"Tag": "soft_cel_shading", "Weight": 0.8}
+          ],
+          "NegativeTags": [
+            {"Tag": "standing_symmetrically", "Weight": 1.2}, {"Tag": "neutral_pose", "Weight": 1.2}, {"Tag": "cropped_feet", "Weight": 1.0},
+            {"Tag": "extra_arms", "Weight": 1.0}, {"Tag": "exposed_eyes", "Weight": 1.0}, {"Tag": "red_glow", "Weight": 1.0},
+            {"Tag": "blood", "Weight": 1.0}, {"Tag": "gore", "Weight": 1.0}, {"Tag": "background", "Weight": 0.8}
+          ],
+          "ReferenceControls": {"identity_reference": "preserve face, hair, blindfold, shawl and dress", "pose_reference": "replace neutral pose with command-ready stance"},
+          "ConstraintMapping": {
+            "brief:identity:0": "silver_hair", "brief:identity:1": "blindfold", "brief:identity:2": "gray_shawl", "brief:identity:3": "pale_dress", "brief:identity:4": "bare_legs", "brief:identity:5": "barefoot", "brief:identity:6": "no_red_glow",
+            "brief:requiredchanges:0": "command-ready state from the Zero dialogue portrait brief", "brief:requiredchanges:1": "ready_stance", "brief:requiredchanges:2": "torso_twist", "brief:requiredchanges:3": "hand_on_collarbone", "brief:requiredchanges:4": "contrapposto and one_foot_forward", "brief:requiredchanges:5": "asymmetrical_shoulders", "brief:requiredchanges:6": "changed full silhouette",
+            "technical:width": "1024", "technical:height": "1536", "technical:format": "png", "technical:alpharequired": "transparent_background", "technical:backgroundpolicy": "transparent_background", "technical:capability:0": "transparent_asset", "technical:capability:1": "transparent_character_portrait"
+          }
+        }
+      }
+    },
+    {
+      "PromptRevisionID": "doll_zero_tired@85d2fbe14160/prompt-001",
+      "RequirementFingerprint": "85d2fbe14160d6db396ff7595fde9d00d899e18800a3e946b1993fc605cf5de5",
+      "AuthoringMode": "agent_authored",
+      "Status": "ready",
+      "CreatedAt": "2026-08-01T19:00:00+08:00",
+      "CommonStrategy": {"Approach": "Make fatigue visible through the whole body silhouette, not only the face.", "IdentityPriority": "Preserve Zero identity locks and clothing.", "PosePriority": "Lowered head, sagging shoulders, softened knees, low hands and a downward weight shift must be visible."},
+      "Variants": {
+        "natural_language_v2": {
+          "Format": "natural_language_v2", "Status": "ready", "CompatibleProviders": ["openai_images", "gemini_chat_image"],
+          "Positive": "Create a full-body transparent-background dialogue portrait of Zero in the established P3 subterranean fantasy anime style. Preserve the same silver hair, white cloth blindfold, gray shawl, pale inner dress, bare legs, bare feet and restrained doll construction. Show a visibly exhausted full-body pose rather than a neutral standing pose: soften both knees, let the torso sink and lean slightly to one side, drop the head, sag the shoulders, and gather both hands low in front of the body as if standing requires effort. The pelvis and center of gravity should feel heavy and lowered; the low hands, bent knees and rounded shoulder line must change the outer silhouette at small dialogue size. Keep the complete figure, hands and feet readable, with transparent background and bottom-center UI framing, no strong red glow.",
+          "Negative": "neutral standing pose, rigid posture, straight locked knees, hands near face, hidden hands, cropped head, cropped feet, extra limbs, duplicate character, exposed eyes, strong red glow, exposed core chamber, blood, gore, monster transformation, busy background, scenery, text, watermark, photorealistic rendering",
+          "OutputContract": {"Format": "png", "Width": 1024, "Height": 1536, "AlphaRequired": true, "Background": "transparent", "FullFigure": true},
+          "ConstraintMapping": {"brief:identity:0": "silver hair", "brief:identity:1": "white cloth blindfold", "brief:identity:2": "gray shawl", "brief:identity:3": "pale inner dress", "brief:identity:4": "bare legs", "brief:identity:5": "bare feet", "brief:identity:6": "no strong red glow", "brief:requiredchanges:0": "same Zero identity in a tired state", "brief:requiredchanges:1": "slumped exhausted stance", "brief:requiredchanges:2": "sinking torso, softened knees and heavy posture", "brief:requiredchanges:3": "both hands gather low in front", "brief:requiredchanges:4": "downward and slightly sideways weight shift", "brief:requiredchanges:5": "dropped head and sagging shoulders", "brief:requiredchanges:6": "lowered head, knees, shoulders and hands change the silhouette", "technical:width": "1024 px", "technical:height": "1536 px", "technical:format": "PNG", "technical:alpharequired": "transparent alpha", "technical:backgroundpolicy": "transparent output without scenery", "technical:capability:0": "transparent asset", "technical:capability:1": "transparent character portrait"}
+        },
+        "danbooru_tags_v2": {
+          "Format": "danbooru_tags_v2", "Status": "ready", "CompatibleProviders": ["novelai"],
+          "PositiveTags": [
+            {"Tag": "solo", "Weight": 1.0}, {"Tag": "full_body", "Weight": 1.0}, {"Tag": "transparent_background", "Weight": 1.0}, {"Tag": "silver_hair", "Weight": 1.0}, {"Tag": "blindfold", "Weight": 1.0}, {"Tag": "gray_shawl", "Weight": 1.0}, {"Tag": "pale_dress", "Weight": 1.0}, {"Tag": "bare_legs", "Weight": 1.0}, {"Tag": "barefoot", "Weight": 1.0}, {"Tag": "slouching", "Weight": 1.2}, {"Tag": "drooping_shoulders", "Weight": 1.2}, {"Tag": "head_down", "Weight": 1.1}, {"Tag": "bent_knees", "Weight": 1.1}, {"Tag": "hands_clasped_low", "Weight": 1.1}, {"Tag": "uneven_weight", "Weight": 1.0}, {"Tag": "exhausted", "Weight": 1.0}
+          ],
+          "NegativeTags": [{"Tag": "neutral_pose", "Weight": 1.2}, {"Tag": "standing_symmetrically", "Weight": 1.1}, {"Tag": "straight_knees", "Weight": 1.0}, {"Tag": "hands_near_face", "Weight": 1.0}, {"Tag": "cropped_feet", "Weight": 1.0}, {"Tag": "red_glow", "Weight": 1.0}, {"Tag": "blood", "Weight": 1.0}, {"Tag": "monster", "Weight": 1.0}],
+          "ReferenceControls": {"identity_reference": "preserve Zero identity and clothing", "pose_reference": "replace neutral standing with a slumped exhausted stance"},
+          "ConstraintMapping": {"brief:identity:0": "silver_hair", "brief:identity:1": "blindfold", "brief:identity:2": "gray_shawl", "brief:identity:3": "pale_dress", "brief:identity:4": "bare_legs", "brief:identity:5": "barefoot", "brief:identity:6": "no_red_glow", "brief:requiredchanges:0": "tired Zero state", "brief:requiredchanges:1": "slouching", "brief:requiredchanges:2": "slouching and bent_knees", "brief:requiredchanges:3": "hands_clasped_low", "brief:requiredchanges:4": "uneven_weight", "brief:requiredchanges:5": "head_down and drooping_shoulders", "brief:requiredchanges:6": "changed full silhouette", "technical:width": "1024", "technical:height": "1536", "technical:format": "png", "technical:alpharequired": "transparent_background", "technical:backgroundpolicy": "transparent_background", "technical:capability:0": "transparent_asset", "technical:capability:1": "transparent_character_portrait"}
+        }
+      }
+    },
+    {
+      "PromptRevisionID": "doll_zero_hurt@234d1c60948e/prompt-001",
+      "RequirementFingerprint": "234d1c60948e19e947a04f92199501f206129feaa8459bbddb1e743a7d3dda2e",
+      "AuthoringMode": "agent_authored",
+      "Status": "ready",
+      "CreatedAt": "2026-08-01T19:00:00+08:00",
+      "CommonStrategy": {"Approach": "Use a clearly asymmetrical injured full-body pose while keeping the damage restrained and non-gory.", "IdentityPriority": "Preserve Zero identity locks, blindfold and clothing.", "PosePriority": "Twisted torso, dropped shoulder, buckling knee, protective wrist gesture and one-sided weight must be visible."},
+      "Variants": {
+        "natural_language_v2": {
+          "Format": "natural_language_v2", "Status": "ready", "CompatibleProviders": ["openai_images", "gemini_chat_image"],
+          "Positive": "Create a full-body transparent-background dialogue portrait of Zero in the established P3 subterranean fantasy anime style. Preserve her silver hair, white cloth blindfold, gray shawl, pale inner dress, bare legs, bare feet and restrained doll construction. Show a visibly injured, unbalanced pose rather than a neutral standing pose: twist the torso away from the damaged side, let one knee buckle slightly, put most weight on the stronger leg, drop one shoulder, and angle the head down toward the damaged side. One hand protects the injured wrist while the other arm hangs lower and heavier. The asymmetrical shoulders, separated arms, bent knee and sideways center of gravity must create a new full-body silhouette that reads at dialogue size. Add only small cracks and wear at wrists, knees and ankles, with no blood, gore, dismemberment or exposed core chamber. Keep the complete figure, hands and feet readable with transparent background and bottom-center UI framing.",
+          "Negative": "neutral standing pose, symmetrical stance, rigid mannequin, straight balanced legs, hidden arms, fused hands, cropped head, cropped feet, extra limbs, duplicate character, exposed eyes, blood, gore, dismemberment, exposed core chamber, monster transformation, busy background, scenery, text, watermark, photorealistic rendering",
+          "OutputContract": {"Format": "png", "Width": 1024, "Height": 1536, "AlphaRequired": true, "Background": "transparent", "FullFigure": true},
+          "ConstraintMapping": {"brief:identity:0": "silver hair", "brief:identity:1": "white cloth blindfold", "brief:identity:2": "gray shawl", "brief:identity:3": "pale inner dress", "brief:identity:4": "bare legs", "brief:identity:5": "bare feet", "brief:identity:6": "identity remains stable without a required red glow", "brief:requiredchanges:0": "same Zero identity with restrained damage", "brief:requiredchanges:1": "injured unbalanced stance", "brief:requiredchanges:2": "torso twists away from damaged side and one knee buckles", "brief:requiredchanges:3": "one hand protects the injured wrist and the other hangs lower", "brief:requiredchanges:4": "weight forced onto the stronger leg with sideways imbalance", "brief:requiredchanges:5": "head angles down and one shoulder drops", "brief:requiredchanges:6": "asymmetrical shoulders, bent knee and separated arms change the silhouette", "brief:forbidden:0": "no blood or gore", "brief:forbidden:1": "no dismemberment", "brief:forbidden:2": "no exposed core chamber", "technical:width": "1024 px", "technical:height": "1536 px", "technical:format": "PNG", "technical:alpharequired": "transparent alpha", "technical:backgroundpolicy": "transparent output without scenery", "technical:capability:0": "transparent asset", "technical:capability:1": "transparent character portrait"}
+        },
+        "danbooru_tags_v2": {
+          "Format": "danbooru_tags_v2", "Status": "ready", "CompatibleProviders": ["novelai"],
+          "PositiveTags": [
+            {"Tag": "solo", "Weight": 1.0}, {"Tag": "full_body", "Weight": 1.0}, {"Tag": "transparent_background", "Weight": 1.0}, {"Tag": "silver_hair", "Weight": 1.0}, {"Tag": "blindfold", "Weight": 1.0}, {"Tag": "gray_shawl", "Weight": 1.0}, {"Tag": "pale_dress", "Weight": 1.0}, {"Tag": "bare_legs", "Weight": 1.0}, {"Tag": "barefoot", "Weight": 1.0}, {"Tag": "torso_twist", "Weight": 1.2}, {"Tag": "asymmetrical_shoulders", "Weight": 1.2}, {"Tag": "bent_knee", "Weight": 1.1}, {"Tag": "uneven_weight", "Weight": 1.1}, {"Tag": "protective_hand", "Weight": 1.1}, {"Tag": "injured_wrist", "Weight": 1.0}, {"Tag": "tired", "Weight": 0.8}, {"Tag": "small_cracks", "Weight": 0.8}
+          ],
+          "NegativeTags": [{"Tag": "neutral_pose", "Weight": 1.2}, {"Tag": "standing_symmetrically", "Weight": 1.2}, {"Tag": "straight_legs", "Weight": 1.0}, {"Tag": "blood", "Weight": 1.2}, {"Tag": "gore", "Weight": 1.2}, {"Tag": "dismemberment", "Weight": 1.2}, {"Tag": "exposed_core", "Weight": 1.2}, {"Tag": "cropped_feet", "Weight": 1.0}],
+          "ReferenceControls": {"identity_reference": "preserve Zero identity and clothing", "pose_reference": "replace neutral pose with asymmetrical injured stance", "damage_reference": "small cracks and wear only"},
+          "ConstraintMapping": {"brief:identity:0": "silver_hair", "brief:identity:1": "blindfold", "brief:identity:2": "gray_shawl", "brief:identity:3": "pale_dress", "brief:identity:4": "bare_legs", "brief:identity:5": "barefoot", "brief:identity:6": "stable_identity", "brief:requiredchanges:0": "injured Zero state", "brief:requiredchanges:1": "torso_twist and uneven_weight", "brief:requiredchanges:2": "torso_twist and bent_knee", "brief:requiredchanges:3": "protective_hand and injured_wrist", "brief:requiredchanges:4": "uneven_weight", "brief:requiredchanges:5": "asymmetrical_shoulders", "brief:requiredchanges:6": "changed full silhouette", "brief:forbidden:0": "no blood or gore", "brief:forbidden:1": "no dismemberment", "brief:forbidden:2": "no exposed_core", "technical:width": "1024", "technical:height": "1536", "technical:format": "png", "technical:alpharequired": "transparent_background", "technical:backgroundpolicy": "transparent_background", "technical:capability:0": "transparent_asset", "technical:capability:1": "transparent_character_portrait"}
+        }
+      }
+    }
+  ]
+}

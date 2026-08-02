@@ -218,8 +218,23 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+  - VisualID: doll_zero_dialogue_command_ready
+    Sprite: {fileID: 21300000, guid: 32cbf2a3ff24cb54f8380036b04aae85, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
   - VisualID: doll_zero_dialogue_neutral
     Sprite: {fileID: 21300000, guid: 7d7b3a5d2f28634469b19bb5aa52664b, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: doll_zero_hurt
+    Sprite: {fileID: 21300000, guid: fe73c64f6b4e0af41841e145308877e4, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: doll_zero_tired
+    Sprite: {fileID: 21300000, guid: 228a15a8c6677bc479e9a430c72d88a5, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}

@@ -2419,6 +2419,14 @@
       "AssetID": "zero_dialogue_neutral",
       "SetRole": "neutral_dialogue_master",
       "SourceAssets": [],
+      "PoseSpec": {
+        "PoseClass": "dialogue_three_quarter_anchor",
+        "BodyAction": "relaxed upright stance with the torso open toward the viewer",
+        "Gesture": "both hands rest near the shawl opening without covering the face",
+        "WeightShift": "balanced weight on both feet",
+        "HeadShoulder": "natural head angle with level shoulders",
+        "SilhouetteChange": "baseline identity silhouette for the portrait set"
+      },
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_dialogue_neutral.png",
       "Priority": "P0",
       "Screen": "workshop_main,doll_room",
@@ -2438,6 +2446,14 @@
       "AssetID": "zero_stand_neutral",
       "SetRole": "front_pose_anchor",
       "SourceAssets": [{"asset_id": "zero_dialogue_neutral", "role": "set_identity_reference"}],
+      "PoseSpec": {
+        "PoseClass": "front_standing_anchor",
+        "BodyAction": "straight full-body stance facing front",
+        "Gesture": "arms relaxed at the sides with hands visible",
+        "WeightShift": "even weight distribution and stable feet",
+        "HeadShoulder": "head centered and shoulders level",
+        "SilhouetteChange": "front-facing outline must read as a separate pose from the three-quarter anchor"
+      },
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_stand_neutral.png",
       "Priority": "P0",
       "Screen": "workshop_main,combat_hud",
@@ -2457,6 +2473,14 @@
       "AssetID": "zero_dialogue_command_ready",
       "SetRole": "command_ready_difference",
       "SourceAssets": [{"asset_id": "zero_dialogue_neutral", "role": "identity_and_pose_reference"}],
+      "PoseSpec": {
+        "PoseClass": "command_ready_stance",
+        "BodyAction": "torso turned slightly toward the viewer with the chest lifted and posture braced",
+        "Gesture": "one hand gathers the shawl at the collarbone while the other arm is held ready at the side",
+        "WeightShift": "weight shifts onto the rear leg with the front foot placed forward",
+        "HeadShoulder": "head turns toward the command source and one shoulder rises subtly",
+        "SilhouetteChange": "elbow, forearm, and forward foot must visibly break the neutral standing contour"
+      },
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_dialogue_command_ready.png",
       "Priority": "P0",
       "Screen": "workshop_main,doll_room",
@@ -2476,6 +2500,14 @@
       "AssetID": "zero_maintenance_sit",
       "SetRole": "maintenance_pose_anchor",
       "SourceAssets": [{"asset_id": "zero_dialogue_neutral", "role": "set_identity_reference"}],
+      "PoseSpec": {
+        "PoseClass": "full_body_maintenance_sit",
+        "BodyAction": "seated with both knees drawn together and the torso leaning slightly forward",
+        "Gesture": "hands work low near the lap as if performing restrained maintenance",
+        "WeightShift": "weight rests on the seated hips rather than the feet",
+        "HeadShoulder": "shoulders curve inward and the head lowers toward the repair task",
+        "SilhouetteChange": "seated knees and folded torso must replace the standing leg silhouette"
+      },
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_maintenance_sit.png",
       "Priority": "P0",
       "Screen": "maintenance_panel,workshop_main",
@@ -2495,6 +2527,14 @@
       "AssetID": "zero_low_san",
       "SetRole": "low_san_state_difference",
       "SourceAssets": [{"asset_id": "zero_dialogue_neutral", "role": "identity_and_pose_reference"}],
+      "PoseSpec": {
+        "PoseClass": "compressed_distressed_stance",
+        "BodyAction": "body contracts inward with knees slightly bent and the shawl wrapped closer around the torso",
+        "Gesture": "both hands stay close to the chest as if bracing against unstable breathing",
+        "WeightShift": "weight sinks unevenly into bent legs with a guarded center of gravity",
+        "HeadShoulder": "head dips and shoulders hunch forward",
+        "SilhouetteChange": "bent knees, hunched shoulders, and closed arms must clearly alter the outer contour"
+      },
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_low_san.png",
       "Priority": "P0",
       "Screen": "workshop_main,doll_room,combat_hud",
@@ -2514,6 +2554,14 @@
       "AssetID": "zero_hurt",
       "SetRole": "hurt_state_difference",
       "SourceAssets": [{"asset_id": "zero_dialogue_neutral", "role": "identity_and_pose_reference"}],
+      "PoseSpec": {
+        "PoseClass": "injured_unbalanced_stance",
+        "BodyAction": "torso twists away from the damaged side with one knee buckling slightly",
+        "Gesture": "one hand protects the injured wrist while the other arm hangs lower and heavier",
+        "WeightShift": "weight is forced onto the stronger leg with a visible sideways imbalance",
+        "HeadShoulder": "head angles down toward the damaged side and one shoulder drops",
+        "SilhouetteChange": "asymmetrical shoulders, bent knee, and separated arms must create a visibly different silhouette"
+      },
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_hurt.png",
       "Priority": "P0",
       "Screen": "workshop_main,doll_room,combat_hud",
@@ -2533,6 +2581,14 @@
       "AssetID": "zero_trust_soft",
       "SetRole": "trust_expression_difference",
       "SourceAssets": [{"asset_id": "zero_dialogue_neutral", "role": "identity_and_pose_reference"}],
+      "PoseSpec": {
+        "PoseClass": "open_trusting_stance",
+        "BodyAction": "torso opens slightly toward the viewer with a gentle forward lean",
+        "Gesture": "one hand extends a little toward the viewer while the other relaxes beside the body",
+        "WeightShift": "weight moves onto the forward foot in a cautious approach",
+        "HeadShoulder": "head tilts toward the viewer and shoulders relax outward",
+        "SilhouetteChange": "forward arm and open chest must widen the neutral contour without becoming theatrical"
+      },
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_trust_soft.png",
       "Priority": "P1",
       "Screen": "workshop_main,doll_room",
@@ -2552,6 +2608,14 @@
       "AssetID": "zero_repair_relief",
       "SetRole": "repair_relief_difference",
       "SourceAssets": [{"asset_id": "zero_dialogue_neutral", "role": "identity_and_pose_reference"}],
+      "PoseSpec": {
+        "PoseClass": "relieved_post_maintenance_stance",
+        "BodyAction": "body rises from a recently repaired state with the torso gently released",
+        "Gesture": "hands lower from the repair position, one hand resting near the shawl edge",
+        "WeightShift": "weight settles evenly again but remains slightly tired",
+        "HeadShoulder": "shoulders drop and the head lifts a little from the maintenance pose",
+        "SilhouetteChange": "released shoulders and lowered hands must read as a distinct recovery posture"
+      },
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_repair_relief.png",
       "Priority": "P1",
       "Screen": "maintenance_panel,doll_room",
@@ -2571,6 +2635,14 @@
       "AssetID": "zero_tired",
       "SetRole": "tired_state_difference",
       "SourceAssets": [{"asset_id": "zero_dialogue_neutral", "role": "identity_and_pose_reference"}],
+      "PoseSpec": {
+        "PoseClass": "slumped_exhausted_stance",
+        "BodyAction": "torso sinks slightly with softened knees and a slower, heavy posture",
+        "Gesture": "both hands gather low in front of the body instead of resting near the face",
+        "WeightShift": "weight settles downward and slightly to one side as if standing takes effort",
+        "HeadShoulder": "head drops and shoulders visibly sag",
+        "SilhouetteChange": "lowered head, sagging shoulders, softened knees, and low hands must change the full outline"
+      },
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_tired.png",
       "Priority": "P1",
       "Screen": "workshop_main,doll_room",
@@ -2590,6 +2662,14 @@
       "AssetID": "zero_cold",
       "SetRole": "cold_relationship_difference",
       "SourceAssets": [{"asset_id": "zero_dialogue_neutral", "role": "identity_and_pose_reference"}],
+      "PoseSpec": {
+        "PoseClass": "rigid_withdrawn_stance",
+        "BodyAction": "body stands rigid and slightly angled away from the viewer",
+        "Gesture": "both arms draw back behind the torso with hands kept out of reach",
+        "WeightShift": "weight stays centered but held defensively away from the viewer",
+        "HeadShoulder": "head turns aside and shoulders become square and tense",
+        "SilhouetteChange": "retracted arms and the turned torso must make the pose unmistakably different at small size"
+      },
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_cold.png",
       "Priority": "P1",
       "Screen": "workshop_main,doll_room",
@@ -2609,6 +2689,14 @@
       "AssetID": "zero_depressed",
       "SetRole": "depressed_state_difference",
       "SourceAssets": [{"asset_id": "zero_dialogue_neutral", "role": "identity_and_pose_reference"}],
+      "PoseSpec": {
+        "PoseClass": "collapsed_inward_stance",
+        "BodyAction": "body folds inward with knees close and the shawl enclosing the torso",
+        "Gesture": "hands hang low and close together with little active motion",
+        "WeightShift": "weight drops heavily into the hips with a weak, unstable center",
+        "HeadShoulder": "head hangs down and shoulders round forward",
+        "SilhouetteChange": "rounded back, closed knees, and low hands must create a collapsed outline"
+      },
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_depressed.png",
       "Priority": "P1",
       "Screen": "workshop_main,doll_room",
@@ -2628,6 +2716,14 @@
       "AssetID": "zero_dialogue_talk_small",
       "SetRole": "talk_small_expression_difference",
       "SourceAssets": [{"asset_id": "zero_dialogue_neutral", "role": "identity_and_pose_reference"}],
+      "PoseSpec": {
+        "PoseClass": "restrained_speaking_gesture",
+        "BodyAction": "upper body leans a fraction toward the listener while the lower body stays stable",
+        "Gesture": "one low hand makes a small conversational motion and the other remains near the shawl",
+        "WeightShift": "a subtle forward shift supports the short line",
+        "HeadShoulder": "head turns slightly toward the listener and one shoulder follows",
+        "SilhouetteChange": "the speaking hand and small upper-body lean must be readable while preserving the full identity"
+      },
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_dialogue_talk_small.png",
       "Priority": "P1",
       "Screen": "workshop_main,doll_room",
@@ -2647,6 +2743,14 @@
       "AssetID": "zero_dialogue_confused",
       "SetRole": "confused_expression_difference",
       "SourceAssets": [{"asset_id": "zero_dialogue_neutral", "role": "identity_and_pose_reference"}],
+      "PoseSpec": {
+        "PoseClass": "questioning_open_hand_gesture",
+        "BodyAction": "upper body shifts slightly sideways as if searching for an explanation",
+        "Gesture": "one palm turns upward at waist height while the other hand stays near the shawl",
+        "WeightShift": "weight moves to one leg in a small uncertain pause",
+        "HeadShoulder": "head tilts and the nearer shoulder lifts slightly",
+        "SilhouetteChange": "the raised palm, tilted head, and asymmetric shoulders must read at dialogue scale"
+      },
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_dialogue_confused.png",
       "Priority": "P1",
       "Screen": "workshop_main,doll_room",
@@ -2666,6 +2770,14 @@
       "AssetID": "zero_dialogue_thoughtful",
       "SetRole": "thoughtful_expression_difference",
       "SourceAssets": [{"asset_id": "zero_dialogue_neutral", "role": "identity_and_pose_reference"}],
+      "PoseSpec": {
+        "PoseClass": "reflective_pause_gesture",
+        "BodyAction": "upper body settles into a quiet pause with a slight turn away from command_ready",
+        "Gesture": "one hand rises near the collarbone or chin while the other arm remains relaxed",
+        "WeightShift": "weight rests on one leg in a measured, still pause",
+        "HeadShoulder": "head angle turns away from command_ready and shoulders remain composed",
+        "SilhouetteChange": "the raised hand and changed head-to-shoulder angle must separate the pose from command_ready"
+      },
       "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_dialogue_thoughtful.png",
       "Priority": "P1",
       "Screen": "workshop_main,doll_room",
