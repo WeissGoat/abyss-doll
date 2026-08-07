@@ -15,10 +15,46 @@ TOOLS_DIR = Path(__file__).resolve().parents[1]
 if str(TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_DIR))
 
+from art_catalog_integrity import CatalogIntegrityError  # noqa: E402
 from compile_art_generation_requests import compile_manifest_requests  # noqa: E402
 
 
 class CompileArtGenerationRequestsTests(unittest.TestCase):
+    @staticmethod
+    def entry(visual_id: str) -> dict:
+        return {
+            "VisualID": visual_id,
+            "Domain": "item",
+            "AssetType": "icon",
+            "DisplayName": visual_id,
+            "ProductionProfile": "standard_asset",
+            "Status": "todo",
+            "Spec": {"SourceSpec": {"Format": "png", "Width": 128, "Height": 128}},
+        }
+
+    def test_duplicate_manifest_visual_id_fails_before_compilation(self) -> None:
+        manifest = {"Version": 3, "Entries": [self.entry("item_demo_icon"), self.entry("item_demo_icon")]}
+        with self.assertRaisesRegex(CatalogIntegrityError, "visual_id_duplicate:item_demo_icon"):
+            compile_manifest_requests(manifest, project_root=Path.cwd())
+
+    def test_scoped_compile_preserves_unselected_requests(self) -> None:
+        manifest = {"Version": 3, "Entries": [self.entry("item_first_icon"), self.entry("item_second_icon")]}
+        first = compile_manifest_requests(copy.deepcopy(manifest), project_root=Path.cwd())
+        changed = copy.deepcopy(first["Manifest"])
+        changed["Entries"][0]["Spec"]["SourceSpec"]["Width"] = 256
+
+        second = compile_manifest_requests(
+            changed,
+            project_root=Path.cwd(),
+            visual_ids={"item_first_icon"},
+            previous_catalog=first["Catalog"],
+        )
+
+        self.assertEqual(len(second["Catalog"]["Requests"]), 2)
+        requests = {item["VisualID"]: item for item in second["Catalog"]["Requests"]}
+        self.assertEqual(requests["item_second_icon"]["RequestID"], first["Catalog"]["Requests"][1]["RequestID"])
+        self.assertNotEqual(requests["item_first_icon"]["RequestID"], first["Catalog"]["Requests"][0]["RequestID"])
+
     def test_powershell_wrapper_dry_run_uses_python_utf8_defaults(self) -> None:
         wrapper = TOOLS_DIR / "Compile-ArtGenerationRequests.ps1"
         completed = subprocess.run(

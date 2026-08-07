@@ -10,6 +10,12 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from art_catalog_integrity import (
+    CatalogIntegrityError,
+    merge_request_catalog,
+    recompute_catalog_summary,
+    validate_manifest_uniqueness,
+)
 from art_prompt_compiler import compile_requirement_request
 from art_style_catalog import build_catalog_snapshot, sha256_json
 from generate_art_prompts import visual_intent_for
@@ -216,6 +222,8 @@ def compile_manifest_requests(
 ) -> dict[str, Any]:
     working = copy.deepcopy(manifest)
     working["Version"] = max(3, int(working.get("Version", 1) or 1))
+    entries = [entry for entry in working.get("Entries", []) if isinstance(entry, dict)]
+    validate_manifest_uniqueness(entries)
     if refresh_style_catalog:
         working.pop("ArtStyleCatalog", None)
     catalog = build_catalog_snapshot(project_root, working, refresh=refresh_style_catalog)
@@ -223,7 +231,7 @@ def compile_manifest_requests(
     asset_sets = _asset_sets(working)
     working["AssetSets"] = asset_sets
     selected = visual_ids or set()
-    requests: list[dict[str, Any]] = []
+    compiled_requests: list[dict[str, Any]] = []
     previous_by_visual = _requests_by_visual(previous_catalog)
     report = {
         "CompilerVersion": compiler_version,
@@ -279,6 +287,7 @@ def compile_manifest_requests(
                 "PromptRevisions": [],
                 "Error": str(exc),
             }
+        request["PublicationStatus"] = str(entry.get("Status", "") or "")
         entry["CompiledRequest"] = {
             "RequestID": request["RequestID"],
             "RequirementFingerprint": request.get("RequirementFingerprint", ""),
@@ -307,7 +316,22 @@ def compile_manifest_requests(
                 "Error": request.get("Error", ""),
             }
         )
-        requests.append(request)
+        compiled_requests.append(request)
+
+    selected_visual_ids = selected or {
+        str(entry.get("VisualID", ""))
+        for entry in entries
+        if str(entry.get("VisualID", ""))
+    }
+    if selected and previous_catalog is None:
+        raise CatalogIntegrityError("scoped_compile_previous_catalog_missing")
+    previous_requests = (
+        previous_catalog.get("Requests", [])
+        if isinstance(previous_catalog, dict) and isinstance(previous_catalog.get("Requests", []), list)
+        else []
+    )
+    requests = merge_request_catalog(previous_requests, compiled_requests, selected_visual_ids)
+    summary = recompute_catalog_summary(requests)
 
     manifest_fingerprint = sha256_json(_input_manifest(working))
     request_catalog = {
@@ -317,18 +341,7 @@ def compile_manifest_requests(
         "ManifestFingerprint": manifest_fingerprint,
         "ArtStyleCatalogFingerprint": catalog["CatalogFingerprint"],
         "Requests": requests,
-        "Summary": {
-            key: report[key]
-            for key in (
-                "Ready",
-                "StyleResolutionRequired",
-                "Unsupported",
-                "Invalid",
-                "UnchangedPublished",
-                "PromptAuthoringRequired",
-                "PromptReady",
-            )
-        },
+        "Summary": summary,
     }
     return {"Manifest": working, "Catalog": request_catalog, "Report": report}
 
