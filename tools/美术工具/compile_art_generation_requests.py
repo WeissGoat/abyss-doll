@@ -35,17 +35,6 @@ STYLE_REF_OVERRIDES: dict[str, dict[str, Any]] = {
     },
 }
 
-ZERO_IDENTITY_LOCKS = [
-    "silver hair",
-    "white blindfold",
-    "gray shawl",
-    "pale inner dress",
-    "bare legs",
-    "bare feet",
-    "normal state no red glow",
-]
-
-
 def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
@@ -90,22 +79,12 @@ def _asset_sets(manifest: dict[str, Any]) -> dict[str, Any]:
                 "AssetID": entry.get("AssetID", ""),
                 "VisualID": entry.get("VisualID", ""),
                 "SetRole": entry.get("SetRole", ""),
+                "PresentationGroup": entry.get("PresentationGroup", ""),
                 "SourceAssets": copy.deepcopy(entry.get("SourceAssets", [])),
             }
         )
     for asset_set_id, member_list in members.items():
         asset_set = result.setdefault(asset_set_id, {})
-        asset_set.setdefault("ProductionProfile", "character_portrait_set")
-        asset_set.setdefault("StyleRef", {"Profile": "character_portrait_v1"})
-        asset_set.setdefault("IdentitySources", [])
-        asset_set.setdefault("IdentityLocks", [])
-        asset_set.setdefault("ConsistencyRules", ["preserve identity and canvas baseline across members"])
-        if asset_set_id == "zero_dialogue_portrait_v1" and not asset_set["IdentityLocks"]:
-            asset_set["IdentityLocks"] = copy.deepcopy(ZERO_IDENTITY_LOCKS)
-            asset_set["IdentitySources"] = [
-                "美术文档/人设/03_零号初版人设方案.md",
-                "美术文档/人设/05_零号立绘素材设计与交付清单.md",
-            ]
         asset_set["Members"] = sorted(member_list, key=lambda item: (str(item.get("SetRole", "")), str(item.get("VisualID", ""))))
     return result
 

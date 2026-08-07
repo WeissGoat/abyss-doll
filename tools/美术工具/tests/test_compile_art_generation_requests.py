@@ -151,6 +151,20 @@ class CompileArtGenerationRequestsTests(unittest.TestCase):
     def test_compiles_standard_and_portrait_entries_without_changing_state(self) -> None:
         manifest = {
             "Version": 1,
+            "AssetSets": {
+                "zero_dialogue_portrait_v1": {
+                    "ProductionProfile": "character_portrait_set",
+                    "StyleRef": {"Profile": "character_portrait_v1"},
+                    "IdentitySources": ["character.md"],
+                    "IdentityContract": {
+                        "Version": 1,
+                        "Required": ["silver loose hair"],
+                        "Forbidden": ["tied hair"],
+                        "Conditional": ["red glow only when required"],
+                    },
+                    "ConsistencyRules": ["preserve identity"],
+                }
+            },
             "Entries": [
                 {
                     "VisualID": "ui_button_primary",
@@ -173,6 +187,7 @@ class CompileArtGenerationRequestsTests(unittest.TestCase):
                     "DisplayName": "零号疑惑",
                     "ProductionProfile": "character_portrait_set",
                     "AssetSetID": "zero_dialogue_portrait_v1",
+                    "PresentationGroup": "dialogue_standing",
                     "AssetID": "zero_dialogue_confused",
                     "SetRole": "confused_expression_difference",
                     "SourceAssets": [{"asset_id": "zero_dialogue_neutral", "role": "identity_reference"}],
@@ -200,8 +215,12 @@ class CompileArtGenerationRequestsTests(unittest.TestCase):
         )
         self.assertNotIn("PromptVariants", result["Catalog"]["Requests"][0])
         self.assertEqual(
-            result["Manifest"]["AssetSets"]["zero_dialogue_portrait_v1"]["IdentityLocks"][0],
-            "silver hair",
+            result["Manifest"]["AssetSets"]["zero_dialogue_portrait_v1"]["IdentityContract"]["Required"],
+            ["silver loose hair"],
+        )
+        self.assertEqual(
+            result["Manifest"]["AssetSets"]["zero_dialogue_portrait_v1"]["Members"][0]["PresentationGroup"],
+            "dialogue_standing",
         )
         portrait_intent = compiled["doll_zero_dialogue_confused"]["VisualIntent"]
         self.assertIn("嘴角轻微收紧", portrait_intent["RequiredChanges"][0])

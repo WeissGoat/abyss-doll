@@ -62,6 +62,7 @@ class ArtPromptCompilerTests(unittest.TestCase):
             "VisualID": "doll_zero_dialogue_confused",
             "ProductionProfile": "character_portrait_set",
             "AssetSetID": "zero_dialogue_portrait_v1",
+            "PresentationGroup": "dialogue_standing",
             "SetRole": "confused_expression_difference",
             "SourceAssets": [{"AssetID": "zero_dialogue_neutral", "Role": "identity_reference"}],
             "VisualIntent": {
@@ -74,8 +75,14 @@ class ArtPromptCompilerTests(unittest.TestCase):
         asset_sets = {
             "zero_dialogue_portrait_v1": {
                 "StyleRef": {"Profile": "character_portrait_v1"},
-                "IdentityLocks": ["silver hair", "white blindfold"],
                 "IdentitySources": ["character.md"],
+                "ProductionProfile": "character_portrait_set",
+                "IdentityContract": {
+                    "Version": 1,
+                    "Required": ["silver loose hair", "white cloth blindfold"],
+                    "Forbidden": ["tied hair", "black blindfold"],
+                    "Conditional": ["red glow only when required by the target state"],
+                },
             }
         }
 
@@ -85,11 +92,13 @@ class ArtPromptCompilerTests(unittest.TestCase):
             [item["Text"] for item in request["PreservationContract"]["RequiredChanges"]],
             ["restrained confused expression"],
         )
-        self.assertIn("silver hair", [item["Text"] for item in request["PreservationContract"]["Preserve"]])
+        self.assertIn("silver loose hair", [item["Text"] for item in request["PreservationContract"]["Preserve"]])
         self.assertEqual(request["TechnicalRequest"]["ReferenceAssets"], entry["SourceAssets"])
         hard = request["PromptAuthoringContext"]["HardConstraints"]
         self.assertTrue(any(item["Text"] == "white blindfold" for item in hard["Identity"]))
         self.assertTrue(any(item["Text"] == "restrained confused expression" for item in hard["RequiredChanges"]))
+        self.assertEqual([item["ID"] for item in hard["Conditional"]], ["brief:conditional:0"])
+        self.assertEqual(request["PromptAuthoringContext"]["PresentationGroup"], "dialogue_standing")
 
     def test_context_contains_stable_constraint_ids(self) -> None:
         context = build_prompt_authoring_context(self.button_entry, self.catalog, {})

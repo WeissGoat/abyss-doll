@@ -96,7 +96,7 @@ def _semantic_units(brief: dict[str, Any]) -> list[dict[str, Any]]:
                     "Required": section != "Forbidden",
                 }
             )
-    for section in ("Preserve", "RequiredChanges"):
+    for section in ("Preserve", "RequiredChanges", "Conditional"):
         for index, text in enumerate(_list(brief.get(section))):
             units.append(
                 {
@@ -127,6 +127,7 @@ def build_canonical_visual_brief(
     ]
     style_positive = _dedupe([text for node in style_nodes for text in _node_positive(node)])
     style_negative = _dedupe([text for node in style_nodes for text in _node_negative(node)])
+    contract = resolved.get("IdentityContract", {})
     brief: dict[str, Any] = {
         "Style": style_positive,
         "StyleNegative": style_negative,
@@ -135,18 +136,20 @@ def build_canonical_visual_brief(
         "Mood": _list(intent.get("MoodEN") or intent.get("MoodCN")),
         "Composition": _list(intent.get("CompositionEN") or intent.get("CompositionCN")),
         "Required": _list(intent.get("RequiredElements")),
-        "Forbidden": _list(intent.get("ForbiddenElements")),
-        "Preserve": _list(intent.get("Preserve")) + _list(resolved.get("IdentityLocks")),
+        "Forbidden": _list(intent.get("ForbiddenElements")) + _list(contract.get("Forbidden")),
+        "Preserve": _list(intent.get("Preserve")) + _list(contract.get("Required")),
+        "Conditional": _list(contract.get("Conditional")),
         "RequiredChanges": _list(intent.get("RequiredChanges")),
         "PoseSpec": copy.deepcopy(intent.get("PoseSpec") or entry.get("PoseSpec") or {}),
         "ResolvedLayers": copy.deepcopy(resolved.get("ResolvedLayers", [])),
         "SetRole": resolved.get("SetRole", ""),
         "SourceAssets": copy.deepcopy(resolved.get("SourceAssets", [])),
         "IdentitySources": copy.deepcopy(resolved.get("IdentitySources", [])),
+        "PresentationGroup": resolved.get("PresentationGroup", ""),
     }
     brief["Style"] = _dedupe(brief["Style"])
     brief["StyleNegative"] = _dedupe(brief["StyleNegative"])
-    for field in ("Subject", "Appearance", "Mood", "Composition", "Required", "Forbidden", "Preserve", "RequiredChanges"):
+    for field in ("Subject", "Appearance", "Mood", "Composition", "Required", "Forbidden", "Preserve", "RequiredChanges", "Conditional"):
         brief[field] = _dedupe(brief[field])
     brief["SemanticUnits"] = _semantic_units(brief)
     return brief
@@ -182,7 +185,7 @@ def build_prompt_authoring_context(
             "Identity": _context_items(
                 brief.get("Preserve"),
                 "identity",
-                source="VisualIntent.Preserve+AssetSet.IdentityLocks",
+                source="VisualIntent.Preserve+AssetSet.IdentityContract.Required",
             ),
             "RequiredChanges": _context_items(
                 brief.get("RequiredChanges"),
@@ -199,6 +202,11 @@ def build_prompt_authoring_context(
                 brief.get("Required"),
                 "required",
                 source="VisualIntent.RequiredElements",
+            ),
+            "Conditional": _context_items(
+                brief.get("Conditional"),
+                "conditional",
+                source="AssetSet.IdentityContract.Conditional",
             ),
             "Technical": [],
         },
@@ -230,6 +238,7 @@ def build_prompt_authoring_context(
         },
         "ResolvedLayers": copy.deepcopy(brief.get("ResolvedLayers", [])),
         "SetRole": brief.get("SetRole", ""),
+        "PresentationGroup": brief.get("PresentationGroup", ""),
     }
 
 
@@ -395,6 +404,7 @@ def compile_requirement_request(
     preservation = {
         "Preserve": copy.deepcopy(hard.get("Identity", [])),
         "RequiredChanges": copy.deepcopy(hard.get("RequiredChanges", [])),
+        "Conditional": copy.deepcopy(hard.get("Conditional", [])),
         "PoseSpec": copy.deepcopy(hard.get("PoseSpec", {})),
         "ForbiddenChanges": copy.deepcopy(hard.get("ForbiddenChanges", [])),
         "Required": copy.deepcopy(hard.get("Required", [])),

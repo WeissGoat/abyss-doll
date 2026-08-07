@@ -96,13 +96,14 @@ class ArtStyleCatalogTests(unittest.TestCase):
                 {"Profile": "character_portrait_v1", "Family": "ui_button_core_v1", "Role": "primary"},
             )
 
-    def test_portrait_layers_include_identity_locks(self) -> None:
+    def test_portrait_layers_include_source_owned_identity_contract_and_group(self) -> None:
         from art_style_catalog import resolve_entry_layers
 
         entry = {
             "VisualID": "doll_zero_dialogue_confused",
             "ProductionProfile": "character_portrait_set",
             "AssetSetID": "zero_dialogue_portrait_v1",
+            "PresentationGroup": "dialogue_standing",
             "SetRole": "confused_expression_difference",
             "SourceAssets": [{"AssetID": "zero_dialogue_neutral", "Role": "identity_reference"}],
             "VisualIntent": {"RequiredChanges": ["restrained confused expression"]},
@@ -110,7 +111,14 @@ class ArtStyleCatalogTests(unittest.TestCase):
         asset_sets = {
             "zero_dialogue_portrait_v1": {
                 "StyleRef": {"Profile": "character_portrait_v1"},
-                "IdentityLocks": ["silver hair", "white blindfold"],
+                "ProductionProfile": "character_portrait_set",
+                "IdentitySources": ["character.md"],
+                "IdentityContract": {
+                    "Version": 1,
+                    "Required": ["silver loose hair", "white cloth blindfold"],
+                    "Forbidden": ["tied hair", "black blindfold"],
+                    "Conditional": ["red glow only when required by the target state"],
+                },
             }
         }
 
@@ -120,7 +128,8 @@ class ArtStyleCatalogTests(unittest.TestCase):
             resolved["Profile"]["PositiveEN"],
             ["full-body anime game character portrait"],
         )
-        self.assertEqual(resolved["IdentityLocks"], ["silver hair", "white blindfold"])
+        self.assertEqual(resolved["IdentityContract"]["Required"], ["silver loose hair", "white cloth blindfold"])
+        self.assertEqual(resolved["PresentationGroup"], "dialogue_standing")
         self.assertEqual(resolved["SetRole"], "confused_expression_difference")
 
     def test_canonical_hash_is_stable_for_key_order(self) -> None:

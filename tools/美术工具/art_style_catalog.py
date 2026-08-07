@@ -269,10 +269,18 @@ def resolve_entry_layers(
 
     resolved = resolve_style_ref(catalog, style_ref)
     if profile_name == "character_portrait_set":
-        resolved["IdentityLocks"] = copy.deepcopy(asset_set.get("IdentityLocks", []))
+        contract = asset_set.get("IdentityContract")
+        if (
+            not isinstance(contract, dict)
+            or int(contract.get("Version", 0) or 0) < 1
+            or not all(isinstance(contract.get(key), list) for key in ("Required", "Forbidden", "Conditional"))
+        ):
+            raise _error("asset_set_identity_contract_invalid", asset_set_id)
+        resolved["IdentityContract"] = copy.deepcopy(contract)
         resolved["IdentitySources"] = copy.deepcopy(asset_set.get("IdentitySources", []))
         resolved["ConsistencyRules"] = copy.deepcopy(asset_set.get("ConsistencyRules", []))
         resolved["SetRole"] = entry.get("SetRole", "")
+        resolved["PresentationGroup"] = entry.get("PresentationGroup", "")
         resolved["SourceAssets"] = copy.deepcopy(entry.get("SourceAssets", []))
     return resolved
 
