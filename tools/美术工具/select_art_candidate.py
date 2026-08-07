@@ -13,6 +13,7 @@ from typing import Any
 
 from art_processing import IMAGE_EXTENSIONS, numeric_round_directories, resolve_latest_processed_candidate_file
 from art_workspace import normalize_entry_workspace_paths, workspace_path
+from portrait_review_contract import DEFAULT_PROTECTED_DIMENSIONS, validate_portrait_review_item
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -93,6 +94,7 @@ def validate_replacement(
     target_hash: str,
     source_hash: str,
     project_root: Path,
+    is_portrait: bool,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     if item.get("SelectionMode") != "replacement":
         raise ValueError("replacement_baseline_missing")
@@ -115,6 +117,22 @@ def validate_replacement(
 
     candidate_scores = score_map(item.get("Scores"), label="replacement_candidate")
     baseline_scores = score_map(baseline.get("Scores"), label="replacement_baseline")
+    baseline_dimension_evidence: dict[str, Any] = {}
+    if is_portrait:
+        try:
+            baseline_review = validate_portrait_review_item(
+                {
+                    "ReviewRubricVersion": item.get("ReviewRubricVersion"),
+                    "Scores": baseline.get("Scores"),
+                    "DimensionEvidence": baseline.get("DimensionEvidence"),
+                },
+                require_selection_threshold=True,
+            )
+        except ValueError as exc:
+            raise ValueError("replacement_baseline_review_required") from exc
+        candidate_scores = score_map(item.get("Scores"), label="replacement_candidate")
+        baseline_scores = baseline_review["Scores"]
+        baseline_dimension_evidence = baseline_review["DimensionEvidence"]
     if policy.get("MustExceedExisting") is not True:
         raise ValueError("replacement_must_exceed_existing_required")
     try:
@@ -133,6 +151,8 @@ def validate_replacement(
     protected = policy.get("ProtectedDimensions", [])
     if not isinstance(protected, list):
         raise ValueError("replacement_protected_dimensions_invalid")
+    if is_portrait and any(dimension not in protected for dimension in DEFAULT_PROTECTED_DIMENSIONS):
+        raise ValueError("replacement_protected_dimensions_required")
     for dimension in protected:
         name = str(dimension)
         if name not in candidate_scores or name not in baseline_scores:
@@ -149,6 +169,8 @@ def validate_replacement(
         "Score": baseline_scores["Total"],
         "Scores": baseline_scores,
     }
+    if is_portrait:
+        previous_selected["DimensionEvidence"] = baseline_dimension_evidence
     policy_result = {
         "ReviewRubricVersion": item["ReviewRubricVersion"],
         "MinimumScorePassed": candidate_scores["Total"] >= max(88, minimum_score),
@@ -157,6 +179,8 @@ def validate_replacement(
         "BaselineStillCurrent": True,
         "RequiredScore": required_score,
     }
+    if is_portrait:
+        policy_result["ProtectedDimensions"] = list(protected)
     return previous_selected, policy_result
 
 
@@ -186,6 +210,25 @@ def atomic_copy(source: Path, target: Path) -> None:
     temporary = target.with_name(f".{target.name}.{uuid.uuid4().hex}.tmp")
     shutil.copy2(source, temporary)
     temporary.replace(target)
+
+
+def preserve_previous_selected(
+    target: Path,
+    review_path: Path,
+    visual_id: str,
+    target_hash: str,
+) -> Path:
+    destination = (
+        review_path.parent
+        / "replacement-baselines"
+        / visual_id
+        / f"{target_hash}{target.suffix.lower()}"
+    )
+    if destination.exists() and hashlib.sha256(destination.read_bytes()).hexdigest() != target_hash:
+        raise ValueError("replacement_baseline_evidence_hash_mismatch")
+    if not destination.exists():
+        atomic_copy(target, destination)
+    return destination
 
 
 def find_run_summary(review_path: Path, production_run_id: str) -> Path | None:
@@ -252,6 +295,9 @@ def select_art_candidate(
 
     review = read_json(review_path)
     item = find_review_item(review, visual_id)
+    is_portrait = entry.get("ProductionProfile") == "character_portrait_set"
+    if is_portrait:
+        validate_portrait_review_item(item, require_selection_threshold=True)
     if str(item.get("HardGate", "")) != "passed":
         raise ValueError("visual review hard gate did not pass")
     if str(item.get("RecommendedAction", "")) not in {"select", "auto_select"}:
@@ -303,9 +349,14 @@ def select_art_candidate(
             target_hash=target_hash,
             source_hash=source_hash,
             project_root=project_root,
+            is_portrait=is_portrait,
         )
         if not allow_selected_overwrite:
             raise PermissionError(f"selected overwrite authorization required: {repo_path(target, project_root)}")
+
+    if selection_mode == "replacement" and not dry_run:
+        evidence_path = preserve_previous_selected(target, review_path, visual_id, target_hash)
+        previous_selected["EvidencePath"] = str(evidence_path.resolve())
 
     decision = {
         "ProductionRunID": str(review.get("ProductionRunID", "") or ""),

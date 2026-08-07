@@ -16,10 +16,29 @@ if str(TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_DIR))
 
 from select_art_candidate import select_art_candidate  # noqa: E402
+from portrait_review_contract import (  # noqa: E402
+    DEFAULT_PROTECTED_DIMENSIONS,
+    PORTRAIT_DIMENSIONS,
+    PORTRAIT_RUBRIC_VERSION,
+)
 
 
 def repo_path(path: Path, root: Path) -> str:
     return path.resolve().relative_to(root.resolve()).as_posix()
+
+
+def complete_scores(total: int) -> dict[str, int]:
+    return {"Total": total, **{dimension: total for dimension in PORTRAIT_DIMENSIONS}}
+
+
+def dimension_evidence() -> dict[str, dict[str, list[str] | str]]:
+    return {
+        dimension: {
+            "Finding": f"Independent {dimension} finding.",
+            "Evidence": [f"Evidence for {dimension}."],
+        }
+        for dimension in PORTRAIT_DIMENSIONS
+    }
 
 
 class SelectArtCandidateTests(unittest.TestCase):
@@ -435,6 +454,138 @@ class SelectArtCandidateTests(unittest.TestCase):
                 allow_selected_overwrite=True,
                 dry_run=False,
             )
+
+    def run_portrait_selection(
+        self,
+        *,
+        baseline_scores: dict[str, int],
+        candidate_scores: dict[str, int] | None = None,
+        protected_dimensions: list[str] | None = None,
+    ) -> dict:
+        visual_id = "doll_zero_dialogue_hurt"
+        workspace = self.incoming_root / "character_portraits" / visual_id
+        round_dir = workspace / "processed" / "1"
+        round_dir.mkdir(parents=True, exist_ok=True)
+        candidate = round_dir / "001.png"
+        Image.new("RGBA", (8, 4), "blue").save(candidate)
+        candidate_hash = hashlib.sha256(candidate.read_bytes()).hexdigest()
+        (round_dir / "decision.json").write_text(
+            json.dumps(
+                {
+                    "State": "passed",
+                    "Candidates": [
+                        {
+                            "File": candidate.name,
+                            "Status": "passed",
+                            "SHA256": candidate_hash,
+                            "Width": 8,
+                            "Height": 4,
+                            "Format": "png",
+                            "Reasons": [],
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        target = workspace / "selected" / f"{visual_id}.png"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        Image.new("RGBA", (8, 4), "red").save(target)
+        target_hash = hashlib.sha256(target.read_bytes()).hexdigest()
+        self.manifest_path.write_text(
+            json.dumps(
+                {
+                    "Entries": [
+                        {
+                            "VisualID": visual_id,
+                            "ProductionProfile": "character_portrait_set",
+                            "Status": "selected",
+                            "SelectedPath": repo_path(target, self.root),
+                        }
+                    ]
+                }
+            ),
+            encoding="utf-8",
+        )
+        candidate_scores = candidate_scores or complete_scores(92)
+        review_path = self.root / "portrait-visual-review.json"
+        review_path.write_text(
+            json.dumps(
+                {
+                    "ProductionRunID": "portrait_replacement_01",
+                    "Items": [
+                        {
+                            "VisualID": visual_id,
+                            "Candidate": str(candidate),
+                            "CandidateSHA256": candidate_hash,
+                            "HardGate": "passed",
+                            "RecommendedAction": "select",
+                            "SelectionMode": "replacement",
+                            "ReviewRubricVersion": PORTRAIT_RUBRIC_VERSION,
+                            "Scores": candidate_scores,
+                            "DimensionEvidence": dimension_evidence(),
+                            "ReplacementBaseline": {
+                                "SelectedPath": str(target),
+                                "SelectedSHA256": target_hash,
+                                "Scores": baseline_scores,
+                                "DimensionEvidence": dimension_evidence(),
+                            },
+                            "ReplacementPolicy": {
+                                "MinimumScore": 88,
+                                "MustExceedExisting": True,
+                                "MinimumScoreDelta": 1,
+                                "ProtectedDimensions": protected_dimensions
+                                if protected_dimensions is not None
+                                else list(DEFAULT_PROTECTED_DIMENSIONS),
+                            },
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        return select_art_candidate(
+            project_root=self.root,
+            manifest_path=self.manifest_path,
+            incoming_root=self.incoming_root,
+            visual_id=visual_id,
+            review_path=review_path,
+            allow_selected_overwrite=True,
+            dry_run=False,
+        )
+
+    def test_portrait_replacement_requires_complete_baseline_review(self) -> None:
+        with self.assertRaisesRegex(ValueError, "replacement_baseline_review_required"):
+            self.run_portrait_selection(baseline_scores={"Total": 90, "Identity": 90})
+
+    def test_portrait_replacement_requires_all_default_protected_dimensions(self) -> None:
+        with self.assertRaisesRegex(ValueError, "replacement_protected_dimensions_required"):
+            self.run_portrait_selection(
+                baseline_scores=complete_scores(90),
+                protected_dimensions=[],
+            )
+        with self.assertRaisesRegex(ValueError, "replacement_protected_dimensions_required"):
+            self.run_portrait_selection(
+                baseline_scores=complete_scores(90),
+                protected_dimensions=["Identity", "Costume"],
+            )
+
+    def test_portrait_replacement_preserves_previous_selected_evidence(self) -> None:
+        result = self.run_portrait_selection(
+            baseline_scores=complete_scores(90),
+            candidate_scores=complete_scores(92),
+            protected_dimensions=list(DEFAULT_PROTECTED_DIMENSIONS),
+        )
+
+        self.assertEqual(result["PolicyResult"]["ProtectedDimensions"], list(DEFAULT_PROTECTED_DIMENSIONS))
+        self.assertTrue(Path(result["PreviousSelected"]["EvidencePath"]).is_file())
+        self.assertEqual(result["PreviousSelected"]["Scores"], complete_scores(90))
+        self.assertEqual(result["PreviousSelected"]["DimensionEvidence"], dimension_evidence())
+        workspace = self.incoming_root / "character_portraits" / "doll_zero_dialogue_hurt"
+        production = json.loads((workspace / "production_decision.json").read_text(encoding="utf-8"))
+        selection = json.loads((self.root / "selection-decision.json").read_text(encoding="utf-8"))
+        self.assertEqual(production["PreviousSelected"], result["PreviousSelected"])
+        self.assertEqual(selection["Selected"][0]["PreviousSelected"], result["PreviousSelected"])
 
 
 if __name__ == "__main__":
