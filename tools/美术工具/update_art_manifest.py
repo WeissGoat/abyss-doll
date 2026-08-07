@@ -513,22 +513,15 @@ def scan_dolls(config_root: Path, project_root: Path, existing_map: Dict[str, Di
 
 def add_preset_assets(
     project_root: Path,
+    preset_path: Path,
     preset_entries: Any,
     existing_map: Dict[str, Dict[str, Any]],
     entries: List[Dict[str, Any]],
 ) -> None:
-    if isinstance(preset_entries, Path):
-        if not preset_entries.exists():
-            return
-        seed_entries = read_json(preset_entries).get("Entries", [])
-        preset_source = preset_entries
-    else:
-        seed_entries = preset_entries
-        preset_source = project_root / "美术文档/art_requirements_seed.json"
-    if not isinstance(seed_entries, list):
+    if not isinstance(preset_entries, list):
         raise ValueError("Preset seed Entries must be a list")
 
-    for index, data in enumerate(seed_entries, start=1):
+    for index, data in enumerate(preset_entries, start=1):
         if not isinstance(data, dict):
             raise ValueError(f"Preset seed entry #{index} must be an object.")
         visual_id = str(data.get("VisualID", "")).strip()
@@ -556,7 +549,7 @@ def add_preset_assets(
                 domain=str(data.get("Domain", "ui")),
                 source_type="preset",
                 derive_rule=str(data.get("DeriveRule", "art requirements seed preset")),
-                config_source=str(data.get("ConfigSource", repo_path(preset_source, project_root))),
+                config_source=str(data.get("ConfigSource", repo_path(preset_path, project_root))),
                 config_id=str(data.get("ConfigID", visual_id)),
                 display_name=str(data.get("DisplayName", visual_id)),
                 asset_type=str(data.get("AssetType", "icon")),
@@ -677,7 +670,7 @@ def main() -> int:
     scan_chassis(config_root, project_root, existing_map, entries)
     scan_dolls(config_root, project_root, existing_map, entries)
     if not args.no_system_assets:
-        add_preset_assets(project_root, seed.get("Entries", []), existing_map, entries)
+        add_preset_assets(project_root, preset_path, seed.get("Entries", []), existing_map, entries)
 
     entries = canonicalize_manifest_entries(entries)
     validate_manifest_uniqueness(entries)

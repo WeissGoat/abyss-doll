@@ -41,6 +41,7 @@ class UpdateArtManifestProfileTests(unittest.TestCase):
         existing_sets = {
             "demo_portraits": {
                 "IdentityLocks": ["legacy compiler-owned value"],
+                "Members": ["legacy compiler-generated member"],
                 "LatestConsistencyReview": {
                     "State": "passed",
                     "SetSnapshotFingerprint": "old-fingerprint",
@@ -54,6 +55,7 @@ class UpdateArtManifestProfileTests(unittest.TestCase):
 
         self.assertEqual(merged["demo_portraits"]["IdentityContract"], seed_sets["demo_portraits"]["IdentityContract"])
         self.assertNotIn("IdentityLocks", merged["demo_portraits"])
+        self.assertNotIn("Members", merged["demo_portraits"])
         self.assertEqual(
             merged["demo_portraits"]["LatestConsistencyReview"],
             existing_sets["demo_portraits"]["LatestConsistencyReview"],
@@ -69,19 +71,27 @@ class UpdateArtManifestProfileTests(unittest.TestCase):
                 }
             )
 
-    def test_explicit_presentation_group_overrides_existing_manifest_value(self) -> None:
+    def test_parsed_seed_entries_keep_the_supplied_preset_path_as_config_source(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
-            seed_path = root / "art_requirements_seed.json"
+            seed_path = root / "custom" / "portrait_seed.json"
+            seed_path.parent.mkdir()
             seed_path.write_text(
                 json.dumps({"Entries": [{"VisualID": "demo_portrait", "PresentationGroup": "dialogue_standing"}]}),
                 encoding="utf-8",
             )
             entries: list[dict[str, object]] = []
 
-            add_preset_assets(root, seed_path, {"demo_portrait": {"VisualID": "demo_portrait", "PresentationGroup": "legacy"}}, entries)
+            add_preset_assets(
+                root,
+                seed_path,
+                json.loads(seed_path.read_text(encoding="utf-8"))["Entries"],
+                {"demo_portrait": {"VisualID": "demo_portrait", "PresentationGroup": "legacy"}},
+                entries,
+            )
 
             self.assertEqual(entries[0]["PresentationGroup"], "dialogue_standing")
+            self.assertEqual(entries[0]["ConfigSource"], "custom/portrait_seed.json")
 
     def test_explicit_shared_item_icon_keeps_both_requirement_sources(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -172,6 +182,7 @@ class UpdateArtManifestProfileTests(unittest.TestCase):
             add_preset_assets(
                 root,
                 seed_path,
+                json.loads(seed_path.read_text(encoding="utf-8"))["Entries"],
                 {existing["VisualID"]: existing},
                 entries,
             )
@@ -200,6 +211,7 @@ class UpdateArtManifestProfileTests(unittest.TestCase):
             add_preset_assets(
                 root,
                 seed_path,
+                json.loads(seed_path.read_text(encoding="utf-8"))["Entries"],
                 {existing["VisualID"]: existing},
                 entries,
             )
