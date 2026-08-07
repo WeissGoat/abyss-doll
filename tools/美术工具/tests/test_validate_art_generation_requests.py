@@ -13,6 +13,7 @@ if str(TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_DIR))
 
 from art_prompt_revision import publish_prompt_revision  # noqa: E402
+from art_catalog_integrity import recompute_catalog_summary  # noqa: E402
 from compile_art_generation_requests import compile_manifest_requests  # noqa: E402
 from validate_art_generation_requests import validate_request_catalog  # noqa: E402
 
@@ -29,6 +30,7 @@ class ValidateArtGenerationRequestsTests(unittest.TestCase):
                     "DisplayName": "主要行动按钮",
                     "ProductionProfile": "standard_asset",
                     "Status": "todo",
+                    "OutputPath": "UnityClient/Assets/Art/Approved/UI/ui_button_primary.png",
                     "Spec": {
                         "SourceSpec": {"Format": "png", "Width": 512, "Height": 160, "AlphaRequired": True},
                         "ProcessSpec": {"NineSlice": {"Enabled": True}},
@@ -84,6 +86,7 @@ class ValidateArtGenerationRequestsTests(unittest.TestCase):
             "CreatedAt": "2026-07-26T12:00:00+08:00",
         }
         catalog["Requests"][0] = publish_prompt_revision(request, revision, activate=True)
+        catalog["Summary"] = recompute_catalog_summary(catalog["Requests"])
         pointer = manifest["Entries"][0]["CompiledRequest"]
         pointer["PromptAuthoringStatus"] = "prompt_ready"
         pointer["ActivePromptRevisionID"] = revision["PromptRevisionID"]
@@ -161,6 +164,27 @@ class ValidateArtGenerationRequestsTests(unittest.TestCase):
         )
 
         self.assertEqual(validate_request_catalog(self.catalog, manifest, strict=True), [])
+
+    def test_stale_catalog_summary_is_reported(self) -> None:
+        catalog = copy.deepcopy(self.catalog)
+        catalog["Summary"]["PromptReady"] = 99
+
+        errors = validate_request_catalog(catalog, self.compiled_manifest, strict=True)
+
+        self.assertIn("catalog_summary_stale", errors)
+
+    def test_duplicate_manifest_ids_and_paths_are_reported(self) -> None:
+        manifest = copy.deepcopy(self.compiled_manifest)
+        duplicate = copy.deepcopy(manifest["Entries"][0])
+        manifest["Entries"].append(duplicate)
+
+        errors = validate_request_catalog(self.catalog, manifest, strict=True)
+
+        self.assertIn("visual_id_duplicate:ui_button_primary", errors)
+        self.assertIn(
+            "output_path_duplicate:" + duplicate.get("OutputPath", ""),
+            errors,
+        )
 
     def test_active_legacy_prompt_is_rejected(self) -> None:
         catalog = copy.deepcopy(self.catalog)

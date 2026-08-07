@@ -105,6 +105,8 @@ class ArtPromptAuthoringToolsTests(unittest.TestCase):
         self.assertEqual(result["Published"], [self.revision["PromptRevisionID"]])
         self.assertEqual(request["PromptAuthoringStatus"], "prompt_ready")
         self.assertEqual(request["ActivePromptRevisionID"], self.revision["PromptRevisionID"])
+        self.assertEqual(persisted["Summary"]["PromptReady"], 1)
+        self.assertEqual(persisted["Summary"]["PromptAuthoringRequired"], 0)
 
     def test_publish_dry_run_does_not_mutate_catalog(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

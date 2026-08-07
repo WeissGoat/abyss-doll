@@ -5,6 +5,10 @@ from __future__ import annotations
 
 from typing import Any
 
+from art_catalog_integrity import (
+    manifest_uniqueness_errors,
+    recompute_catalog_summary,
+)
 from art_prompt_compiler import compile_requirement_request, requirement_request_body
 from art_prompt_revision import validate_prompt_revision
 from art_style_catalog import sha256_json
@@ -38,6 +42,7 @@ def validate_request_catalog(
     if not isinstance(requests, list):
         return ["compiled_request_catalog_requests_missing"]
     request_map: dict[str, dict[str, Any]] = {}
+    request_visual_ids: set[str] = set()
     for request in requests:
         if not isinstance(request, dict) or not request.get("RequestID"):
             errors.append("compiled_request_request_id_missing")
@@ -45,7 +50,22 @@ def validate_request_catalog(
         request_id = str(request["RequestID"])
         if request_id in request_map:
             errors.append(f"compiled_request_duplicate:{request_id}")
+        visual_id = str(request.get("VisualID", ""))
+        if visual_id in request_visual_ids:
+            errors.append(f"compiled_request_visual_id_duplicate:{visual_id}")
+        request_visual_ids.add(visual_id)
         request_map[request_id] = request
+
+    expected_summary = recompute_catalog_summary(requests)
+    if catalog.get("Summary") != expected_summary:
+        errors.append("catalog_summary_stale")
+
+    manifest_entries = manifest.get("Entries", []) if isinstance(manifest, dict) else []
+    if not isinstance(manifest_entries, list):
+        errors.append("manifest_entries_invalid")
+        manifest_entries = []
+    else:
+        errors.extend(manifest_uniqueness_errors([entry for entry in manifest_entries if isinstance(entry, dict)]))
 
     manifest_catalog = manifest.get("ArtStyleCatalog") if isinstance(manifest, dict) else None
     if not isinstance(manifest_catalog, dict):
@@ -58,7 +78,7 @@ def validate_request_catalog(
         errors.append("compiled_request_manifest_fingerprint_mismatch")
 
     asset_sets = manifest.get("AssetSets", {}) if isinstance(manifest.get("AssetSets"), dict) else {}
-    for entry in manifest.get("Entries", []):
+    for entry in manifest_entries:
         if not isinstance(entry, dict):
             continue
         visual_id = str(entry.get("VisualID", ""))

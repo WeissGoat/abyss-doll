@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from art_catalog_integrity import recompute_catalog_summary
 from art_prompt_revision import publish_prompt_revision
 
 
@@ -107,9 +108,18 @@ def publish_revision_file(
             activate=activate,
         )
         published.append(revision["PromptRevisionID"])
+    updated["Summary"] = recompute_catalog_summary(updated.get("Requests", []))
     updated_manifest = None
     if manifest_path is not None:
         updated_manifest = _synchronize_manifest(read_json(manifest_path), updated, published)
+        if isinstance(updated.get("ManifestFingerprint"), str) and isinstance(
+            updated_manifest.get("ArtStyleCatalog"), dict
+        ):
+            from validate_art_generation_requests import validate_request_catalog
+
+            errors = validate_request_catalog(updated, updated_manifest, strict=True)
+            if errors:
+                raise ValueError(";".join(errors))
     if not dry_run:
         if manifest_path is not None and updated_manifest is not None:
             write_json(manifest_path, updated_manifest)

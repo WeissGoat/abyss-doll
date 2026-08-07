@@ -92,22 +92,31 @@ def canonicalize_manifest_entries(entries: list[dict[str, Any]]) -> list[dict[st
     )
 
 
-def validate_manifest_uniqueness(entries: list[dict[str, Any]]) -> None:
+def manifest_uniqueness_errors(entries: list[dict[str, Any]]) -> list[str]:
+    errors: list[str] = []
     visual_ids: set[str] = set()
     output_paths: set[str] = set()
     for entry in entries:
         visual_id = str(entry.get("VisualID", ""))
         if not visual_id:
-            raise CatalogIntegrityError("visual_id_missing")
+            errors.append("visual_id_missing")
+            continue
         if visual_id in visual_ids:
-            raise CatalogIntegrityError(f"visual_id_duplicate:{visual_id}")
+            errors.append(f"visual_id_duplicate:{visual_id}")
         visual_ids.add(visual_id)
 
         output_path = str(entry.get("OutputPath", "") or "")
         if output_path:
             if output_path in output_paths:
-                raise CatalogIntegrityError(f"output_path_duplicate:{output_path}")
+                errors.append(f"output_path_duplicate:{output_path}")
             output_paths.add(output_path)
+    return errors
+
+
+def validate_manifest_uniqueness(entries: list[dict[str, Any]]) -> None:
+    errors = manifest_uniqueness_errors(entries)
+    if errors:
+        raise CatalogIntegrityError(errors[0])
 
 
 def recompute_catalog_summary(requests: list[dict[str, Any]]) -> dict[str, int]:
