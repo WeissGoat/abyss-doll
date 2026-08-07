@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 from pathlib import Path
 from typing import Any, Dict, List
@@ -62,6 +63,35 @@ PRESERVE_FIELDS = [
 
 def read_json(path: Path) -> Dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def validate_seed_asset_sets(asset_sets: Any) -> dict[str, dict[str, Any]]:
+    if not isinstance(asset_sets, dict):
+        raise ValueError("Preset seed AssetSets must be an object")
+    result: dict[str, dict[str, Any]] = {}
+    for asset_set_id, value in asset_sets.items():
+        if not isinstance(value, dict):
+            raise ValueError(f"asset_set_invalid:{asset_set_id}")
+        contract = value.get("IdentityContract")
+        if not isinstance(contract, dict) or int(contract.get("Version", 0) or 0) < 1:
+            raise ValueError(f"asset_set_identity_contract_invalid:{asset_set_id}")
+        if not all(isinstance(contract.get(key), list) for key in ("Required", "Forbidden", "Conditional")):
+            raise ValueError(f"asset_set_identity_contract_invalid:{asset_set_id}")
+        result[str(asset_set_id)] = copy.deepcopy(value)
+    return result
+
+
+def merge_seed_asset_sets(
+    seed_sets: dict[str, dict[str, Any]],
+    existing_sets: dict[str, Any],
+) -> dict[str, dict[str, Any]]:
+    result = copy.deepcopy(seed_sets)
+    for asset_set_id, asset_set in result.items():
+        existing = existing_sets.get(asset_set_id, {}) if isinstance(existing_sets, dict) else {}
+        review = existing.get("LatestConsistencyReview") if isinstance(existing, dict) else None
+        if isinstance(review, dict):
+            asset_set["LatestConsistencyReview"] = copy.deepcopy(review)
+    return result
 
 
 def repo_path(path: Path, root: Path) -> str:
@@ -483,17 +513,20 @@ def scan_dolls(config_root: Path, project_root: Path, existing_map: Dict[str, Di
 
 def add_preset_assets(
     project_root: Path,
-    preset_path: Path,
+    preset_entries: Any,
     existing_map: Dict[str, Dict[str, Any]],
     entries: List[Dict[str, Any]],
 ) -> None:
-    if not preset_path.exists():
-        return
-
-    seed = read_json(preset_path)
-    seed_entries = seed.get("Entries", [])
+    if isinstance(preset_entries, Path):
+        if not preset_entries.exists():
+            return
+        seed_entries = read_json(preset_entries).get("Entries", [])
+        preset_source = preset_entries
+    else:
+        seed_entries = preset_entries
+        preset_source = project_root / "美术文档/art_requirements_seed.json"
     if not isinstance(seed_entries, list):
-        raise ValueError(f"Preset seed Entries must be a list: {preset_path}")
+        raise ValueError("Preset seed Entries must be a list")
 
     for index, data in enumerate(seed_entries, start=1):
         if not isinstance(data, dict):
@@ -513,6 +546,7 @@ def add_preset_assets(
             "SetRole": data.get("SetRole"),
             "SourceAssets": data.get("SourceAssets"),
             "PoseSpec": data.get("PoseSpec"),
+            "PresentationGroup": data.get("PresentationGroup"),
         }
         source_owned_fields = {key for key in extra_fields if key in data}
         add_entry(
@@ -522,7 +556,7 @@ def add_preset_assets(
                 domain=str(data.get("Domain", "ui")),
                 source_type="preset",
                 derive_rule=str(data.get("DeriveRule", "art requirements seed preset")),
-                config_source=str(data.get("ConfigSource", repo_path(preset_path, project_root))),
+                config_source=str(data.get("ConfigSource", repo_path(preset_source, project_root))),
                 config_id=str(data.get("ConfigID", visual_id)),
                 display_name=str(data.get("DisplayName", visual_id)),
                 asset_type=str(data.get("AssetType", "icon")),
@@ -623,6 +657,8 @@ def main() -> int:
     existing_manifest: Dict[str, Any] = {}
     if manifest_path.exists():
         existing_manifest = read_json(manifest_path)
+    seed = read_json(preset_path)
+    seed_asset_sets = validate_seed_asset_sets(seed.get("AssetSets", {}))
     existing_entries = existing_manifest.get("Entries", [])
     existing_map: Dict[str, Dict[str, Any]] = {}
     for entry in existing_entries:
@@ -641,7 +677,7 @@ def main() -> int:
     scan_chassis(config_root, project_root, existing_map, entries)
     scan_dolls(config_root, project_root, existing_map, entries)
     if not args.no_system_assets:
-        add_preset_assets(project_root, preset_path, existing_map, entries)
+        add_preset_assets(project_root, seed.get("Entries", []), existing_map, entries)
 
     entries = canonicalize_manifest_entries(entries)
     validate_manifest_uniqueness(entries)
@@ -667,8 +703,7 @@ def main() -> int:
         manifest["ArtStyle"] = existing_manifest["ArtStyle"]
     if existing_manifest.get("ArtStyleCatalog"):
         manifest["ArtStyleCatalog"] = existing_manifest["ArtStyleCatalog"]
-    if existing_manifest.get("AssetSets"):
-        manifest["AssetSets"] = existing_manifest["AssetSets"]
+    manifest["AssetSets"] = merge_seed_asset_sets(seed_asset_sets, existing_manifest.get("AssetSets", {}))
 
     if args.dry_run:
         print(f"Manifest dry-run: {repo_path(manifest_path, project_root)}")

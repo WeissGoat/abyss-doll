@@ -14,10 +14,75 @@ if str(TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_DIR))
 
 from art_catalog_integrity import CatalogIntegrityError, canonicalize_manifest_entries  # noqa: E402
-from update_art_manifest import add_preset_assets, scan_items  # noqa: E402
+from update_art_manifest import (  # noqa: E402
+    add_preset_assets,
+    merge_seed_asset_sets,
+    scan_items,
+    validate_seed_asset_sets,
+)
 
 
 class UpdateArtManifestProfileTests(unittest.TestCase):
+    def test_seed_asset_sets_replace_legacy_values_and_preserve_latest_review(self) -> None:
+        seed_sets = {
+            "demo_portraits": {
+                "ProductionProfile": "character_portrait_set",
+                "StyleRef": {"Profile": "character_portrait_v1"},
+                "IdentitySources": ["character.md"],
+                "IdentityContract": {
+                    "Version": 1,
+                    "Required": ["silver loose hair"],
+                    "Forbidden": ["tied hair"],
+                    "Conditional": ["red glow only when the target state requires it"],
+                },
+                "ConsistencyRules": ["preserve character identity across presentation groups"],
+            }
+        }
+        existing_sets = {
+            "demo_portraits": {
+                "IdentityLocks": ["legacy compiler-owned value"],
+                "LatestConsistencyReview": {
+                    "State": "passed",
+                    "SetSnapshotFingerprint": "old-fingerprint",
+                    "ProductionRunID": "old-run",
+                    "EvidencePath": "old/review.json",
+                },
+            }
+        }
+
+        merged = merge_seed_asset_sets(validate_seed_asset_sets(seed_sets), existing_sets)
+
+        self.assertEqual(merged["demo_portraits"]["IdentityContract"], seed_sets["demo_portraits"]["IdentityContract"])
+        self.assertNotIn("IdentityLocks", merged["demo_portraits"])
+        self.assertEqual(
+            merged["demo_portraits"]["LatestConsistencyReview"],
+            existing_sets["demo_portraits"]["LatestConsistencyReview"],
+        )
+
+    def test_seed_asset_set_requires_all_identity_contract_lists(self) -> None:
+        with self.assertRaisesRegex(ValueError, "asset_set_identity_contract_invalid:demo_portraits"):
+            validate_seed_asset_sets(
+                {
+                    "demo_portraits": {
+                        "IdentityContract": {"Version": 1, "Required": [], "Forbidden": []},
+                    }
+                }
+            )
+
+    def test_explicit_presentation_group_overrides_existing_manifest_value(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            seed_path = root / "art_requirements_seed.json"
+            seed_path.write_text(
+                json.dumps({"Entries": [{"VisualID": "demo_portrait", "PresentationGroup": "dialogue_standing"}]}),
+                encoding="utf-8",
+            )
+            entries: list[dict[str, object]] = []
+
+            add_preset_assets(root, seed_path, {"demo_portrait": {"VisualID": "demo_portrait", "PresentationGroup": "legacy"}}, entries)
+
+            self.assertEqual(entries[0]["PresentationGroup"], "dialogue_standing")
+
     def test_explicit_shared_item_icon_keeps_both_requirement_sources(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

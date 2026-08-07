@@ -1,6 +1,47 @@
 {
   "Version": 1,
   "Description": "配置表无法直接扫描出的预置美术需求。SourceType 统一为 preset，由 update_art_manifest.py 读入 Manifest。",
+  "AssetSets": {
+    "zero_dialogue_portrait_v1": {
+      "ProductionProfile": "character_portrait_set",
+      "StyleRef": {"Profile": "character_portrait_v1"},
+      "IdentitySources": [
+        "美术文档/人设/03_零号初版人设方案.md",
+        "美术文档/人设/05_零号立绘素材设计与交付清单.md"
+      ],
+      "IdentityContract": {
+        "Version": 1,
+        "Required": [
+          "petite and slender doll-girl proportions without childlike or mature-tall drift",
+          "pale silver or gray-white long loose hair, naturally unbound, reaching below the waist",
+          "soft worn white cloth blindfold fully covering both eyes",
+          "complete gray shawl separate from the inner dress and covering both shoulders, chest, and upper arms",
+          "simple pale short inner dress as a separate garment",
+          "bare legs and both complete bare feet",
+          "no chest ornament, with the core chamber hidden in normal presentation",
+          "small restrained doll-joint seams at wrists, knees, and ankles"
+        ],
+        "Forbidden": [
+          "tied hair, ponytail, twintails, braids, buns, short hair, or heavy curls",
+          "black, metal, or permanently glowing blindfold, or fully visible normal eyes",
+          "one exposed shoulder, shawl merged into a one-piece dress, or untargeted large clothing tears",
+          "necklace, chest badge, number plate, large chest ornament, or normally exposed core chamber",
+          "shoes, socks, boots, anklets, or incomplete feet",
+          "mature-tall proportions, childlike proportions, or erotic posing",
+          "large ball joints, heavy mechanical limbs, heavy armor, blood, or gore"
+        ],
+        "Conditional": [
+          "red light may show through the white cloth only when the target state explicitly requires it",
+          "minor shawl displacement, joint cracks, and additional wear are allowed only when the target state explicitly requires them",
+          "core exposure or a lifted blindfold is allowed only for an explicitly declared maintenance or cut-in state"
+        ]
+      },
+      "ConsistencyRules": [
+        "preserve identity, costume structure, proportions, and rendering direction across the complete set",
+        "apply framing and rapid-switch checks within each PresentationGroup"
+      ]
+    }
+  },
   "Entries": [
     {
       "Domain": "ui",
@@ -2414,6 +2455,7 @@
       "DisplayName": "零号-对话中性立绘",
       "AssetType": "portrait",
       "VisualID": "doll_zero_dialogue_neutral",
+      "PresentationGroup": "dialogue_standing",
       "ProductionProfile": "character_portrait_set",
       "AssetSetID": "zero_dialogue_portrait_v1",
       "AssetID": "zero_dialogue_neutral",
@@ -2441,6 +2483,7 @@
       "DisplayName": "零号-正面常态立绘",
       "AssetType": "portrait",
       "VisualID": "doll_zero_stand_neutral",
+      "PresentationGroup": "front_standing",
       "ProductionProfile": "character_portrait_set",
       "AssetSetID": "zero_dialogue_portrait_v1",
       "AssetID": "zero_stand_neutral",
@@ -2468,6 +2511,7 @@
       "DisplayName": "零号-接受指令立绘",
       "AssetType": "portrait",
       "VisualID": "doll_zero_dialogue_command_ready",
+      "PresentationGroup": "dialogue_standing",
       "ProductionProfile": "character_portrait_set",
       "AssetSetID": "zero_dialogue_portrait_v1",
       "AssetID": "zero_dialogue_command_ready",
@@ -2495,6 +2539,7 @@
       "DisplayName": "零号-维护坐姿立绘",
       "AssetType": "portrait",
       "VisualID": "doll_zero_maintenance_sit",
+      "PresentationGroup": "maintenance_seated",
       "ProductionProfile": "character_portrait_set",
       "AssetSetID": "zero_dialogue_portrait_v1",
       "AssetID": "zero_maintenance_sit",
@@ -2522,6 +2567,7 @@
       "DisplayName": "零号-低SAN立绘",
       "AssetType": "portrait",
       "VisualID": "doll_zero_low_san",
+      "PresentationGroup": "dialogue_standing",
       "ProductionProfile": "character_portrait_set",
       "AssetSetID": "zero_dialogue_portrait_v1",
       "AssetID": "zero_low_san",
@@ -2549,6 +2595,7 @@
       "DisplayName": "零号-受损立绘",
       "AssetType": "portrait",
       "VisualID": "doll_zero_hurt",
+      "PresentationGroup": "dialogue_standing",
       "ProductionProfile": "character_portrait_set",
       "AssetSetID": "zero_dialogue_portrait_v1",
       "AssetID": "zero_hurt",
@@ -2576,6 +2623,7 @@
       "DisplayName": "零号-轻微信任立绘",
       "AssetType": "portrait",
       "VisualID": "doll_zero_trust_soft",
+      "PresentationGroup": "dialogue_standing",
       "ProductionProfile": "character_portrait_set",
       "AssetSetID": "zero_dialogue_portrait_v1",
       "AssetID": "zero_trust_soft",
@@ -2603,6 +2651,7 @@
       "DisplayName": "零号-修复释然立绘",
       "AssetType": "portrait",
       "VisualID": "doll_zero_repair_relief",
+      "PresentationGroup": "maintenance_seated",
       "ProductionProfile": "character_portrait_set",
       "AssetSetID": "zero_dialogue_portrait_v1",
       "AssetID": "zero_repair_relief",
@@ -2630,6 +2679,7 @@
       "DisplayName": "零号-疲惫立绘",
       "AssetType": "portrait",
       "VisualID": "doll_zero_tired",
+      "PresentationGroup": "dialogue_standing",
       "ProductionProfile": "character_portrait_set",
       "AssetSetID": "zero_dialogue_portrait_v1",
       "AssetID": "zero_tired",
@@ -2657,6 +2707,7 @@
       "DisplayName": "零号-冷淡立绘",
       "AssetType": "portrait",
       "VisualID": "doll_zero_cold",
+      "PresentationGroup": "dialogue_standing",
       "ProductionProfile": "character_portrait_set",
       "AssetSetID": "zero_dialogue_portrait_v1",
       "AssetID": "zero_cold",
@@ -2684,6 +2735,7 @@
       "DisplayName": "零号-低落立绘",
       "AssetType": "portrait",
       "VisualID": "doll_zero_depressed",
+      "PresentationGroup": "dialogue_standing",
       "ProductionProfile": "character_portrait_set",
       "AssetSetID": "zero_dialogue_portrait_v1",
       "AssetID": "zero_depressed",
@@ -2711,6 +2763,7 @@
       "DisplayName": "零号-小口型对白立绘",
       "AssetType": "portrait",
       "VisualID": "doll_zero_dialogue_talk_small",
+      "PresentationGroup": "dialogue_standing",
       "ProductionProfile": "character_portrait_set",
       "AssetSetID": "zero_dialogue_portrait_v1",
       "AssetID": "zero_dialogue_talk_small",
@@ -2738,6 +2791,7 @@
       "DisplayName": "零号-疑惑对白立绘",
       "AssetType": "portrait",
       "VisualID": "doll_zero_dialogue_confused",
+      "PresentationGroup": "dialogue_standing",
       "ProductionProfile": "character_portrait_set",
       "AssetSetID": "zero_dialogue_portrait_v1",
       "AssetID": "zero_dialogue_confused",
@@ -2765,6 +2819,7 @@
       "DisplayName": "零号-思考对白立绘",
       "AssetType": "portrait",
       "VisualID": "doll_zero_dialogue_thoughtful",
+      "PresentationGroup": "dialogue_standing",
       "ProductionProfile": "character_portrait_set",
       "AssetSetID": "zero_dialogue_portrait_v1",
       "AssetID": "zero_dialogue_thoughtful",
