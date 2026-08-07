@@ -156,7 +156,12 @@ def draw_member_grid(members: list[dict[str, Any]], output_path: Path, *, cell_s
             image.thumbnail((cell_width - 12, cell_height - 12))
             offset = (x + (cell_width - image.width) // 2, y + (cell_height - image.height) // 2)
             canvas.alpha_composite(image, offset)
-        draw.text((x + 4, y + cell_height + 4), f"{member['VisualID']} [{member['PresentationGroup']}]", fill=(240, 240, 240, 255))
+        label = str(member["VisualID"])
+        for prefix in ("doll_zero_dialogue_", "doll_zero_"):
+            if label.startswith(prefix):
+                label = label[len(prefix):]
+                break
+        draw.text((x + 4, y + cell_height + 4), label, fill=(240, 240, 240, 255))
     output_path.parent.mkdir(parents=True, exist_ok=True)
     canvas.convert("RGB").save(output_path)
 

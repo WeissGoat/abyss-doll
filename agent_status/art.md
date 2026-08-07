@@ -40,7 +40,7 @@ related:
   - 美术文档/人设/05_零号立绘素材设计与交付清单.md
   - 开发文档/17_Live2DSpine运行时接入评估.md
   - 开发文档/18_全局叙事播放系统开发方案.md
-last_verified: 2026-08-02
+last_verified: 2026-08-07
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
 
@@ -48,11 +48,12 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 ## 最后更新
 
-2026-08-02
+2026-08-07
 
 ## 当前关注
 
-- 正式 Catalog 已完成完整性迁移并通过严格校验：`308` 个 canonical Manifest Entry 与 `308` 个唯一 Request；五个显式共享 `IconID` 已收敛为主 Entry + 有序 `RequirementSources`，scoped compile 已证明不会丢失未选 Request，`Summary` 改为由完整 Request 集合派生。当前 Summary 为 `Ready=308 / PromptReady=0 / PromptAuthoringRequired=308`：此前的 PromptRevision 不再匹配当前 Requirement 指纹，已诚实失效，后续正式生成必须重新作者化而不是复用旧 Prompt。Zero 的 7 月套组报告仍未覆盖 8 月替换后的 command-ready、hurt、tired；replacement `ProtectedDimensions=[]` 和同分证据问题仍是下一阶段的独立阻塞。
+- `zero_dialogue_portrait_v1` 已完成新套组 Prepare 和真实 14 成员复审，当前指纹为 `f5a071680cb0a33c8b30d48f1a303e613e3d7bfde65b326ef455e44b3752683f`。`doll_zero_hurt` 以 71 分失败：对话组内发生旋转、横向重心、头部/脚部锚点和占画高度的严重跳变；`blocked:portrait_member_repair_required:doll_zero_hurt`。三张 8 月替换的原 selected 基线哈希已核对并保存进 `zero_portrait_set_regate_20260802_01` 的本地 evidence。现有 Approved / `.meta` / Registry 未回滚，成员仍保持既有 `registered`，但套组无通过 `LatestConsistencyReview`，不得新增 Approved 覆盖或声称 `runtime_validated`。注册 Plan 已实测返回 `blocked:portrait_set_review_missing`。
+- 正式 Catalog 已完成完整性迁移并通过严格校验：`308` 个 canonical Manifest Entry 与 `308` 个唯一 Request；五个显式共享 `IconID` 已收敛为主 Entry + 有序 `RequirementSources`，scoped compile 已证明不会丢失未选 Request，`Summary` 改为由完整 Request 集合派生。当前 Summary 为 `Ready=308 / PromptReady=0 / PromptAuthoringRequired=308`：此前的 PromptRevision 不再匹配当前 Requirement 指纹，已诚实失效，后续正式生成必须重新作者化而不是复用旧 Prompt。Zero 的旧套组报告已由当前实现替换为六维替换审查和 SHA 绑定套组门禁；目前仅保留 `doll_zero_hurt` 的实际成员修复阻断。
 - `formalv2_catalog_v2_bridge_batch_20260801_01_exec` 已完成首轮真实 Catalog V2 通用批量执行：`bg_combat_abyss` 与 `ui_icon_warning` 各生成 2/2 张可解码 raw，均通过技术门禁并发布到不可变 `processed/5`；Agent 评审后分别以 95 分选择 `processed/5/001.png`、以 97 分选择 `processed/5/002.png`，两项都通过当前 selected 基线、严格分数增量和保护维度校验。生产 Run 为 `selection_complete`；随后 `art_import_formalv2_catalog_v2_bridge_batch_20260802_01` 已把最新 selected 幂等同步到 Approved，并通过 live Unity importer、Registry 唯一项和目标 Console 校验，当前公开状态为 `registered`，不包含 UGUI 绑定、ArtAcceptance 或 `runtime_validated`。生产证据：`UnityClient/Logs/P3ArtProduction/formalv2_catalog_v2_bridge_batch_20260801_01_exec/{summary,generation-summary,visual-review,selection-decision}.json`。
 - 美术生产安全收口已完成实现：正式 v2 generation evidence 与 legacy recovery evidence 隔离；Registrar 重算 `technical_review_v2` 并要求外部授权的 override；selected replacement 使用当前基线、严格分数增量和保护维度门禁；角色立绘 `Run-CharacterPortraitSet.ps1` 已支持 `Automatic` / `Resume`、processing decision、visual review、不可变 generation snapshot 和依赖阻塞。压力审计后补上 Resume 旧 checkpoint 绕过、旧 processed 轮次回退、缺失 visual-review SHA 和棋盘底误处理的回归保护，并闭合人物立绘 override 状态计算。全量美术工具回归为 271 tests passed。
 - `zero_cold_reference_pilot_20260726_02` 已打通首个正式角色差分参考图闭环：`SourceAssets` 解析到 neutral Approved 的真实路径、SHA-256、尺寸和模式，exact `prompt-002` 通过 Gemini `image_to_image` 串行生成 2 张可解码 raw；第二张经显式连通边界背景处理、1024x1536 RGBA 规范化和人工多背景边缘检查后发布为不可变 `processed/3/001.png`。新候选以 92 分通过 guarded selection，严格高于旧 selected 的 90 分，并复用 `selected/001.png` 及原 `.meta`；当前公开状态为 `selected`。cold Approved 仍不存在，neutral Approved、`.meta`、Registry 和 Registry `.meta` 哈希未变，本轮不声明 Unity、Registry 或运行时完成。证据：`UnityClient/Logs/P3ArtProduction/zero_cold_reference_pilot_20260726_02/{summary,visual-review,selection-decision}.json`。
@@ -78,7 +79,6 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 - 零号 P0 复用候选中的 `stand_neutral`、`maintenance_sit` 已完成正式导入、保前景透明处理、processed/1 登记与 selected；`dialogue_command_ready` 已由本轮姿势差分替换并完成 `registered`。前两者评分分别为 89、90，仍未进入 Approved。
 - 历史对白/P1 候选中 `talk_small`、`confused`、`tired` 已以 90、89、91 分进入 selected；`thoughtful`、`trust_soft`、`cold` 分别因与 command-ready 过近、手指缺陷、状态辨识度不足停在 processed/1 `decision_required`，已并入定向修复批次。
 - 零号剩余 7 个成员已完成前景保护透明处理、不可变数字轮次登记与 selected：`low_san=91`、`hurt=90`、`repair_relief=89`、`depressed=91`、`thoughtful=92`、`trust_soft=90`、`cold=90`。`low_san` 的 OpenAI 初稿曾露出眼形，已通过显式 mask 的 NovelAI inpaint 把白布改为不透明，并以小范围确定性后处理保留微弱非眼形红光；违规原稿只保留在 raw 证据中。
-- `zero_dialogue_portrait_v1` 已完成 14 成员套组一致性评审并以 `passed_with_recorded_risks` 通过 selected 口径：对白状态在小尺寸可区分；`stand_neutral` 渲染更淡、维护坐姿族头发/头部占比更大、`cold / repair_relief` 提示较克制，均记录为非阻塞风险，不扩大声明为 Approved 或运行时通过。
 
 ## 下一步建议
 

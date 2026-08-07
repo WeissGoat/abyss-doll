@@ -47,9 +47,11 @@ if ($Phase -eq "Plan") {
         "plan",
         "--art-import-run-id", $ArtImportRunID,
         "--mode", $Mode,
-        "--unity-instance", $UnityInstance,
         "--evidence-root", $effectiveEvidenceRoot
     )
+    if ($UnityInstance -ne "") {
+        $argsList += @("--unity-instance", $UnityInstance)
+    }
     if ($ManifestPath -ne "") {
         $argsList += @("--manifest-path", $ManifestPath)
     }

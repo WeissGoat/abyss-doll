@@ -823,9 +823,23 @@ Run evidence 写入 `UnityClient/Logs/P3ArtProduction/<ProductionRunID>/`。处�
 
 对已是 `approved / registered / validated` 的同 VisualID 替换，Manifest 主状态保持不变。命令不修改 Approved、`.meta`、GUID、Unity 或 Registry。Run 中所有目标完成选择后，`summary.json` 自动收敛为 `selection_complete`。
 
+角色立绘替换使用 `character_portrait_v3` 六维评审：`Identity`、`Costume`、`Proportion`、`Framing`、`Technical`、`TargetFit` 必须各有独立证据。旧 selected 的六维基线缺失时以 `replacement_baseline_review_required` 停止；五个默认保护维度不得缺失。通过后才会在覆盖前把旧图复制到 review 的 `replacement-baselines/<VisualID>/`，并将路径、分数和逐维证据写入选择决定。
+
 ## Run-CharacterPortraitSet.ps1 Resume
 
 角色立绘套组继续使用现有 `Run-CharacterPortraitSet.ps1`，但正式执行会在 `UnityClient/Logs/P3ArtProduction/<ProductionRunID>/portrait-set-run.json` 保存 run-scoped checkpoint。它只记录 Requirement/PromptRevision/参考图 SHA、generation 快照、processed 轮次、visual review 和 selected 证据，不创建第二套 Manifest 或生命周期状态。
+
+## Invoke-PortraitSetGate.ps1
+
+对 `character_portrait_set` 在 Approved 前执行当前套组门禁。Prepare 在 `UnityClient/Logs/P3ArtProduction/<ProductionRunID>/portrait-set-gate/` 写入 `prepare.json`、整套 contact sheet、small-size strip 以及可用的替换对照图；人工评审必须使用其中的 `SetSnapshotFingerprint`。Finalize 仅接受精确当前成员 SHA、PresentationGroup、七项组检查和四项跨组检查均覆盖的 passed 报告；任何 selected、身份合同或分组变化都会使报告 stale。
+
+```powershell
+.\tools\美术工具\Invoke-PortraitSetGate.ps1 -Phase Prepare -AssetSetID <AssetSetID> -ProductionRunID <RunID>
+.\tools\美术工具\Invoke-PortraitSetGate.ps1 -Phase Finalize -AssetSetID <AssetSetID> -ProductionRunID <RunID> -ReviewPath <consistency-review.json>
+.\tools\美术工具\Invoke-PortraitSetGate.ps1 -Phase Check -AssetSetID <AssetSetID>
+```
+
+`Sync-ApprovedArt.ps1` 和 `Invoke-ArtApprovedUnityRegistration.ps1 -Phase Plan` 对角色套组均 fail-closed；普通 `standard_asset` 不需要这条门禁。失败套组保留既有 `registered`，但不得标记 `runtime_validated`。
 
 ```powershell
 .\tools\美术工具\Run-CharacterPortraitSet.ps1 `

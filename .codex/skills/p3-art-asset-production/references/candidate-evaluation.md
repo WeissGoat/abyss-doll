@@ -63,6 +63,10 @@ Only an explicitly authorized heuristic override can change an automatic result.
 
 For a same-VisualID replacement, compare the candidate against the execution-time `selected/` baseline, not a score copied from an older review. Require `SelectionMode=replacement`, matching baseline path and SHA, a strictly higher total score by at least `MinimumScoreDelta`, and no regression in each `ProtectedDimensions` entry. `-AllowSelectedOverwrite` authorizes the file copy only after those checks. Identical candidate and selected SHA returns `already_selected` without another copy.
 
+For `character_portrait_set`, use `character_portrait_v3` instead of a generic score map. `Identity`, `Costume`, `Proportion`, `Framing`, `Technical`, and `TargetFit` each require an independent finding and evidence; the first five dimensions are mandatory protected dimensions. Missing six-dimensional baseline evidence fails closed as `replacement_baseline_review_required`. After the checks and immediately before overwrite, preserve the previous selected bytes and its review evidence in `replacement-baselines/<VisualID>/`.
+
+Individual acceptance is not set acceptance. `Invoke-PortraitSetGate.ps1 -Phase Prepare` produces a current SHA-bound contact sheet and small-size strip. Finalize requires exact member SHA/group coverage and all group/cross-group checks; a new selected byte, group, or identity contract invalidates the prior `SetSnapshotFingerprint`.
+
 ## Review record
 
 Record for every valid candidate:

@@ -12,6 +12,7 @@ Require all:
 - no fact conflict;
 - current mode/permissions allow synchronization;
 - same-VisualID replacement passes strict `.meta` and GUID preservation.
+- each selected `character_portrait_set` member belongs to an AssetSet whose `LatestConsistencyReview` is `passed` for the exact current `SetSnapshotFingerprint`.
 
 For a formal static-Sprite handoff, start with:
 
@@ -24,6 +25,8 @@ For a formal static-Sprite handoff, start with:
 ```
 
 Review `approved-plan.json` at the configured gate. After authorization, use the same entry with `-Phase SyncApproved -AuthorizeApprovedSync` plus the explicit new-target or overwrite permission. The entry delegates all formal file writes to `Sync-ApprovedArt.ps1`; do not manually copy around its guards.
+
+For a portrait set, run `Invoke-PortraitSetGate.ps1 -Phase Check -AssetSetID <AssetSetID>` before the Approved plan. Missing or stale set evidence blocks both direct sync and the registration plan. A failed retrospective review does not roll back existing Approved/Registry bytes, but it prevents further Approved replacement and `runtime_validated` claims.
 
 ## Unity import
 
