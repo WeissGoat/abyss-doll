@@ -12,6 +12,7 @@ from typing import Any
 
 from art_processing import resolve_selected_or_processed_candidate
 from art_workspace import normalize_entry_workspace_paths, workspace_path
+from portrait_set_gate import require_current_set_review
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -173,21 +174,35 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def main() -> int:
-    args = parse_args()
-    manifest_path = resolve_project_path(args.manifest_path, DEFAULT_MANIFEST)
-    in_root = resolve_project_path(args.in_root, DEFAULT_IN_ROOT)
-    manifest = read_json(manifest_path)
+def build_sync_plan(
+    manifest: dict[str, Any],
+    in_root: Path,
+    args: argparse.Namespace,
+) -> list[tuple[dict[str, Any], Path, Path, str, bytes | None]]:
     entries = manifest.get("Entries", [])
     if not isinstance(entries, list):
         raise ValueError("Manifest Entries must be a list.")
     entries = [normalize_entry_workspace_paths(entry) for entry in entries if isinstance(entry, dict)]
     manifest["Entries"] = entries
-
     selected = select_entries(entries, args)
-    print(f"[PLAN] selected_entries={len(selected)} batch={args.batch_id or '<any>'} status={args.status or '<any>'}")
-    if args.allow_processed_fallback:
-        print("[WARN] --allow-processed-fallback is deprecated; safe numeric-round fallback is automatic.")
+
+    reviewed_sets: set[str] = set()
+    for entry in selected:
+        if entry.get("ProductionProfile") != "character_portrait_set":
+            continue
+        asset_set_id = str(entry.get("AssetSetID", "") or "").strip()
+        if not asset_set_id:
+            raise ValueError(f"portrait_set_asset_set_missing:{entry.get('VisualID', '')}")
+        if asset_set_id in reviewed_sets:
+            continue
+        require_current_set_review(
+            manifest=manifest,
+            asset_set_id=asset_set_id,
+            incoming_root=in_root,
+            project_root=PROJECT_ROOT,
+        )
+        reviewed_sets.add(asset_set_id)
+
     plan: list[tuple[dict[str, Any], Path, Path, str, bytes | None]] = []
     for entry in selected:
         workspace = workspace_path(in_root, entry)
@@ -197,14 +212,26 @@ def main() -> int:
             candidate_batch=bool(args.candidate_batch_id),
         )
         if source is None:
-            print(f"[SKIP] {entry['VisualID']} no selected image")
             continue
         target = resolve_project_path(entry["OutputPath"], entry["OutputPath"])
         require_existing_meta = bool(args.candidate_batch_id and not args.allow_new_target_with_candidate)
         meta_before = read_meta_guard(target, require_existing_meta)
-        meta_note = "meta_guard=strict" if require_existing_meta else ("meta_guard=preserve" if meta_before else "meta_guard=none")
-        print(f"[ITEM] {entry['VisualID']} {source_kind}={repo_path(source)} -> {repo_path(target)} {meta_note}")
         plan.append((entry, source, target, source_kind, meta_before))
+    return plan
+
+
+def main() -> int:
+    args = parse_args()
+    manifest_path = resolve_project_path(args.manifest_path, DEFAULT_MANIFEST)
+    in_root = resolve_project_path(args.in_root, DEFAULT_IN_ROOT)
+    manifest = read_json(manifest_path)
+    plan = build_sync_plan(manifest, in_root, args)
+    print(f"[PLAN] planned_entries={len(plan)} batch={args.batch_id or '<any>'} status={args.status or '<any>'}")
+    if args.allow_processed_fallback:
+        print("[WARN] --allow-processed-fallback is deprecated; safe numeric-round fallback is automatic.")
+    for entry, source, target, source_kind, meta_before in plan:
+        meta_note = "meta_guard=strict" if args.candidate_batch_id and not args.allow_new_target_with_candidate else ("meta_guard=preserve" if meta_before else "meta_guard=none")
+        print(f"[ITEM] {entry['VisualID']} {source_kind}={repo_path(source)} -> {repo_path(target)} {meta_note}")
 
     if args.dry_run:
         print("[DONE] dry-run only; no files changed.")

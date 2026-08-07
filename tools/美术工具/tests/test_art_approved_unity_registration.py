@@ -41,7 +41,7 @@ class ArtApprovedUnityRegistrationTests(unittest.TestCase):
         self.approved_root = self.project_root / "UnityClient" / "Assets" / "Art" / "Approved"
         self.evidence_root = self.project_root / "UnityClient" / "Logs" / "P3ArtImport"
         self.manifest_path = self.project_root / "美术文档" / "_generated" / "art_manifest.json"
-        self.workspace = self.incoming_root / "character_portraits" / "doll_zero_dialogue_neutral"
+        self.workspace = self.incoming_root / "standard_assets" / "doll_zero_dialogue_neutral"
         self.selected_path = self.workspace / "selected" / "001.png"
         self.output_path = self.approved_root / "Dolls" / "doll_zero_dialogue_neutral.png"
         self.write_image(self.selected_path, (1024, 1536), (255, 255, 255, 255))
@@ -53,7 +53,7 @@ class ArtApprovedUnityRegistrationTests(unittest.TestCase):
                     "Entries": [
                         {
                             "VisualID": "doll_zero_dialogue_neutral",
-                            "ProductionProfile": "character_portrait_set",
+                            "ProductionProfile": "standard_asset",
                             "Status": "selected",
                             "OutputPath": "UnityClient/Assets/Art/Approved/Dolls/doll_zero_dialogue_neutral.png",
                             "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_neutral/selected/001.png",
@@ -109,6 +109,64 @@ class ArtApprovedUnityRegistrationTests(unittest.TestCase):
         self.assertTrue(item["authorization_required"])
         self.assertTrue((self.evidence_root / "art_import_test_01" / "request.json").exists())
         self.assertTrue((self.evidence_root / "art_import_test_01" / "approved-plan.json").exists())
+
+    def test_create_plan_reports_stale_portrait_set_review_and_standard_asset_stays_unblocked(self) -> None:
+        standard_plan = create_plan(
+            manifest_path=self.manifest_path,
+            incoming_root=self.incoming_root,
+            approved_root=self.approved_root,
+            evidence_root=self.evidence_root,
+            art_import_run_id="art_import_standard_gate_01",
+            visual_ids=["doll_zero_dialogue_neutral"],
+            mode="interactive",
+            unity_instance="UnityClient@test1234",
+            permissions={},
+        )
+        self.assertEqual(standard_plan["blocking_errors"], [])
+
+        portrait_selected = (
+            self.incoming_root
+            / "character_portraits"
+            / "doll_zero_dialogue_neutral"
+            / "selected"
+            / "001.png"
+        )
+        self.write_image(portrait_selected, (1024, 1536), (255, 255, 255, 255))
+        manifest = json.loads(self.manifest_path.read_text(encoding="utf-8"))
+        manifest["Entries"][0].update(
+            {
+                "ProductionProfile": "character_portrait_set",
+                "AssetSetID": "demo_portraits",
+                "PresentationGroup": "dialogue_standing",
+                "SelectedPath": "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_neutral/selected/001.png",
+            }
+        )
+        manifest["AssetSets"] = {
+            "demo_portraits": {
+                "IdentityContract": {"Version": "1", "Required": ["silver hair"], "Forbidden": [], "Conditional": []},
+                "LatestConsistencyReview": {
+                    "State": "passed",
+                    "SetSnapshotFingerprint": "0" * 64,
+                    "ProductionRunID": "old_run",
+                    "EvidencePath": "old-review.json",
+                },
+            }
+        }
+        self.manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+        plan = create_plan(
+            manifest_path=self.manifest_path,
+            incoming_root=self.incoming_root,
+            approved_root=self.approved_root,
+            evidence_root=self.evidence_root,
+            art_import_run_id="art_import_portrait_gate_01",
+            visual_ids=["doll_zero_dialogue_neutral"],
+            mode="interactive",
+            unity_instance="UnityClient@test1234",
+            permissions={},
+        )
+        self.assertEqual(plan["blocking_errors"][0]["code"], "blocked:portrait_set_review_stale")
+        self.assertIn("demo_portraits", plan["blocking_errors"][0]["details"])
 
     def test_create_plan_rejects_duplicate_visual_id_entries(self) -> None:
         data = json.loads(self.manifest_path.read_text(encoding="utf-8"))

@@ -15,6 +15,7 @@ from typing import Any
 
 from art_processing import IMAGE_EXTENSIONS
 from art_workspace import normalize_entry_workspace_paths, workspace_path
+from portrait_set_gate import require_current_set_review
 from sync_approved_art import choose_source
 
 
@@ -244,7 +245,12 @@ def create_plan(
     approved_root = approved_root.resolve(strict=False)
     evidence_root = evidence_root.resolve(strict=False)
     project_root = project_root_for_manifest(manifest_path)
-    entries = _load_entries(manifest_path)
+    manifest = read_json(manifest_path)
+    raw_entries = manifest.get("Entries")
+    if not isinstance(raw_entries, list):
+        raise ArtImportError("Manifest Entries must be a list")
+    entries = [normalize_entry_workspace_paths(entry) for entry in raw_entries if isinstance(entry, dict)]
+    manifest["Entries"] = entries
     by_visual_id: dict[str, list[dict[str, Any]]] = {}
     for entry in entries:
         visual_id = str(entry.get("VisualID", "")).strip()
@@ -261,11 +267,34 @@ def create_plan(
         })
 
     items: list[dict[str, Any]] = []
+    reviewed_sets: set[str] = set()
     for visual_id in requested_ids:
         matches = by_visual_id.get(visual_id, [])
         if len(matches) != 1:
             raise ArtImportError(f"duplicate Manifest VisualID: {visual_id}")
         entry = matches[0]
+        if entry.get("ProductionProfile") == "character_portrait_set":
+            asset_set_id = str(entry.get("AssetSetID", "") or "").strip()
+            if not asset_set_id:
+                blocking_errors.append({
+                    "code": "blocked:portrait_set_asset_set_missing",
+                    "details": f"portrait_set_asset_set_missing:{visual_id}",
+                })
+            elif asset_set_id not in reviewed_sets:
+                try:
+                    require_current_set_review(
+                        manifest=manifest,
+                        asset_set_id=asset_set_id,
+                        incoming_root=incoming_root,
+                        project_root=project_root,
+                    )
+                except ValueError as exc:
+                    reason = str(exc)
+                    blocking_errors.append({
+                        "code": f"blocked:{reason.split(':', 1)[0]}",
+                        "details": reason,
+                    })
+                reviewed_sets.add(asset_set_id)
         workspace = workspace_path(incoming_root, entry)
         source, source_kind = _entry_source(workspace, entry, project_root)
         if source is None or not source.exists():
