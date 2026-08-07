@@ -18,9 +18,9 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：287
+- 文档总数：289
 - 已补元数据：283
-- 缺少元数据：4
+- 缺少元数据：6
 - 事实来源文档：196
 - 关联边数：1512
 - 跨职能关联：308
@@ -332,6 +332,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Formal V2 Replacement And UI Skin Implementation Plan](docs/superpowers/plans/2026-07-19-formal-v2-replacement-and-ui-skin.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
 | [美术风格目录与多格式生成请求编译 Implementation Plan](docs/superpowers/plans/2026-07-24-art-style-and-multi-format-prompt-compilation.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
 | [Character Portrait Reference And Background Processing Implementation Plan](docs/superpowers/plans/2026-07-26-character-portrait-reference-and-background-processing.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
+| [Art Catalog Integrity Implementation Plan](docs/superpowers/plans/2026-08-02-art-catalog-integrity.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
+| [Character Portrait Replacement and Set Gates Implementation Plan](docs/superpowers/plans/2026-08-02-character-portrait-replacement-and-set-gates.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
 
 ### 游戏导演
 
@@ -613,3 +615,5 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - [Formal V2 Replacement And UI Skin Implementation Plan](docs/superpowers/plans/2026-07-19-formal-v2-replacement-and-ui-skin.md)：缺少 `id, title, type, role, domain, status`
 - [美术风格目录与多格式生成请求编译 Implementation Plan](docs/superpowers/plans/2026-07-24-art-style-and-multi-format-prompt-compilation.md)：缺少 `id, title, type, role, domain, status`
 - [Character Portrait Reference And Background Processing Implementation Plan](docs/superpowers/plans/2026-07-26-character-portrait-reference-and-background-processing.md)：缺少 `id, title, type, role, domain, status`
+- [Art Catalog Integrity Implementation Plan](docs/superpowers/plans/2026-08-02-art-catalog-integrity.md)：缺少 `id, title, type, role, domain, status`
+- [Character Portrait Replacement and Set Gates Implementation Plan](docs/superpowers/plans/2026-08-02-character-portrait-replacement-and-set-gates.md)：缺少 `id, title, type, role, domain, status`

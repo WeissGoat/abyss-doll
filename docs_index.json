@@ -626,6 +626,54 @@
       "cross_role_relation_count": 0
     },
     {
+      "path": "docs/superpowers/plans/2026-08-02-art-catalog-integrity.md",
+      "title": "Art Catalog Integrity Implementation Plan",
+      "id": "",
+      "type": "unclassified",
+      "role": "未分类",
+      "domain": "unclassified",
+      "status": "missing_metadata",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "",
+      "update_rule": "",
+      "has_metadata": false,
+      "missing_fields": [
+        "id",
+        "title",
+        "type",
+        "role",
+        "domain",
+        "status"
+      ],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
+      "path": "docs/superpowers/plans/2026-08-02-character-portrait-replacement-and-set-gates.md",
+      "title": "Character Portrait Replacement and Set Gates Implementation Plan",
+      "id": "",
+      "type": "unclassified",
+      "role": "未分类",
+      "domain": "unclassified",
+      "status": "missing_metadata",
+      "source_of_truth": false,
+      "related": [],
+      "last_verified": "",
+      "update_rule": "",
+      "has_metadata": false,
+      "missing_fields": [
+        "id",
+        "title",
+        "type",
+        "role",
+        "domain",
+        "status"
+      ],
+      "relation_count": 0,
+      "cross_role_relation_count": 0
+    },
+    {
       "path": "docs/superpowers/plans/2026-08-02-p3-mcp-parameter-schema.md",
       "title": "P3 MCP 参数 Schema 实现计划",
       "id": "p3_mcp_parameter_schema_plan",
