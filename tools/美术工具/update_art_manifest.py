@@ -8,6 +8,11 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
+from art_catalog_integrity import (
+    canonicalize_manifest_entries,
+    primary_source_rank,
+    validate_manifest_uniqueness,
+)
 from art_workspace import STANDARD_PROFILE, normalize_entry_workspace_paths
 
 
@@ -50,6 +55,8 @@ PRESERVE_FIELDS = [
     "StyleRef",
     "VisualIntent",
     "CompiledRequest",
+    "RequirementSources",
+    "VisualReusePolicy",
 ]
 
 
@@ -190,6 +197,15 @@ def scan_items(config_root: Path, project_root: Path, existing_map: Dict[str, Di
             f"配置表物品：{data.get('Name', data['ConfigID'])}。类型 {data.get('ItemType', '')}，"
             f"稀有度 {data.get('Rarity', '')}，占格 {grid_cost}，标签 {tag_text(data.get('Tags'))}。"
         )
+        source_binding = {
+            "SourceType": "config",
+            "ConfigID": data["ConfigID"],
+            "ConfigSource": repo_path(path, project_root),
+            "DisplayName": data.get("Name", data["ConfigID"]),
+            "SourceFactsCN": source_facts,
+            "VisualIDField": "IconID" if data.get("IconID") else "derived",
+            "ExplicitVisualID": bool(data.get("IconID")),
+        }
         add_entry(
             entries,
             existing_map,
@@ -205,7 +221,9 @@ def scan_items(config_root: Path, project_root: Path, existing_map: Dict[str, Di
                 output_path=join_repo_path("UnityClient/Assets/Art/Approved/Items/Icons", f"{visual_id}.png"),
                 priority="P0",
                 source_facts_cn=source_facts,
+                extra_fields={"RequirementSources": [source_binding]},
             ),
+            {"RequirementSources"},
         )
 
 
@@ -606,11 +624,14 @@ def main() -> int:
     if manifest_path.exists():
         existing_manifest = read_json(manifest_path)
     existing_entries = existing_manifest.get("Entries", [])
-    existing_map = {
-        entry["VisualID"]: entry
-        for entry in existing_entries
-        if isinstance(entry, dict) and entry.get("VisualID")
-    }
+    existing_map: Dict[str, Dict[str, Any]] = {}
+    for entry in existing_entries:
+        if not isinstance(entry, dict) or not entry.get("VisualID"):
+            continue
+        visual_id = str(entry["VisualID"])
+        current = existing_map.get(visual_id)
+        if current is None or primary_source_rank(entry) < primary_source_rank(current):
+            existing_map[visual_id] = entry
 
     entries: List[Dict[str, Any]] = []
     scan_items(config_root, project_root, existing_map, entries)
@@ -621,6 +642,9 @@ def main() -> int:
     scan_dolls(config_root, project_root, existing_map, entries)
     if not args.no_system_assets:
         add_preset_assets(project_root, preset_path, existing_map, entries)
+
+    entries = canonicalize_manifest_entries(entries)
+    validate_manifest_uniqueness(entries)
 
     current_ids = {entry["VisualID"] for entry in entries}
     for old_entry in existing_entries:
