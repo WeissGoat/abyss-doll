@@ -315,6 +315,28 @@ NovelAI 限流时可拉长外层重试间隔：
 
 `Generate-ArtPrompts.ps1` 仅保留旧 Manifest 的 `PromptCN / PromptEN / NegativePromptEN` 兼容和迁移用途。它生成的 v1 Prompt 不得作为新正式批次输入；Catalog 中只作为 `LegacyPromptVariants` 证据保留。
 
+### Catalog 完整性与显式共享素材
+
+正式 Catalog 对每个 `VisualID`、非空 `OutputPath` 和 `RequestID` 都要求唯一。多个配置只有在都通过同一个显式 VisualID 字段（当前物品为 `IconID`）引用同一素材时，才会被归并为一个 Manifest Entry；该 Entry 使用主配置的生命周期字段，并以 `RequirementSources` 保存全部来源：
+
+```json
+{
+  "VisualReusePolicy": {
+    "Mode": "shared_visual",
+    "DecisionSource": "config_explicit_visual_id"
+  },
+  "RequirementSources": [
+    {
+      "ConfigID": "gear_iron_armor",
+      "VisualIDField": "IconID",
+      "ExplicitVisualID": true
+    }
+  ]
+}
+```
+
+相同 Prompt、相同显示名称或推测相近的素材都不是复用依据。遇到 `visual_id_collision_conflict:<VisualID>`、`visual_id_duplicate:<VisualID>`、`output_path_duplicate:<Path>` 或 RequestID 冲突时，先修复来源事实再重新运行 `Update-ArtManifest.ps1` 和 `Compile-ArtGenerationRequests.ps1 -Overwrite`。`Summary` 永远从完整 `Requests` 派生；严格校验中的 `catalog_summary_stale` 表示发布或迁移后必须刷新 Catalog，不能手工修改汇总计数。`-VisualID` scoped compile 会合并回完整 Catalog，不会删除未选中的 Request。
+
 ## Run-ArtGeneration.ps1
 
 读取 Manifest 目标条目和 Request Catalog，解析 exact active PromptRevision，再调用 `tools/ai-image-gateway` 生成候选图。默认正式格式为 `natural_language_v2` 或 `danbooru_tags_v2`；缺少 active Revision、fingerprint / pointer 不匹配或目标 Variant 未 ready 时，在 provider 调用前失败。

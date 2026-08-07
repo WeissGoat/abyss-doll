@@ -16,7 +16,10 @@ if str(TOOLS_DIR) not in sys.path:
     sys.path.insert(0, str(TOOLS_DIR))
 
 from art_catalog_integrity import CatalogIntegrityError  # noqa: E402
-from compile_art_generation_requests import compile_manifest_requests  # noqa: E402
+from compile_art_generation_requests import (  # noqa: E402
+    _canonical_previous_catalog_for_manifest,
+    compile_manifest_requests,
+)
 
 
 class CompileArtGenerationRequestsTests(unittest.TestCase):
@@ -55,6 +58,18 @@ class CompileArtGenerationRequestsTests(unittest.TestCase):
         self.assertEqual(requests["item_second_icon"]["RequestID"], first["Catalog"]["Requests"][1]["RequestID"])
         self.assertNotEqual(requests["item_first_icon"]["RequestID"], first["Catalog"]["Requests"][0]["RequestID"])
 
+    def test_legacy_conflicting_duplicate_previous_catalog_is_not_carried_forward(self) -> None:
+        manifest = {"Version": 3, "Entries": [self.entry("item_demo_icon")]}
+        first = compile_manifest_requests(copy.deepcopy(manifest), project_root=Path.cwd())
+        primary = first["Catalog"]["Requests"][0]
+        duplicate = copy.deepcopy(primary)
+        duplicate["PromptRevisions"] = [{"PromptRevisionID": "discarded"}]
+        legacy = {"Requests": [duplicate, primary]}
+
+        canonical = _canonical_previous_catalog_for_manifest(first["Catalog"] | legacy, first["Manifest"])
+
+        self.assertEqual(canonical["Requests"], [])
+
     def test_powershell_wrapper_dry_run_uses_python_utf8_defaults(self) -> None:
         wrapper = TOOLS_DIR / "Compile-ArtGenerationRequests.ps1"
         completed = subprocess.run(
@@ -77,7 +92,7 @@ class CompileArtGenerationRequestsTests(unittest.TestCase):
         )
 
         self.assertEqual(completed.returncode, 0, completed.stderr or completed.stdout)
-        self.assertIn('"Ready": 313', completed.stdout)
+        self.assertIn('"Ready": 308', completed.stdout)
 
     def test_refresh_flags_replace_catalog_and_selected_visual_intent_only(self) -> None:
         manifest = {

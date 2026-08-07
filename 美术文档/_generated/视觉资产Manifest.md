@@ -15,7 +15,7 @@
 | `chassis` | 5 |
 | `doll` | 16 |
 | `faction` | 5 |
-| `item` | 40 |
+| `item` | 35 |
 | `memento` | 15 |
 | `monster` | 42 |
 | `narrative_cg` | 15 |
@@ -51,21 +51,21 @@
 | `chassis` | `chassis_bulwark_carrier` | 重载承运底盘图标 | `icon` | `chassis_bulwark_carrier_icon` | P2 | `approved` |
 | `chassis` | `chassis_compact_raider` | 轻装掠行底盘图标 | `icon` | `chassis_compact_raider_icon` | P2 | `approved` |
 | `chassis` | `chassis_standard_frame` | 标准工坊底盘图标 | `icon` | `chassis_standard_frame_icon` | P2 | `approved` |
-| `doll` | `zero_dialogue_command_ready` | 零号-接受指令立绘 | `portrait` | `doll_zero_dialogue_command_ready` | P0 | `generated` |
+| `doll` | `zero_dialogue_command_ready` | 零号-接受指令立绘 | `portrait` | `doll_zero_dialogue_command_ready` | P0 | `approved` |
 | `doll` | `zero_dialogue_neutral` | 零号-对话中性立绘 | `portrait` | `doll_zero_dialogue_neutral` | P0 | `approved` |
-| `doll` | `zero_hurt` | 零号-受损立绘 | `portrait` | `doll_zero_hurt` | P0 | `prompted` |
+| `doll` | `zero_hurt` | 零号-受损立绘 | `portrait` | `doll_zero_hurt` | P0 | `approved` |
 | `doll` | `zero_low_san` | 零号-低SAN立绘 | `portrait` | `doll_zero_low_san` | P0 | `prompted` |
 | `doll` | `zero_maintenance_sit` | 零号-维护坐姿立绘 | `portrait` | `doll_zero_maintenance_sit` | P0 | `generated` |
 | `doll` | `zero_stand_neutral` | 零号-正面常态立绘 | `portrait` | `doll_zero_stand_neutral` | P0 | `generated` |
 | `doll` | `doll_proto_0` | 原型机·零 | `stand` | `doll_proto_0_stand` | P1 | `approved` |
 | `doll` | `doll_proto_0_test` | 原型机·零（测试） | `stand` | `doll_proto_0_test_stand` | P1 | `deprecated` |
-| `doll` | `zero_cold` | 零号-冷淡立绘 | `portrait` | `doll_zero_cold` | P1 | `generated` |
+| `doll` | `zero_cold` | 零号-冷淡立绘 | `portrait` | `doll_zero_cold` | P1 | `selected` |
 | `doll` | `zero_depressed` | 零号-低落立绘 | `portrait` | `doll_zero_depressed` | P1 | `prompted` |
 | `doll` | `zero_dialogue_confused` | 零号-疑惑对白立绘 | `portrait` | `doll_zero_dialogue_confused` | P1 | `generated` |
 | `doll` | `zero_dialogue_talk_small` | 零号-小口型对白立绘 | `portrait` | `doll_zero_dialogue_talk_small` | P1 | `generated` |
 | `doll` | `zero_dialogue_thoughtful` | 零号-思考对白立绘 | `portrait` | `doll_zero_dialogue_thoughtful` | P1 | `generated` |
 | `doll` | `zero_repair_relief` | 零号-修复释然立绘 | `portrait` | `doll_zero_repair_relief` | P1 | `prompted` |
-| `doll` | `zero_tired` | 零号-疲惫立绘 | `portrait` | `doll_zero_tired` | P1 | `generated` |
+| `doll` | `zero_tired` | 零号-疲惫立绘 | `portrait` | `doll_zero_tired` | P1 | `approved` |
 | `doll` | `zero_trust_soft` | 零号-轻微信任立绘 | `portrait` | `doll_zero_trust_soft` | P1 | `generated` |
 | `faction` | `faction_adventurer_guild` | 冒险者公会徽章 | `icon` | `faction_adventurer_guild_icon` | P2 | `approved` |
 | `faction` | `faction_alchemy_guild` | 炼金公会徽章 | `icon` | `faction_alchemy_guild_icon` | P2 | `approved` |
@@ -82,10 +82,8 @@
 | `item` | `gear_chainsaw_sword` | 链锯大剑 | `icon` | `item_gear_chainsaw_sword_icon` | P0 | `approved` |
 | `item` | `gear_charge_pistol` | 充能手铳 | `icon` | `item_gear_charge_pistol_icon` | P0 | `approved` |
 | `item` | `gear_corroded_bulwark` | 腐蚀壁盾 | `icon` | `item_gear_corroded_bulwark_icon` | P0 | `approved` |
-| `item` | `gear_cracked_iron_armor` | 裂铁胸甲 | `icon` | `item_gear_iron_armor_icon` | P0 | `approved` |
 | `item` | `gear_iron_armor` | 铁片装甲 | `icon` | `item_gear_iron_armor_icon` | P0 | `approved` |
 | `item` | `gear_mycelium_cloak` | 菌丝披覆 | `icon` | `item_gear_mycelium_cloak_icon` | P0 | `approved` |
-| `item` | `gear_plank_shield_l1` | 拼板护盾 | `icon` | `item_gear_wooden_shield_icon` | P0 | `approved` |
 | `item` | `gear_rusty_dagger` | 生锈短剑 | `icon` | `item_gear_rusty_dagger_icon` | P0 | `approved` |
 | `item` | `gear_spore_lance` | 孢刺长枪 | `icon` | `item_gear_spore_lance_icon` | P0 | `approved` |
 | `item` | `gear_tactical_blade` | 战术长刀 | `icon` | `item_gear_tactical_blade_icon` | P0 | `approved` |
@@ -102,14 +100,11 @@
 | `item` | `loot_vein_plate` | 菌脉甲片 | `icon` | `item_loot_vein_plate_icon` | P0 | `approved` |
 | `item` | `loot_warped_plate` | 扭曲装甲片 | `icon` | `item_loot_warped_plate_icon` | P0 | `approved` |
 | `item` | `mat_core_tier1` | 一阶动力核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `prompted` |
-| `item` | `mat_core_tier2` | 二阶污染核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `prompted` |
 | `item` | `mat_core_tier2_fragment` | 二阶机核碎片 | `icon` | `item_mat_core_tier2_fragment_icon` | P0 | `approved` |
 | `item` | `mat_core_tier3_seed` | 三阶机核种 | `icon` | `item_mat_core_tier3_seed_icon` | P0 | `approved` |
 | `item` | `order_contested_spore_core` | 争夺孢核 | `icon` | `item_order_contested_spore_core_icon` | P0 | `approved` |
 | `item` | `order_live_spore_cage` | 活孢子笼 | `icon` | `item_order_live_spore_cage_icon` | P0 | `approved` |
-| `item` | `trade_cracked_relic` | 裂纹圣牌 | `icon` | `item_loot_toxic_filter_icon` | P0 | `prompted` |
 | `item` | `trade_luminous_fungus` | 夜光菌簇 | `icon` | `item_trade_luminous_fungus_icon` | P0 | `approved` |
-| `item` | `trade_miner_lamp` | 矿工提灯 | `icon` | `item_loot_rusty_coil_icon` | P0 | `prompted` |
 | `item` | `trade_sealed_relic_box` | 封存遗物匣 | `icon` | `item_trade_sealed_relic_box_icon` | P0 | `approved` |
 | `item` | `trade_singing_fossil` | 低唱化石 | `icon` | `item_trade_singing_fossil_icon` | P0 | `approved` |
 | `memento` | `memento_blackmarket_letter` | 房间纪念物-黑市纸条 | `icon` | `memento_blackmarket_letter` | P2 | `approved` |

@@ -168,6 +168,48 @@ def _requests_by_visual(catalog: dict[str, Any] | None) -> dict[str, dict[str, A
     }
 
 
+def _canonical_previous_catalog_for_manifest(
+    previous_catalog: dict[str, Any],
+    manifest: dict[str, Any],
+) -> dict[str, Any]:
+    """Recover one previous Request per canonical Entry during legacy migration."""
+    previous_requests = previous_catalog.get("Requests", [])
+    if not isinstance(previous_requests, list):
+        return copy.deepcopy(previous_catalog)
+    result = copy.deepcopy(previous_catalog)
+    selected: list[dict[str, Any]] = []
+    for entry in manifest.get("Entries", []):
+        if not isinstance(entry, dict):
+            continue
+        visual_id = str(entry.get("VisualID", ""))
+        if not visual_id:
+            continue
+        pointer = entry.get("CompiledRequest") if isinstance(entry.get("CompiledRequest"), dict) else {}
+        request_id = str(pointer.get("RequestID", ""))
+        matches = [
+            request
+            for request in previous_requests
+            if isinstance(request, dict)
+            and request.get("VisualID") == visual_id
+            and (not request_id or request.get("RequestID") == request_id)
+        ]
+        if not matches and request_id:
+            matches = [
+                request
+                for request in previous_requests
+                if isinstance(request, dict) and request.get("VisualID") == visual_id
+            ]
+        if matches:
+            serialized = {
+                json.dumps(request, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+                for request in matches
+            }
+            if len(serialized) == 1:
+                selected.append(copy.deepcopy(matches[0]))
+    result["Requests"] = selected
+    return result
+
+
 def _legacy_prompt_variants(entry: dict[str, Any], previous: dict[str, Any] | None) -> dict[str, Any]:
     legacy = copy.deepcopy(previous.get("LegacyPromptVariants", {})) if isinstance(previous, dict) else {}
     prompt = str(entry.get("PromptEN", "") or "").strip()
@@ -383,6 +425,12 @@ def main() -> int:
         for part in value.split(",")
         if part.strip()
     }
+    if previous_catalog is not None and not visual_ids:
+        previous_requests = previous_catalog.get("Requests", [])
+        try:
+            merge_request_catalog(previous_requests, [], set())
+        except CatalogIntegrityError:
+            previous_catalog = _canonical_previous_catalog_for_manifest(previous_catalog, manifest)
     result = compile_manifest_requests(
         manifest,
         project_root=root,
