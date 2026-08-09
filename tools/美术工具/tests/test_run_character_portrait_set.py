@@ -26,6 +26,7 @@ from run_character_portrait_set import (  # noqa: E402
     execute_portrait_set_run,
     load_asset_set,
     _normalize_portrait_candidate,
+    _processed_evidence_current,
     order_portrait_members,
     reference_cli_arguments,
 )
@@ -41,6 +42,20 @@ class CharacterPortraitSetTests(unittest.TestCase):
         self.approved_path = approved_path
         self.manifest = {
             "Version": 1,
+            "AssetSets": {
+                "zero_dialogue_portrait_v1": {
+                    "ProductionProfile": "character_portrait_set",
+                    "StyleRef": {"Profile": "character_portrait_v1"},
+                    "IdentitySources": ["character.md"],
+                    "IdentityContract": {
+                        "Version": 1,
+                        "Required": ["silver loose hair", "white cloth blindfold"],
+                        "Forbidden": ["tied hair", "visible normal eyes"],
+                        "Conditional": ["red glow only when required"],
+                    },
+                    "ConsistencyRules": ["preserve identity"],
+                }
+            },
             "Entries": [
                 {
                     "VisualID": "doll_zero_dialogue_neutral",
@@ -125,6 +140,34 @@ class CharacterPortraitSetTests(unittest.TestCase):
 
     def tearDown(self) -> None:
         self.temp_dir.cleanup()
+
+    def portrait_review_item(self, raw_hash: str | None = None) -> dict:
+        item = {
+            "VisualID": "doll_zero_dialogue_neutral",
+            "ReviewRubricVersion": "character_portrait_v3",
+            "HardGate": "passed",
+            "Scores": {
+                "Identity": 92,
+                "Costume": 92,
+                "Proportion": 92,
+                "Framing": 92,
+                "Technical": 92,
+                "TargetFit": 92,
+                "Total": 92,
+            },
+            "DimensionEvidence": {
+                "Identity": {"Finding": "identity stable", "Evidence": ["identity reference"]},
+                "Costume": {"Finding": "costume stable", "Evidence": ["costume check"]},
+                "Proportion": {"Finding": "proportion stable", "Evidence": ["silhouette check"]},
+                "Framing": {"Finding": "framing stable", "Evidence": ["canvas check"]},
+                "Technical": {"Finding": "technical valid", "Evidence": ["technical review"]},
+                "TargetFit": {"Finding": "target fit valid", "Evidence": ["target review"]},
+            },
+            "RecommendedAction": "select",
+        }
+        if raw_hash is not None:
+            item["CandidateSHA256"] = raw_hash
+        return item
 
     def test_portrait_normalization_keeps_top_and_bottom_safe_padding(self) -> None:
         candidate = self.project_root / "candidate.png"
@@ -549,12 +592,7 @@ class CharacterPortraitSetTests(unittest.TestCase):
                 {
                     "ProductionRunID": "portrait_test_001",
                     "Items": [
-                        {
-                            "VisualID": "doll_zero_dialogue_neutral",
-                            "HardGate": "passed",
-                            "Scores": {"Total": 92},
-                            "RecommendedAction": "select",
-                        }
+                        self.portrait_review_item(),
                     ],
                 }
             ),
@@ -627,13 +665,7 @@ class CharacterPortraitSetTests(unittest.TestCase):
                 {
                     "ProductionRunID": "portrait_test_001",
                     "Items": [
-                        {
-                            "VisualID": "doll_zero_dialogue_neutral",
-                            "CandidateSHA256": raw_hash,
-                            "HardGate": "passed",
-                            "Scores": {"Total": 92},
-                            "RecommendedAction": "select",
-                        }
+                        self.portrait_review_item(raw_hash),
                     ],
                 }
             ),
@@ -748,6 +780,17 @@ class CharacterPortraitSetTests(unittest.TestCase):
         selected = candidate.parents[2] / "selected" / "doll_zero_dialogue_neutral.png"
         selected.parent.mkdir(parents=True, exist_ok=True)
         selected.write_bytes(candidate.read_bytes())
+        generation_hash = str(item["Generation"]["OutputSHA256"][0])
+        (candidate.parent / "process_report.json").write_text(
+            json.dumps(
+                {
+                    "VisualID": "doll_zero_dialogue_neutral",
+                    "InputSHA256": generation_hash,
+                    "OutputSHA256": digest,
+                }
+            ),
+            encoding="utf-8",
+        )
         item["Processed"] = {"RoundNumber": 1, "CandidatePath": candidate.relative_to(self.project_root).as_posix(), "CandidateSHA256": digest}
         item["Selection"] = {"State": "selected", "SelectedPath": selected.relative_to(self.project_root).as_posix(), "SHA256": digest}
         item["Stage"] = "complete"
@@ -796,13 +839,7 @@ class CharacterPortraitSetTests(unittest.TestCase):
                 {
                     "ProductionRunID": "portrait_test_001",
                     "Items": [
-                        {
-                            "VisualID": "doll_zero_dialogue_neutral",
-                            "CandidateSHA256": raw_hash,
-                            "HardGate": "passed",
-                            "Scores": {"Total": 92},
-                            "RecommendedAction": "select",
-                        }
+                        self.portrait_review_item(raw_hash),
                     ],
                 }
             ),
@@ -822,6 +859,49 @@ class CharacterPortraitSetTests(unittest.TestCase):
         self.assertEqual(completed["FinalState"], "selection_complete")
         self.assertTrue((self.incoming_root / "character_portraits/doll_zero_dialogue_neutral/processed/1/candidate.png").exists())
         self.assertTrue((self.incoming_root / "character_portraits/doll_zero_dialogue_neutral/selected/doll_zero_dialogue_neutral.png").exists())
+
+
+class ProcessedEvidenceBindingTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.temp_dir = tempfile.TemporaryDirectory()
+        self.project_root = Path(self.temp_dir.name)
+
+    def tearDown(self) -> None:
+        self.temp_dir.cleanup()
+
+    def test_processed_round_must_bind_to_current_generation_input_hash(self) -> None:
+        workspace = self.project_root / "UnityClient/Assets/Art/_IncomingAI/character_portraits/doll_zero_dialogue_neutral"
+        candidate = workspace / "processed" / "1" / "candidate.png"
+        candidate.parent.mkdir(parents=True, exist_ok=True)
+        Image.new("RGBA", (1024, 1536), (80, 90, 100, 255)).save(candidate)
+        candidate_hash = hashlib.sha256(candidate.read_bytes()).hexdigest()
+        old_input = "1" * 64
+        current_input = "2" * 64
+        (candidate.parent / "decision.json").write_text(
+            json.dumps({"State": "passed", "Candidates": [{"File": "candidate.png", "SHA256": candidate_hash, "Status": "passed"}]}),
+            encoding="utf-8",
+        )
+        (candidate.parent / "process_report.json").write_text(
+            json.dumps({"VisualID": "doll_zero_dialogue_neutral", "InputSHA256": old_input, "OutputSHA256": candidate_hash}),
+            encoding="utf-8",
+        )
+        item = {
+            "VisualID": "doll_zero_dialogue_neutral",
+            "Workspace": workspace.relative_to(self.project_root).as_posix(),
+            "Generation": {"OutputSHA256": [current_input]},
+            "Processed": {
+                "RoundNumber": 1,
+                "CandidatePath": candidate.relative_to(self.project_root).as_posix(),
+                "CandidateSHA256": candidate_hash,
+            },
+        }
+
+        self.assertIsNone(_processed_evidence_current(item, self.project_root))
+        (candidate.parent / "process_report.json").write_text(
+            json.dumps({"VisualID": "doll_zero_dialogue_neutral", "InputSHA256": current_input, "OutputSHA256": candidate_hash}),
+            encoding="utf-8",
+        )
+        self.assertIsNotNone(_processed_evidence_current(item, self.project_root))
 
 
 if __name__ == "__main__":

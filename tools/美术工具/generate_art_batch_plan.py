@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from art_workspace import workspace_path
+from generate_formal_v2_replacement_plan import resolve_prompt_evidence
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -19,9 +20,10 @@ PROJECT_ROOT = SCRIPT_DIR.parents[1]
 
 DEFAULT_INTEGRATION_CANDIDATES = "美术文档/_generated/可接入素材清单.json"
 DEFAULT_MANIFEST = "美术文档/_generated/art_manifest.json"
+DEFAULT_REQUEST_CATALOG = "美术文档/_generated/art_generation_requests.json"
 DEFAULT_OUTPUT_JSON = "美术文档/_generated/缺图生成计划.json"
 DEFAULT_OUTPUT_MARKDOWN = "美术文档/_generated/缺图生成计划.md"
-DEFAULT_SNAPSHOT_DIR = "美术文档/_generated/art_generation_plan_snapshots"
+DEFAULT_SNAPSHOT_DIR = "美术文档/_generated/art_batch_plan_runs"
 DEFAULT_BATCH_ID = "nai_missing_assets_20260525_01"
 DEFAULT_INCOMING_ROOT = "UnityClient/Assets/Art/_IncomingAI"
 
@@ -122,23 +124,26 @@ def command_prefix(args: argparse.Namespace) -> str:
 def build_item(
     candidate: dict[str, Any],
     manifest_entry: dict[str, Any],
+    request: dict[str, Any] | None,
     args: argparse.Namespace,
 ) -> dict[str, Any]:
     visual_id = str(candidate.get("VisualID", "") or "")
     size = expected_size_from_manifest(manifest_entry)
     incoming_base = workspace_path(resolve_project_path(DEFAULT_INCOMING_ROOT), manifest_entry)
-    prompt_ready = bool(
-        str(manifest_entry.get("PromptEN", "") or "").strip()
-        and str(manifest_entry.get("NegativePromptEN", "") or "").strip()
-        and isinstance(manifest_entry.get("Spec"), dict)
-    )
+    prompt_evidence = resolve_prompt_evidence(manifest_entry, request)
+    prompt_ready = bool(prompt_evidence["PromptReady"])
+    prompt_format = prompt_evidence["PromptFormats"][0] if prompt_evidence["PromptFormats"] else ""
     tools = command_prefix(args)
-    run_command = (
+    run_command = ""
+    if prompt_ready:
+        run_command = (
         f"{tools}\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml "
-        f"-Provider {args.provider} -Status {args.status} -VisualID {visual_id} "
+        f"-RequestCatalog {args.request_catalog} -RequestID {prompt_evidence['RequestID']} "
+        f"-PromptRevisionID {prompt_evidence['PromptRevisionID']} -PromptFormat {prompt_format} "
+        f"-Provider {args.provider} -Status todo -VisualID {visual_id} "
         f"-Variants {args.variants} -DelaySeconds {args.delay_seconds:g} "
         f"-BatchID {args.batch_id}"
-    )
+        )
     optimize_command = (
         f"{tools}\\Optimize-ArtAssets.ps1 -Status generated -VisualID {visual_id} "
         f"-BatchID {args.batch_id} -Overwrite"
@@ -157,11 +162,15 @@ def build_item(
         "ConfigID": str(candidate.get("ConfigID", "") or manifest_entry.get("ConfigID", "") or ""),
         "Status": str(candidate.get("Status", "") or manifest_entry.get("Status", "") or ""),
         "PromptReady": prompt_ready,
+        "PromptBlockReason": str(prompt_evidence["PromptBlockReason"]),
+        "RequestID": str(prompt_evidence["RequestID"]),
+        "RequirementFingerprint": str(prompt_evidence["RequirementFingerprint"]),
+        "PromptAuthoringStatus": str(prompt_evidence["PromptAuthoringStatus"]),
+        "PromptRevisionID": str(prompt_evidence["PromptRevisionID"]),
+        "PromptRevisionFingerprint": str(prompt_evidence["PromptRevisionFingerprint"]),
+        "PromptFormats": list(prompt_evidence["PromptFormats"]),
         "ExpectedSize": size,
         "AnlasNote": observed_anlas_note(size, args.provider),
-        "PromptCN": str(manifest_entry.get("PromptCN", "") or ""),
-        "PromptEN": str(manifest_entry.get("PromptEN", "") or ""),
-        "NegativePromptEN": str(manifest_entry.get("NegativePromptEN", "") or ""),
         "Spec": manifest_entry.get("Spec", {}),
         "ApprovedPath": str(candidate.get("ApprovedPath", "") or manifest_entry.get("OutputPath", "") or ""),
         "Workspace": {
@@ -183,12 +192,19 @@ def build_item(
 def build_payload(args: argparse.Namespace) -> dict[str, Any]:
     candidates_path = resolve_project_path(args.integration_candidates_path)
     manifest_path = resolve_project_path(args.manifest_path)
+    request_catalog_path = resolve_project_path(args.request_catalog)
     candidates_payload = read_json(candidates_path, {})
     manifest = read_json(manifest_path, {})
+    request_catalog = read_json(request_catalog_path, {})
     manifest_entries = {
         str(entry.get("VisualID", "") or ""): entry
         for entry in as_list(manifest.get("Entries"))
         if isinstance(entry, dict)
+    }
+    requests_by_id = {
+        str(request.get("RequestID", "") or ""): request
+        for request in as_list(request_catalog.get("Requests"))
+        if isinstance(request, dict) and request.get("RequestID")
     }
 
     raw_candidates = [
@@ -206,7 +222,8 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
         if not manifest_entry:
             missing_manifest.append(visual_id)
             continue
-        plan_item = build_item(candidate, manifest_entry, args)
+        pointer = manifest_entry.get("CompiledRequest") if isinstance(manifest_entry.get("CompiledRequest"), dict) else {}
+        plan_item = build_item(candidate, manifest_entry, requests_by_id.get(str(pointer.get("RequestID", "") or "")), args)
         plan_item["Order"] = index
         plan_items.append(plan_item)
 
@@ -214,16 +231,8 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
     priority_counts = Counter(item["Priority"] for item in plan_items)
     size_counts = Counter(item["ExpectedSize"] for item in plan_items)
     prompt_ready_count = sum(1 for item in plan_items if item["PromptReady"])
-    visual_ids = comma_visual_ids(plan_items)
     tools = command_prefix(args)
-    run_all = (
-        f"{tools}\\Run-ArtGeneration.ps1 -Config .\\tools\\美术工具\\ai_image_gateway.local.yaml "
-        f"-Provider {args.provider} -Status {args.status} -VisualID {visual_ids} "
-        f"-Variants {args.variants} -DelaySeconds {args.delay_seconds:g} "
-        f"-BatchID {args.batch_id}"
-        if visual_ids
-        else ""
-    )
+    output_path = repo_path(resolve_project_path(args.output_json))
 
     return {
         "GeneratedAt": timestamp_text(),
@@ -231,12 +240,12 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
         "Inputs": {
             "IntegrationCandidatesPath": repo_path(candidates_path),
             "ManifestPath": repo_path(manifest_path),
+            "RequestCatalogPath": repo_path(request_catalog_path),
         },
         "RunConfig": {
             "Provider": args.provider,
             "BatchID": args.batch_id,
-            "StatusFilter": args.status,
-            "ActionFilter": args.action,
+            "Action": args.action,
             "Variants": args.variants,
             "DelaySeconds": args.delay_seconds,
             "SerialRequired": True,
@@ -253,14 +262,9 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
             "SizeCounts": dict(sorted(size_counts.items())),
         },
         "BatchCommands": {
-            "RunAllGeneration": run_all,
-            "OptimizeAllAfterGeneration": (
-                f"{tools}\\Optimize-ArtAssets.ps1 -Status generated "
-                f"-BatchID {args.batch_id} -Overwrite"
-            ),
-            "SyncAllAfterReviewOrFallback": (
-                f"{tools}\\Sync-ApprovedArt.ps1 -Status generated "
-                f"-BatchID {args.batch_id} -Overwrite"
+            "RunProductionBatch": (
+                f"{tools}\\Run-ArtProductionBatch.ps1 -PlanPath {output_path} "
+                f"-RequestCatalogPath {repo_path(request_catalog_path)} -Provider {args.provider}"
             ),
             "RefreshIntegration": (
                 f"{tools}\\Generate-ArtIntegrationCandidates.ps1 -Snapshot "
@@ -304,8 +308,7 @@ def make_markdown(payload: dict[str, Any]) -> str:
         f"* GeneratedAt: `{payload['GeneratedAt']}`",
         f"* Provider: `{run['Provider']}`",
         f"* BatchID: `{run['BatchID']}`",
-        f"* Action filter: `{run['ActionFilter']}`",
-        f"* Status filter: `{run['StatusFilter']}`",
+        f"* Action: `{run['Action']}`",
         f"* Variants per asset: `{run['Variants']}`",
         f"* Delay seconds: `{run['DelaySeconds']}`",
         f"* Serial required: `{run['SerialRequired']}`",
@@ -338,20 +341,15 @@ def make_markdown(payload: dict[str, Any]) -> str:
             "",
             "## Batch Commands",
             "",
-            "Run all planned generation:",
+            "Run the plan after authoring every blocked PromptRevision:",
             "",
             "```powershell",
-            "$env:NAI_ACCESS_TOKEN = '<set locally>'",
-            payload["BatchCommands"]["RunAllGeneration"],
+            payload["BatchCommands"]["RunProductionBatch"],
             "```",
             "",
-            "After generation succeeds:",
+            "After generation and selection succeed:",
             "",
             "```powershell",
-            payload["BatchCommands"]["OptimizeAllAfterGeneration"],
-            "# Review each item's Workspace.ContactSheet path from this plan.",
-            "# Review decision-backed candidates under Workspace.Processed/<numeric round>/ and put the accepted image into selected/.",
-            payload["BatchCommands"]["SyncAllAfterReviewOrFallback"],
             payload["BatchCommands"]["RefreshIntegration"],
             payload["BatchCommands"]["RefreshQuality"],
             payload["BatchCommands"]["RefreshPlan"],
@@ -359,7 +357,7 @@ def make_markdown(payload: dict[str, Any]) -> str:
             "",
             "## Planned Items",
             "",
-            "| Order | VisualID | Priority | Domain | Type | Size | Prompt | Approved Path |",
+            "| Order | VisualID | Priority | Domain | Type | Size | PromptRevision | Approved Path |",
             "|---:|---|---|---|---|---|---|---|",
         ]
     )
@@ -374,7 +372,7 @@ def make_markdown(payload: dict[str, Any]) -> str:
                     md_cell(item["Domain"]),
                     md_cell(item["AssetType"]),
                     md_cell(item["ExpectedSize"]),
-                    "ready" if item["PromptReady"] else "missing",
+                    item["PromptRevisionID"] if item["PromptReady"] else item["PromptBlockReason"],
                     md_cell(item["ApprovedPath"]),
                 ]
             )
@@ -389,10 +387,7 @@ def make_markdown(payload: dict[str, Any]) -> str:
                 f"### {item['Order']}. `{item['VisualID']}`",
                 "",
                 "```powershell",
-                commands["RunGeneration"],
-                commands["Optimize"],
-                "# Review selected/contact_sheet before syncing.",
-                commands["SyncApproved"],
+                commands["RunGeneration"] or "# Blocked: publish a valid PromptRevision before generation.",
                 "```",
                 "",
             ]
@@ -417,7 +412,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--snapshot-tag", default="")
     parser.add_argument("--batch-id", default=DEFAULT_BATCH_ID)
     parser.add_argument("--provider", default="novelai")
-    parser.add_argument("--status", default="prompted")
+    parser.add_argument("--request-catalog", default=DEFAULT_REQUEST_CATALOG)
     parser.add_argument("--action", default="generate_needed")
     parser.add_argument("--variants", type=int, default=4)
     parser.add_argument("--delay-seconds", type=float, default=1.0)

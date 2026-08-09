@@ -186,18 +186,18 @@ class ValidateArtGenerationRequestsTests(unittest.TestCase):
             errors,
         )
 
-    def test_active_legacy_prompt_is_rejected(self) -> None:
+    def test_active_missing_prompt_revision_is_rejected(self) -> None:
         catalog = copy.deepcopy(self.catalog)
         manifest = copy.deepcopy(self.compiled_manifest)
         request = catalog["Requests"][0]
         request["PromptAuthoringStatus"] = "prompt_ready"
-        request["ActivePromptRevisionID"] = "legacy:natural_language_v1"
+        request["ActivePromptRevisionID"] = "missing-revision"
         pointer = manifest["Entries"][0]["CompiledRequest"]
         pointer["PromptAuthoringStatus"] = "prompt_ready"
-        pointer["ActivePromptRevisionID"] = "legacy:natural_language_v1"
+        pointer["ActivePromptRevisionID"] = "missing-revision"
         errors = validate_request_catalog(catalog, manifest, strict=True)
 
-        self.assertIn("prompt_revision_missing:ui_button_primary:legacy:natural_language_v1", errors)
+        self.assertIn("prompt_revision_missing:ui_button_primary:missing-revision", errors)
 
 
 if __name__ == "__main__":

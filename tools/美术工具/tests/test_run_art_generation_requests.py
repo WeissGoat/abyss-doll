@@ -23,6 +23,7 @@ from run_art_generation import (  # noqa: E402
     GenerateRequest,
     ImageFormat,
     build_generation_record,
+    capture_provider_image_parameters,
     resolve_reference_images,
     select_generation_request,
     serialize_provider_prompt,
@@ -185,8 +186,6 @@ class RunArtGenerationRequestTests(unittest.TestCase):
         )
 
         self.assertEqual(record["EvidenceMode"], "formal_v2")
-        self.assertNotIn("PromptEN", record)
-        self.assertNotIn("NegativePromptEN", record)
         self.assertNotIn("LegacyPromptInput", record)
         self.assertEqual(record["RequirementFingerprint"], request["RequirementFingerprint"])
         self.assertEqual(record["PromptRevisionID"], revision["PromptRevisionID"])
@@ -196,35 +195,45 @@ class RunArtGenerationRequestTests(unittest.TestCase):
         self.assertEqual(record["ProviderRequest"]["Prompt"], variant["Positive"])
         self.assertEqual(record["ReferenceImages"][0]["Role"], "identity_reference")
 
-    def test_legacy_generation_record_is_explicitly_isolated(self) -> None:
-        entry = copy.deepcopy(self.entry)
-        entry["PromptEN"] = "legacy positive"
-        entry["NegativePromptEN"] = "legacy negative"
+    def test_provider_image_parameters_are_copied_into_request_evidence(self) -> None:
+        provider_request = {"Prompt": "exact published prompt"}
+        generation_params = {
+            "provider_image_parameters": {
+                "generationConfig": {
+                    "responseModalities": ["IMAGE"],
+                    "imageConfig": {"aspectRatio": "three-four", "imageSize": "2k"},
+                }
+            }
+        }
 
-        record = build_generation_record(
-            entry=entry,
-            batch_id="legacy-001",
-            request_ids=[],
-            provider="openai_images",
-            model="legacy",
-            requested_width=256,
-            requested_height=256,
-            requested_count=1,
-            outputs=[],
-            errors=[],
-            created_at="2026-07-31T12:00:00+08:00",
-        )
+        capture_provider_image_parameters(provider_request, generation_params)
+        generation_params["provider_image_parameters"]["generationConfig"]["imageConfig"]["aspectRatio"] = "1:1"
 
-        self.assertEqual(record["EvidenceMode"], "legacy_unverified")
         self.assertEqual(
-            record["LegacyPromptInput"],
+            provider_request["ProviderImageParameters"],
             {
-                "PromptEN": "legacy positive",
-                "NegativePromptEN": "legacy negative",
+                "generationConfig": {
+                    "responseModalities": ["IMAGE"],
+                    "imageConfig": {"aspectRatio": "three-four", "imageSize": "2k"},
+                }
             },
         )
-        self.assertNotIn("PromptEN", record)
-        self.assertNotIn("NegativePromptEN", record)
+
+    def test_generation_record_rejects_missing_formal_revision(self) -> None:
+        with self.assertRaisesRegex(ValueError, "formal_generation_record_requires_revision"):
+            build_generation_record(
+                entry=self.entry,
+                batch_id="invalid-001",
+                request_ids=[],
+                provider="openai_images",
+                model="missing",
+                requested_width=256,
+                requested_height=256,
+                requested_count=1,
+                outputs=[],
+                errors=[],
+                created_at="2026-07-31T12:00:00+08:00",
+            )
 
     def test_reference_images_select_image_to_image_without_rewriting_prompt(self) -> None:
         class FakeService:

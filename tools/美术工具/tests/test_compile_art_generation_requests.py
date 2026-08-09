@@ -142,9 +142,9 @@ class CompileArtGenerationRequestsTests(unittest.TestCase):
 
         compiled = {entry["VisualID"]: entry for entry in result["Manifest"]["Entries"]}
         self.assertEqual(result["Manifest"]["ArtStyleCatalog"]["GlobalStyle"]["ID"], "p3_global_v1")
-        self.assertIn(
-            "warm moon-white rim",
-            " | ".join(compiled["ui_button_primary"]["VisualIntent"]["AppearanceEN"]),
+        self.assertEqual(
+            compiled["ui_button_primary"]["VisualIntent"]["SubjectEN"],
+            ["modular interface button sprite"],
         )
         self.assertEqual(compiled["item_demo_icon"]["VisualIntent"]["AppearanceEN"], ["keep this intent"])
 
@@ -213,7 +213,7 @@ class CompileArtGenerationRequestsTests(unittest.TestCase):
             compiled["doll_zero_dialogue_confused"]["CompiledRequest"]["PromptAuthoringStatus"],
             "prompt_authoring_required",
         )
-        self.assertNotIn("PromptVariants", result["Catalog"]["Requests"][0])
+        self.assertNotIn('"Positive"', json.dumps(result["Catalog"]["Requests"][0], ensure_ascii=False))
         self.assertEqual(
             result["Manifest"]["AssetSets"]["zero_dialogue_portrait_v1"]["IdentityContract"]["Required"],
             ["silver loose hair"],

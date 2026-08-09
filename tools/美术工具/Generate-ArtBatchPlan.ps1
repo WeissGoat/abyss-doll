@@ -7,7 +7,7 @@ param(
     [string]$SnapshotTag = "",
     [string]$BatchID = "",
     [string]$Provider = "novelai",
-    [string]$Status = "prompted",
+    [string]$RequestCatalog = "",
     [string]$Action = "generate_needed",
     [int]$Variants = 4,
     [double]$DelaySeconds = 1.0,
@@ -55,8 +55,8 @@ if ($Provider -ne "") {
     $argsList += @("--provider", $Provider)
 }
 
-if ($Status -ne "") {
-    $argsList += @("--status", $Status)
+if ($RequestCatalog -ne "") {
+    $argsList += @("--request-catalog", $RequestCatalog)
 }
 
 if ($Action -ne "") {

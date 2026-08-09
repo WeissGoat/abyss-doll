@@ -207,7 +207,7 @@ def classify_entry(
     elif raw_image is not None:
         action = "art_process"
         reason = "Incoming raw 已有候选，等待预处理和 contact sheet。"
-    elif status in {"todo", "prompted", "generated", "selected"}:
+    elif status in {"todo", "generated", "selected"}:
         action = "generate_needed"
         reason = "Manifest 有需求但尚未形成可接入 Approved 素材。"
     else:

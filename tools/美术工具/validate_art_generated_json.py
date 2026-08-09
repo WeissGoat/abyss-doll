@@ -82,16 +82,6 @@ CHECKS = [
         ],
     },
     {
-        "name": "formal_v2_prompt_readiness",
-        "path": "美术文档/_generated/formal_v2_prompt_readiness/formal_v2_prompt_readiness.json",
-        "summary": [
-            ("program_integrate", ("Summary", "ProgramIntegrateVisualCount")),
-            ("prompt_ready", ("Summary", "PromptReadyCount")),
-            ("prompt_blocked", ("Summary", "PromptBlockedCount")),
-            ("generic_remaining", ("Summary", "GenericPromptRemainingCount")),
-        ],
-    },
-    {
         "name": "registry_gap_checklist",
         "path": "美术文档/_generated/VisualAssetRegistry登记缺口清单.json",
         "summary": [

@@ -15,11 +15,11 @@ from art_catalog_integrity import (
     validate_manifest_uniqueness,
 )
 from art_workspace import STANDARD_PROFILE, normalize_entry_workspace_paths
+from art_requirement_defaults import default_spec_for, visual_intent_for
 
 
 STATUS_FLOW = [
     "todo",
-    "prompted",
     "generated",
     "selected",
     "approved",
@@ -31,9 +31,6 @@ STATUS_FLOW = [
 
 PRESERVE_FIELDS = [
     "Status",
-    "PromptCN",
-    "PromptEN",
-    "NegativePromptEN",
     "Spec",
     "BatchID",
     "RawPath",
@@ -151,12 +148,9 @@ def new_entry(
         "Priority": priority,
         "Status": "todo",
         "SourceFactsCN": source_facts_cn,
-        "PromptCN": "",
-        "PromptEN": "",
-        "NegativePromptEN": "",
-        "Spec": {},
+        "Spec": default_spec_for({"Domain": domain, "AssetType": asset_type, "VisualID": visual_id}),
         "StyleRef": {},
-        "VisualIntent": {},
+        "VisualIntent": visual_intent_for({"Domain": domain, "AssetType": asset_type, "VisualID": visual_id, "DisplayName": display_name, "SourceFactsCN": source_facts_cn}),
         "CompiledRequest": {},
         "BatchID": "",
         "RawPath": "",
@@ -181,11 +175,8 @@ def preserve_entry_fields(
         return normalize_entry_workspace_paths(entry)
 
     source_owned = source_owned_fields or set()
-    existing_status = existing.get("Status", "")
     for field in PRESERVE_FIELDS:
         if field in source_owned:
-            continue
-        if existing_status == "todo" and field in ("PromptCN", "PromptEN", "NegativePromptEN", "Spec"):
             continue
         value = existing.get(field)
         if value not in (None, ""):
@@ -572,12 +563,12 @@ def make_markdown(manifest: Dict[str, Any]) -> str:
     lines = [
         "# 视觉资产 Manifest",
         "",
-        "> **定位：** 由 `tools/美术工具/Update-ArtManifest.ps1` 根据最新配置表、配置推导项和预置美术需求增量生成。第一步只填资产来源与配置事实，中文审阅描述、英文提示词、英文负面词和结构化规格在第二步补全。",
+        "> **定位：** 由 `tools/美术工具/Update-ArtManifest.ps1` 根据最新配置表、配置推导项和预置美术需求增量生成。Manifest 只保存需求事实、结构化规格和已编译请求指针；可执行提示词只存在于 Request Catalog 的 PromptRevision。",
         f"> **配置来源：** `{manifest['ConfigRoot']}`",
         "",
         "## 状态流转",
         "",
-        "`todo -> prompted -> generated -> selected -> approved -> registered -> validated`，废弃项标记为 `rejected` 或 `deprecated`。",
+        "`todo -> generated -> selected -> approved`；Registry 与运行时验收由独立状态轴记录，废弃项标记为 `rejected` 或 `deprecated`。",
         "",
         "## 汇总",
         "",
@@ -608,17 +599,14 @@ def make_markdown(manifest: Dict[str, Any]) -> str:
 
     lines.extend(["", "## 下一步", ""])
     if status_counts.get("todo", 0) > 0:
-        lines.append("1. 对 `Status=todo` 的新增项补全 `PromptCN`、`PromptEN`、`NegativePromptEN` 和结构化 `Spec`。")
-        lines.append("2. 完成后运行 `tools/美术工具/Generate-ArtPrompts.ps1` 或人工审阅提示词。")
-    elif status_counts.get("prompted", 0) > 0:
-        lines.append("1. 对 `Status=prompted` 的条目按批次生成图片。")
-        lines.append("2. 生成后填写 `BatchID` 和 `RawPath`，并将状态改为 `generated`。")
+        lines.append("1. 编译 Requirement，并为 `PromptAuthoringStatus=prompt_authoring_required` 导出 authoring package。")
+        lines.append("2. 发布通过约束映射校验的 PromptRevision 后，再生成批次计划。")
     elif status_counts.get("generated", 0) > 0:
         lines.append("1. 对 `Status=generated` 的批次进行预处理和筛选。")
         lines.append("2. 更新 `SelectedPath`、`ApprovedPath` 与状态。")
     elif status_counts.get("approved", 0) > 0:
         lines.append("1. 将 `Approved` 素材登记到 `VisualAssetRegistry`。")
-        lines.append("2. 游戏内验证后更新 `RegistryStatus` 和 `Status=validated`。")
+        lines.append("2. 游戏内验证后更新 Registry 与 ArtRun 证据，不修改生产状态轴。")
     else:
         lines.append("当前没有待处理资产。")
     lines.append("")

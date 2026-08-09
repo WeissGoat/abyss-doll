@@ -13,6 +13,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from generate_formal_v2_replacement_plan import resolve_prompt_evidence
+
 try:
     from PIL import Image
 except ModuleNotFoundError:  # Optional: some CI/agent Python environments do not bundle Pillow.
@@ -23,6 +25,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[1]
 
 DEFAULT_MANIFEST = "美术文档/_generated/art_manifest.json"
+DEFAULT_REQUEST_CATALOG = "美术文档/_generated/art_generation_requests.json"
 DEFAULT_OUTPUT_JSON = "美术文档/_generated/素材质量替换清单.json"
 DEFAULT_OUTPUT_MARKDOWN = "美术文档/_generated/素材质量替换清单.md"
 DEFAULT_SNAPSHOT_DIR = "美术文档/_generated/art_quality_snapshots"
@@ -289,7 +292,7 @@ def background_kind(entry: dict[str, Any]) -> str:
     return str(src.get("Background", "") or "")
 
 
-def build_item(entry: dict[str, Any]) -> dict[str, Any] | None:
+def build_item(entry: dict[str, Any], request: dict[str, Any] | None) -> dict[str, Any] | None:
     status = str(entry.get("Status", "") or "").strip()
     if status not in APPROVED_STATUSES:
         return None
@@ -336,7 +339,7 @@ def build_item(entry: dict[str, Any]) -> dict[str, Any] | None:
 
     src = source_spec(entry)
     display = display_spec(entry)
-    prompt_ready = bool(str(entry.get("PromptEN", "") or "").strip() and isinstance(entry.get("Spec"), dict))
+    prompt_evidence = resolve_prompt_evidence(entry, request)
 
     return {
         "VisualID": visual_id,
@@ -351,7 +354,9 @@ def build_item(entry: dict[str, Any]) -> dict[str, Any] | None:
         "TargetQuality": target_quality,
         "ProgramCanUseCurrent": action != "technical_fix",
         "ReplaceWithoutProgramChange": True,
-        "PromptReady": prompt_ready,
+        "PromptReady": bool(prompt_evidence["PromptReady"]),
+        "PromptBlockReason": str(prompt_evidence["PromptBlockReason"]),
+        "PromptRevisionID": str(prompt_evidence["PromptRevisionID"]),
         "ApprovedPath": repo_path(approved_path),
         "ApprovedFileExists": bool(image_facts["Exists"]),
         "ExpectedSize": f"{expected_width}x{expected_height}" if expected_width and expected_height else "",
@@ -475,7 +480,7 @@ def make_markdown(payload: dict[str, Any]) -> str:
                         md_cell(item["CurrentQuality"]),
                         md_cell(item["QualityTier"]),
                         md_cell(item["ProgramCanUseCurrent"]),
-                        "ready" if item["PromptReady"] else "missing",
+                        item["PromptRevisionID"] if item["PromptReady"] else item["PromptBlockReason"],
                         md_cell(item["ApprovedPath"]),
                         md_cell(item["Reason"]),
                     ]
@@ -533,9 +538,30 @@ def make_markdown(payload: dict[str, Any]) -> str:
 
 def build_payload(args: argparse.Namespace) -> dict[str, Any]:
     manifest_path = resolve_project_path(args.manifest_path)
+    request_catalog_path = resolve_project_path(args.request_catalog)
     manifest = read_json(manifest_path, {})
+    request_catalog = read_json(request_catalog_path, {})
     entries = [entry for entry in as_list(manifest.get("Entries")) if isinstance(entry, dict)]
-    items = [item for entry in entries if (item := build_item(entry)) is not None]
+    request_map = {
+        str(request.get("RequestID", "") or ""): request
+        for request in as_list(request_catalog.get("Requests"))
+        if isinstance(request, dict) and request.get("RequestID")
+    }
+    items = [
+        item
+        for entry in entries
+        if (
+            item := build_item(
+                entry,
+                request_map.get(
+                    str((entry.get("CompiledRequest") or {}).get("RequestID", "") or "")
+                    if isinstance(entry.get("CompiledRequest"), dict)
+                    else ""
+                ),
+            )
+        )
+        is not None
+    ]
     items.sort(key=sort_key)
 
     action_counts = Counter(item["Action"] for item in items)
@@ -546,6 +572,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
         "SnapshotTag": str(args.snapshot_tag or ""),
         "Inputs": {
             "ManifestPath": repo_path(manifest_path),
+            "RequestCatalogPath": repo_path(request_catalog_path),
         },
         "Summary": {
             "TotalManifestEntries": len(entries),
@@ -561,6 +588,7 @@ def build_payload(args: argparse.Namespace) -> dict[str, Any]:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate Visual V2 art quality backlog.")
     parser.add_argument("--manifest-path", default=DEFAULT_MANIFEST)
+    parser.add_argument("--request-catalog", default=DEFAULT_REQUEST_CATALOG)
     parser.add_argument("--output-json", default=DEFAULT_OUTPUT_JSON)
     parser.add_argument("--output-markdown", default=DEFAULT_OUTPUT_MARKDOWN)
     parser.add_argument("--snapshot-dir", default=DEFAULT_SNAPSHOT_DIR)

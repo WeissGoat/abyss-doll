@@ -45,12 +45,6 @@ class ArtPromptAuthoringToolsTests(unittest.TestCase):
             "PreservationContract": {},
             "ActivePromptRevisionID": "",
             "PromptRevisions": [],
-            "LegacyPromptVariants": {
-                "natural_language_v1": {
-                    "Status": "legacy_compiled",
-                    "Positive": "legacy prompt must not be exported",
-                }
-            },
         }
         self.catalog = {"Version": 2, "Requests": [self.request]}
         self.revision = {
@@ -83,7 +77,6 @@ class ArtPromptAuthoringToolsTests(unittest.TestCase):
         item = package["Items"][0]
 
         self.assertIn("PromptAuthoringContext", item)
-        self.assertNotIn("LegacyPromptVariants", item)
         self.assertNotIn("legacy prompt must not be exported", json.dumps(package))
 
     def test_export_rejects_unknown_visual_id(self) -> None:

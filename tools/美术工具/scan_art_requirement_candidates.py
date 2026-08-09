@@ -705,8 +705,8 @@ def make_markdown(payload: dict[str, Any]) -> str:
             "",
             "1. 先人工审查 `new_candidate` 和 `approved_without_manifest`。",
             "2. 确认应纳管的项写入 `美术文档/art_requirements_seed.json`，或等待正式配置 JSON 落地。",
-            "3. 运行 `Sync-Configs -> Update-ArtManifest -> Generate-ArtPrompts -> Generate-ArtIntegrationCandidates`。",
-            "4. 若出现 `generate_needed`，再生成缺图计划并进入跑图 / local_v0 流程。",
+            "3. 运行 `Sync-Configs -> Update-ArtManifest -> Compile-ArtGenerationRequests -> Generate-ArtIntegrationCandidates`。",
+            "4. 若出现 `generate_needed`，导出 authoring package、发布 PromptRevision，再生成缺图计划并进入正式生产流。",
         ]
     )
     return "\n".join(lines) + "\n"

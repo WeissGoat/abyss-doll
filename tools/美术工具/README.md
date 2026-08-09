@@ -54,6 +54,8 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 
 `alpha_passthrough` 只接受已经具有有效透明度的图片；`connected_border` 只适合与画布边界连通且可稳定区分的简单背景；`explicit_mask` 必须提供同尺寸、非全黑且非全白的 mask；`segmentation` 使用可选的 `rembg` 语义分割生成并保存显式 mask，后端缺失或输出无效时 fail-closed。输出包含候选 PNG、mask（如适用）与 `background-processing.json`，并拒绝把 staging 指向任何 `processed/`、`selected/` 或 Approved 路径。通过技术和视觉检查后，仍须使用 `Register-ArtProcessingRound.ps1` 发布下一不可变数字轮次。
 
+当 RGB 绿幕在头发、白布或浅色衣物边缘产生明显绿色溢出时，可显式追加 `-Despill green_chroma`。它只做受限的颜色去溢出，不改变 Alpha、尺寸或几何；默认不启用，避免把普通彩色边缘误判为绿幕污染。
+
 ## Register-ArtProcessingRound.ps1
 
 将 Agent 产生的候选处理结果登记为下一个不可变的 `processed/<正整数>/` 轮次。staging 目录必须包含直接子级候选图片、`decision.json`、`process_report.json` 和 `technical_review.json`；角色立绘的 `passed` 轮次还必须包含 `visual_review.json`，因此 `Run-CharacterPortraitSet.ps1` 会在缺少该证据时停在 `visual_review`，不会先发布轮次再补评审。`technical_review.json` 使用 `technical_review_v2`，Registrar 会根据当前 Manifest Spec 和真实候选重新计算结果并核对 `ReviewFingerprint`，不能靠手写 `Status=passed` 绕过技术门禁。
@@ -313,7 +315,7 @@ NovelAI 限流时可拉长外层重试间隔：
 
 `Compile-ArtGenerationRequests.ps1` 只生成 `PromptAuthoringContext`、`TechnicalRequest`、`PreservationContract` 和 `RequirementFingerprint`。当状态为 `prompt_authoring_required` 时，Agent 根据 authoring package 独立创作 `natural_language_v2` 与 `danbooru_tags_v2`；ready Variant 必须完整填写 `ConstraintMapping`。发布成功后 Catalog 和 Manifest pointer 同步为 `prompt_ready + ActivePromptRevisionID`。
 
-`Generate-ArtPrompts.ps1` 仅保留旧 Manifest 的 `PromptCN / PromptEN / NegativePromptEN` 兼容和迁移用途。它生成的 v1 Prompt 不得作为新正式批次输入；Catalog 中只作为 `LegacyPromptVariants` 证据保留。
+旧的独立 Prompt 生成入口和 v1 兼容路径已删除。当前 Catalog 只接受 Agent 发布的 active `PromptRevision`。
 
 ### Catalog 完整性与显式共享素材
 
@@ -382,7 +384,6 @@ Copy-Item .\tools\美术工具\ai_image_gateway.example.yaml .\tools\ai-image-ga
 * `-RequestCatalog`、`-RequestID`、`-PromptRevisionID`：选择持久化 Requirement 与不可变 Revision；正常情况下使用 Manifest active pointer。
 * `-PromptFormat`：`auto`、`natural_language_v2` 或 `danbooru_tags_v2`。
 * `-ReferenceImage` / `-ReferenceImageSHA256` / `-ReferenceImageRole`：按相同顺序传入真实参考图片、计划时锁定的哈希和关系角色；适用于角色身份、姿势或其他明确视觉来源。
-* `-AllowLegacyPrompt`：仅用于非正式恢复；输出证据固定标记 `legacy_unverified`，批量与角色套组执行器不会传入。
 * `-Domain`、`-VisualID`、`-Priority`：过滤资产。
 * `-Limit`：限制本次处理数量。
 * `-Seed`：固定基础 seed，便于复现。
@@ -392,7 +393,7 @@ Copy-Item .\tools\美术工具\ai_image_gateway.example.yaml .\tools\ai-image-ga
 * `-PreserveStatus`：用于已接入素材的 Visual V2 候选生成；保留原 `Status`，只写入 `CandidateBatchID` 和 `CandidateRawFiles`。
 * `-SkipIntegrationCandidates`：只生成图片，不刷新可接入素材清单。默认不要使用。
 
-每个正式 `generation.json` 使用 `EvidenceMode=formal_v2`，保存 `RequirementSnapshot`、`PromptRevisionID`、`PromptRevisionFingerprint`、`PromptRevisionSnapshot`、`PromptFormat` 和精确 `ProviderRequest`，不再顶层复制旧 `PromptEN / NegativePromptEN`。显式 `-AllowLegacyPrompt` 的非正式恢复使用 `EvidenceMode=legacy_unverified`，旧字段只保存在 `LegacyPromptInput`。非 `-DryRun` 生成完成后，脚本会默认刷新 `美术文档/_generated/可接入素材清单.*`，并在 `美术文档/_generated/art_integration_snapshots/` 写入一份 `generation` 快照。刚生成的 raw 素材会在清单中标为 `art_process`，表示还需要预处理和筛选，不能交给程序接入。
+每个正式 `generation.json` 使用 `EvidenceMode=formal_v2`，保存 `RequirementSnapshot`、`PromptRevisionID`、`PromptRevisionFingerprint`、`PromptRevisionSnapshot`、`PromptFormat` 和精确 `ProviderRequest`。非 `-DryRun` 生成完成后，脚本会默认刷新 `美术文档/_generated/可接入素材清单.*`，并在 `美术文档/_generated/art_integration_snapshots/` 写入一份 `generation` 快照。刚生成的 raw 素材会在清单中标为 `art_process`，表示还需要预处理和筛选，不能交给程序接入。
 
 ## Run-CharacterPortraitSet.ps1
 
@@ -641,7 +642,7 @@ python .\tools\美术工具\fix_opaque_art_alpha.py
 .\tools\美术工具\Normalize-ArtQualityTier.ps1 -DryRun -Snapshot -SnapshotTag dry_run
 .\tools\美术工具\Normalize-ArtQualityTier.ps1 -Snapshot -SnapshotTag local_v0_quality_normalized
 .\tools\美术工具\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag local_v0_quality_normalized
-.\tools\美术工具\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag local_v0_quality_normalized -BatchID nai_visual_v2_20260526_01
+.\tools\美术工具\Generate-FormalV2ReplacementPlan.ps1 -Snapshot -SnapshotTag formalv2_quality_normalized -BatchID formalv2_replacement_20260526_01
 ```
 
 判定规则：
@@ -673,8 +674,8 @@ Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec、
 
 使用 `-Snapshot` 时额外输出：
 
-* `美术文档/_generated/art_generation_plan_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.json`
-* `美术文档/_generated/art_generation_plan_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.md`
+* `美术文档/_generated/art_batch_plan_runs/YYYYMMDD_HHMMSS_<SnapshotTag>.json`
+* `美术文档/_generated/art_batch_plan_runs/YYYYMMDD_HHMMSS_<SnapshotTag>.md`
 
 使用方式：
 
@@ -694,64 +695,11 @@ Visual V2 替换不得改变 `VisualID`、Approved 目标路径、DisplaySpec、
 .\tools\美术工具\Generate-ArtBatchPlan.ps1 -Snapshot -SnapshotTag nai_missing_assets_20260525_01_anlas_blocked -BatchID nai_missing_assets_20260525_01 -LastProbeBatchID nai_visual_v2_probe_20260525_01 -LastProbeNote "NovelAI HTTP 402: Not enough Anlas."
 ```
 
-## Generate-LocalV0Art.ps1
-
-读取 `缺图生成计划.json` 和 Manifest，为已有 Prompt / Spec 但暂时无法跑 NovelAI 的缺图项生成确定性的 local_v0 Approved PNG。它的用途是解锁 VisualID、Registry 和运行时 UI 验收，不替代正式 AI 出图。
-
-输出：
-
-* Manifest 中对应条目推进到 `Status=approved`
-* `QualityTier=local_v0`
-* `ApprovedPath` 对应 PNG
-* Unity `.meta`
-
-使用方式：
-
-```powershell
-.\tools\美术工具\Generate-LocalV0Art.ps1 -BatchID local_v0_missing_assets_20260525_01 -Overwrite
-.\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag local_v0_missing_assets_20260525_01
-.\tools\美术工具\Generate-ArtQualityBacklog.ps1 -Snapshot -SnapshotTag local_v0_missing_assets_20260525_01
-.\tools\美术工具\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag local_v0_missing_assets_20260525_01 -BatchID nai_visual_v2_20260525_02
-```
-
-约束：
-
-* 只处理 `缺图生成计划` 中 `PromptReady=true` 的条目。这里是旧 local_v0 计划的可生成标记，不等于 Catalog v2 的 `PromptAuthoringStatus=prompt_ready`，也不能替代 active PromptRevision 门禁。
-* 生成物必须保留 `QualityTier=local_v0`，并进入 `visual_v2_replace` 队列。
-* 不允许把 local_v0 当最终美术验收通过，只能用于程序接入、布局验证和可读性预验收。
-* 正式替换仍走 Visual V2 流程，不能改变同名 `VisualID`、Approved 路径或 DisplaySpec。
-
-## Generate-VisualV2Plan.ps1
-
-读取 `素材质量替换清单.json` 和 Manifest，把 `visual_v2_replace` 队列转成可执行的正式跑图计划。它不生成图片，只生成当前应该跑哪些 VisualID、用哪个 BatchID、每个素材的生成/预处理/同步命令，以及最近一次 NovelAI 探测结果。
-
-输出：
-
-* `美术文档/_generated/VisualV2生成计划.json`
-* `美术文档/_generated/VisualV2生成计划.md`
-
-使用 `-Snapshot` 时额外输出：
-
-* `美术文档/_generated/visual_v2_plan_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.json`
-* `美术文档/_generated/visual_v2_plan_snapshots/YYYYMMDD_HHMMSS_<SnapshotTag>.md`
-
-使用方式：
-
-```powershell
-.\tools\美术工具\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01 -BatchID nai_visual_v2_20260525_01
-```
-
-当 NovelAI Anlas 不足时，也应刷新本计划并记录 `-LastProbeNote`，明确当前是外部额度不足，而不是素材队列、提示词或流水线缺失：
-
-```powershell
-.\tools\美术工具\Generate-VisualV2Plan.ps1 -Snapshot -SnapshotTag nai_visual_v2_20260525_01_anlas_blocked -BatchID nai_visual_v2_20260525_01 -LastProbeBatchID nai_visual_v2_probe_20260525_01 -LastProbeNote "NovelAI HTTP 402: Not enough Anlas."
-```
-
 ## Generate-FormalV2ReplacementPlan.ps1
 
 读取 Formal V2 总方案中的 UI Skin 基准和标记为 `V2-A active` 的场景行，再与当前 Manifest、Approved 文件和 Request Catalog v2 交叉核对，生成“已有 VisualID 主动质量迭代”计划。它和 `缺图生成计划` 分离：前者动作固定为 `visual_v2_replace`，后者只处理 `generate_needed`。
 
-正式计划只消费 Catalog v2 的 `RequirementStatus`、`RequirementFingerprint`、`PromptAuthoringStatus`、`ActivePromptRevisionID` 和 active `PromptRevisions[].Variants`。每个 Item 持久化 exact `RequestID + RequirementFingerprint + PromptRevisionID + PromptRevisionFingerprint + PromptFormats`，并校验 Manifest `CompiledRequest` 的四个 pointer 字段完全一致；缺少 Catalog Request、authoring 未完成、active Revision 缺失 / stale / 未 ready、pointer 不一致或没有 ready v2 Variant 时，Item 保留在审计计划中但写 `PromptReady=false + PromptBlockReason`。旧 `CompileStatus`、`PromptVariants` 和 v1 format 不再作为正式输入，也不会隐式 fallback。
+正式计划只消费 Catalog v2 的 `RequirementStatus`、`RequirementFingerprint`、`PromptAuthoringStatus`、`ActivePromptRevisionID` 和 active `PromptRevisions[].Variants`。每个 Item 持久化 exact `RequestID + RequirementFingerprint + PromptRevisionID + PromptRevisionFingerprint + PromptFormats`，并校验 Manifest `CompiledRequest` 的四个 pointer 字段完全一致；缺少 Catalog Request、authoring 未完成、active Revision 缺失 / stale / 未 ready、pointer 不一致或没有 ready v2 Variant 时，Item 保留在审计计划中但写 `PromptReady=false + PromptBlockReason`。遗留提示字段与旧格式不会作为正式输入，也不会隐式 fallback。
 
 输出：
 
@@ -873,27 +821,6 @@ Run evidence 写入 `UnityClient/Logs/P3ArtProduction/<ProductionRunID>/`。处�
 * `nine_slice_edge_coverage_low`：配置的 top / bottom / left / right border band 任一方向 Alpha 覆盖率低于 `MinEdgeCoveragePercent`，默认 `35%`；表示拉伸边带不连续或只有中央孤立图形。
 
 这两项是技术硬失败，候选只能停在最新 `processed/<n>`，不得回退旧轮次或进入 selected。修复时发布下一数字轮次；普通非 nine-slice 图标仍只把连通区域过多作为 warning。
-
-## Run-FormalV2PromptReadyGeneration.ps1
-
-Reads the legacy `formal_v2_prompt_readiness.json` selection report and runs its `program_integrate` assets through `Run-ArtGeneration.ps1` in domain batches. This is a compatibility convenience entry, not the Catalog v2 authoring gate: every selected asset must still resolve a current active PromptRevision, or generation fails before the provider call.
-
-Important rules:
-
-* It always calls NovelAI with `-Concurrency 1`.
-* Keep `-DelaySeconds 1` or higher; NovelAI should not be run in parallel.
-* Use `-DryRun` first to verify the selected VisualIDs and generated commands.
-* Use `-RequireToken` for real runs so missing `NAI_ACCESS_TOKEN` fails before any batch starts.
-* A readiness-report `prompt_ready` value only controls this legacy selection list; the executable prompt always comes from the exact active Catalog v2 Revision.
-* It uses `-Status approved -PreserveStatus`, so outputs are candidates for same-path replacement and still need preprocessing, review, and strict meta guarded `Sync-ApprovedArt.ps1` before Approved PNGs are replaced.
-
-Examples:
-
-```powershell
-.\tools\美术工具\Generate-FormalV2PromptReadiness.ps1 -Snapshot -SnapshotTag formalv2_prompt_ready_before_run
-.\tools\美术工具\Run-FormalV2PromptReadyGeneration.ps1 -DryRun -Variants 1 -DelaySeconds 1
-.\tools\美术工具\Run-FormalV2PromptReadyGeneration.ps1 -Domain item -Variants 1 -DelaySeconds 1 -RequireToken
-```
 
 ## Validate-UIDesign.ps1
 
@@ -1107,7 +1034,6 @@ Risk levels:
 * `美术文档/_generated/美术需求候选清单.json`
 * `美术文档/_generated/formal_v2_asset_review/formal_v2_asset_review.json`
 * `美术文档/_generated/formal_v2_asset_review/visual_semantic_review.json`
-* `美术文档/_generated/formal_v2_prompt_readiness/formal_v2_prompt_readiness.json`
 * `美术文档/_generated/VisualAssetRegistry登记缺口清单.json`
 * `美术文档/_generated/FormalV2运行时验收状态.json`
 
@@ -1117,7 +1043,7 @@ Risk levels:
 .\tools\美术工具\Validate-ArtGeneratedJson.ps1 -Strict
 ```
 
-当前 FormalV2 交接门禁中，推荐在刷新 handoff、asset review 或 prompt readiness 后运行一次；输出应至少确认 `program_integrate`、`generate_needed`、`technical_fix`、`visual_v2_replace`、`new_candidate`、`reviewed/pass` 和 `prompt_ready/prompt_blocked`。
+当前 FormalV2 交接门禁中，推荐在刷新 handoff、asset review 或 replacement plan 后运行一次；输出应至少确认 `program_integrate`、`generate_needed`、`technical_fix`、`visual_v2_replace`、`new_candidate` 和 `reviewed/pass`。
 
 ## Generate-FormalV2AssetReview.ps1
 

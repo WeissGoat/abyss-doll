@@ -81,6 +81,29 @@ class PrepareArtBackgroundCandidateTests(unittest.TestCase):
             self.assertEqual(alpha.getpixel((0, 0)), 0)
             self.assertEqual(alpha.getpixel((5, 5)), 255)
 
+    def test_green_chroma_despill_reduces_green_without_changing_alpha(self) -> None:
+        image = Image.new("RGBA", (4, 4), (220, 220, 220, 255))
+        image.putpixel((1, 1), (20, 220, 10, 255))
+        image.putpixel((2, 1), (20, 220, 10, 64))
+        source = self.make_image("green-matte.png", image)
+        staging = self.root / "processing_candidates" / "run_despill"
+
+        result = prepare_background_candidate(
+            input_path=source,
+            staging_dir=staging,
+            method="alpha_passthrough",
+            expected_input_sha256=self.digest(source),
+            despill="green_chroma",
+        )
+
+        with Image.open(staging / "candidate.png") as candidate:
+            candidate = candidate.convert("RGBA")
+            self.assertEqual(candidate.getpixel((1, 1))[3], 255)
+            self.assertLessEqual(candidate.getpixel((1, 1))[1], 32)
+            self.assertEqual(candidate.getpixel((2, 1))[3], 64)
+        self.assertEqual(result["Despill"]["Method"], "green_chroma")
+        self.assertGreater(result["Despill"]["AdjustedPixels"], 0)
+
     def test_explicit_mask_sets_candidate_alpha(self) -> None:
         source = self.make_image("source.png", Image.new("RGB", (6, 8), (120, 100, 90)))
         mask = Image.new("L", (6, 8), 0)

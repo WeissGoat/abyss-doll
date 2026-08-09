@@ -18,7 +18,7 @@ from art_catalog_integrity import (
 )
 from art_prompt_compiler import compile_requirement_request
 from art_style_catalog import build_catalog_snapshot, sha256_json
-from generate_art_prompts import visual_intent_for
+from art_requirement_defaults import visual_intent_for
 
 
 DEFAULT_MANIFEST = "美术文档/_generated/art_manifest.json"
@@ -103,9 +103,6 @@ def _input_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
             # must not invalidate a persisted request whose semantic contract is
             # unchanged (for example approved -> registered or a new candidate round).
             "Status",
-            "PromptCN",
-            "PromptEN",
-            "NegativePromptEN",
             "CompiledRequest",
             "Notes",
             "BatchID",
@@ -124,17 +121,6 @@ def _input_manifest(manifest: dict[str, Any]) -> dict[str, Any]:
         entries.append(entry)
     snapshot["Entries"] = entries
     return snapshot
-
-
-def _prompt_cn(entry: dict[str, Any], intent: dict[str, Any]) -> str:
-    existing = str(entry.get("PromptCN", "") or "").strip()
-    if existing:
-        return existing
-    values = []
-    for key in ("SubjectCN", "AppearanceCN", "CompositionCN"):
-        value = intent.get(key, [])
-        values.extend(value if isinstance(value, list) else [value])
-    return "".join(str(value).strip() for value in values if str(value).strip())
 
 
 def _requests_by_visual(catalog: dict[str, Any] | None) -> dict[str, dict[str, Any]]:
@@ -187,30 +173,6 @@ def _canonical_previous_catalog_for_manifest(
                 selected.append(copy.deepcopy(matches[0]))
     result["Requests"] = selected
     return result
-
-
-def _legacy_prompt_variants(entry: dict[str, Any], previous: dict[str, Any] | None) -> dict[str, Any]:
-    legacy = copy.deepcopy(previous.get("LegacyPromptVariants", {})) if isinstance(previous, dict) else {}
-    prompt = str(entry.get("PromptEN", "") or "").strip()
-    negative = str(entry.get("NegativePromptEN", "") or "").strip()
-    if prompt and "natural_language_v1" not in legacy:
-        legacy["natural_language_v1"] = {
-            "Format": "natural_language_v1",
-            "Status": "legacy_compiled",
-            "Positive": prompt,
-            "Negative": negative,
-        }
-    if isinstance(previous, dict):
-        old_variants = previous.get("PromptVariants", {})
-        if isinstance(old_variants, dict):
-            for format_id, variant in old_variants.items():
-                if not isinstance(variant, dict) or format_id in legacy:
-                    continue
-                migrated = copy.deepcopy(variant)
-                migrated["Status"] = "legacy_compiled"
-                migrated.pop("CompileStatus", None)
-                legacy[format_id] = migrated
-    return legacy
 
 
 def carry_forward_prompt_revisions(
@@ -292,9 +254,6 @@ def compile_manifest_requests(
             request = compile_requirement_request(entry, catalog, asset_sets, compiler_version=compiler_version)
             previous_request = previous_by_visual.get(visual_id)
             request = carry_forward_prompt_revisions(request, previous_request)
-            legacy = _legacy_prompt_variants(entry, previous_request)
-            if legacy:
-                request["LegacyPromptVariants"] = legacy
         except ValueError as exc:
             code = str(exc).split(":", 1)[0]
             request = {

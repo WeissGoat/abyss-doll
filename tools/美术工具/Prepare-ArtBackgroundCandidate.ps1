@@ -6,6 +6,7 @@ param(
     [Parameter(Mandatory=$true)][string]$ExpectedInputSHA256,
     [string]$MaskPath = "",
     [int]$Threshold = 34,
+    [ValidateSet("none", "green_chroma")][string]$Despill = "none",
     [switch]$DryRun
 )
 
@@ -18,7 +19,8 @@ $argsList = @(
     "--staging-dir", $StagingDirectory,
     "--method", $Method,
     "--expected-input-sha256", $ExpectedInputSHA256,
-    "--threshold", $Threshold
+    "--threshold", $Threshold,
+    "--despill", $Despill
 )
 if ($MaskPath -ne "") { $argsList += @("--mask", $MaskPath) }
 if ($DryRun) { $argsList += "--dry-run" }

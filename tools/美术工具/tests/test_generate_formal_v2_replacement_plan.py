@@ -59,8 +59,6 @@ class FormalV2ReplacementPlanTests(unittest.TestCase):
                     "Status": "approved",
                     "Priority": "P0",
                     "ApprovedPath": str(path),
-                    "PromptEN": "a specific prompt for this runtime asset",
-                    "NegativePromptEN": "text, watermark",
                     "Spec": {
                         "SourceSpec": {"Format": "png", "Width": 64, "Height": 64},
                         "ProcessSpec": {
@@ -283,7 +281,7 @@ class FormalV2ReplacementPlanTests(unittest.TestCase):
         self.assertEqual(item["PromptBlockReason"], "catalog_request_missing")
         self.assertEqual(item["PromptFormats"], [])
 
-    def test_legacy_prompt_variants_are_not_formal_input(self) -> None:
+    def test_unrecognized_prompt_payload_is_not_formal_input(self) -> None:
         entry = self.entry("ui_button_primary")
         entry["CompiledRequest"] = {
             "RequestID": "button@legacy",
@@ -294,11 +292,7 @@ class FormalV2ReplacementPlanTests(unittest.TestCase):
             "VisualID": "ui_button_primary",
             "RequestID": "button@legacy",
             "RequestFingerprint": "legacy-fingerprint",
-            "CompileStatus": "ready",
-            "PromptVariants": {
-                "natural_language_v1": {"CompileStatus": "ready"},
-                "danbooru_tags_v1": {"CompileStatus": "ready"},
-            },
+            "UnsupportedPayload": {"status": "ready"},
         }
 
         item = self.build_single_item(request)
@@ -306,8 +300,7 @@ class FormalV2ReplacementPlanTests(unittest.TestCase):
         self.assertFalse(item["PromptReady"])
         self.assertEqual(item["PromptFormats"], [])
         self.assertEqual(item["PromptBlockReason"], "requirement_not_ready")
-        self.assertNotIn("natural_language_v1", json.dumps(item))
-        self.assertNotIn("danbooru_tags_v1", json.dumps(item))
+        self.assertNotIn("UnsupportedPayload", json.dumps(item))
 
 
 if __name__ == "__main__":

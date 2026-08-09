@@ -126,7 +126,7 @@ def build_execution_plan(
     default_provider = str(provider_override or run_config.get("Provider") or "")
     if default_provider == "agent_selected":
         default_provider = ""
-    default_status = str(run_config.get("StatusFilter") or "prompted")
+    default_status = str(run_config.get("Status") or "todo")
     default_variants = int(run_config.get("Variants") or 4)
     default_delay = float(run_config.get("DelaySeconds") or 1.0)
 

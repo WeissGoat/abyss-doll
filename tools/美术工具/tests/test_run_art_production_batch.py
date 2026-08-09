@@ -42,7 +42,7 @@ class ArtProductionBatchPlanTests(unittest.TestCase):
                 },
                 {
                     "VisualID": "item_new_icon",
-                    "Status": "prompted",
+                    "Status": "todo",
                     "Domain": "item",
                     "AssetType": "icon",
                     "ProductionProfile": "standard_asset",
@@ -149,11 +149,11 @@ class ArtProductionBatchPlanTests(unittest.TestCase):
         self.assertIn("--preserve-status", group["GenerationCommand"])
         self.assertIn("--candidate-batch-id", group["ProcessingCommand"])
 
-    def test_missing_asset_plan_advances_prompted_entries_without_preserve_status(self) -> None:
+    def test_missing_asset_plan_advances_todo_entries_without_preserve_status(self) -> None:
         payload = {
             "RunConfig": {
                 "ActionFilter": "generate_needed",
-                "StatusFilter": "prompted",
+                "Status": "todo",
                 "BatchID": "missing_01",
                 "Provider": "novelai",
                 "Variants": 4,
@@ -178,7 +178,7 @@ class ArtProductionBatchPlanTests(unittest.TestCase):
         self.assertEqual(result["Blocked"], [])
         group = result["Groups"][0]
         self.assertFalse(group["PreserveStatus"])
-        self.assertEqual(group["Status"], "prompted")
+        self.assertEqual(group["Status"], "todo")
         self.assertEqual(group["Provider"], "novelai")
         self.assertEqual(group["PromptFormat"], "danbooru_tags_v2")
         self.assertNotIn("--preserve-status", group["GenerationCommand"])

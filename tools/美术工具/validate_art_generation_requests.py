@@ -23,6 +23,22 @@ VALID_AUTHORING_STATES = {
     "prompt_invalid",
     "not_required",
 }
+MANIFEST_ENTRY_FIELDS = {
+    "ApprovedPath", "AssetID", "AssetSetID", "AssetType", "BatchID",
+    "CandidateBatchID", "CandidateRawFiles", "CandidateRawPath", "CompiledRequest", "ConfigID",
+    "ConfigSource", "DeriveRule", "DisplayName", "Domain", "Notes",
+    "OutputPath", "PoseSpec", "PresentationGroup", "PresetCategory", "Priority",
+    "ProductionProfile", "ProgramReference", "QualityTier", "QualityUpdatedAt",
+    "RawPath", "RegistryStatus", "ReplacementBatchID", "RequirementSources",
+    "Screen", "SelectedPath", "SetRole", "SourceAssets", "SourceFactsCN", "SourceType",
+    "Spec", "Status", "StyleRef", "Usage", "VisualID", "VisualIntent", "VisualReusePolicy",
+}
+REQUEST_FIELDS = {
+    "ActivePromptRevisionID", "CatalogFingerprint", "CompilerVersion", "PreservationContract",
+    "ProductionProfile", "PromptAuthoringContext", "PromptAuthoringStatus", "PromptRevisions",
+    "PublicationStatus", "RequestID", "RequirementFingerprint", "RequirementStatus",
+    "TechnicalRequest", "VisualID",
+}
 
 
 def _append_revision_errors(errors: list[str], revision_errors: list[str], visual_id: str) -> None:
@@ -82,6 +98,8 @@ def validate_request_catalog(
         if not isinstance(entry, dict):
             continue
         visual_id = str(entry.get("VisualID", ""))
+        unknown_manifest_fields = sorted(set(entry) - MANIFEST_ENTRY_FIELDS)
+        errors.extend(f"manifest_field_unknown:{field}:{visual_id}" for field in unknown_manifest_fields)
         pointer = entry.get("CompiledRequest")
         if not isinstance(pointer, dict) or not pointer.get("RequestID"):
             errors.append(f"compiled_request_missing:{visual_id}")
@@ -91,6 +109,8 @@ def validate_request_catalog(
         if request is None:
             errors.append(f"compiled_request_missing:{visual_id}")
             continue
+        unknown_request_fields = sorted(set(request) - REQUEST_FIELDS)
+        errors.extend(f"compiled_request_field_unknown:{field}:{visual_id}" for field in unknown_request_fields)
         if request.get("VisualID") != visual_id:
             errors.append(f"compiled_request_visual_id_mismatch:{visual_id}")
         if pointer.get("RequirementFingerprint") != request.get("RequirementFingerprint"):
@@ -127,7 +147,6 @@ def validate_request_catalog(
                     errors.append(f"prompt_revision_duplicate:{visual_id}:{revision_id}")
                 revision_ids.add(revision_id)
             _append_revision_errors(errors, validate_prompt_revision(request, revision), visual_id)
-
         if authoring_state == "prompt_ready":
             if not active_revision_id or active_revision_id not in revision_ids:
                 errors.append(f"prompt_revision_missing:{visual_id}:{active_revision_id}")

@@ -51,7 +51,6 @@ class ArtPromptCompilerTests(unittest.TestCase):
 
         self.assertEqual(request["RequirementStatus"], "ready")
         self.assertEqual(request["PromptAuthoringStatus"], "prompt_authoring_required")
-        self.assertNotIn("PromptVariants", request)
         self.assertNotIn('"Positive"', json.dumps(request, ensure_ascii=False))
         guidance = request["PromptAuthoringContext"]["Guidance"]
         self.assertTrue(any(item["Text"] == "crimson primary action surface" for item in guidance["Appearance"]))

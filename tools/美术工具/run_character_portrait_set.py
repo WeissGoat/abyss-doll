@@ -101,7 +101,14 @@ def load_asset_set(manifest: dict[str, Any], asset_set_id: str) -> dict[str, Any
         raise ValueError(f"asset_set_missing:{asset_set_id}")
     if asset_set.get("ProductionProfile") != "character_portrait_set":
         raise ValueError(f"route_mismatch:{asset_set_id}")
-    if not asset_set.get("IdentitySources") or not asset_set.get("IdentityLocks"):
+    identity_contract = asset_set.get("IdentityContract")
+    legacy_identity_locks = asset_set.get("IdentityLocks")
+    has_identity_contract = (
+        isinstance(identity_contract, dict)
+        and isinstance(identity_contract.get("Required"), list)
+        and bool(identity_contract.get("Required"))
+    )
+    if not asset_set.get("IdentitySources") or not (has_identity_contract or legacy_identity_locks):
         raise ValueError(f"identity_contract_missing:{asset_set_id}")
     return asset_set
 
@@ -252,7 +259,13 @@ def build_portrait_set_plan(
         "ProductionProfile": "character_portrait_set",
         "State": "ready" if items and not errors else "decision_required",
         "IdentitySources": asset_set.get("IdentitySources", []),
-        "IdentityLocks": asset_set.get("IdentityLocks", []),
+        "IdentityContract": copy.deepcopy(asset_set.get("IdentityContract", {})),
+        # Keep the old plan key as a read-only compatibility alias for consumers
+        # that have not migrated from the pre-v2 IdentityLocks name.
+        "IdentityLocks": copy.deepcopy(
+            asset_set.get("IdentityLocks")
+            or asset_set.get("IdentityContract", {}).get("Required", [])
+        ),
         "Items": items,
         "Errors": errors,
     }
@@ -500,6 +513,7 @@ def _make_processing_staging(
             expected_input_sha256=input_hash,
             mask_path=(project_root / mask_value if mask_value and not Path(mask_value).is_absolute() else Path(mask_value) if mask_value else None),
             threshold=int(decision.get("Threshold", 34) or 34),
+            despill=str(decision.get("Despill", "none") or "none"),
         )
     elif action == "already_usable":
         shutil.copy2(source, candidate)
@@ -724,6 +738,12 @@ def _processed_evidence_current(item: dict[str, Any], project_root: Path) -> dic
         if not path.is_file():
             continue
         candidate_hash = file_sha256(path).lower()
+        matches_generation = (
+            (input_hash and input_hash in expected_hashes)
+            or (not expected_hashes and str(process_report.get("VisualID", "")) == str(item.get("VisualID", "")))
+        )
+        if not matches_generation:
+            continue
         if isinstance(recorded, dict) and recorded_round == int(round_dir.name):
             recorded_value = str(recorded.get("CandidateSHA256", "") or "").lower()
             recorded_path = str(recorded.get("CandidatePath", "") or "")
@@ -735,14 +755,6 @@ def _processed_evidence_current(item: dict[str, Any], project_root: Path) -> dic
                     "CandidatePath": path.relative_to(project_root).as_posix(),
                     "CandidateSHA256": candidate_hash,
                 }
-        matches_generation = (
-            (expected_hashes and candidate_hash in expected_hashes)
-            or (input_hash and input_hash in expected_hashes)
-            or (output_hashes and candidate_hash in output_hashes)
-            or (not expected_hashes and str(process_report.get("VisualID", "")) == str(item.get("VisualID", "")))
-        )
-        if not matches_generation:
-            continue
         return {
             "VisualID": item.get("VisualID", ""),
             "RoundNumber": int(round_dir.name),

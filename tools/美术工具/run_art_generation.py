@@ -115,14 +115,11 @@ def source_spec(spec: Any) -> dict[str, Any]:
     return spec
 
 
-def validate_entry(entry: dict[str, Any], *, require_legacy_prompt: bool = False) -> list[str]:
+def validate_entry(entry: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     spec = entry.get("Spec")
     src = source_spec(spec)
-    required_fields = ["VisualID"]
-    if require_legacy_prompt:
-        required_fields.extend(("PromptEN", "NegativePromptEN"))
-    for field in required_fields:
+    for field in ("VisualID",):
         if not entry.get(field):
             errors.append(f"missing {field}")
     if not isinstance(spec, dict):
@@ -214,7 +211,7 @@ def select_entries(entries: list[dict[str, Any]], args: argparse.Namespace) -> t
             continue
         if priorities and str(entry.get("Priority", "")) not in priorities:
             continue
-        errors = validate_entry(entry, require_legacy_prompt=args.allow_legacy_prompt)
+        errors = validate_entry(entry)
         if errors:
             skipped.append(f"{visual_id or '<missing VisualID>'}: {', '.join(errors)}")
             continue
@@ -356,7 +353,7 @@ def make_request(
     requirement_request: dict[str, Any] | None = None,
     prompt_revision: dict[str, Any] | None = None,
     prompt_variant: dict[str, Any] | None = None,
-    prompt_format: str = "legacy_unverified",
+    prompt_format: str = "",
 ) -> GenerateRequest:
     spec = source_spec(entry["Spec"])
     fmt = str(spec.get("Format", "png")).lower()
@@ -365,20 +362,19 @@ def make_request(
     except ValueError:
         output_format = ImageFormat.PNG
 
-    prompt = entry.get("PromptEN", "")
-    negative_prompt = entry.get("NegativePromptEN", "")
-    if requirement_request is not None and prompt_revision is not None and prompt_variant is not None:
-        prompt, negative_prompt = serialize_provider_prompt(prompt_variant, prompt_format)
-        technical = requirement_request.get("TechnicalRequest", {})
-        if isinstance(technical, dict):
-            spec = {**spec, **{key: technical.get(key) for key in ("Width", "Height", "Format") if technical.get(key)}}
+    if requirement_request is None or prompt_revision is None or prompt_variant is None:
+        raise ValueError("formal_prompt_revision_required")
+    prompt, negative_prompt = serialize_provider_prompt(prompt_variant, prompt_format)
+    technical = requirement_request.get("TechnicalRequest", {})
+    if isinstance(technical, dict):
+        spec = {**spec, **{key: technical.get(key) for key in ("Width", "Height", "Format") if technical.get(key)}}
     request_extra = {
         "domain": entry.get("Domain", ""),
         "visual_id": entry.get("VisualID", ""),
         "asset_type": entry.get("AssetType", ""),
         "prompt_format": prompt_format,
-        "request_id": requirement_request.get("RequestID", "") if requirement_request else "",
-        "prompt_revision_id": prompt_revision.get("PromptRevisionID", "") if prompt_revision else "",
+        "request_id": requirement_request.get("RequestID", ""),
+        "prompt_revision_id": prompt_revision.get("PromptRevisionID", ""),
         **extra,
     }
     return GenerateRequest(
@@ -413,22 +409,23 @@ def build_generation_record(
     provider_request: dict[str, Any] | None = None,
     reference_images: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    formal_v2 = requirement_request is not None and prompt_revision is not None
+    if requirement_request is None or prompt_revision is None:
+        raise ValueError("formal_generation_record_requires_revision")
     record = {
-        "EvidenceMode": "formal_v2" if formal_v2 else "legacy_unverified",
+        "EvidenceMode": "formal_v2",
         "VisualID": entry["VisualID"],
         "BatchID": batch_id,
         "RequestID": request_ids[0] if request_ids else "",
         "RequestIDs": request_ids,
         "Provider": provider,
         "Model": model,
-        "RequirementRequestID": requirement_request.get("RequestID", "") if requirement_request else "",
-        "RequirementFingerprint": requirement_request.get("RequirementFingerprint", "") if requirement_request else "",
-        "PromptRevisionID": prompt_revision.get("PromptRevisionID", "") if prompt_revision else "",
-        "PromptRevisionFingerprint": prompt_revision.get("RevisionFingerprint", "") if prompt_revision else "",
+        "RequirementRequestID": requirement_request.get("RequestID", ""),
+        "RequirementFingerprint": requirement_request.get("RequirementFingerprint", ""),
+        "PromptRevisionID": prompt_revision.get("PromptRevisionID", ""),
+        "PromptRevisionFingerprint": prompt_revision.get("RevisionFingerprint", ""),
         "PromptFormat": prompt_format,
-        "RequirementSnapshot": copy.deepcopy(requirement_request) if requirement_request else {},
-        "PromptRevisionSnapshot": copy.deepcopy(prompt_revision) if prompt_revision else {},
+        "RequirementSnapshot": copy.deepcopy(requirement_request),
+        "PromptRevisionSnapshot": copy.deepcopy(prompt_revision),
         "ProviderRequest": provider_request or {},
         "ReferenceImages": copy.deepcopy(reference_images) if reference_images else [],
         "Spec": entry.get("Spec", {}),
@@ -441,12 +438,18 @@ def build_generation_record(
         "Errors": errors,
         "CreatedAt": created_at,
     }
-    if not formal_v2:
-        record["LegacyPromptInput"] = {
-            "PromptEN": str(entry.get("PromptEN", "") or ""),
-            "NegativePromptEN": str(entry.get("NegativePromptEN", "") or ""),
-        }
     return record
+
+
+def capture_provider_image_parameters(
+    provider_request_snapshot: dict[str, Any],
+    generation_params: dict[str, Any],
+) -> None:
+    if "ProviderImageParameters" in provider_request_snapshot:
+        return
+    provider_parameters = generation_params.get("provider_image_parameters")
+    if isinstance(provider_parameters, dict) and provider_parameters:
+        provider_request_snapshot["ProviderImageParameters"] = copy.deepcopy(provider_parameters)
 
 
 async def run_generation(args: argparse.Namespace) -> int:
@@ -461,17 +464,10 @@ async def run_generation(args: argparse.Namespace) -> int:
         raise FileNotFoundError(f"Gateway config not found: {config_path}")
 
     manifest = read_json(manifest_path)
-    request_catalog = None
-    if args.allow_legacy_prompt:
-        if args.request_id or args.prompt_revision_id:
-            raise ValueError("legacy_prompt_cannot_select_request_or_revision")
-    elif args.request_catalog:
-        request_catalog_path = resolve_project_path(args.request_catalog, DEFAULT_REQUEST_CATALOG)
-        if request_catalog_path is None or not request_catalog_path.exists():
-            raise FileNotFoundError(f"Request catalog not found: {request_catalog_path}")
-        request_catalog = read_json(request_catalog_path)
-    else:
-        raise ValueError("request_catalog_required: use --allow-legacy-prompt only for non-formal recovery")
+    request_catalog_path = resolve_project_path(args.request_catalog, DEFAULT_REQUEST_CATALOG)
+    if request_catalog_path is None or not request_catalog_path.exists():
+        raise FileNotFoundError(f"Request catalog not found: {request_catalog_path}")
+    request_catalog = read_json(request_catalog_path)
     entries = manifest.get("Entries", [])
     if not isinstance(entries, list):
         raise ValueError("Manifest Entries must be a list.")
@@ -559,10 +555,7 @@ async def run_generation(args: argparse.Namespace) -> int:
             model = "unknown"
             requested_width = int(spec["Width"])
             requested_height = int(spec["Height"])
-            requirement_request, prompt_revision, prompt_format, prompt_variant = compiled_by_visual.get(
-                visual_id,
-                (None, None, "legacy_unverified", None),
-            )
+            requirement_request, prompt_revision, prompt_format, prompt_variant = compiled_by_visual[visual_id]
             provider_request_snapshot: dict[str, Any] = {}
 
             for variant_index in range(args.variants):
@@ -609,6 +602,10 @@ async def run_generation(args: argparse.Namespace) -> int:
                 errors.extend(batch.errors)
 
                 for image_result in batch.results:
+                    capture_provider_image_parameters(
+                        provider_request_snapshot,
+                        image_result.generation_params,
+                    )
                     if len(outputs) >= len(output_paths):
                         break
                     output_path = output_paths[len(outputs)]
@@ -686,9 +683,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--request-id", default="")
     parser.add_argument("--prompt-revision-id", default="")
     parser.add_argument("--prompt-format", choices=["auto", NATURAL_LANGUAGE_FORMAT, DANBOORU_TAGS_FORMAT], default="auto")
-    parser.add_argument("--allow-legacy-prompt", action="store_true")
     parser.add_argument("--provider", default="")
-    parser.add_argument("--status", default="prompted")
+    parser.add_argument("--status", default="todo")
     parser.add_argument("--domain", action="append", default=[])
     parser.add_argument("--visual-id", action="append", default=[])
     parser.add_argument("--config-id", action="append", default=[])

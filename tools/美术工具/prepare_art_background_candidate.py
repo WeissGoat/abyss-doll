@@ -19,6 +19,7 @@ from art_background import measure_candidate, process_background
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parents[1]
 METHODS = {"alpha_passthrough", "connected_border", "explicit_mask", "segmentation"}
+DESPILL_METHODS = {"none", "green_chroma"}
 FORBIDDEN_STAGING_PARTS = {"approved", "processed", "selected"}
 
 
@@ -95,6 +96,31 @@ def _apply_segmentation(image: Image.Image) -> tuple[Image.Image, Image.Image, s
     return output, alpha, "rembg"
 
 
+def _apply_green_chroma_despill(image: Image.Image) -> tuple[Image.Image, int, int]:
+    """Reduce obvious green matte contamination without changing alpha or geometry."""
+
+    output = image.convert("RGBA")
+    pixels = output.load()
+    adjusted = 0
+    max_excess = 0
+    for y in range(output.height):
+        for x in range(output.width):
+            red, green, blue, alpha = pixels[x, y]
+            if alpha < 8:
+                continue
+            base = max(red, blue)
+            excess = green - base
+            max_excess = max(max_excess, excess)
+            if excess <= 8:
+                continue
+            # P3 Zero's contract has no green hair, skin, dress, or shawl. Keep a
+            # small residual instead of forcing the channel to grayscale black.
+            green = min(green, base + min(12, max(2, round(excess * 0.10))))
+            pixels[x, y] = (red, green, blue, alpha)
+            adjusted += 1
+    return output, adjusted, max_excess
+
+
 def _encoded_png_bytes(image: Image.Image) -> bytes:
     buffer = io.BytesIO()
     image.save(buffer, format="PNG")
@@ -115,6 +141,7 @@ def prepare_background_candidate(
     expected_input_sha256: str,
     mask_path: Path | None = None,
     threshold: int = 34,
+    despill: str = "none",
     dry_run: bool = False,
 ) -> dict[str, Any]:
     input_path = input_path.resolve()
@@ -122,6 +149,8 @@ def prepare_background_candidate(
     mask_path = mask_path.resolve() if mask_path is not None else None
     if method not in METHODS:
         raise ValueError(f"background_method_unsupported:{method}")
+    if despill not in DESPILL_METHODS:
+        raise ValueError(f"background_despill_unsupported:{despill}")
     _validate_staging(staging_dir)
 
     source, source_bytes, source_hash = _load_image(input_path, label="input")
@@ -167,6 +196,11 @@ def prepare_background_candidate(
                 "ByteLength": len(mask_bytes),
             }
 
+    despill_evidence: dict[str, Any] = {"Method": despill, "AdjustedPixels": 0, "MaxGreenExcess": 0}
+    if despill == "green_chroma":
+        output, adjusted_pixels, max_excess = _apply_green_chroma_despill(output)
+        despill_evidence.update({"AdjustedPixels": adjusted_pixels, "MaxGreenExcess": max_excess})
+
     preview_metrics = measure_candidate(output)
     evidence: dict[str, Any] = {
         "State": "planned" if dry_run else "prepared",
@@ -182,6 +216,7 @@ def prepare_background_candidate(
             "ByteLength": len(source_bytes),
         },
         "Mask": mask_evidence,
+        "Despill": despill_evidence,
         "Output": {
             "Path": "candidate.png",
             **preview_metrics,
@@ -228,6 +263,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--expected-input-sha256", required=True)
     parser.add_argument("--mask", default="")
     parser.add_argument("--threshold", type=int, default=34)
+    parser.add_argument("--despill", choices=sorted(DESPILL_METHODS), default="none")
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -241,6 +277,7 @@ def main() -> int:
         expected_input_sha256=args.expected_input_sha256,
         mask_path=resolve_project_path(args.mask) if args.mask else None,
         threshold=args.threshold,
+        despill=args.despill,
         dry_run=args.dry_run,
     )
     print(

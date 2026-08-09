@@ -26,7 +26,6 @@ param(
     [switch]$DryRun,
     [switch]$Overwrite,
     [switch]$PreserveStatus,
-    [switch]$AllowLegacyPrompt,
     [switch]$SkipIntegrationCandidates
 )
 
@@ -135,10 +134,6 @@ if ($Overwrite) {
 
 if ($PreserveStatus) {
     $argsList += "--preserve-status"
-}
-
-if ($AllowLegacyPrompt) {
-    $argsList += "--allow-legacy-prompt"
 }
 
 python @argsList
