@@ -34,6 +34,7 @@ update_rule: 新增、恢复或移动归档文档时同步本文件。
 | [10_美术验收截图优化与真实数据驱动演进方案.md](10_美术验收截图优化与真实数据驱动演进方案.md) | 已完成的一次性截图真实数据驱动演进方案，旧 Runner 现只作全量回归后端。 | [../../开发文档/19_UnityMCP验收编排层设计.md](../../开发文档/19_UnityMCP验收编排层设计.md) |
 | [15_FormalV2运行时验收待办清单.md](15_FormalV2运行时验收待办清单.md) | 2026-06-13 FormalV2 批次门禁快照，继续 active 会形成第二套状态表。 | [../ui_design/ui_iteration_process.md](../ui_design/ui_iteration_process.md)、[../../agent_status/art.md](../../agent_status/art.md) |
 | [04_零号AI后端出图提示词对比.md](04_零号AI后端出图提示词对比.md) | 2026-07 的三后端提示词实验与母版筛选记录；机械提示词和批次命令已不再是当前生产入口。 | [../../.codex/skills/p3-generate-image/SKILL.md](../../.codex/skills/p3-generate-image/SKILL.md)、[../人设/05_零号立绘素材设计与交付清单.md](../人设/05_零号立绘素材设计与交付清单.md) |
+| [formal_v2_prompt_readiness_snapshots/](formal_v2_prompt_readiness_snapshots/) | 历史 Formal V2 readiness 运行快照；当前已由 Catalog V2 active Revision 和 replacement plan 取代。 | [../../tools/美术工具/README.md](../../tools/美术工具/README.md) |
 
 ## 归档规则
 
