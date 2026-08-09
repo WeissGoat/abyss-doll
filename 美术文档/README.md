@@ -184,7 +184,6 @@ README 不维护易过期的批次数量和队列计数。当前进度看 [../ag
 * [_generated/art_program_handoff_snapshots/](_generated/art_program_handoff_snapshots/)：程序接入交接清单历史快照。
 * [_generated/art_integration_snapshots/](_generated/art_integration_snapshots/)：每次生成、预处理或 Approved 同步后的可接入素材清单快照。
 * [_generated/缺图生成计划.md](_generated/缺图生成计划.md)：当前 `generate_needed` 缺图队列的可执行跑图计划。
-* [_generated/art_generation_plan_snapshots/](_generated/art_generation_plan_snapshots/)：缺图跑图计划历史快照。
 * [_generated/素材质量替换清单.md](_generated/素材质量替换清单.md)：当前质量替换 latest，区分技术修复和 Visual V2 同名替换。
 * [_generated/local_v0_quality_normalization.md](_generated/local_v0_quality_normalization.md)：历史本地生成素材的 `QualityTier=local_v0` 规范化记录。
 * [_generated/art_quality_snapshots/](_generated/art_quality_snapshots/)：素材质量替换清单历史快照。
@@ -197,7 +196,10 @@ README 不维护易过期的批次数量和队列计数。当前进度看 [../ag
 ```powershell
 .\tools\美术工具\Update-ArtManifest.ps1
 .\tools\美术工具\Scan-ArtRequirementCandidates.ps1 -Snapshot -SnapshotTag manual_review
-.\tools\美术工具\Generate-ArtPrompts.ps1
+.\tools\美术工具\Compile-ArtGenerationRequests.ps1
+.\tools\美术工具\Export-ArtPromptAuthoringPackage.ps1
+# 由 Agent authoring 后发布 active PromptRevision
+.\tools\美术工具\Publish-ArtPromptRevision.ps1
 .\tools\美术工具\Validate-UIDesign.ps1
 .\tools\美术工具\Generate-ArtIntegrationCandidates.ps1 -Snapshot -SnapshotTag manual_review
 .\tools\美术工具\Generate-ArtBatchPlan.ps1 -Snapshot -SnapshotTag manual_review

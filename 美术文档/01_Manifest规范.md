@@ -163,7 +163,7 @@ Manifest 是美术生产台账，不是玩法配置表，也不是 Unity 运行�
 | `Spec` | 结构化输出、显示、构图与处理规格对象。 |
 | `CompiledRequest` | 指向已编译 Requirement 及当前 active PromptRevision。 |
 
-`PromptCN`、`PromptEN`、`NegativePromptEN` 和 `Status=prompted` 只保留给旧 Manifest / local_v0 兼容流程。正式 v2 流程由 Requirement 的 `PromptAuthoringStatus` 表示是否还需 Agent authoring，不把旧 Prompt 字段当作执行来源。
+旧的独立 Prompt 字段和中间提示状态已从 active Manifest schema 删除。正式流程只由 Requirement 的 `PromptAuthoringStatus` 表示是否还需 Agent authoring，并在 `PromptRevision` 发布后才允许执行。
 
 ### Step 3-5 填充
 
@@ -261,9 +261,9 @@ Request Catalog v2 把需求与 Prompt 分开：
 - `natural_language_v2`：OpenAI/GPT image edit 和 Gemini image/chat image 使用的自然语言正负 Prompt。
 - `danbooru_tags_v2`：NovelAI 使用的结构化正负 tag 与 weight。
 
-每个 ready Variant 必须包含全部硬约束的 `ConstraintMapping`；`unsupported` Variant 必须写明原因。`PromptCN`、`PromptEN`、`NegativePromptEN` 和 v1 Variant 只作为兼容迁移证据，统一保存在 `LegacyPromptVariants` 或旧 Manifest 字段中，不是正式执行来源。新批量脚本必须消费 active PromptRevision，不得根据旧 Prompt、VisualID 或同一份 VisualIntent 重新猜测。
+每个 ready Variant 必须包含全部硬约束的 `ConstraintMapping`；`unsupported` Variant 必须写明原因。active Manifest 与 Catalog 都不保存旧 Prompt 字段或 v1 Variant。新批量脚本必须消费 active PromptRevision，不得根据 VisualID 或同一份 VisualIntent 重新猜测最终 Prompt。
 
-正式 generation evidence 使用 `EvidenceMode=formal_v2`，保存精确 `PromptRevisionSnapshot` 和 `ProviderRequest`；显式 legacy 恢复使用 `EvidenceMode=legacy_unverified` 与 `LegacyPromptInput`，不能进入标准批量或角色套组正式执行。
+正式 generation evidence 使用 `EvidenceMode=formal_v2`，保存精确 `PromptRevisionSnapshot` 和 `ProviderRequest`。历史快照保持不可变，但不存在可由当前工具重新执行的旧 Prompt 恢复路径。
 
 ### 7.4 编译门禁
 

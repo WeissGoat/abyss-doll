@@ -61,9 +61,6 @@ tmp/
 ~/
 UnityClient/UnityClient/
 
-# Mistaken mojibake output from PowerShell 5.1 reading non-ASCII script defaults.
-缇庢湳鏂囨。/
-
 # External workflow references cloned for comparison, not P3 source.
 misc/Missions/
 misc/

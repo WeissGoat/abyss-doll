@@ -63,8 +63,8 @@ update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收�
 
 跑图前必须确认：
 
-* Manifest 中目标 UI entry 为 `Status=prompted`。
-* `PromptEN` 是英文视觉语言，无项目名、引擎词、玩法黑话。
+* Manifest 中目标 UI entry 已具备 `CompiledRequest`，Catalog 的 `PromptAuthoringStatus=prompt_ready` 且 active `PromptRevision` 有对应 provider 的 ready Variant。
+* `PromptRevision` 的自然语言或 Danbooru Variant 遵守视觉语言要求：无项目名、引擎词、玩法黑话。
 * `Spec.SourceSpec`、`Spec.DisplaySpec`、`Spec.ProcessSpec` 完整。
 * 九宫格类组件有 `Spec.ProcessSpec.NineSlice`。
 

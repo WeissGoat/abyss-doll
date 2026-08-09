@@ -62,9 +62,7 @@ description: Use for image generation or image editing capabilities, including t
 
 ### Generation evidence modes
 
-正式 v2 请求必须写 `EvidenceMode=formal_v2`，并保存精确的 `RequirementSnapshot`、`PromptRevisionID`、`PromptRevisionFingerprint`、`PromptRevisionSnapshot`、`PromptFormat` 和 `ProviderRequest`。不要在 formal v2 evidence 顶层复制旧的 `PromptEN` / `NegativePromptEN`；最终文本只来自发布的 `natural_language_v2` 或 `danbooru_tags_v2` Variant。
-
-只有显式授权的非正式恢复才可使用 `EvidenceMode=legacy_unverified`，其旧输入放在 `LegacyPromptInput`，不能被标准批量或角色套组执行器传入。两种模式都只证明 raw 候选和生成请求，不证明处理、selected、Approved、Unity、Registry 或运行时验收。
+正式请求必须写 `EvidenceMode=formal_v2`，并保存精确的 `RequirementSnapshot`、`PromptRevisionID`、`PromptRevisionFingerprint`、`PromptRevisionSnapshot`、`PromptFormat` 和 `ProviderRequest`。最终文本只来自发布的 `natural_language_v2` 或 `danbooru_tags_v2` Variant。该 Skill 不提供旧 Prompt 恢复或第二条执行路径；生成证据只证明 raw 候选和生成请求，不证明处理、selected、Approved、Unity、Registry 或运行时验收。
 
 ## 常用入口
 

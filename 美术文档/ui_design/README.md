@@ -234,7 +234,8 @@ Candidate 仅作复杂界面的可选暂存，迁移状态不复用 `LayoutStatu
 
 ```powershell
 .\tools\美术工具\Update-ArtManifest.ps1
-.\tools\美术工具\Generate-ArtPrompts.ps1
+.\tools\美术工具\Compile-ArtGenerationRequests.ps1
+# 由 Agent authoring 后发布目标 VisualID 的 PromptRevision
 .\tools\美术工具\Run-ArtGeneration.ps1 -Domain ui -VisualID ui_panel_main -Variants 4
 ```
 

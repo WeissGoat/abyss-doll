@@ -27,7 +27,7 @@ related:
   - 开发文档/17_Live2DSpine运行时接入评估.md
   - 开发文档/18_全局叙事播放系统开发方案.md
   - 配置表(JSON)/Narrative/README.md
-last_verified: 2026-08-02
+last_verified: 2026-08-08
 update_rule: 程序、Unity、验证或工程边界任务完成后更新本文档。
 ---
 
@@ -35,7 +35,7 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 
 ## 最后更新
 
-2026-08-02
+2026-08-08
 
 ## 当前关注
 
@@ -43,8 +43,11 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 - `p3-program-validation`、`p3-art-validation`、`p3-release-validation` 已分离；程序验证只负责编译、配置、Smoke、P0 / T0 功能路径，不替代美术验收或发布聚合。
 - T0-01A 的 NARR-00..04 和 T0-FLOW-01..05 已有程序承接与 headless / smoke 证据；当前重点是 `SEAL-FLOW`、`SEAL-UI`、FormalV2 工坊 zone、首潜许可卡和连续截图防回归。
 - AI 图片网关 chat image provider 已支持请求级透明 SSE、完整图片事件后的尾部断流保留和同连接 JSON fallback；GIF 客户端已显式启用 stream、规范化 provider 输出尺寸，并把 `incomplete chunked read` 纳入瞬时重试。
+- `gemini_chat_image` 已增加 Flow2API 专属 `generationConfig.imageConfig` 序列化：请求宽高映射到最近的 `landscape / portrait / square / four-three / three-four` 画幅和 `2k / 4k` 档位，Gemini Prompt 不再追加尺寸文字；通用 OpenAI/Grok chat provider 保持旧行为。
 
 ## 最近完成
+
+- Gemini 角色图生图结构化画幅契约已完成真实验证：`1024x1536` 请求映射为 `three-four + 2k`，Flow2API SSE 在 `92.062s` 返回 `1792x2400 RGB` 可解码图片，首事件 `7.25s`、10 个事件并收到 `[DONE]`；绿幕为单一饱和绿色。错误的 `image_config.aspect_ratio` 和顶层 `aspect_ratio` 试验均被中转静默忽略，当前实现依据其 `/openapi.json` 与 `/v1/models/aliases` 公开合同收敛。网关全量回归为 `125 passed`，P3 generation evidence 回归为 `11 passed`。
 
 - `art_import_formalv2_standard_ui_batch_20260801_01` completed the protected integration of three standard art assets: Approved replacement preserved `.meta` / GUID, live Unity AssetDatabase import, Sprite DisplaySpec, Registry uniqueness, and Console delta all passed. The claim is `registered`; it does not include Prefab / UGUI binding, runtime consumption, or `runtime_validated`.
 - `Select-ArtCandidate.ps1` now updates nested batch summaries by `ProductionRunID`, preventing a stale `review_required` summary after `selection-decision.json` is complete; regression coverage is 13/13 passing.

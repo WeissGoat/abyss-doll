@@ -22,7 +22,7 @@ update_rule: 每轮美术需求候选扫描后，如有人工准入、暂缓或�
 
 ### 输入
 
-- 候选快照：`美术文档/_generated/art_requirement_candidate_snapshots/20260609_055217_formalv2_goal_resume_20260609.md`
+- 候选快照：以当前运行生成的 `art_requirement_candidate_snapshots/<RunID>.md` 为准。
 - 初始扫描结果：`new_candidate=84`、`approved_without_manifest=0`、`seed_only=0`、`manifest_managed=215`
 - 当前目标：继续以 FormalV2 全量素材实际迭代为目标，处理配置、FormalV2 UI 设计和内容包中新出现但尚未纳入 Manifest 的素材需求。
 
