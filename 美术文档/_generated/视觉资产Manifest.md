@@ -1,11 +1,11 @@
 # 视觉资产 Manifest
 
-> **定位：** 由 `tools/美术工具/Update-ArtManifest.ps1` 根据最新配置表、配置推导项和预置美术需求增量生成。第一步只填资产来源与配置事实，中文审阅描述、英文提示词、英文负面词和结构化规格在第二步补全。
+> **定位：** 由 `tools/美术工具/Update-ArtManifest.ps1` 根据最新配置表、配置推导项和预置美术需求增量生成。Manifest 只保存需求事实、结构化规格和已编译请求指针；可执行提示词只存在于 Request Catalog 的 PromptRevision。
 > **配置来源：** `UnityClient/Assets/StreamingAssets/Configs`
 
 ## 状态流转
 
-`todo -> prompted -> generated -> selected -> approved -> registered -> validated`，废弃项标记为 `rejected` 或 `deprecated`。
+`todo -> generated -> selected -> approved`；Registry 与运行时验收由独立状态轴记录，废弃项标记为 `rejected` 或 `deprecated`。
 
 ## 汇总
 
@@ -54,17 +54,17 @@
 | `doll` | `zero_dialogue_command_ready` | 零号-接受指令立绘 | `portrait` | `doll_zero_dialogue_command_ready` | P0 | `approved` |
 | `doll` | `zero_dialogue_neutral` | 零号-对话中性立绘 | `portrait` | `doll_zero_dialogue_neutral` | P0 | `approved` |
 | `doll` | `zero_hurt` | 零号-受损立绘 | `portrait` | `doll_zero_hurt` | P0 | `approved` |
-| `doll` | `zero_low_san` | 零号-低SAN立绘 | `portrait` | `doll_zero_low_san` | P0 | `prompted` |
+| `doll` | `zero_low_san` | 零号-低SAN立绘 | `portrait` | `doll_zero_low_san` | P0 | `todo` |
 | `doll` | `zero_maintenance_sit` | 零号-维护坐姿立绘 | `portrait` | `doll_zero_maintenance_sit` | P0 | `generated` |
 | `doll` | `zero_stand_neutral` | 零号-正面常态立绘 | `portrait` | `doll_zero_stand_neutral` | P0 | `generated` |
 | `doll` | `doll_proto_0` | 原型机·零 | `stand` | `doll_proto_0_stand` | P1 | `approved` |
 | `doll` | `doll_proto_0_test` | 原型机·零（测试） | `stand` | `doll_proto_0_test_stand` | P1 | `deprecated` |
 | `doll` | `zero_cold` | 零号-冷淡立绘 | `portrait` | `doll_zero_cold` | P1 | `selected` |
-| `doll` | `zero_depressed` | 零号-低落立绘 | `portrait` | `doll_zero_depressed` | P1 | `prompted` |
+| `doll` | `zero_depressed` | 零号-低落立绘 | `portrait` | `doll_zero_depressed` | P1 | `todo` |
 | `doll` | `zero_dialogue_confused` | 零号-疑惑对白立绘 | `portrait` | `doll_zero_dialogue_confused` | P1 | `generated` |
 | `doll` | `zero_dialogue_talk_small` | 零号-小口型对白立绘 | `portrait` | `doll_zero_dialogue_talk_small` | P1 | `generated` |
 | `doll` | `zero_dialogue_thoughtful` | 零号-思考对白立绘 | `portrait` | `doll_zero_dialogue_thoughtful` | P1 | `generated` |
-| `doll` | `zero_repair_relief` | 零号-修复释然立绘 | `portrait` | `doll_zero_repair_relief` | P1 | `prompted` |
+| `doll` | `zero_repair_relief` | 零号-修复释然立绘 | `portrait` | `doll_zero_repair_relief` | P1 | `todo` |
 | `doll` | `zero_tired` | 零号-疲惫立绘 | `portrait` | `doll_zero_tired` | P1 | `approved` |
 | `doll` | `zero_trust_soft` | 零号-轻微信任立绘 | `portrait` | `doll_zero_trust_soft` | P1 | `generated` |
 | `faction` | `faction_adventurer_guild` | 冒险者公会徽章 | `icon` | `faction_adventurer_guild_icon` | P2 | `approved` |
@@ -94,12 +94,12 @@
 | `item` | `loot_crystal_scale` | 晶化鳞片 | `icon` | `item_loot_crystal_scale_icon` | P0 | `approved` |
 | `item` | `loot_gear_scrap` | 废旧齿轮 | `icon` | `item_loot_gear_scrap_icon` | P0 | `approved` |
 | `item` | `loot_living_mycelium` | 活性菌丝 | `icon` | `item_loot_living_mycelium_icon` | P0 | `approved` |
-| `item` | `loot_rusty_coil` | 生锈线圈 | `icon` | `item_loot_rusty_coil_icon` | P0 | `prompted` |
+| `item` | `loot_rusty_coil` | 生锈线圈 | `icon` | `item_loot_rusty_coil_icon` | P0 | `todo` |
 | `item` | `loot_spore_amber` | 孢晶琥珀 | `icon` | `item_loot_spore_amber_icon` | P0 | `approved` |
-| `item` | `loot_toxic_filter` | 污染滤芯 | `icon` | `item_loot_toxic_filter_icon` | P0 | `prompted` |
+| `item` | `loot_toxic_filter` | 污染滤芯 | `icon` | `item_loot_toxic_filter_icon` | P0 | `todo` |
 | `item` | `loot_vein_plate` | 菌脉甲片 | `icon` | `item_loot_vein_plate_icon` | P0 | `approved` |
 | `item` | `loot_warped_plate` | 扭曲装甲片 | `icon` | `item_loot_warped_plate_icon` | P0 | `approved` |
-| `item` | `mat_core_tier1` | 一阶动力核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `prompted` |
+| `item` | `mat_core_tier1` | 一阶动力核心 | `icon` | `item_mat_core_tier1_icon` | P0 | `todo` |
 | `item` | `mat_core_tier2_fragment` | 二阶机核碎片 | `icon` | `item_mat_core_tier2_fragment_icon` | P0 | `approved` |
 | `item` | `mat_core_tier3_seed` | 三阶机核种 | `icon` | `item_mat_core_tier3_seed_icon` | P0 | `approved` |
 | `item` | `order_contested_spore_core` | 争夺孢核 | `icon` | `item_order_contested_spore_core_icon` | P0 | `approved` |
@@ -340,5 +340,5 @@
 
 ## 下一步
 
-1. 对 `Status=prompted` 的条目按批次生成图片。
-2. 生成后填写 `BatchID` 和 `RawPath`，并将状态改为 `generated`。
+1. 编译 Requirement，并为 `PromptAuthoringStatus=prompt_authoring_required` 导出 authoring package。
+2. 发布通过约束映射校验的 PromptRevision 后，再生成批次计划。
