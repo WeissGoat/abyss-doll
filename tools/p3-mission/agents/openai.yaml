@@ -1,0 +1,3 @@
+display_name: P3 Mission
+short_description: Run Project P3 source-backed stage missions
+default_prompt: Use p3-mission with this detailed Project P3 source:
