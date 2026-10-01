@@ -18,12 +18,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：290
-- 已补元数据：286
+- 文档总数：291
+- 已补元数据：287
 - 缺少元数据：4
 - 事实来源文档：196
-- 关联边数：1517
-- 跨职能关联：310
+- 关联边数：1521
+- 跨职能关联：311
 - `related` 只需单向填写；反向链接由本脚本写入 `docs_index.json` 的 `referenced_by`，关联数按双向合并统计。
 
 ## 事实来源
@@ -241,7 +241,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - `全局 <-> 知识库`：6 条
 - `全局 <-> 程序`：14 条
 - `全局 <-> 策划`：54 条
-- `全局 <-> 美术`：9 条
+- `全局 <-> 美术`：10 条
 - `兼容 <-> 游戏导演`：5 条
 - `兼容 <-> 知识库`：1 条
 - `剧情 <-> 游戏导演`：8 条
@@ -293,7 +293,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 22 | 完整 |
+| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 23 | 完整 |
 | [文档索引](DOCS_INDEX.md) | `index` | `generated` | `knowledge_base` | 1 | 完整 |
 | [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 64 | 完整 |
 | [智能体状态页说明](agent_status/README.md) | `status` | `active` | `agent_status` | 7 | 完整 |
@@ -303,8 +303,9 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Project P3 AGENTS 职责路由重构设计](docs/superpowers/specs/2026-07-17-agents-routing-refactor-design.md) | `design` | `historical` | `agent_workflow` | 1 | 完整 |
 | [Agent 状态页与 Role 阅读范围优化设计](docs/superpowers/specs/2026-07-18-agent-status-and-role-disclosure-design.md) | `design` | `draft` | `agent_workflow` | 0 | 完整 |
 | [Project P3 Role 词表与知识索引归属设计](docs/superpowers/specs/2026-07-18-role-vocabulary-and-index-design.md) | `design` | `historical` | `agent_workflow` | 1 | 完整 |
-| [文档维护与新增控制规则](rules/01_文档维护与新增控制规则.md) | `rule` | `active` | `document_governance` | 5 | 完整 |
-| [智能体任务路由与完成协议](rules/02_智能体任务路由与完成协议.md) | `rule` | `active` | `agent_workflow` | 10 | 完整 |
+| [Agent 工作流与美术流程减负设计](docs/superpowers/specs/2026-10-01-lighter-agent-workflow-design.md) | `design` | `active` | `agent_workflow` | 4 | 完整 |
+| [文档维护与新增控制规则](rules/01_文档维护与新增控制规则.md) | `rule` | `active` | `document_governance` | 6 | 完整 |
+| [智能体任务路由与完成协议](rules/02_智能体任务路由与完成协议.md) | `rule` | `active` | `agent_workflow` | 11 | 完整 |
 | [全局 Agent Rules 入口](rules/README.md) | `entry` | `active` | `agent_rules` | 5 | 完整 |
 | [智能体开工健康检查](tools/agent/README.md) | `tool` | `active` | `agent_workflow` | 6 | 完整 |
 | [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `formal_vertical_slice` | 19 | 完整 |
@@ -524,7 +525,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 13 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 18 | 完整 |
-| [美术流水线总览](美术文档/00_美术流水线总览.md) | `art` | `active` | `art_pipeline` | 12 | 完整 |
+| [美术流水线总览](美术文档/00_美术流水线总览.md) | `art` | `active` | `art_pipeline` | 13 | 完整 |
 | [Manifest 规范](美术文档/01_Manifest规范.md) | `art` | `active` | `art_manifest` | 6 | 完整 |
 | [资源规格与接入规范](美术文档/02_资源规格与接入规范.md) | `art` | `active` | `art_asset_spec` | 10 | 完整 |
 | [AI 美术资产质量与筛选准入规范](美术文档/03_AI生成与筛选规范.md) | `art` | `active` | `ai_art_quality` | 6 | 完整 |
