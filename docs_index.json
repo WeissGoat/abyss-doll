@@ -3918,8 +3918,8 @@
         "tools/美术工具/README.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-08-02",
-      "update_rule": "修改美术资产生产阶段、职能边界、正式状态、交付门禁或 Skill 路由时同步本文件。",
+      "last_verified": "2026-10-01",
+      "update_rule": "修改美术资产生产阶段、快速道 / 完整道、职能边界、正式状态、交付门禁或 Skill 路由时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [
@@ -4877,7 +4877,7 @@
         "tools/美术工具/README.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-08-02",
+      "last_verified": "2026-10-01",
       "update_rule": "美术文档结构、推荐阅读顺序或外部契约变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],

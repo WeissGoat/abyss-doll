@@ -7,123 +7,66 @@ description: Use when Project P3 needs formal production or replacement of runti
 
 ## Purpose
 
-Turn an existing, sufficiently detailed P3 art requirement into a validated runtime asset. This skill owns the production workflow; it does not replace project art facts, image-generation capabilities, UI design, narrative design, or runtime validation facts.
+Turn an existing, detailed P3 art requirement into a runtime asset through the project's scripts. This skill owns orchestration only. Art facts stay in `美术文档/`; image creation and editing go to `p3-generate-image`; narrative pages also follow `p3-narrative-cg-comic`; runtime diagnosis and evidence go to `p3-art-validation`. A production profile selects workspace, interaction, and acceptance behavior; it never fixes the generation method, provider, or tool.
 
-Capability boundaries:
+## Lanes
 
-- Image creation or editing is delegated to `p3-generate-image` without moving production responsibilities into it.
-- Narrative comic-page production additionally follows `.codex/skills/p3-narrative-cg-comic/SKILL.md`.
-- Runtime art diagnosis and evidence use `.codex/skills/p3-art-validation/SKILL.md`.
-- A production profile selects workspace layout, orchestration, interaction, and acceptance behavior. It never fixes the generation method, provider, or tool.
+Choose the lane first. The lane definitions are facts in section 2 of `美术文档/00_美术流水线总览.md`; when unsure, take the full lane.
 
-## Required reading
+- **Fast lane**: `standard_asset` icons, backgrounds, and ordinary UI images that are not a NineSlice UI skin, not a first-time style anchor, and do not replace an asset a game screen already uses. Claim ceiling `registered`.
+- **Full lane**: `character_portrait_set`, narrative CG and comic panels, NineSlice UI skins, first-time anchors, and replacements of assets a game screen already uses. Every phase and gate applies.
 
-Read in layers instead of front-loading every document. The Core workflow, Execution rules, and Never lists in this file apply in every phase.
+Fast lane, one batch at a time:
 
-1. Before starting: `AGENTS.md`, `PROJECT_STATUS.md`, `agent_status/art.md`, `美术文档/00_美术流水线总览.md`, and the target asset's active character, UI, CG, configuration, or implementation source.
-2. Before entering a phase, read what it needs; skip anything already read in this session:
+1. Check that every VisualID has a Manifest entry and a detailed source. Compile the batch, author only the prompt format this Run's provider consumes, and publish one revision file for the batch.
+2. Run the batch plan through `Run-ArtProductionBatch.ps1` and read its `summary.json`.
+3. Review every VisualID's contact sheet and small-size preview in one pass, write one `visual-review.json` whose `Items` cover the batch, and run `Select-ArtCandidate.ps1` per VisualID with that file.
+4. Take the batch through Approved, Unity, and Registry under one `ArtImportRunID`. Approved sync needs the user's go-ahead for the batch unless it was granted up front.
+5. Stop only for a hard failure with no valid candidate, a fact conflict, or missing authority. A failing VisualID leaves the batch and the rest continue; repairs stay within the default limits (3 rounds, 2 provider switches).
+6. Leave runtime validation to the task in which a game screen first consumes the asset.
 
-| Phase (state-machine states) | Read before entering |
+## Reading by phase
+
+Read only what the current phase needs, after the `AGENTS.md` startup reads; skip anything already read this session. Before any pause or user question, read [interaction-gates.md](references/interaction-gates.md).
+
+| Phase (state-machine states) | Fast lane | Full lane also reads |
+|---|---|---|
+| Start | Section 2 of `美术文档/00_美术流水线总览.md`; the target asset's source | The rest of `美术文档/00_美术流水线总览.md` |
+| Intake: `SOURCE_AUDIT` → `PRODUCTION_PLAN` | `美术文档/01_Manifest规范.md` only when a VisualID still needs admission | [modes-and-input.md](references/modes-and-input.md), [state-machine.md](references/state-machine.md), [workspace-profiles-and-character-portraits.md](references/workspace-profiles-and-character-portraits.md); `美术文档/01_Manifest规范.md` when admitting a requirement or editing the Manifest / seed; `美术文档/02_资源规格与接入规范.md` when a new asset needs output or display specs |
+| Prompt and generation: `BACKEND_PREFLIGHT` → `OUTPUT_CONTRACT_AUDIT` | [prompt-and-generation.md](references/prompt-and-generation.md), `美术文档/04_美术风格基准.md` | `p3-generate-image` |
+| Processing, review, and selection: `PREPROCESS` → `REPAIR_OR_REGENERATE` | [candidate-evaluation.md](references/candidate-evaluation.md) | `美术文档/03_AI生成与筛选规范.md` |
+| Approved, Unity, and Registry: `APPROVED_GATE` → `REGISTRY_INTEGRATION` | [approved-and-unity.md](references/approved-and-unity.md) | `美术文档/02_资源规格与接入规范.md` |
+| Runtime validation: `RUNTIME_VALIDATION` | Deferred | `p3-art-validation` |
+| Resume, evidence, and writeback: any `-Resume`, `WRITEBACK` | [evidence-and-writeback.md](references/evidence-and-writeback.md) | Same |
+
+## Commands by phase
+
+Scripts live in `tools/美术工具/`; parameters and examples are in its `README.md`. The scripts enforce the gates, so read their refusals instead of re-checking by hand.
+
+| Phase | Commands |
 |---|---|
-| Intake: `SOURCE_AUDIT` → `PRODUCTION_PLAN` | [modes-and-input.md](references/modes-and-input.md), [state-machine.md](references/state-machine.md), [workspace-profiles-and-character-portraits.md](references/workspace-profiles-and-character-portraits.md); `美术文档/01_Manifest规范.md` when admitting a new requirement or editing the Manifest / seed; `美术文档/02_资源规格与接入规范.md` when a new asset needs output or display specs |
-| Prompt authoring and generation: `BACKEND_PREFLIGHT` → `OUTPUT_CONTRACT_AUDIT` | `美术文档/04_美术风格基准.md`, the "Persisted generation requests" section below, and `p3-generate-image` |
-| Processing, review, and selection: `PREPROCESS` → `REPAIR_OR_REGENERATE` | `美术文档/03_AI生成与筛选规范.md`, `美术文档/04_美术风格基准.md`, [candidate-evaluation.md](references/candidate-evaluation.md), [interaction-gates.md](references/interaction-gates.md) |
-| Approved, Unity, and Registry: `APPROVED_GATE` → `REGISTRY_INTEGRATION` | `美术文档/02_资源规格与接入规范.md`, [approved-and-unity.md](references/approved-and-unity.md) |
-| Runtime validation: `RUNTIME_VALIDATION` | `p3-art-validation` |
-| Resume, evidence, and writeback: any `-Resume`, `WRITEBACK` | [evidence-and-writeback.md](references/evidence-and-writeback.md) |
-
-3. Before any pause or user question, whatever the phase, read [interaction-gates.md](references/interaction-gates.md).
+| Requirements | `Compile-ArtGenerationRequests.ps1 -VisualID <ids>`, then `validate_art_generation_requests.py --strict` |
+| Prompt authoring | `Export-ArtPromptAuthoringPackage.ps1 -VisualID <ids>`, author, then `Publish-ArtPromptRevision.ps1 -RevisionPath <file>` |
+| Batch plan | `Generate-ArtBatchPlan.ps1` for missing art; `Generate-FormalV2ReplacementPlan.ps1` for same-VisualID replacement |
+| Generate and process, standard | `Run-ArtProductionBatch.ps1 -PlanPath <plan> -VisualID <ids> -Route <class>=<capability>`; reprocess with `Optimize-ArtAssets.ps1 -VisualID <ids>` |
+| Generate and process, portrait | `Run-CharacterPortraitSet.ps1` (continue with `-Resume`); staged rounds through `Register-ArtProcessingRound.ps1` |
+| Select | `Select-ArtCandidate.ps1 -VisualID <id> -ReviewPath <review>` |
+| Portrait set gate | `Invoke-PortraitSetGate.ps1 -Phase Prepare`, `Finalize`, or `Check` |
+| Approved, Unity, and Registry | `Invoke-ArtApprovedUnityRegistration.ps1 -Phase Plan`, `SyncApproved`, then `Finalize`, with one `-ArtImportRunID` and `-VisualID <ids>` |
+| Runtime validation | `p3-art-validation` profiles `art_focus`, `art_runtime`, `art_iteration`, `t0_art_seal`, `art_regression` |
 
 ## Modes
 
-- `interactive` is the default. Continue automatically through deterministic and high-confidence decisions; pause only at a configured decision gate or genuine blocker.
-- `auto` is enabled only when the user explicitly authorizes fully automatic execution. It may automatically generate, repair, select, sync Approved, integrate, validate, and write back within the locked facts and granted scope.
-- The PowerShell portrait wrapper exposes this same mode as `-ExecutionMode Automatic`; the Python entry point uses `--execution-mode automatic`. Both still stop when required evidence or authority is missing.
+`interactive` is the default: continue through deterministic, high-confidence steps and pause only at a gate in [interaction-gates.md](references/interaction-gates.md). `auto` needs the user's explicit authorization and stays inside the granted scope. Neither mode authorizes inventing missing requirements, resolving contradictory facts by preference, changing active art direction, bypassing `.meta` / GUID guards, overwriting unrelated assets, or changing gameplay or domain rules.
 
-Full automation never authorizes inventing missing requirements, resolving contradictory facts by preference, changing active art direction, bypassing `.meta` or GUID guards, overwriting unrelated assets, or modifying gameplay/domain rules.
+## Hard rules
 
-## Core workflow
-
-1. Normalize the request, production profile, mode, scope, permissions, limits, and source references.
-2. Audit existing facts and state; reject duplicate work and stale evidence.
-3. Admit the requirement and lock the VisualID, operation, output path, method-neutral Asset Contract, quality tier, and claim ceiling.
-4. Resolve the profile workspace and create a bounded, run-scoped production plan from the currently available tools and evidence.
-5. Compile the deterministic Requirement. When prompt authoring is required, export the authoring package and let the Agent publish an immutable dual-format PromptRevision before any provider call.
-6. Delegate image creation, editing, imported-source handling, or deterministic processing to the appropriate current capability without hard-coding a method in the requirement.
-7. Preprocess candidates and apply deterministic technical gates.
-8. Inspect and score valid candidates; select, adjust, retry with another current capability, request a decision, or block.
-9. Pass the Approved gate before copying or replacing any formal asset.
-10. Refresh Unity, validate import state, rebuild or inspect the appropriate Registry path, and check Console delta.
-11. Run focused runtime art validation; use full regression only for broad changes or release evidence.
-12. Refresh generated handoffs and write all affected art/program status and evidence entries.
-
-## Persisted generation requests
-
-Manifest prose fields are migration inputs, not the execution source. Before a formal generation run, compile and validate the persisted catalog:
-
-```powershell
-.\tools\美术工具\Compile-ArtGenerationRequests.ps1 -ManifestPath 美术文档/_generated/art_manifest.json
-python tools/美术工具/validate_art_generation_requests.py `
-  --manifest 美术文档/_generated/art_manifest.json `
-  --request-catalog 美术文档/_generated/art_generation_requests.json `
-  --strict
-```
-
-Each Manifest entry points to `CompiledRequest.RequestID`, `RequirementFingerprint`, `PromptAuthoringStatus`, and `ActivePromptRevisionID`. The compiler stores `PromptAuthoringContext`, `TechnicalRequest`, and `PreservationContract`; it never writes an executable final Prompt. If authoring is required, use `Export-ArtPromptAuthoringPackage.ps1`, let the Agent independently author `natural_language_v2` and `danbooru_tags_v2`, then publish with `Publish-ArtPromptRevision.ps1`. A ready Variant must map every hard constraint; an honestly unavailable format is `unsupported` with a reason.
-
-`Run-ArtProductionBatch.ps1`, `Run-CharacterPortraitSet.ps1`, and `Run-ArtGeneration.ps1` consume the exact active Revision and write `RequirementSnapshot`, `PromptRevisionID`, `PromptRevisionFingerprint`, `PromptRevisionSnapshot`, `PromptFormat`, and `ProviderRequest` to evidence. They fail closed on missing/stale Requirements, pointer mismatch, `prompt_authoring_required`, invalid Revision, unavailable Variant, or incomplete constraint mapping. Lifecycle and processing evidence is excluded from the Requirement fingerprint, so normal state transitions and numeric rounds do not stale an unchanged requirement; semantic contract changes do. Provider adapters may serialize only: they must not append quality phrases, rewrite natural language, duplicate Prompt text, or rebuild preservation/change instructions.
-
-Formal generation evidence uses `EvidenceMode=formal_v2` and keeps the exact published `PromptRevisionSnapshot` plus `ProviderRequest`; it never copies a second prompt representation. Historical snapshots are read-only evidence, not an executable fallback. Generation evidence alone never lets the image capability advance `selected`, `Approved`, `registered`, or `runtime_validated`.
-
-The standard batch route rejects `character_portrait_set`; portrait members are planned and ordered by `AssetSetID`, `SetRole`, and explicit `SourceAssets` in the independent portrait-set executor. The profile remains method-neutral: the Agent chooses the current image capability after reading the compiled brief and records that choice in run evidence.
-
-For a resumable portrait run, `Run-CharacterPortraitSet.ps1` persists `portrait-set-run.json` and immutable per-member generation snapshots. The effective portrait order is:
-
-```text
-generation snapshot
-  -> processing decision
-  -> visual-review evidence gate
-  -> Registrar technical recomputation and next processed/<n> round
-  -> guarded selection
-```
-
-The portrait Registrar intentionally requires `visual_review.json` before publishing a passed `character_portrait_set` round. Missing processing decisions or review evidence write `PendingDecision` and stop; `Automatic` does not invent a processing method, visual score, or review. Resume revalidates PromptRevision, reference, raw, processed, and selected hashes before skipping any child operation.
-
-## Execution rules
-
-- Prefer existing project scripts and MCP tools; do not create a second Manifest, Registry, progress table, or acceptance system.
-- For Manifest batch plans, use `Run-ArtProductionBatch.ps1` to isolate runtime provider routes and advance only through the latest numeric processing round. The source plan remains method-neutral; a successful child exit code without current-batch decodable raw evidence is still a generation failure.
-- When a batch item is `ui_skin` with `ProcessSpec.NineSlice.Enabled=true`, require an explicit runtime capability route and use the specialized adapter selected for that Run before the common optimizer. Record the actual capability in generation/round evidence; keep the Manifest, Asset Contract, VisualID, and workspace method-neutral.
-- After Agent visual review, use `Select-ArtCandidate.ps1` for guarded promotion into `selected/`. Do not manually copy candidates around latest-round, hash, score, overwrite-permission, or status-preservation checks.
-- Treat Registrar output as canonical technical evidence: it recomputes `technical_review_v2` from the real candidate and Manifest Spec, verifies `ReviewFingerprint`, and records `AutomaticStatus` plus `AppliedOverrides`. A `technical_override.json` never grants itself permission; each allowed RuleID must come from explicit user/calling-workflow authorization and also be passed through `-AllowTechnicalOverride` / `--allow-technical-override`.
-- For an existing `selected/` target, require the review's current `ReplacementBaseline` and `ReplacementPolicy`. The candidate must clear the selected threshold, strictly exceed the baseline by the configured delta, and not regress protected dimensions before `-AllowSelectedOverwrite` can authorize the copy. Same-SHA input is idempotent and returns `already_selected`.
-- A `character_portrait_set` replacement additionally uses `character_portrait_v3`: independently evidenced `Identity`, `Costume`, `Proportion`, `Framing`, `Technical`, and `TargetFit`. Legacy or incomplete baselines stop at `replacement_baseline_review_required`; all five default protected dimensions are mandatory, and the previous selected bytes are preserved under the review evidence before overwrite.
-- Before a character portrait member can sync to Approved, run `Invoke-PortraitSetGate.ps1 -Phase Prepare`, review the exact `SetSnapshotFingerprint`, then Finalize only a genuinely passed set review. A stale, missing, or failed set review blocks Approved/Unity planning; standard assets are unaffected. A retrospective set failure retains `registered` but cannot claim `runtime_validated`.
-- Require a detailed source before formal production. A chat-only idea may produce exploration candidates, but not a formal Manifest/Approved asset.
-- Route working files through exactly one active profile: `standard_asset` -> `_IncomingAI/standard_assets/<VisualID>/`, or `character_portrait_set` -> `_IncomingAI/character_portraits/<VisualID>/`. Keep non-VisualID historical work only under `_IncomingAI/_legacy_runs/` and never scan it as production input.
-- Treat `character_portrait_set` as a requirement, identity, interaction, set-consistency, and acceptance profile. Do not define it by text-to-image, image-to-image, inpaint, any provider, or any closed list of methods.
-- Keep requirement and Asset Contract fields method-neutral. Let the Agent inspect current tools and evidence, choose or combine appropriate capabilities per run and round, and record what actually happened in run evidence.
-- Use stable `AssetID` for production/design members, `VisualID` only for runtime-consumed assets, `AssetSetID` for related members, and `ProductionRunID` for one execution. Do not create a separate `AnchorID`; use `AssetID` with an anchor role for non-runtime design masters.
-- Treat `raw`, `processed`, `selected`, `approved`, `registered`, `runtime_validated`, `player_path_verified`, and `regression_passed` as different public claims. Runtime binding remains an internal ArtRun check and is never exposed as a separate production state.
-- Treat `processed/<positive integer>/` as an immutable processing round. Read only the latest numeric round for processing state; repairs and complex edits must publish the next integer through `Optimize-ArtAssets.ps1` or `Register-ArtProcessingRound.ps1`.
-- Require an explicit `BackgroundPolicy`. `AlphaRequired=true` never authorizes implicit background removal.
-- For RGB provider output with a baked checkerboard, prefer an explicit mask or the optional `segmentation` route; threshold-based `connected_border` processing is not a substitute when it can leave checker pixels or delete protected clothing/hair.
-- Stop on a latest `failed`, `decision_required`, `legacy_unverified`, or multi-pass-candidate round. Never fall back to an older round or write complex edits directly into `selected/` or Approved.
-- For `character_portrait_set`, stop before Registrar when the latest member lacks a valid processing decision or visual-review evidence; do not publish a passed round first and ask for review afterward.
-- Limit repair/regeneration loops according to the request. Default: 3 rounds, 4 initial variants, 2 repair variants, 2 provider switches.
-- In interactive mode, ask a concrete decision question with recommendation, evidence, differences, risks, and resume state. Do not ask the user to repeat facts already available in project sources.
-- In auto mode, prefer fact consistency, identity, semantic correctness, engineering safety, style consistency, composition, then decoration.
-
-## Never
-
-- Generate directly from an unreviewed requirement-candidate report.
-- Use the legacy flat `_IncomingAI/<VisualID>/` path after the workspace-profile migration is declared complete, or silently fall back between old and new workspace layouts.
-- Put generation method names into stable IDs or directory contracts, or reject a useful current/future tool merely because it is not listed in this skill.
-- Let `_IncomingAI` be referenced by Prefabs, Registry, or runtime code.
-- Promote a hard-failed or below-threshold candidate to Approved.
-- Overwrite a published numeric processing round, or bypass its decision/hash evidence.
-- Change a VisualID, Approved output path, DisplaySpec, `.meta`, GUID, or runtime binding during same-VisualID replacement.
-- Treat menu execution success as Registry, import, or acceptance completion.
-- Treat a `technical_override.json`, handwritten `decision.json`, or stale `visual-review.json` as sufficient evidence without the Registrar recomputation and SHA checks.
-- Treat a Runner-created screenshot as proof that the normal player path is reachable.
-- Run full P0 as part of an art-production task or modify domain rules to make an art target reachable.
+- Formal production needs a detailed source. A chat idea or an unreviewed requirement-candidate report may produce exploration candidates only.
+- Use the existing scripts and MCP tools. Never create a second Manifest, Registry, progress table, or acceptance system.
+- Only the scripts write numeric `processed/` rounds, `selected/`, Approved, the Manifest, and the Registry. Never hand-copy a candidate, overwrite a published round, fall back to an older round, or promote a hard-failed or below-threshold candidate.
+- A handwritten `decision.json`, a `technical_override.json`, or a stale `visual-review.json` is not evidence by itself; the Registrar recomputation, SHA checks, and explicit override authorization decide.
+- Same-VisualID replacement keeps the VisualID, Approved path, DisplaySpec, `.meta`, GUID, and runtime binding.
+- Keep requirements, Asset Contracts, IDs, and directories method-neutral. Record the tool actually used in run evidence, and never reject a useful tool because this skill doesn't list it.
+- Prefabs, the Registry, and runtime code never reference `_IncomingAI`.
+- `raw`, `processed`, `selected`, `approved`, `registered`, `runtime_validated`, `player_path_verified`, and `regression_passed` are separate claims. A successful menu run is not import or Registry completion, and a Runner screenshot doesn't prove the player path.
+- Never run full P0 or change domain rules to make an art target reachable.

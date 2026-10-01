@@ -6,6 +6,8 @@ Use `interactive` with `auto_until_decision`: proceed without asking while facts
 
 Use `auto` only after explicit user authorization such as “全自动执行”, “不用中途问我”, or an equivalent scoped instruction.
 
+The portrait wrapper exposes `auto` as `Run-CharacterPortraitSet.ps1 -ExecutionMode Automatic`; the Python entry point uses `--execution-mode automatic`. Both still stop when required evidence or authority is missing.
+
 ## Normalized request
 
 Create an internal request with at least:
@@ -84,6 +86,7 @@ stop_on_hard_gate_failure: true
 Lock the maximum claim before work starts:
 
 - exploration request: `candidate_generated`
+- fast lane: `registered`
 - production without Unity scope: `asset_approved`
 - integration scope: `runtime_validated` only when the request includes formal runtime art validation evidence;
 - asset-only integration scope: `registered` when the request stops after Unity / Registry integration;

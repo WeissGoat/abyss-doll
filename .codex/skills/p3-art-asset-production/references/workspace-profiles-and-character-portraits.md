@@ -33,6 +33,8 @@ Use these layers:
 
 Do not assign a VisualID to a non-runtime design master solely to make it fit the production pipeline. Use the existing production-side `AssetID` and an anchor role. Assign a VisualID only when Unity or a runtime package consumes the asset as an independent member.
 
+IDs: stable `AssetID` for production and design members, `VisualID` only for runtime-consumed assets, `AssetSetID` for related members, and `ProductionRunID` for one execution. Do not create a separate `AnchorID`.
+
 ## Character portrait requirement contract
 
 Require the design source to state the desired runtime result, member role, use context, output/display specifications, identity/style facts, must-preserve rules, allowed changes, forbidden content, quality target, interaction policy, and acceptance target.

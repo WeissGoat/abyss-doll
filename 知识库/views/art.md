@@ -42,7 +42,7 @@ update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约�
 
 ## 按任务读取
 
-- 正式资产准入：读取 `p3-art-asset-production`、Manifest、资源规格、Approved 和目标 Asset Contract。
+- 正式资产生产：使用 `p3-art-asset-production`，先按 `美术文档/00_美术流水线总览.md` 第 2 节选快速道或完整道，再按 Skill 的阶段表读取，不在开工时通读 Manifest、规格和 Approved 文档。
 - 纯生成 / 差分：读取 `p3-generate-image` 和目标角色 / 场景 / 风格事实。
 - 叙事 CG / 漫画页：读取 `p3-narrative-cg-comic`、`美术文档/18_CG底图与漫画式播放演出工作流.md` 和目标 CG 细案。
 - UI / 运行时验收：读取 active `screen_layouts.json`、程序交接清单和 `p3-art-validation`；不把静态预览当作运行时证据。

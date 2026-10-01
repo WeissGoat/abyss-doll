@@ -13,6 +13,8 @@ Pause only when at least one applies:
 
 Routine icons, derived assets, high-confidence portrait members consistent with locked facts, and explicitly authorized same-VisualID replacements should not pause unnecessarily.
 
+In the fast lane, review the batch once and pause only for a hard failure with no valid candidate, a fact conflict, or missing authority, such as Approved sync for the batch.
+
 ## Question format
 
 Provide:
@@ -25,7 +27,7 @@ Provide:
 - material tradeoff/risk;
 - exact state to resume from.
 
-Do not ask “你喜欢哪张？” without analysis.
+Do not ask “你喜欢哪张？” without analysis, and do not ask the user to repeat facts already available in project sources.
 
 ## Pause record
 

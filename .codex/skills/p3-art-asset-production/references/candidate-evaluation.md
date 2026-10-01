@@ -13,6 +13,12 @@ Reject before visual scoring when any of these is true:
 - forbidden content or direct contradiction with the Asset Contract;
 - same-VisualID replacement would change path, `.meta`, GUID, DisplaySpec, or binding.
 
+## Processing rounds and background
+
+- `processed/<positive integer>/` rounds are immutable and only the latest numeric round counts. Standard assets publish a round with one `Optimize-ArtAssets.ps1` call. Repairs and complex or Agent-made edits are staged, then published as the next integer through `Register-ArtProcessingRound.ps1`.
+- `BackgroundPolicy` must be explicit: `preserve`, `already_transparent`, `auto_simple`, or `agent_required`. `AlphaRequired=true` never authorizes implicit background removal.
+- For RGB provider output with a baked checkerboard, prefer an explicit mask or the optional `segmentation` route. Threshold-based `connected_border` processing is not a substitute when it can leave checker pixels or delete protected clothing or hair.
+
 ## Base scoring
 
 Score valid candidates to 100:
@@ -67,28 +73,40 @@ For `character_portrait_set`, use `character_portrait_v3` instead of a generic s
 
 Individual acceptance is not set acceptance. `Invoke-PortraitSetGate.ps1 -Phase Prepare` produces a current SHA-bound contact sheet and small-size strip. Finalize requires exact member SHA/group coverage and all group/cross-group checks; a new selected byte, group, or identity contract invalidates the prior `SetSnapshotFingerprint`.
 
-## Review record
+## Review record and guarded selection
 
-Record for every valid candidate:
+Write one `visual-review.json` per review pass. Its `Items` list may cover a whole batch, with exactly one item per VisualID: the candidate you recommend, or the best one with a non-select `RecommendedAction` when none qualifies. `Candidate` is a project-relative path into the latest round:
 
 ```json
 {
-  "path": "processed/2/001.png",
-  "hard_gate": "passed",
-  "scores": {
-    "semantic": 23,
-    "style": 18,
-    "identity": 20,
-    "composition": 13,
-    "small_size": 9,
-    "engineering": 10,
-    "total": 93
-  },
-  "risks": ["minor hand anatomy noise"],
-  "recommended_action": "repair_local"
+  "ProductionRunID": "<ProductionRunID>",
+  "Items": [
+    {
+      "VisualID": "bg_workshop_day",
+      "Candidate": "UnityClient/Assets/Art/_IncomingAI/standard_assets/bg_workshop_day/processed/2/001.png",
+      "CandidateSHA256": "<sha256 of the candidate>",
+      "HardGate": "passed",
+      "Scores": {
+        "Semantic": 23,
+        "Style": 18,
+        "Identity": 20,
+        "Composition": 13,
+        "SmallSize": 9,
+        "Engineering": 10,
+        "Total": 93
+      },
+      "Risks": ["minor hand anatomy noise"],
+      "RecommendedAction": "select",
+      "Reason": "Reads clearly at display size and matches the scene palette."
+    }
+  ]
 }
 ```
+
+Portrait items instead use `ReviewRubricVersion=character_portrait_v3` with the six portrait dimensions and their evidence; replacement items add `SelectionMode`, `ReplacementBaseline`, and `ReplacementPolicy` (see the replacement gates above).
 
 Use actual image inspection, contact sheets, small-size previews, and relevant identity/style anchors. Do not score from filenames or prompts alone.
 
 The latest numeric round is authoritative. A single valid `passed` candidate may be resolved for downstream selection; multiple passed candidates require an explicit selection. A latest failed, decision-required, or legacy-unverified round blocks fallback to earlier rounds.
+
+Promote with `Select-ArtCandidate.ps1 -VisualID <VisualID> -ReviewPath <visual-review.json>`, once per VisualID. It accepts only a latest-round candidate with `HardGate=passed`, `Scores.Total` (or `Score`) of at least 88, and `RecommendedAction` `select` or `auto_select`, rechecks hash, dimensions, and format, then writes `selected/`, the Manifest `SelectedPath`, and ProductionRun selection evidence. Never copy candidates into `selected/` by hand.
