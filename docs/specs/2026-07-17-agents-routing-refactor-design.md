@@ -7,7 +7,7 @@ domain: agent_workflow
 status: historical
 source_of_truth: false
 related:
-  - docs/superpowers/plans/2026-07-17-agents-routing-refactor.md
+  - docs/plans/2026-07-17-agents-routing-refactor.md
 last_verified: 2026-10-01
 update_rule: 历史设计记录，不再更新；现行规则以 AGENTS.md 与 rules/02 为准。
 ---

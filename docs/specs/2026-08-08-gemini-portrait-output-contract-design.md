@@ -7,7 +7,7 @@ domain: ai_image_gateway_art_pipeline
 status: active
 source_of_truth: false
 related:
-  - docs/superpowers/plans/2026-08-08-gemini-portrait-output-contract.md
+  - docs/plans/2026-08-08-gemini-portrait-output-contract.md
   - 美术文档/05_AI图片网关接入方案.md
   - 美术文档/人设/05_零号立绘素材设计与交付清单.md
   - .codex/skills/p3-generate-image/SKILL.md

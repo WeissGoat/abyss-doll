@@ -4,14 +4,16 @@ title: 美术素材 Runtime Validated 状态收敛设计
 type: design
 role: 美术
 domain: runtime_art_validation
-status: active
+status: historical
 source_of_truth: false
 related: []
-last_verified: 2026-07-19
-update_rule: 修改 registered 后的运行时绑定检查、美术验收完成口径、ArtRun 最终 claim、失败路由或用户可见状态时更新本文档。
+last_verified: 2026-10-01
+update_rule: 历史设计记录，不再更新；现行事实以 美术文档/00_美术流水线总览.md 与 p3-art-validation 为准。
 ---
 
 # 美术素材 Runtime Validated 状态收敛设计
+
+> 历史设计：已于 2026-07-26 实施（`60d7a3b`）。现行事实以 `美术文档/00_美术流水线总览.md` 与 `p3-art-validation` 为准。
 
 ## 1. 结论
 

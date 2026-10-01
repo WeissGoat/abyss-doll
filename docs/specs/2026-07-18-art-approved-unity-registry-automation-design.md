@@ -4,14 +4,16 @@ title: Approved 到 Unity 导入与 Registry 登记自动化设计
 type: design
 role: 美术
 domain: art_asset_integration
-status: active
+status: historical
 source_of_truth: false
 related: []
-last_verified: 2026-07-18
-update_rule: 修改 Approved 同步、Unity 导入事实、Registry 登记、MCP 工具组策略、接入证据或 registered 完成口径时更新本文档。
+last_verified: 2026-10-01
+update_rule: 历史设计记录，不再更新；现行事实以 美术文档/00_美术流水线总览.md 与 p3-art-asset-production 的 references/approved-and-unity.md 为准。
 ---
 
 # Approved 到 Unity 导入与 Registry 登记自动化设计
+
+> 历史设计：已于 2026-07-19 实施（`2765a4b`、`8973481`、`a6ce212`）。现行事实以 `美术文档/00_美术流水线总览.md` 与 `p3-art-asset-production` 的 `references/approved-and-unity.md` 为准。
 
 ## 1. 结论
 

@@ -111,7 +111,7 @@ L4 条件展开：跨职能 View、rules/02、专项 Skill、验收证据或恢�
 ## 长任务与项目 Skill 路由
 
 - 长期任务、拆任务执行、持续执行、`mission` 或恢复继续：优先使用 `.codex/skills/p3-mission/SKILL.md`；没有加载时再读取 `tools/p3-mission/README.md` 与 fallback `SKILL.md`。新建 Mission 必须基于已有详细来源材料。
-- 需要先设计再实现的功能、重构或流程变更：设计写入 `docs/superpowers/specs/`（中小型变更把实施步骤附在文末），跨模块执行再写 `docs/superpowers/plans/`；定稿后可直接作为 P3 Mission 来源，规则见 `rules/01`、`rules/02`。
+- 需要先设计再实现的功能、重构或流程变更：设计写入 `docs/specs/`，实施步骤附在文末，不再单独写 plan；跨会话执行用定稿 spec 生成 P3 Mission。规则见 `rules/01`、`rules/02`；不使用 superpowers 插件的头脑风暴、计划和执行流程。
 - 正式美术资产从准入、候选生产、Approved、Unity 接入到运行时验收：使用 `p3-art-asset-production`。
 - 纯图片生成 / 编辑、差分、inpaint、后端选择和生成证据：使用 `p3-generate-image`。
 - 叙事 CG、漫画页、Panel VisualID、一致性修复与运行时漫画验收：使用 `p3-narrative-cg-comic`。

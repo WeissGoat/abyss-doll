@@ -4,13 +4,15 @@ title: AI 图片网关透明流式模式设计
 type: design
 role: 程序
 domain: ai_image_gateway
-status: implemented
+status: historical
 source_of_truth: false
-last_verified: 2026-07-18
-update_rule: 透明流式接口、SSE 解析、fallback、错误语义、证据字段或验收范围变化时更新本设计。
+last_verified: 2026-10-01
+update_rule: 历史设计记录，不再更新；现行事实以 美术文档/05_AI图片网关接入方案.md 与子模块 tools/ai-image-gateway 为准。
 ---
 
 # AI 图片网关透明流式模式设计
+
+> 历史设计：已于 2026-07-18 实施（`895bc46`、`6169644`）。现行事实以 `美术文档/05_AI图片网关接入方案.md` 与子模块 `tools/ai-image-gateway` 为准。
 
 ## 目标
 

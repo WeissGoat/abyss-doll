@@ -14,8 +14,6 @@ update_rule: 历史实施计划，不再更新；现行事实以美术文档与 
 
 > 历史计划：已于 2026-08-07 实施（`ad7139e`、`6ad5118`）。现行事实以 `.codex/skills/p3-art-asset-production/SKILL.md` 及其 `references/candidate-evaluation.md` 为准。
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
-
 **Goal:** Make character portrait replacement and Approved admission fail closed on a structured identity contract, six-dimensional evidence, and a current whole-set consistency fingerprint.
 
 **Architecture:** Keep stable character facts in `art_requirements_seed.json`, compile them into the existing Manifest and Request Catalog, and centralize review rules in two focused Python modules. `portrait_review_contract.py` owns the six-dimensional item schema; `portrait_set_gate.py` owns current selected-member snapshots, review evidence, and the single Approved preflight. Existing selection, Approved sync, and Unity registration orchestration call these helpers instead of implementing parallel rules.

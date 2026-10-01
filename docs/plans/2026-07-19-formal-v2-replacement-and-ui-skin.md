@@ -14,8 +14,6 @@ update_rule: 历史实施计划，不再更新；现行事实以美术文档与 
 
 > 历史计划：已于 2026-07-26 实施（`839aff9`）。现行事实以 `美术文档/00_美术流水线总览.md` 与 `.codex/skills/p3-art-asset-production/SKILL.md` 为准。
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task with review checkpoints.
-
 **Goal:** Add a Formal V2 active-asset replacement bridge and make the deterministic candidate gate explicitly validate nine-slice UI skins.
 
 **Architecture:** Keep Manifest and Formal V2 documents as facts. A new generated replacement report reads the active Formal V2 overview plus Manifest and emits `visual_v2_replace` items; it does not mutate Approved or create a second progress table. The shared candidate reviewer receives optional nine-slice contract data and applies UI-specific connected-component and edge-coverage checks while preserving existing standard-asset behavior.

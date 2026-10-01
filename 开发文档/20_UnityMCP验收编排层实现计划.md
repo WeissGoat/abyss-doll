@@ -21,8 +21,6 @@ update_rule: 调整 MCP 实时查看、截图票据、Art Profile、表现迭代
 
 # p3-art-validation V2 MCP 实时优先实现计划
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
-
 **Goal:** 将 `p3-art-validation` 重构为 MCP 直接查看 Game View、按结论截图和受控表现迭代的日常美术验收入口，并把旧 `ArtAcceptanceRunner` 降为 `art_regression` 全量回归后端。
 
 **Architecture:** Skill 负责调用标准 Unity MCP：锁定实例、控制 PlayMode、读取层级/组件、使用 `manage_camera(action="screenshot", capture_source="game_view")` 直接查看和截图。项目自定义工具只负责注册目标、截图票据、ArtRunID 证据归档、受控修改、回归导入和确定性汇总，不尝试从 C# 内部调用 MCP server。

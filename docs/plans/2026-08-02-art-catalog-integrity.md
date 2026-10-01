@@ -14,8 +14,6 @@ update_rule: 历史实施计划，不再更新；现行事实以美术文档与 
 
 > 历史计划：已于 2026-08-07 实施（`e894c6a`、`76a2e35`）。现行事实以 `美术文档/01_Manifest规范.md` 与 `.codex/skills/p3-art-asset-production/SKILL.md` 为准。
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
-
 **Goal:** Restore a strict-valid formal art Request Catalog and make duplicate VisualIDs, stale Summary values, and partial-catalog overwrites fail closed.
 
 **Architecture:** Add one shared `art_catalog_integrity.py` module used by Manifest discovery, request compilation, PromptRevision publication, and strict validation. Config entries that explicitly share the same `IconID` are canonicalized into one Manifest Entry with multiple `RequirementSources`; every other duplicate remains an error. Catalog Summary is always recomputed from the final complete Requests list.

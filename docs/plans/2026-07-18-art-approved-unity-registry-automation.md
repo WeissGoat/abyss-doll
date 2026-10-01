@@ -4,16 +4,16 @@ title: Approved 到 Unity 导入与 Registry 登记自动化实施计划
 type: plan
 role: 美术
 domain: art_asset_integration
-status: active
+status: historical
 source_of_truth: false
 related: []
-last_verified: 2026-07-18
-update_rule: 修改 Approved 接入编排实现范围、文件结构、测试命令、Unity MCP 试点或完成口径时更新本文档。
+last_verified: 2026-10-01
+update_rule: 历史计划记录，不再更新；现行事实以 美术文档/00_美术流水线总览.md 与 p3-art-asset-production 的 references/approved-and-unity.md 为准。
 ---
 
 # Approved 到 Unity 导入与 Registry 登记自动化 Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> 历史计划：已于 2026-07-19 实施（`2765a4b`、`8973481`、`a6ce212`）。现行事实以 `美术文档/00_美术流水线总览.md` 与 `p3-art-asset-production` 的 `references/approved-and-unity.md` 为准。
 
 **Goal:** 建立 `selected -> approved -> unity_imported -> registered` 的脚本 + Unity MCP 自动化链路，让 Agent 能安全同步 Approved、核验 live importer/Registry，并把完成状态写入现有 `RegistryStatus=registered`。
 

@@ -273,8 +273,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [Gemini 角色立绘输出契约实施计划](docs/superpowers/plans/2026-08-08-gemini-portrait-output-contract.md) | `plan` | `active` | `ai_image_gateway_art_pipeline` | 1 | 完整 |
-| [Gemini 角色立绘输出契约设计](docs/superpowers/specs/2026-08-08-gemini-portrait-output-contract-design.md) | `design` | `active` | `ai_image_gateway_art_pipeline` | 3 | 完整 |
+| [Gemini 角色立绘输出契约实施计划](docs/plans/2026-08-08-gemini-portrait-output-contract.md) | `plan` | `active` | `ai_image_gateway_art_pipeline` | 1 | 完整 |
+| [Gemini 角色立绘输出契约设计](docs/specs/2026-08-08-gemini-portrait-output-contract-design.md) | `design` | `active` | `ai_image_gateway_art_pipeline` | 3 | 完整 |
 | [T0-01A 开局人偶状态到首次下潜许可实现设计](版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可实现设计.md) | `implementation_design` | `active` | `prologue_first_loop_implementation` | 7 | 完整 |
 | [T0-01A 开局人偶状态到首次下潜许可开发方案](版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可开发方案.md) | `development_plan` | `active` | `prologue_first_loop_development` | 10 | 完整 |
 | [T0-01 序章首次循环](版本规划/0-12小时细案/T0-01_序章首次循环.md) | `plan` | `active` | `candidate_loop_detail_design` | 13 | 完整 |
@@ -297,13 +297,13 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [文档索引](DOCS_INDEX.md) | `index` | `generated` | `knowledge_base` | 1 | 完整 |
 | [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 64 | 完整 |
 | [智能体状态页说明](agent_status/README.md) | `status` | `active` | `agent_status` | 7 | 完整 |
-| [Project P3 Agent Responsibility Routing Refactor Implementation Plan](docs/superpowers/plans/2026-07-17-agents-routing-refactor.md) | `plan` | `historical` | `agent_workflow` | 1 | 完整 |
-| [Agent 状态页与 Role 阅读范围优化实施计划](docs/superpowers/plans/2026-07-18-agent-status-and-role-disclosure.md) | `plan` | `draft` | `agent_workflow` | 0 | 完整 |
-| [Project P3 Role Vocabulary and Knowledge Index Implementation Plan](docs/superpowers/plans/2026-07-18-role-vocabulary-and-index.md) | `plan` | `historical` | `agent_workflow` | 1 | 完整 |
-| [Project P3 AGENTS 职责路由重构设计](docs/superpowers/specs/2026-07-17-agents-routing-refactor-design.md) | `design` | `historical` | `agent_workflow` | 1 | 完整 |
-| [Agent 状态页与 Role 阅读范围优化设计](docs/superpowers/specs/2026-07-18-agent-status-and-role-disclosure-design.md) | `design` | `draft` | `agent_workflow` | 0 | 完整 |
-| [Project P3 Role 词表与知识索引归属设计](docs/superpowers/specs/2026-07-18-role-vocabulary-and-index-design.md) | `design` | `historical` | `agent_workflow` | 1 | 完整 |
-| [Agent 工作流与美术流程减负设计](docs/superpowers/specs/2026-10-01-lighter-agent-workflow-design.md) | `design` | `historical` | `agent_workflow` | 5 | 完整 |
+| [Project P3 Agent Responsibility Routing Refactor Implementation Plan](docs/plans/2026-07-17-agents-routing-refactor.md) | `plan` | `historical` | `agent_workflow` | 1 | 完整 |
+| [Agent 状态页与 Role 阅读范围优化实施计划](docs/plans/2026-07-18-agent-status-and-role-disclosure.md) | `plan` | `historical` | `agent_workflow` | 0 | 完整 |
+| [Project P3 Role Vocabulary and Knowledge Index Implementation Plan](docs/plans/2026-07-18-role-vocabulary-and-index.md) | `plan` | `historical` | `agent_workflow` | 1 | 完整 |
+| [Project P3 AGENTS 职责路由重构设计](docs/specs/2026-07-17-agents-routing-refactor-design.md) | `design` | `historical` | `agent_workflow` | 1 | 完整 |
+| [Agent 状态页与 Role 阅读范围优化设计](docs/specs/2026-07-18-agent-status-and-role-disclosure-design.md) | `design` | `historical` | `agent_workflow` | 0 | 完整 |
+| [Project P3 Role 词表与知识索引归属设计](docs/specs/2026-07-18-role-vocabulary-and-index-design.md) | `design` | `historical` | `agent_workflow` | 1 | 完整 |
+| [Agent 工作流与美术流程减负设计](docs/specs/2026-10-01-lighter-agent-workflow-design.md) | `design` | `historical` | `agent_workflow` | 5 | 完整 |
 | [文档维护与新增控制规则](rules/01_文档维护与新增控制规则.md) | `rule` | `active` | `document_governance` | 6 | 完整 |
 | [智能体任务路由与完成协议](rules/02_智能体任务路由与完成协议.md) | `rule` | `active` | `agent_workflow` | 11 | 完整 |
 | [全局 Agent Rules 入口](rules/README.md) | `entry` | `active` | `agent_rules` | 5 | 完整 |
@@ -356,8 +356,8 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [Agent 路由 P0 治理加固实施计划](docs/superpowers/plans/2026-07-18-agent-routing-p0-hardening.md) | `plan` | `draft` | `agent_workflow` | 0 | 完整 |
-| [Agent 路由 P0 治理加固设计](docs/superpowers/specs/2026-07-18-agent-routing-p0-hardening-design.md) | `design` | `draft` | `agent_workflow` | 0 | 完整 |
+| [Agent 路由 P0 治理加固实施计划](docs/plans/2026-07-18-agent-routing-p0-hardening.md) | `plan` | `historical` | `agent_workflow` | 0 | 完整 |
+| [Agent 路由 P0 治理加固设计](docs/specs/2026-07-18-agent-routing-p0-hardening-design.md) | `design` | `historical` | `agent_workflow` | 0 | 完整 |
 | [知识库规范](知识库/README.md) | `kb` | `active` | `knowledge_base` | 13 | 完整 |
 
 ### 程序
@@ -365,10 +365,10 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
 | [程序 / Unity 状态](agent_status/program.md) | `status` | `active` | `unity_programming` | 20 | 完整 |
-| [AI 图片网关透明流式模式实施计划](docs/superpowers/plans/2026-07-18-ai-image-gateway-transparent-streaming.md) | `plan` | `draft` | `ai_image_gateway` | 0 | 完整 |
-| [P3 MCP 参数 Schema 实现计划](docs/superpowers/plans/2026-08-02-p3-mcp-parameter-schema.md) | `plan` | `implemented` | `mcp_validation` | 1 | 完整 |
-| [AI 图片网关透明流式模式设计](docs/superpowers/specs/2026-07-18-ai-image-gateway-transparent-streaming-design.md) | `design` | `implemented` | `ai_image_gateway` | 0 | 完整 |
-| [P3 MCP 参数 Schema 设计](docs/superpowers/specs/2026-08-02-p3-mcp-parameter-schema-design.md) | `design` | `implemented` | `mcp_validation` | 1 | 完整 |
+| [AI 图片网关透明流式模式实施计划](docs/plans/2026-07-18-ai-image-gateway-transparent-streaming.md) | `plan` | `historical` | `ai_image_gateway` | 0 | 完整 |
+| [P3 MCP 参数 Schema 实现计划](docs/plans/2026-08-02-p3-mcp-parameter-schema.md) | `plan` | `historical` | `mcp_validation` | 1 | 完整 |
+| [AI 图片网关透明流式模式设计](docs/specs/2026-07-18-ai-image-gateway-transparent-streaming-design.md) | `design` | `historical` | `ai_image_gateway` | 0 | 完整 |
+| [P3 MCP 参数 Schema 设计](docs/specs/2026-08-02-p3-mcp-parameter-schema-design.md) | `design` | `historical` | `mcp_validation` | 1 | 完整 |
 | [Config Tools](tools/config/README.md) | `tool` | `active` | `config_tooling` | 5 | 完整 |
 | [程序开发大纲与系统索引](开发文档/00_程序开发大纲.md) | `dev` | `active` | `program_architecture` | 23 | 完整 |
 | [核心数据容器系统 (Core Data System)](开发文档/01_核心数据与实体容器(CoreData).md) | `dev` | `active` | `core_data` | 10 | 完整 |
@@ -510,18 +510,18 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
 | [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 30 | 完整 |
-| [Approved 到 Unity 导入与 Registry 登记自动化实施计划](docs/superpowers/plans/2026-07-18-art-approved-unity-registry-automation.md) | `plan` | `active` | `art_asset_integration` | 0 | 完整 |
-| [GIF 小循环人物替换实现计划](docs/superpowers/plans/2026-07-18-gif-character-replacement.md) | `plan` | `planned` | `gif_character_replacement` | 1 | 完整 |
-| [Art Runtime Validated State Implementation Plan](docs/superpowers/plans/2026-07-19-art-runtime-validated-state.md) | `plan` | `historical` | `runtime_art_validation` | 0 | 完整 |
-| [Formal V2 Replacement And UI Skin Implementation Plan](docs/superpowers/plans/2026-07-19-formal-v2-replacement-and-ui-skin.md) | `plan` | `historical` | `art_pipeline` | 0 | 完整 |
-| [Character Portrait Reference And Background Processing Implementation Plan](docs/superpowers/plans/2026-07-26-character-portrait-reference-and-background-processing.md) | `plan` | `historical` | `character_portrait_production` | 0 | 完整 |
-| [Art Catalog Integrity Implementation Plan](docs/superpowers/plans/2026-08-02-art-catalog-integrity.md) | `plan` | `historical` | `art_pipeline` | 0 | 完整 |
-| [Character Portrait Replacement and Set Gates Implementation Plan](docs/superpowers/plans/2026-08-02-character-portrait-replacement-and-set-gates.md) | `plan` | `historical` | `character_portrait_production` | 0 | 完整 |
-| [Approved 到 Unity 导入与 Registry 登记自动化设计](docs/superpowers/specs/2026-07-18-art-approved-unity-registry-automation-design.md) | `design` | `active` | `art_asset_integration` | 0 | 完整 |
-| [美术资产统一数字轮次加工与安全背景处理设计](docs/superpowers/specs/2026-07-18-unified-art-processing-rounds-design.md) | `design` | `active` | `art_asset_processing` | 0 | 完整 |
-| [零号对话中性立绘首轮流程试跑设计](docs/superpowers/specs/2026-07-18-zero-dialogue-neutral-character-portrait-pilot-design.md) | `design` | `active` | `character_portrait_production` | 0 | 完整 |
-| [美术素材 Runtime Validated 状态收敛设计](docs/superpowers/specs/2026-07-19-art-runtime-validated-state-design.md) | `design` | `active` | `runtime_art_validation` | 0 | 完整 |
-| [角色立绘参考资产解析与背景处理能力设计](docs/superpowers/specs/2026-07-26-character-portrait-reference-and-background-processing-design.md) | `design` | `active` | `character_portrait_production` | 0 | 完整 |
+| [Approved 到 Unity 导入与 Registry 登记自动化实施计划](docs/plans/2026-07-18-art-approved-unity-registry-automation.md) | `plan` | `historical` | `art_asset_integration` | 0 | 完整 |
+| [GIF 小循环人物替换实现计划](docs/plans/2026-07-18-gif-character-replacement.md) | `plan` | `historical` | `gif_character_replacement` | 1 | 完整 |
+| [Art Runtime Validated State Implementation Plan](docs/plans/2026-07-19-art-runtime-validated-state.md) | `plan` | `historical` | `runtime_art_validation` | 0 | 完整 |
+| [Formal V2 Replacement And UI Skin Implementation Plan](docs/plans/2026-07-19-formal-v2-replacement-and-ui-skin.md) | `plan` | `historical` | `art_pipeline` | 0 | 完整 |
+| [Character Portrait Reference And Background Processing Implementation Plan](docs/plans/2026-07-26-character-portrait-reference-and-background-processing.md) | `plan` | `historical` | `character_portrait_production` | 0 | 完整 |
+| [Art Catalog Integrity Implementation Plan](docs/plans/2026-08-02-art-catalog-integrity.md) | `plan` | `historical` | `art_pipeline` | 0 | 完整 |
+| [Character Portrait Replacement and Set Gates Implementation Plan](docs/plans/2026-08-02-character-portrait-replacement-and-set-gates.md) | `plan` | `historical` | `character_portrait_production` | 0 | 完整 |
+| [Approved 到 Unity 导入与 Registry 登记自动化设计](docs/specs/2026-07-18-art-approved-unity-registry-automation-design.md) | `design` | `historical` | `art_asset_integration` | 0 | 完整 |
+| [美术资产统一数字轮次加工与安全背景处理设计](docs/specs/2026-07-18-unified-art-processing-rounds-design.md) | `design` | `historical` | `art_asset_processing` | 0 | 完整 |
+| [零号对话中性立绘首轮流程试跑设计](docs/specs/2026-07-18-zero-dialogue-neutral-character-portrait-pilot-design.md) | `design` | `historical` | `character_portrait_production` | 0 | 完整 |
+| [美术素材 Runtime Validated 状态收敛设计](docs/specs/2026-07-19-art-runtime-validated-state-design.md) | `design` | `historical` | `runtime_art_validation` | 0 | 完整 |
+| [角色立绘参考资产解析与背景处理能力设计](docs/specs/2026-07-26-character-portrait-reference-and-background-processing-design.md) | `design` | `historical` | `character_portrait_production` | 0 | 完整 |
 | [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 13 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 18 | 完整 |

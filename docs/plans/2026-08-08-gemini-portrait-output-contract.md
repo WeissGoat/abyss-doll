@@ -7,14 +7,12 @@ domain: ai_image_gateway_art_pipeline
 status: active
 source_of_truth: false
 related:
-  - docs/superpowers/specs/2026-08-08-gemini-portrait-output-contract-design.md
+  - docs/specs/2026-08-08-gemini-portrait-output-contract-design.md
 last_verified: 2026-08-08
 update_rule: 实施文件、测试、真实 smoke、PromptRevision 或 Zero hurt 修复步骤变化时更新本计划。
 ---
 
 # Gemini Portrait Output Contract Implementation Plan
-
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Move Gemini portrait aspect ratio out of Prompt text into provider-specific request parameters, publish a green-matte `prompt-003`, and safely rerun `doll_zero_hurt` through existing segmentation and replacement gates.
 

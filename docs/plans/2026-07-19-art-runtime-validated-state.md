@@ -14,8 +14,6 @@ update_rule: 历史实施计划，不再更新；现行事实以 p3-art-validati
 
 > 历史计划：已于 2026-07-26 实施（`60d7a3b`）。现行事实以 `.codex/skills/p3-art-validation/SKILL.md` 与 `开发文档/19_UnityMCP验收编排层设计.md` 为准。
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task with verification checkpoints.
-
 **Goal:** Implement the approved public state transition `registered -> runtime_validated` inside the existing P3 art validation flow, with binding, display, console, and Agent review retained as internal ArtRun checks.
 
 **Architecture:** Extend the existing `P3.Validation.ArtValidationOrchestrator` session rather than adding a second runtime status store. Live inspection derives actual Sprite path/GUID/VisualID from registered UGUI nodes; a new explicit review/finalize action validates all checks and writes one ArtRun runtime-validation evidence file with `claim=runtime_validated`. No Manifest runtime status or automatic code/Prefab mutation is added.

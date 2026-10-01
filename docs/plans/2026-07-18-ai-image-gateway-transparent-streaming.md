@@ -4,15 +4,15 @@ title: AI 图片网关透明流式模式实施计划
 type: plan
 role: 程序
 domain: ai_image_gateway
-status: draft
+status: historical
 source_of_truth: false
-last_verified: 2026-07-18
-update_rule: 实施任务、接口签名、验证命令或子模块提交边界变化时更新本计划。
+last_verified: 2026-10-01
+update_rule: 历史计划记录，不再更新；现行事实以 美术文档/05_AI图片网关接入方案.md 与子模块 tools/ai-image-gateway 为准。
 ---
 
 # AI 图片网关透明流式模式 Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans or superpowers:subagent-driven-development to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> 历史计划：已于 2026-07-18 实施（`895bc46`、`6169644`）。现行事实以 `美术文档/05_AI图片网关接入方案.md` 与子模块 `tools/ai-image-gateway` 为准。
 
 **Goal:** 为 OpenAI-compatible chat image provider 增加对调用方透明的真实 SSE 增量读取，在保持 `ImageService` 公开接口兼容的前提下支持长耗时 Gemini 文生图和图生图请求。
 
@@ -753,7 +753,7 @@ git commit -m "feat: add streaming chat image smoke"
 - Modify: `tools/ai-image-gateway/README.md`
 - Modify: `tools/ai-image-gateway/docs/openai_compatible_relay_integration.md`
 - Modify: `agent_status/art.md` only if real stream evidence changes current GIF/provider limitation
-- Modify: `docs/superpowers/specs/2026-07-18-ai-image-gateway-transparent-streaming-design.md`
+- Modify: `docs/specs/2026-07-18-ai-image-gateway-transparent-streaming-design.md`
 - Modify: `DOCS_INDEX.md`
 - Modify: `docs_index.json`
 - Modify: parent submodule pointer `tools/ai-image-gateway`
@@ -883,7 +883,7 @@ git status --short
 
 ```text
 tools/ai-image-gateway
-docs/superpowers/specs/2026-07-18-ai-image-gateway-transparent-streaming-design.md
+docs/specs/2026-07-18-ai-image-gateway-transparent-streaming-design.md
 agent_status/art.md（仅有本任务回写时）
 DOCS_INDEX.md
 docs_index.json

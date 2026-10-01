@@ -7,7 +7,7 @@ domain: agent_workflow
 status: historical
 source_of_truth: false
 related:
-  - docs/superpowers/plans/2026-07-18-role-vocabulary-and-index.md
+  - docs/plans/2026-07-18-role-vocabulary-and-index.md
 last_verified: 2026-10-01
 update_rule: 历史设计记录，不再更新；现行 Role 词表以 AGENTS.md 与 知识库/README.md 为准。
 ---

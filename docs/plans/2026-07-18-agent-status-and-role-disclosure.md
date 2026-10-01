@@ -4,15 +4,15 @@ title: Agent 状态页与 Role 阅读范围优化实施计划
 type: plan
 role: 全局
 domain: agent_workflow
-status: draft
+status: historical
 source_of_truth: false
-last_verified: 2026-07-18
-update_rule: 本计划的实施范围或验证命令变化时更新。
+last_verified: 2026-10-01
+update_rule: 历史计划记录，不再更新；现行事实以 agent_status/README.md 与 知识库/views/*.md 为准。
 ---
 
 # Agent 状态页与 Role 阅读范围优化 Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans or superpowers:subagent-driven-development to implement this plan task-by-task.
+> 历史计划：已于 2026-07-18 实施（`5045175`）。现行事实以 `agent_status/README.md` 与 `知识库/views/*.md` 为准。
 
 **Goal:** 压缩 active Agent 状态页的历史噪声，并为全部 active Role 建立明确的必读、条件读取和追溯读取范围。
 

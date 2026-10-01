@@ -4,15 +4,15 @@ title: Agent 路由 P0 治理加固实施计划
 type: plan
 role: 知识库
 domain: agent_workflow
-status: draft
+status: historical
 source_of_truth: false
-last_verified: 2026-07-18
-update_rule: P0 实施文件、校验阈值或验证命令变化时更新本计划。
+last_verified: 2026-10-01
+update_rule: 历史计划记录，不再更新；现行事实以 AGENTS.md、rules/02_智能体任务路由与完成协议.md 与 tools/docs/validate_docs.py 为准。
 ---
 
 # Agent Routing P0 Hardening Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> 历史计划：已于 2026-07-18 实施（`23847c6`）。现行事实以 `AGENTS.md`、`rules/02_智能体任务路由与完成协议.md` 与 `tools/docs/validate_docs.py` 为准。
 
 **Goal:** 压缩项目级状态入口、自动阻止状态 / View 结构退化，并清零现有文档元数据缺口。
 
@@ -91,8 +91,8 @@ update_rule: P0 实施文件、校验阈值或验证命令变化时更新本计�
 ### Task 3: 补齐两份计划文档元数据
 
 **Files:**
-- Modify: `docs/superpowers/plans/2026-07-18-unified-art-processing-rounds.md`
-- Modify: `docs/superpowers/plans/2026-07-18-zero-dialogue-neutral-character-portrait-pilot.md`
+- Modify: `docs/plans/2026-07-18-unified-art-processing-rounds.md`
+- Modify: `docs/plans/2026-07-18-zero-dialogue-neutral-character-portrait-pilot.md`
 
 - [ ] **Step 1: 添加 YAML front matter**
 

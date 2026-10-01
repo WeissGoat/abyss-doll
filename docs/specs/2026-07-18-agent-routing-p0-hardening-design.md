@@ -4,13 +4,15 @@ title: Agent 路由 P0 治理加固设计
 type: design
 role: 知识库
 domain: agent_workflow
-status: draft
+status: historical
 source_of_truth: false
-last_verified: 2026-07-18
-update_rule: PROJECT_STATUS 快照边界、状态 / View 校验规则或元数据补齐范围变化时更新本设计。
+last_verified: 2026-10-01
+update_rule: 历史设计记录，不再更新；现行事实以 AGENTS.md、rules/02_智能体任务路由与完成协议.md 与 tools/docs/validate_docs.py 为准。
 ---
 
 # Agent 路由 P0 治理加固设计
+
+> 历史设计：已于 2026-07-18 实施（`23847c6`）。现行事实以 `AGENTS.md`、`rules/02_智能体任务路由与完成协议.md` 与 `tools/docs/validate_docs.py` 为准。
 
 ## 目标
 
@@ -107,8 +109,8 @@ update_rule: PROJECT_STATUS 快照边界、状态 / View 校验规则或元数�
 
 以下文件只增加 YAML front matter，不修改实施计划正文：
 
-- `docs/superpowers/plans/2026-07-18-unified-art-processing-rounds.md`
-- `docs/superpowers/plans/2026-07-18-zero-dialogue-neutral-character-portrait-pilot.md`
+- `docs/plans/2026-07-18-unified-art-processing-rounds.md`
+- `docs/plans/2026-07-18-zero-dialogue-neutral-character-portrait-pilot.md`
 
 两者使用 `type: plan`、`role: 美术`、`status: active`、`source_of_truth: false`，分别使用独立稳定 ID 和现有主题 domain。
 

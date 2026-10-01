@@ -7,7 +7,7 @@ domain: agent_workflow
 status: historical
 source_of_truth: false
 related:
-  - docs/superpowers/specs/2026-07-18-role-vocabulary-and-index-design.md
+  - docs/specs/2026-07-18-role-vocabulary-and-index-design.md
 last_verified: 2026-10-01
 update_rule: 历史实施计划，不再更新；现行 Role 词表以 AGENTS.md 与 知识库/README.md 为准。
 ---
@@ -15,8 +15,6 @@ update_rule: 历史实施计划，不再更新；现行 Role 词表以 AGENTS.md
 # Project P3 Role Vocabulary and Knowledge Index Implementation Plan
 
 > 历史计划：已于 2026-07-18 执行（`f3c1865`）。现行 Role 词表以 `AGENTS.md` 与 `知识库/README.md` 为准。
-
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** 将 Owner、剧情、策划、程序、美术等 Role 概念统一到根路由、active 文档元数据和知识索引，并自动阻止旧 Role 重新进入 active 文档。
 

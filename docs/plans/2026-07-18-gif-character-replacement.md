@@ -4,17 +4,17 @@ title: GIF 小循环人物替换实现计划
 type: plan
 role: 美术
 domain: gif_character_replacement
-status: planned
+status: historical
 source_of_truth: false
 related:
   - 美术文档/20_GIF小循环人物替换工作流.md
-last_verified: 2026-07-18
-update_rule: 修改 GIF 人物替换实现文件结构、接口、任务顺序、测试命令、提交边界或验证口径时同步本文件。
+last_verified: 2026-10-01
+update_rule: 历史计划记录，不再更新；现行事实以 美术文档/20_GIF小循环人物替换工作流.md 为准。
 ---
 
 # GIF Character Replacement Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> 历史计划：已于 2026-07-18 实施（`5da0191`，2026-07-26 稳定化 `3ad1239`）。现行事实以 `美术文档/20_GIF小循环人物替换工作流.md` 为准。
 
 **Goal:** Build a resumable Project P3 art tool that accepts an 8-30 frame GIF, required character/style text, and zero or more references, replaces the character independently in every frame through the existing image gateway, reviews risks, and re-encodes the original timeline.
 

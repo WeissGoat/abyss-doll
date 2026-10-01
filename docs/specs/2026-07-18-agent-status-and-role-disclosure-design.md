@@ -4,13 +4,15 @@ title: Agent 状态页与 Role 阅读范围优化设计
 type: design
 role: 全局
 domain: agent_workflow
-status: draft
+status: historical
 source_of_truth: false
-last_verified: 2026-07-18
-update_rule: 状态页压缩边界、Role 阅读层级或本轮实施范围变化时更新本设计。
+last_verified: 2026-10-01
+update_rule: 历史设计记录，不再更新；现行事实以 agent_status/README.md 与 知识库/views/*.md 为准。
 ---
 
 # Agent 状态页与 Role 阅读范围优化设计
+
+> 历史设计：已于 2026-07-18 实施（`5045175`）。现行事实以 `agent_status/README.md` 与 `知识库/views/*.md` 为准。
 
 ## 目标
 

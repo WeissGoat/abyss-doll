@@ -4,14 +4,16 @@ title: 美术资产统一数字轮次加工与安全背景处理设计
 type: design
 role: 美术
 domain: art_asset_processing
-status: active
+status: historical
 source_of_truth: false
 related: []
-last_verified: 2026-07-18
-update_rule: 修改 processed 数字轮次结构、背景处理策略、候选解析优先级、Approved fallback、迁移或技术门禁时更新本文档。
+last_verified: 2026-10-01
+update_rule: 历史设计记录，不再更新；现行事实以 美术文档/00_美术流水线总览.md 与 p3-art-asset-production 的 references/candidate-evaluation.md 为准。
 ---
 
 # 美术资产统一数字轮次加工与安全背景处理设计
+
+> 历史设计：已于 2026-07-18 实施（`26f6be2`、`4592221`、`5950592`、`5646064`）。现行事实以 `美术文档/00_美术流水线总览.md` 与 `p3-art-asset-production` 的 `references/candidate-evaluation.md` 为准。
 
 ## 1. 背景与问题
 

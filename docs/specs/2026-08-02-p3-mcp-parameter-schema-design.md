@@ -4,15 +4,17 @@ title: P3 MCP 参数 Schema 设计
 type: design
 role: 程序
 domain: mcp_validation
-status: implemented
+status: historical
 source_of_truth: false
 related:
-  - docs/superpowers/plans/2026-08-02-p3-mcp-parameter-schema.md
-last_verified: 2026-08-02
-update_rule: MCP 工具发现契约变化时同步更新，并通过 P3 MCP Schema Smoke 验证。
+  - docs/plans/2026-08-02-p3-mcp-parameter-schema.md
+last_verified: 2026-10-01
+update_rule: 历史设计记录，不再更新；现行事实以 开发文档/19_UnityMCP验收编排层设计.md 与 P3ValidationCore 工具代码 为准。
 ---
 
 # P3 MCP Parameter Schema Design
+
+> 历史设计：已于 2026-08-02 实施（`9133477`）。现行事实以 `开发文档/19_UnityMCP验收编排层设计.md` 与 `P3ValidationCore` 工具代码 为准。
 
 ## Goal
 

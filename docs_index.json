@@ -528,7 +528,7 @@
         "agent_status/README.md",
         "agent_status/director.md",
         "agent_status/pm.md",
-        "docs/superpowers/specs/2026-10-01-lighter-agent-workflow-design.md",
+        "docs/specs/2026-10-01-lighter-agent-workflow-design.md",
         "rules/01_文档维护与新增控制规则.md",
         "rules/02_智能体任务路由与完成协议.md",
         "rules/README.md",
@@ -552,7 +552,7 @@
       "cross_role_relation_count": 15
     },
     {
-      "path": "docs/superpowers/plans/2026-07-17-agents-routing-refactor.md",
+      "path": "docs/plans/2026-07-17-agents-routing-refactor.md",
       "title": "Project P3 Agent Responsibility Routing Refactor Implementation Plan",
       "id": "agents_routing_refactor_plan",
       "type": "plan",
@@ -561,30 +561,30 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "docs/superpowers/specs/2026-07-17-agents-routing-refactor-design.md"
+        "docs/specs/2026-07-17-agents-routing-refactor-design.md"
       ],
       "last_verified": "2026-10-01",
       "update_rule": "历史实施计划，不再更新；现行规则以 AGENTS.md 与 rules/02 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [
-        "docs/superpowers/specs/2026-07-17-agents-routing-refactor-design.md"
+        "docs/specs/2026-07-17-agents-routing-refactor-design.md"
       ],
       "relation_count": 1,
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/plans/2026-07-18-agent-routing-p0-hardening.md",
+      "path": "docs/plans/2026-07-18-agent-routing-p0-hardening.md",
       "title": "Agent 路由 P0 治理加固实施计划",
       "id": "agent_routing_p0_hardening_plan",
       "type": "plan",
       "role": "知识库",
       "domain": "agent_workflow",
-      "status": "draft",
+      "status": "historical",
       "source_of_truth": false,
       "related": [],
-      "last_verified": "2026-07-18",
-      "update_rule": "P0 实施文件、校验阈值或验证命令变化时更新本计划。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史计划记录，不再更新；现行事实以 AGENTS.md、rules/02_智能体任务路由与完成协议.md 与 tools/docs/validate_docs.py 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [],
@@ -592,17 +592,17 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/plans/2026-07-18-agent-status-and-role-disclosure.md",
+      "path": "docs/plans/2026-07-18-agent-status-and-role-disclosure.md",
       "title": "Agent 状态页与 Role 阅读范围优化实施计划",
       "id": "agent_status_and_role_disclosure_plan",
       "type": "plan",
       "role": "全局",
       "domain": "agent_workflow",
-      "status": "draft",
+      "status": "historical",
       "source_of_truth": false,
       "related": [],
-      "last_verified": "2026-07-18",
-      "update_rule": "本计划的实施范围或验证命令变化时更新。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史计划记录，不再更新；现行事实以 agent_status/README.md 与 知识库/views/*.md 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [],
@@ -610,17 +610,17 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/plans/2026-07-18-ai-image-gateway-transparent-streaming.md",
+      "path": "docs/plans/2026-07-18-ai-image-gateway-transparent-streaming.md",
       "title": "AI 图片网关透明流式模式实施计划",
       "id": "ai_image_gateway_transparent_streaming_plan",
       "type": "plan",
       "role": "程序",
       "domain": "ai_image_gateway",
-      "status": "draft",
+      "status": "historical",
       "source_of_truth": false,
       "related": [],
-      "last_verified": "2026-07-18",
-      "update_rule": "实施任务、接口签名、验证命令或子模块提交边界变化时更新本计划。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史计划记录，不再更新；现行事实以 美术文档/05_AI图片网关接入方案.md 与子模块 tools/ai-image-gateway 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [],
@@ -628,17 +628,17 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/plans/2026-07-18-art-approved-unity-registry-automation.md",
+      "path": "docs/plans/2026-07-18-art-approved-unity-registry-automation.md",
       "title": "Approved 到 Unity 导入与 Registry 登记自动化实施计划",
       "id": "plan_art_approved_unity_registry_automation",
       "type": "plan",
       "role": "美术",
       "domain": "art_asset_integration",
-      "status": "active",
+      "status": "historical",
       "source_of_truth": false,
       "related": [],
-      "last_verified": "2026-07-18",
-      "update_rule": "修改 Approved 接入编排实现范围、文件结构、测试命令、Unity MCP 试点或完成口径时更新本文档。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史计划记录，不再更新；现行事实以 美术文档/00_美术流水线总览.md 与 p3-art-asset-production 的 references/approved-and-unity.md 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [],
@@ -646,19 +646,19 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/plans/2026-07-18-gif-character-replacement.md",
+      "path": "docs/plans/2026-07-18-gif-character-replacement.md",
       "title": "GIF 小循环人物替换实现计划",
       "id": "plan_gif_character_replacement_implementation",
       "type": "plan",
       "role": "美术",
       "domain": "gif_character_replacement",
-      "status": "planned",
+      "status": "historical",
       "source_of_truth": false,
       "related": [
         "美术文档/20_GIF小循环人物替换工作流.md"
       ],
-      "last_verified": "2026-07-18",
-      "update_rule": "修改 GIF 人物替换实现文件结构、接口、任务顺序、测试命令、提交边界或验证口径时同步本文件。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史计划记录，不再更新；现行事实以 美术文档/20_GIF小循环人物替换工作流.md 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [
@@ -668,7 +668,7 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/plans/2026-07-18-role-vocabulary-and-index.md",
+      "path": "docs/plans/2026-07-18-role-vocabulary-and-index.md",
       "title": "Project P3 Role Vocabulary and Knowledge Index Implementation Plan",
       "id": "role_vocabulary_and_index_plan",
       "type": "plan",
@@ -677,20 +677,20 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "docs/superpowers/specs/2026-07-18-role-vocabulary-and-index-design.md"
+        "docs/specs/2026-07-18-role-vocabulary-and-index-design.md"
       ],
       "last_verified": "2026-10-01",
       "update_rule": "历史实施计划，不再更新；现行 Role 词表以 AGENTS.md 与 知识库/README.md 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [
-        "docs/superpowers/specs/2026-07-18-role-vocabulary-and-index-design.md"
+        "docs/specs/2026-07-18-role-vocabulary-and-index-design.md"
       ],
       "relation_count": 1,
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/plans/2026-07-19-art-runtime-validated-state.md",
+      "path": "docs/plans/2026-07-19-art-runtime-validated-state.md",
       "title": "Art Runtime Validated State Implementation Plan",
       "id": "art_runtime_validated_state_plan",
       "type": "plan",
@@ -708,7 +708,7 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/plans/2026-07-19-formal-v2-replacement-and-ui-skin.md",
+      "path": "docs/plans/2026-07-19-formal-v2-replacement-and-ui-skin.md",
       "title": "Formal V2 Replacement And UI Skin Implementation Plan",
       "id": "formal_v2_replacement_and_ui_skin_plan",
       "type": "plan",
@@ -726,7 +726,7 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/plans/2026-07-26-character-portrait-reference-and-background-processing.md",
+      "path": "docs/plans/2026-07-26-character-portrait-reference-and-background-processing.md",
       "title": "Character Portrait Reference And Background Processing Implementation Plan",
       "id": "character_portrait_reference_and_background_processing_plan",
       "type": "plan",
@@ -744,7 +744,7 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/plans/2026-08-02-art-catalog-integrity.md",
+      "path": "docs/plans/2026-08-02-art-catalog-integrity.md",
       "title": "Art Catalog Integrity Implementation Plan",
       "id": "art_catalog_integrity_plan",
       "type": "plan",
@@ -762,7 +762,7 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/plans/2026-08-02-character-portrait-replacement-and-set-gates.md",
+      "path": "docs/plans/2026-08-02-character-portrait-replacement-and-set-gates.md",
       "title": "Character Portrait Replacement and Set Gates Implementation Plan",
       "id": "character_portrait_replacement_and_set_gates_plan",
       "type": "plan",
@@ -780,29 +780,29 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/plans/2026-08-02-p3-mcp-parameter-schema.md",
+      "path": "docs/plans/2026-08-02-p3-mcp-parameter-schema.md",
       "title": "P3 MCP 参数 Schema 实现计划",
       "id": "p3_mcp_parameter_schema_plan",
       "type": "plan",
       "role": "程序",
       "domain": "mcp_validation",
-      "status": "implemented",
+      "status": "historical",
       "source_of_truth": false,
       "related": [
-        "docs/superpowers/specs/2026-08-02-p3-mcp-parameter-schema-design.md"
+        "docs/specs/2026-08-02-p3-mcp-parameter-schema-design.md"
       ],
-      "last_verified": "2026-08-02",
-      "update_rule": "实现范围或验证口径变化时同步更新。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史计划记录，不再更新；现行事实以 开发文档/19_UnityMCP验收编排层设计.md 与 P3ValidationCore 工具代码 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [
-        "docs/superpowers/specs/2026-08-02-p3-mcp-parameter-schema-design.md"
+        "docs/specs/2026-08-02-p3-mcp-parameter-schema-design.md"
       ],
       "relation_count": 1,
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/plans/2026-08-08-gemini-portrait-output-contract.md",
+      "path": "docs/plans/2026-08-08-gemini-portrait-output-contract.md",
       "title": "Gemini 角色立绘输出契约实施计划",
       "id": "gemini_portrait_output_contract_plan",
       "type": "plan",
@@ -811,20 +811,20 @@
       "status": "active",
       "source_of_truth": false,
       "related": [
-        "docs/superpowers/specs/2026-08-08-gemini-portrait-output-contract-design.md"
+        "docs/specs/2026-08-08-gemini-portrait-output-contract-design.md"
       ],
       "last_verified": "2026-08-08",
       "update_rule": "实施文件、测试、真实 smoke、PromptRevision 或 Zero hurt 修复步骤变化时更新本计划。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [
-        "docs/superpowers/specs/2026-08-08-gemini-portrait-output-contract-design.md"
+        "docs/specs/2026-08-08-gemini-portrait-output-contract-design.md"
       ],
       "relation_count": 1,
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/specs/2026-07-17-agents-routing-refactor-design.md",
+      "path": "docs/specs/2026-07-17-agents-routing-refactor-design.md",
       "title": "Project P3 AGENTS 职责路由重构设计",
       "id": "agents_routing_refactor_design",
       "type": "design",
@@ -833,30 +833,30 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "docs/superpowers/plans/2026-07-17-agents-routing-refactor.md"
+        "docs/plans/2026-07-17-agents-routing-refactor.md"
       ],
       "last_verified": "2026-10-01",
       "update_rule": "历史设计记录，不再更新；现行规则以 AGENTS.md 与 rules/02 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [
-        "docs/superpowers/plans/2026-07-17-agents-routing-refactor.md"
+        "docs/plans/2026-07-17-agents-routing-refactor.md"
       ],
       "relation_count": 1,
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/specs/2026-07-18-agent-routing-p0-hardening-design.md",
+      "path": "docs/specs/2026-07-18-agent-routing-p0-hardening-design.md",
       "title": "Agent 路由 P0 治理加固设计",
       "id": "agent_routing_p0_hardening_design",
       "type": "design",
       "role": "知识库",
       "domain": "agent_workflow",
-      "status": "draft",
+      "status": "historical",
       "source_of_truth": false,
       "related": [],
-      "last_verified": "2026-07-18",
-      "update_rule": "PROJECT_STATUS 快照边界、状态 / View 校验规则或元数据补齐范围变化时更新本设计。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史设计记录，不再更新；现行事实以 AGENTS.md、rules/02_智能体任务路由与完成协议.md 与 tools/docs/validate_docs.py 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [],
@@ -864,17 +864,17 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/specs/2026-07-18-agent-status-and-role-disclosure-design.md",
+      "path": "docs/specs/2026-07-18-agent-status-and-role-disclosure-design.md",
       "title": "Agent 状态页与 Role 阅读范围优化设计",
       "id": "agent_status_and_role_disclosure_design",
       "type": "design",
       "role": "全局",
       "domain": "agent_workflow",
-      "status": "draft",
+      "status": "historical",
       "source_of_truth": false,
       "related": [],
-      "last_verified": "2026-07-18",
-      "update_rule": "状态页压缩边界、Role 阅读层级或本轮实施范围变化时更新本设计。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史设计记录，不再更新；现行事实以 agent_status/README.md 与 知识库/views/*.md 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [],
@@ -882,17 +882,17 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/specs/2026-07-18-ai-image-gateway-transparent-streaming-design.md",
+      "path": "docs/specs/2026-07-18-ai-image-gateway-transparent-streaming-design.md",
       "title": "AI 图片网关透明流式模式设计",
       "id": "ai_image_gateway_transparent_streaming_design",
       "type": "design",
       "role": "程序",
       "domain": "ai_image_gateway",
-      "status": "implemented",
+      "status": "historical",
       "source_of_truth": false,
       "related": [],
-      "last_verified": "2026-07-18",
-      "update_rule": "透明流式接口、SSE 解析、fallback、错误语义、证据字段或验收范围变化时更新本设计。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史设计记录，不再更新；现行事实以 美术文档/05_AI图片网关接入方案.md 与子模块 tools/ai-image-gateway 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [],
@@ -900,17 +900,17 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/specs/2026-07-18-art-approved-unity-registry-automation-design.md",
+      "path": "docs/specs/2026-07-18-art-approved-unity-registry-automation-design.md",
       "title": "Approved 到 Unity 导入与 Registry 登记自动化设计",
       "id": "spec_art_approved_unity_registry_automation",
       "type": "design",
       "role": "美术",
       "domain": "art_asset_integration",
-      "status": "active",
+      "status": "historical",
       "source_of_truth": false,
       "related": [],
-      "last_verified": "2026-07-18",
-      "update_rule": "修改 Approved 同步、Unity 导入事实、Registry 登记、MCP 工具组策略、接入证据或 registered 完成口径时更新本文档。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史设计记录，不再更新；现行事实以 美术文档/00_美术流水线总览.md 与 p3-art-asset-production 的 references/approved-and-unity.md 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [],
@@ -918,7 +918,7 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/specs/2026-07-18-role-vocabulary-and-index-design.md",
+      "path": "docs/specs/2026-07-18-role-vocabulary-and-index-design.md",
       "title": "Project P3 Role 词表与知识索引归属设计",
       "id": "role_vocabulary_and_index_design",
       "type": "design",
@@ -927,30 +927,30 @@
       "status": "historical",
       "source_of_truth": false,
       "related": [
-        "docs/superpowers/plans/2026-07-18-role-vocabulary-and-index.md"
+        "docs/plans/2026-07-18-role-vocabulary-and-index.md"
       ],
       "last_verified": "2026-10-01",
       "update_rule": "历史设计记录，不再更新；现行 Role 词表以 AGENTS.md 与 知识库/README.md 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [
-        "docs/superpowers/plans/2026-07-18-role-vocabulary-and-index.md"
+        "docs/plans/2026-07-18-role-vocabulary-and-index.md"
       ],
       "relation_count": 1,
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/specs/2026-07-18-unified-art-processing-rounds-design.md",
+      "path": "docs/specs/2026-07-18-unified-art-processing-rounds-design.md",
       "title": "美术资产统一数字轮次加工与安全背景处理设计",
       "id": "spec_unified_art_processing_rounds",
       "type": "design",
       "role": "美术",
       "domain": "art_asset_processing",
-      "status": "active",
+      "status": "historical",
       "source_of_truth": false,
       "related": [],
-      "last_verified": "2026-07-18",
-      "update_rule": "修改 processed 数字轮次结构、背景处理策略、候选解析优先级、Approved fallback、迁移或技术门禁时更新本文档。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史设计记录，不再更新；现行事实以 美术文档/00_美术流水线总览.md 与 p3-art-asset-production 的 references/candidate-evaluation.md 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [],
@@ -958,17 +958,17 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/specs/2026-07-18-zero-dialogue-neutral-character-portrait-pilot-design.md",
+      "path": "docs/specs/2026-07-18-zero-dialogue-neutral-character-portrait-pilot-design.md",
       "title": "零号对话中性立绘首轮流程试跑设计",
       "id": "spec_zero_dialogue_neutral_character_portrait_pilot",
       "type": "design",
       "role": "美术",
       "domain": "character_portrait_production",
-      "status": "active",
+      "status": "historical",
       "source_of_truth": false,
       "related": [],
-      "last_verified": "2026-07-18",
-      "update_rule": "首轮角色立绘试跑的 Asset Contract、生产边界、候选来源、门禁结果或后续接入授权变化时更新本文档。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史试跑设计记录，不再更新；现行事实以 美术文档/00_美术流水线总览.md 与 p3-art-asset-production 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [],
@@ -976,17 +976,17 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/specs/2026-07-19-art-runtime-validated-state-design.md",
+      "path": "docs/specs/2026-07-19-art-runtime-validated-state-design.md",
       "title": "美术素材 Runtime Validated 状态收敛设计",
       "id": "spec_art_runtime_validated_state",
       "type": "design",
       "role": "美术",
       "domain": "runtime_art_validation",
-      "status": "active",
+      "status": "historical",
       "source_of_truth": false,
       "related": [],
-      "last_verified": "2026-07-19",
-      "update_rule": "修改 registered 后的运行时绑定检查、美术验收完成口径、ArtRun 最终 claim、失败路由或用户可见状态时更新本文档。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史设计记录，不再更新；现行事实以 美术文档/00_美术流水线总览.md 与 p3-art-validation 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [],
@@ -994,17 +994,17 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/specs/2026-07-26-character-portrait-reference-and-background-processing-design.md",
+      "path": "docs/specs/2026-07-26-character-portrait-reference-and-background-processing-design.md",
       "title": "角色立绘参考资产解析与背景处理能力设计",
       "id": "spec_character_portrait_reference_and_background_processing",
       "type": "design",
       "role": "美术",
       "domain": "character_portrait_production",
-      "status": "active",
+      "status": "historical",
       "source_of_truth": false,
       "related": [],
-      "last_verified": "2026-07-26",
-      "update_rule": "角色立绘 SourceAssets 解析、参考图传递、背景处理候选、PromptRevision 策略或 cold Pilot 门禁变化时更新本文档。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史设计记录，不再更新；现行事实以 美术文档/00_美术流水线总览.md 与 p3-art-asset-production 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [],
@@ -1012,29 +1012,29 @@
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/specs/2026-08-02-p3-mcp-parameter-schema-design.md",
+      "path": "docs/specs/2026-08-02-p3-mcp-parameter-schema-design.md",
       "title": "P3 MCP 参数 Schema 设计",
       "id": "p3_mcp_parameter_schema_design",
       "type": "design",
       "role": "程序",
       "domain": "mcp_validation",
-      "status": "implemented",
+      "status": "historical",
       "source_of_truth": false,
       "related": [
-        "docs/superpowers/plans/2026-08-02-p3-mcp-parameter-schema.md"
+        "docs/plans/2026-08-02-p3-mcp-parameter-schema.md"
       ],
-      "last_verified": "2026-08-02",
-      "update_rule": "MCP 工具发现契约变化时同步更新，并通过 P3 MCP Schema Smoke 验证。",
+      "last_verified": "2026-10-01",
+      "update_rule": "历史设计记录，不再更新；现行事实以 开发文档/19_UnityMCP验收编排层设计.md 与 P3ValidationCore 工具代码 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [
-        "docs/superpowers/plans/2026-08-02-p3-mcp-parameter-schema.md"
+        "docs/plans/2026-08-02-p3-mcp-parameter-schema.md"
       ],
       "relation_count": 1,
       "cross_role_relation_count": 0
     },
     {
-      "path": "docs/superpowers/specs/2026-08-08-gemini-portrait-output-contract-design.md",
+      "path": "docs/specs/2026-08-08-gemini-portrait-output-contract-design.md",
       "title": "Gemini 角色立绘输出契约设计",
       "id": "gemini_portrait_output_contract_design",
       "type": "design",
@@ -1043,7 +1043,7 @@
       "status": "active",
       "source_of_truth": false,
       "related": [
-        "docs/superpowers/plans/2026-08-08-gemini-portrait-output-contract.md",
+        "docs/plans/2026-08-08-gemini-portrait-output-contract.md",
         "美术文档/05_AI图片网关接入方案.md",
         "美术文档/人设/05_零号立绘素材设计与交付清单.md",
         ".codex/skills/p3-generate-image/SKILL.md",
@@ -1054,7 +1054,7 @@
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [
-        "docs/superpowers/plans/2026-08-08-gemini-portrait-output-contract.md",
+        "docs/plans/2026-08-08-gemini-portrait-output-contract.md",
         "美术文档/05_AI图片网关接入方案.md",
         "美术文档/人设/05_零号立绘素材设计与交付清单.md"
       ],
@@ -1062,7 +1062,7 @@
       "cross_role_relation_count": 2
     },
     {
-      "path": "docs/superpowers/specs/2026-10-01-lighter-agent-workflow-design.md",
+      "path": "docs/specs/2026-10-01-lighter-agent-workflow-design.md",
       "title": "Agent 工作流与美术流程减负设计",
       "id": "lighter_agent_workflow_design",
       "type": "design",
@@ -1273,13 +1273,13 @@
         "设计文档/README.md"
       ],
       "last_verified": "2026-10-01",
-      "update_rule": "调整文档新增、归档、关联维护、数量控制、设计 / 计划文档位置或规则命名口径时同步本文件。",
+      "update_rule": "调整文档新增、归档、关联维护、数量控制、设计文档位置或规则命名口径时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [
         "AGENTS.md",
         "PROJECT_STATUS.md",
-        "docs/superpowers/specs/2026-10-01-lighter-agent-workflow-design.md",
+        "docs/specs/2026-10-01-lighter-agent-workflow-design.md",
         "rules/README.md",
         "知识库/README.md",
         "设计文档/README.md"
@@ -1317,7 +1317,7 @@
         "PROJECT_STATUS.md",
         "agent_status/README.md",
         "agent_status/director.md",
-        "docs/superpowers/specs/2026-10-01-lighter-agent-workflow-design.md",
+        "docs/specs/2026-10-01-lighter-agent-workflow-design.md",
         "rules/README.md",
         "知识库/README.md",
         "知识库/views/art.md",
@@ -1382,7 +1382,7 @@
       "referenced_by": [
         "AGENTS.md",
         "PROJECT_STATUS.md",
-        "docs/superpowers/specs/2026-10-01-lighter-agent-workflow-design.md",
+        "docs/specs/2026-10-01-lighter-agent-workflow-design.md",
         "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "开发文档/19_UnityMCP验收编排层设计.md",
         "开发文档/20_UnityMCP验收编排层实现计划.md",
@@ -3925,7 +3925,7 @@
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [
-        "docs/superpowers/specs/2026-10-01-lighter-agent-workflow-design.md",
+        "docs/specs/2026-10-01-lighter-agent-workflow-design.md",
         "tools/美术工具/README.md",
         "开发文档/19_UnityMCP验收编排层设计.md",
         "知识库/views/art.md",
@@ -4104,7 +4104,7 @@
         "美术文档/20_GIF小循环人物替换工作流.md",
         "tools/美术工具/README.md",
         "agent_status/art.md",
-        "docs/superpowers/specs/2026-08-08-gemini-portrait-output-contract-design.md"
+        "docs/specs/2026-08-08-gemini-portrait-output-contract-design.md"
       ],
       "last_verified": "2026-08-08",
       "update_rule": "修改图片生成后端、能力路由、Prompt 格式、请求协议、凭据安全、错误重试或 raw 生成证据时同步本文件。",
@@ -4112,7 +4112,7 @@
       "missing_fields": [],
       "referenced_by": [
         "agent_status/art.md",
-        "docs/superpowers/specs/2026-08-08-gemini-portrait-output-contract-design.md",
+        "docs/specs/2026-08-08-gemini-portrait-output-contract-design.md",
         "tools/美术工具/README.md",
         "美术文档/00_美术流水线总览.md",
         "美术文档/01_Manifest规范.md",
@@ -4468,7 +4468,7 @@
       "related": [
         "美术文档/README.md",
         "美术文档/05_AI图片网关接入方案.md",
-        "docs/superpowers/plans/2026-07-18-gif-character-replacement.md",
+        "docs/plans/2026-07-18-gif-character-replacement.md",
         "tools/美术工具/README.md",
         "agent_status/art.md",
         ".codex/skills/p3-generate-image/SKILL.md"
@@ -4479,7 +4479,7 @@
       "missing_fields": [],
       "referenced_by": [
         "agent_status/art.md",
-        "docs/superpowers/plans/2026-07-18-gif-character-replacement.md",
+        "docs/plans/2026-07-18-gif-character-replacement.md",
         "tools/美术工具/README.md",
         "美术文档/05_AI图片网关接入方案.md",
         "美术文档/README.md"
@@ -6756,7 +6756,7 @@
         "美术文档/人设/AI出图/zero_dialogue_differences_20260712_01/selection_review.md",
         "美术文档/17_Agent原生动态立绘资产接入规格.md",
         "agent_status/art.md",
-        "docs/superpowers/specs/2026-08-08-gemini-portrait-output-contract-design.md"
+        "docs/specs/2026-08-08-gemini-portrait-output-contract-design.md"
       ],
       "last_verified": "2026-08-02",
       "update_rule": "调整零号立绘母版、姿势集合、状态差分、分层清单、候选VisualID、生产批次或验收口径时同步本文档。",
@@ -6764,7 +6764,7 @@
       "missing_fields": [],
       "referenced_by": [
         "agent_status/art.md",
-        "docs/superpowers/specs/2026-08-08-gemini-portrait-output-contract-design.md",
+        "docs/specs/2026-08-08-gemini-portrait-output-contract-design.md",
         "美术文档/17_Agent原生动态立绘资产接入规格.md",
         "美术文档/archive/04_零号AI后端出图提示词对比.md",
         "美术文档/人设/03_零号初版人设方案.md",

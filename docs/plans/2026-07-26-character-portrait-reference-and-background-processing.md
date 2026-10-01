@@ -14,8 +14,6 @@ update_rule: 历史实施计划，不再更新；现行事实以美术文档与 
 
 > 历史计划：已于 2026-07-26 实施（`45b6c1b`、`f783322`）。现行事实以 `美术文档/00_美术流水线总览.md` 与 `.codex/skills/p3-art-asset-production/SKILL.md` 为准。
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
-
 **Goal:** Resolve logical portrait SourceAssets into real image evidence, pass them through the formal PromptRevision generation route, add guarded explicit background processing, and rerun `doll_zero_cold` without risking its existing selected asset.
 
 **Architecture:** A pure resolver maps AssetSet relationships to approved or selected files. The existing bottom-level generator gains reference-image support and chooses image-to-image only when references exist. A separate background candidate tool writes run-scoped staging outputs, while the existing processing-round registrar remains the only publisher of `processed/<n>`.

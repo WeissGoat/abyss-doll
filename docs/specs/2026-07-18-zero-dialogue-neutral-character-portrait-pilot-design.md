@@ -4,11 +4,11 @@ title: 零号对话中性立绘首轮流程试跑设计
 type: design
 role: 美术
 domain: character_portrait_production
-status: active
+status: historical
 source_of_truth: false
 related: []
-last_verified: 2026-07-18
-update_rule: 首轮角色立绘试跑的 Asset Contract、生产边界、候选来源、门禁结果或后续接入授权变化时更新本文档。
+last_verified: 2026-10-01
+update_rule: 历史试跑设计记录，不再更新；现行事实以 美术文档/00_美术流水线总览.md 与 p3-art-asset-production 为准。
 ---
 
 # 零号对话中性立绘首轮流程试跑设计

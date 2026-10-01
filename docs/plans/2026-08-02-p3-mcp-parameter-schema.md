@@ -4,17 +4,17 @@ title: P3 MCP 参数 Schema 实现计划
 type: plan
 role: 程序
 domain: mcp_validation
-status: implemented
+status: historical
 source_of_truth: false
 related:
-  - docs/superpowers/specs/2026-08-02-p3-mcp-parameter-schema-design.md
-last_verified: 2026-08-02
-update_rule: 实现范围或验证口径变化时同步更新。
+  - docs/specs/2026-08-02-p3-mcp-parameter-schema-design.md
+last_verified: 2026-10-01
+update_rule: 历史计划记录，不再更新；现行事实以 开发文档/19_UnityMCP验收编排层设计.md 与 P3ValidationCore 工具代码 为准。
 ---
 
 # P3 MCP Parameter Schema Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> 历史计划：已于 2026-08-02 实施（`9133477`）。现行事实以 `开发文档/19_UnityMCP验收编排层设计.md` 与 `P3ValidationCore` 工具代码 为准。
 
 **Goal:** Make the 11 parameterized P3 Unity MCP tools expose usable direct-call schemas while keeping the no-argument readiness tool and all Handler behavior unchanged.
 
@@ -91,7 +91,7 @@ update_rule: 实现范围或验证口径变化时同步更新。
 ### Task 4: Verify Unity registration and direct MCP calls
 
 **Files:**
-- Modify: `docs/superpowers/plans/2026-08-02-p3-mcp-parameter-schema.md` to record completed checks only if needed.
+- Modify: `docs/plans/2026-08-02-p3-mcp-parameter-schema.md` to record completed checks only if needed.
 - Evidence: `UnityClient/Logs/P3Validation/` and current MCP registration output.
 
 **Interfaces:**

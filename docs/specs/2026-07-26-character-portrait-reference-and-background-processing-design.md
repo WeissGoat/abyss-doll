@@ -4,14 +4,16 @@ title: 角色立绘参考资产解析与背景处理能力设计
 type: design
 role: 美术
 domain: character_portrait_production
-status: active
+status: historical
 source_of_truth: false
 related: []
-last_verified: 2026-07-26
-update_rule: 角色立绘 SourceAssets 解析、参考图传递、背景处理候选、PromptRevision 策略或 cold Pilot 门禁变化时更新本文档。
+last_verified: 2026-10-01
+update_rule: 历史设计记录，不再更新；现行事实以 美术文档/00_美术流水线总览.md 与 p3-art-asset-production 为准。
 ---
 
 # 角色立绘参考资产解析与背景处理能力设计
+
+> 历史设计：已于 2026-07-26 实施（`45b6c1b`、`f783322`）。现行事实以 `美术文档/00_美术流水线总览.md` 与 `p3-art-asset-production` 为准。
 
 ## 1. 目标
 
