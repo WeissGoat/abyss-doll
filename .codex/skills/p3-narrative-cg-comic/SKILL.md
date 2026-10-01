@@ -14,7 +14,8 @@ description: Use when Project P3 work involves narrative CG backgrounds, comic-p
 - 通用规格以 `美术文档/18_CG底图与漫画式播放演出工作流.md` 为准。
 - 目标切片细案以对应 CG 细案为准，例如 `美术文档/19_T0-01序章CG细案.md`。
 - AI 后端、prompt、图生图、inpaint 和 raw 生成证据使用 `.codex/skills/p3-generate-image/SKILL.md`（Skill 名 `generate-image`）。
-- 运行时截图、ArtAcceptance 或 T0 capture 验证使用 `.codex/skills/p3-validation/SKILL.md`。
+- selected 晋级、Approved 同步、Unity 导入和 Registry 登记使用 `.codex/skills/p3-art-asset-production/SKILL.md`（Skill 名 `p3-art-asset-production`）。
+- 运行时截图、T0 seal capture 和 `runtime_validated` 验收使用 `.codex/skills/p3-art-validation/SKILL.md`；旧 ArtAcceptance 全量回归只走其 `art_regression` Profile。
 
 ## 触发场景
 
@@ -34,7 +35,8 @@ description: Use when Project P3 work involves narrative CG backgrounds, comic-p
    - 目标细案：例如 `美术文档/19_T0-01序章CG细案.md`
    - 目标角色 / 场景 / UI / 剧情事实文档。
 3. 需要实际出图、图生图、局部修图或后端排障时，读取并遵守 `.codex/skills/p3-generate-image/SKILL.md`（Skill 名 `generate-image`）。
-4. 需要运行时截图或验收时，读取并遵守 `.codex/skills/p3-validation/SKILL.md`。
+4. 需要 selected 晋级、Approved 同步、Unity 导入或 Registry 登记时，读取并遵守 `.codex/skills/p3-art-asset-production/SKILL.md`。
+5. 需要运行时截图或验收时，读取并遵守 `.codex/skills/p3-art-validation/SKILL.md`。
 
 ## 禁止直接全量生图
 
@@ -121,12 +123,9 @@ description: Use when Project P3 work involves narrative CG backgrounds, comic-p
 
 只有页级通过后才允许同步 Approved。
 
-同步后必须：
+Approved 同步、Unity 导入和 Registry 登记走 `p3-art-asset-production` 的 Approved gate（静态 Sprite 入口为 `tools/美术工具/Invoke-ArtApprovedUnityRegistration.ps1` 的 `Plan -> SyncApproved -> Finalize`）：由它保护 `.meta` / GUID，并在 Finalize 时刷新 `美术文档/_generated/可接入素材清单.md` / `.json` 和 `art_integration_snapshots/`。不要手工复制文件或手写这些生成物。
 
-- 保留 Unity `.meta`，同 VisualID 替换使用 strict guard。
-- 刷新 `美术文档/_generated/可接入素材清单.md` 和 `.json`。
-- 在 `美术文档/_generated/art_integration_snapshots/` 留快照。
-- 写明本轮是新图、同 VisualID 替换、图生图修正、inpaint，还是仅筛选。
+本 skill 额外要求：写明本轮是新图、同 VisualID 替换、图生图修正、inpaint，还是仅筛选。
 
 ### 7. 运行时验收
 

@@ -120,6 +120,6 @@ The portrait Registrar intentionally requires `visual_review.json` before publis
 - Overwrite a published numeric processing round, or bypass its decision/hash evidence.
 - Change a VisualID, Approved output path, DisplaySpec, `.meta`, GUID, or runtime binding during same-VisualID replacement.
 - Treat menu execution success as Registry, import, or acceptance completion.
-- Treat a `technical_override.json`, handwritten `decision.json`, or stale `visual-review.json` as insufficient evidence without the Registrar recomputation and SHA checks.
+- Treat a `technical_override.json`, handwritten `decision.json`, or stale `visual-review.json` as sufficient evidence without the Registrar recomputation and SHA checks.
 - Treat a Runner-created screenshot as proof that the normal player path is reachable.
 - Run full P0 as part of an art-production task or modify domain rules to make an art target reachable.
