@@ -102,6 +102,7 @@ P0 配置 Validator 与自动验收底座的目标命令、报告格式和门禁
 - `tools/docs/Validate-Docs.ps1` 对应的知识库索引和 `related` 链接是否通过校验。
 - `tools/agent/validate_skills.py` 的 Skill 校验：`.codex/skills` 每个 Skill 有唯一 `name` 和 `description`；`.claude/skills` 转发入口与源 frontmatter 一致且无孤儿；`tools/p3-mission` 与 `.codex/skills/p3-mission` 内容一致；Skill 文档里的链接、`.codex/skills/...` 路由和仓库路径存在；入口文档和 Skill 中出现的 `p3-*` Skill 名都已注册。结构问题和失效的 Skill 路由为 `ERROR`，其他失效仓库路径和未知 Skill 名为 `WARN`。单独运行：`python tools/agent/validate_skills.py`；回归测试：`python -m unittest tools.agent.tests.test_validate_skills -v`。
 - 当前分支和 HEAD，方便复制智能体记录上下文。
+- 游戏进度（`INFO`）：距最近一次游戏代码 / 配置提交的天数和工作区未提交的游戏改动数。游戏路径是 `UnityClient/Assets` 与 `配置表(JSON)`，不含 `Art`、`Resources`、`StreamingAssets`、任意 `Editor` 目录和 `Scripts/*Acceptance` 验收工具；超过 7 天没有游戏改动时提示回到当前优先级的玩家结果（`rules/02` 元工作预算）。回归测试：`python -m unittest tools.agent.tests.test_agent_health_check -v`。
 - 背包交互服务、DisplaySpec 与 GridLayoutGroup 资产布局 smoke test 可通过 `Invoke-UnitySmokeTests.ps1` 单独执行。
 - P0 统一验收可通过 `Invoke-P0Validation.ps1` 执行，并生成机器可读 JSON 与人工可读 Markdown 报告。
 
@@ -110,6 +111,7 @@ P0 配置 Validator 与自动验收底座的目标命令、报告格式和门禁
 - `PASS`：当前检查通过。
 - `WARN`：可以继续工作，但提交前需要确认风险项并严格收窄暂存范围。
 - `ERROR`：存在必须处理的问题，例如知识库校验失败。
+- `INFO`：只提供信号，不影响结果和退出码。
 
 默认模式下，`WARN` 返回成功退出码，避免阻断已有脏工作区中的正常任务。`-Strict` 模式下，`WARN` 也会返回失败退出码。
 

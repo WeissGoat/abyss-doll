@@ -2,6 +2,7 @@ import argparse
 import os
 import subprocess
 import sys
+import time
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -18,6 +19,19 @@ LOCAL_TOOL_PATHS = (
 SUBMODULE_PATHS = (
     "tools/ai-image-gateway",
 )
+
+# 玩家可见的游戏代码、Prefab、场景和配置源；美术资源、生成副本、Editor 工具和验收工具不算。
+GAME_PATHSPECS = (
+    "UnityClient/Assets",
+    "配置表(JSON)",
+    ":(exclude)UnityClient/Assets/Art",
+    ":(exclude)UnityClient/Assets/Resources",
+    ":(exclude)UnityClient/Assets/StreamingAssets",
+    ":(exclude,glob)UnityClient/Assets/**/Editor/**",
+    ":(exclude,glob)UnityClient/Assets/Scripts/*Acceptance/**",
+)
+
+GAME_IDLE_DAYS = 7
 
 MAX_LIST_ITEMS = 12
 
@@ -184,6 +198,35 @@ def check_risky_paths(entries):
     return "PASS", ["  - 未发现生成物、运行时副本、本地工具或 submodule 风险。"]
 
 
+def check_game_progress(root, now=None):
+    log = run(
+        ["git", "-c", "core.quotepath=false", "log", "-1", "--format=%ct%x00%h%x00%cs%x00%s", "--", *GAME_PATHSPECS],
+        cwd=root,
+    )
+    if log.returncode != 0:
+        return "INFO", [f"  - 无法读取游戏提交历史：{(log.stderr or log.stdout).strip()}"]
+    status = run(
+        ["git", "-c", "core.quotepath=false", "status", "--porcelain=v1", "-z", "--", *GAME_PATHSPECS],
+        cwd=root,
+    )
+    dirty = len(parse_status(status.stdout)) if status.returncode == 0 else 0
+    record = log.stdout.strip()
+    if not record:
+        return "INFO", ["  - 还没有游戏代码 / 配置提交。", f"  - 工作区未提交的游戏改动：{dirty} 项"]
+    timestamp, short_hash, date, subject = record.split("\0", 3)
+    now = time.time() if now is None else now
+    days = max(0, int((now - int(timestamp)) // 86400))
+    details = [
+        f"  - 距最近一次游戏代码 / 配置提交：{days} 天（{short_hash} {date} {subject}）",
+        f"  - 工作区未提交的游戏改动：{dirty} 项",
+    ]
+    if days > GAME_IDLE_DAYS and not dirty:
+        details.append(
+            f"  - 超过 {GAME_IDLE_DAYS} 天没有游戏改动：先推进 PROJECT_STATUS.md 当前优先级的玩家结果（rules/02 元工作预算）。"
+        )
+    return "INFO", details
+
+
 def check_branch(root):
     branch = run(["git", "branch", "--show-current"], cwd=root)
     head = run(["git", "rev-parse", "--short", "HEAD"], cwd=root)
@@ -222,6 +265,7 @@ def main():
     checks.append(("易误提交路径", *check_risky_paths(entries)))
     checks.append(("知识库校验", *check_docs(root)))
     checks.append(("Skill 校验", *check_skills(root)))
+    checks.append(("游戏进度", *check_game_progress(root)))
 
     has_error = False
     has_warning = False
