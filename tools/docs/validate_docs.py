@@ -234,14 +234,8 @@ def main():
             if target == path:
                 errors.append(f"doc relates to itself: {path}")
                 continue
-            target_doc = by_path.get(target)
-            if target_doc is None:
-                if should_skip(Path(target)):
-                    continue
+            if target not in by_path and not should_skip(Path(target)):
                 errors.append(f"related doc is not indexed: {path} -> {target}")
-                continue
-            if path not in target_doc.get("related", []):
-                errors.append(f"related doc is not bidirectional: {path} -> {target}")
 
     errors.extend(validate_progressive_disclosure_structure())
 

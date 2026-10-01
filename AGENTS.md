@@ -87,7 +87,7 @@ L4 条件展开：跨职能 View、rules/02、专项 Skill、验收证据或恢�
 | GDD、规则卡、数值、配置意图或配置源 | 策划 | `知识库/views/design.md` | `agent_status/design.md` 和目标设计 / 配置事实 |
 | Unity、领域服务、架构、纯 UGUI、Validator、自动测试 | 程序 | `知识库/views/program.md` | `agent_status/program.md`、开发规则和 `开发文档/rules/04_自动化测试与验收流程规范.md` |
 | UI 视觉、素材生产、Manifest、VisualID、运行时美术验收 | 美术 | `知识库/views/art.md` | `agent_status/art.md` 和美术事实文档 |
-| 文档元数据、索引、双向关系网 | 知识库 | `知识库/README.md` | `rules/01`、工具脚本和核心入口 |
+| 文档元数据、索引、关联网 | 知识库 | `知识库/README.md` | `rules/01`、工具脚本和核心入口 |
 
 正式 active Role 为 `全局`、`游戏导演`、`Owner`、`剧情`、`策划`、`程序`、`美术`、`知识库`。Owner 对完整模块或玩家结果进行跨职能整体负责，处理中可以切换剧情、策划、程序和美术 Role，但 Owner 定位不变化。专工是独立 Agent 处理某个 Role 工作的委派方式，P3 Mission 是长任务机制，执行 / 自验 / 验收 / 回写是任务环节，它们都不是 Role。完整 Role 选择和 Owner 协议见 `rules/02_智能体任务路由与完成协议.md`。
 

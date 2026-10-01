@@ -24,6 +24,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - 事实来源文档：196
 - 关联边数：1517
 - 跨职能关联：310
+- `related` 只需单向填写；反向链接由本脚本写入 `docs_index.json` 的 `referenced_by`，关联数按双向合并统计。
 
 ## 事实来源
 

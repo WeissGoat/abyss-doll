@@ -148,18 +148,19 @@ def collect_docs(repo_root: Path):
 
 def enrich_relationships(docs):
     by_path = {doc["path"]: doc for doc in docs}
+    referenced_by = defaultdict(set)
     for doc in docs:
-        valid_related = []
-        cross_role_related = []
         for target in doc["related"]:
-            target_doc = by_path.get(target)
-            if target_doc is None or target == doc["path"]:
-                continue
-            valid_related.append(target)
-            if target_doc["role"] != doc["role"]:
-                cross_role_related.append(target)
-        doc["relation_count"] = len(set(valid_related))
-        doc["cross_role_relation_count"] = len(set(cross_role_related))
+            if target in by_path and target != doc["path"]:
+                referenced_by[target].add(doc["path"])
+    for doc in docs:
+        outgoing = {target for target in doc["related"] if target in by_path and target != doc["path"]}
+        neighbors = outgoing | referenced_by[doc["path"]]
+        doc["referenced_by"] = sorted(referenced_by[doc["path"]])
+        doc["relation_count"] = len(neighbors)
+        doc["cross_role_relation_count"] = len(
+            {path for path in neighbors if by_path[path]["role"] != doc["role"]}
+        )
     return docs
 
 
@@ -242,6 +243,7 @@ def write_markdown(path: Path, docs):
         f"- 事实来源文档：{sum(1 for doc in docs if doc['source_of_truth'])}",
         f"- 关联边数：{summary['relation_edges']}",
         f"- 跨职能关联：{summary['cross_role_edges']}",
+        "- `related` 只需单向填写；反向链接由本脚本写入 `docs_index.json` 的 `referenced_by`，关联数按双向合并统计。",
         "",
         "## 事实来源",
         "",
