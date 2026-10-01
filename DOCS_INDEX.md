@@ -18,12 +18,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：291
-- 已补元数据：287
+- 文档总数：292
+- 已补元数据：288
 - 缺少元数据：4
 - 事实来源文档：196
-- 关联边数：1522
-- 跨职能关联：311
+- 关联边数：1529
+- 跨职能关联：315
 - `related` 只需单向填写；反向链接由本脚本写入 `docs_index.json` 的 `referenced_by`，关联数按双向合并统计。
 
 ## 事实来源
@@ -228,7 +228,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 ## 关联网络
 
 - `0-12 小时细案 Owner <-> Owner`：3 条
-- `Owner <-> 全局`：1 条
+- `Owner <-> 全局`：2 条
 - `Owner <-> 剧情`：5 条
 - `Owner <-> 游戏导演`：9 条
 - `Owner <-> 知识库`：1 条
@@ -238,10 +238,10 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - `全局 <-> 兼容`：5 条
 - `全局 <-> 剧情`：2 条
 - `全局 <-> 游戏导演`：20 条
-- `全局 <-> 知识库`：6 条
-- `全局 <-> 程序`：14 条
+- `全局 <-> 知识库`：7 条
+- `全局 <-> 程序`：15 条
 - `全局 <-> 策划`：54 条
-- `全局 <-> 美术`：10 条
+- `全局 <-> 美术`：11 条
 - `兼容 <-> 游戏导演`：5 条
 - `兼容 <-> 知识库`：1 条
 - `剧情 <-> 游戏导演`：8 条
@@ -281,7 +281,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [T0-01 序章首次循环开发总方案](版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md) | `development_plan` | `active` | `prologue_first_loop_development` | 13 | 完整 |
 | [T0-VAL-01 T0-01A 运行时效果验收记录](版本规划/0-12小时细案/T0-VAL-01_最终实际效果优化文档.md) | `validation_effect_optimization` | `active` | `prologue_first_loop_runtime_acceptance` | 5 | 完整 |
 | [T1 第一层搜打撤成形](版本规划/0-12小时细案/T1_第一层搜打撤成形.md) | `plan` | `active` | `candidate_loop_detail_design` | 6 | 完整 |
-| [Owner 智能体阅读入口](知识库/views/owner.md) | `view` | `active` | `agent_context_view` | 3 | 完整 |
+| [Owner 智能体阅读入口](知识库/views/owner.md) | `view` | `active` | `agent_context_view` | 4 | 完整 |
 
 ### PM
 
@@ -293,7 +293,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 23 | 完整 |
+| [Project P3 智能体入口](AGENTS.md) | `entry` | `active` | `agent_workflow` | 24 | 完整 |
 | [文档索引](DOCS_INDEX.md) | `index` | `generated` | `knowledge_base` | 1 | 完整 |
 | [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 64 | 完整 |
 | [智能体状态页说明](agent_status/README.md) | `status` | `active` | `agent_status` | 7 | 完整 |
@@ -304,8 +304,9 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Agent 状态页与 Role 阅读范围优化设计](docs/specs/2026-07-18-agent-status-and-role-disclosure-design.md) | `design` | `historical` | `agent_workflow` | 0 | 完整 |
 | [Project P3 Role 词表与知识索引归属设计](docs/specs/2026-07-18-role-vocabulary-and-index-design.md) | `design` | `historical` | `agent_workflow` | 1 | 完整 |
 | [Agent 工作流与美术流程减负设计](docs/specs/2026-10-01-lighter-agent-workflow-design.md) | `design` | `historical` | `agent_workflow` | 5 | 完整 |
-| [文档维护与新增控制规则](rules/01_文档维护与新增控制规则.md) | `rule` | `active` | `document_governance` | 6 | 完整 |
-| [智能体任务路由与完成协议](rules/02_智能体任务路由与完成协议.md) | `rule` | `active` | `agent_workflow` | 11 | 完整 |
+| [工作流第二轮精简设计](docs/specs/2026-10-01-workflow-round2-design.md) | `design` | `active` | `agent_workflow` | 7 | 完整 |
+| [文档维护与新增控制规则](rules/01_文档维护与新增控制规则.md) | `rule` | `active` | `document_governance` | 7 | 完整 |
+| [智能体任务路由与完成协议](rules/02_智能体任务路由与完成协议.md) | `rule` | `active` | `agent_workflow` | 12 | 完整 |
 | [全局 Agent Rules 入口](rules/README.md) | `entry` | `active` | `agent_rules` | 5 | 完整 |
 | [智能体开工健康检查](tools/agent/README.md) | `tool` | `active` | `agent_workflow` | 7 | 完整 |
 | [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `formal_vertical_slice` | 19 | 完整 |
@@ -358,7 +359,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 |---|---|---|---|---|---|
 | [Agent 路由 P0 治理加固实施计划](docs/plans/2026-07-18-agent-routing-p0-hardening.md) | `plan` | `historical` | `agent_workflow` | 0 | 完整 |
 | [Agent 路由 P0 治理加固设计](docs/specs/2026-07-18-agent-routing-p0-hardening-design.md) | `design` | `historical` | `agent_workflow` | 0 | 完整 |
-| [知识库规范](知识库/README.md) | `kb` | `active` | `knowledge_base` | 13 | 完整 |
+| [知识库规范](知识库/README.md) | `kb` | `active` | `knowledge_base` | 14 | 完整 |
 
 ### 程序
 
@@ -393,7 +394,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [客户端分层与领域架构规范](开发文档/rules/01_客户端分层与领域架构规范.md) | `dev` | `active` | `client_architecture` | 8 | 完整 |
 | [Unity 表现层与编辑器构建规范](开发文档/rules/02_Unity表现层与编辑器构建规范.md) | `dev` | `active` | `unity_presentation` | 17 | 完整 |
 | [视觉资源系统程序开发规范](开发文档/rules/03_视觉资源系统程序开发规范.md) | `dev` | `active` | `visual_asset_system` | 15 | 完整 |
-| [自动化测试与验收流程规范](开发文档/rules/04_自动化测试与验收流程规范.md) | `dev` | `active` | `test_automation` | 12 | 完整 |
+| [自动化测试与验收流程规范](开发文档/rules/04_自动化测试与验收流程规范.md) | `dev` | `active` | `test_automation` | 13 | 完整 |
 | [程序开发规范目录入口](开发文档/rules/README.md) | `dev` | `active` | `program_rules_index` | 7 | 完整 |
 | [全局与玩家实体定义 (Player & Global Entities)](开发文档/数据与实体定义/01_全局与玩家实体.md) | `dev` | `active` | `program_architecture` | 1 | 完整 |
 | [人偶与状态实体定义 (Doll & Status Entities)](开发文档/数据与实体定义/02_人偶与状态实体.md) | `dev` | `active` | `program_architecture` | 8 | 完整 |
@@ -525,7 +526,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 13 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 18 | 完整 |
-| [美术流水线总览](美术文档/00_美术流水线总览.md) | `art` | `active` | `art_pipeline` | 13 | 完整 |
+| [美术流水线总览](美术文档/00_美术流水线总览.md) | `art` | `active` | `art_pipeline` | 14 | 完整 |
 | [Manifest 规范](美术文档/01_Manifest规范.md) | `art` | `active` | `art_manifest` | 6 | 完整 |
 | [资源规格与接入规范](美术文档/02_资源规格与接入规范.md) | `art` | `active` | `art_asset_spec` | 10 | 完整 |
 | [AI 美术资产质量与筛选准入规范](美术文档/03_AI生成与筛选规范.md) | `art` | `active` | `ai_art_quality` | 6 | 完整 |

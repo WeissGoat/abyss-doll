@@ -10,12 +10,12 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 3039,
-    "relation_edges": 1522,
-    "cross_role_edges": 311,
+    "directed_edges": 3046,
+    "relation_edges": 1529,
+    "cross_role_edges": 315,
     "role_pairs": {
       "0-12 小时细案 Owner <-> Owner": 3,
-      "Owner <-> 全局": 1,
+      "Owner <-> 全局": 2,
       "Owner <-> 剧情": 5,
       "Owner <-> 游戏导演": 9,
       "Owner <-> 知识库": 1,
@@ -25,10 +25,10 @@
       "全局 <-> 兼容": 5,
       "全局 <-> 剧情": 2,
       "全局 <-> 游戏导演": 20,
-      "全局 <-> 知识库": 6,
-      "全局 <-> 程序": 14,
+      "全局 <-> 知识库": 7,
+      "全局 <-> 程序": 15,
       "全局 <-> 策划": 54,
-      "全局 <-> 美术": 10,
+      "全局 <-> 美术": 11,
       "兼容 <-> 游戏导演": 5,
       "兼容 <-> 知识库": 1,
       "剧情 <-> 游戏导演": 8,
@@ -529,6 +529,7 @@
         "agent_status/director.md",
         "agent_status/pm.md",
         "docs/specs/2026-10-01-lighter-agent-workflow-design.md",
+        "docs/specs/2026-10-01-workflow-round2-design.md",
         "rules/01_文档维护与新增控制规则.md",
         "rules/02_智能体任务路由与完成协议.md",
         "rules/README.md",
@@ -548,7 +549,7 @@
         "知识库/views/program.md",
         "设计文档/剧情/README.md"
       ],
-      "relation_count": 23,
+      "relation_count": 24,
       "cross_role_relation_count": 15
     },
     {
@@ -1086,6 +1087,32 @@
       "cross_role_relation_count": 1
     },
     {
+      "path": "docs/specs/2026-10-01-workflow-round2-design.md",
+      "title": "工作流第二轮精简设计",
+      "id": "workflow_round2_design",
+      "type": "design",
+      "role": "全局",
+      "domain": "agent_workflow",
+      "status": "active",
+      "source_of_truth": false,
+      "related": [
+        "AGENTS.md",
+        "rules/01_文档维护与新增控制规则.md",
+        "rules/02_智能体任务路由与完成协议.md",
+        "知识库/README.md",
+        "知识库/views/owner.md",
+        "开发文档/rules/04_自动化测试与验收流程规范.md",
+        "美术文档/00_美术流水线总览.md"
+      ],
+      "last_verified": "2026-10-01",
+      "update_rule": "实施完成后改为 historical；现行规则以 AGENTS.md、rules/02、开发文档/rules/04 与验收 Skill 为准。",
+      "has_metadata": true,
+      "missing_fields": [],
+      "referenced_by": [],
+      "relation_count": 7,
+      "cross_role_relation_count": 4
+    },
+    {
       "path": "DOCS_INDEX.md",
       "title": "文档索引",
       "id": "docs_index",
@@ -1280,11 +1307,12 @@
         "AGENTS.md",
         "PROJECT_STATUS.md",
         "docs/specs/2026-10-01-lighter-agent-workflow-design.md",
+        "docs/specs/2026-10-01-workflow-round2-design.md",
         "rules/README.md",
         "知识库/README.md",
         "设计文档/README.md"
       ],
-      "relation_count": 6,
+      "relation_count": 7,
       "cross_role_relation_count": 2
     },
     {
@@ -1318,6 +1346,7 @@
         "agent_status/README.md",
         "agent_status/director.md",
         "docs/specs/2026-10-01-lighter-agent-workflow-design.md",
+        "docs/specs/2026-10-01-workflow-round2-design.md",
         "rules/README.md",
         "知识库/README.md",
         "知识库/views/art.md",
@@ -1325,7 +1354,7 @@
         "知识库/views/director.md",
         "知识库/views/program.md"
       ],
-      "relation_count": 11,
+      "relation_count": 12,
       "cross_role_relation_count": 6
     },
     {
@@ -2411,6 +2440,7 @@
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [
+        "docs/specs/2026-10-01-workflow-round2-design.md",
         "tools/config/README.md",
         "开发文档/00_程序开发大纲.md",
         "开发文档/12_程序开发优化建议与重构路线.md",
@@ -2424,8 +2454,8 @@
         "版本规划/_archive/mvp_2026-05/08_MVP自动化试玩首轮报告.md",
         "配置表(JSON)/README.md"
       ],
-      "relation_count": 12,
-      "cross_role_relation_count": 3
+      "relation_count": 13,
+      "cross_role_relation_count": 4
     },
     {
       "path": "开发文档/rules/README.md",
@@ -3600,6 +3630,7 @@
       "referenced_by": [
         "AGENTS.md",
         "DOCS_INDEX.md",
+        "docs/specs/2026-10-01-workflow-round2-design.md",
         "rules/01_文档维护与新增控制规则.md",
         "rules/02_智能体任务路由与完成协议.md",
         "rules/README.md",
@@ -3612,8 +3643,8 @@
         "知识库/views/pm.md",
         "知识库/views/program.md"
       ],
-      "relation_count": 13,
-      "cross_role_relation_count": 13
+      "relation_count": 14,
+      "cross_role_relation_count": 14
     },
     {
       "path": "知识库/views/art.md",
@@ -3811,11 +3842,12 @@
       "missing_fields": [],
       "referenced_by": [
         "AGENTS.md",
+        "docs/specs/2026-10-01-workflow-round2-design.md",
         "知识库/README.md",
         "知识库/views/director.md"
       ],
-      "relation_count": 3,
-      "cross_role_relation_count": 3
+      "relation_count": 4,
+      "cross_role_relation_count": 4
     },
     {
       "path": "知识库/views/pm.md",
@@ -3926,6 +3958,7 @@
       "missing_fields": [],
       "referenced_by": [
         "docs/specs/2026-10-01-lighter-agent-workflow-design.md",
+        "docs/specs/2026-10-01-workflow-round2-design.md",
         "tools/美术工具/README.md",
         "开发文档/19_UnityMCP验收编排层设计.md",
         "知识库/views/art.md",
@@ -3939,8 +3972,8 @@
         "美术文档/19_T0-01序章CG细案.md",
         "美术文档/README.md"
       ],
-      "relation_count": 13,
-      "cross_role_relation_count": 2
+      "relation_count": 14,
+      "cross_role_relation_count": 3
     },
     {
       "path": "美术文档/01_Manifest规范.md",
