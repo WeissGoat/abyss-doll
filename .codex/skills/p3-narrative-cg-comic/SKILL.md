@@ -13,7 +13,7 @@ description: Use when Project P3 work involves narrative CG backgrounds, comic-p
 
 - 通用规格以 `美术文档/18_CG底图与漫画式播放演出工作流.md` 为准。
 - 目标切片细案以对应 CG 细案为准，例如 `美术文档/19_T0-01序章CG细案.md`。
-- AI 后端、prompt、图生图、inpaint 和 raw 生成证据使用 `.codex/skills/p3-generate-image/SKILL.md`（Skill 名 `generate-image`）。
+- AI 后端、prompt、图生图、inpaint 和 raw 生成证据使用 `.codex/skills/p3-generate-image/SKILL.md`。
 - selected 晋级、Approved 同步、Unity 导入和 Registry 登记使用 `.codex/skills/p3-art-asset-production/SKILL.md`（Skill 名 `p3-art-asset-production`）。
 - 运行时截图、T0 seal capture 和 `runtime_validated` 验收使用 `.codex/skills/p3-art-validation/SKILL.md`；旧 ArtAcceptance 全量回归只走其 `art_regression` Profile。
 
@@ -34,7 +34,7 @@ description: Use when Project P3 work involves narrative CG backgrounds, comic-p
    - 通用流程：`美术文档/18_CG底图与漫画式播放演出工作流.md`
    - 目标细案：例如 `美术文档/19_T0-01序章CG细案.md`
    - 目标角色 / 场景 / UI / 剧情事实文档。
-3. 需要实际出图、图生图、局部修图或后端排障时，读取并遵守 `.codex/skills/p3-generate-image/SKILL.md`（Skill 名 `generate-image`）。
+3. 需要实际出图、图生图、局部修图或后端排障时，读取并遵守 `.codex/skills/p3-generate-image/SKILL.md`。
 4. 需要 selected 晋级、Approved 同步、Unity 导入或 Registry 登记时，读取并遵守 `.codex/skills/p3-art-asset-production/SKILL.md`。
 5. 需要运行时截图或验收时，读取并遵守 `.codex/skills/p3-art-validation/SKILL.md`。
 
@@ -144,17 +144,17 @@ T0-01A 必须按 `19` 的截图清单产出 `t0_comic_p01_black_wake.png` 到 `t
 
 ## 状态声明口径
 
-按以下层级声明，不得越级：
+按以下层级声明，不得越级。叙事层级在美术公开状态之上增加锚点和页级检查；每个 Panel 的美术状态以 `p3-art-asset-production` / `p3-art-validation` 的证据为准，叙事层级不能高于对应美术状态。
 
-| 层级 | 可声明内容 |
-|---|---|
-| `规格完成` | 分镜、Page、Panel、VisualID、验收口径已写入事实文档。 |
-| `锚点完成` | 角色、场景、风格锚点已选定并可约束后续生产。 |
-| `候选完成` | `_IncomingAI` 候选和 contact sheet 已生成。 |
-| `页级通过` | 单页 mock / page contact sheet 阅读顺序和一致性通过。 |
-| `素材完成` | Panel 已进入 Approved，清单和快照已刷新。 |
-| `接入完成` | VisualID 已登记，运行时漫画页能加载和逐格显示。 |
-| `验收通过` | 当前 Approved 的运行时截图 / Play 路径证明漫画页正确播放并进入真实流程。 |
+| 层级 | 可声明内容 | 对应美术公开状态 |
+|---|---|---|
+| `规格完成` | 分镜、Page、Panel、VisualID、验收口径已写入事实文档。 | 无（尚未生产） |
+| `锚点完成` | 角色、场景、风格锚点已选定并可约束后续生产。 | 无（锚点属于设计层 `AssetID`，不带 VisualID） |
+| `候选完成` | `_IncomingAI` 候选和 contact sheet 已生成。 | `raw` / 最新 `processed/<n>` |
+| `页级通过` | 单页 mock / page contact sheet 阅读顺序和一致性通过。 | 该页 Panel 均为 `selected` |
+| `素材完成` | Panel 已进入 Approved，清单和快照已刷新。 | `approved` |
+| `接入完成` | VisualID 已登记，运行时漫画页能加载和逐格显示。 | `registered`，另需程序侧播放证据 |
+| `验收通过` | 当前 Approved 的运行时截图 / Play 路径证明漫画页正确播放并进入真实流程。 | `runtime_validated` + `player_path_verified` |
 
 如果只做了批量文生图，最多声明 `候选完成`。
 
