@@ -1,4 +1,18 @@
+---
+id: character_portrait_replacement_and_set_gates_plan
+title: Character Portrait Replacement and Set Gates Implementation Plan
+type: plan
+role: 美术
+domain: character_portrait_production
+status: historical
+source_of_truth: false
+last_verified: 2026-10-01
+update_rule: 历史实施计划，不再更新；现行事实以美术文档与 p3-art-asset-production 为准。
+---
+
 # Character Portrait Replacement and Set Gates Implementation Plan
+
+> 历史计划：已于 2026-08-07 实施（`ad7139e`、`6ad5118`）。现行事实以 `.codex/skills/p3-art-asset-production/SKILL.md` 及其 `references/candidate-evaluation.md` 为准。
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 

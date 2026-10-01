@@ -1,4 +1,18 @@
+---
+id: art_runtime_validated_state_plan
+title: Art Runtime Validated State Implementation Plan
+type: plan
+role: 美术
+domain: runtime_art_validation
+status: historical
+source_of_truth: false
+last_verified: 2026-10-01
+update_rule: 历史实施计划，不再更新；现行事实以 p3-art-validation 与开发文档 19 / 20 为准。
+---
+
 # Art Runtime Validated State Implementation Plan
+
+> 历史计划：已于 2026-07-26 实施（`60d7a3b`）。现行事实以 `.codex/skills/p3-art-validation/SKILL.md` 与 `开发文档/19_UnityMCP验收编排层设计.md` 为准。
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task with verification checkpoints.
 

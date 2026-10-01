@@ -1,4 +1,20 @@
+---
+id: agents_routing_refactor_design
+title: Project P3 AGENTS 职责路由重构设计
+type: design
+role: 全局
+domain: agent_workflow
+status: historical
+source_of_truth: false
+related:
+  - docs/superpowers/plans/2026-07-17-agents-routing-refactor.md
+last_verified: 2026-10-01
+update_rule: 历史设计记录，不再更新；现行规则以 AGENTS.md 与 rules/02 为准。
+---
+
 # Project P3 AGENTS 职责路由重构设计
+
+> 历史设计：已于 2026-07-17 实施（`b0ba7e8`、`4ec62ef`）。现行规则以 `AGENTS.md` 与 `rules/02_智能体任务路由与完成协议.md` 为准；正文中的“待用户书面复核”等状态为当时记录。
 
 状态：待用户书面复核
 日期：2026-07-17

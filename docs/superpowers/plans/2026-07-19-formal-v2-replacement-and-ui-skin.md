@@ -1,4 +1,18 @@
+---
+id: formal_v2_replacement_and_ui_skin_plan
+title: Formal V2 Replacement And UI Skin Implementation Plan
+type: plan
+role: 美术
+domain: art_pipeline
+status: historical
+source_of_truth: false
+last_verified: 2026-10-01
+update_rule: 历史实施计划，不再更新；现行事实以美术文档与 p3-art-asset-production 为准。
+---
+
 # Formal V2 Replacement And UI Skin Implementation Plan
+
+> 历史计划：已于 2026-07-26 实施（`839aff9`）。现行事实以 `美术文档/00_美术流水线总览.md` 与 `.codex/skills/p3-art-asset-production/SKILL.md` 为准。
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task with review checkpoints.
 

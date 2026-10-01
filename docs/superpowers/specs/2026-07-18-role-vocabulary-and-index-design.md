@@ -1,4 +1,20 @@
+---
+id: role_vocabulary_and_index_design
+title: Project P3 Role 词表与知识索引归属设计
+type: design
+role: 全局
+domain: agent_workflow
+status: historical
+source_of_truth: false
+related:
+  - docs/superpowers/plans/2026-07-18-role-vocabulary-and-index.md
+last_verified: 2026-10-01
+update_rule: 历史设计记录，不再更新；现行 Role 词表以 AGENTS.md 与 知识库/README.md 为准。
+---
+
 # Project P3 Role 词表与知识索引归属设计
+
+> 历史设计：已于 2026-07-18 实施（`f3c1865`）。现行 Role 词表以 `AGENTS.md` 与 `知识库/README.md` 为准；正文中的“待用户书面复核”等状态为当时记录。
 
 状态：待用户书面复核
 日期：2026-07-18

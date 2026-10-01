@@ -18,11 +18,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 概览
 
-- 文档总数：286
-- 已补元数据：277
-- 缺少元数据：9
+- 文档总数：290
+- 已补元数据：286
+- 缺少元数据：4
 - 事实来源文档：196
-- 关联边数：1515
+- 关联边数：1517
 - 跨职能关联：310
 
 ## 事实来源
@@ -296,8 +296,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [文档索引](DOCS_INDEX.md) | `index` | `generated` | `knowledge_base` | 1 | 完整 |
 | [项目状态](PROJECT_STATUS.md) | `status` | `active` | `project_status` | 64 | 完整 |
 | [智能体状态页说明](agent_status/README.md) | `status` | `active` | `agent_status` | 7 | 完整 |
+| [Project P3 Agent Responsibility Routing Refactor Implementation Plan](docs/superpowers/plans/2026-07-17-agents-routing-refactor.md) | `plan` | `historical` | `agent_workflow` | 1 | 完整 |
 | [Agent 状态页与 Role 阅读范围优化实施计划](docs/superpowers/plans/2026-07-18-agent-status-and-role-disclosure.md) | `plan` | `draft` | `agent_workflow` | 0 | 完整 |
+| [Project P3 Role Vocabulary and Knowledge Index Implementation Plan](docs/superpowers/plans/2026-07-18-role-vocabulary-and-index.md) | `plan` | `historical` | `agent_workflow` | 1 | 完整 |
+| [Project P3 AGENTS 职责路由重构设计](docs/superpowers/specs/2026-07-17-agents-routing-refactor-design.md) | `design` | `historical` | `agent_workflow` | 1 | 完整 |
 | [Agent 状态页与 Role 阅读范围优化设计](docs/superpowers/specs/2026-07-18-agent-status-and-role-disclosure-design.md) | `design` | `draft` | `agent_workflow` | 0 | 完整 |
+| [Project P3 Role 词表与知识索引归属设计](docs/superpowers/specs/2026-07-18-role-vocabulary-and-index-design.md) | `design` | `historical` | `agent_workflow` | 1 | 完整 |
 | [文档维护与新增控制规则](rules/01_文档维护与新增控制规则.md) | `rule` | `active` | `document_governance` | 5 | 完整 |
 | [智能体任务路由与完成协议](rules/02_智能体任务路由与完成协议.md) | `rule` | `active` | `agent_workflow` | 10 | 完整 |
 | [全局 Agent Rules 入口](rules/README.md) | `entry` | `active` | `agent_rules` | 5 | 完整 |
@@ -330,11 +334,6 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
-| [Art Runtime Validated State Implementation Plan](docs/superpowers/plans/2026-07-19-art-runtime-validated-state.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
-| [Formal V2 Replacement And UI Skin Implementation Plan](docs/superpowers/plans/2026-07-19-formal-v2-replacement-and-ui-skin.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
-| [Character Portrait Reference And Background Processing Implementation Plan](docs/superpowers/plans/2026-07-26-character-portrait-reference-and-background-processing.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
-| [Art Catalog Integrity Implementation Plan](docs/superpowers/plans/2026-08-02-art-catalog-integrity.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
-| [Character Portrait Replacement and Set Gates Implementation Plan](docs/superpowers/plans/2026-08-02-character-portrait-replacement-and-set-gates.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
 | [Formal V2 Prompt Readiness](美术文档/archive/formal_v2_prompt_readiness_snapshots/20260609_052040_formalv2_program_integrate_prompt_ready_ascii_cmd_20260609.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
 | [Formal V2 Prompt Readiness](美术文档/archive/formal_v2_prompt_readiness_snapshots/20260609_084349_formalv2_continue_20260609.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
 | [Formal V2 Prompt Readiness](美术文档/archive/formal_v2_prompt_readiness_snapshots/20260609_090042_formalv2_after_acceptance_check_20260609.md) | `unclassified` | `missing_metadata` | `unclassified` | 0 | 缺失：id, title, type, role, domain, status |
@@ -511,6 +510,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [美术 / UI 状态](agent_status/art.md) | `status` | `active` | `art_pipeline` | 30 | 完整 |
 | [Approved 到 Unity 导入与 Registry 登记自动化实施计划](docs/superpowers/plans/2026-07-18-art-approved-unity-registry-automation.md) | `plan` | `active` | `art_asset_integration` | 0 | 完整 |
 | [GIF 小循环人物替换实现计划](docs/superpowers/plans/2026-07-18-gif-character-replacement.md) | `plan` | `planned` | `gif_character_replacement` | 1 | 完整 |
+| [Art Runtime Validated State Implementation Plan](docs/superpowers/plans/2026-07-19-art-runtime-validated-state.md) | `plan` | `historical` | `runtime_art_validation` | 0 | 完整 |
+| [Formal V2 Replacement And UI Skin Implementation Plan](docs/superpowers/plans/2026-07-19-formal-v2-replacement-and-ui-skin.md) | `plan` | `historical` | `art_pipeline` | 0 | 完整 |
+| [Character Portrait Reference And Background Processing Implementation Plan](docs/superpowers/plans/2026-07-26-character-portrait-reference-and-background-processing.md) | `plan` | `historical` | `character_portrait_production` | 0 | 完整 |
+| [Art Catalog Integrity Implementation Plan](docs/superpowers/plans/2026-08-02-art-catalog-integrity.md) | `plan` | `historical` | `art_pipeline` | 0 | 完整 |
+| [Character Portrait Replacement and Set Gates Implementation Plan](docs/superpowers/plans/2026-08-02-character-portrait-replacement-and-set-gates.md) | `plan` | `historical` | `character_portrait_production` | 0 | 完整 |
 | [Approved 到 Unity 导入与 Registry 登记自动化设计](docs/superpowers/specs/2026-07-18-art-approved-unity-registry-automation-design.md) | `design` | `active` | `art_asset_integration` | 0 | 完整 |
 | [美术资产统一数字轮次加工与安全背景处理设计](docs/superpowers/specs/2026-07-18-unified-art-processing-rounds-design.md) | `design` | `active` | `art_asset_processing` | 0 | 完整 |
 | [零号对话中性立绘首轮流程试跑设计](docs/superpowers/specs/2026-07-18-zero-dialogue-neutral-character-portrait-pilot-design.md) | `design` | `active` | `character_portrait_production` | 0 | 完整 |
@@ -608,11 +612,6 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 元数据缺口
 
-- [Art Runtime Validated State Implementation Plan](docs/superpowers/plans/2026-07-19-art-runtime-validated-state.md)：缺少 `id, title, type, role, domain, status`
-- [Formal V2 Replacement And UI Skin Implementation Plan](docs/superpowers/plans/2026-07-19-formal-v2-replacement-and-ui-skin.md)：缺少 `id, title, type, role, domain, status`
-- [Character Portrait Reference And Background Processing Implementation Plan](docs/superpowers/plans/2026-07-26-character-portrait-reference-and-background-processing.md)：缺少 `id, title, type, role, domain, status`
-- [Art Catalog Integrity Implementation Plan](docs/superpowers/plans/2026-08-02-art-catalog-integrity.md)：缺少 `id, title, type, role, domain, status`
-- [Character Portrait Replacement and Set Gates Implementation Plan](docs/superpowers/plans/2026-08-02-character-portrait-replacement-and-set-gates.md)：缺少 `id, title, type, role, domain, status`
 - [Formal V2 Prompt Readiness](美术文档/archive/formal_v2_prompt_readiness_snapshots/20260609_052040_formalv2_program_integrate_prompt_ready_ascii_cmd_20260609.md)：缺少 `id, title, type, role, domain, status`
 - [Formal V2 Prompt Readiness](美术文档/archive/formal_v2_prompt_readiness_snapshots/20260609_084349_formalv2_continue_20260609.md)：缺少 `id, title, type, role, domain, status`
 - [Formal V2 Prompt Readiness](美术文档/archive/formal_v2_prompt_readiness_snapshots/20260609_090042_formalv2_after_acceptance_check_20260609.md)：缺少 `id, title, type, role, domain, status`

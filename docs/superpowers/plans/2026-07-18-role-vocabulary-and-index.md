@@ -1,4 +1,20 @@
+---
+id: role_vocabulary_and_index_plan
+title: Project P3 Role Vocabulary and Knowledge Index Implementation Plan
+type: plan
+role: 全局
+domain: agent_workflow
+status: historical
+source_of_truth: false
+related:
+  - docs/superpowers/specs/2026-07-18-role-vocabulary-and-index-design.md
+last_verified: 2026-10-01
+update_rule: 历史实施计划，不再更新；现行 Role 词表以 AGENTS.md 与 知识库/README.md 为准。
+---
+
 # Project P3 Role Vocabulary and Knowledge Index Implementation Plan
+
+> 历史计划：已于 2026-07-18 执行（`f3c1865`）。现行 Role 词表以 `AGENTS.md` 与 `知识库/README.md` 为准。
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 

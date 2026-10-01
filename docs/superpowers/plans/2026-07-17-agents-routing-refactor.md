@@ -1,4 +1,20 @@
+---
+id: agents_routing_refactor_plan
+title: Project P3 Agent Responsibility Routing Refactor Implementation Plan
+type: plan
+role: 全局
+domain: agent_workflow
+status: historical
+source_of_truth: false
+related:
+  - docs/superpowers/specs/2026-07-17-agents-routing-refactor-design.md
+last_verified: 2026-10-01
+update_rule: 历史实施计划，不再更新；现行规则以 AGENTS.md 与 rules/02 为准。
+---
+
 # Project P3 Agent Responsibility Routing Refactor Implementation Plan
+
+> 历史计划：已于 2026-07-17 执行（`b0ba7e8`、`4ec62ef`、`dddec40`）。现行规则以 `AGENTS.md` 与 `rules/02_智能体任务路由与完成协议.md` 为准。
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -27,7 +43,7 @@
 - Modify: `rules/README.md`
 
 **Interfaces:**
-- Consumes: `.codex/specs/2026-07-17-agents-routing-refactor-design.md`、当前 `AGENTS.md` 的全局工作模式、实现切片承接字段、完成协议与 Git 规范。
+- Consumes: `docs/superpowers/specs/2026-07-17-agents-routing-refactor-design.md`、当前 `AGENTS.md` 的全局工作模式、实现切片承接字段、完成协议与 Git 规范。
 - Produces: 根入口可链接的唯一稳定协议；后续 Task 2 删除重复内容时以该文件为承接证据。
 
 - [ ] **Step 1: 从当前 `AGENTS.md` 建立迁移核对清单**

@@ -1,4 +1,18 @@
+---
+id: art_catalog_integrity_plan
+title: Art Catalog Integrity Implementation Plan
+type: plan
+role: 美术
+domain: art_pipeline
+status: historical
+source_of_truth: false
+last_verified: 2026-10-01
+update_rule: 历史实施计划，不再更新；现行事实以美术文档与 p3-art-asset-production 为准。
+---
+
 # Art Catalog Integrity Implementation Plan
+
+> 历史计划：已于 2026-08-07 实施（`e894c6a`、`76a2e35`）。现行事实以 `美术文档/01_Manifest规范.md` 与 `.codex/skills/p3-art-asset-production/SKILL.md` 为准。
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
