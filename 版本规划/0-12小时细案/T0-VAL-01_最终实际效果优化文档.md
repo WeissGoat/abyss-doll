@@ -2,7 +2,7 @@
 id: t0_val_01_final_effect_optimization
 title: T0-VAL-01 T0-01A 运行时效果验收记录
 type: validation_effect_optimization
-role: Owner
+role: 游戏导演
 domain: prologue_first_loop_runtime_acceptance
 status: active
 source_of_truth: true

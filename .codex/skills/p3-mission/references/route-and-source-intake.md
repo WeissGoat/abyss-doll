@@ -66,4 +66,4 @@ Before creating any new mission CSV, confirm:
 - Every formal row has a real `status_writeback` target.
 - Verification does not rely on mock, dry-run, fixture, or static evidence to claim runtime completion.
 
-If any item is missing, do not create a mission. First create or update the needed source material through the owning role's documentation work (游戏导演, Owner, 剧情, 策划, 程序, or 美术), then run p3-mission from that source.
+If any item is missing, do not create a mission. First create or update the needed source material through the owning role's documentation work (游戏导演, 剧情, 策划, 程序, or 美术), then run p3-mission from that source.

@@ -17,7 +17,7 @@ The header order is fixed. All fields are written as quoted CSV values by the to
 | `id` | Stable row id, for example `PLAN-01`, `P1-01`, `CFG-02`, `REVIEW-01`. |
 | `kind` | `TASK` or `REVIEW`. |
 | `priority` | `P0`, `P1`, `P2`, or `P3`. |
-| `role` | Active P3 role: `全局`, `游戏导演`, `Owner`, `剧情`, `策划`, `程序`, `美术`, or `知识库`. Legacy `PM` / `UI程序` in old CSVs validate with a warning (read as `游戏导演` / `程序`); do not use them in new rows. |
+| `role` | Active P3 role (domain): `全局`, `游戏导演`, `剧情`, `策划`, `程序`, `美术`, or `知识库`. Legacy `PM` / `UI程序` / `Owner` in old CSVs validate with a warning (read as `游戏导演` / `程序`); do not use them in new rows. |
 | `phase` | String phase/order value, commonly `1`, `2`, `99`. |
 | `title` | Short action title. Prefer verb-led wording. |
 | `goal` | The row's contribution to the user's original goal. |

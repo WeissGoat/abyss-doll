@@ -2,7 +2,7 @@
 id: gemini_portrait_output_contract_plan
 title: Gemini 角色立绘输出契约实施计划
 type: plan
-role: Owner
+role: 美术
 domain: ai_image_gateway_art_pipeline
 status: active
 source_of_truth: false

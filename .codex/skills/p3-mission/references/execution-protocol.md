@@ -33,7 +33,7 @@ Each `TASK` row must be:
 - Independently verifiable.
 - Small enough to finish without swallowing unrelated refactors.
 - Explicit about `read_before`, `scope`, `out_of_scope`, `verify`, `required_tools`, and `status_writeback`.
-- Assigned to the closest active P3 role from `AGENTS.md`: `全局`, `游戏导演`, `Owner`, `剧情`, `策划`, `程序`, `美术`, or `知识库`. Legacy `PM` / `UI程序` values in old CSVs still validate with a warning; new rows use `游戏导演` / `程序`.
+- Assigned to the closest active P3 role (domain) from `AGENTS.md`: `全局`, `游戏导演`, `剧情`, `策划`, `程序`, `美术`, or `知识库`. Legacy `PM` / `UI程序` / `Owner` values in old CSVs still validate with a warning; new rows use `游戏导演` / `程序`.
 
 When planning from a source, keep approved formal queues in `missions/*.csv` only if the source is current and user-approved; otherwise use `.mission/*.csv`. If the source is too thin to define rows without inventing requirements, stop mission creation.
 
@@ -77,7 +77,7 @@ The authoritative matrix is `rules/02_智能体任务路由与完成协议.md`; 
 | Role / work type | Writeback target |
 |---|---|
 | `游戏导演`: experience spine, opening cadence, priorities, global completion criteria | `agent_status/director.md`; update `PROJECT_STATUS.md`, `13`, `14`, or `09` only when stage, priority, handoff, blockers, or T0-T4 slice state change. |
-| `Owner`: a complete module or player result | Every affected role status page plus the target module document; there is no Owner status page. When slice entry, player path, acceptance samples, or slice status change, also update the target 细案, `14`, and `agent_status/director.md`. |
+| Rows of a cross-domain module (the Owner way of working, written as `游戏导演` for player-result rows) | Every affected domain status page plus the target module document; there is no Owner status page. When slice entry, player path, acceptance samples, or slice status change, also update the target 细案, `14`, and `agent_status/director.md`. |
 | `剧情`: outline, narrative structure, dialogue, CG / comic narrative consistency | Narrative facts under `设计文档/剧情/`; there is no narrative status page. Update `agent_status/director.md` for global experience impact and `agent_status/design.md` for rule or config impact. |
 | `策划`: GDD, numbers, config intent or source | `agent_status/design.md`; update GDD, rule cards, config docs, or JSON source when they are the fact source. |
 | `程序`: Unity, domain services, pure UGUI, Validator, automated tests | `agent_status/program.md`; update development docs when contracts or architecture change, and `agent_status/art.md` only for art handoff or runtime art acceptance impact. |

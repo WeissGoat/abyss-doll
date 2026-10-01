@@ -30,8 +30,8 @@ FIELDS = [
 
 KINDS = {"TASK", "REVIEW"}
 PRIORITIES = {"P0", "P1", "P2", "P3"}
-ROLES = {"全局", "游戏导演", "Owner", "剧情", "策划", "程序", "美术", "知识库"}
-LEGACY_ROLES = {"PM": "游戏导演", "UI程序": "程序"}
+ROLES = {"全局", "游戏导演", "剧情", "策划", "程序", "美术", "知识库"}
+LEGACY_ROLES = {"PM": "游戏导演", "UI程序": "程序", "Owner": "游戏导演"}
 STATUSES = {"TODO", "DOING", "REVIEW", "FIX", "DONE", "BLOCKED"}
 ACTIVE_STATUSES = {"TODO", "DOING", "REVIEW", "FIX"}
 ROLE_ALIASES = {
@@ -40,7 +40,7 @@ ROLE_ALIASES = {
     "pm": "游戏导演",
     "plan": "游戏导演",
     "planning": "游戏导演",
-    "owner": "Owner",
+    "owner": "游戏导演",
     "narrative": "剧情",
     "story": "剧情",
     "design": "策划",
@@ -60,7 +60,6 @@ ROLE_ALIASES = {
 ROLE_CONTEXT = {
     "全局": [],
     "游戏导演": ["知识库/views/director.md", "agent_status/director.md"],
-    "Owner": ["知识库/views/owner.md", "agent_status/director.md"],
     "剧情": ["知识库/views/narrative.md", "设计文档/剧情/README.md"],
     "策划": ["知识库/views/design.md", "agent_status/design.md"],
     "程序": ["知识库/views/program.md", "agent_status/program.md"],

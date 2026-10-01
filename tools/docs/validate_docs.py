@@ -30,7 +30,6 @@ CORE_DOCS = {
 ACTIVE_ROLES = {
     "全局",
     "游戏导演",
-    "Owner",
     "剧情",
     "策划",
     "程序",

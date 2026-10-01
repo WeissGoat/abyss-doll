@@ -39,7 +39,7 @@ update_rule: 剧情 Role 入口、叙事事实边界或条件阅读范围变化�
 
 ## 验收 / 恢复时读取
 
-- 影响全局体验、开放节奏或 Owner 模块完成口径时，读取导演 View 和 `agent_status/director.md` 当前快照。
+- 影响全局体验、开放节奏或跨领域模块的完成口径时，读取导演 View 和 `agent_status/director.md` 当前快照。
 - 影响 GDD、规则、配置源或文案字段时，读取策划 View 和 `agent_status/design.md` 当前快照。
 - 叙事 CG / 漫画页生产与运行时验收使用 `p3-narrative-cg-comic`；纯图像生成 / 编辑使用 `p3-generate-image`。
 - 恢复长期剧情任务时，读取已有详细来源材料和 P3 Mission 当前状态，不通读无关历史日志。

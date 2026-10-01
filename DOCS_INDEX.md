@@ -23,7 +23,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - 缺少元数据：4
 - 事实来源文档：196
 - 关联边数：1529
-- 跨职能关联：315
+- 跨职能关联：303
 - `related` 只需单向填写；反向链接由本脚本写入 `docs_index.json` 的 `referenced_by`，关联数按双向合并统计。
 
 ## 事实来源
@@ -227,31 +227,24 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 
 ## 关联网络
 
-- `0-12 小时细案 Owner <-> Owner`：3 条
-- `Owner <-> 全局`：2 条
-- `Owner <-> 剧情`：5 条
-- `Owner <-> 游戏导演`：9 条
-- `Owner <-> 知识库`：1 条
-- `Owner <-> 程序`：5 条
-- `Owner <-> 策划`：8 条
-- `Owner <-> 美术`：5 条
+- `0-12 小时细案 Owner <-> 游戏导演`：3 条
 - `全局 <-> 兼容`：5 条
 - `全局 <-> 剧情`：2 条
-- `全局 <-> 游戏导演`：20 条
-- `全局 <-> 知识库`：7 条
+- `全局 <-> 游戏导演`：21 条
+- `全局 <-> 知识库`：8 条
 - `全局 <-> 程序`：15 条
 - `全局 <-> 策划`：54 条
 - `全局 <-> 美术`：11 条
 - `兼容 <-> 游戏导演`：5 条
 - `兼容 <-> 知识库`：1 条
-- `剧情 <-> 游戏导演`：8 条
+- `剧情 <-> 游戏导演`：13 条
 - `剧情 <-> 知识库`：1 条
 - `剧情 <-> 程序`：1 条
 - `剧情 <-> 策划`：12 条
 - `游戏导演 <-> 知识库`：1 条
-- `游戏导演 <-> 程序`：2 条
-- `游戏导演 <-> 策划`：16 条
-- `游戏导演 <-> 美术`：2 条
+- `游戏导演 <-> 程序`：7 条
+- `游戏导演 <-> 策划`：24 条
+- `游戏导演 <-> 美术`：5 条
 - `知识库 <-> 程序`：1 条
 - `知识库 <-> 策划`：1 条
 - `知识库 <-> 美术`：1 条
@@ -268,20 +261,6 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [T0-01 开局人偶状态到首次下潜许可](版本规划/_archive/0-12小时细案_2026-06-14_拆分稿/T0-01_开局人偶状态到首次下潜许可.md) | `plan` | `historical` | `candidate_loop_detail_design` | 1 | 完整 |
 | [T0-02 首次下潜到第一笔战利品](版本规划/_archive/0-12小时细案_2026-06-14_拆分稿/T0-02_首次下潜到第一笔战利品.md) | `plan` | `historical` | `candidate_loop_detail_design` | 1 | 完整 |
 | [T0-03 回城出售到维护 / 休整闭环](版本规划/_archive/0-12小时细案_2026-06-14_拆分稿/T0-03_回城出售到维护休整闭环.md) | `plan` | `historical` | `candidate_loop_detail_design` | 1 | 完整 |
-
-### Owner
-
-| 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
-|---|---|---|---|---|---|
-| [Gemini 角色立绘输出契约实施计划](docs/plans/2026-08-08-gemini-portrait-output-contract.md) | `plan` | `active` | `ai_image_gateway_art_pipeline` | 1 | 完整 |
-| [Gemini 角色立绘输出契约设计](docs/specs/2026-08-08-gemini-portrait-output-contract-design.md) | `design` | `active` | `ai_image_gateway_art_pipeline` | 3 | 完整 |
-| [T0-01A 开局人偶状态到首次下潜许可实现设计](版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可实现设计.md) | `implementation_design` | `active` | `prologue_first_loop_implementation` | 7 | 完整 |
-| [T0-01A 开局人偶状态到首次下潜许可开发方案](版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可开发方案.md) | `development_plan` | `active` | `prologue_first_loop_development` | 10 | 完整 |
-| [T0-01 序章首次循环](版本规划/0-12小时细案/T0-01_序章首次循环.md) | `plan` | `active` | `candidate_loop_detail_design` | 13 | 完整 |
-| [T0-01 序章首次循环开发总方案](版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md) | `development_plan` | `active` | `prologue_first_loop_development` | 13 | 完整 |
-| [T0-VAL-01 T0-01A 运行时效果验收记录](版本规划/0-12小时细案/T0-VAL-01_最终实际效果优化文档.md) | `validation_effect_optimization` | `active` | `prologue_first_loop_runtime_acceptance` | 5 | 完整 |
-| [T1 第一层搜打撤成形](版本规划/0-12小时细案/T1_第一层搜打撤成形.md) | `plan` | `active` | `candidate_loop_detail_design` | 6 | 完整 |
-| [Owner 智能体阅读入口](知识库/views/owner.md) | `view` | `active` | `agent_context_view` | 4 | 完整 |
 
 ### PM
 
@@ -316,6 +295,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [MVP 白盒试玩收口推进计划](版本规划/_archive/mvp_2026-05/06_MVP白盒试玩收口推进计划.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 自动化试玩验收方案](版本规划/_archive/mvp_2026-05/07_MVP自动化试玩验收方案.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [MVP 自动化试玩首轮报告](版本规划/_archive/mvp_2026-05/08_MVP自动化试玩首轮报告.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
+| [跨领域交付（Owner 做法）阅读入口](知识库/views/owner.md) | `view` | `active` | `agent_context_view` | 4 | 完整 |
 
 ### 兼容
 
@@ -347,6 +327,12 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | 文档 | 类型 | 状态 | 领域 | 关联 | 元数据 |
 |---|---|---|---|---|---|
 | [游戏导演 / 制作人 状态](agent_status/director.md) | `status` | `active` | `game_direction_production` | 17 | 完整 |
+| [T0-01A 开局人偶状态到首次下潜许可实现设计](版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可实现设计.md) | `implementation_design` | `active` | `prologue_first_loop_implementation` | 7 | 完整 |
+| [T0-01A 开局人偶状态到首次下潜许可开发方案](版本规划/0-12小时细案/T0-01A_开局人偶状态到首次下潜许可开发方案.md) | `development_plan` | `active` | `prologue_first_loop_development` | 10 | 完整 |
+| [T0-01 序章首次循环](版本规划/0-12小时细案/T0-01_序章首次循环.md) | `plan` | `active` | `candidate_loop_detail_design` | 13 | 完整 |
+| [T0-01 序章首次循环开发总方案](版本规划/0-12小时细案/T0-01_序章首次循环开发总方案.md) | `development_plan` | `active` | `prologue_first_loop_development` | 13 | 完整 |
+| [T0-VAL-01 T0-01A 运行时效果验收记录](版本规划/0-12小时细案/T0-VAL-01_最终实际效果优化文档.md) | `validation_effect_optimization` | `active` | `prologue_first_loop_runtime_acceptance` | 5 | 完整 |
+| [T1 第一层搜打撤成形](版本规划/0-12小时细案/T1_第一层搜打撤成形.md) | `plan` | `active` | `candidate_loop_detail_design` | 6 | 完整 |
 | [纵切批次与需求文档承接矩阵](版本规划/11_纵切批次与需求文档承接矩阵.md) | `plan` | `active` | `vertical_batch_requirement_coverage` | 25 | 完整 |
 | [正式版全局体验总线与全系统宏观大纲](版本规划/13_正式版全局体验总线与开放节奏.md) | `plan` | `active` | `global_experience_spine` | 11 | 完整 |
 | [0-12 小时候选主循环细案设计](版本规划/14_0-12小时候选主循环细案设计.md) | `plan` | `active` | `candidate_loop_detail_design` | 14 | 完整 |
@@ -518,11 +504,13 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Character Portrait Reference And Background Processing Implementation Plan](docs/plans/2026-07-26-character-portrait-reference-and-background-processing.md) | `plan` | `historical` | `character_portrait_production` | 0 | 完整 |
 | [Art Catalog Integrity Implementation Plan](docs/plans/2026-08-02-art-catalog-integrity.md) | `plan` | `historical` | `art_pipeline` | 0 | 完整 |
 | [Character Portrait Replacement and Set Gates Implementation Plan](docs/plans/2026-08-02-character-portrait-replacement-and-set-gates.md) | `plan` | `historical` | `character_portrait_production` | 0 | 完整 |
+| [Gemini 角色立绘输出契约实施计划](docs/plans/2026-08-08-gemini-portrait-output-contract.md) | `plan` | `active` | `ai_image_gateway_art_pipeline` | 1 | 完整 |
 | [Approved 到 Unity 导入与 Registry 登记自动化设计](docs/specs/2026-07-18-art-approved-unity-registry-automation-design.md) | `design` | `historical` | `art_asset_integration` | 0 | 完整 |
 | [美术资产统一数字轮次加工与安全背景处理设计](docs/specs/2026-07-18-unified-art-processing-rounds-design.md) | `design` | `historical` | `art_asset_processing` | 0 | 完整 |
 | [零号对话中性立绘首轮流程试跑设计](docs/specs/2026-07-18-zero-dialogue-neutral-character-portrait-pilot-design.md) | `design` | `historical` | `character_portrait_production` | 0 | 完整 |
 | [美术素材 Runtime Validated 状态收敛设计](docs/specs/2026-07-19-art-runtime-validated-state-design.md) | `design` | `historical` | `runtime_art_validation` | 0 | 完整 |
 | [角色立绘参考资产解析与背景处理能力设计](docs/specs/2026-07-26-character-portrait-reference-and-background-processing-design.md) | `design` | `historical` | `character_portrait_production` | 0 | 完整 |
+| [Gemini 角色立绘输出契约设计](docs/specs/2026-08-08-gemini-portrait-output-contract-design.md) | `design` | `active` | `ai_image_gateway_art_pipeline` | 3 | 完整 |
 | [美术工具](tools/美术工具/README.md) | `tool` | `active` | `art_tooling` | 13 | 完整 |
 | [MVP 美术与UI表现需求清单 (Art & UI Pipeline)](版本规划/_archive/mvp_2026-05/01_MVP美术与UI需求清单.md) | `plan` | `historical` | `mvp_planning` | 2 | 完整 |
 | [美术智能体阅读入口](知识库/views/art.md) | `view` | `active` | `agent_context_view` | 18 | 完整 |
