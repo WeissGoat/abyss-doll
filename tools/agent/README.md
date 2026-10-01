@@ -100,6 +100,7 @@ P0 配置 Validator 与自动验收底座的目标命令、报告格式和门禁
 - Git 工作区是否已有暂存、未暂存或未跟踪文件。
 - 是否存在容易误提交的生成物、运行时副本、本地工具目录或 submodule 改动。
 - `tools/docs/Validate-Docs.ps1` 对应的知识库索引和双向关系是否通过校验。
+- `tools/agent/validate_skills.py` 的 Skill 校验：`.codex/skills` 每个 Skill 有唯一 `name` 和 `description`；`.claude/skills` 转发入口与源 frontmatter 一致且无孤儿；`tools/p3-mission` 与 `.codex/skills/p3-mission` 内容一致；Skill 文档里的链接、`.codex/skills/...` 路由和仓库路径存在；入口文档和 Skill 中出现的 `p3-*` Skill 名都已注册。结构问题和失效的 Skill 路由为 `ERROR`，其他失效仓库路径和未知 Skill 名为 `WARN`。单独运行：`python tools/agent/validate_skills.py`；回归测试：`python -m unittest tools.agent.tests.test_validate_skills -v`。
 - 当前分支和 HEAD，方便复制智能体记录上下文。
 - 背包交互服务、DisplaySpec 与 GridLayoutGroup 资产布局 smoke test 可通过 `Invoke-UnitySmokeTests.ps1` 单独执行。
 - P0 统一验收可通过 `Invoke-P0Validation.ps1` 执行，并生成机器可读 JSON 与人工可读 Markdown 报告。

@@ -1,4 +1,5 @@
 import argparse
+import os
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -28,10 +29,11 @@ class StatusEntry:
     original_path: str = ""
 
 
-def run(command, cwd=None):
+def run(command, cwd=None, env=None):
     return subprocess.run(
         command,
         cwd=cwd,
+        env=env,
         text=True,
         encoding="utf-8",
         errors="replace",
@@ -129,6 +131,21 @@ def check_docs(root):
     return "PASS", details
 
 
+def check_skills(root):
+    script = root / "tools" / "agent" / "validate_skills.py"
+    if not script.exists():
+        return "ERROR", [f"  - 缺少 Skill 校验脚本：{script}"]
+    env = dict(os.environ, PYTHONIOENCODING="utf-8")
+    result = run([sys.executable, str(script)], cwd=root, env=env)
+    output = (result.stdout + result.stderr).strip()
+    details = [f"  - {line}" for line in output.splitlines()] if output else []
+    if result.returncode != 0:
+        return "ERROR", details
+    if "WARN:" in result.stdout:
+        return "WARN", details
+    return "PASS", details
+
+
 def summarize_status(entries):
     staged = [entry for entry in entries if is_staged(entry)]
     unstaged = [entry for entry in entries if is_unstaged(entry)]
@@ -204,6 +221,7 @@ def main():
     checks.append(("工作区状态", *summarize_status(entries)))
     checks.append(("易误提交路径", *check_risky_paths(entries)))
     checks.append(("知识库校验", *check_docs(root)))
+    checks.append(("Skill 校验", *check_skills(root)))
 
     has_error = False
     has_warning = False
