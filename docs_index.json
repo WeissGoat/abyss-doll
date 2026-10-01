@@ -2650,7 +2650,7 @@
         "开发文档/rules/03_视觉资源系统程序开发规范.md",
         "开发文档/14_Unity运行时美术自动验收方案.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-10-01",
       "update_rule": "美术入口文档、流水线、UI 交付或程序侧视觉契约变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2811,7 +2811,7 @@
         "tools/config/README.md",
         "配置表(JSON)/README.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-10-01",
       "update_rule": "程序入口文档、Unity 工程边界、配置同步或验证流程变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],

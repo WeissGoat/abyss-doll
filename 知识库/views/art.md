@@ -25,7 +25,7 @@ related:
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - 开发文档/14_Unity运行时美术自动验收方案.md
-last_verified: 2026-07-18
+last_verified: 2026-10-01
 update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约变化时同步本文件。
 ---
 
@@ -43,14 +43,15 @@ update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约�
 ## 按任务读取
 
 - 正式资产准入：读取 `p3-art-asset-production`、Manifest、资源规格、Approved 和目标 Asset Contract。
-- 纯生成 / 差分：读取 `generate-image` 和目标角色 / 场景 / 风格事实。
+- 纯生成 / 差分：读取 `p3-generate-image` 和目标角色 / 场景 / 风格事实。
 - 叙事 CG / 漫画页：读取 `p3-narrative-cg-comic`、`美术文档/18_CG底图与漫画式播放演出工作流.md` 和目标 CG 细案。
 - UI / 运行时验收：读取 active `screen_layouts.json`、程序交接清单和 `p3-art-validation`；不把静态预览当作运行时证据。
 - Owner 统筹任务：只读取实际受影响的策划、程序或剧情入口。
 
 ## 验收 / 恢复时
 
-- 正式资产准入使用 `p3-art-asset-production`；运行时视觉诊断使用 `p3-art-validation`；发布聚合使用 `p3-release-validation`。
+- 正式资产准入使用 `p3-art-asset-production`；发布聚合使用 `p3-release-validation`。
+- 运行时视觉诊断、截图和受限迭代使用 `p3-art-validation`：默认先用 MCP 直接查看 Game View 和 bounded UGUI snapshot，需要决策证据时才用 capture ticket 截图；Art Profile 只记录技术结果与证据，`ArtAcceptanceRunner` 仅由 `art_regression` 使用。
 - Owner 外部验收、状态回写或跨职能交接时读取 `rules/02_智能体任务路由与完成协议.md`。
 - 恢复历史候选或旧 ArtRun 时只读取目标 Asset / RunID 证据，不通读美术状态历史。
 
@@ -78,7 +79,3 @@ update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约�
 - UI 结构迭代时，`screen_layouts.json` 是 active；`formal_v1/`、`formal_v2/` 和 `versions/` 都不是程序接入口。
 - Figma、Unity MCP、截图标注和 PlayMode 布局扫描只是 Formal V2 的辅助工具；正式接入口仍必须回到 active `screen_layouts.json`、Manifest、程序交接清单和 ArtAcceptance。
 - 如果美术交付影响程序接入或策划规则，需要同步 `PROJECT_STATUS.md` 和对应职能状态页。
-
-# 2026-07-12 验收入口
-
-运行时美术诊断、截图和受限迭代入口为 `.codex/skills/p3-art-validation`。默认先通过 MCP 直接查看 Game View 和 bounded UGUI snapshot；只有需要决策证据时才使用 capture ticket 截图。Art Profile 只记录技术结果与证据，不维护人工美术判断状态；`ArtAcceptanceRunner` 仅由 `art_regression` 使用。

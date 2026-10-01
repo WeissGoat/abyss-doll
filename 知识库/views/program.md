@@ -21,7 +21,7 @@ related:
   - 开发文档/rules/00_程序开发总规则.md
   - tools/config/README.md
   - 配置表(JSON)/README.md
-last_verified: 2026-07-18
+last_verified: 2026-10-01
 update_rule: 程序入口文档、Unity 工程边界、配置同步或验证流程变化时同步本文件。
 ---
 
@@ -45,7 +45,7 @@ update_rule: 程序入口文档、Unity 工程边界、配置同步或验证流�
 
 ## 验收 / 恢复时
 
-- 编译、配置、Smoke、P0 / T0 功能路径使用 `p3-program-validation`；不以 ArtAcceptance 或静态截图代替程序通过。
+- 编译、配置、Smoke、P0 / T0 功能路径使用 `p3-program-validation`（共享脚本在 `tools/agent/p3-validation-core`）；不以 ArtAcceptance 或静态截图代替程序通过，美术 lane 的注册目标检查、bounded UGUI inspection、MCP capture ticket 和 ArtRunID 不进入程序 Profile。
 - Owner 外部验收、状态回写或跨职能交接时读取 `rules/02_智能体任务路由与完成协议.md`。
 - Unity / MCP 受限时记录 `validation_limited:*`，并回到对应 RunID 证据包或 Git 历史追溯。
 
@@ -70,6 +70,3 @@ update_rule: 程序入口文档、Unity 工程边界、配置同步或验证流�
 - `配置表(JSON)` 是配置源；`UnityClient/Assets/StreamingAssets/Configs` 是生成副本，运行前先同步。
 - 移动 Unity 资产时必须同步处理 `.meta` 文件，保留 GUID。
 - 修改系统契约时优先补 Validator、测试和对应开发文档。
-# 2026-07-12 验收入口
-
-程序验收入口已切换为 `.codex/skills/p3-program-validation` 与 `tools/agent/p3-validation-core`；旧混合入口已删除。美术 lane 的标准工具为注册目标检查、bounded UGUI inspection、MCP capture ticket 和独立 ArtRunID，不得进入程序 Profile。

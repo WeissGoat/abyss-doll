@@ -167,6 +167,7 @@ def validate_progressive_disclosure_structure():
             for heading in second_level_headings(body)
         ):
             errors.append(f"{path} missing required heading: 验收 / 恢复时")
+        errors.extend(validate_no_dated_logs(path, body))
 
     return errors
 
