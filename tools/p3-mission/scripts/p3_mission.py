@@ -30,25 +30,42 @@ FIELDS = [
 
 KINDS = {"TASK", "REVIEW"}
 PRIORITIES = {"P0", "P1", "P2", "P3"}
-ROLES = {"PM", "策划", "程序", "UI程序", "美术", "知识库", "全局"}
+ROLES = {"全局", "游戏导演", "Owner", "剧情", "策划", "程序", "美术", "知识库"}
+LEGACY_ROLES = {"PM": "游戏导演", "UI程序": "程序"}
 STATUSES = {"TODO", "DOING", "REVIEW", "FIX", "DONE", "BLOCKED"}
 ACTIVE_STATUSES = {"TODO", "DOING", "REVIEW", "FIX"}
 ROLE_ALIASES = {
-    "pm": "PM",
-    "plan": "PM",
-    "planning": "PM",
+    "director": "游戏导演",
+    "producer": "游戏导演",
+    "pm": "游戏导演",
+    "plan": "游戏导演",
+    "planning": "游戏导演",
+    "owner": "Owner",
+    "narrative": "剧情",
+    "story": "剧情",
     "design": "策划",
     "config": "策划",
     "program": "程序",
     "unity": "程序",
-    "ui": "UI程序",
-    "ui-program": "UI程序",
+    "ui": "程序",
+    "ui-program": "程序",
+    "ui程序": "程序",
     "art": "美术",
     "kb": "知识库",
     "knowledge": "知识库",
     "docs": "知识库",
     "global": "全局",
     "all": "全局",
+}
+ROLE_CONTEXT = {
+    "全局": [],
+    "游戏导演": ["知识库/views/director.md", "agent_status/director.md"],
+    "Owner": ["知识库/views/owner.md", "agent_status/director.md"],
+    "剧情": ["知识库/views/narrative.md", "设计文档/剧情/README.md"],
+    "策划": ["知识库/views/design.md", "agent_status/design.md"],
+    "程序": ["知识库/views/program.md", "agent_status/program.md"],
+    "美术": ["知识库/views/art.md", "agent_status/art.md"],
+    "知识库": ["知识库/README.md"],
 }
 
 
@@ -135,7 +152,9 @@ def validate(path: Path, strict: bool = False):
             errors.append(f"line {index} [{row_id}]: kind must be one of {sorted(KINDS)}")
         if priority not in PRIORITIES:
             errors.append(f"line {index} [{row_id}]: priority must be one of {sorted(PRIORITIES)}")
-        if role not in ROLES:
+        if role in LEGACY_ROLES:
+            warnings.append(f"line {index} [{row_id}]: legacy role {role}; use {LEGACY_ROLES[role]} in new rows")
+        elif role not in ROLES:
             errors.append(f"line {index} [{row_id}]: role must be one of {sorted(ROLES)}")
         if status not in STATUSES:
             errors.append(f"line {index} [{row_id}]: status must be one of {sorted(STATUSES)}")
@@ -290,7 +309,7 @@ def cmd_new(args):
             "goal": args.goal,
             "scope": "Read the source reference and P3 status, then split the approved phase progress into 3-12 independently verifiable mission rows.",
             "out_of_scope": "Do not invent missing requirements, write a spec, or implement feature work before replacing this planning placeholder with concrete task rows.",
-            "read_before": f"{source_ref}; AGENTS.md; PROJECT_STATUS.md; agent_status/pm.md; agent_status/program.md; agent_status/design.md; agent_status/art.md",
+            "read_before": "; ".join([source_ref, "AGENTS.md", "PROJECT_STATUS.md", *ROLE_CONTEXT[role]]),
             "files": f"{source_ref}; .codex/skills/p3-mission/SKILL.md; tools/p3-mission/SKILL.md",
             "commands": ".\\tools\\p3-mission\\Test-P3Mission.ps1 -Path <mission.csv>",
             "verify": "Mission CSV has concrete TASK rows, one final REVIEW row, required read_before/status_writeback/verify fields, and no placeholder-only implementation rows.",

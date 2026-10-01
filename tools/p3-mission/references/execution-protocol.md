@@ -33,7 +33,7 @@ Each `TASK` row must be:
 - Independently verifiable.
 - Small enough to finish without swallowing unrelated refactors.
 - Explicit about `read_before`, `scope`, `out_of_scope`, `verify`, `required_tools`, and `status_writeback`.
-- Assigned to the closest P3 role: `PM`, `策划`, `程序`, `UI程序`, `美术`, `知识库`, or `全局`.
+- Assigned to the closest active P3 role from `AGENTS.md`: `全局`, `游戏导演`, `Owner`, `剧情`, `策划`, `程序`, `美术`, or `知识库`. Legacy `PM` / `UI程序` values in old CSVs still validate with a warning; new rows use `游戏导演` / `程序`.
 
 When planning from a source, keep approved formal queues in `missions/*.csv` only if the source is current and user-approved; otherwise use `.mission/*.csv`. If the source is too thin to define rows without inventing requirements, stop mission creation.
 
@@ -72,16 +72,19 @@ Status commands:
 
 ## 4. P3 Status Writeback Matrix
 
-| Work type | Writeback target |
-|---|---|
-| PM / version planning | `agent_status/pm.md`; update `PROJECT_STATUS.md` or `版本规划/09_正式版核心纵切开发路线.md` only when stage, priority, handoff, or blockers change. |
-| Design / economy / config | `agent_status/design.md`; update GDD, rules, config docs, or JSON source when they are the fact source. |
-| Program / Unity / validation | `agent_status/program.md`; update development docs when contracts or architecture change. |
-| UI program | `agent_status/program.md`; update `agent_status/art.md` only for art handoff or runtime art acceptance impact. |
-| Art / UI design | `agent_status/art.md`; update art docs, UI specs, manifests, or integration snapshots as required. |
-| Knowledge base / tools | Relevant tool docs or status pages; update `PROJECT_STATUS.md` only if project-level workflow or blockers change. |
+The authoritative matrix is `rules/02_智能体任务路由与完成协议.md`; this summary must not diverge from it.
 
-Never use the mission CSV as the final project fact source.
+| Role / work type | Writeback target |
+|---|---|
+| `游戏导演`: experience spine, opening cadence, priorities, global completion criteria | `agent_status/director.md`; update `PROJECT_STATUS.md`, `13`, `14`, or `09` only when stage, priority, handoff, blockers, or T0-T4 slice state change. |
+| `Owner`: a complete module or player result | Every affected role status page plus the target module document; there is no Owner status page. When slice entry, player path, acceptance samples, or slice status change, also update the target 细案, `14`, and `agent_status/director.md`. |
+| `剧情`: outline, narrative structure, dialogue, CG / comic narrative consistency | Narrative facts under `设计文档/剧情/`; there is no narrative status page. Update `agent_status/director.md` for global experience impact and `agent_status/design.md` for rule or config impact. |
+| `策划`: GDD, numbers, config intent or source | `agent_status/design.md`; update GDD, rule cards, config docs, or JSON source when they are the fact source. |
+| `程序`: Unity, domain services, pure UGUI, Validator, automated tests | `agent_status/program.md`; update development docs when contracts or architecture change, and `agent_status/art.md` only for art handoff or runtime art acceptance impact. |
+| `美术`: UI visuals, asset production, Manifest, VisualID, runtime art acceptance | `agent_status/art.md`; update art docs, UI specs, manifests, or script-refreshed handoffs as required. |
+| `知识库` / `全局`: doc metadata, index, agent workflow tools | Relevant tool docs or `知识库/README.md`; update `PROJECT_STATUS.md` only if project-level workflow or blockers change. |
+
+`agent_status/pm.md` is a legacy compatibility page; never write mission progress there. Never use the mission CSV as the final project fact source.
 
 ## 5. Evidence Levels
 
