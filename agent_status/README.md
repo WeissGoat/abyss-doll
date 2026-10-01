@@ -14,7 +14,7 @@ related:
   - agent_status/program.md
   - agent_status/design.md
   - agent_status/art.md
-last_verified: 2026-07-18
+last_verified: 2026-10-01
 update_rule: 新增或调整职能状态页、状态记录字段或状态与稳定规则边界时同步本文件。
 ---
 
@@ -51,4 +51,6 @@ active 状态页按以下顺序维护：
 - `最近完成` 只保留少量仍与当前工作直接相关的结果，不按日期无限追加。
 - 稳定跨职能协议统一见 `rules/02_智能体任务路由与完成协议.md`。
 - 专业事实回到剧情、GDD、配置、开发或美术文档；状态页只给出简短结论和关键证据入口。
+- 哈希、GUID、耗时、评分、测试计数等明细留在 RunID 证据包、Manifest 或 Git 历史；状态页只写结论、声明边界和 RunID。
+- 本目录 active 状态页与 `PROJECT_STATUS.md` 的正文上限为 80 行、4000 字符，单行不超过 240 字符，由 `tools/docs/validate_docs.py` 校验；超限时先删除已沉淀或已过期的条目，不要合并成长行。
 - 每次任务只更新受影响状态页；纯专业任务不因为存在关联关系而改写所有状态页。

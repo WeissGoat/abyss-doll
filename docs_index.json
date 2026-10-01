@@ -309,7 +309,7 @@
         "agent_status/design.md",
         "agent_status/art.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-10-01",
       "update_rule": "新增或调整职能状态页、状态记录字段或状态与稳定规则边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],

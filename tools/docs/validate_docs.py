@@ -75,7 +75,9 @@ PROJECT_STATUS_REQUIRED_HEADINGS = {
 }
 
 BODY_LINE_LIMIT = 80
-DATED_LOG_HEADING = re.compile(r"^## \d{4}-\d{2}-\d{2}(?:\s|$)")
+BODY_CHAR_LIMIT = 4000
+LINE_CHAR_LIMIT = 240
+DATED_LOG_HEADING = re.compile(r"^#{1,2} \d{4}-\d{2}-\d{2}(?:\s|$)")
 DATED_LOG_ENTRY = re.compile(r"^- \d{4}-\d{2}-\d{2}(?:\s|$)")
 
 
@@ -97,6 +99,21 @@ def validate_body_line_limit(path, body, limit):
     if line_count <= limit:
         return []
     return [f"{path} body exceeds {limit} lines: {line_count}"]
+
+
+def validate_body_char_limit(path, body, limit):
+    char_count = len(body.replace("\r\n", "\n"))
+    if char_count <= limit:
+        return []
+    return [f"{path} body exceeds {limit} characters: {char_count}"]
+
+
+def validate_line_char_limit(path, body, limit):
+    return [
+        f"{path} body line {number} exceeds {limit} characters: {len(line)}"
+        for number, line in enumerate(body.splitlines(), start=1)
+        if len(line) > limit
+    ]
 
 
 def validate_no_dated_logs(path, body):
@@ -126,12 +143,20 @@ def validate_progressive_disclosure_structure():
     errors.extend(
         validate_body_line_limit("PROJECT_STATUS.md", project_body, BODY_LINE_LIMIT)
     )
+    errors.extend(
+        validate_body_char_limit("PROJECT_STATUS.md", project_body, BODY_CHAR_LIMIT)
+    )
+    errors.extend(
+        validate_line_char_limit("PROJECT_STATUS.md", project_body, LINE_CHAR_LIMIT)
+    )
     errors.extend(validate_no_dated_logs("PROJECT_STATUS.md", project_body))
 
     for path in sorted(ACTIVE_STATUS_DOCS):
         body = document_body(path)
         errors.extend(validate_required_headings(path, body, STATUS_REQUIRED_HEADINGS))
         errors.extend(validate_body_line_limit(path, body, BODY_LINE_LIMIT))
+        errors.extend(validate_body_char_limit(path, body, BODY_CHAR_LIMIT))
+        errors.extend(validate_line_char_limit(path, body, LINE_CHAR_LIMIT))
         errors.extend(validate_no_dated_logs(path, body))
 
     for path in sorted(ACTIVE_ROLE_VIEWS):

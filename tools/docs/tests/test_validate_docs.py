@@ -2,7 +2,9 @@ import unittest
 
 from tools.docs.validate_docs import (
     second_level_headings,
+    validate_body_char_limit,
     validate_body_line_limit,
+    validate_line_char_limit,
     validate_no_dated_logs,
     validate_required_headings,
 )
@@ -54,6 +56,31 @@ class ValidateDocsStructureTests(unittest.TestCase):
         self.assertEqual(
             validate_body_line_limit("status.md", body, 80),
             ["status.md body exceeds 80 lines: 81"],
+        )
+
+    def test_body_char_limit_counts_characters_not_bytes(self):
+        body = "# 状态\n" + "零" * 20
+        self.assertEqual(validate_body_char_limit("status.md", body, 25), [])
+        self.assertEqual(
+            validate_body_char_limit("status.md", body + "号", 25),
+            ["status.md body exceeds 25 characters: 26"],
+        )
+
+    def test_body_char_limit_ignores_crlf(self):
+        self.assertEqual(validate_body_char_limit("status.md", "a\r\nb\r\n", 4), [])
+
+    def test_line_char_limit_reports_each_long_line(self):
+        body = "# 状态\n- " + "长" * 10 + "\n- 短\n"
+        self.assertEqual(
+            validate_line_char_limit("status.md", body, 8),
+            ["status.md body line 2 exceeds 8 characters: 12"],
+        )
+
+    def test_dated_top_level_heading_is_rejected(self):
+        body = "# 状态\n## 当前关注\n内容\n# 2026-07-12 验收入口\n"
+        self.assertEqual(
+            validate_no_dated_logs("status.md", body),
+            ["status.md contains dated log heading: # 2026-07-12 验收入口"],
         )
 
     def test_dated_log_heading_is_rejected(self):
