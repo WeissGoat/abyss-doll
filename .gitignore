@@ -57,6 +57,7 @@ __pycache__/
 
 # Local agent/session artifacts and accidentally rooted tool output.
 .superpowers/
+.claude/settings.local.json
 tmp/
 ~/
 UnityClient/UnityClient/
