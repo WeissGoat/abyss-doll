@@ -18,17 +18,21 @@ Capability boundaries:
 
 ## Required reading
 
-1. Read `AGENTS.md`, `PROJECT_STATUS.md`, and `agent_status/art.md`.
-2. Read `美术文档/00_美术流水线总览.md`, `01_Manifest规范.md`, `02_资源规格与接入规范.md`, `03_AI生成与筛选规范.md`, and `04_美术风格基准.md`.
-3. Read the target asset's active character, UI, CG, configuration, or implementation source.
-4. Read all references in this skill before executing a production run:
-   - [modes-and-input.md](references/modes-and-input.md)
-   - [state-machine.md](references/state-machine.md)
-   - [candidate-evaluation.md](references/candidate-evaluation.md)
-   - [interaction-gates.md](references/interaction-gates.md)
-   - [workspace-profiles-and-character-portraits.md](references/workspace-profiles-and-character-portraits.md)
-   - [approved-and-unity.md](references/approved-and-unity.md)
-   - [evidence-and-writeback.md](references/evidence-and-writeback.md)
+Read in layers instead of front-loading every document. The Core workflow, Execution rules, and Never lists in this file apply in every phase.
+
+1. Before starting: `AGENTS.md`, `PROJECT_STATUS.md`, `agent_status/art.md`, `美术文档/00_美术流水线总览.md`, and the target asset's active character, UI, CG, configuration, or implementation source.
+2. Before entering a phase, read what it needs; skip anything already read in this session:
+
+| Phase (state-machine states) | Read before entering |
+|---|---|
+| Intake: `SOURCE_AUDIT` → `PRODUCTION_PLAN` | [modes-and-input.md](references/modes-and-input.md), [state-machine.md](references/state-machine.md), [workspace-profiles-and-character-portraits.md](references/workspace-profiles-and-character-portraits.md); `美术文档/01_Manifest规范.md` when admitting a new requirement or editing the Manifest / seed; `美术文档/02_资源规格与接入规范.md` when a new asset needs output or display specs |
+| Prompt authoring and generation: `BACKEND_PREFLIGHT` → `OUTPUT_CONTRACT_AUDIT` | `美术文档/04_美术风格基准.md`, the "Persisted generation requests" section below, and `generate-image` |
+| Processing, review, and selection: `PREPROCESS` → `REPAIR_OR_REGENERATE` | `美术文档/03_AI生成与筛选规范.md`, `美术文档/04_美术风格基准.md`, [candidate-evaluation.md](references/candidate-evaluation.md), [interaction-gates.md](references/interaction-gates.md) |
+| Approved, Unity, and Registry: `APPROVED_GATE` → `REGISTRY_INTEGRATION` | `美术文档/02_资源规格与接入规范.md`, [approved-and-unity.md](references/approved-and-unity.md) |
+| Runtime validation: `RUNTIME_VALIDATION` | `p3-art-validation` |
+| Resume, evidence, and writeback: any `-Resume`, `WRITEBACK` | [evidence-and-writeback.md](references/evidence-and-writeback.md) |
+
+3. Before any pause or user question, whatever the phase, read [interaction-gates.md](references/interaction-gates.md).
 
 ## Modes
 

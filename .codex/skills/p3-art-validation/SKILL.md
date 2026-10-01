@@ -17,6 +17,6 @@ Use MCP live inspection as the default; capture only decision evidence. The publ
 8. Call `p3_art_run_profile(action="finalize_runtime_validated")`. Only this action may write the `runtime_validated` claim and `runtime-validation.json`.
 9. Complete the profile / merge the ArtRunID result. Keep `player_path_verified` and `regression_passed` as separate claims.
 
-Read [profile-routing.md](references/profile-routing.md), [mcp-live-inspection.md](references/mcp-live-inspection.md), [evidence-policy.md](references/evidence-policy.md), and [iteration-boundaries.md](references/iteration-boundaries.md).
+Read each reference when its step comes up: [profile-routing.md](references/profile-routing.md) when choosing the Profile (step 1), [mcp-live-inspection.md](references/mcp-live-inspection.md) before steps 2-5, [evidence-policy.md](references/evidence-policy.md) before formal capture, review, or finalize (steps 6-9), and [iteration-boundaries.md](references/iteration-boundaries.md) only for `art_iteration` or any persisted presentation change.
 
 Never accept arbitrary screenshot paths, hand-author binding evidence, fabricate player state, run full P0, or mutate domain rules. A target with no `required_visual_ids`, a missing Registry entry, a wrong live Sprite path/GUID, a blocking issue, missing final capture, or a failed/limited review cannot finalize. Only `art_regression` may start the legacy ArtAcceptance runner.

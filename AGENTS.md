@@ -115,6 +115,7 @@ L4 条件展开：跨职能 View、rules/02、专项 Skill、验收证据或恢�
 - 新概念图默认使用 Codex `image_gen`；不可用时转 AI 图片网关 `openai_images`。局部差分优先 `gemini_chat_image`；NovelAI inpaint 仅用于存在明确 mask、允许随机性且指向性要求不强的场景。
 - 程序自动化、运行时美术和发布聚合分别使用 `p3-program-validation`、`p3-art-validation`、`p3-release-validation`，不得混淆程序通过与美术通过。
 - 项目 Skill 由 `.codex/skills/*/` 提供；p3-mission 的工具源 `tools/p3-mission/` 与 `.codex/skills/p3-mission/` 必须内容一致。`.claude/skills/<name>/SKILL.md` 只是 Claude Code 的发现转发入口（frontmatter 与源一致，正文指向源文件）。新增、改名、删除 Skill，修改其 frontmatter 或修改 p3-mission 时，在同一改动内同步这些副本。
+- 编写或修改 Skill：正文保留硬约束和按阶段读取表，references 只在进入对应阶段时读取，不要求开工前全部读完；健康检查的 Skill 校验会检查副本一致和引用路径。
 
 ## 验证与完成摘要
 
