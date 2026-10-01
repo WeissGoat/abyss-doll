@@ -10,8 +10,8 @@
     "status"
   ],
   "relationship_summary": {
-    "directed_edges": 3038,
-    "relation_edges": 1521,
+    "directed_edges": 3039,
+    "relation_edges": 1522,
     "cross_role_edges": 311,
     "role_pairs": {
       "0-12 小时细案 Owner <-> Owner": 3,
@@ -1068,20 +1068,21 @@
       "type": "design",
       "role": "全局",
       "domain": "agent_workflow",
-      "status": "active",
+      "status": "historical",
       "source_of_truth": false,
       "related": [
         "AGENTS.md",
+        "tools/agent/README.md",
         "rules/01_文档维护与新增控制规则.md",
         "rules/02_智能体任务路由与完成协议.md",
         "美术文档/00_美术流水线总览.md"
       ],
       "last_verified": "2026-10-01",
-      "update_rule": "合并后改为 historical；现行规则以 AGENTS.md、rules/01、rules/02 与美术流水线总览为准。",
+      "update_rule": "已实施，不再更新；现行规则以 AGENTS.md、rules/01、rules/02、美术流水线总览和 tools/agent/README.md 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [],
-      "relation_count": 4,
+      "relation_count": 5,
       "cross_role_relation_count": 1
     },
     {
@@ -1381,12 +1382,13 @@
       "referenced_by": [
         "AGENTS.md",
         "PROJECT_STATUS.md",
+        "docs/superpowers/specs/2026-10-01-lighter-agent-workflow-design.md",
         "开发文档/15_P0配置Validator与自动验收底座需求.md",
         "开发文档/19_UnityMCP验收编排层设计.md",
         "开发文档/20_UnityMCP验收编排层实现计划.md",
         "知识库/README.md"
       ],
-      "relation_count": 6,
+      "relation_count": 7,
       "cross_role_relation_count": 4
     },
     {

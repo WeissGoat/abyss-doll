@@ -22,7 +22,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 - 已补元数据：287
 - 缺少元数据：4
 - 事实来源文档：196
-- 关联边数：1521
+- 关联边数：1522
 - 跨职能关联：311
 - `related` 只需单向填写；反向链接由本脚本写入 `docs_index.json` 的 `referenced_by`，关联数按双向合并统计。
 
@@ -303,11 +303,11 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Project P3 AGENTS 职责路由重构设计](docs/superpowers/specs/2026-07-17-agents-routing-refactor-design.md) | `design` | `historical` | `agent_workflow` | 1 | 完整 |
 | [Agent 状态页与 Role 阅读范围优化设计](docs/superpowers/specs/2026-07-18-agent-status-and-role-disclosure-design.md) | `design` | `draft` | `agent_workflow` | 0 | 完整 |
 | [Project P3 Role 词表与知识索引归属设计](docs/superpowers/specs/2026-07-18-role-vocabulary-and-index-design.md) | `design` | `historical` | `agent_workflow` | 1 | 完整 |
-| [Agent 工作流与美术流程减负设计](docs/superpowers/specs/2026-10-01-lighter-agent-workflow-design.md) | `design` | `active` | `agent_workflow` | 4 | 完整 |
+| [Agent 工作流与美术流程减负设计](docs/superpowers/specs/2026-10-01-lighter-agent-workflow-design.md) | `design` | `historical` | `agent_workflow` | 5 | 完整 |
 | [文档维护与新增控制规则](rules/01_文档维护与新增控制规则.md) | `rule` | `active` | `document_governance` | 6 | 完整 |
 | [智能体任务路由与完成协议](rules/02_智能体任务路由与完成协议.md) | `rule` | `active` | `agent_workflow` | 11 | 完整 |
 | [全局 Agent Rules 入口](rules/README.md) | `entry` | `active` | `agent_rules` | 5 | 完整 |
-| [智能体开工健康检查](tools/agent/README.md) | `tool` | `active` | `agent_workflow` | 6 | 完整 |
+| [智能体开工健康检查](tools/agent/README.md) | `tool` | `active` | `agent_workflow` | 7 | 完整 |
 | [正式版核心纵切开发路线](版本规划/09_正式版核心纵切开发路线.md) | `plan` | `active` | `formal_vertical_slice` | 19 | 完整 |
 | [最小可玩版本 (MVP) 核心闭环内容清单](版本规划/_archive/mvp_2026-05/00_最小MVP体验闭环内容清单.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |
 | [MVP 客户端开发里程碑与节点规划](版本规划/_archive/mvp_2026-05/02_开发里程碑与节点规划.md) | `plan` | `historical` | `mvp_planning` | 3 | 完整 |

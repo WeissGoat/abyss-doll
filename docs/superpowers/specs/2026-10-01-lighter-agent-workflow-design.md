@@ -4,20 +4,21 @@ title: Agent 工作流与美术流程减负设计
 type: design
 role: 全局
 domain: agent_workflow
-status: active
+status: historical
 source_of_truth: false
 related:
   - AGENTS.md
+  - tools/agent/README.md
   - rules/01_文档维护与新增控制规则.md
   - rules/02_智能体任务路由与完成协议.md
   - 美术文档/00_美术流水线总览.md
 last_verified: 2026-10-01
-update_rule: 合并后改为 historical；现行规则以 AGENTS.md、rules/01、rules/02 与美术流水线总览为准。
+update_rule: 已实施，不再更新；现行规则以 AGENTS.md、rules/01、rules/02、美术流水线总览和 tools/agent/README.md 为准。
 ---
 
 # Agent 工作流与美术流程减负设计
 
-> 2026-10-01 经用户授权，直接在分支 `refactor/lighter-agent-workflow` 实施，用户复核后再合并。中小型变更按本设计新增的规则，实施步骤附在文末，不另写 plan。
+> **已实施（historical）**：2026-10-01 在分支 `refactor/lighter-agent-workflow` 完成，提交 `0ba28ad`、`039ea25`、`25e323e`、`6d72868`、`486f51f`。现行事实来源：执行道与元工作预算见 `rules/02`，文档关联见 `rules/01`，美术快速道 / 完整道见 `美术文档/00_美术流水线总览.md` 第 2 节，健康检查见 `tools/agent/README.md`。本文只保留设计背景，不作为事实来源。
 
 ## 1. 问题
 
@@ -54,7 +55,7 @@ update_rule: 合并后改为 historical；现行规则以 AGENTS.md、rules/01�
 
 ### 3.4 美术快速道 / 完整道（美术文档/00、p3-art-asset-production）
 
-- 快速道：非 UI Skin、非首次风格锚点、且不替换游戏里已绑定资产的 `standard_asset`（图标、背景、普通 UI 图）。复用现有批量脚本，一次 contact sheet 评审覆盖整批，整批一个 `ArtImportRunID`；只在硬失败、事实冲突或缺授权时停；声明上限 `registered`，被游戏消费时再做运行时验收。
+- 快速道：非 UI Skin、非首次风格锚点、且不替换游戏里已绑定资产的 `standard_asset`（图标、背景、普通 UI 图）。复用现有批量脚本：PromptRevision 只作者化本 Run provider 使用的格式，一份 `Items` 覆盖整批的 visual review，整批一个 `ArtImportRunID`；只在硬失败、事实冲突或缺授权时停；声明上限 `registered`，被游戏消费时再做运行时验收。
 - 完整道：`character_portrait_set`、叙事 CG / 漫画 Panel、UI Skin（九宫格）、首次锚点、替换游戏里已绑定的资产。保留全部现有门禁。
 - Skill 正文只留目的、分道、阶段阅读表、命令表和硬规则；与参考文档重复的规则删掉，只出现在正文里的规则挪进对应阶段的参考文档。
 
@@ -65,10 +66,10 @@ update_rule: 合并后改为 historical；现行规则以 AGENTS.md、rules/01�
 ## 5. 实施步骤
 
 1. `related` 单向与反向链接生成（`0ba28ad`）。
-2. 本设计稿。
-3. 三条执行道、元工作预算、回写减负：rules/02、rules/01、rules/README.md、AGENTS.md、agent_status/README.md。
-4. 美术快速道 / 完整道与 Skill 正文瘦身：美术文档/00、p3-art-asset-production 的 SKILL 与 references。
-5. 健康检查游戏进度信号：agent_health_check.py、tools/agent/README.md。
+2. 本设计稿（`039ea25`）。
+3. 三条执行道、元工作预算、回写减负：rules/02、rules/01、rules/README.md、AGENTS.md、agent_status/README.md（`25e323e`）。
+4. 美术快速道 / 完整道与 Skill 正文瘦身：美术文档/00、p3-art-asset-production 的 SKILL 与 references（`6d72868`）。
+5. 健康检查游戏进度信号：agent_health_check.py、tools/agent/README.md（`486f51f`）。
 6. 验证：文档索引与校验、Skill 校验、单元测试、健康检查。
 
 ## 6. 验收
@@ -76,3 +77,5 @@ update_rule: 合并后改为 historical；现行规则以 AGENTS.md、rules/01�
 - 文档校验、Skill 校验、单元测试通过。
 - 美术快速道开工必读 token 低于实施前。
 - AGENTS.md 不变长。
+
+结果（2026-10-01）：文档与 Skill 校验通过，`tools.docs.tests` 与 `tools.agent.tests` 共 31 个单元测试通过，健康检查显示距上次游戏提交 76 天。美术快速道开工必读约 9.9k → 3.2k token，标准批量全程约 32k → 12k（按 CJK 每字 1 token、其余每 3.8 字符 1 token 估算），完整道不变；Skill 正文 15.6 KB → 7.6 KB。AGENTS.md 正文 4,732 → 4,682 字符。
