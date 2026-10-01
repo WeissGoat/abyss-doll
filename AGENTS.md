@@ -61,11 +61,13 @@ update_rule: 修改根职责路由、全局硬边界、开工入口或完成摘�
 
 ## 30 秒开工流程
 
-1. 读取 `PROJECT_STATUS.md` 的当前阶段、全局优先级、跨职能交接和阻塞快照；只有游戏导演、Owner 或明确涉及全局体验 / 跨职能交接的任务才读取 `agent_status/director.md`。
-2. 根据下方任务职责路由选择一个主责任 Role。
-3. 读取对应 `知识库/views/*.md`（剧情使用 `narrative.md`，Owner 使用 `owner.md`）和受影响 Role 的状态页当前快照，确认阅读顺序与当前状态。
-4. 读取目标细案、GDD、配置 README、开发文档、美术规格或专项规则；不要用聊天结论替代事实文档。
-5. 实际改动前运行 `./tools/agent/Invoke-AgentHealthCheck.ps1`；长期或恢复任务按 P3 Mission 路由。
+1. 选道（见 `rules/02`）：探索道做原型和试验，不碰正式资产、配置源和 active 文档；标准道是默认；严格道用于 Owner 完整模块、不可逆或高成本操作、核心身份资产和发布门禁。
+2. 读取 `PROJECT_STATUS.md` 的当前优先级、交接和阻塞；只有游戏导演、Owner 或跨职能任务才读 `agent_status/director.md`。
+3. 按下方任务职责路由选一个主责任 Role，读取对应 `知识库/views/*.md`（剧情用 `narrative.md`，Owner 用 `owner.md`）和受影响 Role 的状态页当前快照。
+4. 读取目标细案、GDD、配置 README、开发文档、美术规格或专项规则；不要用聊天结论替代事实文档。探索道可跳过第 2-3 步。
+5. 改动前运行 `.\tools\agent\Invoke-AgentHealthCheck.ps1`，提交前可加 `-Strict`；长期或恢复任务走 P3 Mission。
+
+优先推进当前优先级的玩家结果；流程、校验器、美术管线和 agent 工具等元工作，只在解阻玩家结果或修复真实问题时做（`rules/02` 元工作预算）。
 
 默认按以下层级渐进读取，不因 `related` 关联边自动展开全部文档：
 
@@ -109,37 +111,17 @@ L4 条件展开：跨职能 View、rules/02、专项 Skill、验收证据或恢�
 ## 长任务与项目 Skill 路由
 
 - 长期任务、拆任务执行、持续执行、`mission` 或恢复继续：优先使用 `.codex/skills/p3-mission/SKILL.md`；没有加载时再读取 `tools/p3-mission/README.md` 与 fallback `SKILL.md`。新建 Mission 必须基于已有详细来源材料。
-- 需要先设计再实现的功能、重构或流程变更：设计写入 `docs/superpowers/specs/`，实施计划写入 `docs/superpowers/plans/`，定稿的计划可直接作为 P3 Mission 来源；位置与状态规则见 `rules/01`，流程见 `rules/02`。
+- 需要先设计再实现的功能、重构或流程变更：设计写入 `docs/superpowers/specs/`（中小型变更把实施步骤附在文末），跨模块执行再写 `docs/superpowers/plans/`；定稿后可直接作为 P3 Mission 来源，规则见 `rules/01`、`rules/02`。
 - 正式美术资产从准入、候选生产、Approved、Unity 接入到运行时验收：使用 `p3-art-asset-production`。
 - 纯图片生成 / 编辑、差分、inpaint、后端选择和生成证据：使用 `p3-generate-image`。
 - 叙事 CG、漫画页、Panel VisualID、一致性修复与运行时漫画验收：使用 `p3-narrative-cg-comic`。
-- 新概念图默认使用 Codex `image_gen`；不可用时转 AI 图片网关 `openai_images`。局部差分优先 `gemini_chat_image`；NovelAI inpaint 仅用于存在明确 mask、允许随机性且指向性要求不强的场景。
+- 新概念图优先用宿主内置生图（Codex `image_gen`），没有时转 AI 图片网关 `openai_images`。局部差分优先 `gemini_chat_image`；NovelAI inpaint 仅用于存在明确 mask、允许随机性且指向性要求不强的场景。
 - 程序自动化、运行时美术和发布聚合分别使用 `p3-program-validation`、`p3-art-validation`、`p3-release-validation`，不得混淆程序通过与美术通过。
 - 项目 Skill 由 `.codex/skills/*/` 提供；p3-mission 的工具源 `tools/p3-mission/` 与 `.codex/skills/p3-mission/` 必须内容一致。`.claude/skills/<name>/SKILL.md` 只是 Claude Code 的发现转发入口（frontmatter 与源一致，正文指向源文件）。新增、改名、删除 Skill，修改其 frontmatter 或修改 p3-mission 时，在同一改动内同步这些副本。
 - 编写或修改 Skill：正文保留硬约束和按阶段读取表，references 只在进入对应阶段时读取，不要求开工前全部读完；健康检查的 Skill 校验会检查副本一致和引用路径。
 
 ## 验证与完成摘要
 
-最终回复前至少确认：
+最终回复前确认：已运行与风险相称的验证并如实记录（通过、失败或 `validation_limited:*`）；声明不超过证据；`git status --short` 已检查，只暂存本任务文件。
 
-1. 已运行与风险相称的验证，并记录通过、失败或 `validation_limited:*`。
-2. 受影响的领域事实文档和状态页已经更新。
-3. 项目阶段、跨职能交接或阻塞变化已同步 `PROJECT_STATUS.md`。
-4. 玩家体验、开放节奏、细案或 Owner 工作流变化已同步导演状态与必要的 `13` / `14` / `09`。
-5. `git status --short` 已检查，只暂存本任务文件。
-
-详细状态回写矩阵、防重复派发、完成判定与 Git 要求见 `rules/02_智能体任务路由与完成协议.md`。
-
-## 健康检查
-
-实际改动前运行：
-
-```powershell
-.\tools\agent\Invoke-AgentHealthCheck.ps1
-```
-
-提交前需要把 warning 也作为失败时使用严格模式：
-
-```powershell
-.\tools\agent\Invoke-AgentHealthCheck.ps1 -Strict
-```
+状态回写按道执行：探索道不回写；标准道只在状态变化时改受影响状态页一行；严格道按 `rules/02` 回写矩阵同步事实文档、`PROJECT_STATUS.md`、导演状态与必要的 `13` / `14` / `09`。防重复派发、完成判定与 Git 要求见 `rules/02`。
