@@ -92,7 +92,7 @@
         "开发文档/17_Live2DSpine运行时接入评估.md",
         "开发文档/18_全局叙事播放系统开发方案.md"
       ],
-      "last_verified": "2026-08-09",
+      "last_verified": "2026-10-01",
       "update_rule": "美术或 UI 视觉流水线任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -284,7 +284,7 @@
         "开发文档/18_全局叙事播放系统开发方案.md",
         "配置表(JSON)/Narrative/README.md"
       ],
-      "last_verified": "2026-08-08",
+      "last_verified": "2026-10-01",
       "update_rule": "程序、Unity、验证或工程边界任务完成后更新本文档。",
       "has_metadata": true,
       "missing_fields": [],
@@ -875,7 +875,7 @@
         "tools/agent/README.md",
         "tools/p3-mission/README.md"
       ],
-      "last_verified": "2026-08-08",
+      "last_verified": "2026-10-01",
       "update_rule": "项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
