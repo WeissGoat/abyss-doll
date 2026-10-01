@@ -350,7 +350,7 @@
         "版本规划/README.md",
         "版本规划/11_纵切批次与需求文档承接矩阵.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-10-01",
       "update_rule": "修改根职责路由、全局硬边界、开工入口或完成摘要时同步本文件；详细执行协议同步 rules/02。",
       "has_metadata": true,
       "missing_fields": [],

@@ -30,7 +30,7 @@ related:
   - 版本规划/09_正式版核心纵切开发路线.md
   - 版本规划/README.md
   - 版本规划/11_纵切批次与需求文档承接矩阵.md
-last_verified: 2026-07-18
+last_verified: 2026-10-01
 update_rule: 修改根职责路由、全局硬边界、开工入口或完成摘要时同步本文件；详细执行协议同步 rules/02。
 ---
 
@@ -114,6 +114,7 @@ L4 条件展开：跨职能 View、rules/02、专项 Skill、验收证据或恢�
 - 叙事 CG、漫画页、Panel VisualID、一致性修复与运行时漫画验收：使用 `p3-narrative-cg-comic`。
 - 新概念图默认使用 Codex `image_gen`；不可用时转 AI 图片网关 `openai_images`。局部差分优先 `gemini_chat_image`；NovelAI inpaint 仅用于存在明确 mask、允许随机性且指向性要求不强的场景。
 - 程序自动化、运行时美术和发布聚合分别使用 `p3-program-validation`、`p3-art-validation`、`p3-release-validation`，不得混淆程序通过与美术通过。
+- 项目 Skill 由 `.codex/skills/*/` 提供；p3-mission 的工具源 `tools/p3-mission/` 与 `.codex/skills/p3-mission/` 必须内容一致。`.claude/skills/<name>/SKILL.md` 只是 Claude Code 的发现转发入口（frontmatter 与源一致，正文指向源文件）。新增、改名、删除 Skill，修改其 frontmatter 或修改 p3-mission 时，在同一改动内同步这些副本。
 
 ## 验证与完成摘要
 

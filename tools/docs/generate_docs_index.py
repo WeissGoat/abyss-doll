@@ -17,6 +17,7 @@ REQUIRED_FIELDS = [
 EXCLUDED_PARTS = {
     ".git",
     ".codex",
+    ".claude",
     ".mission",
     ".pytest_cache",
     "__pycache__",
