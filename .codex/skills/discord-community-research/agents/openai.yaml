@@ -1,4 +1,0 @@
-interface:
-  display_name: "Discord Community Research"
-  short_description: "Research joined Discord communities with auditable evidence"
-  default_prompt: "Use $discord-community-research to investigate a topic across my joined Discord communities and produce an auditable report."
