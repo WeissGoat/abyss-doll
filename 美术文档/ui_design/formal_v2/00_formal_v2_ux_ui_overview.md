@@ -161,7 +161,7 @@ Formal V2 目前同时使用三类图，它们的用途不能混淆：
 | 结构设计图 | `美术文档/ui_design/formal_v2/design_boards/` | 评审 16:9 布局、区域关系、主行动和信息层级。 | 否。不能替代 active `screen_layouts.json`。 |
 | 运行时素材 | `UnityClient/Assets/Art/Approved/` | Unity 实际读取的图标、背景、面板、角色和 UI skin。 | 是。必须由 Manifest、Prompt、Spec、预处理和同步流程管理。 |
 
-设计图 / 概念图默认使用 Codex 内置 `image_gen`；如果当前工具环境没有暴露 `image_gen`，自动改用 AI 图片网关的 `openai_images`。图片整体满足要求但局部有问题，或需要同一界面的状态 / 氛围差分时，优先使用 `gemini_chat_image` 图生图。NovelAI 主要用于二次元 tag 特化或有明确 mask、允许一定随机性且指向性要求不强的 inpaint。所有网关批量生成都必须拆成多次单图请求，不依赖后端原生 `n`。统一图片能力路由见 `.codex/skills/p3-generate-image/SKILL.md`（`generate-image`）；正式资产生产由 `p3-art-asset-production` 编排。
+设计图 / 概念图默认使用 Codex 内置 `image_gen`；如果当前工具环境没有暴露 `image_gen`，自动改用 AI 图片网关的 `openai_images`。图片整体满足要求但局部有问题，或需要同一界面的状态 / 氛围差分时，优先使用 `gemini_chat_image` 图生图。NovelAI 主要用于二次元 tag 特化或有明确 mask、允许一定随机性且指向性要求不强的 inpaint。所有网关批量生成都必须拆成多次单图请求，不依赖后端原生 `n`。统一图片能力路由见 `.codex/skills/p3-generate-image/SKILL.md`；正式资产生产由 `p3-art-asset-production` 编排。
 
 ### 3.1 先玩家目标，后功能按钮
 

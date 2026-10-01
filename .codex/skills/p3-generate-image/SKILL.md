@@ -1,6 +1,6 @@
 ---
-name: generate-image
-description: Use for image generation or image editing capabilities, including text-to-image, image-to-image, character or state differences, inpaint, backend selection, provider-specific prompt formatting, raw output evidence, and troubleshooting ChatGPT/Gemini/NovelAI image backends. It does not own Project P3 asset admission, selection, Approved synchronization, Unity integration, or runtime validation.
+name: p3-generate-image
+description: Use for Project P3 image generation or image editing, including text-to-image, image-to-image, character or state differences, inpaint, backend selection, provider-specific prompt formatting, raw output evidence, and troubleshooting ChatGPT/Gemini/NovelAI image backends. It does not own asset admission, selection, Approved synchronization, Unity integration, or runtime validation.
 ---
 
 # Image Generation

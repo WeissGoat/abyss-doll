@@ -116,7 +116,7 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 - 剧情、策划、程序和美术分别维护专业事实；Owner 自验不替代专业 Role 外部验收。
 - UI / 美术与程序统一使用纯 UGUI；程序只消费 active `screen_layouts.json`、Manifest 和正式交接入口。
 - 配置事实来源是 `配置表(JSON)`；运行时验证前同步配置，不手写维护 StreamingAssets 副本。
-- 美术执行交接统一使用 `RequestID + RequirementFingerprint + PromptRevisionID + PromptFormat`；`p3-art-asset-production` 负责编译、作者化、准入和 Approved / Unity 交接，`generate-image` 只消费已发布 Variant 并记录 ProviderRequest。
+- 美术执行交接统一使用 `RequestID + RequirementFingerprint + PromptRevisionID + PromptFormat`；`p3-art-asset-production` 负责编译、作者化、准入和 Approved / Unity 交接，`p3-generate-image` 只消费已发布 Variant 并记录 ProviderRequest。
 - 长任务、恢复继续和跨会话拆分统一使用 P3 Mission；文档调整先遵守 `rules/01`。
 
 ## 问题 / 阻塞

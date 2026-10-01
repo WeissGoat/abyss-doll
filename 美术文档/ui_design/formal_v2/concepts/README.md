@@ -34,7 +34,7 @@ update_rule: 新增、替换或废弃 Formal V2 概念参考图时同步本文�
 
 如果当前工具环境没有暴露 `image_gen`，自动改用 AI 图片网关的 `openai_images`，使用自然语言概念图 prompt。输出仍只属于 `concepts/` 设计参考，不进入 Approved、Manifest 或程序接入队列。
 
-如果概念图整体成立但局部有问题，或需要同一方案的状态 / 氛围差分，优先使用 `gemini_chat_image` 图生图。NovelAI 主要用于 Danbooru tag 二次元特化，或有明确 mask、允许一定随机性且指向性要求不强的 inpaint，不作为概念图默认 fallback。统一图片能力规则见 `.codex/skills/p3-generate-image/SKILL.md`（`generate-image`）。
+如果概念图整体成立但局部有问题，或需要同一方案的状态 / 氛围差分，优先使用 `gemini_chat_image` 图生图。NovelAI 主要用于 Danbooru tag 二次元特化，或有明确 mask、允许一定随机性且指向性要求不强的 inpaint，不作为概念图默认 fallback。统一图片能力规则见 `.codex/skills/p3-generate-image/SKILL.md`。
 
 ## 当前文件
 

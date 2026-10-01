@@ -1,6 +1,6 @@
 ---
 name: p3-art-asset-production
-description: Use when Project P3 needs formal production or replacement of runtime art assets, including Manifest-driven standard assets, character portrait sets, portrait differences, Approved admission, Unity integration, or runtime art validation.
+description: Use when Project P3 needs formal production or replacement of runtime art assets, including Manifest-driven standard assets, character portrait sets, portrait differences, Approved admission, and Unity / Registry integration. Runtime UI or art validation itself belongs to p3-art-validation.
 ---
 
 # P3 Art Asset Production
@@ -11,7 +11,7 @@ Turn an existing, sufficiently detailed P3 art requirement into a validated runt
 
 Capability boundaries:
 
-- Image creation or editing is delegated to `generate-image` without moving production responsibilities into it.
+- Image creation or editing is delegated to `p3-generate-image` without moving production responsibilities into it.
 - Narrative comic-page production additionally follows `.codex/skills/p3-narrative-cg-comic/SKILL.md`.
 - Runtime art diagnosis and evidence use `.codex/skills/p3-art-validation/SKILL.md`.
 - A production profile selects workspace layout, orchestration, interaction, and acceptance behavior. It never fixes the generation method, provider, or tool.
@@ -26,7 +26,7 @@ Read in layers instead of front-loading every document. The Core workflow, Execu
 | Phase (state-machine states) | Read before entering |
 |---|---|
 | Intake: `SOURCE_AUDIT` → `PRODUCTION_PLAN` | [modes-and-input.md](references/modes-and-input.md), [state-machine.md](references/state-machine.md), [workspace-profiles-and-character-portraits.md](references/workspace-profiles-and-character-portraits.md); `美术文档/01_Manifest规范.md` when admitting a new requirement or editing the Manifest / seed; `美术文档/02_资源规格与接入规范.md` when a new asset needs output or display specs |
-| Prompt authoring and generation: `BACKEND_PREFLIGHT` → `OUTPUT_CONTRACT_AUDIT` | `美术文档/04_美术风格基准.md`, the "Persisted generation requests" section below, and `generate-image` |
+| Prompt authoring and generation: `BACKEND_PREFLIGHT` → `OUTPUT_CONTRACT_AUDIT` | `美术文档/04_美术风格基准.md`, the "Persisted generation requests" section below, and `p3-generate-image` |
 | Processing, review, and selection: `PREPROCESS` → `REPAIR_OR_REGENERATE` | `美术文档/03_AI生成与筛选规范.md`, `美术文档/04_美术风格基准.md`, [candidate-evaluation.md](references/candidate-evaluation.md), [interaction-gates.md](references/interaction-gates.md) |
 | Approved, Unity, and Registry: `APPROVED_GATE` → `REGISTRY_INTEGRATION` | `美术文档/02_资源规格与接入规范.md`, [approved-and-unity.md](references/approved-and-unity.md) |
 | Runtime validation: `RUNTIME_VALIDATION` | `p3-art-validation` |

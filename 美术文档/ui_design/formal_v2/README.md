@@ -59,7 +59,7 @@ update_rule: 新增 Formal V2 设计批次、确认规则或界面设计文档�
 7. Formal V2 允许继续复用已稳定 VisualID；新增 VisualID 必须等 active 更新后再进入 Manifest。
 8. Figma、Unity MCP 或额外自动化工具只作为设计 / 验收辅助；任何正式接入口仍必须回到 active `screen_layouts.json`、Manifest 和 ArtAcceptance。
 9. `concepts/` 只存放 Formal V2 概念参考图；这些图片不进入 Approved、Manifest 或程序接入队列。
-10. 设计图 / 概念图默认用 Codex 内置 `image_gen` 生成；若当前环境没有暴露 `image_gen`，自动改用 `openai_images`。已有图局部修正或状态差分优先 `gemini_chat_image` 图生图；NovelAI inpaint 只用于有明确 mask、允许一定随机性且指向性要求不强的局部重绘。图片能力按 `.codex/skills/p3-generate-image/SKILL.md`（`generate-image`）路由；正式资产生产由 `p3-art-asset-production` 编排。
+10. 设计图 / 概念图默认用 Codex 内置 `image_gen` 生成；若当前环境没有暴露 `image_gen`，自动改用 `openai_images`。已有图局部修正或状态差分优先 `gemini_chat_image` 图生图；NovelAI inpaint 只用于有明确 mask、允许一定随机性且指向性要求不强的局部重绘。图片能力按 `.codex/skills/p3-generate-image/SKILL.md`路由；正式资产生产由 `p3-art-asset-production` 编排。
 
 ## 文件职责
 

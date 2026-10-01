@@ -1,6 +1,6 @@
 ---
 name: p3-art-asset-production
-description: Use when Project P3 needs formal production or replacement of runtime art assets, including Manifest-driven standard assets, character portrait sets, portrait differences, Approved admission, Unity integration, or runtime art validation.
+description: Use when Project P3 needs formal production or replacement of runtime art assets, including Manifest-driven standard assets, character portrait sets, portrait differences, Approved admission, and Unity / Registry integration. Runtime UI or art validation itself belongs to p3-art-validation.
 ---
 
 <!-- Claude Code 转发入口。事实来源：.codex/skills/p3-art-asset-production/SKILL.md。源技能新增、改名或修改 frontmatter 时同步更新本文件。 -->

@@ -108,7 +108,7 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 
 每个运行目录保存输入、完整 RGBA 原帧、身份契约、预审、raw 输出、请求元数据、风险报告、contact sheet 和结果 GIF。FFmpeg 可用时 `-Encoder auto` 优先使用 FFmpeg；当前工作区无 FFmpeg 时自动降级 Pillow，并保留原时长、帧数、画布和 loop。此工具只产生探索工作区证据，不修改 Manifest、Approved、Registry、Unity 或网关子模块；视觉风险是人工复核提示，不是正式美术验收。
 
-Agent 执行纯图片生成、图生图、差分或 inpaint 前，先读取 `.codex/skills/p3-generate-image/SKILL.md`（Skill 名 `generate-image`）；正式资产从需求准入到 Approved、Unity 和验收由 `.codex/skills/p3-art-asset-production/SKILL.md` 编排。本文件只负责具体脚本参数。
+Agent 执行纯图片生成、图生图、差分或 inpaint 前，先读取 `.codex/skills/p3-generate-image/SKILL.md`；正式资产从需求准入到 Approved、Unity 和验收由 `.codex/skills/p3-art-asset-production/SKILL.md` 编排。本文件只负责具体脚本参数。
 
 ## Generate-DanbooruCharacterReference.ps1
 
@@ -145,7 +145,7 @@ Agent 执行纯图片生成、图生图、差分或 inpaint 前，先读取 `.co
 .\tools\美术工具\Generate-ZeroPrototypeBackendBatch.ps1 -Only novelai -Count 1
 ```
 
-历史提示词与批次口径见 [美术文档/archive/04_零号AI后端出图提示词对比.md](../../美术文档/archive/04_零号AI后端出图提示词对比.md)；当前正式生成由 `generate-image` 与 `p3-art-asset-production` 决策。
+历史提示词与批次口径见 [美术文档/archive/04_零号AI后端出图提示词对比.md](../../美术文档/archive/04_零号AI后端出图提示词对比.md)；当前正式生成由 `p3-generate-image` 与 `p3-art-asset-production` 决策。
 
 需要把图片直接放入人设目录时，使用 `-OutputDir`：
 

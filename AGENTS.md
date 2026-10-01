@@ -111,7 +111,7 @@ L4 条件展开：跨职能 View、rules/02、专项 Skill、验收证据或恢�
 - 长期任务、拆任务执行、持续执行、`mission` 或恢复继续：优先使用 `.codex/skills/p3-mission/SKILL.md`；没有加载时再读取 `tools/p3-mission/README.md` 与 fallback `SKILL.md`。新建 Mission 必须基于已有详细来源材料。
 - 需要先设计再实现的功能、重构或流程变更：设计写入 `docs/superpowers/specs/`，实施计划写入 `docs/superpowers/plans/`，定稿的计划可直接作为 P3 Mission 来源；位置与状态规则见 `rules/01`，流程见 `rules/02`。
 - 正式美术资产从准入、候选生产、Approved、Unity 接入到运行时验收：使用 `p3-art-asset-production`。
-- 纯图片生成 / 编辑、差分、inpaint、后端选择和生成证据：使用 `generate-image`。
+- 纯图片生成 / 编辑、差分、inpaint、后端选择和生成证据：使用 `p3-generate-image`。
 - 叙事 CG、漫画页、Panel VisualID、一致性修复与运行时漫画验收：使用 `p3-narrative-cg-comic`。
 - 新概念图默认使用 Codex `image_gen`；不可用时转 AI 图片网关 `openai_images`。局部差分优先 `gemini_chat_image`；NovelAI inpaint 仅用于存在明确 mask、允许随机性且指向性要求不强的场景。
 - 程序自动化、运行时美术和发布聚合分别使用 `p3-program-validation`、`p3-art-validation`、`p3-release-validation`，不得混淆程序通过与美术通过。
