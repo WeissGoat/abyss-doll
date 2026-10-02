@@ -1086,7 +1086,7 @@
       "type": "design",
       "role": "全局",
       "domain": "agent_workflow",
-      "status": "active",
+      "status": "historical",
       "source_of_truth": false,
       "related": [
         "AGENTS.md",
@@ -1097,8 +1097,8 @@
         "开发文档/rules/04_自动化测试与验收流程规范.md",
         "美术文档/00_美术流水线总览.md"
       ],
-      "last_verified": "2026-10-01",
-      "update_rule": "实施完成后改为 historical；现行规则以 AGENTS.md、rules/02、开发文档/rules/04 与验收 Skill 为准。",
+      "last_verified": "2026-10-02",
+      "update_rule": "历史设计记录，不再更新；现行事实以 AGENTS.md、rules/02_智能体任务路由与完成协议.md、开发文档/rules/04_自动化测试与验收流程规范.md 与验收 Skill 为准。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [],

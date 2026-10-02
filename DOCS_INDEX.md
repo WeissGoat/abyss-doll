@@ -283,7 +283,7 @@ update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。
 | [Agent 状态页与 Role 阅读范围优化设计](docs/specs/2026-07-18-agent-status-and-role-disclosure-design.md) | `design` | `historical` | `agent_workflow` | 0 | 完整 |
 | [Project P3 Role 词表与知识索引归属设计](docs/specs/2026-07-18-role-vocabulary-and-index-design.md) | `design` | `historical` | `agent_workflow` | 1 | 完整 |
 | [Agent 工作流与美术流程减负设计](docs/specs/2026-10-01-lighter-agent-workflow-design.md) | `design` | `historical` | `agent_workflow` | 5 | 完整 |
-| [工作流第二轮精简设计](docs/specs/2026-10-01-workflow-round2-design.md) | `design` | `active` | `agent_workflow` | 7 | 完整 |
+| [工作流第二轮精简设计](docs/specs/2026-10-01-workflow-round2-design.md) | `design` | `historical` | `agent_workflow` | 7 | 完整 |
 | [文档维护与新增控制规则](rules/01_文档维护与新增控制规则.md) | `rule` | `active` | `document_governance` | 7 | 完整 |
 | [智能体任务路由与完成协议](rules/02_智能体任务路由与完成协议.md) | `rule` | `active` | `agent_workflow` | 12 | 完整 |
 | [全局 Agent Rules 入口](rules/README.md) | `entry` | `active` | `agent_rules` | 5 | 完整 |

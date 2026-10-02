@@ -4,7 +4,7 @@ title: 工作流第二轮精简设计
 type: design
 role: 全局
 domain: agent_workflow
-status: active
+status: historical
 source_of_truth: false
 related:
   - AGENTS.md
@@ -14,11 +14,13 @@ related:
   - 知识库/views/owner.md
   - 开发文档/rules/04_自动化测试与验收流程规范.md
   - 美术文档/00_美术流水线总览.md
-last_verified: 2026-10-01
-update_rule: 实施完成后改为 historical；现行规则以 AGENTS.md、rules/02、开发文档/rules/04 与验收 Skill 为准。
+last_verified: 2026-10-02
+update_rule: 历史设计记录，不再更新；现行事实以 AGENTS.md、rules/02_智能体任务路由与完成协议.md、开发文档/rules/04_自动化测试与验收流程规范.md 与验收 Skill 为准。
 ---
 
 # 工作流第二轮精简设计
+
+> 历史设计：已于 2026-10-02 实施（`07dd5db`、`770a07d`、`cc1c6f2`、`0a1cf53`、`0f251fa`）。现行事实以 `AGENTS.md`、`rules/02_智能体任务路由与完成协议.md`、`开发文档/rules/04_自动化测试与验收流程规范.md` 与验收 Skill 为准。
 
 > 2026-10-01 用户在对话中确认三项：去掉 superpowers；Owner 从 Role 改为做法；验收改用标准测试和轻量美术检查。直接在分支 `refactor/workflow-round2` 实施，用户复核后合并。
 
@@ -79,3 +81,11 @@ spec 移到 `docs/specs/`，历史 plan 移到 `docs/plans/`。不再单独写 p
 - 文档校验、Skill 校验和单元测试通过。
 - MCP `run_tests` 能发现并运行全部 smoke 用例，失败的用例如实记录。
 - 验收 Skill 从 3 个减到 2 个，正文变短。
+
+## 6. 实施结果
+
+- 文档校验 292 篇通过；Skill 校验通过（6 个 Skill）；单元测试 36 个通过（agent 17、docs 14、绑定检查 5）。
+- MCP `run_tests` 发现并运行了全部 66 个 smoke 用例，分类过滤可用（`foundation` 1/1、`p0_core` 2/2）。全量 56 个通过、10 个失败；同日旧 AutoTestDaemon 全量和 2026-08-02 旧框架证据里同样失败，不是包装引入，清单记在 `agent_status/program.md`。
+- 绑定检查在现有数据上 297/297 一致；`manage_camera` 的 `output_folder` 能把截图写进 `UnityClient/Logs/P3ArtCheck/<RunID>/`。截图尺寸跟随 Game View，Skill 要求先设为 1920x1080。
+- 验收 Skill 从 3 个减到 2 个。总行数 108 → 90，总词数基本持平（1061 → 1093）：美术 Skill 变短（787 → 662 词，5 个文件 → 2 个），程序 Skill 变长（177 → 431 词），因为它直接写明 MCP 调用和范围表，不再转给 RunID、Profile 和自定义工具。第 5 节“正文变短”只对美术 Skill 成立。
+- 与设计的偏差：旧静态步骤 `config_static_validate` 指向从未存在的 `tools/config/Validate-Configs.ps1`，新流程改由全量用例里的 `ConfigValidationSmokeTest` 做配置校验；`开发文档/rules/04` 的两轮验收同步改为“自验 + 外部验收（用户或独立会话）”。
