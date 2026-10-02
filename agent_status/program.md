@@ -51,7 +51,7 @@ update_rule: 程序、Unity、验证或工程边界任务完成后更新本文�
 - 静态 Approved Sprite 的 Unity 导入与 Registry 登记已有脚本 + MCP 编排入口，live 证据齐全才写 `RegistryStatus=registered`；Windows PowerShell 5.1 中文路径乱码已修复。
 - ArtRun 内部 binding gate 已接入 validation core：`finalize_runtime_validated` 只在最终 capture 和 Agent review 通过后写运行时证据；真实 Prefab / UGUI 绑定仍归程序。
 - 已 `registered` 的美术资源：`bg_combat_abyss`、`ui_icon_warning`、`bg_dungeon_map`、`ui_icon_locked`、`ui_icon_money`、Zero neutral 与三张姿势差分；均不含 UGUI 消费或 `runtime_validated`。
-- AI 图片网关：透明 SSE、尾部断流保护、同连接 JSON fallback 与 Gemini Flow2API 结构化画幅（`1024x1536` → `three-four + 2k`）已真实验证。
+- AI 图片网关：透明 SSE、尾部断流保护、同连接 JSON fallback 与 Gemini Flow2API 结构化画幅（`1024x1536` → `three-four + 2k`）已真实验证；2026-10-02 起与 tags_machine 共用网关 `main`（`0f7edd8`，含 raw transport 重构）。
 - 全局叙事播放系统已接入配置加载、触发调度、状态回写、UGUI 对白层、过程 CG 容器和命令桥；运行时仍需按场景补证据。
 - T0-01A 启动零号、苏醒对白、首潜确认和真实 `DungeonManager.StartRunAtLayer(1)` 链路已有实现 / smoke 证据，不等于完整 T0 验收。
 

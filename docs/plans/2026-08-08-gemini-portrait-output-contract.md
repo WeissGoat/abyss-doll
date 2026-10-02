@@ -36,7 +36,7 @@ update_rule: 实施文件、测试、真实 smoke、PromptRevision 或 Zero hurt
 ### Task 1: Add Gemini-Specific Aspect Ratio Serialization
 
 **Files:**
-- Modify: `tools/ai-image-gateway/ai_image_gateway/providers/openai_compatible.py`
+- Modify: `tools/ai-image-gateway/ai_image_gateway/providers/openai_compatible/facade.py`
 - Modify: `tools/ai-image-gateway/tests/test_openai_compatible_provider.py`
 
 **Interfaces:**
