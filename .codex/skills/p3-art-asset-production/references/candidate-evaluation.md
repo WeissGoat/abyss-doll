@@ -58,7 +58,7 @@ There is no score threshold. Select a candidate when you would ship it on its ta
 
 - Close but locally defective: repair the best candidate or generate a few targeted variants.
 - Every candidate shares the same defect: revise the prompt, reference, or provider instead of repairing.
-- Top candidates represent different directions, or the asset is a core anchor: use the interaction policy and show the user the contact sheet.
+- Top candidates represent different directions, or the asset is a core anchor: use the interaction policy and show the user the contact sheet or a live preview.
 
 In `auto` mode, break close ties by: active-fact consistency, identity, semantic correctness, engineering safety, style, composition, then decoration.
 
@@ -106,7 +106,9 @@ Write one `visual-review.json` per review pass. Its `Items` list may cover a who
 
 Standard items may leave out `Scores`. Portrait items instead use `ReviewRubricVersion=character_portrait_v3` with the six portrait dimensions and their evidence; replacement items add `SelectionMode`, `ReplacementBaseline`, and `ReplacementPolicy` (see the replacement gates above).
 
-Use actual image inspection, contact sheets, small-size previews, and relevant identity/style anchors. Do not score from filenames or prompts alone.
+Use actual image inspection, contact sheets, small-size previews, and relevant identity/style anchors; never judge from filenames or prompts alone.
+
+When the target screen already exists, preview the candidate on it. Candidates under `_IncomingAI` are imported as Sprites, so in Play Mode you can set the target `Image.sprite` on the scene instance (for example `execute_code` with `AssetDatabase.LoadAssetAtPath<Sprite>`), take a Game View screenshot, and leave Play Mode. Change only scene instances, never prefab assets, the Registry or the Manifest. The preview informs your decision; it isn't evidence.
 
 The latest numeric round is authoritative. A single valid `passed` candidate may be resolved for downstream selection; multiple passed candidates require an explicit selection. A latest failed, decision-required, or legacy-unverified round blocks fallback to earlier rounds.
 
