@@ -13,8 +13,6 @@ P3 Mission requires existing detailed source material before a new mission CSV i
 
 It is not Trellis, does not install hooks, and does not replace `AGENTS.md`, `PROJECT_STATUS.md`, `agent_status/*`, GDD, development docs, art docs, or configuration sources.
 
-`misc/Missions` is an archived upstream reference only. Do not route work into its separate skills or maintain a second mission system.
-
 ## Core Rules
 
 - Read `AGENTS.md` and the relevant P3 status/fact sources before changing project files.
@@ -23,7 +21,7 @@ It is not Trellis, does not install hooks, and does not replace `AGENTS.md`, `PR
 - Use `.mission/*.csv` for local recovery artifacts and `missions/*.csv` only when the user approves a formal queue.
 - Keep the CSV as execution state, not project truth. Meaningful work must write back to `agent_status/*` or the relevant fact document.
 - Every mission needs concrete `TASK` rows and a final `REVIEW-*` row that checks the original goal against evidence.
-- Do not stop at setup, checkpoints, partial completion, or limited validation while reachable rows remain.
+- Keep working through reachable rows; stop for a decision only the user can make, a real blocker, or when the user asks.
 
 ## Quick Reference
 
@@ -56,15 +54,9 @@ Scripts, templates and references all live in this folder; there is no second co
 7. Continue until review proves the original goal is met or every remaining row is genuinely blocked.
 
 Read `references/route-and-source-intake.md` for routing, approved-source handling, and queue location rules.
-Read `references/execution-protocol.md` for execution, recovery, review, and anti-pause rules.
+Read `references/execution-protocol.md` for execution, recovery, review, and when to stop.
 Read `references/verification-and-evidence.md` for validation tool mapping, limited validation, and claim/evidence alignment.
 Read `references/csv-schema.md` for fields and allowed values.
-
-## P3 Adaptation
-
-Absorbed from `misc/Missions`: durable CSV state, source routing, recovery, explicit review rows, claim/evidence alignment, limited validation discipline, and anti-pause rules.
-
-Do not copy its multi-skill router, `issues/*.csv` model, four-status CSV schema, or mandatory per-row commit behavior. P3 uses one skill, one schema, P3 status writeback, and normal scoped git commits.
 
 ## Common Mistakes
 
@@ -72,8 +64,6 @@ Do not copy its multi-skill router, `issues/*.csv` model, four-status CSV schema
 |---|---|
 | CSV becomes project truth | CSV is execution state; P3 docs/status pages hold truth. |
 | `DONE` after static inspection | Record real validation or `validation_limited:<reason>`. |
-| Stop after checkpoint | Continue unless stop conditions in `execution-protocol.md` are met. |
 | Replan completed rows | Resume from the first active row. |
 | Commit `.mission/*.csv` | Keep local missions untracked by default. |
-| Reuse `misc/Missions` skills | Use `p3-mission`; archived Missions is reference material only. |
 | Generate mission from one sentence | First obtain detailed source material; mission only plans and executes stage progress. |

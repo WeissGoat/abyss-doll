@@ -22,8 +22,6 @@ If the user asks to continue or resume:
 
 If multiple unfinished missions exist, choose the most recently modified one unless the user clearly names another file.
 
-Do not scan or revive archived `misc/Missions` skills. Their content has been absorbed into `p3-mission`.
-
 ## 2. Plan Rows
 
 Replace `PLAN-01` with 3-12 concrete `TASK` rows plus one final `REVIEW-01`.
@@ -135,33 +133,6 @@ When resuming:
 - Prefer the first active row returned by the tool.
 - If the CSV state conflicts with the actual worktree, correct the CSV before continuing and record why in `notes`.
 
-## 8. Anti-Pause Rules From Missions, Adapted For P3
+## 8. When To Stop
 
-Partial completion is not a stop condition. Continue after checkpoints, status updates, and blocker repairs.
-
-Do not stop just because:
-
-- A phase finished.
-- A few rows are done.
-- A row was blocked but later repaired.
-- The next row is harder or dirtier.
-- Validation is limited but alternatives remain.
-- You want to summarize progress.
-
-Stop only when:
-
-- All rows are complete and the latest `REVIEW-*` row says the original goal is met.
-- Every remaining active row is `BLOCKED` with `blocked:<reason>` and needs user or external action.
-- The user explicitly asks to pause, stop, cancel, or change the task boundary.
-
-## 9. Common Rationalizations
-
-| Rationalization | Reality |
-|---|---|
-| "I created the CSV, so this turn can end." | CSV creation is setup. Validate it and start execution unless the user asked only for a plan. |
-| "The user gave one sentence, so I can draft rows from inference." | No. Create or request detailed source material first; p3-mission only handles stage progress planning/execution after sources exist. |
-| "This row has static evidence, so it is done." | Static evidence must be labeled as such; do not claim runtime or end-to-end completion. |
-| "The status page is updated, so the work is complete." | Status writeback records evidence; it does not replace implementation or validation. |
-| "A review found gaps, so I should ask the user." | Convert actionable gaps into rows. Ask only for human-required decisions. |
-| "The worktree is dirty, so I should stop." | Scope carefully, avoid unrelated changes, and keep moving unless the dirty state makes the row impossible. |
-| "Missions upstream used four CSV states, so P3 should too." | P3 uses one `status` field plus evidence/status writeback. Do not reintroduce upstream schema. |
+Keep going through reachable rows; finishing a phase or wanting to summarize is not a reason to stop. Stop when the latest `REVIEW-*` row confirms the original goal, when every remaining row is `BLOCKED` with `blocked:<reason>` and needs the user or something external, or when the user asks to pause, stop, cancel or change the boundary.

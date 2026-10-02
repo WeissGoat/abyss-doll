@@ -67,7 +67,6 @@ When review finds a gap, append concrete follow-up `TASK` rows and a new `REVIEW
 - `.mission/*.csv`: local recovery artifact, not committed by default.
 - `missions/*.csv`: user-approved formal mission queue, can be committed.
 - `.codex/skills/p3-mission/`: tool and protocol only; never store project mission CSVs here.
-- `misc/_archive/Missions_*/`: archived upstream reference only; never use as an active queue or skill source.
 
 ## Notes Tags
 
