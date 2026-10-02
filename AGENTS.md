@@ -30,7 +30,7 @@ related:
   - 版本规划/09_正式版核心纵切开发路线.md
   - 版本规划/README.md
   - 版本规划/11_纵切批次与需求文档承接矩阵.md
-last_verified: 2026-10-01
+last_verified: 2026-10-02
 update_rule: 修改根职责路由、全局硬边界、开工入口或完成摘要时同步本文件；详细执行协议同步 rules/02。
 ---
 
@@ -57,7 +57,7 @@ update_rule: 修改根职责路由、全局硬边界、开工入口或完成摘�
 
 - **局内**：深渊探索 / 副本内行动。
 - **局外**：小镇、工坊与养成。
-- 程序任务按开发文档和 `p3-program-validation` 路由；`UnityClient/Logs/` 只作为运行时日志与验收证据入口。AutoTestDaemon、`.test_trigger` 和 headless smoke 的具体协议以 `开发文档/rules/04_自动化测试与验收流程规范.md` 为准。
+- 程序任务按开发文档和 `p3-program-validation` 路由；`UnityClient/Logs/` 只作为运行时日志与验收证据入口。smoke 测试用 Unity MCP `run_tests` 运行，AutoTestDaemon、`.test_trigger` 是兼容路径，具体协议以 `开发文档/rules/04_自动化测试与验收流程规范.md` 为准。
 
 ## 30 秒开工流程
 
@@ -116,7 +116,7 @@ Role 指领域：`全局`、`游戏导演`、`剧情`、`策划`、`程序`、`�
 - 纯图片生成 / 编辑、差分、inpaint、后端选择和生成证据：使用 `p3-generate-image`。
 - 叙事 CG、漫画页、Panel VisualID、一致性修复与运行时漫画验收：使用 `p3-narrative-cg-comic`。
 - 新概念图优先用宿主内置生图（Codex `image_gen`），没有时转 AI 图片网关 `openai_images`。局部差分优先 `gemini_chat_image`；NovelAI inpaint 仅用于存在明确 mask、允许随机性且指向性要求不强的场景。
-- 程序自动化、运行时美术和发布聚合分别使用 `p3-program-validation`、`p3-art-validation`、`p3-release-validation`，不得混淆程序通过与美术通过。
+- 程序自动化和运行时美术分别使用 `p3-program-validation`、`p3-art-validation`，不得混淆程序通过与美术通过；里程碑发布门禁按 `开发文档/rules/04` 的检查清单逐项确认。
 - 项目 Skill 由 `.codex/skills/*/` 提供；p3-mission 的工具源 `tools/p3-mission/` 与 `.codex/skills/p3-mission/` 必须内容一致。`.claude/skills/<name>/SKILL.md` 只是 Claude Code 的发现转发入口（frontmatter 与源一致，正文指向源文件）。新增、改名、删除 Skill，修改其 frontmatter 或修改 p3-mission 时，在同一改动内同步这些副本。
 - 编写或修改 Skill：正文保留硬约束和按阶段读取表，references 只在进入对应阶段时读取，不要求开工前全部读完；健康检查的 Skill 校验会检查副本一致和引用路径。
 

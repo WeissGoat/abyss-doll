@@ -13,7 +13,7 @@ related:
   - 开发文档/19_UnityMCP验收编排层设计.md
   - 开发文档/20_UnityMCP验收编排层实现计划.md
   - 知识库/README.md
-last_verified: 2026-10-01
+last_verified: 2026-10-02
 update_rule: 调整复制智能体开工检查项、风险路径或提交前检查流程时同步本文件。
 ---
 
@@ -81,7 +81,7 @@ P0 核心 Unity smoke 会覆盖背包交互、奖励系统、战斗战利品、�
 
 P0 配置 Validator 与自动验收底座的目标命令、报告格式和门禁要求见 `开发文档/15_P0配置Validator与自动验收底座需求.md`。
 
-运行前需要 Unity Editor 已打开当前项目，并由 `AutoTestDaemon` 监听 `UnityClient/Logs/.test_trigger`。
+这是兼容路径：运行前需要 Unity Editor 已打开当前项目，并由 `AutoTestDaemon` 监听 `UnityClient/Logs/.test_trigger`。有 Unity MCP 时优先按 `p3-program-validation` 用 `run_tests` 运行。
 
 默认会依次触发：
 
@@ -117,11 +117,11 @@ P0 配置 Validator 与自动验收底座的目标命令、报告格式和门禁
 
 ## Unity MCP 验收入口
 
-交互式验收已按职能拆分为 `.codex/skills/p3-program-validation`、`.codex/skills/p3-art-validation`、`.codex/skills/p3-release-validation`，共享核心脚本位于 `tools/agent/p3-validation-core/`。`.test_trigger`、`Invoke-P0Validation.ps1` 和旧菜单仍保留为自动化兼容/故障回退入口。
+程序与美术验收分别由 `.codex/skills/p3-program-validation` 和 `.codex/skills/p3-art-validation` 负责。`.test_trigger`、`Invoke-P0Validation.ps1` 和旧菜单仍保留为没有 MCP 时的兼容 / 故障回退入口。
 
-- 程序自动化：`tools/agent/p3-validation-core/New-P3ValidationRun.ps1 -Domain program`，随后使用 `p3_program_run_profile`。
-- 美术验收与迭代：创建 `ArtRunID`，使用 `p3_art_open_target`、`p3_art_inspect_target`（自动记录 live inspection）、`p3_art_prepare_capture`、标准 `manage_camera`、`p3_art_finalize_capture`、`p3_art_compare_iteration`；需要产生 `runtime_validated` 时再用 `p3_art_run_profile` 记录 Agent review 并 Finalize。全量回归另用 `p3_art_run_regression`。
-- 发布聚合：`Merge-P3ReleaseEvidence.ps1` 只读取 ProgramRunID 与 ArtRunID。
-- 旧混合 `p3-validation`、`p3_run_unity_profile` 和混合 Profile 已移除。
+- 程序自动化：smoke 测试由 `UnityClient/Assets/Editor/P3SmokeTests/` 包装成 Unity Test Framework 的 EditMode 用例，用 MCP `run_tests`（`assembly_names=["P3.SmokeTests.Editor"]`）运行，`get_test_job` 读结果；smoke set ID 是用例分类。
+- 美术运行时检查：`tools/美术工具/check_art_binding.py` 做绑定检查，再在真实界面截图、Agent 评审并检查 Console，证据放 `UnityClient/Logs/P3ArtCheck/<RunID>/`。
+- ArtRun 框架（`tools/agent/p3-validation-core/` 与 `p3_art_*` 工具）只用于 `t0_art_seal` 和 `art_regression`；`Merge-P3ReleaseEvidence.ps1` 只用于读取旧 RunID。
+- 旧混合 `p3-validation`、`p3_run_unity_profile`、混合 Profile 和 `p3-release-validation` 已移除。
 
 MCP 客户端配置：Codex 在用户级 `~/.codex/config.toml` 的 `[mcp_servers.unityMCP]` 中配置；Claude Code 使用仓库根目录 `.mcp.json` 的 `unityMCP`，两者使用同一条 `uvx --offline --from mcpforunityserver==10.0.0 mcp-for-unity --transport stdio` 命令。Claude Code 的项目级 MCP 需在本机批准一次，批准记录写在不提交的 `.claude/settings.local.json`（`enabledMcpjsonServers`）。升级 `UnityClient/Packages/manifest.json` 中的 `com.coplaydev.unity-mcp` 时，同步两处的 `mcpforunityserver` 版本。

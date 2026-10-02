@@ -10,7 +10,7 @@ related:
   - AGENTS.md
   - 知识库/README.md
   - 知识库/views/director.md
-last_verified: 2026-07-18
+last_verified: 2026-10-02
 update_rule: 跨领域交付入口、阅读顺序或条件展开规则变化时同步本文件。
 ---
 
@@ -42,7 +42,7 @@ Owner 应先确认“本轮对哪个完整玩家结果负责”，再决定需�
 
 - 进入执行、自验、外部验收或状态回写时读取 `rules/02_智能体任务路由与完成协议.md`。
 - 长期、拆分、恢复或持续执行时使用 P3 Mission，并读取已有 Mission 来源材料和当前任务状态。
-- 程序、美术或发布验证分别进入 `p3-program-validation`、`p3-art-validation`、`p3-release-validation`。
+- 程序和美术验证分别进入 `p3-program-validation`、`p3-art-validation`；里程碑发布门禁按 `开发文档/rules/04_自动化测试与验收流程规范.md` 的检查清单。
 - 叙事 CG / 漫画页生产与运行时验收进入 `p3-narrative-cg-comic`。
 
 ## 边界提醒

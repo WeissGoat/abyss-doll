@@ -40,7 +40,7 @@ related:
   - 美术文档/人设/05_零号立绘素材设计与交付清单.md
   - 开发文档/17_Live2DSpine运行时接入评估.md
   - 开发文档/18_全局叙事播放系统开发方案.md
-last_verified: 2026-10-01
+last_verified: 2026-10-02
 update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 ---
 
@@ -70,7 +70,7 @@ update_rule: 美术或 UI 视觉流水线任务完成后更新本文件。
 
 - 授权后按当前套组指纹执行 Zero hurt 的 Approved → Unity → Registry；其余 10 个停在 selected 的 Zero 成员逐个授权，不把单项授权扩大为整套准入。
 - 继续按 background / icon / standard_asset 分组扩大 Formal V2 通用批次：先作者化 PromptRevision，再 dry-run、provider smoke、Agent 评审和 guarded selection；UI Skin 与角色立绘走各自独立 route。
-- 程序实际消费某个 VisualID 后，再用正式 TargetID 走 `p3-art-validation` ArtRun 推进到 `runtime_validated`。
+- 程序实际消费某个 VisualID 后，用 `p3-art-validation` 的轻量检查推进到 `runtime_validated`。
 - T0-01A 按角色、场景、风格锚点重做需替换的 Panel，页级 contact sheet 通过后再做同 VisualID 覆盖。
 
 ## 问题 / 阻塞

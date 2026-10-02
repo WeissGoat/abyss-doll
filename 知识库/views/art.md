@@ -25,7 +25,7 @@ related:
   - 美术文档/ui_design/formal_v2/00_formal_v2_ux_ui_overview.md
   - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - 开发文档/14_Unity运行时美术自动验收方案.md
-last_verified: 2026-10-01
+last_verified: 2026-10-02
 update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约变化时同步本文件。
 ---
 
@@ -50,8 +50,8 @@ update_rule: 美术入口文档、流水线、UI 交付或程序侧视觉契约�
 
 ## 验收 / 恢复时
 
-- 正式资产准入使用 `p3-art-asset-production`；发布聚合使用 `p3-release-validation`。
-- 运行时视觉诊断、截图和受限迭代使用 `p3-art-validation`：默认先用 MCP 直接查看 Game View 和 bounded UGUI snapshot，需要决策证据时才用 capture ticket 截图；Art Profile 只记录技术结果与证据，`ArtAcceptanceRunner` 仅由 `art_regression` 使用。
+- 正式资产准入使用 `p3-art-asset-production`；里程碑发布门禁按 `开发文档/rules/04_自动化测试与验收流程规范.md` 的检查清单。
+- 运行时视觉诊断和验收使用 `p3-art-validation`：默认走轻量检查（绑定检查、真实界面截图、Agent 评审、Console）；ArtRun 只用于 `t0_art_seal` 和 `art_regression`，`ArtAcceptanceRunner` 仅由 `art_regression` 使用。
 - Owner 外部验收、状态回写或跨职能交接时读取 `rules/02_智能体任务路由与完成协议.md`。
 - 恢复历史候选或旧 ArtRun 时只读取目标 Asset / RunID 证据，不通读美术状态历史。
 

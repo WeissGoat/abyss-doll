@@ -1,22 +1,26 @@
 ---
 name: p3-art-validation
-description: Use when Project P3 needs runtime UI or art diagnosis, live Game View inspection, focused visual acceptance, bounded presentation iteration, T0 visual sealing, or full visual regression.
+description: Use when Project P3 needs runtime UI or art diagnosis, a light runtime check that moves registered art to runtime_validated, T0 visual sealing, or full visual regression.
 ---
 
 # P3 Art Validation
 
-Use MCP live inspection as the default; capture only decision evidence. The public art state transition is `registered -> runtime_validated`; binding is an internal ArtRun check, not a separate user-facing state.
+The default is the light check: a binding check, a screenshot of the real screen, an Agent review and a clean Console. Passing it moves the checked VisualIDs from `registered` to `runtime_validated`. The ArtRun framework (`p3_art_*` tools) is kept only for `t0_art_seal` and `art_regression`; read [artrun.md](references/artrun.md) before using either.
 
-1. Read `agent_status/art.md`, active UI/art facts, and choose a registered TargetID and Profile.
-2. Create an ArtRunID and pin the Unity instance with `set_active_instance`.
-3. Call `p3_validation_readiness`, `p3_art_open_target`, and `p3_art_inspect_target`. The inspect tool records the live inspection into the ArtRun; do not submit a hand-authored inspection JSON.
-4. View the current Game View with `manage_camera(action="screenshot", capture_source="game_view", include_image=true)`; omit `camera` so Screen Space Overlay UGUI is included. Before formal capture, select the registered target's `1920x1080` Game View size.
-5. Diagnose from the live image plus the bounded UGUI snapshot.
-6. When evidence is needed, call `p3_art_prepare_capture`, execute the returned exact `manage_camera` arguments, then call `p3_art_finalize_capture`. A live image with other dimensions is diagnosis only.
-7. Record the Agent art review with `p3_art_run_profile(action="record_review")` only after checking the live image, bounded UGUI snapshot, registry/binding evidence, and target Console.
-8. Call `p3_art_run_profile(action="finalize_runtime_validated")`. Only this action may write the `runtime_validated` claim and `runtime-validation.json`.
-9. Complete the profile / merge the ArtRunID result. Keep `player_path_verified` and `regression_passed` as separate claims.
+## Light check
 
-Read each reference when its step comes up: [profile-routing.md](references/profile-routing.md) when choosing the Profile (step 1), [mcp-live-inspection.md](references/mcp-live-inspection.md) before steps 2-5, [evidence-policy.md](references/evidence-policy.md) before formal capture, review, or finalize (steps 6-9), and [iteration-boundaries.md](references/iteration-boundaries.md) only for `art_iteration` or any persisted presentation change.
+1. Read `agent_status/art.md` and the active UI / art facts for the screen. Name the run `artcheck_<yyyyMMdd_HHmm>_<screen>`; its evidence folder is `UnityClient/Logs/P3ArtCheck/<RunID>/`.
+2. Binding: `python tools/美术工具/check_art_binding.py --visual-id <id> [--visual-id <id> ...] --out UnityClient/Logs/P3ArtCheck/<RunID>/binding.json`. Any failure stops the check; Registry and import fixes go to `p3-art-asset-production`.
+3. Enter Play Mode and reach the screen through the normal player path. If you can't drive it, ask the user to bring the screen up. If it can't be reached without faking state, stop with `art_blocked:target_screen_unreachable` and hand off to program.
+4. Read the Console (`read_console`) so later errors can be told apart. Make sure the Game View is 1920x1080, then take the screenshot: `manage_camera` with `action=screenshot`, `capture_source=game_view`, `output_folder=Logs/P3ArtCheck/<RunID>`, `screenshot_file_name=<screen>.png`, `include_image=true`, and no `camera`, so Screen Space Overlay UI is included. Check that the saved PNG is 1920x1080.
+5. Review the image against the spec. For each VisualID, check that it shows where it should, at the right scale, crop and layer, and that the text over it stays readable. Write `review.md` in the evidence folder with the screen, the VisualIDs, what you saw, and a verdict of `passed` or `failed` with reasons.
+6. Read the Console again and save new errors and exceptions to `console.txt`, or write `none`. New errors fail the check.
+7. Stop Play Mode. If the check passed, add one line to `agent_status/art.md` with the date, RunID, VisualIDs and `runtime_validated`.
 
-Never accept arbitrary screenshot paths, hand-author binding evidence, fabricate player state, run full P0, or mutate domain rules. A target with no `required_visual_ids`, a missing Registry entry, a wrong live Sprite path/GUID, a blocking issue, missing final capture, or a failed/limited review cannot finalize. Only `art_regression` may start the legacy ArtAcceptance runner.
+## Hard rules
+
+- The check only looks. It doesn't edit UI, prefabs, assets, config or domain state; fixes go to program or `p3-art-asset-production`.
+- Never fabricate player state, call arbitrary C# or menus to reach a screen, or run full program smoke tests.
+- A screenshot is evidence only when it's saved in the evidence folder. Images that only appear in the conversation are for diagnosis.
+- `runtime_validated` isn't written to the Manifest or `RegistryStatus`, and it doesn't imply `player_path_verified` or `regression_passed`, which need their own evidence.
+- Program passing doesn't mean art passing, and art passing doesn't mean program passing.

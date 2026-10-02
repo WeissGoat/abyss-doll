@@ -1,4 +1,4 @@
 interface:
   display_name: "P3 Program Validation"
-  short_description: "Run P3 compile, Smoke, T0 functional, and P0 program validation."
-  default_prompt: "Validate Project P3 program behavior with a registered program profile and bounded evidence claims."
+  short_description: "Run P3 compile, smoke tests via Unity MCP run_tests, and config checks."
+  default_prompt: "Validate Project P3 program behavior with the smoke tests and static checks this change needs, and report results within the program claim ceiling."

@@ -1,6 +1,6 @@
 ---
 name: p3-art-validation
-description: Use when Project P3 needs runtime UI or art diagnosis, live Game View inspection, focused visual acceptance, bounded presentation iteration, T0 visual sealing, or full visual regression.
+description: Use when Project P3 needs runtime UI or art diagnosis, a light runtime check that moves registered art to runtime_validated, T0 visual sealing, or full visual regression.
 ---
 
 <!-- Claude Code 转发入口。事实来源：.codex/skills/p3-art-validation/SKILL.md。源技能新增、改名或修改 frontmatter 时同步更新本文件。 -->

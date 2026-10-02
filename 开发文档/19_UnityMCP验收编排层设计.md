@@ -19,13 +19,15 @@ related:
   - 美术文档/00_美术流水线总览.md
   - 美术文档/09_运行时美术验收记录.md
   - 美术文档/10_正式版核心纵切美术路线.md
-last_verified: 2026-07-12
+last_verified: 2026-10-02
 update_rule: 修改程序验收、美术迭代验收、发布聚合、共享证据契约或 Unity MCP 验收边界时同步本文件。
 ---
 
 # Unity MCP 验收编排层设计
 
 > 本文是 P3 MCP 验收架构的事实来源。日常程序自动化测试与美术运行时迭代验收必须分开；二者只共享 RunID、Unity readiness、Console、截图、JobState、证据 Schema 和确定性合并能力。
+
+> 2026-10-02 更新：程序 smoke 改由 Unity Test Framework 包装（`UnityClient/Assets/Editor/P3SmokeTests/`），用 Unity MCP `run_tests` 运行，流程见 `开发文档/rules/04` 与 `p3-program-validation`；美术日常验收改为 `p3-art-validation` 的轻量检查；`p3-release-validation` 已删除，发布门禁见 `开发文档/rules/04` 的里程碑检查清单。本文的 RunID、Profile 与 `p3_*` 工具设计继续描述保留的 ArtRun 框架（`t0_art_seal`、`art_regression`）和兼容路径。
 
 ## 1. 设计结论
 

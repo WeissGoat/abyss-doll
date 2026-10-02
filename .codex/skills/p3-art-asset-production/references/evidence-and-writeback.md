@@ -122,6 +122,6 @@ After meaningful work:
 - Approved + stable `.meta`: formal asset complete;
 - live AssetDatabase importer evidence: `unity_imported`;
 - live Registry target evidence: `registered` and usable by VisualID;
-- Prefab / UGUI consumption: an internal ArtRun binding check;
-- runtime evidence: `runtime_validated` after the ArtRun Finalize gate;
+- Prefab / UGUI consumption: part of the light check, not a separate claim;
+- runtime evidence: `runtime_validated` after the `p3-art-validation` light check passes;
 - normal player-path evidence: player-path integration complete.

@@ -19,7 +19,7 @@ related:
   - 美术文档/archive/10_美术验收截图优化与真实数据驱动演进方案.md
   - agent_status/art.md
   - 知识库/views/art.md
-last_verified: 2026-07-12
+last_verified: 2026-10-02
 update_rule: 修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。
 ---
 
@@ -814,6 +814,8 @@ ArtAcceptance 是运行时视觉验收工具，只回答“Unity 运行时能否
 ## 0. 2026-07-12 V2 入口与旧 Runner 定位
 
 日常验收入口切换为 `p3-art-validation` V2 的 MCP 实时优先流程。本文原有 `ArtAcceptanceRunner` 自动截图链继续保留，但定位调整为全量视觉回归后端；MCP 编排、按需截图和 ArtRunID 契约以 `开发文档/19_UnityMCP验收编排层设计.md` 第 14 节为准。
+
+> 2026-10-02 更新：日常验收改为 `p3-art-validation` 的轻量检查（绑定检查、真实界面截图、Agent 评审、Console），ArtRun 只用于 `t0_art_seal` 与 `art_regression`。下方“日常单界面或小范围验收”流程只作历史参考，全量回归流程仍有效。
 
 日常单界面或小范围验收：
 

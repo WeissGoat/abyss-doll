@@ -85,7 +85,7 @@
         "开发文档/17_Live2DSpine运行时接入评估.md",
         "开发文档/18_全局叙事播放系统开发方案.md"
       ],
-      "last_verified": "2026-10-01",
+      "last_verified": "2026-10-02",
       "update_rule": "美术或 UI 视觉流水线任务完成后更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -415,7 +415,7 @@
         "开发文档/18_全局叙事播放系统开发方案.md",
         "配置表(JSON)/Narrative/README.md"
       ],
-      "last_verified": "2026-10-01",
+      "last_verified": "2026-10-02",
       "update_rule": "程序、Unity、验证或工程边界任务完成后更新本文档。",
       "has_metadata": true,
       "missing_fields": [],
@@ -512,7 +512,7 @@
         "版本规划/README.md",
         "版本规划/11_纵切批次与需求文档承接矩阵.md"
       ],
-      "last_verified": "2026-10-01",
+      "last_verified": "2026-10-02",
       "update_rule": "修改根职责路由、全局硬边界、开工入口或完成摘要时同步本文件；详细执行协议同步 rules/02。",
       "has_metadata": true,
       "missing_fields": [],
@@ -1203,7 +1203,7 @@
         "tools/agent/README.md",
         "tools/p3-mission/README.md"
       ],
-      "last_verified": "2026-10-01",
+      "last_verified": "2026-10-02",
       "update_rule": "项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -1397,7 +1397,7 @@
         "开发文档/20_UnityMCP验收编排层实现计划.md",
         "知识库/README.md"
       ],
-      "last_verified": "2026-10-01",
+      "last_verified": "2026-10-02",
       "update_rule": "调整复制智能体开工检查项、风险路径或提交前检查流程时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -1850,7 +1850,7 @@
         "agent_status/art.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-07-12",
+      "last_verified": "2026-10-02",
       "update_rule": "修改对应程序架构、接口契约、验证流程或 Unity 实现边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2072,7 +2072,7 @@
         "美术文档/09_运行时美术验收记录.md",
         "美术文档/10_正式版核心纵切美术路线.md"
       ],
-      "last_verified": "2026-07-12",
+      "last_verified": "2026-10-02",
       "update_rule": "修改程序验收、美术迭代验收、发布聚合、共享证据契约或 Unity MCP 验收边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2112,7 +2112,7 @@
         "tools/agent/README.md",
         "知识库/views/program.md"
       ],
-      "last_verified": "2026-07-12",
+      "last_verified": "2026-10-02",
       "update_rule": "调整 MCP 实时查看、截图票据、Art Profile、表现迭代、全量回归适配或验收证据时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2381,7 +2381,7 @@
         "agent_status/art.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-06-13",
+      "last_verified": "2026-10-02",
       "update_rule": "修改 VisualID、VisualAssetRegistry、VisualAssetService、DisplaySpec 程序接入或运行时资源校验契约时同步本文档。",
       "has_metadata": true,
       "missing_fields": [],
@@ -2428,8 +2428,8 @@
         "配置表(JSON)/README.md",
         "开发文档/archive/06_架构评估与收口建议.md"
       ],
-      "last_verified": "2026-06-08",
-      "update_rule": "修改 AutoTestDaemon、.test_trigger、headless smoke test、测试报告或自动验收流程时同步本文档。",
+      "last_verified": "2026-10-02",
+      "update_rule": "修改 smoke 测试包装、Unity MCP run_tests 流程、AutoTestDaemon、.test_trigger、测试报告或自动验收流程时同步本文档。",
       "has_metadata": true,
       "missing_fields": [],
       "referenced_by": [
@@ -3668,7 +3668,7 @@
         "开发文档/rules/03_视觉资源系统程序开发规范.md",
         "开发文档/14_Unity运行时美术自动验收方案.md"
       ],
-      "last_verified": "2026-10-01",
+      "last_verified": "2026-10-02",
       "update_rule": "美术入口文档、流水线、UI 交付或程序侧视觉契约变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -3829,7 +3829,7 @@
         "知识库/README.md",
         "知识库/views/director.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-10-02",
       "update_rule": "跨领域交付入口、阅读顺序或条件展开规则变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -3899,7 +3899,7 @@
         "tools/config/README.md",
         "配置表(JSON)/README.md"
       ],
-      "last_verified": "2026-10-01",
+      "last_verified": "2026-10-02",
       "update_rule": "程序入口文档、Unity 工程边界、配置同步或验证流程变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -3945,7 +3945,7 @@
         "tools/美术工具/README.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-10-01",
+      "last_verified": "2026-10-02",
       "update_rule": "修改美术资产生产阶段、快速道 / 完整道、职能边界、正式状态、交付门禁或 Skill 路由时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -3985,7 +3985,7 @@
         "美术文档/04_美术风格基准.md",
         "tools/美术工具/README.md"
       ],
-      "last_verified": "2026-08-02",
+      "last_verified": "2026-10-02",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -4021,7 +4021,7 @@
         "美术文档/04_美术风格基准.md",
         "tools/美术工具/README.md"
       ],
-      "last_verified": "2026-07-18",
+      "last_verified": "2026-10-02",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -4170,7 +4170,7 @@
         "美术文档/ui_design/versions/mvp_baseline_2026-05-22/README.md",
         "美术文档/archive/15_FormalV2运行时验收待办清单.md"
       ],
-      "last_verified": "2026-07-14",
+      "last_verified": "2026-10-02",
       "update_rule": "修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -6505,7 +6505,7 @@
         "美术文档/ui_design/versions/migration_log.md",
         "美术文档/archive/15_FormalV2运行时验收待办清单.md"
       ],
-      "last_verified": "2026-07-14",
+      "last_verified": "2026-10-02",
       "update_rule": "修改 UI 版本迭代、active/candidate/baseline 关系或美术素材生成入口时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],

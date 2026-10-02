@@ -72,7 +72,7 @@ related:
   - 知识库/views/program.md
   - tools/agent/README.md
   - tools/p3-mission/README.md
-last_verified: 2026-10-01
+last_verified: 2026-10-02
 update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。
 ---
 
@@ -121,7 +121,8 @@ update_rule: 项目阶段、总目标、跨职能交接或阻塞项变化时更�
 
 ## 问题 / 阻塞
 
-- 运行时美术验收缺目标合同：`art_validation_targets.json` 的 4 个 TargetID `required_visual_ids` 为空且未注册 `combat_hud / maintenance_panel`，已登记资源无法推进到 `runtime_validated`；P3 MCP 参数 schema 问题已于 `9133477` 修复。
+- 已登记的美术资源还没有被游戏界面消费；程序接入后用 `p3-art-validation` 的轻量检查推进到 `runtime_validated`，不再需要 ArtRun 目标合同。
+- 程序 smoke 全量有 10 个已知失败用例（2026-10-02 `run_tests`，旧框架同样失败），清单见 `agent_status/program.md`；修复前全量结果不能当作程序通过证据。
 - T0-01A 的漫画页排版、对白皮肤、半开放工坊、首潜许可卡和最终连续截图仍需收口。
 - T0-01B / T0-01C 和 T2 详细设计尚未完成。
 - 离线 Registry candidate 有既有 `changed_existing=22`（T0 CG / 工坊 / Zero 已登记条目），需单独刷新收口。

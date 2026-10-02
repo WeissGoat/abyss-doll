@@ -1,4 +1,4 @@
 interface:
   display_name: "P3 Art Validation"
-  short_description: "Diagnose, capture, iterate, and review P3 runtime art."
-  default_prompt: "Run Project P3 art validation with registered targets, bounded UI changes, and external review."
+  short_description: "Run the light runtime art check, T0 visual seals, or full visual regression."
+  default_prompt: "Check registered P3 art on the real screen with the binding check, a saved screenshot, an Agent review and the Console, and record runtime_validated when it passes."

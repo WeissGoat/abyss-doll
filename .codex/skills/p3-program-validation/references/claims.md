@@ -1,3 +1,3 @@
 # Claim ceilings
 
-Program evidence may support compile/config/Smoke/functional claims for the tested Profile. It never supports screenshot quality, UI polish, visual seal, ArtAcceptance, art approval, or release approval.
+Program evidence supports compile, config and smoke-test claims for the cases that ran. It never supports screenshot quality, UI polish, visual seals, art acceptance, art approval, or release approval.

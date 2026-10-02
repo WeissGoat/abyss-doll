@@ -15,11 +15,13 @@ related:
   - 开发文档/rules/04_自动化测试与验收流程规范.md
   - tools/agent/README.md
   - 知识库/views/program.md
-last_verified: 2026-07-12
+last_verified: 2026-10-02
 update_rule: 调整 MCP 实时查看、截图票据、Art Profile、表现迭代、全量回归适配或验收证据时同步本文件。
 ---
 
 # p3-art-validation V2 MCP 实时优先实现计划
+
+> 2026-10-02 更新：日常美术验收已改为 `p3-art-validation` 的轻量检查，本计划实现的 ArtRun 流程只保留给 `t0_art_seal` 与 `art_regression`。
 
 **Goal:** 将 `p3-art-validation` 重构为 MCP 直接查看 Game View、按结论截图和受控表现迭代的日常美术验收入口，并把旧 `ArtAcceptanceRunner` 降为 `art_regression` 全量回归后端。
 

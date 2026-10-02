@@ -21,7 +21,7 @@ related:
   - 开发文档/rules/00_程序开发总规则.md
   - tools/config/README.md
   - 配置表(JSON)/README.md
-last_verified: 2026-10-01
+last_verified: 2026-10-02
 update_rule: 程序入口文档、Unity 工程边界、配置同步或验证流程变化时同步本文件。
 ---
 
@@ -45,7 +45,7 @@ update_rule: 程序入口文档、Unity 工程边界、配置同步或验证流�
 
 ## 验收 / 恢复时
 
-- 编译、配置、Smoke、P0 / T0 功能路径使用 `p3-program-validation`（共享脚本在 `tools/agent/p3-validation-core`）；不以 ArtAcceptance 或静态截图代替程序通过，美术 lane 的注册目标检查、bounded UGUI inspection、MCP capture ticket 和 ArtRunID 不进入程序 Profile。
+- 编译、配置、Smoke、P0 / T0 功能路径使用 `p3-program-validation`：smoke 测试经 Unity Test Framework 包装，用 Unity MCP `run_tests` 运行；不以 ArtAcceptance 或截图代替程序通过，程序验收不截图、不做美术评审。
 - Owner 外部验收、状态回写或跨职能交接时读取 `rules/02_智能体任务路由与完成协议.md`。
 - Unity / MCP 受限时记录 `validation_limited:*`，并回到对应 RunID 证据包或 Git 历史追溯。
 

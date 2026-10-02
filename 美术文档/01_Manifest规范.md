@@ -13,7 +13,7 @@ related:
   - 美术文档/00_美术流水线总览.md
   - 美术文档/04_美术风格基准.md
   - tools/美术工具/README.md
-last_verified: 2026-08-02
+last_verified: 2026-10-02
 update_rule: 修改美术流水线、资源规格、UI 交付或运行时验收要求时同步本文件。
 ---
 
@@ -190,7 +190,7 @@ Asset Contract 字段归属：
 
 ### Visual V2 质量替换字段
 
-已进入 `approved` / `registered` 的素材，如果只是要替换更高质量图片，不应把 `Status` 改回 `generated`。运行时 `runtime_validated` 由 ArtRun 证据产生，不是 Manifest 状态。这类流程使用候选字段记录新批次：
+已进入 `approved` / `registered` 的素材，如果只是要替换更高质量图片，不应把 `Status` 改回 `generated`。运行时 `runtime_validated` 由 `p3-art-validation` 的检查证据产生，不是 Manifest 状态。这类流程使用候选字段记录新批次：
 
 | 字段 | 步骤 | 说明 |
 |---|---|---|

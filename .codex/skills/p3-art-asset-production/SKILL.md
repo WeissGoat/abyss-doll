@@ -53,7 +53,7 @@ Scripts live in `tools/美术工具/`; parameters and examples are in its `READM
 | Select | `Select-ArtCandidate.ps1 -VisualID <id> -ReviewPath <review>` |
 | Portrait set gate | `Invoke-PortraitSetGate.ps1 -Phase Prepare`, `Finalize`, or `Check` |
 | Approved, Unity, and Registry | `Invoke-ArtApprovedUnityRegistration.ps1 -Phase Plan`, `SyncApproved`, then `Finalize`, with one `-ArtImportRunID` and `-VisualID <ids>` |
-| Runtime validation | `p3-art-validation` profiles `art_focus`, `art_runtime`, `art_iteration`, `t0_art_seal`, `art_regression` |
+| Runtime validation | `p3-art-validation` light check; its `t0_art_seal` and `art_regression` profiles for seals and full regression |
 
 ## Modes
 
