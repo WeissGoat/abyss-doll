@@ -505,7 +505,6 @@
         "知识库/views/program.md",
         "设计文档/剧情/README.md",
         "tools/agent/README.md",
-        "tools/p3-mission/README.md",
         "版本规划/13_正式版全局体验总线与开放节奏.md",
         "版本规划/14_0-12小时候选主循环细案设计.md",
         "版本规划/09_正式版核心纵切开发路线.md",
@@ -1200,8 +1199,7 @@
         "知识库/views/art.md",
         "知识库/views/design.md",
         "知识库/views/program.md",
-        "tools/agent/README.md",
-        "tools/p3-mission/README.md"
+        "tools/agent/README.md"
       ],
       "last_verified": "2026-10-02",
       "update_rule": "项目阶段、总目标、跨职能交接或阻塞项变化时更新本文件。",
