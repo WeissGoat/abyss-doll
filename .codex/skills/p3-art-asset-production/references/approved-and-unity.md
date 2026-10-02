@@ -6,7 +6,7 @@ Require all:
 
 - selected candidate exists;
 - technical gate passed;
-- visual threshold/policy passed;
+- the visual review recommends the candidate, and a replacement passed its replacement policy;
 - Manifest VisualID and OutputPath match;
 - quality tier is explicit;
 - no fact conflict;

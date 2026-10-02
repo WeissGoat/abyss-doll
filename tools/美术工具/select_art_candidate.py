@@ -64,13 +64,15 @@ def find_review_item(payload: dict[str, Any], visual_id: str) -> dict[str, Any]:
     return matches[0]
 
 
-def review_score(item: dict[str, Any]) -> int:
+def review_score(item: dict[str, Any]) -> int | None:
     scores = item.get("Scores") if isinstance(item.get("Scores"), dict) else {}
     value = scores.get("Total", item.get("Score"))
+    if value is None:
+        return None
     try:
         return int(value)
     except (TypeError, ValueError) as exc:
-        raise ValueError("visual review score is missing") from exc
+        raise ValueError("visual review score is invalid") from exc
 
 
 def score_map(value: Any, *, label: str) -> dict[str, int]:
@@ -125,8 +127,7 @@ def validate_replacement(
                     "ReviewRubricVersion": item.get("ReviewRubricVersion"),
                     "Scores": baseline.get("Scores"),
                     "DimensionEvidence": baseline.get("DimensionEvidence"),
-                },
-                require_selection_threshold=True,
+                }
             )
         except ValueError as exc:
             raise ValueError("replacement_baseline_review_required") from exc
@@ -136,13 +137,13 @@ def validate_replacement(
     if policy.get("MustExceedExisting") is not True:
         raise ValueError("replacement_must_exceed_existing_required")
     try:
-        minimum_score = int(policy.get("MinimumScore", 88))
+        minimum_score = int(policy.get("MinimumScore", 0))
         minimum_delta = int(policy.get("MinimumScoreDelta", 1))
     except (TypeError, ValueError) as exc:
         raise ValueError("replacement_policy_invalid") from exc
     if minimum_delta < 1:
         raise ValueError("replacement_minimum_delta_invalid")
-    required_score = max(88, minimum_score, baseline_scores["Total"] + minimum_delta)
+    required_score = max(minimum_score, baseline_scores["Total"] + minimum_delta)
     if candidate_scores["Total"] < required_score:
         raise ValueError(
             f"replacement_not_better:candidate={candidate_scores['Total']}:required={required_score}"
@@ -173,7 +174,7 @@ def validate_replacement(
         previous_selected["DimensionEvidence"] = baseline_dimension_evidence
     policy_result = {
         "ReviewRubricVersion": item["ReviewRubricVersion"],
-        "MinimumScorePassed": candidate_scores["Total"] >= max(88, minimum_score),
+        "MinimumScorePassed": candidate_scores["Total"] >= minimum_score,
         "StrictlyBetterPassed": candidate_scores["Total"] >= baseline_scores["Total"] + minimum_delta,
         "ProtectedDimensionsPassed": True,
         "BaselineStillCurrent": True,
@@ -297,14 +298,13 @@ def select_art_candidate(
     item = find_review_item(review, visual_id)
     is_portrait = entry.get("ProductionProfile") == "character_portrait_set"
     if is_portrait:
-        validate_portrait_review_item(item, require_selection_threshold=True)
+        validate_portrait_review_item(item)
     if str(item.get("HardGate", "")) != "passed":
         raise ValueError("visual review hard gate did not pass")
-    if str(item.get("RecommendedAction", "")) not in {"select", "auto_select"}:
+    recommended_action = str(item.get("RecommendedAction", ""))
+    if recommended_action not in {"select", "auto_select"}:
         raise ValueError("visual review does not recommend selection")
     score = review_score(item)
-    if score < 88:
-        raise ValueError(f"visual review score {score} is below selected threshold 88")
     candidate_value = str(item.get("Candidate", "") or "")
     if not candidate_value:
         raise ValueError("visual review candidate is missing")
@@ -330,8 +330,8 @@ def select_art_candidate(
     selection_mode = "initial"
     previous_selected: dict[str, Any] = {}
     policy_result: dict[str, Any] = {
-        "MinimumScorePassed": score >= 88,
-        "RequiredScore": 88,
+        "HardGatePassed": True,
+        "RecommendedAction": recommended_action,
     }
     state = "planned" if dry_run else "selected"
     if target.exists() and target_hash == source_hash:
@@ -405,7 +405,7 @@ def select_art_candidate(
             "SelectionMode": selection_mode,
             "PreviousSelected": previous_selected,
             "PolicyResult": policy_result,
-            "Reason": str(item.get("Reason") or "Agent review passed selected threshold."),
+            "Reason": str(item.get("Reason") or "Agent review recommended selection."),
         }
     )
     selection_payload["Selected"] = sorted(selected_items, key=lambda value: str(value.get("VisualID", "")))

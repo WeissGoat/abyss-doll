@@ -91,26 +91,35 @@ class SelectArtCandidateTests(unittest.TestCase):
 
     def write_review(
         self,
-        score: int,
+        score: int | None,
         candidate: Path | None = None,
         *,
+        recommended_action: str = "select",
         replacement_target: Path | None = None,
         baseline_score: int = 90,
+        minimum_score: int | None = 88,
         candidate_dimensions: dict[str, int] | None = None,
         baseline_dimensions: dict[str, int] | None = None,
         protected_dimensions: list[str] | None = None,
     ) -> None:
         selected = candidate or self.candidate
-        scores = {"Total": score, **(candidate_dimensions or {})}
         item = {
             "VisualID": "bg_workshop_day",
             "Candidate": str(selected),
             "CandidateSHA256": hashlib.sha256(selected.read_bytes()).hexdigest(),
             "HardGate": "passed",
-            "Scores": scores,
-            "RecommendedAction": "select",
+            "RecommendedAction": recommended_action,
         }
+        if score is not None:
+            item["Scores"] = {"Total": score, **(candidate_dimensions or {})}
         if replacement_target is not None:
+            policy = {
+                "MustExceedExisting": True,
+                "MinimumScoreDelta": 1,
+                "ProtectedDimensions": protected_dimensions or [],
+            }
+            if minimum_score is not None:
+                policy["MinimumScore"] = minimum_score
             item.update(
                 {
                     "SelectionMode": "replacement",
@@ -120,12 +129,7 @@ class SelectArtCandidateTests(unittest.TestCase):
                         "SelectedSHA256": hashlib.sha256(replacement_target.read_bytes()).hexdigest(),
                         "Scores": {"Total": baseline_score, **(baseline_dimensions or {})},
                     },
-                    "ReplacementPolicy": {
-                        "MinimumScore": 88,
-                        "MustExceedExisting": True,
-                        "MinimumScoreDelta": 1,
-                        "ProtectedDimensions": protected_dimensions or [],
-                    },
+                    "ReplacementPolicy": policy,
                 }
             )
         self.review_path.write_text(
@@ -252,10 +256,27 @@ class SelectArtCandidateTests(unittest.TestCase):
         self.assertEqual(summary["FinalState"], "selection_complete")
         self.assertEqual(summary["Claims"]["bg_workshop_day"], "selected")
 
-    def test_rejects_below_threshold_or_older_round_candidate(self) -> None:
+    def test_selects_on_recommendation_without_a_score_threshold(self) -> None:
+        for score in (60, None):
+            with self.subTest(score=score):
+                self.write_manifest()
+                self.write_review(score=score)
+                result = select_art_candidate(
+                    project_root=self.root,
+                    manifest_path=self.manifest_path,
+                    incoming_root=self.incoming_root,
+                    visual_id="bg_workshop_day",
+                    review_path=self.review_path,
+                    allow_selected_overwrite=False,
+                    dry_run=True,
+                )
+                self.assertEqual(result["State"], "planned")
+                self.assertEqual(result["Score"], score)
+
+    def test_rejects_review_without_selection_or_from_older_round(self) -> None:
         self.write_manifest()
-        self.write_review(score=87)
-        with self.assertRaisesRegex(ValueError, "score"):
+        self.write_review(score=95, recommended_action="repair")
+        with self.assertRaisesRegex(ValueError, "does not recommend selection"):
             select_art_candidate(
                 project_root=self.root,
                 manifest_path=self.manifest_path,
@@ -355,6 +376,26 @@ class SelectArtCandidateTests(unittest.TestCase):
                 allow_selected_overwrite=True,
                 dry_run=False,
             )
+
+    def test_replacement_needs_no_absolute_score_floor(self) -> None:
+        target = self.workspace / "selected" / "bg_workshop_day.png"
+        target.parent.mkdir(parents=True)
+        Image.new("RGBA", (8, 4), "red").save(target)
+        self.write_manifest(selected_path=repo_path(target, self.root))
+        self.write_review(score=80, replacement_target=target, baseline_score=75, minimum_score=None)
+
+        result = select_art_candidate(
+            project_root=self.root,
+            manifest_path=self.manifest_path,
+            incoming_root=self.incoming_root,
+            visual_id="bg_workshop_day",
+            review_path=self.review_path,
+            allow_selected_overwrite=True,
+            dry_run=False,
+        )
+
+        self.assertEqual(result["SelectionMode"], "replacement")
+        self.assertEqual(result["PolicyResult"]["RequiredScore"], 76)
 
     def test_replacement_rejects_protected_dimension_regression(self) -> None:
         target = self.workspace / "selected" / "bg_workshop_day.png"

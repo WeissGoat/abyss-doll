@@ -39,7 +39,7 @@ class PortraitReviewContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "portrait_dimension_evidence_not_independent"):
             validate_portrait_review_item(duplicated)
 
-    def test_rejects_invalid_total_evidence_and_selection_threshold(self) -> None:
+    def test_rejects_invalid_total_and_missing_evidence(self) -> None:
         invalid = valid_item()
         invalid["Scores"]["Total"] = 99
         with self.assertRaisesRegex(ValueError, "portrait_score_total_mismatch"):
@@ -48,11 +48,12 @@ class PortraitReviewContractTests(unittest.TestCase):
         invalid["DimensionEvidence"].pop("Technical")
         with self.assertRaisesRegex(ValueError, "portrait_dimension_evidence_missing:Technical"):
             validate_portrait_review_item(invalid)
-        invalid = valid_item()
-        invalid["Scores"]["TargetFit"] = 87
-        invalid["Scores"]["Total"] = round(sum(invalid["Scores"][name] for name in invalid["Scores"] if name != "Total") / 6)
-        with self.assertRaisesRegex(ValueError, "portrait_target_fit_below_selection_threshold"):
-            validate_portrait_review_item(invalid, require_selection_threshold=True)
+
+    def test_low_scores_are_valid_without_a_selection_threshold(self) -> None:
+        low = valid_item()
+        low["Scores"]["TargetFit"] = 70
+        low["Scores"]["Total"] = round(sum(low["Scores"][name] for name in low["Scores"] if name != "Total") / 6)
+        self.assertEqual(validate_portrait_review_item(low)["Scores"]["TargetFit"], 70)
 
 
 if __name__ == "__main__":

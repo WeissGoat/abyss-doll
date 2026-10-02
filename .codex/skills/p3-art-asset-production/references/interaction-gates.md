@@ -7,7 +7,7 @@ Pause only when at least one applies:
 1. Two valid candidates represent different art directions rather than different quality levels.
 2. A first-time core anchor is about to be fixed: character master, scene style anchor, first UI skin family, key narrative CG, or promotional image.
 3. The requested action would replace an already integrated shared asset and advance permission was not granted.
-4. Candidate confidence is below threshold or identity/style cannot be judged reliably.
+4. You can't judge identity, style, or fit reliably from the evidence you have.
 5. Active facts conflict or the requested direction changes a locked fact.
 6. A character portrait set would lock or replace a shared identity/presentation anchor, or set members pass individually but represent incompatible character directions.
 
@@ -23,7 +23,7 @@ Provide:
 - contact sheet or relevant evidence;
 - 2-3 concrete options;
 - recommended option first;
-- score and fact-based reason;
+- the fact-based reason, with scores if you used them;
 - material tradeoff/risk;
 - exact state to resume from.
 

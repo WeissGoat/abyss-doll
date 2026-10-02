@@ -2,7 +2,7 @@
 
 ## Default behavior
 
-Use `interactive` with `auto_until_decision`: proceed without asking while facts, deterministic checks, and evaluation thresholds support a clear action. Ask only when a decision gate is reached.
+Use `interactive` with `auto_until_decision`: proceed without asking while facts, deterministic checks, and your review support a clear action. Ask only when a decision gate is reached.
 
 Use `auto` only after explicit user authorization such as “全自动执行”, “不用中途问我”, or an equivalent scoped instruction.
 

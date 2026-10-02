@@ -50,15 +50,10 @@ def validate_dimension_evidence(evidence: Any) -> dict[str, dict[str, Any]]:
     return result
 
 
-def validate_portrait_review_item(item: Any, *, require_selection_threshold: bool = False) -> dict[str, Any]:
+def validate_portrait_review_item(item: Any) -> dict[str, Any]:
     if not isinstance(item, dict) or item.get("ReviewRubricVersion") != PORTRAIT_RUBRIC_VERSION:
         raise ValueError("portrait_review_rubric_invalid")
     result = copy.deepcopy(item)
     result["Scores"] = normalize_portrait_scores(item.get("Scores"))
     result["DimensionEvidence"] = validate_dimension_evidence(item.get("DimensionEvidence"))
-    if require_selection_threshold:
-        if result["Scores"]["TargetFit"] < 88:
-            raise ValueError("portrait_target_fit_below_selection_threshold")
-        if result["Scores"]["Total"] < 88:
-            raise ValueError("portrait_total_below_selection_threshold")
     return result

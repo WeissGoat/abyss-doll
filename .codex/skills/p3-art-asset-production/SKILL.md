@@ -63,7 +63,7 @@ Scripts live in `tools/美术工具/`; parameters and examples are in its `READM
 
 - Formal production needs a detailed source. A chat idea or an unreviewed requirement-candidate report may produce exploration candidates only.
 - Use the existing scripts and MCP tools. Never create a second Manifest, Registry, progress table, or acceptance system.
-- Only the scripts write numeric `processed/` rounds, `selected/`, Approved, the Manifest, and the Registry. Never hand-copy a candidate, overwrite a published round, fall back to an older round, or promote a hard-failed or below-threshold candidate.
+- Only the scripts write numeric `processed/` rounds, `selected/`, Approved, the Manifest, and the Registry. Never hand-copy a candidate, overwrite a published round, fall back to an older round, or promote a hard-failed candidate.
 - A handwritten `decision.json`, a `technical_override.json`, or a stale `visual-review.json` is not evidence by itself; the Registrar recomputation, SHA checks, and explicit override authorization decide.
 - Same-VisualID replacement keeps the VisualID, Approved path, DisplaySpec, `.meta`, GUID, and runtime binding.
 - Keep requirements, Asset Contracts, IDs, and directories method-neutral. Record the tool actually used in run evidence, and never reject a useful tool because this skill doesn't list it.

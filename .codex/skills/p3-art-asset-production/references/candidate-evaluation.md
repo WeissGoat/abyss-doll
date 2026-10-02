@@ -19,9 +19,9 @@ Reject before visual scoring when any of these is true:
 - `BackgroundPolicy` must be explicit: `preserve`, `already_transparent`, `auto_simple`, or `agent_required`. `AlphaRequired=true` never authorizes implicit background removal.
 - For RGB provider output with a baked checkerboard, prefer an explicit mask or the optional `segmentation` route. Threshold-based `connected_border` processing is not a substitute when it can leave checker pixels or delete protected clothing or hair.
 
-## Base scoring
+## Judging candidates
 
-Score valid candidates to 100:
+Judge valid candidates on these dimensions; the weights show relative importance. Scores are optional for standard assets, while portrait reviews keep the `character_portrait_v3` scores below.
 
 | Dimension | Weight |
 |---|---:|
@@ -52,12 +52,13 @@ For related `character_portrait_set` members, do not stop at isolated candidate 
 
 A member can pass its individual score and still fail set consistency. Return only the affected member to review or adjustment unless the shared anchor or art direction is invalid.
 
-## Decision thresholds
+## Decisions
 
-- `>= 88`, no hard failure, and lead over second place `>= 5`: auto-select.
-- `78-87`: repair the best candidate or generate two targeted variants.
-- `< 78`: revise prompt/reference/provider; do not select.
-- Top candidates within 5 points and representing materially different directions: use the interaction policy.
+There is no score threshold. Select a candidate when you would ship it on its target screen, and say why in one line (`Reason`).
+
+- Close but locally defective: repair the best candidate or generate a few targeted variants.
+- Every candidate shares the same defect: revise the prompt, reference, or provider instead of repairing.
+- Top candidates represent different directions, or the asset is a core anchor: use the interaction policy and show the user the contact sheet.
 
 In `auto` mode, break close ties by: active-fact consistency, identity, semantic correctness, engineering safety, style, composition, then decoration.
 
@@ -103,10 +104,10 @@ Write one `visual-review.json` per review pass. Its `Items` list may cover a who
 }
 ```
 
-Portrait items instead use `ReviewRubricVersion=character_portrait_v3` with the six portrait dimensions and their evidence; replacement items add `SelectionMode`, `ReplacementBaseline`, and `ReplacementPolicy` (see the replacement gates above).
+Standard items may leave out `Scores`. Portrait items instead use `ReviewRubricVersion=character_portrait_v3` with the six portrait dimensions and their evidence; replacement items add `SelectionMode`, `ReplacementBaseline`, and `ReplacementPolicy` (see the replacement gates above).
 
 Use actual image inspection, contact sheets, small-size previews, and relevant identity/style anchors. Do not score from filenames or prompts alone.
 
 The latest numeric round is authoritative. A single valid `passed` candidate may be resolved for downstream selection; multiple passed candidates require an explicit selection. A latest failed, decision-required, or legacy-unverified round blocks fallback to earlier rounds.
 
-Promote with `Select-ArtCandidate.ps1 -VisualID <VisualID> -ReviewPath <visual-review.json>`, once per VisualID. It accepts only a latest-round candidate with `HardGate=passed`, `Scores.Total` (or `Score`) of at least 88, and `RecommendedAction` `select` or `auto_select`, rechecks hash, dimensions, and format, then writes `selected/`, the Manifest `SelectedPath`, and ProductionRun selection evidence. Never copy candidates into `selected/` by hand.
+Promote with `Select-ArtCandidate.ps1 -VisualID <VisualID> -ReviewPath <visual-review.json>`, once per VisualID. It accepts only a latest-round candidate with `HardGate=passed` and `RecommendedAction` `select` or `auto_select`, rechecks hash, dimensions, and format, then writes `selected/`, the Manifest `SelectedPath`, and ProductionRun selection evidence. Never copy candidates into `selected/` by hand.
