@@ -29,14 +29,13 @@ It is not Trellis, does not install hooks, and does not replace `AGENTS.md`, `PR
 
 | Need | Command |
 |---|---|
-| Create | `.\tools\p3-mission\New-P3Mission.ps1 -Goal "<goal>" -Source "<source path or reference>" -Role "<role>"` |
-| Validate | `.\tools\p3-mission\Test-P3Mission.ps1 -Path "<mission.csv>"` |
-| Next row | `.\tools\p3-mission\Get-P3NextIssue.ps1 -Path "<mission.csv>"` |
-| Resume | `.\tools\p3-mission\Get-P3NextIssue.ps1 -Latest` |
-| Update | `.\tools\p3-mission\Update-P3MissionState.ps1 -Path "<mission.csv>" -Id "<id>" -Status "<status>"` |
+| Create | `.\.codex\skills\p3-mission\New-P3Mission.ps1 -Goal "<goal>" -Source "<source path or reference>" -Role "<role>"` |
+| Validate | `.\.codex\skills\p3-mission\Test-P3Mission.ps1 -Path "<mission.csv>"` |
+| Next row | `.\.codex\skills\p3-mission\Get-P3NextIssue.ps1 -Path "<mission.csv>"` |
+| Resume | `.\.codex\skills\p3-mission\Get-P3NextIssue.ps1 -Latest` |
+| Update | `.\.codex\skills\p3-mission\Update-P3MissionState.ps1 -Path "<mission.csv>" -Id "<id>" -Status "<status>"` |
 
-Codex discovery copy: `.codex/skills/p3-mission/`.
-Source/tool repository: `tools/p3-mission/`.
+Scripts, templates and references all live in this folder; there is no second copy. In Codex CLI, send a normal message first, then `/goal @.mission/<task>.csv` to run a mission.
 
 ## Input Routing
 

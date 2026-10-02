@@ -24,7 +24,6 @@ related:
   - 知识库/views/program.md
   - 设计文档/剧情/README.md
   - tools/agent/README.md
-  - tools/p3-mission/README.md
   - 版本规划/13_正式版全局体验总线与开放节奏.md
   - 版本规划/14_0-12小时候选主循环细案设计.md
   - 版本规划/09_正式版核心纵切开发路线.md
@@ -110,14 +109,14 @@ Role 指领域：`全局`、`游戏导演`、`剧情`、`策划`、`程序`、`�
 
 ## 长任务与项目 Skill 路由
 
-- 长期任务、拆任务执行、持续执行、`mission` 或恢复继续：优先使用 `.codex/skills/p3-mission/SKILL.md`；没有加载时再读取 `tools/p3-mission/README.md` 与 fallback `SKILL.md`。新建 Mission 必须基于已有详细来源材料。
+- 长期任务、拆任务执行、持续执行、`mission` 或恢复继续：使用 `.codex/skills/p3-mission/SKILL.md`，脚本和模板都在同一目录。新建 Mission 必须基于已有详细来源材料。
 - 需要先设计再实现的功能、重构或流程变更：设计写入 `docs/specs/`，实施步骤附在文末，不再单独写 plan；跨会话执行用定稿 spec 生成 P3 Mission。规则见 `rules/01`、`rules/02`；不使用 superpowers 插件的头脑风暴、计划和执行流程。
 - 正式美术资产从准入、候选生产、Approved、Unity 接入到运行时验收：使用 `p3-art-asset-production`。
 - 纯图片生成 / 编辑、差分、inpaint、后端选择和生成证据：使用 `p3-generate-image`。
 - 叙事 CG、漫画页、Panel VisualID、一致性修复与运行时漫画验收：使用 `p3-narrative-cg-comic`。
 - 新概念图优先用宿主内置生图（Codex `image_gen`），没有时转 AI 图片网关 `openai_images`。局部差分优先 `gemini_chat_image`；NovelAI inpaint 仅用于存在明确 mask、允许随机性且指向性要求不强的场景。
 - 程序自动化和运行时美术分别使用 `p3-program-validation`、`p3-art-validation`，不得混淆程序通过与美术通过；里程碑发布门禁按 `开发文档/rules/04` 的检查清单逐项确认。
-- 项目 Skill 由 `.codex/skills/*/` 提供；p3-mission 的工具源 `tools/p3-mission/` 与 `.codex/skills/p3-mission/` 必须内容一致。`.claude/skills/<name>/SKILL.md` 只是 Claude Code 的发现转发入口（frontmatter 与源一致，正文指向源文件）。新增、改名、删除 Skill，修改其 frontmatter 或修改 p3-mission 时，在同一改动内同步这些副本。
+- 项目 Skill 由 `.codex/skills/*/` 提供，每个 Skill 只有这一份。`.claude/skills/<name>/SKILL.md` 只是 Claude Code 的发现转发入口（frontmatter 与源一致，正文指向源文件）。新增、改名、删除 Skill 或修改其 frontmatter 时，在同一改动内同步转发入口。
 - 编写或修改 Skill：正文保留硬约束和按阶段读取表，references 只在进入对应阶段时读取，不要求开工前全部读完；健康检查的 Skill 校验会检查副本一致和引用路径。
 
 ## 验证与完成摘要

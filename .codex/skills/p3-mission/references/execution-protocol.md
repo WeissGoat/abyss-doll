@@ -9,7 +9,7 @@ Route inputs with `references/route-and-source-intake.md`.
 If the user gives detailed source material and asks to generate a mission, create a local mission:
 
 ```powershell
-.\tools\p3-mission\New-P3Mission.ps1 -Goal "<goal>" -Source "<source path or reference>" -Role "<role>"
+.\.codex\skills\p3-mission\New-P3Mission.ps1 -Goal "<goal>" -Source "<source path or reference>" -Role "<role>"
 ```
 
 If the user gives only a one-sentence goal or vague long-task request, do not run `New-P3Mission`. Ask for or create the missing detailed source material through the appropriate non-mission workflow first. P3 Mission starts after mission-ready source exists.
@@ -17,7 +17,7 @@ If the user gives only a one-sentence goal or vague long-task request, do not ru
 If the user asks to continue or resume:
 
 ```powershell
-.\tools\p3-mission\Get-P3NextIssue.ps1 -Latest
+.\.codex\skills\p3-mission\Get-P3NextIssue.ps1 -Latest
 ```
 
 If multiple unfinished missions exist, choose the most recently modified one unless the user clearly names another file.
@@ -40,7 +40,7 @@ When planning from a source, keep approved formal queues in `missions/*.csv` onl
 Before execution:
 
 ```powershell
-.\tools\p3-mission\Test-P3Mission.ps1 -Path "<mission.csv>"
+.\.codex\skills\p3-mission\Test-P3Mission.ps1 -Path "<mission.csv>"
 ```
 
 ## 3. Execute The Next Active Row
@@ -48,7 +48,7 @@ Before execution:
 Get the next row:
 
 ```powershell
-.\tools\p3-mission\Get-P3NextIssue.ps1 -Path "<mission.csv>"
+.\.codex\skills\p3-mission\Get-P3NextIssue.ps1 -Path "<mission.csv>"
 ```
 
 For that row:
@@ -65,9 +65,9 @@ For that row:
 Status commands:
 
 ```powershell
-.\tools\p3-mission\Update-P3MissionState.ps1 -Path "<mission.csv>" -Id "<id>" -Status "DOING"
-.\tools\p3-mission\Update-P3MissionState.ps1 -Path "<mission.csv>" -Id "<id>" -Status "DONE" -Evidence "<evidence>" -Notes "done_at:<YYYY-MM-DD>; status_writeback:<path>"
-.\tools\p3-mission\Update-P3MissionState.ps1 -Path "<mission.csv>" -Id "<id>" -Status "BLOCKED" -Notes "blocked:<reason>"
+.\.codex\skills\p3-mission\Update-P3MissionState.ps1 -Path "<mission.csv>" -Id "<id>" -Status "DOING"
+.\.codex\skills\p3-mission\Update-P3MissionState.ps1 -Path "<mission.csv>" -Id "<id>" -Status "DONE" -Evidence "<evidence>" -Notes "done_at:<YYYY-MM-DD>; status_writeback:<path>"
+.\.codex\skills\p3-mission\Update-P3MissionState.ps1 -Path "<mission.csv>" -Id "<id>" -Status "BLOCKED" -Notes "blocked:<reason>"
 ```
 
 ## 4. P3 Status Writeback Matrix

@@ -38,16 +38,9 @@ class ValidateSkillsTests(unittest.TestCase):
                 FORWARDER.format(name=name, description=description, directory=directory),
             )
 
-    def add_mission_copies(self):
-        self.add_skill("p3-mission", "Use for missions.")
-        source = (self.root / ".codex/skills/p3-mission/SKILL.md").read_text(encoding="utf-8")
-        self.write("tools/p3-mission/SKILL.md", source)
-        self.write("tools/p3-mission/README.md", "# P3 Mission\n")
-        for root in ("tools/p3-mission", ".codex/skills/p3-mission"):
-            self.write(f"{root}/scripts/p3_mission.py", "ROLES = set()\n")
-
     def test_consistent_skills_pass(self):
-        self.add_mission_copies()
+        self.add_skill("p3-mission", "Use for missions.")
+        self.write(".codex/skills/p3-mission/scripts/p3_mission.py", "ROLES = set()\n")
         errors, warnings, stats = validate(self.root)
         self.assertEqual((errors, warnings), ([], []))
         self.assertEqual(stats, {"skills": 2, "forwarders": 2})
@@ -93,19 +86,6 @@ class ValidateSkillsTests(unittest.TestCase):
         self.write(".codex/skills/p3-empty/references/notes.md", "# notes\n")
         self.assertEqual(
             validate(self.root)[0], ["skill directory has files but no SKILL.md: .codex/skills/p3-empty"]
-        )
-
-    def test_mission_copy_drift_is_an_error(self):
-        self.add_mission_copies()
-        self.write(".codex/skills/p3-mission/scripts/p3_mission.py", "ROLES = {'PM'}\n")
-        self.write("tools/p3-mission/templates/mission.template.csv", "id\n")
-        errors, _warnings, _stats = validate(self.root)
-        self.assertEqual(
-            errors,
-            [
-                "p3-mission file missing from .codex/skills/p3-mission: templates/mission.template.csv",
-                "p3-mission copies differ: scripts/p3_mission.py",
-            ],
         )
 
     def test_dead_skill_route_is_an_error(self):

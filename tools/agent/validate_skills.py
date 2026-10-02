@@ -9,9 +9,6 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 
 SOURCE_DIR = Path(".codex/skills")
 FORWARDER_DIR = Path(".claude/skills")
-MISSION_SOURCE = Path("tools/p3-mission")
-MISSION_COPY = SOURCE_DIR / "p3-mission"
-MISSION_SOURCE_ONLY = {"README.md", ".gitignore"}
 ENTRY_DOC_GLOBS = ("AGENTS.md", "rules/*.md", "知识库/README.md", "知识库/views/*.md")
 
 FRONT_MATTER = re.compile(r"\A---\n(.*?)\n---\n", re.S)
@@ -94,28 +91,6 @@ def check_forwarders(root, skills, errors):
             if directory.name not in seen and directory.name not in skills:
                 errors.append(f"forwarder has no source skill: {(FORWARDER_DIR / directory.name).as_posix()}")
     return len(seen)
-
-
-def check_mission_copy(root, errors):
-    source, copy = root / MISSION_SOURCE, root / MISSION_COPY
-    if not source.is_dir() and not copy.is_dir():
-        return
-    if not source.is_dir() or not copy.is_dir():
-        errors.append(f"p3-mission needs both {MISSION_SOURCE.as_posix()} and {MISSION_COPY.as_posix()}")
-        return
-    source_files = {
-        path.relative_to(source).as_posix(): path
-        for path in files_under(source)
-        if path.relative_to(source).as_posix() not in MISSION_SOURCE_ONLY
-    }
-    copy_files = {path.relative_to(copy).as_posix(): path for path in files_under(copy)}
-    for relative in sorted(source_files.keys() - copy_files.keys()):
-        errors.append(f"p3-mission file missing from {MISSION_COPY.as_posix()}: {relative}")
-    for relative in sorted(copy_files.keys() - source_files.keys()):
-        errors.append(f"p3-mission file missing from {MISSION_SOURCE.as_posix()}: {relative}")
-    for relative in sorted(source_files.keys() & copy_files.keys()):
-        if read_text(source_files[relative]) != read_text(copy_files[relative]):
-            errors.append(f"p3-mission copies differ: {relative}")
 
 
 def reference_tokens(text):
@@ -211,7 +186,6 @@ def validate(root):
     errors, warnings = [], []
     skills = load_skills(root, errors)
     forwarders = check_forwarders(root, skills, errors)
-    check_mission_copy(root, errors)
     check_references(root, skills, errors, warnings)
     check_skill_names(root, skills, warnings)
     return errors, warnings, {"skills": len(skills), "forwarders": forwarders}

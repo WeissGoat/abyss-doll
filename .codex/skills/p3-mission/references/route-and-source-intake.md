@@ -42,7 +42,7 @@ Use `missions/*.csv` only for user-approved formal queues. Use `.mission/*.csv` 
 |---|---|---|
 | `.mission/*.csv` | Local recovery for stage-progress execution from detailed source material | Do not commit by default |
 | `missions/*.csv` | User-approved formal queue worth reviewing with the project | Can be committed with related protocol/status changes |
-| `tools/p3-mission/` | Skill and tool source | Never store project mission CSVs here |
+| `.codex/skills/p3-mission/` | Skill, scripts and templates | Never store project mission CSVs here |
 
 P3 intentionally does not use upstream `issues/*.csv`; that path belongs to archived `misc/Missions`.
 
