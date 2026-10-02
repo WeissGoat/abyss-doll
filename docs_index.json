@@ -511,7 +511,7 @@
         "版本规划/README.md",
         "版本规划/11_纵切批次与需求文档承接矩阵.md"
       ],
-      "last_verified": "2026-10-02",
+      "last_verified": "2026-10-03",
       "update_rule": "修改根职责路由、全局硬边界、开工入口或完成摘要时同步本文件；详细执行协议同步 rules/02。",
       "has_metadata": true,
       "missing_fields": [],
@@ -1327,7 +1327,7 @@
         "agent_status/README.md",
         "agent_status/director.md"
       ],
-      "last_verified": "2026-10-01",
+      "last_verified": "2026-10-03",
       "update_rule": "调整任务角色选择、Owner 责任流水、自验与外部验收、状态回写或 Git 完成要求时同步本文件与 AGENTS.md 摘要。",
       "has_metadata": true,
       "missing_fields": [],
@@ -1465,7 +1465,7 @@
         "美术文档/ui_design/formal_v2/README.md",
         "美术文档/ui_design/formal_v2/design_boards/README.md"
       ],
-      "last_verified": "2026-08-01",
+      "last_verified": "2026-10-03",
       "update_rule": "修改对应工具入口、参数或执行流程时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -3052,7 +3052,7 @@
         "美术文档/10_正式版核心纵切美术路线.md",
         "美术文档/13_正式纵切UI与素材覆盖矩阵.md"
       ],
-      "last_verified": "2026-06-14",
+      "last_verified": "2026-10-03",
       "update_rule": "调整正式版顶层目标、系统优先级、纵切顺序或阶段边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -3190,7 +3190,7 @@
         "版本规划/11_纵切批次与需求文档承接矩阵.md",
         "知识库/views/director.md"
       ],
-      "last_verified": "2026-07-11",
+      "last_verified": "2026-10-03",
       "update_rule": "调整全游戏宏观大纲、玩家体验主线、系统保留 / 砍线判断、系统开放节奏、深渊包装、任务 Owner 工作流或阶段体验门禁时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -3827,7 +3827,7 @@
         "知识库/README.md",
         "知识库/views/director.md"
       ],
-      "last_verified": "2026-10-02",
+      "last_verified": "2026-10-03",
       "update_rule": "跨领域交付入口、阅读顺序或条件展开规则变化时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -3943,7 +3943,7 @@
         "tools/美术工具/README.md",
         "知识库/views/art.md"
       ],
-      "last_verified": "2026-10-02",
+      "last_verified": "2026-10-03",
       "update_rule": "修改美术资产生产阶段、快速道 / 完整道、职能边界、正式状态、交付门禁或 Skill 路由时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
@@ -4055,7 +4055,7 @@
         "美术文档/05_AI图片网关接入方案.md",
         "tools/美术工具/README.md"
       ],
-      "last_verified": "2026-08-02",
+      "last_verified": "2026-10-03",
       "update_rule": "修改候选硬门禁、视觉评价维度、类型准入、selected / Approved 质量要求或声明边界时同步本文件。",
       "has_metadata": true,
       "missing_fields": [],
