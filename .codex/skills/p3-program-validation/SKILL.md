@@ -31,8 +31,9 @@ Config validation runs inside Unity as the `ConfigValidationSmokeTest.Run` case 
 
 A new smoke test is a static class whose name ends in `Test`, with a static `Run()` (see `开发文档/rules/04_自动化测试与验收流程规范.md`). The wrapper picks it up after compiling. Add it to a smoke set only when it belongs to the T0 or P0 gate.
 
+Without MCP, the compatibility paths are AutoTestDaemon (`UnityClient/Logs/.test_trigger`) and `tools/agent/Invoke-P0Validation.ps1`.
+
 ## Hard rules
 
-- No screenshots, art acceptance or visual claims; runtime art goes through `p3-art-validation`.
-- Don't use `execute_code`, `manage_ui` or arbitrary `execute_menu_item` as validation steps.
-- Without MCP, the compatibility paths are AutoTestDaemon (`UnityClient/Logs/.test_trigger`) and `tools/agent/Invoke-P0Validation.ps1`.
+- No screenshots, art acceptance or visual claims; runtime art goes through `p3-art-validation`. Why: a passing test says nothing about how a screen looks.
+- Don't use `execute_code`, `manage_ui` or arbitrary `execute_menu_item` as validation steps. Why: validation evidence has to be repeatable; ad-hoc code is fine for diagnosis but isn't evidence.

@@ -61,12 +61,12 @@ Scripts live in `tools/美术工具/`; parameters and examples are in its `READM
 
 ## Hard rules
 
-- Formal production needs a detailed source. A chat idea or an unreviewed requirement-candidate report may produce exploration candidates only.
-- Use the existing scripts and MCP tools. Never create a second Manifest, Registry, progress table, or acceptance system.
-- Only the scripts write numeric `processed/` rounds, `selected/`, Approved, the Manifest, and the Registry. Never hand-copy a candidate, overwrite a published round, fall back to an older round, or promote a hard-failed candidate.
-- A handwritten `decision.json`, a `technical_override.json`, or a stale `visual-review.json` is not evidence by itself; the Registrar recomputation, SHA checks, and explicit override authorization decide.
-- Same-VisualID replacement keeps the VisualID, Approved path, DisplaySpec, `.meta`, GUID, and runtime binding.
-- Keep requirements, Asset Contracts, IDs, and directories method-neutral. Record the tool actually used in run evidence, and never reject a useful tool because this skill doesn't list it.
-- Prefabs, the Registry, and runtime code never reference `_IncomingAI`.
-- `raw`, `processed`, `selected`, `approved`, `registered`, `runtime_validated`, `player_path_verified`, and `regression_passed` are separate claims. A successful menu run is not import or Registry completion, and a Runner screenshot doesn't prove the player path.
-- Never run full P0 or change domain rules to make an art target reachable.
+- Formal production needs a detailed source. A chat idea or an unreviewed requirement-candidate report may produce exploration candidates only. Why: a formal asset locks a VisualID and an art direction, and guessed requirements turn into rework.
+- Use the existing scripts and MCP tools. Never create a second Manifest, Registry, progress table, or acceptance system. Why: two sources of truth drift apart.
+- Only the scripts write numeric `processed/` rounds, `selected/`, Approved, the Manifest, and the Registry. Never hand-copy a candidate, overwrite a published round, fall back to an older round, or promote a hard-failed candidate. Why: the scripts keep hashes, `.meta` files and evidence in step, and a hand copy breaks them silently.
+- A handwritten `decision.json`, a `technical_override.json`, or a stale `visual-review.json` is not evidence by itself; the Registrar recomputation, SHA checks, and explicit override authorization decide. Why: evidence has to match the bytes of the actual file.
+- Same-VisualID replacement keeps the VisualID, Approved path, DisplaySpec, `.meta`, GUID, and runtime binding. Why: prefabs and the Registry reference the GUID, so a new one breaks every screen that uses the asset.
+- Keep requirements, Asset Contracts, IDs, and directories method-neutral. Record the tool actually used in run evidence, and never reject a useful tool because this skill doesn't list it. Why: tools change much faster than requirements.
+- Prefabs, the Registry, and runtime code never reference `_IncomingAI`. Why: `_IncomingAI` isn't in git, so those references break on other machines and in builds.
+- `raw`, `processed`, `selected`, `approved`, `registered`, `runtime_validated`, `player_path_verified`, and `regression_passed` are separate claims. A successful menu run is not import or Registry completion, and a Runner screenshot doesn't prove the player path. Why: each claim needs different evidence, and merging them overstates progress.
+- Never run full P0 or change domain rules to make an art target reachable. Why: art work must not change gameplay, and full P0 belongs to program validation.

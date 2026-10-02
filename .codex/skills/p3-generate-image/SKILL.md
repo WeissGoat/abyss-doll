@@ -71,8 +71,8 @@ description: Use for Project P3 image generation or image editing, including tex
 - 文件夹图生图：`tools/ai-image-gateway/examples/run_batch_i2i_folder.py`
 - 批量文生图模板：`tools/ai-image-gateway/examples/run_batch_generate.py`
 
-## 声明边界
+## 硬规则
 
-- 出图成功只表示 `raw` 候选存在。
-- 本 Skill 不选择 selected，不同步 Approved，不修改 Registry，不运行 ArtAcceptance。
-- 不得提交 API key、`config.local.yaml`、临时 smoke 图或 `_IncomingAI` 原始候选，除非用户明确要求。
+- 出图成功只表示 `raw` 候选存在。原因：处理、筛选、入库和验收各有门禁，出图只是第一步。
+- 本 Skill 不选择 selected，不同步 Approved，不修改 Registry，不运行 ArtAcceptance。原因：这些步骤的检查在 `p3-art-asset-production` 和 `p3-art-validation` 里，绕过就没有检查。
+- 不得提交 API key、`config.local.yaml`、临时 smoke 图或 `_IncomingAI` 原始候选，除非用户明确要求。原因：密钥泄露无法撤回；候选图体积大，也不是正式资产。
