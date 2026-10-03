@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status *)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(git show *)",
+      "Bash(git branch --show-current)",
+      "Bash(git ls-files *)",
+      "Bash(python tools/agent/agent_health_check.py *)",
+      "Bash(python tools/agent/validate_skills.py *)",
+      "Bash(python -m unittest tools.agent.tests*)",
+      "mcp__unityMCP__read_console",
+      "mcp__unityMCP__refresh_unity",
+      "mcp__unityMCP__run_tests",
+      "mcp__unityMCP__get_test_job",
+      "mcp__unityMCP__find_gameobjects"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PROJECT_DIR:-.}\" && python tools/agent/agent_health_check.py --brief 2>/dev/null || true",
+            "timeout": 30,
+            "statusMessage": "P3 开工简报"
+          }
+        ]
+      }
+    ]
+  }
+}
