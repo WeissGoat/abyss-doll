@@ -31,11 +31,12 @@ public static class PrologueFirstDiveLayerConfirmSmokeTest {
         bool firstDiveMode = layerController != null
             && layerController.IsFirstDiveMode
             && layerController.SelectedLayerID == 1;
+        string permitDetail = layerController == null ? "no controller" : $"has={layerController.HasFirstDivePermitCard}, cards={CountPermitCards(layerController)}, rows={CountLayerRows(layerController)}, title='{layerController.PermitTitleText}', summary='{layerController.PermitSummaryText}'";
         bool onePermitCardOnly = layerController != null
             && layerController.HasFirstDivePermitCard
             && CountPermitCards(layerController) == 1
             && CountLayerRows(layerController) == 0
-            && layerController.PermitTitleText.Contains("第一层")
+            && layerController.PermitTitleText.Contains("下潜许可")
             && layerController.PermitSummaryText.Contains("许可");
         bool buttonLabels = ButtonText(layerController?.confirmBtn) == "出发"
             && ButtonText(layerController?.closeBtn) == "再看她一眼";
@@ -114,7 +115,7 @@ public static class PrologueFirstDiveLayerConfirmSmokeTest {
         } else {
             Debug.LogError(
                 "Prologue First Dive Layer Confirm Smoke FAILED. "
-                + $"FirstDive={firstDiveMode}, PermitCard={onePermitCardOnly}, Buttons={buttonLabels}, CanDepart={canDepart}, "
+                + $"FirstDive={firstDiveMode}, PermitCard={onePermitCardOnly} ({permitDetail}), Buttons={buttonLabels}, CanDepart={canDepart}, "
                 + $"DepartRequestOnly={departIsRequestOnly}, Returned={returnedToWorkshop}, Blocked={blockedState}, "
                 + $"BlockedNoDepart={blockedDoesNotDepart}, NarrativeOpen={narrativeOpensFirstDive}, NarrativeDepartStart={narrativeDepartStartsFirstDive}, "
                 + $"Rows={CountLayerRows(layerController)}, Confirm={ButtonText(layerController?.confirmBtn)}, Close={ButtonText(layerController?.closeBtn)}, "

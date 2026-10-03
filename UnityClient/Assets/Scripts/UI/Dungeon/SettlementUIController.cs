@@ -301,7 +301,7 @@ public class SettlementUIController : MonoBehaviour {
         MoveText(
             lootText,
             parent,
-            new Vector2(0f, 34f),
+            new Vector2(0f, 56f),
             new Vector2(880f, 34f),
             18,
             TextAnchor.MiddleCenter,

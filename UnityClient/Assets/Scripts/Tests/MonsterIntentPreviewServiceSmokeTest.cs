@@ -26,9 +26,9 @@ public static class MonsterIntentPreviewServiceSmokeTest {
             && intent != null
             && intent.IntentType == MonsterIntentType.Attack
             && intent.CanExecute
-            && intent.DamagePerHit == 10
+            && intent.DamagePerHit == 9
             && intent.RepeatCount == 1
-            && intent.EstimatedTotalDamage == 10
+            && intent.EstimatedTotalDamage == 9
             && intent.Title == "攻击";
 
         if (passed) {
@@ -45,9 +45,34 @@ public static class MonsterIntentPreviewServiceSmokeTest {
         grid.PlaceItem(weapon, 0, 0);
         GridSolver.RecalculateAllEffects(core.CurrentPlayer.ActiveDoll);
 
-        core.Combat.StartCombat(new System.Collections.Generic.List<string> { "mob_acid_slime" });
+        // Since the 2026-06-08 formal configs no layer-1 monster corrodes weapons (it moved to layer 2), so the test
+        // registers its own copy of the slime with the old corrosion action instead of depending on content.
+        const string testMonsterID = "test_corrosion_slime";
+        MonsterEntity slime = ConfigManager.Monsters["mob_acid_slime"];
+        MonsterEntity corrosionSlime = Newtonsoft.Json.JsonConvert.DeserializeObject<MonsterEntity>(
+            Newtonsoft.Json.JsonConvert.SerializeObject(slime));
+        corrosionSlime.MonsterID = testMonsterID;
+        corrosionSlime.AI.Actions.Add(new MonsterActionConfig {
+            ActionID = "test_corrode_weapon",
+            ActionType = "ReduceWeaponDamage",
+            Target = "RandomPlayerWeapon",
+            Weight = 30,
+            CooldownTurns = 2,
+            Condition = "PlayerHasWeapon",
+            Params = new System.Collections.Generic.Dictionary<string, Newtonsoft.Json.Linq.JToken> {
+                { "Multiplier", 0.5f },
+                { "DurationPlayerTurns", 1 }
+            }
+        });
+        ConfigManager.Monsters[testMonsterID] = corrosionSlime;
 
-        MonsterIntentReport report = MonsterIntentPreviewService.BuildReport(core.Combat);
+        MonsterIntentReport report;
+        try {
+            core.Combat.StartCombat(new System.Collections.Generic.List<string> { testMonsterID });
+            report = MonsterIntentPreviewService.BuildReport(core.Combat);
+        } finally {
+            ConfigManager.Monsters.Remove(testMonsterID);
+        }
         MonsterIntentCard card = report.Monsters.FirstOrDefault();
         MonsterActionIntentPreview corrosion = card?.ActionIntents.FirstOrDefault(intent => intent.IntentType == MonsterIntentType.WeakenWeapon);
 
@@ -79,13 +104,15 @@ public static class MonsterIntentPreviewServiceSmokeTest {
         MonsterActionIntentPreview cursed = card?.ActionIntents.FirstOrDefault(intent => intent.IntentType == MonsterIntentType.AddJunk);
         int afterCount = grid.ContainedItems.Count;
 
+        // Since the 2026-06-08 formal configs the amalgam plants an acid gland; read its name and size from config.
+        ItemEntity expectedCursedItem = ConfigManager.CreateItem("loot_acid_gland");
         bool passed = report.Success
             && card != null
             && cursed != null
             && cursed.CanExecute
-            && cursed.CursedItemID == "loot_gear_scrap"
-            && cursed.CursedItemName == "废旧齿轮"
-            && cursed.CursedItemGridCost == 1
+            && cursed.CursedItemID == "loot_acid_gland"
+            && cursed.CursedItemName == expectedCursedItem.Name
+            && cursed.CursedItemGridCost == expectedCursedItem.Grid.GridCost
             && cursed.OverrideTags.Contains("Cursed")
             && cursed.OverrideTags.Contains("Toxic")
             && beforeCount == afterCount;

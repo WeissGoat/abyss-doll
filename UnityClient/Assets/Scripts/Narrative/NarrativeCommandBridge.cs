@@ -299,7 +299,8 @@ public sealed class NarrativeCommandBridge {
     }
 
     private NarrativeCommandBridgeResult Reject(string commandName, string diagnostic) {
-        Debug.LogError($"[NarrativeCommandBridge] {diagnostic}");
+        // The caller gets the diagnostic in the result; an error log here would also fire for deliberate rejections.
+        Debug.LogWarning($"[NarrativeCommandBridge] {diagnostic}");
         return NarrativeCommandBridgeResult.Failed(commandName, diagnostic);
     }
 

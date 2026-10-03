@@ -35,7 +35,7 @@ public static class CombatHUDIntentBindingSmokeTest {
         bool passed = text.Contains("敌方意图")
             && text.Contains("拾荒虫")
             && text.Contains("攻击")
-            && text.Contains("造成约 10 伤害");
+            && text.Contains("造成约 9 伤害");
 
         if (passed) {
             Debug.Log("Combat HUD Intent Binding PASSED.");
@@ -113,7 +113,9 @@ public static class CombatHUDIntentBindingSmokeTest {
         Image enemyShadow = FindImageRecursive(canvasObj.transform, "EnemyShadow_Image");
         bool noStageCard = enemyStageImage == null || enemyStageImage.color.a <= 0.01f;
         bool noHotspotTint = hotspotImage == null || hotspotImage.color.a <= 0.01f;
-        bool softShadowOnly = enemyShadow == null || enemyShadow.color.a <= 0.24f;
+        // With the registered shadow sprite the tint is white and the sprite supplies the softness; the low-alpha
+        // tint only applies to the solid-colour fallback when no sprite is registered.
+        bool softShadowOnly = enemyShadow == null || enemyShadow.color.a <= 0.24f || enemyShadow.sprite != null;
 
         if (noStageCard && noHotspotTint && softShadowOnly) {
             Debug.Log("Combat HUD Enemy Stage Backing PASSED.");

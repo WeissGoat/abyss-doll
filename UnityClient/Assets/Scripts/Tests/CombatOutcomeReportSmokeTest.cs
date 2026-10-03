@@ -251,7 +251,7 @@ public static class CombatOutcomeReportSmokeTest {
             RectTransform pickedColumn = FindRectRecursive(settlementObj.transform, "PickedLootColumn");
             RectTransform broughtColumn = FindRectRecursive(settlementObj.transform, "BroughtLootColumn");
             RectTransform lostColumn = FindRectRecursive(settlementObj.transform, "LostLootColumn");
-            RectTransform lootRect = FindRectRecursive(settlementObj.transform, "Loot_Text");
+            RectTransform lootRect = controller.lootText != null ? controller.lootText.rectTransform : null;
             RectTransform continueRect = controller.continueBtn.GetComponent<RectTransform>();
             string allText = CollectText(canvasObj);
 
@@ -280,7 +280,7 @@ public static class CombatOutcomeReportSmokeTest {
             if (columnsPresent && columnsSeparated && resultTextVisible && buttonBelowColumns && columnsLowerAndCompact) {
                 Debug.Log("Dungeon Settlement FormalV2 Columns PASSED.");
             } else {
-                Debug.LogError($"Dungeon Settlement FormalV2 Columns FAILED. Present={columnsPresent}, Separated={columnsSeparated}, Text={resultTextVisible}, ButtonBelow={buttonBelowColumns}, ColumnsLower={columnsLowerAndCompact}, AllText={allText}");
+                Debug.LogError($"Dungeon Settlement FormalV2 Columns FAILED. Present={columnsPresent}, Separated={columnsSeparated}, Text={resultTextVisible}, ButtonBelow={buttonBelowColumns}, ColumnsLower={columnsLowerAndCompact} (columnY={(pickedColumn != null ? pickedColumn.anchoredPosition.y : float.NaN)}, columnH={(pickedColumn != null ? pickedColumn.sizeDelta.y : float.NaN)}, lootY={(lootRect != null ? lootRect.anchoredPosition.y : float.NaN)}), AllText={allText}");
             }
         } finally {
             Object.DestroyImmediate(canvasObj);

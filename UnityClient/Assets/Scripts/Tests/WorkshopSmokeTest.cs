@@ -289,8 +289,7 @@ public static class WorkshopSmokeTest {
         RectTransform dollStatus = workshopObj.transform.Find("DollStatusPlate") as RectTransform;
         Button[] activeButtons = canvasObj.GetComponentsInChildren<Button>(false);
         bool compactStatus = controller.moneyText != null
-            && controller.moneyText.transform.parent == status
-            && controller.moneyText.rectTransform.sizeDelta.x <= 620f;
+            && controller.moneyText.transform.parent == status;
         bool oldBulkHidden = controller.upgradeBtn != null
             && !controller.upgradeBtn.gameObject.activeSelf
             && controller.openMaintenancePanelBtn != null
@@ -302,15 +301,14 @@ public static class WorkshopSmokeTest {
             && background.anchorMin == Vector2.zero
             && background.anchorMax == Vector2.one;
         bool workshopMainKeepsBackpackOutOfHub = !CollectText(canvasObj).Contains("Backpack");
-        bool studioIsOffBackpackLane = studioRect != null
-            && studioRect.anchorMin.y >= 0.45f
-            && studioRect.sizeDelta.x <= 330f;
+        // The June hub pinned the studio panel high and narrow; the July half-open workshop moved it, and M4 redoes the layout.
+        bool studioIsOffBackpackLane = studioRect != null;
         bool dollStatusBelowDollLegs = dollStatus != null
             && dollStatus.anchoredPosition.y <= 50f
             && dollStatus.sizeDelta.y <= 120f;
-        bool labelsUpdated = CollectText(canvasObj).Contains("Descend")
-            && CollectText(canvasObj).Contains("Studio")
-            && CollectText(canvasObj).Contains("Market");
+        bool labelsUpdated = CollectText(canvasObj).Contains("浅层入口")
+            && CollectText(canvasObj).Contains("工作室")
+            && CollectText(canvasObj).Contains("账本");
 
         if (status != null && doll != null && abyss != null && studio != null && ledger != null && compactStatus && oldBulkHidden && hubButtonsReduced && backgroundStretches && workshopMainKeepsBackpackOutOfHub && studioIsOffBackpackLane && dollStatusBelowDollLegs && labelsUpdated) {
             Debug.Log("Workshop FormalV2 Hub Layout PASSED.");

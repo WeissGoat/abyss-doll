@@ -551,7 +551,11 @@ public class WorkshopUIController : MonoBehaviour {
             VisualUIHelper.ApplyCoverSprite(backgroundImage, T0PrologueWorkshopBackgroundVisualID, Color.white, new Color(0.018f, 0.034f, 0.044f, 1f));
             AspectRatioFitter fitter = backgroundImage.GetComponent<AspectRatioFitter>();
             if (fitter != null) {
-                Destroy(fitter);
+                if (Application.isPlaying) {
+                    Destroy(fitter);
+                } else {
+                    DestroyImmediate(fitter);
+                }
             }
             backgroundImage.preserveAspect = false;
             RectTransform bgRect = backgroundImage.rectTransform;

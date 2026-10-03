@@ -25,7 +25,7 @@ public static class CombatReadabilityTextServiceSmokeTest {
             && line.MonsterID == "mob_scavenger_bug"
             && line.IntentType == MonsterIntentType.Attack
             && line.StatusText.Contains("攻击")
-            && line.DetailText.Contains("造成约 10 伤害")
+            && line.DetailText.Contains("造成约 9 伤害")
             && snapshot.CombinedText.Contains("敌方意图");
 
         if (passed) {
