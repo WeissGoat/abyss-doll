@@ -21,10 +21,10 @@
 - [x] 基线检查（2026-10-04）：编译通过；全量测试 56/66，失败的正是已知 10 个；Play Mode 走查截图在 `UnityClient/Logs/Playtest/20261003_baseline/`。
 
 **第 1 批：能正常玩第一局**
-- [ ] 修序章开局不可见（原因见「已知问题」）。
-- [ ] 杀死最后一个敌人后战斗自动结束：现在要再点一次「结束回合」，标题还停在「选择攻击目标」。
-- [ ] 处理 10 个已知失败的测试，做到全绿：修好，或确认断言已过时后更新或删除。
-- [ ] 回归测试：开局几帧后对白层仍可见。
+- [x] 修序章开局不可见（2026-10-04）：`EnsureBuilt()` 建好后不再重复重置。
+- [x] 杀死最后一个敌人后战斗自动结束（2026-10-04）。
+- [x] 10 个失败测试处理完，全量 68/68 全绿（2026-10-04）：大部分断言落后于 6 月正式配置和 7 月界面改动，已按现状更新；另修了两处代码（Edit Mode 下的 `Destroy`、叙事指令拒绝时的 Error 日志）。
+- [x] 回归测试：`PrologueOverlayStaysVisibleTest`、`CombatEndsOnLastKillTest`。
 
 **第 2 批：开发工具**
 - [ ] 调试菜单：跳过序章、跳到任意界面、发钱发物品、回满状态；同时给 MCP 一行就能调用的入口（描述当前界面、按文字点按钮、自动打完一场战斗）。进各界面的现成写法见 `UnityClient/Assets/Scripts/ArtAcceptance/ArtAcceptanceCaptureSteps.cs`。
@@ -73,16 +73,11 @@
 
 ## 现在
 
-- 正在做：M1 第 1 批（分支 `m1/batch1-first-run`）。
-- 下一步：第 1 批合并后做第 2 批（开发工具）。
+- 刚完成：M1 第 1 批（分支 `m1/batch1-first-run`，等制作人确认合并）。
+- 下一步：第 2 批（开发工具：调试菜单和 MCP 入口，删除旧验证框架）。
 
 ## 已知问题
 
-- **10 个 smoke 用例失败**（最早见于 2026-08-02）：
-  - Edit Mode 下调用 `Destroy`：`PrologueFirstDiveDepartureSmokeTest`、`PrologueFirstDiveLayerConfirmSmokeTest`、`PrologueFirstDivePermissionSmokeSuite`、`PrologueHalfOpenNarrativeFlowSmokeTest`。
-  - 断言和当前 UI、文案或数值对不上：`CombatHUDIntentBindingSmokeTest`、`CombatOutcomeReportSmokeTest`、`CombatReadabilityTextServiceSmokeTest`、`MonsterIntentPreviewServiceSmokeTest`、`WorkshopSmokeTest`。
-  - 验证命令被拒时打出 Error 日志：`NarrativeCommandBridgeSmokeTest`。
-- **序章开局不可见（阻断，2026-10-04 实测）**：`GameFlowController` 在运行时添加 `PrologueFirstDiveController` 并立即播出第一句；下一帧该组件 `Start()` → `EnsureRuntimeBindings()` → `P3DialogueOverlayController.EnsureBuilt()` 无条件把对白层透明度和射线检测重置为 0。玩家开局只看到工坊，序章卡在看不见、点不到的"▶"上，控制台没有任何报错。
 - **第二次下潜背包为空（阻断，2026-10-04 实测）**：撤离时 `DungeonManager` 调用 `ItemLifecycleService.ExtractBackpackItemsToGroundInventory`，把背包里所有物品（包括初始武器）移进仓库。这符合规则卡 02，但规则卡里出发前的「局前带入装备」一直没做：没有任何把仓库物品放回背包的接口，也没有空手攻击。实测第二次下潜进战斗时背包全空，12 回合后战败。跑局模拟 30 局都只下潜一次也是这个原因（机器人只看背包）。`版本规划/09` 里"自动化试玩已证明核心闭环没有系统性断点"的说法不成立。修法见 M1「出发前整备」。
 - 基线走查发现的其他问题已分别记入 M1、M2、M4 的待办。
 - **画面风格割裂**：序章 CG 是青蓝洞穴风；战斗和拾取界面是棕金蒸汽朋克边框；工坊主界面是开发面板，露着英文调试文字和原始 ID；零号在不同画面至少有 4 种长相。M4 统一处理。
