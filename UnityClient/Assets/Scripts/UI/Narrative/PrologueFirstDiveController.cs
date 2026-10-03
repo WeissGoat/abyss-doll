@@ -92,6 +92,12 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
         HandleOverlayContinueRequested();
     }
 
+    // Dev tools only (P3DevTools.SkipPrologue): drop the running prologue timeline and hide the overlay.
+    public void SkipForDebug() {
+        StopAllCoroutines();
+        EndActiveTimeline(true);
+    }
+
     private void Update() {
         _updateTickCount++;
         if (!_isPresentingTimeline || _activeTimelineNodes == null) {
