@@ -7,6 +7,8 @@ description: Use when Project P3 needs to see the game actually running - enter 
 
 用 Unity MCP 把游戏跑起来，像玩家一样看画面。用于基线检查、改动后的自测、在画面上复现 bug、确认素材上屏。
 
+实操写法（截图会暂停编辑器、Game View 尺寸、C# 6 限制、点按钮 / 攻击 / 放战利品的代码）见 [mcp-recipes.md](references/mcp-recipes.md)，第一次走查前读一遍。
+
 ## 步骤
 
 1. **准备**
@@ -19,7 +21,7 @@ description: Use when Project P3 needs to see the game actually running - enter 
    - 正常玩家路径：沿真实界面操作。UGUI 按钮可以用 `execute_code` 找到按钮后调用 `onClick.Invoke()`；序章对白点继续按钮推进。
    - 调试路径：调试菜单做好后优先用它。在那之前，用 `execute_code` 调 `GameFlowController.Instance` 的 `EnterWorkshop()`、`EnterDungeonMap()`、`EnterCombat()`、`DepartToDungeon()` 等方法；需要先准备数据的界面（战利品、结算、安全区、阶梯、工坊各面板）照 `UnityClient/Assets/Scripts/ArtAcceptance/ArtAcceptanceCaptureSteps.cs` 的写法准备。
    - 报告里写明走的是哪条路：调试路径只能证明画面能正确显示，不能证明玩家走得到。
-4. **截图**：`manage_camera(action="screenshot", capture_source="game_view", output_folder="Logs/Playtest/<目录名>", screenshot_file_name="<界面>.png", include_image=true)`，不要传 `camera`（传了就拍不到 Screen Space Overlay 的 UI）。Game View 用 1920x1080；保存的 PNG 不是这个尺寸时在报告里注明。
+4. **截图**：`manage_camera(action="screenshot", capture_source="game_view", output_folder="Logs/Playtest/<目录名>", screenshot_file_name="<界面>.png", include_image=true)`，不要传 `camera`（传了就拍不到 Screen Space Overlay 的 UI）。Game View 用 1920x1080；保存的 PNG 不是这个尺寸时在报告里注明。截图后编辑器可能被暂停，下一步之前先解除暂停。
 5. **看图评审**：像第一次玩的玩家一样描述看到了什么——当前该做什么是否一目了然，按钮能不能点，文字有没有溢出或重叠，有没有调试文字、英文占位或原始 ID，素材有没有缺失、拉伸或错位，风格是否统一。和预期对比，列出问题。
 6. **再读 console**：新增的 Error / Exception 记进报告。
 7. **退出**：`manage_editor(action="stop")`。

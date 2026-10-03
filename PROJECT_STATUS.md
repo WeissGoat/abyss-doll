@@ -16,10 +16,12 @@
 
 ### M1 循环能跑（进行中）
 
-- [ ] 基线检查：编译，跑全量测试，在 Play Mode 里从开局走一遍并给每个界面截图。
+- [x] 基线检查（2026-10-04）：编译通过；全量测试 56/66 通过，失败的正是已知 10 个；Play Mode 走了一遍（截图在 `UnityClient/Logs/Playtest/20261003_baseline/`）。结论见「已知问题」前两条。
+- [ ] 修序章开局不可见（见已知问题）。
+- [ ] 修"回城后背包被清空"：决定回城时装备留在背包，还是加"整备"（从仓库放回背包）；同时让下潜确认在背包没有武器时给出提示。
 - [ ] 处理 10 个已知失败的测试：修好，或确认断言已过时后更新或删除。
 - [ ] 调试菜单：跳过序章、跳到任意界面、发钱发物品。进各界面的现成写法见 `UnityClient/Assets/Scripts/ArtAcceptance/ArtAcceptanceCaptureSteps.cs`。
-- [ ] 查清并修好"下潜一次后就没有可用武器、出售为 0"，让"下潜 → 回城 → 出售 → 维修 / 升级 → 再下潜"能连续走 3–5 轮；把跑局模拟改成平衡回归测试。
+- [ ] 让"下潜 → 回城 → 出售 → 维修 / 升级 → 再下潜"能连续走 3–5 轮；跑局模拟按当前物品流转更新，改成平衡回归测试。
 - [ ] 删除已被 `run_tests` 取代的旧验证框架：`P3ValidationCore`、P3 自定义 MCP 工具、`tools/agent/p3-validation-core/`，以及 ArtAcceptance 运行时里调试菜单用不到的部分。
 - [ ] 打第一个 Windows 包；制作人连续试玩 30–60 分钟并记下问题。
 
@@ -49,8 +51,8 @@
 
 ## 现在
 
-- 刚完成：工作流减负（2026-10-03，入口改为 `AGENTS.md`，状态只记本页，新增 `p3-playtest` / `p3-content`，美术 Skill 合并为 `p3-art`）。
-- 下一步：M1 基线检查，需要制作人先打开 Unity Editor。
+- 刚完成：M1 基线检查（2026-10-04），确认了两个阻断问题：序章开局不可见、第二次下潜背包为空。
+- 下一步：修这两个阻断问题，再处理 10 个失败测试和调试菜单。回城时装备怎么处理需要制作人拍板。
 
 ## 已知问题
 
@@ -58,7 +60,9 @@
   - Edit Mode 下调用 `Destroy`：`PrologueFirstDiveDepartureSmokeTest`、`PrologueFirstDiveLayerConfirmSmokeTest`、`PrologueFirstDivePermissionSmokeSuite`、`PrologueHalfOpenNarrativeFlowSmokeTest`。
   - 断言和当前 UI、文案或数值对不上：`CombatHUDIntentBindingSmokeTest`、`CombatOutcomeReportSmokeTest`、`CombatReadabilityTextServiceSmokeTest`、`MonsterIntentPreviewServiceSmokeTest`、`WorkshopSmokeTest`。
   - 验证命令被拒时打出 Error 日志：`NarrativeCommandBridgeSmokeTest`。
-- **循环可能断了**：跑局模拟（`MVPAutoplaytestTest`，2026-10-02 的报告 `UnityClient/Logs/MVPAutoplaytestReport.json`）30 局全部只下潜一次，其中 22 局停在"背包中没有可用武器"；出售、底盘升级、义体制造、进入第二层都是 0。机器人代码最后改于 5 月，可能已经过期，也可能循环真断了。`版本规划/09` 里"自动化试玩已证明核心闭环没有系统性断点"的说法目前不成立。
+- **序章开局不可见（阻断，2026-10-04 实测）**：`GameFlowController` 在运行时添加 `PrologueFirstDiveController` 并立即播出第一句；下一帧该组件 `Start()` → `EnsureRuntimeBindings()` → `P3DialogueOverlayController.EnsureBuilt()` 无条件把对白层透明度和射线检测重置为 0。玩家开局只看到工坊，序章卡在看不见、点不到的"▶"上，控制台没有任何报错。
+- **第二次下潜背包为空（阻断，2026-10-04 实测）**：撤离时 `DungeonManager` 调用 `ItemLifecycleService.ExtractBackpackItemsToGroundInventory`，把背包里所有物品（包括初始武器）移进仓库；没有任何把仓库物品放回背包的接口，也没有空手攻击。实测第二次下潜进战斗时背包全空，12 回合后战败。跑局模拟 30 局都只下潜一次也是这个原因（机器人只看背包）。`版本规划/09` 里"自动化试玩已证明核心闭环没有系统性断点"的说法不成立。
+- **走查中的其他问题**：杀死最后一个敌人后战斗不自动结束，要再点"结束回合"，标题还停在"选择攻击目标"；部分怪物（如迷失矿工回声）不显示敌方意图；回城后 HP / SAN 被免费回满，没有代价；层选择界面写着英文 "Ready to dive."，背包为空也不提示；地图节点图标很小、节点之间没有连线，看不出路线结构；结算三栏压在边框装饰上。
 - **画面风格割裂**：序章 CG 是青蓝洞穴风；战斗和拾取界面是棕金蒸汽朋克边框；工坊主界面是开发面板，露着英文调试文字和原始 ID；零号在不同画面至少有 4 种长相。M4 统一处理。
 - **UI 全在代码里拼**，没有主题层；`WorkshopUIController.cs` 有 2667 行。碰到时按界面拆分，不做大重构。
 - **旧验证框架**里有压缩成一两行的代码，它的测试还会往 `UnityClient/Logs/P3Validation/` 写假截图。M1 删除。
