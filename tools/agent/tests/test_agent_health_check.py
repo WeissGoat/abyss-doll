@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.agent.agent_health_check import check_game_progress
+from tools.agent.agent_health_check import brief_lines, check_game_progress, status_now_lines
 
 
 DAY = 86400
@@ -97,6 +97,34 @@ class GameProgressTests(unittest.TestCase):
 
         self.assertEqual(state, "INFO")
         self.assertEqual(details[0], "  - 还没有游戏代码 / 配置提交。")
+
+    def test_brief_reports_branch_progress_and_now_section(self):
+        self.commit("UnityClient/Assets/Scripts/Core/GameRoot.cs", day=0)
+        self.write(
+            "PROJECT_STATUS.md",
+            "# 项目状态\n\n## 现在\n\n- 正在做：M1\n- 下一步：基线检查\n\n## 已知问题\n\n- 不应出现\n",
+        )
+
+        lines = brief_lines(self.root, now=START + 2 * DAY)
+
+        self.assertTrue(lines[0].startswith("P3 开工简报"))
+        self.assertIn("工作区未提交改动 1 项", lines[1])
+        self.assertTrue(any("2 天" in line for line in lines))
+        self.assertIn("  - 正在做：M1", lines)
+        self.assertIn("  - 下一步：基线检查", lines)
+        self.assertFalse(any("不应出现" in line for line in lines))
+
+
+class StatusNowTests(unittest.TestCase):
+    def test_reads_only_the_now_section(self):
+        text = "# 项目状态\r\n\r\n## 目标\r\n\r\n- 目标行\r\n\r\n## 现在\r\n\r\n- a\r\n- b\r\n\r\n## 已知问题\r\n\r\n- c\r\n"
+
+        self.assertEqual(status_now_lines(text), ["- a", "- b"])
+
+    def test_missing_section_and_line_limit(self):
+        self.assertEqual(status_now_lines("# 项目状态\n\n## 目标\n\n- x\n"), [])
+        many = "## 现在\n" + "".join(f"- {i}\n" for i in range(10))
+        self.assertEqual(len(status_now_lines(many, limit=3)), 3)
 
 
 if __name__ == "__main__":

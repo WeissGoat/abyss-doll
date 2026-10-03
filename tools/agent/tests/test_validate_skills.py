@@ -1,3 +1,4 @@
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -126,6 +127,19 @@ class ValidateSkillsTests(unittest.TestCase):
         body = "Use `_IncomingAI/<VisualID>/raw/`, `Tools/P3 Art/Rebuild Registry`, `processed/<n>/` and `https://example.com/a/b`."
         self.add_skill("p3-gamma", "Use for gamma.", body=body)
         self.assertEqual(validate(self.root)[:2], ([], []))
+
+    def test_missing_ignored_directory_is_not_reported(self):
+        subprocess.run(["git", "init", "-q"], cwd=self.root, check=True)
+        self.write(".gitignore", "UnityClient/Assets/StreamingAssets/Configs/\n")
+        self.write("UnityClient/Assets/README.md", "")
+        body = "Never edit `UnityClient/Assets/StreamingAssets/Configs` by hand; `UnityClient/Assets/Missing.cs` is gone."
+        self.add_skill("p3-gamma", "Use for gamma.", body=body)
+        errors, warnings, _stats = validate(self.root)
+        self.assertEqual(errors, [])
+        self.assertEqual(
+            warnings,
+            [".codex/skills/p3-gamma/SKILL.md:8 references a missing path: UnityClient/Assets/Missing.cs"],
+        )
 
     def test_unknown_skill_name_in_entry_doc_is_a_warning(self):
         self.write("AGENTS.md", "# Agents\n\n- 运行时验收：使用 `p3-validation`；资产：使用 `p3-alpha`。\n")

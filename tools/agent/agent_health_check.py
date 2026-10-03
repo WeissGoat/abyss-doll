@@ -35,6 +35,8 @@ GAME_IDLE_DAYS = 7
 
 MAX_LIST_ITEMS = 12
 
+STATUS_NOW_LINES = 6
+
 
 @dataclass
 class StatusEntry:
@@ -133,18 +135,6 @@ def print_section(title, state, details=None):
         print(line)
 
 
-def check_docs(root):
-    script = root / "tools" / "docs" / "validate_docs.py"
-    if not script.exists():
-        return "ERROR", [f"  - 缺少文档校验脚本：{script}"]
-    result = run([sys.executable, str(script)], cwd=root)
-    output = (result.stdout + result.stderr).strip()
-    details = [f"  - {line}" for line in output.splitlines()] if output else []
-    if result.returncode != 0:
-        return "ERROR", details
-    return "PASS", details
-
-
 def check_skills(root):
     script = root / "tools" / "agent" / "validate_skills.py"
     if not script.exists():
@@ -222,9 +212,44 @@ def check_game_progress(root, now=None):
     ]
     if days > GAME_IDLE_DAYS and not dirty:
         details.append(
-            f"  - 超过 {GAME_IDLE_DAYS} 天没有游戏改动：先推进 PROJECT_STATUS.md 当前优先级的玩家结果（rules/02 元工作预算）。"
+            f"  - 超过 {GAME_IDLE_DAYS} 天没有游戏改动：下一件事优先推进 PROJECT_STATUS.md 的当前里程碑。"
         )
     return "INFO", details
+
+
+def status_now_lines(text, limit=STATUS_NOW_LINES):
+    """Return the non-empty lines of the "## 现在" section of PROJECT_STATUS.md."""
+    lines = []
+    in_section = False
+    for line in text.splitlines():
+        if line.startswith("## "):
+            if in_section:
+                break
+            in_section = line[3:].strip() == "现在"
+            continue
+        if in_section and line.strip():
+            lines.append(line.strip())
+    return lines[:limit]
+
+
+def brief_lines(root, now=None):
+    lines = ["P3 开工简报（入口 AGENTS.md，状态 PROJECT_STATUS.md）"]
+    branch = run(["git", "branch", "--show-current"], cwd=root)
+    branch_name = branch.stdout.strip() if branch.returncode == 0 else ""
+    try:
+        dirty = f"{len(git_status_entries(root))} 项"
+    except RuntimeError:
+        dirty = "未知"
+    lines.append(f"- 分支 {branch_name or '(detached)'}，工作区未提交改动 {dirty}")
+    _state, details = check_game_progress(root, now=now)
+    lines.extend(f"- {detail.strip()[2:]}" for detail in details if detail.strip().startswith("- "))
+    status = root / "PROJECT_STATUS.md"
+    if status.exists():
+        now_lines = status_now_lines(status.read_text(encoding="utf-8-sig"))
+        if now_lines:
+            lines.append("- PROJECT_STATUS.md「现在」：")
+            lines.extend(f"  {line}" for line in now_lines)
+    return lines
 
 
 def check_branch(root):
@@ -245,12 +270,26 @@ def main():
         action="store_true",
         help="把警告也作为失败返回，适合提交前或自动化检查。",
     )
+    parser.add_argument(
+        "--brief",
+        action="store_true",
+        help="只输出几行开工简报（分支、改动、距上次游戏改动天数、PROJECT_STATUS.md 的“现在”），总是返回 0。",
+    )
     args = parser.parse_args()
+
+    # Windows 控制台默认 GBK；统一输出 UTF-8，Bash、PowerShell 包装脚本和 hook 读到的是同一种编码。
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
     root, error = repo_root()
     if root is None:
         print_section("仓库定位", "ERROR", [f"  - {error}"])
-        return 1
+        return 0 if args.brief else 1
+
+    if args.brief:
+        for line in brief_lines(root):
+            print(line)
+        return 0
 
     checks = []
     checks.append(("仓库位置", *check_branch(root)))
@@ -263,7 +302,6 @@ def main():
 
     checks.append(("工作区状态", *summarize_status(entries)))
     checks.append(("易误提交路径", *check_risky_paths(entries)))
-    checks.append(("知识库校验", *check_docs(root)))
     checks.append(("Skill 校验", *check_skills(root)))
     checks.append(("游戏进度", *check_game_progress(root)))
 

@@ -9,7 +9,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 
 SOURCE_DIR = Path(".codex/skills")
 FORWARDER_DIR = Path(".claude/skills")
-ENTRY_DOC_GLOBS = ("AGENTS.md", "rules/*.md", "知识库/README.md", "知识库/views/*.md")
+ENTRY_DOC_GLOBS = ("AGENTS.md", "PROJECT_STATUS.md")
 
 FRONT_MATTER = re.compile(r"\A---\n(.*?)\n---\n", re.S)
 FENCE = re.compile(r"^\s*(```|~~~)")
@@ -123,7 +123,14 @@ def ignored_or_external(root, paths):
     if not paths or git("rev-parse", "--is-inside-work-tree") != 0:
         return set()
     # check-ignore exits 0 for ignored paths, 1 for paths git would track, 128 inside a submodule.
-    return {path for path in paths if git("check-ignore", "-q", path) != 1}
+    # A missing path may be an ignored directory that only exists in another checkout (a fresh worktree has no
+    # _IncomingAI or StreamingAssets/Configs). Directory patterns such as `Configs/` only match paths git knows are
+    # directories, so also probe a child path.
+    return {
+        path
+        for path in paths
+        if git("check-ignore", "-q", path) != 1 or git("check-ignore", "-q", f"{path}/x") == 0
+    }
 
 
 def entry_names(directory):
