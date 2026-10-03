@@ -59,6 +59,7 @@ class GameProgressTests(unittest.TestCase):
         self.commit("UnityClient/Assets/Scripts/Editor/Tool.cs", day=4)
         self.commit("UnityClient/Assets/Editor/Menu.cs", day=4)
         self.commit("UnityClient/Assets/Scripts/ArtAcceptance/Runner.cs", day=5)
+        self.commit("UnityClient/Assets/Scripts/DevTools/P3DevTools.cs", day=5)
         self.commit("UnityClient/Assets/StreamingAssets/Configs/items.json", day=6)
         self.commit("tools/agent/README.md", day=9)
 

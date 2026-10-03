@@ -1,2 +1,0 @@
-using System;using P3.Validation;using UnityEngine;
-public static class P3ArtValidationSmokeTest{public static void Run(){foreach(var id in new[]{"art_focus","art_runtime","art_iteration","t0_art_seal","art_regression"}){var p=ProfileRegistry.GetArt(id);if(p.RequiredSteps.Exists(x=>x.Contains("p0")))throw new Exception("program mutation leaked");}bool rejected=false;try{ArtTargetRegistry.Get("../raw");}catch{rejected=true;}if(!rejected)throw new Exception("unsafe target accepted");Debug.Log("P3 Art Validation PASSED");}}

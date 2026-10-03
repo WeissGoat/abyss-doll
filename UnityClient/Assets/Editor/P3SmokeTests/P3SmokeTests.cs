@@ -11,10 +11,10 @@ using UnityEngine;
 // Runs the project's static smoke tests through the Unity Test Framework, so the Unity MCP run_tests
 // tool can start them. A case is every class whose name ends in "Test" and has a static Run() (the set
 // AutoTestDaemon's RUN_ALL_TESTS uses), plus every entry of the registered smoke sets, whose IDs
-// (foundation, t0_core, p0_core) become the case categories. The framework fails a case on any error,
+// (t0_core, p0_core, in smoke_sets.json) become the case categories. The framework fails a case on any error,
 // exception or assert log, the same rule AutoTestDaemon applies.
 public class P3SmokeTests {
-    private const string SmokeSetsPath = "Editor/P3Validation/program_validation_profiles.json";
+    private const string SmokeSetsPath = "Editor/P3SmokeTests/smoke_sets.json";
 
     private static IEnumerable<TestCaseData> SmokeCases() {
         Dictionary<string, List<string>> setsByEntry = SmokeSetsByEntry();

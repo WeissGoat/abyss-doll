@@ -1,0 +1,6 @@
+{
+  "smoke_sets": {
+    "t0_core": ["PrologueFirstDivePermissionSmokeSuite.Run"],
+    "p0_core": ["ConfigValidationSmokeTest.Run", "MainFlowGoldenPathSmokeTest.Run"]
+  }
+}

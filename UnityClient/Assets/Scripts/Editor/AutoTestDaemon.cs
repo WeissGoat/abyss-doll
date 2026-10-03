@@ -126,10 +126,8 @@ public static class AutoTestDaemon {
             if (command.ToUpper() == "RUN_ALL_TESTS") {
                 RunAllTests(report);
             } else {
-                P3SmokeExecutionResult execution = P3SmokeExecutionService.Execute(new[] { command });
-                report.Logs.AddRange(execution.Logs);
-                report.Logs.AddRange(execution.Errors.ConvertAll(error => "[Error] " + error));
-                if (!execution.Passed) report.Status = "FAILED";
+                // Errors logged by the test flip the status through logHandler above.
+                RunNamedTest(command);
             }
         } catch (System.Exception ex) {
             report.Status = "FAILED";
@@ -144,6 +142,29 @@ public static class AutoTestDaemon {
 
         File.WriteAllText(_reportFile, JsonUtility.ToJson(report, true));
         Debug.Log($"[AutoTestDaemon] Test finished with status {report.Status}. Report saved to {_reportFile}");
+    }
+
+    // Runs one smoke test given as "TypeName.Method", e.g. "WorkshopSmokeTest.Run".
+    private static void RunNamedTest(string name) {
+        int split = name.LastIndexOf('.');
+        if (split < 1) {
+            throw new System.InvalidOperationException($"Test name must be Type.Method: {name}");
+        }
+
+        System.Type type = null;
+        foreach (var assembly in System.AppDomain.CurrentDomain.GetAssemblies()) {
+            type = assembly.GetType(name.Substring(0, split));
+            if (type != null) {
+                break;
+            }
+        }
+
+        MethodInfo method = type?.GetMethod(name.Substring(split + 1), BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+        if (method == null) {
+            throw new System.MissingMethodException(name);
+        }
+
+        method.Invoke(null, null);
     }
 
     private static void RunAllTests(TestReport report) {

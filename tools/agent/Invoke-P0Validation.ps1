@@ -1002,7 +1002,9 @@ if ($uiErrorCount -gt 0) {
 
 $artSummaryPath = Join-Path $outputPath "art_acceptance_summary.json"
 if (-not $SkipArtAcceptance) {
-    Invoke-ArtAcceptanceRun -LatestReportPath (Join-Path $repoRoot "UnityClient\Logs\ArtAcceptance\latest\report.json")
+    # The ArtAcceptance runtime runner was removed in 2026-10 (M1 batch 2); screen checks now go through the
+    # p3-playtest skill. Only the old latest report is still read below.
+    Write-Warning "ArtAcceptance rerun is no longer available; use the p3-playtest skill. Reading the old latest report only."
 }
 
 $artSummary = New-ArtAcceptanceSummary -OutputPath $artSummaryPath

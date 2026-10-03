@@ -35,9 +35,9 @@ python -m unittest tools.agent.tests.test_agent_health_check tools.agent.tests.t
 Editor 打开且有 Unity MCP 时，按 Skill `p3-program-validation` 用 `run_tests` 运行测试。下面两个脚本是没有 MCP 时的兼容入口，需要 Editor 已打开，并由 `AutoTestDaemon` 监听 `UnityClient/Logs/.test_trigger`：
 
 - `Invoke-UnitySmokeTests.ps1`：触发少量背包 / 布局 smoke test，可用 `-Tests <Type>.Run` 指定。
-- `Invoke-P0Validation.ps1`：串联配置同步、`ConfigValidationSmokeTest.Run`、核心 smoke、UI 规格校验和 ArtAcceptance latest 摘要，报告写到 `UnityClient/Logs/P0Validation/latest/`。`-SkipUnity` 只跑静态检查。
+- `Invoke-P0Validation.ps1`：串联配置同步、`ConfigValidationSmokeTest.Run`、核心 smoke、UI 规格校验和 ArtAcceptance latest 摘要，报告写到 `UnityClient/Logs/P0Validation/latest/`。`-SkipUnity` 只跑静态检查。ArtAcceptance 运行器已在 2026-10 删除，这里只读取旧的 latest 报告；看画面用 Skill `p3-playtest`。
 
-`p3-validation-core/` 是旧验证框架（ArtRun）的脚本，计划在 M1 随框架一起删除（见 `PROJECT_STATUS.md`）。
+旧验证框架（`P3ValidationCore`、P3 自定义 MCP 工具、`p3-validation-core/` 脚本）已在 2026-10 删除，见 git 历史。
 
 ## Unity MCP 客户端配置
 

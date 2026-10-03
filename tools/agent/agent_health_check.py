@@ -20,7 +20,7 @@ SUBMODULE_PATHS = (
     "tools/ai-image-gateway",
 )
 
-# 玩家可见的游戏代码、Prefab、场景和配置源；美术资源、生成副本、Editor 工具和验收工具不算。
+# 玩家可见的游戏代码、Prefab、场景和配置源；美术资源、生成副本、Editor 工具、验收工具和开发者工具不算。
 GAME_PATHSPECS = (
     "UnityClient/Assets",
     "配置表(JSON)",
@@ -29,6 +29,7 @@ GAME_PATHSPECS = (
     ":(exclude)UnityClient/Assets/StreamingAssets",
     ":(exclude,glob)UnityClient/Assets/**/Editor/**",
     ":(exclude,glob)UnityClient/Assets/Scripts/*Acceptance/**",
+    ":(exclude,glob)UnityClient/Assets/Scripts/DevTools/**",
 )
 
 GAME_IDLE_DAYS = 7
