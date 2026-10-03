@@ -68,6 +68,7 @@ public static class ItemUseService {
 
         _pendingUserFighter.Attack(target, _pendingTargetItem);
         ClearPendingTargetSelection();
+        GameRoot.Core?.Combat?.TryResolveVictoryAfterPlayerAction();
         return true;
     }
 
@@ -137,6 +138,7 @@ public static class ItemUseService {
         ApplyConfiguredEffects(item, context);
         ConsumeItemAfterUse(item);
         GameEventBus.PublishTargetSelectionChanged($"{item.Name} 已使用。", false);
+        combat.TryResolveVictoryAfterPlayerAction();
         return true;
     }
 

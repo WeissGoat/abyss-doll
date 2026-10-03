@@ -197,6 +197,12 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
     }
 
     public void EnsureBuilt() {
+        // Callers (PresentLine, the prologue controller's Start/OnEnable) call this repeatedly. Rebuilding would
+        // reset visibility and the current CG, which hid the prologue right after its first line.
+        if (_hasBuiltOnce && rootGroup != null) {
+            return;
+        }
+
         Canvas overlayCanvas = EnsureComponent<Canvas>(gameObject);
         overlayCanvas.overrideSorting = true;
         overlayCanvas.sortingOrder = 5000;

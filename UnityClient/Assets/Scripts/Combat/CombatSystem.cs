@@ -84,6 +84,17 @@ public class CombatSystem {
         StartEnemyTurn();
     }
 
+    // Called after each player action: once the last enemy is down, finish the turn right away instead of
+    // waiting for the player to press "end turn". Uses the same path as the button, so turn-end effects still apply.
+    public bool TryResolveVictoryAfterPlayerAction() {
+        if (CurrentState != CombatState.PlayerTurn || EnemyFaction == null || !EnemyFaction.IsWipedOut()) {
+            return false;
+        }
+
+        EndPlayerTurn();
+        return true;
+    }
+
     public void StartEnemyTurn() {
         CurrentState = CombatState.EnemyTurn;
         ItemUseService.ClearPendingTargetSelection();
