@@ -7,7 +7,18 @@ description: Use when Project P3 needs to see the game actually running - enter 
 
 用 Unity MCP 把游戏跑起来，像玩家一样看画面。用于基线检查、改动后的自测、在画面上复现 bug、确认素材上屏。
 
-实操写法（截图会暂停编辑器、Game View 尺寸、C# 6 限制、点按钮 / 攻击 / 放战利品的代码）见 [mcp-recipes.md](references/mcp-recipes.md)，第一次走查前读一遍。
+在游戏里的操作都用 `P3DevTools`，每个方法一行调用、返回几行文字报告（`execute_code`：`return P3DevTools.Describe();`）。先读文字，只有需要判断画面时才截图。环境注意事项（截图会暂停编辑器、Game View 尺寸、C# 6 限制）见 [mcp-recipes.md](references/mcp-recipes.md)。
+
+| 调用 | 作用 |
+|---|---|
+| `Describe()` | 当前界面、序章台词、天数 / 金钱 / HP / SAN、背包、战斗状态和敌人意图、玩家此刻能点的按钮 |
+| `Click("开始下潜")` | 按文字点玩家此刻能点的按钮（序章挡着时只能点序章的按钮） |
+| `RunDive()` | 从工坊像玩家一样跑一次下潜，到安全区或阶梯撤离、回工坊；提示"call again"时再调一次（有些界面下一帧才响应） |
+| `AutoCombat()`、`TakeLoot()` | 打完当前战斗；把战利品放进背包并确认 |
+| `SkipPrologue()`、`GoTo("map")` 等 | 调试路径：`workshop`、`sell`、`prosthetic`、`layers`、`map`、`combat`、`saferoom`、`stairs` |
+| `AddMoney(500)`、`AddItem("gear_rusty_dagger")`、`Heal()` | 改状态（调试用） |
+
+游戏内按 F1 打开同一套功能的开发者面板（只在 Editor 和开发版里有）。
 
 ## 步骤
 
@@ -18,8 +29,8 @@ description: Use when Project P3 needs to see the game actually running - enter 
    - 证据目录：`UnityClient/Logs/Playtest/<yyyyMMdd_HHmm>_<主题>/`（`Logs/` 不进 git）。
 2. **进 Play Mode**：`manage_editor(action="play")`，等 editor state 显示已在运行、可以调用工具。`read_console` 记下进场时已有的报错，作为基线。
 3. **到达目标界面**，按优先级：
-   - 正常玩家路径：沿真实界面操作。UGUI 按钮可以用 `execute_code` 找到按钮后调用 `onClick.Invoke()`；序章对白点继续按钮推进。
-   - 调试路径：调试菜单做好后优先用它。在那之前，用 `execute_code` 调 `GameFlowController.Instance` 的 `EnterWorkshop()`、`EnterDungeonMap()`、`EnterCombat()`、`DepartToDungeon()` 等方法；需要先准备数据的界面（战利品、结算、安全区、阶梯、工坊各面板）照 `UnityClient/Assets/Scripts/ArtAcceptance/ArtAcceptanceCaptureSteps.cs` 的写法准备。
+   - 正常玩家路径：`P3DevTools.Click(...)`、`RunDive()`，只点玩家此刻能点的按钮。
+   - 调试路径：`P3DevTools.SkipPrologue()`、`GoTo(...)`、`AddMoney` 等。
    - 报告里写明走的是哪条路：调试路径只能证明画面能正确显示，不能证明玩家走得到。
 4. **截图**：`manage_camera(action="screenshot", capture_source="game_view", output_folder="Logs/Playtest/<目录名>", screenshot_file_name="<界面>.png", include_image=true)`，不要传 `camera`（传了就拍不到 Screen Space Overlay 的 UI）。Game View 用 1920x1080；保存的 PNG 不是这个尺寸时在报告里注明。截图后编辑器可能被暂停，下一步之前先解除暂停。
 5. **看图评审**：像第一次玩的玩家一样描述看到了什么——当前该做什么是否一目了然，按钮能不能点，文字有没有溢出或重叠，有没有调试文字、英文占位或原始 ID，素材有没有缺失、拉伸或错位，风格是否统一。和预期对比，列出问题。

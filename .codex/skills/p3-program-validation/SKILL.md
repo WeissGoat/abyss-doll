@@ -5,7 +5,7 @@ description: Run Project P3 compile, smoke-test, config and UI-spec validation; 
 
 # P3 Program Validation
 
-Smoke tests run as EditMode cases of the `P3.SmokeTests.Editor` assembly (`UnityClient/Assets/Editor/P3SmokeTests/`). Every class whose name ends in `Test` and has a static `Run()` is a case, and so is every entry of the smoke sets in `UnityClient/Assets/Editor/P3Validation/program_validation_profiles.json`. The smoke-set IDs (`foundation`, `t0_core`, `p0_core`) are the case categories. A case fails on any Error, Exception or Assert log.
+Smoke tests run as EditMode cases of the `P3.SmokeTests.Editor` assembly (`UnityClient/Assets/Editor/P3SmokeTests/`). Every class whose name ends in `Test` and has a static `Run()` is a case, and so is every entry of the smoke sets in `UnityClient/Assets/Editor/P3SmokeTests/smoke_sets.json`. The smoke-set IDs (`t0_core`, `p0_core`) are the case categories. The whole suite takes about 15 seconds, so running all of it is usually fine. A case fails on any Error, Exception or Assert log.
 
 ## Steps
 
