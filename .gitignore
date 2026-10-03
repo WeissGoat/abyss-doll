@@ -92,3 +92,7 @@ UnityClient/Assets/Art/_IncomingAI.meta
 !美术文档/人设/AI出图/**/selected/*.jpg
 !美术文档/人设/AI出图/**/selected/*.jpeg
 !美术文档/人设/AI出图/**/selected/*.webp
+
+# Docs index is generated on demand by tools/docs/Generate-DocsIndex.ps1; not committed.
+/DOCS_INDEX.md
+/docs_index.json

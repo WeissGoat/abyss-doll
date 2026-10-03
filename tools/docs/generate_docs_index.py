@@ -226,7 +226,7 @@ def write_markdown(path: Path, docs):
         "status: generated",
         "source_of_truth: false",
         "related:",
-        "  - 知识库/README.md",
+        "  - AGENTS.md",
         "last_verified: 2026-05-23",
         "update_rule: 由 tools/docs/Generate-DocsIndex.ps1 生成，不手写维护。",
         "---",
