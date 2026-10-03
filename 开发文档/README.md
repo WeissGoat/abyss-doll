@@ -20,6 +20,8 @@ update_rule: 开发文档目录结构、事实来源分层或归档规则变化�
 
 # 开发文档目录入口
 
+> **2026-10-03 起：** 工作方式见根目录 `AGENTS.md`，当前目标、计划和状态只看 `PROJECT_STATUS.md`。本目录文档是设计 / 实现参考；文中提到的 `agent_status/`、`知识库/`、`rules/0x` 已归档到 `docs/archive/workflow-2026-10/`。
+
 > 本目录是程序 / Unity 侧事实文档入口。后续 agent 开工时先读 `开发文档/00_程序开发大纲.md` 和 `开发文档/rules/README.md`，再进入具体系统文档。
 
 ## 当前分层
