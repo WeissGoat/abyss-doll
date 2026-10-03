@@ -108,10 +108,8 @@ Mark stale outputs and refresh them through their owning scripts. Do not hand-ed
 After meaningful work:
 
 1. Refresh Manifest/integration/quality/program-handoff generated outputs as required.
-2. Update `agent_status/art.md` with completion, current concern, next action, blockers, and evidence.
-3. Update `agent_status/program.md` only when Unity import, Registry, binding, or program handoff state materially changes.
-4. Update asset-specific facts when the Asset Contract, identity/style anchor, approved output, or acceptance rule changes.
-5. Update `PROJECT_STATUS.md` only for project-stage, cross-functional handoff, or blocking changes.
+2. Update the matching line of `PROJECT_STATUS.md` (the only status page) when a milestone item, the next step, a known issue or a paused art item changes; include the evidence path.
+3. Update asset-specific facts when the Asset Contract, identity/style anchor, approved output, or acceptance rule changes.
 
 ## Claim limits
 
@@ -123,5 +121,5 @@ After meaningful work:
 - live AssetDatabase importer evidence: `unity_imported`;
 - live Registry target evidence: `registered` and usable by VisualID;
 - Prefab / UGUI consumption: part of the light check, not a separate claim;
-- runtime evidence: `runtime_validated` after the `p3-art-validation` light check passes;
+- runtime evidence: `runtime_validated` after the `p3-playtest` light check passes;
 - normal player-path evidence: player-path integration complete.

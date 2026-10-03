@@ -19,7 +19,7 @@
   -DryRun
 ```
 
-确认 dry-run 后移除 `-DryRun`。`Variants=4` 表示串行调用四次，每次请求一张。输出 raw 和 generation evidence 后停止，把控制权交还 `p3-art-asset-production`。
+确认 dry-run 后移除 `-DryRun`。`Variants=4` 表示串行调用四次，每次请求一张。输出 raw 和 generation evidence 后停止，把控制权交还 `p3-art`。
 
 ## 文件夹图生图 / 差分
 
@@ -52,4 +52,4 @@ DRY_RUN = True
 
 ## 能力完成边界
 
-生成或编辑完成后仅返回 raw 图片、provider/model/prompt/seed/尺寸、参考图或 mask、错误和时间证据。预处理、筛选、Approved、`.meta` / GUID、Registry 和运行时验收由 `p3-art-asset-production` 继续执行。
+生成或编辑完成后仅返回 raw 图片、provider/model/prompt/seed/尺寸、参考图或 mask、错误和时间证据。预处理、筛选、Approved、`.meta` / GUID、Registry 和运行时验收由 `p3-art` 继续执行。

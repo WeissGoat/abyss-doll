@@ -57,11 +57,7 @@ Finalize writes Manifest `RegistryStatus=registered` while keeping the productio
 
 ## Runtime validation
 
-Delegate to `p3-art-validation`:
-
-- assets on screens the game already consumes: the light check;
-- T0 semantic seal: `t0_art_seal`;
-- broad resource/UI change or release: `art_regression`.
+Delegate to the `p3-playtest` light check for assets on screens the game already consumes. The old ArtRun profiles (`t0_art_seal`, `art_regression`) are retired with the old validation framework.
 
 Track separately:
 
@@ -69,6 +65,6 @@ Track separately:
 approved -> unity_imported -> registered -> runtime_validated -> player_path_verified -> regression_passed
 ```
 
-`runtime_validated` is produced by the `p3-art-validation` light check when the real screen consumes the registered VisualID and the binding check, screenshot, Agent review and Console all pass. Do not create or expose a separate `runtime_bound` claim.
+`runtime_validated` is produced by the `p3-playtest` light check when the real screen consumes the registered VisualID and the binding check, screenshot, Agent review and Console all pass. Do not create or expose a separate `runtime_bound` claim.
 
 Runner visibility proves neither normal player-path reachability nor correct domain behavior.

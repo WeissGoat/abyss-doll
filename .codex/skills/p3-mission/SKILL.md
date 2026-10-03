@@ -11,7 +11,7 @@ P3 Mission is Project P3's only maintained mission workflow: a resumable CSV que
 
 P3 Mission requires existing detailed source material before a new mission CSV is generated. The source can be a Markdown file, folder, non-Markdown document, active fact source, or approved plan. The agent judges whether it is detailed enough; the script only records the source reference and reminds the agent when no source is provided.
 
-It is not Trellis, does not install hooks, and does not replace `AGENTS.md`, `PROJECT_STATUS.md`, `agent_status/*`, GDD, development docs, art docs, or configuration sources.
+It is not Trellis, does not install hooks, and does not replace `AGENTS.md`, `PROJECT_STATUS.md`, GDD, development docs, art docs, or configuration sources. It is optional: use it for long, multi-session batches; `PROJECT_STATUS.md` stays the single status page.
 
 ## Core Rules
 
@@ -19,7 +19,7 @@ It is not Trellis, does not install hooks, and does not replace `AGENTS.md`, `PR
 - Generate a new mission only from detailed source material that the agent has judged mission-ready; reject one-sentence mission requests until a spec/fact source or approved plan exists.
 - Use P3 Mission for stage progress planning, execution, evidence, status writeback, and recovery; do not use it as a knowledge base or requirement authoring tool.
 - Use `.mission/*.csv` for local recovery artifacts and `missions/*.csv` only when the user approves a formal queue.
-- Keep the CSV as execution state, not project truth. Meaningful work must write back to `agent_status/*` or the relevant fact document.
+- Keep the CSV as execution state, not project truth. Meaningful work must update `PROJECT_STATUS.md` or the relevant fact document.
 - Every mission needs concrete `TASK` rows and a final `REVIEW-*` row that checks the original goal against evidence.
 - Keep working through reachable rows; stop for a decision only the user can make, a real blocker, or when the user asks.
 
@@ -45,7 +45,7 @@ Scripts, templates and references all live in this folder; there is no second co
 
 ## Workflow
 
-1. Read `AGENTS.md`, `PROJECT_STATUS.md`, relevant `agent_status/*`, and row `read_before`.
+1. Read `AGENTS.md`, `PROJECT_STATUS.md`, and row `read_before`.
 2. Create or locate the mission CSV. New CSV creation requires a source reference, but the script does not validate source shape or detail.
 3. Replace `PLAN-01` with 3-12 concrete `TASK` rows and one final `REVIEW-*` row.
 4. Validate before implementation.

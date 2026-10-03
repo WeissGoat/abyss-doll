@@ -1,22 +1,17 @@
----
-name: p3-generate-image
-description: Use for Project P3 image generation or image editing, including text-to-image, image-to-image, character or state differences, inpaint, backend selection, provider-specific prompt formatting, raw output evidence, and troubleshooting ChatGPT/Gemini/NovelAI image backends. It does not own asset admission, selection, Approved synchronization, Unity integration, or runtime validation.
----
-
-# Image Generation
+# 图片生成（原 p3-generate-image）
 
 ## 定位
 
-提供图片生成和调整能力，并留下可追溯的原始生成证据。正式 P3 美术资产生产由 `p3-art-asset-production` 编排；本 Skill 不决定需求准入、候选 selected、Approved、Registry 或运行时验收。
+提供图片生成和调整能力，并留下可追溯的原始生成证据。这一步只负责出图。正式资产的需求准入、候选 selected、Approved 和 Registry 见 [production-pipeline.md](production-pipeline.md)，运行时验收见 `p3-playtest`。
 
 ## 开工读取
 
-1. 读取 `AGENTS.md`、`PROJECT_STATUS.md`、`agent_status/art.md`。
+1. 读取 `AGENTS.md`、`PROJECT_STATUS.md`。
 2. 读取 `美术文档/04_美术风格基准.md` 和任务对应的角色、CG、UI 或资产规格。
-3. P3 正式资产请求额外读取 `美术文档/05_AI图片网关接入方案.md` 和上游 `p3-art-asset-production` 提供的 Asset Contract。
-4. 后端、能力或提示词不确定时读取 [provider-selection.md](references/provider-selection.md)。
-5. 执行路径不确定时读取 [generation-workflows.md](references/generation-workflows.md)。
-6. 需要保存 `_IncomingAI` raw 或生成证据时读取 [evidence-and-acceptance.md](references/evidence-and-acceptance.md)。Approved、Manifest 和验收由上游生产 Skill 负责。
+3. P3 正式资产请求额外读取 `美术文档/05_AI图片网关接入方案.md` 和上游 `p3-art` 提供的 Asset Contract。
+4. 后端、能力或提示词不确定时读取 [provider-selection.md](provider-selection.md)。
+5. 执行路径不确定时读取 [generation-workflows.md](generation-workflows.md)。
+6. 需要保存 `_IncomingAI` raw 或生成证据时读取 [evidence-and-acceptance.md](evidence-and-acceptance.md)。Approved、Manifest 和验收由上游生产 Skill 负责。
 
 ## 路由规则
 
@@ -45,7 +40,7 @@ description: Use for Project P3 image generation or image editing, including tex
 .\tools\美术工具\Test-AIImageBackends.ps1 -Backend chatgpt -Attempts 1
 ```
 
-`openai_images` 对应 `chatgpt`，`gemini_chat_image` 对应 `gemini`，`novelai` 对应 `novelai`。完整参数、组合测试、输出证据和失败处理见 [provider-selection.md](references/provider-selection.md)。`image_gen` 与 `grok_chat_image` 不在该脚本支持范围内，分别以工具是否暴露、网关 provider 专项 smoke 判定。
+`openai_images` 对应 `chatgpt`，`gemini_chat_image` 对应 `gemini`，`novelai` 对应 `novelai`。完整参数、组合测试、输出证据和失败处理见 [provider-selection.md](provider-selection.md)。`image_gen` 与 `grok_chat_image` 不在该脚本支持范围内，分别以工具是否暴露、网关 provider 专项 smoke 判定。
 
 若目标 provider / model 出现配置错误、凭证错误、限流、超时、请求失败或返回 0 张可解码图片，必须显式告诉用户后端不可用、已执行的检查、错误摘要和可选备选方案，并记录 `validation_limited:provider_unavailable:<provider>`。不得静默 fallback，不得把请求已发送或日志存在声明为出图成功。
 
@@ -57,7 +52,7 @@ description: Use for Project P3 image generation or image editing, including tex
 4. 按“后端可达性门禁”完成配置检查和目标后端 smoke；未取得成功图片证据时停止批量生成。
 5. 批量数量 `N` 一律拆成 N 次请求，每次 `count=1`，串行执行并保留间隔。
 6. 根据已发布 Variant 选择 provider 适配：OpenAI/GPT image edit 和 Gemini 消费 `natural_language_v2`；NovelAI 消费 `danbooru_tags_v2`。adapter 只能确定性序列化，不能追加质量词、改写自然语言、重复 Prompt 或重新拼接保持 / 改变要求；结构化 tag 权重也不能写回 Catalog。
-7. 探索任务只写任务指定目录；正式 P3 资产只写上游 `p3-art-asset-production` 通过 `ProductionProfile + VisualID` Resolver 提供的 `raw/` 工作区。不得在 `_IncomingAI` 根创建 loose `raw`，也不得直接声明 selected、Approved、registered 或 validated。
+7. 探索任务只写任务指定目录；正式 P3 资产只写上游 `p3-art` 通过 `ProductionProfile + VisualID` Resolver 提供的 `raw/` 工作区。不得在 `_IncomingAI` 根创建 loose `raw`，也不得直接声明 selected、Approved、registered 或 validated。
 8. 返回 raw 图片、provider/model/PromptFormat/RequirementSnapshot/PromptRevisionSnapshot/ProviderRequest/seed/尺寸、参考图或 mask、错误与时间证据，然后把控制权交还上游工作流。
 
 ### Generation evidence modes
@@ -74,5 +69,5 @@ description: Use for Project P3 image generation or image editing, including tex
 ## 硬规则
 
 - 出图成功只表示 `raw` 候选存在。原因：处理、筛选、入库和验收各有门禁，出图只是第一步。
-- 本 Skill 不选择 selected，不同步 Approved，不修改 Registry，不运行 ArtAcceptance。原因：这些步骤的检查在 `p3-art-asset-production` 和 `p3-art-validation` 里，绕过就没有检查。
+- 出图这一步不选择 selected，不同步 Approved，不修改 Registry，不运行 ArtAcceptance。原因：这些步骤的检查在 [production-pipeline.md](production-pipeline.md) 的脚本和 `p3-playtest` 里，绕过就没有检查。
 - 不得提交 API key、`config.local.yaml`、临时 smoke 图或 `_IncomingAI` 原始候选，除非用户明确要求。原因：密钥泄露无法撤回；候选图体积大，也不是正式资产。

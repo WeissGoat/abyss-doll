@@ -12,7 +12,7 @@ related:
   - docs/plans/2026-07-18-gif-character-replacement.md
   - tools/美术工具/README.md
   - agent_status/art.md
-  - .codex/skills/p3-generate-image/SKILL.md
+  - .codex/skills/p3-art/SKILL.md
 last_verified: 2026-07-19
 update_rule: 修改 GIF 适用范围、输入契约、拆帧、人物替换、预审、质量检查、重试、重编码、运行状态或实现验收口径时同步本文件。
 ---
@@ -291,7 +291,7 @@ gif_character_replace/<RunID>/
 - `review_required`：已输出预览 GIF，但存在闪烁、背景漂移、透明轮廓或身份检查受限；
 - `failed`：存在无法生成的帧、时间轴不完整或 GIF 无法编码。
 
-`ready` 只表示探索工具输出已具备复核条件，不表示 P3 正式资产 Approved、Unity 接入或运行时验收通过。正式资产仍由 `p3-art-asset-production` 承接。
+`ready` 只表示探索工具输出已具备复核条件，不表示 P3 正式资产 Approved、Unity 接入或运行时验收通过。正式资产仍由 `p3-art` 承接。
 
 ## 13 首版范围外
 

@@ -282,4 +282,4 @@ FormalV2 历史批次清单已经归档，后续运行时 UI 评估长期按以�
 7. 发生修改时有持久化 before/after、重进 PlayMode、Console delta 和 after/final 证据；
 8. Runner 构造界面不得替代正常玩家路径可达证明。
 
-日常检查使用 `p3-art-validation` 的轻量检查；只有大范围 UI / 资源变化或发布前才运行 `art_regression`。
+日常检查使用 `p3-playtest` 的轻量检查；只有大范围 UI / 资源变化或发布前才运行 `art_regression`。

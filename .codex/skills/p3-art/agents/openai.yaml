@@ -1,0 +1,4 @@
+interface:
+  display_name: "P3 美术生产"
+  short_description: "P3 美术：生成 → 挑选 → 入库（Approved、Unity、Registry），包括立绘和叙事 CG"
+  default_prompt: "Use $p3-art to produce or adjust Project P3 art: decide between exploration, a standard asset and an identity asset, generate with the right backend, select, and take formal assets through the scripted Approved, Unity and Registry steps."

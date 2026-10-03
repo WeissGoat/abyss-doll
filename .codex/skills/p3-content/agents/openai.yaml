@@ -1,0 +1,4 @@
+interface:
+  display_name: "P3 内容与数值"
+  short_description: "通过配置加改 P3 的物品、怪物、掉落、地图层、成长和经济数值，并同步、校验、平衡"
+  default_prompt: "Use $p3-content to add or change Project P3 content through 配置表(JSON): follow the category README, sync configs, validate, check balance with the autoplay simulation, and look at the result in game."

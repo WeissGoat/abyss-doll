@@ -1,0 +1,4 @@
+interface:
+  display_name: "P3 Playtest"
+  short_description: "进 Play Mode 看 P3 实际画面：到达界面、截图、读日志、检查素材上屏"
+  default_prompt: "Use $p3-playtest to run Project P3 in Play Mode through Unity MCP, reach the target screen, take screenshots into the evidence folder, read the console, and report what a player would see."

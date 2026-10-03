@@ -1,13 +1,8 @@
----
-name: p3-art-asset-production
-description: Use when Project P3 needs formal production or replacement of runtime art assets, including Manifest-driven standard assets, character portrait sets, portrait differences, Approved admission, and Unity / Registry integration. Runtime UI or art validation itself belongs to p3-art-validation.
----
-
-# P3 Art Asset Production
+# 正式资产生产流程（原 p3-art-asset-production）
 
 ## Purpose
 
-Turn an existing, detailed P3 art requirement into a runtime asset through the project's scripts. This skill owns orchestration only. Art facts stay in `美术文档/`; image creation and editing go to `p3-generate-image`; narrative pages also follow `p3-narrative-cg-comic`; runtime diagnosis and evidence go to `p3-art-validation`. A production profile selects workspace, interaction, and acceptance behavior; it never fixes the generation method, provider, or tool.
+Turn an existing, detailed P3 art requirement into a runtime asset through the project's scripts. This flow owns orchestration only. Art facts stay in `美术文档/`; image creation and editing follow [image-generation.md](image-generation.md); narrative pages also follow [narrative-cg.md](narrative-cg.md); runtime diagnosis and evidence go to `p3-playtest`. A production profile selects workspace, interaction, and acceptance behavior; it never fixes the generation method, provider, or tool.
 
 ## Lanes
 
@@ -27,17 +22,17 @@ Fast lane, one batch at a time:
 
 ## Reading by phase
 
-Read only what the current phase needs, after the `AGENTS.md` startup reads; skip anything already read this session. Before any pause or user question, read [interaction-gates.md](references/interaction-gates.md).
+Read only what the current phase needs, after the `AGENTS.md` startup reads; skip anything already read this session. Before any pause or user question, read [interaction-gates.md](interaction-gates.md).
 
 | Phase (state-machine states) | Fast lane | Full lane also reads |
 |---|---|---|
 | Start | Section 2 of `美术文档/00_美术流水线总览.md`; the target asset's source | The rest of `美术文档/00_美术流水线总览.md` |
-| Intake: `SOURCE_AUDIT` → `PRODUCTION_PLAN` | `美术文档/01_Manifest规范.md` only when a VisualID still needs admission | [modes-and-input.md](references/modes-and-input.md), [state-machine.md](references/state-machine.md), [workspace-profiles-and-character-portraits.md](references/workspace-profiles-and-character-portraits.md); `美术文档/01_Manifest规范.md` when admitting a requirement or editing the Manifest / seed; `美术文档/02_资源规格与接入规范.md` when a new asset needs output or display specs |
-| Prompt and generation: `BACKEND_PREFLIGHT` → `OUTPUT_CONTRACT_AUDIT` | [prompt-and-generation.md](references/prompt-and-generation.md), `美术文档/04_美术风格基准.md` | `p3-generate-image` |
-| Processing, review, and selection: `PREPROCESS` → `REPAIR_OR_REGENERATE` | [candidate-evaluation.md](references/candidate-evaluation.md) | `美术文档/03_AI生成与筛选规范.md` |
-| Approved, Unity, and Registry: `APPROVED_GATE` → `REGISTRY_INTEGRATION` | [approved-and-unity.md](references/approved-and-unity.md) | `美术文档/02_资源规格与接入规范.md` |
-| Runtime validation: `RUNTIME_VALIDATION` | Deferred | `p3-art-validation` |
-| Resume, evidence, and writeback: any `-Resume`, `WRITEBACK` | [evidence-and-writeback.md](references/evidence-and-writeback.md) | Same |
+| Intake: `SOURCE_AUDIT` → `PRODUCTION_PLAN` | `美术文档/01_Manifest规范.md` only when a VisualID still needs admission | [modes-and-input.md](modes-and-input.md), [state-machine.md](state-machine.md), [workspace-profiles-and-character-portraits.md](workspace-profiles-and-character-portraits.md); `美术文档/01_Manifest规范.md` when admitting a requirement or editing the Manifest / seed; `美术文档/02_资源规格与接入规范.md` when a new asset needs output or display specs |
+| Prompt and generation: `BACKEND_PREFLIGHT` → `OUTPUT_CONTRACT_AUDIT` | [prompt-and-generation.md](prompt-and-generation.md), `美术文档/04_美术风格基准.md` | `p3-art` |
+| Processing, review, and selection: `PREPROCESS` → `REPAIR_OR_REGENERATE` | [candidate-evaluation.md](candidate-evaluation.md) | `美术文档/03_AI生成与筛选规范.md` |
+| Approved, Unity, and Registry: `APPROVED_GATE` → `REGISTRY_INTEGRATION` | [approved-and-unity.md](approved-and-unity.md) | `美术文档/02_资源规格与接入规范.md` |
+| Runtime validation: `RUNTIME_VALIDATION` | Deferred | `p3-playtest` |
+| Resume, evidence, and writeback: any `-Resume`, `WRITEBACK` | [evidence-and-writeback.md](evidence-and-writeback.md) | Same |
 
 ## Commands by phase
 
@@ -53,11 +48,11 @@ Scripts live in `tools/美术工具/`; parameters and examples are in its `READM
 | Select | `Select-ArtCandidate.ps1 -VisualID <id> -ReviewPath <review>` |
 | Portrait set gate | `Invoke-PortraitSetGate.ps1 -Phase Prepare`, `Finalize`, or `Check` |
 | Approved, Unity, and Registry | `Invoke-ArtApprovedUnityRegistration.ps1 -Phase Plan`, `SyncApproved`, then `Finalize`, with one `-ArtImportRunID` and `-VisualID <ids>` |
-| Runtime validation | `p3-art-validation` light check; its `t0_art_seal` and `art_regression` profiles for seals and full regression |
+| Runtime validation | `p3-playtest` light check (the old `t0_art_seal` / `art_regression` ArtRun profiles are retired with the old validation framework) |
 
 ## Modes
 
-`interactive` is the default: continue through deterministic, high-confidence steps and pause only at a gate in [interaction-gates.md](references/interaction-gates.md). `auto` needs the user's explicit authorization and stays inside the granted scope. Neither mode authorizes inventing missing requirements, resolving contradictory facts by preference, changing active art direction, bypassing `.meta` / GUID guards, overwriting unrelated assets, or changing gameplay or domain rules.
+`interactive` is the default: continue through deterministic, high-confidence steps and pause only at a gate in [interaction-gates.md](interaction-gates.md). `auto` needs the user's explicit authorization and stays inside the granted scope. Neither mode authorizes inventing missing requirements, resolving contradictory facts by preference, changing active art direction, bypassing `.meta` / GUID guards, overwriting unrelated assets, or changing gameplay or domain rules.
 
 ## Hard rules
 

@@ -1,6 +1,6 @@
 ---
 name: p3-program-validation
-description: Run Project P3 compile, smoke-test, config and UI-spec validation; smoke tests run through the Unity Test Framework with Unity MCP run_tests. Use for program regressions and automated tests; never use for art acceptance, screenshots, visual seals, or art review claims.
+description: Run Project P3 compile, smoke-test, config and UI-spec validation; smoke tests run through the Unity Test Framework with Unity MCP run_tests. Use for program regressions and automated tests. Screenshots and on-screen checks belong to p3-playtest.
 ---
 
 # P3 Program Validation
@@ -9,12 +9,12 @@ Smoke tests run as EditMode cases of the `P3.SmokeTests.Editor` assembly (`Unity
 
 ## Steps
 
-1. Read `agent_status/program.md` and the affected program facts.
+1. Read the known test failures in `PROJECT_STATUS.md` and the affected program facts.
 2. Read `mcpforunity://editor/state`: the editor must not be playing or compiling. Check `manage_scene(action="get_loaded_scenes")`; if a scene is dirty, ask the user before running.
 3. After code changes, call `refresh_unity` with `compile=request`, then `read_console` for errors. A compile error fails the run.
 4. Call `run_tests` with `mode=EditMode`, `assembly_names=["P3.SmokeTests.Editor"]`, `include_failed_tests=true`, and the filter for the scope below. Poll `get_test_job` with `wait_timeout=60`. Leave `include_details` off for large runs; the logs are long.
 5. Run the static checks the scope needs. Sync configs before step 3 when the config source changed.
-6. Report the counts, the failing cases and each one's first error. Say which failures are new compared with the known failures in `agent_status/program.md`. Keep claims within [claims.md](references/claims.md).
+6. Report the counts, the failing cases and each one's first error. Say which failures are new compared with the known failures in `PROJECT_STATUS.md`, and update that list when a known failure is fixed. Keep claims within [claims.md](references/claims.md).
 
 | Scope | `run_tests` filter | Static checks |
 |---|---|---|
@@ -35,5 +35,5 @@ Without MCP, the compatibility paths are AutoTestDaemon (`UnityClient/Logs/.test
 
 ## Hard rules
 
-- No screenshots, art acceptance or visual claims; runtime art goes through `p3-art-validation`. Why: a passing test says nothing about how a screen looks.
+- No screenshots or visual claims here; on-screen checks go through `p3-playtest`. Why: a passing test says nothing about how a screen looks.
 - Don't use `execute_code`, `manage_ui` or arbitrary `execute_menu_item` as validation steps. Why: validation evidence has to be repeatable; ad-hoc code is fine for diagnosis but isn't evidence.

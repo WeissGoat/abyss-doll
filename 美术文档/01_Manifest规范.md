@@ -190,7 +190,7 @@ Asset Contract 字段归属：
 
 ### Visual V2 质量替换字段
 
-已进入 `approved` / `registered` 的素材，如果只是要替换更高质量图片，不应把 `Status` 改回 `generated`。运行时 `runtime_validated` 由 `p3-art-validation` 的检查证据产生，不是 Manifest 状态。这类流程使用候选字段记录新批次：
+已进入 `approved` / `registered` 的素材，如果只是要替换更高质量图片，不应把 `Status` 改回 `generated`。运行时 `runtime_validated` 由 `p3-playtest` 的检查证据产生，不是 Manifest 状态。这类流程使用候选字段记录新批次：
 
 | 字段 | 步骤 | 说明 |
 |---|---|---|

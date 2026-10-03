@@ -59,12 +59,12 @@ ROLE_ALIASES = {
 }
 ROLE_CONTEXT = {
     "全局": [],
-    "游戏导演": ["知识库/views/director.md", "agent_status/director.md"],
-    "剧情": ["知识库/views/narrative.md", "设计文档/剧情/README.md"],
-    "策划": ["知识库/views/design.md", "agent_status/design.md"],
-    "程序": ["知识库/views/program.md", "agent_status/program.md"],
-    "美术": ["知识库/views/art.md", "agent_status/art.md"],
-    "知识库": ["知识库/README.md"],
+    "游戏导演": [],
+    "剧情": ["设计文档/剧情/README.md"],
+    "策划": ["设计文档/README.md"],
+    "程序": ["开发文档/00_程序开发大纲.md"],
+    "美术": ["美术文档/README.md"],
+    "知识库": [],
 }
 
 
@@ -314,7 +314,7 @@ def cmd_new(args):
             "verify": "Mission CSV has concrete TASK rows, one final REVIEW row, required read_before/status_writeback/verify fields, and no placeholder-only implementation rows.",
             "required_tools": "shell",
             "status": "TODO",
-            "status_writeback": "Update the status page listed by each concrete task row after meaningful work is done.",
+            "status_writeback": "Each concrete task row updates PROJECT_STATUS.md when it changes a milestone, next step or known issue.",
             "evidence": "",
             "notes": f"created_by:New-P3Mission; source_ref:{source_ref}",
         },
@@ -334,7 +334,7 @@ def cmd_new(args):
             "verify": "All non-review TASK rows are DONE or explicitly BLOCKED with blocked:<reason>; DONE rows have evidence and status writeback; claims match the source reference and do not overstate evidence level.",
             "required_tools": "shell",
             "status": "TODO",
-            "status_writeback": "If the mission changed project priorities, cross-functional handoff, or blockers, update PROJECT_STATUS.md; otherwise confirm task-level status pages are updated.",
+            "status_writeback": "Confirm PROJECT_STATUS.md reflects the mission outcome: milestones, next step and known issues.",
             "evidence": "",
             "notes": f"review_kind:mission_outcome; source_ref:{source_ref}",
         },

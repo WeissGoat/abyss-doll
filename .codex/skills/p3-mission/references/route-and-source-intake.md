@@ -61,7 +61,7 @@ When converting a source into rows:
 Before creating any new mission CSV, confirm:
 
 - The source is current, not an archived or superseded document.
-- It does not conflict with `AGENTS.md`, `PROJECT_STATUS.md`, `agent_status/*`, or active P3 fact sources.
+- It does not conflict with `AGENTS.md`, `PROJECT_STATUS.md`, or active P3 fact sources.
 - It is detailed enough to define stage progress rows without inventing requirements.
 - Every formal row has a real `status_writeback` target.
 - Verification does not rely on mock, dry-run, fixture, or static evidence to claim runtime completion.

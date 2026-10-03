@@ -86,7 +86,7 @@ After admission:
 
 Record the actual capability and inputs in round evidence, not in the method-neutral Asset Contract. Standard deterministic processing may publish a round directly; character or complex editing must stage outputs and register them through the guarded round entry before selection.
 
-Do not infer the method from `character_difference`, `new_asset`, or the production profile. A character portrait member may be created, derived, adjusted, imported, or processed by any suitable current/future tool. Narrative page/panel work still follows `p3-narrative-cg-comic`; dynamic portrait, Live2D, and DollPuppet still use their dedicated contracts and integration paths.
+Do not infer the method from `character_difference`, `new_asset`, or the production profile. A character portrait member may be created, derived, adjusted, imported, or processed by any suitable current/future tool. Narrative page/panel work still follows `p3-art`; dynamic portrait, Live2D, and DollPuppet still use their dedicated contracts and integration paths.
 
 ## Character portrait set flow
 

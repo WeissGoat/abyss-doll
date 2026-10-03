@@ -1,25 +1,20 @@
----
-name: p3-narrative-cg-comic
-description: Use when Project P3 work involves narrative CG backgrounds, comic-page playback, panel VisualIDs, character/scene/style consistency, runtime comic screenshots, or acceptance claims for CG sequences such as T0-01A.
----
-
-# P3 叙事 CG / 漫画式播放
+# 叙事 CG / 漫画式播放（原 p3-narrative-cg-comic）
 
 ## 定位
 
 把 Project P3 的叙事 CG 从“批量独立生图”收敛为“锚点锁定 -> 页级候选 -> 运行时验收”的可执行流程。
 
-本 skill 不替代事实文档：
+本流程不替代事实文档：
 
 - 通用规格以 `美术文档/18_CG底图与漫画式播放演出工作流.md` 为准。
 - 目标切片细案以对应 CG 细案为准，例如 `美术文档/19_T0-01序章CG细案.md`。
-- AI 后端、prompt、图生图、inpaint 和 raw 生成证据使用 `.codex/skills/p3-generate-image/SKILL.md`。
-- selected 晋级、Approved 同步、Unity 导入和 Registry 登记使用 `.codex/skills/p3-art-asset-production/SKILL.md`（Skill 名 `p3-art-asset-production`）。
-- 运行时截图、T0 seal capture 和 `runtime_validated` 验收使用 `.codex/skills/p3-art-validation/SKILL.md`；旧 ArtAcceptance 全量回归只走其 `art_regression` Profile。
+- AI 后端、prompt、图生图、inpaint 和 raw 生成证据使用 `.codex/skills/p3-art/references/image-generation.md`。
+- selected 晋级、Approved 同步、Unity 导入和 Registry 登记使用 `.codex/skills/p3-art/references/production-pipeline.md`（Skill 名 `p3-art`）。
+- 运行时截图、T0 seal capture 和 `runtime_validated` 验收使用 `.codex/skills/p3-playtest/SKILL.md`；旧 ArtAcceptance 全量回归（`art_regression`）随旧验证框架下线。
 
 ## 触发场景
 
-遇到以下任务必须使用本 skill：
+遇到以下任务按本流程执行：
 
 - 制作、重做、验收 CG 底图、叙事背景、漫画页或分格演出。
 - 将一段剧情拆成 `PageID`、`LayoutPreset`、Panel VisualID、字幕条和 Action。
@@ -29,14 +24,14 @@ description: Use when Project P3 work involves narrative CG backgrounds, comic-p
 
 ## 开工读取
 
-1. 读取 `AGENTS.md`、`PROJECT_STATUS.md`、`agent_status/art.md`。
+1. 读取 `AGENTS.md`、`PROJECT_STATUS.md`、`PROJECT_STATUS.md`。
 2. 读取目标 CG 事实来源：
    - 通用流程：`美术文档/18_CG底图与漫画式播放演出工作流.md`
    - 目标细案：例如 `美术文档/19_T0-01序章CG细案.md`
    - 目标角色 / 场景 / UI / 剧情事实文档。
-3. 需要实际出图、图生图、局部修图或后端排障时，读取并遵守 `.codex/skills/p3-generate-image/SKILL.md`。
-4. 需要 selected 晋级、Approved 同步、Unity 导入或 Registry 登记时，读取并遵守 `.codex/skills/p3-art-asset-production/SKILL.md`。
-5. 需要运行时截图或验收时，读取并遵守 `.codex/skills/p3-art-validation/SKILL.md`。
+3. 需要实际出图、图生图、局部修图或后端排障时，读取并遵守 `.codex/skills/p3-art/references/image-generation.md`。
+4. 需要 selected 晋级、Approved 同步、Unity 导入或 Registry 登记时，读取并遵守 `.codex/skills/p3-art/references/production-pipeline.md`。
+5. 需要运行时截图或验收时，读取并遵守 `.codex/skills/p3-playtest/SKILL.md`。
 
 ## 禁止直接全量生图
 
@@ -123,9 +118,9 @@ description: Use when Project P3 work involves narrative CG backgrounds, comic-p
 
 只有页级通过后才允许同步 Approved。
 
-Approved 同步、Unity 导入和 Registry 登记走 `p3-art-asset-production` 的 Approved gate（静态 Sprite 入口为 `tools/美术工具/Invoke-ArtApprovedUnityRegistration.ps1` 的 `Plan -> SyncApproved -> Finalize`）：由它保护 `.meta` / GUID，并在 Finalize 时刷新 `美术文档/_generated/可接入素材清单.md` / `.json` 和 `art_integration_snapshots/`。不要手工复制文件或手写这些生成物。
+Approved 同步、Unity 导入和 Registry 登记走 `p3-art` 的 Approved gate（静态 Sprite 入口为 `tools/美术工具/Invoke-ArtApprovedUnityRegistration.ps1` 的 `Plan -> SyncApproved -> Finalize`）：由它保护 `.meta` / GUID，并在 Finalize 时刷新 `美术文档/_generated/可接入素材清单.md` / `.json` 和 `art_integration_snapshots/`。不要手工复制文件或手写这些生成物。
 
-本 skill 额外要求：写明本轮是新图、同 VisualID 替换、图生图修正、inpaint，还是仅筛选。
+本流程额外要求：写明本轮是新图、同 VisualID 替换、图生图修正、inpaint，还是仅筛选。
 
 ### 7. 运行时验收
 
@@ -144,7 +139,7 @@ T0-01A 必须按 `19` 的截图清单产出 `t0_comic_p01_black_wake.png` 到 `t
 
 ## 状态声明口径
 
-按以下层级声明，不得越级。叙事层级在美术公开状态之上增加锚点和页级检查；每个 Panel 的美术状态以 `p3-art-asset-production` / `p3-art-validation` 的证据为准，叙事层级不能高于对应美术状态。
+按以下层级声明，不得越级。叙事层级在美术公开状态之上增加锚点和页级检查；每个 Panel 的美术状态以 `p3-art` / `p3-playtest` 的证据为准，叙事层级不能高于对应美术状态。
 
 | 层级 | 可声明内容 | 对应美术公开状态 |
 |---|---|---|
@@ -173,4 +168,4 @@ T0-01A 必须按 `19` 的截图清单产出 `t0_comic_p01_black_wake.png` 到 `t
 - 当前最高可声明层级。
 - 下一轮最小修复集。
 
-状态回写到 `agent_status/art.md`。影响 T0 细案、实现切片或全局体验口径时，再同步对应版本规划 / director 状态页。
+状态回写到 `PROJECT_STATUS.md`。影响 T0 细案、实现切片或全局体验口径时，再同步对应版本规划 / director 状态页。

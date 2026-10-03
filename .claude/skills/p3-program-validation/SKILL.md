@@ -1,6 +1,6 @@
 ---
 name: p3-program-validation
-description: Run Project P3 compile, smoke-test, config and UI-spec validation; smoke tests run through the Unity Test Framework with Unity MCP run_tests. Use for program regressions and automated tests; never use for art acceptance, screenshots, visual seals, or art review claims.
+description: Run Project P3 compile, smoke-test, config and UI-spec validation; smoke tests run through the Unity Test Framework with Unity MCP run_tests. Use for program regressions and automated tests. Screenshots and on-screen checks belong to p3-playtest.
 ---
 
 <!-- Claude Code 转发入口。事实来源：.codex/skills/p3-program-validation/SKILL.md。源技能新增、改名或修改 frontmatter 时同步更新本文件。 -->

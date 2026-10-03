@@ -36,6 +36,9 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 
 # 美术文档索引
 
+> **2026-10-03 起：** 工作方式见根目录 `AGENTS.md`，当前目标、计划和状态只看 `PROJECT_STATUS.md`。本目录文档是设计 / 实现参考；文中提到的 `agent_status/`、`知识库/`、`rules/0x` 已归档到 `docs/archive/workflow-2026-10/`。
+> 美术方向到 M4 再锁定（暂定对标《火山的女儿》《来自深渊》），在那之前只做 Demo 必需、与方向无关的素材。
+
 > **定位：** Project P3 美术 / UI 文档入口。本文件只负责导航和职责边界，不承载详细规格。
 > **更新时间：** 2026-08-02
 
@@ -47,8 +50,8 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | 当前哪些 UI 已覆盖、哪些还没进 active | [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md) | 把 `09` 路线和 `11` 批次矩阵翻译成美术覆盖表。 |
 | 端到端美术生产的事实边界 | [00_美术流水线总览.md](00_美术流水线总览.md) | 定义阶段、快速道 / 完整道、状态、Owner 和交付边界；具体执行、停问、重试和恢复由 Skill 维护。 |
 | 持久化生成请求在哪里 | [_generated/art_generation_requests.json](_generated/art_generation_requests.json) | 由 `Compile-ArtGenerationRequests.ps1` 生成；保存 `RequestID`、fingerprint、CanonicalVisualBrief、TechnicalRequest 和自然语言 / Danbooru 两种 Prompt Variant。 |
-| Agent 如何端到端生产正式美术资产 | [../.codex/skills/p3-art-asset-production/SKILL.md](../.codex/skills/p3-art-asset-production/SKILL.md) | 从需求准入、Asset Contract、候选生成与 Agent 评分推进到 Approved、Unity 接入、运行时验收和状态回写；支持交互与全自动模式。 |
-| Agent 如何生成或调整图片 | [../.codex/skills/p3-generate-image/SKILL.md](../.codex/skills/p3-generate-image/SKILL.md) | `p3-generate-image` 只负责文生图、图生图、差分、inpaint、后端和 raw 生成证据；不负责 Approved 或 Unity 接入。 |
+| Agent 如何端到端生产正式美术资产 | [../.codex/skills/p3-art/SKILL.md](../.codex/skills/p3-art/SKILL.md) | 从需求准入、Asset Contract、候选生成与 Agent 评分推进到 Approved、Unity 接入、运行时验收和状态回写；支持交互与全自动模式。 |
+| Agent 如何生成或调整图片 | [../.codex/skills/p3-art/SKILL.md](../.codex/skills/p3-art/SKILL.md) | `p3-art` 的出图部分（`references/image-generation.md`）：文生图、图生图、差分、inpaint、后端选择和 raw 生成证据。 |
 | 小循环 GIF 如何逐帧替换人物 | [20_GIF小循环人物替换工作流.md](20_GIF小循环人物替换工作流.md) | 独立工具工作流，定义拆帧、身份包、两帧预审、独立逐帧图生图、风险检查和 GIF 重编码；当前为已批准设计、尚未实现。 |
 | UI 结构版本怎么管理 | [ui_design/README.md](ui_design/README.md) | UI 设计系统入口，说明 active / baseline / draft / handoff。 |
 | Formal V2 UX/UI 怎么推进 | [ui_design/formal_v2/00_formal_v2_ux_ui_overview.md](ui_design/formal_v2/00_formal_v2_ux_ui_overview.md) | 当前 Formal V2 总方案，解决按钮堆叠和正式感不足。 |
@@ -67,7 +70,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | CG 底图 / 漫画式播放怎么做 | [18_CG底图与漫画式播放演出工作流.md](18_CG底图与漫画式播放演出工作流.md) | 运行时漫画页拼装、Panel VisualID、T0 样板、CG 底图生产与验收口径。 |
 | T0-01 序章 CG 具体画什么 | [19_T0-01序章CG细案.md](19_T0-01序章CG细案.md) | T0-01A 序章漫画页分镜、Panel VisualID、构图要求、零号表现和截图验收清单。 |
 | Cubism / Spine 外部导出怎么接入 | [16_Live2D角色动画资产接入规格.md](16_Live2D角色动画资产接入规格.md) | 只定义获得 Cubism / Spine 工具链或外部 rigger 交付后的兼容接入，不作为首版阻塞项。 |
-| 当前美术状态和下一步 | [../agent_status/art.md](../agent_status/art.md) | 智能体交接状态页。 |
+| 当前美术状态和下一步 | [../PROJECT_STATUS.md](../PROJECT_STATUS.md) | 唯一状态页；美术暂停项的旧细节见 `docs/archive/workflow-2026-10/agent_status/art.md`。 |
 
 ## 文档分层
 
@@ -78,17 +81,17 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | [10_正式版核心纵切美术路线.md](10_正式版核心纵切美术路线.md) | 当前美术规划、正式版原则、近期执行顺序。 |
 | [13_正式纵切UI与素材覆盖矩阵.md](13_正式纵切UI与素材覆盖矩阵.md) | UI / 素材覆盖矩阵、active 界面、draft 界面和缺口队列。 |
 | [人设/README.md](人设/README.md) | 人设 Owner 入口，承接角色参考研究、零号人设方向、交付包和 DollPuppet 前置规则。 |
-| [../agent_status/art.md](../agent_status/art.md) | 当前事实状态、最近完成、下一步建议和阻塞。 |
+| [../PROJECT_STATUS.md](../PROJECT_STATUS.md) | 当前目标、里程碑、已知问题和暂停项。 |
 
 ### 工作流层
 
 | 工作流 | 主入口 | 细节文档 |
 |---|---|---|
 | 资产生产流水线 | [00_美术流水线总览.md](00_美术流水线总览.md) | [01_Manifest规范.md](01_Manifest规范.md)、[02_资源规格与接入规范.md](02_资源规格与接入规范.md)、[03_AI生成与筛选规范.md](03_AI生成与筛选规范.md)、[04_美术风格基准.md](04_美术风格基准.md)、[05_AI图片网关接入方案.md](05_AI图片网关接入方案.md) |
-| GIF 小循环人物替换 | [20_GIF小循环人物替换工作流.md](20_GIF小循环人物替换工作流.md) | 独立于图片网关契约，调用 `p3-generate-image` 能力，首版只覆盖 8-30 帧小循环。 |
+| GIF 小循环人物替换 | [20_GIF小循环人物替换工作流.md](20_GIF小循环人物替换工作流.md) | 独立于图片网关契约，调用 `p3-art` 能力，首版只覆盖 8-30 帧小循环。 |
 | 人设参考研究流水线 | [人设/README.md](人设/README.md) | [人设/01_人设参考获取规则.md](人设/01_人设参考获取规则.md)、[_generated/danbooru_character_reference/zero_doll_reference_report.md](_generated/danbooru_character_reference/zero_doll_reference_report.md) |
 | UI 设计版本流水线 | [ui_design/README.md](ui_design/README.md) | [ui_design/ui_iteration_process.md](ui_design/ui_iteration_process.md)、[ui_design/formal_v1/screen_structure_review.md](ui_design/formal_v1/screen_structure_review.md)、[ui_design/formal_v2/00_formal_v2_ux_ui_overview.md](ui_design/formal_v2/00_formal_v2_ux_ui_overview.md)、[ui_design/versions/migration_log.md](ui_design/versions/migration_log.md) |
-| 运行时验收流水线 | [../.codex/skills/p3-art-validation/SKILL.md](../.codex/skills/p3-art-validation/SKILL.md) | [../开发文档/19_UnityMCP验收编排层设计.md](../开发文档/19_UnityMCP验收编排层设计.md)、[09_运行时美术验收记录.md](09_运行时美术验收记录.md)；旧 Runner 契约见 `开发文档/14`。 |
+| 运行时验收流水线 | [../.codex/skills/p3-playtest/SKILL.md](../.codex/skills/p3-playtest/SKILL.md) | [../开发文档/19_UnityMCP验收编排层设计.md](../开发文档/19_UnityMCP验收编排层设计.md)、[09_运行时美术验收记录.md](09_运行时美术验收记录.md)；旧 Runner 契约见 `开发文档/14`。 |
 | Agent 原生动态立绘流水线 | [17_Agent原生动态立绘资产接入规格.md](17_Agent原生动态立绘资产接入规格.md) | 首版 DollPuppet 包、JSON rig / motion / expression、Unity Prefab、fallback sprite 和独立多帧验收。 |
 | CG 底图 / 漫画式播放流水线 | [18_CG底图与漫画式播放演出工作流.md](18_CG底图与漫画式播放演出工作流.md) | 叙事 Page、Panel VisualID、LayoutPreset、字幕条、逐格显现、T0 样板和运行时截图验收；T0-01 具体分镜见 [19_T0-01序章CG细案.md](19_T0-01序章CG细案.md)。 |
 | Cubism / Spine 兼容流水线 | [16_Live2D角色动画资产接入规格.md](16_Live2D角色动画资产接入规格.md) | 外部工具链或 rigger 交付后的 Cubism / Spine runtime 包接入。 |
@@ -134,7 +137,7 @@ baseline / 当前截图问题
 
 ### 资产生产流
 
-稳定事实和状态机见 [00_美术流水线总览.md](00_美术流水线总览.md)，Manifest / 规格 / 质量 / 风格 / 图片网关契约分别见 `01-05`。Agent 实际执行统一从 `p3-art-asset-production` 进入，纯图片能力委托给 `p3-generate-image`；README 不再重复停问、后端选择、循环、恢复和命令细节。
+稳定事实和状态机见 [00_美术流水线总览.md](00_美术流水线总览.md)，Manifest / 规格 / 质量 / 风格 / 图片网关契约分别见 `01-05`。Agent 实际执行统一从 `p3-art` 进入；README 不再重复停问、后端选择、循环、恢复和命令细节。
 
 `_IncomingAI` 仍是忽略的工作区，`Approved` 才是正式运行时资源区。对外状态保持 `approved -> registered -> runtime_validated`；`selected`、`unity_imported` 和内部 binding evidence 不得冒充这三个公开状态。
 
@@ -168,7 +171,7 @@ baseline / 当前截图问题
 
 ## 当前状态
 
-README 不维护易过期的批次数量和队列计数。当前进度看 [../agent_status/art.md](../agent_status/art.md)，可执行队列看 `_generated` 下的 latest 清单，历史批次看对应 snapshot。
+README 不维护易过期的批次数量和队列计数。当前进度看 [../PROJECT_STATUS.md](../PROJECT_STATUS.md)，可执行队列看 `_generated` 下的 latest 清单，历史批次看对应 snapshot。
 
 截至 2026-08-02，本轮通用背景 / 图标批次与零号姿势差分均已留下正式生成、筛选和接入证据；`doll_zero_dialogue_neutral`、`doll_zero_dialogue_command_ready`、`doll_zero_hurt`、`doll_zero_tired` 已到 `registered`。这些结论不包含 Prefab / UGUI 运行时消费、ArtAcceptance 或 `runtime_validated`。
 
