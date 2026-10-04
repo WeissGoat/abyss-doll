@@ -95,6 +95,36 @@ public class CombatSystem {
         return true;
     }
 
+    // True while the player can still do something that costs AP this turn: a bare-hands strike or a manual item in
+    // the backpack they can afford. The combat HUD ends the turn for the player once this turns false.
+    public bool PlayerHasActionLeft() {
+        if (CurrentState != CombatState.PlayerTurn || PlayerFaction?.Fighters == null || PlayerFaction.Fighters.Count == 0) {
+            return false;
+        }
+
+        DollFighter player = PlayerFaction.Fighters[0] as DollFighter;
+        if (player == null) {
+            return false;
+        }
+
+        if (player.CurrentAP >= ItemUseService.GetUnarmedAPCost(player.DataRef)) {
+            return true;
+        }
+
+        BackpackGrid grid = player.DataRef?.RuntimeGrid as BackpackGrid;
+        if (grid?.ContainedItems == null) {
+            return false;
+        }
+
+        foreach (ItemEntity item in grid.ContainedItems) {
+            if (item?.Combat != null && item.Combat.TriggerType == TriggerType.Manual.ToString() && item.Combat.APCost <= player.CurrentAP) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void StartEnemyTurn() {
         CurrentState = CombatState.EnemyTurn;
         ItemUseService.ClearPendingTargetSelection();

@@ -143,7 +143,12 @@ public static class ItemPresentationRules {
         switch (item.Combat.DamageType) {
             case nameof(DamageType.Physical):
             case nameof(DamageType.Energy):
-                return $"伤害{item.Combat.BaseValue}";
+                // RuntimeDamage carries adjacency bonuses while the item sits in the backpack; show the boost.
+                int baseDamage = Mathf.RoundToInt(item.Combat.BaseValue);
+                int runtimeDamage = (int)item.Combat.RuntimeDamage;
+                return runtimeDamage > 0 && runtimeDamage != baseDamage
+                    ? $"伤害{runtimeDamage}({(runtimeDamage > baseDamage ? "+" : string.Empty)}{runtimeDamage - baseDamage})"
+                    : $"伤害{baseDamage}";
             case nameof(DamageType.Heal):
                 return $"+{item.Combat.BaseValue} HP";
             case nameof(DamageType.RestoreSAN):

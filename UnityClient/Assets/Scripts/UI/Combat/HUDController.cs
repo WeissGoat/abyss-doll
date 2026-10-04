@@ -20,6 +20,9 @@ public class HUDController : MonoBehaviour {
     private Text _turnBannerLabel;
     private Image _targetHintPanel;
     private Image _actionStrip;
+    private Image _incomingPanel;
+    private Text _incomingLabel;
+    private Coroutine _autoEndTurn;
     private Button _cancelSelectionBtn;
     private Button _unarmedStrikeBtn;
     private Image _playerStatusPanel;
@@ -36,6 +39,7 @@ public class HUDController : MonoBehaviour {
         SetActiveIfPresent(_turnBannerImage, !active);
         SetActiveIfPresent(_targetHintPanel, !active);
         SetActiveIfPresent(_actionStrip, !active);
+        SetActiveIfPresent(_incomingPanel, !active);
         SetActiveIfPresent(_playerStatusPanel, !active);
     }
 
@@ -59,6 +63,7 @@ public class HUDController : MonoBehaviour {
     }
 
     private void OnDisable() {
+        _autoEndTurn = null;
         GameEventBus.OnHPChanged -= HandleHPChanged;
         GameEventBus.OnSANChanged -= HandleSANChanged;
         GameEventBus.OnAPChanged -= HandleAPChanged;
@@ -261,6 +266,27 @@ public class HUDController : MonoBehaviour {
             new Color(0.06f, 0.055f, 0.05f, 0.48f),
             false);
 
+        _incomingPanel = EnsureSkinImage(
+            transform,
+            _incomingPanel,
+            "IncomingDamagePanel",
+            720f,
+            572f,
+            480f,
+            40f,
+            VisualAssetService.UIPanelInfoID,
+            new Color(0.08f, 0.06f, 0.05f, 0.7f),
+            false);
+        _incomingLabel = EnsureChildLabel(
+            _incomingPanel.transform,
+            _incomingLabel,
+            "IncomingDamage_Text",
+            string.Empty,
+            18,
+            Color.white,
+            TextAnchor.MiddleCenter);
+        StretchToParent(_incomingLabel.rectTransform, 12f, 2f);
+
         _playerStatusPanel = EnsureSkinImage(
             transform,
             _playerStatusPanel,
@@ -445,6 +471,53 @@ public class HUDController : MonoBehaviour {
         RefreshEnemyButtons();
         RefreshTargetHint();
         RefreshActionButtons();
+        RefreshIncomingPreview();
+    }
+
+    // The damage the locked intents will deal when the turn ends, after the current shield.
+    private void RefreshIncomingPreview() {
+        if (_incomingPanel == null || _incomingLabel == null) {
+            return;
+        }
+
+        CombatSystem combat = GameRoot.Core?.Combat;
+        bool show = combat != null && combat.CurrentState == CombatState.PlayerTurn;
+        _incomingPanel.gameObject.SetActive(show);
+        if (!show) {
+            return;
+        }
+
+        IncomingDamagePreview preview = CombatReadabilityTextService.BuildIncomingDamagePreview(combat);
+        _incomingLabel.text = preview.Text;
+        _incomingLabel.color = preview.Lethal
+            ? new Color(1f, 0.38f, 0.32f)
+            : preview.HPLoss > 0 ? new Color(1f, 0.78f, 0.45f) : new Color(0.7f, 0.95f, 0.75f);
+    }
+
+    // Out of AP with nothing affordable left: end the turn for the player after a short beat, so the last hit lands
+    // on screen first. The rule (what still counts as an action) lives in CombatSystem.PlayerHasActionLeft.
+    private void MaybeAutoEndTurn() {
+        CombatSystem combat = GameRoot.Core?.Combat;
+        if (_autoEndTurn != null || !isActiveAndEnabled || combat == null || combat.CurrentState != CombatState.PlayerTurn
+            || ItemUseService.HasPendingEnemyTargetSelection || combat.PlayerHasActionLeft()) {
+            return;
+        }
+
+        _autoEndTurn = StartCoroutine(AutoEndTurnAfterBeat());
+    }
+
+    private System.Collections.IEnumerator AutoEndTurnAfterBeat() {
+        if (_turnBannerLabel != null) {
+            _turnBannerLabel.text = "AP 用完，自动结束回合";
+        }
+
+        yield return new WaitForSecondsRealtime(0.8f);
+        _autoEndTurn = null;
+        CombatSystem combat = GameRoot.Core?.Combat;
+        if (combat != null && combat.CurrentState == CombatState.PlayerTurn && !combat.PlayerHasActionLeft()
+            && !ItemUseService.HasPendingEnemyTargetSelection) {
+            combat.EndPlayerTurn();
+        }
     }
 
     private void RefreshStaticData() {
@@ -687,7 +760,7 @@ public class HUDController : MonoBehaviour {
         intentObj.transform.SetParent(parent, false);
         Text intentLabel = intentObj.AddComponent<Text>();
         intentLabel.font = _defaultFont;
-        intentLabel.fontSize = 15;
+        intentLabel.fontSize = 17;
         intentLabel.alignment = TextAnchor.MiddleCenter;
         intentLabel.color = targetable ? new Color(1f, 0.86f, 0.36f) : new Color(0.84f, 0.84f, 0.84f, 0.86f);
         intentLabel.raycastTarget = false;
@@ -729,8 +802,8 @@ public class HUDController : MonoBehaviour {
             return BuildEnemyHpText(fighter);
         }
 
-        string detail = string.IsNullOrEmpty(line.DetailText) ? BuildEnemyHpText(fighter) : line.DetailText;
-        return $"敌方意图: {line.IntentTitle}\n{detail}";
+        string intent = line.CanExecute ? line.IntentShort : $"{line.IntentShort}（做不到）";
+        return $"意图：{intent}\n{BuildEnemyHpText(fighter)}";
     }
 
     private CombatIntentReadabilityLine FindIntentLineForFighter(FighterEntity fighter) {
@@ -803,10 +876,13 @@ public class HUDController : MonoBehaviour {
                 hpLabel.text = $"HP: {current} / {max}";
             }
             SetBarFill(_hpBarFill, max > 0 ? (float)current / max : 0f);
+            RefreshIncomingPreview();
             return;
         }
 
+        RefreshIntentSnapshot();
         RefreshEnemyButtons();
+        RefreshIncomingPreview();
     }
 
     private void HandleSANChanged(string id, int current, int max) {
@@ -823,6 +899,7 @@ public class HUDController : MonoBehaviour {
                 apLabel.text = $"AP: {current} / {max}";
             }
             RefreshApPips(current, max);
+            MaybeAutoEndTurn();
         }
     }
 
@@ -832,6 +909,7 @@ public class HUDController : MonoBehaviour {
                 shieldLabel.text = $"Shield: {current}";
             }
             SetBarFill(_shieldBarFill, current > 0 ? 1f : 0f);
+            RefreshIncomingPreview();
             return;
         }
 
@@ -854,12 +932,16 @@ public class HUDController : MonoBehaviour {
         RefreshEnemyButtons();
         RefreshTargetHint();
         RefreshActionButtons();
+        RefreshIncomingPreview();
     }
 
     private void HandleTargetSelectionChanged(string message, bool isActive) {
         RefreshTargetHint(message, isActive);
         RefreshEnemyButtons();
         RefreshActionButtons();
+        if (!isActive) {
+            MaybeAutoEndTurn();
+        }
     }
 
     private void HandleCombatPhase(CombatEventType phase, CombatFaction activeFaction) {

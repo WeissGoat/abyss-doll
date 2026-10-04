@@ -1,0 +1,105 @@
+{
+  "ConfigID": "gear_focus_lens",
+  "Name": "聚焦镜片",
+  "ItemType": "Armor",
+  "Rarity": "Uncommon",
+  "BaseValue": 260,
+  "IconID": "item_loot_spore_amber_icon",
+  "DescriptionKey": "item.gear_focus_lens.desc",
+  "ItemRole": [
+    "Support",
+    "Adjacency"
+  ],
+  "LayerTags": [
+    "Layer1"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Support"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "DamageMultiplier",
+        "Level": 0,
+        "Target": "Right",
+        "Params": [
+          0.5
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Support",
+    "Energy",
+    "Layer1"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "DismantleOnly"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [
+      "reward_node_treasure_layer1"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Energy",
+      "Layer1"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "mechanical_support_tier1"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "None",
+    "CorruptionProfile": "LowMaintenanceCost",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_loot_spore_amber_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_focus_lens"
+  }
+}

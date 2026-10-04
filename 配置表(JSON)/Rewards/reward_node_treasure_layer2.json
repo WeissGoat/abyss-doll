@@ -63,6 +63,12 @@
           "ItemID": "loot_warped_plate",
           "Weight": 15,
           "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_cog_amplifier",
+          "Weight": 15,
+          "Count": 1
         }
       ]
     }

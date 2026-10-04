@@ -55,7 +55,7 @@ public static class P3DevTools {
             MonsterIntentReport report = combat.CurrentState == CombatState.End ? null : MonsterIntentPreviewService.BuildReport(combat);
             if (report?.Monsters != null) {
                 foreach (MonsterIntentCard card in report.Monsters) {
-                    string intent = card.SelectedIntent != null ? card.SelectedIntent.Title : "?";
+                    string intent = card.SelectedIntent != null ? (card.SelectedIntent.ShortText ?? card.SelectedIntent.Title) : "?";
                     enemies.Add($"{card.MonsterName} {card.RuntimeHP}/{card.RuntimeMaxHP} intent={intent}");
                 }
             }

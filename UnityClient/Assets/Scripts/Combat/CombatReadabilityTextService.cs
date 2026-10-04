@@ -21,9 +21,23 @@ public class CombatIntentReadabilityLine {
     public bool CanExecute;
     public MonsterIntentType IntentType = MonsterIntentType.Unknown;
     public string IntentTitle;
+    public string IntentShort;
     public string IntentDescription;
     public string StatusText;
     public string DetailText;
+}
+
+// What the locked enemy intents will do to Zero if the turn ends now: total attack damage, how much the current
+// shield absorbs, and the HP left after it.
+public class IncomingDamagePreview {
+    public int Total;
+    public int Shield;
+    public int Blocked;
+    public int HPLoss;
+    public int HPBefore;
+    public int HPAfter;
+    public bool Lethal;
+    public string Text;
 }
 
 public class CombatOutcomeReadabilitySnapshot {
@@ -82,6 +96,45 @@ public static class CombatReadabilityTextService {
         return snapshot;
     }
 
+    public static IncomingDamagePreview BuildIncomingDamagePreview(CombatSystem combat) {
+        IncomingDamagePreview preview = new IncomingDamagePreview();
+        FighterEntity player = combat?.PlayerFaction?.Fighters != null && combat.PlayerFaction.Fighters.Count > 0
+            ? combat.PlayerFaction.Fighters[0]
+            : null;
+        if (player == null) {
+            preview.Text = string.Empty;
+            return preview;
+        }
+
+        MonsterIntentReport report = MonsterIntentPreviewService.BuildReport(combat);
+        if (report != null && report.Success) {
+            foreach (MonsterIntentCard card in report.Monsters) {
+                MonsterActionIntentPreview intent = card?.SelectedIntent;
+                if (card != null && card.IsAlive && intent != null && intent.CanExecute && intent.IntentType == MonsterIntentType.Attack) {
+                    preview.Total += intent.EstimatedTotalDamage;
+                }
+            }
+        }
+
+        preview.Shield = player.RuntimeShield;
+        preview.Blocked = System.Math.Min(preview.Shield, preview.Total);
+        preview.HPLoss = preview.Total - preview.Blocked;
+        preview.HPBefore = player.RuntimeHP;
+        preview.HPAfter = System.Math.Max(0, player.RuntimeHP - preview.HPLoss);
+        preview.Lethal = preview.HPLoss > 0 && preview.HPAfter <= 0;
+        if (preview.Total <= 0) {
+            preview.Text = "敌方这回合不攻击";
+        } else {
+            string shieldPart = preview.Blocked > 0 ? $"护盾挡 {preview.Blocked}，" : "没有护盾，";
+            preview.Text = $"回合结束将受到 {preview.Total} 伤害：{shieldPart}HP -{preview.HPLoss}（剩 {preview.HPAfter}）";
+            if (preview.Lethal) {
+                preview.Text += "，会倒下！";
+            }
+        }
+
+        return preview;
+    }
+
     public static CombatOutcomeReadabilitySnapshot BuildOutcomeSnapshot(CombatOutcomeReport report, int timelineLimit = 6) {
         CombatOutcomeReadabilitySnapshot snapshot = new CombatOutcomeReadabilitySnapshot();
         if (report == null) {
@@ -138,6 +191,7 @@ public static class CombatReadabilityTextService {
         line.CanExecute = selected.CanExecute;
         line.IntentType = selected.IntentType;
         line.IntentTitle = string.IsNullOrEmpty(selected.Title) ? "未知意图" : selected.Title;
+        line.IntentShort = string.IsNullOrEmpty(selected.ShortText) ? line.IntentTitle : selected.ShortText;
         line.IntentDescription = selected.Description ?? string.Empty;
         line.StatusText = $"{line.MonsterName}: {line.IntentTitle}";
 

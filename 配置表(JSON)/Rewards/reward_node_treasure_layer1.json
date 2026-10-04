@@ -26,6 +26,8 @@
         { "Type": "Item", "ItemID": "con_repair_kit", "Weight": 30, "Count": 1 },
         { "Type": "Item", "ItemID": "loot_rusty_coil", "Weight": 28, "Count": 1 },
         { "Type": "Item", "ItemID": "gear_tactical_blade", "Weight": 7, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_whetstone", "Weight": 12, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_focus_lens", "Weight": 8, "Count": 1 },
         { "Type": "Nothing", "Weight": 10 }
       ]
     }

@@ -1,0 +1,117 @@
+{
+  "ConfigID": "gear_cog_amplifier",
+  "Name": "齿轮增幅器",
+  "ItemType": "Armor",
+  "Rarity": "Rare",
+  "BaseValue": 420,
+  "IconID": "item_loot_rusty_coil_icon",
+  "DescriptionKey": "item.gear_cog_amplifier.desc",
+  "ItemRole": [
+    "Support",
+    "Adjacency"
+  ],
+  "LayerTags": [
+    "Layer2"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Support"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "DamageMultiplier",
+        "Level": 0,
+        "Target": "Up",
+        "Params": [
+          0.3
+        ]
+      },
+      {
+        "EffectID": "DamageMultiplier",
+        "Level": 0,
+        "Target": "Down",
+        "Params": [
+          0.3
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Support",
+    "Mechanical",
+    "Layer2"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "DismantleOnly"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [
+      "reward_node_treasure_layer2"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Mechanical",
+      "Layer2"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "mechanical_support_tier1"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "None",
+    "CorruptionProfile": "LowMaintenanceCost",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_loot_rusty_coil_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_cog_amplifier"
+  }
+}
