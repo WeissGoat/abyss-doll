@@ -143,13 +143,13 @@ public class WorkshopUIController : MonoBehaviour {
         }
 
         if (stashHeaderText != null) {
-            stashHeaderText.text = "Town Market Preview";
+            stashHeaderText.text = "账本：出售";
         }
 
         if (sellSummaryText != null) {
             sellSummaryText.text = sellableCount > 0
-                ? $"Backpack {backpackCount} / Stash {stashCount}\nPreview value {sellableEstimatedValue}G. Shop staging handles final pricing and channels."
-                : "No staged goods yet. Shop staging handles allocation and final sale confirmation.";
+                ? $"背包 {backpackCount} 件 / 仓库 {stashCount} 件，估值 {sellableEstimatedValue}G。\n点每一行的「出售」卖掉这一件。"
+                : "没有可以出售的东西。";
         }
 
         if (openSellPanelBtn != null) {
@@ -219,7 +219,7 @@ public class WorkshopUIController : MonoBehaviour {
 
         if (sellAllBtn != null) {
             sellAllBtn.onClick.RemoveAllListeners();
-            sellAllBtn.onClick.AddListener(() => OpenFormalV1Panel("shop_staging"));
+            sellAllBtn.onClick.AddListener(SellAllStashLoot);
         }
 
         if (openProstheticPanelBtn != null) {
@@ -441,13 +441,13 @@ public class WorkshopUIController : MonoBehaviour {
 
         if (grid != null) {
             foreach (var item in grid.ContainedItems) {
-                CreateSellRow(item, defaultFont, "Backpack");
+                CreateSellRow(item, defaultFont, "背包");
                 visibleRows++;
             }
         }
 
         foreach (var item in player.StashInventory) {
-            CreateSellRow(item, defaultFont, "Stash");
+            CreateSellRow(item, defaultFont, "仓库");
             visibleRows++;
         }
 
@@ -748,15 +748,36 @@ public class WorkshopUIController : MonoBehaviour {
             defaultFont,
             18);
 
-        CreateInlinePill(
+        Button sellButton = CreateAnchoredButton(
+            "Sell_Button",
+            "出售",
             row.transform,
-            "RoutePill",
-            "Staging",
+            new Vector2(0.5f, 0.5f),
+            new Vector2(0.5f, 0.5f),
+            new Vector2(0.5f, 0.5f),
+            Vector2.zero,
             new Vector2(118f, 48f),
-            new Color(0.18f, 0.23f, 0.19f, 0.95f),
-            new Color(0.86f, 0.92f, 0.76f, 1f),
+            new Color(0.72f, 0.36f, 0.16f),
             defaultFont,
-            18);
+            20);
+        sellButton.onClick.AddListener(() => SellItem(item));
+    }
+
+    private void SellItem(ItemEntity item) {
+        ShowSellResult(TownEconomyService.SellItems(GameRoot.Core.CurrentPlayer, new[] { item }, EconomySellChannel.DumpBox));
+    }
+
+    private void SellAllStashLoot() {
+        ShowSellResult(TownEconomyService.SellAllStashLoot(GameRoot.Core.CurrentPlayer));
+    }
+
+    private void ShowSellResult(EconomySellReport report) {
+        Debug.Log($"[Workshop] Sold {report.SoldItems.Count} item(s) for {report.TotalIncome}G. {string.Join("; ", report.FailedItems)}");
+        RefreshUI();
+        RefreshSellList();
+        if (sellSummaryText != null && report.SoldItems.Count > 0) {
+            sellSummaryText.text = $"卖出 {report.SoldItems.Count} 件，收入 {report.TotalIncome}G，现有资金 {GameRoot.Core.CurrentPlayer.Money}G。\n" + sellSummaryText.text;
+        }
     }
 
     private void CreateMarketPreviewPlaceholderRow(Font defaultFont) {
@@ -1393,22 +1414,23 @@ public class WorkshopUIController : MonoBehaviour {
         summaryRect.sizeDelta = new Vector2(690f, 76f);
         sellSummaryText = summary;
 
+        // Direct sale until M2's business gameplay replaces it (shop staging, showcase, orders).
         sellAllBtn = CreateAnchoredButton(
-            "OpenShopStaging_Button",
-            "Shop Staging",
+            "SellAllLoot_Button",
+            "出售全部战利品",
             cardObj.transform,
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
-            new Vector2(-260f, -36f),
-            new Vector2(190f, 54f),
+            new Vector2(-200f, -36f),
+            new Vector2(230f, 54f),
             new Color(0.72f, 0.36f, 0.16f),
             defaultFont,
             20);
 
         closeSellPanelBtn = CreateAnchoredButton(
             "Close_Button",
-            "Close",
+            "关闭",
             cardObj.transform,
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
@@ -1476,7 +1498,7 @@ public class WorkshopUIController : MonoBehaviour {
         CreateAnchoredText(
             "MarketRouteTitle_Text",
             routeObj.transform,
-            "Market Route",
+            "怎么卖",
             new Vector2(24f, -24f),
             new Vector2(280f, 42f),
             defaultFont,
@@ -1487,7 +1509,7 @@ public class WorkshopUIController : MonoBehaviour {
         CreateAnchoredText(
             "MarketRouteBody_Text",
             routeObj.transform,
-            "Preview only. Use shop staging to place goods, pick channels, and confirm the final sale.",
+            "按这里的价格直接卖给回收铺。仓库里的东西都能卖，装备卖了就没了。",
             new Vector2(100f, -88f),
             new Vector2(198f, 158f),
             defaultFont,
@@ -1498,7 +1520,7 @@ public class WorkshopUIController : MonoBehaviour {
         CreateAnchoredText(
             "MarketRouteHint_Text",
             routeObj.transform,
-            "Orders and black-market risk are handled after staging, not from this preview.",
+            "做义体要用的材料（例如废旧齿轮）留一些。橱窗、订单和黑市以后开放。",
             new Vector2(100f, -276f),
             new Vector2(198f, 112f),
             defaultFont,

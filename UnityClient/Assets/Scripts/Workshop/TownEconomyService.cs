@@ -463,6 +463,17 @@ public static class TownEconomyService {
         return report;
     }
 
+    // 账本「出售全部战利品」: every stash item of type Loot except core materials. Gear, consumables and order items
+    // stay; so do backpack items, which the player is about to dive with.
+    public static EconomySellReport SellAllStashLoot(PlayerProfile player, EconomySellChannel channel = EconomySellChannel.DumpBox) {
+        List<ItemEntity> loot = player?.StashInventory?
+            .Where(item => item != null
+                && item.ItemType == nameof(ItemType.Loot)
+                && (item.Tags == null || !item.Tags.Contains("CoreMaterial")))
+            .ToList() ?? new List<ItemEntity>();
+        return SellItems(player, loot, channel);
+    }
+
     public static EconomySellReport SellItems(PlayerProfile player, IEnumerable<ItemEntity> selectedItems, EconomySellChannel channel) {
         EconomySellReport report = new EconomySellReport {
             Channel = channel.ToString()

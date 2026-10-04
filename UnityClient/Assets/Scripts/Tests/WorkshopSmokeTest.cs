@@ -132,25 +132,31 @@ public static class WorkshopSmokeTest {
         bool stableRowLayout = listBuilt && HasPreferredRowHeight(controller.stashListParent.GetChild(0), 100f);
         bool compactListLane = HasCompactRectMaskedListLane(controller.sellPanel, "SellList_Scroll", 900f, 500f);
         bool prostheticPanelClosed = controller.prostheticPanel != null && !controller.prostheticPanel.activeSelf;
+        // The ledger sells directly (2026-10-04) until M2's business gameplay replaces it.
         Button directSellButton = controller.sellPanel != null ? FindButton(controller.sellPanel, "Sell_Button") : null;
-        Button shopStagingButton = controller.sellAllBtn;
         string marketText = CollectText(canvasObj);
+        bool ledgerText = marketText.Contains("账本：出售");
 
+        bool hasSellButton = directSellButton != null;
         int beforeMoney = core.CurrentPlayer.Money;
-        int beforeBackpackCount = ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).ContainedItems.Count;
-        shopStagingButton?.onClick.Invoke();
-        WorkshopFormalV1PanelController formalController = controller.GetComponent<WorkshopFormalV1PanelController>();
-        bool shopStagingOpened = formalController != null && formalController.CurrentScreenID == "shop_staging";
-        bool economySellNotApplied = core.CurrentPlayer.Money == beforeMoney
-            && ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).ContainedItems.Contains(sellTarget)
-            && ((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).ContainedItems.Count == beforeBackpackCount;
-        bool marketPreviewText = marketText.Contains("Town Market Preview")
-            && marketText.Contains("Shop staging");
+        directSellButton?.onClick.Invoke();
+        bool soldOne = core.CurrentPlayer.Money > beforeMoney
+            && !((BackpackGrid)core.CurrentPlayer.ActiveDoll.RuntimeGrid).ContainedItems.Contains(sellTarget);
 
-        if (panelIsSeparate && panelOpened && listBuilt && readableBackdrop && stableRowLayout && compactListLane && prostheticPanelClosed && directSellButton == null && shopStagingOpened && economySellNotApplied && marketPreviewText) {
-            Debug.Log("Workshop Market Preview Panel UI PASSED.");
+        ItemEntity stashLoot = ConfigManager.CreateItem("loot_rusty_coil");
+        ItemEntity stashGear = ConfigManager.CreateItem("gear_iron_armor");
+        ItemLifecycleService.MarkGroundInventoryItem(core.CurrentPlayer, stashLoot, "Test");
+        ItemLifecycleService.MarkGroundInventoryItem(core.CurrentPlayer, stashGear, "Test");
+        int moneyBeforeSellAll = core.CurrentPlayer.Money;
+        controller.sellAllBtn?.onClick.Invoke();
+        bool soldAllLoot = core.CurrentPlayer.Money > moneyBeforeSellAll
+            && !core.CurrentPlayer.StashInventory.Contains(stashLoot)
+            && core.CurrentPlayer.StashInventory.Contains(stashGear);
+
+        if (panelIsSeparate && panelOpened && listBuilt && readableBackdrop && stableRowLayout && compactListLane && prostheticPanelClosed && hasSellButton && soldOne && soldAllLoot && ledgerText) {
+            Debug.Log("Workshop Ledger Sell Panel UI PASSED.");
         } else {
-            Debug.LogError($"Workshop Market Preview Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, Rows={controller.stashListParent?.childCount ?? 0}, Backdrop={readableBackdrop}, RowLayout={stableRowLayout}, CompactLane={compactListLane}, ProstheticPanelClosed={prostheticPanelClosed}, DirectSellButton={directSellButton != null}, ShopStagingOpened={shopStagingOpened}, EconomyUnchanged={economySellNotApplied}, Text={marketPreviewText}, Money={core.CurrentPlayer.Money}");
+            Debug.LogError($"Workshop Ledger Sell Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, Rows={controller.stashListParent?.childCount ?? 0}, Backdrop={readableBackdrop}, RowLayout={stableRowLayout}, CompactLane={compactListLane}, ProstheticPanelClosed={prostheticPanelClosed}, DirectSellButton={hasSellButton}, SoldOne={soldOne}, SoldAllLoot={soldAllLoot}, Text={ledgerText}, Money={core.CurrentPlayer.Money}");
         }
 
         controller.CloseSellPanel();

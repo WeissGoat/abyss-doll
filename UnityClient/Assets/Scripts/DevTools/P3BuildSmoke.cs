@@ -5,8 +5,9 @@ using System.Text;
 using UnityEngine;
 
 // Self-check for a built player, started with `P3.exe -p3smoke`: screenshots the prologue, skips it, plays three
-// dives through P3DevTools the way a player would (layer select, pre-dive loadout, map, combat, loot, back to town),
-// screenshots the key screens, then writes P3Smoke.txt next to the screenshots and quits (exit code 0 = PASS).
+// dives through P3DevTools the way a player would (layer select, pre-dive loadout, map, combat, loot, back to town,
+// selling loot in the ledger), screenshots the key screens, then writes P3Smoke.txt next to the screenshots and
+// quits (exit code 0 = PASS).
 // Without the flag it does nothing. tools/build/Test-WindowsBuild.ps1 runs it.
 public class P3BuildSmoke : MonoBehaviour {
     private const string Flag = "-p3smoke";
@@ -46,6 +47,7 @@ public class P3BuildSmoke : MonoBehaviour {
         yield return Capture("03_loadout");
 
         int dives = 0;
+        int soldTotal = 0;
         bool stuck = false;
         string lastReport = null;
         int repeats = 0;
@@ -55,7 +57,17 @@ public class P3BuildSmoke : MonoBehaviour {
             if (report.Contains("Dive finished.")) {
                 dives++;
                 yield return new WaitForSecondsRealtime(0.5f);
-                yield return Capture($"0{3 + dives}_after_dive_{dives}");
+                // Back in town: sell the loot through the ledger like a player, so the build checks selling too.
+                int moneyBefore = GameRoot.Core.CurrentPlayer.Money;
+                P3DevTools.Click("账本");
+                yield return null;
+                P3DevTools.Click("出售全部战利品");
+                yield return new WaitForSecondsRealtime(0.5f);
+                yield return Capture($"0{3 + dives}_ledger_after_dive_{dives}");
+                soldTotal += GameRoot.Core.CurrentPlayer.Money - moneyBefore;
+                Note($"[sell] ledger income {GameRoot.Core.CurrentPlayer.Money - moneyBefore}G");
+                P3DevTools.Click("关闭");
+                yield return null;
                 continue;
             }
 
@@ -73,7 +85,7 @@ public class P3BuildSmoke : MonoBehaviour {
 
         PlayerProfile player = GameRoot.Core.CurrentPlayer;
         bool passed = !stuck && dives >= TargetDives && player.CurrentDay == 1 + dives;
-        string verdict = $"{(passed ? "PASS" : "FAIL")}: {dives}/{TargetDives} dives, day {player.CurrentDay}, money {player.Money}, "
+        string verdict = $"{(passed ? "PASS" : "FAIL")}: {dives}/{TargetDives} dives, day {player.CurrentDay}, money {player.Money} (ledger sales {soldTotal}G), "
             + $"{Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
         Debug.Log("[P3BuildSmoke] " + verdict);
         File.WriteAllText(Path.Combine(_outDir, "P3Smoke.txt"), verdict + "\n\n" + _log);
