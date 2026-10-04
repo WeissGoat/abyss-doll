@@ -42,6 +42,7 @@ public static class StrainAndMaintenanceTest {
         float wearBeforeDefeat = doll.Status.WearAndTear;
         doll.Status.HP_Current = 0;
         DungeonEventBus.PublishDungeonDefeated();
+        DayCycleService.FinishNight(player);
         DayEndReport defeat = DayCycleService.TakePendingReport();
         Check(Mathf.Approximately(doll.Status.WearAndTear, Mathf.Min(100f, wearBeforeDefeat + doll.Stats.DefeatWearGain)), $"defeat wear {wearBeforeDefeat} -> {doll.Status.WearAndTear}");
         Check(defeat != null && defeat.WearAfter > defeat.WearBefore && defeat.CorruptionAfter > defeat.CorruptionBefore, "defeat report does not show the wear / corruption gain");
@@ -50,6 +51,7 @@ public static class StrainAndMaintenanceTest {
         doll.Status.WearAndTear = 50f;
         doll.Status.Corruption = 50f;
         DayCycleService.Rest(player, out _);
+        DayCycleService.FinishNight(player);
         EconomyConfig config = TownEconomyService.GetConfig();
         Check(Mathf.Approximately(doll.Status.WearAndTear, 50f - config.RestWearReduction) && Mathf.Approximately(doll.Status.Corruption, 50f - config.RestCorruptionReduction), $"rest left wear {doll.Status.WearAndTear}, corruption {doll.Status.Corruption}");
 

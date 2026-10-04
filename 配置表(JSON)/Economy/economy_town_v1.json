@@ -37,6 +37,12 @@
   "RestWearReduction": 15,
   "RestCorruptionReduction": 15,
   "BankruptcyHeavyDefaults": 2,
+  "DumpBoxMultiplier": 0.8,
+  "ShowcaseMultiplier": 1.3,
+  "ShowcaseAdjacencyBonus": 0.15,
+  "ShowcaseWidth": 4,
+  "ShowcaseHeight": 4,
+  "ShowcaseIgnoredTags": ["Material", "RiskPremium", "Trade", "Layer1", "Layer2", "Layer3"],
   "ShopPriceMultiplier": 1.2,
   "ShopStock": ["gear_rusty_dagger", "gear_wooden_shield", "con_repair_kit", "con_cheap_sedative"],
   "PawnProtectedTags": [

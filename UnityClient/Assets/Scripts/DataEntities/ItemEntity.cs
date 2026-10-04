@@ -25,6 +25,14 @@ public class ItemEntity {
     public int CorruptionLevel;
     public List<string> DynamicTags = new List<string>();
     public bool IsBinding;
+    public ItemEconomyComponent Economy;
+}
+
+[Serializable]
+public class ItemEconomyComponent {
+    // Market tags: rumors and showcase adjacency match on these.
+    public List<string> ValueTags = new List<string>();
+    public string ContrabandRule;
 }
 
 [Serializable]

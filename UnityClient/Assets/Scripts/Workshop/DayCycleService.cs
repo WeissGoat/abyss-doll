@@ -23,6 +23,7 @@ public class DayEndReport {
     public float CorruptionBefore;
     public float CorruptionAfter;
     public DailyEconomyReport Economy;
+    public BusinessReport Business;
     public bool RentPending;
     public bool Bankrupt;
 
@@ -96,6 +97,11 @@ public static class DayCycleService {
 
         if (TownEconomyService.IsBankrupt(player)) {
             reason = "工坊已经破产。";
+            return false;
+        }
+
+        if (player.IsNight) {
+            reason = "今晚还没营业：先开张，明天再做决定。";
             return false;
         }
 
@@ -202,9 +208,34 @@ public static class DayCycleService {
         report.CorruptionBefore = doll?.Status.Corruption ?? 0f;
     }
 
+    private static DayEndReport _nightReport;
+
+    // The day's choice is done; the night business screen comes next (FinishNight closes it).
     private static void FinishDay(PlayerProfile player, DayEndReport report) {
         report.EndedDay = player.CurrentDay;
-        report.Economy = TownEconomyService.SettleDailyBusiness(player, new DailyEconomySettlementInput());
+        player.IsNight = true;
+        _nightReport = report;
+    }
+
+    // 开始营业: sells the dump box and showcase, runs the night settlement (business income first, then rent) and
+    // moves the calendar to the next morning. The report goes to the night card.
+    public static DayEndReport FinishNight(PlayerProfile player) {
+        if (player == null || !player.IsNight) {
+            return null;
+        }
+
+        DayEndReport report = _nightReport ?? new DayEndReport { Choice = DayChoice.Rest, EndedDay = player.CurrentDay };
+        _nightReport = null;
+        if (report.HPMax == 0) {
+            CaptureBefore(report, player.ActiveDoll, player.ActiveDoll?.Status.HP_Current ?? 0, player.ActiveDoll?.Status.SAN_Current ?? 0);
+        }
+
+        report.Business = NightBusinessService.Open(player);
+        player.IsNight = false;
+        report.Economy = TownEconomyService.SettleDailyBusiness(player, new DailyEconomySettlementInput {
+            DumpBoxIncome = report.Business.DumpBoxIncome,
+            ShowcaseIncome = report.Business.ShowcaseIncome
+        });
         if (report.Economy != null && !report.Economy.Success) {
             Debug.LogWarning($"[DayCycle] Night settlement did not finish: {report.Economy.Reason}");
         }
@@ -218,5 +249,6 @@ public static class DayCycleService {
         report.RentPending = player.HasPendingMonthlyRent;
         report.Bankrupt = TownEconomyService.IsBankrupt(player);
         PendingReport = report;
+        return report;
     }
 }

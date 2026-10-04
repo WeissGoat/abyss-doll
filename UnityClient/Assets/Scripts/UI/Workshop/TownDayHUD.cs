@@ -18,6 +18,7 @@ public class TownDayHUD : MonoBehaviour {
     private Text _dollText;
     private Button _maintenanceButton;
     private MaintenancePanel _maintenancePanel;
+    private NightBusinessPanel _businessPanel;
     private Text _moneyText;
     private Button _rentButton;
     private Button _diveButton;
@@ -107,6 +108,12 @@ public class TownDayHUD : MonoBehaviour {
     // Night card first, then the rent decision, then bankruptcy; each shows after the previous one closes.
     public void ShowPendingDayEvents() {
         Refresh();
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        if (player != null && player.IsNight) {
+            OpenBusiness(true);
+            return;
+        }
+
         DayEndReport report = DayCycleService.TakePendingReport();
         if (report != null) {
             ShowNightCard(report);
@@ -202,6 +209,13 @@ public class TownDayHUD : MonoBehaviour {
 
         text.AppendLine($"零号  HP {report.HPBefore} → {report.HPAfter} / {report.HPMax}    SAN {report.SANBefore} → {report.SANAfter} / {report.SANMax}");
         text.AppendLine($"磨损 {report.WearBefore:0} → {report.WearAfter:0}    侵蚀 {report.CorruptionBefore:0} → {report.CorruptionAfter:0}");
+
+        BusinessReport business = report.Business;
+        if (business != null && business.Lines.Count > 0) {
+            text.AppendLine($"今晚营业：卖出 {business.Lines.Count} 件，倾倒箱 {business.DumpBoxIncome}G，橱窗 {business.ShowcaseIncome}G，共 {business.Total}G。");
+        } else if (business != null) {
+            text.AppendLine("今晚没有摆货，店里冷冷清清：0G。");
+        }
 
         MonthlyRentSettlementReport rent = report.Rent;
         if (rent != null) {
@@ -342,6 +356,22 @@ public class TownDayHUD : MonoBehaviour {
         ShowFollowUps();
     }
 
+    // night: today's business (开始营业 ends the day). Otherwise the daytime 营业准备 view of the same screen.
+    public void OpenBusiness(bool night) {
+        if (_businessPanel == null) {
+            _businessPanel = NightBusinessPanel.Create(transform);
+        }
+
+        _businessPanel.Show(night, () => {
+            DayCycleService.FinishNight(GameRoot.Core?.CurrentPlayer);
+            _workshop?.RefreshUI();
+            ShowPendingDayEvents();
+        }, () => {
+            _workshop?.RefreshUI();
+            Refresh();
+        });
+    }
+
     public void OpenMaintenance() {
         if (_maintenancePanel == null) {
             _maintenancePanel = MaintenancePanel.Create(transform);
@@ -469,21 +499,15 @@ public class TownDayHUD : MonoBehaviour {
         UITheme.Place(_rentSelection.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 104f), new Vector2(660f, 30f));
 
         _payButton = UITheme.CreateButton(dialog, "PayRent_Button", "交房租", UITheme.Accent, UITheme.Background);
-        UITheme.Place((RectTransform)_payButton.transform, new Vector2(0.5f, 0f), new Vector2(-180f, 28f), new Vector2(230f, 60f));
+        UITheme.Place((RectTransform)_payButton.transform, new Vector2(0.5f, 0f), new Vector2(-130f, 28f), new Vector2(230f, 60f));
         _payButton.onClick.AddListener(() => PayRent(false));
         _pawnPayButton = UITheme.CreateButton(dialog, "PawnPay_Button", "典当选中的并交租", UITheme.Accent, UITheme.Background, UITheme.CaptionSize + 1);
-        UITheme.Place((RectTransform)_pawnPayButton.transform, new Vector2(0.5f, 0f), new Vector2(-180f, 28f), new Vector2(230f, 60f));
+        UITheme.Place((RectTransform)_pawnPayButton.transform, new Vector2(0.5f, 0f), new Vector2(-130f, 28f), new Vector2(230f, 60f));
         _pawnPayButton.onClick.AddListener(() => PayRent(true));
         _oweButton = UITheme.CreateButton(dialog, "Owe_Button", "先欠着", UITheme.PanelRaised, UITheme.Warning, UITheme.CaptionSize + 1);
         UITheme.AddBorder(_oweButton.targetGraphic, UITheme.Warning, 1.5f);
-        UITheme.Place((RectTransform)_oweButton.transform, new Vector2(0.5f, 0f), new Vector2(60f, 28f), new Vector2(230f, 60f));
+        UITheme.Place((RectTransform)_oweButton.transform, new Vector2(0.5f, 0f), new Vector2(130f, 28f), new Vector2(230f, 60f));
         _oweButton.onClick.AddListener(OweRent);
-        Button later = UITheme.CreateButton(dialog, "RentLater_Button", "先去卖东西", UITheme.PanelRaised, UITheme.TextPrimary, UITheme.CaptionSize + 1);
-        UITheme.Place((RectTransform)later.transform, new Vector2(0.5f, 0f), new Vector2(270f, 28f), new Vector2(170f, 60f));
-        later.onClick.AddListener(() => {
-            _rentPanel.SetActive(false);
-            Refresh();
-        });
         _rentPanel.SetActive(false);
     }
 

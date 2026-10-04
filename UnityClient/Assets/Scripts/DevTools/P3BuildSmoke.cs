@@ -62,16 +62,15 @@ public class P3BuildSmoke : MonoBehaviour {
                 dives++;
                 yield return new WaitForSecondsRealtime(0.5f);
                 // Back in town: sell the loot through the ledger like a player, so the build checks selling too.
-                Note(P3DevTools.ResolveDayDialogs());
-                int moneyBefore = GameRoot.Core.CurrentPlayer.Money;
-                P3DevTools.Click("账本");
-                yield return null;
-                P3DevTools.Click("出售全部战利品");
+                // Night: dump the loot and open the business like a player, so the build checks the night flow too.
+                Note(P3DevTools.DumpAllForBusiness());
                 yield return new WaitForSecondsRealtime(0.5f);
-                yield return Capture($"0{3 + dives}_ledger_after_dive_{dives}");
+                yield return Capture($"0{3 + dives}_business_after_dive_{dives}");
+                int moneyBefore = GameRoot.Core.CurrentPlayer.Money;
+                bool wasNight = GameRoot.Core.CurrentPlayer.IsNight;
+                Note(P3DevTools.ResolveDayDialogs());
                 soldTotal += GameRoot.Core.CurrentPlayer.Money - moneyBefore;
-                Note($"[sell] ledger income {GameRoot.Core.CurrentPlayer.Money - moneyBefore}G");
-                P3DevTools.Click("关闭");
+                Note($"[business] night={wasNight}, income incl. rent {GameRoot.Core.CurrentPlayer.Money - moneyBefore}G");
                 yield return null;
                 continue;
             }
@@ -91,7 +90,7 @@ public class P3BuildSmoke : MonoBehaviour {
         PlayerProfile player = GameRoot.Core.CurrentPlayer;
         // Every dive and every rest takes one day.
         bool passed = !stuck && dives >= TargetDives && player.CurrentDay == 1 + dives + rests;
-        string verdict = $"{(passed ? "PASS" : "FAIL")}: {dives}/{TargetDives} dives, {rests} rest(s), day {player.CurrentDay}, money {player.Money} (ledger sales {soldTotal}G), "
+        string verdict = $"{(passed ? "PASS" : "FAIL")}: {dives}/{TargetDives} dives, {rests} rest(s), day {player.CurrentDay}, money {player.Money} (night business net {soldTotal}G), "
             + $"{Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
         Debug.Log("[P3BuildSmoke] " + verdict);
         File.WriteAllText(Path.Combine(_outDir, "P3Smoke.txt"), verdict + "\n\n" + _log);

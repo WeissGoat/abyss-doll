@@ -28,6 +28,14 @@ public class EconomyConfig {
     public float RestCorruptionReduction = 15f;
     // Consecutive heavy rent defaults that end the run (GDD_07 §5.3, 经济破产).
     public int BankruptcyHeavyDefaults = 2;
+    // Night business (GDD_04, Demo cut): the dump box sells everything at a discount; the small showcase grid sells
+    // at a premium plus a bonus per neighbour sharing a market tag (ValueTags minus the generic ones listed here).
+    public float DumpBoxMultiplier = 0.8f;
+    public float ShowcaseMultiplier = 1.3f;
+    public float ShowcaseAdjacencyBonus = 0.15f;
+    public int ShowcaseWidth = 4;
+    public int ShowcaseHeight = 4;
+    public List<string> ShowcaseIgnoredTags = new List<string>();
 }
 
 [Serializable]

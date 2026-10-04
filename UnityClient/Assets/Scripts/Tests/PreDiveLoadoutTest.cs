@@ -29,8 +29,9 @@ public static class PreDiveLoadoutTest {
         Check(core.Dungeon.StartRunAtLayer(1), "first dive did not start");
         Check(player.LastDiveLoadout.Count == startingItems, $"remembered {player.LastDiveLoadout.Count} of {startingItems} items");
 
-        // Evacuation: everything goes to the stash and the day moves on.
+        // Evacuation: everything goes to the stash; the night's business closes the day.
         DungeonEventBus.PublishDungeonEvacuated();
+        DayCycleService.FinishNight(player);
         Check(grid.ContainedItems.Count == 0, $"backpack not empty after evacuation ({grid.ContainedItems.Count})");
         Check(player.StashInventory.Count == startingItems, $"stash has {player.StashInventory.Count} after evacuation");
         Check(player.CurrentDay == 2, $"day after first dive is {player.CurrentDay}, expected 2");
@@ -79,6 +80,7 @@ public static class PreDiveLoadoutTest {
         // Second dive ends in defeat: brought items survive and the day still moves on.
         Check(core.Dungeon.StartRunAtLayer(1), "second dive did not start");
         DungeonEventBus.PublishDungeonDefeated();
+        DayCycleService.FinishNight(player);
         Check(player.StashInventory.Contains(loot), "brought loot was lost on defeat");
         Check(player.StashInventory.Contains(weapon), "weapon was lost on defeat");
         Check(player.CurrentDay == 3, $"day after second dive is {player.CurrentDay}, expected 3");

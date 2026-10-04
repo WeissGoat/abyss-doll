@@ -253,8 +253,10 @@ public static class P3DevTools {
     }
 
     private static void ResolveDayDialogs(StringBuilder log) {
-        for (int i = 0; i < 6; i++) {
-            if (ClickByLabel("迎接新的一天", null)) {
+        for (int i = 0; i < 8; i++) {
+            if (ClickByLabel(NightBusinessPanel.OpenLabel, null)) {
+                log.AppendLine("Opened the night business.");
+            } else if (ClickByLabel("迎接新的一天", null)) {
                 log.AppendLine("Closed the night card.");
             } else if (ClickByLabel("交房租", null)) {
                 log.AppendLine("Paid the rent.");
@@ -264,6 +266,13 @@ public static class P3DevTools {
                 return;
             }
         }
+    }
+
+    // At night: dump every loot item into the dump box (the business screen must be open), as a player in a hurry would.
+    public static string DumpAllForBusiness() {
+        bool clicked = ClickByLabel(NightBusinessPanel.DumpAllLabel, null);
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        return $"{(clicked ? "Dumped loot" : "No business screen")}: dump box {player?.DumpBox.Count ?? 0}, showcase {player?.Showcase.Count ?? 0}.\n" + Describe();
     }
 
     // Before a dive: close the night dialogs, and rest first when Zero cannot dive (HP 0).

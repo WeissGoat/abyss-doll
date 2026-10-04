@@ -255,7 +255,14 @@ public class WorkshopUIController : MonoBehaviour {
 
         if (openSellPanelBtn != null) {
             openSellPanelBtn.onClick.RemoveAllListeners();
-            openSellPanelBtn.onClick.AddListener(OpenSellPanel);
+            openSellPanelBtn.onClick.AddListener(() => {
+                // Outside the prologue the 账本 card opens the business screen for daytime arranging (GDD_04).
+                if (DayHud != null) {
+                    DayHud.OpenBusiness(GameRoot.Core?.CurrentPlayer?.IsNight ?? false);
+                } else {
+                    OpenSellPanel();
+                }
+            });
         }
 
         if (closeSellPanelBtn != null) {

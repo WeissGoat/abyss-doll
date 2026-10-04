@@ -33,6 +33,12 @@ public class PlayerProfile {
     public List<ActiveRumorState> ActiveRumors = new List<ActiveRumorState>();
     // Backpack layout at the last departure, for 「带上上次的装备」.
     public List<LoadoutSlotRecord> LastDiveLoadout = new List<LoadoutSlotRecord>();
+    // Night phase (GDD_07 §3.1): after the day's dive or rest, before the business opens and the calendar moves on.
+    public bool IsNight;
+    // Night business (GDD_04): goods moved out of the stash into the dump box or the showcase (Grid.CurrentPos and
+    // Rotation hold the showcase cell). They sell when the business opens and go back to the stash when taken out.
+    public List<ItemEntity> DumpBox = new List<ItemEntity>();
+    public List<ItemEntity> Showcase = new List<ItemEntity>();
 }
 
 [Serializable]

@@ -795,8 +795,10 @@ internal class MVPAutoplayCampaign {
         return false;
     }
 
+    // Night after the dive: spare loot goes into the dump box and the business opens (income, then rent), then the
+    // morning's free actions (rent decision, upgrades), resting while hurt.
     private void RunWorkshopPhase() {
-        SellSpareLoot();
+        CloseNight();
         SettlePendingRent();
         RestIfHurt();
 
@@ -832,6 +834,7 @@ internal class MVPAutoplayCampaign {
             }
 
             _report.RestDays++;
+            CloseNight();
             SettlePendingRent();
         }
     }
@@ -840,7 +843,6 @@ internal class MVPAutoplayCampaign {
     private void SettlePendingRent() {
         PlayerProfile player = _core.CurrentPlayer;
         if (player.HasPendingMonthlyRent) {
-            SellSpareLoot();
             MonthlyRentSettlementReport paid = TownEconomyService.ResolveMonthlyRent(player);
             if (paid.Status == MonthlyRentSettlementStatus.Paid) {
                 _report.RentPaid++;
@@ -883,6 +885,12 @@ internal class MVPAutoplayCampaign {
     };
 
     // After a dive everything sits in the stash (rule card 02 §5.2), so sell from there. Keeps what upgrades need.
+    private void CloseNight() {
+        SellSpareLoot();
+        DayCycleService.FinishNight(_core.CurrentPlayer);
+    }
+
+    // Puts spare loot into the night dump box (it sells when the business opens).
     private void SellSpareLoot() {
         Dictionary<string, int> kept = new Dictionary<string, int>();
         PlayerProfile player = _core.CurrentPlayer;
@@ -906,7 +914,7 @@ internal class MVPAutoplayCampaign {
             }
 
             int value = item.BaseValue;
-            if (_core.Workshop.SellItem(item, _core.CurrentPlayer)) {
+            if (NightBusinessService.TryMoveToDumpBox(player, item, out _)) {
                 _report.SoldItems++;
                 _report.SoldValue += value;
             }
