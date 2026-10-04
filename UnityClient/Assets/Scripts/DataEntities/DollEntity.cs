@@ -66,6 +66,10 @@ public class DollStatsComponent {
     // Bare-hands strike used when the backpack holds no weapon (so losing every weapon never locks the game).
     public int UnarmedDamage = 4;
     public int UnarmedAPCost = 1;
+    // Wear (磨损) per HP lost in combat, and the wear spike / SAN loss of a defeat (DollStrainService).
+    public float WearPerHPLost = 0.3f;
+    public float DefeatWearGain = 30f;
+    public int DefeatSANLoss = 10;
 }
 
 [Serializable]

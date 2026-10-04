@@ -16,6 +16,8 @@ public class TownDayHUD : MonoBehaviour {
     private GameObject _content;
     private Text _dayText;
     private Text _dollText;
+    private Button _maintenanceButton;
+    private MaintenancePanel _maintenancePanel;
     private Text _moneyText;
     private Button _rentButton;
     private Button _diveButton;
@@ -71,8 +73,9 @@ public class TownDayHUD : MonoBehaviour {
         DayCalendarInfo calendar = DayCycleService.GetCalendar(player);
         DollEntity doll = player.ActiveDoll;
         _dayText.text = $"第 {calendar.Day} 天 · 第 {calendar.Week} 周 {calendar.WeekDayName}";
-        _dollText.text = doll == null ? string.Empty : $"零号  HP {doll.Status.HP_Current}/{doll.Status.HP_Max}   SAN {doll.Status.SAN_Current}/{doll.Status.SAN_Max}";
-        _dollText.color = doll != null && doll.Status.HP_Current * 10 < doll.Status.HP_Max * 3 ? UITheme.Danger : UITheme.TextPrimary;
+        _dollText.text = doll == null ? string.Empty : $"零号  HP {doll.Status.HP_Current}/{doll.Status.HP_Max}  SAN {doll.Status.SAN_Current}/{doll.Status.SAN_Max}  {MaintenancePanel.DescribeStrain(doll)}";
+        bool hurt = doll != null && doll.Status.HP_Current * 10 < doll.Status.HP_Max * 3;
+        _dollText.color = hurt ? UITheme.Danger : doll != null ? MaintenancePanel.StrainColor(Mathf.Max(doll.Status.WearAndTear, doll.Status.Corruption)) : UITheme.TextPrimary;
         _moneyText.text = $"资金 {player.Money}G";
 
         string rentLabel;
@@ -97,7 +100,7 @@ public class TownDayHUD : MonoBehaviour {
         _restButton.interactable = canRest;
         _diveHint.text = canDive ? "选一层下潜，今天就过去了" : diveReason;
         _diveHint.color = canDive ? UITheme.TextSecondary : UITheme.Warning;
-        _restHint.text = canRest ? "恢复 HP 和 SAN，今天没有收获" : restReason;
+        _restHint.text = canRest ? "恢复 HP、SAN，减轻磨损和侵蚀；今天没有收获" : restReason;
         _restHint.color = canRest ? UITheme.TextSecondary : UITheme.Warning;
     }
 
@@ -198,6 +201,7 @@ public class TownDayHUD : MonoBehaviour {
         }
 
         text.AppendLine($"零号  HP {report.HPBefore} → {report.HPAfter} / {report.HPMax}    SAN {report.SANBefore} → {report.SANAfter} / {report.SANMax}");
+        text.AppendLine($"磨损 {report.WearBefore:0} → {report.WearAfter:0}    侵蚀 {report.CorruptionBefore:0} → {report.CorruptionAfter:0}");
 
         MonthlyRentSettlementReport rent = report.Rent;
         if (rent != null) {
@@ -338,6 +342,17 @@ public class TownDayHUD : MonoBehaviour {
         ShowFollowUps();
     }
 
+    public void OpenMaintenance() {
+        if (_maintenancePanel == null) {
+            _maintenancePanel = MaintenancePanel.Create(transform);
+        }
+
+        _maintenancePanel.Show(() => {
+            _workshop?.RefreshUI();
+            Refresh();
+        });
+    }
+
     private void RestartAfterBankruptcy() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -369,15 +384,19 @@ public class TownDayHUD : MonoBehaviour {
         bar.raycastTarget = false;
 
         _dayText = UITheme.CreateText(bar.transform, "Day_Text", string.Empty, UITheme.BodySize + 2, UITheme.Accent);
-        UITheme.Place(_dayText.rectTransform, new Vector2(0f, 0.5f), new Vector2(24f, 0f), new Vector2(380f, 48f));
-        _dollText = UITheme.CreateText(bar.transform, "Doll_Text", string.Empty, UITheme.BodySize, UITheme.TextPrimary, TextAnchor.MiddleCenter);
-        UITheme.Place(_dollText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-150f, 0f), new Vector2(420f, 48f));
+        UITheme.Place(_dayText.rectTransform, new Vector2(0f, 0.5f), new Vector2(24f, 0f), new Vector2(330f, 48f));
+        _dollText = UITheme.CreateText(bar.transform, "Doll_Text", string.Empty, UITheme.BodySize - 2, UITheme.TextPrimary, TextAnchor.MiddleCenter);
+        UITheme.Place(_dollText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-170f, 0f), new Vector2(500f, 48f));
+        _maintenanceButton = UITheme.CreateButton(bar.transform, "Maintenance_Button", "维护", UITheme.PanelRaised, UITheme.Accent, UITheme.CaptionSize);
+        UITheme.AddBorder(_maintenanceButton.targetGraphic, UITheme.Accent, 1f);
+        UITheme.Place((RectTransform)_maintenanceButton.transform, new Vector2(0.5f, 0.5f), new Vector2(135f, 0f), new Vector2(90f, 38f));
+        _maintenanceButton.onClick.AddListener(OpenMaintenance);
         _moneyText = UITheme.CreateText(bar.transform, "Money_Text", string.Empty, UITheme.BodySize, UITheme.TextPrimary, TextAnchor.MiddleCenter);
-        UITheme.Place(_moneyText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(150f, 0f), new Vector2(200f, 48f));
+        UITheme.Place(_moneyText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(270f, 0f), new Vector2(150f, 48f));
 
         _rentButton = UITheme.CreateButton(bar.transform, "Rent_Button", string.Empty, new Color(0f, 0f, 0f, 0f), UITheme.TextSecondary);
         _rentButton.GetComponentInChildren<Text>().alignment = TextAnchor.MiddleRight;
-        UITheme.Place((RectTransform)_rentButton.transform, new Vector2(1f, 0.5f), new Vector2(-24f, 0f), new Vector2(520f, 48f));
+        UITheme.Place((RectTransform)_rentButton.transform, new Vector2(1f, 0.5f), new Vector2(-24f, 0f), new Vector2(400f, 48f));
         _rentButton.onClick.AddListener(OpenRentPanel);
     }
 

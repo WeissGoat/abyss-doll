@@ -28,7 +28,7 @@ public static class WorkshopCostService {
         }
 
         if (player.Money < cost.Money) {
-            reason = $"Not enough money. Need={cost.Money}, Current={player.Money}.";
+            reason = $"钱不够：要 {cost.Money}G，你有 {player.Money}G。";
             return false;
         }
 
@@ -44,7 +44,7 @@ public static class WorkshopCostService {
 
             int ownedCount = CountOwnedItems(player, requirement.ConfigID);
             if (ownedCount < requirement.Count) {
-                reason = $"Missing item [{requirement.ConfigID}]. Need={requirement.Count}, Current={ownedCount}.";
+                reason = $"缺材料：{ResolveItemName(requirement.ConfigID)} 要 {requirement.Count} 个，你有 {ownedCount} 个。";
                 return false;
             }
         }
@@ -179,5 +179,9 @@ public static class WorkshopCostService {
             item.Grid.CurrentPos[0] = -1;
             item.Grid.CurrentPos[1] = -1;
         }
+    }
+
+    private static string ResolveItemName(string configID) {
+        return !string.IsNullOrEmpty(configID) && ConfigManager.Items.TryGetValue(configID, out ItemEntity item) ? item.Name : configID;
     }
 }

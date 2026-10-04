@@ -18,6 +18,10 @@ public class DayEndReport {
     public int SANBefore;
     public int SANAfter;
     public int SANMax;
+    public float WearBefore;
+    public float WearAfter;
+    public float CorruptionBefore;
+    public float CorruptionAfter;
     public DailyEconomyReport Economy;
     public bool RentPending;
     public bool Bankrupt;
@@ -46,6 +50,8 @@ public static class DayCycleService {
 
     private static int _diveStartHP = -1;
     private static int _diveStartSAN = -1;
+    private static float _diveStartWear = -1f;
+    private static float _diveStartCorruption = -1f;
     private static int _diveLayerID;
 
     // The latest day-end report the workshop has not shown yet.
@@ -132,6 +138,7 @@ public static class DayCycleService {
             float sanRatio = Mathf.Clamp01(config?.RestSANRecoverRatio ?? 1f);
             doll.Status.HP_Current = Mathf.Min(doll.Status.HP_Max, doll.Status.HP_Current + Mathf.CeilToInt(doll.Status.HP_Max * hpRatio));
             doll.Status.SAN_Current = Mathf.Min(doll.Status.SAN_Max, doll.Status.SAN_Current + Mathf.CeilToInt(doll.Status.SAN_Max * sanRatio));
+            DollStrainService.ApplyRest(doll, config);
             GameEventBus.PublishHPChanged(doll.Name, doll.Status.HP_Current, doll.Status.HP_Max);
             GameEventBus.PublishSANChanged(doll.Name, doll.Status.SAN_Current, doll.Status.SAN_Max);
         }
@@ -146,6 +153,8 @@ public static class DayCycleService {
         DollEntity doll = player?.ActiveDoll;
         _diveStartHP = doll?.Status.HP_Current ?? -1;
         _diveStartSAN = doll?.Status.SAN_Current ?? -1;
+        _diveStartWear = doll?.Status.WearAndTear ?? -1f;
+        _diveStartCorruption = doll?.Status.Corruption ?? -1f;
         _diveLayerID = layerID;
     }
 
@@ -167,8 +176,18 @@ public static class DayCycleService {
             doll,
             _diveStartHP >= 0 ? _diveStartHP : doll?.Status.HP_Current ?? 0,
             _diveStartSAN >= 0 ? _diveStartSAN : doll?.Status.SAN_Current ?? 0);
+        if (_diveStartWear >= 0f) {
+            report.WearBefore = _diveStartWear;
+            report.CorruptionBefore = _diveStartCorruption;
+        }
         _diveStartHP = -1;
         _diveStartSAN = -1;
+        _diveStartWear = -1f;
+        _diveStartCorruption = -1f;
+
+        if (defeated) {
+            DollStrainService.ApplyDefeat(doll);
+        }
 
         FinishDay(player, report);
         return report;
@@ -179,6 +198,8 @@ public static class DayCycleService {
         report.SANBefore = san;
         report.HPMax = doll?.Status.HP_Max ?? 0;
         report.SANMax = doll?.Status.SAN_Max ?? 0;
+        report.WearBefore = doll?.Status.WearAndTear ?? 0f;
+        report.CorruptionBefore = doll?.Status.Corruption ?? 0f;
     }
 
     private static void FinishDay(PlayerProfile player, DayEndReport report) {
@@ -191,6 +212,8 @@ public static class DayCycleService {
         DollEntity doll = player.ActiveDoll;
         report.HPAfter = doll?.Status.HP_Current ?? 0;
         report.SANAfter = doll?.Status.SAN_Current ?? 0;
+        report.WearAfter = doll?.Status.WearAndTear ?? 0f;
+        report.CorruptionAfter = doll?.Status.Corruption ?? 0f;
         report.NewDay = player.CurrentDay;
         report.RentPending = player.HasPendingMonthlyRent;
         report.Bankrupt = TownEconomyService.IsBankrupt(player);

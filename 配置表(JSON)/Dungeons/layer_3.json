@@ -14,6 +14,7 @@
     "design_pack_layer3_route_corrosion"
   ],
   "SANCostPerNode": 3,
+  "CorruptionPerNode": 6,
   "ExpectedNodeCount": 8,
   "MapProfileID": "layer3_route_attrition",
   "MapSeed": 3072,

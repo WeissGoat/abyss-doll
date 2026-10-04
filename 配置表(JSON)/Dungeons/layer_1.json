@@ -13,6 +13,7 @@
     "design_pack_layer1_formal_core"
   ],
   "SANCostPerNode": 1,
+  "CorruptionPerNode": 2,
   "ExpectedNodeCount": 6,
   "MapProfileID": "layer1_tutorial_branching",
   "MapSeed": 1024,

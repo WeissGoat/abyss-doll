@@ -34,6 +34,8 @@
   "PawnValueMultiplier": 0.25,
   "RestHPRecoverRatio": 1.0,
   "RestSANRecoverRatio": 1.0,
+  "RestWearReduction": 15,
+  "RestCorruptionReduction": 15,
   "BankruptcyHeavyDefaults": 2,
   "ShopPriceMultiplier": 1.2,
   "ShopStock": ["gear_rusty_dagger", "gear_wooden_shield", "con_repair_kit", "con_cheap_sedative"],

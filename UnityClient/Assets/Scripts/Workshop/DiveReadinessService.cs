@@ -200,28 +200,28 @@ public static class DiveReadinessService {
             result.AddIssue(
                 DiveReadinessIssueCode.ExtremeWear,
                 DiveReadinessIssueSeverity.Blocker,
-                $"Wear is too high ({doll.Status.WearAndTear:0}/{ExtremeWearThreshold:0}).",
-                "Perform maintenance before diving.");
+                $"零号磨损太重（{doll.Status.WearAndTear:0}/100），关节撑不住下潜。",
+                "先在「维护」里修补，或停工休息。");
         } else if (doll.Status.WearAndTear >= HeavyWearWarningThreshold) {
             result.AddIssue(
                 DiveReadinessIssueCode.HeavyWearWarning,
                 DiveReadinessIssueSeverity.Warning,
-                $"Wear is high ({doll.Status.WearAndTear:0}).",
-                "Diving is allowed, but maintenance is recommended.");
+                $"零号磨损偏重（{doll.Status.WearAndTear:0}/100）。",
+                "可以出发，但最好先维护。");
         }
 
         if (doll.Status.Corruption >= ExtremeCorruptionThreshold) {
             result.AddIssue(
                 DiveReadinessIssueCode.ExtremeCorruption,
                 DiveReadinessIssueSeverity.Blocker,
-                $"Corruption is too high ({doll.Status.Corruption:0}/{ExtremeCorruptionThreshold:0}).",
-                "Cleanse corruption or rest before diving.");
+                $"零号侵蚀太深（{doll.Status.Corruption:0}/100），再下去会出事。",
+                "先在「维护」里净化，或停工休息。");
         } else if (doll.Status.Corruption >= HighCorruptionWarningThreshold) {
             result.AddIssue(
                 DiveReadinessIssueCode.HighCorruptionWarning,
                 DiveReadinessIssueSeverity.Warning,
-                $"Corruption is high ({doll.Status.Corruption:0}).",
-                "Diving is allowed, but crisis risk should be shown.");
+                $"零号侵蚀偏深（{doll.Status.Corruption:0}/100）。",
+                "可以出发，但最好先净化。");
         }
     }
 

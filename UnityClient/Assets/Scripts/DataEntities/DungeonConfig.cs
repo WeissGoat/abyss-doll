@@ -6,6 +6,8 @@ public class DungeonConfig {
     public int LayerID;
     public string Name;
     public int SANCostPerNode;
+    // Corruption (侵蚀) Zero gains for every node walked on this layer (DollStrainService).
+    public float CorruptionPerNode;
     public int ExpectedNodeCount;
     public string MapProfileID;
     public int MapSeed;

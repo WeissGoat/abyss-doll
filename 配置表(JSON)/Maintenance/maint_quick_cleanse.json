@@ -1,0 +1,22 @@
+{
+  "MaintenanceID": "maint_quick_cleanse",
+  "Name": "简易净化",
+  "Description": "只花钱的简易净化，降低一些侵蚀并稍微安抚心智。",
+  "QualityTier": "Basic",
+  "Cost": {
+    "Money": 100,
+    "RequiredItems": []
+  },
+  "Effects": [
+    {
+      "TargetState": "Corruption",
+      "Amount": 25
+    },
+    {
+      "TargetState": "SAN",
+      "Amount": 5
+    }
+  ],
+  "DailyLimit": 0,
+  "RestoresDivePermit": true
+}

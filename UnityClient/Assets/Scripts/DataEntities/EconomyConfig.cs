@@ -24,6 +24,8 @@ public class EconomyConfig {
     // 停工休息 (GDD_07 §2.3 B): share of max HP / SAN restored by a rest day.
     public float RestHPRecoverRatio = 1f;
     public float RestSANRecoverRatio = 1f;
+    public float RestWearReduction = 15f;
+    public float RestCorruptionReduction = 15f;
     // Consecutive heavy rent defaults that end the run (GDD_07 §5.3, 经济破产).
     public int BankruptcyHeavyDefaults = 2;
 }

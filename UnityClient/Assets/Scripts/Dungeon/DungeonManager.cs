@@ -439,6 +439,7 @@ public class DungeonManager {
 
         int cost = GetSanCostForNode(targetNode);
         DungeonEventBus.PublishNodeEntered(targetNode, cost);
+        DollStrainService.AddCorruptionForNode(GameRoot.Core?.CurrentPlayer?.ActiveDoll, CurrentLayer.LayerID);
 
         targetNode.OnEnterNode();
     }

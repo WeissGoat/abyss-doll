@@ -13,6 +13,7 @@
     "design_pack_layer2_bag_pressure"
   ],
   "SANCostPerNode": 2,
+  "CorruptionPerNode": 4,
   "ExpectedNodeCount": 7,
   "MapProfileID": "layer2_bag_pressure",
   "MapSeed": 2048,

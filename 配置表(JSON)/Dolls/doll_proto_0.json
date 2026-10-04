@@ -16,7 +16,10 @@
     "Compute": 5,
     "Charm": 2,
     "UnarmedDamage": 4,
-    "UnarmedAPCost": 1
+    "UnarmedAPCost": 1,
+    "WearPerHPLost": 0.3,
+    "DefeatWearGain": 30,
+    "DefeatSANLoss": 10
   },
   "InitialItems": [
     {

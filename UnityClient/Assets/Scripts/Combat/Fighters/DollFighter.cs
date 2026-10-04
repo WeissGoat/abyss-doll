@@ -62,7 +62,9 @@ public class DollFighter : FighterEntity {
     }
 
     public override void TakeDamage(int damage) {
+        int hpBefore = RuntimeHP;
         base.TakeDamage(damage);
+        DollStrainService.AddWearFromHPLoss(DataRef, hpBefore - RuntimeHP);
         SyncRuntimeHPToDoll();
     }
 

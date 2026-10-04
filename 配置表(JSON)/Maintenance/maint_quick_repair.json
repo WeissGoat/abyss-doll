@@ -1,0 +1,18 @@
+{
+  "MaintenanceID": "maint_quick_repair",
+  "Name": "快速修补",
+  "Description": "只花钱的应急修补，降低一些磨损。",
+  "QualityTier": "Basic",
+  "Cost": {
+    "Money": 120,
+    "RequiredItems": []
+  },
+  "Effects": [
+    {
+      "TargetState": "Wear",
+      "Amount": 30
+    }
+  ],
+  "DailyLimit": 0,
+  "RestoresDivePermit": true
+}
