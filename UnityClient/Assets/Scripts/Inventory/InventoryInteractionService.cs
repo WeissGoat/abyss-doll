@@ -218,6 +218,69 @@ public static class InventoryInteractionService {
         return true;
     }
 
+    // Rotates an item that is already in the backpack (right click). Keeps its anchor cell when the new footprint fits
+    // there, otherwise takes the nearest spot within two cells; if nothing fits the item stays as it was.
+    public static bool RequestRotateInPlace(
+        ItemEntity item,
+        InventoryInteractionContext context,
+        out InventoryItemPlacement placement,
+        out string reason) {
+        placement = InventoryItemPlacement.Missing;
+
+        if (!ValidateItem(item, out reason)) {
+            return false;
+        }
+
+        if (!TryGetGrid(context, out BackpackGrid grid, out reason)) {
+            return false;
+        }
+
+        if (!grid.ContainedItems.Contains(item) || item.Grid?.CurrentPos == null || item.Grid.CurrentPos.Length < 2) {
+            reason = $"物品 [{item.Name}] 不在背包中。";
+            return false;
+        }
+
+        if (!BackpackGrid.TryResolveNextAllowedRotation(item, BackpackGrid.RotationStep, out int newRotation, out reason)) {
+            reason = $"{item.Name}不能旋转。";
+            return false;
+        }
+
+        int originX = item.Grid.CurrentPos[0];
+        int originY = item.Grid.CurrentPos[1];
+        int oldRotation = BackpackGrid.NormalizeRotation(item.Grid.Rotation);
+        grid.RemoveItem(item);
+
+        const int searchRadius = 2;
+        int bestX = -1;
+        int bestY = -1;
+        int bestDistance = int.MaxValue;
+        for (int dy = -searchRadius; dy <= searchRadius; dy++) {
+            for (int dx = -searchRadius; dx <= searchRadius; dx++) {
+                int distance = Mathf.Abs(dx) + Mathf.Abs(dy);
+                if (distance >= bestDistance || !grid.CanPlaceItem(item, originX + dx, originY + dy, newRotation)) {
+                    continue;
+                }
+
+                bestX = originX + dx;
+                bestY = originY + dy;
+                bestDistance = distance;
+            }
+        }
+
+        if (bestDistance == int.MaxValue) {
+            grid.PlaceItem(item, originX, originY, oldRotation);
+            reason = $"{item.Name}转不开：旁边没有足够的空位。";
+            return false;
+        }
+
+        grid.PlaceItem(item, bestX, bestY, newRotation);
+        Recalculate(context);
+        GameEventBus.PublishItemPlaced(item.InstanceID, bestX, bestY);
+        placement = new InventoryItemPlacement { WasInGrid = true, X = bestX, Y = bestY, Rotation = newRotation };
+        reason = string.Empty;
+        return true;
+    }
+
     private static bool ValidateItem(ItemEntity item, out string reason) {
         if (item == null) {
             reason = "物品数据不存在。";

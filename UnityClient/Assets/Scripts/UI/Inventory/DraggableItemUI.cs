@@ -41,8 +41,9 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         ApplyVisualStyle();
     }
 
+    // Rotation: while dragging press R or right click; on an item lying in the backpack (or the loot tray) right click.
     private void Update() {
-        if (!_isDragging || !Input.GetKeyDown(RotateHeldItemKey)) {
+        if (!_isDragging || !(Input.GetKeyDown(RotateHeldItemKey) || Input.GetMouseButtonDown(1))) {
             return;
         }
 
@@ -187,7 +188,7 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("DragRotate");
         if (!InventoryInteractionService.RequestRotateHeldItem(ItemData, BackpackGrid.RotationStep, context, out int newRotation, out string reason)) {
             if (!string.IsNullOrEmpty(reason)) {
-                Debug.LogWarning($"[UI] {reason}");
+                PlayerToast.Show(BackpackGrid.CanRotateItem(ItemData) ? reason : $"{ItemData.Name}不能旋转。", PlayerToastKind.Warning);
             }
             return;
         }
@@ -208,6 +209,11 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void OnPointerClick(PointerEventData eventData) {
         if (ItemData == null) {
             Debug.LogWarning("[UI] 点击了未绑定物品数据的背包物品 UI。");
+            return;
+        }
+
+        if (eventData != null && eventData.button == PointerEventData.InputButton.Right) {
+            RotateFromClick(eventData);
             return;
         }
 
@@ -235,7 +241,33 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             }
         }
     }
+    private void RotateFromClick(PointerEventData eventData) {
+        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        if (grid == null || !grid.ContainedItems.Contains(ItemData)) {
+            TryRotateHeldItem(eventData.position, eventData.pressEventCamera);
+            return;
+        }
+
+        InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("ClickRotate");
+        if (!InventoryInteractionService.RequestRotateInPlace(ItemData, context, out InventoryItemPlacement placement, out string reason)) {
+            PlayerToast.Show(reason, PlayerToastKind.Warning);
+            return;
+        }
+
+        GridGenerator generator = FindObjectOfType<GridGenerator>();
+        Transform slot = generator != null ? generator.GetSlot(placement.X, placement.Y) : null;
+        if (slot != null) {
+            SnapToSlot(slot, placement.X, placement.Y);
+        } else {
+            ApplyGridFootprint();
+        }
+    }
+
 public void OnBeginDrag(PointerEventData eventData) {
+    if (eventData != null && eventData.button != PointerEventData.InputButton.Left) {
+        return;
+    }
+
     if (ItemData == null) {
         Debug.LogError("[DraggableItemUI] ItemData is null! SetupData was not called properly.");
         return;
@@ -276,11 +308,19 @@ public void OnBeginDrag(PointerEventData eventData) {
 }
 
 public void OnDrag(PointerEventData eventData) {
+    if (!_isDragging) {
+        return;
+    }
+
     // 让物品跟着鼠标走，并保持抓取部位的偏移量
     transform.position = (Vector3)eventData.position + _dragOffset;
 }
 
 public void OnEndDrag(PointerEventData eventData) {
+    if (!_isDragging) {
+        return;
+    }
+
     _isDragging = false;
 
     if (_canvasGroup != null) {

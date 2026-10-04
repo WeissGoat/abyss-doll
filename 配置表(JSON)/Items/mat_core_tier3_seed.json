@@ -42,8 +42,8 @@
         2
       ]
     ],
-    "CanRotate": false,
-    "RotationSteps": 1,
+    "CanRotate": true,
+    "RotationSteps": 2,
     "GridCost": 6,
     "DefaultRotation": 0,
     "AllowedRotations": [

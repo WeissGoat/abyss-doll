@@ -505,7 +505,7 @@ public class CombatLootUIController : MonoBehaviour {
             summaryText.text =
                 $"本场掉落 {result.OfferedItems.Count} 件物资\n" +
                 $"估值合计: {result.TotalEstimatedValue}G\n" +
-                "将战利品拖入背包后继续，未拾取的物品会被丢弃。";
+                "将战利品拖入背包（拖动时按 R 或右键旋转），未拾取的物品会被丢弃。";
             summaryText.raycastTarget = false;
         }
 

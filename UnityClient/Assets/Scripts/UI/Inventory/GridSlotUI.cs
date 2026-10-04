@@ -70,9 +70,11 @@ public class GridSlotUI : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
     }
 
     private DraggableItemUI ResolveDraggedItem(PointerEventData eventData) {
-        return eventData?.pointerDrag != null
+        DraggableItemUI item = eventData?.pointerDrag != null
             ? eventData.pointerDrag.GetComponent<DraggableItemUI>()
             : null;
+        // Only a real (left button) drag counts; a right-button drag never picks the item up.
+        return item != null && item.IsDragging() ? item : null;
     }
 
     private void ApplyDragPreviewSkin(DraggableItemUI draggedItem) {
