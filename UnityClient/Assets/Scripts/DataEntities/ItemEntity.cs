@@ -79,7 +79,7 @@ public static class ItemPresentationRules {
 
         if (item.Combat != null && item.Combat.TriggerType == TriggerType.Passive.ToString()) {
             string payload = BuildPayloadSummary(item);
-            return string.IsNullOrEmpty(payload) ? "Passive" : $"Passive {payload}";
+            return string.IsNullOrEmpty(payload) ? "被动" : $"被动 {payload}";
         }
 
         if (item.BaseValue > 0) {
@@ -135,29 +135,29 @@ public static class ItemPresentationRules {
         switch (item.Combat.DamageType) {
             case nameof(DamageType.Physical):
             case nameof(DamageType.Energy):
-                return $"{item.Combat.BaseValue} DMG";
+                return $"伤害{item.Combat.BaseValue}";
             case nameof(DamageType.Heal):
                 return $"+{item.Combat.BaseValue} HP";
             case nameof(DamageType.RestoreSAN):
                 return $"+{item.Combat.BaseValue} SAN";
             case nameof(DamageType.Shield):
                 if (item.Combat.TriggerType == TriggerType.Passive.ToString()) {
-                    return "+Shield/Turn";
+                    return "每回合护盾";
                 }
                 if (item.Combat.Effects != null && item.Combat.Effects.Count > 0 && item.Combat.Effects[0].Params != null && item.Combat.Effects[0].Params.Length > 0) {
-                    return $"+{Mathf.RoundToInt(item.Combat.Effects[0].Params[0])} Shield";
+                    return $"护盾+{Mathf.RoundToInt(item.Combat.Effects[0].Params[0])}";
                 }
-                return "+Shield";
+                return "护盾";
         }
 
         if (item.Combat.Effects != null && item.Combat.Effects.Count > 0) {
             EffectData firstEffect = item.Combat.Effects[0];
             if (firstEffect?.Params != null && firstEffect.Params.Length > 0) {
                 if (firstEffect.EffectID == "DamageMultiplier") {
-                    return $"+{Mathf.RoundToInt(firstEffect.Params[0] * 100f)}% DMG";
+                    return $"伤害+{Mathf.RoundToInt(firstEffect.Params[0] * 100f)}%";
                 }
                 if (firstEffect.EffectID.Contains("Shield")) {
-                    return $"+{Mathf.RoundToInt(firstEffect.Params[0])} Shield";
+                    return $"护盾+{Mathf.RoundToInt(firstEffect.Params[0])}";
                 }
                 if (firstEffect.EffectID == "ModifyResourceCost") {
                     return BuildResourceCostModifierSummary(firstEffect);
