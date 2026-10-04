@@ -384,23 +384,23 @@ public class TownDayHUD : MonoBehaviour {
     private void BuildChoicePanel() {
         Image panel = UITheme.CreatePanel(_content.transform, "DayChoice_Panel", UITheme.Panel);
         UITheme.AddBorder(panel, UITheme.Border, 1.5f);
-        UITheme.Place(panel.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 28f), new Vector2(760f, 170f));
+        UITheme.Place(panel.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 12f), new Vector2(760f, 140f));
 
         Text title = UITheme.CreateText(panel.transform, "Choice_Title", "今天做什么？", UITheme.CaptionSize, UITheme.TextSecondary, TextAnchor.MiddleCenter);
-        UITheme.Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -8f), new Vector2(600f, 28f));
+        UITheme.Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -4f), new Vector2(600f, 26f));
 
         _diveButton = UITheme.CreateButton(panel.transform, "Dive_Button", DiveLabel, UITheme.Accent, UITheme.Background, UITheme.HeadingSize);
-        UITheme.Place((RectTransform)_diveButton.transform, new Vector2(0.5f, 1f), new Vector2(-180f, -42f), new Vector2(330f, 76f));
+        UITheme.Place((RectTransform)_diveButton.transform, new Vector2(0.5f, 1f), new Vector2(-180f, -32f), new Vector2(330f, 64f));
         _diveButton.onClick.AddListener(HandleDiveClicked);
         _diveHint = UITheme.CreateText(panel.transform, "Dive_Hint", string.Empty, UITheme.CaptionSize - 2, UITheme.TextSecondary, TextAnchor.UpperCenter);
-        UITheme.Place(_diveHint.rectTransform, new Vector2(0.5f, 1f), new Vector2(-180f, -124f), new Vector2(340f, 40f));
+        UITheme.Place(_diveHint.rectTransform, new Vector2(0.5f, 1f), new Vector2(-180f, -100f), new Vector2(340f, 36f));
 
         _restButton = UITheme.CreateButton(panel.transform, "Rest_Button", RestLabel, UITheme.PanelRaised, UITheme.TextPrimary, UITheme.HeadingSize);
         UITheme.AddBorder(_restButton.targetGraphic, UITheme.Border, 1.5f);
-        UITheme.Place((RectTransform)_restButton.transform, new Vector2(0.5f, 1f), new Vector2(180f, -42f), new Vector2(330f, 76f));
+        UITheme.Place((RectTransform)_restButton.transform, new Vector2(0.5f, 1f), new Vector2(180f, -32f), new Vector2(330f, 64f));
         _restButton.onClick.AddListener(HandleRestClicked);
         _restHint = UITheme.CreateText(panel.transform, "Rest_Hint", string.Empty, UITheme.CaptionSize - 2, UITheme.TextSecondary, TextAnchor.UpperCenter);
-        UITheme.Place(_restHint.rectTransform, new Vector2(0.5f, 1f), new Vector2(180f, -124f), new Vector2(340f, 40f));
+        UITheme.Place(_restHint.rectTransform, new Vector2(0.5f, 1f), new Vector2(180f, -100f), new Vector2(340f, 36f));
     }
 
     private void BuildRestConfirm() {
