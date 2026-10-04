@@ -31,6 +31,16 @@ public class PlayerProfile {
     public List<FactionRuntimeState> FactionStates = new List<FactionRuntimeState>();
     public List<OrderInstanceState> ActiveOrders = new List<OrderInstanceState>();
     public List<ActiveRumorState> ActiveRumors = new List<ActiveRumorState>();
+    // Backpack layout at the last departure, for 「带上上次的装备」.
+    public List<LoadoutSlotRecord> LastDiveLoadout = new List<LoadoutSlotRecord>();
+}
+
+[Serializable]
+public class LoadoutSlotRecord {
+    public string InstanceID;
+    public int X;
+    public int Y;
+    public int Rotation;
 }
 
 [Serializable]

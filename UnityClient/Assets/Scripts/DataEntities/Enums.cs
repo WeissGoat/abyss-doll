@@ -43,7 +43,8 @@ public enum ItemLifecycleTransition {
     GroundInventoryToSold = 8,
     ActiveDiscardToLost = 9,
     ShopBinToSold = 10,
-    InboxToLost = 11
+    InboxToLost = 11,
+    GroundInventoryToBackpack = 12
 }
 
 public enum ItemRarity {

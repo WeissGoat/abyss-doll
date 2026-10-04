@@ -333,6 +333,57 @@ public static class ItemLifecycleService {
         return batch;
     }
 
+    // Pre-dive loadout: a stash item goes into the backpack and counts as gear brought from home, so it is bound and
+    // survives defeat (rule card 02 §5.3).
+    public static bool TryMoveGroundInventoryToBackpack(PlayerProfile player, ItemEntity item, int x, int y, int rotation, string source, out ItemLifecycleResult result) {
+        result = ValidatePlayerAndItem(player, item);
+        if (result != null) {
+            return false;
+        }
+
+        BackpackGrid grid = ResolveGrid(player);
+        if (grid == null) {
+            result = ItemLifecycleResult.Fail("玩家背包不存在。", item);
+            return false;
+        }
+
+        if (!player.StashInventory.Contains(item)) {
+            result = ItemLifecycleResult.Fail($"物品 [{item.Name}] 不在仓库里。", item);
+            return false;
+        }
+
+        if (!grid.PlaceItem(item, x, y, rotation)) {
+            result = ItemLifecycleResult.Fail($"背包放不下 [{item.Name}]。", item);
+            return false;
+        }
+
+        ItemContainerType fromContainer = item.ContainerType;
+        player.StashInventory.Remove(item);
+        MarkBackpackItem(item, ItemOwnerScope.Workshop, true);
+        GameEventBus.PublishItemPlaced(item.InstanceID, x, y);
+        RecalculateBackpack(player);
+        result = ItemLifecycleResult.Complete(item, ItemLifecycleTransition.GroundInventoryToBackpack, fromContainer, ItemContainerType.Backpack);
+        Debug.Log($"[ItemLifecycle] {source}: moved [{item.Name}] from GroundInventory to backpack at ({x},{y}).");
+        return true;
+    }
+
+    public static bool TryMoveBackpackItemToGroundInventory(PlayerProfile player, ItemEntity item, string source, out ItemLifecycleResult result) {
+        result = ValidatePlayerAndItem(player, item);
+        if (result != null) {
+            return false;
+        }
+
+        BackpackGrid grid = ResolveGrid(player);
+        if (grid == null || !grid.ContainedItems.Contains(item)) {
+            result = ItemLifecycleResult.Fail($"物品 [{item.Name}] 不在背包里。", item);
+            return false;
+        }
+
+        ItemLifecycleBatchResult batch = ExtractBackpackItemsToGroundInventory(player, source, candidate => candidate == item);
+        result = batch.Results.Count > 0 ? batch.Results[0] : ItemLifecycleResult.Fail(batch.Reason, item);
+        return result.Success;
+    }
+
     private static ItemLifecycleResult ValidatePlayerAndItem(PlayerProfile player, ItemEntity item) {
         if (player == null) {
             return ItemLifecycleResult.Fail("玩家数据不存在。", item);

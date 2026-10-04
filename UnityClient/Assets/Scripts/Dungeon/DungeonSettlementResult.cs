@@ -15,6 +15,8 @@ public class DungeonSettlementResult {
     public int LostCount;
     public int LostEstimatedValue;
     public List<string> LostNames = new List<string>();
+    // The dive took the day: business settlement ran and the calendar moved on (rule card 01).
+    public DailyEconomyReport DayReport;
 }
 
 public class CombatLootPickupResult {

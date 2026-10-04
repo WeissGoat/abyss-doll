@@ -345,6 +345,7 @@ public class DungeonManager {
         }
 
         player.LastSelectedDungeonStartLayer = layerID;
+        PreDiveLoadoutService.RememberLoadout(player);
         _currentRunSeed = CreateRunSeed(layerID);
         Debug.Log($"[DungeonManager] Starting new dungeon run at Layer {layerID}.");
         ResetRunLootLedger();
@@ -598,6 +599,7 @@ public class DungeonManager {
         }
 
         result.StashCountAfterSettlement = player?.StashInventory?.Count ?? 0;
+        result.DayReport = SettleDiveDay(player);
         Debug.Log($"[DungeonManager] Settlement summary prepared. LootCount={result.LootTransferredCount}, EstimatedValue={result.LootEstimatedValue}, StashCount={result.StashCountAfterSettlement}");
         DungeonEventBus.PublishDungeonSettlementPrepared(result);
         DungeonEventBus.PublishDungeonSettled(true);
@@ -616,10 +618,26 @@ public class DungeonManager {
         PopulateRunLootSummary(result, preservedRunLoot);
 
         result.StashCountAfterSettlement = player?.StashInventory?.Count ?? 0;
+        result.DayReport = SettleDiveDay(player);
         Debug.Log($"[DungeonManager] Defeat settlement prepared. StashCount={result.StashCountAfterSettlement}");
         DungeonEventBus.PublishDungeonSettlementPrepared(result);
         DungeonEventBus.PublishDungeonSettled(false);
         ResetRunLootLedger();
+    }
+
+    // A dive takes the whole day: run the day's business settlement, which moves the calendar on (rule card 01 §3).
+    // Business income stays at the economy defaults until M2 adds business gameplay.
+    private static DailyEconomyReport SettleDiveDay(PlayerProfile player) {
+        if (player == null) {
+            return null;
+        }
+
+        DailyEconomyReport report = TownEconomyService.SettleDailyBusiness(player, new DailyEconomySettlementInput());
+        if (!report.Success) {
+            Debug.LogWarning($"[DungeonManager] Dive day settlement did not finish: {report.Reason}");
+        }
+
+        return report;
     }
 
     private void PopulateRunLootSummary(DungeonSettlementResult result, IEnumerable<ItemEntity> preservedItems) {
