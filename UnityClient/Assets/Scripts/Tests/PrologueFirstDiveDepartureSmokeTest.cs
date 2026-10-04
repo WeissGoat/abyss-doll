@@ -95,7 +95,7 @@ public static class PrologueFirstDiveDepartureSmokeTest {
         string text = CollectText(harness.Workshop.dungeonStartLayerPanel);
         bool playerReadableBlocker = text.Contains("磨损太高")
             && !text.Contains("ExtremeWear")
-            && !text.Contains("Wear is too high")
+            && !text.Contains("磨损太重")
             && !text.Contains("DiveReadinessIssueCode");
         bool stayedOnConfirm = harness.Workshop.IsDungeonStartLayerPanelOpen
             && harness.Core.Dungeon.CurrentLayer == null

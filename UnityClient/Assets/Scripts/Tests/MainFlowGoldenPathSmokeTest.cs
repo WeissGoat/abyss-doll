@@ -143,6 +143,7 @@ public static class MainFlowGoldenPathSmokeTest {
 
         Step("town_sell_loot", $"Item={_acceptedCombatLoot.ConfigID}, Income={expectedSell.FinalValue}, Money={player.Money}");
 
+        DayCycleService.FinishNight(player); // the dive day ends in the night business before the next morning
         player.StashInventory.Add(ConfigManager.CreateItem("loot_gear_scrap"));
         player.Money = Mathf.Max(player.Money, 250);
         doll.Status.WearAndTear = DiveReadinessService.ExtremeWearThreshold;

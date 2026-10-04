@@ -63,7 +63,7 @@ public static class PrologueFirstDiveLayerConfirmSmokeTest {
             && !layerController.confirmBtn.interactable
             && blockedText.Contains("磨损太高")
             && !blockedText.Contains("ExtremeWear")
-            && !blockedText.Contains("Wear is too high")
+            && !blockedText.Contains("磨损太重")
             && !blockedText.Contains("DiveReadinessIssueCode");
         layerController?.confirmBtn?.onClick.Invoke();
         bool blockedDoesNotDepart = !blockedDepartRequested

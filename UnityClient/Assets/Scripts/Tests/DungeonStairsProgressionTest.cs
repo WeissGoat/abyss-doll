@@ -254,8 +254,8 @@ public static class DungeonStairsProgressionTest {
         controller.Present(null);
         string wearText = CollectText(panelObj.transform);
         bool wearReasonVisible = wearText.Contains("磨损过高")
-            && wearText.Contains("Wear is too high")
-            && wearText.Contains("Perform maintenance before diving.")
+            && wearText.Contains("磨损太重")
+            && wearText.Contains("维护")
             && !controller.confirmBtn.interactable;
 
         if (lockedReasonVisible && wearReasonVisible) {

@@ -320,6 +320,7 @@ public class MVPAutoplayCampaignReport {
     public bool ReachedLoopTarget;
     public int FinalDay;
     public int RestDays;
+    public int Maintenances;
     public int RentPaid;
     public int RentOwed;
     public bool Bankrupt;
@@ -400,8 +401,15 @@ internal class MVPAutoplayCampaign {
                     break;
                 }
 
+                if (!EnsureReadyToDive()) {
+                    break;
+                }
+
                 bool attemptLayer2 = ShouldAttemptLayer2(i);
                 MVPAutoplayExpeditionReport expedition = RunExpedition(i, attemptLayer2);
+                if (expedition == null) {
+                    break;
+                }
                 _report.ExpeditionReports.Add(expedition);
                 _report.Expeditions = i;
 
@@ -453,7 +461,11 @@ internal class MVPAutoplayCampaign {
         _settled = false;
         _settledVictory = false;
 
-        _core.Dungeon.StartRunAtLayer(startLayerID);
+        if (!_core.Dungeon.StartRunAtLayer(startLayerID)) {
+            _report.Notes.Add($"停止模拟：第 {startLayerID} 层下潜没能开始。");
+            return null;
+        }
+
         if (startLayerID == 2) {
             _report.EnteredLayer2 = true;
             _currentExpedition.EnteredLayer2 = true;
@@ -819,6 +831,56 @@ internal class MVPAutoplayCampaign {
 
         TryCraft("craft_pros_power_arm");
         TryCraft("craft_pros_cooling_system");
+    }
+
+    // Wear and corruption block the dive at 90 (M2 batch 3). Like a careful player, the bot maintains once either is
+    // at 50 or more, then rests (strain drops a little each rest) if the dive is still blocked.
+    private bool EnsureReadyToDive() {
+        PlayerProfile player = _core.CurrentPlayer;
+        MaintainIfWorn();
+        DiveReadinessResult ready = DiveReadinessService.Evaluate(player, 1, false);
+        int guard = 0;
+        while (!ready.CanDive && guard++ < 3 && !_report.Bankrupt) {
+            if (DayCycleService.Rest(player, out string reason) == null) {
+                _report.Notes.Add("休息失败：" + reason);
+                break;
+            }
+
+            _report.RestDays++;
+            CloseNight();
+            SettlePendingRent();
+            MaintainIfWorn();
+            ready = DiveReadinessService.Evaluate(player, 1, false);
+        }
+
+        if (!ready.CanDive) {
+            _report.Notes.Add("停止模拟：无法下潜。" + ready.BuildSummary());
+        }
+
+        return ready.CanDive;
+    }
+
+    private void MaintainIfWorn() {
+        DollEntity doll = _core.CurrentPlayer.ActiveDoll;
+        int guard = 0;
+        while (doll.Status.WearAndTear >= 50f && guard++ < 3 && TryMaintain("maint_basic_patch", "maint_quick_repair")) {
+        }
+
+        guard = 0;
+        while (doll.Status.Corruption >= 50f && guard++ < 3 && TryMaintain("maint_purification_flush", "maint_quick_cleanse")) {
+        }
+    }
+
+    private bool TryMaintain(params string[] maintenanceIDs) {
+        PlayerProfile player = _core.CurrentPlayer;
+        foreach (string id in maintenanceIDs) {
+            if (MaintenanceService.CanApply(player, player.ActiveDoll, id, out _) && MaintenanceService.Apply(player, player.ActiveDoll, id).Success) {
+                _report.Maintenances++;
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // HP comes home as it is (GDD_02 §5.1). The bot rests (one day each) until Zero is above half HP, like a careful

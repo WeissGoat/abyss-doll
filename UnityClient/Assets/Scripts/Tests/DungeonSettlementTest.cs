@@ -89,6 +89,7 @@ public static class DungeonSettlementTest {
             // Test Defeat Scenario (a new run: a settled run ignores further evacuate/defeat events)
             _eventFired = false;
             _lastSettlementResult = null;
+            DayCycleService.FinishNight(core.CurrentPlayer); // the dive day ends in the night business
             if (!core.Dungeon.StartRunAtLayer(1)) {
                 Debug.LogError("Defeat Scenario Setup FAILED: second run did not start.");
             }
