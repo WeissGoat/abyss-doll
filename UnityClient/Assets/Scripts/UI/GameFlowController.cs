@@ -404,18 +404,12 @@ public class GameFlowController : MonoBehaviour {
     private void OnEnterWorkshopScreen() {
         Debug.Log("[GameFlow] 进入局外工坊...");
 
-        // 撤离回小镇后，恢复人偶的基本状态 (MVP 简化机制：回满血和SAN)
-        var doll = GameRoot.Core.CurrentPlayer.ActiveDoll;
-        if (doll != null) {
-            doll.Status.HP_Current = doll.Status.HP_Max;
-            doll.Status.SAN_Current = doll.Status.SAN_Max;
-            GameEventBus.PublishHPChanged(doll.Name, doll.Status.HP_Current, doll.Status.HP_Max);
-            GameEventBus.PublishSANChanged(doll.Name, doll.Status.SAN_Current, doll.Status.SAN_Max);
-        }
+        // HP and SAN come back as they were (GDD_02 §5.1); rest or maintenance restores them (DayCycleService).
 
         var wsCtrl = workshopPanel?.GetComponent<WorkshopUIController>();
         if (wsCtrl != null) {
             wsCtrl.RefreshUI();
+            wsCtrl.DayHud?.ShowPendingDayEvents();
         }
 
         SyncInventoryItemUI();

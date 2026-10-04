@@ -65,6 +65,7 @@ public class WorkshopUIController : MonoBehaviour {
     private Text _dollCaptionText;
     private Text _prologueObjectiveText;
     private WorkshopFormalV1PanelController _formalV1PanelController;
+    private TownDayHUD _dayHud;
     private bool _prologueHalfOpen;
     private bool _prologueShallowGateUnlocked;
 
@@ -104,6 +105,20 @@ public class WorkshopUIController : MonoBehaviour {
 
     public bool IsDungeonStartLayerPanelOpen {
         get { return _dungeonStartLayerPanelOpen; }
+    }
+
+    public bool IsOverlayPanelOpen {
+        get {
+            return _sellPanelOpen
+                || _prostheticPanelOpen
+                || _dungeonStartLayerPanelOpen
+                || (_formalV1PanelController != null && !string.IsNullOrEmpty(_formalV1PanelController.CurrentScreenID));
+        }
+    }
+
+    // The day layer (status bar, 跳下深渊 / 停工休息, night dialogs); null during the prologue's half-open workshop.
+    public TownDayHUD DayHud {
+        get { return _prologueHalfOpen ? null : _dayHud; }
     }
 
     void Start() {
@@ -184,6 +199,37 @@ public class WorkshopUIController : MonoBehaviour {
 
         if (_prologueHalfOpen) {
             ApplyPrologueHalfOpenState();
+        }
+
+        ApplyDayHudMode();
+    }
+
+    // Outside the prologue the themed TownDayHUD replaces the old status strip, the 浅层入口 card and the chassis plate.
+    private void ApplyDayHudMode() {
+        bool dayMode = !_prologueHalfOpen;
+        if (dayMode && _dayHud == null) {
+            _dayHud = TownDayHUD.Ensure(transform, this);
+        }
+
+        if (_dayHud != null) {
+            _dayHud.gameObject.SetActive(dayMode);
+            if (dayMode) {
+                _dayHud.Refresh();
+            }
+        }
+
+        SetPanelActive(_topStatusPanel, !dayMode);
+        SetPanelActive(_leftActionPanel, !dayMode);
+        SetPanelActive(_dollStatusPanel, !dayMode);
+        if (dayMode) {
+            SetPanelActive(_prologueObjectiveRibbon, false);
+            SetPanelActive(_prologuePrimaryGlowImage, false);
+        }
+    }
+
+    private static void SetPanelActive(Image panel, bool active) {
+        if (panel != null && panel.gameObject.activeSelf != active) {
+            panel.gameObject.SetActive(active);
         }
     }
 
@@ -473,6 +519,7 @@ public class WorkshopUIController : MonoBehaviour {
         CloseDungeonStartLayerPanel(false);
         CloseFormalV1Panel();
         ApplyPrologueHalfOpenState();
+        ApplyDayHudMode();
     }
 
     public void ExitPrologueHalfOpen() {

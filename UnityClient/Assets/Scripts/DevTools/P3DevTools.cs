@@ -32,7 +32,10 @@ public static class P3DevTools {
 
         PlayerProfile player = GameRoot.Core.CurrentPlayer;
         DollEntity doll = player.ActiveDoll;
-        sb.AppendLine($"Day {player.CurrentDay} (month {player.CurrentMonth}), money {player.Money}, HP {doll?.Status.HP_Current}/{doll?.Status.HP_Max}, SAN {doll?.Status.SAN_Current}/{doll?.Status.SAN_Max}");
+        DayCalendarInfo calendar = DayCycleService.GetCalendar(player);
+        string rent = calendar.HasPendingRent ? $"rent {calendar.PendingRentAmount} PENDING" : $"rent {calendar.NextRent} in {calendar.RentCountdown}d";
+        string debt = calendar.DebtAmount > 0 ? $", debt {calendar.DebtAmount}" : string.Empty;
+        sb.AppendLine($"Day {player.CurrentDay} (week {calendar.Week} {calendar.WeekDayName}, {rent}{debt}), money {player.Money}, HP {doll?.Status.HP_Current}/{doll?.Status.HP_Max}, SAN {doll?.Status.SAN_Current}/{doll?.Status.SAN_Max}");
 
         BackpackGrid grid = doll?.RuntimeGrid as BackpackGrid;
         List<string> items = new List<string>();
@@ -175,7 +178,12 @@ public static class P3DevTools {
     public static string RunDive(int maxSteps = 40) {
         StringBuilder log = new StringBuilder();
         if (IsPanelActive("WorkshopPanel") && !IsPanelActive("DungeonMapPanel")) {
-            ClickByLabel("浅层入口", log);
+            PrepareDay(log);
+            if (!ClickByLabel(TownDayHUD.DiveLabel, null)) {
+                ClickByLabel("浅层入口", log);
+            } else {
+                log.AppendLine($"Clicked '{TownDayHUD.DiveLabel}'.");
+            }
             ClickByLabel("开始下潜", log);
         }
 
@@ -234,6 +242,40 @@ public static class P3DevTools {
         }
 
         return log.ToString() + Describe();
+    }
+
+    // Closes the workshop's night dialogs like a player: the night card, then the rent (pay when the money covers
+    // it, otherwise owe it).
+    public static string ResolveDayDialogs() {
+        StringBuilder log = new StringBuilder();
+        ResolveDayDialogs(log);
+        return log.ToString() + Describe();
+    }
+
+    private static void ResolveDayDialogs(StringBuilder log) {
+        for (int i = 0; i < 6; i++) {
+            if (ClickByLabel("迎接新的一天", null)) {
+                log.AppendLine("Closed the night card.");
+            } else if (ClickByLabel("交房租", null)) {
+                log.AppendLine("Paid the rent.");
+            } else if (ClickByLabel("先欠着", null)) {
+                log.AppendLine("Owed the rent.");
+            } else {
+                return;
+            }
+        }
+    }
+
+    // Before a dive: close the night dialogs, and rest first when Zero cannot dive (HP 0).
+    private static void PrepareDay(StringBuilder log) {
+        ResolveDayDialogs(log);
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        if (player != null && !DayCycleService.CanDive(player, out string reason) && DayCycleService.CanStartDay(player, out _)) {
+            ClickByLabel(TownDayHUD.RestLabel, log);
+            ClickByLabel("休息一天", log);
+            log.AppendLine("Rested: " + reason);
+            ResolveDayDialogs(log);
+        }
     }
 
     public static string AddMoney(int amount) {

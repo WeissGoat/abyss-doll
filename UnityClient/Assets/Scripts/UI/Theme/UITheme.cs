@@ -82,6 +82,62 @@ public static class UITheme {
         return image;
     }
 
+    public static Button CreateButton(Transform parent, string name, string label, Color background, Color textColor, int fontSize = BodySize) {
+        Image image = CreatePanel(parent, name, background);
+        Button button = image.gameObject.AddComponent<Button>();
+        button.targetGraphic = image;
+        ColorBlock colors = button.colors;
+        colors.normalColor = new Color(0.9f, 0.9f, 0.9f, 1f);
+        colors.highlightedColor = Color.white;
+        colors.pressedColor = new Color(0.85f, 0.85f, 0.85f, 1f);
+        colors.disabledColor = new Color(0.45f, 0.45f, 0.45f, 0.75f);
+        button.colors = colors;
+        Text text = CreateText(image.transform, "Label_Text", label, fontSize, textColor, TextAnchor.MiddleCenter);
+        Stretch(text.rectTransform);
+        return button;
+    }
+
+    public static void SetButtonLabel(Button button, string label) {
+        Text text = button != null ? button.GetComponentInChildren<Text>(true) : null;
+        if (text != null) {
+            text.text = label;
+        }
+    }
+
+    // A full-screen dimmed modal on its own sorting layer (above the backpack grid and other late siblings). Returns
+    // the root; the centred dialog panel is root.Find("Dialog").
+    public static GameObject CreateModal(Transform parent, string name, Vector2 dialogSize, int sortingOrder = 540) {
+        GameObject root = new GameObject(name, typeof(RectTransform));
+        root.transform.SetParent(parent, false);
+        Stretch((RectTransform)root.transform);
+        Canvas overlay = root.AddComponent<Canvas>();
+        overlay.overrideSorting = true;
+        overlay.sortingOrder = sortingOrder;
+        root.AddComponent<GraphicRaycaster>();
+        root.AddComponent<Image>().color = new Color(0f, 0f, 0f, 0.66f);
+
+        Image dialog = CreatePanel(root.transform, "Dialog", Panel);
+        AddBorder(dialog, Border, 2f);
+        Place(dialog.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, dialogSize);
+        return root;
+    }
+
+    public static void Stretch(RectTransform rect) {
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+    }
+
+    // Anchors and pivots at the same point, so position is relative to that point of the parent.
+    public static void Place(RectTransform rect, Vector2 anchor, Vector2 position, Vector2 size) {
+        rect.anchorMin = anchor;
+        rect.anchorMax = anchor;
+        rect.pivot = anchor;
+        rect.anchoredPosition = position;
+        rect.sizeDelta = size;
+    }
+
     public static Outline AddBorder(Graphic graphic, Color color, float width = 2f) {
         Outline outline = graphic.GetComponent<Outline>();
         if (outline == null) {

@@ -40,13 +40,14 @@ public class P3BuildSmoke : MonoBehaviour {
         yield return new WaitForSecondsRealtime(1f);
         yield return Capture("02_workshop");
 
-        P3DevTools.Click("浅层入口");
+        P3DevTools.Click(TownDayHUD.DiveLabel);
         yield return null;
         P3DevTools.Click("开始下潜");
         yield return new WaitForSecondsRealtime(0.5f);
         yield return Capture("03_loadout");
 
         int dives = 0;
+        int rests = 0;
         int soldTotal = 0;
         bool stuck = false;
         string lastReport = null;
@@ -54,10 +55,14 @@ public class P3BuildSmoke : MonoBehaviour {
         while (dives < TargetDives && Time.realtimeSinceStartup - startedAt < TimeoutSeconds) {
             string report = P3DevTools.RunDive();
             Note(report);
+            if (report.Contains("Rested:")) {
+                rests++;
+            }
             if (report.Contains("Dive finished.")) {
                 dives++;
                 yield return new WaitForSecondsRealtime(0.5f);
                 // Back in town: sell the loot through the ledger like a player, so the build checks selling too.
+                Note(P3DevTools.ResolveDayDialogs());
                 int moneyBefore = GameRoot.Core.CurrentPlayer.Money;
                 P3DevTools.Click("账本");
                 yield return null;
@@ -84,8 +89,9 @@ public class P3BuildSmoke : MonoBehaviour {
         }
 
         PlayerProfile player = GameRoot.Core.CurrentPlayer;
-        bool passed = !stuck && dives >= TargetDives && player.CurrentDay == 1 + dives;
-        string verdict = $"{(passed ? "PASS" : "FAIL")}: {dives}/{TargetDives} dives, day {player.CurrentDay}, money {player.Money} (ledger sales {soldTotal}G), "
+        // Every dive and every rest takes one day.
+        bool passed = !stuck && dives >= TargetDives && player.CurrentDay == 1 + dives + rests;
+        string verdict = $"{(passed ? "PASS" : "FAIL")}: {dives}/{TargetDives} dives, {rests} rest(s), day {player.CurrentDay}, money {player.Money} (ledger sales {soldTotal}G), "
             + $"{Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
         Debug.Log("[P3BuildSmoke] " + verdict);
         File.WriteAllText(Path.Combine(_outDir, "P3Smoke.txt"), verdict + "\n\n" + _log);

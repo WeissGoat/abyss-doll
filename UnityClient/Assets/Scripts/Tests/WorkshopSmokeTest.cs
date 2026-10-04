@@ -302,7 +302,8 @@ public static class WorkshopSmokeTest {
             && !controller.openMaintenancePanelBtn.gameObject.activeSelf
             && controller.openOrderBoardPanelBtn != null
             && !controller.openOrderBoardPanelBtn.gameObject.activeSelf;
-        bool hubButtonsReduced = activeButtons.Length <= 3;
+        // 工作室, 账本 and the day HUD's 跳下深渊 / 停工休息 / rent line (M2 batch 2 replaced the 浅层入口 card).
+        bool hubButtonsReduced = activeButtons.Length <= 6;
         bool backgroundStretches = background != null
             && background.anchorMin == Vector2.zero
             && background.anchorMax == Vector2.one;
@@ -312,9 +313,13 @@ public static class WorkshopSmokeTest {
         bool dollStatusBelowDollLegs = dollStatus != null
             && dollStatus.anchoredPosition.y <= 50f
             && dollStatus.sizeDelta.y <= 120f;
-        bool labelsUpdated = CollectText(canvasObj).Contains("浅层入口")
+        bool labelsUpdated = CollectText(canvasObj).Contains(TownDayHUD.DiveLabel)
+            && CollectText(canvasObj).Contains(TownDayHUD.RestLabel)
+            && CollectText(canvasObj).Contains("第 5 天")
             && CollectText(canvasObj).Contains("工作室")
-            && CollectText(canvasObj).Contains("账本");
+            && CollectText(canvasObj).Contains("账本")
+            && !CollectText(canvasObj).Contains("当前目标")
+            && abyss != null && !abyss.gameObject.activeSelf;
 
         if (status != null && doll != null && abyss != null && studio != null && ledger != null && compactStatus && oldBulkHidden && hubButtonsReduced && backgroundStretches && workshopMainKeepsBackpackOutOfHub && studioIsOffBackpackLane && dollStatusBelowDollLegs && labelsUpdated) {
             Debug.Log("Workshop FormalV2 Hub Layout PASSED.");
