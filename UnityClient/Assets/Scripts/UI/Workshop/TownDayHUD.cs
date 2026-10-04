@@ -71,6 +71,8 @@ public class TownDayHUD : MonoBehaviour {
         }
 
         transform.SetAsLastSibling();
+        // Town state shown here is what the save holds; AutoSave writes only when it changed.
+        SaveService.AutoSave(player);
         DayCalendarInfo calendar = DayCycleService.GetCalendar(player);
         DollEntity doll = player.ActiveDoll;
         _dayText.text = $"第 {calendar.Day} 天 · 第 {calendar.Week} 周 {calendar.WeekDayName}";
@@ -384,6 +386,7 @@ public class TownDayHUD : MonoBehaviour {
     }
 
     private void RestartAfterBankruptcy() {
+        SaveService.Delete();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

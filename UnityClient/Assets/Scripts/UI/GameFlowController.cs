@@ -74,6 +74,21 @@ public class GameFlowController : MonoBehaviour {
         _initialized = true;
         Debug.Log("[GameFlow] Initializing MVP Game Loop...");
 
+        // A save exists: ask first. 继续游戏 restores it and skips the prologue; 新游戏 starts as usual.
+        SaveFile save = SaveService.HasSave ? SaveService.ReadSave(out _) : null;
+        if (save != null) {
+            ContinueGamePanel.Show(save, () => {
+                SaveService.Restore(GameRoot.Core, save);
+                FinishInitGame(false);
+            }, () => FinishInitGame(P3DevSettings.PlayPrologueOnStartup));
+            return;
+        }
+
+        FinishInitGame(P3DevSettings.PlayPrologueOnStartup);
+    }
+
+    private void FinishInitGame(bool playPrologue) {
+
         if (grantDebugStartResources) {
             GameRoot.Core.CurrentPlayer.Money = debugStartMoney;
             var debugItem = ConfigManager.CreateItem(debugStartItemID);
@@ -103,7 +118,7 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnStairsEntered += HandleStairsEntered;
 
         EnterWorkshop();
-        StartPrologueOpeningIfNeeded(P3DevSettings.PlayPrologueOnStartup);
+        StartPrologueOpeningIfNeeded(playPrologue);
     }
 
     public void EnterWorkshop() {
