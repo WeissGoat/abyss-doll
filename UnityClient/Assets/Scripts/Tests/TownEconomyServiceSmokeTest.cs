@@ -40,7 +40,7 @@ public static class TownEconomyServiceSmokeTest {
             && player.CurrentDay == 2
             && player.CurrentMonthDay == 2
             && player.MonthlyGrossIncome == 350
-            && report.RentCountdown == 27;
+            && report.RentCountdown == 6;
 
         if (passed) {
             Debug.Log("Town Economy Daily Business Report PASSED.");
@@ -52,16 +52,17 @@ public static class TownEconomyServiceSmokeTest {
     private static void TestMonthlyRentPaid() {
         CoreBackend core = CreateCore();
         PlayerProfile player = core.CurrentPlayer;
-        player.Money = 1350;
+        player.Money = 750;
+        player.CurrentDay = 7;
         player.CurrentMonth = 1;
-        player.CurrentMonthDay = 28;
+        player.CurrentMonthDay = 7;
 
         MonthlyRentSettlementReport report = TownEconomyService.ResolveMonthlyRent(player);
 
         bool passed = report.Success
             && report.Status == MonthlyRentSettlementStatus.Paid
-            && report.TotalBill == 1200
-            && report.PaidAmount == 1200
+            && report.TotalBill == 600
+            && report.PaidAmount == 600
             && player.Money == 150
             && player.EconomyDebtAmount == 0
             && player.DebtLevel == 0;
@@ -76,18 +77,19 @@ public static class TownEconomyServiceSmokeTest {
     private static void TestLightDebtAccepted() {
         CoreBackend core = CreateCore();
         PlayerProfile player = core.CurrentPlayer;
-        player.Money = 1120;
+        player.Money = 560;
+        player.CurrentDay = 7;
         player.CurrentMonth = 1;
-        player.CurrentMonthDay = 28;
+        player.CurrentMonthDay = 7;
 
         MonthlyRentSettlementReport report = TownEconomyService.ResolveMonthlyRent(player);
 
         bool passed = report.Success
             && report.Status == MonthlyRentSettlementStatus.LightDebtAccepted
-            && report.TotalBill == 1200
-            && report.Shortfall == 80
+            && report.TotalBill == 600
+            && report.Shortfall == 40
             && player.Money == 0
-            && player.EconomyDebtAmount == 80
+            && player.EconomyDebtAmount == 40
             && player.DebtLevel == 1
             && player.ConsecutiveHeavyDefaultCount == 0;
 
@@ -101,9 +103,10 @@ public static class TownEconomyServiceSmokeTest {
     private static void TestPawnRequiredAndPlayerSelectedPawnPaysRent() {
         CoreBackend core = CreateCore();
         PlayerProfile player = core.CurrentPlayer;
-        player.Money = 1050;
+        player.Money = 450;
+        player.CurrentDay = 7;
         player.CurrentMonth = 1;
-        player.CurrentMonthDay = 28;
+        player.CurrentMonthDay = 7;
         player.StashInventory.Clear();
         ItemEntity pawnItem = AddStashItem(player, "gear_charge_pistol");
 
@@ -131,9 +134,10 @@ public static class TownEconomyServiceSmokeTest {
     private static void TestProtectedItemsCannotBePawned() {
         CoreBackend core = CreateCore();
         PlayerProfile player = core.CurrentPlayer;
-        player.Money = 1050;
+        player.Money = 450;
+        player.CurrentDay = 7;
         player.CurrentMonth = 1;
-        player.CurrentMonthDay = 28;
+        player.CurrentMonthDay = 7;
         player.StashInventory.Clear();
         ItemEntity protectedItem = AddStashItem(player, "gear_chainsaw_sword");
         protectedItem.Tags.Add("StoryLocked");

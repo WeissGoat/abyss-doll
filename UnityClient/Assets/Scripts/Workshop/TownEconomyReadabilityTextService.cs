@@ -411,7 +411,7 @@ public static class TownEconomyReadabilityTextService {
         string shortfall = report.EstimatedMonthlyShortfall > 0
             ? $"，预计缺 {report.EstimatedMonthlyShortfall}G"
             : "，预计可支付";
-        return $"月租倒计时 {report.RentCountdown} 天 / 预计账单 {report.EstimatedMonthlyBill}G{shortfall}";
+        return $"房租倒计时 {report.RentCountdown} 天 / 预计账单 {report.EstimatedMonthlyBill}G{shortfall}";
     }
 
     private static string BuildCombinedText(TownEconomyReadabilitySnapshot snapshot) {

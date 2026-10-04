@@ -379,31 +379,36 @@ public static class ConfigValidator {
             return;
         }
 
-        HashSet<int> months = new HashSet<int>();
-        bool hasFirstMonth = false;
+        if (economy.RentPeriodDays < 0) {
+            report.AddError($"Economy [{economy.EconomyConfigID}] RentPeriodDays must be >= 0 (0 = one period per month).");
+        }
+
+        // Steps are keyed by rent period (Period, or the older Month when Period is 0).
+        HashSet<int> periods = new HashSet<int>();
+        bool hasFirstPeriod = false;
         foreach (RentCurveStepConfig step in economy.RentCurve) {
             if (step == null) {
                 report.AddError($"Economy [{economy.EconomyConfigID}] has a null RentCurve step.");
                 continue;
             }
 
-            if (step.Month <= 0) {
-                report.AddError($"Economy [{economy.EconomyConfigID}] has RentCurve step with invalid Month [{step.Month}].");
+            if (step.StartPeriod <= 0) {
+                report.AddError($"Economy [{economy.EconomyConfigID}] has RentCurve step with invalid Period [{step.StartPeriod}].");
             }
 
             if (step.BaseRent <= 0) {
-                report.AddError($"Economy [{economy.EconomyConfigID}] Month [{step.Month}] BaseRent must be positive.");
+                report.AddError($"Economy [{economy.EconomyConfigID}] Period [{step.StartPeriod}] BaseRent must be positive.");
             }
 
-            if (!months.Add(step.Month)) {
-                report.AddError($"Economy [{economy.EconomyConfigID}] has duplicated RentCurve Month [{step.Month}].");
+            if (!periods.Add(step.StartPeriod)) {
+                report.AddError($"Economy [{economy.EconomyConfigID}] has duplicated RentCurve Period [{step.StartPeriod}].");
             }
 
-            hasFirstMonth |= step.Month == 1;
+            hasFirstPeriod |= step.StartPeriod == 1;
         }
 
-        if (!hasFirstMonth) {
-            report.AddWarning($"Economy [{economy.EconomyConfigID}] RentCurve has no Month=1 baseline.");
+        if (!hasFirstPeriod) {
+            report.AddWarning($"Economy [{economy.EconomyConfigID}] RentCurve has no Period=1 baseline.");
         }
     }
 

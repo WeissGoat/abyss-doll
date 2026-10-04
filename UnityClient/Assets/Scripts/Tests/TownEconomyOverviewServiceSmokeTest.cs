@@ -86,8 +86,9 @@ public static class TownEconomyOverviewServiceSmokeTest {
         CoreBackend core = CreateCore();
         PlayerProfile player = core.CurrentPlayer;
         player.Money = 1050;
+        player.CurrentDay = 7;
         player.CurrentMonth = 1;
-        player.CurrentMonthDay = 28;
+        player.CurrentMonthDay = 7;
         player.StashInventory.Clear();
         AddStashItem(player, "gear_charge_pistol");
 
@@ -104,7 +105,7 @@ public static class TownEconomyOverviewServiceSmokeTest {
         bool passed = refresh.Success
             && delivery.Success
             && report.Success
-            && report.EstimatedMonthlyBill == 1200
+            && report.EstimatedMonthlyBill == 600
             && report.RentCountdown == 1
             && report.PawnCandidates.Any(candidate => candidate.ItemID == "gear_charge_pistol" && candidate.PawnValue == 200)
             && faction != null

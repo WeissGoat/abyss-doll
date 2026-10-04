@@ -610,51 +610,10 @@ public static class TownEconomyOverviewService {
     }
 
     private static int CalculateRentCountdown(PlayerProfile player, EconomyConfig config) {
-        if (player == null || config == null) {
-            return 0;
-        }
-
-        return Mathf.Max(0, config.MonthLength - player.CurrentMonthDay + 1);
+        return TownEconomyService.CalculateRentCountdown(player, config);
     }
 
     private static int CalculateMonthlyBill(PlayerProfile player, EconomyConfig config) {
-        if (player == null || config == null) {
-            return 0;
-        }
-
-        int debtPrincipal = Mathf.Max(0, player.EconomyDebtAmount);
-        int debtInterest = Mathf.CeilToInt(debtPrincipal * Mathf.Max(0f, config.DebtInterestRate));
-        return ResolveBaseRent(config, Mathf.Max(1, player.CurrentMonth))
-            + Mathf.Max(0, config.WorkshopMaintenanceBase)
-            + Mathf.Max(0, config.LicenseFeeBase)
-            + debtPrincipal
-            + debtInterest;
-    }
-
-    private static int ResolveBaseRent(EconomyConfig config, int month) {
-        if (config?.RentCurve == null || config.RentCurve.Count == 0) {
-            return 0;
-        }
-
-        RentCurveStepConfig best = null;
-        foreach (RentCurveStepConfig step in config.RentCurve) {
-            if (step == null || step.Month <= 0 || step.BaseRent <= 0) {
-                continue;
-            }
-
-            if (step.Month <= month && (best == null || step.Month > best.Month)) {
-                best = step;
-            }
-        }
-
-        if (best != null) {
-            return best.BaseRent;
-        }
-
-        RentCurveStepConfig first = config.RentCurve
-            .Where(step => step != null && step.BaseRent > 0)
-            .OrderBy(step => step.Month)
-            .FirstOrDefault();
-        return first != null ? first.BaseRent : 0;
+        return TownEconomyService.CalculateMonthlyBill(player, config);
     }
 }

@@ -164,8 +164,8 @@ public static class TownEconomyService {
         player.MonthlyGrossIncome += report.GrossIncome;
         player.LastDailyEconomySettlementDay = player.CurrentDay;
 
-        report.IsWeeklySettlement = config.WeekLength > 0 && player.CurrentMonthDay % config.WeekLength == 0;
-        report.IsMonthlyRentDue = player.CurrentMonthDay >= config.MonthLength;
+        report.IsWeeklySettlement = config.WeekLength > 0 && player.CurrentDay % config.WeekLength == 0;
+        report.IsMonthlyRentDue = GetDayInRentPeriod(player, config) >= GetRentPeriodLength(config);
         report.EstimatedMonthlyBill = CalculateMonthlyBill(player, config, out _, out _, out _, out _, out _);
         report.EstimatedMonthlyShortfall = Mathf.Max(0, report.EstimatedMonthlyBill - player.Money);
         report.MonthlyGrossIncome = player.MonthlyGrossIncome;
@@ -177,10 +177,10 @@ public static class TownEconomyService {
                 report.Reason = report.MonthlyRentReport.Reason;
             }
 
+            // A bill the player has to decide on (pawn or owe) stays pending; the day still ends. The workshop asks for
+            // the decision before the next day's dive or rest (DayCycleService.CanStartDay).
             if (report.MonthlyRentReport.Status == MonthlyRentSettlementStatus.RequiresPawn) {
-                report.EndingMoney = player.Money;
-                report.RentCountdown = 0;
-                return report;
+                report.Success = true;
             }
         }
 
@@ -205,7 +205,7 @@ public static class TownEconomyService {
         }
 
         NormalizeCalendar(player);
-        report.Month = player.CurrentMonth;
+        report.Month = GetRentPeriodIndex(player, config);
         report.StartingMoney = player.Money;
         report.TotalBill = CalculateMonthlyBill(
             player,
@@ -215,6 +215,9 @@ public static class TownEconomyService {
             out int licenseFee,
             out int debtPrincipal,
             out int debtInterest);
+        if (player.HasPendingMonthlyRent && player.PendingMonthlyBillAmount > 0) {
+            report.TotalBill = player.PendingMonthlyBillAmount;
+        }
         report.BaseRent = baseRent;
         report.WorkshopMaintenance = workshopMaintenance;
         report.LicenseFee = licenseFee;
@@ -290,6 +293,86 @@ public static class TownEconomyService {
         report.NewDebtAmount = player.EconomyDebtAmount;
         report.EndingMoney = player.Money;
         return report;
+    }
+
+    // 先欠着: pay what money there is and owe the rest of the pending bill (GDD_07 §5.3). A shortfall of half the bill
+    // or more is a heavy default; BankruptcyHeavyDefaults of them in a row end the run.
+    public static MonthlyRentSettlementReport AcceptPendingRentAsDebt(PlayerProfile player, string economyConfigID = DefaultEconomyConfigID) {
+        MonthlyRentSettlementReport report = new MonthlyRentSettlementReport();
+        if (!TryResolveContext(player, economyConfigID, out EconomyConfig config, out string reason)) {
+            report.Reason = reason;
+            return report;
+        }
+
+        if (!player.HasPendingMonthlyRent) {
+            report.Reason = "没有待交的房租。";
+            return report;
+        }
+
+        report.Month = GetRentPeriodIndex(player, config);
+        report.StartingMoney = player.Money;
+        report.TotalBill = player.PendingMonthlyBillAmount;
+        if (player.Money >= report.TotalBill) {
+            return ResolveMonthlyRent(player, null, economyConfigID);
+        }
+
+        report.Shortfall = report.TotalBill - player.Money;
+        bool heavy = report.Shortfall * 2 >= report.TotalBill;
+        report.PaidAmount = player.Money;
+        AcceptDebt(player, report.Shortfall, heavy);
+        report.Success = true;
+        report.Status = heavy ? MonthlyRentSettlementStatus.HeavyDefault : MonthlyRentSettlementStatus.LightDebtAccepted;
+        report.NewDebtAmount = player.EconomyDebtAmount;
+        report.EndingMoney = player.Money;
+        return report;
+    }
+
+    public static bool IsBankrupt(PlayerProfile player, string economyConfigID = DefaultEconomyConfigID) {
+        if (!TryResolveContext(player, economyConfigID, out EconomyConfig config, out _)) {
+            return false;
+        }
+
+        return player.ConsecutiveHeavyDefaultCount >= Mathf.Max(1, config.BankruptcyHeavyDefaults);
+    }
+
+    public static EconomyConfig GetConfig(string economyConfigID = DefaultEconomyConfigID) {
+        string id = string.IsNullOrEmpty(economyConfigID) ? DefaultEconomyConfigID : economyConfigID;
+        return ConfigManager.EconomyConfigs.TryGetValue(id, out EconomyConfig config) ? config : null;
+    }
+
+    public static int GetRentPeriodLength(EconomyConfig config) {
+        if (config == null) {
+            return 28;
+        }
+
+        return Mathf.Max(1, config.RentPeriodDays > 0 ? config.RentPeriodDays : config.MonthLength);
+    }
+
+    // 1-based rent period of the player's current day.
+    public static int GetRentPeriodIndex(PlayerProfile player, EconomyConfig config) {
+        return (Mathf.Max(1, player?.CurrentDay ?? 1) - 1) / GetRentPeriodLength(config) + 1;
+    }
+
+    // 1-based day inside the current rent period; rent is charged at the end of the period's last day.
+    public static int GetDayInRentPeriod(PlayerProfile player, EconomyConfig config) {
+        return (Mathf.Max(1, player?.CurrentDay ?? 1) - 1) % GetRentPeriodLength(config) + 1;
+    }
+
+    // Days left before rent, counting today (1 = rent is charged tonight).
+    public static int CalculateRentCountdown(PlayerProfile player, EconomyConfig config) {
+        if (player == null || config == null) {
+            return 0;
+        }
+
+        return Mathf.Max(0, GetRentPeriodLength(config) - GetDayInRentPeriod(player, config) + 1);
+    }
+
+    public static int CalculateMonthlyBill(PlayerProfile player, EconomyConfig config) {
+        if (player == null || config == null) {
+            return 0;
+        }
+
+        return CalculateMonthlyBill(player, config, out _, out _, out _, out _, out _);
     }
 
     public static List<PawnCandidate> BuildPawnCandidates(PlayerProfile player, string economyConfigID = DefaultEconomyConfigID) {
@@ -1016,8 +1099,7 @@ public static class TownEconomyService {
         out int licenseFee,
         out int debtPrincipal,
         out int debtInterest) {
-        int month = Mathf.Max(1, player?.CurrentMonth ?? 1);
-        baseRent = ResolveBaseRent(config, month);
+        baseRent = ResolveBaseRent(config, GetRentPeriodIndex(player, config));
         workshopMaintenance = Mathf.Max(0, config.WorkshopMaintenanceBase);
         licenseFee = Mathf.Max(0, config.LicenseFeeBase);
         debtPrincipal = Mathf.Max(0, player?.EconomyDebtAmount ?? 0);
@@ -1025,18 +1107,18 @@ public static class TownEconomyService {
         return baseRent + workshopMaintenance + licenseFee + debtPrincipal + debtInterest;
     }
 
-    private static int ResolveBaseRent(EconomyConfig config, int month) {
+    public static int ResolveBaseRent(EconomyConfig config, int period) {
         if (config?.RentCurve == null || config.RentCurve.Count == 0) {
             return 0;
         }
 
         RentCurveStepConfig best = null;
         foreach (RentCurveStepConfig step in config.RentCurve) {
-            if (step == null || step.Month <= 0 || step.BaseRent <= 0) {
+            if (step == null || step.StartPeriod <= 0 || step.BaseRent <= 0) {
                 continue;
             }
 
-            if (step.Month <= month && (best == null || step.Month > best.Month)) {
+            if (step.StartPeriod <= period && (best == null || step.StartPeriod > best.StartPeriod)) {
                 best = step;
             }
         }
@@ -1045,7 +1127,7 @@ public static class TownEconomyService {
             return best.BaseRent;
         }
 
-        return config.RentCurve.Where(step => step != null && step.BaseRent > 0).OrderBy(step => step.Month).FirstOrDefault()?.BaseRent ?? 0;
+        return config.RentCurve.Where(step => step != null && step.BaseRent > 0).OrderBy(step => step.StartPeriod).FirstOrDefault()?.BaseRent ?? 0;
     }
 
     private static void AcceptDebt(PlayerProfile player, int shortfall, bool heavyDefault) {
@@ -1247,11 +1329,4 @@ public static class TownEconomyService {
         }
     }
 
-    private static int CalculateRentCountdown(PlayerProfile player, EconomyConfig config) {
-        if (player == null || config == null) {
-            return 0;
-        }
-
-        return Mathf.Max(0, config.MonthLength - player.CurrentMonthDay + 1);
-    }
 }

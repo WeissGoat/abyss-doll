@@ -81,8 +81,9 @@ public static class TownEconomyReadabilityTextServiceSmokeTest {
         CoreBackend core = CreateCore();
         PlayerProfile player = core.CurrentPlayer;
         player.Money = 1050;
+        player.CurrentDay = 7;
         player.CurrentMonth = 1;
-        player.CurrentMonthDay = 28;
+        player.CurrentMonthDay = 7;
         player.StashInventory.Clear();
         AddStashItem(player, "gear_charge_pistol");
 
@@ -100,7 +101,7 @@ public static class TownEconomyReadabilityTextServiceSmokeTest {
         bool passed = refresh.Success
             && delivery.Success
             && snapshot.Success
-            && snapshot.RentPressureText.Contains("1200G")
+            && snapshot.RentPressureText.Contains("600G")
             && snapshot.PressureLines.Any(line => line.Contains("可典当候选"))
             && pawnLine != null
             && pawnLine.PawnValue == 200

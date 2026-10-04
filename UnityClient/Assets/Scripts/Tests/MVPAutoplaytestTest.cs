@@ -28,7 +28,7 @@ public static class MVPAutoplaytestTest {
         }
 
         if (report.CalendarMismatches > 0) {
-            Debug.LogError($"[MVPAutoplaytest] {report.CalendarMismatches} campaign(s) ended on a day other than 1 + dives.");
+            Debug.LogError($"[MVPAutoplaytest] {report.CalendarMismatches} campaign(s) ended on a day other than 1 + dives + rests.");
         }
 
         Debug.Log("=== MVP Autoplaytest Finished ===");
@@ -262,7 +262,7 @@ public class MVPAutoplaytestReport {
         LoopCampaignRate = Campaigns.Count(c => c.ReachedLoopTarget) / (float)count;
         AverageExpeditions = (float)Campaigns.Average(c => c.Expeditions);
         TotalDefeats = Campaigns.Sum(c => c.Defeats);
-        CalendarMismatches = Campaigns.Count(c => c.FinalDay != 1 + c.Expeditions);
+        CalendarMismatches = Campaigns.Count(c => c.FinalDay != 1 + c.Expeditions + c.RestDays);
         Layer1ClearRate = Campaigns.Count(c => c.ClearedLayer1) / (float)count;
         Layer2EntryRate = Campaigns.Count(c => c.EnteredLayer2) / (float)count;
         Tier1CoreRate = Campaigns.Count(c => c.ObtainedTier1Core) / (float)count;
@@ -319,6 +319,10 @@ public class MVPAutoplayCampaignReport {
     public int Defeats;
     public bool ReachedLoopTarget;
     public int FinalDay;
+    public int RestDays;
+    public int RentPaid;
+    public int RentOwed;
+    public bool Bankrupt;
     public int FinalMoney;
     public int FinalHP;
     public int FinalSAN;
@@ -409,6 +413,10 @@ internal class MVPAutoplayCampaign {
 
                 RunWorkshopPhase();
                 expedition.MoneyAfterWorkshop = _core.CurrentPlayer.Money;
+                if (_report.Bankrupt) {
+                    _report.Notes.Add("停止模拟：连续严重拖欠房租，工坊破产。");
+                    break;
+                }
             }
         } finally {
             DungeonEventBus.OnCombatLootPrepared -= HandleCombatLootPrepared;
@@ -788,8 +796,9 @@ internal class MVPAutoplayCampaign {
     }
 
     private void RunWorkshopPhase() {
-        RestoreDollAtTown();
         SellSpareLoot();
+        SettlePendingRent();
+        RestIfHurt();
 
         int beforeCount = GetGrid()?.ContainedItems.Count ?? 0;
         string beforeChassis = _core.CurrentPlayer.ActiveDoll.Chassis?.ChassisID;
@@ -810,14 +819,38 @@ internal class MVPAutoplayCampaign {
         TryCraft("craft_pros_cooling_system");
     }
 
-    private void RestoreDollAtTown() {
-        DollEntity doll = _core.CurrentPlayer.ActiveDoll;
-        if (doll == null) {
-            return;
+    // HP comes home as it is (GDD_02 §5.1). The bot rests (one day each) until Zero is above half HP, like a careful
+    // player would; a rest night can bring rent due, which is settled again.
+    private void RestIfHurt() {
+        PlayerProfile player = _core.CurrentPlayer;
+        DollEntity doll = player.ActiveDoll;
+        int guard = 0;
+        while (doll != null && doll.Status.HP_Current * 2 < doll.Status.HP_Max && guard++ < 3 && !_report.Bankrupt) {
+            if (DayCycleService.Rest(player, out string reason) == null) {
+                _report.Notes.Add("休息失败：" + reason);
+                break;
+            }
+
+            _report.RestDays++;
+            SettlePendingRent();
+        }
+    }
+
+    // Weekly rent the night settlement could not cover: sell spare loot, then pay, else owe it.
+    private void SettlePendingRent() {
+        PlayerProfile player = _core.CurrentPlayer;
+        if (player.HasPendingMonthlyRent) {
+            SellSpareLoot();
+            MonthlyRentSettlementReport paid = TownEconomyService.ResolveMonthlyRent(player);
+            if (paid.Status == MonthlyRentSettlementStatus.Paid) {
+                _report.RentPaid++;
+            } else {
+                TownEconomyService.AcceptPendingRentAsDebt(player);
+                _report.RentOwed++;
+            }
         }
 
-        doll.Status.HP_Current = doll.Status.HP_Max;
-        doll.Status.SAN_Current = doll.Status.SAN_Max;
+        _report.Bankrupt = TownEconomyService.IsBankrupt(player);
     }
 
     // 出发前整备: bring last dive's gear back, then fill free space with stash gear and consumables, best first.
@@ -831,6 +864,15 @@ internal class MVPAutoplayCampaign {
             .ToList();
         foreach (ItemEntity item in candidates) {
             PreDiveLoadoutService.TryBringFromStash(player, item, out _);
+        }
+
+        // Lost every weapon: buy a basic one at the 补给铺 when the money allows (M2 batch 1).
+        if (!HasUsableWeapon()) {
+            WorkshopShopPurchaseResult bought = WorkshopShopService.TryBuy(player, "gear_rusty_dagger");
+            if (bought.Success) {
+                _report.Notes.Add("没有武器，在补给铺买了生锈短剑。");
+                PreDiveLoadoutService.TryBringFromStash(player, bought.Item, out _);
+            }
         }
     }
 

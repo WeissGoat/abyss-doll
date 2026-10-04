@@ -44,8 +44,9 @@ update_rule: 修改小镇经济周期、月租曲线、欠债利息、轻债阈�
 | `Name` | string | 策划可读名称。 |
 | `WeekLength` | int | 周期天数；当前正式口径为 7。 |
 | `MonthLength` | int | 月周期天数；当前正式口径为 28。 |
-| `RentCurveID` | string | 月租曲线 ID，用于日志和策划定位。 |
-| `RentCurve` | array | 月租阶梯。`TownEconomyService` 取不大于当前月份的最高阶梯。 |
+| `RentCurveID` | string | 房租曲线 ID，用于日志和策划定位。 |
+| `RentPeriodDays` | int | 房租周期天数，在周期最后一天的夜里收。`0` 表示按月（`MonthLength`）。Demo 为 `7`：每周交一次（2026-10-04 制作人决定）。 |
+| `RentCurve` | array | 房租阶梯，按房租周期编号（第 1 周、第 2 周……）取不大于当前周期的最高阶梯。 |
 | `WorkshopMaintenanceBase` | int | 月账单中的固定工坊维护费。当前首版为 0，后续可随设施解锁提高。 |
 | `LicenseFeeBase` | int | 月账单中的固定许可证 / 保护费。当前首版为 0，后续接剧情或势力压力。 |
 | `DebtInterestRate` | float | 上月欠债利息。示例：`0.1` 表示 10%。 |
@@ -54,6 +55,8 @@ update_rule: 修改小镇经济周期、月租曲线、欠债利息、轻债阈�
 | `PawnProtectedTags` | array | 典当硬保护标签。命中任意标签时不进入典当候选。 |
 | `ShopStock` | array | 工坊补给铺常驻商品的物品 `ConfigID`（基础武器、消耗品），保证丢光武器后还能买回来。 |
 | `ShopPriceMultiplier` | float | 补给铺加价倍率，`>= 1`。售价 = 当前出售价 × 倍率（向上取整），买了再卖永远亏。 |
+| `RestHPRecoverRatio` / `RestSANRecoverRatio` | float | 「停工休息」一天恢复的 HP / SAN 占上限的比例（0–1）。当前都是 1：休息一天回满。 |
+| `BankruptcyHeavyDefaults` | int | 连续几次严重违约（欠下账单一半以上）后工坊破产，本局结束。当前为 2。 |
 
 ## 3. 正式扩展字段目标
 
@@ -81,26 +84,27 @@ update_rule: 修改小镇经济周期、月租曲线、欠债利息、轻债阈�
 
 | 字段名 | 类型 | 说明 |
 |---|---|---|
-| `Month` | int | 生效月份。必须为正数，不允许重复。 |
-| `BaseRent` | int | 该月份基础月租。必须为正数。 |
+| `Period` | int | 从第几个房租周期开始生效。必须为正数，不允许重复。 |
+| `Month` | int | 旧字段名，`Period` 为 0 时读取它。 |
+| `BaseRent` | int | 该周期的基础房租。必须为正数。 |
 
 ## 6. 当前首批配置
 
 | EconomyConfigID | 目标 |
 |---|---|
-| `economy_town_v1` | 按 28 天月周期提供首版月租压力：第 1 月 1200G，第 2 月 2400G，第 3 月 4200G，第 4 月起 5200G；轻债阈值 10%，典当折扣 25%。 |
+| `economy_town_v1` | Demo 周租（2026-10-04）：每 7 天交一次，第 1 周 600G，第 2 周 1000G，第 3 周 1500G，第 4 周 2100G，第 5 周起 2800G；轻债阈值 10%，典当折扣 25%；休息一天回满 HP / SAN；连续 2 次严重违约破产。数值是起点，M2 之后再调。 |
 
 ## 7. Validator 规则
 
 `ConfigValidator.ValidateEconomyConfigs` 会检查：
 
 * 至少存在一个 Economy 配置。
-* `WeekLength`、`MonthLength`、`RentCurve.Month`、`RentCurve.BaseRent` 为正。
+* `WeekLength`、`MonthLength`、`RentCurve` 的周期编号（`Period`，或旧的 `Month`）、`RentCurve.BaseRent` 为正；`RentPeriodDays >= 0`。
 * `MonthLength` 不能不合法；非 `WeekLength` 整除时给 warning。
 * `DebtInterestRate >= 0`。
 * `0 <= LightDebtThresholdRatio <= 1`。
 * `0 < PawnValueMultiplier <= 1`。
-* `RentCurve.Month` 不重复。
+* `RentCurve` 的周期编号不重复。
 
 正式扩展阶段还应补充 `CFG-ECON-*`、`CFG-CONTRA-*`、`CFG-NIGHT-*`、`CFG-DEADLOCK-*` 检查，具体见 `51_经济压力正式配置Validator与固定验收样例.md`。
 
@@ -110,5 +114,6 @@ update_rule: 修改小镇经济周期、月租曲线、欠债利息、轻债阈�
 * 每日营业由 `SettleDailyBusiness` 产出 `DailyEconomyReport`。
 * 月租由 `ResolveMonthlyRent` 产出 `MonthlyRentSettlementReport`。
 * 缺口小于轻债阈值时转入 `PlayerProfile.EconomyDebtAmount`。
-* 缺口较大且存在可典当物时只返回候选，不自动典当，必须由玩家或 UI 传入选中的典当物。
+* 缺口较大且存在可典当物时只返回候选，不自动典当；账单挂起（`HasPendingMonthlyRent`），日期照常推进。玩家下一次做「下潜 / 休息」之前必须处理：典当选中物品交租（`ResolveMonthlyRent`），或先欠着（`AcceptPendingRentAsDebt`，欠下一半以上算严重违约）。
+* 一天的结束由 `DayCycleService` 统一走（下潜日 `EndDiveDay`、休息日 `Rest`），它调用 `SettleDailyBusiness` 并产出给夜间卡片用的 `DayEndReport`。
 * 订单绑定物、剧情锁定物、人偶情感锚点和主线关键物通过 `PawnProtectedTags` 或绑定状态保护，不进入典当候选。

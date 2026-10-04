@@ -4,22 +4,27 @@
   "WeekLength": 7,
   "MonthLength": 28,
   "RentCurveID": "rent_curve_workshop_v1",
+  "RentPeriodDays": 7,
   "RentCurve": [
     {
-      "Month": 1,
-      "BaseRent": 1200
+      "Period": 1,
+      "BaseRent": 600
     },
     {
-      "Month": 2,
-      "BaseRent": 2400
+      "Period": 2,
+      "BaseRent": 1000
     },
     {
-      "Month": 3,
-      "BaseRent": 4200
+      "Period": 3,
+      "BaseRent": 1500
     },
     {
-      "Month": 4,
-      "BaseRent": 5200
+      "Period": 4,
+      "BaseRent": 2100
+    },
+    {
+      "Period": 5,
+      "BaseRent": 2800
     }
   ],
   "WorkshopMaintenanceBase": 0,
@@ -27,6 +32,9 @@
   "DebtInterestRate": 0.1,
   "LightDebtThresholdRatio": 0.1,
   "PawnValueMultiplier": 0.25,
+  "RestHPRecoverRatio": 1.0,
+  "RestSANRecoverRatio": 1.0,
+  "BankruptcyHeavyDefaults": 2,
   "ShopPriceMultiplier": 1.2,
   "ShopStock": ["gear_rusty_dagger", "gear_wooden_shield", "con_repair_kit", "con_cheap_sedative"],
   "PawnProtectedTags": [

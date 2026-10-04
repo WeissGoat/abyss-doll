@@ -27,7 +27,10 @@ public enum DiveReadinessIssueCode {
     InvalidProstheticReference,
     InvalidProstheticSlot,
     DuplicateProstheticSlot,
-    AutoUnequippedProsthetic
+    AutoUnequippedProsthetic,
+    NoHP,
+    LowHPWarning,
+    DayNotStartable
 }
 
 public class DiveReadinessIssue {
@@ -116,6 +119,10 @@ public static class DiveReadinessService {
         };
 
         ValidateLayer(player, layerID, result);
+        if (player != null && !DayCycleService.CanStartDay(player, out string dayReason)) {
+            result.AddIssue(DiveReadinessIssueCode.DayNotStartable, DiveReadinessIssueSeverity.Blocker, dayReason);
+        }
+
         DollEntity doll = player != null ? player.ActiveDoll : null;
         ValidateDoll(doll, result, autoUnequipIllegalProsthetics && !result.HasBlockers());
         return result;
@@ -174,6 +181,21 @@ public static class DiveReadinessService {
     }
 
     private static void ValidateStatus(DollEntity doll, DiveReadinessResult result) {
+        // GDD_02 §5.2: after a defeat Zero comes back with HP 0 and must be repaired or rest first.
+        if (doll.Status.HP_Current <= 0) {
+            result.AddIssue(
+                DiveReadinessIssueCode.NoHP,
+                DiveReadinessIssueSeverity.Blocker,
+                "零号还站不起来（HP 0）。",
+                "先停工休息一天。");
+        } else if (doll.Status.HP_Max > 0 && doll.Status.HP_Current * 10 < doll.Status.HP_Max * 3) {
+            result.AddIssue(
+                DiveReadinessIssueCode.LowHPWarning,
+                DiveReadinessIssueSeverity.Warning,
+                $"零号伤得很重（HP {doll.Status.HP_Current}/{doll.Status.HP_Max}）。",
+                "可以出发，但先休息会更稳。");
+        }
+
         if (doll.Status.WearAndTear >= ExtremeWearThreshold) {
             result.AddIssue(
                 DiveReadinessIssueCode.ExtremeWear,
