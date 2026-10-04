@@ -94,6 +94,16 @@ public static class P3DevTools {
         return "Prologue skipped.\n" + Describe();
     }
 
+    // Editor only: whether the next Play Mode starts with the prologue. Builds always play it.
+    public static string SetPrologueOnStartup(bool play) {
+        P3DevSettings.PlayPrologueOnStartup = play;
+        return $"Prologue on startup: {(P3DevSettings.PlayPrologueOnStartup ? "on" : "off")} (takes effect next time Play Mode starts).";
+    }
+
+    public static string TogglePrologueOnStartup() {
+        return SetPrologueOnStartup(!P3DevSettings.PlayPrologueOnStartup);
+    }
+
     // Debug route to a screen: workshop, sell, prosthetic, layers, map, combat, saferoom, stairs.
     public static string GoTo(string screen) {
         GameFlowController flow = GameFlowController.Instance;
@@ -183,7 +193,11 @@ public static class P3DevTools {
             lastSignature = signature;
 
             CombatSystem combat = GameRoot.Core?.Combat;
-            if (IsPanelActive("CombatLootPanel_Runtime")) {
+            if (IsPanelActive("CombatPanel") && combat != null && combat.CurrentState == CombatState.End && !IsPanelActive("CombatLootPanel_Runtime")) {
+                // Combat resolves instantly; the result screen appears after the queued animations play out.
+                log.AppendLine($"Combat over; {VisualQueue.Count} animation(s) still playing. Call RunDive() again in a few seconds.");
+                break;
+            } else if (IsPanelActive("CombatLootPanel_Runtime")) {
                 log.AppendLine(PlaceLoot());
             } else if (IsPanelActive("CombatPanel") && combat != null && combat.CurrentState != CombatState.End) {
                 string combatResult = PlayCombat();

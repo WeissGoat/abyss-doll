@@ -71,7 +71,7 @@ public class P3DevPanel : MonoBehaviour {
         panelRect.anchorMax = new Vector2(1f, 1f);
         panelRect.pivot = new Vector2(1f, 1f);
         panelRect.anchoredPosition = new Vector2(-16f, -16f);
-        panelRect.sizeDelta = new Vector2(420f, 760f);
+        panelRect.sizeDelta = new Vector2(420f, 810f);
         VerticalLayoutGroup layout = panel.AddComponent<VerticalLayoutGroup>();
         layout.padding = new RectOffset(14, 14, 12, 12);
         layout.spacing = 6f;
@@ -82,6 +82,7 @@ public class P3DevPanel : MonoBehaviour {
 
         AddLabel(panel.transform, font, "开发者面板（F1 开关）", 22, 34f);
         AddButton(panel.transform, font, "跳过序章", P3DevTools.SkipPrologue);
+        AddButton(panel.transform, font, "启动时播放序章：开/关", P3DevTools.TogglePrologueOnStartup);
         AddButton(panel.transform, font, "回工坊", () => P3DevTools.GoTo("workshop"));
         AddButton(panel.transform, font, "新下潜（地图）", () => P3DevTools.GoTo("map"));
         AddButton(panel.transform, font, "进战斗", () => P3DevTools.GoTo("combat"));

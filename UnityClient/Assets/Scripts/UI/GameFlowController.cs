@@ -27,8 +27,6 @@ public class GameFlowController : MonoBehaviour {
     [SerializeField] private bool grantDebugStartResources = false;
     [SerializeField] private int debugStartMoney = 1500;
     [SerializeField] private string debugStartItemID = "mat_core_tier1";
-    private bool playPrologueOnStartup = true;
-    
     private GameScreenState _currentScreen;
     private CombatLootPickupResult _pendingCombatLootResult;
     private DungeonSettlementResult _pendingSettlementResult;
@@ -102,7 +100,7 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnStairsEntered += HandleStairsEntered;
 
         EnterWorkshop();
-        StartPrologueOpeningIfNeeded();
+        StartPrologueOpeningIfNeeded(P3DevSettings.PlayPrologueOnStartup);
     }
 
     public void EnterWorkshop() {
@@ -143,7 +141,7 @@ public class GameFlowController : MonoBehaviour {
     }
 
     public void EnsurePrologueOpeningForRuntime() {
-        StartPrologueOpeningIfNeeded();
+        StartPrologueOpeningIfNeeded(true);
     }
 
     public void OpenDungeonMapInventory() {
@@ -187,9 +185,9 @@ public class GameFlowController : MonoBehaviour {
         inventoryItemLayer = _inventoryPresentation.GetItemLayer();
     }
 
-    private void StartPrologueOpeningIfNeeded() {
-        Debug.Log($"[GameFlow] Prologue startup check. enabled={playPrologueOnStartup}");
-        if (!playPrologueOnStartup) {
+    private void StartPrologueOpeningIfNeeded(bool enabled) {
+        Debug.Log($"[GameFlow] Prologue startup check. enabled={enabled}");
+        if (!enabled) {
             return;
         }
 

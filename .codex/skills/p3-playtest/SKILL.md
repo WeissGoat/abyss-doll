@@ -13,12 +13,15 @@ description: Use when Project P3 needs to see the game actually running - enter 
 |---|---|
 | `Describe()` | 当前界面、序章台词、天数 / 金钱 / HP / SAN、背包、战斗状态和敌人意图、玩家此刻能点的按钮 |
 | `Click("开始下潜")` | 按文字点玩家此刻能点的按钮（序章挡着时只能点序章的按钮） |
-| `RunDive()` | 从工坊像玩家一样跑一次下潜，到安全区或阶梯撤离、回工坊；提示"call again"时再调一次（有些界面下一帧才响应） |
+| `RunDive()` | 从工坊像玩家一样跑一次下潜，到安全区或阶梯撤离、回工坊；提示"call again"时再调一次（有些界面下一帧才响应；战斗结束后要等攻击动画播完，结果界面才出来） |
 | `AutoCombat()`、`TakeLoot()` | 打完当前战斗；把战利品放进背包并确认 |
 | `SkipPrologue()`、`GoTo("map")` 等 | 调试路径：`workshop`、`sell`、`prosthetic`、`layers`、`map`、`combat`、`saferoom`、`stairs` |
 | `AddMoney(500)`、`AddItem("gear_rusty_dagger")`、`Heal()` | 改状态（调试用） |
+| `SetPrologueOnStartup(true)` | 下次进 Play Mode 时播放序章 |
 
 游戏内按 F1 打开同一套功能的开发者面板（只在 Editor 和开发版里有）。
+
+Editor 里默认不播序章：进 Play Mode 直接到工坊，背包里是初始装备。要检查序章时，用菜单 `Tools/P3/启动时播放序章`、F1 面板或 `SetPrologueOnStartup(true)` 打开，下次进 Play Mode 生效；看完记得关掉。这个开关存在本机的 EditorPrefs 里，打出来的包总是播放序章。
 
 ## 步骤
 
