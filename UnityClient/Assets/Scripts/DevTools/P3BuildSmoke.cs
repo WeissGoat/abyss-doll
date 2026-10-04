@@ -59,8 +59,8 @@ public class P3BuildSmoke : MonoBehaviour {
                 continue;
             }
 
-            // The same report 40 times in a row (about 20 s without animations) means nothing is moving.
-            repeats = report == lastReport ? repeats + 1 : 0;
+            // The same report 40 times in a row (about 20 s) with no animations left to play means nothing is moving.
+            repeats = report == lastReport && VisualQueue.Count == 0 ? repeats + 1 : 0;
             lastReport = report;
             if (report.Contains("Stopped:") || repeats >= 40) {
                 stuck = true;
