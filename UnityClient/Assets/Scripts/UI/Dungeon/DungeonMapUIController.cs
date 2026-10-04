@@ -20,6 +20,9 @@ public class DungeonMapUIController : MonoBehaviour {
     private Text firstDiveGuideText;
     private float mapPathMinX;
     private float mapPathMaxX;
+    private Text mapHintText;
+    // Nodes the player can still get to from where they stand; everything else on the layer is behind them.
+    private readonly HashSet<NodeBase> reachableNodes = new HashSet<NodeBase>();
 
     public void RefreshMap() {
         EnsureInventoryControls();
@@ -37,6 +40,8 @@ public class DungeonMapUIController : MonoBehaviour {
         }
 
         List<List<NodeBase>> rows = GetRenderableRows(layer);
+        CollectReachableNodes(layer);
+        ApplyMapHint(layer);
         Dictionary<NodeBase, Vector2> nodePositions = BuildNodePositions(rows);
         ConfigureMapLayout(rows);
         CreateRouteLines(layer, rows, nodePositions);
@@ -76,13 +81,16 @@ public class DungeonMapUIController : MonoBehaviour {
         Text txt = btnGo.GetComponentInChildren<Text>();
         DungeonMapNodePresentation presentation = DungeonMapVisibilityService.BuildNodePresentation(layer, node);
         bool isSelectable = IsNodeSelectable(layer, node);
-        ApplyNodeButtonSkin(btn, node, presentation, !isSelectable || node.IsVisited);
+        bool isCurrent = node == layer.CurrentNode;
+        bool isUnreachable = IsNodeUnreachable(layer, node);
+        ApplyNodeButtonSkin(btn, node, presentation, !(isSelectable || isCurrent));
 
         if (txt != null) {
             txt.text = BuildNodeLabel(node, presentation);
         }
 
         ApplyNodeIcon(btnGo.transform, node, presentation);
+        ApplyNodeStateMarker(btnGo.transform, isCurrent, isSelectable, node.IsVisited, isUnreachable);
 
         Debug.Log($"[DungeonMapUI] Render node button: {node.NodeID}, Type={node.GetType().Name}, Label={txt?.text?.Replace('\n', ' ')}");
 
@@ -128,7 +136,7 @@ public class DungeonMapUIController : MonoBehaviour {
 
         if (backpackHintText != null) {
             backpackHintText.text = isOpen
-                ? "整理背包中：拖出格子的物品会在关闭背包时丢弃"
+                ? "整理背包中：右键旋转物品；拖出格子的物品会在关闭背包时丢弃"
                 : "点击右下角打开背包，整理局内物资";
         }
     }
@@ -451,6 +459,101 @@ public class DungeonMapUIController : MonoBehaviour {
         return Mathf.Clamp01((x - mapPathMinX) / (mapPathMaxX - mapPathMinX));
     }
 
+    private void CollectReachableNodes(DungeonLayer layer) {
+        reachableNodes.Clear();
+        Queue<NodeBase> pending = new Queue<NodeBase>();
+        if (layer?.CurrentNode != null) {
+            pending.Enqueue(layer.CurrentNode);
+        } else if (layer?.EntryNodes != null && layer.EntryNodes.Count > 0) {
+            foreach (NodeBase entry in layer.EntryNodes) {
+                pending.Enqueue(entry);
+            }
+        } else if (layer?.RootNode != null) {
+            pending.Enqueue(layer.RootNode);
+        }
+
+        while (pending.Count > 0) {
+            NodeBase node = pending.Dequeue();
+            if (node == null || !reachableNodes.Add(node) || node.NextNodes == null) {
+                continue;
+            }
+
+            foreach (NodeBase next in node.NextNodes) {
+                pending.Enqueue(next);
+            }
+        }
+    }
+
+    private bool IsNodeUnreachable(DungeonLayer layer, NodeBase node) {
+        return node != null && !node.IsVisited && node != layer?.CurrentNode && !reachableNodes.Contains(node);
+    }
+
+    // Marks where Zero stands ("当前位置", solid gold ring), where she can go next ("可前往", pulsing green ring) and
+    // what is behind her. Unreachable branches fade out so the remaining routes read at a glance.
+    private void ApplyNodeStateMarker(Transform buttonTransform, bool isCurrent, bool isSelectable, bool isVisited, bool isUnreachable) {
+        Transform ring = buttonTransform.Find("NodeStateRing");
+        if (ring == null) {
+            ring = UIFrame.Create(buttonTransform, "NodeStateRing", 4f, new Vector2(-8f, -8f), new Vector2(8f, 8f)).transform;
+        }
+        ring.SetAsLastSibling();
+        ring.gameObject.SetActive(isCurrent || isSelectable);
+        if (isCurrent) {
+            UIFrame.SetColor(ring, UITheme.Accent);
+        } else if (isSelectable) {
+            UIFrame.SetColor(ring, UITheme.Positive);
+            UIPulse.Attach(ring.gameObject, 0.3f, 1f, 0.04f, 3.2f);
+        }
+
+        Text tag = buttonTransform.Find("NodeStateTag_Text")?.GetComponent<Text>();
+        if (tag == null) {
+            tag = UITheme.CreateText(buttonTransform, "NodeStateTag_Text", string.Empty, UITheme.CaptionSize, UITheme.TextPrimary, TextAnchor.MiddleCenter);
+            RectTransform tagRect = tag.rectTransform;
+            tagRect.anchorMin = new Vector2(0.5f, 1f);
+            tagRect.anchorMax = new Vector2(0.5f, 1f);
+            tagRect.pivot = new Vector2(0.5f, 0f);
+            tagRect.anchoredPosition = new Vector2(0f, 12f);
+            tagRect.sizeDelta = new Vector2(150f, 28f);
+            Outline outline = tag.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color(0f, 0f, 0f, 0.85f);
+            outline.effectDistance = new Vector2(1.5f, -1.5f);
+        }
+
+        tag.text = isCurrent ? "当前位置" : isSelectable ? "可前往" : isVisited ? "已走过" : string.Empty;
+        tag.color = isCurrent ? UITheme.Accent : isSelectable ? UITheme.Positive : UITheme.TextMuted;
+        tag.fontStyle = isCurrent || isSelectable ? FontStyle.Bold : FontStyle.Normal;
+
+        CanvasGroup group = buttonTransform.GetComponent<CanvasGroup>();
+        if (group == null) {
+            group = buttonTransform.gameObject.AddComponent<CanvasGroup>();
+        }
+        group.alpha = isUnreachable ? 0.35f : isVisited && !isCurrent ? 0.7f : 1f;
+    }
+
+    private void ApplyMapHint(DungeonLayer layer) {
+        if (mapHintText == null) {
+            Transform existing = transform.Find("MapHint_Text");
+            mapHintText = existing != null ? existing.GetComponent<Text>() : null;
+        }
+
+        if (mapHintText == null) {
+            mapHintText = UITheme.CreateText(transform, "MapHint_Text", string.Empty, UITheme.BodySize, UITheme.TextPrimary, TextAnchor.MiddleCenter);
+            RectTransform hintRect = mapHintText.rectTransform;
+            hintRect.anchorMin = new Vector2(0.5f, 1f);
+            hintRect.anchorMax = new Vector2(0.5f, 1f);
+            hintRect.pivot = new Vector2(0.5f, 1f);
+            hintRect.anchoredPosition = new Vector2(0f, -28f);
+            hintRect.sizeDelta = new Vector2(900f, 40f);
+            Outline outline = mapHintText.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color(0f, 0f, 0f, 0.85f);
+            outline.effectDistance = new Vector2(1.5f, -1.5f);
+        }
+
+        mapHintText.text = layer?.CurrentNode == null
+            ? "选择一个绿色的「可前往」节点出发"
+            : "金框是你现在的位置；点击绿色的「可前往」节点继续深入";
+        mapHintText.transform.SetAsLastSibling();
+    }
+
     private bool IsNodeSelectable(DungeonLayer layer, NodeBase node) {
         if (layer == null || node == null || node.IsVisited) {
             return false;
@@ -743,6 +846,18 @@ public class DungeonMapUIController : MonoBehaviour {
     }
 
     private Color ResolveRouteLineFallbackColor(DungeonLayer layer, NodeBase fromNode, NodeBase toNode) {
+        if (fromNode == layer?.CurrentNode && IsNodeSelectable(layer, toNode)) {
+            return new Color(UITheme.Positive.r, UITheme.Positive.g, UITheme.Positive.b, 0.95f);
+        }
+
+        if (fromNode != null && toNode != null && fromNode.IsVisited && (toNode.IsVisited || toNode == layer?.CurrentNode)) {
+            return new Color(UITheme.Accent.r, UITheme.Accent.g, UITheme.Accent.b, 0.7f);
+        }
+
+        if (IsNodeUnreachable(layer, fromNode) || IsNodeUnreachable(layer, toNode) || (fromNode != null && fromNode.IsVisited && fromNode != layer?.CurrentNode)) {
+            return new Color(0.18f, 0.22f, 0.25f, 0.14f);
+        }
+
         DungeonNodeVisibilityState fromVisibility = DungeonMapVisibilityService.ResolveVisibility(layer, fromNode);
         DungeonNodeVisibilityState toVisibility = DungeonMapVisibilityService.ResolveVisibility(layer, toNode);
         if (fromVisibility == DungeonNodeVisibilityState.Hidden || toVisibility == DungeonNodeVisibilityState.Hidden) {
