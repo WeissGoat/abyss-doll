@@ -5,9 +5,13 @@ using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
+// Balance regression: 30 bot campaigns play the loop dive -> town (sell, upgrade) -> pre-dive loadout -> dive.
+// M1 threshold (PROJECT_STATUS.md): at least 80% of campaigns dive 3+ times and both sell and upgrade.
 public static class MVPAutoplaytestTest {
     private const int CampaignCount = 30;
-    private const int MaxExpeditionsPerCampaign = 4;
+    private const int MaxExpeditionsPerCampaign = 5;
+    private const int LoopTargetDives = 3;
+    private const float LoopTargetCampaignRate = 0.8f;
     private const int BaseSeed = 20260510;
     private const int StabilityBatchCount = 5;
     private const int StabilitySeedStride = 1000;
@@ -18,6 +22,14 @@ public static class MVPAutoplaytestTest {
         MVPAutoplaytestReport report = BuildReport(BaseSeed);
         WriteReport(report, "MVPAutoplaytestReport.json");
         LogSummary(report);
+
+        if (report.LoopCampaignRate < LoopTargetCampaignRate) {
+            Debug.LogError($"[MVPAutoplaytest] Loop threshold FAILED: {report.LoopCampaignRate:P0} of campaigns dived {LoopTargetDives}+ times with a sale and an upgrade (need {LoopTargetCampaignRate:P0}). See Logs/MVPAutoplaytestReport.json.");
+        }
+
+        if (report.CalendarMismatches > 0) {
+            Debug.LogError($"[MVPAutoplaytest] {report.CalendarMismatches} campaign(s) ended on a day other than 1 + dives.");
+        }
 
         Debug.Log("=== MVP Autoplaytest Finished ===");
     }
@@ -61,6 +73,9 @@ public static class MVPAutoplaytestTest {
             int seed = baseSeed + i;
             UnityEngine.Random.InitState(seed);
             MVPAutoplayCampaignReport campaign = new MVPAutoplayCampaign(seed, MaxExpeditionsPerCampaign).Run();
+            campaign.ReachedLoopTarget = campaign.Expeditions >= LoopTargetDives
+                && campaign.SoldItems > 0
+                && campaign.ChassisUpgrades + campaign.ProstheticsCrafted > 0;
             report.Campaigns.Add(campaign);
         }
 
@@ -91,7 +106,8 @@ public static class MVPAutoplaytestTest {
 
     private static void LogSummary(MVPAutoplaytestReport report) {
         Debug.Log(
-            $"[MVPAutoplaytest] Summary: L1Clear={report.Layer1ClearRate:P0}, L2Entry={report.Layer2EntryRate:P0}, " +
+            $"[MVPAutoplaytest] Summary: Loop={report.LoopCampaignRate:P0}, AvgDives={report.AverageExpeditions:0.0}, Defeats={report.TotalDefeats}, " +
+            $"L1Clear={report.Layer1ClearRate:P0}, L2Entry={report.Layer2EntryRate:P0}, " +
             $"Tier1Core={report.Tier1CoreRate:P0}, Tier2Core={report.Tier2CoreRate:P0}, " +
             $"AvgMoney={report.AverageFinalMoney:0.0}, AvgHP={report.AverageFinalHP:0.0}, AvgSAN={report.AverageFinalSAN:0.0}, " +
             $"BackpackPressure={report.TotalBackpackRejects}, ToxicMoves={report.TotalToxicMoveCosts}, " +
@@ -217,6 +233,10 @@ public class MVPAutoplaytestReport {
     public List<MVPAutoplayCampaignReport> Campaigns = new List<MVPAutoplayCampaignReport>();
     public List<string> Warnings = new List<string>();
 
+    public float LoopCampaignRate;
+    public float AverageExpeditions;
+    public int TotalDefeats;
+    public int CalendarMismatches;
     public float Layer1ClearRate;
     public float Layer2EntryRate;
     public float Tier1CoreRate;
@@ -239,6 +259,10 @@ public class MVPAutoplaytestReport {
         }
 
         int count = Campaigns.Count;
+        LoopCampaignRate = Campaigns.Count(c => c.ReachedLoopTarget) / (float)count;
+        AverageExpeditions = (float)Campaigns.Average(c => c.Expeditions);
+        TotalDefeats = Campaigns.Sum(c => c.Defeats);
+        CalendarMismatches = Campaigns.Count(c => c.FinalDay != 1 + c.Expeditions);
         Layer1ClearRate = Campaigns.Count(c => c.ClearedLayer1) / (float)count;
         Layer2EntryRate = Campaigns.Count(c => c.EnteredLayer2) / (float)count;
         Tier1CoreRate = Campaigns.Count(c => c.ObtainedTier1Core) / (float)count;
@@ -292,6 +316,9 @@ public class MVPAutoplayCampaignReport {
     public bool ObtainedTier2Core;
     public bool Defeated;
     public int Expeditions;
+    public int Defeats;
+    public bool ReachedLoopTarget;
+    public int FinalDay;
     public int FinalMoney;
     public int FinalHP;
     public int FinalSAN;
@@ -360,8 +387,12 @@ internal class MVPAutoplayCampaign {
 
         try {
             for (int i = 1; i <= _maxExpeditions; i++) {
+                if (i > 1) {
+                    PrepareLoadout();
+                }
+
                 if (!HasUsableWeapon()) {
-                    _report.Notes.Add("停止模拟：背包中没有可用武器。");
+                    _report.Notes.Add("停止模拟：整备后背包里仍没有可用武器。");
                     break;
                 }
 
@@ -370,17 +401,14 @@ internal class MVPAutoplayCampaign {
                 _report.ExpeditionReports.Add(expedition);
                 _report.Expeditions = i;
 
+                // Defeat costs the run's loot, not the campaign: bound gear comes home and the next day goes on.
                 if (expedition.Defeated) {
                     _report.Defeated = true;
-                    break;
+                    _report.Defeats++;
                 }
 
                 RunWorkshopPhase();
                 expedition.MoneyAfterWorkshop = _core.CurrentPlayer.Money;
-
-                if (_report.ObtainedTier2Core) {
-                    break;
-                }
             }
         } finally {
             DungeonEventBus.OnCombatLootPrepared -= HandleCombatLootPrepared;
@@ -393,11 +421,18 @@ internal class MVPAutoplayCampaign {
         _report.FinalMoney = _core.CurrentPlayer.Money;
         _report.FinalHP = doll.Status.HP_Current;
         _report.FinalSAN = doll.Status.SAN_Current;
+        _report.FinalDay = _core.CurrentPlayer.CurrentDay;
         return _report;
     }
 
+    // Try layer 2 once stronger than the starting kit; after losing there, go back to layer 1 for one dive.
     private bool ShouldAttemptLayer2(int expeditionIndex) {
-        return expeditionIndex > 1 && (_report.ChassisUpgrades > 0 || _report.ProstheticsCrafted > 0 || _report.ObtainedTier1Core);
+        MVPAutoplayExpeditionReport last = _report.ExpeditionReports.LastOrDefault();
+        if (last != null && last.EnteredLayer2 && last.Defeated) {
+            return false;
+        }
+
+        return expeditionIndex > 1 && (_report.ChassisUpgrades > 0 || _report.ProstheticsCrafted > 0);
     }
 
     private MVPAutoplayExpeditionReport RunExpedition(int expeditionIndex, bool attemptLayer2) {
@@ -754,7 +789,7 @@ internal class MVPAutoplayCampaign {
 
     private void RunWorkshopPhase() {
         RestoreDollAtTown();
-        SellPureLoot();
+        SellSpareLoot();
 
         int beforeCount = GetGrid()?.ContainedItems.Count ?? 0;
         string beforeChassis = _core.CurrentPlayer.ActiveDoll.Chassis?.ChassisID;
@@ -785,15 +820,47 @@ internal class MVPAutoplayCampaign {
         doll.Status.SAN_Current = doll.Status.SAN_Max;
     }
 
-    private void SellPureLoot() {
+    // 出发前整备: bring last dive's gear back, then fill free space with stash gear and consumables, best first.
+    private void PrepareLoadout() {
+        PlayerProfile player = _core.CurrentPlayer;
+        PreDiveLoadoutService.RestoreLastLoadout(player);
+
+        List<ItemEntity> candidates = player.StashInventory
+            .Where(item => PreDiveLoadoutService.Classify(item) != LoadoutStashGroup.LootAndMaterial)
+            .OrderByDescending(ScoreItem)
+            .ToList();
+        foreach (ItemEntity item in candidates) {
+            PreDiveLoadoutService.TryBringFromStash(player, item, out _);
+        }
+    }
+
+    // Loot kept for upgrades: scrap for the two prosthetic recipes, the tier-1 core for the chassis.
+    private static readonly Dictionary<string, int> KeepForUpgrades = new Dictionary<string, int> {
+        { "loot_gear_scrap", 4 },
+        { "mat_core_tier1", 1 }
+    };
+
+    // After a dive everything sits in the stash (rule card 02 §5.2), so sell from there. Keeps what upgrades need.
+    private void SellSpareLoot() {
+        Dictionary<string, int> kept = new Dictionary<string, int>();
+        PlayerProfile player = _core.CurrentPlayer;
+        List<ItemEntity> owned = new List<ItemEntity>(player.StashInventory);
         BackpackGrid grid = GetGrid();
-        if (grid == null) {
-            return;
+        if (grid != null) {
+            owned.AddRange(grid.ContainedItems);
         }
 
-        foreach (ItemEntity item in grid.ContainedItems.ToList()) {
-            if (!IsPureSellLoot(item)) {
+        foreach (ItemEntity item in owned) {
+            if (!IsSellableLoot(item)) {
                 continue;
+            }
+
+            if (KeepForUpgrades.TryGetValue(item.ConfigID, out int keepLimit)) {
+                kept.TryGetValue(item.ConfigID, out int keptCount);
+                if (keptCount < keepLimit) {
+                    kept[item.ConfigID] = keptCount + 1;
+                    continue;
+                }
             }
 
             int value = item.BaseValue;
@@ -837,12 +904,12 @@ internal class MVPAutoplayCampaign {
             && (item.Combat.DamageType == DamageType.Physical.ToString() || item.Combat.DamageType == DamageType.Energy.ToString());
     }
 
-    private bool IsPureSellLoot(ItemEntity item) {
+    private bool IsSellableLoot(ItemEntity item) {
         if (item == null || item.ItemType != nameof(ItemType.Loot)) {
             return false;
         }
 
-        return !HasTag(item, "Material") && !HasTag(item, "CoreMaterial") && !HasTag(item, "Cursed");
+        return !HasTag(item, "CoreMaterial") && !HasTag(item, "Cursed");
     }
 
     private bool IsSurvivalProtected(ItemEntity item) {
