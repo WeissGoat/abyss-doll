@@ -35,7 +35,7 @@ public static class CombatHUDIntentBindingSmokeTest {
         // M2 batch 6: the enemy card shows the intent with its number, and the HUD previews the hit after the shield.
         bool passed = text.Contains("意图：攻击 9")
             && text.Contains("拾荒虫")
-            && text.Contains("回合结束将受到 9 伤害");
+            && text.Contains("敌方回合：受到 9 伤害");
 
         if (passed) {
             Debug.Log("Combat HUD Intent Binding PASSED.");

@@ -270,10 +270,10 @@ public class HUDController : MonoBehaviour {
             transform,
             _incomingPanel,
             "IncomingDamagePanel",
-            720f,
-            572f,
-            480f,
-            40f,
+            690f,
+            372f,
+            540f,
+            44f,
             VisualAssetService.UIPanelInfoID,
             new Color(0.08f, 0.06f, 0.05f, 0.7f),
             false);
@@ -545,6 +545,9 @@ public class HUDController : MonoBehaviour {
         if (enemyListParent == null) {
             return;
         }
+
+        // Intents are locked again at every player turn start; a snapshot from OnEnable would show stale cards.
+        RefreshIntentSnapshot();
 
         for (int i = enemyListParent.childCount - 1; i >= 0; i--) {
             DestroyRuntimeObject(enemyListParent.GetChild(i).gameObject);
@@ -880,7 +883,6 @@ public class HUDController : MonoBehaviour {
             return;
         }
 
-        RefreshIntentSnapshot();
         RefreshEnemyButtons();
         RefreshIncomingPreview();
     }

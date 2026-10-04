@@ -126,10 +126,8 @@ public static class CombatReadabilityTextService {
             preview.Text = "敌方这回合不攻击";
         } else {
             string shieldPart = preview.Blocked > 0 ? $"护盾挡 {preview.Blocked}，" : "没有护盾，";
-            preview.Text = $"回合结束将受到 {preview.Total} 伤害：{shieldPart}HP -{preview.HPLoss}（剩 {preview.HPAfter}）";
-            if (preview.Lethal) {
-                preview.Text += "，会倒下！";
-            }
+            string outcome = preview.Lethal ? "会倒下！" : $"剩 {preview.HPAfter}";
+            preview.Text = $"敌方回合：受到 {preview.Total} 伤害，{shieldPart}HP -{preview.HPLoss}，{outcome}";
         }
 
         return preview;
