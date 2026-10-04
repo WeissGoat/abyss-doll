@@ -22,6 +22,7 @@
 - Unity MCP（`.mcp.json` 里的 `unityMCP`）在 Editor 打开时可用：`refresh_unity` 编译，`read_console` 看报错，`run_tests` / `get_test_job` 跑测试，`manage_editor` 进出 Play Mode，`manage_camera` 截图。
 - 自动测试：Skill `p3-program-validation`（EditMode，程序集 `P3.SmokeTests.Editor`）。
 - 看游戏实际画面：Skill `p3-playtest`。游戏里的操作用 `P3DevTools`（一行调用、返回文字报告，例如 `return P3DevTools.Describe();`）；游戏内按 F1 是同一套功能的开发者面板。
+- 打包：Editor 开着时用菜单 `Tools/P3/打包 Windows 试玩版`（或 MCP `return P3BuildTools.BuildWindows(false);`），Editor 关着时用 `.\tools\build\Build-Windows.ps1`。输出在 `Builds/Windows/`（不进 git）。打完用 `.\tools\build\Test-WindowsBuild.ps1` 自检（包自己跑序章截图、3 次下潜和出售），再用 `Pack-WindowsBuild.ps1` 压缩。
 - 改了 `配置表(JSON)/` 后先同步：`.\tools\config\Sync-Configs.ps1 -Clean`。加改内容见 Skill `p3-content`。
 - Editor 没开时，写明 `validation_limited:unity_editor_not_running`，能做的静态检查照做。
 - 开工检查：`python tools/agent/agent_health_check.py`（分支、改动、距上次游戏改动的天数、Skill 校验）。

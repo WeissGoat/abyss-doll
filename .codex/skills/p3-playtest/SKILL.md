@@ -21,6 +21,8 @@ description: Use when Project P3 needs to see the game actually running - enter 
 
 游戏内按 F1 打开同一套功能的开发者面板（只在 Editor 和开发版里有）。
 
+打包版的画面检查用 `tools/build/Test-WindowsBuild.ps1`：包自己截序章、工坊、整备、账本，连跑 3 次下潜，结果和截图在 `UnityClient/Logs/Playtest/<时间>_build_smoke/`。只在 Editor 里看过的画面不能代表打包版：画布查找、对象顺序在打包版里会不一样。截图全是同一张空白图时，多半是电脑锁屏或窗口没在渲染（Player.log 里会有 FMOD 找不到音频设备），自检的逻辑结果仍然有效，截图要等解锁后重跑。
+
 Editor 里默认不播序章：进 Play Mode 直接到工坊，背包里是初始装备。要检查序章时，用菜单 `Tools/P3/启动时播放序章`、F1 面板或 `SetPrologueOnStartup(true)` 打开，下次进 Play Mode 生效；看完记得关掉。这个开关存在本机的 EditorPrefs 里，打出来的包总是播放序章。
 
 ## 步骤
