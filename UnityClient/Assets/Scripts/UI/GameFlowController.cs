@@ -10,7 +10,8 @@ public class GameFlowController : MonoBehaviour {
         NodeResolution,
         SafeRoom,
         Stairs,
-        Settlement
+        Settlement,
+        Loadout
     }
 
     public static GameFlowController Instance { get; private set; }
@@ -33,6 +34,8 @@ public class GameFlowController : MonoBehaviour {
     private bool _isDungeonMapInventoryOpen;
     private InventoryPresentationController _inventoryPresentation;
     private PrologueFirstDiveController _prologueFirstDiveController;
+    private PreDiveLoadoutUIController _preDiveLoadout;
+    private int _pendingLoadoutLayerID = 1;
     private bool _initialized;
 
     void Awake() {
@@ -105,6 +108,12 @@ public class GameFlowController : MonoBehaviour {
 
     public void EnterWorkshop() {
         TransitionToScreen(GameScreenState.Workshop);
+    }
+
+    // 出发前整备: the step between choosing a layer and starting the dive.
+    public void EnterPreDiveLoadout(int layerID) {
+        _pendingLoadoutLayerID = layerID;
+        TransitionToScreen(GameScreenState.Loadout);
     }
 
     public void EnterDungeonMap() {
@@ -317,6 +326,7 @@ public class GameFlowController : MonoBehaviour {
         if (dungeonNodeResultPanel) dungeonNodeResultPanel.SetActive(nextScreen == GameScreenState.NodeResolution);
         if (safeRoomPanel) safeRoomPanel.SetActive(nextScreen == GameScreenState.SafeRoom || nextScreen == GameScreenState.Stairs);
         if (settlementPanel) settlementPanel.SetActive(nextScreen == GameScreenState.Settlement);
+        if (_preDiveLoadout != null) _preDiveLoadout.gameObject.SetActive(nextScreen == GameScreenState.Loadout);
         ApplyInventoryPresentationForCurrentScreen();
 
         switch (nextScreen) {
@@ -344,6 +354,9 @@ public class GameFlowController : MonoBehaviour {
             case GameScreenState.Settlement:
                 OnEnterSettlementScreen(payload as DungeonSettlementResult);
                 break;
+            case GameScreenState.Loadout:
+                OnEnterLoadoutScreen();
+                break;
         }
 
         ApplyInventoryPresentationForCurrentScreen();
@@ -361,7 +374,31 @@ public class GameFlowController : MonoBehaviour {
             case GameScreenState.Settlement:
                 EnsureSettlementPanel();
                 break;
+            case GameScreenState.Loadout:
+                EnsurePreDiveLoadoutPanel();
+                break;
         }
+    }
+
+    private void EnsurePreDiveLoadoutPanel() {
+        if (_preDiveLoadout != null) {
+            return;
+        }
+
+        Canvas canvas = workshopPanel != null ? workshopPanel.GetComponentInParent<Canvas>() : FindObjectOfType<Canvas>();
+        if (canvas != null) {
+            _preDiveLoadout = PreDiveLoadoutUIController.Create(canvas.transform);
+        }
+    }
+
+    private void OnEnterLoadoutScreen() {
+        Debug.Log($"[GameFlow] 出发前整备，目标第 {_pendingLoadoutLayerID} 层。");
+        _preDiveLoadout?.Present(_pendingLoadoutLayerID, ReturnToLayerSelect, layerID => GameRoot.Core.Dungeon.StartRunAtLayer(layerID));
+    }
+
+    private void ReturnToLayerSelect() {
+        EnterWorkshop();
+        workshopPanel?.GetComponent<WorkshopUIController>()?.OpenDungeonStartLayerPanel();
     }
 
     private void OnEnterWorkshopScreen() {
@@ -589,6 +626,8 @@ public class GameFlowController : MonoBehaviour {
                 return InventoryPresentationMode.SafeRoom;
             case GameScreenState.Stairs:
                 return InventoryPresentationMode.Stairs;
+            case GameScreenState.Loadout:
+                return InventoryPresentationMode.Loadout;
             default:
                 return InventoryPresentationMode.Hidden;
         }

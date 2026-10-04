@@ -306,6 +306,9 @@ public class DungeonManager {
     public DungeonLayer CurrentLayer;
     private readonly List<ItemEntity> _runAcceptedLoot = new List<ItemEntity>();
     private int _currentRunSeed;
+    // Set once a run has been settled, so a second evacuate/defeat event (a double click on 返回小镇) cannot
+    // settle it again and skip a day. Cleared when the next run starts.
+    private bool _runSettled;
 
     public DungeonManager() {
         DungeonEventBus.OnDungeonEvacuated += HandleEvacuate;
@@ -346,6 +349,7 @@ public class DungeonManager {
 
         player.LastSelectedDungeonStartLayer = layerID;
         PreDiveLoadoutService.RememberLoadout(player);
+        _runSettled = false;
         _currentRunSeed = CreateRunSeed(layerID);
         Debug.Log($"[DungeonManager] Starting new dungeon run at Layer {layerID}.");
         ResetRunLootLedger();
@@ -564,6 +568,10 @@ public class DungeonManager {
     }
 
     private void HandleEvacuate() {
+        if (!TryBeginRunSettlement("evacuation")) {
+            return;
+        }
+
         Debug.Log("<color=green>[DungeonManager] Handling Dungeon Evacuation (Victory/Escape).</color>");
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
         DungeonSettlementResult result = new DungeonSettlementResult {
@@ -607,6 +615,10 @@ public class DungeonManager {
     }
 
     private void HandleDefeat() {
+        if (!TryBeginRunSettlement("defeat")) {
+            return;
+        }
+
         Debug.Log("<color=red>[DungeonManager] Handling Dungeon Defeat.</color>");
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
         DungeonSettlementResult result = new DungeonSettlementResult {
@@ -623,6 +635,16 @@ public class DungeonManager {
         DungeonEventBus.PublishDungeonSettlementPrepared(result);
         DungeonEventBus.PublishDungeonSettled(false);
         ResetRunLootLedger();
+    }
+
+    private bool TryBeginRunSettlement(string kind) {
+        if (_runSettled) {
+            Debug.LogWarning($"[DungeonManager] Ignored a second {kind}: this run is already settled.");
+            return false;
+        }
+
+        _runSettled = true;
+        return true;
     }
 
     // A dive takes the whole day: run the day's business settlement, which moves the calendar on (rule card 01 §3).

@@ -10,7 +10,8 @@ public enum InventoryPresentationMode {
     Combat,
     CombatLoot,
     SafeRoom,
-    Stairs
+    Stairs,
+    Loadout
 }
 
 public class InventoryPresentationController : MonoBehaviour {
@@ -246,6 +247,7 @@ public class InventoryPresentationController : MonoBehaviour {
             || _mode == InventoryPresentationMode.CombatLoot
             || _mode == InventoryPresentationMode.SafeRoom
             || _mode == InventoryPresentationMode.Stairs
+            || _mode == InventoryPresentationMode.Loadout
             || (_mode == InventoryPresentationMode.DungeonMap && _isDungeonMapInventoryOpen);
     }
 

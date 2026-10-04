@@ -213,6 +213,11 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         Debug.Log($"[UI] 你点击了 {ItemData.Name}");
         
+        // On the pre-dive loadout screen a click sends the item back to the stash instead of using it.
+        if (PreDiveLoadoutUIController.Active != null && PreDiveLoadoutUIController.Active.HandleBackpackItemClicked(ItemData)) {
+            return;
+        }
+
         BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
         if (grid == null || !grid.ContainedItems.Contains(ItemData)) {
             Debug.LogWarning($"[UI] 物品【{ItemData.Name}】当前不在背包网格中，无法使用。请先将它放入背包。");

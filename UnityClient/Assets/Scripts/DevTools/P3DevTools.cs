@@ -104,7 +104,7 @@ public static class P3DevTools {
         return SetPrologueOnStartup(!P3DevSettings.PlayPrologueOnStartup);
     }
 
-    // Debug route to a screen: workshop, sell, prosthetic, layers, map, combat, saferoom, stairs.
+    // Debug route to a screen: workshop, sell, prosthetic, layers, loadout, map, combat, saferoom, stairs.
     public static string GoTo(string screen) {
         GameFlowController flow = GameFlowController.Instance;
         if (flow == null || GameRoot.Core == null) {
@@ -127,6 +127,9 @@ public static class P3DevTools {
             case "layers":
                 flow.EnterWorkshop();
                 workshop?.OpenDungeonStartLayerPanel();
+                break;
+            case "loadout":
+                flow.EnterPreDiveLoadout(Mathf.Max(1, GameRoot.Core.CurrentPlayer.LastSelectedDungeonStartLayer));
                 break;
             case "map":
                 if (!StartRun()) {
@@ -179,6 +182,14 @@ public static class P3DevTools {
         if (IsPanelActive("WorkshopPanel") && !IsPanelActive("DungeonMapPanel")) {
             ClickByLabel("浅层入口", log);
             ClickByLabel("开始下潜", log);
+        }
+
+        if (IsPanelActive(PreDiveLoadoutUIController.PanelName)) {
+            ClickByLabel("带上上次的装备", log);
+            ClickByLabel("出发", log);
+            if (IsPanelActive(PreDiveLoadoutUIController.PanelName)) {
+                ClickByLabel("仍然出发", log);
+            }
         }
 
         string lastSignature = null;

@@ -86,9 +86,12 @@ public static class DungeonSettlementTest {
                 Debug.LogError("Evacuation Settlement Summary FAILED.");
             }
 
-            // Test Defeat Scenario
+            // Test Defeat Scenario (a new run: a settled run ignores further evacuate/defeat events)
             _eventFired = false;
             _lastSettlementResult = null;
+            if (!core.Dungeon.StartRunAtLayer(1)) {
+                Debug.LogError("Defeat Scenario Setup FAILED: second run did not start.");
+            }
             doll.RuntimeGrid = new BackpackGrid(doll.Chassis);
             var defeatLoot = ConfigManager.CreateItem("loot_rusty_coil");
             ((BackpackGrid)doll.RuntimeGrid).PlaceItem(defeatLoot, 0, 0);

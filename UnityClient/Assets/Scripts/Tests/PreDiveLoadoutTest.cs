@@ -36,6 +36,10 @@ public static class PreDiveLoadoutTest {
         Check(player.CurrentDay == 2, $"day after first dive is {player.CurrentDay}, expected 2");
         Check(!PreDiveLoadoutService.HasWeapon(player), "weapon still in backpack after evacuation");
 
+        // A second evacuate event for the same run (double click on 返回小镇) must not settle it again.
+        DungeonEventBus.PublishDungeonEvacuated();
+        Check(player.CurrentDay == 2, $"a repeated evacuation moved the day to {player.CurrentDay}");
+
         // 带上上次的装备 puts the kit back where it was.
         LoadoutRestoreReport restore = PreDiveLoadoutService.RestoreLastLoadout(player);
         Check(restore.PlacedAtSamePosition == startingItems, $"restored {restore.PlacedAtSamePosition} at the same position, expected {startingItems}");

@@ -820,15 +820,33 @@ public class DungeonStartLayerUIController : MonoBehaviour {
             return;
         }
 
+        // In the running game the dive starts from the pre-dive loadout screen; without one, start straight away.
+        GameFlowController flow = GameFlowController.Instance;
+        if (flow != null && flow.isActiveAndEnabled && GameRoot.Core.Dungeon.CanStartAtLayer(_selectedLayerID)) {
+            _lastStartFailureReason = string.Empty;
+            ClosePanel();
+            flow.EnterPreDiveLoadout(_selectedLayerID);
+            return;
+        }
+
         bool started = GameRoot.Core.Dungeon.StartRunAtLayer(_selectedLayerID);
         if (started) {
             _lastStartFailureReason = string.Empty;
-            gameObject.SetActive(false);
+            ClosePanel();
             return;
         }
 
         _lastStartFailureReason = BuildReadinessSummary(BuildReadiness(GameRoot.Core.CurrentPlayer, _selectedLayerID));
         Present(_onClose);
+    }
+
+    // Close through the owner's callback, so the workshop does not reopen the panel on its next refresh.
+    private void ClosePanel() {
+        if (_onClose != null) {
+            _onClose();
+        } else {
+            gameObject.SetActive(false);
+        }
     }
 
     private void ClearRows() {

@@ -75,6 +75,8 @@ public static class InventoryDisplaySpec {
             case InventoryPresentationMode.SafeRoom:
             case InventoryPresentationMode.Stairs:
                 return new InventoryLayoutProfile(new Vector2(500f, -150f), 0.78f);
+            case InventoryPresentationMode.Loadout:
+                return new InventoryLayoutProfile(new Vector2(-420f, 20f), 1f);
             case InventoryPresentationMode.DungeonMap:
                 return new InventoryLayoutProfile(new Vector2(0f, -250f), 1f);
             default:
