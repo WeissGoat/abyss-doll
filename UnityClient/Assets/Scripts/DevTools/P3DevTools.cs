@@ -175,7 +175,8 @@ public static class P3DevTools {
 
     // From the workshop, plays one dive the way a player would (map nodes, combat, loot) until the first safe room
     // or stairs, evacuates, and returns to the workshop. Stops early on anything it does not recognise.
-    public static string RunDive(int maxSteps = 40) {
+    // stopAtCombat: stop at the start of a player turn (reports "Combat ready.") so the caller can look at it.
+    public static string RunDive(int maxSteps = 40, bool stopAtCombat = false) {
         StringBuilder log = new StringBuilder();
         if (IsPanelActive("WorkshopPanel") && !IsPanelActive("DungeonMapPanel")) {
             PrepareDay(log);
@@ -213,6 +214,9 @@ public static class P3DevTools {
                 break;
             } else if (IsPanelActive("CombatLootPanel_Runtime")) {
                 log.AppendLine(PlaceLoot());
+            } else if (stopAtCombat && IsPanelActive("CombatPanel") && combat != null && combat.CurrentState == CombatState.PlayerTurn) {
+                log.AppendLine("Combat ready.");
+                break;
             } else if (IsPanelActive("CombatPanel") && combat != null && combat.CurrentState != CombatState.End) {
                 string combatResult = PlayCombat();
                 log.AppendLine(combatResult);

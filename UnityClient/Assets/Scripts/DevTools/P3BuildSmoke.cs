@@ -52,9 +52,17 @@ public class P3BuildSmoke : MonoBehaviour {
         bool stuck = false;
         string lastReport = null;
         int repeats = 0;
+        bool combatCaptured = false;
         while (dives < TargetDives && Time.realtimeSinceStartup - startedAt < TimeoutSeconds) {
-            string report = P3DevTools.RunDive();
+            string report = P3DevTools.RunDive(40, !combatCaptured);
             Note(report);
+            if (report.Contains("Combat ready.")) {
+                // The first player turn: enemy intents with numbers and the incoming-damage preview (M2 batch 6).
+                combatCaptured = true;
+                yield return new WaitForSecondsRealtime(1f);
+                yield return Capture("03b_combat");
+                continue;
+            }
             if (report.Contains("Rested:")) {
                 rests++;
             }
