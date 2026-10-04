@@ -1,4 +1,5 @@
-// Developer switches stored on this machine only (EditorPrefs). Builds ignore them and always play the full game.
+// Developer switches stored on this machine only (EditorPrefs). Builds play the prologue unless started with
+// -p3skipprologue (there is no save yet, so a playtester restarting the build can skip it).
 public static class P3DevSettings {
     private const string PlayPrologueKey = "P3.Dev.PlayPrologueOnStartup";
 
@@ -9,7 +10,7 @@ public static class P3DevSettings {
 #if UNITY_EDITOR
             return UnityEditor.EditorPrefs.GetBool(PlayPrologueKey, false);
 #else
-            return true;
+            return System.Array.IndexOf(System.Environment.GetCommandLineArgs(), "-p3skipprologue") < 0;
 #endif
         }
         set {

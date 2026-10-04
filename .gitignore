@@ -42,6 +42,7 @@ UnityClient/*.apk
 UnityClient/*.aab
 UnityClient/*.unitypackage
 UnityClient/*.app
+/Builds/
 
 # OS generated
 .DS_Store
