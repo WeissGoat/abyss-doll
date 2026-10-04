@@ -53,9 +53,5 @@ if ($process.ExitCode -ne 0 -or $null -eq $resultLine -or $resultLine.Line -notm
 Write-Host $resultLine.Line
 $buildDir = Get-ChildItem (Join-Path $repoRoot "Builds\Windows") -Directory | Sort-Object LastWriteTime -Descending | Select-Object -First 1
 if (-not $NoZip) {
-    $zipPath = "$($buildDir.FullName).zip"
-    # *_DoNotShip holds Burst debug symbols, which Unity says not to distribute.
-    $items = Get-ChildItem $buildDir.FullName | Where-Object { $_.Name -notlike "*_DoNotShip" }
-    Compress-Archive -Path $items.FullName -DestinationPath $zipPath -Force
-    Write-Host "Zipped: $zipPath"
+    & (Join-Path $PSScriptRoot "Pack-WindowsBuild.ps1") -BuildDir $buildDir.FullName
 }
