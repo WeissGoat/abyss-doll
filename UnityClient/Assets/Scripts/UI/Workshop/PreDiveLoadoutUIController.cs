@@ -23,6 +23,7 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
     private Transform _listContent;
     private GameObject _confirmRoot;
     private Text _confirmText;
+    private WorkshopShopPanel _shopPanel;
     private int _layerID = 1;
     private Action _onBack;
     private Func<int, bool> _onDepart;
@@ -47,8 +48,14 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
         Active = this;
         transform.SetAsFirstSibling();
         _confirmRoot.SetActive(false);
+        _shopPanel?.Hide();
         _messageText.text = string.Empty;
         Refresh();
+    }
+
+    public void OpenShop() {
+        _confirmRoot.SetActive(false);
+        _shopPanel.Show(Refresh);
     }
 
     // Called by DraggableItemUI when the player clicks a backpack item on this screen.
@@ -177,7 +184,8 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
 
     private void HandleDepartClicked() {
         if (!PreDiveLoadoutService.HasWeapon(GameRoot.Core?.CurrentPlayer)) {
-            _confirmText.text = "背包里没有武器，确定出发吗？";
+            DollEntity doll = GameRoot.Core?.CurrentPlayer?.ActiveDoll;
+            _confirmText.text = $"背包里没有武器，只能徒手攻击（每次 {ItemUseService.GetUnarmedDamage(doll)} 伤害）。\n补给铺可以买到基础武器。";
             _confirmRoot.SetActive(true);
             return;
         }
@@ -203,7 +211,7 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
         _statusText = CreateLabel(transform, "Status_Text", string.Empty, 20, MutedTextColor, TextAnchor.MiddleLeft, 32f);
         PlaceTopLeft(_statusText.rectTransform, new Vector2(60f, -96f), new Vector2(1100f, 32f));
 
-        Text backpackCaption = CreateLabel(transform, "BackpackCaption_Text", "背包：点物品放回仓库；拖动调整位置，拖动时按 R 旋转", 20, MutedTextColor, TextAnchor.MiddleCenter, 32f);
+        Text backpackCaption = CreateLabel(transform, "BackpackCaption_Text", "背包：左键放回仓库，右键旋转，拖动调整位置", 20, MutedTextColor, TextAnchor.MiddleCenter, 32f);
         PlaceCenter(backpackCaption.rectTransform, new Vector2(-420f, 250f), new Vector2(640f, 32f));
 
         GameObject card = new GameObject("StashCard", typeof(RectTransform));
@@ -219,11 +227,13 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
         _messageText = CreateLabel(card.transform, "Message_Text", string.Empty, 20, new Color(0.96f, 0.82f, 0.54f), TextAnchor.MiddleLeft, 36f);
         PlaceTopLeft(_messageText.rectTransform, new Vector2(28f, -636f), new Vector2(764f, 36f));
 
-        CreateButton(card.transform, "Restore_Button", "带上上次的装备", new Vector2(28f, -692f), new Vector2(260f, 70f), new Color(0.2f, 0.32f, 0.42f), HandleRestoreClicked);
-        CreateButton(card.transform, "Back_Button", "返回", new Vector2(412f, -692f), new Vector2(160f, 70f), new Color(0.28f, 0.3f, 0.34f), () => _onBack?.Invoke());
-        CreateButton(card.transform, "Depart_Button", "出发", new Vector2(592f, -692f), new Vector2(200f, 70f), new Color(0.72f, 0.36f, 0.16f), HandleDepartClicked);
+        CreateButton(card.transform, "Restore_Button", "带上上次的装备", new Vector2(28f, -692f), new Vector2(240f, 70f), new Color(0.2f, 0.32f, 0.42f), HandleRestoreClicked);
+        CreateButton(card.transform, "Shop_Button", "补给铺", new Vector2(282f, -692f), new Vector2(150f, 70f), new Color(0.36f, 0.3f, 0.18f), OpenShop);
+        CreateButton(card.transform, "Back_Button", "返回", new Vector2(446f, -692f), new Vector2(130f, 70f), new Color(0.28f, 0.3f, 0.34f), () => _onBack?.Invoke());
+        CreateButton(card.transform, "Depart_Button", "出发", new Vector2(590f, -692f), new Vector2(202f, 70f), new Color(0.72f, 0.36f, 0.16f), HandleDepartClicked);
 
         BuildConfirm();
+        _shopPanel = WorkshopShopPanel.Create(transform);
     }
 
     // The confirm sits on its own sorting layer so it covers the backpack grid, which is a later sibling.
@@ -239,13 +249,14 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
 
         GameObject dialog = new GameObject("Dialog", typeof(RectTransform));
         dialog.transform.SetParent(_confirmRoot.transform, false);
-        PlaceCenter((RectTransform)dialog.transform, Vector2.zero, new Vector2(640f, 260f));
+        PlaceCenter((RectTransform)dialog.transform, Vector2.zero, new Vector2(760f, 280f));
         dialog.AddComponent<Image>().color = new Color(0.1f, 0.12f, 0.11f, 1f);
 
-        _confirmText = CreateLabel(dialog.transform, "Confirm_Text", string.Empty, 26, TextColor, TextAnchor.MiddleCenter, 80f);
-        PlaceTopLeft(_confirmText.rectTransform, new Vector2(30f, -40f), new Vector2(580f, 80f));
-        CreateButton(dialog.transform, "ConfirmDepart_Button", "仍然出发", new Vector2(60f, -156f), new Vector2(240f, 70f), new Color(0.72f, 0.36f, 0.16f), Depart);
-        CreateButton(dialog.transform, "ConfirmCancel_Button", "再想想", new Vector2(340f, -156f), new Vector2(240f, 70f), new Color(0.28f, 0.3f, 0.34f), () => _confirmRoot.SetActive(false));
+        _confirmText = CreateLabel(dialog.transform, "Confirm_Text", string.Empty, 24, TextColor, TextAnchor.MiddleCenter, 100f);
+        PlaceTopLeft(_confirmText.rectTransform, new Vector2(30f, -34f), new Vector2(700f, 100f));
+        CreateButton(dialog.transform, "ConfirmDepart_Button", "仍然出发", new Vector2(40f, -172f), new Vector2(210f, 70f), new Color(0.72f, 0.36f, 0.16f), Depart);
+        CreateButton(dialog.transform, "ConfirmShop_Button", "去补给铺", new Vector2(275f, -172f), new Vector2(210f, 70f), new Color(0.36f, 0.3f, 0.18f), OpenShop);
+        CreateButton(dialog.transform, "ConfirmCancel_Button", "再想想", new Vector2(510f, -172f), new Vector2(210f, 70f), new Color(0.28f, 0.3f, 0.34f), () => _confirmRoot.SetActive(false));
         _confirmRoot.SetActive(false);
     }
 

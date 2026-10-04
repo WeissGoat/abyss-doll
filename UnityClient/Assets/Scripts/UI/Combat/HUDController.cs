@@ -21,6 +21,7 @@ public class HUDController : MonoBehaviour {
     private Image _targetHintPanel;
     private Image _actionStrip;
     private Button _cancelSelectionBtn;
+    private Button _unarmedStrikeBtn;
     private Image _playerStatusPanel;
     private Image _playerShadowImage;
     private Image _playerDollImage;
@@ -43,6 +44,7 @@ public class HUDController : MonoBehaviour {
         EnsureRuntimeWidgets();
         BindEndTurnButton();
         BindCancelSelectionButton();
+        BindUnarmedStrikeButton();
 
         GameEventBus.OnHPChanged += HandleHPChanged;
         GameEventBus.OnSANChanged += HandleSANChanged;
@@ -90,6 +92,20 @@ public class HUDController : MonoBehaviour {
         _cancelSelectionBtn.onClick.RemoveAllListeners();
         _cancelSelectionBtn.onClick.AddListener(() => {
             ItemUseService.ClearPendingTargetSelection();
+            RefreshCombatPresentation();
+        });
+    }
+
+    private void BindUnarmedStrikeButton() {
+        if (_unarmedStrikeBtn == null) {
+            return;
+        }
+
+        _unarmedStrikeBtn.onClick.RemoveAllListeners();
+        _unarmedStrikeBtn.onClick.AddListener(() => {
+            if (!ItemUseService.TryBeginUnarmedStrike(out string reason)) {
+                PlayerToast.Show(reason, PlayerToastKind.Warning);
+            }
             RefreshCombatPresentation();
         });
     }
@@ -343,8 +359,8 @@ public class HUDController : MonoBehaviour {
         endRect.anchorMin = new Vector2(0.5f, 0.5f);
         endRect.anchorMax = new Vector2(0.5f, 0.5f);
         endRect.pivot = new Vector2(0.5f, 0.5f);
-        endRect.anchoredPosition = new Vector2(100f, 0f);
-        endRect.sizeDelta = new Vector2(180f, 48f);
+        endRect.anchoredPosition = new Vector2(158f, 0f);
+        endRect.sizeDelta = new Vector2(148f, 48f);
         ConfigureButtonText(endTurnBtn, "结束回合", 21, Color.white);
 
         if (_cancelSelectionBtn == null) {
@@ -362,9 +378,28 @@ public class HUDController : MonoBehaviour {
         cancelRect.anchorMin = new Vector2(0.5f, 0.5f);
         cancelRect.anchorMax = new Vector2(0.5f, 0.5f);
         cancelRect.pivot = new Vector2(0.5f, 0.5f);
-        cancelRect.anchoredPosition = new Vector2(-100f, 0f);
-        cancelRect.sizeDelta = new Vector2(180f, 48f);
+        cancelRect.anchoredPosition = new Vector2(0f, 0f);
+        cancelRect.sizeDelta = new Vector2(148f, 48f);
         ConfigureButtonText(_cancelSelectionBtn, "取消选择", 21, Color.white);
+
+        if (_unarmedStrikeBtn == null) {
+            Transform existingUnarmed = _actionStrip.transform.Find("UnarmedStrike_Button");
+            _unarmedStrikeBtn = existingUnarmed != null ? existingUnarmed.GetComponent<Button>() : null;
+        }
+
+        if (_unarmedStrikeBtn == null) {
+            _unarmedStrikeBtn = CreateButton(_actionStrip.transform, "UnarmedStrike_Button", "徒手攻击");
+            BindUnarmedStrikeButton();
+        }
+
+        RectTransform unarmedRect = _unarmedStrikeBtn.GetComponent<RectTransform>();
+        unarmedRect.anchorMin = new Vector2(0.5f, 0.5f);
+        unarmedRect.anchorMax = new Vector2(0.5f, 0.5f);
+        unarmedRect.pivot = new Vector2(0.5f, 0.5f);
+        unarmedRect.anchoredPosition = new Vector2(-158f, 0f);
+        unarmedRect.sizeDelta = new Vector2(148f, 48f);
+        DollEntity doll = GameRoot.Core?.CurrentPlayer?.ActiveDoll;
+        ConfigureButtonText(_unarmedStrikeBtn, $"徒手 {ItemUseService.GetUnarmedDamage(doll)}伤害", 19, Color.white);
     }
 
     private void EnsureTargetHintLabel() {
@@ -855,6 +890,11 @@ public class HUDController : MonoBehaviour {
     }
 
     private void RefreshActionButtons() {
+        if (_unarmedStrikeBtn != null) {
+            CombatSystem combat = GameRoot.Core?.Combat;
+            _unarmedStrikeBtn.interactable = combat != null && combat.CurrentState == CombatState.PlayerTurn;
+        }
+
         if (_cancelSelectionBtn != null) {
             _cancelSelectionBtn.interactable = ItemUseService.HasPendingEnemyTargetSelection;
             CanvasGroup group = _cancelSelectionBtn.GetComponent<CanvasGroup>();
@@ -1041,6 +1081,7 @@ public class HUDController : MonoBehaviour {
     private void ApplyCombatButtonSkins() {
         VisualUIHelper.ApplyButtonSkin(endTurnBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.8f, 0.2f, 0.2f));
         VisualUIHelper.ApplyButtonSkin(_cancelSelectionBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.24f, 0.22f, 0.2f));
+        VisualUIHelper.ApplyButtonSkin(_unarmedStrikeBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.3f, 0.26f, 0.22f));
     }
 
     private void RefreshApPips(int current, int max) {

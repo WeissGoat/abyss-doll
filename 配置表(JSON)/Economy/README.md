@@ -52,6 +52,8 @@ update_rule: 修改小镇经济周期、月租曲线、欠债利息、轻债阈�
 | `LightDebtThresholdRatio` | float | 轻度欠账阈值，按总账单比例判断。缺口小于等于该比例时自动转下月债务。 |
 | `PawnValueMultiplier` | float | 典当折扣倍率，必须满足 `0 < value <= 1`。 |
 | `PawnProtectedTags` | array | 典当硬保护标签。命中任意标签时不进入典当候选。 |
+| `ShopStock` | array | 工坊补给铺常驻商品的物品 `ConfigID`（基础武器、消耗品），保证丢光武器后还能买回来。 |
+| `ShopPriceMultiplier` | float | 补给铺加价倍率，`>= 1`。售价 = 当前出售价 × 倍率（向上取整），买了再卖永远亏。 |
 
 ## 3. 正式扩展字段目标
 

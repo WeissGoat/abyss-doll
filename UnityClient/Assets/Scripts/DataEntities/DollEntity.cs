@@ -63,6 +63,9 @@ public class DollStatsComponent {
     public int Power;
     public int Compute;
     public int Charm;
+    // Bare-hands strike used when the backpack holds no weapon (so losing every weapon never locks the game).
+    public int UnarmedDamage = 4;
+    public int UnarmedAPCost = 1;
 }
 
 [Serializable]

@@ -72,6 +72,66 @@ public static class ItemUseService {
         return true;
     }
 
+    public const string UnarmedStrikeConfigID = "unarmed_strike";
+
+    // Bare-hands strike: always available in the player turn, weak (doll stats UnarmedDamage / UnarmedAPCost), so a
+    // backpack without any weapon can still win easy fights instead of locking the game. Picks a target like a weapon.
+    public static bool TryBeginUnarmedStrike(out string failureReason) {
+        failureReason = string.Empty;
+        CombatSystem combat = GameRoot.Core?.Combat;
+        if (combat == null || combat.PlayerFaction == null || combat.EnemyFaction == null || combat.CurrentState != CombatState.PlayerTurn) {
+            failureReason = "现在不是你的回合。";
+            return false;
+        }
+
+        DollFighter playerFighter = combat.PlayerFaction.Fighters.Count > 0 ? combat.PlayerFaction.Fighters[0] as DollFighter : null;
+        if (playerFighter == null) {
+            failureReason = "玩家战斗实体不存在。";
+            return false;
+        }
+
+        if (combat.EnemyFaction.Fighters.Find(fighter => fighter.RuntimeHP > 0) == null) {
+            failureReason = "当前没有有效攻击目标。";
+            return false;
+        }
+
+        ItemEntity strike = BuildUnarmedStrike(playerFighter.DataRef);
+        if (playerFighter.CurrentAP < strike.Combat.APCost) {
+            failureReason = "AP 不足，无法徒手攻击。";
+            return false;
+        }
+
+        _pendingTargetItem = strike;
+        _pendingUserFighter = playerFighter;
+        GameEventBus.PublishTargetSelectionChanged("徒手攻击：请点击一个敌方目标。", true);
+        return true;
+    }
+
+    public static int GetUnarmedDamage(DollEntity doll) {
+        return Mathf.Max(1, doll?.Stats?.UnarmedDamage ?? 1);
+    }
+
+    public static int GetUnarmedAPCost(DollEntity doll) {
+        return Mathf.Max(1, doll?.Stats?.UnarmedAPCost ?? 1);
+    }
+
+    private static ItemEntity BuildUnarmedStrike(DollEntity doll) {
+        int damage = GetUnarmedDamage(doll);
+        return new ItemEntity {
+            InstanceID = UnarmedStrikeConfigID,
+            ConfigID = UnarmedStrikeConfigID,
+            Name = "徒手",
+            ItemType = nameof(ItemType.Weapon),
+            Combat = new ItemCombatComponent {
+                TriggerType = TriggerType.Manual.ToString(),
+                APCost = GetUnarmedAPCost(doll),
+                DamageType = DamageType.Physical.ToString(),
+                BaseValue = damage,
+                RuntimeDamage = damage
+            }
+        };
+    }
+
     public static void ClearPendingTargetSelection() {
         _pendingTargetItem = null;
         _pendingUserFighter = null;

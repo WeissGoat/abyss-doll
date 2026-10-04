@@ -100,6 +100,13 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | `Stats.SAN_Max` | `BaseMaxSAN` |
 | `Stats.Power` / `Compute` / `Charm` | 可迁移为 `BaseProfileID` 或后续属性曲线；不再作为唯一成长口径。 |
 
+当前运行时读取的战斗字段（`Stats` 下）：
+
+| 字段 | 说明 |
+|---|---|
+| `MaxAP` / `APRegen` | 每回合 AP 上限和回复。 |
+| `UnarmedDamage` / `UnarmedAPCost` | 徒手攻击的伤害和 AP 消耗（默认 4 / 1）。战斗里始终可用，背包里没有武器时也能打，避免丢光武器后永久卡死（2026-10-04 制作人决定）。 |
+
 ## 本轮目标
 
 | 模块 | 目标 |

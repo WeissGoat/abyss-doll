@@ -14,7 +14,9 @@
     "APRegen": 3,
     "Power": 5,
     "Compute": 5,
-    "Charm": 2
+    "Charm": 2,
+    "UnarmedDamage": 4,
+    "UnarmedAPCost": 1
   },
   "InitialItems": [
     {

@@ -15,6 +15,9 @@ public class EconomyConfig {
     public float LightDebtThresholdRatio = 0.1f;
     public float PawnValueMultiplier = 0.25f;
     public List<string> PawnProtectedTags = new List<string>();
+    // Workshop supply shop: what can always be bought, and the markup over the current sell price (keeps buy > sell).
+    public float ShopPriceMultiplier = 1.2f;
+    public List<string> ShopStock = new List<string>();
 }
 
 [Serializable]

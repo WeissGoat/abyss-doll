@@ -27,6 +27,8 @@
   "DebtInterestRate": 0.1,
   "LightDebtThresholdRatio": 0.1,
   "PawnValueMultiplier": 0.25,
+  "ShopPriceMultiplier": 1.2,
+  "ShopStock": ["gear_rusty_dagger", "gear_wooden_shield", "con_repair_kit", "con_cheap_sedative"],
   "PawnProtectedTags": [
     "Bond",
     "OrderBound",
