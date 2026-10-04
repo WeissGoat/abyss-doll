@@ -781,7 +781,7 @@ public class WorkshopFormalV1PanelController : MonoBehaviour {
             return canvas.transform;
         }
 
-        Canvas sceneCanvas = FindObjectOfType<Canvas>();
+        Canvas sceneCanvas = MainCanvas.Find();
         return sceneCanvas != null ? sceneCanvas.transform : transform;
     }
 

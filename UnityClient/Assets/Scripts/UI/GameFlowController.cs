@@ -226,7 +226,7 @@ public class GameFlowController : MonoBehaviour {
         if (_prologueFirstDiveController.targetCanvas == null) {
             Canvas canvas = workshopPanel != null
                 ? workshopPanel.GetComponentInParent<Canvas>()
-                : FindObjectOfType<Canvas>();
+                : MainCanvas.Find();
             _prologueFirstDiveController.targetCanvas = canvas;
         }
 
@@ -385,7 +385,7 @@ public class GameFlowController : MonoBehaviour {
             return;
         }
 
-        Canvas canvas = workshopPanel != null ? workshopPanel.GetComponentInParent<Canvas>() : FindObjectOfType<Canvas>();
+        Canvas canvas = MainCanvas.Find();
         if (canvas != null) {
             _preDiveLoadout = PreDiveLoadoutUIController.Create(canvas.transform);
         }
@@ -639,7 +639,7 @@ public class GameFlowController : MonoBehaviour {
     }
 
     private void EnsureCombatLootPanel() {
-        Canvas canvas = FindObjectOfType<Canvas>();
+        Canvas canvas = MainCanvas.Find();
         if (canvas == null) {
             Debug.LogWarning("[GameFlow] Cannot create CombatLootPanel because no Canvas was found.");
             return;
@@ -769,7 +769,7 @@ public class GameFlowController : MonoBehaviour {
     }
 
     private void EnsureDungeonNodeResultPanel() {
-        Canvas canvas = FindObjectOfType<Canvas>();
+        Canvas canvas = MainCanvas.Find();
         if (canvas == null) {
             Debug.LogWarning("[GameFlow] Cannot create DungeonNodeResultPanel because no Canvas was found.");
             return;
@@ -881,7 +881,7 @@ public class GameFlowController : MonoBehaviour {
     }
 
     private void EnsureSettlementPanel() {
-        Canvas canvas = FindObjectOfType<Canvas>();
+        Canvas canvas = MainCanvas.Find();
         if (canvas == null) {
             Debug.LogWarning("[GameFlow] Cannot create SettlementPanel because no Canvas was found.");
             return;

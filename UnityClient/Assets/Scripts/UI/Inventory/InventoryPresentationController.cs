@@ -327,7 +327,7 @@ public class InventoryPresentationController : MonoBehaviour {
     }
 
     private void EnsureInventoryChassisPanel(GridGenerator generator, Vector2 gridSize, Vector2 position) {
-        Canvas canvas = FindObjectOfType<Canvas>();
+        Canvas canvas = MainCanvas.Find();
         if (canvas == null || generator?.gridParent == null) {
             return;
         }
@@ -400,7 +400,7 @@ public class InventoryPresentationController : MonoBehaviour {
             return;
         }
 
-        Canvas canvas = FindObjectOfType<Canvas>();
+        Canvas canvas = MainCanvas.Find();
         if (canvas == null) {
             return;
         }

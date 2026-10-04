@@ -47,6 +47,8 @@ public class P3BuildSmoke : MonoBehaviour {
 
         int dives = 0;
         bool stuck = false;
+        string lastReport = null;
+        int repeats = 0;
         while (dives < TargetDives && Time.realtimeSinceStartup - startedAt < TimeoutSeconds) {
             string report = P3DevTools.RunDive();
             Note(report);
@@ -57,7 +59,10 @@ public class P3BuildSmoke : MonoBehaviour {
                 continue;
             }
 
-            if (report.Contains("Stopped:")) {
+            // The same report 40 times in a row (about 20 s without animations) means nothing is moving.
+            repeats = report == lastReport ? repeats + 1 : 0;
+            lastReport = report;
+            if (report.Contains("Stopped:") || repeats >= 40) {
                 stuck = true;
                 break;
             }
@@ -69,7 +74,7 @@ public class P3BuildSmoke : MonoBehaviour {
         PlayerProfile player = GameRoot.Core.CurrentPlayer;
         bool passed = !stuck && dives >= TargetDives && player.CurrentDay == 1 + dives;
         string verdict = $"{(passed ? "PASS" : "FAIL")}: {dives}/{TargetDives} dives, day {player.CurrentDay}, money {player.Money}, "
-            + $"{Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stopped on an unrecognised screen" : string.Empty)}";
+            + $"{Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
         Debug.Log("[P3BuildSmoke] " + verdict);
         File.WriteAllText(Path.Combine(_outDir, "P3Smoke.txt"), verdict + "\n\n" + _log);
         Application.Quit(passed ? 0 : 1);

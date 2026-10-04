@@ -20,12 +20,7 @@ public static class P3DevTools {
             return "Game is not running (no InventoryCanvas or GameRoot.Core).";
         }
 
-        List<string> panels = new List<string>();
-        foreach (Transform child in canvas) {
-            if (child.gameObject.activeSelf && child.name != "InventoryItemLayer" && child.name != "GridContainer" && child.name != OverlayName) {
-                panels.Add(child.name);
-            }
-        }
+        List<string> panels = ActivePanels(canvas);
         sb.AppendLine("Screen: " + string.Join(", ", panels.ToArray()));
 
         P3DialogueOverlayController overlay = FindOverlay();
@@ -228,6 +223,10 @@ public static class P3DevTools {
                 if (!EnterNextMapNode(log)) {
                     break;
                 }
+            } else if (ActivePanels(FindCanvas()).Count == 0) {
+                // Between screens (a node result still queued behind animations): nothing to click yet.
+                log.AppendLine("Waiting for the game to update; call RunDive() again to continue.");
+                break;
             } else if (!ClickFirstContinue(log)) {
                 log.AppendLine("Stopped: unrecognised screen.");
                 break;
@@ -380,6 +379,21 @@ public static class P3DevTools {
         }
 
         return false;
+    }
+
+    private static List<string> ActivePanels(Transform canvas) {
+        List<string> panels = new List<string>();
+        if (canvas == null) {
+            return panels;
+        }
+
+        foreach (Transform child in canvas) {
+            if (child.gameObject.activeSelf && child.name != "InventoryItemLayer" && child.name != "GridContainer" && child.name != OverlayName) {
+                panels.Add(child.name);
+            }
+        }
+
+        return panels;
     }
 
     private static bool ClickByLabel(string label, StringBuilder log) {
