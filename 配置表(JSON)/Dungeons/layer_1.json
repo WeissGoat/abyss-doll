@@ -340,9 +340,9 @@
       "NodeType": "SafeRoomNode",
       "NodeIconID": "node_safe_room_icon",
       "Title": "低压岔路",
-      "Description": "矿道暂时稳定，玩家可以观察后续路线但不能撤离。",
+      "Description": "矿道暂时稳定，可以在这里休整回满，也可以带着收获返回小镇。",
       "RiskLevel": "Safe",
-      "RiskHint": "层内安全观察点，不是 Boss 后安全区。",
+      "RiskHint": "层内安全屋：休整回满，或在这里撤离。",
       "MonsterIDs": [],
       "Weight": 8
     },
