@@ -33,6 +33,7 @@ public class GameRoot : MonoBehaviour {
 
         EnsureComponent<FileLogger>();
         EnsureComponent<VisualQueueRunner>();
+        EnsureComponent<GameAudio>();
 
         if (Core != null) {
             return;

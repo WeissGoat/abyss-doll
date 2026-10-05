@@ -86,6 +86,7 @@ public class GameFlowController : MonoBehaviour {
         // Mode skips the title unless the prologue is switched on or a save exists (P3DevSettings).
         SaveFile save = SaveService.HasSave ? SaveService.ReadSave(out _) : null;
         if (save != null || P3DevSettings.ShowTitleOnStartup) {
+            GameAudio.PlayBgm("title");
             TitleScreen.Show(save, () => {
                 SaveService.Restore(GameRoot.Core, save);
                 FinishInitGame(false);
@@ -126,6 +127,7 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnSafeRoomEntered += HandleSafeRoomEntered;
         DungeonEventBus.OnStairsEntered += HandleStairsEntered;
         DungeonEventBus.OnPrologueBeatEntered += HandlePrologueBeatEntered;
+        GameAudio.BindGameEvents();
 
         if (GetComponent<PauseMenu>() == null) {
             gameObject.AddComponent<PauseMenu>();
@@ -144,6 +146,7 @@ public class GameFlowController : MonoBehaviour {
     }
 
     public void EnterWorkshop() {
+        GameAudio.PlayBgm("town");
         TransitionToScreen(GameScreenState.Workshop);
     }
 

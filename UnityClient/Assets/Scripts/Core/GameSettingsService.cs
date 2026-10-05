@@ -5,9 +5,27 @@ using UnityEngine;
 // start-up; Unity itself remembers the window size and mode, DisplayStartupGuard catches a window left too small.
 public static class GameSettingsService {
     private const string VolumeKey = "P3.Settings.Volume";
+    private const string BgmKey = "P3.Settings.BgmVolume";
+    private const string SfxKey = "P3.Settings.SfxVolume";
     public const int VolumeStep = 10;
 
     public static int VolumePercent => Mathf.RoundToInt(Mathf.Clamp01(PlayerPrefs.GetFloat(VolumeKey, 1f)) * 100f);
+
+    // Music and effects on top of the master volume (GameAudio reads these every frame).
+    public static float BgmVolume => Mathf.Clamp01(PlayerPrefs.GetFloat(BgmKey, 0.7f));
+    public static float SfxVolume => Mathf.Clamp01(PlayerPrefs.GetFloat(SfxKey, 0.8f));
+    public static int BgmPercent => Mathf.RoundToInt(BgmVolume * 100f);
+    public static int SfxPercent => Mathf.RoundToInt(SfxVolume * 100f);
+
+    public static void SetBgmPercent(int percent) {
+        PlayerPrefs.SetFloat(BgmKey, Mathf.Clamp(percent, 0, 100) / 100f);
+        PlayerPrefs.Save();
+    }
+
+    public static void SetSfxPercent(int percent) {
+        PlayerPrefs.SetFloat(SfxKey, Mathf.Clamp(percent, 0, 100) / 100f);
+        PlayerPrefs.Save();
+    }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void ApplySavedVolume() {

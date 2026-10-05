@@ -23,7 +23,8 @@ public static class UITheme {
     public const int BodySize = 22;
     public const int CaptionSize = 18;
 
-    // Windows fonts with good CJK coverage, in order of preference. The built-in LegacyRuntime font has no Chinese
+    // Fallback when the bundled font is missing: OS fonts with good CJK coverage, in order of preference. The
+    // built-in LegacyRuntime font has no Chinese
     // glyphs, so Unity used to fall back to whatever the OS picked (often a bitmap-looking SimSun).
     private static readonly string[] ChineseFontNames = {
         "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", "Source Han Sans SC", "SimHei"
@@ -32,8 +33,15 @@ public static class UITheme {
     private static Font _font;
     private static Font _legacyFont;
 
+    // Bundled with the game so text reads the same on every machine (Noto Sans SC, SIL OFL; license next to it).
+    public const string BundledFontPath = "Fonts/NotoSansSC-Regular";
+
     public static Font Font {
         get {
+            if (_font == null) {
+                _font = Resources.Load<Font>(BundledFontPath);
+            }
+
             if (_font == null) {
                 _font = Font.CreateDynamicFontFromOSFont(ChineseFontNames, BodySize);
                 if (_font == null) {
@@ -94,6 +102,7 @@ public static class UITheme {
         button.colors = colors;
         Text text = CreateText(image.transform, "Label_Text", label, fontSize, textColor, TextAnchor.MiddleCenter);
         Stretch(text.rectTransform);
+        button.onClick.AddListener(() => GameAudio.PlaySfx("click"));
         return button;
     }
 

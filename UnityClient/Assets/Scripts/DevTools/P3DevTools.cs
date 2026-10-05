@@ -70,6 +70,37 @@ public static class P3DevTools {
         return sb.ToString();
     }
 
+    // Visible text that still shows English words or raw config IDs ("Ready to dive.", chassis_lv1_basic). M4 checks
+    // each screen with it while reskinning; HP / SAN / AP and the like are allowed.
+    public static string EnglishText() {
+        System.Text.RegularExpressions.Regex word = new System.Text.RegularExpressions.Regex("[A-Za-z]{3,}");
+        HashSet<string> allowed = new HashSet<string> { "SAN", "Boss", "MAX" };
+        List<string> hits = new List<string>();
+        foreach (Text text in Object.FindObjectsOfType<Text>()) {
+            if (!text.enabled || string.IsNullOrEmpty(text.text)) {
+                continue;
+            }
+
+            foreach (System.Text.RegularExpressions.Match match in word.Matches(text.text)) {
+                if (!allowed.Contains(match.Value)) {
+                    hits.Add($"{PathOf(text.transform)}: {text.text.Replace("\n", " / ")}");
+                    break;
+                }
+            }
+        }
+
+        return hits.Count == 0 ? "No English text on screen." : $"{hits.Count} text(s) with English:\n" + string.Join("\n", hits.ToArray());
+    }
+
+    private static string PathOf(Transform transform) {
+        string path = transform.name;
+        for (Transform parent = transform.parent; parent != null && parent.parent != null; parent = parent.parent) {
+            path = parent.name + "/" + path;
+        }
+
+        return path;
+    }
+
     // Clicks the first button the player could click whose label contains the text.
     public static string Click(string label) {
         foreach (Button button in ClickableButtons()) {

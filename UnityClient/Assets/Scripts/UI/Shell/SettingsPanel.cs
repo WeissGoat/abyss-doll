@@ -11,6 +11,8 @@ public class SettingsPanel : MonoBehaviour {
     public static bool IsShowing => _active != null && _active.gameObject.activeSelf;
 
     private Text _volumeText;
+    private Text _bgmText;
+    private Text _sfxText;
     private Text _modeText;
     private Text _sizeText;
     private List<Vector2Int> _sizes;
@@ -19,7 +21,7 @@ public class SettingsPanel : MonoBehaviour {
 
     public static void Show(Transform parent) {
         if (_active == null) {
-            GameObject root = UITheme.CreateModal(parent, PanelName, new Vector2(760f, 520f), 900);
+            GameObject root = UITheme.CreateModal(parent, PanelName, new Vector2(760f, 600f), 900);
             _active = root.AddComponent<SettingsPanel>();
             _active.Build(root.transform.Find("Dialog"));
         } else if (_active.transform.parent != parent) {
@@ -45,11 +47,12 @@ public class SettingsPanel : MonoBehaviour {
         Text title = UITheme.CreateText(dialog, "Title_Text", "设置", UITheme.TitleSize, UITheme.Accent, TextAnchor.MiddleCenter);
         UITheme.Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -40f), new Vector2(600f, 50f));
 
-        _volumeText = AddRow(dialog, "音量", -130f, () => ChangeVolume(-GameSettingsService.VolumeStep), () => ChangeVolume(GameSettingsService.VolumeStep));
-        Text note = UITheme.CreateText(dialog, "VolumeNote_Text", "游戏暂时还没有声音，M4 接入音频。", UITheme.CaptionSize - 2, UITheme.TextMuted, TextAnchor.MiddleCenter);
-        UITheme.Place(note.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -176f), new Vector2(600f, 26f));
-        _modeText = AddRow(dialog, "显示", -230f, ToggleMode, ToggleMode);
-        _sizeText = AddRow(dialog, "分辨率", -310f, () => ChangeSize(-1), () => ChangeSize(1));
+        int step = GameSettingsService.VolumeStep;
+        _volumeText = AddRow(dialog, "总音量", -120f, () => ChangeVolume(-step), () => ChangeVolume(step));
+        _bgmText = AddRow(dialog, "音乐", -185f, () => ChangeBgm(-step), () => ChangeBgm(step));
+        _sfxText = AddRow(dialog, "音效", -250f, () => ChangeSfx(-step), () => ChangeSfx(step));
+        _modeText = AddRow(dialog, "显示", -330f, ToggleMode, ToggleMode);
+        _sizeText = AddRow(dialog, "分辨率", -395f, () => ChangeSize(-1), () => ChangeSize(1));
 
         Button apply = UITheme.CreateButton(dialog, "ApplyDisplay_Button", ApplyLabel, UITheme.Accent, UITheme.Background);
         UITheme.Place((RectTransform)apply.transform, new Vector2(0.5f, 0f), new Vector2(-150f, 32f), new Vector2(260f, 60f));
@@ -85,12 +88,25 @@ public class SettingsPanel : MonoBehaviour {
 
     private void Refresh() {
         _volumeText.text = $"{GameSettingsService.VolumePercent}%";
+        _bgmText.text = $"{GameSettingsService.BgmPercent}%";
+        _sfxText.text = $"{GameSettingsService.SfxPercent}%";
         _modeText.text = _fullscreen ? "全屏" : "窗口";
         _sizeText.text = _sizes.Count > 0 ? GameSettingsService.DescribeSize(_sizes[_sizeIndex]) : "-";
     }
 
     private void ChangeVolume(int delta) {
         GameSettingsService.SetVolumePercent(GameSettingsService.VolumePercent + delta);
+        Refresh();
+    }
+
+    private void ChangeBgm(int delta) {
+        GameSettingsService.SetBgmPercent(GameSettingsService.BgmPercent + delta);
+        Refresh();
+    }
+
+    private void ChangeSfx(int delta) {
+        GameSettingsService.SetSfxPercent(GameSettingsService.SfxPercent + delta);
+        GameAudio.PlaySfx("click");
         Refresh();
     }
 
