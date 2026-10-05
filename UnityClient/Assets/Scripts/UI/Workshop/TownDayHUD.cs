@@ -11,6 +11,7 @@ public class TownDayHUD : MonoBehaviour {
     public const string RootName = "TownDayHUD_Runtime";
     public const string DiveLabel = "跳下深渊";
     public const string RestLabel = "停工休息";
+    public const string GoBusinessLabel = "去营业";
 
     private WorkshopUIController _workshop;
     private GameObject _content;
@@ -21,6 +22,7 @@ public class TownDayHUD : MonoBehaviour {
     private NightBusinessPanel _businessPanel;
     private Text _moneyText;
     private Button _rentButton;
+    private Text _choiceTitle;
     private Button _diveButton;
     private Button _restButton;
     private Text _diveHint;
@@ -97,6 +99,24 @@ public class TownDayHUD : MonoBehaviour {
         _rentButton.GetComponentInChildren<Text>().color = rentColor;
         _rentButton.interactable = calendar.HasPendingRent;
 
+        // At night the choice panel waits for the player to open the business; until then they can maintain,
+        // arrange the backpack or look around the workshop.
+        bool night = player.IsNight;
+        _restButton.gameObject.SetActive(!night);
+        _restHint.gameObject.SetActive(!night);
+        ((RectTransform)_diveButton.transform).anchoredPosition = new Vector2(night ? 0f : -180f, -32f);
+        _diveHint.rectTransform.anchoredPosition = new Vector2(night ? 0f : -180f, -100f);
+        if (night) {
+            _choiceTitle.text = "夜晚了：先维护、整理背包，准备好再开张";
+            UITheme.SetButtonLabel(_diveButton, GoBusinessLabel);
+            _diveButton.interactable = true;
+            _diveHint.text = "摆橱窗、倾倒战利品，开张后这一天结束";
+            _diveHint.color = UITheme.TextSecondary;
+            return;
+        }
+
+        _choiceTitle.text = "今天做什么？";
+        UITheme.SetButtonLabel(_diveButton, DiveLabel);
         bool canDive = DayCycleService.CanDive(player, out string diveReason);
         bool canRest = DayCycleService.CanStartDay(player, out string restReason);
         _diveButton.interactable = canDive;
@@ -112,7 +132,7 @@ public class TownDayHUD : MonoBehaviour {
         Refresh();
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
         if (player != null && player.IsNight) {
-            OpenBusiness(true);
+            // The player opens the business from the choice panel when ready (去营业).
             return;
         }
 
@@ -145,6 +165,11 @@ public class TownDayHUD : MonoBehaviour {
 
     private void HandleDiveClicked() {
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        if (player != null && player.IsNight) {
+            OpenBusiness(true);
+            return;
+        }
+
         if (!DayCycleService.CanDive(player, out string reason)) {
             PlayerToast.Show(reason, PlayerToastKind.Warning);
             Refresh();
@@ -438,8 +463,8 @@ public class TownDayHUD : MonoBehaviour {
         UITheme.AddBorder(panel, UITheme.Border, 1.5f);
         UITheme.Place(panel.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 12f), new Vector2(760f, 140f));
 
-        Text title = UITheme.CreateText(panel.transform, "Choice_Title", "今天做什么？", UITheme.CaptionSize, UITheme.TextSecondary, TextAnchor.MiddleCenter);
-        UITheme.Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -4f), new Vector2(600f, 26f));
+        _choiceTitle = UITheme.CreateText(panel.transform, "Choice_Title", "今天做什么？", UITheme.CaptionSize, UITheme.TextSecondary, TextAnchor.MiddleCenter);
+        UITheme.Place(_choiceTitle.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -4f), new Vector2(600f, 26f));
 
         _diveButton = UITheme.CreateButton(panel.transform, "Dive_Button", DiveLabel, UITheme.Accent, UITheme.Background, UITheme.HeadingSize);
         UITheme.Place((RectTransform)_diveButton.transform, new Vector2(0.5f, 1f), new Vector2(-180f, -32f), new Vector2(330f, 64f));

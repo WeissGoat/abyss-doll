@@ -260,6 +260,8 @@ public static class P3DevTools {
         for (int i = 0; i < 8; i++) {
             if (ClickByLabel(NightBusinessPanel.OpenLabel, null)) {
                 log.AppendLine("Opened the night business.");
+            } else if (ClickByLabel(TownDayHUD.GoBusinessLabel, null)) {
+                log.AppendLine("Went to the business screen.");
             } else if (ClickByLabel("迎接新的一天", null)) {
                 log.AppendLine("Closed the night card.");
             } else if (ClickByLabel("交房租", null)) {
@@ -274,6 +276,10 @@ public static class P3DevTools {
 
     // At night: dump every loot item into the dump box (the business screen must be open), as a player in a hurry would.
     public static string DumpAllForBusiness() {
+        if (GameRoot.Core?.CurrentPlayer?.IsNight == true) {
+            ClickByLabel(TownDayHUD.GoBusinessLabel, null);
+        }
+
         bool clicked = ClickByLabel(NightBusinessPanel.DumpAllLabel, null);
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
         return $"{(clicked ? "Dumped loot" : "No business screen")}: dump box {player?.DumpBox.Count ?? 0}, showcase {player?.Showcase.Count ?? 0}.\n" + Describe();

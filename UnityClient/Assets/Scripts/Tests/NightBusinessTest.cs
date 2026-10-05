@@ -77,6 +77,26 @@ public static class NightBusinessTest {
         DayEndReport empty = DayCycleService.FinishNight(player);
         Check(empty != null && empty.Business.Total == 0 && TownDayHUD.BuildNightText(empty).Contains("0G"), "empty night text: " + TownDayHUD.BuildNightText(empty));
 
+        // Playtest fix: the night does not open the business screen by itself; the choice panel offers 去营业 instead.
+        DayCycleService.Rest(player, out _);
+        GameObject root = new GameObject("NightChoiceTestRoot", typeof(RectTransform));
+        try {
+            TownDayHUD hud = TownDayHUD.Ensure(root.transform, null);
+            hud.ShowPendingDayEvents();
+            Transform panel = root.transform.Find(TownDayHUD.RootName + "/" + NightBusinessPanel.PanelName);
+            UnityEngine.UI.Button dive = FindButton(root.transform, "Dive_Button");
+            UnityEngine.UI.Button rest = FindButton(root.transform, "Rest_Button");
+            Check(panel == null || !panel.gameObject.activeSelf, "the business screen opened by itself");
+            Check(dive != null && dive.GetComponentInChildren<UnityEngine.UI.Text>().text == TownDayHUD.GoBusinessLabel && dive.interactable && rest != null && !rest.gameObject.activeSelf, "the night choice does not offer 去营业");
+            dive?.onClick.Invoke();
+            panel = root.transform.Find(TownDayHUD.RootName + "/" + NightBusinessPanel.PanelName);
+            Check(panel != null && panel.gameObject.activeSelf && player.IsNight, "去营业 did not open the business screen");
+        } finally {
+            Object.DestroyImmediate(root);
+            DayCycleService.FinishNight(player);
+            DayCycleService.TakePendingReport();
+        }
+
         if (failures.Count == 0) {
             Debug.Log("Night Business PASSED.");
         } else {
@@ -84,5 +104,15 @@ public static class NightBusinessTest {
         }
 
         Debug.Log("=== Night Business Test Finished ===");
+    }
+
+    private static UnityEngine.UI.Button FindButton(Transform root, string name) {
+        foreach (UnityEngine.UI.Button button in root.GetComponentsInChildren<UnityEngine.UI.Button>(true)) {
+            if (button.name == name) {
+                return button;
+            }
+        }
+
+        return null;
     }
 }

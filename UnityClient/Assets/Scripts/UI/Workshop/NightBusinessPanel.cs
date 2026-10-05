@@ -22,6 +22,7 @@ public class NightBusinessPanel : MonoBehaviour {
     private RectTransform _showcaseRoot;
     private Button _openButton;
     private Button _closeButton;
+    private Button _dumpAllButton;
     private bool _nightMode;
     private Action _onOpened;
     private Action _onClosed;
@@ -37,14 +38,17 @@ public class NightBusinessPanel : MonoBehaviour {
         return panel;
     }
 
-    // night: the day's business, ends with 开始营业 (onOpened). Otherwise daytime arranging, closed with 关闭.
+    // night: the day's business, ends with 开始营业 (onOpened); 先不开张 goes back to the town, still at night.
+    // Otherwise daytime arranging, closed with 关闭.
     public void Show(bool night, Action onOpened, Action onClosed) {
         _nightMode = night;
         _onOpened = onOpened;
         _onClosed = onClosed;
         _message.text = string.Empty;
         _openButton.gameObject.SetActive(night);
-        _closeButton.gameObject.SetActive(!night);
+        UITheme.SetButtonLabel(_closeButton, night ? "先不开张" : "关闭");
+        ((RectTransform)_dumpAllButton.transform).anchoredPosition = new Vector2(night ? -340f : -170f, 22f);
+        ((RectTransform)_closeButton.transform).anchoredPosition = new Vector2(night ? 340f : 170f, 22f);
         gameObject.SetActive(true);
         transform.SetAsLastSibling();
         Refresh();
@@ -236,13 +240,13 @@ public class NightBusinessPanel : MonoBehaviour {
         _message = UITheme.CreateText(dialog, "Message_Text", string.Empty, UITheme.CaptionSize, UITheme.Warning, TextAnchor.MiddleCenter);
         UITheme.Place(_message.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 88f), new Vector2(1200f, 28f));
 
-        Button dumpAll = UITheme.CreateButton(dialog, "DumpAll_Button", DumpAllLabel, UITheme.PanelRaised, UITheme.TextPrimary);
-        UITheme.AddBorder(dumpAll.targetGraphic, UITheme.Border, 1.5f);
-        UITheme.Place((RectTransform)dumpAll.transform, new Vector2(0.5f, 0f), new Vector2(-170f, 22f), new Vector2(280f, 60f));
-        dumpAll.onClick.AddListener(DumpAll);
+        _dumpAllButton = UITheme.CreateButton(dialog, "DumpAll_Button", DumpAllLabel, UITheme.PanelRaised, UITheme.TextPrimary);
+        UITheme.AddBorder(_dumpAllButton.targetGraphic, UITheme.Border, 1.5f);
+        UITheme.Place((RectTransform)_dumpAllButton.transform, new Vector2(0.5f, 0f), new Vector2(-170f, 22f), new Vector2(280f, 60f));
+        _dumpAllButton.onClick.AddListener(DumpAll);
 
         _openButton = UITheme.CreateButton(dialog, "OpenBusiness_Button", OpenLabel, UITheme.Accent, UITheme.Background, UITheme.HeadingSize - 2);
-        UITheme.Place((RectTransform)_openButton.transform, new Vector2(0.5f, 0f), new Vector2(170f, 22f), new Vector2(280f, 60f));
+        UITheme.Place((RectTransform)_openButton.transform, new Vector2(0.5f, 0f), new Vector2(0f, 22f), new Vector2(280f, 60f));
         _openButton.onClick.AddListener(OpenBusiness);
 
         _closeButton = UITheme.CreateButton(dialog, "CloseBusiness_Button", "关闭", UITheme.PanelRaised, UITheme.TextPrimary);

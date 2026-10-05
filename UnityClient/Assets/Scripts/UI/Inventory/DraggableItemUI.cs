@@ -22,6 +22,7 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private Vector3 _dragOffset;
     private Camera _dragEventCamera;
     private int _dragStartRotation;
+    private bool _pendingDiscardAtDragStart;
 
     // [新增] 用于网格对齐计算：当前抓取的相对单元格坐标偏移
     public int DragCellOffsetX { get; private set; }
@@ -279,6 +280,7 @@ public void OnBeginDrag(PointerEventData eventData) {
     _originalParent = transform.parent;
     _dragEventCamera = eventData.pressEventCamera;
     _dragStartRotation = ItemData.Grid != null ? BackpackGrid.NormalizeRotation(ItemData.Grid.Rotation) : 0;
+    _pendingDiscardAtDragStart = IsPendingDiscard;
 
     // [核心修复] 记录鼠标抓取点与物体真实位置的偏移量，防止抖动瞬移！
     _dragOffset = transform.position - (Vector3)eventData.position;
@@ -317,23 +319,28 @@ public void OnDrag(PointerEventData eventData) {
 }
 
 public void OnEndDrag(PointerEventData eventData) {
+    // Always take raycasts back: a failed slot drop has already ended the drag (ReturnToOriginalPosition), and
+    // leaving them off made the item impossible to pick up again.
+    if (_canvasGroup != null) {
+        _canvasGroup.blocksRaycasts = true;
+    }
+
     if (!_isDragging) {
         return;
     }
 
     _isDragging = false;
 
-    if (_canvasGroup != null) {
-        _canvasGroup.blocksRaycasts = true;
-    }
-
     // 如果拖拽结束后，物品没有在后端的网格里（说明它被扔在了空地，或者放置失败了）
     BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
     if (grid == null || !grid.ContainedItems.Contains(ItemData)) {
         bool allowStageDiscard = CanStageDiscard();
         InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("DragEnd", allowStageDiscard);
-        if (_wasInGrid && InventoryInteractionService.RequestStageDiscard(ItemData, context, out _)) {
-            LeaveDetachedAtCurrentPosition();
+        if (InventoryInteractionService.RequestStageDiscard(ItemData, context, out _)) {
+            // Where the screen allows it (loot pickup, the map's backpack) an item dropped outside the backpack stays
+            // where it landed. Taken out of the backpack it is discarded when the screen closes; loot that never went
+            // in stays unclaimed in the loot tray.
+            LeaveDetachedAtCurrentPosition(_wasInGrid || _pendingDiscardAtDragStart);
         } else {
             ReturnToOriginalPosition();
         }
@@ -376,7 +383,12 @@ public void OnEndDrag(PointerEventData eventData) {
         _isDragging = false;
         transform.SetParent(_originalParent);
         transform.position = _originalPosition;
-        IsPendingDiscard = false;
+        // Back in the backpack it is kept; an item that was already lying outside keeps its discard mark.
+        IsPendingDiscard = !_wasInGrid && _pendingDiscardAtDragStart;
+        if (_canvasGroup != null) {
+            _canvasGroup.blocksRaycasts = true;
+        }
+
         RestoreDragStartRotationIfNeeded();
         
         // 【关键修复】如果是从网格拿起来的但放置失败，必须把它重新注册回后端！
@@ -397,18 +409,25 @@ public void OnEndDrag(PointerEventData eventData) {
         return _isDragging;
     }
 
-    private void LeaveDetachedAtCurrentPosition() {
+    private void LeaveDetachedAtCurrentPosition(bool takenOutOfBackpack) {
         _isDragging = false;
-        Transform itemLayer = ResolveInventoryItemLayer();
-        if (itemLayer != null) {
-            transform.SetParent(itemLayer);
+        if (takenOutOfBackpack) {
+            Transform itemLayer = ResolveInventoryItemLayer();
+            if (itemLayer != null) {
+                transform.SetParent(itemLayer);
+            }
         }
 
+        // Keep the item's centre on screen so it can always be picked up again.
+        Vector3 position = transform.position;
+        transform.position = new Vector3(Mathf.Clamp(position.x, 0f, Screen.width), Mathf.Clamp(position.y, 0f, Screen.height), position.z);
         transform.SetAsLastSibling();
         _originalParent = transform.parent;
         _originalPosition = transform.position;
-        IsPendingDiscard = true;
-        Debug.Log($"[UI] 物品 {ItemData.Name} 已从背包中取出，关闭背包时将被丢弃。");
+        IsPendingDiscard = takenOutOfBackpack;
+        if (takenOutOfBackpack) {
+            Debug.Log($"[UI] 物品 {ItemData.Name} 已从背包中取出，关闭背包时将被丢弃。");
+        }
     }
 
     private bool CanStageDiscard() {
