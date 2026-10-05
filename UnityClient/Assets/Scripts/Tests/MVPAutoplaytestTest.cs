@@ -73,14 +73,22 @@ public static class MVPAutoplaytestTest {
             BaseSeed = baseSeed
         };
 
-        for (int i = 0; i < CampaignCount; i++) {
-            int seed = baseSeed + i;
-            UnityEngine.Random.InitState(seed);
-            MVPAutoplayCampaignReport campaign = new MVPAutoplayCampaign(seed, MaxExpeditionsPerCampaign).Run();
-            campaign.ReachedLoopTarget = campaign.Expeditions >= LoopTargetDives
-                && campaign.SoldItems > 0
-                && campaign.ChassisUpgrades + campaign.ProstheticsCrafted > 0;
-            report.Campaigns.Add(campaign);
+        // Thousands of combat log lines per run fill the Editor log (it reached gigabytes); keep warnings and errors,
+        // which still fail the test.
+        LogType previousFilter = Debug.unityLogger.filterLogType;
+        Debug.unityLogger.filterLogType = LogType.Warning;
+        try {
+            for (int i = 0; i < CampaignCount; i++) {
+                int seed = baseSeed + i;
+                UnityEngine.Random.InitState(seed);
+                MVPAutoplayCampaignReport campaign = new MVPAutoplayCampaign(seed, MaxExpeditionsPerCampaign).Run();
+                campaign.ReachedLoopTarget = campaign.Expeditions >= LoopTargetDives
+                    && campaign.SoldItems > 0
+                    && campaign.ChassisUpgrades + campaign.ProstheticsCrafted > 0;
+                report.Campaigns.Add(campaign);
+            }
+        } finally {
+            Debug.unityLogger.filterLogType = previousFilter;
         }
 
         report.BuildSummary();
@@ -369,7 +377,6 @@ public class MVPAutoplayExpeditionReport {
     public string Outcome;
     public string DefeatedBy;
     public int HPBeforeBoss = -1;
-    public bool Evacuated;
     public int NightIncome;
 }
 
@@ -520,14 +527,6 @@ internal class MVPAutoplayCampaign {
                     break;
                 }
             } else if (node is SafeRoomNode safeRoomNode) {
-                // 见好就收: below layer 1 a good haul goes home before the boss.
-                if (_core.Dungeon.CurrentLayer.LayerID >= 2 && CarriedLootValue() >= EvacuateLootValue) {
-                    _currentExpedition.Evacuated = true;
-                    safeRoomNode.Evacuate();
-                    _currentExpedition.ReachedTown = _settledVictory;
-                    break;
-                }
-
                 UseConsumablesOutsideCombat();
                 safeRoomNode.Rest();
             } else if (node is DungeonOutcomeNode) {
@@ -555,7 +554,7 @@ internal class MVPAutoplayCampaign {
             node = ChooseNextNode(node);
         }
 
-        _currentExpedition.Outcome = _currentExpedition.Defeated ? "Defeated" : _currentExpedition.Evacuated ? "Evacuated" : "Stairs";
+        _currentExpedition.Outcome = _currentExpedition.Defeated ? "Defeated" : "Stairs";
         DollEntity doll = _core.CurrentPlayer.ActiveDoll;
         _currentExpedition.HPAfter = doll.Status.HP_Current;
         _currentExpedition.SANAfter = doll.Status.SAN_Current;
@@ -598,13 +597,6 @@ internal class MVPAutoplayCampaign {
             default:
                 return 0;
         }
-    }
-
-    private const int EvacuateLootValue = 300;
-
-    private int CarriedLootValue() {
-        BackpackGrid grid = GetGrid();
-        return grid?.ContainedItems.Where(IsSellableLoot).Sum(item => item.BaseValue) ?? 0;
     }
 
     private void RunCombatUntilResolved() {

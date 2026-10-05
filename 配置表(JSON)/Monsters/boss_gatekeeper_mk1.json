@@ -10,7 +10,7 @@
   "EncounterTags": ["Combat", "Boss", "Layer1", "RouteGate"],
   "DifficultyBudget": { "Base": 150, "Variance": 0 },
   "SpawnWeightTags": ["Layer1Boss", "RouteGate", "BossNodeOnly"],
-  "HP": 175,
+  "HP": 160,
   "PortraitID": "monster_boss_gatekeeper_mk1_portrait",
   "CombatVisualID": "monster_boss_gatekeeper_mk1_combat",
   "IntentIconSet": "combat_intent_core_v1",
@@ -18,7 +18,7 @@
     {
       "IntentID": "gatekeeper_strike",
       "IntentType": "Attack",
-      "PowerPreview": 28,
+      "PowerPreview": 22,
       "TargetPreview": "Doll",
       "Reliability": "High",
       "CounterHintKey": "hint.intent.boss_basic_attack",
@@ -36,7 +36,7 @@
     {
       "IntentID": "gatekeeper_crushing_warning",
       "IntentType": "Charge",
-      "PowerPreview": 42,
+      "PowerPreview": 34,
       "TargetPreview": "Doll",
       "Reliability": "Medium",
       "CounterHintKey": "hint.intent.boss_charge_window",
@@ -111,7 +111,7 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 28,
+          "Damage": 22,
           "RepeatCount": 1
         }
       },
@@ -124,7 +124,7 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 18,
+          "Damage": 14,
           "RepeatCount": 1
         }
       },
@@ -137,7 +137,7 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 42,
+          "Damage": 34,
           "RepeatCount": 1
         }
       },
