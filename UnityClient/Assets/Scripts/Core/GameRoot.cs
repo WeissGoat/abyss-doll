@@ -44,6 +44,16 @@ public class GameRoot : MonoBehaviour {
         Debug.Log("[GameRoot] Bootstrap complete!");
     }
 
+    // Set before ReloadIntoCurrentGame: the next scene start skips the title and keeps the running game.
+    public static bool SkipTitleOnce { get; set; }
+
+    // The end of the prologue: the scene reloads around the running game, so the town is built fresh instead of
+    // undoing the half-open prologue workshop piece by piece.
+    public static void ReloadIntoCurrentGame() {
+        SkipTitleOnce = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     // 回到标题 / a new game after bankruptcy: GameRoot survives scene loads, so the backend is rebuilt here (which also
     // drops the old systems' event listeners) before the scene reloads into the title screen.
     public static void RestartGame() {

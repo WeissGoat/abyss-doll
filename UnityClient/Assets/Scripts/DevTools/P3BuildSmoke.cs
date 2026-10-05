@@ -4,7 +4,8 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-// Self-check for a built player, started with `P3.exe -p3smoke`: screenshots the prologue, skips it, plays three
+// Self-check for a built player, started with `P3.exe -p3smoke`: starts a new game from the title, plays the whole
+// prologue like a player (dialogue, the shallow-edge first dive, the return home; P3DevTools.PlayPrologue), plays three
 // dives through P3DevTools the way a player would (layer select, pre-dive loadout, map, combat, loot, back to town,
 // selling loot in the ledger), screenshots the key screens, then writes P3Smoke.txt next to the screenshots and
 // quits (exit code 0 = PASS).
@@ -13,6 +14,7 @@ public class P3BuildSmoke : MonoBehaviour {
     private const string Flag = "-p3smoke";
     private const int TargetDives = 3;
     private const float TimeoutSeconds = 600f;
+    private const float PrologueTimeoutSeconds = 240f;
 
     private readonly StringBuilder _log = new StringBuilder();
     private string _outDir;
@@ -40,8 +42,30 @@ public class P3BuildSmoke : MonoBehaviour {
         Note(P3DevTools.Click(TitleScreen.NewGameLabel));
         yield return new WaitForSecondsRealtime(4f);
         yield return Capture("01_prologue");
-        Note(P3DevTools.SkipPrologue());
-        yield return new WaitForSecondsRealtime(1f);
+
+        // The prologue, one PlayPrologue call per beat; screenshots of the first shallow-edge scene and the return home.
+        bool prologueDone = false;
+        bool shallowCaptured = false;
+        bool returnCaptured = false;
+        float prologueStartedAt = Time.realtimeSinceStartup;
+        while (!prologueDone && Time.realtimeSinceStartup - prologueStartedAt < PrologueTimeoutSeconds) {
+            if (ScenePanel.IsShowing && !shallowCaptured && GameRoot.Core.Dungeon.CurrentLayer != null && !PrologueReturnHome.IsPending(GameRoot.Core.Dungeon)) {
+                shallowCaptured = true;
+                yield return Capture("01b_shallow_edge");
+            } else if (ScenePanel.IsShowing && !returnCaptured && PrologueReturnHome.IsPending(GameRoot.Core.Dungeon)) {
+                returnCaptured = true;
+                yield return Capture("01c_return_home");
+            }
+
+            string report = P3DevTools.PlayPrologue(1);
+            Note(report);
+            prologueDone = report.Contains("Prologue finished.");
+            yield return new WaitForSecondsRealtime(report.Contains("animation(s) still playing") ? 3f : 0.4f);
+        }
+
+        // The town is rebuilt by a scene reload when the prologue ends.
+        yield return new WaitForSecondsRealtime(2f);
+        int firstTownDay = GameRoot.Core.CurrentPlayer.CurrentDay;
         yield return Capture("02_workshop");
 
         P3DevTools.Click(TownDayHUD.DiveLabel);
@@ -101,8 +125,8 @@ public class P3BuildSmoke : MonoBehaviour {
 
         PlayerProfile player = GameRoot.Core.CurrentPlayer;
         // Every dive and every rest takes one day.
-        bool passed = !stuck && dives >= TargetDives && player.CurrentDay == 1 + dives + rests;
-        string verdict = $"{(passed ? "PASS" : "FAIL")}: {dives}/{TargetDives} dives, {rests} rest(s), day {player.CurrentDay}, money {player.Money} (night business net {soldTotal}G), "
+        bool passed = prologueDone && !stuck && dives >= TargetDives && player.CurrentDay == firstTownDay + dives + rests;
+        string verdict = $"{(passed ? "PASS" : "FAIL")}: prologue {(prologueDone ? "done" : "NOT FINISHED")} (town from day {firstTownDay}), {dives}/{TargetDives} dives, {rests} rest(s), day {player.CurrentDay}, money {player.Money} (night business net {soldTotal}G), "
             + $"{Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
         Debug.Log("[P3BuildSmoke] " + verdict);
         File.WriteAllText(Path.Combine(_outDir, "P3Smoke.txt"), verdict + "\n\n" + _log);

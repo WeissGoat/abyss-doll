@@ -258,7 +258,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
                         VisualRequest = BuildCurrentVisualRequest()
                     });
 
-                    yield return new WaitForSecondsRealtime(Mathf.Max(0.1f, autoAdvanceSeconds));
+                    yield return WaitForLineOrContinue(Mathf.Max(0.1f, autoAdvanceSeconds));
                 }
             }
         }
@@ -300,7 +300,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
                         VisualRequest = BuildCurrentVisualRequest()
                     });
 
-                    yield return new WaitForSecondsRealtime(Mathf.Max(0.1f, autoAdvanceSeconds));
+                    yield return WaitForLineOrContinue(Mathf.Max(0.1f, autoAdvanceSeconds));
                 }
             }
         }
@@ -360,6 +360,19 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
         return false;
     }
 
+    // Timed lines (departure) move on after autoAdvanceSeconds, or at once when the player presses ▶.
+    private bool _continuePressed;
+
+    private IEnumerator WaitForLineOrContinue(float seconds) {
+        _continuePressed = false;
+        float until = Time.unscaledTime + seconds;
+        while (!_continuePressed && Time.unscaledTime < until) {
+            yield return null;
+        }
+
+        _continuePressed = false;
+    }
+
     private IEnumerator PresentDepartureTimeline(PrologueFirstDiveDepartureFlowResult result) {
         string currentVisualID = string.Empty;
         string currentFallbackVisualID = string.Empty;
@@ -394,7 +407,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
                         VisualRequest = BuildVisualRequest(currentVisualID, currentFallbackVisualID)
                     });
 
-                    yield return new WaitForSecondsRealtime(Mathf.Max(0.1f, autoAdvanceSeconds));
+                    yield return WaitForLineOrContinue(Mathf.Max(0.1f, autoAdvanceSeconds));
                 }
             }
         }
@@ -925,6 +938,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
     }
 
     private void HandleOverlayContinueRequested() {
+        _continuePressed = true;
         if (!_isPresentingTimeline || _activeTimelineNodes == null) {
             return;
         }

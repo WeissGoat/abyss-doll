@@ -76,6 +76,12 @@ public class GameFlowController : MonoBehaviour {
         _initialized = true;
         Debug.Log("[GameFlow] Initializing MVP Game Loop...");
 
+        if (GameRoot.SkipTitleOnce) {
+            GameRoot.SkipTitleOnce = false;
+            FinishInitGame(false);
+            return;
+        }
+
         // Title screen: 继续游戏 restores the save and skips the prologue; 新游戏 starts with the prologue. Editor Play
         // Mode skips the title unless the prologue is switched on or a save exists (P3DevSettings).
         SaveFile save = SaveService.HasSave ? SaveService.ReadSave(out _) : null;
@@ -501,8 +507,7 @@ public class GameFlowController : MonoBehaviour {
             workshop?.RefreshUI();
             PlaySceneSequence(scenes, 0, () => {
                 PrologueReturnHome.Finish(player);
-                workshop?.ExitPrologueHalfOpen();
-                workshop?.DayHud?.ShowPendingDayEvents();
+                GameRoot.ReloadIntoCurrentGame();
             });
         }, null, PrologueReturnHome.BuildRecap(player));
     }

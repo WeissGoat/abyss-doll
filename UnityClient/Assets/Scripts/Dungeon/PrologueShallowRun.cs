@@ -40,8 +40,10 @@ public static class PrologueShallowRun {
             MapProfileID = MapProfileID
         };
 
+        // Two scavenger bugs: a fight of two or three turns that leaves a mark on her, as the first dive should.
         NodeBase voice = new PrologueVoiceNode { NodeID = "t0_voice", NodeIconID = "node_eventnode_icon", RiskLevel = "Low", RiskHint = "下面有一段声音" };
-        CombatNode bug = new CombatNode { NodeID = "t0_scavenger", NodeIconID = "node_combat_icon", RiskLevel = "Low", RiskHint = "一只拾荒虫", NoLoot = true };
+        CombatNode bug = new CombatNode { NodeID = "t0_scavenger", NodeIconID = "node_combat_icon", RiskLevel = "Low", RiskHint = "两只拾荒虫", NoLoot = true };
+        bug.MonsterIDs.Add("mob_scavenger_bug");
         bug.MonsterIDs.Add("mob_scavenger_bug");
         NodeBase cart = new PrologueBringBackNode { NodeID = "t0_mine_cart", NodeIconID = "node_treasurenode_icon", RiskLevel = "Low", RiskHint = "旧矿车" };
 

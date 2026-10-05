@@ -130,6 +130,7 @@ public class TitleScreen : MonoBehaviour {
     }
 
     private void Close() {
+        gameObject.SetActive(false);
         if (Application.isPlaying) {
             Destroy(gameObject);
         } else {

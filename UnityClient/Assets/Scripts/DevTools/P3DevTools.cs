@@ -198,6 +198,11 @@ public static class P3DevTools {
 
         string lastSignature = null;
         for (int step = 0; step < maxSteps; step++) {
+            if (ScenePanel.IsShowing) {
+                log.AppendLine("A scene is showing; PlayPrologue() plays it.");
+                break;
+            }
+
             // Some screens (stairs, settlement) only react a frame later; one call runs in a single frame, so stop
             // when nothing changed and let the caller call again.
             string signature = StateSignature();
@@ -246,6 +251,109 @@ public static class P3DevTools {
         }
 
         return log.ToString() + Describe();
+    }
+
+    // Plays the prologue like a player from wherever it is — the title, the dialogue and its ritual buttons, the
+    // half-open workshop, the first-dive permit, the shallow edge (map, scenes, the fight) and the return home — until
+    // the normal town opens ("Prologue finished."). The labels pick the scene choices: listen to the voice or not,
+    // what to bring back, care for her or read the notice. Call again while it reports waiting.
+    public static string PlayPrologue(int maxSteps = 40, string voiceChoice = "让她先听清楚", string bringBack = "记忆噪声片", string returnChoice = "先照看她") {
+        StringBuilder log = new StringBuilder();
+        string lastSignature = null;
+        for (int step = 0; step < maxSteps; step++) {
+            if (PrologueShallowRun.Current != null && PrologueShallowRun.Current.ReturnHomeDone && !ScenePanel.IsShowing) {
+                log.AppendLine("Prologue finished.");
+                break;
+            }
+
+            string signature = StateSignature() + StorySignature();
+            if (signature == lastSignature) {
+                log.AppendLine("Waiting for the game to update; call PlayPrologue() again to continue.");
+                break;
+            }
+            lastSignature = signature;
+
+            if (!StoryStep(log, voiceChoice, bringBack, returnChoice)) {
+                // Only the dungeon screens are RunDive's; in the workshop it would start a normal dive.
+                if (IsPanelActive("WorkshopPanel") && !IsPanelActive("DungeonMapPanel")) {
+                    log.AppendLine("Waiting for the game to update; call PlayPrologue() again to continue.");
+                    break;
+                }
+
+                string dive = RunDive(1);
+                log.AppendLine(dive.Split('\n')[0].Trim());
+                if (dive.Contains("Stopped:")) {
+                    break;
+                }
+            }
+        }
+
+        return log.ToString() + Describe();
+    }
+
+    private static string StorySignature() {
+        P3DialogueOverlayController overlay = FindOverlay();
+        string line = overlay != null && overlay.IsShowing ? ReadChildText(overlay.transform, "DialoguePanel_Image/Body_Text") + overlay.HasActionVisible : string.Empty;
+        string scene = ScenePanel.IsShowing ? ReadChildText(ScenePanel.Active.transform, "Dialog/Line_Text") + ReadChildText(ScenePanel.Active.transform, "Dialog/Title_Text") : string.Empty;
+        return $"|{TitleScreen.IsShowing}|{line}|{scene}";
+    }
+
+    // One prologue step outside the dungeon screens; false when it is the dungeon's turn (map, combat).
+    private static bool StoryStep(StringBuilder log, params string[] preferredChoices) {
+        if (TitleScreen.IsShowing) {
+            return ClickByLabel(TitleScreen.NewGameLabel, log);
+        }
+
+        if (ScenePanel.IsShowing) {
+            Transform scene = ScenePanel.Active.transform;
+            foreach (string choice in preferredChoices) {
+                if (!string.IsNullOrEmpty(choice) && ClickWithin(scene, choice, log)) {
+                    return true;
+                }
+            }
+
+            // No preferred choice on screen: the first choice, or the next line.
+            return ClickWithin(scene, "SceneChoice_0", log, byName: true)
+                || ClickWithin(scene, ScenePanel.ContinueLabel, log)
+                || ClickWithin(scene, ScenePanel.DoneLabel, log);
+        }
+
+        P3DialogueOverlayController overlay = FindOverlay();
+        if (overlay != null && overlay.IsShowing && overlay.IsInputBlocking) {
+            if (overlay.HasActionVisible) {
+                return ClickByLabel("启动零号", log) || ClickByLabel("擦去核心仓灰尘", log) || ClickFirstContinue(log);
+            }
+
+            return overlay.HasContinueVisible && (ClickByLabel("▶", log) || ClickFirstContinue(log));
+        }
+
+        WorkshopUIController workshop = Object.FindObjectOfType<WorkshopUIController>();
+        if (workshop != null && workshop.IsPrologueHalfOpen && IsPanelActive("WorkshopPanel")) {
+            if (workshop.IsDungeonStartLayerPanelOpen) {
+                return ClickByLabel("出发", log);
+            }
+
+            return ClickByLabel("浅层入口", log);
+        }
+
+        return false;
+    }
+
+    private static bool ClickWithin(Transform root, string label, StringBuilder log, bool byName = false) {
+        foreach (Button button in root.GetComponentsInChildren<Button>(false)) {
+            if (!button.interactable) {
+                continue;
+            }
+
+            string text = ButtonLabel(button);
+            if (byName ? button.name == label : text.Contains(label)) {
+                button.onClick.Invoke();
+                log?.AppendLine($"Clicked '{text.Split('\n')[0]}'.");
+                return true;
+            }
+        }
+
+        return false;
     }
 
     // Closes the workshop's night dialogs like a player: the night card, then the rent (pay when the money covers

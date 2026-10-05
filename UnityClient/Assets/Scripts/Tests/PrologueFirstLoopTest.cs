@@ -40,7 +40,7 @@ public static class PrologueFirstLoopTest {
 
             CombatNode bug = voice.NextNodes[0] as CombatNode;
             core.Dungeon.MoveToNode(bug);
-            Check(core.Combat.EnemyFaction.Fighters.Count == 1, "the fight is not one scavenger bug");
+            Check(core.Combat.EnemyFaction.Fighters.Count == 2, "the fight is not two scavenger bugs");
             DollFighter fighter = core.Combat.PlayerFaction.Fighters[0] as DollFighter;
             fighter.RuntimeHP -= 12;
             doll.Status.HP_Current = fighter.RuntimeHP;
