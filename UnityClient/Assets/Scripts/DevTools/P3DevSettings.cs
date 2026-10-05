@@ -21,6 +21,9 @@ public static class P3DevSettings {
         }
     }
 
+    // Builds always open on the title screen; Editor Play Mode only when the prologue is switched on.
+    public static bool ShowTitleOnStartup => !UnityEngine.Application.isEditor || PlayPrologueOnStartup;
+
     // Off by default in the Editor so Play Mode opens straight into the workshop with the starting backpack.
     // Toggle with Tools/P3/启动时播放序章, the F1 panel, or P3DevTools.SetPrologueOnStartup(true).
     public static bool PlayPrologueOnStartup {

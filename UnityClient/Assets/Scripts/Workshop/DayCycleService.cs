@@ -58,6 +58,12 @@ public static class DayCycleService {
     // The latest day-end report the workshop has not shown yet.
     public static DayEndReport PendingReport { get; private set; }
 
+    // A restarted game must not inherit the previous game's night.
+    public static void ResetRuntimeState() {
+        PendingReport = null;
+        _nightReport = null;
+    }
+
     public static DayEndReport TakePendingReport() {
         DayEndReport report = PendingReport;
         PendingReport = null;

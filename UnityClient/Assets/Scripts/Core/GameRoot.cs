@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Ensure this script executes before other runtime systems.
 [DefaultExecutionOrder(-100)]
@@ -41,6 +42,17 @@ public class GameRoot : MonoBehaviour {
         Core = new CoreBackend();
         Core.InitAllSystems();
         Debug.Log("[GameRoot] Bootstrap complete!");
+    }
+
+    // 回到标题 / a new game after bankruptcy: GameRoot survives scene loads, so the backend is rebuilt here (which also
+    // drops the old systems' event listeners) before the scene reloads into the title screen.
+    public static void RestartGame() {
+        PrologueShallowRun.Reset();
+        DayCycleService.ResetRuntimeState();
+        Core = new CoreBackend();
+        Core.InitAllSystems();
+        VisualQueue.IsHeadless = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void EnsureComponent<T>() where T : Component {

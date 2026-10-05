@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 // The workshop's day layer (GDD_07): a status bar (day, week, Zero, money, rent countdown), today's core choice
@@ -412,7 +411,7 @@ public class TownDayHUD : MonoBehaviour {
 
     private void RestartAfterBankruptcy() {
         SaveService.Delete();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameRoot.RestartGame();
     }
 
     // The bar and the choice step aside while a workshop panel (ledger, studio, layer select, formal panels) is open.

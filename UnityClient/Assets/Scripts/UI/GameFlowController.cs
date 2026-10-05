@@ -76,10 +76,11 @@ public class GameFlowController : MonoBehaviour {
         _initialized = true;
         Debug.Log("[GameFlow] Initializing MVP Game Loop...");
 
-        // A save exists: ask first. 继续游戏 restores it and skips the prologue; 新游戏 starts as usual.
+        // Title screen: 继续游戏 restores the save and skips the prologue; 新游戏 starts with the prologue. Editor Play
+        // Mode skips the title unless the prologue is switched on or a save exists (P3DevSettings).
         SaveFile save = SaveService.HasSave ? SaveService.ReadSave(out _) : null;
-        if (save != null) {
-            ContinueGamePanel.Show(save, () => {
+        if (save != null || P3DevSettings.ShowTitleOnStartup) {
+            TitleScreen.Show(save, () => {
                 SaveService.Restore(GameRoot.Core, save);
                 FinishInitGame(false);
             }, () => FinishInitGame(P3DevSettings.PlayPrologueOnStartup));
@@ -120,8 +121,20 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnStairsEntered += HandleStairsEntered;
         DungeonEventBus.OnPrologueBeatEntered += HandlePrologueBeatEntered;
 
+        if (GetComponent<PauseMenu>() == null) {
+            gameObject.AddComponent<PauseMenu>();
+        }
+
         EnterWorkshop();
         StartPrologueOpeningIfNeeded(playPrologue);
+    }
+
+    // In the workshop after the prologue: the town state is autosaved, leaving loses nothing.
+    public bool IsInTownLoop {
+        get {
+            WorkshopUIController workshop = workshopPanel != null ? workshopPanel.GetComponent<WorkshopUIController>() : null;
+            return _currentScreen == GameScreenState.Workshop && workshop != null && !workshop.IsPrologueHalfOpen;
+        }
     }
 
     public void EnterWorkshop() {

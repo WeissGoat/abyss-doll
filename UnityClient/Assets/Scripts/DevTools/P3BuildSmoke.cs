@@ -34,6 +34,10 @@ public class P3BuildSmoke : MonoBehaviour {
         float startedAt = Time.realtimeSinceStartup;
 
         yield return new WaitUntil(() => GameRoot.Core?.CurrentPlayer != null && GameFlowController.Instance != null);
+        yield return new WaitUntil(() => TitleScreen.IsShowing || Time.realtimeSinceStartup - startedAt > 30f);
+        yield return new WaitForSecondsRealtime(1f);
+        yield return Capture("00_title");
+        Note(P3DevTools.Click(TitleScreen.NewGameLabel));
         yield return new WaitForSecondsRealtime(4f);
         yield return Capture("01_prologue");
         Note(P3DevTools.SkipPrologue());

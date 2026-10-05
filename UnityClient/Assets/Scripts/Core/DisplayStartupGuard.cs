@@ -4,8 +4,8 @@ using UnityEngine;
 // Unity stores the last window size in the registry and reuses it on the next launch, so one accidental resize (or a
 // test run in a small window) made every later start of the playtest build open as a 637x357 window (found
 // 2026-10-04). On startup a window smaller than 1280x720 goes back to borderless fullscreen at desktop resolution.
-// Explicit -screen-* arguments (used by tools/build/Test-WindowsBuild.ps1) are respected. Until the settings menu
-// exists (M3), Alt+Enter still toggles windowed mode.
+// Explicit -screen-* arguments (used by tools/build/Test-WindowsBuild.ps1) are respected. The 设置 panel
+// (GameSettingsService) changes the mode and size; Alt+Enter still toggles windowed mode.
 public static class DisplayStartupGuard {
     public const int MinimumWidth = 1280;
     public const int MinimumHeight = 720;
