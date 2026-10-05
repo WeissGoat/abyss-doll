@@ -1,0 +1,7 @@
+Sound effects in this folder come from Kenney (www.kenney.nl) packs, licensed CC0 1.0
+(http://creativecommons.org/publicdomain/zero/1.0/): Interface Sounds, RPG Audio, Impact Sounds.
+Files were renamed to the cue IDs GameAudio plays:
+click=interface click_002, hit=impact impactPunch_medium_001, hurt=impact impactSoft_heavy_000,
+shield=impact impactWood_medium_000, item_place=rpg dropLeather, item_pick=rpg cloth1, step=rpg footstep00,
+loot=rpg handleCoins, coin=rpg handleCoins2, extract=interface confirmation_002, defeat=impact impactBell_heavy_000,
+error=interface error_004, page=rpg bookFlip1.

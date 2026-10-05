@@ -380,6 +380,7 @@ public void OnEndDrag(PointerEventData eventData) {
     }
 
     public void ReturnToOriginalPosition() {
+        GameAudio.PlaySfx("error");
         _isDragging = false;
         transform.SetParent(_originalParent);
         transform.position = _originalPosition;

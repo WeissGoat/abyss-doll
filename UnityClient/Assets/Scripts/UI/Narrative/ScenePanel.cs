@@ -156,6 +156,7 @@ public class ScenePanel : MonoBehaviour {
     }
 
     private void Advance() {
+        GameAudio.PlaySfx("page");
         bool atEnd = _lineIndex >= PageCount - 1;
         if (!atEnd) {
             _lineIndex++;

@@ -101,6 +101,8 @@ public class GameAudio : MonoBehaviour {
         GameEventBus.OnShieldChanged += HandleShieldChanged;
         GameEventBus.OnItemPlaced -= HandleItemPlaced;
         GameEventBus.OnItemPlaced += HandleItemPlaced;
+        GameEventBus.OnItemRemoved -= HandleItemRemoved;
+        GameEventBus.OnItemRemoved += HandleItemRemoved;
         CombatEventBus.OnCombatPhase -= HandleCombatPhase;
         CombatEventBus.OnCombatPhase += HandleCombatPhase;
         DungeonEventBus.OnDungeonRunStarted -= HandleRunStarted;
@@ -132,6 +134,10 @@ public class GameAudio : MonoBehaviour {
 
     private static void HandleItemPlaced(string itemID, int x, int y) {
         PlaySfx("item_place");
+    }
+
+    private static void HandleItemRemoved(string itemID) {
+        PlaySfx("item_pick");
     }
 
     private static void HandleCombatPhase(CombatEventType phase, CombatFaction faction) {

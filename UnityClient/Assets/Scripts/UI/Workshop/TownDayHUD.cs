@@ -389,7 +389,11 @@ public class TownDayHUD : MonoBehaviour {
         }
 
         _businessPanel.Show(night, () => {
-            DayCycleService.FinishNight(GameRoot.Core?.CurrentPlayer);
+            DayEndReport report = DayCycleService.FinishNight(GameRoot.Core?.CurrentPlayer);
+            if ((report?.Business?.DumpBoxIncome ?? 0) + (report?.Business?.ShowcaseIncome ?? 0) > 0) {
+                GameAudio.PlaySfx("coin");
+            }
+
             _workshop?.RefreshUI();
             ShowPendingDayEvents();
         }, () => {
