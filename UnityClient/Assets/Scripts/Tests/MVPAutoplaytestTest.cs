@@ -7,9 +7,13 @@ using UnityEngine;
 
 // Balance regression: 30 bot campaigns play the loop dive -> town (sell, upgrade) -> pre-dive loadout -> dive.
 // M1 threshold (PROJECT_STATUS.md): at least 80% of campaigns dive 3+ times and both sell and upgrade.
+// Each campaign starts on day 2 (the prologue takes day 1) and plays through day 15, so it meets the first two rent
+// bills; the tuning targets it reports against are in docs/specs/2026-10-05-demo-tuning-targets.md.
 public static class MVPAutoplaytestTest {
     private const int CampaignCount = 30;
-    private const int MaxExpeditionsPerCampaign = 5;
+    private const int MaxExpeditionsPerCampaign = 14;
+    public const int CampaignStartDay = 2;
+    public const int CampaignLastDay = 15;
     private const int LoopTargetDives = 3;
     private const float LoopTargetCampaignRate = 0.8f;
     private const int BaseSeed = 20260510;
@@ -262,7 +266,7 @@ public class MVPAutoplaytestReport {
         LoopCampaignRate = Campaigns.Count(c => c.ReachedLoopTarget) / (float)count;
         AverageExpeditions = (float)Campaigns.Average(c => c.Expeditions);
         TotalDefeats = Campaigns.Sum(c => c.Defeats);
-        CalendarMismatches = Campaigns.Count(c => c.FinalDay != 1 + c.Expeditions + c.RestDays);
+        CalendarMismatches = Campaigns.Count(c => c.FinalDay != MVPAutoplaytestTest.CampaignStartDay + c.Expeditions + c.RestDays);
         Layer1ClearRate = Campaigns.Count(c => c.ClearedLayer1) / (float)count;
         Layer2EntryRate = Campaigns.Count(c => c.EnteredLayer2) / (float)count;
         Tier1CoreRate = Campaigns.Count(c => c.ObtainedTier1Core) / (float)count;
@@ -337,6 +341,10 @@ public class MVPAutoplayCampaignReport {
     public int SoldItems;
     public int SoldValue;
     public int ItemsLostAfterChassisUpgrade;
+    public int MaintenanceSpent;
+    public int ShopSpent;
+    public List<MVPAutoplayRentRecord> RentBills = new List<MVPAutoplayRentRecord>();
+    public List<int> MoneyByMorning = new List<int>();
     public List<string> Notes = new List<string>();
     public List<string> DiscardedItems = new List<string>();
     public List<MVPAutoplayExpeditionReport> ExpeditionReports = new List<MVPAutoplayExpeditionReport>();
@@ -358,6 +366,18 @@ public class MVPAutoplayExpeditionReport {
     public int HPAfter;
     public int SANAfter;
     public int MoneyAfterWorkshop;
+    public string Outcome;
+    public string DefeatedBy;
+    public int HPBeforeBoss = -1;
+    public bool Evacuated;
+    public int NightIncome;
+}
+
+public class MVPAutoplayRentRecord {
+    public int Day;
+    public int Bill;
+    public int MoneyBefore;
+    public string Status;
 }
 
 internal class MVPAutoplayCampaign {
@@ -366,6 +386,7 @@ internal class MVPAutoplayCampaign {
     private readonly MVPAutoplayCampaignReport _report;
     private CoreBackend _core;
     private MVPAutoplayExpeditionReport _currentExpedition;
+    private MVPAutoplayExpeditionReport _nightIncomeTarget;
     private bool _settled;
     private bool _settledVictory;
 
@@ -390,8 +411,11 @@ internal class MVPAutoplayCampaign {
         DungeonEventBus.OnNodeEntered += HandleNodeEntered;
         DungeonEventBus.OnDungeonSettled += HandleDungeonSettled;
 
+        _core.CurrentPlayer.CurrentDay = MVPAutoplaytestTest.CampaignStartDay;
+
         try {
-            for (int i = 1; i <= _maxExpeditions; i++) {
+            for (int i = 1; i <= _maxExpeditions && _core.CurrentPlayer.CurrentDay <= MVPAutoplaytestTest.CampaignLastDay; i++) {
+                _report.MoneyByMorning.Add(_core.CurrentPlayer.Money);
                 if (i > 1) {
                     PrepareLoadout();
                 }
@@ -419,6 +443,7 @@ internal class MVPAutoplayCampaign {
                     _report.Defeats++;
                 }
 
+                _nightIncomeTarget = expedition;
                 RunWorkshopPhase();
                 expedition.MoneyAfterWorkshop = _core.CurrentPlayer.Money;
                 if (_report.Bankrupt) {
@@ -441,14 +466,18 @@ internal class MVPAutoplayCampaign {
         return _report;
     }
 
-    // Try layer 2 once stronger than the starting kit; after losing there, go back to layer 1 for one dive.
+    // Try layer 2 once clearly stronger than the starting kit: the power arm plus a bigger chassis or a weapon better
+    // than the starter dagger. After losing there, go back to layer 1 for one dive.
     private bool ShouldAttemptLayer2(int expeditionIndex) {
         MVPAutoplayExpeditionReport last = _report.ExpeditionReports.LastOrDefault();
-        if (last != null && last.EnteredLayer2 && last.Defeated) {
+        if (expeditionIndex <= 1 || (last != null && last.EnteredLayer2 && last.Defeated)) {
             return false;
         }
 
-        return expeditionIndex > 1 && (_report.ChassisUpgrades > 0 || _report.ProstheticsCrafted > 0);
+        DollEntity doll = _core.CurrentPlayer.ActiveDoll;
+        bool hasArm = doll.EquippedProsthetics.Contains("pros_power_arm");
+        bool betterWeapon = GetGrid()?.ContainedItems.Any(item => IsWeapon(item) && item.ConfigID != "gear_rusty_dagger") ?? false;
+        return hasArm && (_report.ChassisUpgrades > 0 || betterWeapon);
     }
 
     private MVPAutoplayExpeditionReport RunExpedition(int expeditionIndex, bool attemptLayer2) {
@@ -480,12 +509,25 @@ internal class MVPAutoplayCampaign {
 
             if (node is CombatNode) {
                 _currentExpedition.CombatCount++;
+                if (node.NodeID.EndsWith("_boss", StringComparison.Ordinal)) {
+                    _currentExpedition.HPBeforeBoss = _core.CurrentPlayer.ActiveDoll.Status.HP_Current;
+                }
+
                 RunCombatUntilResolved();
                 if (_settled && !_settledVictory) {
                     _currentExpedition.Defeated = true;
+                    _currentExpedition.DefeatedBy = $"L{_core.Dungeon.CurrentLayer?.LayerID}:{string.Join("+", ((CombatNode)node).MonsterIDs)}";
                     break;
                 }
             } else if (node is SafeRoomNode safeRoomNode) {
+                // 见好就收: below layer 1 a good haul goes home before the boss.
+                if (_core.Dungeon.CurrentLayer.LayerID >= 2 && CarriedLootValue() >= EvacuateLootValue) {
+                    _currentExpedition.Evacuated = true;
+                    safeRoomNode.Evacuate();
+                    _currentExpedition.ReachedTown = _settledVictory;
+                    break;
+                }
+
                 UseConsumablesOutsideCombat();
                 safeRoomNode.Rest();
             } else if (node is DungeonOutcomeNode) {
@@ -497,7 +539,7 @@ internal class MVPAutoplayCampaign {
                     _currentExpedition.ClearedLayer1 = true;
                 }
 
-                if (attemptLayer2 && stairsNode.CanEnterNextLayer()) {
+                if (attemptLayer2 && _core.Dungeon.CurrentLayer.LayerID == 1 && stairsNode.CanEnterNextLayer()) {
                     stairsNode.EnterNextLayer();
                     _report.EnteredLayer2 = true;
                     _currentExpedition.EnteredLayer2 = true;
@@ -510,9 +552,10 @@ internal class MVPAutoplayCampaign {
                 break;
             }
 
-            node = node?.NextNodes != null && node.NextNodes.Count > 0 ? node.NextNodes[0] : null;
+            node = ChooseNextNode(node);
         }
 
+        _currentExpedition.Outcome = _currentExpedition.Defeated ? "Defeated" : _currentExpedition.Evacuated ? "Evacuated" : "Stairs";
         DollEntity doll = _core.CurrentPlayer.ActiveDoll;
         _currentExpedition.HPAfter = doll.Status.HP_Current;
         _currentExpedition.SANAfter = doll.Status.SAN_Current;
@@ -524,6 +567,44 @@ internal class MVPAutoplayCampaign {
         MVPAutoplayExpeditionReport finished = _currentExpedition;
         _currentExpedition = null;
         return finished;
+    }
+
+    // Like a careful player reading the map: skip the bypassable elite, head for a rest or safe room when hurt,
+    // otherwise prefer treasure and events over fights. Ties keep the first route.
+    private NodeBase ChooseNextNode(NodeBase node) {
+        if (node?.NextNodes == null || node.NextNodes.Count == 0) {
+            return null;
+        }
+
+        DollEntity doll = _core.CurrentPlayer.ActiveDoll;
+        bool hurt = doll.Status.HP_Current * 100 < doll.Status.HP_Max * 60;
+        return node.NextNodes.OrderByDescending(next => ScoreRoute(next, hurt)).First();
+    }
+
+    private static int ScoreRoute(NodeBase node, bool hurt) {
+        switch (node) {
+            case CombatNode combat when combat.MonsterIDs.Any(id => id.StartsWith("elite_", StringComparison.Ordinal)):
+                return -50;
+            case CombatNode _:
+                return hurt ? -10 : 0;
+            case SafeRoomNode _:
+            case RestStopNode _:
+                return hurt ? 30 : 5;
+            case HazardNode _:
+                return hurt ? -20 : -5;
+            case TreasureNode _:
+            case EventNode _:
+                return 10;
+            default:
+                return 0;
+        }
+    }
+
+    private const int EvacuateLootValue = 300;
+
+    private int CarriedLootValue() {
+        BackpackGrid grid = GetGrid();
+        return grid?.ContainedItems.Where(IsSellableLoot).Sum(item => item.BaseValue) ?? 0;
     }
 
     private void RunCombatUntilResolved() {
@@ -577,8 +658,15 @@ internal class MVPAutoplayCampaign {
         }
     }
 
+    // Keeps AP for the shield when hurt or when the enemy shows a big hit (the intent numbers the player sees).
     private ItemEntity PickShieldToReserve(DollFighter player) {
-        if (player == null || player.RuntimeHP > Mathf.CeilToInt(player.RuntimeMaxHP * 0.7f)) {
+        if (player == null) {
+            return null;
+        }
+
+        IncomingDamagePreview incoming = CombatReadabilityTextService.BuildIncomingDamagePreview(_core.Combat);
+        bool bigHit = incoming != null && (incoming.Lethal || incoming.Total >= 20);
+        if (!bigHit && player.RuntimeHP > Mathf.CeilToInt(player.RuntimeMaxHP * 0.7f)) {
             return null;
         }
 
@@ -814,9 +902,13 @@ internal class MVPAutoplayCampaign {
         SettlePendingRent();
         RestIfHurt();
 
+        // Upgrades come out of what is left after the next rent bill, like a player saving for rent.
+        TryCraft("craft_pros_power_arm", 300);
         int beforeCount = GetGrid()?.ContainedItems.Count ?? 0;
         string beforeChassis = _core.CurrentPlayer.ActiveDoll.Chassis?.ChassisID;
-        _core.Workshop.UpgradeDollChassis(_core.CurrentPlayer.ActiveDoll);
+        if (CanSpend(1000)) {
+            _core.Workshop.UpgradeDollChassis(_core.CurrentPlayer.ActiveDoll);
+        }
         string afterChassis = _core.CurrentPlayer.ActiveDoll.Chassis?.ChassisID;
 
         if (!string.Equals(beforeChassis, afterChassis, StringComparison.Ordinal)) {
@@ -829,8 +921,13 @@ internal class MVPAutoplayCampaign {
             }
         }
 
-        TryCraft("craft_pros_power_arm");
-        TryCraft("craft_pros_cooling_system");
+        TryCraft("craft_pros_cooling_system", 1000);
+    }
+
+    private bool CanSpend(int cost) {
+        PlayerProfile player = _core.CurrentPlayer;
+        int reserve = TownEconomyService.CalculateMonthlyBill(player, TownEconomyService.GetConfig());
+        return player.Money - cost >= reserve;
     }
 
     // Wear and corruption block the dive at 90 (M2 batch 3). Like a careful player, the bot maintains once either is
@@ -874,8 +971,10 @@ internal class MVPAutoplayCampaign {
     private bool TryMaintain(params string[] maintenanceIDs) {
         PlayerProfile player = _core.CurrentPlayer;
         foreach (string id in maintenanceIDs) {
+            int moneyBefore = player.Money;
             if (MaintenanceService.CanApply(player, player.ActiveDoll, id, out _) && MaintenanceService.Apply(player, player.ActiveDoll, id).Success) {
                 _report.Maintenances++;
+                _report.MaintenanceSpent += moneyBefore - player.Money;
                 return true;
             }
         }
@@ -932,8 +1031,10 @@ internal class MVPAutoplayCampaign {
 
         // Lost every weapon: buy a basic one at the 补给铺 when the money allows (M2 batch 1).
         if (!HasUsableWeapon()) {
+            int moneyBefore = player.Money;
             WorkshopShopPurchaseResult bought = WorkshopShopService.TryBuy(player, "gear_rusty_dagger");
             if (bought.Success) {
+                _report.ShopSpent += moneyBefore - player.Money;
                 _report.Notes.Add("没有武器，在补给铺买了生锈短剑。");
                 PreDiveLoadoutService.TryBringFromStash(player, bought.Item, out _);
             }
@@ -949,7 +1050,26 @@ internal class MVPAutoplayCampaign {
     // After a dive everything sits in the stash (rule card 02 §5.2), so sell from there. Keeps what upgrades need.
     private void CloseNight() {
         SellSpareLoot();
-        DayCycleService.FinishNight(_core.CurrentPlayer);
+        int moneyBefore = _core.CurrentPlayer.Money;
+        DayEndReport night = DayCycleService.FinishNight(_core.CurrentPlayer);
+        if (night == null) {
+            return;
+        }
+
+        int income = (night.Business?.DumpBoxIncome ?? 0) + (night.Business?.ShowcaseIncome ?? 0);
+        if (_nightIncomeTarget != null) {
+            _nightIncomeTarget.NightIncome = income;
+            _nightIncomeTarget = null;
+        }
+
+        if (night.Rent != null) {
+            _report.RentBills.Add(new MVPAutoplayRentRecord {
+                Day = night.EndedDay,
+                Bill = night.Rent.TotalBill,
+                MoneyBefore = moneyBefore + income,
+                Status = night.Rent.Status.ToString()
+            });
+        }
     }
 
     // Puts spare loot into the night dump box (it sells when the business opens).
@@ -983,8 +1103,8 @@ internal class MVPAutoplayCampaign {
         }
     }
 
-    private void TryCraft(string recipeID) {
-        if (!_core.Workshop.CraftAndEquipProsthetic(recipeID, _core.CurrentPlayer.ActiveDoll)) {
+    private void TryCraft(string recipeID, int cost) {
+        if (!CanSpend(cost) || !_core.Workshop.CraftAndEquipProsthetic(recipeID, _core.CurrentPlayer.ActiveDoll)) {
             return;
         }
 
