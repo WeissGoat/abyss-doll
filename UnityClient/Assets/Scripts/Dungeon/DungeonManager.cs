@@ -334,6 +334,17 @@ public class DungeonManager {
     }
 
     public bool StartRunAtLayer(int layerID) {
+        return StartRun(layerID, false);
+    }
+
+    // T0 first dive: the fixed shallow-edge route (PrologueShallowRun) on layer 1 instead of the random map.
+    public bool StartPrologueShallowRun() {
+        return StartRun(1, true);
+    }
+
+    public bool IsPrologueRun => PrologueShallowRun.IsPrologueLayer(CurrentLayer);
+
+    private bool StartRun(int layerID, bool prologue) {
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
         DiveReadinessResult readiness = DiveReadinessService.Evaluate(player, layerID, true);
         if (!readiness.CanDive) {
@@ -354,7 +365,15 @@ public class DungeonManager {
         _currentRunSeed = CreateRunSeed(layerID);
         Debug.Log($"[DungeonManager] Starting new dungeon run at Layer {layerID}.");
         ResetRunLootLedger();
-        LoadLayerInternal(layerID, false);
+        if (prologue) {
+            PrologueShallowRun.Begin(player);
+            CurrentLayer = PrologueShallowRun.BuildLayer();
+            DungeonEventBus.PublishLayerLoaded();
+        } else {
+            PrologueShallowRun.Reset();
+            LoadLayerInternal(layerID, false);
+        }
+
         DungeonEventBus.PublishDungeonRunStarted(layerID);
         return true;
     }
@@ -622,6 +641,10 @@ public class DungeonManager {
         }
 
         Debug.Log("<color=red>[DungeonManager] Handling Dungeon Defeat.</color>");
+        if (IsPrologueRun && PrologueShallowRun.Current != null) {
+            PrologueShallowRun.Current.Defeated = true;
+        }
+
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
         DungeonSettlementResult result = new DungeonSettlementResult {
             IsVictory = false

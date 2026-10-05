@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -116,6 +118,7 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnNodeEntered += HandleNodeEntered;
         DungeonEventBus.OnSafeRoomEntered += HandleSafeRoomEntered;
         DungeonEventBus.OnStairsEntered += HandleStairsEntered;
+        DungeonEventBus.OnPrologueBeatEntered += HandlePrologueBeatEntered;
 
         EnterWorkshop();
         StartPrologueOpeningIfNeeded(playPrologue);
@@ -257,6 +260,13 @@ public class GameFlowController : MonoBehaviour {
     }
 
     private void HandleDungeonSettled(bool isVictory) {
+        // The prologue's first dive goes straight back to the workshop, where the return-home scene plays.
+        if (GameRoot.Core?.Dungeon != null && GameRoot.Core.Dungeon.IsPrologueRun) {
+            _pendingSettlementResult = null;
+            EnterWorkshop();
+            return;
+        }
+
         if (_pendingSettlementResult != null && settlementPanel != null) {
             QueueSettlementPresentation(_pendingSettlementResult);
             _pendingSettlementResult = null;
@@ -282,6 +292,21 @@ public class GameFlowController : MonoBehaviour {
     private void HandleNodeEntered(NodeBase node, int cost) {
         if (node is CombatNode) {
             EnterCombat();
+        }
+    }
+
+    // T0 B segment beats: play the scene, then hand the choice to the node.
+    private void HandlePrologueBeatEntered(PrologueBeatNode node) {
+        if (node is PrologueVoiceNode voice) {
+            ScenePanel.Play("t0_voice", choice => {
+                if (choice == "listen") {
+                    ScenePanel.Play("t0_voice_listen", _ => voice.Choose(true));
+                } else {
+                    voice.Choose(false);
+                }
+            });
+        } else if (node is PrologueBringBackNode cart) {
+            ScenePanel.Play("t0_mine_cart", itemID => ScenePanel.Play("t0_head_home", _ => cart.Choose(itemID)), PrologueShallowRun.BringBackOptions());
         }
     }
 
@@ -424,11 +449,58 @@ public class GameFlowController : MonoBehaviour {
         var wsCtrl = workshopPanel?.GetComponent<WorkshopUIController>();
         if (wsCtrl != null) {
             wsCtrl.RefreshUI();
-            wsCtrl.DayHud?.ShowPendingDayEvents();
+            if (PrologueReturnHome.IsPending(GameRoot.Core?.Dungeon)) {
+                PlayPrologueReturnHome(wsCtrl);
+            } else {
+                wsCtrl.DayHud?.ShowPendingDayEvents();
+            }
         }
 
         SyncInventoryItemUI();
         QueueDeferredInventorySync();
+    }
+
+    // T0 C segment: recap and one light choice, the scenes it leads to, then the normal day loop opens.
+    private void PlayPrologueReturnHome(WorkshopUIController workshop) {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        ScenePanel.Play("t0_return", choice => {
+            List<string> scenes = new List<string>();
+            if (choice == PrologueReturnHome.NoticeChoice) {
+                int income = PrologueReturnHome.ReadNotice(player);
+                if (income > 0) {
+                    PlayerToast.Show($"老旧齿轮被压价收走：+{income}G", PlayerToastKind.Info);
+                }
+
+                scenes.Add("t0_notice");
+            } else {
+                if (PrologueReturnHome.Care(player)) {
+                    scenes.Add("t0_care_core");
+                }
+
+                scenes.Add("t0_care");
+            }
+
+            if (PrologueReturnHome.BroughtMemory) {
+                scenes.Add("t0_memory");
+            }
+
+            scenes.Add("t0_loop_open");
+            workshop?.RefreshUI();
+            PlaySceneSequence(scenes, 0, () => {
+                PrologueReturnHome.Finish(player);
+                workshop?.ExitPrologueHalfOpen();
+                workshop?.DayHud?.ShowPendingDayEvents();
+            });
+        }, null, PrologueReturnHome.BuildRecap(player));
+    }
+
+    private static void PlaySceneSequence(List<string> sceneIDs, int index, Action done) {
+        if (index >= sceneIDs.Count) {
+            done?.Invoke();
+            return;
+        }
+
+        ScenePanel.Play(sceneIDs[index], _ => PlaySceneSequence(sceneIDs, index + 1, done));
     }
 
     private void OnEnterDungeonMapScreen() {
@@ -1021,5 +1093,6 @@ public class GameFlowController : MonoBehaviour {
         DungeonEventBus.OnNodeEntered -= HandleNodeEntered;
         DungeonEventBus.OnSafeRoomEntered -= HandleSafeRoomEntered;
         DungeonEventBus.OnStairsEntered -= HandleStairsEntered;
+        DungeonEventBus.OnPrologueBeatEntered -= HandlePrologueBeatEntered;
     }
 }

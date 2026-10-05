@@ -176,6 +176,10 @@ public class DungeonMapUIController : MonoBehaviour {
     }
 
     private string BuildNodeTypeLabel(NodeBase node) {
+        if (node is PrologueBeatNode beat) {
+            return beat.DisplayLabel;
+        }
+
         if (node is CombatNode) {
             if (VisualAssetService.ResolveNodeIconID(node) == VisualAssetService.BossNodeIconID) {
                 return "首领";
@@ -323,7 +327,7 @@ public class DungeonMapUIController : MonoBehaviour {
             return new Color(0.78f, 0.7f, 0.42f, 1f);
         }
 
-        if (node is TreasureNode) {
+        if (node is TreasureNode || node is PrologueBringBackNode) {
             return new Color(0.86f, 0.64f, 0.2f, 1f);
         }
 
@@ -331,7 +335,7 @@ public class DungeonMapUIController : MonoBehaviour {
             return new Color(0.26f, 0.58f, 0.68f, 1f);
         }
 
-        if (node is EventNode) {
+        if (node is EventNode || node is PrologueVoiceNode) {
             return new Color(0.55f, 0.43f, 0.7f, 1f);
         }
 

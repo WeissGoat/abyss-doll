@@ -18,6 +18,7 @@ public static class ConfigManager {
     public static Dictionary<string, OrderConfig> Orders = new Dictionary<string, OrderConfig>();
     public static Dictionary<string, RumorConfig> Rumors = new Dictionary<string, RumorConfig>();
     public static NarrativeConfigDatabase Narrative = new NarrativeConfigDatabase();
+    public static Dictionary<string, SceneConfig> Scenes = new Dictionary<string, SceneConfig>();
 
     public static void LoadAllConfigs() {
         ResetAllCaches();
@@ -57,6 +58,8 @@ public static class ConfigManager {
         LoadConfigsIntoDict(Path.Combine(basePath, "Rumors"), Rumors, r => r.RumorID);
         // 14. Narrative
         Narrative = NarrativeConfigDatabase.LoadFromDirectory(Path.Combine(basePath, "Narrative"));
+        // 15. Scenes
+        LoadConfigsIntoDict(Path.Combine(basePath, "Scenes"), Scenes, s => s.SceneID);
 
         Debug.Log($"[ConfigManager] Configs loaded successfully! Items: {Items.Count}, Monsters: {Monsters.Count}, Dungeons: {Dungeons.Count}, Rewards: {Rewards.Count}, Maintenance: {MaintenanceConfigs.Count}, Economy: {EconomyConfigs.Count}, Factions: {Factions.Count}, Orders: {Orders.Count}, Rumors: {Rumors.Count}, NarrativeNodes: {Narrative.NodeCount}, NarrativeTriggers: {Narrative.TriggerCount}");
     }
@@ -76,6 +79,7 @@ public static class ConfigManager {
         Orders.Clear();
         Rumors.Clear();
         Narrative = new NarrativeConfigDatabase();
+        Scenes.Clear();
     }
 
     private static void LoadConfigsIntoDict<K, T>(string dirPath, Dictionary<K, T> dict, System.Func<T, K> keySelector) {

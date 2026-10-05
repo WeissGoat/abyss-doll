@@ -5,6 +5,7 @@ public static class DungeonEventBus {
     public static event Action<NodeBase, int> OnNodeEntered;
     public static event Action<NodeBase> OnSafeRoomEntered;
     public static event Action<StairsNode> OnStairsEntered;
+    public static event Action<PrologueBeatNode> OnPrologueBeatEntered;
 
     public static event Action OnNodeSettlementCompleted;
     public static event Action OnNodeResolutionFinished;
@@ -34,6 +35,10 @@ public static class DungeonEventBus {
 
     public static void PublishStairsEntered(StairsNode node) {
         OnStairsEntered?.Invoke(node);
+    }
+
+    public static void PublishPrologueBeatEntered(PrologueBeatNode node) {
+        OnPrologueBeatEntered?.Invoke(node);
     }
 
     public static void PublishNodeSettlementCompleted() {

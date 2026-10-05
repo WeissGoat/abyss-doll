@@ -1,0 +1,15 @@
+{
+  "SceneID": "t0_head_home",
+  "Title": "旧矿井浅缘",
+  "Lines": [
+    {
+      "Speaker": "主角",
+      "Text": "走吧，先带你回去。"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "嗯。"
+    }
+  ],
+  "Choices": []
+}

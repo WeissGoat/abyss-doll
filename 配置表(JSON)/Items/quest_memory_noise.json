@@ -1,0 +1,82 @@
+{
+  "ConfigID": "quest_memory_noise",
+  "Name": "记忆噪声片",
+  "ItemType": "QuestItem",
+  "Rarity": "Common",
+  "BaseValue": 0,
+  "IconID": "item_loot_crystal_scale_icon",
+  "DescriptionKey": "item.quest_memory_noise.desc",
+  "ItemRole": [
+    "Quest"
+  ],
+  "LayerTags": [
+    "Layer1",
+    "Prologue"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ]
+  },
+  "Tags": [
+    "Memory",
+    "Quest"
+  ],
+  "Lifecycle": {
+    "CanSell": false,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "Ingredient"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": [],
+    "ScenarioRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Memory"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_loot_crystal_scale_icon",
+    "GridPreviewStyle": "Material",
+    "RiskIconRefs": [],
+    "PickupHintKey": ""
+  }
+}

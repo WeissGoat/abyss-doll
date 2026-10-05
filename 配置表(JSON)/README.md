@@ -56,6 +56,7 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | **`/Maintenance`** | 维护方案 (Maintenance) | 局外维护方案，定义金币 / 材料成本以及磨损、侵蚀、HP、SAN 修复效果。 | 养成系统 / 下潜许可 |
 | **[`/Economy`](./Economy/README.md)** | 小镇经济 (Economy) | 定义日 / 周 / 月周期、月租曲线、欠债利息、轻债阈值和典当折扣。 | 经济压力 / 小镇循环 |
 | **[`/Effects`](./Effects/README.md)** | 效果字典 (Effect) | 定义游戏中所有可被物品、怪物、义体调用的基础效果（如加血、叠盾、乘伤）及其参数规范。 | 战斗系统 / 核心框架 |
+| **`/Scenes`** | 短场景 (Scene) | 序章 B / C 段等不走 Yarn 的短对白：标题、逐句台词（Speaker / Text）和选项（ID / Label / Hint）。选项 ID 由代码解释，见 `docs/specs/2026-10-05-t0-first-loop.md`。 | 叙事 / 序章 |
 
 ## 全局通用规范
 1. **命名规范：** 所有的 ID (如 `ConfigID`, `MonsterID`) 必须全局唯一，推荐使用小写字母加下划线（如 `gear_rusty_dagger`）。

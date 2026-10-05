@@ -1,0 +1,19 @@
+{
+  "SceneID": "t0_voice_listen",
+  "Title": "旧矿井浅缘 · 下面的声音",
+  "Lines": [
+    {
+      "Speaker": "零号",
+      "Text": "……它在叫我。"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "不，是我在叫它。"
+    },
+    {
+      "Speaker": "主角",
+      "Text": "记住了就走。"
+    }
+  ],
+  "Choices": []
+}

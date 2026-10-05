@@ -1,0 +1,26 @@
+{
+  "SceneID": "t0_return",
+  "Title": "工坊 · 回来了",
+  "Lines": [
+    {
+      "Speaker": "零号",
+      "Text": "……我回来了。"
+    },
+    {
+      "Speaker": "主角",
+      "Text": "先坐下。"
+    }
+  ],
+  "Choices": [
+    {
+      "ID": "care",
+      "Label": "先照看她",
+      "Hint": "HP、SAN 回满，磨损和侵蚀清零"
+    },
+    {
+      "ID": "notice",
+      "Label": "先看催缴纸",
+      "Hint": "看看还差多少，能卖的先卖"
+    }
+  ]
+}

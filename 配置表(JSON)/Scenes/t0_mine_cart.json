@@ -1,0 +1,35 @@
+{
+  "SceneID": "t0_mine_cart",
+  "Title": "旧矿井浅缘 · 旧矿车",
+  "Lines": [
+    {
+      "Speaker": "主角",
+      "Text": "拾荒虫守着的就是这辆矿车。"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "里面有东西。"
+    },
+    {
+      "Speaker": "主角",
+      "Text": "你撑不了太久。这次只拿一样。"
+    }
+  ],
+  "Choices": [
+    {
+      "ID": "mat_core_dust_stable",
+      "Label": "稳定核心碎屑",
+      "Hint": "能让她今晚稳定一点"
+    },
+    {
+      "ID": "loot_gear_scrap",
+      "Label": "老旧齿轮",
+      "Hint": "能抵一部分债，他们会压价"
+    },
+    {
+      "ID": "quest_memory_noise",
+      "Label": "记忆噪声片",
+      "Hint": "和她听见的声音有关"
+    }
+  ]
+}

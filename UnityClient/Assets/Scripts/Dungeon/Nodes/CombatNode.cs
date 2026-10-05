@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CombatNode : NodeBase, ILootPickupNode {
     public List<string> MonsterIDs { get; set; } = new List<string>();
+    // The prologue's first fight drops nothing; the bring-back choice comes right after it.
+    public bool NoLoot { get; set; }
     private CombatLootPickupResult _pendingLootResult;
     
     public override void Init(NodePoolEntry entry) {
@@ -70,6 +72,10 @@ public class CombatNode : NodeBase, ILootPickupNode {
     }
 
     private CombatLootPickupResult PrepareLootPickupResult() {
+        if (NoLoot) {
+            return null;
+        }
+
         if ((MonsterIDs == null || MonsterIDs.Count == 0) && string.IsNullOrEmpty(RewardID)) {
             Debug.Log("[CombatNode] No MonsterIDs or node RewardID configured. No loot generated.");
             return null;

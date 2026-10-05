@@ -1,0 +1,15 @@
+{
+  "SceneID": "t0_care_core",
+  "Title": "工坊 · 照看",
+  "Lines": [
+    {
+      "Speaker": "主角",
+      "Text": "碎屑先给你用上。"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "……暖的。"
+    }
+  ],
+  "Choices": []
+}

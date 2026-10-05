@@ -341,7 +341,7 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
         BeforeFirstDiveStartRun?.Invoke();
 
         bool started = GameRoot.Core?.Dungeon != null
-            && GameRoot.Core.Dungeon.StartRunAtLayer(NarrativeCommandBridge.T0FirstDiveLayerID);
+            && GameRoot.Core.Dungeon.StartPrologueShallowRun();
         FirstDiveStartRunSucceeded = started;
         FirstDiveStartRunCompleted?.Invoke(started);
 

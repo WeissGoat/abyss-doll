@@ -1,0 +1,38 @@
+{
+  "SceneID": "t0_voice",
+  "Title": "旧矿井浅缘 · 下面的声音",
+  "Lines": [
+    {
+      "Speaker": "零号",
+      "Text": "等一下。"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "下面……有一段声音。"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "很浅。像我的。"
+    },
+    {
+      "Speaker": "主角",
+      "Text": "还能走吗？"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "能。"
+    }
+  ],
+  "Choices": [
+    {
+      "ID": "follow",
+      "Label": "跟着声音走",
+      "Hint": "不耽搁，直接往下"
+    },
+    {
+      "ID": "listen",
+      "Label": "让她先听清楚",
+      "Hint": "SAN -5，也许能找到声音从哪来"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "SceneID": "t0_memory",
+  "Title": "工坊 · 噪声",
+  "Lines": [
+    {
+      "Speaker": "零号",
+      "Text": "矿井……不是矿井。"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "那里以前有灯。"
+    },
+    {
+      "Speaker": "主角",
+      "Text": "第一层更深的地方……也许有你的东西。"
+    }
+  ],
+  "Choices": []
+}
