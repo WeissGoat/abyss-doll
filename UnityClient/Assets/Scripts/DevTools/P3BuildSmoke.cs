@@ -49,10 +49,12 @@ public class P3BuildSmoke : MonoBehaviour {
         bool returnCaptured = false;
         float prologueStartedAt = Time.realtimeSinceStartup;
         while (!prologueDone && Time.realtimeSinceStartup - prologueStartedAt < PrologueTimeoutSeconds) {
-            if (ScenePanel.IsShowing && !shallowCaptured && GameRoot.Core.Dungeon.CurrentLayer != null && !PrologueReturnHome.IsPending(GameRoot.Core.Dungeon)) {
+            // The shallow edge is still the dive day; the return home plays at night.
+            bool night = GameRoot.Core.CurrentPlayer.IsNight;
+            if (ScenePanel.IsShowing && !shallowCaptured && !night) {
                 shallowCaptured = true;
                 yield return Capture("01b_shallow_edge");
-            } else if (ScenePanel.IsShowing && !returnCaptured && PrologueReturnHome.IsPending(GameRoot.Core.Dungeon)) {
+            } else if (ScenePanel.IsShowing && !returnCaptured && night) {
                 returnCaptured = true;
                 yield return Capture("01c_return_home");
             }
