@@ -1,0 +1,19 @@
+{
+ "model": "V4.5 Full",
+ "size": [
+  832,
+  1216
+ ],
+ "base": "1girl, solo, 1.1::artist:ningen mame::, year 2024, full body, standing, looking at viewer, own hands together, white background, simple background, 1.4::silver hair::, very long hair, straight hair, 1.2::pale skin::, petite, cute, small face, light blush, 1.3::white blindfold::, covered eyes, short hooded cape, hood down, open cape, beige cape, single patch, white dress, knee-length dress, 1.2::foot wraps::, plain cream bandages, doll joints, expressionless, closed mouth, -1.5::neck ribbon, red string, red ribbon::, -1.2::torn clothes::, A small quiet doll girl with long silver hair. Her plain white cloth blindfold is tied at the back of her head. She wears a short oatmeal linen hooded cape with one sewn patch over a plain ivory knee-length dress, her feet wrapped in cloth. very aesthetic, masterpiece, no text, rating:general",
+ "characters": [],
+ "negative": "lowres, artistic error, bad anatomy, bad hands, worst quality, bad quality, jpeg artifacts, multiple views, dark skin, brown hair, nsfw, red string, red ribbon",
+ "settings": {
+  "qualityTags": false,
+  "ucPreset": "None",
+  "aiChoosesPositions": true,
+  "steps": 28,
+  "scale": 5,
+  "cfgRescale": 0,
+  "sampler": "k_euler_ancestral"
+ }
+}
