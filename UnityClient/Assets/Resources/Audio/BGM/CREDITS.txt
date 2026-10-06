@@ -1,0 +1,19 @@
+Background music in this folder comes from OpenGameArt.org. Files were renamed to the track IDs GameAudio plays.
+
+title.mp3    = "Town Theme RPG" (TownTheme.mp3) by cynicmusic, CC0 1.0
+               https://opengameart.org/content/town-theme-rpg
+town.ogg     = "Pleasant Thoughts" (pleasantthoughts.ogg) by JSKNYC, CC-BY 3.0
+               https://opengameart.org/content/pleasant-thoughts
+abyss_l1.mp3 = "Mysterious Ambience (song21)" (song21.mp3) by cynicmusic, CC0 1.0
+               https://opengameart.org/content/mysterious-ambience-song21
+abyss_l2.ogg = "Crystal Cave + Mysterious Ambience (seamless loop)" (music_jewels.ogg) by cynicmusic, CC-BY 3.0
+               Credit: pixelsphere.org / The Cynic Project
+               https://opengameart.org/content/crystal-cave-mysterious-ambience-seamless-loop
+battle.mp3   = "Battle Theme B for RPG" (battleThemeB.mp3) by cynicmusic, CC0 1.0
+               https://opengameart.org/content/battle-theme-b-for-rpg
+boss.mp3     = "Battle Theme A" (battleThemeA.mp3) by cynicmusic, CC0 1.0
+               https://opengameart.org/content/battle-theme-a
+
+CC-BY 3.0: https://creativecommons.org/licenses/by/3.0/
+CC0 1.0: http://creativecommons.org/publicdomain/zero/1.0/
+The two CC-BY tracks must be credited in the game's credits and store page.
