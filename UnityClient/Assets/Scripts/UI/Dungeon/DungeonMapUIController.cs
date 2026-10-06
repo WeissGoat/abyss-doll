@@ -502,15 +502,15 @@ public class DungeonMapUIController : MonoBehaviour {
         ring.SetAsLastSibling();
         ring.gameObject.SetActive(isCurrent || isSelectable);
         if (isCurrent) {
-            UIFrame.SetColor(ring, UITheme.Accent);
+            UIFrame.SetColor(ring, UITheme.AccentOnDark);
         } else if (isSelectable) {
-            UIFrame.SetColor(ring, UITheme.Positive);
+            UIFrame.SetColor(ring, UITheme.PositiveOnDark);
             UIPulse.Attach(ring.gameObject, 0.3f, 1f, 0.04f, 3.2f);
         }
 
         Text tag = buttonTransform.Find("NodeStateTag_Text")?.GetComponent<Text>();
         if (tag == null) {
-            tag = UITheme.CreateText(buttonTransform, "NodeStateTag_Text", string.Empty, UITheme.CaptionSize, UITheme.TextPrimary, TextAnchor.MiddleCenter);
+            tag = UITheme.CreateText(buttonTransform, "NodeStateTag_Text", string.Empty, UITheme.CaptionSize, UITheme.TextOnDark, TextAnchor.MiddleCenter);
             RectTransform tagRect = tag.rectTransform;
             tagRect.anchorMin = new Vector2(0.5f, 1f);
             tagRect.anchorMax = new Vector2(0.5f, 1f);
@@ -523,7 +523,7 @@ public class DungeonMapUIController : MonoBehaviour {
         }
 
         tag.text = isCurrent ? "当前位置" : isSelectable ? "可前往" : isVisited ? "已走过" : string.Empty;
-        tag.color = isCurrent ? UITheme.Accent : isSelectable ? UITheme.Positive : UITheme.TextMuted;
+        tag.color = isCurrent ? UITheme.AccentOnDark : isSelectable ? UITheme.PositiveOnDark : UITheme.TextOnDarkMuted;
         tag.fontStyle = isCurrent || isSelectable ? FontStyle.Bold : FontStyle.Normal;
 
         CanvasGroup group = buttonTransform.GetComponent<CanvasGroup>();
@@ -540,7 +540,7 @@ public class DungeonMapUIController : MonoBehaviour {
         }
 
         if (mapHintText == null) {
-            mapHintText = UITheme.CreateText(transform, "MapHint_Text", string.Empty, UITheme.BodySize, UITheme.TextPrimary, TextAnchor.MiddleCenter);
+            mapHintText = UITheme.CreateText(transform, "MapHint_Text", string.Empty, UITheme.BodySize, UITheme.TextOnDark, TextAnchor.MiddleCenter);
             RectTransform hintRect = mapHintText.rectTransform;
             hintRect.anchorMin = new Vector2(0.5f, 1f);
             hintRect.anchorMax = new Vector2(0.5f, 1f);
@@ -626,8 +626,8 @@ public class DungeonMapUIController : MonoBehaviour {
             }
         }
 
-        VisualUIHelper.ApplyButtonSkin(openBackpackBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.2f, 0.52f, 0.86f));
-        VisualUIHelper.ApplyButtonSkin(closeBackpackBtn, VisualAssetService.UIButtonDangerID, new Color(0.82f, 0.36f, 0.2f));
+        UITheme.StyleButton(openBackpackBtn, false);
+        UITheme.StyleButton(closeBackpackBtn, false);
     }
 
     private Button CreateActionButton(string objectName, string label, Vector2 anchoredPosition, Font font) {
@@ -851,11 +851,11 @@ public class DungeonMapUIController : MonoBehaviour {
 
     private Color ResolveRouteLineFallbackColor(DungeonLayer layer, NodeBase fromNode, NodeBase toNode) {
         if (fromNode == layer?.CurrentNode && IsNodeSelectable(layer, toNode)) {
-            return new Color(UITheme.Positive.r, UITheme.Positive.g, UITheme.Positive.b, 0.95f);
+            return new Color(UITheme.PositiveOnDark.r, UITheme.PositiveOnDark.g, UITheme.PositiveOnDark.b, 0.95f);
         }
 
         if (fromNode != null && toNode != null && fromNode.IsVisited && (toNode.IsVisited || toNode == layer?.CurrentNode)) {
-            return new Color(UITheme.Accent.r, UITheme.Accent.g, UITheme.Accent.b, 0.7f);
+            return new Color(UITheme.AccentOnDark.r, UITheme.AccentOnDark.g, UITheme.AccentOnDark.b, 0.7f);
         }
 
         if (IsNodeUnreachable(layer, fromNode) || IsNodeUnreachable(layer, toNode) || (fromNode != null && fromNode.IsVisited && fromNode != layer?.CurrentNode)) {

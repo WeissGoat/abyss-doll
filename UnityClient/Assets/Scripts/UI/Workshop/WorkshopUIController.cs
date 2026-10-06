@@ -55,6 +55,11 @@ public class WorkshopUIController : MonoBehaviour {
     private Image _abyssDoorIconImage;
     private Image _workshopEntryIconImage;
     private Image _ledgerIconImage;
+    private Image _shopEntryCard;
+    private Image _shopEntryIcon;
+    private Text _shopEntryHint;
+    private Button _shopEntryButton;
+    private WorkshopShopPanel _workshopShop;
     private Image _dollGlowImage;
     private Image _abyssDoorSceneImage;
     private Image _prologueObjectiveRibbon;
@@ -221,9 +226,106 @@ public class WorkshopUIController : MonoBehaviour {
         SetPanelActive(_topStatusPanel, !dayMode);
         SetPanelActive(_leftActionPanel, !dayMode);
         SetPanelActive(_dollStatusPanel, !dayMode);
+        SetPanelActive(_shopEntryCard, dayMode);
         if (dayMode) {
             SetPanelActive(_prologueObjectiveRibbon, false);
             SetPanelActive(_prologuePrimaryGlowImage, false);
+            ApplyDayModeLinenSkin();
+        }
+    }
+
+    // M4 linen look for the two entry cards (工作室, 账本) on the right of the day screen. The prologue keeps its own
+    // staging until its CG is redone.
+    private void ApplyDayModeLinenSkin() {
+        ApplyLinenEntryCard(_formalV1EntryPanel, _workshopEntryIconImage, _studioHintText, openProstheticPanelBtn, new Vector2(0.87f, 0.62f), "改装义体和底盘");
+        ApplyLinenEntryCard(_bottomHintPanel, _ledgerIconImage, _ledgerHintText, openSellPanelBtn, new Vector2(0.87f, 0.47f), "出售带回来的东西");
+        EnsureShopEntryCard();
+        ApplyLinenEntryCard(_shopEntryCard, _shopEntryIcon, _shopEntryHint, _shopEntryButton, new Vector2(0.87f, 0.32f), "买修复剂和镇静剂");
+    }
+
+    // The supply shop used to be reachable only from the pre-dive loadout; the day screen gets its own card.
+    private void EnsureShopEntryCard() {
+        if (_shopEntryCard != null) {
+            return;
+        }
+
+        _shopEntryCard = UITheme.CreatePanel(transform, "ShopEntryPanel", UITheme.Panel);
+        _shopEntryCard.raycastTarget = false;
+        _shopEntryIcon = UITheme.CreatePanel(_shopEntryCard.transform, "ShopEntryIcon_Image", Color.white);
+        _shopEntryIcon.raycastTarget = false;
+        VisualUIHelper.ApplyContainSprite(_shopEntryIcon, VisualAssetService.UIIconShopChannelID, new Vector2(56f, 56f), Color.white, UITheme.Border, false);
+        _shopEntryHint = UITheme.CreateText(_shopEntryCard.transform, "ShopHint_Text", string.Empty, UITheme.CaptionSize, UITheme.TextSecondary);
+        _shopEntryButton = UITheme.CreateButton(_shopEntryCard.transform, "OpenShop_Button", "补给铺", UITheme.PanelRaised, UITheme.TextPrimary);
+        _shopEntryButton.onClick.AddListener(OpenWorkshopShop);
+    }
+
+    private void OpenWorkshopShop() {
+        if (_workshopShop == null) {
+            _workshopShop = WorkshopShopPanel.Create(transform);
+        }
+
+        _workshopShop.Show(RefreshUI);
+    }
+
+    private static void ApplyLinenEntryCard(Image card, Image icon, Text hint, Button button, Vector2 anchor, string hintText) {
+        if (card == null) {
+            return;
+        }
+
+        if (!UITheme.ApplyBoardSkin(card, VisualAssetService.UIPanelInfoID)) {
+            VisualUIHelper.ApplySolidColor(card, UITheme.Panel, false);
+        }
+
+        Outline outline = card.GetComponent<Outline>();
+        if (outline != null) {
+            outline.enabled = false;
+        }
+
+        ResizeProloguePanel(card, anchor, Vector2.zero, new Vector2(300f, 112f));
+        if (icon != null) {
+            icon.color = UITheme.TextSecondary;
+            RectTransform iconRect = icon.rectTransform;
+            iconRect.anchorMin = new Vector2(0f, 0.5f);
+            iconRect.anchorMax = new Vector2(0f, 0.5f);
+            iconRect.pivot = new Vector2(0f, 0.5f);
+            iconRect.anchoredPosition = new Vector2(22f, 0f);
+            iconRect.sizeDelta = new Vector2(56f, 56f);
+        }
+
+        if (hint != null) {
+            hint.font = UITheme.Font;
+            hint.text = hintText;
+            hint.color = UITheme.TextSecondary;
+            hint.alignment = TextAnchor.UpperLeft;
+            RectTransform hintRect = hint.rectTransform;
+            hintRect.anchorMin = new Vector2(0f, 1f);
+            hintRect.anchorMax = new Vector2(0f, 1f);
+            hintRect.pivot = new Vector2(0f, 1f);
+            hintRect.anchoredPosition = new Vector2(92f, -20f);
+            hintRect.sizeDelta = new Vector2(190f, 28f);
+        }
+
+        if (button != null) {
+            button.transform.SetParent(card.transform, false);
+            RectTransform rect = button.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0f, 0f);
+            rect.anchorMax = new Vector2(0f, 0f);
+            rect.pivot = new Vector2(0f, 0f);
+            rect.anchoredPosition = new Vector2(92f, 18f);
+            rect.sizeDelta = new Vector2(180f, 46f);
+            Image image = button.GetComponent<Image>();
+            UITheme.ApplyButtonSkin(image, UITheme.PanelRaised);
+            Outline buttonOutline = button.GetComponent<Outline>();
+            if (buttonOutline != null) {
+                buttonOutline.enabled = false;
+            }
+
+            Text label = button.GetComponentInChildren<Text>(true);
+            if (label != null) {
+                label.font = UITheme.Font;
+                label.color = UITheme.TextPrimary;
+                label.fontSize = UITheme.BodySize;
+            }
         }
     }
 

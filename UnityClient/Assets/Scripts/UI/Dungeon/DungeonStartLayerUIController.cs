@@ -138,11 +138,17 @@ public class DungeonStartLayerUIController : MonoBehaviour {
             return;
         }
 
+        Image shellImage = listParent != null && listParent.parent != null ? listParent.parent.GetComponent<Image>() : null;
+        UITheme.ApplyBoardSkin(shellImage, VisualAssetService.UIPanelMainID);
         if (titleText != null) {
             titleText.text = "选择深渊入口";
+            titleText.font = UITheme.Font;
+            titleText.color = UITheme.Accent;
         }
 
         if (summaryText != null) {
+            summaryText.font = UITheme.Font;
+            summaryText.color = UITheme.TextSecondary;
             DiveReadinessResult readiness = BuildReadiness(player, _selectedLayerID);
             string selectedState = readiness != null && readiness.CanDive ? "可下潜" : "无法下潜";
             string failureLine = string.IsNullOrEmpty(_lastStartFailureReason)
@@ -360,9 +366,7 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         DiveReadinessResult readiness = BuildReadiness(player, layerID);
         bool canStart = readiness != null && readiness.CanDive;
         bool selected = layerID == _selectedLayerID;
-        Color rowTint = selected
-            ? new Color(0.92f, 0.64f, 0.22f, 0.95f)
-            : canStart ? new Color(0.18f, 0.27f, 0.32f, 0.95f) : new Color(0.12f, 0.12f, 0.13f, 0.75f);
+        Color rowTint = selected || canStart ? Color.white : new Color(0.82f, 0.78f, 0.74f, 0.9f);
         VisualUIHelper.ApplySlicedSprite(
             rowBg,
             selected ? VisualAssetService.UIListRowSelectedID : VisualAssetService.UIListRowNormalID,
@@ -400,11 +404,11 @@ public class DungeonStartLayerUIController : MonoBehaviour {
                 new Color(0.65f, 0.65f, 0.65f, 1f));
         }
 
-        Text layerText = CreateText("Layer_Text", row.transform, font, 24, canStart ? Color.white : new Color(0.68f, 0.68f, 0.68f));
+        Text layerText = CreateText("Layer_Text", row.transform, font, 24, canStart ? UITheme.TextPrimary : UITheme.TextMuted);
         layerText.text = _firstDiveMode ? "第一层  旧矿井浅缝" : $"第 {layerID} 层  {config.Name}";
         layerText.rectTransform.sizeDelta = new Vector2(330f, 66f);
 
-        Text stateText = CreateText("State_Text", row.transform, font, 20, canStart ? new Color(0.78f, 1f, 0.82f) : new Color(1f, 0.68f, 0.58f));
+        Text stateText = CreateText("State_Text", row.transform, font, 20, canStart ? UITheme.Positive : UITheme.Danger);
         stateText.text = _firstDiveMode ? BuildFirstDiveRowStateText(readiness) : BuildLayerStateText(readiness, selected);
         stateText.alignment = TextAnchor.MiddleRight;
         stateText.horizontalOverflow = HorizontalWrapMode.Wrap;
@@ -724,6 +728,9 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         if (_firstDiveMode) {
             ApplyFirstDiveButtonSkin(confirmBtn, new Color(0.04f, 0.52f, 0.62f, 0.97f));
             ApplyFirstDiveButtonSkin(closeBtn, new Color(0.06f, 0.18f, 0.24f, 0.9f));
+        } else {
+            UITheme.StyleButton(confirmBtn, true);
+            UITheme.StyleButton(closeBtn, false);
         }
     }
 

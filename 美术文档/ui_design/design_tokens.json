@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "UpdatedAt": "2026-06-12",
+  "UpdatedAt": "2026-10-06",
   "ProductionStage": "FormalVerticalSlice",
   "DesignPolicy": {
     "UISkeleton": "formal_first",
@@ -27,7 +27,11 @@
   },
   "AspectPolicy": {
     "Primary": "16:9",
-    "Supported": ["16:10", "21:9", "4:3"],
+    "Supported": [
+      "16:10",
+      "21:9",
+      "4:3"
+    ],
     "BackgroundFitMode": "cover",
     "IconFitMode": "contain",
     "NineSliceFitMode": "stretch",
@@ -61,25 +65,32 @@
     }
   },
   "ColorRoles": {
-    "PanelBase": "#27243A",
-    "PanelInset": "#171827",
-    "FantasyTrim": "#D8C47A",
-    "CoralAccent": "#E78A7A",
-    "RuneActive": "#8FD3FF",
-    "BlueEnergy": "#67B7D8",
-    "GreenValid": "#65B88A",
-    "RedDanger": "#B64A45",
-    "TextPrimary": "#ECE3D2",
-    "TextSecondary": "#B9AD98",
-    "Disabled": "#5D6068"
+    "ScreenBackground": "#2B2018",
+    "PanelLinen": "#E9DCC3",
+    "PanelRaised": "#F6ECD9",
+    "PanelInset": "#DCCBAA",
+    "LeatherTrim": "#7A5236",
+    "BrassAccent": "#C69A4A",
+    "PrimaryAction": "#B5402F",
+    "OnPrimaryAction": "#F7EEDC",
+    "TextPrimary": "#3B2A1E",
+    "TextSecondary": "#6B5544",
+    "TextMuted": "#8F7A62",
+    "TextOnDark": "#F4E6CC",
+    "AccentOnDark": "#F2B864",
+    "Positive": "#4F7A3A",
+    "Warning": "#B06A1E",
+    "Danger": "#A8382A",
+    "Info": "#2F7FA8",
+    "Energy": "#3FA7D6"
   },
   "ColorRoleAliases": {
-    "MoonWhiteTrim": "TextPrimary",
-    "PrimaryActionCrimson": "CoralAccent",
-    "RuneActive": "RuneActive"
+    "StitchedLinen": "PanelLinen",
+    "PrimaryActionMadder": "PrimaryAction",
+    "APGem": "Energy"
   },
   "Typography": {
-    "FontPolicy": "Unity Text renders all labels; UI sprites must not contain baked text.",
+    "FontPolicy": "Unity Text renders all labels with the bundled Noto Sans SC; UI sprites must not contain baked text.",
     "TitleSize": 32,
     "SectionTitleSize": 24,
     "BodySize": 18,
@@ -101,5 +112,9 @@
     "Controls",
     "Tooltip",
     "Modal"
-  ]
+  ],
+  "NineSliceKit": {
+    "Source": "tools/美术工具/generate_linen_ui_kit.py",
+    "Note": "Frame sprites in Art/Approved/UI are drawn by this script; rerun it instead of editing the PNGs."
+  }
 }

@@ -49,14 +49,14 @@ public class TitleScreen : MonoBehaviour {
     private void Build() {
         Image background = UITheme.CreatePanel(transform, "TitleBackground_Image", UITheme.Background);
         UITheme.Stretch(background.rectTransform);
-        VisualUIHelper.ApplyCoverSprite(background, BackgroundVisualID, new Color(0.62f, 0.66f, 0.7f, 1f), UITheme.Background);
-        Image veil = UITheme.CreatePanel(transform, "TitleVeil_Image", new Color(0.02f, 0.03f, 0.04f, 0.55f));
+        VisualUIHelper.ApplyCoverSprite(background, BackgroundVisualID, new Color(0.78f, 0.72f, 0.64f, 1f), UITheme.Background);
+        Image veil = UITheme.CreatePanel(transform, "TitleVeil_Image", new Color(0.09f, 0.055f, 0.03f, 0.5f));
         UITheme.Stretch(veil.rectTransform);
 
-        Text title = UITheme.CreateText(transform, "Title_Text", "Project P3", 72, UITheme.Accent, TextAnchor.MiddleLeft);
+        Text title = UITheme.CreateText(transform, "Title_Text", "Project P3", 72, UITheme.AccentOnDark, TextAnchor.MiddleLeft);
         UITheme.Place(title.rectTransform, new Vector2(0f, 0.5f), new Vector2(160f, 250f), new Vector2(900f, 100f));
         title.rectTransform.pivot = new Vector2(0f, 0.5f);
-        Text subtitle = UITheme.CreateText(transform, "Subtitle_Text", "她还能陪你下去一次。", UITheme.HeadingSize, UITheme.TextSecondary, TextAnchor.MiddleLeft);
+        Text subtitle = UITheme.CreateText(transform, "Subtitle_Text", "她还能陪你下去一次。", UITheme.HeadingSize, UITheme.TextOnDark, TextAnchor.MiddleLeft);
         UITheme.Place(subtitle.rectTransform, new Vector2(0f, 0.5f), new Vector2(160f, 175f), new Vector2(900f, 44f));
         subtitle.rectTransform.pivot = new Vector2(0f, 0.5f);
 
@@ -65,7 +65,7 @@ public class TitleScreen : MonoBehaviour {
             Button continueButton = AddMenuButton(ContinueLabel, y, true, Continue);
             PlayerProfile player = _save.Player;
             Text summary = UITheme.CreateText(continueButton.transform, "SaveSummary_Text",
-                $"第 {player.CurrentDay} 天 · 资金 {player.Money}G · 保存于 {_save.SavedAt}", UITheme.CaptionSize - 2, UITheme.TextSecondary, TextAnchor.MiddleLeft);
+                $"第 {player.CurrentDay} 天 · 资金 {player.Money}G · 保存于 {_save.SavedAt}", UITheme.CaptionSize - 2, UITheme.TextOnDarkMuted, TextAnchor.MiddleLeft);
             UITheme.Place(summary.rectTransform, new Vector2(1f, 0.5f), new Vector2(20f, 0f), new Vector2(560f, 30f));
             summary.rectTransform.pivot = new Vector2(0f, 0.5f);
             y -= 84f;
@@ -75,13 +75,13 @@ public class TitleScreen : MonoBehaviour {
         AddMenuButton(SettingsLabel, y - 84f, false, () => SettingsPanel.Show(transform));
         AddMenuButton(QuitLabel, y - 168f, false, QuitGame);
 
-        Text version = UITheme.CreateText(transform, "Version_Text", $"Demo 试玩版 · {Application.version}", UITheme.CaptionSize - 2, UITheme.TextMuted, TextAnchor.LowerRight);
+        Text version = UITheme.CreateText(transform, "Version_Text", $"Demo 试玩版 · {Application.version}", UITheme.CaptionSize - 2, UITheme.TextOnDarkMuted, TextAnchor.LowerRight);
         UITheme.Place(version.rectTransform, new Vector2(1f, 0f), new Vector2(-24f, 18f), new Vector2(600f, 30f));
         version.rectTransform.pivot = new Vector2(1f, 0f);
     }
 
     private Button AddMenuButton(string label, float y, bool primary, Action onClick) {
-        Button button = UITheme.CreateButton(transform, label + "_Button", label, primary ? UITheme.Accent : UITheme.PanelRaised, primary ? UITheme.Background : UITheme.TextPrimary, UITheme.HeadingSize);
+        Button button = UITheme.CreateButton(transform, label + "_Button", label, primary ? UITheme.Accent : UITheme.PanelRaised, primary ? UITheme.OnAccent : UITheme.TextPrimary, UITheme.HeadingSize);
         if (!primary) {
             UITheme.AddBorder(button.targetGraphic, UITheme.Border, 1.5f);
         }
@@ -111,7 +111,7 @@ public class TitleScreen : MonoBehaviour {
             Transform dialog = _confirm.transform.Find("Dialog");
             Text body = UITheme.CreateText(dialog, "Body_Text", "开始新游戏？\n序章结束、回到小镇后，会覆盖现在的存档。", UITheme.BodySize, UITheme.TextPrimary, TextAnchor.MiddleCenter);
             UITheme.Place(body.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -80f), new Vector2(580f, 110f));
-            Button yes = UITheme.CreateButton(dialog, "ConfirmNewGame_Button", "开始新游戏", UITheme.Accent, UITheme.Background);
+            Button yes = UITheme.CreateButton(dialog, "ConfirmNewGame_Button", "开始新游戏", UITheme.Accent, UITheme.OnAccent);
             UITheme.Place((RectTransform)yes.transform, new Vector2(0.5f, 0f), new Vector2(-130f, 28f), new Vector2(220f, 56f));
             yes.onClick.AddListener(StartNewGame);
             Button no = UITheme.CreateButton(dialog, "CancelNewGame_Button", "取消", UITheme.PanelRaised, UITheme.TextPrimary);

@@ -9,10 +9,9 @@ using UnityEngine.UI;
 public class PreDiveLoadoutUIController : MonoBehaviour {
     public const string PanelName = "PreDiveLoadoutPanel_Runtime";
 
-    private static readonly Color TextColor = new Color(0.96f, 0.94f, 0.86f, 1f);
-    private static readonly Color MutedTextColor = new Color(0.78f, 0.8f, 0.74f, 1f);
-    private static readonly Color CardColor = new Color(0.045f, 0.06f, 0.055f, 0.97f);
-    private static readonly Color RowColor = new Color(0.07f, 0.095f, 0.085f, 1f);
+    private static readonly Color TextColor = UITheme.TextPrimary;
+    private static readonly Color MutedTextColor = UITheme.TextSecondary;
+    private static readonly Color RowColor = UITheme.PanelRaised;
 
     public static PreDiveLoadoutUIController Active { get; private set; }
 
@@ -118,7 +117,7 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
         }
 
         total += items.Count;
-        _rows.Add(CreateLabel(_listContent, "Group_" + group, $"{title}（{items.Count}）", 22, new Color(0.92f, 0.86f, 0.62f), TextAnchor.LowerLeft, 44f).gameObject);
+        _rows.Add(CreateLabel(_listContent, "Group_" + group, $"{title}（{items.Count}）", 22, UITheme.Accent, TextAnchor.LowerLeft, 44f).gameObject);
         foreach (ItemEntity item in items) {
             _rows.Add(CreateStashRow(item));
         }
@@ -201,36 +200,38 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
     }
 
     private void Build() {
-        _font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        _font = UITheme.Font;
         Stretch((RectTransform)transform);
         Image backdrop = gameObject.AddComponent<Image>();
-        backdrop.color = new Color(0.025f, 0.035f, 0.035f, 1f);
+        backdrop.color = UITheme.Background;
 
-        _titleText = CreateLabel(transform, "Title_Text", string.Empty, 36, new Color(0.92f, 0.88f, 0.7f), TextAnchor.MiddleLeft, 56f);
+        _titleText = CreateLabel(transform, "Title_Text", string.Empty, 36, UITheme.TextOnDark, TextAnchor.MiddleLeft, 56f);
         PlaceTopLeft(_titleText.rectTransform, new Vector2(60f, -36f), new Vector2(1100f, 56f));
-        _statusText = CreateLabel(transform, "Status_Text", string.Empty, 20, MutedTextColor, TextAnchor.MiddleLeft, 32f);
+        _statusText = CreateLabel(transform, "Status_Text", string.Empty, 20, UITheme.TextOnDarkMuted, TextAnchor.MiddleLeft, 32f);
         PlaceTopLeft(_statusText.rectTransform, new Vector2(60f, -96f), new Vector2(1100f, 32f));
 
-        Text backpackCaption = CreateLabel(transform, "BackpackCaption_Text", "背包：左键放回仓库，右键旋转，拖动调整位置", 20, MutedTextColor, TextAnchor.MiddleCenter, 32f);
+        Text backpackCaption = CreateLabel(transform, "BackpackCaption_Text", "背包：左键放回仓库，右键旋转，拖动调整位置", 20, UITheme.TextOnDarkMuted, TextAnchor.MiddleCenter, 32f);
         PlaceCenter(backpackCaption.rectTransform, new Vector2(-420f, 250f), new Vector2(640f, 32f));
 
         GameObject card = new GameObject("StashCard", typeof(RectTransform));
         card.transform.SetParent(transform, false);
         PlaceCenter((RectTransform)card.transform, new Vector2(430f, -30f), new Vector2(820f, 800f));
-        card.AddComponent<Image>().color = CardColor;
+        Image cardImage = card.AddComponent<Image>();
+        cardImage.color = UITheme.Panel;
+        UITheme.ApplyBoardSkin(cardImage, VisualAssetService.UIPanelMainID);
 
         Text stashTitle = CreateLabel(card.transform, "StashTitle_Text", "仓库：点物品放进背包第一个放得下的位置", 22, TextColor, TextAnchor.MiddleLeft, 40f);
         PlaceTopLeft(stashTitle.rectTransform, new Vector2(28f, -18f), new Vector2(760f, 40f));
 
         _listContent = CreateScrollList(card.transform, new Vector2(28f, -66f), new Vector2(764f, 560f));
 
-        _messageText = CreateLabel(card.transform, "Message_Text", string.Empty, 20, new Color(0.96f, 0.82f, 0.54f), TextAnchor.MiddleLeft, 36f);
+        _messageText = CreateLabel(card.transform, "Message_Text", string.Empty, 20, UITheme.Warning, TextAnchor.MiddleLeft, 36f);
         PlaceTopLeft(_messageText.rectTransform, new Vector2(28f, -636f), new Vector2(764f, 36f));
 
-        CreateButton(card.transform, "Restore_Button", "带上上次的装备", new Vector2(28f, -692f), new Vector2(240f, 70f), new Color(0.2f, 0.32f, 0.42f), HandleRestoreClicked);
-        CreateButton(card.transform, "Shop_Button", "补给铺", new Vector2(282f, -692f), new Vector2(150f, 70f), new Color(0.36f, 0.3f, 0.18f), OpenShop);
-        CreateButton(card.transform, "Back_Button", "返回", new Vector2(446f, -692f), new Vector2(130f, 70f), new Color(0.28f, 0.3f, 0.34f), () => _onBack?.Invoke());
-        CreateButton(card.transform, "Depart_Button", "出发", new Vector2(590f, -692f), new Vector2(202f, 70f), new Color(0.72f, 0.36f, 0.16f), HandleDepartClicked);
+        CreateButton(card.transform, "Restore_Button", "带上上次的装备", new Vector2(28f, -692f), new Vector2(240f, 70f), UITheme.PanelRaised, HandleRestoreClicked);
+        CreateButton(card.transform, "Shop_Button", "补给铺", new Vector2(282f, -692f), new Vector2(150f, 70f), UITheme.PanelRaised, OpenShop);
+        CreateButton(card.transform, "Back_Button", "返回", new Vector2(446f, -692f), new Vector2(130f, 70f), UITheme.PanelRaised, () => _onBack?.Invoke());
+        CreateButton(card.transform, "Depart_Button", "出发", new Vector2(590f, -692f), new Vector2(202f, 70f), UITheme.Accent, HandleDepartClicked);
 
         BuildConfirm();
         _shopPanel = WorkshopShopPanel.Create(transform);
@@ -245,18 +246,20 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
         overlay.overrideSorting = true;
         overlay.sortingOrder = 500;
         _confirmRoot.AddComponent<GraphicRaycaster>();
-        _confirmRoot.AddComponent<Image>().color = new Color(0f, 0f, 0f, 0.6f);
+        _confirmRoot.AddComponent<Image>().color = new Color(0.1f, 0.06f, 0.03f, 0.62f);
 
         GameObject dialog = new GameObject("Dialog", typeof(RectTransform));
         dialog.transform.SetParent(_confirmRoot.transform, false);
         PlaceCenter((RectTransform)dialog.transform, Vector2.zero, new Vector2(760f, 280f));
-        dialog.AddComponent<Image>().color = new Color(0.1f, 0.12f, 0.11f, 1f);
+        Image dialogImage = dialog.AddComponent<Image>();
+        dialogImage.color = UITheme.Panel;
+        UITheme.ApplyBoardSkin(dialogImage, VisualAssetService.UIPanelMainID);
 
         _confirmText = CreateLabel(dialog.transform, "Confirm_Text", string.Empty, 24, TextColor, TextAnchor.MiddleCenter, 100f);
         PlaceTopLeft(_confirmText.rectTransform, new Vector2(30f, -34f), new Vector2(700f, 100f));
-        CreateButton(dialog.transform, "ConfirmDepart_Button", "仍然出发", new Vector2(40f, -172f), new Vector2(210f, 70f), new Color(0.72f, 0.36f, 0.16f), Depart);
-        CreateButton(dialog.transform, "ConfirmShop_Button", "去补给铺", new Vector2(275f, -172f), new Vector2(210f, 70f), new Color(0.36f, 0.3f, 0.18f), OpenShop);
-        CreateButton(dialog.transform, "ConfirmCancel_Button", "再想想", new Vector2(510f, -172f), new Vector2(210f, 70f), new Color(0.28f, 0.3f, 0.34f), () => _confirmRoot.SetActive(false));
+        CreateButton(dialog.transform, "ConfirmDepart_Button", "仍然出发", new Vector2(40f, -172f), new Vector2(210f, 70f), UITheme.Accent, Depart);
+        CreateButton(dialog.transform, "ConfirmShop_Button", "去补给铺", new Vector2(275f, -172f), new Vector2(210f, 70f), UITheme.PanelRaised, OpenShop);
+        CreateButton(dialog.transform, "ConfirmCancel_Button", "再想想", new Vector2(510f, -172f), new Vector2(210f, 70f), UITheme.PanelRaised, () => _confirmRoot.SetActive(false));
         _confirmRoot.SetActive(false);
     }
 
@@ -300,10 +303,11 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
         PlaceTopLeft((RectTransform)buttonObj.transform, topLeft, size);
         Image image = buttonObj.AddComponent<Image>();
         image.color = color;
+        UITheme.ApplyButtonSkin(image, color);
         Button button = buttonObj.AddComponent<Button>();
         button.targetGraphic = image;
         button.onClick.AddListener(() => onClick());
-        Text text = CreateLabel(buttonObj.transform, "Label_Text", label, 24, Color.white, TextAnchor.MiddleCenter, size.y);
+        Text text = CreateLabel(buttonObj.transform, "Label_Text", label, 24, color == UITheme.Accent ? UITheme.OnAccent : UITheme.TextPrimary, TextAnchor.MiddleCenter, size.y);
         Stretch(text.rectTransform);
         return button;
     }

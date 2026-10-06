@@ -88,7 +88,7 @@ public class ScenePanel : MonoBehaviour {
 
         for (int i = 0; i < MaxChoices; i++) {
             int index = i;
-            Button button = UITheme.CreateButton(dialog, $"SceneChoice_{i}", string.Empty, i == 0 ? UITheme.Accent : UITheme.PanelRaised, i == 0 ? UITheme.Background : UITheme.TextPrimary, UITheme.BodySize);
+            Button button = UITheme.CreateButton(dialog, $"SceneChoice_{i}", string.Empty, i == 0 ? UITheme.Accent : UITheme.PanelRaised, i == 0 ? UITheme.OnAccent : UITheme.TextPrimary, UITheme.BodySize);
             UITheme.AddBorder(button.targetGraphic, UITheme.Border, 1.5f);
             button.onClick.AddListener(() => Choose(index));
             _choiceButtons.Add(button);

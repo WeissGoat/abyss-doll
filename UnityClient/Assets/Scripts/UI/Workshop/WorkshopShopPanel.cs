@@ -81,7 +81,7 @@ public class WorkshopShopPanel : MonoBehaviour {
         labelRect.offsetMin = new Vector2(84f, 6f);
         labelRect.offsetMax = new Vector2(-190f, -6f);
 
-        Button buy = CreateButton(row.transform, "Buy_Button", $"购买 {offer.Price}G", offer.CanAfford ? UITheme.Accent : UITheme.Border, offer.CanAfford ? UITheme.Background : UITheme.TextMuted);
+        Button buy = CreateButton(row.transform, "Buy_Button", $"购买 {offer.Price}G", offer.CanAfford ? UITheme.Accent : UITheme.Border, offer.CanAfford ? UITheme.OnAccent : UITheme.TextMuted);
         RectTransform buyRect = (RectTransform)buy.transform;
         buyRect.anchorMin = new Vector2(1f, 0.5f);
         buyRect.anchorMax = new Vector2(1f, 0.5f);
@@ -122,16 +122,16 @@ public class WorkshopShopPanel : MonoBehaviour {
         overlay.overrideSorting = true;
         overlay.sortingOrder = 520;
         gameObject.AddComponent<GraphicRaycaster>();
-        gameObject.AddComponent<Image>().color = new Color(0f, 0f, 0f, 0.62f);
+        gameObject.AddComponent<Image>().color = new Color(0.1f, 0.06f, 0.03f, 0.62f);
 
         Image dialog = UITheme.CreatePanel(transform, "Dialog", UITheme.Panel);
-        UITheme.AddBorder(dialog, UITheme.Border, 2f);
+        UITheme.ApplyBoardSkin(dialog, VisualAssetService.UIPanelMainID);
         RectTransform dialogRect = dialog.rectTransform;
         dialogRect.anchorMin = new Vector2(0.5f, 0.5f);
         dialogRect.anchorMax = new Vector2(0.5f, 0.5f);
         dialogRect.pivot = new Vector2(0.5f, 0.5f);
         dialogRect.anchoredPosition = Vector2.zero;
-        dialogRect.sizeDelta = new Vector2(760f, 640f);
+        dialogRect.sizeDelta = new Vector2(760f, 720f);
 
         Text title = UITheme.CreateText(dialog.transform, "Title_Text", "补给铺", UITheme.HeadingSize, UITheme.Accent);
         PlaceTop(title.rectTransform, 24f, 28f, 400f, 44f);
@@ -149,12 +149,12 @@ public class WorkshopShopPanel : MonoBehaviour {
         listRect.anchorMin = new Vector2(0f, 1f);
         listRect.anchorMax = new Vector2(1f, 1f);
         listRect.pivot = new Vector2(0.5f, 1f);
-        listRect.offsetMin = new Vector2(24f, -440f);
+        listRect.offsetMin = new Vector2(24f, -520f);
         listRect.offsetMax = new Vector2(-24f, -92f);
         _listRoot = list.transform;
 
         _messageText = UITheme.CreateText(dialog.transform, "Message_Text", string.Empty, UITheme.CaptionSize + 1, UITheme.TextSecondary);
-        PlaceTop(_messageText.rectTransform, 24f, 456f, 712f, 60f);
+        PlaceTop(_messageText.rectTransform, 24f, 530f, 712f, 60f);
 
         Button close = CreateButton(dialog.transform, "Close_Button", "关闭", UITheme.PanelRaised, UITheme.TextPrimary);
         UITheme.AddBorder(close.targetGraphic, UITheme.Border, 1.5f);
@@ -169,6 +169,7 @@ public class WorkshopShopPanel : MonoBehaviour {
 
     private static Button CreateButton(Transform parent, string name, string label, Color background, Color textColor) {
         Image image = UITheme.CreatePanel(parent, name, background);
+        UITheme.ApplyButtonSkin(image, background);
         Button button = image.gameObject.AddComponent<Button>();
         button.targetGraphic = image;
         Text text = UITheme.CreateText(image.transform, "Label_Text", label, UITheme.BodySize, textColor, TextAnchor.MiddleCenter);

@@ -54,7 +54,7 @@ public class SettingsPanel : MonoBehaviour {
         _modeText = AddRow(dialog, "显示", -330f, ToggleMode, ToggleMode);
         _sizeText = AddRow(dialog, "分辨率", -395f, () => ChangeSize(-1), () => ChangeSize(1));
 
-        Button apply = UITheme.CreateButton(dialog, "ApplyDisplay_Button", ApplyLabel, UITheme.Accent, UITheme.Background);
+        Button apply = UITheme.CreateButton(dialog, "ApplyDisplay_Button", ApplyLabel, UITheme.Accent, UITheme.OnAccent);
         UITheme.Place((RectTransform)apply.transform, new Vector2(0.5f, 0f), new Vector2(-150f, 32f), new Vector2(260f, 60f));
         apply.onClick.AddListener(ApplyDisplay);
         Button close = UITheme.CreateButton(dialog, "CloseSettings_Button", "关闭", UITheme.PanelRaised, UITheme.TextPrimary);

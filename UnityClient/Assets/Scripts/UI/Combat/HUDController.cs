@@ -238,7 +238,7 @@ public class HUDController : MonoBehaviour {
             "TurnBanner_Text",
             "玩家回合",
             24,
-            Color.white,
+            UITheme.TextOnDark,
             TextAnchor.MiddleCenter);
         StretchToParent(_turnBannerLabel.rectTransform, 28f, 8f);
 
@@ -283,7 +283,7 @@ public class HUDController : MonoBehaviour {
             "IncomingDamage_Text",
             string.Empty,
             18,
-            Color.white,
+            UITheme.TextPrimary,
             TextAnchor.MiddleCenter);
         StretchToParent(_incomingLabel.rectTransform, 12f, 2f);
 
@@ -387,7 +387,7 @@ public class HUDController : MonoBehaviour {
         endRect.pivot = new Vector2(0.5f, 0.5f);
         endRect.anchoredPosition = new Vector2(158f, 0f);
         endRect.sizeDelta = new Vector2(148f, 48f);
-        ConfigureButtonText(endTurnBtn, "结束回合", 21, Color.white);
+        ConfigureButtonText(endTurnBtn, "结束回合", 21, UITheme.OnAccent);
 
         if (_cancelSelectionBtn == null) {
             Transform existing = _actionStrip.transform.Find("CancelSelection_Button");
@@ -406,7 +406,7 @@ public class HUDController : MonoBehaviour {
         cancelRect.pivot = new Vector2(0.5f, 0.5f);
         cancelRect.anchoredPosition = new Vector2(0f, 0f);
         cancelRect.sizeDelta = new Vector2(148f, 48f);
-        ConfigureButtonText(_cancelSelectionBtn, "取消选择", 21, Color.white);
+        ConfigureButtonText(_cancelSelectionBtn, "取消选择", 21, UITheme.TextPrimary);
 
         if (_unarmedStrikeBtn == null) {
             Transform existingUnarmed = _actionStrip.transform.Find("UnarmedStrike_Button");
@@ -425,7 +425,7 @@ public class HUDController : MonoBehaviour {
         unarmedRect.anchoredPosition = new Vector2(-158f, 0f);
         unarmedRect.sizeDelta = new Vector2(148f, 48f);
         DollEntity doll = GameRoot.Core?.CurrentPlayer?.ActiveDoll;
-        ConfigureButtonText(_unarmedStrikeBtn, $"徒手 {ItemUseService.GetUnarmedDamage(doll)}伤害", 19, Color.white);
+        ConfigureButtonText(_unarmedStrikeBtn, $"徒手 {ItemUseService.GetUnarmedDamage(doll)}伤害", 19, UITheme.TextPrimary);
     }
 
     private void EnsureTargetHintLabel() {
@@ -436,7 +436,7 @@ public class HUDController : MonoBehaviour {
                 "TargetHint_Text",
                 "点击背包里的武器后，再点击右侧敌人进行攻击。",
                 22,
-                Color.white,
+                UITheme.TextPrimary,
                 TextAnchor.MiddleCenter);
         } else {
             targetHintLabel.transform.SetParent(_targetHintPanel.transform, false);
@@ -449,19 +449,19 @@ public class HUDController : MonoBehaviour {
         }
 
         if (hpLabel == null) {
-            hpLabel = EnsureChildLabel(_playerStatusPanel.transform, hpLabel, "HP_Text", "HP: -- / --", 22, new Color(1f, 0.56f, 0.48f), TextAnchor.MiddleLeft);
+            hpLabel = EnsureChildLabel(_playerStatusPanel.transform, hpLabel, "HP_Text", "HP: -- / --", 22, UITheme.Danger, TextAnchor.MiddleLeft);
         }
 
         if (shieldLabel == null) {
-            shieldLabel = EnsureChildLabel(_playerStatusPanel.transform, shieldLabel, "Shield_Text", "Shield: 0", 20, new Color(0.72f, 0.86f, 1f), TextAnchor.MiddleLeft);
+            shieldLabel = EnsureChildLabel(_playerStatusPanel.transform, shieldLabel, "Shield_Text", "护盾: 0", 20, UITheme.Info, TextAnchor.MiddleLeft);
         }
 
         if (sanLabel == null) {
-            sanLabel = EnsureChildLabel(_playerStatusPanel.transform, sanLabel, "SAN_Text", "SAN: -- / --", 20, new Color(0.74f, 0.56f, 1f), TextAnchor.MiddleLeft);
+            sanLabel = EnsureChildLabel(_playerStatusPanel.transform, sanLabel, "SAN_Text", "SAN: -- / --", 20, UITheme.Hex(0x6A4C93), TextAnchor.MiddleLeft);
         }
 
         if (apLabel == null) {
-            apLabel = EnsureChildLabel(_playerStatusPanel.transform, apLabel, "AP_Text", "AP: -- / --", 20, new Color(0.72f, 0.95f, 1f), TextAnchor.MiddleLeft);
+            apLabel = EnsureChildLabel(_playerStatusPanel.transform, apLabel, "AP_Text", "AP: -- / --", 20, UITheme.Info, TextAnchor.MiddleLeft);
         }
     }
 
@@ -490,8 +490,8 @@ public class HUDController : MonoBehaviour {
         IncomingDamagePreview preview = CombatReadabilityTextService.BuildIncomingDamagePreview(combat);
         _incomingLabel.text = preview.Text;
         _incomingLabel.color = preview.Lethal
-            ? new Color(1f, 0.38f, 0.32f)
-            : preview.HPLoss > 0 ? new Color(1f, 0.78f, 0.45f) : new Color(0.7f, 0.95f, 0.75f);
+            ? UITheme.Danger
+            : preview.HPLoss > 0 ? UITheme.Warning : UITheme.Positive;
     }
 
     // Out of AP with nothing affordable left: end the turn for the player after a short beat, so the last hit lands
@@ -791,7 +791,7 @@ public class HUDController : MonoBehaviour {
             return "HP -";
         }
 
-        string shieldText = fighter.RuntimeShield > 0 ? $" / Shield {fighter.RuntimeShield}" : string.Empty;
+        string shieldText = fighter.RuntimeShield > 0 ? $" / 护盾 {fighter.RuntimeShield}" : string.Empty;
         return $"HP {Mathf.Max(0, fighter.RuntimeHP)}/{fighter.RuntimeMaxHP}{shieldText}";
     }
 
@@ -908,7 +908,7 @@ public class HUDController : MonoBehaviour {
     private void HandleShieldChanged(string id, int current) {
         if (GameRoot.Core?.CurrentPlayer?.ActiveDoll != null && id == GameRoot.Core.CurrentPlayer.ActiveDoll.Name) {
             if (shieldLabel != null) {
-                shieldLabel.text = $"Shield: {current}";
+                shieldLabel.text = $"护盾: {current}";
             }
             SetBarFill(_shieldBarFill, current > 0 ? 1f : 0f);
             RefreshIncomingPreview();
@@ -966,7 +966,7 @@ public class HUDController : MonoBehaviour {
         }
 
         targetHintLabel.text = message;
-        targetHintLabel.color = isActive ? new Color(1f, 0.86f, 0.36f) : Color.white;
+        targetHintLabel.color = isActive ? UITheme.Accent : UITheme.TextPrimary;
 
         if (_turnBannerLabel != null && isActive) {
             _turnBannerLabel.text = "选择攻击目标";
@@ -1131,10 +1131,10 @@ public class HUDController : MonoBehaviour {
     }
 
     private void PositionCombatTexts() {
-        MoveTextToPanel(hpLabel, new Vector2(24f, -18f), new Vector2(210f, 28f), 19, new Color(1f, 0.56f, 0.48f));
-        MoveTextToPanel(shieldLabel, new Vector2(24f, -66f), new Vector2(210f, 28f), 18, new Color(0.72f, 0.86f, 1f));
-        MoveTextToPanel(sanLabel, new Vector2(24f, -112f), new Vector2(210f, 28f), 18, new Color(0.74f, 0.56f, 1f));
-        MoveTextToPanel(apLabel, new Vector2(24f, -154f), new Vector2(210f, 28f), 18, new Color(0.72f, 0.95f, 1f));
+        MoveTextToPanel(hpLabel, new Vector2(24f, -18f), new Vector2(210f, 28f), 19, UITheme.Danger);
+        MoveTextToPanel(shieldLabel, new Vector2(24f, -66f), new Vector2(210f, 28f), 18, UITheme.Info);
+        MoveTextToPanel(sanLabel, new Vector2(24f, -112f), new Vector2(210f, 28f), 18, UITheme.Hex(0x6A4C93));
+        MoveTextToPanel(apLabel, new Vector2(24f, -154f), new Vector2(210f, 28f), 18, UITheme.Info);
 
         if (targetHintLabel != null && _targetHintPanel != null) {
             targetHintLabel.transform.SetParent(_targetHintPanel.transform, false);

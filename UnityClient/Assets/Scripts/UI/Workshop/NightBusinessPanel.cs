@@ -98,7 +98,7 @@ public class NightBusinessPanel : MonoBehaviour {
             Button dump = UITheme.CreateButton(row.transform, "Dump_Button", "倾倒", UITheme.PanelRaised, UITheme.TextPrimary, UITheme.CaptionSize);
             UITheme.Place((RectTransform)dump.transform, new Vector2(1f, 0.5f), new Vector2(-104f, 0f), new Vector2(80f, 44f));
             dump.onClick.AddListener(() => Move(item, false));
-            Button show = UITheme.CreateButton(row.transform, "Showcase_Button", "橱窗", UITheme.Accent, UITheme.Background, UITheme.CaptionSize);
+            Button show = UITheme.CreateButton(row.transform, "Showcase_Button", "橱窗", UITheme.Accent, UITheme.OnAccent, UITheme.CaptionSize);
             UITheme.Place((RectTransform)show.transform, new Vector2(1f, 0.5f), new Vector2(-12f, 0f), new Vector2(80f, 44f));
             show.onClick.AddListener(() => Move(item, true));
         }
@@ -123,7 +123,7 @@ public class NightBusinessPanel : MonoBehaviour {
         _showcaseRoot.sizeDelta = new Vector2(grid.Width * Cell, grid.Height * Cell);
         for (int y = 0; y < grid.Height; y++) {
             for (int x = 0; x < grid.Width; x++) {
-                Image cell = UITheme.CreatePanel(_showcaseRoot, "Cell", UITheme.Background);
+                Image cell = UITheme.CreatePanel(_showcaseRoot, "Cell", UITheme.Inset);
                 UITheme.AddBorder(cell, UITheme.Border, 1f);
                 cell.raycastTarget = false;
                 UITheme.Place(cell.rectTransform, new Vector2(0f, 1f), new Vector2(x * Cell + 2f, -y * Cell - 2f), new Vector2(Cell - 4f, Cell - 4f));
@@ -245,7 +245,7 @@ public class NightBusinessPanel : MonoBehaviour {
         UITheme.Place((RectTransform)_dumpAllButton.transform, new Vector2(0.5f, 0f), new Vector2(-170f, 22f), new Vector2(280f, 60f));
         _dumpAllButton.onClick.AddListener(DumpAll);
 
-        _openButton = UITheme.CreateButton(dialog, "OpenBusiness_Button", OpenLabel, UITheme.Accent, UITheme.Background, UITheme.HeadingSize - 2);
+        _openButton = UITheme.CreateButton(dialog, "OpenBusiness_Button", OpenLabel, UITheme.Accent, UITheme.OnAccent, UITheme.HeadingSize - 2);
         UITheme.Place((RectTransform)_openButton.transform, new Vector2(0.5f, 0f), new Vector2(0f, 22f), new Vector2(280f, 60f));
         _openButton.onClick.AddListener(OpenBusiness);
 
@@ -259,7 +259,7 @@ public class NightBusinessPanel : MonoBehaviour {
         Text header = UITheme.CreateText(dialog, title + "_Title", title, UITheme.BodySize, UITheme.TextPrimary);
         UITheme.Place(header.rectTransform, new Vector2(0f, 1f), topLeft, new Vector2(size.x, 34f));
 
-        Image frame = UITheme.CreatePanel(dialog, title + "_Frame", UITheme.Background);
+        Image frame = UITheme.CreatePanel(dialog, title + "_Frame", UITheme.Inset);
         UITheme.AddBorder(frame, UITheme.Border, 1f);
         UITheme.Place(frame.rectTransform, new Vector2(0f, 1f), topLeft + new Vector2(0f, -40f), size - new Vector2(0f, 40f));
         frame.gameObject.AddComponent<RectMask2D>();

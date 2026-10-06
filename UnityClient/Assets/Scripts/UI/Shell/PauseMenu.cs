@@ -67,7 +67,7 @@ public class PauseMenu : MonoBehaviour {
         Transform confirmDialog = _confirm.transform.Find("Dialog");
         _confirmText = UITheme.CreateText(confirmDialog, "Body_Text", string.Empty, UITheme.BodySize, UITheme.TextPrimary, TextAnchor.MiddleCenter);
         UITheme.Place(_confirmText.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -80f), new Vector2(560f, 110f));
-        Button yes = UITheme.CreateButton(confirmDialog, "ConfirmBackToTitle_Button", TitleLabel, UITheme.Accent, UITheme.Background);
+        Button yes = UITheme.CreateButton(confirmDialog, "ConfirmBackToTitle_Button", TitleLabel, UITheme.Accent, UITheme.OnAccent);
         UITheme.Place((RectTransform)yes.transform, new Vector2(0.5f, 0f), new Vector2(-130f, 28f), new Vector2(220f, 56f));
         yes.onClick.AddListener(GameRoot.RestartGame);
         Button no = UITheme.CreateButton(confirmDialog, "CancelBackToTitle_Button", "取消", UITheme.PanelRaised, UITheme.TextPrimary);
@@ -78,7 +78,7 @@ public class PauseMenu : MonoBehaviour {
     }
 
     private void AddButton(Transform dialog, string label, float y, bool primary, UnityEngine.Events.UnityAction onClick) {
-        Button button = UITheme.CreateButton(dialog, label + "_Button", label, primary ? UITheme.Accent : UITheme.PanelRaised, primary ? UITheme.Background : UITheme.TextPrimary, UITheme.HeadingSize - 2);
+        Button button = UITheme.CreateButton(dialog, label + "_Button", label, primary ? UITheme.Accent : UITheme.PanelRaised, primary ? UITheme.OnAccent : UITheme.TextPrimary, UITheme.HeadingSize - 2);
         if (!primary) {
             UITheme.AddBorder(button.targetGraphic, UITheme.Border, 1.5f);
         }

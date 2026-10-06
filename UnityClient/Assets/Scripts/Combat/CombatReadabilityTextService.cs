@@ -222,7 +222,7 @@ public static class CombatReadabilityTextService {
     }
 
     private static string BuildHpText(int hp, int maxHp, int shield) {
-        string shieldText = shield > 0 ? $", Shield {shield}" : string.Empty;
+        string shieldText = shield > 0 ? $"，护盾 {shield}" : string.Empty;
         return $"HP {System.Math.Max(0, hp)}/{maxHp}{shieldText}";
     }
 
@@ -236,7 +236,7 @@ public static class CombatReadabilityTextService {
                 continue;
             }
 
-            string shieldText = fighter.RuntimeShield > 0 ? $", Shield {fighter.RuntimeShield}" : string.Empty;
+            string shieldText = fighter.RuntimeShield > 0 ? $"，护盾 {fighter.RuntimeShield}" : string.Empty;
             string stateText = fighter.IsAlive ? "存活" : "失去战斗能力";
             output.Add($"{prefix}: {fighter.Name} HP {fighter.RuntimeHP}/{fighter.RuntimeMaxHP}{shieldText} ({stateText})");
         }

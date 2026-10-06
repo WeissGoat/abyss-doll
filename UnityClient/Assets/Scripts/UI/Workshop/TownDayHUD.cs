@@ -326,7 +326,7 @@ public class TownDayHUD : MonoBehaviour {
                 selectedValue += candidate.PawnValue;
             }
 
-            Button row = UITheme.CreateButton(_pawnList, "Pawn_" + i, $"{(selected ? "已选 · " : string.Empty)}{candidate.Name}    +{candidate.PawnValue}G", selected ? UITheme.PanelRaised : UITheme.Background, selected ? UITheme.Accent : UITheme.TextPrimary, UITheme.CaptionSize);
+            Button row = UITheme.CreateButton(_pawnList, "Pawn_" + i, $"{(selected ? "已选 · " : string.Empty)}{candidate.Name}    +{candidate.PawnValue}G", selected ? UITheme.PanelRaised : UITheme.Inset, selected ? UITheme.Accent : UITheme.TextPrimary, UITheme.CaptionSize);
             row.GetComponentInChildren<Text>().alignment = TextAnchor.MiddleLeft;
             row.GetComponentInChildren<Text>().rectTransform.offsetMin = new Vector2(16f, 0f);
             UITheme.Place((RectTransform)row.transform, new Vector2(0.5f, 1f), new Vector2(0f, -i * 44f), new Vector2(620f, 40f));
@@ -464,23 +464,23 @@ public class TownDayHUD : MonoBehaviour {
     private void BuildChoicePanel() {
         Image panel = UITheme.CreatePanel(_content.transform, "DayChoice_Panel", UITheme.Panel);
         UITheme.AddBorder(panel, UITheme.Border, 1.5f);
-        UITheme.Place(panel.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 12f), new Vector2(760f, 140f));
+        UITheme.Place(panel.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 12f), new Vector2(780f, 176f));
 
         _choiceTitle = UITheme.CreateText(panel.transform, "Choice_Title", "今天做什么？", UITheme.CaptionSize, UITheme.TextSecondary, TextAnchor.MiddleCenter);
-        UITheme.Place(_choiceTitle.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -4f), new Vector2(600f, 26f));
+        UITheme.Place(_choiceTitle.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -10f), new Vector2(600f, 26f));
 
-        _diveButton = UITheme.CreateButton(panel.transform, "Dive_Button", DiveLabel, UITheme.Accent, UITheme.Background, UITheme.HeadingSize);
-        UITheme.Place((RectTransform)_diveButton.transform, new Vector2(0.5f, 1f), new Vector2(-180f, -32f), new Vector2(330f, 64f));
+        _diveButton = UITheme.CreateButton(panel.transform, "Dive_Button", DiveLabel, UITheme.Accent, UITheme.OnAccent, UITheme.HeadingSize);
+        UITheme.Place((RectTransform)_diveButton.transform, new Vector2(0.5f, 1f), new Vector2(-180f, -38f), new Vector2(330f, 64f));
         _diveButton.onClick.AddListener(HandleDiveClicked);
         _diveHint = UITheme.CreateText(panel.transform, "Dive_Hint", string.Empty, UITheme.CaptionSize - 2, UITheme.TextSecondary, TextAnchor.UpperCenter);
-        UITheme.Place(_diveHint.rectTransform, new Vector2(0.5f, 1f), new Vector2(-180f, -100f), new Vector2(340f, 36f));
+        UITheme.Place(_diveHint.rectTransform, new Vector2(0.5f, 1f), new Vector2(-180f, -108f), new Vector2(340f, 48f));
 
         _restButton = UITheme.CreateButton(panel.transform, "Rest_Button", RestLabel, UITheme.PanelRaised, UITheme.TextPrimary, UITheme.HeadingSize);
         UITheme.AddBorder(_restButton.targetGraphic, UITheme.Border, 1.5f);
-        UITheme.Place((RectTransform)_restButton.transform, new Vector2(0.5f, 1f), new Vector2(180f, -32f), new Vector2(330f, 64f));
+        UITheme.Place((RectTransform)_restButton.transform, new Vector2(0.5f, 1f), new Vector2(180f, -38f), new Vector2(330f, 64f));
         _restButton.onClick.AddListener(HandleRestClicked);
         _restHint = UITheme.CreateText(panel.transform, "Rest_Hint", string.Empty, UITheme.CaptionSize - 2, UITheme.TextSecondary, TextAnchor.UpperCenter);
-        UITheme.Place(_restHint.rectTransform, new Vector2(0.5f, 1f), new Vector2(180f, -100f), new Vector2(340f, 36f));
+        UITheme.Place(_restHint.rectTransform, new Vector2(0.5f, 1f), new Vector2(180f, -108f), new Vector2(340f, 48f));
     }
 
     private void BuildRestConfirm() {
@@ -490,7 +490,7 @@ public class TownDayHUD : MonoBehaviour {
         UITheme.Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -20f), new Vector2(560f, 44f));
         _restConfirmText = UITheme.CreateText(dialog, "Body_Text", string.Empty, UITheme.BodySize, UITheme.TextPrimary, TextAnchor.MiddleCenter);
         UITheme.Place(_restConfirmText.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -74f), new Vector2(580f, 120f));
-        Button ok = UITheme.CreateButton(dialog, "RestConfirm_Button", "休息一天", UITheme.Accent, UITheme.Background);
+        Button ok = UITheme.CreateButton(dialog, "RestConfirm_Button", "休息一天", UITheme.Accent, UITheme.OnAccent);
         UITheme.Place((RectTransform)ok.transform, new Vector2(0.5f, 0f), new Vector2(-120f, 24f), new Vector2(200f, 58f));
         ok.onClick.AddListener(ConfirmRest);
         Button cancel = UITheme.CreateButton(dialog, "RestCancel_Button", "算了", UITheme.PanelRaised, UITheme.TextPrimary);
@@ -507,7 +507,7 @@ public class TownDayHUD : MonoBehaviour {
         _nightBody = UITheme.CreateText(dialog, "Body_Text", string.Empty, UITheme.BodySize, UITheme.TextPrimary, TextAnchor.UpperLeft);
         _nightBody.lineSpacing = 1.25f;
         UITheme.Place(_nightBody.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -92f), new Vector2(680f, 190f));
-        Button next = UITheme.CreateButton(dialog, "NightNext_Button", "迎接新的一天", UITheme.Accent, UITheme.Background);
+        Button next = UITheme.CreateButton(dialog, "NightNext_Button", "迎接新的一天", UITheme.Accent, UITheme.OnAccent);
         UITheme.Place((RectTransform)next.transform, new Vector2(0.5f, 0f), new Vector2(0f, 26f), new Vector2(260f, 60f));
         next.onClick.AddListener(CloseNightCard);
         _nightCard.SetActive(false);
@@ -529,10 +529,10 @@ public class TownDayHUD : MonoBehaviour {
         _rentSelection = UITheme.CreateText(dialog, "Selection_Text", string.Empty, UITheme.CaptionSize, UITheme.Accent, TextAnchor.MiddleCenter);
         UITheme.Place(_rentSelection.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 104f), new Vector2(660f, 30f));
 
-        _payButton = UITheme.CreateButton(dialog, "PayRent_Button", "交房租", UITheme.Accent, UITheme.Background);
+        _payButton = UITheme.CreateButton(dialog, "PayRent_Button", "交房租", UITheme.Accent, UITheme.OnAccent);
         UITheme.Place((RectTransform)_payButton.transform, new Vector2(0.5f, 0f), new Vector2(-130f, 28f), new Vector2(230f, 60f));
         _payButton.onClick.AddListener(() => PayRent(false));
-        _pawnPayButton = UITheme.CreateButton(dialog, "PawnPay_Button", "典当选中的并交租", UITheme.Accent, UITheme.Background, UITheme.CaptionSize + 1);
+        _pawnPayButton = UITheme.CreateButton(dialog, "PawnPay_Button", "典当选中的并交租", UITheme.Accent, UITheme.OnAccent, UITheme.CaptionSize + 1);
         UITheme.Place((RectTransform)_pawnPayButton.transform, new Vector2(0.5f, 0f), new Vector2(-130f, 28f), new Vector2(230f, 60f));
         _pawnPayButton.onClick.AddListener(() => PayRent(true));
         _oweButton = UITheme.CreateButton(dialog, "Owe_Button", "先欠着", UITheme.PanelRaised, UITheme.Warning, UITheme.CaptionSize + 1);
@@ -549,7 +549,7 @@ public class TownDayHUD : MonoBehaviour {
         UITheme.Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -24f), new Vector2(620f, 52f));
         Text body = UITheme.CreateText(dialog, "Body_Text", "连续交不起房租，债主收走了工坊。\n零号和你的这段经营到此为止。", UITheme.BodySize, UITheme.TextPrimary, TextAnchor.MiddleCenter);
         UITheme.Place(body.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -96f), new Vector2(620f, 100f));
-        Button restart = UITheme.CreateButton(dialog, "Restart_Button", "重新开始", UITheme.Accent, UITheme.Background);
+        Button restart = UITheme.CreateButton(dialog, "Restart_Button", "重新开始", UITheme.Accent, UITheme.OnAccent);
         UITheme.Place((RectTransform)restart.transform, new Vector2(0.5f, 0f), new Vector2(0f, 28f), new Vector2(240f, 60f));
         restart.onClick.AddListener(RestartAfterBankruptcy);
         _bankruptPanel.SetActive(false);

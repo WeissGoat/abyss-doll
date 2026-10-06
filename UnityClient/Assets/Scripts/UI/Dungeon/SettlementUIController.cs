@@ -120,12 +120,13 @@ public class SettlementUIController : MonoBehaviour {
             new Vector2(0f, 176f),
             new Vector2(820f, 32f));
 
-        MoveText(titleText, contentParent, new Vector2(0f, 214f), new Vector2(840f, 50f), 34, TextAnchor.MiddleCenter, Color.white);
-        MoveText(summaryText, contentParent, new Vector2(0f, 118f), new Vector2(920f, 78f), 19, TextAnchor.UpperCenter, new Color(0.92f, 0.91f, 0.84f, 1f));
-        MoveText(lootText, contentParent, new Vector2(0f, -72f), new Vector2(900f, 300f), 19, TextAnchor.UpperLeft, new Color(1f, 0.92f, 0.58f, 1f));
+        MoveText(titleText, contentParent, new Vector2(0f, 214f), new Vector2(840f, 50f), 34, TextAnchor.MiddleCenter, UITheme.Accent);
+        MoveText(summaryText, contentParent, new Vector2(0f, 118f), new Vector2(920f, 78f), 19, TextAnchor.UpperCenter, UITheme.TextSecondary);
+        MoveText(lootText, contentParent, new Vector2(0f, -72f), new Vector2(900f, 300f), 19, TextAnchor.UpperLeft, UITheme.TextPrimary);
         EnsureSettlementColumns(contentParent);
         MoveButton(continueBtn, contentParent, new Vector2(0f, -328f), new Vector2(320f, 68f));
         VisualUIHelper.ApplyButtonSkin(continueBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.85f, 0.48f, 0.18f));
+        UITheme.StyleButton(continueBtn, true);
 
         if (settlementPanelImage != null) {
             settlementPanelImage.transform.SetAsLastSibling();
@@ -234,7 +235,7 @@ public class SettlementUIController : MonoBehaviour {
             new Vector2(340f, 260f),
             VisualAssetService.UIPanelInfoID);
         if (image != null) {
-            image.color = new Color(1f, 1f, 1f, 0.72f);
+            image.color = Color.white;
         }
 
         Transform textTransform = image != null ? image.transform.Find("ColumnText") : null;
@@ -246,12 +247,12 @@ public class SettlementUIController : MonoBehaviour {
         }
 
         if (text != null) {
-            text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            text.font = UITheme.Font;
             text.fontSize = 19;
             text.resizeTextForBestFit = true;
             text.resizeTextMinSize = 13;
             text.resizeTextMaxSize = 19;
-            text.color = new Color(0.96f, 0.91f, 0.78f, 1f);
+            text.color = UITheme.TextPrimary;
             text.alignment = TextAnchor.UpperLeft;
             text.raycastTarget = false;
             RectTransform textRect = text.rectTransform;
@@ -305,7 +306,7 @@ public class SettlementUIController : MonoBehaviour {
             new Vector2(880f, 34f),
             18,
             TextAnchor.MiddleCenter,
-            new Color(1f, 0.92f, 0.58f, 1f));
+            UITheme.Accent);
         lootText.text = result != null
             ? $"拾取 {result.PickedUpCount} 件 / 带出 {result.BroughtOutCount} 件 / 损失 {result.LostCount} 件"
             : "收益 / 带出 / 损失";
@@ -476,12 +477,12 @@ public class CombatLootUIController : MonoBehaviour {
     public Image itemDetailPanelImage;
 
     private static readonly Vector2[] BaseSpawnOffsets = {
-        new Vector2(-620f, 190f),
-        new Vector2(620f, 190f),
-        new Vector2(-620f, 30f),
-        new Vector2(620f, 30f),
-        new Vector2(-620f, -130f),
-        new Vector2(620f, -130f),
+        new Vector2(640f, 190f),
+        new Vector2(-640f, 190f),
+        new Vector2(640f, 30f),
+        new Vector2(-640f, 30f),
+        new Vector2(640f, -130f),
+        new Vector2(-640f, -130f),
         new Vector2(-300f, 300f),
         new Vector2(0f, 318f),
         new Vector2(300f, 300f)
@@ -528,6 +529,7 @@ public class CombatLootUIController : MonoBehaviour {
 
         if (continueBtn != null) {
             VisualUIHelper.ApplyButtonSkin(continueBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.9f, 0.58f, 0.18f));
+            UITheme.StyleButton(continueBtn, true);
             continueBtn.onClick.RemoveAllListeners();
             continueBtn.onClick.AddListener(() => {
                 ClearUnclaimedLootVisuals();
@@ -621,10 +623,10 @@ public class CombatLootUIController : MonoBehaviour {
             transform,
             new Vector2(0.5f, 0.5f),
             Vector2.zero,
-            new Vector2(1120f, 760f),
+            new Vector2(1120f, 820f),
             VisualAssetService.UILootPickupPanelID);
         if (pickupPanelImage != null) {
-            pickupPanelImage.color = new Color(1f, 1f, 1f, 0.2f);
+            pickupPanelImage.color = Color.white;
         }
 
         Transform panelTransform = pickupPanelImage != null ? pickupPanelImage.transform : transform;
@@ -633,11 +635,11 @@ public class CombatLootUIController : MonoBehaviour {
             "LootDropZone",
             panelTransform,
             new Vector2(0.5f, 0.5f),
-            new Vector2(0f, -28f),
-            new Vector2(720f, 500f),
+            new Vector2(0f, -40f),
+            new Vector2(720f, 470f),
             VisualAssetService.UILootDropZoneID);
         if (lootDropZoneImage != null) {
-            lootDropZoneImage.color = new Color(1f, 1f, 1f, 0.18f);
+            lootDropZoneImage.color = Color.white;
         }
 
         itemDetailPanelImage = EnsureSkinImage(
@@ -645,15 +647,22 @@ public class CombatLootUIController : MonoBehaviour {
             "ItemDetailPanel",
             panelTransform,
             new Vector2(0.5f, 0.5f),
-            new Vector2(0f, 266f),
+            new Vector2(0f, 256f),
             new Vector2(740f, 118f),
             VisualAssetService.UIPanelInfoID);
         if (itemDetailPanelImage != null) {
-            itemDetailPanelImage.color = new Color(1f, 1f, 1f, 0.52f);
+            itemDetailPanelImage.color = Color.white;
         }
 
-        MoveText(titleText, panelTransform, new Vector2(0f, 342f), new Vector2(740f, 58f), 34, TextAnchor.MiddleCenter);
+        MoveText(titleText, panelTransform, new Vector2(0f, 350f), new Vector2(740f, 52f), 32, TextAnchor.MiddleCenter);
         MoveText(summaryText, itemDetailPanelImage != null ? itemDetailPanelImage.transform : panelTransform, Vector2.zero, new Vector2(680f, 96f), 18, TextAnchor.MiddleCenter);
+        if (titleText != null) {
+            titleText.color = UITheme.Accent;
+        }
+
+        if (summaryText != null) {
+            summaryText.color = UITheme.TextPrimary;
+        }
 
         if (lootParent != null) {
             lootParent.SetParent(panelTransform, false);

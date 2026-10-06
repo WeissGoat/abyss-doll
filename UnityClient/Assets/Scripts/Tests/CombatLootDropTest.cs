@@ -172,7 +172,7 @@ public static class CombatLootDropTest {
             && pickupPanelRect != null
             && pickupPanelRect.sizeDelta.x <= 1300f
             && pickupPanelImage != null
-            && pickupPanelImage.color.a <= 0.4f
+            && pickupPanelImage.color.a >= 0.9f
             && dropZoneRect != null
             && Mathf.Abs(dropZoneRect.anchoredPosition.x) < 0.1f
             && lootVisualCount == result.OfferedItems.Count

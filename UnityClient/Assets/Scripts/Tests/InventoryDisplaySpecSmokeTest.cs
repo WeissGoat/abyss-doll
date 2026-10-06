@@ -13,7 +13,7 @@ public static class InventoryDisplaySpecSmokeTest {
         InventoryLayoutProfile combatProfile = InventoryDisplaySpec.ResolveLayoutProfile(InventoryPresentationMode.Combat);
         InventoryLayoutProfile workshopProfile = InventoryDisplaySpec.ResolveLayoutProfile(InventoryPresentationMode.Workshop);
         bool profileOk =
-            Approximately(safeRoomProfile.AnchoredPosition, new Vector2(500f, -150f))
+            Approximately(safeRoomProfile.AnchoredPosition, new Vector2(500f, -60f))
             && Approximately(new Vector2(safeRoomProfile.Scale, 0f), new Vector2(0.78f, 0f), 0.0001f)
             && Approximately(combatProfile.AnchoredPosition, new Vector2(0f, -290f))
             && Approximately(new Vector2(combatProfile.Scale, 0f), new Vector2(1f, 0f), 0.0001f)

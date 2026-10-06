@@ -87,7 +87,7 @@ public class MaintenancePanel : MonoBehaviour {
         label.rectTransform.offsetMin = new Vector2(18f, 6f);
         label.rectTransform.offsetMax = new Vector2(-170f, -6f);
 
-        Button apply = UITheme.CreateButton(row.transform, "Apply_Button", "维护", canApply ? UITheme.Accent : UITheme.Border, canApply ? UITheme.Background : UITheme.TextMuted);
+        Button apply = UITheme.CreateButton(row.transform, "Apply_Button", "维护", canApply ? UITheme.Accent : UITheme.Border, canApply ? UITheme.OnAccent : UITheme.TextMuted);
         apply.interactable = canApply;
         UITheme.Place((RectTransform)apply.transform, new Vector2(1f, 0.5f), new Vector2(-16f, 0f), new Vector2(130f, 52f));
         string id = config.MaintenanceID;

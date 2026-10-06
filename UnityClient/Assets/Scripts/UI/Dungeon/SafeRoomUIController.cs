@@ -140,6 +140,8 @@ public class SafeRoomUIController : MonoBehaviour {
     private void ApplyButtonSkins() {
         VisualUIHelper.ApplyButtonSkin(restBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.75f, 0.48f, 0.18f));
         VisualUIHelper.ApplyButtonSkin(evacuateBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.28f, 0.34f, 0.38f));
+        UITheme.StyleButton(restBtn, true);
+        UITheme.StyleButton(evacuateBtn, false);
     }
 
     private void ApplyRoomSkin(string backgroundVisualID) {
@@ -159,6 +161,11 @@ public class SafeRoomUIController : MonoBehaviour {
         }
 
         ApplyButtonSkins();
+        Transform title = transform.Find("Title_Text");
+        Text titleLabel = title != null ? title.GetComponent<Text>() : null;
+        if (titleLabel != null) {
+            titleLabel.color = UITheme.AccentOnDark;
+        }
     }
 
     private Image EnsureRoomBackdrop(Image current, string objectName) {

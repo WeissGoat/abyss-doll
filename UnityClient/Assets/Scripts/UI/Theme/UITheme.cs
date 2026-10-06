@@ -4,19 +4,29 @@ using UnityEngine.UI;
 // The one place for UI colours, type sizes and the font. Screens rebuilt from M2 on take their look from here, so the
 // M4 art pass restyles the game by changing this file instead of every controller.
 public static class UITheme {
-    // Neutral dark surfaces with one warm accent; the art direction (M4) replaces these values, not the call sites.
-    public static readonly Color Background = new Color(0.055f, 0.07f, 0.08f, 1f);
-    public static readonly Color Panel = new Color(0.09f, 0.11f, 0.125f, 0.95f);
-    public static readonly Color PanelRaised = new Color(0.14f, 0.16f, 0.185f, 0.97f);
-    public static readonly Color Border = new Color(0.36f, 0.41f, 0.45f, 1f);
-    public static readonly Color TextPrimary = new Color(0.95f, 0.94f, 0.91f, 1f);
-    public static readonly Color TextSecondary = new Color(0.72f, 0.74f, 0.74f, 1f);
-    public static readonly Color TextMuted = new Color(0.5f, 0.53f, 0.55f, 1f);
-    public static readonly Color Accent = new Color(1f, 0.77f, 0.33f, 1f);
-    public static readonly Color Positive = new Color(0.47f, 0.83f, 0.56f, 1f);
-    public static readonly Color Warning = new Color(0.98f, 0.66f, 0.3f, 1f);
-    public static readonly Color Danger = new Color(0.93f, 0.4f, 0.34f, 1f);
-    public static readonly Color Info = new Color(0.47f, 0.73f, 0.96f, 1f);
+    // M4 linen theme (美术文档/04_美术风格基准.md 1.2): stitched oatmeal linen boards, leather edging, ink-brown text,
+    // madder red for the one primary action, blue only for AP and energy. Call sites use these roles, not raw colours.
+    public static readonly Color Background = Hex(0x2B2018);
+    public static readonly Color Panel = Hex(0xE9DCC3);
+    public static readonly Color PanelRaised = Hex(0xF6ECD9);
+    public static readonly Color Inset = Hex(0xDCCBAA);
+    public static readonly Color Border = Hex(0x7A5236);
+    public static readonly Color TextPrimary = Hex(0x3B2A1E);
+    public static readonly Color TextSecondary = Hex(0x6B5544);
+    public static readonly Color TextMuted = Hex(0x8F7A62);
+    public static readonly Color Accent = Hex(0xB5402F);
+    public static readonly Color OnAccent = Hex(0xF7EEDC);
+    public static readonly Color Positive = Hex(0x4F7A3A);
+    public static readonly Color Warning = Hex(0xB06A1E);
+    public static readonly Color Danger = Hex(0xA8382A);
+    public static readonly Color Info = Hex(0x2F7FA8);
+    public static readonly Color Energy = Hex(0x3FA7D6);
+
+    // Text that sits straight on a game background (map, combat) instead of a linen board.
+    public static readonly Color TextOnDark = Hex(0xF4E6CC);
+    public static readonly Color TextOnDarkMuted = Hex(0xC9B596);
+    public static readonly Color AccentOnDark = Hex(0xF2B864);
+    public static readonly Color PositiveOnDark = Hex(0xA9D68C);
 
     public const int TitleSize = 36;
     public const int HeadingSize = 28;
@@ -87,11 +97,16 @@ public static class UITheme {
         obj.transform.SetParent(parent, false);
         Image image = obj.AddComponent<Image>();
         image.color = color;
+        if (color == Panel) {
+            ApplyBoardSkin(image, VisualAssetService.UIPanelInfoID);
+        }
+
         return image;
     }
 
     public static Button CreateButton(Transform parent, string name, string label, Color background, Color textColor, int fontSize = BodySize) {
         Image image = CreatePanel(parent, name, background);
+        ApplyButtonSkin(image, background);
         Button button = image.gameObject.AddComponent<Button>();
         button.targetGraphic = image;
         ColorBlock colors = button.colors;
@@ -123,12 +138,82 @@ public static class UITheme {
         overlay.overrideSorting = true;
         overlay.sortingOrder = sortingOrder;
         root.AddComponent<GraphicRaycaster>();
-        root.AddComponent<Image>().color = new Color(0f, 0f, 0f, 0.66f);
+        root.AddComponent<Image>().color = new Color(0.1f, 0.06f, 0.03f, 0.62f);
 
         Image dialog = CreatePanel(root.transform, "Dialog", Panel);
-        AddBorder(dialog, Border, 2f);
+        if (!ApplyBoardSkin(dialog, VisualAssetService.UIPanelMainID)) {
+            AddBorder(dialog, Border, 2f);
+        }
         Place(dialog.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, dialogSize);
         return root;
+    }
+
+    // Button looks by role: the madder cloth for the primary action, linen cloth with leather stitching for the rest,
+    // a greyed linen for disabled (Border). Other colours (item tints) stay flat.
+    public static void ApplyButtonSkin(Image image, Color background) {
+        if (image == null || background.a <= 0.01f) {
+            return;
+        }
+
+        string visualID = null;
+        Color tint = Color.white;
+        if (background == Accent) {
+            visualID = VisualAssetService.UIButtonPrimaryID;
+        } else if (background == Danger) {
+            visualID = VisualAssetService.UIButtonDangerID;
+        } else if (background == Border) {
+            visualID = VisualAssetService.UIButtonSecondaryID;
+            tint = new Color(0.78f, 0.74f, 0.7f, 1f);
+        } else if (background == PanelRaised || background == Panel || background == Inset || background == Background) {
+            visualID = VisualAssetService.UIButtonSecondaryID;
+        }
+
+        if (visualID != null && VisualAssetService.TryGetSprite(visualID, out Sprite sprite)) {
+            image.sprite = sprite;
+            image.type = Image.Type.Sliced;
+            image.pixelsPerUnitMultiplier = 2f;
+            image.color = tint;
+        }
+    }
+
+    // Restyles a button built elsewhere (scene, prefab or legacy controller): cloth skin by role and a readable label.
+    public static void StyleButton(Button button, bool primary) {
+        if (button == null) {
+            return;
+        }
+
+        Image image = button.GetComponent<Image>();
+        if (image != null) {
+            ApplyButtonSkin(image, primary ? Accent : PanelRaised);
+            button.targetGraphic = image;
+        }
+
+        Outline outline = button.GetComponent<Outline>();
+        if (outline != null) {
+            outline.enabled = false;
+        }
+
+        foreach (Text label in button.GetComponentsInChildren<Text>(true)) {
+            label.font = Font;
+            label.color = primary ? OnAccent : TextPrimary;
+        }
+    }
+
+    // A stitched linen board (9-slice) behind a panel; false when the sprite is not registered (tests, missing art).
+    public static bool ApplyBoardSkin(Image image, string visualID, float borderScale = 1.5f) {
+        if (image == null || !VisualAssetService.TryGetSprite(visualID, out Sprite sprite)) {
+            return false;
+        }
+
+        image.sprite = sprite;
+        image.type = Image.Type.Sliced;
+        image.pixelsPerUnitMultiplier = borderScale;
+        image.color = Color.white;
+        return true;
+    }
+
+    public static Color Hex(int rgb, float alpha = 1f) {
+        return new Color(((rgb >> 16) & 0xFF) / 255f, ((rgb >> 8) & 0xFF) / 255f, (rgb & 0xFF) / 255f, alpha);
     }
 
     public static void Stretch(RectTransform rect) {
@@ -147,7 +232,13 @@ public static class UITheme {
         rect.sizeDelta = size;
     }
 
+    // A thin outline for flat panels. Panels and buttons that already wear a stitched sprite frame get none.
     public static Outline AddBorder(Graphic graphic, Color color, float width = 2f) {
+        Image image = graphic as Image;
+        if (image != null && image.sprite != null && image.type == Image.Type.Sliced) {
+            return null;
+        }
+
         Outline outline = graphic.GetComponent<Outline>();
         if (outline == null) {
             outline = graphic.gameObject.AddComponent<Outline>();
