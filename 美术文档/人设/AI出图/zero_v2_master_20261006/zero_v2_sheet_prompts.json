@@ -1,0 +1,57 @@
+[
+ {
+  "id": "r7_turnaround",
+  "provider": "gemini_chat_image",
+  "w": 1536,
+  "h": 1024,
+  "count": 2,
+  "refs": [
+   "selected/zero_v2_master.png"
+  ],
+  "prompt": "Character turnaround sheet of the girl in the reference image: front view, side view and back view standing side by side, full body, same height and proportions, plain white background. Keep exactly the same character design and anime art style as the reference: long straight silver hair with bangs, a plain white cloth blindfold wrapped around her eyes (no ribbon, no string, no color on it), an oatmeal linen hooded capelet with one hand-sewn patch, a plain ivory knee-length dress, pale skin, subtle doll joint seams at the wrists and on the front of the knees, plain cream cloth foot wraps, bare toes. No red anywhere on her outfit. In the back view the knees show no joint seams and the hood hangs down her back. No text, no labels."
+ },
+ {
+  "id": "r7_expr_neutral",
+  "provider": "gemini_chat_image",
+  "w": 1024,
+  "h": 1024,
+  "count": 1,
+  "refs": [
+   "selected/zero_v2_master.png"
+  ],
+  "prompt": "Head-and-shoulders portrait of the girl in the reference image, facing the viewer, plain white background. Expression: neutral and quiet, mouth closed, head straight. Her eyes stay covered by the blindfold; the expression comes from her mouth, eyebrows, blush and head angle. Keep exactly the same character design and anime art style as the reference: long straight silver hair with bangs, a plain white cloth blindfold wrapped around her eyes (no ribbon, no string, no color on it), an oatmeal linen hooded capelet with one hand-sewn patch, a plain ivory knee-length dress, pale skin, subtle doll joint seams at the wrists and on the front of the knees, plain cream cloth foot wraps, bare toes. No red anywhere on her outfit. No text."
+ },
+ {
+  "id": "r7_expr_smile",
+  "provider": "gemini_chat_image",
+  "w": 1024,
+  "h": 1024,
+  "count": 1,
+  "refs": [
+   "selected/zero_v2_master.png"
+  ],
+  "prompt": "Head-and-shoulders portrait of the girl in the reference image, facing the viewer, plain white background. Expression: a small shy smile with a clear blush on her cheeks, head tilted slightly to one side. Her eyes stay covered by the blindfold; the expression comes from her mouth, eyebrows, blush and head angle. Keep exactly the same character design and anime art style as the reference: long straight silver hair with bangs, a plain white cloth blindfold wrapped around her eyes (no ribbon, no string, no color on it), an oatmeal linen hooded capelet with one hand-sewn patch, a plain ivory knee-length dress, pale skin, subtle doll joint seams at the wrists and on the front of the knees, plain cream cloth foot wraps, bare toes. No red anywhere on her outfit. No text."
+ },
+ {
+  "id": "r7_expr_sad",
+  "provider": "gemini_chat_image",
+  "w": 1024,
+  "h": 1024,
+  "count": 1,
+  "refs": [
+   "selected/zero_v2_master.png"
+  ],
+  "prompt": "Head-and-shoulders portrait of the girl in the reference image, facing the viewer, plain white background. Expression: clearly sad: head bowed, mouth turned down, eyebrows above the blindfold drawn together and raised in the middle. Her eyes stay covered by the blindfold; the expression comes from her mouth, eyebrows, blush and head angle. Keep exactly the same character design and anime art style as the reference: long straight silver hair with bangs, a plain white cloth blindfold wrapped around her eyes (no ribbon, no string, no color on it), an oatmeal linen hooded capelet with one hand-sewn patch, a plain ivory knee-length dress, pale skin, subtle doll joint seams at the wrists and on the front of the knees, plain cream cloth foot wraps, bare toes. No red anywhere on her outfit. No text."
+ },
+ {
+  "id": "r7_expr_surprised",
+  "provider": "gemini_chat_image",
+  "w": 1024,
+  "h": 1024,
+  "count": 1,
+  "refs": [
+   "selected/zero_v2_master.png"
+  ],
+  "prompt": "Head-and-shoulders portrait of the girl in the reference image, facing the viewer, plain white background. Expression: surprised: mouth open in a small round o, eyebrows raised high above the blindfold, head pulled back slightly. Her eyes stay covered by the blindfold; the expression comes from her mouth, eyebrows, blush and head angle. Keep exactly the same character design and anime art style as the reference: long straight silver hair with bangs, a plain white cloth blindfold wrapped around her eyes (no ribbon, no string, no color on it), an oatmeal linen hooded capelet with one hand-sewn patch, a plain ivory knee-length dress, pale skin, subtle doll joint seams at the wrists and on the front of the knees, plain cream cloth foot wraps, bare toes. No red anywhere on her outfit. No text."
+ }
+]
