@@ -7,6 +7,8 @@ public class WorkshopUIController : MonoBehaviour {
     public const string PrologueOpenLayer1ConfirmActionID = "open_layer1_confirm";
     private const string T0PrologueWorkshopBackgroundVisualID = "bg_t0_prologue_half_open_workshop";
     private const string T0PrologueDollVisualID = "doll_proto_0_t0_stand";
+    // Zero's standard v2 standing portrait (美术文档/人设/03_零号初版人设方案.md), the same one combat uses.
+    private const string DayDollVisualID = "doll_proto_0_stand";
     private const string T0PrologueGateVisualID = "cg_t0_01a_p04_panel02_shallow_gate_glow";
 
     public Text moneyText;
@@ -675,12 +677,12 @@ public class WorkshopUIController : MonoBehaviour {
 
         if (_studioHintText != null) {
             _studioHintText.text = "维护稍后处理\n先确认零号能否行动";
-            _studioHintText.color = new Color(0.68f, 0.78f, 0.82f, 0.92f);
+            _studioHintText.color = UITheme.TextSecondary;
         }
 
         if (_ledgerHintText != null) {
             _ledgerHintText.text = "账单 / 市场暂缓\n当前目标：带零号下潜一次";
-            _ledgerHintText.color = new Color(0.74f, 0.76f, 0.72f, 0.92f);
+            _ledgerHintText.color = UITheme.TextSecondary;
         }
 
         if (_dollCaptionText != null) {
@@ -785,7 +787,7 @@ public class WorkshopUIController : MonoBehaviour {
                 _dollStandImage,
                 T0PrologueDollVisualID,
                 new Vector2(520f, 820f),
-                new Color(1f, 1f, 1f, 0.98f),
+                Color.white,
                 new Color(0.5f, 0.68f, 0.72f, 0.94f),
                 false);
         }
@@ -815,17 +817,17 @@ public class WorkshopUIController : MonoBehaviour {
 
         if (_abyssHintText != null) {
             _abyssHintText.text = "\u6d45\u5c42\u5165\u53e3\n\u5165\u53e3\u7a33\u5b9a\n\u96f6\u53f7\u8fd8\u80fd\u6491\u4e00\u6b21";
-            _abyssHintText.color = new Color(0.78f, 0.96f, 1f, 1f);
+            _abyssHintText.color = UITheme.TextPrimary;
         }
 
         if (_studioHintText != null) {
             _studioHintText.text = "\u5de5\u4f5c\u5ba4\u6682\u9501\n\u5148\u786e\u8ba4\u96f6\u53f7\u80fd\u5426\u884c\u52a8";
-            _studioHintText.color = new Color(0.50f, 0.66f, 0.70f, 0.58f);
+            _studioHintText.color = UITheme.TextMuted;
         }
 
         if (_ledgerHintText != null) {
             _ledgerHintText.text = "\u8d26\u672c\u6682\u7f13\n\u5f53\u524d\u76ee\u6807\uff1a\u5e26\u96f6\u53f7\u4e0b\u6f5c\u4e00\u6b21";
-            _ledgerHintText.color = new Color(0.54f, 0.64f, 0.64f, 0.58f);
+            _ledgerHintText.color = UITheme.TextMuted;
         }
 
         if (_dollCaptionText != null) {
@@ -838,7 +840,7 @@ public class WorkshopUIController : MonoBehaviour {
 
         if (chassisInfoText != null) {
             chassisInfoText.text = "\u6838\u5fc3\u4ed3\u5df2\u6e05\u7406\n\u4e0b\u6f5c\u8bb8\u53ef\uff1a\u6d45\u5c42\u4e00\u6b21";
-            chassisInfoText.color = new Color(0.78f, 0.94f, 0.98f, 0.96f);
+            chassisInfoText.color = UITheme.TextPrimary;
         }
 
         if (moneyText != null) {
@@ -846,7 +848,7 @@ public class WorkshopUIController : MonoBehaviour {
             string day = player == null ? "\u7b2c 1 \u65e5" : $"\u7b2c {player.CurrentDay} \u65e5";
             string money = player == null ? "\u8d44\u91d1\u4e0d\u8db3" : $"\u8d44\u91d1 {player.Money}G";
             moneyText.text = $"{day} / \u503a\u52a1\u50ac\u7f34\u4e2d / {money}\n\u96f6\u53f7\uff1a\u77ed\u65f6\u53ef\u884c\u52a8";
-            moneyText.color = new Color(0.82f, 0.94f, 0.96f, 0.96f);
+            moneyText.color = UITheme.TextPrimary;
         }
     }
 
@@ -2328,7 +2330,7 @@ public class WorkshopUIController : MonoBehaviour {
             new Vector2(0f, -24f),
             new Vector2(318f, 80f),
             19,
-            new Color(0.86f, 0.96f, 1f, 1f),
+            UITheme.TextPrimary,
             TextAnchor.UpperCenter);
 
         _studioHintText = EnsureDecorText(
@@ -2340,7 +2342,7 @@ public class WorkshopUIController : MonoBehaviour {
             new Vector2(34f, -2f),
             new Vector2(172f, 58f),
             14,
-            new Color(0.76f, 0.86f, 0.9f, 1f),
+            UITheme.TextSecondary,
             TextAnchor.UpperCenter);
 
         _ledgerHintText = EnsureDecorText(
@@ -2352,7 +2354,7 @@ public class WorkshopUIController : MonoBehaviour {
             new Vector2(30f, -2f),
             new Vector2(184f, 54f),
             14,
-            new Color(0.82f, 0.86f, 0.82f, 1f),
+            UITheme.TextSecondary,
             TextAnchor.UpperCenter);
 
         _dollCaptionText = EnsureDecorText(
@@ -2364,7 +2366,7 @@ public class WorkshopUIController : MonoBehaviour {
             new Vector2(0f, -12f),
             new Vector2(430f, 26f),
             18,
-            new Color(0.78f, 0.96f, 1f, 1f),
+            UITheme.TextPrimary,
             TextAnchor.UpperCenter);
 
         _prologueObjectiveText = EnsureDecorText(
@@ -2376,7 +2378,7 @@ public class WorkshopUIController : MonoBehaviour {
             Vector2.zero,
             new Vector2(700f, 32f),
             19,
-            new Color(0.86f, 0.98f, 1f, 0.96f),
+            UITheme.TextPrimary,
             TextAnchor.MiddleCenter);
 
         EnsureDollStandImage();
@@ -2453,7 +2455,7 @@ public class WorkshopUIController : MonoBehaviour {
         rect.anchorMax = Vector2.one;
         rect.offsetMin = Vector2.zero;
         rect.offsetMax = Vector2.zero;
-        VisualUIHelper.ApplySolidColor(_prologueSceneVeil, new Color(0.02f, 0.05f, 0.075f, 0.34f), false);
+        VisualUIHelper.ApplySolidColor(_prologueSceneVeil, new Color(0.08f, 0.05f, 0.03f, 0.14f), false);
         _prologueSceneVeil.raycastTarget = false;
     }
 
@@ -2479,15 +2481,20 @@ public class WorkshopUIController : MonoBehaviour {
         VisualUIHelper.ApplyCoverSprite(_prologueFormalSceneImage, T0PrologueWorkshopBackgroundVisualID, Color.white, new Color(0.014f, 0.04f, 0.054f, 1f));
     }
 
+    // The half-open prologue workshop uses the same linen cards as the day screen (M4).
     private void ApplyProloguePanelSkin(Image image, Color fillColor) {
         if (image == null) {
             return;
         }
 
-        ApplyRuntimeSolidPanelSkin(image, fillColor, new Color(0.74f, 0.96f, 1f, 0.055f), false);
+        if (!UITheme.ApplyBoardSkin(image, VisualAssetService.UIPanelInfoID)) {
+            VisualUIHelper.ApplySolidColor(image, UITheme.Panel, false);
+        }
+
+        image.raycastTarget = false;
         Outline outline = image.GetComponent<Outline>();
         if (outline != null) {
-            outline.effectDistance = new Vector2(0.45f, -0.45f);
+            outline.enabled = false;
         }
     }
 
@@ -2674,8 +2681,8 @@ public class WorkshopUIController : MonoBehaviour {
             display.anchorMin = new Vector2(0.5f, 0.5f);
             display.anchorMax = new Vector2(0.5f, 0.5f);
             display.pivot = new Vector2(0.5f, 0.5f);
-            display.anchoredPosition = _prologueHalfOpen ? new Vector2(-64f, -82f) : new Vector2(-170f, -38f);
-            display.sizeDelta = _prologueHalfOpen ? new Vector2(360f, 620f) : new Vector2(560f, 720f);
+            display.anchoredPosition = _prologueHalfOpen ? new Vector2(-64f, -82f) : new Vector2(-560f, -100f);
+            display.sizeDelta = _prologueHalfOpen ? new Vector2(360f, 620f) : new Vector2(600f, 880f);
             _dollGlowImage = EnsureDollGlow(display);
         }
 
@@ -2686,9 +2693,9 @@ public class WorkshopUIController : MonoBehaviour {
         rect.anchoredPosition = Vector2.zero;
         VisualUIHelper.ApplyContainSprite(
             _dollStandImage,
-            _prologueHalfOpen ? T0PrologueDollVisualID : "cg_t0_01a_p06_panel01_no0_close",
-            _prologueHalfOpen ? new Vector2(340f, 610f) : new Vector2(520f, 690f),
-            _prologueHalfOpen ? new Color(1f, 1f, 1f, 0.93f) : new Color(1f, 1f, 1f, 0.92f),
+            _prologueHalfOpen ? T0PrologueDollVisualID : DayDollVisualID,
+            _prologueHalfOpen ? new Vector2(340f, 610f) : new Vector2(580f, 870f),
+            _prologueHalfOpen ? new Color(1f, 1f, 1f, 0.93f) : Color.white,
             new Color(0.48f, 0.68f, 0.72f, 0.94f),
             false);
         if (_dollStandImage.transform.parent != null) {
@@ -2723,7 +2730,7 @@ public class WorkshopUIController : MonoBehaviour {
         rect.pivot = new Vector2(0.5f, 0.5f);
         rect.anchoredPosition = new Vector2(0f, -18f);
         rect.sizeDelta = new Vector2(430f, 650f);
-        VisualUIHelper.ApplySolidColor(glow, new Color(0.55f, 0.9f, 1f, 0.065f), false);
+        VisualUIHelper.ApplySolidColor(glow, _prologueHalfOpen ? new Color(0.55f, 0.9f, 1f, 0.065f) : Color.clear, false);
         glow.transform.SetAsFirstSibling();
         return glow;
     }
@@ -2757,6 +2764,11 @@ public class WorkshopUIController : MonoBehaviour {
 
     private void ApplyPrologueButtonSkin(Button button, Color fillColor, bool primary) {
         if (button == null) {
+            return;
+        }
+
+        UITheme.StyleButton(button, primary);
+        if (button.targetGraphic != null && button.targetGraphic is Image skinned && skinned.sprite != null) {
             return;
         }
 
@@ -2796,7 +2808,7 @@ public class WorkshopUIController : MonoBehaviour {
 
         text.transform.SetParent(parent, false);
         text.fontSize = fontSize;
-        text.color = new Color(0.82f, 0.95f, 0.98f, 0.96f);
+        text.color = UITheme.TextPrimary;
         text.raycastTarget = false;
         text.horizontalOverflow = HorizontalWrapMode.Wrap;
         text.verticalOverflow = VerticalWrapMode.Truncate;

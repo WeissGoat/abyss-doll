@@ -302,8 +302,8 @@ public static class WorkshopSmokeTest {
             && !controller.openMaintenancePanelBtn.gameObject.activeSelf
             && controller.openOrderBoardPanelBtn != null
             && !controller.openOrderBoardPanelBtn.gameObject.activeSelf;
-        // 工作室, 账本 and the day HUD's 跳下深渊 / 停工休息 / rent line (M2 batch 2 replaced the 浅层入口 card).
-        bool hubButtonsReduced = activeButtons.Length <= 6;
+        // 工作室, 账本, 补给铺 (M4) and the day HUD's 跳下深渊 / 停工休息 / 维护 / rent line (M2 batch 2 replaced the 浅层入口 card).
+        bool hubButtonsReduced = activeButtons.Length <= 7;
         bool backgroundStretches = background != null
             && background.anchorMin == Vector2.zero
             && background.anchorMax == Vector2.one;

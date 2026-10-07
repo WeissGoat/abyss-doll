@@ -1,0 +1,47 @@
+[
+ {
+  "id": "r10_bg_workshop_home_room",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and keep it the same building. Paint a 16:9 anime game background, soft cel shading, no characters, no people, absolutely no letters, words or numbers. Scene: the small living quarters above the doll workshop: a narrow bed with a patchwork quilt, a small wooden table with a teapot and two cups, a bookshelf, a wardrobe, a round window with morning light and potted herbs on the sill, a ladder going down to the workshop. Cozy, warm, modest."
+ },
+ {
+  "id": "r10_bg_workshop_studio",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and keep it the same building. Paint a 16:9 anime game background, soft cel shading, no characters, no people, absolutely no letters, words or numbers. Scene: the back corner of the doll workshop used for fitting prosthetic parts: a sturdy workbench with a doll arm on a padded stand, magnifying lamp, small drawers of screws and springs, spools of thread, sketches of joints pinned to the wall as drawings only, warm lamp light and afternoon light. Calm and focused."
+ },
+ {
+  "id": "r10_bg_t0_prologue_half_open_workshop",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png",
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round9/cg_t0_01a_p02_panel01_workshop_wide_0.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and keep it the same building. Paint a 16:9 anime game background, soft cel shading, no characters, no people, absolutely no letters, words or numbers. Scene: the same doll workshop at early morning after a long night: still dusty but partly tidied, the dust sheet folded on the workbench, cobwebs here and there, pale gold dawn light through the round window, the low hatch door in the back wall glowing faint teal. A quiet new beginning."
+ },
+ {
+  "id": "r10_cg_t0_01a_p01_wake_pov",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round9/cg_t0_01a_p02_panel01_workshop_wide_0.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and keep it the same building. Paint a 16:9 anime game background, soft cel shading, no characters, no people, absolutely no letters, words or numbers. First-person view of someone just waking up on a cot in the abandoned dusty workshop before dawn: blurry soft vignette edges, a blanket edge in the foreground, beyond it the workbench with the small sheet-covered shape, cold blue light from the round window, the last ember of an oil lamp."
+ }
+]

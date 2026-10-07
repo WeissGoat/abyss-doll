@@ -1,0 +1,229 @@
+[
+ {
+  "id": "cg_t0_01a_p02_panel01_workshop_wide",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. Wide establishing shot of the whole room. On an old workbench right of center lies a small human shape completely covered by a dusty white sheet. On the left a folded paper has been slid under the closed door. In the back right corner, a low wooden trapdoor-like hatch in the wall with faint teal light at its seams."
+ },
+ {
+  "id": "cg_t0_01a_p02_panel02_debt_notice_door",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. Close-up at floor level of the closed workshop door: a damp folded blank paper has just been pushed through the gap under the door, a sliver of cold light from outside. The paper shows only its blank back and a dark wax seal blob, no writing."
+ },
+ {
+  "id": "cg_t0_01a_p02_panel03_no0_hand_cloth",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png",
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round7/nai_b/inpaint_2.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. Close-up on the workbench: from under a dusty white sheet a small delicate porcelain-white doll hand with fine joint seams at the wrist and finger knuckles slips out, fingers slightly curled as if reaching for a lost memory. Soft lamp light on the hand."
+ },
+ {
+  "id": "cg_t0_01a_p03_panel01_debt_notice_close",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. Close-up top-down view of an unfolded blank parchment notice lying on the dusty workbench next to the oil lamp, with a heavy dark red wax seal and a few thick ruled lines, but no readable text at all. Ominous mood."
+ },
+ {
+  "id": "cg_t0_01a_p03_panel02_collateral_shadow",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. A large old doll-repair machine with pulleys and a sewing arm stands in the corner of the workshop, its long shadow stretched across the wall by the lamp, a red cloth tag tied to it as if it is about to be taken away for debt. A silent threat."
+ },
+ {
+  "id": "cg_t0_01a_p03_panel03_broken_parts",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. On the workbench: broken doll parts, a cracked porcelain arm, snapped threads and wires, a burnt-out empty chest core casing, an empty repair stand. It is clear there is no second working doll."
+ },
+ {
+  "id": "cg_t0_01a_p04_panel01_repair_note_close",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. Close-up of an old leather-bound repair notebook lying open on the workbench, showing a hand-drawn diagram of a doll's chest core and a small sketched crystal shard circled in pencil, drawn only with lines and arrows, no writing."
+ },
+ {
+  "id": "cg_t0_01a_p04_panel02_shallow_gate_glow",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png",
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round1/r1_abyss_1.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. Medium shot of a low old wooden hatch door set into the stone wall of the workshop behind shelves and a workbench, cold teal light breathing through its cracks as if the underground beyond is alive."
+ },
+ {
+  "id": "cg_t0_01a_p04_panel03_core_shard_box",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. An open worn wooden tool box on the workbench; among old tools lies the last small faceted pale crystal core shard, glowing faintly; its light falls on the sheet-covered small figure in the background."
+ },
+ {
+  "id": "cg_t0_01a_p05_panel01_broken_doll_parts",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. A slow pan along a shelf of discarded doll parts: snapped porcelain arms, an old cracked chassis frame, a scorched core housing, all made in the same delicate porcelain-and-linen style. No second doll can be saved."
+ },
+ {
+  "id": "cg_t0_01a_p05_panel02_no0_half_reveal",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png",
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round7/nai_b/inpaint_2.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. The girl is Zero from the reference: a small quiet doll girl with very long straight silver hair and bangs, a plain white cloth blindfold over her eyes, an oatmeal linen hooded capelet with one sewn patch, an ivory knee-length dress, pale porcelain-like skin with fine doll joint seams at the wrists and knees. A hand pulls the dusty white sheet back, revealing the girl sitting on the workbench from the waist up, head slightly bowed, quiet and fragile but clean."
+ },
+ {
+  "id": "cg_t0_01a_p05_panel03_no0_core_dim",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png",
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round7/nai_b/inpaint_2.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. The girl is Zero from the reference: a small quiet doll girl with very long straight silver hair and bangs, a plain white cloth blindfold over her eyes, an oatmeal linen hooded capelet with one sewn patch, an ivory knee-length dress, pale porcelain-like skin with fine doll joint seams at the wrists and knees. Close-up of her chest: the linen capelet slightly pushed aside reveals a small round core socket in her chest, dark and dim, only an empty dull ring. Tasteful, non-sexual, the dress covers her."
+ },
+ {
+  "id": "cg_t0_01a_p06_panel01_no0_close",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png",
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round7/nai_b/inpaint_2.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. The girl is Zero from the reference: a small quiet doll girl with very long straight silver hair and bangs, a plain white cloth blindfold over her eyes, an oatmeal linen hooded capelet with one sewn patch, an ivory knee-length dress, pale porcelain-like skin with fine doll joint seams at the wrists and knees. Close-up of her face and shoulders, blindfolded, calm and restrained expression, lamp light on one side, moonlight on the other."
+ },
+ {
+  "id": "cg_t0_01a_p06_panel02_core_insert",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png",
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round7/nai_b/inpaint_2.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. The girl is Zero from the reference: a small quiet doll girl with very long straight silver hair and bangs, a plain white cloth blindfold over her eyes, an oatmeal linen hooded capelet with one sewn patch, an ivory knee-length dress, pale porcelain-like skin with fine doll joint seams at the wrists and knees. A gloved adult hand carefully presses the small pale crystal shard into the round core socket on her chest under the capelet. Focus on the hands and the shard, the girl's chin visible at the top."
+ },
+ {
+  "id": "cg_t0_01a_p06_panel03_core_wake",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round8/r8_bg_workshop_day_0.png",
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round7/nai_b/inpaint_2.png"
+  ],
+  "prompt": "Use the reference images for the art style, palette and painterly Japanese anime rendering, and for the character design where a girl appears. Paint a 16:9 anime visual novel CG, soft cel shading, cinematic framing. Absolutely no letters, words, numbers or symbols anywhere. The setting is the same small doll repair workshop from the reference, but abandoned for months: night, dust on everything, cobwebs, cold blue moonlight through the round window and one small warm oil lamp. The girl is Zero from the reference: a small quiet doll girl with very long straight silver hair and bangs, a plain white cloth blindfold over her eyes, an oatmeal linen hooded capelet with one sewn patch, an ivory knee-length dress, pale porcelain-like skin with fine doll joint seams at the wrists and knees. The core in her chest lights up with a soft cold white glow, the oil lamp in the workshop flares briefly, her hair stirs; she lifts her head slightly. Quiet awakening."
+ },
+ {
+  "id": "doll_zero_dialogue_neutral",
+  "provider": "gemini_chat_image",
+  "w": 1024,
+  "h": 1536,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round7/nai_b/inpaint_2.png"
+  ],
+  "prompt": "Full-body character art of exactly the same girl as in the reference image, same anime art style, same outfit and colours, on a plain pure white background, whole body visible from head to toes, no shadow on the ground, no text. The girl is Zero from the reference: a small quiet doll girl with very long straight silver hair and bangs, a plain white cloth blindfold over her eyes, an oatmeal linen hooded capelet with one sewn patch, an ivory knee-length dress, pale porcelain-like skin with fine doll joint seams at the wrists and knees. Standing still, facing the viewer, hands loosely together in front, calm neutral expression."
+ },
+ {
+  "id": "doll_zero_dialogue_command_ready",
+  "provider": "gemini_chat_image",
+  "w": 1024,
+  "h": 1536,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round7/nai_b/inpaint_2.png"
+  ],
+  "prompt": "Full-body character art of exactly the same girl as in the reference image, same anime art style, same outfit and colours, on a plain pure white background, whole body visible from head to toes, no shadow on the ground, no text. The girl is Zero from the reference: a small quiet doll girl with very long straight silver hair and bangs, a plain white cloth blindfold over her eyes, an oatmeal linen hooded capelet with one sewn patch, an ivory knee-length dress, pale porcelain-like skin with fine doll joint seams at the wrists and knees. Standing attentive, body turned slightly, one hand raised to her chest, head tilted as if listening for an order."
+ },
+ {
+  "id": "doll_zero_hurt",
+  "provider": "gemini_chat_image",
+  "w": 1024,
+  "h": 1536,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round7/nai_b/inpaint_2.png"
+  ],
+  "prompt": "Full-body character art of exactly the same girl as in the reference image, same anime art style, same outfit and colours, on a plain pure white background, whole body visible from head to toes, no shadow on the ground, no text. The girl is Zero from the reference: a small quiet doll girl with very long straight silver hair and bangs, a plain white cloth blindfold over her eyes, an oatmeal linen hooded capelet with one sewn patch, an ivory knee-length dress, pale porcelain-like skin with fine doll joint seams at the wrists and knees. Hurt: leaning forward, one hand clutching her other arm, one knee slightly bent, the capelet hem torn a little, a few scratches, pained mouth. No blood."
+ },
+ {
+  "id": "doll_zero_tired",
+  "provider": "gemini_chat_image",
+  "w": 1024,
+  "h": 1536,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round7/nai_b/inpaint_2.png"
+  ],
+  "prompt": "Full-body character art of exactly the same girl as in the reference image, same anime art style, same outfit and colours, on a plain pure white background, whole body visible from head to toes, no shadow on the ground, no text. The girl is Zero from the reference: a small quiet doll girl with very long straight silver hair and bangs, a plain white cloth blindfold over her eyes, an oatmeal linen hooded capelet with one sewn patch, an ivory knee-length dress, pale porcelain-like skin with fine doll joint seams at the wrists and knees. Tired: shoulders slumped, head drooping, arms hanging, standing knock-kneed, swaying slightly, a little dusty."
+ },
+ {
+  "id": "doll_proto_0_t0_stand",
+  "provider": "gemini_chat_image",
+  "w": 1024,
+  "h": 1536,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round7/nai_b/inpaint_2.png"
+  ],
+  "prompt": "Full-body character art of exactly the same girl as in the reference image, same anime art style, same outfit and colours, on a plain pure white background, whole body visible from head to toes, no shadow on the ground, no text. The girl is Zero from the reference: a small quiet doll girl with very long straight silver hair and bangs, a plain white cloth blindfold over her eyes, an oatmeal linen hooded capelet with one sewn patch, an ivory knee-length dress, pale porcelain-like skin with fine doll joint seams at the wrists and knees. Just awakened: standing barefoot with no foot wraps, the white dust sheet slipping off her shoulders and trailing on the floor, head slightly lifted, a faint white glow at her chest under the capelet."
+ }
+]

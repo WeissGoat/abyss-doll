@@ -9,7 +9,8 @@ public class TitleScreen : MonoBehaviour {
     public const string NewGameLabel = "新游戏";
     public const string SettingsLabel = "设置";
     public const string QuitLabel = "退出游戏";
-    private const string BackgroundVisualID = "cg_t0_01a_p06_panel01_no0_close";
+    private const string BackgroundVisualID = "bg_workshop_day";
+    private const string DollVisualID = "doll_proto_0_stand";
 
     public static bool IsShowing => _active != null && _active.gameObject.activeSelf;
     private static TitleScreen _active;
@@ -49,9 +50,13 @@ public class TitleScreen : MonoBehaviour {
     private void Build() {
         Image background = UITheme.CreatePanel(transform, "TitleBackground_Image", UITheme.Background);
         UITheme.Stretch(background.rectTransform);
-        VisualUIHelper.ApplyCoverSprite(background, BackgroundVisualID, new Color(0.78f, 0.72f, 0.64f, 1f), UITheme.Background);
-        Image veil = UITheme.CreatePanel(transform, "TitleVeil_Image", new Color(0.09f, 0.055f, 0.03f, 0.5f));
+        VisualUIHelper.ApplyCoverSprite(background, BackgroundVisualID, new Color(0.86f, 0.8f, 0.72f, 1f), UITheme.Background);
+        Image veil = UITheme.CreatePanel(transform, "TitleVeil_Image", new Color(0.09f, 0.055f, 0.03f, 0.42f));
         UITheme.Stretch(veil.rectTransform);
+        Image doll = UITheme.CreatePanel(transform, "TitleDoll_Image", Color.white);
+        doll.raycastTarget = false;
+        UITheme.Place(doll.rectTransform, new Vector2(0.72f, 0f), new Vector2(0f, -40f), new Vector2(680f, 1020f));
+        VisualUIHelper.ApplyContainSprite(doll, DollVisualID, new Vector2(680f, 1020f), Color.white, Color.clear, false);
 
         Text title = UITheme.CreateText(transform, "Title_Text", "Project P3", 72, UITheme.AccentOnDark, TextAnchor.MiddleLeft);
         UITheme.Place(title.rectTransform, new Vector2(0f, 0.5f), new Vector2(160f, 250f), new Vector2(900f, 100f));

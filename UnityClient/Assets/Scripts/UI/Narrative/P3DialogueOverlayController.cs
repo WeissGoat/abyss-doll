@@ -279,7 +279,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         _dialoguePanelButton.targetGraphic = dialoguePanelImage;
         _dialoguePanelButton.transition = Selectable.Transition.None;
 
-        speakerText = EnsureText("Speaker_Text", dialoguePanelImage.transform, font, 28, new Color(0.86f, 0.94f, 1f, 1f), TextAnchor.MiddleLeft);
+        speakerText = EnsureText("Speaker_Text", dialoguePanelImage.transform, font, 28, UITheme.Accent, TextAnchor.MiddleLeft);
         RectTransform speakerRect = speakerText.rectTransform;
         speakerRect.anchorMin = new Vector2(0f, 1f);
         speakerRect.anchorMax = new Vector2(1f, 1f);
@@ -309,11 +309,11 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         ritualPanelRect.pivot = new Vector2(0.5f, 0.5f);
         ritualPanelRect.anchoredPosition = Vector2.zero;
         ritualPanelRect.sizeDelta = new Vector2(520f, 132f);
-        VisualUIHelper.ApplySolidColor(ritualActionPanelImage, new Color(0.018f, 0.07f, 0.086f, 0.88f), false);
+        VisualUIHelper.ApplySolidColor(ritualActionPanelImage, new Color(0.12f, 0.08f, 0.05f, 0.86f), false);
         ritualActionPanelImage.gameObject.SetActive(false);
         ritualActionPanelImage.raycastTarget = false;
 
-        ritualActionPromptText = EnsureText("StandaloneActionPrompt_Text", ritualActionPanelImage.transform, font, 22, new Color(0.82f, 0.96f, 1f, 1f), TextAnchor.MiddleCenter);
+        ritualActionPromptText = EnsureText("StandaloneActionPrompt_Text", ritualActionPanelImage.transform, font, 22, UITheme.TextOnDark, TextAnchor.MiddleCenter);
         Stretch(ritualActionPromptText.rectTransform);
         ritualActionPromptText.text = "\u8f7b\u89e6\u6838\u5fc3\u4ed3\uff0c\u53ea\u505a\u8fd9\u4e00\u6b21\u786e\u8ba4\u3002";
 
@@ -354,7 +354,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         logPanelRect.sizeDelta = new Vector2(760f, 440f);
         VisualUIHelper.ApplySlicedSprite(logPanelImage, VisualAssetService.UIPanelInfoID, Color.white, new Color(0.025f, 0.032f, 0.044f, 0.96f), true);
 
-        logBodyText = EnsureText("LogBody_Text", logPanelImage.transform, font, 22, new Color(0.9f, 0.96f, 1f, 1f), TextAnchor.UpperLeft);
+        logBodyText = EnsureText("LogBody_Text", logPanelImage.transform, font, 22, UITheme.TextPrimary, TextAnchor.UpperLeft);
         RectTransform logBodyRect = logBodyText.rectTransform;
         logBodyRect.anchorMin = Vector2.zero;
         logBodyRect.anchorMax = Vector2.one;
@@ -554,7 +554,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
             comicPanelImages[i] = panel;
         }
 
-        comicPageLabelText = EnsureText("ComicPageLabel_Text", transform, font, 18, new Color(0.72f, 0.86f, 0.9f, 0.72f), TextAnchor.MiddleLeft);
+        comicPageLabelText = EnsureText("ComicPageLabel_Text", transform, font, 18, UITheme.TextOnDarkMuted, TextAnchor.MiddleLeft);
         RectTransform labelRect = comicPageLabelText.rectTransform;
         labelRect.anchorMin = new Vector2(0.08f, 0.92f);
         labelRect.anchorMax = new Vector2(0.08f, 0.92f);
@@ -647,17 +647,20 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
             new Vector2(0.5f, 0f),
             new Vector2(0f, 34f),
             new Vector2(1180f, 210f));
-        VisualUIHelper.ApplySolidColor(dialoguePanelImage, new Color(0.006f, 0.022f, 0.032f, 0.90f), true);
+        if (!UITheme.ApplyBoardSkin(dialoguePanelImage, VisualAssetService.UIPanelInfoID)) {
+            VisualUIHelper.ApplySolidColor(dialoguePanelImage, UITheme.Panel, true);
+        }
+        dialoguePanelImage.raycastTarget = true;
 
         speakerText.gameObject.SetActive(true);
         speakerText.alignment = TextAnchor.MiddleLeft;
         speakerText.fontSize = 25;
-        speakerText.color = new Color(0.78f, 0.96f, 1f, 1f);
+        speakerText.color = UITheme.Accent;
         SetOffsets(speakerText.rectTransform, new Vector2(58f, -58f), new Vector2(-260f, -16f));
 
         bodyText.alignment = TextAnchor.UpperLeft;
         bodyText.fontSize = 29;
-        bodyText.color = new Color(0.92f, 0.98f, 1f, 0.98f);
+        bodyText.color = UITheme.TextPrimary;
         bodyText.resizeTextForBestFit = true;
         bodyText.resizeTextMinSize = 21;
         bodyText.resizeTextMaxSize = 29;
@@ -731,17 +734,20 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
             new Vector2(0.5f, 0f),
             new Vector2(0f, 34f),
             new Vector2(1180f, 210f));
-        VisualUIHelper.ApplySolidColor(dialoguePanelImage, new Color(0.006f, 0.022f, 0.032f, 0.90f), true);
+        if (!UITheme.ApplyBoardSkin(dialoguePanelImage, VisualAssetService.UIPanelInfoID)) {
+            VisualUIHelper.ApplySolidColor(dialoguePanelImage, UITheme.Panel, true);
+        }
+        dialoguePanelImage.raycastTarget = true;
 
         speakerText.gameObject.SetActive(true);
         speakerText.alignment = TextAnchor.MiddleLeft;
         speakerText.fontSize = 25;
-        speakerText.color = new Color(0.78f, 0.96f, 1f, 1f);
+        speakerText.color = UITheme.Accent;
         SetOffsets(speakerText.rectTransform, new Vector2(58f, -58f), new Vector2(-260f, -16f));
 
         bodyText.alignment = TextAnchor.UpperLeft;
         bodyText.fontSize = 29;
-        bodyText.color = new Color(0.9f, 0.98f, 1f, 0.98f);
+        bodyText.color = UITheme.TextPrimary;
         bodyText.resizeTextMinSize = 21;
         bodyText.resizeTextMaxSize = 29;
         SetOffsets(bodyText.rectTransform, new Vector2(62f, 72f), new Vector2(-120f, -54f));
@@ -798,7 +804,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
             new Vector2(0.5f, 0.5f),
             Vector2.zero,
             isStartDoll ? new Vector2(540f, 142f) : new Vector2(470f, 112f));
-        VisualUIHelper.ApplySolidColor(ritualActionPanelImage, new Color(0.006f, 0.055f, 0.066f, isStartDoll ? 0.48f : 0.56f), false);
+        VisualUIHelper.ApplySolidColor(ritualActionPanelImage, new Color(0.12f, 0.08f, 0.05f, isStartDoll ? 0.6f : 0.68f), false);
         if (ritualActionPromptText != null) {
             if (isStartDoll) {
                 ritualActionPromptText.gameObject.SetActive(false);
@@ -820,17 +826,20 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
             new Vector2(0.5f, 0.5f),
             new Vector2(0f, 48f),
             new Vector2(1080f, 170f));
-        VisualUIHelper.ApplySolidColor(dialoguePanelImage, new Color(0.004f, 0.02f, 0.03f, 0.76f), true);
+        if (!UITheme.ApplyBoardSkin(dialoguePanelImage, VisualAssetService.UIPanelInfoID)) {
+            VisualUIHelper.ApplySolidColor(dialoguePanelImage, UITheme.Panel, true);
+        }
+        dialoguePanelImage.raycastTarget = true;
 
         speakerText.gameObject.SetActive(true);
         speakerText.alignment = TextAnchor.MiddleLeft;
         speakerText.fontSize = 23;
-        speakerText.color = new Color(0.78f, 0.95f, 1f, 1f);
+        speakerText.color = UITheme.Accent;
         SetOffsets(speakerText.rectTransform, new Vector2(44f, -54f), new Vector2(-220f, -16f));
 
         bodyText.alignment = TextAnchor.UpperLeft;
         bodyText.fontSize = 25;
-        bodyText.color = new Color(0.9f, 0.98f, 1f, 0.96f);
+        bodyText.color = UITheme.TextPrimary;
         bodyText.resizeTextMinSize = 18;
         bodyText.resizeTextMaxSize = 25;
         SetOffsets(bodyText.rectTransform, new Vector2(48f, 74f), new Vector2(-48f, -60f));
@@ -994,10 +1003,9 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
             if (actionImage != null) {
                 bool isStartDoll = actionID == PrologueDollWakeNarrativeFlow.StartDollActionID;
                 if (isStartDoll) {
-                    VisualUIHelper.ApplySolidColor(actionImage, new Color(0.01f, 0.22f, 0.27f, 0.96f), true);
+                    UITheme.StyleButton(actionButton, true);
                 } else {
-                    VisualUIHelper.ApplyButtonSkin(actionButton, VisualAssetService.UIButtonPrimaryID, new Color(0.024f, 0.18f, 0.22f, 0.98f));
-                    actionImage.color = new Color(0.024f, 0.18f, 0.22f, 0.98f);
+                    UITheme.StyleButton(actionButton, true);
                 }
             }
             if (ritualActionPromptText != null) {
@@ -1015,7 +1023,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         if (_actionButtonText != null) {
             _actionButtonText.text = visible ? label : string.Empty;
             _actionButtonText.fontSize = actionID == PrologueDollWakeNarrativeFlow.StartDollActionID ? 27 : 24;
-            _actionButtonText.color = new Color(0.82f, 0.98f, 1f, 1f);
+            _actionButtonText.color = UITheme.OnAccent;
         }
     }
 
@@ -1069,15 +1077,13 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         if (_autoButtonText != null) {
             _autoButtonText.text = _isAutoEnabled ? "自动·开" : "自动";
             _autoButtonText.fontSize = 14;
-            _autoButtonText.color = _isAutoEnabled
-                ? new Color(0.76f, 0.98f, 1f, 0.96f)
-                : new Color(0.70f, 0.82f, 0.86f, 0.66f);
+            _autoButtonText.color = _isAutoEnabled ? UITheme.Accent : UITheme.TextSecondary;
         }
 
         if (_logButtonText != null) {
             _logButtonText.text = "记录";
             _logButtonText.fontSize = 15;
-            _logButtonText.color = new Color(0.70f, 0.82f, 0.86f, 0.66f);
+            _logButtonText.color = UITheme.TextSecondary;
         }
     }
 
@@ -1115,10 +1121,12 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         Image image = EnsureComponent<Image>(obj);
         Button button = EnsureComponent<Button>(obj);
         button.targetGraphic = image;
-        VisualUIHelper.ApplySolidColor(image, new Color(0.08f, 0.28f, 0.34f, 0.94f), true);
-        Outline outline = EnsureComponent<Outline>(obj);
-        outline.effectColor = new Color(0.72f, 0.96f, 1f, 0.26f);
-        outline.effectDistance = new Vector2(1f, -1f);
+        VisualUIHelper.ApplySolidColor(image, UITheme.PanelRaised, true);
+        UITheme.ApplyButtonSkin(image, UITheme.PanelRaised);
+        Outline outline = obj.GetComponent<Outline>();
+        if (outline != null) {
+            outline.enabled = false;
+        }
 
         Transform textTransform = obj.transform.Find("Text");
         GameObject textObj = textTransform != null ? textTransform.gameObject : new GameObject("Text");
@@ -1126,7 +1134,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         label = EnsureComponent<Text>(textObj);
         label.font = font;
         label.fontSize = 24;
-        label.color = new Color(0.9f, 0.99f, 1f, 1f);
+        label.color = UITheme.TextPrimary;
         label.alignment = TextAnchor.MiddleCenter;
         label.raycastTarget = false;
         Stretch(label.rectTransform);
@@ -1235,7 +1243,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         public Vector2 Anchor;
         public Vector2 Position;
         public Vector2 Size;
-        public Color FrameColor = new Color(0.72f, 0.94f, 0.98f, 0.14f);
+        public Color FrameColor = new Color(0.96f, 0.9f, 0.8f, 0.2f);
         public Color RegisteredColor = Color.white;
         public Color MissingColor = new Color(0.08f, 0.11f, 0.13f, 0.96f);
 

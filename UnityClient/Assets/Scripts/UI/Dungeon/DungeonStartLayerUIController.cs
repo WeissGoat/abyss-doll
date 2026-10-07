@@ -219,11 +219,11 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         layoutElement.preferredHeight = 548f;
 
         Image cardBg = card.AddComponent<Image>();
-        VisualUIHelper.ApplySolidColor(cardBg, new Color(0.004f, 0.020f, 0.030f, 0.32f), true);
+        if (!UITheme.ApplyBoardSkin(cardBg, VisualAssetService.UIPanelMainID)) {
+            VisualUIHelper.ApplySolidColor(cardBg, UITheme.Panel, true);
+        }
 
-        Outline outline = card.AddComponent<Outline>();
-        outline.effectColor = new Color(0.64f, 0.96f, 1f, 0.18f);
-        outline.effectDistance = new Vector2(1.2f, -1.2f);
+        cardBg.raycastTarget = true;
 
         Image innerWash = CreateImage("PermitInnerWash_Image", card.transform);
         LayoutElement washLayout = innerWash.gameObject.AddComponent<LayoutElement>();
@@ -233,7 +233,7 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         washRect.anchorMax = new Vector2(1f, 1f);
         washRect.offsetMin = new Vector2(20f, 20f);
         washRect.offsetMax = new Vector2(-20f, -20f);
-        VisualUIHelper.ApplySolidColor(innerWash, new Color(0.08f, 0.42f, 0.5f, 0.09f), false);
+        VisualUIHelper.ApplySolidColor(innerWash, Color.clear, false);
 
         Image gate = CreateImage("PermitGate_Image", card.transform);
         LayoutElement gateLayout = gate.gameObject.AddComponent<LayoutElement>();
@@ -244,9 +244,8 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         gateRect.pivot = new Vector2(0f, 0.5f);
         gateRect.anchoredPosition = new Vector2(30f, 0f);
         gateRect.sizeDelta = new Vector2(520f, -44f);
-        VisualUIHelper.ApplyCoverSprite(gate, FirstDiveGateVisualID, Color.white, new Color(0.02f, 0.07f, 0.09f, 0.92f));
-        gate.color = new Color(0.92f, 1f, 1f, 0.96f);
-        gate.raycastTarget = false;
+        // A framed thumbnail of the gate on the left of the card; the screen behind already shows it full size.
+        VisualUIHelper.ApplySimpleSprite(gate, FirstDiveGateVisualID, Color.white, new Color(0.02f, 0.07f, 0.09f, 0.92f), false, true);
 
         Image gateVeil = CreateImage("PermitGateVeil_Image", card.transform);
         LayoutElement gateVeilLayout = gateVeil.gameObject.AddComponent<LayoutElement>();
@@ -257,7 +256,7 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         gateVeilRect.pivot = gateRect.pivot;
         gateVeilRect.anchoredPosition = gateRect.anchoredPosition;
         gateVeilRect.sizeDelta = gateRect.sizeDelta;
-        VisualUIHelper.ApplySolidColor(gateVeil, new Color(0.006f, 0.02f, 0.028f, 0.08f), false);
+        VisualUIHelper.ApplySolidColor(gateVeil, Color.clear, false);
 
         Image seal = CreateImage("PermitSeal_Image", card.transform);
         LayoutElement sealLayout = seal.gameObject.AddComponent<LayoutElement>();
@@ -268,9 +267,9 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         sealRect.pivot = new Vector2(0f, 1f);
         sealRect.anchoredPosition = new Vector2(186f, -48f);
         sealRect.sizeDelta = new Vector2(136f, 136f);
-        VisualUIHelper.ApplyContainSprite(seal, VisualAssetService.UIIconDivePermitID, new Vector2(136f, 136f), new Color(0.72f, 0.98f, 1f, 0.98f), new Color(0.06f, 0.44f, 0.54f, 0.86f), false);
+        VisualUIHelper.ApplyContainSprite(seal, VisualAssetService.UIIconDivePermitID, new Vector2(136f, 136f), Color.white, UITheme.Border, false);
 
-        Text sealText = CreatePermitText("PermitSealText_Text", card.transform, font, 18, new Color(0.78f, 0.96f, 1f, 0.92f));
+        Text sealText = CreatePermitText("PermitSealText_Text", card.transform, font, 18, UITheme.TextSecondary);
         LayoutElement sealTextLayout = sealText.gameObject.AddComponent<LayoutElement>();
         sealTextLayout.ignoreLayout = true;
         sealText.alignment = TextAnchor.UpperCenter;
@@ -282,7 +281,7 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         sealTextRect.anchoredPosition = new Vector2(160f, -170f);
         sealTextRect.sizeDelta = new Vector2(140f, 82f);
 
-        Text sideNote = CreatePermitText("PermitSideNote_Text", card.transform, font, 16, new Color(0.66f, 0.84f, 0.88f, 0.78f));
+        Text sideNote = CreatePermitText("PermitSideNote_Text", card.transform, font, 16, UITheme.TextMuted);
         LayoutElement sideNoteLayout = sideNote.gameObject.AddComponent<LayoutElement>();
         sideNoteLayout.ignoreLayout = true;
         sideNote.alignment = TextAnchor.UpperCenter;
@@ -303,9 +302,9 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         copyPanelRect.pivot = new Vector2(0f, 1f);
         copyPanelRect.anchoredPosition = new Vector2(580f, -48f);
         copyPanelRect.sizeDelta = new Vector2(480f, 360f);
-        VisualUIHelper.ApplySolidColor(copyPanel, new Color(0.012f, 0.040f, 0.050f, 0.28f), false);
+        VisualUIHelper.ApplySolidColor(copyPanel, Color.clear, false);
 
-        Text header = CreatePermitText("PermitTitle_Text", copyPanel.transform, font, 38, new Color(0.84f, 0.98f, 1f, 1f));
+        Text header = CreatePermitText("PermitTitle_Text", copyPanel.transform, font, 38, UITheme.Accent);
         header.text = _permitTitleText;
         RectTransform headerRect = header.rectTransform;
         headerRect.anchorMin = new Vector2(0f, 1f);
@@ -314,7 +313,7 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         headerRect.anchoredPosition = new Vector2(22f, -16f);
         headerRect.sizeDelta = new Vector2(-44f, 64f);
 
-        Text subHeader = CreatePermitText("PermitSubTitle_Text", copyPanel.transform, font, 20, new Color(0.64f, 0.86f, 0.9f, 0.82f));
+        Text subHeader = CreatePermitText("PermitSubTitle_Text", copyPanel.transform, font, 20, UITheme.TextSecondary);
         subHeader.text = "\u7b2c\u4e00\u5c42\uff1a\u65e7\u77ff\u4e95\u6d45\u7f1d";
         RectTransform subHeaderRect = subHeader.rectTransform;
         subHeaderRect.anchorMin = new Vector2(0f, 1f);
@@ -324,7 +323,7 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         subHeaderRect.sizeDelta = new Vector2(-48f, 34f);
 
         DiveReadinessResult readiness = BuildReadiness(player, 1);
-        Text body = CreatePermitText("PermitBody_Text", copyPanel.transform, font, 24, new Color(0.76f, 0.92f, 0.95f, 0.98f));
+        Text body = CreatePermitText("PermitBody_Text", copyPanel.transform, font, 24, UITheme.TextPrimary);
         body.text = _permitSummaryText;
         RectTransform bodyRect = body.rectTransform;
         bodyRect.anchorMin = new Vector2(0f, 0f);
@@ -333,7 +332,7 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         bodyRect.offsetMin = new Vector2(24f, 28f);
         bodyRect.offsetMax = new Vector2(-24f, -116f);
 
-        Text permitNo = CreatePermitText("PermitSerial_Text", card.transform, font, 16, new Color(0.64f, 0.84f, 0.88f, 0.82f));
+        Text permitNo = CreatePermitText("PermitSerial_Text", card.transform, font, 16, UITheme.TextMuted);
         LayoutElement permitNoLayout = permitNo.gameObject.AddComponent<LayoutElement>();
         permitNoLayout.ignoreLayout = true;
         permitNo.alignment = TextAnchor.UpperRight;
@@ -726,8 +725,8 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         }
 
         if (_firstDiveMode) {
-            ApplyFirstDiveButtonSkin(confirmBtn, new Color(0.04f, 0.52f, 0.62f, 0.97f));
-            ApplyFirstDiveButtonSkin(closeBtn, new Color(0.06f, 0.18f, 0.24f, 0.9f));
+            UITheme.StyleButton(confirmBtn, true);
+            UITheme.StyleButton(closeBtn, false);
         } else {
             UITheme.StyleButton(confirmBtn, true);
             UITheme.StyleButton(closeBtn, false);
@@ -753,27 +752,6 @@ public class DungeonStartLayerUIController : MonoBehaviour {
 
             confirmBtn.interactable = GameRoot.Core?.Dungeon != null && GameRoot.Core.Dungeon.CanStartAtLayer(_selectedLayerID);
         }
-    }
-
-    private void ApplyFirstDiveButtonSkin(Button button, Color color) {
-        if (button == null) {
-            return;
-        }
-
-        Image image = button.GetComponent<Image>();
-        if (image == null) {
-            image = button.gameObject.AddComponent<Image>();
-        }
-
-        VisualUIHelper.ApplySolidColor(image, color, true);
-        button.targetGraphic = image;
-        Outline outline = button.GetComponent<Outline>();
-        if (outline == null) {
-            outline = button.gameObject.AddComponent<Outline>();
-        }
-
-        outline.effectColor = new Color(0.8f, 1f, 1f, 0.28f);
-        outline.effectDistance = new Vector2(1f, -1f);
     }
 
     private void SetButtonLabel(Button button, string label, int fontSize) {

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "r8_bg_workshop_day",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round1/r1_workshop_0.png",
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round1/r1_town_0.png"
+  ],
+  "prompt": "Use the reference image only for its art style, palette, line work and painterly anime rendering. Paint a new wide 16:9 Japanese anime game background, hand-painted, soft cel shading, clean shapes, no characters, no people, no text, no UI. Scene: the interior of a small cozy doll repair workshop in a mining town, empty of people. Warm amber late-afternoon light pours through a large round window on the right. A sturdy wooden workbench with tools, spools of thread, linen cloth and small doll parts; shelves of jars, wooden doll limbs and a few finished dolls; dried herbs hanging from beams; a worn rug on a wooden floor. Eye-level wide shot. Keep the lower center and the left half of the floor open and uncluttered, because a standing character will be placed there later. Warm honey, cream, wood and sage palette."
+ },
+ {
+  "id": "r8_bg_layer_select",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round1/r1_town_0.png",
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round1/r1_abyss_1.png"
+  ],
+  "prompt": "Use the reference image only for its art style, palette, line work and painterly anime rendering. Paint a new wide 16:9 Japanese anime game background, hand-painted, soft cel shading, clean shapes, no characters, no people, no text, no UI. Scene: the edge of the giant abyss at the town's lowest terrace. A wooden platform with railings and a rope lift cage hanging from a pulley frame, lanterns on posts. Beyond the railing the huge vertical chasm drops away, its walls fading from warm sunlit stone at the top to teal glowing darkness far below. Warm above, cold below. The middle of the image is calm, a dark chasm with little detail."
+ },
+ {
+  "id": "r8_bg_combat_abyss",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round1/r1_abyss_1.png"
+  ],
+  "prompt": "Use the reference image only for its art style, palette, line work and painterly anime rendering. Paint a new wide 16:9 Japanese anime game background, hand-painted, soft cel shading, clean shapes, no characters, no people, no text, no UI. Scene: a side-on view of a wide mossy ledge in the first layer of the abyss, a flat walkable stone floor across the lower third of the image. Giant tree roots on the far walls, clusters of glowing teal mushrooms, drifting light spores, faint shafts of daylight from far above, an old wooden scaffold in the distance. The left and right thirds of the floor are open stages for two opponents. Slightly muted values so characters in front stand out."
+ },
+ {
+  "id": "r8_bg_safe_room",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round1/r1_abyss_1.png",
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round1/r1_workshop_0.png"
+  ],
+  "prompt": "Use the reference image only for its art style, palette, line work and painterly anime rendering. Paint a new wide 16:9 Japanese anime game background, hand-painted, soft cel shading, clean shapes, no characters, no people, no text, no UI. Scene: a small old miners' shelter carved into the rock wall of the abyss first layer, a safe resting place. Inside: warm lantern light, a bedroll on crates, a small iron stove with a kettle, a shelf with supplies, a hand-drawn map pinned to the wall. Through the open entrance on one side the cool teal glowing cave is visible. A warm island of light in a cold place."
+ },
+ {
+  "id": "r8_bg_stairs_room",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round1/r1_abyss_1.png"
+  ],
+  "prompt": "Use the reference image only for its art style, palette, line work and painterly anime rendering. Paint a new wide 16:9 Japanese anime game background, hand-painted, soft cel shading, clean shapes, no characters, no people, no text, no UI. Scene: a carved stone stairway spiralling down along the wall of the abyss into deeper darkness, with rope railings, wooden supports and a few lanterns. The stairs lead down to the lower right; the colours grow colder, bluer and darker the further down they go. A sense of going deeper, quiet and a little ominous."
+ },
+ {
+  "id": "r8_bg_settlement_victory",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round1/r1_town_0.png"
+  ],
+  "prompt": "Use the reference image only for its art style, palette, line work and painterly anime rendering. Paint a new wide 16:9 Japanese anime game background, hand-painted, soft cel shading, clean shapes, no characters, no people, no text, no UI. Scene: the town at the rim of the abyss at dusk, seen from a rope lift cage arriving at the top. Lanterns are being lit along the wooden terraces, warm windows glow, laundry lines and potted plants, a soft orange and violet sky. The feeling of coming home safely after a dive."
+ },
+ {
+  "id": "r8_bg_settlement_defeat",
+  "provider": "gemini_chat_image",
+  "w": 1920,
+  "h": 1080,
+  "count": 1,
+  "refs": [
+   "F:/design/game/project/p3/tmp/art_explore/2026-10-05_m4_style/round1/r1_abyss_1.png"
+  ],
+  "prompt": "Use the reference image only for its art style, palette, line work and painterly anime rendering. Paint a new wide 16:9 Japanese anime game background, hand-painted, soft cel shading, clean shapes, no characters, no people, no text, no UI. Scene: the bottom landing of the lift shaft deep in the abyss, dim and cold blue, slack cables, a fallen lantern whose light has almost gone out, water dripping from the rock, faint teal glow far away. Quiet and sad, no blood, no bodies."
+ }
+]
