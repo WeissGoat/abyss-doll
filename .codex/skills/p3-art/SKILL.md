@@ -43,11 +43,12 @@ description: Use for any Project P3 art work - concept or placeholder images, fo
 
 按阶段需要再读：状态机 [state-machine.md](references/state-machine.md)，候选评审 [candidate-evaluation.md](references/candidate-evaluation.md)，入库 [approved-and-unity.md](references/approved-and-unity.md)，证据 [evidence-and-writeback.md](references/evidence-and-writeback.md)，什么时候停下来问用户 [interaction-gates.md](references/interaction-gates.md)。
 
+也可以不走脚本，直接把挑中的图按同 VisualID 原地覆盖进 Approved（M4 的做法）：只换图片内容，路径、`.meta` 和 GUID 不变，覆盖后在 Unity 里刷新确认能正常导入。
+
 同步 Approved 前要用户同意（可以一次批准一整批）。
 
 ## 硬规则
 
-- 只有脚本写 `processed/` 轮次、`selected/`、Approved、Manifest 和 Registry；不手工复制候选，不覆盖已发布的轮次。原因：脚本让哈希、`.meta` 和证据保持一致，手工复制会悄悄破坏它们。
 - 同 VisualID 替换保留 VisualID、Approved 路径、DisplaySpec、`.meta` 和 GUID。原因：Prefab 和 Registry 按 GUID 引用，GUID 一变，所有用到它的界面都会断。
 - Prefab、Registry 和运行时代码不引用 `_IncomingAI`。原因：它不进 git，换台机器或打包就丢。
 - 不提交 API key、`*.local.yaml`、smoke 测试图或 `_IncomingAI` 原始候选。原因：密钥泄露无法撤回；候选图体积大，也不是正式资产。
