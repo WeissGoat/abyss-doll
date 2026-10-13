@@ -8,7 +8,7 @@
 
 - 通用规格以 `美术文档/18_CG底图与漫画式播放演出工作流.md` 为准。
 - 目标切片细案以对应 CG 细案为准，例如 `美术文档/19_T0-01序章CG细案.md`。
-- AI 后端、prompt、图生图、inpaint 和 raw 生成证据使用 `.codex/skills/p3-art/references/image-generation.md`。
+- AI 后端、prompt、图生图、inpaint 和锚点一致性的通用方法用用户级 skill `art-gen`；正式 raw 生成证据见 [prompt-and-generation.md](prompt-and-generation.md)。
 - selected 晋级、Approved 同步、Unity 导入和 Registry 登记使用 `.codex/skills/p3-art/references/production-pipeline.md`（Skill 名 `p3-art`）。
 - 运行时截图、T0 seal capture 和 `runtime_validated` 验收使用 `.codex/skills/p3-playtest/SKILL.md`；旧 ArtAcceptance 全量回归（`art_regression`）随旧验证框架下线。
 
@@ -24,12 +24,12 @@
 
 ## 开工读取
 
-1. 读取 `AGENTS.md`、`PROJECT_STATUS.md`、`PROJECT_STATUS.md`。
+1. 读取 `AGENTS.md`、`PROJECT_STATUS.md`。
 2. 读取目标 CG 事实来源：
    - 通用流程：`美术文档/18_CG底图与漫画式播放演出工作流.md`
    - 目标细案：例如 `美术文档/19_T0-01序章CG细案.md`
    - 目标角色 / 场景 / UI / 剧情事实文档。
-3. 需要实际出图、图生图、局部修图或后端排障时，读取并遵守 `.codex/skills/p3-art/references/image-generation.md`。
+3. 需要实际出图、图生图、局部修图或后端排障时，按 `art-gen` 执行；正式 Panel 出图同时遵守 [prompt-and-generation.md](prompt-and-generation.md)。
 4. 需要 selected 晋级、Approved 同步、Unity 导入或 Registry 登记时，读取并遵守 `.codex/skills/p3-art/references/production-pipeline.md`。
 5. 需要运行时截图或验收时，读取并遵守 `.codex/skills/p3-playtest/SKILL.md`。
 

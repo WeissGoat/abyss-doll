@@ -23,6 +23,7 @@
 - 自动测试：Skill `p3-program-validation`（EditMode，程序集 `P3.SmokeTests.Editor`）。
 - 看游戏实际画面：Skill `p3-playtest`。游戏里的操作用 `P3DevTools`（一行调用、返回文字报告，例如 `return P3DevTools.Describe();`）；游戏内按 F1 是同一套功能的开发者面板。
 - 打包：Editor 开着时用菜单 `Tools/P3/打包 Windows 试玩版`（或 MCP `return P3BuildTools.BuildWindows(false);`），Editor 关着时用 `.\tools\build\Build-Windows.ps1`。输出在 `Builds/Windows/`（不进 git）。打完用 `.\tools\build\Test-WindowsBuild.ps1` 自检（包自己从标题开新游戏、玩完序章、再跑 3 次下潜和夜间营业；`P3DevTools.PlayPrologue()` 在 Editor 里也能一行玩完序章），再用 `Pack-WindowsBuild.ps1` 压缩。
+- 出图：通用方法（找网关、选后端、串行出候选、拼图评审）用用户级 Skill `art-gen`；网关是 submodule `tools/ai-image-gateway`，配置 `config.local.yaml` 不进 git；正式资产按 `p3-art` 入库。
 - 改了 `配置表(JSON)/` 后先同步：`.\tools\config\Sync-Configs.ps1 -Clean`。加改内容见 Skill `p3-content`。
 - Editor 没开时，写明 `validation_limited:unity_editor_not_running`，能做的静态检查照做。
 - 开工检查：`python tools/agent/agent_health_check.py`（分支、改动、距上次游戏改动的天数、Skill 校验）。

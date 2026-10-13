@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Turn an existing, detailed P3 art requirement into a runtime asset through the project's scripts. This flow owns orchestration only. Art facts stay in `美术文档/`; image creation and editing follow [image-generation.md](image-generation.md); narrative pages also follow [narrative-cg.md](narrative-cg.md); runtime diagnosis and evidence go to `p3-playtest`. A production profile selects workspace, interaction, and acceptance behavior; it never fixes the generation method, provider, or tool.
+Turn an existing, detailed P3 art requirement into a runtime asset through the project's scripts. This flow owns orchestration only. Art facts stay in `美术文档/`; generic image creation, editing and backend choice follow the user-level `art-gen` skill, and formal generation runs through the scripts in [prompt-and-generation.md](prompt-and-generation.md); narrative pages also follow [narrative-cg.md](narrative-cg.md); runtime diagnosis and evidence go to `p3-playtest`. A production profile selects workspace, interaction, and acceptance behavior; it never fixes the generation method, provider, or tool.
 
 ## Lanes
 
@@ -28,7 +28,7 @@ Read only what the current phase needs, after the `AGENTS.md` startup reads; ski
 |---|---|---|
 | Start | Section 2 of `美术文档/00_美术流水线总览.md`; the target asset's source | The rest of `美术文档/00_美术流水线总览.md` |
 | Intake: `SOURCE_AUDIT` → `PRODUCTION_PLAN` | `美术文档/01_Manifest规范.md` only when a VisualID still needs admission | [modes-and-input.md](modes-and-input.md), [state-machine.md](state-machine.md), [workspace-profiles-and-character-portraits.md](workspace-profiles-and-character-portraits.md); `美术文档/01_Manifest规范.md` when admitting a requirement or editing the Manifest / seed; `美术文档/02_资源规格与接入规范.md` when a new asset needs output or display specs |
-| Prompt and generation: `BACKEND_PREFLIGHT` → `OUTPUT_CONTRACT_AUDIT` | [prompt-and-generation.md](prompt-and-generation.md), `美术文档/04_美术风格基准.md` | `p3-art` |
+| Prompt and generation: `BACKEND_PREFLIGHT` → `OUTPUT_CONTRACT_AUDIT` | [prompt-and-generation.md](prompt-and-generation.md), `美术文档/04_美术风格基准.md` | `art-gen` (backends and prompt formats) |
 | Processing, review, and selection: `PREPROCESS` → `REPAIR_OR_REGENERATE` | [candidate-evaluation.md](candidate-evaluation.md) | `美术文档/03_AI生成与筛选规范.md` |
 | Approved, Unity, and Registry: `APPROVED_GATE` → `REGISTRY_INTEGRATION` | [approved-and-unity.md](approved-and-unity.md) | `美术文档/02_资源规格与接入规范.md` |
 | Runtime validation: `RUNTIME_VALIDATION` | Deferred | `p3-playtest` |

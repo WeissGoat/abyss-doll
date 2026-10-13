@@ -18,6 +18,8 @@ In the fast lane, author only the format this Run's provider consumes and mark t
 
 `Run-ArtProductionBatch.ps1`, `Run-CharacterPortraitSet.ps1`, and `Run-ArtGeneration.ps1` consume the exact active Revision and write `RequirementSnapshot`, `PromptRevisionID`, `PromptRevisionFingerprint`, `PromptRevisionSnapshot`, `PromptFormat`, and `ProviderRequest` to evidence. They fail closed on missing/stale Requirements, pointer mismatch, `prompt_authoring_required`, invalid Revision, unavailable Variant, or incomplete constraint mapping. Lifecycle and processing evidence is excluded from the Requirement fingerprint, so normal state transitions and numeric rounds do not stale an unchanged requirement; semantic contract changes do. Provider adapters may serialize only: they must not append quality phrases, rewrite natural language, duplicate Prompt text, or rebuild preservation/change instructions.
 
+Formal raw output goes only to the workspace the Resolver derives from `ProductionProfile + VisualID` (`UnityClient/Assets/Art/_IncomingAI/<standard_assets|character_portraits>/<VisualID>/raw/`, through `art_workspace.py`); never create a loose `raw/` at the `_IncomingAI` root. Exploration and backend comparisons go to a task-named directory and never enter Approved, the Manifest or the Registry.
+
 Formal generation evidence uses `EvidenceMode=formal_v2` and keeps the exact published `PromptRevisionSnapshot` plus `ProviderRequest`; it never copies a second prompt representation. Historical snapshots are read-only evidence, not an executable fallback. Generation evidence alone never lets the image capability advance `selected`, `Approved`, `registered`, or `runtime_validated`.
 
 ## Batch generation
@@ -26,4 +28,4 @@ Formal generation evidence uses `EvidenceMode=formal_v2` and keeps the exact pub
 - Judge a run by its `summary.json` (`FinalState`, `Claims`) and `technical-review.json`, not by child exit codes: a child that exits 0 without decodable raw evidence from the current batch is still a generation failure.
 - A `ui_skin` with `ProcessSpec.NineSlice.Enabled=true` needs an explicit capability route and the specialized adapter chosen for that Run before the common optimizer. Record the actual capability in generation and round evidence; keep the Manifest, Asset Contract, VisualID, and workspace method-neutral.
 - The batch route rejects `character_portrait_set`. Portrait members are planned and ordered by `AssetSetID`, `SetRole`, and explicit `SourceAssets` in `Run-CharacterPortraitSet.ps1`; its evidence order, `PendingDecision` stops, and resume checks are in [state-machine.md](state-machine.md).
-- To pick a provider or capability for a route, use `p3-art` for backend availability and fallback, then record the choice in run evidence.
+- To pick a provider or capability for a route, use `art-gen` for backend choice and the smoke rules in `p3-art`, then record the choice in run evidence.

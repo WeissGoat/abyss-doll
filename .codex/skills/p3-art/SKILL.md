@@ -7,24 +7,26 @@ description: Use for any Project P3 art work - concept or placeholder images, fo
 
 一条路：**生成 → 挑选 → 入库**（Approved → Unity 导入 → Registry）。素材在真实界面上显示得对不对，交给 `p3-playtest` 的美术轻量检查。
 
+通用的出图和挑选方法在用户级 skill `art-gen`：找网关、选后端、各后端的 Prompt 写法、串行出图、拼图评审、靠锚点保持一套图一致。本 skill 只写 P3 特有的部分：VisualID 流水线、Approved / Unity / Registry 和它们的门禁。
+
 ## 先判断是哪一种
 
 | 类型 | 怎么做 | 参考 |
 |---|---|---|
-| 探索：概念图、方向对比、占位图 | 直接出图，存到 `tmp/art_explore/<日期>_<主题>/`（不进 git），给用户看。不进 Approved，不写 Manifest，没有门禁，结论只算探索结论。 | [image-generation.md](references/image-generation.md) |
+| 探索：概念图、方向对比、占位图 | 按 `art-gen` 直接出图，存到 `tmp/art_explore/<日期>_<主题>/`（不进 git），给用户看。不进 Approved，不写 Manifest，没有门禁，结论只算探索结论。 | `art-gen` |
 | 标准资产：图标、背景、普通 UI 图片 | 走脚本流水线的快速道：编译需求 → 出图 → 一次性评审整批 → 选定 → 入库。 | [production-pipeline.md](references/production-pipeline.md) |
 | 身份类资产：角色立绘套组、叙事 CG / 漫画页、UI 九宫格皮肤、首个风格锚点、替换界面上已在用的资产 | 先定角色、场景、风格锚点，再按套 / 按页生产，走完整道。 | [narrative-cg.md](references/narrative-cg.md)、[production-pipeline.md](references/production-pipeline.md) |
 
-美术方向在 M4 锁定（暂定对标《火山的女儿》《来自深渊》，见 `PROJECT_STATUS.md`）。在那之前，正式生产只做 Demo 必需、和方向无关的素材；身份类资产和新的风格锚点等到 M4。
+美术方向和风格锚点以 `美术文档/04_美术风格基准.md`、角色设定以 `美术文档/人设/` 为准；当前阶段见 `PROJECT_STATUS.md`。
 
-## 出图
+## 出图（P3 补充）
 
-- 新概念图：优先用宿主自带的生图工具（例如 Codex 的 `image_gen`）；没有就用 AI 图片网关的 `openai_images`。
-- 已有图只改局部，或做角色 / 状态 / 姿态差分：`gemini_chat_image` 图生图。
-- 需要二次元特化或 Danbooru tag 控制：`novelai`。
-- 不同后端的 Prompt 格式不同（自然语言或 tag）；批量请求一张一张串行发。
-- 正式批量前，先对目标后端做最小 smoke：`.\tools\美术工具\Test-AIImageBackends.ps1 -Backend <chatgpt|gemini|novelai> -Attempts 1`。
-- 细节：[image-generation.md](references/image-generation.md)、[provider-selection.md](references/provider-selection.md)、[generation-workflows.md](references/generation-workflows.md)。
+- 网关是 submodule `tools/ai-image-gateway`，配置 `tools/ai-image-gateway/config.local.yaml`（不进 git）。`art-gen` 的 `locate_gateway.py` 在本仓库里会自动找到它。
+- 探索、改图、差分试验：用 `art-gen` 的 `gen.py`，输出放探索目录。
+- 正式 VisualID 资产：出图走流水线脚本（`Run-ArtProductionBatch.ps1`、`Run-CharacterPortraitSet.ps1`、`Run-ArtGeneration.ps1`）。它们只消费已发布的 PromptRevision，raw 写进 `_IncomingAI/<profile>/<VisualID>/raw/`，证据带 `EvidenceMode=formal_v2`；见 [prompt-and-generation.md](references/prompt-and-generation.md)。
+- 后端 smoke：`.\tools\美术工具\Test-AIImageBackends.ps1 -Backend <chatgpt|gemini|novelai> -Attempts 1`（`openai_images`=`chatgpt`，`gemini_chat_image`=`gemini`）。它只测 512² 文生图；要用图生图或 inpaint，先用 `art-gen` 的 `gen.py i2i` / `inpaint` 出一张小图确认。
+
+没有 `art-gen` 的宿主（例如 Codex 没装这份用户级 skill）时，至少守住：后端按任务选（新图 `openai_images` 或宿主生图工具，改图和差分 `gemini_chat_image` 图生图，二次元和 tag 控制 `novelai`）；Prompt 按后端写成自然语言或 Danbooru tag；批量一张一张串行发；正式批量前先 smoke。
 
 ## 挑选和入库
 

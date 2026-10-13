@@ -51,7 +51,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | 端到端美术生产的事实边界 | [00_美术流水线总览.md](00_美术流水线总览.md) | 定义阶段、快速道 / 完整道、状态、Owner 和交付边界；具体执行、停问、重试和恢复由 Skill 维护。 |
 | 持久化生成请求在哪里 | [_generated/art_generation_requests.json](_generated/art_generation_requests.json) | 由 `Compile-ArtGenerationRequests.ps1` 生成；保存 `RequestID`、fingerprint、CanonicalVisualBrief、TechnicalRequest 和自然语言 / Danbooru 两种 Prompt Variant。 |
 | Agent 如何端到端生产正式美术资产 | [../.codex/skills/p3-art/SKILL.md](../.codex/skills/p3-art/SKILL.md) | 从需求准入、Asset Contract、候选生成与 Agent 评分推进到 Approved、Unity 接入、运行时验收和状态回写；支持交互与全自动模式。 |
-| Agent 如何生成或调整图片 | [../.codex/skills/p3-art/SKILL.md](../.codex/skills/p3-art/SKILL.md) | `p3-art` 的出图部分（`references/image-generation.md`）：文生图、图生图、差分、inpaint、后端选择和 raw 生成证据。 |
+| Agent 如何生成或调整图片 | [../.codex/skills/p3-art/SKILL.md](../.codex/skills/p3-art/SKILL.md) | 通用方法（找网关、后端选择、文生图、图生图、差分、inpaint、拼图评审）在用户级 skill `art-gen`；P3 正式出图和 raw 证据见 `p3-art` 的出图补充。 |
 | 小循环 GIF 如何逐帧替换人物 | [20_GIF小循环人物替换工作流.md](20_GIF小循环人物替换工作流.md) | 独立工具工作流，定义拆帧、身份包、两帧预审、独立逐帧图生图、风险检查和 GIF 重编码；当前为已批准设计、尚未实现。 |
 | UI 结构版本怎么管理 | [ui_design/README.md](ui_design/README.md) | UI 设计系统入口，说明 active / baseline / draft / handoff。 |
 | Formal V2 UX/UI 怎么推进 | [ui_design/formal_v2/00_formal_v2_ux_ui_overview.md](ui_design/formal_v2/00_formal_v2_ux_ui_overview.md) | 当前 Formal V2 总方案，解决按钮堆叠和正式感不足。 |
