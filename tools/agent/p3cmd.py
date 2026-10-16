@@ -78,6 +78,8 @@ def main(argv):
     port = DEFAULT_PORT
     if argv[0] == "--port":
         port, argv = int(argv[1]), argv[2:]
+    if argv[0].lower() == "screenshot" and len(argv) > 1 and not argv[1].isdigit():
+        argv[1] = str(Path(argv[1]).resolve())  # the game's working directory is the build folder, not ours
     command = " ".join(f'"{a}"' if " " in a else a for a in argv)
     try:
         reply = send(command, port)

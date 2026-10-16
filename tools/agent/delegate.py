@@ -81,7 +81,8 @@ def main(argv):
     with report.open("a", encoding="utf-8") as f:
         f.write(f"\n\n---\nengine={engine} model={model or 'default'} exit={result.returncode} {int(time.time() - started)}s\n")
         if changed:
-            f.write("WARNING: tracked files changed during the run:\n" + "\n".join(sorted(changed)) + "\n")
+            # Anyone's changes show up here, including the lead agent's own commits while the worker ran.
+            f.write("WARNING: tracked files changed during the run (by the worker or anyone else):\n" + "\n".join(sorted(changed)) + "\n")
 
     print(report)
     print(report.read_text(encoding="utf-8"))

@@ -120,7 +120,14 @@ public class P3CommandPort : MonoBehaviour {
                 // "screenshot", "screenshot 960", "screenshot <path>" or "screenshot <path> 960".
                 string shotPath = args.Count > 0 && !int.TryParse(args[0], out _) ? args[0] : null;
                 string widthArg = args.LastOrDefault();
-                request.Reply = Screenshot(shotPath, widthArg != null && int.TryParse(widthArg, out int width) ? width : 640);
+                try {
+                    request.Reply = Screenshot(shotPath, widthArg != null && int.TryParse(widthArg, out int width) ? width : 640);
+                } catch (Exception e) {
+                    // Every path must reach Done.Set: an exception escaping the coroutine left the client waiting and
+                    // queued every later command behind it.
+                    request.Ok = false;
+                    request.Reply = e.Message;
+                }
                 break;
             case "quit":
                 request.Reply = "Quitting.";
@@ -199,11 +206,10 @@ public class P3CommandPort : MonoBehaviour {
         }
 
         if (string.IsNullOrEmpty(path)) {
-            string folder = Path.Combine(Path.GetDirectoryName(Application.dataPath) ?? ".", "P3Cmd");
-            Directory.CreateDirectory(folder);
-            path = Path.Combine(folder, $"shot_{DateTime.Now:HHmmss_fff}.png");
+            path = Path.Combine(Path.GetDirectoryName(Application.dataPath) ?? ".", "P3Cmd", $"shot_{DateTime.Now:HHmmss_fff}.png");
         }
 
+        Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path)) ?? ".");
         File.WriteAllBytes(path, output.EncodeToPNG());
         string size = $"{output.width}x{output.height}";
         Destroy(frame);
