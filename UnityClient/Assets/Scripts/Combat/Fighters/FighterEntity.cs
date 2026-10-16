@@ -39,6 +39,8 @@ public abstract class FighterEntity {
         }
 
         int originalDamage = damage;
+        int hpBefore = RuntimeHP;
+        int shieldBefore = RuntimeShield;
 
         if (RuntimeShield > 0) {
             if (RuntimeShield >= damage) {
@@ -58,6 +60,14 @@ public abstract class FighterEntity {
             RuntimeHP = 0;
         }
 
+        GameEventBus.PublishCombatBeat(new CombatBeat {
+            Kind = CombatBeatKind.Hit,
+            Target = this,
+            Amount = originalDamage,
+            HpLoss = hpBefore - RuntimeHP,
+            ShieldLoss = shieldBefore - RuntimeShield,
+            Defeated = RuntimeHP <= 0
+        });
         GameEventBus.PublishShieldChanged(Name, RuntimeShield);
         GameEventBus.PublishHPChanged(Name, RuntimeHP, RuntimeMaxHP);
 
@@ -70,6 +80,9 @@ public abstract class FighterEntity {
 
     public virtual void AddShield(int amount) {
         RuntimeShield += amount;
+        if (amount > 0) {
+            GameEventBus.PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Shield, Target = this, Amount = amount });
+        }
         GameEventBus.PublishShieldChanged(Name, RuntimeShield);
         Debug.Log($"[{Name}] Gained {amount} shield. Total Shield: {RuntimeShield}");
     }
@@ -82,6 +95,9 @@ public abstract class FighterEntity {
         int before = RuntimeHP;
         RuntimeHP = Mathf.Min(RuntimeHP + amount, RuntimeMaxHP);
         int actualHeal = RuntimeHP - before;
+        if (actualHeal > 0) {
+            GameEventBus.PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Heal, Target = this, Amount = actualHeal });
+        }
         GameEventBus.PublishHPChanged(Name, RuntimeHP, RuntimeMaxHP);
         Debug.Log($"[{Name}] Recovered {actualHeal} HP. Current HP: {RuntimeHP}/{RuntimeMaxHP}");
     }

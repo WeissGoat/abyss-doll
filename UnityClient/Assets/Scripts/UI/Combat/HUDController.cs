@@ -35,6 +35,7 @@ public class HUDController : MonoBehaviour {
     private Image _shieldBarFill;
     private Transform _apPipParent;
     private CombatIntentReadabilitySnapshot _intentSnapshot;
+    private CombatMotionDirector _motion;
 
     public void SetLootOverlayMode(bool active) {
         SetActiveIfPresent(_turnBannerImage, !active);
@@ -189,6 +190,20 @@ public class HUDController : MonoBehaviour {
         }
         vfxGroup.blocksRaycasts = false;
         vfxGroup.interactable = false;
+
+        // Floating numbers sit above both sides of the stage; the stage itself is what a heavy hit shakes.
+        RectTransform popupLayer = EnsureRect(EnsureTransform(_stageRoot, "CombatPopupLayer"));
+        if (popupLayer != null) {
+            popupLayer.anchorMin = Vector2.zero;
+            popupLayer.anchorMax = Vector2.one;
+            popupLayer.pivot = new Vector2(0.5f, 0.5f);
+            popupLayer.anchoredPosition = Vector2.zero;
+            popupLayer.sizeDelta = Vector2.zero;
+            popupLayer.SetAsLastSibling();
+        }
+
+        _motion = CombatMotionDirector.Ensure(gameObject);
+        _motion.SetLayers(popupLayer, stageRect);
 
         _stageRoot.SetAsLastSibling();
     }
@@ -544,6 +559,10 @@ public class HUDController : MonoBehaviour {
         }
 
         DollFighter activeFighter = GetActivePlayerFighter();
+        if (activeFighter != null && _motion != null) {
+            _motion.Register(activeFighter, _playerDollImage, true);
+        }
+
         if (activeFighter != null) {
             HandleHPChanged(doll.Name, activeFighter.RuntimeHP, activeFighter.RuntimeMaxHP);
         } else {
@@ -653,6 +672,9 @@ public class HUDController : MonoBehaviour {
 
         Image sprite = CreateEnemySprite(slotObj.transform, fighter, isAlive, count);
         sprite.transform.SetAsLastSibling();
+        if (_motion != null) {
+            _motion.Register(fighter, sprite, false);
+        }
 
         float hpRatio = fighter != null && fighter.RuntimeMaxHP > 0
             ? Mathf.Clamp01((float)Mathf.Max(0, fighter.RuntimeHP) / fighter.RuntimeMaxHP)

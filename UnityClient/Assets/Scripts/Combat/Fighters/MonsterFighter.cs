@@ -27,7 +27,7 @@ public class MonsterFighter : FighterEntity {
         }
 
         string actionName = string.IsNullOrEmpty(actionID) ? "MonsterAction" : actionID;
-        GameEventBus.PublishAttackAction(Name, target.Name, actionName);
+        GameEventBus.PublishAttackAction(this, target, actionName);
         GameEventBus.PublishDamageDealt(Name, target.Name, damage);
 
         Debug.Log($"[{Name}] uses [{actionName}] on [{target.Name}] for {damage} damage.");

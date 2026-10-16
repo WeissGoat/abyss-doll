@@ -575,7 +575,7 @@ public class ReduceWeaponDamageAction : MonsterActionBase {
         }
 
         context.RuntimeModifiers.AddWeaponDamageMultiplier(weapon, multiplier, durationPlayerTurns, Config.ActionID);
-        GameEventBus.PublishAttackAction(context.Actor.Name, weapon.Name, Config.ActionID);
+        GameEventBus.PublishInterference(context.Actor, weapon.Name, Config.ActionID, "腐蚀");
         Debug.Log($"[MonsterActionAI] {context.Actor.Name} reduced [{weapon.Name}] damage by multiplier {multiplier} for {durationPlayerTurns} player turn(s).");
         context.Combat?.Timeline?.RecordItemInterference(
             FactionType.Enemy,
@@ -628,7 +628,7 @@ public class AddCursedItemAction : MonsterActionBase {
             return false;
         }
 
-        GameEventBus.PublishAttackAction(context.Actor.Name, item.Name, Config.ActionID);
+        GameEventBus.PublishInterference(context.Actor, item.Name, Config.ActionID, "塞入");
         GameEventBus.PublishItemPlaced(item.InstanceID, x, y);
         context.Combat?.Timeline?.RecordItemInterference(
             FactionType.Enemy,

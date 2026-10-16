@@ -12,6 +12,8 @@ public static class GameEventBus {
     public static event Action<string, string, int> OnDamageDealt;
     // 参数: (发起者ID, 目标ID, 动作描述)
     public static event Action<string, string, string> OnAttackAction;
+    // Strike / hit / shield / heal / interference with the fighter objects; see CombatBeat.
+    public static event Action<CombatBeat> OnCombatBeat;
     
     // 参数: (阵营类型)
     public static event Action<FactionType> OnTurnStarted;
@@ -39,16 +41,33 @@ public static class GameEventBus {
         VisualQueue.Enqueue(new ActionCommand(() => OnShieldChanged?.Invoke(id, current)));
     }
     
+    // The pause belongs to the Hit beat that TakeDamage publishes right after this.
     public static void PublishDamageDealt(string attacker, string target, int damage) {
-        // 先播一段受击飘字的时间，再触发实际UI变动（这里为了简便，在队列里直接组合）
-        VisualQueue.Enqueue(new LogWaitCommand($"💥 [{target}] 受击飘字 -{damage}!", 0.4f));
         VisualQueue.Enqueue(new ActionCommand(() => OnDamageDealt?.Invoke(attacker, target, damage)));
     }
-    
-    public static void PublishAttackAction(string attacker, string target, string weaponName) {
-        // 模拟攻击起手动作延时
-        VisualQueue.Enqueue(new LogWaitCommand($"⚔️ [{attacker}] 对 [{target}] 使用了 [{weaponName}] 攻击!", 0.6f));
-        VisualQueue.Enqueue(new ActionCommand(() => OnAttackAction?.Invoke(attacker, target, weaponName)));
+
+    // The attacker's strike: the screen plays it (lunge) and the queue holds briefly before the hit lands.
+    public static void PublishAttackAction(FighterEntity attacker, FighterEntity target, string weaponName) {
+        PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Strike, Actor = attacker, Target = target, Label = weaponName });
+        string attackerName = attacker?.Name;
+        string targetName = target?.Name;
+        VisualQueue.Enqueue(new ActionCommand(() => OnAttackAction?.Invoke(attackerName, targetName, weaponName)));
+    }
+
+    // An enemy tampers with an item in the backpack (corrodes a weapon, stuffs in junk) instead of dealing damage.
+    public static void PublishInterference(FighterEntity attacker, string itemName, string actionID, string verb) {
+        PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Interfere, Actor = attacker, Label = $"{verb}：{itemName}" });
+        string attackerName = attacker?.Name;
+        VisualQueue.Enqueue(new ActionCommand(() => OnAttackAction?.Invoke(attackerName, itemName, actionID)));
+    }
+
+    public static void PublishCombatBeat(CombatBeat beat) {
+        if (beat == null) {
+            return;
+        }
+
+        VisualQueue.Enqueue(new ActionCommand(() => OnCombatBeat?.Invoke(beat)));
+        VisualQueue.Enqueue(new LogWaitCommand(null, CombatBeat.HoldSeconds(beat.Kind)));
     }
     
     public static void PublishTurnStarted(FactionType factionType) {
@@ -69,6 +88,7 @@ public static class GameEventBus {
         OnShieldChanged = null;
         OnDamageDealt = null;
         OnAttackAction = null;
+        OnCombatBeat = null;
         OnTurnStarted = null;
         OnItemPlaced = null;
         OnItemRemoved = null;

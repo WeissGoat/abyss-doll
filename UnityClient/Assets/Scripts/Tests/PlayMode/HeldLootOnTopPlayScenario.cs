@@ -9,6 +9,12 @@ public static class HeldLootOnTopPlayScenario {
         yield return PlayScenarioSupport.BootToWorkshop();
         P3DevTools.GoTo("combat");
         yield return PlayScenarioSupport.Until(() => GameRoot.Core.Combat.CurrentState == CombatState.PlayerTurn, 10f, "combat did not start");
+        // The fight is only the way to the loot screen: with every hit now played on screen, a long one would eat the
+        // timeout, so each enemy goes down to the first blow.
+        foreach (FighterEntity enemy in GameRoot.Core.Combat.EnemyFaction.Fighters) {
+            enemy.RuntimeHP = Mathf.Min(enemy.RuntimeHP, 1);
+        }
+
         P3DevTools.AutoCombat();
         yield return PlayScenarioSupport.Until(() => GameRoot.Core.Combat.CurrentState == CombatState.End && VisualQueue.Count == 0, 20f, "the fight did not finish");
         yield return new WaitForSecondsRealtime(1f);
