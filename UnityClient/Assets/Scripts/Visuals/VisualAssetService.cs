@@ -363,6 +363,7 @@ public static class VisualUIHelper {
         image.color = hasRegisteredSprite ? registeredColor : missingColor;
         image.preserveAspect = preserveAspect;
         image.raycastTarget = false;
+        UIStillMotion.SyncPortrait(image, visualID);
         return hasRegisteredSprite;
     }
 

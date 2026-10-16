@@ -26,6 +26,7 @@ public class CombatMotionDirector : MonoBehaviour {
         public RectTransform Rect;
         public Material Material;
         public bool FacesRight;
+        public bool BreathesItself;
         public float Phase;
         public Vector2 AppliedOffset;
         public Vector2 AppliedScale = Vector2.one;
@@ -95,6 +96,8 @@ public class CombatMotionDirector : MonoBehaviour {
         }
 
         actor.FacesRight = facesRight;
+        UIStillMotion still = image.GetComponent<UIStillMotion>();
+        actor.BreathesItself = still != null && still.enabled;
     }
 
     public void ResetRecording() {
@@ -209,7 +212,7 @@ public class CombatMotionDirector : MonoBehaviour {
 
     private void Apply(Actor actor, float now) {
         bool alive = actor.Fighter.RuntimeHP > 0;
-        float breath = alive ? Mathf.Sin((now + actor.Phase) * BreathHz * Mathf.PI * 2f) : 0f;
+        float breath = alive && !actor.BreathesItself ? Mathf.Sin((now + actor.Phase) * BreathHz * Mathf.PI * 2f) : 0f;
         Vector2 scale = new Vector2(1f - 0.006f * breath, 1f + 0.016f * breath);
 
         float lunge = LungeCurve((now - actor.LungeStart) / LungeSeconds);

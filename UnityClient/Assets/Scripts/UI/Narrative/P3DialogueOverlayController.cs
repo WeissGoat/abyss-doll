@@ -445,7 +445,10 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         string visualID = ResolveDisplayVisualID(request.VisualID, request.FallbackVisualID);
         if (request.UseCover) {
             VisualUIHelper.ApplyCoverSprite(visualImage, visualID, Color.white, new Color(0.08f, 0.08f, 0.1f, 0.82f));
+            // Full-screen CG: a slow push-in; what grows past the edges is off screen anyway.
+            UIStillMotion.Attach(visualImage, UIStillMotion.Mode.PushIn);
         } else {
+            UIStillMotion.Detach(visualImage);
             VisualUIHelper.ApplySimpleSprite(visualImage, visualID, Color.white, new Color(0.08f, 0.08f, 0.1f, 0.82f), false);
         }
 

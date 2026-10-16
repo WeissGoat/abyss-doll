@@ -589,17 +589,21 @@ public static class P3DevTools {
                 }
             }
 
-            if (weapon == null) {
-                return "AutoCombat: no weapon in the backpack.";
-            }
-
+            // No weapon: bare hands, as a player with an empty backpack would.
+            int cost = weapon != null ? weapon.Combat.APCost : ItemUseService.GetUnarmedAPCost(player.DataRef);
             int guard = 0;
-            while (combat.CurrentState == CombatState.PlayerTurn && player.CurrentAP >= weapon.Combat.APCost && guard++ < 8) {
+            while (combat.CurrentState == CombatState.PlayerTurn && player.CurrentAP >= cost && guard++ < 8) {
                 FighterEntity enemy = combat.EnemyFaction.Fighters.Find(f => f.RuntimeHP > 0);
                 if (enemy == null) {
                     break;
                 }
-                ItemUseService.TryUseItem(weapon, out reason);
+
+                if (weapon != null) {
+                    ItemUseService.TryUseItem(weapon, out reason);
+                } else if (!ItemUseService.TryBeginUnarmedStrike(out reason)) {
+                    break;
+                }
+
                 ItemUseService.TryConfirmPendingTarget(enemy, out reason);
             }
 
