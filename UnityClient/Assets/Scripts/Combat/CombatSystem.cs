@@ -7,7 +7,9 @@ public class CombatSystem {
     public CombatFaction PlayerFaction;
     public CombatFaction EnemyFaction;
 
-    public CombatState CurrentState;
+    // End until the first StartCombat: the enum default (PlayerTurn) made a HUD opened before the fight think the
+    // player had a turn with nothing left to do.
+    public CombatState CurrentState = CombatState.End;
     public CombatOutcomeReport LastOutcomeReport { get; private set; }
     public MonsterCombatModifierSystem MonsterRuntimeModifiers => _monsterRuntimeModifiers;
     public CombatTimelineRecorder Timeline => _timeline;

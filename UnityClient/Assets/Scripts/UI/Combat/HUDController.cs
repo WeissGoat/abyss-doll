@@ -532,6 +532,8 @@ public class HUDController : MonoBehaviour {
         if (combat != null && combat.CurrentState == CombatState.PlayerTurn && !combat.PlayerHasActionLeft()
             && !ItemUseService.HasPendingEnemyTargetSelection) {
             combat.EndPlayerTurn();
+        } else if (_turnBannerLabel != null && combat != null && combat.CurrentState == CombatState.PlayerTurn) {
+            _turnBannerLabel.text = "玩家回合";
         }
     }
 
