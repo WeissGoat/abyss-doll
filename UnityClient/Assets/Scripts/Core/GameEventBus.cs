@@ -72,8 +72,9 @@ public static class GameEventBus {
     
     public static void PublishTurnStarted(FactionType factionType) {
         // 回合切换往往需要给一个视觉缓冲
-        VisualQueue.Enqueue(new LogWaitCommand($"🔄 切换到回合: {factionType} Turn", 0.5f));
+        // The banner changes first, then a short beat before the side acts.
         VisualQueue.Enqueue(new ActionCommand(() => OnTurnStarted?.Invoke(factionType)));
+        VisualQueue.Enqueue(new LogWaitCommand(null, 0.3f));
     }
     
     // 瞬间执行的 UI 事件 (不进战斗队列，比如拖拽物品立刻响应)

@@ -271,7 +271,7 @@ public class CombatMotionDirector : MonoBehaviour {
         rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
         rect.pivot = new Vector2(0.5f, 0.5f);
         rect.sizeDelta = new Vector2(320f, 60f);
-        Vector3 head = actor.Rect.TransformPoint(new Vector3(actor.Rect.rect.center.x, actor.Rect.rect.yMax * 0.72f, 0f));
+        Vector3 head = actor.Rect.TransformPoint(new Vector3(actor.Rect.rect.center.x, actor.Rect.rect.yMax * 0.9f, 0f));
         Vector2 origin = (Vector2)_popupLayer.InverseTransformPoint(head);
         int stacked = _popups.FindAll(p => p.Start > Time.time - 0.25f).Count;
         origin.y -= stacked * 36f;

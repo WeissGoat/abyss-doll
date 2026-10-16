@@ -36,6 +36,16 @@ public class HUDController : MonoBehaviour {
     private Transform _apPipParent;
     private CombatIntentReadabilitySnapshot _intentSnapshot;
     private CombatMotionDirector _motion;
+    // Whose turn the screen shows. The backend resolves the enemy turn at once; the screen catches up through the
+    // VisualQueue, and the player can act only once it shows the player turn.
+    private bool _playerTurnShown;
+    public bool PlayerTurnShown => _playerTurnShown;
+    private static HUDController _active;
+
+    // True while a fight is on screen and the screen has not caught up to the player turn yet: inputs that act in
+    // combat (backpack clicks, buttons) wait.
+    public static bool EnemyTurnShowing => _active != null && _active.isActiveAndEnabled && !_active._playerTurnShown
+        && GameRoot.Core?.Combat != null && GameRoot.Core.Combat.CurrentState != CombatState.End;
 
     public void SetLootOverlayMode(bool active) {
         SetActiveIfPresent(_turnBannerImage, !active);
@@ -56,21 +66,28 @@ public class HUDController : MonoBehaviour {
         GameEventBus.OnSANChanged += HandleSANChanged;
         GameEventBus.OnAPChanged += HandleAPChanged;
         GameEventBus.OnShieldChanged += HandleShieldChanged;
-        GameEventBus.OnTurnStarted += HandleTurnStarted;
+        GameEventBus.OnTurnStarted += HandleQueuedTurnStarted;
         GameEventBus.OnTargetSelectionChanged += HandleTargetSelectionChanged;
         CombatEventBus.OnCombatPhase += HandleCombatPhase;
 
+        _active = this;
+        CombatSystem combatAtOpen = GameRoot.Core?.Combat;
+        _playerTurnShown = combatAtOpen != null && combatAtOpen.CurrentState == CombatState.PlayerTurn && VisualQueue.Count == 0;
         RefreshCombatPresentation();
         Debug.Log("[HUDController] Combat HUD initialized.");
     }
 
     private void OnDisable() {
+        if (_active == this) {
+            _active = null;
+        }
+
         _autoEndTurn = null;
         GameEventBus.OnHPChanged -= HandleHPChanged;
         GameEventBus.OnSANChanged -= HandleSANChanged;
         GameEventBus.OnAPChanged -= HandleAPChanged;
         GameEventBus.OnShieldChanged -= HandleShieldChanged;
-        GameEventBus.OnTurnStarted -= HandleTurnStarted;
+        GameEventBus.OnTurnStarted -= HandleQueuedTurnStarted;
         GameEventBus.OnTargetSelectionChanged -= HandleTargetSelectionChanged;
         CombatEventBus.OnCombatPhase -= HandleCombatPhase;
     }
@@ -82,6 +99,11 @@ public class HUDController : MonoBehaviour {
 
         endTurnBtn.onClick.RemoveAllListeners();
         endTurnBtn.onClick.AddListener(() => {
+            if (!_playerTurnShown) {
+                Debug.Log("[HUD] 敌方还在行动，忽略这次结束回合点击。");
+                return;
+            }
+
             if (!_endTurnGuard.AllowManualEnd(Time.unscaledTime)) {
                 Debug.Log("[HUD] 新回合刚开始，忽略这次结束回合点击。");
                 return;
@@ -117,6 +139,10 @@ public class HUDController : MonoBehaviour {
 
         _unarmedStrikeBtn.onClick.RemoveAllListeners();
         _unarmedStrikeBtn.onClick.AddListener(() => {
+            if (!_playerTurnShown) {
+                return;
+            }
+
             if (!ItemUseService.TryBeginUnarmedStrike(out string reason)) {
                 PlayerToast.Show(reason, PlayerToastKind.Warning);
             }
@@ -958,6 +984,7 @@ public class HUDController : MonoBehaviour {
     }
 
     private void HandleTurnStarted(FactionType type) {
+        _playerTurnShown = type == FactionType.Player;
         if (type == FactionType.Player) {
             _endTurnGuard.OnPlayerTurnStarted(Time.unscaledTime);
         }
@@ -989,11 +1016,17 @@ public class HUDController : MonoBehaviour {
         }
     }
 
+    // Turn starts reach the screen through GameEventBus.OnTurnStarted (queued); this only takes the turn away from the player.
     private void HandleCombatPhase(CombatEventType phase, CombatFaction activeFaction) {
-        if (phase == CombatEventType.OnTurnStart) {
-            HandleTurnStarted(activeFaction.Type);
-            RefreshStaticData();
+        // The player's turn is over the moment it ends, even though the enemy turn reaches the screen later.
+        if (phase == CombatEventType.OnCombatEnd || (phase == CombatEventType.OnTurnEnd && activeFaction?.Type == FactionType.Player)) {
+            _playerTurnShown = false;
         }
+    }
+
+    private void HandleQueuedTurnStarted(FactionType type) {
+        HandleTurnStarted(type);
+        RefreshStaticData();
     }
 
     private void RefreshTargetHint() {
@@ -1019,7 +1052,7 @@ public class HUDController : MonoBehaviour {
     private void RefreshActionButtons() {
         if (_unarmedStrikeBtn != null) {
             CombatSystem combat = GameRoot.Core?.Combat;
-            _unarmedStrikeBtn.interactable = combat != null && combat.CurrentState == CombatState.PlayerTurn;
+            _unarmedStrikeBtn.interactable = combat != null && combat.CurrentState == CombatState.PlayerTurn && _playerTurnShown;
         }
 
         if (_cancelSelectionBtn != null) {

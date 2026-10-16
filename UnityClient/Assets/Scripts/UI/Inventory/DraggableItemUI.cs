@@ -360,6 +360,10 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             return;
         }
 
+        if (HUDController.EnemyTurnShowing) {
+            return;
+        }
+
         if (!ItemUseService.TryUseItem(ItemData, out string failureReason)) {
             if (!string.IsNullOrEmpty(failureReason)) {
                 Debug.LogWarning($"[UI] {failureReason}");

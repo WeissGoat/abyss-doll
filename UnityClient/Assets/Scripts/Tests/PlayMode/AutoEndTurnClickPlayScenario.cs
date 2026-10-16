@@ -19,6 +19,7 @@ public static class AutoEndTurnClickPlayScenario {
         }
 
         // Let the turn-start grace from entering combat pass.
+        yield return PlayScenarioSupport.Until(() => hud.PlayerTurnShown, 10f, "the screen never showed the first player turn");
         yield return new WaitForSecondsRealtime(EndTurnClickGuard.GraceSeconds + 0.2f);
 
         CombatSystem combat = GameRoot.Core.Combat;
@@ -41,8 +42,10 @@ public static class AutoEndTurnClickPlayScenario {
             GameEventBus.PublishAPChanged(player.Name, 0, player.MaxAP);
             yield return PlayScenarioSupport.Until(() => playerTurns >= 1 || combat.CurrentState == CombatState.End, 5f, "the turn did not auto end with 0 AP");
 
-            // The player's click lands in the same frame the new turn starts.
+            // The player's click lands in the same frame the new turn starts (while the enemy turn is still playing).
             hud.endTurnBtn.onClick.Invoke();
+            yield return PlayScenarioSupport.Until(() => hud.PlayerTurnShown || combat.CurrentState == CombatState.End, 10f,
+                "the screen never showed the new player turn");
             yield return new WaitForSecondsRealtime(EndTurnClickGuard.GraceSeconds + 0.4f);
             if (combat.CurrentState == CombatState.End) {
                 Debug.LogWarning("[AutoEndTurnClick] Combat ended during the enemy turn; inconclusive.");

@@ -28,6 +28,12 @@ public static class CombatMotionPlayScenario {
         director.ResetRecording();
         float started = Time.time;
         combat.EndPlayerTurn();
+        HUDController turnHud = Object.FindObjectOfType<HUDController>();
+        yield return new WaitForSeconds(0.2f);
+        if (combat.CurrentState == CombatState.PlayerTurn && VisualQueue.Count > 0 && (turnHud.PlayerTurnShown || !HUDController.EnemyTurnShowing)) {
+            Debug.LogError("[CombatMotion] The screen shows the player turn while the enemy turn is still playing.");
+        }
+
         yield return PlayScenarioSupport.Until(() => combat.CurrentState != CombatState.EnemyTurn && VisualQueue.Count == 0, 20f,
             "the enemy turn did not finish playing");
         float turnSeconds = Time.time - started;
@@ -61,7 +67,11 @@ public static class CombatMotionPlayScenario {
             Debug.LogError("[CombatMotion] No floating number appeared for the hits.");
         }
 
-        HUDController hud = Object.FindObjectOfType<HUDController>();
+        HUDController hud = turnHud;
+        if (!hud.PlayerTurnShown && combat.CurrentState == CombatState.PlayerTurn) {
+            Debug.LogError("[CombatMotion] The enemy turn finished playing but the screen still does not show the player turn.");
+        }
+
         foreach (Image image in hud.GetComponentsInChildren<Image>()) {
             Vector2 expected;
             if (image.name == "PlayerDoll_Image") {

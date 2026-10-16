@@ -56,6 +56,8 @@ public class CombatSystem {
         LockMonsterIntentsForPlayerTurn();
         _timeline.RecordTurnStarted(FactionType.Player);
         CombatEventBus.Publish(CombatEventType.OnTurnStart, PlayerFaction);
+        // The screen switches turns through the queue, after the enemy turn has played out.
+        GameEventBus.PublishTurnStarted(FactionType.Player);
 
         if (IsPlayerDefeated()) {
             HandleDefeat();
@@ -132,6 +134,7 @@ public class CombatSystem {
         ItemUseService.ClearPendingTargetSelection();
         _timeline.RecordTurnStarted(FactionType.Enemy);
         CombatEventBus.Publish(CombatEventType.OnTurnStart, EnemyFaction);
+        GameEventBus.PublishTurnStarted(FactionType.Enemy);
 
         foreach (var fighter in EnemyFaction.Fighters) {
             MonsterFighter enemy = fighter as MonsterFighter;
