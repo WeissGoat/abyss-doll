@@ -6,6 +6,7 @@
   "BaseValue": 980,
   "IconID": "item_gear_corroded_bulwark_icon",
   "DescriptionKey": "item.gear_corroded_bulwark.desc",
+  "Description": "从第二层的墙里撬出来的盾，锈得厉害，却比新盾还硬。回城记得保养。",
   "ItemRole": ["Defense", "RiskObject", "BuildCore"],
   "LayerTags": ["Layer2", "ContentPack20"],
   "Grid": {

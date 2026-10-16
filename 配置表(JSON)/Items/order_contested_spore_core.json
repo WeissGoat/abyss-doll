@@ -6,6 +6,7 @@
   "BaseValue": 0,
   "IconID": "item_order_contested_spore_core_icon",
   "DescriptionKey": "item.order_contested_spore_core.desc",
+  "Description": "好几方都想要的孢核，交给谁，就会得罪另一边。",
   "ItemRole": [
     "OrderBound",
     "RiskObject",

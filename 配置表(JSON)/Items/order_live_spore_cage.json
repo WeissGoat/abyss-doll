@@ -6,6 +6,7 @@
   "BaseValue": 0,
   "IconID": "item_order_live_spore_cage_icon",
   "DescriptionKey": "item.order_live_spore_cage.desc",
+  "Description": "笼子里的孢子还活着，要赶在它们闹起来之前送到。",
   "ItemRole": ["OrderBound", "RiskObject", "LiveCargo"],
   "LayerTags": ["Layer2", "ContentPack20"],
   "Grid": {

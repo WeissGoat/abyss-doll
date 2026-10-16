@@ -6,6 +6,7 @@
   "BaseValue": 100,
   "IconID": "item_loot_gear_scrap_icon",
   "DescriptionKey": "item.loot_gear_scrap.desc",
+  "Description": "从机械残骸里拆下来的齿轮，卖给废品商能换几顿饭钱。",
   "ItemRole": ["Material", "Trade"],
   "LayerTags": ["Layer1", "ContentPack19"],
   "Grid": {

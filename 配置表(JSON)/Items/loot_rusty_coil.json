@@ -6,6 +6,7 @@
   "BaseValue": 250,
   "IconID": "item_loot_rusty_coil_icon",
   "DescriptionKey": "item.loot_rusty_coil.desc",
+  "Description": "一卷生锈的铜线圈，绕得很紧，修理铺会要。",
   "ItemRole": ["Material", "Trade"],
   "LayerTags": ["Layer1", "ContentPack19"],
   "Grid": {

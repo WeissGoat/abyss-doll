@@ -27,6 +27,14 @@ public static class ItemTooltipTest {
         Check(hookText.Body.Contains("武器") && hookText.Body.Contains("AP") && hookText.Body.Contains("价值"), "weapon body: " + hookText.Body);
         Check(hookText.Body.Contains("紧贴右侧的物品伤害 +20%"), "adjacency line: " + hookText.Body);
         Check(hookText.Body.Contains("格"), "size line: " + hookText.Body);
+        Check(!string.IsNullOrEmpty(hookText.Flavor), "no description line for " + hook.Name);
+        foreach (ItemEntity template in ConfigManager.Items.Values) {
+            Check(!string.IsNullOrEmpty(template.Description), $"item config {template.ConfigID} has no Description");
+        }
+
+        ItemEntity oldSave = ConfigManager.CreateItem("gear_whetstone");
+        oldSave.Description = null;
+        Check(!string.IsNullOrEmpty(ItemPresentationRules.BuildTooltip(oldSave).Flavor), "an item from an old save lost its description");
         hook.Grid.Rotation = 90;
         string rotatedBody = ItemPresentationRules.BuildTooltip(hook).Body;
         Check(!rotatedBody.Contains("紧贴右侧") && rotatedBody.Contains("伤害 +20%"), "rotated adjacency still says right: " + rotatedBody);

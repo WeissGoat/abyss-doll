@@ -6,6 +6,7 @@
   "BaseValue": 320,
   "IconID": "item_con_anchor_charm_icon",
   "DescriptionKey": "item.con_anchor_charm.desc",
+  "Description": "坠子里封着一缕旧日的歌声。握紧它，零号就能想起回家的方向。",
   "ItemRole": [
     "Recovery",
     "CounterCheck",

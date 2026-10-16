@@ -6,6 +6,7 @@
   "BaseValue": 620,
   "IconID": "item_loot_spore_amber_icon",
   "DescriptionKey": "item.loot_spore_amber.desc",
+  "Description": "孢子被封在琥珀里，迎着光看像一小片星空。",
   "ItemRole": [
     "Trade",
     "Material"

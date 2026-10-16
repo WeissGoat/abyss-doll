@@ -6,6 +6,7 @@
   "BaseValue": 0,
   "IconID": "item_mat_core_tier3_seed_icon",
   "DescriptionKey": "item.mat_core_tier3_seed.desc",
+  "Description": "像种子一样的机核，被几方势力同时盯着。",
   "ItemRole": [
     "BossKey",
     "Material",

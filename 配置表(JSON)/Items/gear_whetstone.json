@@ -6,6 +6,7 @@
   "BaseValue": 140,
   "IconID": "item_loot_warped_plate_icon",
   "DescriptionKey": "item.gear_whetstone.desc",
+  "Description": "放在武器旁边，闲下来就磨两下。贴着它的刀刃都会更快。",
   "ItemRole": [
     "Support",
     "Adjacency"

@@ -6,6 +6,7 @@
   "BaseValue": 0,
   "IconID": "item_mat_core_tier1_icon",
   "DescriptionKey": "item.mat_core_tier2.desc",
+  "Description": "被污染的旧式核心，已经不会再有人收了。",
   "ItemRole": ["DeprecatedCompat", "Material"],
   "LayerTags": ["Layer2", "CompatLegacy"],
   "Grid": {

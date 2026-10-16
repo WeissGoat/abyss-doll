@@ -6,6 +6,7 @@
   "BaseValue": 860,
   "IconID": "item_gear_vein_sickle_icon",
   "DescriptionKey": "item.gear_vein_sickle.desc",
+  "Description": "菌脉缠成的弯镰，形状古怪，砍下去会顺着纹路发力。",
   "ItemRole": [
     "BuildCore",
     "Trade"

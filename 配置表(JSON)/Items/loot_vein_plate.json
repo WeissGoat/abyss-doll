@@ -6,6 +6,7 @@
   "BaseValue": 460,
   "IconID": "item_loot_vein_plate_icon",
   "DescriptionKey": "item.loot_vein_plate.desc",
+  "Description": "菌脉长成的硬甲片，又厚又重，占地方。",
   "ItemRole": [
     "Material",
     "Trade"

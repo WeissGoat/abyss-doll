@@ -56,6 +56,7 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | `ConfigID` | string | 物品配置表的全局唯一ID | 必填项 |
 | `Name` | string | 物品显示名称 | |
 | `DescriptionKey` | string | 文案表键，用于拾取、出售、订单和详情面板描述 | 正式配置建议必填；临时测试物可留空但 Validator 输出 warning |
+| `Description` | string | 一句话物品描述（中文），显示在物品悬浮卡标题下方；效果、占格、价值由程序从数据拼出，这里只写来历和手感 | 必填（`ItemTooltipTest` 检查）；还没有文案表，`DescriptionKey` 暂不解析 |
 | `ItemType` | enum | 物品的大类归属 | `Weapon`(武器), `Armor`(防具), `Consumable`(消耗品), `Loot`(纯卖钱的战利品), `QuestItem`(不可售卖的任务/核心物), `Anchor`(情感锚点物) |
 | `ItemRole` | enum 或 array | 物品的玩法职责 | `Tutorial`, `BuildCore`, `Defense`, `Recovery`, `Material`, `Trade`, `OrderBound`, `RiskObject`, `RoomMemory`, `BossKey`, `Contraband` |
 | `Rarity` | enum | 物品稀有度（品级） | `Common`(白), `Uncommon`(蓝), `Rare`(紫), `Epic`(金), `Cursed`(红,诅咒绑定) |

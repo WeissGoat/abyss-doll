@@ -6,6 +6,7 @@
     "BaseValue":  180,
     "IconID":  "item_con_solvent_spray_icon",
     "DescriptionKey":  "item.con_solvent_spray.desc",
+    "Description": "喷在锈和孢子上，能把它们从格子里溶开。别对着脸按。",
     "ItemRole":  [
                      "Recovery",
                      "CounterCheck",

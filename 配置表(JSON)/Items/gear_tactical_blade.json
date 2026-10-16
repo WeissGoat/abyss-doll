@@ -6,6 +6,7 @@
   "BaseValue": 350,
   "IconID": "item_gear_tactical_blade_icon",
   "DescriptionKey": "item.gear_tactical_blade.desc",
+  "Description": "镇上卫兵淘汰下来的长刀，刃口直，出手要多花一口气。",
   "ItemRole": ["BuildCore", "Trade"],
   "LayerTags": ["Layer1", "ContentPack19"],
   "Grid": {

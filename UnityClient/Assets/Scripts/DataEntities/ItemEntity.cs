@@ -15,6 +15,9 @@ public class ItemEntity {
     public string UseVFXID;
     public string UseSFXID;
     public string RarityFrameID;
+    // One line of flavour for the hover card (config Description). The card reads it from the config template, so items
+    // in saves made before it existed show it too.
+    public string Description;
 
     public ItemGridComponent Grid;
     public ItemCombatComponent Combat;
@@ -175,7 +178,20 @@ public static class ItemPresentationRules {
             lines.Add($"价值 {item.BaseValue}G");
         }
 
-        return new ItemTooltipText { Title = item.Name, Body = string.Join("\n", lines) };
+        return new ItemTooltipText { Title = item.Name, Flavor = ResolveDescription(item), Body = string.Join("\n", lines) };
+    }
+
+    public static string ResolveDescription(ItemEntity item) {
+        if (item == null) {
+            return string.Empty;
+        }
+
+        if (!string.IsNullOrEmpty(item.ConfigID) && ConfigManager.Items != null
+            && ConfigManager.Items.TryGetValue(item.ConfigID, out ItemEntity template) && !string.IsNullOrEmpty(template?.Description)) {
+            return template.Description;
+        }
+
+        return item.Description ?? string.Empty;
     }
 
     public static string TypeLabel(ItemEntity item) {
@@ -316,5 +332,6 @@ public static class ItemPresentationRules {
 
 public struct ItemTooltipText {
     public string Title;
+    public string Flavor;
     public string Body;
 }

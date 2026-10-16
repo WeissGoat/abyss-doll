@@ -6,6 +6,7 @@
   "BaseValue": 160,
   "IconID": "item_con_stabilizer_ampoule_icon",
   "DescriptionKey": "item.con_stabilizer_ampoule.desc",
+  "Description": "淡蓝色的药液，敲开就能闻到薄荷味。深处的低语会暂时安静一些。",
   "ItemRole": ["Recovery", "CounterCheck", "SanCounter"],
   "LayerTags": ["Layer2", "ContentPack20"],
   "Grid": {

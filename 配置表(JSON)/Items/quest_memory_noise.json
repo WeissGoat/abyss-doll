@@ -6,6 +6,7 @@
   "BaseValue": 0,
   "IconID": "item_loot_crystal_scale_icon",
   "DescriptionKey": "item.quest_memory_noise.desc",
+  "Description": "一片沙沙作响的记忆。听久了，像是有人在叫零号的名字。",
   "ItemRole": [
     "Quest"
   ],

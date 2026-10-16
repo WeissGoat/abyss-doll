@@ -6,6 +6,7 @@
   "BaseValue": 800,
   "IconID": "item_gear_charge_pistol_icon",
   "DescriptionKey": "item.gear_charge_pistol.desc",
+  "Description": "要攒一口气才能扣扳机的能量手铳，开火时枪管会烫手。",
   "ItemRole": ["BuildCore", "CounterCheck", "BurstWeapon"],
   "LayerTags": ["Layer2", "ContentPack20"],
   "Grid": {

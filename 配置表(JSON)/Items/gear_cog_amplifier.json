@@ -6,6 +6,7 @@
   "BaseValue": 420,
   "IconID": "item_loot_rusty_coil_icon",
   "DescriptionKey": "item.gear_cog_amplifier.desc",
+  "Description": "咬合着的一串齿轮，转起来会把力气分给上下两格的武器。",
   "ItemRole": [
     "Support",
     "Adjacency"

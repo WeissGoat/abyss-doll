@@ -6,6 +6,7 @@
   "BaseValue": 280,
   "IconID": "item_loot_crystal_scale_icon",
   "DescriptionKey": "item.loot_crystal_scale.desc",
+  "Description": "第二层晶甲生物身上剥下的鳞片，商会按片收。",
   "ItemRole": ["Material", "Trade", "OrderTarget"],
   "LayerTags": ["Layer2", "ContentPack20"],
   "Grid": {

@@ -6,6 +6,7 @@
   "BaseValue": 150,
   "IconID": "item_gear_rusty_dagger_icon",
   "DescriptionKey": "item.gear_rusty_dagger.desc",
+  "Description": "工坊角落里捡到的短剑，锈迹下面还有一点刃口。",
   "ItemRole": ["Tutorial", "BuildCore"],
   "LayerTags": ["Layer1", "ContentPack19"],
   "Grid": {

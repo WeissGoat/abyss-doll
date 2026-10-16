@@ -5,6 +5,7 @@
   "Rarity": "Rare",
   "BaseValue": 1200,
   "IconID": "item_gear_chainsaw_sword_icon",
+  "Description": "旧矿场的伐木锯改的，轰鸣声会惊动半条坑道。很重，也很贵。",
   "Grid": {
     "Shape": [[0,0], [0,1], [0,2], [1,0], [1,1], [1,2]],
     "CanRotate": true,

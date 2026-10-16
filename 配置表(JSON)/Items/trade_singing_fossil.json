@@ -6,6 +6,7 @@
   "BaseValue": 1250,
   "IconID": "item_trade_singing_fossil_icon",
   "DescriptionKey": "item.trade_singing_fossil.desc",
+  "Description": "会低声唱歌的化石。收藏家愿意出大价钱，可听久了会睡不着。",
   "ItemRole": [
     "Trade",
     "RiskObject",

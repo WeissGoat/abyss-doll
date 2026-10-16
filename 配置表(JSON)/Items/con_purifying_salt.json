@@ -6,6 +6,7 @@
   "BaseValue": 180,
   "IconID": "item_con_purifying_salt_icon",
   "DescriptionKey": "item.con_purifying_salt.desc",
+  "Description": "祭过的粗盐，撒在伤口上会滋滋作响，带走缠上来的污秽。",
   "ItemRole": [
     "Recovery",
     "CounterCheck"

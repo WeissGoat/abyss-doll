@@ -6,6 +6,7 @@
   "BaseValue": 1040,
   "IconID": "item_gear_mycelium_cloak_icon",
   "DescriptionKey": "item.gear_mycelium_cloak.desc",
+  "Description": "活着的菌丝织成的披风，会自己合拢伤口。走得越深，它长得越快。",
   "ItemRole": [
     "Defense",
     "RiskObject"

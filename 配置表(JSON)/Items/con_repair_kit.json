@@ -6,6 +6,7 @@
   "BaseValue": 50,
   "IconID": "item_con_repair_kit_icon",
   "DescriptionKey": "item.con_repair_kit.desc",
+  "Description": "一管胶、一卷线、几枚铆钉。不体面，但能把裂开的关节先接回去。",
   "ItemRole": ["Recovery", "Tutorial"],
   "LayerTags": ["Layer1", "ContentPack19"],
   "Grid": {

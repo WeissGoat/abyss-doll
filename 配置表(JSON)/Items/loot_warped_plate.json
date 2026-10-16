@@ -6,6 +6,7 @@
   "BaseValue": 460,
   "IconID": "item_loot_warped_plate_icon",
   "DescriptionKey": "item.loot_warped_plate.desc",
+  "Description": "被压扭了的装甲片，怎么摆都不顺手，但收购价不错。",
   "ItemRole": ["Material", "Trade", "BulkyPressure"],
   "LayerTags": ["Layer2", "ContentPack20"],
   "Grid": {

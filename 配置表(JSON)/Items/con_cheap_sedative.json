@@ -6,6 +6,7 @@
   "BaseValue": 80,
   "IconID": "item_con_cheap_sedative_icon",
   "DescriptionKey": "item.con_cheap_sedative.desc",
+  "Description": "小镇药铺最便宜的那种。苦得发涩，但能让发抖的手指停下来。",
   "ItemRole": ["Recovery"],
   "LayerTags": ["Layer1", "ContentPack19"],
   "Grid": {

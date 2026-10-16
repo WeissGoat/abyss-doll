@@ -6,6 +6,7 @@
   "BaseValue": 520,
   "IconID": "item_gear_iron_armor_icon",
   "DescriptionKey": "item.gear_cracked_iron_armor.desc",
+  "Description": "胸口有道裂纹的铁甲。守门的机械曾经穿着它。",
   "ItemRole": ["Defense", "BossKey"],
   "LayerTags": ["Layer1", "ContentPack19", "FormalVariant"],
   "Grid": {

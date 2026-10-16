@@ -6,6 +6,7 @@
   "BaseValue": 400,
   "IconID": "item_gear_iron_armor_icon",
   "DescriptionKey": "item.gear_iron_armor.desc",
+  "Description": "几片铁皮用皮绳串成的护甲，每回合开始能替零号挡一下。",
   "ItemRole": ["Defense", "BuildCore"],
   "LayerTags": ["Layer1", "ContentPack19", "LegacyCombatTest"],
   "Grid": {

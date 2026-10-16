@@ -6,6 +6,7 @@
   "BaseValue": 0,
   "IconID": "item_mat_core_tier2_fragment_icon",
   "DescriptionKey": "item.mat_core_tier2_fragment.desc",
+  "Description": "第二层深处的机核碎片，拼起来就能让零号更进一步。",
   "ItemRole": ["BossKey", "Material", "GrowthHook"],
   "LayerTags": ["Layer2", "ContentPack20"],
   "Grid": {

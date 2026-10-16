@@ -6,6 +6,7 @@
   "BaseValue": 260,
   "IconID": "item_trade_luminous_fungus_icon",
   "DescriptionKey": "item.trade_luminous_fungus.desc",
+  "Description": "会在暗处发光的菌簇，传闻里总有人在打听它的下落。",
   "ItemRole": ["Trade", "Material", "RumorTarget"],
   "LayerTags": ["Layer2", "ContentPack20"],
   "Grid": {

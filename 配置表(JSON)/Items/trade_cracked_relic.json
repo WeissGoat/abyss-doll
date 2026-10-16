@@ -6,6 +6,7 @@
   "BaseValue": 520,
   "IconID": "item_loot_toxic_filter_icon",
   "DescriptionKey": "item.trade_cracked_relic.desc",
+  "Description": "裂开的圣牌，背面刻着看不懂的祷词。带着它走，心里会发沉。",
   "ItemRole": ["Trade", "RiskObject", "RoomMemory"],
   "LayerTags": ["Layer1", "ContentPack19"],
   "Grid": {

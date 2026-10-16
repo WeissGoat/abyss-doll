@@ -6,6 +6,7 @@
   "BaseValue": 980,
   "IconID": "item_gear_spore_lance_icon",
   "DescriptionKey": "item.gear_spore_lance.desc",
+  "Description": "孢子结晶长成的长枪，很长，背包里得给它让出一整排。",
   "ItemRole": [
     "BuildCore",
     "CounterCheck"

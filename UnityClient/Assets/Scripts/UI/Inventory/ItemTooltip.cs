@@ -14,12 +14,14 @@ public class ItemTooltip : MonoBehaviour {
 
     private RectTransform _rect;
     private Text _title;
+    private Text _flavor;
     private Text _body;
     private RectTransform _anchor;
 
     public static bool IsShowing => _instance != null && _instance.gameObject.activeSelf;
     public static string ShownTitle => IsShowing ? _instance._title.text : string.Empty;
     public static string ShownBody => IsShowing ? _instance._body.text : string.Empty;
+    public static string ShownFlavor => IsShowing && _instance._flavor.gameObject.activeSelf ? _instance._flavor.text : string.Empty;
     public static RectTransform ShownRect => IsShowing ? _instance._rect : null;
 
     public static void Show(ItemEntity item, RectTransform anchor) {
@@ -35,6 +37,8 @@ public class ItemTooltip : MonoBehaviour {
         ItemTooltipText text = ItemPresentationRules.BuildTooltip(item);
         tooltip._anchor = anchor;
         tooltip._title.text = text.Title;
+        tooltip._flavor.text = text.Flavor ?? string.Empty;
+        tooltip._flavor.gameObject.SetActive(!string.IsNullOrEmpty(text.Flavor));
         tooltip._body.text = text.Body;
         tooltip.gameObject.SetActive(true);
         tooltip.transform.SetAsLastSibling();
@@ -117,6 +121,9 @@ public class ItemTooltip : MonoBehaviour {
 
         _title = UITheme.CreateText(transform, "Title_Text", string.Empty, UITheme.BodySize + 2, UITheme.TextPrimary);
         _title.fontStyle = FontStyle.Bold;
+        _flavor = UITheme.CreateText(transform, "Flavor_Text", string.Empty, UITheme.CaptionSize, UITheme.TextMuted);
+        _flavor.fontStyle = FontStyle.Italic;
+        _flavor.lineSpacing = 1.1f;
         _body = UITheme.CreateText(transform, "Body_Text", string.Empty, UITheme.CaptionSize, UITheme.TextSecondary);
         _body.lineSpacing = 1.15f;
         gameObject.SetActive(false);

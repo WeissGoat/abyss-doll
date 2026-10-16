@@ -6,6 +6,7 @@
   "BaseValue": 520,
   "IconID": "item_loot_living_mycelium_icon",
   "DescriptionKey": "item.loot_living_mycelium.desc",
+  "Description": "还在蠕动的菌丝团，装进背包它也不会老实。有人出高价订它。",
   "ItemRole": [
     "RiskObject",
     "Material",

@@ -6,6 +6,7 @@
   "BaseValue": 700,
   "IconID": "item_loot_corroded_nerve_icon",
   "DescriptionKey": "item.loot_corroded_nerve.desc",
+  "Description": "被腐蚀成黑色的神经束，捏着时能听到细碎的低语。",
   "ItemRole": [
     "RiskObject",
     "Material",
