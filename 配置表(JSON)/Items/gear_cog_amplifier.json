@@ -4,7 +4,7 @@
   "ItemType": "Armor",
   "Rarity": "Rare",
   "BaseValue": 420,
-  "IconID": "item_loot_rusty_coil_icon",
+  "IconID": "item_gear_cog_amplifier_icon",
   "DescriptionKey": "item.gear_cog_amplifier.desc",
   "Description": "咬合着的一串齿轮，转起来会把力气分给上下两格的武器。",
   "ItemRole": [
@@ -110,7 +110,7 @@
     "OrderConflictGroup": ""
   },
   "Visual": {
-    "IconVisualID": "item_loot_rusty_coil_icon",
+    "IconVisualID": "item_gear_cog_amplifier_icon",
     "GridPreviewStyle": "Normal",
     "RiskIconRefs": [],
     "PickupHintKey": "pickup.gear_cog_amplifier"

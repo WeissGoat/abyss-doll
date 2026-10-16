@@ -308,8 +308,18 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+  - VisualID: item_gear_cog_amplifier_icon
+    Sprite: {fileID: 21300000, guid: 0d12ebb905acc824b88a23dbca49dc3c, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
   - VisualID: item_gear_corroded_bulwark_icon
     Sprite: {fileID: 21300000, guid: 16d950f5889151b499534b937728670d, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: item_gear_focus_lens_icon
+    Sprite: {fileID: 21300000, guid: 244d4b46c76c9774bbb2531a81cc27df, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -340,6 +350,11 @@ MonoBehaviour:
     Material: {fileID: 0}
   - VisualID: item_gear_vein_sickle_icon
     Sprite: {fileID: 21300000, guid: 7f1df3edd38efce44a4dd915eb170575, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+  - VisualID: item_gear_whetstone_icon
+    Sprite: {fileID: 21300000, guid: 117e0bd7bd8bd184497132f06f2eaded, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}

@@ -4,7 +4,7 @@
   "ItemType": "Armor",
   "Rarity": "Uncommon",
   "BaseValue": 260,
-  "IconID": "item_loot_spore_amber_icon",
+  "IconID": "item_gear_focus_lens_icon",
   "DescriptionKey": "item.gear_focus_lens.desc",
   "Description": "磨得很薄的镜片，把光收成一束，照在右边的武器上。",
   "ItemRole": [
@@ -98,7 +98,7 @@
     "OrderConflictGroup": ""
   },
   "Visual": {
-    "IconVisualID": "item_loot_spore_amber_icon",
+    "IconVisualID": "item_gear_focus_lens_icon",
     "GridPreviewStyle": "Normal",
     "RiskIconRefs": [],
     "PickupHintKey": "pickup.gear_focus_lens"

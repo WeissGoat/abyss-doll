@@ -4,7 +4,7 @@
   "ItemType": "Armor",
   "Rarity": "Common",
   "BaseValue": 140,
-  "IconID": "item_loot_warped_plate_icon",
+  "IconID": "item_gear_whetstone_icon",
   "DescriptionKey": "item.gear_whetstone.desc",
   "Description": "放在武器旁边，闲下来就磨两下。贴着它的刀刃都会更快。",
   "ItemRole": [
@@ -97,7 +97,7 @@
     "OrderConflictGroup": ""
   },
   "Visual": {
-    "IconVisualID": "item_loot_warped_plate_icon",
+    "IconVisualID": "item_gear_whetstone_icon",
     "GridPreviewStyle": "Normal",
     "RiskIconRefs": [],
     "PickupHintKey": "pickup.gear_whetstone"
