@@ -19,7 +19,7 @@ description: Use when Project P3 needs to see the game actually running - enter 
 | `AddMoney(500)`、`AddItem("gear_rusty_dagger")`、`Heal()` | 改状态（调试用） |
 | `SetPrologueOnStartup(true)` | 下次进 Play Mode 时播放序章 |
 | `Occlusion()` | 被别的东西盖住的物品和可点按钮（按 UGUI 绘制顺序算，不用截图）；弹窗后面的按钮被盖是正常的 |
-| `DragCheck()` | 像玩家一样拿起一件物品（优先拾取栏里的）停在背包上方，报告有没有东西画在它上面，然后放回原处 |
+| `DragCheck()` | 像玩家一样拿起一件物品（优先拾取栏里的）停在背包上方，报告有没有东西画在它上面、落点提示是绿还是红，然后放回原处 |
 
 游戏内按 F1 打开同一套功能的开发者面板（只在 Editor 和开发版里有）。
 
