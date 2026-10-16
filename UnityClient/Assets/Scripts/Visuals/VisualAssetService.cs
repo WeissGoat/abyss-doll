@@ -364,6 +364,7 @@ public static class VisualUIHelper {
         image.preserveAspect = preserveAspect;
         image.raycastTarget = false;
         UIStillMotion.SyncPortrait(image, visualID);
+        UIPortraitSway.Sync(image, visualID);
         return hasRegisteredSprite;
     }
 
