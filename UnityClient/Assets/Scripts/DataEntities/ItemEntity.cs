@@ -135,6 +135,117 @@ public static class ItemPresentationRules {
         return string.Empty;
     }
 
+    // The hover card for an item anywhere on screen: what it is, what it does, how big it is and what it is worth.
+    // Items have no written description yet, so every line is read from the item data.
+    public static ItemTooltipText BuildTooltip(ItemEntity item) {
+        if (item == null) {
+            return new ItemTooltipText { Title = string.Empty, Body = string.Empty };
+        }
+
+        List<string> lines = new List<string> { $"{RarityLabel(item.Rarity)} · {TypeLabel(item)}" };
+        string useHint = BuildUseHint(item);
+        if (!string.IsNullOrEmpty(useHint)) {
+            lines.Add(useHint);
+        }
+
+        if (item.Combat?.Effects != null) {
+            foreach (EffectData effect in item.Combat.Effects) {
+                string effectLine = DescribeEffect(effect, item.Grid?.Rotation ?? 0);
+                if (!string.IsNullOrEmpty(effectLine)) {
+                    lines.Add(effectLine);
+                }
+            }
+        }
+
+        if (item.Grid?.Shape != null && BackpackGrid.TryGetRotatedBounds(item, item.Grid.Rotation, out int columns, out int rows)) {
+            lines.Add(BackpackGrid.CanRotateItem(item)
+                ? $"占 {columns}×{rows} 格，可旋转（右键或 R）"
+                : $"占 {columns}×{rows} 格，不能旋转");
+        }
+
+        if (item.Durability < 0.999f) {
+            lines.Add($"耐久 {Mathf.RoundToInt(item.Durability * 100f)}%");
+        }
+
+        if (item.CorruptionLevel > 0) {
+            lines.Add($"污染 {item.CorruptionLevel}");
+        }
+
+        if (item.BaseValue > 0) {
+            lines.Add($"价值 {item.BaseValue}G");
+        }
+
+        return new ItemTooltipText { Title = item.Name, Body = string.Join("\n", lines) };
+    }
+
+    public static string TypeLabel(ItemEntity item) {
+        switch (item?.ItemType) {
+            case nameof(ItemType.Weapon): return "武器";
+            case nameof(ItemType.Armor): return "防具";
+            case nameof(ItemType.Anchor): return "护符";
+            case nameof(ItemType.Consumable): return "消耗品";
+            case nameof(ItemType.Loot): return "战利品";
+            case nameof(ItemType.QuestItem): return "委托物品";
+            default: return "材料";
+        }
+    }
+
+    private static string RarityLabel(string rarity) {
+        switch (rarity) {
+            case nameof(ItemRarity.Uncommon): return "优良";
+            case nameof(ItemRarity.Rare): return "稀有";
+            case nameof(ItemRarity.Epic): return "史诗";
+            case nameof(ItemRarity.Cursed): return "诅咒";
+            default: return "普通";
+        }
+    }
+
+    // Effects the use hint does not already cover: adjacency boosts, per-turn shields and dive cost changes.
+    private static string DescribeEffect(EffectData effect, int rotation) {
+        if (effect?.Params == null || effect.Params.Length == 0) {
+            return string.Empty;
+        }
+
+        float value = effect.Params[0];
+        switch (effect.EffectID) {
+            case "DamageMultiplier":
+                return $"{DirectionLabel(effect.Target, rotation)}伤害 +{Mathf.RoundToInt(value * 100f)}%";
+            case "AddRuntimeShieldOnTurnStart":
+                return $"每回合开始获得 {Mathf.RoundToInt(value)} 护盾";
+            case "ModifyResourceCost":
+                if (effect.Trigger != nameof(EffectTriggerType.OnDungeonMoveCost)) {
+                    return string.Empty;
+                }
+
+                string resource = string.IsNullOrEmpty(effect.Resource) ? "消耗" : effect.Resource;
+                string amount = effect.Operation == nameof(EffectModifierOperation.AddPercent)
+                    ? $"{(value >= 0f ? "+" : string.Empty)}{Mathf.RoundToInt(value * 100f)}%"
+                    : effect.Operation == nameof(EffectModifierOperation.Multiply)
+                        ? $"×{value:0.##}"
+                        : $"{(value >= 0f ? "+" : string.Empty)}{Mathf.RoundToInt(value)}";
+                return $"放在背包里时，地图上每走一步 {resource} 消耗 {amount}";
+            default:
+                return string.Empty;
+        }
+    }
+
+    // Directions turn with the item, so they are named as they read at the item's current rotation.
+    private static string DirectionLabel(string target, int rotation) {
+        if (!System.Enum.TryParse(target, out TargetDirection direction)) {
+            return "自身";
+        }
+
+        switch (BackpackGrid.RotateDirection(direction, rotation)) {
+            case TargetDirection.Right: return "紧贴右侧的物品";
+            case TargetDirection.Left: return "紧贴左侧的物品";
+            case TargetDirection.Up: return "紧贴上方的物品";
+            case TargetDirection.Down: return "紧贴下方的物品";
+            case TargetDirection.AllAdjacent: return "四周紧贴的物品";
+            case TargetDirection.Global: return "背包里所有物品";
+            default: return "自身";
+        }
+    }
+
     private static string BuildPayloadSummary(ItemEntity item) {
         if (item?.Combat == null) {
             return string.Empty;
@@ -201,4 +312,9 @@ public static class ItemPresentationRules {
                 return $"{resource} {sign}{Mathf.RoundToInt(value)}{suffix}";
         }
     }
+}
+
+public struct ItemTooltipText {
+    public string Title;
+    public string Body;
 }

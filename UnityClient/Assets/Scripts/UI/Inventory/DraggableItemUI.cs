@@ -3,8 +3,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 // 挂载在物品预制体（如剑、药水）上
-public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerDownHandler, IPointerEnterHandler {
+public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler {
     private const KeyCode RotateHeldItemKey = KeyCode.R;
+
+    // A held item draws above every panel and modal (540) but under the hover card (ItemTooltip.SortingOrder).
+    public const int HeldSortingOrder = 900;
 
     public ItemEntity ItemData { get; private set; }
     public bool IsPendingDiscard { get; private set; }
@@ -23,6 +26,7 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private Camera _dragEventCamera;
     private int _dragStartRotation;
     private bool _pendingDiscardAtDragStart;
+    private Canvas _heldCanvas;
 
     // [新增] 用于网格对齐计算：当前抓取的相对单元格坐标偏移
     public int DragCellOffsetX { get; private set; }
@@ -200,8 +204,51 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
-        Debug.Log($"[DraggableItemUI] 鼠标悬停进入: {gameObject.name}");
+        if (_isDragging || ItemData == null || (eventData != null && eventData.dragging)) {
+            return;
+        }
+
+        ItemTooltip.Show(ItemData, (RectTransform)transform);
     }
+
+    public void OnPointerExit(PointerEventData eventData) {
+        ItemTooltip.HideFor((RectTransform)transform);
+    }
+
+    private void OnDisable() {
+        ItemTooltip.HideFor(transform as RectTransform);
+        SetHeldOnTop(false);
+    }
+
+    // The backpack grid and its item layer are the canvas's last siblings, so an item dragged in from the loot tray or
+    // another panel used to slide under the grid. While held, a nested canvas lifts it above everything without
+    // reparenting (which would break the return-to-tray paths); the canvas is switched off again on release.
+    private void SetHeldOnTop(bool onTop) {
+        if (!onTop) {
+            if (_heldCanvas != null) {
+                _heldCanvas.overrideSorting = false;
+                _heldCanvas.enabled = false;
+            }
+            return;
+        }
+
+        if (transform.parent == null || transform.parent.GetComponentInParent<Canvas>() == null) {
+            return;
+        }
+
+        if (_heldCanvas == null) {
+            _heldCanvas = GetComponent<Canvas>();
+            if (_heldCanvas == null) {
+                _heldCanvas = gameObject.AddComponent<Canvas>();
+            }
+        }
+
+        _heldCanvas.enabled = true;
+        _heldCanvas.overrideSorting = true;
+        _heldCanvas.sortingOrder = HeldSortingOrder;
+    }
+
+    public bool IsHeldOnTop => _heldCanvas != null && _heldCanvas.enabled && _heldCanvas.overrideSorting;
 
     public void OnPointerDown(PointerEventData eventData) {
         Debug.Log($"[DraggableItemUI] 鼠标按下: {gameObject.name}");
@@ -289,6 +336,8 @@ public void OnBeginDrag(PointerEventData eventData) {
     UpdateDragCellOffset(eventData.position, eventData.pressEventCamera);
 
     transform.SetAsLastSibling();
+    SetHeldOnTop(true);
+    ItemTooltip.Hide();
 
     if (_canvasGroup != null) {
         _canvasGroup.blocksRaycasts = false;
@@ -325,6 +374,7 @@ public void OnEndDrag(PointerEventData eventData) {
         _canvasGroup.blocksRaycasts = true;
     }
 
+    SetHeldOnTop(false);
     if (!_isDragging) {
         return;
     }

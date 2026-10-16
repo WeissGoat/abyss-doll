@@ -65,10 +65,14 @@ public static class InventoryDragRecoveryTest {
             Vector3 start = lootUI.transform.position;
             PointerEventData lootDrag = new PointerEventData(null) { position = new Vector2(100f, 100f), pointerDrag = lootUI.gameObject };
             lootUI.OnBeginDrag(lootDrag);
+            // Held loot draws above the backpack grid (the canvas's last sibling) instead of sliding under it.
+            Canvas heldCanvas = lootUI.GetComponent<Canvas>();
+            Check(lootUI.IsHeldOnTop && heldCanvas != null && heldCanvas.sortingOrder == DraggableItemUI.HeldSortingOrder, "held loot is not lifted above the backpack");
             lootDrag.position = new Vector2(300f, 200f);
             lootUI.OnDrag(lootDrag);
             Vector3 dropped = lootUI.transform.position;
             lootUI.OnEndDrag(lootDrag);
+            Check(!lootUI.IsHeldOnTop && (heldCanvas == null || !heldCanvas.enabled), "released loot still draws above everything");
             Check(dropped != start && lootUI.transform.position == dropped, $"loot snapped back: start {start}, dropped {dropped}, now {lootUI.transform.position}");
             Check(lootUI.transform.parent == tray.transform && !lootUI.IsPendingDiscard && lootUI.GetComponent<CanvasGroup>().blocksRaycasts, "loot left the tray or lost its raycasts");
 

@@ -72,6 +72,7 @@ public class WorkshopShopPanel : MonoBehaviour {
         iconRect.sizeDelta = new Vector2(56f, 56f);
         if (ConfigManager.Items.TryGetValue(offer.ConfigID, out ItemEntity template)) {
             VisualUIHelper.ApplyContainSprite(icon, VisualAssetService.ResolveItemIconID(template), new Vector2(56f, 56f), Color.white, UITheme.Border);
+            ItemTooltipTrigger.Attach(row.gameObject, template);
         }
 
         Text label = UITheme.CreateText(row.transform, "Name_Text", $"{offer.Name}\n{DescribeOffer(template)}", UITheme.CaptionSize + 1, UITheme.TextPrimary);

@@ -132,6 +132,7 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
         Button button = row.AddComponent<Button>();
         button.targetGraphic = background;
         button.onClick.AddListener(() => HandleStashItemClicked(item));
+        ItemTooltipTrigger.Attach(row, item);
 
         HorizontalLayoutGroup layout = row.AddComponent<HorizontalLayoutGroup>();
         layout.childAlignment = TextAnchor.MiddleLeft;
@@ -151,7 +152,7 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
         string size = BackpackGrid.TryGetRotatedBounds(item, item.Grid?.Rotation ?? 0, out int columns, out int rows)
             ? $"{columns}×{rows}"
             : "?";
-        Text label = CreateLabel(row.transform, "ItemLabel_Text", $"{item.Name}\n{ResolveTypeLabel(item)} · 占 {size} 格 · {item.BaseValue}G", 19, TextColor, TextAnchor.MiddleLeft, 60f);
+        Text label = CreateLabel(row.transform, "ItemLabel_Text", $"{item.Name}\n{ItemPresentationRules.TypeLabel(item)} · 占 {size} 格 · {item.BaseValue}G", 19, TextColor, TextAnchor.MiddleLeft, 60f);
         label.rectTransform.sizeDelta = new Vector2(560f, 60f);
         return row;
     }
@@ -327,18 +328,6 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
         textObj.AddComponent<LayoutElement>().preferredHeight = height;
         ((RectTransform)textObj.transform).sizeDelta = new Vector2(0f, height);
         return text;
-    }
-
-    private static string ResolveTypeLabel(ItemEntity item) {
-        switch (item?.ItemType) {
-            case "Weapon": return "武器";
-            case "Armor": return "防具";
-            case "Anchor": return "护符";
-            case "Consumable": return "消耗品";
-            case "Loot": return "战利品";
-            case "QuestItem": return "委托物品";
-            default: return "材料";
-        }
     }
 
     private static Color ResolveItemTint(ItemEntity item) {

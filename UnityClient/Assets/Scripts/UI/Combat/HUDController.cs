@@ -23,6 +23,7 @@ public class HUDController : MonoBehaviour {
     private Image _incomingPanel;
     private Text _incomingLabel;
     private Coroutine _autoEndTurn;
+    private readonly EndTurnClickGuard _endTurnGuard = new EndTurnClickGuard();
     private Button _cancelSelectionBtn;
     private Button _unarmedStrikeBtn;
     private Image _playerStatusPanel;
@@ -80,7 +81,14 @@ public class HUDController : MonoBehaviour {
 
         endTurnBtn.onClick.RemoveAllListeners();
         endTurnBtn.onClick.AddListener(() => {
+            if (!_endTurnGuard.AllowManualEnd(Time.unscaledTime)) {
+                Debug.Log("[HUD] 新回合刚开始，忽略这次结束回合点击。");
+                return;
+            }
+
             if (GameRoot.Core?.Combat != null && GameRoot.Core.Combat.CurrentState == CombatState.PlayerTurn) {
+                // A click during the auto-end beat takes over, so the turn ends once and the beat cannot fire later.
+                CancelAutoEndTurn();
                 ItemUseService.ClearPendingTargetSelection();
                 GameRoot.Core.Combat.EndPlayerTurn();
             } else {
@@ -506,6 +514,13 @@ public class HUDController : MonoBehaviour {
         _autoEndTurn = StartCoroutine(AutoEndTurnAfterBeat());
     }
 
+    private void CancelAutoEndTurn() {
+        if (_autoEndTurn != null) {
+            StopCoroutine(_autoEndTurn);
+            _autoEndTurn = null;
+        }
+    }
+
     private System.Collections.IEnumerator AutoEndTurnAfterBeat() {
         if (_turnBannerLabel != null) {
             _turnBannerLabel.text = "AP 用完，自动结束回合";
@@ -919,6 +934,10 @@ public class HUDController : MonoBehaviour {
     }
 
     private void HandleTurnStarted(FactionType type) {
+        if (type == FactionType.Player) {
+            _endTurnGuard.OnPlayerTurnStarted(Time.unscaledTime);
+        }
+
         if (endTurnBtn != null) {
             endTurnBtn.interactable = type == FactionType.Player;
             Text btnText = endTurnBtn.GetComponentInChildren<Text>();
