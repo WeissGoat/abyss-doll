@@ -4,7 +4,7 @@ title: Agent原生动态立绘资产接入规格
 type: art
 role: 美术
 domain: dynamic_doll_puppet
-status: active
+status: superseded
 source_of_truth: true
 related:
   - 美术文档/README.md
@@ -19,11 +19,18 @@ related:
   - 开发文档/rules/03_视觉资源系统程序开发规范.md
   - agent_status/art.md
   - agent_status/program.md
-last_verified: 2026-07-18
+last_verified: 2026-10-17
 update_rule: 修改动态立绘主路线、人设交付包前置规则、DollPuppet目录结构、JSON契约、Unity接入边界或验收口径时同步本文档。
 ---
 
 # Agent原生动态立绘资产接入规格
+
+> **2026-10-17 起的现行做法（取代下文）**：不做分层 + rig / motion / expression JSON 的 DollPuppet 包，改成在现有立绘上做网格形变。
+> - 呼吸：`UIStillMotion`（所有 `doll_*` 立绘自动生效，从脚下起伏）。
+> - 头发 / 裙摆摆动：`UIPortraitSway` 把立绘切成网格，按权重图横向弯曲顶点；权重图是 Approved 里的 `<VisualID>_rig`（R 头发、G 裙摆，Read/Write、不压缩、线性），由 `tools/美术工具/build_portrait_rig.py` 从立绘生成。目前只有 `doll_proto_0_stand`。
+> - 零号戴遮眼布，不做眨眼。表情切换仍用整张差分立绘。
+> - 程序侧的 `DollLive2DPresenter` / `Live2DAcceptanceRunner` 是旧路线的接口，没有接进游戏。
+> 下文保留作历史参考。真 Live2D（Cubism）只在外包绑定时接入。
 
 > 定位：本文定义 Project P3 首版正式动态魔偶立绘的 agent-native 制作与接入路线。它以项目自有 `DollPuppet` 资产格式为主线，视觉目标对标 Live2D，但不把首版完成口径绑定到 Cubism / Spine GUI 工具或专有导出文件。
 
