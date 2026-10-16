@@ -3,7 +3,7 @@ using UnityEngine;
 
 // M4 playtest bug: loot dragged from the pickup tray slid under the backpack grid. On the real loot screen after a
 // fight (with a whetstone added to the offer, so there is always something to drag), DragCheck holds a loot item over
-// the backpack and reports what is drawn on top of it.
+// the backpack and reports what is drawn on top of it and which cells the drop preview colours.
 public static class HeldLootOnTopPlayScenario {
     public static IEnumerator Run() {
         yield return PlayScenarioSupport.BootToWorkshop();
@@ -29,7 +29,7 @@ public static class HeldLootOnTopPlayScenario {
         yield return new WaitForSecondsRealtime(0.5f);
 
         string report = P3DevTools.DragCheck();
-        if (report.Contains("COVERED") || report.Contains("no item")) {
+        if (report.Contains("COVERED") || report.Contains("no item") || report.Contains("Drop preview: none")) {
             Debug.LogError("[HeldLootOnTop] " + report);
         } else {
             Debug.Log("[HeldLootOnTop] " + report);

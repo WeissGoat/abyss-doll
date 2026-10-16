@@ -152,12 +152,14 @@ public static class P3DevTools {
         data.position = over;
         picked.OnDrag(data);
         List<Graphic> covering = UIOcclusion.CoveringGraphics(rect, over);
+        picked.UpdatePlacementPreview(over);
+        string preview = DescribeDropPreview(picked);
         picked.ReturnToOriginalPosition();
         picked.OnEndDrag(data);
 
         string name = picked.ItemData.Name;
         if (covering.Count == 0) {
-            return $"DragCheck: held {name} over the backpack; nothing drawn on top of it.";
+            return $"DragCheck: held {name} over the backpack; nothing drawn on top of it. {preview}";
         }
 
         List<string> names = new List<string>();
@@ -166,6 +168,29 @@ public static class P3DevTools {
         }
 
         return $"DragCheck: held {name} over the backpack is COVERED by {string.Join(", ", names.ToArray())}.";
+    }
+
+    // "Drop preview: fits, 2 cell(s) green." / "does not fit, 2 cell(s) red." / "none."
+    private static string DescribeDropPreview(DraggableItemUI held) {
+        if (held.PreviewSlot == null) {
+            return "Drop preview: none.";
+        }
+
+        int green = 0;
+        int red = 0;
+        foreach (GridSlotUI slot in Object.FindObjectsOfType<GridSlotUI>()) {
+            if (slot.IsShowingPreviewSkin(true)) {
+                green++;
+            } else if (slot.IsShowingPreviewSkin(false)) {
+                red++;
+            }
+        }
+
+        if (green == 0 && red == 0) {
+            return "Drop preview: none.";
+        }
+
+        return green > 0 ? $"Drop preview: fits, {green} cell(s) green." : $"Drop preview: does not fit, {red} cell(s) red.";
     }
 
     private static void AddCovered(List<string> lines, RectTransform target, string label) {

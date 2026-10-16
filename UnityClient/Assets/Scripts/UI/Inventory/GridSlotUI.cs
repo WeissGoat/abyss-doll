@@ -24,9 +24,8 @@ public class GridSlotUI : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
             _image = GetComponent<Image>();
         }
 
-        DraggableItemUI draggedItem = ResolveDraggedItem(eventData);
-        if (draggedItem != null) {
-            ApplyDragPreviewSkin(draggedItem);
+        // While an item is held, it draws the drop preview itself (DraggableItemUI.UpdatePlacementPreview).
+        if (ResolveDraggedItem(eventData) != null) {
             return;
         }
 
@@ -37,6 +36,10 @@ public class GridSlotUI : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
     }
 
     public void OnPointerExit(PointerEventData eventData) {
+        if (ResolveDraggedItem(eventData) != null) {
+            return;
+        }
+
         ResetAllSlotSkins();
     }
 
@@ -52,6 +55,18 @@ public class GridSlotUI : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
             return;
         }
 
+        if (!TryPlace(draggedItem)) {
+            draggedItem.ReturnToOriginalPosition();
+        }
+    }
+
+    // Places the held item with the pointer cell on this slot. Also used when the item is released over the gap
+    // between cells or over another item's picture, where no slot receives the drop.
+    public bool TryPlace(DraggableItemUI draggedItem) {
+        if (IsLocked || draggedItem == null || draggedItem.ItemData == null) {
+            return false;
+        }
+
         int originX = X - draggedItem.DragCellOffsetX;
         int originY = Y - draggedItem.DragCellOffsetY;
 
@@ -62,11 +77,11 @@ public class GridSlotUI : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
             draggedItem.SnapToSlot(targetSlot != null ? targetSlot : transform, originX, originY);
 
             Debug.Log($"[UI] Placed item {draggedItem.ItemData.Name} at ({originX}, {originY}).");
-            return;
+            return true;
         }
 
-        draggedItem.ReturnToOriginalPosition();
         Debug.LogWarning($"[UI] Cannot place item {draggedItem.ItemData.Name} at ({originX}, {originY}). {placeReason}");
+        return false;
     }
 
     private DraggableItemUI ResolveDraggedItem(PointerEventData eventData) {
@@ -77,10 +92,28 @@ public class GridSlotUI : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
         return item != null && item.IsDragging() ? item : null;
     }
 
-    private void ApplyDragPreviewSkin(DraggableItemUI draggedItem) {
+    // Cells the item would take with the pointer over this slot, in the valid or invalid skin; true when it fits.
+    public bool ShowPlacementPreview(DraggableItemUI draggedItem) {
+        return ApplyDragPreviewSkin(draggedItem);
+    }
+
+    public static void ClearPreview() {
+        ResetAllSlotSkins();
+    }
+
+    public bool IsShowingPreviewSkin(bool valid) {
+        if (_image == null) {
+            _image = GetComponent<Image>();
+        }
+
+        string visualID = valid ? VisualAssetService.UIInventorySlotValidID : VisualAssetService.UIInventorySlotInvalidID;
+        return _image != null && _image.sprite != null && VisualAssetService.TryGetSprite(visualID, out Sprite sprite) && _image.sprite == sprite;
+    }
+
+    private bool ApplyDragPreviewSkin(DraggableItemUI draggedItem) {
         if (draggedItem == null || draggedItem.ItemData == null) {
             ApplyDefaultSkin();
-            return;
+            return false;
         }
 
         int originX = X - draggedItem.DragCellOffsetX;
@@ -102,7 +135,7 @@ public class GridSlotUI : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
 
         if (!hasPreview || placement.OccupiedCells == null || placement.OccupiedCells.Count == 0) {
             VisualUIHelper.ApplyInventorySlotSkin(_image, IsLocked, visualID);
-            return;
+            return canPlace;
         }
 
         bool highlightedAnyCell = false;
@@ -127,6 +160,8 @@ public class GridSlotUI : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
         if (!highlightedAnyCell) {
             VisualUIHelper.ApplyInventorySlotSkin(_image, IsLocked, visualID);
         }
+
+        return canPlace;
     }
 
     private void ApplyDefaultSkin() {
@@ -137,7 +172,7 @@ public class GridSlotUI : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
         VisualUIHelper.ApplyInventorySlotSkin(_image, IsLocked);
     }
 
-    private void ResetAllSlotSkins() {
+    private static void ResetAllSlotSkins() {
         foreach (GridSlotUI slot in FindObjectsOfType<GridSlotUI>()) {
             if (slot != null) {
                 slot.ApplyDefaultSkin();

@@ -8,6 +8,8 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     // A held item draws above every panel and modal (540) but under the hover card (ItemTooltip.SortingOrder).
     public const int HeldSortingOrder = 900;
+    // The held item covers the very cells its drop preview colours, so it is see-through while held.
+    public const float HeldAlpha = 0.7f;
 
     public ItemEntity ItemData { get; private set; }
     public bool IsPendingDiscard { get; private set; }
@@ -27,6 +29,9 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private int _dragStartRotation;
     private bool _pendingDiscardAtDragStart;
     private Canvas _heldCanvas;
+    private GridSlotUI[] _previewSlots;
+    private GridSlotUI _previewSlot;
+    private int _previewKey = int.MinValue;
 
     // [新增] 用于网格对齐计算：当前抓取的相对单元格坐标偏移
     public int DragCellOffsetX { get; private set; }
@@ -48,11 +53,81 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     // Rotation: while dragging press R or right click; on an item lying in the backpack (or the loot tray) right click.
     private void Update() {
-        if (!_isDragging || !(Input.GetKeyDown(RotateHeldItemKey) || Input.GetMouseButtonDown(1))) {
+        if (!_isDragging) {
             return;
         }
 
-        TryRotateHeldItem(Input.mousePosition, _dragEventCamera);
+        if (Input.GetKeyDown(RotateHeldItemKey) || Input.GetMouseButtonDown(1)) {
+            TryRotateHeldItem(Input.mousePosition, _dragEventCamera);
+        }
+
+        UpdatePlacementPreview(Input.mousePosition);
+    }
+
+    // Colours the cells the item would take if dropped now: green when it fits, red when it does not. Worked out from
+    // the pointer position every frame, so it follows rotation and works over cells other items cover (the slot under
+    // them never gets a pointer-enter).
+    public void UpdatePlacementPreview(Vector2 screenPosition) {
+        GridSlotUI hovered = FindSlotUnder(screenPosition);
+        int rotation = ItemData?.Grid != null ? BackpackGrid.NormalizeRotation(ItemData.Grid.Rotation) : 0;
+        int key = hovered == null ? -1 : (((hovered.X * 64 + hovered.Y) * 8 + rotation / 90) * 64 + DragCellOffsetX) * 64 + DragCellOffsetY;
+        if (key == _previewKey && hovered == _previewSlot) {
+            return;
+        }
+
+        _previewKey = key;
+        _previewSlot = hovered;
+        if (hovered == null) {
+            GridSlotUI.ClearPreview();
+        } else {
+            hovered.ShowPlacementPreview(this);
+        }
+    }
+
+    public GridSlotUI PreviewSlot => _previewSlot;
+
+    private GridSlotUI FindSlotUnder(Vector2 screenPosition) {
+        if (_previewSlots == null) {
+            _previewSlots = FindObjectsOfType<GridSlotUI>();
+        }
+
+        // The nearest slot whose cell (grown by half the gap) holds the pointer, so the preview does not blink off
+        // in the spacing between cells.
+        GridSlotUI best = null;
+        float bestDistance = float.MaxValue;
+        Vector3[] corners = new Vector3[4];
+        foreach (GridSlotUI slot in _previewSlots) {
+            if (slot == null || !slot.isActiveAndEnabled) {
+                continue;
+            }
+
+            ((RectTransform)slot.transform).GetWorldCorners(corners);
+            Vector2 min = RectTransformUtility.WorldToScreenPoint(_dragEventCamera, corners[0]);
+            Vector2 max = RectTransformUtility.WorldToScreenPoint(_dragEventCamera, corners[2]);
+            Vector2 margin = (max - min) * 0.1f;
+            if (screenPosition.x < min.x - margin.x || screenPosition.x > max.x + margin.x
+                || screenPosition.y < min.y - margin.y || screenPosition.y > max.y + margin.y) {
+                continue;
+            }
+
+            float distance = (screenPosition - (min + max) * 0.5f).sqrMagnitude;
+            if (distance < bestDistance) {
+                bestDistance = distance;
+                best = slot;
+            }
+        }
+
+        return best;
+    }
+
+    private void EndPlacementPreview() {
+        if (_previewSlot != null || _previewKey != int.MinValue) {
+            GridSlotUI.ClearPreview();
+        }
+
+        _previewSlots = null;
+        _previewSlot = null;
+        _previewKey = int.MinValue;
     }
 
     private void ApplyVisualStyle() {
@@ -218,12 +293,19 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private void OnDisable() {
         ItemTooltip.HideFor(transform as RectTransform);
         SetHeldOnTop(false);
+        if (_isDragging) {
+            EndPlacementPreview();
+        }
     }
 
     // The backpack grid and its item layer are the canvas's last siblings, so an item dragged in from the loot tray or
     // another panel used to slide under the grid. While held, a nested canvas lifts it above everything without
     // reparenting (which would break the return-to-tray paths); the canvas is switched off again on release.
     private void SetHeldOnTop(bool onTop) {
+        if (_canvasGroup != null) {
+            _canvasGroup.alpha = onTop ? HeldAlpha : 1f;
+        }
+
         if (!onTop) {
             if (_heldCanvas != null) {
                 _heldCanvas.overrideSorting = false;
@@ -338,6 +420,9 @@ public void OnBeginDrag(PointerEventData eventData) {
     transform.SetAsLastSibling();
     SetHeldOnTop(true);
     ItemTooltip.Hide();
+    _previewSlots = null;
+    _previewSlot = null;
+    _previewKey = int.MinValue;
 
     if (_canvasGroup != null) {
         _canvasGroup.blocksRaycasts = false;
@@ -375,14 +460,23 @@ public void OnEndDrag(PointerEventData eventData) {
     }
 
     SetHeldOnTop(false);
+    GridSlotUI previewSlot = _previewSlot;
+    EndPlacementPreview();
     if (!_isDragging) {
+        return;
+    }
+
+    // No slot took the drop (released in the gap between cells or over another item), but the preview showed a
+    // cell: drop there, so what the player saw is what happens.
+    BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+    if (previewSlot != null && grid != null && !grid.ContainedItems.Contains(ItemData) && previewSlot.TryPlace(this)) {
+        _isDragging = false;
         return;
     }
 
     _isDragging = false;
 
     // 如果拖拽结束后，物品没有在后端的网格里（说明它被扔在了空地，或者放置失败了）
-    BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
     if (grid == null || !grid.ContainedItems.Contains(ItemData)) {
         bool allowStageDiscard = CanStageDiscard();
         InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("DragEnd", allowStageDiscard);
