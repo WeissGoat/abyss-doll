@@ -18,8 +18,12 @@ description: Use when Project P3 needs to see the game actually running - enter 
 | `SkipPrologue()`、`GoTo("map")` 等 | 调试路径：`workshop`、`sell`、`prosthetic`、`layers`、`loadout`、`map`、`combat`、`saferoom`、`stairs` |
 | `AddMoney(500)`、`AddItem("gear_rusty_dagger")`、`Heal()` | 改状态（调试用） |
 | `SetPrologueOnStartup(true)` | 下次进 Play Mode 时播放序章 |
+| `Occlusion()` | 被别的东西盖住的物品和可点按钮（按 UGUI 绘制顺序算，不用截图）；弹窗后面的按钮被盖是正常的 |
+| `DragCheck()` | 像玩家一样拿起一件物品（优先拾取栏里的）停在背包上方，报告有没有东西画在它上面，然后放回原处 |
 
 游戏内按 F1 打开同一套功能的开发者面板（只在 Editor 和开发版里有）。
+
+打包版可以像 Editor 一样一步步操作：`python tools/agent/p3cmd.py launch [包目录]` 以 `-p3cmd` 启动（窗口 1280x720、不读写存档、跳过序章，加 `--prologue` 播放），之后每条 `python tools/agent/p3cmd.py <命令>` 在游戏主线程执行一个 `P3DevTools` 方法（`Describe`、`Click 继续`、`RunDive 40 true`、`Occlusion`），另有 `screenshot [路径] [宽度，默认 640]`、`wait <秒>`、`quit`、`help`。只监听本机，不带参数启动时不开。长走查可以写成任务说明交给 `tools/agent/delegate.py`，只看它的报告。
 
 打包版的画面检查用 `tools/build/Test-WindowsBuild.ps1`：包自己截序章、工坊、整备、账本，连跑 3 次下潜，结果和截图在 `UnityClient/Logs/Playtest/<时间>_build_smoke/`。只在 Editor 里看过的画面不能代表打包版：画布查找、对象顺序在打包版里会不一样。截图全是同一张空白图时，多半是电脑锁屏或窗口没在渲染（Player.log 里会有 FMOD 找不到音频设备），自检的逻辑结果仍然有效，截图要等解锁后重跑。
 

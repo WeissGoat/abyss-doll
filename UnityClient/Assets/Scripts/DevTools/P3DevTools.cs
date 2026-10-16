@@ -101,6 +101,89 @@ public static class P3DevTools {
         return path;
     }
 
+    // Items and clickable buttons that something else is drawn on top of (UIOcclusion, no screenshot). Buttons behind
+    // an open modal are expected; an item under the backpack or a button under a panel is a bug.
+    public static string Occlusion() {
+        List<string> lines = new List<string>();
+        foreach (DraggableItemUI item in Object.FindObjectsOfType<DraggableItemUI>()) {
+            AddCovered(lines, (RectTransform)item.transform, "item " + item.ItemData?.Name);
+        }
+
+        foreach (Button button in ClickableButtons()) {
+            AddCovered(lines, (RectTransform)button.transform, $"button '{ButtonLabel(button)}'");
+        }
+
+        return lines.Count == 0 ? "Nothing covered." : $"Covered ({lines.Count}):\n" + string.Join("\n", lines.ToArray());
+    }
+
+    // Picks up an item as the player would (loot first, or the item whose name contains itemName), holds it over the
+    // middle of the backpack, reports what is drawn on top of it, then puts it back where it was.
+    public static string DragCheck(string itemName = null) {
+        DraggableItemUI picked = null;
+        BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
+        foreach (DraggableItemUI item in Object.FindObjectsOfType<DraggableItemUI>()) {
+            if (!item.isActiveAndEnabled || item.ItemData == null || (itemName != null && !item.ItemData.Name.Contains(itemName))) {
+                continue;
+            }
+
+            bool loose = grid == null || !grid.ContainedItems.Contains(item.ItemData);
+            if (picked == null || (loose && grid.ContainedItems.Contains(picked.ItemData))) {
+                picked = item;
+            }
+        }
+
+        GridGenerator generator = Object.FindObjectOfType<GridGenerator>();
+        RectTransform gridRect = generator != null ? generator.gridParent as RectTransform : null;
+        if (picked == null || gridRect == null || !gridRect.gameObject.activeInHierarchy) {
+            return "DragCheck: no item on screen or the backpack is hidden.\n" + Describe();
+        }
+
+        RectTransform rect = (RectTransform)picked.transform;
+        Vector2 start = RectTransformUtility.WorldToScreenPoint(null, rect.TransformPoint(rect.rect.center));
+        Vector2 over = RectTransformUtility.WorldToScreenPoint(null, gridRect.TransformPoint(gridRect.rect.center));
+        UnityEngine.EventSystems.PointerEventData data = new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current) {
+            button = UnityEngine.EventSystems.PointerEventData.InputButton.Left,
+            position = start,
+            pressPosition = start,
+            pointerDrag = picked.gameObject
+        };
+
+        picked.OnBeginDrag(data);
+        data.position = over;
+        picked.OnDrag(data);
+        List<Graphic> covering = UIOcclusion.CoveringGraphics(rect, over);
+        picked.ReturnToOriginalPosition();
+        picked.OnEndDrag(data);
+
+        string name = picked.ItemData.Name;
+        if (covering.Count == 0) {
+            return $"DragCheck: held {name} over the backpack; nothing drawn on top of it.";
+        }
+
+        List<string> names = new List<string>();
+        foreach (Graphic graphic in covering) {
+            names.Add(UIOcclusion.PathOf(graphic.transform));
+        }
+
+        return $"DragCheck: held {name} over the backpack is COVERED by {string.Join(", ", names.ToArray())}.";
+    }
+
+    private static void AddCovered(List<string> lines, RectTransform target, string label) {
+        if (target == null || !target.gameObject.activeInHierarchy) {
+            return;
+        }
+
+        Graphic graphic = target.GetComponent<Graphic>();
+        if (graphic == null || !UIOcclusion.IsVisible(graphic)) {
+            return;
+        }
+
+        List<Graphic> covering = UIOcclusion.CoveringGraphics(target);
+        if (covering.Count > 0) {
+            lines.Add($"{label} ({UIOcclusion.PathOf(target)}) under {UIOcclusion.PathOf(covering[covering.Count - 1].transform)}");
+        }
+    }
+
     // Clicks the first button the player could click whose label contains the text.
     public static string Click(string label) {
         foreach (Button button in ClickableButtons()) {

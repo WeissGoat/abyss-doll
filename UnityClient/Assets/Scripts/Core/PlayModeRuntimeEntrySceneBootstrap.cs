@@ -37,6 +37,14 @@ public static class PlayModeRuntimeEntrySceneBootstrap
             return;
         }
 
+        // Play Mode tests start in the runner's InitTestScene; the scenarios load the game scene themselves once the
+        // runner is up (PlayScenarioSupport.BootToWorkshop).
+        if (activeScene.name.StartsWith("InitTestScene", StringComparison.Ordinal))
+        {
+            SceneManager.sceneLoaded -= HandleSceneLoaded;
+            return;
+        }
+
         if (_mainSceneLoadRequested)
         {
             return;

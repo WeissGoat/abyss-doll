@@ -22,6 +22,14 @@ public static class PlayModeSceneGuard
     {
         if (state == PlayModeStateChange.ExitingEditMode)
         {
+            // Play Mode tests start from the runner's own InitTestScene; rerouting it to the game scene meant the
+            // tests never started. The game boots itself from there (PlayModeRuntimeEntrySceneBootstrap).
+            if (SceneManager.GetActiveScene().name.StartsWith("InitTestScene", StringComparison.Ordinal))
+            {
+                EditorSceneManager.playModeStartScene = null;
+                return;
+            }
+
             EnsurePlayModeStartScene(true);
         }
         else if (state == PlayModeStateChange.EnteredEditMode)
