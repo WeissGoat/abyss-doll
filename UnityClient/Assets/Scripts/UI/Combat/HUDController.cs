@@ -816,9 +816,32 @@ public class HUDController : MonoBehaviour {
         nameLabel.alignment = TextAnchor.MiddleCenter;
         nameLabel.color = isAlive ? Color.white : new Color(0.65f, 0.65f, 0.65f, 0.92f);
         nameLabel.raycastTarget = false;
-        // Statuses on it (中毒 3 · 破甲 1) follow the name.
+        nameLabel.text = fighter != null ? fighter.Name : "未知敌人";
+
+        // Statuses on it (中毒 3 · 破甲 1), just above the HP bar.
         string statuses = isAlive ? CombatStatusService.Describe(fighter) : string.Empty;
-        nameLabel.text = (fighter != null ? fighter.Name : "未知敌人") + (string.IsNullOrEmpty(statuses) ? string.Empty : $"  <color=#B8E07A>{statuses}</color>");
+        if (!string.IsNullOrEmpty(statuses)) {
+            GameObject statusObj = CreateRectGameObject("EnemyStatus_Text");
+            statusObj.transform.SetParent(parent, false);
+            Text statusLabel = statusObj.AddComponent<Text>();
+            statusLabel.font = _defaultFont;
+            statusLabel.fontSize = 18;
+            statusLabel.alignment = TextAnchor.MiddleCenter;
+            statusLabel.color = new Color(0.78f, 0.95f, 0.52f);
+            statusLabel.raycastTarget = false;
+            statusLabel.horizontalOverflow = HorizontalWrapMode.Overflow;
+            statusLabel.verticalOverflow = VerticalWrapMode.Overflow;
+            statusLabel.text = statuses;
+            Outline outline = statusObj.AddComponent<Outline>();
+            outline.effectColor = new Color(0f, 0f, 0f, 0.85f);
+            outline.effectDistance = new Vector2(1.5f, -1.5f);
+            RectTransform statusRect = statusLabel.rectTransform;
+            statusRect.anchorMin = new Vector2(0.5f, 0f);
+            statusRect.anchorMax = new Vector2(0.5f, 0f);
+            statusRect.pivot = new Vector2(0.5f, 0.5f);
+            statusRect.anchoredPosition = new Vector2(0f, 72f);
+            statusRect.sizeDelta = new Vector2(300f, 30f);
+        }
         RectTransform nameRect = nameLabel.rectTransform;
         nameRect.anchorMin = new Vector2(0.5f, 0f);
         nameRect.anchorMax = new Vector2(0.5f, 0f);

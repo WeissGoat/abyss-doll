@@ -1,0 +1,78 @@
+{
+  "ConfigID": "gear_old_wrench",
+  "Name": "旧扳手",
+  "ItemType": "Weapon",
+  "Rarity": "Common",
+  "BaseValue": 150,
+  "IconID": "item_gear_old_wrench_icon",
+  "DescriptionKey": "item.gear_old_wrench.desc",
+  "Description": "手柄磨亮的旧扳手，敲过矿轨，也拧过零号背后的螺丝。",
+  "ItemRole": ["Tutorial", "BuildCore", "Trade"],
+  "LayerTags": ["Layer1"],
+  "Grid": {
+    "Shape": [[0,0], [0,1]],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0, 90],
+    "PlacementTags": ["Backpack", "Weapon"]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Physical",
+    "BaseValue": 10,
+    "Effects": [
+      {
+        "EffectID": "ChargeNeighbor",
+        "Level": 0,
+        "Target": "AllAdjacent",
+        "Tag": "Mechanical",
+        "Params": [0.2]
+      }
+    ]
+  },
+  "Tags": ["Weapon", "Mechanical", "Melee", "Layer1"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": [],
+    "CraftingRefs": [],
+    "ShopRefs": ["economy_town_v1"],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Mechanical", "Weapon", "Layer1"],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_old_wrench_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_old_wrench"
+  }
+}

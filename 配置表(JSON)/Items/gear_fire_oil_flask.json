@@ -1,0 +1,119 @@
+{
+  "ConfigID": "gear_fire_oil_flask",
+  "Name": "火油瓶",
+  "ItemType": "Weapon",
+  "Rarity": "Uncommon",
+  "BaseValue": 360,
+  "IconID": "item_gear_fire_oil_flask_icon",
+  "DescriptionKey": "item.gear_fire_oil_flask.desc",
+  "Description": "坑道照明用的旧油瓶，被拾荒人套上布塞和铁箍，专门往裂隙里扔。",
+  "ItemRole": [
+    "BuildCore",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer2"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Physical",
+    "BaseValue": 22,
+    "Effects": [
+      {
+        "EffectID": "ApplyStatus",
+        "Level": 0,
+        "Status": "Vulnerable",
+        "Params": [
+          2
+        ]
+      },
+      {
+        "EffectID": "UsesPerCombat",
+        "Level": 0,
+        "Params": [
+          1
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Weapon",
+    "Throwing",
+    "Ranged",
+    "Layer2"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_crystal_guard"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer2",
+      "reward_monster_mob_crystal_guard"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Weapon",
+      "Throwing",
+      "Layer2"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "mechanical_weapon_tier2"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_fire_oil_flask_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_fire_oil_flask"
+  }
+}

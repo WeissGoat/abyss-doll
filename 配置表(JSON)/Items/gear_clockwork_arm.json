@@ -1,0 +1,78 @@
+{
+  "ConfigID": "gear_clockwork_arm",
+  "Name": "发条臂",
+  "ItemType": "Weapon",
+  "Rarity": "Rare",
+  "BaseValue": 780,
+  "IconID": "item_gear_clockwork_arm_icon",
+  "DescriptionKey": "item.gear_clockwork_arm.desc",
+  "Description": "旧矿场拆下的钟表臂骨，缠上布条后仍会替零号咬住下一击。",
+  "ItemRole": ["BuildCore", "Trade"],
+  "LayerTags": ["Layer2"],
+  "Grid": {
+    "Shape": [[0,0], [0,1], [1,0]],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 3,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0, 90, 180, 270],
+    "PlacementTags": ["Backpack", "Weapon"]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Physical",
+    "BaseValue": 16,
+    "Effects": [
+      {
+        "EffectID": "ChargeNeighbor",
+        "Level": 0,
+        "Target": "AllAdjacent",
+        "Tag": "Mechanical",
+        "Params": [0.4]
+      }
+    ]
+  },
+  "Tags": ["Weapon", "Mechanical", "Melee", "Layer2"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["mob_crystal_guard"],
+    "RewardRefs": ["reward_node_treasure_layer2", "reward_monster_mob_crystal_guard"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Mechanical", "Weapon", "Layer2"],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "mechanical_weapon_tier2"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_clockwork_arm_icon",
+    "GridPreviewStyle": "LargeGear",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_clockwork_arm"
+  }
+}

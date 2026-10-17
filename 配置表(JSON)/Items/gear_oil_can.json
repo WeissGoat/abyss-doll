@@ -1,0 +1,87 @@
+{
+  "ConfigID": "gear_oil_can",
+  "Name": "油壶",
+  "ItemType": "Armor",
+  "Rarity": "Uncommon",
+  "BaseValue": 240,
+  "IconID": "item_gear_oil_can_icon",
+  "DescriptionKey": "item.gear_oil_can.desc",
+  "Description": "坑道工留下的黄铜油壶，壶嘴歪了，挤出的旧油还能让齿轮多咬一阵。",
+  "ItemRole": ["BuildCore", "Support", "Adjacency"],
+  "LayerTags": ["Layer1"],
+  "Grid": {
+    "Shape": [[0,0]],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0],
+    "PlacementTags": ["Backpack", "Support"]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "ChargeNeighbor",
+        "Level": 0,
+        "Target": "AllAdjacent",
+        "Tag": "Mechanical",
+        "Params": [0.5]
+      },
+      {
+        "EffectID": "UsesPerCombat",
+        "Level": 0,
+        "Params": [2]
+      }
+    ]
+  },
+  "Tags": ["Support", "Mechanical", "Layer1"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["mob_rust_hound", "mob_scavenger_bug"],
+    "RewardRefs": [
+      "reward_node_treasure_layer1",
+      "reward_monster_mob_rust_hound",
+      "reward_monster_mob_scavenger_bug"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Mechanical", "Support", "Layer1"],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "mechanical_support_tier1"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_oil_can_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_oil_can"
+  }
+}

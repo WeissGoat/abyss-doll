@@ -1,0 +1,108 @@
+{
+  "ConfigID": "gear_shield_oil",
+  "Name": "盾油",
+  "ItemType": "Armor",
+  "Rarity": "Uncommon",
+  "BaseValue": 360,
+  "IconID": "item_gear_shield_oil_icon",
+  "DescriptionKey": "item.gear_shield_oil.desc",
+  "Description": "坑道维修工调出来的厚油，涂在盾面上，敌人的胳膊会越来越沉。",
+  "ItemRole": [
+    "Defense",
+    "Support"
+  ],
+  "LayerTags": [
+    "Layer2"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Support"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "ApplyStatus",
+        "Level": 0,
+        "Status": "Weak",
+        "Trigger": "TurnStart",
+        "Target": "AllEnemies",
+        "Params": [
+          1
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Defense",
+    "Support",
+    "Layer2"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_rust_cultivator"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer2",
+      "reward_monster_mob_rust_cultivator"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Utility",
+      "Layer2"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "mechanical_support_tier1"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_shield_oil_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_shield_oil"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "ConfigID": "gear_stone_bag",
+  "Name": "石子袋",
+  "ItemType": "Weapon",
+  "Rarity": "Common",
+  "BaseValue": 140,
+  "IconID": "item_gear_stone_bag_icon",
+  "DescriptionKey": "item.gear_stone_bag.desc",
+  "Description": "碎矿石和坑道废铁装进粗麻袋扎紧，分量随手，扔起来却够狠。",
+  "ItemRole": [
+    "Tutorial",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer1"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Physical",
+    "BaseValue": 8,
+    "Effects": [
+      {
+        "EffectID": "UsesPerCombat",
+        "Level": 0,
+        "Params": [
+          5
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Weapon",
+    "Throwing",
+    "Ranged",
+    "Layer1"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_scavenger_bug",
+      "mob_lost_miner_echo"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer1",
+      "reward_monster_mob_scavenger_bug",
+      "reward_monster_mob_lost_miner_echo"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [
+      "economy_town_v1"
+    ],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Weapon",
+      "Throwing",
+      "Scrap",
+      "Layer1"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_stone_bag_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_stone_bag"
+  }
+}

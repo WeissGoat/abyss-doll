@@ -61,6 +61,42 @@
         {
           "Type": "Nothing",
           "Weight": 32
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_iron_bracer",
+          "Weight": 3,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_pitbreaker_maul",
+          "Weight": 2,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_clockwork_arm",
+          "Weight": 3,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_thorn_shield",
+          "Weight": 2,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_fire_oil_flask",
+          "Weight": 3,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_saint_token",
+          "Weight": 4,
+          "Count": 1
         }
       ]
     }

@@ -65,7 +65,31 @@
         {
           "Type": "Item",
           "ItemID": "gear_petri_dish",
-          "Weight": 12,
+          "Weight": 5,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_iron_bracer",
+          "Weight": 3,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_pitbreaker_maul",
+          "Weight": 3,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_shield_oil",
+          "Weight": 4,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_throwing_knife_pack",
+          "Weight": 3,
           "Count": 1
         }
       ]

@@ -1,0 +1,77 @@
+{
+  "ConfigID": "gear_whispering_blade",
+  "Name": "低语之刃",
+  "ItemType": "Weapon",
+  "Rarity": "Rare",
+  "BaseValue": 760,
+  "IconID": "item_gear_whispering_blade_icon",
+  "DescriptionKey": "item.gear_whispering_blade.desc",
+  "Description": "旧矿场的手工短刃，刃背刻满听不清的低语，握久了便要用清醒去换那一下锋响。",
+  "ItemRole": ["BuildCore", "Trade"],
+  "LayerTags": ["Layer2"],
+  "Grid": {
+    "Shape": [[0, 0], [0, 1], [1, 1]],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 3,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0, 90, 180, 270],
+    "PlacementTags": ["Backpack"]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Physical",
+    "BaseValue": 42,
+    "Effects": [
+      {
+        "EffectID": "SelfCost",
+        "Level": 0,
+        "Resource": "SAN",
+        "Params": [4]
+      }
+    ]
+  },
+  "Tags": ["Weapon", "Melee", "Hex", "Layer2"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["mob_soul_midge_swarm"],
+    "RewardRefs": ["reward_node_treasure_layer2", "reward_monster_mob_soul_midge_swarm"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Weapon", "Hex", "Layer2"],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_whispering_blade_icon",
+    "GridPreviewStyle": "LargeGear",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_whispering_blade"
+  }
+}

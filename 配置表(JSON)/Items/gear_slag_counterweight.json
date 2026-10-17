@@ -1,0 +1,108 @@
+{
+  "ConfigID": "gear_slag_counterweight",
+  "Name": "矿渣配重块",
+  "ItemType": "Anchor",
+  "Rarity": "Uncommon",
+  "BaseValue": 220,
+  "IconID": "item_gear_slag_counterweight_icon",
+  "DescriptionKey": "item.gear_slag_counterweight.desc",
+  "Description": "从旧矿车轭架拆下的配重铁，用铁丝缠在重型武器边上，挥空时能借它喘一口气。",
+  "ItemRole": [
+    "Support",
+    "Adjacency"
+  ],
+  "LayerTags": [
+    "Layer1"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Support"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "GainAP",
+        "Level": 0,
+        "Trigger": "NeighborUse",
+        "Tag": "Heavy",
+        "Params": [
+          1
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Heavy",
+    "Layer1"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "DismantleOnly"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_rust_hound",
+      "mob_scavenger_bug"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer1",
+      "reward_monster_mob_rust_hound",
+      "reward_monster_mob_scavenger_bug"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "HeavyScrap",
+      "Layer1"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "mechanical_support_tier1"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_slag_counterweight_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_slag_counterweight"
+  }
+}

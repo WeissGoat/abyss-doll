@@ -1,0 +1,118 @@
+{
+  "ConfigID": "gear_throwing_knife_pack",
+  "Name": "飞刀包",
+  "ItemType": "Weapon",
+  "Rarity": "Rare",
+  "BaseValue": 800,
+  "IconID": "item_gear_throwing_knife_pack_icon",
+  "DescriptionKey": "item.gear_throwing_knife_pack.desc",
+  "Description": "旧矿场巡检员留下的皮制飞刀包，袋口和带扣都被矿工用铜线重新缠过。",
+  "ItemRole": [
+    "BuildCore",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer2"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 3,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Physical",
+    "BaseValue": 18,
+    "Effects": [
+      {
+        "EffectID": "UsesPerCombat",
+        "Level": 0,
+        "Params": [
+          3
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Weapon",
+    "Throwing",
+    "Ranged",
+    "Sharp",
+    "Layer2"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_rust_cultivator"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer2",
+      "reward_monster_mob_rust_cultivator"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Weapon",
+      "Throwing",
+      "Layer2"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "mechanical_weapon_tier2"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_throwing_knife_pack_icon",
+    "GridPreviewStyle": "LargeGear",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_throwing_knife_pack"
+  }
+}

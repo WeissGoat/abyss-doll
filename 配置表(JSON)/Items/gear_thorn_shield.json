@@ -1,0 +1,125 @@
+{
+  "ConfigID": "gear_thorn_shield",
+  "Name": "棘刺盾",
+  "ItemType": "Armor",
+  "Rarity": "Rare",
+  "BaseValue": 750,
+  "IconID": "item_gear_thorn_shield_icon",
+  "DescriptionKey": "item.gear_thorn_shield.desc",
+  "Description": "把矿车护板和断钉铆在一起，举起来时能听见铁屑在盾后乱跳。",
+  "ItemRole": [
+    "BuildCore",
+    "Defense"
+  ],
+  "LayerTags": [
+    "Layer2"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 3,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Shield",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "AddRuntimeShield",
+        "Level": 0,
+        "Target": "Self",
+        "Params": [
+          14.0
+        ]
+      },
+      {
+        "EffectID": "Thorns",
+        "Level": 0,
+        "Params": [
+          7
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Defense",
+    "Heavy",
+    "Melee",
+    "Layer2"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_crystal_guard"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer2",
+      "reward_monster_mob_crystal_guard"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Armor",
+      "HeavyScrap",
+      "Layer2"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_heavy_armor_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_thorn_shield_icon",
+    "GridPreviewStyle": "LargeGear",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_thorn_shield"
+  }
+}

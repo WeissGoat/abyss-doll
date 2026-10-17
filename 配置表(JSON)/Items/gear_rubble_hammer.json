@@ -1,0 +1,112 @@
+{
+  "ConfigID": "gear_rubble_hammer",
+  "Name": "碎石锤",
+  "ItemType": "Weapon",
+  "Rarity": "Common",
+  "BaseValue": 170,
+  "IconID": "item_gear_rubble_hammer_icon",
+  "DescriptionKey": "item.gear_rubble_hammer.desc",
+  "Description": "塌方坑道里捡来的短柄碎石锤，锤头裂了，靠几圈粗铁箍硬撑着。",
+  "ItemRole": [
+    "Tutorial",
+    "BuildCore"
+  ],
+  "LayerTags": [
+    "Layer1"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 3,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 2,
+    "DamageType": "Physical",
+    "BaseValue": 28,
+    "Effects": []
+  },
+  "Tags": [
+    "Heavy",
+    "Layer1",
+    "Melee"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_rust_hound",
+      "mob_scavenger_bug"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer1",
+      "reward_monster_mob_rust_hound",
+      "reward_monster_mob_scavenger_bug"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [
+      "economy_town_v1"
+    ],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Weapon",
+      "HeavyScrap",
+      "Layer1"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_rubble_hammer_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_rubble_hammer"
+  }
+}

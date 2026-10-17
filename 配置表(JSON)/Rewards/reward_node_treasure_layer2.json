@@ -81,6 +81,60 @@
           "ItemID": "gear_petri_dish",
           "Weight": 15,
           "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_iron_bracer",
+          "Weight": 12,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_pitbreaker_maul",
+          "Weight": 8,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_clockwork_arm",
+          "Weight": 10,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_thorn_shield",
+          "Weight": 10,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_shield_oil",
+          "Weight": 15,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_throwing_knife_pack",
+          "Weight": 10,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_fire_oil_flask",
+          "Weight": 12,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_whispering_blade",
+          "Weight": 10,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_saint_token",
+          "Weight": 12,
+          "Count": 1
         }
       ]
     }

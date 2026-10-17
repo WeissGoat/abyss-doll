@@ -23,8 +23,15 @@
         { "Type": "Item", "ItemID": "loot_gear_scrap", "Weight": 35, "Count": 1 },
         { "Type": "Item", "ItemID": "gear_rusty_dagger", "Weight": 12, "Count": 1 },
         { "Type": "Money", "Money": 10, "Weight": 8, "Count": 1 },
-        { "Type": "Item", "ItemID": "gear_corrosion_needle", "Weight": 8, "Count": 1 },
-        { "Type": "Item", "ItemID": "gear_rusty_syringe", "Weight": 10, "Count": 1 }
+        { "Type": "Item", "ItemID": "gear_corrosion_needle", "Weight": 2, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_rusty_syringe", "Weight": 2, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_rubble_hammer", "Weight": 2, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_slag_counterweight", "Weight": 2, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_gear_string", "Weight": 2, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_oil_can", "Weight": 2, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_riveted_plate", "Weight": 2, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_bone_saw", "Weight": 2, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_corroded_dagger", "Weight": 2, "Count": 1 }
       ]
     }
   ]

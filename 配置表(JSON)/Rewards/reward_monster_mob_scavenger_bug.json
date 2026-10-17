@@ -22,7 +22,14 @@
         { "Type": "Item", "ItemID": "loot_gear_scrap", "Weight": 55, "Count": 1 },
         { "Type": "Item", "ItemID": "con_repair_kit", "Weight": 20, "Count": 1 },
         { "Type": "Item", "ItemID": "gear_rusty_dagger", "Weight": 15, "Count": 1 },
-        { "Type": "Item", "ItemID": "gear_wooden_shield", "Weight": 10, "Count": 1 }
+        { "Type": "Item", "ItemID": "gear_wooden_shield", "Weight": 10, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_rubble_hammer", "Weight": 2, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_slag_counterweight", "Weight": 3, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_gear_string", "Weight": 2, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_oil_can", "Weight": 2, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_plated_shield", "Weight": 2, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_stone_bag", "Weight": 3, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_throwing_pouch", "Weight": 2, "Count": 1 }
       ]
     },
     {

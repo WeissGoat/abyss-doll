@@ -1,0 +1,115 @@
+{
+  "ConfigID": "gear_throwing_pouch",
+  "Name": "投掷腰包",
+  "ItemType": "Armor",
+  "Rarity": "Uncommon",
+  "BaseValue": 220,
+  "IconID": "item_gear_throwing_pouch_icon",
+  "DescriptionKey": "item.gear_throwing_pouch.desc",
+  "Description": "用废弃输送带裁成的腰包，边上还留着矿工自己缝的投掷搭扣。",
+  "ItemRole": [
+    "Support",
+    "Adjacency"
+  ],
+  "LayerTags": [
+    "Layer1"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Support"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "GainAP",
+        "Level": 0,
+        "Trigger": "NeighborUse",
+        "Target": "AllAdjacent",
+        "Tag": "Throwing",
+        "Params": [
+          1
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Throwing",
+    "Support",
+    "Layer1"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_scavenger_bug",
+      "mob_lost_miner_echo"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer1",
+      "reward_monster_mob_scavenger_bug",
+      "reward_monster_mob_lost_miner_echo"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Support",
+      "Layer1"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "mechanical_support_tier1"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_throwing_pouch_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_throwing_pouch"
+  }
+}

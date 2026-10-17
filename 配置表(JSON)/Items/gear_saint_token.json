@@ -1,0 +1,77 @@
+{
+  "ConfigID": "gear_saint_token",
+  "Name": "圣牌",
+  "ItemType": "Anchor",
+  "Rarity": "Rare",
+  "BaseValue": 380,
+  "IconID": "item_gear_saint_token_icon",
+  "DescriptionKey": "item.gear_saint_token.desc",
+  "Description": "矿工从塌方里捡出的旧圣牌，边缘被火熏黑，挂在背包里能替零号把散开的神智拢回来。",
+  "ItemRole": ["Recovery", "BuildCore"],
+  "LayerTags": ["Layer2"],
+  "Grid": {
+    "Shape": [[0, 0]],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0],
+    "PlacementTags": ["Backpack", "Support"]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "RestoreSANOnCombatEnd",
+        "Level": 0,
+        "Target": "Self",
+        "Params": [4]
+      }
+    ]
+  },
+  "Tags": ["Anchor", "Hex", "Layer2"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["mob_crystal_guard"],
+    "RewardRefs": ["reward_node_treasure_layer2", "reward_monster_mob_crystal_guard"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Anchor", "Hex", "Layer2"],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": ""
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_saint_token_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_saint_token"
+  }
+}

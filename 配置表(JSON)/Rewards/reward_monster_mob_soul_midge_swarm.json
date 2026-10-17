@@ -54,6 +54,12 @@
         {
           "Type": "Nothing",
           "Weight": 10
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_whispering_blade",
+          "Weight": 10,
+          "Count": 1
         }
       ]
     }

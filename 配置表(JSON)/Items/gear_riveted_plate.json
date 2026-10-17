@@ -1,0 +1,116 @@
+{
+  "ConfigID": "gear_riveted_plate",
+  "Name": "铆钉甲片",
+  "ItemType": "Armor",
+  "Rarity": "Common",
+  "BaseValue": 180,
+  "IconID": "item_gear_riveted_plate_icon",
+  "DescriptionKey": "item.gear_riveted_plate.desc",
+  "Description": "旧矿车外壳裁下的窄甲片，边缘还留着没敲平的铆钉。",
+  "ItemRole": [
+    "Defense"
+  ],
+  "LayerTags": [
+    "Layer1"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "Shield",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "AddRuntimeShieldOnTurnStart",
+        "Level": 0,
+        "Target": "Self",
+        "Params": [
+          6.0
+        ]
+      },
+      {
+        "EffectID": "Thorns",
+        "Level": 0,
+        "Params": [
+          3
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Defense",
+    "ArmorPlate",
+    "Layer1"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_rust_hound"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer1",
+      "reward_monster_mob_rust_hound"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Armor",
+      "Layer1"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_light_armor_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_riveted_plate_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_riveted_plate"
+  }
+}

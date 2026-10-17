@@ -1,0 +1,83 @@
+{
+  "ConfigID": "gear_bone_saw",
+  "Name": "骨锯",
+  "ItemType": "Weapon",
+  "Rarity": "Uncommon",
+  "BaseValue": 230,
+  "IconID": "item_gear_bone_saw_icon",
+  "DescriptionKey": "item.gear_bone_saw.desc",
+  "Description": "坑道兽医用来剖开骨壳的旧锯，齿缝里还卡着黑砂，每拉一下都会留下洗不净的泥痕。",
+  "ItemRole": ["BuildCore", "Trade"],
+  "LayerTags": ["Layer1"],
+  "Grid": {
+    "Shape": [[0, 0], [0, 1]],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0, 90],
+    "PlacementTags": ["Backpack"]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 2,
+    "DamageType": "Physical",
+    "BaseValue": 31,
+    "Effects": [
+      {
+        "EffectID": "OnKill",
+        "Level": 0,
+        "Resource": "SAN",
+        "Params": [5]
+      },
+      {
+        "EffectID": "SelfCost",
+        "Level": 0,
+        "Resource": "Grime",
+        "Params": [1]
+      }
+    ]
+  },
+  "Tags": ["Weapon", "Melee", "Sharp", "Hex", "Layer1"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": ["mob_rust_hound", "mob_acid_slime"],
+    "RewardRefs": ["reward_node_treasure_layer1", "reward_monster_mob_rust_hound", "reward_monster_mob_acid_slime_l1"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Weapon", "Sharp", "Hex", "Layer1"],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_bone_saw_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_bone_saw"
+  }
+}

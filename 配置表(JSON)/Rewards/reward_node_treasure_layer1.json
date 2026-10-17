@@ -30,7 +30,17 @@
         { "Type": "Item", "ItemID": "gear_focus_lens", "Weight": 8, "Count": 1 },
         { "Type": "Nothing", "Weight": 10 },
         { "Type": "Item", "ItemID": "gear_corrosion_needle", "Weight": 10, "Count": 1 },
-        { "Type": "Item", "ItemID": "gear_rusty_syringe", "Weight": 12, "Count": 1 }
+        { "Type": "Item", "ItemID": "gear_rusty_syringe", "Weight": 12, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_rubble_hammer", "Weight": 10, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_slag_counterweight", "Weight": 9, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_gear_string", "Weight": 10, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_oil_can", "Weight": 10, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_riveted_plate", "Weight": 12, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_plated_shield", "Weight": 12, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_stone_bag", "Weight": 12, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_throwing_pouch", "Weight": 10, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_bone_saw", "Weight": 8, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_corroded_dagger", "Weight": 12, "Count": 1 }
       ]
     }
   ]

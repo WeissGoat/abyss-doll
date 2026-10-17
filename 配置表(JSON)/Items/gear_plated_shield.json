@@ -1,0 +1,120 @@
+{
+  "ConfigID": "gear_plated_shield",
+  "Name": "钉板盾",
+  "ItemType": "Armor",
+  "Rarity": "Common",
+  "BaseValue": 150,
+  "IconID": "item_gear_plated_shield_icon",
+  "DescriptionKey": "item.gear_plated_shield.desc",
+  "Description": "废木板外面钉了一层薄铁，勉强算得上一面盾。",
+  "ItemRole": [
+    "Defense",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer1"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Shield",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "AddRuntimeShield",
+        "Level": 0,
+        "Target": "Self",
+        "Params": [
+          9.0
+        ]
+      },
+      {
+        "EffectID": "Thorns",
+        "Level": 0,
+        "Params": [
+          3
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Defense",
+    "Melee",
+    "Layer1"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_scavenger_bug"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer1",
+      "reward_monster_mob_scavenger_bug"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [
+      "economy_town_v1"
+    ],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Armor",
+      "Scrap",
+      "Layer1"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_light_armor_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_plated_shield_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_plated_shield"
+  }
+}

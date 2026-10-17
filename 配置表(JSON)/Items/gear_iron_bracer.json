@@ -1,0 +1,112 @@
+{
+  "ConfigID": "gear_iron_bracer",
+  "Name": "铆铁护腕",
+  "ItemType": "Armor",
+  "Rarity": "Rare",
+  "BaseValue": 420,
+  "IconID": "item_gear_iron_bracer_icon",
+  "DescriptionKey": "item.gear_iron_bracer.desc",
+  "Description": "废旧矿机的护轴扣被改成护腕，勒住手腕后，挨着它握重物会更稳。",
+  "ItemRole": [
+    "Support",
+    "Adjacency"
+  ],
+  "LayerTags": [
+    "Layer2"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 2,
+    "GridCost": 2,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90
+    ],
+    "PlacementTags": [
+      "Backpack",
+      "Support"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Passive",
+    "APCost": 0,
+    "DamageType": "None",
+    "BaseValue": 0,
+    "Effects": [
+      {
+        "EffectID": "DamageMultiplier",
+        "Level": 0,
+        "Target": "AllAdjacent",
+        "Params": [
+          0.2
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Heavy",
+    "Layer2"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "DismantleOnly"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_crystal_guard",
+      "mob_rust_cultivator"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer2",
+      "reward_monster_mob_crystal_guard",
+      "reward_monster_mob_rust_cultivator"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Armor",
+      "Layer2"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "mechanical_support_tier1"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_iron_bracer_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_iron_bracer"
+  }
+}

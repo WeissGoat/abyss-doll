@@ -44,7 +44,7 @@
   "ShowcaseHeight": 4,
   "ShowcaseIgnoredTags": ["Material", "RiskPremium", "Trade", "Layer1", "Layer2", "Layer3"],
   "ShopPriceMultiplier": 1.2,
-  "ShopStock": ["gear_rusty_dagger", "gear_wooden_shield", "gear_whetstone", "con_repair_kit", "con_cheap_sedative", "gear_rusty_syringe"],
+  "ShopStock": ["gear_rusty_dagger", "gear_wooden_shield", "gear_whetstone", "con_repair_kit", "con_cheap_sedative", "gear_rusty_syringe", "gear_rubble_hammer", "gear_old_wrench", "gear_plated_shield", "gear_stone_bag", "gear_corroded_dagger"],
   "PawnProtectedTags": [
     "Bond",
     "OrderBound",

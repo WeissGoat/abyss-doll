@@ -23,7 +23,9 @@
         { "Type": "Item", "ItemID": "trade_miner_lamp", "Weight": 35, "Count": 1 },
         { "Type": "Item", "ItemID": "con_cheap_sedative", "Weight": 30, "Count": 1 },
         { "Type": "Item", "ItemID": "loot_gear_scrap", "Weight": 20, "Count": 1 },
-        { "Type": "Money", "Money": 14, "Weight": 15, "Count": 1 }
+        { "Type": "Money", "Money": 14, "Weight": 15, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_stone_bag", "Weight": 9, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_throwing_pouch", "Weight": 9, "Count": 1 }
       ]
     }
   ]

@@ -1,0 +1,118 @@
+{
+  "ConfigID": "gear_pitbreaker_maul",
+  "Name": "坑道破岩锤",
+  "ItemType": "Weapon",
+  "Rarity": "Rare",
+  "BaseValue": 780,
+  "IconID": "item_gear_pitbreaker_maul_icon",
+  "DescriptionKey": "item.gear_pitbreaker_maul.desc",
+  "Description": "矿工用断裂轨道铆成的破岩大锤，挥一次要喘很久，砸下去却能让整条坑道发闷。",
+  "ItemRole": [
+    "BuildCore",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer2"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 5,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 3,
+    "DamageType": "Physical",
+    "BaseValue": 68,
+    "Effects": []
+  },
+  "Tags": [
+    "Heavy",
+    "Layer2",
+    "Melee"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_crystal_guard",
+      "mob_rust_cultivator"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer2",
+      "reward_monster_mob_crystal_guard",
+      "reward_monster_mob_rust_cultivator"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Weapon",
+      "HeavyScrap",
+      "Layer2"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "mechanical_weapon_tier2"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_pitbreaker_maul_icon",
+    "GridPreviewStyle": "LargeGear",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_pitbreaker_maul"
+  }
+}
