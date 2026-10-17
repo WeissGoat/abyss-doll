@@ -6,16 +6,17 @@ using UnityEngine.UI;
 public enum StudioTab {
     Maintenance = 0,
     Prosthetics = 1,
-    Chassis = 2
+    Chassis = 2,
+    Upgrades = 3
 }
 
 // The workbench in the studio room (改装与维护): three tabs, 维护 / 义体 / 底盘. Rules live in MaintenanceService,
 // ProstheticCraftingService and ChassisUpgradeService; this shows their state and forwards the clicks.
 public class StudioBenchView : MonoBehaviour {
     public const string RootName = "StudioBench_Board";
-    public static readonly string[] TabLabels = { "维护", "义体", "底盘" };
+    public static readonly string[] TabLabels = { "维护", "义体", "底盘", "改造" };
 
-    private readonly Button[] _tabs = new Button[3];
+    private readonly Button[] _tabs = new Button[4];
     private Transform _content;
     private MaintenancePanel _maintenance;
     private GameObject _listRoot;
@@ -82,6 +83,8 @@ public class StudioBenchView : MonoBehaviour {
             BuildProstheticRows();
         } else if (CurrentTab == StudioTab.Chassis) {
             BuildChassisRows();
+        } else if (CurrentTab == StudioTab.Upgrades) {
+            BuildUpgradeRows();
         }
     }
 
@@ -97,7 +100,8 @@ public class StudioBenchView : MonoBehaviour {
             RectTransform rect = (RectTransform)button.transform;
             rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(1f, 1f);
             rect.sizeDelta = new Vector2(140f, 50f);
-            rect.anchoredPosition = new Vector2(-36f - (2 - i) * 150f, -24f);
+            rect.sizeDelta = new Vector2(130f, 50f);
+            rect.anchoredPosition = new Vector2(-36f - (_tabs.Length - 1 - i) * 138f, -24f);
             button.onClick.AddListener(() => ShowTab(tab));
             _tabs[i] = button;
         }
@@ -194,6 +198,30 @@ public class StudioBenchView : MonoBehaviour {
             $"升级到 {next.Level} 级：背包 {next.GridWidth}×{next.GridHeight} 格",
             canUpgrade ? DescribeCost(chassis.UpgradeCost) : $"{DescribeCost(chassis.UpgradeCost)}    · {reason}",
             "升级底盘", canUpgrade, UpgradeChassis));
+    }
+
+    // 改造: making the workshop a home, one purchase each (HomeUpgradeService).
+    private void BuildUpgradeRows() {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        int index = 0;
+        foreach (HomeUpgradeConfig upgrade in ConfigManager.HomeUpgrades) {
+            if (upgrade == null) {
+                continue;
+            }
+
+            bool owned = HomeUpgradeService.Has(player, upgrade.UpgradeID);
+            bool canBuy = HomeUpgradeService.CanBuy(player, upgrade, out string reason);
+            string id = upgrade.UpgradeID;
+            _rows.Add(CreateRow("Upgrade_" + id, index++, VisualAssetService.UIIconBlueprintID,
+                $"{upgrade.Name}（{upgrade.Room}）    {upgrade.Price}G", owned ? "已经装好了。" + upgrade.Description : canBuy ? upgrade.Description : $"{upgrade.Description}    · {reason}",
+                owned ? "已装好" : "装上", !owned && canBuy, () => BuyUpgrade(id)));
+        }
+    }
+
+    private void BuyUpgrade(string upgradeID) {
+        bool bought = HomeUpgradeService.Buy(GameRoot.Core?.CurrentPlayer, upgradeID, out string reason);
+        string name = ConfigManager.HomeUpgrades.Find(u => u != null && u.UpgradeID == upgradeID)?.Name;
+        ShowResult(bought, bought ? $"{name} 装好了。" : reason);
     }
 
     private GameObject CreateRow(string name, int index, string iconID, string line1, string line2, string action, bool interactable, System.Action onClick) {

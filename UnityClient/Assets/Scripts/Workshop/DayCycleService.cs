@@ -153,7 +153,7 @@ public static class DayCycleService {
 
         if (doll != null) {
             float hpRatio = Mathf.Clamp01(config?.RestHPRecoverRatio ?? 1f);
-            float sanRatio = Mathf.Clamp01(config?.RestSANRecoverRatio ?? 1f);
+            float sanRatio = Mathf.Clamp01((config?.RestSANRecoverRatio ?? 1f) + HomeUpgradeService.Value(player, "RestSANBonus"));
             doll.Status.HP_Current = Mathf.Min(doll.Status.HP_Max, doll.Status.HP_Current + Mathf.CeilToInt(doll.Status.HP_Max * hpRatio));
             doll.Status.SAN_Current = Mathf.Min(doll.Status.SAN_Max, doll.Status.SAN_Current + Mathf.CeilToInt(doll.Status.SAN_Max * sanRatio));
             DollStrainService.ApplyRest(doll, config);
@@ -255,6 +255,13 @@ public static class DayCycleService {
         }
 
         DollEntity doll = player.ActiveDoll;
+        // The gramophone: a little music upstairs every night.
+        int nightSAN = Mathf.RoundToInt(HomeUpgradeService.Value(player, "NightSAN"));
+        if (doll != null && nightSAN > 0) {
+            doll.Status.SAN_Current = Mathf.Min(doll.Status.SAN_Max, doll.Status.SAN_Current + nightSAN);
+            GameEventBus.PublishSANChanged(doll.Name, doll.Status.SAN_Current, doll.Status.SAN_Max);
+        }
+
         report.HPAfter = doll?.Status.HP_Current ?? 0;
         report.SANAfter = doll?.Status.SAN_Current ?? 0;
         report.WearAfter = doll?.Status.WearAndTear ?? 0f;

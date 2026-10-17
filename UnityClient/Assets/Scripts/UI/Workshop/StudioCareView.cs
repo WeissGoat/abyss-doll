@@ -144,7 +144,7 @@ public class StudioCareView : MonoBehaviour {
             bool can = MaintenanceService.CanApply(player, player?.ActiveDoll, config.MaintenanceID, out string reason);
             Image row = UITheme.CreatePanel(_popoverList, "Treatment_" + config.MaintenanceID, UITheme.PanelRaised);
             StudioBenchView.PlaceRow(row.rectTransform, i, 76f, 8f);
-            string cost = StudioBenchView.DescribeCost(config.Cost);
+            string cost = StudioBenchView.DescribeCost(HomeUpgradeService.MaintenanceCost(player, config.Cost));
             Text label = UITheme.CreateText(row.transform, "Label_Text", $"{config.Name}    {cost}\n{config.Description}{(can ? string.Empty : "  · " + reason)}", UITheme.CaptionSize - 2, can ? UITheme.TextPrimary : UITheme.TextMuted);
             label.rectTransform.anchorMin = Vector2.zero;
             label.rectTransform.anchorMax = Vector2.one;

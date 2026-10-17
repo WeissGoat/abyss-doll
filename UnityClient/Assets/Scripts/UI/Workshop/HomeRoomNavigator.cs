@@ -41,6 +41,11 @@ public class HomeRoomNavigator : MonoBehaviour {
     private readonly System.Collections.Generic.List<Button> _atticTags = new System.Collections.Generic.List<Button>();
     private readonly Button[] _tabs = new Button[3];
     private Image _fade;
+    private Image _hallLight;
+    private Image _lampGlow;
+    private readonly System.Collections.Generic.List<Image> _roomLights = new System.Collections.Generic.List<Image>();
+    // Evening (after the day's dive or rest, before the business): a warm dusk over every room.
+    private static readonly Color EveningLight = new Color(0.42f, 0.2f, 0.1f, 0.2f);
     private Coroutine _fadeRoutine;
 
     public HomeRoom Current { get; private set; }
@@ -121,11 +126,22 @@ public class HomeRoomNavigator : MonoBehaviour {
             tag.gameObject.SetActive(!_nightTalk.IsShowing);
         }
         bool night = player?.IsNight ?? false;
-        _bedHint.text = night ? "开张营业之后才睡" : "休息一天，恢复 HP 和 SAN";
+        bool mattress = HomeUpgradeService.Has(player, "upg_mattress");
+        _bedHint.text = night ? "开张营业之后才睡" : mattress ? "新床垫：休息一天，SAN 回得更多" : "休息一天，恢复 HP 和 SAN";
+        Color light = night && !_nightTalk.IsShowing ? EveningLight : Color.clear;
+        _hallLight.color = light;
+        foreach (Image roomLight in _roomLights) {
+            roomLight.color = light;
+        }
+        _lampGlow.gameObject.SetActive(HomeUpgradeService.Has(player, "upg_bench_lamp"));
         _workshop?.DayHud?.SetChoiceVisible(Current == HomeRoom.Hall);
     }
 
     private void Build() {
+        _hallLight = UITheme.CreatePanel(transform, "HallLight_Image", Color.clear);
+        UITheme.Stretch(_hallLight.rectTransform);
+        _hallLight.raycastTarget = false;
+
         _hallLayer = new GameObject("HallTags", typeof(RectTransform));
         _hallLayer.transform.SetParent(transform, false);
         UITheme.Stretch((RectTransform)_hallLayer.transform);
@@ -146,6 +162,12 @@ public class HomeRoomNavigator : MonoBehaviour {
             _care?.Refresh();
             _workshop?.RefreshUI();
         });
+        // The bench lamp (home upgrade): a warm pool of light on the workbench.
+        _lampGlow = UITheme.CreatePanel(_studioRoom.transform, "LampGlow_Image", new Color(1f, 0.8f, 0.45f, 0.2f));
+        _lampGlow.sprite = CareMarkSprites.Get(CareMarkKind.Haze, 7);
+        _lampGlow.raycastTarget = false;
+        UITheme.Place(_lampGlow.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-160f, -60f), new Vector2(520f, 340f));
+        _lampGlow.transform.SetSiblingIndex(2);
         _care = StudioCareView.Create(_studioRoom.transform, (RectTransform)_studioRoom.transform.Find("DollDisplay/DollImage"), () => {
             _bench.Refresh();
             _workshop?.RefreshUI();
@@ -235,6 +257,11 @@ public class HomeRoomNavigator : MonoBehaviour {
         dollRect.anchorMin = dollRect.anchorMax = dollRect.pivot = new Vector2(0.5f, 0f);
         dollRect.anchoredPosition = Vector2.zero;
         VisualUIHelper.ApplyContainSprite(doll, DollVisualID, dollSize, Color.white, UITheme.Border, false);
+
+        Image roomLight = UITheme.CreatePanel(root.transform, "RoomLight_Image", Color.clear);
+        UITheme.Stretch(roomLight.rectTransform);
+        roomLight.raycastTarget = false;
+        _roomLights.Add(roomLight);
         return root.gameObject;
     }
 

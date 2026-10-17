@@ -237,7 +237,8 @@ public class WorkshopUIController : MonoBehaviour {
             if (dayMode) {
                 _dayHud.Refresh();
                 // The rooms sit over the hall and under the status bar and its dialogs.
-                _rooms.transform.SetSiblingIndex(_dayHud.transform.GetSiblingIndex());
+                _rooms.transform.SetAsLastSibling();
+                _dayHud.transform.SetAsLastSibling();
                 _rooms.Refresh();
             }
         }

@@ -22,6 +22,7 @@ public static class ConfigManager {
     public static Dictionary<string, HomeLinePool> HomeLines = new Dictionary<string, HomeLinePool>();
     public static List<WishConfig> Wishes = new List<WishConfig>();
     public static List<MilestoneConfig> Milestones = new List<MilestoneConfig>();
+    public static List<HomeUpgradeConfig> HomeUpgrades = new List<HomeUpgradeConfig>();
 
     public static void LoadAllConfigs() {
         ResetAllCaches();
@@ -88,6 +89,7 @@ public static class ConfigManager {
         HomeLines.Clear();
         Wishes.Clear();
         Milestones.Clear();
+        HomeUpgrades.Clear();
     }
 
     private static void LoadConfigsIntoDict<K, T>(string dirPath, Dictionary<K, T> dict, System.Func<T, K> keySelector) {
@@ -112,7 +114,7 @@ public static class ConfigManager {
         }
     }
 
-    // Home files hold a line pool (PoolID + Lines) or the wish catalog (Wishes, Milestones).
+    // Home files hold a line pool (PoolID + Lines), the wish catalog (Wishes, Milestones) or the upgrades.
     private static void LoadHome(string dirPath) {
         if (!Directory.Exists(dirPath)) return;
 
@@ -129,6 +131,7 @@ public static class ConfigManager {
 
                 if (home.Wishes != null) Wishes.AddRange(home.Wishes);
                 if (home.Milestones != null) Milestones.AddRange(home.Milestones);
+                if (home.Upgrades != null) HomeUpgrades.AddRange(home.Upgrades);
             } catch (System.Exception e) {
                 Debug.LogError($"[ConfigManager] Failed to load {file}: {e.Message}");
             }

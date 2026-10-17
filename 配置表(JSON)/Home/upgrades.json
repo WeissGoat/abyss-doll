@@ -1,0 +1,10 @@
+{
+  "Note": "家的改造：在工作室工作台的「改造」栏买，一次买断。Effect 和 Value 见 README。价格交给数值智能体和房租、底盘一起调。",
+  "Upgrades": [
+    { "UpgradeID": "upg_bench_lamp", "Name": "工作台灯", "Room": "工作室", "Description": "照得清楚，修补和净化便宜 15%。", "Price": 350, "Effect": "MaintenanceDiscount", "Value": 0.15 },
+    { "UpgradeID": "upg_mattress", "Name": "新床垫", "Room": "阁楼", "Description": "休息一天多回两成 SAN。", "Price": 400, "Effect": "RestSANBonus", "Value": 0.2 },
+    { "UpgradeID": "upg_gramophone", "Name": "留声机", "Room": "阁楼", "Description": "夜里放一会儿，每晚 SAN +5。", "Price": 500, "Effect": "NightSAN", "Value": 5 },
+    { "UpgradeID": "upg_showcase", "Name": "橱窗扩建", "Room": "大厅", "Description": "橱窗多一列格子（4×4 → 5×4）。", "Price": 600, "Effect": "ShowcaseColumns", "Value": 1 },
+    { "UpgradeID": "upg_shelf", "Name": "第二层架子", "Room": "阁楼", "Description": "纪念物的位置从 6 个变成 9 个。", "Price": 200, "Effect": "ShelfSlots", "Value": 3 }
+  ]
+}

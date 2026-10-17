@@ -109,7 +109,7 @@ public static class NightBusinessService {
         EconomyConfig config = TownEconomyService.GetConfig();
         BackpackGrid grid = new BackpackGrid(new ChassisComponent {
             ChassisID = "showcase",
-            GridWidth = Mathf.Max(1, config?.ShowcaseWidth ?? 4),
+            GridWidth = Mathf.Max(1, (config?.ShowcaseWidth ?? 4) + Mathf.RoundToInt(HomeUpgradeService.Value(player, "ShowcaseColumns"))),
             GridHeight = Mathf.Max(1, config?.ShowcaseHeight ?? 4)
         });
         foreach (ItemEntity item in player?.Showcase ?? new List<ItemEntity>()) {

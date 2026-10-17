@@ -44,3 +44,15 @@
 | `DoneLine` | 完成时她说的话，也是纪念物上的那句 |
 
 `Milestones`：第一次打倒首领、第一次战败、第一次交上房租、第一次完成心愿时，架子上自动多一件（`MilestoneID` 固定，`Name`、`IconID`、`Line` 可改）。
+
+## 家的改造（`upgrades.json`）
+
+在工作室工作台的「改造」栏买，一次买断，存档。
+
+| `Effect` | `Value` | 效果 |
+|---|---|---|
+| `MaintenanceDiscount` | 0.15 | 维护的金钱花费打折 |
+| `RestSANBonus` | 0.2 | 休息多回的 SAN（占上限的比例） |
+| `NightSAN` | 5 | 每晚营业之后 SAN 回复 |
+| `ShowcaseColumns` | 1 | 橱窗多几列 |
+| `ShelfSlots` | 3 | 架子多几个位置（基础 6 个） |

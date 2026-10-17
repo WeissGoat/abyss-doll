@@ -29,7 +29,7 @@ public static class MaintenanceService {
             return false;
         }
 
-        if (!WorkshopCostService.CanAfford(config.Cost, player, out reason)) {
+        if (!WorkshopCostService.CanAfford(HomeUpgradeService.MaintenanceCost(player, config.Cost), player, out reason)) {
             return false;
         }
 
@@ -48,7 +48,7 @@ public static class MaintenanceService {
         }
 
         MaintenanceConfig config = ConfigManager.MaintenanceConfigs[maintenanceID];
-        if (!WorkshopCostService.TryPayCost(config.Cost, player, $"Maintenance:{maintenanceID}", out WorkshopCostPaymentResult paymentResult)) {
+        if (!WorkshopCostService.TryPayCost(HomeUpgradeService.MaintenanceCost(player, config.Cost), player, $"Maintenance:{maintenanceID}", out WorkshopCostPaymentResult paymentResult)) {
             result.Success = false;
             result.Reason = paymentResult.Reason;
             return result;

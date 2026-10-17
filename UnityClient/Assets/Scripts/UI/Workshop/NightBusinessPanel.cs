@@ -120,6 +120,8 @@ public class NightBusinessPanel : MonoBehaviour {
 
     private void BuildShowcase(PlayerProfile player, List<BusinessLine> lines) {
         BackpackGrid grid = NightBusinessService.BuildShowcaseGrid(player);
+        // A wider showcase (home upgrade) keeps the same footprint with smaller cells.
+        float Cell = Mathf.Min(NightBusinessPanel.Cell, NightBusinessPanel.Cell * 4f / Mathf.Max(grid.Width, grid.Height));
         _showcaseRoot.sizeDelta = new Vector2(grid.Width * Cell, grid.Height * Cell);
         for (int y = 0; y < grid.Height; y++) {
             for (int x = 0; x < grid.Width; x++) {

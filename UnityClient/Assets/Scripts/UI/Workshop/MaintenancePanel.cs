@@ -123,8 +123,9 @@ public class MaintenancePanel : MonoBehaviour {
 
     private static string DescribeCost(MaintenanceConfig config) {
         List<string> parts = new List<string>();
-        if (config.Cost != null && config.Cost.Money > 0) {
-            parts.Add($"{config.Cost.Money}G");
+        CraftingCost cost = HomeUpgradeService.MaintenanceCost(GameRoot.Core?.CurrentPlayer, config.Cost);
+        if (cost != null && cost.Money > 0) {
+            parts.Add($"{cost.Money}G");
         }
 
         if (config.Cost?.RequiredItems != null) {

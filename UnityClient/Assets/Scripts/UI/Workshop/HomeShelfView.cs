@@ -51,8 +51,9 @@ public class HomeShelfView : MonoBehaviour {
         List<Memento> shelf = GameRoot.Core?.CurrentPlayer?.Shelf ?? new List<Memento>();
         _empty.gameObject.SetActive(shelf.Count == 0);
         _detail.text = string.Empty;
-        int start = Mathf.Max(0, shelf.Count - MementoService.ShelfSlots);
-        for (int i = 0; i < MementoService.ShelfSlots; i++) {
+        int slots = MementoService.ShelfSlots(GameRoot.Core?.CurrentPlayer);
+        int start = Mathf.Max(0, shelf.Count - slots);
+        for (int i = 0; i < slots; i++) {
             Memento memento = start + i < shelf.Count ? shelf[start + i] : null;
             Button slot = UITheme.CreateButton(_grid, "ShelfSlot_" + i, string.Empty, memento != null ? UITheme.PanelRaised : UITheme.Inset, UITheme.TextPrimary, UITheme.CaptionSize - 2);
             RectTransform rect = (RectTransform)slot.transform;

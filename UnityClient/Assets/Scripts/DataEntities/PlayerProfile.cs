@@ -44,6 +44,8 @@ public class PlayerProfile {
     // The attic shelf (MementoService) and the milestones already put there.
     public List<Memento> Shelf = new List<Memento>();
     public List<string> Milestones = new List<string>();
+    // Home upgrades bought (HomeUpgradeService).
+    public List<string> HomeUpgrades = new List<string>();
     // Night phase (GDD_07 §3.1): after the day's dive or rest, before the business opens and the calendar moves on.
     public bool IsNight;
     // Night business (GDD_04): goods moved out of the stash into the dump box or the showcase (Grid.CurrentPos and

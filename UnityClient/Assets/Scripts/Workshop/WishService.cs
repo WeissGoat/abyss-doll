@@ -30,6 +30,7 @@ public class HomeConfigFile {
     public List<HomeLine> Lines;
     public List<WishConfig> Wishes;
     public List<MilestoneConfig> Milestones;
+    public List<HomeUpgradeConfig> Upgrades;
 }
 
 // One thing on the attic shelf: a wish's gift, a milestone, or something the player put there.
@@ -44,7 +45,13 @@ public class Memento {
 
 // The attic shelf (docs/specs/2026-10-17-home-loop.md, batch 4): milestones appear on their own, once.
 public static class MementoService {
-    public const int ShelfSlots = 9;
+    public const int BaseShelfSlots = 6;
+    public const int MaxShelfSlots = 9;
+
+    // Shelf room: 6, more with the second shelf (HomeUpgradeService).
+    public static int ShelfSlots(PlayerProfile player) {
+        return Math.Min(MaxShelfSlots, BaseShelfSlots + (int)HomeUpgradeService.Value(player, "ShelfSlots"));
+    }
 
     public static Memento Add(PlayerProfile player, string id, string name, string iconID, string line) {
         if (player == null) {
