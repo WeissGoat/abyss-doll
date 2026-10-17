@@ -104,6 +104,7 @@ public class P3BuildSmoke : MonoBehaviour {
         int journalPages = 0;
         bool unpackCaptured = false;
         int unpacked = 0;
+        int talks = 0;
         while (dives < TargetDives && Time.realtimeSinceStartup - startedAt < TimeoutSeconds) {
             // Home again: the dive's journal page is open in the hall (2026-10-17 home loop).
             HomeRoomNavigator rooms = FindObjectOfType<WorkshopUIController>()?.Rooms;
@@ -135,6 +136,13 @@ public class P3BuildSmoke : MonoBehaviour {
                     FindObjectOfType<WorkshopUIController>()?.Rooms?.OpenCounter();
                     yield return new WaitForSecondsRealtime(0.5f);
                     yield return Capture("03d_unpack");
+                }
+
+                // A word with her every evening (2026-10-18), so 精神好 is checked in the build too.
+                string talk = P3DevTools.Talk();
+                Note(talk);
+                if (talk.Contains("Zero says:")) {
+                    talks++;
                 }
 
                 int haulBefore = HomeEveningService.Haul(GameRoot.Core.CurrentPlayer).Count;
@@ -170,7 +178,7 @@ public class P3BuildSmoke : MonoBehaviour {
         bool journalKept = journalPages >= dives;
         bool passed = prologueDone && motionPlayed && journalKept && !stuck && dives >= TargetDives && player.CurrentDay == firstTownDay + dives + rests;
         string verdict = $"{(passed ? "PASS" : "FAIL")}: prologue {(prologueDone ? "done" : "NOT FINISHED")} (town from day {firstTownDay}), {dives}/{TargetDives} dives, {rests} rest(s), day {player.CurrentDay}, money {player.Money} (night business net {soldTotal}G), "
-            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, journal {journalPages} page(s){(journalKept ? string.Empty : " MISSING PAGES")}, unpacked {unpacked} item(s), {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
+            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, journal {journalPages} page(s){(journalKept ? string.Empty : " MISSING PAGES")}, unpacked {unpacked} item(s), talked {talks} time(s), {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
         Debug.Log("[P3BuildSmoke] " + verdict);
         File.WriteAllText(Path.Combine(_outDir, "P3Smoke.txt"), verdict + "\n\n" + _log);
         Application.Quit(passed ? 0 : 1);

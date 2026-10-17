@@ -14,6 +14,7 @@ public class HomeRoomNavigator : MonoBehaviour {
     public const string BedLabel = "床 · 休息";
     public const string JournalLabel = "墙上的手账";
     public const string ShelfLabel = "架子 · 纪念物";
+    public const string TalkLabel = "和她说话";
     private const string StudioBackgroundID = "bg_workshop_studio";
     private const string AtticBackgroundID = "bg_workshop_home_room";
     private const string DollVisualID = "doll_proto_0_stand";
@@ -167,6 +168,10 @@ public class HomeRoomNavigator : MonoBehaviour {
         _workshop?.DayHud?.SetChoiceVisible(Current == HomeRoom.Hall);
 
         bool talk = _nightTalk.IsShowing;
+        if (Current != HomeRoom.Studio) {
+            Zero(Current).EnableTouch(region => Touch(Current, region));
+        }
+
         _stamps.Refresh(player, night || talk, talk);
         EveningStamp next = talk ? EveningStamp.Goodnight : HomeEveningService.Next(player);
         int haul = night ? HomeEveningService.Haul(player).Count : 0;
@@ -213,6 +218,7 @@ public class HomeRoomNavigator : MonoBehaviour {
         });
         // The hall's Zero is the workshop screen's portrait underneath.
         _hallZero = ZeroPresence.Create(_hallLayer.transform, "HallZero", () => _workshop != null ? _workshop.transform.Find("DollDisplay/DollImage") as RectTransform : null, new Vector2(-250f, 180f));
+        _hallTags.Add(CreateTag(_hallLayer.transform, "HallTalk_Tag", TalkLabel, "摸摸头、牵牵手也行", new Vector2(-190f, -230f), () => Talk(HomeRoom.Hall)));
 
         _studioRoom = CreateRoom("StudioRoom", StudioBackgroundID, new Vector2(-600f, -100f), new Vector2(540f, 810f));
         _bench = StudioBenchView.Create(_studioRoom.transform, () => {
@@ -241,6 +247,7 @@ public class HomeRoomNavigator : MonoBehaviour {
         _atticTags.Add(CreateTag(_atticRoom.transform, "Shelf_Tag", ShelfLabel, "她留着的东西", new Vector2(-360f, 140f), () => _shelf.Show()));
         RectTransform atticDoll = (RectTransform)_atticRoom.transform.Find("DollDisplay/DollImage");
         _atticZero = ZeroPresence.Create(_atticRoom.transform, "AtticZero", () => atticDoll, new Vector2(520f, 270f));
+        _atticTags.Add(CreateTag(_atticRoom.transform, "AtticTalk_Tag", TalkLabel, "摸摸头、牵牵手也行", new Vector2(200f, -330f), () => Talk(HomeRoom.Attic)));
 
         BuildTabs();
         _stamps = HomeEveningStamps.Create(transform, new Vector2(650f, -88f), GoToStamp);
@@ -366,6 +373,23 @@ public class HomeRoomNavigator : MonoBehaviour {
         }
 
         _workshop?.DayHud?.OpenBusiness(night);
+    }
+
+    // 和她说话, and a touch on her head, shoulder or hand (ZeroInteractionService).
+    public void Talk(HomeRoom room) {
+        Zero(room).Show(ZeroInteractionService.Chat(GameRoot.Core?.CurrentPlayer, room));
+        Refresh();
+        _workshop?.DayHud?.Refresh();
+    }
+
+    public void Touch(HomeRoom room, TouchRegion region) {
+        // The hall's touch areas live on the workshop portrait, which the prologue also shows without the rooms.
+        if (!isActiveAndEnabled || _nightTalk.IsShowing || (_journal != null && _journal.IsShowing)) {
+            return;
+        }
+
+        Zero(room).Show(ZeroInteractionService.Touch(GameRoot.Core?.CurrentPlayer, region));
+        Refresh();
     }
 
     private void GoToStamp(EveningStamp stamp) {

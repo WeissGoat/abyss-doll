@@ -260,9 +260,11 @@ public static class WorkshopSmokeTest {
             && !controller.openMaintenancePanelBtn.gameObject.activeSelf
             && controller.openOrderBoardPanelBtn != null
             && !controller.openOrderBoardPanelBtn.gameObject.activeSelf;
-        // The hall's four plaques and three room tabs (2026-10-17 home rooms) and the day HUD's 跳下深渊 / 停工休息 / 维护 /
-        // rent line (M2 batch 2 replaced the 浅层入口 card).
-        bool hubButtonsReduced = activeButtons.Length <= 11;
+        // The hall's five plaques (和她说话 since 2026-10-18) and three room tabs (2026-10-17 home rooms) and the day HUD's
+        // 跳下深渊 / 停工休息 / 维护 / rent line (M2 batch 2 replaced the 浅层入口 card). The invisible touch areas on Zero
+        // do not count.
+        int visibleButtons = System.Array.FindAll(activeButtons, button => !button.name.StartsWith("Touch_")).Length;
+        bool hubButtonsReduced = visibleButtons <= 12;
         bool backgroundStretches = background != null
             && background.anchorMin == Vector2.zero
             && background.anchorMax == Vector2.one;

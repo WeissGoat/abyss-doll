@@ -581,6 +581,35 @@ public static class P3DevTools {
         }
     }
 
+    // Clicks 和她说话 in the hall or the attic (goes to the hall from the studio).
+    public static string Talk() {
+        HomeRoomNavigator rooms = Object.FindObjectOfType<WorkshopUIController>()?.Rooms;
+        if (rooms == null) {
+            return "Not at home.\n" + Describe();
+        }
+
+        if (rooms.Current == HomeRoom.Studio) {
+            rooms.Show(HomeRoom.Hall);
+        }
+
+        StringBuilder log = new StringBuilder();
+        ClickByLabel(HomeRoomNavigator.TalkLabel, log);
+        return log.ToString() + Describe();
+    }
+
+    // Clicks Zero's head, shoulder or hand in the current room ("head", "shoulder", "hand").
+    public static string Touch(string region) {
+        string name = "Touch_" + char.ToUpperInvariant(region[0]) + region.Substring(1).ToLowerInvariant();
+        foreach (Button button in Object.FindObjectsOfType<Button>()) {
+            if (button.name == name && button.isActiveAndEnabled) {
+                button.onClick.Invoke();
+                return $"Touched her {region}.\n" + Describe();
+            }
+        }
+
+        return $"No {name} on screen.\n" + Describe();
+    }
+
     // At night: open the counter and sort what the dive brought home like a player would (sell what sells, keep the
     // rest), then leave for the business.
     public static string Unpack() {

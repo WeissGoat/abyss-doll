@@ -1,0 +1,24 @@
+{
+  "PoolID": "touch",
+  "Note": "摸头 / 碰肩 / 牵手时她的反应。事实：head / shoulder / hand、flinch（SAN 低时摸头，她躲开）、wince（受伤时碰肩）、lean（羁绊 3 级以上，她靠过来）、enough（今天碰得太多了），以及她此刻的状态。",
+  "Lines": [
+    { "Tags": ["head"], "Text": "……头发会乱的。" },
+    { "Tags": ["head"], "Text": "（她眯了一下眼睛。）" },
+    { "Tags": ["head", "grimy"], "Text": "头上有灰。你的手会脏。" },
+    { "Tags": ["head", "flinch"], "Text": "别——……对不起。刚才，好像不是你的手。" },
+    { "Tags": ["head", "lean"], "Text": "（她把头轻轻靠了过来。）……再一下。" },
+
+    { "Tags": ["shoulder"], "Text": "嗯？要出发了吗。" },
+    { "Tags": ["shoulder"], "Text": "我在。" },
+    { "Tags": ["shoulder", "wince"], "Text": "……那边有点疼。没事的。" },
+    { "Tags": ["shoulder", "lean"], "Text": "（她靠在你的肩上，过了一会儿才站直。）" },
+
+    { "Tags": ["hand"], "Text": "你的手，比我的暖。" },
+    { "Tags": ["hand"], "Text": "（她看着被握住的手，没有说话。）" },
+    { "Tags": ["hand", "hurt"], "Text": "握轻一点。……这样就好。" },
+    { "Tags": ["hand", "lean"], "Text": "以前也有人这样牵着我。……现在是你。" },
+
+    { "Tags": ["enough"], "Text": "……今天好了。" },
+    { "Tags": ["enough", "bond3"], "Text": "你今天是怎么了。……我又不会跑掉。" }
+  ]
+}

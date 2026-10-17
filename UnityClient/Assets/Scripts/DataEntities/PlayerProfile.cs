@@ -55,6 +55,7 @@ public class PlayerProfile {
     public int InteractionDay;
     public int ChatsToday;
     public int TouchesToday;
+    public int TouchBondDay;
     public int LoreHeard;
     // Night phase (GDD_07 §3.1): after the day's dive or rest, before the business opens and the calendar moves on.
     public bool IsNight;
