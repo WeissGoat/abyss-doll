@@ -51,7 +51,7 @@
     },
     {
       "TalkID": "talk_unhurt", "Tags": ["dive", "unhurt"],
-      "Line": "今天一次都没受伤。",
+      "Line": "今天回来的时候，身上一点伤都没有。",
       "Replies": [
         { "Text": "下次也要这样。", "Answer": "我试试。", "Bond": 0, "PromiseID": "p_unhurt" },
         { "Text": "你做得很好。", "Answer": "……嘿嘿。", "Bond": 1 }

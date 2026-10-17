@@ -28,13 +28,13 @@ public class ZeroPresence : MonoBehaviour {
     public string CurrentLine => IsSpeaking ? _line.text : string.Empty;
 
     // parent: the room layer; doll: resolves her portrait (the hall's lives on the workshop screen underneath).
-    public static ZeroPresence Create(Transform parent, string name, System.Func<RectTransform> doll, Vector2 bubblePosition) {
+    public static ZeroPresence Create(Transform parent, string name, System.Func<RectTransform> doll, Vector2 bubblePosition, float bubbleWidth = 480f) {
         GameObject root = new GameObject(name, typeof(RectTransform));
         root.transform.SetParent(parent, false);
         UITheme.Stretch((RectTransform)root.transform);
         ZeroPresence presence = root.AddComponent<ZeroPresence>();
         presence._doll = doll;
-        presence.Build(bubblePosition);
+        presence.Build(bubblePosition, bubbleWidth);
         return presence;
     }
 
@@ -182,12 +182,12 @@ public class ZeroPresence : MonoBehaviour {
         }
     }
 
-    private void Build(Vector2 bubblePosition) {
+    private void Build(Vector2 bubblePosition, float bubbleWidth) {
         _bubble = UITheme.CreatePanel(transform, "ZeroLineBubble", UITheme.PanelRaised);
         UITheme.AddBorder(_bubble, UITheme.Border, 1.5f);
         _bubble.raycastTarget = false;
         _bubble.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = false;
-        UITheme.Place(_bubble.rectTransform, new Vector2(0.5f, 0.5f), bubblePosition, new Vector2(480f, 96f));
+        UITheme.Place(_bubble.rectTransform, new Vector2(0.5f, 0.5f), bubblePosition, new Vector2(bubbleWidth, 96f));
         _line = UITheme.CreateText(_bubble.transform, "Line_Text", string.Empty, UITheme.BodySize - 1, UITheme.TextPrimary, TextAnchor.MiddleCenter);
         UITheme.Stretch(_line.rectTransform);
         _line.rectTransform.offsetMin = new Vector2(18f, 10f);

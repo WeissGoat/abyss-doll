@@ -77,7 +77,7 @@ public class HomeUnpackView : MonoBehaviour {
 
         Image icon = UITheme.CreatePanel(row.transform, "Icon_Image", Color.white);
         icon.raycastTarget = false;
-        UITheme.Place(icon.rectTransform, new Vector2(0f, 0.5f), new Vector2(44f, 0f), new Vector2(60f, 60f));
+        UITheme.Place(icon.rectTransform, new Vector2(0f, 0.5f), new Vector2(14f, 0f), new Vector2(60f, 60f));
         VisualUIHelper.ApplyContainSprite(icon, VisualAssetService.ResolveItemIconID(item), new Vector2(60f, 60f), Color.white, UITheme.Border, false);
         Text name = UITheme.CreateText(row.transform, "Name_Text", item.Name, UITheme.BodySize - 2, UITheme.TextPrimary);
         name.rectTransform.anchorMin = new Vector2(0f, 0.5f);
@@ -104,7 +104,7 @@ public class HomeUnpackView : MonoBehaviour {
                 UITheme.AddBorder(button.targetGraphic, UITheme.Border, 1f);
             }
 
-            UITheme.Place((RectTransform)button.transform, new Vector2(1f, 0.5f), new Vector2(-62f - slot * 112f, 0f), new Vector2(100f, 50f));
+            UITheme.Place((RectTransform)button.transform, new Vector2(1f, 0.5f), new Vector2(-14f - slot * 112f, 0f), new Vector2(100f, 50f));
             HaulChoice picked = choice;
             button.onClick.AddListener(() => Decide(item, picked));
             slot++;

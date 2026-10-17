@@ -564,7 +564,7 @@ public class DungeonMapUIController : MonoBehaviour {
         Transform existing = transform.Find("Promise_Text");
         Text promise = existing != null ? existing.GetComponent<Text>() : null;
         if (promise == null) {
-            promise = UITheme.CreateText(transform, "Promise_Text", string.Empty, UITheme.BodySize - 2, UITheme.Accent, TextAnchor.MiddleLeft);
+            promise = UITheme.CreateText(transform, "Promise_Text", string.Empty, UITheme.BodySize - 2, new Color(1f, 0.86f, 0.58f), TextAnchor.MiddleLeft);
             RectTransform rect = promise.rectTransform;
             rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0f, 1f);
             rect.anchoredPosition = new Vector2(40f, -132f);

@@ -252,6 +252,12 @@ public static class HomeEveningService {
             return ZeroLineService.Pick(MorningPool, promised, player.CurrentDay);
         }
 
+        // Then 精神好, so the player hears where it came from.
+        if (facts.Contains("spirited")) {
+            HashSet<string> spirited = new HashSet<string>(facts.Where(fact => fact == "spirited" || fact.StartsWith("bond")));
+            return ZeroLineService.Pick(MorningPool, spirited, player.CurrentDay);
+        }
+
         DiveLog last = player?.DiveJournal != null && player.DiveJournal.Count > 0 ? player.DiveJournal[player.DiveJournal.Count - 1] : null;
         if (last != null && last.Day == (player?.CurrentDay ?? 0) - 1) {
             facts.Add(last.Defeated ? "after_defeat" : "after_dive");

@@ -237,7 +237,8 @@ public class HomeRoomNavigator : MonoBehaviour {
             Refresh();
         });
         RectTransform studioDoll = (RectTransform)_studioRoom.transform.Find("DollDisplay/DollImage");
-        _studioZero = ZeroPresence.Create(_studioRoom.transform, "StudioZero", () => studioDoll, new Vector2(-330f, 250f));
+        // Between the bond plate and the workbench, clear of her head.
+        _studioZero = ZeroPresence.Create(_studioRoom.transform, "StudioZero", () => studioDoll, new Vector2(-170f, 330f), 380f);
 
         _atticRoom = CreateRoom("AtticRoom", AtticBackgroundID, new Vector2(560f, -150f), new Vector2(460f, 690f));
         Button bed = CreateTag(_atticRoom.transform, "Bed_Tag", BedLabel, string.Empty, new Vector2(-60f, -10f), RequestRest);

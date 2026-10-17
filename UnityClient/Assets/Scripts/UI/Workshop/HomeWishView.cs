@@ -141,7 +141,7 @@ public class HomeItemPicker : MonoBehaviour {
             Image row = UITheme.CreatePanel(_list, "Pick_" + i, UITheme.PanelRaised);
             StudioBenchView.PlaceRow(row.rectTransform, i, 64f, 8f);
             Image icon = UITheme.CreatePanel(row.transform, "Icon_Image", Color.white);
-            UITheme.Place(icon.rectTransform, new Vector2(0f, 0.5f), new Vector2(40f, 0f), new Vector2(52f, 52f));
+            UITheme.Place(icon.rectTransform, new Vector2(0f, 0.5f), new Vector2(14f, 0f), new Vector2(52f, 52f));
             VisualUIHelper.ApplyContainSprite(icon, VisualAssetService.ResolveItemIconID(item), new Vector2(52f, 52f), Color.white, UITheme.Border, false);
             Text name = UITheme.CreateText(row.transform, "Name_Text", $"{item.Name}    估值 {item.BaseValue}G", UITheme.CaptionSize, UITheme.TextPrimary);
             name.rectTransform.anchorMin = Vector2.zero;
