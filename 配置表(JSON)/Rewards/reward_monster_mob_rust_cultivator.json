@@ -61,6 +61,12 @@
         {
           "Type": "Nothing",
           "Weight": 10
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_petri_dish",
+          "Weight": 12,
+          "Count": 1
         }
       ]
     }

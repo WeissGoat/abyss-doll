@@ -1,0 +1,109 @@
+{
+  "ConfigID": "gear_corrosion_needle",
+  "Name": "腐蚀针",
+  "ItemType": "Weapon",
+  "Rarity": "Common",
+  "BaseValue": 210,
+  "IconID": "item_gear_corrosion_needle_icon",
+  "DescriptionKey": "item.gear_corrosion_needle.desc",
+  "Description": "用坑道废钉磨尖的小针，针身被酸液蚀出一道道细槽。",
+  "ItemRole": [
+    "BuildCore",
+    "Trade"
+  ],
+  "LayerTags": [
+    "Layer1"
+  ],
+  "Grid": {
+    "Shape": [
+      [
+        0,
+        0
+      ]
+    ],
+    "CanRotate": false,
+    "RotationSteps": 1,
+    "GridCost": 1,
+    "DefaultRotation": 0,
+    "AllowedRotations": [
+      0
+    ],
+    "PlacementTags": [
+      "Backpack"
+    ]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Physical",
+    "BaseValue": 5,
+    "Effects": [
+      {
+        "EffectID": "ApplyStatus",
+        "Level": 0,
+        "Status": "Vulnerable",
+        "Params": [
+          1
+        ]
+      }
+    ]
+  },
+  "Tags": [
+    "Weapon",
+    "Melee",
+    "Toxic",
+    "Layer1"
+  ],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [
+      "mob_acid_slime",
+      "mob_rust_hound"
+    ],
+    "RewardRefs": [
+      "reward_node_treasure_layer1",
+      "reward_monster_mob_acid_slime_l1",
+      "reward_monster_mob_rust_hound"
+    ],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": [
+      "Toxic",
+      "Weapon",
+      "Layer1"
+    ],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "dismantle_low_weapon_scrap"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_corrosion_needle_icon",
+    "GridPreviewStyle": "Normal",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_corrosion_needle"
+  }
+}

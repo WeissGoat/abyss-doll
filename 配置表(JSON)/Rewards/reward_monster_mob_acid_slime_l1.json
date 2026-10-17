@@ -22,7 +22,9 @@
         { "Type": "Item", "ItemID": "loot_toxic_filter", "Weight": 45, "Count": 1 },
         { "Type": "Item", "ItemID": "loot_gear_scrap", "Weight": 30, "Count": 1 },
         { "Type": "Item", "ItemID": "con_cheap_sedative", "Weight": 15, "Count": 1 },
-        { "Type": "Money", "Money": 12, "Weight": 10, "Count": 1 }
+        { "Type": "Money", "Money": 12, "Weight": 10, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_corrosion_needle", "Weight": 8, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_rusty_syringe", "Weight": 12, "Count": 1 }
       ]
     }
   ]

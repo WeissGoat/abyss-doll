@@ -1,0 +1,83 @@
+{
+  "ConfigID": "gear_acid_sprayer",
+  "Name": "酸液喷壶",
+  "ItemType": "Weapon",
+  "Rarity": "Rare",
+  "BaseValue": 720,
+  "IconID": "item_gear_acid_sprayer_icon",
+  "DescriptionKey": "item.gear_acid_sprayer.desc",
+  "Description": "旧矿场的酸泵被拆下来焊进喷壶，壶嘴边还结着化不开的白霜。",
+  "ItemRole": ["BuildCore", "Trade"],
+  "LayerTags": ["Layer2"],
+  "Grid": {
+    "Shape": [[0,0], [0,1], [1,1]],
+    "CanRotate": true,
+    "RotationSteps": 4,
+    "GridCost": 3,
+    "DefaultRotation": 0,
+    "AllowedRotations": [0, 90, 180, 270],
+    "PlacementTags": ["Backpack"]
+  },
+  "Combat": {
+    "TriggerType": "Manual",
+    "APCost": 1,
+    "DamageType": "Physical",
+    "BaseValue": 8,
+    "Effects": [
+      {
+        "EffectID": "ApplyStatus",
+        "Level": 0,
+        "Status": "Poison",
+        "Params": [3]
+      },
+      {
+        "EffectID": "SelfCost",
+        "Level": 0,
+        "Resource": "Corruption",
+        "Params": [2]
+      }
+    ]
+  },
+  "Tags": ["Weapon", "Ranged", "Toxic", "Layer2"],
+  "Lifecycle": {
+    "CanSell": true,
+    "SellChannel": "Shop",
+    "BattleLossRule": "Drop",
+    "EvacuationRule": "MoveToTownInventory",
+    "DefaultBinding": "None",
+    "CraftingConsumeRule": "ToolKept"
+  },
+  "SourceRefs": {
+    "DropPoolRefs": [],
+    "RewardRefs": ["reward_node_treasure_layer2", "reward_monster_mob_acid_slime"],
+    "CraftingRefs": [],
+    "ShopRefs": [],
+    "OrderRefs": []
+  },
+  "SinkRefs": {
+    "SellOutcomeRefs": [],
+    "CraftingAsIngredientRefs": [],
+    "OrderSubmitRefs": [],
+    "RoomMemoryRefs": [],
+    "ScenarioEventRefs": []
+  },
+  "Economy": {
+    "ValueTags": ["Toxic", "Weapon", "Layer2"],
+    "RumorRefs": [],
+    "ContrabandRule": "None",
+    "DismantleProfile": "mechanical_weapon_tier2"
+  },
+  "Risk": {
+    "RiskTags": [],
+    "PollutionProfile": "",
+    "CorruptionProfile": "",
+    "OvernightRule": "None",
+    "OrderConflictGroup": ""
+  },
+  "Visual": {
+    "IconVisualID": "item_gear_acid_sprayer_icon",
+    "GridPreviewStyle": "LargeGear",
+    "RiskIconRefs": [],
+    "PickupHintKey": "pickup.gear_acid_sprayer"
+  }
+}

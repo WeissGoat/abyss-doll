@@ -11,7 +11,8 @@
       "Entries": [
         { "Type": "Item", "ItemID": "loot_rusty_coil", "Weight": 45, "Count": 1 },
         { "Type": "Item", "ItemID": "loot_toxic_filter", "Weight": 35, "Count": 1 },
-        { "Type": "Item", "ItemID": "con_cheap_sedative", "Weight": 20, "Count": 1 }
+        { "Type": "Item", "ItemID": "con_cheap_sedative", "Weight": 20, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_acid_sprayer", "Weight": 12, "Count": 1 }
       ]
     }
   ]

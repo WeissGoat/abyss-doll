@@ -22,7 +22,9 @@
         { "Type": "Item", "ItemID": "loot_rusty_coil", "Weight": 45, "Count": 1 },
         { "Type": "Item", "ItemID": "loot_gear_scrap", "Weight": 35, "Count": 1 },
         { "Type": "Item", "ItemID": "gear_rusty_dagger", "Weight": 12, "Count": 1 },
-        { "Type": "Money", "Money": 10, "Weight": 8, "Count": 1 }
+        { "Type": "Money", "Money": 10, "Weight": 8, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_corrosion_needle", "Weight": 8, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_rusty_syringe", "Weight": 10, "Count": 1 }
       ]
     }
   ]

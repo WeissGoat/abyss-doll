@@ -69,6 +69,18 @@
           "ItemID": "gear_cog_amplifier",
           "Weight": 15,
           "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_acid_sprayer",
+          "Weight": 12,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "gear_petri_dish",
+          "Weight": 15,
+          "Count": 1
         }
       ]
     }

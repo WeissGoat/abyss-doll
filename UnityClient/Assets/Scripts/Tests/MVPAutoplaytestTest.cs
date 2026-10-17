@@ -698,6 +698,9 @@ internal class MVPAutoplayCampaign {
             }
 
             possibleDamage += Mathf.RoundToInt(weapon.Combat.RuntimeDamage);
+            if (!CombatItemEffects.CanUse(weapon, out _)) {
+                break;
+            }
             remainingAP -= weapon.Combat.APCost;
         }
 
@@ -710,10 +713,11 @@ internal class MVPAutoplayCampaign {
             return null;
         }
 
+        // Spent items (uses per fight) are skipped; statuses count as the damage they will do.
         return grid.ContainedItems
-            .Where(item => IsWeapon(item) && item.Combat.APCost <= currentAP)
-            .OrderByDescending(item => item.Combat.RuntimeDamage / Mathf.Max(1f, item.Combat.APCost))
-            .ThenByDescending(item => item.Combat.RuntimeDamage)
+            .Where(item => IsWeapon(item) && item.Combat.APCost <= currentAP && CombatItemEffects.CanUse(item, out _))
+            .OrderByDescending(item => EffectiveDamage(item) / Mathf.Max(1f, item.Combat.APCost))
+            .ThenByDescending(EffectiveDamage)
             .FirstOrDefault();
     }
 
@@ -1161,6 +1165,25 @@ internal class MVPAutoplayCampaign {
         return item?.Tags != null && item.Tags.Exists(value => string.Equals(value, tag, StringComparison.OrdinalIgnoreCase));
     }
 
+    // A strike's worth to the bot: its damage, plus poison as the HP it takes over the next turns and 破甲 as half a
+    // strike more; with only a few uses per fight it is worth less as a mainstay.
+    private static float EffectiveDamage(ItemEntity item) {
+        if (item?.Combat == null) {
+            return 0f;
+        }
+
+        float damage = item.Combat.RuntimeDamage > 0f ? item.Combat.RuntimeDamage : item.Combat.BaseValue;
+        foreach (EffectData effect in item.Combat.Effects ?? new List<EffectData>()) {
+            float value = effect?.Params != null && effect.Params.Length > 0 ? effect.Params[0] : 0f;
+            if (effect?.EffectID == "ApplyStatus" && effect.Trigger != "TurnStart") {
+                if (effect.Status == "Poison") damage += value * 2f;
+                if (effect.Status == "Vulnerable") damage += 8f * value;
+            }
+        }
+
+        return damage;
+    }
+
     private int ScoreItem(ItemEntity item) {
         if (item == null) {
             return 0;
@@ -1169,8 +1192,8 @@ internal class MVPAutoplayCampaign {
         int score = item.BaseValue;
         if (HasTag(item, "CoreMaterial")) score += 10000;
         if (HasTag(item, "Material")) score += 2500;
-        if (HasTag(item, "Toxic")) score += 400;
-        if (IsWeapon(item)) score += 1200 + Mathf.RoundToInt(item.Combat.BaseValue * 10f);
+        if (HasTag(item, "Toxic") && !IsWeapon(item)) score += 400;
+        if (IsWeapon(item)) score += 1200 + Mathf.RoundToInt(EffectiveDamage(item) * 10f);
         if (item.ItemType == nameof(ItemType.Armor)) score += 900;
         if (item.ItemType == nameof(ItemType.Consumable)) score += 500;
         if (HasTag(item, "Cursed")) score -= 5000;

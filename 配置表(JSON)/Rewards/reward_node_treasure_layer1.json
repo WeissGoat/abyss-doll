@@ -28,7 +28,9 @@
         { "Type": "Item", "ItemID": "gear_tactical_blade", "Weight": 7, "Count": 1 },
         { "Type": "Item", "ItemID": "gear_whetstone", "Weight": 12, "Count": 1 },
         { "Type": "Item", "ItemID": "gear_focus_lens", "Weight": 8, "Count": 1 },
-        { "Type": "Nothing", "Weight": 10 }
+        { "Type": "Nothing", "Weight": 10 },
+        { "Type": "Item", "ItemID": "gear_corrosion_needle", "Weight": 10, "Count": 1 },
+        { "Type": "Item", "ItemID": "gear_rusty_syringe", "Weight": 12, "Count": 1 }
       ]
     }
   ]
