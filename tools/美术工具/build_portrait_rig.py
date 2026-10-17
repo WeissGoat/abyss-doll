@@ -63,7 +63,8 @@ def main():
         frames = []
         for k in range(16):
             phase = k / 16 * 2 * np.pi
-            dx = 10 * hair_w * np.sin(phase - 3.0 * ys) + 4 * skirt_w * np.sin(1.3 * phase + 1.0)
+            # Same bend as UIPortraitSway (HairAmount 0.024, SkirtAmount 0.007 of the width).
+            dx = (w / 1024) * (24 * hair_w * np.sin(phase - 3.0 * ys) + 7 * skirt_w * np.sin(1.3 * phase + 1.0))
             out = cv2.remap(portrait, gx - dx.astype(np.float32), gy, cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
             alpha = out[..., 3:4] / 255.0
             comp = (out[..., :3] * alpha + 50 * (1 - alpha)).astype(np.uint8)

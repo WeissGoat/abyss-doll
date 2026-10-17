@@ -12,10 +12,11 @@ public class UIPortraitSway : BaseMeshEffect {
     public const string RigSuffix = "_rig";
     public const int Columns = 24;
     public const int Rows = 36;
-    // Peak sideways bend as a share of the image width (about 10 px on a 1024 px portrait).
-    public const float HairAmount = 0.0098f;
-    public const float SkirtAmount = 0.004f;
-    public const float Period = 4.2f;
+    // Peak sideways bend as a share of the image width (about 25 px on a 1024 px portrait, 14 px in the workshop).
+    // The producer found 10 px too faint; past about 30 px the cape and dress edges start to drag with the hair.
+    public const float HairAmount = 0.024f;
+    public const float SkirtAmount = 0.007f;
+    public const float Period = 3.8f;
 
     private static readonly Dictionary<Texture2D, Color32[]> PixelCache = new Dictionary<Texture2D, Color32[]>();
 
