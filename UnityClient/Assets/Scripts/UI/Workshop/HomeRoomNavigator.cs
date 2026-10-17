@@ -28,6 +28,7 @@ public class HomeRoomNavigator : MonoBehaviour {
     private GameObject _studioRoom;
     private GameObject _atticRoom;
     private StudioBenchView _bench;
+    private StudioCareView _care;
     private Text _bedHint;
     private Button _journalTag;
     private HomeJournalView _journal;
@@ -42,6 +43,7 @@ public class HomeRoomNavigator : MonoBehaviour {
     public HomeRoom Current { get; private set; }
 
     public StudioBenchView Bench => _bench;
+    public StudioCareView Care => _care;
     public HomeJournalView Journal => _journal;
     public HomeNightTalkView NightTalk => _nightTalk;
 
@@ -99,6 +101,7 @@ public class HomeRoomNavigator : MonoBehaviour {
 
         if (Current == HomeRoom.Studio) {
             _bench.Refresh();
+            _care.Refresh();
         }
 
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
@@ -129,7 +132,14 @@ public class HomeRoomNavigator : MonoBehaviour {
         _journal = HomeJournalView.Create(_hallLayer.transform, () => ShowStudio(StudioTab.Maintenance), _ => Refresh());
 
         _studioRoom = CreateRoom("StudioRoom", StudioBackgroundID, new Vector2(-600f, -100f), new Vector2(540f, 810f));
-        _bench = StudioBenchView.Create(_studioRoom.transform, () => _workshop?.RefreshUI());
+        _bench = StudioBenchView.Create(_studioRoom.transform, () => {
+            _care?.Refresh();
+            _workshop?.RefreshUI();
+        });
+        _care = StudioCareView.Create(_studioRoom.transform, (RectTransform)_studioRoom.transform.Find("DollDisplay/DollImage"), () => {
+            _bench.Refresh();
+            _workshop?.RefreshUI();
+        });
 
         _atticRoom = CreateRoom("AtticRoom", AtticBackgroundID, new Vector2(560f, -150f), new Vector2(460f, 690f));
         Button bed = CreateTag(_atticRoom.transform, "Bed_Tag", BedLabel, string.Empty, new Vector2(-60f, -10f), RequestRest);

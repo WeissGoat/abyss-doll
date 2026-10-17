@@ -53,7 +53,8 @@ update_rule: 修改配置字段、数据源规则或表间引用时同步本文�
 | **[`/Dungeons`](./Dungeons/README.md)** | 深渊层数 (Dungeon) | 决定每一层地图的长度（节点数）、走一步掉多少SAN，以及怪物和Boss的刷新池。 | 探索系统 |
 | **[`/Prosthetics`](./Prosthetics/README.md)** | 义体插件 (Prosthetic) | 局外装备的被动词条插件。**不占背包网格**，改变规则或提供全局增幅。 | 养成系统 |
 | **[`/CraftingRecipes`](./CraftingRecipes/README.md)**| 制造配方 (Crafting) | 工坊中制造义体或升级底盘所需的金币与素材清单。 | 经济系统 / 养成系统 |
-| **`/Maintenance`** | 维护方案 (Maintenance) | 局外维护方案，定义金币 / 材料成本以及磨损、侵蚀、HP、SAN 修复效果。 | 养成系统 / 下潜许可 |
+| **`/Maintenance`** | 维护方案 (Maintenance) | 局外维护方案，定义金币 / 材料成本以及磨损、侵蚀、HP、SAN 修复效果；可选 `BondPoints`：用了会增加零号的羁绊（花香护理油）。 | 养成系统 / 下潜许可 |
+| **`/Home`** | 家里的台词 (Home lines) | 零号在家里说的话：进门时「今天最记得的事」、营业后的夜谈。按当天的事实挑，见 `Home/README.md`。 | 回家的一晚 |
 | **[`/Economy`](./Economy/README.md)** | 小镇经济 (Economy) | 定义日 / 周 / 月周期、月租曲线、欠债利息、轻债阈值和典当折扣。 | 经济压力 / 小镇循环 |
 | **[`/Effects`](./Effects/README.md)** | 效果字典 (Effect) | 定义游戏中所有可被物品、怪物、义体调用的基础效果（如加血、叠盾、乘伤）及其参数规范。 | 战斗系统 / 核心框架 |
 | **`/Scenes`** | 短场景 (Scene) | 序章 B / C 段等不走 Yarn 的短对白：标题、逐句台词（Speaker / Text）和选项（ID / Label / Hint）。选项 ID 由代码解释，见 `docs/specs/2026-10-05-t0-first-loop.md`。 | 叙事 / 序章 |

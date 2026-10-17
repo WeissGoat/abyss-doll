@@ -1,0 +1,23 @@
+{
+  "MaintenanceID": "maint_flower_oil",
+  "Name": "花香护理油",
+  "Description": "带花香的护理油，修得多，她也喜欢。",
+  "QualityTier": "Fine",
+  "Cost": {
+    "Money": 220,
+    "RequiredItems": []
+  },
+  "Effects": [
+    {
+      "TargetState": "Wear",
+      "Amount": 45
+    },
+    {
+      "TargetState": "SAN",
+      "Amount": 3
+    }
+  ],
+  "DailyLimit": 0,
+  "RestoresDivePermit": true,
+  "BondPoints": 3
+}

@@ -26,4 +26,4 @@
 - `dive` / `rest`：今天下潜还是休息。
 - `rent_paid` 今晚交上了房租；`rent_short` 交不起、欠着或要典当；`rent_soon` 两天内要交。
 - `no_sales` 今晚一件没卖；`good_sales` 营业收入 300G 以上。
-- `low_san` SAN 低于三成；`hurt` HP 低于一半；`worn` 磨损或侵蚀到 60。
+- `low_san` SAN 低于三成；`hurt` HP 低于一半；`worn` 磨损或侵蚀到 60；`grimy` 身上还有 3 块以上污渍没擦。

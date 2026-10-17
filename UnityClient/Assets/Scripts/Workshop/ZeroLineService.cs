@@ -97,6 +97,10 @@ public static class ZeroLineService {
             if (doll.Status.WearAndTear >= WornThreshold || doll.Status.Corruption >= WornThreshold) {
                 facts.Add("worn");
             }
+
+            if (doll.Status.Grime >= 3) {
+                facts.Add("grimy");
+            }
         }
 
         return facts;

@@ -111,6 +111,7 @@ public class MaintenancePanel : MonoBehaviour {
             }
             _messageText.text = text.ToString().TrimEnd();
             _messageText.color = UITheme.Positive;
+            StudioCareView.AnnounceBond(result.Bond);
         } else {
             _messageText.text = result.Reason;
             _messageText.color = UITheme.Warning;

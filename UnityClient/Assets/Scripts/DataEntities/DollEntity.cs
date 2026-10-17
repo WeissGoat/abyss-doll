@@ -46,6 +46,8 @@ public class DollStatusComponent {
     public int SAN_Max;
     public float WearAndTear;
     public float Corruption;
+    // Smudges from the abyss on her (one per fight, CareService); wiped off by hand in the studio.
+    public int Grime;
 }
 
 [Serializable]
@@ -90,6 +92,8 @@ public class ChassisUpgradeCost : CraftingCost {
 
 [Serializable]
 public class DollBondComponent {
+    // The bond level the home loop shows (0-5 in the Demo, BondService); progress toward the next one in Points.
     public int AffectionLevel;
+    public int Points;
     public int HiddenTrust;
 }

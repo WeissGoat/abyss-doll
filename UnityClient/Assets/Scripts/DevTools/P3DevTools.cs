@@ -27,6 +27,8 @@ public static class P3DevTools {
             sb.AppendLine("Room: " + HomeRoomNavigator.RoomLabels[(int)rooms.Current] + (rooms.Current == HomeRoom.Studio ? " / " + StudioBenchView.TabLabels[(int)rooms.Bench.CurrentTab] : string.Empty)
                 + (rooms.Journal.IsShowing ? (rooms.Journal.IsArrival ? ", journal page (arrival)" : ", wall journal") : string.Empty)
                 + (rooms.NightTalk.IsShowing ? ", night talk" : string.Empty));
+            DollEntity zero = GameRoot.Core.CurrentPlayer.ActiveDoll;
+            sb.AppendLine($"Zero: grime {CareService.Count(zero, CareMarkKind.Grime)}, cracks {CareService.Count(zero, CareMarkKind.Crack)}, haze {CareService.Count(zero, CareMarkKind.Haze)}, bond {BondService.Level(zero)} ({BondService.Points(zero)}/{BondService.Needed(zero)})");
         }
 
         P3DialogueOverlayController overlay = FindOverlay();
@@ -586,6 +588,27 @@ public static class P3DevTools {
             log.AppendLine("Rested: " + reason);
             ResolveDayDialogs(log);
         }
+    }
+
+    // In the studio, rubs every smudge off Zero like a player would with the mouse.
+    public static string Care() {
+        WorkshopUIController workshop = Object.FindObjectOfType<WorkshopUIController>();
+        workshop?.Rooms?.Show(HomeRoom.Studio);
+        DollEntity doll = GameRoot.Core?.CurrentPlayer?.ActiveDoll;
+        int before = CareService.Count(doll, CareMarkKind.Grime);
+        for (int i = 0; i < CareService.MaxGrime * 2 && CareService.Count(doll, CareMarkKind.Grime) > 0; i++) {
+            GrimeSpot spot = Object.FindObjectOfType<GrimeSpot>();
+            if (spot == null) {
+                break;
+            }
+
+            spot.RubAway();
+            Object.DestroyImmediate(spot);
+        }
+
+        int wiped = before - CareService.Count(doll, CareMarkKind.Grime);
+
+        return $"Wiped {wiped} smudge(s).\n" + Describe();
     }
 
     public static string AddMoney(int amount) {

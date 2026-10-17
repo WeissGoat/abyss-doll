@@ -633,7 +633,7 @@ public class DungeonManager {
         }
 
         result.StashCountAfterSettlement = player?.StashInventory?.Count ?? 0;
-        DiveLogService.Finish(player, result, false, CurrentLayer);
+        CareService.AddGrimeFromDive(player?.ActiveDoll, DiveLogService.Finish(player, result, false, CurrentLayer));
         result.DayReport = DayCycleService.EndDiveDay(player, false)?.Economy;
         Debug.Log($"[DungeonManager] Settlement summary prepared. LootCount={result.LootTransferredCount}, EstimatedValue={result.LootEstimatedValue}, StashCount={result.StashCountAfterSettlement}");
         DungeonEventBus.PublishDungeonSettlementPrepared(result);
@@ -661,7 +661,7 @@ public class DungeonManager {
         PopulateRunLootSummary(result, preservedRunLoot);
 
         result.StashCountAfterSettlement = player?.StashInventory?.Count ?? 0;
-        DiveLogService.Finish(player, result, true, CurrentLayer);
+        CareService.AddGrimeFromDive(player?.ActiveDoll, DiveLogService.Finish(player, result, true, CurrentLayer));
         result.DayReport = DayCycleService.EndDiveDay(player, true)?.Economy;
         Debug.Log($"[DungeonManager] Defeat settlement prepared. StashCount={result.StashCountAfterSettlement}");
         DungeonEventBus.PublishDungeonSettlementPrepared(result);

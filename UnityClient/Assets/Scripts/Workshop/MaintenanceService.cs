@@ -15,6 +15,7 @@ public class MaintenanceApplicationResult {
     public int MoneySpent;
     public List<ItemEntity> ConsumedItems = new List<ItemEntity>();
     public List<MaintenanceEffectApplication> AppliedEffects = new List<MaintenanceEffectApplication>();
+    public BondChange Bond;
 }
 
 public static class MaintenanceService {
@@ -63,6 +64,10 @@ public static class MaintenanceService {
             }
 
             result.AppliedEffects.Add(application);
+        }
+
+        if (config.BondPoints > 0) {
+            result.Bond = BondService.Add(doll, config.BondPoints);
         }
 
         result.Success = true;

@@ -18,6 +18,8 @@ public class MaintenanceConfig {
     public List<MaintenanceEffectConfig> Effects = new List<MaintenanceEffectConfig>();
     public int DailyLimit;
     public bool RestoresDivePermit;
+    // Bond points for a kind treatment (the flower oil); BondService adds them when it is applied.
+    public int BondPoints;
 }
 
 [Serializable]
