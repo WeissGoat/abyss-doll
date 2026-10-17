@@ -13,6 +13,9 @@ public class ChassisUpgradeResult {
     public int MoneySpent;
     public bool RuntimeGridRebuilt;
     public List<ItemEntity> ConsumedItems = new List<ItemEntity>();
+    // Packed items moved into the new grid, and the names of those that went back to the stash.
+    public int CarriedOver;
+    public List<string> ReturnedToStash = new List<string>();
 
     public string FeedbackText {
         get {
@@ -50,8 +53,33 @@ public static class ChassisUpgradeService {
         result.MoneySpent = paymentResult.MoneySpent;
         result.ConsumedItems.AddRange(paymentResult.ConsumedItems);
 
+        // Whatever was already packed moves into the new grid at the same place; what no longer fits goes to the stash.
+        List<LoadoutSlotRecord> packed = new List<LoadoutSlotRecord>();
+        if (doll.RuntimeGrid is BackpackGrid oldGrid) {
+            foreach (ItemEntity item in oldGrid.ContainedItems) {
+                if (item?.Grid?.CurrentPos != null && item.Grid.CurrentPos.Length >= 2) {
+                    packed.Add(new LoadoutSlotRecord { InstanceID = item.InstanceID, X = item.Grid.CurrentPos[0], Y = item.Grid.CurrentPos[1], Rotation = item.Grid.Rotation });
+                }
+            }
+
+            ItemLifecycleService.ExtractBackpackItemsToGroundInventory(player, "ChassisUpgrade");
+        }
+
         doll.Chassis = CloneChassis(nextConfig);
         doll.RuntimeGrid = new BackpackGrid(doll.Chassis);
+        foreach (LoadoutSlotRecord slot in packed) {
+            ItemEntity item = player.StashInventory.Find(candidate => candidate != null && candidate.InstanceID == slot.InstanceID);
+            if (item == null) {
+                continue;
+            }
+
+            if (ItemLifecycleService.TryMoveGroundInventoryToBackpack(player, item, slot.X, slot.Y, slot.Rotation, "ChassisUpgrade", out _)
+                || PreDiveLoadoutService.TryBringFromStash(player, item, out _)) {
+                result.CarriedOver++;
+            } else {
+                result.ReturnedToStash.Add(item.Name);
+            }
+        }
 
         result.Success = true;
         result.Reason = string.Empty;

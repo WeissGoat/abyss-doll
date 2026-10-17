@@ -47,6 +47,16 @@ public static class PreDiveLoadoutTest {
         Check(PreDiveLoadoutService.HasWeapon(player), "no weapon after restoring the last loadout");
         Check(player.StashInventory.Count == 0, $"stash has {player.StashInventory.Count} after restore");
 
+        // Upgrading the chassis with the kit packed keeps it (regression 2026-10-18: the new grid dropped it).
+        player.Money += 1500;
+        ItemEntity coreMaterial = ConfigManager.CreateItem("mat_core_tier1");
+        ItemLifecycleService.MarkGroundInventoryItem(player, coreMaterial, "Test");
+        ChassisUpgradeResult upgrade = ChassisUpgradeService.Upgrade(player, player.ActiveDoll);
+        grid = (BackpackGrid)player.ActiveDoll.RuntimeGrid;
+        Check(upgrade.Success, "chassis upgrade failed: " + upgrade.Reason);
+        Check(grid.ContainedItems.Count == startingItems && upgrade.CarriedOver == startingItems, $"{grid.ContainedItems.Count} of {startingItems} packed items survived the chassis upgrade");
+        Check(PreDiveLoadoutService.HasWeapon(player) && player.StashInventory.Count == 0, "the kit did not move into the new grid");
+
         // Return to stash, then bring back by click.
         ItemEntity weapon = grid.ContainedItems.Find(item => item.ItemType == "Weapon");
         Check(PreDiveLoadoutService.TryReturnToStash(player, weapon, out string returnReason), "return to stash failed: " + returnReason);

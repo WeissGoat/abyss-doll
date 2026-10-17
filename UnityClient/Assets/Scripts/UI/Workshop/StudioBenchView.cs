@@ -271,7 +271,8 @@ public class StudioBenchView : MonoBehaviour {
             FindObjectOfType<GridGenerator>()?.GenerateGrid(doll.Chassis);
         }
 
-        ShowResult(result.Success, result.Success ? $"底盘升级好了：背包 {result.PreviousWidth}×{result.PreviousHeight} → {result.NewWidth}×{result.NewHeight}。" : result.Reason);
+        string returned = result.ReturnedToStash.Count > 0 ? $"放回仓库：{string.Join("、", result.ReturnedToStash)}。" : string.Empty;
+        ShowResult(result.Success, result.Success ? $"底盘升级好了：背包 {result.PreviousWidth}×{result.PreviousHeight} → {result.NewWidth}×{result.NewHeight}。{returned}" : result.Reason);
     }
 
     private void ShowResult(bool success, string message) {
