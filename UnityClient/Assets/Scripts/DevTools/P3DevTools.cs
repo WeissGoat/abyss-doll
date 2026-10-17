@@ -26,7 +26,18 @@ public static class P3DevTools {
         if (rooms != null && rooms.isActiveAndEnabled) {
             sb.AppendLine("Room: " + HomeRoomNavigator.RoomLabels[(int)rooms.Current] + (rooms.Current == HomeRoom.Studio ? " / " + StudioBenchView.TabLabels[(int)rooms.Bench.CurrentTab] : string.Empty)
                 + (rooms.Journal.IsShowing ? (rooms.Journal.IsArrival ? ", journal page (arrival)" : ", wall journal") : string.Empty)
-                + (rooms.NightTalk.IsShowing ? ", night talk" : string.Empty));
+                + (rooms.NightTalk.IsShowing ? ", night talk" : string.Empty)
+                + (rooms.Unpack.IsShowing ? ", unpacking" : string.Empty));
+            PlayerProfile home = GameRoot.Core.CurrentPlayer;
+            if (home.IsNight || rooms.NightTalk.IsShowing) {
+                sb.AppendLine($"Tonight: next {HomeEveningStamps.Labels[(int)(rooms.NightTalk.IsShowing ? EveningStamp.Goodnight : HomeEveningService.Next(home))]}, haul {HomeEveningService.Haul(home).Count} undecided");
+            }
+
+            ZeroPresence speaking = rooms.Zero(rooms.Current);
+            if (speaking != null && speaking.IsSpeaking) {
+                sb.AppendLine("Zero says: " + speaking.CurrentLine);
+            }
+
             DollEntity zero = GameRoot.Core.CurrentPlayer.ActiveDoll;
             sb.AppendLine($"Zero: grime {CareService.Count(zero, CareMarkKind.Grime)}, cracks {CareService.Count(zero, CareMarkKind.Crack)}, haze {CareService.Count(zero, CareMarkKind.Haze)}, bond {BondService.Level(zero)} ({BondService.Points(zero)}/{BondService.Needed(zero)}), "
                 + $"wish {WishService.Active(GameRoot.Core.CurrentPlayer)?.Text ?? "none"}, shelf {GameRoot.Core.CurrentPlayer.Shelf?.Count ?? 0}");
@@ -552,6 +563,8 @@ public static class P3DevTools {
         for (int i = 0; i < 8; i++) {
             if (ClickByLabel(NightBusinessPanel.OpenLabel, null)) {
                 log.AppendLine("Opened the night business.");
+            } else if (ClickByLabel(HomeUnpackView.BusinessLabel, null)) {
+                log.AppendLine("Left the unpacking for the business.");
             } else if (ClickByLabel(TownDayHUD.GoBusinessLabel, null)) {
                 log.AppendLine("Went to the business screen.");
             } else if (ClickByLabel("迎接新的一天", null)) {
@@ -566,6 +579,36 @@ public static class P3DevTools {
                 return;
             }
         }
+    }
+
+    // At night: open the counter and sort what the dive brought home like a player would (sell what sells, keep the
+    // rest), then leave for the business.
+    public static string Unpack() {
+        StringBuilder log = new StringBuilder();
+        HomeRoomNavigator rooms = Object.FindObjectOfType<WorkshopUIController>()?.Rooms;
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        if (rooms == null || player == null || !player.IsNight) {
+            return "Not at home at night.\n" + Describe();
+        }
+
+        int haul = HomeEveningService.Haul(player).Count;
+        if (!rooms.Unpack.IsShowing) {
+            rooms.OpenCounter();
+        }
+
+        if (!rooms.Unpack.IsShowing) {
+            return $"Nothing to unpack (haul {haul}).\n" + Describe();
+        }
+
+        for (int i = 0; i < 40 && HomeEveningService.Haul(player).Count > 0; i++) {
+            if (!ClickByLabel(HomeUnpackView.ChoiceLabels[(int)HaulChoice.Sell], null) && !ClickByLabel(HomeUnpackView.ChoiceLabels[(int)HaulChoice.Keep], null)) {
+                break;
+            }
+        }
+
+        log.AppendLine($"Unpacked {haul - HomeEveningService.Haul(player).Count} of {haul}: showcase {player.Showcase.Count}, dump box {player.DumpBox.Count}.");
+        ClickByLabel(HomeUnpackView.BusinessLabel, log);
+        return log.ToString() + Describe();
     }
 
     // At night: dump every loot item into the dump box (the business screen must be open), as a player in a hurry would.

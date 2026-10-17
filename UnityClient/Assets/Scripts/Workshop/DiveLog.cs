@@ -38,10 +38,14 @@ public class DiveLog {
     public int BroughtOut;
     public int BroughtOutValue;
     public List<string> BroughtOutNames = new List<string>();
+    public List<string> BroughtOutIDs = new List<string>();
     public int Lost;
     public List<string> LostNames = new List<string>();
     // Bond 3: she held on once against a lethal blow (one HP left).
     public bool HeldOn;
+    // 精神好: she set out cared for and talked to; the first fight's first turn gets +1 AP (SpiritUsed once it has).
+    public bool Spirited;
+    public bool SpiritUsed;
     // A wish this dive fulfilled: what she says at the door instead.
     public string WishDoneLine;
     // The arrival page has been shown (it opens once, when Zero comes through the door).
@@ -85,6 +89,7 @@ public static class DiveLogService {
             SANMax = doll?.Status.SAN_Max ?? 0
         };
         _hpBeforeStep = _current.HPStart;
+        _current.Spirited = !prologue && HomeEveningService.IsSpirited(player);
     }
 
     public static void RecordNode(NodeBase node, string iconID) {
@@ -159,6 +164,7 @@ public static class DiveLogService {
         log.BroughtOut = result?.BroughtOutCount ?? 0;
         log.BroughtOutValue = result?.BroughtOutEstimatedValue ?? 0;
         log.BroughtOutNames = result?.BroughtOutNames != null ? new List<string>(result.BroughtOutNames) : new List<string>();
+        log.BroughtOutIDs = result?.BroughtOutIDs != null ? new List<string>(result.BroughtOutIDs) : new List<string>();
         log.Lost = result?.LostCount ?? 0;
         log.LostNames = result?.LostNames != null ? new List<string>(result.LostNames) : new List<string>();
         log.EliteBypassed = !log.EliteFought && BypassedAnElite(layer);

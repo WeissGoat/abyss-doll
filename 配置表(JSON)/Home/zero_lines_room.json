@@ -1,0 +1,30 @@
+{
+  "PoolID": "room",
+  "Note": "夜里（或早上）走进一个房间，零号说的一句，每个房间每晚一次。房间：hall / studio / attic；时间：evening / morning。其余事实见 README。",
+  "Lines": [
+    { "Tags": ["hall"], "Text": "店里的灯，比下面的亮。" },
+    { "Tags": ["hall", "evening"], "Text": "到家了。" },
+    { "Tags": ["hall", "evening", "haul"], "Text": "背包还没卸。……柜台那边。" },
+    { "Tags": ["hall", "evening", "haul", "good_haul"], "Text": "这么多。柜台要放不下了。" },
+    { "Tags": ["hall", "evening", "empty_handed"], "Text": "柜台空着。今晚……没什么可以卖的。" },
+    { "Tags": ["hall", "evening", "defeated"], "Text": "门口的地板，我刚才是被拖进来的吧。" },
+    { "Tags": ["hall", "evening", "wish"], "Text": "……（她看了你一眼，又看向别处。）" },
+    { "Tags": ["hall", "evening", "rent_soon"], "Text": "门上又贴了一张纸。" },
+    { "Tags": ["hall", "morning"], "Text": "早上了。外面的雾还没散。" },
+
+    { "Tags": ["studio"], "Text": "这里有机油的味道。我喜欢。" },
+    { "Tags": ["studio", "evening"], "Text": "要看看我吗。" },
+    { "Tags": ["studio", "evening", "grimy"], "Text": "……身上好脏。" },
+    { "Tags": ["studio", "evening", "grimy", "bond2"], "Text": "脏了。帮我擦一下，好吗。" },
+    { "Tags": ["studio", "evening", "hurt"], "Text": "左边的关节，转不太动了。" },
+    { "Tags": ["studio", "evening", "worn"], "Text": "走路的时候，里面会响。" },
+    { "Tags": ["studio", "evening", "low_san"], "Text": "灯……可以一直开着吗。" },
+    { "Tags": ["studio", "morning"], "Text": "工作台很干净。是你收拾的吗。" },
+
+    { "Tags": ["attic"], "Text": "阁楼的窗，能看到镇上的灯。" },
+    { "Tags": ["attic", "evening"], "Text": "还没开张。现在睡的话，太早了。" },
+    { "Tags": ["attic", "evening", "low_san"], "Text": "这里很安静。……太安静了。" },
+    { "Tags": ["attic", "evening", "bond3"], "Text": "架子上的东西，我每天都会看一遍。" },
+    { "Tags": ["attic", "morning"], "Text": "床有一点暖。我睡过的地方。" }
+  ]
+}

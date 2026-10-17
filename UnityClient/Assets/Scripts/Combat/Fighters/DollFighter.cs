@@ -16,6 +16,11 @@ public class DollFighter : FighterEntity {
     protected override void ProcessEffects(CombatEventType phase) {
         if (phase == CombatEventType.OnTurnStart) {
             CurrentAP = Mathf.Min(CurrentAP + DataRef.Stats.APRegen, MaxAP);
+            // 精神好: cared for and talked to last night, the dive's first turn gets one more (it may pass the cap).
+            if (HomeEveningService.TakeSpirit()) {
+                CurrentAP += HomeEveningService.SpiritAP;
+                GameEventBus.PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Interfere, Actor = this, Label = $"零号精神很好：AP +{HomeEveningService.SpiritAP}" });
+            }
             Debug.Log($"[{Name}] Turn Started. AP restored to {CurrentAP}/{MaxAP}.");
             GridSolver.RecalculateAllEffects(DataRef); // 重新计算网格连结
             

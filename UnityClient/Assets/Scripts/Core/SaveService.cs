@@ -75,6 +75,7 @@ public static class SaveService {
         player.Shelf = player.Shelf ?? new List<Memento>();
         player.Milestones = player.Milestones ?? new List<string>();
         player.HomeUpgrades = player.HomeUpgrades ?? new List<string>();
+        player.TonightHaul = player.TonightHaul ?? new List<string>();
         file.Backpack = file.Backpack ?? new List<ItemEntity>();
         return file;
     }

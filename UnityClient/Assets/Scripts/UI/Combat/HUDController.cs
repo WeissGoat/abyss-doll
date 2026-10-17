@@ -1253,7 +1253,8 @@ public class HUDController : MonoBehaviour {
             DestroyRuntimeObject(_apPipParent.GetChild(i).gameObject);
         }
 
-        for (int i = 0; i < Mathf.Max(0, max); i++) {
+        // 精神好 can lift AP one above the cap for a turn: draw the extra pip too.
+        for (int i = 0; i < Mathf.Max(0, Mathf.Max(max, current)); i++) {
             GameObject pipObj = CreateRectGameObject($"AP_{i + 1}");
             pipObj.transform.SetParent(_apPipParent, false);
             Image pip = pipObj.AddComponent<Image>();

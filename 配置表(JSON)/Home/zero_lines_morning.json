@@ -1,0 +1,19 @@
+{
+  "PoolID": "morning",
+  "Note": "早上在大厅门口，零号说的一句（出门送别）。事实：spirited（精神好：昨晚干干净净、也和她说过话）、after_dive / after_defeat / after_rest（昨天做了什么），其余见 README。",
+  "Lines": [
+    { "Tags": [], "Text": "今天也要下去吗。" },
+    { "Tags": [], "Text": "早。" },
+    { "Tags": ["after_rest"], "Text": "睡了一整天。身体轻了一点。" },
+    { "Tags": ["after_dive"], "Text": "昨天的路，我还记得。" },
+    { "Tags": ["after_defeat"], "Text": "今天……我会站稳的。" },
+    { "Tags": ["spirited"], "Text": "今天身上干干净净的。……我准备好了。" },
+    { "Tags": ["spirited", "bond2"], "Text": "昨晚说了很多话。今天，我想走远一点。" },
+    { "Tags": ["grimy"], "Text": "身上还有昨天的灰。……没关系。" },
+    { "Tags": ["hurt"], "Text": "还有一点疼。慢慢走的话，可以。" },
+    { "Tags": ["worn"], "Text": "膝盖会响。下去之前，要不要先看一下。" },
+    { "Tags": ["low_san"], "Text": "昨晚做了梦。下面的梦。" },
+    { "Tags": ["wish"], "Text": "（她在看门外的方向。）" },
+    { "Tags": ["rent_soon"], "Text": "门上的纸，日子快到了。" }
+  ]
+}

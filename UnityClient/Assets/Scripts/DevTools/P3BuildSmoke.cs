@@ -102,6 +102,8 @@ public class P3BuildSmoke : MonoBehaviour {
         bool combatCaptured = false;
         bool journalCaptured = false;
         int journalPages = 0;
+        bool unpackCaptured = false;
+        int unpacked = 0;
         while (dives < TargetDives && Time.realtimeSinceStartup - startedAt < TimeoutSeconds) {
             // Home again: the dive's journal page is open in the hall (2026-10-17 home loop).
             HomeRoomNavigator rooms = FindObjectOfType<WorkshopUIController>()?.Rooms;
@@ -126,7 +128,18 @@ public class P3BuildSmoke : MonoBehaviour {
                 dives++;
                 yield return new WaitForSecondsRealtime(0.5f);
                 // Back in town: sell the loot through the ledger like a player, so the build checks selling too.
-                // Night: dump the loot and open the business like a player, so the build checks the night flow too.
+                // Night: unpack at the counter (2026-10-18 evening thread), dump the rest and open the business like a
+                // player, so the build checks the night flow too.
+                if (!unpackCaptured && HomeEveningService.Haul(GameRoot.Core.CurrentPlayer).Count > 0) {
+                    unpackCaptured = true;
+                    FindObjectOfType<WorkshopUIController>()?.Rooms?.OpenCounter();
+                    yield return new WaitForSecondsRealtime(0.5f);
+                    yield return Capture("03d_unpack");
+                }
+
+                int haulBefore = HomeEveningService.Haul(GameRoot.Core.CurrentPlayer).Count;
+                Note(P3DevTools.Unpack());
+                unpacked += haulBefore - HomeEveningService.Haul(GameRoot.Core.CurrentPlayer).Count;
                 Note(P3DevTools.DumpAllForBusiness());
                 yield return new WaitForSecondsRealtime(0.5f);
                 yield return Capture($"0{3 + dives}_business_after_dive_{dives}");
@@ -157,7 +170,7 @@ public class P3BuildSmoke : MonoBehaviour {
         bool journalKept = journalPages >= dives;
         bool passed = prologueDone && motionPlayed && journalKept && !stuck && dives >= TargetDives && player.CurrentDay == firstTownDay + dives + rests;
         string verdict = $"{(passed ? "PASS" : "FAIL")}: prologue {(prologueDone ? "done" : "NOT FINISHED")} (town from day {firstTownDay}), {dives}/{TargetDives} dives, {rests} rest(s), day {player.CurrentDay}, money {player.Money} (night business net {soldTotal}G), "
-            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, journal {journalPages} page(s){(journalKept ? string.Empty : " MISSING PAGES")}, {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
+            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, journal {journalPages} page(s){(journalKept ? string.Empty : " MISSING PAGES")}, unpacked {unpacked} item(s), {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
         Debug.Log("[P3BuildSmoke] " + verdict);
         File.WriteAllText(Path.Combine(_outDir, "P3Smoke.txt"), verdict + "\n\n" + _log);
         Application.Quit(passed ? 0 : 1);

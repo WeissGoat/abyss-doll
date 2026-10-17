@@ -12,6 +12,7 @@ public class DungeonSettlementResult {
     public int BroughtOutCount;
     public int BroughtOutEstimatedValue;
     public List<string> BroughtOutNames = new List<string>();
+    public List<string> BroughtOutIDs = new List<string>();
     public int LostCount;
     public int LostEstimatedValue;
     public List<string> LostNames = new List<string>();

@@ -257,6 +257,7 @@ public static class HomeLoop {
         }
 
         CareService.AddGrimeFromDive(player.ActiveDoll, log);
+        HomeEveningService.RecordHaul(player, log);
         WishService.OnDive(player, log);
         if (log.BossDefeated && !log.Prologue) {
             MementoService.Milestone(player, "first_boss");

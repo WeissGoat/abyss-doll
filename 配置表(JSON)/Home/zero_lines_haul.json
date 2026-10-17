@@ -1,0 +1,23 @@
+{
+  "PoolID": "haul",
+  "Note": "柜台卸货时，零号对一件带回来的东西说的话。{item} 换成物品名。事实：tag:<物品标签>、type:<物品类型>、valuable（估值 150G 以上）、wish（合她的心愿）。",
+  "Lines": [
+    { "Tags": [], "Text": "{item}。是在下面捡的。" },
+    { "Tags": [], "Text": "{item}……这个，要卖掉吗。" },
+    { "Tags": ["valuable"], "Text": "{item}。这个应该能卖很多钱吧。" },
+    { "Tags": ["valuable"], "Text": "{item}，背回来的时候很重。" },
+    { "Tags": ["wish"], "Text": "{item}……这个，可以给我吗。" },
+    { "Tags": ["wish", "valuable"], "Text": "{item}。我知道它很值钱。……我只是想看看。" },
+    { "Tags": ["tag:Energy"], "Text": "{item}在发光。下面的光，是这个颜色。" },
+    { "Tags": ["tag:Crystal"], "Text": "{item}。别靠太近。……我也不知道为什么。" },
+    { "Tags": ["tag:Fungus"], "Text": "{item}。在黑的地方，它们会亮。" },
+    { "Tags": ["tag:Mechanical"], "Text": "{item}。里面的齿轮，和我的很像。" },
+    { "Tags": ["tag:Memory"], "Text": "{item}……我好像见过它。在很久以前。" },
+    { "Tags": ["tag:Toxic"], "Text": "{item}，有一股怪味。快卖掉吧。" },
+    { "Tags": ["tag:Spore"], "Text": "{item}。别打开。会飞出来。" },
+    { "Tags": ["tag:Relic"], "Text": "{item}。这是以前的人留下的东西。" },
+    { "Tags": ["tag:Whispering"], "Text": "{item}……它在说话。你听不见吗。" },
+    { "Tags": ["type:Weapon"], "Text": "{item}。下次可以用这个。" },
+    { "Tags": ["type:Consumable"], "Text": "{item}。留着吧，下面用得到。" }
+  ]
+}

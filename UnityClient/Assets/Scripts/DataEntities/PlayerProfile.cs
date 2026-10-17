@@ -46,6 +46,16 @@ public class PlayerProfile {
     public List<string> Milestones = new List<string>();
     // Home upgrades bought (HomeUpgradeService).
     public List<string> HomeUpgrades = new List<string>();
+    // Tonight's unpacking (HomeEveningService): instance IDs of what the dive brought home and is still undecided.
+    public List<string> TonightHaul = new List<string>();
+    // 精神好 (HomeEveningService): the night she was clean at closing, and the day the player last talked with her.
+    public int CleanNightDay;
+    public int TalkedDay;
+    // Chat and touch (ZeroInteractionService): today's counts and how far her own story has got.
+    public int InteractionDay;
+    public int ChatsToday;
+    public int TouchesToday;
+    public int LoreHeard;
     // Night phase (GDD_07 §3.1): after the day's dive or rest, before the business opens and the calendar moves on.
     public bool IsNight;
     // Night business (GDD_04): goods moved out of the stash into the dump box or the showcase (Grid.CurrentPos and

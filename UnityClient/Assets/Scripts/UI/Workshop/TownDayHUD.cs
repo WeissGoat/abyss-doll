@@ -110,7 +110,7 @@ public class TownDayHUD : MonoBehaviour {
             _choiceTitle.text = "夜晚了：先维护、整理背包，准备好再开张";
             UITheme.SetButtonLabel(_diveButton, GoBusinessLabel);
             _diveButton.interactable = true;
-            _diveHint.text = "摆橱窗、倾倒战利品，开张后这一天结束";
+            _diveHint.text = HomeEveningService.Haul(player).Count > 0 ? "先在柜台卸货，再摆货开张；开张后这一天结束" : "摆橱窗、倾倒战利品，开张后这一天结束";
             _diveHint.color = UITheme.TextSecondary;
             return;
         }
@@ -121,8 +121,9 @@ public class TownDayHUD : MonoBehaviour {
         bool canRest = DayCycleService.CanStartDay(player, out string restReason);
         _diveButton.interactable = canDive;
         _restButton.interactable = canRest;
-        _diveHint.text = canDive ? "选一层下潜，今天就过去了" : diveReason;
-        _diveHint.color = canDive ? UITheme.TextSecondary : UITheme.Warning;
+        bool spirited = canDive && HomeEveningService.IsSpirited(player);
+        _diveHint.text = !canDive ? diveReason : spirited ? $"精神好：今天第一场战斗 AP +{HomeEveningService.SpiritAP}" : "选一层下潜，今天就过去了";
+        _diveHint.color = !canDive ? UITheme.Warning : spirited ? UITheme.Accent : UITheme.TextSecondary;
         _restHint.text = canRest ? "恢复 HP、SAN，减轻磨损和侵蚀；今天没有收获" : restReason;
         _restHint.color = canRest ? UITheme.TextSecondary : UITheme.Warning;
     }
@@ -172,7 +173,12 @@ public class TownDayHUD : MonoBehaviour {
     private void HandleDiveClicked() {
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
         if (player != null && player.IsNight) {
-            OpenBusiness(true);
+            // The counter unpacks what the dive brought home first (HomeRoomNavigator).
+            if (_workshop?.Rooms != null) {
+                _workshop.Rooms.OpenCounter();
+            } else {
+                OpenBusiness(true);
+            }
             return;
         }
 

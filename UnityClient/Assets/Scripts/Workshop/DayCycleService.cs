@@ -245,6 +245,7 @@ public static class DayCycleService {
         }
 
         report.Business = NightBusinessService.Open(player);
+        HomeEveningService.CloseNight(player);
         player.IsNight = false;
         report.Economy = TownEconomyService.SettleDailyBusiness(player, new DailyEconomySettlementInput {
             DumpBoxIncome = report.Business.DumpBoxIncome,

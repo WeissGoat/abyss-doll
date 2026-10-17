@@ -706,6 +706,7 @@ public class DungeonManager {
                 result.BroughtOutCount++;
                 result.BroughtOutEstimatedValue += item.BaseValue;
                 result.BroughtOutNames.Add(item.Name);
+                result.BroughtOutIDs.Add(item.InstanceID);
             } else {
                 result.LostCount++;
                 result.LostEstimatedValue += item.BaseValue;
