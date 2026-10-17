@@ -17,10 +17,11 @@ public class TownDayHUD : MonoBehaviour {
     private Text _dayText;
     private Text _dollText;
     private Button _maintenanceButton;
-    private MaintenancePanel _maintenancePanel;
     private NightBusinessPanel _businessPanel;
     private Text _moneyText;
     private Button _rentButton;
+    private GameObject _choicePanel;
+    private bool _choiceVisible = true;
     private Text _choiceTitle;
     private Button _diveButton;
     private Button _restButton;
@@ -176,6 +177,19 @@ public class TownDayHUD : MonoBehaviour {
         }
 
         _workshop?.OpenDungeonStartLayerPanel();
+    }
+
+    // Today's choice belongs to the hall; the studio and the attic hide it (HomeRoomNavigator).
+    public void SetChoiceVisible(bool visible) {
+        _choiceVisible = visible;
+        if (_choicePanel != null && _choicePanel.activeSelf != visible) {
+            _choicePanel.SetActive(visible);
+        }
+    }
+
+    // 停工休息 from the hall, or the bed in the attic.
+    public void RequestRest() {
+        HandleRestClicked();
     }
 
     private void HandleRestClicked() {
@@ -402,15 +416,9 @@ public class TownDayHUD : MonoBehaviour {
         });
     }
 
+    // Maintenance is done at the studio's workbench.
     public void OpenMaintenance() {
-        if (_maintenancePanel == null) {
-            _maintenancePanel = MaintenancePanel.Create(transform);
-        }
-
-        _maintenancePanel.Show(() => {
-            _workshop?.RefreshUI();
-            Refresh();
-        });
+        _workshop?.Rooms?.ShowStudio(StudioTab.Maintenance);
     }
 
     private void RestartAfterBankruptcy() {
@@ -463,6 +471,8 @@ public class TownDayHUD : MonoBehaviour {
 
     private void BuildChoicePanel() {
         Image panel = UITheme.CreatePanel(_content.transform, "DayChoice_Panel", UITheme.Panel);
+        _choicePanel = panel.gameObject;
+        _choicePanel.SetActive(_choiceVisible);
         UITheme.AddBorder(panel, UITheme.Border, 1.5f);
         UITheme.Place(panel.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 12f), new Vector2(780f, 176f));
 

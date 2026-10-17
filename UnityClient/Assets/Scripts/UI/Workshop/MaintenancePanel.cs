@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 // 维护 (GDD_08 ④, zero-time): Zero's HP / SAN / wear / corruption and every maintenance option from config with
 // its cost, effect and why it cannot be done right now. Rules live in MaintenanceService; this shows and forwards.
+// It is the 维护 tab of the studio's workbench (StudioBenchView), laid out inside whatever rect it is given.
 public class MaintenancePanel : MonoBehaviour {
     public const string PanelName = "MaintenancePanel_Runtime";
 
@@ -17,9 +18,11 @@ public class MaintenancePanel : MonoBehaviour {
     private readonly List<GameObject> _rows = new List<GameObject>();
 
     public static MaintenancePanel Create(Transform parent) {
-        GameObject root = UITheme.CreateModal(parent, PanelName, new Vector2(820f, 660f), 550);
+        GameObject root = new GameObject(PanelName, typeof(RectTransform));
+        root.transform.SetParent(parent, false);
+        UITheme.Stretch((RectTransform)root.transform);
         MaintenancePanel panel = root.AddComponent<MaintenancePanel>();
-        panel.Build(root.transform.Find("Dialog"));
+        panel.Build(root.transform);
         root.SetActive(false);
         return panel;
     }
@@ -29,7 +32,6 @@ public class MaintenancePanel : MonoBehaviour {
         _messageText.text = "维护不花时间。磨损或侵蚀到 90 就不能下潜。";
         _messageText.color = UITheme.TextSecondary;
         gameObject.SetActive(true);
-        transform.SetAsLastSibling();
         Refresh();
     }
 
@@ -61,7 +63,11 @@ public class MaintenancePanel : MonoBehaviour {
         foreach (GameObject row in _rows) {
             if (row != null) {
                 row.SetActive(false);
-                Destroy(row);
+                if (Application.isPlaying) {
+                    Destroy(row);
+                } else {
+                    DestroyImmediate(row);
+                }
             }
         }
         _rows.Clear();
@@ -78,7 +84,7 @@ public class MaintenancePanel : MonoBehaviour {
 
     private GameObject CreateRow(PlayerProfile player, DollEntity doll, MaintenanceConfig config, int index) {
         Image row = UITheme.CreatePanel(_listRoot, "Maintenance_" + config.MaintenanceID, UITheme.PanelRaised);
-        UITheme.Place(row.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -index * 96f), new Vector2(760f, 88f));
+        StudioBenchView.PlaceRow(row.rectTransform, index, 88f, 8f);
 
         bool canApply = MaintenanceService.CanApply(player, doll, config.MaintenanceID, out string reason);
         Text label = UITheme.CreateText(row.transform, "Label_Text", $"{config.Name}    {DescribeCost(config)}\n{DescribeEffects(config)}{(canApply ? string.Empty : "    · " + reason)}", UITheme.CaptionSize, canApply ? UITheme.TextPrimary : UITheme.TextMuted);
@@ -158,23 +164,25 @@ public class MaintenancePanel : MonoBehaviour {
         }
     }
 
-    private void Build(Transform dialog) {
-        Text title = UITheme.CreateText(dialog, "Title_Text", "维护零号", UITheme.HeadingSize, UITheme.Accent);
-        UITheme.Place(title.rectTransform, new Vector2(0f, 1f), new Vector2(28f, -20f), new Vector2(400f, 44f));
-        _statusText = UITheme.CreateText(dialog, "Status_Text", string.Empty, UITheme.CaptionSize + 1, UITheme.TextPrimary);
-        UITheme.Place(_statusText.rectTransform, new Vector2(0f, 1f), new Vector2(28f, -68f), new Vector2(760f, 32f));
+    private void Build(Transform container) {
+        _statusText = UITheme.CreateText(container, "Status_Text", string.Empty, UITheme.CaptionSize + 1, UITheme.TextPrimary);
+        StudioBenchView.PlaceTopStrip(_statusText.rectTransform, 0f, 32f);
 
         GameObject list = new GameObject("Option_List", typeof(RectTransform));
-        list.transform.SetParent(dialog, false);
-        UITheme.Place((RectTransform)list.transform, new Vector2(0.5f, 1f), new Vector2(0f, -112f), new Vector2(760f, 400f));
+        list.transform.SetParent(container, false);
+        RectTransform listRect = (RectTransform)list.transform;
+        listRect.anchorMin = Vector2.zero;
+        listRect.anchorMax = Vector2.one;
+        listRect.offsetMin = new Vector2(0f, 48f);
+        listRect.offsetMax = new Vector2(0f, -44f);
         _listRoot = list.transform;
 
-        _messageText = UITheme.CreateText(dialog, "Message_Text", string.Empty, UITheme.CaptionSize, UITheme.TextSecondary);
-        UITheme.Place(_messageText.rectTransform, new Vector2(0f, 0f), new Vector2(28f, 92f), new Vector2(760f, 40f));
-
-        Button close = UITheme.CreateButton(dialog, "Close_Button", "关闭", UITheme.PanelRaised, UITheme.TextPrimary);
-        UITheme.AddBorder(close.targetGraphic, UITheme.Border, 1.5f);
-        UITheme.Place((RectTransform)close.transform, new Vector2(0.5f, 0f), new Vector2(0f, 24f), new Vector2(220f, 58f));
-        close.onClick.AddListener(() => gameObject.SetActive(false));
+        _messageText = UITheme.CreateText(container, "Message_Text", string.Empty, UITheme.CaptionSize, UITheme.TextSecondary);
+        RectTransform messageRect = _messageText.rectTransform;
+        messageRect.anchorMin = Vector2.zero;
+        messageRect.anchorMax = new Vector2(1f, 0f);
+        messageRect.pivot = new Vector2(0.5f, 0f);
+        messageRect.offsetMin = Vector2.zero;
+        messageRect.offsetMax = new Vector2(0f, 40f);
     }
 }

@@ -93,7 +93,6 @@ public static class WorkshopSmokeTest {
             RunProstheticCraftAndEffectTest(core);
             RunWorkshopSellPanelUITest(core);
             RunWorkshopProstheticPanelUITest(core);
-            RunWorkshopProstheticLockedRowsUITest(core);
             RunWorkshopFormalV2HubLayoutTest(core);
 
             Debug.Log("=== Workshop Smoke Test Finished ===");
@@ -163,67 +162,10 @@ public static class WorkshopSmokeTest {
         Object.DestroyImmediate(canvasObj);
     }
 
+    // Prosthetics are made at the studio's workbench (HomeRoomNavigator, StudioBenchView): one row per recipe, a locked
+    // row says what is missing, and 制作并装上 spends money and materials.
     private static void RunWorkshopProstheticPanelUITest(CoreBackend core) {
         GameObject canvasObj = new GameObject("WorkshopProstheticUITestCanvas");
-        canvasObj.AddComponent<Canvas>();
-        canvasObj.AddComponent<GraphicRaycaster>();
-
-        GameObject workshopObj = new GameObject("WorkshopPanel");
-        workshopObj.transform.SetParent(canvasObj.transform, false);
-        workshopObj.AddComponent<RectTransform>();
-        WorkshopUIController controller = workshopObj.AddComponent<WorkshopUIController>();
-        controller.moneyText = CreateTestText(workshopObj.transform);
-        controller.chassisInfoText = CreateTestText(workshopObj.transform);
-
-        core.CurrentPlayer.ActiveDoll.EquippedProsthetics.Clear();
-        core.CurrentPlayer.StashInventory.Clear();
-        core.CurrentPlayer.Money = 2000;
-        AddStashItems(core.CurrentPlayer, "loot_gear_scrap", 4);
-
-        controller.RefreshUI();
-        controller.OpenProstheticPanel();
-
-        bool panelIsSeparate = controller.prostheticPanel != null && controller.prostheticPanel.transform.parent == canvasObj.transform;
-        bool panelOpened = controller.prostheticPanel != null && controller.prostheticPanel.activeSelf;
-        bool listBuilt = controller.prostheticListParent != null && controller.prostheticListParent.childCount > 0;
-        bool readableBackdrop = HasReadableModalBackdrop(controller.prostheticPanel);
-        bool stableRowLayout = listBuilt && HasPreferredRowHeight(controller.prostheticListParent.GetChild(0), 120f);
-        bool compactListLane = HasCompactRectMaskedListLane(controller.prostheticPanel, "ProstheticList_Scroll", 980f, 500f);
-        bool sellPanelClosed = controller.sellPanel != null && !controller.sellPanel.activeSelf;
-        bool studioSwitchesPresent = controller.prostheticPanel != null
-            && FindButton(controller.prostheticPanel, "StudioMaintenance_Button") != null
-            && FindButton(controller.prostheticPanel, "StudioChassis_Button") != null;
-        bool recipeRowsHaveMaterialIcon = listBuilt
-            && controller.prostheticListParent.GetChild(0).Find("MaterialNeedIcon_Image") != null;
-        Button craftButton = listBuilt
-            ? controller.prostheticListParent.GetChild(0).Find("Craft_Button")?.GetComponent<Button>()
-            : null;
-        bool craftButtonWasPresent = craftButton != null;
-        bool craftButtonInteractable = craftButtonWasPresent && craftButton.interactable;
-
-        int beforeMoney = core.CurrentPlayer.Money;
-        int beforeStashCount = core.CurrentPlayer.StashInventory.Count;
-        craftButton?.onClick.Invoke();
-        bool craftApplied = craftButtonWasPresent
-            && craftButtonInteractable
-            && core.CurrentPlayer.ActiveDoll.EquippedProsthetics.Count == 1
-            && core.CurrentPlayer.Money < beforeMoney
-            && core.CurrentPlayer.StashInventory.Count < beforeStashCount
-            && controller.prostheticSummaryText != null
-            && controller.prostheticSummaryText.text.Contains("Crafted and equipped");
-
-        if (panelIsSeparate && panelOpened && listBuilt && readableBackdrop && stableRowLayout && compactListLane && sellPanelClosed && studioSwitchesPresent && recipeRowsHaveMaterialIcon && craftApplied) {
-            Debug.Log("Workshop Prosthetic Panel UI PASSED.");
-        } else {
-            Debug.LogError($"Workshop Prosthetic Panel UI FAILED. Separate={panelIsSeparate}, Opened={panelOpened}, ProstheticRows={controller.prostheticListParent?.childCount ?? 0}, Backdrop={readableBackdrop}, RowLayout={stableRowLayout}, CompactLane={compactListLane}, SellPanelClosed={sellPanelClosed}, StudioSwitches={studioSwitchesPresent}, MaterialIcon={recipeRowsHaveMaterialIcon}, CraftButton={craftButtonWasPresent}, Interactable={craftButtonInteractable}, CraftApplied={craftApplied}, Money={core.CurrentPlayer.Money}, Stash={core.CurrentPlayer.StashInventory.Count}, Summary={controller.prostheticSummaryText?.text}");
-        }
-
-        controller.CloseProstheticPanel();
-        Object.DestroyImmediate(canvasObj);
-    }
-
-    private static void RunWorkshopProstheticLockedRowsUITest(CoreBackend core) {
-        GameObject canvasObj = new GameObject("WorkshopProstheticLockedUITestCanvas");
         canvasObj.AddComponent<Canvas>();
         canvasObj.AddComponent<GraphicRaycaster>();
 
@@ -241,26 +183,42 @@ public static class WorkshopSmokeTest {
         controller.RefreshUI();
         controller.OpenProstheticPanel();
 
-        bool listBuilt = controller.prostheticListParent != null && controller.prostheticListParent.childCount > 0;
-        Transform firstRow = listBuilt ? controller.prostheticListParent.GetChild(0) : null;
-        Button craftButton = firstRow != null ? firstRow.Find("Craft_Button")?.GetComponent<Button>() : null;
-        bool passed = controller.prostheticPanel != null
-            && controller.prostheticPanel.activeSelf
-            && firstRow != null
-            && HasPreferredRowHeight(firstRow, 120f)
-            && firstRow.Find("LockedIcon_Image") != null
-            && firstRow.Find("MaterialNeedIcon_Image") != null
-            && craftButton != null
-            && !craftButton.interactable
-            && CollectText(canvasObj).Contains("Locked");
+        HomeRoomNavigator rooms = controller.Rooms;
+        Transform list = rooms != null ? rooms.Bench.transform.Find("Content/Bench_List") : null;
+        Transform firstRow = list != null && list.childCount > 0 ? list.GetChild(0) : null;
+        Button lockedButton = firstRow?.Find("Action_Button")?.GetComponent<Button>();
+        bool inStudio = rooms != null && rooms.Current == HomeRoom.Studio && rooms.Bench.CurrentTab == StudioTab.Prosthetics;
+        bool lockedRow = lockedButton != null && !lockedButton.interactable && CollectText(firstRow.gameObject).Contains("钱不够");
 
-        if (passed) {
-            Debug.Log("Workshop Prosthetic Locked Row UI PASSED.");
-        } else {
-            Debug.LogError($"Workshop Prosthetic Locked Row UI FAILED. Rows={controller.prostheticListParent?.childCount ?? 0}, LockedIcon={firstRow?.Find("LockedIcon_Image") != null}, MaterialIcon={firstRow?.Find("MaterialNeedIcon_Image") != null}, Button={craftButton != null}, Interactable={craftButton?.interactable}, Text={CollectText(canvasObj)}");
+        core.CurrentPlayer.Money = 2000;
+        AddStashItems(core.CurrentPlayer, "loot_gear_scrap", 4);
+        rooms?.ShowStudio(StudioTab.Prosthetics);
+        Button craftButton = null;
+        foreach (Button button in list != null ? list.GetComponentsInChildren<Button>() : new Button[0]) {
+            if (button.interactable) {
+                craftButton = button;
+                break;
+            }
         }
 
-        controller.CloseProstheticPanel();
+        int beforeMoney = core.CurrentPlayer.Money;
+        // The bench rebuilds its rows after a craft, so remember whether there was a button before clicking it.
+        bool craftButtonFound = craftButton != null;
+        craftButton?.onClick.Invoke();
+        Text message = rooms?.Bench.transform.Find("Content/BenchMessage_Text")?.GetComponent<Text>();
+        bool craftApplied = craftButtonFound
+            && core.CurrentPlayer.ActiveDoll.EquippedProsthetics.Count == 1
+            && core.CurrentPlayer.Money < beforeMoney
+            && message != null && message.text.Contains("已经装上");
+        bool noEnglish = !System.Text.RegularExpressions.Regex.IsMatch(
+            System.Text.RegularExpressions.Regex.Replace(CollectText(rooms != null ? rooms.Bench.gameObject : canvasObj), "SAN", string.Empty), "[A-Za-z]{3,}");
+
+        if (inStudio && lockedRow && craftApplied && noEnglish) {
+            Debug.Log("Workshop Prosthetic Panel UI PASSED.");
+        } else {
+            Debug.LogError($"Workshop Prosthetic Panel UI FAILED. InStudio={inStudio}, LockedRow={lockedRow}, CraftApplied={craftApplied} (button {craftButtonFound}, equipped {core.CurrentPlayer.ActiveDoll.EquippedProsthetics.Count}, before {beforeMoney}), NoEnglish={noEnglish} [{CollectText(rooms != null ? rooms.Bench.gameObject : null)}], Money={core.CurrentPlayer.Money}, Stash={core.CurrentPlayer.StashInventory.Count}, Message={message?.text}, Text={CollectText(canvasObj)}");
+        }
+
         Object.DestroyImmediate(canvasObj);
     }
 
@@ -302,8 +260,9 @@ public static class WorkshopSmokeTest {
             && !controller.openMaintenancePanelBtn.gameObject.activeSelf
             && controller.openOrderBoardPanelBtn != null
             && !controller.openOrderBoardPanelBtn.gameObject.activeSelf;
-        // 工作室, 账本, 补给铺 (M4) and the day HUD's 跳下深渊 / 停工休息 / 维护 / rent line (M2 batch 2 replaced the 浅层入口 card).
-        bool hubButtonsReduced = activeButtons.Length <= 7;
+        // The hall's four plaques and three room tabs (2026-10-17 home rooms) and the day HUD's 跳下深渊 / 停工休息 / 维护 /
+        // rent line (M2 batch 2 replaced the 浅层入口 card).
+        bool hubButtonsReduced = activeButtons.Length <= 11;
         bool backgroundStretches = background != null
             && background.anchorMin == Vector2.zero
             && background.anchorMax == Vector2.one;

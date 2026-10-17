@@ -471,6 +471,8 @@ public class GameFlowController : MonoBehaviour {
         var wsCtrl = workshopPanel?.GetComponent<WorkshopUIController>();
         if (wsCtrl != null) {
             wsCtrl.RefreshUI();
+            // Coming home (or starting the day) is always through the hall.
+            wsCtrl.Rooms?.Show(HomeRoom.Hall);
             if (PrologueReturnHome.IsPending(GameRoot.Core?.Dungeon)) {
                 PlayPrologueReturnHome(wsCtrl);
             } else {

@@ -73,6 +73,7 @@ public class WorkshopUIController : MonoBehaviour {
     private Text _prologueObjectiveText;
     private WorkshopFormalV1PanelController _formalV1PanelController;
     private TownDayHUD _dayHud;
+    private HomeRoomNavigator _rooms;
     private bool _prologueHalfOpen;
     private bool _prologueShallowGateUnlocked;
 
@@ -126,6 +127,11 @@ public class WorkshopUIController : MonoBehaviour {
     // The day layer (status bar, 跳下深渊 / 停工休息, night dialogs); null during the prologue's half-open workshop.
     public TownDayHUD DayHud {
         get { return _prologueHalfOpen ? null : _dayHud; }
+    }
+
+    // The three rooms of the home (大厅, 工作室, 阁楼); null during the prologue's half-open workshop.
+    public HomeRoomNavigator Rooms {
+        get { return _prologueHalfOpen ? null : _rooms; }
     }
 
     void Start() {
@@ -218,21 +224,35 @@ public class WorkshopUIController : MonoBehaviour {
             _dayHud = TownDayHUD.Ensure(transform, this);
         }
 
+        if (dayMode && _rooms == null) {
+            _rooms = HomeRoomNavigator.Ensure(transform, this);
+        }
+
+        if (_rooms != null) {
+            _rooms.gameObject.SetActive(dayMode);
+        }
+
         if (_dayHud != null) {
             _dayHud.gameObject.SetActive(dayMode);
             if (dayMode) {
                 _dayHud.Refresh();
+                // The rooms sit over the hall and under the status bar and its dialogs.
+                _rooms.transform.SetSiblingIndex(_dayHud.transform.GetSiblingIndex());
+                _rooms.Refresh();
             }
         }
 
         SetPanelActive(_topStatusPanel, !dayMode);
         SetPanelActive(_leftActionPanel, !dayMode);
         SetPanelActive(_dollStatusPanel, !dayMode);
-        SetPanelActive(_shopEntryCard, dayMode);
         if (dayMode) {
             SetPanelActive(_prologueObjectiveRibbon, false);
             SetPanelActive(_prologuePrimaryGlowImage, false);
             ApplyDayModeLinenSkin();
+            // The hall's plaques (柜台, 出门, 去工作室, 上阁楼) replaced the three entry cards.
+            SetPanelActive(_formalV1EntryPanel, false);
+            SetPanelActive(_bottomHintPanel, false);
+            SetPanelActive(_shopEntryCard, false);
         }
     }
 
@@ -259,6 +279,10 @@ public class WorkshopUIController : MonoBehaviour {
         _shopEntryHint = UITheme.CreateText(_shopEntryCard.transform, "ShopHint_Text", string.Empty, UITheme.CaptionSize, UITheme.TextSecondary);
         _shopEntryButton = UITheme.CreateButton(_shopEntryCard.transform, "OpenShop_Button", "补给铺", UITheme.PanelRaised, UITheme.TextPrimary);
         _shopEntryButton.onClick.AddListener(OpenWorkshopShop);
+    }
+
+    public void OpenSupplyShop() {
+        OpenWorkshopShop();
     }
 
     private void OpenWorkshopShop() {
@@ -491,6 +515,12 @@ public class WorkshopUIController : MonoBehaviour {
     }
 
     public void OpenProstheticPanel() {
+        // Outside the prologue prosthetics are made at the studio's workbench.
+        if (Rooms != null) {
+            Rooms.ShowStudio(StudioTab.Prosthetics);
+            return;
+        }
+
         EnsureSellControls();
         BindButtons();
         CloseFormalV1Panel();

@@ -22,6 +22,10 @@ public static class P3DevTools {
 
         List<string> panels = ActivePanels(canvas);
         sb.AppendLine("Screen: " + string.Join(", ", panels.ToArray()));
+        HomeRoomNavigator rooms = Object.FindObjectOfType<WorkshopUIController>()?.Rooms;
+        if (rooms != null && rooms.isActiveAndEnabled) {
+            sb.AppendLine("Room: " + HomeRoomNavigator.RoomLabels[(int)rooms.Current] + (rooms.Current == HomeRoom.Studio ? " / " + StudioBenchView.TabLabels[(int)rooms.Bench.CurrentTab] : string.Empty));
+        }
 
         P3DialogueOverlayController overlay = FindOverlay();
         if (overlay != null && overlay.IsShowing) {
@@ -241,7 +245,7 @@ public static class P3DevTools {
         return SetPrologueOnStartup(!P3DevSettings.PlayPrologueOnStartup);
     }
 
-    // Debug route to a screen: workshop, sell, prosthetic, layers, loadout, map, combat, saferoom, stairs.
+    // Debug route to a screen: workshop (= hall), studio, attic, sell, prosthetic, layers, loadout, map, combat, saferoom, stairs.
     public static string GoTo(string screen) {
         GameFlowController flow = GameFlowController.Instance;
         if (flow == null || GameRoot.Core == null) {
@@ -251,7 +255,16 @@ public static class P3DevTools {
         WorkshopUIController workshop = Object.FindObjectOfType<WorkshopUIController>(true);
         switch ((screen ?? string.Empty).ToLowerInvariant()) {
             case "workshop":
+            case "hall":
                 flow.EnterWorkshop();
+                break;
+            case "studio":
+                flow.EnterWorkshop();
+                workshop?.Rooms?.Show(HomeRoom.Studio);
+                break;
+            case "attic":
+                flow.EnterWorkshop();
+                workshop?.Rooms?.Show(HomeRoom.Attic);
                 break;
             case "sell":
                 flow.EnterWorkshop();
@@ -318,6 +331,11 @@ public static class P3DevTools {
     public static string RunDive(int maxSteps = 40, bool stopAtCombat = false) {
         StringBuilder log = new StringBuilder();
         if (IsPanelActive("WorkshopPanel") && !IsPanelActive("DungeonMapPanel")) {
+            // Today's choice is in the hall; walk there from the studio or the attic like a player.
+            HomeRoomNavigator rooms = Object.FindObjectOfType<WorkshopUIController>()?.Rooms;
+            if (rooms != null && rooms.Current != HomeRoom.Hall) {
+                ClickByLabel(HomeRoomNavigator.RoomLabels[(int)HomeRoom.Hall], log);
+            }
             PrepareDay(log);
             if (!ClickByLabel(TownDayHUD.DiveLabel, null)) {
                 ClickByLabel("浅层入口", log);
