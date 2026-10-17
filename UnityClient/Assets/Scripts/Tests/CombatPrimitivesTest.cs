@@ -140,6 +140,17 @@ public static class CombatPrimitivesTest {
         zero.Attack(enemy, whisper);
         Check(doll.Status.SAN_Current == 17 && doll.Status.Grime == 1, $"self cost left SAN {doll.Status.SAN_Current}, grime {doll.Status.Grime}");
 
+        // The bot's arranger: a whetstone-like boost left far from the weapon moves next to it; a charger moves beside a
+        // mechanical weapon.
+        grid = Fresh(doll);
+        ItemEntity sword = Weapon(grid, 0, Tags("Mechanical"));
+        ItemEntity boost = Weapon(grid, 3, Tags(), new EffectData { EffectID = "DamageMultiplier", Target = "Left", Params = new[] { 0.5f } });
+        boost.ItemType = nameof(ItemType.Armor);
+        GridSolver.RecalculateAllEffects(doll);
+        float before = sword.Combat.RuntimeDamage;
+        int moved = LoadoutArranger.Arrange(doll);
+        Check(moved > 0 && sword.Combat.RuntimeDamage > before, $"arranger moved {moved}, sword damage {before} -> {sword.Combat.RuntimeDamage}");
+
         // Every primitive describes itself in the tooltip.
         foreach (ItemEntity item in new[] { venom, breaker, quick, spring, hub, knives, reaper, whisper }) {
             Check(ItemPresentationRules.BuildTooltip(item).Body.Split('\n').Length >= 2, $"{item.Name} tooltip has no effect line: {ItemPresentationRules.BuildTooltip(item).Body}");

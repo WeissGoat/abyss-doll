@@ -263,6 +263,7 @@ public class MVPAutoplaytestReport {
     public int TotalCurseEvents;
     public int TotalChassisUpgrades;
     public int TotalProstheticsCrafted;
+    public int TotalLoadoutMoves;
 
     public void BuildSummary() {
         if (Campaigns == null || Campaigns.Count == 0) {
@@ -289,6 +290,7 @@ public class MVPAutoplaytestReport {
         TotalCurseEvents = Campaigns.Sum(c => c.CurseEvents);
         TotalChassisUpgrades = Campaigns.Sum(c => c.ChassisUpgrades);
         TotalProstheticsCrafted = Campaigns.Sum(c => c.ProstheticsCrafted);
+        TotalLoadoutMoves = Campaigns.Sum(c => c.LoadoutMoves);
 
         if (Layer1ClearRate < 0.6f) {
             Warnings.Add($"1层完成率偏低：{Layer1ClearRate:P0}，正式开局可能过难。");
@@ -345,6 +347,8 @@ public class MVPAutoplayCampaignReport {
     public int CorrosionEvents;
     public int CurseEvents;
     public int ChassisUpgrades;
+    // Items the bot moved so neighbours help each other (LoadoutArranger).
+    public int LoadoutMoves;
     public int ProstheticsCrafted;
     public int SoldItems;
     public int SoldValue;
@@ -1031,6 +1035,9 @@ internal class MVPAutoplayCampaign {
                 PreDiveLoadoutService.TryBringFromStash(player, bought.Item, out _);
             }
         }
+
+        // Then arrange: boosts next to weapons, chargers and counterweights beside the right neighbours.
+        _report.LoadoutMoves += LoadoutArranger.Arrange(player.ActiveDoll);
     }
 
     // Loot kept for upgrades: scrap for the two prosthetic recipes, the tier-1 core for the chassis.
