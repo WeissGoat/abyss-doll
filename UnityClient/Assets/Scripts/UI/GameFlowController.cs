@@ -367,8 +367,10 @@ public class GameFlowController : MonoBehaviour {
         }));
     }
 
+    // The settlement table is gone from the dive's end (2026-10-17): Zero comes home and the hall's journal page shows
+    // what the table did. EnterSettlementPreview still opens it.
     private void ShowSettlement(DungeonSettlementResult result) {
-        TransitionToScreen(GameScreenState.Settlement, result);
+        EnterWorkshop();
     }
 
     private void TransitionToScreen(GameScreenState nextScreen, object payload = null) {
@@ -471,11 +473,16 @@ public class GameFlowController : MonoBehaviour {
         var wsCtrl = workshopPanel?.GetComponent<WorkshopUIController>();
         if (wsCtrl != null) {
             wsCtrl.RefreshUI();
-            // Coming home (or starting the day) is always through the hall.
+            // Coming home (or starting the day) is always through the hall; after a dive the journal page is open.
             wsCtrl.Rooms?.Show(HomeRoom.Hall);
             if (PrologueReturnHome.IsPending(GameRoot.Core?.Dungeon)) {
                 PlayPrologueReturnHome(wsCtrl);
             } else {
+                DiveLog arrival = DiveLogService.PendingArrival(GameRoot.Core?.CurrentPlayer);
+                if (arrival != null) {
+                    wsCtrl.Rooms?.ShowArrival(arrival);
+                }
+
                 wsCtrl.DayHud?.ShowPendingDayEvents();
             }
         }

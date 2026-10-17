@@ -1,0 +1,26 @@
+{
+  "PoolID": "night",
+  "Note": "营业之后在阁楼的夜谈，零号说的一句。Tags 全部满足才可选，满足条数最多的优先，同档按天数轮换。事实见 README。",
+  "Lines": [
+    { "Tags": [], "Text": "晚安。" },
+    { "Tags": [], "Text": "楼下的齿轮还在转。我听着，就能睡着。" },
+    { "Tags": ["rest"], "Text": "今天很安静。我一直在听楼下的声音。" },
+    { "Tags": ["rest"], "Text": "休息……其实我不太会。" },
+    { "Tags": ["rest", "low_san"], "Text": "脑子里的声音，小了一点。" },
+    { "Tags": ["dive"], "Text": "下面和上面，时间走得不一样。" },
+    { "Tags": ["dive", "unhurt"], "Text": "今天没有受伤。你也早点睡。" },
+    { "Tags": ["defeated"], "Text": "背包空了，店里也空了。……明天还能下去吗？" },
+    { "Tags": ["defeated", "rent_short"], "Text": "都是因为我倒下了。" },
+    { "Tags": ["boss_defeated"], "Text": "今天那个大家伙……梦里不会再见到它了吧。" },
+    { "Tags": ["nearly_fell"], "Text": "闭上眼睛，还能看见它扑过来。" },
+    { "Tags": ["rent_paid"], "Text": "房租交上了。这里……还是我们的。" },
+    { "Tags": ["rent_short"], "Text": "钱不够的话，我可以再下去。" },
+    { "Tags": ["rent_soon"], "Text": "门口那张纸上的日子，越来越近了。" },
+    { "Tags": ["no_sales"], "Text": "今晚没有客人。灯开着也好。" },
+    { "Tags": ["good_sales"], "Text": "今晚卖了很多。那些东西，会去别人家里吧。" },
+    { "Tags": ["low_san"], "Text": "……别关灯。今晚别关。" },
+    { "Tags": ["hurt"], "Text": "关节在响。睡一觉，会好吗？" },
+    { "Tags": ["worn"], "Text": "身体有点卡。明天……能帮我看看吗？" },
+    { "Tags": ["worn", "rest"], "Text": "躺了一天，还是卡。要去工作室才行吧。" }
+  ]
+}

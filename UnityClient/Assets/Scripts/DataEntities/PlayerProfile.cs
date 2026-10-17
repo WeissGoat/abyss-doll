@@ -33,6 +33,8 @@ public class PlayerProfile {
     public List<ActiveRumorState> ActiveRumors = new List<ActiveRumorState>();
     // Backpack layout at the last departure, for 「带上上次的装备」.
     public List<LoadoutSlotRecord> LastDiveLoadout = new List<LoadoutSlotRecord>();
+    // The wall journal: one page per dive, newest last (DiveLogService).
+    public List<DiveLog> DiveJournal = new List<DiveLog>();
     // Night phase (GDD_07 §3.1): after the day's dive or rest, before the business opens and the calendar moves on.
     public bool IsNight;
     // Night business (GDD_04): goods moved out of the stash into the dump box or the showcase (Grid.CurrentPos and

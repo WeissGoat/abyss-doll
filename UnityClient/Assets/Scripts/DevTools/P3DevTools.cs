@@ -24,7 +24,9 @@ public static class P3DevTools {
         sb.AppendLine("Screen: " + string.Join(", ", panels.ToArray()));
         HomeRoomNavigator rooms = Object.FindObjectOfType<WorkshopUIController>()?.Rooms;
         if (rooms != null && rooms.isActiveAndEnabled) {
-            sb.AppendLine("Room: " + HomeRoomNavigator.RoomLabels[(int)rooms.Current] + (rooms.Current == HomeRoom.Studio ? " / " + StudioBenchView.TabLabels[(int)rooms.Bench.CurrentTab] : string.Empty));
+            sb.AppendLine("Room: " + HomeRoomNavigator.RoomLabels[(int)rooms.Current] + (rooms.Current == HomeRoom.Studio ? " / " + StudioBenchView.TabLabels[(int)rooms.Bench.CurrentTab] : string.Empty)
+                + (rooms.Journal.IsShowing ? (rooms.Journal.IsArrival ? ", journal page (arrival)" : ", wall journal") : string.Empty)
+                + (rooms.NightTalk.IsShowing ? ", night talk" : string.Empty));
         }
 
         P3DialogueOverlayController overlay = FindOverlay();
@@ -330,6 +332,10 @@ public static class P3DevTools {
     // stopAtCombat: stop at the start of a player turn (reports "Combat ready.") so the caller can look at it.
     public static string RunDive(int maxSteps = 40, bool stopAtCombat = false) {
         StringBuilder log = new StringBuilder();
+        if (FinishArrival(log)) {
+            return log.ToString() + Describe();
+        }
+
         if (IsPanelActive("WorkshopPanel") && !IsPanelActive("DungeonMapPanel")) {
             // Today's choice is in the hall; walk there from the studio or the attic like a player.
             HomeRoomNavigator rooms = Object.FindObjectOfType<WorkshopUIController>()?.Rooms;
@@ -388,6 +394,12 @@ public static class P3DevTools {
             } else if (IsPanelActive("SettlementPanel_Runtime")) {
                 ClickByLabel("返回工坊", log);
                 log.AppendLine("Dive finished.");
+                break;
+            } else if (IsPanelActive("WorkshopPanel")) {
+                // Home: the journal page is open in the hall.
+                if (!FinishArrival(log)) {
+                    log.AppendLine("Back in the workshop.");
+                }
                 break;
             } else if (IsPanelActive("SafeRoomPanel")) {
                 if (!ClickByLabel("返回小镇", log)) {
@@ -513,6 +525,18 @@ public static class P3DevTools {
         return false;
     }
 
+    // Zero is home and the dive's journal page is open: read it and put it away ("Dive finished.").
+    private static bool FinishArrival(StringBuilder log) {
+        HomeRoomNavigator rooms = Object.FindObjectOfType<WorkshopUIController>()?.Rooms;
+        if (rooms == null || rooms.Journal == null || !rooms.Journal.IsShowing || !rooms.Journal.IsArrival) {
+            return false;
+        }
+
+        ClickByLabel(HomeJournalView.CloseLabel, log);
+        log.AppendLine("Dive finished.");
+        return true;
+    }
+
     // Closes the workshop's night dialogs like a player: the night card, then the rent (pay when the money covers
     // it, otherwise owe it).
     public static string ResolveDayDialogs() {
@@ -529,6 +553,8 @@ public static class P3DevTools {
                 log.AppendLine("Went to the business screen.");
             } else if (ClickByLabel("迎接新的一天", null)) {
                 log.AppendLine("Closed the night card.");
+            } else if (ClickByLabel(HomeNightTalkView.GoodnightLabel, null)) {
+                log.AppendLine("Said goodnight.");
             } else if (ClickByLabel("交房租", null)) {
                 log.AppendLine("Paid the rent.");
             } else if (ClickByLabel("先欠着", null)) {

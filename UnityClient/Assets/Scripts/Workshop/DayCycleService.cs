@@ -26,6 +26,8 @@ public class DayEndReport {
     public BusinessReport Business;
     public bool RentPending;
     public bool Bankrupt;
+    // The dive's journal page (null on a rest day).
+    public DiveLog DiveLog;
 
     public MonthlyRentSettlementReport Rent => Economy?.MonthlyRentReport;
 }
@@ -181,7 +183,8 @@ public static class DayCycleService {
         DayEndReport report = new DayEndReport {
             Choice = DayChoice.Dive,
             DiveDefeated = defeated,
-            DiveLayerID = _diveLayerID
+            DiveLayerID = _diveLayerID,
+            DiveLog = DiveLogService.LastFinished
         };
         CaptureBefore(
             report,

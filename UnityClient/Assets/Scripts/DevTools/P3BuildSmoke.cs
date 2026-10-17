@@ -100,7 +100,16 @@ public class P3BuildSmoke : MonoBehaviour {
         string lastReport = null;
         int repeats = 0;
         bool combatCaptured = false;
+        bool journalCaptured = false;
+        int journalPages = 0;
         while (dives < TargetDives && Time.realtimeSinceStartup - startedAt < TimeoutSeconds) {
+            // Home again: the dive's journal page is open in the hall (2026-10-17 home loop).
+            HomeRoomNavigator rooms = FindObjectOfType<WorkshopUIController>()?.Rooms;
+            if (!journalCaptured && rooms != null && rooms.Journal != null && rooms.Journal.IsShowing && rooms.Journal.IsArrival) {
+                journalCaptured = true;
+                yield return Capture("03c_journal_page");
+            }
+
             string report = P3DevTools.RunDive(40, !combatCaptured);
             Note(report);
             if (report.Contains("Combat ready.")) {
@@ -143,10 +152,12 @@ public class P3BuildSmoke : MonoBehaviour {
         }
 
         PlayerProfile player = GameRoot.Core.CurrentPlayer;
-        // Every dive and every rest takes one day.
-        bool passed = prologueDone && motionPlayed && !stuck && dives >= TargetDives && player.CurrentDay == firstTownDay + dives + rests;
+        journalPages = player.DiveJournal?.Count ?? 0;
+        // Every dive and every rest takes one day; every dive leaves a journal page.
+        bool journalKept = journalPages >= dives;
+        bool passed = prologueDone && motionPlayed && journalKept && !stuck && dives >= TargetDives && player.CurrentDay == firstTownDay + dives + rests;
         string verdict = $"{(passed ? "PASS" : "FAIL")}: prologue {(prologueDone ? "done" : "NOT FINISHED")} (town from day {firstTownDay}), {dives}/{TargetDives} dives, {rests} rest(s), day {player.CurrentDay}, money {player.Money} (night business net {soldTotal}G), "
-            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
+            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, journal {journalPages} page(s){(journalKept ? string.Empty : " MISSING PAGES")}, {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
         Debug.Log("[P3BuildSmoke] " + verdict);
         File.WriteAllText(Path.Combine(_outDir, "P3Smoke.txt"), verdict + "\n\n" + _log);
         Application.Quit(passed ? 0 : 1);

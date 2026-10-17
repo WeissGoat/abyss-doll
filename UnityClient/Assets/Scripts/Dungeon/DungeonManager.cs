@@ -361,6 +361,7 @@ public class DungeonManager {
         player.LastSelectedDungeonStartLayer = layerID;
         PreDiveLoadoutService.RememberLoadout(player);
         DayCycleService.BeginDiveDay(player, layerID);
+        DiveLogService.Begin(player, layerID, prologue);
         _runSettled = false;
         _currentRunSeed = CreateRunSeed(layerID);
         Debug.Log($"[DungeonManager] Starting new dungeon run at Layer {layerID}.");
@@ -460,6 +461,7 @@ public class DungeonManager {
 
         int cost = GetSanCostForNode(targetNode);
         DungeonEventBus.PublishNodeEntered(targetNode, cost);
+        DiveLogService.RecordNode(targetNode, VisualAssetService.ResolveNodeIconID(targetNode));
         DollStrainService.AddCorruptionForNode(GameRoot.Core?.CurrentPlayer?.ActiveDoll, CurrentLayer.LayerID);
 
         targetNode.OnEnterNode();
@@ -568,6 +570,7 @@ public class DungeonManager {
     }
 
     private void HandleCombatLootCollected(CombatLootCollectionResult result) {
+        DiveLogService.RecordLeftBehind(result?.DiscardedItems?.Count ?? 0);
         if (result?.AcceptedItems == null || result.AcceptedItems.Count == 0) {
             return;
         }
@@ -630,6 +633,7 @@ public class DungeonManager {
         }
 
         result.StashCountAfterSettlement = player?.StashInventory?.Count ?? 0;
+        DiveLogService.Finish(player, result, false, CurrentLayer);
         result.DayReport = DayCycleService.EndDiveDay(player, false)?.Economy;
         Debug.Log($"[DungeonManager] Settlement summary prepared. LootCount={result.LootTransferredCount}, EstimatedValue={result.LootEstimatedValue}, StashCount={result.StashCountAfterSettlement}");
         DungeonEventBus.PublishDungeonSettlementPrepared(result);
@@ -657,6 +661,7 @@ public class DungeonManager {
         PopulateRunLootSummary(result, preservedRunLoot);
 
         result.StashCountAfterSettlement = player?.StashInventory?.Count ?? 0;
+        DiveLogService.Finish(player, result, true, CurrentLayer);
         result.DayReport = DayCycleService.EndDiveDay(player, true)?.Economy;
         Debug.Log($"[DungeonManager] Defeat settlement prepared. StashCount={result.StashCountAfterSettlement}");
         DungeonEventBus.PublishDungeonSettlementPrepared(result);

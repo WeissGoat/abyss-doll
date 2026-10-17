@@ -206,6 +206,7 @@ public class CombatSystem {
             : CombatOutcomeReportService.BuildDefeat(this);
 
         CombatEventBus.PublishCombatOutcomePrepared(LastOutcomeReport);
+        DiveLogService.RecordCombat(LastOutcomeReport);
         Debug.Log($"[CombatSystem] Outcome prepared. Type={LastOutcomeReport.OutcomeType}, Reason={LastOutcomeReport.DefeatReason}, Summary={LastOutcomeReport.Summary}");
     }
 

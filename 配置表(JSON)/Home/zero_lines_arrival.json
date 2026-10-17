@@ -1,0 +1,26 @@
+{
+  "PoolID": "arrival",
+  "Note": "零号进门时说的一句「今天最记得的事」。Tags 全部满足才可选，满足条数最多的优先，同档按天数轮换。事实见 README。",
+  "Lines": [
+    { "Tags": ["defeated"], "Text": "……对不起。东西，都没带回来。" },
+    { "Tags": ["defeated"], "Text": "我又倒下了。下次……我会看清楚它。" },
+    { "Tags": ["defeated"], "Text": "被拖回来的时候，我听见你在喊。" },
+    { "Tags": ["nearly_fell"], "Text": "差一点。真的只差一点。" },
+    { "Tags": ["nearly_fell"], "Text": "我还站着。……还站着。" },
+    { "Tags": ["nearly_fell", "good_haul"], "Text": "很疼。但是背包是满的。" },
+    { "Tags": ["boss_defeated"], "Text": "守在最下面的那个……它倒下了。" },
+    { "Tags": ["boss_defeated"], "Text": "那么大的东西。我们赢了。" },
+    { "Tags": ["boss_defeated", "unhurt"], "Text": "它没碰到我。一次都没有。" },
+    { "Tags": ["elite_bypassed"], "Text": "那条路上有很重的脚步声。绕开它，是对的。" },
+    { "Tags": ["elite_bypassed"], "Text": "我们没去惹那个大家伙。……它好像在看我们。" },
+    { "Tags": ["left_behind"], "Text": "有几样东西放不下。还留在下面。" },
+    { "Tags": ["left_behind"], "Text": "背包满了。……有点可惜。" },
+    { "Tags": ["ordinary"], "Text": "我回来了。" },
+    { "Tags": ["ordinary"], "Text": "下面的风，今天是凉的。" },
+    { "Tags": ["ordinary"], "Text": "今天的路，我记住了。" },
+    { "Tags": ["ordinary", "empty_handed"], "Text": "什么都没找到。……对不起。" },
+    { "Tags": ["ordinary", "good_haul"], "Text": "背包好重。是好东西吧？" },
+    { "Tags": ["ordinary", "unhurt"], "Text": "没有受伤。你看。" },
+    { "Tags": ["ordinary", "layer2"], "Text": "第二层的光，是会动的。" }
+  ]
+}

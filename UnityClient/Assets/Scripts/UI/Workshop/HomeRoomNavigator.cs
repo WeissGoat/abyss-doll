@@ -18,6 +18,7 @@ public class HomeRoomNavigator : MonoBehaviour {
     public const string CounterLabel = "柜台 · 账本";
     public const string DoorLabel = "出门 · 补给铺";
     public const string BedLabel = "床 · 休息";
+    public const string JournalLabel = "墙上的手账";
     private const string StudioBackgroundID = "bg_workshop_studio";
     private const string AtticBackgroundID = "bg_workshop_home_room";
     private const string DollVisualID = "doll_proto_0_stand";
@@ -28,6 +29,12 @@ public class HomeRoomNavigator : MonoBehaviour {
     private GameObject _atticRoom;
     private StudioBenchView _bench;
     private Text _bedHint;
+    private Button _journalTag;
+    private HomeJournalView _journal;
+    private HomeNightTalkView _nightTalk;
+    private GameObject _tabBar;
+    private readonly System.Collections.Generic.List<Button> _hallTags = new System.Collections.Generic.List<Button>();
+    private readonly System.Collections.Generic.List<Button> _atticTags = new System.Collections.Generic.List<Button>();
     private readonly Button[] _tabs = new Button[3];
     private Image _fade;
     private Coroutine _fadeRoutine;
@@ -35,6 +42,8 @@ public class HomeRoomNavigator : MonoBehaviour {
     public HomeRoom Current { get; private set; }
 
     public StudioBenchView Bench => _bench;
+    public HomeJournalView Journal => _journal;
+    public HomeNightTalkView NightTalk => _nightTalk;
 
     public static HomeRoomNavigator Ensure(Transform workshopRoot, WorkshopUIController workshop) {
         Transform existing = workshopRoot.Find(RootName);
@@ -53,6 +62,15 @@ public class HomeRoomNavigator : MonoBehaviour {
     }
 
     public void Show(HomeRoom room) {
+        // The night talk ends the day; nothing moves until 晚安.
+        if (_nightTalk != null && _nightTalk.IsShowing) {
+            return;
+        }
+
+        if (room != HomeRoom.Hall && _journal != null && _journal.IsShowing) {
+            _journal.Close();
+        }
+
         bool changed = room != Current;
         Current = room;
         Refresh();
@@ -83,7 +101,17 @@ public class HomeRoomNavigator : MonoBehaviour {
             _bench.Refresh();
         }
 
-        bool night = GameRoot.Core?.CurrentPlayer?.IsNight ?? false;
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        bool reading = _journal != null && _journal.IsShowing;
+        foreach (Button tag in _hallTags) {
+            tag.gameObject.SetActive(!reading);
+        }
+        _journalTag.gameObject.SetActive(!reading && player?.DiveJournal != null && player.DiveJournal.Count > 0);
+        _tabBar.SetActive(!_nightTalk.IsShowing);
+        foreach (Button tag in _atticTags) {
+            tag.gameObject.SetActive(!_nightTalk.IsShowing);
+        }
+        bool night = player?.IsNight ?? false;
         _bedHint.text = night ? "开张营业之后才睡" : "休息一天，恢复 HP 和 SAN";
         _workshop?.DayHud?.SetChoiceVisible(Current == HomeRoom.Hall);
     }
@@ -92,10 +120,13 @@ public class HomeRoomNavigator : MonoBehaviour {
         _hallLayer = new GameObject("HallTags", typeof(RectTransform));
         _hallLayer.transform.SetParent(transform, false);
         UITheme.Stretch((RectTransform)_hallLayer.transform);
-        CreateTag(_hallLayer.transform, "Counter_Tag", CounterLabel, "摆货、营业、出售", new Vector2(600f, -40f), OpenCounter);
-        CreateTag(_hallLayer.transform, "Door_Tag", DoorLabel, "买修复剂和镇静剂", new Vector2(760f, -330f), () => _workshop?.OpenSupplyShop());
-        CreateTag(_hallLayer.transform, "StudioDoor_Tag", "去工作室", "改装与维护", new Vector2(140f, 150f), () => Show(HomeRoom.Studio));
-        CreateTag(_hallLayer.transform, "Stairs_Tag", "上阁楼", "零号的房间", new Vector2(-140f, 330f), () => Show(HomeRoom.Attic));
+        _hallTags.Add(CreateTag(_hallLayer.transform, "Counter_Tag", CounterLabel, "摆货、营业、出售", new Vector2(600f, -40f), OpenCounter));
+        _hallTags.Add(CreateTag(_hallLayer.transform, "Door_Tag", DoorLabel, "买修复剂和镇静剂", new Vector2(760f, -330f), () => _workshop?.OpenSupplyShop()));
+        _hallTags.Add(CreateTag(_hallLayer.transform, "StudioDoor_Tag", "去工作室", "改装与维护", new Vector2(140f, 150f), () => Show(HomeRoom.Studio)));
+        _hallTags.Add(CreateTag(_hallLayer.transform, "Stairs_Tag", "上阁楼", "零号的房间", new Vector2(-140f, 330f), () => Show(HomeRoom.Attic)));
+        _journalTag = CreateTag(_hallLayer.transform, "Journal_Tag", JournalLabel, "以前的每一次下潜", new Vector2(-60f, -10f), () => _journal.OpenJournal());
+        _hallTags.Add(_journalTag);
+        _journal = HomeJournalView.Create(_hallLayer.transform, () => ShowStudio(StudioTab.Maintenance), _ => Refresh());
 
         _studioRoom = CreateRoom("StudioRoom", StudioBackgroundID, new Vector2(-600f, -100f), new Vector2(540f, 810f));
         _bench = StudioBenchView.Create(_studioRoom.transform, () => _workshop?.RefreshUI());
@@ -103,9 +134,11 @@ public class HomeRoomNavigator : MonoBehaviour {
         _atticRoom = CreateRoom("AtticRoom", AtticBackgroundID, new Vector2(560f, -150f), new Vector2(460f, 690f));
         Button bed = CreateTag(_atticRoom.transform, "Bed_Tag", BedLabel, string.Empty, new Vector2(-60f, -10f), RequestRest);
         _bedHint = bed.transform.Find("Hint_Text").GetComponent<Text>();
-        CreateTag(_atticRoom.transform, "Ladder_Tag", "下楼 · 大厅", "回到店面", new Vector2(-420f, -330f), () => Show(HomeRoom.Hall));
+        _atticTags.Add(bed);
+        _atticTags.Add(CreateTag(_atticRoom.transform, "Ladder_Tag", "下楼 · 大厅", "回到店面", new Vector2(-420f, -330f), () => Show(HomeRoom.Hall)));
 
         BuildTabs();
+        _nightTalk = HomeNightTalkView.Create(transform);
 
         _fade = UITheme.CreatePanel(transform, "RoomFade_Image", new Color(0.1f, 0.06f, 0.03f, 0f));
         UITheme.Stretch(_fade.rectTransform);
@@ -115,8 +148,26 @@ public class HomeRoomNavigator : MonoBehaviour {
         Refresh();
     }
 
+    // Zero just came home: the hall, with the dive's page open.
+    public void ShowArrival(DiveLog log) {
+        Show(HomeRoom.Hall);
+        _journal.ShowArrival(log);
+    }
+
+    // After the business: upstairs, Zero's word about the day; 晚安 comes down to the hall for the morning.
+    public void ShowNightTalk(DayEndReport report, System.Action onGoodnight) {
+        Show(HomeRoom.Attic);
+        _nightTalk.Show(report, () => {
+            Show(HomeRoom.Hall);
+            Refresh();
+            onGoodnight?.Invoke();
+        });
+        Refresh();
+    }
+
     private void BuildTabs() {
         GameObject bar = new GameObject("RoomTabs", typeof(RectTransform));
+        _tabBar = bar;
         bar.transform.SetParent(transform, false);
         RectTransform barRect = (RectTransform)bar.transform;
         barRect.anchorMin = barRect.anchorMax = barRect.pivot = new Vector2(0f, 1f);

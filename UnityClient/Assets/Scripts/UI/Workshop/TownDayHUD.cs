@@ -138,7 +138,13 @@ public class TownDayHUD : MonoBehaviour {
 
         DayEndReport report = DayCycleService.TakePendingReport();
         if (report != null) {
-            ShowNightCard(report);
+            // The day ends upstairs with Zero (HomeRoomNavigator); the card is the fallback without rooms.
+            HomeRoomNavigator rooms = _workshop?.Rooms;
+            if (rooms != null) {
+                rooms.ShowNightTalk(report, ShowFollowUps);
+            } else {
+                ShowNightCard(report);
+            }
             return;
         }
 

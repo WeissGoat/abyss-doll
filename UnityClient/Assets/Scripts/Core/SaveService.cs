@@ -70,6 +70,7 @@ public static class SaveService {
         player.DumpBox = player.DumpBox ?? new List<ItemEntity>();
         player.Showcase = player.Showcase ?? new List<ItemEntity>();
         player.LastDiveLoadout = player.LastDiveLoadout ?? new List<LoadoutSlotRecord>();
+        player.DiveJournal = player.DiveJournal ?? new List<DiveLog>();
         file.Backpack = file.Backpack ?? new List<ItemEntity>();
         return file;
     }
