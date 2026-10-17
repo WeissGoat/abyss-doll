@@ -133,6 +133,10 @@ public class HomeJournalView : MonoBehaviour {
             lines.Add("绕开了精英。");
         }
 
+        if (!string.IsNullOrEmpty(log.PromiseText)) {
+            lines.Add($"约定「{log.PromiseText}」：{(log.PromiseKept ? "做到了" : "没做到")}。");
+        }
+
         lines.Add($"零号  HP {log.HPStart} → {log.HPEnd} / {log.HPMax}    SAN {log.SANStart} → {log.SANEnd} / {log.SANMax}");
         return string.Join("\n", lines);
     }

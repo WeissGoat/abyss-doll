@@ -33,6 +33,14 @@ public static class P3DevTools {
                 sb.AppendLine($"Tonight: next {HomeEveningStamps.Labels[(int)(rooms.NightTalk.IsShowing ? EveningStamp.Goodnight : HomeEveningService.Next(home))]}, haul {HomeEveningService.Haul(home).Count} undecided");
             }
 
+            if (rooms.NightTalk.IsShowing) {
+                sb.AppendLine($"Night talk: {rooms.NightTalk.CurrentLine}{(rooms.NightTalk.HasReplies ? " (two replies waiting)" : string.Empty)}");
+            }
+
+            if (!string.IsNullOrEmpty(home.ActivePromiseID)) {
+                sb.AppendLine("Promise: " + PromiseService.MapLine(home));
+            }
+
             ZeroPresence speaking = rooms.Zero(rooms.Current);
             if (speaking != null && speaking.IsSpeaking) {
                 sb.AppendLine("Zero says: " + speaking.CurrentLine);
@@ -569,6 +577,8 @@ public static class P3DevTools {
                 log.AppendLine("Went to the business screen.");
             } else if (ClickByLabel("迎接新的一天", null)) {
                 log.AppendLine("Closed the night card.");
+            } else if (ReplyAtNight(0, log)) {
+                continue;
             } else if (ClickByLabel(HomeNightTalkView.GoodnightLabel, null)) {
                 log.AppendLine("Said goodnight.");
             } else if (ClickByLabel("交房租", null)) {
@@ -579,6 +589,27 @@ public static class P3DevTools {
                 return;
             }
         }
+    }
+
+    // In the night talk, picks reply 0 or 1 when the night has replies.
+    public static string Reply(int index) {
+        StringBuilder log = new StringBuilder();
+        if (!ReplyAtNight(index, log)) {
+            log.AppendLine("No replies waiting.");
+        }
+
+        return log.ToString() + Describe();
+    }
+
+    private static bool ReplyAtNight(int index, StringBuilder log) {
+        HomeNightTalkView talk = Object.FindObjectOfType<WorkshopUIController>()?.Rooms?.NightTalk;
+        if (talk == null || !talk.IsShowing || !talk.HasReplies) {
+            return false;
+        }
+
+        talk.Reply(index);
+        log?.AppendLine("Replied at night: " + talk.CurrentLine);
+        return true;
     }
 
     // Clicks 和她说话 in the hall or the attic (goes to the hall from the studio).

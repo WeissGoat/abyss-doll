@@ -1,0 +1,12 @@
+{
+  "Note": "夜谈里答应零号的事，下一次下潜结束时判定。Kind：NoNearFall（HP 最低不掉到上限的 Param 比例以下，且没战败）、ShortDive（走 Param 步以内就撤，没战败）、BringHome（带回 Param 件以上）、NoLeftBehind（没有因为背包装不下丢下东西，没战败）、EliteFought（打了精英，没战败）、VisitNode（走到 Param 类节点：营地、宝藏、事件…）、Unhurt（一步都没受伤，没战败）。",
+  "Promises": [
+    { "PromiseID": "p_no_strain", "Text": "别硬撑（HP 不掉到一半以下）", "Kind": "NoNearFall", "Param": "0.5", "KeptLine": "我听话了。没有硬撑。", "BrokenLine": "……又硬撑了。对不起。" },
+    { "PromiseID": "p_short", "Text": "早点回来（走 5 步以内就撤）", "Kind": "ShortDive", "Param": "5", "KeptLine": "这次很早就回来了。你看。", "BrokenLine": "说好早点回来的……" },
+    { "PromiseID": "p_bring", "Text": "多带点东西回来（4 件以上）", "Kind": "BringHome", "Param": "4", "KeptLine": "背包是满的。", "BrokenLine": "没装满。……下次。" },
+    { "PromiseID": "p_no_left", "Text": "一件都不丢下（整理好背包）", "Kind": "NoLeftBehind", "KeptLine": "一件都没丢下。", "BrokenLine": "还是丢下了几件。" },
+    { "PromiseID": "p_elite", "Text": "去会会那个精英", "Kind": "EliteFought", "KeptLine": "那个重脚步的，我们赢了。", "BrokenLine": "那个……下次吧。" },
+    { "PromiseID": "p_camp", "Text": "去营地看看", "Kind": "VisitNode", "Param": "营地", "KeptLine": "营地的火，很暖。", "BrokenLine": "没走到营地。……还会有下次的吧。" },
+    { "PromiseID": "p_unhurt", "Text": "一次都不受伤", "Kind": "Unhurt", "KeptLine": "一次都没受伤。说到做到。", "BrokenLine": "还是受伤了。……不要看。" }
+  ]
+}

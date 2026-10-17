@@ -42,13 +42,17 @@ public static class ZeroLineService {
         return top[((day % top.Count) + top.Count) % top.Count].Text;
     }
 
-    // A wish the dive fulfilled speaks first; otherwise the most memorable thing of the dive.
+    // A wish the dive fulfilled speaks first, then the promise it carried; otherwise the most memorable thing of the dive.
     public static string ArrivalLine(DiveLog log) {
         if (log == null) {
             return string.Empty;
         }
 
-        return !string.IsNullOrEmpty(log.WishDoneLine) ? log.WishDoneLine : Pick(ArrivalPool, DiveLogService.Facts(log), log.Day);
+        if (!string.IsNullOrEmpty(log.WishDoneLine)) {
+            return log.WishDoneLine;
+        }
+
+        return !string.IsNullOrEmpty(log.PromiseLine) ? log.PromiseLine : Pick(ArrivalPool, DiveLogService.Facts(log), log.Day);
     }
 
     // A wish granted today (the rest-day one) speaks first; otherwise the day's facts pick.

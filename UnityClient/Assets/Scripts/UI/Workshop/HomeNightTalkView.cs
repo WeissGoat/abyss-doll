@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 // The end of the day, upstairs in the attic (docs/specs/2026-10-17-home-loop.md): Zero says one thing about the day
-// (ZeroLineService night pool) and a sheet on the table keeps the numbers the old 「第 N 天结束」 card showed. 晚安
-// moves to the morning.
+// (ZeroLineService night pool) and a sheet on the table keeps the numbers the old 「第 N 天结束」 card showed. Some
+// nights her word comes with two replies, which may promise her something for the next dive (PromiseService,
+// docs/specs/2026-10-18-home-evening-thread.md C). 晚安 moves to the morning.
 public class HomeNightTalkView : MonoBehaviour {
     public const string RootName = "HomeNightTalk_Runtime";
     public const string GoodnightLabel = "晚安";
@@ -12,9 +14,15 @@ public class HomeNightTalkView : MonoBehaviour {
     private Text _body;
     private Text _line;
     private GameObject _bubble;
+    private Text _note;
+    private readonly Button[] _replies = new Button[2];
+    private NightTalkConfig _talk;
+    private DayEndReport _report;
     private System.Action _onGoodnight;
 
     public bool IsShowing => gameObject.activeSelf;
+    public bool HasReplies => _talk != null && _replies[0].gameObject.activeSelf;
+    public string CurrentLine => _line.text;
 
     public static HomeNightTalkView Create(Transform parent) {
         GameObject root = new GameObject(RootName, typeof(RectTransform));
@@ -30,11 +38,47 @@ public class HomeNightTalkView : MonoBehaviour {
         _onGoodnight = onGoodnight;
         _title.text = $"第 {report.EndedDay} 天的夜里";
         _body.text = TownDayHUD.BuildNightText(report);
-        string line = ZeroLineService.NightLine(report, GameRoot.Core?.CurrentPlayer);
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        _report = report;
+        _talk = PromiseService.PickTalk(report, player);
+        string line = _talk != null ? _talk.Line : ZeroLineService.NightLine(report, player);
         _bubble.SetActive(!string.IsNullOrEmpty(line));
         _line.text = $"「{line}」";
+        _note.text = string.Empty;
+        for (int i = 0; i < _replies.Length; i++) {
+            bool show = _talk != null && i < _talk.Replies.Count;
+            _replies[i].gameObject.SetActive(show);
+            if (show) {
+                UITheme.SetButtonLabel(_replies[i], _talk.Replies[i].Text);
+            }
+        }
+
         gameObject.SetActive(true);
         transform.SetAsLastSibling();
+    }
+
+    public void Reply(int index) {
+        if (_talk == null || index < 0 || index >= _talk.Replies.Count) {
+            return;
+        }
+
+        NightReplyResult result = PromiseService.Reply(GameRoot.Core?.CurrentPlayer, _report, _talk.Replies[index]);
+        _line.text = $"「{result.Answer}」";
+        List<string> notes = new List<string>();
+        if (result.Bond != null && result.Bond.PointsAdded > 0) {
+            notes.Add($"羁绊 +{result.Bond.PointsAdded}");
+        }
+
+        if (result.Promise != null) {
+            notes.Add($"约好了：{result.Promise.Text}");
+        }
+
+        _note.text = string.Join("    ", notes);
+        foreach (Button reply in _replies) {
+            reply.gameObject.SetActive(false);
+        }
+
+        StudioCareView.AnnounceBond(result.Bond);
     }
 
     private void Goodnight() {
@@ -62,15 +106,30 @@ public class HomeNightTalkView : MonoBehaviour {
         UITheme.Place((RectTransform)goodnight.transform, new Vector2(0.5f, 0f), new Vector2(0f, 44f), new Vector2(240f, 60f));
         goodnight.onClick.AddListener(Goodnight);
 
-        // Zero stands by the window in the attic; her line hangs beside her.
+        // Zero stands by the window in the attic; her line hangs above her.
         Image bubble = UITheme.CreatePanel(transform, "ZeroBubble", UITheme.PanelRaised);
         UITheme.AddBorder(bubble, UITheme.Border, 1.5f);
         bubble.raycastTarget = false;
-        UITheme.Place(bubble.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(520f, 280f), new Vector2(520f, 96f));
+        UITheme.Place(bubble.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(480f, 380f), new Vector2(620f, 110f));
         _bubble = bubble.gameObject;
         _line = UITheme.CreateText(bubble.transform, "Line_Text", string.Empty, UITheme.BodySize, UITheme.TextPrimary, TextAnchor.MiddleCenter);
         UITheme.Stretch(_line.rectTransform);
-        _line.rectTransform.offsetMin = new Vector2(18f, 6f);
+        _line.rectTransform.offsetMin = new Vector2(18f, 22f);
         _line.rectTransform.offsetMax = new Vector2(-18f, -6f);
+        _note = UITheme.CreateText(bubble.transform, "Note_Text", string.Empty, UITheme.CaptionSize - 2, UITheme.Accent, TextAnchor.LowerCenter);
+        UITheme.Stretch(_note.rectTransform);
+        _note.rectTransform.offsetMin = new Vector2(12f, 6f);
+        _note.rectTransform.offsetMax = new Vector2(-12f, 0f);
+
+        // Two replies side by side under her word and above her head, on some nights.
+        for (int i = 0; i < _replies.Length; i++) {
+            int index = i;
+            Button reply = UITheme.CreateButton(transform, "NightReply_" + i, string.Empty, UITheme.PanelRaised, UITheme.TextPrimary, UITheme.CaptionSize + 1);
+            UITheme.AddBorder(reply.targetGraphic, UITheme.Accent, 1.5f);
+            UITheme.Place((RectTransform)reply.transform, new Vector2(0.5f, 0.5f), new Vector2(325f + i * 315f, 270f), new Vector2(300f, 56f));
+            reply.onClick.AddListener(() => Reply(index));
+            reply.gameObject.SetActive(false);
+            _replies[i] = reply;
+        }
     }
 }

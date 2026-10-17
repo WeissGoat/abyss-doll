@@ -56,6 +56,12 @@ public class PlayerProfile {
     public int ChatsToday;
     public int TouchesToday;
     public int TouchBondDay;
+    // The night talk (PromiseService): the promise for the next dive, when the last talk with replies was, and how
+    // many promises were kept.
+    public string ActivePromiseID;
+    public int PromiseSinceDay;
+    public int LastNightTalkDay;
+    public int KeptPromises;
     public int LoreHeard;
     // Night phase (GDD_07 §3.1): after the day's dive or rest, before the business opens and the calendar moves on.
     public bool IsNight;

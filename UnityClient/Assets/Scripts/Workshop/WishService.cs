@@ -31,6 +31,8 @@ public class HomeConfigFile {
     public List<WishConfig> Wishes;
     public List<MilestoneConfig> Milestones;
     public List<HomeUpgradeConfig> Upgrades;
+    public List<NightTalkConfig> Talks;
+    public List<PromiseConfig> Promises;
 }
 
 // One thing on the attic shelf: a wish's gift, a milestone, or something the player put there.
@@ -258,6 +260,7 @@ public static class HomeLoop {
 
         CareService.AddGrimeFromDive(player.ActiveDoll, log);
         HomeEveningService.RecordHaul(player, log);
+        PromiseService.OnDive(player, log);
         WishService.OnDive(player, log);
         if (log.BossDefeated && !log.Prologue) {
             MementoService.Milestone(player, "first_boss");

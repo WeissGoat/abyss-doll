@@ -556,6 +556,27 @@ public class DungeonMapUIController : MonoBehaviour {
             ? "选择一个绿色的「可前往」节点出发"
             : "金框是你现在的位置；点击绿色的「可前往」节点继续深入";
         mapHintText.transform.SetAsLastSibling();
+        ApplyPromiseLine();
+    }
+
+    // The promise made to Zero last night (PromiseService), kept in view for the whole dive.
+    private void ApplyPromiseLine() {
+        Transform existing = transform.Find("Promise_Text");
+        Text promise = existing != null ? existing.GetComponent<Text>() : null;
+        if (promise == null) {
+            promise = UITheme.CreateText(transform, "Promise_Text", string.Empty, UITheme.BodySize - 2, UITheme.Accent, TextAnchor.MiddleLeft);
+            RectTransform rect = promise.rectTransform;
+            rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0f, 1f);
+            rect.anchoredPosition = new Vector2(40f, -132f);
+            rect.sizeDelta = new Vector2(760f, 40f);
+            Outline outline = promise.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color(0f, 0f, 0f, 0.85f);
+            outline.effectDistance = new Vector2(1.5f, -1.5f);
+        }
+
+        promise.text = PromiseService.MapLine(GameRoot.Core?.CurrentPlayer);
+        promise.gameObject.SetActive(!string.IsNullOrEmpty(promise.text));
+        promise.transform.SetAsLastSibling();
     }
 
     private bool IsNodeSelectable(DungeonLayer layer, NodeBase node) {

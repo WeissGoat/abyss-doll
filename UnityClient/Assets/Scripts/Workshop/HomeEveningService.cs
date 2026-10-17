@@ -242,6 +242,16 @@ public static class HomeEveningService {
             facts.Add("spirited");
         }
 
+        // A promise for today comes first at the door.
+        if (PromiseService.Active(player) != null) {
+            HashSet<string> promised = new HashSet<string> { "promise" };
+            if (facts.Contains("spirited")) {
+                promised.Add("spirited");
+            }
+
+            return ZeroLineService.Pick(MorningPool, promised, player.CurrentDay);
+        }
+
         DiveLog last = player?.DiveJournal != null && player.DiveJournal.Count > 0 ? player.DiveJournal[player.DiveJournal.Count - 1] : null;
         if (last != null && last.Day == (player?.CurrentDay ?? 0) - 1) {
             facts.Add(last.Defeated ? "after_defeat" : "after_dive");

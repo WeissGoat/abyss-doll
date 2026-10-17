@@ -1,0 +1,85 @@
+{
+  "Note": "夜谈里有两个回应的那些晚上。大约隔一晚一次；当晚有 nearly_fell / defeated / rent_short / low_san 时每晚都可以。Tags 用夜谈的事实（见 README），全部满足才可选，条数最多的优先。Replies：Text 玩家说的、Answer 她的回答、Bond 羁绊 0 或 1、PromiseID 和她约好下次下潜的事（promises.json）。",
+  "Talks": [
+    {
+      "TalkID": "talk_nearly_fell", "Tags": ["nearly_fell"],
+      "Line": "今天……我差一点就回不来了。",
+      "Replies": [
+        { "Text": "下次别硬撑了。", "Answer": "……嗯。我答应你。", "Bond": 1, "PromiseID": "p_no_strain" },
+        { "Text": "你撑住了，很厉害。", "Answer": "……被夸了。", "Bond": 1 }
+      ]
+    },
+    {
+      "TalkID": "talk_defeated", "Tags": ["defeated"],
+      "Line": "对不起。东西都丢在下面了。",
+      "Replies": [
+        { "Text": "人回来就好。", "Answer": "……嗯。", "Bond": 1 },
+        { "Text": "下次我们早点回来。", "Answer": "好。走一半就回来。", "Bond": 0, "PromiseID": "p_short" }
+      ]
+    },
+    {
+      "TalkID": "talk_rent_short", "Tags": ["rent_short"],
+      "Line": "钱不够的话……我可以走得更远一点。",
+      "Replies": [
+        { "Text": "不用勉强。", "Answer": "……可是。……嗯。", "Bond": 1 },
+        { "Text": "那下次多带点东西回来。", "Answer": "我会装满的。", "Bond": 0, "PromiseID": "p_bring" }
+      ]
+    },
+    {
+      "TalkID": "talk_low_san", "Tags": ["low_san"],
+      "Line": "脑子里有很多声音。",
+      "Replies": [
+        { "Text": "我在这里。听我的声音。", "Answer": "……嗯。只听你的。", "Bond": 1 },
+        { "Text": "下次不受伤地回来，我们就休息。", "Answer": "……好。约好了。", "Bond": 0, "PromiseID": "p_unhurt" }
+      ]
+    },
+    {
+      "TalkID": "talk_left_behind", "Tags": ["left_behind"],
+      "Line": "有几件东西，我们没能带回来。",
+      "Replies": [
+        { "Text": "下次把背包整理好再出发。", "Answer": "嗯。一件都不丢。", "Bond": 0, "PromiseID": "p_no_left" },
+        { "Text": "带不走的就算了。", "Answer": "你说得对。", "Bond": 1 }
+      ]
+    },
+    {
+      "TalkID": "talk_elite", "Tags": ["elite_bypassed"],
+      "Line": "那个重脚步的东西，我们绕开了。",
+      "Replies": [
+        { "Text": "下次我们去会会它。", "Answer": "……好。我不怕。", "Bond": 0, "PromiseID": "p_elite" },
+        { "Text": "绕开是对的。", "Answer": "嗯。", "Bond": 1 }
+      ]
+    },
+    {
+      "TalkID": "talk_unhurt", "Tags": ["dive", "unhurt"],
+      "Line": "今天一次都没受伤。",
+      "Replies": [
+        { "Text": "下次也要这样。", "Answer": "我试试。", "Bond": 0, "PromiseID": "p_unhurt" },
+        { "Text": "你做得很好。", "Answer": "……嘿嘿。", "Bond": 1 }
+      ]
+    },
+    {
+      "TalkID": "talk_camp", "Tags": ["dive"],
+      "Line": "下面有一个暖和的地方。我想去看看。",
+      "Replies": [
+        { "Text": "下次去营地看看吧。", "Answer": "约好了。", "Bond": 1, "PromiseID": "p_camp" },
+        { "Text": "等你再好一点吧。", "Answer": "……嗯。", "Bond": 0 }
+      ]
+    },
+    {
+      "TalkID": "talk_rest", "Tags": ["rest"],
+      "Line": "今天一整天都在家。",
+      "Replies": [
+        { "Text": "偶尔这样也好。", "Answer": "嗯。……好安静。", "Bond": 1 },
+        { "Text": "明天要辛苦你了。", "Answer": "交给我。", "Bond": 1 }
+      ]
+    },
+    {
+      "TalkID": "talk_mend", "Tags": ["bond2"],
+      "Line": "你会一直修我吗。",
+      "Replies": [
+        { "Text": "会的。", "Answer": "……那我就放心了。", "Bond": 1 },
+        { "Text": "你也会一直陪我下去吗。", "Answer": "只要你在上面等我。", "Bond": 1 }
+      ]
+    }
+  ]
+}

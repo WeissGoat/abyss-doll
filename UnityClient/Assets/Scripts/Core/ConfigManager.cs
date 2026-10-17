@@ -23,6 +23,8 @@ public static class ConfigManager {
     public static List<WishConfig> Wishes = new List<WishConfig>();
     public static List<MilestoneConfig> Milestones = new List<MilestoneConfig>();
     public static List<HomeUpgradeConfig> HomeUpgrades = new List<HomeUpgradeConfig>();
+    public static List<NightTalkConfig> NightTalks = new List<NightTalkConfig>();
+    public static List<PromiseConfig> Promises = new List<PromiseConfig>();
 
     public static void LoadAllConfigs() {
         ResetAllCaches();
@@ -90,6 +92,8 @@ public static class ConfigManager {
         Wishes.Clear();
         Milestones.Clear();
         HomeUpgrades.Clear();
+        NightTalks.Clear();
+        Promises.Clear();
     }
 
     private static void LoadConfigsIntoDict<K, T>(string dirPath, Dictionary<K, T> dict, System.Func<T, K> keySelector) {
@@ -132,6 +136,8 @@ public static class ConfigManager {
                 if (home.Wishes != null) Wishes.AddRange(home.Wishes);
                 if (home.Milestones != null) Milestones.AddRange(home.Milestones);
                 if (home.Upgrades != null) HomeUpgrades.AddRange(home.Upgrades);
+                if (home.Talks != null) NightTalks.AddRange(home.Talks);
+                if (home.Promises != null) Promises.AddRange(home.Promises);
             } catch (System.Exception e) {
                 Debug.LogError($"[ConfigManager] Failed to load {file}: {e.Message}");
             }

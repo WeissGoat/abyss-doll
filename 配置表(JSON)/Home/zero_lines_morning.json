@@ -14,6 +14,8 @@
     { "Tags": ["worn"], "Text": "膝盖会响。下去之前，要不要先看一下。" },
     { "Tags": ["low_san"], "Text": "昨晚做了梦。下面的梦。" },
     { "Tags": ["wish"], "Text": "（她在看门外的方向。）" },
-    { "Tags": ["rent_soon"], "Text": "门上的纸，日子快到了。" }
+    { "Tags": ["rent_soon"], "Text": "门上的纸，日子快到了。" },
+    { "Tags": ["promise"], "Text": "昨晚说好的事，我记得。" },
+    { "Tags": ["promise", "spirited"], "Text": "说好的事，今天就做到。……我精神很好。" }
   ]
 }

@@ -46,6 +46,10 @@ public class DiveLog {
     // 精神好: she set out cared for and talked to; the first fight's first turn gets +1 AP (SpiritUsed once it has).
     public bool Spirited;
     public bool SpiritUsed;
+    // The promise this dive carried (PromiseService): what it was, whether it was kept, and her line at the door.
+    public string PromiseText;
+    public bool PromiseKept;
+    public string PromiseLine;
     // A wish this dive fulfilled: what she says at the door instead.
     public string WishDoneLine;
     // The arrival page has been shown (it opens once, when Zero comes through the door).
