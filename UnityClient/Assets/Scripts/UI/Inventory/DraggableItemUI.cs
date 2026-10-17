@@ -57,11 +57,16 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             return;
         }
 
-        if (Input.GetKeyDown(RotateHeldItemKey) || Input.GetMouseButtonDown(1)) {
-            TryRotateHeldItem(Input.mousePosition, _dragEventCamera);
+        // The pointer as the UI's input module reads it (a Play Mode scenario can script it).
+        BaseInput input = EventSystem.current != null && EventSystem.current.currentInputModule != null
+            ? EventSystem.current.currentInputModule.input
+            : null;
+        Vector2 pointer = input != null ? input.mousePosition : (Vector2)Input.mousePosition;
+        if (Input.GetKeyDown(RotateHeldItemKey) || (input != null ? input.GetMouseButtonDown(1) : Input.GetMouseButtonDown(1))) {
+            TryRotateHeldItem(pointer, _dragEventCamera);
         }
 
-        UpdatePlacementPreview(Input.mousePosition);
+        UpdatePlacementPreview(pointer);
     }
 
     // Colours the cells the item would take if dropped now: green when it fits, red when it does not. Worked out from
@@ -300,16 +305,24 @@ public class DraggableItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     // The backpack grid and its item layer are the canvas's last siblings, so an item dragged in from the loot tray or
     // another panel used to slide under the grid. While held, a nested canvas lifts it above everything without
-    // reparenting (which would break the return-to-tray paths); the canvas is switched off again on release.
+    // reparenting (which would break the return-to-tray paths); the canvas is removed again on release.
     private void SetHeldOnTop(bool onTop) {
         if (_canvasGroup != null) {
             _canvasGroup.alpha = onTop ? HeldAlpha : 1f;
         }
 
         if (!onTop) {
+            // Removed, not switched off: under a disabled nested canvas Unity stops drawing the item at all, so a
+            // released item vanished wherever it landed.
             if (_heldCanvas != null) {
                 _heldCanvas.overrideSorting = false;
-                _heldCanvas.enabled = false;
+                if (Application.isPlaying) {
+                    Destroy(_heldCanvas);
+                } else {
+                    DestroyImmediate(_heldCanvas);
+                }
+
+                _heldCanvas = null;
             }
             return;
         }

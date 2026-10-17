@@ -30,6 +30,37 @@ public static class PlayScenarioSupport {
         yield return null;
     }
 
+    // Wins a fight and opens the loot screen with one one-cell whetstone on offer and at least one item in the
+    // backpack, whatever the save and the fight's own drop were (the drop can be any shape; the backpack can be empty).
+    public static IEnumerator OpenWhetstoneLoot(string nodeID) {
+        P3DevTools.GoTo("combat");
+        yield return Until(() => GameRoot.Core.Combat.CurrentState == CombatState.PlayerTurn, 10f, "combat did not start");
+        foreach (FighterEntity enemy in GameRoot.Core.Combat.EnemyFaction.Fighters) {
+            enemy.RuntimeHP = Mathf.Min(enemy.RuntimeHP, 1);
+        }
+
+        P3DevTools.AutoCombat();
+        yield return Until(() => GameRoot.Core.Combat.CurrentState == CombatState.End && VisualQueue.Count == 0, 20f, "the fight did not finish");
+        yield return new WaitForSecondsRealtime(1f);
+        if (GameObject.Find("CombatLootPanel_Runtime") != null) {
+            P3DevTools.TakeLoot();
+            yield return Until(() => GameObject.Find("CombatLootPanel_Runtime") == null, 5f, "the loot screen did not close");
+            yield return new WaitForSecondsRealtime(0.5f);
+        }
+
+        BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
+        if (grid != null && grid.ContainedItems.Count == 0) {
+            InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("PlayScenario");
+            InventoryInteractionService.RequestPlace(ConfigManager.CreateItem("gear_whetstone"), 0, 0, context, out _);
+        }
+
+        CombatLootPickupResult offer = new CombatLootPickupResult { NodeID = nodeID };
+        offer.OfferedItems.Add(ConfigManager.CreateItem("gear_whetstone"));
+        GameFlowController.Instance.EnterCombatLoot(offer);
+        yield return Until(() => GameObject.Find("CombatLootPanel_Runtime") != null, 5f, "no loot screen");
+        yield return new WaitForSecondsRealtime(0.5f);
+    }
+
     // Waits (real time) until the condition holds; logs an error and stops the scenario's wait on timeout.
     public static IEnumerator Until(Func<bool> condition, float timeoutSeconds, string failure) {
         float start = Time.realtimeSinceStartup;

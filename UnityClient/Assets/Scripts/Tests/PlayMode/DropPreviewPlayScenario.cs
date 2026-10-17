@@ -7,30 +7,15 @@ using UnityEngine.EventSystems;
 public static class DropPreviewPlayScenario {
     public static IEnumerator Run() {
         yield return PlayScenarioSupport.BootToWorkshop();
-        P3DevTools.GoTo("combat");
-        yield return PlayScenarioSupport.Until(() => GameRoot.Core.Combat.CurrentState == CombatState.PlayerTurn, 10f, "combat did not start");
-        foreach (FighterEntity enemy in GameRoot.Core.Combat.EnemyFaction.Fighters) {
-            enemy.RuntimeHP = Mathf.Min(enemy.RuntimeHP, 1);
-        }
-
-        P3DevTools.AutoCombat();
-        yield return PlayScenarioSupport.Until(() => GameRoot.Core.Combat.CurrentState == CombatState.End && VisualQueue.Count == 0, 20f, "the fight did not finish");
-        yield return new WaitForSecondsRealtime(1f);
-        CombatLootPickupResult offer = new CombatLootPickupResult { NodeID = "play_scenario_drop_preview" };
-        offer.OfferedItems.Add(ConfigManager.CreateItem("gear_whetstone"));
-        if (GameObject.Find("CombatLootPanel_Runtime") == null) {
-            GameFlowController.Instance.EnterCombatLoot(offer);
-        }
-
-        yield return PlayScenarioSupport.Until(() => GameObject.Find("CombatLootPanel_Runtime") != null, 5f, "no loot screen");
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return PlayScenarioSupport.OpenWhetstoneLoot("play_scenario_drop_preview");
 
         BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
         DraggableItemUI held = null;
         foreach (DraggableItemUI item in Object.FindObjectsOfType<DraggableItemUI>()) {
-            // Any one-cell item, from the loot tray or the backpack.
+            // A one-cell item, the offered loot first (a backpack item may be the only occupied cell).
             if (item.isActiveAndEnabled && item.ItemData != null
-                && BackpackGrid.TryGetRotatedBounds(item.ItemData, item.ItemData.Grid.Rotation, out int cols, out int rows) && cols == 1 && rows == 1) {
+                && BackpackGrid.TryGetRotatedBounds(item.ItemData, item.ItemData.Grid.Rotation, out int cols, out int rows) && cols == 1 && rows == 1
+                && (held == null || !grid.ContainedItems.Contains(item.ItemData))) {
                 held = item;
             }
         }
