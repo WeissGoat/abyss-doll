@@ -149,6 +149,7 @@ M4 试玩的三个问题自动测试都没抓到（渲染层级、点击时序�
 - [x] PlayMode 测试：`Assets/Tests/PlayMode/P3PlayTests` 跑 `Scripts/Tests/PlayMode/*PlayScenario`。先有两个：自动结束回合后立刻点击、拾取界面拿起物品。两个都验证过去掉修复会失败。顺带修了 `PlayModeSceneGuard` 和 `PlayModeRuntimeEntrySceneBootstrap` 把测试框架的初始化场景换掉、PlayMode 测试从来跑不起来的问题。
 - [x] 打包版命令口：`-p3cmd` 启动后本机端口执行 `P3DevTools` 命令和截图（默认 640 宽）；客户端 `tools/agent/p3cmd.py`。
 - [x] 派活：`tools/agent/delegate.py` 把任务说明交给 Codex（本机配 DeepSeek）或 Claude Code headless，只回报告到 `tmp/agent_reports/`，改了文件会警告。
+  - 2026-10-17 改为用户级 Skill `delegate`（agent-hub）的包装：worker 链 DeepSeek → Gemini（限流自动换），`--mode read` 沙箱只读，`--lock` 互斥，超时连子进程一起结束，改动检测按运行前后比对并附 patch，P3 规则放 `tools/agent/delegate_rules.md`。
 - 合并到 main（99fd691，2026-10-17）。
 
 ### 战斗和背包手感、程序动效（2026-10-17，分支 `m5/feel-motion`）
