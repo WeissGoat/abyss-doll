@@ -40,9 +40,26 @@ def build(portrait):
     hair = np.clip(cv2.GaussianBlur((opaque & ~body).astype(np.float32), (0, 0), 6) * 1.4, 0, 1)
     column = smooth(0.08, 0.13, np.abs(xs - 0.49))
     hair_w = hair * smooth(0.17, 0.42, ys) * np.maximum(column, 1 - smooth(0.25, 0.32, ys))
+    hair_w = keep_main_masses(hair_w)
     skirt = (body & (ys > 0.45) & (ys < 0.70) & (r > 150)).astype(np.float32)
-    skirt_w = np.clip(cv2.GaussianBlur(skirt, (0, 0), 10), 0, 1) * smooth(0.52, 0.67, ys)
+    # Blurred for a soft bend, but held inside the dress (a little past it) so the knees below the hem stay put.
+    inside = cv2.GaussianBlur(cv2.dilate(skirt, np.ones((9, 9), np.uint8)), (0, 0), 3)
+    skirt_w = np.clip(cv2.GaussianBlur(skirt, (0, 0), 10), 0, 1) * smooth(0.52, 0.67, ys) * np.clip(inside * 1.5, 0, 1)
     return hair_w, skirt_w
+
+
+def keep_main_masses(weight):
+    """Drops small islands of weight (wounds, bandages, a hand in front of the cape) that are not the hanging hair."""
+    labels_count, labels, stats, _ = cv2.connectedComponentsWithStats((weight > 0.2).astype(np.uint8))
+    if labels_count <= 1:
+        return weight
+    largest = stats[1:, cv2.CC_STAT_AREA].max()
+    keep = np.zeros(weight.shape, np.float32)
+    for i in range(1, labels_count):
+        if stats[i, cv2.CC_STAT_AREA] >= largest * 0.15:
+            keep[labels == i] = 1
+    keep = cv2.GaussianBlur(cv2.dilate(keep, np.ones((15, 15), np.uint8)), (0, 0), 6)
+    return weight * np.clip(keep, 0, 1)
 
 
 def main():
