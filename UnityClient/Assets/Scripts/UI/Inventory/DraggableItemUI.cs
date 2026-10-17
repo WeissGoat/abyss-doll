@@ -486,7 +486,13 @@ public void OnEndDrag(PointerEventData eventData) {
     // No slot took the drop (released in the gap between cells or over another item), but the preview showed a
     // cell: drop there, so what the player saw is what happens.
     BackpackGrid grid = GameRoot.Core?.CurrentPlayer?.ActiveDoll?.RuntimeGrid as BackpackGrid;
-    if (previewSlot != null && grid != null && !grid.ContainedItems.Contains(ItemData) && previewSlot.TryPlace(this)) {
+    if (previewSlot != null && grid != null && !grid.ContainedItems.Contains(ItemData)) {
+        if (!previewSlot.TryPlace(this)) {
+            // Released over the backpack where it does not fit (the preview was red, e.g. over another item): back to
+            // where it was picked up. Left there it lay under the backpack grid, out of sight.
+            ReturnToOriginalPosition();
+        }
+
         _isDragging = false;
         return;
     }

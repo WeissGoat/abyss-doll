@@ -30,9 +30,9 @@ public static class PlayScenarioSupport {
         yield return null;
     }
 
-    // Wins a fight and opens the loot screen with one one-cell whetstone on offer and at least one item in the
+    // Wins a fight and opens the loot screen with one-cell whetstones on offer (count) and at least one item in the
     // backpack, whatever the save and the fight's own drop were (the drop can be any shape; the backpack can be empty).
-    public static IEnumerator OpenWhetstoneLoot(string nodeID) {
+    public static IEnumerator OpenWhetstoneLoot(string nodeID, int count = 1) {
         P3DevTools.GoTo("combat");
         yield return Until(() => GameRoot.Core.Combat.CurrentState == CombatState.PlayerTurn, 10f, "combat did not start");
         foreach (FighterEntity enemy in GameRoot.Core.Combat.EnemyFaction.Fighters) {
@@ -55,7 +55,10 @@ public static class PlayScenarioSupport {
         }
 
         CombatLootPickupResult offer = new CombatLootPickupResult { NodeID = nodeID };
-        offer.OfferedItems.Add(ConfigManager.CreateItem("gear_whetstone"));
+        for (int i = 0; i < count; i++) {
+            offer.OfferedItems.Add(ConfigManager.CreateItem("gear_whetstone"));
+        }
+
         GameFlowController.Instance.EnterCombatLoot(offer);
         yield return Until(() => GameObject.Find("CombatLootPanel_Runtime") != null, 5f, "no loot screen");
         yield return new WaitForSecondsRealtime(0.5f);

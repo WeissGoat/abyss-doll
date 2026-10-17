@@ -4,14 +4,16 @@ using UnityEngine.EventSystems;
 
 // Drags on the loot screen through Unity's own event system with a scripted mouse (ScriptedPointer), the way a
 // player's mouse does it: loot dropped on a free cell lands in the backpack; a backpack item dropped outside the
-// backpack stays in sight. Both used to vanish in the 2026-10-17 build.
+// backpack stays in sight; an item from outside dropped on another item goes back to where it was. All three used to
+// vanish in the 2026-10-17 builds.
 public static class RealDragPlayScenario {
     public static IEnumerator Run() {
         yield return PlayScenarioSupport.BootToWorkshop();
-        yield return PlayScenarioSupport.OpenWhetstoneLoot("play_scenario_real_drag");
+        yield return PlayScenarioSupport.OpenWhetstoneLoot("play_scenario_real_drag", 2);
 
         BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
         DraggableItemUI loot = null;
+        DraggableItemUI spare = null;
         DraggableItemUI packed = null;
         foreach (DraggableItemUI item in Object.FindObjectsOfType<DraggableItemUI>()) {
             if (!item.isActiveAndEnabled || item.ItemData == null) {
@@ -21,6 +23,7 @@ public static class RealDragPlayScenario {
             if (grid.ContainedItems.Contains(item.ItemData)) {
                 packed = packed ?? item;
             } else if (BackpackGrid.TryGetRotatedBounds(item.ItemData, item.ItemData.Grid.Rotation, out int cols, out int rows) && cols == 1 && rows == 1) {
+                spare = loot;
                 loot = item;
             }
         }
@@ -32,8 +35,8 @@ public static class RealDragPlayScenario {
             }
         }
 
-        if (loot == null || packed == null || free == null) {
-            Debug.LogError($"[RealDrag] Setup missing: 1x1 loot {loot != null}, packed item {packed != null}, free cell {free != null}.\n{P3DevTools.Describe()}");
+        if (loot == null || spare == null || packed == null || free == null) {
+            Debug.LogError($"[RealDrag] Setup missing: two 1x1 loot {loot != null && spare != null}, packed item {packed != null}, free cell {free != null}.\n{P3DevTools.Describe()}");
             yield break;
         }
 
@@ -58,6 +61,25 @@ public static class RealDragPlayScenario {
         string packedName = packed.ItemData.Name;
         yield return pointer.Drag(Center(packed.transform), outside);
         CheckInSight(packed, "backpack item dropped outside the backpack");
+
+        // 3. That item, now lying outside, and 4. the other loot, each dropped on a cell another item holds: both go
+        // back to where they were picked up.
+        GridSlotUI occupied = null;
+        foreach (GridSlotUI slot in Object.FindObjectsOfType<GridSlotUI>()) {
+            if (!slot.IsLocked && grid.GetItemAt(slot.X, slot.Y) != null) {
+                occupied = slot;
+            }
+        }
+
+        foreach (DraggableItemUI outsider in new[] { packed, spare }) {
+            Vector2 before = Center(outsider.transform);
+            yield return pointer.Drag(before, Center(occupied.transform));
+            if (grid.ContainedItems.Contains(outsider.ItemData) || (Center(outsider.transform) - before).magnitude > 2f) {
+                Debug.LogError($"[RealDrag] {outsider.ItemData.Name} dropped on occupied cell ({occupied.X},{occupied.Y}) did not go back to {before}. {Describe(outsider)}");
+            }
+
+            CheckInSight(outsider, "item from outside dropped on another item");
+        }
 
         pointer.Uninstall();
         Debug.Log($"[RealDrag] {loot.ItemData.Name} landed in ({free.X},{free.Y}); {packedName} outside the backpack: {Describe(packed)}.");
