@@ -79,6 +79,13 @@ public static class HomeEveningTest {
         SaveFile restored = SaveService.Deserialize(SaveService.Serialize(player));
         Check(restored.Player.DiveJournal.Count == 1 && restored.Player.DiveJournal[0].DefeatedEnemies.Count == 2 && restored.Player.DiveJournal[0].Shown, "journal lost in the save");
 
+        // Exactly a fifth of max HP lost in one fight counts as hurt (0.2f * 100 is a hair over 20 in float).
+        doll.Status.HP_Current = doll.Status.HP_Max;
+        DiveLogService.Begin(player, 1, false);
+        DiveLogService.RecordNode(new CombatNode(), "node_combat_icon");
+        DiveLogService.RecordCombat(new CombatOutcomeReport { OutcomeType = CombatOutcomeType.Victory, ActiveDollHP = doll.Status.HP_Max - doll.Status.HP_Max / 5 });
+        Check(DiveLogService.Current.Steps[0].Hurt, "a fifth of max HP lost is not marked hurt");
+
         if (failures.Count == 0) {
             Debug.Log("Home Evening PASSED.");
         } else {

@@ -110,7 +110,8 @@ public static class DiveLogService {
         DiveLogStep step = _current.Steps.Count > 0 ? _current.Steps[_current.Steps.Count - 1] : null;
         int hp = report.ActiveDollHP;
         _current.LowestHP = Math.Min(_current.LowestHP, hp);
-        if (step != null && _current.HPMax > 0 && _hpBeforeStep - hp >= _current.HPMax * HurtShare) {
+        // Whole HP points: 0.2f of 100 is a hair over 20 in float, so a 20-point hit would not count.
+        if (step != null && _current.HPMax > 0 && _hpBeforeStep - hp >= Math.Max(1, (int)Math.Round(_current.HPMax * HurtShare))) {
             step.Hurt = true;
         }
         _hpBeforeStep = hp;

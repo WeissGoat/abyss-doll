@@ -183,8 +183,10 @@ public class HomeJournalView : MonoBehaviour {
             _steps.Add(kind.gameObject);
 
             if (step.Hurt) {
-                Text cross = UITheme.CreateText(icon.transform, "Hurt_Text", "×", Mathf.RoundToInt(42f * scale), UITheme.Danger, TextAnchor.MiddleCenter);
-                UITheme.Stretch(cross.rectTransform);
+                // A red cross on the icon's corner, outlined so it reads on red and dark icons alike.
+                Text cross = UITheme.CreateText(icon.transform, "Hurt_Text", "×", Mathf.RoundToInt(46f * scale), UITheme.Danger, TextAnchor.MiddleCenter);
+                UITheme.Place(cross.rectTransform, new Vector2(1f, 1f), new Vector2(-4f * scale, -4f * scale), new Vector2(40f * scale, 40f * scale));
+                UITheme.AddBorder(cross, UITheme.OnAccent, 2f);
             }
         }
     }
