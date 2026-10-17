@@ -1,6 +1,6 @@
 """Hand a self-contained check to a cheaper worker agent with P3's worker rules; keep only its report.
 
-  python tools/agent/delegate.py <name> <brief.md | -> [--mode read|full] [--profile P] [--lock build] [--quiet] ...
+  python tools/agent/delegate.py <name> <brief.md | -> [--profile P] [--mode read|full] [--lock build] [--quiet] ...
   python tools/agent/delegate.py profiles | probe
 
 A thin wrapper around the user-level `delegate` skill (agent-hub): it adds --rules tools/agent/delegate_rules.md

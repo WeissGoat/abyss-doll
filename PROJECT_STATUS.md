@@ -150,7 +150,7 @@ M4 试玩的三个问题自动测试都没抓到（渲染层级、点击时序�
 - [x] 打包版命令口：`-p3cmd` 启动后本机端口执行 `P3DevTools` 命令和截图（默认 640 宽）；客户端 `tools/agent/p3cmd.py`。
 - [x] 派活：`tools/agent/delegate.py` 把任务说明交给 Codex（本机配 DeepSeek）或 Claude Code headless，只回报告到 `tmp/agent_reports/`，改了文件会警告。
   - 2026-10-17 改为用户级 Skill `delegate`（agent-hub）的包装：worker 链 DeepSeek → Gemini（限流自动换），`--mode read` 沙箱只读，`--lock` 互斥，超时连子进程一起结束，改动检测按运行前后比对并附 patch，P3 规则放 `tools/agent/delegate_rules.md`。
-  - 2026-10-17 profile 改为「壳/模型」（codex、claude、hermes 是内置引擎），默认链 codex/deepseek → codex/gemini → hermes/gemini；Hermes 装在 `~/.hermes`，只有完整模式，只读任务自动跳过。
+  - 2026-10-17 profile 改为「壳/模型」（codex、claude、hermes 是内置引擎），不写 `--profile` 时只用 codex/deepseek，需要时指定别的或逗号分隔写备选；Hermes 装在 `~/.hermes`，只有完整模式，只读任务自动跳过。
 - 合并到 main（99fd691，2026-10-17）。
 
 ### 战斗和背包手感、程序动效（2026-10-17，分支 `m5/feel-motion`）

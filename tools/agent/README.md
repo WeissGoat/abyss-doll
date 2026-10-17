@@ -33,7 +33,7 @@ python -m unittest tools.agent.tests.test_agent_health_check tools.agent.tests.t
 ## 驱动打包版和派活
 
 - `p3cmd.py`：以 `-p3cmd` 启动打包版（`launch`，默认最新的包），之后一行一条 `P3DevTools` 命令或 `screenshot` / `wait` / `quit`。
-- `delegate.py`：用户级 Skill `delegate`（在 agent-hub）的包装，把任务说明交给廉价 worker（按「壳/模型」选，默认链 codex/deepseek → codex/gemini → hermes/gemini），自动带上 `delegate_rules.md` 里的 P3 规则。报告、任务原文、worker 日志和改动 patch 都在 `tmp/agent_reports/`。`delegate.py profiles` 列出 worker，`delegate.py probe` 看谁现在能用。用法和 brief 写法见那个 Skill。
+- `delegate.py`：用户级 Skill `delegate`（在 agent-hub）的包装，把任务说明交给廉价 worker（默认 `codex/deepseek`，可用 `--profile <壳/模型>` 指定别的），自动带上 `delegate_rules.md` 里的 P3 规则。报告、任务原文、worker 日志和改动 patch 都在 `tmp/agent_reports/`。`delegate.py profiles` 列出 worker，`delegate.py probe` 看谁现在能用。用法和 brief 写法见那个 Skill。
 
 ## Unity 测试的兼容入口
 
