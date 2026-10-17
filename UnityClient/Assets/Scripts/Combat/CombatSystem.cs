@@ -13,6 +13,8 @@ public class CombatSystem {
     public CombatOutcomeReport LastOutcomeReport { get; private set; }
     public MonsterCombatModifierSystem MonsterRuntimeModifiers => _monsterRuntimeModifiers;
     public CombatTimelineRecorder Timeline => _timeline;
+    // Uses and charges of backpack items in this fight (CombatItemEffects).
+    public CombatItemLedger Items { get; } = new CombatItemLedger();
 
     private readonly MonsterActionRunner _monsterActionRunner = new MonsterActionRunner();
     private readonly MonsterActionRuntimeState _monsterActionState = new MonsterActionRuntimeState();
@@ -26,6 +28,7 @@ public class CombatSystem {
         _monsterActionState.Reset();
         _monsterRuntimeModifiers.Clear();
         _timeline.Reset();
+        Items.Reset();
 
         PlayerFaction = new CombatFaction { Type = FactionType.Player };
         PlayerFaction.Fighters.Add(new DollFighter(GameRoot.Core.CurrentPlayer.ActiveDoll, PlayerFaction));
@@ -115,13 +118,15 @@ public class CombatSystem {
             return true;
         }
 
+        // Items whose uses this fight are spent do not count.
+
         BackpackGrid grid = player.DataRef?.RuntimeGrid as BackpackGrid;
         if (grid?.ContainedItems == null) {
             return false;
         }
 
         foreach (ItemEntity item in grid.ContainedItems) {
-            if (item?.Combat != null && item.Combat.TriggerType == TriggerType.Manual.ToString() && item.Combat.APCost <= player.CurrentAP) {
+            if (item?.Combat != null && item.Combat.TriggerType == TriggerType.Manual.ToString() && item.Combat.APCost <= player.CurrentAP && CombatItemEffects.CanUse(item, out _)) {
                 return true;
             }
         }
@@ -146,6 +151,12 @@ public class CombatSystem {
 
         _timeline.RecordTurnEnded(FactionType.Enemy);
         CombatEventBus.Publish(CombatEventType.OnTurnEnd, EnemyFaction);
+
+        // Poison at their turn start or thorns during it can end the fight before Zero's turn comes.
+        if (!IsPlayerDefeated() && EnemyFaction.IsWipedOut()) {
+            HandleVictory();
+            return;
+        }
 
         if (!IsPlayerDefeated()) {
             StartPlayerTurn();

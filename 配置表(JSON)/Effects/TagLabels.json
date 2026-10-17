@@ -1,0 +1,25 @@
+{
+  "Note": "物品标签在提示里显示的中文名（相邻加成、充能、连动这类按标签生效的效果会写出来）。新加标签时在这里补一行；没写的直接显示英文标签。",
+  "Labels": {
+    "Weapon": "武器",
+    "Melee": "近战",
+    "Ranged": "远程",
+    "Heavy": "重型",
+    "Mechanical": "机械",
+    "Defense": "防御",
+    "Armor": "护甲",
+    "ArmorPlate": "甲片",
+    "Toxic": "毒",
+    "Spore": "孢子",
+    "Fungus": "菌类",
+    "Crystal": "晶体",
+    "Energy": "能量",
+    "Cursed": "诅咒",
+    "Relic": "遗物",
+    "Medical": "医疗",
+    "Consumable": "消耗品",
+    "Throwing": "投掷",
+    "Sharp": "利器",
+    "Support": "辅助"
+  }
+}

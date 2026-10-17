@@ -29,7 +29,7 @@ public static class GridSolver {
                 List<ItemEntity> targets = GetTargetItems(providerItem, effectData.Target, grid);
                 
                 foreach (var targetItem in targets) {
-                    effect.Apply(providerItem, targetItem);
+                    effect.ApplyInGrid(providerItem, targetItem, grid);
                 }
             }
         }
@@ -73,6 +73,15 @@ public static class GridSolver {
         }
 
         return targets;
+    }
+
+    // The items touching the provider in a direction (AllAdjacent when empty), as effects see them.
+    public static List<ItemEntity> Neighbors(ItemEntity provider, string direction, BackpackGrid grid) {
+        if (provider?.Grid?.CurrentPos == null || grid == null || !grid.ContainedItems.Contains(provider)) {
+            return new List<ItemEntity>();
+        }
+
+        return GetTargetItems(provider, string.IsNullOrEmpty(direction) ? TargetDirection.AllAdjacent.ToString() : direction, grid);
     }
 
     private static List<ItemEntity> GetTargetItems(ItemEntity provider, string targetDirectionStr, BackpackGrid grid) {

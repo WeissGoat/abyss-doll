@@ -112,6 +112,116 @@
           "Params[0] (string): 强制塞入的 ConfigID。注意，这里虽然是字符串，但在解析时由程序映射对应逻辑。"
         ]
       }
+    },
+    {
+      "EffectID": "ApplyStatus",
+      "Name": "给敌人叠层",
+      "Type": "Debuff",
+      "TriggerTiming": "OnUse / OnTurnStart",
+      "Description": "给敌人叠状态层。中毒：它的回合开始时按层数掉血，然后少一层。破甲：受到的伤害 ×1.5，它的回合结束时少一层。迟缓：造成的伤害 ×0.75（敌人意图上的数字会跟着变），它的回合结束时少一层。",
+      "ConfigSchema": {
+        "Status": "enum (必填): Poison(中毒) / Vulnerable(破甲) / Weak(迟缓)。",
+        "Target": "可选: 不填 = 只叠在这一击命中的敌人身上；AllEnemies = 所有敌人。",
+        "Trigger": "可选: 不填 = 使用时（武器命中、道具使用）；TurnStart = 被动，零号每回合开始给所有敌人叠。",
+        "Params": [
+          "Params[0] (int): 层数，至少 1。"
+        ]
+      }
+    },
+    {
+      "EffectID": "Thorns",
+      "Name": "反伤",
+      "Type": "Buff",
+      "TriggerTiming": "OnHit",
+      "Description": "零号有护盾时被怪物打中，攻击者受到固定伤害。每次命中一次。放在背包里就生效。",
+      "ConfigSchema": {
+        "Params": [
+          "Params[0] (int): 反伤值，至少 1。"
+        ]
+      }
+    },
+    {
+      "EffectID": "GainAP",
+      "Name": "回 AP",
+      "Type": "Buff",
+      "TriggerTiming": "OnUse / OnTurnStart / NeighborUse",
+      "Description": "给零号回 AP，不超过上限。",
+      "ConfigSchema": {
+        "Trigger": "可选: 不填 = 这件物品用过之后；TurnStart = 每回合开始；NeighborUse = 旁边的物品用过之后（配重块：重型武器用完回 1 AP）。",
+        "Target": "NeighborUse 时: 看哪一侧的邻居，Right / Left / Up / Down / AllAdjacent，不填 = 四周。随物品旋转。",
+        "Tag": "NeighborUse 时可选: 只有带这个标签的邻居才算，例如 Heavy。",
+        "Params": [
+          "Params[0] (int): AP，至少 1。"
+        ]
+      }
+    },
+    {
+      "EffectID": "ChargeNeighbor",
+      "Name": "给邻居充能",
+      "Type": "Buff",
+      "TriggerTiming": "OnUse",
+      "Description": "这件物品用过之后，旁边带某标签的物品下一击伤害提高。充能可以叠，用掉就没了，每场战斗重新开始。",
+      "ConfigSchema": {
+        "Target": "可选: 哪一侧的邻居，不填 = 四周。随物品旋转。",
+        "Tag": "可选: 只有带这个标签的邻居才充能，例如 Mechanical。",
+        "Params": [
+          "Params[0] (float): 下一击伤害加成，0.3 = +30%。"
+        ]
+      }
+    },
+    {
+      "EffectID": "PerAdjacentTag",
+      "Name": "按邻居计数加成",
+      "Type": "Buff",
+      "TriggerTiming": "Passive",
+      "Description": "四周每紧贴一件带某标签的物品，这件物品自己的伤害就加一点。用来做堆叠和阵型。",
+      "ConfigSchema": {
+        "Target": "必填: Self。",
+        "Tag": "建议填: 数哪种标签的邻居，不填 = 所有邻居都算。",
+        "Operation": "可选: AddPercent = 每件 +百分比；不填 = 每件 +固定点数。",
+        "Params": [
+          "Params[0] (float): 每件的加成。AddPercent 时 0.1 = +10%，否则是点数。"
+        ]
+      }
+    },
+    {
+      "EffectID": "UsesPerCombat",
+      "Name": "每场限用",
+      "Type": "Limit",
+      "TriggerTiming": "OnUse",
+      "Description": "每场战斗只能用几次（投掷物、一次性大招），下一场重新计数。提示里会显示还剩几次。",
+      "ConfigSchema": {
+        "Params": [
+          "Params[0] (int): 每场次数，至少 1。"
+        ]
+      }
+    },
+    {
+      "EffectID": "OnKill",
+      "Name": "击杀回报",
+      "Type": "Buff",
+      "TriggerTiming": "OnKill",
+      "Description": "用这件物品击倒敌人时，零号得到一些资源。",
+      "ConfigSchema": {
+        "Resource": "必填: HP / SAN / Shield / AP。",
+        "Params": [
+          "Params[0] (int): 数量，至少 1。"
+        ]
+      }
+    },
+    {
+      "EffectID": "SelfCost",
+      "Name": "使用代价",
+      "Type": "Cost",
+      "TriggerTiming": "OnUse",
+      "Description": "每次使用让零号付出代价，换更高的数值（诅咒换力）。HP 不会扣到 1 以下，也不经过护盾；侵蚀和污渍会带回家，在工作室照看时处理。",
+      "ConfigSchema": {
+        "Resource": "必填: HP / SAN / Corruption(侵蚀) / Grime(污渍，块数)。",
+        "Params": [
+          "Params[0] (int): 每次的代价，至少 1。"
+        ]
+      }
     }
-  ]
+  ],
+  "Note": "效果原语目录：配置物品时 Combat.Effects 里每一项的 EffectID 和字段写法。2026-10-18 新增 ApplyStatus、Thorns、GainAP、ChargeNeighbor、PerAdjacentTag、UsesPerCombat、OnKill、SelfCost（docs/specs/2026-10-17-content-expansion.md）。标签的中文名在 TagLabels.json。"
 }

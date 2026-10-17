@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class FighterEntity {
@@ -9,6 +10,8 @@ public abstract class FighterEntity {
 
     public int CurrentAP;
     public int MaxAP;
+    // 中毒、破甲、迟缓 stacks for this fight (CombatStatusService).
+    public readonly Dictionary<CombatStatusType, int> Statuses = new Dictionary<CombatStatusType, int>();
 
     public FighterEntity() {
         CombatEventBus.OnCombatPhase += HandleCombatPhase;
@@ -26,9 +29,13 @@ public abstract class FighterEntity {
         if (phase == CombatEventType.OnTurnStart) {
             RuntimeShield = 0;
             GameEventBus.PublishShieldChanged(Name, RuntimeShield);
+            CombatStatusService.TickTurnStart(this);
         }
 
         ProcessEffects(phase);
+        if (phase == CombatEventType.OnTurnEnd) {
+            CombatStatusService.TickTurnEnd(this);
+        }
     }
 
     protected abstract void ProcessEffects(CombatEventType phase);

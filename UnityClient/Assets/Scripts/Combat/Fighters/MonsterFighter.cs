@@ -30,10 +30,15 @@ public class MonsterFighter : FighterEntity {
         GameEventBus.PublishAttackAction(this, target, actionName);
         GameEventBus.PublishDamageDealt(Name, target.Name, damage);
 
+        // 迟缓 on the monster and 破甲 on Zero; the intent preview reads the same rule.
+        damage = CombatStatusService.ModifyDamage(this, target, damage);
         Debug.Log($"[{Name}] uses [{actionName}] on [{target.Name}] for {damage} damage.");
         int targetHPBefore = target.RuntimeHP;
         int targetShieldBefore = target.RuntimeShield;
         target.TakeDamage(damage);
+        if (target is DollFighter doll) {
+            CombatItemEffects.OnOwnerHit(doll, this, targetShieldBefore);
+        }
         GameRoot.Core?.Combat?.Timeline?.RecordDamage(
             ParentFaction != null ? ParentFaction.Type : FactionType.Enemy,
             Name,

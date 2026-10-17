@@ -816,7 +816,9 @@ public class HUDController : MonoBehaviour {
         nameLabel.alignment = TextAnchor.MiddleCenter;
         nameLabel.color = isAlive ? Color.white : new Color(0.65f, 0.65f, 0.65f, 0.92f);
         nameLabel.raycastTarget = false;
-        nameLabel.text = fighter != null ? fighter.Name : "未知敌人";
+        // Statuses on it (中毒 3 · 破甲 1) follow the name.
+        string statuses = isAlive ? CombatStatusService.Describe(fighter) : string.Empty;
+        nameLabel.text = (fighter != null ? fighter.Name : "未知敌人") + (string.IsNullOrEmpty(statuses) ? string.Empty : $"  <color=#B8E07A>{statuses}</color>");
         RectTransform nameRect = nameLabel.rectTransform;
         nameRect.anchorMin = new Vector2(0.5f, 0f);
         nameRect.anchorMax = new Vector2(0.5f, 0f);

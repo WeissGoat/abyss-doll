@@ -101,13 +101,20 @@ public class DollFighter : FighterEntity {
     
     public override void Attack(FighterEntity target, ItemEntity weaponSource) {
         if (weaponSource == null || weaponSource.Combat == null) return;
-        
+
+        if (!CombatItemEffects.CanUse(weaponSource, out string blocked)) {
+            Debug.LogWarning($"[{Name}] Cannot use {weaponSource.Name}: {blocked}");
+            return;
+        }
+
         if (!TrySpendAP(weaponSource.Combat.APCost, weaponSource.Name)) {
             return;
         }
 
+        ItemUseOutcome outcome = new ItemUseOutcome { User = this, Item = weaponSource, Target = target };
         if (weaponSource.Combat.DamageType == DamageType.Physical.ToString() || weaponSource.Combat.DamageType == DamageType.Energy.ToString()) {
-            int dmg = (int)weaponSource.Combat.RuntimeDamage;
+            // A neighbour's charge raises this strike once; 迟缓 on Zero and 破甲 on the target change it too.
+            int dmg = CombatStatusService.ModifyDamage(this, target, CombatItemEffects.StrikeDamage(weaponSource));
             GameEventBus.PublishAttackAction(this, target, weaponSource.Name);
             GameEventBus.PublishDamageDealt(Name, target.Name, dmg);
             Debug.Log($"[{Name}] attacks [{target.Name}] with {weaponSource.Name} for {dmg} damage! (AP Left: {CurrentAP})");
@@ -124,16 +131,21 @@ public class DollFighter : FighterEntity {
                 target.RuntimeHP,
                 targetShieldBefore,
                 target.RuntimeShield);
+            outcome.Damage = dmg;
+            outcome.Killed = targetHPBefore > 0 && target.RuntimeHP <= 0;
         }
         else if (weaponSource.Combat.DamageType == DamageType.Shield.ToString()) {
             GameEventBus.PublishAttackAction(this, this, weaponSource.Name);
             foreach (var effectData in weaponSource.Combat.Effects) {
                 EffectBase effect = EffectFactory.CreateEffect(effectData);
-                if (effect != null) {
+                // Turn-start effects on a shield wait for the turn start.
+                if (effect != null && effect.ListenEvent == CombatEventType.None) {
                     effect.ApplyToFighter(this, weaponSource);
                 }
             }
         }
+
+        CombatItemEffects.AfterUse(outcome);
     }
 
     private void SyncRuntimeHPToDoll() {

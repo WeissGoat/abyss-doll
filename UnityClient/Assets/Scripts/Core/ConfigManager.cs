@@ -68,6 +68,7 @@ public static class ConfigManager {
         LoadConfigsIntoDict(Path.Combine(basePath, "Scenes"), Scenes, s => s.SceneID);
         // 16. Home (Zero's lines at home)
         LoadHome(Path.Combine(basePath, "Home"));
+        ItemTagLabels.Load(Path.Combine(basePath, "Effects", "TagLabels.json"));
 
         Debug.Log($"[ConfigManager] Configs loaded successfully! Items: {Items.Count}, Monsters: {Monsters.Count}, Dungeons: {Dungeons.Count}, Rewards: {Rewards.Count}, Maintenance: {MaintenanceConfigs.Count}, Economy: {EconomyConfigs.Count}, Factions: {Factions.Count}, Orders: {Orders.Count}, Rumors: {Rumors.Count}, NarrativeNodes: {Narrative.NodeCount}, NarrativeTriggers: {Narrative.TriggerCount}");
     }

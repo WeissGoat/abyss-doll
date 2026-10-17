@@ -132,6 +132,13 @@ public static class MonsterIntentPreviewService {
         }
 
         FillTypedPreview(preview, actionType, action);
+        // The hit as it will land: 迟缓 on the monster, 破甲 on Zero (CombatStatusService).
+        FighterEntity zero = context.PlayerFaction?.Fighters != null && context.PlayerFaction.Fighters.Count > 0 ? context.PlayerFaction.Fighters[0] : null;
+        if (preview.IntentType == MonsterIntentType.Attack && preview.DamagePerHit > 0) {
+            preview.DamagePerHit = CombatStatusService.ModifyDamage(monster, zero, preview.DamagePerHit);
+            preview.EstimatedTotalDamage = preview.DamagePerHit * preview.RepeatCount;
+        }
+
         preview.CanExecute = EvaluateCanExecute(monster, context, action, out string blockReason);
         preview.BlockReason = blockReason;
         FillReadableText(preview, actionType);

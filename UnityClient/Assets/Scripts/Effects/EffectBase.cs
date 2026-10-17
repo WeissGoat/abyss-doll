@@ -10,6 +10,15 @@ public class ItemUseContext {
     public bool InSafeRoom;
 }
 
+// One use of a backpack item in a fight, after its damage or payload landed (CombatItemEffects.AfterUse).
+public class ItemUseOutcome {
+    public DollFighter User;
+    public ItemEntity Item;
+    public FighterEntity Target;
+    public int Damage;
+    public bool Killed;
+}
+
 public abstract class EffectBase {
     public string EffectID { get; protected set; }
     public int Level { get; protected set; }
@@ -36,6 +45,31 @@ public abstract class EffectBase {
     }
 
     public virtual void CollectModifiers(EffectModifierContext context, System.Collections.Generic.List<EffectModifier> output) {}
+
+    // Grid pass with the backpack at hand (GridSolver); by default the plain item-to-item Apply.
+    public virtual void ApplyInGrid(ItemEntity provider, ItemEntity target, BackpackGrid grid) {
+        Apply(provider, target);
+    }
+
+    // The item carrying this effect was just used in a fight (a weapon strike or an active item).
+    public virtual void OnItemUsed(ItemUseOutcome outcome, ItemEntity provider) {}
+
+    // An item next to the provider (in the effect's Target direction) was just used.
+    public virtual void OnNeighborUsed(ItemUseOutcome outcome, ItemEntity provider) {}
+
+    // Zero was hit by a monster while the provider sits in her backpack.
+    public virtual void OnOwnerHit(DollFighter owner, FighterEntity attacker, int shieldBefore, ItemEntity provider) {}
+
+    // False blocks using the provider right now (e.g. its uses this fight are spent).
+    public virtual bool AllowsUse(ItemEntity provider, out string reason) {
+        reason = string.Empty;
+        return true;
+    }
+
+    // One line for the item tooltip; empty when the use hint already says it.
+    public virtual string Describe(ItemEntity provider, int rotation) {
+        return string.Empty;
+    }
 
     public virtual void ValidateConfig(ConfigValidationReport report, string ownerID, EffectData data) {}
     

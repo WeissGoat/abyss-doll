@@ -161,6 +161,11 @@ public static class ItemUseService {
             return false;
         }
 
+        // Effects can hold an item back, e.g. its uses this fight are spent (UsesPerCombat).
+        if (!CombatItemEffects.CanUse(item, out failureReason)) {
+            return false;
+        }
+
         if (RequiresEnemyTargetSelection(item)) {
             if (combat.EnemyFaction.Fighters.Find(fighter => fighter.RuntimeHP > 0) == null) {
                 failureReason = "当前没有有效攻击目标。";
@@ -196,6 +201,8 @@ public static class ItemUseService {
 
         ApplyDirectItemPayload(item, context);
         ApplyConfiguredEffects(item, context);
+        // Before a consumable leaves the backpack, so its neighbours still see it.
+        CombatItemEffects.AfterUse(new ItemUseOutcome { User = playerFighter, Item = item });
         ConsumeItemAfterUse(item);
         GameEventBus.PublishTargetSelectionChanged($"{item.Name} 已使用。", false);
         combat.TryResolveVictoryAfterPlayerAction();

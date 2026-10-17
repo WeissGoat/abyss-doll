@@ -57,6 +57,10 @@ public class EffectData {
     public string Resource;
     public string Operation;
     public float[] Params;
+    // ApplyStatus: Poison / Vulnerable / Weak.
+    public string Status;
+    // PerAdjacentTag, ChargeNeighbor, GainAP on a neighbour's use: only items carrying this tag count.
+    public string Tag;
 }
 
 [Serializable]
@@ -153,7 +157,7 @@ public static class ItemPresentationRules {
 
         if (item.Combat?.Effects != null) {
             foreach (EffectData effect in item.Combat.Effects) {
-                string effectLine = DescribeEffect(effect, item.Grid?.Rotation ?? 0);
+                string effectLine = DescribeEffect(effect, item, item.Grid?.Rotation ?? 0);
                 if (!string.IsNullOrEmpty(effectLine)) {
                     lines.Add(effectLine);
                 }
@@ -217,7 +221,7 @@ public static class ItemPresentationRules {
     }
 
     // Effects the use hint does not already cover: adjacency boosts, per-turn shields and dive cost changes.
-    private static string DescribeEffect(EffectData effect, int rotation) {
+    private static string DescribeEffect(EffectData effect, ItemEntity item, int rotation) {
         if (effect?.Params == null || effect.Params.Length == 0) {
             return string.Empty;
         }
@@ -241,7 +245,8 @@ public static class ItemPresentationRules {
                         : $"{(value >= 0f ? "+" : string.Empty)}{Mathf.RoundToInt(value)}";
                 return $"放在背包里时，地图上每走一步 {resource} 消耗 {amount}";
             default:
-                return string.Empty;
+                // Newer effects describe themselves (EffectBase.Describe).
+                return EffectFactory.CreateEffect(effect)?.Describe(item, rotation) ?? string.Empty;
         }
     }
 
