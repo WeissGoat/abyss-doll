@@ -18,1520 +18,1830 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_daily_bill
     Sprite: {fileID: 21300000, guid: 6c8589ddf8d7b6afd9f90298e146cc33, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_doll_room_attic
     Sprite: {fileID: 21300000, guid: f89cea02d4a04d6399131f8b392c343e, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_dungeon_layer_1
     Sprite: {fileID: 21300000, guid: 0d09e86d55bd8ca42a4414af21152533, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_dungeon_layer_2
     Sprite: {fileID: 21300000, guid: d97572746edbde1459143e9e1e067c2c, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_dungeon_layer_3
     Sprite: {fileID: 21300000, guid: f9c27a4a6a17c544688ffa1b0e83b0ac, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_dungeon_map
     Sprite: {fileID: 21300000, guid: bf0d02e14b2b5ae4f92f4d0db3b25195, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_layer_select
     Sprite: {fileID: 21300000, guid: e605b2a3009a458496ce9860cdc38637, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_safe_room
     Sprite: {fileID: 21300000, guid: 10c89f8e180f41ab87a51ba53a9d3b1c, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_settlement_defeat
     Sprite: {fileID: 21300000, guid: 43164304c37e4012ad171582f85460d6, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_settlement_victory
     Sprite: {fileID: 21300000, guid: 9e90d1a747354fe29af2ffd7a5a774a2, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_shop_staging
     Sprite: {fileID: 21300000, guid: 3ce8c8268b8e92ba4dbfbd6e77a96d7d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_stairs_room
     Sprite: {fileID: 21300000, guid: 953d9b15c8b046019e6f893caea91589, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_t0_prologue_half_open_workshop
     Sprite: {fileID: 21300000, guid: 028f196eba867cb48bc02877f3be4690, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_town_shop
     Sprite: {fileID: 21300000, guid: 445644656d112b8d89012881573081ab, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_workshop_day
     Sprite: {fileID: 21300000, guid: d4646e83665d97143a2497d88d970f56, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_workshop_home_room
     Sprite: {fileID: 21300000, guid: 9cfd89cb1adbba360080d81dbcbf1905, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: bg_workshop_studio
     Sprite: {fileID: 21300000, guid: f53fe1ddb68511d98133fd33134c4b8e, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p01_wake_pov
     Sprite: {fileID: 21300000, guid: d39388fb2be76344389872657642c5a1, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p02_panel01_workshop_wide
     Sprite: {fileID: 21300000, guid: ebbc95f99fe904745aa9cacfb697dd03, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p02_panel02_debt_notice_door
     Sprite: {fileID: 21300000, guid: 46dc88b1db846d44a9554e986a3c166c, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p02_panel03_no0_hand_cloth
     Sprite: {fileID: 21300000, guid: f9e614380a5484747b5aa325722a592f, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p03_panel01_debt_notice_close
     Sprite: {fileID: 21300000, guid: 9cc55387fe1889a4f81863e6f18eba45, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p03_panel02_collateral_shadow
     Sprite: {fileID: 21300000, guid: d82f6c598dafe204ca7d73026e9697ed, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p03_panel03_broken_parts
     Sprite: {fileID: 21300000, guid: 1926ef1305d9554438c4187a380927fa, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p04_panel01_repair_note_close
     Sprite: {fileID: 21300000, guid: a1765807e8eb4fe41a88c72683001944, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p04_panel02_shallow_gate_glow
     Sprite: {fileID: 21300000, guid: bd6c67d0a98310d41bbc1c0f5ccf5932, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p04_panel03_core_shard_box
     Sprite: {fileID: 21300000, guid: c581eea449fc15340a2bfcbfd7b02ed9, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p05_panel01_broken_doll_parts
     Sprite: {fileID: 21300000, guid: 66a26b6e84492a44e9e13a6bf1f849e9, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p05_panel02_no0_half_reveal
     Sprite: {fileID: 21300000, guid: 5aaea4b0488f75f4f87a1b356f3241ba, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p05_panel03_no0_core_dim
     Sprite: {fileID: 21300000, guid: 05ce462e3e309e649a30ea5127b36a50, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p06_panel01_no0_close
     Sprite: {fileID: 21300000, guid: 74aa9367ec30f994da81305b294ff404, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: cg_t0_01a_p06_panel01_no0_close_motion
+    Sprite: {fileID: 0}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 32900000, guid: 1cca4653984b9764eaee6cd5e2ba4f8d, type: 3}
   - VisualID: cg_t0_01a_p06_panel02_core_insert
     Sprite: {fileID: 21300000, guid: a359e6da1a2fe8241ab84e156ec84cb9, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p06_panel03_core_wake
     Sprite: {fileID: 21300000, guid: 7e555ff8da73850418567d71ba53f1fa, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: chassis_bulwark_carrier_icon
     Sprite: {fileID: 21300000, guid: 9c93947f046f4cceb6e392eedad4c4b4, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: chassis_chassis_lv1_basic_frame
     Sprite: {fileID: 21300000, guid: 63f82b81c5d45f64c8dee20f3cb14653, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: chassis_chassis_lv2_expanded_frame
     Sprite: {fileID: 21300000, guid: 3684932b26b896646bd3ec32fb2c6786, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: chassis_compact_raider_icon
     Sprite: {fileID: 21300000, guid: 17bbcc8a60f948118d4104c3e1492786, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: chassis_standard_frame_icon
     Sprite: {fileID: 21300000, guid: 5913469da10c4249ad5597719fa0e3d3, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: doll_proto_0_stand
     Sprite: {fileID: 21300000, guid: 7c5cb18a26d36fb43aacd951755c2c42, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: doll_proto_0_stand_rig
     Sprite: {fileID: 21300000, guid: 01a177e696d76f44384946520fb45aab, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: doll_proto_0_t0_stand
     Sprite: {fileID: 21300000, guid: a3454647d76794c4ba18cee4c0185589, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: doll_zero_dialogue_command_ready
     Sprite: {fileID: 21300000, guid: 32cbf2a3ff24cb54f8380036b04aae85, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: doll_zero_dialogue_neutral
     Sprite: {fileID: 21300000, guid: 7d7b3a5d2f28634469b19bb5aa52664b, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: doll_zero_hurt
     Sprite: {fileID: 21300000, guid: fe73c64f6b4e0af41841e145308877e4, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: doll_zero_tired
     Sprite: {fileID: 21300000, guid: 228a15a8c6677bc479e9a430c72d88a5, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: faction_adventurer_guild_icon
     Sprite: {fileID: 21300000, guid: 31b2dc5d5d08446a970263dd1b076dbf, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: faction_alchemy_guild_icon
     Sprite: {fileID: 21300000, guid: 9327807d69824d5194d9708ee7267f3e, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: faction_black_market_icon
     Sprite: {fileID: 21300000, guid: 8abf2158ec0b47c78c2fd8e6cdc3f61e, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: faction_mage_tower_icon
     Sprite: {fileID: 21300000, guid: aa8c2aea303d4d2b8d4d56520b2f3dee, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: faction_mechanic_workshop_icon
     Sprite: {fileID: 21300000, guid: 358162bc058548cb9d0939dd4e9a1194, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_con_anchor_charm_icon
     Sprite: {fileID: 21300000, guid: 93cdc24568851a341a649fa2d8d5ac2a, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_con_cheap_sedative_icon
     Sprite: {fileID: 21300000, guid: 29739bdb727b71f4c9bd8e78f555b294, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_con_purifying_salt_icon
     Sprite: {fileID: 21300000, guid: df0815bbe82d0b343904360c00062825, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_con_repair_kit_icon
     Sprite: {fileID: 21300000, guid: 77d890d227ec6fc49a395801cdca5bc7, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_con_solvent_spray_icon
     Sprite: {fileID: 21300000, guid: b527865a9b8742d40a96dbd9e9aa48f5, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_con_stabilizer_ampoule_icon
     Sprite: {fileID: 21300000, guid: e532379905de66a47bef1bcc9d408e0e, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_chain_hook_icon
     Sprite: {fileID: 21300000, guid: 0af5705144b7e7c4ab42d6dc7c209746, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_chainsaw_sword_icon
     Sprite: {fileID: 21300000, guid: aa6bbf47d35011b4098fc236b5891da8, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_charge_pistol_icon
     Sprite: {fileID: 21300000, guid: 6db9cd25de115584cb689ea7f2fb0684, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_cog_amplifier_icon
     Sprite: {fileID: 21300000, guid: 0d12ebb905acc824b88a23dbca49dc3c, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_corroded_bulwark_icon
     Sprite: {fileID: 21300000, guid: 16d950f5889151b499534b937728670d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_focus_lens_icon
     Sprite: {fileID: 21300000, guid: 244d4b46c76c9774bbb2531a81cc27df, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_iron_armor_icon
     Sprite: {fileID: 21300000, guid: 3200e37c951ae3647afa4ec7967f7644, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_mycelium_cloak_icon
     Sprite: {fileID: 21300000, guid: c102730ceb9514b488e6777f36380409, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_rusty_dagger_icon
     Sprite: {fileID: 21300000, guid: 901a42b41e1f9d54389fa08312e02830, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_spore_lance_icon
     Sprite: {fileID: 21300000, guid: 8ada5931dd8e23c49b5e0958bc93fc17, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_tactical_blade_icon
     Sprite: {fileID: 21300000, guid: 5cc4668f52eedf64fafd443b0aeb6911, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_vein_sickle_icon
     Sprite: {fileID: 21300000, guid: 7f1df3edd38efce44a4dd915eb170575, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_whetstone_icon
     Sprite: {fileID: 21300000, guid: 117e0bd7bd8bd184497132f06f2eaded, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_wooden_shield_icon
     Sprite: {fileID: 21300000, guid: 28e07fe9a8c3bf24c805ce8c7fb4b964, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_loot_acid_gland_icon
     Sprite: {fileID: 21300000, guid: 5c54dfdb2aef3b5428dcfe19073f33f0, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_loot_corroded_nerve_icon
     Sprite: {fileID: 21300000, guid: 12cfca88330253f40a729d731ecc2e3c, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_loot_crystal_scale_icon
     Sprite: {fileID: 21300000, guid: 4eab0ff42117496459cc15fcfd81cef4, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_loot_gear_scrap_icon
     Sprite: {fileID: 21300000, guid: f69d79467a341ad4cb2689ef674a9852, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_loot_living_mycelium_icon
     Sprite: {fileID: 21300000, guid: ed8cc4b3c8e5d384da9b240938ce719d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_loot_rusty_coil_icon
     Sprite: {fileID: 21300000, guid: abff543d674d4f54f861e7a87a24ffea, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_loot_spore_amber_icon
     Sprite: {fileID: 21300000, guid: 540eed06ad774c2409460f60dc3ae010, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_loot_toxic_filter_icon
     Sprite: {fileID: 21300000, guid: c60b5c658e441c4498078226c2b26fe0, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_loot_vein_plate_icon
     Sprite: {fileID: 21300000, guid: 75321b466af94054d93ba150b031f0ee, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_loot_warped_plate_icon
     Sprite: {fileID: 21300000, guid: b51bc28114cfc9e45a9f0eea6b160412, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_mat_core_tier1_icon
     Sprite: {fileID: 21300000, guid: 621c87232e677394abda236b96c3ba63, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_mat_core_tier2_fragment_icon
     Sprite: {fileID: 21300000, guid: 55bed0ac95da1614d84fff40f5b55848, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_mat_core_tier3_seed_icon
     Sprite: {fileID: 21300000, guid: 0b86d3b8053dc5444942fce808e5737c, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_order_contested_spore_core_icon
     Sprite: {fileID: 21300000, guid: 025caaa281199b6449275593884bee46, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_order_live_spore_cage_icon
     Sprite: {fileID: 21300000, guid: 44b0f467623033a46a722dc25ab9e3e5, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_trade_luminous_fungus_icon
     Sprite: {fileID: 21300000, guid: d73bd777def26a549bf3a2db317b89d1, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_trade_sealed_relic_box_icon
     Sprite: {fileID: 21300000, guid: 66928255c0ea9404283b36d2e4a2fa0e, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_trade_singing_fossil_icon
     Sprite: {fileID: 21300000, guid: 7f56c92b46691c24bb645b15121d6ded, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_blackmarket_letter
     Sprite: {fileID: 21300000, guid: c6e78e2a57ab1d9153e942b158268f8d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_boss1_lamp
     Sprite: {fileID: 21300000, guid: 58e3a1b9e9c74c33939ed6773d5a99f1, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_debt_shadow_window
     Sprite: {fileID: 21300000, guid: 8f7225b40b2151e05bd61b38c18c7696, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_first_chassis_frame
     Sprite: {fileID: 21300000, guid: 7c0de27f698345c1b33631145bf0387d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_first_prosthetic_case
     Sprite: {fileID: 21300000, guid: 8d6498257b8f42958679e5db4aeeb0fc, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_first_repair_patch
     Sprite: {fileID: 21300000, guid: f9d5866b822e44f6998083ad7a22c4ac, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_first_return_tag
     Sprite: {fileID: 21300000, guid: 79d1c43c438f617a4a43e6f4b5ed6be4, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_layer2_corrosion_vial
     Sprite: {fileID: 21300000, guid: b85460608cd24086addb378fc9be7b04, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_low_san_blanket
     Sprite: {fileID: 21300000, guid: d46c1a40cb7faaba675c2aabb858a11d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_miracle_burn_mark
     Sprite: {fileID: 21300000, guid: 66f91c54fc834893892a9ba2d739ce07, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_pawn_empty_tag
     Sprite: {fileID: 21300000, guid: c03da6fd932f168a04b82a1c2d82937c, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_return_mark
     Sprite: {fileID: 21300000, guid: 03c43a9f64884d1d8a7c5a212fa0ea65, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_san_collapse_blanket
     Sprite: {fileID: 21300000, guid: 0073b38ba43842bfac25b48128a76ac0, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_truth_red_thread
     Sprite: {fileID: 21300000, guid: 565a91ae8f22fe27e4e33b75349de709, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: memento_wall_crack_first_defeat
     Sprite: {fileID: 21300000, guid: 9705b4ed3a5f7eebfc6929b2b2f211e7, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_boss_gatekeeper_mk1_combat
     Sprite: {fileID: 21300000, guid: adee805d6711ff44c9038a74e4f94b2b, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_boss_gatekeeper_mk1_portrait
     Sprite: {fileID: 21300000, guid: da5ab20a897838b499e52adbf431a4c0, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_boss_mycelium_oracle_combat
     Sprite: {fileID: 21300000, guid: e7760f4dddb61314db57aded89a7911d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_boss_mycelium_oracle_portrait
     Sprite: {fileID: 21300000, guid: 69e5e5f6d9d9c4349b90d9ba6b832a71, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_boss_spore_foundry_combat
     Sprite: {fileID: 21300000, guid: 6fb115be00f3f7244b65f80a3add8221, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_boss_spore_foundry_portrait
     Sprite: {fileID: 21300000, guid: a80912b4346d6a447bfcfe8343b7e869, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_elite_crystal_bulwark_combat
     Sprite: {fileID: 21300000, guid: 02361fe6f135a6642a42f2e8353f756f, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_elite_crystal_bulwark_portrait
     Sprite: {fileID: 21300000, guid: 54bb914ab5d89f244add8a1277c34383, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_elite_mutant_amalgam_combat
     Sprite: {fileID: 21300000, guid: 3544864628930b9478708af123dc02c7, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_elite_mutant_amalgam_portrait
     Sprite: {fileID: 21300000, guid: 6a0a6bfbb10a9ca40bb543889f1b2a7f, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_elite_scrap_guard_combat
     Sprite: {fileID: 21300000, guid: 3d6565972cbd4654496d999989f54f76, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_elite_scrap_guard_portrait
     Sprite: {fileID: 21300000, guid: 267d2283a122d9d4fa48fc09f4177179, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_elite_spore_matriarch_combat
     Sprite: {fileID: 21300000, guid: ea1efb592ed692243818e1117319b29d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_elite_spore_matriarch_portrait
     Sprite: {fileID: 21300000, guid: 8cbc60507be5cdf408999ad13de2fc64, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_elite_vein_knight_combat
     Sprite: {fileID: 21300000, guid: 2b71d8f882b71dd4685d314a332a32bd, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_elite_vein_knight_portrait
     Sprite: {fileID: 21300000, guid: 0cd013a8c27fd6d4d870ac7eff6fb620, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_acid_slime_combat
     Sprite: {fileID: 21300000, guid: e080de2616533cd45ad7b87678eb1fa6, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_acid_slime_mature_combat
     Sprite: {fileID: 21300000, guid: 40f0e70951e979146abd872f7a43b133, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_acid_slime_mature_portrait
     Sprite: {fileID: 21300000, guid: ca6716035c57cf94bb43c1b113b04ce8, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_acid_slime_portrait
     Sprite: {fileID: 21300000, guid: d2c515d7c7ab4da4ab1639da5b80dcd2, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_crystal_guard_combat
     Sprite: {fileID: 21300000, guid: 7f88789fa45b642429ada1af379cccda, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_crystal_guard_portrait
     Sprite: {fileID: 21300000, guid: 8434b06534d070e4f9e36ac247413071, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_echo_pilgrim_combat
     Sprite: {fileID: 21300000, guid: 6788d657488931b4a9c538382d1797dd, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_echo_pilgrim_portrait
     Sprite: {fileID: 21300000, guid: 17611fafa23718d43848099b764fb664, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_lost_miner_echo_combat
     Sprite: {fileID: 21300000, guid: feb474a4a92042f41bc1eca476e49a76, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_lost_miner_echo_portrait
     Sprite: {fileID: 21300000, guid: 5c86e3cccf8ca944193514068dfb5b3e, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_mycelium_crawler_combat
     Sprite: {fileID: 21300000, guid: f52fba2a7e650a048859d0fadaf55169, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_mycelium_crawler_portrait
     Sprite: {fileID: 21300000, guid: 7e024de3b6eea82459aa19944d984e4a, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_nerve_midge_swarm_combat
     Sprite: {fileID: 21300000, guid: 7ee9db416ad3b414f9cece852644b7eb, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_nerve_midge_swarm_portrait
     Sprite: {fileID: 21300000, guid: 6b7264174a13cf34ba32bc27e4ad7955, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_rust_cultivator_combat
     Sprite: {fileID: 21300000, guid: b96fb8c44a470f6428d5e6fc8f0deba4, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_rust_cultivator_portrait
     Sprite: {fileID: 21300000, guid: 66aaffe56d439ca40b76d6dd135597d1, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_rust_hound_combat
     Sprite: {fileID: 21300000, guid: f2d95000ef07b1d439666dc229d4cbbd, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_rust_hound_portrait
     Sprite: {fileID: 21300000, guid: 5aa0fdfb63c83b24a9179e9070f1497d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_scavenger_bug_combat
     Sprite: {fileID: 21300000, guid: 717ed721b90ac2c42abde4c3aad15fe5, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_scavenger_bug_portrait
     Sprite: {fileID: 21300000, guid: 1685f7401745f3a4bb4c6e147883eb02, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_shell_grafter_combat
     Sprite: {fileID: 21300000, guid: 01038aadfa9049340b19a8fe9d4a2225, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_shell_grafter_portrait
     Sprite: {fileID: 21300000, guid: 44aaa28901f3e1343b815a4dbfb8a078, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_soul_midge_swarm_combat
     Sprite: {fileID: 21300000, guid: e8dfadbe0418cda4a8e4d097c726e526, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_soul_midge_swarm_portrait
     Sprite: {fileID: 21300000, guid: 60e36e2c424fe2b458ecad0d5dc8594f, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_spore_archer_combat
     Sprite: {fileID: 21300000, guid: f271e562e2a6e754f8a72b7fda49d764, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_spore_archer_portrait
     Sprite: {fileID: 21300000, guid: 1df858e8d8a78e945a94480ac05f7005, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: node_boss_icon
     Sprite: {fileID: 21300000, guid: 973cc1b792a259742983ce66d4256d28, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: node_combat_icon
     Sprite: {fileID: 21300000, guid: e21cd38e8d91e6c4284c42ff47168ee1, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: node_eventnode_icon
     Sprite: {fileID: 21300000, guid: 9a41477901ad4b518e1ea8fbdc834a92, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: node_hazardnode_icon
     Sprite: {fileID: 21300000, guid: aeecd41bcb034e2f94524312c86296d9, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: node_reststopnode_icon
     Sprite: {fileID: 21300000, guid: 01f02e8fd6c74611a0d857c30190d50e, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: node_safe_room_icon
     Sprite: {fileID: 21300000, guid: c9ef0bac4f5c9924e8d1787825af3959, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: node_stairs_icon
     Sprite: {fileID: 21300000, guid: 2bd1baee5e8541f6b29ea40ff9917895, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: node_treasurenode_icon
     Sprite: {fileID: 21300000, guid: e77c55bc08d9458498f1c0eb6d5bc5ab, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_alchemy_antitoxin_contract_icon
     Sprite: {fileID: 21300000, guid: 105b5be17dbf49acaac1a7be712c9616, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_alchemy_market_forecast_icon
     Sprite: {fileID: 21300000, guid: a570ac367bf6466f890b2abbd6d58981, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_alchemy_purification_batch_icon
     Sprite: {fileID: 21300000, guid: 68d6d5127f45470da254ef80417c43c8, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_alchemy_spore_sample_fast_icon
     Sprite: {fileID: 21300000, guid: b7806bf58c004d3e953e25c5e55b2d3c, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_black_bound_core_betrayal_icon
     Sprite: {fileID: 21300000, guid: aef64d93f2e04984922c0c945df0b5c3, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_black_contested_core_buyout_icon
     Sprite: {fileID: 21300000, guid: 99fe3a491a9bf48fb06f79ea897cd299, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_black_forbidden_relic_buyout_icon
     Sprite: {fileID: 21300000, guid: 4379b429240f4ea6bec3799d0584c23d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_black_live_sample_no_questions_icon
     Sprite: {fileID: 21300000, guid: 160dfdc4b0f340b384ee09e55855830c, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_black_smuggled_route_key_icon
     Sprite: {fileID: 21300000, guid: 47bf096e1e2e41379c3f1e1a361008dd, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_blackmarket_relic_box_icon
     Sprite: {fileID: 21300000, guid: cdb475f7236161a16327536e9b3eeabb, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_crystal_scale_batch_icon
     Sprite: {fileID: 21300000, guid: d9590ee3854a902036f9a8c8128fec42, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_guild_layer1_map_rubbing_icon
     Sprite: {fileID: 21300000, guid: 8cc3cb35d86c4eb396c3466ba08c874d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_guild_layer2_route_report_icon
     Sprite: {fileID: 21300000, guid: 451765965c0242b384c7a546fa12ad9d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_guild_safezone_signal_icon
     Sprite: {fileID: 21300000, guid: a109f910a82047af91b3876762c7010e, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_mage_boss_core_research_icon
     Sprite: {fileID: 21300000, guid: 5ac03cc3bfc64cb6ae40ad56ff3ddcbc, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_mage_corroded_memory_stone_icon
     Sprite: {fileID: 21300000, guid: ef9f10129f134a6ea67cce74bc2b8d11, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_mage_live_slime_sample_icon
     Sprite: {fileID: 21300000, guid: 41f69f3b024b4520ba6333974e43ef71, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_mage_oracle_sample_icon
     Sprite: {fileID: 21300000, guid: e80224837ad77e6a434d78e84e9aa831, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_mage_unidentified_relic_icon
     Sprite: {fileID: 21300000, guid: 2dfb53c02e444f499da9a3283c66b103, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_spore_cage_procurement_icon
     Sprite: {fileID: 21300000, guid: 0d91236ceda80d37128c721afbe4aea4, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_status_boss_core_mutex_icon
     Sprite: {fileID: 21300000, guid: eb0e3b461a1c4e1ab2f7556abb5c03b2, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_status_deadline_warning_icon
     Sprite: {fileID: 21300000, guid: 7bf9a086781e45ea99e5afcf4ab6ce08, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_status_order_bound_icon
     Sprite: {fileID: 21300000, guid: 160f31f8d73c4401a9d9c1aae6def5dd, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_status_perishable_icon
     Sprite: {fileID: 21300000, guid: e1535c1813994a52a0323ce484d86987, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_type_black_market_betrayal_icon
     Sprite: {fileID: 21300000, guid: f841c32550f34188b23588885da4c2ce, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_type_exploration_report_icon
     Sprite: {fileID: 21300000, guid: ac777941150040059448328f8193976e, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_type_large_cargo_icon
     Sprite: {fileID: 21300000, guid: ac7f270846884d909f9a3782fa2e5b79, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_type_live_capture_icon
     Sprite: {fileID: 21300000, guid: 12d27c753f9f4230b89b73718ee525ec, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_type_procurement_icon
     Sprite: {fileID: 21300000, guid: 3ef90bb6699b4666a605929d524da9e6, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_type_target_item_icon
     Sprite: {fileID: 21300000, guid: e2aa443fdc76444395a0291acb63c028, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_workshop_boss_core_claim_icon
     Sprite: {fileID: 21300000, guid: 05e36c8e7d334fbf94a44233a0f89399, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_workshop_furnace_core_large_icon
     Sprite: {fileID: 21300000, guid: acf70b427719465cb60a5720f4ab5f8f, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_workshop_layer2_ore_batch_icon
     Sprite: {fileID: 21300000, guid: 4bf34d048858463ebed8d02e8fc3908c, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_workshop_scrap_guard_plate_icon
     Sprite: {fileID: 21300000, guid: dfd6b2c936bf46989f4f1d27ca726623, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: order_workshop_spore_core_frame_icon
     Sprite: {fileID: 21300000, guid: 7980f1251428e1829712eb6f98e2d149, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: prosthetic_anchor_left_arm_icon
     Sprite: {fileID: 21300000, guid: 04c2c5eb725d475d9246a836402e82b8, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: prosthetic_charge_coil_arm_icon
     Sprite: {fileID: 21300000, guid: dd136935f6da49f4a86a1cc2ca17e900, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: prosthetic_focus_lens_icon
     Sprite: {fileID: 21300000, guid: 46f14f876d0c48e8bddb37a1744bc21b, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: prosthetic_mender_spine_icon
     Sprite: {fileID: 21300000, guid: 8e276f5d17d646d18d8d4c1a0ce57c48, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: prosthetic_pros_cooling_system_icon
     Sprite: {fileID: 21300000, guid: 46ab8f20967f6ae4e88f242c89e8dbc3, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: prosthetic_pros_power_arm_icon
     Sprite: {fileID: 21300000, guid: a83b097faac650c40a737855e9463cbc, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: prosthetic_salvage_fingertips_icon
     Sprite: {fileID: 21300000, guid: c438676d097244bea6d1d5e99ae32b8a, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: prosthetic_san_regulator_core_icon
     Sprite: {fileID: 21300000, guid: 399d1ba2563449dc8f65d0090abdf64a, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_acid_gland_shortage_icon
     Sprite: {fileID: 21300000, guid: 32b8801525d396ec896cf0fc527677ef, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_contraband_night_channel_icon
     Sprite: {fileID: 21300000, guid: 034f487635d94288972a6a50f7f38114, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_corrosion_sample_premium_icon
     Sprite: {fileID: 21300000, guid: 6c66c5915bd44e82b1c4321e9288a681, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_crystal_scale_contract_icon
     Sprite: {fileID: 21300000, guid: e5d629c1fff03005dc1c2806181e3186, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_faction_medical_request_icon
     Sprite: {fileID: 21300000, guid: e645a4340efa4df1add6c9eb199e48c1, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_filter_shortage_icon
     Sprite: {fileID: 21300000, guid: 6d49ca019764177330bc2576000bfd41, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_living_mycelium_shortage_icon
     Sprite: {fileID: 21300000, guid: 55dafede05e158e5e6105ec49d953064, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_low_layer_bulk_buy_icon
     Sprite: {fileID: 21300000, guid: c6fedcedc0f0443a812016848dafd2f3, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_miner_lamps_icon
     Sprite: {fileID: 21300000, guid: b34eaeb77ad2a42633236587e01ed370, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_old_blades_icon
     Sprite: {fileID: 21300000, guid: 3bd391fb5e7c073d7a8f6b0c516dd1d3, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_oracle_fossil_collector_icon
     Sprite: {fileID: 21300000, guid: d9ea6ae5d99be8090e9cd98bb969dee4, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_origin_stone_demand_icon
     Sprite: {fileID: 21300000, guid: 0056b1d86b224504b7a1656464a314c5, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_scrap_workshop_shortage_icon
     Sprite: {fileID: 21300000, guid: 2b7e16d5b6ec4a12b1da28303ee3802f, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_slime_crash_icon
     Sprite: {fileID: 21300000, guid: ce0a6ee5c958406ea07523056f4b56d5, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_spore_amber_jeweler_icon
     Sprite: {fileID: 21300000, guid: f38fc04c5cfa30dcfe97f7064361abb8, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: rumor_weapon_collector_visit_icon
     Sprite: {fileID: 21300000, guid: 4e499743b5b34342aa5f4d35292d5fc1, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_button_danger
     Sprite: {fileID: 21300000, guid: 8fe002098fb64239bbc70ccefd7d3e82, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_button_primary
     Sprite: {fileID: 21300000, guid: e6c89ef5feb34ddc833c4c9e1edf7a7c, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_button_secondary
     Sprite: {fileID: 21300000, guid: 6b65f87286f94a1d92d74703b8144fe6, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_ap_pip
     Sprite: {fileID: 21300000, guid: 5a8c8ce0ae7546c28cbb5b5d9915acef, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_enemy_card
     Sprite: {fileID: 21300000, guid: cac4eb9e40894e608498f9d19aad3059, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_enemy_card_selected
     Sprite: {fileID: 21300000, guid: d4f9f3a82c8c4eddb51fa529b1ce9ee5, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_entity_shadow
     Sprite: {fileID: 21300000, guid: 0ab0623cce48e2e439a453bcff973ba0, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_feedback_echo_fade
     Sprite: {fileID: 21300000, guid: 6256b784baf3d917ab975bbeef7963d7, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_feedback_hit
     Sprite: {fileID: 21300000, guid: f2be271c9f214996ae71935348880c06, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_feedback_scrap_break
     Sprite: {fileID: 21300000, guid: 33074c9538f8fcb928aa94e1dacfc194, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_feedback_shield_break
     Sprite: {fileID: 21300000, guid: 825436855c844922b5ecee8028d5a4c1, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_feedback_slime_pop
     Sprite: {fileID: 21300000, guid: 0b5abcec55376779d51e9cea9b279921, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_grid_lock_marker
     Sprite: {fileID: 21300000, guid: a0721e0a8d1245e98920eaea3aeb2c5c, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_intent_add_junk
     Sprite: {fileID: 21300000, guid: fda63c4ee309419c8f74a7d197f555e9, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_intent_attack
     Sprite: {fileID: 21300000, guid: 28afaba7064f45df99da24b870939fe9, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_intent_buff
     Sprite: {fileID: 21300000, guid: c0c6c6dd2dd6452fa91af6a86f317406, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_intent_charge
     Sprite: {fileID: 21300000, guid: e7be4aa56888444da188ed8319864255, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_intent_debuff
     Sprite: {fileID: 21300000, guid: 8bfae2c1aa9f4c0396a7fef0c7a8b55b, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_intent_defend
     Sprite: {fileID: 21300000, guid: ec477a0e057a42078db787fef88e7365, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_intent_grid_lock
     Sprite: {fileID: 21300000, guid: fcff8be2b477488590bb48127fb133d2, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_intent_move_item
     Sprite: {fileID: 21300000, guid: 368d2e76b28c44f29dc58d76a0f73acc, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_intent_san_pressure
     Sprite: {fileID: 21300000, guid: 166282417d91466f9b5d65e9d7798cf9, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_intent_unknown
     Sprite: {fileID: 21300000, guid: 1f1361b0a4cd4cf19f4e07d5fb02788b, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_junk_preview_marker
     Sprite: {fileID: 21300000, guid: 4ba67212f65c49b69c6a0e1bfdbe7e4d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_status_bar_hp
     Sprite: {fileID: 21300000, guid: 513f6822037848c0812433f7a08a983a, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_status_bar_shield
     Sprite: {fileID: 21300000, guid: 7a53496ea52542e9a38ca0fda16d4721, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_status_corrosion
     Sprite: {fileID: 21300000, guid: 0cd961c9eb1f4da084674ca25ae762b1, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_status_curse
     Sprite: {fileID: 21300000, guid: 25d9879443f94ec7b9704e94bba39077, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_status_stun
     Sprite: {fileID: 21300000, guid: ccc57dbe7029422d93829553a38ff3b9, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_target_ring
     Sprite: {fileID: 21300000, guid: 955f75df56586734b85688f030fea13e, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_combat_turn_banner
     Sprite: {fileID: 21300000, guid: 74df9a558f5f4caead64bb95dc2403bf, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_dungeon_node_plate
     Sprite: {fileID: 21300000, guid: bb599e4dc86b473882a8e2fe1d7cd83b, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_dungeon_route_line
     Sprite: {fileID: 21300000, guid: ff42828efd064a839f313ae3e02a0699, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_bill
     Sprite: {fileID: 21300000, guid: ac35f991bad045f7b04172bafc92ec9e, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_black_market
     Sprite: {fileID: 21300000, guid: a3b116e233fd469d8bca95f7de2f56e8, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_blueprint
     Sprite: {fileID: 21300000, guid: 2813b2ad76144b0fa9c6b52f9f85c3d5, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_business_settlement
     Sprite: {fileID: 21300000, guid: ca5e400e809c429caca4536865df063b, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_chassis_upgrade
     Sprite: {fileID: 21300000, guid: d5c5e24696244276aaf4fa714f66709b, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_corruption_purify
     Sprite: {fileID: 21300000, guid: 42826e8e9b2b42bf8e7afb01ab5d8b0a, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_customer
     Sprite: {fileID: 21300000, guid: c2c1970a2d1142959c657fcdeaad553e, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_deadline
     Sprite: {fileID: 21300000, guid: 26751c7ada674f2293764eb598a0eca7, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_debt_rent
     Sprite: {fileID: 21300000, guid: 47de115f5cae45feb54018aae9ab8b9f, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_diary
     Sprite: {fileID: 21300000, guid: c2fe53fc7116493cabf31d55445614a9, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_dive_permit
     Sprite: {fileID: 21300000, guid: 2506d272e34f455ab6d239f85c8dd677, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_equipped
     Sprite: {fileID: 21300000, guid: ed0ff8a2272a4a0b9383a769035321b0, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_event
     Sprite: {fileID: 21300000, guid: b1339c9e1b3b7377eb55f1e006e94697, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_expense
     Sprite: {fileID: 21300000, guid: 7bed8526ed3943cda556518ef94b2ff1, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_faction
     Sprite: {fileID: 21300000, guid: 58d8a64d87974532a5e2131fb62a01a2, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_gift
     Sprite: {fileID: 21300000, guid: 91e61072128e12fc7fa8103bb418e10f, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_income
     Sprite: {fileID: 21300000, guid: 8b4030576fff4f008cbed11f59586446, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_locked
     Sprite: {fileID: 21300000, guid: 1a521e96c5dc4539b89a34bb525dc1f0, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_lore
     Sprite: {fileID: 21300000, guid: b70c00c073546894f2bf866e1dd17ed6, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_maintenance
     Sprite: {fileID: 21300000, guid: 8d02bad30fde4389ac63494d3f0ca740, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_material_need
     Sprite: {fileID: 21300000, guid: 26ca2e59bf4c459e943d6755fede19bf, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_memento
     Sprite: {fileID: 21300000, guid: fb9609fab16d99164012ecc27ee41b92, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_money
     Sprite: {fileID: 21300000, guid: 77cce56fc3cc4be6ac2ee73aaff33bcd, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_order
     Sprite: {fileID: 21300000, guid: ca3ea79d8abd41e2bfb074ba02f311b9, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_price_down
     Sprite: {fileID: 21300000, guid: 4ab486efafa94e75a23dfdca6e6cd763, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_price_up
     Sprite: {fileID: 21300000, guid: 4bcd5540947e48f6b6cdc051eca4c95b, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_reputation
     Sprite: {fileID: 21300000, guid: b3d11db13a0bed2fdce23d86740efaf3, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_rumor
     Sprite: {fileID: 21300000, guid: ea79238784ac4884b470cc24a7b6cf9b, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_sale_spark
     Sprite: {fileID: 21300000, guid: d3e8f11d36694ebba2d58d03cb119571, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_shop_channel
     Sprite: {fileID: 21300000, guid: 7f72dea6d44b4c9980f2c0b0c3a56979, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_skip
     Sprite: {fileID: 21300000, guid: 3c626302d2a550f9b83af088537bd389, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_talk
     Sprite: {fileID: 21300000, guid: ef2bce8fcf3ef40df904b95df76360ed, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_touch
     Sprite: {fileID: 21300000, guid: 2bbfe6e5bf23c776ea999e3809a65d7b, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_trust
     Sprite: {fileID: 21300000, guid: e823a33e3ed920a8d99c05117311f151, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_warning
     Sprite: {fileID: 21300000, guid: d39849aa2b024a80adabac006c44a720, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_icon_wear_repair
     Sprite: {fileID: 21300000, guid: 488bfc5516034e12ab081fe529640e82, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_inventory_chassis_panel
     Sprite: {fileID: 21300000, guid: ec40613962694e1f804ab09f4d0de05d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_inventory_slot_available
     Sprite: {fileID: 21300000, guid: e657c8a21dad46ea83c0fe8adf13516b, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_inventory_slot_hover
     Sprite: {fileID: 21300000, guid: b5d0d38313824f20a45a24e5c2bdb67d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_inventory_slot_invalid
     Sprite: {fileID: 21300000, guid: 0d3f8e43f99042288ea8df0cc1d9263a, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_inventory_slot_locked
     Sprite: {fileID: 21300000, guid: 49bcbaa2471f485c911b28625f9470a8, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_inventory_slot_valid
     Sprite: {fileID: 21300000, guid: e73f92ccf86c4d56a1a2b3e4c21f4b4d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_list_row_normal
     Sprite: {fileID: 21300000, guid: d98b7e3d61824a5d9466db644b646ef6, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_list_row_selected
     Sprite: {fileID: 21300000, guid: fa4b783eaff54cc3ac606ea13c5f326e, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_loot_drop_zone
     Sprite: {fileID: 21300000, guid: 38a9239b50fd4818bee71433a6c910fd, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_loot_pickup_panel
     Sprite: {fileID: 21300000, guid: 97cd1482546c4901b1ab767e501c3829, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_missing_sprite
     Sprite: {fileID: 21300000, guid: 9d73e26723da5af45a09e53a93363fba, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_panel_info
     Sprite: {fileID: 21300000, guid: 3141004e07fc466e869059f4db310c01, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_panel_main
     Sprite: {fileID: 21300000, guid: 32b941de492c4bac9cda8fb28b617c94, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_room_memento_slot
     Sprite: {fileID: 21300000, guid: fc5d2637c47748e9a4ee33569aea52ec, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_settlement_defeat_panel
     Sprite: {fileID: 21300000, guid: 9813ef89c1644c2db2a903f1a4a4c6b9, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_settlement_outcome_hp_defeat
     Sprite: {fileID: 21300000, guid: ae7778db27f94ee5b8f7590ccfe183f1, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_settlement_outcome_hp_san_defeat
     Sprite: {fileID: 21300000, guid: 1c4975a0f5e047289601ba38fd925e31, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_settlement_outcome_party_wipe
     Sprite: {fileID: 21300000, guid: 272ce704d5b24a4da29b9f13e8a84e60, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_settlement_outcome_san_collapse
     Sprite: {fileID: 21300000, guid: fe51ae2ae48d44269ea993a5f62fe362, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_settlement_outcome_victory
     Sprite: {fileID: 21300000, guid: 225591d56e7c4d90adfda8c4d852e088, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_settlement_victory_panel
     Sprite: {fileID: 21300000, guid: 0c219b9706c6410cb8d634ab327ae968, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: ui_title_divider
     Sprite: {fileID: 21300000, guid: 35f7cba31e0a433794a50744cf8dfd81, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   MissingSprite: {fileID: 21300000, guid: 9d73e26723da5af45a09e53a93363fba, type: 3}
   MissingPrefab: {fileID: 0}

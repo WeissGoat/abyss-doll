@@ -137,6 +137,17 @@ Approved 同步、Unity 导入和 Registry 登记走 `p3-art` 的 Approved gate�
 
 T0-01A 必须按 `19` 的截图清单产出 `t0_comic_p01_black_wake.png` 到 `t0_comic_p06_start_no0.png`，或按目标细案的最新截图清单执行。
 
+### 8. 动态 CG（可选）
+
+已入库的 CG 或漫画格可以配一段图生视频，播一次后停在最后一帧（`UIMotionCG`）。全屏 CG 和漫画格都支持；没有视频的 CG 照旧是静图（全屏的缓慢推近）。
+
+- 生成：用户级 skill `video-gen` + `h3-prompt`，输入图就是 Approved 里的这张 CG，先 dry-run 报价，用户同意后提交；候选放 `tmp/video_explore/`。
+- 入库：文件名 `<CG 的 VisualID>_motion.mp4`，放在 CG 旁边的 `Motion/` 目录。先重编码，再放进去：
+  `ffmpeg -i <候选>.mp4 -map_metadata -1 -map 0:v:0 -map 0:a:0 -c:v libx264 -profile:v baseline -level 4.0 -pix_fmt yuv420p -crf 18 -preset slow -c:a aac -ar 48000 -b:a 128k -movflags +faststart <VisualID>_motion.mp4`
+  原因：ComfyUI 的视频在元数据里带整份工作流和提示词，不去掉会随包发出去；High profile 在 Unity 里有时间戳警告，baseline 没有。
+- 然后重建 Registry（`Tools/P3 Art/Rebuild Approved Sprite Registry`，会一并登记视频）。
+- 验收：打包版里 `P3DevTools.ShowCG("<CG 或漫画页的 VisualID>")`，过一两秒 `MotionCG()` 看帧数在走；打包自检也会检查序章那段。Editor 的测试里视频常停在第 0 帧（Editor 没有焦点时），不能当证据。
+
 ## 状态声明口径
 
 按以下层级声明，不得越级。叙事层级在美术公开状态之上增加锚点和页级检查；每个 Panel 的美术状态以 `p3-art` / `p3-playtest` 的证据为准，叙事层级不能高于对应美术状态。

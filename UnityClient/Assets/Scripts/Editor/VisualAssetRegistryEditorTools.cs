@@ -59,6 +59,32 @@ public static class VisualAssetRegistryEditorTools {
             addedOrUpdated++;
         }
 
+        // Motion clips for CGs ("<cg visualID>_motion", see UIMotionCG), by file name like the sprites.
+        foreach (string guid in AssetDatabase.FindAssets("t:VideoClip", new[] { ApprovedArtFolder })) {
+            string assetPath = AssetDatabase.GUIDToAssetPath(guid);
+            UnityEngine.Video.VideoClip clip = AssetDatabase.LoadAssetAtPath<UnityEngine.Video.VideoClip>(assetPath);
+            if (clip == null) {
+                continue;
+            }
+
+            string visualID = Path.GetFileNameWithoutExtension(assetPath);
+            if (!existingEntries.TryGetValue(visualID, out VisualAssetEntry entry)) {
+                entry = new VisualAssetEntry { VisualID = visualID };
+                registry.Entries.Add(entry);
+                existingEntries.Add(visualID, entry);
+            }
+
+            entry.VideoClip = clip;
+            addedOrUpdated++;
+        }
+
+        // Entries whose files were deleted from Approved point at nothing; drop them.
+        int removed = registry.Entries.RemoveAll(entry => entry == null
+            || (entry.Sprite == null && entry.Prefab == null && entry.AudioClip == null && entry.Material == null && entry.VideoClip == null));
+        if (removed > 0) {
+            Debug.Log($"[VisualAssetRegistryEditorTools] Removed {removed} entries whose assets are gone.");
+        }
+
         registry.Entries.Sort((left, right) => string.Compare(left?.VisualID, right?.VisualID, StringComparison.Ordinal));
         registry.RebuildLookup();
         EditorUtility.SetDirty(registry);

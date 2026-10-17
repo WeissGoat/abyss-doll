@@ -445,10 +445,16 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         string visualID = ResolveDisplayVisualID(request.VisualID, request.FallbackVisualID);
         if (request.UseCover) {
             VisualUIHelper.ApplyCoverSprite(visualImage, visualID, Color.white, new Color(0.08f, 0.08f, 0.1f, 0.82f));
-            // Full-screen CG: a slow push-in; what grows past the edges is off screen anyway.
-            UIStillMotion.Attach(visualImage, UIStillMotion.Mode.PushIn);
+            // Full-screen CG: its motion clip if it has one, otherwise a slow push-in (what grows past the edges is
+            // off screen anyway).
+            if (UIMotionCG.Sync(visualImage, visualID) != null) {
+                UIStillMotion.Detach(visualImage);
+            } else {
+                UIStillMotion.Attach(visualImage, UIStillMotion.Mode.PushIn);
+            }
         } else {
             UIStillMotion.Detach(visualImage);
+            UIMotionCG.Sync(visualImage, null);
             VisualUIHelper.ApplySimpleSprite(visualImage, visualID, Color.white, new Color(0.08f, 0.08f, 0.1f, 0.82f), false);
         }
 
@@ -479,6 +485,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
 
     private void ApplyStageComposition(PrologueStageComposition composition) {
         SetComicPageActive(false);
+        UIMotionCG.Sync(visualImage, null);
         if (composition.BlackoutOnly) {
             VisualUIHelper.ApplySolidColor(visualImage, Color.black, false);
             stageVeilImage.gameObject.SetActive(false);
@@ -611,6 +618,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
             string visualID = ResolveDisplayVisualID(panel.VisualID, panel.FallbackVisualID);
             SetOffsets(image.rectTransform, new Vector2(12f, 12f), new Vector2(-12f, -12f));
             VisualUIHelper.ApplyCoverSprite(image, visualID, panel.RegisteredColor, panel.MissingColor);
+            UIMotionCG.Sync(image, visualID);
         }
 
         if (dialoguePanelImage != null) {

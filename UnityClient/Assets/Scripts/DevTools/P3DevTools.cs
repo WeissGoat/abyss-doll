@@ -560,6 +560,50 @@ public static class P3DevTools {
         return $"Added {item.Name} to the stash.\n" + Describe();
     }
 
+    // Shows a CG (or a prologue comic page, e.g. vfx_no0_core_start) in the dialogue overlay, the way a story line
+    // does; HideCG closes it. For checking art and CG motion clips on screen.
+    public static string ShowCG(string visualID) {
+        P3DialogueOverlayController overlay = UnityEngine.Object.FindObjectOfType<P3DialogueOverlayController>(true);
+        if (overlay == null) {
+            foreach (Canvas canvas in UnityEngine.Object.FindObjectsOfType<Canvas>()) {
+                if (canvas.isRootCanvas && canvas.renderMode == RenderMode.ScreenSpaceOverlay) {
+                    overlay = P3DialogueOverlayController.CreateUnder(canvas);
+                    break;
+                }
+            }
+        }
+
+        if (overlay == null) {
+            return "No dialogue overlay and no screen canvas.";
+        }
+
+        overlay.PresentLine(new NarrativeOverlayPayload {
+            SpeakerName = "DevTools",
+            Text = visualID,
+            VisualRequest = new NarrativeVisualRequest { VisualID = visualID }
+        });
+        return $"Showing {visualID}.\n" + MotionCG();
+    }
+
+    public static string HideCG() {
+        P3DialogueOverlayController overlay = UnityEngine.Object.FindObjectOfType<P3DialogueOverlayController>(true);
+        if (overlay != null) {
+            overlay.Hide();
+        }
+
+        return "CG hidden.";
+    }
+
+    // Every CG motion clip on screen: which clip, the frame it is on, whether it shows and has finished.
+    public static string MotionCG() {
+        StringBuilder text = new StringBuilder();
+        foreach (UIMotionCG motion in UnityEngine.Object.FindObjectsOfType<UIMotionCG>()) {
+            text.AppendLine($"{motion.name}: {(motion.Clip != null ? motion.Clip.name : "none")}, frame {motion.Frame}, shown {motion.FrameShown}, finished {motion.Finished}");
+        }
+
+        return text.Length > 0 ? text.ToString() : "No CG motion clips on screen.";
+    }
+
     public static string Heal() {
         DollEntity doll = GameRoot.Core.CurrentPlayer.ActiveDoll;
         doll.Status.HP_Current = doll.Status.HP_Max;

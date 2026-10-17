@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 [Serializable]
 public class VisualAssetEntry {
@@ -9,6 +10,7 @@ public class VisualAssetEntry {
     public GameObject Prefab;
     public AudioClip AudioClip;
     public Material Material;
+    public VideoClip VideoClip;
 }
 
 [CreateAssetMenu(menuName = "P3/Visual Asset Registry", fileName = "VisualAssetRegistry")]

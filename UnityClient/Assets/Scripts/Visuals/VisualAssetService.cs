@@ -140,6 +140,17 @@ public static class VisualAssetService {
         return false;
     }
 
+    public static bool TryGetVideo(string visualID, out UnityEngine.Video.VideoClip clip) {
+        clip = null;
+        VisualAssetRegistry registry = ResolveRegistry();
+        if (registry != null && registry.TryGetEntry(visualID, out var entry) && entry.VideoClip != null) {
+            clip = entry.VideoClip;
+            return true;
+        }
+
+        return false;
+    }
+
     public static AudioClip GetAudioClip(string visualID) {
         VisualAssetRegistry registry = ResolveRegistry();
         if (registry != null && registry.TryGetEntry(visualID, out var entry) && entry.AudioClip != null) {

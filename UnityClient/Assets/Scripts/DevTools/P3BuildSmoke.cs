@@ -70,6 +70,23 @@ public class P3BuildSmoke : MonoBehaviour {
         int firstTownDay = GameRoot.Core.CurrentPlayer.CurrentDay;
         yield return Capture("02_workshop");
 
+        // A CG motion clip decodes and plays in the build (the Editor's test runner cannot be trusted to): the
+        // prologue's "start Zero" page, whose close-up panel has a clip.
+        Note(P3DevTools.ShowCG("vfx_no0_core_start"));
+        yield return new WaitForSecondsRealtime(1.5f);
+        long motionFrame = -1;
+        foreach (UIMotionCG motion in FindObjectsOfType<UIMotionCG>()) {
+            if (motion.Clip != null && motion.FrameShown) {
+                motionFrame = Math.Max(motionFrame, motion.Frame);
+            }
+        }
+
+        bool motionPlayed = motionFrame >= 10;
+        Note($"[motion CG] frame {motionFrame} after 1.5 s: " + P3DevTools.MotionCG());
+        yield return Capture("02b_motion_cg");
+        Note(P3DevTools.HideCG());
+        yield return null;
+
         P3DevTools.Click(TownDayHUD.DiveLabel);
         yield return null;
         P3DevTools.Click("开始下潜");
@@ -127,9 +144,9 @@ public class P3BuildSmoke : MonoBehaviour {
 
         PlayerProfile player = GameRoot.Core.CurrentPlayer;
         // Every dive and every rest takes one day.
-        bool passed = prologueDone && !stuck && dives >= TargetDives && player.CurrentDay == firstTownDay + dives + rests;
+        bool passed = prologueDone && motionPlayed && !stuck && dives >= TargetDives && player.CurrentDay == firstTownDay + dives + rests;
         string verdict = $"{(passed ? "PASS" : "FAIL")}: prologue {(prologueDone ? "done" : "NOT FINISHED")} (town from day {firstTownDay}), {dives}/{TargetDives} dives, {rests} rest(s), day {player.CurrentDay}, money {player.Money} (night business net {soldTotal}G), "
-            + $"{Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
+            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
         Debug.Log("[P3BuildSmoke] " + verdict);
         File.WriteAllText(Path.Combine(_outDir, "P3Smoke.txt"), verdict + "\n\n" + _log);
         Application.Quit(passed ? 0 : 1);
