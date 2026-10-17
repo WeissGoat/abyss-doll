@@ -71,6 +71,9 @@ public static class SaveService {
         player.Showcase = player.Showcase ?? new List<ItemEntity>();
         player.LastDiveLoadout = player.LastDiveLoadout ?? new List<LoadoutSlotRecord>();
         player.DiveJournal = player.DiveJournal ?? new List<DiveLog>();
+        player.DoneWishes = player.DoneWishes ?? new List<string>();
+        player.Shelf = player.Shelf ?? new List<Memento>();
+        player.Milestones = player.Milestones ?? new List<string>();
         file.Backpack = file.Backpack ?? new List<ItemEntity>();
         return file;
     }

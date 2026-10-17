@@ -122,6 +122,14 @@ public class SafeRoomUIController : MonoBehaviour {
         itemHintText.text = lines.Count > 0
             ? "安全屋补给\n" + string.Join("\n", lines)
             : "安全屋补给\n当前背包里没有可用消耗品。";
+
+        // Bond 2: Zero says what she senses on the paths ahead.
+        if (BondService.Level(GameRoot.Core?.CurrentPlayer?.ActiveDoll) >= HomeLoop.HintLevel) {
+            string hint = HomeLoop.PathHint(_currentSafeRoomNode);
+            if (!string.IsNullOrEmpty(hint)) {
+                itemHintText.text = $"零号：「{hint}」\n" + itemHintText.text;
+            }
+        }
     }
 
     private void SetButtonLabel(Button button, string label) {

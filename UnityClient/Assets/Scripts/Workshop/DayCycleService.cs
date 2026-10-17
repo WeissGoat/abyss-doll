@@ -28,6 +28,10 @@ public class DayEndReport {
     public bool Bankrupt;
     // The dive's journal page (null on a rest day).
     public DiveLog DiveLog;
+    // Zero's wish: done today (a rest day), let go this morning, or new this morning (WishService).
+    public WishResult WishDone;
+    public WishConfig WishExpired;
+    public WishConfig NewWish;
 
     public MonthlyRentSettlementReport Rent => Economy?.MonthlyRentReport;
 }
@@ -157,6 +161,7 @@ public static class DayCycleService {
             GameEventBus.PublishSANChanged(doll.Name, doll.Status.SAN_Current, doll.Status.SAN_Max);
         }
 
+        report.WishDone = WishService.OnRest(player);
         FinishDay(player, report);
         Debug.Log($"[DayCycle] Rest on day {report.EndedDay}: HP {report.HPBefore}->{report.HPAfter}, SAN {report.SANBefore}->{report.SANAfter}.");
         return report;
@@ -255,6 +260,12 @@ public static class DayCycleService {
         report.WearAfter = doll?.Status.WearAndTear ?? 0f;
         report.CorruptionAfter = doll?.Status.Corruption ?? 0f;
         report.NewDay = player.CurrentDay;
+        if (report.Rent != null && report.Rent.Status == MonthlyRentSettlementStatus.Paid) {
+            MementoService.Milestone(player, "first_rent");
+        }
+
+        report.NewWish = WishService.Morning(player, out WishConfig expired);
+        report.WishExpired = expired;
         report.RentPending = player.HasPendingMonthlyRent;
         report.Bankrupt = TownEconomyService.IsBankrupt(player);
         PendingReport = report;

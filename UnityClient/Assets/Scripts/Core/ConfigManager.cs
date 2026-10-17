@@ -20,6 +20,8 @@ public static class ConfigManager {
     public static NarrativeConfigDatabase Narrative = new NarrativeConfigDatabase();
     public static Dictionary<string, SceneConfig> Scenes = new Dictionary<string, SceneConfig>();
     public static Dictionary<string, HomeLinePool> HomeLines = new Dictionary<string, HomeLinePool>();
+    public static List<WishConfig> Wishes = new List<WishConfig>();
+    public static List<MilestoneConfig> Milestones = new List<MilestoneConfig>();
 
     public static void LoadAllConfigs() {
         ResetAllCaches();
@@ -62,7 +64,7 @@ public static class ConfigManager {
         // 15. Scenes
         LoadConfigsIntoDict(Path.Combine(basePath, "Scenes"), Scenes, s => s.SceneID);
         // 16. Home (Zero's lines at home)
-        LoadConfigsIntoDict(Path.Combine(basePath, "Home"), HomeLines, h => h.PoolID);
+        LoadHome(Path.Combine(basePath, "Home"));
 
         Debug.Log($"[ConfigManager] Configs loaded successfully! Items: {Items.Count}, Monsters: {Monsters.Count}, Dungeons: {Dungeons.Count}, Rewards: {Rewards.Count}, Maintenance: {MaintenanceConfigs.Count}, Economy: {EconomyConfigs.Count}, Factions: {Factions.Count}, Orders: {Orders.Count}, Rumors: {Rumors.Count}, NarrativeNodes: {Narrative.NodeCount}, NarrativeTriggers: {Narrative.TriggerCount}");
     }
@@ -84,6 +86,8 @@ public static class ConfigManager {
         Narrative = new NarrativeConfigDatabase();
         Scenes.Clear();
         HomeLines.Clear();
+        Wishes.Clear();
+        Milestones.Clear();
     }
 
     private static void LoadConfigsIntoDict<K, T>(string dirPath, Dictionary<K, T> dict, System.Func<T, K> keySelector) {
@@ -102,6 +106,29 @@ public static class ConfigManager {
                         Debug.LogWarning($"[ConfigManager] Duplicate key found: {key} in {typeof(T).Name}");
                     }
                 }
+            } catch (System.Exception e) {
+                Debug.LogError($"[ConfigManager] Failed to load {file}: {e.Message}");
+            }
+        }
+    }
+
+    // Home files hold a line pool (PoolID + Lines) or the wish catalog (Wishes, Milestones).
+    private static void LoadHome(string dirPath) {
+        if (!Directory.Exists(dirPath)) return;
+
+        foreach (string file in Directory.GetFiles(dirPath, "*.json")) {
+            try {
+                HomeConfigFile home = JsonConvert.DeserializeObject<HomeConfigFile>(File.ReadAllText(file));
+                if (home == null) {
+                    continue;
+                }
+
+                if (!string.IsNullOrEmpty(home.PoolID)) {
+                    HomeLines[home.PoolID] = new HomeLinePool { PoolID = home.PoolID, Lines = home.Lines ?? new List<HomeLine>() };
+                }
+
+                if (home.Wishes != null) Wishes.AddRange(home.Wishes);
+                if (home.Milestones != null) Milestones.AddRange(home.Milestones);
             } catch (System.Exception e) {
                 Debug.LogError($"[ConfigManager] Failed to load {file}: {e.Message}");
             }

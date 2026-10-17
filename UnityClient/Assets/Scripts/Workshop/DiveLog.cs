@@ -40,6 +40,10 @@ public class DiveLog {
     public List<string> BroughtOutNames = new List<string>();
     public int Lost;
     public List<string> LostNames = new List<string>();
+    // Bond 3: she held on once against a lethal blow (one HP left).
+    public bool HeldOn;
+    // A wish this dive fulfilled: what she says at the door instead.
+    public string WishDoneLine;
     // The arrival page has been shown (it opens once, when Zero comes through the door).
     public bool Shown;
 }
@@ -220,6 +224,10 @@ public static class DiveLogService {
 
         if (log.HPMax > 0 && log.HPEnd >= log.HPMax) {
             facts.Add("unhurt");
+        }
+
+        if (log.HeldOn) {
+            facts.Add("held_on");
         }
 
         return facts;

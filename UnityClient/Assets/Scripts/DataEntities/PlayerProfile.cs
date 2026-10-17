@@ -35,6 +35,15 @@ public class PlayerProfile {
     public List<LoadoutSlotRecord> LastDiveLoadout = new List<LoadoutSlotRecord>();
     // The wall journal: one page per dive, newest last (DiveLogService).
     public List<DiveLog> DiveJournal = new List<DiveLog>();
+    // Zero's wish (WishService): the active one, when it appeared, when the last one ended or was done.
+    public string ActiveWishID;
+    public int WishSinceDay;
+    public int LastWishEndDay;
+    public int LastWishDoneDay;
+    public List<string> DoneWishes = new List<string>();
+    // The attic shelf (MementoService) and the milestones already put there.
+    public List<Memento> Shelf = new List<Memento>();
+    public List<string> Milestones = new List<string>();
     // Night phase (GDD_07 §3.1): after the day's dive or rest, before the business opens and the calendar moves on.
     public bool IsNight;
     // Night business (GDD_04): goods moved out of the stash into the dump box or the showcase (Grid.CurrentPos and

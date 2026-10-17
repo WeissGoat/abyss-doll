@@ -1,0 +1,22 @@
+{
+  "Note": "零号的小心愿和自动出现的纪念物。字段见 README。",
+  "Wishes": [
+    { "WishID": "wish_glow", "Text": "想要会发光的东西", "Hint": "带回来交给她", "Kind": "BringTag", "Tags": ["Energy", "Fungus", "Crystal"], "DoneLine": "……亮的。我会放在床头。" },
+    { "WishID": "wish_gear", "Text": "想要一个会转的小齿轮", "Hint": "带回来交给她", "Kind": "BringTag", "Tags": ["Mechanical"], "DoneLine": "它还能转。你听。" },
+    { "WishID": "wish_lamp", "Text": "想要以前矿井里的东西", "Hint": "带回来交给她", "Kind": "BringTag", "Tags": ["Memory"], "DoneLine": "……那里以前有灯。是这个吗？" },
+    { "WishID": "wish_camp", "Text": "想去营地坐一会儿", "Hint": "下潜时走到营地", "Kind": "VisitNode", "Param": "营地", "DoneLine": "火是暖的。下面也有暖的地方。" },
+    { "WishID": "wish_chest", "Text": "想打开一个箱子", "Hint": "下潜时走到宝藏", "Kind": "VisitNode", "Param": "宝藏", "DoneLine": "箱子打开的声音，我喜欢。" },
+    { "WishID": "wish_voice", "Text": "想听听下面别的声音", "Hint": "下潜时走到事件", "Kind": "VisitNode", "Param": "事件", "DoneLine": "下面不只有怪物的声音。" },
+    { "WishID": "wish_layer2", "Text": "想看看第二层的光", "Hint": "下潜到第 2 层", "Kind": "ReachLayer", "Param": "2", "MinDay": 5, "DoneLine": "第二层的光，是会动的。真的。" },
+    { "WishID": "wish_boss", "Text": "想看那个大家伙倒下", "Hint": "打倒这一层的首领", "Kind": "BossDefeated", "MinDay": 4, "DoneLine": "它倒下了。我们说到做到。" },
+    { "WishID": "wish_unhurt", "Text": "想安安静静地走一趟", "Hint": "下潜一次，一点都不受伤", "Kind": "Unhurt", "DoneLine": "一次都没疼。今天真好。" },
+    { "WishID": "wish_sleep", "Text": "想睡一整天", "Hint": "休息一天", "Kind": "Rest", "DoneLine": "睡了好久。……谢谢。" },
+    { "WishID": "wish_clean", "Text": "想干干净净的", "Hint": "去工作室把她擦干净", "Kind": "Clean", "DoneLine": "干净了。像新的一样。" }
+  ],
+  "Milestones": [
+    { "MilestoneID": "first_boss", "Name": "守门者的齿片", "IconID": "node_boss_icon", "Line": "守在最下面的那个。我们赢了。" },
+    { "MilestoneID": "first_defeat", "Name": "墙上的裂痕", "IconID": "ui_icon_warning", "Line": "那天我倒下了。……这道裂痕修不好。" },
+    { "MilestoneID": "first_rent", "Name": "第一张房租收据", "IconID": "ui_icon_bill", "Line": "这里还是我们的。" },
+    { "MilestoneID": "first_wish", "Name": "第一个心愿", "IconID": "ui_icon_gift", "Line": "你记得我想要的东西。" }
+  ]
+}

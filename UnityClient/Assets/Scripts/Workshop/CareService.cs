@@ -98,6 +98,17 @@ public static class CareService {
         return true;
     }
 
+    // A smudge wiped by the player: also the clean-up wish, when that was the last one.
+    public static bool Wipe(PlayerProfile player, out BondChange bond, out WishResult wish) {
+        wish = null;
+        bool wiped = Wipe(player?.ActiveDoll, out bond);
+        if (wiped) {
+            wish = WishService.OnClean(player);
+        }
+
+        return wiped;
+    }
+
     // How many marks of a kind show: smudges one by one, cracks and haze by band (30 / 60 / 90).
     public static int Count(DollEntity doll, CareMarkKind kind) {
         if (doll?.Status == null) {

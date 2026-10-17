@@ -23,6 +23,7 @@ public class StudioCareView : MonoBehaviour {
     private readonly List<GameObject> _marks = new List<GameObject>();
     private Text _hint;
     private Text _bondText;
+    private Text _nextText;
     private Image _bondFill;
     private GameObject _popover;
     private Text _popoverTitle;
@@ -74,6 +75,7 @@ public class StudioCareView : MonoBehaviour {
         int level = BondService.Level(doll);
         int needed = BondService.Needed(doll);
         _bondText.text = needed > 0 ? $"羁绊 {level} 级  {BondService.Points(doll)}/{needed}" : $"羁绊 {level} 级";
+        _nextText.text = level < BondService.MaxLevel ? $"下一级：{HomeLoop.UnlockText(level + 1)}" : "她很信任你。";
         _bondFill.fillAmount = needed > 0 ? (float)BondService.Points(doll) / needed : 1f;
 
         if (_popover.activeSelf) {
@@ -108,10 +110,10 @@ public class StudioCareView : MonoBehaviour {
 
     // A smudge rubbed away (GrimeSpot calls this once it is gone).
     public void Wiped() {
-        DollEntity doll = GameRoot.Core?.CurrentPlayer?.ActiveDoll;
-        if (CareService.Wipe(doll, out BondChange bond)) {
+        if (CareService.Wipe(GameRoot.Core?.CurrentPlayer, out BondChange bond, out WishResult wish)) {
             GameAudio.PlaySfx("click");
             AnnounceBond(bond);
+            HomeWishView.AnnounceWish(wish);
         }
 
         Refresh();
@@ -182,7 +184,7 @@ public class StudioCareView : MonoBehaviour {
 
     public static void AnnounceBond(BondChange bond) {
         if (bond != null && bond.LeveledUp) {
-            PlayerToast.Show($"和零号的羁绊到了 {bond.LevelAfter} 级。", PlayerToastKind.Success);
+            PlayerToast.Show($"和零号的羁绊到了 {bond.LevelAfter} 级：{HomeLoop.UnlockText(bond.LevelAfter)}。", PlayerToastKind.Success);
         }
     }
 
@@ -192,7 +194,7 @@ public class StudioCareView : MonoBehaviour {
         RectTransform plateRect = plate.rectTransform;
         plateRect.anchorMin = plateRect.anchorMax = plateRect.pivot = new Vector2(0f, 1f);
         plateRect.anchoredPosition = new Vector2(24f, -152f);
-        plateRect.sizeDelta = new Vector2(500f, 92f);
+        plateRect.sizeDelta = new Vector2(560f, 120f);
         plate.raycastTarget = false;
         _bondText = UITheme.CreateText(plate.transform, "Bond_Text", string.Empty, UITheme.BodySize - 2, UITheme.Accent);
         RectTransform bondRect = _bondText.rectTransform;
@@ -203,7 +205,12 @@ public class StudioCareView : MonoBehaviour {
         RectTransform trackRect = track.rectTransform;
         trackRect.anchorMin = trackRect.anchorMax = trackRect.pivot = new Vector2(1f, 1f);
         trackRect.anchoredPosition = new Vector2(-22f, -22f);
-        trackRect.sizeDelta = new Vector2(200f, 14f);
+        trackRect.sizeDelta = new Vector2(240f, 14f);
+        _nextText = UITheme.CreateText(plate.transform, "BondNext_Text", string.Empty, UITheme.CaptionSize - 2, UITheme.TextPrimary);
+        RectTransform nextRect = _nextText.rectTransform;
+        nextRect.anchorMin = nextRect.anchorMax = nextRect.pivot = new Vector2(0f, 1f);
+        nextRect.anchoredPosition = new Vector2(22f, -46f);
+        nextRect.sizeDelta = new Vector2(520f, 28f);
         _bondFill = UITheme.CreatePanel(track.transform, "BondFill", UITheme.Accent);
         UITheme.Stretch(_bondFill.rectTransform);
         _bondFill.sprite = CareMarkSprites.Solid;
@@ -213,7 +220,7 @@ public class StudioCareView : MonoBehaviour {
         RectTransform hintRect = _hint.rectTransform;
         hintRect.anchorMin = hintRect.anchorMax = hintRect.pivot = new Vector2(0f, 0f);
         hintRect.anchoredPosition = new Vector2(22f, 10f);
-        hintRect.sizeDelta = new Vector2(460f, 30f);
+        hintRect.sizeDelta = new Vector2(520f, 30f);
 
         Image popover = UITheme.CreatePanel(transform, "TreatmentPopover", UITheme.Panel);
         UITheme.ApplyBoardSkin(popover, VisualAssetService.UIPanelMainID);

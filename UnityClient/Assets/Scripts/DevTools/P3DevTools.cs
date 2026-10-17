@@ -28,7 +28,8 @@ public static class P3DevTools {
                 + (rooms.Journal.IsShowing ? (rooms.Journal.IsArrival ? ", journal page (arrival)" : ", wall journal") : string.Empty)
                 + (rooms.NightTalk.IsShowing ? ", night talk" : string.Empty));
             DollEntity zero = GameRoot.Core.CurrentPlayer.ActiveDoll;
-            sb.AppendLine($"Zero: grime {CareService.Count(zero, CareMarkKind.Grime)}, cracks {CareService.Count(zero, CareMarkKind.Crack)}, haze {CareService.Count(zero, CareMarkKind.Haze)}, bond {BondService.Level(zero)} ({BondService.Points(zero)}/{BondService.Needed(zero)})");
+            sb.AppendLine($"Zero: grime {CareService.Count(zero, CareMarkKind.Grime)}, cracks {CareService.Count(zero, CareMarkKind.Crack)}, haze {CareService.Count(zero, CareMarkKind.Haze)}, bond {BondService.Level(zero)} ({BondService.Points(zero)}/{BondService.Needed(zero)}), "
+                + $"wish {WishService.Active(GameRoot.Core.CurrentPlayer)?.Text ?? "none"}, shelf {GameRoot.Core.CurrentPlayer.Shelf?.Count ?? 0}");
         }
 
         P3DialogueOverlayController overlay = FindOverlay();

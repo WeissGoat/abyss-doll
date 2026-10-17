@@ -19,6 +19,7 @@ public class HomeRoomNavigator : MonoBehaviour {
     public const string DoorLabel = "出门 · 补给铺";
     public const string BedLabel = "床 · 休息";
     public const string JournalLabel = "墙上的手账";
+    public const string ShelfLabel = "架子 · 纪念物";
     private const string StudioBackgroundID = "bg_workshop_studio";
     private const string AtticBackgroundID = "bg_workshop_home_room";
     private const string DollVisualID = "doll_proto_0_stand";
@@ -33,6 +34,8 @@ public class HomeRoomNavigator : MonoBehaviour {
     private Button _journalTag;
     private HomeJournalView _journal;
     private HomeNightTalkView _nightTalk;
+    private HomeWishView _wish;
+    private HomeShelfView _shelf;
     private GameObject _tabBar;
     private readonly System.Collections.Generic.List<Button> _hallTags = new System.Collections.Generic.List<Button>();
     private readonly System.Collections.Generic.List<Button> _atticTags = new System.Collections.Generic.List<Button>();
@@ -46,6 +49,8 @@ public class HomeRoomNavigator : MonoBehaviour {
     public StudioCareView Care => _care;
     public HomeJournalView Journal => _journal;
     public HomeNightTalkView NightTalk => _nightTalk;
+    public HomeWishView Wish => _wish;
+    public HomeShelfView Shelf => _shelf;
 
     public static HomeRoomNavigator Ensure(Transform workshopRoot, WorkshopUIController workshop) {
         Transform existing = workshopRoot.Find(RootName);
@@ -110,6 +115,7 @@ public class HomeRoomNavigator : MonoBehaviour {
             tag.gameObject.SetActive(!reading);
         }
         _journalTag.gameObject.SetActive(!reading && player?.DiveJournal != null && player.DiveJournal.Count > 0);
+        _wish.Refresh(reading);
         _tabBar.SetActive(!_nightTalk.IsShowing);
         foreach (Button tag in _atticTags) {
             tag.gameObject.SetActive(!_nightTalk.IsShowing);
@@ -126,10 +132,14 @@ public class HomeRoomNavigator : MonoBehaviour {
         _hallTags.Add(CreateTag(_hallLayer.transform, "Counter_Tag", CounterLabel, "摆货、营业、出售", new Vector2(600f, -40f), OpenCounter));
         _hallTags.Add(CreateTag(_hallLayer.transform, "Door_Tag", DoorLabel, "买修复剂和镇静剂", new Vector2(760f, -330f), () => _workshop?.OpenSupplyShop()));
         _hallTags.Add(CreateTag(_hallLayer.transform, "StudioDoor_Tag", "去工作室", "改装与维护", new Vector2(140f, 150f), () => Show(HomeRoom.Studio)));
-        _hallTags.Add(CreateTag(_hallLayer.transform, "Stairs_Tag", "上阁楼", "零号的房间", new Vector2(-140f, 330f), () => Show(HomeRoom.Attic)));
+        _hallTags.Add(CreateTag(_hallLayer.transform, "Stairs_Tag", "上阁楼", "零号的房间", new Vector2(60f, 340f), () => Show(HomeRoom.Attic)));
         _journalTag = CreateTag(_hallLayer.transform, "Journal_Tag", JournalLabel, "以前的每一次下潜", new Vector2(-60f, -10f), () => _journal.OpenJournal());
         _hallTags.Add(_journalTag);
         _journal = HomeJournalView.Create(_hallLayer.transform, () => ShowStudio(StudioTab.Maintenance), _ => Refresh());
+        _wish = HomeWishView.Create(_hallLayer.transform, transform, () => {
+            Refresh();
+            _workshop?.RefreshUI();
+        });
 
         _studioRoom = CreateRoom("StudioRoom", StudioBackgroundID, new Vector2(-600f, -100f), new Vector2(540f, 810f));
         _bench = StudioBenchView.Create(_studioRoom.transform, () => {
@@ -146,9 +156,11 @@ public class HomeRoomNavigator : MonoBehaviour {
         _bedHint = bed.transform.Find("Hint_Text").GetComponent<Text>();
         _atticTags.Add(bed);
         _atticTags.Add(CreateTag(_atticRoom.transform, "Ladder_Tag", "下楼 · 大厅", "回到店面", new Vector2(-420f, -330f), () => Show(HomeRoom.Hall)));
+        _atticTags.Add(CreateTag(_atticRoom.transform, "Shelf_Tag", ShelfLabel, "她留着的东西", new Vector2(-360f, 140f), () => _shelf.Show()));
 
         BuildTabs();
         _nightTalk = HomeNightTalkView.Create(transform);
+        _shelf = HomeShelfView.Create(transform, transform, () => _workshop?.RefreshUI());
 
         _fade = UITheme.CreatePanel(transform, "RoomFade_Image", new Color(0.1f, 0.06f, 0.03f, 0f));
         UITheme.Stretch(_fade.rectTransform);
@@ -170,6 +182,14 @@ public class HomeRoomNavigator : MonoBehaviour {
         _nightTalk.Show(report, () => {
             Show(HomeRoom.Hall);
             Refresh();
+            if (report.WishExpired != null) {
+                PlayerToast.Show("零号：「算了，下次吧。」", PlayerToastKind.Info);
+            }
+
+            if (report.NewWish != null) {
+                PlayerToast.Show($"零号有一个小心愿：{report.NewWish.Text}。", PlayerToastKind.Info);
+            }
+
             onGoodnight?.Invoke();
         });
         Refresh();

@@ -42,12 +42,22 @@ public static class ZeroLineService {
         return top[((day % top.Count) + top.Count) % top.Count].Text;
     }
 
+    // A wish the dive fulfilled speaks first; otherwise the most memorable thing of the dive.
     public static string ArrivalLine(DiveLog log) {
-        return log == null ? string.Empty : Pick(ArrivalPool, DiveLogService.Facts(log), log.Day);
+        if (log == null) {
+            return string.Empty;
+        }
+
+        return !string.IsNullOrEmpty(log.WishDoneLine) ? log.WishDoneLine : Pick(ArrivalPool, DiveLogService.Facts(log), log.Day);
     }
 
+    // A wish granted today (the rest-day one) speaks first; otherwise the day's facts pick.
     public static string NightLine(DayEndReport report, PlayerProfile player) {
-        return report == null ? string.Empty : Pick(NightPool, NightFacts(report, player), report.EndedDay);
+        if (report == null) {
+            return string.Empty;
+        }
+
+        return !string.IsNullOrEmpty(report.WishDone?.Wish?.DoneLine) ? report.WishDone.Wish.DoneLine : Pick(NightPool, NightFacts(report, player), report.EndedDay);
     }
 
     public static HashSet<string> NightFacts(DayEndReport report, PlayerProfile player) {
@@ -84,7 +94,15 @@ public static class ZeroLineService {
             }
         }
 
+        if (player != null && player.LastWishDoneDay == report.EndedDay) {
+            facts.Add("wish_done");
+        }
+
         DollEntity doll = player?.ActiveDoll;
+        for (int level = 1; level <= BondService.Level(doll); level++) {
+            facts.Add("bond" + level);
+        }
+
         if (doll != null) {
             if (doll.Status.SAN_Max > 0 && doll.Status.SAN_Current < doll.Status.SAN_Max * LowSANShare) {
                 facts.Add("low_san");
