@@ -1,0 +1,163 @@
+{
+  "MonsterID": "elite_resonant_amalgam",
+  "Name": "共振融合体",
+  "DisplayNameKey": "monster.elite_resonant_amalgam.name",
+  "MonsterRole": [
+    "Elite",
+    "PackInterference",
+    "Bypassable",
+    "CounterCheck"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer2_bag_pressure"
+  ],
+  "LoreTags": [
+    "Amalgam",
+    "Resonant",
+    "Crystal",
+    "BagPressure"
+  ],
+  "Layer": 2,
+  "LayerRange": {
+    "Min": 2,
+    "Max": 2
+  },
+  "EncounterTags": [
+    "Combat",
+    "Layer2",
+    "Elite",
+    "PackInterference",
+    "Bypassable",
+    "CounterCheck"
+  ],
+  "DifficultyBudget": {
+    "Base": 150,
+    "Variance": 10
+  },
+  "SpawnWeightTags": [
+    "Layer2Elite",
+    "RiskReward",
+    "ShuffleCleanseCounter"
+  ],
+  "HP": 150,
+  "Armor": 0,
+  "PortraitID": "monster_elite_mutant_amalgam_portrait",
+  "CombatVisualID": "monster_elite_mutant_amalgam_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "resonant_amalgam_crushing_blow",
+      "IntentType": "Attack",
+      "PowerPreview": 45,
+      "TargetPreview": "Doll",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.heavy_attack",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "resonant_amalgam_shuffle",
+      "IntentType": "GridLock",
+      "PowerPreview": "3 items",
+      "TargetPreview": "PlayerBackpack",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.keep_edges_open",
+      "IntentIconRef": "ui_combat_grid_lock_marker"
+    },
+    {
+      "IntentID": "resonant_amalgam_cleanse",
+      "IntentType": "Buff",
+      "PowerPreview": "cleanse poison + 7 heal",
+      "TargetPreview": "AllAllies",
+      "Reliability": "High",
+      "CounterHintKey": "hint.intent.attack_window",
+      "IntentIconRef": "ui_combat_intent_buff"
+    }
+  ],
+  "IntentSequence": [
+    "resonant_amalgam_crushing_blow",
+    "resonant_amalgam_shuffle",
+    "resonant_amalgam_cleanse"
+  ],
+  "ActionPattern": {
+    "Selector": "WeightedRandom",
+    "CooldownPolicy": "PerAction",
+    "FallbackAction": "resonant_amalgam_crushing_blow",
+    "FormalIntentNote": "The amalgam keeps its heavy blow, then alternates cooldown shuffles and all-allies poison cleansing."
+  },
+  "PhaseRules": [],
+  "TargetRule": {
+    "CharacterTarget": "FirstAlivePlayer",
+    "RetargetPolicy": "UseBasicAttack"
+  },
+  "RewardID": "reward_monster_elite_mutant_amalgam",
+  "DropThemeTags": [
+    "Layer2",
+    "BagPressure"
+  ],
+  "BossGuaranteedRefs": [],
+  "MemoryRewardRefs": [],
+  "ActionVfxRef": {
+    "resonant_amalgam_crushing_blow": "vfx_monster_heavy_hit",
+    "resonant_amalgam_shuffle": "vfx_monster_grid_lock_warning",
+    "resonant_amalgam_cleanse": "vfx_monster_pack_junk"
+  },
+  "HitFeedbackRef": "ui_combat_feedback_hit",
+  "DefeatFeedbackRef": "ui_combat_feedback_scrap_break",
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "resonant_amalgam_crushing_blow",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 55,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 45,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "resonant_amalgam_shuffle",
+        "ActionType": "ShuffleItems",
+        "Target": "PlayerBackpack",
+        "Weight": 30,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Count": 3
+        }
+      },
+      {
+        "ActionID": "resonant_amalgam_cleanse",
+        "ActionType": "Cleanse",
+        "Target": "AllAllies",
+        "Weight": 30,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Statuses": ["Poison"],
+          "Heal": 7
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {
+      "ItemID": "trade_sealed_relic_box",
+      "Weight": 35
+    },
+    {
+      "ItemID": "gear_charge_pistol",
+      "Weight": 30
+    },
+    {
+      "ItemID": "loot_acid_gland",
+      "Weight": 35
+    }
+  ]
+}

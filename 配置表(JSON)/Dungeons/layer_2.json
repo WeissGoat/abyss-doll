@@ -334,7 +334,7 @@
       "Description": "酸液软体会制造临时残渣，压缩背包空间。",
       "RiskLevel": "Medium",
       "RiskHint": "背包压力节点，建议预留空格或携带溶剂喷雾。",
-      "Weight": 24,
+      "Weight": 19,
       "MonsterIDs": [
         "mob_acid_slime_mature"
       ]
@@ -346,7 +346,7 @@
       "Description": "结晶守卫会封锁边缘空间并防御。",
       "RiskLevel": "Medium",
       "RiskHint": "封格压力节点，边缘摆放越紧越危险。",
-      "Weight": 22,
+      "Weight": 18,
       "MonsterIDs": [
         "mob_crystal_guard"
       ]
@@ -358,7 +358,7 @@
       "Description": "锈蚀培植者会削弱武器并掉落重材料。",
       "RiskLevel": "High",
       "RiskHint": "腐蚀压力节点，战利品价值高但占格。",
-      "Weight": 18,
+      "Weight": 14,
       "MonsterIDs": [
         "mob_rust_cultivator"
       ]
@@ -370,7 +370,7 @@
       "Description": "虫群造成低强度 SAN 压力。",
       "RiskLevel": "Medium",
       "RiskHint": "SAN 压力节点，稳定安瓿可反制。",
-      "Weight": 16,
+      "Weight": 13,
       "MonsterIDs": [
         "mob_soul_midge_swarm"
       ]
@@ -382,7 +382,7 @@
       "Description": "可绕精英，封格压力更强。",
       "RiskLevel": "High",
       "RiskHint": "精英节点，可绕，奖励含二阶材料。",
-      "Weight": 6,
+      "Weight": 4,
       "MonsterIDs": [
         "elite_crystal_bulwark"
       ]
@@ -394,10 +394,34 @@
       "Description": "可绕精英，会持续向背包塞入风险残渣。",
       "RiskLevel": "High",
       "RiskHint": "精英节点，可绕，高价值但不保底二阶机核。",
-      "Weight": 5,
+      "Weight": 3,
       "MonsterIDs": [
         "elite_mutant_amalgam"
       ]
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "共鸣晶卫",
+      "Description": "共鸣晶卫踏过碎裂回路，每走一步都会震得背包里的零件错位。",
+      "RiskLevel": "Medium",
+      "RiskHint": "会把背包里的东西震乱，靠挨着摆的机关会被拆开，别只押一套连动。",
+      "MonsterIDs": [
+        "mob_resonant_crystal_guard"
+      ],
+      "Weight": 16
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "共振融合体",
+      "Description": "共振融合体把晶片与腐肉连成一体，既会震乱背包，也会替同伴洗去毒伤。",
+      "RiskLevel": "High",
+      "RiskHint": "会震散挨着摆的机关，也会替同伴清掉毒并回血，准备单件高伤或直接绕开。",
+      "MonsterIDs": [
+        "elite_resonant_amalgam"
+      ],
+      "Weight": 4
     },
     {
       "NodeType": "TreasureNode",

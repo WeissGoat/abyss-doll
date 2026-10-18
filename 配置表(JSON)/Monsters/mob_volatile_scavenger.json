@@ -1,0 +1,97 @@
+{
+  "MonsterID": "mob_volatile_scavenger",
+  "Name": "爆燃拾荒虫",
+  "DisplayNameKey": "monster.mob_volatile_scavenger.name",
+  "MonsterRole": ["Tutorial", "Pressure", "CounterCheck"],
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "LoreTags": ["ScrapBurrow", "MechanicalVermin", "Volatile"],
+  "Layer": 1,
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "EncounterTags": ["Combat", "SafeRoute", "Tutorial", "Layer1", "CounterCheck"],
+  "DifficultyBudget": { "Base": 35, "Variance": 8 },
+  "SpawnWeightTags": ["Layer1Common", "LowRisk", "TutorialBranch", "ExplosionCounter"],
+  "HP": 34,
+  "Armor": 0,
+  "PortraitID": "monster_mob_scavenger_bug_portrait",
+  "CombatVisualID": "monster_mob_scavenger_bug_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "volatile_scavenger_nip",
+      "IntentType": "Attack",
+      "PowerPreview": 7,
+      "TargetPreview": "Doll",
+      "Reliability": "High",
+      "CounterHintKey": "hint.intent.block_or_finish",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "volatile_scavenger_burst",
+      "IntentType": "Charge",
+      "PowerPreview": 18,
+      "TargetPreview": "Doll",
+      "Reliability": "High",
+      "CounterHintKey": "hint.intent.charge_window",
+      "IntentIconRef": "ui_combat_intent_buff"
+    }
+  ],
+  "IntentSequence": ["volatile_scavenger_nip", "volatile_scavenger_burst"],
+  "ActionPattern": {
+    "Selector": "WeightedRandom",
+    "CooldownPolicy": "PerAction",
+    "FallbackAction": "volatile_scavenger_nip",
+    "FormalIntentNote": "The one-shot burst is unavailable before round three, then dominates the weighted pool."
+  },
+  "PhaseRules": [],
+  "TargetRule": {
+    "CharacterTarget": "FirstAlivePlayer",
+    "RetargetPolicy": "UseBasicAttack"
+  },
+  "RewardID": "reward_monster_mob_scavenger_bug",
+  "DropThemeTags": ["Scrap", "Repair", "Layer1"],
+  "BossGuaranteedRefs": [],
+  "MemoryRewardRefs": [],
+  "ActionVfxRef": {
+    "volatile_scavenger_nip": "vfx_monster_small_hit",
+    "volatile_scavenger_burst": "vfx_monster_defend_hint"
+  },
+  "HitFeedbackRef": "ui_combat_feedback_hit",
+  "DefeatFeedbackRef": "ui_combat_feedback_scrap_break",
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "volatile_scavenger_nip",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 20,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 7,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "volatile_scavenger_burst",
+        "ActionType": "SelfDestruct",
+        "Target": "FirstAlivePlayer",
+        "Weight": 400,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 1,
+        "Condition": "FromRound",
+        "Params": {
+          "Damage": 18,
+          "FromRound": 3
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {"ItemID": "loot_gear_scrap", "Weight": 55},
+    {"ItemID": "con_repair_kit", "Weight": 20},
+    {"ItemID": "gear_rusty_dagger", "Weight": 15},
+    {"ItemID": "gear_wooden_shield", "Weight": 10}
+  ]
+}

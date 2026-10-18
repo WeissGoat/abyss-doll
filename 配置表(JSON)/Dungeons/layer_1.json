@@ -286,7 +286,7 @@
       "MonsterIDs": [
         "mob_scavenger_bug"
       ],
-      "Weight": 32
+      "Weight": 26
     },
     {
       "NodeType": "CombatNode",
@@ -298,7 +298,7 @@
       "MonsterIDs": [
         "mob_rust_hound"
       ],
-      "Weight": 22
+      "Weight": 18
     },
     {
       "NodeType": "CombatNode",
@@ -310,7 +310,7 @@
       "MonsterIDs": [
         "mob_acid_slime"
       ],
-      "Weight": 18
+      "Weight": 15
     },
     {
       "NodeType": "CombatNode",
@@ -322,7 +322,7 @@
       "MonsterIDs": [
         "mob_lost_miner_echo"
       ],
-      "Weight": 14
+      "Weight": 11
     },
     {
       "NodeType": "CombatNode",
@@ -334,7 +334,55 @@
       "MonsterIDs": [
         "elite_scrap_guard"
       ],
+      "Weight": 3
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "厚甲猎犬",
+      "Description": "披甲锈犬沿矿道巡猎，笨重的铁壳挡不住重击，却会磨钝急着补刀的小刀。",
+      "RiskLevel": "Medium",
+      "RiskHint": "披着厚甲，小刀和许多小段伤害会被磨到几乎不痛，重击或毒更好用。",
+      "MonsterIDs": [
+        "mob_plated_rust_hound"
+      ],
       "Weight": 6
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "爆燃虫穴",
+      "Description": "爆燃拾荒虫会把体内残油憋到发红，拖到爆发前就会扑上来。",
+      "RiskLevel": "Medium",
+      "RiskHint": "拖到发热就会穿过盾牌直接爆开，靠挨打反弹也拦不住，趁早打掉或绕开这条路。",
+      "MonsterIDs": [
+        "mob_volatile_scavenger"
+      ],
+      "Weight": 5
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "清液泥潭",
+      "Description": "清液软体拖着洗涤般的黏液，替同伴冲去伤口里的毒素。",
+      "RiskLevel": "Medium",
+      "RiskHint": "会把毒从同伴身上洗掉并一起回血，只靠慢慢下毒很难磨死。",
+      "MonsterIDs": [
+        "mob_clear_slime"
+      ],
+      "Weight": 5
+    },
+    {
+      "NodeType": "CombatNode",
+      "NodeIconID": "node_combat_icon",
+      "Title": "铁壳守卫",
+      "Description": "铁壳守卫守着废料通道，正面硬攻前先会撑起厚重护层。",
+      "RiskLevel": "High",
+      "RiskHint": "铁壳会挡下小刀和许多小段伤害，还会举盾拖时间，重击、毒或绕开更稳。",
+      "MonsterIDs": [
+        "elite_ironclad_guard"
+      ],
+      "Weight": 3
     },
     {
       "NodeType": "SafeRoomNode",

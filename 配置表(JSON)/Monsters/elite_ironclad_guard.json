@@ -1,0 +1,101 @@
+{
+  "MonsterID": "elite_ironclad_guard",
+  "Name": "铁壳守卫",
+  "DisplayNameKey": "monster.elite_ironclad_guard.name",
+  "MonsterRole": ["Elite", "CounterCheck", "Pressure"],
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "LoreTags": ["ScrapGuard", "OldGateMachine", "Mechanical", "Ironclad"],
+  "Layer": 1,
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "EncounterTags": ["Combat", "Elite", "Layer1", "HighRisk", "Bypassable", "CounterCheck"],
+  "DifficultyBudget": { "Base": 105, "Variance": 15 },
+  "SpawnWeightTags": ["Layer1Elite", "RiskReward", "BypassBranch", "ArmorShieldCounter"],
+  "HP": 120,
+  "Armor": 4,
+  "PortraitID": "monster_elite_scrap_guard_portrait",
+  "CombatVisualID": "monster_elite_scrap_guard_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "ironclad_guard_heavy_strike",
+      "IntentType": "Attack",
+      "PowerPreview": 34,
+      "TargetPreview": "Doll",
+      "Reliability": "High",
+      "CounterHintKey": "hint.intent.elite_heavy_attack",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "ironclad_guard_bulwark",
+      "IntentType": "Defend",
+      "PowerPreview": 12,
+      "TargetPreview": "Self",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.attack_window",
+      "IntentIconRef": "ui_combat_intent_defend"
+    }
+  ],
+  "IntentSequence": ["ironclad_guard_heavy_strike", "ironclad_guard_bulwark"],
+  "ActionPattern": {
+    "Selector": "WeightedRandom",
+    "CooldownPolicy": "PerAction",
+    "FallbackAction": "ironclad_guard_heavy_strike",
+    "FormalIntentNote": "Keeps the original elite strike and adds a self shield that punishes many small hits."
+  },
+  "PhaseRules": [],
+  "TargetRule": {
+    "CharacterTarget": "FirstAlivePlayer",
+    "RetargetPolicy": "UseBasicAttack"
+  },
+  "PackInterference": {
+    "GridLockProfile": "l1_elite_edge_lock_warning",
+    "AddJunkProfile": "l1_scrap_guard_edge_scrap",
+    "FailureFallbackAction": "ironclad_guard_heavy_strike",
+    "NoPermanentLock": true
+  },
+  "RewardID": "reward_monster_elite_scrap_guard",
+  "DropThemeTags": ["Scrap", "Elite", "Mechanical"],
+  "BossGuaranteedRefs": [],
+  "MemoryRewardRefs": ["room_memory_first_scrap_guard_plate"],
+  "ActionVfxRef": {
+    "ironclad_guard_heavy_strike": "vfx_monster_heavy_hit",
+    "ironclad_guard_bulwark": "vfx_monster_grid_lock_warning"
+  },
+  "HitFeedbackRef": "ui_combat_feedback_hit",
+  "DefeatFeedbackRef": "ui_combat_feedback_shield_break",
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "ironclad_guard_heavy_strike",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 100,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 34,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "ironclad_guard_bulwark",
+        "ActionType": "GainShield",
+        "Target": "Self",
+        "Weight": 30,
+        "CooldownTurns": 1,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Amount": 12
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {"ItemID": "gear_tactical_blade", "Weight": 35},
+    {"ItemID": "loot_rusty_coil", "Weight": 80},
+    {"ItemID": "con_cheap_sedative", "Weight": 20}
+  ]
+}

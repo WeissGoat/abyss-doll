@@ -1,0 +1,101 @@
+{
+  "MonsterID": "mob_clear_slime",
+  "Name": "清液软体",
+  "DisplayNameKey": "monster.mob_clear_slime.name",
+  "MonsterRole": ["Tutorial", "PackInterference", "Pressure", "CounterCheck"],
+  "ContentPackRefs": ["design_pack_layer1_formal_core"],
+  "LoreTags": ["Acidic", "WastePool", "Cleansing"],
+  "Layer": 1,
+  "LayerRange": { "Min": 1, "Max": 1 },
+  "EncounterTags": ["Combat", "Layer1", "PackPressure", "LowRisk", "CounterCheck"],
+  "DifficultyBudget": { "Base": 48, "Variance": 10 },
+  "SpawnWeightTags": ["Layer1Common", "PackPressureIntro", "EventBranch", "CleanseCounter"],
+  "HP": 55,
+  "Armor": 0,
+  "PortraitID": "monster_mob_acid_slime_portrait",
+  "CombatVisualID": "monster_mob_acid_slime_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "clear_slime_attack",
+      "IntentType": "Attack",
+      "PowerPreview": 12,
+      "TargetPreview": "Doll",
+      "Reliability": "High",
+      "CounterHintKey": "hint.intent.block_or_finish",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "clear_slime_cleanse",
+      "IntentType": "Buff",
+      "PowerPreview": "cleanse poison + 4 heal",
+      "TargetPreview": "AllAllies",
+      "Reliability": "High",
+      "CounterHintKey": "hint.intent.attack_window",
+      "IntentIconRef": "ui_combat_intent_buff"
+    }
+  ],
+  "IntentSequence": ["clear_slime_attack", "clear_slime_cleanse"],
+  "ActionPattern": {
+    "Selector": "WeightedRandom",
+    "CooldownPolicy": "PerAction",
+    "FallbackAction": "clear_slime_attack",
+    "FormalIntentNote": "Keeps the original splash attack and alternates with an all-allies poison wash."
+  },
+  "PhaseRules": [],
+  "TargetRule": {
+    "CharacterTarget": "FirstAlivePlayer",
+    "RetargetPolicy": "UseBasicAttack"
+  },
+  "PackInterference": {
+    "AddJunkProfile": "l1_acid_slime_light_scrap",
+    "FailureFallbackAction": "clear_slime_attack",
+    "NoPermanentCorrosion": true
+  },
+  "RewardID": "reward_monster_mob_acid_slime_l1",
+  "DropThemeTags": ["Toxic", "Scrap", "Layer1"],
+  "BossGuaranteedRefs": [],
+  "MemoryRewardRefs": [],
+  "ActionVfxRef": {
+    "clear_slime_attack": "vfx_monster_acid_splash_small",
+    "clear_slime_cleanse": "vfx_monster_pack_junk"
+  },
+  "HitFeedbackRef": "ui_combat_feedback_hit",
+  "DefeatFeedbackRef": "ui_combat_feedback_slime_pop",
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "clear_slime_attack",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 70,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 12,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "clear_slime_cleanse",
+        "ActionType": "Cleanse",
+        "Target": "AllAllies",
+        "Weight": 35,
+        "CooldownTurns": 1,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Statuses": ["Poison"],
+          "Heal": 4
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {"ItemID": "loot_rusty_coil", "Weight": 45},
+    {"ItemID": "loot_toxic_filter", "Weight": 35},
+    {"ItemID": "con_cheap_sedative", "Weight": 20}
+  ]
+}

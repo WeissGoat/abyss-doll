@@ -1,0 +1,126 @@
+{
+  "MonsterID": "mob_resonant_crystal_guard",
+  "Name": "共鸣晶卫",
+  "DisplayNameKey": "monster.mob_resonant_crystal_guard.name",
+  "MonsterRole": [
+    "CounterCheck",
+    "PackInterference"
+  ],
+  "ContentPackRefs": [
+    "design_pack_layer2_bag_pressure"
+  ],
+  "LoreTags": [
+    "Crystal",
+    "Resonant",
+    "BagPressure"
+  ],
+  "Layer": 2,
+  "LayerRange": {
+    "Min": 2,
+    "Max": 2
+  },
+  "EncounterTags": [
+    "Combat",
+    "Layer2",
+    "CounterCheck",
+    "PackInterference"
+  ],
+  "DifficultyBudget": {
+    "Base": 96,
+    "Variance": 10
+  },
+  "SpawnWeightTags": [
+    "Layer2Common",
+    "ShuffleCounter"
+  ],
+  "HP": 96,
+  "Armor": 0,
+  "PortraitID": "monster_mob_crystal_guard_portrait",
+  "CombatVisualID": "monster_mob_crystal_guard_combat",
+  "IntentIconSet": "combat_intent_core_v1",
+  "IntentList": [
+    {
+      "IntentID": "resonant_guard_strike",
+      "IntentType": "Attack",
+      "PowerPreview": 18,
+      "TargetPreview": "Doll",
+      "Reliability": "High",
+      "CounterHintKey": "hint.intent.block_or_finish",
+      "IntentIconRef": "ui_combat_intent_attack"
+    },
+    {
+      "IntentID": "resonant_guard_shuffle",
+      "IntentType": "GridLock",
+      "PowerPreview": "2 items",
+      "TargetPreview": "PlayerBackpack",
+      "Reliability": "Medium",
+      "CounterHintKey": "hint.intent.keep_edges_open",
+      "IntentIconRef": "ui_combat_grid_lock_marker"
+    }
+  ],
+  "IntentSequence": ["resonant_guard_strike", "resonant_guard_shuffle"],
+  "ActionPattern": {
+    "Selector": "WeightedRandom",
+    "CooldownPolicy": "PerAction",
+    "FallbackAction": "resonant_guard_strike",
+    "FormalIntentNote": "Keeps the crystal guard's strike and uses cooldown shuffles to break neighbour layouts."
+  },
+  "PhaseRules": [],
+  "TargetRule": {
+    "CharacterTarget": "FirstAlivePlayer",
+    "RetargetPolicy": "UseBasicAttack"
+  },
+  "RewardID": "reward_monster_mob_crystal_guard",
+  "DropThemeTags": [
+    "Layer2",
+    "BagPressure"
+  ],
+  "BossGuaranteedRefs": [],
+  "MemoryRewardRefs": [],
+  "ActionVfxRef": {
+    "resonant_guard_strike": "vfx_monster_small_hit",
+    "resonant_guard_shuffle": "vfx_monster_grid_lock_warning"
+  },
+  "HitFeedbackRef": "ui_combat_feedback_hit",
+  "DefeatFeedbackRef": "ui_combat_feedback_scrap_break",
+  "AI": {
+    "Selector": "WeightedRandom",
+    "Actions": [
+      {
+        "ActionID": "resonant_guard_strike",
+        "ActionType": "DamageTarget",
+        "Target": "FirstAlivePlayer",
+        "Weight": 45,
+        "CooldownTurns": 0,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Damage": 18,
+          "RepeatCount": 1
+        }
+      },
+      {
+        "ActionID": "resonant_guard_shuffle",
+        "ActionType": "ShuffleItems",
+        "Target": "PlayerBackpack",
+        "Weight": 35,
+        "CooldownTurns": 2,
+        "UsesPerCombat": 0,
+        "Condition": "Always",
+        "Params": {
+          "Count": 2
+        }
+      }
+    ]
+  },
+  "LootPool": [
+    {
+      "ItemID": "loot_crystal_scale",
+      "Weight": 80
+    },
+    {
+      "ItemID": "con_solvent_spray",
+      "Weight": 20
+    }
+  ]
+}
