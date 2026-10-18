@@ -33,11 +33,13 @@ public static class HomeUpgradeTest {
         Check(HomeUpgradeService.Buy(player, "upg_bench_lamp", out _) && player.Money == 5000 - 350, $"lamp purchase left {player.Money}G");
         Check(!HomeUpgradeService.Buy(player, "upg_bench_lamp", out _), "bought the lamp twice");
 
-        // The lamp: quick repair 120G costs 102G.
+        // The lamp: quick repair costs 15% less.
+        int listPrice = ConfigManager.MaintenanceConfigs["maint_quick_repair"].Cost.Money;
+        int discounted = Mathf.RoundToInt(listPrice * 0.85f);
         int before = player.Money;
         doll.Status.WearAndTear = 80f;
         MaintenanceApplicationResult repair = MaintenanceService.Apply(player, doll, "maint_quick_repair");
-        Check(repair.Success && before - player.Money == 102, $"discounted repair cost {before - player.Money}G");
+        Check(repair.Success && discounted < listPrice && before - player.Money == discounted, $"discounted repair cost {before - player.Money}G, list {listPrice}G");
 
         // The mattress: rest gives more SAN than the base ratio.
         EconomyConfig economy = TownEconomyService.GetConfig();

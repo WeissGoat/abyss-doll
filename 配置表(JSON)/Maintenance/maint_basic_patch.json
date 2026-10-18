@@ -4,7 +4,7 @@
   "Description": "消耗少量废料进行基础修补，降低磨损并恢复少量生命。",
   "QualityTier": "Basic",
   "Cost": {
-    "Money": 50,
+    "Money": 40,
     "RequiredItems": [
       {
         "ConfigID": "loot_gear_scrap",

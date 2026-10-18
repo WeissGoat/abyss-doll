@@ -4,7 +4,7 @@
   "Description": "只花钱的应急修补，降低一些磨损。",
   "QualityTier": "Basic",
   "Cost": {
-    "Money": 120,
+    "Money": 90,
     "RequiredItems": []
   },
   "Effects": [

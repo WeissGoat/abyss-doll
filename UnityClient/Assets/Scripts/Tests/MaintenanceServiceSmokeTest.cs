@@ -29,7 +29,7 @@ public static class MaintenanceServiceSmokeTest {
 
         bool passed = !beforeReadiness.CanDive
             && result.Success
-            && player.Money == 200
+            && player.Money == 250 - PatchPrice()
             && WorkshopCostService.CountOwnedItems(player, "loot_gear_scrap") == 0
             && Mathf.Approximately(doll.Status.WearAndTear, DiveReadinessService.ExtremeWearThreshold - 40f)
             && doll.Status.HP_Current == doll.Status.HP_Max
@@ -115,7 +115,7 @@ public static class MaintenanceServiceSmokeTest {
 
         bool passed = placed
             && result.Success
-            && player.Money == 200
+            && player.Money == 250 - PatchPrice()
             && grid != null
             && !grid.ContainedItems.Contains(scrap)
             && WorkshopCostService.CountOwnedItems(player, "loot_gear_scrap") == 0
@@ -126,6 +126,10 @@ public static class MaintenanceServiceSmokeTest {
         } else {
             Debug.LogError($"Maintenance Backpack Material Cost FAILED. Placed={placed}, Success={result.Success}, Reason={result.Reason}, Money={player.Money}, GridCount={grid?.ContainedItems.Count ?? -1}, ScrapOwned={WorkshopCostService.CountOwnedItems(player, "loot_gear_scrap")}");
         }
+    }
+
+    private static int PatchPrice() {
+        return ConfigManager.MaintenanceConfigs["maint_basic_patch"].Cost.Money;
     }
 
     private static CoreBackend CreateCore() {

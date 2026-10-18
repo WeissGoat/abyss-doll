@@ -25,7 +25,7 @@
     "Base": 230,
     "Variance": 10
   },
-  "HP": 230,
+  "HP": 170,
   "PortraitID": "monster_boss_spore_foundry_portrait",
   "CombatVisualID": "monster_boss_spore_foundry_combat",
   "IntentIconSet": "combat_intent_core_v1",
@@ -75,7 +75,7 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 32,
+          "Damage": 24,
           "RepeatCount": 1
         }
       },

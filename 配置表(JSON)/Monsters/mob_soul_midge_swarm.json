@@ -64,7 +64,7 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 12,
+          "Damage": 10,
           "RepeatCount": 1
         }
       },

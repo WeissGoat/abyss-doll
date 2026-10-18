@@ -100,7 +100,7 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
         bool passed = repairButtonFound
             && controller.CurrentScreenID == "maintenance_panel"
             && !beforeReadiness.CanDive
-            && player.Money == 200
+            && player.Money == 250 - ConfigManager.MaintenanceConfigs["maint_basic_patch"].Cost.Money
             && !player.StashInventory.Contains(scrap)
             && Mathf.Approximately(doll.Status.WearAndTear, DiveReadinessService.ExtremeWearThreshold - 40f)
             && doll.Status.HP_Current == doll.Status.HP_Max
