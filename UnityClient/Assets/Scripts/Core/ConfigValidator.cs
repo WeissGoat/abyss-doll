@@ -684,6 +684,10 @@ public static class ConfigValidator {
                 }
             }
 
+            if (monster.Armor < 0) {
+                report.AddError($"Monster [{monster.MonsterID}] has negative Armor [{monster.Armor}].");
+            }
+
             ValidateMonsterAI(report, monster);
         }
 
@@ -742,6 +746,9 @@ public static class ConfigValidator {
 
         if (!MonsterActionConditionEvaluator.IsConditionRegistered(action.Condition)) {
             report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] uses unknown Condition [{action.Condition}].");
+        } else if (string.Equals(action.Condition, nameof(MonsterActionConditionType.FromRound), System.StringComparison.OrdinalIgnoreCase)
+            && new MonsterActionParamReader(action).GetInt("FromRound", 0) <= 0) {
+            report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] Condition FromRound requires positive Params.FromRound.");
         }
 
         if (action.Weight > 0) {
@@ -794,6 +801,36 @@ public static class ConfigValidator {
                 WarnMetadataOnlyTags(report, $"Monster [{monster.MonsterID}] action [{action.ActionID}] OverrideTags", reader.GetStringList("OverrideTags"));
                 if (reader.Has("OverrideValue") && reader.GetInt("OverrideValue", 0) < 0) {
                     report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] AddCursedItem has negative Params.OverrideValue.");
+                }
+                break;
+            case MonsterActionType.GainShield:
+                if (reader.GetInt("Amount", 0) <= 0) {
+                    report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] GainShield requires positive Params.Amount.");
+                }
+                break;
+            case MonsterActionType.Cleanse:
+                foreach (string status in reader.GetStringList("Statuses")) {
+                    if (!System.Enum.TryParse(status, true, out CombatStatusType _)) {
+                        report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] Cleanse names unknown status [{status}] (Poison, Vulnerable, Weak).");
+                    }
+                }
+
+                if (reader.GetInt("Heal", 0) < 0) {
+                    report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] Cleanse has negative Params.Heal.");
+                }
+                break;
+            case MonsterActionType.SelfDestruct:
+                if (reader.GetInt("Damage", 0) <= 0) {
+                    report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] SelfDestruct requires positive Params.Damage.");
+                }
+
+                if (!string.Equals(action.Condition, nameof(MonsterActionConditionType.FromRound), System.StringComparison.OrdinalIgnoreCase)) {
+                    report.AddWarning($"Monster [{monster.MonsterID}] action [{action.ActionID}] SelfDestruct without Condition FromRound can go off on the first turn.");
+                }
+                break;
+            case MonsterActionType.ShuffleItems:
+                if (reader.Has("Count") && reader.GetInt("Count", 0) <= 0) {
+                    report.AddError($"Monster [{monster.MonsterID}] action [{action.ActionID}] ShuffleItems has invalid Params.Count.");
                 }
                 break;
         }

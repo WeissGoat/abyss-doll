@@ -8,6 +8,8 @@ public class MonsterEntity {
     public string Name;
     public int Layer;
     public int HP;
+    // Taken off every hit Zero lands, after 破甲 and 迟缓 (CombatStatusService.ModifyDamage). Poison and thorns ignore it.
+    public int Armor;
     public string PortraitID;
     public string CombatVisualID;
     public string HitVFXID;

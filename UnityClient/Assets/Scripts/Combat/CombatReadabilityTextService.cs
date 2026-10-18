@@ -107,17 +107,22 @@ public static class CombatReadabilityTextService {
         }
 
         MonsterIntentReport report = MonsterIntentPreviewService.BuildReport(combat);
+        int unblockable = 0;
         if (report != null && report.Success) {
             foreach (MonsterIntentCard card in report.Monsters) {
                 MonsterActionIntentPreview intent = card?.SelectedIntent;
                 if (card != null && card.IsAlive && intent != null && intent.CanExecute && intent.IntentType == MonsterIntentType.Attack) {
                     preview.Total += intent.EstimatedTotalDamage;
+                } else if (card != null && card.IsAlive && intent != null && intent.CanExecute && intent.IntentType == MonsterIntentType.SelfDestruct) {
+                    // A blast goes past the shield.
+                    preview.Total += intent.EstimatedTotalDamage;
+                    unblockable += intent.EstimatedTotalDamage;
                 }
             }
         }
 
         preview.Shield = player.RuntimeShield;
-        preview.Blocked = System.Math.Min(preview.Shield, preview.Total);
+        preview.Blocked = System.Math.Min(preview.Shield, preview.Total - unblockable);
         preview.HPLoss = preview.Total - preview.Blocked;
         preview.HPBefore = player.RuntimeHP;
         preview.HPAfter = System.Math.Max(0, player.RuntimeHP - preview.HPLoss);

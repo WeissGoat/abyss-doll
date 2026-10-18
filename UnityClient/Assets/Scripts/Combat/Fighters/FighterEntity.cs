@@ -13,6 +13,9 @@ public abstract class FighterEntity {
     // 中毒、破甲、迟缓 stacks for this fight (CombatStatusService).
     public readonly Dictionary<CombatStatusType, int> Statuses = new Dictionary<CombatStatusType, int>();
 
+    // Flat reduction on every hit this fighter takes from an attack (CombatStatusService.ModifyDamage).
+    public virtual int Armor => 0;
+
     public FighterEntity() {
         CombatEventBus.OnCombatPhase += HandleCombatPhase;
     }
@@ -40,7 +43,8 @@ public abstract class FighterEntity {
 
     protected abstract void ProcessEffects(CombatEventType phase);
 
-    public virtual void TakeDamage(int damage) {
+    // ignoreShield: the hit goes straight to HP and leaves the shield standing (a monster blowing itself up).
+    public virtual void TakeDamage(int damage, bool ignoreShield = false) {
         if (damage <= 0) {
             return;
         }
@@ -49,7 +53,7 @@ public abstract class FighterEntity {
         int hpBefore = RuntimeHP;
         int shieldBefore = RuntimeShield;
 
-        if (RuntimeShield > 0) {
+        if (RuntimeShield > 0 && !ignoreShield) {
             if (RuntimeShield >= damage) {
                 RuntimeShield -= damage;
                 damage = 0;

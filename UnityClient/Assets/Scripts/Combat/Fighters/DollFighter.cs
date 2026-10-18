@@ -66,15 +66,16 @@ public class DollFighter : FighterEntity {
         Debug.Log($"[{Name}] Synced data back to DollEntity. HP: {DataRef.Status.HP_Current}");
     }
 
-    public override void TakeDamage(int damage) {
+    public override void TakeDamage(int damage, bool ignoreShield = false) {
         // Bond 3: once a dive, a lethal blow leaves her standing at 1 HP.
-        if (damage > 0 && RuntimeHP > 1 && damage >= RuntimeShield + RuntimeHP && HomeLoop.TryHoldOn(DataRef)) {
-            damage = RuntimeShield + RuntimeHP - 1;
+        int absorbed = ignoreShield ? 0 : RuntimeShield;
+        if (damage > 0 && RuntimeHP > 1 && damage >= absorbed + RuntimeHP && HomeLoop.TryHoldOn(DataRef)) {
+            damage = absorbed + RuntimeHP - 1;
             GameEventBus.PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Interfere, Actor = this, Label = "零号咬牙撑住了" });
         }
 
         int hpBefore = RuntimeHP;
-        base.TakeDamage(damage);
+        base.TakeDamage(damage, ignoreShield);
         DollStrainService.AddWearFromHPLoss(DataRef, hpBefore - RuntimeHP);
         SyncRuntimeHPToDoll();
     }

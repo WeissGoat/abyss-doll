@@ -4,6 +4,8 @@ public class MonsterFighter : FighterEntity {
     public MonsterEntity DataRef;
     public string RuntimeID { get; private set; }
 
+    public override int Armor => DataRef != null ? Mathf.Max(0, DataRef.Armor) : 0;
+
     public MonsterFighter(MonsterEntity monster, CombatFaction faction) : base() {
         ParentFaction = faction;
         DataRef = monster;
@@ -21,7 +23,7 @@ public class MonsterFighter : FighterEntity {
         Debug.LogWarning($"[MonsterFighter] Direct Attack() is disabled. Monster behavior must use MonsterActionRunner. Monster=[{Name}]");
     }
 
-    public void DealActionDamage(FighterEntity target, int damage, string actionID) {
+    public void DealActionDamage(FighterEntity target, int damage, string actionID, bool ignoreShield = false) {
         if (target == null || damage <= 0) {
             return;
         }
@@ -35,8 +37,8 @@ public class MonsterFighter : FighterEntity {
         Debug.Log($"[{Name}] uses [{actionName}] on [{target.Name}] for {damage} damage.");
         int targetHPBefore = target.RuntimeHP;
         int targetShieldBefore = target.RuntimeShield;
-        target.TakeDamage(damage);
-        if (target is DollFighter doll) {
+        target.TakeDamage(damage, ignoreShield);
+        if (target is DollFighter doll && !ignoreShield) {
             CombatItemEffects.OnOwnerHit(doll, this, targetShieldBefore);
         }
         GameRoot.Core?.Combat?.Timeline?.RecordDamage(

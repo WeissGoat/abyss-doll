@@ -6,6 +6,10 @@ public enum MonsterIntentType {
     Attack,
     WeakenWeapon,
     AddJunk,
+    Defend,
+    Cleanse,
+    SelfDestruct,
+    Disrupt,
     Unknown
 }
 
@@ -48,6 +52,11 @@ public class MonsterActionIntentPreview {
     public string CursedItemName;
     public int CursedItemGridCost;
     public List<string> OverrideTags = new List<string>();
+    public int ShieldAmount;
+    public bool AffectsAllAllies;
+    public List<string> CleansedStatuses = new List<string>();
+    public int HealAmount;
+    public int ShuffleCount;
 }
 
 public static class MonsterIntentPreviewService {
@@ -134,7 +143,7 @@ public static class MonsterIntentPreviewService {
         FillTypedPreview(preview, actionType, action);
         // The hit as it will land: 迟缓 on the monster, 破甲 on Zero (CombatStatusService).
         FighterEntity zero = context.PlayerFaction?.Fighters != null && context.PlayerFaction.Fighters.Count > 0 ? context.PlayerFaction.Fighters[0] : null;
-        if (preview.IntentType == MonsterIntentType.Attack && preview.DamagePerHit > 0) {
+        if ((preview.IntentType == MonsterIntentType.Attack || preview.IntentType == MonsterIntentType.SelfDestruct) && preview.DamagePerHit > 0) {
             preview.DamagePerHit = CombatStatusService.ModifyDamage(monster, zero, preview.DamagePerHit);
             preview.EstimatedTotalDamage = preview.DamagePerHit * preview.RepeatCount;
         }
@@ -224,6 +233,8 @@ public static class MonsterIntentPreviewService {
                 return HasPlayerWeapon(context);
             case MonsterActionConditionType.PlayerGridHasSpace:
                 return CanPlaceConfiguredItem(context, actionConfig);
+            case MonsterActionConditionType.FromRound:
+                return MonsterActionConditionEvaluator.IsFromRound(context, actionConfig);
             default:
                 return false;
         }
@@ -232,11 +243,17 @@ public static class MonsterIntentPreviewService {
     private static bool HasLegalTargetForPreview(MonsterActionType actionType, MonsterActionContext context, MonsterActionConfig actionConfig) {
         switch (actionType) {
             case MonsterActionType.DamageTarget:
+            case MonsterActionType.SelfDestruct:
                 return HasAlivePlayerTarget(context);
             case MonsterActionType.ReduceWeaponDamage:
                 return HasPlayerWeapon(context);
             case MonsterActionType.AddCursedItem:
                 return CanPlaceConfiguredItem(context, actionConfig);
+            case MonsterActionType.GainShield:
+            case MonsterActionType.Cleanse:
+            case MonsterActionType.ShuffleItems:
+                MonsterActionBase action = MonsterActionFactory.Create(actionConfig);
+                return action != null && action.CanExecute(context);
             default:
                 return false;
         }
@@ -303,10 +320,38 @@ public static class MonsterIntentPreviewService {
                 preview.OverrideTags = reader.GetStringList("OverrideTags");
                 FillCursedItemPreview(preview);
                 break;
+            case MonsterActionType.GainShield:
+                preview.IntentType = MonsterIntentType.Defend;
+                preview.ShieldAmount = Mathf.Max(0, reader.GetInt("Amount", 0));
+                preview.AffectsAllAllies = IsAllAllies(action, actionType);
+                break;
+            case MonsterActionType.Cleanse:
+                preview.IntentType = MonsterIntentType.Cleanse;
+                preview.AffectsAllAllies = IsAllAllies(action, actionType);
+                preview.HealAmount = Mathf.Max(0, reader.GetInt("Heal", 0));
+                foreach (CombatStatusType status in CleanseAction.ReadStatuses(reader)) {
+                    preview.CleansedStatuses.Add(CombatStatusService.Label(status));
+                }
+                break;
+            case MonsterActionType.SelfDestruct:
+                preview.IntentType = MonsterIntentType.SelfDestruct;
+                preview.DamagePerHit = Mathf.Max(0, reader.GetInt("Damage", 0));
+                preview.RepeatCount = 1;
+                preview.EstimatedTotalDamage = preview.DamagePerHit;
+                break;
+            case MonsterActionType.ShuffleItems:
+                preview.IntentType = MonsterIntentType.Disrupt;
+                preview.ShuffleCount = Mathf.Max(1, reader.GetInt("Count", 2));
+                break;
             default:
                 preview.IntentType = MonsterIntentType.Unknown;
                 break;
         }
+    }
+
+    private static bool IsAllAllies(MonsterActionConfig action, MonsterActionType actionType) {
+        MonsterActionConfigParser.TryParseTarget(action.Target, MonsterActionConfigParser.GetDefaultTarget(actionType), out MonsterTargetType target);
+        return target == MonsterTargetType.AllAllies;
     }
 
     private static void FillCursedItemPreview(MonsterActionIntentPreview preview) {
@@ -341,6 +386,31 @@ public static class MonsterIntentPreviewService {
                 preview.Title = "塞入污染物";
                 preview.ShortText = $"塞入{itemName}（{preview.CursedItemGridCost}格）";
                 preview.Description = $"尝试向背包塞入 {itemName}，占格 {preview.CursedItemGridCost}。";
+                break;
+            case MonsterActionType.GainShield:
+                string shieldWho = preview.AffectsAllAllies ? "所有敌人" : "自己";
+                preview.Title = "防御";
+                preview.ShortText = preview.AffectsAllAllies ? $"全体护盾 {preview.ShieldAmount}" : $"护盾 {preview.ShieldAmount}";
+                preview.Description = $"给{shieldWho}加 {preview.ShieldAmount} 点护盾，挡到它下个回合开始。";
+                break;
+            case MonsterActionType.Cleanse:
+                string cleansed = string.Join("、", preview.CleansedStatuses);
+                string cleanseWho = preview.AffectsAllAllies ? "所有敌人" : "自己";
+                preview.Title = "净化";
+                preview.ShortText = preview.HealAmount > 0 ? $"净化{cleansed} +{preview.HealAmount} HP" : $"净化{cleansed}";
+                preview.Description = preview.HealAmount > 0
+                    ? $"清掉{cleanseWho}身上的{cleansed}，并各回复 {preview.HealAmount} HP。"
+                    : $"清掉{cleanseWho}身上的{cleansed}。";
+                break;
+            case MonsterActionType.SelfDestruct:
+                preview.Title = "自爆";
+                preview.ShortText = $"自爆 {preview.EstimatedTotalDamage}（无视护盾）";
+                preview.Description = $"引爆自己，造成约 {preview.EstimatedTotalDamage} 伤害，护盾挡不住。在它行动前打倒它就不会爆。";
+                break;
+            case MonsterActionType.ShuffleItems:
+                preview.Title = "震荡";
+                preview.ShortText = $"震乱背包 {preview.ShuffleCount} 件";
+                preview.Description = $"把背包里随机 {preview.ShuffleCount} 件物品挪到别处，挨着的加成可能断开。";
                 break;
             default:
                 preview.Title = "未知意图";

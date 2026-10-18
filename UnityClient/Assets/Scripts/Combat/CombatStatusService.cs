@@ -32,7 +32,7 @@ public static class CombatStatusService {
         Debug.Log($"[CombatStatus] {source} → {target.Name}: {status} +{stacks} (now {Get(target, status)}).");
     }
 
-    // Damage one fighter deals another, after the attacker's 迟缓 and the target's 破甲.
+    // Damage one fighter deals another, after the attacker's 迟缓, the target's 破甲, then the target's armour.
     public static int ModifyDamage(FighterEntity attacker, FighterEntity target, int damage) {
         if (damage <= 0) {
             return damage;
@@ -47,7 +47,18 @@ public static class CombatStatusService {
             value *= VulnerableMultiplier;
         }
 
-        return Mathf.Max(1, Mathf.RoundToInt(value));
+        int armor = target != null ? target.Armor : 0;
+        return Mathf.Max(1, Mathf.RoundToInt(value) - armor);
+    }
+
+    // Takes every stack of a status off (a monster cleansing itself). Returns how many stacks went.
+    public static int Clear(FighterEntity fighter, CombatStatusType status) {
+        int stacks = Get(fighter, status);
+        if (stacks > 0) {
+            fighter.Statuses.Remove(status);
+        }
+
+        return stacks;
     }
 
     // The fighter's own turn begins: poison bites, then fades by one.
@@ -68,13 +79,18 @@ public static class CombatStatusService {
         Fade(fighter, CombatStatusType.Weak);
     }
 
-    // "中毒 3 · 破甲 1" for the enemy's name plate; empty when nothing is on it.
+    // "护甲 3 · 中毒 3 · 破甲 1" for the enemy's name plate; empty when nothing is on it.
     public static string Describe(FighterEntity fighter) {
         if (fighter == null) {
             return string.Empty;
         }
 
-        return string.Join(" · ", fighter.Statuses.Where(pair => pair.Value > 0).OrderBy(pair => pair.Key).Select(pair => $"{Label(pair.Key)} {pair.Value}"));
+        IEnumerable<string> parts = fighter.Statuses.Where(pair => pair.Value > 0).OrderBy(pair => pair.Key).Select(pair => $"{Label(pair.Key)} {pair.Value}");
+        if (fighter.Armor > 0) {
+            parts = new[] { $"护甲 {fighter.Armor}" }.Concat(parts);
+        }
+
+        return string.Join(" · ", parts);
     }
 
     public static string Label(CombatStatusType status) {

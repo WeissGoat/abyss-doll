@@ -20,7 +20,12 @@ public enum MonsterAISelectorType {
 public enum MonsterActionType {
     DamageTarget,
     ReduceWeaponDamage,
-    AddCursedItem
+    AddCursedItem,
+    // Counters to the item archetypes (docs/specs/2026-10-17-content-expansion.md, 怪物配合).
+    GainShield,
+    Cleanse,
+    SelfDestruct,
+    ShuffleItems
 }
 
 public enum MonsterTargetType {
@@ -28,13 +33,18 @@ public enum MonsterTargetType {
     RandomPlayer,
     LowestHpPlayer,
     RandomPlayerWeapon,
-    PlayerGridFirstFit
+    PlayerGridFirstFit,
+    Self,
+    AllAllies,
+    PlayerBackpack
 }
 
 public enum MonsterActionConditionType {
     Always,
     PlayerHasWeapon,
-    PlayerGridHasSpace
+    PlayerGridHasSpace,
+    // Params.FromRound: only from that round of the fight on (round 1 is the first player turn).
+    FromRound
 }
 
 public static class MonsterActionConfigParser {
@@ -64,7 +74,14 @@ public static class MonsterActionConfigParser {
                 return MonsterTargetType.RandomPlayerWeapon;
             case MonsterActionType.AddCursedItem:
                 return MonsterTargetType.PlayerGridFirstFit;
+            case MonsterActionType.GainShield:
+                return MonsterTargetType.Self;
+            case MonsterActionType.Cleanse:
+                return MonsterTargetType.AllAllies;
+            case MonsterActionType.ShuffleItems:
+                return MonsterTargetType.PlayerBackpack;
             case MonsterActionType.DamageTarget:
+            case MonsterActionType.SelfDestruct:
             default:
                 return MonsterTargetType.FirstAlivePlayer;
         }
@@ -73,6 +90,7 @@ public static class MonsterActionConfigParser {
     public static bool IsTargetCompatible(MonsterActionType actionType, MonsterTargetType targetType) {
         switch (actionType) {
             case MonsterActionType.DamageTarget:
+            case MonsterActionType.SelfDestruct:
                 return targetType == MonsterTargetType.FirstAlivePlayer
                     || targetType == MonsterTargetType.RandomPlayer
                     || targetType == MonsterTargetType.LowestHpPlayer;
@@ -80,6 +98,11 @@ public static class MonsterActionConfigParser {
                 return targetType == MonsterTargetType.RandomPlayerWeapon;
             case MonsterActionType.AddCursedItem:
                 return targetType == MonsterTargetType.PlayerGridFirstFit;
+            case MonsterActionType.GainShield:
+            case MonsterActionType.Cleanse:
+                return targetType == MonsterTargetType.Self || targetType == MonsterTargetType.AllAllies;
+            case MonsterActionType.ShuffleItems:
+                return targetType == MonsterTargetType.PlayerBackpack;
             default:
                 return false;
         }
@@ -208,7 +231,11 @@ public class MonsterActionRuntimeState {
     private readonly Dictionary<string, int> _uses = new Dictionary<string, int>();
     private readonly Dictionary<string, MonsterLockedIntent> _lockedIntents = new Dictionary<string, MonsterLockedIntent>();
 
+    // Rounds of this fight so far; a round starts with the player's turn, when intents are locked.
+    public int Round { get; private set; }
+
     public void Reset() {
+        Round = 0;
         _cooldowns.Clear();
         _uses.Clear();
         _lockedIntents.Clear();
@@ -219,6 +246,7 @@ public class MonsterActionRuntimeState {
     }
 
     public void AdvanceCooldownsForNewIntentRound() {
+        Round++;
         List<string> keys = new List<string>(_cooldowns.Keys);
         foreach (string key in keys) {
             _cooldowns[key]--;
@@ -509,6 +537,14 @@ public static class MonsterActionFactory {
                 return new ReduceWeaponDamageAction(config);
             case MonsterActionType.AddCursedItem:
                 return new AddCursedItemAction(config);
+            case MonsterActionType.GainShield:
+                return new GainShieldAction(config);
+            case MonsterActionType.Cleanse:
+                return new CleanseAction(config);
+            case MonsterActionType.SelfDestruct:
+                return new SelfDestructAction(config);
+            case MonsterActionType.ShuffleItems:
+                return new ShuffleItemsAction(config);
             default:
                 return null;
         }
@@ -686,6 +722,8 @@ public static class MonsterActionConditionEvaluator {
                 return MonsterTargetSelector.HasPlayerWeapon(context);
             case MonsterActionConditionType.PlayerGridHasSpace:
                 return HasSpaceForConfiguredItem(context, actionConfig);
+            case MonsterActionConditionType.FromRound:
+                return IsFromRound(context, actionConfig);
             default:
                 return false;
         }
@@ -693,6 +731,12 @@ public static class MonsterActionConditionEvaluator {
 
     public static bool IsConditionRegistered(string condition) {
         return MonsterActionConfigParser.TryParseCondition(condition, out _);
+    }
+
+    public static bool IsFromRound(MonsterActionContext context, MonsterActionConfig actionConfig) {
+        int fromRound = new MonsterActionParamReader(actionConfig).GetInt("FromRound", 1);
+        int round = context?.RuntimeState?.Round ?? 0;
+        return round >= fromRound;
     }
 
     private static bool HasSpaceForConfiguredItem(MonsterActionContext context, MonsterActionConfig actionConfig) {
@@ -777,6 +821,25 @@ public static class MonsterTargetSelector {
                 Debug.LogWarning($"[MonsterActionAI] Target selector [{targetSelector}] is not a weapon target selector.");
                 return null;
         }
+    }
+
+    // The monster itself (Self) or every living monster on its side (AllAllies).
+    public static List<MonsterFighter> SelectAllies(MonsterActionContext context, string targetSelector) {
+        List<MonsterFighter> allies = new List<MonsterFighter>();
+        MonsterActionConfigParser.TryParseTarget(targetSelector, MonsterTargetType.Self, out MonsterTargetType targetType);
+        if (targetType == MonsterTargetType.AllAllies && context?.EnemyFaction?.Fighters != null) {
+            foreach (FighterEntity fighter in context.EnemyFaction.Fighters) {
+                if (fighter is MonsterFighter monster && monster.RuntimeHP > 0) {
+                    allies.Add(monster);
+                }
+            }
+        }
+
+        if (allies.Count == 0 && context?.Actor != null && context.Actor.RuntimeHP > 0) {
+            allies.Add(context.Actor);
+        }
+
+        return allies;
     }
 
     public static bool HasPlayerWeapon(MonsterActionContext context) {
