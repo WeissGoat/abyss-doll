@@ -361,6 +361,18 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: item_gear_acid_sprayer_icon
+    Sprite: {fileID: 21300000, guid: b53376d176f846d1930347782d91e506, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_bone_saw_icon
+    Sprite: {fileID: 21300000, guid: fd2651ab7ed84069bd4ff4a16589c96b, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_chain_hook_icon
     Sprite: {fileID: 21300000, guid: 0af5705144b7e7c4ab42d6dc7c209746, type: 3}
     Prefab: {fileID: 0}
@@ -379,6 +391,12 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: item_gear_clockwork_arm_icon
+    Sprite: {fileID: 21300000, guid: fb8ee3cce0f141b9886802a54ca780af, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_cog_amplifier_icon
     Sprite: {fileID: 21300000, guid: 0d12ebb905acc824b88a23dbca49dc3c, type: 3}
     Prefab: {fileID: 0}
@@ -391,8 +409,32 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: item_gear_corroded_dagger_icon
+    Sprite: {fileID: 21300000, guid: 3ce37be1b77b4274b0dfddd44d51861a, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_corrosion_needle_icon
+    Sprite: {fileID: 21300000, guid: 6fa25d58f8fa4db0b9f853312303b8e5, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_fire_oil_flask_icon
+    Sprite: {fileID: 21300000, guid: 5b44bedde7614b3daefa0f4360eefeac, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_focus_lens_icon
     Sprite: {fileID: 21300000, guid: 244d4b46c76c9774bbb2531a81cc27df, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_gear_string_icon
+    Sprite: {fileID: 21300000, guid: 05506fd84fed447eba5c9fe3c3b6404d, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -403,8 +445,56 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: item_gear_iron_bracer_icon
+    Sprite: {fileID: 21300000, guid: 6261555ff41146bb874e24e9197c6be8, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_mycelium_cloak_icon
     Sprite: {fileID: 21300000, guid: c102730ceb9514b488e6777f36380409, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_oil_can_icon
+    Sprite: {fileID: 21300000, guid: cb94a96fdd5047349751aa670209351c, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_old_wrench_icon
+    Sprite: {fileID: 21300000, guid: 1aa8077c34a1400ea7e7fbf84885377e, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_petri_dish_icon
+    Sprite: {fileID: 21300000, guid: e37d80a8b217461ba2ebab8e392f4ae7, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_pitbreaker_maul_icon
+    Sprite: {fileID: 21300000, guid: 1f595eb78e854bc385a8ed5f4fc00aab, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_plated_shield_icon
+    Sprite: {fileID: 21300000, guid: 11d1ce35a02f47288178e93746a5099e, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_riveted_plate_icon
+    Sprite: {fileID: 21300000, guid: 29951220ea604d299f2ca2f2a9c86d90, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_rubble_hammer_icon
+    Sprite: {fileID: 21300000, guid: e80b533d2bae44d4a4e9a587d9bef372, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -415,14 +505,62 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: item_gear_rusty_syringe_icon
+    Sprite: {fileID: 21300000, guid: d49c3021d54d47eca166e2852c277d45, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_saint_token_icon
+    Sprite: {fileID: 21300000, guid: 7e2e32065bdd49718325731774a4c6a3, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_shield_oil_icon
+    Sprite: {fileID: 21300000, guid: aace0bb5330042dbab4941fd1d47cbb7, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_slag_counterweight_icon
+    Sprite: {fileID: 21300000, guid: f7443eed0213422dbef7898a6ccc15cf, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_spore_lance_icon
     Sprite: {fileID: 21300000, guid: 8ada5931dd8e23c49b5e0958bc93fc17, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: item_gear_stone_bag_icon
+    Sprite: {fileID: 21300000, guid: b0dc28b67a65447d8ed15fd6c0ce2a9a, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: item_gear_tactical_blade_icon
     Sprite: {fileID: 21300000, guid: 5cc4668f52eedf64fafd443b0aeb6911, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_thorn_shield_icon
+    Sprite: {fileID: 21300000, guid: 200071a38aee4f34ba7771c271e01419, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_throwing_knife_pack_icon
+    Sprite: {fileID: 21300000, guid: 435c8f7a6f804e75b3c95cd312e5c780, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_throwing_pouch_icon
+    Sprite: {fileID: 21300000, guid: 2c091aa87430492fb8d0a8da594f7256, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -435,6 +573,12 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: item_gear_whetstone_icon
     Sprite: {fileID: 21300000, guid: 117e0bd7bd8bd184497132f06f2eaded, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: item_gear_whispering_blade_icon
+    Sprite: {fileID: 21300000, guid: ae649967812a4a759b2403d5cdfba887, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
