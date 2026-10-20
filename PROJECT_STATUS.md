@@ -211,6 +211,15 @@ M4 试玩的三个问题自动测试都没抓到（渲染层级、点击时序�
 - [x] 内容扩充后重调数值（2026-10-18）：第 2 层首领 170 HP / 重击 24，第 2 层普通怪伤害约 -15%，第 1 层首领普攻 20，三种维护各降 10–30G。调优 spec 的九项全部达标（第 2 层成功率 13% → 47%，第 14 天房租按时 39% → 57%，维护占营业 28% → 19%），循环率回到 90%。记录在 `docs/specs/2026-10-05-demo-tuning-targets.md`，仪表盘 `python tools/agent/sim_metrics.py`。流派之间的强弱还没量（机器人不会按流派组背包）。
 - [x] 打包自检（2026-10-20）：包 `Builds/Windows/P3_20261020_2353.zip`（提交 796ec20），自检 PASS（序章、3 次下潜、每晚营业净收入 942G、动态 CG 播放），Player.log 无错误。等制作人试玩。
 - 下一步（制作人 2026-10-20 定）：Demo 终点改为第 3 层首领，第 3 层进 Demo；同时试探表现上限，先出样片（`docs/specs/2026-10-20-presentation-ceiling.md`）。
+- 内容扩充合并到 main（cc74fff，2026-10-20）。
+
+### 表现上限样片（分支 `m7/layer3-presentation`，spec `docs/specs/2026-10-20-presentation-ceiling.md`）
+
+- [x] 战斗出招（2026-10-21）：零号 6 张战斗姿势（待机、出击、防御、受击、用道具、跪地撑住），锈犬 3 张（待机、蓄力、出手），Gemini 图生图绿底出图后抠图、按可见面积对齐。`CombatMotionDirector` 按战斗节拍切姿势，武器图标挥出、刀光和爆点、命中停顿和镜头推近、「咬牙撑住」快切。姿势按 Registry 里的 `<姿势集>_<姿势>` 找，没有就用原图，所以其他怪不受影响。
+- [x] 活立绘（2026-10-21）：大厅和标题的零号播 H3 生成的透明无缝待机循环（`UIMotionPortrait`，V 键切换对比；`tools/美术工具/make_alpha_loop.py` 把绿底视频做成带透明的 VP8 循环）。
+- [x] 首领登场（2026-10-21）：守门者 MK1 开战先播 4 秒苏醒视频（`CombatIntroCutscene`，点击跳过）。
+- [x] 开发工具：`Fight`、`Strike`、`EndTurn`、`Record`（只录游戏自身画面）。`PresentationClipsPlayScenario`，`CombatMotionPlayScenario` 加了姿势和打击感检查。EditMode 78、PlayMode 8 通过；包 `Builds/Windows/P3_20261021_0043.zip`（提交 a6dc662），自检 PASS。录像在 `tmp/presentation_samples/`。
+- [ ] 没做：分层纸偶版立绘（spec 的路线 B）、反应片段、战斗布局调整。等制作人看样片定方向。
 
 ## 现在
 
