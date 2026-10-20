@@ -9,6 +9,18 @@ public enum CombatBeatKind {
     Interfere
 }
 
+// Pose names a fighter can show. Each is an optional sprite "<pose set>_<pose>" in the VisualAssetRegistry
+// (Zero's set is "doll_zero_combat", a monster's is its CombatVisualID); a missing pose keeps the base image.
+public static class CombatPose {
+    public const string Idle = "idle";
+    public const string Windup = "windup";
+    public const string Attack = "attack";
+    public const string Guard = "guard";
+    public const string Hurt = "hurt";
+    public const string Item = "item";
+    public const string Kneel = "kneel";
+}
+
 public class CombatBeat {
     public CombatBeatKind Kind;
     public FighterEntity Actor;
@@ -18,6 +30,10 @@ public class CombatBeat {
     public int ShieldLoss;
     public bool Defeated;
     public string Label;
+    // The item the strike was made with (its icon flies across the stage), and a pose the moment asks for, e.g.
+    // CombatPose.Kneel when Zero holds on at 1 HP; empty means the screen picks the pose from the beat kind.
+    public string SourceVisualID;
+    public string Pose;
 
     // How long the queue holds after each kind, so enemies act one after another instead of all at once.
     public static float HoldSeconds(CombatBeatKind kind) {

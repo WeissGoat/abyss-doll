@@ -2729,6 +2729,7 @@ public class WorkshopUIController : MonoBehaviour {
             _prologueHalfOpen ? new Color(1f, 1f, 1f, 0.93f) : Color.white,
             new Color(0.48f, 0.68f, 0.72f, 0.94f),
             false);
+        UIMotionPortrait.Attach(_dollStandImage, _prologueHalfOpen ? null : DayDollVisualID);
         if (_dollStandImage.transform.parent != null) {
             int targetIndex = backgroundImage != null ? backgroundImage.transform.GetSiblingIndex() + 2 : 1;
             _dollStandImage.transform.parent.SetSiblingIndex(Mathf.Clamp(targetIndex, 0, transform.childCount - 1));

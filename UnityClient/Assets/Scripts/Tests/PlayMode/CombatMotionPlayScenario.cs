@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 // The enemy turn on the real combat screen: each enemy lunges and its hit lands (flash, shake, floating number)
 // before the next one acts, and once the turn is over every fighter image is back at the place the HUD laid it out.
+// Zero's own strike first: with her pose set registered she snaps to the attack pose, the hit freezes the stage for
+// a few frames and leaves a slash; hit by the enemies she shows hurt or guard, and ends back in her stance.
 public static class CombatMotionPlayScenario {
     public static IEnumerator Run() {
         yield return PlayScenarioSupport.BootToWorkshop();
@@ -25,6 +27,21 @@ public static class CombatMotionPlayScenario {
         yield return PlayScenarioSupport.Until(() => combat.CurrentState == CombatState.PlayerTurn && VisualQueue.Count == 0, 10f,
             "the two-enemy fight did not start");
         int enemies = combat.EnemyFaction.Fighters.Count;
+        bool dollPoses = CombatMotionDirector.HasPose("doll_zero_combat", CombatPose.Attack);
+        director.ResetRecording();
+        if (ItemUseService.TryBeginUnarmedStrike(out string strikeFailure)) {
+            ItemUseService.TryConfirmPendingTarget(combat.EnemyFaction.Fighters[0], out strikeFailure);
+        }
+
+        yield return PlayScenarioSupport.Until(() => VisualQueue.Count == 0, 10f, "Zero's strike did not finish playing");
+        if (dollPoses && !director.PosesShown.Contains(CombatPose.Attack)) {
+            Debug.LogError("[CombatMotion] Zero struck but never showed her attack pose.");
+        }
+
+        if (director.HitstopsPlayed == 0 || director.VfxSpawned == 0) {
+            Debug.LogError($"[CombatMotion] Zero's hit had no impact: {director.HitstopsPlayed} hitstop(s), {director.VfxSpawned} effect(s).");
+        }
+
         director.ResetRecording();
         float started = Time.time;
         combat.EndPlayerTurn();
@@ -92,6 +109,24 @@ public static class CombatMotionPlayScenario {
             Debug.LogError($"[CombatMotion] The stage stayed shaken at {stage.anchoredPosition}.");
         }
 
-        Debug.Log($"[CombatMotion] {strikeTimes.Count} enemy action(s) over {turnSeconds:0.00}s, {director.PopupsSpawned} popup(s), lunge {director.MaxLungeOffset:0}px.");
+        if (stage != null && Mathf.Abs(stage.localScale.x - 1f) > 0.001f) {
+            Debug.LogError($"[CombatMotion] The stage stayed pushed in at scale {stage.localScale.x:0.000}.");
+        }
+
+        if (dollPoses) {
+            bool zeroHit = director.PlayedBeats.Exists(b => b.Kind == CombatBeatKind.Hit && b.Target is DollFighter);
+            if (zeroHit && !director.PosesShown.Contains(CombatPose.Hurt) && !director.PosesShown.Contains(CombatPose.Guard)) {
+                Debug.LogError($"[CombatMotion] Zero was hit but showed neither hurt nor guard (poses: {string.Join(",", director.PosesShown)}).");
+            }
+
+            Image doll = hud.transform.Find("StageRoot/PlayerStageRoot/PlayerDoll_Image")?.GetComponent<Image>();
+            VisualAssetService.TryGetSprite(CombatMotionDirector.PoseVisualID("doll_zero_combat", CombatPose.Idle), out Sprite stance);
+            if (doll != null && combat.PlayerFaction.Fighters[0].RuntimeHP > 0 && doll.sprite != stance) {
+                Debug.LogError($"[CombatMotion] After the turn Zero shows {doll.sprite?.name}, not her combat stance.");
+            }
+        }
+
+        int zeroHits = director.PlayedBeats.FindAll(b => b.Kind == CombatBeatKind.Hit && b.Target is DollFighter).Count;
+        Debug.Log($"[CombatMotion] {strikeTimes.Count} enemy action(s) over {turnSeconds:0.00}s, {director.PopupsSpawned} popup(s), lunge {director.MaxLungeOffset:0}px, Zero hit {zeroHits}x, poses [{string.Join(",", director.PosesShown)}].");
     }
 }

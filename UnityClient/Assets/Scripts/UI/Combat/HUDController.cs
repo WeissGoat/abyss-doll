@@ -29,6 +29,7 @@ public class HUDController : MonoBehaviour {
     private Image _playerStatusPanel;
     private Image _playerShadowImage;
     private Image _playerDollImage;
+    private const string DollCombatPoseSet = "doll_zero_combat";
     private Image _hpBarTrack;
     private Image _hpBarFill;
     private Image _shieldBarTrack;
@@ -74,7 +75,22 @@ public class HUDController : MonoBehaviour {
         CombatSystem combatAtOpen = GameRoot.Core?.Combat;
         _playerTurnShown = combatAtOpen != null && combatAtOpen.CurrentState == CombatState.PlayerTurn && VisualQueue.Count == 0;
         RefreshCombatPresentation();
+        PlayEnemyIntro();
         Debug.Log("[HUDController] Combat HUD initialized.");
+    }
+
+    // A boss with a registered entrance clip plays it once at the start of the fight.
+    private void PlayEnemyIntro() {
+        CombatFaction enemies = GameRoot.Core?.Combat?.EnemyFaction;
+        if (enemies == null || enemies.Fighters.Count == 0) {
+            return;
+        }
+
+        foreach (FighterEntity fighter in enemies.Fighters) {
+            if (CombatIntroCutscene.TryPlay(transform, enemies.Fighters[0], ResolveEnemyCombatVisualID(fighter)) != null) {
+                return;
+            }
+        }
     }
 
     private void OnDisable() {
@@ -403,9 +419,13 @@ public class HUDController : MonoBehaviour {
         dollRect.anchorMax = new Vector2(0.5f, 0f);
         dollRect.pivot = new Vector2(0.5f, 0f);
         dollRect.anchoredPosition = new Vector2(0f, 54f);
+        // Her combat stance when the pose set is registered, otherwise the standing portrait.
+        string dollVisualID = CombatMotionDirector.HasPose(DollCombatPoseSet, CombatPose.Idle)
+            ? CombatMotionDirector.PoseVisualID(DollCombatPoseSet, CombatPose.Idle)
+            : "doll_proto_0_stand";
         VisualUIHelper.ApplyContainSprite(
             _playerDollImage,
-            "doll_proto_0_stand",
+            dollVisualID,
             VisualDisplaySpecs.CombatDoll,
             Color.white,
             new Color(0.42f, 0.32f, 0.24f, 0.92f),
@@ -586,7 +606,7 @@ public class HUDController : MonoBehaviour {
 
         DollFighter activeFighter = GetActivePlayerFighter();
         if (activeFighter != null && _motion != null) {
-            _motion.Register(activeFighter, _playerDollImage, true);
+            _motion.Register(activeFighter, _playerDollImage, true, DollCombatPoseSet);
         }
 
         if (activeFighter != null) {
@@ -699,7 +719,7 @@ public class HUDController : MonoBehaviour {
         Image sprite = CreateEnemySprite(slotObj.transform, fighter, isAlive, count);
         sprite.transform.SetAsLastSibling();
         if (_motion != null) {
-            _motion.Register(fighter, sprite, false);
+            _motion.Register(fighter, sprite, false, ResolveEnemyCombatVisualID(fighter));
         }
 
         float hpRatio = fighter != null && fighter.RuntimeMaxHP > 0
@@ -777,7 +797,12 @@ public class HUDController : MonoBehaviour {
         rect.pivot = new Vector2(0.5f, 0f);
         rect.anchoredPosition = new Vector2(0f, 72f);
 
+        // A monster with a pose set stands in its "_idle" pose, drawn with the other poses so they match.
         string visualID = ResolveEnemyCombatVisualID(fighter);
+        if (CombatMotionDirector.HasPose(visualID, CombatPose.Idle)) {
+            visualID = CombatMotionDirector.PoseVisualID(visualID, CombatPose.Idle);
+        }
+
         Vector2 size = count <= 1 ? VisualDisplaySpecs.MonsterCombatEntityLarge : VisualDisplaySpecs.MonsterCombatEntity;
         Color registeredColor = isAlive ? Color.white : new Color(0.45f, 0.45f, 0.45f, 0.9f);
         VisualUIHelper.ApplyContainSprite(

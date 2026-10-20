@@ -71,7 +71,7 @@ public class DollFighter : FighterEntity {
         int absorbed = ignoreShield ? 0 : RuntimeShield;
         if (damage > 0 && RuntimeHP > 1 && damage >= absorbed + RuntimeHP && HomeLoop.TryHoldOn(DataRef)) {
             damage = absorbed + RuntimeHP - 1;
-            GameEventBus.PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Interfere, Actor = this, Label = "零号咬牙撑住了" });
+            GameEventBus.PublishCombatBeat(new CombatBeat { Kind = CombatBeatKind.Interfere, Actor = this, Label = "零号咬牙撑住了", Pose = CombatPose.Kneel });
         }
 
         int hpBefore = RuntimeHP;
@@ -116,7 +116,7 @@ public class DollFighter : FighterEntity {
         if (weaponSource.Combat.DamageType == DamageType.Physical.ToString() || weaponSource.Combat.DamageType == DamageType.Energy.ToString()) {
             // A neighbour's charge raises this strike once; 迟缓 on Zero and 破甲 on the target change it too.
             int dmg = CombatStatusService.ModifyDamage(this, target, CombatItemEffects.StrikeDamage(weaponSource));
-            GameEventBus.PublishAttackAction(this, target, weaponSource.Name);
+            GameEventBus.PublishAttackAction(this, target, weaponSource.Name, weaponSource.IconID);
             GameEventBus.PublishDamageDealt(Name, target.Name, dmg);
             Debug.Log($"[{Name}] attacks [{target.Name}] with {weaponSource.Name} for {dmg} damage! (AP Left: {CurrentAP})");
             int targetHPBefore = target.RuntimeHP;
@@ -136,7 +136,7 @@ public class DollFighter : FighterEntity {
             outcome.Killed = targetHPBefore > 0 && target.RuntimeHP <= 0;
         }
         else if (weaponSource.Combat.DamageType == DamageType.Shield.ToString()) {
-            GameEventBus.PublishAttackAction(this, this, weaponSource.Name);
+            GameEventBus.PublishAttackAction(this, this, weaponSource.Name, weaponSource.IconID);
             foreach (var effectData in weaponSource.Combat.Effects) {
                 EffectBase effect = EffectFactory.CreateEffect(effectData);
                 // Turn-start effects on a shield wait for the turn start.

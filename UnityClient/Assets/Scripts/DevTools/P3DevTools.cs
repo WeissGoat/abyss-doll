@@ -269,6 +269,48 @@ public static class P3DevTools {
         return SetPrologueOnStartup(!P3DevSettings.PlayPrologueOnStartup);
     }
 
+    // Records the game's own frames for a few seconds (returns at once; see P3FrameRecorder). Default folder: P3Rec/
+    // next to the executable.
+    public static string Record(string folder = null, float seconds = 10f, int fps = 24) {
+        if (string.IsNullOrEmpty(folder)) {
+            folder = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.dataPath) ?? ".", "P3Rec");
+        }
+
+        return P3FrameRecorder.Begin(folder, seconds, fps);
+    }
+
+    // Debug fight against the given monsters, comma-separated (e.g. Fight("boss_gatekeeper_mk1") for the boss entrance
+    // clip, Fight("mob_rust_hound,mob_rust_hound")).
+    public static string Fight(string monsters) {
+        string[] monsterIDs = (monsters ?? string.Empty).Split(new[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries);
+        for (int i = 0; i < monsterIDs.Length; i++) {
+            monsterIDs[i] = monsterIDs[i].Trim();
+        }
+
+        GameFlowController flow = GameFlowController.Instance;
+        if (flow == null || GameRoot.Core == null) {
+            return "Game is not running.";
+        }
+
+        if (monsterIDs.Length == 0) {
+            return "Fight needs at least one MonsterID.";
+        }
+
+        foreach (string id in monsterIDs) {
+            if (!ConfigManager.Monsters.ContainsKey(id)) {
+                return $"Unknown monster {id}.";
+            }
+        }
+
+        if (GameRoot.Core.Dungeon.CurrentLayer == null && !StartRun()) {
+            return "Could not start a run.\n" + Describe();
+        }
+
+        GameRoot.Core.Combat.StartCombat(new List<string>(monsterIDs));
+        flow.EnterCombat();
+        return Describe();
+    }
+
     // Debug route to a screen: workshop (= hall), studio, attic, sell, prosthetic, layers, loadout, map, combat, saferoom, stairs.
     public static string GoTo(string screen) {
         GameFlowController flow = GameFlowController.Instance;
@@ -787,6 +829,45 @@ public static class P3DevTools {
         }
 
         return "Healed.\n" + Describe();
+    }
+
+    // One player action at the player's pace (for recordings): use the named backpack item, or the strongest weapon,
+    // on the first enemy still standing. Pair with EndTurn().
+    public static string Strike(string itemName = null) {
+        CombatSystem combat = GameRoot.Core?.Combat;
+        if (combat == null || combat.CurrentState != CombatState.PlayerTurn) {
+            return "Not the player's turn.";
+        }
+
+        BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
+        ItemEntity chosen = null;
+        foreach (ItemEntity item in grid.ContainedItems) {
+            bool named = !string.IsNullOrEmpty(itemName) && item.Name == itemName;
+            bool weapon = string.IsNullOrEmpty(itemName) && item.ItemType == nameof(ItemType.Weapon) && item.Combat != null
+                && item.Combat.TriggerType == TriggerType.Manual.ToString() && (chosen == null || item.Combat.BaseValue > chosen.Combat.BaseValue);
+            if (named || weapon) {
+                chosen = item;
+            }
+        }
+
+        string reason;
+        bool started = chosen != null ? ItemUseService.TryUseItem(chosen, out reason) : ItemUseService.TryBeginUnarmedStrike(out reason);
+        FighterEntity enemy = combat.EnemyFaction.Fighters.Find(f => f.RuntimeHP > 0);
+        if (started && ItemUseService.HasPendingEnemyTargetSelection && enemy != null) {
+            ItemUseService.TryConfirmPendingTarget(enemy, out reason);
+        }
+
+        return started ? $"Used {(chosen != null ? chosen.Name : "徒手")}.\n" + Describe() : $"Could not act: {reason}";
+    }
+
+    public static string EndTurn() {
+        CombatSystem combat = GameRoot.Core?.Combat;
+        if (combat == null || combat.CurrentState != CombatState.PlayerTurn) {
+            return "Not the player's turn.";
+        }
+
+        combat.EndPlayerTurn();
+        return "Turn ended.";
     }
 
     private static string PlayCombat() {
