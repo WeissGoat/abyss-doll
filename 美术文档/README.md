@@ -18,6 +18,7 @@ related:
   - 美术文档/18_CG底图与漫画式播放演出工作流.md
   - 美术文档/19_T0-01序章CG细案.md
   - 美术文档/20_GIF小循环人物替换工作流.md
+  - 美术文档/21_战斗姿势与动态素材工作流.md
   - 美术文档/人设/README.md
   - 美术文档/人设/01_人设参考获取规则.md
   - 美术文档/人设/02_零号原型参考_失明少女.md
@@ -52,6 +53,7 @@ update_rule: 美术文档结构、推荐阅读顺序或外部契约变化时同�
 | 持久化生成请求在哪里 | [_generated/art_generation_requests.json](_generated/art_generation_requests.json) | 由 `Compile-ArtGenerationRequests.ps1` 生成；保存 `RequestID`、fingerprint、CanonicalVisualBrief、TechnicalRequest 和自然语言 / Danbooru 两种 Prompt Variant。 |
 | Agent 如何端到端生产正式美术资产 | [../.codex/skills/p3-art/SKILL.md](../.codex/skills/p3-art/SKILL.md) | 从需求准入、Asset Contract、候选生成与 Agent 评分推进到 Approved、Unity 接入、运行时验收和状态回写；支持交互与全自动模式。 |
 | Agent 如何生成或调整图片 | [../.codex/skills/p3-art/SKILL.md](../.codex/skills/p3-art/SKILL.md) | 通用方法（找网关、后端选择、文生图、图生图、差分、inpaint、拼图评审）在用户级 skill `art-gen`；P3 正式出图和 raw 证据见 `p3-art` 的出图补充。 |
+| 战斗姿势、活立绘待机循环、首领登场怎么做 | [21_战斗姿势与动态素材工作流.md](21_战斗姿势与动态素材工作流.md) | 2026-10-21 样片沉淀的做法：Gemini 绿底姿势、H3 透明循环和登场视频、命名、入库和验证。 |
 | 小循环 GIF 如何逐帧替换人物 | [20_GIF小循环人物替换工作流.md](20_GIF小循环人物替换工作流.md) | 独立工具工作流，定义拆帧、身份包、两帧预审、独立逐帧图生图、风险检查和 GIF 重编码；当前为已批准设计、尚未实现。 |
 | UI 结构版本怎么管理 | [ui_design/README.md](ui_design/README.md) | UI 设计系统入口，说明 active / baseline / draft / handoff。 |
 | Formal V2 UX/UI 怎么推进 | [ui_design/formal_v2/00_formal_v2_ux_ui_overview.md](ui_design/formal_v2/00_formal_v2_ux_ui_overview.md) | 当前 Formal V2 总方案，解决按钮堆叠和正式感不足。 |

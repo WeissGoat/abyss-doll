@@ -15,6 +15,7 @@ description: Use for any Project P3 art work - concept or placeholder images, fo
 |---|---|---|
 | 探索：概念图、方向对比、占位图 | 按 `art-gen` 直接出图，存到 `tmp/art_explore/<日期>_<主题>/`（不进 git），给用户看。不进 Approved，不写 Manifest，没有门禁，结论只算探索结论。 | `art-gen` |
 | 标准资产：图标、背景、普通 UI 图片 | 走脚本流水线的快速道：编译需求 → 出图 → 一次性评审整批 → 选定 → 入库。 | [production-pipeline.md](references/production-pipeline.md) |
+| 战斗姿势、活立绘待机循环、首领登场视频 | 按工作流文档做：Gemini 绿底姿势 → `fit_pose_set.py`；H3 绿底视频 → `make_alpha_loop.py`；登场视频转 baseline。 | `美术文档/21_战斗姿势与动态素材工作流.md` |
 | 身份类资产：角色立绘套组、叙事 CG / 漫画页、UI 九宫格皮肤、首个风格锚点、替换界面上已在用的资产 | 先定角色、场景、风格锚点，再按套 / 按页生产，走完整道。 | [narrative-cg.md](references/narrative-cg.md)、[production-pipeline.md](references/production-pipeline.md) |
 
 美术方向和风格锚点以 `美术文档/04_美术风格基准.md`、角色设定以 `美术文档/人设/` 为准；当前阶段见 `PROJECT_STATUS.md`。
