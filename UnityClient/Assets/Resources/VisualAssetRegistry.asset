@@ -259,6 +259,12 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: doll_proto_0_stand_idle
+    Sprite: {fileID: 0}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 32900000, guid: 479472418f7083d4cb83e2e97fecac77, type: 3}
   - VisualID: doll_proto_0_stand_rig
     Sprite: {fileID: 21300000, guid: 01a177e696d76f44384946520fb45aab, type: 3}
     Prefab: {fileID: 0}
@@ -267,6 +273,42 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: doll_proto_0_t0_stand
     Sprite: {fileID: 21300000, guid: a3454647d76794c4ba18cee4c0185589, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: doll_zero_combat_attack
+    Sprite: {fileID: 21300000, guid: a684a7d7a670ee14eaaab087ecffbedf, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: doll_zero_combat_guard
+    Sprite: {fileID: 21300000, guid: cbc29b4c882732644a5d6fbcdb2145b9, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: doll_zero_combat_hurt
+    Sprite: {fileID: 21300000, guid: ee6513d657d5c53438df3e3d8feb2c5b, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: doll_zero_combat_idle
+    Sprite: {fileID: 21300000, guid: 769029006a589f141a2cce194be09db5, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: doll_zero_combat_item
+    Sprite: {fileID: 21300000, guid: 64a25d36bd5a7a7428d6bdb46cf3db12, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: doll_zero_combat_kneel
+    Sprite: {fileID: 21300000, guid: 23a21b70d489021468fdf530ad63c645, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -793,6 +835,12 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: monster_boss_gatekeeper_mk1_combat_intro
+    Sprite: {fileID: 0}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 32900000, guid: 1926dbe8ab953b24182e624b99df314d, type: 3}
   - VisualID: monster_boss_gatekeeper_mk1_portrait
     Sprite: {fileID: 21300000, guid: da5ab20a897838b499e52adbf431a4c0, type: 3}
     Prefab: {fileID: 0}
@@ -981,6 +1029,24 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: monster_mob_rust_hound_combat
     Sprite: {fileID: 21300000, guid: f2d95000ef07b1d439666dc229d4cbbd, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_rust_hound_combat_attack
+    Sprite: {fileID: 21300000, guid: 39cb95234df0a3148919fa635f3d90eb, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_rust_hound_combat_idle
+    Sprite: {fileID: 21300000, guid: 57fbc467e49d3d147961174fd59682e1, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_rust_hound_combat_windup
+    Sprite: {fileID: 21300000, guid: ff5720bbbc9a3c141891640b1f930b91, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
