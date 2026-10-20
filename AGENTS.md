@@ -27,7 +27,7 @@
 - 打包：Editor 开着时用菜单 `Tools/P3/打包 Windows 试玩版`（或 MCP `return P3BuildTools.BuildWindows(false);`），Editor 关着时用 `.\tools\build\Build-Windows.ps1`。输出在 `Builds/Windows/`（不进 git）。打完用 `.\tools\build\Test-WindowsBuild.ps1` 自检（包自己从标题开新游戏、玩完序章、再跑 3 次下潜和夜间营业；`P3DevTools.PlayPrologue()` 在 Editor 里也能一行玩完序章），再用 `Pack-WindowsBuild.ps1` 压缩。
 - 出图：通用方法（找网关、选后端、串行出候选、拼图评审）用用户级 Skill `art-gen`；网关是 submodule `tools/ai-image-gateway`，配置 `config.local.yaml` 不进 git；正式资产按 `p3-art` 入库。
 - 改了 `配置表(JSON)/` 后先同步：`.\tools\config\Sync-Configs.ps1 -Clean`。加改内容见 Skill `p3-content`。
-- Editor 没开时，写明 `validation_limited:unity_editor_not_running`，能做的静态检查照做。
+- Editor 或 Unity MCP 没开时，自己启动 Unity（`Unity.exe -projectPath UnityClient`），不用先问；确实打不开时写明 `validation_limited:unity_editor_not_running`，能做的静态检查照做。
 - 开工检查：`python tools/agent/agent_health_check.py`（分支、改动、距上次游戏改动的天数、Skill 校验）。
 
 ## 代码约定
@@ -76,6 +76,10 @@
 - 状态只记在 `PROJECT_STATUS.md` 一处：做完或发现问题时更新对应的行，历史交给 git log。
 - 需要先设计的功能，写一页 spec 放进 `docs/specs/`；不再新增规划层或第二份进度表。
 - 设计文档是参考，不是合同。实现中发现设计不合理，直接提出来，并修改设计文档本身。
+- 制作人预先给的权限（2026-10-20）：
+  - 启动 Unity Editor 不用问。
+  - 出图（NovelAI、Gemini、gpt-image-2 等）不用问，按需出候选；入库和替换游戏里已在用的图仍按 `p3-art`。
+  - H3 视频（Modal 云端按 GPU 时间计费）一次提交的预估费用低于 1 美元，直接提交；超过的先报条数、时间和费用，等同意。
 - 本页之外的做法都是默认做法，可以按情况偏离，但要在最终回复里说明偏离了什么、为什么。
 
 ## Skill
