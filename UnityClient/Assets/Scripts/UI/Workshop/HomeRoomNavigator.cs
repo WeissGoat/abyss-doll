@@ -168,9 +168,8 @@ public class HomeRoomNavigator : MonoBehaviour {
         _workshop?.DayHud?.SetChoiceVisible(Current == HomeRoom.Hall);
 
         bool talk = _nightTalk.IsShowing;
-        if (Current != HomeRoom.Studio) {
-            Zero(Current).EnableTouch(region => Touch(Current, region));
-        }
+        // In the studio only her head answers: her shoulder and hand would sit on the smudges.
+        Zero(Current).EnableTouch(region => Touch(Current, region), Current == HomeRoom.Studio);
 
         _stamps.Refresh(player, night || talk, talk);
         EveningStamp next = talk ? EveningStamp.Goodnight : HomeEveningService.Next(player);

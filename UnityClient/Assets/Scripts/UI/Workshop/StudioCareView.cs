@@ -94,6 +94,7 @@ public class StudioCareView : MonoBehaviour {
         rect.anchoredPosition = Vector2.zero;
         rect.sizeDelta = new Vector2(size, size);
         mark.raycastTarget = true;
+        UIPuppetPin.Attach(mark);
         if (kind == CareMarkKind.Grime) {
             mark.gameObject.AddComponent<GrimeSpot>().Init(this);
         } else {

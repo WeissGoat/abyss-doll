@@ -757,6 +757,33 @@ public static class P3DevTools {
         return $"Wiped {wiped} smudge(s).\n" + Describe();
     }
 
+    // Debug: puts smudges on Zero (0 to CareService.MaxGrime) and opens the studio to see them on her.
+    public static string Soil(int grime = CareService.MaxGrime) {
+        DollEntity doll = GameRoot.Core?.CurrentPlayer?.ActiveDoll;
+        if (doll?.Status == null) {
+            return "No Zero.\n" + Describe();
+        }
+
+        doll.Status.Grime = Mathf.Clamp(grime, 0, CareService.MaxGrime);
+        HomeRoomNavigator rooms = Object.FindObjectOfType<WorkshopUIController>()?.Rooms;
+        rooms?.Show(HomeRoom.Studio);
+        rooms?.Care?.Refresh();
+        return $"Zero has {doll.Status.Grime} smudge(s).\n" + Describe();
+    }
+
+    // Pats Zero's head in the room on screen like a hand would: press, two strokes across, let go (her puppet
+    // portrait dips and leans), then it counts as a touch on her head. Returns at once; the pat takes about 2 s.
+    public static string Pat() {
+        foreach (PortraitPatZone zone in Object.FindObjectsOfType<PortraitPatZone>()) {
+            if (zone.isActiveAndEnabled) {
+                zone.StartCoroutine(zone.Play());
+                return "Patting her head.";
+            }
+        }
+
+        return "No head to pat on screen.\n" + Describe();
+    }
+
     public static string AddMoney(int amount) {
         GameRoot.Core.CurrentPlayer.Money += amount;
         return $"Money +{amount}.\n" + Describe();

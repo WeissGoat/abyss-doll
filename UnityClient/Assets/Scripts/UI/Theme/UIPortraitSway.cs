@@ -10,8 +10,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Graphic))]
 public class UIPortraitSway : BaseMeshEffect {
     public const string RigSuffix = "_rig";
-    public const int Columns = 24;
-    public const int Rows = 36;
+    // Fine enough for a head turning on its neck (UIPortraitPuppet bends the same grid).
+    public const int Columns = 32;
+    public const int Rows = 48;
     // Peak sideways bend as a share of the image width (about 25 px on a 1024 px portrait, 14 px in the workshop).
     // The producer found 10 px too faint; past about 30 px the cape and dress edges start to drag with the hair.
     public const float HairAmount = 0.024f;
@@ -23,6 +24,9 @@ public class UIPortraitSway : BaseMeshEffect {
     private Texture2D _rig;
     private Color32[] _weights;
     private float _phase;
+
+    // Extra hair swing on top of the idle sway (1 = twice as far); UIPortraitPuppet raises it when she moves.
+    public float Boost;
 
     public bool HasRig => _weights != null;
     public float LastMaxBend { get; private set; }
@@ -84,7 +88,6 @@ public class UIPortraitSway : BaseMeshEffect {
         }
 
         float width = Vector3.Distance(corners[0].position, corners[3].position);
-        float wave = (Time.unscaledTime + _phase) / Period * Mathf.PI * 2f;
         vh.Clear();
         float maxBend = 0f;
         for (int row = 0; row <= Rows; row++) {
@@ -92,10 +95,7 @@ public class UIPortraitSway : BaseMeshEffect {
             for (int column = 0; column <= Columns; column++) {
                 float u = column / (float)Columns;
                 UIVertex vertex = Lerp(corners, u, v);
-                SampleWeights(u, v, out float hair, out float skirt);
-                float fromTop = 1f - v;
-                float bend = width * (HairAmount * hair * Mathf.Sin(wave - 3f * fromTop)
-                    + SkirtAmount * skirt * Mathf.Sin(1.3f * wave + 1f));
+                float bend = BendAt(u, v, width);
                 vertex.position.x += bend;
                 maxBend = Mathf.Max(maxBend, Mathf.Abs(bend));
                 vh.AddVert(vertex);
@@ -112,6 +112,19 @@ public class UIPortraitSway : BaseMeshEffect {
         }
 
         LastMaxBend = maxBend;
+    }
+
+    // How far the point (u, v) of the portrait is bent sideways right now, for a portrait drawn width wide.
+    public float BendAt(float u, float v, float width) {
+        if (_weights == null) {
+            return 0f;
+        }
+
+        float wave = (Time.unscaledTime + _phase) / Period * Mathf.PI * 2f;
+        SampleWeights(u, v, out float hair, out float skirt);
+        float fromTop = 1f - v;
+        return width * (HairAmount * (1f + Boost) * hair * Mathf.Sin(wave - 3f * fromTop)
+            + SkirtAmount * skirt * Mathf.Sin(1.3f * wave + 1f));
     }
 
     // Weights at (u, v) of the portrait, v up; the rig texture is stored v up too (Unity's GetPixels order).

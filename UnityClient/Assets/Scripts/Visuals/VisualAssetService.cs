@@ -376,6 +376,7 @@ public static class VisualUIHelper {
         image.raycastTarget = false;
         UIStillMotion.SyncPortrait(image, visualID);
         UIPortraitSway.Sync(image, visualID);
+        UIPortraitPuppet.Sync(image, visualID);
         return hasRegisteredSprite;
     }
 
