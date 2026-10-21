@@ -36,7 +36,7 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 - `fit_pose_set.py`：绿底姿势候选 → 抠图，按可见面积和脚底对齐到基础图的画布，输出 `<姿势集>_<姿势>.png` 和预览。
 - `make_alpha_loop.py`：H3 绿底视频 → 交叉淡化成无缝循环，抠成带透明的 VP8 WebM。
 - `build_puppet_rig.py`：纸偶立绘的权重图（R 头、G 脸、B 手），给 `UIPortraitPuppet` 用，附歪头、低头、转头、抬手预览。
-- `cut_face_patch.py`：图生图改过嘴的候选 → 对齐回原立绘、校色，切成叠在脸上的小块（表情换件）。
+- `cut_face_patch.py`：图生图改过嘴的候选 → 对齐回原立绘、校色，切成叠在脸上的小块（表情换件；房间里的立绘太小不用，留给以后的大立绘）。
 
 ## Migrate-ArtProcessedRounds.ps1
 

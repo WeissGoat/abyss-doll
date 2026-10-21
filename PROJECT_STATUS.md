@@ -222,7 +222,8 @@ M4 试玩的三个问题自动测试都没抓到（渲染层级、点击时序�
 - [x] 纸偶立绘（2026-10-21，分支 `m7/puppet-sample`）：工作室和阁楼的零号可以摸头。按住低头、拖动跟着歪头、松手弹回甩头发，脸红；鼠标靠近时头偏过去；说话点头动嘴；污渍跟着她动。做法是在摆动网格上加头部权重图（`UIPortraitPuppet`、`tools/美术工具/build_puppet_rig.py`），没拆层，零花费。P 键对比原版。`PortraitPuppetPlayScenario`；EditMode 78、PlayMode 9 通过，包 `Builds/Windows/P3_20261021_1149`，自检 PASS。录像 `tmp/presentation_samples/工作室_纸偶摸头.mp4`。
 - [x] 样片和纸偶合并到 main（2a048a4，2026-10-21，制作人确认）。
 - [x] 纸偶第二轮（2026-10-21，分支 `m7/puppet-expressions`）：牵手时手抬起来（按住 0.9 秒算一次摸手）；嘴换成画的微笑、张嘴笑、咬嘴唇（`tools/美术工具/cut_face_patch.py` 从 Gemini 改图里对齐切出），说话时一张一合。房间里的零号太小，换嘴很淡，见 spec。EditMode 78、PlayMode 9 通过，包 `Builds/Windows/P3_20261021_1252`，自检 PASS。录像 `tmp/presentation_samples/阁楼_牵手摸头说话.mp4`。
-- [ ] 没做：反应片段、战斗布局调整、大尺寸的对话立绘（表情才看得清）。
+- [x] 纸偶第三轮（2026-10-22，同一分支）：制作人反馈嘴不自然、手看不出来，拿掉了换嘴和说话开合（小块从 Approved 删掉）；牵手改成她朝手低头、脸红，手抬高到 3%。结论见 spec「第三轮」：纸偶只做头。
+- [ ] 没做：反应片段、战斗布局调整、大尺寸的对话立绘（表情才看得清）、牵手时切一张伸手的姿势图。
 
 ## 现在
 

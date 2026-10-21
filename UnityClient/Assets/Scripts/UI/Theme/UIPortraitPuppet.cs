@@ -6,19 +6,17 @@ using UnityEngine.UI;
 // Zero as a paper puppet (docs/specs/2026-10-20-presentation-ceiling.md, puppet sample): on the grid UIPortraitSway
 // lays over her portrait, her head moves on its neck. It tilts slowly by itself and turns a little toward the pointer
 // (she cannot see; she hears you), dips under a hand that pats her and leans with a stroke, then springs back with her
-// hair swinging. Held by the hand, her clasped hands rise to meet yours. Her mouth is swapped for drawn ones
-// ("<visualID>_mouth_<smile|happy|wince>", cut by tools/美术工具/cut_face_patch.py): a smile while touched or after a
-// welcome touch, a wince when she flinches, and while she talks it opens and closes. A blush shows while she is
-// touched. Marks on her (UIPuppetPin) ride along. P switches it off and on, to compare with the plain sway.
+// hair swinging. Held by the hand, she bows her head toward it and her clasped hands rise a little. A blush shows
+// while she is touched. Marks on her (UIPuppetPin) ride along. P switches it off and on, to compare with the plain
+// sway. Her mouth is left alone: at room size it is 2-4 px, and swapped or flapping mouths read as a flicker.
 // The weights are a registered sprite "<visualID>_puppet" (R = head, G = face, B = hands; build_puppet_rig.py,
 // imported like the sway rig). It bends the sway's grid, so a portrait without a sway rig does not move.
 [RequireComponent(typeof(Graphic))]
 public class UIPortraitPuppet : BaseMeshEffect {
     public const string RigSuffix = "_puppet";
-    // Where her head turns, her mouth and the middle of her cheeks, as (u, v) of doll_proto_0_stand from the
-    // bottom-left (build_puppet_rig.py prints the neck).
+    // Where her head turns and the middle of her cheeks, as (u, v) of doll_proto_0_stand from the bottom-left
+    // (build_puppet_rig.py prints the neck).
     public static readonly Vector2 Neck = new Vector2(0.513f, 0.792f);
-    private static readonly Vector2 Mouth = new Vector2(0.5205f, 0.8132f);
     private static readonly Vector2 Cheeks = new Vector2(0.52f, 0.8275f);
     // Lengths are shares of the portrait width (0.016 = 16 px on the 1024 px portrait, 9 px in the studio), angles
     // degrees. Past about 10 degrees or 0.02 the cape under her chin starts to stretch visibly.
@@ -29,12 +27,11 @@ public class UIPortraitPuppet : BaseMeshEffect {
     public const float IdlePeriod = 7.3f;
     public const float MaxStrokeTilt = 9f;
     public const float StrokeTiltPerPixel = 0.06f;
-    public const float HandLift = 0.014f;
-    public const float TalkSeconds = 2.2f;
-    public const float FaceSeconds = 2.5f;
-    public const string Smile = "smile";
-    public const string Happy = "happy";
-    public const string Wince = "wince";
+    // Past about 0.04 her forearms visibly shorten and the dress under the hands smears.
+    public const float HandLift = 0.03f;
+    // Held by the hand she bows: a dip and a tilt toward her hands (on her right, screen left).
+    public const float HoldBow = 0.011f;
+    public const float HoldTilt = 5f;
     // Head springs: a little bouncy, so a pat lets go with an overshoot.
     private const float Stiffness = 90f;
     private const float Damping = 11f;
@@ -55,13 +52,8 @@ public class UIPortraitPuppet : BaseMeshEffect {
     private float _leanUntil;
     private float _hairBoost;
     private float _blush;
-    private float _talkUntil;
-    private string _face;
-    private float _faceUntil;
     private Spring _hand;
     private bool _holding;
-    private string _visualID;
-    private readonly Dictionary<string, Sprite> _mouths = new Dictionary<string, Sprite>();
     private float _phase;
     private bool _pressed;
     private bool _hasGrid;
@@ -70,7 +62,6 @@ public class UIPortraitPuppet : BaseMeshEffect {
     private Vector2 _posMin;
     private Vector2 _posMax;
     private Image _blushImage;
-    private Image _mouthImage;
 
     public bool HasRig => _weights != null;
     public float HeadAngle => _angle.Value;
@@ -79,8 +70,6 @@ public class UIPortraitPuppet : BaseMeshEffect {
     // On screen and drawn (not hidden under the living clip).
     public bool Showing => isActiveAndEnabled && HasRig && Visible();
     public float HandRise => _hand.Value;
-    // The drawn mouth on her now (smile, happy, wince), or empty for the portrait's own.
-    public string CurrentMouth { get; private set; } = string.Empty;
     // The furthest a vertex of her head moved in the last mesh, in the portrait's local units.
     public float LastHeadShift { get; private set; }
 
@@ -108,7 +97,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
             puppet = image.gameObject.AddComponent<UIPortraitPuppet>();
         }
 
-        puppet.SetRig(rig, visualID);
+        puppet.SetRig(rig);
         puppet.enabled = true;
     }
 
@@ -118,13 +107,8 @@ public class UIPortraitPuppet : BaseMeshEffect {
         return puppet != null && puppet.isActiveAndEnabled && puppet.HasRig ? puppet : null;
     }
 
-    public void SetRig(Texture2D rig, string visualID) {
+    public void SetRig(Texture2D rig) {
         _rig = rig;
-        if (_visualID != visualID) {
-            _visualID = visualID;
-            _mouths.Clear();
-        }
-
         if (!PixelCache.TryGetValue(rig, out _weights)) {
             _weights = rig.GetPixels32();
             PixelCache[rig] = _weights;
@@ -142,12 +126,6 @@ public class UIPortraitPuppet : BaseMeshEffect {
     // Your hand holding hers (down) and letting go.
     public void HoldHand(bool down) {
         _holding = down && Enabled;
-    }
-
-    // Her face for a while: Smile, Happy or Wince.
-    public void ShowFace(string face, float seconds = FaceSeconds) {
-        _face = face;
-        _faceUntil = Time.unscaledTime + seconds;
     }
 
     // The hand moving across her head, dx screen pixels: she leans with it.
@@ -169,13 +147,11 @@ public class UIPortraitPuppet : BaseMeshEffect {
             case ZeroReaction.Hop:
                 _dip.Velocity -= 0.12f;
                 _hairBoost = 1f;
-                ShowFace(Smile);
                 break;
             case ZeroReaction.Flinch:
                 _angle.Velocity += (Time.frameCount & 1) == 0 ? -160f : 160f;
                 _dip.Velocity += 0.1f;
                 _hairBoost = 1f;
-                ShowFace(Wince, 2f);
                 break;
             case ZeroReaction.Lean:
                 // Toward the middle of the screen, where you are.
@@ -183,17 +159,16 @@ public class UIPortraitPuppet : BaseMeshEffect {
                 _leanTilt = screen.x < Screen.width * 0.5f ? -6f : 6f;
                 _leanUntil = Time.unscaledTime + 1.6f;
                 _blush = 1f;
-                ShowFace(Smile, 3f);
                 break;
         }
     }
 
+    // A small nod as she starts to speak.
     public void Talk() {
         if (!Enabled) {
             return;
         }
 
-        _talkUntil = Time.unscaledTime + TalkSeconds;
         _dip.Velocity += 0.05f;
     }
 
@@ -260,24 +235,26 @@ public class UIPortraitPuppet : BaseMeshEffect {
             _holding = false;
         }
 
-        float look = live ? LookTarget() : 0f;
+        bool holding = live && _holding;
+        float look = live ? (holding ? -0.5f : LookTarget()) : 0f;
         _strokeTilt = Mathf.MoveTowards(_strokeTilt, 0f, dt * (_pressed ? 6f : 14f));
         float angleTarget = live
             ? IdleTilt * Mathf.Sin((now + _phase) / IdlePeriod * Mathf.PI * 2f) - LookTilt * look + _strokeTilt + (now < _leanUntil ? _leanTilt : 0f)
+                + (holding ? HoldTilt : 0f)
             : 0f;
-        float dipTarget = live && _pressed ? PatDip : 0f;
+        float dipTarget = live && _pressed ? PatDip : holding ? HoldBow : 0f;
         _angle.Step(angleTarget, dt, Stiffness, Damping);
         _dip.Step(dipTarget, dt, Stiffness, Damping);
         _look.Step(look * LookShift, dt, 30f, 11f);
         _hairBoost = Mathf.MoveTowards(_hairBoost, 0f, dt * 0.8f);
-        _hand.Step(live && _holding ? HandLift : 0f, dt, 60f, 10f);
+        _hand.Step(holding ? HandLift : 0f, dt, 60f, 10f);
         bool touched = live && (_pressed || _holding);
         _blush = Mathf.MoveTowards(_blush, touched ? 1f : 0f, dt * (touched ? 1.5f : 0.35f));
         if (_sway != null) {
             _sway.Boost = _hairBoost;
         }
 
-        UpdateOverlays(live, now);
+        UpdateOverlays(live);
         graphic.SetVerticesDirty();
     }
 
@@ -439,7 +416,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
         return graphic.color.a > 0.01f && graphic.canvasRenderer.GetAlpha() > 0.01f;
     }
 
-    private void UpdateOverlays(bool live, float now) {
+    private void UpdateOverlays(bool live) {
         if (!live || !_hasGrid) {
             ShowOverlays(false);
             return;
@@ -450,21 +427,6 @@ public class UIPortraitPuppet : BaseMeshEffect {
         Place(_blushImage, Cheeks, new Vector2(width * 0.11f, width * 0.03f));
         _blushImage.color = new Color(1f, 0.42f, 0.48f, 0.45f * Mathf.SmoothStep(0f, 1f, _blush));
         _blushImage.enabled = _blush > 0.01f;
-
-        // Closed: the face she is making, a smile while touched, or her own. Talking opens it about five times a
-        // second (a wince stays shut).
-        string closed = now < _faceUntil ? _face : _pressed || _holding ? Smile : null;
-        bool open = now < _talkUntil && closed != Wince && Mathf.Sin((now - _talkUntil) * 30f) > 0f;
-        string mouth = open ? Happy : closed;
-        Sprite sprite = MouthSprite(mouth);
-        CurrentMouth = sprite != null ? mouth : string.Empty;
-        _mouthImage.enabled = sprite != null;
-        if (sprite != null) {
-            Image portrait = graphic as Image;
-            float pixel = portrait != null && portrait.sprite != null ? width / portrait.sprite.rect.width : width / 1024f;
-            _mouthImage.sprite = sprite;
-            Place(_mouthImage, Mouth, sprite.rect.size * pixel);
-        }
     }
 
     private void Place(Image overlay, Vector2 uv, Vector2 size) {
@@ -480,19 +442,11 @@ public class UIPortraitPuppet : BaseMeshEffect {
         if (_blushImage == null) {
             _blushImage = CreateOverlay("PuppetBlush", BlushSprite());
         }
-
-        if (_mouthImage == null) {
-            _mouthImage = CreateOverlay("PuppetMouth", null);
-        }
     }
 
     private void ShowOverlays(bool show) {
         if (_blushImage != null) {
             _blushImage.enabled = show;
-        }
-
-        if (_mouthImage != null) {
-            _mouthImage.enabled = show;
         }
     }
 
@@ -524,20 +478,6 @@ public class UIPortraitPuppet : BaseMeshEffect {
         }
 
         return _blushSprite;
-    }
-
-    // A drawn mouth for this portrait, or null (none registered: her own mouth stays).
-    private Sprite MouthSprite(string mouth) {
-        if (string.IsNullOrEmpty(mouth) || string.IsNullOrEmpty(_visualID)) {
-            return null;
-        }
-
-        if (!_mouths.TryGetValue(mouth, out Sprite sprite)) {
-            VisualAssetService.TryGetSprite(_visualID + "_mouth_" + mouth, out sprite);
-            _mouths[mouth] = sprite;
-        }
-
-        return sprite;
     }
 
     private static float Ellipse(float dx, float dy, float rx, float ry) {
