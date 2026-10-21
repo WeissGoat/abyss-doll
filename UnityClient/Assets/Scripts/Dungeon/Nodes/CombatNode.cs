@@ -186,7 +186,7 @@ public class CombatNode : NodeBase, ILootPickupNode {
             return null;
         }
 
-        int roll = Random.Range(0, totalWeight);
+        int roll = GameRandom.Range(0, totalWeight);
         int cursor = 0;
         foreach (var entry in monster.LootPool) {
             if (entry == null || entry.Weight <= 0 || string.IsNullOrEmpty(entry.ItemID)) {

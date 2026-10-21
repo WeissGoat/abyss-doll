@@ -80,7 +80,7 @@ public static class MVPAutoplaytestTest {
         try {
             for (int i = 0; i < CampaignCount; i++) {
                 int seed = baseSeed + i;
-                UnityEngine.Random.InitState(seed);
+                GameRandom.Seed(seed);
                 MVPAutoplayCampaignReport campaign = new MVPAutoplayCampaign(seed, MaxExpeditionsPerCampaign).Run();
                 campaign.ReachedLoopTarget = campaign.Expeditions >= LoopTargetDives
                     && campaign.SoldItems > 0

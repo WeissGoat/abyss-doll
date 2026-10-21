@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 // (PlayModeRuntimeEntrySceneBootstrap loads SampleScene), so a scenario waits for it and walks on with P3DevTools.
 public static class PlayScenarioSupport {
     public const string MainScene = "SampleScene";
+    public const int ScenarioSeed = 20261021;
 
     // To the workshop from wherever the previous scenario left the game: title, prologue, a dive or a fight.
     public static IEnumerator BootToWorkshop() {
@@ -32,7 +33,10 @@ public static class PlayScenarioSupport {
 
     // Wins a fight and opens the loot screen with one-cell whetstones on offer (count) and at least one item in the
     // backpack, whatever the save and the fight's own drop were (the drop can be any shape; the backpack can be empty).
+    // The fight's rolls come from a fixed GameRandom seed, and a full backpack is thinned to leave a free cell, so the
+    // setup does not depend on what else ran first or how much the drop was.
     public static IEnumerator OpenWhetstoneLoot(string nodeID, int count = 1) {
+        GameRandom.Seed(ScenarioSeed);
         P3DevTools.GoTo("combat");
         yield return Until(() => GameRoot.Core.Combat.CurrentState == CombatState.PlayerTurn, 10f, "combat did not start");
         foreach (FighterEntity enemy in GameRoot.Core.Combat.EnemyFaction.Fighters) {
@@ -52,6 +56,17 @@ public static class PlayScenarioSupport {
         if (grid != null && grid.ContainedItems.Count == 0) {
             InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("PlayScenario");
             InventoryInteractionService.RequestPlace(ConfigManager.CreateItem("gear_whetstone"), 0, 0, context, out _);
+        }
+
+        // A free cell for the offer: the fight's drop can fill the backpack, so take out the latest items, keeping one.
+        if (grid != null) {
+            InventoryInteractionContext context = InventoryInteractionContext.FromCurrentDoll("PlayScenario");
+            ItemEntity probe = ConfigManager.CreateItem("gear_whetstone");
+            while (grid.ContainedItems.Count > 1 && !grid.TryFindFirstAvailable(probe, out _, out _)) {
+                if (!InventoryInteractionService.RequestPickUp(grid.ContainedItems[grid.ContainedItems.Count - 1], context, out _, out _)) {
+                    break;
+                }
+            }
         }
 
         CombatLootPickupResult offer = new CombatLootPickupResult { NodeID = nodeID };

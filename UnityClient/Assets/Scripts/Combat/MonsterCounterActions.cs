@@ -157,7 +157,7 @@ public class ShuffleItemsAction : MonsterActionBase {
         List<ItemEntity> moved = new List<ItemEntity>();
         List<ItemEntity> pool = new List<ItemEntity>(grid.ContainedItems);
         for (int i = 0; i < count && pool.Count > 0; i++) {
-            ItemEntity item = pool[UnityEngine.Random.Range(0, pool.Count)];
+            ItemEntity item = pool[GameRandom.Range(0, pool.Count)];
             pool.Remove(item);
             if (TryRelocate(grid, item)) {
                 AddOnce(moved, item);
@@ -203,14 +203,14 @@ public class ShuffleItemsAction : MonsterActionBase {
             return false;
         }
 
-        int[] spot = spots[UnityEngine.Random.Range(0, spots.Count)];
+        int[] spot = spots[GameRandom.Range(0, spots.Count)];
         return grid.PlaceItem(item, spot[0], spot[1], spot[2]) || grid.PlaceItem(item, originX, originY, originRotation);
     }
 
     private static bool TrySwap(BackpackGrid grid, ItemEntity item, List<ItemEntity> others, out ItemEntity other) {
         List<ItemEntity> candidates = new List<ItemEntity>(others);
         while (candidates.Count > 0) {
-            other = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+            other = candidates[GameRandom.Range(0, candidates.Count)];
             candidates.Remove(other);
             if (SwapPlaces(grid, item, other)) {
                 return true;

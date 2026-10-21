@@ -420,11 +420,11 @@ public class DungeonManager {
         DungeonEventBus.PublishLayerLoaded();
     }
 
-    // From UnityEngine.Random rather than the clock: random in play, repeatable when a test seeds it (the balance
-    // simulation calls Random.InitState per campaign).
+    // From GameRandom rather than the clock: random in play, repeatable when a test seeds it (the balance
+    // simulation seeds it per campaign).
     private int CreateRunSeed(int startLayerID) {
         unchecked {
-            return UnityEngine.Random.Range(1, int.MaxValue) ^ (startLayerID * 83492791);
+            return GameRandom.Range(1, int.MaxValue) ^ (startLayerID * 83492791);
         }
     }
 

@@ -5,9 +5,9 @@ public interface IRewardRandom {
     int Range(int minInclusive, int maxExclusive);
 }
 
-public class UnityRewardRandom : IRewardRandom {
+public class GameRewardRandom : IRewardRandom {
     public int Range(int minInclusive, int maxExclusive) {
-        return Random.Range(minInclusive, maxExclusive);
+        return GameRandom.Range(minInclusive, maxExclusive);
     }
 }
 
@@ -43,7 +43,7 @@ public class RewardSystem {
     private readonly IRewardRandom _random;
 
     public RewardSystem(IRewardRandom random = null) {
-        _random = random ?? new UnityRewardRandom();
+        _random = random ?? new GameRewardRandom();
     }
 
     public RewardRollResult Roll(string rewardID, RewardContext context) {

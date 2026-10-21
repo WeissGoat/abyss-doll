@@ -495,7 +495,7 @@ public class WeightedRandomMonsterActionSelector : IMonsterActionSelector {
             return null;
         }
 
-        int roll = UnityEngine.Random.Range(0, totalWeight);
+        int roll = GameRandom.Range(0, totalWeight);
         int cursor = 0;
         foreach (MonsterActionConfig candidate in candidates) {
             cursor += candidate.Weight;
@@ -775,7 +775,7 @@ public static class MonsterTargetSelector {
 
         switch (targetType) {
             case MonsterTargetType.RandomPlayer:
-                return aliveTargets[UnityEngine.Random.Range(0, aliveTargets.Count)];
+                return aliveTargets[GameRandom.Range(0, aliveTargets.Count)];
             case MonsterTargetType.LowestHpPlayer:
                 FighterEntity lowest = aliveTargets[0];
                 foreach (FighterEntity candidate in aliveTargets) {
@@ -816,7 +816,7 @@ public static class MonsterTargetSelector {
 
         switch (targetType) {
             case MonsterTargetType.RandomPlayerWeapon:
-                return weapons[UnityEngine.Random.Range(0, weapons.Count)];
+                return weapons[GameRandom.Range(0, weapons.Count)];
             default:
                 Debug.LogWarning($"[MonsterActionAI] Target selector [{targetSelector}] is not a weapon target selector.");
                 return null;
