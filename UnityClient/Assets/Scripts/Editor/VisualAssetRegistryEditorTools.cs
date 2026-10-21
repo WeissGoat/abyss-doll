@@ -254,6 +254,10 @@ public static class VisualAssetRegistryEditorTools {
             return new ApprovedSpriteSpec("chassis", 1024, 1024, true, 1024);
         }
 
+        if (normalized.Contains("/Dolls/Bust/")) {
+            return new ApprovedSpriteSpec("doll bust", 1024, 1280, true, 2048);
+        }
+
         if (normalized.Contains("/Dolls/")) {
             return new ApprovedSpriteSpec("doll", 1024, 1536, true, 2048);
         }

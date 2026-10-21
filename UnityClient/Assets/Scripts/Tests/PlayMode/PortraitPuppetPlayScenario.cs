@@ -6,6 +6,9 @@ using UnityEngine;
 public static class PortraitPuppetPlayScenario {
     public static IEnumerator Run() {
         yield return PlayScenarioSupport.BootToWorkshop();
+        // A save left at night (the night talk over the attic) is closed first, as a player would.
+        P3DevTools.ResolveDayDialogs();
+        yield return new WaitForSecondsRealtime(0.5f);
         P3DevTools.Soil(3);
         yield return new WaitForSecondsRealtime(0.5f);
 
@@ -78,7 +81,8 @@ public static class PortraitPuppetPlayScenario {
             Debug.LogError($"[PortraitPuppet] Switched off, a pat still dipped her head ({offDip:0.000}).");
         }
 
-        // Holding her hand in the attic: she bows toward it, her hands rise, and it counts as a touch.
+        // Holding her hand in the attic: she bows toward it, reaches out (her drawn arm fades in, or without one her hands
+        // rise), and it counts as a touch.
         P3DevTools.GoTo("attic");
         yield return new WaitForSecondsRealtime(0.3f);
         UIPortraitPuppet attic = null;
@@ -94,6 +98,7 @@ public static class PortraitPuppetPlayScenario {
 
         float rise = 0f;
         float bow = 0f;
+        float reach = 0f;
         int handTouches = player.TouchesToday;
         if (hand == null || attic == null) {
             Debug.LogError($"[PortraitPuppet] No hand to hold in the attic (zone {hand != null}).\n" + P3DevTools.Describe());
@@ -104,15 +109,17 @@ public static class PortraitPuppetPlayScenario {
             while (!done && Time.realtimeSinceStartup - start < 5f) {
                 rise = Mathf.Max(rise, attic.HandRise);
                 bow = Mathf.Max(bow, attic.HeadDip);
+                reach = Mathf.Max(reach, attic.HoldPoseShown);
                 yield return null;
             }
 
-            if (rise < UIPortraitPuppet.HandLift * 0.6f || bow < UIPortraitPuppet.HoldBow * 0.6f || player.TouchesToday != handTouches + 1) {
-                Debug.LogError($"[PortraitPuppet] Holding her hand: rise {rise:0.000}, bow {bow:0.000}, touches {handTouches} -> {player.TouchesToday}.");
+            bool reached = attic.HasHoldPose ? reach > 0.95f : rise >= UIPortraitPuppet.HandLift * 0.6f;
+            if (!reached || bow < UIPortraitPuppet.HoldBow * 0.6f || player.TouchesToday != handTouches + 1) {
+                Debug.LogError($"[PortraitPuppet] Holding her hand: drawn arm {attic.HasHoldPose} shown {reach:0.00}, rise {rise:0.000}, bow {bow:0.000}, touches {handTouches} -> {player.TouchesToday}.");
             }
         }
 
-        Debug.Log($"[PortraitPuppet] Pat: dip {dip:0.000}, tilt {tilt:0.0} deg, largest vertex move {shift:0.0}, smudge moved {pinMoved:0.0}; hand rise {rise:0.000}, bow {bow:0.000}.");
+        Debug.Log($"[PortraitPuppet] Pat: dip {dip:0.000}, tilt {tilt:0.0} deg, largest vertex move {shift:0.0}, smudge moved {pinMoved:0.0}; hand rise {rise:0.000}, drawn arm {reach:0.00}, bow {bow:0.000}.");
     }
 
     private static IEnumerator Wrap(IEnumerator inner, System.Action done) {

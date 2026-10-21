@@ -5,16 +5,21 @@ using UnityEngine.UI;
 // The end of the day, upstairs in the attic (docs/specs/2026-10-17-home-loop.md): Zero says one thing about the day
 // (ZeroLineService night pool) and a sheet on the table keeps the numbers the old 「第 N 天结束」 card showed. Some
 // nights her word comes with two replies, which may promise her something for the next dive (PromiseService,
-// docs/specs/2026-10-18-home-evening-thread.md C). 晚安 moves to the morning.
+// docs/specs/2026-10-18-home-evening-thread.md C). 晚安 moves to the morning. She stands close as a large portrait
+// whose face follows what she says (the line's Face, doll_zero_bust_<face>); without the portrait art the room's
+// small Zero is all there is.
 public class HomeNightTalkView : MonoBehaviour {
     public const string RootName = "HomeNightTalk_Runtime";
     public const string GoodnightLabel = "晚安";
+    public const string BustVisualID = "doll_zero_bust";
+    private static readonly Color NightTint = new Color(0.9f, 0.89f, 0.97f, 1f);
 
     private Text _title;
     private Text _body;
     private Text _line;
     private GameObject _bubble;
     private Text _note;
+    private Image _bust;
     private readonly Button[] _replies = new Button[2];
     private NightTalkConfig _talk;
     private DayEndReport _report;
@@ -23,6 +28,8 @@ public class HomeNightTalkView : MonoBehaviour {
     public bool IsShowing => gameObject.activeSelf;
     public bool HasReplies => _talk != null && _replies[0].gameObject.activeSelf;
     public string CurrentLine => _line.text;
+    // The face on her large portrait now (ZeroFace), or empty when there is no portrait.
+    public string CurrentFace { get; private set; } = string.Empty;
 
     public static HomeNightTalkView Create(Transform parent) {
         GameObject root = new GameObject(RootName, typeof(RectTransform));
@@ -41,7 +48,9 @@ public class HomeNightTalkView : MonoBehaviour {
         PlayerProfile player = GameRoot.Core?.CurrentPlayer;
         _report = report;
         _talk = PromiseService.PickTalk(report, player);
-        string line = _talk != null ? _talk.Line : ZeroLineService.NightLine(report, player);
+        HomeLine night = _talk == null ? ZeroLineService.NightPick(report, player) : null;
+        string line = _talk != null ? _talk.Line : night?.Text;
+        ShowFace(_talk != null ? _talk.Face : night?.Face);
         _bubble.SetActive(!string.IsNullOrEmpty(line));
         _line.text = $"「{line}」";
         _note.text = string.Empty;
@@ -64,6 +73,7 @@ public class HomeNightTalkView : MonoBehaviour {
 
         NightReplyResult result = PromiseService.Reply(GameRoot.Core?.CurrentPlayer, _report, _talk.Replies[index]);
         _line.text = $"「{result.Answer}」";
+        ShowFace(result.Face);
         List<string> notes = new List<string>();
         if (result.Bond != null && result.Bond.PointsAdded > 0) {
             notes.Add($"羁绊 +{result.Bond.PointsAdded}");
@@ -81,6 +91,18 @@ public class HomeNightTalkView : MonoBehaviour {
         StudioCareView.AnnounceBond(result.Bond);
     }
 
+    private void ShowFace(string face) {
+        if (string.IsNullOrEmpty(face) || face == ZeroFace.Neutral || !VisualAssetService.TryGetSprite(BustVisualID + "_" + face, out _)) {
+            face = ZeroFace.Neutral;
+        }
+
+        string visualID = face == ZeroFace.Neutral ? BustVisualID : BustVisualID + "_" + face;
+        // A little into the night light, so she sits in the dimmed room rather than on top of it.
+        bool shown = VisualUIHelper.ApplySprite(_bust, visualID, NightTint, Color.clear);
+        _bust.gameObject.SetActive(shown);
+        CurrentFace = shown ? face : string.Empty;
+    }
+
     private void Goodnight() {
         gameObject.SetActive(false);
         System.Action next = _onGoodnight;
@@ -94,9 +116,15 @@ public class HomeNightTalkView : MonoBehaviour {
         UITheme.Stretch(dim.rectTransform);
         dim.raycastTarget = true;
 
+        // Zero close by the window, on the right, standing on the bottom edge.
+        _bust = UITheme.CreatePanel(transform, "ZeroBust", Color.white);
+        _bust.raycastTarget = false;
+        UITheme.Place(_bust.rectTransform, new Vector2(0.5f, 0f), new Vector2(560f, 0f), new Vector2(720f, 920f));
+        _bust.gameObject.SetActive(false);
+
         Image sheet = UITheme.CreatePanel(transform, "NightSheet", UITheme.Panel);
         UITheme.ApplyBoardSkin(sheet, VisualAssetService.UIPanelMainID);
-        UITheme.Place(sheet.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-280f, -20f), new Vector2(780f, 520f));
+        UITheme.Place(sheet.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-300f, -150f), new Vector2(780f, 520f));
         _title = UITheme.CreateText(sheet.transform, "Title_Text", string.Empty, UITheme.TitleSize, UITheme.Accent, TextAnchor.MiddleCenter);
         UITheme.Place(_title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -50f), new Vector2(680f, 52f));
         _body = UITheme.CreateText(sheet.transform, "Body_Text", string.Empty, UITheme.BodySize - 2, UITheme.TextPrimary, TextAnchor.UpperLeft);
@@ -106,11 +134,11 @@ public class HomeNightTalkView : MonoBehaviour {
         UITheme.Place((RectTransform)goodnight.transform, new Vector2(0.5f, 0f), new Vector2(0f, 44f), new Vector2(240f, 60f));
         goodnight.onClick.AddListener(Goodnight);
 
-        // Zero stands by the window in the attic; her line hangs above her.
+        // Her line hangs beside her head, above the sheet.
         Image bubble = UITheme.CreatePanel(transform, "ZeroBubble", UITheme.PanelRaised);
         UITheme.AddBorder(bubble, UITheme.Border, 1.5f);
         bubble.raycastTarget = false;
-        UITheme.Place(bubble.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(480f, 380f), new Vector2(620f, 110f));
+        UITheme.Place(bubble.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-150f, 395f), new Vector2(760f, 110f));
         _bubble = bubble.gameObject;
         _line = UITheme.CreateText(bubble.transform, "Line_Text", string.Empty, UITheme.BodySize, UITheme.TextPrimary, TextAnchor.MiddleCenter);
         UITheme.Stretch(_line.rectTransform);
@@ -121,12 +149,12 @@ public class HomeNightTalkView : MonoBehaviour {
         _note.rectTransform.offsetMin = new Vector2(12f, 6f);
         _note.rectTransform.offsetMax = new Vector2(-12f, 0f);
 
-        // Two replies side by side under her word and above her head, on some nights.
+        // Two replies side by side under her word, on some nights.
         for (int i = 0; i < _replies.Length; i++) {
             int index = i;
             Button reply = UITheme.CreateButton(transform, "NightReply_" + i, string.Empty, UITheme.PanelRaised, UITheme.TextPrimary, UITheme.CaptionSize + 1);
             UITheme.AddBorder(reply.targetGraphic, UITheme.Accent, 1.5f);
-            UITheme.Place((RectTransform)reply.transform, new Vector2(0.5f, 0.5f), new Vector2(325f + i * 315f, 270f), new Vector2(300f, 56f));
+            UITheme.Place((RectTransform)reply.transform, new Vector2(0.5f, 0.5f), new Vector2(-307f + i * 315f, 268f), new Vector2(300f, 56f));
             reply.onClick.AddListener(() => Reply(index));
             reply.gameObject.SetActive(false);
             _replies[i] = reply;

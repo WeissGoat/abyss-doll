@@ -24,9 +24,18 @@ public static class HomePromiseTest {
         }
 
         Check(ConfigManager.NightTalks.Count >= 8 && ConfigManager.Promises.Count >= 6, $"{ConfigManager.NightTalks.Count} talks, {ConfigManager.Promises.Count} promises in config");
+        bool KnownFace(string face) => string.IsNullOrEmpty(face) || System.Array.IndexOf(ZeroFace.All, face) >= 0;
         foreach (NightTalkConfig talk in ConfigManager.NightTalks) {
+            Check(KnownFace(talk.Face), $"{talk.TalkID} has unknown face {talk.Face}");
             foreach (NightReplyConfig reply in talk.Replies) {
                 Check(string.IsNullOrEmpty(reply.PromiseID) || ConfigManager.Promises.Exists(p => p.PromiseID == reply.PromiseID), $"{talk.TalkID} promises unknown {reply.PromiseID}");
+                Check(KnownFace(reply.AnswerFace), $"{talk.TalkID} answers with unknown face {reply.AnswerFace}");
+            }
+        }
+
+        foreach (HomeLinePool pool in ConfigManager.HomeLines.Values) {
+            foreach (HomeLine line in pool.Lines) {
+                Check(KnownFace(line.Face), $"{pool.PoolID} line {line.Text} has unknown face {line.Face}");
             }
         }
 
@@ -48,6 +57,7 @@ public static class HomePromiseTest {
         // Reply with the promise: bond +1, the promise is on.
         NightReplyResult answer = PromiseService.Reply(player, report, talkTonight.Replies[0]);
         Check(answer.Promise != null && player.ActivePromiseID == "p_no_strain", "no promise after promising");
+        Check(!string.IsNullOrEmpty(answer.Face) && answer.Face == talkTonight.Replies[0].AnswerFace, "her answer lost its face: " + answer.Face);
         Check(answer.Bond != null && answer.Bond.PointsAdded == 1, "the reply gave no bond");
         Check(player.TalkedDay == 6, "the reply did not count as talking that night");
         Check(PromiseService.MapLine(player).Contains("别硬撑"), "map line: " + PromiseService.MapLine(player));

@@ -6,6 +6,20 @@ using System.Linq;
 public class HomeLine {
     public List<string> Tags = new List<string>();
     public string Text;
+    // Her face while she says it (ZeroFace); empty is neutral. Shown on her large night-talk portrait.
+    public string Face;
+}
+
+// The faces of her large portrait (doll_zero_bust_<face>; neutral is doll_zero_bust).
+public static class ZeroFace {
+    public const string Neutral = "neutral";
+    public const string Smile = "smile";
+    public const string Happy = "happy";
+    public const string Shy = "shy";
+    public const string Sad = "sad";
+    public const string Wince = "wince";
+    public const string Surprised = "surprised";
+    public static readonly string[] All = { Neutral, Smile, Happy, Shy, Sad, Wince, Surprised };
 }
 
 // A pool of Zero's lines at home (配置表(JSON)/Home, see its README).
@@ -26,20 +40,24 @@ public static class ZeroLineService {
     public const int GoodSalesIncome = 300;
 
     public static string Pick(string poolID, ICollection<string> facts, int day) {
+        return PickLine(poolID, facts, day)?.Text ?? string.Empty;
+    }
+
+    public static HomeLine PickLine(string poolID, ICollection<string> facts, int day) {
         if (!ConfigManager.HomeLines.TryGetValue(poolID ?? string.Empty, out HomeLinePool pool) || pool?.Lines == null) {
-            return string.Empty;
+            return null;
         }
 
         List<HomeLine> matching = pool.Lines
             .Where(line => line != null && !string.IsNullOrEmpty(line.Text) && (line.Tags ?? new List<string>()).All(facts.Contains))
             .ToList();
         if (matching.Count == 0) {
-            return string.Empty;
+            return null;
         }
 
         int best = matching.Max(line => line.Tags?.Count ?? 0);
         List<HomeLine> top = matching.Where(line => (line.Tags?.Count ?? 0) == best).ToList();
-        return top[((day % top.Count) + top.Count) % top.Count].Text;
+        return top[((day % top.Count) + top.Count) % top.Count];
     }
 
     // A wish the dive fulfilled speaks first, then the promise it carried; otherwise the most memorable thing of the dive.
@@ -57,11 +75,20 @@ public static class ZeroLineService {
 
     // A wish granted today (the rest-day one) speaks first; otherwise the day's facts pick.
     public static string NightLine(DayEndReport report, PlayerProfile player) {
+        return NightPick(report, player)?.Text ?? string.Empty;
+    }
+
+    // The night line with her face: a granted wish makes her smile.
+    public static HomeLine NightPick(DayEndReport report, PlayerProfile player) {
         if (report == null) {
-            return string.Empty;
+            return null;
         }
 
-        return !string.IsNullOrEmpty(report.WishDone?.Wish?.DoneLine) ? report.WishDone.Wish.DoneLine : Pick(NightPool, NightFacts(report, player), report.EndedDay);
+        if (!string.IsNullOrEmpty(report.WishDone?.Wish?.DoneLine)) {
+            return new HomeLine { Text = report.WishDone.Wish.DoneLine, Face = ZeroFace.Smile };
+        }
+
+        return PickLine(NightPool, NightFacts(report, player), report.EndedDay);
     }
 
     public static HashSet<string> NightFacts(DayEndReport report, PlayerProfile player) {

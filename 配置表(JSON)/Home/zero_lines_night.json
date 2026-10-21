@@ -8,7 +8,8 @@
     },
     {
       "Tags": [],
-      "Text": "楼下的齿轮还在转。我听着，就能睡着。"
+      "Text": "楼下的齿轮还在转。我听着，就能睡着。",
+      "Face": "smile"
     },
     {
       "Tags": [
@@ -27,7 +28,8 @@
         "rest",
         "low_san"
       ],
-      "Text": "脑子里的声音，小了一点。"
+      "Text": "脑子里的声音，小了一点。",
+      "Face": "smile"
     },
     {
       "Tags": [
@@ -40,50 +42,58 @@
         "dive",
         "unhurt"
       ],
-      "Text": "今天没有受伤。你也早点睡。"
+      "Text": "今天没有受伤。你也早点睡。",
+      "Face": "smile"
     },
     {
       "Tags": [
         "defeated"
       ],
-      "Text": "背包空了，店里也空了。……明天还能下去吗？"
+      "Text": "背包空了，店里也空了。……明天还能下去吗？",
+      "Face": "sad"
     },
     {
       "Tags": [
         "defeated",
         "rent_short"
       ],
-      "Text": "都是因为我倒下了。"
+      "Text": "都是因为我倒下了。",
+      "Face": "sad"
     },
     {
       "Tags": [
         "boss_defeated"
       ],
-      "Text": "今天那个大家伙……梦里不会再见到它了吧。"
+      "Text": "今天那个大家伙……梦里不会再见到它了吧。",
+      "Face": "smile"
     },
     {
       "Tags": [
         "nearly_fell"
       ],
-      "Text": "闭上眼睛，还能看见它扑过来。"
+      "Text": "闭上眼睛，还能看见它扑过来。",
+      "Face": "wince"
     },
     {
       "Tags": [
         "rent_paid"
       ],
-      "Text": "房租交上了。这里……还是我们的。"
+      "Text": "房租交上了。这里……还是我们的。",
+      "Face": "smile"
     },
     {
       "Tags": [
         "rent_short"
       ],
-      "Text": "钱不够的话，我可以再下去。"
+      "Text": "钱不够的话，我可以再下去。",
+      "Face": "sad"
     },
     {
       "Tags": [
         "rent_soon"
       ],
-      "Text": "门口那张纸上的日子，越来越近了。"
+      "Text": "门口那张纸上的日子，越来越近了。",
+      "Face": "sad"
     },
     {
       "Tags": [
@@ -95,69 +105,80 @@
       "Tags": [
         "good_sales"
       ],
-      "Text": "今晚卖了很多。那些东西，会去别人家里吧。"
+      "Text": "今晚卖了很多。那些东西，会去别人家里吧。",
+      "Face": "smile"
     },
     {
       "Tags": [
         "low_san"
       ],
-      "Text": "……别关灯。今晚别关。"
+      "Text": "……别关灯。今晚别关。",
+      "Face": "wince"
     },
     {
       "Tags": [
         "hurt"
       ],
-      "Text": "关节在响。睡一觉，会好吗？"
+      "Text": "关节在响。睡一觉，会好吗？",
+      "Face": "sad"
     },
     {
       "Tags": [
         "worn"
       ],
-      "Text": "身体有点卡。明天……能帮我看看吗？"
+      "Text": "身体有点卡。明天……能帮我看看吗？",
+      "Face": "sad"
     },
     {
       "Tags": [
         "worn",
         "rest"
       ],
-      "Text": "躺了一天，还是卡。要去工作室才行吧。"
+      "Text": "躺了一天，还是卡。要去工作室才行吧。",
+      "Face": "sad"
     },
     {
       "Tags": [
         "grimy"
       ],
-      "Text": "身上还是脏的。……睡觉会弄脏被子。"
+      "Text": "身上还是脏的。……睡觉会弄脏被子。",
+      "Face": "shy"
     },
     {
       "Tags": [
         "bond1"
       ],
-      "Text": "今天……你也累了吧。"
+      "Text": "今天……你也累了吧。",
+      "Face": "shy"
     },
     {
       "Tags": [
         "bond2"
       ],
-      "Text": "你修东西的时候，会哼歌。你知道吗？"
+      "Text": "你修东西的时候，会哼歌。你知道吗？",
+      "Face": "happy"
     },
     {
       "Tags": [
         "bond3"
       ],
-      "Text": "我不怕下去了。……一点点。"
+      "Text": "我不怕下去了。……一点点。",
+      "Face": "smile"
     },
     {
       "Tags": [
         "bond3",
         "rest"
       ],
-      "Text": "明天也一起，好吗？"
+      "Text": "明天也一起，好吗？",
+      "Face": "shy"
     },
     {
       "Tags": [
         "wish_done"
       ],
-      "Text": "架子上又多了一样东西。"
+      "Text": "架子上又多了一样东西。",
+      "Face": "happy"
     }
   ]
 }

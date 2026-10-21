@@ -6,7 +6,9 @@ using UnityEngine.UI;
 // Zero as a paper puppet (docs/specs/2026-10-20-presentation-ceiling.md, puppet sample): on the grid UIPortraitSway
 // lays over her portrait, her head moves on its neck. It tilts slowly by itself and turns a little toward the pointer
 // (she cannot see; she hears you), dips under a hand that pats her and leans with a stroke, then springs back with her
-// hair swinging. Held by the hand, she bows her head toward it and her clasped hands rise a little. A blush shows
+// hair swinging. Held by the hand, she bows her head toward it and reaches out: a drawn arm ("<visualID>_hold", the
+// portrait's canvas with only the changed arm opaque) fades in over her own, or without one her clasped hands rise a
+// little. A blush shows
 // while she is touched. Marks on her (UIPuppetPin) ride along. P switches it off and on, to compare with the plain
 // sway. Her mouth is left alone: at room size it is 2-4 px, and swapped or flapping mouths read as a flicker.
 // The weights are a registered sprite "<visualID>_puppet" (R = head, G = face, B = hands; build_puppet_rig.py,
@@ -14,6 +16,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Graphic))]
 public class UIPortraitPuppet : BaseMeshEffect {
     public const string RigSuffix = "_puppet";
+    public const string HoldSuffix = "_hold";
     // Where her head turns and the middle of her cheeks, as (u, v) of doll_proto_0_stand from the bottom-left
     // (build_puppet_rig.py prints the neck).
     public static readonly Vector2 Neck = new Vector2(0.513f, 0.792f);
@@ -32,6 +35,11 @@ public class UIPortraitPuppet : BaseMeshEffect {
     // Held by the hand she bows: a dip and a tilt toward her hands (on her right, screen left).
     public const float HoldBow = 0.011f;
     public const float HoldTilt = 5f;
+    // Her reaching arm fades in fast when you take her hand and out a little slower when you let go.
+    private const float HoldPoseIn = 0.12f;
+    private const float HoldPoseOut = 0.25f;
+    // A point on the reaching arm (u, v from the bottom-left): the drawn arm moves with her there (breath, sway).
+    private static readonly Vector2 HoldAnchor = new Vector2(0.43f, 0.5f);
     // Head springs: a little bouncy, so a pat lets go with an overshoot.
     private const float Stiffness = 90f;
     private const float Damping = 11f;
@@ -62,6 +70,9 @@ public class UIPortraitPuppet : BaseMeshEffect {
     private Vector2 _posMin;
     private Vector2 _posMax;
     private Image _blushImage;
+    private Sprite _holdSprite;
+    private Image _holdImage;
+    private float _holdShown;
 
     public bool HasRig => _weights != null;
     public float HeadAngle => _angle.Value;
@@ -70,6 +81,9 @@ public class UIPortraitPuppet : BaseMeshEffect {
     // On screen and drawn (not hidden under the living clip).
     public bool Showing => isActiveAndEnabled && HasRig && Visible();
     public float HandRise => _hand.Value;
+    public bool HasHoldPose => _holdSprite != null;
+    // How far the drawn reaching arm is faded in (0 to 1).
+    public float HoldPoseShown => _holdShown;
     // The furthest a vertex of her head moved in the last mesh, in the portrait's local units.
     public float LastHeadShift { get; private set; }
 
@@ -98,6 +112,8 @@ public class UIPortraitPuppet : BaseMeshEffect {
         }
 
         puppet.SetRig(rig);
+        VisualAssetService.TryGetSprite(visualID + HoldSuffix, out Sprite hold);
+        puppet._holdSprite = hold;
         puppet.enabled = true;
     }
 
@@ -247,7 +263,9 @@ public class UIPortraitPuppet : BaseMeshEffect {
         _dip.Step(dipTarget, dt, Stiffness, Damping);
         _look.Step(look * LookShift, dt, 30f, 11f);
         _hairBoost = Mathf.MoveTowards(_hairBoost, 0f, dt * 0.8f);
-        _hand.Step(holding ? HandLift : 0f, dt, 60f, 10f);
+        _hand.Step(holding && _holdSprite == null ? HandLift : 0f, dt, 60f, 10f);
+        bool reaching = holding && _holdSprite != null;
+        _holdShown = Mathf.MoveTowards(_holdShown, reaching ? 1f : 0f, dt / (reaching ? HoldPoseIn : HoldPoseOut));
         bool touched = live && (_pressed || _holding);
         _blush = Mathf.MoveTowards(_blush, touched ? 1f : 0f, dt * (touched ? 1.5f : 0.35f));
         if (_sway != null) {
@@ -427,6 +445,20 @@ public class UIPortraitPuppet : BaseMeshEffect {
         Place(_blushImage, Cheeks, new Vector2(width * 0.11f, width * 0.03f));
         _blushImage.color = new Color(1f, 0.42f, 0.48f, 0.45f * Mathf.SmoothStep(0f, 1f, _blush));
         _blushImage.enabled = _blush > 0.01f;
+
+        // The drawn arm covers the whole portrait (it is the portrait's canvas), carried by the point on the arm.
+        _holdImage.enabled = _holdSprite != null && _holdShown > 0.01f;
+        if (_holdImage.enabled) {
+            Rect rect = ((RectTransform)transform).rect;
+            Vector2 size = _posMax - _posMin;
+            Vector2 centre = Carry(HoldAnchor, out _) + Vector2.Scale(new Vector2(0.5f, 0.5f) - HoldAnchor, size);
+            RectTransform t = _holdImage.rectTransform;
+            _holdImage.sprite = _holdSprite;
+            t.anchoredPosition = centre - rect.min;
+            t.sizeDelta = size;
+            t.localRotation = Quaternion.identity;
+            _holdImage.color = new Color(1f, 1f, 1f, Mathf.SmoothStep(0f, 1f, _holdShown));
+        }
     }
 
     private void Place(Image overlay, Vector2 uv, Vector2 size) {
@@ -439,6 +471,10 @@ public class UIPortraitPuppet : BaseMeshEffect {
     }
 
     private void EnsureOverlays() {
+        if (_holdImage == null) {
+            _holdImage = CreateOverlay("PuppetHold", null);
+        }
+
         if (_blushImage == null) {
             _blushImage = CreateOverlay("PuppetBlush", BlushSprite());
         }
@@ -447,6 +483,10 @@ public class UIPortraitPuppet : BaseMeshEffect {
     private void ShowOverlays(bool show) {
         if (_blushImage != null) {
             _blushImage.enabled = show;
+        }
+
+        if (_holdImage != null) {
+            _holdImage.enabled = show;
         }
     }
 

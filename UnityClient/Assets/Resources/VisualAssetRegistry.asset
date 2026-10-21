@@ -259,6 +259,12 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: doll_proto_0_stand_hold
+    Sprite: {fileID: 21300000, guid: 58bb2a40e8357934f8c8f09106c66dcc, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: doll_proto_0_stand_idle
     Sprite: {fileID: 0}
     Prefab: {fileID: 0}
@@ -279,6 +285,48 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: doll_proto_0_t0_stand
     Sprite: {fileID: 21300000, guid: a3454647d76794c4ba18cee4c0185589, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: doll_zero_bust
+    Sprite: {fileID: 21300000, guid: 5071a489dd2bc214bb2cf267577a4b12, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: doll_zero_bust_happy
+    Sprite: {fileID: 21300000, guid: 081b3d601f8012a49850c1ae6a3c747e, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: doll_zero_bust_sad
+    Sprite: {fileID: 21300000, guid: 995671729feb49a44958bdcd0ceefb42, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: doll_zero_bust_shy
+    Sprite: {fileID: 21300000, guid: db1c87b2ae53c5d4094fefef8f3aff57, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: doll_zero_bust_smile
+    Sprite: {fileID: 21300000, guid: d0445fcc49f85b94fb764711b7aec0fb, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: doll_zero_bust_surprised
+    Sprite: {fileID: 21300000, guid: 86744356b30efcd4ea04478d34f508b9, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: doll_zero_bust_wince
+    Sprite: {fileID: 21300000, guid: 62f49d991ddc4a341a18095eda84eaca, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}

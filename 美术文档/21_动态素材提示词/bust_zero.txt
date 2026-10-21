@@ -1,0 +1,5 @@
+Redraw this exact character as a half-body portrait for a visual-novel dialogue scene: framed from the top of her head down to just below her waist, facing the viewer with her body turned very slightly to the viewer's left, head tilted a few degrees, both hands loosely clasped in front of her waist as in the reference. Calm, gentle, neutral expression with her small mouth softly closed.
+
+Keep exactly the same character design and the same painted anime art style, line weight, colors and soft shading as the reference: long straight silver hair with bangs, a plain white cloth blindfold wrapped around her eyes (no ribbon, no string, no color on it), an oatmeal linen hooded capelet with one hand-sewn patch, a plain ivory dress, pale skin, subtle doll joint seams at the wrists. Higher detail on the face and hair because the portrait is larger. No red anywhere on her outfit. Nothing in her hands.
+
+Plain flat solid pure green background (#00FF00) with no shadow, no floor, no text, no border. The whole head and hair inside the frame with margin above.

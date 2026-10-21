@@ -650,7 +650,7 @@ public static class P3DevTools {
         }
 
         talk.Reply(index);
-        log?.AppendLine("Replied at night: " + talk.CurrentLine);
+        log?.AppendLine("Replied at night: " + talk.CurrentLine + (string.IsNullOrEmpty(talk.CurrentFace) ? " (no portrait)" : $" (face {talk.CurrentFace})"));
         return true;
     }
 

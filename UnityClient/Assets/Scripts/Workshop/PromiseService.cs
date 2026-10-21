@@ -6,6 +6,8 @@ using System.Linq;
 public class NightReplyConfig {
     public string Text;
     public string Answer;
+    // Her face while she answers (ZeroFace); empty is neutral.
+    public string AnswerFace;
     public int Bond;
     // Set: this reply makes a promise for the next dive (promises.json).
     public string PromiseID;
@@ -17,6 +19,8 @@ public class NightTalkConfig {
     public string TalkID;
     public List<string> Tags = new List<string>();
     public string Line;
+    // Her face while she says the line (ZeroFace); empty is neutral.
+    public string Face;
     public List<NightReplyConfig> Replies = new List<NightReplyConfig>();
 }
 
@@ -33,6 +37,7 @@ public class PromiseConfig {
 
 public class NightReplyResult {
     public string Answer;
+    public string Face;
     public BondChange Bond;
     public PromiseConfig Promise;
 }
@@ -81,7 +86,7 @@ public static class PromiseService {
 
     // The player's reply: bond, her answer, and maybe a promise (a new one replaces the old).
     public static NightReplyResult Reply(PlayerProfile player, DayEndReport report, NightReplyConfig reply) {
-        NightReplyResult result = new NightReplyResult { Answer = reply?.Answer };
+        NightReplyResult result = new NightReplyResult { Answer = reply?.Answer, Face = reply?.AnswerFace };
         if (player == null || reply == null) {
             return result;
         }
