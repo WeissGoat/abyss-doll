@@ -92,7 +92,7 @@ public class ZeroPresence : MonoBehaviour {
     }
 
     // Head, shoulder and hand on her portrait answer a click (headOnly: just the head). Built on the portrait itself so
-    // they follow it. On a puppet portrait her head can also be patted and stroked (PortraitPatZone).
+    // they follow it. On a puppet portrait her head can also be patted and stroked, and her hand held (PortraitPatZone).
     public void EnableTouch(System.Action<TouchRegion> onTouch, bool headOnly = false) {
         _onTouch = onTouch;
         RectTransform doll = _doll?.Invoke();
@@ -128,8 +128,8 @@ public class ZeroPresence : MonoBehaviour {
         button.targetGraphic = zone;
         button.transition = Selectable.Transition.None;
         button.onClick.AddListener(() => Touch(region));
-        if (region == TouchRegion.Head) {
-            zone.gameObject.AddComponent<PortraitPatZone>().Init(doll, () => Touch(TouchRegion.Head));
+        if (region != TouchRegion.Shoulder) {
+            zone.gameObject.AddComponent<PortraitPatZone>().Init(doll, region, () => Touch(region));
         }
     }
 
@@ -214,26 +214,37 @@ public class ZeroPresence : MonoBehaviour {
     }
 }
 
-// Her head on a puppet portrait (UIPortraitPuppet): pressing pats it (she dips under your hand), dragging strokes it
-// (she leans with the stroke), and a stroke long enough counts as one touch on her head. A plain click stays the head
-// button's. Without a puppet it does nothing.
+// Her head or hand on a puppet portrait (UIPortraitPuppet). Head: pressing pats it (she dips under your hand),
+// dragging strokes it (she leans with the stroke), and a stroke long enough counts as one touch on her head. Hand:
+// holding it lifts her clasped hands to yours, and held long enough it counts as one touch on her hand. A plain click
+// stays the zone button's. Without a puppet it does nothing.
 public class PortraitPatZone : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IDragHandler {
     public const float StrokeDistance = 240f;
+    public const float HoldSeconds = 0.9f;
 
     private RectTransform _doll;
-    private System.Action _onPat;
+    private TouchRegion _region;
+    private System.Action _onTouch;
+    private PointerEventData _press;
+    private float _pressedAt;
     private float _stroked;
     private bool _counted;
 
-    public void Init(RectTransform doll, System.Action onPat) {
+    public TouchRegion Region => _region;
+    public UIPortraitPuppet Puppet => UIPortraitPuppet.On(_doll);
+
+    public void Init(RectTransform doll, TouchRegion region, System.Action onTouch) {
         _doll = doll;
-        _onPat = onPat;
+        _region = region;
+        _onTouch = onTouch;
     }
 
     public void OnPointerDown(PointerEventData eventData) {
+        _press = eventData;
+        _pressedAt = Time.unscaledTime;
         _stroked = 0f;
         _counted = false;
-        UIPortraitPuppet.On(_doll)?.Press(true);
+        Hold(true);
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
@@ -243,34 +254,70 @@ public class PortraitPatZone : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     public void OnDrag(PointerEventData eventData) {
         UIPortraitPuppet puppet = UIPortraitPuppet.On(_doll);
-        if (puppet == null) {
+        if (puppet == null || _region != TouchRegion.Head) {
             return;
         }
 
         puppet.Stroke(eventData.delta.x);
         _stroked += eventData.delta.magnitude;
         if (!_counted && _stroked >= StrokeDistance) {
-            _counted = true;
-            _onPat?.Invoke();
+            Count();
         }
     }
 
     public void OnPointerUp(PointerEventData eventData) {
-        UIPortraitPuppet.On(_doll)?.Press(false);
+        _press = null;
+        Hold(false);
     }
 
-    // A pat without a hand (P3DevTools.Pat): press, stroke, let go, and it counts as the touch.
+    private void Update() {
+        if (_press != null && _region == TouchRegion.Hand && !_counted && Time.unscaledTime - _pressedAt >= HoldSeconds
+            && UIPortraitPuppet.On(_doll) != null) {
+            Count();
+        }
+    }
+
+    private void Count() {
+        _counted = true;
+        if (_press != null) {
+            _press.eligibleForClick = false;
+        }
+
+        _onTouch?.Invoke();
+    }
+
+    private void Hold(bool down) {
+        UIPortraitPuppet puppet = UIPortraitPuppet.On(_doll);
+        if (_region == TouchRegion.Hand) {
+            puppet?.HoldHand(down);
+        } else {
+            puppet?.Press(down);
+        }
+    }
+
+    // A touch without a hand (P3DevTools.Pat / HoldHand): a pat with two strokes, or holding her hand for a while;
+    // then it counts as the touch.
     public IEnumerator Play() {
         UIPortraitPuppet puppet = UIPortraitPuppet.On(_doll);
         if (puppet == null) {
             yield break;
         }
 
+        if (_region == TouchRegion.Hand) {
+            puppet.HoldHand(true);
+            yield return new WaitForSecondsRealtime(HoldSeconds);
+            _onTouch?.Invoke();
+            yield return new WaitForSecondsRealtime(1.2f);
+            puppet.HoldHand(false);
+            yield break;
+        }
+
         yield return puppet.PlayPat();
-        _onPat?.Invoke();
+        _onTouch?.Invoke();
     }
 
     private void OnDisable() {
-        UIPortraitPuppet.On(_doll)?.Press(false);
+        _press = null;
+        Hold(false);
     }
 }

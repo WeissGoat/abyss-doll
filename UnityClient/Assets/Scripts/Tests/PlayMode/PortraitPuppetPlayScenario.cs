@@ -18,8 +18,14 @@ public static class PortraitPuppetPlayScenario {
             }
         }
 
-        PortraitPatZone zone = puppet != null ? puppet.GetComponentInChildren<PortraitPatZone>() : null;
-        UIPuppetPin pin = puppet != null ? puppet.GetComponentInChildren<UIPuppetPin>() : null;
+        PortraitPatZone zone = null;
+        if (puppet != null) {
+            foreach (PortraitPatZone candidate in puppet.GetComponentsInChildren<PortraitPatZone>()) {
+                zone = candidate.Region == TouchRegion.Head ? candidate : zone;
+            }
+        }
+
+        UIPuppetPin pin =puppet != null ? puppet.GetComponentInChildren<UIPuppetPin>() : null;
         if (puppet == null || zone == null || pin == null) {
             Debug.LogError($"[PortraitPuppet] Studio puppet {puppet != null}, head zone {zone != null}, pinned smudge {pin != null}.\n" + P3DevTools.Describe());
             yield break;
@@ -31,10 +37,12 @@ public static class PortraitPuppetPlayScenario {
         float tilt = 0f;
         float shift = 0f;
         float pinMoved = 0f;
+        bool smiled = false;
         bool done = false;
         zone.StartCoroutine(Wrap(zone.Play(), () => done = true));
         float start = Time.realtimeSinceStartup;
         while (!done && Time.realtimeSinceStartup - start < 5f) {
+            smiled |= puppet.CurrentMouth == UIPortraitPuppet.Smile;
             dip = Mathf.Max(dip, puppet.HeadDip);
             tilt = Mathf.Max(tilt, Mathf.Abs(puppet.HeadAngle));
             shift = Mathf.Max(shift, puppet.LastHeadShift);
@@ -52,6 +60,10 @@ public static class PortraitPuppetPlayScenario {
 
         if (player.TouchesToday != touches + 1) {
             Debug.LogError($"[PortraitPuppet] The pat should count as one touch ({touches} -> {player.TouchesToday}).");
+        }
+
+        if (!smiled) {
+            Debug.LogError("[PortraitPuppet] She never smiled under the pat (no drawn mouth shown).");
         }
 
         yield return new WaitForSecondsRealtime(2.5f);
@@ -72,7 +84,39 @@ public static class PortraitPuppetPlayScenario {
             Debug.LogError($"[PortraitPuppet] Switched off, a pat still dipped her head ({offDip:0.000}).");
         }
 
-        Debug.Log($"[PortraitPuppet] Pat: dip {dip:0.000}, tilt {tilt:0.0} deg, largest vertex move {shift:0.0}, smudge moved {pinMoved:0.0}.");
+        // Holding her hand in the attic lifts her hands and counts as a touch.
+        P3DevTools.GoTo("attic");
+        yield return new WaitForSecondsRealtime(0.3f);
+        UIPortraitPuppet attic = null;
+        PortraitPatZone hand = null;
+        foreach (PortraitPatZone candidate in Object.FindObjectsOfType<PortraitPatZone>()) {
+            // AtticRoom/DollDisplay/DollImage/Touch_Hand
+            if (candidate.isActiveAndEnabled && candidate.Region == TouchRegion.Hand && candidate.Puppet != null
+                && candidate.transform.parent.parent.parent.name == "AtticRoom") {
+                hand = candidate;
+                attic = candidate.Puppet;
+            }
+        }
+
+        float rise = 0f;
+        int handTouches = player.TouchesToday;
+        if (hand == null || attic == null) {
+            Debug.LogError($"[PortraitPuppet] No hand to hold in the attic (zone {hand != null}).\n" + P3DevTools.Describe());
+        } else {
+            done = false;
+            hand.StartCoroutine(Wrap(hand.Play(), () => done = true));
+            start = Time.realtimeSinceStartup;
+            while (!done && Time.realtimeSinceStartup - start < 5f) {
+                rise = Mathf.Max(rise, attic.HandRise);
+                yield return null;
+            }
+
+            if (rise < UIPortraitPuppet.HandLift * 0.6f || player.TouchesToday != handTouches + 1) {
+                Debug.LogError($"[PortraitPuppet] Holding her hand: rise {rise:0.000}, touches {handTouches} -> {player.TouchesToday}.");
+            }
+        }
+
+        Debug.Log($"[PortraitPuppet] Pat: dip {dip:0.000}, tilt {tilt:0.0} deg, largest vertex move {shift:0.0}, smudge moved {pinMoved:0.0}; hand rise {rise:0.000}.");
     }
 
     private static IEnumerator Wrap(IEnumerator inner, System.Action done) {

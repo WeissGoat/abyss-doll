@@ -774,14 +774,28 @@ public static class P3DevTools {
     // Pats Zero's head in the room on screen like a hand would: press, two strokes across, let go (her puppet
     // portrait dips and leans), then it counts as a touch on her head. Returns at once; the pat takes about 2 s.
     public static string Pat() {
+        return PlayTouch(TouchRegion.Head, "Patting her head.");
+    }
+
+    // Holds Zero's hand in the hall or attic for about 2 s (her hands rise); counts as a touch on her hand.
+    public static string HoldHand() {
+        return PlayTouch(TouchRegion.Hand, "Holding her hand.");
+    }
+
+    // On the Zero of the room on screen (the hall's lives on the workshop screen, outside the room layers).
+    private static string PlayTouch(TouchRegion region, string doing) {
+        HomeRoomNavigator rooms = Object.FindObjectOfType<WorkshopUIController>()?.Rooms;
+        string room = rooms == null ? null : rooms.Current == HomeRoom.Studio ? "StudioRoom" : rooms.Current == HomeRoom.Attic ? "AtticRoom" : string.Empty;
         foreach (PortraitPatZone zone in Object.FindObjectsOfType<PortraitPatZone>()) {
-            if (zone.isActiveAndEnabled) {
+            string zoneRoom = zone.transform.parent?.parent?.parent?.name;
+            bool inRoom = room == null || (room.Length == 0 ? zoneRoom != "StudioRoom" && zoneRoom != "AtticRoom" : zoneRoom == room);
+            if (zone.isActiveAndEnabled && zone.Region == region && inRoom && zone.Puppet != null) {
                 zone.StartCoroutine(zone.Play());
-                return "Patting her head.";
+                return doing;
             }
         }
 
-        return "No head to pat on screen.\n" + Describe();
+        return $"No {region} to touch on screen.\n" + Describe();
     }
 
     public static string AddMoney(int amount) {
