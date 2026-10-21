@@ -29,13 +29,14 @@ update_rule: 修改对应工具入口、参数或执行流程时同步本文件�
 
 > **定位：** 存放 Project P3 美术流水线脚本。脚本优先服务于“配置表扫描、Manifest 增量更新、批量生成、预处理和验收记录”。
 
-## fit_pose_set.py、make_alpha_loop.py、build_puppet_rig.py
+## fit_pose_set.py、make_alpha_loop.py、build_puppet_rig.py、cut_face_patch.py
 
 战斗姿势和动态素材的后处理，用法和整套流程见 `美术文档/21_战斗姿势与动态素材工作流.md`。
 
 - `fit_pose_set.py`：绿底姿势候选 → 抠图，按可见面积和脚底对齐到基础图的画布，输出 `<姿势集>_<姿势>.png` 和预览。
 - `make_alpha_loop.py`：H3 绿底视频 → 交叉淡化成无缝循环，抠成带透明的 VP8 WebM。
-- `build_puppet_rig.py`：纸偶立绘的头部权重图（R 头、G 脸），给 `UIPortraitPuppet` 用，附歪头、低头、转头预览。
+- `build_puppet_rig.py`：纸偶立绘的权重图（R 头、G 脸、B 手），给 `UIPortraitPuppet` 用，附歪头、低头、转头、抬手预览。
+- `cut_face_patch.py`：图生图改过嘴的候选 → 对齐回原立绘、校色，切成叠在脸上的小块（表情换件）。
 
 ## Migrate-ArtProcessedRounds.ps1
 
