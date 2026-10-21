@@ -219,7 +219,8 @@ M4 试玩的三个问题自动测试都没抓到（渲染层级、点击时序�
 - [x] 活立绘（2026-10-21）：大厅和标题的零号播 H3 生成的透明无缝待机循环（`UIMotionPortrait`，V 键切换对比；`tools/美术工具/make_alpha_loop.py` 把绿底视频做成带透明的 VP8 循环）。
 - [x] 首领登场（2026-10-21）：守门者 MK1 开战先播 4 秒苏醒视频（`CombatIntroCutscene`，点击跳过）。
 - [x] 开发工具：`Fight`、`Strike`、`EndTurn`、`Record`（只录游戏自身画面）。`PresentationClipsPlayScenario`，`CombatMotionPlayScenario` 加了姿势和打击感检查。EditMode 78、PlayMode 8 通过；包 `Builds/Windows/P3_20261021_0043.zip`（提交 a6dc662），自检 PASS。录像在 `tmp/presentation_samples/`。
-- [ ] 没做：分层纸偶版立绘（spec 的路线 B）、反应片段、战斗布局调整。等制作人看样片定方向。
+- [x] 纸偶立绘（2026-10-21，分支 `m7/puppet-sample`）：工作室和阁楼的零号可以摸头。按住低头、拖动跟着歪头、松手弹回甩头发，脸红；鼠标靠近时头偏过去；说话点头动嘴；污渍跟着她动。做法是在摆动网格上加头部权重图（`UIPortraitPuppet`、`tools/美术工具/build_puppet_rig.py`），没拆层，零花费。P 键对比原版。`PortraitPuppetPlayScenario`；EditMode 78、PlayMode 9 通过，包 `Builds/Windows/P3_20261021_1149`，自检 PASS。录像 `tmp/presentation_samples/工作室_纸偶摸头.mp4`。
+- [ ] 没做：反应片段、表情换件、战斗布局调整。等制作人看样片定方向。
 
 ## 现在
 
