@@ -889,12 +889,30 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: monster_boss_gatekeeper_mk1_combat_attack
+    Sprite: {fileID: 21300000, guid: b59ed9f0eebea3947a0ed6afbedccb5a, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_boss_gatekeeper_mk1_combat_idle
+    Sprite: {fileID: 21300000, guid: 02938f35b9fc42a48a1440c23d2ca93d, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_boss_gatekeeper_mk1_combat_intro
     Sprite: {fileID: 0}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 32900000, guid: 1926dbe8ab953b24182e624b99df314d, type: 3}
+  - VisualID: monster_boss_gatekeeper_mk1_combat_windup
+    Sprite: {fileID: 21300000, guid: d040a4bfa1da5a54c8d1baea4ed2fc02, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_boss_gatekeeper_mk1_portrait
     Sprite: {fileID: 21300000, guid: da5ab20a897838b499e52adbf431a4c0, type: 3}
     Prefab: {fileID: 0}
@@ -903,6 +921,24 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: monster_boss_mycelium_oracle_combat
     Sprite: {fileID: 21300000, guid: e7760f4dddb61314db57aded89a7911d, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_boss_mycelium_oracle_combat_attack
+    Sprite: {fileID: 21300000, guid: 92a42959721943d43b1d2ee5d055c3c3, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_boss_mycelium_oracle_combat_idle
+    Sprite: {fileID: 21300000, guid: 3a65036d89d584a43912799c4c44763b, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_boss_mycelium_oracle_combat_windup
+    Sprite: {fileID: 21300000, guid: ade9c9564b1ae6046b18d2713c1820bf, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -919,6 +955,24 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: monster_boss_spore_foundry_combat_attack
+    Sprite: {fileID: 21300000, guid: 03d59baf8bfd8c049acba27cdfc9e013, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_boss_spore_foundry_combat_idle
+    Sprite: {fileID: 21300000, guid: 633bbbf223b9923409b3e453fd0be659, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_boss_spore_foundry_combat_windup
+    Sprite: {fileID: 21300000, guid: d86c5fe0159d24a4b9191da8be47e54d, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_boss_spore_foundry_portrait
     Sprite: {fileID: 21300000, guid: a80912b4346d6a447bfcfe8343b7e869, type: 3}
     Prefab: {fileID: 0}
@@ -927,6 +981,24 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: monster_elite_crystal_bulwark_combat
     Sprite: {fileID: 21300000, guid: 02361fe6f135a6642a42f2e8353f756f, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_elite_crystal_bulwark_combat_attack
+    Sprite: {fileID: 21300000, guid: 70e5f6c96a10be34d9309938fa17ae98, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_elite_crystal_bulwark_combat_idle
+    Sprite: {fileID: 21300000, guid: e7d5a434e6a9225469d6704a2d144ddf, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_elite_crystal_bulwark_combat_windup
+    Sprite: {fileID: 21300000, guid: 513499441ed68af44b6eec04244b55d8, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -943,6 +1015,24 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: monster_elite_mutant_amalgam_combat_attack
+    Sprite: {fileID: 21300000, guid: 56c52c5c2ca0ca64a9253ebe2806e341, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_elite_mutant_amalgam_combat_idle
+    Sprite: {fileID: 21300000, guid: 0ae6bac90cd2f1d4bb9a66bc21334742, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_elite_mutant_amalgam_combat_windup
+    Sprite: {fileID: 21300000, guid: ed47ee4365bc94a49998373d438c814d, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_elite_mutant_amalgam_portrait
     Sprite: {fileID: 21300000, guid: 6a0a6bfbb10a9ca40bb543889f1b2a7f, type: 3}
     Prefab: {fileID: 0}
@@ -951,6 +1041,24 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: monster_elite_scrap_guard_combat
     Sprite: {fileID: 21300000, guid: 3d6565972cbd4654496d999989f54f76, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_elite_scrap_guard_combat_attack
+    Sprite: {fileID: 21300000, guid: 3f2bf10e85e00e0499494126bd400331, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_elite_scrap_guard_combat_idle
+    Sprite: {fileID: 21300000, guid: 7a9cb13927719ea44b69060b304b4d21, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_elite_scrap_guard_combat_windup
+    Sprite: {fileID: 21300000, guid: 4ac993beca9c8594eafc93a45b22c070, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -967,6 +1075,24 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: monster_elite_spore_matriarch_combat_attack
+    Sprite: {fileID: 21300000, guid: 46d49dd5bfebf524aa8bc379222f4553, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_elite_spore_matriarch_combat_idle
+    Sprite: {fileID: 21300000, guid: 29c29d3e76bbc6743a644eb9bed435fb, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_elite_spore_matriarch_combat_windup
+    Sprite: {fileID: 21300000, guid: 859a19fad6c82ca42b15787b1d6cc619, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_elite_spore_matriarch_portrait
     Sprite: {fileID: 21300000, guid: 8cbc60507be5cdf408999ad13de2fc64, type: 3}
     Prefab: {fileID: 0}
@@ -975,6 +1101,24 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: monster_elite_vein_knight_combat
     Sprite: {fileID: 21300000, guid: 2b71d8f882b71dd4685d314a332a32bd, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_elite_vein_knight_combat_attack
+    Sprite: {fileID: 21300000, guid: e59ed1fd2369abf43bab7ca13bd38fe7, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_elite_vein_knight_combat_idle
+    Sprite: {fileID: 21300000, guid: 14717209ac7c37d459a0567c8df70ba6, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_elite_vein_knight_combat_windup
+    Sprite: {fileID: 21300000, guid: ca4195fad9b0e8a43a1efc9c61b6dd69, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -991,8 +1135,44 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: monster_mob_acid_slime_combat_attack
+    Sprite: {fileID: 21300000, guid: bab219adb2474eb4d95450d5a7535739, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_acid_slime_combat_idle
+    Sprite: {fileID: 21300000, guid: 093c959e6db1cd945856ac6a4cce340f, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_acid_slime_combat_windup
+    Sprite: {fileID: 21300000, guid: 48b1cd5e05312ea4db2ea9e5f94a4bf3, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_acid_slime_mature_combat
     Sprite: {fileID: 21300000, guid: 40f0e70951e979146abd872f7a43b133, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_acid_slime_mature_combat_attack
+    Sprite: {fileID: 21300000, guid: 37a4e9a72278a754eaec77c2fca31211, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_acid_slime_mature_combat_idle
+    Sprite: {fileID: 21300000, guid: cd7abee7154399341b7c03ef74e80c93, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_acid_slime_mature_combat_windup
+    Sprite: {fileID: 21300000, guid: 1a6e7ae8fbdaff340a0801025adf4942, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -1015,6 +1195,24 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: monster_mob_crystal_guard_combat_attack
+    Sprite: {fileID: 21300000, guid: ebd280cf4df7959459f1323f6964cb1e, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_crystal_guard_combat_idle
+    Sprite: {fileID: 21300000, guid: 42ea16203b927ac4bb7eb01186602a81, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_crystal_guard_combat_windup
+    Sprite: {fileID: 21300000, guid: 69b09fffa01486e44b265bf60ee3d781, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_crystal_guard_portrait
     Sprite: {fileID: 21300000, guid: 8434b06534d070e4f9e36ac247413071, type: 3}
     Prefab: {fileID: 0}
@@ -1023,6 +1221,24 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: monster_mob_echo_pilgrim_combat
     Sprite: {fileID: 21300000, guid: 6788d657488931b4a9c538382d1797dd, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_echo_pilgrim_combat_attack
+    Sprite: {fileID: 21300000, guid: bbab5ac14c8ce074b94e97a8007fc924, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_echo_pilgrim_combat_idle
+    Sprite: {fileID: 21300000, guid: e4f76389c5ab2e74f920c4144411e6e1, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_echo_pilgrim_combat_windup
+    Sprite: {fileID: 21300000, guid: 496fbab6974a07e4285abf8ac9f37cb4, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -1039,6 +1255,24 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: monster_mob_lost_miner_echo_combat_attack
+    Sprite: {fileID: 21300000, guid: 304270737b813a44ab9cc42b55712c23, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_lost_miner_echo_combat_idle
+    Sprite: {fileID: 21300000, guid: 95f5435e7ae57f44687d7ac48fe1d35f, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_lost_miner_echo_combat_windup
+    Sprite: {fileID: 21300000, guid: 10d14f74e2db02543aec501c24e648b1, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_lost_miner_echo_portrait
     Sprite: {fileID: 21300000, guid: 5c86e3cccf8ca944193514068dfb5b3e, type: 3}
     Prefab: {fileID: 0}
@@ -1047,6 +1281,24 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: monster_mob_mycelium_crawler_combat
     Sprite: {fileID: 21300000, guid: f52fba2a7e650a048859d0fadaf55169, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_mycelium_crawler_combat_attack
+    Sprite: {fileID: 21300000, guid: 9fc53effb4511494aa0d125face93154, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_mycelium_crawler_combat_idle
+    Sprite: {fileID: 21300000, guid: 25a436477fa5b794ab20bc5a6aa1be2e, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_mycelium_crawler_combat_windup
+    Sprite: {fileID: 21300000, guid: a35ca3da5b65b594a85a0c0faf259b6b, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -1063,6 +1315,24 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: monster_mob_nerve_midge_swarm_combat_attack
+    Sprite: {fileID: 21300000, guid: c19c1127eaf012c44a16db2145f15500, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_nerve_midge_swarm_combat_idle
+    Sprite: {fileID: 21300000, guid: 592276cead0eb5741b233d8215e5198a, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_nerve_midge_swarm_combat_windup
+    Sprite: {fileID: 21300000, guid: 9c0d401c7c2c6f044a8cb83c8cbe69cd, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_nerve_midge_swarm_portrait
     Sprite: {fileID: 21300000, guid: 6b7264174a13cf34ba32bc27e4ad7955, type: 3}
     Prefab: {fileID: 0}
@@ -1071,6 +1341,24 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: monster_mob_rust_cultivator_combat
     Sprite: {fileID: 21300000, guid: b96fb8c44a470f6428d5e6fc8f0deba4, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_rust_cultivator_combat_attack
+    Sprite: {fileID: 21300000, guid: 5d7443b63e4606c46a30c65fe98e58a0, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_rust_cultivator_combat_idle
+    Sprite: {fileID: 21300000, guid: 429c33aff619c464bb3fd13c32bbf7ec, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_rust_cultivator_combat_windup
+    Sprite: {fileID: 21300000, guid: 0893000ced32ec04088fc36fc0710666, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -1117,6 +1405,24 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: monster_mob_scavenger_bug_combat_attack
+    Sprite: {fileID: 21300000, guid: 93cee6bc06374f545b833a078a8337b9, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_scavenger_bug_combat_idle
+    Sprite: {fileID: 21300000, guid: c867a8f6bc82ec04d9913b54e5125cb6, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_scavenger_bug_combat_windup
+    Sprite: {fileID: 21300000, guid: 05adb4d4d7f2c524d8d62f107920eb8b, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_scavenger_bug_portrait
     Sprite: {fileID: 21300000, guid: 1685f7401745f3a4bb4c6e147883eb02, type: 3}
     Prefab: {fileID: 0}
@@ -1125,6 +1431,24 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: monster_mob_shell_grafter_combat
     Sprite: {fileID: 21300000, guid: 01038aadfa9049340b19a8fe9d4a2225, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_shell_grafter_combat_attack
+    Sprite: {fileID: 21300000, guid: 54959aa133ac0da44bad3da51f20a144, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_shell_grafter_combat_idle
+    Sprite: {fileID: 21300000, guid: e4ce2b9ccdfa2b944941eac5cec1b690, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_shell_grafter_combat_windup
+    Sprite: {fileID: 21300000, guid: 82aebee3cdb461945af9bbdcdd45622a, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
@@ -1141,6 +1465,24 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: monster_mob_soul_midge_swarm_combat_attack
+    Sprite: {fileID: 21300000, guid: 7e23353aa8b7a6e4ca4398c2da663b7c, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_soul_midge_swarm_combat_idle
+    Sprite: {fileID: 21300000, guid: 1e3ce27fc3578a14cbba6d704ee2a511, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_soul_midge_swarm_combat_windup
+    Sprite: {fileID: 21300000, guid: a143458e9cc365246a2fd65b45ebbc57, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: monster_mob_soul_midge_swarm_portrait
     Sprite: {fileID: 21300000, guid: 60e36e2c424fe2b458ecad0d5dc8594f, type: 3}
     Prefab: {fileID: 0}
@@ -1149,6 +1491,24 @@ MonoBehaviour:
     VideoClip: {fileID: 0}
   - VisualID: monster_mob_spore_archer_combat
     Sprite: {fileID: 21300000, guid: f271e562e2a6e754f8a72b7fda49d764, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_spore_archer_combat_attack
+    Sprite: {fileID: 21300000, guid: cbc0d3782c6b6cd46be5edd917e5d1dc, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_spore_archer_combat_idle
+    Sprite: {fileID: 21300000, guid: 28e7f3d9c900a074d81b67c6a26b6294, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: monster_mob_spore_archer_combat_windup
+    Sprite: {fileID: 21300000, guid: 4cc2a1cba5579d745989456f0e8e01fb, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}
     Material: {fileID: 0}

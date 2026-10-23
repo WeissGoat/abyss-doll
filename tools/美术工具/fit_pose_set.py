@@ -25,14 +25,17 @@ def background_colour(rgb):
 
 
 def key_green(img, noise=12.0):
+    # Keys whichever pure colour the background is (green by default; blue for a green creature).
     rgb = np.asarray(img.convert('RGB')).astype(np.float32)
     bg = background_colour(rgb)
-    spill = rgb[..., 1] - np.maximum(rgb[..., 0], rgb[..., 2])
-    bg_spill = max(1.0, bg[1] - max(bg[0], bg[2]))
+    c = int(np.argmax(bg))
+    o1, o2 = [k for k in range(3) if k != c]
+    spill = rgb[..., c] - np.maximum(rgb[..., o1], rgb[..., o2])
+    bg_spill = max(1.0, bg[c] - max(bg[o1], bg[o2]))
     alpha = 1.0 - np.clip((spill - noise) / (bg_spill - 2 * noise), 0, 1)
     a = np.maximum(alpha, 0.05)[..., None]
     fg = (rgb - (1.0 - a) * bg) / a
-    fg[..., 1] = np.minimum(fg[..., 1], np.maximum(fg[..., 0], fg[..., 2]) + 6.0)
+    fg[..., c] = np.minimum(fg[..., c], np.maximum(fg[..., o1], fg[..., o2]) + 6.0)
     return Image.fromarray(np.dstack([fg, alpha[..., None] * 255.0]).clip(0, 255).astype(np.uint8), 'RGBA')
 
 
