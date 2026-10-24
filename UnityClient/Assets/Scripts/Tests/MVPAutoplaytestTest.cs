@@ -251,6 +251,8 @@ public class MVPAutoplaytestReport {
     public int CalendarMismatches;
     public float Layer1ClearRate;
     public float Layer2EntryRate;
+    public float Layer3EntryRate;
+    public float Layer3ClearRate;
     public float Tier1CoreRate;
     public float Tier2CoreRate;
     public float AverageFinalMoney;
@@ -278,6 +280,8 @@ public class MVPAutoplaytestReport {
         CalendarMismatches = Campaigns.Count(c => c.FinalDay != MVPAutoplaytestTest.CampaignStartDay + c.Expeditions + c.RestDays);
         Layer1ClearRate = Campaigns.Count(c => c.ClearedLayer1) / (float)count;
         Layer2EntryRate = Campaigns.Count(c => c.EnteredLayer2) / (float)count;
+        Layer3EntryRate = Campaigns.Count(c => c.EnteredLayer3) / (float)count;
+        Layer3ClearRate = Campaigns.Count(c => c.ClearedLayer3) / (float)count;
         Tier1CoreRate = Campaigns.Count(c => c.ObtainedTier1Core) / (float)count;
         Tier2CoreRate = Campaigns.Count(c => c.ObtainedTier2Core) / (float)count;
         AverageFinalMoney = (float)Campaigns.Average(c => c.FinalMoney);
@@ -326,6 +330,10 @@ public class MVPAutoplayCampaignReport {
     public int Seed;
     public bool ClearedLayer1;
     public bool EnteredLayer2;
+    public bool EnteredLayer3;
+    // Beat the layer-3 boss: the end of the Demo.
+    public bool ClearedLayer3;
+    public int FirstLayer3ClearDay;
     public bool ObtainedTier1Core;
     public bool ObtainedTier2Core;
     public bool Defeated;
@@ -368,6 +376,9 @@ public class MVPAutoplayExpeditionReport {
     public bool AttemptedLayer2;
     public bool ClearedLayer1;
     public bool EnteredLayer2;
+    public bool ClearedLayer2;
+    public bool EnteredLayer3;
+    public bool ClearedLayer3;
     public bool ReachedTown;
     public bool Defeated;
     public int NodesVisited;
@@ -380,7 +391,9 @@ public class MVPAutoplayExpeditionReport {
     public int MoneyAfterWorkshop;
     public string Outcome;
     public string DefeatedBy;
+    // HP walking into the layer-1 or layer-2 boss; the layer-3 boss has its own.
     public int HPBeforeBoss = -1;
+    public int HPBeforeLayer3Boss = -1;
     public int NightIncome;
 }
 
@@ -477,6 +490,9 @@ internal class MVPAutoplayCampaign {
         return _report;
     }
 
+    // Going on from layer 2 to layer 3 in the same dive needs this much HP left.
+    private const int DeeperHPPercent = 60;
+
     // Try layer 2 once clearly stronger than the starting kit: the power arm plus a bigger chassis or a weapon better
     // than the starter dagger. After losing there, go back to layer 1 for one dive.
     private bool ShouldAttemptLayer2(int expeditionIndex) {
@@ -492,7 +508,12 @@ internal class MVPAutoplayCampaign {
     }
 
     private MVPAutoplayExpeditionReport RunExpedition(int expeditionIndex, bool attemptLayer2) {
-        int startLayerID = attemptLayer2 && _core.Dungeon.CanStartAtLayer(2) ? 2 : 1;
+        // Going deep starts from the deepest open layer, one shallower right after losing there.
+        MVPAutoplayExpeditionReport last = _report.ExpeditionReports.LastOrDefault();
+        bool lostOnLayer3 = last != null && last.Defeated && last.EnteredLayer3;
+        int startLayerID = !attemptLayer2 ? 1
+            : !lostOnLayer3 && _core.Dungeon.CanStartAtLayer(3) ? 3
+            : _core.Dungeon.CanStartAtLayer(2) ? 2 : 1;
         _currentExpedition = new MVPAutoplayExpeditionReport {
             ExpeditionIndex = expeditionIndex,
             StartLayerID = startLayerID,
@@ -509,6 +530,9 @@ internal class MVPAutoplayCampaign {
         if (startLayerID == 2) {
             _report.EnteredLayer2 = true;
             _currentExpedition.EnteredLayer2 = true;
+        } else if (startLayerID == 3) {
+            _report.EnteredLayer3 = true;
+            _currentExpedition.EnteredLayer3 = true;
         }
 
         NodeBase node = _core.Dungeon.CurrentLayer.RootNode;
@@ -521,7 +545,12 @@ internal class MVPAutoplayCampaign {
             if (node is CombatNode) {
                 _currentExpedition.CombatCount++;
                 if (node.NodeID.EndsWith("_boss", StringComparison.Ordinal)) {
-                    _currentExpedition.HPBeforeBoss = _core.CurrentPlayer.ActiveDoll.Status.HP_Current;
+                    int hp = _core.CurrentPlayer.ActiveDoll.Status.HP_Current;
+                    if (_core.Dungeon.CurrentLayer.LayerID == 3) {
+                        _currentExpedition.HPBeforeLayer3Boss = hp;
+                    } else {
+                        _currentExpedition.HPBeforeBoss = hp;
+                    }
                 }
 
                 RunCombatUntilResolved();
@@ -537,15 +566,33 @@ internal class MVPAutoplayCampaign {
                 // Outcome nodes publish their result through the event bus.
                 // The autoplay handler confirms that result and lets the dungeon flow return to the map.
             } else if (node is StairsNode stairsNode) {
-                if (_core.Dungeon.CurrentLayer.LayerID == 1) {
+                int layer = _core.Dungeon.CurrentLayer.LayerID;
+                if (layer == 1) {
                     _report.ClearedLayer1 = true;
                     _currentExpedition.ClearedLayer1 = true;
+                } else if (layer == 2) {
+                    _currentExpedition.ClearedLayer2 = true;
+                } else if (layer == 3) {
+                    _currentExpedition.ClearedLayer3 = true;
+                    if (!_report.ClearedLayer3) {
+                        _report.ClearedLayer3 = true;
+                        _report.FirstLayer3ClearDay = _core.CurrentPlayer.CurrentDay;
+                    }
                 }
 
-                if (attemptLayer2 && _core.Dungeon.CurrentLayer.LayerID == 1 && stairsNode.CanEnterNextLayer()) {
+                // Down from layer 1 whenever going deep; from layer 2 only with HP to spare.
+                DollEntity diver = _core.CurrentPlayer.ActiveDoll;
+                bool healthy = diver.Status.HP_Current * 100 >= diver.Status.HP_Max * DeeperHPPercent;
+                if (attemptLayer2 && layer < 3 && (layer == 1 || healthy) && stairsNode.CanEnterNextLayer()) {
                     stairsNode.EnterNextLayer();
-                    _report.EnteredLayer2 = true;
-                    _currentExpedition.EnteredLayer2 = true;
+                    if (layer == 1) {
+                        _report.EnteredLayer2 = true;
+                        _currentExpedition.EnteredLayer2 = true;
+                    } else {
+                        _report.EnteredLayer3 = true;
+                        _currentExpedition.EnteredLayer3 = true;
+                    }
+
                     node = _core.Dungeon.CurrentLayer.RootNode;
                     continue;
                 }

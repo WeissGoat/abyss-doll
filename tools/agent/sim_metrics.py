@@ -36,9 +36,11 @@ def main():
     campaigns = data['Campaigns']
     dives = [e for c in campaigns for e in c['ExpeditionReports']]
     l1 = [e for e in dives if e['StartLayerID'] == 1]
-    l2 = [e for e in dives if e['StartLayerID'] == 2 or e['AttemptedLayer2']]
+    l2 = [e for e in dives if e['StartLayerID'] == 2 or e.get('EnteredLayer2', e['AttemptedLayer2'])]
     l1_won = [e for e in l1 if not e['Defeated']]
-    l2_won = [e for e in l2 if not e['Defeated']]
+    l2_won = [e for e in l2 if e.get('ClearedLayer2', not e['Defeated'])]
+    l3 = [e for e in dives if e.get('EnteredLayer3')]
+    l3_won = [e for e in l3 if e.get('ClearedLayer3')]
     l1_boss = [e for e in l1 if e.get('HPBeforeBoss', 0) > 0]
     l1_boss_lost = [e for e in l1_boss if (e.get('DefeatedBy') or '').startswith('L1:boss')]
 
@@ -63,6 +65,9 @@ def main():
         ('9 维护/营业', pct(upkeep, income)),
         ('循环率', pct(data['LoopCampaignRate'] * len(campaigns), len(campaigns))),
         ('L2进入', pct(data['Layer2EntryRate'] * len(campaigns), len(campaigns))),
+        ('L3进入', pct(data.get('Layer3EntryRate', 0) * len(campaigns), len(campaigns))),
+        ('L3成功', f'{pct(len(l3_won), len(l3))}({len(l3)})'),
+        ('通关', pct(data.get('Layer3ClearRate', 0) * len(campaigns), len(campaigns))),
         ('底盘升级', str(data['TotalChassisUpgrades'])),
         ('剩余资金', f"{data['AverageFinalMoney']:.0f}"),
     ]
@@ -72,7 +77,10 @@ def main():
         defeats = collections.Counter(e.get('DefeatedBy') for e in dives if e['Defeated'])
         print('defeats:', ', '.join(f'{k} {v}' for k, v in defeats.most_common()))
         print('HP before L1 boss:', mean([e['HPBeforeBoss'] for e in l1_boss]),
-              '| HP before L2 boss:', mean([e['HPBeforeBoss'] for e in l2 if e.get('HPBeforeBoss', 0) > 0]))
+              '| HP before L2 boss:', mean([e['HPBeforeBoss'] for e in l2 if e.get('HPBeforeBoss', 0) > 0]),
+              '| HP before L3 boss:', mean([e['HPBeforeLayer3Boss'] for e in l3 if e.get('HPBeforeLayer3Boss', 0) > 0]))
+        cleared = [c['FirstLayer3ClearDay'] for c in campaigns if c.get('ClearedLayer3')]
+        print('first L3 clear day:', mean(cleared), f'({len(cleared)} campaigns)')
 
 
 if __name__ == '__main__':
