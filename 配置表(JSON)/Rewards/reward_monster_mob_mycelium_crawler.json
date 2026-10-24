@@ -25,19 +25,20 @@
     "Layer3Reward"
   ],
   "AuditNotes": "Layer3 pollution tutorial drop.",
-  "Guaranteed": [],
+  "Guaranteed": [
+    {
+      "Type": "Item",
+      "ItemID": "loot_living_mycelium",
+      "Weight": 100,
+      "Count": 1
+    }
+  ],
   "WeightedPools": [
     {
-      "PoolID": "mob_main",
+      "PoolID": "bonus",
       "RollCount": 1,
       "AllowDuplicate": false,
       "Entries": [
-        {
-          "Type": "Item",
-          "ItemID": "loot_living_mycelium",
-          "Weight": 45,
-          "Count": 1
-        },
         {
           "Type": "Item",
           "ItemID": "loot_vein_plate",
@@ -47,12 +48,12 @@
         {
           "Type": "Money",
           "Money": 45,
-          "Weight": 20,
+          "Weight": 35,
           "Count": 1
         },
         {
           "Type": "Nothing",
-          "Weight": 10
+          "Weight": 40
         }
       ]
     }

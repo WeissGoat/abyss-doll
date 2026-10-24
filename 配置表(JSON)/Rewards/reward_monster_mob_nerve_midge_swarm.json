@@ -25,19 +25,20 @@
     "Layer3Reward"
   ],
   "AuditNotes": "",
-  "Guaranteed": [],
+  "Guaranteed": [
+    {
+      "Type": "Item",
+      "ItemID": "loot_corroded_nerve",
+      "Weight": 100,
+      "Count": 1
+    }
+  ],
   "WeightedPools": [
     {
-      "PoolID": "mob_main",
+      "PoolID": "bonus",
       "RollCount": 1,
       "AllowDuplicate": false,
       "Entries": [
-        {
-          "Type": "Item",
-          "ItemID": "loot_corroded_nerve",
-          "Weight": 50,
-          "Count": 1
-        },
         {
           "Type": "Item",
           "ItemID": "con_anchor_charm",
@@ -47,12 +48,12 @@
         {
           "Type": "Money",
           "Money": 50,
-          "Weight": 25,
+          "Weight": 35,
           "Count": 1
         },
         {
           "Type": "Nothing",
-          "Weight": 10
+          "Weight": 50
         }
       ]
     }

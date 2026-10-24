@@ -25,10 +25,17 @@
     "Layer3Reward"
   ],
   "AuditNotes": "",
-  "Guaranteed": [],
+  "Guaranteed": [
+    {
+      "Type": "Item",
+      "ItemID": "loot_corroded_nerve",
+      "Weight": 100,
+      "Count": 1
+    }
+  ],
   "WeightedPools": [
     {
-      "PoolID": "mob_main",
+      "PoolID": "bonus",
       "RollCount": 1,
       "AllowDuplicate": false,
       "Entries": [
@@ -39,20 +46,14 @@
           "Count": 1
         },
         {
-          "Type": "Item",
-          "ItemID": "loot_corroded_nerve",
+          "Type": "Money",
+          "Money": 70,
           "Weight": 40,
           "Count": 1
         },
         {
-          "Type": "Money",
-          "Money": 70,
-          "Weight": 28,
-          "Count": 1
-        },
-        {
           "Type": "Nothing",
-          "Weight": 14
+          "Weight": 42
         }
       ]
     }

@@ -60,10 +60,11 @@ public static class WorkshopSmokeTest {
 
             ChassisUpgradeResult upgradeResult = core.Workshop.UpgradeDollChassis(doll);
 
-            if (player.Money == 500) {
+            int upgradePrice = ConfigManager.Chassis["chassis_lv1_basic"].UpgradeCost.Money;
+            if (player.Money == 1500 - upgradePrice) {
                 Debug.Log("Money Deduction PASSED.");
             } else {
-                Debug.LogError($"Money Deduction FAILED. Expected 500, got {player.Money}");
+                Debug.LogError($"Money Deduction FAILED. Expected {1500 - upgradePrice}, got {player.Money}");
             }
 
             if (player.StashInventory.Count == 0) {
@@ -81,7 +82,7 @@ public static class WorkshopSmokeTest {
             bool upgradeResultPassed = upgradeResult.Success
                 && upgradeResult.PreviousChassisID == "chassis_lv1_basic"
                 && upgradeResult.NewChassisID == "chassis_lv2_expanded"
-                && upgradeResult.MoneySpent == 1000
+                && upgradeResult.MoneySpent == upgradePrice
                 && upgradeResult.ConsumedItems.Count == 1
                 && upgradeResult.RuntimeGridRebuilt;
             if (upgradeResultPassed) {

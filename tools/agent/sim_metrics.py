@@ -41,6 +41,9 @@ def main():
     l2_won = [e for e in l2 if e.get('ClearedLayer2', not e['Defeated'])]
     l3 = [e for e in dives if e.get('EnteredLayer3')]
     l3_won = [e for e in l3 if e.get('ClearedLayer3')]
+    # Each dive counted once, at the deepest layer it reached.
+    l1_only = [e for e in dives if e['StartLayerID'] == 1 and not e.get('EnteredLayer2')]
+    l2_deepest = [e for e in l2 if not e.get('EnteredLayer3')]
     l1_boss = [e for e in l1 if e.get('HPBeforeBoss', 0) > 0]
     l1_boss_lost = [e for e in l1_boss if (e.get('DefeatedBy') or '').startswith('L1:boss')]
 
@@ -68,6 +71,7 @@ def main():
         ('L3进入', pct(data.get('Layer3EntryRate', 0) * len(campaigns), len(campaigns))),
         ('L3成功', f'{pct(len(l3_won), len(l3))}({len(l3)})'),
         ('通关', pct(data.get('Layer3ClearRate', 0) * len(campaigns), len(campaigns))),
+        ('安全区撤', pct(sum(e.get('Evacuated', False) for e in dives), len(dives))),
         ('底盘升级', str(data['TotalChassisUpgrades'])),
         ('剩余资金', f"{data['AverageFinalMoney']:.0f}"),
     ]
@@ -79,6 +83,14 @@ def main():
         print('HP before L1 boss:', mean([e['HPBeforeBoss'] for e in l1_boss]),
               '| HP before L2 boss:', mean([e['HPBeforeBoss'] for e in l2 if e.get('HPBeforeBoss', 0) > 0]),
               '| HP before L3 boss:', mean([e['HPBeforeLayer3Boss'] for e in l3 if e.get('HPBeforeLayer3Boss', 0) > 0]))
+        for name, group in (('L1', l1_only), ('L2', l2_deepest), ('L3', l3)):
+            won = [e for e in group if not e['Defeated']]
+            print(f'{name} dives {len(group)}: defeated {pct(len(group) - len(won), len(group))}, '
+                  f'night income per dive {mean([e["NightIncome"] for e in group])}, per safe return {mean([e["NightIncome"] for e in won])}, '
+                  f'evacuated {sum(e.get("Evacuated", False) for e in group)}')
+        first_l3 = [next(e for e in c['ExpeditionReports'] if e.get('EnteredLayer3')) for c in campaigns
+                    if any(e.get('EnteredLayer3') for e in c['ExpeditionReports'])]
+        print('first L3 dive index:', mean([e['ExpeditionIndex'] for e in first_l3]), f'({len(first_l3)} campaigns)')
         cleared = [c['FirstLayer3ClearDay'] for c in campaigns if c.get('ClearedLayer3')]
         print('first L3 clear day:', mean(cleared), f'({len(cleared)} campaigns)')
 

@@ -31,6 +31,12 @@
       "ItemID": "mat_core_tier3_seed",
       "Weight": 0,
       "Count": 1
+    },
+    {
+      "Type": "Item",
+      "ItemID": "trade_singing_fossil",
+      "Weight": 100,
+      "Count": 1
     }
   ],
   "WeightedPools": [
@@ -41,7 +47,7 @@
       "Entries": [
         {
           "Type": "Item",
-          "ItemID": "trade_singing_fossil",
+          "ItemID": "loot_spore_amber",
           "Weight": 28,
           "Count": 1
         },

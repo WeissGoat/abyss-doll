@@ -25,7 +25,7 @@
     "Base": 310,
     "Variance": 12
   },
-  "HP": 310,
+  "HP": 160,
   "PortraitID": "monster_boss_mycelium_oracle_portrait",
   "CombatVisualID": "monster_boss_mycelium_oracle_combat",
   "IntentIconSet": "combat_intent_core_v1",
@@ -84,7 +84,7 @@
         "UsesPerCombat": 0,
         "Condition": "Always",
         "Params": {
-          "Damage": 34,
+          "Damage": 30,
           "RepeatCount": 1
         }
       },

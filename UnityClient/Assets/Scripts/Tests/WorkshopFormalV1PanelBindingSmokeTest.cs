@@ -140,7 +140,7 @@ public static class WorkshopFormalV1PanelBindingSmokeTest {
             && textBeforeClick.Contains("底盘升级已接入 ChassisUpgradeService")
             && doll.Chassis.ChassisID == "chassis_lv2_expanded"
             && doll.RuntimeGrid is BackpackGrid
-            && player.Money == 500
+            && player.Money == 1500 - ConfigManager.Chassis["chassis_lv1_basic"].UpgradeCost.Money
             && !player.StashInventory.Contains(coreMaterial)
             && CollectText(canvasObj).Contains("Chassis upgraded");
 

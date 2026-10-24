@@ -25,7 +25,14 @@
     "Layer3Reward"
   ],
   "AuditNotes": "",
-  "Guaranteed": [],
+  "Guaranteed": [
+    {
+      "Type": "Item",
+      "ItemID": "loot_vein_plate",
+      "Weight": 100,
+      "Count": 1
+    }
+  ],
   "WeightedPools": [
     {
       "PoolID": "elite_main",
@@ -40,12 +47,6 @@
         },
         {
           "Type": "Item",
-          "ItemID": "loot_vein_plate",
-          "Weight": 35,
-          "Count": 1
-        },
-        {
-          "Type": "Item",
           "ItemID": "gear_spore_lance",
           "Weight": 15,
           "Count": 1
@@ -54,6 +55,12 @@
           "Type": "Money",
           "Money": 130,
           "Weight": 15,
+          "Count": 1
+        },
+        {
+          "Type": "Item",
+          "ItemID": "loot_spore_amber",
+          "Weight": 35,
           "Count": 1
         }
       ]

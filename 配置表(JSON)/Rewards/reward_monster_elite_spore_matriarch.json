@@ -29,7 +29,7 @@
   "WeightedPools": [
     {
       "PoolID": "elite_main",
-      "RollCount": 1,
+      "RollCount": 2,
       "AllowDuplicate": false,
       "Entries": [
         {

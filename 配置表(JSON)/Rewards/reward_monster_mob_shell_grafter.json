@@ -25,34 +25,35 @@
     "Layer3Reward"
   ],
   "AuditNotes": "",
-  "Guaranteed": [],
+  "Guaranteed": [
+    {
+      "Type": "Item",
+      "ItemID": "loot_vein_plate",
+      "Weight": 100,
+      "Count": 1
+    }
+  ],
   "WeightedPools": [
     {
-      "PoolID": "mob_main",
+      "PoolID": "bonus",
       "RollCount": 1,
       "AllowDuplicate": false,
       "Entries": [
         {
           "Type": "Item",
-          "ItemID": "loot_vein_plate",
-          "Weight": 55,
-          "Count": 1
-        },
-        {
-          "Type": "Item",
           "ItemID": "con_purifying_salt",
-          "Weight": 12,
+          "Weight": 20,
           "Count": 1
         },
         {
           "Type": "Money",
           "Money": 45,
-          "Weight": 25,
+          "Weight": 40,
           "Count": 1
         },
         {
           "Type": "Nothing",
-          "Weight": 8
+          "Weight": 40
         }
       ]
     }

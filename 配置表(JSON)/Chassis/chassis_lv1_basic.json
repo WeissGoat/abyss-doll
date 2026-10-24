@@ -30,7 +30,7 @@
     ]
   ],
   "UpgradeCost": {
-    "Money": 1000,
+    "Money": 500,
     "RequiredItems": [
       {
         "ConfigID": "mat_core_tier1",

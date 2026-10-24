@@ -66,6 +66,26 @@ public static class MVPAutoplaytestTest {
         Debug.Log("=== MVP Autoplaytest Stability Batch Finished ===");
     }
 
+    // For tuning: several batches (the stability seeds) merged into one report, so layer-3 numbers are not a handful of
+    // dives. Read it with `python tools/agent/sim_metrics.py --report UnityClient/Logs/MVPAutoplaytestTuningReport.json`.
+    public static string RunTuning(int batches = StabilityBatchCount) {
+        MVPAutoplaytestReport merged = null;
+        for (int batchIndex = 0; batchIndex < batches; batchIndex++) {
+            MVPAutoplaytestReport batch = BuildReport(BaseSeed + batchIndex * StabilitySeedStride);
+            if (merged == null) {
+                merged = batch;
+            } else {
+                merged.Campaigns.AddRange(batch.Campaigns);
+            }
+        }
+
+        merged.CampaignCount = merged.Campaigns.Count;
+        merged.Warnings.Clear();
+        merged.BuildSummary();
+        WriteReport(merged, "MVPAutoplaytestTuningReport.json");
+        return $"{merged.Campaigns.Count} campaigns written to Logs/MVPAutoplaytestTuningReport.json";
+    }
+
     private static MVPAutoplaytestReport BuildReport(int baseSeed) {
         MVPAutoplaytestReport report = new MVPAutoplaytestReport {
             CampaignCount = CampaignCount,
@@ -363,6 +383,7 @@ public class MVPAutoplayCampaignReport {
     public int ItemsLostAfterChassisUpgrade;
     public int MaintenanceSpent;
     public int ShopSpent;
+    public int GearBought;
     public List<MVPAutoplayRentRecord> RentBills = new List<MVPAutoplayRentRecord>();
     public List<int> MoneyByMorning = new List<int>();
     public List<string> Notes = new List<string>();
@@ -379,6 +400,12 @@ public class MVPAutoplayExpeditionReport {
     public bool ClearedLayer2;
     public bool EnteredLayer3;
     public bool ClearedLayer3;
+    // Went home from a safe room with the haul instead of pushing on.
+    public bool Evacuated;
+    public int HaulValue;
+    // Base value of the weapons, armour and anchors packed for the dive, and the chassis worn.
+    public int GearValue;
+    public string ChassisID;
     public bool ReachedTown;
     public bool Defeated;
     public int NodesVisited;
@@ -492,6 +519,11 @@ internal class MVPAutoplayCampaign {
 
     // Going on from layer 2 to layer 3 in the same dive needs this much HP left.
     private const int DeeperHPPercent = 60;
+    // A careful player walks home from a safe room once the haul is worth this much on that layer (base value of what
+    // the dive added to the backpack), and does not take a haul this big down the stairs.
+    private static readonly int[] RetreatHaul = { 0, 700, 1400, 2200 };
+
+    private HashSet<string> _carriedAtStart = new HashSet<string>();
 
     // Try layer 2 once clearly stronger than the starting kit: the power arm plus a bigger chassis or a weapon better
     // than the starter dagger. After losing there, go back to layer 1 for one dive.
@@ -511,8 +543,9 @@ internal class MVPAutoplayCampaign {
         // Going deep starts from the deepest open layer, one shallower right after losing there.
         MVPAutoplayExpeditionReport last = _report.ExpeditionReports.LastOrDefault();
         bool lostOnLayer3 = last != null && last.Defeated && last.EnteredLayer3;
+        bool readyForLayer3 = ReadyForLayer3();
         int startLayerID = !attemptLayer2 ? 1
-            : !lostOnLayer3 && _core.Dungeon.CanStartAtLayer(3) ? 3
+            : readyForLayer3 && !lostOnLayer3 && _core.Dungeon.CanStartAtLayer(3) ? 3
             : _core.Dungeon.CanStartAtLayer(2) ? 2 : 1;
         _currentExpedition = new MVPAutoplayExpeditionReport {
             ExpeditionIndex = expeditionIndex,
@@ -535,6 +568,9 @@ internal class MVPAutoplayCampaign {
             _currentExpedition.EnteredLayer3 = true;
         }
 
+        _carriedAtStart = new HashSet<string>((GetGrid()?.ContainedItems ?? new List<ItemEntity>()).Select(item => item.InstanceID));
+        _currentExpedition.GearValue = GearValue();
+        _currentExpedition.ChassisID = _core.CurrentPlayer.ActiveDoll.Chassis?.ChassisID;
         NodeBase node = _core.Dungeon.CurrentLayer.RootNode;
         int guard = 0;
 
@@ -562,6 +598,13 @@ internal class MVPAutoplayCampaign {
             } else if (node is SafeRoomNode safeRoomNode) {
                 UseConsumablesOutsideCombat();
                 safeRoomNode.Rest();
+                if (HaulValue() >= RetreatHaul[_core.Dungeon.CurrentLayer.LayerID]) {
+                    _currentExpedition.Evacuated = true;
+                    _currentExpedition.HaulValue = HaulValue();
+                    safeRoomNode.Evacuate();
+                    _currentExpedition.ReachedTown = _settledVictory;
+                    break;
+                }
             } else if (node is DungeonOutcomeNode) {
                 // Outcome nodes publish their result through the event bus.
                 // The autoplay handler confirms that result and lets the dungeon flow return to the map.
@@ -583,7 +626,8 @@ internal class MVPAutoplayCampaign {
                 // Down from layer 1 whenever going deep; from layer 2 only with HP to spare.
                 DollEntity diver = _core.CurrentPlayer.ActiveDoll;
                 bool healthy = diver.Status.HP_Current * 100 >= diver.Status.HP_Max * DeeperHPPercent;
-                if (attemptLayer2 && layer < 3 && (layer == 1 || healthy) && stairsNode.CanEnterNextLayer()) {
+                bool worthKeeping = HaulValue() >= RetreatHaul[layer];
+                if (attemptLayer2 && layer < 3 && (layer == 1 || (healthy && !worthKeeping && readyForLayer3)) && stairsNode.CanEnterNextLayer()) {
                     stairsNode.EnterNextLayer();
                     if (layer == 1) {
                         _report.EnteredLayer2 = true;
@@ -597,6 +641,7 @@ internal class MVPAutoplayCampaign {
                     continue;
                 }
 
+                _currentExpedition.HaulValue = HaulValue();
                 stairsNode.ReturnToTown();
                 _currentExpedition.ReachedTown = _settledVictory;
                 break;
@@ -953,7 +998,7 @@ internal class MVPAutoplayCampaign {
         TryCraft("craft_pros_power_arm", 300);
         int beforeCount = GetGrid()?.ContainedItems.Count ?? 0;
         string beforeChassis = _core.CurrentPlayer.ActiveDoll.Chassis?.ChassisID;
-        if (CanSpend(1000)) {
+        if (CanSpendOnUpgrade(_core.CurrentPlayer.ActiveDoll.Chassis?.UpgradeCost?.Money ?? int.MaxValue)) {
             _core.Workshop.UpgradeDollChassis(_core.CurrentPlayer.ActiveDoll);
         }
         string afterChassis = _core.CurrentPlayer.ActiveDoll.Chassis?.ChassisID;
@@ -969,6 +1014,46 @@ internal class MVPAutoplayCampaign {
         }
 
         TryCraft("craft_pros_cooling_system", 1000);
+        BuyGearWithSurplus();
+    }
+
+    // Money beyond the next rent and a cushion buys one piece of gear a night at the 补给铺, the dearest it does not
+    // own yet, like a player growing the build once the rent is safe.
+    private const int GearCushion = 300;
+
+    private void BuyGearWithSurplus() {
+        PlayerProfile player = _core.CurrentPlayer;
+        // The chassis comes first.
+        if (player.ActiveDoll.Chassis?.UpgradeCost?.NextChassisID != null) {
+            return;
+        }
+
+        HashSet<string> owned = new HashSet<string>(player.StashInventory.Select(item => item.ConfigID));
+        owned.UnionWith((GetGrid()?.ContainedItems ?? new List<ItemEntity>()).Select(item => item.ConfigID));
+        WorkshopShopOffer pick = WorkshopShopService.GetOffers(player)
+            .Where(offer => offer.ItemType == nameof(ItemType.Weapon) || offer.ItemType == nameof(ItemType.Armor) || offer.ItemType == nameof(ItemType.Anchor))
+            .Where(offer => !owned.Contains(offer.ConfigID) && CanSpend(offer.Price + GearCushion))
+            .OrderByDescending(offer => offer.Price)
+            .FirstOrDefault();
+        if (pick == null) {
+            return;
+        }
+
+        int moneyBefore = player.Money;
+        if (WorkshopShopService.TryBuy(player, pick.ConfigID).Success) {
+            _report.ShopSpent += moneyBefore - player.Money;
+            _report.GearBought++;
+        }
+    }
+
+    // The chassis is the step that opens the deeper layers: with the rent still days away, half the bill is enough
+    // to keep back, since the dives before it will bring the rest.
+    private bool CanSpendOnUpgrade(int cost) {
+        PlayerProfile player = _core.CurrentPlayer;
+        EconomyConfig config = TownEconomyService.GetConfig();
+        int bill = TownEconomyService.CalculateMonthlyBill(player, config);
+        int reserve = TownEconomyService.CalculateRentCountdown(player, config) <= 3 ? bill : bill / 2;
+        return player.Money - cost >= reserve;
     }
 
     private bool CanSpend(int cost) {
@@ -1159,6 +1244,27 @@ internal class MVPAutoplayCampaign {
         }
 
         _report.ProstheticsCrafted++;
+    }
+
+    // Layer 3 waits for a grown build, like a player who knows the boss down there: the expanded chassis and this much
+    // gear packed.
+    private const int Layer3Gear = 1200;
+
+    private bool ReadyForLayer3() {
+        return _core.CurrentPlayer.ActiveDoll.Chassis?.ChassisID != "chassis_lv1_basic" && GearValue() >= Layer3Gear;
+    }
+
+    private int GearValue() {
+        return (GetGrid()?.ContainedItems ?? new List<ItemEntity>())
+            .Where(item => item.ItemType == nameof(ItemType.Weapon) || item.ItemType == nameof(ItemType.Armor) || item.ItemType == nameof(ItemType.Anchor))
+            .Sum(item => item.BaseValue);
+    }
+
+    // What this dive added to the backpack, at base value.
+    private int HaulValue() {
+        return (GetGrid()?.ContainedItems ?? new List<ItemEntity>())
+            .Where(item => !_carriedAtStart.Contains(item.InstanceID))
+            .Sum(item => item.BaseValue);
     }
 
     private BackpackGrid GetGrid() {
