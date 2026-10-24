@@ -12,6 +12,8 @@ public class SceneConfig {
 public class SceneLine {
     public string Speaker;
     public string Text;
+    // Zero's face on her large portrait while she says it (ZeroFace); empty is neutral. Only for her lines.
+    public string Face;
 }
 
 public class SceneChoice {

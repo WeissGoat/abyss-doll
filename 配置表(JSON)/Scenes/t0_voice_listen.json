@@ -4,11 +4,13 @@
   "Lines": [
     {
       "Speaker": "零号",
-      "Text": "……它在叫我。"
+      "Text": "……它在叫我。",
+      "Face": "surprised"
     },
     {
       "Speaker": "零号",
-      "Text": "不，是我在叫它。"
+      "Text": "不，是我在叫它。",
+      "Face": "sad"
     },
     {
       "Speaker": "主角",

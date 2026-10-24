@@ -36,6 +36,8 @@ public static class HomeInteractionTest {
         Check(player.TalkedDay == player.CurrentDay, "talking was not recorded for 精神好");
         ZeroAnswer second = ZeroInteractionService.Chat(player, HomeRoom.Hall);
         Check(second.Bond == null && !second.IsLore && !string.IsNullOrEmpty(second.Line), "a second chat gave bond or story: " + second.Line);
+        HomeLine said = ConfigManager.HomeLines[ZeroInteractionService.ChatPool].Lines.Find(line => line.Text == second.Line);
+        Check(said != null && second.Face == said.Face, $"the chat line came without its face ({second.Face})");
 
         // The next day: the second piece; the third waits for bond 1.
         player.CurrentDay = 6;

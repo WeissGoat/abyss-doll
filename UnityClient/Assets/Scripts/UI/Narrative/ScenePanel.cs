@@ -4,13 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Plays a short scene (SceneConfig): lines one at a time with ▶, then the choices (or 继续 when there are none).
-// Shows state and forwards the chosen ID; what a choice does lives in the caller's domain service.
+// Shows state and forwards the chosen ID; what a choice does lives in the caller's domain service. In a scene where
+// Zero speaks she stands beside the box as her large portrait (ZeroBust), wearing the face of her last line and
+// stepping back into the shade while someone else talks.
 public class ScenePanel : MonoBehaviour {
     public const string PanelName = "ScenePanel_Runtime";
     public const string ContinueLabel = "▶";
     public const string DoneLabel = "继续";
+    public const string ZeroSpeaker = "零号";
     private const int MaxChoices = 3;
+    private const float WideWidth = 1180f;
+    private const float NarrowWidth = 1040f;
+    private const float Margin = 40f;
+    private static readonly Color ListeningTint = new Color(0.62f, 0.62f, 0.68f, 1f);
 
+    private RectTransform _dialog;
+    private Image _bust;
+    private bool _zeroOnStage;
+    private string _face;
     private Text _title;
     private Text _speaker;
     private Text _line;
@@ -26,6 +37,9 @@ public class ScenePanel : MonoBehaviour {
     public static ScenePanel Active { get; private set; }
 
     public static bool IsShowing => Active != null && Active.gameObject.activeSelf;
+
+    // Zero's face on her portrait now (ZeroFace), or empty when she is not on stage.
+    public string CurrentFace => _zeroOnStage && _bust.gameObject.activeSelf ? _face : string.Empty;
 
     // extraText: a block shown above the choices, for numbers the scene cannot know (the C segment recap).
     public static ScenePanel Play(string sceneID, Action<string> onChosen, IList<string> allowedChoiceIDs = null, string extraText = null) {
@@ -71,15 +85,23 @@ public class ScenePanel : MonoBehaviour {
         }
     }
 
-    private void Build(Transform dialog) {
+    private void Build(RectTransform dialog) {
+        _dialog = dialog;
+        // Zero on the right, standing on the bottom edge, clear of the narrowed box.
+        _bust = UITheme.CreatePanel(transform, "ZeroBust", Color.white);
+        _bust.raycastTarget = false;
+        UITheme.Place(_bust.rectTransform, new Vector2(0.5f, 0f), new Vector2(590f, 0f), ZeroBust.Size);
+        _bust.transform.SetSiblingIndex(dialog.GetSiblingIndex());
+        _bust.gameObject.SetActive(false);
+
         _title = UITheme.CreateText(dialog, "Title_Text", string.Empty, UITheme.CaptionSize, UITheme.TextSecondary, TextAnchor.MiddleLeft);
-        UITheme.Place(_title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -24f), new Vector2(1100f, 30f));
+        PlaceRow(_title.rectTransform, -24f, 30f);
         _speaker = UITheme.CreateText(dialog, "Speaker_Text", string.Empty, UITheme.BodySize, UITheme.Accent, TextAnchor.MiddleLeft);
-        UITheme.Place(_speaker.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -66f), new Vector2(1100f, 32f));
+        PlaceRow(_speaker.rectTransform, -66f, 32f);
         _line = UITheme.CreateText(dialog, "Line_Text", string.Empty, UITheme.HeadingSize, UITheme.TextPrimary, TextAnchor.UpperLeft);
-        UITheme.Place(_line.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -100f), new Vector2(1100f, 80f));
+        PlaceRow(_line.rectTransform, -100f, 80f);
         _extra = UITheme.CreateText(dialog, "Extra_Text", string.Empty, UITheme.BodySize - 2, UITheme.TextSecondary, TextAnchor.UpperLeft);
-        UITheme.Place(_extra.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -100f), new Vector2(1100f, 110f));
+        PlaceRow(_extra.rectTransform, -100f, 110f);
 
         _continueButton = UITheme.CreateButton(dialog, "SceneContinue_Button", ContinueLabel, UITheme.PanelRaised, UITheme.Accent, UITheme.HeadingSize);
         UITheme.AddBorder(_continueButton.targetGraphic, UITheme.Accent, 1.5f);
@@ -102,6 +124,12 @@ public class ScenePanel : MonoBehaviour {
         _lineIndex = 0;
         _title.text = scene.Title ?? string.Empty;
         _extra.text = extraText ?? string.Empty;
+        _zeroOnStage = ZeroBust.HasArt && _lines.Exists(line => line?.Speaker == ZeroSpeaker);
+        _face = ZeroFace.Neutral;
+        _bust.gameObject.SetActive(false);
+        float dialogWidth = _zeroOnStage ? NarrowWidth : WideWidth;
+        _dialog.sizeDelta = new Vector2(dialogWidth, _dialog.sizeDelta.y);
+        _dialog.anchoredPosition = new Vector2(_zeroOnStage ? -360f : 0f, _dialog.anchoredPosition.y);
 
         _choiceIDs.Clear();
         List<SceneChoice> choices = new List<SceneChoice>();
@@ -112,8 +140,8 @@ public class ScenePanel : MonoBehaviour {
         }
 
         // Choices sit side by side under the text, each with its hint on a second line.
-        float width = choices.Count <= 1 ? 520f : choices.Count == 2 ? 520f : 350f;
         float gap = 20f;
+        float width = choices.Count == 0 ? 0f : Mathf.Min(520f, (dialogWidth - 2f * Margin - (choices.Count - 1) * gap) / choices.Count);
         float total = choices.Count * width + Mathf.Max(0, choices.Count - 1) * gap;
         for (int i = 0; i < _choiceButtons.Count; i++) {
             Button button = _choiceButtons[i];
@@ -143,6 +171,7 @@ public class ScenePanel : MonoBehaviour {
         bool showExtra = line == null && !string.IsNullOrEmpty(_extra.text);
         _speaker.text = line?.Speaker ?? string.Empty;
         _line.text = line?.Text ?? string.Empty;
+        ShowZero(line);
         _extra.gameObject.SetActive(showExtra);
         _extra.rectTransform.anchoredPosition = new Vector2(0f, -66f);
 
@@ -153,6 +182,28 @@ public class ScenePanel : MonoBehaviour {
 
         UITheme.SetButtonLabel(_continueButton, atEnd ? DoneLabel : ContinueLabel);
         _continueButton.gameObject.SetActive(!showChoices);
+    }
+
+    private void ShowZero(SceneLine line) {
+        if (!_zeroOnStage) {
+            return;
+        }
+
+        bool speaking = line?.Speaker == ZeroSpeaker;
+        if (speaking) {
+            _face = string.IsNullOrEmpty(line.Face) ? ZeroFace.Neutral : line.Face;
+        }
+
+        _face = ZeroBust.Apply(_bust, _face, speaking ? Color.white : ListeningTint);
+    }
+
+    // A row of the box stretched to its width (which narrows when Zero is on stage), y down from the top.
+    private static void PlaceRow(RectTransform rect, float y, float height) {
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(1f, 1f);
+        rect.pivot = new Vector2(0.5f, 1f);
+        rect.offsetMin = new Vector2(Margin, y - height);
+        rect.offsetMax = new Vector2(-Margin, y);
     }
 
     private void Advance() {

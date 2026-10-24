@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 // The journal page in the hall (docs/specs/2026-10-17-home-loop.md): when Zero comes through the door it opens on the
 // dive just finished, with the route drawn as node icons (a red cross where she got hurt), what came home and what
-// was lost, and her one line about the day. The wall journal opens the same page on any past dive.
+// was lost, and her one line about the day, said up close as her large portrait with the line's face (ZeroBust). The
+// wall journal opens the same page on any past dive.
 public class HomeJournalView : MonoBehaviour {
     public const string RootName = "HomeJournal_Runtime";
     public const string CareLabel = "去工作室看看她";
@@ -23,6 +24,7 @@ public class HomeJournalView : MonoBehaviour {
     private Text _body;
     private GameObject _bubble;
     private Text _bubbleText;
+    private Image _bust;
     private Button _care;
     private Button _close;
     private Button _previous;
@@ -34,6 +36,9 @@ public class HomeJournalView : MonoBehaviour {
 
     public bool IsShowing => gameObject.activeSelf;
     public bool IsArrival { get; private set; }
+    // Her face on the portrait beside the page (ZeroFace), or empty when the portrait is not up.
+    public string CurrentFace { get; private set; } = string.Empty;
+    public bool HasPortrait => IsShowing && _bust.gameObject.activeSelf;
 
     // onShowing tells the room the page opened or closed (the hall hides its plaques under it).
     public static HomeJournalView Create(Transform parent, System.Action onCare, System.Action<bool> onShowing) {
@@ -87,16 +92,20 @@ public class HomeJournalView : MonoBehaviour {
     private void Present(DiveLog log) {
         gameObject.SetActive(true);
         transform.SetAsLastSibling();
-        _onShowing?.Invoke(true);
         _title.text = $"第 {log.Day} 天 · 第 {log.LayerID} 层";
         _stamp.text = log.Defeated ? "战败" : "平安撤离";
         _stamp.color = log.Defeated ? UITheme.Danger : UITheme.Positive;
         BuildRoute(log);
         _body.text = BuildBody(log);
 
-        string line = ZeroLineService.ArrivalLine(log);
+        HomeLine said = ZeroLineService.ArrivalPick(log);
+        string line = said?.Text;
         _bubble.SetActive(!string.IsNullOrEmpty(line));
         _bubbleText.text = $"「{line}」";
+        CurrentFace = string.IsNullOrEmpty(line) ? string.Empty : ZeroBust.Apply(_bust, said.Face, Color.white);
+        _bust.gameObject.SetActive(!string.IsNullOrEmpty(CurrentFace));
+        // Up close the bubble sits above her face, under the room tabs; beside her small figure it hangs by her head.
+        ((RectTransform)_bubble.transform).anchoredPosition = HasPortrait ? new Vector2(-260f, 300f) : new Vector2(-310f, 300f);
 
         List<DiveLog> journal = GameRoot.Core?.CurrentPlayer?.DiveJournal;
         int count = journal?.Count ?? 0;
@@ -106,6 +115,7 @@ public class HomeJournalView : MonoBehaviour {
         _next.gameObject.SetActive(!IsArrival);
         _previous.interactable = _index > 0;
         _next.interactable = _index >= 0 && _index < count - 1;
+        _onShowing?.Invoke(true);
     }
 
     public static string BuildBody(DiveLog log) {
@@ -196,6 +206,12 @@ public class HomeJournalView : MonoBehaviour {
     }
 
     private void Build() {
+        // Zero at the left of the hall, where her small figure stands, close enough to read her face.
+        _bust = UITheme.CreatePanel(transform, "ZeroBust", Color.white);
+        _bust.raycastTarget = false;
+        UITheme.Place(_bust.rectTransform, new Vector2(0.5f, 0f), new Vector2(-600f, 0f), ZeroBust.Size);
+        _bust.gameObject.SetActive(false);
+
         _page = UITheme.CreatePanel(transform, "JournalPage", UITheme.Panel);
         UITheme.ApplyBoardSkin(_page, VisualAssetService.UIPanelMainID);
         UITheme.Place(_page.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(400f, 10f), new Vector2(900f, 640f));

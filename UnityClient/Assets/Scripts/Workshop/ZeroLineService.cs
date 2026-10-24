@@ -6,7 +6,8 @@ using System.Linq;
 public class HomeLine {
     public List<string> Tags = new List<string>();
     public string Text;
-    // Her face while she says it (ZeroFace); empty is neutral. Shown on her large night-talk portrait.
+    // Her face while she says it (ZeroFace); empty is neutral. Shown on her large portrait where she talks up close
+    // (night talk, 和她说话, the arrival page).
     public string Face;
 }
 
@@ -62,15 +63,24 @@ public static class ZeroLineService {
 
     // A wish the dive fulfilled speaks first, then the promise it carried; otherwise the most memorable thing of the dive.
     public static string ArrivalLine(DiveLog log) {
+        return ArrivalPick(log)?.Text ?? string.Empty;
+    }
+
+    // The arrival line with her face: a granted wish and a kept promise make her smile, a broken one sad.
+    public static HomeLine ArrivalPick(DiveLog log) {
         if (log == null) {
-            return string.Empty;
+            return null;
         }
 
         if (!string.IsNullOrEmpty(log.WishDoneLine)) {
-            return log.WishDoneLine;
+            return new HomeLine { Text = log.WishDoneLine, Face = ZeroFace.Smile };
         }
 
-        return !string.IsNullOrEmpty(log.PromiseLine) ? log.PromiseLine : Pick(ArrivalPool, DiveLogService.Facts(log), log.Day);
+        if (!string.IsNullOrEmpty(log.PromiseLine)) {
+            return new HomeLine { Text = log.PromiseLine, Face = log.PromiseKept ? ZeroFace.Smile : ZeroFace.Sad };
+        }
+
+        return PickLine(ArrivalPool, DiveLogService.Facts(log), log.Day);
     }
 
     // A wish granted today (the rest-day one) speaks first; otherwise the day's facts pick.

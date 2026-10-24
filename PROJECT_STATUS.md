@@ -229,7 +229,8 @@ M4 试玩的三个问题自动测试都没抓到（渲染层级、点击时序�
 
 - [x] 夜谈大立绘和表情（2026-10-22）：零号半身像，平常和微笑、开心、害羞、难过、皱眉、惊讶 6 种表情（只换下半张脸）；哪句话用哪个表情写在配置（夜谈台词 `Face`、回应 `AnswerFace`）。`HomePromiseTest` 校验表情名。
 - [x] 牵手换手（2026-10-22）：牵手时淡入一只画好的伸出来的手（`<立绘>_hold`，`tools/美术工具/make_pose_patch.py`），手放在头发外面才看得清。录像 `tmp/presentation_samples/阁楼_牵手伸手.mp4`。
-- [x] 全部怪物的战斗姿势（2026-10-24）：其余 20 个怪各 3 张（站姿、出手前、攻击），Gemini 和 gpt-image-2.5 出图，抠图对齐后进 `Approved/Monsters/Combat/`，Registry 只新增 60 条。战斗里显示站姿，原来带白边、像素画的图不再上屏。EditMode 78、PlayMode 9 通过；包 `Builds/Windows/P3_20261024_0133`，自检 PASS。对比图 `tmp/presentation_samples/怪物战斗姿势_1.png`、`_2.png`，等制作人批准。
+- [x] 全部怪物的战斗姿势（2026-10-24）：其余 20 个怪各 3 张（站姿、出手前、攻击），Gemini 和 gpt-image-2.5 出图，抠图对齐后进 `Approved/Monsters/Combat/`，Registry 只新增 60 条。战斗里显示站姿，原来带白边、像素画的图不再上屏。EditMode 78、PlayMode 9 通过；包 `Builds/Windows/P3_20261024_0133`，自检 PASS。对比图 `tmp/presentation_samples/怪物战斗姿势_1.png`、`_2.png`。制作人 2026-10-24 批准，`m8/presentation-art` 已合并到 main（95d26e0）。
+- [x] 对话里的半身像和表情（2026-10-24，分支 `m9/dialogue-faces`）：零号说话的地方都换成大立绘加表情（`ZeroBust`）。剧情短场景（浅缘、回城、照看等）里她站在对话框右边，说话时换上这句的表情，别人说话时退到暗处；点「和她说话」时房间变暗、她走近成半身像，点一下回去；回家手账那页她站在左边说今天的事。表情写在配置：聊天、她自己的事、回家那句（`Face`），场景台词（`Scenes` 的 `Face`）；许愿实现、守约微笑，失约难过。序章 Yarn 部分底下本来就是她的特写 CG，没加。进门、触摸、卸货的小气泡仍是小人。EditMode 78 通过；包 `Builds/Windows/P3_20261024_2127`，自检 PASS（加了「和她说话」一步和截图 `02a_talk_close_up`）。
 
 ## 现在
 

@@ -6,12 +6,11 @@ using UnityEngine.UI;
 // (ZeroLineService night pool) and a sheet on the table keeps the numbers the old 「第 N 天结束」 card showed. Some
 // nights her word comes with two replies, which may promise her something for the next dive (PromiseService,
 // docs/specs/2026-10-18-home-evening-thread.md C). 晚安 moves to the morning. She stands close as a large portrait
-// whose face follows what she says (the line's Face, doll_zero_bust_<face>); without the portrait art the room's
-// small Zero is all there is.
+// whose face follows what she says (the line's Face, ZeroBust); without the portrait art the room's small Zero is all
+// there is.
 public class HomeNightTalkView : MonoBehaviour {
     public const string RootName = "HomeNightTalk_Runtime";
     public const string GoodnightLabel = "晚安";
-    public const string BustVisualID = "doll_zero_bust";
     private static readonly Color NightTint = new Color(0.9f, 0.89f, 0.97f, 1f);
 
     private Text _title;
@@ -92,15 +91,8 @@ public class HomeNightTalkView : MonoBehaviour {
     }
 
     private void ShowFace(string face) {
-        if (string.IsNullOrEmpty(face) || face == ZeroFace.Neutral || !VisualAssetService.TryGetSprite(BustVisualID + "_" + face, out _)) {
-            face = ZeroFace.Neutral;
-        }
-
-        string visualID = face == ZeroFace.Neutral ? BustVisualID : BustVisualID + "_" + face;
         // A little into the night light, so she sits in the dimmed room rather than on top of it.
-        bool shown = VisualUIHelper.ApplySprite(_bust, visualID, NightTint, Color.clear);
-        _bust.gameObject.SetActive(shown);
-        CurrentFace = shown ? face : string.Empty;
+        CurrentFace = ZeroBust.Apply(_bust, face, NightTint);
     }
 
     private void Goodnight() {
@@ -119,7 +111,7 @@ public class HomeNightTalkView : MonoBehaviour {
         // Zero close by the window, on the right, standing on the bottom edge.
         _bust = UITheme.CreatePanel(transform, "ZeroBust", Color.white);
         _bust.raycastTarget = false;
-        UITheme.Place(_bust.rectTransform, new Vector2(0.5f, 0f), new Vector2(560f, 0f), new Vector2(720f, 920f));
+        UITheme.Place(_bust.rectTransform, new Vector2(0.5f, 0f), new Vector2(560f, 0f), ZeroBust.Size);
         _bust.gameObject.SetActive(false);
 
         Image sheet = UITheme.CreatePanel(transform, "NightSheet", UITheme.Panel);

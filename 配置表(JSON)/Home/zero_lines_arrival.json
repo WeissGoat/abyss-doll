@@ -6,57 +6,66 @@
       "Tags": [
         "defeated"
       ],
-      "Text": "……对不起。东西，都没带回来。"
+      "Text": "……对不起。东西，都没带回来。",
+      "Face": "sad"
     },
     {
       "Tags": [
         "defeated"
       ],
-      "Text": "我又倒下了。下次……我会看清楚它。"
+      "Text": "我又倒下了。下次……我会看清楚它。",
+      "Face": "sad"
     },
     {
       "Tags": [
         "defeated"
       ],
-      "Text": "被拖回来的时候，我听见你在喊。"
+      "Text": "被拖回来的时候，我听见你在喊。",
+      "Face": "sad"
     },
     {
       "Tags": [
         "nearly_fell"
       ],
-      "Text": "差一点。真的只差一点。"
+      "Text": "差一点。真的只差一点。",
+      "Face": "wince"
     },
     {
       "Tags": [
         "nearly_fell"
       ],
-      "Text": "我还站着。……还站着。"
+      "Text": "我还站着。……还站着。",
+      "Face": "wince"
     },
     {
       "Tags": [
         "nearly_fell",
         "good_haul"
       ],
-      "Text": "很疼。但是背包是满的。"
+      "Text": "很疼。但是背包是满的。",
+      "Face": "smile"
     },
     {
       "Tags": [
         "boss_defeated"
       ],
-      "Text": "守在最下面的那个……它倒下了。"
+      "Text": "守在最下面的那个……它倒下了。",
+      "Face": "surprised"
     },
     {
       "Tags": [
         "boss_defeated"
       ],
-      "Text": "那么大的东西。我们赢了。"
+      "Text": "那么大的东西。我们赢了。",
+      "Face": "happy"
     },
     {
       "Tags": [
         "boss_defeated",
         "unhurt"
       ],
-      "Text": "它没碰到我。一次都没有。"
+      "Text": "它没碰到我。一次都没有。",
+      "Face": "happy"
     },
     {
       "Tags": [
@@ -68,7 +77,8 @@
       "Tags": [
         "elite_bypassed"
       ],
-      "Text": "我们没去惹那个大家伙。……它好像在看我们。"
+      "Text": "我们没去惹那个大家伙。……它好像在看我们。",
+      "Face": "wince"
     },
     {
       "Tags": [
@@ -80,13 +90,15 @@
       "Tags": [
         "left_behind"
       ],
-      "Text": "背包满了。……有点可惜。"
+      "Text": "背包满了。……有点可惜。",
+      "Face": "sad"
     },
     {
       "Tags": [
         "ordinary"
       ],
-      "Text": "我回来了。"
+      "Text": "我回来了。",
+      "Face": "smile"
     },
     {
       "Tags": [
@@ -98,49 +110,56 @@
       "Tags": [
         "ordinary"
       ],
-      "Text": "今天的路，我记住了。"
+      "Text": "今天的路，我记住了。",
+      "Face": "smile"
     },
     {
       "Tags": [
         "ordinary",
         "empty_handed"
       ],
-      "Text": "什么都没找到。……对不起。"
+      "Text": "什么都没找到。……对不起。",
+      "Face": "sad"
     },
     {
       "Tags": [
         "ordinary",
         "good_haul"
       ],
-      "Text": "背包好重。是好东西吧？"
+      "Text": "背包好重。是好东西吧？",
+      "Face": "happy"
     },
     {
       "Tags": [
         "ordinary",
         "unhurt"
       ],
-      "Text": "没有受伤。你看。"
+      "Text": "没有受伤。你看。",
+      "Face": "happy"
     },
     {
       "Tags": [
         "ordinary",
         "layer2"
       ],
-      "Text": "第二层的光，是会动的。"
+      "Text": "第二层的光，是会动的。",
+      "Face": "surprised"
     },
     {
       "Tags": [
         "nearly_fell",
         "held_on"
       ],
-      "Text": "那一下，我以为要散架了。……但我想回来。"
+      "Text": "那一下，我以为要散架了。……但我想回来。",
+      "Face": "shy"
     },
     {
       "Tags": [
         "defeated",
         "held_on"
       ],
-      "Text": "撑住了一次。第二次……没撑住。"
+      "Text": "撑住了一次。第二次……没撑住。",
+      "Face": "sad"
     }
   ]
 }

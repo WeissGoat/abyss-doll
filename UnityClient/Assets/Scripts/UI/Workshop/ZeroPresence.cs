@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 // Zero standing in a room (docs/specs/2026-10-18-home-evening-thread.md): a speech bubble beside her that fades after a
 // while, the small moves her portrait makes when she answers (a hop, a flinch, leaning in), and three places on her
-// that answer a touch (head, shoulder, hand). What she says comes from the backend (HomeEveningService,
-// ZeroInteractionService); this only shows it and forwards the touch.
+// that answer a touch (head, shoulder, hand). When you talk with her she steps up close: her large portrait
+// (ZeroBust) with the line's face over the dimmed room, in place of her small figure, until a click sends her back.
+// What she says comes from the backend (HomeEveningService, ZeroInteractionService); this only shows it and forwards
+// the touch.
 public class ZeroPresence : MonoBehaviour {
     public const float LineSeconds = 5f;
     public const float StorySeconds = 8f;
@@ -24,9 +26,18 @@ public class ZeroPresence : MonoBehaviour {
     private RectTransform _zonesOn;
     private Coroutine _lineRoutine;
     private Coroutine _moveRoutine;
+    private GameObject _closeUp;
+    private Image _bust;
+    private RectTransform _closeBubble;
+    private Text _closeLine;
+    private Text _closeNote;
+    private CanvasGroup _hiddenDoll;
 
-    public bool IsSpeaking => _bubble != null && _bubble.gameObject.activeSelf;
-    public string CurrentLine => IsSpeaking ? _line.text : string.Empty;
+    public bool IsCloseUp => _closeUp != null && _closeUp.activeSelf;
+    public bool IsSpeaking => IsCloseUp || (_bubble != null && _bubble.gameObject.activeSelf);
+    public string CurrentLine => IsCloseUp ? _closeLine.text : IsSpeaking ? _line.text : string.Empty;
+    // Her face on the close-up portrait (ZeroFace), or empty when she is not up close.
+    public string CurrentFace { get; private set; } = string.Empty;
 
     // parent: the room layer; doll: resolves her portrait (the hall's lives on the workshop screen underneath).
     public static ZeroPresence Create(Transform parent, string name, System.Func<RectTransform> doll, Vector2 bubblePosition, float bubbleWidth = 480f) {
@@ -45,6 +56,7 @@ public class ZeroPresence : MonoBehaviour {
             return;
         }
 
+        EndCloseUp();
         _line.text = $"「{text}」";
         _line.color = story ? UITheme.Accent : UITheme.TextPrimary;
         _emote.text = emote ?? string.Empty;
@@ -73,8 +85,76 @@ public class ZeroPresence : MonoBehaviour {
         StudioCareView.AnnounceBond(answer.Bond);
     }
 
+    // 和她说话: up close with her face, or the bubble when there is no portrait art.
+    public void CloseUp(ZeroAnswer answer) {
+        if (answer == null || string.IsNullOrEmpty(answer.Line)) {
+            return;
+        }
+
+        if (!ZeroBust.HasArt || !isActiveAndEnabled) {
+            Show(answer);
+            return;
+        }
+
+        if (_closeUp == null) {
+            BuildCloseUp();
+        }
+
+        Hide();
+        RectTransform root = (RectTransform)transform;
+        RectTransform doll = _doll?.Invoke();
+        // Where she stands, kept on screen; the bubble goes toward the middle.
+        float x = doll != null ? root.InverseTransformPoint(doll.TransformPoint(doll.rect.center)).x : -560f;
+        float reach = Mathf.Max(0f, root.rect.width * 0.5f - ZeroBust.Size.x * 0.5f);
+        x = Mathf.Clamp(x, -reach, reach);
+        _bust.rectTransform.anchoredPosition = new Vector2(x, 0f);
+        _closeBubble.anchoredPosition = new Vector2(x + (x <= 0f ? 1f : -1f) * (ZeroBust.Size.x * 0.5f + 180f), 760f);
+
+        _closeLine.text = $"「{answer.Line}」";
+        _closeLine.color = answer.IsLore ? UITheme.Accent : UITheme.TextPrimary;
+        _closeNote.text = answer.Bond != null && answer.Bond.PointsAdded > 0 ? $"羁绊 +{answer.Bond.PointsAdded}" : string.Empty;
+        _closeUp.SetActive(true);
+        CurrentFace = ZeroBust.Apply(_bust, answer.Face, Color.white);
+        StandIn(doll, false);
+        transform.SetAsLastSibling();
+        StudioCareView.AnnounceBond(answer.Bond);
+    }
+
+    // Back to her small figure in the room.
+    public void EndCloseUp() {
+        if (_closeUp != null) {
+            _closeUp.SetActive(false);
+        }
+
+        CurrentFace = string.Empty;
+        StandIn(null, true);
+    }
+
     public void Hide() {
         _bubble.gameObject.SetActive(false);
+    }
+
+    // Her small figure out of sight while a view shows her large portrait in its place (the arrival page).
+    public void HideFigure(bool hidden) {
+        StandIn(hidden ? _doll?.Invoke() : null, !hidden);
+    }
+
+    // Her small figure fades out while her portrait is up close, and comes back after.
+    private void StandIn(RectTransform doll, bool visible) {
+        if (!visible && doll != null) {
+            _hiddenDoll = doll.GetComponent<CanvasGroup>();
+            if (_hiddenDoll == null) {
+                _hiddenDoll = doll.gameObject.AddComponent<CanvasGroup>();
+            }
+        }
+
+        if (_hiddenDoll != null) {
+            _hiddenDoll.alpha = visible ? 1f : 0f;
+        }
+
+        if (visible) {
+            _hiddenDoll = null;
+        }
     }
 
     public void React(ZeroReaction reaction) {
@@ -185,10 +265,44 @@ public class ZeroPresence : MonoBehaviour {
             _bubble.gameObject.SetActive(false);
         }
 
+        EndCloseUp();
+
         RectTransform doll = _doll?.Invoke();
         if (doll != null) {
             doll.localRotation = Quaternion.identity;
         }
+    }
+
+    private void BuildCloseUp() {
+        Image dim = UITheme.CreatePanel(transform, "ZeroCloseUp", new Color(0.05f, 0.04f, 0.06f, 0.58f));
+        UITheme.Stretch(dim.rectTransform);
+        dim.raycastTarget = true;
+        Button back = dim.gameObject.AddComponent<Button>();
+        back.targetGraphic = dim;
+        back.transition = Selectable.Transition.None;
+        back.onClick.AddListener(EndCloseUp);
+        _closeUp = dim.gameObject;
+
+        _bust = UITheme.CreatePanel(dim.transform, "ZeroBust", Color.white);
+        _bust.raycastTarget = false;
+        UITheme.Place(_bust.rectTransform, new Vector2(0.5f, 0f), Vector2.zero, ZeroBust.Size);
+
+        Image bubble = UITheme.CreatePanel(dim.transform, "ZeroCloseUpBubble", UITheme.PanelRaised);
+        UITheme.AddBorder(bubble, UITheme.Border, 1.5f);
+        bubble.raycastTarget = false;
+        UITheme.Place(bubble.rectTransform, new Vector2(0.5f, 0f), Vector2.zero, new Vector2(560f, 120f));
+        _closeBubble = bubble.rectTransform;
+        _closeLine = UITheme.CreateText(bubble.transform, "Line_Text", string.Empty, UITheme.BodySize, UITheme.TextPrimary, TextAnchor.MiddleCenter);
+        UITheme.Stretch(_closeLine.rectTransform);
+        _closeLine.rectTransform.offsetMin = new Vector2(18f, 22f);
+        _closeLine.rectTransform.offsetMax = new Vector2(-18f, -6f);
+        _closeLine.raycastTarget = false;
+        _closeNote = UITheme.CreateText(bubble.transform, "Note_Text", string.Empty, UITheme.CaptionSize - 2, UITheme.Accent, TextAnchor.LowerRight);
+        UITheme.Stretch(_closeNote.rectTransform);
+        _closeNote.rectTransform.offsetMin = new Vector2(12f, 6f);
+        _closeNote.rectTransform.offsetMax = new Vector2(-14f, 0f);
+        _closeNote.raycastTarget = false;
+        _closeUp.SetActive(false);
     }
 
     private void Build(Vector2 bubblePosition, float bubbleWidth) {

@@ -4,11 +4,13 @@
   "Lines": [
     {
       "Speaker": "零号",
-      "Text": "刚才的声音……还在。"
+      "Text": "刚才的声音……还在。",
+      "Face": "wince"
     },
     {
       "Speaker": "零号",
-      "Text": "但没那么疼了。"
+      "Text": "但没那么疼了。",
+      "Face": "smile"
     },
     {
       "Speaker": "主角",

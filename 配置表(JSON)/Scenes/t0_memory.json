@@ -4,11 +4,13 @@
   "Lines": [
     {
       "Speaker": "零号",
-      "Text": "矿井……不是矿井。"
+      "Text": "矿井……不是矿井。",
+      "Face": "surprised"
     },
     {
       "Speaker": "零号",
-      "Text": "那里以前有灯。"
+      "Text": "那里以前有灯。",
+      "Face": "sad"
     },
     {
       "Speaker": "主角",

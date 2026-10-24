@@ -70,6 +70,14 @@ public class P3BuildSmoke : MonoBehaviour {
         int firstTownDay = GameRoot.Core.CurrentPlayer.CurrentDay;
         yield return Capture("02_workshop");
 
+        // 和她说话: she steps up close as her large portrait with the line's face; a click sends her back.
+        Note("[talk] " + P3DevTools.Talk());
+        yield return new WaitForSecondsRealtime(0.5f);
+        yield return Capture("02a_talk_close_up");
+        HomeRoomNavigator talkRooms = FindObjectOfType<WorkshopUIController>()?.Rooms;
+        talkRooms?.Zero(talkRooms.Current)?.EndCloseUp();
+        yield return null;
+
         // A CG motion clip decodes and plays in the build (the Editor's test runner cannot be trusted to): the
         // prologue's "start Zero" page, whose close-up panel has a clip.
         Note(P3DevTools.ShowCG("vfx_no0_core_start"));

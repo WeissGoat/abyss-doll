@@ -4,7 +4,8 @@
   "Lines": [
     {
       "Speaker": "零号",
-      "Text": "等一下。"
+      "Text": "等一下。",
+      "Face": "surprised"
     },
     {
       "Speaker": "零号",
@@ -12,7 +13,8 @@
     },
     {
       "Speaker": "零号",
-      "Text": "很浅。像我的。"
+      "Text": "很浅。像我的。",
+      "Face": "sad"
     },
     {
       "Speaker": "主角",

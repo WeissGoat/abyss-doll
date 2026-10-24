@@ -206,6 +206,7 @@ public class HomeRoomNavigator : MonoBehaviour {
         _journalTag = CreateTag(_hallLayer.transform, "Journal_Tag", JournalLabel, "以前的每一次下潜", new Vector2(-60f, -10f), () => _journal.OpenJournal());
         _hallTags.Add(_journalTag);
         _journal = HomeJournalView.Create(_hallLayer.transform, () => ShowStudio(StudioTab.Maintenance), showing => {
+            _hallZero?.HideFigure(showing && _journal.HasPortrait);
             Refresh();
             if (!showing) {
                 SpeakOnEntering(HomeRoom.Hall);
@@ -377,7 +378,7 @@ public class HomeRoomNavigator : MonoBehaviour {
 
     // 和她说话, and a touch on her head, shoulder or hand (ZeroInteractionService).
     public void Talk(HomeRoom room) {
-        Zero(room).Show(ZeroInteractionService.Chat(GameRoot.Core?.CurrentPlayer, room));
+        Zero(room).CloseUp(ZeroInteractionService.Chat(GameRoot.Core?.CurrentPlayer, room));
         Refresh();
         _workshop?.DayHud?.Refresh();
     }

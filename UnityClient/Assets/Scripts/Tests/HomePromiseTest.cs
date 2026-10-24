@@ -39,6 +39,13 @@ public static class HomePromiseTest {
             }
         }
 
+        // Story scenes: a face only on Zero's own lines.
+        foreach (SceneConfig scene in ConfigManager.Scenes.Values) {
+            foreach (SceneLine line in scene.Lines) {
+                Check(KnownFace(line.Face) && (string.IsNullOrEmpty(line.Face) || line.Speaker == ScenePanel.ZeroSpeaker), $"{scene.SceneID} line {line.Text} has face {line.Face} for {line.Speaker}");
+            }
+        }
+
         doll.Status.HP_Current = doll.Status.HP_Max;
         doll.Status.SAN_Current = doll.Status.SAN_Max;
         player.CurrentDay = 6;
@@ -70,6 +77,7 @@ public static class HomePromiseTest {
         PromiseService.OnDive(player, kept);
         Check(kept.PromiseKept && kept.PromiseText.Contains("别硬撑") && player.KeptPromises == keptBefore + 1 && player.ActivePromiseID == null, "kept promise not recorded");
         Check(ZeroLineService.ArrivalLine(kept) == "我听话了。没有硬撑。", "arrival line for a kept promise: " + ZeroLineService.ArrivalLine(kept));
+        Check(ZeroLineService.ArrivalPick(kept).Face == ZeroFace.Smile, "a kept promise does not make her smile at the door");
         Check(HomeJournalView.BuildBody(kept).Contains("做到了"), "the journal page does not say it was kept");
 
         // Broken: a promise to visit the camp, a dive that never got there.

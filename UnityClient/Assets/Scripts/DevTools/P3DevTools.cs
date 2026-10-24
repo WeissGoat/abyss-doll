@@ -33,6 +33,10 @@ public static class P3DevTools {
                 sb.AppendLine($"Tonight: next {HomeEveningStamps.Labels[(int)(rooms.NightTalk.IsShowing ? EveningStamp.Goodnight : HomeEveningService.Next(home))]}, haul {HomeEveningService.Haul(home).Count} undecided");
             }
 
+            if (rooms.Journal.HasPortrait) {
+                sb.AppendLine($"Journal: Zero up close, face {rooms.Journal.CurrentFace}");
+            }
+
             if (rooms.NightTalk.IsShowing) {
                 sb.AppendLine($"Night talk: {rooms.NightTalk.CurrentLine}{(rooms.NightTalk.HasReplies ? " (two replies waiting)" : string.Empty)}");
             }
@@ -43,7 +47,7 @@ public static class P3DevTools {
 
             ZeroPresence speaking = rooms.Zero(rooms.Current);
             if (speaking != null && speaking.IsSpeaking) {
-                sb.AppendLine("Zero says: " + speaking.CurrentLine);
+                sb.AppendLine("Zero says: " + speaking.CurrentLine + (speaking.IsCloseUp ? $" (up close, face {speaking.CurrentFace})" : string.Empty));
             }
 
             DollEntity zero = GameRoot.Core.CurrentPlayer.ActiveDoll;
@@ -56,6 +60,13 @@ public static class P3DevTools {
             string speaker = ReadChildText(overlay.transform, "DialoguePanel_Image/Speaker_Text");
             string body = ReadChildText(overlay.transform, "DialoguePanel_Image/Body_Text");
             sb.AppendLine($"Prologue: showing, blocking={overlay.IsInputBlocking}, line='{speaker}: {body}'");
+        }
+
+        if (ScenePanel.IsShowing) {
+            Transform scene = ScenePanel.Active.transform;
+            string face = ScenePanel.Active.CurrentFace;
+            sb.AppendLine($"Scene: '{ReadChildText(scene, "Dialog/Speaker_Text")}: {ReadChildText(scene, "Dialog/Line_Text")}'"
+                + (string.IsNullOrEmpty(face) ? string.Empty : $" (Zero on stage, face {face})"));
         }
 
         PlayerProfile player = GameRoot.Core.CurrentPlayer;

@@ -17,6 +17,8 @@ public enum ZeroReaction {
 
 public class ZeroAnswer {
     public string Line;
+    // Her face while she says it (ZeroFace), for her large portrait when you talk with her.
+    public string Face;
     // One more piece of her own story (lore pool), told on the day's first chat when the bond allows.
     public bool IsLore;
     public ZeroReaction Reaction;
@@ -51,10 +53,11 @@ public static class ZeroInteractionService {
         player.TalkedDay = player.CurrentDay;
         if (first) {
             answer.Bond = BondService.Add(player.ActiveDoll, ChatBond);
-            string lore = NextLore(player);
-            if (!string.IsNullOrEmpty(lore)) {
+            HomeLine lore = NextLoreLine(player);
+            if (lore != null) {
                 player.LoreHeard++;
-                answer.Line = lore;
+                answer.Line = lore.Text;
+                answer.Face = lore.Face;
                 answer.IsLore = true;
                 answer.Reaction = ZeroReaction.None;
                 return answer;
@@ -68,7 +71,9 @@ public static class ZeroInteractionService {
             facts.Add("again");
         }
 
-        answer.Line = ZeroLineService.Pick(ChatPool, facts, player.CurrentDay * 7 + player.ChatsToday);
+        HomeLine line = ZeroLineService.PickLine(ChatPool, facts, player.CurrentDay * 7 + player.ChatsToday);
+        answer.Line = line?.Text ?? string.Empty;
+        answer.Face = line?.Face;
         return answer;
     }
 
@@ -121,18 +126,18 @@ public static class ZeroInteractionService {
     }
 
     // The next piece of her story, if the bond has reached it.
-    public static string NextLore(PlayerProfile player) {
+    public static HomeLine NextLoreLine(PlayerProfile player) {
         if (!ConfigManager.HomeLines.TryGetValue(LorePool, out HomeLinePool pool) || pool?.Lines == null || player == null) {
-            return string.Empty;
+            return null;
         }
 
         if (player.LoreHeard < 0 || player.LoreHeard >= pool.Lines.Count) {
-            return string.Empty;
+            return null;
         }
 
         HomeLine next = pool.Lines[player.LoreHeard];
         HashSet<string> facts = HomeEveningService.StateFacts(player);
-        return next != null && (next.Tags ?? new List<string>()).All(facts.Contains) ? next.Text : string.Empty;
+        return next != null && !string.IsNullOrEmpty(next.Text) && (next.Tags ?? new List<string>()).All(facts.Contains) ? next : null;
     }
 
     // Counts belong to the day: a new day starts them over.
