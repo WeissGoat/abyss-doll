@@ -42,6 +42,8 @@ public class SafeRoomUIController : MonoBehaviour {
         SetButtonLabel(evacuateBtn, "返回小镇");
         SetPrimaryInteractable(node != null && node.CanEnterNextLayer());
         RefreshItemHints();
+        // The deepest boss just fell: the end of the Demo starts here (DemoEndingComic).
+        DemoEndingComic.PlayIfDue(null);
     }
 
     private void HandlePrimaryAction() {

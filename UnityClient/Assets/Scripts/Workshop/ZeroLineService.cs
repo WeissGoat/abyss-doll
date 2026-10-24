@@ -61,7 +61,8 @@ public static class ZeroLineService {
         return top[((day % top.Count) + top.Count) % top.Count];
     }
 
-    // A wish the dive fulfilled speaks first, then the promise it carried; otherwise the most memorable thing of the dive.
+    // The end of the Demo speaks first, then a wish the dive fulfilled, then the promise it carried; otherwise the most
+    // memorable thing of the dive.
     public static string ArrivalLine(DiveLog log) {
         return ArrivalPick(log)?.Text ?? string.Empty;
     }
@@ -70,6 +71,14 @@ public static class ZeroLineService {
     public static HomeLine ArrivalPick(DiveLog log) {
         if (log == null) {
             return null;
+        }
+
+        // The deepest boss beaten: her line about the song below comes before anything else.
+        if (log.FinalBossDefeated) {
+            HomeLine ending = PickLine(ArrivalPool, new HashSet<string> { DemoEndingService.FinalBossFact }, log.Day);
+            if (ending != null && (ending.Tags?.Count ?? 0) > 0) {
+                return ending;
+            }
         }
 
         if (!string.IsNullOrEmpty(log.WishDoneLine)) {
@@ -137,6 +146,10 @@ public static class ZeroLineService {
 
         if (player != null && player.LastWishDoneDay == report.EndedDay) {
             facts.Add("wish_done");
+        }
+
+        if (DemoEndingService.IsEndingNight(report, player)) {
+            facts.Add(DemoEndingService.EndingFact);
         }
 
         DollEntity doll = player?.ActiveDoll;

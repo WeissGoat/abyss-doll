@@ -49,7 +49,7 @@ public class NightReplyResult {
 public static class PromiseService {
     public const int GapNights = 2;
     public const int KeptBond = 1;
-    public static readonly string[] UrgentFacts = { "nearly_fell", "defeated", "rent_short", "low_san" };
+    public static readonly string[] UrgentFacts = { "nearly_fell", "defeated", "rent_short", "low_san", DemoEndingService.EndingFact };
 
     public static PromiseConfig Active(PlayerProfile player) {
         if (player == null || string.IsNullOrEmpty(player.ActivePromiseID)) {
@@ -71,8 +71,11 @@ public static class PromiseService {
             return null;
         }
 
+        // The ending's night has its own talk, whatever else happened.
+        bool ending = facts.Contains(DemoEndingService.EndingFact);
         List<NightTalkConfig> matching = ConfigManager.NightTalks
             .Where(talk => talk != null && talk.Replies != null && talk.Replies.Count > 0 && (talk.Tags ?? new List<string>()).All(facts.Contains))
+            .Where(talk => !ending || (talk.Tags ?? new List<string>()).Contains(DemoEndingService.EndingFact))
             .ToList();
         if (matching.Count == 0) {
             return null;

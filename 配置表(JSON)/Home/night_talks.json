@@ -80,6 +80,14 @@
         { "Text": "会的。", "Answer": "……那我就放心了。", "AnswerFace": "shy", "Bond": 1 },
         { "Text": "你也会一直陪我下去吗。", "Answer": "只要你在上面等我。", "AnswerFace": "shy", "Bond": 1 }
       ]
+    },
+    {
+      "TalkID": "talk_demo_end", "Tags": ["ending"],
+      "Line": "那首歌……我以前一定听过。在很下面的地方，有人在等我。", "Face": "sad",
+      "Replies": [
+        { "Text": "我们一起去找。", "Answer": "……嗯。一起。", "AnswerFace": "happy", "Bond": 1 },
+        { "Text": "先好好休息。", "Answer": "……好。今晚，我想梦到它。", "AnswerFace": "shy", "Bond": 1 }
+      ]
     }
   ]
 }

@@ -63,6 +63,9 @@ public class PlayerProfile {
     public int LastNightTalkDay;
     public int KeptPromises;
     public int LoreHeard;
+    // The end of the Demo (DemoEndingService): its comic at the stairs, and the whole ending, have been shown.
+    public bool DemoEndingComicShown;
+    public bool DemoEndingSeen;
     // Night phase (GDD_07 §3.1): after the day's dive or rest, before the business opens and the calendar moves on.
     public bool IsNight;
     // Night business (GDD_04): goods moved out of the stash into the dump box or the showcase (Grid.CurrentPos and

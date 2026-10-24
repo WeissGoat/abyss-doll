@@ -6,6 +6,8 @@ public class DungeonMapUIController : MonoBehaviour {
     private const float NodeButtonWidth = 160f;
     private const float NodeButtonHeight = 122f;
     private const float NodeColumnSpacing = 230f;
+    // The whole map stays on a 1920-wide screen: a deep layer's many columns close up instead of running off the edge.
+    private const float MapMaxWidth = 1760f;
     private const float NodeRowSpacing = 150f;
     private const float RouteLineHeight = 20f;
 
@@ -369,7 +371,7 @@ public class DungeonMapUIController : MonoBehaviour {
 
         RectTransform contentRect = contentParent as RectTransform;
         if (contentRect != null) {
-            float width = Mathf.Max(720f, NodeButtonWidth + Mathf.Max(0, rowCount - 1) * NodeColumnSpacing);
+            float width = Mathf.Max(720f, NodeButtonWidth + Mathf.Max(0, rowCount - 1) * ColumnSpacing(rowCount));
             float height = Mathf.Max(540f, NodeButtonHeight + Mathf.Max(0, maxNodesInRow - 1) * NodeRowSpacing + 220f);
             contentRect.anchorMin = new Vector2(0.5f, 0.5f);
             contentRect.anchorMax = new Vector2(0.5f, 0.5f);
@@ -391,13 +393,18 @@ public class DungeonMapUIController : MonoBehaviour {
         }
     }
 
+    private static float ColumnSpacing(int columns) {
+        return columns <= 1 ? NodeColumnSpacing : Mathf.Min(NodeColumnSpacing, (MapMaxWidth - NodeButtonWidth) / (columns - 1));
+    }
+
     private Dictionary<NodeBase, Vector2> BuildNodePositions(List<List<NodeBase>> rows) {
         Dictionary<NodeBase, Vector2> positions = new Dictionary<NodeBase, Vector2>();
         if (rows == null || rows.Count == 0) {
             return positions;
         }
 
-        float totalWidth = Mathf.Max(0, rows.Count - 1) * NodeColumnSpacing;
+        float columnSpacing = ColumnSpacing(rows.Count);
+        float totalWidth = Mathf.Max(0, rows.Count - 1) * columnSpacing;
         float startX = -totalWidth * 0.5f;
         mapPathMinX = startX;
         mapPathMaxX = startX + totalWidth;
@@ -419,7 +426,7 @@ public class DungeonMapUIController : MonoBehaviour {
                     continue;
                 }
 
-                positions[node] = new Vector2(startX + rowIndex * NodeColumnSpacing + curveX, centerY + startY - columnIndex * rowSpacing);
+                positions[node] = new Vector2(startX + rowIndex * columnSpacing + curveX, centerY + startY - columnIndex * rowSpacing);
             }
         }
 

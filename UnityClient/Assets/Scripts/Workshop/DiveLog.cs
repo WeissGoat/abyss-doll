@@ -32,6 +32,8 @@ public class DiveLog {
     public List<string> DefeatedEnemies = new List<string>();
     public string BossName;
     public bool BossDefeated;
+    // The boss beaten was the deepest layer's: the end of the Demo (DemoEndingService).
+    public bool FinalBossDefeated;
     public bool EliteFought;
     public bool EliteBypassed;
     public int LeftBehind;
@@ -139,6 +141,9 @@ public static class DiveLogService {
             if (step != null && step.Boss) {
                 _current.BossDefeated = true;
                 _current.BossName = report.EnemyFighters.FirstOrDefault()?.Name;
+                if (DemoEndingService.IsDeepestLayer(GameRoot.Core?.Dungeon?.CurrentLayer?.LayerID ?? 0)) {
+                    _current.FinalBossDefeated = true;
+                }
             }
         } else if (report.OutcomeType == CombatOutcomeType.Defeat) {
             _current.DefeatedBy = report.EnemyFighters.FirstOrDefault(enemy => enemy != null && enemy.IsAlive)?.Name;
@@ -239,6 +244,10 @@ public static class DiveLogService {
 
         if (log.HeldOn) {
             facts.Add("held_on");
+        }
+
+        if (log.FinalBossDefeated) {
+            facts.Add(DemoEndingService.FinalBossFact);
         }
 
         return facts;

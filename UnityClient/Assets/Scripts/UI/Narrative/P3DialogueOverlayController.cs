@@ -1292,9 +1292,27 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
                     return FindNo0Page();
                 case "vfx_no0_core_start":
                     return StartNo0Page();
+                case DemoEndingService.ComicVisualID:
+                    return DemoEndPage();
                 default:
                     return null;
             }
+        }
+
+        // The end of the Demo (DemoEndingComic): the boss falls open onto a deeper shaft, Zero stops to listen, she
+        // turns back. Until the panels are painted they fall back to the layer's map and her portrait.
+        private static ComicPageDefinition DemoEndPage() {
+            return new ComicPageDefinition {
+                Label = "菌脉深庭",
+                HasDollFocus = true,
+                HasLargeFocus = true,
+                BackdropColor = new Color(0.002f, 0.014f, 0.02f, 1f),
+                Panels = new[] {
+                    Panel("cg_demo_end_p01_shaft", "bg_dungeon_layer_3", new Vector2(0.24f, 0.6f), new Vector2(0f, 0f), new Vector2(380f, 480f), new Color(0.04f, 0.09f, 0.08f, 0.98f)),
+                    Panel("cg_demo_end_p02_listen", "doll_zero_bust_surprised", new Vector2(0.55f, 0.56f), new Vector2(0f, 0f), new Vector2(560f, 575f), new Color(0.04f, 0.09f, 0.08f, 0.98f)),
+                    Panel("cg_demo_end_p03_turn", "doll_zero_bust_sad", new Vector2(0.84f, 0.56f), new Vector2(0f, 0f), new Vector2(310f, 420f), new Color(0.04f, 0.09f, 0.08f, 0.98f))
+                }
+            };
         }
 
         private static ComicPageDefinition WorkshopEstablishPage() {

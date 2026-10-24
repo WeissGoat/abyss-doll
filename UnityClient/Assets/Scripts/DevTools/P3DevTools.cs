@@ -62,6 +62,14 @@ public static class P3DevTools {
             sb.AppendLine($"Prologue: showing, blocking={overlay.IsInputBlocking}, line='{speaker}: {body}'");
         }
 
+        if (DemoEndingComic.IsPlaying) {
+            sb.AppendLine("Ending comic: " + overlay?.CurrentText);
+        }
+
+        if (DemoEndCard.IsShowing) {
+            sb.AppendLine($"End card: {DemoEndCard.TitleText}");
+        }
+
         if (ScenePanel.IsShowing) {
             Transform scene = ScenePanel.Active.transform;
             string face = ScenePanel.Active.CurrentFace;
@@ -476,7 +484,14 @@ public static class P3DevTools {
                     log.AppendLine("Back in the workshop.");
                 }
                 break;
+            } else if (DemoEndingComic.IsPlaying) {
+                log.AppendLine("Ending comic: " + FindOverlay()?.CurrentText);
+                DemoEndingComic.Current.Advance();
             } else if (IsPanelActive("SafeRoomPanel")) {
+                if (EasyFights && ClickByLabel("休整", log)) {
+                    continue;
+                }
+
                 if (!ClickByLabel("返回小镇", log)) {
                     break;
                 }
@@ -628,6 +643,9 @@ public static class P3DevTools {
                 log.AppendLine("Left the unpacking for the business.");
             } else if (ClickByLabel(TownDayHUD.GoBusinessLabel, null)) {
                 log.AppendLine("Went to the business screen.");
+            } else if (DemoEndCard.IsShowing) {
+                log.AppendLine($"The end card is showing: {DemoEndCard.TitleText}.");
+                return;
             } else if (ClickByLabel("迎接新的一天", null)) {
                 log.AppendLine("Closed the night card.");
             } else if (ReplyAtNight(0, log)) {
@@ -663,6 +681,22 @@ public static class P3DevTools {
         talk.Reply(index);
         log?.AppendLine("Replied at night: " + talk.CurrentLine + (string.IsNullOrEmpty(talk.CurrentFace) ? " (no portrait)" : $" (face {talk.CurrentFace})"));
         return true;
+    }
+
+    // The route to the end of the Demo, not its numbers: layer 3 open and chosen, and every fight from here on starts
+    // with the enemies at 1 HP (RunDive also rests at safe rooms instead of leaving, so it reaches the boss).
+    public static bool EasyFights;
+
+    public static string PrepareDemoEnding() {
+        PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+        if (player == null) {
+            return "Game is not running.";
+        }
+
+        player.HighestUnlockedDungeonLayer = Mathf.Max(player.HighestUnlockedDungeonLayer, 3);
+        player.LastSelectedDungeonStartLayer = 3;
+        EasyFights = true;
+        return "Layer 3 open and chosen; fights are easy until EasyFights is cleared.\n" + Describe();
     }
 
     // Clicks 和她说话 in the hall or the attic (goes to the hall from the studio).
@@ -924,6 +958,12 @@ public static class P3DevTools {
 
     private static string PlayCombat() {
         CombatSystem combat = GameRoot.Core.Combat;
+        if (EasyFights) {
+            foreach (FighterEntity enemy in combat.EnemyFaction.Fighters) {
+                enemy.RuntimeHP = Mathf.Min(enemy.RuntimeHP, 1);
+            }
+        }
+
         BackpackGrid grid = GameRoot.Core.CurrentPlayer.ActiveDoll.RuntimeGrid as BackpackGrid;
         int turns = 0;
         string reason;

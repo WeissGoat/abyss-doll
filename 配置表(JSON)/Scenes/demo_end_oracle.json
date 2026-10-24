@@ -1,0 +1,25 @@
+{
+  "SceneID": "demo_end_oracle",
+  "Title": "菌脉深庭 · 歌",
+  "Lines": [
+    {
+      "Speaker": "",
+      "Text": "神谕体倒下了。菌丝一根根散开，底下露出一口更深的竖井。"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "……等一下。",
+      "Face": "surprised"
+    },
+    {
+      "Speaker": "",
+      "Text": "竖井深处有一段旋律，很轻，叮叮的，像小盒子里转出来的。"
+    },
+    {
+      "Speaker": "零号",
+      "Text": "它在唱……我知道这首歌。",
+      "Face": "sad"
+    }
+  ],
+  "Choices": []
+}

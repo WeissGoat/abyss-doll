@@ -273,12 +273,20 @@ public class HomeRoomNavigator : MonoBehaviour {
         _journal.ShowArrival(log);
     }
 
-    // After the business: upstairs, Zero's word about the day; 晚安 comes down to the hall for the morning.
+    // After the business: upstairs, Zero's word about the day; 晚安 comes down to the hall for the morning. On the
+    // ending's night 晚安 brings the end card (DemoEndingService), once.
     public void ShowNightTalk(DayEndReport report, System.Action onGoodnight) {
         _quiet = true;
         Show(HomeRoom.Attic);
         _quiet = false;
         _nightTalk.Show(report, () => {
+            PlayerProfile player = GameRoot.Core?.CurrentPlayer;
+            bool ending = DemoEndingService.IsEndingNight(report, player);
+            if (ending) {
+                DemoEndingService.Finish(player);
+                SaveService.AutoSave(player);
+            }
+
             Show(HomeRoom.Hall);
             Refresh();
             if (report.WishExpired != null) {
@@ -290,6 +298,9 @@ public class HomeRoomNavigator : MonoBehaviour {
             }
 
             onGoodnight?.Invoke();
+            if (ending) {
+                DemoEndCard.Show(DemoEndingService.Stats(player));
+            }
         });
         Refresh();
     }

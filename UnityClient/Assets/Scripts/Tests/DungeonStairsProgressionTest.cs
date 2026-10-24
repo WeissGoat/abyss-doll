@@ -154,7 +154,8 @@ public static class DungeonStairsProgressionTest {
         int labelPlateCount = 0;
         int interactableNodeButtons = 0;
         bool routeLinesHaveFormalWeight = true;
-        float expectedLayoutWidth = Mathf.Max(720f, 160f + Mathf.Max(0, layer.NodeRows.Count - 1) * 230f);
+        // Columns 230 apart, closing up so the whole map stays within 1760 (DungeonMapUIController).
+        float expectedLayoutWidth = Mathf.Max(720f, Mathf.Min(1760f, 160f + Mathf.Max(0, layer.NodeRows.Count - 1) * 230f));
         foreach (Transform child in contentObj.transform) {
             Button button = child.GetComponent<Button>();
             if (button != null) {

@@ -188,14 +188,72 @@ public class P3BuildSmoke : MonoBehaviour {
         }
 
         PlayerProfile player = GameRoot.Core.CurrentPlayer;
+        int dayAfterDives = player.CurrentDay;
+
+        // The end of the Demo (2026-10-24): layer 3 with easy fights (the route, not the numbers), the comic at the
+        // stairs, her song line at the door, the ending's night talk and 「第一章 · 完」.
+        bool comicCaptured = false;
+        bool doorCaptured = false;
+        bool endCardShown = false;
+        if (!stuck) {
+            Note(P3DevTools.PrepareDemoEnding());
+            for (int step = 0; step < 120 && !endCardShown && Time.realtimeSinceStartup - startedAt < TimeoutSeconds + 120f; step++) {
+                HomeRoomNavigator rooms = FindObjectOfType<WorkshopUIController>()?.Rooms;
+                if (!comicCaptured && DemoEndingComic.IsPlaying) {
+                    comicCaptured = true;
+                    yield return new WaitForSecondsRealtime(0.5f);
+                    yield return Capture("07_demo_end_comic");
+                }
+
+                if (!doorCaptured && rooms != null && rooms.Journal != null && rooms.Journal.IsShowing && rooms.Journal.IsArrival && DemoEndingService.Pending(player)) {
+                    doorCaptured = true;
+                    yield return Capture("07b_demo_end_door");
+                }
+
+                string report = P3DevTools.RunDive(40);
+                Note("[ending] " + report);
+                if (report.Contains("Dive finished.")) {
+                    yield return new WaitForSecondsRealtime(0.5f);
+                    rooms = FindObjectOfType<WorkshopUIController>()?.Rooms;
+                    if (!doorCaptured && rooms != null && rooms.Journal != null && rooms.Journal.IsShowing) {
+                        doorCaptured = true;
+                        yield return Capture("07b_demo_end_door");
+                    }
+
+                    Note(P3DevTools.Unpack());
+                    Note(P3DevTools.DumpAllForBusiness());
+                    yield return new WaitForSecondsRealtime(0.5f);
+                    string night = P3DevTools.ResolveDayDialogs();
+                    Note("[ending night] " + night);
+                    if (DemoEndCard.IsShowing) {
+                        endCardShown = true;
+                        yield return new WaitForSecondsRealtime(0.5f);
+                        yield return Capture("07c_demo_end_card");
+                        DemoEndCard.Active.Close();
+                    }
+
+                    break;
+                }
+
+                if (report.Contains("Stopped:")) {
+                    break;
+                }
+
+                yield return new WaitForSecondsRealtime(report.Contains("animation(s) still playing") ? 3f : 0.5f);
+            }
+
+            P3DevTools.EasyFights = false;
+        }
+
+        bool endingDone = comicCaptured && endCardShown && player.DemoEndingSeen;
         journalPages = player.DiveJournal?.Count ?? 0;
         // Every dive and every rest takes one day; every dive leaves a journal page.
         bool journalKept = journalPages >= dives;
         // Her large night-talk portrait answers with a face whenever there is a reply.
         bool portraitShown = portraits == replies;
-        bool passed = prologueDone && motionPlayed && journalKept && portraitShown && !stuck && dives >= TargetDives && player.CurrentDay == firstTownDay + dives + rests;
+        bool passed = prologueDone && motionPlayed && journalKept && portraitShown && endingDone && !stuck && dives >= TargetDives && dayAfterDives == firstTownDay + dives + rests;
         string verdict = $"{(passed ? "PASS" : "FAIL")}: prologue {(prologueDone ? "done" : "NOT FINISHED")} (town from day {firstTownDay}), {dives}/{TargetDives} dives, {rests} rest(s), day {player.CurrentDay}, money {player.Money} (night business net {soldTotal}G), "
-            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, journal {journalPages} page(s){(journalKept ? string.Empty : " MISSING PAGES")}, unpacked {unpacked} item(s), talked {talks} time(s), {replies} night reply(ies){(portraitShown ? string.Empty : $" but only {portraits} with her portrait")}, {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
+            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, journal {journalPages} page(s){(journalKept ? string.Empty : " MISSING PAGES")}, unpacked {unpacked} item(s), talked {talks} time(s), {replies} night reply(ies){(portraitShown ? string.Empty : $" but only {portraits} with her portrait")}, ending {(endingDone ? "comic + end card" : $"NOT REACHED (comic {comicCaptured}, card {endCardShown})")}, {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
         Debug.Log("[P3BuildSmoke] " + verdict);
         File.WriteAllText(Path.Combine(_outDir, "P3Smoke.txt"), verdict + "\n\n" + _log);
         Application.Quit(passed ? 0 : 1);
