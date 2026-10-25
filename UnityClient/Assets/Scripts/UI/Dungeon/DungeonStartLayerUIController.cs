@@ -262,12 +262,14 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         LayoutElement sealLayout = seal.gameObject.AddComponent<LayoutElement>();
         sealLayout.ignoreLayout = true;
         RectTransform sealRect = seal.rectTransform;
-        sealRect.anchorMin = new Vector2(0f, 1f);
-        sealRect.anchorMax = new Vector2(0f, 1f);
-        sealRect.pivot = new Vector2(0f, 1f);
-        sealRect.anchoredPosition = new Vector2(186f, -48f);
-        sealRect.sizeDelta = new Vector2(136f, 136f);
-        VisualUIHelper.ApplyContainSprite(seal, VisualAssetService.UIIconDivePermitID, new Vector2(136f, 136f), Color.white, UITheme.Border, false);
+        // A small seal beside the note under the picture (it used to float half over the picture, with a faint
+        // 仅此一次放行 drawn behind the picture).
+        sealRect.anchorMin = new Vector2(0f, 0f);
+        sealRect.anchorMax = new Vector2(0f, 0f);
+        sealRect.pivot = new Vector2(0f, 0f);
+        sealRect.anchoredPosition = new Vector2(44f, 34f);
+        sealRect.sizeDelta = new Vector2(72f, 72f);
+        VisualUIHelper.ApplyContainSprite(seal, VisualAssetService.UIIconDivePermitID, new Vector2(72f, 72f), Color.white, UITheme.Border, false);
 
         Text sealText = CreatePermitText("PermitSealText_Text", card.transform, font, 18, UITheme.TextSecondary);
         LayoutElement sealTextLayout = sealText.gameObject.AddComponent<LayoutElement>();
@@ -280,6 +282,7 @@ public class DungeonStartLayerUIController : MonoBehaviour {
         sealTextRect.pivot = new Vector2(0f, 1f);
         sealTextRect.anchoredPosition = new Vector2(160f, -170f);
         sealTextRect.sizeDelta = new Vector2(140f, 82f);
+        sealText.gameObject.SetActive(false);
 
         Text sideNote = CreatePermitText("PermitSideNote_Text", card.transform, font, 16, UITheme.TextMuted);
         LayoutElement sideNoteLayout = sideNote.gameObject.AddComponent<LayoutElement>();

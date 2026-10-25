@@ -787,6 +787,9 @@ public class WorkshopUIController : MonoBehaviour {
         ApplyProloguePanelSkin(_prologueObjectiveRibbon, new Color(0.004f, 0.030f, 0.038f, 0.24f));
         ResizeProloguePanel(_topStatusPanel, new Vector2(0.5f, 1f), new Vector2(0f, -16f), new Vector2(1240f, 52f));
         ResizeProloguePanel(_leftActionPanel, new Vector2(0.80f, 0.56f), new Vector2(0f, 0f), new Vector2(420f, 420f));
+        if (_abyssDoorIconImage != null) {
+            _abyssDoorIconImage.gameObject.SetActive(false);
+        }
         ResizeProloguePanel(_formalV1EntryPanel, new Vector2(0.17f, 0.48f), Vector2.zero, new Vector2(310f, 126f));
         ResizeProloguePanel(_bottomHintPanel, new Vector2(0.80f, 0.15f), Vector2.zero, new Vector2(340f, 104f));
         ResizeProloguePanel(_dollStatusPanel, new Vector2(0.5f, 0f), new Vector2(0f, 18f), new Vector2(660f, 66f));
@@ -836,12 +839,13 @@ public class WorkshopUIController : MonoBehaviour {
             gateRect.anchorMin = new Vector2(0.5f, 1f);
             gateRect.anchorMax = new Vector2(0.5f, 1f);
             gateRect.pivot = new Vector2(0.5f, 1f);
-            gateRect.anchoredPosition = new Vector2(0f, -104f);
-            gateRect.sizeDelta = new Vector2(370f, 300f);
+            // The picture, then the button under it (the button used to sit on the picture's lower half).
+            gateRect.anchoredPosition = new Vector2(0f, -100f);
+            gateRect.sizeDelta = new Vector2(370f, 208f);
             _abyssDoorSceneImage.color = new Color(0.92f, 1f, 1f, 0.88f);
         }
 
-        RepositionButton(departBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -252f), new Vector2(300f, 68f));
+        RepositionButton(departBtn, _leftActionPanel != null ? _leftActionPanel.transform : transform, new Vector2(0f, -326f), new Vector2(300f, 68f));
         RepositionButton(openSellPanelBtn, _bottomHintPanel != null ? _bottomHintPanel.transform : transform, new Vector2(42f, -70f), new Vector2(154f, 28f));
         RepositionButton(openProstheticPanelBtn, _formalV1EntryPanel != null ? _formalV1EntryPanel.transform : transform, new Vector2(42f, -72f), new Vector2(154f, 28f));
         if (openSellPanelBtn != null) { openSellPanelBtn.interactable = false; }

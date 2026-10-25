@@ -52,10 +52,18 @@ public class P3BuildSmoke : MonoBehaviour {
         bool returnCaptured = false;
         float prologueStartedAt = Time.realtimeSinceStartup;
         string lastLine = null;
+        bool permitCaptured = false;
         int lineShots = 0;
         while (!prologueDone && Time.realtimeSinceStartup - prologueStartedAt < PrologueTimeoutSeconds) {
             // Every line of the prologue's overlay gets a screenshot (each line has its own picture and layout), taken
             // once the new picture has faded in.
+            WorkshopUIController permitWorkshop = FindObjectOfType<WorkshopUIController>();
+            if (!permitCaptured && permitWorkshop != null && permitWorkshop.IsPrologueHalfOpen && permitWorkshop.IsDungeonStartLayerPanelOpen) {
+                permitCaptured = true;
+                yield return new WaitForSecondsRealtime(0.5f);
+                yield return Capture("01d_first_dive_permit");
+            }
+
             P3DialogueOverlayController overlay = GameObject.Find("P3DialogueOverlay_Runtime")?.GetComponent<P3DialogueOverlayController>();
             string line = overlay != null && overlay.IsShowing ? overlay.CurrentText : null;
             if (!string.IsNullOrEmpty(line) && line != lastLine) {

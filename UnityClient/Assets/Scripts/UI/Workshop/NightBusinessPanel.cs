@@ -139,13 +139,20 @@ public class NightBusinessPanel : MonoBehaviour {
                 continue;
             }
 
-            string bonus = line.AdjacentMatches > 0 ? $"\n相邻 +{line.AdjacentMatches}" : string.Empty;
-            // The item's icon on a light tile with its price under it (dark colour blocks with dark text were unreadable).
+            // The item's icon over light tiles on the cells it really takes (shapes interlock, so a tile over the whole
+            // bounding box covered the neighbour's cells), its price under it.
             string price = line.AdjacentMatches > 0 ? $"{line.Value}G · 相邻+{line.AdjacentMatches}" : $"{line.Value}G";
-            Button block = UITheme.CreateButton(_showcaseRoot, "ShowcaseItem_" + item.InstanceID, price, UITheme.PanelRaised, UITheme.TextPrimary, UITheme.CaptionSize - 2);
-            UITheme.AddBorder(block.targetGraphic, line.AdjacentMatches > 0 ? UITheme.Accent : ResolveTint(item), line.AdjacentMatches > 0 ? 2.5f : 2f);
+            Button block = UITheme.CreateButton(_showcaseRoot, "ShowcaseItem_" + item.InstanceID, price, Color.clear, UITheme.TextPrimary, UITheme.CaptionSize - 2);
+            block.targetGraphic.color = Color.clear;
             Vector2 size = new Vector2(columns * Cell - 8f, rows * Cell - 8f);
             UITheme.Place((RectTransform)block.transform, new Vector2(0f, 1f), new Vector2(item.Grid.CurrentPos[0] * Cell + 4f, -item.Grid.CurrentPos[1] * Cell - 4f), size);
+            foreach (int[] occupied in BackpackGrid.GetNormalizedShapeCells(item, item.Grid.Rotation)) {
+                Image tile = UITheme.CreatePanel(block.transform, "Tile_Image", UITheme.PanelRaised);
+                tile.raycastTarget = false;
+                UITheme.AddBorder(tile, line.AdjacentMatches > 0 ? UITheme.Accent : ResolveTint(item), line.AdjacentMatches > 0 ? 2.5f : 2f);
+                UITheme.Place(tile.rectTransform, new Vector2(0f, 1f), new Vector2(occupied[0] * Cell - 2f, -occupied[1] * Cell + 2f), new Vector2(Cell - 4f, Cell - 4f));
+                tile.transform.SetAsFirstSibling();
+            }
             Text priceText = block.GetComponentInChildren<Text>();
             priceText.alignment = TextAnchor.LowerCenter;
             priceText.rectTransform.offsetMin = new Vector2(2f, 2f);
