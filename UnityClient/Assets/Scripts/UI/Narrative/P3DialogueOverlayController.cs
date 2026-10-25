@@ -1300,7 +1300,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         }
 
         // The end of the Demo (DemoEndingComic): the boss falls open onto a deeper shaft, Zero stops to listen, she
-        // turns back. Until the panels are painted they fall back to the layer's map and her portrait.
+        // turns back: a 3:4, a square and a 3:4 panel in a row, as painted.
         private static ComicPageDefinition DemoEndPage() {
             return new ComicPageDefinition {
                 Label = "菌脉深庭",
@@ -1308,9 +1308,9 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
                 HasLargeFocus = true,
                 BackdropColor = new Color(0.002f, 0.014f, 0.02f, 1f),
                 Panels = new[] {
-                    Panel("cg_demo_end_p01_shaft", "bg_dungeon_layer_3", new Vector2(0.24f, 0.6f), new Vector2(0f, 0f), new Vector2(380f, 480f), new Color(0.04f, 0.09f, 0.08f, 0.98f)),
-                    Panel("cg_demo_end_p02_listen", "doll_zero_bust_surprised", new Vector2(0.55f, 0.56f), new Vector2(0f, 0f), new Vector2(560f, 575f), new Color(0.04f, 0.09f, 0.08f, 0.98f)),
-                    Panel("cg_demo_end_p03_turn", "doll_zero_bust_sad", new Vector2(0.84f, 0.56f), new Vector2(0f, 0f), new Vector2(310f, 420f), new Color(0.04f, 0.09f, 0.08f, 0.98f))
+                    Panel("cg_demo_end_p01_shaft", "bg_dungeon_layer_3", new Vector2(0.247f, 0.58f), new Vector2(0f, 0f), new Vector2(390f, 520f), new Color(0.04f, 0.09f, 0.08f, 0.98f)),
+                    Panel("cg_demo_end_p02_listen", "doll_zero_bust_surprised", new Vector2(0.5f, 0.58f), new Vector2(0f, 0f), new Vector2(520f, 520f), new Color(0.04f, 0.09f, 0.08f, 0.98f)),
+                    Panel("cg_demo_end_p03_turn", "doll_zero_bust_sad", new Vector2(0.753f, 0.58f), new Vector2(0f, 0f), new Vector2(390f, 520f), new Color(0.04f, 0.09f, 0.08f, 0.98f))
                 }
             };
         }

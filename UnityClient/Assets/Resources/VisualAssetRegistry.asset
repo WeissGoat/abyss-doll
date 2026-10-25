@@ -121,6 +121,24 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: cg_demo_end_p01_shaft
+    Sprite: {fileID: 21300000, guid: 4c40779e3f154685bf7127727b9dd036, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: cg_demo_end_p02_listen
+    Sprite: {fileID: 21300000, guid: 4d0e71c84b294699bd5e0dad7fcfd122, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
+  - VisualID: cg_demo_end_p03_turn
+    Sprite: {fileID: 21300000, guid: 0bf0e2681f19468cbb53e3a4df636dfc, type: 3}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 0}
   - VisualID: cg_t0_01a_p01_wake_pov
     Sprite: {fileID: 21300000, guid: d39388fb2be76344389872657642c5a1, type: 3}
     Prefab: {fileID: 0}
@@ -937,6 +955,12 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: monster_boss_mycelium_oracle_combat_intro
+    Sprite: {fileID: 0}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 32900000, guid: 2de767aab13f49c8919ec33093f08f64, type: 3}
   - VisualID: monster_boss_mycelium_oracle_combat_windup
     Sprite: {fileID: 21300000, guid: ade9c9564b1ae6046b18d2713c1820bf, type: 3}
     Prefab: {fileID: 0}
@@ -967,6 +991,12 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
+  - VisualID: monster_boss_spore_foundry_combat_intro
+    Sprite: {fileID: 0}
+    Prefab: {fileID: 0}
+    AudioClip: {fileID: 0}
+    Material: {fileID: 0}
+    VideoClip: {fileID: 32900000, guid: ffd2fc4343da435ea2fc50bbe800f141, type: 3}
   - VisualID: monster_boss_spore_foundry_combat_windup
     Sprite: {fileID: 21300000, guid: d86c5fe0159d24a4b9191da8be47e54d, type: 3}
     Prefab: {fileID: 0}
