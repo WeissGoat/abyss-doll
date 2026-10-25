@@ -13,10 +13,20 @@ using UnityEngine.UI;
 // sway. Her mouth is left alone: at room size it is 2-4 px, and swapped or flapping mouths read as a flicker.
 // The weights are a registered sprite "<visualID>_puppet" (R = head, G = face, B = hands; build_puppet_rig.py,
 // imported like the sway rig). It bends the sway's grid, so a portrait without a sway rig does not move.
+// A portrait cut into "<visualID>_head" and "<visualID>_body" (split_head_layer.py) moves its head as one piece: the
+// image shows the body layer, whose head area is taken out (the room above the jaw, collar and hair filled in below),
+// and the head layer turns and slides over it, so moving away shows what is behind instead of stretching the head.
+// Below the neck the body still bends with the head weights, so the hair hanging past her shoulders follows.
 [RequireComponent(typeof(Graphic))]
 public class UIPortraitPuppet : BaseMeshEffect {
     public const string RigSuffix = "_puppet";
     public const string HoldSuffix = "_hold";
+    public const string HeadSuffix = "_head";
+    public const string BodySuffix = "_body";
+    // How much of the face's look shift the head layer takes as a whole (the mesh slid the face 0.7, the hair 0.3).
+    private const float HeadLayerLook = 0.5f;
+    // Over this share of the height around the neck the body's head weights fade in, so the cut does not kink.
+    private const float NeckFade = 0.03f;
     // Where her head turns and the middle of her cheeks, as (u, v) of doll_proto_0_stand from the bottom-left
     // (build_puppet_rig.py prints the neck).
     public static readonly Vector2 Neck = new Vector2(0.503f, 0.801f);
@@ -73,6 +83,10 @@ public class UIPortraitPuppet : BaseMeshEffect {
     private Sprite _holdSprite;
     private Image _holdImage;
     private float _holdShown;
+    private Sprite _headSprite;
+    private Sprite _bodySprite;
+    private Sprite _wholeSprite;
+    private Image _headImage;
 
     public bool HasRig => _weights != null;
     public float HeadAngle => _angle.Value;
@@ -82,10 +96,14 @@ public class UIPortraitPuppet : BaseMeshEffect {
     public bool Showing => isActiveAndEnabled && HasRig && Visible();
     public float HandRise => _hand.Value;
     public bool HasHoldPose => _holdSprite != null;
+    public bool HasHeadLayer => _headSprite != null && _bodySprite != null;
     // How far the drawn reaching arm is faded in (0 to 1).
     public float HoldPoseShown => _holdShown;
-    // The furthest a vertex of her head moved in the last mesh, in the portrait's local units.
-    public float LastHeadShift { get; private set; }
+    // The furthest a vertex of her head moved in the last mesh, or the top of her head layer, in the portrait's local
+    // units.
+    public float LastHeadShift => Mathf.Max(_meshShift, _layerShift);
+    private float _meshShift;
+    private float _layerShift;
 
     // Called by VisualUIHelper whenever an image gets a sprite, after the sway.
     public static void Sync(Image image, string visualID) {
@@ -101,6 +119,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
         UIPortraitPuppet puppet = image.GetComponent<UIPortraitPuppet>();
         if (rig == null || !rig.isReadable) {
             if (puppet != null) {
+                puppet.ClearLayers();
                 puppet.enabled = false;
             }
 
@@ -114,7 +133,36 @@ public class UIPortraitPuppet : BaseMeshEffect {
         puppet.SetRig(rig);
         VisualAssetService.TryGetSprite(visualID + HoldSuffix, out Sprite hold);
         puppet._holdSprite = hold;
+        VisualAssetService.TryGetSprite(visualID + HeadSuffix, out Sprite head);
+        VisualAssetService.TryGetSprite(visualID + BodySuffix, out Sprite body);
+        puppet._headSprite = head;
+        puppet._bodySprite = body;
+        puppet._wholeSprite = image.sprite;
         puppet.enabled = true;
+        puppet.ShowLayers(true);
+    }
+
+    // The image shows the body layer while the head layer is drawn over it, and the whole portrait otherwise.
+    private void ShowLayers(bool layered) {
+        Image image = graphic as Image;
+        if (image == null || !HasHeadLayer) {
+            return;
+        }
+
+        Sprite wanted = layered ? _bodySprite : _wholeSprite;
+        if (wanted != null && image.sprite != wanted && (image.sprite == _bodySprite || image.sprite == _wholeSprite)) {
+            image.sprite = wanted;
+        }
+
+        if (!layered && _headImage != null) {
+            _headImage.enabled = false;
+        }
+    }
+
+    private void ClearLayers() {
+        ShowLayers(false);
+        _headSprite = null;
+        _bodySprite = null;
     }
 
     // The working puppet on a portrait, or null.
@@ -221,6 +269,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
         base.OnEnable();
         // Not UnityEngine.Random: drawing from it would shift the game's own rolls (loot, fights).
         _phase = (GetInstanceID() & 1023) / 1023f * IdlePeriod;
+        ShowLayers(true);
     }
 
     protected override void OnDisable() {
@@ -229,6 +278,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
         }
 
         ShowOverlays(false);
+        ShowLayers(false);
         _hasGrid = false;
         base.OnDisable();
     }
@@ -314,13 +364,13 @@ public class UIPortraitPuppet : BaseMeshEffect {
             vh.PopulateUIVertex(ref vertex, i);
             Vector2 uv = new Vector2((vertex.uv0.x - _uvMin.x) / (_uvMax.x - _uvMin.x), (vertex.uv0.y - _uvMin.y) / (_uvMax.y - _uvMin.y));
             Vector2 before = vertex.position;
-            Vector2 after = MoveParts(before, uv, out _);
+            Vector2 after = MoveParts(before, uv, out _, true);
             vertex.position = new Vector3(after.x, after.y, vertex.position.z);
             vh.SetUIVertex(vertex, i);
             most = Mathf.Max(most, (after - before).magnitude);
         }
 
-        LastHeadShift = most;
+        _meshShift = most;
     }
 
     // A point of the portrait (uv from the bottom-left) with everything that moves it: the breath (already in the
@@ -334,8 +384,22 @@ public class UIPortraitPuppet : BaseMeshEffect {
         return MoveParts(p, uv, out angle);
     }
 
-    private Vector2 MoveParts(Vector2 p, Vector2 uv, out float angle) {
+    // mesh: moving a vertex of the image itself. With a head layer the body's head area stays put (the head layer moves
+    // instead) and the head weights fade in below the neck; a point carried along (a blush, a mark) above the neck
+    // moves with the head layer.
+    private Vector2 MoveParts(Vector2 p, Vector2 uv, out float angle, bool mesh = false) {
         Sample(uv, out float head, out float face, out float hands);
+        if (HasHeadLayer) {
+            if (!mesh && uv.y >= Neck.y) {
+                return MoveHead(p, out angle);
+            }
+
+            if (mesh) {
+                head *= 1f - Mathf.SmoothStep(0f, 1f, (uv.y - (Neck.y - NeckFade)) / (2f * NeckFade));
+                face = 0f;
+            }
+        }
+
         angle = _angle.Value * head;
         float width = _posMax.x - _posMin.x;
         p.y += _hand.Value * width * hands;
@@ -354,6 +418,20 @@ public class UIPortraitPuppet : BaseMeshEffect {
         Vector2 q = new Vector2(neck.x + cos * dx - sin * dy, neck.y + (sin * dx + cos * dy) * squash);
         q.x += _look.Value * width * (0.3f * head + 0.7f * face);
         q.y -= _dip.Value * width * head;
+        return q;
+    }
+
+    // The head layer as one piece: turned on the neck, slid toward where she listens, dipped under a hand.
+    private Vector2 MoveHead(Vector2 p, out float angle) {
+        angle = _angle.Value;
+        Vector2 neck = Point(Neck);
+        float width = _posMax.x - _posMin.x;
+        float a = angle * Mathf.Deg2Rad;
+        float dx = p.x - neck.x;
+        float dy = p.y - neck.y;
+        Vector2 q = new Vector2(neck.x + Mathf.Cos(a) * dx - Mathf.Sin(a) * dy, neck.y + Mathf.Sin(a) * dx + Mathf.Cos(a) * dy);
+        q.x += _look.Value * width * HeadLayerLook;
+        q.y -= _dip.Value * width;
         return q;
     }
 
@@ -435,6 +513,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
     }
 
     private void UpdateOverlays(bool live) {
+        UpdateHead();
         if (!live || !_hasGrid) {
             ShowOverlays(false);
             return;
@@ -458,6 +537,45 @@ public class UIPortraitPuppet : BaseMeshEffect {
             t.sizeDelta = size;
             t.localRotation = Quaternion.identity;
             _holdImage.color = new Color(1f, 1f, 1f, Mathf.SmoothStep(0f, 1f, _holdShown));
+        }
+    }
+
+    // Drawn whenever the portrait is (also still, with the puppet switched off), never over the living clip.
+    private void UpdateHead() {
+        bool show = HasHeadLayer && Visible();
+        if (!show) {
+            if (_headImage != null) {
+                _headImage.enabled = false;
+            }
+
+            return;
+        }
+
+        if (_headImage == null) {
+            _headImage = CreateOverlay("PuppetHead", null);
+            // Over the body (and the clip's layer, which hides it), under the blush, the reaching arm and any marks.
+            Transform clip = transform.Find("MotionPortrait_Video");
+            _headImage.transform.SetSiblingIndex(clip != null ? clip.GetSiblingIndex() + 1 : 0);
+        }
+
+        RectTransform t = _headImage.rectTransform;
+        Rect rect = ((RectTransform)transform).rect;
+        _headImage.sprite = _headSprite;
+        _headImage.color = graphic.color;
+        _headImage.enabled = true;
+        t.pivot = Neck;
+        if (_hasGrid) {
+            Vector2 top = Point(new Vector2(Neck.x, 0.97f));
+            _layerShift = (MoveHead(top, out _) - top).magnitude;
+            Vector2 neck = MoveHead(Point(Neck), out float angle);
+            t.anchoredPosition = neck - rect.min;
+            t.sizeDelta = _posMax - _posMin;
+            t.localRotation = Quaternion.Euler(0f, 0f, angle);
+        } else {
+            Rect quad = RestQuad(rect);
+            t.anchoredPosition = quad.min + Vector2.Scale(Neck, quad.size) - rect.min;
+            t.sizeDelta = quad.size;
+            t.localRotation = Quaternion.identity;
         }
     }
 

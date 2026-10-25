@@ -10,9 +10,10 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Graphic))]
 public class UIPortraitSway : BaseMeshEffect {
     public const string RigSuffix = "_rig";
-    // Fine enough for a head turning on its neck (UIPortraitPuppet bends the same grid).
-    public const int Columns = 32;
-    public const int Rows = 48;
+    // Fine enough for a head turning on its neck (UIPortraitPuppet bends the same grid), and for the hair beside her
+    // arms to sway without a cell dragging the arm's edge along (16 px cells on a 1024 px portrait).
+    public const int Columns = 64;
+    public const int Rows = 96;
     // Peak sideways bend as a share of the image width (about 25 px on a 1024 px portrait, 14 px in the workshop).
     // The producer found 10 px too faint; past about 30 px the cape and dress edges start to drag with the hair.
     public const float HairAmount = 0.024f;

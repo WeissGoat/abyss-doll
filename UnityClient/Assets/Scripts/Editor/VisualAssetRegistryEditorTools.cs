@@ -222,6 +222,16 @@ public static class VisualAssetRegistryEditorTools {
                 changed = true;
             }
 
+            if (spec != null && spec.FullRect) {
+                TextureImporterSettings settings = new TextureImporterSettings();
+                importer.ReadTextureSettings(settings);
+                if (settings.spriteMeshType != SpriteMeshType.FullRect) {
+                    settings.spriteMeshType = SpriteMeshType.FullRect;
+                    importer.SetTextureSettings(settings);
+                    changed = true;
+                }
+            }
+
             if (changed) {
                 importer.SaveAndReimport();
             }
@@ -269,11 +279,14 @@ public static class VisualAssetRegistryEditorTools {
             return new ApprovedSpriteSpec("doll bust", 1024, 1280, true, 2048);
         }
 
-        // Her room portrait (and the arm drawn over it) has thin crisp lines and is shown at a third to a half of its
-        // size: without mipmaps the lines break into dots. Only these two: a 1024x1536 texture with mipmaps cannot be
-        // block-compressed and takes 8 MB instead of 1.5 MB.
-        if (normalized.Contains("/Dolls/") && (normalized.EndsWith("_stand.png") || normalized.EndsWith("_stand_hold.png"))) {
-            return new ApprovedSpriteSpec("doll", 1024, 1536, true, 2048, true);
+        // Her room portrait (with the arm drawn over it and its head and body layers) has thin crisp lines and is shown
+        // at a third to a half of its size: without mipmaps the lines break into dots. Only these: a 1024x1536 texture
+        // with mipmaps cannot be block-compressed and takes 8 MB instead of 1.5 MB. Full rect: a tight sprite is drawn
+        // as its opaque box only, and the sway and puppet (whose weights, neck and cheeks are in the whole canvas)
+        // would read the box's corners as the canvas's; the layers drawn over it would not line up either.
+        if (normalized.Contains("/Dolls/") && (normalized.EndsWith("_stand.png") || normalized.EndsWith("_stand_hold.png")
+            || normalized.EndsWith("_stand_head.png") || normalized.EndsWith("_stand_body.png"))) {
+            return new ApprovedSpriteSpec("doll", 1024, 1536, true, 2048, true, true);
         }
 
         if (normalized.Contains("/Dolls/")) {
@@ -366,14 +379,16 @@ public static class VisualAssetRegistryEditorTools {
         public readonly bool AlphaIsTransparency;
         public readonly int MaxTextureSize;
         public readonly bool Mipmaps;
+        public readonly bool FullRect;
 
-        public ApprovedSpriteSpec(string category, int sourceWidth, int sourceHeight, bool alphaIsTransparency, int maxTextureSize, bool mipmaps = false) {
+        public ApprovedSpriteSpec(string category, int sourceWidth, int sourceHeight, bool alphaIsTransparency, int maxTextureSize, bool mipmaps = false, bool fullRect = false) {
             Category = category;
             SourceWidth = sourceWidth;
             SourceHeight = sourceHeight;
             AlphaIsTransparency = alphaIsTransparency;
             MaxTextureSize = maxTextureSize;
             Mipmaps = mipmaps;
+            FullRect = fullRect;
         }
     }
 }

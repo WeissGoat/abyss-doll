@@ -6,16 +6,11 @@ using UnityEngine.Video;
 // that still with tools/美术工具/make_alpha_loop.py, in Approved, imported with Keep Alpha), a video layer over the image
 // loops it, and the still is hidden once the first frame is decoded, so there is never a gap. Only screens that ask
 // for it get one (the hall and the title), not every image that shows the portrait.
-// V toggles video portraits on and off everywhere (sample comparison against the still with its mesh sway). B swaps
-// to a second take "<visualID>_idle_b" where one is registered, so two ways of making the loop can be compared in
-// place (2026-10-25: Zero's loop made from the portrait moved by the clip's motion, against the clip keyed directly).
+// V toggles video portraits on and off everywhere (sample comparison against the still with its mesh sway).
 [RequireComponent(typeof(Image))]
 public class UIMotionPortrait : MonoBehaviour {
     public const string IdleSuffix = "_idle";
-    public const string AlternateSuffix = "_idle_b";
     public static bool Enabled = true;
-    public static bool Alternate;
-    private static int _swappedFrame = -1;
     private static int _toggledFrame = -1;
 
     private VideoPlayer _player;
@@ -24,7 +19,6 @@ public class UIMotionPortrait : MonoBehaviour {
     private VideoClip _clip;
     private Image _still;
     private bool _frameShown;
-    private string _visualID;
 
     public VideoClip Clip => _clip;
     public bool FrameShown => _frameShown && _screen != null && _screen.isActiveAndEnabled && _screen.color.a > 0f;
@@ -36,7 +30,10 @@ public class UIMotionPortrait : MonoBehaviour {
             return null;
         }
 
-        VideoClip clip = ClipFor(visualID);
+        VideoClip clip = null;
+        if (!string.IsNullOrEmpty(visualID)) {
+            VisualAssetService.TryGetVideo(visualID + IdleSuffix, out clip);
+        }
 
         UIMotionPortrait motion = image.GetComponent<UIMotionPortrait>();
         if (clip == null) {
@@ -51,21 +48,8 @@ public class UIMotionPortrait : MonoBehaviour {
             motion = image.gameObject.AddComponent<UIMotionPortrait>();
         }
 
-        motion._visualID = visualID;
         motion.Play(clip);
         return motion;
-    }
-
-    private static VideoClip ClipFor(string visualID) {
-        if (string.IsNullOrEmpty(visualID)) {
-            return null;
-        }
-
-        if (Alternate && VisualAssetService.TryGetVideo(visualID + AlternateSuffix, out VideoClip alternate)) {
-            return alternate;
-        }
-
-        return VisualAssetService.TryGetVideo(visualID + IdleSuffix, out VideoClip clip) ? clip : null;
     }
 
     public void Play(VideoClip clip) {
@@ -107,19 +91,6 @@ public class UIMotionPortrait : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.V) && _toggledFrame != Time.frameCount) {
             _toggledFrame = Time.frameCount;
             Enabled = !Enabled;
-        }
-
-        if (Input.GetKeyDown(KeyCode.B) && _swappedFrame != Time.frameCount) {
-            _swappedFrame = Time.frameCount;
-            Alternate = !Alternate;
-            PlayerToast.Show(Alternate ? "待机循环：第二版（" + AlternateSuffix + "）" : "待机循环：第一版（" + IdleSuffix + "）");
-        }
-
-        if (_clip != null && !string.IsNullOrEmpty(_visualID)) {
-            VideoClip wanted = ClipFor(_visualID);
-            if (wanted != null && wanted != _clip) {
-                Play(wanted);
-            }
         }
 
         if (_player == null || _clip == null) {

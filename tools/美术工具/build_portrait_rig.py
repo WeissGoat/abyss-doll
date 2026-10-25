@@ -20,7 +20,7 @@ def smooth(e0, e1, x):
     return t * t * (3 - 2 * t)
 
 
-def build(portrait, strands=0):
+def build(portrait, strands=0, skirt_from=0.52):
     f = portrait.astype(np.float32)
     r, b, a = f[..., 0], f[..., 2], f[..., 3]
     h, w = a.shape
@@ -28,7 +28,10 @@ def build(portrait, strands=0):
     xs = np.arange(w)[None, :] / w
     opaque = a > 40
     warm = (((r - b) > 12) & opaque).astype(np.uint8)
-    body = cv2.morphologyEx(warm, cv2.MORPH_CLOSE, np.ones((15, 15), np.uint8))
+    # Closing joins the body across small gaps; with thin strands a wide close also swallows the hair between her arms
+    # and the cape, which then stands still in blocks while the hair around it sways.
+    close = 5 if strands else 15
+    body = cv2.morphologyEx(warm, cv2.MORPH_CLOSE, np.ones((close, close), np.uint8))
     body = cv2.morphologyEx(body, cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
     count, labels, stats, _ = cv2.connectedComponentsWithStats(body)
     big = np.zeros_like(body)
@@ -48,13 +51,18 @@ def build(portrait, strands=0):
     if strands:
         # The zone also hugs her legs; the hair ends above the hem.
         hair *= 1 - smooth(0.64, 0.70, ys)
+        # The blur reaches back over her arms beside the hair; arms that bend with the hair come out one wider than
+        # the other. Only what is not her body sways, and the hair within about one mesh cell (UIPortraitSway puts a
+        # vertex every 1/64 of the width) of her body stays nearly still, or the cell drags the arm's edge along.
+        held = cv2.dilate(body.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (w // 64 + 1,) * 2))
+        hair *= 1 - np.clip(cv2.GaussianBlur(held.astype(np.float32), (0, 0), w / 256) * 1.3, 0, 1)
     column = smooth(0.08, 0.13, np.abs(xs - 0.49))
     hair_w = hair * smooth(0.17, 0.42, ys) * np.maximum(column, 1 - smooth(0.25, 0.32, ys))
     hair_w = keep_main_masses(hair_w)
     skirt = (body & (ys > 0.45) & (ys < 0.70) & (r > 150)).astype(np.float32)
     # Blurred for a soft bend, but held inside the dress (a little past it) so the knees below the hem stay put.
     inside = cv2.GaussianBlur(cv2.dilate(skirt, np.ones((9, 9), np.uint8)), (0, 0), 3)
-    skirt_w = np.clip(cv2.GaussianBlur(skirt, (0, 0), 10), 0, 1) * smooth(0.52, 0.67, ys) * np.clip(inside * 1.5, 0, 1)
+    skirt_w = np.clip(cv2.GaussianBlur(skirt, (0, 0), 10), 0, 1) * smooth(skirt_from, 0.67, ys) * np.clip(inside * 1.5, 0, 1)
     return hair_w, skirt_w
 
 
@@ -78,9 +86,11 @@ def main():
     parser.add_argument("out")
     parser.add_argument("--preview")
     parser.add_argument("--strands", type=int, default=0, help="close gaps of this many px between thin hair strands")
+    parser.add_argument("--skirt-from", type=float, default=0.52,
+                        help="share of the height where the skirt starts to sway; below her hands, or they stretch")
     args = parser.parse_args()
     portrait = np.array(Image.open(args.portrait).convert("RGBA"))
-    hair_w, skirt_w = build(portrait, args.strands)
+    hair_w, skirt_w = build(portrait, args.strands, args.skirt_from)
     h, w = hair_w.shape
     rig = np.dstack([(hair_w * 255).astype(np.uint8), (skirt_w * 255).astype(np.uint8), np.zeros((h, w), np.uint8)])
     Image.fromarray(rig).resize((w // 2, h // 2), Image.BILINEAR).save(args.out)
