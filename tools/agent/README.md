@@ -33,6 +33,9 @@ python -m unittest tools.agent.tests.test_agent_health_check tools.agent.tests.t
 ## 驱动打包版和派活
 
 - `p3cmd.py`：以 `-p3cmd` 启动打包版（`launch`，默认最新的包），之后一行一条 `P3DevTools` 命令或 `screenshot` / `wait` / `quit`。
+- `visual_review.py`：把打包自检的截图（默认最新的 `*_build_smoke`）按每组 12 张交给视觉 agent（`codex/gemini`，备用 `codex/deepseek`）并行看，汇总成 `tmp/agent_reports/*_visual_review_summary.md`。说明模板在 `briefs/visual_review.md`。
+- `briefs/playthrough.md`：交给 `delegate.py` 的通关试玩说明（从第 1 天正常玩到 Demo 结束，报卡点、看不懂的地方、首领登场和结尾）。
+- `screen_prefs.py`：`p3cmd.py launch` 和 `Test-WindowsBuild.ps1` 启动前备份、退出后还原 Unity 记下的窗口尺寸，测试用的 `-screen-*` 参数不会改掉制作人正常打开游戏时的窗口；`reset` 清回默认（全屏）。
 - `delegate.py`：用户级 Skill `delegate`（在 agent-hub）的包装，把任务说明交给廉价 worker（默认 `codex/deepseek`，可用 `--profile <壳/模型>` 指定别的），自动带上 `delegate_rules.md` 里的 P3 规则。报告、任务原文、worker 日志和改动 patch 都在 `tmp/agent_reports/`。`delegate.py profiles` 列出 worker，`delegate.py probe` 看谁现在能用。用法和 brief 写法见那个 Skill。
 
 ## Unity 测试的兼容入口

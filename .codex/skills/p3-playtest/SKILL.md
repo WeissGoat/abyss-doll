@@ -19,6 +19,7 @@ description: Use when Project P3 needs to see the game actually running - enter 
 | `AddMoney(500)`、`AddItem("gear_rusty_dagger")`、`Heal()` | 改状态（调试用） |
 | `SetPrologueOnStartup(true)` | 下次进 Play Mode 时播放序章 |
 | `Occlusion()` | 被别的东西盖住的物品和可点按钮（按 UGUI 绘制顺序算，不用截图）；弹窗后面的按钮被盖是正常的 |
+| `LayoutCheck()` | 当前画面的布局问题：超出屏幕、溢出所在面板、按钮互相重叠或压在别的窗口上、文字被后画的面板盖住或被截断、图片被拉变形（按矩形算，跳过遮罩和弹窗背景下面的东西） |
 | `DragCheck()` | 像玩家一样拿起一件物品（优先拾取栏里的）停在背包上方，报告有没有东西画在它上面、落点提示是绿还是红，然后放回原处 |
 | `ShowCG(id)` / `HideCG()` / `MotionCG()` | 在对话层显示一张 CG 或序章漫画页（例如 `vfx_no0_core_start`）；`MotionCG()` 报告画面上动态 CG 的视频播到第几帧、是否停在最后一帧 |
 
@@ -26,9 +27,24 @@ description: Use when Project P3 needs to see the game actually running - enter 
 
 打包版可以像 Editor 一样一步步操作：`python tools/agent/p3cmd.py launch [包目录]` 以 `-p3cmd` 启动（窗口 1280x720、不读写存档、跳过序章，加 `--prologue` 播放），之后每条 `python tools/agent/p3cmd.py <命令>` 在游戏主线程执行一个 `P3DevTools` 方法（`Describe`、`Click 继续`、`RunDive 40 true`、`Occlusion`），另有 `screenshot [路径] [宽度，默认 640]`、`wait <秒>`、`quit`、`help`。只监听本机，不带参数启动时不开。长走查可以写成任务说明交给 `tools/agent/delegate.py`，只看它的报告。
 
-打包版的画面检查用 `tools/build/Test-WindowsBuild.ps1`：包自己截序章、工坊、整备、账本，连跑 3 次下潜，结果和截图在 `UnityClient/Logs/Playtest/<时间>_build_smoke/`。只在 Editor 里看过的画面不能代表打包版：画布查找、对象顺序在打包版里会不一样。截图全是同一张空白图时，多半是电脑锁屏或窗口没在渲染（Player.log 里会有 FMOD 找不到音频设备），自检的逻辑结果仍然有效，截图要等解锁后重跑。
+打包版的画面检查用 `tools/build/Test-WindowsBuild.ps1`：包自己截序章每一句、工坊、手账、补给铺、维护、整备、战斗、营业和结尾，连跑 3 次下潜，每张截图跑一次 `LayoutCheck()`，有布局问题就 FAIL，结果和截图在 `UnityClient/Logs/Playtest/<时间>_build_smoke/`。只在 Editor 里看过的画面不能代表打包版：画布查找、对象顺序在打包版里会不一样。截图全是同一张空白图时，多半是电脑锁屏或窗口没在渲染（Player.log 里会有 FMOD 找不到音频设备），自检的逻辑结果仍然有效，截图要等解锁后重跑。
 
 Editor 里默认不播序章：进 Play Mode 直接到工坊，背包里是初始装备。要检查序章时，用菜单 `Tools/P3/启动时播放序章`、F1 面板或 `SetPrologueOnStartup(true)` 打开，下次进 Play Mode 生效；看完记得关掉。这个开关存在本机的 EditorPrefs 里，打出来的包总是播放序章。
+
+## 交给子 agent 的测试
+
+画面和流程的大部分检查不用自己一步步走，交给子 agent（`tools/agent/delegate.py`，DeepSeek 对制作人不限量），只看报告。三层，各管一类问题：
+
+| 测什么 | 怎么跑 | 谁 | 抓得到 / 抓不到 |
+|---|---|---|---|
+| 布局（确定性） | 打包自检 `Test-WindowsBuild.ps1`，每张截图跑 `LayoutCheck()` | 程序 | 出屏、重叠、截断、拉伸；抓不到"难看、看不懂" |
+| 画面（看图） | 自检之后 `python tools/agent/visual_review.py`：把自检截图按每组 12 张分给视觉 agent 并行看，汇总到 `tmp/agent_reports/*_visual_review_summary.md` | `codex/gemini`（备用 `codex/deepseek`，两者都能看图；`hermes/*` 不能） | 半成品感、对比度、弹窗没遮罩、两个气泡、风格不统一；会看错，每条先打开对应截图核实再修 |
+| 流程（像玩家一样玩） | `python tools/agent/delegate.py run playthrough tools/agent/briefs/playthrough.md --lock build --timeout 150` | `codex/deepseek` | 卡住、看不懂的按钮和数字、节奏（第几天通关）、日志里的异常；只读文字，看不到画面 |
+
+- 不要让视觉 agent 自己操作打包版再截图：每一步要几分钟（80 分钟只截了 15 张）。截图交给自检，agent 只看图。
+- 一组超过约 15 张截图会超过中转的 32MB 请求上限（413）。
+- 打包和视觉检查不需要 Editor；同一时间只让一个 agent 驱动打包版（`--lock build`）。
+- 改了界面以后：打包 → 自检 PASS → `visual_review.py` → 核实、修 → 再打包；改了流程或数值以后再加一轮 playthrough。
 
 ## 步骤
 

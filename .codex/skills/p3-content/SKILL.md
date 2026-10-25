@@ -17,7 +17,7 @@ description: Use when adding or changing Project P3 game content or numbers thro
    - `IconID` 等美术引用可以先指向已有素材；需要新素材时走 `p3-art`。
 3. **同步**：`.\tools\config\Sync-Configs.ps1 -Clean`（把配置源复制到 `UnityClient/Assets/StreamingAssets/Configs`）。
 4. **校验**：用 `p3-program-validation` 跑 `ConfigValidationSmokeTest.Run`。改了战斗、掉落、背包或经济时，再跑相关 smoke，例如 `CombatLootDropTest`、`DungeonSettlementTest`、`InventoryInteractionServiceSmokeTest`、`TownEconomyOverviewServiceSmokeTest`。
-5. **平衡**：会影响循环节奏的改动（掉落、价格、房租、伤害、HP / SAN 消耗）跑一次跑局模拟 `MVPAutoplaytestTest.Run`，对比 `UnityClient/Logs/MVPAutoplaytestReport.json` 里的通关率、下潜次数、收入和升级次数。
+5. **平衡**：会影响循环节奏的改动（掉落、价格、房租、伤害、HP / SAN 消耗）跑一次跑局模拟 `MVPAutoplaytestTest.Run`，对比 `UnityClient/Logs/MVPAutoplaytestReport.json` 里的通关率、下潜次数、收入和升级次数。调数值时用多种子批量版：MCP `return MVPAutoplaytestTest.RunTuning(5);`（5 批种子共 150 局，MCP 会超时但报告照常写出；超时后不要重发，等 `UnityClient/Logs/MVPAutoplaytestTuningReport.json` 出现），再用 `python tools/agent/sim_metrics.py --detail --report UnityClient/Logs/MVPAutoplaytestTuningReport.json` 看每层每次下潜的收入、战败率、房租按时率、破产率和进第 3 层的比例。目标是"下潜产出经济"，不是一命通关（`docs/specs/2026-10-05-demo-tuning-targets.md`）。数字看模拟；体感和流程交给 playthrough 子 agent（`p3-playtest`「交给子 agent 的测试」）。
 6. **进游戏看**：用 `p3-playtest` 到达相关界面截图，例如物品在背包里的形状和数值显示、掉落是否出现、价格和房租提示。
 7. **新字段或新机制**：同步更新该类目的 README；确认配置加载（`UnityClient/Assets/Scripts/Core/ConfigManager.cs`）和校验（`Core/ConfigValidator.cs`）读得到新字段。新的效果类型在 `Scripts/Effects/Implementations/` 加一个继承 `EffectBase` 的类，`EffectFactory` 会通过反射自动注册。
 
