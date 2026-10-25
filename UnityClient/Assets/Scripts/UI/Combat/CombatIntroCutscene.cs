@@ -24,7 +24,12 @@ public class CombatIntroCutscene : MonoBehaviour {
     private bool _frameShown;
 
     public static CombatIntroCutscene Current { get; private set; }
+    // The build smoke: the clip of the last intro that started.
+    public static string LastClip { get; private set; }
     public bool FrameShown => _frameShown;
+    // DevTools: which clip, how far in, and whether it has drawn yet.
+    public string Report => $"{_player?.clip?.name}, {Time.unscaledTime - _started:0.0}/{_length:0.0}s, "
+        + (_fadeStart >= 0f ? "fading out" : _frameShown ? "playing" : "waiting for the first frame");
 
     // fight: any object that identifies this fight (the first enemy); enemyVisualID: its combat visual.
     public static CombatIntroCutscene TryPlay(Transform parent, object fight, string enemyVisualID) {
@@ -37,6 +42,8 @@ public class CombatIntroCutscene : MonoBehaviour {
         }
 
         _lastFight = fight;
+        LastClip = clip.name;
+        Debug.Log("[CombatIntro] playing " + clip.name);
         GameObject root = new GameObject("CombatIntroCutscene", typeof(RectTransform), typeof(Canvas), typeof(GraphicRaycaster), typeof(CanvasGroup));
         root.transform.SetParent(parent, false);
         CombatIntroCutscene cutscene = root.AddComponent<CombatIntroCutscene>();

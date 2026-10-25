@@ -246,14 +246,16 @@ public class P3BuildSmoke : MonoBehaviour {
         }
 
         bool endingDone = comicCaptured && endCardShown && player.DemoEndingSeen;
+        // The deepest boss is reached through the map, which opens the combat screen before the fight starts.
+        bool introPlayed = CombatIntroCutscene.LastClip == "monster_boss_mycelium_oracle_combat_intro";
         journalPages = player.DiveJournal?.Count ?? 0;
         // Every dive and every rest takes one day; every dive leaves a journal page.
         bool journalKept = journalPages >= dives;
         // Her large night-talk portrait answers with a face whenever there is a reply.
         bool portraitShown = portraits == replies;
-        bool passed = prologueDone && motionPlayed && journalKept && portraitShown && endingDone && !stuck && dives >= TargetDives && dayAfterDives == firstTownDay + dives + rests;
+        bool passed = prologueDone && motionPlayed && journalKept && portraitShown && endingDone && introPlayed && !stuck && dives >= TargetDives && dayAfterDives == firstTownDay + dives + rests;
         string verdict = $"{(passed ? "PASS" : "FAIL")}: prologue {(prologueDone ? "done" : "NOT FINISHED")} (town from day {firstTownDay}), {dives}/{TargetDives} dives, {rests} rest(s), day {player.CurrentDay}, money {player.Money} (night business net {soldTotal}G), "
-            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, journal {journalPages} page(s){(journalKept ? string.Empty : " MISSING PAGES")}, unpacked {unpacked} item(s), talked {talks} time(s), {replies} night reply(ies){(portraitShown ? string.Empty : $" but only {portraits} with her portrait")}, ending {(endingDone ? "comic + end card" : $"NOT REACHED (comic {comicCaptured}, card {endCardShown})")}, {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
+            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, journal {journalPages} page(s){(journalKept ? string.Empty : " MISSING PAGES")}, unpacked {unpacked} item(s), talked {talks} time(s), {replies} night reply(ies){(portraitShown ? string.Empty : $" but only {portraits} with her portrait")}, ending {(endingDone ? "comic + end card" : $"NOT REACHED (comic {comicCaptured}, card {endCardShown})")}, boss intro {(introPlayed ? "plays" : $"DID NOT PLAY (last {CombatIntroCutscene.LastClip ?? "none"})")}, {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
         Debug.Log("[P3BuildSmoke] " + verdict);
         File.WriteAllText(Path.Combine(_outDir, "P3Smoke.txt"), verdict + "\n\n" + _log);
         Application.Quit(passed ? 0 : 1);

@@ -70,6 +70,10 @@ public static class P3DevTools {
             sb.AppendLine($"End card: {DemoEndCard.TitleText}");
         }
 
+        if (CombatIntroCutscene.Current != null) {
+            sb.AppendLine("Boss intro: " + CombatIntroCutscene.Current.Report);
+        }
+
         if (ScenePanel.IsShowing) {
             Transform scene = ScenePanel.Active.transform;
             string face = ScenePanel.Active.CurrentFace;

@@ -1072,6 +1072,12 @@ public class HUDController : MonoBehaviour {
         if (phase == CombatEventType.OnCombatEnd || (phase == CombatEventType.OnTurnEnd && activeFaction?.Type == FactionType.Player)) {
             _playerTurnShown = false;
         }
+
+        // A map node opens this screen before its fight starts, so the enemies are only known at the first turn
+        // (TryPlay plays once per fight).
+        if (phase == CombatEventType.OnTurnStart && activeFaction?.Type == FactionType.Player) {
+            PlayEnemyIntro();
+        }
     }
 
     private void HandleQueuedTurnStarted(FactionType type) {
