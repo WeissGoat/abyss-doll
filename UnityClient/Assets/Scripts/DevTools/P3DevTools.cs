@@ -167,6 +167,12 @@ public static class P3DevTools {
         return lines.Count == 0 ? "Nothing covered." : $"Covered ({lines.Count}):\n" + string.Join("\n", lines.ToArray());
     }
 
+    // Layout problems on the current screen (UILayoutCheck): cut off by the screen, spilling out of a panel, controls
+    // on top of each other or on another window, text that does not fit, stretched pictures.
+    public static string LayoutCheck() {
+        return UILayoutCheck.Report();
+    }
+
     // Picks up an item as the player would (loot first, or the item whose name contains itemName), holds it over the
     // middle of the backpack, reports what is drawn on top of it, then puts it back where it was.
     public static string DragCheck(string itemName = null) {

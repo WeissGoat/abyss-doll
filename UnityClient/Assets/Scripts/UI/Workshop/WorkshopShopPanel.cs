@@ -51,6 +51,8 @@ public class WorkshopShopPanel : MonoBehaviour {
         for (int i = 0; i < offers.Count; i++) {
             _rows.Add(CreateRow(offers[i], i));
         }
+
+        ((RectTransform)_listRoot).sizeDelta = new Vector2(0f, offers.Count * 84f);
     }
 
     private GameObject CreateRow(WorkshopShopOffer offer, int index) {
@@ -152,7 +154,23 @@ public class WorkshopShopPanel : MonoBehaviour {
         listRect.pivot = new Vector2(0.5f, 1f);
         listRect.offsetMin = new Vector2(24f, -520f);
         listRect.offsetMax = new Vector2(-24f, -92f);
-        _listRoot = list.transform;
+        // More offers than fit scroll inside the list (they used to run down over 关闭 and off the dialog).
+        list.AddComponent<RectMask2D>();
+        GameObject content = new GameObject("Offer_Content", typeof(RectTransform));
+        content.transform.SetParent(list.transform, false);
+        RectTransform contentRect = (RectTransform)content.transform;
+        contentRect.anchorMin = new Vector2(0f, 1f);
+        contentRect.anchorMax = new Vector2(1f, 1f);
+        contentRect.pivot = new Vector2(0.5f, 1f);
+        contentRect.offsetMin = Vector2.zero;
+        contentRect.offsetMax = Vector2.zero;
+        ScrollRect scroll = list.AddComponent<ScrollRect>();
+        scroll.content = contentRect;
+        scroll.viewport = listRect;
+        scroll.horizontal = false;
+        scroll.movementType = ScrollRect.MovementType.Clamped;
+        scroll.scrollSensitivity = 40f;
+        _listRoot = content.transform;
 
         _messageText = UITheme.CreateText(dialog.transform, "Message_Text", string.Empty, UITheme.CaptionSize + 1, UITheme.TextSecondary);
         PlaceTop(_messageText.rectTransform, 24f, 530f, 712f, 60f);

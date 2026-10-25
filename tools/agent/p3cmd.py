@@ -16,6 +16,9 @@ import sys
 import time
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import screen_prefs  # noqa: E402
+
 DEFAULT_PORT = 47823
 REPO = Path(__file__).resolve().parents[2]
 
@@ -54,6 +57,7 @@ def launch(args):
     flags = ["-p3cmd", str(port), "-p3nosave", "-screen-fullscreen", "0", "-screen-width", "1280", "-screen-height", "720"]
     if not prologue:
         flags.append("-p3skipprologue")
+    screen_prefs.main(["backup"])  # the -screen-* flags would otherwise become the producer's window size
     proc = subprocess.Popen([str(exe)] + flags, cwd=str(exe.parent))
     deadline = time.time() + 90
     while time.time() < deadline:
@@ -87,7 +91,20 @@ def main(argv):
         print(f"Cannot reach the game on port {port}: {e}")
         return 1
     print(reply.get("result", ""))
+    if argv[0].lower() == "quit":
+        restore_screen_prefs_after_exit()
     return 0 if reply.get("ok") else 1
+
+
+def restore_screen_prefs_after_exit(timeout: float = 20.0) -> None:
+    # Unity writes the window settings while quitting, so wait for P3.exe to be gone before putting them back.
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        tasks = subprocess.run(["tasklist", "/FI", "IMAGENAME eq P3.exe", "/NH"], capture_output=True, text=True).stdout
+        if "P3.exe" not in tasks:
+            break
+        time.sleep(0.5)
+    screen_prefs.main(["restore"])
 
 
 if __name__ == "__main__":

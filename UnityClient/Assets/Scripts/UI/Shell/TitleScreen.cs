@@ -60,7 +60,7 @@ public class TitleScreen : MonoBehaviour {
         UIMotionPortrait.Attach(doll, DollVisualID);
 
         Text title = UITheme.CreateText(transform, "Title_Text", "Project P3", 72, UITheme.AccentOnDark, TextAnchor.MiddleLeft);
-        UITheme.Place(title.rectTransform, new Vector2(0f, 0.5f), new Vector2(160f, 250f), new Vector2(900f, 100f));
+        UITheme.Place(title.rectTransform, new Vector2(0f, 0.5f), new Vector2(160f, 250f), new Vector2(900f, 116f));
         title.rectTransform.pivot = new Vector2(0f, 0.5f);
         Text subtitle = UITheme.CreateText(transform, "Subtitle_Text", "她还能陪你下去一次。", UITheme.HeadingSize, UITheme.TextOnDark, TextAnchor.MiddleLeft);
         UITheme.Place(subtitle.rectTransform, new Vector2(0f, 0.5f), new Vector2(160f, 175f), new Vector2(900f, 44f));

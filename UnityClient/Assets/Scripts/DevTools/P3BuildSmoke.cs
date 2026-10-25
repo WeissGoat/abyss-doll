@@ -17,6 +17,9 @@ public class P3BuildSmoke : MonoBehaviour {
     private const float PrologueTimeoutSeconds = 240f;
 
     private readonly StringBuilder _log = new StringBuilder();
+    // UILayoutCheck at every screenshot: each problem once, with the first screenshot that shows it.
+    private readonly System.Collections.Generic.List<string> _layout = new System.Collections.Generic.List<string>();
+    private readonly System.Collections.Generic.HashSet<string> _layoutSeen = new System.Collections.Generic.HashSet<string>();
     private string _outDir;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -48,7 +51,19 @@ public class P3BuildSmoke : MonoBehaviour {
         bool shallowCaptured = false;
         bool returnCaptured = false;
         float prologueStartedAt = Time.realtimeSinceStartup;
+        string lastLine = null;
+        int lineShots = 0;
         while (!prologueDone && Time.realtimeSinceStartup - prologueStartedAt < PrologueTimeoutSeconds) {
+            // Every line of the prologue's overlay gets a screenshot (each line has its own picture and layout), taken
+            // once the new picture has faded in.
+            P3DialogueOverlayController overlay = GameObject.Find("P3DialogueOverlay_Runtime")?.GetComponent<P3DialogueOverlayController>();
+            string line = overlay != null && overlay.IsShowing ? overlay.CurrentText : null;
+            if (!string.IsNullOrEmpty(line) && line != lastLine) {
+                lastLine = line;
+                yield return new WaitForSecondsRealtime(0.7f);
+                yield return Capture($"01_p{++lineShots:00}");
+            }
+
             // The shallow edge is still the dive day; the return home plays at night.
             bool night = GameRoot.Core.CurrentPlayer.IsNight;
             if (ScenePanel.IsShowing && !shallowCaptured && !night) {
@@ -78,9 +93,25 @@ public class P3BuildSmoke : MonoBehaviour {
         talkRooms?.Zero(talkRooms.Current)?.EndCloseUp();
         yield return null;
 
+        // The town's other screens, for the screenshots and the layout check: the wall journal, the shop, the
+        // maintenance bench.
+        Note(P3DevTools.Click(HomeRoomNavigator.JournalLabel));
+        yield return new WaitForSecondsRealtime(0.5f);
+        yield return Capture("02c_wall_journal");
+        Note(P3DevTools.Click("合上"));
+        Note(P3DevTools.Click(HomeRoomNavigator.DoorLabel));
+        yield return new WaitForSecondsRealtime(0.5f);
+        yield return Capture("02d_shop");
+        Note(P3DevTools.Click("关闭"));
+        Note(P3DevTools.Click("维护"));
+        yield return new WaitForSecondsRealtime(0.5f);
+        yield return Capture("02e_maintenance");
+        Note(P3DevTools.GoTo("workshop"));
+        yield return null;
+
         // A CG motion clip decodes and plays in the build (the Editor's test runner cannot be trusted to): the
-        // prologue's "start Zero" page, whose close-up panel has a clip.
-        Note(P3DevTools.ShowCG("vfx_no0_core_start"));
+        // prologue's shot of Zero waking up close, which has a clip.
+        Note(P3DevTools.ShowCG("stand_no0_weak_sitting"));
         yield return new WaitForSecondsRealtime(1.5f);
         long motionFrame = -1;
         foreach (UIMotionCG motion in FindObjectsOfType<UIMotionCG>()) {
@@ -253,17 +284,26 @@ public class P3BuildSmoke : MonoBehaviour {
         bool journalKept = journalPages >= dives;
         // Her large night-talk portrait answers with a face whenever there is a reply.
         bool portraitShown = portraits == replies;
-        bool passed = prologueDone && motionPlayed && journalKept && portraitShown && endingDone && introPlayed && !stuck && dives >= TargetDives && dayAfterDives == firstTownDay + dives + rests;
+        bool layoutOK = _layout.Count == 0;
+        bool passed = layoutOK && prologueDone && motionPlayed && journalKept && portraitShown && endingDone && introPlayed && !stuck && dives >= TargetDives && dayAfterDives == firstTownDay + dives + rests;
         string verdict = $"{(passed ? "PASS" : "FAIL")}: prologue {(prologueDone ? "done" : "NOT FINISHED")} (town from day {firstTownDay}), {dives}/{TargetDives} dives, {rests} rest(s), day {player.CurrentDay}, money {player.Money} (night business net {soldTotal}G), "
-            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, journal {journalPages} page(s){(journalKept ? string.Empty : " MISSING PAGES")}, unpacked {unpacked} item(s), talked {talks} time(s), {replies} night reply(ies){(portraitShown ? string.Empty : $" but only {portraits} with her portrait")}, ending {(endingDone ? "comic + end card" : $"NOT REACHED (comic {comicCaptured}, card {endCardShown})")}, boss intro {(introPlayed ? "plays" : $"DID NOT PLAY (last {CombatIntroCutscene.LastClip ?? "none"})")}, {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
+            + $"CG motion {(motionPlayed ? "plays" : "DID NOT PLAY")}, journal {journalPages} page(s){(journalKept ? string.Empty : " MISSING PAGES")}, unpacked {unpacked} item(s), talked {talks} time(s), {replies} night reply(ies){(portraitShown ? string.Empty : $" but only {portraits} with her portrait")}, ending {(endingDone ? "comic + end card" : $"NOT REACHED (comic {comicCaptured}, card {endCardShown})")}, boss intro {(introPlayed ? "plays" : $"DID NOT PLAY (last {CombatIntroCutscene.LastClip ?? "none"})")}, layout {(layoutOK ? "OK" : $"{_layout.Count} PROBLEM(S)")}, {Time.realtimeSinceStartup - startedAt:0}s{(stuck ? ", stuck (see the last report below)" : string.Empty)}";
         Debug.Log("[P3BuildSmoke] " + verdict);
-        File.WriteAllText(Path.Combine(_outDir, "P3Smoke.txt"), verdict + "\n\n" + _log);
+        string layout = layoutOK ? string.Empty : "Layout problems (UILayoutCheck, first screenshot that shows each):\n" + string.Join("\n", _layout.ToArray()) + "\n\n";
+        File.WriteAllText(Path.Combine(_outDir, "P3Smoke.txt"), verdict + "\n\n" + layout + _log);
         Application.Quit(passed ? 0 : 1);
     }
 
     private IEnumerator Capture(string name) {
         yield return new WaitForEndOfFrame();
         ScreenCapture.CaptureScreenshot(Path.Combine(_outDir, name + ".png"));
+        foreach (UILayoutCheck.Finding finding in UILayoutCheck.Run()) {
+            string text = finding.ToString();
+            if (_layoutSeen.Add(text)) {
+                _layout.Add($"{name}: {text}");
+            }
+        }
+
         yield return null;
         Note($"[screenshot] {name}.png");
     }

@@ -60,6 +60,13 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
     private bool _comicPageVisible;
     private bool _comicPageDollFocusVisible;
     private bool _comicPageLargeFocusVisible;
+    // The prologue as full-screen shots (PrologueShots): which visual is running, its line, the shot on screen and the
+    // previous shot fading out over it.
+    private Image _shotFadeImage;
+    private string _shotVisualID;
+    private int _shotLine;
+    private string _shownShotID;
+    private Coroutine _shotFade;
 
     public bool IsShowing {
         get { return rootGroup != null && rootGroup.alpha > 0.001f; }
@@ -230,6 +237,11 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         Stretch(visualImage.rectTransform);
         VisualUIHelper.ApplySolidColor(visualImage, new Color(0f, 0f, 0f, 0f), false);
         visualImage.raycastTarget = false;
+
+        _shotFadeImage = EnsureImage("ShotFade_Image", transform);
+        Stretch(_shotFadeImage.rectTransform);
+        _shotFadeImage.raycastTarget = false;
+        _shotFadeImage.gameObject.SetActive(false);
 
         stageVeilImage = EnsureImage("StageVeil_Image", transform);
         Stretch(stageVeilImage.rectTransform);
@@ -428,6 +440,13 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
             return;
         }
 
+        string shot = PrologueShots.Next(request.VisualID, ref _shotVisualID, ref _shotLine);
+        if (shot != null) {
+            ApplyShot(shot);
+            return;
+        }
+
+        _shotVisualID = null;
         ComicPageDefinition comicPage = ComicPageDefinition.Resolve(request, actionID);
         if (comicPage != null) {
             ApplyComicPage(comicPage);
@@ -474,6 +493,11 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         rootGroup.interactable = false;
         rootGroup.blocksRaycasts = false;
         _currentActionID = string.Empty;
+        _shotVisualID = null;
+        _shownShotID = null;
+        if (_shotFadeImage != null) {
+            _shotFadeImage.gameObject.SetActive(false);
+        }
         if (logPanelImage != null) {
             logPanelImage.gameObject.SetActive(false);
         }
@@ -481,6 +505,48 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
             ritualActionPanelImage.gameObject.SetActive(false);
         }
         SetStageObjectsActive(false);
+    }
+
+    // One full-screen picture per line, slowly pushing in; a new picture fades in over the last one.
+    private void ApplyShot(string shotID) {
+        SetComicPageActive(false);
+        ClearStagePropLayer();
+        dollImage.gameObject.SetActive(false);
+        stageVeilImage.gameObject.SetActive(false);
+        visualImage.gameObject.SetActive(true);
+        if (shotID == _shownShotID) {
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(_shownShotID) && _shotFadeImage != null && isActiveAndEnabled && Application.isPlaying) {
+            VisualUIHelper.ApplyCoverSprite(_shotFadeImage, _shownShotID, Color.white, Color.black);
+            _shotFadeImage.gameObject.SetActive(true);
+            _shotFadeImage.transform.SetSiblingIndex(visualImage.transform.GetSiblingIndex() + 1);
+            if (_shotFade != null) {
+                StopCoroutine(_shotFade);
+            }
+
+            _shotFade = StartCoroutine(FadeOutShot(_shotFadeImage));
+        }
+
+        VisualUIHelper.ApplyCoverSprite(visualImage, shotID, Color.white, new Color(0.012f, 0.032f, 0.042f, 1f));
+        if (UIMotionCG.Sync(visualImage, shotID) != null) {
+            UIStillMotion.Detach(visualImage);
+        } else {
+            UIStillMotion.Attach(visualImage, UIStillMotion.Mode.PushIn);
+        }
+
+        _shownShotID = shotID;
+    }
+
+    private static System.Collections.IEnumerator FadeOutShot(Image image) {
+        const float seconds = 0.6f;
+        for (float t = 0f; t < seconds; t += Time.unscaledDeltaTime) {
+            image.color = new Color(1f, 1f, 1f, 1f - t / seconds);
+            yield return null;
+        }
+
+        image.gameObject.SetActive(false);
     }
 
     private void ApplyStageComposition(PrologueStageComposition composition) {
@@ -667,7 +733,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         speakerText.alignment = TextAnchor.MiddleLeft;
         speakerText.fontSize = 25;
         speakerText.color = UITheme.Accent;
-        SetOffsets(speakerText.rectTransform, new Vector2(58f, -58f), new Vector2(-260f, -16f));
+        PlaceSpeaker(new Vector2(58f, 0f), 260f);
 
         bodyText.alignment = TextAnchor.UpperLeft;
         bodyText.fontSize = 29;
@@ -675,7 +741,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         bodyText.resizeTextForBestFit = true;
         bodyText.resizeTextMinSize = 21;
         bodyText.resizeTextMaxSize = 29;
-        SetOffsets(bodyText.rectTransform, new Vector2(62f, 72f), new Vector2(-120f, -54f));
+        SetOffsets(bodyText.rectTransform, new Vector2(62f, 30f), new Vector2(-120f, -62f));
 
         SetRect(
             continueButton.GetComponent<RectTransform>(),
@@ -754,34 +820,34 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         speakerText.alignment = TextAnchor.MiddleLeft;
         speakerText.fontSize = 25;
         speakerText.color = UITheme.Accent;
-        SetOffsets(speakerText.rectTransform, new Vector2(58f, -58f), new Vector2(-260f, -16f));
+        PlaceSpeaker(new Vector2(58f, 0f), 260f);
 
         bodyText.alignment = TextAnchor.UpperLeft;
         bodyText.fontSize = 29;
         bodyText.color = UITheme.TextPrimary;
         bodyText.resizeTextMinSize = 21;
         bodyText.resizeTextMaxSize = 29;
-        SetOffsets(bodyText.rectTransform, new Vector2(62f, 72f), new Vector2(-120f, -54f));
+        SetOffsets(bodyText.rectTransform, new Vector2(62f, 30f), new Vector2(-120f, -62f));
 
         SetRect(
             continueButton.GetComponent<RectTransform>(),
             new Vector2(1f, 0f),
             new Vector2(1f, 0f),
-            new Vector2(1f, 0.5f),
+            new Vector2(1f, 0f),
             new Vector2(-54f, 24f),
             new Vector2(64f, 44f));
         SetRect(
             autoButton.GetComponent<RectTransform>(),
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
-            new Vector2(1f, 0.5f),
+            new Vector2(1f, 1f),
             new Vector2(-148f, -22f),
             new Vector2(82f, 26f));
         SetRect(
             logButton.GetComponent<RectTransform>(),
             new Vector2(1f, 1f),
             new Vector2(1f, 1f),
-            new Vector2(1f, 0.5f),
+            new Vector2(1f, 1f),
             new Vector2(-56f, -22f),
             new Vector2(60f, 26f));
     }
@@ -801,31 +867,25 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         bodyText.fontSize = isStartDoll ? 26 : 23;
         bodyText.color = new Color(0.88f, 0.98f, 1f, 0.96f);
         SetOffsets(bodyText.rectTransform, new Vector2(46f, 20f), isStartDoll ? new Vector2(-46f, -22f) : new Vector2(-26f, -12f));
-        SetRect(
-            actionButton.GetComponent<RectTransform>(),
-            new Vector2(0.5f, isStartDoll ? 0.49f : 0.31f),
-            new Vector2(0.5f, isStartDoll ? 0.49f : 0.31f),
-            new Vector2(0.5f, 0.5f),
-            isStartDoll ? new Vector2(0f, -34f) : Vector2.zero,
-            isStartDoll ? new Vector2(350f, 68f) : new Vector2(340f, 64f));
-        SetRect(
-            ritualActionPanelImage.rectTransform,
-            new Vector2(0.5f, isStartDoll ? 0.49f : 0.31f),
-            new Vector2(0.5f, isStartDoll ? 0.49f : 0.31f),
-            new Vector2(0.5f, 0.5f),
-            Vector2.zero,
-            isStartDoll ? new Vector2(540f, 142f) : new Vector2(470f, 112f));
-        VisualUIHelper.ApplySolidColor(ritualActionPanelImage, new Color(0.12f, 0.08f, 0.05f, isStartDoll ? 0.6f : 0.68f), false);
-        if (ritualActionPromptText != null) {
-            if (isStartDoll) {
-                ritualActionPromptText.gameObject.SetActive(false);
-            } else {
-                ritualActionPromptText.gameObject.SetActive(true);
-                Stretch(ritualActionPromptText.rectTransform);
-                ritualActionPromptText.fontSize = 22;
-            }
-        }
-        ritualActionPanelImage.transform.SetAsLastSibling();
+        PlaceActionAboveBox(isStartDoll ? new Vector2(350f, 68f) : new Vector2(340f, 64f));
+    }
+
+    // The speaker's name on a band along the top of the dialogue box, its line below it.
+    private void PlaceSpeaker(Vector2 inset, float rightInset) {
+        RectTransform rect = speakerText.rectTransform;
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(1f, 1f);
+        rect.pivot = new Vector2(0.5f, 1f);
+        rect.offsetMin = new Vector2(inset.x, -58f);
+        rect.offsetMax = new Vector2(-rightInset, -16f);
+    }
+
+    // An action (启动零号, 擦去核心仓灰尘) as one button centred just above the dialogue box.
+    private void PlaceActionAboveBox(Vector2 size) {
+        RectTransform box = dialoguePanelImage.rectTransform;
+        float top = box.anchoredPosition.y + box.sizeDelta.y * (1f - box.pivot.y);
+        SetRect(actionButton.GetComponent<RectTransform>(), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, top + 28f), size);
+        ritualActionPanelImage.gameObject.SetActive(false);
         actionButton.transform.SetAsLastSibling();
     }
 
@@ -834,9 +894,9 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
             dialoguePanelImage.rectTransform,
             new Vector2(0.5f, 0f),
             new Vector2(0.5f, 0f),
-            new Vector2(0.5f, 0.5f),
-            new Vector2(0f, 48f),
-            new Vector2(1080f, 170f));
+            new Vector2(0.5f, 0f),
+            new Vector2(0f, 34f),
+            new Vector2(1180f, 290f));
         if (!UITheme.ApplyBoardSkin(dialoguePanelImage, VisualAssetService.UIPanelInfoID)) {
             VisualUIHelper.ApplySolidColor(dialoguePanelImage, UITheme.Panel, true);
         }
@@ -846,29 +906,15 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         speakerText.alignment = TextAnchor.MiddleLeft;
         speakerText.fontSize = 23;
         speakerText.color = UITheme.Accent;
-        SetOffsets(speakerText.rectTransform, new Vector2(44f, -54f), new Vector2(-220f, -16f));
+        PlaceSpeaker(new Vector2(58f, 0f), 260f);
 
         bodyText.alignment = TextAnchor.UpperLeft;
         bodyText.fontSize = 25;
         bodyText.color = UITheme.TextPrimary;
         bodyText.resizeTextMinSize = 18;
         bodyText.resizeTextMaxSize = 25;
-        SetOffsets(bodyText.rectTransform, new Vector2(48f, 74f), new Vector2(-48f, -60f));
-
-        SetRect(
-            actionButton.GetComponent<RectTransform>(),
-            new Vector2(0.5f, 0.22f),
-            new Vector2(0.5f, 0.22f),
-            new Vector2(0.5f, 0.5f),
-            Vector2.zero,
-            new Vector2(390f, 64f));
-        SetRect(
-            ritualActionPanelImage.rectTransform,
-            new Vector2(0.5f, 0.23f),
-            new Vector2(0.5f, 0.23f),
-            new Vector2(0.5f, 0.5f),
-            Vector2.zero,
-            new Vector2(520f, 118f));
+        SetOffsets(bodyText.rectTransform, new Vector2(62f, 30f), new Vector2(-120f, -62f));
+        PlaceActionAboveBox(new Vector2(390f, 64f));
     }
 
     private void SetStageObjectsActive(bool active) {
@@ -1002,32 +1048,14 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
         _currentActionID = actionID ?? string.Empty;
         bool visible = !string.IsNullOrEmpty(_currentActionID) && !string.IsNullOrEmpty(label);
         actionButton.gameObject.SetActive(visible);
+        // The action's prompt is the dialogue line itself; the old brown prompt block over the picture stays hidden.
         if (ritualActionPanelImage != null) {
-            ritualActionPanelImage.gameObject.SetActive(visible);
-        }
-        if (!visible && ritualActionPromptText != null) {
-            ritualActionPromptText.gameObject.SetActive(false);
+            ritualActionPanelImage.gameObject.SetActive(false);
         }
         if (visible) {
             SetAutoEnabled(false);
-            Image actionImage = actionButton.GetComponent<Image>();
-            if (actionImage != null) {
-                bool isStartDoll = actionID == PrologueDollWakeNarrativeFlow.StartDollActionID;
-                if (isStartDoll) {
-                    UITheme.StyleButton(actionButton, true);
-                } else {
-                    UITheme.StyleButton(actionButton, true);
-                }
-            }
-            if (ritualActionPromptText != null) {
-                bool isStartDoll = actionID == PrologueDollWakeNarrativeFlow.StartDollActionID;
-                ritualActionPromptText.gameObject.SetActive(true);
-                ritualActionPromptText.text = isStartDoll
-                    ? "\u786e\u8ba4\u6838\u5fc3\u4ed3\u7a33\u5b9a\uff0c\u7136\u540e\u542f\u52a8\u5979\u3002"
-                    : "\u53ea\u505a\u8fd9\u4e00\u6b21\u786e\u8ba4\u3002";
-            }
-            if (ritualActionPanelImage != null) {
-                ritualActionPanelImage.transform.SetAsLastSibling();
+            if (actionButton.GetComponent<Image>() != null) {
+                UITheme.StyleButton(actionButton, true);
             }
             actionButton.transform.SetAsLastSibling();
         }

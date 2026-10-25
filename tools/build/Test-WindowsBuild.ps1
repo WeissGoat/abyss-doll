@@ -32,9 +32,17 @@ New-Item -ItemType Directory -Force $outDir | Out-Null
 $arguments = @("-p3smoke", "-p3smokeOut", "`"$outDir`"", "-screen-fullscreen", "0", "-screen-width", "1280", "-screen-height", "720", "-logFile", "`"$(Join-Path $outDir 'Player.log')`"")
 
 Write-Host "Running $exe -p3smoke ... output: $outDir"
+# The -screen-* arguments would otherwise become the window size of the producer's next normal launch.
+$screenPrefs = Join-Path $repoRoot "tools\agent\screen_prefs.py"
+python $screenPrefs backup
 $process = Start-Process -FilePath $exe -ArgumentList $arguments -PassThru
-if (-not $process.WaitForExit($TimeoutSeconds * 1000)) {
+$finished = $process.WaitForExit($TimeoutSeconds * 1000)
+if (-not $finished) {
     Stop-Process -Id $process.Id -Force
+    $process.WaitForExit()
+}
+python $screenPrefs restore
+if (-not $finished) {
     throw "Timed out after $TimeoutSeconds s. See $outDir"
 }
 

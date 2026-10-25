@@ -311,6 +311,11 @@ public sealed class PrologueFirstDiveController : MonoBehaviour, INarrativeComma
     private IEnumerator PresentFirstDiveDepartureAndStart() {
         bool played = PlayFirstDiveDepartureNode();
         if (played && LastDepartureResult != null) {
+            // 出发 was pressed: the permit card goes away before the last lines, which used to sit on its buttons.
+            if (workshopController != null && workshopController.IsDungeonStartLayerPanelOpen) {
+                workshopController.CloseDungeonStartLayerPanel();
+            }
+
             yield return PresentDepartureTimeline(LastDepartureResult);
             StartFirstDiveRun();
         }

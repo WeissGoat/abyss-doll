@@ -111,6 +111,10 @@ public class HomeJournalView : MonoBehaviour {
         int count = journal?.Count ?? 0;
         _care.gameObject.SetActive(IsArrival);
         UITheme.SetButtonLabel(_close, IsArrival ? CloseLabel : "合上");
+        // Arriving: 照看她 | 收起手账. On the wall: ‹ 上一页 | 合上 | 下一页 › (合上 used to sit on 下一页).
+        ((RectTransform)_close.transform).anchoredPosition = IsArrival ? new Vector2(150f, 40f) : new Vector2(0f, 40f);
+        ((RectTransform)_previous.transform).anchoredPosition = new Vector2(-260f, 40f);
+        ((RectTransform)_next.transform).anchoredPosition = new Vector2(260f, 40f);
         _previous.gameObject.SetActive(!IsArrival);
         _next.gameObject.SetActive(!IsArrival);
         _previous.interactable = _index > 0;

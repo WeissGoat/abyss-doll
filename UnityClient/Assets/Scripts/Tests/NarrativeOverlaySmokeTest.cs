@@ -53,10 +53,10 @@ public static class NarrativeOverlaySmokeTest {
             }
         });
 
-        bool prologueDollStaging = overlay.IsStageDollVisible
+        // The prologue is full-screen shots, one per line (PrologueShots), not comic pages.
+        bool prologueDollStaging = !overlay.HasComicPageVisible
             && !overlay.IsStagePropVisible
-            && overlay.HasComicPageVisible
-            && overlay.VisibleComicPanelCount == 3
+            && overlay.StageBackgroundSpriteName == "cg_t0_01a_p05_panel01_broken_doll_parts"
             && overlay.HasStandaloneActionVisible
             && !overlay.HasAutoLogControlsVisible;
         string dollStageDiagnostics = $"sprite={overlay.StageBackgroundSpriteName},comic={overlay.HasComicPageVisible}/{overlay.VisibleComicPanelCount},doll={overlay.IsStageDollVisible},action={overlay.HasActionVisible}/{overlay.HasStandaloneActionVisible},continue={overlay.HasContinueVisible},autoLog={overlay.HasAutoLogControlsVisible}";
@@ -67,7 +67,7 @@ public static class NarrativeOverlaySmokeTest {
             && overlay.CurrentSpeaker == "零号"
             && overlay.CurrentText == "你手在抖。"
             && overlay.LastVisualID == "cg_t0_01a_find_no0"
-            && !overlay.visualImage.gameObject.activeSelf
+            && overlay.visualImage.gameObject.activeSelf
             && !overlay.visualImage.raycastTarget
             && !overlay.continueButton.gameObject.activeSelf
             && overlay.HasActionVisible
@@ -86,12 +86,11 @@ public static class NarrativeOverlaySmokeTest {
             }
         });
 
-        bool prologueDebtStaging = overlay.HasComicPageVisible
-            && overlay.VisibleComicPanelCount == 3
+        bool prologueDebtStaging = !overlay.HasComicPageVisible
             && !overlay.IsStagePropVisible
-            && overlay.IsLargeStageFocusVisible
+            && overlay.StageBackgroundSpriteName == "cg_t0_01a_p02_panel02_debt_notice_door"
             && !overlay.IsStageDollVisible
-            && !overlay.HasAutoLogControlsVisible;
+            && overlay.HasAutoLogControlsVisible;
         string debtStageDiagnostics = $"sprite={overlay.StageBackgroundSpriteName},comic={overlay.HasComicPageVisible}/{overlay.VisibleComicPanelCount},prop={overlay.IsStagePropVisible},large={overlay.IsLargeStageFocusVisible},doll={overlay.IsStageDollVisible},autoLog={overlay.HasAutoLogControlsVisible}";
 
         overlay.PresentLine(new NarrativeOverlayPayload {

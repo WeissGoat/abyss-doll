@@ -153,9 +153,8 @@ public class WorkshopUIController : MonoBehaviour {
 
         if (moneyText != null) {
             if (_prologueHalfOpen) {
-                moneyText.text =
-                    $"第 {player.CurrentDay} 天 / 债务催缴中 / 资金 {player.Money}G\n" +
-                    "零号：短时可行动";
+                moneyText.text = $"第 {player.CurrentDay} 天   债务催缴中   资金 {player.Money}G   零号：短时可行动";
+                moneyText.fontSize = 22;
             } else {
                 moneyText.text =
                     $"Day {player.CurrentDay} / M{player.CurrentMonth}.{player.CurrentMonthDay}   {player.Money}G\n" +
@@ -166,7 +165,7 @@ public class WorkshopUIController : MonoBehaviour {
         var chassis = player.ActiveDoll.Chassis;
         if (chassisInfoText != null) {
             chassisInfoText.text = _prologueHalfOpen
-                ? "核心仓已清理\n下潜许可：浅层一次"
+                ? "核心仓已清理 · 下潜许可：浅层一次"
                 : $"Chassis {chassis.ChassisID}  Grid {chassis.GridWidth}x{chassis.GridHeight}";
         }
 
@@ -721,14 +720,15 @@ public class WorkshopUIController : MonoBehaviour {
         }
 
         if (chassisInfoText != null) {
-            chassisInfoText.text = "核心仓灰尘已擦去\n下潜许可：浅层一次";
+            chassisInfoText.text = "核心仓灰尘已擦去 · 下潜许可：浅层一次";
         }
 
         if (moneyText != null) {
             PlayerProfile player = GameRoot.Core?.CurrentPlayer;
             moneyText.text = player == null
-                ? "第 1 天   工坊账本未恢复\n当前目标：带零号下潜一次"
-                : $"第 {player.CurrentDay} 天   资金 {player.Money}G\n{BuildPrologueRentPressureText(player)}   当前目标：带零号下潜一次";
+                ? "第 1 天   工坊账本未恢复   当前目标：带零号下潜一次"
+                : $"第 {player.CurrentDay} 天   资金 {player.Money}G   {BuildPrologueRentPressureText(player)}   当前目标：带零号下潜一次";
+            moneyText.fontSize = 22;
         }
 
         ApplyFormalT0PrologueCopy();
@@ -778,6 +778,7 @@ public class WorkshopUIController : MonoBehaviour {
         ApplyProloguePanelSkin(_bottomHintPanel, new Color(0.014f, 0.024f, 0.026f, 0.07f));
         ApplyProloguePanelSkin(_dollStatusPanel, new Color(0.006f, 0.026f, 0.036f, 0.14f));
         ApplyProloguePanelSkin(_prologueObjectiveRibbon, new Color(0.004f, 0.030f, 0.038f, 0.24f));
+        ResizeProloguePanel(_topStatusPanel, new Vector2(0.5f, 1f), new Vector2(0f, -16f), new Vector2(1240f, 52f));
         ResizeProloguePanel(_leftActionPanel, new Vector2(0.80f, 0.52f), new Vector2(0f, -6f), new Vector2(420f, 600f));
         ResizeProloguePanel(_formalV1EntryPanel, new Vector2(0.17f, 0.48f), Vector2.zero, new Vector2(310f, 126f));
         ResizeProloguePanel(_bottomHintPanel, new Vector2(0.80f, 0.15f), Vector2.zero, new Vector2(340f, 104f));
@@ -870,7 +871,7 @@ public class WorkshopUIController : MonoBehaviour {
         }
 
         if (chassisInfoText != null) {
-            chassisInfoText.text = "\u6838\u5fc3\u4ed3\u5df2\u6e05\u7406\n\u4e0b\u6f5c\u8bb8\u53ef\uff1a\u6d45\u5c42\u4e00\u6b21";
+            chassisInfoText.text = "\u6838\u5fc3\u4ed3\u5df2\u6e05\u7406 \u00b7 \u4e0b\u6f5c\u8bb8\u53ef\uff1a\u6d45\u5c42\u4e00\u6b21";
             chassisInfoText.color = UITheme.TextPrimary;
         }
 
@@ -878,7 +879,9 @@ public class WorkshopUIController : MonoBehaviour {
             PlayerProfile player = GameRoot.Core?.CurrentPlayer;
             string day = player == null ? "\u7b2c 1 \u65e5" : $"\u7b2c {player.CurrentDay} \u65e5";
             string money = player == null ? "\u8d44\u91d1\u4e0d\u8db3" : $"\u8d44\u91d1 {player.Money}G";
-            moneyText.text = $"{day} / \u503a\u52a1\u50ac\u7f34\u4e2d / {money}\n\u96f6\u53f7\uff1a\u77ed\u65f6\u53ef\u884c\u52a8";
+            // One line: the strip is one line tall (a second line used to spill out of it).
+            moneyText.text = $"{day}   \u503a\u52a1\u50ac\u7f34\u4e2d   {money}   \u96f6\u53f7\uff1a\u77ed\u65f6\u53ef\u884c\u52a8";
+            moneyText.fontSize = 22;
             moneyText.color = UITheme.TextPrimary;
         }
     }
@@ -2534,10 +2537,12 @@ public class WorkshopUIController : MonoBehaviour {
             return;
         }
 
+        // A panel anchored to the top or bottom edge hangs from / stands on it (a centred pivot put half of the
+        // bottom status plate off screen).
         RectTransform rect = image.rectTransform;
         rect.anchorMin = anchor;
         rect.anchorMax = anchor;
-        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, anchor.y <= 0f ? 0f : anchor.y >= 1f ? 1f : 0.5f);
         rect.anchoredPosition = position;
         rect.sizeDelta = size;
     }

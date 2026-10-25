@@ -37,6 +37,11 @@ public static class UIOcclusion {
         return covering;
     }
 
+    // a is drawn after (on top of) b; false when they sit on different sorting canvases with the same order.
+    public static bool DrawsAfter(Graphic a, Graphic b) {
+        return DrawKey.Of(a).CompareTo(DrawKey.Of(b)) > 0;
+    }
+
     public static bool IsVisible(Graphic graphic) {
         if (graphic == null || !graphic.isActiveAndEnabled || graphic.canvas == null || graphic.canvasRenderer.cull) {
             return false;
