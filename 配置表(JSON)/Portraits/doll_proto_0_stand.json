@@ -1,7 +1,8 @@
 {
   "VisualID": "doll_proto_0_stand",
   "Neck": [0.503, 0.801],
-  "Cheeks": [0.511, 0.855],
+  "Cheeks": [0.533, 0.862],
+  "BlushSize": [0.155, 0.03],
   "HoldAnchor": [0.4, 0.62],
   "KneeV": 0.336,
   "WaistV": 0.609,

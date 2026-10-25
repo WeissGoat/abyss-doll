@@ -569,7 +569,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
 
         EnsureOverlays();
         float width = _posMax.x - _posMin.x;
-        Place(_blushImage, Cheeks, new Vector2(width * 0.11f, width * 0.03f));
+        Place(_blushImage, Cheeks, PortraitProfile.Point(_profile.BlushSize) * width);
         _blushImage.color = new Color(1f, 0.42f, 0.48f, 0.45f * Mathf.SmoothStep(0f, 1f, _blush));
         _blushImage.enabled = _blush > 0.01f;
 

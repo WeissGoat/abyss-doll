@@ -1136,6 +1136,7 @@ public static class ConfigValidator {
 
             CheckFractions(report, id, "Neck", p.Neck, 2);
             CheckFractions(report, id, "Cheeks", p.Cheeks, 2);
+            CheckFractions(report, id, "BlushSize", p.BlushSize, 2);
             CheckFractions(report, id, "HoldAnchor", p.HoldAnchor, 2);
             CheckFractions(report, id, "HairLag", p.HairLag, 2);
             CheckFractions(report, id, "HeadArea", p.HeadArea, 4);

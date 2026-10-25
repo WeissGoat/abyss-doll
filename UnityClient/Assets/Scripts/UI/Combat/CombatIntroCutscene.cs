@@ -143,6 +143,12 @@ public class CombatIntroCutscene : MonoBehaviour {
         rect.offsetMax = Vector2.zero;
     }
 
+    // Hidden with the combat screen (the fight ended under it, as an auto-played fight can): gone, or its timeout never
+    // runs and it stays the current intro.
+    private void OnDisable() {
+        Destroy(gameObject);
+    }
+
     private void OnDestroy() {
         if (Current == this) {
             Current = null;

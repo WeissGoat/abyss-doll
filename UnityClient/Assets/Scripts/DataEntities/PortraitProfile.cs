@@ -12,6 +12,9 @@ public class PortraitProfile {
     // reaching arm (the drawn arm turns with her there).
     public float[] Neck;
     public float[] Cheeks;
+    // The blush's width and height as fractions of the portrait's width: its two patches sit at a fifth of the width
+    // in from either end, so the width sets how far apart they are (on the cheeks, clear of the mouth).
+    public float[] BlushSize;
     public float[] HoldAnchor;
     // Her lean starts at KneeV (just under the skirt) and is whole from WaistV up.
     public float KneeV;
