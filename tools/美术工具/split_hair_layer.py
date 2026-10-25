@@ -84,6 +84,11 @@ def split(img, left, right, rows, hair_top):
     poly = lefts + [(lefts[-1][0] + 20, hem), (rights[-1][0] - 20, hem)] + rights[::-1]
     cv2.fillPoly(dress, [np.array(poly, np.int32)], 1)
     body |= cv2.dilate(dress, np.ones((3, 3), np.uint8)) > 0
+    # Beside the traced edges nothing is her body: a strand crossing the outline would otherwise stay on the dress.
+    for x, y in lefts:
+        body[y:y + 2, :max(0, x - 1)] = False
+    for x, y in rights:
+        body[y:y + 2, x + 2:] = False
 
     sway_hair, _ = build_sway_rig(img, strands=31, skirt_from=0.6)
     zone = cv2.dilate((sway_hair > 0.02).astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (41, 41))) > 0
