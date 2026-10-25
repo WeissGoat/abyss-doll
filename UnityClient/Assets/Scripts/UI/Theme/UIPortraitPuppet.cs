@@ -19,8 +19,8 @@ public class UIPortraitPuppet : BaseMeshEffect {
     public const string HoldSuffix = "_hold";
     // Where her head turns and the middle of her cheeks, as (u, v) of doll_proto_0_stand from the bottom-left
     // (build_puppet_rig.py prints the neck).
-    public static readonly Vector2 Neck = new Vector2(0.513f, 0.792f);
-    private static readonly Vector2 Cheeks = new Vector2(0.52f, 0.8275f);
+    public static readonly Vector2 Neck = new Vector2(0.503f, 0.801f);
+    private static readonly Vector2 Cheeks = new Vector2(0.511f, 0.855f);
     // Lengths are shares of the portrait width (0.016 = 16 px on the 1024 px portrait, 9 px in the studio), angles
     // degrees. Past about 10 degrees or 0.02 the cape under her chin starts to stretch visibly.
     public const float PatDip = 0.016f;
@@ -39,7 +39,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
     private const float HoldPoseIn = 0.12f;
     private const float HoldPoseOut = 0.25f;
     // A point on the reaching arm (u, v from the bottom-left): the drawn arm moves with her there (breath, sway).
-    private static readonly Vector2 HoldAnchor = new Vector2(0.43f, 0.5f);
+    private static readonly Vector2 HoldAnchor = new Vector2(0.4f, 0.62f);
     // Head springs: a little bouncy, so a pat lets go with an overshoot.
     private const float Stiffness = 90f;
     private const float Damping = 11f;

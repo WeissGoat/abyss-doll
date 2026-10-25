@@ -20,7 +20,7 @@ def smooth(e0, e1, x):
     return t * t * (3 - 2 * t)
 
 
-def build(portrait):
+def build(portrait, strands=0):
     f = portrait.astype(np.float32)
     r, b, a = f[..., 0], f[..., 2], f[..., 3]
     h, w = a.shape
@@ -37,7 +37,17 @@ def build(portrait):
             big[labels == i] = 1
     body = cv2.dilate(big, np.ones((3, 3), np.uint8)) > 0
 
-    hair = np.clip(cv2.GaussianBlur((opaque & ~body).astype(np.float32), (0, 0), 6) * 1.4, 0, 1)
+    loose = (opaque & ~body).astype(np.uint8)
+    if strands:
+        # Hair drawn as thin separate strands with gaps between them: weight the whole zone they hang in (the figure
+        # spread by `strands` px, minus the body), not each strand, or the blur thins the outer strands to nothing
+        # and the gaps tear. The gaps are transparent, so their weight costs nothing.
+        zone = cv2.dilate(opaque.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (strands, strands)))
+        loose = zone & ~cv2.dilate(body.astype(np.uint8), np.ones((5, 5), np.uint8)).astype(bool)
+    hair = np.clip(cv2.GaussianBlur(loose.astype(np.float32), (0, 0), 10 if strands else 6) * 1.4, 0, 1)
+    if strands:
+        # The zone also hugs her legs; the hair ends above the hem.
+        hair *= 1 - smooth(0.64, 0.70, ys)
     column = smooth(0.08, 0.13, np.abs(xs - 0.49))
     hair_w = hair * smooth(0.17, 0.42, ys) * np.maximum(column, 1 - smooth(0.25, 0.32, ys))
     hair_w = keep_main_masses(hair_w)
@@ -67,9 +77,10 @@ def main():
     parser.add_argument("portrait")
     parser.add_argument("out")
     parser.add_argument("--preview")
+    parser.add_argument("--strands", type=int, default=0, help="close gaps of this many px between thin hair strands")
     args = parser.parse_args()
     portrait = np.array(Image.open(args.portrait).convert("RGBA"))
-    hair_w, skirt_w = build(portrait)
+    hair_w, skirt_w = build(portrait, args.strands)
     h, w = hair_w.shape
     rig = np.dstack([(hair_w * 255).astype(np.uint8), (skirt_w * 255).astype(np.uint8), np.zeros((h, w), np.uint8)])
     Image.fromarray(rig).resize((w // 2, h // 2), Image.BILINEAR).save(args.out)

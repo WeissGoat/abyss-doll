@@ -34,10 +34,10 @@ public static class PortraitSwayPlayScenario {
 
         // (u, v) from the bottom-left of doll_proto_0_stand.
         Check(sway, 0.5f, 0.9f, false, "head");
-        Check(sway, 0.45f, 0.55f, false, "hands");
+        Check(sway, 0.49f, 0.46f, false, "hands");
         Check(sway, 0.45f, 0.05f, false, "feet");
         Check(sway, 0.3f, 0.5f, true, "left hair");
-        Check(sway, 0.74f, 0.5f, true, "right hair");
+        Check(sway, 0.68f, 0.5f, true, "right hair");
         Debug.Log($"[PortraitSway] {sway.name}: largest bend {most:0.0} px on a {width:0} px portrait.");
     }
 

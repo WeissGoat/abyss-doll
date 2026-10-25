@@ -13,9 +13,9 @@ public class ZeroPresence : MonoBehaviour {
     public const float LineSeconds = 5f;
     public const float StorySeconds = 8f;
     // Where the touchable parts sit on the standing portrait (doll_proto_0_stand), as fractions of the image.
-    private static readonly Rect HeadArea = new Rect(0.38f, 0.8f, 0.24f, 0.17f);
-    private static readonly Rect ShoulderArea = new Rect(0.3f, 0.71f, 0.4f, 0.08f);
-    private static readonly Rect HandArea = new Rect(0.33f, 0.48f, 0.2f, 0.1f);
+    private static readonly Rect HeadArea = new Rect(0.39f, 0.81f, 0.23f, 0.16f);
+    private static readonly Rect ShoulderArea = new Rect(0.3f, 0.72f, 0.4f, 0.07f);
+    private static readonly Rect HandArea = new Rect(0.42f, 0.41f, 0.16f, 0.1f);
 
     private Image _bubble;
     private Text _line;

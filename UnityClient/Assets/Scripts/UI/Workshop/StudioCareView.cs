@@ -14,10 +14,10 @@ public class StudioCareView : MonoBehaviour {
     // skirt and legs, never the face.
     private static readonly Vector2[] GrimeSpots = {
         new Vector2(0.43f, 0.56f), new Vector2(0.58f, 0.46f), new Vector2(0.36f, 0.36f),
-        new Vector2(0.61f, 0.30f), new Vector2(0.45f, 0.14f), new Vector2(0.56f, 0.06f)
+        new Vector2(0.54f, 0.30f), new Vector2(0.465f, 0.14f), new Vector2(0.56f, 0.06f)
     };
-    private static readonly Vector2[] CrackSpots = { new Vector2(0.38f, 0.63f), new Vector2(0.63f, 0.52f), new Vector2(0.48f, 0.22f) };
-    private static readonly Vector2[] HazeSpots = { new Vector2(0.50f, 0.32f), new Vector2(0.38f, 0.48f), new Vector2(0.60f, 0.62f) };
+    private static readonly Vector2[] CrackSpots = { new Vector2(0.38f, 0.63f), new Vector2(0.6f, 0.52f), new Vector2(0.47f, 0.22f) };
+    private static readonly Vector2[] HazeSpots = { new Vector2(0.50f, 0.32f), new Vector2(0.41f, 0.48f), new Vector2(0.60f, 0.62f) };
 
     private RectTransform _portrait;
     private readonly List<GameObject> _marks = new List<GameObject>();
