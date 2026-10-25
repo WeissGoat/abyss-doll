@@ -42,10 +42,10 @@ public static class PortraitSwayPlayScenario {
     }
 
     private static void Check(UIPortraitSway sway, float u, float v, bool shouldMove, string part) {
-        sway.SampleWeights(u, v, out float hair, out float skirt);
-        bool moves = hair > 0.3f || skirt > 0.3f;
+        float hair = sway.HairWeight(u, v);
+        bool moves = hair > 0.3f;
         if (moves != shouldMove) {
-            Debug.LogError($"[PortraitSway] {part} at ({u}, {v}) has hair {hair:0.00} / skirt {skirt:0.00}; it should {(shouldMove ? "" : "not ")}move.");
+            Debug.LogError($"[PortraitSway] {part} at ({u}, {v}) has hair {hair:0.00}; it should {(shouldMove ? "" : "not ")}move.");
         }
     }
 }

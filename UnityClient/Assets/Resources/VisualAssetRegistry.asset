@@ -283,7 +283,7 @@ MonoBehaviour:
     AudioClip: {fileID: 0}
     Material: {fileID: 0}
     VideoClip: {fileID: 0}
-  - VisualID: doll_proto_0_stand_head
+  - VisualID: doll_proto_0_stand_hair
     Sprite: {fileID: 21300000, guid: c486e606ddca60247a778d8aea5b6d54, type: 3}
     Prefab: {fileID: 0}
     AudioClip: {fileID: 0}

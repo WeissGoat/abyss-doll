@@ -3,10 +3,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Live2D-lite for one still portrait: the image's quad is split into a grid and its vertices bend sideways by a
-// weight map, so long hair sways (a wave running down to the tips) and the skirt hem stirs, while the head, hands
-// and feet stay put. Pixels stretch instead of tearing, and the RectTransform never moves.
-// The weight map is a registered sprite "<visualID>_rig" in Approved (R = hair, G = skirt; built by
-// tools/美术工具/build_portrait_rig.py, imported Read/Write, uncompressed, not sRGB). Portraits without one stay still.
+// weight map, so long hair sways (a wave running down to the tips) while the head, hands and feet stay put. Pixels
+// stretch instead of tearing, and the RectTransform never moves. The skirt does not sway by itself: standing still,
+// her dress only moves with her (UIPortraitPuppet leans her whole body).
+// The weight map is a registered sprite "<visualID>_rig" in Approved (R = hair; built by
+// tools/美术工具/split_hair_layer.py for a portrait whose hair is a layer of its own, else build_portrait_rig.py,
+// whose G is no longer used; imported Read/Write, uncompressed, not sRGB). Portraits without one stay still.
 [RequireComponent(typeof(Graphic))]
 public class UIPortraitSway : BaseMeshEffect {
     public const string RigSuffix = "_rig";
@@ -14,10 +16,9 @@ public class UIPortraitSway : BaseMeshEffect {
     // arms to sway without a cell dragging the arm's edge along (16 px cells on a 1024 px portrait).
     public const int Columns = 64;
     public const int Rows = 96;
-    // Peak sideways bend as a share of the image width (about 25 px on a 1024 px portrait, 14 px in the workshop).
-    // The producer found 10 px too faint; past about 30 px the cape and dress edges start to drag with the hair.
-    public const float HairAmount = 0.024f;
-    public const float SkirtAmount = 0.007f;
+    // Peak sideways bend as a share of the image width (about 12 px on a 1024 px portrait, 7 px in the workshop). Half
+    // what it was before her hair also followed her head: together they swing about as wide.
+    public const float HairAmount = 0.012f;
     public const float Period = 3.8f;
 
     private static readonly Dictionary<Texture2D, Color32[]> PixelCache = new Dictionary<Texture2D, Color32[]>();
@@ -82,23 +83,36 @@ public class UIPortraitSway : BaseMeshEffect {
             return;
         }
 
+        UIVertex corner = default;
+        vh.PopulateUIVertex(ref corner, 0);
+        Vector3 bottomLeft = corner.position;
+        vh.PopulateUIVertex(ref corner, 3);
+        float width = Vector3.Distance(bottomLeft, corner.position);
+        float maxBend = 0f;
+        BuildGrid(vh, (uv, rest) => {
+            float bend = BendAt(uv.x, uv.y, width);
+            maxBend = Mathf.Max(maxBend, Mathf.Abs(bend));
+            return rest + new Vector3(bend, 0f, 0f);
+        });
+        LastMaxBend = maxBend;
+    }
+
+    // Replaces a simple image quad with a Columns x Rows grid; move gets each vertex's (u, v) from the bottom-left and
+    // its place on the flat quad, and returns where to draw it.
+    public static void BuildGrid(VertexHelper vh, System.Func<Vector2, Vector3, Vector3> move) {
         // Simple image quad: 0 bottom-left, 1 top-left, 2 top-right, 3 bottom-right.
         UIVertex[] corners = new UIVertex[4];
         for (int i = 0; i < 4; i++) {
             vh.PopulateUIVertex(ref corners[i], i);
         }
 
-        float width = Vector3.Distance(corners[0].position, corners[3].position);
         vh.Clear();
-        float maxBend = 0f;
         for (int row = 0; row <= Rows; row++) {
             float v = row / (float)Rows;
             for (int column = 0; column <= Columns; column++) {
                 float u = column / (float)Columns;
                 UIVertex vertex = Lerp(corners, u, v);
-                float bend = BendAt(u, v, width);
-                vertex.position.x += bend;
-                maxBend = Mathf.Max(maxBend, Mathf.Abs(bend));
+                vertex.position = move(new Vector2(u, v), vertex.position);
                 vh.AddVert(vertex);
             }
         }
@@ -111,8 +125,6 @@ public class UIPortraitSway : BaseMeshEffect {
                 vh.AddTriangle(i + stride + 1, i + 1, i);
             }
         }
-
-        LastMaxBend = maxBend;
     }
 
     // How far the point (u, v) of the portrait is bent sideways right now, for a portrait drawn width wide.
@@ -122,14 +134,16 @@ public class UIPortraitSway : BaseMeshEffect {
         }
 
         float wave = (Time.unscaledTime + _phase) / Period * Mathf.PI * 2f;
-        SampleWeights(u, v, out float hair, out float skirt);
         float fromTop = 1f - v;
-        return width * (HairAmount * (1f + Boost) * hair * Mathf.Sin(wave - 3f * fromTop)
-            + SkirtAmount * skirt * Mathf.Sin(1.3f * wave + 1f));
+        return width * HairAmount * (1f + Boost) * HairWeight(u, v) * Mathf.Sin(wave - 3f * fromTop);
     }
 
-    // Weights at (u, v) of the portrait, v up; the rig texture is stored v up too (Unity's GetPixels order).
-    public void SampleWeights(float u, float v, out float hair, out float skirt) {
+    // The hair weight at (u, v) of the portrait, v up; the rig texture is stored v up too (Unity's GetPixels order).
+    public float HairWeight(float u, float v) {
+        if (_weights == null) {
+            return 0f;
+        }
+
         int w = _rig.width;
         int h = _rig.height;
         float x = Mathf.Clamp(u * (w - 1), 0f, w - 1);
@@ -144,8 +158,7 @@ public class UIPortraitSway : BaseMeshEffect {
         Color32 b = _weights[y0 * w + x1];
         Color32 c = _weights[y1 * w + x0];
         Color32 d = _weights[y1 * w + x1];
-        hair = Mathf.Lerp(Mathf.Lerp(a.r, b.r, tx), Mathf.Lerp(c.r, d.r, tx), ty) / 255f;
-        skirt = Mathf.Lerp(Mathf.Lerp(a.g, b.g, tx), Mathf.Lerp(c.g, d.g, tx), ty) / 255f;
+        return Mathf.Lerp(Mathf.Lerp(a.r, b.r, tx), Mathf.Lerp(c.r, d.r, tx), ty) / 255f;
     }
 
     private static UIVertex Lerp(UIVertex[] q, float u, float v) {

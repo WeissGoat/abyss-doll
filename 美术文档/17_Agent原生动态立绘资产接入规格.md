@@ -27,7 +27,7 @@ update_rule: 修改动态立绘主路线、人设交付包前置规则、DollPup
 
 > **2026-10-17 起的现行做法（取代下文）**：不做分层 + rig / motion / expression JSON 的 DollPuppet 包，改成在现有立绘上做网格形变。
 > - 呼吸：`UIStillMotion`（所有 `doll_*` 立绘自动生效，从脚下起伏）。
-> - 头发 / 裙摆摆动：`UIPortraitSway` 把立绘切成网格，按权重图横向弯曲顶点；权重图是 Approved 里的 `<VisualID>_rig`（R 头发、G 裙摆，Read/Write、不压缩、线性），由 `tools/美术工具/build_portrait_rig.py` 从立绘生成。目前只有 `doll_proto_0_stand`。
+> - 头发摆动：`UIPortraitSway` 把立绘切成网格，按权重图横向弯曲顶点；权重图是 Approved 里的 `<VisualID>_rig`（R 头发，Read/Write、不压缩、线性），由 `tools/美术工具/split_hair_layer.py`（头发切成单独一层时）或 `build_portrait_rig.py` 从立绘生成。裙摆不再自己摆（2026-10-25）。目前只有 `doll_proto_0_stand`。
 > - 零号戴遮眼布，不做眨眼。表情切换仍用整张差分立绘。
 > - 程序侧的 `DollLive2DPresenter` / `Live2DAcceptanceRunner` 是旧路线的接口，没有接进游戏。
 > 下文保留作历史参考。真 Live2D（Cubism）只在外包绑定时接入。

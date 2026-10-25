@@ -4,41 +4,50 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Zero as a paper puppet (docs/specs/2026-10-20-presentation-ceiling.md, puppet sample): on the grid UIPortraitSway
-// lays over her portrait, her head moves on its neck. It tilts slowly by itself and turns a little toward the pointer
-// (she cannot see; she hears you), dips under a hand that pats her and leans with a stroke, then springs back with her
-// hair swinging. Held by the hand, she bows her head toward it and reaches out: a drawn arm ("<visualID>_hold", the
-// portrait's canvas with only the changed arm opaque) fades in over her own, or without one her clasped hands rise a
-// little. A blush shows
-// while she is touched. Marks on her (UIPuppetPin) ride along. P switches it off and on, to compare with the plain
-// sway. Her mouth is left alone: at room size it is 2-4 px, and swapped or flapping mouths read as a flicker.
-// The weights are a registered sprite "<visualID>_puppet" (R = head, G = face, B = hands; build_puppet_rig.py,
-// imported like the sway rig). It bends the sway's grid, so a portrait without a sway rig does not move.
-// A portrait cut into "<visualID>_head" and "<visualID>_body" (split_head_layer.py) moves its head as one piece: the
-// image shows the body layer, whose head area is taken out (the room above the jaw, collar and hair filled in below),
-// and the head layer turns and slides over it, so moving away shows what is behind instead of stretching the head.
-// Below the neck the body still bends with the head weights, so the hair hanging past her shoulders follows.
+// lays over her portrait, her whole body leans as one chain and her head turns on its neck. She tilts slowly by herself
+// and leans a little toward the pointer (she cannot see; she hears you), dips under a hand that pats her and leans with
+// a stroke, then springs back with her hair swinging. Held by the hand, she bows toward it and reaches out: a drawn arm
+// ("<visualID>_hold", the portrait's canvas with only the changed arm opaque) fades in over her own, or without one her
+// clasped hands rise a little. A blush shows while she is touched. Marks on her (UIPuppetPin) ride along. P switches it
+// off and on, to compare with the plain sway. Her mouth is left alone: at room size it is 2-4 px, and swapped or
+// flapping mouths read as a flicker.
+// The chain: from her knees up the body turns a little more the higher it is (full from the waist), so the bend spreads
+// over the skirt instead of kinking anywhere; the head turns on top of that by the head weight. Only small angles: a
+// flat picture turned further shows its stretch.
+// The weights are a registered sprite "<visualID>_puppet" (R = head, B = hands; build_puppet_rig.py, imported like
+// the sway rig; G is unused). It bends the sway's grid, so a portrait without a sway rig does not move.
+// A portrait cut into "<visualID>_hair" and "<visualID>_body" (split_hair_layer.py) keeps her long hanging hair behind
+// her: the image shows the hair layer (swaying and following her head by the sway rig), and the body layer, drawn over
+// it on the same chain, never bends with the hair, so the edge of her dress stays clean.
 [RequireComponent(typeof(Graphic))]
 public class UIPortraitPuppet : BaseMeshEffect {
     public const string RigSuffix = "_puppet";
     public const string HoldSuffix = "_hold";
-    public const string HeadSuffix = "_head";
+    public const string HairSuffix = "_hair";
     public const string BodySuffix = "_body";
-    // How much of the face's look shift the head layer takes as a whole (the mesh slid the face 0.7, the hair 0.3).
-    private const float HeadLayerLook = 0.5f;
-    // Over this share of the height around the neck the body's head weights fade in, so the cut does not kink.
-    private const float NeckFade = 0.03f;
     // Where her head turns and the middle of her cheeks, as (u, v) of doll_proto_0_stand from the bottom-left
     // (build_puppet_rig.py prints the neck).
     public static readonly Vector2 Neck = new Vector2(0.503f, 0.801f);
     private static readonly Vector2 Cheeks = new Vector2(0.511f, 0.855f);
+    // Her lean starts at the knees (just under the skirt hem) and is whole from the waist up (v of doll_proto_0_stand).
+    private const float KneeV = 0.336f;
+    private const float WaistV = 0.609f;
+    // Of every tilt her body takes this share and her head the rest; a slow sway of the body of its own on top.
+    private const float BodyShare = 0.3f;
+    private const float IdleLean = 0.4f;
+    private const float IdleLeanPeriod = 5.1f;
+    // Her hanging hair is carried sideways as its roots (this share of the width above the neck) move with her head,
+    // near her shoulders at once and toward the tips later (from HairLagTop down to HairLagBottom, v).
+    private const float HairRoot = 0.107f;
+    private const float HairLagTop = 0.753f;
+    private const float HairLagBottom = 0.381f;
     // Lengths are shares of the portrait width (0.016 = 16 px on the 1024 px portrait, 9 px in the studio), angles
-    // degrees. Past about 10 degrees or 0.02 the cape under her chin starts to stretch visibly.
+    // degrees. Past about 6 degrees of tilt or 0.02 of dip the stretch across her skirt and collar starts to show.
     public const float PatDip = 0.016f;
-    public const float LookShift = 0.012f;
     public const float LookTilt = 2.5f;
     public const float IdleTilt = 1.2f;
     public const float IdlePeriod = 7.3f;
-    public const float MaxStrokeTilt = 9f;
+    public const float MaxStrokeTilt = 6f;
     public const float StrokeTiltPerPixel = 0.06f;
     // Past about 0.04 her forearms visibly shorten and the dress under the hands smears.
     public const float HandLift = 0.03f;
@@ -48,11 +57,13 @@ public class UIPortraitPuppet : BaseMeshEffect {
     // Her reaching arm fades in fast when you take her hand and out a little slower when you let go.
     private const float HoldPoseIn = 0.12f;
     private const float HoldPoseOut = 0.25f;
-    // A point on the reaching arm (u, v from the bottom-left): the drawn arm moves with her there (breath, sway).
+    // A point on the reaching arm (u, v from the bottom-left): the drawn arm turns with her there.
     private static readonly Vector2 HoldAnchor = new Vector2(0.4f, 0.62f);
-    // Head springs: a little bouncy, so a pat lets go with an overshoot.
+    // Head springs: a little bouncy, so a pat lets go with an overshoot. The body follows slower and softer.
     private const float Stiffness = 90f;
     private const float Damping = 11f;
+    private const float LeanStiffness = 40f;
+    private const float LeanDamping = 9f;
 
     public static bool Enabled = true;
     private static int _toggledFrame = -1;
@@ -63,8 +74,10 @@ public class UIPortraitPuppet : BaseMeshEffect {
     private Color32[] _weights;
     private UIPortraitSway _sway;
     private Spring _angle;
+    private Spring _lean;
     private Spring _dip;
-    private Spring _look;
+    private Spring _hairNear;
+    private Spring _hairTip;
     private float _strokeTilt;
     private float _leanTilt;
     private float _leanUntil;
@@ -83,27 +96,25 @@ public class UIPortraitPuppet : BaseMeshEffect {
     private Sprite _holdSprite;
     private Image _holdImage;
     private float _holdShown;
-    private Sprite _headSprite;
+    private Sprite _hairSprite;
     private Sprite _bodySprite;
     private Sprite _wholeSprite;
-    private Image _headImage;
+    private Image _bodyImage;
 
     public bool HasRig => _weights != null;
-    public float HeadAngle => _angle.Value;
+    // Her head's whole tilt: the body's lean and its own turn on the neck.
+    public float HeadAngle => _angle.Value + _lean.Value;
     public float HeadDip => _dip.Value;
     public bool Pressed => _pressed;
     // On screen and drawn (not hidden under the living clip).
     public bool Showing => isActiveAndEnabled && HasRig && Visible();
     public float HandRise => _hand.Value;
     public bool HasHoldPose => _holdSprite != null;
-    public bool HasHeadLayer => _headSprite != null && _bodySprite != null;
+    public bool HasLayers => _hairSprite != null && _bodySprite != null;
     // How far the drawn reaching arm is faded in (0 to 1).
     public float HoldPoseShown => _holdShown;
-    // The furthest a vertex of her head moved in the last mesh, or the top of her head layer, in the portrait's local
-    // units.
-    public float LastHeadShift => Mathf.Max(_meshShift, _layerShift);
-    private float _meshShift;
-    private float _layerShift;
+    // The furthest a vertex moved in the last mesh, in the portrait's local units.
+    public float LastHeadShift { get; private set; }
 
     // Called by VisualUIHelper whenever an image gets a sprite, after the sway.
     public static void Sync(Image image, string visualID) {
@@ -133,35 +144,35 @@ public class UIPortraitPuppet : BaseMeshEffect {
         puppet.SetRig(rig);
         VisualAssetService.TryGetSprite(visualID + HoldSuffix, out Sprite hold);
         puppet._holdSprite = hold;
-        VisualAssetService.TryGetSprite(visualID + HeadSuffix, out Sprite head);
+        VisualAssetService.TryGetSprite(visualID + HairSuffix, out Sprite hair);
         VisualAssetService.TryGetSprite(visualID + BodySuffix, out Sprite body);
-        puppet._headSprite = head;
+        puppet._hairSprite = hair;
         puppet._bodySprite = body;
         puppet._wholeSprite = image.sprite;
         puppet.enabled = true;
         puppet.ShowLayers(true);
     }
 
-    // The image shows the body layer while the head layer is drawn over it, and the whole portrait otherwise.
+    // The image shows the hair layer while the body layer is drawn over it, and the whole portrait otherwise.
     private void ShowLayers(bool layered) {
         Image image = graphic as Image;
-        if (image == null || !HasHeadLayer) {
+        if (image == null || !HasLayers) {
             return;
         }
 
-        Sprite wanted = layered ? _bodySprite : _wholeSprite;
-        if (wanted != null && image.sprite != wanted && (image.sprite == _bodySprite || image.sprite == _wholeSprite)) {
+        Sprite wanted = layered ? _hairSprite : _wholeSprite;
+        if (wanted != null && image.sprite != wanted && (image.sprite == _hairSprite || image.sprite == _wholeSprite)) {
             image.sprite = wanted;
         }
 
-        if (!layered && _headImage != null) {
-            _headImage.enabled = false;
+        if (!layered && _bodyImage != null) {
+            _bodyImage.enabled = false;
         }
     }
 
     private void ClearLayers() {
         ShowLayers(false);
-        _headSprite = null;
+        _hairSprite = null;
         _bodySprite = null;
     }
 
@@ -213,14 +224,14 @@ public class UIPortraitPuppet : BaseMeshEffect {
                 _hairBoost = 1f;
                 break;
             case ZeroReaction.Flinch:
-                _angle.Velocity += (Time.frameCount & 1) == 0 ? -160f : 160f;
+                _angle.Velocity += (Time.frameCount & 1) == 0 ? -110f : 110f;
                 _dip.Velocity += 0.1f;
                 _hairBoost = 1f;
                 break;
             case ZeroReaction.Lean:
                 // Toward the middle of the screen, where you are.
                 Vector3 screen = RectTransformUtility.WorldToScreenPoint(CanvasCamera(), transform.position);
-                _leanTilt = screen.x < Screen.width * 0.5f ? -6f : 6f;
+                _leanTilt = screen.x < Screen.width * 0.5f ? -5f : 5f;
                 _leanUntil = Time.unscaledTime + 1.6f;
                 _blush = 1f;
                 break;
@@ -248,7 +259,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
     }
 
     // Where a mark anchored at spot (a fraction of the portrait's rect) is carried to right now, as an offset from its
-    // anchor, and how far it turns with her head.
+    // anchor, and how far it turns with her.
     public bool TryFollow(Vector2 spot, out Vector2 offset, out float angle) {
         offset = Vector2.zero;
         angle = 0f;
@@ -304,14 +315,19 @@ public class UIPortraitPuppet : BaseMeshEffect {
         bool holding = live && _holding;
         float look = live ? (holding ? -0.5f : LookTarget()) : 0f;
         _strokeTilt = Mathf.MoveTowards(_strokeTilt, 0f, dt * (_pressed ? 6f : 14f));
-        float angleTarget = live
+        float tilt = live
             ? IdleTilt * Mathf.Sin((now + _phase) / IdlePeriod * Mathf.PI * 2f) - LookTilt * look + _strokeTilt + (now < _leanUntil ? _leanTilt : 0f)
                 + (holding ? HoldTilt : 0f)
             : 0f;
+        float idleLean = live ? IdleLean * Mathf.Sin((now + _phase) / IdleLeanPeriod * Mathf.PI * 2f + 1f) : 0f;
         float dipTarget = live && _pressed ? PatDip : holding ? HoldBow : 0f;
-        _angle.Step(angleTarget, dt, Stiffness, Damping);
+        _lean.Step(BodyShare * tilt + idleLean, dt, LeanStiffness, LeanDamping);
+        _angle.Step((1f - BodyShare) * tilt, dt, Stiffness, Damping);
         _dip.Step(dipTarget, dt, Stiffness, Damping);
-        _look.Step(look * LookShift, dt, 30f, 11f);
+        // The hair's roots move with her head; the hair near her shoulders follows at once, its tips later.
+        float root = -Mathf.Sin(HeadAngle * Mathf.Deg2Rad) * HairRoot;
+        _hairNear.Step(root, dt, 45f, 7f);
+        _hairTip.Step(root, dt, 14f, 3.2f);
         _hairBoost = Mathf.MoveTowards(_hairBoost, 0f, dt * 0.8f);
         _hand.Step(holding && _holdSprite == null ? HandLift : 0f, dt, 60f, 10f);
         bool reaching = holding && _holdSprite != null;
@@ -324,6 +340,9 @@ public class UIPortraitPuppet : BaseMeshEffect {
 
         UpdateOverlays(live);
         graphic.SetVerticesDirty();
+        if (_bodyImage != null && _bodyImage.enabled) {
+            _bodyImage.SetVerticesDirty();
+        }
     }
 
     public override void ModifyMesh(VertexHelper vh) {
@@ -370,69 +389,94 @@ public class UIPortraitPuppet : BaseMeshEffect {
             most = Mathf.Max(most, (after - before).magnitude);
         }
 
-        _meshShift = most;
+        LastHeadShift = most;
     }
 
-    // A point of the portrait (uv from the bottom-left) with everything that moves it: the breath (already in the
-    // grid corners), the sway and the head.
+    // Where the point (u, v) of the body layer is drawn right now, or false before the image has its grid.
+    public bool TryBodyPoint(Vector2 uv, out Vector2 point) {
+        point = default;
+        if (!_hasGrid) {
+            return false;
+        }
+
+        point = MoveParts(Point(uv), uv, out _, false);
+        return true;
+    }
+
+    // A point of her body (uv from the bottom-left) with everything that moves it: the breath (already in the grid
+    // corners), the sway (when the hair is not a layer of its own) and the chain.
     private Vector2 Carry(Vector2 uv, out float angle) {
         Vector2 p = Point(uv);
-        if (_sway != null && _sway.isActiveAndEnabled) {
+        if (!HasLayers && _sway != null && _sway.isActiveAndEnabled) {
             p.x += _sway.BendAt(uv.x, uv.y, _posMax.x - _posMin.x);
         }
 
-        return MoveParts(p, uv, out angle);
+        return MoveParts(p, uv, out angle, false);
     }
 
-    // mesh: moving a vertex of the image itself. With a head layer the body's head area stays put (the head layer moves
-    // instead) and the head weights fade in below the neck; a point carried along (a blush, a mark) above the neck
-    // moves with the head layer.
-    private Vector2 MoveParts(Vector2 p, Vector2 uv, out float angle, bool mesh = false) {
-        Sample(uv, out float head, out float face, out float hands);
-        if (HasHeadLayer) {
-            if (!mesh && uv.y >= Neck.y) {
-                return MoveHead(p, out angle);
-            }
-
-            if (mesh) {
-                head *= 1f - Mathf.SmoothStep(0f, 1f, (uv.y - (Neck.y - NeckFade)) / (2f * NeckFade));
-                face = 0f;
-            }
-        }
-
-        angle = _angle.Value * head;
+    // The chain at p (uv from the bottom-left): hands lifted, the body settled by the dip and leaned, the head turned on
+    // the leaned neck, and with hair the hanging hair carried after the head. angle is how far the point turned.
+    private Vector2 MoveParts(Vector2 p, Vector2 uv, out float angle, bool hair) {
+        Sample(uv, out float head, out float hands);
         float width = _posMax.x - _posMin.x;
         p.y += _hand.Value * width * hands;
-        if (head <= 0.001f) {
-            return p;
+        Vector2 q = MoveBody(p, uv, out float lean);
+        angle = lean;
+        if (head > 0.001f) {
+            Vector2 neck = MoveBody(Point(Neck), Neck, out _);
+            float turn = _angle.Value * head;
+            q = neck + Rotate(q - neck, turn);
+            angle += turn;
         }
 
-        Vector2 neck = Point(Neck);
-        float a = angle * Mathf.Deg2Rad;
-        float cos = Mathf.Cos(a);
-        float sin = Mathf.Sin(a);
-        float dx = p.x - neck.x;
-        float dy = p.y - neck.y;
-        // A dip also squashes the head a touch toward the neck, as if she ducks under the hand.
-        float squash = 1f - 1.5f * _dip.Value * head;
-        Vector2 q = new Vector2(neck.x + cos * dx - sin * dy, neck.y + (sin * dx + cos * dy) * squash);
-        q.x += _look.Value * width * (0.3f * head + 0.7f * face);
-        q.y -= _dip.Value * width * head;
+        if (hair && _sway != null) {
+            float weight = _sway.HairWeight(uv.x, uv.y);
+            float lag = Smooth(HairLagTop, HairLagBottom, uv.y);
+            q.x += weight * Mathf.Lerp(_hairNear.Value, _hairTip.Value, lag) * width;
+        }
+
         return q;
     }
 
-    // The head layer as one piece: turned on the neck, slid toward where she listens, dipped under a hand.
-    private Vector2 MoveHead(Vector2 p, out float angle) {
-        angle = _angle.Value;
-        Vector2 neck = Point(Neck);
+    // Her body from the knees up, settled by the dip (the head the whole of it) and leaned around her spine.
+    private Vector2 MoveBody(Vector2 p, Vector2 uv, out float lean) {
         float width = _posMax.x - _posMin.x;
-        float a = angle * Mathf.Deg2Rad;
-        float dx = p.x - neck.x;
-        float dy = p.y - neck.y;
-        Vector2 q = new Vector2(neck.x + Mathf.Cos(a) * dx - Mathf.Sin(a) * dy, neck.y + Mathf.Sin(a) * dx + Mathf.Cos(a) * dy);
-        q.x += _look.Value * width * HeadLayerLook;
-        q.y -= _dip.Value * width;
-        return q;
+        float height = _posMax.y - _posMin.y;
+        p.y -= _dip.Value * width * Smooth(KneeV, Neck.y, uv.y);
+        lean = _lean.Value * Smooth(KneeV, WaistV, uv.y);
+        float a = lean * Mathf.Deg2Rad;
+        float spine = Mathf.Lerp(_posMin.x, _posMax.x, Neck.x);
+        float dx = p.x - spine;
+        // The spine at this height has been carried sideways by every turn below it (small angles: sin a = a).
+        float carried = -_lean.Value * Mathf.Deg2Rad * Climb(uv.y) * height;
+        return new Vector2(spine + carried + dx * Mathf.Cos(a), p.y + dx * Mathf.Sin(a));
+    }
+
+    // The integral of the lean profile from the knees up to v (in v units).
+    private static float Climb(float v) {
+        if (v <= KneeV) {
+            return 0f;
+        }
+
+        float span = WaistV - KneeV;
+        if (v >= WaistV) {
+            return span * 0.5f + (v - WaistV);
+        }
+
+        float t = (v - KneeV) / span;
+        return span * (t * t * t - t * t * t * t * 0.5f);
+    }
+
+    private static float Smooth(float edge0, float edge1, float x) {
+        float t = Mathf.Clamp01((x - edge0) / (edge1 - edge0));
+        return t * t * (3f - 2f * t);
+    }
+
+    private static Vector2 Rotate(Vector2 v, float degrees) {
+        float a = degrees * Mathf.Deg2Rad;
+        float cos = Mathf.Cos(a);
+        float sin = Mathf.Sin(a);
+        return new Vector2(cos * v.x - sin * v.y, sin * v.x + cos * v.y);
     }
 
     private Vector2 Point(Vector2 uv) {
@@ -462,7 +506,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
         return rect;
     }
 
-    private void Sample(Vector2 uv, out float head, out float face, out float hands) {
+    private void Sample(Vector2 uv, out float head, out float hands) {
         int w = _rig.width;
         int h = _rig.height;
         float x = Mathf.Clamp(uv.x * (w - 1), 0f, w - 1);
@@ -478,7 +522,6 @@ public class UIPortraitPuppet : BaseMeshEffect {
         Color32 c = _weights[y1 * w + x0];
         Color32 d = _weights[y1 * w + x1];
         head = Mathf.Lerp(Mathf.Lerp(a.r, b.r, tx), Mathf.Lerp(c.r, d.r, tx), ty) / 255f;
-        face = Mathf.Lerp(Mathf.Lerp(a.g, b.g, tx), Mathf.Lerp(c.g, d.g, tx), ty) / 255f;
         hands = Mathf.Lerp(Mathf.Lerp(a.b, b.b, tx), Mathf.Lerp(c.b, d.b, tx), ty) / 255f;
     }
 
@@ -513,7 +556,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
     }
 
     private void UpdateOverlays(bool live) {
-        UpdateHead();
+        UpdateBody();
         if (!live || !_hasGrid) {
             ShowOverlays(false);
             return;
@@ -525,58 +568,53 @@ public class UIPortraitPuppet : BaseMeshEffect {
         _blushImage.color = new Color(1f, 0.42f, 0.48f, 0.45f * Mathf.SmoothStep(0f, 1f, _blush));
         _blushImage.enabled = _blush > 0.01f;
 
-        // The drawn arm covers the whole portrait (it is the portrait's canvas), carried by the point on the arm.
+        // The drawn arm covers the whole portrait (it is the portrait's canvas), carried and turned at the point on the
+        // arm.
         _holdImage.enabled = _holdSprite != null && _holdShown > 0.01f;
         if (_holdImage.enabled) {
             Rect rect = ((RectTransform)transform).rect;
-            Vector2 size = _posMax - _posMin;
-            Vector2 centre = Carry(HoldAnchor, out _) + Vector2.Scale(new Vector2(0.5f, 0.5f) - HoldAnchor, size);
             RectTransform t = _holdImage.rectTransform;
             _holdImage.sprite = _holdSprite;
-            t.anchoredPosition = centre - rect.min;
-            t.sizeDelta = size;
-            t.localRotation = Quaternion.identity;
+            t.pivot = HoldAnchor;
+            t.anchoredPosition = Carry(HoldAnchor, out float angle) - rect.min;
+            t.sizeDelta = _posMax - _posMin;
+            t.localRotation = Quaternion.Euler(0f, 0f, angle);
             _holdImage.color = new Color(1f, 1f, 1f, Mathf.SmoothStep(0f, 1f, _holdShown));
         }
     }
 
-    // Drawn whenever the portrait is (also still, with the puppet switched off), never over the living clip.
-    private void UpdateHead() {
-        bool show = HasHeadLayer && Visible();
+    // The body layer, over the hair: drawn whenever the portrait is (also still, with the puppet switched off), never
+    // over the living clip. It fills the portrait's rect like the image itself, so its grid lands on the same points.
+    private void UpdateBody() {
+        bool show = HasLayers && Visible();
         if (!show) {
-            if (_headImage != null) {
-                _headImage.enabled = false;
+            if (_bodyImage != null) {
+                _bodyImage.enabled = false;
             }
 
             return;
         }
 
-        if (_headImage == null) {
-            _headImage = CreateOverlay("PuppetHead", null);
-            // Over the body (and the clip's layer, which hides it), under the blush, the reaching arm and any marks.
+        if (_bodyImage == null) {
+            _bodyImage = CreateOverlay("PuppetBody", null);
+            // Over the hair (and the clip's layer, which hides it), under the blush, the reaching arm and any marks.
             Transform clip = transform.Find("MotionPortrait_Video");
-            _headImage.transform.SetSiblingIndex(clip != null ? clip.GetSiblingIndex() + 1 : 0);
+            _bodyImage.transform.SetSiblingIndex(clip != null ? clip.GetSiblingIndex() + 1 : 0);
+            UIPuppetLayer layer = _bodyImage.gameObject.AddComponent<UIPuppetLayer>();
+            layer.Owner = this;
         }
 
-        RectTransform t = _headImage.rectTransform;
-        Rect rect = ((RectTransform)transform).rect;
-        _headImage.sprite = _headSprite;
-        _headImage.color = graphic.color;
-        _headImage.enabled = true;
-        t.pivot = Neck;
-        if (_hasGrid) {
-            Vector2 top = Point(new Vector2(Neck.x, 0.97f));
-            _layerShift = (MoveHead(top, out _) - top).magnitude;
-            Vector2 neck = MoveHead(Point(Neck), out float angle);
-            t.anchoredPosition = neck - rect.min;
-            t.sizeDelta = _posMax - _posMin;
-            t.localRotation = Quaternion.Euler(0f, 0f, angle);
-        } else {
-            Rect quad = RestQuad(rect);
-            t.anchoredPosition = quad.min + Vector2.Scale(Neck, quad.size) - rect.min;
-            t.sizeDelta = quad.size;
-            t.localRotation = Quaternion.identity;
-        }
+        RectTransform t = _bodyImage.rectTransform;
+        t.anchorMin = Vector2.zero;
+        t.anchorMax = Vector2.one;
+        t.pivot = ((RectTransform)transform).pivot;
+        t.offsetMin = Vector2.zero;
+        t.offsetMax = Vector2.zero;
+        t.localRotation = Quaternion.identity;
+        _bodyImage.sprite = _bodySprite;
+        _bodyImage.preserveAspect = graphic is Image image && image.preserveAspect;
+        _bodyImage.color = graphic.color;
+        _bodyImage.enabled = true;
     }
 
     private void Place(Image overlay, Vector2 uv, Vector2 size) {
@@ -665,6 +703,21 @@ public class UIPortraitPuppet : BaseMeshEffect {
             Velocity += (stiffness * (target - Value) - damping * Velocity) * dt;
             Value += Velocity * dt;
         }
+    }
+}
+
+// The body layer of a puppet whose hair is a layer of its own: a grid like the sway's, every vertex put where the
+// puppet's chain carries that point of her body (without the hair's sway).
+[RequireComponent(typeof(Graphic))]
+public class UIPuppetLayer : BaseMeshEffect {
+    public UIPortraitPuppet Owner;
+
+    public override void ModifyMesh(VertexHelper vh) {
+        if (!IsActive() || Owner == null || vh.currentVertCount != 4) {
+            return;
+        }
+
+        UIPortraitSway.BuildGrid(vh, (uv, rest) => Owner.TryBodyPoint(uv, out Vector2 moved) ? (Vector3)moved : rest);
     }
 }
 

@@ -279,13 +279,13 @@ public static class VisualAssetRegistryEditorTools {
             return new ApprovedSpriteSpec("doll bust", 1024, 1280, true, 2048);
         }
 
-        // Her room portrait (with the arm drawn over it and its head and body layers) has thin crisp lines and is shown
+        // Her room portrait (with the arm drawn over it and its hair and body layers) has thin crisp lines and is shown
         // at a third to a half of its size: without mipmaps the lines break into dots. Only these: a 1024x1536 texture
         // with mipmaps cannot be block-compressed and takes 8 MB instead of 1.5 MB. Full rect: a tight sprite is drawn
         // as its opaque box only, and the sway and puppet (whose weights, neck and cheeks are in the whole canvas)
         // would read the box's corners as the canvas's; the layers drawn over it would not line up either.
         if (normalized.Contains("/Dolls/") && (normalized.EndsWith("_stand.png") || normalized.EndsWith("_stand_hold.png")
-            || normalized.EndsWith("_stand_head.png") || normalized.EndsWith("_stand_body.png"))) {
+            || normalized.EndsWith("_stand_hair.png") || normalized.EndsWith("_stand_body.png"))) {
             return new ApprovedSpriteSpec("doll", 1024, 1536, true, 2048, true, true);
         }
 
