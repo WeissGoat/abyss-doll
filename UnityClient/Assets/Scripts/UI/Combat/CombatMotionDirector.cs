@@ -5,7 +5,8 @@ using UnityEngine.UI;
 // Plays CombatBeats on the combat stage: idle breathing, a lunge when a fighter strikes, a flash, shake and floating
 // number when one is hit, a coloured pulse for shield and healing, and a small screen shake for heavy hits on Zero.
 // On top of that, pose-to-pose acting: a fighter with a pose set (CombatPose) snaps to its attack, guard, hurt, item
-// or kneel pose for the beat; the weapon's icon swings across the stage, a slash or burst marks the hit, a hit freezes
+// or kneel pose for the beat; Zero's core flares and the weapon's icon flies out of her open palm, a slash or burst
+// marks the hit, a hit freezes
 // the stage for a few frames (hitstop) and pushes it in a little, and Zero holding on at 1 HP gets a quick cut-in.
 // The HUD rebuilds enemy slots whenever HP changes, so motion is kept per fighter and applied every frame to whatever
 // image is registered for it now, as an offset on top of the layout the HUD set (the HUD can move things freely).
@@ -26,7 +27,9 @@ public class CombatMotionDirector : MonoBehaviour {
     private const float ReactPoseSeconds = 0.45f;
     private const float ActPoseSeconds = 0.6f;
     private const float KneelPoseSeconds = 1.5f;
-    private const float SwingSeconds = 0.24f;
+    private const float SwingSeconds = 0.36f;
+    private const float LaunchDistance = 320f;
+    private const float LaunchArc = 70f;
     private const float SlashSeconds = 0.28f;
     private const float CutInSeconds = 1.3f;
     private const float SlashAfterStrikeWindow = 1.2f;
@@ -38,6 +41,11 @@ public class CombatMotionDirector : MonoBehaviour {
     private static readonly Color ShieldText = new Color(0.62f, 0.8f, 1f, 1f);
     private static readonly Color SlashColor = new Color(1f, 0.97f, 0.86f, 1f);
     private static readonly Color BurstOnZero = new Color(1f, 0.55f, 0.3f, 1f);
+    private static readonly Color CoreLight = new Color(0.66f, 0.88f, 1f, 1f);
+    // Where her open palm and the core under her other hand are on her attack pose (doll_zero_combat_attack, facing
+    // right), as (u, v) of the image from the bottom-left.
+    private static readonly Vector2 PalmPoint = new Vector2(0.92f, 0.71f);
+    private static readonly Vector2 CorePoint = new Vector2(0.515f, 0.59f);
 
     private class Actor {
         public FighterEntity Fighter;
@@ -85,7 +93,9 @@ public class CombatMotionDirector : MonoBehaviour {
         public CanvasGroup Group;
         public RectTransform Lines;
         public RectTransform Figure;
+        public Graphic Trail;
         public Vector2 Origin;
+        public Vector2 Destination;
         public float Angle;
         public float Sign;
         public float Start;
@@ -110,6 +120,7 @@ public class CombatMotionDirector : MonoBehaviour {
     private static Sprite _slashSprite;
     private static Sprite _burstSprite;
     private static Sprite _linesSprite;
+    private static Sprite _trailSprite;
 
     // Seen by the Play Mode scenario: the last beats played and the largest lunge offset applied since the reset.
     public readonly List<CombatBeat> PlayedBeats = new List<CombatBeat>();
@@ -216,6 +227,10 @@ public class CombatMotionDirector : MonoBehaviour {
             if (vfx.Rect != null) {
                 Destroy(vfx.Rect.gameObject);
             }
+
+            if (vfx.Trail != null) {
+                Destroy(vfx.Trail.gameObject);
+            }
         }
 
         _vfx.Clear();
@@ -258,7 +273,8 @@ public class CombatMotionDirector : MonoBehaviour {
 
                         if (striker.Fighter is DollFighter) {
                             _lastDollStrike = now;
-                            SpawnSwing(striker, beat.SourceVisualID, now);
+                            TryGetActor(beat.Target, out Actor aimed);
+                            SpawnSwing(striker, aimed, beat.SourceVisualID, now);
                         }
                     }
                 }
@@ -483,17 +499,38 @@ public class CombatMotionDirector : MonoBehaviour {
         }
     }
 
-    // The weapon's icon sweeps from over her shoulder down through the swing, pivoting at her hand.
-    private void SpawnSwing(Actor actor, string iconID, float now) {
-        if (_popupLayer == null || string.IsNullOrEmpty(iconID) || !VisualAssetService.TryGetSprite(iconID, out Sprite icon)) {
+    // She does not swing the weapon: the core in her chest flares under her hand and the weapon's icon flies out of
+    // her open palm in a low arc onto the enemy, with a pale-blue streak behind it.
+    private void SpawnSwing(Actor actor, Actor target, string iconID, float now) {
+        if (_popupLayer == null) {
             return;
         }
 
-        Image image = CreateVfxImage("CombatSwing_Image", icon, new Vector2(150f, 150f), new Vector2(0.5f, 0.1f));
         float sign = actor.FacesRight ? 1f : -1f;
-        Vector2 origin = StagePoint(actor, actor.FacesRight ? 0.72f : 0.28f, 0.55f);
-        _vfx.Add(new Vfx { Kind = VfxKind.Swing, Rect = image.rectTransform, Graphic = image, Origin = origin, Sign = sign, Start = now, Duration = SwingSeconds });
+        SpawnBurst(actor, CoreLight, now, Mirror(actor, CorePoint), 130f);
+        if (string.IsNullOrEmpty(iconID) || !VisualAssetService.TryGetSprite(iconID, out Sprite icon)) {
+            return;
+        }
+
+        Image trail = CreateVfxImage("CombatLaunchTrail_Image", TrailSprite(), new Vector2(40f, 64f), new Vector2(1f, 0.5f));
+        trail.preserveAspect = false;
+        trail.color = CoreLight;
+        Image image = CreateVfxImage("CombatSwing_Image", icon, new Vector2(150f, 150f), new Vector2(0.5f, 0.5f));
+        Vector2 origin = StagePoint(actor, Mirror(actor, PalmPoint).x, PalmPoint.y);
+        Vector2 destination = target != null && target.Rect != null && target != actor
+            ? StagePoint(target, 0.5f, 0.5f)
+            : origin + new Vector2(sign * LaunchDistance, 0f);
+        _vfx.Add(new Vfx { Kind = VfxKind.Swing, Rect = image.rectTransform, Graphic = image, Trail = trail, Origin = origin, Destination = destination, Sign = sign, Start = now, Duration = SwingSeconds });
         VfxSpawned++;
+    }
+
+    private static Vector2 LaunchPosition(Vfx vfx, float t) {
+        float ease = 1f - Mathf.Pow(1f - Mathf.Clamp01(t), 2f);
+        return Vector2.Lerp(vfx.Origin, vfx.Destination, ease) + new Vector2(0f, LaunchArc * Mathf.Sin(Mathf.PI * ease));
+    }
+
+    private static Vector2 Mirror(Actor actor, Vector2 uv) {
+        return actor.FacesRight ? uv : new Vector2(1f - uv.x, uv.y);
     }
 
     private void SpawnSlash(Actor target, float now) {
@@ -510,13 +547,17 @@ public class CombatMotionDirector : MonoBehaviour {
     }
 
     private void SpawnBurst(Actor target, Color color, float now) {
+        SpawnBurst(target, color, now, new Vector2(0.5f, 0.52f), 220f);
+    }
+
+    private void SpawnBurst(Actor target, Color color, float now, Vector2 uv, float size) {
         if (_popupLayer == null) {
             return;
         }
 
-        Image image = CreateVfxImage("CombatBurst_Image", BurstSprite(), new Vector2(220f, 220f), new Vector2(0.5f, 0.5f));
+        Image image = CreateVfxImage("CombatBurst_Image", BurstSprite(), new Vector2(size, size), new Vector2(0.5f, 0.5f));
         image.color = color;
-        Vector2 origin = StagePoint(target, 0.5f, 0.52f);
+        Vector2 origin = StagePoint(target, uv.x, uv.y);
         _vfx.Add(new Vfx { Kind = VfxKind.Burst, Rect = image.rectTransform, Graphic = image, Origin = origin, Angle = Random.Range(0f, 45f), Start = now, Duration = SlashSeconds });
         VfxSpawned++;
     }
@@ -581,6 +622,10 @@ public class CombatMotionDirector : MonoBehaviour {
                     Destroy(vfx.Rect.gameObject);
                 }
 
+                if (vfx.Trail != null) {
+                    Destroy(vfx.Trail.gameObject);
+                }
+
                 _vfx.RemoveAt(i);
                 continue;
             }
@@ -588,10 +633,21 @@ public class CombatMotionDirector : MonoBehaviour {
             float fade = t < 0.65f ? 1f : 1f - (t - 0.65f) / 0.35f;
             switch (vfx.Kind) {
                 case VfxKind.Swing: {
-                    float ease = 1f - Mathf.Pow(1f - t, 3f);
-                    vfx.Rect.anchoredPosition = vfx.Origin + new Vector2(vfx.Sign * 60f * ease, 0f);
-                    vfx.Rect.localRotation = Quaternion.Euler(0f, 0f, vfx.Sign * Mathf.Lerp(70f, -110f, ease));
+                    // Out of her palm: it grows from small and flies in a low arc onto the enemy with a little spin;
+                    // the streak points back along its path, at most a few icon lengths long.
+                    Vector2 position = LaunchPosition(vfx, t);
+                    Vector2 heading = position - LaunchPosition(vfx, t - 0.05f);
+                    vfx.Rect.anchoredPosition = position;
+                    vfx.Rect.localScale = Vector3.one * Mathf.Lerp(0.45f, 1f, Mathf.Clamp01(t * 3f));
+                    vfx.Rect.localRotation = Quaternion.Euler(0f, 0f, -vfx.Sign * 60f * t);
                     SetAlpha(vfx.Graphic, fade);
+                    if (vfx.Trail != null) {
+                        RectTransform trail = vfx.Trail.rectTransform;
+                        trail.anchoredPosition = position;
+                        trail.sizeDelta = new Vector2(Mathf.Clamp(Vector2.Distance(position, vfx.Origin) + 30f, 40f, 300f), 64f);
+                        trail.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(heading.y, heading.x) * Mathf.Rad2Deg);
+                        SetAlpha(vfx.Trail, 0.85f * fade);
+                    }
                     break;
                 }
                 case VfxKind.Slash: {
@@ -773,6 +829,19 @@ public class CombatMotionDirector : MonoBehaviour {
         }
 
         return _burstSprite;
+    }
+
+    // A soft streak, brightest at its right end and fading out to the left (the end that trails).
+    private static Sprite TrailSprite() {
+        if (_trailSprite == null) {
+            _trailSprite = DrawSprite("P3TrailVfx", 256, 64, (x, y) => {
+                float across = Mathf.Abs(y - 32f) / 32f;
+                float along = x / 256f;
+                return Mathf.Pow(along, 1.6f) * Mathf.Clamp01(1f - across * across * (1.4f - 0.8f * along));
+            });
+        }
+
+        return _trailSprite;
     }
 
     private static Sprite LinesSprite() {
