@@ -20,4 +20,6 @@
 
 当时生成权重图的参数：`build_portrait_rig.py`（不带 `--strands`）；`build_puppet_rig.py --head 530,165,150 --neck 525,320 --face 522,250,80,70 --hands 440,760,60,600`；手臂 `make_pose_patch.py --below 0.30 --cover 360,600,560,840`。
 
-战斗姿势（`Combat/doll_zero_combat_*`）和夜谈半身像（`Bust/doll_zero_bust*`）是照旧立绘出的，这次没换。
+战斗姿势（`Combat/doll_zero_combat_*`）是照旧立绘出的，制作人看过觉得和新立绘一致，没换。
+
+夜谈半身像（`Bust/doll_zero_bust*.png`）2026-10-25 也照新立绘重出了，旧的一套在同级的 `零号夜谈半身像_20261022/`，同样直接复制回 `UnityClient/Assets/Art/Approved/Dolls/Bust/` 就能换回去。

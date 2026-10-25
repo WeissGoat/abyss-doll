@@ -211,8 +211,14 @@ public static class VisualAssetRegistryEditorTools {
                 changed = true;
             }
 
-            if (importer.mipmapEnabled) {
-                importer.mipmapEnabled = false;
+            bool mipmaps = spec?.Mipmaps ?? false;
+            if (importer.mipmapEnabled != mipmaps) {
+                importer.mipmapEnabled = mipmaps;
+                changed = true;
+            }
+
+            if (mipmaps && importer.mipmapFilter != TextureImporterMipFilter.KaiserFilter) {
+                importer.mipmapFilter = TextureImporterMipFilter.KaiserFilter;
                 changed = true;
             }
 
@@ -254,8 +260,20 @@ public static class VisualAssetRegistryEditorTools {
             return new ApprovedSpriteSpec("chassis", 1024, 1024, true, 1024);
         }
 
+        // The rigs are weights read pixel by pixel, not drawn.
+        if (normalized.Contains("/Dolls/Rigs/")) {
+            return new ApprovedSpriteSpec("doll rig", 512, 768, true, 2048);
+        }
+
         if (normalized.Contains("/Dolls/Bust/")) {
             return new ApprovedSpriteSpec("doll bust", 1024, 1280, true, 2048);
+        }
+
+        // Her room portrait (and the arm drawn over it) has thin crisp lines and is shown at a third to a half of its
+        // size: without mipmaps the lines break into dots. Only these two: a 1024x1536 texture with mipmaps cannot be
+        // block-compressed and takes 8 MB instead of 1.5 MB.
+        if (normalized.Contains("/Dolls/") && (normalized.EndsWith("_stand.png") || normalized.EndsWith("_stand_hold.png"))) {
+            return new ApprovedSpriteSpec("doll", 1024, 1536, true, 2048, true);
         }
 
         if (normalized.Contains("/Dolls/")) {
@@ -347,13 +365,15 @@ public static class VisualAssetRegistryEditorTools {
         public readonly int SourceHeight;
         public readonly bool AlphaIsTransparency;
         public readonly int MaxTextureSize;
+        public readonly bool Mipmaps;
 
-        public ApprovedSpriteSpec(string category, int sourceWidth, int sourceHeight, bool alphaIsTransparency, int maxTextureSize) {
+        public ApprovedSpriteSpec(string category, int sourceWidth, int sourceHeight, bool alphaIsTransparency, int maxTextureSize, bool mipmaps = false) {
             Category = category;
             SourceWidth = sourceWidth;
             SourceHeight = sourceHeight;
             AlphaIsTransparency = alphaIsTransparency;
             MaxTextureSize = maxTextureSize;
+            Mipmaps = mipmaps;
         }
     }
 }
