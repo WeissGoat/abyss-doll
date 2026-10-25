@@ -69,7 +69,7 @@ public class ScenePanel : MonoBehaviour {
         }
 
         GameObject root = UITheme.CreateModal(canvas.transform, PanelName, new Vector2(1180f, 470f), 620);
-        root.GetComponent<Image>().color = new Color(0f, 0f, 0f, 0.42f);
+        root.GetComponent<Image>().color = new Color(0f, 0f, 0f, 0.6f);
         RectTransform dialogRect = (RectTransform)root.transform.Find("Dialog");
         UITheme.Place(dialogRect, new Vector2(0.5f, 0f), new Vector2(0f, 40f), new Vector2(1180f, 470f));
         dialogRect.pivot = new Vector2(0.5f, 0f);
@@ -128,7 +128,9 @@ public class ScenePanel : MonoBehaviour {
         _face = ZeroFace.Neutral;
         _bust.gameObject.SetActive(false);
         float dialogWidth = _zeroOnStage ? NarrowWidth : WideWidth;
-        _dialog.sizeDelta = new Vector2(dialogWidth, _dialog.sizeDelta.y);
+        // Tall only when there are choices or extra text under the line; a plain scene was a big, mostly empty box.
+        bool roomy = (scene.Choices != null && scene.Choices.Count > 0) || !string.IsNullOrEmpty(extraText);
+        _dialog.sizeDelta = new Vector2(dialogWidth, roomy ? 470f : 270f);
         _dialog.anchoredPosition = new Vector2(_zeroOnStage ? -360f : 0f, _dialog.anchoredPosition.y);
 
         _choiceIDs.Clear();

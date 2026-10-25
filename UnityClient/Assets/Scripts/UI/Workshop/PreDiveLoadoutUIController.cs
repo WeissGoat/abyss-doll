@@ -212,7 +212,8 @@ public class PreDiveLoadoutUIController : MonoBehaviour {
         PlaceTopLeft(_statusText.rectTransform, new Vector2(60f, -96f), new Vector2(1100f, 32f));
 
         Text backpackCaption = CreateLabel(transform, "BackpackCaption_Text", "背包：左键放回仓库，右键旋转，拖动调整位置", 20, UITheme.TextOnDarkMuted, TextAnchor.MiddleCenter, 32f);
-        PlaceCenter(backpackCaption.rectTransform, new Vector2(-420f, 250f), new Vector2(640f, 32f));
+        // Above the backpack's frame (at 250 it sat behind the grid's top edge).
+        PlaceCenter(backpackCaption.rectTransform, new Vector2(-420f, 300f), new Vector2(640f, 32f));
 
         GameObject card = new GameObject("StashCard", typeof(RectTransform));
         card.transform.SetParent(transform, false);

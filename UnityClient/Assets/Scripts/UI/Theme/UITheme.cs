@@ -138,7 +138,7 @@ public static class UITheme {
         overlay.overrideSorting = true;
         overlay.sortingOrder = sortingOrder;
         root.AddComponent<GraphicRaycaster>();
-        root.AddComponent<Image>().color = new Color(0.1f, 0.06f, 0.03f, 0.62f);
+        root.AddComponent<Image>().color = new Color(0.1f, 0.06f, 0.03f, 0.72f);
 
         Image dialog = CreatePanel(root.transform, "Dialog", Panel);
         if (!ApplyBoardSkin(dialog, VisualAssetService.UIPanelMainID)) {

@@ -67,6 +67,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
     private int _shotLine;
     private string _shownShotID;
     private Coroutine _shotFade;
+    private Image _boxBacking;
 
     public bool IsShowing {
         get { return rootGroup != null && rootGroup.alpha > 0.001f; }
@@ -693,6 +694,39 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
     }
 
     private void ApplyDialogueLayout(NarrativeOverlayPayload payload) {
+        ApplyDialogueBoxLayout(payload);
+        string visualID = payload?.VisualRequest?.VisualID ?? string.Empty;
+        SyncBoxBacking(!(payload != null && payload.UseBlackout && IsBlackoutVisual(visualID)));
+    }
+
+    // The parchment board lets bright pictures and Zero's figure show through the text, so an opaque card the
+    // board's size sits right under it (the black-screen subtitles have no box and no card).
+    private void SyncBoxBacking(bool visible) {
+        if (_boxBacking == null) {
+            _boxBacking = EnsureImage("DialogueBacking_Image", transform);
+            _boxBacking.raycastTarget = false;
+        }
+
+        RectTransform box = dialoguePanelImage.rectTransform;
+        RectTransform card = _boxBacking.rectTransform;
+        card.anchorMin = box.anchorMin;
+        card.anchorMax = box.anchorMax;
+        card.pivot = box.pivot;
+        card.anchoredPosition = box.anchoredPosition;
+        card.sizeDelta = box.sizeDelta - new Vector2(16f, 16f);
+        VisualUIHelper.ApplySolidColor(_boxBacking, new Color(UITheme.Panel.r, UITheme.Panel.g, UITheme.Panel.b, 0.94f), false);
+        _boxBacking.gameObject.SetActive(visible && dialoguePanelImage.gameObject.activeSelf);
+        // Right under the board: moving it to the board's own index put it on top every other line.
+        int board = dialoguePanelImage.transform.GetSiblingIndex();
+        int backing = _boxBacking.transform.GetSiblingIndex();
+        if (backing > board) {
+            _boxBacking.transform.SetSiblingIndex(board);
+        } else if (backing < board - 1) {
+            _boxBacking.transform.SetSiblingIndex(board - 1);
+        }
+    }
+
+    private void ApplyDialogueBoxLayout(NarrativeOverlayPayload payload) {
         ResetDialogueLayout();
 
         string visualID = payload?.VisualRequest?.VisualID ?? string.Empty;
@@ -724,7 +758,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
             new Vector2(0.5f, 0f),
             new Vector2(0f, 34f),
             new Vector2(1180f, 210f));
-        if (!UITheme.ApplyBoardSkin(dialoguePanelImage, VisualAssetService.UIPanelInfoID)) {
+        if (!UITheme.ApplyBoardSkin(dialoguePanelImage, VisualAssetService.UIPanelMainID)) {
             VisualUIHelper.ApplySolidColor(dialoguePanelImage, UITheme.Panel, true);
         }
         dialoguePanelImage.raycastTarget = true;
@@ -811,7 +845,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
             new Vector2(0.5f, 0f),
             new Vector2(0f, 34f),
             new Vector2(1180f, 210f));
-        if (!UITheme.ApplyBoardSkin(dialoguePanelImage, VisualAssetService.UIPanelInfoID)) {
+        if (!UITheme.ApplyBoardSkin(dialoguePanelImage, VisualAssetService.UIPanelMainID)) {
             VisualUIHelper.ApplySolidColor(dialoguePanelImage, UITheme.Panel, true);
         }
         dialoguePanelImage.raycastTarget = true;
@@ -859,14 +893,17 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
             new Vector2(0.5f, 0f),
             new Vector2(0.5f, 0f),
             new Vector2(0.5f, 0f),
-            isStartDoll ? new Vector2(0f, 30f) : new Vector2(0f, 36f),
-            isStartDoll ? new Vector2(1120f, 126f) : new Vector2(920f, 104f));
-        VisualUIHelper.ApplySolidColor(dialoguePanelImage, new Color(0.006f, 0.022f, 0.032f, isStartDoll ? 0.20f : 0.18f), true);
+            new Vector2(0f, 34f),
+            new Vector2(1180f, 150f));
+        // The same parchment box as every other line (the narration used to float on the picture with no box).
+        if (!UITheme.ApplyBoardSkin(dialoguePanelImage, VisualAssetService.UIPanelMainID)) {
+            VisualUIHelper.ApplySolidColor(dialoguePanelImage, UITheme.Panel, true);
+        }
         speakerText.gameObject.SetActive(false);
         bodyText.alignment = TextAnchor.MiddleCenter;
-        bodyText.fontSize = isStartDoll ? 26 : 23;
-        bodyText.color = new Color(0.88f, 0.98f, 1f, 0.96f);
-        SetOffsets(bodyText.rectTransform, new Vector2(46f, 20f), isStartDoll ? new Vector2(-46f, -22f) : new Vector2(-26f, -12f));
+        bodyText.fontSize = isStartDoll ? 26 : 24;
+        bodyText.color = UITheme.TextPrimary;
+        SetOffsets(bodyText.rectTransform, new Vector2(46f, 20f), new Vector2(-46f, -20f));
         PlaceActionAboveBox(isStartDoll ? new Vector2(350f, 68f) : new Vector2(340f, 64f));
     }
 
@@ -897,7 +934,7 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
             new Vector2(0.5f, 0f),
             new Vector2(0f, 34f),
             new Vector2(1180f, 290f));
-        if (!UITheme.ApplyBoardSkin(dialoguePanelImage, VisualAssetService.UIPanelInfoID)) {
+        if (!UITheme.ApplyBoardSkin(dialoguePanelImage, VisualAssetService.UIPanelMainID)) {
             VisualUIHelper.ApplySolidColor(dialoguePanelImage, UITheme.Panel, true);
         }
         dialoguePanelImage.raycastTarget = true;
@@ -1096,12 +1133,9 @@ public sealed class P3DialogueOverlayController : MonoBehaviour {
     }
 
     private bool ShouldShowUtilityControls(NarrativeOverlayPayload payload) {
-        if (payload == null || payload.UseBlackout || HasComicPageVisible || !string.IsNullOrEmpty(payload.ActionID)) {
-            return false;
-        }
-
-        string visualID = payload.VisualRequest?.VisualID ?? string.Empty;
-        return visualID != "ui_status_card_prologue";
+        // Every line but the black screens and the action prompts, so they do not come and go between lines.
+        string visualID = payload?.VisualRequest?.VisualID ?? string.Empty;
+        return payload != null && !(payload.UseBlackout && IsBlackoutVisual(visualID)) && !HasComicPageVisible && string.IsNullOrEmpty(payload.ActionID);
     }
 
     private void ConfigureUtilityControls(bool visible = true) {

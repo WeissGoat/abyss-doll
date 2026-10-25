@@ -140,9 +140,21 @@ public class NightBusinessPanel : MonoBehaviour {
             }
 
             string bonus = line.AdjacentMatches > 0 ? $"\n相邻 +{line.AdjacentMatches}" : string.Empty;
-            Button block = UITheme.CreateButton(_showcaseRoot, "ShowcaseItem_" + item.InstanceID, $"{item.Name}\n{line.Value}G{bonus}", ResolveTint(item), UITheme.TextPrimary, UITheme.CaptionSize - 2);
-            UITheme.AddBorder(block.targetGraphic, line.AdjacentMatches > 0 ? UITheme.Accent : UITheme.Border, line.AdjacentMatches > 0 ? 2.5f : 1f);
-            UITheme.Place((RectTransform)block.transform, new Vector2(0f, 1f), new Vector2(item.Grid.CurrentPos[0] * Cell + 4f, -item.Grid.CurrentPos[1] * Cell - 4f), new Vector2(columns * Cell - 8f, rows * Cell - 8f));
+            // The item's icon on a light tile with its price under it (dark colour blocks with dark text were unreadable).
+            string price = line.AdjacentMatches > 0 ? $"{line.Value}G · 相邻+{line.AdjacentMatches}" : $"{line.Value}G";
+            Button block = UITheme.CreateButton(_showcaseRoot, "ShowcaseItem_" + item.InstanceID, price, UITheme.PanelRaised, UITheme.TextPrimary, UITheme.CaptionSize - 2);
+            UITheme.AddBorder(block.targetGraphic, line.AdjacentMatches > 0 ? UITheme.Accent : ResolveTint(item), line.AdjacentMatches > 0 ? 2.5f : 2f);
+            Vector2 size = new Vector2(columns * Cell - 8f, rows * Cell - 8f);
+            UITheme.Place((RectTransform)block.transform, new Vector2(0f, 1f), new Vector2(item.Grid.CurrentPos[0] * Cell + 4f, -item.Grid.CurrentPos[1] * Cell - 4f), size);
+            Text priceText = block.GetComponentInChildren<Text>();
+            priceText.alignment = TextAnchor.LowerCenter;
+            priceText.rectTransform.offsetMin = new Vector2(2f, 2f);
+            Image icon = UITheme.CreatePanel(block.transform, "Icon_Image", Color.white);
+            icon.raycastTarget = false;
+            Vector2 iconBox = new Vector2(size.x - 12f, size.y - 30f);
+            UITheme.Place(icon.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -6f), iconBox);
+            VisualUIHelper.ApplyContainSprite(icon, VisualAssetService.ResolveItemIconID(item), iconBox, Color.white, ResolveTint(item));
+            ItemTooltipTrigger.Attach(block.gameObject, item);
             block.onClick.AddListener(() => Return(item));
             _dynamic.Add(block.gameObject);
         }

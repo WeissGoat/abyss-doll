@@ -207,6 +207,10 @@ public class HomeRoomNavigator : MonoBehaviour {
         _hallTags.Add(_journalTag);
         _journal = HomeJournalView.Create(_hallLayer.transform, () => ShowStudio(StudioTab.Maintenance), showing => {
             _hallZero?.HideFigure(showing && _journal.HasPortrait);
+            // The page has her line in its own bubble; a hall line still fading out would make two at once.
+            if (showing) {
+                _hallZero?.Hide();
+            }
             Refresh();
             if (!showing) {
                 SpeakOnEntering(HomeRoom.Hall);

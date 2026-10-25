@@ -96,6 +96,16 @@ public static class UILayoutCheck {
             }
 
             if (isText) {
+                // Part of the text under an opaque box drawn after it (a caption behind the grid it describes).
+                foreach (Shown box in panels) {
+                    if (box.Layer == s.Layer && !Related(s.Graphic.transform, box.Graphic.transform)
+                        && box.Graphic.color.a * box.Graphic.canvasRenderer.GetInheritedAlpha() >= BlockerAlpha
+                        && OverlapShare(s.Rect, box.Rect) > 0.15f && UIOcclusion.DrawsAfter(box.Graphic, s.Graphic)) {
+                        Add(findings, "text covered", s.Graphic, "by " + Name(box.Graphic));
+                        break;
+                    }
+                }
+
                 string fit = TextFit((Text)s.Graphic);
                 if (fit != null) {
                     Add(findings, "text does not fit", s.Graphic, fit);

@@ -154,7 +154,8 @@ public class WorkshopUIController : MonoBehaviour {
         if (moneyText != null) {
             if (_prologueHalfOpen) {
                 moneyText.text = $"第 {player.CurrentDay} 天   债务催缴中   资金 {player.Money}G   零号：短时可行动";
-                moneyText.fontSize = 22;
+                moneyText.resizeTextForBestFit = false;
+            moneyText.fontSize = 22;
             } else {
                 moneyText.text =
                     $"Day {player.CurrentDay} / M{player.CurrentMonth}.{player.CurrentMonthDay}   {player.Money}G\n" +
@@ -244,7 +245,8 @@ public class WorkshopUIController : MonoBehaviour {
 
         SetPanelActive(_topStatusPanel, !dayMode);
         SetPanelActive(_leftActionPanel, !dayMode);
-        SetPanelActive(_dollStatusPanel, !dayMode);
+        // The chassis plate is gone in the prologue too: it repeated the status card under the dialogue box.
+        SetPanelActive(_dollStatusPanel, false);
         if (dayMode) {
             SetPanelActive(_prologueObjectiveRibbon, false);
             SetPanelActive(_prologuePrimaryGlowImage, false);
@@ -696,8 +698,12 @@ public class WorkshopUIController : MonoBehaviour {
         SetButtonVisible(upgradeBtn, false);
         SetFormalEntryButtonsVisible(false);
 
-        if (_formalV1EntryPanel != null) {
-            _formalV1EntryPanel.gameObject.SetActive(true);
+        // Only the day strip, Zero and the 浅层入口 card: the locked-studio card, the hint corner, the status plate and
+        // the objective ribbon repeated what the status card had just said and crowded the dialogue box.
+        foreach (Image legacy in new[] { _formalV1EntryPanel, _bottomHintPanel, _dollStatusPanel, _prologueObjectiveRibbon }) {
+            if (legacy != null) {
+                legacy.gameObject.SetActive(false);
+            }
         }
 
         SetButtonLabel(departBtn, "浅层入口", 26);
@@ -728,6 +734,7 @@ public class WorkshopUIController : MonoBehaviour {
             moneyText.text = player == null
                 ? "第 1 天   工坊账本未恢复   当前目标：带零号下潜一次"
                 : $"第 {player.CurrentDay} 天   资金 {player.Money}G   {BuildPrologueRentPressureText(player)}   当前目标：带零号下潜一次";
+            moneyText.resizeTextForBestFit = false;
             moneyText.fontSize = 22;
         }
 
@@ -779,7 +786,7 @@ public class WorkshopUIController : MonoBehaviour {
         ApplyProloguePanelSkin(_dollStatusPanel, new Color(0.006f, 0.026f, 0.036f, 0.14f));
         ApplyProloguePanelSkin(_prologueObjectiveRibbon, new Color(0.004f, 0.030f, 0.038f, 0.24f));
         ResizeProloguePanel(_topStatusPanel, new Vector2(0.5f, 1f), new Vector2(0f, -16f), new Vector2(1240f, 52f));
-        ResizeProloguePanel(_leftActionPanel, new Vector2(0.80f, 0.52f), new Vector2(0f, -6f), new Vector2(420f, 600f));
+        ResizeProloguePanel(_leftActionPanel, new Vector2(0.80f, 0.56f), new Vector2(0f, 0f), new Vector2(420f, 420f));
         ResizeProloguePanel(_formalV1EntryPanel, new Vector2(0.17f, 0.48f), Vector2.zero, new Vector2(310f, 126f));
         ResizeProloguePanel(_bottomHintPanel, new Vector2(0.80f, 0.15f), Vector2.zero, new Vector2(340f, 104f));
         ResizeProloguePanel(_dollStatusPanel, new Vector2(0.5f, 0f), new Vector2(0f, 18f), new Vector2(660f, 66f));
@@ -881,6 +888,7 @@ public class WorkshopUIController : MonoBehaviour {
             string money = player == null ? "\u8d44\u91d1\u4e0d\u8db3" : $"\u8d44\u91d1 {player.Money}G";
             // One line: the strip is one line tall (a second line used to spill out of it).
             moneyText.text = $"{day}   \u503a\u52a1\u50ac\u7f34\u4e2d   {money}   \u96f6\u53f7\uff1a\u77ed\u65f6\u53ef\u884c\u52a8";
+            moneyText.resizeTextForBestFit = false;
             moneyText.fontSize = 22;
             moneyText.color = UITheme.TextPrimary;
         }
