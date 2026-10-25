@@ -15,7 +15,9 @@ using UnityEngine.UI;
 // over the skirt instead of kinking anywhere; the head turns on top of that by the head weight. Only small angles: a
 // flat picture turned further shows its stretch.
 // The weights are a registered sprite "<visualID>_puppet" (R = head, B = hands; build_puppet_rig.py, imported like
-// the sway rig; G is unused). It bends the sway's grid, so a portrait without a sway rig does not move.
+// the sway rig; G is unused). It bends the sway's grid, so a portrait without a sway rig does not move. Where her neck,
+// cheeks, knees and waist are on this portrait comes from its PortraitProfile (配置表(JSON)/Portraits); without one
+// the puppet stays off.
 // A portrait cut into "<visualID>_hair" and "<visualID>_body" (split_hair_layer.py) keeps her long hanging hair behind
 // her: the image shows the hair layer (swaying and following her head by the sway rig), and the body layer, drawn over
 // it on the same chain, never bends with the hair, so the edge of her dress stays clean.
@@ -25,22 +27,13 @@ public class UIPortraitPuppet : BaseMeshEffect {
     public const string HoldSuffix = "_hold";
     public const string HairSuffix = "_hair";
     public const string BodySuffix = "_body";
-    // Where her head turns and the middle of her cheeks, as (u, v) of doll_proto_0_stand from the bottom-left
-    // (build_puppet_rig.py prints the neck).
-    public static readonly Vector2 Neck = new Vector2(0.503f, 0.801f);
-    private static readonly Vector2 Cheeks = new Vector2(0.511f, 0.855f);
-    // Her lean starts at the knees (just under the skirt hem) and is whole from the waist up (v of doll_proto_0_stand).
-    private const float KneeV = 0.336f;
-    private const float WaistV = 0.609f;
     // Of every tilt her body takes this share and her head the rest; a slow sway of the body of its own on top.
     private const float BodyShare = 0.3f;
     private const float IdleLean = 0.4f;
     private const float IdleLeanPeriod = 5.1f;
     // Her hanging hair is carried sideways as its roots (this share of the width above the neck) move with her head,
-    // near her shoulders at once and toward the tips later (from HairLagTop down to HairLagBottom, v).
+    // near her shoulders at once and toward the tips later (the profile's HairLag).
     private const float HairRoot = 0.107f;
-    private const float HairLagTop = 0.753f;
-    private const float HairLagBottom = 0.381f;
     // Lengths are shares of the portrait width (0.016 = 16 px on the 1024 px portrait, 9 px in the studio), angles
     // degrees. Past about 6 degrees of tilt or 0.02 of dip the stretch across her skirt and collar starts to show.
     public const float PatDip = 0.016f;
@@ -57,8 +50,6 @@ public class UIPortraitPuppet : BaseMeshEffect {
     // Her reaching arm fades in fast when you take her hand and out a little slower when you let go.
     private const float HoldPoseIn = 0.12f;
     private const float HoldPoseOut = 0.25f;
-    // A point on the reaching arm (u, v from the bottom-left): the drawn arm turns with her there.
-    private static readonly Vector2 HoldAnchor = new Vector2(0.4f, 0.62f);
     // Head springs: a little bouncy, so a pat lets go with an overshoot. The body follows slower and softer.
     private const float Stiffness = 90f;
     private const float Damping = 11f;
@@ -72,6 +63,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
 
     private Texture2D _rig;
     private Color32[] _weights;
+    private PortraitProfile _profile;
     private UIPortraitSway _sway;
     private Spring _angle;
     private Spring _lean;
@@ -101,7 +93,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
     private Sprite _wholeSprite;
     private Image _bodyImage;
 
-    public bool HasRig => _weights != null;
+    public bool HasRig => _weights != null && _profile != null;
     // Her head's whole tilt: the body's lean and its own turn on the neck.
     public float HeadAngle => _angle.Value + _lean.Value;
     public float HeadDip => _dip.Value;
@@ -116,6 +108,13 @@ public class UIPortraitPuppet : BaseMeshEffect {
     // The furthest a vertex moved in the last mesh, in the portrait's local units.
     public float LastHeadShift { get; private set; }
 
+    // This portrait's points (u, v from the bottom-left).
+    private Vector2 Neck => PortraitProfile.Point(_profile.Neck);
+    private Vector2 Cheeks => PortraitProfile.Point(_profile.Cheeks);
+    private Vector2 HoldAnchor => PortraitProfile.Point(_profile.HoldAnchor);
+    private float KneeV => _profile.KneeV;
+    private float WaistV => _profile.WaistV;
+
     // Called by VisualUIHelper whenever an image gets a sprite, after the sway.
     public static void Sync(Image image, string visualID) {
         if (image == null) {
@@ -128,7 +127,12 @@ public class UIPortraitPuppet : BaseMeshEffect {
         }
 
         UIPortraitPuppet puppet = image.GetComponent<UIPortraitPuppet>();
-        if (rig == null || !rig.isReadable) {
+        PortraitProfile profile = PortraitProfile.Find(visualID);
+        if (rig != null && profile == null) {
+            Debug.LogWarning($"[UIPortraitPuppet] {visualID} has a puppet rig but no PortraitProfile (配置表(JSON)/Portraits); it stays still.");
+        }
+
+        if (rig == null || !rig.isReadable || profile == null) {
             if (puppet != null) {
                 puppet.ClearLayers();
                 puppet.enabled = false;
@@ -142,6 +146,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
         }
 
         puppet.SetRig(rig);
+        puppet._profile = profile;
         VisualAssetService.TryGetSprite(visualID + HoldSuffix, out Sprite hold);
         puppet._holdSprite = hold;
         VisualAssetService.TryGetSprite(visualID + HairSuffix, out Sprite hair);
@@ -347,7 +352,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
 
     public override void ModifyMesh(VertexHelper vh) {
         int count = vh.currentVertCount;
-        if (!IsActive() || _weights == null || count <= 4) {
+        if (!IsActive() || !HasRig || count <= 4) {
             _hasGrid = false;
             return;
         }
@@ -431,7 +436,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
 
         if (hair && _sway != null) {
             float weight = _sway.HairWeight(uv.x, uv.y);
-            float lag = Smooth(HairLagTop, HairLagBottom, uv.y);
+            float lag = Smooth(_profile.HairLag[0], _profile.HairLag[1], uv.y);
             q.x += weight * Mathf.Lerp(_hairNear.Value, _hairTip.Value, lag) * width;
         }
 
@@ -453,7 +458,7 @@ public class UIPortraitPuppet : BaseMeshEffect {
     }
 
     // The integral of the lean profile from the knees up to v (in v units).
-    private static float Climb(float v) {
+    private float Climb(float v) {
         if (v <= KneeV) {
             return 0f;
         }

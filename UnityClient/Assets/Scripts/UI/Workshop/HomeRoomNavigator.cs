@@ -41,6 +41,7 @@ public class HomeRoomNavigator : MonoBehaviour {
     private readonly System.Collections.Generic.List<Image> _roomLights = new System.Collections.Generic.List<Image>();
     // Evening (after the day's dive or rest, before the business): a warm dusk over every room.
     private static readonly Color EveningLight = new Color(0.42f, 0.2f, 0.1f, 0.2f);
+    private static bool _profileMissingLogged;
     private Coroutine _fadeRoutine;
     private HomeEveningStamps _stamps;
     private HomeUnpackView _unpack;
@@ -169,7 +170,7 @@ public class HomeRoomNavigator : MonoBehaviour {
 
         bool talk = _nightTalk.IsShowing;
         // In the studio only her head answers: her shoulder and hand would sit on the smudges.
-        Zero(Current).EnableTouch(region => Touch(Current, region), Current == HomeRoom.Studio);
+        Zero(Current).EnableTouch(region => Touch(Current, region), DollProfile(), Current == HomeRoom.Studio);
 
         _stamps.Refresh(player, night || talk, talk);
         EveningStamp next = talk ? EveningStamp.Goodnight : HomeEveningService.Next(player);
@@ -177,6 +178,17 @@ public class HomeRoomNavigator : MonoBehaviour {
         _counterHint.text = haul > 0 ? $"卸货：今天带回 {haul} 件" : night ? "摆货，开张营业" : "摆货、营业、出售";
         SetPulse(_counterTag, night && !talk && (next == EveningStamp.Unpack || next == EveningStamp.Business));
         SetPulse(_studioDoorTag, night && !talk && next == EveningStamp.Care);
+    }
+
+    // Where her touch zones and marks sit on her portrait (配置表(JSON)/Portraits); every room shows the same one.
+    private static PortraitProfile DollProfile() {
+        PortraitProfile profile = PortraitProfile.Find(DollVisualID);
+        if (profile == null && !_profileMissingLogged) {
+            _profileMissingLogged = true;
+            Debug.LogError($"[HomeRoomNavigator] No PortraitProfile for {DollVisualID} (配置表(JSON)/Portraits): she cannot be touched and shows no marks.");
+        }
+
+        return profile;
     }
 
     private static void SetPulse(Button tag, bool on) {
@@ -235,7 +247,7 @@ public class HomeRoomNavigator : MonoBehaviour {
         _lampGlow.raycastTarget = false;
         UITheme.Place(_lampGlow.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-160f, -60f), new Vector2(520f, 340f));
         _lampGlow.transform.SetSiblingIndex(2);
-        _care = StudioCareView.Create(_studioRoom.transform, (RectTransform)_studioRoom.transform.Find("DollDisplay/DollImage"), () => {
+        _care = StudioCareView.Create(_studioRoom.transform, (RectTransform)_studioRoom.transform.Find("DollDisplay/DollImage"), DollProfile(), () => {
             _bench.Refresh();
             _workshop?.RefreshUI();
             Refresh();

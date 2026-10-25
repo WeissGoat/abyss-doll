@@ -19,6 +19,7 @@ public static class ConfigManager {
     public static Dictionary<string, RumorConfig> Rumors = new Dictionary<string, RumorConfig>();
     public static NarrativeConfigDatabase Narrative = new NarrativeConfigDatabase();
     public static Dictionary<string, SceneConfig> Scenes = new Dictionary<string, SceneConfig>();
+    public static Dictionary<string, PortraitProfile> Portraits = new Dictionary<string, PortraitProfile>();
     public static Dictionary<string, HomeLinePool> HomeLines = new Dictionary<string, HomeLinePool>();
     public static List<WishConfig> Wishes = new List<WishConfig>();
     public static List<MilestoneConfig> Milestones = new List<MilestoneConfig>();
@@ -68,6 +69,8 @@ public static class ConfigManager {
         LoadConfigsIntoDict(Path.Combine(basePath, "Scenes"), Scenes, s => s.SceneID);
         // 16. Home (Zero's lines at home)
         LoadHome(Path.Combine(basePath, "Home"));
+        // 17. Portraits (where things are on a standing portrait)
+        LoadConfigsIntoDict(Path.Combine(basePath, "Portraits"), Portraits, p => p.VisualID);
         ItemTagLabels.Load(Path.Combine(basePath, "Effects", "TagLabels.json"));
 
         Debug.Log($"[ConfigManager] Configs loaded successfully! Items: {Items.Count}, Monsters: {Monsters.Count}, Dungeons: {Dungeons.Count}, Rewards: {Rewards.Count}, Maintenance: {MaintenanceConfigs.Count}, Economy: {EconomyConfigs.Count}, Factions: {Factions.Count}, Orders: {Orders.Count}, Rumors: {Rumors.Count}, NarrativeNodes: {Narrative.NodeCount}, NarrativeTriggers: {Narrative.TriggerCount}");
@@ -89,6 +92,7 @@ public static class ConfigManager {
         Rumors.Clear();
         Narrative = new NarrativeConfigDatabase();
         Scenes.Clear();
+        Portraits.Clear();
         HomeLines.Clear();
         Wishes.Clear();
         Milestones.Clear();

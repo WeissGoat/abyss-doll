@@ -59,6 +59,7 @@ public static class ConfigValidator {
         ValidateMonsters(report);
         ValidateDungeons(report);
         NarrativeConfigValidator.Validate(ConfigManager.Narrative, report);
+        ValidatePortraits(report);
 
         if (includeVisualAssets) {
             ValidateVisualAssets(report);
@@ -1121,6 +1122,60 @@ public static class ConfigValidator {
             if (!VisualAssetService.TryGetSprite(layerBackgroundID, out _)) {
                 report.AddWarning($"Dungeon layer [{kvp.Key}] background VisualID [{layerBackgroundID}] is not registered. Falling back to [{VisualAssetService.DefaultDungeonMapBackgroundID}].");
             }
+        }
+    }
+
+    private static void ValidatePortraits(ConfigValidationReport report) {
+        foreach (var kvp in ConfigManager.Portraits) {
+            PortraitProfile p = kvp.Value;
+            string id = $"Portrait [{kvp.Key}]";
+            if (p == null || string.IsNullOrEmpty(p.VisualID)) {
+                report.AddError($"{id} has no VisualID.");
+                continue;
+            }
+
+            CheckFractions(report, id, "Neck", p.Neck, 2);
+            CheckFractions(report, id, "Cheeks", p.Cheeks, 2);
+            CheckFractions(report, id, "HoldAnchor", p.HoldAnchor, 2);
+            CheckFractions(report, id, "HairLag", p.HairLag, 2);
+            CheckFractions(report, id, "HeadArea", p.HeadArea, 4);
+            CheckFractions(report, id, "ShoulderArea", p.ShoulderArea, 4);
+            CheckFractions(report, id, "HandArea", p.HandArea, 4);
+            if (!(p.KneeV >= 0f && p.KneeV < p.WaistV && p.Neck != null && p.Neck.Length >= 2 && p.WaistV < p.Neck[1])) {
+                report.AddError($"{id} needs 0 <= KneeV < WaistV < Neck y (KneeV {p.KneeV}, WaistV {p.WaistV}).");
+            }
+
+            if (p.HairLag != null && p.HairLag.Length >= 2 && p.HairLag[0] <= p.HairLag[1]) {
+                report.AddError($"{id} HairLag must go down: [{p.HairLag[0]}, {p.HairLag[1]}].");
+            }
+
+            CheckSpots(report, id, "GrimeSpots", p.GrimeSpots, CareService.MaxGrime);
+            CheckSpots(report, id, "CrackSpots", p.CrackSpots, CareService.Bands.Length);
+            CheckSpots(report, id, "HazeSpots", p.HazeSpots, CareService.Bands.Length);
+        }
+    }
+
+    private static void CheckFractions(ConfigValidationReport report, string id, string field, float[] values, int count) {
+        if (values == null || values.Length != count) {
+            report.AddError($"{id} {field} needs {count} numbers.");
+            return;
+        }
+
+        foreach (float value in values) {
+            if (value < 0f || value > 1f) {
+                report.AddError($"{id} {field} has {value}, outside 0-1.");
+            }
+        }
+    }
+
+    private static void CheckSpots(ConfigValidationReport report, string id, string field, List<float[]> spots, int needed) {
+        if (spots == null || spots.Count < needed) {
+            report.AddError($"{id} {field} needs {needed} spots (as many marks as CareService can put on her).");
+            return;
+        }
+
+        foreach (float[] spot in spots) {
+            CheckFractions(report, id, field, spot, 2);
         }
     }
 

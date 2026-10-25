@@ -10,16 +10,9 @@ using UnityEngine.UI;
 public class StudioCareView : MonoBehaviour {
     public const string RootName = "StudioCare_Runtime";
 
-    // Where marks sit on her portrait, as fractions of its rect (x from the left, y from the bottom): cape, dress,
-    // skirt and legs, never the face.
-    private static readonly Vector2[] GrimeSpots = {
-        new Vector2(0.43f, 0.56f), new Vector2(0.58f, 0.46f), new Vector2(0.36f, 0.36f),
-        new Vector2(0.54f, 0.30f), new Vector2(0.465f, 0.14f), new Vector2(0.56f, 0.06f)
-    };
-    private static readonly Vector2[] CrackSpots = { new Vector2(0.38f, 0.63f), new Vector2(0.6f, 0.52f), new Vector2(0.47f, 0.22f) };
-    private static readonly Vector2[] HazeSpots = { new Vector2(0.50f, 0.32f), new Vector2(0.41f, 0.48f), new Vector2(0.60f, 0.62f) };
-
     private RectTransform _portrait;
+    // Where marks sit on her portrait (its GrimeSpots, CrackSpots, HazeSpots, as fractions of its rect).
+    private PortraitProfile _profile;
     private readonly List<GameObject> _marks = new List<GameObject>();
     private Text _hint;
     private Text _bondText;
@@ -33,12 +26,13 @@ public class StudioCareView : MonoBehaviour {
     private CareMarkKind _popoverKind;
     private System.Action _onChanged;
 
-    public static StudioCareView Create(Transform room, RectTransform portrait, System.Action onChanged) {
+    public static StudioCareView Create(Transform room, RectTransform portrait, PortraitProfile profile, System.Action onChanged) {
         GameObject root = new GameObject(RootName, typeof(RectTransform));
         root.transform.SetParent(room, false);
         UITheme.Stretch((RectTransform)root.transform);
         StudioCareView view = root.AddComponent<StudioCareView>();
         view._portrait = portrait;
+        view._profile = profile;
         view._onChanged = onChanged;
         view.Build();
         return view;
@@ -57,13 +51,13 @@ public class StudioCareView : MonoBehaviour {
         int cracks = CareService.Count(doll, CareMarkKind.Crack);
         int haze = CareService.Count(doll, CareMarkKind.Haze);
         for (int i = 0; i < haze; i++) {
-            _marks.Add(CreateMark(CareMarkKind.Haze, HazeSpots[i], 150f, i));
+            AddMark(CareMarkKind.Haze, PortraitProfile.Spot(_profile?.HazeSpots, i), 150f, i);
         }
         for (int i = 0; i < cracks; i++) {
-            _marks.Add(CreateMark(CareMarkKind.Crack, CrackSpots[i], 96f, i));
+            AddMark(CareMarkKind.Crack, PortraitProfile.Spot(_profile?.CrackSpots, i), 96f, i);
         }
         for (int i = 0; i < grime; i++) {
-            _marks.Add(CreateMark(CareMarkKind.Grime, GrimeSpots[i], 70f, i));
+            AddMark(CareMarkKind.Grime, PortraitProfile.Spot(_profile?.GrimeSpots, i), 70f, i);
         }
 
         List<string> hints = new List<string>();
@@ -80,6 +74,13 @@ public class StudioCareView : MonoBehaviour {
 
         if (_popover.activeSelf) {
             BuildPopoverRows();
+        }
+    }
+
+    // ConfigValidator makes sure a profile has a spot for every mark CareService can put on her.
+    private void AddMark(CareMarkKind kind, Vector2? spot, float size, int index) {
+        if (spot.HasValue) {
+            _marks.Add(CreateMark(kind, spot.Value, size, index));
         }
     }
 

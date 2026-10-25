@@ -5,7 +5,7 @@ dragging the edge of her dress along. Also writes the sway rig the hair layer be
 
   python tools/美术工具/split_hair_layer.py <portrait.png> <out_dir> --id <visualID> --rig <out_rig.png>
       [--dress-left x0,y0,x1,y1] [--dress-right x0,y0,x1,y1] [--dress-rows top,bottom] [--hair-top y]
-      [--preview <out.png>]
+      [--hair-mask <mask.png>] [--preview <out.png>]
 
 Coordinates are pixels of the full-size portrait; the defaults are Zero's standing portrait (doll_proto_0_stand).
 
@@ -14,6 +14,9 @@ Coordinates are pixels of the full-size portrait; the defaults are Zero's standi
   points each, between --dress-rows) the scan walks outward to the dark outline and keeps its outer end.
 - Hair: everything else below --hair-top in the zone the hanging hair takes (build_portrait_rig.py's hair weight,
   spread out). The hair by her face stays in the body layer and turns with her head.
+- --hair-mask: for a portrait the colours cannot split (dark hair on dark clothes, hair over the body), paint the
+  hanging hair white on black at the portrait's size in any image editor; it replaces the two steps above. Paint
+  only hair that hangs free beside or behind her, nothing in front of her body or by her face.
 - Under her body the hair layer carries on: each row repeats the hair at the body's edge, smoothed down the hair's
   length, so hair swinging out from behind her shows hair instead of a gap.
 - Rig: R = how far the hair layer sways (soft all over the hair, nothing above her shoulders); G and B are 0. Half
@@ -56,7 +59,8 @@ def trace_side(lum, line, rows, side):
     return points
 
 
-def split(img, left, right, rows, hair_top):
+def find_hair(img, left, right, rows, hair_top):
+    """The hanging hair and her body, from the colours and the traced dress outline."""
     f = img.astype(np.float32)
     r, b, a = f[..., 0], f[..., 2], f[..., 3]
     h, w = a.shape
@@ -94,7 +98,15 @@ def split(img, left, right, rows, hair_top):
     zone = cv2.dilate((sway_hair > 0.02).astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (41, 41))) > 0
     zone &= ys > hair_top
     hair = (a > 0) & ~body & zone
+    return hair, body
 
+
+def split(img, hair, body, hair_top):
+    """The hair layer (carried on under her body), the body layer and the hair layer's sway weight."""
+    f = img.astype(np.float32)
+    a = f[..., 3]
+    h, w = a.shape
+    ys = np.arange(h)[:, None].repeat(w, 1)
     under = body & (cv2.dilate(hair.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * EXTEND - 9,) * 2)) > 0)
     hair_layer = f.copy()
     hair_layer[..., 3] = np.where(hair, a, 0)
@@ -114,7 +126,8 @@ def split(img, left, right, rows, hair_top):
     body_layer[..., 3] = np.where(hair, 0, a)
 
     weight = cv2.GaussianBlur((hair | under).astype(np.float32), (0, 0), 14)
-    weight = np.clip(weight * 1.6, 0, 1) * smooth(0.22, 0.40, ys / h)
+    # Nothing at --hair-top, whole a little below her shoulders.
+    weight = np.clip(weight * 1.6, 0, 1) * smooth(hair_top / h, hair_top / h + 0.18, ys / h)
     return hair_layer, body_layer, weight
 
 
@@ -143,11 +156,20 @@ def main():
     parser.add_argument('--dress-right', default='655,680,733,985', help='two points on the right edge of the dress')
     parser.add_argument('--dress-rows', default='600,1030', help='the rows to trace the dress edges over')
     parser.add_argument('--hair-top', type=float, default=330, help='hair above this row turns with the head')
+    parser.add_argument('--hair-mask', help='painted mask of the hanging hair (white), instead of finding it')
     parser.add_argument('--preview')
     args = parser.parse_args()
     img = np.array(Image.open(args.portrait).convert('RGBA'))
-    hair, body, weight = split(img, numbers(args.dress_left, 4), numbers(args.dress_right, 4), numbers(args.dress_rows, 2),
-                               args.hair_top)
+    if args.hair_mask:
+        mask = np.array(Image.open(args.hair_mask).convert('L'))
+        if mask.shape != img.shape[:2]:
+            raise SystemExit(f'the mask is {mask.shape[1]}x{mask.shape[0]}, the portrait {img.shape[1]}x{img.shape[0]}')
+        hair_mask = (mask > 127) & (img[..., 3] > 0)
+        body_mask = (img[..., 3] > 0) & ~hair_mask
+    else:
+        hair_mask, body_mask = find_hair(img, numbers(args.dress_left, 4), numbers(args.dress_right, 4),
+                                         numbers(args.dress_rows, 2), args.hair_top)
+    hair, body, weight = split(img, hair_mask, body_mask, args.hair_top)
     os.makedirs(args.out_dir, exist_ok=True)
     for suffix, layer in (('_hair', hair), ('_body', body)):
         path = os.path.join(args.out_dir, args.id + suffix + '.png')

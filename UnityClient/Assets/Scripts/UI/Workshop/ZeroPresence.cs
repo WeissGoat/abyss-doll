@@ -12,10 +12,6 @@ using UnityEngine.UI;
 public class ZeroPresence : MonoBehaviour {
     public const float LineSeconds = 5f;
     public const float StorySeconds = 8f;
-    // Where the touchable parts sit on the standing portrait (doll_proto_0_stand), as fractions of the image.
-    private static readonly Rect HeadArea = new Rect(0.39f, 0.81f, 0.23f, 0.16f);
-    private static readonly Rect ShoulderArea = new Rect(0.3f, 0.72f, 0.4f, 0.07f);
-    private static readonly Rect HandArea = new Rect(0.42f, 0.41f, 0.16f, 0.1f);
 
     private Image _bubble;
     private Text _line;
@@ -171,20 +167,21 @@ public class ZeroPresence : MonoBehaviour {
         _moveRoutine = StartCoroutine(Move(doll, reaction));
     }
 
-    // Head, shoulder and hand on her portrait answer a click (headOnly: just the head). Built on the portrait itself so
-    // they follow it. On a puppet portrait her head can also be patted and stroked, and her hand held (PortraitPatZone).
-    public void EnableTouch(System.Action<TouchRegion> onTouch, bool headOnly = false) {
+    // Head, shoulder and hand on her portrait answer a click (headOnly: just the head), where the portrait's profile
+    // puts them. Built on the portrait itself so they follow it. On a puppet portrait her head can also be patted and
+    // stroked, and her hand held (PortraitPatZone).
+    public void EnableTouch(System.Action<TouchRegion> onTouch, PortraitProfile profile, bool headOnly = false) {
         _onTouch = onTouch;
         RectTransform doll = _doll?.Invoke();
-        if (doll == null || doll == _zonesOn) {
+        if (doll == null || doll == _zonesOn || profile == null) {
             return;
         }
 
         _zonesOn = doll;
-        AddZone(doll, TouchRegion.Head, HeadArea);
+        AddZone(doll, TouchRegion.Head, PortraitProfile.Area(profile.HeadArea));
         if (!headOnly) {
-            AddZone(doll, TouchRegion.Shoulder, ShoulderArea);
-            AddZone(doll, TouchRegion.Hand, HandArea);
+            AddZone(doll, TouchRegion.Shoulder, PortraitProfile.Area(profile.ShoulderArea));
+            AddZone(doll, TouchRegion.Hand, PortraitProfile.Area(profile.HandArea));
         }
     }
 
