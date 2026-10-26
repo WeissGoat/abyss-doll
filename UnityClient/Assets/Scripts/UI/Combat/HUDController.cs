@@ -37,7 +37,12 @@ public class HUDController : MonoBehaviour {
     private Image _shieldBadge;
     private Image _sanBarTrack;
     private Image _sanBarFill;
-    private const string ShieldIconID = "ui_combat_intent_defend";
+    private Image _sanCandle;
+    private const string ShieldIconID = VisualAssetService.UICombatShieldBadgeID;
+    // ui_combat_hp_bar_frame: its height in pixels and the dark opening inside it (left, bottom, right, top), which the
+    // fill covers. Drawn at any height, the frame scales with it.
+    private const float BarFrameHeight = 96f;
+    private static readonly Vector4 BarFrameHollow = new Vector4(63f, 26f, 59f, 25f);
     // The turn banner shows while the enemy acts, while a target is being picked, and this long into her turn.
     private const float TurnBannerSeconds = 1.2f;
     // The right end of her HP bar (x on the reference canvas): the "-9" tag hangs under it, right-aligned.
@@ -327,14 +332,14 @@ public class HUDController : MonoBehaviour {
             TextAnchor.MiddleCenter);
         StretchToParent(_turnBannerLabel.rectTransform, 28f, 8f);
 
-        // Between the stage and the tray, only while it helps (RefreshTargetHint).
+        // Right of the satchel, over the buttons, only while it helps (RefreshTargetHint).
         _targetHintPanel = EnsureSkinImage(
             transform,
             _targetHintPanel,
             "TargetHintPanel",
-            680f,
-            596f,
-            560f,
+            1290f,
+            652f,
+            580f,
             44f,
             VisualAssetService.UIPanelInfoID,
             new Color(0.08f, 0.075f, 0.065f, 0.56f),
@@ -373,14 +378,14 @@ public class HUDController : MonoBehaviour {
             _hpBarTrack,
             ref _hpBarFill,
             "HpBar",
-            new Vector2(62f, -12f),
-            new Vector2(330f, 40f),
-            VisualAssetService.UICombatStatusBarHpID,
+            new Vector2(62f, -8f),
+            new Vector2(330f, 48f),
+            VisualAssetService.UICombatHpBarFrameID,
             new Color(0.86f, 0.16f, 0.12f, 0.95f));
-        _hpLossFill = EnsureBarFill(_hpBarTrack.transform, _hpLossFill, "IncomingLoss", new Color(1f, 0.84f, 0.42f, 0.9f));
+        _hpLossFill = EnsureBarFill(BarHollow(_hpBarTrack), _hpLossFill, "IncomingLoss", new Color(1f, 0.84f, 0.42f, 0.9f));
 
         _shieldBadge = EnsureSimpleImage(_playerHpPlate.transform, _shieldBadge, "ShieldBadge");
-        ConfigureTopLeftRect(_shieldBadge.rectTransform, 0f, -2f, 60f, 64f);
+        ConfigureTopLeftRect(_shieldBadge.rectTransform, 0f, -1f, 60f, 66f);
         VisualUIHelper.ApplySimpleSprite(_shieldBadge, ShieldIconID, Color.white, new Color(0.52f, 0.68f, 0.95f, 0.92f), false, true);
 
         _incomingPanel = EnsureSkinImage(
@@ -394,7 +399,9 @@ public class HUDController : MonoBehaviour {
             VisualAssetService.UIPanelInfoID,
             new Color(0.08f, 0.06f, 0.05f, 0.7f),
             false);
-        VisualUIHelper.ApplySolidColor(_incomingPanel, new Color(0.1f, 0.06f, 0.05f, 0.82f), false);
+        // The same red leather tag as a monster's attack, hanging under her bar.
+        VisualUIHelper.ApplySlicedSprite(_incomingPanel, VisualAssetService.UICombatIntentTagDangerID, Color.white, new Color(0.1f, 0.06f, 0.05f, 0.82f), false);
+        _incomingPanel.pixelsPerUnitMultiplier = 4f;
         _incomingLabel = EnsureChildLabel(
             _incomingPanel.transform,
             _incomingLabel,
@@ -421,13 +428,18 @@ public class HUDController : MonoBehaviour {
             false);
         ClearImage(_playerStatusPanel);
 
+        // SAN: a candle, then the number and a thin bar.
+        _sanCandle = EnsureSimpleImage(_playerStatusPanel.transform, _sanCandle, "SanCandle");
+        ConfigureTopLeftRect(_sanCandle.rectTransform, 12f, 130f, 56f, 70f);
+        VisualUIHelper.ApplySimpleSprite(_sanCandle, VisualAssetService.UICombatSanCandleID, Color.white, new Color(0.95f, 0.9f, 0.75f, 0.9f), false, true);
+
         _sanBarTrack = EnsureStatusTrack(
             _playerStatusPanel.transform,
             _sanBarTrack,
             ref _sanBarFill,
             "SanBar",
-            new Vector2(24f, -170f),
-            new Vector2(330f, 24f),
+            new Vector2(76f, -170f),
+            new Vector2(290f, 24f),
             VisualAssetService.UICombatStatusBarShieldID,
             new Color(0.56f, 0.46f, 0.86f, 0.95f));
 
@@ -638,8 +650,8 @@ public class HUDController : MonoBehaviour {
             : preview.HPLoss > 0 ? $"-{preview.HPLoss}"
             : "护盾挡住";
         _incomingLabel.color = preview.Lethal
-            ? new Color(1f, 0.42f, 0.36f)
-            : preview.HPLoss > 0 ? UITheme.AccentOnDark : UITheme.PositiveOnDark;
+            ? new Color(1f, 0.88f, 0.36f)
+            : preview.HPLoss > 0 ? UITheme.TextOnDark : UITheme.PositiveOnDark;
         RectTransform tag = _incomingPanel.rectTransform;
         float width = preview.Lethal ? 190f : 130f;
         tag.sizeDelta = new Vector2(width, tag.sizeDelta.y);
@@ -656,8 +668,8 @@ public class HUDController : MonoBehaviour {
         RectTransform rect = fill.rectTransform;
         rect.anchorMin = new Vector2(Mathf.Clamp01(from), 0f);
         rect.anchorMax = new Vector2(Mathf.Clamp01(to), 1f);
-        rect.offsetMin = new Vector2(from <= 0.001f ? 4f : 0f, 4f);
-        rect.offsetMax = new Vector2(-4f, -4f);
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
         fill.gameObject.SetActive(to - from > 0.001f);
     }
 
@@ -854,9 +866,9 @@ public class HUDController : MonoBehaviour {
         Image hpBar = CreateEnemyFootBar(
             slotObj.transform,
             "EnemyFootHpBar",
-            VisualAssetService.UICombatStatusBarHpID,
+            VisualAssetService.UICombatHpBarFrameID,
             new Vector2(0f, 40f),
-            new Vector2(260f, 32f),
+            new Vector2(260f, 36f),
             hpRatio,
             new Color(0.86f, 0.16f, 0.12f, 0.95f));
         Text hpText = EnsureChildLabel(hpBar.transform, null, "EnemyHp_Text", BuildEnemyHpText(fighter), 20, UITheme.TextOnDark, TextAnchor.MiddleCenter);
@@ -950,10 +962,10 @@ public class HUDController : MonoBehaviour {
         rect.pivot = new Vector2(0.5f, 0.5f);
         rect.anchoredPosition = bottomPosition;
         rect.sizeDelta = size;
-        VisualUIHelper.ApplySlicedSprite(track, visualID, new Color(1f, 1f, 1f, 0.68f), new Color(0.16f, 0.1f, 0.09f, 0.36f), false);
-        track.color = ratio > 0f ? track.color : new Color(track.color.r, track.color.g, track.color.b, 0.24f);
+        VisualUIHelper.ApplySlicedSprite(track, visualID, Color.white, new Color(0.16f, 0.1f, 0.09f, 0.36f), false);
+        track.color = ratio > 0f ? track.color : new Color(track.color.r, track.color.g, track.color.b, 0.5f);
 
-        Image fill = EnsureBarFill(track.transform, null, "Fill", fillColor);
+        Image fill = EnsureBarFill(BarHollow(track), null, "Fill", fillColor);
         SetBarFill(fill, ratio);
         return track;
     }
@@ -1019,36 +1031,39 @@ public class HUDController : MonoBehaviour {
 
     private void CreateEnemyIntentBadge(Transform parent, CombatIntentReadabilityLine line, float bottom) {
         // Kept under the top edge of the screen for a tall monster.
-        bottom = Mathf.Min(bottom, 470f);
+        bottom = Mathf.Min(bottom, 440f);
         bool hasNumber = !string.IsNullOrEmpty(line.IntentBadge);
-        float width = hasNumber ? 74f + 18f * Mathf.Max(1, line.IntentBadge.Length) : 76f;
+        float width = hasNumber ? 120f + 22f * Mathf.Max(1, line.IntentBadge.Length) : 110f;
         GameObject badgeObj = CreateRectGameObject("EnemyIntentBadge");
         badgeObj.transform.SetParent(parent, false);
         Image backing = badgeObj.AddComponent<Image>();
-        VisualUIHelper.ApplySolidColor(backing, new Color(0.13f, 0.07f, 0.06f, 0.86f), false);
+        // A leather tag: red for what hurts her this turn, brown for the rest.
+        bool harmful = line.IntentType == MonsterIntentType.Attack || line.IntentType == MonsterIntentType.SelfDestruct;
+        VisualUIHelper.ApplySlicedSprite(
+            backing,
+            harmful ? VisualAssetService.UICombatIntentTagDangerID : VisualAssetService.UICombatIntentTagID,
+            Color.white,
+            harmful ? new Color(0.55f, 0.12f, 0.1f, 0.92f) : new Color(0.26f, 0.16f, 0.1f, 0.92f),
+            false);
+        backing.pixelsPerUnitMultiplier = 2f;
         RectTransform rect = backing.rectTransform;
         rect.anchorMin = new Vector2(0.5f, 0f);
         rect.anchorMax = new Vector2(0.5f, 0f);
         rect.pivot = new Vector2(0.5f, 0f);
         rect.anchoredPosition = new Vector2(0f, bottom);
-        rect.sizeDelta = new Vector2(width, 64f);
-        Outline frame = badgeObj.AddComponent<Outline>();
-        frame.effectColor = line.IntentType == MonsterIntentType.Attack || line.IntentType == MonsterIntentType.SelfDestruct
-            ? new Color(0.86f, 0.3f, 0.22f, 0.95f)
-            : new Color(0.86f, 0.68f, 0.36f, 0.95f);
-        frame.effectDistance = new Vector2(2f, -2f);
+        rect.sizeDelta = new Vector2(width, 80f);
 
         Image icon = CreateRectGameObject("EnemyIntentIcon").AddComponent<Image>();
         icon.transform.SetParent(badgeObj.transform, false);
-        ConfigureTopLeftRect(icon.rectTransform, 6f, 4f, 56f, 56f);
+        ConfigureTopLeftRect(icon.rectTransform, 14f, 2f, 76f, 76f);
         VisualUIHelper.ApplySimpleSprite(icon, IntentIconID(line.IntentType), Color.white, new Color(0.9f, 0.5f, 0.3f, 1f), false, true);
         if (!line.CanExecute) {
             icon.color = new Color(1f, 1f, 1f, 0.4f);
         }
 
         if (hasNumber) {
-            Text number = EnsureChildLabel(badgeObj.transform, null, "EnemyIntentBadge_Text", line.IntentBadge, 32, UITheme.TextOnDark, TextAnchor.MiddleLeft);
-            PlaceLabel(number, backing, new Vector2(64f, -2f), new Vector2(width - 66f, 64f), 32, false);
+            Text number = EnsureChildLabel(badgeObj.transform, null, "EnemyIntentBadge_Text", line.IntentBadge, 38, UITheme.TextOnDark, TextAnchor.MiddleLeft);
+            PlaceLabel(number, backing, new Vector2(94f, -2f), new Vector2(width - 124f, 80f), 38, false);
             number.fontStyle = FontStyle.Bold;
         }
     }
@@ -1133,7 +1148,7 @@ public class HUDController : MonoBehaviour {
     }
 
     // Slot centre x and top y in the enemy stage. Side by side, the middle one a step further back, so no monster hides
-    // another and their bars and captions stay above the hint bar.
+    // another; two or three stand a little higher so their bars and captions clear the top of the satchel.
     private Vector2 ResolveEnemySlotPosition(int index, int count) {
         if (count <= 1) {
             return new Vector2(560f, 24f);
@@ -1141,17 +1156,17 @@ public class HUDController : MonoBehaviour {
 
         if (count == 2) {
             return index == 0
-                ? new Vector2(380f, 40f)
-                : new Vector2(740f, 30f);
+                ? new Vector2(380f, 10f)
+                : new Vector2(740f, 0f);
         }
 
         switch (index) {
             case 0:
-                return new Vector2(250f, 40f);
+                return new Vector2(250f, 10f);
             case 1:
-                return new Vector2(560f, 16f);
+                return new Vector2(560f, 0f);
             default:
-                return new Vector2(870f, 40f);
+                return new Vector2(870f, 10f);
         }
     }
 
@@ -1375,8 +1390,37 @@ public class HUDController : MonoBehaviour {
         rect.anchoredPosition = anchoredPosition;
         rect.sizeDelta = size;
         VisualUIHelper.ApplySlicedSprite(track, visualID, Color.white, new Color(0.15f, 0.1f, 0.08f, 0.9f), false);
-        currentFill = EnsureBarFill(track.transform, currentFill, "Fill", fillColor);
+        currentFill = EnsureBarFill(BarHollow(track), currentFill, "Fill", fillColor);
         return track;
+    }
+
+    // The part of a bar's track the fills cover: the opening of the framed HP bar (which is scaled to the bar's
+    // height), or 4 pixels in from the edge of a plain track.
+    private Transform BarHollow(Image track) {
+        Transform hollow = track.transform.Find("Hollow");
+        if (hollow == null) {
+            hollow = CreateRectGameObject("Hollow").transform;
+            hollow.SetParent(track.transform, false);
+            hollow.SetAsFirstSibling();
+        }
+
+        RectTransform rect = (RectTransform)hollow;
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        bool framed = track.sprite != null && track.sprite.name == VisualAssetService.UICombatHpBarFrameID;
+        if (framed) {
+            float scale = BarFrameHeight / Mathf.Max(1f, track.rectTransform.sizeDelta.y);
+            track.pixelsPerUnitMultiplier = scale;
+            rect.offsetMin = new Vector2(BarFrameHollow.x, BarFrameHollow.y) / scale;
+            rect.offsetMax = -new Vector2(BarFrameHollow.z, BarFrameHollow.w) / scale;
+        } else {
+            track.pixelsPerUnitMultiplier = 1f;
+            rect.offsetMin = new Vector2(4f, 4f);
+            rect.offsetMax = new Vector2(-4f, -4f);
+        }
+
+        return hollow;
     }
 
     private Image EnsureBarFill(Transform parent, Image currentFill, string objectName, Color fillColor) {
@@ -1396,8 +1440,8 @@ public class HUDController : MonoBehaviour {
         fillRect.anchorMin = new Vector2(0f, 0f);
         fillRect.anchorMax = new Vector2(1f, 1f);
         fillRect.pivot = new Vector2(0f, 0.5f);
-        fillRect.offsetMin = new Vector2(4f, 4f);
-        fillRect.offsetMax = new Vector2(-4f, -4f);
+        fillRect.offsetMin = Vector2.zero;
+        fillRect.offsetMax = Vector2.zero;
         VisualUIHelper.ApplySolidColor(fill, fillColor, false);
         return fill;
     }
@@ -1410,8 +1454,8 @@ public class HUDController : MonoBehaviour {
         RectTransform fillRect = fill.rectTransform;
         fillRect.anchorMin = new Vector2(0f, 0f);
         fillRect.anchorMax = new Vector2(Mathf.Clamp01(ratio), 1f);
-        fillRect.offsetMin = new Vector2(4f, 4f);
-        fillRect.offsetMax = new Vector2(-4f, -4f);
+        fillRect.offsetMin = Vector2.zero;
+        fillRect.offsetMax = Vector2.zero;
         fill.gameObject.SetActive(ratio > 0.001f);
     }
 
@@ -1433,23 +1477,24 @@ public class HUDController : MonoBehaviour {
         rect.anchorMin = new Vector2(0f, 1f);
         rect.anchorMax = new Vector2(0f, 1f);
         rect.pivot = new Vector2(0f, 1f);
-        rect.anchoredPosition = new Vector2(24f, -56f);
-        rect.sizeDelta = new Vector2(330f, 52f);
+        rect.anchoredPosition = new Vector2(4f, -50f);
+        rect.sizeDelta = new Vector2(360f, 78f);
         HorizontalLayoutGroup layout = pipRoot.AddComponent<HorizontalLayoutGroup>();
         layout.childAlignment = TextAnchor.MiddleLeft;
         layout.childControlWidth = false;
         layout.childControlHeight = false;
         layout.childForceExpandWidth = false;
         layout.childForceExpandHeight = false;
-        layout.spacing = 12f;
+        // The lantern pictures are narrow in their square, so they stand close.
+        layout.spacing = -22f;
         _apPipParent = pipRoot.transform;
     }
 
     private void PositionCombatTexts() {
         PlaceLabel(hpLabel, _hpBarTrack, Vector2.zero, Vector2.zero, 22, true);
         PlaceLabel(shieldLabel, _shieldBadge, Vector2.zero, Vector2.zero, 22, true);
-        PlaceLabel(apLabel, _playerStatusPanel, new Vector2(24f, -16f), new Vector2(160f, 36f), 22, false);
-        PlaceLabel(sanLabel, _playerStatusPanel, new Vector2(24f, -128f), new Vector2(330f, 36f), 22, false);
+        PlaceLabel(apLabel, _playerStatusPanel, new Vector2(24f, -14f), new Vector2(160f, 34f), 22, false);
+        PlaceLabel(sanLabel, _playerStatusPanel, new Vector2(76f, -132f), new Vector2(290f, 34f), 22, false);
 
         if (targetHintLabel != null && _targetHintPanel != null) {
             targetHintLabel.transform.SetParent(_targetHintPanel.transform, false);
@@ -1495,7 +1540,12 @@ public class HUDController : MonoBehaviour {
     }
 
     private void ApplyCombatButtonSkins() {
-        VisualUIHelper.ApplyButtonSkin(endTurnBtn, VisualAssetService.UIButtonPrimaryID, new Color(0.8f, 0.2f, 0.2f));
+        // End turn is a round red wax seal with the words pressed into it.
+        Image seal = endTurnBtn != null ? endTurnBtn.GetComponent<Image>() : null;
+        if (seal != null) {
+            VisualUIHelper.ApplySimpleSprite(seal, VisualAssetService.UICombatEndTurnSealID, Color.white, new Color(0.8f, 0.2f, 0.2f), true, true);
+            endTurnBtn.targetGraphic = seal;
+        }
         VisualUIHelper.ApplyButtonSkin(_cancelSelectionBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.24f, 0.22f, 0.2f));
         VisualUIHelper.ApplyButtonSkin(_unarmedStrikeBtn, VisualAssetService.UIButtonSecondaryID, new Color(0.3f, 0.26f, 0.22f));
     }
@@ -1515,12 +1565,14 @@ public class HUDController : MonoBehaviour {
             pipObj.transform.SetParent(_apPipParent, false);
             Image pip = pipObj.AddComponent<Image>();
             RectTransform rect = pip.rectTransform;
-            rect.sizeDelta = new Vector2(46f, 46f);
+            rect.sizeDelta = new Vector2(78f, 78f);
+            // A lit lantern per AP left, a dark one per AP spent.
+            bool lit = i < current;
             VisualUIHelper.ApplySimpleSprite(
                 pip,
-                VisualAssetService.UICombatApPipID,
-                i < current ? Color.white : new Color(0.38f, 0.38f, 0.38f, 0.82f),
-                i < current ? new Color(0.7f, 0.95f, 1f, 1f) : new Color(0.25f, 0.25f, 0.25f, 0.8f),
+                lit ? VisualAssetService.UICombatApLanternLitID : VisualAssetService.UICombatApLanternUnlitID,
+                lit ? Color.white : new Color(0.78f, 0.78f, 0.78f, 0.9f),
+                lit ? new Color(1f, 0.82f, 0.4f, 1f) : new Color(0.25f, 0.25f, 0.25f, 0.8f),
                 false,
                 true);
         }

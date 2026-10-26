@@ -327,6 +327,19 @@ public static class VisualAssetRegistryEditorTools {
             case VisualAssetService.UIButtonSecondaryID:
             case VisualAssetService.UIButtonDangerID:
                 return new ApprovedSpriteSpec("ui button", 512, 160, true, 512);
+            case VisualAssetService.UICombatTraySatchelID:
+                return new ApprovedSpriteSpec("ui tray frame", 1024, 838, true, 1024);
+            case VisualAssetService.UICombatEndTurnSealID:
+                return new ApprovedSpriteSpec("ui icon", 512, 512, true, 512);
+            case VisualAssetService.UICombatIntentTagID:
+            case VisualAssetService.UICombatIntentTagDangerID:
+                return new ApprovedSpriteSpec("ui tag", 512, 160, true, 512);
+            case VisualAssetService.UICombatHpBarFrameID:
+                return new ApprovedSpriteSpec("ui status bar", 512, 96, true, 512);
+            case VisualAssetService.UICombatApLanternLitID:
+            case VisualAssetService.UICombatApLanternUnlitID:
+            case VisualAssetService.UICombatSanCandleID:
+            case VisualAssetService.UICombatShieldBadgeID:
             case VisualAssetService.UICombatApPipID:
             case VisualAssetService.UIInventorySlotAvailableID:
             case VisualAssetService.UIInventorySlotLockedID:

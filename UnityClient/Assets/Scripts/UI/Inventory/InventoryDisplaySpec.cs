@@ -17,8 +17,14 @@ public static class InventoryDisplaySpec {
     public const float ChassisPanelPadding = 52f;
     // The combat tray sits under the stage and is never taller than this: up to 5 rows fit (the planned cap is 7×5,
     // docs/specs/2026-10-26-combat-screen-redesign.md), so a bigger chassis draws smaller cells, not a taller tray.
-    public const float CombatTrayGridHeight = 400f;
-    public const float CombatTrayMaxScale = 0.92f;
+    public const float CombatTrayGridHeight = 370f;
+    public const float CombatTrayMaxScale = 0.89f;
+    // The satchel around the combat tray (ui_combat_tray_satchel, 9-sliced) is drawn at 1/1.7 of its pixels. Its inner
+    // leather starts this far in from each edge, in sprite pixels (left, bottom, right, top); the grid sits a few
+    // pixels inside that. With the tray at y -304 the satchel's bottom rim ends at the bottom of the screen.
+    public const float SatchelPixelsPerUnitMultiplier = 1.7f;
+    public static readonly Vector4 SatchelInnerMargin = new Vector4(129f, 76f, 130f, 137f);
+    public const float SatchelGridInset = 6f;
 
     public static readonly Vector2 CellSizeVector = new Vector2(CellSize, CellSize);
     public static readonly Vector2 CellSpacingVector = new Vector2(CellSpacing, CellSpacing);
@@ -68,6 +74,17 @@ public static class InventoryDisplaySpec {
         return Mathf.Min(CombatTrayMaxScale, CombatTrayGridHeight / Mathf.Max(1f, gridSize.y));
     }
 
+    // The satchel's size on screen and where its centre is from the grid's centre, for a grid drawn at gridOnScreen.
+    public static Vector2 ResolveSatchelSize(Vector2 gridOnScreen, out Vector2 centreOffset) {
+        Vector4 margin = SatchelInnerMargin / SatchelPixelsPerUnitMultiplier;
+        float left = margin.x + SatchelGridInset;
+        float bottom = margin.y + SatchelGridInset;
+        float right = margin.z + SatchelGridInset;
+        float top = margin.w + SatchelGridInset;
+        centreOffset = new Vector2((right - left) * 0.5f, (top - bottom) * 0.5f);
+        return gridOnScreen + new Vector2(left + right, top + bottom);
+    }
+
     public static Vector2 ResolveChassisPanelSize(Vector2 gridSize) {
         return gridSize + new Vector2(ChassisPanelPadding, ChassisPanelPadding);
     }
@@ -77,7 +94,7 @@ public static class InventoryDisplaySpec {
             case InventoryPresentationMode.Workshop:
                 return new InventoryLayoutProfile(new Vector2(-650f, -320f), 0.62f);
             case InventoryPresentationMode.Combat:
-                return new InventoryLayoutProfile(new Vector2(0f, -320f), CombatTrayMaxScale);
+                return new InventoryLayoutProfile(new Vector2(0f, -304f), CombatTrayMaxScale);
             case InventoryPresentationMode.CombatLoot:
                 return new InventoryLayoutProfile(new Vector2(0f, -30f), 1f);
             case InventoryPresentationMode.SafeRoom:

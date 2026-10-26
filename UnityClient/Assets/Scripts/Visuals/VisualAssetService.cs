@@ -46,6 +46,15 @@ public static class VisualAssetService {
     public const string UICombatStatusBarShieldID = "ui_combat_status_bar_shield";
     public const string UICombatApPipID = "ui_combat_ap_pip";
     public const string UICombatTurnBannerID = "ui_combat_turn_banner";
+    public const string UICombatTraySatchelID = "ui_combat_tray_satchel";
+    public const string UICombatEndTurnSealID = "ui_combat_end_turn_seal";
+    public const string UICombatApLanternLitID = "ui_combat_ap_lantern_lit";
+    public const string UICombatApLanternUnlitID = "ui_combat_ap_lantern_unlit";
+    public const string UICombatSanCandleID = "ui_combat_san_candle";
+    public const string UICombatShieldBadgeID = "ui_combat_shield_badge";
+    public const string UICombatIntentTagID = "ui_combat_intent_tag";
+    public const string UICombatIntentTagDangerID = "ui_combat_intent_tag_danger";
+    public const string UICombatHpBarFrameID = "ui_combat_hp_bar_frame";
     public const string UIIconMoneyID = "ui_icon_money";
     public const string UIIconMaintenanceID = "ui_icon_maintenance";
     public const string UIIconBillID = "ui_icon_bill";

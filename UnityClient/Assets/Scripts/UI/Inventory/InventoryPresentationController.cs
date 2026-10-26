@@ -349,17 +349,33 @@ public class InventoryPresentationController : MonoBehaviour {
         panelRect.anchorMin = new Vector2(0.5f, 0.5f);
         panelRect.anchorMax = new Vector2(0.5f, 0.5f);
         panelRect.pivot = new Vector2(0.5f, 0.5f);
-        panelRect.anchoredPosition = position;
-        panelRect.sizeDelta = InventoryDisplaySpec.ResolveChassisPanelSize(gridSize);
-        panelRect.localScale = Vector3.one * scale;
-
-        VisualUIHelper.ApplyContainSprite(
-            _inventoryChassisPanel,
-            VisualAssetService.UIInventoryChassisPanelID,
-            panelRect.sizeDelta,
-            Color.white,
-            new Color(0.08f, 0.075f, 0.065f, 0.9f),
-            false);
+        if (_mode == InventoryPresentationMode.Combat) {
+            // In a fight the grid lies in an open satchel, drawn at screen scale so its rim and buckles keep their size
+            // whatever the chassis.
+            Vector2 size = InventoryDisplaySpec.ResolveSatchelSize(gridSize * scale, out Vector2 centreOffset);
+            VisualUIHelper.ApplySlicedSprite(
+                _inventoryChassisPanel,
+                VisualAssetService.UICombatTraySatchelID,
+                Color.white,
+                new Color(0.27f, 0.16f, 0.1f, 0.95f),
+                false);
+            _inventoryChassisPanel.pixelsPerUnitMultiplier = InventoryDisplaySpec.SatchelPixelsPerUnitMultiplier;
+            panelRect.anchoredPosition = position + centreOffset;
+            panelRect.sizeDelta = size;
+            panelRect.localScale = Vector3.one;
+        } else {
+            panelRect.anchoredPosition = position;
+            panelRect.sizeDelta = InventoryDisplaySpec.ResolveChassisPanelSize(gridSize);
+            panelRect.localScale = Vector3.one * scale;
+            _inventoryChassisPanel.pixelsPerUnitMultiplier = 1f;
+            VisualUIHelper.ApplyContainSprite(
+                _inventoryChassisPanel,
+                VisualAssetService.UIInventoryChassisPanelID,
+                panelRect.sizeDelta,
+                Color.white,
+                new Color(0.08f, 0.075f, 0.065f, 0.9f),
+                false);
+        }
 
         _inventoryChassisPanel.gameObject.SetActive(generator.gridParent.gameObject.activeSelf);
         _inventoryChassisPanel.transform.SetSiblingIndex(Mathf.Max(0, generator.gridParent.GetSiblingIndex()));
