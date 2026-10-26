@@ -42,6 +42,8 @@ public class MonsterActionIntentPreview {
     public string Title;
     // Title with its numbers, for the enemy card: "攻击 12", "攻击 6×2", "削弱武器 25%", "塞入齿轮废料".
     public string ShortText;
+    // Just the number for the badge over the enemy's head, next to the intent's icon: "12", "6×2", "-25%", "2格".
+    public string Badge;
     public string Description;
     public int DamagePerHit;
     public int RepeatCount;
@@ -371,6 +373,9 @@ public static class MonsterIntentPreviewService {
                 preview.ShortText = preview.RepeatCount > 1
                     ? $"攻击 {preview.DamagePerHit}×{preview.RepeatCount}"
                     : $"攻击 {preview.EstimatedTotalDamage}";
+                preview.Badge = preview.RepeatCount > 1
+                    ? $"{preview.DamagePerHit}×{preview.RepeatCount}"
+                    : preview.EstimatedTotalDamage.ToString();
                 preview.Description = preview.RepeatCount > 1
                     ? $"造成 {preview.DamagePerHit} x {preview.RepeatCount} 伤害，总计约 {preview.EstimatedTotalDamage}。"
                     : $"造成约 {preview.EstimatedTotalDamage} 伤害。";
@@ -379,18 +384,21 @@ public static class MonsterIntentPreviewService {
                 int reducedPercent = Mathf.RoundToInt((1f - preview.WeaponDamageMultiplier) * 100f);
                 preview.Title = "腐蚀武器";
                 preview.ShortText = $"削弱武器 {reducedPercent}%";
+                preview.Badge = $"-{reducedPercent}%";
                 preview.Description = $"随机削弱一件武器 {reducedPercent}%，持续 {preview.DurationPlayerTurns} 个玩家回合。";
                 break;
             case MonsterActionType.AddCursedItem:
                 string itemName = string.IsNullOrEmpty(preview.CursedItemName) ? preview.CursedItemID : preview.CursedItemName;
                 preview.Title = "塞入污染物";
                 preview.ShortText = $"塞入{itemName}（{preview.CursedItemGridCost}格）";
+                preview.Badge = $"{preview.CursedItemGridCost}格";
                 preview.Description = $"尝试向背包塞入 {itemName}，占格 {preview.CursedItemGridCost}。";
                 break;
             case MonsterActionType.GainShield:
                 string shieldWho = preview.AffectsAllAllies ? "所有敌人" : "自己";
                 preview.Title = "防御";
                 preview.ShortText = preview.AffectsAllAllies ? $"全体护盾 {preview.ShieldAmount}" : $"护盾 {preview.ShieldAmount}";
+                preview.Badge = preview.ShieldAmount.ToString();
                 preview.Description = $"给{shieldWho}加 {preview.ShieldAmount} 点护盾，挡到它下个回合开始。";
                 break;
             case MonsterActionType.Cleanse:
@@ -398,6 +406,7 @@ public static class MonsterIntentPreviewService {
                 string cleanseWho = preview.AffectsAllAllies ? "所有敌人" : "自己";
                 preview.Title = "净化";
                 preview.ShortText = preview.HealAmount > 0 ? $"净化{cleansed} +{preview.HealAmount} HP" : $"净化{cleansed}";
+                preview.Badge = preview.HealAmount > 0 ? $"+{preview.HealAmount}" : string.Empty;
                 preview.Description = preview.HealAmount > 0
                     ? $"清掉{cleanseWho}身上的{cleansed}，并各回复 {preview.HealAmount} HP。"
                     : $"清掉{cleanseWho}身上的{cleansed}。";
@@ -405,16 +414,19 @@ public static class MonsterIntentPreviewService {
             case MonsterActionType.SelfDestruct:
                 preview.Title = "自爆";
                 preview.ShortText = $"自爆 {preview.EstimatedTotalDamage}（无视护盾）";
+                preview.Badge = preview.EstimatedTotalDamage.ToString();
                 preview.Description = $"引爆自己，造成约 {preview.EstimatedTotalDamage} 伤害，护盾挡不住。在它行动前打倒它就不会爆。";
                 break;
             case MonsterActionType.ShuffleItems:
                 preview.Title = "震荡";
                 preview.ShortText = $"震乱背包 {preview.ShuffleCount} 件";
+                preview.Badge = $"{preview.ShuffleCount}件";
                 preview.Description = $"把背包里随机 {preview.ShuffleCount} 件物品挪到别处，挨着的加成可能断开。";
                 break;
             default:
                 preview.Title = "未知意图";
                 preview.ShortText = preview.Title;
+                preview.Badge = "?";
                 preview.Description = string.IsNullOrEmpty(preview.BlockReason) ? "该行动尚未定义可读描述。" : preview.BlockReason;
                 break;
         }

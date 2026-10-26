@@ -15,6 +15,10 @@ public static class InventoryDisplaySpec {
     public const float CellSize = 100f;
     public const float CellSpacing = 5f;
     public const float ChassisPanelPadding = 52f;
+    // The combat tray sits under the stage and is never taller than this: up to 5 rows fit (the planned cap is 7×5,
+    // docs/specs/2026-10-26-combat-screen-redesign.md), so a bigger chassis draws smaller cells, not a taller tray.
+    public const float CombatTrayGridHeight = 400f;
+    public const float CombatTrayMaxScale = 0.92f;
 
     public static readonly Vector2 CellSizeVector = new Vector2(CellSize, CellSize);
     public static readonly Vector2 CellSpacingVector = new Vector2(CellSpacing, CellSpacing);
@@ -60,6 +64,10 @@ public static class InventoryDisplaySpec {
         return new Vector2Int(offsetX, offsetY);
     }
 
+    public static float ResolveCombatScale(Vector2 gridSize) {
+        return Mathf.Min(CombatTrayMaxScale, CombatTrayGridHeight / Mathf.Max(1f, gridSize.y));
+    }
+
     public static Vector2 ResolveChassisPanelSize(Vector2 gridSize) {
         return gridSize + new Vector2(ChassisPanelPadding, ChassisPanelPadding);
     }
@@ -69,7 +77,7 @@ public static class InventoryDisplaySpec {
             case InventoryPresentationMode.Workshop:
                 return new InventoryLayoutProfile(new Vector2(-650f, -320f), 0.62f);
             case InventoryPresentationMode.Combat:
-                return new InventoryLayoutProfile(new Vector2(0f, -290f), 1f);
+                return new InventoryLayoutProfile(new Vector2(0f, -320f), CombatTrayMaxScale);
             case InventoryPresentationMode.CombatLoot:
                 return new InventoryLayoutProfile(new Vector2(0f, -30f), 1f);
             case InventoryPresentationMode.SafeRoom:

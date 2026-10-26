@@ -32,10 +32,12 @@ public static class CombatHUDIntentBindingSmokeTest {
         InvokeLifecycle(hud, "OnEnable");
 
         string text = CollectText(canvasObj);
-        // M2 batch 6: the enemy card shows the intent with its number, and the HUD previews the hit after the shield.
-        bool passed = text.Contains("意图：攻击 9")
+        // The intent badge over the enemy shows the attack's number, and her HP bar previews the hit after the shield.
+        Text badge = FindRectRecursive(canvasObj.transform, "EnemyIntentBadge_Text")?.GetComponent<Text>();
+        Text incoming = FindRectRecursive(canvasObj.transform, "IncomingDamage_Text")?.GetComponent<Text>();
+        bool passed = badge != null && badge.text == "9"
             && text.Contains("拾荒虫")
-            && text.Contains("敌方回合：受到 9 伤害");
+            && incoming != null && incoming.text == "-9";
 
         if (passed) {
             Debug.Log("Combat HUD Intent Binding PASSED.");
@@ -60,29 +62,32 @@ public static class CombatHUDIntentBindingSmokeTest {
         HUDController hud = hudObj.AddComponent<HUDController>();
         InvokeLifecycle(hud, "OnEnable");
 
+        // HP sits in the bar under her feet (shield badge on its left); AP and SAN are left of the tray.
+        RectTransform plate = FindRectRecursive(canvasObj.transform, "PlayerHpPlate");
+        RectTransform hpBar = FindRectRecursive(plate, "HpBar");
+        RectTransform hpText = FindRectRecursive(hpBar, "HP_Text");
+        RectTransform shieldBadge = FindRectRecursive(plate, "ShieldBadge");
         RectTransform panel = FindRectRecursive(canvasObj.transform, "PlayerStatusCluster");
-        RectTransform hpText = FindRectRecursive(panel, "HP_Text");
-        RectTransform hpBar = FindRectRecursive(panel, "HpBar");
-        RectTransform shieldText = FindRectRecursive(panel, "Shield_Text");
-        RectTransform shieldBar = FindRectRecursive(panel, "ShieldBar");
         RectTransform sanText = FindRectRecursive(panel, "SAN_Text");
+        RectTransform sanBar = FindRectRecursive(panel, "SanBar");
         RectTransform apText = FindRectRecursive(panel, "AP_Text");
         RectTransform apPips = FindRectRecursive(panel, "ApPips");
 
-        bool allPresent = panel != null
-            && hpText != null
+        bool allPresent = plate != null
             && hpBar != null
-            && shieldText != null
-            && shieldBar != null
+            && hpText != null
+            && shieldBadge != null
+            && panel != null
             && sanText != null
+            && sanBar != null
             && apText != null
             && apPips != null;
         bool noStatusOverlap = allPresent
-            && !RectsOverlap(hpText, hpBar)
-            && !RectsOverlap(shieldText, shieldBar)
-            && !RectsOverlap(sanText, apText)
-            && !RectsOverlap(apText, apPips);
-        bool panelHasBreathingRoom = panel != null && panel.sizeDelta.x >= 540f && panel.sizeDelta.y >= 200f;
+            && !RectsOverlap(shieldBadge, hpBar)
+            && !RectsOverlap(sanText, sanBar)
+            && !RectsOverlap(apText, apPips)
+            && !RectsOverlap(apPips, sanText);
+        bool panelHasBreathingRoom = panel != null && panel.sizeDelta.x >= 520f && panel.sizeDelta.y >= 200f;
 
         if (noStatusOverlap && panelHasBreathingRoom) {
             Debug.Log("Combat HUD Status Layout PASSED.");

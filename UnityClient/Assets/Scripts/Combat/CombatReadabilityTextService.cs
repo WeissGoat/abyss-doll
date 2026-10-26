@@ -22,6 +22,8 @@ public class CombatIntentReadabilityLine {
     public MonsterIntentType IntentType = MonsterIntentType.Unknown;
     public string IntentTitle;
     public string IntentShort;
+    // The number on the intent badge (MonsterActionIntentPreview.Badge).
+    public string IntentBadge;
     public string IntentDescription;
     public string StatusText;
     public string DetailText;
@@ -195,6 +197,7 @@ public static class CombatReadabilityTextService {
         line.IntentType = selected.IntentType;
         line.IntentTitle = string.IsNullOrEmpty(selected.Title) ? "未知意图" : selected.Title;
         line.IntentShort = string.IsNullOrEmpty(selected.ShortText) ? line.IntentTitle : selected.ShortText;
+        line.IntentBadge = selected.Badge ?? string.Empty;
         line.IntentDescription = selected.Description ?? string.Empty;
         line.StatusText = $"{line.MonsterName}: {line.IntentTitle}";
 

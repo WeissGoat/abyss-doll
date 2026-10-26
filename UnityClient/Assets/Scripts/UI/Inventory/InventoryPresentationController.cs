@@ -295,7 +295,7 @@ public class InventoryPresentationController : MonoBehaviour {
         Vector2 gridSize = ResolveInventoryGridSize(grid);
         InventoryLayoutProfile profile = InventoryDisplaySpec.ResolveLayoutProfile(_mode);
         Vector2 position = profile.AnchoredPosition;
-        float inventoryScale = profile.Scale;
+        float inventoryScale = _mode == InventoryPresentationMode.Combat ? InventoryDisplaySpec.ResolveCombatScale(gridSize) : profile.Scale;
 
         RectTransform gridRect = generator.gridParent as RectTransform;
         if (gridRect != null) {
@@ -307,7 +307,7 @@ public class InventoryPresentationController : MonoBehaviour {
             gridRect.localScale = Vector3.one * inventoryScale;
         }
 
-        EnsureInventoryChassisPanel(generator, gridSize, position);
+        EnsureInventoryChassisPanel(generator, gridSize, position, inventoryScale);
 
         RectTransform layerRect = inventoryItemLayer as RectTransform;
         if (layerRect != null && gridRect != null) {
@@ -326,7 +326,7 @@ public class InventoryPresentationController : MonoBehaviour {
         return InventoryDisplaySpec.ResolveGridSize(width, height);
     }
 
-    private void EnsureInventoryChassisPanel(GridGenerator generator, Vector2 gridSize, Vector2 position) {
+    private void EnsureInventoryChassisPanel(GridGenerator generator, Vector2 gridSize, Vector2 position, float scale) {
         Canvas canvas = MainCanvas.Find();
         if (canvas == null || generator?.gridParent == null) {
             return;
@@ -351,7 +351,7 @@ public class InventoryPresentationController : MonoBehaviour {
         panelRect.pivot = new Vector2(0.5f, 0.5f);
         panelRect.anchoredPosition = position;
         panelRect.sizeDelta = InventoryDisplaySpec.ResolveChassisPanelSize(gridSize);
-        panelRect.localScale = Vector3.one * InventoryDisplaySpec.ResolveLayoutProfile(_mode).Scale;
+        panelRect.localScale = Vector3.one * scale;
 
         VisualUIHelper.ApplyContainSprite(
             _inventoryChassisPanel,

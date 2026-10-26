@@ -15,8 +15,10 @@ public static class InventoryDisplaySpecSmokeTest {
         bool profileOk =
             Approximately(safeRoomProfile.AnchoredPosition, new Vector2(500f, -60f))
             && Approximately(new Vector2(safeRoomProfile.Scale, 0f), new Vector2(0.78f, 0f), 0.0001f)
-            && Approximately(combatProfile.AnchoredPosition, new Vector2(0f, -290f))
-            && Approximately(new Vector2(combatProfile.Scale, 0f), new Vector2(1f, 0f), 0.0001f)
+            && Approximately(combatProfile.AnchoredPosition, new Vector2(0f, -320f))
+            // The combat tray keeps 5 rows (7×5 cap) inside its height: a 4×4 grid at the full tray scale, 5 rows smaller.
+            && Mathf.Abs(InventoryDisplaySpec.ResolveCombatScale(InventoryDisplaySpec.ResolveGridSize(4, 4)) - InventoryDisplaySpec.CombatTrayMaxScale) < 0.0001f
+            && InventoryDisplaySpec.ResolveGridSize(7, 5).y * InventoryDisplaySpec.ResolveCombatScale(InventoryDisplaySpec.ResolveGridSize(7, 5)) <= InventoryDisplaySpec.CombatTrayGridHeight + 0.01f
             && workshopProfile.AnchoredPosition.x <= -620f
             && workshopProfile.AnchoredPosition.y <= -300f
             && workshopProfile.Scale <= 0.65f;

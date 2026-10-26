@@ -32,8 +32,19 @@ public class HUDController : MonoBehaviour {
     private const string DollCombatPoseSet = "doll_zero_combat";
     private Image _hpBarTrack;
     private Image _hpBarFill;
-    private Image _shieldBarTrack;
-    private Image _shieldBarFill;
+    private Image _playerHpPlate;
+    private Image _hpLossFill;
+    private Image _shieldBadge;
+    private Image _sanBarTrack;
+    private Image _sanBarFill;
+    private const string ShieldIconID = "ui_combat_intent_defend";
+    // The turn banner shows while the enemy acts, while a target is being picked, and this long into her turn.
+    private const float TurnBannerSeconds = 1.2f;
+    // The right end of her HP bar (x on the reference canvas): the "-9" tag hangs under it, right-aligned.
+    private const float HpBarRight = 662f;
+    private float _playerTurnShownAt = -10f;
+    // The fight in which she has already acted (spent AP): the how-to-attack hint is gone from then on.
+    private object _actedFight;
     private Transform _apPipParent;
     private CombatIntentReadabilitySnapshot _intentSnapshot;
     private CombatMotionDirector _motion;
@@ -54,6 +65,7 @@ public class HUDController : MonoBehaviour {
         SetActiveIfPresent(_actionStrip, !active);
         SetActiveIfPresent(_incomingPanel, !active);
         SetActiveIfPresent(_playerStatusPanel, !active);
+        SetActiveIfPresent(_playerHpPlate, !active);
     }
 
     private void OnEnable() {
@@ -74,6 +86,7 @@ public class HUDController : MonoBehaviour {
         _active = this;
         CombatSystem combatAtOpen = GameRoot.Core?.Combat;
         _playerTurnShown = combatAtOpen != null && combatAtOpen.CurrentState == CombatState.PlayerTurn && VisualQueue.Count == 0;
+        _playerTurnShownAt = Time.unscaledTime;
         RefreshCombatPresentation();
         PlayEnemyIntro();
         Debug.Log("[HUDController] Combat HUD initialized.");
@@ -202,7 +215,8 @@ public class HUDController : MonoBehaviour {
             Debug.LogWarning("[HUDController] Failed to create PlayerStageRoot. Combat stage widgets will be skipped.");
             return;
         }
-        ConfigureTopLeftRect(EnsureRect(_playerStageRoot), 100f, 190f, 440f, 620f);
+        // The stage is the upper part of the screen (her feet near y 605); the backpack tray is below it.
+        ConfigureTopLeftRect(EnsureRect(_playerStageRoot), 250f, 40f, 440f, 620f);
 
         _enemyStageRoot = ResolveEnemyStageRoot();
         if (_enemyStageRoot == null) {
@@ -212,7 +226,8 @@ public class HUDController : MonoBehaviour {
             Debug.LogWarning("[HUDController] Failed to create EnemyStageRoot. Combat enemy widgets will be skipped.");
             return;
         }
-        ConfigureTopLeftRect(EnsureRect(_enemyStageRoot), 1260f, 150f, 560f, 500f);
+        // From the middle of the stage to the right edge: up to three monsters side by side.
+        ConfigureTopLeftRect(EnsureRect(_enemyStageRoot), 860f, 100f, 1020f, 500f);
         enemyListParent = _enemyStageRoot;
         RemoveLayoutComponents(_enemyStageRoot.gameObject);
         StripEnemyStageBacking(_enemyStageRoot);
@@ -285,17 +300,22 @@ public class HUDController : MonoBehaviour {
     }
 
     private void EnsureCombatMainSkin() {
+        EnsureBottomShade();
+
         _turnBannerImage = EnsureSkinImage(
             transform,
             _turnBannerImage,
             "TurnBanner",
             760f,
-            28f,
+            24f,
             400f,
             58f,
             VisualAssetService.UICombatTurnBannerID,
             new Color(0.08f, 0.07f, 0.065f, 0.68f),
             false);
+        if (_turnBannerImage.GetComponent<CanvasGroup>() == null) {
+            _turnBannerImage.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = false;
+        }
 
         _turnBannerLabel = EnsureChildLabel(
             _turnBannerImage.transform,
@@ -307,84 +327,152 @@ public class HUDController : MonoBehaviour {
             TextAnchor.MiddleCenter);
         StretchToParent(_turnBannerLabel.rectTransform, 28f, 8f);
 
+        // Between the stage and the tray, only while it helps (RefreshTargetHint).
         _targetHintPanel = EnsureSkinImage(
             transform,
             _targetHintPanel,
             "TargetHintPanel",
-            720f,
-            424f,
-            480f,
-            54f,
+            680f,
+            596f,
+            560f,
+            44f,
             VisualAssetService.UIPanelInfoID,
             new Color(0.08f, 0.075f, 0.065f, 0.56f),
             false);
 
+        // Right of the tray: bare hands, cancel and the big end-turn button, with no panel behind them.
         _actionStrip = EnsureSkinImage(
             transform,
             _actionStrip,
             "ActionStrip",
+            1320f,
             720f,
-            498f,
-            480f,
-            68f,
+            560f,
+            330f,
             VisualAssetService.UIPanelInfoID,
-            new Color(0.06f, 0.055f, 0.05f, 0.48f),
+            Color.clear,
             false);
+        ClearImage(_actionStrip);
+
+        // Under her feet: HP in the bar, the shield badge on its left, and what the enemy turn will take flashing on it.
+        _playerHpPlate = EnsureSkinImage(
+            transform,
+            _playerHpPlate,
+            "PlayerHpPlate",
+            270f,
+            612f,
+            400f,
+            64f,
+            VisualAssetService.UIPanelInfoID,
+            Color.clear,
+            false);
+        ClearImage(_playerHpPlate);
+
+        _hpBarTrack = EnsureStatusTrack(
+            _playerHpPlate.transform,
+            _hpBarTrack,
+            ref _hpBarFill,
+            "HpBar",
+            new Vector2(62f, -12f),
+            new Vector2(330f, 40f),
+            VisualAssetService.UICombatStatusBarHpID,
+            new Color(0.86f, 0.16f, 0.12f, 0.95f));
+        _hpLossFill = EnsureBarFill(_hpBarTrack.transform, _hpLossFill, "IncomingLoss", new Color(1f, 0.84f, 0.42f, 0.9f));
+
+        _shieldBadge = EnsureSimpleImage(_playerHpPlate.transform, _shieldBadge, "ShieldBadge");
+        ConfigureTopLeftRect(_shieldBadge.rectTransform, 0f, -2f, 60f, 64f);
+        VisualUIHelper.ApplySimpleSprite(_shieldBadge, ShieldIconID, Color.white, new Color(0.52f, 0.68f, 0.95f, 0.92f), false, true);
 
         _incomingPanel = EnsureSkinImage(
             transform,
             _incomingPanel,
             "IncomingDamagePanel",
-            690f,
-            372f,
-            540f,
-            44f,
+            HpBarRight - 130f,
+            680f,
+            130f,
+            40f,
             VisualAssetService.UIPanelInfoID,
             new Color(0.08f, 0.06f, 0.05f, 0.7f),
             false);
+        VisualUIHelper.ApplySolidColor(_incomingPanel, new Color(0.1f, 0.06f, 0.05f, 0.82f), false);
         _incomingLabel = EnsureChildLabel(
             _incomingPanel.transform,
             _incomingLabel,
             "IncomingDamage_Text",
             string.Empty,
-            18,
-            UITheme.TextPrimary,
+            24,
+            UITheme.TextOnDark,
             TextAnchor.MiddleCenter);
-        StretchToParent(_incomingLabel.rectTransform, 12f, 2f);
+        _incomingLabel.fontStyle = FontStyle.Bold;
+        _incomingLabel.verticalOverflow = VerticalWrapMode.Overflow;
+        StretchToParent(_incomingLabel.rectTransform, 8f, 2f);
 
+        // Left of the tray: AP and SAN.
         _playerStatusPanel = EnsureSkinImage(
             transform,
             _playerStatusPanel,
             "PlayerStatusCluster",
-            120f,
-            774f,
-            560f,
-            214f,
+            70f,
+            770f,
+            540f,
+            230f,
             VisualAssetService.UIPanelInfoID,
-            new Color(0.08f, 0.075f, 0.065f, 0.88f),
+            Color.clear,
             false);
+        ClearImage(_playerStatusPanel);
 
-        _hpBarTrack = EnsureStatusTrack(
+        _sanBarTrack = EnsureStatusTrack(
             _playerStatusPanel.transform,
-            _hpBarTrack,
-            ref _hpBarFill,
-            "HpBar",
-            new Vector2(250f, -28f),
-            new Vector2(270f, 22f),
-            VisualAssetService.UICombatStatusBarHpID,
-            new Color(0.92f, 0.18f, 0.14f, 0.92f));
-
-        _shieldBarTrack = EnsureStatusTrack(
-            _playerStatusPanel.transform,
-            _shieldBarTrack,
-            ref _shieldBarFill,
-            "ShieldBar",
-            new Vector2(250f, -76f),
-            new Vector2(270f, 20f),
+            _sanBarTrack,
+            ref _sanBarFill,
+            "SanBar",
+            new Vector2(24f, -170f),
+            new Vector2(330f, 24f),
             VisualAssetService.UICombatStatusBarShieldID,
-            new Color(0.52f, 0.68f, 0.95f, 0.92f));
+            new Color(0.56f, 0.46f, 0.86f, 0.95f));
 
         EnsureApPipParent();
+    }
+
+    // A dark gradient from the middle of the stage down, so the tray and the numbers under it read on any background.
+    private void EnsureBottomShade() {
+        Image shade = EnsureSimpleImage(transform, null, "CombatBottomShade");
+        ConfigureTopLeftRect(shade.rectTransform, 0f, 500f, 1920f, 580f);
+        shade.sprite = BottomShadeSprite();
+        shade.type = Image.Type.Simple;
+        shade.preserveAspect = false;
+        shade.color = Color.white;
+        int above = backgroundImage != null ? backgroundImage.transform.GetSiblingIndex() + 1 : 0;
+        shade.transform.SetSiblingIndex(above);
+    }
+
+    private static Sprite _bottomShade;
+
+    private static Sprite BottomShadeSprite() {
+        if (_bottomShade != null) {
+            return _bottomShade;
+        }
+
+        const int height = 64;
+        Texture2D texture = new Texture2D(1, height, TextureFormat.RGBA32, false) {
+            name = "CombatBottomShade",
+            wrapMode = TextureWrapMode.Clamp
+        };
+        for (int y = 0; y < height; y++) {
+            float t = 1f - y / (float)(height - 1);
+            texture.SetPixel(0, y, new Color(0.04f, 0.03f, 0.025f, 0.72f * Mathf.SmoothStep(0f, 1f, t)));
+        }
+        texture.Apply(false, true);
+        _bottomShade = Sprite.Create(texture, new Rect(0f, 0f, 1f, height), new Vector2(0.5f, 0.5f), 1f);
+        return _bottomShade;
+    }
+
+    private static void ClearImage(Image image) {
+        if (image != null) {
+            image.sprite = null;
+            image.color = Color.clear;
+            image.raycastTarget = false;
+        }
     }
 
     private void EnsurePlayerStage() {
@@ -450,13 +538,8 @@ public class HUDController : MonoBehaviour {
             endTurnBtn.transform.SetParent(_actionStrip.transform, false);
         }
 
-        RectTransform endRect = endTurnBtn.GetComponent<RectTransform>();
-        endRect.anchorMin = new Vector2(0.5f, 0.5f);
-        endRect.anchorMax = new Vector2(0.5f, 0.5f);
-        endRect.pivot = new Vector2(0.5f, 0.5f);
-        endRect.anchoredPosition = new Vector2(158f, 0f);
-        endRect.sizeDelta = new Vector2(148f, 48f);
-        ConfigureButtonText(endTurnBtn, "结束回合", 21, UITheme.OnAccent);
+        ConfigureTopLeftRect(endTurnBtn.GetComponent<RectTransform>(), 310f, 50f, 220f, 220f);
+        ConfigureButtonText(endTurnBtn, "结束回合", 30, UITheme.OnAccent);
 
         if (_cancelSelectionBtn == null) {
             Transform existing = _actionStrip.transform.Find("CancelSelection_Button");
@@ -469,12 +552,7 @@ public class HUDController : MonoBehaviour {
             _cancelSelectionBtn.transform.SetParent(_actionStrip.transform, false);
         }
 
-        RectTransform cancelRect = _cancelSelectionBtn.GetComponent<RectTransform>();
-        cancelRect.anchorMin = new Vector2(0.5f, 0.5f);
-        cancelRect.anchorMax = new Vector2(0.5f, 0.5f);
-        cancelRect.pivot = new Vector2(0.5f, 0.5f);
-        cancelRect.anchoredPosition = new Vector2(0f, 0f);
-        cancelRect.sizeDelta = new Vector2(148f, 48f);
+        ConfigureTopLeftRect(_cancelSelectionBtn.GetComponent<RectTransform>(), 30f, 170f, 240f, 56f);
         ConfigureButtonText(_cancelSelectionBtn, "取消选择", 21, UITheme.TextPrimary);
 
         if (_unarmedStrikeBtn == null) {
@@ -487,14 +565,9 @@ public class HUDController : MonoBehaviour {
             BindUnarmedStrikeButton();
         }
 
-        RectTransform unarmedRect = _unarmedStrikeBtn.GetComponent<RectTransform>();
-        unarmedRect.anchorMin = new Vector2(0.5f, 0.5f);
-        unarmedRect.anchorMax = new Vector2(0.5f, 0.5f);
-        unarmedRect.pivot = new Vector2(0.5f, 0.5f);
-        unarmedRect.anchoredPosition = new Vector2(-158f, 0f);
-        unarmedRect.sizeDelta = new Vector2(148f, 48f);
+        ConfigureTopLeftRect(_unarmedStrikeBtn.GetComponent<RectTransform>(), 30f, 90f, 240f, 64f);
         DollEntity doll = GameRoot.Core?.CurrentPlayer?.ActiveDoll;
-        ConfigureButtonText(_unarmedStrikeBtn, $"徒手 {ItemUseService.GetUnarmedDamage(doll)}伤害", 19, UITheme.TextPrimary);
+        ConfigureButtonText(_unarmedStrikeBtn, $"徒手 {ItemUseService.GetUnarmedDamage(doll)}伤害", 21, UITheme.TextPrimary);
     }
 
     private void EnsureTargetHintLabel() {
@@ -513,24 +586,24 @@ public class HUDController : MonoBehaviour {
     }
 
     private void EnsureStatusTextLabels() {
-        if (_playerStatusPanel == null) {
+        if (_playerStatusPanel == null || _playerHpPlate == null) {
             return;
         }
 
         if (hpLabel == null) {
-            hpLabel = EnsureChildLabel(_playerStatusPanel.transform, hpLabel, "HP_Text", "HP: -- / --", 22, UITheme.Danger, TextAnchor.MiddleLeft);
+            hpLabel = EnsureChildLabel(_hpBarTrack.transform, hpLabel, "HP_Text", "-- / --", 22, UITheme.TextOnDark, TextAnchor.MiddleCenter);
         }
 
         if (shieldLabel == null) {
-            shieldLabel = EnsureChildLabel(_playerStatusPanel.transform, shieldLabel, "Shield_Text", "护盾: 0", 20, UITheme.Info, TextAnchor.MiddleLeft);
+            shieldLabel = EnsureChildLabel(_shieldBadge.transform, shieldLabel, "Shield_Text", "0", 22, UITheme.TextOnDark, TextAnchor.MiddleCenter);
         }
 
         if (sanLabel == null) {
-            sanLabel = EnsureChildLabel(_playerStatusPanel.transform, sanLabel, "SAN_Text", "SAN: -- / --", 20, UITheme.Hex(0x6A4C93), TextAnchor.MiddleLeft);
+            sanLabel = EnsureChildLabel(_playerStatusPanel.transform, sanLabel, "SAN_Text", "SAN -- / --", 22, UITheme.TextOnDark, TextAnchor.MiddleLeft);
         }
 
         if (apLabel == null) {
-            apLabel = EnsureChildLabel(_playerStatusPanel.transform, apLabel, "AP_Text", "AP: -- / --", 20, UITheme.Info, TextAnchor.MiddleLeft);
+            apLabel = EnsureChildLabel(_playerStatusPanel.transform, apLabel, "AP_Text", "AP -- / --", 22, UITheme.TextOnDark, TextAnchor.MiddleLeft);
         }
     }
 
@@ -550,17 +623,70 @@ public class HUDController : MonoBehaviour {
         }
 
         CombatSystem combat = GameRoot.Core?.Combat;
-        bool show = combat != null && combat.CurrentState == CombatState.PlayerTurn;
+        IncomingDamagePreview preview = combat != null && combat.CurrentState == CombatState.PlayerTurn
+            ? CombatReadabilityTextService.BuildIncomingDamagePreview(combat)
+            : null;
+        bool show = preview != null && preview.Total > 0;
         _incomingPanel.gameObject.SetActive(show);
-        if (!show) {
+        int maxHP = GetActivePlayerFighter()?.RuntimeMaxHP ?? 0;
+        if (!show || maxHP <= 0) {
+            SetBarSegment(_hpLossFill, 0f, 0f);
             return;
         }
 
-        IncomingDamagePreview preview = CombatReadabilityTextService.BuildIncomingDamagePreview(combat);
-        _incomingLabel.text = preview.Text;
+        _incomingLabel.text = preview.Lethal ? $"-{preview.HPLoss} 会倒下"
+            : preview.HPLoss > 0 ? $"-{preview.HPLoss}"
+            : "护盾挡住";
         _incomingLabel.color = preview.Lethal
-            ? UITheme.Danger
-            : preview.HPLoss > 0 ? UITheme.Warning : UITheme.Positive;
+            ? new Color(1f, 0.42f, 0.36f)
+            : preview.HPLoss > 0 ? UITheme.AccentOnDark : UITheme.PositiveOnDark;
+        RectTransform tag = _incomingPanel.rectTransform;
+        float width = preview.Lethal ? 190f : 130f;
+        tag.sizeDelta = new Vector2(width, tag.sizeDelta.y);
+        tag.anchoredPosition = new Vector2(HpBarRight - width, tag.anchoredPosition.y);
+        SetBarSegment(_hpLossFill, (float)preview.HPAfter / maxHP, (float)preview.HPBefore / maxHP);
+    }
+
+    // The bar between two fractions (what the enemy turn will take off her HP).
+    private void SetBarSegment(Image fill, float from, float to) {
+        if (fill == null) {
+            return;
+        }
+
+        RectTransform rect = fill.rectTransform;
+        rect.anchorMin = new Vector2(Mathf.Clamp01(from), 0f);
+        rect.anchorMax = new Vector2(Mathf.Clamp01(to), 1f);
+        rect.offsetMin = new Vector2(from <= 0.001f ? 4f : 0f, 4f);
+        rect.offsetMax = new Vector2(-4f, -4f);
+        fill.gameObject.SetActive(to - from > 0.001f);
+    }
+
+    private void Update() {
+        if (_hpLossFill != null && _hpLossFill.gameObject.activeSelf) {
+            Color color = _hpLossFill.color;
+            color.a = 0.45f + 0.45f * Mathf.Abs(Mathf.Sin(Time.unscaledTime * 3.2f));
+            _hpLossFill.color = color;
+        }
+
+        CanvasGroup banner = _turnBannerImage != null ? _turnBannerImage.GetComponent<CanvasGroup>() : null;
+        if (banner != null) {
+            banner.alpha = Mathf.MoveTowards(banner.alpha, TurnBannerWanted() ? 1f : 0f, Time.unscaledDeltaTime * 4f);
+        }
+    }
+
+    private bool TurnBannerWanted() {
+        CombatSystem combat = GameRoot.Core?.Combat;
+        if (combat == null || combat.CurrentState == CombatState.End) {
+            return false;
+        }
+
+        return !_playerTurnShown || ItemUseService.HasPendingEnemyTargetSelection || _autoEndTurn != null
+            || Time.unscaledTime - _playerTurnShownAt < TurnBannerSeconds;
+    }
+
+    private static object CurrentFight() {
+        CombatFaction enemies = GameRoot.Core?.Combat?.EnemyFaction;
+        return enemies != null && enemies.Fighters.Count > 0 ? enemies.Fighters[0] : null;
     }
 
     // Out of AP with nothing affordable left: end the turn for the player after a short beat, so the last hit lands
@@ -725,26 +851,25 @@ public class HUDController : MonoBehaviour {
         float hpRatio = fighter != null && fighter.RuntimeMaxHP > 0
             ? Mathf.Clamp01((float)Mathf.Max(0, fighter.RuntimeHP) / fighter.RuntimeMaxHP)
             : 0f;
-        CreateEnemyFootBar(
+        Image hpBar = CreateEnemyFootBar(
             slotObj.transform,
             "EnemyFootHpBar",
             VisualAssetService.UICombatStatusBarHpID,
-            new Vector2(0f, 36f),
-            new Vector2(200f, 16f),
+            new Vector2(0f, 40f),
+            new Vector2(260f, 32f),
             hpRatio,
-            new Color(0.92f, 0.16f, 0.12f, 0.95f));
+            new Color(0.86f, 0.16f, 0.12f, 0.95f));
+        Text hpText = EnsureChildLabel(hpBar.transform, null, "EnemyHp_Text", BuildEnemyHpText(fighter), 20, UITheme.TextOnDark, TextAnchor.MiddleCenter);
+        PlaceLabel(hpText, hpBar, Vector2.zero, Vector2.zero, 20, true);
 
-        float shieldRatio = fighter != null && fighter.RuntimeShield > 0 ? 1f : 0f;
-        CreateEnemyFootBar(
-            slotObj.transform,
-            "EnemyFootShieldBar",
-            VisualAssetService.UICombatStatusBarShieldID,
-            new Vector2(0f, 14f),
-            new Vector2(200f, 12f),
-            shieldRatio,
-            new Color(0.52f, 0.68f, 0.95f, 0.92f));
+        if (isAlive && fighter.RuntimeShield > 0) {
+            Image shieldBadge = CreateEnemyImage(slotObj.transform, "EnemyShieldBadge", new Vector2(-150f, 40f), new Vector2(50f, 54f));
+            VisualUIHelper.ApplySimpleSprite(shieldBadge, ShieldIconID, Color.white, new Color(0.52f, 0.68f, 0.95f, 0.92f), false, true);
+            Text shieldText = EnsureChildLabel(shieldBadge.transform, null, "EnemyShield_Text", fighter.RuntimeShield.ToString(), 20, UITheme.TextOnDark, TextAnchor.MiddleCenter);
+            PlaceLabel(shieldText, shieldBadge, Vector2.zero, Vector2.zero, 20, true);
+        }
 
-        CreateEnemyNameAndIntent(slotObj.transform, fighter, isAlive, targetable);
+        CreateEnemyNameAndIntent(slotObj.transform, fighter, isAlive, targetable, SpriteOpaqueTop(sprite));
         hotspot.transform.SetAsFirstSibling();
     }
 
@@ -815,7 +940,7 @@ public class HUDController : MonoBehaviour {
         return sprite;
     }
 
-    private void CreateEnemyFootBar(Transform parent, string objectName, string visualID, Vector2 bottomPosition, Vector2 size, float ratio, Color fillColor) {
+    private Image CreateEnemyFootBar(Transform parent, string objectName, string visualID, Vector2 bottomPosition, Vector2 size, float ratio, Color fillColor) {
         GameObject barObj = CreateRectGameObject(objectName);
         barObj.transform.SetParent(parent, false);
         Image track = barObj.AddComponent<Image>();
@@ -830,67 +955,140 @@ public class HUDController : MonoBehaviour {
 
         Image fill = EnsureBarFill(track.transform, null, "Fill", fillColor);
         SetBarFill(fill, ratio);
+        return track;
     }
 
-    private void CreateEnemyNameAndIntent(Transform parent, FighterEntity fighter, bool isAlive, bool targetable) {
-        GameObject nameObj = CreateRectGameObject("EnemyName_Text");
-        nameObj.transform.SetParent(parent, false);
-        Text nameLabel = nameObj.AddComponent<Text>();
-        nameLabel.font = _defaultFont;
-        nameLabel.fontSize = 18;
-        nameLabel.alignment = TextAnchor.MiddleCenter;
-        nameLabel.color = isAlive ? Color.white : new Color(0.65f, 0.65f, 0.65f, 0.92f);
-        nameLabel.raycastTarget = false;
-        nameLabel.text = fighter != null ? fighter.Name : "未知敌人";
+    // Under its HP bar its name (and what a non-attack intent does), statuses above the bar, and over its head the
+    // intent badge: the intent's icon and its number. spriteTop: the top of its sprite from the slot's bottom.
+    private void CreateEnemyNameAndIntent(Transform parent, FighterEntity fighter, bool isAlive, bool targetable, float spriteTop) {
+        Text nameLabel = CreateEnemyLabel(parent, "EnemyName_Text", fighter != null ? fighter.Name : "未知敌人", 18, new Vector2(0f, 8f));
+        nameLabel.color = isAlive ? UITheme.TextOnDark : new Color(0.65f, 0.65f, 0.65f, 0.92f);
 
         // Statuses on it (中毒 3 · 破甲 1), just above the HP bar.
         string statuses = isAlive ? CombatStatusService.Describe(fighter) : string.Empty;
         if (!string.IsNullOrEmpty(statuses)) {
-            GameObject statusObj = CreateRectGameObject("EnemyStatus_Text");
-            statusObj.transform.SetParent(parent, false);
-            Text statusLabel = statusObj.AddComponent<Text>();
-            statusLabel.font = _defaultFont;
-            statusLabel.fontSize = 18;
-            statusLabel.alignment = TextAnchor.MiddleCenter;
+            Text statusLabel = CreateEnemyLabel(parent, "EnemyStatus_Text", statuses, 18, new Vector2(0f, 76f));
             statusLabel.color = new Color(0.78f, 0.95f, 0.52f);
-            statusLabel.raycastTarget = false;
-            statusLabel.horizontalOverflow = HorizontalWrapMode.Overflow;
-            statusLabel.verticalOverflow = VerticalWrapMode.Overflow;
-            statusLabel.text = statuses;
-            Outline outline = statusObj.AddComponent<Outline>();
-            outline.effectColor = new Color(0f, 0f, 0f, 0.85f);
-            outline.effectDistance = new Vector2(1.5f, -1.5f);
-            RectTransform statusRect = statusLabel.rectTransform;
-            statusRect.anchorMin = new Vector2(0.5f, 0f);
-            statusRect.anchorMax = new Vector2(0.5f, 0f);
-            statusRect.pivot = new Vector2(0.5f, 0.5f);
-            statusRect.anchoredPosition = new Vector2(0f, 72f);
-            statusRect.sizeDelta = new Vector2(300f, 30f);
         }
-        RectTransform nameRect = nameLabel.rectTransform;
-        nameRect.anchorMin = new Vector2(0.5f, 0f);
-        nameRect.anchorMax = new Vector2(0.5f, 0f);
-        nameRect.pivot = new Vector2(0.5f, 0.5f);
-        nameRect.anchoredPosition = new Vector2(0f, 8f);
-        nameRect.sizeDelta = new Vector2(260f, 24f);
 
-        GameObject intentObj = CreateRectGameObject("EnemyIntent_Text");
-        intentObj.transform.SetParent(parent, false);
-        Text intentLabel = intentObj.AddComponent<Text>();
-        intentLabel.font = _defaultFont;
-        intentLabel.fontSize = 17;
-        intentLabel.alignment = TextAnchor.MiddleCenter;
-        intentLabel.color = targetable ? new Color(1f, 0.86f, 0.36f) : new Color(0.84f, 0.84f, 0.84f, 0.86f);
-        intentLabel.raycastTarget = false;
-        intentLabel.text = isAlive
-            ? BuildEnemyIntentText(fighter, targetable)
-            : "已击倒";
-        RectTransform intentRect = intentLabel.rectTransform;
-        intentRect.anchorMin = new Vector2(0.5f, 0f);
-        intentRect.anchorMax = new Vector2(0.5f, 0f);
-        intentRect.pivot = new Vector2(0.5f, 0.5f);
-        intentRect.anchoredPosition = new Vector2(0f, -30f);
-        intentRect.sizeDelta = new Vector2(300f, 50f);
+        CombatIntentReadabilityLine line = isAlive ? FindIntentLineForFighter(fighter) : null;
+        if (!isAlive) {
+            CreateEnemyLabel(parent, "EnemyIntent_Text", "已击倒", 18, new Vector2(0f, -18f));
+            return;
+        }
+
+        if (line == null || !line.HasSelectedIntent) {
+            return;
+        }
+
+        string intent = line.CanExecute ? line.IntentShort : $"{line.IntentShort}（做不到）";
+        if (line.IntentType != MonsterIntentType.Attack || !line.CanExecute) {
+            Text intentLabel = CreateEnemyLabel(parent, "EnemyIntent_Text", intent, 18, new Vector2(0f, -18f));
+            intentLabel.color = targetable ? new Color(1f, 0.86f, 0.36f) : new Color(1f, 0.9f, 0.78f);
+        }
+
+        CreateEnemyIntentBadge(parent, line, spriteTop + 8f);
+    }
+
+    // Where the monster's drawing actually ends, from the slot's bottom: combat sprites are square with empty space
+    // around the creature, and a Tight sprite mesh outlines what is painted (a Full Rect one gives the whole picture).
+    private static float SpriteOpaqueTop(Image sprite) {
+        RectTransform rect = sprite.rectTransform;
+        Vector2 box = rect.sizeDelta;
+        float drawnHeight = box.y;
+        float paintedTop = 1f;
+        Sprite source = sprite.sprite;
+        if (source != null && source.rect.width > 0f) {
+            if (sprite.preserveAspect) {
+                drawnHeight = Mathf.Min(box.y, box.x * source.rect.height / source.rect.width);
+            }
+
+            Bounds bounds = source.bounds;
+            float maxY = float.MinValue;
+            foreach (Vector2 vertex in source.vertices) {
+                maxY = Mathf.Max(maxY, vertex.y);
+            }
+
+            if (maxY > float.MinValue && bounds.size.y > 0f) {
+                paintedTop = Mathf.Clamp01((maxY - bounds.min.y) / bounds.size.y);
+            }
+        }
+
+        return rect.anchoredPosition.y + (box.y - drawnHeight) * 0.5f + drawnHeight * paintedTop;
+    }
+
+    private void CreateEnemyIntentBadge(Transform parent, CombatIntentReadabilityLine line, float bottom) {
+        // Kept under the top edge of the screen for a tall monster.
+        bottom = Mathf.Min(bottom, 470f);
+        bool hasNumber = !string.IsNullOrEmpty(line.IntentBadge);
+        float width = hasNumber ? 74f + 18f * Mathf.Max(1, line.IntentBadge.Length) : 76f;
+        GameObject badgeObj = CreateRectGameObject("EnemyIntentBadge");
+        badgeObj.transform.SetParent(parent, false);
+        Image backing = badgeObj.AddComponent<Image>();
+        VisualUIHelper.ApplySolidColor(backing, new Color(0.13f, 0.07f, 0.06f, 0.86f), false);
+        RectTransform rect = backing.rectTransform;
+        rect.anchorMin = new Vector2(0.5f, 0f);
+        rect.anchorMax = new Vector2(0.5f, 0f);
+        rect.pivot = new Vector2(0.5f, 0f);
+        rect.anchoredPosition = new Vector2(0f, bottom);
+        rect.sizeDelta = new Vector2(width, 64f);
+        Outline frame = badgeObj.AddComponent<Outline>();
+        frame.effectColor = line.IntentType == MonsterIntentType.Attack || line.IntentType == MonsterIntentType.SelfDestruct
+            ? new Color(0.86f, 0.3f, 0.22f, 0.95f)
+            : new Color(0.86f, 0.68f, 0.36f, 0.95f);
+        frame.effectDistance = new Vector2(2f, -2f);
+
+        Image icon = CreateRectGameObject("EnemyIntentIcon").AddComponent<Image>();
+        icon.transform.SetParent(badgeObj.transform, false);
+        ConfigureTopLeftRect(icon.rectTransform, 6f, 4f, 56f, 56f);
+        VisualUIHelper.ApplySimpleSprite(icon, IntentIconID(line.IntentType), Color.white, new Color(0.9f, 0.5f, 0.3f, 1f), false, true);
+        if (!line.CanExecute) {
+            icon.color = new Color(1f, 1f, 1f, 0.4f);
+        }
+
+        if (hasNumber) {
+            Text number = EnsureChildLabel(badgeObj.transform, null, "EnemyIntentBadge_Text", line.IntentBadge, 32, UITheme.TextOnDark, TextAnchor.MiddleLeft);
+            PlaceLabel(number, backing, new Vector2(64f, -2f), new Vector2(width - 66f, 64f), 32, false);
+            number.fontStyle = FontStyle.Bold;
+        }
+    }
+
+    // Intent icons in Approved/UI, one per kind of intent.
+    private static string IntentIconID(MonsterIntentType type) {
+        switch (type) {
+            case MonsterIntentType.Attack:
+                return "ui_combat_intent_attack";
+            case MonsterIntentType.WeakenWeapon:
+                return "ui_combat_intent_debuff";
+            case MonsterIntentType.AddJunk:
+                return "ui_combat_intent_add_junk";
+            case MonsterIntentType.Defend:
+                return "ui_combat_intent_defend";
+            case MonsterIntentType.Cleanse:
+                return "ui_combat_intent_buff";
+            case MonsterIntentType.SelfDestruct:
+                return "ui_combat_intent_charge";
+            case MonsterIntentType.Disrupt:
+                return "ui_combat_intent_move_item";
+            default:
+                return "ui_combat_intent_unknown";
+        }
+    }
+
+    private Text CreateEnemyLabel(Transform parent, string objectName, string text, int fontSize, Vector2 bottomPosition) {
+        Text label = EnsureChildLabel(parent, null, objectName, text, fontSize, UITheme.TextOnDark, TextAnchor.MiddleCenter);
+        Outline outline = label.gameObject.AddComponent<Outline>();
+        outline.effectColor = new Color(0f, 0f, 0f, 0.85f);
+        outline.effectDistance = new Vector2(1.5f, -1.5f);
+        label.horizontalOverflow = HorizontalWrapMode.Overflow;
+        label.verticalOverflow = VerticalWrapMode.Overflow;
+        RectTransform rect = label.rectTransform;
+        rect.anchorMin = new Vector2(0.5f, 0f);
+        rect.anchorMax = new Vector2(0.5f, 0f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = bottomPosition;
+        rect.sizeDelta = new Vector2(300f, 28f);
+        return label;
     }
 
     private string ResolveEnemyCombatVisualID(FighterEntity fighter) {
@@ -902,26 +1100,7 @@ public class HUDController : MonoBehaviour {
     }
 
     private string BuildEnemyHpText(FighterEntity fighter) {
-        if (fighter == null) {
-            return "HP -";
-        }
-
-        string shieldText = fighter.RuntimeShield > 0 ? $" / 护盾 {fighter.RuntimeShield}" : string.Empty;
-        return $"HP {Mathf.Max(0, fighter.RuntimeHP)}/{fighter.RuntimeMaxHP}{shieldText}";
-    }
-
-    private string BuildEnemyIntentText(FighterEntity fighter, bool targetable) {
-        if (targetable) {
-            return "可选中";
-        }
-
-        CombatIntentReadabilityLine line = FindIntentLineForFighter(fighter);
-        if (line == null || !line.IsAlive || !line.HasSelectedIntent) {
-            return BuildEnemyHpText(fighter);
-        }
-
-        string intent = line.CanExecute ? line.IntentShort : $"{line.IntentShort}（做不到）";
-        return $"意图：{intent}\n{BuildEnemyHpText(fighter)}";
+        return fighter != null ? $"{Mathf.Max(0, fighter.RuntimeHP)} / {fighter.RuntimeMaxHP}" : "-";
     }
 
     private CombatIntentReadabilityLine FindIntentLineForFighter(FighterEntity fighter) {
@@ -953,24 +1132,26 @@ public class HUDController : MonoBehaviour {
             : new Vector2(300f, 420f);
     }
 
+    // Slot centre x and top y in the enemy stage. Side by side, the middle one a step further back, so no monster hides
+    // another and their bars and captions stay above the hint bar.
     private Vector2 ResolveEnemySlotPosition(int index, int count) {
         if (count <= 1) {
-            return new Vector2(300f, 24f);
+            return new Vector2(560f, 24f);
         }
 
         if (count == 2) {
             return index == 0
-                ? new Vector2(220f, 84f)
-                : new Vector2(410f, 24f);
+                ? new Vector2(380f, 40f)
+                : new Vector2(740f, 30f);
         }
 
         switch (index) {
             case 0:
-                return new Vector2(300f, 112f);
+                return new Vector2(250f, 40f);
             case 1:
-                return new Vector2(188f, 24f);
+                return new Vector2(560f, 16f);
             default:
-                return new Vector2(432f, 34f);
+                return new Vector2(870f, 40f);
         }
     }
 
@@ -991,7 +1172,7 @@ public class HUDController : MonoBehaviour {
     private void HandleHPChanged(string id, int current, int max) {
         if (GameRoot.Core?.CurrentPlayer?.ActiveDoll != null && id == GameRoot.Core.CurrentPlayer.ActiveDoll.Name) {
             if (hpLabel != null) {
-                hpLabel.text = $"HP: {current} / {max}";
+                hpLabel.text = $"{current} / {max}";
             }
             SetBarFill(_hpBarFill, max > 0 ? (float)current / max : 0f);
             RefreshIncomingPreview();
@@ -1005,15 +1186,21 @@ public class HUDController : MonoBehaviour {
     private void HandleSANChanged(string id, int current, int max) {
         if (GameRoot.Core?.CurrentPlayer?.ActiveDoll != null && id == GameRoot.Core.CurrentPlayer.ActiveDoll.Name) {
             if (sanLabel != null) {
-                sanLabel.text = $"SAN: {current} / {max}";
+                sanLabel.text = $"SAN {current} / {max}";
             }
+            SetBarFill(_sanBarFill, max > 0 ? (float)current / max : 0f);
         }
     }
 
     private void HandleAPChanged(string id, int current, int max) {
         if (GameRoot.Core?.CurrentPlayer?.ActiveDoll != null && id == GameRoot.Core.CurrentPlayer.ActiveDoll.Name) {
             if (apLabel != null) {
-                apLabel.text = $"AP: {current} / {max}";
+                apLabel.text = $"AP {current}/{max}";
+            }
+
+            CombatSystem combat = GameRoot.Core?.Combat;
+            if (current < max && combat != null && combat.CurrentState == CombatState.PlayerTurn) {
+                _actedFight = CurrentFight();
             }
             RefreshApPips(current, max);
             MaybeAutoEndTurn();
@@ -1023,9 +1210,9 @@ public class HUDController : MonoBehaviour {
     private void HandleShieldChanged(string id, int current) {
         if (GameRoot.Core?.CurrentPlayer?.ActiveDoll != null && id == GameRoot.Core.CurrentPlayer.ActiveDoll.Name) {
             if (shieldLabel != null) {
-                shieldLabel.text = $"护盾: {current}";
+                shieldLabel.text = current.ToString();
             }
-            SetBarFill(_shieldBarFill, current > 0 ? 1f : 0f);
+            SetActiveIfPresent(_shieldBadge, current > 0);
             RefreshIncomingPreview();
             return;
         }
@@ -1036,6 +1223,7 @@ public class HUDController : MonoBehaviour {
     private void HandleTurnStarted(FactionType type) {
         _playerTurnShown = type == FactionType.Player;
         if (type == FactionType.Player) {
+            _playerTurnShownAt = Time.unscaledTime;
             _endTurnGuard.OnPlayerTurnStarted(Time.unscaledTime);
         }
 
@@ -1087,8 +1275,8 @@ public class HUDController : MonoBehaviour {
 
     private void RefreshTargetHint() {
         string message = ItemUseService.HasPendingEnemyTargetSelection
-            ? $"[{ItemUseService.PendingTargetItemName}] 已准备，点击右侧敌人完成攻击。"
-            : "点击背包里的武器后，再点击右侧敌人进行攻击。";
+            ? $"[{ItemUseService.PendingTargetItemName}] 已准备，点击敌人完成攻击。"
+            : "点击背包里的武器，再点击敌人攻击。";
         RefreshTargetHint(message, ItemUseService.HasPendingEnemyTargetSelection);
     }
 
@@ -1099,6 +1287,9 @@ public class HUDController : MonoBehaviour {
 
         targetHintLabel.text = message;
         targetHintLabel.color = isActive ? UITheme.Accent : UITheme.TextPrimary;
+        // Until her first action in this fight, or while a target is being picked.
+        bool acted = _actedFight != null && _actedFight == CurrentFight();
+        SetActiveIfPresent(_targetHintPanel, isActive || !acted);
 
         if (_turnBannerLabel != null && isActive) {
             _turnBannerLabel.text = "选择攻击目标";
@@ -1111,15 +1302,7 @@ public class HUDController : MonoBehaviour {
             _unarmedStrikeBtn.interactable = combat != null && combat.CurrentState == CombatState.PlayerTurn && _playerTurnShown;
         }
 
-        if (_cancelSelectionBtn != null) {
-            _cancelSelectionBtn.interactable = ItemUseService.HasPendingEnemyTargetSelection;
-            CanvasGroup group = _cancelSelectionBtn.GetComponent<CanvasGroup>();
-            if (group == null) {
-                group = _cancelSelectionBtn.gameObject.AddComponent<CanvasGroup>();
-            }
-            group.alpha = ItemUseService.HasPendingEnemyTargetSelection ? 1f : 0.58f;
-            group.blocksRaycasts = true;
-        }
+        SetActiveIfPresent(_cancelSelectionBtn, ItemUseService.HasPendingEnemyTargetSelection);
     }
 
     private void EnsureCombatBackground() {
@@ -1250,23 +1433,23 @@ public class HUDController : MonoBehaviour {
         rect.anchorMin = new Vector2(0f, 1f);
         rect.anchorMax = new Vector2(0f, 1f);
         rect.pivot = new Vector2(0f, 1f);
-        rect.anchoredPosition = new Vector2(250f, -152f);
-        rect.sizeDelta = new Vector2(270f, 28f);
+        rect.anchoredPosition = new Vector2(24f, -56f);
+        rect.sizeDelta = new Vector2(330f, 52f);
         HorizontalLayoutGroup layout = pipRoot.AddComponent<HorizontalLayoutGroup>();
         layout.childAlignment = TextAnchor.MiddleLeft;
         layout.childControlWidth = false;
         layout.childControlHeight = false;
         layout.childForceExpandWidth = false;
         layout.childForceExpandHeight = false;
-        layout.spacing = 8f;
+        layout.spacing = 12f;
         _apPipParent = pipRoot.transform;
     }
 
     private void PositionCombatTexts() {
-        MoveTextToPanel(hpLabel, new Vector2(24f, -18f), new Vector2(210f, 28f), 19, UITheme.Danger);
-        MoveTextToPanel(shieldLabel, new Vector2(24f, -66f), new Vector2(210f, 28f), 18, UITheme.Info);
-        MoveTextToPanel(sanLabel, new Vector2(24f, -112f), new Vector2(210f, 28f), 18, UITheme.Hex(0x6A4C93));
-        MoveTextToPanel(apLabel, new Vector2(24f, -154f), new Vector2(210f, 28f), 18, UITheme.Info);
+        PlaceLabel(hpLabel, _hpBarTrack, Vector2.zero, Vector2.zero, 22, true);
+        PlaceLabel(shieldLabel, _shieldBadge, Vector2.zero, Vector2.zero, 22, true);
+        PlaceLabel(apLabel, _playerStatusPanel, new Vector2(24f, -16f), new Vector2(160f, 36f), 22, false);
+        PlaceLabel(sanLabel, _playerStatusPanel, new Vector2(24f, -128f), new Vector2(330f, 36f), 22, false);
 
         if (targetHintLabel != null && _targetHintPanel != null) {
             targetHintLabel.transform.SetParent(_targetHintPanel.transform, false);
@@ -1277,15 +1460,32 @@ public class HUDController : MonoBehaviour {
         }
     }
 
-    private void MoveTextToPanel(Text text, Vector2 position, Vector2 size, int fontSize, Color color) {
-        if (text == null || _playerStatusPanel == null) {
+    // A label on dark ground with an outline: stretched over its parent (centered), or at a top-left spot in it.
+    private void PlaceLabel(Text text, Component parent, Vector2 position, Vector2 size, int fontSize, bool stretch) {
+        if (text == null || parent == null) {
             return;
         }
 
-        text.transform.SetParent(_playerStatusPanel.transform, false);
+        text.transform.SetParent(parent.transform, false);
         text.fontSize = fontSize;
-        text.color = color;
+        text.color = UITheme.TextOnDark;
         text.raycastTarget = false;
+        text.horizontalOverflow = HorizontalWrapMode.Overflow;
+        // A line of Noto Sans SC is taller than its font size; truncating would drop the whole line in a short box.
+        text.verticalOverflow = VerticalWrapMode.Overflow;
+        text.alignment = stretch ? TextAnchor.MiddleCenter : TextAnchor.MiddleLeft;
+        Outline outline = text.GetComponent<Outline>();
+        if (outline == null) {
+            outline = text.gameObject.AddComponent<Outline>();
+        }
+        outline.effectColor = new Color(0f, 0f, 0f, 0.85f);
+        outline.effectDistance = new Vector2(1.5f, -1.5f);
+        if (stretch) {
+            StretchToParent(text.rectTransform, 4f, 0f);
+            text.transform.SetAsLastSibling();
+            return;
+        }
+
         RectTransform rect = text.rectTransform;
         rect.anchorMin = new Vector2(0f, 1f);
         rect.anchorMax = new Vector2(0f, 1f);
@@ -1315,7 +1515,7 @@ public class HUDController : MonoBehaviour {
             pipObj.transform.SetParent(_apPipParent, false);
             Image pip = pipObj.AddComponent<Image>();
             RectTransform rect = pip.rectTransform;
-            rect.sizeDelta = new Vector2(24f, 24f);
+            rect.sizeDelta = new Vector2(46f, 46f);
             VisualUIHelper.ApplySimpleSprite(
                 pip,
                 VisualAssetService.UICombatApPipID,

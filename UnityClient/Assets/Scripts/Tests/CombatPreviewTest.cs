@@ -29,6 +29,7 @@ public static class CombatPreviewTest {
         DollFighter player = core.Combat.PlayerFaction.Fighters[0] as DollFighter;
         MonsterIntentReport report = MonsterIntentPreviewService.BuildReport(core.Combat);
         Check(report.Monsters.Count == 1 && report.Monsters[0].SelectedIntent?.ShortText == "攻击 9", "intent short text: " + report.Monsters[0].SelectedIntent?.ShortText);
+        Check(report.Monsters[0].SelectedIntent?.Badge == "9", "intent badge: " + report.Monsters[0].SelectedIntent?.Badge);
 
         int hp = player.RuntimeHP;
         IncomingDamagePreview none = CombatReadabilityTextService.BuildIncomingDamagePreview(core.Combat);
@@ -59,6 +60,7 @@ public static class CombatPreviewTest {
         MonsterActionConfig junk = slime.DataRef.AI.Actions.Find(action => action.ActionID == "acid_add_scrap");
         MonsterActionIntentPreview junkPreview = MonsterIntentPreviewService.BuildActionPreview(slime, core.Combat.CreateMonsterActionContextForPreview(slime), junk);
         Check(junkPreview.ShortText != null && junkPreview.ShortText.StartsWith("塞入") && junkPreview.ShortText.Contains("格"), "junk short text: " + junkPreview.ShortText);
+        Check(junkPreview.Badge == junkPreview.CursedItemGridCost + "格", "junk badge: " + junkPreview.Badge);
 
         // Adjacency: a whetstone next to the dagger adds 25%; a lens adds 50% only to the item on its right.
         ItemEntity dagger = ConfigManager.CreateItem("gear_rusty_dagger");
